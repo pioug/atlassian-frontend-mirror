@@ -1,5 +1,23 @@
 # @atlaskit/media-ui
 
+## 26.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 26.2.0
+
+### Minor Changes
+
+- [#164149](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164149)
+  [`2331ee694f442`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2331ee694f442) -
+  [ux] Custom icon migration behind feature flag
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 26.1.0
 
 ### Minor Changes

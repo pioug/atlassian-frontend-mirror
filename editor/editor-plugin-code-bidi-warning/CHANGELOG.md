@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-bidi-warning
 
+## 1.2.11
+
+### Patch Changes
+
+- [#161849](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161849)
+  [`3f274c6c27b24`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f274c6c27b24) -
+  ED-25608: removes reactdom.render from code-bidi-warning
+- Updated dependencies
+
 ## 1.2.10
 
 ### Patch Changes

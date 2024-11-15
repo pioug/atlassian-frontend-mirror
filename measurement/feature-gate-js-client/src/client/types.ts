@@ -147,3 +147,12 @@ export interface Provider {
 	getClientSdkKey: () => Promise<string>;
 	getApiKey?: () => string;
 }
+
+export const NON_BOOLEAN_VALUE = 'non_boolean';
+
+export type FeatureFlagValue =
+	| boolean
+	| string
+	| number
+	| Record<any, any>
+	| typeof NON_BOOLEAN_VALUE;

@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import Lorem from 'react-lorem-component';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -25,6 +27,13 @@ interface ElementStubProps {
 	marginTop?: number;
 	marginBottom?: number;
 	position?: 'fixed';
+}
+
+interface SpotlightDialogLabelProps {
+	titleId?: string;
+	heading?: string;
+	label?: string;
+	children?: React.ReactNode;
 }
 
 const ElementStub = (props: ElementStubProps) => {
@@ -83,6 +92,36 @@ const buildOnboardingMarkup = (target: string) => (
 		</Spotlight>
 	</SpotlightManager>
 );
+
+const SpotlightDialogLabel = (props: SpotlightDialogLabelProps) => {
+	const [isOpen, setIsOpen] = useState(false);
+	return (
+		<SpotlightManager>
+			<SpotlightTarget name="button">
+				<Button testId="spotlight-dialog-trigger" onClick={() => setIsOpen(true)}>
+					Open spotlight
+				</Button>
+			</SpotlightTarget>
+			{isOpen && (
+				<Spotlight
+					target="button"
+					testId="heading-label"
+					heading={props.heading}
+					label={props.label}
+					titleId={props.titleId}
+					actions={[
+						{
+							text: 'Got it',
+						},
+					]}
+				>
+					{props.children}
+					<Lorem count={2} />
+				</Spotlight>
+			)}
+		</SpotlightManager>
+	);
+};
 
 describe('Benefits Modal', () => {
 	it('should have an appriorate accessible label', () => {
@@ -308,5 +347,72 @@ describe('<Spotlight />', () => {
 		// This test always causes the a11y audti (after) to fail with this non-a11y error:
 		// Warning: An update to %s inside a test was not wrapped in act(...).
 		skipA11yAudit();
+	});
+	it('should reference element as accessible name using titleId prop', async () => {
+		const user = userEvent.setup();
+
+		render(
+			<SpotlightDialogLabel titleId="explicit-spotlight-dialog-label">
+				<h2 id="explicit-spotlight-dialog-label">Explicit heading</h2>
+			</SpotlightDialogLabel>,
+		);
+
+		expect(screen.getByTestId('spotlight-dialog-trigger')).toBeInTheDocument();
+		await user.click(screen.getByTestId('spotlight-dialog-trigger'));
+		expect(screen.getByTestId('heading-label--dialog-container')).toHaveAttribute(
+			'aria-labelledby',
+			'explicit-spotlight-dialog-label',
+		);
+		expect(screen.getByTestId('heading-label--dialog-container')).not.toHaveAttribute('aria-label');
+	});
+	it('should reference heading as accessible name if heading is passed', async () => {
+		const user = userEvent.setup();
+
+		render(<SpotlightDialogLabel heading="Spotlight heading as spotlight label" />);
+
+		expect(screen.getByTestId('spotlight-dialog-trigger')).toBeInTheDocument();
+		await user.click(screen.getByTestId('spotlight-dialog-trigger'));
+		expect(screen.getByText('Spotlight heading as spotlight label')).toBeInTheDocument();
+		expect(screen.getByText('Spotlight heading as spotlight label')).toHaveAttribute(
+			'id',
+			'spotlight-dialog-label',
+		);
+		expect(screen.getByTestId('heading-label--dialog-container')).toHaveAttribute(
+			'aria-labelledby',
+			'spotlight-dialog-label',
+		);
+		expect(screen.getByTestId('heading-label--dialog-container')).not.toHaveAttribute('aria-label');
+	});
+	it('should reference element passed via titleId even if heading is passed', async () => {
+		const user = userEvent.setup();
+
+		render(
+			<SpotlightDialogLabel heading="Spotlight heading" titleId="referenced-spotlight-dialog-label">
+				<p id="referenced-spotlight-dialog-label">Element referenced as label</p>
+			</SpotlightDialogLabel>,
+		);
+
+		expect(screen.getByTestId('spotlight-dialog-trigger')).toBeInTheDocument();
+		await user.click(screen.getByTestId('spotlight-dialog-trigger'));
+
+		expect(screen.getByText('Spotlight heading')).toBeInTheDocument();
+		expect(screen.getByText('Spotlight heading')).toHaveAttribute('id', 'spotlight-dialog-label');
+		expect(screen.getByTestId('heading-label--dialog-container')).toHaveAttribute(
+			'aria-labelledby',
+			'referenced-spotlight-dialog-label',
+		);
+		expect(screen.getByTestId('heading-label--dialog-container')).not.toHaveAttribute('aria-label');
+	});
+	it('should have default aria-label if neither heading nor titleId is passed', async () => {
+		const user = userEvent.setup();
+
+		render(<SpotlightDialogLabel />);
+
+		expect(screen.getByTestId('spotlight-dialog-trigger')).toBeInTheDocument();
+		await user.click(screen.getByTestId('spotlight-dialog-trigger'));
+		expect(screen.getByTestId('heading-label--dialog-container')).toHaveAttribute(
+			'aria-label',
+			'Introducing new feature',
+		);
 	});
 });

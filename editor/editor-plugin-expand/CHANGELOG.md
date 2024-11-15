@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.10.2
+
+### Patch Changes
+
+- [#163321](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163321)
+  [`9cbf3468984dc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9cbf3468984dc) -
+  ED-25609: migrates expand plugin ReactDOM references to portalprovider
+- Updated dependencies
+
 ## 2.10.1
 
 ### Patch Changes

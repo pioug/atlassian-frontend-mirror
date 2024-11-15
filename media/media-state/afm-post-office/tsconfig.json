@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__media-state/app",
+		"outDir": "../../../../../post-office/tsDist/@atlaskit__media-state/app",
 		"rootDir": "../",
 		"composite": true
 	},

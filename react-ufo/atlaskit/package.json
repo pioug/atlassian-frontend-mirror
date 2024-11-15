@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "2.2.1",
+	"version": "2.2.2",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -167,6 +167,11 @@
 			"imports": [
 				"import-no-extraneous-disable-for-examples-and-docs"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_ed-25557_lnv_add_ssr_placeholder": {
+			"type": "boolean"
 		}
 	}
 }

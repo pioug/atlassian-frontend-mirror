@@ -181,7 +181,7 @@
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
-		"smart_links_for_plans": {
+		"smart_links_for_plans_platform": {
 			"type": "boolean"
 		}
 	}

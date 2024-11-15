@@ -5,7 +5,6 @@ import {
 	akEditorFloatingDialogZIndex,
 	akEditorMobileMaxWidth,
 	akEditorSwoopCubicBezier,
-	akEditorToolbarKeylineHeight,
 	FULL_PAGE_EDITOR_TOOLBAR_HEIGHT,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -16,13 +15,7 @@ export const MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT = 868;
 // box-shadow is overriden by the mainToolbar
 const mainToolbarWithKeyline = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	boxShadow: fg('platform.confluence.frontend.narrow-full-page-editor-toolbar')
-		? `${token('elevation.shadow.overflow')}`
-		: // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			`0 ${akEditorToolbarKeylineHeight}px 0 0 ${token(
-				'color.background.accent.gray.subtlest',
-				'#F1F2F4',
-			)}`,
+	boxShadow: `${token('elevation.shadow.overflow')}`,
 });
 
 const mainToolbarTwoLineStyle = () => {
@@ -52,9 +45,7 @@ const mainToolbar = () => {
 			alignItems: 'center',
 			boxShadow: 'none',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			borderBottom: fg('platform.confluence.frontend.narrow-full-page-editor-toolbar')
-				? `1px solid ${token('color.border')}`
-				: undefined,
+			borderBottom: `1px solid ${token('color.border')}`,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			transition: `box-shadow 200ms ${akEditorSwoopCubicBezier}`,
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

@@ -3,6 +3,8 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { type MouseEventHandler } from 'react';
+
 import { css, jsx } from '@emotion/react';
 import { isValid, parseISO } from 'date-fns';
 
@@ -51,13 +53,28 @@ export const Menu = ({ selectProps, innerProps }: MenuProps<any>) => {
 	const { calendarValue, calendarView } = selectProps;
 	const { day, month, year } = getValidDate([calendarValue, calendarView]);
 
+	const onMenuMouseDown: MouseEventHandler<HTMLDivElement> = (event) => {
+		if (event.button !== 0) {
+			return;
+		}
+		event.stopPropagation();
+		event.preventDefault();
+	};
+
 	return (
 		<Layering isDisabled={false}>
 			<FixedLayer
 				inputValue={selectProps.inputValue}
 				containerRef={selectProps.calendarContainerRef}
 				content={
-					<div css={menuStyles} {...innerProps}>
+					// The mousedown event is required for a date selection to work when
+					// the menu is opened via the calendar button. The reason why is
+					// because there is a mousedown event on the menu inside of
+					// `react-select` that will stop the calendar select event from
+					// firing. This is passed in via the `innerProps`. Therefore, we must
+					// pass it in *after* the `innerProps` spread.
+					// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+					<div css={menuStyles} {...innerProps} onMouseDown={onMenuMouseDown}>
 						<Calendar
 							day={day}
 							month={month}

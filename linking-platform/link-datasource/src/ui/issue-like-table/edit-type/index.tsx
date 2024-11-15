@@ -60,3 +60,8 @@ export const isEditTypeSupported = (type: DatasourceType['type']) => {
 		: ['string'];
 	return supportedEditType.includes(type);
 };
+
+export const isEditTypeSelectable = (type: DatasourceType['type']) => {
+	const selectEditTypes = ['status', 'icon', 'user'];
+	return selectEditTypes.includes(type);
+};

@@ -1,6 +1,7 @@
 import type { IntlShape } from 'react-intl-next';
 
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
@@ -27,6 +28,7 @@ export const createPlugin = (
 	appearance: EditorAppearance = 'full-page',
 	useLongPressSelection: boolean = false,
 	api: ExtractInjectionAPI<ExpandPlugin> | undefined,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	allowInteractiveExpand: boolean = true,
 	__livePage: boolean = false,
 ) => {
@@ -40,6 +42,7 @@ export const createPlugin = (
 					getIntl,
 					isMobile,
 					api,
+					nodeViewPortalProviderAPI,
 					allowInteractiveExpand,
 					__livePage,
 				}),
@@ -47,6 +50,7 @@ export const createPlugin = (
 					getIntl,
 					isMobile,
 					api,
+					nodeViewPortalProviderAPI,
 					allowInteractiveExpand,
 					__livePage,
 				}),

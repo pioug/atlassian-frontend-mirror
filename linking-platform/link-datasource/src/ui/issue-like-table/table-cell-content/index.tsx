@@ -3,12 +3,13 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { type DatasourceType } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useDatasourceItem } from '../../../state';
 import { useExecuteAtomicAction } from '../../../state/actions';
-import { isEditTypeSupported } from '../edit-type';
+import { isEditTypeSelectable, isEditTypeSupported } from '../edit-type';
 import { stringifyType } from '../render-type';
 import { TruncateTextTag } from '../truncate-text-tag';
 import { type DatasourceTypeWithOnlyValues, type TableViewPropsRenderType } from '../types';
@@ -116,14 +117,20 @@ const InlineEditableCell = ({
 	values: DatasourceTypeWithOnlyValues;
 	renderItem: TableViewPropsRenderType;
 }) => {
-	// Execute fn is only returned when the field is editable and the action schema exists
+	// Callbacks are returned only when the ari is editable and the action schemas exist in the store
 	const { execute, executeFetch } = useExecuteAtomicAction({
 		ari,
 		fieldKey: columnKey,
 		integrationKey,
 	});
 
-	const isEditable = !!execute;
+	// A field is editable when `execute` is returned from the store
+	// if the field requires to fetch options to execute, then is editable only if `executeFetch` is also returned
+	const isEditable =
+		!!execute &&
+		(isEditTypeSelectable(values.type) && fg('enable_datasource_supporting_actions')
+			? !!executeFetch
+			: true);
 
 	const readView = (
 		<TooltipWrapper

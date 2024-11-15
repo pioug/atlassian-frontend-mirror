@@ -61,9 +61,11 @@ import { TimeSaver, type TimeSaverConfig } from './timeSaver';
 import PlaybackSpeedControls from './playbackSpeedControls';
 import { PlayPauseBlanket } from './playPauseBlanket';
 import Tooltip from '@atlaskit/tooltip';
-import { SkipTenBackwardIcon, SkipTenForwardIcon } from './icons';
+import { SkipTenBackwardIcon, SkipTenForwardIcon } from '@atlaskit/legacy-custom-icons';
 import { getControlsWrapperClassName } from './getControlsWrapperClassName';
 import { fg } from '@atlaskit/platform-feature-flags';
+import VideoSkipForwardTenIcon from '@atlaskit/icon/core/video-skip-forward-ten';
+import VideoSkipBackwardTenIcon from '@atlaskit/icon/core/video-skip-backward-ten';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
@@ -473,9 +475,9 @@ export class CustomMediaPlayerBase extends Component<
 		} = this.props;
 
 		const toggleButtonIcon = isPlaying ? (
-			<PauseIcon color="currentColor" label={formatMessage(messages.pause)} />
+			<PauseIcon spacing="spacious" color="currentColor" label={formatMessage(messages.pause)} />
 		) : (
-			<PlayIcon color="currentColor" label={formatMessage(messages.play)} />
+			<PlayIcon spacing="spacious" color="currentColor" label={formatMessage(messages.play)} />
 		);
 
 		return (
@@ -499,7 +501,13 @@ export class CustomMediaPlayerBase extends Component<
 			<Tooltip content={formatMessage(messages.skipBackward)} position="top">
 				<MediaButton
 					testId="custom-media-player-skip-backward-button"
-					iconBefore={<SkipTenBackwardIcon label={formatMessage(messages.skipBackward)} />}
+					iconBefore={
+						<VideoSkipBackwardTenIcon
+							spacing="spacious"
+							LEGACY_fallbackIcon={SkipTenBackwardIcon}
+							label={formatMessage(messages.skipBackward)}
+						/>
+					}
 					onClick={this.getMediaButtonClickHandler(skipBackward, 'skipBackwardButton')}
 				/>
 			</Tooltip>
@@ -515,7 +523,13 @@ export class CustomMediaPlayerBase extends Component<
 			<Tooltip content={formatMessage(messages.skipForward)} position="top">
 				<MediaButton
 					testId="custom-media-player-skip-forward-button"
-					iconBefore={<SkipTenForwardIcon label={formatMessage(messages.skipForward)} />}
+					iconBefore={
+						<VideoSkipForwardTenIcon
+							spacing="spacious"
+							LEGACY_fallbackIcon={SkipTenForwardIcon}
+							label={formatMessage(messages.skipForward)}
+						/>
+					}
 					onClick={this.getMediaButtonClickHandler(skipForward, 'skipForwardButton')}
 				/>
 			</Tooltip>

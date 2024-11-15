@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-paste-options-toolbar
 
+## 1.4.0
+
+### Minor Changes
+
+- [#163564](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163564)
+  [`6e4c6d8dcc5e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e4c6d8dcc5e9) -
+  Converted paste-icon from CommonJS to ES6 module syntax to address 'require is not defined' errors
+  during transpilation
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.12
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 3.2.1
+
+### Patch Changes
+
+- [#163855](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163855)
+  [`893dd8380fd30`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/893dd8380fd30) -
+  [ux] Cleaned up FF platform.confluence.frontend.narrow-full-page-editor-toolbar
+
 ## 3.2.0
 
 ### Minor Changes

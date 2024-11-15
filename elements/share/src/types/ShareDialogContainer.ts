@@ -14,7 +14,7 @@ import type { OriginTracing, OriginTracingFactory } from './OriginTracing';
 import type { ProductId, ProductName } from './Products';
 import type { ShareButtonStyle, TooltipPosition } from './ShareButton';
 import type { DialogPlacement, RenderCustomTriggerButton } from './ShareDialogWithTrigger';
-import type { Integration, IntegrationMode } from './ShareEntities';
+import type { AdditionalTab, Integration, IntegrationMode } from './ShareEntities';
 import type { UserPickerOptions } from './UserPickerOptions';
 
 export type ShareDialogContainerProps = {
@@ -166,6 +166,8 @@ export type ShareDialogContainerProps = {
 	isMenuItemSelected?: boolean;
 	/* List of share integrations */
 	shareIntegrations?: Array<Integration>;
+	/* List of additional tabs to be displayed */
+	additionalTabs?: Array<AdditionalTab>;
 	/**
 	 * Optionally sets a tabIndex value if you need to set focus
 	 */

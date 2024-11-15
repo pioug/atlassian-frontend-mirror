@@ -22,6 +22,10 @@ import { ErrorBoundary } from '@atlaskit/editor-common/error-boundary';
 import { IconTable } from '@atlaskit/editor-common/icons';
 import { toggleTable, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import {
+	getParentOfTypeCount,
+	getPositionAfterTopParentNodeOfType,
+} from '@atlaskit/editor-common/nesting';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	Command,
@@ -42,11 +46,14 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
+import { type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { hasParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingPanelZIndex } from '@atlaskit/editor-shared-styles';
 import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { insertTableWithSize } from './commands/insert';
 import { pluginConfig } from './create-plugin-config';
@@ -233,12 +240,32 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 						isTableResizingEnabled: options?.tableResizingEnabled,
 					})(state.schema);
 
+					// If the cursor is inside a table
+					let insertAt: Selection | undefined;
+					if (
+						hasParentNodeOfType(state.schema.nodes.table)(state.selection) &&
+						fg('platform_editor_use_nested_table_pm_nodes')
+					) {
+						// If the experiment is disabled, or we're trying to nest deeper than one level, we insert the table after the top table
+						if (
+							editorExperiment('nested-tables-in-tables', false, { exposure: true }) ||
+							getParentOfTypeCount(state.schema.nodes.table)(state.selection) > 1
+						) {
+							const positionAfterTopTable = getPositionAfterTopParentNodeOfType(
+								state.schema.nodes.table,
+							)(state.selection);
+							if (!positionAfterTopTable) {
+								return false;
+							}
+							insertAt = TextSelection.create(state.doc, positionAfterTopTable);
+						}
+					}
+
 					return (
 						api?.contentInsertion?.actions?.insert({
 							state,
 							dispatch,
 							node,
-
 							options: {
 								selectNodeInserted: false,
 								analyticsPayload: {
@@ -248,6 +275,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 										localId: node.attrs.localId,
 									},
 								},
+								insertAt,
 							},
 						}) ?? false
 					);
@@ -749,7 +777,30 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							isTableResizingEnabled: options?.tableResizingEnabled,
 						})(state.schema);
 
-						const tr = insert(tableNode);
+						let { tr } = state;
+						// If the cursor is inside a table
+						if (
+							hasParentNodeOfType(state.schema.nodes.table)(state.selection) &&
+							fg('platform_editor_use_nested_table_pm_nodes')
+						) {
+							// If the experiment is disabled, or we're trying to nest deeper than one level, we insert the table after the top table
+							if (
+								editorExperiment('nested-tables-in-tables', false, { exposure: true }) ||
+								getParentOfTypeCount(state.schema.nodes.table)(state.selection) > 1
+							) {
+								// Nesting is too deep insert table after the top parent table
+								const positionAfterTopTable = getPositionAfterTopParentNodeOfType(
+									state.schema.nodes.table,
+								)(state.selection);
+								tr = safeInsert(tableNode, positionAfterTopTable)(tr);
+								tr.scrollIntoView();
+							} else {
+								// Table can be nested in parent table
+								tr = insert(tableNode);
+							}
+						} else {
+							tr = insert(tableNode);
+						}
 
 						editorAnalyticsAPI?.attachAnalyticsEvent({
 							action: ACTION.INSERTED,

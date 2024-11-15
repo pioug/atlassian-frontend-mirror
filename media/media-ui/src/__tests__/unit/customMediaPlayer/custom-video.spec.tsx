@@ -17,7 +17,6 @@ import VidHdCircleIcon from '@atlaskit/icon/glyph/vid-hd-circle';
 import VidPlayIcon from '@atlaskit/icon/core/migration/video-play--vid-play';
 import VidPauseIcon from '@atlaskit/icon/core/migration/video-pause--vid-pause';
 import { asMock, asMockFunction } from '@atlaskit/media-common/test-helpers';
-import { SkipTenBackwardIcon, SkipTenForwardIcon } from '../../../customMediaPlayer/icons';
 import { fakeIntl, mountWithIntlContext } from '../../../test-helpers';
 import Spinner from '@atlaskit/spinner';
 import { WidthObserver } from '@atlaskit/width-detector';
@@ -43,6 +42,8 @@ import MediaButton from '../../../MediaButton';
 import { act } from 'react-dom/test-utils';
 import { waitFor, render, screen, fireEvent } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
+import VideoSkipForwardTenIcon from '@atlaskit/icon/core/video-skip-forward-ten';
+import VideoSkipBackwardTenIcon from '@atlaskit/icon/core/video-skip-backward-ten';
 
 const getControlsWrapperClassName = jest.spyOn(
 	getControlsWrapperClassNameModule,
@@ -344,7 +345,7 @@ describe('<CustomMediaPlayer />', () => {
 			const { skipBackwardButton } = setup();
 
 			expect(skipBackwardButton).toHaveLength(1);
-			const beforeIcon = skipBackwardButton.find(SkipTenBackwardIcon);
+			const beforeIcon = skipBackwardButton.find(VideoSkipBackwardTenIcon);
 			expect(beforeIcon).toHaveLength(1);
 			expect(beforeIcon.getElement().props.label).toEqual('fakeIntl["Back 10 seconds"]');
 		});
@@ -353,7 +354,7 @@ describe('<CustomMediaPlayer />', () => {
 			const { skipForwardButton } = setup();
 
 			expect(skipForwardButton).toHaveLength(1);
-			const beforeIcon = skipForwardButton.find(SkipTenForwardIcon);
+			const beforeIcon = skipForwardButton.find(VideoSkipForwardTenIcon);
 			expect(beforeIcon).toHaveLength(1);
 			expect(beforeIcon.getElement().props.label).toEqual('fakeIntl["Forward 10 seconds"]');
 		});

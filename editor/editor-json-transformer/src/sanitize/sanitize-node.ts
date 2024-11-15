@@ -1,6 +1,6 @@
-import { type ADFEntity } from '@atlaskit/adf-utils/src/types';
 import { transformNestedTableNodeOutgoingDocument } from '@atlaskit/adf-utils/transforms';
 import { traverse } from '@atlaskit/adf-utils/traverse';
+import { type ADFEntity } from '@atlaskit/adf-utils/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type JSONNode } from '../types';

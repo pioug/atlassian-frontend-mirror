@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 4.4.2
+
+### Patch Changes
+
+- [#163012](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163012)
+  [`3b6b07774a436`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b6b07774a436) -
+  Removes window.open call within link preferences button on click handler in toolbar to prevent
+  duplicate opening of link
+- Updated dependencies
+
 ## 4.4.1
 
 ### Patch Changes

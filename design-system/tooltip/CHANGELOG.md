@@ -1,5 +1,13 @@
 # @atlaskit/tooltip
 
+## 18.9.1
+
+### Patch Changes
+
+- [#164322](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164322)
+  [`e9317ed13ba40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9317ed13ba40) -
+  Internal refactors to state to reduce the number of JavaScript event listeners.
+
 ## 18.9.0
 
 ### Minor Changes

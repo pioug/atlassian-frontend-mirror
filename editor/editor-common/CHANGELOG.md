@@ -1,5 +1,27 @@
 # @atlaskit/editor-common
 
+## 94.19.0
+
+### Minor Changes
+
+- [#161296](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161296)
+  [`9a6292ab637fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a6292ab637fa) -
+  [ED-25521] Add experiment based gating to the insertion logic for nested tables, so we only allow
+  nesting tables one level deep when the experiment is active
+
+### Patch Changes
+
+- [#163730](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163730)
+  [`f3e2275eca566`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3e2275eca566) -
+  Add display: grid to resizer-item to allow drag handle to render correctly
+- [#163832](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163832)
+  [`585fd205a0d0f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/585fd205a0d0f) -
+  update heading line heights
+- [#160261](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160261)
+  [`60571420d8c13`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/60571420d8c13) -
+  Added UFO escape mechanism to LNV
+- Updated dependencies
+
 ## 94.18.1
 
 ### Patch Changes

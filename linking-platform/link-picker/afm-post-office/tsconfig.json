@@ -2,7 +2,7 @@
 	"extends": "../../../../tsconfig.entry-points.post-office.json",
 	"compilerOptions": {
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__link-picker/app",
+		"outDir": "../../../../../post-office/tsDist/@atlaskit__link-picker/app",
 		"rootDir": "../",
 		"composite": true
 	},

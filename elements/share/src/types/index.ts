@@ -36,7 +36,8 @@ export type {
 	Content,
 	MetaData,
 	Integration,
-	IntegrationContentProps,
+	AdditionalTab,
+	ContentProps,
 } from './ShareEntities';
 
 export { TabType } from './ShareEntities';

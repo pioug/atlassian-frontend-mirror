@@ -6,7 +6,7 @@ import {
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import { Transition } from 'react-transition-group';
-import ArrowleftIcon from '@atlaskit/icon/glyph/arrow-left';
+import ArrowleftIcon from '@atlaskit/icon/core/migration/arrow-left';
 import Button from '@atlaskit/button/standard-button';
 import { token } from '@atlaskit/tokens';
 
@@ -71,7 +71,7 @@ export const BackButton: React.FC<Props & WrappedComponentProps> = ({
 							}
 						}}
 						appearance="subtle"
-						iconBefore={<ArrowleftIcon label="" size="medium" />}
+						iconBefore={<ArrowleftIcon color="currentColor" label="" LEGACY_size="medium" />}
 					>
 						{formatMessage(messages.help_panel_header_back)}
 					</Button>

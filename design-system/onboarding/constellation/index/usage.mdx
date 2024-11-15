@@ -43,10 +43,11 @@ The spotlight target can have a pulse animation to draw attention to the focused
 
 ## Accessibility
 
-- If heading is specified, adding `titleId` prop value will set an id to a heading and reference it
-  as an accessible name of the spotlight. Otherwise, accessible name of the spotlight will be
-  defined by `aria-label` default value, see
-  [label prop](/components/onboarding/code#Spotlight-label).
+- When heading is specified, it's value is referenced as the accessible name of the spotlight
+  dialog. If you need to add/reference another accessible name, consider either
+  [label](/components/onboarding/code#Spotlight-label) or
+  [titleId](/components/onboarding/code#Spotlight-titleId) prop. Make sure to avoid using these
+  props at the same time.
 
 ## Content guidelines
 

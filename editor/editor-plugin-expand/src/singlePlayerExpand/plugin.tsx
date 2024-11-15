@@ -52,13 +52,14 @@ export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 			return [
 				{
 					name: 'expand',
-					plugin: ({ dispatch, getIntl }) => {
+					plugin: ({ dispatch, getIntl, nodeViewPortalProviderAPI }) => {
 						return createPlugin(
 							dispatch,
 							getIntl,
 							options.appearance,
 							options.useLongPressSelection,
 							api,
+							nodeViewPortalProviderAPI,
 							options.allowInteractiveExpand ?? true,
 							options.__livePage,
 						);

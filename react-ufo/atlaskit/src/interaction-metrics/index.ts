@@ -906,6 +906,8 @@ declare global {
 			addFeatureFlagAccessed?: (flagName: string, flagValue: FeatureFlagValue) => void;
 			addUFOHold?: (id: string, name: string, labelStack: string, startTime: number) => void;
 			removeUFOHold?: (id: string) => void;
+			getFeatureFlagOverride?: (flagName: string) => boolean | undefined;
+			getExperimentValueOverride?: <T>(experimentName: string, parameterName: string) => T;
 		};
 	}
 }

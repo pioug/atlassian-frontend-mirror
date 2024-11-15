@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"declaration": true,
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__chunkinator/app",
+		"outDir": "../../../../../post-office/tsDist/@atlaskit__chunkinator/app",
 		"rootDir": "../",
 		"composite": true
 	},

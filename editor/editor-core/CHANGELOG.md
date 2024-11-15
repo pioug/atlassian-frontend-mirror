@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 201.3.2
+
+### Patch Changes
+
+- [#163855](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163855)
+  [`893dd8380fd30`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/893dd8380fd30) -
+  [ux] Cleaned up FF platform.confluence.frontend.narrow-full-page-editor-toolbar
+- [#163761](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163761)
+  [`c011236dc90ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c011236dc90ec) -
+  NOISSUE: removes soft deleted examples from editor-core
+- Updated dependencies
+
 ## 201.3.1
 
 ### Patch Changes

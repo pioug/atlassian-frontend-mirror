@@ -9,7 +9,7 @@
 		"../src/**/test.*"
 	],
 	"compilerOptions": {
-		"outDir": "../../../../../tsDist/@atlaskit__platform-feature-flags/app",
+		"outDir": "../../../../../post-office/tsDist/@atlaskit__platform-feature-flags/app",
 		"rootDir": "../",
 		"composite": true
 	},

@@ -87,7 +87,7 @@ export const getSimulatedBetterMetadata = (cardDetails?: JsonLd.Response): Simul
 					{ name: ElementName.AssignedTo },
 					{ name: ElementName.ModifiedOn },
 				];
-			} else if (isJiraPlan && fg('smart_links_for_plans')) {
+			} else if (isJiraPlan && fg('smart_links_for_plans_platform')) {
 				topMetadata = [{ name: ElementName.OwnedByGroup }, { name: ElementName.OwnedBy }];
 			}
 

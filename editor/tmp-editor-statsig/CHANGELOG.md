@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.14.0
+
+### Minor Changes
+
+- [#161296](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161296)
+  [`9a6292ab637fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a6292ab637fa) -
+  [ED-25521] Add experiment based gating to the insertion logic for nested tables, so we only allow
+  nesting tables one level deep when the experiment is active
+
 ## 2.13.1
 
 ### Patch Changes

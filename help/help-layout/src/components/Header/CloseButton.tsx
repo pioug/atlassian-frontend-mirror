@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/analytics-next';
 import Tooltip from '@atlaskit/tooltip';
 import Button from '@atlaskit/button/standard-button';
-import EditorCloseIcon from '@atlaskit/icon/glyph/editor/close';
+import EditorCloseIcon from '@atlaskit/icon/core/migration/close--editor-close';
 
 import { messages } from '../../messages';
 
@@ -51,8 +51,9 @@ export const CloseButton: React.FC<Props & WrappedComponentProps> = ({
 					aria-label={formatMessage(messages.help_panel_header_close_button)}
 					iconBefore={
 						<EditorCloseIcon
+							color="currentColor"
 							label={formatMessage(messages.help_panel_header_close)}
-							size="medium"
+							LEGACY_size="medium"
 						/>
 					}
 				/>

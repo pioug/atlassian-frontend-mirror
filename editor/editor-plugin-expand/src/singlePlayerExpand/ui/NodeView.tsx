@@ -1,6 +1,3 @@
-import React from 'react';
-
-import ReactDOM from 'react-dom';
 import type { IntlShape } from 'react-intl-next';
 
 import { expandedState } from '@atlaskit/editor-common/expand';
@@ -8,8 +5,6 @@ import { expandClassNames } from '@atlaskit/editor-common/styles';
 import { expandMessages } from '@atlaskit/editor-common/ui';
 import type { DOMOutputSpec, Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { token } from '@atlaskit/tokens';
-
-import { ExpandButton } from '../ui/ExpandButton';
 
 export const buildExpandClassName = (type: string, expanded: boolean) => {
 	return `${expandClassNames.prefix} ${expandClassNames.type(type)} ${
@@ -81,23 +76,3 @@ export const toDOM = (
 		0,
 	],
 ];
-
-export const renderIcon = (
-	icon: HTMLElement | null,
-	allowInteractiveExpand: boolean,
-	expanded: boolean,
-	intl?: IntlShape,
-) => {
-	if (!icon) {
-		return;
-	}
-
-	ReactDOM.render(
-		<ExpandButton
-			intl={intl}
-			allowInteractiveExpand={allowInteractiveExpand}
-			expanded={expanded}
-		/>,
-		icon,
-	);
-};

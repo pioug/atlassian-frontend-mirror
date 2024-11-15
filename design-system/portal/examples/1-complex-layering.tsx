@@ -25,15 +25,17 @@ const TooltipButton = ({
 	children,
 	onClick,
 	id,
+	testId,
 }: {
 	children: ReactNode;
 	onClick: () => void;
 	id?: string;
+	testId?: string;
 }) => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	<div>
 		<Tooltip content="Click me">
-			<Button id={id} onClick={onClick}>
+			<Button id={id} testId={testId} onClick={onClick}>
 				{children}
 			</Button>
 		</Tooltip>
@@ -185,7 +187,7 @@ function App() {
 				This example shows off all components that rely on portalling and layering to appear in the
 				expected order.
 			</p>
-			<TooltipButton id={'openDialogBtn'} onClick={() => setModals([1])}>
+			<TooltipButton id={'openDialogBtn'} testId="dialog-trigger" onClick={() => setModals([1])}>
 				Open Dialog
 			</TooltipButton>
 		</React.Fragment>

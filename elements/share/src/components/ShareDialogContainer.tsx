@@ -378,6 +378,7 @@ export class ShareDialogContainerInternal extends React.Component<
 			isPublicLink,
 			integrationMode,
 			shareIntegrations,
+			additionalTabs,
 			shareAri,
 			tabIndex,
 			copyTooltipText,
@@ -439,6 +440,7 @@ export class ShareDialogContainerInternal extends React.Component<
 						onDialogClose={onDialogClose}
 						isBrowseUsersDisabled={isBrowseUsersDisabled}
 						userPickerOptions={userPickerOptions}
+						additionalTabs={additionalTabs}
 					/>
 				</MessagesIntlProvider>
 			</ErrorBoundary>

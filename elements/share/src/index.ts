@@ -38,4 +38,7 @@ export type {
 	UserWithEmail,
 	UserWithId,
 	ShareDialogContainerProps,
+	AdditionalTab,
+	Integration,
+	ContentProps,
 } from './types';

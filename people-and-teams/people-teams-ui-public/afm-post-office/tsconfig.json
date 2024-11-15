@@ -2,7 +2,7 @@
 	"extends": "../../../../tsconfig.entry-points.post-office.json",
 	"compilerOptions": {
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__people-teams-ui-public/app",
+		"outDir": "../../../../../post-office/tsDist/@atlaskit__people-teams-ui-public/app",
 		"rootDir": "../",
 		"composite": true
 	},

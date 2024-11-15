@@ -12,6 +12,7 @@ import { MenuGroup } from '@atlaskit/menu';
 import { Box } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 import Tooltip from '@atlaskit/tooltip';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { CommentField } from '../../../components/CommentField';
 import CopyLinkButton from '../../../components/CopyLinkButton';
@@ -20,7 +21,7 @@ import { ShareHeader } from '../../../components/ShareHeader';
 import { ShareMenuItem } from '../../../components/ShareMenuItem';
 import { UserPickerField } from '../../../components/UserPickerField';
 import { messages } from '../../../i18n';
-import { type DialogContentState, type ShareError } from '../../../types';
+import { type AdditionalTab, type DialogContentState, type ShareError } from '../../../types';
 import { renderProp } from '../_testUtils';
 
 const mockFormatMessage = (descriptor: any) => descriptor.defaultMessage;
@@ -520,6 +521,83 @@ describe('ShareForm', () => {
 			</IntlProvider>,
 		);
 		expect(getByText('Required fields are marked with an asterisk')).toBeInTheDocument();
+	});
+
+	describe('additionalTabs', () => {
+		const mockAdditionalTabs: AdditionalTab[] = [
+			{
+				label: 'Custom Tab',
+				Content: () => <div>Custom Tab Content</div>,
+			},
+		];
+
+		ffTest.on('smart_links_for_plans_platform', 'with smart_links_for_plans_platform FG ON', () => {
+			it('should render additional tabs when provided', () => {
+				const wrapper = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						integrationMode="tabs"
+						additionalTabs={mockAdditionalTabs}
+						shareIntegrations={[
+							{
+								type: 'Slack',
+								Icon: () => <div>Icon</div>,
+								Content: () => <div>Content</div>,
+							},
+						]}
+					/>,
+				);
+
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
+				expect(tabs).toHaveLength(3); // Default tab + Slack tab + Custom tab
+				expect(tabs.at(2).prop('children')).toBe('Custom Tab');
+			});
+
+			it('should not render additional tabs when not in tabs mode', () => {
+				const wrapper = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						integrationMode="off"
+						additionalTabs={mockAdditionalTabs}
+					/>,
+				);
+
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
+				expect(tabs).toHaveLength(0);
+			});
+		});
+
+		ffTest.off(
+			'smart_links_for_plans_platform',
+			'with smart_links_for_plans_platform FG OFF',
+			() => {
+				it('should not render additional tabs even when provided', () => {
+					const wrapper = shallow(
+						<ShareForm
+							{...defaultProps}
+							copyLink="link"
+							integrationMode="tabs"
+							additionalTabs={mockAdditionalTabs}
+							shareIntegrations={[
+								{
+									type: 'Slack',
+									Icon: () => <div>Icon</div>,
+									Content: () => <div>Content</div>,
+								},
+							]}
+						/>,
+					);
+
+					const akForm = wrapper.find<FormProps<{}>>(Form);
+					const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
+					expect(tabs).toHaveLength(2); // Only Default tab + Slack tab
+				});
+			},
+		);
 	});
 });
 

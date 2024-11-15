@@ -1,15 +1,15 @@
 {
-  "extends": "../../../tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": "./"
-  },
-  "include": [
-    "./src/**/*.ts",
-    "./src/**/*.tsx",
-    "./docs/**/*.ts",
-    "./docs/**/*.tsx",
-    "./examples/**/*.ts",
-    "./examples/**/*.tsx",
-    "codemods"
-  ]
+	"extends": "../../../tsconfig.json",
+	"compilerOptions": {
+		"baseUrl": "./"
+	},
+	"include": [
+		"./src/**/*.ts",
+		"./src/**/*.tsx",
+		"./docs/**/*.ts",
+		"./docs/**/*.tsx",
+		"./examples/**/*.ts",
+		"./examples/**/*.tsx",
+		"codemods"
+	]
 }

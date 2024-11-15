@@ -119,7 +119,6 @@ export default class SpotlightDialogWidthExample extends Component<{}, State> {
 								dialogPlacement="top center"
 								dialogWidth={value}
 								heading={`${value}px`}
-								titleId="label-heading--width"
 								key="width-example"
 								target="width-example"
 							>

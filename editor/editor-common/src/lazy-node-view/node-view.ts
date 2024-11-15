@@ -3,6 +3,7 @@ import memoize from 'lodash/memoize';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { LazyNodeViewToDOMConfiguration } from './types';
 
@@ -29,6 +30,10 @@ function sameOuterDeco(a: readonly Decoration[], b: readonly Decoration[]) {
 		}
 	}
 	return true;
+}
+
+export function makeNodePlaceholderId(nodeType: string, pos: number): string {
+	return `${nodeType}:${pos}`;
 }
 
 /**
@@ -81,6 +86,20 @@ export class LazyNodeView implements NodeView {
 			// We are using this to make sure all lazy noded were replaced
 			// before the test started
 			this.dom.setAttribute('data-lazy-node-view-fallback', 'true');
+
+			// This is used by the UFO to identify the node
+			this.dom.setAttribute('data-vc', `editor-lnv-fallback--${node.type.name}`);
+
+			if (fg('platform_editor_ed-25557_lnv_add_ssr_placeholder')) {
+				const pos = _getPos();
+				if (pos !== undefined) {
+					// Used for UFO to identify this as a placeholder
+					this.dom.setAttribute(
+						'data-editor-lnv-placeholder',
+						makeNodePlaceholderId(node.type.name, pos),
+					);
+				}
+			}
 		}
 	}
 

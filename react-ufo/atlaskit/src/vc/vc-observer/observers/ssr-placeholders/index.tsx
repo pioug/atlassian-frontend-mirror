@@ -1,13 +1,17 @@
 const EQUALITY_THRESHOLD = 0.1;
 const ANCESTOR_LOOKUP_LIMIT = 10;
 
+type Rect = {
+	x: number;
+	y: number;
+	width: number;
+	height: number;
+};
+
 export class SSRPlaceholderHandlers {
-	private staticPlaceholders = new Map<
-		string,
-		{ x: number; y: number; width: number; height: number }
-	>();
+	private staticPlaceholders = new Map<string, Rect>();
 	private callbacks = new Map<string, (resolve: boolean) => void>();
-	private getSizeCallbacks = new Map<string, (resolve: boolean) => void>();
+	private getSizeCallbacks = new Map<string, (resolve: Rect) => void>();
 	private reactValidateCallbacks = new Map<string, (resolve: boolean) => void>();
 	private intersectionObserver: IntersectionObserver;
 
@@ -101,7 +105,7 @@ export class SSRPlaceholderHandlers {
 		});
 	}
 
-	getSize(el: HTMLElement) {
+	getSize(el: HTMLElement): Promise<Rect> {
 		return new Promise((resolve) => {
 			this.getSizeCallbacks.set(el.dataset.ssrPlaceholder || '', resolve);
 			this.intersectionObserver.observe(el);
@@ -122,10 +126,7 @@ export class SSRPlaceholderHandlers {
 		});
 	}
 
-	hasSameSizePosition(
-		rect: { x: number; y: number; width: number; height: number } | undefined,
-		boundingClientRect: DOMRectReadOnly,
-	) {
+	hasSameSizePosition(rect: Rect | undefined, boundingClientRect: DOMRectReadOnly) {
 		return (
 			(rect &&
 				Math.abs(rect.x - boundingClientRect.x) < EQUALITY_THRESHOLD &&
@@ -159,7 +160,6 @@ export class SSRPlaceholderHandlers {
 				this.callbacks.delete(staticKey);
 			}
 		} else {
-			// react component check
 			const key = target.dataset.ssrPlaceholderReplace || '';
 
 			const resolve = this.reactValidateCallbacks.get(key);

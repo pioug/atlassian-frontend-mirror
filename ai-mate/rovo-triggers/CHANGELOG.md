@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 1.3.0
+
+### Minor Changes
+
+- [#162886](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162886)
+  [`59490f4204eea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/59490f4204eea) -
+  [https://product-fabric.atlassian.net/browse/EDF-1889](EDF-1889) - add subscription to rovo agent
+  changes into the Editor AI plugin
+
 ## 1.2.0
 
 ### Minor Changes

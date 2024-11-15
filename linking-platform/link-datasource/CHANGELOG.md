@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 3.8.10
+
+### Patch Changes
+
+- [#164025](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164025)
+  [`1eb78af6a417e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1eb78af6a417e) -
+  Prevent inline edit on dropdown fields without executeFetch
+
 ## 3.8.9
 
 ### Patch Changes

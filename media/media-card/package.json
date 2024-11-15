@@ -49,7 +49,7 @@
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-file-preview": "^0.9.0",
 		"@atlaskit/media-svg": "^0.2.0",
-		"@atlaskit/media-ui": "^26.1.0",
+		"@atlaskit/media-ui": "^26.2.0",
 		"@atlaskit/media-viewer": "^49.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.1.0",

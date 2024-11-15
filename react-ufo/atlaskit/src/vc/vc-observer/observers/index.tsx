@@ -1,6 +1,9 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { type VCIgnoreReason } from '../../../common/vc/types';
 import { isContainedWithinMediaWrapper } from '../media-wrapper/vc-utils';
 
+import { EditorLnvHandler } from './editor-lnv';
 import { SSRPlaceholderHandlers } from './ssr-placeholders';
 import type {
 	BrowserObservers,
@@ -58,6 +61,7 @@ export class Observers implements BrowserObservers {
 	private _startMeasureTimestamp = -1;
 
 	private ssrPlaceholderHandler: SSRPlaceholderHandlers;
+	private editorLnvHandler: EditorLnvHandler;
 
 	private ssr: SSRInclusiveState = {
 		state: state.normal,
@@ -82,6 +86,7 @@ export class Observers implements BrowserObservers {
 		this.intersectionObserver = this.getIntersectionObserver();
 		this.mutationObserver = this.getMutationObserver();
 		this.ssrPlaceholderHandler = new SSRPlaceholderHandlers();
+		this.editorLnvHandler = new EditorLnvHandler();
 	}
 
 	isBrowserSupported() {
@@ -116,6 +121,7 @@ export class Observers implements BrowserObservers {
 		this.callbacks = new Set();
 		this.ssr.reactRootElement = null;
 		this.ssrPlaceholderHandler.clear();
+		this.editorLnvHandler.clear();
 	}
 
 	subscribeResults = (cb: Callback) => {
@@ -223,6 +229,20 @@ export class Observers implements BrowserObservers {
 												}
 											});
 										return;
+									}
+
+									if (fg('platform_editor_ed-25557_lnv_add_ssr_placeholder')) {
+										if (this.editorLnvHandler.shouldHandleAddedNode(node)) {
+											this.editorLnvHandler.handleAddedNode(node).then(({ shouldIgnore }) => {
+												this.observeElement(
+													node,
+													mutation,
+													'html',
+													shouldIgnore ? 'editor-lazy-node-view' : ignoreReason,
+												);
+											});
+											return;
+										}
 									}
 									this.observeElement(node, mutation, 'html', ignoreReason);
 								}

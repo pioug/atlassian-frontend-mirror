@@ -1,8 +1,12 @@
+import React from 'react';
+
 import ReactDOM from 'react-dom';
 import type { IntlShape } from 'react-intl-next';
+import uuid from 'uuid/v4';
 import { keyName } from 'w3c-keyname';
 
 import { expandedState, isExpandCollapsed } from '@atlaskit/editor-common/expand';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { GapCursorSelection, RelativeSelectionPos, Side } from '@atlaskit/editor-common/selection';
 import type {
 	SelectionSharedState,
@@ -20,6 +24,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../../types';
 import {
@@ -28,7 +33,8 @@ import {
 	toggleExpandExpanded,
 	updateExpandTitle,
 } from '../commands';
-import { buildExpandClassName, renderIcon, toDOM } from '../ui/NodeView';
+import { ExpandButton } from '../ui/ExpandButton';
+import { buildExpandClassName, toDOM } from '../ui/NodeView';
 
 export class ExpandNodeView implements NodeView {
 	node: PmNode;
@@ -44,7 +50,9 @@ export class ExpandNodeView implements NodeView {
 	allowInteractiveExpand: boolean = true;
 	isMobile: boolean = false;
 	api: ExtractInjectionAPI<ExpandPlugin> | undefined;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 	decorationCleanup?: () => boolean | undefined;
+	renderKey: string;
 
 	constructor(
 		node: PmNode,
@@ -54,12 +62,13 @@ export class ExpandNodeView implements NodeView {
 		isMobile: boolean,
 		private selectNearNode: SetSelectionRelativeToNode | undefined,
 		api: ExtractInjectionAPI<ExpandPlugin> | undefined,
+		nodeViewPortalProviderAPI: PortalProviderAPI,
 		allowInteractiveExpand: boolean = true,
 		private __livePage = false,
 		private cleanUpEditorDisabledOnChange?: () => void,
 	) {
 		this.intl = getIntl();
-
+		this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
 		this.allowInteractiveExpand = allowInteractiveExpand;
 		this.getPos = getPos;
 		this.view = view;
@@ -82,6 +91,7 @@ export class ExpandNodeView implements NodeView {
 		this.titleContainer = this.dom.querySelector<HTMLElement>(
 			`.${expandClassNames.titleContainer}`,
 		);
+		this.renderKey = uuid();
 
 		this.content = this.dom.querySelector<HTMLElement>(`.${expandClassNames.content}`);
 
@@ -89,7 +99,7 @@ export class ExpandNodeView implements NodeView {
 			expandedState.set(this.node, false);
 		}
 
-		renderIcon(this.icon, this.allowInteractiveExpand, !isExpandCollapsed(this.node), this.intl);
+		this.renderIcon(this.icon, !isExpandCollapsed(this.node));
 
 		if (!this.input || !this.titleContainer || !this.icon) {
 			return;
@@ -526,12 +536,7 @@ export class ExpandNodeView implements NodeView {
 		if (this.dom && expanded !== undefined) {
 			this.dom.className = buildExpandClassName(node.type.name, expanded);
 			// Re-render the icon to update the aria-expanded attribute
-			renderIcon(
-				this.icon ? this.icon : null,
-				this.allowInteractiveExpand,
-				expandedState.get(node) ?? false,
-				this.intl,
-			);
+			this.renderIcon(this.icon ? this.icon : null, expandedState.get(node) ?? false);
 		}
 		this.updateExpandBodyContentEditable();
 	}
@@ -545,6 +550,35 @@ export class ExpandNodeView implements NodeView {
 			);
 		}
 	}
+
+	renderIcon = (icon: HTMLElement | null, expanded: boolean) => {
+		if (!icon) {
+			return;
+		}
+
+		if (fg('platform_editor_react18_plugin_portalprovider')) {
+			this.nodeViewPortalProviderAPI.render(
+				() => (
+					<ExpandButton
+						intl={this.intl}
+						allowInteractiveExpand={this.allowInteractiveExpand}
+						expanded={expanded}
+					/>
+				),
+				icon,
+				this.renderKey,
+			);
+		} else {
+			ReactDOM.render(
+				<ExpandButton
+					intl={this.intl}
+					allowInteractiveExpand={this.allowInteractiveExpand}
+					expanded={expanded}
+				/>,
+				icon,
+			);
+		}
+	};
 
 	destroy() {
 		if (!this.dom || !this.input || !this.titleContainer || !this.icon) {
@@ -562,7 +596,11 @@ export class ExpandNodeView implements NodeView {
 		if (this.cleanUpEditorDisabledOnChange) {
 			this.cleanUpEditorDisabledOnChange();
 		}
-		ReactDOM.unmountComponentAtNode(this.icon);
+		if (fg('platform_editor_react18_plugin_portalprovider')) {
+			this.nodeViewPortalProviderAPI.remove(this.renderKey);
+		} else {
+			ReactDOM.unmountComponentAtNode(this.icon);
+		}
 	}
 }
 
@@ -570,12 +608,14 @@ export default function ({
 	getIntl,
 	isMobile,
 	api,
+	nodeViewPortalProviderAPI,
 	allowInteractiveExpand = true,
 	__livePage,
 }: {
 	getIntl: () => IntlShape;
 	isMobile: boolean;
 	api: ExtractInjectionAPI<ExpandPlugin> | undefined;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 	allowInteractiveExpand: boolean;
 	__livePage: boolean;
 }) {
@@ -588,6 +628,7 @@ export default function ({
 			isMobile,
 			api?.selection?.actions?.selectNearNode,
 			api,
+			nodeViewPortalProviderAPI,
 			allowInteractiveExpand,
 			__livePage,
 		);

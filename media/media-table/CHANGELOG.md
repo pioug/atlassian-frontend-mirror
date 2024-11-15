@@ -1,5 +1,17 @@
 # @atlaskit/media-table
 
+## 15.4.0
+
+### Minor Changes
+
+- [#162934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162934)
+  [`413e3e1e0c088`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/413e3e1e0c088) -
+  [ux] Enable new icons behind a feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.3.0
 
 ### Minor Changes

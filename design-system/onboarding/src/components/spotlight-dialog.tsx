@@ -151,6 +151,8 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 
 		const dialogLabel = !heading && !titleId ? label : undefined;
 
+		const dialogLabelledBy = titleId || (heading ? 'spotlight-dialog-label' : undefined);
+
 		const translatedPlacement: Placement | undefined = dialogPlacement
 			? ({
 					'top left': 'top-start',
@@ -195,7 +197,7 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 								aria-modal={true}
 								role="dialog"
 								aria-label={dialogLabel}
-								aria-labelledby={titleId}
+								aria-labelledby={dialogLabelledBy}
 								testId={`${testId}-container`}
 							>
 								<SpotlightCard
@@ -209,7 +211,7 @@ class SpotlightDialogComponent extends Component<SpotlightDialogProps, State> {
 										Footer: footer,
 									}}
 									heading={heading}
-									headingId={titleId}
+									headingId="spotlight-dialog-label"
 									headingAfterElement={headingAfterElement}
 									// This should be heading level 1 since this is technically a modal, including a focus lock on the modal window.
 									// But because it is not a _true_ modal, we are setting it to `2` until that is fixed.

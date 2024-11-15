@@ -174,7 +174,7 @@ export const getPanelNodeView =
 	(
 		pluginOptions: PanelPluginOptions,
 		api: ExtractInjectionAPI<PanelPlugin> | undefined,
-		portalProviderAPI: PortalProviderAPI,
+		nodeViewPortalProviderAPI: PortalProviderAPI,
 		providerFactory?: ProviderFactory,
 	) =>
 	(node: Node, view: EditorView, getPos: getPosHandler): PanelNodeView => {
@@ -184,7 +184,7 @@ export const getPanelNodeView =
 			getPos as getPosHandlerNode,
 			pluginOptions,
 			api,
-			portalProviderAPI,
+			nodeViewPortalProviderAPI,
 			providerFactory,
 		);
 	};

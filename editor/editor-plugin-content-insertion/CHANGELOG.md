@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-content-insertion
 
+## 1.10.0
+
+### Minor Changes
+
+- [#161296](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161296)
+  [`9a6292ab637fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a6292ab637fa) -
+  [ED-25521] Add experiment based gating to the insertion logic for nested tables, so we only allow
+  nesting tables one level deep when the experiment is active
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.5
 
 ### Patch Changes

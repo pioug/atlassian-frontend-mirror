@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 import { h500 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
-import { type IntegrationContentProps } from '../types';
+import { type ContentProps } from '../types';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/design-system/no-css-tagged-template-expression -- Ignored via go/DSP-18766
 export const formWrapperStyle = css`
@@ -43,7 +43,7 @@ export const formWrapperStyle = css`
 `;
 
 export type IntegrationFormProps = {
-	Content: React.ComponentType<IntegrationContentProps> | null;
+	Content: React.ComponentType<ContentProps> | null;
 	onIntegrationClose?: () => void;
 	changeTab?: (index: number) => void;
 };

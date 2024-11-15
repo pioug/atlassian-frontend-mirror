@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 20.11.0
+
+### Minor Changes
+
+- [#163611](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163611)
+  [`559a5e24a2892`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/559a5e24a2892) -
+  Fix asynchronous loading of agent profile card
+
 ## 20.10.0
 
 ### Minor Changes

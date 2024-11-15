@@ -2,7 +2,7 @@
 	"extends": "../../../../tsconfig.entry-points.post-office.json",
 	"compilerOptions": {
 		"target": "es5",
-		"outDir": "../../../../../tsDist/@atlaskit__notification-log-client/app",
+		"outDir": "../../../../../post-office/tsDist/@atlaskit__notification-log-client/app",
 		"rootDir": "../",
 		"composite": true
 	},

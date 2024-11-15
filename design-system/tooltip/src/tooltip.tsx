@@ -113,7 +113,13 @@ function Tooltip({
 
 	// Putting a few things into refs so that we don't have to break memoization
 	const stableState = useStableRef(state);
-	const stableProps = useStableRef({ onShowHandler, onHideHandler, delay, canAppear });
+	// These props are placed in separate refs instead of a single object to reduce memory usage.
+	// Placing them in the same object previously caused an increase in the number of JavaScript event listeners
+	// before garbage collection.
+	const onShowHandlerStable = useStableRef(onShowHandler);
+	const onHideHandlerStable = useStableRef(onHideHandler);
+	const delayStable = useStableRef(delay);
+	const canAppearStable = useStableRef(canAppear);
 	const hasCalledShowHandler = useRef<boolean>(false);
 
 	const start = useCallback((api: API) => {
@@ -127,7 +133,7 @@ function Tooltip({
 		}
 		// Only call onHideHandler if we have called onShowHandler
 		if (hasCalledShowHandler.current) {
-			stableProps.current.onHideHandler();
+			onHideHandlerStable.current();
 		}
 		// @ts-ignore
 		apiRef.current = null;
@@ -135,7 +141,7 @@ function Tooltip({
 		hasCalledShowHandler.current = false;
 		// just in case
 		setState('hide');
-	}, [stableProps]);
+	}, [onHideHandlerStable]);
 
 	const abort = useCallback(() => {
 		if (!apiRef.current) {
@@ -144,11 +150,11 @@ function Tooltip({
 		apiRef.current.abort();
 		// Only call onHideHandler if we have called onShowHandler
 		if (hasCalledShowHandler.current) {
-			stableProps.current.onHideHandler();
+			onHideHandlerStable.current();
 		}
 		// @ts-ignore
 		apiRef.current = null;
-	}, [stableProps]);
+	}, [onHideHandlerStable]);
 	useEffect(
 		function mount() {
 			return function unmount() {
@@ -218,18 +224,18 @@ function Tooltip({
 			 *   where moving the mouse could result in a different outcome to if
 			 *   the mouse was not moved.
 			 */
-			if (stableProps.current.canAppear && !stableProps.current.canAppear?.()) {
+			if (canAppearStable.current && !canAppearStable.current?.()) {
 				return;
 			}
 
 			const entry: Entry = {
 				source,
-				delay: stableProps.current.delay,
+				delay: delayStable.current,
 				show: ({ isImmediate }) => {
 					// Call the onShow handler if it hasn't been called yet
 					if (!hasCalledShowHandler.current) {
 						hasCalledShowHandler.current = true;
-						stableProps.current.onShowHandler();
+						onShowHandlerStable.current();
 					}
 					setState(isImmediate ? 'show-immediate' : 'fade-in');
 				},
@@ -246,7 +252,7 @@ function Tooltip({
 			const api: API = show(entry);
 			start(api);
 		},
-		[stableProps, abort, done, start],
+		[canAppearStable, delayStable, done, start, abort, onShowHandlerStable],
 	);
 
 	const hideTooltipOnEsc = useCallback(() => {

@@ -34,9 +34,9 @@ import {
 	type Comment,
 	type ConfigResponse,
 	type Content,
+	type ContentProps,
 	type DialogPlacement,
 	type Integration,
-	type IntegrationContentProps,
 	type KeysOfType,
 	type MetaData,
 	type OriginTracing,
@@ -47,7 +47,7 @@ import {
 	type TooltipPosition,
 	type User,
 } from '../src/types';
-import { type IntegrationMode } from '../src/types/ShareEntities';
+import { type AdditionalTab, type IntegrationMode } from '../src/types/ShareEntities';
 
 type UserData = {
 	avatarUrl?: string;
@@ -194,8 +194,10 @@ type ExampleState = {
 	isPublicLink: boolean;
 	hasMenu: boolean;
 	hasTabs: boolean;
+	hasAdditionalTabs: boolean;
 	hasSplit: boolean;
 	shareIntegrations: Array<Integration>;
+	additionalTabs: Array<AdditionalTab>;
 	integrationMode: IntegrationMode;
 	locales: string[];
 	locale: string;
@@ -288,7 +290,7 @@ const listenerHandler = (event: UIAnalyticsEvent, channel?: string) => {
 	);
 };
 
-const IntegrationContent = (props: IntegrationContentProps) => {
+const IntegrationContent = (props: ContentProps) => {
 	return (
 		<>
 			<div>Share to Integration form</div>
@@ -303,6 +305,20 @@ const IntegrationContent = (props: IntegrationContentProps) => {
 		</>
 	);
 };
+
+const AdditionalTabContent = (props: ContentProps) => (
+	<>
+		<div>This is a custom tab in the share dialog</div>
+		<a
+			href="#"
+			onClick={() => {
+				props?.changeTab?.(0);
+			}}
+		>
+			Change tab
+		</a>
+	</>
+);
 
 const defaultProps: State = {
 	isAutoOpenDialog: false,
@@ -331,6 +347,8 @@ const defaultProps: State = {
 	hasSplit: false,
 	hasMenu: false,
 	integrationMode: 'off',
+	hasAdditionalTabs: false,
+	additionalTabs: [],
 	shareIntegrations: [],
 	locales: Object.keys(languages),
 	locale: 'en-US',
@@ -428,6 +446,7 @@ export default function Example() {
 									isCopyDisabled={state.isCopyDisabled}
 									isPublicLink={state.isPublicLink}
 									integrationMode={state.integrationMode}
+									additionalTabs={state.hasAdditionalTabs ? state.additionalTabs : undefined}
 									shareIntegrations={state.shareIntegrations}
 									shareFormHelperMessage={
 										state.customHelperMessage ? 'Custom Helper Message' : undefined
@@ -503,6 +522,25 @@ export default function Example() {
 														type: 'Slack',
 														Icon: SlackIcon,
 														Content: IntegrationContent,
+													},
+												],
+											})
+										}
+									/>
+								</WrapperWithMarginTop>
+								<WrapperWithMarginTop>
+									Enable Additional Tabs
+									<Toggle
+										isChecked={state.hasTabs && state.hasAdditionalTabs}
+										isDisabled={!state.hasTabs}
+										onChange={() =>
+											setState({
+												...state,
+												hasAdditionalTabs: !state.hasAdditionalTabs,
+												additionalTabs: [
+													{
+														label: 'Custom Tab',
+														Content: AdditionalTabContent,
 													},
 												],
 											})

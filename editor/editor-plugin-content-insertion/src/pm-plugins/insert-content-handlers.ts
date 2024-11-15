@@ -8,7 +8,7 @@ import { insertProseMirrorContent } from './insert-node-helpers';
 export const handleInsertContent =
 	({ node, options }: Omit<InsertNodeConfig, 'state' | 'dispatch'>) =>
 	(tr: Transaction): boolean => {
-		const position = tr.selection;
+		const position = options.insertAt ?? tr.selection;
 
 		if (!(node instanceof PMNode || node instanceof Fragment)) {
 			return false;

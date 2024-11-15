@@ -2096,6 +2096,134 @@ describe('IssueLikeDataTableView', () => {
 
 				expect(screen.queryByTestId('inline-edit-text')).not.toBeInTheDocument();
 			});
+
+			ffTest.on(
+				'platform-datasources-enable-two-way-sync-statuses',
+				'with 2 way sync for status on',
+				() => {
+					const items: DatasourceDataResponseItem[] = [
+						{
+							status: {
+								data: { text: 'Done' },
+							},
+							ari: { data: 'ari/blah' },
+						},
+						{
+							status: {
+								data: { text: 'To Do' },
+							},
+							ari: { data: 'ari/id2' },
+						},
+						{
+							status: {
+								data: { text: 'In Progress' },
+							},
+							ari: { data: 'ari/id3' },
+						},
+					];
+
+					const columns: DatasourceResponseSchemaProperty[] = [
+						{
+							key: 'status',
+							title: 'Status',
+							type: 'status',
+						},
+					];
+
+					const execute = jest.fn().mockResolvedValue({});
+
+					it('does NOT show editable dropdown cell on click when field is missing fetchActions', async () => {
+						const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+						actionStore.storeState.setState({
+							actionsByIntegration: {
+								jira: {
+									status: {
+										actionKey: 'atlassian:work-item:update:status',
+										type: 'string',
+									},
+								},
+							},
+							permissions: {
+								'ari/blah': {
+									someKey: { isEditable: true },
+								},
+							},
+						});
+
+						const executeFetch = jest.fn().mockResolvedValue({
+							operationStatus: ActionOperationStatus.SUCCESS,
+							errors: [],
+							entities: [
+								{
+									id: '11',
+									text: 'Backlog',
+									style: {
+										appearance: 'default',
+									},
+									transitionId: '711',
+								},
+							],
+						});
+						mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+						const { openInlineEdit } = setup({
+							items,
+							columns,
+							itemIds,
+						});
+
+						await openInlineEdit('In Progress');
+						await waitFor(() => {
+							expect(screen.queryByTestId('inline-edit-status')).not.toBeInTheDocument();
+						});
+					});
+
+					it('shows editable dropdown cell on click when field has fetchActions', async () => {
+						const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+						actionStore.storeState.setState({
+							actionsByIntegration: {
+								jira: {
+									status: {
+										actionKey: 'atlassian:work-item:update:status',
+										type: 'string',
+									},
+								},
+							},
+							permissions: {
+								'ari/blah': {
+									someKey: { isEditable: true },
+								},
+							},
+						});
+
+						const executeFetch = jest.fn().mockResolvedValue({
+							operationStatus: ActionOperationStatus.SUCCESS,
+							errors: [],
+							entities: [
+								{
+									id: '11',
+									text: 'Backlog',
+									style: {
+										appearance: 'default',
+									},
+									transitionId: '711',
+								},
+							],
+						});
+						mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+						const { openInlineEdit } = setup({
+							items,
+							columns,
+							itemIds,
+						});
+
+						await openInlineEdit('In Progress');
+
+						expect(executeFetch).toHaveBeenNthCalledWith(1, {});
+					});
+				},
+			);
 		});
 	});
 

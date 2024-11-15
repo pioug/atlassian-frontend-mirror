@@ -62,6 +62,7 @@ export type ShareDialogWithTriggerProps = Pick<
 	| 'isMenuItemSelected'
 	| 'shareFieldsFooter'
 	| 'shareIntegrations'
+	| 'additionalTabs'
 	| 'shareAri'
 	| 'tabIndex'
 	| 'copyTooltipText'

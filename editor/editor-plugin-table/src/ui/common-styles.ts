@@ -21,7 +21,6 @@ import {
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N0, N40A, R500 } from '@atlaskit/theme/colors';
 import { fontSize } from '@atlaskit/theme/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -191,19 +190,6 @@ const breakoutWidthStyling = () => {
 			width: 100% !important;
 		}
 	`;
-};
-
-const stickyHeaderMarginTop = () => {
-	// Exceptional case: can't add this FF to package.json as a new ratcheting rule was added to prevent new LD flags.
-	// This LD flag existed in other packages before the rule was introduced.
-	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
-	if (!fg('platform.confluence.frontend.narrow-full-page-editor-toolbar')) {
-		return css`
-			margin-top: 2px;
-		`;
-	}
-
-	return css``;
 };
 
 const viewModeSortStyles = () => {
@@ -402,9 +388,6 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		/* background for where controls apply */
 		background: ${token('elevation.surface', 'white')};
 		box-sizing: content-box;
-
-		${stickyHeaderMarginTop()}
-
 		box-shadow: 0 6px 4px -4px ${token('elevation.shadow.overflow.perimeter', N40A)};
 		margin-left: -1px;
 

@@ -153,7 +153,7 @@ describe('DatePicker', () => {
 				expect(onChangeSpy).toHaveBeenCalledTimes(1);
 			});
 
-			it('should call onChange when a new date is selected', async () => {
+			it('should call onChange when a new date is selected via calendar via mouse', async () => {
 				const user = userEvent.setup();
 				const onChangeSpy = jest.fn();
 				render(
@@ -912,6 +912,34 @@ describe('DatePicker', () => {
 			await user.click(calendarButton);
 
 			expect(queryCalendar()).toBeVisible();
+		});
+
+		it('should open the calendar when clicked and select a date when clicked', async () => {
+			const user = userEvent.setup();
+			const onChangeSpy = jest.fn();
+
+			render(
+				createDatePicker({
+					shouldShowCalendarButton: true,
+					openCalendarLabel,
+					value: exampleDate.iso,
+					onChange: onChangeSpy,
+				}),
+			);
+
+			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			await user.click(calendarButton);
+
+			expect(queryCalendar()).toBeVisible();
+
+			const days = getAllDays();
+			const selectedDay = screen.getByTestId(`${testId}--calendar--selected-day`);
+			const selectedIndex = days.findIndex((day) => day === selectedDay);
+			const nextDay = days[selectedIndex + 1];
+
+			await user.click(nextDay);
+
+			expect(onChangeSpy.mock.calls[0][0]).toBe('2018-06-09');
 		});
 
 		it('should be in the tab order', async () => {

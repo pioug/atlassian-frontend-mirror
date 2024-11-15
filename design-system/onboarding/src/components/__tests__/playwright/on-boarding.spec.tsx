@@ -74,7 +74,7 @@ test('Spotlight dialog should match a11y dialog pattern', async ({ page }) => {
 	await expect(page.locator(referencedLabelSpotlight)).toHaveRole('dialog');
 	await expect(page.locator(referencedLabelSpotlight)).toHaveAttribute(
 		'aria-labelledby',
-		'spotlight-heading',
+		'spotlight-dialog-label',
 	);
 	await page.getByText('Got it').click();
 

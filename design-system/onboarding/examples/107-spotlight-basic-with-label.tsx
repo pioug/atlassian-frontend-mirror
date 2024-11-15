@@ -65,7 +65,6 @@ const SpotlightWithLabelExample = () => {
 								testId="referenced-label"
 								actionsBeforeElement="1/1"
 								heading="Referenced spotlight label"
-								titleId="spotlight-heading"
 								targetBgColor={token('elevation.surface.raised')}
 								actions={[
 									{

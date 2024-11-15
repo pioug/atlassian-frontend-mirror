@@ -39,7 +39,7 @@ export type VCEntryType = {
 	elements: string[];
 };
 
-export type VCIgnoreReason = 'image' | 'ssr-hydration' | '';
+export type VCIgnoreReason = 'image' | 'ssr-hydration' | 'editor-lazy-node-view' | '';
 
 export type ComponentsLogEntry = {
 	targetName: string;

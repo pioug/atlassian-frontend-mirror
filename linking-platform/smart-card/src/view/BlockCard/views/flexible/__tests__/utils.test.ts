@@ -83,7 +83,7 @@ describe('getSimulatedBetterMetadata', () => {
 			expect(metadata.bottomMetadata).toEqual(bottomMetadata);
 		});
 
-		ffTest.on('smart_links_for_plans', 'with smart links for plans enabled', () => {
+		ffTest.on('smart_links_for_plans_platform', 'with smart links for plans enabled', () => {
 			it('should return metadata elements only top primary & bottom primary for jira plan', () => {
 				const metadata = getSimulatedBetterMetadata({
 					...mockJiraResponse,

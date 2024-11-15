@@ -11,6 +11,7 @@ export type ShareFormProps = Pick<
 	ShareDialogContainerProps,
 	| 'integrationMode'
 	| 'shareIntegrations'
+	| 'additionalTabs'
 	| 'copyTooltipText'
 	| 'isPublicLink'
 	| 'onUserSelectionChange'

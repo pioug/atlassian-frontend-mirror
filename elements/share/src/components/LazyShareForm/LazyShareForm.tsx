@@ -50,6 +50,7 @@ export type LazyShareFormProps = Pick<
 	| 'isPublicLink'
 	| 'copyTooltipText'
 	| 'shareIntegrations'
+	| 'additionalTabs'
 	| 'integrationMode'
 	| 'onDialogClose'
 	| 'orgId'
@@ -117,6 +118,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 		copyTooltipText,
 		shareIntegrations,
 		integrationMode,
+		additionalTabs,
 		isMenuItemSelected,
 		// actions
 		onLinkCopy,
@@ -193,6 +195,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 							copyTooltipText={copyTooltipText}
 							integrationMode={integrationMode}
 							shareIntegrations={shareIntegrations}
+							additionalTabs={additionalTabs}
 							isSharing={isSharing}
 							isFetchingConfig={isFetchingConfig}
 							isPublicLink={isPublicLink}

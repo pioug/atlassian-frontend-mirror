@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 4.21.0
+
+### Minor Changes
+
+- [#162409](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162409)
+  [`ae63cc5942832`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae63cc5942832) -
+  [ux] Added additional tab prop
+
 ## 4.20.9
 
 ### Patch Changes

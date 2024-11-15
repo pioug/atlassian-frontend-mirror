@@ -152,7 +152,7 @@ describe('providers > editor', () => {
 		jest.resetModules();
 		mockFetch = jest.fn();
 		(global as any).fetch = mockFetch;
-		setBooleanFeatureFlagResolver((flag) => flag === 'smart_links_for_plans');
+		setBooleanFeatureFlagResolver((flag) => flag === 'smart_links_for_plans_platform');
 	});
 
 	afterEach(() => {

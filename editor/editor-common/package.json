@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "94.18.1",
+	"version": "94.19.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -105,6 +105,7 @@
 		"./code-block": "./src/code-block/index.ts",
 		"./table": "./src/table/index.ts",
 		"./lazy-node-view": "./src/lazy-node-view/index.ts",
+		"./nesting": "./src/nesting/utilities.ts",
 		"./UNSAFE_do_not_use_editor_context": "./src/ui/EditorContext/index.ts"
 	},
 	"exports": {
@@ -186,6 +187,7 @@
 		"./intl-error-boundary": "./src/ui/IntlErrorBoundary/index.tsx",
 		"./table": "./src/table/index.ts",
 		"./lazy-node-view": "./src/lazy-node-view/index.ts",
+		"./nesting": "./src/nesting/utilities.ts",
 		"./UNSAFE_do_not_use_editor_context": "./src/ui/EditorContext/index.ts"
 	},
 	"dependencies": {
@@ -217,7 +219,7 @@
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-file-preview": "^0.9.0",
 		"@atlaskit/media-picker": "^67.0.0",
-		"@atlaskit/media-ui": "^26.1.0",
+		"@atlaskit/media-ui": "^26.2.0",
 		"@atlaskit/media-viewer": "49.4.0",
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/menu": "^2.13.0",
@@ -225,14 +227,14 @@
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popper": "^6.3.0",
 		"@atlaskit/primitives": "^13.1.0",
-		"@atlaskit/profilecard": "^20.10.0",
+		"@atlaskit/profilecard": "^20.11.0",
 		"@atlaskit/section-message": "^6.6.0",
 		"@atlaskit/smart-card": "^30.2.0",
 		"@atlaskit/smart-user-picker": "^6.11.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/textfield": "^6.5.0",
-		"@atlaskit/tmp-editor-statsig": "^2.13.0",
+		"@atlaskit/tmp-editor-statsig": "^2.14.0",
 		"@atlaskit/tokens": "^2.2.0",
 		"@atlaskit/tooltip": "^18.9.0",
 		"@atlaskit/width-detector": "^4.3.0",
@@ -356,6 +358,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_replace_finddomnode_in_common": {
+			"type": "boolean"
+		},
+		"platform_editor_ed-25557_lnv_add_ssr_placeholder": {
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons": {

@@ -86,6 +86,17 @@ export type EditorSuggestionPayload = PayloadCore<
 	}
 >;
 
+export type EditorAgentChangedPayload = PayloadCore<
+	'agent-changed',
+	{
+		agent: {
+			id: string;
+			name: string;
+			identityAccountId?: string | null;
+		} | null;
+	}
+>;
+
 export type ChatOpenPayload = PayloadCore<
 	'chat-open',
 	{
@@ -110,6 +121,7 @@ export type Payload =
 	| ChatOpenPayload
 	| OpenBrowseAgentPayload
 	| EditorSuggestionPayload
+	| EditorAgentChangedPayload
 	| BrowserContextPayload
 	| ForgeAppAuthSuccess
 	| ForgeAppAuthFailure;

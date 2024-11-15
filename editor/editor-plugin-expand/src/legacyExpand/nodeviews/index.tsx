@@ -2,8 +2,10 @@ import React from 'react';
 
 import ReactDOM from 'react-dom';
 import type { IntlShape } from 'react-intl-next';
+import uuid from 'uuid/v4';
 import { keyName } from 'w3c-keyname';
 
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { GapCursorSelection, RelativeSelectionPos, Side } from '@atlaskit/editor-common/selection';
 import type {
 	SelectionSharedState,
@@ -119,7 +121,9 @@ export class ExpandNodeView implements NodeView {
 	allowInteractiveExpand: boolean = true;
 	isMobile: boolean = false;
 	api: ExtractInjectionAPI<ExpandPlugin> | undefined;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 	decorationCleanup?: () => boolean | undefined;
+	renderKey: string;
 
 	constructor(
 		node: PmNode,
@@ -129,6 +133,7 @@ export class ExpandNodeView implements NodeView {
 		isMobile: boolean,
 		private selectNearNode: SetSelectionRelativeToNode | undefined,
 		api: ExtractInjectionAPI<ExpandPlugin> | undefined,
+		nodeViewPortalProviderAPI: PortalProviderAPI,
 		allowInteractiveExpand: boolean = true,
 		private __livePage = false,
 		private cleanUpEditorDisabledOnChange?: () => void,
@@ -143,6 +148,7 @@ export class ExpandNodeView implements NodeView {
 				api?.editorDisabled?.sharedState.currentState()?.editorDisabled,
 			),
 		);
+		this.nodeViewPortalProviderAPI = nodeViewPortalProviderAPI;
 		this.allowInteractiveExpand = allowInteractiveExpand;
 		this.getPos = getPos;
 		this.view = view;
@@ -157,6 +163,7 @@ export class ExpandNodeView implements NodeView {
 			`.${expandClassNames.titleContainer}`,
 		);
 		this.content = this.dom.querySelector<HTMLElement>(`.${expandClassNames.content}`);
+		this.renderKey = uuid();
 		this.renderIcon(this.intl);
 
 		this.initHandlers();
@@ -253,18 +260,36 @@ export class ExpandNodeView implements NodeView {
 
 		let { __expanded } = (node && node.attrs) || this.node.attrs;
 
-		ReactDOM.render(
-			<ExpandIconButton
-				intl={intl}
-				allowInteractiveExpand={this.allowInteractiveExpand}
-				expanded={
-					this.__livePage && fg('platform.editor.live-pages-expand-divergence')
-						? !__expanded
-						: __expanded
-				}
-			></ExpandIconButton>,
-			this.icon,
-		);
+		if (fg('platform_editor_react18_plugin_portalprovider')) {
+			this.nodeViewPortalProviderAPI.render(
+				() => (
+					<ExpandIconButton
+						intl={intl}
+						allowInteractiveExpand={this.allowInteractiveExpand}
+						expanded={
+							this.__livePage && fg('platform.editor.live-pages-expand-divergence')
+								? !__expanded
+								: __expanded
+						}
+					></ExpandIconButton>
+				),
+				this.icon,
+				this.renderKey,
+			);
+		} else {
+			ReactDOM.render(
+				<ExpandIconButton
+					intl={intl}
+					allowInteractiveExpand={this.allowInteractiveExpand}
+					expanded={
+						this.__livePage && fg('platform.editor.live-pages-expand-divergence')
+							? !__expanded
+							: __expanded
+					}
+				></ExpandIconButton>,
+				this.icon,
+			);
+		}
 	}
 
 	private handleClick = (event: Event) => {
@@ -657,7 +682,11 @@ export class ExpandNodeView implements NodeView {
 		if (this.icon) {
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.icon.removeEventListener('keydown', this.handleIconKeyDown);
-			ReactDOM.unmountComponentAtNode(this.icon);
+			if (fg('platform_editor_react18_plugin_portalprovider')) {
+				this.nodeViewPortalProviderAPI.remove(this.renderKey);
+			} else {
+				ReactDOM.unmountComponentAtNode(this.icon);
+			}
 		}
 
 		this.decorationCleanup?.();
@@ -681,12 +710,14 @@ export default function ({
 	getIntl,
 	isMobile,
 	api,
+	nodeViewPortalProviderAPI,
 	allowInteractiveExpand = true,
 	__livePage,
 }: {
 	getIntl: () => IntlShape;
 	isMobile: boolean;
 	api: ExtractInjectionAPI<ExpandPlugin> | undefined;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 	allowInteractiveExpand: boolean;
 	__livePage: boolean;
 }) {
@@ -699,6 +730,7 @@ export default function ({
 			isMobile,
 			api?.selection?.actions?.selectNearNode,
 			api,
+			nodeViewPortalProviderAPI,
 			allowInteractiveExpand,
 			__livePage,
 		);

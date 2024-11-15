@@ -59,15 +59,16 @@ export const headingsSharedStyles = (
 			'& h1': {
 				font: editorUGCToken('editor.font.heading.h1', typographyTheme),
 				marginBottom: 0,
-				marginTop: '1.667em',
+				marginTop: '1.45833em',
 				'& strong': {
 					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
 				},
+				'&::before': {},
 			},
 
 			'& h2': {
 				font: editorUGCToken('editor.font.heading.h2', typographyTheme),
-				marginTop: '1.8em',
+				marginTop: '1.4em',
 				marginBottom: 0,
 				'& strong': {
 					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
@@ -76,7 +77,7 @@ export const headingsSharedStyles = (
 
 			'& h3': {
 				font: editorUGCToken('editor.font.heading.h3', typographyTheme),
-				marginTop: '2em',
+				marginTop: '1.31249em',
 				marginBottom: 0,
 				'& strong': {
 					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
@@ -85,7 +86,7 @@ export const headingsSharedStyles = (
 
 			'& h4': {
 				font: editorUGCToken('editor.font.heading.h4', typographyTheme),
-				marginTop: '1.357em',
+				marginTop: '1.25em',
 				'& strong': {
 					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
 				},
@@ -93,7 +94,7 @@ export const headingsSharedStyles = (
 
 			'& h5': {
 				font: editorUGCToken('editor.font.heading.h5', typographyTheme),
-				marginTop: '1.667em',
+				marginTop: '1.45833em',
 				textTransform: 'none',
 				'& strong': {
 					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),
@@ -102,7 +103,7 @@ export const headingsSharedStyles = (
 
 			'& h6': {
 				font: editorUGCToken('editor.font.heading.h6', typographyTheme),
-				marginTop: '1.455em',
+				marginTop: '1.59091em',
 				textTransform: 'none',
 				'& strong': {
 					fontWeight: editorUGCToken('editor.font.weight.heading.h1.bold', typographyTheme),

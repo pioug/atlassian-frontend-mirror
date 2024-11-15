@@ -1,5 +1,14 @@
 # @atlaskit/onboarding
 
+## 12.1.3
+
+### Patch Changes
+
+- [#161637](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161637)
+  [`6d8bd88d4f892`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d8bd88d4f892) -
+  [ux] Add default id to heading and reference it to spotlight dialog as accessible name if heading
+  exists.
+
 ## 12.1.2
 
 ### Patch Changes

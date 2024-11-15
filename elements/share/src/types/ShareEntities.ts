@@ -18,7 +18,7 @@ export type MetaData = {
 };
 
 // Third party integrations
-export type IntegrationContentProps = {
+export type ContentProps = {
 	onClose: () => void;
 	changeTab?: (index: TabType) => void;
 };
@@ -33,7 +33,12 @@ export type MenuType = 'none' | 'default' | 'Slack';
 export type Integration = {
 	type: string;
 	Icon: React.ComponentType;
-	Content: React.ComponentType<IntegrationContentProps>;
+	Content: React.ComponentType<ContentProps>;
 };
 
 export type IntegrationMode = 'tabs' | 'split' | 'menu' | 'off';
+
+export type AdditionalTab = {
+	label: string;
+	Content: React.ComponentType<ContentProps>;
+};

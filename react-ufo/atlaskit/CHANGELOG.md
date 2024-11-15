@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.2.2
+
+### Patch Changes
+
+- [#160261](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160261)
+  [`f147e45fb1a5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f147e45fb1a5a) -
+  Extends VC90 detector to include editor lazy node view accomodations
+
 ## 2.2.1
 
 ### Patch Changes

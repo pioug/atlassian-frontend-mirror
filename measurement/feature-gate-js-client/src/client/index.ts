@@ -17,6 +17,7 @@ import {
 	type CheckGateOptions,
 	type ClientOptions,
 	type CustomAttributes,
+	type FeatureFlagValue,
 	FeatureGateEnvironment,
 	type FromValuesClientOptions,
 	type FrontendExperimentsResult,
@@ -59,6 +60,13 @@ export { CLIENT_VERSION } from './version';
 declare global {
 	interface Window {
 		__FEATUREGATES_JS__: FeatureGates;
+		__CRITERION__?: {
+			addFeatureFlagAccessed?: (flagName: string, flagValue: FeatureFlagValue) => void;
+			addUFOHold?: (id: string, name: string, labelStack: string, startTime: number) => void;
+			removeUFOHold?: (id: string) => void;
+			getFeatureFlagOverride?: (flagName: string) => boolean | undefined;
+			getExperimentValueOverride?: <T>(experimentName: string, parameterName: string) => T;
+		};
 	}
 }
 
@@ -393,6 +401,20 @@ class FeatureGates {
 	 */
 	static checkGate(gateName: string, options: CheckGateOptions = {}): boolean {
 		try {
+			// Check if the CRITERION override mechanism is available
+			if (
+				window &&
+				window.__CRITERION__ &&
+				typeof window.__CRITERION__.getFeatureFlagOverride === 'function'
+			) {
+				// Attempt to retrieve an override value for the feature gate
+				const overrideValue = window.__CRITERION__.getFeatureFlagOverride(gateName);
+				// If an override value is found, return it immediately
+				if (overrideValue !== undefined) {
+					return overrideValue;
+				}
+			}
+			// Proceed with the main logic if no override is found
 			const { fireGateExposure = true } = options;
 			const evalMethod = fireGateExposure
 				? Statsig.checkGate.bind(Statsig)
@@ -498,6 +520,21 @@ class FeatureGates {
 		defaultValue: T,
 		options: GetExperimentValueOptions<T> = {},
 	): T {
+		// Check if the CRITERION override mechanism is available
+		if (
+			window &&
+			window.__CRITERION__ &&
+			typeof window.__CRITERION__.getExperimentValueOverride === 'function'
+		) {
+			const overrideValue = window.__CRITERION__.getExperimentValueOverride(
+				experimentName,
+				parameterName,
+			);
+			if (overrideValue !== undefined && overrideValue !== null) {
+				return overrideValue as T;
+			}
+		}
+		// Proceed with the main logic if no override is found
 		const experiment = FeatureGates.getExperiment(experimentName, options);
 
 		try {

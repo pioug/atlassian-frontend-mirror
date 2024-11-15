@@ -60,6 +60,17 @@ export const ignoreResizerMutations = (
 	);
 };
 
+const resizingStyles = {
+	left: '50%',
+	transform: 'translateX(-50%)',
+	display: 'grid',
+};
+
+// Apply grid to stop drag handles rendering inside .resizer-item affecting its height
+const defaultStyles = {
+	display: 'grid',
+};
+
 /**
  * BreakoutResizer is a common component used to resize nodes that support the 'Breakout' mark, so it requires
  * correct ADF support.
@@ -169,15 +180,7 @@ const BreakoutResizer = ({
 			minWidth={minWidth}
 			maxWidth={maxWidth}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={
-				isResizing
-					? {
-							// during resize need to center as the resizer-item gets an explicit width value
-							left: '50%',
-							transform: 'translateX(-50%)',
-						}
-					: undefined
-			}
+			style={isResizing ? resizingStyles : defaultStyles}
 			handleResizeStart={handleResizeStart}
 			handleResizeStop={handleResizeStop}
 			childrenDOMRef={getRef}

@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 15.9.2
+
+### Patch Changes
+
+- [#163831](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163831)
+  [`bdee2726c1e39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bdee2726c1e39) -
+  Fix bug in calendar date selection caused by underlying `react-select` mousedown event.
+
 ## 15.9.1
 
 ### Patch Changes

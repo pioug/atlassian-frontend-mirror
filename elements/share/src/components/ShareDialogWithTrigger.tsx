@@ -578,6 +578,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 			copyTooltipText,
 			integrationMode,
 			shareIntegrations,
+			additionalTabs,
 			isBrowseUsersDisabled,
 			userPickerOptions,
 		} = this.props;
@@ -631,6 +632,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 								copyTooltipText={copyTooltipText}
 								integrationMode={integrationMode}
 								shareIntegrations={shareIntegrations}
+								additionalTabs={additionalTabs}
 								isMenuItemSelected={isMenuItemSelected}
 								// actions
 								onLinkCopy={this.handleCopyLink}

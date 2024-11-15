@@ -33,6 +33,9 @@
             "path": "../../icon-file-type/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../design-system/legacy-custom-icons/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../design-system/locale/afm-cc/tsconfig.json"
         },
         {

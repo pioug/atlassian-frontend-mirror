@@ -98,10 +98,7 @@ export const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
 
 const DEFAULT_FONT_SIZE = 14;
 
-export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = () =>
-	fg('platform.confluence.frontend.narrow-full-page-editor-toolbar')
-		? token('space.500', '40px')
-		: '56px';
+export const FULL_PAGE_EDITOR_TOOLBAR_HEIGHT = () => token('space.500', '40px');
 
 export const akEditorSelectedNodeClassName = 'ak-editor-selected-node';
 

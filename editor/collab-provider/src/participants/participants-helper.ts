@@ -7,7 +7,9 @@ export type ParticipantsMap = Map<string, ProviderParticipant>;
 
 // Names are hard
 export type GetUserType =
-	| ((userId: string) => Promise<Pick<ProviderParticipant, 'name' | 'avatar' | 'userId' | 'email'>>)
+	| ((
+			userId: string,
+	  ) => Promise<Pick<ProviderParticipant, 'name' | 'avatar' | 'userId' | 'email' | 'isGuest'>>)
 	| undefined;
 
 export const createParticipantFromPayload = async (
@@ -28,6 +30,7 @@ export const createParticipantFromPayload = async (
 		userId,
 		clientId,
 		permit,
+		isGuest: user?.isGuest,
 	};
 
 	return participant;

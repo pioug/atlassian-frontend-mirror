@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.2.3
+
+### Patch Changes
+
+- [#163513](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163513)
+  [`740148acc161b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/740148acc161b) -
+  add feature flag override support for Criterion
+
 ## 2.2.2
 
 ### Patch Changes

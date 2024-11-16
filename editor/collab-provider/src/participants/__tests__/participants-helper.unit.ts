@@ -14,6 +14,7 @@ const activeUser: ProviderParticipant = {
 	name: 'Mr Kafei',
 	avatar: 'www.jamescameron.com/image.png',
 	email: 'fake.user@email.com',
+	isGuest: false,
 	permit: {
 		isPermittedToComment: false,
 		isPermittedToEdit: false,
@@ -21,7 +22,7 @@ const activeUser: ProviderParticipant = {
 	},
 };
 
-describe('participantForUpdate', () => {
+describe('createParticipantFromPayload', () => {
 	describe('when the user exists', () => {
 		// 15 minutes since base
 		const lastActive = baseTime + PARTICIPANT_UPDATE_INTERVAL * 3;
@@ -44,6 +45,7 @@ describe('participantForUpdate', () => {
 				name: '',
 				avatar: '',
 				email: '',
+				isGuest: undefined,
 			};
 
 			it('should return participant to update', async () => {
@@ -78,6 +80,7 @@ describe('participantForUpdate', () => {
 		const getUser = jest.fn().mockReturnValue({
 			name: 'bob',
 			avatar: undefined,
+			isGuest: false,
 		});
 		const payload = {
 			sessionId: '',
@@ -95,6 +98,7 @@ describe('participantForUpdate', () => {
 			name: 'bob',
 			avatar: '',
 			email: '',
+			isGuest: false,
 			lastActive: timestamp,
 			...rest,
 		};

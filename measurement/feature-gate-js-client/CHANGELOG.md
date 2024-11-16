@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.23.0
+
+### Minor Changes
+
+- [#163513](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163513)
+  [`740148acc161b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/740148acc161b) -
+  add feature flag override support for Criterion
+
 ## 4.22.0
 
 ### Minor Changes

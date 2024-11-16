@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 9.45.0
+
+### Minor Changes
+
+- [#163776](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163776)
+  [`45d76610f271d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45d76610f271d) -
+  Add support for optional property, isGuest, on CollabProvider
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.44.1
 
 ### Patch Changes

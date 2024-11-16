@@ -9,10 +9,10 @@ const eventResultStyle = {
 	borderStyle: 'dashed',
 	borderWidth: token('border.width', '1px'),
 
-	borderColor: '#ccc',
+	borderColor: '#7d7373',
 	padding: '0.5em',
 
-	color: '#ccc',
+	color: '#7d7373',
 	margin: '0.5em 0',
 };
 

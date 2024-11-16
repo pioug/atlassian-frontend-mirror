@@ -380,6 +380,7 @@ export interface CollabParticipant {
 	name: string;
 	cursorPos?: number;
 	permit?: ProviderParticipantPermitLevel;
+	isGuest?: boolean;
 }
 
 export type ProviderParticipant = CollabParticipant & {

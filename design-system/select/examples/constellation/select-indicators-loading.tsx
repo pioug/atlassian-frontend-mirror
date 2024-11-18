@@ -1,10 +1,9 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
+import Select, { type LoadingIndicatorProps, type OptionType } from '@atlaskit/select';
 import Spinner from '@atlaskit/spinner';
 
-import Select from '../../src';
-import { type LoadingIndicatorProps, type OptionType } from '../../src/types';
 import { cities } from '../common/data';
 
 const LoadingIndicator = (props: LoadingIndicatorProps<OptionType>) => {

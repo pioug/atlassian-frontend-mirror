@@ -10,6 +10,8 @@ import {
 	RECENTS_COLLECTION,
 	imageResizeModeToFileImageMode,
 	isProcessedFileState,
+	type NonErrorFileState,
+	isErrorFileState,
 } from '@atlaskit/media-client';
 import { MediaFileStateError, useFileState, useMediaClient } from '@atlaskit/media-client-react';
 import {
@@ -63,7 +65,7 @@ import { type CardAction, createDownloadAction } from './actions';
 import { performanceNow } from './performance';
 import { useContext } from 'react';
 import { DateOverrideContext } from '../dateOverrideContext';
-import { SvgView } from './svgView';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface FileCardProps extends CardEventProps {
 	/** Overlay the media file. */
@@ -175,10 +177,12 @@ export const FileCard = ({
 		occurrenceKey: identifier.occurrenceKey,
 	});
 
-	const prevFileState = usePrevious(fileState);
+	const prevFileState: NonErrorFileState | undefined = usePrevious(
+		fileState && isErrorFileState(fileState) ? undefined : fileState,
+	);
 
-	const fileStateValue: FileState | undefined = useMemo(() => {
-		if (fileState && fileState?.status !== 'error') {
+	const fileStateValue: NonErrorFileState | undefined = useMemo(() => {
+		if (fileState && !isErrorFileState(fileState)) {
 			return fileState;
 		}
 		return prevFileState;
@@ -213,7 +217,6 @@ export const FileCard = ({
 	const [status, setStatus] = useState<CardStatus>('loading');
 
 	const [isPlayingFile, setIsPlayingFile] = useState(false);
-	const [shouldRenderSVG, setShouldRenderSVG] = useState(false);
 	const [shouldAutoplay, setShouldAutoplay] = useState(false);
 
 	const [previewDidRender, setPreviewDidRender] = useState(false);
@@ -260,8 +263,19 @@ export const FileCard = ({
 	// CXP-2723 TODO: TEMPORARY VARIABLES
 	const finalError =
 		error ||
-		(previewError && previewError.primaryReason !== 'failed-processing' ? previewError : undefined);
-	const finalStatus = finalError ? 'error' : status;
+		(previewError &&
+		previewError.primaryReason !== 'failed-processing' &&
+		(fileStateValue?.mimeType !== 'image/svg+xml' || !fg('platform_media_group_svg'))
+			? previewError
+			: undefined);
+
+	const finalStatus = finalError
+		? 'error'
+		: status === 'failed-processing' &&
+			  fileStateValue?.mimeType === 'image/svg+xml' &&
+			  fg('platform_media_group_svg')
+			? 'loading-preview'
+			: status;
 
 	const [mediaViewerSelectedItem, setMediaViewerSelectedItem] = useState<Identifier | null>(null);
 
@@ -279,7 +293,7 @@ export const FileCard = ({
 			}
 		};
 
-		if (fileStateValue && fileStateValue?.status !== 'error') {
+		if (fileStateValue) {
 			return {
 				id: fileStateValue.id,
 				name: fileStateValue.name,
@@ -440,11 +454,10 @@ export const FileCard = ({
 	const onSvgError = (error: MediaCardError) => {
 		setError(error);
 		setStatus('error');
-		setShouldRenderSVG(false);
 	};
 
 	const onImageError = (newCardPreview?: MediaFilePreview) => {
-		if (metadata.mimeType === 'image/svg+xml') {
+		if (metadata.mimeType === 'image/svg+xml' && fg('platform_media_group_svg')) {
 			return;
 		}
 		onImageErrorBase(newCardPreview);
@@ -455,7 +468,7 @@ export const FileCard = ({
 	};
 
 	const onImageLoad = (newCardPreview?: MediaFilePreview) => {
-		if (metadata.mimeType === 'image/svg+xml') {
+		if (metadata.mimeType === 'image/svg+xml' && fg('platform_media_group_svg')) {
 			return;
 		}
 		onImageLoadBase(newCardPreview);
@@ -564,21 +577,6 @@ export const FileCard = ({
 	}, [startUfoExperienceRef, isCardVisible, prevIsCardVisible]);
 
 	//----------------------------------------------------------------//
-	//----------------- set complete status --------------------------//
-	//----------------------------------------------------------------//
-
-	useEffect(() => {
-		if (
-			previewDidRender &&
-			// We should't complete if status is uploading
-			['loading-preview', 'processing'].includes(finalStatus)
-		) {
-			setStatus('complete');
-			// TODO MEX-788: add test for "do not remove the card preview when unsubscribing".
-		}
-	}, [previewDidRender, finalStatus]);
-
-	//----------------------------------------------------------------//
 	//----------------- set isPlayingFile state ----------------------//
 	//----------------------------------------------------------------//
 
@@ -619,26 +617,6 @@ export const FileCard = ({
 	]);
 
 	//----------------------------------------------------------------//
-	// Switch to SVG
-	//----------------------------------------------------------------//
-
-	useEffect(() => {
-		if (
-			finalStatus !== 'error' &&
-			/**
-			 * We need to check that the card is visible before switching to SVG
-			 * in order to avoid race conditions of the ViewportDector being unmounted before
-			 * it is able to set isCardVisible to true.
-			 */
-			isCardVisible &&
-			metadata.mimeType === 'image/svg+xml' &&
-			disableOverlay // SVG won't be supported when overlay is on
-		) {
-			setShouldRenderSVG(true);
-		}
-	}, [isCardVisible, disableOverlay, metadata.mimeType, finalStatus]);
-
-	//----------------------------------------------------------------//
 	//----------------- fireScreenEvent ------------------------------//
 	//----------------------------------------------------------------//
 
@@ -665,16 +643,25 @@ export const FileCard = ({
 	}, [fireAbortedEventRef]);
 
 	//----------------------------------------------------------------//
-	//------------------ Subscribe to file state ---------------------//
+	// Update Status
 	//----------------------------------------------------------------//
 
 	const updateFileStateRef = useCurrentValueRef(() => {
-		if (fileState) {
-			// do not update the card status if the status is final
-			if (['complete', 'error', 'failed-processing'].includes(finalStatus)) {
-				return;
-			}
+		// This effect has race condition with Complete effect. We share the same check to ovid status overrides
 
+		// do not update the card status if the status is final
+		if (['complete', 'error', 'failed-processing'].includes(finalStatus)) {
+			return;
+		}
+
+		if (
+			previewDidRender &&
+			// We should't complete if status is uploading
+			['loading-preview', 'processing'].includes(finalStatus)
+		) {
+			setStatus('complete');
+			// TODO MEX-788: add test for "do not remove the card preview when unsubscribing".
+		} else if (fileState) {
 			if (fileState.status !== 'error') {
 				let newStatus: CardStatus;
 				switch (fileState.status) {
@@ -717,7 +704,7 @@ export const FileCard = ({
 
 	useEffect(() => {
 		updateFileStateRef.current();
-	}, [fileState, preview, previewStatus, updateFileStateRef]);
+	}, [fileState, preview, previewStatus, updateFileStateRef, previewDidRender, finalStatus]);
 
 	//----------------------------------------------------------------//
 	// Shared Card View & SVG View resources
@@ -762,6 +749,7 @@ export const FileCard = ({
 
 		const card = (
 			<CardView
+				identifier={identifier}
 				status={cardStatusOverride || finalStatus}
 				error={finalError}
 				mediaItemType={mediaItemType}
@@ -800,6 +788,8 @@ export const FileCard = ({
 				titleBoxIcon={titleBoxIcon}
 				onImageError={withCallbacks ? onImageError : undefined}
 				onImageLoad={withCallbacks ? onImageLoad : undefined}
+				onSvgError={onSvgError}
+				onSvgLoad={onSvgLoad}
 				nativeLazyLoad={nativeLazyLoad}
 				forceSyncDisplay={forceSyncDisplay}
 				mediaCardCursor={mediaCardCursor}
@@ -826,7 +816,7 @@ export const FileCard = ({
 	//-------------------------- RENDER ------------------------------//
 	//----------------------------------------------------------------//
 
-	const inlinePlayerFallback = renderCard(false, 'loading', false);
+	const inlinePlayerFallback = isPlayingFile ? renderCard(false, 'loading', false) : <></>;
 	const collectionName = identifier.collectionName || '';
 
 	return (
@@ -852,26 +842,6 @@ export const FileCard = ({
 						videoControlsWrapperRef={videoControlsWrapperRef}
 					/>
 				</Suspense>
-			) : shouldRenderSVG ? (
-				<SvgView
-					testId={testId}
-					identifier={identifier}
-					status={finalStatus}
-					fileName={metadata.name}
-					cardPreview={preview}
-					alt={alt}
-					resizeMode={resizeMode}
-					cardDimensions={cardDimensions}
-					selected={selected}
-					onClick={onCardViewClick}
-					onMouseEnter={onImageMouseEnter}
-					progress={uploadProgressRef.current}
-					onError={onSvgError}
-					onLoad={onSvgLoad}
-					mediaCardCursor={mediaCardCursor}
-					shouldOpenMediaViewer={shouldOpenMediaViewer}
-					openMediaViewerButtonRef={mediaViewerButtonRef}
-				/>
 			) : (
 				renderCard()
 			)}

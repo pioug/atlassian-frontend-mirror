@@ -4,8 +4,7 @@ import Button from '@atlaskit/button/new';
 import { Checkbox } from '@atlaskit/checkbox';
 import { RadioGroup } from '@atlaskit/radio';
 import { type OptionsPropType } from '@atlaskit/radio/types';
-
-import { PopupSelect } from '../src';
+import { PopupSelect } from '@atlaskit/select';
 
 const cities = [
 	{ label: 'Adelaide', value: 'adelaide' },

@@ -47,7 +47,7 @@
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/heading": "^2.4.0",
 		"@atlaskit/icon": "^22.24.0",
-		"@atlaskit/primitives": "^13.1.0",
+		"@atlaskit/primitives": "^13.2.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.2.0",
 		"@babel/runtime": "^7.0.0"

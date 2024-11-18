@@ -16,6 +16,8 @@ import {
 import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import {
 	inverseColorMap,
 	type TextColor,
@@ -159,7 +161,7 @@ const Text = forwardRef(
 			align,
 			testId,
 			id,
-			size = 'medium',
+			size,
 			weight,
 			maxLines,
 			children,
@@ -174,13 +176,17 @@ const Text = forwardRef(
 		const hasTextAncestor = useHasTextAncestor();
 		const color = useColor(colorProp, hasTextAncestor);
 
+		if (!fg('platform-primitives-nested-text-inherit-size') && !size) {
+			size = 'medium';
+		}
+
 		const component = (
 			<Component
 				ref={ref}
 				css={[
 					resetStyles,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
-					textSizeStylesMap[size],
+					size ? textSizeStylesMap[size] : !hasTextAncestor && textSizeStylesMap.medium,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
 					color && textColorStylesMap[color],
 					maxLines && truncationStyles,

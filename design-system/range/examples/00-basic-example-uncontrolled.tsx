@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
-
-import Range from '../src';
+import Range from '@atlaskit/range';
 
 const SimpleRange = () => (
 	<>

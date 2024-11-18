@@ -13,7 +13,6 @@ var _react = _interopRequireDefault(require("react"));
 var _UNSAFE_baseNew = _interopRequireDefault(require("@atlaskit/icon/UNSAFE_base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
- * @deprecated Use `@atlaskit/icon/core/maximize` instead.
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
  * Please reach out in #icon-contributions before using these in production.
  *

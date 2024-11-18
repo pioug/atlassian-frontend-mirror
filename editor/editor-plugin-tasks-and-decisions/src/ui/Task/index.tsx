@@ -10,6 +10,7 @@ import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ContentRef } from '@atlaskit/task-decision';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type TaskAndDecisionsSharedState, type TasksAndDecisionsPlugin } from '../../types';
 
@@ -22,6 +23,7 @@ export interface TaskProps {
 	contentRef?: ContentRef;
 	onChange?: (taskId: string, isChecked: boolean) => void;
 	onClick?: () => void;
+	placeholder?: string;
 	showPlaceholder?: boolean;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children?: ReactElement<any>;
@@ -61,15 +63,19 @@ export class TaskItem extends PureComponent<TaskItemProps, {}> {
 			providers: _providerFactory,
 			intl: { formatMessage },
 			api,
+			placeholder,
 			...otherProps
 		} = this.props;
 		const { contextIdentifierProvider } = providers;
-		const placeholder = formatMessage(tasksAndDecisionsMessages.taskPlaceholder);
 
 		return (
 			<TaskItemWithProviders
 				{...otherProps}
-				placeholder={placeholder}
+				placeholder={
+					placeholder !== undefined && editorExperiment('issue_view_action_items', true)
+						? placeholder
+						: formatMessage(tasksAndDecisionsMessages.taskPlaceholder)
+				}
 				taskDecisionProvider={
 					this.props.taskDecisionState?.taskDecisionProvider
 						? Promise.resolve(this.props.taskDecisionState.taskDecisionProvider)

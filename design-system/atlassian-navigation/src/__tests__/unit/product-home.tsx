@@ -32,6 +32,21 @@ describe('<ProductHome />', () => {
 			expect(getLogoMaxWidthCSSVar()).toBe('260px');
 		});
 	});
+
+	it('should apply the provided aria-label', () => {
+		render(
+			<ProductHome
+				icon={icon}
+				logo={logo}
+				testId={testId}
+				logoMaxWidth={100}
+				aria-label="My product's home"
+				href="#"
+			/>,
+		);
+		const link = screen.getByRole('link', { name: "My product's home" });
+		expect(link).toHaveAttribute('aria-label', "My product's home");
+	});
 });
 
 describe('<CustomProductHome />', () => {

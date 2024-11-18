@@ -42,7 +42,7 @@
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/link": "^1.2.0",
 		"@atlaskit/motion": "^1.9.0",
-		"@atlaskit/primitives": "^13.1.0",
+		"@atlaskit/primitives": "^13.2.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.2.0",
 		"@babel/runtime": "^7.0.0",
@@ -57,7 +57,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
-		"@atlaskit/atlassian-navigation": "^4.8.0",
+		"@atlaskit/atlassian-navigation": "^4.9.0",
 		"@atlaskit/atlassian-notifications": "^0.5.0",
 		"@atlaskit/drawer": "^9.2.0",
 		"@atlaskit/logo": "^14.3.0",

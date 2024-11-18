@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::634eb41d53ee1ed541b028e66a7d6d15>>
+ * @codegen <<SignedSource::2eb43807607ad0a201e95ad8a68ce873>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ScreenPlus".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Multi purpose
+ * Usage guidance: Known uses: TBC
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

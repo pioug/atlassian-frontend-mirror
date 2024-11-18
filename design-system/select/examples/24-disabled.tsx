@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
+import Select from '@atlaskit/select';
 
-import Select from '../src';
 import { cities } from './common/data';
 
 const DisabledSelects = () => (

@@ -2222,6 +2222,52 @@ describe('IssueLikeDataTableView', () => {
 
 						expect(executeFetch).toHaveBeenNthCalledWith(1, {});
 					});
+
+					it('fires executeFetch only once when updating cell with item picked from dropdown', async () => {
+						const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+						actionStore.storeState.setState({
+							actionsByIntegration: {
+								jira: {
+									status: {
+										actionKey: 'atlassian:work-item:update:status',
+										type: 'string',
+									},
+								},
+							},
+							permissions: {
+								'ari/blah': {
+									someKey: { isEditable: true },
+								},
+							},
+						});
+
+						const executeFetch = jest.fn().mockResolvedValue({
+							operationStatus: ActionOperationStatus.SUCCESS,
+							errors: [],
+							entities: [
+								{
+									id: '11',
+									text: 'Backlog',
+									style: {
+										appearance: 'default',
+									},
+									transitionId: '711',
+								},
+							],
+						});
+						mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+						const { openInlineEdit } = setup({
+							items,
+							columns,
+							itemIds,
+						});
+
+						await openInlineEdit('Done');
+
+						fireEvent.click(await screen.findByText('Backlog'));
+						expect(executeFetch).toHaveBeenCalledTimes(1);
+					});
 				},
 			);
 		});

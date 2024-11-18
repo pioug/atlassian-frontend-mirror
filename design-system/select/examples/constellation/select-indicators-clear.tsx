@@ -2,11 +2,10 @@ import React, { type CSSProperties, type FunctionComponent } from 'react';
 
 import { Label } from '@atlaskit/form';
 import { Box, xcss } from '@atlaskit/primitives';
+import Select, { type ClearIndicatorProps, type OptionType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
 import { cities } from '../common/data';
-import Select from '../../src';
-import { type OptionType, type ClearIndicatorProps } from '../../src/types';
 
 const clearIndicatorStyles = xcss({
 	paddingInline: 'space.050',

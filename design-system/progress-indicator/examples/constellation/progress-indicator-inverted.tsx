@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Inline, xcss } from '@atlaskit/primitives';
-
-import { ProgressIndicator } from '../../src';
+import { ProgressIndicator } from '@atlaskit/progress-indicator';
 
 const containerStyles = xcss({
 	padding: 'space.200',

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 
 import { Label } from '@atlaskit/form';
+import Select, { components } from '@atlaskit/select';
+import type { OptionProps, SingleValueProps, ValueType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
 
-import Select, { components } from '../src';
-import type { OptionProps, SingleValueProps, ValueType } from '@atlaskit/select';
-
-interface OptionType {
+interface Option {
 	label: string;
 	value: string;
 }
@@ -66,7 +65,7 @@ const CustomValueOption = ({ children, ...props }: SingleValueProps<ColorOption,
 );
 
 export default () => {
-	const [value, setValue] = useState<ValueType<OptionType>>();
+	const [value, setValue] = useState<ValueType<Option>>();
 	return (
 		<div
 			style={{
@@ -81,7 +80,7 @@ export default () => {
 			}}
 		>
 			<Label htmlFor="colors-example">Custom components</Label>
-			<Select<OptionType>
+			<Select<Option>
 				value={value}
 				onChange={(val) => setValue(val)}
 				inputId="colors-example"

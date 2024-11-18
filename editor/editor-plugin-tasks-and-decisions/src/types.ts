@@ -77,6 +77,11 @@ export interface TaskDecisionPluginOptions extends LongPressSelectionPluginOptio
 	hasRequestedEditPermission?: boolean;
 
 	/**
+	 * Description of the quick insert for creating action items.
+	 */
+	quickInsertActionDescription?: string;
+
+	/**
 	 * Function to request edit permission.
 	 */
 	requestToEditContent?: () => void;
@@ -85,6 +90,11 @@ export interface TaskDecisionPluginOptions extends LongPressSelectionPluginOptio
 	 * The provider for tasks and decisions.
 	 */
 	taskDecisionProvider?: Promise<TaskDecisionProvider>;
+
+	/**
+	 * Placeholder text to display when creating a task.
+	 */
+	taskPlaceholder?: string;
 }
 
 export type TaskDecisionPluginState = {

@@ -56,6 +56,23 @@ export default () => {
 					<Text>Text is rendered as a {'<span>'} by default</Text>
 				</Stack>
 			</section>
+			<section>
+				<Stack space="space.100">
+					<Heading size="medium" as="h3">
+						Composing text
+					</Heading>
+					<Text size="large">
+						Large text composing{' '}
+						<Text as="em">
+							em text inheriting large text size{' '}
+							<Text size="small">
+								and nested small text composing{' '}
+								<Text as="strong">strong text inheriting small text size</Text>
+							</Text>
+						</Text>
+					</Text>
+				</Stack>
+			</section>
 		</Stack>
 	);
 };

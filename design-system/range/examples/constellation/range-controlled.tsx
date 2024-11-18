@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Range from '../../src';
+import Range from '@atlaskit/range';
 
 const RangeControlledExample = () => {
 	const [value, setValue] = useState(50);

@@ -96,7 +96,9 @@ export type InitialPluginConfiguration = {
 	};
 	tasksAndDecisionsPlugin?: {
 		hasEditPermission?: boolean;
+		quickInsertActionDescription?: string;
 		requestEditPermission?: () => void;
+		taskPlaceholder?: string;
 	};
 };
 

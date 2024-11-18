@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
-
-import Select, { type OptionType, type StylesConfig } from '../src';
+import Select, { type OptionType, type StylesConfig } from '@atlaskit/select';
 
 const customStyles: StylesConfig = {
 	container: (styles) => ({ ...styles, width: '50%' }),

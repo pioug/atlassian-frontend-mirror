@@ -33,6 +33,9 @@
 			"path": "../../../observability/interaction-context/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../tokens/afm-jira/tsconfig.json"
 		},
 		{

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProgressBar from '../../src';
+import ProgressBar from '@atlaskit/progress-bar';
 
 const ProgressBarSuccessExample = () => {
 	return <ProgressBar appearance="success" ariaLabel="Done: 10 of 10 issues" value={1} />;

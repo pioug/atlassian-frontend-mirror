@@ -51,6 +51,11 @@ const svgAjDigitalCamera = () =>
 		/* webpackChunkName: "@atlaskit-internal_svgAjDigitalCamera" */ './svgAjDigitalCamera'
 	).then((mod) => mod.default);
 
+const svgAjDigitalCameraCorrupted = () =>
+	import(
+		/* webpackChunkName: "@atlaskit-internal_svgAjDigitalCameraCorrupted" */ './svgAjDigitalCameraCorrupted'
+	).then((mod) => mod.default);
+
 const svgAjDigitalCameraPreview = () =>
 	import(
 		/* webpackChunkName: "@atlaskit-internal_svgAjDigitalCameraPreview" */ './svgAjDigitalCameraPreview'
@@ -106,6 +111,7 @@ export const sampleBinaries = {
 	svgOpenWeb,
 	svgOpenWebPreview,
 	svgAjDigitalCamera,
+	svgAjDigitalCameraCorrupted,
 	svgAjDigitalCameraPreview,
 	svgAtom,
 	svgAtomPreview,

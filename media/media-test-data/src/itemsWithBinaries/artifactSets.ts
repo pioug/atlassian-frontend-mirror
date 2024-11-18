@@ -56,6 +56,11 @@ export const artifactSets: ArtifactsSets = {
 		// preview & any image* artifact
 		image: sampleBinaries.svgAjDigitalCameraPreview,
 	},
+	svgAjDigitalCameraCorrupted: {
+		binaryUri: sampleBinaries.svgAjDigitalCameraCorrupted,
+		// preview & any image* artifact
+		image: sampleBinaries.svgAjDigitalCameraPreview,
+	},
 	svgAtom: {
 		binaryUri: sampleBinaries.svgAtom,
 		// preview & any image* artifact

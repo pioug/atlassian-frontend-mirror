@@ -4,8 +4,7 @@ import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
 import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
-
-import { ProgressIndicator } from '../../src';
+import { ProgressIndicator } from '@atlaskit/progress-indicator';
 
 const SpreadInlineLayout = ({ children }: { children: ReactNode }) => {
 	return (

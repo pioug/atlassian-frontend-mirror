@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7840fd196e7cfa7c1b6246caeb30aee2>>
+ * @codegen <<SignedSource::7c598e206e5fb8879eb82e4913b68647>>
  * @codegenCommand yarn generate-artifacts
  */
 export { default as AirTableFilterIcon } from './ui/air-table-filter-icon';
@@ -82,6 +82,7 @@ export { default as NotionFilterIcon } from './ui/notion-filter-icon';
 export { default as NotionIcon } from './ui/notion-icon';
 export { default as NumberIcon } from './ui/number-icon';
 export { default as OneDriveIcon } from './ui/one-drive-icon';
+export { default as OpenFolderIcon } from './ui/open-folder-icon';
 export { default as OutlookCalendarIcon } from './ui/outlook-calendar-icon';
 export { default as ParagraphIcon } from './ui/paragraph-icon';
 export { default as PeopleGroupIcon } from './ui/people-group-icon';
@@ -93,6 +94,7 @@ export { default as ProjectIcon } from './ui/project-icon';
 export { default as RadioIcon } from './ui/radio-icon';
 export { default as RelicIcon } from './ui/relic-icon';
 export { default as RoadmapsServiceIcon } from './ui/roadmaps-service-icon';
+export { default as RovoIcon } from './ui/rovo-icon';
 export { default as SecurityIcon } from './ui/security-icon';
 export { default as SharepointDocumentIcon } from './ui/sharepoint-document-icon';
 export { default as SharepointPresentationIcon } from './ui/sharepoint-presentation-icon';
@@ -111,6 +113,7 @@ export { default as TeamsSearchResultIcon } from './ui/teams-search-result-icon'
 export { default as TemplateIcon } from './ui/template-icon';
 export { default as TextIcon } from './ui/text-icon';
 export { default as ThemeIcon } from './ui/theme-icon';
+export { default as ThumbUpIcon } from './ui/thumb-up-icon';
 export { default as TransitionIcon } from './ui/transition-icon';
 export { default as TrelloIcon } from './ui/trello-icon';
 export { default as UiElementIcon } from './ui/ui-element-icon';

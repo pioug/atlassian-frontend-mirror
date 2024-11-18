@@ -219,6 +219,10 @@ export const dropTargetDecorations = (
 			depth = $pos.depth;
 
 			if (isAdvancedLayoutsPreRelease2) {
+				if (activeNode?.pos === pos && activeNode.nodeType !== 'layoutColumn') {
+					return false;
+				}
+
 				if (
 					node.type.name === 'layoutColumn' &&
 					parent?.type.name === 'layoutSection' &&

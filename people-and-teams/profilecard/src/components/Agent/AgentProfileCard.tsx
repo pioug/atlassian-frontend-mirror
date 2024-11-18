@@ -209,7 +209,9 @@ const AgentProfileCard = ({
 					onCopyAgent={() => onCopyAgent(agent.id)}
 					onDuplicateAgent={() => onDuplicateAgent(agent.id)}
 					onDeleteAgent={handleOnDelete}
-					onChatClick={() => (onChatClick ? onChatClick() : onOpenChatFullScreen(agent.id))}
+					onChatClick={() =>
+						onChatClick ? onChatClick() : onOpenChatFullScreen(agent.id, agent.name)
+					}
 					resourceClient={resourceClient}
 					onViewFullProfileClick={() => onViewFullProfile(agent.id)}
 				/>

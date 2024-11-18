@@ -4,8 +4,7 @@ import CodeBlock from '@atlaskit/code/block';
 import { Label } from '@atlaskit/form';
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 import Range from '@atlaskit/range';
-
-import SectionMessage, { SectionMessageAction } from '../src';
+import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
 const Example = () => {
 	const [width, setWidth] = useState(800);

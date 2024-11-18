@@ -1,8 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
 import { Label } from '@atlaskit/form';
-
-import Range from '../src';
+import Range from '@atlaskit/range';
 
 export default () => {
 	const [value, setValue] = useState(50);

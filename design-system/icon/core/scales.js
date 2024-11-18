@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::091e4fc2ee52d30eb80552f333a1771d>>
+ * @codegen <<SignedSource::af2ad4668be05fb22a575cabc855c1bf>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const ScalesIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M6.75 11.25a3 3 0 1 1-6 0m6 0h-6m6 0L3.75 5m-3 6.25 3-6.25m0 0L8 4m7.25 5.25a3 3 0 1 1-6 0m6 0h-6m6 0-3-6.25m-3 6.25 3-6.25m0 0L8 4m0 0V1"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M8 1v2.998M.755 11.25h5.987m-2.99-6.247L6.75 11.25a3 3 0 1 1-6 0l3-6.25L8 4l4.25-1 3 6.25a3 3 0 1 1-6 0l3.002-6.248m2.996 6.248H9.253"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 ScalesIcon.displayName = 'ScalesIcon';

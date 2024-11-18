@@ -22,18 +22,12 @@
 			"category": "Components",
 			"status": {
 				"type": "deprecated",
-				"description": "This package is deprecated. Use @atlaskit/primitives.Grid instead.",
-				"actions": [
-					{
-						"text": "View @atlaskit/primitives.Grid documentation",
-						"href": "https://atlassian.design/components/primitives/grid/examples"
-					}
-				]
+				"description": "This package is deprecated.\n\nUse [grid primitive](https://atlassian.design/components/primitives/grid/examples)."
 			}
 		}
 	},
 	"dependencies": {
-		"@atlaskit/primitives": "^13.1.0",
+		"@atlaskit/primitives": "^13.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"tiny-invariant": "^1.2.0"

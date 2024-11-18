@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Range from '../../src';
+import Range from '@atlaskit/range';
 
 const RangeUncontrolledExample = () => {
 	return (

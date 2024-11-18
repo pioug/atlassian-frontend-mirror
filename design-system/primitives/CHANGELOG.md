@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 13.2.0
+
+### Minor Changes
+
+- [#162507](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162507)
+  [`55f201f2b2d04`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/55f201f2b2d04) -
+  [ux] Text to inherit size when nested in other Text component behind a feature flag. If testing
+  successful, this change will be made available in a later release.
+
 ## 13.1.0
 
 ### Minor Changes

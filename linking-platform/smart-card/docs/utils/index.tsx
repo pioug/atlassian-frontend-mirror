@@ -53,6 +53,10 @@ export const navigateToUrl = (url: string) => {
 	window.location.href = url;
 };
 
+export const openUrl = (url: string) => {
+	window.open(url, '_blank');
+};
+
 export const overrideActionsProps = (props: Object) => (
 	<Prop
 		{...props}

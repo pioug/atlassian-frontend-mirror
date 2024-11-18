@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Label } from '@atlaskit/form';
-import { CheckboxSelect } from '../../src';
+import { CheckboxSelect } from '@atlaskit/select';
+
 import { cities } from '../common/data';
 
 const SelectCheckboxExample = () => (

@@ -16,6 +16,7 @@ import { jsx, cssMap as unboundedCssMap } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
 import { cssMap } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useSurface } from './internal/surface-provider';
@@ -224,7 +225,7 @@ const Text = forwardRef(
 			align,
 			testId,
 			id,
-			size = 'medium',
+			size,
 			weight,
 			maxLines,
 			children,
@@ -239,12 +240,16 @@ const Text = forwardRef(
 		const hasTextAncestor = useHasTextAncestor();
 		const color = useColor(colorProp, hasTextAncestor);
 
+		if (!fg('platform-primitives-nested-text-inherit-size') && !size) {
+			size = 'medium';
+		}
+
 		const component = (
 			<Component
 				id={id}
 				css={[
 					styles.root,
-					fontSizeMap[size],
+					size ? fontSizeMap[size] : !hasTextAncestor && fontSizeMap.medium,
 					color && textColorMap[color],
 					maxLines && styles.truncation,
 					maxLines === 1 && styles.breakAll,

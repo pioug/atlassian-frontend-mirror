@@ -16,9 +16,16 @@ export const lazyTaskView = (
 	eventDispatcher: EventDispatcher,
 	providerFactory: ProviderFactory,
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
+	placeholder?: string,
 ) => {
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
-		return taskItemNodeViewFactory(portalProviderAPI, eventDispatcher, providerFactory, api);
+		return taskItemNodeViewFactory(
+			portalProviderAPI,
+			eventDispatcher,
+			providerFactory,
+			api,
+			placeholder,
+		);
 	}
 
 	return withLazyLoading({
@@ -35,6 +42,7 @@ export const lazyTaskView = (
 						eventDispatcher,
 						providerFactory,
 						api,
+						placeholder,
 					)(node, view, getPos);
 				};
 			});

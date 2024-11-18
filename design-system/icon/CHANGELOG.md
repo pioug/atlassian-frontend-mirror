@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 22.24.2
+
+### Patch Changes
+
+- [#160518](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160518)
+  [`a59ea189efe8c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a59ea189efe8c) -
+  Fix bug with core icons: `send`, `scale` and `status-verified`
+
 ## 22.24.1
 
 ### Patch Changes

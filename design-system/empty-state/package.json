@@ -25,7 +25,7 @@
 	"dependencies": {
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/heading": "^2.3.2",
-		"@atlaskit/primitives": "^13.1.0",
+		"@atlaskit/primitives": "^13.2.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.2.0",

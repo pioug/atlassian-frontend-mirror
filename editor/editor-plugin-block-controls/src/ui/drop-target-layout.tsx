@@ -57,8 +57,8 @@ export const DropTargetLayout = (props: DropTargetLayoutProps) => {
 
 	const [isActiveAnchor] = useActiveAnchorTracker(anchorName);
 
+	const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
 	const onDrop = useCallback(() => {
-		const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
 		if (!activeNode) {
 			return;
 		}
@@ -68,7 +68,7 @@ export const DropTargetLayout = (props: DropTargetLayoutProps) => {
 			const { pos: from } = activeNode;
 			api?.core?.actions.execute(api?.blockControls?.commands?.moveToLayout(from, to));
 		}
-	}, [api, getPos]);
+	}, [api, getPos, activeNode]);
 
 	useEffect(() => {
 		if (ref.current) {
@@ -85,6 +85,9 @@ export const DropTargetLayout = (props: DropTargetLayoutProps) => {
 		}
 	}, [onDrop]);
 
+	if (activeNode?.nodeType === 'layoutSection') {
+		return null;
+	}
 	return (
 		<div ref={ref} css={dropTargetLayoutStyle} data-testid="block-ctrl-drop-indicator">
 			{isDraggedOver || isBlocksDragTargetDebug() ? (

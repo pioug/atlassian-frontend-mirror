@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { type FieldProps } from '@atlaskit/form';
 import {
 	ActionOperationStatus,
+	type AtomicActionExecuteRequest,
 	type AtomicActionExecuteResponse,
 	type Status,
 } from '@atlaskit/linking-types';
@@ -24,7 +25,7 @@ interface Props extends Omit<FieldProps<string>, 'value'> {
 
 const StatusEditType = (props: Props) => {
 	const { currentValue, executeFetch } = props;
-	const { options, isLoading, hasFailed } = useStatusOptions(currentValue, executeFetch);
+	const { options, isLoading, hasFailed } = useStatusOptions({ executeFetch });
 	const experienceId = useDatasourceExperienceId();
 
 	useEffect(() => {
@@ -61,6 +62,7 @@ const StatusEditType = (props: Props) => {
 			isLoading={isLoading}
 			defaultValue={currentValue?.values?.[0] as Status}
 			filterOption={filterOption}
+			menuPlacement="auto"
 			formatOptionLabel={(option) => (
 				<Lozenge testId={`inline-edit-status-option-${option.text}`} {...option.style}>
 					{option.text}
@@ -79,10 +81,13 @@ const StatusEditType = (props: Props) => {
 const filterOption = (option: FilterOptionOption<Status>, inputValue: string) =>
 	option.data.text.toLowerCase().includes(inputValue.toLowerCase());
 
-const useStatusOptions = (
-	currentValue: DatasourceTypeWithOnlyValues,
-	executeFetch?: ExecuteFetch,
-) => {
+const useStatusOptions = ({
+	fetchInputs,
+	executeFetch,
+}: {
+	fetchInputs?: AtomicActionExecuteRequest['parameters']['inputs'];
+	executeFetch?: ExecuteFetch;
+}) => {
 	const [{ options, isLoading, hasFailed }, setOptions] = useState({
 		isLoading: true,
 		options: [] as Status[],
@@ -91,7 +96,7 @@ const useStatusOptions = (
 
 	useEffect(() => {
 		let isMounted = true;
-		loadOptions(currentValue, executeFetch)
+		loadOptions(fetchInputs, executeFetch)
 			.then((options) => {
 				if (isMounted) {
 					setOptions({ isLoading: false, options, hasFailed: false });
@@ -103,17 +108,17 @@ const useStatusOptions = (
 		return () => {
 			isMounted = false;
 		};
-	}, [currentValue, executeFetch]);
+	}, [fetchInputs, executeFetch]);
 
 	return { options, isLoading, hasFailed };
 };
 
 const loadOptions = async (
-	currentValue: DatasourceTypeWithOnlyValues,
+	fetchInputs: AtomicActionExecuteRequest['parameters']['inputs'] = {},
 	executeFetch?: ExecuteFetch,
 ): Promise<Status[]> => {
 	if (executeFetch) {
-		const result = await executeFetch<AtomicActionExecuteResponse<Status>>({});
+		const result = await executeFetch<AtomicActionExecuteResponse<Status>>(fetchInputs);
 
 		const { operationStatus, entities } = result;
 

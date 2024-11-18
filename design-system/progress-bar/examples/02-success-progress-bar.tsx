@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { SuccessProgressBar } from '../src';
+import { SuccessProgressBar } from '@atlaskit/progress-bar';
 
 import { containerStyle } from './00-basic';
 

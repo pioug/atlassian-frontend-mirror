@@ -1,9 +1,10 @@
 import React from 'react';
-import ModalDialog, { ModalTransition, ModalBody } from '@atlaskit/modal-dialog';
-import Drawer from '@atlaskit/drawer';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import { PopupSelect } from '../src';
+import Drawer from '@atlaskit/drawer';
+import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import { PopupSelect } from '@atlaskit/select';
 
 const options = [
 	{ label: 'Adelaide', value: 'adelaide' },

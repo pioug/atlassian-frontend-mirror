@@ -1,7 +1,9 @@
 import React, { type MouseEvent, useCallback, useEffect, useMemo } from 'react';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CardDisplay } from '../../constants';
 import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
 import { useSmartLink } from '../../state';
@@ -58,7 +60,8 @@ function Component({
 	resolvingPlaceholder,
 	truncateInline,
 }: CardWithUrlContentProps) {
-	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { createAnalyticsEvent } = useAnalyticsEventsNext();
+	const { fireEvent } = useAnalyticsEvents();
 
 	// Get state, actions for this card.
 	const {
@@ -202,17 +205,27 @@ function Component({
 
 	const onIframeDwell = useCallback(
 		(dwellTime: number, dwellPercentVisible: number) => {
-			analytics.ui.iframeDwelledEvent({
-				id,
-				display: isFlexibleUi ? 'flexible' : appearance,
-				status: state.status,
-				definitionId,
-				extensionKey,
-				destinationProduct: product,
-				destinationSubproduct: subproduct,
-				dwellTime: dwellTime,
-				dwellPercentVisible: dwellPercentVisible,
-			});
+			if (fg('smart-card-migrate-smartlinkiframe-analytics')) {
+				fireEvent('ui.smartLinkIframe.dwelled', {
+					id,
+					definitionId: definitionId ?? null,
+					display: isFlexibleUi ? 'flexible' : appearance,
+					dwellPercentVisible,
+					dwellTime,
+				});
+			} else {
+				analytics.ui.iframeDwelledEvent({
+					id,
+					display: isFlexibleUi ? 'flexible' : appearance,
+					status: state.status,
+					definitionId,
+					extensionKey,
+					destinationProduct: product,
+					destinationSubproduct: subproduct,
+					dwellTime: dwellTime,
+					dwellPercentVisible: dwellPercentVisible,
+				});
+			}
 		},
 		[
 			id,
@@ -224,19 +237,28 @@ function Component({
 			isFlexibleUi,
 			product,
 			subproduct,
+			fireEvent,
 		],
 	);
 
 	const onIframeFocus = useCallback(() => {
-		analytics.ui.iframeFocusedEvent({
-			id,
-			display: isFlexibleUi ? 'flexible' : appearance,
-			status: state.status,
-			definitionId,
-			extensionKey,
-			destinationProduct: product,
-			destinationSubproduct: subproduct,
-		});
+		if (fg('smart-card-migrate-smartlinkiframe-analytics')) {
+			fireEvent('ui.smartLinkIframe.focus', {
+				id,
+				definitionId: definitionId ?? null,
+				display: isFlexibleUi ? 'flexible' : appearance,
+			});
+		} else {
+			analytics.ui.iframeFocusedEvent({
+				id,
+				display: isFlexibleUi ? 'flexible' : appearance,
+				status: state.status,
+				definitionId,
+				extensionKey,
+				destinationProduct: product,
+				destinationSubproduct: subproduct,
+			});
+		}
 	}, [
 		id,
 		state.status,
@@ -247,6 +269,7 @@ function Component({
 		isFlexibleUi,
 		product,
 		subproduct,
+		fireEvent,
 	]);
 
 	if (isFlexibleUi) {

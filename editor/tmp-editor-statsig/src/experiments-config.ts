@@ -113,15 +113,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-09-02
-	platform_editor_empty_line_prompt: {
-		productKeys: {
-			confluence: 'platform_editor_empty_line_prompt',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-09-05
 	support_table_in_comment: {
 		productKeys: {
@@ -362,6 +353,15 @@ export const editorExperimentsConfig = {
 			confluence: 'platform_editor_ai_response_history',
 		},
 		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2024-11-13
+	issue_view_action_items: {
+		productKeys: {
+			jira: 'issue_view_action_items',
+		},
+		param: 'isActionItemsEnabled',
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},

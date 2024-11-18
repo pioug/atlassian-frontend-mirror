@@ -62,7 +62,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		usage: 'Multi purpose',
+		usage: 'Known uses: TBC',
 	},
 	'arrow-left': {
 		keywords: ['back', 'previous'],
@@ -94,7 +94,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		usage: 'Multi purpose',
+		usage: 'Known uses: TBC',
 	},
 	'arrow-up-right': {
 		keywords: ['open', 'diagonal arrow'],
@@ -137,6 +137,7 @@ const metadata: UNSAFE_IconMetadata = {
 		type: 'core',
 		usage: 'Multi purpose - Known uses: Request types in JSM, bugs in Jira.',
 	},
+	// Added back as it was removed in a minor release
 	'bulleted-list': {
 		keywords: ['bulleted-list', 'bulletedlist', 'icon', 'core', 'bullets', 'unordered list'],
 		location: '@atlaskit/icon',
@@ -806,7 +807,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		usage: 'Multi purpose',
+		usage: 'Known uses: TBC',
 	},
 	shield: {
 		keywords: ['security', 'secure', 'safety', 'defence', 'protection', 'guard'],
@@ -1479,7 +1480,7 @@ const metadata: UNSAFE_IconMetadata = {
 		usage: 'Single purpose - Reserved for increasing the height of an element.',
 	},
 	highlight: {
-		keywords: [' highlight', 'highlighter', 'stabilo', 'pen'],
+		keywords: ['highlight', 'highlighter', 'stabilo', 'pen'],
 		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
@@ -2656,7 +2657,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		usage: 'Single purpose - Reserved for video in Media.',
+		usage: 'Single purpose - Reserved for representing video content across Atlassian and Loom.',
 	},
 	'video-next': {
 		keywords: ['skip', 'next', 'media', 'forward'],

@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
-
-import SectionMessage, { SectionMessageAction } from '../src';
+import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
 const definitionListStyles = xcss({
 	display: 'flex',

@@ -3,14 +3,14 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::b519212dc7ce398897c4e790498adb64>>
+ * @codegen <<SignedSource::1b003c1bbf9093c5eb592e8d6a034d9c>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
-export type PackageMetaDataType = {
+export type PackageMetaDataContextType = {
 	packageName: string;
 	packageVersion: string;
 };
-export type ResolvedAttributesType = {
+export type ResolvedContextType = {
 	status:
 		| 'pending'
 		| 'resolving'
@@ -32,6 +32,8 @@ export type ResolvedAttributesType = {
 	destinationContainerId: string | null;
 	destinationTenantId: string | null;
 	canBeDatasource: boolean | null;
+	location: string | null;
+	resourceType: string | null;
 };
 
 export type ButtonClickedAiSummaryAttributesType = {};
@@ -62,6 +64,18 @@ export type RelatedLinksSuccessAttributesType = {
 };
 export type RelatedLinksFailedAttributesType = {
 	reason: string;
+};
+export type SmartLinkIframeDwelledAttributesType = {
+	id: string;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	definitionId: string | null;
+	dwellTime: number;
+	dwellPercentVisible: number;
+};
+export type SmartLinkIframeFocusAttributesType = {
+	id: string;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	definitionId: string | null;
 };
 
 export type AnalyticsEventAttributes = {
@@ -99,11 +113,17 @@ export type AnalyticsEventAttributes = {
 	 * fired when related links modal is closed */
 	'ui.modal.closed.relatedLinks': ModalClosedRelatedLinksAttributesType;
 	/**
-	 * fired when related links are retrieved succesfully */
+	 * fired when related links are retrieved successfully */
 	'operational.relatedLinks.success': RelatedLinksSuccessAttributesType;
 	/**
 	 * fired when related links retrieval fails */
 	'operational.relatedLinks.failed': RelatedLinksFailedAttributesType;
+	/**
+	 * fired when a user dwells their cursor on a Smart Link's iframe */
+	'ui.smartLinkIframe.dwelled': SmartLinkIframeDwelledAttributesType;
+	/**
+	 * fires when a user clicks or tabs into a Smart Link's iframe. */
+	'ui.smartLinkIframe.focus': SmartLinkIframeFocusAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 
-import Modal, {
-	ModalTransition,
-	ModalBody,
-	ModalTitle,
-	ModalHeader,
-	ModalFooter,
-} from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
-
-import Select from '../src';
+import Modal, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+} from '@atlaskit/modal-dialog';
+import Select from '@atlaskit/select';
 
 interface State {
 	isOpen: boolean;

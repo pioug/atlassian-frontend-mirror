@@ -47,7 +47,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/primitives": "^13.1.0",
+		"@atlaskit/primitives": "^13.2.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/a11y-jest-testing": "*",
 		"@testing-library/react": "^12.1.5",

@@ -2,8 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import Form, { FormFooter, HelperMessage, RangeField } from '@atlaskit/form';
-
-import Range from '../../src';
+import Range from '@atlaskit/range';
 
 export default function TextFieldFormExample() {
 	return (

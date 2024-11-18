@@ -93,7 +93,6 @@ const applyCommonAttributes = (event: AnalyticsPayload, commonAttributes: Common
  * Can be provided to Card via the analyticsEvents prop to change the analytics events.
  *
  * @param url URL of the link
- * @param dispatchAnalytics dispatchAnalytics function
  * @param id fallback id of the events sent if no id is available
  * @param defaultLocation location attribute to be used
  * @returns
@@ -278,6 +277,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param dwellTime Total seconds that the user has dwelled on this iframe
 			 * @param dwellPercentVisible Percentage element was visible at end of dwell
 			 * @returns
+			 * @deprecated
 			 */
 			iframeDwelledEvent: ({
 				id,
@@ -308,6 +308,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 						commonAttributes,
 					),
 				),
+
 			/**
 			 * This fires an event that represents when a user clicks or tabs into a Smart Link's iframe.
 			 * @param id The unique ID for this Smart Link.
@@ -318,6 +319,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param location Where the Smart Link is currently rendered.
 			 * @param destinationProduct The product the Smart Link is linked to.
 			 * @returns
+			 * @deprecated
 			 */
 			iframeFocusedEvent: ({
 				id,

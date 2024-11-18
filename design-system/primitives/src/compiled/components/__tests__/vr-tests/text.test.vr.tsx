@@ -6,6 +6,9 @@ import Color from '../../../../../examples/71-text-color-compiled';
 import Truncation from '../../../../../examples/72-text-truncation-compiled';
 
 snapshot(Basic, {
+	featureFlags: {
+		'platform-primitives-nested-text-inherit-size': [true, false],
+	},
 	variants: [
 		{
 			name: 'text default',

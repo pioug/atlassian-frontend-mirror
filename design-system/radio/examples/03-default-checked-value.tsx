@@ -1,6 +1,6 @@
 import React, { type SyntheticEvent } from 'react';
 
-import { RadioGroup } from '../src';
+import { RadioGroup } from '@atlaskit/radio';
 
 const radioValues = [
 	{ name: 'color-with-default', value: 'blue', label: 'Blue' },

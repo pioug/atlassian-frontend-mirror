@@ -7,7 +7,12 @@ import { jsx } from '@emotion/react';
 import React, { type MouseEvent, useEffect, useState, useRef, useMemo } from 'react';
 import { type MessageDescriptor } from 'react-intl-next';
 
-import { type MediaItemType, type FileDetails, type ImageResizeMode } from '@atlaskit/media-client';
+import {
+	type MediaItemType,
+	type FileDetails,
+	type ImageResizeMode,
+	type FileIdentifier,
+} from '@atlaskit/media-client';
 import {
 	withAnalyticsEvents,
 	type WithAnalyticsEventsProps,
@@ -49,8 +54,11 @@ import { fileCardImageViewSelector } from './classnames';
 import { useBreakpoint } from './useBreakpoint';
 import OpenMediaViewerButton from './ui/openMediaViewerButton/openMediaViewerButton';
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
+import { SvgView } from './svgView';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface CardViewProps {
+	readonly identifier?: FileIdentifier;
 	readonly disableOverlay?: boolean;
 	readonly resizeMode?: ImageResizeMode;
 	readonly dimensions: CardDimensions;
@@ -83,6 +91,8 @@ export interface CardViewProps {
 	readonly innerRef?: (instance: HTMLDivElement | null) => void;
 	readonly onImageLoad?: (cardPreview: MediaFilePreview) => void;
 	readonly onImageError?: (cardPreview: MediaFilePreview) => void;
+	readonly onSvgError?: (error: MediaCardError) => void;
+	readonly onSvgLoad?: () => void;
 	readonly nativeLazyLoad?: boolean;
 	readonly forceSyncDisplay?: boolean;
 	// Used to disable animation for testing purposes
@@ -97,6 +107,7 @@ export interface RenderConfigByStatus {
 	renderTypeIcon?: boolean;
 	iconMessage?: JSX.Element;
 	renderImageRenderer?: boolean;
+	renderSvgView?: boolean;
 	renderPlayButton?: boolean;
 	renderTitleBox?: boolean;
 	renderBlanket?: boolean;
@@ -109,6 +120,7 @@ export interface RenderConfigByStatus {
 }
 
 export const CardViewBase = ({
+	identifier,
 	innerRef,
 	onImageLoad,
 	onImageError,
@@ -138,7 +150,10 @@ export const CardViewBase = ({
 	openMediaViewerButtonRef = null,
 	shouldOpenMediaViewer,
 	overriddenCreationDate,
+	onSvgError,
+	onSvgLoad,
 }: CardViewBaseProps) => {
+	const [didSvgRender, setDidSvgRender] = useState<boolean>(false);
 	const [didImageRender, setDidImageRender] = useState<boolean>(false);
 	const divRef = useRef<HTMLDivElement>(null);
 	const prevCardPreviewRef = useRef<MediaFilePreview | undefined>();
@@ -187,16 +202,24 @@ export const CardViewBase = ({
 	};
 
 	const getRenderConfigByStatus = (): RenderConfigByStatus => {
-		const { name, mediaType } = metadata || {};
+		const { name, mediaType, mimeType } = metadata || {};
 		const isZeroSize = metadata && metadata.size === 0;
 
 		const defaultConfig: RenderConfigByStatus = {
-			renderTypeIcon: !didImageRender,
-			renderImageRenderer: true,
+			renderTypeIcon: !didImageRender && !didSvgRender,
+			renderImageRenderer: !didSvgRender,
+			renderSvgView: mimeType === 'image/svg+xml' && fg('platform_media_group_svg'),
 			renderPlayButton: !!cardPreview && mediaType === 'video',
 			renderBlanket: !disableOverlay,
 			renderTitleBox: !disableOverlay,
 			renderTickBox: !disableOverlay && !!selectable,
+		};
+
+		const loadingConfig = {
+			...defaultConfig,
+			renderPlayButton: false,
+			renderTypeIcon: false,
+			renderSpinner: !didImageRender && !didSvgRender,
 		};
 
 		switch (status) {
@@ -219,10 +242,19 @@ export const CardViewBase = ({
 				return defaultConfig;
 			case 'error':
 			case 'failed-processing':
+				if (
+					status === 'failed-processing' &&
+					mimeType === 'image/svg+xml' &&
+					fg('platform_media_group_svg')
+				) {
+					return loadingConfig;
+				}
+
 				const baseErrorConfig = {
 					...defaultConfig,
 					renderTypeIcon: true,
 					renderImageRenderer: false,
+					renderSvgView: false,
 					renderTitleBox: false,
 					renderPlayButton: false,
 				};
@@ -255,12 +287,7 @@ export const CardViewBase = ({
 			case 'loading-preview':
 			case 'loading':
 			default:
-				return {
-					...defaultConfig,
-					renderPlayButton: false,
-					renderTypeIcon: false,
-					renderSpinner: !didImageRender,
-				};
+				return loadingConfig;
 		}
 	};
 
@@ -268,6 +295,7 @@ export const CardViewBase = ({
 		renderTypeIcon,
 		iconMessage,
 		renderImageRenderer,
+		renderSvgView,
 		renderSpinner,
 		renderPlayButton,
 		renderBlanket,
@@ -309,9 +337,15 @@ export const CardViewBase = ({
 		}));
 	}, [actions, metadataRef]);
 
+	const onSvgLoadBase = () => {
+		setDidSvgRender(true);
+		onSvgLoad?.();
+	};
+
 	const contents = (
 		<React.Fragment>
 			<ImageContainer
+				centerElements={didSvgRender}
 				testId={fileCardImageViewSelector}
 				mediaName={name}
 				status={status}
@@ -334,6 +368,15 @@ export const CardViewBase = ({
 					<IconWrapper breakpoint={breakpoint} hasTitleBox={hasVisibleTitleBox}>
 						<SpinnerIcon testId="media-card-loading" interactionName="media-card-loading" />
 					</IconWrapper>
+				)}
+				{renderSvgView && identifier && (
+					<SvgView
+						identifier={identifier}
+						resizeMode={resizeMode || 'crop'}
+						onError={onSvgError}
+						onLoad={onSvgLoadBase}
+						wrapperRef={divRef}
+					/>
 				)}
 				{renderImageRenderer && (
 					<ImageRenderer

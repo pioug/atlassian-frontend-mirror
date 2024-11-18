@@ -1,7 +1,8 @@
 import React from 'react';
+
 import { AtlassianIcon } from '@atlaskit/logo';
+import Select, { type FormatOptionLabelMeta, type OptionType } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
-import Select, { type OptionType, type FormatOptionLabelMeta } from '../../src';
 
 const formatOptionLabel = (option: OptionType, { context }: FormatOptionLabelMeta<OptionType>) => {
 	if (context === 'menu') {

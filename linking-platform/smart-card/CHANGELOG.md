@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 30.2.5
+
+### Patch Changes
+
+- [#164921](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164921)
+  [`e8067159036a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e8067159036a3) -
+  Fix smartLinkIframe location attribute not being included when fired
+- Updated dependencies
+
+## 30.2.4
+
+### Patch Changes
+
+- [#161848](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161848)
+  [`b3284704393ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b3284704393ce) -
+  Migrate analytics for smartlinkiframe
+
 ## 30.2.3
 
 ### Patch Changes

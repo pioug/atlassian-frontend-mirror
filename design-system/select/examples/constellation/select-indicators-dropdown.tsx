@@ -2,9 +2,8 @@ import React from 'react';
 
 import { Label } from '@atlaskit/form';
 import EmojiIcon from '@atlaskit/icon/glyph/emoji';
+import Select, { components, type DropdownIndicatorProps, type OptionType } from '@atlaskit/select';
 
-import Select, { components } from '../../src';
-import { type DropdownIndicatorProps, type OptionType } from '../../src/types';
 import { cities } from '../common/data';
 
 const DropdownIndicator = (props: DropdownIndicatorProps<OptionType, true>) => {

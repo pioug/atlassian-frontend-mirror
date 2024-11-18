@@ -5,8 +5,7 @@ import Lorem from 'react-lorem-component';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
-
-import { ProgressIndicator } from '../src';
+import { ProgressIndicator } from '@atlaskit/progress-indicator';
 
 type Appearances = 'default' | 'help' | 'inverted' | 'primary';
 type Sizes = 'default' | 'large';

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/legacy-custom-icons",
-	"version": "0.15.0",
+	"version": "0.16.0",
 	"description": "A centralised place to store legacy custom icons.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -149,7 +149,10 @@
 		"./asana-icon": "./src/ui/asana-icon/index.tsx",
 		"./zendesk-icon": "./src/ui/zendesk-icon/index.tsx",
 		"./notion-filter-icon": "./src/ui/notion-filter-icon/index.tsx",
-		"./notion-icon": "./src/ui/notion-icon/index.tsx"
+		"./notion-icon": "./src/ui/notion-icon/index.tsx",
+		"./thumb-up-icon": "./src/ui/thumb-up-icon/index.tsx",
+		"./open-folder-icon": "./src/ui/open-folder-icon/index.tsx",
+		"./rovo-icon": "./src/ui/rovo-icon/index.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
@@ -269,7 +272,10 @@
 		"./asana-icon": "./src/ui/asana-icon/index.tsx",
 		"./zendesk-icon": "./src/ui/zendesk-icon/index.tsx",
 		"./notion-filter-icon": "./src/ui/notion-filter-icon/index.tsx",
-		"./notion-icon": "./src/ui/notion-icon/index.tsx"
+		"./notion-icon": "./src/ui/notion-icon/index.tsx",
+		"./thumb-up-icon": "./src/ui/thumb-up-icon/index.tsx",
+		"./open-folder-icon": "./src/ui/open-folder-icon/index.tsx",
+		"./rovo-icon": "./src/ui/rovo-icon/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^22.24.0",

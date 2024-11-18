@@ -1,5 +1,18 @@
 # @atlaskit/editor-common
 
+## 94.21.0
+
+### Minor Changes
+
+- [#162829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162829)
+  [`5bf267e7de21e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5bf267e7de21e) -
+  Introduce new usePluginStateEffect which can be used to run effects on plugin state change
+  (similar to useSharedPluginState but without re-renders)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 94.20.0
 
 ### Minor Changes

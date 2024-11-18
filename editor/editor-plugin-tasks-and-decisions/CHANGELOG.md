@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.12.0
+
+### Minor Changes
+
+- [#163468](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163468)
+  [`dd36c12324efd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd36c12324efd) -
+  JIV-19284 Allow setting task placeholder and quick insert action description for Editor tasks and
+  decisions plugin
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.11.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.11.16
 
 ### Patch Changes

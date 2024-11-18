@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c8b10903ca2942e1d64f5d72bac565da>>
+ * @codegen <<SignedSource::1b2b3c2b0377d5fdfd2ef301d2ae1422>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SmartLinkIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M5 6.5 2.75 8.75a3.182 3.182 0 0 0 4.168 4.79M11 9.5l2.25-2.25a3.182 3.182 0 0 0-4.168-4.79m0 0a1.5 1.5 0 1 0-2.163 2.078 1.5 1.5 0 0 0 2.163-2.077ZM6.918 13.54a1.5 1.5 0 1 0 2.163-2.078 1.5 1.5 0 0 0-2.163 2.077Z"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M5 6.5 2.75 8.75a3.182 3.182 0 0 0 4.168 4.79M11 9.5l2.25-2.25a3.182 3.182 0 0 0-4.168-4.789m0 0A1.5 1.5 0 1 0 6.919 4.54a1.5 1.5 0 0 0 2.163-2.078ZM6.918 13.54a1.5 1.5 0 1 0 2.163-2.078 1.5 1.5 0 0 0-2.163 2.078Z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SmartLinkIcon.displayName = 'SmartLinkIcon';

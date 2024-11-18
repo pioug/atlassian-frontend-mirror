@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { TransparentProgressBar } from '@atlaskit/progress-bar';
 import { token } from '@atlaskit/tokens';
-
-import { TransparentProgressBar } from '../src';
 
 import { progress } from './00-basic';
 

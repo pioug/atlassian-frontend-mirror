@@ -1,5 +1,13 @@
 # @atlaskit/media-test-data
 
+## 2.7.0
+
+### Minor Changes
+
+- [#162568](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162568)
+  [`bdb2f63cb8cd6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bdb2f63cb8cd6) -
+  Added sample for corrupted SVG binary
+
 ## 2.6.1
 
 ### Patch Changes

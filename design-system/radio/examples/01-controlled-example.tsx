@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter } from '@atlaskit/form';
-
-import { RadioGroup } from '../src';
+import { RadioGroup } from '@atlaskit/radio';
 
 const options = [
 	{ name: 'color2', value: 'red', label: 'Red' },

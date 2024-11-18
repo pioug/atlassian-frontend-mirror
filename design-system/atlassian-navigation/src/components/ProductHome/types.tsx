@@ -56,6 +56,15 @@ export interface ProductHomeProps {
    */
 	testId?: string;
 	/* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+
+	// We _could_ have a `label` prop to align with other, newer components.
+	// But `aria-label` is already being used in products,
+	// and is already supported because of spread props.
+	// This just makes it explicit to consumers that we are applying it.
+	/**
+	 * Provide an accessible label, often used by screen readers.
+	 */
+	'aria-label'?: string;
 }
 
 export interface CustomProductHomeProps {

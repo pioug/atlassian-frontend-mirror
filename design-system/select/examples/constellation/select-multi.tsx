@@ -1,6 +1,8 @@
 import React from 'react';
+
 import { Label } from '@atlaskit/form';
-import Select from '../../src';
+import Select from '@atlaskit/select';
+
 import { cities } from '../common/data';
 
 const SelectMultiExample = () => (

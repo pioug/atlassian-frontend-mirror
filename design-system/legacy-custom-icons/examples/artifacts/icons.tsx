@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c2b892c375ea28c4e7d3ae951357a0e1>>
+ * @codegen <<SignedSource::a1dacbf8654510d5496bb8e14b809912>>
  * @codegenCommand yarn generate-artifacts
  */
 import AirTableFilterIcon from '../../src/ui/air-table-filter-icon';
@@ -82,6 +82,7 @@ import NotionFilterIcon from '../../src/ui/notion-filter-icon';
 import NotionIcon from '../../src/ui/notion-icon';
 import NumberIcon from '../../src/ui/number-icon';
 import OneDriveIcon from '../../src/ui/one-drive-icon';
+import OpenFolderIcon from '../../src/ui/open-folder-icon';
 import OutlookCalendarIcon from '../../src/ui/outlook-calendar-icon';
 import ParagraphIcon from '../../src/ui/paragraph-icon';
 import PeopleGroupIcon from '../../src/ui/people-group-icon';
@@ -93,6 +94,7 @@ import ProjectIcon from '../../src/ui/project-icon';
 import RadioIcon from '../../src/ui/radio-icon';
 import RelicIcon from '../../src/ui/relic-icon';
 import RoadmapsServiceIcon from '../../src/ui/roadmaps-service-icon';
+import RovoIcon from '../../src/ui/rovo-icon';
 import SecurityIcon from '../../src/ui/security-icon';
 import SharepointDocumentIcon from '../../src/ui/sharepoint-document-icon';
 import SharepointPresentationIcon from '../../src/ui/sharepoint-presentation-icon';
@@ -111,6 +113,7 @@ import TeamsSearchResultIcon from '../../src/ui/teams-search-result-icon';
 import TemplateIcon from '../../src/ui/template-icon';
 import TextIcon from '../../src/ui/text-icon';
 import ThemeIcon from '../../src/ui/theme-icon';
+import ThumbUpIcon from '../../src/ui/thumb-up-icon';
 import TransitionIcon from '../../src/ui/transition-icon';
 import TrelloIcon from '../../src/ui/trello-icon';
 import UiElementIcon from '../../src/ui/ui-element-icon';
@@ -201,6 +204,7 @@ export default {
 	NotionIcon,
 	NumberIcon,
 	OneDriveIcon,
+	OpenFolderIcon,
 	OutlookCalendarIcon,
 	ParagraphIcon,
 	PeopleGroupIcon,
@@ -212,6 +216,7 @@ export default {
 	RadioIcon,
 	RelicIcon,
 	RoadmapsServiceIcon,
+	RovoIcon,
 	SecurityIcon,
 	SharepointDocumentIcon,
 	SharepointPresentationIcon,
@@ -230,6 +235,7 @@ export default {
 	TemplateIcon,
 	TextIcon,
 	ThemeIcon,
+	ThumbUpIcon,
 	TransitionIcon,
 	TrelloIcon,
 	UiElementIcon,

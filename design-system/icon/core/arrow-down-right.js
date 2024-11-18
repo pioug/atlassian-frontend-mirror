@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6a9f5ee98156f63d62305feba12bfad4>>
+ * @codegen <<SignedSource::eda0bdc253772efe6fc5227280ff2166>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ArrowDownRight".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Multi purpose
+ * Usage guidance: Known uses: TBC
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

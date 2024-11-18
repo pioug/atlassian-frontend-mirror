@@ -2,9 +2,8 @@ import React, { type FC } from 'react';
 
 import { BrowserRouter, Link } from 'react-router-dom';
 
+import { ProgressTracker, type Stage, type Stages } from '@atlaskit/progress-tracker';
 import { token } from '@atlaskit/tokens';
-
-import { ProgressTracker, type Stage, type Stages } from '../src';
 
 const items: Stages = [
 	{

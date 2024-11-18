@@ -2,8 +2,7 @@ import React, { type FC, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Box, Inline, Stack, Text } from '@atlaskit/primitives';
-
-import { ProgressIndicator } from '../src';
+import { ProgressIndicator } from '@atlaskit/progress-indicator';
 
 const SpreadInlineLayout = ({ children }: { children: React.ReactNode }) => {
 	return (

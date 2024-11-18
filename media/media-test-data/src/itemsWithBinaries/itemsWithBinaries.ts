@@ -98,6 +98,16 @@ const svg = {
 	svgAtom: createItemWithBinariesGenerator(generateSampleFileItem.svg, artifactSets.svgAtom, {
 		details: { name: 'atom.svg' },
 	}),
+	failedProcessing: createItemWithBinariesGenerator(
+		generateSampleFileItem.svgFailedProcessing,
+		artifactSets.svgAjDigitalCamera,
+		{ details: { name: 'ajDigitalCamera-failed-processing.svg' } },
+	),
+	binaryCorrupted: createItemWithBinariesGenerator(
+		generateSampleFileItem.svg,
+		artifactSets.svgAjDigitalCameraCorrupted,
+		{ details: { name: 'ajDigitalCamera-corrupted.svg' } },
+	),
 };
 
 /* type GenerateItemWithBinaries = {

@@ -2,6 +2,7 @@ import type { IntlShape } from 'react-intl-next';
 
 import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { closest } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
@@ -33,16 +34,19 @@ type Props = {
 	popupMountRef: PopupMountPointReference;
 	typeAheadHandlers: Array<TypeAheadHandler>;
 	getIntl: () => IntlShape;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 };
 export function createPlugin({
 	reactDispatch,
 	popupMountRef,
 	typeAheadHandlers,
 	getIntl,
+	nodeViewPortalProviderAPI,
 }: Props): SafePlugin {
 	const intl = getIntl();
 	const { createDecorations, removeDecorations } = factoryDecorations({
 		intl,
+		nodeViewPortalProviderAPI,
 		popupMountRef,
 	});
 	const reducer = createReducer({

@@ -54,6 +54,7 @@ import { MediaCardError } from '../errors';
 import { MockIntersectionObserver } from '../utils/mockIntersectionObserver';
 import { DateOverrideContext } from '../dateOverrideContext';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const event = { fire: jest.fn() };
 const mockCreateAnalyticsEvent = jest.fn(() => event) as unknown as CreateUIAnalyticsEvent;
@@ -4713,407 +4714,11 @@ describe('Card ', () => {
 		});
 	});
 
-	describe('SVG', () => {
-		it('should render SVG natively when the overlay is disabled', async () => {
-			const [fileItem, identifier] = generateSampleFileItem.svg();
-			const { mediaApi } = createMockedMediaApi(fileItem);
-
-			render(
-				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-					<CardLoader
-						mediaClientConfig={dummyMediaClientConfig}
-						identifier={identifier}
-						isLazy={false}
-						disableOverlay
-					/>
-				</MockedMediaClientProvider>,
-			);
-
-			const elem = await screen.findAllByTestId('media-card-svg');
-			expect(elem[0]).toBeDefined();
-			const imgElement = elem[0];
-			expect(imgElement.nodeName.toLowerCase()).toBe('img');
-
-			fireEvent.load(imgElement);
-
-			// card should completely process the file
-			await waitFor(async () =>
-				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
-					'data-test-status',
-					'complete',
-				),
-			);
-
-			const fileAttributes = {
-				fileId: identifier.id,
-				fileMediatype: fileItem.details.mediaType,
-				fileMimetype: fileItem.details.mimeType,
-				fileSize: fileItem.details.size,
-				fileStatus: 'processed',
-			};
-
-			expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-				action: 'succeeded',
-				actionSubject: 'mediaCardRender',
-				attributes: {
-					fileAttributes,
-					fileMimetype: 'image/svg+xml',
-					performanceAttributes: {
-						overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
-					},
-					ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
-					status: 'success',
-					metadataTraceContext: {
-						spanId: expect.any(String),
-						traceId: expect.any(String),
-					},
-					traceContext: { traceId: expect.any(String) },
-				},
-				eventType: 'operational',
-			});
-		});
-
-		it('should not render error screen when the preview fails to load', async () => {
-			const [fileItem, identifier] = generateSampleFileItem.svg();
-			const { mediaApi } = createMockedMediaApi(fileItem);
-
-			// The preview fails but the binary is OK. Card should not fail
-			mediaApi.getImage = () => {
-				throw createServerUnauthorizedError();
-			};
-
-			render(
-				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-					<CardLoader
-						mediaClientConfig={dummyMediaClientConfig}
-						identifier={identifier}
-						isLazy={false}
-						disableOverlay
-					/>
-				</MockedMediaClientProvider>,
-			);
-
-			const elem = await screen.findAllByTestId('media-card-svg');
-			expect(elem[0]).toBeDefined();
-			const imgElement = elem[0];
-			expect(imgElement.nodeName.toLowerCase()).toBe('img');
-
-			fireEvent.load(imgElement);
-
-			// card should completely process the file
-			await waitFor(async () =>
-				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
-					'data-test-status',
-					'complete',
-				),
-			);
-
-			// Analytics are broken for this case!
-			// TODO https://product-fabric.atlassian.net/browse/CXP-3578
-			/*
-			const fileAttributes = {
-				fileId: identifier.id,
-				fileMediatype: fileItem.details.mediaType,
-				fileMimetype: fileItem.details.mimeType,
-				fileSize: fileItem.details.size,
-				fileStatus: 'processed',
-			};
-
-			expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-				action: 'succeeded',
-				actionSubject: 'mediaCardRender',
-				attributes: {
-					fileAttributes,
-					fileMimetype: 'image/svg+xml',
-					performanceAttributes: {
-						overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
-					},
-					ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
-					status: 'success',
-					metadataTraceContext: {
-						spanId: expect.any(String),
-						traceId: expect.any(String),
-					},
-					traceContext: { traceId: expect.any(String) },
-				},
-				eventType: 'operational',
-			}); */
-		});
-
-		it('should not render error screen when the file failed processing', async () => {
-			const [fileItem, identifier] = generateSampleFileItem.svgFailedProcessing();
-			const { mediaApi } = createMockedMediaApi(fileItem);
-
-			render(
-				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-					<CardLoader
-						mediaClientConfig={dummyMediaClientConfig}
-						identifier={identifier}
-						isLazy={false}
-						disableOverlay
-					/>
-				</MockedMediaClientProvider>,
-			);
-
-			const elem = await screen.findAllByTestId('media-card-svg');
-			expect(elem[0]).toBeDefined();
-			const imgElement = elem[0];
-			expect(imgElement.nodeName.toLowerCase()).toBe('img');
-
-			fireEvent.load(imgElement);
-
-			// card should completely process the file
-			await waitFor(async () =>
-				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
-					'data-test-status',
-					'complete',
-				),
-			);
-
-			// Analytics are broken for this case!
-			// TODO https://product-fabric.atlassian.net/browse/CXP-3578
-			/*
-			const fileAttributes = {
-				fileId: identifier.id,
-				fileMediatype: fileItem.details.mediaType,
-				fileMimetype: fileItem.details.mimeType,
-				fileSize: fileItem.details.size,
-				fileStatus: 'processed',
-			};
-
-			expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-				action: 'succeeded',
-				actionSubject: 'mediaCardRender',
-				attributes: {
-					fileAttributes,
-					fileMimetype: 'image/svg+xml',
-					performanceAttributes: {
-						overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
-					},
-					ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
-					status: 'success',
-					metadataTraceContext: {
-						spanId: expect.any(String),
-						traceId: expect.any(String),
-					},
-					traceContext: { traceId: expect.any(String) },
-				},
-				eventType: 'operational',
-			}); */
-		});
-
-		it('should not render error screen when the file has no preview', async () => {
-			// The file item is "processed without preview"
-			const [fileItem, identifier] = generateSampleFileItem.svgWithoutPreview();
-			const { mediaApi } = createMockedMediaApi(fileItem);
-
-			render(
-				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-					<CardLoader
-						mediaClientConfig={dummyMediaClientConfig}
-						identifier={identifier}
-						isLazy={false}
-						disableOverlay
-					/>
-				</MockedMediaClientProvider>,
-			);
-
-			const elem = await screen.findAllByTestId('media-card-svg');
-			expect(elem[0]).toBeDefined();
-			const imgElement = elem[0];
-			expect(imgElement.nodeName.toLowerCase()).toBe('img');
-
-			fireEvent.load(imgElement);
-
-			// card should completely process the file
-			await waitFor(async () =>
-				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
-					'data-test-status',
-					'complete',
-				),
-			);
-
-			// Analytics are broken for this case!
-			// TODO https://product-fabric.atlassian.net/browse/CXP-3578
-			/*
-			const fileAttributes = {
-				fileId: identifier.id,
-				fileMediatype: fileItem.details.mediaType,
-				fileMimetype: fileItem.details.mimeType,
-				fileSize: fileItem.details.size,
-				fileStatus: 'processed',
-			};
-
-			expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-				action: 'succeeded',
-				actionSubject: 'mediaCardRender',
-				attributes: {
-					fileAttributes,
-					fileMimetype: 'image/svg+xml',
-					performanceAttributes: {
-						overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
-					},
-					ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
-					status: 'success',
-					metadataTraceContext: {
-						spanId: expect.any(String),
-						traceId: expect.any(String),
-					},
-					traceContext: { traceId: expect.any(String) },
-				},
-				eventType: 'operational',
-			}); */
-		});
-
-		it('should render error screen when SVG binary fails to load', async () => {
-			const [fileItem, identifier] = generateSampleFileItem.svg();
-			const { mediaApi } = createMockedMediaApi(fileItem);
-
-			// simulate error
-			mediaApi.getFileBinary = () => {
-				throw createServerUnauthorizedError();
-			};
-
-			render(
-				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-					<CardLoader
-						mediaClientConfig={dummyMediaClientConfig}
-						identifier={identifier}
-						isLazy={false}
-						disableOverlay
-					/>
-				</MockedMediaClientProvider>,
-			);
-
-			await waitFor(async () =>
-				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
-					'data-test-status',
-					'error',
-				),
-			);
-
-			const fileAttributes = {
-				fileId: identifier.id,
-				fileMediatype: fileItem.details.mediaType,
-				fileMimetype: fileItem.details.mimeType,
-				fileSize: fileItem.details.size,
-				fileStatus: 'processed',
-			};
-
-			await waitFor(() => {
-				expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-					action: 'failed',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						error: 'serverUnauthorized',
-						errorDetail: 'serverUnauthorized',
-						failReason: 'svg-binary-fetch',
-						fileAttributes,
-						fileMimetype: 'image/svg+xml',
-						performanceAttributes: {
-							overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
-						},
-						request: {
-							attempts: 5,
-							clientExhaustedRetries: true,
-							mediaEnv: 'test-media-env',
-							mediaRegion: 'test-media-region',
-							statusCode: 403,
-							traceContext: {
-								spanId: expect.any(String),
-								traceId: expect.any(String),
-							},
-						},
-						ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
-						status: 'fail',
-						metadataTraceContext: {
-							spanId: expect.any(String),
-							traceId: expect.any(String),
-						},
-						traceContext: { traceId: expect.any(String) },
-					},
-					eventType: 'operational',
-				});
-			});
-		});
-
-		it('should render error screen when image tag fails to render the file', async () => {
-			const [fileItem, identifier] = generateSampleFileItem.svg();
-			const { mediaApi } = createMockedMediaApi(fileItem);
-
-			render(
-				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
-					<CardLoader
-						mediaClientConfig={dummyMediaClientConfig}
-						identifier={identifier}
-						isLazy={false}
-						disableOverlay
-					/>
-				</MockedMediaClientProvider>,
-			);
-
-			const elem = await screen.findAllByTestId('media-card-svg');
-			expect(elem[0]).toBeDefined();
-			const imgElement = elem[0];
-			expect(imgElement.nodeName.toLowerCase()).toBe('img');
-			fireEvent.error(imgElement);
-
-			await waitFor(async () =>
-				expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
-					'data-test-status',
-					'error',
-				),
-			);
-
-			const fileAttributes = {
-				fileId: identifier.id,
-				fileMediatype: fileItem.details.mediaType,
-				fileMimetype: fileItem.details.mimeType,
-				fileSize: fileItem.details.size,
-				fileStatus: 'processed',
-			};
-
-			await waitFor(() => {
-				expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
-					action: 'failed',
-					actionSubject: 'mediaCardRender',
-					attributes: {
-						error: 'nativeError',
-						errorDetail: 'svg-img-error',
-						failReason: 'svg-img-error',
-						fileAttributes,
-						fileMimetype: 'image/svg+xml',
-						performanceAttributes: {
-							overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
-						},
-						ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
-						status: 'fail',
-						metadataTraceContext: {
-							spanId: expect.any(String),
-							traceId: expect.any(String),
-						},
-						traceContext: { traceId: expect.any(String) },
-					},
-					eventType: 'operational',
-				});
-			});
-		});
-
-		describe('should render SVG with correct resizing styles', () => {
-			async function renderSvgCard(imgElement: HTMLImageElement, resizeMode: string) {
+	describe.each([true, false])('SVG', (disableOverlay) => {
+		ffTest.on('platform_media_group_svg', 'SVG Flag ON', () => {
+			it('should render SVG natively', async () => {
 				const [fileItem, identifier] = generateSampleFileItem.svg();
 				const { mediaApi } = createMockedMediaApi(fileItem);
-				const parentElement = {
-					getBoundingClientRect: () => ({ width: 1200, height: 800 }),
-				} as unknown as HTMLElement; // 1.5:1 aspect ratio
-
-				calculateSvgDimensionsMock.mockImplementationOnce(() => {
-					return svgHelpersModule.calculateSvgDimensions(
-						imgElement,
-						parentElement,
-						resizeMode as ImageResizeMode,
-					);
-				});
 
 				render(
 					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
@@ -5121,96 +4726,483 @@ describe('Card ', () => {
 							mediaClientConfig={dummyMediaClientConfig}
 							identifier={identifier}
 							isLazy={false}
-							disableOverlay
+							disableOverlay={disableOverlay}
 						/>
 					</MockedMediaClientProvider>,
 				);
 
 				const elem = await screen.findAllByTestId('media-card-svg');
-				return elem[0];
-			}
+				expect(elem[0]).toBeDefined();
+				const imgElement = elem[0];
+				expect(imgElement.nodeName.toLowerCase()).toBe('img');
 
-			describe('Image is same aspect ratio or more landscape than parent wrapper', () => {
-				const imgElement = {
-					naturalWidth: 1600,
-					width: 1600,
-					naturalHeight: 800,
-					height: 800,
-				} as HTMLImageElement; // 2:1 aspect ratio
+				fireEvent.load(imgElement);
 
-				it.each([
-					['fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
-					['full-fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
-					['crop', { height: '800px', maxHeight: '100%' }],
-					['stretchy-fit', { width: '100%', maxHeight: '100%' }],
-				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
-					const imgElem = await renderSvgCard(imgElement, resizeMode);
-					expect(imgElem.nodeName.toLowerCase()).toBe('img');
-					fireEvent.load(imgElem);
-					expect(imgElem).toHaveStyle(expectedStyle);
+				// card should completely process the file
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
+				);
+
+				const fileAttributes = {
+					fileId: identifier.id,
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileSize: fileItem.details.size,
+					fileStatus: 'processed',
+				};
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+					action: 'succeeded',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileAttributes,
+						fileMimetype: 'image/svg+xml',
+						performanceAttributes: {
+							overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+						},
+						ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
+						status: 'success',
+						metadataTraceContext: {
+							spanId: expect.any(String),
+							traceId: expect.any(String),
+						},
+						traceContext: { traceId: expect.any(String) },
+					},
+					eventType: 'operational',
 				});
 			});
 
-			describe('Image is more portrait than parent wrapper', () => {
-				const imgElement = {
-					naturalWidth: 800,
-					width: 800,
-					naturalHeight: 1600,
-					height: 1600,
-				} as HTMLImageElement; // 1:2 aspect ratio
+			it('should not render error screen when the preview fails to load', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.svg();
+				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				it.each([
-					['fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
-					['full-fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
-					['crop', { width: '800px', maxWidth: '100%' }],
-					['stretchy-fit', { height: '100%', maxWidth: '100%' }],
-				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
-					const imgElem = await renderSvgCard(imgElement, resizeMode);
-					expect(imgElem.nodeName.toLowerCase()).toBe('img');
-					fireEvent.load(imgElem);
-					expect(imgElem).toHaveStyle(expectedStyle);
+				// The preview fails but the binary is OK. Card should not fail
+				mediaApi.getImage = () => {
+					throw createServerUnauthorizedError();
+				};
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+							disableOverlay={disableOverlay}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				const elem = await screen.findAllByTestId('media-card-svg');
+				expect(elem[0]).toBeDefined();
+				const imgElement = elem[0];
+				expect(imgElement.nodeName.toLowerCase()).toBe('img');
+
+				fireEvent.load(imgElement);
+
+				// card should completely process the file
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
+				);
+
+				const fileAttributes = {
+					fileId: identifier.id,
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileSize: fileItem.details.size,
+					fileStatus: 'processed',
+				};
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+					action: 'succeeded',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileAttributes,
+						fileMimetype: 'image/svg+xml',
+						performanceAttributes: {
+							overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+						},
+						ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
+						status: 'success',
+						metadataTraceContext: {
+							spanId: expect.any(String),
+							traceId: expect.any(String),
+						},
+						traceContext: { traceId: expect.any(String) },
+					},
+					eventType: 'operational',
 				});
 			});
 
-			describe('Image natural dimensions are 0 and is more landscape than parent wrapper', () => {
-				const imgElement = {
-					naturalWidth: 0,
-					width: 1600,
-					naturalHeight: 0,
-					height: 800,
-				} as HTMLImageElement; // 2:1 aspect ratio
+			it('should not render error screen when the file failed processing', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.svgFailedProcessing();
+				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				it.each([
-					['fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
-					['full-fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
-					['crop', { height: '800px', maxHeight: '100%' }],
-					['stretchy-fit', { width: '100%', maxHeight: '100%' }],
-				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
-					const imgElem = await renderSvgCard(imgElement, resizeMode);
-					expect(imgElem.nodeName.toLowerCase()).toBe('img');
-					fireEvent.load(imgElem);
-					expect(imgElem).toHaveStyle(expectedStyle);
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+							disableOverlay={disableOverlay}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				const elem = await screen.findAllByTestId('media-card-svg');
+				expect(elem[0]).toBeDefined();
+				const imgElement = elem[0];
+				expect(imgElement.nodeName.toLowerCase()).toBe('img');
+
+				fireEvent.load(imgElement);
+
+				// card should completely process the file
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
+				);
+
+				const fileAttributes = {
+					fileId: identifier.id,
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileSize: fileItem.details.size,
+					fileStatus: 'failed-processing',
+				};
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+					action: 'succeeded',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileAttributes,
+						fileMimetype: 'image/svg+xml',
+						performanceAttributes: {
+							overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+						},
+						ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
+						status: 'success',
+						metadataTraceContext: {
+							spanId: expect.any(String),
+							traceId: expect.any(String),
+						},
+						traceContext: { traceId: expect.any(String) },
+					},
+					eventType: 'operational',
 				});
 			});
 
-			describe('Image natural dimensions are 0 and is more portrait than parent wrapper', () => {
-				const imgElement = {
-					naturalWidth: 0,
-					width: 800,
-					naturalHeight: 0,
-					height: 1600,
-				} as HTMLImageElement; // 1:2 aspect ratio
+			it('should not render error screen when the file has no preview', async () => {
+				// The file item is "processed without preview"
+				const [fileItem, identifier] = generateSampleFileItem.svgWithoutPreview();
+				const { mediaApi } = createMockedMediaApi(fileItem);
 
-				it.each([
-					['fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
-					['full-fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
-					['crop', { width: '800px', maxWidth: '100%' }],
-					['stretchy-fit', { height: '100%', maxWidth: '100%' }],
-				])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
-					const imgElem = await renderSvgCard(imgElement, resizeMode);
-					expect(imgElem.nodeName.toLowerCase()).toBe('img');
-					fireEvent.load(imgElem);
-					expect(imgElem).toHaveStyle(expectedStyle);
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+							disableOverlay={disableOverlay}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				const elem = await screen.findAllByTestId('media-card-svg');
+				expect(elem[0]).toBeDefined();
+				const imgElement = elem[0];
+				expect(imgElement.nodeName.toLowerCase()).toBe('img');
+
+				fireEvent.load(imgElement);
+
+				// card should completely process the file
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
+				);
+
+				const fileAttributes = {
+					fileId: identifier.id,
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileSize: fileItem.details.size,
+					fileStatus: 'processed',
+				};
+
+				expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+					action: 'succeeded',
+					actionSubject: 'mediaCardRender',
+					attributes: {
+						fileAttributes,
+						fileMimetype: 'image/svg+xml',
+						performanceAttributes: {
+							overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+						},
+						ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
+						status: 'success',
+						metadataTraceContext: {
+							spanId: expect.any(String),
+							traceId: expect.any(String),
+						},
+						traceContext: { traceId: expect.any(String) },
+					},
+					eventType: 'operational',
+				});
+			});
+
+			it('should render error screen when SVG binary fails to load', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.svg();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				// simulate error
+				jest.spyOn(mediaApi, 'getFileBinary').mockRejectedValue(createServerUnauthorizedError());
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+							disableOverlay={disableOverlay}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
+				);
+
+				const fileAttributes = {
+					fileId: identifier.id,
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileSize: fileItem.details.size,
+					fileStatus: 'processed',
+				};
+
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+						action: 'failed',
+						actionSubject: 'mediaCardRender',
+						attributes: {
+							error: 'serverUnauthorized',
+							errorDetail: 'serverUnauthorized',
+							failReason: 'svg-binary-fetch',
+							fileAttributes,
+							fileMimetype: 'image/svg+xml',
+							performanceAttributes: {
+								overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+							},
+							request: {
+								attempts: 5,
+								clientExhaustedRetries: true,
+								mediaEnv: 'test-media-env',
+								mediaRegion: 'test-media-region',
+								statusCode: 403,
+								traceContext: {
+									spanId: expect.any(String),
+									traceId: expect.any(String),
+								},
+							},
+							ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
+							status: 'fail',
+							metadataTraceContext: {
+								spanId: expect.any(String),
+								traceId: expect.any(String),
+							},
+							traceContext: { traceId: expect.any(String) },
+						},
+						eventType: 'operational',
+					});
+				});
+			});
+
+			it('should render error screen when image tag fails to render the file', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.svg();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+							disableOverlay={disableOverlay}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				const elem = await screen.findAllByTestId('media-card-svg');
+				expect(elem[0]).toBeDefined();
+				const imgElement = elem[0];
+				expect(imgElement.nodeName.toLowerCase()).toBe('img');
+				fireEvent.error(imgElement);
+
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'error',
+					),
+				);
+
+				const fileAttributes = {
+					fileId: identifier.id,
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileSize: fileItem.details.size,
+					fileStatus: 'processed',
+				};
+
+				await waitFor(() => {
+					expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+						action: 'failed',
+						actionSubject: 'mediaCardRender',
+						attributes: {
+							error: 'nativeError',
+							errorDetail: 'svg-img-error',
+							failReason: 'svg-img-error',
+							fileAttributes,
+							fileMimetype: 'image/svg+xml',
+							performanceAttributes: {
+								overall: { durationSinceCommenced: 0, durationSincePageStart: 1000 },
+							},
+							ssrReliability: { client: { status: 'unknown' }, server: { status: 'unknown' } },
+							status: 'fail',
+							metadataTraceContext: {
+								spanId: expect.any(String),
+								traceId: expect.any(String),
+							},
+							traceContext: { traceId: expect.any(String) },
+						},
+						eventType: 'operational',
+					});
+				});
+			});
+
+			describe('should render SVG with correct resizing styles', () => {
+				async function renderSvgCard(imgElement: HTMLImageElement, resizeMode: string) {
+					const [fileItem, identifier] = generateSampleFileItem.svg();
+					const { mediaApi } = createMockedMediaApi(fileItem);
+					const parentElement = {
+						getBoundingClientRect: () => ({ width: 1200, height: 800 }),
+					} as unknown as HTMLElement; // 1.5:1 aspect ratio
+
+					calculateSvgDimensionsMock.mockImplementationOnce(() => {
+						return svgHelpersModule.calculateSvgDimensions(
+							imgElement,
+							parentElement,
+							resizeMode as ImageResizeMode,
+						);
+					});
+
+					render(
+						<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+							<CardLoader
+								mediaClientConfig={dummyMediaClientConfig}
+								identifier={identifier}
+								isLazy={false}
+								disableOverlay={disableOverlay}
+							/>
+						</MockedMediaClientProvider>,
+					);
+
+					const elem = await screen.findAllByTestId('media-card-svg');
+					return elem[0];
+				}
+
+				describe('Image is same aspect ratio or more landscape than parent wrapper', () => {
+					const imgElement = {
+						naturalWidth: 1600,
+						width: 1600,
+						naturalHeight: 800,
+						height: 800,
+					} as HTMLImageElement; // 2:1 aspect ratio
+
+					it.each([
+						['fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
+						['full-fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
+						['crop', { height: '800px', maxHeight: '100%' }],
+						['stretchy-fit', { width: '100%', maxHeight: '100%' }],
+					])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
+						const imgElem = await renderSvgCard(imgElement, resizeMode);
+						expect(imgElem.nodeName.toLowerCase()).toBe('img');
+						fireEvent.load(imgElem);
+						expect(imgElem).toHaveStyle(expectedStyle);
+					});
+				});
+
+				describe('Image is more portrait than parent wrapper', () => {
+					const imgElement = {
+						naturalWidth: 800,
+						width: 800,
+						naturalHeight: 1600,
+						height: 1600,
+					} as HTMLImageElement; // 1:2 aspect ratio
+
+					it.each([
+						['fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
+						['full-fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
+						['crop', { width: '800px', maxWidth: '100%' }],
+						['stretchy-fit', { height: '100%', maxWidth: '100%' }],
+					])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
+						const imgElem = await renderSvgCard(imgElement, resizeMode);
+						expect(imgElem.nodeName.toLowerCase()).toBe('img');
+						fireEvent.load(imgElem);
+						expect(imgElem).toHaveStyle(expectedStyle);
+					});
+				});
+
+				describe('Image natural dimensions are 0 and is more landscape than parent wrapper', () => {
+					const imgElement = {
+						naturalWidth: 0,
+						width: 1600,
+						naturalHeight: 0,
+						height: 800,
+					} as HTMLImageElement; // 2:1 aspect ratio
+
+					it.each([
+						['fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
+						['full-fit', { maxWidth: 'min(100%, 1600px)', maxHeight: 'min(100%, 800px)' }],
+						['crop', { height: '800px', maxHeight: '100%' }],
+						['stretchy-fit', { width: '100%', maxHeight: '100%' }],
+					])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
+						const imgElem = await renderSvgCard(imgElement, resizeMode);
+						expect(imgElem.nodeName.toLowerCase()).toBe('img');
+						fireEvent.load(imgElem);
+						expect(imgElem).toHaveStyle(expectedStyle);
+					});
+				});
+
+				describe('Image natural dimensions are 0 and is more portrait than parent wrapper', () => {
+					const imgElement = {
+						naturalWidth: 0,
+						width: 800,
+						naturalHeight: 0,
+						height: 1600,
+					} as HTMLImageElement; // 1:2 aspect ratio
+
+					it.each([
+						['fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
+						['full-fit', { maxWidth: 'min(100%, 800px)', maxHeight: 'min(100%, 1600px)' }],
+						['crop', { width: '800px', maxWidth: '100%' }],
+						['stretchy-fit', { height: '100%', maxWidth: '100%' }],
+					])('returns correct style for %s mode', async (resizeMode, expectedStyle) => {
+						const imgElem = await renderSvgCard(imgElement, resizeMode);
+						expect(imgElem.nodeName.toLowerCase()).toBe('img');
+						fireEvent.load(imgElem);
+						expect(imgElem).toHaveStyle(expectedStyle);
+					});
 				});
 			});
 		});

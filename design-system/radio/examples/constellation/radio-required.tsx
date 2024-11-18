@@ -2,8 +2,8 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter } from '@atlaskit/form';
+import { RadioGroup } from '@atlaskit/radio';
 
-import { RadioGroup } from '../../src';
 import { type OptionsPropType } from '../../src/types';
 
 const colorItems: OptionsPropType = [

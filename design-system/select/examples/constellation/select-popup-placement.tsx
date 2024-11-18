@@ -2,8 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-
-import { PopupSelect } from '../../src';
+import { PopupSelect } from '@atlaskit/select';
 
 const options = [
 	{

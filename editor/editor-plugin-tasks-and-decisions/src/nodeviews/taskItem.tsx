@@ -38,6 +38,7 @@ type ForwardRef = (node: HTMLElement | null) => void;
 type getPosHandler = getPosHandlerNode | boolean;
 type getPosHandlerNode = () => number | undefined;
 export interface Props {
+	placeholder?: string;
 	providerFactory: ProviderFactory;
 }
 
@@ -45,6 +46,7 @@ type TaskItemWrapperProps = {
 	localId: string;
 	forwardRef: ForwardRef;
 	isContentNodeEmpty: boolean;
+	placeholder?: string;
 	providerFactory: ProviderFactory;
 	isDone: boolean;
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined;
@@ -134,6 +136,7 @@ const TaskItemWrapper = ({
 	forwardRef,
 	isDone,
 	onChange,
+	placeholder,
 	providerFactory,
 	isContentNodeEmpty,
 	api,
@@ -214,6 +217,7 @@ const TaskItemWrapper = ({
 				onChange={onChange}
 				isFocused={isFocused}
 				showPlaceholder={showPlaceholder}
+				placeholder={placeholder}
 				providers={providerFactory}
 				api={api}
 			/>
@@ -267,6 +271,7 @@ const TaskItemWrapper = ({
 						onClick={onHandleClick}
 						isFocused={isFocused}
 						showPlaceholder={showPlaceholder}
+						placeholder={placeholder}
 						providers={providerFactory}
 						disableOnChange={!api?.taskDecision?.sharedState.currentState()?.hasEditPermission}
 						api={api}
@@ -404,6 +409,7 @@ class Task extends ReactNodeView<Props> {
 					isDone={state === 'DONE'}
 					onChange={this.handleOnChange}
 					isContentNodeEmpty={isContentNodeEmpty}
+					placeholder={props.placeholder}
 					providerFactory={props.providerFactory}
 					// The getPosHandler type is wrong, there is no `boolean` in the real implementation
 					// @ts-expect-error 2322: Type 'getPosHandler' is not assignable to type '() => number | undefined'.
@@ -444,9 +450,11 @@ export function taskItemNodeViewFactory(
 	eventDispatcher: EventDispatcher,
 	providerFactory: ProviderFactory,
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
+	placeholder?: string,
 ) {
 	return (node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
 		return new Task(node, view, getPos, portalProviderAPI, eventDispatcher, {
+			placeholder,
 			providerFactory,
 		}).initWithAPI(api);
 	};

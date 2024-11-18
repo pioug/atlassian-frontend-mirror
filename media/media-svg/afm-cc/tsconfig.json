@@ -18,10 +18,16 @@
     ],
     "references": [
         {
+            "path": "../../../design-system/css/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../media-client/afm-cc/tsconfig.json"
         },
         {
             "path": "../../media-client-react/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../design-system/spinner/afm-cc/tsconfig.json"

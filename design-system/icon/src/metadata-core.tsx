@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `UNSAFE_createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::ac7f367e690af67950a58d9f31ed30f7>>
+ * @codegen <<SignedSource::c4b8aee35aca4112c22d6141c23cd08f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -280,7 +280,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/arrow-down-right',
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: 'Multi purpose',
+		usage: 'Known uses: TBC',
 		team: 'Design System Team',
 	},
 	'arrow-left': {
@@ -338,7 +338,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/arrow-up-left',
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: 'Multi purpose',
+		usage: 'Known uses: TBC',
 		team: 'Design System Team',
 	},
 	'arrow-up-right': {
@@ -1962,7 +1962,7 @@ const metadata: Record<string, metadata> = {
 		team: 'Design System Team',
 	},
 	highlight: {
-		keywords: ['highlight', 'icon', 'core', ' highlight', 'highlighter', 'stabilo', 'pen'],
+		keywords: ['highlight', 'icon', 'core', 'highlight', 'highlighter', 'stabilo', 'pen'],
 		componentName: 'HighlightIcon',
 		package: '@atlaskit/icon/core/highlight',
 		type: 'core',
@@ -3402,7 +3402,7 @@ const metadata: Record<string, metadata> = {
 		package: '@atlaskit/icon/core/screen-plus',
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: 'Multi purpose',
+		usage: 'Known uses: TBC',
 		team: 'Design System Team',
 	},
 	search: {
@@ -4530,7 +4530,7 @@ const metadata: Record<string, metadata> = {
 		],
 		type: 'core',
 		categorization: 'single-purpose',
-		usage: 'Single purpose - Reserved for video in Media.',
+		usage: 'Single purpose - Reserved for representing video content across Atlassian and Loom.',
 		team: 'Design System Team',
 	},
 	'video-next': {

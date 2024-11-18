@@ -9,8 +9,8 @@ import customMd from '../../utils/custom-md';
 
 const WarningMessage = (): JSX.Element => (
 	<SectionMessage appearance="information">
-		All Linking Platform events are currently fired on the <code>media</code> channel which we share
-		with Media Platform, so we also share the Media Platform analytics listeners.
+		All Linking events are currently fired on the <code>media</code> channel which we share with
+		Media Platform, so we also share the Media Platform analytics listeners.
 	</SectionMessage>
 );
 

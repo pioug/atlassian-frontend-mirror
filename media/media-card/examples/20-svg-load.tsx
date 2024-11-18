@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { type FileIdentifier, type MediaClientConfig } from '@atlaskit/media-client';
+import {
+	type ImageResizeMode,
+	type FileIdentifier,
+	type MediaClientConfig,
+} from '@atlaskit/media-client';
 import { Card } from '../src';
 import { usePrepareMediaState } from '../src/__tests__/utils/mockedMediaClientProvider/_usePrepareMediaState';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data';
@@ -19,74 +23,80 @@ import {
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
-const Example = ({ identifiers }: { identifiers: FileIdentifier[] }) => {
+const resizeModes: ImageResizeMode[] = ['crop', 'fit', 'full-fit', 'stretchy-fit'];
+
+const RenderCardBlock = ({
+	identifier,
+	identifiers,
+	disableOverlay,
+}: {
+	identifier: FileIdentifier;
+	identifiers: FileIdentifier[];
+	disableOverlay: boolean;
+}) => {
+	return (
+		<CardRow>
+			{resizeModes.map((resizeMode) => (
+				<CardBox key={`${identifier.id}-${resizeMode}`} title={resizeMode}>
+					<Card
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						isLazy={false}
+						shouldOpenMediaViewer
+						mediaViewerItems={identifiers}
+						disableOverlay={disableOverlay}
+						resizeMode={resizeMode}
+					/>
+				</CardBox>
+			))}
+		</CardRow>
+	);
+};
+
+const Example = ({
+	identifiers,
+	disableOverlay,
+}: {
+	identifiers: FileIdentifier[];
+	disableOverlay: boolean;
+}) => {
 	return (
 		<div>
 			{identifiers.map((identifier, index) => (
-				<CardRow key={`cardRow-${index}`}>
-					<CardBox title="crop">
-						<Card
-							mediaClientConfig={dummyMediaClientConfig}
-							identifier={identifier}
-							isLazy={false}
-							shouldOpenMediaViewer
-							mediaViewerItems={identifiers}
-							disableOverlay
-							resizeMode="crop"
-						/>
-					</CardBox>
-					<CardBox title="fit">
-						<Card
-							mediaClientConfig={dummyMediaClientConfig}
-							identifier={identifier}
-							isLazy={false}
-							shouldOpenMediaViewer
-							mediaViewerItems={identifiers}
-							disableOverlay
-							resizeMode="fit"
-						/>
-					</CardBox>
-					<CardBox title="full-fit">
-						<Card
-							mediaClientConfig={dummyMediaClientConfig}
-							identifier={identifier}
-							isLazy={false}
-							shouldOpenMediaViewer
-							mediaViewerItems={identifiers}
-							disableOverlay
-							resizeMode="full-fit"
-						/>
-					</CardBox>
-					<CardBox title="stretchy-fit">
-						<Card
-							mediaClientConfig={dummyMediaClientConfig}
-							identifier={identifier}
-							isLazy={false}
-							shouldOpenMediaViewer
-							mediaViewerItems={identifiers}
-							disableOverlay
-							resizeMode="stretchy-fit"
-						/>
-					</CardBox>
-				</CardRow>
+				<RenderCardBlock
+					key={`cardRow-${index}`}
+					identifier={identifier}
+					identifiers={identifiers}
+					disableOverlay={disableOverlay}
+				/>
 			))}
 		</div>
 	);
 };
 
-const { svgAjDigitalCamera, svgCar, svgAtom, svgOpenWeb } = generateItemWithBinaries.svg;
-const generators = [svgAjDigitalCamera, svgCar, svgAtom, svgOpenWeb];
+const { svgAjDigitalCamera, svgCar, svgAtom, svgOpenWeb, failedProcessing, binaryCorrupted } =
+	generateItemWithBinaries.svg;
+const generators = [
+	svgAjDigitalCamera,
+	svgCar,
+	svgAtom,
+	svgOpenWeb,
+	failedProcessing,
+	binaryCorrupted,
+];
 
 const MockedProvider = ({
 	delayedPreview,
 	uploadingFile,
 	binaryFetchError,
 	imageFetchError,
+	disableOverlay,
 }: {
 	delayedPreview?: boolean;
 	uploadingFile?: boolean;
 	binaryFetchError: boolean;
 	imageFetchError: boolean;
+	disableOverlay: boolean;
 }) => {
 	const [{ MockedMediaClientProvider, mediaApi, uploadItem }, identifiers, itemsWithBinaries] =
 		usePrepareMediaState(generators);
@@ -119,18 +129,18 @@ const MockedProvider = ({
 
 	return (
 		<MockedMediaClientProvider>
-			<Example identifiers={identifiers} />
+			<Example identifiers={identifiers} disableOverlay={disableOverlay} />
 		</MockedMediaClientProvider>
 	);
 };
 
-const BackendProvider = () => {
+const BackendProvider = ({ disableOverlay }: { disableOverlay: boolean }) => {
 	const mediaClientConfig = createStorybookMediaClientConfig();
 	const identifiers = Object.values(svgFileIds);
 
 	return (
 		<MediaClientProvider clientConfig={mediaClientConfig}>
-			<Example identifiers={identifiers} />
+			<Example identifiers={identifiers} disableOverlay={disableOverlay} />
 		</MediaClientProvider>
 	);
 };
@@ -138,12 +148,14 @@ const BackendProvider = () => {
 export default function () {
 	const [reloadKey, setReloadkey] = useState(0);
 	const [useMockedAPI, setUseMockedAPI] = useState(false);
+	const [disableOverlay, setDisableOverlay] = useState(true);
 	const [delayedPreview, setDelayedPreview] = useState(false);
 	const [uploadingFile, setUploadingFile] = useState(false);
 	const [binaryFetchError, setBinaryFetchError] = useState(false);
 	const [imageFetchError, setImageFetchError] = useState(false);
 	return (
 		<MainWrapper disableFeatureFlagWrapper>
+			<ToggleBox label="Disable Overlay" isChecked={disableOverlay} onChange={setDisableOverlay} />
 			<ToggleBox label="Use mocked api" isChecked={useMockedAPI} onChange={setUseMockedAPI} />
 			{useMockedAPI && (
 				<>
@@ -203,9 +215,10 @@ export default function () {
 					uploadingFile={uploadingFile}
 					binaryFetchError={binaryFetchError}
 					imageFetchError={imageFetchError}
+					disableOverlay={disableOverlay}
 				/>
 			) : (
-				<BackendProvider key={`${reloadKey}`} />
+				<BackendProvider key={`${reloadKey}`} disableOverlay={disableOverlay} />
 			)}
 		</MainWrapper>
 	);

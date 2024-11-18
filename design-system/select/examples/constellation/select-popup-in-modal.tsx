@@ -5,8 +5,7 @@ import Button from '@atlaskit/button/new';
 import Drawer from '@atlaskit/drawer';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
-
-import { PopupSelect } from '../../src';
+import { PopupSelect } from '@atlaskit/select';
 
 const options = [
 	{ label: 'Adelaide', value: 'adelaide' },

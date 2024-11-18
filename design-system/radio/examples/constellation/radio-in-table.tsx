@@ -8,9 +8,8 @@ import { type SyntheticEvent, useCallback, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import { Box, xcss } from '@atlaskit/primitives';
+import { Radio } from '@atlaskit/radio';
 import { token } from '@atlaskit/tokens';
-
-import { Radio } from '../../src';
 
 interface RadioOptions {
 	id: number;

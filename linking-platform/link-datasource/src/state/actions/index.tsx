@@ -273,9 +273,14 @@ export const useExecuteAtomicAction = ({
 
 	const { executeAtomicAction: executeAction, invalidateDatasourceDataCacheByAri } =
 		useDatasourceClientExtension();
-
+	const loggerProps = useMemo(
+		() => ({
+			integrationKey,
+		}),
+		[integrationKey],
+	);
+	const { captureError } = useErrorLogger(loggerProps);
 	const { fireEvent } = useDatasourceAnalyticsEvents();
-	const { captureError } = useErrorLogger({ integrationKey });
 
 	const execute = useCallback(
 		(value: string | number) => {

@@ -5,7 +5,6 @@ import { render, waitFor } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
@@ -156,34 +155,19 @@ describe('TableFooter', () => {
 		expect(footer).toBeInTheDocument();
 	});
 
-	ffTest.on('platform.linking-platform.datasource.limit-total-results_8wqcd', 'flag is on', () => {
-		it('should show 1000+ with Assets DatasourceId', async () => {
-			const { queryByTestId } = renderAssetsFooter(false, 1250, mockOnRefresh);
-			const itemCount = queryByTestId('item-count');
+	it('should show 1000+ with Assets DatasourceId', async () => {
+		const { queryByTestId } = renderAssetsFooter(false, 1250, mockOnRefresh);
+		const itemCount = queryByTestId('item-count');
 
-			expect(itemCount).toHaveTextContent('1,000+ items');
-		});
-
-		it('should show full count with non-Assets DatasourceId', async () => {
-			const { queryByTestId } = renderFooter(false, 1250, mockOnRefresh);
-			const itemCount = queryByTestId('item-count');
-
-			expect(itemCount).toHaveTextContent('1,250 items');
-		});
+		expect(itemCount).toHaveTextContent('1,000+ items');
 	});
 
-	ffTest.off(
-		'platform.linking-platform.datasource.limit-total-results_8wqcd',
-		'flag is off',
-		() => {
-			it('should show full count with Assets DatasourceId', async () => {
-				const { queryByTestId } = renderAssetsFooter(false, 1250, mockOnRefresh);
-				const itemCount = queryByTestId('item-count');
+	it('should show full count with non-Assets DatasourceId', async () => {
+		const { queryByTestId } = renderFooter(false, 1250, mockOnRefresh);
+		const itemCount = queryByTestId('item-count');
 
-				expect(itemCount).toHaveTextContent('1,250 items');
-			});
-		},
-	);
+		expect(itemCount).toHaveTextContent('1,250 items');
+	});
 
 	it('should render the powered by JSM Assets link with Assets DatasourceId', async () => {
 		const { queryByTestId } = renderAssetsFooter(false, 25, mockOnRefresh);

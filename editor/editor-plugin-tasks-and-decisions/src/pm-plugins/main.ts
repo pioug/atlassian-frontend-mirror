@@ -56,11 +56,18 @@ export function createPlugin(
 	hasEditPermission?: boolean,
 	hasRequestedEditPermission?: boolean,
 	requestToEditContent?: () => void,
+	taskPlaceholder?: string,
 ) {
 	return new SafePlugin<TaskDecisionPluginState>({
 		props: {
 			nodeViews: {
-				taskItem: lazyTaskView(portalProviderAPI, eventDispatcher, providerFactory, api),
+				taskItem: lazyTaskView(
+					portalProviderAPI,
+					eventDispatcher,
+					providerFactory,
+					api,
+					taskPlaceholder,
+				),
 				decisionItem: lazyDecisionView(portalProviderAPI, eventDispatcher, api),
 			},
 			handleTextInput(view: EditorView, from: number, to: number, text: string) {

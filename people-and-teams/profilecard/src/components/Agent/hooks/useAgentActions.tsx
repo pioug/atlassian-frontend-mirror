@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
 
 import { getATLContextUrl } from '@atlaskit/atlassian-context';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { useRovoPostMessageToPubsub } from '@atlaskit/rovo-triggers';
 
 import { encodeParamsToUrl } from '../../../util/url';
 
@@ -21,6 +23,8 @@ const createRovoParams = (params: {
 };
 
 export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
+	const { publishWithPostMessage } = useRovoPostMessageToPubsub();
+
 	const onEditAgent = useCallback(
 		(agentId: string) => {
 			const url = `${getATLContextUrl('home')}/chat/agents/${agentId}/edit`;
@@ -51,21 +55,66 @@ export const useAgentUrlActions = ({ cloudId }: { cloudId: string }) => {
 	);
 
 	const onConversationStarter = ({ agentId, prompt }: { agentId: string; prompt: string }) => {
-		const baseUrl = `${getATLContextUrl('home')}/chat`;
-		const urlWithParams = encodeParamsToUrl(baseUrl, {
-			cloudId,
-			...createRovoParams({ cloudId, agentId, prompt, pathway: 'chat' }),
-		});
-		window.open(urlWithParams, '_blank', 'noopener, noreferrer');
+		const startConversationInNewTab = () => {
+			const baseUrl = `${getATLContextUrl('home')}/chat`;
+			const urlWithParams = encodeParamsToUrl(baseUrl, {
+				cloudId,
+				...createRovoParams({ cloudId, agentId, prompt, pathway: 'chat' }),
+			});
+			window.open(urlWithParams, '_blank', 'noopener, noreferrer');
+		};
+
+		if (fg('rovo_profile_card_open_chat_sidebar')) {
+			publishWithPostMessage({
+				targetWindow: window,
+				payload: {
+					type: 'chat-new',
+					source: 'AgentProfileCard',
+					data: {
+						name: prompt.slice(0, 50),
+						prompt,
+						agentId,
+						dialogues: [],
+					},
+				},
+				onAcknowledgeTimeout: () => {
+					startConversationInNewTab();
+				},
+			});
+		} else {
+			startConversationInNewTab();
+		}
 	};
 
-	const onOpenChat = (agentId: string) => {
-		const baseUrl = `${getATLContextUrl('home')}/chat`;
-		const urlWithParams = encodeParamsToUrl(baseUrl, {
-			cloudId,
-			...createRovoParams({ cloudId, agentId }),
-		});
-		window.open(urlWithParams, '_blank', 'noopener, noreferrer');
+	const onOpenChat = (agentId: string, agentName: string) => {
+		const openChatInNewTab = () => {
+			const baseUrl = `${getATLContextUrl('home')}/chat`;
+			const urlWithParams = encodeParamsToUrl(baseUrl, {
+				cloudId,
+				...createRovoParams({ cloudId, agentId }),
+			});
+			window.open(urlWithParams, '_blank', 'noopener, noreferrer');
+		};
+
+		if (fg('rovo_profile_card_open_chat_sidebar')) {
+			publishWithPostMessage({
+				targetWindow: window,
+				payload: {
+					type: 'chat-new',
+					source: 'AgentProfileCard',
+					data: {
+						agentId,
+						dialogues: [],
+						name: `Chat with ${agentName}`,
+					},
+				},
+				onAcknowledgeTimeout: () => {
+					openChatInNewTab();
+				},
+			});
+		} else {
+			openChatInNewTab();
+		}
 	};
 
 	const onViewFullProfile = (agentId: string) => {

@@ -1,5 +1,13 @@
 # @atlaskit/media-svg
 
+## 1.0.0
+
+### Major Changes
+
+- [#164428](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164428)
+  [`761b92064afd6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/761b92064afd6) -
+  Migrates Media SVG to Compiled CSS behind a feature flag.
+
 ## 0.2.1
 
 ### Patch Changes

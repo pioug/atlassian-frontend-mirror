@@ -1,8 +1,7 @@
 import React from 'react';
 
+import ProgressBar from '@atlaskit/progress-bar';
 import { token } from '@atlaskit/tokens';
-
-import ProgressBar from '../src';
 
 export const progress = 0.4;
 export const containerStyle: React.CSSProperties = {

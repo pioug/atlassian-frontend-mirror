@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { TransparentProgressBar } from '../../src';
+import { TransparentProgressBar } from '@atlaskit/progress-bar';
 
 const TransparentProgressBarIndeterminateExample = () => {
 	return <TransparentProgressBar ariaLabel="Loading issues" isIndeterminate />;

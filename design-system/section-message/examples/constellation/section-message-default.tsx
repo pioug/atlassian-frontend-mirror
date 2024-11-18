@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SectionMessage, { SectionMessageAction } from '../../src';
+import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 
 export default () => (
 	<SectionMessage

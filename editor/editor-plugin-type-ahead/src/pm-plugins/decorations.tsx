@@ -6,11 +6,13 @@ import { IntlProvider } from 'react-intl-next';
 import uuid from 'uuid';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -29,6 +31,7 @@ import { getTypeAheadQuery } from './utils';
 type FactoryProps = {
 	intl: IntlShape;
 	popupMountRef: PopupMountPointReference;
+	nodeViewPortalProviderAPI: PortalProviderAPI;
 };
 
 type FactoryReturn = {
@@ -36,7 +39,11 @@ type FactoryReturn = {
 	removeDecorations: RemoveTypeAheadDecorations;
 };
 
-export const factoryDecorations = ({ intl, popupMountRef }: FactoryProps): FactoryReturn => {
+export const factoryDecorations = ({
+	intl,
+	popupMountRef,
+	nodeViewPortalProviderAPI,
+}: FactoryProps): FactoryReturn => {
 	const createDecorations: CreateTypeAheadDecorations = (
 		tr: ReadonlyTransaction,
 		{ triggerHandler, inputMethod, reopenQuery },
@@ -106,28 +113,56 @@ export const factoryDecorations = ({ intl, popupMountRef }: FactoryProps): Facto
 					return false;
 				};
 
-				ReactDOM.render(
-					<IntlProvider
-						locale={intl.locale || 'en'}
-						messages={intl.messages}
-						formats={intl.formats}
-					>
-						<WrapperTypeAhead
-							triggerHandler={triggerHandler}
-							editorView={editorView}
-							anchorElement={typeaheadComponent}
-							inputMethod={inputMethod}
-							getDecorationPosition={getDecorationPosition}
-							shouldFocusCursorInsideQuery={shouldFocusCursorInsideQuery}
-							popupsMountPoint={popupMountRef.current?.popupsMountPoint}
-							popupsBoundariesElement={popupMountRef.current?.popupsBoundariesElement}
-							popupsScrollableElement={popupMountRef.current?.popupsScrollableElement}
-							onUndoRedo={onUndoRedo}
-							reopenQuery={reopenQuery}
-						/>
-					</IntlProvider>,
-					typeaheadComponent,
-				);
+				if (fg('platform_editor_react18_plugin_portalprovider')) {
+					nodeViewPortalProviderAPI.render(
+						() => (
+							<IntlProvider
+								locale={intl.locale || 'en'}
+								messages={intl.messages}
+								formats={intl.formats}
+							>
+								<WrapperTypeAhead
+									triggerHandler={triggerHandler}
+									editorView={editorView}
+									anchorElement={typeaheadComponent}
+									inputMethod={inputMethod}
+									getDecorationPosition={getDecorationPosition}
+									shouldFocusCursorInsideQuery={shouldFocusCursorInsideQuery}
+									popupsMountPoint={popupMountRef.current?.popupsMountPoint}
+									popupsBoundariesElement={popupMountRef.current?.popupsBoundariesElement}
+									popupsScrollableElement={popupMountRef.current?.popupsScrollableElement}
+									onUndoRedo={onUndoRedo}
+									reopenQuery={reopenQuery}
+								/>
+							</IntlProvider>
+						),
+						typeaheadComponent,
+						decorationId,
+					);
+				} else {
+					ReactDOM.render(
+						<IntlProvider
+							locale={intl.locale || 'en'}
+							messages={intl.messages}
+							formats={intl.formats}
+						>
+							<WrapperTypeAhead
+								triggerHandler={triggerHandler}
+								editorView={editorView}
+								anchorElement={typeaheadComponent}
+								inputMethod={inputMethod}
+								getDecorationPosition={getDecorationPosition}
+								shouldFocusCursorInsideQuery={shouldFocusCursorInsideQuery}
+								popupsMountPoint={popupMountRef.current?.popupsMountPoint}
+								popupsBoundariesElement={popupMountRef.current?.popupsBoundariesElement}
+								popupsScrollableElement={popupMountRef.current?.popupsScrollableElement}
+								onUndoRedo={onUndoRedo}
+								reopenQuery={reopenQuery}
+							/>
+						</IntlProvider>,
+						typeaheadComponent,
+					);
+				}
 				shouldFocusCursorInsideQuery = false;
 				return typeaheadComponent;
 			},
@@ -177,8 +212,11 @@ export const factoryDecorations = ({ intl, popupMountRef }: FactoryProps): Facto
 			if (!decoElement) {
 				return;
 			}
-
-			ReactDOM.unmountComponentAtNode(decoElement);
+			if (fg('platform_editor_react18_plugin_portalprovider')) {
+				nodeViewPortalProviderAPI.remove(spec.key);
+			} else {
+				ReactDOM.unmountComponentAtNode(decoElement);
+			}
 		});
 
 		return true;

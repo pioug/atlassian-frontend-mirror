@@ -60,7 +60,7 @@
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/portal": "^4.9.0",
-		"@atlaskit/primitives": "^13.1.0",
+		"@atlaskit/primitives": "^13.2.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.2.0",
 		"@atlaskit/visually-hidden": "^1.5.0",

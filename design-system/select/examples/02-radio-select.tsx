@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
+import { RadioSelect } from '@atlaskit/select';
 
-import { RadioSelect } from '../src';
 import { cities } from './common/data';
 
 // data imported for brevity; equal to the options from Single Select example

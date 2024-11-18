@@ -145,6 +145,7 @@ const ProductHome = ({
 	onMouseDown,
 	testId,
 	logoMaxWidth = 260,
+	'aria-label': ariaLabel,
 	...rest
 }: ProductHomeProps) => {
 	const theme = useTheme();
@@ -182,6 +183,7 @@ const ProductHome = ({
 				onClick={onClick}
 				onMouseDown={preventFocusRing}
 				data-testid={testId && `${testId}-container`}
+				aria-label={ariaLabel}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			>

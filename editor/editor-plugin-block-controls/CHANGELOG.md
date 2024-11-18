@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.14
+
+### Patch Changes
+
+- [#163579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163579)
+  [`15dc53a3077f1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15dc53a3077f1) -
+  Hide unnecessary inline drop targets
+- Updated dependencies
+
+## 2.13.13
+
+### Patch Changes
+
+- [#164606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164606)
+  [`34e9782c56a3f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/34e9782c56a3f) -
+  tidy platform_editor_empty_line_prompt experiment
+- [#163518](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163518)
+  [`0c4fc567f6cfd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c4fc567f6cfd) -
+  ED-25705 fix sticky header
+- Updated dependencies
+
+## 2.13.12
+
+### Patch Changes
+
+- [#163103](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163103)
+  [`ec14916563763`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec14916563763) -
+  [ux] [ED-25060] Implement drag and drop a layout column to another layout section
+
 ## 2.13.11
 
 ### Patch Changes

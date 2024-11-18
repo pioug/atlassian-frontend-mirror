@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/primitives",
-	"version": "13.1.0",
+	"version": "13.2.0",
 	"description": "Primitives are token-backed low-level building blocks.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -129,6 +129,7 @@
 		"@atlaskit/css": "^0.6.0",
 		"@atlaskit/ds-lib": "^3.2.0",
 		"@atlaskit/interaction-context": "^2.1.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/tokens": "^2.2.0",
 		"@atlaskit/visually-hidden": "^1.5.0",
 		"@babel/runtime": "^7.0.0",
@@ -183,6 +184,11 @@
 		}
 	},
 	"homepage": "https://atlassian.design/components/primitives/overview/",
+	"platform-feature-flags": {
+		"platform-primitives-nested-text-inherit-size": {
+			"type": "boolean"
+		}
+	},
 	"typesVersions": {
 		">=4.5 <4.9": {
 			"*": [

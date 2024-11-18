@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
-import { RadioGroup } from '../src';
-import { type OptionsPropType } from '../src/types';
+import { RadioGroup } from '@atlaskit/radio';
+import { type OptionsPropType } from '@atlaskit/radio/types';
 
 const options: OptionsPropType = [
 	{ name: 'color', value: 'red', label: 'Red', testId: 'red' },

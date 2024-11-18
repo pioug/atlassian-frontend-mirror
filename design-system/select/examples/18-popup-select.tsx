@@ -9,9 +9,8 @@ import { css, jsx } from '@emotion/react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import AppSwitcherIcon from '@atlaskit/icon/glyph/app-switcher';
+import { PopupSelect } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
-
-import { PopupSelect } from '../src';
 
 const regions = [
 	{

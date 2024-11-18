@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Box, xcss } from '@atlaskit/primitives';
-
-import { ProgressIndicator } from '../src';
+import { ProgressIndicator } from '@atlaskit/progress-indicator';
 
 const invertedBackgroundStyles = xcss({
 	backgroundColor: 'color.background.neutral.bold',

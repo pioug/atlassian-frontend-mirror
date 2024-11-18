@@ -251,8 +251,8 @@ export const DropTargetV2 = (
 
 	const isNestedDropTarget = parentNode?.type.name !== 'doc';
 
+	const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
 	const onDrop = () => {
-		const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
 		if (!activeNode) {
 			return;
 		}
@@ -322,7 +322,7 @@ export const DropTargetV2 = (
 				/>
 			)}
 
-			{shouldAllowInlineDropTarget(isNestedDropTarget, nextNode, isSameLayout) && (
+			{shouldAllowInlineDropTarget(isNestedDropTarget, nextNode, isSameLayout, activeNode) && (
 				<Fragment>
 					<InlineDropTarget {...props} position="left" />
 					<InlineDropTarget {...props} position="right" />

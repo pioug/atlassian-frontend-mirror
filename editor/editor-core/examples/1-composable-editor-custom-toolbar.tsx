@@ -15,6 +15,7 @@ import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractPresetAPI } from '@atlaskit/editor-common/src/preset';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import type { EditorActions } from '@atlaskit/editor-core';
 import { EditorContext } from '@atlaskit/editor-core';
@@ -100,6 +101,14 @@ interface ToolbarProps {
 
 function Toolbar({ editorApi }: ToolbarProps) {
 	const { hyperlinkState } = useSharedPluginState(editorApi, ['hyperlink']);
+
+	// Using effect in toolbar
+	const pluginStateEffect = React.useCallback((states) => {
+		const { hyperlinkState, textFormattingState } = states;
+		// Use as necessary ie. analytics, network requests
+		console.log('logging', { hyperlinkState, textFormattingState });
+	}, []);
+	usePluginStateEffect(editorApi, ['textFormatting', 'hyperlink'], pluginStateEffect);
 
 	const showLinkToolbarAction = editorApi?.hyperlink?.commands.showLinkToolbar(
 		INPUT_METHOD.TOOLBAR,

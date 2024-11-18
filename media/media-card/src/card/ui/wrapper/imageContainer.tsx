@@ -38,7 +38,6 @@ type ImageContainerProps = {
 
 export const ImageContainer = ({
 	children,
-	testId,
 	mediaName,
 	status,
 	progress,

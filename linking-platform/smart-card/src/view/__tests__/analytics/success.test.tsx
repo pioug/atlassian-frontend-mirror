@@ -79,114 +79,111 @@ describe('smart-card: success analytics', () => {
 				jest.useRealTimers();
 			});
 
-			it('should fire the dwelled analytics event when the user dwells on the iframe', async () => {
-				const mockUrl = 'https://this.is.the.sixth.url';
-				render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card appearance="embed" url={mockUrl} />
-						</Provider>
-					</IntlProvider>,
-				);
-				const resolvedView = await screen.findByTestId('embed-card-resolved-view');
-				expect(resolvedView).toBeTruthy();
-				expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
-					display: 'embed',
-					status: 'resolved',
-					definitionId: 'd1',
-					extensionKey: 'object-provider',
-					canBeDatasource: false,
-				});
-
-				const resolvedViewFrame = await screen.findByTestId('embed-card-resolved-view-frame');
-				fireEvent.load(resolvedViewFrame);
-
-				expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledTimes(0);
-				await waitFor(
+			describe('should fire the dwelled analytics event when the user dwells on the iframe', () => {
+				ffTest(
+					'smart-card-migrate-smartlinkiframe-analytics',
 					async () => {
-						await userEvent.hover(resolvedViewFrame);
-						expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledTimes(1);
+						const mockUrl = 'https://this.is.the.sixth.url';
+						render(
+							<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
+								<IntlProvider locale="en">
+									<Provider client={mockClient}>
+										<Card appearance="embed" url={mockUrl} />
+									</Provider>
+								</IntlProvider>
+							</AnalyticsListener>,
+						);
+						const resolvedView = await screen.findByTestId('embed-card-resolved-view');
+						expect(resolvedView).toBeTruthy();
+						// Check if resolved analytics has been fired
+						expect(spy).toBeFiredWithAnalyticEventOnce({
+							payload: {
+								action: 'renderSuccess',
+								actionSubject: 'smartLink',
+								eventType: 'ui',
+								attributes: {
+									componentName: 'smart-cards',
+									packageName: '@product/platform',
+									packageVersion: '0.0.0',
+									status: 'resolved',
+									extensionKey: 'object-provider',
+									definitionId: 'd1',
+									display: 'embed',
+									canBeDatasource: false,
+									id: 'some-uuid-1',
+								},
+							},
+						});
+						const resolvedViewFrame = await screen.findByTestId('embed-card-resolved-view-frame');
+						fireEvent.load(resolvedViewFrame);
+						await waitFor(
+							async () => {
+								await userEvent.hover(resolvedViewFrame);
+								expect(spy).toBeFiredWithAnalyticEventOnce({
+									payload: {
+										action: 'dwelled',
+										actionSubject: 'smartLinkIframe',
+										eventType: 'ui',
+										attributes: {
+											id: 'some-uuid-1',
+											definitionId: 'd1',
+											display: 'embed',
+											dwellPercentVisible: 100,
+											dwellTime: 5,
+										},
+									},
+								});
+							},
+							{ timeout: 6000 }, // EDM-10399 Simulate the dwell time
+						);
 					},
-					{ timeout: 6000 }, // EDM-10399 Simulate the dwell time
-				);
-
-				expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledWith({
-					definitionId: 'd1',
-					destinationProduct: undefined,
-					destinationSubproduct: undefined,
-					display: 'embed',
-					dwellPercentVisible: 100,
-					dwellTime: 5,
-					extensionKey: 'object-provider',
-					id: 'some-uuid-1',
-					location: undefined,
-					status: 'resolved',
-				});
-			});
-
-			describe('Using AnalyticsListener', () => {
-				it('should fire the dwelled analytics event when the user dwells on the iframe using AnalyticsListener', async () => {
-					const mockUrl = 'https://this.is.the.sixth.url';
-					render(
-						<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
+					async () => {
+						const mockUrl = 'https://this.is.the.sixth.url';
+						render(
 							<IntlProvider locale="en">
 								<Provider client={mockClient}>
 									<Card appearance="embed" url={mockUrl} />
 								</Provider>
-							</IntlProvider>
-						</AnalyticsListener>,
-					);
-					const resolvedView = await screen.findByTestId('embed-card-resolved-view');
-					expect(resolvedView).toBeTruthy();
-					// Check if resolved analytics has been fired
-					expect(spy).toBeFiredWithAnalyticEventOnce({
-						payload: {
-							action: 'renderSuccess',
-							actionSubject: 'smartLink',
-							eventType: 'ui',
-							attributes: {
-								componentName: 'smart-cards',
-								packageName: '@product/platform',
-								packageVersion: '0.0.0',
-								status: 'resolved',
-								extensionKey: 'object-provider',
-								definitionId: 'd1',
-								display: 'embed',
-								canBeDatasource: false,
-								id: 'some-uuid-1',
+							</IntlProvider>,
+						);
+						const resolvedView = await screen.findByTestId('embed-card-resolved-view');
+						expect(resolvedView).toBeTruthy();
+						expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
+						expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+						expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
+							display: 'embed',
+							status: 'resolved',
+							definitionId: 'd1',
+							extensionKey: 'object-provider',
+							canBeDatasource: false,
+						});
+
+						const resolvedViewFrame = await screen.findByTestId('embed-card-resolved-view-frame');
+						fireEvent.load(resolvedViewFrame);
+
+						expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledTimes(0);
+						await waitFor(
+							async () => {
+								await userEvent.hover(resolvedViewFrame);
+								expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledTimes(1);
 							},
-						},
-					});
-					const resolvedViewFrame = await screen.findByTestId('embed-card-resolved-view-frame');
-					fireEvent.load(resolvedViewFrame);
-					await waitFor(
-						async () => {
-							await userEvent.hover(resolvedViewFrame);
-							expect(spy).toBeFiredWithAnalyticEventOnce({
-								payload: {
-									action: 'dwelled',
-									actionSubject: 'smartLinkIframe',
-									eventType: 'ui',
-									attributes: {
-										componentName: 'smart-cards',
-										packageName: '@product/platform',
-										packageVersion: '0.0.0',
-										id: 'some-uuid-1',
-										status: 'resolved',
-										definitionId: 'd1',
-										extensionKey: 'object-provider',
-										display: 'embed',
-										dwellTime: 5,
-										dwellPercentVisible: 100,
-									},
-								},
-							});
-						},
-						{ timeout: 6000 }, // EDM-10399 Simulate the dwell time
-					);
-				});
+							{ timeout: 6000 }, // EDM-10399 Simulate the dwell time
+						);
+
+						expect(analytics.uiIframeDwelledEvent).toHaveBeenCalledWith({
+							definitionId: 'd1',
+							destinationProduct: undefined,
+							destinationSubproduct: undefined,
+							display: 'embed',
+							dwellPercentVisible: 100,
+							dwellTime: 5,
+							extensionKey: 'object-provider',
+							id: 'some-uuid-1',
+							location: undefined,
+							status: 'resolved',
+						});
+					},
+				);
 			});
 		});
 

@@ -2,10 +2,9 @@ import React, { Fragment, useState } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 import { Label } from '@atlaskit/form';
+import Range from '@atlaskit/range';
 import { N80 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import Range from '../src';
 
 const initialState = {
 	min: 0,

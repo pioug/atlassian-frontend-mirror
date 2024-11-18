@@ -5,8 +5,7 @@ import throttle from 'lodash/throttle';
 
 import { Label } from '@atlaskit/form';
 import { Box, Text, xcss } from '@atlaskit/primitives';
-
-import Range from '../src';
+import Range from '@atlaskit/range';
 
 const styles = xcss({
 	padding: 'space.100',

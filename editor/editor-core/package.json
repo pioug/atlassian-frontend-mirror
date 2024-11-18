@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "201.3.2",
+	"version": "201.4.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^94.20.0",
+		"@atlaskit/editor-common": "^94.21.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.7.0",
 		"@atlaskit/editor-plugins": "^5.6.0",
@@ -51,11 +51,11 @@
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/emoji": "^67.9.0",
 		"@atlaskit/icon": "^22.24.0",
-		"@atlaskit/media-card": "^78.13.0",
+		"@atlaskit/media-card": "^78.14.0",
 		"@atlaskit/mention": "^23.3.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
-		"@atlaskit/tmp-editor-statsig": "^2.14.0",
+		"@atlaskit/tmp-editor-statsig": "^2.16.0",
 		"@atlaskit/tokens": "^2.2.0",
 		"@atlaskit/tooltip": "^18.9.0",
 		"@atlaskit/width-detector": "^4.3.0",
@@ -94,7 +94,7 @@
 		"@atlaskit/media-integration-test-helpers": "^3.1.0",
 		"@atlaskit/media-test-helpers": "^34.6.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
-		"@atlaskit/primitives": "^13.1.0",
+		"@atlaskit/primitives": "^13.2.0",
 		"@atlaskit/renderer": "^112.5.0",
 		"@atlaskit/smart-card": "^30.2.0",
 		"@atlaskit/synchrony-test-helpers": "^2.5.0",
@@ -103,7 +103,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.165",
+		"@atlassian/search-provider": "2.4.166",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^6.4.0",
 		"@testing-library/react": "^12.1.5",
@@ -230,10 +230,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_action_decisions_ssr_fix": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_empty_line_prompt_delay": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

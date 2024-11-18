@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
+import { RadioGroup } from '@atlaskit/radio';
 
-import { RadioGroup } from '../../src';
 import { type OptionsPropType } from '../../src/types';
 
 interface FormData {

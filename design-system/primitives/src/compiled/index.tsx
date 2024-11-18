@@ -7,7 +7,7 @@ export { default as Bleed, type BleedProps } from './components/bleed';
 export { default as Text, type TextProps } from './components/text';
 export { default as Pressable, type PressableProps } from './components/pressable';
 export { default as Anchor, type AnchorProps } from './components/anchor';
-export { media, type Breakpoint, type MediaQuery } from './responsive';
+export { media, type Breakpoint, type MediaQuery, UNSAFE_useMediaQuery } from './responsive';
 
 // TODO: This is still not figured out from before…
 export { useSurface as UNSAFE_useSurface } from './components/internal/surface-provider';

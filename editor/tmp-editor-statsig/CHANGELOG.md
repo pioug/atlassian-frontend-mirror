@@ -1,5 +1,22 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.16.0
+
+### Minor Changes
+
+- [#163468](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163468)
+  [`dd36c12324efd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd36c12324efd) -
+  JIV-19284 Allow setting task placeholder and quick insert action description for Editor tasks and
+  decisions plugin
+
+## 2.15.0
+
+### Minor Changes
+
+- [#164606](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164606)
+  [`d5fd875cd67f7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d5fd875cd67f7) -
+  remove platform_editor_empty_line_prompt experiment
+
 ## 2.14.0
 
 ### Minor Changes

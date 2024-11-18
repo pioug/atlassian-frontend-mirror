@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SectionMessage from '../../src';
+import SectionMessage from '@atlaskit/section-message';
 
 export default () => (
 	<SectionMessage appearance="success">

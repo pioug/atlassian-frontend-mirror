@@ -1,5 +1,18 @@
 # @atlaskit/atlassian-navigation
 
+## 4.9.0
+
+### Minor Changes
+
+- [#163994](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163994)
+  [`93794f3c42f1e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93794f3c42f1e) -
+  Add explicit support for `aria-label` to `ProductHome`. This already worked due to spread props,
+  but is now typed and explicitly applied.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.8.0
 
 ### Minor Changes

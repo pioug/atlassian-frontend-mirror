@@ -2,9 +2,7 @@ import React, { type ReactNode, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Box, Inline } from '@atlaskit/primitives';
-
-import { ProgressIndicator } from '../src';
-import { type DotsAppearance } from '../src/components/types';
+import { type ProgressDotsProps, ProgressIndicator } from '@atlaskit/progress-indicator';
 
 const SpreadInlineLayout = ({ children }: { children: ReactNode }) => {
 	return (
@@ -16,7 +14,7 @@ const SpreadInlineLayout = ({ children }: { children: ReactNode }) => {
 
 interface ExampleProps {
 	selectedIndex: number;
-	values: DotsAppearance[];
+	values: ProgressDotsProps['appearance'][];
 }
 
 const Example = ({ values = ['default', 'inverted', 'primary', 'help'] }: ExampleProps) => {

@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 78.14.0
+
+### Minor Changes
+
+- [#162568](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162568)
+  [`bdec058ec8fe8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bdec058ec8fe8) -
+  Added support for navite SVG rendering when overlay is enabled (Media Group)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 78.13.0
 
 ### Minor Changes

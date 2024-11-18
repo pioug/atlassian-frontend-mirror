@@ -9,8 +9,7 @@ import prerequisites from '../prerequisites';
 export default customMd`
 
 Flexible Smart Links, also known as FlexibleCard, Flexible UI, and Flex UI, is a composable system made up of data elements inside UI blocks,
-built by Linking Platform to aid Atlassian product teams in creating their own contextually appropriate Smart Link views,
-without being dependent on Linking Platform.
+built by Bandicoots to aid Atlassian product teams in creating their own contextually appropriate Smart Link views.
 This system does not affect inline, block or embed appearance of links.
 
 &nbsp;
@@ -90,10 +89,5 @@ ${(
 		source={require('!!raw-loader!../../../examples/content/flexible-ui-card-list')}
 	/>
 )}
-
-This is just the beginning!
-Linking Platform is continuing to add more features to improve Flexible Smart Links.
-Any feedback and suggestions are greatly appreciated.
-Come chat with us at [#help-linking-platform](https://atlassian.slack.com/archives/CFKGAQZRV).
 
 `;

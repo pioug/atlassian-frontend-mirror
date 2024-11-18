@@ -54,14 +54,14 @@ const shouldIgnoreNode = (
 	const isMediaSingle =
 		'mediaSingle' === node.type.name && fg('platform_editor_element_dnd_nested_fix_patch_1');
 
-	const isFirstTableHeaderOrTableRow =
+	const isFirstTableRow =
 		parent?.type.name === 'table' &&
 		depth === 1 &&
 		node === parent.firstChild &&
-		['tableHeader', 'tableRow'].includes(node.type.name) &&
+		'tableRow' === node.type.name &&
 		isPreRelease1();
 
-	if (isFirstTableHeaderOrTableRow) {
+	if (isFirstTableRow) {
 		return false;
 	}
 
@@ -127,12 +127,16 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 			anchorName = anchorName ?? `--node-anchor-${node.type.name}-${index}`;
 		}
 
+		const anchorStyles = ['tableRow', 'media'].includes(node.type.name)
+			? `anchor-name: ${anchorName};`
+			: `anchor-name: ${anchorName}; ${pos === 0 && !fg('platform_editor_element_dnd_nested_fix_patch_3') ? 'margin-top: 0px;' : ''} ${fg('platform_editor_element_dnd_nested_fix_patch_3') ? '' : 'position: relative; z-index: 1;'}`;
+
 		decs.push(
 			Decoration.node(
 				pos,
 				pos + node.nodeSize,
 				{
-					style: `anchor-name: ${anchorName}; ${pos === 0 && !fg('platform_editor_element_dnd_nested_fix_patch_3') ? 'margin-top: 0px;' : ''} ${fg('platform_editor_element_dnd_nested_fix_patch_3') ? '' : 'position: relative; z-index: 1;'}`,
+					style: anchorStyles,
 					['data-drag-handler-anchor-name']: anchorName,
 					['data-drag-handler-node-type']: node.type.name,
 					['data-drag-handler-anchor-depth']: `${depth}`,

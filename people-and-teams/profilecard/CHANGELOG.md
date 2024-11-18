@@ -1,5 +1,18 @@
 # @atlaskit/profilecard
 
+## 20.12.0
+
+### Minor Changes
+
+- [#162951](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162951)
+  [`17d7f44be2959`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17d7f44be2959) -
+  Agent profile card to use publishWithPostMessage, so `Chat to agent` or conversation starter
+  button will open in rovo sidebar if available
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.11.0
 
 ### Minor Changes

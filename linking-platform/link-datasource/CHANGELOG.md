@@ -1,5 +1,26 @@
 # @atlaskit/link-datasource
 
+## 3.9.1
+
+### Patch Changes
+
+- [#164965](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164965)
+  [`99d00d17f1e68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/99d00d17f1e68) -
+  Internal refactor behind ff - Fixes `executeFetch` being fired after selecting item from dropdpwn
+  list
+- [#164465](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164465)
+  [`ef019ecbcb056`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ef019ecbcb056) -
+  Feature flag removed - platform.linking-platform.datasource.limit-total-results_8wqcd
+- Updated dependencies
+
+## 3.9.0
+
+### Minor Changes
+
+- [#164042](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164042)
+  [`c10b60eefe529`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c10b60eefe529) -
+  [ux] Changing the menu placement of the inline edit status dropdown to auto
+
 ## 3.8.10
 
 ### Patch Changes

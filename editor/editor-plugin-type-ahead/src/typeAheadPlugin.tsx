@@ -197,12 +197,13 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 			return [
 				{
 					name: 'typeAhead',
-					plugin: ({ dispatch, getIntl }) =>
+					plugin: ({ dispatch, getIntl, nodeViewPortalProviderAPI }) =>
 						createPlugin({
 							getIntl,
 							popupMountRef,
 							reactDispatch: dispatch,
 							typeAheadHandlers: typeAhead,
+							nodeViewPortalProviderAPI,
 						}),
 				},
 				{

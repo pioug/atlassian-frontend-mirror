@@ -37,6 +37,13 @@ export default () => {
 			>
 				Publish 'chat-new' event to parent. Will open URL in new tab if there is no parent listener.
 			</button>
+			<button
+				onClick={() => {
+					navigator.clipboard.writeText('Test copy to clipboard');
+				}}
+			>
+				Test copy to clipboard
+			</button>
 			{ackTimeoutHappened && (
 				<p data-testid="onAcknowledgeTimeout-happened">onAcknowledgeTimeout happened</p>
 			)}

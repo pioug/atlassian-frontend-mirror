@@ -1,8 +1,8 @@
 import React, { Fragment, type SyntheticEvent, useCallback, useState } from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
+import { RadioGroup } from '@atlaskit/radio';
 
-import { RadioGroup } from '../../src';
 import { type OptionsPropType } from '../../src/types';
 
 const options: OptionsPropType = [

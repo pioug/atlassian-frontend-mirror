@@ -1,6 +1,7 @@
 import React from 'react';
+
 import { Label } from '@atlaskit/form';
-import { CountrySelect } from '../../src';
+import { CountrySelect } from '@atlaskit/select';
 
 const CountrySelectExample = () => (
 	<>

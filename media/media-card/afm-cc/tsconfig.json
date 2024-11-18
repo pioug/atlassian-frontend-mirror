@@ -43,9 +43,6 @@
             "path": "../../media-file-preview/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../media-svg/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../media-ui/afm-cc/tsconfig.json"
         },
         {

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.10.6
+
+### Patch Changes
+
+- [#164952](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164952)
+  [`0faf43580a9d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0faf43580a9d8) -
+  ED-25612: moves typeahead from reactdom render to portalprovider
+- Updated dependencies
+
 ## 1.10.5
 
 ### Patch Changes

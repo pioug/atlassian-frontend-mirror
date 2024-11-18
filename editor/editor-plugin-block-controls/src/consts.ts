@@ -10,3 +10,5 @@ export enum DIRECTION {
 export const maxLayoutColumnSupported = () => {
 	return isPreRelease2() ? 5 : 3;
 };
+
+export const MIN_LAYOUT_COLUMN = 2;

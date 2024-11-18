@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9b4f3099fbcaa563c8c9387fbfa08b6a>>
+ * @codegen <<SignedSource::acb0c2c38bbaaab859d63d96902a03f9>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -19,7 +19,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * Icon: "ArrowUpLeft".
  * Category: multi-purpose
  * Location: @atlaskit/icon
- * Usage guidance: Multi purpose
+ * Usage guidance: Known uses: TBC
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */

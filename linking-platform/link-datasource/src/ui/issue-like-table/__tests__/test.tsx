@@ -2268,6 +2268,42 @@ describe('IssueLikeDataTableView', () => {
 						fireEvent.click(await screen.findByText('Backlog'));
 						expect(executeFetch).toHaveBeenCalledTimes(1);
 					});
+
+					it('should shows error flag when `executeFetch` fails', async () => {
+						const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+						actionStore.storeState.setState({
+							actionsByIntegration: {
+								jira: {
+									status: {
+										actionKey: 'atlassian:work-item:update:status',
+										type: 'string',
+									},
+								},
+							},
+							permissions: {
+								'ari/blah': {
+									status: { isEditable: true },
+								},
+							},
+						});
+
+						const executeFetch = jest.fn().mockResolvedValue({
+							operationStatus: ActionOperationStatus.FAILURE,
+							errors: [],
+						});
+						mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+						const { openInlineEdit } = setup({
+							items,
+							columns,
+							itemIds,
+						});
+
+						await openInlineEdit('No options');
+
+						const flag = await screen.findByRole('alert');
+						expect(flag).toBeInTheDocument();
+					});
 				},
 			);
 		});

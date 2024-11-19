@@ -28,6 +28,9 @@
 		},
 		{
 			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-post-office/tsconfig.json"
 		}
 	]
 }

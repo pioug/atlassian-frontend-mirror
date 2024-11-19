@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media
 
+## 1.41.0
+
+### Minor Changes
+
+- [#161814](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161814)
+  [`6ff956fe6b784`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6ff956fe6b784) -
+  [ux] Add a new property to annotation state to know whether or not we're opening the comment box
+  from the media toolbar so we can scroll it into view from Confluence side
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.40.1
 
 ### Patch Changes

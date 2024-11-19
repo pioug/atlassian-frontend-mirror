@@ -8,12 +8,15 @@ import { createElement } from 'react';
 
 import ReactDOM from 'react-dom';
 import { RawIntlProvider } from 'react-intl-next';
+import uuid from 'uuid/v4';
 
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { SortOrder } from '@atlaskit/editor-common/types';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type tablePlugin from '../../plugin';
 import { SortingIconWrapper } from '../../ui/icons/SortingIconWrapper';
@@ -28,7 +31,10 @@ import { tableViewModeSortPluginKey as key } from './plugin-key';
 import type { ViewModeSortPluginState } from './types';
 import { getTableElements, toggleSort } from './utils';
 
-export const createPlugin = (api: ExtractInjectionAPI<typeof tablePlugin>) => {
+export const createPlugin = (
+	api: ExtractInjectionAPI<typeof tablePlugin>,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
+) => {
 	return new SafePlugin({
 		state: {
 			init: () => ({
@@ -84,40 +90,73 @@ export const createPlugin = (api: ExtractInjectionAPI<typeof tablePlugin>) => {
 						const map = TableMap.get(tableNode);
 						const hasMergedCells = new Set(map.map).size !== map.map.length;
 						map.mapByRow[0].forEach((cell, index) => {
+							const decorationRenderKey = uuid();
 							decs.push(
-								Decoration.widget(cell + pos + 2, () => {
-									const element = document.createElement('div');
-									element.setAttribute(SORT_INDEX_DATA_ATTRIBUTE, `${index}`);
-									element.classList.add(SORTING_ICON_CLASS_NAME);
-									if (hasMergedCells) {
-										element.classList.add(IS_DISABLED_CLASS_NAME);
-									}
+								Decoration.widget(
+									cell + pos + 2,
+									() => {
+										const element = document.createElement('div');
+										element.setAttribute(SORT_INDEX_DATA_ATTRIBUTE, `${index}`);
+										element.classList.add(SORTING_ICON_CLASS_NAME);
+										if (hasMergedCells) {
+											element.classList.add(IS_DISABLED_CLASS_NAME);
+										}
 
-									let sortOrdered;
-									if (index === sort[tableId]?.index) {
-										sortOrdered = sort[tableId]?.direction;
-									} else {
-										sortOrdered = SortOrder.NO_ORDER;
-									}
+										let sortOrdered;
+										if (index === sort[tableId]?.index) {
+											sortOrdered = sort[tableId]?.direction;
+										} else {
+											sortOrdered = SortOrder.NO_ORDER;
+										}
 
-									const { getIntl } = getPluginState(oldState);
+										const { getIntl } = getPluginState(oldState);
 
-									ReactDOM.render(
-										createElement(
-											RawIntlProvider,
-											{ value: getIntl() },
-											createElement(SortingIconWrapper, {
-												isSortingAllowed: !hasMergedCells,
-												sortOrdered,
-												onClick: () => {},
-												onKeyDown: () => {},
-												api,
-											}),
-										),
-										element,
-									);
-									return element;
-								}),
+										if (fg('platform_editor_react18_plugin_portalprovider')) {
+											nodeViewPortalProviderAPI.render(
+												() =>
+													createElement(
+														RawIntlProvider,
+														{ value: getIntl() },
+														createElement(SortingIconWrapper, {
+															isSortingAllowed: !hasMergedCells,
+															sortOrdered,
+															onClick: () => {},
+															onKeyDown: () => {},
+															api,
+														}),
+													),
+												element,
+												decorationRenderKey,
+											);
+										} else {
+											ReactDOM.render(
+												createElement(
+													RawIntlProvider,
+													{ value: getIntl() },
+													createElement(SortingIconWrapper, {
+														isSortingAllowed: !hasMergedCells,
+														sortOrdered,
+														onClick: () => {},
+														onKeyDown: () => {},
+														api,
+													}),
+												),
+												element,
+											);
+										}
+
+										return element;
+									},
+									{
+										destroy: (node) => {
+											if (fg('platform_editor_react18_plugin_portalprovider')) {
+												nodeViewPortalProviderAPI.remove(decorationRenderKey);
+											} else {
+												ReactDOM.unmountComponentAtNode(node as HTMLDivElement);
+											}
+										},
+									},
+								),
 							);
 						});
 					});

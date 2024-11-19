@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.17.0
+
+### Minor Changes
+
+- [#165097](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165097)
+  [`0bca145c96b65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0bca145c96b65) -
+  [ux] Adds test styles options to the Selection toolbar under Contextual toolbar experiment
+
 ## 2.16.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/people-teams-ui-public
 
+## 1.6.0
+
+### Minor Changes
+
+- [#163566](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163566)
+  [`0e3d1303ffeb8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e3d1303ffeb8) -
+  [ux] PTC-10089 Wrap verified team icon with conditional tooltip & fix isVerified mapping
+
 ## 1.5.3
 
 ### Patch Changes

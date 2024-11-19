@@ -1,5 +1,13 @@
 # @atlaskit/ds-lib
 
+## 3.2.1
+
+### Patch Changes
+
+- [#165086](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165086)
+  [`472d72ec74eab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/472d72ec74eab) -
+  Minor TS fix
+
 ## 3.2.0
 
 ### Minor Changes

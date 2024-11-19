@@ -14,6 +14,7 @@ import type {
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import LegacyCommentIcon from '@atlaskit/icon/glyph/comment';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaNextEditorPluginType } from '../next-plugin-type';
 
@@ -41,14 +42,24 @@ export const commentButton = (
 	const onClickHandler = (state: EditorState, dispatch?: CommandDispatch) => {
 		if (api?.annotation && selectMediaNode) {
 			const { showCommentForBlockNode, setInlineCommentDraftState } = api.annotation.actions;
+			const isOpeningMediaCommentFromToolbar = fg('confluence_frontend_media_scroll_fix')
+				? true
+				: false;
 
-			if (!showCommentForBlockNode(selectMediaNode, VIEW_METHOD.COMMENT_BUTTON)(state, dispatch)) {
+			if (
+				!showCommentForBlockNode(
+					selectMediaNode,
+					VIEW_METHOD.COMMENT_BUTTON,
+					isOpeningMediaCommentFromToolbar,
+				)(state, dispatch)
+			) {
 				setInlineCommentDraftState(
 					true,
 					// TODO: might need to update to reflect it's from media floating toolbar
 					INPUT_METHOD.FLOATING_TB,
 					'block',
 					selectMediaNode.attrs?.id,
+					isOpeningMediaCommentFromToolbar,
 				)(state, dispatch);
 			}
 		}

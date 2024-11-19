@@ -1,3 +1,4 @@
+import { EventDispatcher, type Listener } from '../event-dispatcher';
 import type {
 	CorePlugin,
 	DefaultEditorPlugin,
@@ -739,15 +740,21 @@ export class EditorPresetBuilder<
 > {
 	private readonly data: [...StackPlugins];
 	/**
-	 * Returns the editor API when resolved.
-	 * This occurs when the preset is initially built.
+	 * @deprecated Use `apiResolver` instead
 	 */
 	public apiPromise: Promise<unknown>;
 	private resolver: ((v: unknown) => void) | undefined;
+	/**
+	 * Returns the editor API when resolved.
+	 * This occurs when the preset is initially built.
+	 */
+	public apiResolver: APIDispatcher;
+	private apiEmitter: Emitter = () => {};
 
 	constructor(...more: [...StackPlugins]) {
 		this.data = [...more] || [];
 		this.apiPromise = new Promise<unknown>((r) => (this.resolver = r));
+		this.apiResolver = new APIDispatcher((emitter) => (this.apiEmitter = emitter));
 	}
 
 	public add<NewPlugin extends PresetPlugin>(
@@ -828,6 +835,12 @@ export class EditorPresetBuilder<
 			// The pluginInjectionAPI API doesn't have information enough to build a proper type for the API.
 			// It is returning a generic type but on top of the Proxy system
 			// So, we can safely recast it here
+			this.apiEmitter(
+				pluginInjectionAPI.api() as unknown as Expand<
+					BuildOptionalAPIEntry<StackPlugins> & BuildRequiredAPIEntry<StackPlugins>
+				>,
+			);
+			// Deprecated approach
 			this.resolver?.(
 				pluginInjectionAPI.api() as unknown as Expand<
 					BuildOptionalAPIEntry<StackPlugins> & BuildRequiredAPIEntry<StackPlugins>
@@ -901,4 +914,52 @@ export class EditorPresetBuilder<
 
 	private safeEntry = (plugin: AllEditorPresetPluginTypes) =>
 		Array.isArray(plugin) ? plugin : [plugin, undefined];
+}
+
+type Emitter = (value: unknown) => void;
+
+/**
+ * WARNING: Internal object
+ *
+ * Dedicated wrapper around EventDispatcher for public API around the editor API.
+ * This only has the public method `on` which is used to listen to updates to the editor API.
+ *
+ * This shouldn't really be used externally - the `editorAPI` should be accessed via `usePreset`.
+ */
+class APIDispatcher {
+	private eventDispatcher = new EventDispatcher<unknown>();
+	private key = 'api-resolved-event';
+	// Need to store the last event created in case we subscribe after the fact
+	private initialEvent: unknown | undefined = undefined;
+
+	constructor(private emitter: (emitter: Emitter) => void) {
+		this.emitter((v) => {
+			this.initialEvent = v;
+			this.eventDispatcher.emit(this.key, v);
+		});
+	}
+
+	/**
+	 * Used to observe Editor API events
+	 *
+	 * @param cb Callback to listen to the editor API.
+	 * This will also emit the last event if the stream has already started.
+	 * @returns Cleanup function to cleanup the listener
+	 */
+	on(cb: Listener<unknown>) {
+		if (this.initialEvent !== undefined) {
+			// Keeps timing consistent with old approach - certain products
+			// ie. ai-mate relied on this.
+			Promise.resolve().then(() => cb(this.initialEvent));
+		}
+		this.eventDispatcher.on(this.key, cb);
+
+		return () => {
+			this.eventDispatcher.off(this.key, cb);
+		};
+	}
+
+	destroy() {
+		this.eventDispatcher.destroy();
+	}
 }

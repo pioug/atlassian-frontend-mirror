@@ -30,6 +30,7 @@ import {
 	startColumnResizing,
 	toggleTable,
 } from '@atlaskit/editor-common/keymaps';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
@@ -59,6 +60,7 @@ import type { PluginInjectionAPI, PluginInjectionAPIWithA11y } from '../types';
 export function keymapPlugin(
 	getEditorContainerWidth: GetEditorContainerWidth,
 	api: PluginInjectionAPI | undefined | null,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	dragAndDropEnabled?: boolean,
 	isTableScalingEnabled = false,
@@ -263,6 +265,7 @@ export function keymapPlugin(
 		initiateKeyboardColumnResizing({
 			ariaNotify: ariaNotifyPlugin,
 			getIntl: getIntl,
+			nodeViewPortalProviderAPI,
 		}),
 		list,
 	);
@@ -273,6 +276,7 @@ export function keymapPlugin(
 			direction: 1,
 			ariaNotify: ariaNotifyPlugin,
 			getIntl: getIntl,
+			nodeViewPortalProviderAPI,
 		}),
 		list,
 	);
@@ -283,6 +287,7 @@ export function keymapPlugin(
 			direction: -1,
 			ariaNotify: ariaNotifyPlugin,
 			getIntl: getIntl,
+			nodeViewPortalProviderAPI,
 		}),
 		list,
 	);

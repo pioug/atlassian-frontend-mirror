@@ -9,6 +9,41 @@ context:
     packageVersion:
       type: string
       description: version of the package the event was fired from
+  CommonContext: &CommonContext
+    extensionKey:
+      type: string
+      required: false
+      description: The provider identifier of the resolver that was used to resolve the link
+    resourceType:
+      required: false
+      type: string
+      description: Type of resource the link is pointing to
+    destinationObjectType:
+      type: string
+      required: false
+      description: |
+        The type of object of the linked resource.
+        Typically maps to `resourceType` as defined by resolvers.
+    destinationSubproduct:
+      type: string
+      required: false
+      description: |
+        Which subproduct will the link take you to when clicked.
+    destinationProduct:
+      type: string
+      required: false
+      description: |
+        Which product the linked resource will navigate to when clicked.
+    location:
+      required: false
+      type: string
+      description: Where the Smart Link is currently rendered
+    statusDetails:
+      type: string
+      description:
+        Provides further information of the resolved status. May be different for different status
+        values
+      required: false
   ResolvedContext: &ResolvedContext
     status:
       type:
@@ -106,6 +141,23 @@ attributes:
       description:
         Attribute that captures the fact that a user interaction with a feature lead to generation
         of an AI result.
+  CommonAttributes: &CommonAttributes
+    definitionId:
+      required: false
+      type: string
+      description: The definitionId of the Smart Link resolver invoked.
+  smartLinkActionTypeAttribute: &smartLinkActionTypeAttribute
+    smartLinkActionType:
+      required: true
+      type:
+        [
+          'FollowEntityAction',
+          'GetStatusTransitionsAction',
+          'StatusUpdateAction',
+          'UnfollowEntityAction',
+          'StatusUpdate',
+        ]
+      description: The type of action being invoked
 
 events:
   - button clicked (aiSummary):
@@ -254,3 +306,32 @@ events:
           required: false
           type: string
           description: The definitionId of the Smart Link resolver invoked.
+  - applicationAccount connected:
+      type: track
+      description: user connecting their account to view a Smart Link.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonAttributes, *CommonContext]
+  - applicationAccount authStarted:
+      type: track
+      description: user starting the Smart Link connect account process.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+  - smartLinkQuickAction started:
+      type: track
+      description: fires event before an action invoke api call is made
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext, *smartLinkActionTypeAttribute]
+  - smartLinkQuickAction success:
+      type: track
+      description: fires a tracking event after an action invoke api call is successful
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext, *smartLinkActionTypeAttribute]
+  - smartLinkQuickAction failed:
+      type: track
+      description: fires a tracking event after an action invoke api call has failed
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext, *smartLinkActionTypeAttribute]
+        reason:
+          required: false
+          description: The reason for the failure
+          type: ['PermissionError', 'ValidationError', 'UnknownError']

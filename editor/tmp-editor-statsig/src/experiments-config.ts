@@ -365,4 +365,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2024-11-18
+	contextual_formatting_toolbar: {
+		productKeys: {
+			confluence: 'platform_editor_contextual_formatting_toolbar_exp',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

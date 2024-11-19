@@ -1,5 +1,19 @@
 # @atlaskit/rovo-agent-components
 
+## 1.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.13.0
+
+### Minor Changes
+
+- [#163149](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163149)
+  [`a70d55df6a66b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a70d55df6a66b) -
+  Added new UI for empty state in chat
+
 ## 1.12.3
 
 ### Patch Changes

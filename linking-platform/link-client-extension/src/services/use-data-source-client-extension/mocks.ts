@@ -308,6 +308,28 @@ export const mockActionsDiscoveryResponse: ActionsDiscoveryResponse = {
 		},
 		{
 			integrationKey: 'jira',
+			actionKey: 'atlassian:work-item:update:priority',
+			fieldKey: 'priority',
+			type: 'number',
+			inputs: {
+				priority: {
+					type: 'string',
+					fetchAction: {
+						actionKey: 'atlassian:work-item:get:priorities',
+						integrationKey: 'jira',
+						fieldKey: 'priority',
+						type: 'string',
+						inputs: {
+							issueId: {
+								type: 'string',
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			integrationKey: 'jira',
 			actionKey: 'atlassian:work-item:update:status',
 			type: 'string',
 			fieldKey: 'status',

@@ -3,7 +3,9 @@ import React, { useCallback, useMemo } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { useAnalyticsEvents } from '../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../messages';
 import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
 import UnresolvedView from '../unresolved-view';
@@ -20,15 +22,21 @@ const UnauthorizedView = ({
 	testId = 'embed-card-unauthorized-view',
 	...unresolvedViewProps
 }: UnauthorizedViewProps) => {
+	const { fireEvent } = useAnalyticsEvents();
+
 	const handleOnAuthorizeClick = useCallback(() => {
 		if (onAuthorize) {
-			analytics.track.appAccountAuthStarted({
-				extensionKey,
-			});
+			if (fg('smart-card-migrate-track-analytics')) {
+				fireEvent('track.applicationAccount.authStarted', {});
+			} else {
+				analytics.track.appAccountAuthStarted({
+					extensionKey,
+				});
+			}
 
 			onAuthorize();
 		}
-	}, [onAuthorize, analytics.track, extensionKey]);
+	}, [onAuthorize, analytics.track, extensionKey, fireEvent]);
 
 	const content = useMemo(() => {
 		if (onAuthorize) {

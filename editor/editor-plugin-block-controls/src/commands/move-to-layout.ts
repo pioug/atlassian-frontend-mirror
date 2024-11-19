@@ -10,6 +10,7 @@ import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/st
 import { maxLayoutColumnSupported, MIN_LAYOUT_COLUMN } from '../consts';
 import type { BlockControlsPlugin } from '../types';
 import { DEFAULT_COLUMN_DISTRIBUTIONS } from '../ui/consts';
+import { deleteSourceNode } from '../utils/drag-layout-column';
 import { isInSameLayout } from '../utils/validation';
 
 type LayoutContent = Fragment | PMNode;
@@ -91,7 +92,7 @@ const moveToExistingLayout = (
 	return tr;
 };
 
-const removeFromSource = (tr: Transaction, $from: ResolvedPos) => {
+export const removeFromSource = (tr: Transaction, $from: ResolvedPos) => {
 	const sourceNode = $from.nodeAfter;
 	const sourceParent = $from.parent;
 
@@ -178,13 +179,15 @@ export const moveToLayout =
 	(from: number, to: number, options?: { moveToEnd?: boolean }): EditorCommand =>
 	({ tr }) => {
 		const canMove = canMoveToLayout(from, to, tr);
+
 		if (!canMove) {
 			return tr;
 		}
+
 		const { toNode, fromNode, $from, $to } = canMove;
 		const { layoutSection, layoutColumn } = tr.doc.type.schema.nodes || {};
 		const { breakout } = tr.doc.type.schema.marks || {};
-		let fromNodeWithoutBreakout: PMNode | null = fromNode;
+		let fromNodeWithoutBreakout: PMNode | Fragment | null = fromNode;
 
 		// remove breakout from node;
 		if (breakout && $from.nodeAfter && $from.nodeAfter.marks.some((m) => m.type === breakout)) {
@@ -199,7 +202,6 @@ export const moveToLayout =
 
 		if (toNode.type === layoutSection) {
 			const toPos = options?.moveToEnd ? to + toNode.nodeSize - 1 : to + 1;
-
 			return moveToExistingLayout(
 				toNode,
 				to,
@@ -224,13 +226,17 @@ export const moveToLayout =
 				isInSameLayout($from, $to),
 			);
 		} else {
-			let toNodeWithoutBreakout: PMNode = toNode;
+			let toNodeWithoutBreakout: PMNode | Fragment = toNode;
 
 			// remove breakout from node;
 			if (breakout && $to.nodeAfter && $to.nodeAfter.marks.some((m) => m.type === breakout)) {
 				tr.removeNodeMark(to, breakout);
 				// resolve again the source node after node updated (remove breakout marks)
 				toNodeWithoutBreakout = tr.doc.resolve(to).nodeAfter || toNode;
+			}
+
+			if (fromNodeWithoutBreakout.type.name === 'layoutColumn') {
+				fromNodeWithoutBreakout = fromNodeWithoutBreakout.content;
 			}
 
 			const layoutContents = options?.moveToEnd
@@ -240,7 +246,7 @@ export const moveToLayout =
 			const newLayout = createNewLayout(tr.doc.type.schema, layoutContents);
 
 			if (newLayout) {
-				tr.delete(from, from + fromNode.nodeSize);
+				tr = deleteSourceNode(tr, $from, $to);
 				const mappedTo = tr.mapping.map(to);
 				tr.delete(mappedTo, mappedTo + toNodeWithoutBreakout.nodeSize)
 					.insert(mappedTo, newLayout)

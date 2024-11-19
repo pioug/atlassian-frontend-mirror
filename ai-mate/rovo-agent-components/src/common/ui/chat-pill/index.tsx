@@ -11,6 +11,30 @@ import { ChatPillIcon } from '../chat-icon';
 
 import messages from './messages';
 
+const conversationStarterPillStyles = xcss({
+	color: 'color.text',
+	padding: 'space.100',
+	border: `1px solid ${token('color.border')}`,
+	borderRadius: 'border.radius.200',
+	borderBottomRightRadius: token('border.radius.050', '2px'),
+	font: token('font.body'),
+	fontWeight: token('font.weight.medium', '500'),
+	lineHeight: '16px',
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
+	flexShrink: 1,
+	background: 'none',
+	width: '100%',
+
+	':hover': {
+		backgroundColor: 'color.background.neutral.hovered',
+	},
+
+	':active': {
+		backgroundColor: 'color.background.neutral.pressed',
+	},
+});
+
 const buttonStyles = xcss({
 	color: 'color.text',
 	padding: 'space.100',
@@ -74,4 +98,15 @@ export const BrowseAgentsPill = React.forwardRef<HTMLButtonElement, BrowseAgents
 			</Pressable>
 		);
 	},
+);
+
+export const ConversationStarterPill = React.forwardRef<HTMLButtonElement, ChatPillProps>(
+	({ children, whiteSpacePreWrap = true, ...props }, ref) => (
+		<Pressable ref={ref} {...props} xcss={conversationStarterPillStyles}>
+			<Inline space="space.050" xcss={buttonInlineStyles}>
+				<ChatPillIcon />
+				<Box xcss={[queryTextStyles, whiteSpacePreWrap && whiteSpacePreWrapStyles]}>{children}</Box>
+			</Inline>
+		</Pressable>
+	),
 );

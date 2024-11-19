@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 7.31.1
+
+### Patch Changes
+
+- [#165078](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165078)
+  [`770231c1e2f01`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/770231c1e2f01) -
+  ED-25611: migrates table plugin from reactdom to portalprovider
+- Updated dependencies
+
 ## 7.31.0
 
 ### Minor Changes

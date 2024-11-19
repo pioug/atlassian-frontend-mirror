@@ -5,7 +5,11 @@ import {
 	type ActionsServiceDiscoveryResponse,
 	type AtomicActionExecuteResponse,
 	type AtomicActionInterface,
+	type Icon,
+	type Status,
 } from '@atlaskit/linking-types';
+
+import { blocker, high, low, major, medium, trivial } from '../../images';
 
 export const ORS_ACTIONS_DISCOVERY_ENDPOINT = /\/gateway\/api\/object-resolver\/actions$/;
 export const ORS_ACTIONS_EXECUTION_ENDPOINT = /\/gateway\/api\/object-resolver\/actions\/execute$/;
@@ -45,6 +49,28 @@ export const mockActionsDiscovery = (overrides?: Partial<ActionsServiceDiscovery
 							},
 						},
 					},
+					{
+						fieldKey: 'priority',
+						integrationKey: 'jira',
+						actionKey: 'atlassian:work-item:update:priority',
+						type: 'string' as const,
+						inputs: {
+							priority: {
+								type: 'string' as const,
+								fetchAction: {
+									actionKey: 'atlassian:work-item:get:priorities',
+									integrationKey: 'jira',
+									fieldKey: 'priority',
+									type: 'string' as const,
+									inputs: {
+										issueId: {
+											type: 'string' as const,
+										},
+									},
+								},
+							},
+						},
+					},
 				];
 				return {
 					actions,
@@ -58,6 +84,11 @@ export const mockActionsDiscovery = (overrides?: Partial<ActionsServiceDiscovery
 							{
 								ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${i * 10 + numberOfLoads}`,
 								fieldKey: 'status',
+								isEditable: i % 2 === 1,
+							},
+							{
+								ari: `ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/${i * 10 + numberOfLoads}`,
+								fieldKey: 'priority',
 								isEditable: i % 2 === 1,
 							},
 						]),
@@ -94,64 +125,112 @@ export const mockActionsExecution = () => {
 };
 
 export const mockActionsFetchExecution = () => {
+	const priorityEntities: Icon[] = [
+		{
+			source: blocker,
+			label: 'blocker',
+			text: 'Blocker',
+			id: '6',
+		},
+		{
+			source: major,
+			label: 'major',
+			text: 'Major',
+			id: '5',
+		},
+		{
+			source: high,
+			label: 'high',
+			text: 'High',
+			id: '4',
+		},
+		{
+			source: medium,
+			// Text intentionally left out - it isn't mandatory (as is missing in mockJiraData)
+			label: 'medium',
+			id: '3',
+		},
+		{
+			source: low,
+			label: 'low',
+			id: '2',
+		},
+		{
+			source: trivial,
+			label: 'trivial',
+			id: '1',
+		},
+	];
+
 	fetchMock.post(
 		ORS_ACTIONS_EXECUTION_ENDPOINT,
-		async (): Promise<AtomicActionExecuteResponse> => ({
-			operationStatus: ActionOperationStatus.SUCCESS,
-			errors: [],
-			entities: [
-				{
-					id: '11',
-					text: 'Backlog',
-					style: {
-						appearance: 'default',
+		async (_: any, opts: any): Promise<AtomicActionExecuteResponse<Icon | Status>> => {
+			const body = JSON.parse(String(opts?.body) ?? '[]');
+
+			if (body?.actionKey === 'atlassian:work-item:get:priorities') {
+				return {
+					operationStatus: ActionOperationStatus.SUCCESS,
+					errors: [],
+					entities: priorityEntities,
+				};
+			}
+			return {
+				operationStatus: ActionOperationStatus.SUCCESS,
+				errors: [],
+				entities: [
+					{
+						id: '11',
+						text: 'Backlog',
+						style: {
+							appearance: 'default',
+						},
+						transitionId: '711',
 					},
-					transitionId: '711',
-				},
-				{
-					id: '21',
-					text: 'Selected for Development',
-					style: {
-						appearance: 'moved',
+					{
+						id: '21',
+						text: 'Selected for Development',
+						style: {
+							appearance: 'moved',
+						},
+						transitionId: '11',
 					},
-					transitionId: '11',
-				},
-				{
-					id: '31',
-					text: 'In Progress',
-					style: {
-						appearance: 'inprogress',
+					{
+						id: '31',
+						text: 'In Progress',
+						style: {
+							appearance: 'inprogress',
+						},
+						transitionId: '2',
 					},
-					transitionId: '2',
-				},
-				{
-					id: '41',
-					text: 'Done',
-					style: {
-						appearance: 'success',
+					{
+						id: '41',
+						text: 'Done',
+						style: {
+							appearance: 'success',
+						},
+						transitionId: '1000',
 					},
-					transitionId: '1000',
-				},
-				{
-					id: '51',
-					text: 'Pending',
-					style: {
-						appearance: 'removed',
+					{
+						id: '51',
+						text: 'Pending',
+						style: {
+							appearance: 'removed',
+						},
+						transitionId: '1001',
 					},
-					transitionId: '1001',
-				},
-				{
-					id: '61',
-					text: 'some new status',
-					style: {
-						appearance: 'new',
+					{
+						id: '61',
+						text: 'some new status',
+						style: {
+							appearance: 'new',
+						},
+						transitionId: '1002',
 					},
-					transitionId: '1002',
-				},
-			],
-		}),
+				],
+			};
+		},
 		{
-			delay: 100,
+			delay: 1000,
 			overwriteRoutes: true,
 		},
 	);

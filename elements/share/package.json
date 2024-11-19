@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "4.21.0",
+	"version": "4.22.0",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -59,7 +59,7 @@
 		"@atlaskit/tokens": "^2.2.0",
 		"@atlaskit/tooltip": "^18.9.0",
 		"@atlaskit/ufo": "^0.3.0",
-		"@atlaskit/user-picker": "^10.26.0",
+		"@atlaskit/user-picker": "^10.27.0",
 		"@atlaskit/util-service-support": "^6.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

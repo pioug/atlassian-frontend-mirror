@@ -6,7 +6,7 @@
 import { type CSSProperties, memo, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -39,17 +39,25 @@ const VAR_STEP_TRUNCATION_WIDTH = '--max-width';
 const ICON_WIDTH_ESTIMATE = 24;
 
 const staticItemStyles = css({
-	font: token('font.body'),
-	paddingBlock: token('space.025'),
+	// TODO: Replace fontWeight and lineHeight with "font: token('font.body')" and remove all the !important once Button is migrated to compiled
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	fontWeight: `${token('font.weight.regular')} !important`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	lineHeight: `20px !important`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	paddingBlock: `${token('space.025')} !important`,
 });
 
 const staticItemWithTruncationStyles = css({
-	maxWidth: `var(${VAR_STEP_TRUNCATION_WIDTH})`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	maxWidth: `var(${VAR_STEP_TRUNCATION_WIDTH}) !important`,
 });
 
 const staticItemWithoutTruncationStyles = css({
-	minWidth: 0,
-	flexShrink: 1,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	minWidth: `0 !important`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	flexShrink: `1 !important`,
 });
 
 const BreadcrumbsItem = memo(

@@ -35,7 +35,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/breadcrumbs": "^13.1.0",
+		"@atlaskit/breadcrumbs": "^14.0.0",
 		"@atlaskit/ds-lib": "^3.2.0",
 		"@atlaskit/page": "^12.6.0",
 		"@atlaskit/ssr": "*",

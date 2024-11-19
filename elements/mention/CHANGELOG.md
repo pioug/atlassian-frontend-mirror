@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 23.4.0
+
+### Minor Changes
+
+- [#161683](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161683)
+  [`f3f374290027a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f3f374290027a) -
+  Adding en-zz locale support to elements package
+
 ## 23.3.4
 
 ### Patch Changes

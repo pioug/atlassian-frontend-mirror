@@ -2,6 +2,7 @@ import classnames from 'classnames';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 
@@ -21,6 +22,7 @@ export function createPlugin(
 	getEditorContainerWidth: GetEditorContainerWidth,
 	getEditorFeatureFlags: GetEditorFeatureFlags,
 	api: PluginInjectionAPI | undefined | null,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isTableScalingEnabled?: boolean,
 	isNewColumnResizingEnabled?: boolean,
@@ -76,6 +78,7 @@ export function createPlugin(
 								getEditorFeatureFlags,
 								isTableScalingEnabled || false,
 								api,
+								nodeViewPortalProviderAPI,
 								editorAnalyticsAPI,
 								isNewColumnResizingEnabled,
 								isTableAlignmentEnabled,

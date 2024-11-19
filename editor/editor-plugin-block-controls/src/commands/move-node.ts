@@ -12,8 +12,8 @@ import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
 import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import type { NodeType, Slice } from '@atlaskit/editor-prosemirror/model';
-import { type EditorState } from '@atlaskit/editor-prosemirror/state';
+import { Fragment, type NodeType, type Slice } from '@atlaskit/editor-prosemirror/model';
+import { type EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -23,12 +23,15 @@ import { DIRECTION } from '../consts';
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin, MoveNodeMethod } from '../types';
 import { getNestedNodePosition, selectNode } from '../utils';
+import { isDragLayoutColumnToTopLevel } from '../utils/drag-layout-column';
 import { setCursorPositionAtMovedNode } from '../utils/getSelection';
 import {
 	canMoveNodeToIndex,
 	isInsideTable,
 	transformSliceExpandToNestedExpand,
 } from '../utils/validation';
+
+import { removeFromSource } from './move-to-layout';
 
 /**
  * This function transforms the slice to move
@@ -199,6 +202,21 @@ export const moveNode =
 			const $from = tr.doc.resolve(start);
 			const destType = $to.node().type;
 			const destParent = $to.node($to.depth);
+
+			const sourceNode = $from.nodeAfter;
+
+			// Move a layout column to top level
+			if (sourceNode && isDragLayoutColumnToTopLevel($from, $to)) {
+				// need update after we support single column layout.
+				const fragment = Fragment.from(sourceNode.content);
+				removeFromSource(tr, $from);
+				const mappedTo = tr.mapping.map(to);
+				tr.insert(mappedTo, fragment)
+					.setSelection(Selection.near(tr.doc.resolve(mappedTo)))
+					.scrollIntoView();
+				return tr;
+			}
+
 			if (!canMoveNodeToIndex(destParent, $to.index(), $from.node().child($from.index()))) {
 				return tr;
 			}

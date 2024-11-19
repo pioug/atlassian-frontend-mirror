@@ -16,6 +16,12 @@ export type DatasourceTypeWithOnlyValues = {
 	};
 }[DatasourceType['type']];
 
+/** Object typing a list of data objects for type K */
+export type DatasourceTypeWithOnlyTypeValues<K> = {
+	type: K;
+	values: Extract<DatasourceType, { type: K }>['value'][];
+};
+
 export type TableViewPropsRenderType = (item: DatasourceTypeWithOnlyValues) => React.ReactNode;
 
 export interface ColumnSizesMap {

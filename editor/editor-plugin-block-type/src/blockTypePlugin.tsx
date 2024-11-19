@@ -24,10 +24,16 @@ import type {
 	QuickInsertItemId,
 } from '@atlaskit/editor-common/provider-factory';
 import { IconHeading, IconQuote } from '@atlaskit/editor-common/quick-insert';
-import type { HeadingLevels, ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	FloatingToolbarCustom,
+	HeadingLevels,
+	ToolbarUIComponentFactory,
+} from '@atlaskit/editor-common/types';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockTypePlugin } from './blockTypePluginType';
 import type { TextBlockTypes } from './pm-plugins/block-types';
@@ -38,6 +44,7 @@ import inputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin, pluginKey } from './pm-plugins/main';
 import type { BlockTypeNode } from './pm-plugins/types';
+import { FloatingToolbarComponent } from './pm-plugins/ui/FloatingToolbarComponent';
 import { PrimaryToolbarComponent } from './pm-plugins/ui/PrimaryToolbarComponent';
 
 const headingPluginOptions = (
@@ -233,6 +240,28 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 
 		pluginsOptions: {
+			selectionToolbar: () => {
+				if (editorExperiment('contextual_formatting_toolbar', true)) {
+					const toolbarCustom: FloatingToolbarCustom<Command> = {
+						type: 'custom',
+						render: (view, _idx, _dispatchAnalyticsEvent) => {
+							if (!view) {
+								return;
+							}
+
+							return <FloatingToolbarComponent api={api} />;
+						},
+						fallback: [],
+					};
+
+					return {
+						isToolbarAbove: true,
+						items: [toolbarCustom],
+					};
+				} else {
+					return undefined;
+				}
+			},
 			quickInsert: (intl) => {
 				const exclude =
 					options && options.allowBlockType && options.allowBlockType.exclude

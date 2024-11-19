@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "94.21.0",
+	"version": "94.22.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -210,10 +210,10 @@
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/editor-tables": "^2.8.0",
-		"@atlaskit/emoji": "^67.9.0",
+		"@atlaskit/emoji": "^67.10.0",
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/icon-object": "^6.7.0",
-		"@atlaskit/link-datasource": "^3.9.0",
+		"@atlaskit/link-datasource": "^3.10.0",
 		"@atlaskit/link-picker": "^1.47.0",
 		"@atlaskit/media-card": "^78.14.0",
 		"@atlaskit/media-client": "^28.3.0",
@@ -223,7 +223,7 @@
 		"@atlaskit/media-picker": "^67.0.0",
 		"@atlaskit/media-ui": "^26.2.0",
 		"@atlaskit/media-viewer": "49.4.1",
-		"@atlaskit/mention": "^23.3.0",
+		"@atlaskit/mention": "^23.4.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/onboarding": "^12.1.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -236,7 +236,7 @@
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/textfield": "^6.5.0",
-		"@atlaskit/tmp-editor-statsig": "^2.16.0",
+		"@atlaskit/tmp-editor-statsig": "^2.17.0",
 		"@atlaskit/tokens": "^2.2.0",
 		"@atlaskit/tooltip": "^18.9.0",
 		"@atlaskit/width-detector": "^4.3.0",

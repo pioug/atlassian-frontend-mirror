@@ -8,6 +8,7 @@ import {
 	TABLE_OVERFLOW_CHANGE_TRIGGER,
 } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -50,6 +51,7 @@ export const handleMouseDown = (
 	getEditorFeatureFlags: GetEditorFeatureFlags,
 	isTableScalingEnabled: boolean,
 	api: PluginInjectionAPI | undefined | null,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isNewColumnResizingEnabled?: boolean,
 	isTableAlignmentEnabled?: boolean,
@@ -150,7 +152,12 @@ export const handleMouseDown = (
 
 	// When we start resizing a column we need to ensure the underlying tooltip is removed from the decoration to avoid
 	// unnecessary tooltips being displayed during drag.
-	updateResizeHandleDecorations(undefined, undefined, false)(state, dispatch);
+	updateResizeHandleDecorations(
+		nodeViewPortalProviderAPI,
+		undefined,
+		undefined,
+		false,
+	)(state, dispatch);
 
 	// for new column resizing, take the current scaled version of table widths and use those as the basis for resizing
 	// implication: the scaled version of the table becomes the source of truth

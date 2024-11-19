@@ -157,11 +157,13 @@ const getDraftCommandAction: (
 	targetType: TargetType,
 	targetNodeId?: string,
 	supportedBlockNodes?: string[],
+	isOpeningMediaCommentFromToolbar?: boolean,
 ) => (state: Readonly<EditorState>) => InlineCommentAction | false = (
 	drafting: boolean,
 	targetType: TargetType,
 	targetNodeId?: string,
 	supportedBlockNodes?: string[],
+	isOpeningMediaCommentFromToolbar?: boolean,
 ) => {
 	return (editorState: EditorState) => {
 		// validate selection only when entering draft mode
@@ -177,6 +179,7 @@ const getDraftCommandAction: (
 				targetType,
 				supportedBlockNodes,
 				targetNodeId,
+				isOpeningMediaCommentFromToolbar,
 			},
 		};
 	};
@@ -188,7 +191,11 @@ const getDraftCommandAction: (
  */
 export const showInlineCommentForBlockNode =
 	(supportedBlockNodes: string[] = []) =>
-	(node: PMNode | null, viewMethod?: VIEW_METHOD): Command =>
+	(
+		node: PMNode | null,
+		viewMethod?: VIEW_METHOD,
+		isOpeningMediaCommentFromToolbar?: boolean,
+	): Command =>
 	(state, dispatch) => {
 		const pluginState = getPluginState(state);
 		const { annotation } = state.schema.marks;
@@ -212,6 +219,7 @@ export const showInlineCommentForBlockNode =
 							data: {
 								selectedAnnotations: unresolvedAnnotationMarks,
 								selectAnnotationMethod: viewMethod,
+								isOpeningMediaCommentFromToolbar,
 							},
 						}),
 					);
@@ -231,12 +239,14 @@ export const setInlineCommentDraftState =
 		inputMethod: InlineCommentInputMethod = INPUT_METHOD.TOOLBAR,
 		targetType: TargetType = 'inline',
 		targetNodeId: string | undefined = undefined,
+		isOpeningMediaCommentFromToolbar?: boolean,
 	): Command => {
 		const commandAction = getDraftCommandAction(
 			drafting,
 			targetType,
 			targetNodeId,
 			supportedBlockNodes,
+			isOpeningMediaCommentFromToolbar,
 		);
 		return createCommand(
 			commandAction,

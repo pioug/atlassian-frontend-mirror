@@ -93,7 +93,6 @@ type DragMenuProps = {
 	tableDuplicateCellColouring?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
 	isTableFixedColumnWidthsOptionEnabled?: boolean;
-	tableSortColumnReorder?: boolean;
 	ariaNotifyPlugin?: (
 		message: string,
 		ariaLiveElementAttributes?: AriaLiveElementAttributes,
@@ -166,7 +165,7 @@ const MapDragMenuOptionIdToMessage: Record<DragMenuOptionIdType, MessageType> = 
 	},
 };
 
-const getGroupedDragMenuConfig = (tableSortColumnReorder: boolean) => {
+const getGroupedDragMenuConfig = () => {
 	let groupedDragMenuConfig: DragMenuOptionIdType[][] = [
 		[
 			'add_row_above',
@@ -181,9 +180,7 @@ const getGroupedDragMenuConfig = (tableSortColumnReorder: boolean) => {
 		['move_column_left', 'move_column_right', 'move_row_up', 'move_row_down'],
 	];
 	const sortColumnItems: DragMenuOptionIdType[] = ['sort_column_asc', 'sort_column_desc'];
-	tableSortColumnReorder
-		? groupedDragMenuConfig.unshift(sortColumnItems)
-		: groupedDragMenuConfig.push(sortColumnItems);
+	groupedDragMenuConfig.unshift(sortColumnItems);
 
 	return groupedDragMenuConfig;
 };
@@ -196,10 +193,9 @@ const elementBeforeIconStyles = xcss({
 const convertToDropdownItems = (
 	dragMenuConfig: DragMenuConfig[],
 	formatMessage: IntlShape['formatMessage'],
-	tableSortColumnReorder: boolean = false,
 	selectionRect?: Rect,
 ) => {
-	const groupedDragMenuConfig = getGroupedDragMenuConfig(tableSortColumnReorder);
+	const groupedDragMenuConfig = getGroupedDragMenuConfig();
 	let menuItemsArr: MenuItem[][] = [...Array(groupedDragMenuConfig.length)].map(() => []);
 	let menuCallback: { [key: string]: Command } = {};
 	dragMenuConfig.forEach((item) => {
@@ -286,7 +282,6 @@ const DragMenu = React.memo(
 		tableDuplicateCellColouring,
 		shouldUseIncreasedScalingPercent,
 		isTableFixedColumnWidthsOptionEnabled,
-		tableSortColumnReorder,
 		ariaNotifyPlugin,
 		isCommentEditor,
 	}: DragMenuProps & WrappedComponentProps) => {
@@ -319,7 +314,6 @@ const DragMenu = React.memo(
 			tableDuplicateCellColouring,
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
-			tableSortColumnReorder,
 			ariaNotifyPlugin,
 			isCommentEditor,
 		);
@@ -327,7 +321,6 @@ const DragMenu = React.memo(
 		const { menuItems, menuCallback } = convertToDropdownItems(
 			dragMenuConfig,
 			formatMessage,
-			tableSortColumnReorder,
 			selectionRect,
 		);
 
@@ -383,7 +376,7 @@ const DragMenu = React.memo(
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={DropdownMenuSharedCssClassName.SUBMENU}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						css={dragMenuBackgroundColorStyles(tableSortColumnReorder)}
+						css={dragMenuBackgroundColorStyles()}
 					>
 						<div
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
@@ -610,9 +603,7 @@ const DragMenu = React.memo(
 		}
 
 		if (allowBackgroundColor) {
-			tableSortColumnReorder
-				? menuItems[1].items.unshift(createBackgroundColorMenuItem())
-				: menuItems[0].items.unshift(createBackgroundColorMenuItem());
+			menuItems[1].items.unshift(createBackgroundColorMenuItem());
 		}
 
 		// If first row, add toggle for Header row, default is true

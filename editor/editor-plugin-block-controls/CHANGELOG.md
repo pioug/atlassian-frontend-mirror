@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.15
+
+### Patch Changes
+
+- [#165354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165354)
+  [`387f345afdec1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/387f345afdec1) -
+  ED-25703 fix inline drop targert position
+- [#162957](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162957)
+  [`bd48c403d1fdd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd48c403d1fdd) -
+  ED-25059 drag layout column to top level
+- Updated dependencies
+
 ## 2.13.14
 
 ### Patch Changes

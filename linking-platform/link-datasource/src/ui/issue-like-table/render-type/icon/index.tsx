@@ -29,6 +29,10 @@ const textWrapperStyles = xcss({
 export const ICON_TYPE_TEST_ID = 'link-datasource-render-type--icon';
 export const ICON_TYPE_TEXT_TEST_ID = `${ICON_TYPE_TEST_ID}-text`;
 
+/**
+ * @deprecated: To be cleaned up and replaced with new-icon after
+ * `platform-datasources-enable-two-way-sync-priority` rollout.
+ */
 const IconRenderType = ({ label, text, source, testId = ICON_TYPE_TEST_ID }: IconProps) => {
 	return (
 		<IconWrapper>

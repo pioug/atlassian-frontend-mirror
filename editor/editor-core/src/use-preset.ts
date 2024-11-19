@@ -6,6 +6,7 @@ import {
 	EditorPresetBuilder,
 	type ExtractPresetAPI,
 } from '@atlaskit/editor-common/preset';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 interface PresetAPI<Preset extends EditorPresetBuilder<any, any>> {
@@ -64,9 +65,20 @@ export function usePreset<
 		dependencies,
 	);
 	useLayoutEffect(() => {
-		preset.apiPromise.then((api) => {
-			setAPI(api as unknown as PresetAPI<Preset>['editorApi']);
-		});
+		if (fg('platform_editor_fix_api_strict_mode')) {
+			return preset.apiResolver.on((api) => {
+				setAPI(api as unknown as PresetAPI<Preset>['editorApi']);
+			});
+		}
+	}, [preset.apiResolver]);
+
+	// Deprecated approach (not compatible with strict mode)
+	useLayoutEffect(() => {
+		if (!fg('platform_editor_fix_api_strict_mode')) {
+			preset.apiPromise.then((api) => {
+				setAPI(api as unknown as PresetAPI<Preset>['editorApi']);
+			});
+		}
 	}, [preset.apiPromise]);
 
 	return {

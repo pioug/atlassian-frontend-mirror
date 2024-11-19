@@ -1,6 +1,9 @@
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
-import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
+import {
+	processRawFragmentValue,
+	processRawValue,
+} from '@atlaskit/editor-common/process-raw-value';
 import type {
 	ContextUpdateHandler,
 	EditorActionsOptions,
@@ -20,7 +23,6 @@ import { createDispatch } from '../event-dispatcher';
 import { getEditorValueWithMedia } from '../utils/action';
 import deprecationWarnings from '../utils/deprecation-warnings';
 import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
-import { processRawFragmentValue } from '../utils/processRawFragmentValue';
 
 import { isEmptyDocument } from './temp-is-empty-document';
 import { findNodePosByLocalIds } from './temp-nodes-by-localids';

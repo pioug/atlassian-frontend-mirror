@@ -61,6 +61,19 @@ const mockActionsStoreState: Partial<ActionsStoreState> = {
 				},
 				type: 'string',
 			},
+			priority: {
+				actionKey: 'atlassian:work-item:update:priority',
+				type: 'string',
+				fetchAction: {
+					actionKey: 'atlassian:work-item:get:priorities',
+					type: 'string',
+					inputs: {
+						issueId: {
+							type: 'string',
+						},
+					},
+				},
+			},
 		},
 	},
 	permissions: {

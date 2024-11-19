@@ -247,6 +247,9 @@ export const connectFailedEvent = ({
 	},
 });
 
+/**
+ * @deprecated
+ */
 export const trackAppAccountConnected = ({
 	definitionId,
 	extensionKey,
@@ -267,6 +270,9 @@ export const trackAppAccountConnected = ({
 	},
 });
 
+/**
+ * @deprecated
+ */
 export const trackAppAccountAuthStarted = ({
 	extensionKey,
 	location,
@@ -281,6 +287,9 @@ export const trackAppAccountAuthStarted = ({
 	},
 });
 
+/**
+ * @deprecated
+ */
 export const trackSmartLinkQuickActionStarted = ({
 	smartLinkActionType,
 	...attributes
@@ -298,6 +307,9 @@ export const trackSmartLinkQuickActionStarted = ({
 	},
 });
 
+/**
+ * @deprecated
+ */
 export const trackSmartLinkQuickActionSuccess = ({
 	smartLinkActionType,
 	...attributes
@@ -315,6 +327,9 @@ export const trackSmartLinkQuickActionSuccess = ({
 	},
 });
 
+/**
+ * @deprecated
+ */
 export const trackSmartLinkQuickActionFailed = ({
 	smartLinkActionType,
 	...attributes
@@ -332,6 +347,9 @@ export const trackSmartLinkQuickActionFailed = ({
 	},
 });
 
+/**
+ * @deprecated
+ */
 export const trackHoverCardResolutionStarted = ({
 	display,
 	...attributes
@@ -422,6 +440,9 @@ export const uiCardClickedEvent = ({
 	},
 });
 
+/**
+ * @deprecated
+ */
 export const uiIframeDwelledEvent = ({
 	id,
 	display,
@@ -452,6 +473,9 @@ export const uiIframeDwelledEvent = ({
 	},
 });
 
+/**
+ * @deprecated
+ */
 export const uiIframeFocusedEvent = ({
 	id,
 	display,

@@ -3,12 +3,21 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::1b003c1bbf9093c5eb592e8d6a034d9c>>
+ * @codegen <<SignedSource::82b30bbee0df694864fcd2e2b938bffa>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
 	packageName: string;
 	packageVersion: string;
+};
+export type CommonContextType = {
+	extensionKey: string | null;
+	resourceType: string | null;
+	destinationObjectType: string | null;
+	destinationSubproduct: string | null;
+	destinationProduct: string | null;
+	location: string | null;
+	statusDetails: string | null;
 };
 export type ResolvedContextType = {
 	status:
@@ -77,6 +86,35 @@ export type SmartLinkIframeFocusAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
 	definitionId: string | null;
 };
+export type ApplicationAccountConnectedAttributesType = {
+	definitionId: string | null;
+};
+export type ApplicationAccountAuthStartedAttributesType = {};
+export type SmartLinkQuickActionStartedAttributesType = {
+	smartLinkActionType:
+		| 'FollowEntityAction'
+		| 'GetStatusTransitionsAction'
+		| 'StatusUpdateAction'
+		| 'UnfollowEntityAction'
+		| 'StatusUpdate';
+};
+export type SmartLinkQuickActionSuccessAttributesType = {
+	smartLinkActionType:
+		| 'FollowEntityAction'
+		| 'GetStatusTransitionsAction'
+		| 'StatusUpdateAction'
+		| 'UnfollowEntityAction'
+		| 'StatusUpdate';
+};
+export type SmartLinkQuickActionFailedAttributesType = {
+	smartLinkActionType:
+		| 'FollowEntityAction'
+		| 'GetStatusTransitionsAction'
+		| 'StatusUpdateAction'
+		| 'UnfollowEntityAction'
+		| 'StatusUpdate';
+	reason: 'PermissionError' | 'ValidationError' | 'UnknownError' | null;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -124,6 +162,21 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fires when a user clicks or tabs into a Smart Link's iframe. */
 	'ui.smartLinkIframe.focus': SmartLinkIframeFocusAttributesType;
+	/**
+	 * user connecting their account to view a Smart Link. */
+	'track.applicationAccount.connected': ApplicationAccountConnectedAttributesType;
+	/**
+	 * user starting the Smart Link connect account process. */
+	'track.applicationAccount.authStarted': ApplicationAccountAuthStartedAttributesType;
+	/**
+	 * fires event before an action invoke api call is made */
+	'track.smartLinkQuickAction.started': SmartLinkQuickActionStartedAttributesType;
+	/**
+	 * fires a tracking event after an action invoke api call is successful */
+	'track.smartLinkQuickAction.success': SmartLinkQuickActionSuccessAttributesType;
+	/**
+	 * fires a tracking event after an action invoke api call has failed */
+	'track.smartLinkQuickAction.failed': SmartLinkQuickActionFailedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

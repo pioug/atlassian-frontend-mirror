@@ -12,13 +12,13 @@ import { tableMarginFullWidthMode } from '@atlaskit/editor-plugins/table/ui/cons
 import {
 	akEditorDeleteBackground,
 	akEditorDeleteBorder,
-	akEditorSelectedBorder,
 	akEditorSelectedBorderSize,
 	akEditorSelectedNodeClassName,
 	akEditorSwoopCubicBezier,
 	akLayoutGutterOffset,
 	getSelectionStyles,
 	gridMediumMaxWidth,
+	layoutBreakpointWidth,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -84,7 +84,13 @@ const layoutColumnStyles = () =>
 
 				> [data-layout-column].${akEditorSelectedNodeClassName}:not(.danger) {
 					${getSelectionStyles([SelectionStyle.Blanket])};
-					border: ${akEditorSelectedBorder};
+					/* layout column selection shorter after layout border has been removed */
+					::before {
+						top: 12px;
+						height: calc(100% - 24px);
+						width: calc(100% - 8px);
+						left: 4px;
+					}
 				}
 			`
 		: // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
@@ -156,14 +162,98 @@ const layoutBorderStyles = (viewMode?: 'edit' | 'view') => css`
 
 	&.${akEditorSelectedNodeClassName}:not(.danger) {
 		[data-layout-column] {
-			${isPreRelease2()
-				? /* SelectionStyle.Border adds extra ::after content which clashes with hover zone for layout columns and is not needed for layout anyway
-				see platform/packages/editor/editor-shared-styles/src/selection/utils.ts(~L43)
-				*/
-					`border: ${akEditorSelectedBorder};
-			${getSelectionStyles([SelectionStyle.Blanket])}`
-				: `
-				${getSelectionStyles([SelectionStyle.Border, SelectionStyle.Blanket])}`}
+			${getSelectionStyles([SelectionStyle.Border, SelectionStyle.Blanket])}
+			::after {
+				background-color: transparent;
+			}
+		}
+	}
+`;
+
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+const columnSeparatorStyles = (viewMode?: 'edit' | 'view') => css`
+	[data-layout-content]::before {
+		content: '';
+		border-left: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
+			${token('color.border')};
+		position: absolute;
+		height: calc(100% - 24px);
+		margin-left: -25px;
+	}
+`;
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+const rowSeparatorStyles = (viewMode?: 'edit' | 'view') => css`
+	[data-layout-content]::before {
+		content: '';
+		border-top: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
+			${token('color.border')};
+		position: absolute;
+		width: calc(100% - 32px);
+		margin-top: -13px;
+	}
+`;
+
+// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+const layoutWithSeparatorBorderStyles = (viewMode?: 'edit' | 'view') => css`
+	&.selected [data-layout-column]:not(:first-of-type),
+	&:hover [data-layout-column]:not(:first-of-type) {
+		${fg('platform_editor_advanced_layouts_breakout_resizing')
+			? `@container layout-area (min-width:${layoutBreakpointWidth.MEDIUM}px)`
+			: `	@media screen and (min-width: ${gridMediumMaxWidth}px)`} {
+			${columnSeparatorStyles(viewMode)}
+		}
+		${fg('platform_editor_advanced_layouts_breakout_resizing')
+			? `@container layout-area (max-width:${layoutBreakpointWidth.MEDIUM - 1}px)`
+			: `@media screen and (max-width: ${gridMediumMaxWidth - 1}px)`} {
+			${rowSeparatorStyles(viewMode)}
+		}
+	}
+
+	&.selected.danger
+		${fg('platform_editor_advanced_layouts_breakout_resizing') ? `[data-layout-section]` : ``} {
+		background-color: ${token('color.background.danger', akEditorDeleteBackground)};
+
+		box-shadow: 0 0 0 ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px
+			${akEditorDeleteBorder};
+		border-radius: 4px;
+		[data-layout-column]:not(:first-of-type) {
+			${fg('platform_editor_advanced_layouts_breakout_resizing')
+				? `@container layout-area (min-width:${layoutBreakpointWidth.MEDIUM}px)`
+				: `	@media screen and (min-width: ${gridMediumMaxWidth}px)`} {
+				${columnSeparatorStyles(viewMode)}
+			}
+			${fg('platform_editor_advanced_layouts_breakout_resizing')
+				? `@container layout-area (max-width:${layoutBreakpointWidth.MEDIUM - 1}px)`
+				: `@media screen and (max-width: ${gridMediumMaxWidth - 1}px)`} {
+				${rowSeparatorStyles(viewMode)}
+			}
+		}
+	}
+
+	&.${akEditorSelectedNodeClassName}:not(.danger)
+		${fg('platform_editor_advanced_layouts_breakout_resizing') ? `[data-layout-section]` : ``} {
+		box-shadow: 0 0 0 ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px
+			${token('color.border.selected')};
+		border-radius: 4px;
+		background-color: ${token('color.background.selected')};
+		[data-layout-column] {
+			${getSelectionStyles([SelectionStyle.Blanket])}
+			border: 0px;
+			::before {
+				background-color: transparent;
+			}
+		}
+		[data-layout-column]:not(:first-of-type) {
+			${fg('platform_editor_advanced_layouts_breakout_resizing')
+				? `@container layout-area (min-width:${layoutBreakpointWidth.MEDIUM}px)`
+				: `	@media screen and (min-width: ${gridMediumMaxWidth}px)`} {
+				${columnSeparatorStyles(viewMode)}
+			}
+			${fg('platform_editor_advanced_layouts_breakout_resizing')
+				? `@container layout-area (max-width:${layoutBreakpointWidth.MEDIUM - 1}px)`
+				: `@media screen and (max-width: ${gridMediumMaxWidth - 1}px)`} {
+				${rowSeparatorStyles(viewMode)}
+			}
 		}
 	}
 `;
@@ -185,8 +275,11 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 				${fg('platform_editor_drag_and_drop_target_v2') ? 'position: relative;' : ''}
 
 				min-width: 0;
-				border: ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px solid
-					${token('color.border')};
+				/* disable 4 borders when in view mode and advanced layouts is on */
+				border: ${viewMode === 'view' || editorExperiment('advanced_layouts', true)
+						? 0
+						: akEditorSelectedBorderSize}px
+					solid ${token('color.border')};
 				border-radius: 4px;
 				padding: ${LAYOUT_COLUMN_PADDING}px
 					${LAYOUT_COLUMN_PADDING + (editorExperiment('nested-dnd', true) ? 8 : 0)}px;
@@ -254,7 +347,9 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 		// styles to support borders for layout
 		[data-layout-section],
 		.layoutSectionView-content-wrap {
-			${layoutBorderStyles(viewMode)}
+			${editorExperiment('advanced_layouts', true)
+				? layoutWithSeparatorBorderStyles(viewMode)
+				: layoutBorderStyles(viewMode)}
 		}
 	}
 

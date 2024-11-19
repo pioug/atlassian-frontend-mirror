@@ -44,6 +44,7 @@ export type InlineCommentAction =
 				targetType?: TargetType;
 				supportedBlockNodes?: string[];
 				targetNodeId?: string;
+				isOpeningMediaCommentFromToolbar?: boolean;
 			};
 	  }
 	| {
@@ -69,6 +70,7 @@ export type InlineCommentAction =
 			data: {
 				selectedAnnotations: AnnotationInfo[];
 				selectAnnotationMethod?: VIEW_METHOD;
+				isOpeningMediaCommentFromToolbar?: boolean;
 			};
 	  };
 
@@ -95,4 +97,7 @@ export type InlineCommentPluginState = {
 
 	// Method used to select active annotation, defined when SET_SELECTED_ANNOTATION action is evoked
 	selectAnnotationMethod?: VIEW_METHOD;
+
+	// If the user is viewing a media comment from the toolbar
+	isOpeningMediaCommentFromToolbar?: boolean;
 };

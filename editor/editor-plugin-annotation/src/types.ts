@@ -36,6 +36,7 @@ type SetInlineCommentDraftState = (
 	/** @default 'inline' */
 	targetType?: TargetType,
 	targetNodeId?: string,
+	isOpeningMediaCommentFromToolbar?: boolean,
 ) => Command;
 
 export type AnnotationPlugin = NextEditorPlugin<
@@ -90,6 +91,10 @@ export type InlineCommentCreateComponentProps = AnnotationComponentProps & {
 	onCreate: (id: string) => void;
 	/** List of inline node types, which are wrapped by the annotation. */
 	inlineNodeTypes: string[] | undefined;
+	/**
+	 * Indicates whether we're opening the media comment box from the media toolbar so we can scroll the media into view
+	 */
+	isOpeningMediaCommentFromToolbar?: boolean;
 };
 
 export type InlineCommentViewComponentProps = AnnotationComponentProps & {
@@ -122,6 +127,10 @@ export type InlineCommentViewComponentProps = AnnotationComponentProps & {
 	 *        `editor_inline_comments_on_inline_nodes` is removed.
 	 */
 	getInlineNodeTypes: (annotationId: string) => string[] | undefined;
+	/**
+	 * Indicates whether we're opening the media comment box from the media toolbar so we can scroll the media into view
+	 */
+	isOpeningMediaCommentFromToolbar?: boolean;
 };
 
 export interface AnnotationState<Type, State> {

@@ -6,7 +6,7 @@
 import { memo } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/standard-button';
 import __noop from '@atlaskit/ds-lib/noop';
@@ -36,8 +36,13 @@ const itemWrapperStyles = css({
 });
 
 const staticItemStyles = css({
-	font: token('font.body'),
-	paddingBlock: token('space.025'),
+	// TODO: Replace fontWeight and lineHeight with "font: token('font.body')" and remove all the !important once Button is migrated to compiled
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	fontWeight: `${token('font.weight.regular')} !important`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	lineHeight: `20px !important`,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	paddingBlock: `${token('space.025')} !important`,
 });
 
 const EllipsisItem = memo(({ label, onClick = noop, testId }: EllipsisItemProps) => (

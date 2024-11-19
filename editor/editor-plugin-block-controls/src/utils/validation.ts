@@ -92,19 +92,17 @@ export function canMoveNodeToIndex(
 	srcNode: PMNode,
 	destNode?: PMNode,
 ) {
-	if (
-		isPreRelease2() &&
-		// Allow drag layout column and drop into layout section
-		srcNode.type.name === 'layoutColumn' &&
-		destNode?.type.name === 'layoutSection'
-	) {
-		return true;
-	}
-
 	let srcNodeType = srcNode.type;
 
 	const parentNodeType = destParent?.type.name;
 	const activeNodeType = srcNode?.type.name;
+
+	if (isPreRelease2() && activeNodeType === 'layoutColumn') {
+		// Allow drag layout column and drop into layout section
+		if (destNode?.type.name === 'layoutSection' || parentNodeType === 'doc') {
+			return true;
+		}
+	}
 
 	// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
 	if (editorExperiment('nest-media-and-codeblock-in-quote', false)) {

@@ -35,6 +35,11 @@ export const getMessagesForLocale = async (locale: string): Promise<Record<strin
 				/* webpackChunkName: "@atlaskit-internal_user-picker-i18n-en_GB" */ '../i18n/en_GB'
 			).then((mod) => mod.default);
 		}
+		case 'en_ZZ': {
+			return import(
+				/* webpackChunkName: "@atlaskit-internal_user-picker-i18n-en_ZZ" */ '../i18n/en_ZZ'
+			).then((mod) => mod.default);
+		}
 		case 'es': {
 			return import(
 				/* webpackChunkName: "@atlaskit-internal_user-picker-i18n-es" */ '../i18n/es'

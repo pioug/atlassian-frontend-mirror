@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.3.0
+
+### Minor Changes
+
+- [#164782](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164782)
+  [`1be7ad59ff332`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1be7ad59ff332) -
+  fixing ssr attribute in vc observer config
+
 ## 2.2.3
 
 ### Patch Changes

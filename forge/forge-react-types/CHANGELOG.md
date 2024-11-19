@@ -1,5 +1,14 @@
 # @atlaskit/forge-react-types
 
+## 0.29.0
+
+### Minor Changes
+
+- [#165221](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165221)
+  [`8cb74aed6daf4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8cb74aed6daf4) -
+  Changes to Heading component props. The `color` prop now accepts colors represented as tokens:
+  `color.text` (default), `color.text.inverse` and `color.text.warning.inverse`.
+
 ## 0.28.0
 
 ### Minor Changes

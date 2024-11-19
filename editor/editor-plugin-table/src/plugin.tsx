@@ -335,6 +335,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 						dispatchAnalyticsEvent,
 						dispatch,
 						portalProviderAPI,
+						nodeViewPortalProviderAPI,
 						eventDispatcher,
 						getIntl,
 					}) => {
@@ -356,6 +357,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							dispatchAnalyticsEvent,
 							dispatch,
 							portalProviderAPI,
+							nodeViewPortalProviderAPI,
 							eventDispatcher,
 							pluginConfig(tableOptions),
 							defaultGetEditorContainerWidth,
@@ -377,7 +379,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				},
 				{
 					name: 'tablePMColResizing',
-					plugin: ({ dispatch }) => {
+					plugin: ({ dispatch, nodeViewPortalProviderAPI }) => {
 						const {
 							fullWidthEnabled,
 							tableOptions,
@@ -396,6 +398,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 									defaultGetEditorContainerWidth,
 									getEditorFeatureFlags || defaultGetEditorFeatureFlags,
 									api,
+									nodeViewPortalProviderAPI,
 									editorAnalyticsAPI,
 									isTableScalingEnabled || false,
 									isNewColumnResizingEnabled,
@@ -410,7 +413,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				// plugin as it is currently swallowing backspace events inside tables
 				{
 					name: 'tableKeymap',
-					plugin: ({ getIntl }) => {
+					plugin: ({ getIntl, nodeViewPortalProviderAPI }) => {
 						const {
 							dragAndDropEnabled,
 							isTableScalingEnabled = false,
@@ -424,6 +427,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 						return keymapPlugin(
 							defaultGetEditorContainerWidth,
 							api,
+							nodeViewPortalProviderAPI,
 							editorAnalyticsAPI,
 							dragAndDropEnabled,
 							isTableScalingEnabled,
@@ -488,8 +492,10 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				},
 				{
 					name: 'tableViewModeSort',
-					plugin: () => {
-						return api?.editorViewMode ? createViewModeSortPlugin(api) : undefined;
+					plugin: ({ nodeViewPortalProviderAPI }) => {
+						return api?.editorViewMode
+							? createViewModeSortPlugin(api, nodeViewPortalProviderAPI)
+							: undefined;
 					},
 				},
 				{

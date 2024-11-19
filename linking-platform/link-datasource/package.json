@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.9.1",
+	"version": "3.10.0",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -171,6 +171,9 @@
 			"type": "boolean"
 		},
 		"platform-datasources-enable-two-way-sync-statuses": {
+			"type": "boolean"
+		},
+		"platform-datasources-enable-two-way-sync-priority": {
 			"type": "boolean"
 		},
 		"platform.linking-platform.datasource-assets_add_version_parameter": {

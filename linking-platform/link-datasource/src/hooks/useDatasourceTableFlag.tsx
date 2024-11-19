@@ -12,6 +12,7 @@ import { issueLikeTableMessages } from '../ui/issue-like-table/messages';
 
 interface DatasourceTableFlagOptions {
 	url?: string;
+	isFetchAction?: boolean;
 }
 
 const getErrorReason = (status?: number) => {
@@ -23,7 +24,7 @@ const getErrorReason = (status?: number) => {
 	}
 };
 
-const getGenericErrorMessage = (status?: number) => {
+const getExecuteActionErrorMessage = (status?: number) => {
 	switch (status) {
 		case 403:
 			return {
@@ -34,6 +35,18 @@ const getGenericErrorMessage = (status?: number) => {
 			return {
 				title: <FormattedMessage {...issueLikeTableMessages.updateErrorGenericTitle} />,
 				description: <FormattedMessage {...issueLikeTableMessages.updateErrorGenericDescription} />,
+			};
+	}
+};
+
+const getFetchActionErrorMessage = (status?: number) => {
+	switch (status) {
+		default:
+			return {
+				title: <FormattedMessage {...issueLikeTableMessages.fetchActionErrorGenericTitle} />,
+				description: (
+					<FormattedMessage {...issueLikeTableMessages.fetchActionErrorGenericDescription} />
+				),
 			};
 	}
 };
@@ -50,7 +63,9 @@ export const useDatasourceTableFlag = (options?: DatasourceTableFlagOptions) => 
 				icon: <CrossCircleIcon label="Error" primaryColor={token('color.icon.danger')} />,
 				id: uuid(),
 				isAutoDismiss: true,
-				...getGenericErrorMessage(args?.status),
+				...(options?.isFetchAction
+					? getFetchActionErrorMessage(args?.status)
+					: getExecuteActionErrorMessage(args?.status)),
 				...args,
 			});
 
@@ -58,7 +73,7 @@ export const useDatasourceTableFlag = (options?: DatasourceTableFlagOptions) => 
 				reason: getErrorReason(args?.status),
 			});
 		},
-		[fireEvent, showFlag],
+		[fireEvent, options?.isFetchAction, showFlag],
 	);
 
 	return { showErrorFlag };

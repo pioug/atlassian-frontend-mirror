@@ -1,5 +1,16 @@
 # @atlaskit/link-datasource
 
+## 3.10.0
+
+### Minor Changes
+
+- [#161781](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161781)
+  [`86ee3866560f2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/86ee3866560f2) -
+  [ux] EDM-10114 Add support for priority dropdown in datasources
+- [#163853](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163853)
+  [`726e9811f22b4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/726e9811f22b4) -
+  [ux] Adding error flag when `executeFetch` request fails
+
 ## 3.9.1
 
 ### Patch Changes

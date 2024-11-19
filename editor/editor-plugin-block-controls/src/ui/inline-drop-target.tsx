@@ -76,6 +76,8 @@ const getWidthOffset = (node: PMNode, width: string, position: 'left' | 'right')
 	}
 };
 
+const TABLE_NUMBERED_COLUMN_WIDTH = 42;
+
 export const InlineDropTarget = ({
 	api,
 	nextNode,
@@ -113,9 +115,15 @@ export const InlineDropTarget = ({
 			}
 		} else if (nextNode.type.name === 'table' && nextNode.firstChild) {
 			const tableWidthAnchor = getNodeAnchor(nextNode.firstChild);
-			innerContainerWidth = isAnchorSupported()
-				? `anchor-size(${tableWidthAnchor} width)`
-				: `${anchorRectCache?.getRect(tableWidthAnchor)?.width || 0}px`;
+			const isNumberColumnEnabled = Boolean(nextNode.attrs.isNumberColumnEnabled);
+			if (isAnchorSupported()) {
+				innerContainerWidth = isNumberColumnEnabled
+					? `calc(anchor-size(${tableWidthAnchor} width) + ${TABLE_NUMBERED_COLUMN_WIDTH}px)`
+					: `anchor-size(${tableWidthAnchor} width)`;
+			} else {
+				innerContainerWidth = `${(anchorRectCache?.getRect(tableWidthAnchor)?.width || 0) + TABLE_NUMBERED_COLUMN_WIDTH}px`;
+			}
+
 			if (nextNode.attrs.width) {
 				// when the table has horizontal scroll
 				innerContainerWidth = `min(${nextNode.attrs.width}px, ${innerContainerWidth})`;

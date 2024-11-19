@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "30.2.5",
+	"version": "30.2.6",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -185,6 +185,9 @@
 			"type": "boolean"
 		},
 		"smart-card-migrate-smartlinkiframe-analytics": {
+			"type": "boolean"
+		},
+		"smart-card-migrate-track-analytics": {
 			"type": "boolean"
 		}
 	}

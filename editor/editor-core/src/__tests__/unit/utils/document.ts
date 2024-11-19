@@ -1,7 +1,10 @@
 import { PanelType } from '@atlaskit/adf-schema';
 import type { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { processRawValue } from '@atlaskit/editor-common/process-raw-value';
+import {
+	processRawFragmentValue,
+	processRawValue,
+} from '@atlaskit/editor-common/process-raw-value';
 import {
 	hasVisibleContent,
 	isEmptyDocument,
@@ -27,7 +30,6 @@ import {
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import schema from '@atlaskit/editor-test-helpers/schema';
 
-import { processRawFragmentValue } from '../../../utils/processRawFragmentValue';
 import { name } from '../../../version-wrapper';
 
 describe(name, () => {

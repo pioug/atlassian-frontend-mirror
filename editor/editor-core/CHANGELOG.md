@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 201.5.1
+
+### Patch Changes
+
+- [#163126](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163126)
+  [`bae044582a28f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bae044582a28f) -
+  [ux] ED-25055: Updated layout to use separator
+
+## 201.5.0
+
+### Minor Changes
+
+- [#163532](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163532)
+  [`b80779d45e179`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b80779d45e179) -
+  moved processRawFragmentValue to editor-common
+
+### Patch Changes
+
+- [#165273](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165273)
+  [`665190aa04bde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/665190aa04bde) -
+  Fix setting up editorApi with usePreset for react strict mode by adding new apiResolver for
+  preset.
+- Updated dependencies
+
 ## 201.4.0
 
 ### Minor Changes

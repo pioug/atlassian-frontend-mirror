@@ -83,6 +83,24 @@ describe('PubSub', () => {
 				unmount1();
 				unmount2();
 			});
+
+			it('should not put certain events to `triggerLatest`', () => {
+				const { result } = renderHook(() => usePublish(topic));
+				const callback = jest.fn();
+
+				result.current({
+					type: 'agent-changed',
+					data: { agent: { id: '123', name: 'John Doe', identityAccountId: '456' } },
+					source: 'test-source',
+				});
+
+				const { unmount } = renderHook(() =>
+					useSubscribe({ topic, triggerLatest: true }, callback),
+				);
+
+				expect(callback).not.toHaveBeenCalled();
+				unmount();
+			});
 		});
 	});
 	describe('useSubscribeAll', () => {

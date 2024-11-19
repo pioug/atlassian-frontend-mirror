@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.12.2
+
+### Patch Changes
+
+- [#165350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165350)
+  [`195b3c26851ed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/195b3c26851ed) -
+  [ED-25777] Fix a live page bug where when cursor is within the table in a layout, switching from
+  view to edit, breaks the table
+
 ## 1.12.1
 
 ### Patch Changes

@@ -4,9 +4,11 @@ import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../messages';
 import { type AnalyticsFacade } from '../../../state/analytics';
 import { HoverCard } from '../../HoverCard';
@@ -50,7 +52,73 @@ const FallbackUnauthorizedIcon = (
 	</AKIconWrapper>
 );
 
-export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauthorizedViewProps> {
+const InlineCardUnauthorizedViewNew = ({
+	url,
+	id,
+	icon,
+	onAuthorise,
+	onClick,
+	isSelected,
+	testId = 'inline-card-unauthorized-view',
+	showAuthTooltip = false,
+	truncateInline,
+	context,
+}: InlineCardUnauthorizedViewProps): JSX.Element => {
+	const frameRef = React.useRef<HTMLSpanElement & null>(null);
+	const { fireEvent } = useAnalyticsEvents();
+
+	const handleConnectAccount = React.useCallback(
+		(event: React.MouseEvent<HTMLElement>) => {
+			event.preventDefault();
+			event.stopPropagation();
+			if (onAuthorise) {
+				fireEvent('track.applicationAccount.authStarted', {});
+				onAuthorise();
+			}
+		},
+		[fireEvent, onAuthorise],
+	);
+
+	const renderActionButton = React.useCallback(() => {
+		const ActionButton = withFrameStyleControl(Button, frameRef);
+
+		return onAuthorise ? (
+			<ActionButton
+				spacing="none"
+				component={IconStyledButton}
+				onClick={handleConnectAccount}
+				testId="button-connect-account"
+			>
+				<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
+			</ActionButton>
+		) : undefined;
+	}, [handleConnectAccount, onAuthorise, context]);
+
+	const inlineCardUnauthenticatedView = (
+		<Frame testId={testId} isSelected={isSelected} ref={frameRef} truncateInline={truncateInline}>
+			<IconAndTitleLayout
+				icon={icon ? icon : FallbackUnauthorizedIcon}
+				title={url}
+				link={url}
+				onClick={onClick}
+				titleColor={token('color.text.subtle', N500)}
+			/>
+			{renderActionButton()}
+		</Frame>
+	);
+
+	if (onAuthorise && showAuthTooltip) {
+		return (
+			<HoverCard url={url} id={id}>
+				{inlineCardUnauthenticatedView}
+			</HoverCard>
+		);
+	}
+
+	return inlineCardUnauthenticatedView;
+};
+
+class InlineCardUnauthorizedViewOld extends React.Component<InlineCardUnauthorizedViewProps> {
 	private frameRef = React.createRef<HTMLSpanElement & null>();
 
 	handleConnectAccount = (event: React.MouseEvent<HTMLElement>) => {
@@ -122,3 +190,11 @@ export class InlineCardUnauthorizedView extends React.Component<InlineCardUnauth
 		return inlineCardUnauthenticatedView;
 	}
 }
+
+export const InlineCardUnauthorizedView = (props: InlineCardUnauthorizedViewProps): JSX.Element => {
+	if (fg('smart-card-migrate-track-analytics')) {
+		return <InlineCardUnauthorizedViewNew {...props} />;
+	} else {
+		return <InlineCardUnauthorizedViewOld {...props} />;
+	}
+};

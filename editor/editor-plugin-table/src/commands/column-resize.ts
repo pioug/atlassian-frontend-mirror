@@ -1,6 +1,7 @@
 import type { IntlShape } from 'react-intl-next/src/types';
 
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { tableCellMinWidth } from '@atlaskit/editor-common/styles';
 import type { Command, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { AriaLiveElementAttributes } from '@atlaskit/editor-plugin-accessibility-utils';
@@ -54,7 +55,12 @@ const getTablePluginCommand = (
 };
 
 const updateResizeHandleAndStatePosition =
-	(rowIndex: number, columnIndex: number, nextResizeHandlePos: number): Command =>
+	(
+		rowIndex: number,
+		columnIndex: number,
+		nextResizeHandlePos: number,
+		nodeViewPortalProviderAPI: PortalProviderAPI,
+	): Command =>
 	(state, dispatch) => {
 		let customTr = state.tr;
 		const {
@@ -75,6 +81,7 @@ const updateResizeHandleAndStatePosition =
 			columnIndex,
 			true,
 			getIntl,
+			nodeViewPortalProviderAPI,
 		)({
 			tr: customTr,
 			decorationSet: getDecorations(state),
@@ -121,9 +128,11 @@ export const initiateKeyboardColumnResizing =
 	({
 		ariaNotify,
 		getIntl,
+		nodeViewPortalProviderAPI,
 	}: {
 		ariaNotify?: (message: string, ariaLiveElementAttributes?: AriaLiveElementAttributes) => void;
 		getIntl?: () => IntlShape;
+		nodeViewPortalProviderAPI: PortalProviderAPI;
 	}): Command =>
 	(state, dispatch, view) => {
 		const { selection } = state;
@@ -143,6 +152,7 @@ export const initiateKeyboardColumnResizing =
 				selectionRect.top,
 				selectionRect.right,
 				cell.pos,
+				nodeViewPortalProviderAPI,
 			)(state, dispatch);
 		}
 		return false;
@@ -153,10 +163,12 @@ export const activateNextResizeArea =
 		direction,
 		ariaNotify,
 		getIntl,
+		nodeViewPortalProviderAPI,
 	}: {
 		direction: Direction;
 		ariaNotify?: (message: string, ariaLiveElementAttributes?: AriaLiveElementAttributes) => void;
 		getIntl?: () => IntlShape;
+		nodeViewPortalProviderAPI: PortalProviderAPI;
 	}): Command =>
 	(state, dispatch, view) => {
 		const { resizeHandlePos } = getTableResizingPluginState(state) || {};
@@ -217,6 +229,8 @@ export const activateNextResizeArea =
 				rectForNextCell.top,
 				rectForNextCell.right,
 				$nextCell.pos,
+
+				nodeViewPortalProviderAPI,
 			)(state, dispatch, view);
 		} else {
 			// current position is in the one of the side columns of the table(left or right)
@@ -230,6 +244,7 @@ export const activateNextResizeArea =
 					currentCellRect.top,
 					tableMap.width,
 					$lastCell.pos,
+					nodeViewPortalProviderAPI,
 				)(state, dispatch, view);
 			} else if (tableMap.width === currentCellRect.right) {
 				const firsCellInCurrentRow =
@@ -240,6 +255,8 @@ export const activateNextResizeArea =
 					currentCellRect.top,
 					1,
 					$nextCell.pos,
+
+					nodeViewPortalProviderAPI,
 				)(state, dispatch);
 			}
 		}

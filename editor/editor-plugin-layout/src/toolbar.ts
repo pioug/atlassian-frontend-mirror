@@ -257,7 +257,7 @@ export const buildToolbar = (
 								showSelected: true,
 								testId: 'column-options-button',
 							},
-							sidebarTypesByColumns.length > 0 && separator,
+							...(sidebarTypesByColumns.length > 0 ? [separator] : []),
 						]
 					: []) as FloatingToolbarItem<Command>[]),
 				...layoutTypes.map((i) => buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI)),

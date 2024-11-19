@@ -74,6 +74,17 @@ const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
 	return [];
 };
 
+const isValidLayoutWidthDistributions = (layoutSection: Node) => {
+	const totalWidth = mapChildren(layoutSection, (column) => column.attrs.width).reduce(
+		(total, width) => {
+			return total + width;
+		},
+		0,
+	);
+
+	return Math.round(totalWidth) === 100;
+};
+
 /**
  * Finds layout preset based on the width attrs of all the layoutColumn nodes
  * inside the layoutSection node
@@ -465,6 +476,10 @@ export const setPresetLayout =
 	};
 
 function layoutNeedChanges(node: Node): boolean {
+	if (isPreRelease2()) {
+		return !getPresetLayout(node) || !isValidLayoutWidthDistributions(node);
+	}
+
 	return !getPresetLayout(node);
 }
 
@@ -494,11 +509,11 @@ export const fixColumnSizes = (changedTr: Transaction, state: EditorState) => {
 	if (!range) {
 		return undefined;
 	}
-
 	changedTr.doc.nodesBetween(range.from, range.to, (node, pos) => {
 		if (node.type !== layoutSection) {
 			return true; // Check all internal nodes expect for layout section
 		}
+
 		// Node is a section
 		if (layoutNeedChanges(node)) {
 			change = getLayoutChange(node, pos, state.schema);

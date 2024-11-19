@@ -1,5 +1,6 @@
 import type { IntlShape } from 'react-intl-next';
 
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { TableDecorations } from '../../../types';
@@ -36,6 +37,7 @@ export const buildColumnResizingDecorations =
 		columnEndIndex: number,
 		includeTooltip: boolean,
 		getIntl: () => IntlShape,
+		nodeViewPortalProviderAPI: PortalProviderAPI,
 	): DecorationTransformer =>
 	({ tr, decorationSet }): DecorationSet => {
 		const [columnResizesDecorations, lastCellElementsDecorations] =
@@ -49,6 +51,7 @@ export const buildColumnResizingDecorations =
 						},
 						includeTooltip,
 						getIntl,
+						nodeViewPortalProviderAPI,
 					);
 
 		return composeDecorations([

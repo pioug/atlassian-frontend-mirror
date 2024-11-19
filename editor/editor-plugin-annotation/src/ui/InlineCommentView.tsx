@@ -83,8 +83,13 @@ export function InlineCommentView({
 
 	const { createComponent: CreateComponent, viewComponent: ViewComponent } = inlineCommentProvider;
 	const inlineCommentState = getPluginState(state);
-	const { bookmark, selectedAnnotations, annotations, isInlineCommentViewClosed } =
-		inlineCommentState || {};
+	const {
+		bookmark,
+		selectedAnnotations,
+		annotations,
+		isInlineCommentViewClosed,
+		isOpeningMediaCommentFromToolbar,
+	} = inlineCommentState || {};
 	const annotationsList = getAllAnnotations(editorView.state.doc);
 
 	const selection = getSelectionPositions(state, inlineCommentState);
@@ -147,6 +152,7 @@ export function InlineCommentView({
 						!editorView.hasFocus() && editorView.focus();
 					}}
 					inlineNodeTypes={inlineNodeTypes}
+					isOpeningMediaCommentFromToolbar={isOpeningMediaCommentFromToolbar}
 				/>
 			</div>
 		);
@@ -218,6 +224,7 @@ export function InlineCommentView({
 				onClose={() => {
 					closeComponent()(editorView.state, editorView.dispatch);
 				}}
+				isOpeningMediaCommentFromToolbar={isOpeningMediaCommentFromToolbar}
 			/>
 		</AnnotationViewWrapper>
 	);

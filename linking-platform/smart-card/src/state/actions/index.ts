@@ -10,7 +10,9 @@ import {
 	type MetadataStatus,
 } from '@atlaskit/linking-common';
 import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
 import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
 import { type CardInnerAppearance } from '../../view/Card/types';
@@ -22,6 +24,7 @@ import useResolve from '../hooks/use-resolve';
 export const useSmartCardActions = (id: string, url: string, analytics: AnalyticsFacade) => {
 	const resolveUrl = useResolve();
 	const invokeClientAction = useInvokeClientAction({ analytics });
+	const { fireEvent } = useAnalyticsEvents();
 
 	const { store } = useSmartLinkContext();
 	const { getState, dispatch } = store;
@@ -101,7 +104,13 @@ export const useSmartCardActions = (id: string, url: string, analytics: Analytic
 				analytics.screen.authPopupEvent({ definitionId, extensionKey });
 				auth(services[0].url).then(
 					() => {
-						analytics.track.appAccountConnected({ definitionId, extensionKey });
+						if (fg('smart-card-migrate-track-analytics')) {
+							fireEvent('track.applicationAccount.connected', {
+								definitionId: definitionId ?? null,
+							});
+						} else {
+							analytics.track.appAccountConnected({ definitionId, extensionKey });
+						}
 						analytics.operational.connectSucceededEvent({
 							id,
 							definitionId,
@@ -136,6 +145,7 @@ export const useSmartCardActions = (id: string, url: string, analytics: Analytic
 			analytics.operational,
 			id,
 			reload,
+			fireEvent,
 		],
 	);
 

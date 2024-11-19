@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-type
 
+## 4.0.4
+
+### Patch Changes
+
+- [#165097](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165097)
+  [`0bca145c96b65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0bca145c96b65) -
+  [ux] Adds test styles options to the Selection toolbar under Contextual toolbar experiment
+- Updated dependencies
+
 ## 4.0.3
 
 ### Patch Changes

@@ -248,15 +248,6 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Enables moving the table sorting options in the column context menu to the top of the menu
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-23600
-	 * @default false
-	 */
-	tableSortColumnReorder?: boolean;
-
-	/**
-	 * @description
 	 * Enables new column resizing experience
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/ED-17798

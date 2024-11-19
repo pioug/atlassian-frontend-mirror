@@ -9,7 +9,9 @@ import { jsx } from '@emotion/react';
 
 import DropdownMenu, { type CustomTriggerProps } from '@atlaskit/dropdown-menu';
 import type { ThemeAppearance } from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
 import extractLozengeActionItems from '../../../../../../extractors/action/extract-lozenge-action-items';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
 import useInvoke from '../../../../../../state/hooks/use-invoke';
@@ -58,6 +60,8 @@ const LozengeAction = ({
 	//TODO EDM-6583 Replace usage of useFlexibleUiAnalyticsContext with linking platform analytics context from find team.
 	const analytics = useFlexibleUiAnalyticsContext();
 	const invoke = useInvoke();
+	const { fireEvent } = useAnalyticsEvents();
+
 	useEffect(() => {
 		setSelected({ text, appearance });
 	}, [text, appearance]);
@@ -69,9 +73,16 @@ const LozengeAction = ({
 			setIsOpen(args.isOpen);
 			if (args.isOpen) {
 				analytics?.ui.smartLinkLozengeActionClickedEvent();
-				analytics?.track.smartLinkQuickActionStarted({
-					smartLinkActionType: TrackQuickActionType.StatusUpdate,
-				});
+
+				if (fg('smart-card-migrate-track-analytics')) {
+					fireEvent('track.smartLinkQuickAction.started', {
+						smartLinkActionType: TrackQuickActionType.StatusUpdate,
+					});
+				} else {
+					analytics?.track.smartLinkQuickActionStarted({
+						smartLinkActionType: TrackQuickActionType.StatusUpdate,
+					});
+				}
 
 				if (!isLoaded && action?.read) {
 					try {
@@ -84,7 +95,11 @@ const LozengeAction = ({
 						setIsLoaded(true);
 
 						if (validItems?.length === 0) {
-							analytics?.track.smartLinkQuickActionFailed(permissionLoadErrorAnalyticsPayload);
+							if (fg('smart-card-migrate-track-analytics')) {
+								fireEvent('track.smartLinkQuickAction.failed', permissionLoadErrorAnalyticsPayload);
+							} else {
+								analytics?.track.smartLinkQuickActionFailed(permissionLoadErrorAnalyticsPayload);
+							}
 
 							setErrorMessage(LozengeActionErrorMessages.noData);
 							setIsLoaded(false);
@@ -93,7 +108,11 @@ const LozengeAction = ({
 						setErrorMessage(LozengeActionErrorMessages.unknown);
 						setIsLoaded(false);
 
-						analytics?.track.smartLinkQuickActionFailed(unknownLoadErrorAnalyticsPayload);
+						if (fg('smart-card-migrate-track-analytics')) {
+							fireEvent('track.smartLinkQuickAction.failed', unknownLoadErrorAnalyticsPayload);
+						} else {
+							analytics?.track.smartLinkQuickActionFailed(unknownLoadErrorAnalyticsPayload);
+						}
 					} finally {
 						setIsLoading(false);
 					}
@@ -104,7 +123,7 @@ const LozengeAction = ({
 				setErrorMessage(undefined);
 			}
 		},
-		[action.read, analytics, invoke, isLoaded, text],
+		[action.read, analytics, invoke, isLoaded, text, fireEvent],
 	);
 
 	const trigger = useCallback(
@@ -137,9 +156,15 @@ const LozengeAction = ({
 					setIsOpen(false);
 					setItems([]);
 
-					analytics?.track.smartLinkQuickActionSuccess({
-						smartLinkActionType: TrackQuickActionType.StatusUpdate,
-					});
+					if (fg('smart-card-migrate-track-analytics')) {
+						fireEvent('track.smartLinkQuickAction.success', {
+							smartLinkActionType: TrackQuickActionType.StatusUpdate,
+						});
+					} else {
+						analytics?.track.smartLinkQuickActionSuccess({
+							smartLinkActionType: TrackQuickActionType.StatusUpdate,
+						});
+					}
 
 					if (url) {
 						await reload(url, true, undefined, linkId);
@@ -150,14 +175,23 @@ const LozengeAction = ({
 
 				if (isInvokeCustomError(err)) {
 					setErrorMessage(err.message);
-					analytics?.track.smartLinkQuickActionFailed(validationUpdateErrorAnalyticsPayload);
+
+					if (fg('smart-card-migrate-track-analytics')) {
+						fireEvent('track.smartLinkQuickAction.failed', validationUpdateErrorAnalyticsPayload);
+					} else {
+						analytics?.track.smartLinkQuickActionFailed(validationUpdateErrorAnalyticsPayload);
+					}
 				} else {
 					setErrorMessage(LozengeActionErrorMessages.updateFailed);
-					analytics?.track.smartLinkQuickActionFailed(unknownUpdateErrorAnalyticsPayload);
+					if (fg('smart-card-migrate-track-analytics')) {
+						fireEvent('track.smartLinkQuickAction.failed', unknownUpdateErrorAnalyticsPayload);
+					} else {
+						analytics?.track.smartLinkQuickActionFailed(unknownUpdateErrorAnalyticsPayload);
+					}
 				}
 			}
 		},
-		[action?.update, analytics, invoke, linkId, reload, url],
+		[action?.update, analytics, invoke, linkId, reload, url, fireEvent],
 	);
 
 	const dropdownItemGroup = useMemo(() => {

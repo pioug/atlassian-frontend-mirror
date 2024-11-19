@@ -24,6 +24,18 @@ export const issueLikeTableMessages = defineMessages({
 		description: 'Generic error message title shown when updating issue field fails',
 		defaultMessage: 'Something went wrong',
 	},
+	fetchActionErrorGenericDescription: {
+		id: 'linkDataSource.issue-line-table.fetch-action-error-generic-description',
+		description:
+			'Generic error message description shown when fetching inline edit dropdown field fails',
+		defaultMessage:
+			'Wait a few minutes, then try again. Check your project settings or contact support if this keeps happening.',
+	},
+	fetchActionErrorGenericTitle: {
+		id: 'linkDataSource.issue-line-table.fetch-action-error-generic-title',
+		description: 'Generic error message title shown when fetching inline edit dropdown field fails',
+		defaultMessage: 'We’re having trouble fetching options',
+	},
 	wrapText: {
 		id: 'linkDataSource.issue-line-table.wrap-text',
 		description: 'Table header Dropdown item for making whole column to wrap text',

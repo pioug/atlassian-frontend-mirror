@@ -105,4 +105,16 @@ describe('useDatasourceTableFlag', () => {
 			EVENT_CHANNEL,
 		);
 	});
+
+	it('shows error flag for inline edit errors', () => {
+		setup({ options: { isFetchAction: true } });
+
+		expect(screen.getByRole('alert')).toBeInTheDocument();
+		expect(screen.queryByText('We’re having trouble fetching options')).toBeInTheDocument();
+		expect(
+			screen.queryByText(
+				'Wait a few minutes, then try again. Check your project settings or contact support if this keeps happening.',
+			),
+		).toBeInTheDocument();
+	});
 });

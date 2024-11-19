@@ -13,6 +13,7 @@ import Select from '@atlaskit/select';
 
 import { failUfoExperience, succeedUfoExperience } from '../../../../analytics/ufoExperiences';
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
+import { useDatasourceTableFlag } from '../../../../hooks/useDatasourceTableFlag';
 import type { ExecuteFetch } from '../../../../state/actions';
 import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
 import type { DatasourceTypeWithOnlyValues } from '../../types';
@@ -94,6 +95,8 @@ const useStatusOptions = ({
 		hasFailed: false,
 	});
 
+	const { showErrorFlag } = useDatasourceTableFlag({ isFetchAction: true });
+
 	useEffect(() => {
 		let isMounted = true;
 		loadOptions(fetchInputs, executeFetch)
@@ -103,12 +106,13 @@ const useStatusOptions = ({
 				}
 			})
 			.catch((err) => {
+				showErrorFlag();
 				setOptions({ isLoading: false, options: [], hasFailed: true });
 			});
 		return () => {
 			isMounted = false;
 		};
-	}, [fetchInputs, executeFetch]);
+	}, [fetchInputs, executeFetch, showErrorFlag]);
 
 	return { options, isLoading, hasFailed };
 };

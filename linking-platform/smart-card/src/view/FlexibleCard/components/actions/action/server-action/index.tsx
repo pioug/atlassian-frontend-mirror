@@ -1,5 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
 import useInvoke from '../../../../../../state/hooks/use-invoke';
 import { getInvokeFailureReason } from '../../../../../../state/hooks/use-invoke/utils';
@@ -20,6 +23,7 @@ const ServerAction = ({
 	const analytics = useFlexibleUiAnalyticsContext();
 	const invoke = useInvoke();
 	const reload = useResolve();
+	const { fireEvent } = useAnalyticsEvents();
 
 	const handleClick = useCallback(async () => {
 		if (action) {
@@ -32,12 +36,24 @@ const ServerAction = ({
 					smartLinkActionType,
 				});
 
-				analytics?.track.smartLinkQuickActionStarted({ smartLinkActionType });
+				if (fg('smart-card-migrate-track-analytics')) {
+					fireEvent('track.smartLinkQuickAction.started', {
+						smartLinkActionType,
+					});
+				} else {
+					analytics?.track.smartLinkQuickActionStarted({ smartLinkActionType });
+				}
 
 				const request = createInvokeRequest(action);
 				await invoke(request);
 
-				analytics?.track.smartLinkQuickActionSuccess({ smartLinkActionType });
+				if (fg('smart-card-migrate-track-analytics')) {
+					fireEvent('track.smartLinkQuickAction.success', {
+						smartLinkActionType,
+					});
+				} else {
+					analytics?.track.smartLinkQuickActionSuccess({ smartLinkActionType });
+				}
 
 				if (action.reload && action.reload.url) {
 					await reload(action.reload.url, true, undefined, action.reload.id);
@@ -51,15 +67,31 @@ const ServerAction = ({
 			} catch (err: any) {
 				setIsLoading(false);
 
-				analytics?.track.smartLinkQuickActionFailed({
-					smartLinkActionType,
-					reason: getInvokeFailureReason(err),
-				});
+				if (fg('smart-card-migrate-track-analytics')) {
+					fireEvent('track.smartLinkQuickAction.failed', {
+						smartLinkActionType,
+						reason: getInvokeFailureReason(err),
+					});
+				} else {
+					analytics?.track.smartLinkQuickActionFailed({
+						smartLinkActionType,
+						reason: getInvokeFailureReason(err),
+					});
+				}
 
 				onErrorCallback?.();
 			}
 		}
-	}, [action, analytics?.track, analytics?.ui, invoke, onClick, onErrorCallback, reload]);
+	}, [
+		action,
+		analytics?.track,
+		analytics?.ui,
+		invoke,
+		onClick,
+		onErrorCallback,
+		reload,
+		fireEvent,
+	]);
 
 	return <Action {...props} isLoading={isLoading} onClick={handleClick} />;
 };

@@ -4,7 +4,9 @@ import { type JsonLd } from 'json-ld-types';
 import { FormattedMessage } from 'react-intl-next';
 
 import { extractProvider } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import { ActionName, CardDisplay } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { useSmartCardActions } from '../../../../../state/actions';
@@ -35,16 +37,21 @@ const HoverCardUnauthorisedView = ({
 	const providerName = extractProvider(data)?.text;
 	const isProductIntegrationSupported = hasAuthScopeOverrides(cardState.details);
 	const { authorize } = useSmartCardActions(id, url, analytics);
+	const { fireEvent } = useAnalyticsEvents();
 
 	const handleAuthorize = useCallback(() => {
 		if (authorize) {
-			analytics.track.appAccountAuthStarted({
-				extensionKey,
-			});
+			if (fg('smart-card-migrate-track-analytics')) {
+				fireEvent('track.applicationAccount.authStarted', {});
+			} else {
+				analytics.track.appAccountAuthStarted({
+					extensionKey,
+				});
+			}
 
 			authorize(CardDisplay.HoverCardPreview);
 		}
-	}, [authorize, extensionKey, analytics.track]);
+	}, [authorize, extensionKey, analytics.track, fireEvent]);
 
 	const actions = useMemo<ActionItem[]>(
 		() => [

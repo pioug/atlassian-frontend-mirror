@@ -16,6 +16,17 @@ export default function All() {
 				<Skeleton width="200px" height="16px" isShimmering testId="skeleton-shimmering" />
 			</Stack>
 			<Stack space="space.050">
+				<Text>With custom animation</Text>
+				<Skeleton
+					width="200px"
+					height="16px"
+					isShimmering
+					testId="skeleton-shimmering"
+					color="red"
+					ShimmeringEndColor="blue"
+				/>
+			</Stack>
+			<Stack space="space.050">
 				<Text>Custom borderRadius</Text>
 				<Skeleton width="200px" height="16px" borderRadius={3} testId="skeleton-border" />
 			</Stack>

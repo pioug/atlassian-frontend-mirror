@@ -165,7 +165,6 @@ export const getDragMenuConfig = (
 	tableDuplicateCellColouring = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
-	tableSortColumnReorder = false,
 	ariaNotifyPlugin?: (
 		message: string,
 		ariaLiveElementAttributes?: AriaLiveElementAttributes,
@@ -417,7 +416,7 @@ export const getDragMenuConfig = (
 	];
 
 	let allConfigs = [...restConfigs];
-	tableSortColumnReorder ? allConfigs.unshift(...sortConfigs) : allConfigs.push(...sortConfigs);
+	allConfigs.unshift(...sortConfigs);
 
 	return allConfigs.filter(Boolean) as DragMenuConfig[];
 };

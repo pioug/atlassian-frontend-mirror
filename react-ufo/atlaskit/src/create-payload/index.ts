@@ -195,9 +195,7 @@ const getVCMetrics = (interaction: InteractionMetrics) => {
 	}
 
 	const ssr =
-		interaction.type === 'page_load' && config?.vc?.ssr
-			? { ssr: getSSRDoneTimeValue(config) }
-			: null;
+		interaction.type === 'page_load' && config?.ssr ? { ssr: getSSRDoneTimeValue(config) } : null;
 
 	postInteractionLog.setVCObserverSSRConfig(ssr);
 

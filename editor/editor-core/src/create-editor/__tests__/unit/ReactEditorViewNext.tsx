@@ -188,7 +188,8 @@ describe('@atlaskit/editor-core', () => {
 			);
 
 			// Expect document changed with mention text attr empty
-			const editorAPI = (await preset.apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
+			const apiPromise = new Promise((resolve) => preset.apiResolver.on((api) => resolve(api)));
+			const editorAPI = (await apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
 			const { resolver, requestPromise } = getPromiseResolver();
 
 			editorAPI?.core.actions.requestDocument((document) => {
@@ -239,7 +240,8 @@ describe('@atlaskit/editor-core', () => {
 				/>,
 			);
 
-			const editorAPI = (await preset.apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
+			const apiPromise = new Promise((resolve) => preset.apiResolver.on((api) => resolve(api)));
+			const editorAPI = (await apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
 			const { resolver, requestPromise } = getPromiseResolver();
 
 			// Expect document unchanged
@@ -289,7 +291,8 @@ describe('@atlaskit/editor-core', () => {
 				/>,
 			);
 
-			const editorAPI = (await preset.apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
+			const apiPromise = new Promise((resolve) => preset.apiResolver.on((api) => resolve(api)));
+			const editorAPI = (await apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
 			const { resolver, requestPromise } = getPromiseResolver();
 
 			// Expect document unchanged
@@ -480,7 +483,8 @@ describe('@atlaskit/editor-core', () => {
 					}}
 				/>,
 			);
-			const editorAPI = (await preset.apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
+			const apiPromise = new Promise((resolve) => preset.apiResolver.on((api) => resolve(api)));
+			const editorAPI = (await apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
 			const { resolver, requestPromise } = getPromiseResolver();
 
 			const mock = jest.spyOn(EditorState, 'create');
@@ -512,7 +516,8 @@ describe('@atlaskit/editor-core', () => {
 					}}
 				/>,
 			);
-			const editorAPI = (await preset.apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
+			const apiPromise = new Promise((resolve) => preset.apiResolver.on((api) => resolve(api)));
+			const editorAPI = (await apiPromise) as PublicPluginAPI<[AnalyticsPlugin]>;
 
 			const schema = editorAPI?.core.actions.createTransformer(
 				(schema) =>

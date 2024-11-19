@@ -5,7 +5,7 @@
 import React, { forwardRef, memo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
@@ -39,6 +39,7 @@ const breadcrumbStyles = css({
 	margin: token('space.0', '0px'),
 	padding: token('space.0', '0px'),
 	flexWrap: 'wrap',
+	color: token('color.text.subtlest', N200),
 });
 
 const InnerBreadcrumbs = forwardRef((props: BreadcrumbsProps, ref: React.Ref<any>) => {
@@ -151,12 +152,7 @@ const InnerBreadcrumbs = forwardRef((props: BreadcrumbsProps, ref: React.Ref<any
 
 	return (
 		<nav aria-label={label} ref={mergeRefs([ref, wrapperRef])} tabIndex={-1}>
-			<ol
-				data-testid={testId}
-				css={breadcrumbStyles}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={{ color: token('color.text.subtlest', N200) }}
-			>
+			<ol data-testid={testId} css={breadcrumbStyles}>
 				{breadcrumbsItems}
 			</ol>
 		</nav>

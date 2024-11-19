@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 30.2.6
+
+### Patch Changes
+
+- [#165246](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165246)
+  [`44736d02ef327`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44736d02ef327) -
+  Migrate track events to analytics.spec.yaml
+
 ## 30.2.5
 
 ### Patch Changes

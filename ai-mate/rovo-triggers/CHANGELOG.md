@@ -1,5 +1,14 @@
 # @atlaskit/rovo-triggers
 
+## 1.4.0
+
+### Minor Changes
+
+- [#165779](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165779)
+  [`e93c2da005e72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e93c2da005e72) -
+  Fix the change introduced in conversation-assistant 2.47.0, some chat-new event are overridden by
+  agent-changed event
+
 ## 1.3.0
 
 ### Minor Changes

@@ -2,6 +2,7 @@ import isEqual from 'lodash/isEqual';
 
 import type { CellAttributes, TableAttributes, TableLayout } from '@atlaskit/adf-schema';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import {
 	closestElement,
@@ -560,6 +561,7 @@ export const addResizeHandleDecorations = (
 	rowIndex: number,
 	columnIndex: number,
 	includeTooltip: boolean,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	isKeyboardResize?: boolean,
 ) =>
 	createCommand(
@@ -582,6 +584,7 @@ export const addResizeHandleDecorations = (
 						columnIndex,
 						includeTooltip,
 						getIntl,
+						nodeViewPortalProviderAPI,
 					)({
 						tr: state.tr,
 						decorationSet: getDecorations(state),
@@ -597,6 +600,7 @@ export const addResizeHandleDecorations = (
 	);
 
 export const updateResizeHandleDecorations = (
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	rowIndex?: number,
 	columnIndex?: number,
 	includeTooltip?: boolean,
@@ -636,6 +640,7 @@ export const updateResizeHandleDecorations = (
 						resolvedColumnIndex,
 						resolvedIncludeTooltip,
 						getIntl,
+						nodeViewPortalProviderAPI,
 					)({
 						tr: state.tr,
 						decorationSet: getDecorations(state),

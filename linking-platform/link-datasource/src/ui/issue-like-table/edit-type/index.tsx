@@ -4,8 +4,10 @@ import type InlineEdit from '@atlaskit/inline-edit';
 import type { DatasourceType } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { type DatasourceTypeWithOnlyValues } from '../types';
+import { type ExecuteFetch } from '../../../state/actions';
+import { type DatasourceTypeWithOnlyTypeValues, type DatasourceTypeWithOnlyValues } from '../types';
 
+import PriorityEditType from './icon';
 import StatusEditType from './status';
 import TextEditType, { toTextValue } from './text';
 
@@ -21,7 +23,7 @@ export const editType = ({
 	defaultValue: DatasourceTypeWithOnlyValues;
 	currentValue: DatasourceTypeWithOnlyValues;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
-	executeFetch?: <E>(inputs: any) => Promise<E>;
+	executeFetch?: ExecuteFetch;
 }): Pick<React.ComponentProps<typeof InlineEdit>, 'defaultValue' | 'editView'> => {
 	switch (defaultValue.type) {
 		case 'string':
@@ -34,6 +36,19 @@ export const editType = ({
 						setEditValues={setEditValues}
 						id={ACTIVE_INLINE_EDIT_ID}
 					/>
+				),
+			};
+		case 'icon':
+			return {
+				defaultValue: toTextValue(defaultValue),
+				editView: ({ value, ...fieldProps }) => (
+					<PriorityEditType
+						{...fieldProps}
+						currentValue={currentValue as DatasourceTypeWithOnlyTypeValues<'icon'>}
+						setEditValues={setEditValues}
+						id={ACTIVE_INLINE_EDIT_ID}
+						executeFetch={executeFetch}
+					></PriorityEditType>
 				),
 			};
 		case 'status':
@@ -49,15 +64,16 @@ export const editType = ({
 					/>
 				),
 			};
-		default:
-			return { defaultValue: '', editView: () => <></> };
 	}
+	return { defaultValue: '', editView: () => <></> };
 };
 
 export const isEditTypeSupported = (type: DatasourceType['type']) => {
-	const supportedEditType = fg('platform-datasources-enable-two-way-sync-statuses')
-		? ['string', 'status']
-		: ['string'];
+	const supportedEditType = [
+		'string',
+		...(fg('platform-datasources-enable-two-way-sync-statuses') ? ['status'] : []),
+		...(fg('platform-datasources-enable-two-way-sync-priority') ? ['icon'] : []),
+	];
 	return supportedEditType.includes(type);
 };
 

@@ -9,8 +9,7 @@ import {
 } from '@atlaskit/adf-utils/transforms';
 import type { ADFEntity, ADFEntityMark } from '@atlaskit/adf-utils/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
-import { Node } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, Node, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
@@ -294,6 +293,38 @@ export function processRawValue(
 
 		return;
 	}
+}
+
+export function processRawFragmentValue(
+	schema: Schema,
+	value?: ReplaceRawValue[],
+	providerFactory?: ProviderFactory,
+	sanitizePrivateContent?: boolean,
+	contentTransformer?: Transformer<string>,
+	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+): Fragment | undefined {
+	if (!value) {
+		return;
+	}
+
+	const adfEntities = value
+		.map((item) =>
+			processRawValue(
+				schema,
+				item,
+				providerFactory,
+				sanitizePrivateContent,
+				contentTransformer,
+				dispatchAnalyticsEvent,
+			),
+		)
+		.filter((item) => Boolean(item)) as Node[];
+
+	if (adfEntities.length === 0) {
+		return;
+	}
+
+	return Fragment.from(adfEntities);
 }
 
 function isProseMirrorSchemaCheckError(error: unknown): boolean {

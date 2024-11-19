@@ -32,6 +32,7 @@ export default (
 				action.data.targetType,
 				action.data.supportedBlockNodes,
 				action.data.targetNodeId,
+				action.data.isOpeningMediaCommentFromToolbar,
 			);
 		case ACTIONS.INLINE_COMMENT_CLEAR_DIRTY_MARK:
 			return {
@@ -44,8 +45,8 @@ export default (
 				...pluginState,
 				isInlineCommentViewClosed: true,
 				isDrafting: false,
+				isOpeningMediaCommentFromToolbar: false,
 			};
-
 		case ACTIONS.ADD_INLINE_COMMENT:
 			const updatedPluginState = getNewDraftState(
 				pluginState,
@@ -83,6 +84,7 @@ export default (
 				selectAnnotationMethod: action.data.selectAnnotationMethod,
 				skipSelectionHandling: true,
 				isInlineCommentViewClosed: false,
+				isOpeningMediaCommentFromToolbar: action.data.isOpeningMediaCommentFromToolbar,
 			};
 		default:
 			return pluginState;
@@ -96,6 +98,7 @@ function getNewDraftState(
 	targetType?: TargetType,
 	supportedBlockNodes?: string[],
 	targetNodeId?: string,
+	isOpeningMediaCommentFromToolbar?: boolean,
 ) {
 	let { draftDecorationSet } = pluginState;
 
@@ -119,6 +122,8 @@ function getNewDraftState(
 		const draftDecoration = addDraftDecoration(from, to, targetType);
 		newState.draftDecorationSet = draftDecorationSet.add(editorState.doc, [draftDecoration]);
 	}
+
+	newState.isOpeningMediaCommentFromToolbar = isOpeningMediaCommentFromToolbar;
 
 	return newState;
 }

@@ -100,6 +100,10 @@ export enum ActionOperationStatus {
 	FAILURE = 'FAILURE',
 }
 
+/**
+ * The response shape from /gateway/api/object-resolver/actions/execute
+ * T could be Icon or Status for example.
+ */
 export interface AtomicActionExecuteResponse<T = unknown> {
 	operationStatus: ActionOperationStatus;
 	errors: ActionsServiceError[];

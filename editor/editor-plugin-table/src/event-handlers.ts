@@ -2,6 +2,7 @@ import rafSchedule from 'raf-schd';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import {
 	browser,
 	closestElement,
@@ -347,8 +348,8 @@ export const handleMouseLeave = (view: EditorView, event: Event): boolean => {
 
 // IMPORTANT: The mouse move handler has been setup with RAF schedule to avoid Reflows which will occur as some methods
 // need to access the mouse event offset position and also the target clientWidth vallue.
-const handleMouseMoveDebounce = rafSchedule(
-	(view: EditorView, event: MouseEvent, offsetX: number) => {
+const handleMouseMoveDebounce = (nodeViewPortalProviderAPI: PortalProviderAPI) =>
+	rafSchedule((view: EditorView, event: MouseEvent, offsetX: number) => {
 		if (!(event.target instanceof HTMLElement)) {
 			return false;
 		}
@@ -413,6 +414,7 @@ const handleMouseMoveDebounce = rafSchedule(
 							rowIndexTarget,
 							columnEndIndexTarget,
 							true,
+							nodeViewPortalProviderAPI,
 						)(state, dispatch);
 					}
 				}
@@ -420,26 +422,26 @@ const handleMouseMoveDebounce = rafSchedule(
 		}
 
 		return false;
-	},
-);
+	});
 
-export const handleMouseMove = (view: EditorView, event: Event) => {
-	if (!(event.target instanceof HTMLElement)) {
+export const handleMouseMove =
+	(nodeViewPortalProviderAPI: PortalProviderAPI) => (view: EditorView, event: Event) => {
+		if (!(event.target instanceof HTMLElement)) {
+			return false;
+		}
+
+		// NOTE: When accessing offsetX in gecko from a deferred callback, it will return 0. However it will be non-zero if accessed
+		// within the scope of it's initial mouse move handler. Also Chrome does return the correct value, however it could trigger
+		// a reflow. So for now this will just grab the offsetX value immediately for gecko and chrome will calculate later
+		// in the deferred callback handler.
+		// Bug Tracking: https://bugzilla.mozilla.org/show_bug.cgi?id=1882903
+		handleMouseMoveDebounce(nodeViewPortalProviderAPI)(
+			view,
+			event as MouseEvent,
+			browser.gecko ? (event as MouseEvent).offsetX : NaN,
+		);
 		return false;
-	}
-
-	// NOTE: When accessing offsetX in gecko from a deferred callback, it will return 0. However it will be non-zero if accessed
-	// within the scope of it's initial mouse move handler. Also Chrome does return the correct value, however it could trigger
-	// a reflow. So for now this will just grab the offsetX value immediately for gecko and chrome will calculate later
-	// in the deferred callback handler.
-	// Bug Tracking: https://bugzilla.mozilla.org/show_bug.cgi?id=1882903
-	handleMouseMoveDebounce(
-		view,
-		event as MouseEvent,
-		browser.gecko ? (event as MouseEvent).offsetX : NaN,
-	);
-	return false;
-};
+	};
 
 export function handleTripleClick(view: EditorView, pos: number) {
 	const { state, dispatch } = view;

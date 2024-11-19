@@ -2,10 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, keyframes } from '@emotion/react';
+import { css, jsx, keyframes } from '@compiled/react';
 
-import { skeletonShimmer } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 type SkeletonProps = {
 	width: string | number;
@@ -36,30 +35,26 @@ type SkeletonProps = {
 	testId?: string;
 };
 
-const shimmer = skeletonShimmer();
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-const shimmerKeyframes = keyframes(shimmer.keyframes);
+const shimmerKeyframes = keyframes({
+	from: {
+		backgroundColor: `var(--ds-skeleton-from-color, ${token('color.skeleton')})`,
+	},
+	to: {
+		backgroundColor: `var(--ds-skeleton-to-color, ${token('color.skeleton.subtle')})`,
+	},
+});
 
 const skeletonStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	...shimmer.css,
+	animationDirection: 'alternate',
+	animationDuration: '1.5s',
+	animationIterationCount: 'infinite',
+	animationTimingFunction: 'linear',
+	backgroundColor: token('color.skeleton'),
 });
 
 const activeShimmerStyles = css({
-	animationName: `${shimmerKeyframes}`,
+	animationName: shimmerKeyframes,
 });
-
-const getKeyframes = (fromColor: string, toColor: string) =>
-	keyframes({
-		from: {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			backgroundColor: fromColor,
-		},
-		to: {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-			backgroundColor: toColor,
-		},
-	});
 
 /**
  * __Skeleton__
@@ -84,19 +79,18 @@ const Skeleton = ({
 	return (
 		<div
 			data-testid={testId}
-			css={[
-				skeletonStyles,
-				isShimmering && activeShimmerStyles,
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			css={[skeletonStyles, isShimmering && activeShimmerStyles]}
+			style={
 				{
 					width,
 					height,
 					borderRadius,
 					backgroundColor: color,
-					animationName:
-						color && ShimmeringEndColor ? getKeyframes(color, ShimmeringEndColor) : undefined,
-				},
-			]}
+					// Override the keyframes if both colors are provided, otherwise use the CSS variable fallbacks in our keyframes
+					'--ds-skeleton-from-color': color && ShimmeringEndColor ? color : undefined,
+					'--ds-skeleton-to-color': color && ShimmeringEndColor ? ShimmeringEndColor : undefined,
+				} as React.CSSProperties
+			}
 			{...(groupDataAttribute && { [groupDataAttribute]: 'true' })}
 		/>
 	);

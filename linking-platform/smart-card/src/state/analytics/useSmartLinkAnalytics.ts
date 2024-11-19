@@ -910,6 +910,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param definitionId The definitionId of the Smart Link resolver invoked.
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
 			 * @returns
+			 * @deprecated
 			 */
 			appAccountConnected: ({
 				extensionKey,
@@ -939,6 +940,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param location a location where the Smart Link auth action was initiated.
 			 * @param extensionKey The extensionKey of the Smart Link resolver invoked.
 			 * @returns
+			 * @deprecated
 			 */
 			appAccountAuthStarted: ({ extensionKey, location }: TrackAppAccountConnectedProps) =>
 				dispatchAnalytics(
@@ -954,6 +956,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 
 			/**
 			 * This fires a tracking event before an action invoke api call is made
+			 * @deprecated
 			 */
 			smartLinkQuickActionStarted: (props: {
 				smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
@@ -967,6 +970,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 
 			/**
 			 * This fires a tracking event after an action invoke api call is successful
+			 * @deprecated
 			 */
 			smartLinkQuickActionSuccess: (props: {
 				smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
@@ -980,6 +984,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 
 			/**
 			 * This fires a tracking event after an action invoke api call has failed
+			 * @deprecated
 			 */
 			smartLinkQuickActionFailed: (props: {
 				smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
@@ -995,6 +1000,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 
 			/**
 			 * Fires a track event when we call loadMetadata() to get information for a hover card
+			 * @deprecated
 			 */
 			hoverCardResolutionStarted: () =>
 				dispatchAnalytics(

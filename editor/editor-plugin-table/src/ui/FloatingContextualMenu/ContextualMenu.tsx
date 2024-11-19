@@ -584,13 +584,11 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 
 	private createOriginalContextMenuItems = () => {
 		let items: MenuItem[] = [];
-		const { getEditorFeatureFlags } = this.props;
-		const { tableSortColumnReorder = false } = getEditorFeatureFlags ? getEditorFeatureFlags() : {};
 		const sortColumnItems = this.createSortColumnItems();
 		const backgroundColorItem = this.createBackgroundColorItem();
 		const distributeColumnsItem = this.createDistributeColumnsItem();
 
-		tableSortColumnReorder && sortColumnItems && items.push(...sortColumnItems);
+		sortColumnItems && items.push(...sortColumnItems);
 
 		backgroundColorItem && items.push(backgroundColorItem);
 
@@ -605,8 +603,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		items.push(...this.createMergeSplitCellItems());
 
 		distributeColumnsItem && items.push(distributeColumnsItem);
-
-		!tableSortColumnReorder && sortColumnItems && items.push(...sortColumnItems);
 
 		items.push(this.createClearCellsItem());
 

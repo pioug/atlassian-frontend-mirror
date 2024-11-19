@@ -20,7 +20,10 @@ interface SubscribeAll {
 	(callback: Callback): () => void;
 }
 
-const ignoredTriggerLatestEvents = new Set<Payload['type']>(['editor-context-payload']);
+const ignoredTriggerLatestEvents = new Set<Payload['type']>([
+	'editor-context-payload',
+	'agent-changed',
+]);
 
 const createPubSub = () => {
 	let subscribedEvents: TopicEvents = {};

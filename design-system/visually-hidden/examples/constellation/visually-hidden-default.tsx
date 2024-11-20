@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 
-import VisuallyHidden from '../../src';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import ToggleVisuallyHidden from './utils/toggle-visually-hidden';
 

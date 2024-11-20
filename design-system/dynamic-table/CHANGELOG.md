@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 16.1.2
+
+### Patch Changes
+
+- [#165798](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165798)
+  [`d0ba9d90d42e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0ba9d90d42e5) -
+  Adds side-effect config to support Compiled css extraction in third-party apps
+
 ## 16.1.1
 
 ### Patch Changes

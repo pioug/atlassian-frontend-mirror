@@ -1,5 +1,11 @@
 # @atlaskit/smart-card
 
+## 30.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.2.6
 
 ### Patch Changes

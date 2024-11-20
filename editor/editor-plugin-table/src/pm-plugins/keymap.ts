@@ -68,7 +68,6 @@ export function keymapPlugin(
 	isFullWidthEnabled?: boolean,
 	pluginInjectionApi?: PluginInjectionAPIWithA11y,
 	getIntl?: () => IntlShape,
-	isCellBackgroundDuplicated = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent?: boolean,
 	isCommentEditor?: boolean,
@@ -130,7 +129,6 @@ export function keymapPlugin(
 		addColumnBeforeCommand(
 			api,
 			isTableScalingEnabled,
-			isCellBackgroundDuplicated,
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
 		),
@@ -142,7 +140,6 @@ export function keymapPlugin(
 		addColumnAfterCommand(
 			api,
 			isTableScalingEnabled,
-			isCellBackgroundDuplicated,
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
 		),
@@ -166,7 +163,6 @@ export function keymapPlugin(
 		addColumnBeforeCommand(
 			api,
 			isTableScalingEnabled,
-			isCellBackgroundDuplicated,
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
 		),
@@ -178,7 +174,6 @@ export function keymapPlugin(
 		addColumnAfterCommand(
 			api,
 			isTableScalingEnabled,
-			isCellBackgroundDuplicated,
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
 		),

@@ -9,9 +9,9 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives';
+import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { token } from '@atlaskit/tokens';
 
-import Tabs, { Tab, TabList, TabPanel } from '../../src';
 import { type SelectedType } from '../../src/types';
 
 const panelStyles = css({

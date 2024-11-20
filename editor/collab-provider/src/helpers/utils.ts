@@ -16,6 +16,9 @@ export function sleep(ms: number) {
 	});
 }
 
+export const isAIProviderID = (id: string): boolean =>
+	typeof id === 'string' && id.startsWith('agent:');
+
 export const getProduct = (productInfo?: ProductInformation): string =>
 	productInfo?.product ?? 'unknown';
 

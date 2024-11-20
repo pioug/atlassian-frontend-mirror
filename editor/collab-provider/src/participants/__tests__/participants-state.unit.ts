@@ -12,8 +12,20 @@ const activeUser: ProviderParticipant = {
 	email: 'fake.user@email.com',
 };
 
+const activeAgent: ProviderParticipant = {
+	userId: 'agent:420',
+	clientId: 'agent:unused1',
+	sessionId: 'agent:69',
+	lastActive: 999,
+	name: 'Agent McAgentFace',
+	avatar: 'www.jamescameron.com/image.png',
+	email: 'fake.user@email.com',
+};
+
 describe('get functions', () => {
-	const participants: ParticipantsMap = new Map().set(activeUser.sessionId, activeUser);
+	const participants: ParticipantsMap = new Map()
+		.set(activeUser.sessionId, activeUser)
+		.set(activeAgent.sessionId, activeAgent);
 
 	const participantsState = new ParticipantsState(participants);
 
@@ -29,6 +41,22 @@ describe('get functions', () => {
 
 		it('should create a deep copy', () => {
 			expect(copy[0]).not.toBe(activeUser);
+		});
+
+		it('should not include agents', () => {
+			expect(copy).toHaveLength(1);
+		});
+	});
+
+	describe('getAIProviderParticipants', () => {
+		const copy = participantsState.getAIProviderParticipants();
+
+		it('should create a deep copy', () => {
+			expect(copy[0]).not.toBe(activeAgent);
+		});
+
+		it('should not include agents', () => {
+			expect(copy).toHaveLength(1);
 		});
 	});
 });

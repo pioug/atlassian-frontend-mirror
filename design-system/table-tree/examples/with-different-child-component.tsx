@@ -1,8 +1,14 @@
 import React, { Component, type ComponentType } from 'react';
 
 import EmptyState from '@atlaskit/empty-state';
-
-import TableTree, { Cell, Header, Headers, Row, Rows, TableTreeDataHelper } from '../src';
+import TableTree, {
+	Cell,
+	Header,
+	Headers,
+	Row,
+	Rows,
+	TableTreeDataHelper,
+} from '@atlaskit/table-tree';
 
 import exampleImage from './img/example-image.png';
 

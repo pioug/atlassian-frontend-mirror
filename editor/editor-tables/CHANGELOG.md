@@ -1,5 +1,13 @@
 # @atlaskit/editor-tables
 
+## 2.8.2
+
+### Patch Changes
+
+- [#165001](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165001)
+  [`d77bdbfe892ed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d77bdbfe892ed) -
+  tidy table duplicate cell color experiment
+
 ## 2.8.1
 
 ### Patch Changes

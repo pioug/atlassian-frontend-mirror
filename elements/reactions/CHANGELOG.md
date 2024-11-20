@@ -1,5 +1,17 @@
 # @atlaskit/reactions
 
+## 22.16.0
+
+### Minor Changes
+
+- [#165604](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165604)
+  [`ad82b7ebbed5f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad82b7ebbed5f) -
+  Update font size to use tokens
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.15.0
 
 ### Minor Changes

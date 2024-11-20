@@ -3,8 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import Inline from '@atlaskit/primitives/inline';
 import Stack from '@atlaskit/primitives/stack';
-
-import Tooltip from '../../src';
+import Tooltip from '@atlaskit/tooltip';
 
 export default () => (
 	<Stack space="space.100">

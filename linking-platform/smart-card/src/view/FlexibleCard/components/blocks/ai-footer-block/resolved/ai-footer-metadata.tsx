@@ -33,7 +33,7 @@ export const AIFooterMetadata = ({ testId, url }: AISummaryActionData & { testId
 			>
 				{(tooltipProps) => (
 					<Box {...tooltipProps}>
-						<InfoIcon label="Information" size="small" primaryColor={token('color.icon.subtle')} />
+						<InfoIcon label="Information" LEGACY_size="small" color={token('color.icon.subtle')} />
 					</Box>
 				)}
 			</Tooltip>

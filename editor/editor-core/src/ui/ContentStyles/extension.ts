@@ -36,6 +36,39 @@ const extensionLabelStyles = css`
 	&:not(.danger).${akEditorSelectedNodeClassName} > span > div .extension-label > span {
 		display: inline;
 	}
+
+	// Bodied extension edit toggle styles
+	&.danger.${akEditorSelectedNodeClassName} > span > .extension-edit-toggle-container {
+		opacity: 1;
+	}
+
+	&:not(.danger).${akEditorSelectedNodeClassName} > span > .extension-edit-toggle-container {
+		opacity: 1;
+	}
+
+	// .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled
+	&:not(.danger).${akEditorSelectedNodeClassName}
+		> span
+		> div
+		> .extension-label.with-bodied-macro-live-page-styles {
+		box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${token('color.border.selected')};
+	}
+
+	&.danger.${akEditorSelectedNodeClassName}
+		> span
+		> div
+		> .extension-label.with-bodied-macro-live-page-styles {
+		box-shadow: 0 0 0 ${akEditorSelectedBorderSize}px ${token('color.border.danger')};
+	}
+
+	&.danger.${akEditorSelectedNodeClassName}
+		> span
+		> .extension-edit-toggle-container
+		> .extension-edit-toggle {
+		background-color: ${token('color.background.accent.red.subtler')};
+		color: ${token('color.text.danger')};
+		box-shadow: none;
+	}
 `;
 
 const dangerOverlayStyles = css({

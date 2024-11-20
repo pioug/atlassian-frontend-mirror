@@ -3,8 +3,7 @@ import React, { Fragment } from 'react';
 import Avatar from '@atlaskit/avatar';
 import Form, { Field } from '@atlaskit/form';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
-
-import Textfield from '../../src';
+import Textfield from '@atlaskit/textfield';
 
 export default function TextFieldElementsBeforeAndAfterExample() {
 	return (

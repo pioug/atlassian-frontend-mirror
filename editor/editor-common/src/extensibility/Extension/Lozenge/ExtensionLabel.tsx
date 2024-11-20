@@ -10,7 +10,7 @@ import { css, jsx } from '@emotion/react';
 import classnames from 'classnames';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
-import PreferencesIcon from '@atlaskit/icon/glyph/preferences';
+import CustomizeIcon from '@atlaskit/icon/core/customize';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -75,8 +75,12 @@ const buttonLabelStyles = css({
 	'&.remove-nested-left-margin': {
 		marginLeft: 0,
 	},
-	fontSize: token('space.200', '16px'),
-	fontWeight: token('font.weight.regular', '400'),
+	font: token('font.body'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.with-bodied-macro-live-page-styles': {
+		backgroundColor: token('color.background.neutral.subtle'),
+		boxShadow: `0 0 0 1px ${token('color.border')}`,
+	},
 });
 
 const spacerStyles = css({
@@ -108,7 +112,7 @@ const originalLabelStyles = css({
 });
 
 const iconStyles = css({
-	marginLeft: token('space.050', '4px'),
+	marginLeft: token('space.075', '6px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.hide-icon': {
 		display: 'none',
@@ -132,6 +136,7 @@ type ExtensionLabelProps = {
 	setIsNodeHovered?: (isHovered: boolean) => void;
 	isBodiedMacro?: boolean;
 	showMacroButtonUpdates?: boolean;
+	showLivePagesBodiedMacrosRendererView?: boolean;
 };
 
 export const ExtensionLabel = ({
@@ -143,6 +148,7 @@ export const ExtensionLabel = ({
 	setIsNodeHovered,
 	isBodiedMacro,
 	showMacroButtonUpdates,
+	showLivePagesBodiedMacrosRendererView,
 }: ExtensionLabelProps) => {
 	const isInlineExtension = extensionName === 'inlineExtension';
 	const showDefaultBodiedStyles = isBodiedMacro && !isNodeHovered;
@@ -151,13 +157,17 @@ export const ExtensionLabel = ({
 		bodied: isBodiedMacro,
 	});
 
+	// For the new live pages bodied macro experience, we don't want to hide the label by default
+	const showBodiedMacroLabel = isBodiedMacro ? !showLivePagesBodiedMacrosRendererView : false;
+
 	const sharedLabelClassNames = classnames('extension-label', {
 		nested: isNodeNested,
 		inline: isInlineExtension,
 		bodied: isBodiedMacro,
 		'bodied-border': showDefaultBodiedStyles,
 		'bodied-background': showDefaultBodiedStyles,
-		'show-label': isNodeHovered || isBodiedMacro,
+		'show-label': isNodeHovered || showBodiedMacroLabel,
+		'with-bodied-macro-live-page-styles': isBodiedMacro && showLivePagesBodiedMacrosRendererView,
 	});
 
 	const newButtonLabelClassNames = classnames({
@@ -205,7 +215,7 @@ export const ExtensionLabel = ({
 								{text}
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 								<span css={iconStyles} className={iconClassNames} data-testid="config-icon">
-									<PreferencesIcon label="" />
+									<CustomizeIcon label="" />
 								</span>
 							</span>
 						)}

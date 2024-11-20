@@ -1,16 +1,12 @@
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import {
-	Fragment,
-	type Node as PMNode,
-	type ResolvedPos,
-	type Schema,
-} from '@atlaskit/editor-prosemirror/model';
+import { Fragment, type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { maxLayoutColumnSupported, MIN_LAYOUT_COLUMN } from '../consts';
+import { maxLayoutColumnSupported } from '../consts';
 import type { BlockControlsPlugin } from '../types';
 import { DEFAULT_COLUMN_DISTRIBUTIONS } from '../ui/consts';
-import { deleteSourceNode } from '../utils/drag-layout-column';
+import { removeFromSource } from '../utils/remove-from-source';
+import { updateColumnWidths } from '../utils/update-column-widths';
 import { isInSameLayout } from '../utils/validation';
 
 type LayoutContent = Fragment | PMNode;
@@ -50,24 +46,6 @@ const createNewLayout = (schema: Schema, layoutContents: LayoutContent[]) => {
 	return null;
 };
 
-const updateColumnWidths = (
-	tr: Transaction,
-	layoutNode: PMNode,
-	layoutNodePos: number,
-	childCount: number,
-) => {
-	const newColumnWidth = DEFAULT_COLUMN_DISTRIBUTIONS[childCount];
-
-	if (newColumnWidth) {
-		layoutNode.content.forEach((node, offset) => {
-			if (node.type.name === 'layoutColumn') {
-				tr.setNodeAttribute(layoutNodePos + offset + 1, 'width', newColumnWidth);
-			}
-		});
-	}
-	return { newColumnWidth, tr };
-};
-
 const moveToExistingLayout = (
 	toLayout: PMNode,
 	toLayoutPos: number,
@@ -89,29 +67,6 @@ const moveToExistingLayout = (
 		const mappedFrom = tr.mapping.map(from);
 		removeFromSource(tr, tr.doc.resolve(mappedFrom));
 	}
-	return tr;
-};
-
-export const removeFromSource = (tr: Transaction, $from: ResolvedPos) => {
-	const sourceNode = $from.nodeAfter;
-	const sourceParent = $from.parent;
-
-	if (!sourceNode) {
-		return tr;
-	}
-
-	const sourceNodeEndPos = $from.pos + sourceNode.nodeSize;
-
-	if (sourceNode.type.name === 'layoutColumn') {
-		if (sourceParent.childCount === MIN_LAYOUT_COLUMN) {
-			tr.delete($from.pos + 1, sourceNodeEndPos - 1);
-			return tr;
-		} else {
-			updateColumnWidths(tr, $from.parent, $from.before($from.depth), sourceParent.childCount - 1);
-		}
-	}
-
-	tr.delete($from.pos, sourceNodeEndPos);
 	return tr;
 };
 
@@ -246,7 +201,7 @@ export const moveToLayout =
 			const newLayout = createNewLayout(tr.doc.type.schema, layoutContents);
 
 			if (newLayout) {
-				tr = deleteSourceNode(tr, $from, $to);
+				tr = removeFromSource(tr, $from);
 				const mappedTo = tr.mapping.map(to);
 				tr.delete(mappedTo, mappedTo + toNodeWithoutBreakout.nodeSize)
 					.insert(mappedTo, newLayout)

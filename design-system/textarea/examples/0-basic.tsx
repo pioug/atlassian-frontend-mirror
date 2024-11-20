@@ -3,8 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
-
-import TextArea from '../src';
+import TextArea from '@atlaskit/textarea';
 
 const wrapperStyles = xcss({
 	maxWidth: '500px',

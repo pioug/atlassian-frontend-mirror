@@ -1,5 +1,13 @@
 # @atlaskit/icon-object
 
+## 6.7.1
+
+### Patch Changes
+
+- [#166026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166026)
+  [`962b5e77810fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/962b5e77810fb) -
+  Adds side-effect config to support Compiled css extraction in third-party apps
+
 ## 6.7.0
 
 ### Minor Changes

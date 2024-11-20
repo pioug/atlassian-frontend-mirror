@@ -2,8 +2,7 @@ import React from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
-
-import Textfield from '../src';
+import Textfield from '@atlaskit/textfield';
 
 export default function ForwardRefExample() {
 	let input: HTMLInputElement | null = null;

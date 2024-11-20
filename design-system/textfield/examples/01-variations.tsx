@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import { ErrorMessage } from '@atlaskit/form';
+import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-
-import Textfield from '../src';
 
 const eventResultStyle = {
 	borderStyle: 'dashed',

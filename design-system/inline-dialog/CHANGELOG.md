@@ -1,5 +1,13 @@
 # @atlaskit/inline-dialog
 
+## 15.2.2
+
+### Patch Changes
+
+- [#166026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166026)
+  [`962b5e77810fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/962b5e77810fb) -
+  Adds side-effect config to support Compiled css extraction in third-party apps
+
 ## 15.2.1
 
 ### Patch Changes

@@ -79,8 +79,7 @@ const FloatingDragMenu = ({
 		return null;
 	}
 
-	const { tableDuplicateCellColouring = false, tableWithFixedColumnWidthsOption = false } =
-		getEditorFeatureFlags ? getEditorFeatureFlags() : {};
+	const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags?.() ?? {};
 
 	const shouldUseIncreasedScalingPercent =
 		isTableScalingEnabled && (tableWithFixedColumnWidthsOption || isCommentEditor);
@@ -120,7 +119,6 @@ const FloatingDragMenu = ({
 				boundariesElement={boundariesElement}
 				scrollableElement={scrollableElement}
 				isTableScalingEnabled={isTableScalingEnabled}
-				tableDuplicateCellColouring={tableDuplicateCellColouring}
 				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
 				isTableFixedColumnWidthsOptionEnabled={tableWithFixedColumnWidthsOption}
 				ariaNotifyPlugin={ariaNotifyPlugin}

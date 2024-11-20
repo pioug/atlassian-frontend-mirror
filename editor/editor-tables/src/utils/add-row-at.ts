@@ -98,7 +98,7 @@ export const cloneRowAt =
 
 // Returns a new transaction that adds a new row at index `rowIndex`. Optionally clone the previous row.
 export const addRowAt =
-	(rowIndex: number, clonePreviousRow?: boolean, isCellBackgroundDuplicated?: boolean) =>
+	(rowIndex: number, clonePreviousRow?: boolean) =>
 	(tr: Transaction): Transaction => {
 		const table = findTable(tr.selection);
 		if (table) {
@@ -119,7 +119,6 @@ export const addRowAt =
 							table: table.node,
 						},
 						rowIndex,
-						isCellBackgroundDuplicated,
 					),
 				);
 			}

@@ -222,6 +222,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 						errorReporter,
 						portalProviderAPI,
 						dispatchAnalyticsEvent,
+						nodeViewPortalProviderAPI,
 					}: PMPluginFactoryParams) => {
 						return createPlugin(
 							schema,
@@ -266,6 +267,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 							},
 							getIntl,
 							api,
+							nodeViewPortalProviderAPI,
 							dispatch,
 							options,
 						);

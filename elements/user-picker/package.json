@@ -83,7 +83,7 @@
 	"devDependencies": {
 		"@atlaskit/analytics-viewer": "^0.6.0",
 		"@atlaskit/elements-test-helpers": "^0.7.0",
-		"@atlaskit/heading": "^2.4.0",
+		"@atlaskit/heading": "^3.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
 		"@emotion/styled": "^11.0.0",

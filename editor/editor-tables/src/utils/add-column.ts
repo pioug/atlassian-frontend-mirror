@@ -24,7 +24,6 @@ export function addColumn(
 	tr: Transaction,
 	{ map, tableStart, table }: TableContext,
 	col: number,
-	isCellBackgroundDuplicated?: boolean,
 ): Transaction {
 	let refColumn: number | null = col > 0 ? -1 : 0;
 	if (columnIsHeader(map, table, col + refColumn)) {
@@ -63,7 +62,7 @@ export function addColumn(
 					throw new Error(`addColumn: invalid node at mapped pos ${mappedPos}`);
 				}
 				type = cell.type;
-				if (cell.attrs.background && isCellBackgroundDuplicated) {
+				if (cell.attrs.background) {
 					attrs = { background: cell.attrs.background };
 				}
 			}

@@ -1,0 +1,55 @@
+# use-onboarding-spotlight-label
+
+Onboarding spotlight dialog should have an accessible name or a reference to it, so that upon
+opening, users of assistive technologies could have contextual information of interaction with
+current element.
+
+## Examples
+
+This rule will indicate user with warning to strongly recommend usage of either `label` or `titleId`
+prop if spotlight dialog is missing `heading` prop value.
+
+### Incorrect
+
+```tsx
+<Spotlight>
+ ^^^^^^^^^ Missing `heading`, `label` or `titleId` prop.
+
+</Spotlight>
+
+<Spotlight label="">
+           ^^^^^ `label` prop is missing accessible name value.
+	<Lorem count={1} />
+</Spotlight>
+
+<Spotlight titleId="">
+           ^^^^^^^ `titleId` prop is missing reference value.
+	<p id="spotlight-dialog-title">Spotlight accessible name</p>
+	<Lorem count={1} />
+</Spotlight>
+
+<Spotlight heading="Spotlight dialog heading" titleId="spotlight-dialog-title" label="">
+           ^^^^^^^                            ^^^^^^^                          ^^^^^ Avoid using `heading`, `titleId` and `label` properties simultaneously. If the `heading` value is not specified or there is a requirement to reference another element in the DOM as accessible name, use `titleId`. Otherwise, use `label` to explicitly provide the accessible name.
+	<p id="spotlight-dialog-label">Spotlight accessible name</p>
+	<Lorem count={1} />
+</Spotlight>
+```
+
+### Correct
+
+```tsx
+
+<Spotlight heading="Spotlight dialog title">
+	<Lorem count={1} />
+</Spotlight>
+
+
+<Spotlight titleId="spotlight-dialog-title">
+	<p id="spotlight-dialog-title">Spotlight accessible name</p>
+	<Lorem count={1} />
+</Spotlight>
+
+<Spotlight label="Spotlight content title">
+	<Lorem count={1} />
+</Spotlight>
+```

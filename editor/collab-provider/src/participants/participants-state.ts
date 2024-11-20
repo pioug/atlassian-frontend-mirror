@@ -1,3 +1,4 @@
+import { isAIProviderID } from '../helpers/utils';
 import { type ParticipantsMap } from './participants-helper';
 import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
 
@@ -20,7 +21,11 @@ export class ParticipantsState {
 
 	getParticipants = (): ProviderParticipant[] =>
 		// Spread to get deep copy
-		[...this.participants.values()].map((p) => ({ ...p }));
+		[...this.participants.values()].filter((p) => !isAIProviderID(p.userId)).map((p) => ({ ...p }));
+
+	getAIProviderParticipants = (): ProviderParticipant[] =>
+		// Spread to get deep copy
+		[...this.participants.values()].filter((p) => isAIProviderID(p.userId)).map((p) => ({ ...p }));
 
 	removeBySessionId = (sessionId: string): boolean => this.participants.delete(sessionId);
 

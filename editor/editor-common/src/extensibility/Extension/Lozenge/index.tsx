@@ -25,6 +25,7 @@ export interface Props {
 	customContainerStyles?: CSSProperties;
 	setIsNodeHovered?: (isHovered: boolean) => void;
 	isBodiedMacro?: boolean;
+	showLivePagesBodiedMacrosRendererView?: boolean;
 }
 
 export interface LozengeData {
@@ -63,6 +64,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
 			customContainerStyles,
 			setIsNodeHovered,
 			isBodiedMacro,
+			showLivePagesBodiedMacrosRendererView,
 		} = this.props;
 		const { parameters, extensionKey } = this.props.node.attrs;
 		const { name } = this.props.node.type;
@@ -87,6 +89,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
 				customContainerStyles={customContainerStyles}
 				setIsNodeHovered={setIsNodeHovered}
 				isBodiedMacro={isBodiedMacro}
+				showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
 			/>
 		);
 	};

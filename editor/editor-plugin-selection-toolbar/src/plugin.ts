@@ -17,7 +17,7 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { toggleToolbar } from './commands';
 import { selectionToolbarPluginKey } from './plugin-key';
@@ -38,8 +38,8 @@ export const selectionToolbarPlugin: NextEditorPlugin<
 		};
 		dependencies: [OptionalPlugin<EditorViewModePlugin>];
 		actions?: {
-			suppressToolbar: () => boolean;
-			unsuppressToolbar: () => boolean;
+			suppressToolbar?: () => boolean;
+			unsuppressToolbar?: () => boolean;
 		};
 	}
 > = (options) => {
@@ -48,7 +48,7 @@ export const selectionToolbarPlugin: NextEditorPlugin<
 	return {
 		name: 'selectionToolbar',
 
-		...(editorExperiment('platform_editor_live_pages_ai_definitions', 'test') && {
+		...(fg('platform_editor_ai_definitions_live_page_view_mode') && {
 			actions: {
 				suppressToolbar: () => {
 					return options.api?.core.actions.execute(toggleToolbar({ hide: true })) ?? false;

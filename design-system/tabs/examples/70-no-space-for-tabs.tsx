@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { token } from '@atlaskit/tokens';
-
-import Tabs, { Tab, TabList, TabPanel } from '../src';
 
 import { Panel } from './shared';
 

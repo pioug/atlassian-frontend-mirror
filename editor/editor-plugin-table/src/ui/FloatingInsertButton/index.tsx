@@ -241,19 +241,14 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 	}
 
 	private insertRow(event: React.SyntheticEvent) {
-		const { editorView, insertRowButtonIndex, editorAnalyticsAPI, getEditorFeatureFlags } =
-			this.props;
+		const { editorView, insertRowButtonIndex, editorAnalyticsAPI } = this.props;
 
 		if (typeof insertRowButtonIndex !== 'undefined') {
 			event.preventDefault();
 
 			const { state, dispatch } = editorView;
-			const featureFlags = !!getEditorFeatureFlags && getEditorFeatureFlags();
 
-			insertRowWithAnalytics(
-				editorAnalyticsAPI,
-				featureFlags && featureFlags.tableDuplicateCellColouring,
-			)(INPUT_METHOD.BUTTON, {
+			insertRowWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.BUTTON, {
 				index: insertRowButtonIndex,
 				moveCursorToInsertedRow: true,
 			})(state, dispatch);
@@ -273,8 +268,9 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 		if (typeof insertColumnButtonIndex !== 'undefined') {
 			event.preventDefault();
 
-			const { tableDuplicateCellColouring = false, tableWithFixedColumnWidthsOption = false } =
-				getEditorFeatureFlags ? getEditorFeatureFlags() : {};
+			const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags
+				? getEditorFeatureFlags()
+				: {};
 
 			const shouldUseIncreasedScalingPercent =
 				isTableScalingEnabled && (tableWithFixedColumnWidthsOption || isCommentEditor);
@@ -284,7 +280,6 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 				this.props.api,
 				editorAnalyticsAPI,
 				isTableScalingEnabled,
-				tableDuplicateCellColouring,
 				tableWithFixedColumnWidthsOption,
 				shouldUseIncreasedScalingPercent,
 				isCommentEditor,

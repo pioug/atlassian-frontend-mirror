@@ -3,8 +3,7 @@ import React from 'react';
 import Button from '@atlaskit/button/new';
 import { type Placement, placements } from '@atlaskit/popper';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import Tooltip from '../../src';
+import Tooltip from '@atlaskit/tooltip';
 
 const placementGridPositions: {
 	[placement in Placement]: ReturnType<typeof xcss>;

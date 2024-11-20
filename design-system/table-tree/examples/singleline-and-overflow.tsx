@@ -5,9 +5,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import TableTree, { Cell, Header, Headers, Row, Rows } from '@atlaskit/table-tree';
 import { token } from '@atlaskit/tokens';
-
-import TableTree, { Cell, Header, Headers, Row, Rows } from '../src';
 
 const staticData = [
 	{

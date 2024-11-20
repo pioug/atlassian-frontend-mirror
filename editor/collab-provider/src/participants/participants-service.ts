@@ -10,12 +10,14 @@ import type {
 	TelepointerPayload,
 	ActivityPayload,
 } from '../types';
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import type {
 	CollabActivityData,
 	CollabEventPresenceData,
 	CollabTelepointerPayload,
 	ProviderParticipant,
 	StepJson,
+	UserPermitType,
 } from '@atlaskit/editor-common/collab';
 import type { GetUserType } from './participants-helper';
 import {
@@ -23,7 +25,7 @@ import {
 	PARTICIPANT_UPDATE_INTERVAL,
 } from './participants-helper';
 import { ParticipantsState } from './participants-state';
-import { createLogger } from '../helpers/utils';
+import { createLogger, isAIProviderID } from '../helpers/utils';
 
 const logger = createLogger('PresenceService', 'pink');
 
@@ -63,6 +65,43 @@ export class ParticipantsService {
 		private getPresenceData: () => PresenceData,
 		private setUserId: (id: string) => void,
 	) {}
+
+	sendAIProviderChanged = (payload: {
+		userId: string;
+		sessionId: string;
+		clientId: string | number;
+		providerId?: string;
+		action: 'add' | 'remove';
+		permit?: UserPermitType;
+	}) => {
+		const isFacepileExperimentEnabled = FeatureGates.getExperimentValue(
+			'platform_editor_ai_facepile',
+			'isEnabled',
+			false,
+		);
+
+		if (isFacepileExperimentEnabled && payload.providerId) {
+			for (const propKey in payload.permit) {
+				if (payload.permit.hasOwnProperty(propKey)) {
+					payload.permit[propKey as keyof UserPermitType] = false;
+				}
+			}
+
+			const presencePayload: PresencePayload = {
+				sessionId: `${payload.providerId}::${payload.sessionId}`,
+				userId: payload.providerId,
+				clientId: `${payload.providerId}::${payload.clientId}`,
+				permit: payload.permit,
+				timestamp: Date.now(),
+			};
+
+			if (payload.action === 'add') {
+				this.channelBroadcast('participant:updated', presencePayload);
+			} else if (payload.action === 'remove') {
+				this.channelBroadcast('participant:left', presencePayload);
+			}
+		}
+	};
 
 	/**
 	 * Carries out 3 things: 1) enriches the participant with user data, 2) updates the participantsState, 3) emits the presence event
@@ -108,7 +147,38 @@ export class ParticipantsService {
 	 * Called when a participant leaves the session.
 	 * We emit the `presence` event to update the active avatars in the editor.
 	 */
-	onParticipantLeft = ({ sessionId }: PresencePayload): void => {
+	onParticipantLeft = (payload: PresencePayload): void => {
+		let sessionId = payload.sessionId;
+
+		const isFacepileExperimentEnabled = FeatureGates.getExperimentValue(
+			'platform_editor_ai_facepile',
+			'isEnabled',
+			false,
+		);
+
+		if (isFacepileExperimentEnabled) {
+			// When an agent leaves a session, the backend service returns the original user's
+			// session ID accompanied by a payload containing the agent's session ID.
+			// If the user session leaves, we also want to remove all agent sessions associated.
+			if (payload?.data?.sessionId && isAIProviderID(payload.data.sessionId)) {
+				sessionId = payload.data.sessionId;
+			} else {
+				const associatedAgents = this.getAIProviderParticipants().filter((ap) =>
+					ap.sessionId.endsWith(sessionId),
+				);
+
+				associatedAgents.forEach((agent) => {
+					this.onParticipantLeft({
+						sessionId,
+						timestamp: payload.timestamp,
+						data: agent,
+						userId: undefined,
+						clientId: '',
+					});
+				});
+			}
+		}
+
 		this.participantsState.removeBySessionId(sessionId);
 		this.emitPresence({ left: [{ sessionId }] }, 'participant leaving');
 	};
@@ -343,5 +413,9 @@ export class ParticipantsService {
 	 */
 	getParticipants = () => {
 		return this.participantsState.getParticipants();
+	};
+
+	getAIProviderParticipants = () => {
+		return this.participantsState.getAIProviderParticipants();
 	};
 }

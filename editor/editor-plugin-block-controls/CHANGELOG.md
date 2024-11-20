@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.17
+
+### Patch Changes
+
+- [#166056](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166056)
+  [`00e53bfc73e8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00e53bfc73e8f) -
+  ED-25760 drop hints are not triggered for unchanged layout
+- Updated dependencies
+
+## 2.13.16
+
+### Patch Changes
+
+- [#165732](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165732)
+  [`55bfa121bfd1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/55bfa121bfd1b) -
+  ED-25682 unify remove from source code and cleanup
+- Updated dependencies
+
 ## 2.13.15
 
 ### Patch Changes

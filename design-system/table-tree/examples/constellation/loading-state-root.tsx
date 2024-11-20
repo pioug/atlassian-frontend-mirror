@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TableTree, { Header, Headers, Rows } from '../../src';
+import TableTree, { Header, Headers, Rows } from '@atlaskit/table-tree';
 
 export default () => (
 	<TableTree label="Root loading state">

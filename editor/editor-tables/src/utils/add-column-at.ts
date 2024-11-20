@@ -8,7 +8,7 @@ import { findTable } from './find';
 
 // Returns a new transaction that adds a new column at index `columnIndex`.
 export const addColumnAt =
-	(columnIndex: number, isCellBackgroundDuplicated?: boolean) =>
+	(columnIndex: number) =>
 	(tr: Transaction): Transaction => {
 		const table = findTable(tr.selection);
 		if (table) {
@@ -23,7 +23,6 @@ export const addColumnAt =
 							table: table.node,
 						},
 						columnIndex,
-						isCellBackgroundDuplicated,
 					),
 				);
 			}

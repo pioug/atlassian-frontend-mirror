@@ -22,7 +22,6 @@ export function addRow(
 	tr: Transaction,
 	{ map, tableStart, table }: TableContext,
 	row: number,
-	isCellBackgroundDuplicated?: boolean,
 ): Transaction {
 	let rowPos = tableStart;
 	for (let i = 0; i < row; i++) {
@@ -61,7 +60,7 @@ export function addRow(
 					throw new Error(`addRow: invalid node at mapped pos ${mappedPos}`);
 				}
 				type = cell.type;
-				if (cell.attrs.background && isCellBackgroundDuplicated) {
+				if (cell.attrs.background) {
 					attrs = { background: cell.attrs.background };
 				}
 			}

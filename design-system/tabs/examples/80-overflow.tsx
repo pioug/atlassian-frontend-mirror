@@ -2,9 +2,8 @@ import React from 'react';
 
 import Lorem from 'react-lorem-component';
 
+import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { token } from '@atlaskit/tokens';
-
-import Tabs, { Tab, TabList, TabPanel } from '../src';
 
 export default () => (
 	<div

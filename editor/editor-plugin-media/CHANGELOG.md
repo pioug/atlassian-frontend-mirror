@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media
 
+## 1.42.0
+
+### Minor Changes
+
+- [#164938](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164938)
+  [`c41c3a71e1f68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c41c3a71e1f68) -
+  Replaced ReactDOM.render with nodeViewPortalProviderAPI.render
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.41.0
 
 ### Minor Changes

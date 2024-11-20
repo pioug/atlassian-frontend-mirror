@@ -116,12 +116,26 @@ export const createLinkClickedPayload = (event: React.MouseEvent) => {
 	const keysHeld = getKeys(event);
 	const defaultPrevented = event.defaultPrevented;
 
-	return linkClickedEvent({
+	const linkClickedEventResult = linkClickedEvent({
 		clickType,
 		clickOutcome,
 		keysHeld,
 		defaultPrevented,
 	});
+
+	// if the current target is an anchor tag, we can get the href from it and use that as the url being navigated too.
+	if (event.currentTarget instanceof HTMLAnchorElement) {
+		const url = event.currentTarget.href;
+		return {
+			...linkClickedEventResult,
+			nonPrivacySafeAttributes: {
+				url,
+			},
+		};
+	} else {
+		// We can't get the href from the event target, so dont include the url or any non privacy safe attributes
+		return linkClickedEventResult;
+	}
 };
 
 type DeepPartial<T> = T extends object
@@ -141,7 +155,6 @@ export const fireLinkClickedEvent =
 	) => void) =>
 	(event, overrides = {}) => {
 		const payload = createLinkClickedPayload(event);
-
 		if (payload) {
 			createAnalyticsEvent({
 				...payload,
@@ -149,6 +162,10 @@ export const fireLinkClickedEvent =
 				attributes: {
 					...payload.attributes,
 					...overrides?.attributes,
+				},
+				nonPrivacySafeAttributes: {
+					...payload.nonPrivacySafeAttributes,
+					...overrides?.nonPrivacySafeAttributes,
 				},
 			}).fire(ANALYTICS_CHANNEL);
 		}
@@ -170,7 +187,6 @@ export function withLinkClickedEvent<
 	const Component = (props: React.ComponentProps<Component>) => {
 		const onClick = useLinkClicked(props.onClick);
 		const onMouseDown = useMouseDownEvent(props.onMouseDown);
-
 		return React.createElement(WrappedComponent, {
 			...props,
 			onClick,

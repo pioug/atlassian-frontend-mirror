@@ -187,6 +187,8 @@ interface InternalDropdownMenuProps<TriggerElement extends HTMLElement = any> {
 	/**
 	 * Controls the initial open state of the dropdown. If provided, the component is considered to be controlled
 	 * which means that the user is responsible for managing the open and close state of the menu.
+	 * Using `defaultOpen` may cause accessiblity issues because it will automatically shift focus to the first menu item; which can be disorienting.
+	 * Only use this if action on the menu is required to proceed.
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	defaultOpen?: boolean;

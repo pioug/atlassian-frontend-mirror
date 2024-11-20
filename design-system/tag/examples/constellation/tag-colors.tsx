@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { SimpleTag as Tag } from '@atlaskit/tag';
 import TagGroup from '@atlaskit/tag-group';
-
-import { SimpleTag as Tag } from '../../src';
 
 export default () => (
 	<TagGroup label="Colored tags">

@@ -1,8 +1,7 @@
 import React from 'react';
 
 import { Stack, Text } from '@atlaskit/primitives';
-
-import Skeleton from '../src';
+import Skeleton from '@atlaskit/skeleton';
 
 export default function All() {
 	return (

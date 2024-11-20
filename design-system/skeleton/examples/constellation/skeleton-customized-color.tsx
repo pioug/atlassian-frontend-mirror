@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Skeleton from '@atlaskit/skeleton';
 import { token } from '@atlaskit/tokens';
-
-import Skeleton from '../../src';
 
 export default () => (
 	<Skeleton

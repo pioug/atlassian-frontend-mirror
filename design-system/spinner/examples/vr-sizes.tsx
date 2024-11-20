@@ -6,7 +6,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Spinner, { type Size } from '../src';
+import Spinner, { type Size } from '@atlaskit/spinner';
 
 const sizes: Size[] = ['xsmall', 'small', 'medium', 'large', 'xlarge'];
 

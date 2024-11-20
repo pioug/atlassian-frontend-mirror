@@ -7,8 +7,7 @@ import { jsx } from '@emotion/react';
 
 import { Label } from '@atlaskit/form';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import TextArea from '../../src';
+import TextArea from '@atlaskit/textarea';
 
 const wrapperStyles = xcss({
 	maxWidth: '500px',

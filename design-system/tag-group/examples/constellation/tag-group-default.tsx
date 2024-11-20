@@ -6,9 +6,8 @@
 import { css, jsx } from '@emotion/react';
 
 import Tag, { SimpleTag } from '@atlaskit/tag';
+import TagGroup from '@atlaskit/tag-group';
 import { token } from '@atlaskit/tokens';
-
-import TagGroup from '../../src';
 
 const layoutStyles = css({
 	display: 'flex',

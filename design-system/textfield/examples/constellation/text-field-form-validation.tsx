@@ -3,8 +3,7 @@ import React, { Fragment, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import Form, { ErrorMessage, Field, FormFooter, ValidMessage } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives';
-
-import Textfield from '../../src';
+import Textfield from '@atlaskit/textfield';
 
 export default function FormValidationExample() {
 	const [fieldValue, setFieldValue] = useState<string | undefined>('');

@@ -42,7 +42,6 @@ function addColumnAtCustomStep(column: number) {
 export function addColumnAt(
 	api: PluginInjectionAPI | undefined | null,
 	isTableScalingEnabled = false,
-	isCellBackgroundDuplicated?: boolean,
 	isTableFixedColumnWidthsOptionEnabled?: boolean,
 	shouldUseIncreasedScalingPercent?: boolean,
 	isCommentEditor?: boolean,
@@ -57,7 +56,7 @@ export function addColumnAt(
 			if (allowAddColumnCustomStep) {
 				updatedTr = addColumnAtCustomStep(column)(updatedTr);
 			} else {
-				updatedTr = addColumnAtPMUtils(column, isCellBackgroundDuplicated)(updatedTr);
+				updatedTr = addColumnAtPMUtils(column)(updatedTr);
 			}
 			const table = findTable(updatedTr.selection);
 			if (table) {
@@ -96,7 +95,6 @@ export const addColumnBefore =
 	(
 		api: PluginInjectionAPI | undefined | null,
 		isTableScalingEnabled = false,
-		isCellBackgroundDuplicated = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 		isCommentEditor = false,
@@ -112,7 +110,6 @@ export const addColumnBefore =
 				addColumnAt(
 					api,
 					isTableScalingEnabled,
-					isCellBackgroundDuplicated,
 					isTableFixedColumnWidthsOptionEnabled,
 					shouldUseIncreasedScalingPercent,
 					isCommentEditor,
@@ -132,7 +129,6 @@ export const addColumnAfter =
 	(
 		api: PluginInjectionAPI | undefined | null,
 		isTableScalingEnabled?: boolean,
-		isCellBackgroundDuplicated?: boolean,
 		isTableFixedColumnWidthsOptionEnabled?: boolean,
 		shouldUseIncreasedScalingPercent?: boolean,
 		isCommentEditor?: boolean,
@@ -149,7 +145,6 @@ export const addColumnAfter =
 				addColumnAt(
 					api,
 					isTableScalingEnabled,
-					isCellBackgroundDuplicated,
 					isTableFixedColumnWidthsOptionEnabled,
 					shouldUseIncreasedScalingPercent,
 					isCommentEditor,
@@ -167,7 +162,6 @@ export const insertColumn =
 	(
 		api: PluginInjectionAPI | undefined | null,
 		isTableScalingEnabled = false,
-		isCellBackgroundDuplicated?: boolean,
 		isTableFixedColumnWidthsOptionEnabled?: boolean,
 		shouldUseIncreasedScalingPercent?: boolean,
 		isCommentEditor?: boolean,
@@ -177,7 +171,6 @@ export const insertColumn =
 		let tr = addColumnAt(
 			api,
 			isTableScalingEnabled,
-			isCellBackgroundDuplicated,
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
 			isCommentEditor,
@@ -200,7 +193,7 @@ export const insertColumn =
 	};
 
 export const insertRow =
-	(row: number, moveCursorToTheNewRow: boolean, isCellBackgroundDuplicated?: boolean): Command =>
+	(row: number, moveCursorToTheNewRow: boolean): Command =>
 	(state, dispatch) => {
 		// Don't clone the header row
 		const headerRowEnabled = checkIfHeaderRowEnabled(state.selection);
@@ -214,7 +207,7 @@ export const insertRow =
 
 		const tr = clonePreviousRow
 			? copyPreviousRow(state.schema)(row)(state.tr)
-			: addRowAt(row, undefined, isCellBackgroundDuplicated)(state.tr);
+			: addRowAt(row, undefined)(state.tr);
 
 		const table = findTable(tr.selection);
 		if (!table) {

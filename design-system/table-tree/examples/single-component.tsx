@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-import TableTree from '../src';
+import TableTree from '@atlaskit/table-tree';
 
 import staticData from './data-structured-nodes.json';
 

@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 67.11.0
+
+### Minor Changes
+
+- [#165604](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165604)
+  [`ad82b7ebbed5f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad82b7ebbed5f) -
+  Update font size to use tokens
+
 ## 67.10.0
 
 ### Minor Changes

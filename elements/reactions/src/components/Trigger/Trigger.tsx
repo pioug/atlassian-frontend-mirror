@@ -126,7 +126,7 @@ const miniModeStyles = xcss({
 });
 
 const addReactionMessageStyles = xcss({
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 	color: 'color.text.subtle',
 	marginLeft: 'space.050',
 });

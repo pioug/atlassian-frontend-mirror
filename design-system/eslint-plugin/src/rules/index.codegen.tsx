@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2ab06b34c4e08cd70b0f67f5915f12c9>>
+ * @codegen <<SignedSource::4a19c51d51547e8f4e27f3785242c226>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -41,6 +41,7 @@ import useHrefInLinkItem from './use-href-in-link-item';
 import useLatestXcssSyntax from './use-latest-xcss-syntax';
 import useLatestXcssSyntaxTypography from './use-latest-xcss-syntax-typography';
 import useMenuSectionTitle from './use-menu-section-title';
+import useOnboardingSpotlightLabel from './use-onboarding-spotlight-label';
 import usePopupLabel from './use-popup-label';
 import usePrimitives from './use-primitives';
 import usePrimitivesText from './use-primitives-text';
@@ -88,6 +89,7 @@ export const rules = {
 	'use-latest-xcss-syntax': useLatestXcssSyntax,
 	'use-latest-xcss-syntax-typography': useLatestXcssSyntaxTypography,
 	'use-menu-section-title': useMenuSectionTitle,
+	'use-onboarding-spotlight-label': useOnboardingSpotlightLabel,
 	'use-popup-label': usePopupLabel,
 	'use-primitives': usePrimitives,
 	'use-primitives-text': usePrimitivesText,

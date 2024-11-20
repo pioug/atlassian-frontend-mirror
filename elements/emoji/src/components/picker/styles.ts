@@ -102,7 +102,7 @@ export const input = css({
 	boxSizing: 'border-box',
 	color: 'inherit',
 	cursor: 'inherit',
-	fontSize: '14px',
+	font: token('font.body'),
 	outline: 'none',
 	padding: `1px ${token('space.0', '0px')} ${token('space.025', '2px')} ${token(
 		'space.075',
@@ -152,7 +152,7 @@ export const emojiPickerRow = css({
 export const emojiCategoryTitle = css({
 	boxSizing: 'border-box',
 	color: token('color.text', N900),
-	fontSize: '14px',
+	font: token('font.body'),
 	padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
 	textTransform: 'lowercase',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766

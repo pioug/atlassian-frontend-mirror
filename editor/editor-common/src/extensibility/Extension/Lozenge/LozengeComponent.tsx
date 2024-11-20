@@ -2,6 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import { Fragment } from 'react';
 import type { CSSProperties } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -11,6 +12,7 @@ import EditorFileIcon from '@atlaskit/icon/glyph/editor/file';
 
 import { placeholderFallback, placeholderFallbackParams } from '../styles';
 
+import { EditToggle } from './EditToggle';
 import { ExtensionLabel } from './ExtensionLabel';
 
 import type { LozengeData } from './index';
@@ -34,6 +36,7 @@ type LozengeComponentProps = {
 	isNodeNested?: boolean;
 	setIsNodeHovered?: (isHovered: boolean) => void;
 	isBodiedMacro?: boolean;
+	showLivePagesBodiedMacrosRendererView?: boolean;
 };
 
 export const LozengeComponent = ({
@@ -49,20 +52,31 @@ export const LozengeComponent = ({
 	isNodeNested,
 	setIsNodeHovered,
 	isBodiedMacro,
+	showLivePagesBodiedMacrosRendererView,
 }: LozengeComponentProps) => {
 	const capitalizedTitle = capitalizeFirstLetter(title);
 	if (showMacroInteractionDesignUpdates) {
 		return (
-			<ExtensionLabel
-				text={capitalizedTitle}
-				extensionName={extensionName}
-				isNodeHovered={isNodeHovered}
-				isNodeNested={isNodeNested}
-				customContainerStyles={customContainerStyles}
-				setIsNodeHovered={setIsNodeHovered}
-				isBodiedMacro={isBodiedMacro}
-				showMacroButtonUpdates={showMacroButtonUpdates}
-			/>
+			<Fragment>
+				<ExtensionLabel
+					text={capitalizedTitle}
+					extensionName={extensionName}
+					isNodeHovered={isNodeHovered}
+					isNodeNested={isNodeNested}
+					customContainerStyles={customContainerStyles}
+					setIsNodeHovered={setIsNodeHovered}
+					isBodiedMacro={isBodiedMacro}
+					showMacroButtonUpdates={showMacroButtonUpdates}
+					showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+				/>
+				{showLivePagesBodiedMacrosRendererView && isBodiedMacro && (
+					<EditToggle
+						isNodeHovered={isNodeHovered}
+						setIsNodeHovered={setIsNodeHovered}
+						customContainerStyles={customContainerStyles}
+					/>
+				)}
+			</Fragment>
 		);
 	}
 	const isBlockExtension = extensionName === 'extension';

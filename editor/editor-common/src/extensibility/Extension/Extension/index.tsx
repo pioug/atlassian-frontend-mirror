@@ -48,6 +48,7 @@ export interface Props {
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
 	setIsNodeHovered?: (isHovered: boolean) => void;
+	showLivePagesBodiedMacrosRendererView?: boolean;
 }
 
 type WidthStateProps = { widthState?: EditorContainerWidth };
@@ -67,6 +68,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		isNodeHovered,
 		isNodeNested,
 		setIsNodeHovered,
+		showLivePagesBodiedMacrosRendererView,
 	} = props;
 
 	const { showMacroInteractionDesignUpdates, showMacroButtonUpdates } =
@@ -164,6 +166,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					customContainerStyles={customContainerStyles}
 					setIsNodeHovered={setIsNodeHovered}
 					isBodiedMacro={hasBody}
+					showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
 				/>
 			)}
 			<div

@@ -4,8 +4,6 @@ import React from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { type OptionsType, PopupSelect } from '../../../index';
 
 const user = userEvent.setup();
@@ -528,45 +526,39 @@ describe('Popup Select', () => {
 	});
 
 	describe('onMenuOpen and onMenuClose handlers', () => {
-		ffTest.on(
-			'platform_design_system_team_select_node_resolver',
-			' - with no node-resolver',
-			() => {
-				it('should trigger onMenuOpen and onMenuClose methods when opened and closed respectively', async () => {
-					const onMenuOpenMock = jest.fn();
-					const onMenuCloseMock = jest.fn();
-					render(
-						<React.Fragment>
-							<PopupSelect
-								options={OPTIONS}
-								value={OPTIONS[0]}
-								testId={'PopupSelect'}
-								onMenuOpen={onMenuOpenMock}
-								onMenuClose={onMenuCloseMock}
-								target={({ ref }) => (
-									<button ref={ref} data-testid="select-trigger">
-										Target
-									</button>
-								)}
-								label="Options"
-							/>
-							<button data-testid="focus-decoy">Focus decoy</button>
-						</React.Fragment>,
-					);
+		it('should trigger onMenuOpen and onMenuClose methods when opened and closed respectively', async () => {
+			const onMenuOpenMock = jest.fn();
+			const onMenuCloseMock = jest.fn();
+			render(
+				<React.Fragment>
+					<PopupSelect
+						options={OPTIONS}
+						value={OPTIONS[0]}
+						testId={'PopupSelect'}
+						onMenuOpen={onMenuOpenMock}
+						onMenuClose={onMenuCloseMock}
+						target={({ ref }) => (
+							<button ref={ref} data-testid="select-trigger">
+								Target
+							</button>
+						)}
+						label="Options"
+					/>
+					<button data-testid="focus-decoy">Focus decoy</button>
+				</React.Fragment>,
+			);
 
-					const selectTrigger = screen.getByText('Target');
+			const selectTrigger = screen.getByText('Target');
 
-					await user.click(selectTrigger);
+			await user.click(selectTrigger);
 
-					expect(screen.getByText('Select...')).toBeInTheDocument();
+			expect(screen.getByText('Select...')).toBeInTheDocument();
 
-					await user.click(selectTrigger);
+			await user.click(selectTrigger);
 
-					expect(onMenuOpenMock).toHaveBeenCalledTimes(1);
-					expect(onMenuCloseMock).toHaveBeenCalledTimes(1);
-				});
-			},
-		);
+			expect(onMenuOpenMock).toHaveBeenCalledTimes(1);
+			expect(onMenuCloseMock).toHaveBeenCalledTimes(1);
+		});
 	});
 
 	describe('accessible labels and group labels', () => {

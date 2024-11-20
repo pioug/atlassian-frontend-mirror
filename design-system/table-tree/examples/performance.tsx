@@ -9,9 +9,15 @@ import { css, jsx } from '@emotion/react';
 
 import { Label } from '@atlaskit/form';
 import Select from '@atlaskit/select';
+import TableTree, {
+	Cell,
+	Header,
+	Headers,
+	Row,
+	Rows,
+	TableTreeDataHelper,
+} from '@atlaskit/table-tree';
 import { token } from '@atlaskit/tokens';
-
-import TableTree, { Cell, Header, Headers, Row, Rows, TableTreeDataHelper } from '../src';
 
 const tableTreeDataHelper = new TableTreeDataHelper<Item>({ key: 'id' });
 

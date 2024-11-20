@@ -5,6 +5,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import type { IntlShape } from 'react-intl-next';
 import { RawIntlProvider } from 'react-intl-next';
+import uuid from 'uuid';
 
 import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { InputMethodInsertMedia, InsertMediaVia } from '@atlaskit/editor-common/analytics';
@@ -23,6 +24,7 @@ import {
 } from '@atlaskit/editor-common/media-single';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { browser, ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
@@ -87,27 +89,58 @@ export const MEDIA_CONTENT_WRAP_CLASS_NAME = 'media-content-wrap';
 export const MEDIA_PLUGIN_IS_RESIZING_KEY = 'mediaSinglePlugin.isResizing';
 export const MEDIA_PLUGIN_RESIZING_WIDTH_KEY = 'mediaSinglePlugin.resizing-width';
 
-const createDropPlaceholder = (intl: IntlShape, allowDropLine?: boolean) => {
+const createDropPlaceholder = (
+	intl: IntlShape,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
+	dropPlaceholderKey: string,
+	allowDropLine?: boolean,
+) => {
 	const dropPlaceholder = document.createElement('div');
 	const createElement = React.createElement;
 
-	if (allowDropLine) {
-		ReactDOM.render(
-			createElement(
-				RawIntlProvider,
-				{ value: intl },
-				createElement(DropPlaceholder, { type: 'single' } as {
-					type: PlaceholderType;
-				}),
-			),
-			dropPlaceholder,
-		);
+	if (fg('platform_editor_react18_plugin_portalprovider')) {
+		if (allowDropLine) {
+			nodeViewPortalProviderAPI.render(
+				() =>
+					createElement(
+						RawIntlProvider,
+						{ value: intl },
+						createElement(DropPlaceholder, { type: 'single' } as {
+							type: PlaceholderType;
+						}),
+					),
+				dropPlaceholder,
+				dropPlaceholderKey,
+			);
+		} else {
+			nodeViewPortalProviderAPI.render(
+				() => createElement(RawIntlProvider, { value: intl }, createElement(DropPlaceholder)),
+				dropPlaceholder,
+				dropPlaceholderKey,
+			);
+		}
 	} else {
-		ReactDOM.render(
-			createElement(RawIntlProvider, { value: intl }, createElement(DropPlaceholder)),
-			dropPlaceholder,
-		);
+		if (allowDropLine) {
+			//eslint-disable-next-line react/no-deprecated
+			ReactDOM.render(
+				createElement(
+					RawIntlProvider,
+					{ value: intl },
+					createElement(DropPlaceholder, { type: 'single' } as {
+						type: PlaceholderType;
+					}),
+				),
+				dropPlaceholder,
+			);
+		} else {
+			//eslint-disable-next-line react/no-deprecated
+			ReactDOM.render(
+				createElement(RawIntlProvider, { value: intl }, createElement(DropPlaceholder)),
+				dropPlaceholder,
+			);
+		}
 	}
+
 	return dropPlaceholder;
 };
 
@@ -163,7 +196,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		state: EditorState,
 		options: MediaPluginOptions,
 		mediaOptions: MediaOptions | undefined,
-		newInsertionBehaviour: boolean | undefined,
 		dispatch: Dispatch | undefined,
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	) {
@@ -841,9 +873,9 @@ export const createPlugin = (
 	options: MediaPluginOptions,
 	getIntl: () => IntlShape,
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	dispatch?: Dispatch,
 	mediaOptions?: MediaOptions,
-	newInsertionBehaviour?: boolean,
 ) => {
 	const intl = getIntl();
 
@@ -854,7 +886,6 @@ export const createPlugin = (
 					state,
 					options,
 					mediaOptions,
-					newInsertionBehaviour,
 					dispatch,
 					pluginInjectionApi,
 				);
@@ -1012,13 +1043,15 @@ export const createPlugin = (
 				if (pos === null || pos === undefined) {
 					return DecorationSet.create(state.doc, mediaNodes);
 				}
-
+				const dropPlaceholderKey = uuid();
 				const dropPlaceholders: Decoration[] = [
 					Decoration.widget(
 						pos,
 						() => {
 							return createDropPlaceholder(
 								intl,
+								nodeViewPortalProviderAPI,
+								dropPlaceholderKey,
 								mediaOptions && mediaOptions.allowDropzoneDropLine,
 							);
 						},
@@ -1026,7 +1059,12 @@ export const createPlugin = (
 							key: 'drop-placeholder',
 							destroy: (elem) => {
 								if (elem instanceof HTMLElement) {
-									ReactDOM.unmountComponentAtNode(elem);
+									if (fg('platform_editor_react18_plugin_portalprovider')) {
+										nodeViewPortalProviderAPI.remove(dropPlaceholderKey);
+									} else {
+										//eslint-disable-next-line react/no-deprecated
+										ReactDOM.unmountComponentAtNode(elem);
+									}
 								}
 							},
 						},

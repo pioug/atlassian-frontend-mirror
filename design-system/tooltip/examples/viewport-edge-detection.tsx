@@ -4,8 +4,8 @@ import React, { useState } from 'react';
 import styled from '@emotion/styled';
 
 import Button from '@atlaskit/button/new';
+import Tooltip from '@atlaskit/tooltip';
 
-import Tooltip from '../src';
 import { type PositionTypeBase } from '../src/types';
 
 import { BigTarget } from './styled';
@@ -52,7 +52,7 @@ const ButtonDiv = styled.p({
 	textAlign: 'center',
 });
 
-type CustomPositionType = 'standard' | 'mouse';
+type CustomPosition = 'standard' | 'mouse';
 
 function getTooltipContent(position: PositionTypeBase, index: number) {
 	const contentArray = [
@@ -76,7 +76,7 @@ const PositionExample = () => {
 	// just to simplify the `changeDirection` logic
 	const [state, setState] = useState({
 		position: 0,
-		positionType: 'standard' as CustomPositionType,
+		positionType: 'standard' as CustomPosition,
 		viewportPosition: 0,
 		tooltipContent: 0,
 	});

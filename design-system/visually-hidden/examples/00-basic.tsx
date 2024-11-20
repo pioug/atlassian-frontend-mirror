@@ -1,6 +1,6 @@
 import React from 'react';
 
-import VisuallyHidden from '../src';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 export default () => {
 	return (

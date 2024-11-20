@@ -9,8 +9,8 @@ import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import TextArea from '@atlaskit/textarea';
 
-import TextArea from '../src';
 import { type TextAreaProps } from '../src/types';
 
 const wrapperStyles = css({

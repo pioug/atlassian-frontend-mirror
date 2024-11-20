@@ -3,15 +3,13 @@ import React from 'react';
 import { defineMessages, useIntl } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
-import Icon from '@atlaskit/icon';
+import LegacyManualTriggerIcon from '@atlaskit/legacy-custom-icons/manual-trigger-icon';
 import { ModalHeader, useModal } from '@atlaskit/modal-dialog';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import { G50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useAutomationMenu } from '../../menu-context';
-
-import { ManualTriggerGlyph } from './manual-trigger-icon';
 
 const i18n = defineMessages({
 	modalHeaderIconLabel: {
@@ -52,9 +50,9 @@ export const AutomationModalHeader = ({
 			<Stack>
 				<Inline alignBlock="center">
 					<Box xcss={iconStyle} paddingInline="space.050" paddingBlock="space.025">
-						<Icon
+						{/* TODO: no-custom-icons- https://product-fabric.atlassian.net/browse/DSP-21444 */}
+						<LegacyManualTriggerIcon
 							size="small"
-							glyph={ManualTriggerGlyph}
 							label={formatMessage(i18n.modalHeaderIconLabel)}
 							primaryColor={token('color.icon.accent.green', G50)}
 						/>

@@ -7,9 +7,8 @@
 import { css, jsx } from '@emotion/react';
 
 import Lozenge from '@atlaskit/lozenge';
+import Spinner, { type Size } from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
-
-import Spinner, { type Size } from '../src';
 
 const sizes: Size[] = ['xsmall', 'small', 'medium', 'large', 'xlarge', 80];
 

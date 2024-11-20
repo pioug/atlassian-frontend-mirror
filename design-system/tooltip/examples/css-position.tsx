@@ -9,8 +9,7 @@ import { css, jsx } from '@emotion/react';
 import { type ReactNode } from 'react-redux';
 
 import { token } from '@atlaskit/tokens';
-
-import Tooltip from '../src';
+import Tooltip from '@atlaskit/tooltip';
 
 import { Target } from './styled';
 
@@ -34,14 +33,14 @@ const positionStyles = css({
 	borderRadius: '5px',
 });
 
-interface PosTypes {
+interface Pos {
 	children?: ReactNode;
 	pos: 'relative' | 'absolute' | 'fixed';
 	pinned?: boolean;
 	top?: number;
 }
 
-const Position = forwardRef<HTMLDivElement, PosTypes>(({ children, pos, pinned, top = 0 }, ref) => {
+const Position = forwardRef<HTMLDivElement, Pos>(({ children, pos, pinned, top = 0 }, ref) => {
 	const dynamicStyles: CSSProperties = {
 		position: `${pos}`,
 		top: `${top}px`,

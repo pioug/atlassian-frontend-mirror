@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 94.23.1
+
+### Patch Changes
+
+- [#165001](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165001)
+  [`d77bdbfe892ed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d77bdbfe892ed) -
+  tidy table duplicate cell color experiment
+- Updated dependencies
+
+## 94.23.0
+
+### Minor Changes
+
+- [#163929](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163929)
+  [`4f9a06f018da6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f9a06f018da6) -
+  [ux] Adds initial changes for edit toggle for bodied macros & updates tests/VR tests with new icon
+
+## 94.22.1
+
+### Patch Changes
+
+- [#164992](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164992)
+  [`16878c96150af`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/16878c96150af) -
+  tidy table sort order experiment
+
 ## 94.22.0
 
 ### Minor Changes

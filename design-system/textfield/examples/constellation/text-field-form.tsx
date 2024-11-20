@@ -2,8 +2,7 @@ import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter, HelperMessage } from '@atlaskit/form';
-
-import Textfield from '../../src';
+import Textfield from '@atlaskit/textfield';
 
 export default function TextFieldFormExample() {
 	return (

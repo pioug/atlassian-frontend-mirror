@@ -12,8 +12,7 @@ import NumberListIcon from '@atlaskit/icon/glyph/editor/number-list';
 import UnderlineIcon from '@atlaskit/icon/glyph/editor/underline';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-
-import Tooltip from '../src';
+import Tooltip from '@atlaskit/tooltip';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const Toolbar = styled.div({

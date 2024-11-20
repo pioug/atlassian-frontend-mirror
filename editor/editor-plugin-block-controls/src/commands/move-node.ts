@@ -12,7 +12,12 @@ import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
 import type { Command, EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
-import { Fragment, type NodeType, type Slice } from '@atlaskit/editor-prosemirror/model';
+import {
+	Fragment,
+	type NodeType,
+	type ResolvedPos,
+	type Slice,
+} from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
@@ -23,15 +28,13 @@ import { DIRECTION } from '../consts';
 import { key } from '../pm-plugins/main';
 import type { BlockControlsPlugin, MoveNodeMethod } from '../types';
 import { getNestedNodePosition, selectNode } from '../utils';
-import { isDragLayoutColumnToTopLevel } from '../utils/drag-layout-column';
 import { setCursorPositionAtMovedNode } from '../utils/getSelection';
+import { removeFromSource } from '../utils/remove-from-source';
 import {
 	canMoveNodeToIndex,
 	isInsideTable,
 	transformSliceExpandToNestedExpand,
 } from '../utils/validation';
-
-import { removeFromSource } from './move-to-layout';
 
 /**
  * This function transforms the slice to move
@@ -53,6 +56,14 @@ function transformSourceSlice(nodeCopy: Slice, destType: NodeType): Slice | null
 
 	return nodeCopy;
 }
+
+const isDragLayoutColumnToTopLevel = ($from: ResolvedPos, $to: ResolvedPos) => {
+	return (
+		$from.nodeAfter?.type.name === 'layoutColumn' &&
+		$from.parent.type.name === 'layoutSection' &&
+		$to.depth === 0
+	);
+};
 
 /**
  *

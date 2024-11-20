@@ -114,6 +114,7 @@ export class ExtensionComponentOld extends Component<Props, State> {
 			getPos,
 			eventDispatcher,
 			macroInteractionDesignFeatureFlags,
+			showLivePagesBodiedMacrosRendererView,
 		} = this.props;
 
 		const { selection } = editorView.state;
@@ -165,6 +166,7 @@ export class ExtensionComponentOld extends Component<Props, State> {
 						isNodeHovered={this.state.isNodeHovered}
 						isNodeNested={isNodeNested}
 						setIsNodeHovered={this.setIsNodeHovered}
+						showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
 					>
 						{extensionHandlerResult}
 					</Extension>
@@ -360,6 +362,7 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 			eventDispatcher,
 			macroInteractionDesignFeatureFlags,
 			extensionProvider,
+			showLivePagesBodiedMacrosRendererView,
 		} = this.props;
 
 		const { selection } = editorView.state;
@@ -411,6 +414,7 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 						isNodeHovered={this.state.isNodeHovered}
 						isNodeNested={isNodeNested}
 						setIsNodeHovered={this.setIsNodeHovered}
+						showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
 					>
 						{extensionHandlerResult}
 					</Extension>

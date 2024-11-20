@@ -1,5 +1,24 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.19.0
+
+### Minor Changes
+
+- [#160519](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/160519)
+  [`9a7add3829ded`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a7add3829ded) -
+  [ux] EDF-1866: Add Smart Link unfurling (auto smart link conversion for shorthand ticket
+  references like "EDF-123") behind experiment platform_editor_ai_1p_smart_link_unfurl_in_prompt
+  into Editor AI prompt field (Prompt Editor)
+
+## 2.18.0
+
+### Minor Changes
+
+- [#165866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165866)
+  [`e1ea80ff13502`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e1ea80ff13502) -
+  EDF-1949 - Switch experiment platform_editor_live_pages_ai_definitions to FG
+  platform_editor_ai_definitions_live_page_view_mode
+
 ## 2.17.0
 
 ### Minor Changes

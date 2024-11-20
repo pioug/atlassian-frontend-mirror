@@ -6,8 +6,7 @@ import styled from '@emotion/styled';
 import Button, { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import { token } from '@atlaskit/tokens';
-
-import Tooltip, { type PositionType, TooltipPrimitive } from '../../src';
+import Tooltip, { type PositionType, TooltipPrimitive } from '@atlaskit/tooltip';
 
 const VALID_POSITIONS: PositionType[] = ['mouse', 'top', 'right', 'bottom', 'left'];
 

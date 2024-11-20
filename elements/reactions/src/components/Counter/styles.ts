@@ -9,7 +9,7 @@ import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const countStyle = css({
-	fontSize: 11,
+	font: token('font.body.small'),
 	color: token('color.text.subtlest', N90),
 	overflow: 'hidden',
 	position: 'relative',

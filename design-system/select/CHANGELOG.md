@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 18.5.1
+
+### Patch Changes
+
+- [#165031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165031)
+  [`380a955e9f249`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/380a955e9f249) -
+  Internal change only -- remove usages of react-node-resolver as it is incompatible with React 18.
+
 ## 18.5.0
 
 ### Minor Changes

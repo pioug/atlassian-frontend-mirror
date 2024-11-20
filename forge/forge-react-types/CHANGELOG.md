@@ -1,5 +1,23 @@
 # @atlaskit/forge-react-types
 
+## 0.30.0
+
+### Minor Changes
+
+- [#164977](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164977)
+  [`3a8e7f8f2dee3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a8e7f8f2dee3) -
+  Add internal UI Kit 2 component AdfRenderer
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.29.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.29.0
 
 ### Minor Changes

@@ -162,7 +162,6 @@ export const getDragMenuConfig = (
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isHeaderRowRequired?: boolean,
 	isTableScalingEnabled = false,
-	tableDuplicateCellColouring = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
 	ariaNotifyPlugin?: (
@@ -291,19 +290,15 @@ export const getDragMenuConfig = (
 			iconFallback: iconFallback,
 			onClick: (state: EditorState, dispatch?: CommandDispatch) => {
 				if (direction === 'row') {
-					insertRowWithAnalytics(editorAnalyticsAPI, tableDuplicateCellColouring)(
-						INPUT_METHOD.TABLE_CONTEXT_MENU,
-						{
-							index: (index ?? 0) + offset,
-							moveCursorToInsertedRow: true,
-						},
-					)(state, dispatch);
+					insertRowWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.TABLE_CONTEXT_MENU, {
+						index: (index ?? 0) + offset,
+						moveCursorToInsertedRow: true,
+					})(state, dispatch);
 				} else {
 					insertColumnWithAnalytics(
 						api,
 						editorAnalyticsAPI,
 						isTableScalingEnabled,
-						tableDuplicateCellColouring,
 						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,
 					)(INPUT_METHOD.TABLE_CONTEXT_MENU, (index ?? 0) + offset)(state, dispatch, editorView);

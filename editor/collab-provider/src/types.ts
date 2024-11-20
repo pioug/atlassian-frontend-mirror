@@ -196,6 +196,7 @@ export type PresenceData = {
 
 export type PresencePayload = PresenceData & {
 	timestamp: number;
+	data?: Record<string, any>;
 };
 
 export type ActivityPayload = {

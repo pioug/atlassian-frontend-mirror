@@ -15,6 +15,7 @@ import type {
 	SyncUpErrorFunction,
 	CollabActivityJoinPayload,
 	CollabActivityAckPayload,
+	CollabActivityAIProviderChangedPayload,
 } from '@atlaskit/editor-common/collab';
 
 import { createLogger } from '../helpers/utils';
@@ -440,15 +441,22 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	}
 
 	/**
-	 * Send messages, such as telepointers, to NCS and other participants. Only used for telepointer data (text and node selections) in the editor and JWM. JWM does some weird serialisation stuff on the node selections.
+	 * Send messages, such as telepointers,  and AI provider changes to NCS and other participants.
+	 * Only used for telepointer data (text and node selections) in the editor and JWM.
+	 * JWM does some weird serialisation stuff on the node selections.
 	 * Silently fails if an error occurs, since Presence isn't a critical functionality and self-restores over time.
+	 *
 	 * @param {CollabTelepointerPayload} data Data you want to send to NCS / the other participants
 	 * @param {string} data.type Can only be 'telepointer' for now, we don't support anything else yet
 	 * @param {CollabSendableSelection} data.selection Object representing the selected element
 	 * @param {string} data.sessionId Identifier identifying the session
 	 */
 	sendMessage(
-		data: CollabTelepointerPayload | CollabActivityJoinPayload | CollabActivityAckPayload,
+		data:
+			| CollabTelepointerPayload
+			| CollabActivityJoinPayload
+			| CollabActivityAckPayload
+			| CollabActivityAIProviderChangedPayload,
 	) {
 		const basePayload = {
 			userId: this.userId!,
@@ -475,6 +483,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					},
 					activityCallback(),
 				);
+			} else if (data?.type === 'ai-provider:change') {
+				this.participantsService.sendAIProviderChanged({
+					...basePayload,
+					...data,
+				});
 			}
 		} catch (error) {
 			// We don't want to throw errors for Presence features as they tend to self-restore
@@ -654,6 +667,10 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 */
 	getParticipants = () => {
 		return this.participantsService.getParticipants();
+	};
+
+	getAIProviderParticipants = () => {
+		return this.participantsService.getAIProviderParticipants();
 	};
 
 	getSessionId = () => {

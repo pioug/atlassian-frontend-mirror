@@ -5,8 +5,7 @@ import styled from '@emotion/styled';
 
 import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
-
-import Tooltip, { TooltipPrimitive } from '../src';
+import Tooltip, { TooltipPrimitive } from '@atlaskit/tooltip';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const InlineDialog = styled(TooltipPrimitive)({

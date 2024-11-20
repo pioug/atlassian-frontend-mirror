@@ -44,6 +44,9 @@ describe('withLinkClickedEvent', () => {
 							clickOutcome: 'clickThrough',
 							keysHeld: [],
 						},
+						nonPrivacySafeAttributes: {
+							url: 'https://atlassian.com/',
+						},
 					},
 				});
 				expect(spy).not.toBeFiredWithAnalyticEventOnce({
@@ -73,6 +76,9 @@ describe('withLinkClickedEvent', () => {
 							clickType: 'right',
 							clickOutcome: 'contextMenu',
 							keysHeld: [],
+						},
+						nonPrivacySafeAttributes: {
+							url: 'https://atlassian.com/',
 						},
 					},
 				});

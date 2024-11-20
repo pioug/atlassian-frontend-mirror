@@ -6,7 +6,10 @@ import Box from '@atlaskit/primitives/box';
 
 export default () => (
 	<Box>
-		<Banner icon={<WarningIcon label="Warning" secondaryColor="inherit" size="medium" />}>
+		<Banner
+			icon={<WarningIcon label="Warning" secondaryColor="inherit" size="medium" />}
+			testId="basicTestId"
+		>
 			Your license is about to expire. Please renew your license within the next week.
 		</Banner>
 	</Box>

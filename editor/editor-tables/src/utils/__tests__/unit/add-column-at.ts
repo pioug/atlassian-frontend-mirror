@@ -51,7 +51,7 @@ describe('addColumnAt', () => {
 		);
 	});
 
-	it('should return a new transaction that adds a new column with no cell background if left column is header column and cellBackgroundDuplicated is true', () => {
+	it('should return a new transaction that adds a new column with no cell background if left column is header column', () => {
 		const { tr } = createEditorState(
 			doc(
 				table()(
@@ -60,7 +60,7 @@ describe('addColumnAt', () => {
 				),
 			),
 		);
-		const newTr = addColumnAt(2, true)(tr);
+		const newTr = addColumnAt(2)(tr);
 		expect(newTr).not.toBe(tr);
 		expect(newTr.doc).toEqualDocument(
 			doc(
@@ -72,7 +72,7 @@ describe('addColumnAt', () => {
 		);
 	});
 
-	it('should return a new transaction that adds a new column with cell background matching right column if left column is header column and cellBackgroundDuplicated is true', () => {
+	it('should return a new transaction that adds a new column with cell background matching right column if left column is header column', () => {
 		const { tr } = createEditorState(
 			doc(
 				table()(
@@ -81,7 +81,7 @@ describe('addColumnAt', () => {
 				),
 			),
 		);
-		const newTr = addColumnAt(1, true)(tr);
+		const newTr = addColumnAt(1)(tr);
 		expect(newTr).not.toBe(tr);
 		expect(newTr.doc).toEqualDocument(
 			doc(
@@ -103,32 +103,7 @@ describe('addColumnAt', () => {
 		);
 	});
 
-	it('should return a new transaction that adds a new column with cell background attr that matches the row in the left at last index if cellBackgroundDuplicated is true', () => {
-		const { tr } = createEditorState(
-			doc(
-				table()(
-					row(td()(p('1{<>}')), td()(p('2'))),
-					row(td({ background: 'red' })(p('3')), td({ background: 'red' })(p('4'))),
-				),
-			),
-		);
-		const newTr = addColumnAt(2, true)(tr);
-		expect(newTr).not.toBe(tr);
-		expect(newTr.doc).toEqualDocument(
-			doc(
-				table()(
-					row(td()(p('1')), td()(p('2')), cEmpty),
-					row(
-						td({ background: 'red' })(p('3')),
-						td({ background: 'red' })(p('4')),
-						td({ background: 'red' })(p()),
-					),
-				),
-			),
-		);
-	});
-
-	it('should return a new transaction that adds a new column with no cell background attr if cellBackgroundDuplicated is false', () => {
+	it('should return a new transaction that adds a new column with cell background attr that matches the row in the left at last index', () => {
 		const { tr } = createEditorState(
 			doc(
 				table()(
@@ -143,7 +118,11 @@ describe('addColumnAt', () => {
 			doc(
 				table()(
 					row(td()(p('1')), td()(p('2')), cEmpty),
-					row(td({ background: 'red' })(p('3')), td({ background: 'red' })(p('4')), td()(p())),
+					row(
+						td({ background: 'red' })(p('3')),
+						td({ background: 'red' })(p('4')),
+						td({ background: 'red' })(p()),
+					),
 				),
 			),
 		);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Spinner from '../src';
+import Spinner from '@atlaskit/spinner';
 
 export default function Alignment() {
 	return (

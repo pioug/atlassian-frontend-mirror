@@ -359,6 +359,12 @@ export type CollabActivityAckPayload = CollabActivityData & {
 	type: 'activity:ack';
 };
 
+export type CollabActivityAIProviderChangedPayload = CollabActivityData & {
+	type: 'ai-provider:change';
+	action: 'add' | 'remove';
+	providerId?: string;
+};
+
 export interface CollabEventTelepointerData {
 	type: 'telepointer';
 	selection: CollabSendableSelection;

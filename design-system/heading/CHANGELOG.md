@@ -1,5 +1,20 @@
 # @atlaskit/heading
 
+## 3.0.0
+
+### Major Changes
+
+- [#165728](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165728)
+  [`061d0c77948b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/061d0c77948b7) -
+  **Breaking change:** The deprecated `level` prop has been removed. Use the `size` prop instead.
+  See https://atlassian.design/components/heading/migration-to-size-prop for migration details.
+
+### Patch Changes
+
+- [#166026](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166026)
+  [`962b5e77810fb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/962b5e77810fb) -
+  Adds side-effect config to support Compiled css extraction in third-party apps
+
 ## 2.4.7
 
 ### Patch Changes

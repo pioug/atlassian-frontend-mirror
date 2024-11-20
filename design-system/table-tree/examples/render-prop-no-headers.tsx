@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TableTree, { Cell, Row, Rows } from '../src';
+import TableTree, { Cell, Row, Rows } from '@atlaskit/table-tree';
 
 import staticData from './data-cleancode-toc.json';
 

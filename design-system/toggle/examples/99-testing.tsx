@@ -3,9 +3,8 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 import { Stack } from '@atlaskit/primitives';
+import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
-
-import Toggle from '../src';
 
 const StatelessExample = () => {
 	const [isChecked, toggle] = useState(false);

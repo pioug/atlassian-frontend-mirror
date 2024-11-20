@@ -8,8 +8,7 @@ import { css, jsx } from '@emotion/react';
 
 import { AnalyticsListener, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
-
-import TextArea from '../src';
+import TextArea from '@atlaskit/textarea';
 
 const sendAnalytics = (analytic: UIAnalyticsEvent) => console.log('analytic: ', analytic.payload);
 const wrapperStyles = css({

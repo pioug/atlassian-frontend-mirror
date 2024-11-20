@@ -11,6 +11,8 @@ import { Button } from './components/button-strict';
 
 const basicStyles = css({
 	display: 'inline-block',
+	flex: '100%',
+	flexGrow: 0,
 	color: token('color.link'),
 });
 

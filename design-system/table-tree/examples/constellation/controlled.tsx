@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import TableTree, { Cell, Header, Headers, Row, Rows } from '../../src';
+import TableTree, { Cell, Header, Headers, Row, Rows } from '@atlaskit/table-tree';
 
 import items from './data';
 

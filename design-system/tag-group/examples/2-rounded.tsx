@@ -2,8 +2,7 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import Tag from '@atlaskit/tag';
-
-import TagGroup from '../src';
+import TagGroup from '@atlaskit/tag-group';
 
 const tagNames = [
 	'liquorice',

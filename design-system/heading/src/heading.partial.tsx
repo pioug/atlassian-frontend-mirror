@@ -3,13 +3,49 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { type ReactNode } from 'react';
+
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import { UNSAFE_inverseColorMap, UNSAFE_useSurface } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { useHeading } from './heading-context';
-import type { HeadingColor, NewHeadingProps } from './types';
+
+export type HeadingColor = 'color.text' | 'color.text.inverse' | 'color.text.warning.inverse';
+
+export type HeadingProps = {
+	/**
+	 * Heading size. This value is detached from the specific heading level applied to allow for more flexibility.
+	 * Use instead of the deprecated `level` prop.
+	 *
+	 */
+	size: HeadingSize;
+	/**
+	 * Allows the component to be rendered as the specified DOM element, overriding a default element set by `level` prop.
+	 */
+	as?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'div' | 'span';
+	/**
+	 * Token representing text color with a built-in fallback value.
+	 * Will apply inverse text color automatically if placed within a Box with bold background color.
+	 * Defaults to `color.text`.
+	 */
+	color?: HeadingColor;
+	/**
+	 * The text of the heading.
+	 */
+	children: ReactNode;
+	/**
+	 * Unique identifier for the heading DOM element.
+	 */
+	id?: string;
+	/**
+	 * A `testId` prop is provided for specified elements, which is a unique
+	 * string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests.
+	 */
+	testId?: string;
+};
 
 const sizeTagMap = {
 	xxlarge: 'h1',
@@ -52,7 +88,7 @@ const useColor = (colorProp?: HeadingColor): HeadingColor => {
  * <Heading size="xxlarge">Page title</Heading>
  * ```
  */
-const Heading = ({ children, size, id, testId, as, color: colorProp }: NewHeadingProps) => {
+const Heading = ({ children, size, id, testId, as, color: colorProp }: HeadingProps) => {
 	if (
 		typeof process !== 'undefined' &&
 		process.env.NODE_ENV !== 'production' &&
@@ -82,8 +118,7 @@ const Heading = ({ children, size, id, testId, as, color: colorProp }: NewHeadin
 	);
 };
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const headingColorStylesMap: Record<HeadingColor, SerializedStyles> = {
+const headingColorStylesMap: Record<HeadingColor, SerializedStyles> = {
 	'color.text': css({
 		color: token('color.text'),
 	}),

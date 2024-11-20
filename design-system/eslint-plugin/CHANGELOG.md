@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.24.0
+
+### Minor Changes
+
+- [#165462](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165462)
+  [`a9c04a2aaf7e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a9c04a2aaf7e4) -
+  Introducing new rule to encourage adding/referencing accessible name to a Onboarding spotlight
+  dialog component.
+
 ## 10.23.2
 
 ### Patch Changes

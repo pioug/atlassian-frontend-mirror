@@ -255,7 +255,7 @@ export const emojiName = css({
 export const emojiShortName = css({
 	display: 'block',
 	color: token('color.text.subtle', N200),
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 	lineHeight: 1,
 	marginBottom: token('space.negative.025', '-2px'),
 	overflow: 'hidden',
@@ -266,7 +266,7 @@ export const emojiShortName = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	['&:first-of-type']: {
 		color: token('color.text', N900),
-		fontSize: '14px',
+		font: token('font.body'),
 	},
 });
 
@@ -338,7 +338,7 @@ export const emojiUploadTop = css({
 	display: 'flex',
 	justifyContent: 'space-between',
 	alignItems: 'flex-end',
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -356,7 +356,7 @@ export const closeEmojiUploadButton = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiUploadBottom = css({
-	fontSize: '11px',
+	font: token('font.body.small'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -420,7 +420,7 @@ export const uploadPreviewText = css({
 	h5: {
 		color: token('color.text.subtle', N300),
 		paddingBottom: token('space.050', '4px'),
-		fontSize: '12px',
+		font: token('font.body.UNSAFE_small'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	img: {
@@ -474,7 +474,7 @@ export const deletePreview = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const deleteText = css({
 	height: '64px',
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:first-of-type': {

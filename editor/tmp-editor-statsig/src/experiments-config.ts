@@ -247,16 +247,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-10-21
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_live_pages_ai_definitions/setup
-	platform_editor_live_pages_ai_definitions: {
-		productKeys: {
-			confluence: 'platform_editor_live_pages_ai_definitions',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
-	},
 	// Added 2024-10-08
 	support_table_in_comment_jira: {
 		productKeys: {
@@ -369,6 +359,15 @@ export const editorExperimentsConfig = {
 	contextual_formatting_toolbar: {
 		productKeys: {
 			confluence: 'platform_editor_contextual_formatting_toolbar_exp',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2024-11-19
+	platform_editor_ai_1p_smart_link_unfurl_in_prompt: {
+		productKeys: {
+			confluence: 'platform_editor_ai_1p_smart_link_unfurl_in_prompt',
 		},
 		param: 'isEnabled',
 		typeGuard: isBoolean,

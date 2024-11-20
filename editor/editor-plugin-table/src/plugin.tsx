@@ -188,9 +188,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 			// When in comment editor, we need the scaling percent to be 40% while tableWithFixedColumnWidthsOption is not visible
 			options?.isCommentEditor);
 
-	const isCellBackgroundDuplicated =
-		options?.getEditorFeatureFlags?.().tableDuplicateCellColouring || false;
-
 	return {
 		name: 'table',
 
@@ -435,7 +432,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							fullWidthEnabled,
 							api,
 							getIntl,
-							isCellBackgroundDuplicated,
 							isTableFixedColumnWidthsOptionEnabled,
 							shouldUseIncreasedScalingPercent,
 							isCommentEditor,

@@ -30,6 +30,9 @@
             "path": "../../editor-json-transformer/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {

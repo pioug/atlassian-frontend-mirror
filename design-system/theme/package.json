@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/theme",
-	"version": "14.0.0",
+	"version": "14.0.1",
 	"description": "Theme contains solutions for global theming, colors, typography and other useful mixins.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -12,7 +12,9 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": false,
+	"sideEffects": [
+		"**/*.compiled.css"
+	],
 	"atlaskit:src": "src/index.tsx",
 	"atlassian": {
 		"team": "Design System Team",

@@ -3,7 +3,11 @@ import type { IntlShape } from 'react-intl-next/src/types';
 import type { TableLayout } from '@atlaskit/adf-schema';
 import { tableBackgroundColorPalette } from '@atlaskit/adf-schema';
 import type { TableSortOrder as SortOrder } from '@atlaskit/custom-steps';
-import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type {
+	AnalyticsEventPayload,
+	CHANGE_ALIGNMENT_REASON,
+	EditorAnalyticsAPI,
+} from '@atlaskit/editor-common/analytics';
 import {
 	ACTION_SUBJECT,
 	EVENT_TYPE,
@@ -11,7 +15,6 @@ import {
 	TABLE_ACTION,
 	TABLE_DISPLAY_MODE,
 } from '@atlaskit/editor-common/analytics';
-import { type CHANGE_ALIGNMENT_REASON } from '@atlaskit/editor-common/analytics';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import type { Command, GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -199,7 +202,7 @@ export const addRowAroundSelection =
 	};
 
 export const insertRowWithAnalytics =
-	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null, isCellbackgroundDuplicated = false) =>
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null) =>
 	(inputMethod: InsertRowMethods, options: InsertRowOptions) =>
 		withEditorAnalyticsAPI((state) => {
 			const { totalRowCount, totalColumnCount } = getSelectedTableInfo(state.selection);
@@ -215,9 +218,7 @@ export const insertRowWithAnalytics =
 				},
 				eventType: EVENT_TYPE.TRACK,
 			};
-		})(editorAnalyticsAPI)(
-			insertRow(options.index, options.moveCursorToInsertedRow, isCellbackgroundDuplicated),
-		);
+		})(editorAnalyticsAPI)(insertRow(options.index, options.moveCursorToInsertedRow));
 
 export const changeColumnWidthByStepWithAnalytics =
 	(
@@ -272,7 +273,6 @@ export const insertColumnWithAnalytics =
 		api: PluginInjectionAPI | undefined | null,
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 		isTableScalingEnabled = false,
-		isCellbackgroundDuplicated = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 		isCommentEditor = false,
@@ -304,7 +304,6 @@ export const insertColumnWithAnalytics =
 			insertColumn(
 				api,
 				isTableScalingEnabled,
-				isCellbackgroundDuplicated,
 				isTableFixedColumnWidthsOptionEnabled,
 				shouldUseIncreasedScalingPercent,
 				isCommentEditor,

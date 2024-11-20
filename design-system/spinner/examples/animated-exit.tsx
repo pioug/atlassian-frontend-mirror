@@ -10,10 +10,9 @@ import { css, jsx } from '@emotion/react';
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/new';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
+import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
-
-import Spinner from '../src';
 
 type Phase = 'stopped' | 'loading' | 'ready';
 

@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 7.31.3
+
+### Patch Changes
+
+- [#165001](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165001)
+  [`d77bdbfe892ed`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d77bdbfe892ed) -
+  tidy table duplicate cell color experiment
+- Updated dependencies
+
+## 7.31.2
+
+### Patch Changes
+
+- [#164992](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164992)
+  [`16878c96150af`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/16878c96150af) -
+  tidy table sort order experiment
+
 ## 7.31.1
 
 ### Patch Changes

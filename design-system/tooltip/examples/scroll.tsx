@@ -6,8 +6,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { token } from '@atlaskit/tokens';
-
-import Tooltip from '../src';
+import Tooltip from '@atlaskit/tooltip';
 
 import { Target } from './styled';
 

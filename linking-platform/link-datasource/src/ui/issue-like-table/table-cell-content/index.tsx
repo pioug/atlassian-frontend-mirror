@@ -3,7 +3,6 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { type DatasourceType } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -125,12 +124,7 @@ const InlineEditableCell = ({
 	});
 
 	// A field is editable when `execute` is returned from the store
-	// if the field requires to fetch options to execute, then is editable only if `executeFetch` is also returned
-	const isEditable =
-		!!execute &&
-		(isEditTypeSelectable(values.type) && fg('enable_datasource_supporting_actions')
-			? !!executeFetch
-			: true);
+	const isEditable = !!execute;
 
 	const readView = (
 		<TooltipWrapper
@@ -150,6 +144,12 @@ const InlineEditableCell = ({
 	);
 
 	if (!isEditable) {
+		return readView;
+	}
+
+	// if the field requires to fetch options to execute, then is editable only if `executeFetch` is defined
+	// `executeFetch` is returned only when ff:`enable_datasource_supporting_actions` is enabled
+	if (isEditTypeSelectable(values.type) && !executeFetch) {
 		return readView;
 	}
 

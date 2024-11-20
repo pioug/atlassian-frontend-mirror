@@ -2,10 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, keyframes } from '@emotion/react';
+import { css, cssMap, jsx, keyframes } from '@compiled/react';
 
 import { G300, N40A, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -26,7 +26,7 @@ const decreasingBarAnimation = keyframes({
 });
 
 const containerStyles = css({
-	width: `100%`,
+	width: '100%',
 	height: 6,
 	position: 'relative',
 	background: token('color.background.neutral', N40A),
@@ -34,29 +34,17 @@ const containerStyles = css({
 	overflow: 'hidden',
 });
 
-const containerAppearance = {
-	default: css({
-		background: token('color.background.neutral', N40A),
-	}),
-	success: css({
-		background: token('color.background.neutral', N40A),
-	}),
-	inverse: css({
-		background: token('color.background.inverse.subtle', 'rgba(255, 255, 255, 0.5)'),
-	}),
-};
+const containerAppearance = cssMap({
+	default: { background: token('color.background.neutral', N40A) },
+	success: { background: token('color.background.neutral', N40A) },
+	inverse: { background: token('color.background.inverse.subtle', 'rgba(255, 255, 255, 0.5)') },
+});
 
-const barAppearance = {
-	default: css({
-		background: token('color.background.neutral.bold', N500),
-	}),
-	success: css({
-		background: token('color.background.success.bold', G300),
-	}),
-	inverse: css({
-		background: token('elevation.surface', 'white'),
-	}),
-};
+const barAppearance = cssMap({
+	default: { background: token('color.background.neutral.bold', N500) },
+	success: { background: token('color.background.success.bold', G300) },
+	inverse: { background: token('elevation.surface', 'white') },
+});
 
 const barStyles = css({
 	display: 'block',

@@ -2,9 +2,8 @@ import React, { Fragment } from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
+import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-
-import Textfield from '../src';
 
 export default function ElementsBeforeAfterExample() {
 	return (

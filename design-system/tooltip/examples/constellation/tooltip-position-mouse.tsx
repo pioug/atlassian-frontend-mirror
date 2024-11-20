@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import Tooltip from '@atlaskit/tooltip';
 
-import Tooltip from '../../src';
 import { type PositionType } from '../../src/types';
 
 const VALID_POSITIONS: PositionType[] = ['mouse', 'top', 'right', 'bottom', 'left'];

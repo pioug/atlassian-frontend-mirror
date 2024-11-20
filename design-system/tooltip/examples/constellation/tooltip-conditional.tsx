@@ -11,8 +11,7 @@ import invariant from 'tiny-invariant';
 
 import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import Tooltip from '../../src';
+import Tooltip from '@atlaskit/tooltip';
 
 const styles = xcss({
 	padding: 'space.100',

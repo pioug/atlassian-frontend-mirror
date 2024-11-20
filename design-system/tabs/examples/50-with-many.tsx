@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Tabs, { Tab, TabList, TabPanel } from '../src';
+import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
+
 import { type OnChangeCallback } from '../src/types';
 
 import { Panel } from './shared';

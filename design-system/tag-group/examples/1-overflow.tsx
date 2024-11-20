@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Tag from '@atlaskit/tag';
-
-import TagGroup from '../src';
+import TagGroup from '@atlaskit/tag-group';
 
 const tagNames = [
 	'liquorice',

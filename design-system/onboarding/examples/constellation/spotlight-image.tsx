@@ -39,6 +39,7 @@ const SpotlightImageExample = () => {
 							},
 						]}
 						target="switch"
+						label="Switch projects"
 						key="switch"
 						targetRadius={3}
 						targetBgColor={N0}

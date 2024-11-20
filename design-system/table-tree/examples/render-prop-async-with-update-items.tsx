@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 
 import SectionMessage from '@atlaskit/section-message';
-
-import TableTree, { Cell, Header, Headers, Row, Rows, TableTreeDataHelper } from '../src';
+import TableTree, {
+	Cell,
+	Header,
+	Headers,
+	Row,
+	Rows,
+	TableTreeDataHelper,
+} from '@atlaskit/table-tree';
 
 let uuid = 0;
 

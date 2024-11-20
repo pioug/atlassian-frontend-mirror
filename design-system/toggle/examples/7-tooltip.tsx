@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
+import Toggle from '@atlaskit/toggle';
 import Tooltip from '@atlaskit/tooltip';
-
-import Toggle from '../src';
 
 export default function Example() {
 	const [isAllowed, setIsAllowed] = useState(false);

@@ -1,18 +1,11 @@
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
-import React, {
-	type FC,
-	type KeyboardEventHandler,
-	PureComponent,
-	type ReactElement,
-	type ReactNode,
-} from 'react';
+import React, { type KeyboardEventHandler, PureComponent, type ReactNode } from 'react';
 
 import { type Placement } from '@popperjs/core';
 import { bind, type UnbindFn } from 'bind-event-listener';
 import { createPortal } from 'react-dom';
 import FocusLockOld from 'react-focus-lock';
 import FocusLockNext from 'react-focus-lock-next';
-import NodeResolver from 'react-node-resolver';
 import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'react-popper';
 import { shallowEqualObjects } from 'shallow-equal';
 
@@ -391,7 +384,7 @@ export default class PopupSelect<
 			onOpen();
 		}
 
-		if (onMenuOpen && fg('platform_design_system_team_select_node_resolver')) {
+		if (onMenuOpen) {
 			onMenuOpen();
 		}
 
@@ -428,7 +421,7 @@ export default class PopupSelect<
 			onClose();
 		}
 
-		if (onMenuClose && fg('platform_design_system_team_select_node_resolver')) {
+		if (onMenuClose) {
 			onMenuClose();
 		}
 
@@ -536,9 +529,6 @@ export default class PopupSelect<
 			onMenuClose,
 			...props
 		} = this.props;
-		const menuHandlers = !fg('platform_design_system_team_select_node_resolver')
-			? { onMenuOpen, onMenuClose }
-			: {};
 
 		const { focusLockEnabled, isOpen, mergedComponents, mergedPopperProps } = this.state;
 		const showSearchControl = this.showSearchControl();
@@ -631,58 +621,46 @@ export default class PopupSelect<
 				}}
 			>
 				{({ placement, ref, style }) => (
-					// When the feature flag 'platform_design_system_team_select_node_resolver' is enabled,
-					// we directly pass the ref to MenuDialog instead of wrapping it with NodeResolver.
-					<ConditionalNodeResolverWrapper
-						hasNodeResolver={!fg('platform_design_system_team_select_node_resolver')}
-						innerRef={this.resolveMenuRef(ref)}
+					<MenuDialog
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+						style={style}
+						data-placement={placement}
+						minWidth={minMenuWidth}
+						maxWidth={maxMenuWidth}
+						id={id}
+						testId={testId}
+						ref={this.resolveMenuRef(ref)}
 					>
-						<MenuDialog
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							style={style}
-							data-placement={placement}
-							minWidth={minMenuWidth}
-							maxWidth={maxMenuWidth}
-							id={id}
-							testId={testId}
-							ref={
-								!fg('platform_design_system_team_select_node_resolver')
-									? null
-									: this.resolveMenuRef(ref)
-							}
-						>
-							<FocusLock disabled={!focusLockEnabled} returnFocus>
-								<Select<Option, IsMulti>
-									aria-label={providedAriaLabel}
-									backspaceRemovesValue={false}
-									controlShouldRenderValue={false}
-									isClearable={false}
-									tabSelectsValue={false}
-									menuIsOpen
-									placeholder={placeholder}
-									ref={this.getSelectRef}
-									{...props}
-									{...menuHandlers}
-									isSearchable={showSearchControl}
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-									styles={mergeStyles(this.defaultStyles, props.styles || {})}
-									maxMenuHeight={this.getMaxHeight()}
-									components={selectComponents}
-									onChange={this.handleSelectChange}
-									ariaLiveMessages={
-										!showSearchControl
-											? {
-													// Overwriting ariaLiveMessages builtin onFocus method to announce selected option when popup has been opened
-													onFocus: onReactSelectFocus,
-													...props.ariaLiveMessages, // priority to use user handlers if provided
-												}
-											: props.ariaLiveMessages
-									}
-								/>
-								{footer}
-							</FocusLock>
-						</MenuDialog>
-					</ConditionalNodeResolverWrapper>
+						<FocusLock disabled={!focusLockEnabled} returnFocus>
+							<Select<Option, IsMulti>
+								aria-label={providedAriaLabel}
+								backspaceRemovesValue={false}
+								controlShouldRenderValue={false}
+								isClearable={false}
+								tabSelectsValue={false}
+								menuIsOpen
+								placeholder={placeholder}
+								ref={this.getSelectRef}
+								{...props}
+								isSearchable={showSearchControl}
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								styles={mergeStyles(this.defaultStyles, props.styles || {})}
+								maxMenuHeight={this.getMaxHeight()}
+								components={selectComponents}
+								onChange={this.handleSelectChange}
+								ariaLiveMessages={
+									!showSearchControl
+										? {
+												// Overwriting ariaLiveMessages builtin onFocus method to announce selected option when popup has been opened
+												onFocus: onReactSelectFocus,
+												...props.ariaLiveMessages, // priority to use user handlers if provided
+											}
+										: props.ariaLiveMessages
+								}
+							/>
+							{footer}
+						</FocusLock>
+					</MenuDialog>
 				)}
 			</Popper>
 		);
@@ -722,31 +700,3 @@ export default class PopupSelect<
 		);
 	}
 }
-
-interface ConditionalNodeResolverWrapperProps {
-	hasNodeResolver: boolean;
-	innerRef: (instance: HTMLDivElement) => void;
-	children: ReactElement;
-}
-
-/**
- * A wrapper component that conditionally applies a NodeResolver to its children.
- *
- * Note: NodeResolver should not be used in React 18 concurrent mode. This component
- * is intended to be removed once the feature flag  is removed.
- * @param {boolean} props.hasNodeResolver - Determines whether to apply the NodeResolver.
- * @param {ReactElement} props.children - The child elements to be wrapped.
- * @param {(instance: HTMLDivElement) => void} props.innerRef - A ref callback to get the instance of the HTMLDivElement.
- * @returns {ReactElement} The children wrapped with NodeResolver if hasNodeResolver is true, otherwise just the children.
- */
-const ConditionalNodeResolverWrapper: FC<ConditionalNodeResolverWrapperProps> = ({
-	hasNodeResolver,
-	children,
-	innerRef,
-}) => {
-	if (hasNodeResolver) {
-		return <NodeResolver innerRef={innerRef}>{children}</NodeResolver>;
-	}
-
-	return children;
-};

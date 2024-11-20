@@ -8,9 +8,8 @@ import { type ReactNode } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { Box, xcss } from '@atlaskit/primitives';
+import Tabs, { TabList, TabPanel, useTab } from '@atlaskit/tabs';
 import { token } from '@atlaskit/tokens';
-
-import Tabs, { TabList, TabPanel, useTab } from '../../src';
 
 const panelStyles = css({
 	display: 'flex',

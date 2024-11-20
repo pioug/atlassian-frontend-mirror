@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
+import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import Tabs, { Tab, TabList, TabPanel } from '../src';
 import { type SelectedType } from '../src/types';
 
 import { Panel } from './shared';

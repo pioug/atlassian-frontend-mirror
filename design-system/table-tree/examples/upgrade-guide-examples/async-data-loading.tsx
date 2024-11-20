@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 
-import TableTree, { Cell, Header, Headers, Row, Rows, TableTreeDataHelper } from '../../src';
+import TableTree, {
+	Cell,
+	Header,
+	Headers,
+	Row,
+	Rows,
+	TableTreeDataHelper,
+} from '@atlaskit/table-tree';
 
 const defaultChild = {
 	id: 'title One',

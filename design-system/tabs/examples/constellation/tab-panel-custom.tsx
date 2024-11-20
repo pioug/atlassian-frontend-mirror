@@ -7,9 +7,8 @@
 import { css, jsx } from '@emotion/react';
 
 import { Box } from '@atlaskit/primitives';
+import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
 import { token } from '@atlaskit/tokens';
-
-import Tabs, { Tab, TabList, useTabPanel } from '../../src';
 
 const customPanelStyles = css({
 	display: 'flex',

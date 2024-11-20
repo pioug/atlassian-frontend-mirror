@@ -1,10 +1,9 @@
 import React from 'react';
 
 import Spinner from '@atlaskit/spinner';
+import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { N100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import Tabs, { Tab, TabList, TabPanel } from '../src';
 
 export default function withFlexContent() {
 	return (

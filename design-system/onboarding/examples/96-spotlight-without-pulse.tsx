@@ -57,6 +57,7 @@ const SpotlightWithoutPulseExample = () => {
 								},
 							]}
 							pulse={false}
+							label="No pulse spotlight"
 						>
 							This spotlight target does not show a pulse keyframe. Note that this is specific to
 							Spotlight and is different to the pulse in SpotlightPulse.

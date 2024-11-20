@@ -206,7 +206,6 @@ export const getToolbarCellOptionsConfig = (
 	api: PluginInjectionAPI | undefined | null,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	isTableScalingEnabled = false,
-	isCellBackgroundDuplicated = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
 	isCommentEditor = false,
@@ -228,7 +227,6 @@ export const getToolbarCellOptionsConfig = (
 						api,
 						editorAnalyticsAPI,
 						isTableScalingEnabled,
-						isCellBackgroundDuplicated,
 						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,
 						isCommentEditor,
@@ -553,9 +551,6 @@ export const getToolbarConfig =
 						)
 					: [];
 
-			const isCellBackgroundDuplicated =
-				getEditorFeatureFlags().tableDuplicateCellColouring || false;
-
 			const cellItems = pluginState.isDragAndDropEnabled
 				? []
 				: getCellItems(
@@ -566,7 +561,6 @@ export const getToolbarConfig =
 						api,
 						editorAnalyticsAPI,
 						isTableScalingEnabled,
-						isCellBackgroundDuplicated,
 						isTableFixedColumnWidthsOptionEnabled,
 						shouldUseIncreasedScalingPercent,
 						options?.isCommentEditor,
@@ -681,7 +675,6 @@ const getCellItems = (
 	api: PluginInjectionAPI | undefined | null,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	isTableScalingEnabled = false,
-	isCellBackgroundDuplicated = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
 	isCommentEditor = false,
@@ -697,7 +690,6 @@ const getCellItems = (
 			api,
 			editorAnalyticsAPI,
 			isTableScalingEnabled,
-			isCellBackgroundDuplicated,
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
 			isCommentEditor,

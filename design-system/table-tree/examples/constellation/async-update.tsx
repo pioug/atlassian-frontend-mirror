@@ -2,8 +2,14 @@ import React, { useCallback, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives';
-
-import TableTree, { Cell, Header, Headers, Row, Rows, TableTreeDataHelper } from '../../src';
+import TableTree, {
+	Cell,
+	Header,
+	Headers,
+	Row,
+	Rows,
+	TableTreeDataHelper,
+} from '@atlaskit/table-tree';
 
 import { fetchItems, getDefaultItems } from './data';
 

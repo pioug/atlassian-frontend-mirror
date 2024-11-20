@@ -6,9 +6,8 @@
 import { css, jsx } from '@emotion/react';
 
 import { Label } from '@atlaskit/form';
+import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-
-import TextField from '../src';
 
 const overrideStyles = css({
 	padding: token('space.075', '6px'),

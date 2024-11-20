@@ -6,7 +6,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import TableTree, { Header, Headers, Rows } from '../src';
+import TableTree, { Header, Headers, Rows } from '@atlaskit/table-tree';
 
 /**
  * For VR testing purposes we are overriding the animation timing

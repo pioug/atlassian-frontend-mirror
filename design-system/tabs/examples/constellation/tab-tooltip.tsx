@@ -7,10 +7,9 @@ import { type ReactNode } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
-
-import Tabs, { Tab, TabList, TabPanel } from '../../src';
 
 const panelStyles = css({
 	display: 'flex',

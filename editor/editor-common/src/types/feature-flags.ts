@@ -239,15 +239,6 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Enables new table columns and rows added to duplicate neighbouring cell colouring
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-22849
-	 * @default false
-	 */
-	tableDuplicateCellColouring?: boolean;
-
-	/**
-	 * @description
 	 * Enables new column resizing experience
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/ED-17798

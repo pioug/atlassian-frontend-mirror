@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 3.10.1
+
+### Patch Changes
+
+- [#165764](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165764)
+  [`3df943727e45e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3df943727e45e) -
+  Fix failing condition due to double negative behind ff
+- Updated dependencies
+
 ## 3.10.0
 
 ### Minor Changes

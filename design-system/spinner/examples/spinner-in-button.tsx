@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
-
-import Spinner from '../src';
 
 const InvertedSpinner = () => <Spinner appearance="invert" label="Loading" />;
 

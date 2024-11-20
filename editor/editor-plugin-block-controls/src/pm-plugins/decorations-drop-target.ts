@@ -226,7 +226,7 @@ export const dropTargetDecorations = (
 				if (
 					node.type.name === 'layoutColumn' &&
 					parent?.type.name === 'layoutSection' &&
-					parent?.firstChild !== node && // Not the first node
+					index !== 0 && // Not the first node
 					(parent?.childCount < maxLayoutColumnSupported() || isSameLayout)
 				) {
 					// Add drop target for layout columns

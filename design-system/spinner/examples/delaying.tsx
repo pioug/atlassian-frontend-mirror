@@ -12,9 +12,8 @@ import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
 import { ExitingPersistence, FadeIn } from '@atlaskit/motion';
 import Select, { type ValueType } from '@atlaskit/select';
+import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
-
-import Spinner from '../src';
 
 type Delays = {
 	spinner: number;

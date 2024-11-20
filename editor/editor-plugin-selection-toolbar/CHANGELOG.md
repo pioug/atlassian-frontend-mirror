@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 1.3.1
+
+### Patch Changes
+
+- [#165866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165866)
+  [`e1ea80ff13502`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e1ea80ff13502) -
+  EDF-1949 - Switch experiment platform_editor_live_pages_ai_definitions to FG
+  platform_editor_ai_definitions_live_page_view_mode
+- Updated dependencies
+
 ## 1.3.0
 
 ### Minor Changes

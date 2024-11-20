@@ -90,7 +90,6 @@ type DragMenuProps = {
 	boundariesElement?: HTMLElement;
 	scrollableElement?: HTMLElement;
 	isTableScalingEnabled?: boolean;
-	tableDuplicateCellColouring?: boolean;
 	shouldUseIncreasedScalingPercent?: boolean;
 	isTableFixedColumnWidthsOptionEnabled?: boolean;
 	ariaNotifyPlugin?: (
@@ -279,7 +278,6 @@ const DragMenu = React.memo(
 		scrollableElement,
 		boundariesElement,
 		isTableScalingEnabled,
-		tableDuplicateCellColouring,
 		shouldUseIncreasedScalingPercent,
 		isTableFixedColumnWidthsOptionEnabled,
 		ariaNotifyPlugin,
@@ -311,7 +309,6 @@ const DragMenu = React.memo(
 			editorAnalyticsAPI,
 			pluginConfig?.isHeaderRowRequired,
 			isTableScalingEnabled,
-			tableDuplicateCellColouring,
 			isTableFixedColumnWidthsOptionEnabled,
 			shouldUseIncreasedScalingPercent,
 			ariaNotifyPlugin,

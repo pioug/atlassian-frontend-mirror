@@ -653,8 +653,9 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		const { state, dispatch } = editorView;
 		const { targetCellPosition, isTableScalingEnabled = false } = getPluginState(state);
 
-		const { tableDuplicateCellColouring = false, tableWithFixedColumnWidthsOption = false } =
-			getEditorFeatureFlags ? getEditorFeatureFlags() : {};
+		const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags
+			? getEditorFeatureFlags()
+			: {};
 		// context menu opened by keyboard and any item except 'background' activated
 		// or color has been chosen from color palette
 		if (
@@ -735,7 +736,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 					this.props.api,
 					editorAnalyticsAPI,
 					isTableScalingEnabled,
-					tableDuplicateCellColouring,
 					tableWithFixedColumnWidthsOption,
 					shouldUseIncreasedScalingPercent,
 					isCommentEditor,
@@ -743,13 +743,10 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				this.toggleOpen();
 				break;
 			case 'insert_row':
-				insertRowWithAnalytics(editorAnalyticsAPI, tableDuplicateCellColouring)(
-					INPUT_METHOD.CONTEXT_MENU,
-					{
-						index: selectionRect.bottom,
-						moveCursorToInsertedRow: true,
-					},
-				)(state, dispatch);
+				insertRowWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.CONTEXT_MENU, {
+					index: selectionRect.bottom,
+					moveCursorToInsertedRow: true,
+				})(state, dispatch);
 				this.toggleOpen();
 				break;
 			case 'delete_column':

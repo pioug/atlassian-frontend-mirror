@@ -71,9 +71,7 @@ export const counterStyle = (isSelected: boolean) =>
 		display: 'flex',
 		alignSelf: 'center',
 		lineHeight: '14px',
-		fontSize: '11px',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		fontWeight: isSelected ? 700 : 400,
+		font: token('font.body.small'),
 		paddingRight: '0px',
 		marginTop: token('space.075', '6px'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -85,6 +83,8 @@ export const counterStyle = (isSelected: boolean) =>
 			color: isSelected
 				? `${token('color.text', B400)}!important`
 				: `2px solid ${token('color.text', N500)}!important`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			fontWeight: isSelected ? 700 : 400,
 		},
 	});
 
@@ -181,8 +181,8 @@ export const reactionViewStyle = css({
 		margin: 0,
 		color: `${token('color.text', N800)}`,
 		textTransform: 'capitalize',
+		font: token('font.body.large'),
 		fontWeight: 600,
-		fontSize: 16,
 		lineHeight: '20px',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
@@ -200,7 +200,7 @@ export const userListStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	li: {
 		color: `${token('color.text', N500)}`,
-		fontSize: 14,
+		font: token('font.body'),
 	},
 });
 

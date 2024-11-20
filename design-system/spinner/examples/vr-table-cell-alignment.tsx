@@ -6,9 +6,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
-
-import Spinner from '../src';
 
 /**
  * For VR testing purposes we are overriding the animation timing

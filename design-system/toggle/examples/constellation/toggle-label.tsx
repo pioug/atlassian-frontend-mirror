@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Toggle from '../../src';
+import Toggle from '@atlaskit/toggle';
 
 export default function Example() {
 	return (

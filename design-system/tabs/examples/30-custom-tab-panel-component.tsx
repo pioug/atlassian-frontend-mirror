@@ -5,9 +5,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import Tabs, { Tab, TabList, useTabPanel } from '@atlaskit/tabs';
 import { token } from '@atlaskit/tokens';
-
-import Tabs, { Tab, TabList, useTabPanel } from '../src';
 
 const customPanelStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766

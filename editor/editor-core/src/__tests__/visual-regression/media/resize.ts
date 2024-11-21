@@ -33,11 +33,7 @@ describe('Snapshot Test: Media', () => {
 				},
 				allowTables: {
 					advanced: true,
-				},
-			},
-			initialPluginConfiguration: {
-				tablesPlugin: {
-					tableResizingEnabled: true,
+					allowTableResizing: true,
 				},
 			},
 		});

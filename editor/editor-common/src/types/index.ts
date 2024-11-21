@@ -1,22 +1,28 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 export enum SortOrder {
 	ASC = 'asc',
 	DESC = 'desc',
 	NO_ORDER = 'no_order',
 }
 
-export { AnnotationUpdateEmitter, AnnotationUpdateEvent } from './annotation';
+export { AnnotationUpdateEmitter, AnnotationUpdateEvent } from './annotation/emitter';
 export type {
 	AnnotationState,
-	AnnotationProviders,
 	AnnotationUpdateEventPayloads,
+	OnAnnotationClickPayload,
+} from './annotation/emitter';
+export type {
+	AnnotationProviders,
 	InlineCommentSelectionComponentProps,
 	InlineCommentHoverComponentProps,
 	InlineCommentViewComponentProps,
 	InlineCommentAnnotationProvider,
-	OnAnnotationClickPayload,
 	AnnotationByMatches,
 	AnnotationActionResult,
 } from './annotation';
+
 export type { ContextUpdateHandler, EditorActionsOptions, ReplaceRawValue } from './editor-actions';
 
 export type {

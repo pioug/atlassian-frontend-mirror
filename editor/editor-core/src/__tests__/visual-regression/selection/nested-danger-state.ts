@@ -31,10 +31,9 @@ describe('Danger for nested elements', () => {
 				viewport: { width: 1280, height: 550 },
 				editorProps: {
 					smartLinks: { provider: Promise.resolve(cardProvider) },
-				},
-				initialPluginConfiguration: {
-					tablesPlugin: {
-						tableResizingEnabled: true,
+					allowTables: {
+						advanced: true,
+						allowTableResizing: true,
 					},
 				},
 			});

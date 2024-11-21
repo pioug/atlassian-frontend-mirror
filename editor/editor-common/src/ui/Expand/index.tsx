@@ -93,5 +93,3 @@ export const ExpandLayoutWrapperWithRef = forwardRef(
 		);
 	},
 );
-
-export { sharedExpandStyles, type StyleProps } from './sharedStyles';

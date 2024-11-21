@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { type SharedProps } from '../components/types';
-import { type Comment as CommentType } from '../model';
+import { type Comment as CommentType } from '../model/Comment';
 import { getComments, getHighlighted } from '../internal/selectors';
 import { type State } from '../internal/store';
 

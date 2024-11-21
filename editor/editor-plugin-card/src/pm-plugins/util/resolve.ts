@@ -1,15 +1,12 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { CardOptions } from '@atlaskit/editor-common/card';
-import type {
-	CardAdf,
-	CardProvider,
-	DatasourceAdf,
-} from '@atlaskit/editor-common/provider-factory';
+import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { canRenderDatasource, hasDocAsParent } from '@atlaskit/editor-common/utils';
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import type { CardAdf, DatasourceAdf } from '@atlaskit/smart-card';
 
 import type { Request } from '../../types';
 import { setProvider } from '../actions';

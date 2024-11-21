@@ -272,7 +272,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 	${hoveredCell()};
 	${hoveredWarningCell};
 	${insertLine()};
-	${resizeHandle(props.featureFlags?.tableDragAndDrop)};
+	${resizeHandle()};
 	${rangeSelectionStyles};
 	${viewModeSortStyles()};
 

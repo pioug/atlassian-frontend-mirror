@@ -41,7 +41,7 @@
 		"./compiled": "./src/compiled/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^2.2.0",
+		"@atlaskit/tokens": "^2.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1",
 		"@emotion/react": "^11.7.1"

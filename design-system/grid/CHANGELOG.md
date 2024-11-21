@@ -1,5 +1,17 @@
 # @atlaskit/grid
 
+## 0.15.0
+
+### Minor Changes
+
+- [#162907](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162907)
+  [`a42b394d7e66c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a42b394d7e66c) -
+  Compiled migration to @compiled/react
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.14.2
 
 ### Patch Changes

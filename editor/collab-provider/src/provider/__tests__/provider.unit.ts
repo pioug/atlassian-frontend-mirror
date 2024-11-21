@@ -41,6 +41,7 @@ jest.mock('../../document/catchupv2', () => {
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import type { UserPermitType } from '@atlaskit/editor-common/collab';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { nextTick } from '@atlaskit/editor-test-helpers/next-tick';
@@ -60,7 +61,6 @@ import { ProviderInitialisationError } from '../../errors/custom-errors';
 import type { InternalError } from '../../errors/internal-errors';
 import { INTERNAL_ERROR_CODE } from '../../errors/internal-errors';
 import { NCS_ERROR_CODE } from '../../errors/ncs-errors';
-import type { UserPermitType } from '../../types';
 import { NullDocumentService } from '../../document/null-document-service';
 import { NullApi } from '../../api/null-api';
 import { DocumentService } from '../../document/document-service';

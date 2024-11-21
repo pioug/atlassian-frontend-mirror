@@ -1,9 +1,11 @@
 import React from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { keyframes } from '@emotion/react';
-import WidthDetector from '../src';
+import styled from '@emotion/styled';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import WidthDetector from '@atlaskit/width-detector';
 
 const startSize = 100;
 const endSize = startSize * 2;

@@ -17,3 +17,10 @@ export const isPreRelease2 = () => {
 		fg('platform_editor_advanced_layouts_pre_release_2')
 	);
 };
+
+export const showResponsiveLayout = () => {
+	return (
+		editorExperiment('advanced_layouts', true) &&
+		fg('platform_editor_advanced_layouts_breakout_resizing')
+	);
+};

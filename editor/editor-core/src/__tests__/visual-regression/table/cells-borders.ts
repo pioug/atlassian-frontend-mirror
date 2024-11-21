@@ -36,9 +36,9 @@ describe('Table cells are above content', () => {
 		await initEditorWithAdf(page, {
 			adf: tableWithTrelloCardNarrowColumnsAdf,
 			appearance: Appearance.fullPage,
-			initialPluginConfiguration: {
-				tablesPlugin: {
-					tableResizingEnabled: true,
+			editorProps: {
+				allowTables: {
+					allowTableResizing: true,
 				},
 			},
 		});
@@ -50,9 +50,9 @@ describe('Table cells are above content', () => {
 		await initEditorWithAdf(page, {
 			adf: tableWithTrelloCardNarrowColumnsAdf,
 			appearance: Appearance.fullPage,
-			initialPluginConfiguration: {
-				tablesPlugin: {
-					tableResizingEnabled: true,
+			editorProps: {
+				allowTables: {
+					allowTableResizing: true,
 				},
 			},
 		});

@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 10.27.1
+
+### Patch Changes
+
+- [#166035](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166035)
+  [`2c941c7061475`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c941c7061475) -
+  Update documenation to point to the Search Experiences team
+
 ## 10.27.0
 
 ### Minor Changes

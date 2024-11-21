@@ -27,16 +27,10 @@ interface SharedIconComponentProps {
 }
 
 /**
- * Renders a icon and label.
- * If the text is undefined, render the capitalised label.
+ * Renders a icon and text label.
+ * If the text is undefined, will not render the text label.
  */
 export function SharedIconComponent({ iconUrl, label, text, testId }: SharedIconComponentProps) {
-	const displayText =
-		text === undefined || text === ''
-			? label
-				? label.charAt(0).toUpperCase() + label.slice(1)
-				: undefined
-			: text;
 	return (
 		<Flex gap="space.100" alignItems="center" testId={testId}>
 			<Inline>
@@ -47,9 +41,9 @@ export function SharedIconComponent({ iconUrl, label, text, testId }: SharedIcon
 					style={{ minWidth: '24px', maxWidth: '24px' }} // having just width: '24px' shrinks it when table width is reduced
 				/>
 			</Inline>
-			{displayText && (
+			{text && (
 				<Box xcss={labelStyles} testId={`${testId}-text`}>
-					{displayText}
+					{text}
 				</Box>
 			)}
 		</Flex>

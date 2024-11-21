@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 // Allowing existing usage of non Pragmatic drag and drop solution
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import { Draggable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
@@ -68,6 +69,17 @@ export class RankableTableRow extends React.Component<RankableTableRowProps> {
 						{...restRowProps}
 						{...provided.dragHandleProps}
 						{...provided.draggableProps}
+						/**
+						 * `provided.dragHandleProps` provides `role="button"` which we don't want to apply to table rows.
+						 *
+						 * Providing `role="button"` is the RBD 13 behavior which the migration layer emulates.
+						 * Previously we used RBD 12 which did not provide a role to the drag handle.
+						 */
+						role={
+							fg('platform_design_system_dynamic_table_row_role')
+								? undefined
+								: provided.dragHandleProps?.role
+						}
 						// It is necessary to prevent the passing of aria-labelledby
 						aria-labelledby={undefined}
 						// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18

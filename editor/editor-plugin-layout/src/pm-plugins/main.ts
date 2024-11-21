@@ -6,11 +6,12 @@ import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-import { findParentNodeOfType, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { fixColumnSizes, fixColumnStructure, getSelectedLayout } from '../actions';
 import type { LayoutPluginOptions } from '../types';
+import { getMaybeLayoutSection } from '../utils';
 
 import { pluginKey } from './plugin-key';
 import type { Change, LayoutState } from './types';
@@ -55,10 +56,7 @@ const getNodeDecoration = (pos: number, node: Node) => [
 ];
 
 const getInitialPluginState = (options: LayoutPluginOptions, state: EditorState): LayoutState => {
-	const maybeLayoutSection = findParentNodeOfType(state.schema.nodes.layoutSection)(
-		state.selection,
-	);
-
+	const maybeLayoutSection = getMaybeLayoutSection(state);
 	const allowBreakout = options.allowBreakout || false;
 	const addSidebarLayouts = options.UNSAFE_addSidebarLayouts || false;
 	const allowSingleColumnLayout = options.UNSAFE_allowSingleColumnLayout || false;
@@ -84,16 +82,7 @@ export default (options: LayoutPluginOptions) =>
 
 			apply: (tr, pluginState, _oldState, newState) => {
 				if (tr.docChanged || tr.selectionSet) {
-					const {
-						schema: {
-							nodes: { layoutSection },
-						},
-						selection,
-					} = newState;
-					const maybeLayoutSection =
-						findParentNodeOfType(layoutSection)(selection) ||
-						findSelectedNodeOfType([layoutSection])(selection);
-
+					const maybeLayoutSection = getMaybeLayoutSection(newState);
 					const newPluginState = {
 						...pluginState,
 						pos: maybeLayoutSection ? maybeLayoutSection.pos : null,

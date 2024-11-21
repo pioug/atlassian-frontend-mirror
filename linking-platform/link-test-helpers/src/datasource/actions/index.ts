@@ -128,36 +128,38 @@ export const mockActionsFetchExecution = () => {
 	const priorityEntities: Icon[] = [
 		{
 			source: blocker,
-			label: 'blocker',
+			label: 'Blocker',
 			text: 'Blocker',
 			id: '6',
 		},
 		{
 			source: major,
-			label: 'major',
+			label: 'Major',
 			text: 'Major',
 			id: '5',
 		},
 		{
 			source: high,
-			label: 'high',
+			label: 'High',
 			text: 'High',
 			id: '4',
 		},
 		{
 			source: medium,
-			// Text intentionally left out - it isn't mandatory (as is missing in mockJiraData)
-			label: 'medium',
+			text: 'High',
+			label: 'Medium',
 			id: '3',
 		},
 		{
 			source: low,
-			label: 'low',
+			label: 'Low',
+			text: 'Low',
 			id: '2',
 		},
 		{
 			source: trivial,
-			label: 'trivial',
+			label: 'Trivial',
+			text: 'Trivial',
 			id: '1',
 		},
 	];

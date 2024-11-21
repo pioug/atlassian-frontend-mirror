@@ -249,8 +249,7 @@ ${/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-va
 	{
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text.subtlest', colors.N300),
-		fontSize: '12px',
-		lineHeight: '16px',
+		font: token('font.body.UNSAFE_small'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	ellipsis('none'),
@@ -349,9 +348,7 @@ export const ContentWrapper = styled.div({
 export const Title = styled.div({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N900),
-	fontSize: '16px',
-	fontWeight: 500,
-	lineHeight: 20 / 16,
+	font: token('font.heading.small'),
 	maxHeight: `${20 * 4}px`,
 	overflow: 'hidden',
 });
@@ -362,9 +359,7 @@ export const Byline = styled.div(
 		marginTop: token('space.050', '4px'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		color: token('color.text.subtlest', colors.N300),
-		fontSize: '12px',
-		fontWeight: 'normal',
-		lineHeight: 16 / 12,
+		font: token('font.body.UNSAFE_small'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	ellipsis('100%'),
@@ -375,9 +370,7 @@ export const Description = styled.div({
 	marginTop: `calc(${token('space.100', '8px')} - 1px)`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N800),
-	fontSize: '12px',
-	fontWeight: 'normal',
-	lineHeight: 18 / 12,
+	font: token('font.body.UNSAFE_small'),
 	maxHeight: `${18 * 3}px`,
 	overflow: 'hidden',
 });

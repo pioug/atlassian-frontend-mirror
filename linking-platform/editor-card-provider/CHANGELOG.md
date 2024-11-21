@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 3.11.0
+
+### Minor Changes
+
+- [#166667](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166667)
+  [`821e294042f28`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/821e294042f28) -
+  [ux] Update editor card provider to return embed card for Jira version links
+
 ## 3.10.8
 
 ### Patch Changes

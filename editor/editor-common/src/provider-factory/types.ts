@@ -4,7 +4,7 @@ import type { MentionProvider } from '@atlaskit/mention/types';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 import type { CollabEditProvider } from '../collab';
-import type { ExtensionProvider } from '../extensions/types';
+import type { ExtensionProvider } from '../extensions/types/extension-provider';
 
 import type { AutoformattingProvider } from './autoformatting-provider';
 import type { CardProvider } from './card-provider';

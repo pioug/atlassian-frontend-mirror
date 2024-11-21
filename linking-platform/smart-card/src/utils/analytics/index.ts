@@ -29,7 +29,6 @@ export {
 	uiHoverCardDismissedEvent,
 	uiHoverCardOpenLinkClickedEvent,
 	uiLearnMoreLinkClickedEvent,
-	uiIframeDwelledEvent,
 	uiSmartLinkStatusLozengeButtonClicked,
 	uiSmartLinkStatusListItemButtonClicked,
 	uiSmartLinkStatusOpenPreviewButtonClicked,

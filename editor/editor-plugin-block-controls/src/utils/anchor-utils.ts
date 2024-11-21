@@ -16,6 +16,7 @@ type RectInfo = {
 	left: number;
 	right: number;
 	width: number;
+	bottom: number;
 };
 
 export class AnchorRectCache {
@@ -45,6 +46,7 @@ export class AnchorRectCache {
 							left: curr.offsetLeft,
 							right: curr.offsetLeft + curr.clientWidth,
 							width: curr.clientWidth,
+							bottom: curr.offsetTop + curr.clientHeight,
 						},
 					};
 				}

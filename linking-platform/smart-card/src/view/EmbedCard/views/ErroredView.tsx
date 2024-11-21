@@ -9,7 +9,6 @@ import { FormattedMessage } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import { R300 } from '@atlaskit/theme/colors';
-import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
@@ -24,7 +23,8 @@ export interface ErroredViewProps {
 }
 
 const messageStyles = css({
-	fontSize: `${fontSize()}px`,
+	font: token('font.heading.xsmall'),
+	fontWeight: token('font.weight.regular'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	marginLeft: gs(0.5),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

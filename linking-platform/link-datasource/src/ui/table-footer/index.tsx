@@ -60,7 +60,7 @@ const SyncWrapper = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const SyncTextWrapper = styled.div({
 	marginRight: token('space.075', '6px'),
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 });
 
 export const TableFooter = ({

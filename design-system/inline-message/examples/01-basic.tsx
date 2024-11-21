@@ -4,7 +4,11 @@ import InlineMessage from '@atlaskit/inline-message';
 
 export default () => (
 	<div>
-		<InlineMessage title="Inline Message Title Example" secondaryText="Secondary Text">
+		<InlineMessage
+			testId="inline-message"
+			title="Inline Message Title Example"
+			secondaryText="Secondary Text"
+		>
 			<p>Primary and secondary text dialog</p>
 		</InlineMessage>
 		<br />

@@ -25,7 +25,7 @@ import { type HelpDialogPlugin } from '@atlaskit/editor-plugins/help-dialog';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { User } from '../model';
+import type { User } from '../model/User';
 
 // See https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload
 // https://developer.mozilla.org/en-US/docs/Web/API/Event/returnValue

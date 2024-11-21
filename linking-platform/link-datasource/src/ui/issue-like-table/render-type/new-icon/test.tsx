@@ -51,4 +51,12 @@ describe('Icon Type', () => {
 		expect(img).toHaveAttribute('alt', 'my_image');
 		expect(textContainer).toHaveTextContent('my_text');
 	});
+	it('should not render the text when "text" prop is not passed', async () => {
+		const { queryByTestId } = setup({
+			label: 'my_image',
+		});
+
+		const textContainer = queryByTestId(ICON_TYPE_TEXT_TEST_ID);
+		expect(textContainer).not.toBeInTheDocument();
+	});
 });

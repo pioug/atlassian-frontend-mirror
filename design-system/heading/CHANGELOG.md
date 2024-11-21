@@ -1,5 +1,14 @@
 # @atlaskit/heading
 
+## 3.1.0
+
+### Minor Changes
+
+- [#166220](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166220)
+  [`c02bd4e1ce076`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c02bd4e1ce076) -
+  Removed unused types related to the old Heading API. Exported types for the Heading component are
+  now `HeadingProps` and `HeadingColor`. Removed circular type references.
+
 ## 3.0.0
 
 ### Major Changes

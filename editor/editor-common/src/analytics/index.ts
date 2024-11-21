@@ -1,129 +1,180 @@
-export {
-	ACTION,
-	ACTION_SUBJECT,
-	ACTION_SUBJECT_ID,
-	BROWSER_FREEZE_INTERACTION_TYPE,
-	CONTENT_COMPONENT,
-	CHANGE_ALIGNMENT_REASON,
-	DELETE_DIRECTION,
-	EVENT_TYPE,
-	FLOATING_CONTROLS_TITLE,
-	FULL_WIDTH_MODE,
-	GAP_CURSOR_POSITION,
-	INDENT_DIRECTION,
-	INDENT_TYPE,
-	INPUT_METHOD,
-	INSERT_MEDIA_VIA,
-	LAYOUT_TYPE,
-	LINK_REPRESENTATION,
-	LINK_RESOURCE,
-	LINK_STATUS,
-	LIST_TEXT_SCENARIOS,
-	JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST,
-	OUTDENT_SCENARIOS,
-	MODE,
-	PLATFORMS,
-	PUNC,
-	PasteContents,
-	PasteSources,
-	PasteTypes,
-	RESOLVE_METHOD,
-	SELECTION_TYPE,
-	SELECTION_POSITION,
-	SMART_LINK_TYPE,
-	SYMBOL,
-	SmartLinkNodeContexts,
-	TABLE_ACTION,
-	TABLE_BREAKOUT,
-	TABLE_OVERFLOW_CHANGE_TRIGGER,
-	TABLE_STATUS,
-	TARGET_SELECTION_SOURCE,
-	TOOLBAR_ACTION_SUBJECT_ID,
-	TRIGGER_METHOD,
-	USER_CONTEXT,
-	TABLE_DISPLAY_MODE,
-	VIEW_METHOD,
-} from './types';
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 export type {
 	AnalyticsDispatch,
 	AnalyticsEventPayload,
 	AnalyticsEventPayloadCallback,
 	AnalyticsEventPayloadWithChannel,
-	AnnotationAEP,
-	AnnotationAEPAttributes,
-	AnnotationActionType,
-	AnnotationDraftAEPAttributes,
-	AnnotationResolvedAEPAttributes,
-	CaptionTrackAction,
-	ColorPickerAEP,
-	CommonListAnalyticsAttributes,
-	RestartListsAttributesForListOutdented,
-	CreateLinkInlineDialogActionType,
-	CreateLinkInlineDialogEventPayload,
-	DismissedCreateLinkInlineDialogAEP,
-	DispatchAnalyticsEvent,
-	EditLinkToolbarAEP,
-	EnteredTextLinkSearchInputAEP,
 	ErrorEventAttributes,
 	ErrorEventPayload,
-	ExperimentalEventPayload,
-	ExtensionEventPayload,
-	ExtensionType,
 	FeatureExposureAEP,
-	FormatEventPayload,
-	GeneralEventPayload,
-	HighlightedSearchResultsAEP,
+	FireAnalyticsCallback,
+	FireAnalyticsEvent,
+	FireAnalyticsEventPayload,
+	SimplifiedNode,
+	TransactionEventPayload,
+} from './types/events';
+
+export type { FormatEventPayload } from './types/format-events';
+export type { SubstituteEventPayload } from './types/substitute-events';
+export type { ColorPickerAEP, GeneralEventPayload } from './types/general-events';
+
+export {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+	INPUT_METHOD,
+	INSERT_MEDIA_VIA,
+	TRIGGER_METHOD,
+	CONTENT_COMPONENT,
+	FLOATING_CONTROLS_TITLE,
+} from './types/enums';
+
+export { INDENT_DIRECTION, INDENT_TYPE } from './types/format-events';
+export { PUNC, SYMBOL } from './types/substitute-events';
+
+export {
+	BROWSER_FREEZE_INTERACTION_TYPE,
+	FULL_WIDTH_MODE,
+	MODE,
+	PLATFORMS,
+} from './types/general-events';
+
+export {
+	LINK_REPRESENTATION,
+	LINK_RESOURCE,
+	LINK_STATUS,
+	USER_CONTEXT,
+} from './types/insert-events';
+
+export type {
 	InputMethodInsertLink,
 	InputMethodInsertMedia,
-	InsertEventPayload,
 	InsertMediaVia,
-	InsertSmartLinkAEP,
-	ListEventPayload,
-	MediaSwitchType,
-	MediaAltTextActionType,
-	MediaEventPayload,
-	MediaLinkAEP,
-	MediaResizeTrackAction,
-	MediaInputResizeTrackAction,
-	MoveContentEventPayload,
-	NodeCount,
-	NodeEventPayload,
-	OperationalAEP,
+	InsertEventPayload,
+} from './types/insert-events';
+
+export {
+	CHANGE_ALIGNMENT_REASON,
+	TABLE_ACTION,
+	TABLE_BREAKOUT,
+	TABLE_OVERFLOW_CHANGE_TRIGGER,
+	TABLE_STATUS,
+	TABLE_DISPLAY_MODE,
+} from './types/table-events';
+
+export type { TableEventPayload, OverflowStateInfo } from './types/table-events';
+
+// These are not types
+export { PasteContents, PasteSources, PasteTypes } from './types/paste-events';
+
+export type {
 	PASTE_ACTION_SUBJECT_ID,
 	PasteContent,
 	PasteEventPayload,
 	PasteSource,
 	PasteType,
-	PluginMethodReport,
-	PluginPerformanceReportData,
-	PluginsReport,
-	QuickSearchPerfAEP,
+} from './types/paste-events';
+
+export type {
+	MediaSwitchType,
+	MediaAltTextActionType,
+	MediaEventPayload,
+	MediaLinkAEP,
+	CaptionTrackAction,
+	MediaResizeTrackAction,
+	MediaInputResizeTrackAction,
+} from './types/media-events';
+
+export type { MoveContentEventPayload } from './types/move-content-events';
+
+export type { DispatchAnalyticsEvent } from './types/dispatch-analytics-event';
+
+export {
+	DELETE_DIRECTION,
+	LIST_TEXT_SCENARIOS,
+	JOIN_SCENARIOS_WHEN_TYPING_TO_INSERT_LIST,
+	OUTDENT_SCENARIOS,
+} from './types/list-events';
+
+export type {
+	ListEventPayload,
+	CommonListAnalyticsAttributes,
+	RestartListsAttributesForListOutdented,
+} from './types/list-events';
+
+export type {
+	CreateLinkInlineDialogActionType,
+	CreateLinkInlineDialogEventPayload,
 	RecentActivitiesPerfAEP,
-	SelectAllAEP,
-	SelectCellAEP,
+	QuickSearchPerfAEP,
+	ViewedCreateLinkInlineDialogAEP,
+	DismissedCreateLinkInlineDialogAEP,
+	EnteredTextLinkSearchInputAEP,
+	ShownPreQuerySearchResultsAEP,
+	ShownPostQuerySearchResultsAEP,
+	HighlightedSearchResultsAEP,
+	SelectedSearchResultsAEP,
+	EditLinkToolbarAEP,
+	UnlinkToolbarAEP,
+} from './types/link-tool-bar-events';
+
+export type {
+	TextColorSelectedAttr,
+	TextColorSelectedAEP,
+	TextColorShowPaletteToggleAttr,
+	TextColorShowPaletteToggleAEP,
+	ExperimentalEventPayload,
+} from './types/experimental-events';
+
+export { GAP_CURSOR_POSITION, TARGET_SELECTION_SOURCE } from './types/extension-events';
+
+export type { SelectionJson, ExtensionType, ExtensionEventPayload } from './types/extension-events';
+
+export type {
+	AnnotationActionType,
+	AnnotationAEP,
+	AnnotationAEPAttributes,
+	AnnotationDraftAEPAttributes,
+	AnnotationResolvedAEPAttributes,
+} from './types/inline-comment-events';
+
+export { RESOLVE_METHOD, VIEW_METHOD } from './types/inline-comment-events';
+
+export { LAYOUT_TYPE, SMART_LINK_TYPE } from './types/node-events';
+
+export type { NodeEventPayload } from './types/node-events';
+
+export type {
 	SelectNodeAEP,
 	SelectRangeAEP,
-	SelectedSearchResultsAEP,
+	SelectAllAEP,
+	SelectCellAEP,
 	SelectionEventPayload,
-	SelectionJson,
-	ShownPostQuerySearchResultsAEP,
-	ShownPreQuerySearchResultsAEP,
-	SimplifiedNode,
-	SmartLinkNodeContext,
-	SubstituteEventPayload,
-	TableEventPayload,
-	TextColorSelectedAEP,
-	TextColorSelectedAttr,
-	TextColorShowPaletteToggleAEP,
-	TextColorShowPaletteToggleAttr,
-	ToolbarEventPayload,
-	TransactionEventPayload,
-	TypeAheadPayload,
-	UnlinkToolbarAEP,
-	ViewedCreateLinkInlineDialogAEP,
-	FireAnalyticsCallback,
-	FireAnalyticsEvent,
-	FireAnalyticsEventPayload,
+} from './types/selection-events';
+
+export { SmartLinkNodeContexts } from './types/smart-links';
+export type { SmartLinkNodeContext, InsertSmartLinkAEP } from './types/smart-links';
+
+export { TOOLBAR_ACTION_SUBJECT_ID } from './types/toolbar-button';
+export type { ToolbarEventPayload } from './types/toolbar-button';
+
+export type { TypeAheadPayload } from './types/type-ahead';
+
+export { SELECTION_POSITION, SELECTION_TYPE } from './types/utils';
+
+export type { OperationalAEP } from './types/utils';
+
+export type {
+	PluginMethodReport,
+	PluginsReport,
+	NodeCount,
+	PluginPerformanceReportData,
+} from './types/performance-report';
+
+export type {
 	InitialiseFragmentMarksAEP,
 	ConnectedNodesAEP,
 	DisconnectedSourceAEP,
@@ -132,18 +183,23 @@ export type {
 	UpdatedFragmentMarkNameAEP,
 	UpdatedSourceAEP,
 	UpdatedTargetAEP,
-	OverflowStateInfo,
-	ViewInlineCommentsButtonEventAEP,
-	ViewEventPayload,
-} from './types';
+} from './types/referentiality-events';
+
+export type { ViewInlineCommentsButtonEventAEP, ViewEventPayload } from './types/view-events';
+
 export type { EditorAnalyticsAPI } from './api';
+
 export { editorAnalyticsChannel, fireAnalyticsEvent } from './fire-analytics-event';
+
 export { getAnalyticsEventsFromTransaction } from './utils';
+
 export {
 	buildEditLinkPayload,
 	buildVisitedLinkPayload,
 	buildOpenedSettingsPayload,
 	unlinkPayload,
 } from './linking-utils';
+
 export type { LinkType } from './linking-utils';
+
 export type { RequestToEditAEP } from './types/general-events';

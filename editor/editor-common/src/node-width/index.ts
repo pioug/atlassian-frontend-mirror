@@ -17,8 +17,11 @@ import { absoluteBreakoutWidth } from '../utils/breakout';
 const GRID_SIZE = 8;
 
 export const layoutToWidth = {
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	default: akEditorDefaultLayoutWidth,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	wide: akEditorWideLayoutWidth,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	'full-width': akEditorFullWidthLayoutWidth,
 };
 

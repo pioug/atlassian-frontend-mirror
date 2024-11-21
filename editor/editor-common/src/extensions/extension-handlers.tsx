@@ -5,13 +5,13 @@ import Loadable from 'react-loadable';
 
 import { getExtensionKeyAndNodeKey, resolveImport } from './manifest-helpers';
 import type {
-	ExtensionKey,
 	ExtensionParams,
-	ExtensionProvider,
-	ExtensionType,
-	Parameters,
-} from './types';
-import type { MultiBodiedExtensionActions, ReferenceEntity } from './types/extension-handler';
+	MultiBodiedExtensionActions,
+	ReferenceEntity,
+} from './types/extension-handler';
+import type { ExtensionKey, ExtensionType } from './types/extension-manifest';
+import type { Parameters } from './types/extension-parameters';
+import type { ExtensionProvider } from './types/extension-provider';
 
 export async function getExtensionModuleNode(
 	extensionProvider: ExtensionProvider,

@@ -1,5 +1,29 @@
 # @atlaskit/smart-card
 
+## 30.3.1
+
+### Patch Changes
+
+- [#166125](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166125)
+  [`83c6d7ca56278`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83c6d7ca56278) -
+  Typography uplift for Linking packages.
+- [#166787](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166787)
+  [`e6cb2efbffc55`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e6cb2efbffc55) -
+  Remove FF smart-card-migrate-smartLinkIframe-analytics
+- Updated dependencies
+
+## 30.3.0
+
+### Minor Changes
+
+- [#165224](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165224)
+  [`4b595d55453c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4b595d55453c9) -
+  [ux] Enable new icons behind a feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.2.7
 
 ### Patch Changes

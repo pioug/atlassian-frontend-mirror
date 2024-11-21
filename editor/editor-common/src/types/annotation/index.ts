@@ -2,14 +2,7 @@ import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
-import type {
-	AnnotationState,
-	AnnotationUpdateEventPayloads,
-	OnAnnotationClickPayload,
-} from './emitter';
-import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from './emitter';
-
-export type { AnnotationState };
+import type { AnnotationState, AnnotationUpdateEmitter } from './emitter';
 
 export type AnnotationByMatches = {
 	originalSelection: string;
@@ -181,6 +174,3 @@ export type InlineCommentAnnotationProvider =
 export type AnnotationProviders = {
 	inlineComment: InlineCommentAnnotationProvider;
 };
-
-export { AnnotationUpdateEmitter, AnnotationUpdateEvent };
-export type { AnnotationUpdateEventPayloads, OnAnnotationClickPayload };

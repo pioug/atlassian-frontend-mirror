@@ -1,3 +1,6 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 export { mediaLinkToolbarMessages } from './messages/mediaLinkingToolbar';
 export { imageBorderMessages } from './messages/imageBorder';
 export { nodeViewsMessages } from './messages/nodeviews';

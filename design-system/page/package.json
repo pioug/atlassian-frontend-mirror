@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/page",
-	"version": "12.6.0",
+	"version": "12.6.1",
 	"description": "A page layout organizes sections on a page using a grid and grid columns.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -20,7 +20,9 @@
 			]
 		}
 	},
-	"sideEffects": false,
+	"sideEffects": [
+		"**/*.compiled.css"
+	],
 	"atlaskit:src": "src/index.tsx",
 	"atlaskit:designLink": "https://atlassian.design/foundations/grid",
 	"atlassian": {

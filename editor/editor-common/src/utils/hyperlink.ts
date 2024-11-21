@@ -6,8 +6,9 @@ import { isSafeUrl, linkify, normalizeUrl as normaliseLinkHref } from '@atlaskit
 import type { Node, Schema, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import type { AnalyticsEventPayload, InputMethodInsertLink } from '../analytics/types';
-import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics/types';
+import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE } from '../analytics/types/enums';
+import type { AnalyticsEventPayload } from '../analytics/types/events';
+import type { InputMethodInsertLink } from '../analytics/types/insert-events';
 
 import { shouldAutoLinkifyMatch } from './should-auto-linkify-tld';
 import { mapSlice } from './slice';

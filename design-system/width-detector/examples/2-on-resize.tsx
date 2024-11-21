@@ -1,8 +1,10 @@
 import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import WidthDetector from '../src';
 import debounce from 'lodash/debounce';
+
+import WidthDetector from '@atlaskit/width-detector';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const ResultBox = styled.div({

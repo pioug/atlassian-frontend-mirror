@@ -2,7 +2,7 @@ import React from 'react';
 import CommentContainer from '../containers/Comment';
 import Comment from '../components/Comment';
 import Editor from './Editor';
-import { type Conversation as ConversationType } from '../model';
+import { type Conversation as ConversationType } from '../model/Conversation';
 import { type SharedProps, type SendAnalyticsEvent } from './types';
 import {
 	type createAnalyticsEvent,

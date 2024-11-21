@@ -1,8 +1,8 @@
-import { type ProductType, type Datasource, type EnvironmentsKeys } from '@atlaskit/linking-common';
+import { type Datasource, type EnvironmentsKeys, type ProductType } from '@atlaskit/linking-common';
+import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { EditorCardProvider } from '..';
 import { type LinkAppearance, type ProviderPattern, type UserPreferences } from '../types';
 import { mocks } from './__fixtures__/mocks';
-import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
 type PatternsProviderResponse = {
 	providers: Provider[];
@@ -152,7 +152,9 @@ describe('providers > editor', () => {
 		jest.resetModules();
 		mockFetch = jest.fn();
 		(global as any).fetch = mockFetch;
-		setBooleanFeatureFlagResolver((flag) => flag === 'smart_links_for_plans_platform');
+		setBooleanFeatureFlagResolver(
+			(flag) => flag === 'smart_links_for_plans_platform' || flag === 'smartlink_jira_releases',
+		);
 	});
 
 	afterEach(() => {
@@ -549,6 +551,10 @@ describe('providers > editor', () => {
 		[
 			'Jira plan dependencies report embed',
 			'https://hello.atlassian.net/jira/plans/24/scenarios/24/dependencies',
+		],
+		[
+			'Jira Version embed',
+			'https://cdeyoung.jira-dev.com/projects/CT/versions/10000/tab/release-report-all-issues',
 		],
 	])(
 		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',

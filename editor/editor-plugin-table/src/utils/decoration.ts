@@ -511,6 +511,7 @@ export const createResizeHandleDecoration = (
 export const createColumnLineResize = (
 	selection: Selection,
 	cellColumnPositioning: Omit<CellColumnPositioning, 'left'>,
+	isDragAndDropEnabled?: boolean,
 ): Decoration[] => {
 	const table = findTable(selection);
 	if (!table || cellColumnPositioning.right === null) {
@@ -524,9 +525,13 @@ export const createColumnLineResize = (
 	if (isLastColumn) {
 		columnIndex -= 1;
 	}
-	const decorationClassName = isLastColumn
-		? ClassName.WITH_RESIZE_LINE_LAST_COLUMN
-		: ClassName.WITH_RESIZE_LINE;
+	const decorationClassName = isDragAndDropEnabled
+		? isLastColumn
+			? ClassName.WITH_DRAG_RESIZE_LINE_LAST_COLUMN
+			: ClassName.WITH_DRAG_RESIZE_LINE
+		: isLastColumn
+			? ClassName.WITH_RESIZE_LINE_LAST_COLUMN
+			: ClassName.WITH_RESIZE_LINE;
 
 	const cellPositions = makeArray(map.height)
 		.map((rowIndex) => map.map[map.width * rowIndex + columnIndex])

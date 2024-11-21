@@ -592,6 +592,34 @@ describe('DatePicker', () => {
 			expect(queryCalendar()).toBeVisible();
 		});
 
+		it('should open the calendar when the input is focused, escape is pressed, and then down or up arrow is pressed', async () => {
+			const user = userEvent.setup();
+			render(createDatePicker({ testId }));
+
+			const selectInput = getInput();
+			expect(queryCalendar()).not.toBeInTheDocument();
+			expect(selectInput).not.toHaveFocus();
+
+			// Move focus to the select input
+			await user.tab();
+			expect(selectInput).toHaveFocus();
+			expect(queryCalendar()).toBeVisible();
+
+			await user.keyboard('{Escape}');
+			expect(queryCalendar()).not.toBeInTheDocument();
+			expect(selectInput).toHaveFocus();
+
+			await user.keyboard('{ArrowDown}');
+			expect(queryCalendar()).toBeVisible();
+
+			await user.keyboard('{Escape}');
+			expect(queryCalendar()).not.toBeInTheDocument();
+			expect(selectInput).toHaveFocus();
+
+			await user.keyboard('{ArrowUp}');
+			expect(queryCalendar()).toBeVisible();
+		});
+
 		it('should bring focus back to the input and close the calendar when the value of the calendar is changed', async () => {
 			const user = userEvent;
 			render(createDatePicker({ testId: testId }));
@@ -666,6 +694,8 @@ describe('DatePicker', () => {
 	});
 
 	describe('Clearing the input', () => {
+		const clearControlLabel = 'clearControlLabel';
+
 		it('should not show the clear button if a value is not present', () => {
 			render(createDatePicker());
 			const clearButton = screen.queryByRole('button', { name: /clear/i });
@@ -673,8 +703,8 @@ describe('DatePicker', () => {
 		});
 
 		it('should show the clear button if a value is present', () => {
-			render(createDatePicker({ value: exampleDate.iso }));
-			const clearButton = screen.getByRole('button', { name: /clear/i });
+			render(createDatePicker({ value: exampleDate.iso, clearControlLabel }));
+			const clearButton = screen.getByRole('button', { name: new RegExp(clearControlLabel) });
 			expect(clearButton).toBeInTheDocument();
 		});
 
@@ -686,6 +716,7 @@ describe('DatePicker', () => {
 					value: exampleDate.iso,
 					onChange: onChangeSpy,
 					testId: testId,
+					clearControlLabel,
 				}),
 			);
 
@@ -702,6 +733,7 @@ describe('DatePicker', () => {
 				createDatePicker({
 					value: exampleDate.iso,
 					onChange: onChangeSpy,
+					clearControlLabel,
 				}),
 			);
 
@@ -720,9 +752,10 @@ describe('DatePicker', () => {
 					onChange: onChangeSpy,
 					testId: testId,
 					selectProps: { testId: testId },
+					clearControlLabel,
 				}),
 			);
-			const clearButton = screen.getByRole('button', { name: /clear/i });
+			const clearButton = screen.getByRole('button', { name: new RegExp(clearControlLabel) });
 
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.mouseOver(clearButton);
@@ -745,10 +778,11 @@ describe('DatePicker', () => {
 					testId: testId,
 					selectProps: { testId: testId },
 					defaultIsOpen: true,
+					clearControlLabel,
 				}),
 			);
 
-			const clearButton = screen.getByRole('button', { name: /clear/i });
+			const clearButton = screen.getByRole('button', { name: new RegExp(clearControlLabel) });
 
 			// eslint-disable-next-line testing-library/prefer-user-event
 			fireEvent.mouseOver(clearButton);

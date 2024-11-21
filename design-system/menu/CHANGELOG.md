@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 2.13.3
+
+### Patch Changes
+
+- [#166087](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166087)
+  [`3ab7d7da348ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ab7d7da348ab) -
+  Adds side-effect config to support Compiled css extraction in third-party apps
+
 ## 2.13.2
 
 ### Patch Changes

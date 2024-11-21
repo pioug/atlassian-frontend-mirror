@@ -10,7 +10,6 @@ import { Pulse } from '../Pulse/Pulse';
 import { ButtonSpotlightCard } from './ButtonSpotlightCard';
 import { getButtonStyles, iconOnlySpacing } from './styles';
 
-export type { ButtonAppearance };
 export interface Props {
 	title?: string;
 	icon?: React.ReactElement<any>;

@@ -146,4 +146,5 @@ export const areSameItems = (leftArr?: Array<Item>, rightArr?: Array<Item>): boo
 	return leftArr.every((item, index) => isSameItem(rightArr[index], item));
 };
 
+// eslint-disable-next-line @atlaskit/editor/no-re-export
 export { default as messages } from './messages';

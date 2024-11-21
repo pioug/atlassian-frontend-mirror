@@ -1,3 +1,6 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 export { WithProviders } from './provider-factory/with-providers';
 
 export type { Providers, ProviderName, ProviderHandler } from './provider-factory/types';
@@ -27,12 +30,7 @@ export type {
 	QuickSearchResult,
 } from './provider-factory/search-provider';
 
-export type {
-	CardProvider,
-	CardAppearance,
-	CardAdf,
-	DatasourceAdf,
-} from './provider-factory/card-provider';
+export type { CardProvider, CardAppearance } from './provider-factory/card-provider';
 
 export type {
 	QuickInsertItem,

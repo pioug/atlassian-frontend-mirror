@@ -50,8 +50,11 @@ export const TableSharedCssClassName = {
 	TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM: `${tablePrefixSelector}-sticky-scrollbar-sentinel-bottom`,
 	TABLE_SHADOW_SENTINEL_LEFT: `${tablePrefixSelector}-shadow-sentinel-left`,
 	TABLE_SHADOW_SENTINEL_RIGHT: `${tablePrefixSelector}-shadow-sentinel-right`,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	TABLE_CELL_NODEVIEW_CONTENT_DOM: tableCellContentDomSelector,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	TABLE_CELL_WRAPPER: tableCellSelector,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	TABLE_HEADER_CELL_WRAPPER: tableHeaderSelector,
 	TABLE_ROW_CONTROLS_WRAPPER: `${tablePrefixSelector}-row-controls-wrapper`,
 	TABLE_COLUMN_CONTROLS_DECORATIONS: `${tablePrefixSelector}-column-controls-decoration`,

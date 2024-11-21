@@ -19,7 +19,9 @@ import {
 	CREATE_CONVERSATION_SUCCESS,
 	CREATE_CONVERSATION_ERROR,
 } from '../internal/actions';
-import type { Comment, Conversation, User } from '../model';
+import type { Comment } from '../model/Comment';
+import type { Conversation } from '../model/Conversation';
+import type { User } from '../model/User';
 import { uuid } from '../internal/uuid';
 import { HttpError } from './HttpError';
 

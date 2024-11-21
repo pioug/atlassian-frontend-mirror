@@ -27,7 +27,9 @@ import {
 	UPDATE_USER_SUCCESS,
 } from '../src/internal/actions';
 import { uuid } from '../src/internal/uuid';
-import { type Comment, type Conversation, type User } from '../src/model';
+import { type Comment } from '../src/model/Comment';
+import { type Conversation } from '../src/model/Conversation';
+import { type User } from '../src/model/User';
 import {
 	generateMockConversation,
 	mockInlineConversation,

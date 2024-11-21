@@ -19,11 +19,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { addLinkMetadata } from '@atlaskit/editor-common/card';
 import type { CardReplacementInputMethod } from '@atlaskit/editor-common/card';
-import type {
-	CardAdf,
-	CardAppearance,
-	DatasourceAdf,
-} from '@atlaskit/editor-common/provider-factory';
+import type { CardAppearance } from '@atlaskit/editor-common/provider-factory';
 import type { Command } from '@atlaskit/editor-common/types';
 import {
 	getAnnotationMarksForPos,
@@ -38,7 +34,12 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
-import type { DatasourceAdfView, InlineCardAdf } from '@atlaskit/smart-card';
+import type {
+	CardAdf,
+	DatasourceAdf,
+	DatasourceAdfView,
+	InlineCardAdf,
+} from '@atlaskit/smart-card';
 
 import type { CardPluginState, Request } from '../types';
 import {

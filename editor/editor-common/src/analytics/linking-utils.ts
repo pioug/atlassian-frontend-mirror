@@ -1,7 +1,7 @@
 import type { CardAppearance } from '@atlaskit/smart-card';
 
-import type { AnalyticsEventPayload } from './types';
-import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE, INPUT_METHOD } from './types';
+import { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID, EVENT_TYPE, INPUT_METHOD } from './types/enums';
+import type { AnalyticsEventPayload } from './types/events';
 
 export const buildEditLinkPayload = (type: LinkType): AnalyticsEventPayload => {
 	return {

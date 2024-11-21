@@ -410,16 +410,12 @@ export default function SSRTableBasic() {
 				allowTables: {
 					advanced: true,
 					allowColumnResizing: true,
+					allowTableResizing: true,
+					// allowTableAlignment: true // TODO: not sure why drigo had this
 				},
 				allowExpand: true,
 				allowLayouts: true,
 				allowBreakout: true,
-			}}
-			initialPluginConfiguration={{
-				tablesPlugin: {
-					tableResizingEnabled: true,
-					// isTableScalingEnabled: true, // TODO: not sure why drigo had this
-				},
 			}}
 			featureFlags={{
 				platform_editor_breakout_use_css: true,

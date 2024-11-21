@@ -660,34 +660,32 @@ export const hoveredWarningCell = css`
 
 // Explicit pixel values required here to ensure correct positioning and sizes of column resize handle
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-const resizeHandleOverrides = (isDragAndDropEnabled: boolean | undefined) => {
-	if (isDragAndDropEnabled) {
-		return css`
-			th.${ClassName.WITH_RESIZE_LINE}::before, td.${ClassName.WITH_RESIZE_LINE}::before {
-				content: ' ';
-				position: absolute;
-				left: ${token('space.negative.025', '-2px')};
-				top: -1px;
-				width: ${resizeLineWidth}px;
-				height: calc(100% + 2px);
-				background-color: ${tableBorderSelectedColor};
-				z-index: ${columnControlsZIndex * 2};
-			}
-
-			th.${ClassName.WITH_RESIZE_LINE_LAST_COLUMN}::before,
-				td.${ClassName.WITH_RESIZE_LINE_LAST_COLUMN}::before {
-				content: ' ';
-				position: absolute;
-				right: -1px;
-				top: -1px;
-				width: ${resizeLineWidth}px;
-				height: calc(100% + 2px);
-				background-color: ${tableBorderSelectedColor};
-				z-index: ${columnControlsZIndex * 2};
-			}
-		`;
-	}
+const resizeLineStyles = () => {
 	return css`
+		th.${ClassName.WITH_DRAG_RESIZE_LINE}::before, td.${ClassName.WITH_DRAG_RESIZE_LINE}::before {
+			content: ' ';
+			position: absolute;
+			left: ${token('space.negative.025', '-2px')};
+			top: -1px;
+			width: ${resizeLineWidth}px;
+			height: calc(100% + 2px);
+			background-color: ${tableBorderSelectedColor};
+			z-index: ${columnControlsZIndex * 2};
+		}
+
+		th.${ClassName.WITH_DRAG_RESIZE_LINE_LAST_COLUMN}::before,
+			td.${ClassName.WITH_DRAG_RESIZE_LINE_LAST_COLUMN}::before {
+			content: ' ';
+			position: absolute;
+			right: -1px;
+			top: -1px;
+			width: ${resizeLineWidth}px;
+			height: calc(100% + 2px);
+			background-color: ${tableBorderSelectedColor};
+			z-index: ${columnControlsZIndex * 2};
+		}
+
+		// Styles when drag and drop is disabled - will be removed
 		td.${ClassName.WITH_RESIZE_LINE}::before {
 			content: ' ';
 			position: absolute;
@@ -734,7 +732,7 @@ const resizeHandleOverrides = (isDragAndDropEnabled: boolean | undefined) => {
 	`;
 };
 
-export const resizeHandle = (isDragAndDropEnabled: boolean | undefined) => css`
+export const resizeHandle = () => css`
 	.${ClassName.TABLE_CONTAINER} {
 		.${ClassName.RESIZE_HANDLE_DECORATION} {
 			background-color: transparent;
@@ -763,8 +761,17 @@ export const resizeHandle = (isDragAndDropEnabled: boolean | undefined) => css`
 			z-index: ${resizeHandlerZIndex};
 		}
 
-		${resizeHandleOverrides(isDragAndDropEnabled)}
+		${resizeLineStyles()}
 
+		table
+      tr:first-of-type
+      th.${ClassName.WITH_DRAG_RESIZE_LINE}
+      .${ClassName.RESIZE_HANDLE_DECORATION}::after,
+      table
+      tr:first-of-type
+      td.${ClassName.WITH_DRAG_RESIZE_LINE}
+      .${ClassName.RESIZE_HANDLE_DECORATION}::after,
+	  // Styles when drag and drop is disabled - will be removed
 		table
       tr:first-of-type
       th.${ClassName.WITH_RESIZE_LINE}

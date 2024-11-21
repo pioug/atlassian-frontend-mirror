@@ -21,7 +21,6 @@ type TableViewOptions = {
 	getEditorFeatureFlags: GetEditorFeatureFlags;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;
 	pluginInjectionApi?: PluginInjectionAPI;
-	isTableAlignmentEnabled?: boolean;
 	isCommentEditor?: boolean;
 	isChromelessEditor?: boolean;
 };
@@ -39,7 +38,6 @@ export const lazyTableView = (options: TableViewOptions) => {
 				options.getEditorFeatureFlags,
 				options.dispatchAnalyticsEvent,
 				options.pluginInjectionApi,
-				options.isTableAlignmentEnabled,
 				options.isCommentEditor,
 				options.isChromelessEditor,
 			);
@@ -65,7 +63,6 @@ export const lazyTableView = (options: TableViewOptions) => {
 					getEditorFeatureFlags,
 					dispatchAnalyticsEvent,
 					pluginInjectionApi,
-					isTableAlignmentEnabled,
 					isCommentEditor,
 					isChromelessEditor,
 				} = getNodeViewOptions();
@@ -80,7 +77,6 @@ export const lazyTableView = (options: TableViewOptions) => {
 					getEditorFeatureFlags,
 					dispatchAnalyticsEvent,
 					pluginInjectionApi,
-					isTableAlignmentEnabled,
 					isCommentEditor,
 					isChromelessEditor,
 				);

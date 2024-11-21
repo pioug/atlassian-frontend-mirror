@@ -109,12 +109,15 @@ interface ComponentProps {
 	contentDOM: (node: HTMLElement | null) => void;
 	containerWidth: EditorContainerWidth;
 	allowControls: boolean;
+
+	allowTableResizing?: boolean;
+	allowTableAlignment?: boolean;
+
 	isHeaderRowEnabled: boolean;
 	isHeaderColumnEnabled: boolean;
 	isMediaFullscreen?: boolean;
 	isDragAndDropEnabled?: boolean;
 	isTableScalingEnabled?: boolean;
-	isTableAlignmentEnabled?: boolean;
 	tableActive: boolean;
 	ordering?: TableColumnOrdering;
 	isResizing?: boolean;
@@ -228,8 +231,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	componentDidMount() {
 		const {
 			allowColumnResizing,
+			allowTableResizing,
 			eventDispatcher,
-			options,
 			isDragAndDropEnabled,
 			getNode,
 			getEditorFeatureFlags,
@@ -290,7 +293,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			 * We no longer use `containerWidth` as a variable to determine an update for table resizing (avoids unnecessary updates).
 			 * Instead we use the resize event to only trigger updates when necessary.
 			 */
-			if (!options?.isTableResizingEnabled) {
+			if (!allowTableResizing) {
 				window.addEventListener('resize', this.handleWindowResizeDebounced);
 			}
 			this.handleTableResizingDebounced();
@@ -313,7 +316,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	}
 
 	componentWillUnmount() {
-		const { allowColumnResizing, eventDispatcher, options, isDragAndDropEnabled } = this.props;
+		const { allowColumnResizing, allowTableResizing, eventDispatcher, isDragAndDropEnabled } =
+			this.props;
 		if (this.wrapper && !isIE11) {
 			this.wrapper.removeEventListener('scroll', this.handleScrollDebounced);
 		}
@@ -333,11 +337,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		this.scaleTableDebounced.cancel();
 		this.handleTableResizingDebounced.cancel();
 		this.handleAutoSizeDebounced.cancel();
-		if (!options?.isTableResizingEnabled) {
+		if (!allowTableResizing) {
 			this.handleWindowResizeDebounced.cancel();
 		}
 
-		if (!options?.isTableResizingEnabled && allowColumnResizing) {
+		if (!allowTableResizing && allowColumnResizing) {
 			window.removeEventListener('resize', this.handleWindowResizeDebounced);
 		}
 
@@ -530,6 +534,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			getNode,
 			isMediaFullscreen,
 			allowColumnResizing,
+			allowTableResizing,
 			isResizing,
 			options,
 			isTableScalingEnabled, // we could use options.isTableScalingEnabled here
@@ -578,7 +583,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		if (
 			this.props.options?.isCommentEditor &&
-			options?.isTableResizingEnabled &&
+			allowTableResizing &&
 			!options?.isTableScalingEnabled
 		) {
 			this.removeInlineTableWidth();
@@ -632,7 +637,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			if (tablesHaveDifferentColumnWidths(currentTable, previousTable) || isNoOfColumnsChanged) {
 				const { view } = this.props;
 				const shouldRecreateResizeCols =
-					!options?.isTableResizingEnabled || !isResizing || (isNoOfColumnsChanged && isResizing);
+					!allowTableResizing || !isResizing || (isNoOfColumnsChanged && isResizing);
 
 				if (shouldRecreateResizeCols) {
 					const start = getPos() || 0;
@@ -745,7 +750,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isDragAndDropEnabled,
 			getEditorFeatureFlags,
 			isTableScalingEnabled, // here we can use options.isTableScalingEnabled
-			isTableAlignmentEnabled,
+			allowTableResizing,
+			allowTableAlignment,
 		} = this.props;
 
 		let { isInDanger, hoveredRows, hoveredCell, isTableHovered, isWholeTableInDanger } = this.props;
@@ -873,12 +879,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				isNested={isNested}
 				pluginInjectionApi={pluginInjectionApi}
 				tableWrapperHeight={this.state.tableWrapperHeight}
-				isTableResizingEnabled={options?.isTableResizingEnabled}
+				isTableResizingEnabled={allowTableResizing}
 				isResizing={isResizing}
 				isTableScalingEnabled={isTableScalingEnabled}
 				isTableWithFixedColumnWidthsOptionEnabled={tableWithFixedColumnWidthsOption}
 				isWholeTableInDanger={isWholeTableInDanger}
-				isTableAlignmentEnabled={isTableAlignmentEnabled}
+				isTableAlignmentEnabled={allowTableAlignment}
 				shouldUseIncreasedScalingPercent={shouldUseIncreasedScalingPercent}
 				isCommentEditor={options?.isCommentEditor}
 				isChromelessEditor={options?.isChromelessEditor}
@@ -1037,7 +1043,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	};
 
 	private handleTableResizing = () => {
-		const { getNode, containerWidth, options } = this.props;
+		const { getNode, containerWidth, options, allowTableResizing } = this.props;
 		const prevNode = this.node!;
 		const node = getNode();
 		const prevAttrs = prevNode.attrs;
@@ -1096,7 +1102,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			noOfColumnsChanged
 		) {
 			const shouldScaleTable =
-				(!options?.isTableResizingEnabled || (options?.isTableResizingEnabled && isNested)) &&
+				(!allowTableResizing || (allowTableResizing && isNested)) &&
 				!hasNumberedColumnChanged &&
 				!noOfColumnsChanged;
 
@@ -1111,7 +1117,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			}
 
 			// only when table resizing is enabled and toggle numbered column to run scaleTable
-			if (options?.isTableResizingEnabled && hasNumberedColumnChanged) {
+			if (allowTableResizing && hasNumberedColumnChanged) {
 				if (!hasTableBeenResized(prevNode)) {
 					this.scaleTable(
 						{
@@ -1170,7 +1176,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	};
 
 	private setTimerToSendInitialOverflowCaptured = (isOverflowing: boolean) => {
-		const { dispatchAnalyticsEvent, containerWidth, options } = this.props;
+		const { dispatchAnalyticsEvent, containerWidth, allowTableResizing } = this.props;
 		const parentWidth = this.state?.parentWidth || 0;
 
 		this.initialOverflowCaptureTimerId = setTimeout(() => {
@@ -1182,7 +1188,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				attributes: {
 					editorWidth: containerWidth.width || 0,
 					isOverflowing,
-					tableResizingEnabled: options?.isTableResizingEnabled || false,
+					tableResizingEnabled: allowTableResizing || false,
 					width: this.node.attrs.width || 0,
 					parentWidth,
 				},

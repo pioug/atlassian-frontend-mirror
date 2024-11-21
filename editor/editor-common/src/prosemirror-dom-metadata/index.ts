@@ -1,3 +1,6 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 import type { Mark as PMMark } from '@atlaskit/editor-prosemirror/model';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 

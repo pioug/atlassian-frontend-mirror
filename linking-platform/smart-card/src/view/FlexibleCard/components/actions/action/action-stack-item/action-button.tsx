@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 
 import { Box, Inline, Pressable, xcss } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
+import { token } from '@atlaskit/tokens';
 import type { TriggerProps } from '@atlaskit/tooltip';
 
 import { getPrimitivesInlineSpaceBySize } from '../../../utils';
@@ -24,12 +25,7 @@ const buttonStyles = xcss({
 
 const contentStyles = xcss({
 	color: 'color.text',
-	// Replace with font token once it becomes stable (currently alpha)
-	// font: 'font.body.small',
-	fontSize: '12px',
-	fontStyle: 'normal',
-	fontWeight: '400',
-	lineHeight: '20px',
+	font: token('font.body.UNSAFE_small'),
 });
 
 const ActionButton = ({

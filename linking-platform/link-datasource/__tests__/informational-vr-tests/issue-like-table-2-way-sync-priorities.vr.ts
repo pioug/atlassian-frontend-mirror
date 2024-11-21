@@ -9,6 +9,13 @@ snapshotInformational(IssueLikeTable, {
 	description: 'Priority column - two way sync and priority feature flags off',
 	prepare: async (page: Page) => {
 		await page.locator('[data-testid="link-datasource-render-type--icon"]').first().click();
+		// Wait for tooltip to be present. We expect a tooltip to be present when there is no dropdown.
+		// Not waiting for the tooltip could result in flaky test if the snapshot is delayed until after
+		// the tooltip appears.
+		await page
+			.locator('[data-testid="issues-table-cell-tooltip-hidden"]')
+			.first()
+			.waitFor({ state: 'attached' });
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
@@ -30,6 +37,13 @@ snapshotInformational(IssueLikeTable, {
 	description: 'Priority column - two way sync feature flag off, priority feature flag on',
 	prepare: async (page: Page) => {
 		await page.locator('[data-testid="link-datasource-render-type--icon"]').first().click();
+		// Wait for tooltip to be present. We expect a tooltip to be present when there is no dropdown.
+		// Not waiting for the tooltip could result in flaky test if the snapshot is delayed until after
+		// the tooltip appears.
+		await page
+			.locator('[data-testid="issues-table-cell-tooltip-hidden"]')
+			.first()
+			.waitFor({ state: 'attached' });
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
@@ -51,6 +65,13 @@ snapshotInformational(IssueLikeTable, {
 	description: 'Priority column - two way sync feature flag on, priority feature flag off',
 	prepare: async (page: Page) => {
 		await page.locator('[data-testid="link-datasource-render-type--icon"]').first().click();
+		// Wait for tooltip to be present. We expect a tooltip to be present when there is no dropdown.
+		// Not waiting for the tooltip could result in flaky test if the snapshot is delayed until after
+		// the tooltip appears.
+		await page
+			.locator('[data-testid="issues-table-cell-tooltip-hidden"]')
+			.first()
+			.waitFor({ state: 'attached' });
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {

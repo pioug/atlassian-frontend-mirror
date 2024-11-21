@@ -1,10 +1,10 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 export { default as Caption } from './Caption';
 export { default as MediaSingle } from './MediaSingle';
-export type {
-	Props as MediaSingleProps,
-	MediaSingleWidthType,
-	MediaSingleSize,
-} from './MediaSingle';
+export type { Props as MediaSingleProps } from './MediaSingle';
+export type { MediaSingleWidthType, MediaSingleSize } from './MediaSingle/types';
 
 export { MediaSingleDimensionHelper, MediaBorderGapFiller } from './MediaSingle/styled';
 export type { MediaSingleWrapperProps as MediaSingleDimensionHelperProps } from './MediaSingle/styled';
@@ -21,8 +21,10 @@ export {
 } from './MediaSingle/grid';
 
 export { mediaLinkStyle } from './MediaSingle/link';
-export { default as Popup, findOverflowScrollParent } from './Popup';
-export type { Position as PopupPosition, Props as PopupProps } from './Popup';
+export { default as Popup } from './Popup';
+export { findOverflowScrollParent } from './Popup/utils';
+export type { Props as PopupProps } from './Popup';
+export type { Position as PopupPosition } from './Popup/utils';
 export { default as UnsupportedBlock } from './UnsupportedBlock';
 export { default as UnsupportedInline } from './UnsupportedInline';
 export { BaseTheme, mapBreakpointToLayoutMaxWidth } from './BaseTheme';
@@ -63,12 +65,12 @@ export { WithCreateAnalyticsEvent } from './WithCreateAnalyticsEvent';
 
 export {
 	messages as expandMessages,
-	sharedExpandStyles,
 	ExpandIconWrapper,
 	expandLayoutWrapperStyle,
 	ExpandLayoutWrapperWithRef,
 } from './Expand';
-export type { StyleProps as ExpandStyleProps } from './Expand';
+export { sharedExpandStyles } from './Expand/sharedStyles';
+export type { StyleProps as ExpandStyleProps } from './Expand/sharedStyles';
 
 export { ErrorMessage, HelperMessage, ValidMessage } from './Messages';
 export {

@@ -31,11 +31,6 @@ describe('Snapshot Test: Media Border Mark', () => {
 			viewport,
 			editorProps,
 			adf,
-			initialPluginConfiguration: {
-				tablesPlugin: {
-					tableResizingEnabled: true,
-				},
-			},
 		});
 	};
 
@@ -125,6 +120,7 @@ describe('Snapshot Test: Media Border Mark', () => {
 					media: { allowMediaSingle: true, allowLinking: true },
 					allowTables: {
 						advanced: true,
+						allowTableResizing: true,
 					},
 				});
 			});

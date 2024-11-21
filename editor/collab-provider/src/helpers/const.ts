@@ -18,6 +18,7 @@ export enum EVENT_ACTION {
 	DROPPED_STEPS = 'droppedStepInCatchup', // https://data-portal.internal.atlassian.com/analytics/registry/53724
 	WEBSOCKET_MESSAGE_VOLUME_METRIC = 'websocketMessageVolumeMetric', // https://data-portal.internal.atlassian.com/analytics/registry/53596
 	PROVIDER_INITIALIZED = 'providerInitialized', // https://data-portal.internal.atlassian.com/analytics/registry/54714
+	RECONNECTION = 'providerReconnection', // https://data-portal.internal.atlassian.com/analytics/registry/73992
 	PROVIDER_SETUP = 'providerSetup', // https://data-portal.internal.atlassian.com/analytics/registry/54715
 	HAS_UNCONFIRMED_STEPS = 'hasUnconfirmedSteps', // https://data-portal.internal.atlassian.com/analytics/registry/56141
 }
@@ -284,6 +285,14 @@ type UpdateDocumentAnalyticsEvent = {
 	} & BaseActionAnalyticsEventAttributes;
 };
 
+type ReconnectionAnalyticsEvent = {
+	eventAction: EVENT_ACTION.RECONNECTION;
+	attributes: {
+		eventStatus: EVENT_STATUS.SUCCESS;
+		disconnectionPeriodSeconds: number;
+	} & BaseActionAnalyticsEventAttributes;
+};
+
 export type ActionAnalyticsEvent =
 	| AddStepsSuccessAnalyticsEvent
 	| AddStepsFailureAnalyticsEvent
@@ -309,7 +318,8 @@ export type ActionAnalyticsEvent =
 	| ProviderInitializedAnalyticsEvent
 	| ProviderSetupAnalyticsEvent
 	| ProviderHasUnconfirmedStepsAnalyticsEvent
-	| UpdateDocumentAnalyticsEvent;
+	| UpdateDocumentAnalyticsEvent
+	| ReconnectionAnalyticsEvent;
 
 export const ACK_MAX_TRY = 60;
 

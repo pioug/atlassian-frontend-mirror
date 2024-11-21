@@ -3,10 +3,6 @@ import { css } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { BODIED_EXT_PADDING, EXTENSION_PADDING } from '../../styles';
-
-export { EXTENSION_PADDING as padding, BODIED_EXT_PADDING };
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const wrapperDefault = css({
 	background: token('color.background.neutral'),

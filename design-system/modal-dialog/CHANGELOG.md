@@ -1,5 +1,19 @@
 # @atlaskit/modal-dialog
 
+## 12.17.12
+
+### Patch Changes
+
+- [#166087](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166087)
+  [`3ab7d7da348ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ab7d7da348ab) -
+  Adds side-effect config to support Compiled css extraction in third-party apps
+
+## 12.17.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.17.10
 
 ### Patch Changes

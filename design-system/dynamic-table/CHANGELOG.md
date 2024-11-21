@@ -1,5 +1,14 @@
 # @atlaskit/dynamic-table
 
+## 16.1.3
+
+### Patch Changes
+
+- [#163993](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163993)
+  [`d3922e72aa0e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3922e72aa0e6) -
+  [ux] Rankable table rows no longer have `role="button"` applied
+- Updated dependencies
+
 ## 16.1.2
 
 ### Patch Changes

@@ -1,5 +1,101 @@
 # @atlaskit/editor-plugin-table
 
+## 8.1.0
+
+### Minor Changes
+
+- [#166753](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166753)
+  [`41dc866b96d84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/41dc866b96d84) -
+  Use drag and drop classname for column resizing line when enabled, this avoids passing in feature
+  flag props to styles
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.0.0
+
+### Major Changes
+
+- [#162935](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162935)
+  [`48011dc10467a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48011dc10467a) -
+  Removed `tablesPlugin` property and its child properties of `tableResizingEnabled` and
+  `isTableAlignmentEnabled` from `InitialPluginConfiguration`, and added these options as part of
+  tablePlugin.tableOptions configuration instead. The new options for each are allowTableResizing
+  and allowTableAlignment respectively and can be configured on the Editor component via
+  `allowTables` or via preset configurations.
+
+  **Warning**: Both these features require ADF storage to persist these changes.
+
+  ### WHY?
+
+  To make these table features available for consumers who have no adopted composable editor and
+  want to enable table resizing and table alignment features
+
+  ### WHAT changed?
+
+  **Removed** `InitialPluginConfiguration` type: Removed `tablePlugin` and child properties -
+  `isTableAlignmentEnabled`, `tableResizingEnabled`
+
+  **Added** `TableOptions` type: Added `allowTableResizing` and `allowTableAlignment`
+
+  ### HOW to resolve?
+
+  Move the options from `initialPluginConfiguration` to `tableOptions`
+
+  Example:
+
+  Before
+
+  ```ts
+  const universalPreset = useUniversalPreset([
+  	tablePlugin,
+  	{ tableResizingEnabled: true, isTableAlignmentEnabled: true, tableOptions: {} },
+  ]);
+  ```
+
+  After
+
+  ```ts
+  const universalPreset = useUniversalPreset([
+  	tablePlugin,
+  	{ tableOptions: { allowTableResizing: true, allowTableAlignment: true } },
+  ]);
+  ```
+
+  Before
+
+  ```ts
+  return (
+  	<Editor
+  	 	allowTables={{advanced: true}}
+  		initialPluginConfiguration={{
+  			tablesPlugin: {
+  				tableResizingEnabled: true, isTableAlignmentEnabled: true,
+  			}
+  		}}
+  	/>
+  )
+  ```
+
+  After
+
+  ```ts
+  return (
+  	<Editor
+  	 	allowTables={{advanced: true, allowTableResizing: enabled, allowTableAlignment: true}}
+
+  	/>
+  )
+  ```
+
+### Patch Changes
+
+- [#166172](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166172)
+  [`00bf95ef0cc72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/00bf95ef0cc72) -
+  [ux] [ED-25535] Fix for issue where resize handler decorations added/removed in view mode affected
+  selection range.
+
 ## 7.31.3
 
 ### Patch Changes

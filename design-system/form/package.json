@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "10.5.11",
+	"version": "10.5.12",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -12,7 +12,9 @@
 	"module": "dist/esm/index.js",
 	"module:es2019": "dist/es2019/index.js",
 	"types": "dist/types/index.d.ts",
-	"sideEffects": false,
+	"sideEffects": [
+		"**/*.compiled.css"
+	],
 	"atlaskit:src": "src/index.tsx",
 	"atlaskit:designLink": "https://atlassian.design/guidelines/product/patterns/forms",
 	"atlassian": {
@@ -25,11 +27,11 @@
 	},
 	"dependencies": {
 		"@atlaskit/ds-lib": "^3.2.0",
-		"@atlaskit/heading": "^3.0.0",
+		"@atlaskit/heading": "^3.1.0",
 		"@atlaskit/icon": "^22.24.0",
 		"@atlaskit/primitives": "^13.2.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^2.2.0",
+		"@atlaskit/tokens": "^2.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"final-form": "^4.20.3",

@@ -1,3 +1,6 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -22,7 +25,8 @@ export { GapCursorSelection, Side, JSON_ID, GapBookmark } from './gap-cursor/sel
 
 export { setSelectionTopLevelBlocks, setGapCursorAtPos } from './gap-cursor/actions';
 
-export { isIgnored, isValidTargetNode } from './gap-cursor/utils';
+export { isIgnored } from './gap-cursor/utils/is-ignored';
+export { isValidTargetNode } from './gap-cursor/utils/is-valid-target-node';
 export { setGapCursorSelection } from './gap-cursor/utils/setGapCursorSelection';
 export { hideCaretModifier, gapCursorStyles } from './gap-cursor/styles';
 

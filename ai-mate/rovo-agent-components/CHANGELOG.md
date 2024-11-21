@@ -1,5 +1,20 @@
 # @atlaskit/rovo-agent-components
 
+## 1.14.0
+
+### Minor Changes
+
+- [#166276](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166276)
+  [`dbaae97cdc26d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dbaae97cdc26d) -
+  Fix OOTB agents in agent embed avatar to use agent.external_config_reference for namedId. Share
+  star components across agent embed, agent profile page, view agent modal, profile card; updated
+  copy and star formatting based on last discussion with content. Added optimistic update on
+  favourite behaviour and remove the background fetch on favourite/unfavourite click.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.13.2
 
 ### Patch Changes

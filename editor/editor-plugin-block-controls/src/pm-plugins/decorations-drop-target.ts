@@ -152,6 +152,7 @@ export const createDropTargetDecoration = (
 export const createLayoutDropTargetDecoration = (
 	pos: number,
 	props: Omit<DropTargetLayoutProps, 'getPos'>,
+	anchorRectCache?: AnchorRectCache,
 ) => {
 	return Decoration.widget(
 		pos,
@@ -160,7 +161,10 @@ export const createLayoutDropTargetDecoration = (
 			element.setAttribute('data-blocks-drop-target-container', 'true');
 			element.style.clear = 'unset';
 
-			ReactDOM.render(createElement(DropTargetLayout, { ...props, getPos }), element);
+			ReactDOM.render(
+				createElement(DropTargetLayout, { ...props, getPos, anchorRectCache }),
+				element,
+			);
 			return element;
 		},
 		{
@@ -231,11 +235,15 @@ export const dropTargetDecorations = (
 				) {
 					// Add drop target for layout columns
 					decs.push(
-						createLayoutDropTargetDecoration(pos, {
-							api,
-							parent,
-							formatMessage,
-						}),
+						createLayoutDropTargetDecoration(
+							pos,
+							{
+								api,
+								parent,
+								formatMessage,
+							},
+							anchorRectCache,
+						),
 					);
 				}
 			}

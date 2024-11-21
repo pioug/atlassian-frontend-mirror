@@ -85,14 +85,12 @@ export const createPlugin = (
 	getEditorContainerWidth: GetEditorContainerWidth,
 	getEditorFeatureFlags: GetEditorFeatureFlags,
 	getIntl: () => IntlShape,
-	tableResizingEnabled?: boolean,
 	fullWidthModeEnabled?: boolean,
 	previousFullWidthModeEnabled?: boolean,
 	dragAndDropEnabled?: boolean,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	pluginInjectionApi?: PluginInjectionAPI,
 	isTableScalingEnabled?: boolean,
-	isTableAlignmentEnabled?: boolean,
 	shouldUseIncreasedScalingPercent?: boolean,
 	isCommentEditor?: boolean,
 	isChromelessEditor?: boolean,
@@ -104,7 +102,6 @@ export const createPlugin = (
 		insertRowButtonIndex: undefined,
 		isFullWidthModeEnabled: fullWidthModeEnabled,
 		wasFullWidthModeEnabled: previousFullWidthModeEnabled,
-		isTableResizingEnabled: tableResizingEnabled,
 		isHeaderRowEnabled: !!pluginConfig.allowHeaderRow,
 		isHeaderColumnEnabled: false,
 		isDragAndDropEnabled: dragAndDropEnabled,
@@ -268,7 +265,7 @@ export const createPlugin = (
 				if (
 					!insideTable(editorState) &&
 					isCommentEditor &&
-					isTableAlignmentEnabled &&
+					pluginConfig.allowTableAlignment &&
 					isTableScalingEnabled
 				) {
 					slice = transformSliceTableLayoutDefaultToCenter(slice, schema);
@@ -369,7 +366,6 @@ export const createPlugin = (
 					getEditorFeatureFlags,
 					dispatchAnalyticsEvent,
 					pluginInjectionApi,
-					isTableAlignmentEnabled,
 					isCommentEditor,
 					isChromelessEditor,
 				}),
@@ -382,7 +378,7 @@ export const createPlugin = (
 				blur: handleBlur,
 				mousedown: withCellTracking(handleMouseDown),
 				mouseleave: handleMouseLeave,
-				mousemove: whenTableInFocus(handleMouseMove(nodeViewPortalProviderAPI)),
+				mousemove: whenTableInFocus(handleMouseMove(nodeViewPortalProviderAPI), pluginInjectionApi),
 				mouseenter: handleMouseEnter,
 				mouseup: whenTableInFocus(handleMouseUp),
 				click: withCellTracking(whenTableInFocus(handleClick)),

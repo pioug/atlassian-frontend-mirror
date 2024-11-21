@@ -240,7 +240,7 @@ export const buildToolbar = (
 		const sidebarTypesByColumns =
 			SIDEBAR_LAYOUT_TYPES_BY_COLUMNS[
 				numberOfColumns as keyof typeof SIDEBAR_LAYOUT_TYPES_BY_COLUMNS
-			];
+			] || [];
 
 		return {
 			title: layoutToolbarTitle,

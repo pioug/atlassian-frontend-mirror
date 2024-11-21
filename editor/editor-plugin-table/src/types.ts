@@ -79,6 +79,8 @@ export interface PluginConfig {
 	advanced?: boolean;
 	allowBackgroundColor?: boolean;
 	allowColumnResizing?: boolean;
+	allowTableResizing?: boolean;
+	allowTableAlignment?: boolean;
 	allowHeaderColumn?: boolean;
 	allowHeaderRow?: boolean;
 	allowMergeCells?: boolean;
@@ -169,7 +171,6 @@ export interface TablePluginState {
 	getIntl: () => IntlShape;
 
 	wasFullWidthModeEnabled?: boolean;
-	isTableResizingEnabled?: boolean;
 	isDragAndDropEnabled?: boolean;
 	isTableHovered?: boolean;
 
@@ -468,6 +469,9 @@ export const TableCssClassName = {
 
 	WITH_RESIZE_LINE: `${tablePrefixSelector}-column-resize-line`,
 	WITH_RESIZE_LINE_LAST_COLUMN: `${tablePrefixSelector}-column-resize-line-last-column`,
+
+	WITH_DRAG_RESIZE_LINE: `${tablePrefixSelector}-drag-column--resize-line`,
+	WITH_DRAG_RESIZE_LINE_LAST_COLUMN: `${tablePrefixSelector}-drag-column-resize-line-last-column`,
 
 	WITH_ROW_INSERT_LINE: `${tablePrefixSelector}-row-insert-line`,
 	WITH_ROW_INSERT_LINE_INACTIVE: `${tablePrefixSelector}-row-insert-line__inactive`,

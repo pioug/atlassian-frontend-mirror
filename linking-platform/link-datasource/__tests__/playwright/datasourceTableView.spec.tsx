@@ -143,6 +143,31 @@ test.describe('DatasourceTableView', () => {
 			{ ignoreCase: true },
 		);
 	});
+	test('can update priority column', async ({ page }) => {
+		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
+		await withFeatureFlags(page, [
+			'enable_datasource_react_sweet_state',
+			'platform-datasources-enable-two-way-sync',
+			'platform-datasources-enable-two-way-sync-priority',
+			'enable_datasource_supporting_actions',
+		]);
+
+		// Check priority value before
+		// We're unable to use link-datasource-render-type--icon--text as other columns also are the same type
+		await expect(page.getByTestId('datasource-table-view--cell-10').first()).toHaveText('Major', {
+			ignoreCase: true,
+		});
+
+		await page.getByTestId('datasource-table-view--cell-10').first().click();
+		await page.getByTestId('inline-edit-priority-option-Trivial').first().click();
+
+		await expect(page.getByTestId('inline-edit-icon')).toBeHidden();
+
+		// Check priority value after
+		await expect(page.getByTestId('datasource-table-view--cell-10').first()).toHaveText('Trivial', {
+			ignoreCase: true,
+		});
+	});
 
 	test('can filter options with type-ahead in statuses column', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');

@@ -94,11 +94,10 @@ export const SelectDateRangeButton = styled.button({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DateRangeErrorMessage = styled.div({
 	display: 'flex',
-	lineHeight: 1.3333,
 	marginTop: token('space.050', '2px'),
 	gap: token('space.025'),
 	paddingInlineStart: token('space.025'),
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 	color: token('color.text.danger', R400),
 	alignItems: 'center',
 });

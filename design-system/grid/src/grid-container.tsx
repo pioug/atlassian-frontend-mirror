@@ -4,10 +4,11 @@
  */
 import { createContext, type FC } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
-import { gapMediaQueries, inlinePaddingMediaQueries } from './grid-media-querys';
+import { css } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
+
 import type { BaseGridProps } from './types';
 
 export type GridContainerProps = BaseGridProps;
@@ -20,13 +21,58 @@ const containerBaseStyles = css({
 	marginInline: 'auto',
 });
 
-const gridMaxWidthMap: Record<
-	NonNullable<GridContainerProps['maxWidth']>,
-	ReturnType<typeof css>
-> = {
-	wide: css({ maxWidth: '70.5rem' }),
-	narrow: css({ maxWidth: '46.5rem' }),
-} as const;
+const gapMediaQueries = css({
+	gap: token('space.200', '16px'),
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 30rem)': {
+		gap: token('space.200', '16px'),
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 48rem)': {
+		gap: token('space.200', '16px'),
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 64rem)': {
+		gap: token('space.300', '24px'),
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 90rem)': {
+		gap: token('space.400', '32px'),
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 110.5rem)': {
+		gap: token('space.400', '32px'),
+	},
+});
+
+const inlinePaddingMediaQueries = css({
+	paddingInline: token('space.200', '16px'),
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 30rem)': {
+		paddingInline: token('space.200', '16px'),
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 48rem)': {
+		paddingInline: token('space.300', '24px'),
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 64rem)': {
+		paddingInline: token('space.400', '32px'),
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 90rem)': {
+		paddingInline: token('space.400', '32px'),
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 110.5rem)': {
+		paddingInline: token('space.500', '40px'),
+	},
+});
+
+const gridMaxWidthMap = cssMap({
+	wide: { maxWidth: '70.5rem' },
+	narrow: { maxWidth: '46.5rem' },
+});
 
 /**
  * __Grid container context__

@@ -35,6 +35,8 @@ const getBackendUpdateValue = (typedNewValue: DatasourceTypeWithOnlyValues): str
 			return typedNewValue.values[0] || '';
 		case 'status':
 			return typedNewValue.values[0]?.transitionId || '';
+		case 'icon':
+			return typedNewValue.values[0]?.id || '';
 	}
 
 	throw new Error(
@@ -56,6 +58,7 @@ const mapUpdatedItem = (
 				},
 			};
 		case 'status':
+		case 'icon':
 			return newValue.values[0]
 				? {
 						...existingItem,

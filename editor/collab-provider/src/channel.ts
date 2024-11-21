@@ -12,7 +12,6 @@ import type {
 	AuthCallback,
 	BroadcastIncomingPayload,
 	ReconcileResponse,
-	UserPermitType,
 } from './types';
 import { createLogger, getProduct, getSubProduct } from './helpers/utils';
 import { MEASURE_NAME, startMeasure, stopMeasure } from './analytics/performance';
@@ -37,7 +36,7 @@ import type { RateLimitError } from './errors/ncs-errors';
 import { INTERNAL_ERROR_CODE } from './errors/internal-errors';
 import { NCS_ERROR_CODE } from './errors/ncs-errors';
 import { NotConnectedError, NotInitializedError } from './errors/custom-errors';
-import type { Metadata } from '@atlaskit/editor-common/collab';
+import type { Metadata, UserPermitType } from '@atlaskit/editor-common/collab';
 
 const logger = createLogger('Channel', 'green');
 

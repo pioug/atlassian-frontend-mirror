@@ -5,7 +5,8 @@ import type { ResourceProvider } from '../src/api/ConversationResource';
 import { Conversation } from '../src';
 // https://atlassian.slack.com/archives/CNZTJCZ7U/p1634674323008000
 // import SingleSelect from '@atlaskit/single-select';
-import type { Conversation as ConversationType, User } from '../src/model';
+import type { Conversation as ConversationType } from '../src/model/Conversation';
+import type { User } from '../src/model/User';
 import type { State } from '../src/internal/store';
 import { MOCK_USERS } from './MockData';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';

@@ -27,6 +27,8 @@ type TableComponentWithSharedStateProps = {
 	getPos: getPosHandlerNode;
 	allowColumnResizing?: boolean;
 	allowControls?: boolean;
+	allowTableAlignment?: boolean;
+	allowTableResizing?: boolean;
 };
 
 /**
@@ -44,6 +46,8 @@ export const TableComponentWithSharedState = ({
 	allowControls,
 	getPos,
 	forwardRef,
+	allowTableAlignment,
+	allowTableResizing,
 }: TableComponentWithSharedStateProps) => {
 	const { widthState, tableState, mediaState } = useSharedPluginState(api, [
 		'width',
@@ -103,7 +107,8 @@ export const TableComponentWithSharedState = ({
 			isHeaderColumnEnabled={isHeaderColumnEnabled}
 			isDragAndDropEnabled={options?.isDragAndDropEnabled}
 			isTableScalingEnabled={options?.isTableScalingEnabled}
-			isTableAlignmentEnabled={options?.isTableAlignmentEnabled}
+			allowTableAlignment={allowTableAlignment}
+			allowTableResizing={allowTableResizing}
 			tableActive={tableActive}
 			ordering={ordering}
 			isResizing={isResizing}

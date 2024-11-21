@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.19
+
+### Patch Changes
+
+- [#166785](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166785)
+  [`d892942b6debe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d892942b6debe) -
+  [ux] ED-25750: Updated layout column tooltip texts
+- Updated dependencies
+
+## 2.13.18
+
+### Patch Changes
+
+- [#165840](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165840)
+  [`02a637ba38316`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/02a637ba38316) -
+  [ux] Update layout drop target using anchor position to work in stack layout
+- [#166685](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166685)
+  [`52915bfd0d222`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52915bfd0d222) -
+  Add overrides for layout, to account for new DOM structure with resizer
+
 ## 2.13.17
 
 ### Patch Changes

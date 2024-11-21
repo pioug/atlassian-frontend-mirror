@@ -4,7 +4,6 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { Mark, Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { PastePluginActionTypes as ActionTypes } from './actions';
 import { createCommand } from './pm-plugins/plugin-factory';
@@ -138,7 +137,7 @@ export const extractListFromParagraph = (
 			!listMatch ||
 			// CONFCLOUD-79708: If we are inside a list - let's not try to upgrade list as it resolves
 			// to invalid content
-			(isListItem(parent, schema) && fg('platform_editor_escape_formatting_for_nested_list'))
+			isListItem(parent, schema)
 		) {
 			// if there is not list match return as is
 			paragraphParts.push(line);

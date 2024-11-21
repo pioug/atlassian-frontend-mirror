@@ -537,7 +537,7 @@ export const getToolbarConfig =
 			);
 
 			const alignmentMenu =
-				options?.isTableAlignmentEnabled && !isNested
+				config.allowTableAlignment && !isNested
 					? getAlignmentOptionsConfig(
 							state,
 							intl,

@@ -42,7 +42,7 @@ const getThemeStyles = (theme: SmartLinkTheme | SmartLinkInternalTheme): Seriali
 						color: token('color.text.subtlest', '#626F86'),
 						textDecoration: 'underline',
 					},
-					fontSize: '12px',
+					font: token('font.body.UNSAFE_small'),
 				},
 			});
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage

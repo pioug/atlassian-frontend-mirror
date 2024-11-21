@@ -8,7 +8,7 @@ import {
 	MockProvider as ConversationResource,
 } from '../example-helpers/MockProvider';
 import { Conversation } from '../src';
-import { type Comment as CommentType } from '../src/model';
+import { type Comment as CommentType } from '../src/model/Comment';
 
 const provider = new ConversationResource({
 	url: 'http://mockservice/',

@@ -65,15 +65,6 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 	const [hasJquery, setHasJquery] = useState(false);
 	const [isExpanded, setIsExpanded] = useState(false);
 
-	const initialPluginConfiguration = {
-		tablesPlugin: {
-			tableResizingEnabled: editorExperiment('support_table_in_comment', true, { exposure: true }),
-			isTableAlignmentEnabled: editorExperiment('support_table_in_comment', true, {
-				exposure: true,
-			}),
-		},
-	};
-
 	const universalPreset = useUniversalPreset({
 		props: {
 			appearance: 'comment',
@@ -85,12 +76,15 @@ const CommentEditorConfluence = ({ editorProps, replacementDoc }: Props) => {
 			allowTables: {
 				advanced: true,
 				allowControls: true,
+				allowTableAlignment: editorExperiment('support_table_in_comment', true, { exposure: true }),
+				allowTableResizing: editorExperiment('support_table_in_comment', true, {
+					exposure: true,
+				}),
 			},
 			allowHelpDialog: true,
 			allowExtension: true,
 			...editorProps,
 		},
-		initialPluginConfiguration,
 	});
 	const { preset, editorApi } = usePreset(
 		() => universalPreset.add(highlightPlugin),

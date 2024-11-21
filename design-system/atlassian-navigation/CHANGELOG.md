@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 4.9.1
+
+### Patch Changes
+
+- [#165531](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165531)
+  [`57f451bda8919`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57f451bda8919) -
+  Adds side-effect config to support Compiled css extraction in third-party apps
+
 ## 4.9.0
 
 ### Minor Changes

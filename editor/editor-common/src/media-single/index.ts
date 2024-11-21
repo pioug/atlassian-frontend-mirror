@@ -1,3 +1,6 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 export {
 	MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH,
 	MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,

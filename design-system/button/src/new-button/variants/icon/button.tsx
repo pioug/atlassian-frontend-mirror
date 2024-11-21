@@ -13,11 +13,11 @@ export type IconButtonProps = CommonIconButtonProps & CommonButtonVariantProps;
 /**
  * __Icon Button__
  *
- * TODO: Description
+ * Renders an icon-only button lets people take a common and recognizable action where space is limited.
  *
- * - [Examples](https://atlassian.design/components/icon-button/examples)
- * - [Code](https://atlassian.design/components/icon-button/code)
- * - [Usage](https://atlassian.design/components/icon-button/usage)
+ * - [Examples](https://atlassian.design/components/button/icon-button/examples)
+ * - [Code](https://atlassian.design/components/button/icon-button/code)
+ * - [Usage](https://atlassian.design/components/button/icon-button/usage)
  */
 const IconButton = React.memo(
 	React.forwardRef(function Button(

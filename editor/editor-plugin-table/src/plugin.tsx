@@ -103,15 +103,15 @@ import { createTableWithWidth } from './utils';
 
 export interface TablePluginOptions {
 	tableOptions: PluginConfig;
-	tableResizingEnabled?: boolean;
+	// this option will eventually be removed, and enabled by default
 	dragAndDropEnabled?: boolean;
+	// this option will eventually be removed, and enabled by default
+	isTableScalingEnabled?: boolean;
 	allowContextualMenu?: boolean;
 	// TODO these two need to be rethought
 	fullWidthEnabled?: boolean;
 	wasFullWidthEnabled?: boolean;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
-	isTableScalingEnabled?: boolean;
-	isTableAlignmentEnabled?: boolean;
 	isNewColumnResizingEnabled?: boolean;
 	isCommentEditor?: boolean;
 	isChromelessEditor?: boolean;
@@ -230,11 +230,11 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				(state, dispatch) => {
 					const node = createTableWithWidth({
 						isTableScalingEnabled: options?.isTableScalingEnabled,
-						isTableAlignmentEnabled: options?.isTableAlignmentEnabled,
+						isTableAlignmentEnabled: options?.tableOptions.allowTableAlignment,
 						isFullWidthModeEnabled: options?.fullWidthEnabled,
 						isCommentEditor: options?.isCommentEditor,
 						isChromelessEditor: options?.isChromelessEditor,
-						isTableResizingEnabled: options?.tableResizingEnabled,
+						isTableResizingEnabled: options?.tableOptions.allowTableResizing,
 					})(state.schema);
 
 					// If the cursor is inside a table
@@ -283,7 +283,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 			insertTableWithSize: insertTableWithSize(
 				options?.fullWidthEnabled,
 				options?.isTableScalingEnabled,
-				options?.isTableAlignmentEnabled,
+				options?.tableOptions.allowTableAlignment,
 				api?.analytics?.actions,
 				options?.isCommentEditor,
 			),
@@ -299,7 +299,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							name: 'table',
 							node: tableNodeSpecWithFixedToDOM({
 								allowColumnResizing: Boolean(allowColumnResizing),
-								tableResizingEnabled: Boolean(options?.tableResizingEnabled),
+								tableResizingEnabled: Boolean(options?.tableOptions.allowTableResizing),
 								getEditorContainerWidth: defaultGetEditorContainerWidth,
 								isNestingSupported,
 							}),
@@ -313,7 +313,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							name: 'table',
 							node: tableNodeSpecWithFixedToDOM({
 								allowColumnResizing: Boolean(allowColumnResizing),
-								tableResizingEnabled: Boolean(options?.tableResizingEnabled),
+								tableResizingEnabled: Boolean(options?.tableOptions.allowTableResizing),
 								getEditorContainerWidth: defaultGetEditorContainerWidth,
 								isNestingSupported,
 							}),
@@ -339,13 +339,10 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 						const {
 							fullWidthEnabled,
 							wasFullWidthEnabled,
-							tableResizingEnabled,
-
 							tableOptions,
 							getEditorFeatureFlags,
 							dragAndDropEnabled,
 							isTableScalingEnabled,
-							isTableAlignmentEnabled,
 							isCommentEditor,
 							isChromelessEditor,
 						} = options || ({} as TablePluginOptions);
@@ -360,14 +357,12 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							defaultGetEditorContainerWidth,
 							getEditorFeatureFlags || defaultGetEditorFeatureFlags,
 							getIntl,
-							tableResizingEnabled,
 							fullWidthEnabled,
 							wasFullWidthEnabled,
 							dragAndDropEnabled,
 							editorAnalyticsAPI,
 							api,
 							isTableScalingEnabled,
-							isTableAlignmentEnabled,
 							shouldUseIncreasedScalingPercent,
 							isCommentEditor,
 							isChromelessEditor,
@@ -383,9 +378,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							getEditorFeatureFlags,
 							isTableScalingEnabled,
 							isNewColumnResizingEnabled,
-							isTableAlignmentEnabled,
 						} = options || ({} as TablePluginOptions);
-						const { allowColumnResizing } = pluginConfig(tableOptions);
+						const { allowColumnResizing, allowTableAlignment } = pluginConfig(tableOptions);
 						return allowColumnResizing
 							? createFlexiResizingPlugin(
 									dispatch,
@@ -399,7 +393,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 									editorAnalyticsAPI,
 									isTableScalingEnabled || false,
 									isNewColumnResizingEnabled,
-									isTableAlignmentEnabled,
+									allowTableAlignment,
 									!!options?.isCommentEditor,
 								)
 							: undefined;
@@ -414,11 +408,10 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 						const {
 							dragAndDropEnabled,
 							isTableScalingEnabled = false,
-							isTableAlignmentEnabled = false,
 							fullWidthEnabled = false,
 							isCommentEditor = false,
 							isChromelessEditor = false,
-							tableResizingEnabled = false,
+							tableOptions,
 						} = options || ({} as TablePluginOptions);
 
 						return keymapPlugin(
@@ -428,7 +421,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							editorAnalyticsAPI,
 							dragAndDropEnabled,
 							isTableScalingEnabled,
-							isTableAlignmentEnabled,
+							tableOptions?.allowTableAlignment,
 							fullWidthEnabled,
 							api,
 							getIntl,
@@ -436,7 +429,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							shouldUseIncreasedScalingPercent,
 							isCommentEditor,
 							isChromelessEditor,
-							tableResizingEnabled,
+							tableOptions?.allowTableResizing,
 						);
 					},
 				},
@@ -501,24 +494,24 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				{
 					name: 'tableWidth',
 					plugin: ({ dispatchAnalyticsEvent, dispatch }) =>
-						options?.tableResizingEnabled
+						options?.tableOptions.allowTableResizing
 							? createTableWidthPlugin(
 									dispatch,
 									dispatchAnalyticsEvent,
-									options?.fullWidthEnabled ?? false,
-									options?.isTableScalingEnabled ?? false,
-									options?.isTableAlignmentEnabled ?? false,
-									options?.isCommentEditor ?? false,
+									options.fullWidthEnabled ?? false,
+									options.isTableScalingEnabled ?? false,
+									options.tableOptions.allowTableResizing ?? false,
+									options.isCommentEditor ?? false,
 								)
 							: undefined,
 				},
 				{
 					name: 'tableWidthInCommentFix',
 					plugin: ({ dispatch }) =>
-						options?.tableResizingEnabled && options?.isCommentEditor
+						options?.tableOptions.allowTableResizing && options?.isCommentEditor
 							? createTableWidthInCommentFixPlugin(
 									dispatch,
-									options?.isTableAlignmentEnabled ?? false,
+									options.tableOptions.allowTableAlignment ?? false,
 								)
 							: undefined,
 				},
@@ -529,7 +522,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 						createTableOverflowAnalyticsPlugin(
 							dispatch,
 							dispatchAnalyticsEvent,
-							options?.tableResizingEnabled ?? false,
+							options?.tableOptions.allowTableResizing ?? false,
 						),
 				},
 				{
@@ -731,7 +724,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 										/>
 									)}
 									{(options?.isTableScalingEnabled ||
-										(options?.tableResizingEnabled && options.isCommentEditor)) &&
+										(options?.tableOptions.allowTableResizing && options.isCommentEditor)) &&
 										isTableResizing &&
 										widthToWidest &&
 										resizingTableLocalId &&
@@ -772,11 +765,11 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 
 						const tableNode = createTableWithWidth({
 							isTableScalingEnabled: options?.isTableScalingEnabled,
-							isTableAlignmentEnabled: options?.isTableAlignmentEnabled,
+							isTableAlignmentEnabled: options?.tableOptions.allowTableAlignment,
 							isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
 							isCommentEditor: options?.isCommentEditor,
 							isChromelessEditor: options?.isChromelessEditor,
-							isTableResizingEnabled: options?.tableResizingEnabled,
+							isTableResizingEnabled: options?.tableOptions.allowTableResizing,
 						})(state.schema);
 
 						let { tr } = state;

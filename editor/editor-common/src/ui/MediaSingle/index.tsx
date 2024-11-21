@@ -20,7 +20,7 @@ import type { EditorAppearance } from '../../types';
 import { shouldAddDefaultWrappedWidth } from '../../utils/rich-media-utils';
 
 import { MediaSingleDimensionHelper, MediaWrapper } from './styled';
-import type { MediaSingleSize, MediaSingleWidthType } from './types';
+import type { MediaSingleSize } from './types';
 export interface Props {
 	children: React.ReactNode;
 	layout: MediaSingleLayout;
@@ -45,8 +45,6 @@ export interface Props {
 	dataAttributes?: Record<string, any>;
 	editorAppearance?: EditorAppearance;
 }
-
-export type { MediaSingleWidthType, MediaSingleSize };
 
 export default function MediaSingle({
 	layout,

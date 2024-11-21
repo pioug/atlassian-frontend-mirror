@@ -21,6 +21,7 @@ export default () => (
 		</Headers>
 		<Rows
 			items={staticData.children}
+			loadingLabel="loading data"
 			render={({ title, numbering, page, children = [] }: Item) => (
 				<Row
 					itemId={numbering}

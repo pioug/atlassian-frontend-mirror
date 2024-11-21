@@ -447,18 +447,31 @@ export function isCapsLockOnAndModifyKeyboardEvent(event: KeyboardEvent) {
 }
 
 export {
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	DOWN,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	HEADING_KEYS,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	KEY_0,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	KEY_1,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	KEY_2,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	KEY_3,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	KEY_4,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	KEY_5,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	KEY_6,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	LEFT,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	RIGHT,
+	// eslint-disable-next-line @atlaskit/editor/no-re-export
 	UP,
 } from './consts';
 
+// eslint-disable-next-line @atlaskit/editor/no-re-export
 export { keymap } from './keymap';

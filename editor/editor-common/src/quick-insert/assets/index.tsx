@@ -4,9 +4,6 @@ import Loadable from 'react-loadable';
 
 import type { HeadingLevels, IconProps } from '../../types';
 
-export { default as IconCustomPanel } from './custom-panel';
-export { default as IconFallback } from './fallback';
-
 export const IconAction = Loadable({
 	loader: () =>
 		import(/* webpackChunkName: "@atlaskit-internal_editor-icon-action" */ './action').then(

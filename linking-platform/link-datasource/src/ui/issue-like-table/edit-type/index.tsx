@@ -7,7 +7,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { type ExecuteFetch } from '../../../state/actions';
 import { type DatasourceTypeWithOnlyTypeValues, type DatasourceTypeWithOnlyValues } from '../types';
 
-import PriorityEditType from './icon';
+import IconEditType from './icon';
 import StatusEditType from './status';
 import TextEditType, { toTextValue } from './text';
 
@@ -42,13 +42,13 @@ export const editType = ({
 			return {
 				defaultValue: toTextValue(defaultValue),
 				editView: ({ value, ...fieldProps }) => (
-					<PriorityEditType
+					<IconEditType
 						{...fieldProps}
 						currentValue={currentValue as DatasourceTypeWithOnlyTypeValues<'icon'>}
 						setEditValues={setEditValues}
 						id={ACTIVE_INLINE_EDIT_ID}
 						executeFetch={executeFetch}
-					></PriorityEditType>
+					></IconEditType>
 				),
 			};
 		case 'status':

@@ -1,5 +1,30 @@
 # @atlaskit/datetime-picker
 
+## 15.9.5
+
+### Patch Changes
+
+- [#166087](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166087)
+  [`3ab7d7da348ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ab7d7da348ab) -
+  Adds side-effect config to support Compiled css extraction in third-party apps
+
+## 15.9.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.9.3
+
+### Patch Changes
+
+- [#165423](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165423)
+  [`f07cb14952573`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f07cb14952573) -
+  Update internals of datetime picker to accommodate new props.
+- [#165989](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165989)
+  [`4e6b0a538b8a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4e6b0a538b8a2) -
+  Fix bug that stopped down/up arrow presses from opening the menu on the input field.
+
 ## 15.9.2
 
 ### Patch Changes

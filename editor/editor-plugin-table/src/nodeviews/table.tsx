@@ -53,15 +53,16 @@ const getInlineWidth = (
 	options: Props['options'],
 	state: EditorState,
 	pos: number | undefined,
+	allowTableResizing?: boolean,
 ): number | undefined => {
-	if (!node.attrs.width && options?.isCommentEditor && options?.isTableResizingEnabled) {
+	if (!node.attrs.width && options?.isCommentEditor && allowTableResizing) {
 		return;
 	}
 
 	// provide a width for tables when custom table width is supported
 	// this is to ensure 'responsive' tables (colgroup widths are undefined) become fixed to
 	// support screen size adjustments
-	const shouldHaveInlineWidth = options?.isTableResizingEnabled && !isTableNested(state, pos);
+	const shouldHaveInlineWidth = allowTableResizing && !isTableNested(state, pos);
 
 	let widthValue = getTableContainerWidth(node);
 
@@ -135,6 +136,7 @@ export default class TableView extends ReactNodeView<Props> {
 					this.reactComponentProps.options,
 					this.reactComponentProps.view.state,
 					this.reactComponentProps.getPos(),
+					this.reactComponentProps.allowTableResizing,
 				);
 				if (tableInlineWidth) {
 					handleInlineTableWidth(this.table, tableInlineWidth);
@@ -167,6 +169,7 @@ export default class TableView extends ReactNodeView<Props> {
 				(this.reactComponentProps as Props).options,
 				this.view.state,
 				this.getPos(),
+				this.reactComponentProps.allowTableResizing,
 			);
 
 			const isTableResizing = tableWidthPluginKey.getState(this.view.state)?.resizing;
@@ -192,6 +195,8 @@ export default class TableView extends ReactNodeView<Props> {
 					eventDispatcher={props.eventDispatcher}
 					api={props.pluginInjectionApi}
 					allowColumnResizing={props.allowColumnResizing}
+					allowTableAlignment={props.allowTableAlignment}
+					allowTableResizing={props.allowTableResizing}
 					allowControls={props.allowControls}
 					getPos={props.getPos}
 					getEditorFeatureFlags={props.getEditorFeatureFlags}
@@ -266,7 +271,8 @@ export default class TableView extends ReactNodeView<Props> {
 							isHeaderColumnEnabled={pluginState!.isHeaderColumnEnabled}
 							isDragAndDropEnabled={pluginState!.isDragAndDropEnabled}
 							isTableScalingEnabled={props.options?.isTableScalingEnabled} // this.options?.isTableScalingEnabled same as TableOptions.isTableScalingEnabled same as pluginState.isTableScalingEnabled
-							isTableAlignmentEnabled={props.options?.isTableAlignmentEnabled}
+							allowTableAlignment={props.allowTableAlignment}
+							allowTableResizing={props.allowTableResizing}
 							tableActive={tableActive}
 							ordering={pluginState!.ordering as TableColumnOrdering}
 							isResizing={isResizing}
@@ -366,7 +372,6 @@ export const createTableView = (
 	getEditorFeatureFlags: GetEditorFeatureFlags,
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 	pluginInjectionApi?: PluginInjectionAPI,
-	isTableAlignmentEnabled?: boolean,
 	isCommentEditor?: boolean,
 	isChromelessEditor?: boolean,
 ): NodeView => {
@@ -374,16 +379,18 @@ export const createTableView = (
 		pluginConfig,
 		isFullWidthModeEnabled,
 		wasFullWidthModeEnabled,
-		isTableResizingEnabled,
 		isDragAndDropEnabled,
 		isTableScalingEnabled, // same as options.isTableScalingEnabled
 	} = getPluginState(view.state);
-	const { allowColumnResizing, allowControls } = getPluginConfig(pluginConfig);
+	const { allowColumnResizing, allowControls, allowTableResizing, allowTableAlignment } =
+		getPluginConfig(pluginConfig);
 
 	return new TableView({
 		node,
 		view,
 		allowColumnResizing,
+		allowTableResizing,
+		allowTableAlignment,
 		allowControls,
 		portalProviderAPI,
 		eventDispatcher,
@@ -391,10 +398,8 @@ export const createTableView = (
 		options: {
 			isFullWidthModeEnabled,
 			wasFullWidthModeEnabled,
-			isTableResizingEnabled,
 			isDragAndDropEnabled,
 			isTableScalingEnabled, // same as options.isTableScalingEnabled
-			isTableAlignmentEnabled,
 			isCommentEditor,
 			isChromelessEditor,
 		},

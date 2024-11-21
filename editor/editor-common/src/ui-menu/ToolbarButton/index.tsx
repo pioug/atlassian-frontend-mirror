@@ -17,11 +17,9 @@ import Tooltip from '@atlaskit/tooltip';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE, TOOLBAR_ACTION_SUBJECT_ID } from '../../analytics';
 import { type Keymap, ToolTipContent } from '../../keymaps';
-import type { MenuItem } from '../DropdownMenu';
+import type { MenuItem } from '../DropdownMenu/types';
 
 import Button from './styles';
-
-export const TOOLBAR_BUTTON = TOOLBAR_ACTION_SUBJECT_ID;
 
 export type Props = {
 	// Used for analytics only

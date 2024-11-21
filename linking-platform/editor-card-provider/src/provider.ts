@@ -1,4 +1,4 @@
-import DataLoader from 'dataloader';
+import { extractPreview } from '@atlaskit/link-extractors';
 import {
 	type CardAdf,
 	type CardAppearance,
@@ -6,7 +6,8 @@ import {
 	getStatus,
 	type ProductType,
 } from '@atlaskit/linking-common';
-import { extractPreview } from '@atlaskit/link-extractors';
+import DataLoader from 'dataloader';
+import { Transformer } from './transformer';
 import {
 	type CardProvider,
 	type LinkAppearance,
@@ -14,14 +15,13 @@ import {
 	type ProviderPattern,
 	type ProvidersData,
 } from './types';
-import { Transformer } from './transformer';
 
-import { type EnvironmentsKeys, getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
-import { CardClient } from '@atlaskit/link-provider';
-import { type JsonLd } from 'json-ld-types';
 import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
-import * as api from './api';
+import { CardClient } from '@atlaskit/link-provider';
+import { type EnvironmentsKeys, getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { type JsonLd } from 'json-ld-types';
+import * as api from './api';
 
 const BATCH_WAIT_TIME = 50;
 
@@ -90,6 +90,12 @@ const isJiraBoard = (url: string) => {
 const isJiraPlan = (url: string) => {
 	return url.match(
 		/https:\/\/.*?\/jira\/plans\/(?<resourceId>\d+)\/scenarios\/(?<resourceContext>\d+)\/(timeline|summary|calendar|program\/\d+|dependencies)\/?/,
+	);
+};
+
+const isJiraVersion = (url: string) => {
+	return url.match(
+		/https:\/\/.*?\/projects\/[^\/]+?\/versions\/\d+\/tab\/release-report-all-issues/,
 	);
 };
 
@@ -235,6 +241,11 @@ export class EditorCardProvider implements CardProvider {
 			isJiraPlanEvaluated = isJiraPlan(url);
 		}
 
+		let isJiraVersionEvaluated;
+		if (fg('smartlink_jira_releases')) {
+			isJiraVersionEvaluated = isJiraVersion(url);
+		}
+
 		if (
 			isJiraRoadmapOrTimeline(url) ||
 			isPolarisView(url) ||
@@ -249,7 +260,8 @@ export class EditorCardProvider implements CardProvider {
 			isJiraDashboard(url) ||
 			isJiraBacklog(url) ||
 			isJiraBoard(url) ||
-			isJiraPlanEvaluated
+			isJiraPlanEvaluated ||
+			isJiraVersionEvaluated
 		) {
 			return 'embed';
 		}

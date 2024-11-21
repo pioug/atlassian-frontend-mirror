@@ -171,16 +171,20 @@ export const clearHoverSelection = () =>
 	}));
 
 export const showResizeHandleLine = (cellColumnPositioning: CellColumnPositioning) =>
-	createCommand((state) => ({
-		type: 'SHOW_RESIZE_HANDLE_LINE',
-		data: {
-			decorationSet: updatePluginStateDecorations(
-				state,
-				createColumnLineResize(state.selection, cellColumnPositioning),
-				TableDecorations.COLUMN_RESIZING_HANDLE_LINE,
-			),
-		},
-	}));
+	createCommand((state) => {
+		const { isDragAndDropEnabled } = getPluginState(state);
+
+		return {
+			type: 'SHOW_RESIZE_HANDLE_LINE',
+			data: {
+				decorationSet: updatePluginStateDecorations(
+					state,
+					createColumnLineResize(state.selection, cellColumnPositioning, isDragAndDropEnabled),
+					TableDecorations.COLUMN_RESIZING_HANDLE_LINE,
+				),
+			},
+		};
+	});
 
 export const hideResizeHandleLine = () =>
 	createCommand((state) => ({

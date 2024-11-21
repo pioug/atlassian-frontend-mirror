@@ -34,7 +34,7 @@ const contentStyles = css({
 });
 
 const descriptionStyles = css({
-	fontSize: '1em',
+	font: token('font.body'),
 	textAlign: 'center',
 });
 

@@ -24,7 +24,7 @@ interface Props extends Omit<FieldProps<string>, 'value'> {
 /**
  * Should be gated by FF rollout of platform-datasources-enable-two-way-sync-priority
  */
-const PriorityEditType = (props: Props) => {
+const IconEditType = (props: Props) => {
 	const { currentValue, executeFetch } = props;
 	const { options, isLoading } = usePriorityOptions(currentValue, executeFetch);
 
@@ -36,7 +36,7 @@ const PriorityEditType = (props: Props) => {
 				autoFocus
 				defaultMenuIsOpen
 				blurInputOnSelect
-				getOptionValue={(option) => option.label || ''}
+				getOptionValue={(option) => option.text || ''}
 				options={options}
 				isLoading={isLoading}
 				defaultValue={currentValue?.values?.[0]}
@@ -107,4 +107,4 @@ const loadOptions = async (
 	return [];
 };
 
-export default PriorityEditType;
+export default IconEditType;

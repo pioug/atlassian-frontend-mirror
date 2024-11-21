@@ -1,5 +1,82 @@
 # @atlaskit/collab-provider
 
+## 10.0.0
+
+### Major Changes
+
+- [#165049](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165049)
+  [`febce5463e07f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/febce5463e07f) -
+  Enable no-re-export rule for a subset of editor packages
+
+  ### Major
+
+  #### @atlaskit/collab-provider
+
+  @atlaskit/collab-provider doesn't export following types anymore:
+
+  ```
+  CollabParticipant,
+  CollabEventInitData,
+  CollabEventRemoteData,
+  CollabEventConnectionData,
+  CollabEventConnectingData,
+  CollabEventPresenceData,
+  ResolvedEditorState,
+  CollabConnectedPayload,
+  CollabConnectingPayload,
+  CollabDisconnectedPayload,
+  CollabInitPayload,
+  CollabDataPayload,
+  CollabTelepointerPayload,
+  CollabPresencePayload,
+  CollabMetadataPayload,
+  CollabLocalStepsPayload,
+  CollabCommitStatusEventPayload,
+  CollabPermissionEventPayload,
+  UserPermitType,
+  CollabEvents,
+  Metadata,
+  StepJson,
+  CollabEventTelepointerData,
+  CollabSendableSelection,
+  CollabEditProvider,
+  NewCollabSyncUpErrorAttributes,
+  SyncUpErrorFunction,
+  CollabEventLocalStepData,
+  ```
+
+  Import them from `@atlaskit/editor-common/collab`.
+
+  #### @atlaskit/editor-common
+
+  `@atlaskit/editor-common/provider-factory` doesn't export following types anymore:
+
+  ```
+  CardAdf,
+  DatasourceAdf,
+  ```
+
+  Import them from `@atlaskit/smart-card`.
+
+### Patch Changes
+
+- [#166394](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166394)
+  [`ec83c51a9acba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec83c51a9acba) -
+  Add analytics on reconnection events
+- Updated dependencies
+
+## 9.46.0
+
+### Minor Changes
+
+- [#163507](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163507)
+  [`2fe2661c3c1e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2fe2661c3c1e0) -
+  EDF-1842 Push agent information to collab session
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.45.0
 
 ### Minor Changes

@@ -32,11 +32,7 @@ const initEditor = async (adf: Object) => {
 				allowHeaderRow: true,
 				allowBackgroundColor: true,
 				advanced: true,
-			},
-		},
-		initialPluginConfiguration: {
-			tablesPlugin: {
-				tableResizingEnabled: true,
+				allowTableResizing: true,
 			},
 		},
 	});

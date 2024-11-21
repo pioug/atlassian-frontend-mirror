@@ -4,11 +4,8 @@ import { IntlProvider } from 'react-intl-next';
 
 import { Box, Grid, xcss } from '@atlaskit/primitives';
 
-import {
-	AgentProfileCreator,
-	AgentProfileInfo,
-	AgentStarCount,
-} from '../src/ui/agent-profile-info';
+import { AgentProfileCreator, AgentProfileInfo } from '../src/ui/agent-profile-info';
+import { AgentStarCount } from '../src/ui/agent-profile-info/agent-star-count';
 
 const wrapperStyles = xcss({
 	width: '280px',

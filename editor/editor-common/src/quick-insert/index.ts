@@ -1,3 +1,6 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 export {
 	IconAction,
 	IconCode,
@@ -21,8 +24,6 @@ export {
 	IconHeading,
 	IconFeedback,
 	IconExpand,
-	IconCustomPanel,
-	IconFallback,
 	IconDatasourceJiraIssue,
 	IconDatasourceAssetsObjects,
 	IconDatasourceConfluenceSearch,
@@ -33,5 +34,9 @@ export {
 	IconFourColumnLayout,
 	IconFiveColumnLayout,
 } from './assets';
+
+export { default as IconCustomPanel } from './assets/custom-panel';
+export { default as IconFallback } from './assets/fallback';
+
 export { memoProcessQuickInsertItems, find } from './utils';
 export { messages } from './messages';

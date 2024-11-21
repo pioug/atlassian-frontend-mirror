@@ -2,7 +2,8 @@ import { createStore as createReduxStore, type Store, applyMiddleware } from 're
 import thunk from 'redux-thunk';
 import { reducers } from './reducers';
 
-import { type Conversation, type User } from '../model';
+import { type Conversation } from '../model/Conversation';
+import { type User } from '../model/User';
 
 export interface State {
 	conversations: Conversation[];

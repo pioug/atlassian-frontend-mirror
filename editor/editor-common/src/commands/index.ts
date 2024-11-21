@@ -248,4 +248,5 @@ export function setHeading(level: HeadingLevelsAndNormalText): Command {
 	};
 }
 
+// eslint-disable-next-line @atlaskit/editor/no-re-export
 export { insertBlock } from './insert-block';

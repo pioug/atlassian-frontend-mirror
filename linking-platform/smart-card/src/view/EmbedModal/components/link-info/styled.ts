@@ -43,9 +43,8 @@ export const titleCss = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	h3: {
 		flex: '1 1 auto',
-		fontSize: '16px',
-		fontWeight: 400,
-		lineHeight: height,
+		font: token('font.heading.small'),
+		fontWeight: token('font.weight.regular'),
 		display: '-webkit-box',
 		marginBottom: 0,
 		overflow: 'hidden',

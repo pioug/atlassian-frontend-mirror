@@ -1,5 +1,14 @@
 # @atlaskit/layering
 
+## 0.8.0
+
+### Minor Changes
+
+- [#166626](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166626)
+  [`2e47aa97dd435`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e47aa97dd435) -
+  Re-releasing this as a minor update to address an issue with the incorrect version (^0.7.0) of
+  `@atlaskit/layering` being included in dependent packages.
+
 ## 0.7.4
 
 ### Patch Changes

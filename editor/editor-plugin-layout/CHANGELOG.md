@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.12.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.12.3
+
+### Patch Changes
+
+- [#165840](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165840)
+  [`02a637ba38316`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/02a637ba38316) -
+  [ux] Update layout drop target using anchor position to work in stack layout
+- [#166078](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166078)
+  [`73109f934d566`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73109f934d566) -
+  [ux] [ED-25773] Hide layout floating toolbar when layout column is selected
+
 ## 1.12.2
 
 ### Patch Changes

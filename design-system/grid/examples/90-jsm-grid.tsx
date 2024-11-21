@@ -2,20 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Grid, { GridItem } from '@atlaskit/grid';
 import Heading, { HeadingContextProvider } from '@atlaskit/heading';
 import { JiraServiceManagementLogo } from '@atlaskit/logo';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import {
-	UNSAFE_BREAKPOINTS_CONFIG,
-	UNSAFE_buildAboveMediaQueryCSS,
-} from '@atlaskit/primitives/responsive';
 import Textfield from '@atlaskit/textfield';
-import { useThemeObserver } from '@atlaskit/tokens';
+import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import JSMCard from './91-jsm-card';
 import JSMConfigCard from './92-jsm-config-card';
@@ -26,13 +20,26 @@ const responsiveWidthSearchStyles = css({
 	minWidth: '100%',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const dynamicSizedVerticalPaddingStyles = Object.values(
-	UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
-		justifyContent: 'center',
-		paddingBlock: `calc(${UNSAFE_BREAKPOINTS_CONFIG[breakpoint].gridMargin} * 2)`,
-	})),
-);
+const dynamicSizedVerticalPaddingStyles = css({
+	justifyContent: 'center',
+	paddingBlock: `calc(${token('space.200', '16px')} * 2)`,
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 30rem)': {
+		paddingBlock: `calc(${token('space.300', '24px')} * 2)`,
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 48rem)': {
+		paddingBlock: `calc(${token('space.400', '32px')} * 2)`,
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 64rem)': {
+		paddingBlock: `calc(${token('space.400', '32px')} * 2)`,
+	},
+	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+	'@media (min-width: 90rem)': {
+		paddingBlock: `calc(${token('space.500', '40px')} * 2)`,
+	},
+});
 
 const JSMGrid = () => {
 	const { colorMode: theme } = useThemeObserver();

@@ -18,7 +18,9 @@ import {
 	HIGHLIGHT_COMMENT,
 } from './actions';
 import type { Action, State } from './store';
-import type { User, Conversation, Comment } from '../model';
+import type { User } from '../model/User';
+import type { Conversation } from '../model/Conversation';
+import type { Comment } from '../model/Comment';
 import { createReducer } from './create-reducer';
 
 export const getNestedDepth = (

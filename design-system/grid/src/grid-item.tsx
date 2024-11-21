@@ -4,15 +4,9 @@
  */
 import { type CSSProperties, type FC, useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
-import {
-	type Breakpoint,
-	type ResponsiveObject,
-	UNSAFE_BREAKPOINTS_ORDERED_LIST,
-	UNSAFE_buildAboveMediaQueryCSS,
-} from '@atlaskit/primitives/responsive';
+import { type Breakpoint, type ResponsiveObject } from '@atlaskit/primitives/responsive';
 
 import { GRID_COLUMNS } from './config';
 import type { GridItemProps, SpanObject, StartObject } from './types';
@@ -23,20 +17,108 @@ const baseGridItemStyles = css({
 	gridColumn: `1 / span ${GRID_COLUMNS}`,
 });
 
-const hideMediaQueries = UNSAFE_buildAboveMediaQueryCSS({
-	display: 'none',
+const hideMediaQueries = cssMap({
+	xxs: {
+		display: 'none',
+	},
+	xs: {
+		'@media (min-width: 30rem)': {
+			display: 'none',
+		},
+	},
+	sm: {
+		'@media (min-width: 48rem)': {
+			display: 'none',
+		},
+	},
+	md: {
+		'@media (min-width: 64rem)': {
+			display: 'none',
+		},
+	},
+	lg: {
+		'@media (min-width: 90rem)': {
+			display: 'none',
+		},
+	},
+	xl: {
+		'@media (min-width: 110.5rem)': {
+			display: 'none',
+		},
+	},
 });
-const gridSpanMediaQueries = UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
-	display: 'block', // override the display that might be cascaded in from `hideMediaQueries`
-	gridColumnEnd: `span var(--grid-item-${breakpoint}-span, 12)`,
-}));
-const gridStartMediaQueries = UNSAFE_buildAboveMediaQueryCSS((breakpoint) => ({
-	gridColumnStart: `var(--grid-item-${breakpoint}-start, 'auto')`,
-}));
+const gridSpanMediaQueries = cssMap({
+	xxs: {
+		// all screens
+		display: 'block', // override the display that might be cascaded in from `hideMediaQueries`
+		gridColumnEnd: `span var(--grid-item-xxs-span, 12)`,
+	},
+	xs: {
+		'@media (min-width: 30rem)': {
+			display: 'block', // override the display that might be cascaded in from `hideMediaQueries`
+			gridColumnEnd: `span var(--grid-item-xs-span, 12)`,
+		},
+	},
+	sm: {
+		'@media (min-width: 48rem)': {
+			display: 'block', // override the display that might be cascaded in from `hideMediaQueries`
+			gridColumnEnd: `span var(--grid-item-sm-span, 12)`,
+		},
+	},
+	md: {
+		'@media (min-width: 64rem)': {
+			display: 'block', // override the display that might be cascaded in from `hideMediaQueries`
+			gridColumnEnd: `span var(--grid-item-md-span, 12)`,
+		},
+	},
+	lg: {
+		'@media (min-width: 90rem)': {
+			display: 'block', // override the display that might be cascaded in from `hideMediaQueries`
+			gridColumnEnd: `span var(--grid-item-lg-span, 12)`,
+		},
+	},
+	xl: {
+		'@media (min-width: 110.5rem)': {
+			display: 'block', // override the display that might be cascaded in from `hideMediaQueries`
+			gridColumnEnd: `span var(--grid-item-xl-span, 12)`,
+		},
+	},
+});
+const gridStartMediaQueries = cssMap({
+	xxs: {
+		// all screens
+		gridColumnStart: `var(--grid-item-xxs-start, 'auto')`,
+	},
+	xs: {
+		'@media (min-width: 30rem)': {
+			gridColumnStart: `var(--grid-item-xs-start, 'auto')`,
+		},
+	},
+	sm: {
+		'@media (min-width: 48rem)': {
+			gridColumnStart: `var(--grid-item-sm-start, 'auto')`,
+		},
+	},
+	md: {
+		'@media (min-width: 64rem)': {
+			gridColumnStart: `var(--grid-item-md-start, 'auto')`,
+		},
+	},
+	lg: {
+		'@media (min-width: 90rem)': {
+			gridColumnStart: `var(--grid-item-lg-start, 'auto')`,
+		},
+	},
+	xl: {
+		'@media (min-width: 110.5rem)': {
+			gridColumnStart: `var(--grid-item-xl-start, 'auto')`,
+		},
+	},
+});
 
 /**
  * Build a set of responsive css variables given a responsive object
- *
+ * to be set via `props.style`
  */
 function buildCSSVarsFromConfig<
 	T extends ResponsiveObject<any> = SpanObject | StartObject,
@@ -84,7 +166,7 @@ function buildCSSVarsFromConfig<
 	}, {});
 }
 
-/**
+/**test
  * __Grid item__
  *
  * A grid item is designed to be nested in a `Grid`. Grid items can span one or many columns.
@@ -139,43 +221,31 @@ export const GridItem: FC<GridItemProps> = ({
 		[startDependencyComparison],
 	);
 
-	/**
-	 * Generate all media queries for breakpoints that are available during this render.  This is to avoid rendering media queries for all breakpoints if none are used.
-	 */
-	const mediaQueryStyles = useMemo(
-		() =>
-			UNSAFE_BREAKPOINTS_ORDERED_LIST.reduce(
-				(acc, breakpoint) => {
-					const styles: ReturnType<typeof css>[] = [];
-
-					if (breakpoint in span) {
-						if (span[breakpoint] === 'none') {
-							styles.push(hideMediaQueries[breakpoint]);
-						} else {
-							styles.push(gridSpanMediaQueries[breakpoint]);
-						}
-					}
-					if (breakpoint in start) {
-						styles.push(gridStartMediaQueries[breakpoint]);
-					}
-
-					if (!styles.length) {
-						return acc;
-					}
-
-					return [...acc, ...styles];
-				},
-				[] as ReturnType<typeof css>[],
-			),
-		// eslint-disable-next-line react-hooks/exhaustive-deps -- `start` and `span` will change references easily, but we still need to allow content or key changes to update.  This _should_ be more performant than running on every render as I don't expect this to change.
-		[spanDependencyComparison, startDependencyComparison],
-	);
-
 	return (
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={{ ...startStyles, ...spanStyles }}
-			css={[baseGridItemStyles, ...mediaQueryStyles]}
+			css={[
+				baseGridItemStyles,
+				span.xxs && span.xxs === 'none' && hideMediaQueries.xxs,
+				span.xxs && span.xxs !== 'none' && gridSpanMediaQueries.xxs,
+				start.xxs && gridStartMediaQueries.xxs,
+				span.xs && span.xs === 'none' && hideMediaQueries.xs,
+				span.xs && span.xs !== 'none' && gridSpanMediaQueries.xs,
+				start.xs && gridStartMediaQueries.xs,
+				span.sm && span.sm === 'none' && hideMediaQueries.sm,
+				span.sm && span.sm !== 'none' && gridSpanMediaQueries.sm,
+				start.sm && gridStartMediaQueries.sm,
+				span.md && span.md === 'none' && hideMediaQueries.md,
+				span.md && span.md !== 'none' && gridSpanMediaQueries.md,
+				start.md && gridStartMediaQueries.md,
+				span.lg && span.lg === 'none' && hideMediaQueries.lg,
+				span.lg && span.lg !== 'none' && gridSpanMediaQueries.lg,
+				start.lg && gridStartMediaQueries.lg,
+				span.xl && span.xl === 'none' && hideMediaQueries.xl,
+				span.xl && span.xl !== 'none' && gridSpanMediaQueries.xl,
+				start.xl && gridStartMediaQueries.xl,
+			]}
 			data-testid={testId}
 		>
 			{children}

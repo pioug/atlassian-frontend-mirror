@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 2.3.0
+
+### Minor Changes
+
+- [#166391](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166391)
+  [`a447cb3da0845`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a447cb3da0845) -
+  Refreshed typography theme now references Atlassian Sans font.
+
 ## 2.2.0
 
 ### Minor Changes

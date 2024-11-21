@@ -1,8 +1,11 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 
 import { axe } from '@af/accessibility-testing';
+import Button from '@atlaskit/button/new';
+import Link from '@atlaskit/link';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import DynamicTable, { DynamicTableStateless as StatelessDynamicTable } from '../../../index';
 import { type StatelessProps } from '../../../types';
@@ -107,6 +110,53 @@ describe('Dynamic Table Accessibility', () => {
 			const cell = screen.getByTestId(`${testId}--rankable--table--body--cell`);
 			fireEvent.keyDown(cell);
 
+			await axe(container);
+		});
+	});
+
+	ffTest.on('platform_design_system_dynamic_table_row_role', 'Rankable table', () => {
+		it('should pass basic aXe audit', async () => {
+			// This is not realistic content, but interactive children are realistic usage
+			const { container } = render(
+				<DynamicTable
+					caption="Interactive elements"
+					head={{
+						cells: [
+							{
+								key: 'column_1',
+								content: 'Column 1',
+							},
+							{
+								key: 'column_2',
+								content: 'Column 2',
+							},
+						],
+					}}
+					rows={[
+						{
+							key: 'row',
+							cells: [
+								{
+									key: 'link',
+									content: <Link href="https://atlassian.com">Link</Link>,
+								},
+								{
+									key: 'button',
+									content: <Button>Button</Button>,
+								},
+							],
+						},
+					]}
+					rowsPerPage={10}
+					defaultPage={1}
+					isRankable
+				/>,
+			);
+			await waitFor(() =>
+				// This is the easiest way to check that drag and drop has loaded + initialized
+				// eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+				expect(container.querySelector('[draggable="true"]')).toBeInTheDocument(),
+			);
 			await axe(container);
 		});
 	});

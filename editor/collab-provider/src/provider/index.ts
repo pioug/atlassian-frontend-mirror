@@ -4,7 +4,7 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { Emitter } from '../emitter';
 import { Channel } from '../channel';
-import type { Config, InitialDraft, UserPermitType, PresenceData } from '../types';
+import type { Config, InitialDraft, PresenceData } from '../types';
 import type {
 	CollabEditProvider,
 	CollabEvents,
@@ -16,6 +16,7 @@ import type {
 	CollabActivityJoinPayload,
 	CollabActivityAckPayload,
 	CollabActivityAIProviderChangedPayload,
+	UserPermitType,
 } from '@atlaskit/editor-common/collab';
 
 import { createLogger } from '../helpers/utils';
@@ -221,6 +222,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					// Offline longer than `OUT_OF_SYNC_PERIOD`
 					Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD
 				) {
+					this.analyticsHelper?.sendActionEvent(EVENT_ACTION.RECONNECTION, EVENT_STATUS.INFO, {
+						disconnectionPeriodSeconds: Math.floor((Date.now() - this.disconnectedAt) / 1000),
+					});
 					this.documentService.throttledCatchupv2(CatchupEventReason.RECONNECTED);
 				}
 				this.participantsService.startInactiveRemover(this.sessionId);

@@ -3,10 +3,10 @@ import type {
 	ExtensionAutoConvertHandler,
 	ExtensionKey,
 	ExtensionManifest,
-	ExtensionProvider,
 	ExtensionType,
-	Parameters,
-} from './types';
+} from './types/extension-manifest';
+import type { Parameters } from './types/extension-parameters';
+import type { ExtensionProvider } from './types/extension-provider';
 
 export default class DefaultExtensionProvider<T extends Parameters>
 	implements ExtensionProvider<T>

@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.23.1
+
+### Patch Changes
+
+- [#166741](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166741)
+  [`3d620e0c95d2f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d620e0c95d2f) -
+  Trigger subscriptions when local overrides are changed
+
 ## 4.23.0
 
 ### Minor Changes

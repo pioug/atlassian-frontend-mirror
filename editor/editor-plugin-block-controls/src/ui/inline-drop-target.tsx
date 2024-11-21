@@ -17,6 +17,7 @@ import { token } from '@atlaskit/tokens';
 
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
 import { useActiveAnchorTracker } from '../utils/active-anchor-tracker';
+import { showResponsiveLayout } from '../utils/advanced-layouts-flags';
 import { type AnchorRectCache, isAnchorSupported } from '../utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
 
@@ -48,6 +49,7 @@ type NodeDimensionType = {
 	width: string;
 	height: string;
 	top: string;
+	bottom: string;
 	widthOffset?: string;
 };
 
@@ -55,6 +57,7 @@ const defaultNodeDimension = {
 	width: '0',
 	height: '0',
 	top: 'unset',
+	bottom: 'unset',
 };
 
 const getWidthOffset = (node: PMNode, width: string, position: 'left' | 'right') => {
@@ -98,6 +101,7 @@ export const InlineDropTarget = ({
 	const [isActiveAnchor] = useActiveAnchorTracker(anchorName);
 
 	const isLeftPosition = position === 'left';
+	const shouldShowResponsiveLayout = showResponsiveLayout();
 
 	const nodeDimension: NodeDimensionType = useMemo(() => {
 		if (!nextNode) {
@@ -132,34 +136,53 @@ export const InlineDropTarget = ({
 			targetAnchorName = getNodeAnchor(nextNode.firstChild);
 		}
 
+		// Set the height target anchor name to the first or last column of the layout section so that it also works for stacked layout
+		let heightTargetAnchorName = targetAnchorName;
+		if (
+			shouldShowResponsiveLayout &&
+			nextNode.type.name === 'layoutSection' &&
+			nextNode.firstChild &&
+			nextNode.lastChild
+		) {
+			heightTargetAnchorName = isLeftPosition
+				? getNodeAnchor(nextNode.firstChild)
+				: getNodeAnchor(nextNode.lastChild);
+		}
+
 		if (isAnchorSupported()) {
 			const width = innerContainerWidth || `anchor-size(${targetAnchorName} width)`;
-			const height = `anchor-size(${targetAnchorName} height)`;
+			const height = `anchor-size(${heightTargetAnchorName} height)`;
 
 			return {
 				width,
 				height,
 				top: 'anchor(top)',
+				bottom: 'anchor(bottom)',
 				widthOffset: getWidthOffset(nextNode, width, position),
 			};
 		}
-
 		if (anchorRectCache) {
 			const nodeRect = anchorRectCache.getRect(targetAnchorName);
 			const width = innerContainerWidth || `${nodeRect?.width || 0}px`;
 			const top = nodeRect?.top ? `${nodeRect?.top}px` : 'unset';
-			const height = `${nodeRect?.height || 0}px`;
+			const bottom = `100% - ${nodeRect?.bottom || 0}px + ${GAP}px`;
+			let height = `${nodeRect?.height || 0}px`;
 
+			if (heightTargetAnchorName !== targetAnchorName) {
+				const nodeHeightRect = anchorRectCache.getRect(heightTargetAnchorName);
+				height = `${nodeHeightRect?.height || 0}px + ${GAP}px`;
+			}
 			return {
 				width,
 				height,
 				top,
+				bottom,
 				widthOffset: getWidthOffset(nextNode, width, position),
 			};
 		}
 
 		return defaultNodeDimension;
-	}, [anchorName, anchorRectCache, nextNode, position]);
+	}, [anchorName, anchorRectCache, nextNode, position, isLeftPosition, shouldShowResponsiveLayout]);
 
 	const onDrop = useCallback(() => {
 		const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
@@ -179,18 +202,35 @@ export const InlineDropTarget = ({
 	}, [api, getPos, position]);
 
 	const inlineHoverZoneRectStyle = useMemo(() => {
-		return css({
-			positionAnchor: anchorName,
-			minWidth: token('space.100', '8px'),
-			left: isLeftPosition ? 0 : 'unset',
-			right: isLeftPosition ? 'unset' : 0,
-			top: `calc(anchor(top))`,
-			width: nodeDimension.widthOffset
-				? `calc((100% - ${nodeDimension.width})/2 - ${GAP}px + ${nodeDimension.widthOffset})`
-				: `calc((100% - ${nodeDimension.width})/2 - ${GAP}px)`,
-			height: `calc(${nodeDimension.height})`,
-		});
-	}, [anchorName, isLeftPosition, nodeDimension]);
+		const isLayoutNode = nextNode?.type.name === 'layoutSection';
+		const layoutAdjustment =
+			isLayoutNode && shouldShowResponsiveLayout
+				? { width: 11, height: 4, top: 6, bottom: 2 }
+				: undefined;
+
+		return css(
+			{
+				positionAnchor: anchorName,
+				minWidth: token('space.100', '8px'),
+				left: isLeftPosition ? 0 : 'unset',
+				right: isLeftPosition ? 'unset' : 0,
+				top: `calc(anchor(top))`,
+				width: nodeDimension.widthOffset
+					? `calc((100% - ${nodeDimension.width})/2 - ${GAP}px + ${nodeDimension.widthOffset} - ${layoutAdjustment?.width || 0}px)`
+					: `calc((100% - ${nodeDimension.width})/2 - ${GAP}px - ${layoutAdjustment?.width || 0}px)`,
+				height: `calc(${nodeDimension.height} + ${layoutAdjustment?.height || 0}px)`,
+			},
+			isLayoutNode &&
+				shouldShowResponsiveLayout && {
+					top: isLeftPosition
+						? `calc(${nodeDimension.top} + ${layoutAdjustment?.top || 0}px)`
+						: 'unset',
+					bottom: isLeftPosition
+						? 'unset'
+						: `calc(${nodeDimension.bottom} - ${layoutAdjustment?.bottom || 0}px)`,
+				},
+		);
+	}, [anchorName, isLeftPosition, nodeDimension, nextNode, shouldShowResponsiveLayout]);
 
 	const dropIndicatorPos = useMemo(() => {
 		return isLeftPosition ? 'right' : 'left';

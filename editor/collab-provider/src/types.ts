@@ -14,38 +14,6 @@ import type {
 } from '@atlaskit/editor-common/collab';
 import { type CatchupEventReason } from './helpers/const';
 
-// Re-export values for the /types entry point to this package
-export type {
-	CollabParticipant,
-	CollabEventInitData,
-	CollabEventRemoteData,
-	CollabEventConnectionData,
-	CollabEventConnectingData,
-	CollabEventPresenceData,
-	ResolvedEditorState,
-	CollabConnectedPayload,
-	CollabConnectingPayload,
-	CollabDisconnectedPayload,
-	CollabInitPayload,
-	CollabDataPayload,
-	CollabTelepointerPayload,
-	CollabPresencePayload,
-	CollabMetadataPayload,
-	CollabLocalStepsPayload,
-	CollabCommitStatusEventPayload,
-	CollabPermissionEventPayload,
-	UserPermitType,
-	CollabEvents,
-	Metadata,
-	StepJson,
-	CollabEventTelepointerData,
-	CollabSendableSelection,
-	CollabEditProvider,
-	NewCollabSyncUpErrorAttributes,
-	SyncUpErrorFunction,
-	CollabEventLocalStepData,
-} from '@atlaskit/editor-common/collab';
-
 export interface CollabEventDisconnectedData {
 	sid: string;
 	reason:

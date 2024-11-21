@@ -1,5 +1,6 @@
+import type { Metadata, StepJson } from '@atlaskit/editor-common/collab';
 import { catchupv2, isOutOfSync } from '../catchupv2';
-import type { Catchupv2Options, Catchupv2Response, Metadata, StepJson } from '../../types';
+import type { Catchupv2Options, Catchupv2Response } from '../../types';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { CatchupEventReason } from '../../helpers/const';
 

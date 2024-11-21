@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-custom-autoformat",
-	"version": "1.4.5",
+	"version": "1.4.6",
 	"description": "Custom autoformat plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^94.23.0",
+		"@atlaskit/editor-common": "^95.0.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/platform-feature-flags": "*",
 		"@babel/runtime": "^7.0.0"

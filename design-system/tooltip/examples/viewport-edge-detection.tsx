@@ -5,8 +5,7 @@ import styled from '@emotion/styled';
 
 import Button from '@atlaskit/button/new';
 import Tooltip from '@atlaskit/tooltip';
-
-import { type PositionTypeBase } from '../src/types';
+import { type PositionTypeBase } from '@atlaskit/tooltip/types';
 
 import { BigTarget } from './styled';
 

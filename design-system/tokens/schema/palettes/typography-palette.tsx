@@ -242,7 +242,7 @@ const fontFamilyPalette: FontFamilyPaletteTokenSchema<FontFamilyPaletteValues> =
 			},
 		},
 		FontFamilyWebSansRefreshed: {
-			value: `\"Inter Variable\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif`,
+			value: `\"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif`,
 			attributes: {
 				group: 'fontFamily',
 			},

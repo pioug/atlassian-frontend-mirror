@@ -18,7 +18,7 @@ const styles = css({
 	'code:not([class])': {
 		borderRadius: '3px',
 		display: 'inline-block',
-		fontSize: '12px',
+		font: token('font.body.UNSAFE_small'),
 		margin: `${token('space.025', '2px')} 0`,
 		padding: `0 ${token('space.050', '4px')}`,
 		backgroundColor: token('color.background.neutral', '#091E420F'),

@@ -1,3 +1,6 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 export { default as ColorPalette } from './ColorPalette';
 export { default as Color } from './ColorPalette/Color';
 export {
@@ -22,7 +25,7 @@ export {
 	borderPaletteTooltipMessages,
 	chartsColorPaletteTooltipMessages,
 	textPaletteTooltipMessages,
-} from './ColorPalette/Palettes';
+} from './ColorPalette/Palettes/paletteMessagesTokenModeNames';
 export { DEFAULT_BORDER_COLOR } from './ColorPalette/Palettes/common';
 export type { PaletteColor, PaletteTooltipMessages } from './ColorPalette/Palettes/type';
 

@@ -537,9 +537,24 @@ export const isTableInFocus = (view: EditorView) => {
 };
 
 export const whenTableInFocus =
-	(eventHandler: (view: EditorView, mouseEvent: Event) => boolean) =>
+	(
+		eventHandler: (view: EditorView, mouseEvent: Event) => boolean,
+		pluginInjectionApi?: PluginInjectionAPI,
+	) =>
 	(view: EditorView, mouseEvent: Event): boolean => {
 		if (!isTableInFocus(view)) {
+			return false;
+		}
+
+		const isViewMode =
+			pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+		/**
+		 * Table cannot be in focus if we are in view mode.
+		 * This will prevent an infinite flow of adding and removing
+		 * resize handle decorations in view mode that causes unpredictable
+		 * selections.
+		 */
+		if (isViewMode) {
 			return false;
 		}
 

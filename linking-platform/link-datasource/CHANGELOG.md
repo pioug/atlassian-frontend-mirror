@@ -1,5 +1,32 @@
 # @atlaskit/link-datasource
 
+## 3.11.0
+
+### Minor Changes
+
+- [#165662](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165662)
+  [`acebc9f752656`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/acebc9f752656) -
+  [ux] EDM-10114 Improve priority edit dropdown in datasources behind feature flag
+
+### Patch Changes
+
+- [#166125](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166125)
+  [`83c6d7ca56278`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83c6d7ca56278) -
+  Typography uplift for Linking packages.
+- Updated dependencies
+
+## 3.10.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.10.1
 
 ### Patch Changes

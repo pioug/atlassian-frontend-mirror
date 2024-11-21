@@ -87,10 +87,6 @@ export type InitialPluginConfiguration = {
 			}[],
 		) => void;
 	};
-	tablesPlugin?: {
-		tableResizingEnabled?: boolean;
-		isTableAlignmentEnabled?: boolean;
-	};
 	emoji?: {
 		emojiNodeDataProvider?: EmojiPluginOptions['emojiNodeDataProvider'];
 	};
@@ -268,7 +264,14 @@ export default function createUniversalPresetInternal({
 				tablesPlugin,
 				{
 					tableOptions:
-						!props.allowTables || typeof props.allowTables === 'boolean' ? {} : props.allowTables,
+						!props.allowTables || typeof props.allowTables === 'boolean'
+							? {}
+							: {
+									allowTableResizing: extendedTableFeaturesForComment,
+									allowTableAlignment: extendedTableFeaturesForComment,
+									// allow for consumers to pass through overrides for allowTableResizing and allowTableAlignment
+									...props.allowTables,
+								},
 					dragAndDropEnabled:
 						(featureFlags?.tableDragAndDrop &&
 							(isFullPage ||
@@ -288,9 +291,6 @@ export default function createUniversalPresetInternal({
 					isNewColumnResizingEnabled: featureFlags?.tableNewColumnResizing && isFullPage,
 					isCommentEditor: isComment,
 					isChromelessEditor: isChromeless,
-					tableResizingEnabled: extendedTableFeaturesForComment,
-					isTableAlignmentEnabled: extendedTableFeaturesForComment,
-					...initialPluginConfiguration?.tablesPlugin,
 				},
 			],
 			Boolean(props.allowTables),

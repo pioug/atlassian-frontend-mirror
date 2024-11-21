@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.0.4
+
+### Patch Changes
+
+- [#166663](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166663)
+  [`339439561ae6d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/339439561ae6d) -
+  Cleanup feature gate for CONFCLOUD-79708
+- Updated dependencies
+
 ## 2.0.3
 
 ### Patch Changes

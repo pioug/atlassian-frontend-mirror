@@ -1,21 +1,21 @@
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import { buildAction } from './manifest-helpers';
+import type { ExtensionAPI } from './types/extension-handler';
 import type {
-	ExtensionAPI,
 	ExtensionAutoConvertHandler,
 	ExtensionManifest,
 	ExtensionModule,
-	ExtensionProvider,
-	ExtensionToolbarButton,
-	MenuItem,
-	Parameters,
-} from './types';
+} from './types/extension-manifest';
 import type {
 	ContextualToolbar,
+	ExtensionToolbarButton,
 	ToolbarContext,
 	ToolbarItem,
 } from './types/extension-manifest-toolbar-item';
+import type { Parameters } from './types/extension-parameters';
+import type { ExtensionProvider } from './types/extension-provider';
+import type { MenuItem } from './types/utils';
 
 export const groupBy = <T>(
 	arr: T[],

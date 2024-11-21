@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent, { type UserEvent } from '@testing-library/user-event';
 
 import Select, { type OptionsType } from '@atlaskit/select';
@@ -479,6 +479,85 @@ describe('DateTimePicker', () => {
 			await firePickerEvent.changeTime('10:30', user);
 
 			expect(screen.getByRole('button', { name: clearControlLabel })).toBeInTheDocument();
+		});
+	});
+
+	it('should show calendar button if prop is used in `datePickerProps`', () => {
+		const openCalendarLabel = 'openCalendarLabel';
+		render(
+			createDateTimePicker({
+				datePickerProps: { shouldShowCalendarButton: true, openCalendarLabel },
+			}),
+		);
+
+		const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+		expect(calendarButton).toBeInTheDocument();
+	});
+
+	describe('Calendar button', () => {
+		const openCalendarLabel = 'openCalendarLabel';
+		const getDateInput = () =>
+			within(screen.getByTestId(`${testId}--datepicker--container`)).getByRole('combobox');
+
+		it('should not render a button to open the calendar if prop not provided', () => {
+			render(createDateTimePicker({ datePickerProps: { openCalendarLabel } }));
+
+			const calendarButton = screen.queryByRole('button', { name: new RegExp(openCalendarLabel) });
+			expect(calendarButton).not.toBeInTheDocument();
+		});
+
+		it('should render a button to open the calendar', () => {
+			render(
+				createDateTimePicker({
+					datePickerProps: {
+						shouldShowCalendarButton: true,
+						openCalendarLabel,
+					},
+				}),
+			);
+
+			const calendarButton = screen.getByRole('button', { name: new RegExp(openCalendarLabel) });
+			expect(calendarButton).toBeVisible();
+		});
+
+		describe('labeling', () => {
+			const pickerLabel = 'Date of Birth';
+
+			it('should use `label` with calendar button label if provided', () => {
+				render(
+					createDateTimePicker({
+						datePickerProps: {
+							shouldShowCalendarButton: true,
+							openCalendarLabel,
+							label: pickerLabel,
+						},
+					}),
+				);
+
+				expect(getDateInput()).toHaveAttribute('aria-label', pickerLabel);
+				const calendarButton = screen.getByRole('button', {
+					name: new RegExp(`${pickerLabel}.*${openCalendarLabel}`),
+				});
+				expect(getDateInput()).toHaveAttribute('aria-label');
+				expect(calendarButton).toBeInTheDocument();
+			});
+		});
+
+		it('should be in the tab order', async () => {
+			const user = userEvent.setup();
+			render(
+				createDateTimePicker({
+					datePickerProps: { shouldShowCalendarButton: true, openCalendarLabel },
+				}),
+			);
+
+			const calendarButton = screen.getByTestId(/open-calendar-button/);
+			// Tab into the picker, close the calendar, tab to the calendar button
+			await user.tab();
+			await user.keyboard('{Escape}');
+			await user.tab();
+
+			expect(calendarButton).toHaveFocus();
 		});
 	});
 });

@@ -1,3 +1,6 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 export { transformMediaLinkMarks } from './transforms/media-link-transform';
 export { transformTextLinkCodeMarks } from './transforms/text-link-code-transform';
 export { transformDedupeMarks } from './transforms/dedupe-marks-transform';

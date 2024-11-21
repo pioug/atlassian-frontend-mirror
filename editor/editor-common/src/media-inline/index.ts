@@ -1,3 +1,6 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 export { MediaInlineImageCard } from './media-inline-image-card';
 export { InlineImageWrapper } from './inline-image-wrapper';
 export { DEFAULT_IMAGE_WIDTH, DEFAULT_IMAGE_HEIGHT } from './constants';

@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { fontSize } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 import { gs } from '../../common/utils';
 
@@ -26,8 +26,7 @@ export interface NameProps {
 export const blockCardContentHeaderNameClassName = 'block-card-content-header-name';
 
 const baseStyles = css({
-	fontSize: `${fontSize()}px`,
-	fontWeight: 500,
+	font: token('font.heading.xsmall'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: gs(2.5),
 	// Spec: show max two lines.

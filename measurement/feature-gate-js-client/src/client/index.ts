@@ -598,6 +598,7 @@ class FeatureGates {
 	 */
 	static overrideGate(gateName: string, value: boolean): void {
 		Statsig.overrideGate(gateName, value);
+		FeatureGates.subscriptions.anyUpdated();
 	}
 
 	/**
@@ -606,6 +607,7 @@ class FeatureGates {
 	 */
 	static clearGateOverride(gateName: string): void {
 		Statsig.overrideGate(gateName, null);
+		FeatureGates.subscriptions.anyUpdated();
 	}
 
 	/**
@@ -624,6 +626,7 @@ class FeatureGates {
 	 */
 	static overrideConfig(experimentName: string, values: Record<string, unknown>): void {
 		Statsig.overrideConfig(experimentName, values);
+		FeatureGates.subscriptions.anyUpdated();
 	}
 
 	/**
@@ -632,6 +635,7 @@ class FeatureGates {
 	 */
 	static clearConfigOverride(experimentName: string): void {
 		Statsig.overrideConfig(experimentName, null);
+		FeatureGates.subscriptions.anyUpdated();
 	}
 
 	/**
@@ -654,6 +658,7 @@ class FeatureGates {
 			layers: {},
 			...overrides,
 		});
+		FeatureGates.subscriptions.anyUpdated();
 	}
 
 	/**
@@ -668,6 +673,7 @@ class FeatureGates {
 	 */
 	static clearAllOverrides(): void {
 		Statsig.setOverrides(null);
+		FeatureGates.subscriptions.anyUpdated();
 	}
 
 	/**

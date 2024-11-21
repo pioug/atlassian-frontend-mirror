@@ -1,34 +1,63 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 export {
-	DefaultExtensionProvider,
-	combineExtensionProviders,
-	createAutoConverterRunner,
-	getExtensionAutoConvertersFromProvider,
-	getExtensionKeyAndNodeKey,
-	getExtensionModuleNode,
-	getQuickInsertItemsFromModule,
-	getNodeRenderer,
-	getExtensionModuleNodePrivateProps,
-	getContextualToolbarItemsFromModule,
-	resolveImport,
-	getCustomFieldResolver,
-	getFieldSerializer,
-	getFieldDeserializer,
 	isFieldset,
 	isTabGroup,
 	isTabField,
 	isExpand,
 	isDateRange,
-	getUserFieldContextProvider,
+} from './extensions/types/field-definitions';
+
+export {
+	createAutoConverterRunner,
+	getExtensionAutoConvertersFromProvider,
+	getQuickInsertItemsFromModule,
+	getContextualToolbarItemsFromModule,
 	buildMenuItem,
-	configPanelMessages,
-	messages,
-} from './extensions/index';
+} from './extensions/module-helpers';
+
+export { default as DefaultExtensionProvider } from './extensions/default-extension-provider';
+
+export { default as combineExtensionProviders } from './extensions/combine-extension-providers';
+
+export { getExtensionKeyAndNodeKey, resolveImport } from './extensions/manifest-helpers';
+
+export {
+	getExtensionModuleNode,
+	getNodeRenderer,
+	getExtensionModuleNodePrivateProps,
+} from './extensions/extension-handlers';
+
+export {
+	getCustomFieldResolver,
+	getFieldSerializer,
+	getFieldDeserializer,
+	getUserFieldContextProvider,
+} from './extensions/extension-fields-helpers';
+
+export { configPanelMessages, messages } from './extensions/messages';
+
 export type {
-	ExtensionAutoConvertHandler,
 	Extension,
-	ExtensionComponentProps,
 	ExtensionHandler,
 	ExtensionHandlers,
+	ExtensionParams,
+	UpdateExtension,
+	OnSaveCallback,
+	ExtensionAPI,
+	TransformBefore,
+	TransformAfter,
+	ReferenceEntity,
+	MultiBodiedExtensionActions,
+	// DEPRECATED
+	ParametersGetter,
+	AsyncParametersGetter,
+} from './extensions/types/extension-handler';
+
+export type {
+	ExtensionAutoConvertHandler,
+	ExtensionComponentProps,
 	ExtensionKey,
 	ExtensionManifest,
 	ExtensionModule,
@@ -37,24 +66,36 @@ export type {
 	ExtensionModuleActionObject,
 	ExtensionModuleNode,
 	ExtensionModuleNodes,
-	ExtensionQuickInsertModule,
 	ExtensionModules,
-	ExtensionParams,
-	ExtensionProvider,
+	ExtensionQuickInsertModule,
 	ExtensionType,
-	ExtensionToolbarButton,
-	ToolbarItem,
-	ContextualToolbar,
 	Icon,
 	MaybeADFEntity,
-	MenuItem,
-	MenuItemMap,
-	UpdateExtension,
+	CustomFieldResolver,
+	UserFieldContextProvider,
+	DynamicFieldDefinitions,
+} from './extensions/types/extension-manifest';
+
+export type { ExtensionProvider } from './extensions/types/extension-provider';
+
+export type {
+	ExtensionToolbarButton,
+	ContextualToolbar,
+	ToolbarItem,
+} from './extensions/types/extension-manifest-toolbar-item';
+
+export type { MenuItem, MenuItemMap } from './extensions/types/utils';
+
+export type {
 	Parameters,
 	ParametersWithDuplicateFields,
+} from './extensions/types/extension-parameters';
+
+export type {
 	BooleanField,
 	CustomField,
-	CustomFieldResolver,
+	UserFieldContext,
+	UserField,
 	ColorField,
 	DateField,
 	DateRangeField,
@@ -65,7 +106,6 @@ export type {
 	EnumSelectField,
 	ExpandField,
 	FieldDefinition,
-	DynamicFieldDefinitions,
 	Fieldset,
 	GroupingField,
 	NativeField,
@@ -77,17 +117,5 @@ export type {
 	StringMultilineField,
 	TabGroupField,
 	TabField,
-	UserField,
-	UserFieldContext,
-	UserFieldContextProvider,
 	FieldHandlerLink,
-	OnSaveCallback,
-	ExtensionAPI,
-	TransformBefore,
-	TransformAfter,
-	ReferenceEntity,
-	MultiBodiedExtensionActions,
-	// DEPRECATED
-	ParametersGetter,
-	AsyncParametersGetter,
-} from './extensions/index';
+} from './extensions/types/field-definitions';

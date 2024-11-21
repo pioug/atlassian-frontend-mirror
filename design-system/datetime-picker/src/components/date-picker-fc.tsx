@@ -400,7 +400,8 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 				break;
 			case 'arrowdown':
 			case 'arrowup':
-				if (isOpen && !shouldSetFocusOnCurrentDay) {
+				if (!shouldSetFocusOnCurrentDay) {
+					setIsOpen(true);
 					setShouldSetFocusOnCurrentDay(true);
 				}
 				break;
@@ -410,6 +411,11 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 	};
 
 	const onCalendarButtonKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
+		// Don't allow an arrow up or down to open the menu, since the input key
+		// down handler is actually on the parent.
+		if (e.type === 'keydown' && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+			e.stopPropagation();
+		}
 		// We want to stop this from triggering other keydown events, particularly
 		// for space and enter presses. Otherwise, it opens and then closes
 		// immediately.

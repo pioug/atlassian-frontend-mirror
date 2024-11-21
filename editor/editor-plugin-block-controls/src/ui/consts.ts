@@ -1,4 +1,6 @@
 import { akEditorUnitZIndex, akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 export const DRAG_HANDLE_HEIGHT = 24;
 export const DRAG_HANDLE_WIDTH = 12;
 export const DRAG_HANDLE_BORDER_RADIUS = 4;
@@ -7,7 +9,6 @@ export const DRAG_HANDLE_DEFAULT_GAP = 8;
 export const DRAG_HANDLE_NARROW_GAP = 4;
 export const DRAG_HANDLE_MAX_GAP = 12;
 export const DRAG_HANDLE_MAX_WIDTH_PLUS_GAP = DRAG_HANDLE_WIDTH + DRAG_HANDLE_MAX_GAP;
-import { token } from '@atlaskit/tokens';
 
 export const DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT = 4 + 2; // 4px for the divider vertical padding and 2px for the divider height
 
@@ -16,6 +17,9 @@ const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
 export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
 	if (parentNodeType && parentNodeType !== 'doc') {
 		return DRAG_HANDLE_NARROW_GAP;
+	}
+	if (nodeType === 'layoutSection' && fg('platform_editor_advanced_layouts_breakout_resizing')) {
+		return DRAG_HANDLE_MAX_GAP + 12;
 	}
 	if (nodeTypeExcludeList.includes(nodeType)) {
 		return DRAG_HANDLE_MAX_GAP;
@@ -45,6 +49,19 @@ export const getNestedNodeLeftPaddingMargin = (nodeType?: string) => {
 };
 
 export const topPositionAdjustment = (nodeType: string) => {
+	if (fg('platform_editor_advanced_layouts_breakout_resizing')) {
+		switch (nodeType) {
+			case 'rule':
+				return -DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT;
+			case 'table':
+				return DRAG_HANDLE_HEIGHT;
+			case 'layoutSection':
+				return 8;
+			default:
+				return 0;
+		}
+	}
+
 	switch (nodeType) {
 		case 'rule':
 			return -DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT;

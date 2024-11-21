@@ -59,7 +59,7 @@ const createExamplePreset = () => {
 		.add(contentInsertionPlugin)
 		.add([
 			tablesPlugin,
-			{ tableResizingEnabled: true, tableOptions: { allowColumnResizing: true, advanced: true } },
+			{ tableOptions: { allowColumnResizing: true, advanced: true, allowTableResizing: true } },
 		]);
 };
 

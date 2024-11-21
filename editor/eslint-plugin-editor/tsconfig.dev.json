@@ -22,10 +22,15 @@
 		"./mocks/**/*",
 		"./__mocks__/**/*",
 		"**/mock.*",
+		"./rules/**/*.ts",
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx"
 	],
-	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
+	"exclude": [
+		"./dist/**/*",
+		"./build/**/*",
+		"./node_modules/**/*"
+	],
 	"compilerOptions": {
 		"baseUrl": "./",
 		"composite": true,

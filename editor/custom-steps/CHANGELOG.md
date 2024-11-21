@@ -1,5 +1,63 @@
 # @atlaskit/custom-steps
 
+## 0.9.0
+
+### Minor Changes
+
+- [#165049](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165049)
+  [`febce5463e07f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/febce5463e07f) -
+  Enable no-re-export rule for a subset of editor packages
+
+  ### Major
+
+  #### @atlaskit/collab-provider
+
+  @atlaskit/collab-provider doesn't export following types anymore:
+
+  ```
+  CollabParticipant,
+  CollabEventInitData,
+  CollabEventRemoteData,
+  CollabEventConnectionData,
+  CollabEventConnectingData,
+  CollabEventPresenceData,
+  ResolvedEditorState,
+  CollabConnectedPayload,
+  CollabConnectingPayload,
+  CollabDisconnectedPayload,
+  CollabInitPayload,
+  CollabDataPayload,
+  CollabTelepointerPayload,
+  CollabPresencePayload,
+  CollabMetadataPayload,
+  CollabLocalStepsPayload,
+  CollabCommitStatusEventPayload,
+  CollabPermissionEventPayload,
+  UserPermitType,
+  CollabEvents,
+  Metadata,
+  StepJson,
+  CollabEventTelepointerData,
+  CollabSendableSelection,
+  CollabEditProvider,
+  NewCollabSyncUpErrorAttributes,
+  SyncUpErrorFunction,
+  CollabEventLocalStepData,
+  ```
+
+  Import them from `@atlaskit/editor-common/collab`.
+
+  #### @atlaskit/editor-common
+
+  `@atlaskit/editor-common/provider-factory` doesn't export following types anymore:
+
+  ```
+  CardAdf,
+  DatasourceAdf,
+  ```
+
+  Import them from `@atlaskit/smart-card`.
+
 ## 0.8.3
 
 ### Patch Changes

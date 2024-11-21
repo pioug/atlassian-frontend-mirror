@@ -22,8 +22,6 @@ import {
 	type UiHoverCardDismissedEventProps,
 	type UiHoverCardOpenLinkClickedEventProps,
 	type UiHoverCardViewedEventProps,
-	type UiIframeDwelledEventProps,
-	type UiIframeFocusedEventProps,
 	type UiRenderFailedEventProps,
 	type UiRenderSuccessEventProps,
 	type UiServerActionClickedEventProps,
@@ -434,68 +432,6 @@ export const uiCardClickedEvent = ({
 		extensionKey,
 		display,
 		isModifierKeyPressed,
-		location,
-		destinationProduct,
-		destinationSubproduct,
-	},
-});
-
-/**
- * @deprecated
- */
-export const uiIframeDwelledEvent = ({
-	id,
-	display,
-	status,
-	definitionId,
-	extensionKey,
-	location,
-	destinationProduct,
-	destinationSubproduct,
-	dwellTime,
-	dwellPercentVisible,
-}: UiIframeDwelledEventProps): AnalyticsPayload => ({
-	action: 'dwelled',
-	actionSubject: 'smartLinkIframe',
-	eventType: 'ui',
-	attributes: {
-		...context,
-		id,
-		status,
-		definitionId,
-		extensionKey,
-		display,
-		location,
-		destinationProduct,
-		destinationSubproduct,
-		dwellTime,
-		dwellPercentVisible,
-	},
-});
-
-/**
- * @deprecated
- */
-export const uiIframeFocusedEvent = ({
-	id,
-	display,
-	status,
-	definitionId,
-	extensionKey,
-	location,
-	destinationProduct,
-	destinationSubproduct,
-}: UiIframeFocusedEventProps): AnalyticsPayload => ({
-	action: 'focused',
-	actionSubject: 'smartLinkIframe',
-	eventType: 'ui',
-	attributes: {
-		...context,
-		id,
-		status,
-		definitionId,
-		extensionKey,
-		display,
 		location,
 		destinationProduct,
 		destinationSubproduct,

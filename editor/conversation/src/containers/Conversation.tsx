@@ -23,7 +23,7 @@ import {
 import { getComments, getConversation, getUser } from '../internal/selectors';
 import { uuid } from '../internal/uuid';
 import { type State } from '../internal/store';
-import { type User } from '../model';
+import { type User } from '../model/User';
 import { type RenderEditorWithComments } from '../components/types';
 
 export interface Props extends BaseProps {

@@ -33,10 +33,7 @@ const errorContentStyles = xcss({
 
 const titleStyles = xcss({
 	color: 'color.text.subtle',
-	fontSize: '12px',
-	fontStyle: 'normal',
-	fontWeight: '400',
-	lineHeight: '16px',
+	font: token('font.body.UNSAFE_small'),
 });
 
 const getIcon = (appearance?: ActionMessageAppearance) => {

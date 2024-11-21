@@ -23,9 +23,9 @@ describe('Delete in table:', () => {
 			appearance: Appearance.fullPage,
 			adf,
 			viewport: { width: 1440, height: 400 },
-			initialPluginConfiguration: {
-				tablesPlugin: {
-					tableResizingEnabled: true,
+			editorProps: {
+				allowTables: {
+					allowTableResizing: true,
 				},
 			},
 		});

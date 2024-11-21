@@ -8,7 +8,6 @@ import { FormattedMessage } from 'react-intl-next';
 
 import DocumentFilledIcon from '@atlaskit/icon/core/migration/file--editor-file';
 import { N50, N90 } from '@atlaskit/theme/colors';
-import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
@@ -30,7 +29,7 @@ export interface ResolvingProps {
 export const blockCardResolvingViewClassName = 'block-card-resolving-view';
 
 const messageStyles = css({
-	fontSize: `${fontSize()}px`,
+	font: token('font.heading.xsmall'),
 	color: token('color.text.subtlest', N90),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	marginLeft: gs(0.5),

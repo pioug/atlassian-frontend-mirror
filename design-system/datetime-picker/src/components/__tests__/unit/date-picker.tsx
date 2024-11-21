@@ -597,6 +597,34 @@ describe('DatePicker', () => {
 			expect(queryCalendar()).toBeVisible();
 		});
 
+		it('should open the calendar when the input is focused, escape is pressed, and then down or up arrow is pressed', async () => {
+			const user = userEvent.setup();
+			render(createDatePicker({ testId }));
+
+			const selectInput = getInput();
+			expect(queryCalendar()).not.toBeInTheDocument();
+			expect(selectInput).not.toHaveFocus();
+
+			// Move focus to the select input
+			await user.tab();
+			expect(selectInput).toHaveFocus();
+			expect(queryCalendar()).toBeVisible();
+
+			await user.keyboard('{Escape}');
+			expect(queryCalendar()).not.toBeInTheDocument();
+			expect(selectInput).toHaveFocus();
+
+			await user.keyboard('{ArrowDown}');
+			expect(queryCalendar()).toBeVisible();
+
+			await user.keyboard('{Escape}');
+			expect(queryCalendar()).not.toBeInTheDocument();
+			expect(selectInput).toHaveFocus();
+
+			await user.keyboard('{ArrowUp}');
+			expect(queryCalendar()).toBeVisible();
+		});
+
 		it('should bring focus back to the input and close the calendar when the value of the calendar is changed', async () => {
 			const user = userEvent;
 			render(createDatePicker({ testId: testId }));

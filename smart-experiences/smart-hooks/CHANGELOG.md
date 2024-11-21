@@ -1,5 +1,13 @@
 # @atlaskit/smart-hooks
 
+## 0.2.14
+
+### Patch Changes
+
+- [#166035](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166035)
+  [`2c941c7061475`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c941c7061475) -
+  Update documenation to point to the Search Experiences team
+
 ## 0.2.13
 
 ### Patch Changes

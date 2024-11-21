@@ -10,10 +10,8 @@ import type { PluginInjectionAPI } from '../types';
 export type TableOptions = {
 	isFullWidthModeEnabled?: boolean;
 	wasFullWidthModeEnabled?: boolean;
-	isTableResizingEnabled?: boolean;
 	isDragAndDropEnabled?: boolean;
 	isTableScalingEnabled?: boolean;
-	isTableAlignmentEnabled?: boolean;
 	isCommentEditor?: boolean;
 	isChromelessEditor?: boolean;
 };
@@ -22,6 +20,8 @@ export interface Props {
 	node: PmNode;
 	view: EditorView;
 	allowColumnResizing?: boolean;
+	allowTableResizing?: boolean;
+	allowTableAlignment?: boolean;
 	allowControls?: boolean;
 	cellMinWidth?: number;
 	portalProviderAPI: PortalProviderAPI;

@@ -2,8 +2,6 @@ import type { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/mode
 
 import type { SimplifiedNode } from '../analytics';
 
-export type { SimplifiedNode };
-
 const hash: { [key: string]: { [key: string]: string } } = {
 	nodes: {
 		doc: 'doc',

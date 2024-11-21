@@ -491,6 +491,16 @@ export const DragHandle = ({
 			];
 		}
 	}
+
+	// When advanced layout is on, layout column drag handle show only show 'Drag to move', no shortcuts
+	if (editorExperiment('advanced_layouts', true) && nodeType === 'layoutColumn') {
+		helpDescriptors = [
+			{
+				description: formatMessage(blockControlsMessages.dragToMove),
+			},
+		];
+	}
+
 	const message = helpDescriptors
 		.map((descriptor) => {
 			return descriptor.keymap

@@ -36,66 +36,53 @@ export interface MultiValueProps<
 	index: number;
 }
 
-export const multiValueCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	{ theme: { spacing, borderRadius, colors } }: MultiValueProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+export const multiValueCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	theme: { spacing, borderRadius, colors },
+}: MultiValueProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'multiValue',
 	display: 'flex',
 	minWidth: 0, // resolves flex/text-overflow bug
-	...(unstyled
-		? {}
-		: {
-				backgroundColor: colors.neutral10,
-				borderRadius: borderRadius / 2,
-				margin: spacing.baseUnit / 2,
-			}),
+	backgroundColor: colors.neutral10,
+	borderRadius: borderRadius / 2,
+	margin: spacing.baseUnit / 2,
 });
 
 export const multiValueLabelCSS = <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
->(
-	{ theme: { borderRadius, colors }, cropWithEllipsis }: MultiValueProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+>({
+	theme: { borderRadius, colors },
+	cropWithEllipsis,
+}: MultiValueProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	overflow: 'hidden',
 	textOverflow: cropWithEllipsis || cropWithEllipsis === undefined ? 'ellipsis' : undefined,
 	whiteSpace: 'nowrap',
-	...(unstyled
-		? {}
-		: {
-				borderRadius: borderRadius / 2,
-				color: colors.neutral80,
-				fontSize: '85%',
-				padding: 3,
-				paddingLeft: 6,
-			}),
+	borderRadius: borderRadius / 2,
+	color: colors.neutral80,
+	fontSize: '85%',
+	padding: 3,
+	paddingLeft: 6,
 });
 
 export const multiValueRemoveCSS = <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
->(
-	{ theme: { spacing, borderRadius, colors }, isFocused }: MultiValueProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+>({
+	theme: { spacing, borderRadius, colors },
+	isFocused,
+}: MultiValueProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	alignItems: 'center',
 	display: 'flex',
-	...(unstyled
-		? {}
-		: {
-				borderRadius: borderRadius / 2,
-				backgroundColor: isFocused ? colors.dangerLight : undefined,
-				paddingLeft: spacing.baseUnit,
-				paddingRight: spacing.baseUnit,
-				':hover': {
-					backgroundColor: colors.dangerLight,
-					color: colors.danger,
-				},
-			}),
+	borderRadius: borderRadius / 2,
+	backgroundColor: isFocused ? colors.dangerLight : undefined,
+	paddingLeft: spacing.baseUnit,
+	paddingRight: spacing.baseUnit,
+	':hover': {
+		backgroundColor: colors.dangerLight,
+		color: colors.danger,
+	},
 });
 
 export interface MultiValueGenericProps<

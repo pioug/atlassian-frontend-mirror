@@ -16,31 +16,13 @@ test.describe('Drawer with Fixed Contents', () => {
 });
 
 test.describe('Default Drawer', () => {
-	test('should have focus on first element when opened, FF off', async ({ page }) => {
+	test('should have focus on first element when opened', async ({ page }) => {
 		await page.visitExample('design-system', 'drawer', 'drawer-default');
 		await page.getByTestId('drawer-trigger').click();
 		const drawerCloseButton = page.getByTestId('DrawerPrimitiveSidebarCloseButton');
 		await expect(drawerCloseButton).toBeFocused();
 	});
-	test('should have focus on first element when opened, FF on', async ({ page }) => {
-		await page.visitExample('design-system', 'drawer', 'drawer-default', {
-			featureFlag: 'platform_dst_drawer-bump-react-focus-lock',
-		});
-		await page.getByTestId('drawer-trigger').click();
-		const drawerCloseButton = page.getByTestId('DrawerPrimitiveSidebarCloseButton');
-		await expect(drawerCloseButton).toBeFocused();
-	});
-	test('should return focus to trigger element when closed, FF on', async ({ page }) => {
-		await page.visitExample('design-system', 'drawer', 'drawer-default', {
-			featureFlag: 'platform_dst_drawer-bump-react-focus-lock',
-		});
-		const drawerTrigger = page.getByTestId('drawer-trigger');
-		await drawerTrigger.click();
-		const drawerCloseButton = page.getByTestId('DrawerPrimitiveSidebarCloseButton');
-		await drawerCloseButton.click();
-		await expect(drawerTrigger).toBeFocused();
-	});
-	test('should return focus to trigger element when closed, FF off', async ({ page }) => {
+	test('should return focus to trigger element when closed', async ({ page }) => {
 		await page.visitExample('design-system', 'drawer', 'drawer-default');
 		const drawerTrigger = page.getByTestId('drawer-trigger');
 		await drawerTrigger.click();
@@ -48,16 +30,7 @@ test.describe('Default Drawer', () => {
 		await drawerCloseButton.click();
 		await expect(drawerTrigger).toBeFocused();
 	});
-	test('focus should not go beyond drawer container, FF on', async ({ page }) => {
-		await page.visitExample('design-system', 'drawer', 'drawer-default', {
-			featureFlag: 'platform_dst_drawer-bump-react-focus-lock',
-		});
-		const drawerTrigger = page.getByTestId('drawer-trigger');
-		await drawerTrigger.click();
-		await drawerTrigger.focus();
-		await expect(drawerTrigger).not.toBeFocused();
-	});
-	test('focus should not go beyond drawer container, FF off', async ({ page }) => {
+	test('focus should not go beyond drawer container', async ({ page }) => {
 		await page.visitExample('design-system', 'drawer', 'drawer-default');
 		const drawerTrigger = page.getByTestId('drawer-trigger');
 		await drawerTrigger.click();
@@ -82,7 +55,7 @@ test.describe('Scrollable Drawer', () => {
 		await page.getByTestId('open-drawer').click();
 
 		const drawerContainer = page.getByTestId('drawer-contents');
-		await expect(page.getByRole('region')).toBeDefined();
+		expect(page.getByRole('region')).toBeDefined();
 		await expect(drawerContainer).toHaveAttribute('aria-label', 'Scrollable drawer');
 	});
 });

@@ -67,7 +67,7 @@
 		"@atlaskit/docs": "*",
 		"@atlaskit/dropdown-menu": "^12.22.0",
 		"@atlaskit/modal-dialog": "^12.17.0",
-		"@atlaskit/section-message": "^6.6.0",
+		"@atlaskit/section-message": "^6.7.0",
 		"@atlaskit/select": "^18.5.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",

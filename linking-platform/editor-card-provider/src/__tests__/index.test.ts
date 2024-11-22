@@ -91,6 +91,14 @@ const getMockProvidersResponse = ({
 				},
 			],
 		},
+		{
+			key: 'rovo-object-provider',
+			patterns: [
+				{
+					source: '^https:\\/\\/.*?\\/people\\/agent\\/.*$',
+				},
+			],
+		},
 	],
 	...(userPreferences
 		? {
@@ -153,7 +161,10 @@ describe('providers > editor', () => {
 		mockFetch = jest.fn();
 		(global as any).fetch = mockFetch;
 		setBooleanFeatureFlagResolver(
-			(flag) => flag === 'smart_links_for_plans_platform' || flag === 'smartlink_jira_releases',
+			(flag) =>
+				flag === 'smart_links_for_plans_platform' ||
+				flag === 'smartlink_jira_releases' ||
+				flag === 'rovo_agent_profile_page_default_embed',
 		);
 	});
 
@@ -555,6 +566,10 @@ describe('providers > editor', () => {
 		[
 			'Jira Version embed',
 			'https://cdeyoung.jira-dev.com/projects/CT/versions/10000/tab/release-report-all-issues',
+		],
+		[
+			'Rovo agent embed',
+			'https://hello.atlassian.net/people/agent/b7e4b64f-25fd-4a5f-b45f-2e607d31571b',
 		],
 	])(
 		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',

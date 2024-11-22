@@ -19,6 +19,7 @@ export type DeprecatedImportConfig = {
 export type DeprecatedImportConfigEntry = {
 	message?: string;
 	importSpecifiers?: { importName: string; message: string }[];
+	unfixable?: boolean;
 };
 
 export const isDeprecatedImportConfig = (

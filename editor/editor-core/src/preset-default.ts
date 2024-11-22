@@ -1,1 +1,1 @@
-export { createDefaultPreset } from './presets/default';
+export { createDefaultPreset, useDefaultPreset } from './presets/default';

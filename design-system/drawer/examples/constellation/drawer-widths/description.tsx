@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { widths } from '../../../src/constants';
+import { widths } from '@atlaskit/drawer/constants';
 
 const DrawerWidthsDescription = () => {
 	const widthOptions = widths.length;

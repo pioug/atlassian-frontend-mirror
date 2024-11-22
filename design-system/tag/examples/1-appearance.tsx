@@ -2,9 +2,7 @@ import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import { Box } from '@atlaskit/primitives';
-
-import RemovableTag from '../src/tag/removable-tag';
-import Tag from '../src/tag/simple-tag';
+import { RemovableTag, SimpleTag as Tag } from '@atlaskit/tag';
 
 export default () => (
 	<Box id="appearance" role="group" aria-label="Appearance examples">

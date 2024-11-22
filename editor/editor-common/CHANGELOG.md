@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 95.2.0
+
+### Minor Changes
+
+- [#166957](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166957)
+  [`32cc3cebd2ed7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32cc3cebd2ed7) -
+  ED-25632 Ensure table nesting transform errors are logged to analytics. This includes an upgrade
+  to core-plugin to allow it to receive an anaylytics callback.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 95.1.1
+
+### Patch Changes
+
+- [#166487](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166487)
+  [`9764cdca27869`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9764cdca27869) -
+  [ux] ED-25708 change all media cursors to pointer events in editor
+
+## 95.1.0
+
+### Minor Changes
+
+- [#166267](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166267)
+  [`fb6305ddf2788`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb6305ddf2788) -
+  EDF-2000 - Resolve todo, folder structure refactor, add aiDefinitions errored operational event
+  that will be fired when there is an error when updating auto-highlights decorations.
+
 ## 95.0.0
 
 ### Major Changes

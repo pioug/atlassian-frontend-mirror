@@ -2,6 +2,7 @@ import React from 'react';
 
 import { render } from '@testing-library/react';
 
+import { NodeNestingTransformError } from '@atlaskit/adf-utils/transforms';
 import type { MacroAttributes, MacroProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
@@ -90,6 +91,42 @@ describe('Editor Actions', () => {
 			  "version": 1,
 			}
 		`);
+		});
+
+		it('sends error analytics when contentEncode errors', async () => {
+			const mockEncode = jest.fn();
+			const createAnalyticsEvent = jest.fn();
+
+			const transformerMock: Transformer<any> = {
+				encode: mockEncode,
+				parse: (content: any) => {
+					return transformer.parse(content);
+				},
+			};
+
+			const { editorView, eventDispatcher } = createEditorFactory()({
+				doc: doc(p('Hello World!')),
+				createAnalyticsEvent,
+				editorProps: {
+					allowAnalyticsGASV3: true,
+				},
+			});
+
+			const editorActions = EditorActions.from(editorView, eventDispatcher, transformerMock);
+
+			mockEncode.mockImplementationOnce(() => {
+				throw new NodeNestingTransformError('node nesting error');
+			});
+
+			await expect(() => editorActions?.getValue()).rejects.toThrow('node nesting error');
+			expect(createAnalyticsEvent).toHaveBeenCalledWith({
+				action: 'documentProcessingErrorV2',
+				actionSubject: 'editor',
+				attributes: {
+					errorMessage: expect.any(String),
+				},
+				eventType: 'operational',
+			});
 		});
 	});
 

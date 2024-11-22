@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-lab",
-	"version": "1.0.2",
+	"version": "1.1.0",
 	"description": "An icon package for public icon contributions",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.24.0",
+		"@atlaskit/icon": "^22.25.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -82,12 +82,14 @@
 		}
 	},
 	"af:exports": {
+		"./deprecated-map": "./src/entry-points/deprecated-map.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",
 		"./UNSAFE_migration-map": "./src/migration-map.tsx",
 		"./core": "./core",
 		".": "./src/index.tsx"
 	},
 	"exports": {
+		"./deprecated-map": "./src/entry-points/deprecated-map.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",
 		"./UNSAFE_migration-map": "./src/migration-map.tsx",
 		"./core/*": "./core/*",

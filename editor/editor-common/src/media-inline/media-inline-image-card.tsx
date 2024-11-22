@@ -237,7 +237,6 @@ export const MediaInlineImageCardInternal = ({
 		<Fragment>
 			<InlineImageWrapper
 				isSelected={isSelected}
-				isInteractive={shouldOpenMediaViewer}
 				aspectRatio={aspectRatio}
 				borderColor={border?.borderColor}
 				borderSize={border?.borderSize}

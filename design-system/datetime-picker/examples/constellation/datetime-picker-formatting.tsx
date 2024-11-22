@@ -2,9 +2,8 @@ import React from 'react';
 
 import { parseISO } from 'date-fns';
 
+import { DateTimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
-
-import { DateTimePicker } from '../../src';
 
 const DateTimePickerFormattingExample = () => (
 	<>

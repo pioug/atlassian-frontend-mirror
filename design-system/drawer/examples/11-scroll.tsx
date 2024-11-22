@@ -10,9 +10,8 @@ import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+import Drawer from '@atlaskit/drawer';
 import { token } from '@atlaskit/tokens';
-
-import Drawer from '../src';
 
 /**
  * Styles to allow the body to be scrollable and placed for the VR snapshot.

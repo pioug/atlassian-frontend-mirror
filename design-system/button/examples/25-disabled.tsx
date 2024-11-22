@@ -6,6 +6,7 @@ import Checkbox from '@atlaskit/checkbox';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { Box, Stack } from '@atlaskit/primitives';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants from '../src/utils/variants';
 
 export default function DisabledExample() {

@@ -7,6 +7,7 @@ import React, { useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import Heading from '@atlaskit/heading';
 import LinkGlyph from '@atlaskit/icon/core/migration/link';
 import { token } from '@atlaskit/tokens';
 
@@ -25,6 +26,7 @@ const contentStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	justifyContent: 'center',
+	textAlign: 'center',
 	alignItems: 'center',
 	margin: 'auto',
 	padding: token('space.200', '16px'),
@@ -43,12 +45,6 @@ const imageStyles = css({
 	width: '180px',
 	objectFit: 'contain',
 	objectPosition: 'center center',
-});
-
-const titleStyles = css({
-	textAlign: 'center',
-	margin: 0,
-	padding: 0,
 });
 
 const UnresolvedView = ({
@@ -124,9 +120,9 @@ const UnresolvedView = ({
 			<div css={containerStyles} data-testid={`${testId}-unresolved-container`}>
 				<div css={contentStyles}>
 					{image}
-					<h2 css={titleStyles} data-testid={`${testId}-unresolved-title`}>
+					<Heading size="large" testId={`${testId}-unresolved-title`}>
 						{title}
-					</h2>
+					</Heading>
 					<span css={descriptionStyles} data-testid={`${testId}-unresolved-description`}>
 						{description}
 					</span>

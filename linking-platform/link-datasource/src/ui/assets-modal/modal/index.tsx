@@ -19,7 +19,6 @@ import {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { EVENT_CHANNEL, useDatasourceAnalyticsEvents } from '../../../analytics';
 import { componentMetadata } from '../../../analytics/constants';
@@ -88,11 +87,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 	const [schemaId, setSchemaId] = useState(initialParameters?.schemaId);
 	const apiVersion = initialParameters?.version;
 	const [visibleColumnKeys, setVisibleColumnKeys] = useState(
-		// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-		fg('platform.linking-platform.datasource-assets_add_version_parameter') &&
-			apiVersion !== VERSION_TWO
-			? []
-			: initialVisibleColumnKeys,
+		apiVersion !== VERSION_TWO ? [] : initialVisibleColumnKeys,
 	);
 	const [isNewSearch, setIsNewSearch] = useState<boolean>(false);
 	const [errorState, setErrorState] = useState<ErrorState | undefined>();
@@ -146,9 +141,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 			aql: aql || '',
 			schemaId: schemaId || '',
 			workspaceId: workspaceId || '',
-			...(fg('platform.linking-platform.datasource-assets_add_version_parameter')
-				? { version: VERSION_TWO }
-				: {}),
+			version: VERSION_TWO,
 		}),
 		[aql, schemaId, workspaceId],
 	);
@@ -249,21 +242,11 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 	}, []);
 
 	useEffect(() => {
-		if (fg('platform.linking-platform.datasource-assets_add_version_parameter')) {
-			const newVisibleColumnKeys =
-				initialVisibleColumnKeys &&
-				initialVisibleColumnKeys.length > 0 &&
-				apiVersion === VERSION_TWO
-					? initialVisibleColumnKeys
-					: defaultVisibleColumnKeys;
-			setVisibleColumnKeys(newVisibleColumnKeys);
-		} else {
-			const newVisibleColumnKeys =
-				!initialVisibleColumnKeys || (initialVisibleColumnKeys || []).length === 0
-					? defaultVisibleColumnKeys
-					: initialVisibleColumnKeys;
-			setVisibleColumnKeys(newVisibleColumnKeys);
-		}
+		const newVisibleColumnKeys =
+			initialVisibleColumnKeys && initialVisibleColumnKeys.length > 0 && apiVersion === VERSION_TWO
+				? initialVisibleColumnKeys
+				: defaultVisibleColumnKeys;
+		setVisibleColumnKeys(newVisibleColumnKeys);
 	}, [initialVisibleColumnKeys, defaultVisibleColumnKeys, apiVersion]);
 
 	useEffect(() => {
@@ -332,9 +315,7 @@ const PlainAssetsConfigModal = (props: AssetsConfigModalProps) => {
 							workspaceId,
 							aql,
 							schemaId,
-							...(fg('platform.linking-platform.datasource-assets_add_version_parameter')
-								? { version: VERSION_TWO }
-								: {}),
+							version: VERSION_TWO,
 						},
 						views: [
 							{

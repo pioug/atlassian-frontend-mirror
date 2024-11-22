@@ -335,3 +335,12 @@ events:
           required: false
           description: The reason for the failure
           type: ['PermissionError', 'ValidationError', 'UnknownError']
+  - consentModal viewed:
+      type: screen
+      description: fires an event which represents the connect account page being opened.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.

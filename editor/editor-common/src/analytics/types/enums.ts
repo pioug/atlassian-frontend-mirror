@@ -270,6 +270,7 @@ export enum ACTION_SUBJECT {
 	ENGAGEMENT_PLATFORM = 'engagementPlatform',
 	MEDIA_VIEWER = 'mediaViewer',
 	DECORATION = 'decoration',
+	AI_DEFINITIONS = 'aiDefinitions',
 }
 
 export enum ACTION_SUBJECT_ID {

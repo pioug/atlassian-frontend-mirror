@@ -131,6 +131,8 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 			? `anchor-name: ${anchorName};`
 			: `anchor-name: ${anchorName}; ${pos === 0 && !fg('platform_editor_element_dnd_nested_fix_patch_3') ? 'margin-top: 0px;' : ''} ${fg('platform_editor_element_dnd_nested_fix_patch_3') ? '' : 'position: relative; z-index: 1;'}`;
 
+		const subType = node.attrs.level ? `-${node.attrs.level}` : '';
+
 		decs.push(
 			Decoration.node(
 				pos,
@@ -138,7 +140,7 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 				{
 					style: anchorStyles,
 					['data-drag-handler-anchor-name']: anchorName,
-					['data-drag-handler-node-type']: node.type.name,
+					['data-drag-handler-node-type']: node.type.name + subType,
 					['data-drag-handler-anchor-depth']: `${depth}`,
 				},
 				{

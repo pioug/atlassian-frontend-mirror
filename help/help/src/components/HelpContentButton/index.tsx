@@ -59,6 +59,19 @@ const HelpContentButton = ({
 		[createAnalyticsEvent, id, onClick],
 	);
 
+	const handleKeyDown = useCallback(
+		(event: React.KeyboardEvent<HTMLElement>) => {
+			if (event.key === 'Enter' && onClick) {
+				const analyticsEvent = createAnalyticsEvent({
+					action: 'clicked',
+				});
+
+				onClick(id, analyticsEvent, event as unknown as React.MouseEvent<HTMLElement>);
+			}
+		},
+		[createAnalyticsEvent, id, onClick],
+	);
+
 	const buttonContent = (
 		<>
 			<HelpContentButtonIcon>{icon}</HelpContentButtonIcon>
@@ -86,8 +99,10 @@ const HelpContentButton = ({
 		<AnalyticsContext data={analitycsContextData}>
 			<HelpContentButtonContainer
 				onClick={handleOnClick}
+				onKeyDown={handleKeyDown}
 				href={href}
 				id={id}
+				tabIndex={0}
 				target={href && '_blank'}
 			>
 				{tooltipText ? (

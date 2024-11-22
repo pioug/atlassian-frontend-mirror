@@ -1,5 +1,13 @@
 # @atlaskit/onboarding
 
+## 12.1.7
+
+### Patch Changes
+
+- [#167181](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167181)
+  [`5bc9dc0796474`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5bc9dc0796474) -
+  Remove `react-focus-lock-next` dependency
+
 ## 12.1.6
 
 ### Patch Changes

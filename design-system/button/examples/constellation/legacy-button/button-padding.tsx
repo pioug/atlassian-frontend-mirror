@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button, { ButtonGroup } from '../../../src';
+import Button, { ButtonGroup } from '@atlaskit/button';
 
 const ButtonPaddingExample = () => {
 	return (

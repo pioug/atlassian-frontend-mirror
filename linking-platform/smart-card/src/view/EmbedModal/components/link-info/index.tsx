@@ -8,6 +8,7 @@ import React, { useMemo } from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
+import Heading from '@atlaskit/heading';
 import DownloadIcon from '@atlaskit/icon/core/download';
 import FullscreenExitIcon from '@atlaskit/icon/core/fullscreen-exit';
 import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
@@ -125,7 +126,9 @@ const LinkInfo = ({
 			)}
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={titleCss}>
-				<h3 data-testid={`${testId}-title`}>{title}</h3>
+				<Heading size="medium" testId={`${testId}-title`}>
+					{title}
+				</Heading>
 				<span tabIndex={0} />
 			</div>
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}

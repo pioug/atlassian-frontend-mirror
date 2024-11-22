@@ -1,10 +1,9 @@
 import React from 'react';
 
+import Button, { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
-
-import Button, { IconButton } from '../src/new';
 
 const stackStyles = xcss({
 	width: '400px',

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tag from '../src/tag/removable-tag';
+import { RemovableTag as Tag } from '@atlaskit/tag';
 
 const cupcakeipsum = 'Croissant topping tiramisu gummi bears. Bonbon chocolate bar danish soufflé';
 

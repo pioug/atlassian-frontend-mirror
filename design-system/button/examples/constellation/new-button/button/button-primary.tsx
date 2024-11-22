@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '../../../../src/new';
+import Button from '@atlaskit/button/new';
 
 const ButtonPrimaryExample = () => {
 	return <Button appearance="primary">Primary button</Button>;

@@ -3,6 +3,7 @@ import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE, type FireAnalyticsCallback } from '../../analytics';
 import type {
 	DefaultTransformerResultCallback,
 	InferTransformerResultCallback,
@@ -54,17 +55,33 @@ function returnDocumentRequest<GenericTransformer extends Transformer<any> | und
 		? DefaultTransformerResultCallback
 		: InferTransformerResultCallback<GenericTransformer>,
 	transformer?: GenericTransformer,
+	fireAnalyticsEvent?: FireAnalyticsCallback,
 ) {
 	const { doc, schema } = editorView?.state ?? {};
 	if (!doc || !schema) {
 		return undefined;
 	}
-	const json = toJSON(doc);
 
-	if (typeof transformer === 'undefined') {
-		callback(json);
-	} else {
-		const nodeSanitized = PMNode.fromJSON(schema, json);
-		callback(transformer.encode(nodeSanitized));
+	try {
+		const json = toJSON(doc);
+
+		if (typeof transformer === 'undefined') {
+			callback(json);
+		} else {
+			const nodeSanitized = PMNode.fromJSON(schema, json);
+			callback(transformer.encode(nodeSanitized));
+		}
+	} catch (e) {
+		fireAnalyticsEvent?.({
+			payload: {
+				action: ACTION.DOCUMENT_PROCESSING_ERROR,
+				actionSubject: ACTION_SUBJECT.EDITOR,
+				eventType: EVENT_TYPE.OPERATIONAL,
+				attributes: {
+					errorMessage: `${e instanceof Error && e.name === 'NodeNestingTransformError' ? 'NodeNestingTransformError - Failed to transform one or more nested tables' : undefined}`,
+				},
+			},
+		});
+		throw e;
 	}
 }

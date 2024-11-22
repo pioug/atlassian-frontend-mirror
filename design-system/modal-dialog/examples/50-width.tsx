@@ -14,6 +14,7 @@ import ModalDialog, {
 } from '@atlaskit/modal-dialog';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { width } from '../src/internal/constants';
 
 import ModalTitleWithClose from './common/modal-title';

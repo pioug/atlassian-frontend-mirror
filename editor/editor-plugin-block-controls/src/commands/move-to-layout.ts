@@ -143,6 +143,11 @@ export const moveToLayout =
 		const { layoutSection, layoutColumn } = tr.doc.type.schema.nodes || {};
 		const { breakout } = tr.doc.type.schema.marks || {};
 		let fromNodeWithoutBreakout: PMNode | Fragment | null = fromNode;
+		const getBreakoutMode = (node: PMNode) =>
+			node.marks.find((m) => m.type === breakout)?.attrs.mode;
+		// get breakout mode from destination node,
+		// if not found, get from source node,
+		const breakoutMode = getBreakoutMode(toNode) || getBreakoutMode(fromNode);
 
 		// remove breakout from node;
 		if (breakout && $from.nodeAfter && $from.nodeAfter.marks.some((m) => m.type === breakout)) {
@@ -207,6 +212,11 @@ export const moveToLayout =
 					.insert(mappedTo, newLayout)
 					.setSelection(new NodeSelection(tr.doc.resolve(mappedTo)))
 					.scrollIntoView();
+
+				breakoutMode &&
+					tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
+						breakout.create({ mode: breakoutMode }),
+					]);
 			}
 
 			return tr;

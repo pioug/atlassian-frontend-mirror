@@ -1,11 +1,10 @@
 import React, { forwardRef, type Ref } from 'react';
 
 import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
+import { ButtonGroup } from '@atlaskit/button';
+import { LinkButton, LinkIconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import { Stack } from '@atlaskit/primitives';
-
-import { ButtonGroup } from '../src';
-import { LinkButton, LinkIconButton } from '../src/new';
 
 type MyRouterLinkConfig = {
 	to: string;

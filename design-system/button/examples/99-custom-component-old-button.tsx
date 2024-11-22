@@ -7,10 +7,9 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import Button from '@atlaskit/button';
 import Switcher from '@atlaskit/icon/glyph/app-switcher';
 import { token } from '@atlaskit/tokens';
-
-import Button from '../src';
 
 const Component = React.forwardRef((props, ref: React.Ref<HTMLElement>) => (
 	<header

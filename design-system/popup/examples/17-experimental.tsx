@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Popup, PopupContent, PopupTrigger } from '../src/compositional/popup';
+import { Popup, PopupContent, PopupTrigger } from '@atlaskit/popup/experimental';
 
 export default () => {
 	const [isOpen, setIsOpen] = useState(false);

@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Button from '@atlaskit/button/new';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import Button from '../../../../src/new';
 
 const containerStyles = xcss({
 	maxWidth: 'size.1000',

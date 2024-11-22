@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import Popup from '@atlaskit/popup';
 import { Box, xcss } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
-
-import { DatePicker } from '../src';
 
 const boxContainerStyle = xcss({
 	height: '500px',

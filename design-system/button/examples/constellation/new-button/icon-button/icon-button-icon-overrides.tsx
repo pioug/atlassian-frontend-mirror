@@ -1,9 +1,8 @@
 import React from 'react';
 
+import { IconButton } from '@atlaskit/button/new';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import { token } from '@atlaskit/tokens';
-
-import { IconButton } from '../../../../src/new';
 
 const IconButtonSmallExample = () => {
 	return (

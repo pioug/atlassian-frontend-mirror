@@ -10,8 +10,7 @@ import { jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
-
-import Drawer from '../src';
+import Drawer from '@atlaskit/drawer';
 
 interface State {
 	isDrawerOpen: boolean;

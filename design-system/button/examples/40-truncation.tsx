@@ -3,6 +3,7 @@ import React from 'react';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { Box, xcss } from '@atlaskit/primitives';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants from '../src/utils/variants';
 
 const constrainedWidthCellStyles = xcss({

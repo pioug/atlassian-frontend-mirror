@@ -2,10 +2,9 @@ import React from 'react';
 
 import moment from 'moment';
 
+import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives';
-
-import { DatePicker } from '../src';
 
 const logValue = (value: string) => console.log(value);
 

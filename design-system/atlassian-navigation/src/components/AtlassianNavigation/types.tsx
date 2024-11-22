@@ -85,6 +85,11 @@ export interface AtlassianNavigationProps {
    */
 	testId?: string;
 	/* eslint-enable jsdoc/require-asterisk-prefix, jsdoc/check-alignment */
+
+	/**
+	 * Whether nav is rendered on the server.
+	 */
+	isServer?: boolean;
 }
 
 export interface NavigationSkeletonProps {

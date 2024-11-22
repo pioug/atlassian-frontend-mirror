@@ -46,7 +46,7 @@
 		"json-ld-types": "^4.1.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/link-provider": "^1.16.0",
+		"@atlaskit/link-provider": "^1.17.0",
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
@@ -57,6 +57,9 @@
 			"type": "boolean"
 		},
 		"smartlink_jira_releases": {
+			"type": "boolean"
+		},
+		"rovo_agent_profile_page_default_embed": {
 			"type": "boolean"
 		}
 	}

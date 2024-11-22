@@ -3,12 +3,11 @@ import React, { useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
+import { DateTimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import Modal, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
 import { Box, Text } from '@atlaskit/primitives';
 import Range from '@atlaskit/range';
-
-import { DateTimePicker } from '../src';
 
 export default () => {
 	const [dateTimePickerValue, setDateTimePickerValue] = useState<string>('2018-01-02T14:30+11:00');

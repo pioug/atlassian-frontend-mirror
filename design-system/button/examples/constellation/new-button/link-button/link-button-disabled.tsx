@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { LinkButton } from '../../../../src/new';
+import { LinkButton } from '@atlaskit/button/new';
 
 const LinkButtonDisabledExample = () => {
 	return (

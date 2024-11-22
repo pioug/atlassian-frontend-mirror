@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
+import Button, { IconButton, SplitButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import Heading from '@atlaskit/heading';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
@@ -18,8 +19,6 @@ import Modal, {
 } from '@atlaskit/modal-dialog';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
-
-import Button, { IconButton, SplitButton } from '../src/new';
 
 export default () => {
 	const [isOpen, setIsOpen] = useState(false);

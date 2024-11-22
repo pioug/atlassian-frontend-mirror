@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { LinkIconButton, type LinkIconButtonProps } from '@atlaskit/button/new';
 import UserIcon from '@atlaskit/icon/glyph/user-avatar-circle';
-
-import { LinkIconButton, type LinkIconButtonProps } from '../../../../src/new';
 
 const tooltipOptions: LinkIconButtonProps['tooltip'] = {
 	position: 'right',

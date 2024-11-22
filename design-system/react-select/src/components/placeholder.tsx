@@ -26,19 +26,14 @@ export interface PlaceholderProps<
 	isFocused: boolean;
 }
 
-export const placeholderCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	{ theme: { spacing, colors } }: PlaceholderProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+export const placeholderCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	theme: { spacing, colors },
+}: PlaceholderProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'placeholder',
 	gridArea: '1 / 1 / 2 / 3',
-	...(unstyled
-		? {}
-		: {
-				color: colors.neutral50,
-				marginLeft: spacing.baseUnit / 2,
-				marginRight: spacing.baseUnit / 2,
-			}),
+	color: colors.neutral50,
+	marginLeft: spacing.baseUnit / 2,
+	marginRight: spacing.baseUnit / 2,
 });
 
 const Placeholder = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(

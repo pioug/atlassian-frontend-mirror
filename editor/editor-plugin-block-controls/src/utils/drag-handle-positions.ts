@@ -1,5 +1,9 @@
 import {
 	DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT,
+	DRAG_HANDLE_H3_TOP_ADJUSTMENT,
+	DRAG_HANDLE_H4_TOP_ADJUSTMENT,
+	DRAG_HANDLE_H5_TOP_ADJUSTMENT,
+	DRAG_HANDLE_H6_TOP_ADJUSTMENT,
 	DRAG_HANDLE_HEIGHT,
 	DRAG_HANDLE_WIDTH,
 	dragHandleGap,
@@ -10,12 +14,21 @@ export const getTopPosition = (dom: HTMLElement | null, type?: string) => {
 		return 'auto';
 	}
 	const table = dom.querySelector('table');
+
 	if (table) {
 		return `${dom.offsetTop + (table?.offsetTop || 0)}px`;
 	} else if (type === 'rule') {
 		return `${dom.offsetTop - DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT}px`;
 	} else if (type === 'layoutColumn') {
 		return `${-DRAG_HANDLE_WIDTH}px`;
+	} else if (type === 'heading-3') {
+		return `${dom.offsetTop - DRAG_HANDLE_H3_TOP_ADJUSTMENT}px`;
+	} else if (type === 'heading-4') {
+		return `${dom.offsetTop - DRAG_HANDLE_H4_TOP_ADJUSTMENT}px`;
+	} else if (type === 'heading-5') {
+		return `${dom.offsetTop - DRAG_HANDLE_H5_TOP_ADJUSTMENT}px`;
+	} else if (type === 'heading-6') {
+		return `${dom.offsetTop - DRAG_HANDLE_H6_TOP_ADJUSTMENT}px`;
 	} else {
 		return `${dom.offsetTop}px`;
 	}

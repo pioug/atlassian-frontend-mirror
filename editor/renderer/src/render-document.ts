@@ -121,7 +121,7 @@ const _validation = (
 				eventType: EVENT_TYPE.OPERATIONAL,
 				attributes: {
 					platform: PLATFORM.WEB,
-					errorStack: 'Failed to transform one or more nested tables in the document',
+					errorStack: `${e instanceof Error && e.name === 'NodeNestingTransformError' ? 'NodeNestingTransformError - Failed to encode one or more nested tables' : undefined}`,
 				},
 			});
 		}

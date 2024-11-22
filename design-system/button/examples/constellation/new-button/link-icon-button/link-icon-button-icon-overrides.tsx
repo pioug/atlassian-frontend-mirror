@@ -1,9 +1,8 @@
 import React from 'react';
 
+import { LinkIconButton } from '@atlaskit/button/new';
 import DiscoverIcon from '@atlaskit/icon/glyph/discover';
 import { token } from '@atlaskit/tokens';
-
-import { LinkIconButton } from '../../../../src/new';
 
 const LinkIconButtonOverridesExample = () => {
 	return (

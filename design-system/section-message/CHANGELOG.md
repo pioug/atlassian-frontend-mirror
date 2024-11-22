@@ -1,5 +1,13 @@
 # @atlaskit/section-message
 
+## 6.7.0
+
+### Minor Changes
+
+- [#165245](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165245)
+  [`6935d35339437`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6935d35339437) -
+  Updates internal behaviour to support new icon components
+
 ## 6.6.9
 
 ### Patch Changes

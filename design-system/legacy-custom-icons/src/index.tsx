@@ -1,12 +1,14 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7c598e206e5fb8879eb82e4913b68647>>
+ * @codegen <<SignedSource::8f103238b79e41dd191c8091d5f3f19f>>
  * @codegenCommand yarn generate-artifacts
  */
 export { default as AirTableFilterIcon } from './ui/air-table-filter-icon';
 export { default as AirTableIcon } from './ui/air-table-icon';
+export { default as AlertIcon } from './ui/alert-icon';
 export { default as AlignLeftIcon } from './ui/align-left-icon';
 export { default as AnsibleIcon } from './ui/ansible-icon';
+export { default as ApiIcon } from './ui/api-icon';
 export { default as ApplicationIcon } from './ui/application-icon';
 export { default as ArrowDownCircleIcon } from './ui/arrow-down-circle-icon';
 export { default as AsanaIcon } from './ui/asana-icon';
@@ -16,12 +18,14 @@ export { default as AtlassianIntelligenceDarkIcon } from './ui/atlassian-intelli
 export { default as AtlassianIntelligenceLogoIcon } from './ui/atlassian-intelligence-logo-icon';
 export { default as AutomationIcon } from './ui/automation-icon';
 export { default as AutomationNewIcon } from './ui/automation-new-icon';
+export { default as AutomationsIcon } from './ui/automations-icon';
 export { default as AvatarFixIcon } from './ui/avatar-fix-icon';
 export { default as AvatarMonitorIcon } from './ui/avatar-monitor-icon';
 export { default as AvatarRequestIcon } from './ui/avatar-request-icon';
 export { default as AwsIcon } from './ui/aws-icon';
 export { default as AzureIcon } from './ui/azure-icon';
 export { default as BarChartIcon } from './ui/bar-chart-icon';
+export { default as BidirectionalIcon } from './ui/bidirectional-icon';
 export { default as BookIcon } from './ui/book-icon';
 export { default as BugIcon } from './ui/bug-icon';
 export { default as CalendarIcon } from './ui/calendar-icon';
@@ -45,6 +49,7 @@ export { default as DeltaIcon } from './ui/delta-icon';
 export { default as DockIcon } from './ui/dock-icon';
 export { default as DropboxIcon } from './ui/dropbox-icon';
 export { default as DropdownIcon } from './ui/dropdown-icon';
+export { default as EnergyIcon } from './ui/energy-icon';
 export { default as FeedbackIcon } from './ui/feedback-icon';
 export { default as FieldValueChangedIcon } from './ui/field-value-changed-icon';
 export { default as FigmaIcon } from './ui/figma-icon';
@@ -63,6 +68,9 @@ export { default as GoogleDriveIcon } from './ui/google-drive-icon';
 export { default as GoogleDriveSearchResultIcon } from './ui/google-drive-search-result-icon';
 export { default as GooglePresentationIcon } from './ui/google-presentation-icon';
 export { default as GoogleSpreadsheetIcon } from './ui/google-spreadsheet-icon';
+export { default as HashTagIcon } from './ui/hash-tag-icon';
+export { default as HeartbeatsIcon } from './ui/heartbeats-icon';
+export { default as IncidentIcon } from './ui/incident-icon';
 export { default as InfoIcon } from './ui/info-icon';
 export { default as JiraProductDiscoveryIcon } from './ui/jira-product-discovery-icon';
 export { default as JiraSearchResultIcon } from './ui/jira-search-result-icon';
@@ -77,10 +85,15 @@ export { default as ManualTriggerIcon } from './ui/manual-trigger-icon';
 export { default as MegaphoneIcon } from './ui/megaphone-icon';
 export { default as MegaphoneStarIcon } from './ui/megaphone-star-icon';
 export { default as MicrosoftSharepointIcon } from './ui/microsoft-sharepoint-icon';
+export { default as MiroFilterIcon } from './ui/miro-filter-icon';
+export { default as MiroIcon } from './ui/miro-icon';
 export { default as MsTeamsIcon } from './ui/ms-teams-icon';
+export { default as NotificationAllowedIcon } from './ui/notification-allowed-icon';
+export { default as NotificationSupressedIcon } from './ui/notification-supressed-icon';
 export { default as NotionFilterIcon } from './ui/notion-filter-icon';
 export { default as NotionIcon } from './ui/notion-icon';
 export { default as NumberIcon } from './ui/number-icon';
+export { default as OnCallIcon } from './ui/on-call-icon';
 export { default as OneDriveIcon } from './ui/one-drive-icon';
 export { default as OpenFolderIcon } from './ui/open-folder-icon';
 export { default as OutlookCalendarIcon } from './ui/outlook-calendar-icon';
@@ -90,12 +103,15 @@ export { default as PeopleIcon } from './ui/people-icon';
 export { default as PersonAvatarIcon } from './ui/person-avatar-icon';
 export { default as PersonIcon } from './ui/person-icon';
 export { default as PieChartIcon } from './ui/pie-chart-icon';
+export { default as PoliciesIcon } from './ui/policies-icon';
 export { default as ProjectIcon } from './ui/project-icon';
 export { default as RadioIcon } from './ui/radio-icon';
 export { default as RelicIcon } from './ui/relic-icon';
 export { default as RoadmapsServiceIcon } from './ui/roadmaps-service-icon';
 export { default as RovoIcon } from './ui/rovo-icon';
 export { default as SecurityIcon } from './ui/security-icon';
+export { default as SharePointIcon } from './ui/share-point-icon';
+export { default as SharePointSearchResultIcon } from './ui/share-point-search-result-icon';
 export { default as SharepointDocumentIcon } from './ui/sharepoint-document-icon';
 export { default as SharepointPresentationIcon } from './ui/sharepoint-presentation-icon';
 export { default as SharepointSpreadsheetIcon } from './ui/sharepoint-spreadsheet-icon';
@@ -105,6 +121,7 @@ export { default as SkipTenBackwardIcon } from './ui/skip-ten-backward-icon';
 export { default as SkipTenForwardIcon } from './ui/skip-ten-forward-icon';
 export { default as SlackIcon } from './ui/slack-icon';
 export { default as SlackIconAiMate } from './ui/slack-icon-ai-mate';
+export { default as SlackSearchResultIcon } from './ui/slack-search-result-icon';
 export { default as StopTypingIcon } from './ui/stop-typing-icon';
 export { default as TagIcon } from './ui/tag-icon';
 export { default as TaskIcon } from './ui/task-icon';

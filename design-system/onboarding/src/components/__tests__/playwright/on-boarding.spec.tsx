@@ -41,23 +41,12 @@ test('Spotlight tour should not break if a target is not rendered', async ({ pag
 	await expect(page.locator(spotlight3)).toBeVisible();
 });
 
-[true, false].forEach((ffValue) => {
-	test(`Focus should not go beyond spotlight dialog, FG ${ffValue}`, async ({ page }) => {
-		await page.visitExample(
-			'design-system',
-			'onboarding',
-			'spotlight-dialog-width',
-			ffValue
-				? {
-						featureFlag: 'platform_dst_onboarding-bump-react-focus-lock',
-					}
-				: {},
-		);
-		const spotlightDialogTrigger = page.getByTestId('spotlight-dialog-trigger');
-		await spotlightDialogTrigger.click();
-		await spotlightDialogTrigger.focus();
-		await expect(spotlightDialogTrigger).not.toBeFocused();
-	});
+test(`Focus should not go beyond spotlight dialog`, async ({ page }) => {
+	await page.visitExample('design-system', 'onboarding', 'spotlight-dialog-width');
+	const spotlightDialogTrigger = page.getByTestId('spotlight-dialog-trigger');
+	await spotlightDialogTrigger.click();
+	await spotlightDialogTrigger.focus();
+	await expect(spotlightDialogTrigger).not.toBeFocused();
 });
 
 test('Spotlight dialog should match a11y dialog pattern', async ({ page }) => {

@@ -1,10 +1,11 @@
 import React from 'react';
 
+import Button, { IconButton } from '@atlaskit/button/new';
 import Heading from '@atlaskit/heading';
 import ChevronDown from '@atlaskit/icon/glyph/chevron-down';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 
-import Button, { IconButton } from '../src/new';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { SplitButtonWithSlots } from '../src/new-button/containers/split-button';
 
 export default () => (

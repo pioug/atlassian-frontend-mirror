@@ -289,24 +289,20 @@ function alignToControl(placement: CoercedMenuPlacement) {
 }
 const coercePlacement = (p: MenuPlacement) => (p === 'auto' ? 'bottom' : p);
 
-export const menuCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	{ placement, theme: { borderRadius, spacing, colors } }: MenuProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+export const menuCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	placement,
+	theme: { borderRadius, spacing, colors },
+}: MenuProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'menu',
 	[alignToControl(placement)]: '100%',
 	position: 'absolute',
 	width: '100%',
 	zIndex: 1,
-	...(unstyled
-		? {}
-		: {
-				backgroundColor: colors.neutral0,
-				borderRadius: borderRadius,
-				boxShadow: '0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1)',
-				marginBottom: spacing.menuGutter,
-				marginTop: spacing.menuGutter,
-			}),
+	backgroundColor: colors.neutral0,
+	borderRadius: borderRadius,
+	boxShadow: '0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1)',
+	marginBottom: spacing.menuGutter,
+	marginTop: spacing.menuGutter,
 });
 
 const PortalPlacementContext = createContext<{
@@ -421,25 +417,18 @@ export interface MenuListProps<
 	 */
 	innerProps: JSX.IntrinsicElements['div'];
 }
-export const menuListCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	{
-		maxHeight,
-		theme: {
-			spacing: { baseUnit },
-		},
-	}: MenuListProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+export const menuListCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	maxHeight,
+	theme: {
+		spacing: { baseUnit },
+	},
+}: MenuListProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	maxHeight,
 	overflowY: 'auto',
 	position: 'relative', // required for offset[Height, Top] > keyboard scroll
 	WebkitOverflowScrolling: 'touch',
-	...(unstyled
-		? {}
-		: {
-				paddingBottom: baseUnit,
-				paddingTop: baseUnit,
-			}),
+	paddingBottom: baseUnit,
+	paddingTop: baseUnit,
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
@@ -467,22 +456,15 @@ export const MenuList = <Option, IsMulti extends boolean, Group extends GroupBas
 // Menu Notices
 // ==============================
 
-const noticeCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	{
-		theme: {
-			spacing: { baseUnit },
-			colors,
-		},
-	}: NoticeProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+const noticeCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	theme: {
+		spacing: { baseUnit },
+		colors,
+	},
+}: NoticeProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	textAlign: 'center',
-	...(unstyled
-		? {}
-		: {
-				color: colors.neutral40,
-				padding: `${baseUnit * 2}px ${baseUnit * 3}px`,
-			}),
+	color: colors.neutral40,
+	padding: `${baseUnit * 2}px ${baseUnit * 3}px`,
 });
 export const noOptionsMessageCSS = noticeCSS;
 export const loadingMessageCSS = noticeCSS;

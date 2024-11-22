@@ -1,9 +1,8 @@
 import React from 'react';
 
+import { DatePicker, DateTimePicker, TimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import { DatePicker, DateTimePicker, TimePicker } from '../src';
 
 const GRID_SIZE = 8;
 const pickerBoxStyles = xcss({

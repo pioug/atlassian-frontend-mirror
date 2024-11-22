@@ -2,12 +2,14 @@ import React, { Fragment, useState } from 'react';
 
 import capitalize from 'lodash/capitalize';
 
+import LegacyButton from '@atlaskit/button';
 import Checkbox from '@atlaskit/checkbox';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import { Box, Stack } from '@atlaskit/primitives';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { type IconSize } from '../src/new-button/variants/types';
-import LegacyButton from '../src/old-button/button';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { iconButtonVariants } from '../src/utils/variants';
 
 const iconSizes: IconSize[] = ['small', 'large', 'xlarge'];

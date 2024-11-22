@@ -235,6 +235,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 		this.pluginInjectionAPI = new EditorPluginInjectionAPI({
 			getEditorState: this.getEditorState,
 			getEditorView: this.getEditorView,
+			fireAnalyticsEvent: this.handleAnalyticsEvent,
 		});
 
 		const api = this.pluginInjectionAPI.api();
@@ -532,7 +533,11 @@ export class ReactEditorView<T = {}> extends React.Component<
 		if (options.doc) {
 			// if the collabEdit API is set, skip this validation due to potential pm validation errors
 			// from docs that end up with invalid marks after processing (See #hot-111702 for more details)
-			if (api?.collabEdit !== undefined && fg('editor_load_conf_collab_docs_without_checks')) {
+
+			if (
+				(api?.collabEdit !== undefined && fg('editor_load_conf_collab_docs_without_checks')) ||
+				options.props.editorProps.skipValidation
+			) {
 				doc = processRawValueWithoutValidation(schema, options.doc, this.dispatchAnalyticsEvent);
 			} else {
 				doc = processRawValue(

@@ -1,5 +1,29 @@
 # @atlaskit/smart-card
 
+## 30.3.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.3.3
+
+### Patch Changes
+
+- [#167023](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167023)
+  [`b3d0e115a562a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b3d0e115a562a) -
+  Migrate screen analytics
+- [#167132](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167132)
+  [`a43e7708c667f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a43e7708c667f) -
+  [ux] Migrate HTML heading tags to Heading AtlasKit component
+- Updated dependencies
+
+## 30.3.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 30.3.1
 
 ### Patch Changes

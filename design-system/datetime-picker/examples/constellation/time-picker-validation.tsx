@@ -1,9 +1,8 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
+import { TimePicker } from '@atlaskit/datetime-picker';
 import Form, { ErrorMessage, Field, FormFooter, ValidMessage } from '@atlaskit/form';
-
-import { TimePicker } from '../../src';
 
 const validateField = (value?: string) => {
 	if (!value) {

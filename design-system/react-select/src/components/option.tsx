@@ -54,15 +54,12 @@ export interface OptionProps<
 	isSelected: boolean;
 }
 
-export const optionCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	{
-		isDisabled,
-		isFocused,
-		isSelected,
-		theme: { spacing, colors },
-	}: OptionProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+export const optionCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	isDisabled,
+	isFocused,
+	isSelected,
+	theme: { spacing, colors },
+}: OptionProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'option',
 	cursor: 'default',
 	display: 'block',
@@ -70,21 +67,13 @@ export const optionCSS = <Option, IsMulti extends boolean, Group extends GroupBa
 	width: '100%',
 	userSelect: 'none',
 	WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
-	...(unstyled
-		? {}
-		: {
-				backgroundColor: isSelected ? colors.primary : isFocused ? colors.primary25 : 'transparent',
-				color: isDisabled ? colors.neutral20 : isSelected ? colors.neutral0 : 'inherit',
-				padding: `${spacing.baseUnit * 2}px ${spacing.baseUnit * 3}px`,
-				// provide some affordance on touch devices
-				':active': {
-					backgroundColor: !isDisabled
-						? isSelected
-							? colors.primary
-							: colors.primary50
-						: undefined,
-				},
-			}),
+	backgroundColor: isSelected ? colors.primary : isFocused ? colors.primary25 : 'transparent',
+	color: isDisabled ? colors.neutral20 : isSelected ? colors.neutral0 : 'inherit',
+	padding: `${spacing.baseUnit * 2}px ${spacing.baseUnit * 3}px`,
+	// provide some affordance on touch devices
+	':active': {
+		backgroundColor: !isDisabled ? (isSelected ? colors.primary : colors.primary50) : undefined,
+	},
 });
 
 const Option = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(

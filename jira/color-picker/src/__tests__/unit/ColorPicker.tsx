@@ -10,6 +10,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 jest.mock('@atlaskit/platform-feature-flags');
 const mockGetBooleanFG = fg as jest.MockedFunction<typeof fg>;
+const onMenuOpenMock = jest.fn();
 
 describe('ColorPicker', () => {
 	const mockFn = jest.fn();
@@ -24,7 +25,12 @@ describe('ColorPicker', () => {
 		};
 		return render(
 			<IntlProvider locale="en">
-				<ColorPicker palette={palette} onChange={mockFn} popperProps={popperProps} />
+				<ColorPicker
+					palette={palette}
+					onChange={mockFn}
+					popperProps={popperProps}
+					onMenuOpen={onMenuOpenMock}
+				/>
 			</IntlProvider>,
 		);
 	};
@@ -97,6 +103,18 @@ describe('ColorPicker', () => {
 
 			await userEvent.click(getByRole('button'));
 			expect(mockSubmit.mock.calls.length).toBe(0);
+		});
+
+		test('should call onMenuOpen on ColorPicker open', async () => {
+			const { getByLabelText } = renderUI();
+			const colorButton = getByLabelText('Blue selected, Color picker');
+			await userEvent.click(colorButton);
+
+			if (fg('one_event_rules_them_all_fg')) {
+				expect(onMenuOpenMock).toHaveBeenCalledTimes(1);
+			} else {
+				expect(onMenuOpenMock).toHaveBeenCalledTimes(0);
+			}
 		});
 	});
 });

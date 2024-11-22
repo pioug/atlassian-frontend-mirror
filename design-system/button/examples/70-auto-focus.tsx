@@ -1,9 +1,8 @@
 import React from 'react';
 
+import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import Button from '../src/new';
 
 export default function AutoFocusExample() {
 	return (

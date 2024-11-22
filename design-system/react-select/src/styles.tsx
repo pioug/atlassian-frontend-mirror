@@ -74,7 +74,6 @@ export interface StylesProps<Option, IsMulti extends boolean, Group extends Grou
 export const defaultStyles: {
 	[K in keyof StylesProps<any, any, any>]: (
 		props: StylesProps<unknown, boolean, GroupBase<unknown>>[K],
-		unstyled: boolean,
 	) => CSSObjectWithLabel;
 } = {
 	clearIndicator: clearIndicatorCSS,

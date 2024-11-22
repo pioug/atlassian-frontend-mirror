@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 4.9.2
+
+### Patch Changes
+
+- [#167483](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167483)
+  [`2dd22b00bedaa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2dd22b00bedaa) -
+  Add props for handling server rendered components and data-vc
+
 ## 4.9.1
 
 ### Patch Changes

@@ -1,12 +1,14 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a1dacbf8654510d5496bb8e14b809912>>
+ * @codegen <<SignedSource::832dff75a8e14ad806604a97c2da3298>>
  * @codegenCommand yarn generate-artifacts
  */
 import AirTableFilterIcon from '../../src/ui/air-table-filter-icon';
 import AirTableIcon from '../../src/ui/air-table-icon';
+import AlertIcon from '../../src/ui/alert-icon';
 import AlignLeftIcon from '../../src/ui/align-left-icon';
 import AnsibleIcon from '../../src/ui/ansible-icon';
+import ApiIcon from '../../src/ui/api-icon';
 import ApplicationIcon from '../../src/ui/application-icon';
 import ArrowDownCircleIcon from '../../src/ui/arrow-down-circle-icon';
 import AsanaIcon from '../../src/ui/asana-icon';
@@ -16,12 +18,14 @@ import AtlassianIntelligenceDarkIcon from '../../src/ui/atlassian-intelligence-d
 import AtlassianIntelligenceLogoIcon from '../../src/ui/atlassian-intelligence-logo-icon';
 import AutomationIcon from '../../src/ui/automation-icon';
 import AutomationNewIcon from '../../src/ui/automation-new-icon';
+import AutomationsIcon from '../../src/ui/automations-icon';
 import AvatarFixIcon from '../../src/ui/avatar-fix-icon';
 import AvatarMonitorIcon from '../../src/ui/avatar-monitor-icon';
 import AvatarRequestIcon from '../../src/ui/avatar-request-icon';
 import AwsIcon from '../../src/ui/aws-icon';
 import AzureIcon from '../../src/ui/azure-icon';
 import BarChartIcon from '../../src/ui/bar-chart-icon';
+import BidirectionalIcon from '../../src/ui/bidirectional-icon';
 import BookIcon from '../../src/ui/book-icon';
 import BugIcon from '../../src/ui/bug-icon';
 import CalendarIcon from '../../src/ui/calendar-icon';
@@ -45,6 +49,7 @@ import DeltaIcon from '../../src/ui/delta-icon';
 import DockIcon from '../../src/ui/dock-icon';
 import DropboxIcon from '../../src/ui/dropbox-icon';
 import DropdownIcon from '../../src/ui/dropdown-icon';
+import EnergyIcon from '../../src/ui/energy-icon';
 import FeedbackIcon from '../../src/ui/feedback-icon';
 import FieldValueChangedIcon from '../../src/ui/field-value-changed-icon';
 import FigmaIcon from '../../src/ui/figma-icon';
@@ -63,6 +68,9 @@ import GoogleDriveIcon from '../../src/ui/google-drive-icon';
 import GoogleDriveSearchResultIcon from '../../src/ui/google-drive-search-result-icon';
 import GooglePresentationIcon from '../../src/ui/google-presentation-icon';
 import GoogleSpreadsheetIcon from '../../src/ui/google-spreadsheet-icon';
+import HashTagIcon from '../../src/ui/hash-tag-icon';
+import HeartbeatsIcon from '../../src/ui/heartbeats-icon';
+import IncidentIcon from '../../src/ui/incident-icon';
 import InfoIcon from '../../src/ui/info-icon';
 import JiraProductDiscoveryIcon from '../../src/ui/jira-product-discovery-icon';
 import JiraSearchResultIcon from '../../src/ui/jira-search-result-icon';
@@ -77,10 +85,15 @@ import ManualTriggerIcon from '../../src/ui/manual-trigger-icon';
 import MegaphoneIcon from '../../src/ui/megaphone-icon';
 import MegaphoneStarIcon from '../../src/ui/megaphone-star-icon';
 import MicrosoftSharepointIcon from '../../src/ui/microsoft-sharepoint-icon';
+import MiroFilterIcon from '../../src/ui/miro-filter-icon';
+import MiroIcon from '../../src/ui/miro-icon';
 import MsTeamsIcon from '../../src/ui/ms-teams-icon';
+import NotificationAllowedIcon from '../../src/ui/notification-allowed-icon';
+import NotificationSupressedIcon from '../../src/ui/notification-supressed-icon';
 import NotionFilterIcon from '../../src/ui/notion-filter-icon';
 import NotionIcon from '../../src/ui/notion-icon';
 import NumberIcon from '../../src/ui/number-icon';
+import OnCallIcon from '../../src/ui/on-call-icon';
 import OneDriveIcon from '../../src/ui/one-drive-icon';
 import OpenFolderIcon from '../../src/ui/open-folder-icon';
 import OutlookCalendarIcon from '../../src/ui/outlook-calendar-icon';
@@ -90,12 +103,15 @@ import PeopleIcon from '../../src/ui/people-icon';
 import PersonAvatarIcon from '../../src/ui/person-avatar-icon';
 import PersonIcon from '../../src/ui/person-icon';
 import PieChartIcon from '../../src/ui/pie-chart-icon';
+import PoliciesIcon from '../../src/ui/policies-icon';
 import ProjectIcon from '../../src/ui/project-icon';
 import RadioIcon from '../../src/ui/radio-icon';
 import RelicIcon from '../../src/ui/relic-icon';
 import RoadmapsServiceIcon from '../../src/ui/roadmaps-service-icon';
 import RovoIcon from '../../src/ui/rovo-icon';
 import SecurityIcon from '../../src/ui/security-icon';
+import SharePointIcon from '../../src/ui/share-point-icon';
+import SharePointSearchResultIcon from '../../src/ui/share-point-search-result-icon';
 import SharepointDocumentIcon from '../../src/ui/sharepoint-document-icon';
 import SharepointPresentationIcon from '../../src/ui/sharepoint-presentation-icon';
 import SharepointSpreadsheetIcon from '../../src/ui/sharepoint-spreadsheet-icon';
@@ -105,6 +121,7 @@ import SkipTenBackwardIcon from '../../src/ui/skip-ten-backward-icon';
 import SkipTenForwardIcon from '../../src/ui/skip-ten-forward-icon';
 import SlackIcon from '../../src/ui/slack-icon';
 import SlackIconAiMate from '../../src/ui/slack-icon-ai-mate';
+import SlackSearchResultIcon from '../../src/ui/slack-search-result-icon';
 import StopTypingIcon from '../../src/ui/stop-typing-icon';
 import TagIcon from '../../src/ui/tag-icon';
 import TaskIcon from '../../src/ui/task-icon';
@@ -127,8 +144,10 @@ import ZendeskIcon from '../../src/ui/zendesk-icon';
 export default {
 	AirTableFilterIcon,
 	AirTableIcon,
+	AlertIcon,
 	AlignLeftIcon,
 	AnsibleIcon,
+	ApiIcon,
 	ApplicationIcon,
 	ArrowDownCircleIcon,
 	AsanaIcon,
@@ -138,12 +157,14 @@ export default {
 	AtlassianIntelligenceLogoIcon,
 	AutomationIcon,
 	AutomationNewIcon,
+	AutomationsIcon,
 	AvatarFixIcon,
 	AvatarMonitorIcon,
 	AvatarRequestIcon,
 	AwsIcon,
 	AzureIcon,
 	BarChartIcon,
+	BidirectionalIcon,
 	BookIcon,
 	BugIcon,
 	CalendarIcon,
@@ -167,6 +188,7 @@ export default {
 	DockIcon,
 	DropboxIcon,
 	DropdownIcon,
+	EnergyIcon,
 	FeedbackIcon,
 	FieldValueChangedIcon,
 	FigmaIcon,
@@ -185,6 +207,9 @@ export default {
 	GoogleDriveSearchResultIcon,
 	GooglePresentationIcon,
 	GoogleSpreadsheetIcon,
+	HashTagIcon,
+	HeartbeatsIcon,
+	IncidentIcon,
 	InfoIcon,
 	JiraProductDiscoveryIcon,
 	JiraSearchResultIcon,
@@ -199,10 +224,15 @@ export default {
 	MegaphoneIcon,
 	MegaphoneStarIcon,
 	MicrosoftSharepointIcon,
+	MiroFilterIcon,
+	MiroIcon,
 	MsTeamsIcon,
+	NotificationAllowedIcon,
+	NotificationSupressedIcon,
 	NotionFilterIcon,
 	NotionIcon,
 	NumberIcon,
+	OnCallIcon,
 	OneDriveIcon,
 	OpenFolderIcon,
 	OutlookCalendarIcon,
@@ -212,12 +242,15 @@ export default {
 	PersonAvatarIcon,
 	PersonIcon,
 	PieChartIcon,
+	PoliciesIcon,
 	ProjectIcon,
 	RadioIcon,
 	RelicIcon,
 	RoadmapsServiceIcon,
 	RovoIcon,
 	SecurityIcon,
+	SharePointIcon,
+	SharePointSearchResultIcon,
 	SharepointDocumentIcon,
 	SharepointPresentationIcon,
 	SharepointSpreadsheetIcon,
@@ -227,6 +260,7 @@ export default {
 	SkipTenForwardIcon,
 	SlackIcon,
 	SlackIconAiMate,
+	SlackSearchResultIcon,
 	StopTypingIcon,
 	TagIcon,
 	TaskIcon,

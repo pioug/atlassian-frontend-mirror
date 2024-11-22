@@ -8,8 +8,7 @@ import { Component, type SyntheticEvent } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-
-import Drawer from '../src';
+import Drawer from '@atlaskit/drawer';
 
 interface State {
 	isDrawerOpen: boolean;

@@ -9,3 +9,4 @@ export { transformIndentationMarks } from './transforms/indentation-marks-transf
 export { transformInvalidMediaContent } from './transforms/invalid-media-content-transform';
 export { transformNestedTablesIncomingDocument } from './transforms/nested-table-transform';
 export { transformNestedTableNodeOutgoingDocument } from './transforms/nested-table-transform';
+export { NodeNestingTransformError } from './transforms/errors';

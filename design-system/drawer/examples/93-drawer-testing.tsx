@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Button from '@atlaskit/button/new';
 import Portal from '@atlaskit/portal';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import DrawerPrimitive from '../src/components/primitives';
 
 const DrawerExample = () => {

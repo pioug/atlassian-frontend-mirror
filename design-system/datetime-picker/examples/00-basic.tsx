@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 
 import { Code } from '@atlaskit/code';
+import { DatePicker, DateTimePicker, TimePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import { Box } from '@atlaskit/primitives';
-
-import { DatePicker, DateTimePicker, TimePicker } from '../src';
 
 interface ControlledProps {
 	initialValue?: string;

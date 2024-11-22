@@ -77,28 +77,23 @@ export interface DropdownIndicatorProps<
 	isDisabled: boolean;
 }
 
-const baseCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	{
-		isFocused,
-		theme: {
-			spacing: { baseUnit },
-			colors,
-		},
-	}: DropdownIndicatorProps<Option, IsMulti, Group> | ClearIndicatorProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+const baseCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	isFocused,
+	theme: {
+		spacing: { baseUnit },
+		colors,
+	},
+}:
+	| DropdownIndicatorProps<Option, IsMulti, Group>
+	| ClearIndicatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'indicatorContainer',
 	display: 'flex',
 	transition: 'color 150ms',
-	...(unstyled
-		? {}
-		: {
-				color: isFocused ? colors.neutral60 : colors.neutral20,
-				padding: baseUnit * 2,
-				':hover': {
-					color: isFocused ? colors.neutral80 : colors.neutral40,
-				},
-			}),
+	color: isFocused ? colors.neutral60 : colors.neutral20,
+	padding: baseUnit * 2,
+	':hover': {
+		color: isFocused ? colors.neutral80 : colors.neutral40,
+	},
 });
 
 export const dropdownIndicatorCSS = baseCSS;
@@ -182,26 +177,19 @@ export const indicatorSeparatorCSS = <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
->(
-	{
-		isDisabled,
-		theme: {
-			spacing: { baseUnit },
-			colors,
-		},
-	}: IndicatorSeparatorProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+>({
+	isDisabled,
+	theme: {
+		spacing: { baseUnit },
+		colors,
+	},
+}: IndicatorSeparatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'indicatorSeparator',
 	alignSelf: 'stretch',
 	width: 1,
-	...(unstyled
-		? {}
-		: {
-				backgroundColor: isDisabled ? colors.neutral10 : colors.neutral20,
-				marginBottom: baseUnit * 2,
-				marginTop: baseUnit * 2,
-			}),
+	backgroundColor: isDisabled ? colors.neutral10 : colors.neutral20,
+	marginBottom: baseUnit * 2,
+	marginTop: baseUnit * 2,
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
@@ -240,17 +228,14 @@ export const loadingIndicatorCSS = <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
->(
-	{
-		isFocused,
-		size,
-		theme: {
-			colors,
-			spacing: { baseUnit },
-		},
-	}: LoadingIndicatorProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+>({
+	isFocused,
+	size,
+	theme: {
+		colors,
+		spacing: { baseUnit },
+	},
+}: LoadingIndicatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'loadingIndicator',
 	display: 'flex',
 	transition: 'color 150ms',
@@ -260,12 +245,8 @@ export const loadingIndicatorCSS = <
 	marginRight: size,
 	textAlign: 'center',
 	verticalAlign: 'middle',
-	...(unstyled
-		? {}
-		: {
-				color: isFocused ? colors.neutral60 : colors.neutral20,
-				padding: baseUnit * 2,
-			}),
+	color: isFocused ? colors.neutral60 : colors.neutral20,
+	padding: baseUnit * 2,
 });
 
 interface LoadingDotProps {

@@ -2,6 +2,8 @@ import React from 'react';
 
 import capitalize from 'lodash/capitalize';
 
+import { ButtonGroup } from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/glyph/add';
 import ArrowLeftIcon from '@atlaskit/icon/glyph/arrow-left';
 import ArrowRightIcon from '@atlaskit/icon/glyph/arrow-right';
@@ -12,9 +14,9 @@ import MoreIcon from '@atlaskit/icon/glyph/more';
 import { Stack } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { ButtonGroup } from '../src';
-import Button from '../src/new';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { type IconSize } from '../src/new-button/variants/types';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { buttonSpacing } from '../src/utils/spacing';
 
 const icons = [

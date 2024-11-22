@@ -1,12 +1,16 @@
 import React from 'react';
 
+import {
+	DatePicker,
+	type DatePickerProps,
+	DateTimePicker,
+	TimePicker,
+} from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import Heading from '@atlaskit/heading';
 import LocaleSelect, { type Locale } from '@atlaskit/locale/LocaleSelect';
 import { Box } from '@atlaskit/primitives';
 import Select, { type ValueType } from '@atlaskit/select';
-
-import { DatePicker, type DatePickerProps, DateTimePicker, TimePicker } from '../src';
 
 const onChange = (value: string) => {
 	console.log(value);

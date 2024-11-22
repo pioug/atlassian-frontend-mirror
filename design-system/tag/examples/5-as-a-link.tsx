@@ -4,8 +4,7 @@ import React, { Fragment, type HTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 
 import Link from '@atlaskit/link';
-
-import Tag from '../src/tag/simple-tag';
+import { SimpleTag as Tag } from '@atlaskit/tag';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const A = styled.a({

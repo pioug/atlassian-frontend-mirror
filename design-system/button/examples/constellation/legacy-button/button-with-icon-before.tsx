@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Button from '@atlaskit/button';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
-
-import Button from '../../../src';
 
 const ButtonIconBeforeExample = () => {
 	return (

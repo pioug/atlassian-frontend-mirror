@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.22
+
+### Patch Changes
+
+- [#167184](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167184)
+  [`2b558a2fe0420`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b558a2fe0420) -
+  ED-25780 Layout column drag handle is not shown for macros and empty code snippet
+
+## 2.13.21
+
+### Patch Changes
+
+- [#166734](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166734)
+  [`433c0771a2eb9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/433c0771a2eb9) -
+  add offsets to align drag handle with headings
+- Updated dependencies
+
+## 2.13.20
+
+### Patch Changes
+
+- [#167178](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167178)
+  [`c2bcf67d564c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c2bcf67d564c7) -
+  Apply breakout mark to layout node when dnd target or source node contains it
+
 ## 2.13.19
 
 ### Patch Changes

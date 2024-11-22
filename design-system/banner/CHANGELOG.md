@@ -1,5 +1,13 @@
 # @atlaskit/banner
 
+## 12.6.0
+
+### Minor Changes
+
+- [#165245](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165245)
+  [`57c3a8cc3de44`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57c3a8cc3de44) -
+  Wrap icons so they're centered in a 24px container, to support new, smaller icons
+
 ## 12.5.5
 
 ### Patch Changes

@@ -7,9 +7,8 @@ import { Fragment } from 'react';
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
+import { Popup, PopupContent, PopupTrigger } from '@atlaskit/popup/experimental';
 import { token } from '@atlaskit/tokens';
-
-import { Popup, PopupContent, PopupTrigger } from '../src/compositional/popup';
 
 const styles = cssMap({
 	padding: {

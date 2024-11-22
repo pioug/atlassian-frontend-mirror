@@ -1,5 +1,39 @@
 # @atlaskit/editor-core
 
+## 202.2.0
+
+### Minor Changes
+
+- [#166957](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166957)
+  [`32cc3cebd2ed7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32cc3cebd2ed7) -
+  ED-25632 Ensure table nesting transform errors are logged to analytics. This includes an upgrade
+  to core-plugin to allow it to receive an anaylytics callback.
+- [#161325](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161325)
+  [`69312480d1ccc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/69312480d1ccc) -
+  [ux] [ED-25381] add drag and drop disabling and skipValidation options to editor to enable nested
+  legacy content editor
+
+### Patch Changes
+
+- Updated dependencies
+
+## 202.1.1
+
+### Patch Changes
+
+- [#166487](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166487)
+  [`9764cdca27869`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9764cdca27869) -
+  [ux] ED-25708 change all media cursors to pointer events in editor
+
+## 202.1.0
+
+### Minor Changes
+
+- [#166887](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166887)
+  [`3e94479084b61`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e94479084b61) -
+  Remove overrides for allowTable properties, allowTableResizing and allowTableAlignment, and allow
+  consumers to pass through props for these features
+
 ## 202.0.1
 
 ### Patch Changes

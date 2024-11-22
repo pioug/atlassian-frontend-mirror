@@ -7,6 +7,7 @@ import buildIcons, {
 	UNSAFE_buildNew as buildIconsNew,
 	createIconDocs,
 	type IconBuildConfig,
+	UNSAFE_createDeprecatedIconDocs,
 	UNSAFE_createIconDocsNew,
 	type UNSAFE_NewIconBuildConfig,
 } from '@af/icon-build-process';
@@ -75,7 +76,17 @@ buildIconsNew(configCore).then((icons) => {
 		migrationMap,
 	);
 
-	return fs.outputFile(path.resolve(root, 'src/metadata-core.tsx'), iconDocs);
+	fs.outputFile(path.resolve(root, 'src/metadata-core.tsx'), iconDocs);
+
+	const deprecatedDocs = UNSAFE_createDeprecatedIconDocs(
+		icons,
+		'@atlaskit/icon',
+		'core',
+		coreIconMetadata,
+		migrationMap,
+	);
+
+	fs.outputFile(path.resolve(root, 'src/deprecated-core.tsx'), deprecatedDocs);
 });
 
 /**
@@ -107,5 +118,15 @@ buildIconsNew(configUtility).then((icons) => {
 		migrationMap,
 	);
 
-	return fs.outputFile(path.resolve(root, 'src/metadata-utility.tsx'), iconDocs);
+	fs.outputFile(path.resolve(root, 'src/metadata-utility.tsx'), iconDocs);
+
+	const deprecatedDocs = UNSAFE_createDeprecatedIconDocs(
+		icons,
+		'@atlaskit/icon',
+		'utility',
+		utilityIconMetadata,
+		migrationMap,
+	);
+
+	fs.outputFile(path.resolve(root, 'src/deprecated-utility.tsx'), deprecatedDocs);
 });

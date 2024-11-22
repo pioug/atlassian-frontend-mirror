@@ -15,10 +15,9 @@ import {
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import Drawer from '@atlaskit/drawer';
 import AppSwitcherIcon from '@atlaskit/icon/core/migration/app-switcher';
 import { token } from '@atlaskit/tokens';
-
-import Drawer from '../src';
 
 interface State {
 	isDrawerOpen: boolean;
@@ -93,6 +92,7 @@ const SidebarOverrideComponent: FC<{ children?: ReactNode }> = ({ children }) =>
 	);
 };
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class DrawersExample extends Component<{}, State> {
 	state = {
 		isDrawerOpen: false,
@@ -122,7 +122,7 @@ export default class DrawersExample extends Component<{}, State> {
 					isOpen={this.state.isDrawerOpen}
 					width="narrow"
 					label="Drawer with component overrides"
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 					overrides={{
 						Sidebar: {
 							component: SidebarOverrideComponent,

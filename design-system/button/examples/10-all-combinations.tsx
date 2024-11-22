@@ -8,14 +8,15 @@ import { Fragment, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import capitalize from 'lodash/capitalize';
 
+import LegacyButton from '@atlaskit/button';
+import LoadingButton from '@atlaskit/button/loading-button';
+import { type Appearance, type Spacing } from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 
-import { type Appearance, type Spacing } from '../src/new';
-import LegacyButton from '../src/old-button/button';
-import LoadingButton from '../src/old-button/loading-button';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants, { type Variant } from '../src/utils/variants';
 
 const shouldFitContainerStyles = xcss({ width: 'size.1000' });

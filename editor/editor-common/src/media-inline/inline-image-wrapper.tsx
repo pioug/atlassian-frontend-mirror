@@ -15,7 +15,6 @@ import {
 	INLINE_IMAGE_BORDER_COLOR_CSS_VAR_KEY,
 	INLINE_IMAGE_BORDER_SIZE_CSS_VAR_KEY,
 	INLINE_IMAGE_WRAPPER_CLASS_NAME,
-	interactiveStyle,
 	selectedStyle,
 	wrapperStyle,
 } from './styles';
@@ -33,7 +32,6 @@ const sizeWrapperStyle = css({
 type Props = {
 	children: ReactElement;
 	isSelected?: boolean;
-	isInteractive?: boolean;
 	aspectRatio?: number | string;
 	borderSize?: number;
 	borderColor?: string;
@@ -44,7 +42,6 @@ type Props = {
 export const InlineImageWrapper = ({
 	children,
 	isSelected,
-	isInteractive,
 	aspectRatio,
 	borderSize,
 	borderColor,
@@ -80,8 +77,6 @@ export const InlineImageWrapper = ({
 				borderSize && borderColor && borderStyle,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				isSelected && selectedStyle,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				isInteractive && interactiveStyle,
 			]}
 			data-testid="inline-image-wrapper"
 			onClick={onClick}

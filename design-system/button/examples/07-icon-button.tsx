@@ -1,9 +1,8 @@
 import React from 'react';
 
+import { IconButton, LinkIconButton } from '@atlaskit/button/new';
 import StarFilledIcon from '@atlaskit/icon/glyph/star-filled';
 import { Inline, xcss } from '@atlaskit/primitives';
-
-import { IconButton, LinkIconButton } from '../src/new';
 
 const wrapperStyles = xcss({
 	padding: 'space.200',

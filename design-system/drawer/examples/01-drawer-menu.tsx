@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import Drawer from '@atlaskit/drawer';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
-
-import Drawer from '../src';
 
 export default () => {
 	const [isOpen, setIsOpen] = useState(true);

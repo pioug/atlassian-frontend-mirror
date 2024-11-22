@@ -223,6 +223,8 @@ interface EditorBaseProps {
 	 * @default false
 	 */
 	__livePage?: boolean;
+
+	skipValidation?: boolean;
 }
 
 // These are props that are shared between the editor and the plugin components.

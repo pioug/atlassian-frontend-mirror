@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 112.5.5
+
+### Patch Changes
+
+- [#166957](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166957)
+  [`32cc3cebd2ed7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32cc3cebd2ed7) -
+  ED-25632 Ensure table nesting transform errors are logged to analytics. This includes an upgrade
+  to core-plugin to allow it to receive an anaylytics callback.
+- Updated dependencies
+
 ## 112.5.4
 
 ### Patch Changes

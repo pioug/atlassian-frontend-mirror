@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "202.0.1",
+	"version": "202.2.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,14 +43,14 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^95.0.0",
+		"@atlaskit/editor-common": "^95.2.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.7.1",
 		"@atlaskit/editor-plugins": "^5.6.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/emoji": "^67.11.0",
-		"@atlaskit/icon": "^22.24.0",
+		"@atlaskit/icon": "^22.25.0",
 		"@atlaskit/media-card": "^78.14.0",
 		"@atlaskit/mention": "^23.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -72,7 +72,7 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/link-provider": "^1.16.0",
+		"@atlaskit/link-provider": "^1.17.0",
 		"@atlaskit/media-core": "^34.3.0",
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0",
@@ -88,7 +88,7 @@
 		"@atlaskit/editor-plugin-card": "^4.4.0",
 		"@atlaskit/editor-plugin-list": "^3.9.0",
 		"@atlaskit/editor-plugin-paste": "^2.0.0",
-		"@atlaskit/link-provider": "^1.16.0",
+		"@atlaskit/link-provider": "^1.17.0",
 		"@atlaskit/logo": "^14.3.0",
 		"@atlaskit/media-core": "^34.3.0",
 		"@atlaskit/media-integration-test-helpers": "^3.1.0",
@@ -103,7 +103,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "2.4.169",
+		"@atlassian/search-provider": "2.4.171",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^6.4.0",
 		"@testing-library/react": "^12.1.5",

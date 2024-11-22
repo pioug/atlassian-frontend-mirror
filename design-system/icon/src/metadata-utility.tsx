@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `UNSAFE_createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::f026d0766e98fc87a4d6b2f4471f5379>>
+ * @codegen <<SignedSource::eae29e6af1dc94a7dd24d2f620ae9efc>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -46,6 +46,11 @@ interface metadata {
 	team: string;
 
 	/**
+	 * The status of the icon
+	 */
+	status?: 'draft' | 'ready-to-publish' | 'published' | 'modified' | 'deprecated';
+
+	/**
 	 * Contact slack channel for the team owning the icon
 	 */
 	slackChannel?: string;
@@ -54,6 +59,15 @@ interface metadata {
 	 * A list of keys for old icons that have been replaced by this icon
 	 */
 	oldName?: string[];
+
+	/**
+	 * A replacement icon if this icon has been deprecated
+	 */
+	replacement?: {
+		name: string;
+		type: 'core' | 'utility';
+		location: '@atlaskit/icon' | '@atlaskit/icon-lab' | '@atlassian/icon-private';
+	};
 }
 
 const metadata: Record<string, metadata> = {

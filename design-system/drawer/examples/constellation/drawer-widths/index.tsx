@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-
-import Drawer, { type DrawerWidth } from '../../../src';
-import { widths } from '../../../src/constants';
+import Drawer, { type DrawerWidth } from '@atlaskit/drawer';
+import { widths } from '@atlaskit/drawer/constants';
 
 const DrawerWidths = () => {
 	const [open, setOpen] = useState<boolean>(false);

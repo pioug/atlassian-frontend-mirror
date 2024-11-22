@@ -2,7 +2,6 @@ import React, { forwardRef } from 'react';
 
 import Heading from '@atlaskit/heading';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import { getAppearanceIconStyles } from './internal/appearance-icon';
 import type { SectionMessageProps } from './types';
@@ -19,7 +18,7 @@ const bleedStyles = xcss({
 
 const contentStyles = xcss({
 	color: 'color.text',
-	font: token('font.body'),
+	font: 'font.body',
 });
 
 /**
@@ -58,7 +57,15 @@ const SectionMessage = forwardRef<HTMLElement, SectionMessageProps>(function Sec
 		>
 			<Inline space="space.200" alignBlock="stretch">
 				<Box xcss={bleedStyles}>
-					<Icon size="medium" primaryColor={primaryColor} secondaryColor={secondaryColor} />
+					<Icon
+						size="medium"
+						primaryColor={primaryColor}
+						secondaryColor={secondaryColor}
+						// props for new icon
+						LEGACY_size="medium"
+						color={primaryColor}
+						spacing="spacious"
+					/>
 				</Box>
 				<Stack space="space.100" testId={testId && `${testId}--content`}>
 					{!!title && (

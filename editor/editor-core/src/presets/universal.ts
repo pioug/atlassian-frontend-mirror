@@ -160,10 +160,6 @@ export default function createUniversalPresetInternal({
 		return false;
 	};
 
-	// Extend table feature set for Jira - under support_table_in_comment_jira experiment
-	const extendedTableFeaturesForComment =
-		isComment && editorExperiment('support_table_in_comment_jira', true, { exposure: true });
-
 	const finalPreset = defaultPreset
 		.add(dataConsumerPlugin)
 		.add(accessibilityUtilsPlugin)
@@ -264,26 +260,21 @@ export default function createUniversalPresetInternal({
 				tablesPlugin,
 				{
 					tableOptions:
-						!props.allowTables || typeof props.allowTables === 'boolean'
-							? {}
-							: {
-									allowTableResizing: extendedTableFeaturesForComment,
-									allowTableAlignment: extendedTableFeaturesForComment,
-									// allow for consumers to pass through overrides for allowTableResizing and allowTableAlignment
-									...props.allowTables,
-								},
+						!props.allowTables || typeof props.allowTables === 'boolean' ? {} : props.allowTables,
 					dragAndDropEnabled:
 						(featureFlags?.tableDragAndDrop &&
 							(isFullPage ||
 								((isComment || isChromeless) &&
 									editorExperiment('support_table_in_comment', true, { exposure: true })))) ||
-						extendedTableFeaturesForComment,
+						(isComment &&
+							editorExperiment('support_table_in_comment_jira', true, { exposure: true })),
 					isTableScalingEnabled:
 						(featureFlags?.tablePreserveWidth &&
 							(isFullPage ||
 								(isComment &&
 									editorExperiment('support_table_in_comment', true, { exposure: true })))) ||
-						extendedTableFeaturesForComment,
+						(isComment &&
+							editorExperiment('support_table_in_comment_jira', true, { exposure: true })),
 					allowContextualMenu: true,
 					fullWidthEnabled: appearance === 'full-width',
 					wasFullWidthEnabled: prevAppearance && prevAppearance === 'full-width',

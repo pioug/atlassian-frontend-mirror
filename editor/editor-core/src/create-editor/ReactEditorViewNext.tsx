@@ -199,6 +199,7 @@ function ReactEditorView(props: EditorViewProps) {
 		new EditorPluginInjectionAPI({
 			getEditorState: getEditorState,
 			getEditorView: getEditorView,
+			fireAnalyticsEvent: handleAnalyticsEvent,
 		}),
 	);
 

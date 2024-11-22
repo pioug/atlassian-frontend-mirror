@@ -213,6 +213,10 @@ export const mediaStyles = () => css`
 		}
 	}
 
+	.media-filmstrip-list-item {
+		cursor: pointer;
+	}
+
 	/* When clicking drag handle, mediaGroup node will be selected. Hence we need to apply selected style to each media node */
 	.mediaGroupView-content-wrap.${akEditorSelectedNodeClassName} #newFileExperienceWrapper {
 		box-shadow: ${akEditorSelectedBoxShadow};

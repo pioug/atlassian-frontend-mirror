@@ -8,9 +8,8 @@ import { Fragment, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import Drawer from '@atlaskit/drawer';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import Drawer from '../../src';
 
 const sidebarOverrideStyles = xcss({
 	display: 'flex',
@@ -40,7 +39,7 @@ const DrawerOverridesExample = () => {
 		<Fragment>
 			<Drawer
 				label="Drawer with custom overrides"
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 				overrides={{
 					Sidebar: {
 						component: ({ children }) => <Box xcss={sidebarOverrideStyles}>{children} Sidebar</Box>,

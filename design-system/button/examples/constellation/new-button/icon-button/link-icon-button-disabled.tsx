@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { LinkIconButton } from '@atlaskit/button/new';
 import EditIcon from '@atlaskit/icon/glyph/edit';
-
-import { LinkIconButton } from '../../../../src/new';
 
 type MyRouterLinkConfig = {
 	to: string;

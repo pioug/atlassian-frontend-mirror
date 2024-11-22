@@ -57,7 +57,9 @@ const containerStyles = xcss({
 });
 
 const iconWrapperStyles = xcss({
-	display: 'block',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
 	width: '1.5rem',
 	height: '1.5rem', // This matches Icon's "medium" size, without this the (line-)height is greater than that of the Icon
 	flexShrink: '0',

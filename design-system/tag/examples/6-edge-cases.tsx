@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Tag from '../src/tag/removable-tag';
+import { RemovableTag as Tag } from '@atlaskit/tag';
 
 export default () => (
 	<div>

@@ -4,11 +4,10 @@ import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
+import PageHeader from '@atlaskit/page-header';
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
-
-import PageHeader from '../../src';
 
 const selectContainerStyles = xcss({
 	flex: '0 0 200px',

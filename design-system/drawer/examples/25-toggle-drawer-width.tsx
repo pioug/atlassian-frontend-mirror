@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
+import Drawer, { type DrawerWidth } from '@atlaskit/drawer';
+import { widths } from '@atlaskit/drawer/constants';
 import { Label } from '@atlaskit/form';
 import { Box, Inline } from '@atlaskit/primitives';
-
-import Drawer from '../src';
-import { type DrawerWidth } from '../src/components/types';
-import { widths } from '../src/constants';
 
 const DrawersExample = () => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);

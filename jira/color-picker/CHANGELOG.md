@@ -1,5 +1,17 @@
 # @atlaskit/color-picker
 
+## 3.5.0
+
+### Minor Changes
+
+- [#164925](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164925)
+  [`ee7ea6daa7a37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee7ea6daa7a37) -
+  Added onMenuOpen callback as a new prop
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.4.6
 
 ### Patch Changes

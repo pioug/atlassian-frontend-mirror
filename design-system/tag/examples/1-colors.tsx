@@ -1,10 +1,7 @@
 import React from 'react';
 
+import { RemovableTag, SimpleTag as Tag, type TagColor } from '@atlaskit/tag';
 import { token } from '@atlaskit/tokens';
-
-import RemovableTag from '../src/tag/removable-tag';
-import Tag from '../src/tag/simple-tag';
-import type { TagColor } from '../src/types';
 
 const colors: TagColor[] = [
 	'blue',

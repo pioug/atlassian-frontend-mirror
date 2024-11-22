@@ -1,5 +1,13 @@
 # @atlaskit/side-navigation
 
+## 3.6.2
+
+### Patch Changes
+
+- [#167483](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167483)
+  [`2dd22b00bedaa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2dd22b00bedaa) -
+  Add props for handling server rendered components and data-vc
+
 ## 3.6.1
 
 ### Patch Changes

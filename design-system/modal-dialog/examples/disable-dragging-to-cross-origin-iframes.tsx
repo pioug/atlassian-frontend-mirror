@@ -16,8 +16,11 @@ import { dropTargetForTextSelection } from '@atlaskit/pragmatic-drag-and-drop/te
 import { Box, Flex, Inline, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { disableDraggingToCrossOriginIFramesForElement } from '../src/internal/pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/element';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { disableDraggingToCrossOriginIFramesForExternal } from '../src/internal/pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/external';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { disableDraggingToCrossOriginIFramesForTextSelection } from '../src/internal/pragmatic-drag-and-drop/disable-dragging-to-cross-origin-iframes/text-selection';
 
 const inIframeStyles = xcss({

@@ -1,10 +1,9 @@
 import React from 'react';
 
+import { ButtonGroup } from '@atlaskit/button';
+import Button, { LinkButton } from '@atlaskit/button/new';
 import AudioIcon from '@atlaskit/icon/glyph/audio';
 import { Box, Stack, xcss } from '@atlaskit/primitives';
-
-import { ButtonGroup } from '../src';
-import Button, { LinkButton } from '../src/new';
 
 const constrainedRowStyles = xcss({
 	width: 'size.1000',

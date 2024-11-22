@@ -23,6 +23,10 @@ const forcedDimensionsStyles = css({
 	position: 'relative',
 });
 
+const pointerCursorStyle = css({
+	cursor: 'pointer',
+});
+
 type MediaCardWrapperProps = {
 	dimensions: NumericalCardDimensions;
 	children: React.ReactNode;
@@ -44,6 +48,7 @@ export const MediaCardWrapper = ({
 			data-testid="media-card-wrapper"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="media-card-wrapper"
+			css={pointerCursorStyle}
 			style={{
 				borderColor: `var(--custom-palette-color)`,
 				borderWidth: `${calculatedBorderWidth}px`,

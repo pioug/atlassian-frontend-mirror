@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from 'react';
 
+import Button from '@atlaskit/button/new';
 import { Inline, Stack } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
-
-import Button from '../../../../src/new';
 
 const ButtonLoadingExample = () => {
 	const [isLoading, setIsLoading] = useState(true);

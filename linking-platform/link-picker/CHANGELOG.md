@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 1.47.7
+
+### Patch Changes
+
+- [#167132](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167132)
+  [`a43e7708c667f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a43e7708c667f) -
+  [ux] Migrate HTML heading tags to Heading AtlasKit component
+- Updated dependencies
+
 ## 1.47.6
 
 ### Patch Changes

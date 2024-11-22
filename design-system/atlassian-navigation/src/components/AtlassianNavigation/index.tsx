@@ -85,6 +85,7 @@ export const AtlassianNavigation = (props: AtlassianNavigationProps) => {
 		moreLabel = '…',
 		theme = defaultTheme,
 		testId,
+		isServer = false,
 	} = props;
 
 	return (
@@ -96,7 +97,7 @@ export const AtlassianNavigation = (props: AtlassianNavigationProps) => {
 					css={containerStyles}
 					data-testid={testId && `${testId}-header`}
 					role="banner"
-					data-vc="atlassian-navigation"
+					data-vc={`atlassian-navigation${isServer ? '-ssr' : ''}`}
 				>
 					<nav css={leftStyles} aria-label={label}>
 						{AppSwitcher && <AppSwitcher />}

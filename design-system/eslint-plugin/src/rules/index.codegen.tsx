@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::4a19c51d51547e8f4e27f3785242c226>>
+ * @codegen <<SignedSource::50c700a7a1e85949b0e5136a8c576c72>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
 import consistentCssPropUsage from './consistent-css-prop-usage';
@@ -34,6 +34,7 @@ import noUnsafeStyleOverrides from './no-unsafe-style-overrides';
 import noUnsupportedDragAndDropLibraries from './no-unsupported-drag-and-drop-libraries';
 import preferPrimitives from './prefer-primitives';
 import useButtonGroupLabel from './use-button-group-label';
+import useDatetimePickerCalendarButton from './use-datetime-picker-calendar-button';
 import useDrawerLabel from './use-drawer-label';
 import useHeading from './use-heading';
 import useHeadingLevelInSpotlightCard from './use-heading-level-in-spotlight-card';
@@ -82,6 +83,7 @@ export const rules = {
 	'no-unsupported-drag-and-drop-libraries': noUnsupportedDragAndDropLibraries,
 	'prefer-primitives': preferPrimitives,
 	'use-button-group-label': useButtonGroupLabel,
+	'use-datetime-picker-calendar-button': useDatetimePickerCalendarButton,
 	'use-drawer-label': useDrawerLabel,
 	'use-heading': useHeading,
 	'use-heading-level-in-spotlight-card': useHeadingLevelInSpotlightCard,

@@ -28,6 +28,7 @@ import { ActionOperationStatus } from '@atlaskit/linking-types';
 import {
 	type DatasourceDataResponseItem,
 	type DatasourceResponseSchemaProperty,
+	type Icon,
 } from '@atlaskit/linking-types/datasource';
 import { type Input } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
@@ -202,7 +203,7 @@ describe('IssueLikeDataTableView', () => {
 								items={[]}
 								itemIds={[]}
 								columns={[]}
-								visibleColumnKeys={['id', 'status']}
+								visibleColumnKeys={['id', 'status', 'priority']}
 								{...props}
 							/>
 						</SmartCardProvider>
@@ -248,17 +249,22 @@ describe('IssueLikeDataTableView', () => {
 			};
 		};
 
-		const openInlineEdit = async (dropdownOption: string) => {
+		const openInlineEdit = async ({
+			currentCellText,
+			dropdownOptionText,
+		}: {
+			currentCellText: string;
+			dropdownOptionText: string;
+		}) => {
 			const { findByText } = renderResult;
-
-			const statusCell = await findByText('Done');
+			const priorityCell = await findByText(currentCellText);
 
 			// open popup
 			act(() => {
-				fireEvent.click(statusCell);
+				fireEvent.click(priorityCell);
 			});
 
-			await findByText(dropdownOption);
+			await findByText(dropdownOptionText);
 		};
 
 		return {
@@ -2172,7 +2178,7 @@ describe('IssueLikeDataTableView', () => {
 							itemIds,
 						});
 
-						await openInlineEdit('In Progress');
+						await openInlineEdit({ currentCellText: 'Done', dropdownOptionText: 'In Progress' });
 						await waitFor(() => {
 							expect(screen.queryByTestId('inline-edit-status')).not.toBeInTheDocument();
 						});
@@ -2218,7 +2224,7 @@ describe('IssueLikeDataTableView', () => {
 							itemIds,
 						});
 
-						await openInlineEdit('In Progress');
+						await openInlineEdit({ currentCellText: 'Done', dropdownOptionText: 'In Progress' });
 
 						expect(executeFetch).toHaveBeenNthCalledWith(1, {});
 					});
@@ -2263,7 +2269,7 @@ describe('IssueLikeDataTableView', () => {
 							itemIds,
 						});
 
-						await openInlineEdit('Done');
+						await openInlineEdit({ currentCellText: 'Done', dropdownOptionText: 'Done' });
 
 						fireEvent.click(await screen.findByText('Backlog'));
 						expect(executeFetch).toHaveBeenCalledTimes(1);
@@ -2299,7 +2305,7 @@ describe('IssueLikeDataTableView', () => {
 							itemIds,
 						});
 
-						await openInlineEdit('No options');
+						await openInlineEdit({ currentCellText: 'Done', dropdownOptionText: 'No options' });
 
 						const flag = await screen.findByRole('alert');
 						expect(flag).toBeInTheDocument();
@@ -2395,7 +2401,132 @@ describe('IssueLikeDataTableView', () => {
 		});
 
 		ffTest.on('platform-datasources-enable-two-way-sync', 'InlineEditRendered', () => {
-			ffTest.on('enable_datasource_react_sweet_state', 'with react sweet state on', () => {
+			ffTest.on('enable_datasource_react_sweet_state', 'with react sweet state on', async () => {
+				ffTest.on(
+					'platform-datasources-enable-two-way-sync-priority',
+					'with 2 way sync for priority on',
+					() => {
+						const item1: Icon = { label: 'Blocker', text: 'Blocker', id: '6', source: 'source' };
+
+						const items: DatasourceDataResponseItem[] = [
+							{
+								priority: {
+									data: item1,
+								},
+								ari: { data: 'ari/id' },
+							},
+							{
+								priority: {
+									data: { label: 'Major', text: 'Major', id: '5', source: 'source' },
+								},
+								ari: { data: 'ari/id2' },
+							},
+							{
+								priority: {
+									data: { label: 'High', text: 'High', id: '4', source: 'source' },
+								},
+								ari: { data: 'ari/id3' },
+							},
+						];
+
+						const columns: DatasourceResponseSchemaProperty[] = [
+							{
+								key: 'priority',
+								title: 'Priority',
+								type: 'icon',
+							},
+						];
+
+						const execute = jest.fn().mockResolvedValue({});
+
+						it('should mark Ufo experience as started when inline edit of icon (priority) is opened', async () => {
+							const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+							actionStore.storeState.setState({
+								actionsByIntegration: {
+									jira: {
+										priority: {
+											actionKey: 'atlassian:work-item:update:priority',
+											type: 'string',
+										},
+									},
+								},
+								permissions: {
+									'ari/id': {
+										priority: { isEditable: true },
+									},
+								},
+							});
+
+							const executeFetch = jest.fn().mockResolvedValue({});
+							mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+							const { openInlineEdit } = setup({
+								items,
+								columns,
+								itemIds,
+							});
+
+							await openInlineEdit({
+								currentCellText: 'Blocker',
+								dropdownOptionText: 'Major',
+							});
+
+							expect(mockInlineEditUfoStart).toHaveBeenCalledTimes(1);
+
+							await waitFor(() => {
+								expect(mockInlineEditUfoSuccess).toHaveBeenCalledTimes(1);
+							});
+							expect(mockInlineEditUfoFailure).toHaveBeenCalledTimes(0);
+						});
+
+						it('should mark Ufo experience as failure when executeFetch fails', async () => {
+							const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+							actionStore.storeState.setState({
+								actionsByIntegration: {
+									jira: {
+										priority: {
+											actionKey: 'atlassian:work-item:update:priority',
+											type: 'string',
+										},
+									},
+								},
+								permissions: {
+									'ari/id': {
+										priority: { isEditable: true },
+									},
+								},
+							});
+
+							const executeFetch = jest.fn().mockResolvedValue({
+								operationStatus: ActionOperationStatus.FAILURE,
+								errors: [],
+							});
+							mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+							const { openInlineEdit, findByText } = setup({
+								items,
+								columns,
+								itemIds,
+							});
+
+							await openInlineEdit({
+								currentCellText: 'Blocker',
+								dropdownOptionText: 'Major',
+							});
+
+							expect(mockInlineEditUfoStart).toHaveBeenCalledTimes(1);
+							await waitFor(() => {
+								expect(mockInlineEditUfoFailure).toHaveBeenCalledTimes(1);
+							});
+
+							// Check the error flag also displays!
+							await waitFor(() => {
+								expect(findByText('We’re having trouble fetching options')).resolves.toBeDefined();
+							});
+						});
+					},
+				);
+
 				ffTest.on(
 					'platform-datasources-enable-two-way-sync-statuses',
 					'with 2 way sync for status on',
@@ -2458,7 +2589,7 @@ describe('IssueLikeDataTableView', () => {
 								itemIds,
 							});
 
-							await openInlineEdit('No options');
+							await openInlineEdit({ currentCellText: 'Done', dropdownOptionText: 'No options' });
 
 							expect(mockInlineEditUfoStart).toHaveBeenCalledTimes(1);
 						});
@@ -2503,7 +2634,7 @@ describe('IssueLikeDataTableView', () => {
 								itemIds,
 							});
 
-							await openInlineEdit('Backlog');
+							await openInlineEdit({ currentCellText: 'Done', dropdownOptionText: 'Backlog' });
 
 							expect(mockInlineEditUfoStart).toHaveBeenCalledTimes(1);
 							await waitFor(() => {
@@ -2541,7 +2672,7 @@ describe('IssueLikeDataTableView', () => {
 								itemIds,
 							});
 
-							await openInlineEdit('No options');
+							await openInlineEdit({ currentCellText: 'Done', dropdownOptionText: 'No options' });
 
 							expect(mockInlineEditUfoStart).toHaveBeenCalledTimes(1);
 							await waitFor(() => {

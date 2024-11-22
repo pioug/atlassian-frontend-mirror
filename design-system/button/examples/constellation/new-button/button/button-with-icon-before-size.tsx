@@ -1,8 +1,7 @@
 import React from 'react';
 
+import Button from '@atlaskit/button/new';
 import LinkIcon from '@atlaskit/icon/glyph/link';
-
-import Button from '../../../../src/new';
 
 const ButtonIconBeforeSizeExample = () => {
 	return (

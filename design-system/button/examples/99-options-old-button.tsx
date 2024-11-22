@@ -8,10 +8,9 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import Button from '@atlaskit/button';
 import { AtlassianIcon } from '@atlaskit/logo';
 import { token } from '@atlaskit/tokens';
-
-import Button from '../src';
 
 const Icon = <AtlassianIcon label="" size="small" />;
 

@@ -50,7 +50,7 @@ const transformNestedTablesWithAnalytics = (
 				actionSubject: ACTION_SUBJECT.EDITOR,
 				eventType: EVENT_TYPE.OPERATIONAL,
 				attributes: {
-					errorMessage: 'Failed to transform one or more nested tables in the document',
+					errorMessage: `${e instanceof Error && e.name === 'NodeNestingTransformError' ? 'NodeNestingTransformError - Failed to transform one or more nested tables' : undefined}`,
 				},
 			});
 		}

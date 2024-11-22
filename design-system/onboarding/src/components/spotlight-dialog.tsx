@@ -1,9 +1,7 @@
 import React, { Component, type ComponentType, type ReactNode } from 'react';
 
-import FocusLockOld from 'react-focus-lock';
-import FocusLockNext from 'react-focus-lock-next';
+import FocusLock from 'react-focus-lock';
 
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type Placement, Popper } from '@atlaskit/popper';
 import { Box } from '@atlaskit/primitives';
 
@@ -97,9 +95,6 @@ interface State {
 	focusLockDisabled: boolean;
 }
 
-const FocusLock = fg('platform_dst_onboarding-bump-react-focus-lock')
-	? FocusLockNext
-	: FocusLockOld;
 /**
  * __Spotlight dialog__
  *

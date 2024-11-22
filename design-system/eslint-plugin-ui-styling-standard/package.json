@@ -44,7 +44,7 @@
 		"./package.json": "./package.json"
 	},
 	"dependencies": {
-		"@atlaskit/eslint-plugin-design-system": "^10.24.0",
+		"@atlaskit/eslint-plugin-design-system": "^10.26.0",
 		"@atlaskit/eslint-utils": "^1.7.0",
 		"@babel/runtime": "^7.0.0",
 		"@typescript-eslint/utils": "^5.48.1",

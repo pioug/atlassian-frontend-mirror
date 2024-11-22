@@ -38,10 +38,15 @@ const HelperJSXAttribute = {
 	 * Currently, `getValue` has only implemented strategies for when the value is a string, or an ExpressionStatement
 	 * If you need additional functionality add it, and set the correct `type` on the returned object
 	 */
-	getValue(
-		node: JSXAttribute,
-	):
-		| { type: 'ExpressionStatement'; value: string }
+	getValue(node: JSXAttribute):
+		| {
+				type: 'ExpressionStatement';
+				value: string;
+		  }
+		| {
+				type: 'ExpressionStatement Literal';
+				value: string | number | bigint | boolean | RegExp | null | undefined;
+		  }
 		| { type: 'Literal'; value: string }
 		| undefined {
 		if (!isNodeOfType(node, 'JSXAttribute')) {
@@ -58,6 +63,14 @@ const HelperJSXAttribute = {
 			isNodeOfType(node.value.expression, 'Identifier')
 		) {
 			return { type: 'ExpressionStatement', value: node.value.expression.name };
+		}
+
+		// handle `css={true}`
+		if (
+			isNodeOfType(node.value, 'JSXExpressionContainer') &&
+			isNodeOfType(node.value.expression, 'Literal')
+		) {
+			return { type: 'ExpressionStatement Literal', value: node.value.expression.value };
 		}
 
 		// handle `css='myStyles'`

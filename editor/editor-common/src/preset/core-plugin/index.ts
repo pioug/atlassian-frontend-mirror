@@ -61,7 +61,7 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				options?: { transformer?: GenericTransformer },
 			) {
 				const view = config?.getEditorView() ?? null;
-				scheduleDocumentRequest(view, onReceive, options?.transformer);
+				scheduleDocumentRequest(view, onReceive, options?.transformer, config?.fireAnalyticsEvent);
 			},
 
 			createTransformer<Format>(

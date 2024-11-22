@@ -3,6 +3,7 @@ import React from 'react';
 import Link from '@atlaskit/link';
 import { Box } from '@atlaskit/primitives';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variations from '../src/utils/variations';
 
 export default function AllCombinationsExample() {

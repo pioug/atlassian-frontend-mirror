@@ -6,6 +6,8 @@ import type { CustomGlyphProps, IconProps } from '@atlaskit/icon/types';
 const GmailIconGlyph = (props: CustomGlyphProps) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
+		width="24"
+		height="24"
 		viewBox="37 37 115 80"
 		data-testid={props['data-testid']}
 		aria-label={props['aria-label']}

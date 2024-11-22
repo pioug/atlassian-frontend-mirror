@@ -11,6 +11,10 @@ export const DRAG_HANDLE_MAX_GAP = 12;
 export const DRAG_HANDLE_MAX_WIDTH_PLUS_GAP = DRAG_HANDLE_WIDTH + DRAG_HANDLE_MAX_GAP;
 
 export const DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT = 4 + 2; // 4px for the divider vertical padding and 2px for the divider height
+export const DRAG_HANDLE_H3_TOP_ADJUSTMENT = 2;
+export const DRAG_HANDLE_H4_TOP_ADJUSTMENT = 3;
+export const DRAG_HANDLE_H5_TOP_ADJUSTMENT = 3;
+export const DRAG_HANDLE_H6_TOP_ADJUSTMENT = 3;
 
 const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
 
@@ -67,6 +71,16 @@ export const topPositionAdjustment = (nodeType: string) => {
 			return -DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT;
 		case 'table':
 			return DRAG_HANDLE_HEIGHT;
+		case 'paragraph':
+			return 2;
+		case 'heading-3':
+			return -DRAG_HANDLE_H3_TOP_ADJUSTMENT;
+		case 'heading-4':
+			return -DRAG_HANDLE_H4_TOP_ADJUSTMENT;
+		case 'heading-5':
+			return -DRAG_HANDLE_H5_TOP_ADJUSTMENT;
+		case 'heading-6':
+			return -DRAG_HANDLE_H6_TOP_ADJUSTMENT;
 		default:
 			return 0;
 	}

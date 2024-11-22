@@ -15,7 +15,7 @@ import { Box, Inline, Stack } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
-import metadata from '../src/entry-points/metadata';
+import coreIconLabMetadata from '../src/entry-points/metadata';
 import iconLabsMetadata from '../src/metadata-core';
 import migrationMap from '../src/migration-map';
 
@@ -27,11 +27,11 @@ type IconsList = Record<string, IconExplorerCellProps>;
 const legacyIconPackageMap = Object.keys(migrationMap).reduce(
 	(acc, iconName) => {
 		// Search for the icon key in metadata that has the matching componentName to the migration map keys
-		const metadataKey = Object.keys(metadata).find(
-			(key) => metadata[key].componentName === iconName,
+		const metadataKey = Object.keys(coreIconLabMetadata).find(
+			(key) => coreIconLabMetadata[key].componentName === iconName,
 		);
 		if (metadataKey) {
-			acc[iconName] = metadata[metadataKey].package;
+			acc[iconName] = coreIconLabMetadata[metadataKey].package;
 		}
 		return acc;
 	},

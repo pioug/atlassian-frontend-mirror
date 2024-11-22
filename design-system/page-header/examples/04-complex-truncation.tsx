@@ -4,12 +4,11 @@ import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import __noop from '@atlaskit/ds-lib/noop';
+import PageHeader from '@atlaskit/page-header';
 import { Text } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-
-import PageHeader from '../src';
 
 const breadcrumbs = (
 	<Breadcrumbs onExpand={__noop}>

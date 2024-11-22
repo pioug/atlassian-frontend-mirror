@@ -2,6 +2,7 @@ import React from 'react';
 
 import { B200, B400, N0, N100, N400 } from '@atlaskit/theme/colors';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { AtlassianLogo } from '../src';
 
 export default () => (

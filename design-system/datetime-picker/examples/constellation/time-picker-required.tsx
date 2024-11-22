@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { TimePicker } from '@atlaskit/datetime-picker';
 import { Field } from '@atlaskit/form';
-
-import { TimePicker } from '../../src';
 
 const TimePickerRequiredExample = () => (
 	<Field name="time" label="Start Time" isRequired>

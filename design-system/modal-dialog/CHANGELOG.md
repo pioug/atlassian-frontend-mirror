@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 12.17.13
+
+### Patch Changes
+
+- [#167181](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167181)
+  [`5bc9dc0796474`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5bc9dc0796474) -
+  Remove `react-focus-lock-next` dependency
+
 ## 12.17.12
 
 ### Patch Changes

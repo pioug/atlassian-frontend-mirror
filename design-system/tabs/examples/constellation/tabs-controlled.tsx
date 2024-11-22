@@ -10,9 +10,8 @@ import { css, jsx } from '@emotion/react';
 import Button from '@atlaskit/button/new';
 import { Box } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
+import { type SelectedType } from '@atlaskit/tabs/types';
 import { token } from '@atlaskit/tokens';
-
-import { type SelectedType } from '../../src/types';
 
 const panelStyles = css({
 	display: 'flex',

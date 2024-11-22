@@ -9,9 +9,8 @@ import { Component, type FC, type ReactNode, type SyntheticEvent } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import Drawer from '@atlaskit/drawer';
 import { token } from '@atlaskit/tokens';
-
-import Drawer from '../src';
 
 interface State {
 	isDrawerOpen: boolean;
@@ -80,7 +79,7 @@ export default class DrawersExample extends Component<{}, State> {
 					isOpen={this.state.isDrawerOpen}
 					width="narrow"
 					label="Drawer with custom sidebar override"
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-deprecated-apis
 					overrides={{
 						Sidebar: {
 							component: SidebarOverrideComponent,

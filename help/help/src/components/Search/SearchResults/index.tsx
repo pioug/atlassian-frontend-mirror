@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 import { Transition } from 'react-transition-group';
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 
@@ -67,6 +67,17 @@ export const SearchResults = () => {
 		[onSearchResultItemClick, openArticle, openExternalSearchUrlInNewTab],
 	);
 
+	const [suggestionsCount, setSuggestionsCount] = useState(0);
+	const liveRegionRef = useRef<HTMLDivElement>(null);
+
+	useEffect(() => {
+		if (searchResult) {
+			setSuggestionsCount(searchResult.length);
+		} else {
+			setSuggestionsCount(0);
+		}
+	}, [searchResult]);
+
 	return (
 		<Transition
 			in={view === VIEW.SEARCH && isSearchResultVisible}
@@ -81,6 +92,34 @@ export const SearchResults = () => {
 						...transitionStyles[state],
 					}}
 				>
+					{/* Live Region for Announcements */}
+					<div
+						ref={liveRegionRef}
+						aria-live="polite"
+						aria-atomic="true"
+						style={{
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							position: 'absolute', // hidden visually, but accessible
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							width: 1,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							height: 1,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							margin: -1,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							border: 0,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							padding: 0,
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							clip: 'rect(0 0 0 0)',
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+							overflow: 'hidden',
+						}}
+					>
+						{suggestionsCount > 0 &&
+							`${suggestionsCount} suggestion${suggestionsCount !== 1 ? 's' : ''} available for typed text.`}
+						{suggestionsCount === 0 && 'No suggestions available.'}
+					</div>
 					{searchState !== REQUEST_STATE.error &&
 						searchResult !== null &&
 						searchResult.length > 0 &&

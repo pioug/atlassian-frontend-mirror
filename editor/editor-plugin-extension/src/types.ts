@@ -62,6 +62,7 @@ export interface ExtensionPluginOptions extends LongPressSelectionPluginOptions 
 	breakoutEnabled?: boolean;
 	extensionHandlers?: ExtensionHandlers;
 	appearance?: EditorAppearance;
+	allowDragAndDrop?: boolean;
 	__livePage?: boolean;
 }
 

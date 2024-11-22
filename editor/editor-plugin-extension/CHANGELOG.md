@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.18.0
+
+### Minor Changes
+
+- [#161325](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161325)
+  [`69312480d1ccc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/69312480d1ccc) -
+  [ux] [ED-25381] add drag and drop disabling and skipValidation options to editor to enable nested
+  legacy content editor
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.17.3
 
 ### Patch Changes

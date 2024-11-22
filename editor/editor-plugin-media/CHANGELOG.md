@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.42.2
+
+### Patch Changes
+
+- [#166487](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166487)
+  [`9764cdca27869`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9764cdca27869) -
+  [ux] ED-25708 change all media cursors to pointer events in editor
+
 ## 1.42.1
 
 ### Patch Changes

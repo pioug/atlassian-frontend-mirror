@@ -1,5 +1,37 @@
 # @atlaskit/help
 
+## 7.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.11.0
+
+### Minor Changes
+
+- [#165991](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165991)
+  [`d79acd356e171`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d79acd356e171) -
+  a11y changes
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.10.13
+
+### Patch Changes
+
+- [#166004](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166004)
+  [`7e18c21c38822`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7e18c21c38822) -
+  added live region to announce search results updates for screen reader users
+
+## 7.10.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.10.11
 
 ### Patch Changes

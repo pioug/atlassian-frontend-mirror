@@ -1,10 +1,9 @@
 import React from 'react';
 
+import { IconButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/glyph/more';
 import { Box } from '@atlaskit/primitives';
-
-import { IconButton } from '../src/new';
 
 /**
  * This example recreates an edge case where icon render props cause

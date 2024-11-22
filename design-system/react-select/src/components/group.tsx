@@ -58,16 +58,12 @@ export interface GroupProps<
 	options: Options<Option>;
 }
 
-export const groupCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	{ theme: { spacing } }: GroupProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel =>
-	unstyled
-		? {}
-		: {
-				paddingBottom: spacing.baseUnit * 2,
-				paddingTop: spacing.baseUnit * 2,
-			};
+export const groupCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	theme: { spacing },
+}: GroupProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
+	paddingBottom: spacing.baseUnit * 2,
+	paddingTop: spacing.baseUnit * 2,
+});
 
 const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: GroupProps<Option, IsMulti, Group>,
@@ -122,24 +118,19 @@ export type GroupHeadingProps<
 	Group extends GroupBase<Option> = GroupBase<Option>,
 > = GroupHeadingPropsDefinedProps<Option, IsMulti, Group> & JSX.IntrinsicElements['div'];
 
-export const groupHeadingCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	{ theme: { colors, spacing } }: GroupHeadingProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+export const groupHeadingCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	theme: { colors, spacing },
+}: GroupHeadingProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'group',
 	cursor: 'default',
 	display: 'block',
-	...(unstyled
-		? {}
-		: {
-				color: colors.neutral40,
-				fontSize: '75%',
-				fontWeight: 500,
-				marginBottom: '0.25em',
-				paddingLeft: spacing.baseUnit * 3,
-				paddingRight: spacing.baseUnit * 3,
-				textTransform: 'uppercase',
-			}),
+	color: colors.neutral40,
+	fontSize: '75%',
+	fontWeight: 500,
+	marginBottom: '0.25em',
+	paddingLeft: spacing.baseUnit * 3,
+	paddingRight: spacing.baseUnit * 3,
+	textTransform: 'uppercase',
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

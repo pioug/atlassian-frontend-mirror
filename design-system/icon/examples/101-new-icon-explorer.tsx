@@ -9,7 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
-import iconLabsMetadata from '@atlaskit/icon-lab/metadata';
+import coreIconLabMetadata from '@atlaskit/icon-lab/metadata';
 import { Box, Inline, Stack } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
@@ -84,7 +84,7 @@ const utilityIconInfo = Promise.all(
 );
 
 const localIconInfo = Promise.all(
-	Object.keys(iconLabsMetadata).map(async (name: string) => {
+	Object.keys(coreIconLabMetadata).map(async (name: string) => {
 		const icon = await import(
 			/* webpackChunkName: "@atlaskit-internal_icon-lab" */
 			`@atlaskit/icon-lab/core/${name}.js`
@@ -96,7 +96,7 @@ const localIconInfo = Promise.all(
 		.map((importedIcon) => ({
 			[importedIcon.name]: {
 				component: importedIcon.icon,
-				...iconLabsMetadata[importedIcon.name],
+				...coreIconLabMetadata[importedIcon.name],
 			},
 		}))
 		.reduce((acc, b) => ({ ...acc, ...b })),

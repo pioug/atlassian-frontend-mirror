@@ -1,7 +1,10 @@
 import assert from 'assert';
 import * as sinon from 'sinon';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
-import { transformNestedTablesIncomingDocument } from '@atlaskit/adf-utils/transforms';
+import {
+	NodeNestingTransformError,
+	transformNestedTablesIncomingDocument,
+} from '@atlaskit/adf-utils/transforms';
 /**
  * TS 3.9+ defines non-configurable property for exports, that's why it's not possible to mock them like this anymore:
  *
@@ -361,7 +364,7 @@ describe('Renderer', () => {
 								typeof transformNestedTablesIncomingDocument
 							>
 						).mockImplementationOnce(() => {
-							throw new Error();
+							throw new NodeNestingTransformError('Error transforming nested tables');
 						});
 
 						const document = {

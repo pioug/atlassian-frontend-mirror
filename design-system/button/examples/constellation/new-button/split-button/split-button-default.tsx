@@ -1,9 +1,8 @@
 import React from 'react';
 
+import Button, { IconButton, SplitButton } from '@atlaskit/button/new';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
-
-import Button, { IconButton, SplitButton } from '../../../../src/new';
 
 const SplitButtonDefaultExample = () => {
 	return (

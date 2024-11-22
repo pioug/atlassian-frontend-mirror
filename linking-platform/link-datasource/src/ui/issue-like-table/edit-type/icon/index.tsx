@@ -11,8 +11,12 @@ import {
 import { type FilterOptionOption } from '@atlaskit/react-select/src/filters';
 import Select from '@atlaskit/select';
 
+import { failUfoExperience, succeedUfoExperience } from '../../../../analytics/ufoExperiences';
+import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
+import { useDatasourceTableFlag } from '../../../../hooks/useDatasourceTableFlag';
 import { type ExecuteFetch } from '../../../../state/actions';
 import { SharedIconComponent } from '../../shared-components/icon';
+import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
 import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
 
 interface Props extends Omit<FieldProps<string>, 'value'> {
@@ -26,7 +30,30 @@ interface Props extends Omit<FieldProps<string>, 'value'> {
  */
 const IconEditType = (props: Props) => {
 	const { currentValue, executeFetch } = props;
-	const { options, isLoading } = usePriorityOptions(currentValue, executeFetch);
+	const { options, isLoading, hasFailed } = usePriorityOptions(currentValue, executeFetch);
+	const experienceId = useDatasourceExperienceId();
+
+	useEffect(() => {
+		if (!experienceId) {
+			return;
+		}
+
+		if (hasFailed) {
+			failUfoExperience(
+				{
+					name: InlineEditUFOExperience,
+				},
+				experienceId,
+			);
+		} else if (!isLoading) {
+			succeedUfoExperience(
+				{
+					name: InlineEditUFOExperience,
+				},
+				experienceId,
+			);
+		}
+	}, [experienceId, isLoading, hasFailed]);
 
 	return (
 		<div>
@@ -67,24 +94,35 @@ const usePriorityOptions = (
 	currentValue: DatasourceTypeWithOnlyTypeValues<'icon'>,
 	executeFetch?: ExecuteFetch,
 ) => {
-	const [{ options, isLoading }, setOptions] = useState<{ isLoading: boolean; options: Icon[] }>({
+	const [{ options, isLoading, hasFailed }, setOptions] = useState<{
+		isLoading: boolean;
+		options: Icon[];
+		hasFailed: boolean;
+	}>({
 		isLoading: true,
 		options: [],
+		hasFailed: false,
 	});
 
+	const { showErrorFlag } = useDatasourceTableFlag({ isFetchAction: true });
 	useEffect(() => {
 		let isMounted = true;
-		loadOptions(currentValue, executeFetch).then((options) => {
-			if (isMounted) {
-				setOptions({ isLoading: false, options });
-			}
-		});
+		loadOptions(currentValue, executeFetch)
+			.then((options) => {
+				if (isMounted) {
+					setOptions({ isLoading: false, options, hasFailed: false });
+				}
+			})
+			.catch((err) => {
+				showErrorFlag();
+				setOptions({ isLoading: false, options: [], hasFailed: true });
+			});
 		return () => {
 			isMounted = false;
 		};
-	}, [currentValue, executeFetch]);
+	}, [currentValue, executeFetch, showErrorFlag]);
 
-	return { options, isLoading };
+	return { options, isLoading, hasFailed };
 };
 
 /**
@@ -99,6 +137,10 @@ const loadOptions = async (
 	}
 
 	const { operationStatus, entities } = await executeFetch<AtomicActionExecuteResponse<Icon>>({});
+
+	if (operationStatus === ActionOperationStatus.FAILURE) {
+		throw new Error('Failed to fetch icon options');
+	}
 
 	if (operationStatus === ActionOperationStatus.SUCCESS && entities) {
 		// Map entities here if the backend type is different from the type required by the select

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Button from '../../../../src/new';
+import Button from '@atlaskit/button/new';
 
 const ButtonSelectedExample = () => {
 	return <Button isSelected>Selected button</Button>;

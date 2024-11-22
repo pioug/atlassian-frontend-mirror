@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import Popup from '@atlaskit/popup';
 import { Box } from '@atlaskit/primitives';
-
-import { DatePicker } from '../src';
 
 export default () => {
 	const [isOpen, setIsOpen] = useState(false);

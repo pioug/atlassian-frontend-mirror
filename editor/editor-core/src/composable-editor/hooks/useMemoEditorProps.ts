@@ -109,6 +109,7 @@ export const useMemoEditorProps = (
 			dangerouslyAppendPlugins: passedProps.dangerouslyAppendPlugins,
 			__livePage: passedProps.__livePage,
 			AppearanceComponent: passedProps.AppearanceComponent,
+			skipValidation: passedProps.skipValidation,
 		};
 
 		const defaultProps: Partial<EditorNextProps> = {
@@ -217,6 +218,7 @@ export const useMemoEditorProps = (
 		passedProps.dangerouslyAppendPlugins,
 		passedProps.__livePage,
 		passedProps.AppearanceComponent,
+		passedProps.skipValidation,
 	]);
 
 	return memodProps;

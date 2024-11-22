@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { LinkIconButton } from '@atlaskit/button/new';
 import QuestionIcon from '@atlaskit/icon/glyph/question';
-
-import { LinkIconButton } from '../../../../src/new';
 
 const LinkIconButtonDisabledExample = () => {
 	return (

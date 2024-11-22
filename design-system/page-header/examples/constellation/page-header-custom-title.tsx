@@ -8,9 +8,8 @@ import { css, jsx } from '@emotion/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 import InlineEdit from '@atlaskit/inline-edit';
+import PageHeader from '@atlaskit/page-header';
 import { token } from '@atlaskit/tokens';
-
-import PageHeader from '../../src';
 
 const readViewStyles = css({
 	display: 'flex',

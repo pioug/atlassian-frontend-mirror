@@ -1,10 +1,9 @@
 import React, { useCallback, useState } from 'react';
 
+import { IconButton } from '@atlaskit/button/new';
 import EditIcon from '@atlaskit/icon/glyph/edit';
 import { Inline, Stack } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
-
-import { IconButton } from '../../../../src/new';
 
 const IconButtonLoadingExample = () => {
 	const [isLoading, setIsLoading] = useState(true);

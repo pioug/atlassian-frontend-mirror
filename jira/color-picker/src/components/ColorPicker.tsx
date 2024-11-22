@@ -18,6 +18,7 @@ import { getOptions } from '../utils';
 import { css, jsx } from '@emotion/react';
 import { injectIntl } from 'react-intl-next';
 import type { IntlShape, WrappedComponentProps } from 'react-intl-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import messages from '../messages';
 
 export interface Props {
@@ -45,6 +46,8 @@ export interface Props {
 	showDefaultSwatchColor?: boolean;
 	/** diasble swatch button */
 	isDisabledSelectedSwatch?: boolean;
+	/** onMenuOpen handler */
+	onMenuOpen?: () => void;
 }
 
 const defaultPopperProps: Partial<PopupSelectProps['popperProps']> = {
@@ -157,6 +160,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 				onKeyDown={this.onKeyDown}
 				isTabbing={this.state.isTabbing}
 				onOptionKeyDown={this.onOptionKeyDown}
+				{...(fg('one_event_rules_them_all_fg') && { onMenuOpen: this.props.onMenuOpen })}
 			/>
 		);
 	}

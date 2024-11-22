@@ -1,5 +1,5 @@
 import { type ACTION, type ACTION_SUBJECT, type ACTION_SUBJECT_ID } from './enums';
-import { type UIAEP } from './utils';
+import { type OperationalAEP, type UIAEP } from './utils';
 
 type CommonAttributes = {
 	readingAidsSessionId: string;
@@ -21,4 +21,16 @@ type AutoHighlightClickedAEP = UIAEP<
 	undefined
 >;
 
-export type AIDefinitionsEventPayload = DefineButtonClickedAEP | AutoHighlightClickedAEP;
+type AIDefinitionsErrorAEP = OperationalAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.AI_DEFINITIONS,
+	ACTION_SUBJECT_ID,
+	{
+		errorMessage?: string;
+	}
+>;
+
+export type AIDefinitionsEventPayload =
+	| DefineButtonClickedAEP
+	| AutoHighlightClickedAEP
+	| AIDefinitionsErrorAEP;

@@ -941,6 +941,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param definitionId The definitionId of the Smart Link resolver invoked.
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
 			 * @returns
+			 * @deprecated remove when platform_smart-card-migrate-screen-analytics is cleaned up
 			 */
 			authPopupEvent: ({
 				extensionKey,

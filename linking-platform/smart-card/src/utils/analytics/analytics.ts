@@ -487,6 +487,9 @@ export const uiClosedAuthEvent = ({
 	},
 });
 
+/**
+ * @deprecated remove when platform_smart-card-migrate-screen-analytics is cleaned up
+ */
 export const screenAuthPopupEvent = ({
 	extensionKey,
 	definitionId,

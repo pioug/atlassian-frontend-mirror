@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.4.0
+
+### Minor Changes
+
+- [#166811](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166811)
+  [`6bfa3f552b209`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6bfa3f552b209) -
+  Remove unstyled prop
+
 ## 1.3.3
 
 ### Patch Changes

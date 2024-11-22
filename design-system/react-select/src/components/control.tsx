@@ -38,14 +38,11 @@ export interface ControlProps<
 	menuIsOpen: boolean;
 }
 
-export const css = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	{
-		isDisabled,
-		isFocused,
-		theme: { colors, borderRadius, spacing },
-	}: ControlProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+export const css = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	isDisabled,
+	isFocused,
+	theme: { colors, borderRadius, spacing },
+}: ControlProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'control',
 	alignItems: 'center',
 	cursor: 'default',
@@ -56,19 +53,15 @@ export const css = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 	outline: '0 !important',
 	position: 'relative',
 	transition: 'all 100ms',
-	...(unstyled
-		? {}
-		: {
-				backgroundColor: isDisabled ? colors.neutral5 : colors.neutral0,
-				borderColor: isDisabled ? colors.neutral10 : isFocused ? colors.primary : colors.neutral20,
-				borderRadius: borderRadius,
-				borderStyle: 'solid',
-				borderWidth: 1,
-				boxShadow: isFocused ? `0 0 0 1px ${colors.primary}` : undefined,
-				'&:hover': {
-					borderColor: isFocused ? colors.primary : colors.neutral30,
-				},
-			}),
+	backgroundColor: isDisabled ? colors.neutral5 : colors.neutral0,
+	borderColor: isDisabled ? colors.neutral10 : isFocused ? colors.primary : colors.neutral20,
+	borderRadius: borderRadius,
+	borderStyle: 'solid',
+	borderWidth: 1,
+	boxShadow: isFocused ? `0 0 0 1px ${colors.primary}` : undefined,
+	'&:hover': {
+		borderColor: isFocused ? colors.primary : colors.neutral30,
+	},
 });
 
 const Control = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(

@@ -1,9 +1,8 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
+import { DatePicker } from '@atlaskit/datetime-picker';
 import Form, { Field, FormFooter, HelperMessage } from '@atlaskit/form';
-
-import { DatePicker } from '../../src';
 
 const DatePickerFormExample = () => (
 	<Form onSubmit={(formState: unknown) => console.log('form submitted', formState)}>

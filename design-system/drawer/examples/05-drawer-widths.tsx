@@ -8,11 +8,9 @@ import { useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import Drawer, { type DrawerWidth } from '@atlaskit/drawer';
+import { widths } from '@atlaskit/drawer/constants';
 import { token } from '@atlaskit/tokens';
-
-import Drawer from '../src';
-import { type DrawerWidth } from '../src/components/types';
-import { widths } from '../src/constants';
 
 const buttonContainerStyles = css({
 	display: 'flex',

@@ -8,10 +8,9 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import Button, { ButtonGroup } from '@atlaskit/button';
 import AudioIcon from '@atlaskit/icon/glyph/audio';
 import { token } from '@atlaskit/tokens';
-
-import Button, { ButtonGroup } from '../src';
 
 const Row = (props: { children: React.ReactNode }) => (
 	<div css={{ padding: token('space.100', '8px') }}>{props.children}</div>

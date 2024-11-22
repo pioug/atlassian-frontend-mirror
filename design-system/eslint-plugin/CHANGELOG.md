@@ -1,5 +1,28 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 10.26.0
+
+### Minor Changes
+
+- [#162725](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162725)
+  [`b2449424247a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b2449424247a3) -
+  Updated `no-deprecated-icons` lint rule to include deprecated icons and auto fix for icons that
+  have a replacement
+
+### Patch Changes
+
+- Updated dependencies
+
+## 10.25.0
+
+### Minor Changes
+
+- [#165487](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165487)
+  [`0e99fc2e1f211`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e99fc2e1f211) -
+  Add new rule for `@atlaskit/datetime-picker`. Ensures that the calendar button is used when
+  possible to ensure the picker is accessible. Part of AUTOMAT campaign to migrate all AFM instances
+  of date picker and date time picker to use new `shouldShowCalendarButton` prop.
+
 ## 10.24.1
 
 ### Patch Changes

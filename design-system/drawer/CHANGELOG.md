@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 9.2.4
+
+### Patch Changes
+
+- [#167181](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167181)
+  [`5bc9dc0796474`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5bc9dc0796474) -
+  Remove `react-focus-lock-next` dependency
+
 ## 9.2.3
 
 ### Patch Changes

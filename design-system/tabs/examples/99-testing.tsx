@@ -1,9 +1,6 @@
 import React from 'react';
 
-import TabItem from '../src/components/tab';
-import TabList from '../src/components/tab-list';
-import TabPanel from '../src/components/tab-panel';
-import Tabs from '../src/components/tabs';
+import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 
 import { Panel } from './shared';
 
@@ -17,10 +14,10 @@ export default function testing() {
 			id="testing"
 		>
 			<TabList>
-				<TabItem testId="tab-1">Tab 1</TabItem>
-				<TabItem testId="tab-2">Tab 2</TabItem>
-				<TabItem testId="tab-3">Tab 3</TabItem>
-				<TabItem testId="tab-4">Tab 4</TabItem>
+				<Tab testId="tab-1">Tab 1</Tab>
+				<Tab testId="tab-2">Tab 2</Tab>
+				<Tab testId="tab-3">Tab 3</Tab>
+				<Tab testId="tab-4">Tab 4</Tab>
 			</TabList>
 			<TabPanel testId="tab-panel-1">
 				<Panel>One</Panel>

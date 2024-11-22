@@ -1,7 +1,5 @@
 import { fireEvent, waitFor } from '@testing-library/react';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { EVENT_CHANNEL } from '../../../../analytics';
 import { FetchError, PermissionError } from '../../../../services/cmdbService.utils';
 
@@ -245,363 +243,182 @@ describe('AssetsConfigModal', () => {
 					);
 				});
 			});
-			describe('should insert blockCard adf when more than 1 asset is returned and version not in initial parameters', () => {
-				ffTest(
-					'platform.linking-platform.datasource-assets_add_version_parameter',
-					async () => {
-						const { getByRole, onInsert } = await setup({});
-						const insertButton = getByRole('button', { name: 'Update table' });
-						await waitFor(() => {
-							expect(insertButton).toBeEnabled();
-							insertButton.click();
-							expect(onInsert).toHaveBeenCalledWith(
-								{
-									type: 'blockCard',
-									attrs: {
-										datasource: {
-											id: 'some-assets-datasource-id',
-											parameters: {
-												workspaceId: 'some-workspace-id',
-												aql: 'some-query',
-												schemaId: '123',
-												version: '2',
-											},
-											views: [
-												{
-													type: 'table',
-													properties: {
-														columns: [
-															{
-																key: 'myDefaultColumn',
-															},
-															{
-																key: 'otherDefaultColumn',
-															},
-														],
-													},
-												},
-											],
-										},
+			it('should insert blockCard adf when more than 1 asset is returned and version not in initial parameters', async () => {
+				const { getByRole, onInsert } = await setup({});
+				const insertButton = getByRole('button', { name: 'Update table' });
+				await waitFor(() => {
+					expect(insertButton).toBeEnabled();
+					insertButton.click();
+					expect(onInsert).toHaveBeenCalledWith(
+						{
+							type: 'blockCard',
+							attrs: {
+								datasource: {
+									id: 'some-assets-datasource-id',
+									parameters: {
+										workspaceId: 'some-workspace-id',
+										aql: 'some-query',
+										schemaId: '123',
+										version: '2',
 									},
-								},
-								expect.any(Object),
-							);
-						});
-					},
-					async () => {
-						const { getByRole, onInsert } = await setup({});
-						const insertButton = getByRole('button', { name: 'Update table' });
-						await waitFor(() => {
-							expect(insertButton).toBeEnabled();
-							insertButton.click();
-							expect(onInsert).toHaveBeenCalledWith(
-								{
-									type: 'blockCard',
-									attrs: {
-										datasource: {
-											id: 'some-assets-datasource-id',
-											parameters: {
-												workspaceId: 'some-workspace-id',
-												aql: 'some-query',
-												schemaId: '123',
-											},
-											views: [
-												{
-													type: 'table',
-													properties: {
-														columns: [
-															{
-																key: 'myColumn',
-															},
-														],
+									views: [
+										{
+											type: 'table',
+											properties: {
+												columns: [
+													{
+														key: 'myDefaultColumn',
 													},
-												},
-											],
+													{
+														key: 'otherDefaultColumn',
+													},
+												],
+											},
 										},
-									},
+									],
 								},
-								expect.any(Object),
-							);
-						});
-					},
-				);
+							},
+						},
+						expect.any(Object),
+					);
+				});
 			});
-			describe('should insert initial columns if version is set in initial parameters', () => {
-				ffTest(
-					'platform.linking-platform.datasource-assets_add_version_parameter',
-					async () => {
-						const { getByRole, onInsert } = await setup({
-							parameters: {
-								workspaceId: 'some-workspace-id',
-								aql: 'some-query',
-								schemaId: '123',
-								version: '2',
-							},
-							datasourceTableHookState: {
-								...getDefaultDataSourceTableHookState(),
-							},
-						});
-						const insertButton = getByRole('button', { name: 'Update table' });
-						await waitFor(() => {
-							expect(insertButton).toBeEnabled();
-							insertButton.click();
-
-							expect(onInsert).toHaveBeenCalledWith(
-								{
-									type: 'blockCard',
-									attrs: {
-										datasource: {
-											id: 'some-assets-datasource-id',
-											parameters: {
-												workspaceId: 'some-workspace-id',
-												aql: 'some-query',
-												schemaId: '123',
-												version: '2',
-											},
-											views: [
-												{
-													type: 'table',
-													properties: {
-														columns: [
-															{
-																key: 'myColumn',
-															},
-														],
-													},
-												},
-											],
-										},
-									},
-								},
-								expect.any(Object),
-							);
-						});
+			it('should insert initial columns if version is set in initial parameters', async () => {
+				const { getByRole, onInsert } = await setup({
+					parameters: {
+						workspaceId: 'some-workspace-id',
+						aql: 'some-query',
+						schemaId: '123',
+						version: '2',
 					},
-					async () => {
-						const { getByRole, onInsert } = await setup({
-							datasourceTableHookState: {
-								...getDefaultDataSourceTableHookState(),
-							},
-						});
-						const insertButton = getByRole('button', { name: 'Update table' });
-						await waitFor(() => {
-							expect(insertButton).toBeEnabled();
-							insertButton.click();
-
-							expect(onInsert).toHaveBeenCalledWith(
-								{
-									type: 'blockCard',
-									attrs: {
-										datasource: {
-											id: 'some-assets-datasource-id',
-											parameters: {
-												workspaceId: 'some-workspace-id',
-												aql: 'some-query',
-												schemaId: '123',
-											},
-											views: [
-												{
-													type: 'table',
-													properties: {
-														columns: [
-															{
-																key: 'myColumn',
-															},
-														],
-													},
-												},
-											],
-										},
-									},
-								},
-								expect.any(Object),
-							);
-						});
+					datasourceTableHookState: {
+						...getDefaultDataSourceTableHookState(),
 					},
-				);
+				});
+				const insertButton = getByRole('button', { name: 'Update table' });
+				await waitFor(() => {
+					expect(insertButton).toBeEnabled();
+					insertButton.click();
+
+					expect(onInsert).toHaveBeenCalledWith(
+						{
+							type: 'blockCard',
+							attrs: {
+								datasource: {
+									id: 'some-assets-datasource-id',
+									parameters: {
+										workspaceId: 'some-workspace-id',
+										aql: 'some-query',
+										schemaId: '123',
+										version: '2',
+									},
+									views: [
+										{
+											type: 'table',
+											properties: {
+												columns: [
+													{
+														key: 'myColumn',
+													},
+												],
+											},
+										},
+									],
+								},
+							},
+						},
+						expect.any(Object),
+					);
+				});
 			});
-			describe('should insert blockCard adf with default column keys when visibleColumnKeys is undefined', () => {
-				ffTest(
-					'platform.linking-platform.datasource-assets_add_version_parameter',
-					async () => {
-						const { getByRole, onInsert } = await setup({
-							visibleColumnKeys: undefined,
-						});
-						const insertButton = getByRole('button', { name: 'Update table' });
-						await waitFor(() => {
-							expect(insertButton).toBeEnabled();
-							insertButton.click();
+			it('should insert blockCard adf with default column keys when visibleColumnKeys is undefined', async () => {
+				const { getByRole, onInsert } = await setup({
+					visibleColumnKeys: undefined,
+				});
+				const insertButton = getByRole('button', { name: 'Update table' });
+				await waitFor(() => {
+					expect(insertButton).toBeEnabled();
+					insertButton.click();
 
-							expect(onInsert).toHaveBeenCalledWith(
-								{
-									type: 'blockCard',
-									attrs: {
-										datasource: {
-											id: 'some-assets-datasource-id',
-											parameters: {
-												workspaceId: 'some-workspace-id',
-												aql: 'some-query',
-												schemaId: '123',
-												version: '2',
-											},
-											views: [
-												{
-													type: 'table',
-													properties: {
-														columns: [
-															{
-																key: 'myDefaultColumn',
-															},
-															{
-																key: 'otherDefaultColumn',
-															},
-														],
-													},
-												},
-											],
-										},
+					expect(onInsert).toHaveBeenCalledWith(
+						{
+							type: 'blockCard',
+							attrs: {
+								datasource: {
+									id: 'some-assets-datasource-id',
+									parameters: {
+										workspaceId: 'some-workspace-id',
+										aql: 'some-query',
+										schemaId: '123',
+										version: '2',
 									},
-								},
-								expect.any(Object),
-							);
-						});
-					},
-					async () => {
-						const { getByRole, onInsert } = await setup({
-							visibleColumnKeys: undefined,
-						});
-						const insertButton = getByRole('button', { name: 'Update table' });
-						await waitFor(() => {
-							expect(insertButton).toBeEnabled();
-							insertButton.click();
-
-							expect(onInsert).toHaveBeenCalledWith(
-								{
-									type: 'blockCard',
-									attrs: {
-										datasource: {
-											id: 'some-assets-datasource-id',
-											parameters: {
-												workspaceId: 'some-workspace-id',
-												aql: 'some-query',
-												schemaId: '123',
-											},
-											views: [
-												{
-													type: 'table',
-													properties: {
-														columns: [
-															{
-																key: 'myDefaultColumn',
-															},
-															{
-																key: 'otherDefaultColumn',
-															},
-														],
+									views: [
+										{
+											type: 'table',
+											properties: {
+												columns: [
+													{
+														key: 'myDefaultColumn',
 													},
-												},
-											],
+													{
+														key: 'otherDefaultColumn',
+													},
+												],
+											},
 										},
-									},
+									],
 								},
-								expect.any(Object),
-							);
-						});
-					},
-				);
+							},
+						},
+						expect.any(Object),
+					);
+				});
 			});
-			describe('should insert initial columns if no response items are returned and version is not set in initial parameters', () => {
-				ffTest(
-					'platform.linking-platform.datasource-assets_add_version_parameter',
-					async () => {
-						const { getByRole, onInsert } = await setup({
-							datasourceTableHookState: {
-								...getDefaultDataSourceTableHookState(),
-								responseItems: [],
-							},
-						});
-						const insertButton = getByRole('button', { name: 'Update table' });
-						await waitFor(() => {
-							expect(insertButton).toBeEnabled();
-							insertButton.click();
-
-							expect(onInsert).toHaveBeenCalledWith(
-								{
-									type: 'blockCard',
-									attrs: {
-										datasource: {
-											id: 'some-assets-datasource-id',
-											parameters: {
-												workspaceId: 'some-workspace-id',
-												aql: 'some-query',
-												schemaId: '123',
-												version: '2',
-											},
-											views: [
-												{
-													type: 'table',
-													properties: {
-														columns: [
-															{
-																key: 'myDefaultColumn',
-															},
-															{
-																key: 'otherDefaultColumn',
-															},
-														],
-													},
-												},
-											],
-										},
-									},
-								},
-								expect.any(Object),
-							);
-						});
+			it('should insert initial columns if no response items are returned and version is not set in initial parameters', async () => {
+				const { getByRole, onInsert } = await setup({
+					datasourceTableHookState: {
+						...getDefaultDataSourceTableHookState(),
+						responseItems: [],
 					},
-					async () => {
-						const { getByRole, onInsert } = await setup({
-							datasourceTableHookState: {
-								...getDefaultDataSourceTableHookState(),
-								responseItems: [],
-							},
-						});
-						const insertButton = getByRole('button', { name: 'Update table' });
-						await waitFor(() => {
-							expect(insertButton).toBeEnabled();
-							insertButton.click();
+				});
+				const insertButton = getByRole('button', { name: 'Update table' });
+				await waitFor(() => {
+					expect(insertButton).toBeEnabled();
+					insertButton.click();
 
-							expect(onInsert).toHaveBeenCalledWith(
-								{
-									type: 'blockCard',
-									attrs: {
-										datasource: {
-											id: 'some-assets-datasource-id',
-											parameters: {
-												workspaceId: 'some-workspace-id',
-												aql: 'some-query',
-												schemaId: '123',
-											},
-											views: [
-												{
-													type: 'table',
-													properties: {
-														columns: [
-															{
-																key: 'myColumn',
-															},
-														],
-													},
-												},
-											],
-										},
+					expect(onInsert).toHaveBeenCalledWith(
+						{
+							type: 'blockCard',
+							attrs: {
+								datasource: {
+									id: 'some-assets-datasource-id',
+									parameters: {
+										workspaceId: 'some-workspace-id',
+										aql: 'some-query',
+										schemaId: '123',
+										version: '2',
 									},
+									views: [
+										{
+											type: 'table',
+											properties: {
+												columns: [
+													{
+														key: 'myDefaultColumn',
+													},
+													{
+														key: 'otherDefaultColumn',
+													},
+												],
+											},
+										},
+									],
 								},
-								expect.any(Object),
-							);
-						});
-					},
-				);
+							},
+						},
+						expect.any(Object),
+					);
+				});
 			});
 			it("should show insert button with 'Insert object' text when only one asset is returned", async () => {
 				const datasourceTableHookState = getSingleAssetHookState();

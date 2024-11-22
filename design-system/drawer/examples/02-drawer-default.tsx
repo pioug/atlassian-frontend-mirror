@@ -3,8 +3,7 @@ import React, { useState } from 'react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
-
-import Drawer from '../src';
+import Drawer from '@atlaskit/drawer';
 
 const DrawerDefaultExample = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);

@@ -8,14 +8,13 @@ import React, { useCallback, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import Button, { ButtonGroup, Theme as ButtonTheme, CustomThemeButton } from '@atlaskit/button';
 import { Label } from '@atlaskit/form';
 import Select from '@atlaskit/select';
 import * as colors from '@atlaskit/theme/colors';
 import GlobalTheme from '@atlaskit/theme/components';
 import { type ThemeModes } from '@atlaskit/theme/types';
 import { token } from '@atlaskit/tokens';
-
-import Button, { ButtonGroup, Theme as ButtonTheme, CustomThemeButton } from '../src';
 
 type Option = {
 	[key: string]: any;

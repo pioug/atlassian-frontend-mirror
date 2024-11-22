@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/onboarding",
-	"version": "12.1.6",
+	"version": "12.1.7",
 	"description": "An onboarding spotlight introduces new features to users through focused messages or multi-step tours.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -60,7 +60,6 @@
 		"exenv": "^1.2.2",
 		"memoize-one": "^6.0.0",
 		"react-focus-lock": "^2.9.5",
-		"react-focus-lock-next": "npm:react-focus-lock@^2.13.2",
 		"react-node-resolver": "^1.0.1",
 		"react-scrolllock": "^5.0.1",
 		"react-transition-group": "^4.4.1",
@@ -95,9 +94,6 @@
 			"type": "boolean"
 		},
 		"platform_design_system_team_spotlight_layering": {
-			"type": "boolean"
-		},
-		"platform_dst_onboarding-bump-react-focus-lock": {
 			"type": "boolean"
 		},
 		"design-system-closed-all-when-click-outside": {

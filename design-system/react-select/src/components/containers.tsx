@@ -79,15 +79,16 @@ export interface ValueContainerProps<
 	children: ReactNode;
 	isDisabled: boolean;
 }
-export const valueContainerCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	{
-		theme: { spacing },
-		isMulti,
-		hasValue,
-		selectProps: { controlShouldRenderValue },
-	}: ValueContainerProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+export const valueContainerCSS = <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+>({
+	theme: { spacing },
+	isMulti,
+	hasValue,
+	selectProps: { controlShouldRenderValue },
+}: ValueContainerProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	alignItems: 'center',
 	display: isMulti && hasValue && controlShouldRenderValue ? 'flex' : 'grid',
 	flex: 1,
@@ -95,11 +96,7 @@ export const valueContainerCSS = <Option, IsMulti extends boolean, Group extends
 	WebkitOverflowScrolling: 'touch',
 	position: 'relative',
 	overflow: 'hidden',
-	...(unstyled
-		? {}
-		: {
-				padding: `${spacing.baseUnit / 2}px ${spacing.baseUnit * 2}px`,
-			}),
+	padding: `${spacing.baseUnit / 2}px ${spacing.baseUnit * 2}px`,
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

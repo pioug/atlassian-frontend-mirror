@@ -33,23 +33,19 @@ export interface SingleValueProps<
 	isDisabled: boolean;
 }
 
-export const css = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
-	{ isDisabled, theme: { spacing, colors } }: SingleValueProps<Option, IsMulti, Group>,
-	unstyled: boolean,
-): CSSObjectWithLabel => ({
+export const css = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
+	isDisabled,
+	theme: { spacing, colors },
+}: SingleValueProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'singleValue',
 	gridArea: '1 / 1 / 2 / 3',
 	maxWidth: '100%',
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
-	...(unstyled
-		? {}
-		: {
-				color: isDisabled ? colors.neutral40 : colors.neutral80,
-				marginLeft: spacing.baseUnit / 2,
-				marginRight: spacing.baseUnit / 2,
-			}),
+	color: isDisabled ? colors.neutral40 : colors.neutral80,
+	marginLeft: spacing.baseUnit / 2,
+	marginRight: spacing.baseUnit / 2,
 });
 
 const SingleValue = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(

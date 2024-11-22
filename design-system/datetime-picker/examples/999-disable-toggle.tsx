@@ -1,10 +1,9 @@
 import React, { useCallback, useState } from 'react';
 
+import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
-
-import { DatePicker } from '../src';
 
 export default () => {
 	const [isDisabled, setIsDisabled] = useState(true);

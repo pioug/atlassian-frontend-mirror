@@ -73,6 +73,7 @@ export const mediaInlineImageStyles = css`
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const wrapperStyle = css({
 	display: 'inline-flex',
+	cursor: 'pointer',
 	justifyContent: 'center',
 	alignItems: 'center',
 	verticalAlign: 'middle',
@@ -85,14 +86,8 @@ export const wrapperStyle = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const selectedStyle = css({
-	cursor: 'pointer',
 	boxShadow: `0 0 0 1px ${token('color.border.selected')}`,
 	outline: 'none',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const interactiveStyle = css({
-	cursor: 'pointer',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

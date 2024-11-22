@@ -1,6 +1,7 @@
 import type { ADFEntity } from '../types';
 import { traverse } from '../traverse/traverse';
 import { extension } from '../builders';
+import { NodeNestingTransformError } from './errors';
 
 const NESTED_TABLE_EXTENSION_TYPE = 'com.atlassian.nesting',
 	NESTED_TABLE_EXTENSION_KEY = 'nested-table';
@@ -18,7 +19,7 @@ const transformNestedTableExtension = (nestedTableExtension: ADFEntity): ADFEnti
 	try {
 		return JSON.parse(nestedTableExtension.attrs?.parameters?.macroParams?.nestedContent.value);
 	} catch (e) {
-		throw new Error('Failed to parse nested table content');
+		throw new NodeNestingTransformError('Failed to parse nested table content');
 	}
 };
 
@@ -45,23 +46,29 @@ export const transformNestedTablesIncomingDocument = (
 	};
 };
 
-export const transformNestedTableNodeOutgoingDocument = (tableCellNode: ADFEntity): ADFEntity => ({
-	...tableCellNode,
-	content: tableCellNode.content?.map((childNode) => {
-		// wrap nested table in an extension node
-		if (childNode?.type === 'table') {
-			return extension({
-				extensionType: NESTED_TABLE_EXTENSION_TYPE,
-				extensionKey: NESTED_TABLE_EXTENSION_KEY,
-				parameters: {
-					macroParams: {
-						nestedContent: {
-							value: JSON.stringify(childNode),
+export const transformNestedTableNodeOutgoingDocument = (tableCellNode: ADFEntity): ADFEntity => {
+	try {
+		return {
+			...tableCellNode,
+			content: tableCellNode.content?.map((childNode) => {
+				// wrap nested table in an extension node
+				if (childNode?.type === 'table') {
+					return extension({
+						extensionType: NESTED_TABLE_EXTENSION_TYPE,
+						extensionKey: NESTED_TABLE_EXTENSION_KEY,
+						parameters: {
+							macroParams: {
+								nestedContent: {
+									value: JSON.stringify(childNode),
+								},
+							},
 						},
-					},
-				},
-			});
-		}
-		return childNode;
-	}),
-});
+					});
+				}
+				return childNode;
+			}),
+		};
+	} catch (e) {
+		throw new NodeNestingTransformError('Failed to encode nested table node');
+	}
+};

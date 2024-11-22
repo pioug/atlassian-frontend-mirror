@@ -98,6 +98,12 @@ const isJiraVersion = (url: string) => {
 		/https:\/\/.*?\/projects\/[^\/]+?\/versions\/\d+\/tab\/release-report-all-issues/,
 	);
 };
+const isRovoAgentProfilePage = (url: string) => {
+	if (fg('rovo_agent_profile_page_default_embed')) {
+		return url.match(/^https:\/\/.*?\/people\/agent\/.+$/);
+	}
+	return false;
+};
 
 export class EditorCardProvider implements CardProvider {
 	private baseUrl: string;
@@ -260,6 +266,7 @@ export class EditorCardProvider implements CardProvider {
 			isJiraDashboard(url) ||
 			isJiraBacklog(url) ||
 			isJiraBoard(url) ||
+			isRovoAgentProfilePage(url) ||
 			isJiraPlanEvaluated ||
 			isJiraVersionEvaluated
 		) {

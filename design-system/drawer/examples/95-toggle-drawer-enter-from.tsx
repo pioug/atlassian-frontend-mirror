@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
+import Drawer from '@atlaskit/drawer';
+import { directions } from '@atlaskit/drawer/constants';
 import { Label } from '@atlaskit/form';
 import { type Direction } from '@atlaskit/motion';
 import { Box, Inline } from '@atlaskit/primitives';
-
-import Drawer from '../src';
-import { directions } from '../src/constants';
 
 const DrawersExample = () => {
 	const [isDrawerOpen, setIsDrawerOpen] = useState(false);

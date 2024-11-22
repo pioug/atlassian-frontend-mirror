@@ -5,10 +5,9 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import Button from '@atlaskit/button';
 import Expand from '@atlaskit/icon/glyph/arrow-down';
 import Question from '@atlaskit/icon/glyph/question';
-
-import Button from '../src';
 
 const narrowWrapperStyles = css({
 	width: '190px',

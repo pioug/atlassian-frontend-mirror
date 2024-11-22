@@ -3,10 +3,14 @@ import path from 'path';
 import fs from 'fs-extra';
 import pkgDir from 'pkg-dir';
 
-import { UNSAFE_buildNew as buildIcons, UNSAFE_createIconDocsNew } from '@af/icon-build-process';
-import type { UNSAFE_NewIconBuildConfig } from '@af/icon-build-process';
+import {
+	UNSAFE_buildNew as buildIcons,
+	UNSAFE_createDeprecatedIconDocs,
+	UNSAFE_createIconDocsNew,
+	type UNSAFE_NewIconBuildConfig,
+} from '@af/icon-build-process';
 
-import iconMetadata from '../icons_raw/metadata-core';
+import coreIconMetadata from '../icons_raw/metadata-core';
 import migrationMap from '../src/migration-map';
 
 const root = pkgDir.sync();
@@ -28,7 +32,7 @@ const config: UNSAFE_NewIconBuildConfig = {
 	iconType: 'core',
 	packageName: '@atlaskit/icon-lab',
 	baseIconEntryPoint: '@atlaskit/icon/UNSAFE_base-new',
-	metadata: iconMetadata,
+	metadata: coreIconMetadata,
 	migrationMap: migrationMap,
 };
 
@@ -39,9 +43,19 @@ buildIcons(config).then((icons) => {
 		'core',
 		{},
 		['icon', 'icon-lab', 'core'],
-		iconMetadata,
+		coreIconMetadata,
 		migrationMap,
 	);
 
-	return fs.outputFile(path.resolve(root, 'src/metadata-core.tsx'), iconDocs);
+	fs.outputFile(path.resolve(root, 'src/metadata-core.tsx'), iconDocs);
+
+	const deprecatedDocs = UNSAFE_createDeprecatedIconDocs(
+		icons,
+		'@atlaskit/icon-lab',
+		'core',
+		coreIconMetadata,
+		migrationMap,
+	);
+
+	fs.outputFile(path.resolve(root, 'src/deprecated-core.tsx'), deprecatedDocs);
 });

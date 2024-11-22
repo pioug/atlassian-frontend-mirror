@@ -14,14 +14,22 @@ const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
 	return false;
 };
 
+const isEmptyParagraphOrPlaceholder = (node?: PMNode | null): boolean => {
+	if (node && node.type.name === 'paragraph') {
+		return (
+			node.childCount === 0 ||
+			(node.childCount === 1 && node.firstChild?.type.name === 'placeholder')
+		);
+	}
+	return false;
+};
+
 const isLayoutColumnWithoutContent = (node: PMNode) => {
 	if (node?.type.name === 'layoutColumn') {
 		let foundNonEmptyNode = false;
-
 		for (let i = 0; i < node.childCount; i++) {
 			const child = node.child(i);
-
-			if (child.content.size && child.firstChild?.type.name !== 'placeholder') {
+			if (!isEmptyParagraphOrPlaceholder(child)) {
 				foundNonEmptyNode = true;
 				break;
 			}

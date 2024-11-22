@@ -9,10 +9,9 @@ import { type SyntheticEvent, useRef, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import Drawer from '@atlaskit/drawer';
 import { Box, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
-
-import Drawer from '../src';
 
 const containerStyles = css({
 	padding: token('space.200', '16px'),

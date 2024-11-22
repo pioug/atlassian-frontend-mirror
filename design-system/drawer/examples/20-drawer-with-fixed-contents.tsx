@@ -9,9 +9,8 @@ import { Component } from 'react';
 import { jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
+import Drawer from '@atlaskit/drawer';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
-
-import Drawer from '../src';
 
 interface State {
 	isDrawerOpen: boolean;

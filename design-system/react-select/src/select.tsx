@@ -463,11 +463,6 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	tabSelectsValue: boolean;
 	/**
-	 * Remove all non-essential styles
-	 */
-	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-	unstyled: boolean;
-	/**
 	 * The value of the select; reflected by the selected option
 	 */
 	value: PropsValue<Option>;
@@ -527,7 +522,6 @@ export const defaultProps = {
 	styles: {},
 	tabIndex: 0,
 	tabSelectsValue: true,
-	unstyled: false,
 };
 
 interface State<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {
@@ -1321,8 +1315,7 @@ export default class Select<
 		key: Key,
 		props: StylesProps<Option, IsMulti, Group>[Key],
 	) => {
-		const { unstyled } = this.props;
-		const base = defaultStyles[key](props as any, unstyled);
+		const base = defaultStyles[key](props as any);
 		base.boxSizing = 'border-box';
 		const custom = this.props.styles[key];
 		return custom ? custom(base, props as any) : base;

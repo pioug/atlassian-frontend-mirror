@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { LinkIconButton } from '@atlaskit/button/new';
 import UserIcon from '@atlaskit/icon/glyph/add';
-
-import { LinkIconButton } from '../../../../src/new';
 
 const LinkIconButtonPrimaryExample = () => {
 	return (

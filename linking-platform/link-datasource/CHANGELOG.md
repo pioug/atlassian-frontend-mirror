@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 3.12.0
+
+### Minor Changes
+
+- [#166988](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166988)
+  [`0950f1f3c353f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0950f1f3c353f) -
+  [ux] EDM-11263 Add UFO metrics to inline-edit icon field
+
+## 3.11.1
+
+### Patch Changes
+
+- [#166969](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166969)
+  [`ba7fe3ec68dad`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba7fe3ec68dad) -
+  Feature flag removed - platform.linking-platform.datasource-assets_add_version_parameter
+
 ## 3.11.0
 
 ### Minor Changes

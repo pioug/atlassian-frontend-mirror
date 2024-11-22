@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "18.5.2",
+	"version": "18.5.3",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,10 +49,10 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/ds-lib": "^3.2.0",
-		"@atlaskit/icon": "^22.24.0",
+		"@atlaskit/icon": "^22.25.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.2.0",
-		"@atlaskit/react-select": "^1.3.0",
+		"@atlaskit/react-select": "^1.4.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.3.0",
@@ -62,7 +62,6 @@
 		"@popperjs/core": "^2.11.8",
 		"bind-event-listener": "^3.0.0",
 		"react-focus-lock": "^2.9.5",
-		"react-focus-lock-next": "npm:react-focus-lock@^2.13.2",
 		"react-node-resolver": "^1.0.1",
 		"react-popper": "^2.3.0",
 		"shallow-equal": "^3.1.0"
@@ -111,9 +110,6 @@
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons-legacy-facade": {
-			"type": "boolean"
-		},
-		"platform_dst_select-bump-react-focus-lock": {
 			"type": "boolean"
 		},
 		"design_system_select-a11y-improvement": {

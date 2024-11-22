@@ -1,5 +1,15 @@
 # @atlaskit/icon
 
+## 22.25.0
+
+### Minor Changes
+
+- [#162725](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/162725)
+  [`b2449424247a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b2449424247a3) -
+  New deprecation endpoint to identify icons that have been deprecated. Used with the
+  `no-deprecated-imports` lint rule to assist with displaying errors and auto-fixing those icons
+  with a defined replacement.
+
 ## 22.24.3
 
 ### Patch Changes

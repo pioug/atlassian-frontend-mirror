@@ -32,6 +32,11 @@ export interface SideNavigationProps {
 	 * serving as a hook for automated tests.
 	 */
 	testId?: string;
+
+	/**
+	 * Whether nav is rendered on the server.
+	 */
+	isServer?: boolean;
 }
 
 const sidebarMinWidth = '240px';
@@ -59,9 +64,15 @@ const sideNavStyles = css({
  */
 const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
 	(props: SideNavigationProps, ref) => {
-		const { children, testId, label } = props;
+		const { children, testId, label, isServer = false } = props;
 		return (
-			<nav ref={ref} data-testid={testId} aria-label={label} css={sideNavStyles}>
+			<nav
+				ref={ref}
+				data-testid={testId}
+				aria-label={label}
+				css={sideNavStyles}
+				data-vc={`side-navigation${isServer ? '-ssr' : ''}`}
+			>
 				<SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="notch">
 					{children}
 				</SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider>

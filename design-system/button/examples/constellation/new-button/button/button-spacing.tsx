@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { ButtonGroup } from '../../../../src';
-import Button from '../../../../src/new';
+import { ButtonGroup } from '@atlaskit/button';
+import Button from '@atlaskit/button/new';
 
 const ButtonSpacingExample = () => {
 	return (

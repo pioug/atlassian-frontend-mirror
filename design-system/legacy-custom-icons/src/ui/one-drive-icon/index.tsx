@@ -6,6 +6,8 @@ import type { CustomGlyphProps, IconProps } from '@atlaskit/icon/types';
 const OneDriveIconGlyph = (props: CustomGlyphProps) => (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
+		height="26"
+		width="26"
 		viewBox="-1 0 26 26"
 		data-testid={props['data-testid']}
 		aria-label={props['aria-label']}

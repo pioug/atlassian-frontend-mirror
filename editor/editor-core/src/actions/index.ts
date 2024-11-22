@@ -1,4 +1,5 @@
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
 import {
 	processRawFragmentValue,
@@ -177,7 +178,20 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 		}
 
 		const nodeSanitized = Node.fromJSON(this.editorView!.state.schema, json);
-		return this.contentEncode(nodeSanitized);
+
+		try {
+			return this.contentEncode(nodeSanitized);
+		} catch (e) {
+			this.dispatchAnalyticsEvent({
+				action: ACTION.DOCUMENT_PROCESSING_ERROR,
+				actionSubject: ACTION_SUBJECT.EDITOR,
+				eventType: EVENT_TYPE.OPERATIONAL,
+				attributes: {
+					errorMessage: `${e instanceof Error && e.name === 'NodeNestingTransformError' ? 'NodeNestingTransformError - Failed to encode one or more nested tables' : undefined}`,
+				},
+			});
+			throw e;
+		}
 	}
 
 	getNodeByLocalId(id: string): Node | undefined {
@@ -269,8 +283,22 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 
 		const { schema } = state;
 		const content = Array.isArray(rawValue)
-			? processRawFragmentValue(schema, rawValue)
-			: processRawValue(schema, rawValue);
+			? processRawFragmentValue(
+					schema,
+					rawValue,
+					undefined,
+					undefined,
+					undefined,
+					this.dispatchAnalyticsEvent,
+				)
+			: processRawValue(
+					schema,
+					rawValue,
+					undefined,
+					undefined,
+					undefined,
+					this.dispatchAnalyticsEvent,
+				);
 
 		if (!content) {
 			return false;

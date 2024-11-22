@@ -5,6 +5,7 @@ import capitalize from 'lodash/capitalize';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import { Stack } from '@atlaskit/primitives';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants from '../src/utils/variants';
 
 export default function AppearancesExample() {

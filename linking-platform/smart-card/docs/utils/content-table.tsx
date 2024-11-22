@@ -1,5 +1,6 @@
 import React from 'react';
 
+import Heading from '@atlaskit/heading';
 import Link from '@atlaskit/link';
 import { Box, Stack } from '@atlaskit/primitives';
 
@@ -16,7 +17,7 @@ const ContentTable = ({ items = [] }: { items: { name: string; content: any }[] 
 			{items.map(({ name, content }, idx: number) => (
 				<React.Fragment>
 					<Box id={`content_${idx}`} paddingBlockStart="space.200">
-						<h3>{name}</h3>
+						<Heading size="medium">{name}</Heading>
 					</Box>
 					{content}
 				</React.Fragment>

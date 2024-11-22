@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { DatePicker } from '@atlaskit/datetime-picker';
 import { Field } from '@atlaskit/form';
-
-import { DatePicker } from '../../src';
 
 const DatePickerRequiredExample = () => (
 	<Field name="date" label="Start Date" isRequired>

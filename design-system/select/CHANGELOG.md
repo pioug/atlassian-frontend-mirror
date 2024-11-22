@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 18.5.3
+
+### Patch Changes
+
+- [#167181](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167181)
+  [`5bc9dc0796474`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5bc9dc0796474) -
+  Remove `react-focus-lock-next` dependency
+- Updated dependencies
+
 ## 18.5.2
 
 ### Patch Changes

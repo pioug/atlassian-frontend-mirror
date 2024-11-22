@@ -28,6 +28,7 @@ import {
 	findSelectedNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clearEditingContext, updateState } from '../commands';
 import { lazyExtensionNodeView } from '../nodeviews/lazyExtension';
@@ -180,6 +181,7 @@ const createPlugin = (
 		appearance?: EditorAppearance;
 	} = {},
 	featureFlags?: FeatureFlags,
+	allowDragAndDrop: boolean = true,
 	__livePage?: boolean,
 ) => {
 	const state = createPluginState(dispatch, {
@@ -410,9 +412,23 @@ const createPlugin = (
 			},
 			handleClickOn: createSelectionClickHandler(
 				['extension', 'bodiedExtension', 'multiBodiedExtension'],
-				(target) => !target.closest('.extension-content'),
+				(target) =>
+					fg('platform_editor_legacy_content_macro')
+						? !!target.closest('.extension-container')
+						: !target.closest('.extension-content'), // It's to enable nested extensions selection
 				{ useLongPressSelection },
 			),
+			handleDrop(view, event, slice, moved) {
+				if (!allowDragAndDrop) {
+					// Completely disable DND for extension nodes when allowDragAndDrop is false
+					const isExtension =
+						slice.content.childCount === 1 &&
+						slice.content.firstChild?.type === view.state.schema.nodes.extension;
+
+					return isExtension;
+				}
+				return true;
+			},
 		},
 	});
 };

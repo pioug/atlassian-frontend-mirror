@@ -101,7 +101,13 @@ export const useSmartCardActions = (id: string, url: string, analytics: Analytic
 				});
 			}
 			if (services.length > 0) {
-				analytics.screen.authPopupEvent({ definitionId, extensionKey });
+				if (fg('platform_smart-card-migrate-screen-analytics')) {
+					fireEvent('screen.consentModal.viewed', {
+						definitionId: definitionId ?? null,
+					});
+				} else {
+					analytics.screen.authPopupEvent({ definitionId, extensionKey });
+				}
 				auth(services[0].url).then(
 					() => {
 						if (fg('smart-card-migrate-track-analytics')) {

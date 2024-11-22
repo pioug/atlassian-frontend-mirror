@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "30.3.1",
+	"version": "30.3.4",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -36,11 +36,11 @@
 		"@atlaskit/form": "^10.5.0",
 		"@atlaskit/frontend-utilities": "^2.7.0",
 		"@atlaskit/heading": "^3.1.0",
-		"@atlaskit/icon": "^22.24.0",
+		"@atlaskit/icon": "^22.25.0",
 		"@atlaskit/icon-file-type": "^6.7.0",
 		"@atlaskit/icon-object": "^6.7.0",
 		"@atlaskit/icon-priority": "^6.3.0",
-		"@atlaskit/legacy-custom-icons": "^0.16.0",
+		"@atlaskit/legacy-custom-icons": "^0.18.0",
 		"@atlaskit/link-analytics": "^8.5.0",
 		"@atlaskit/link-client-extension": "^2.4.0",
 		"@atlaskit/link-extractors": "^1.9.0",
@@ -54,7 +54,7 @@
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popup": "^1.29.0",
 		"@atlaskit/primitives": "^13.2.0",
-		"@atlaskit/section-message": "^6.6.0",
+		"@atlaskit/section-message": "^6.7.0",
 		"@atlaskit/select": "^18.5.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/textarea": "^5.6.0",
@@ -80,7 +80,7 @@
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/link-provider": "^1.16.0",
+		"@atlaskit/link-provider": "^1.17.0",
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0",
 		"react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
@@ -186,6 +186,9 @@
 			"type": "boolean"
 		},
 		"smart-card-migrate-track-analytics": {
+			"type": "boolean"
+		},
+		"platform_smart-card-migrate-screen-analytics": {
 			"type": "boolean"
 		}
 	}

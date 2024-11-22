@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::82b30bbee0df694864fcd2e2b938bffa>>
+ * @codegen <<SignedSource::b25cecd58c98d2c650c7c6c94fdf3c0c>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -115,6 +115,9 @@ export type SmartLinkQuickActionFailedAttributesType = {
 		| 'StatusUpdate';
 	reason: 'PermissionError' | 'ValidationError' | 'UnknownError' | null;
 };
+export type ConsentModalViewedAttributesType = {
+	definitionId: string | null;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -177,6 +180,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fires a tracking event after an action invoke api call has failed */
 	'track.smartLinkQuickAction.failed': SmartLinkQuickActionFailedAttributesType;
+	/**
+	 * fires an event which represents the connect account page being opened. */
+	'screen.consentModal.viewed': ConsentModalViewedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

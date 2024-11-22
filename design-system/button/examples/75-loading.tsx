@@ -9,10 +9,11 @@ import { Fragment, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 import capitalize from 'lodash/capitalize';
 
+import { type Appearance, type Spacing } from '@atlaskit/button/new';
 import Checkbox from '@atlaskit/checkbox';
 import { Box, Stack } from '@atlaskit/primitives';
 
-import { type Appearance, type Spacing } from '../src/new';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import variants, { type Variant } from '../src/utils/variants';
 
 /**

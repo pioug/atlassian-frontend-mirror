@@ -4,6 +4,7 @@ import throttle from 'lodash/throttle';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { type FireAnalyticsCallback } from '../analytics';
 import type {
 	BasePluginDependenciesAPI,
 	CorePlugin,
@@ -22,6 +23,8 @@ type SharedStateAPIProps = {
 
 interface PluginInjectionAPIProps extends SharedStateAPIProps {
 	getEditorView: () => EditorView | undefined;
+	// Optional analytics callback - used exclusively by core plugin since it is unable to consume AnalyticsPlugin as a dependency
+	fireAnalyticsEvent?: FireAnalyticsCallback;
 }
 
 export type EditorStateDiff = {
@@ -276,13 +279,17 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 	private commandsAPI: EditorCommandsAPI;
 	private plugins: Map<string, NextEditorPluginInitializedType>;
 
-	constructor({ getEditorState, getEditorView }: PluginInjectionAPIProps) {
+	constructor({ getEditorState, getEditorView, fireAnalyticsEvent }: PluginInjectionAPIProps) {
 		this.sharedStateAPI = new SharedStateAPI({ getEditorState });
 		this.plugins = new Map();
 		this.actionsAPI = new ActionsAPI();
 		this.commandsAPI = new EditorCommandsAPI();
 		// Special core plugin that is always added
-		this.addPlugin(corePlugin({ config: { getEditorView } }));
+		this.addPlugin(
+			corePlugin({
+				config: { getEditorView, fireAnalyticsEvent },
+			}),
+		);
 	}
 
 	private createAPI() {

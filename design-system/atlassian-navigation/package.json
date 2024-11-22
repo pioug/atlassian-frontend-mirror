@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/atlassian-navigation",
-	"version": "4.9.1",
+	"version": "4.9.2",
 	"description": "A horizontal navigation component for Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,7 +44,11 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Atlassian navigation",
-			"category": "Components"
+			"category": "Components",
+			"status": {
+				"type": "intent-to-deprecate",
+				"description": "We are in the process of building a new top navigation component: [@atlassian/navigation-system](https://staging.atlassian.design/components/navigation-system/top-navigation/examples) (For Atlassian employees only at this stage)"
+			}
 		},
 		"runReact18": true
 	},
@@ -52,7 +56,7 @@
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/ds-lib": "^3.2.0",
-		"@atlaskit/icon": "^22.24.0",
+		"@atlaskit/icon": "^22.25.0",
 		"@atlaskit/logo": "*",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popup": "^1.29.0",

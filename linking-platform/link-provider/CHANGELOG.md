@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 1.17.0
+
+### Minor Changes
+
+- [#166390](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166390)
+  [`43872445442d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43872445442d8) -
+  Set the default appearance for Rovo Agent profile links to 'embed'
+
 ## 1.16.2
 
 ### Patch Changes

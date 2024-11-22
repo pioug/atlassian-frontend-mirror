@@ -1,5 +1,5 @@
 import React from 'react';
 
-import Button from '../src/old-button/button';
+import Button from '@atlaskit/button';
 
 export default () => <Button>Button</Button>;

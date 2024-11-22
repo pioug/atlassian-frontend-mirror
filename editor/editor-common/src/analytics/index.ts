@@ -203,3 +203,5 @@ export {
 export type { LinkType } from './linking-utils';
 
 export type { RequestToEditAEP } from './types/general-events';
+
+export type { AIDefinitionsEventPayload } from './types/ai-definitions-events';

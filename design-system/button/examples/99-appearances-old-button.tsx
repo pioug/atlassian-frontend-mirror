@@ -8,10 +8,9 @@ import React, { useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import { type Appearance, LoadingButton as Button } from '@atlaskit/button';
 import { Checkbox } from '@atlaskit/checkbox';
 import { token } from '@atlaskit/tokens';
-
-import { type Appearance, LoadingButton as Button } from '../src';
 
 const appearances: Appearance[] = [
 	'default',

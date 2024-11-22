@@ -1,9 +1,8 @@
 import React from 'react';
 
+import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import { Box } from '@atlaskit/primitives';
-
-import { DatePicker } from '../src';
 
 function now(day: number) {
 	const date = new Date();

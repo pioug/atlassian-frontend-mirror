@@ -6,9 +6,8 @@ import { jsx } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-import { Box, Inline, Stack } from '../src/compiled';
 
 const borderColors = [
 	'color.border.discovery',

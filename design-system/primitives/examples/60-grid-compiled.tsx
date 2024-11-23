@@ -5,9 +5,8 @@
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
+import { Box, type BoxProps, Grid } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-import { Box, type BoxProps, Grid } from '../src/compiled';
 
 const styles = cssMap({
 	customBorder: {

@@ -152,7 +152,7 @@ describe('Annotations: Hooks/useEvents', () => {
 				}
 
 				expect(fakeFunction).toHaveBeenCalledTimes(1);
-				expect(fakeFunction).toHaveBeenCalledWith(false);
+				expect(fakeFunction).toHaveBeenCalledWith({ hasFocus: false, isHovered: false });
 
 				act(() => {
 					updateSubscriberFake.emit(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, {
@@ -161,14 +161,14 @@ describe('Annotations: Hooks/useEvents', () => {
 				});
 
 				expect(fakeFunction).toHaveBeenCalledTimes(2);
-				expect(fakeFunction).toHaveBeenCalledWith(true);
+				expect(fakeFunction).toHaveBeenCalledWith({ hasFocus: true, isHovered: false });
 
 				act(() => {
 					updateSubscriberFake.emit(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS);
 				});
 
 				expect(fakeFunction).toHaveBeenCalledTimes(3);
-				expect(fakeFunction).toHaveBeenCalledWith(false);
+				expect(fakeFunction).toHaveBeenCalledWith({ hasFocus: false, isHovered: false });
 			});
 		});
 
@@ -184,7 +184,7 @@ describe('Annotations: Hooks/useEvents', () => {
 					render(<CustomComp />, container);
 				}
 
-				expect(fakeFunction).toHaveBeenCalledWith(false);
+				expect(fakeFunction).toHaveBeenCalledWith({ hasFocus: false, isHovered: false });
 
 				const otherId = 'otherId';
 				act(() => {
@@ -193,7 +193,7 @@ describe('Annotations: Hooks/useEvents', () => {
 					});
 				});
 
-				expect(fakeFunction).toHaveBeenCalledWith(false);
+				expect(fakeFunction).toHaveBeenCalledWith({ hasFocus: false, isHovered: false });
 			});
 
 			it('should set hasFocus for the id emitted', () => {
@@ -207,7 +207,7 @@ describe('Annotations: Hooks/useEvents', () => {
 					render(<CustomComp />, container);
 				}
 
-				expect(fakeFunction).toHaveBeenCalledWith(false);
+				expect(fakeFunction).toHaveBeenCalledWith({ hasFocus: false, isHovered: false });
 
 				act(() => {
 					updateSubscriberFake.emit(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, {
@@ -215,7 +215,7 @@ describe('Annotations: Hooks/useEvents', () => {
 					});
 				});
 
-				expect(fakeFunction).toHaveBeenCalledWith(true);
+				expect(fakeFunction).toHaveBeenCalledWith({ hasFocus: true, isHovered: false });
 			});
 		});
 	});

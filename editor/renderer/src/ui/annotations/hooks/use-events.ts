@@ -83,6 +83,7 @@ export const useAnnotationStateByTypeEvent = ({
 
 export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => {
 	const [hasFocus, setHasFocus] = useState<boolean>(false);
+	const [isHovered, setIsHovered] = useState<boolean>(false);
 	const isInlineCommentsKbAccessible = FeatureGates.checkGate(
 		'inline_comments_keyboard_accessible_renderer',
 	);
@@ -98,6 +99,12 @@ export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => 
 			setHasFocus(payload && payload.annotationId === id);
 		};
 
+		const callbackForHoveredAnnotation = (
+			payload: AnnotationUpdateEventPayloads[AnnotationUpdateEvent.SET_ANNOTATION_HOVERED],
+		) => {
+			setIsHovered(payload && payload.annotationId === id);
+		};
+
 		const removeFocus = () => {
 			setHasFocus(false);
 			if (isInlineCommentsKbAccessible && document.activeElement instanceof HTMLElement) {
@@ -105,16 +112,30 @@ export const useHasFocusEvent = ({ id, updateSubscriber }: ListenEventProps) => 
 			}
 		};
 
+		const removeHoverEffect = () => {
+			setIsHovered(false);
+			if (isInlineCommentsKbAccessible && document.activeElement instanceof HTMLElement) {
+				document.activeElement.blur();
+			}
+		};
+
 		updateSubscriber.on(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, cb);
+		updateSubscriber.on(AnnotationUpdateEvent.SET_ANNOTATION_HOVERED, callbackForHoveredAnnotation);
 		updateSubscriber.on(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS, removeFocus);
+		updateSubscriber.on(AnnotationUpdateEvent.REMOVE_ANNOTATION_HOVERED, removeHoverEffect);
 
 		return () => {
 			updateSubscriber.off(AnnotationUpdateEvent.SET_ANNOTATION_FOCUS, cb);
+			updateSubscriber.off(
+				AnnotationUpdateEvent.SET_ANNOTATION_HOVERED,
+				callbackForHoveredAnnotation,
+			);
 			updateSubscriber.off(AnnotationUpdateEvent.REMOVE_ANNOTATION_FOCUS, removeFocus);
+			updateSubscriber.off(AnnotationUpdateEvent.SET_ANNOTATION_HOVERED, removeHoverEffect);
 		};
 	}, [id, updateSubscriber, isInlineCommentsKbAccessible]);
 
-	return hasFocus;
+	return { hasFocus, isHovered };
 };
 
 type AnnotationsWithClickTarget = Pick<

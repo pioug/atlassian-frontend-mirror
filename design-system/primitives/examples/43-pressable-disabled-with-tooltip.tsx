@@ -1,8 +1,7 @@
 import React from 'react';
 
+import { Pressable } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
-
-import Pressable from '../src/components/pressable';
 
 export default function DisabledWithTooltip() {
 	return (

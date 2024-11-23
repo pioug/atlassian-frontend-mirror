@@ -8,10 +8,7 @@ import { Fragment } from 'react';
 import { jsx } from '@emotion/react';
 
 import { Box } from '@atlaskit/primitives';
-
-import { UNSAFE_BREAKPOINTS_ORDERED_LIST } from '../src/responsive/constants';
-import { Hide } from '../src/responsive/hide';
-import { Show } from '../src/responsive/show';
+import { Hide, Show, UNSAFE_BREAKPOINTS_ORDERED_LIST } from '@atlaskit/primitives/responsive';
 
 export default () => {
 	return (

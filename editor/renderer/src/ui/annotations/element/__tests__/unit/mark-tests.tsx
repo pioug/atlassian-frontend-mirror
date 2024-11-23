@@ -63,6 +63,7 @@ describe('Annotations/Mark', () => {
 								state={state}
 								hasFocus={false}
 								onClick={onClick}
+								isHovered={false}
 							>
 								<small>some</small>
 							</MarkComponent>
@@ -80,6 +81,7 @@ describe('Annotations/Mark', () => {
 							state={state}
 							hasFocus={false}
 							onClick={onClick}
+							isHovered={false}
 						>
 							<small>some</small>
 						</MarkComponent>
@@ -99,6 +101,7 @@ describe('Annotations/Mark', () => {
 				markType: 'annotation',
 				rendererMark: 'true',
 				hasFocus: 'false',
+				isHovered: 'false',
 			});
 			expect(markWrapper!.getAttribute('role')).toEqual('button');
 			expect(markWrapper!.getAttribute('tabIndex')).toEqual('0');
@@ -161,6 +164,7 @@ describe('Annotations/Mark', () => {
 								state={state}
 								hasFocus={false}
 								onClick={onClick}
+								isHovered={false}
 							>
 								<MarkComponent
 									id={childFakeId}
@@ -169,6 +173,7 @@ describe('Annotations/Mark', () => {
 									state={state}
 									hasFocus={false}
 									onClick={onClick}
+									isHovered={false}
 								>
 									<small>some</small>
 								</MarkComponent>
@@ -186,6 +191,7 @@ describe('Annotations/Mark', () => {
 							state={state}
 							hasFocus={false}
 							onClick={onClick}
+							isHovered={false}
 						>
 							<MarkComponent
 								id={childFakeId}
@@ -194,6 +200,7 @@ describe('Annotations/Mark', () => {
 								state={state}
 								hasFocus={false}
 								onClick={onClick}
+								isHovered={false}
 							>
 								<small>some</small>
 							</MarkComponent>
@@ -232,6 +239,7 @@ describe('Annotations/Mark', () => {
 								state={state}
 								hasFocus={false}
 								onClick={onClick}
+								isHovered={false}
 							>
 								<small>some</small>
 							</MarkComponent>
@@ -248,6 +256,7 @@ describe('Annotations/Mark', () => {
 							state={state}
 							hasFocus={false}
 							onClick={onClick}
+							isHovered={false}
 						>
 							<small>some</small>
 						</MarkComponent>

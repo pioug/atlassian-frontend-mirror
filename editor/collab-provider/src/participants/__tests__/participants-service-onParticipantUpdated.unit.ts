@@ -22,6 +22,9 @@ const activeUser: ProviderParticipant = {
 		isPermittedToEdit: false,
 		isPermittedToView: true,
 	},
+	isGuest: undefined,
+	presenceId: 'mockPresenceId',
+	presenceActivity: undefined,
 };
 
 const payload: PresencePayload = {
@@ -34,6 +37,8 @@ const payload: PresencePayload = {
 		isPermittedToEdit: false,
 		isPermittedToView: true,
 	},
+	presenceId: activeUser.presenceId,
+	presenceActivity: activeUser.presenceActivity,
 };
 
 const participantsServiceConstructor = (deps: {
@@ -63,6 +68,7 @@ describe('onParticpantUpdated', () => {
 		name: activeUser.name,
 		avatar: activeUser.avatar,
 		email: activeUser.email,
+		isGuest: activeUser.isGuest,
 	});
 
 	const emit = jest.fn();

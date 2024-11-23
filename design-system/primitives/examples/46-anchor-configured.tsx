@@ -1,9 +1,7 @@
 import React, { forwardRef, type Ref } from 'react';
 
 import AppProvider, { type RouterLinkComponentProps } from '@atlaskit/app-provider';
-
-import Anchor from '../src/components/anchor';
-import Box from '../src/components/box';
+import { Anchor, Box } from '@atlaskit/primitives';
 
 type MyRouterLinkConfig = {
 	to: string;

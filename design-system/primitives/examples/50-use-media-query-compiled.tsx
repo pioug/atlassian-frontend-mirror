@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { UNSAFE_useMediaQuery as useMediaQuery } from '../src/compiled/responsive/use-media-query';
+import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/compiled';
 
 export default () => {
 	const mq = useMediaQuery('above.sm', (event) => setIsAbove(event.matches));

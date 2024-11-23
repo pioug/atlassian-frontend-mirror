@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.25.0
+
+### Minor Changes
+
+- [#167231](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167231)
+  [`335a373081eaf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/335a373081eaf) -
+  [ux] Added hoveredAnnotation for the renderer and the editor to accomodate the newly implemented
+  comment's panel
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.24.1
 
 ### Patch Changes

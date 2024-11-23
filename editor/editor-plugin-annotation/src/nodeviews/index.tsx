@@ -29,12 +29,18 @@ export class AnnotationNodeView extends ReactNodeView {
 export const getAnnotationViewClassname = (
 	isUnresolved: boolean,
 	hasFocus: boolean,
+	isHovered: boolean,
 ): string | undefined => {
 	if (!isUnresolved) {
 		return;
 	}
-
-	return hasFocus ? AnnotationSharedClassNames.focus : AnnotationSharedClassNames.blur;
+	if (hasFocus) {
+		return AnnotationSharedClassNames.focus;
+	}
+	if (isHovered) {
+		return AnnotationSharedClassNames.hover;
+	}
+	return AnnotationSharedClassNames.blur;
 };
 
 export const getBlockAnnotationViewClassname = (

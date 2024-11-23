@@ -1,4 +1,4 @@
-import type { ProviderParticipant } from '@atlaskit/editor-common/collab';
+import type { ProviderParticipant, PresenceActivity } from '@atlaskit/editor-common/collab';
 import { createParticipantFromPayload, PARTICIPANT_UPDATE_INTERVAL } from '../participants-helper';
 
 // Realistic time as a base reference
@@ -20,6 +20,8 @@ const activeUser: ProviderParticipant = {
 		isPermittedToEdit: false,
 		isPermittedToView: true,
 	},
+	presenceId: 'mockPresenceId',
+	presenceActivity: 'viewer',
 };
 
 describe('createParticipantFromPayload', () => {
@@ -92,6 +94,8 @@ describe('createParticipantFromPayload', () => {
 				isPermittedToEdit: false,
 				isPermittedToView: true,
 			},
+			presenceId: 'mockPresenceId',
+			presenceActivity: 'viewer' as PresenceActivity,
 		};
 		const { timestamp, ...rest } = payload;
 		const expectedParticipant: ProviderParticipant = {

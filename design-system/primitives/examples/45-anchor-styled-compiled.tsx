@@ -5,9 +5,8 @@
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
+import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-import { Anchor } from '../src/compiled';
 
 const styles = cssMap({
 	root: {

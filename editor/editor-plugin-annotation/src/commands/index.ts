@@ -294,6 +294,14 @@ export const setSelectedAnnotation = (id: string): Command =>
 		},
 	});
 
+export const setHoveredAnnotation = (id: string): Command =>
+	createCommand({
+		type: ACTIONS.SET_HOVERED_ANNOTATION,
+		data: {
+			hoveredAnnotations: [{ id, type: AnnotationTypes.INLINE_COMMENT }],
+		},
+	});
+
 export const createAnnotation =
 	(
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,

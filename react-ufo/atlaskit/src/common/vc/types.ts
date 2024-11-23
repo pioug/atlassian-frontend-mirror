@@ -23,7 +23,7 @@ export type VCRawDataType = {
 	abortReasonInfo: string | null;
 	abortReason: VCAbortReasonType;
 	heatmap: number[][];
-	oldHeatmap: number[][];
+	heatmapNext: number[][];
 	outOfBoundaryInfo: string;
 	totalTime: number;
 	componentsLog: ComponentsLogType;
@@ -39,7 +39,12 @@ export type VCEntryType = {
 	elements: string[];
 };
 
-export type VCIgnoreReason = 'image' | 'ssr-hydration' | 'editor-lazy-node-view' | '';
+export type VCIgnoreReason =
+	| 'image'
+	| 'ssr-hydration'
+	| 'editor-lazy-node-view'
+	| 'not-visible'
+	| '';
 
 export type ComponentsLogEntry = {
 	targetName: string;

@@ -17,7 +17,7 @@ export const createParticipantFromPayload = async (
 	payload: PresencePayload & { userId: string },
 	getUser: GetUserType,
 ): Promise<ProviderParticipant> => {
-	const { sessionId, timestamp, clientId, userId, permit } = payload;
+	const { sessionId, timestamp, clientId, userId, permit, presenceId, presenceActivity } = payload;
 
 	const user = await getUser?.(userId);
 
@@ -31,6 +31,8 @@ export const createParticipantFromPayload = async (
 		clientId,
 		permit,
 		isGuest: user?.isGuest,
+		presenceId: presenceId,
+		presenceActivity: presenceActivity,
 	};
 
 	return participant;

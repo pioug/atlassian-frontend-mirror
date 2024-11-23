@@ -6,8 +6,7 @@ import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-
-import { Box, Stack } from '../src/compiled';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 const styles = cssMap({
 	solid: { borderStyle: 'solid', width: '600px' },

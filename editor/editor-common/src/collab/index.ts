@@ -379,6 +379,8 @@ type ProviderParticipantPermitLevel = {
 	isPermittedToEdit?: boolean;
 };
 
+export type PresenceActivity = 'viewer' | 'editor';
+
 export interface CollabParticipant {
 	lastActive: number;
 	sessionId: string;
@@ -387,6 +389,8 @@ export interface CollabParticipant {
 	cursorPos?: number;
 	permit?: ProviderParticipantPermitLevel;
 	isGuest?: boolean;
+	presenceId?: string;
+	presenceActivity?: PresenceActivity;
 }
 
 export type ProviderParticipant = CollabParticipant & {

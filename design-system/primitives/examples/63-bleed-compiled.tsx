@@ -6,9 +6,8 @@ import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import Heading, { HeadingContextProvider } from '@atlaskit/heading';
+import { Bleed, Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-import { Bleed, Box, Inline, Stack } from '../src/compiled';
 
 const styles = cssMap({
 	block: {

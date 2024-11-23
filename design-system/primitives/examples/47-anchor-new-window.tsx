@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { Stack } from '@atlaskit/primitives';
-
-import Anchor from '../src/components/anchor';
+import { Anchor, Stack } from '@atlaskit/primitives';
 
 export default function AnchorNewWindow() {
 	return (

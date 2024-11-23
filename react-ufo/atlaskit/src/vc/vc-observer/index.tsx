@@ -81,7 +81,7 @@ export class VCObserver {
 
 	heatmap: number[][];
 
-	ssrInclusiveHeatmap: number[][];
+	heatmapNext: number[][];
 
 	componentsLog: ComponentsLogType = {};
 
@@ -123,7 +123,7 @@ export class VCObserver {
 			},
 		});
 		this.heatmap = this.getCleanHeatmap();
-		this.ssrInclusiveHeatmap = this.getCleanHeatmap();
+		this.heatmapNext = this.getCleanHeatmap();
 		this.isPostInteraction = options.isPostInteraction || false;
 	}
 
@@ -170,8 +170,8 @@ export class VCObserver {
 		return {
 			abortReasonInfo,
 			abortReason: { ...this.abortReason },
-			heatmap: this.ssrInclusiveHeatmap,
-			oldHeatmap: this.heatmap,
+			heatmap: this.heatmap,
+			heatmapNext: this.heatmapNext,
 			outOfBoundaryInfo: this.outOfBoundaryInfo,
 			totalTime: Math.round(this.totalTime + this.observers.getTotalTime()),
 			componentsLog: { ...this.componentsLog },
@@ -203,7 +203,7 @@ export class VCObserver {
 			abortReason,
 			abortReasonInfo,
 			heatmap,
-			oldHeatmap,
+			heatmapNext,
 			outOfBoundaryInfo,
 			totalTime,
 			componentsLog,
@@ -246,15 +246,15 @@ export class VCObserver {
 			/* empty */
 		}
 
-		const ssrVC = VCObserver.calculateVC({
-			heatmap: oldHeatmap,
+		const vcNext = VCObserver.calculateVC({
+			heatmap: heatmapNext,
 			ssr,
 			componentsLog: { ...componentsLog },
 			viewport,
 		});
 
 		const outOfBoundary = outOfBoundaryInfo ? { [`${fullPrefix}vc:oob`]: outOfBoundaryInfo } : {};
-		//const oldDomUpdates = oldDomUpdatesEnabled ? { [`${fullPrefix}vc:old:dom`]: ssrVC.VCBox } : {};
+		//const oldDomUpdates = oldDomUpdatesEnabled ? { [`${fullPrefix}vc:old:dom`]: vcNext.VCBox } : {};
 
 		const stopTime = performance.now();
 
@@ -304,7 +304,7 @@ export class VCObserver {
 			[`${fullPrefix}vc:total`]: totalPainted,
 			[`${fullPrefix}vc:ratios`]: ratios,
 			...outOfBoundary,
-			[`${fullPrefix}vc:attrs`]: ssrVC.VC,
+			[`${fullPrefix}vc:next`]: vcNext.VC,
 			//...oldDomUpdates,
 			[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
 		};
@@ -429,12 +429,13 @@ export class VCObserver {
 				intersectionRect.height,
 			);
 			this.vcRatios[targetName] = this.getElementRatio(mappedValues);
+
 			if (!ignoreReason) {
-				this.applyChangesToHeatMap(mappedValues, time, this.heatmap);
+				this.applyChangesToHeatMap(mappedValues, time, this.heatmapNext);
 			}
 
-			if (!ignoreReason && type !== 'attr') {
-				this.applyChangesToHeatMap(mappedValues, time, this.ssrInclusiveHeatmap);
+			if ((!ignoreReason || ignoreReason === 'not-visible') && type !== 'attr') {
+				this.applyChangesToHeatMap(mappedValues, time, this.heatmap);
 			}
 
 			if (!this.componentsLog[time]) {
@@ -473,7 +474,7 @@ export class VCObserver {
 		};
 		this.detachAbortListeners();
 		this.heatmap = this.getCleanHeatmap();
-		this.ssrInclusiveHeatmap = this.getCleanHeatmap();
+		this.heatmapNext = this.getCleanHeatmap();
 
 		this.totalTime = 0;
 		this.componentsLog = {};

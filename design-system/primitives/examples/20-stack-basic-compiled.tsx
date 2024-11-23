@@ -5,9 +5,8 @@
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-import { Box, Stack } from '../src/compiled';
 
 const styles = cssMap({
 	container: { display: 'flex', padding: token('space.100') },

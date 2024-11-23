@@ -5,8 +5,7 @@
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
-
-import { Box } from '../src/compiled';
+import { Box } from '@atlaskit/primitives/compiled';
 
 const boxStyles = cssMap({
 	root: {

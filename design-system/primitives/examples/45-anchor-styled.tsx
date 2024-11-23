@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { xcss } from '@atlaskit/primitives';
-
-import Anchor from '../src/components/anchor';
+import { Anchor, xcss } from '@atlaskit/primitives';
 
 const anchorStyles = xcss({
 	borderRadius: 'border.radius.100',

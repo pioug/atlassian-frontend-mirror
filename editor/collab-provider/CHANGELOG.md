@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 10.1.0
+
+### Minor Changes
+
+- [#167312](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167312)
+  [`4fe6eb3b36fc3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4fe6eb3b36fc3) -
+  Add support for optional properties, presenceId and presenceActivity, within collab-provider
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.0.0
 
 ### Major Changes

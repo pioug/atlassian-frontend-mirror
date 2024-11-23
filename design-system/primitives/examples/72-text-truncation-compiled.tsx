@@ -5,9 +5,8 @@
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
+import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-import { Inline, Stack, Text } from '../src/compiled';
 
 const styles = cssMap({
 	label: { width: '160px' },

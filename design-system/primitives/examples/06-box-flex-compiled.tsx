@@ -6,8 +6,7 @@ import { jsx } from '@compiled/react';
 
 import { cssMap, cx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-
-import { Box, Inline, Stack } from '../src/compiled';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 const styles = cssMap({
 	container: { display: 'flex' },

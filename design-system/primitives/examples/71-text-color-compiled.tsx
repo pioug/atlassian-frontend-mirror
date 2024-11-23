@@ -6,9 +6,8 @@ import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-import { Box, Stack, Text } from '../src/compiled';
 
 const styles = cssMap({
 	padded: { padding: token('space.100') },

@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { xcss } from '@atlaskit/primitives';
-
-import Pressable from '../src/components/pressable';
+import { Pressable, xcss } from '@atlaskit/primitives';
 
 const pressableStyles = xcss({
 	borderRadius: 'border.radius.100',

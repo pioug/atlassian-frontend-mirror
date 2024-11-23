@@ -5,9 +5,8 @@
 import { jsx } from '@compiled/react';
 
 import { cssMap } from '@atlaskit/css';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
-
-import { Box, Inline } from '../src/compiled';
 
 const styles = cssMap({
 	block: { borderRadius: token('border.radius.050'), padding: token('space.200') },

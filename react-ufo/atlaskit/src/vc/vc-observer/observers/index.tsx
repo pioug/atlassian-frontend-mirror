@@ -347,6 +347,19 @@ export class Observers implements BrowserObservers {
 								// ignore intersection report without recent mutation
 								return;
 							}
+
+							if (fg('platform-ufo-invisible-element-vc-calculations')) {
+								const isVisible = target.checkVisibility({
+									contentVisibilityAuto: true,
+									opacityProperty: true,
+									visibilityProperty: true,
+								} as CheckVisibilityOptions);
+
+								if (!isVisible) {
+									data.ignoreReason = 'not-visible';
+								}
+							}
+
 							this.callbacks.forEach((callback) => {
 								let elementName;
 								try {

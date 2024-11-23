@@ -16,6 +16,7 @@ export enum ACTIONS {
 	INLINE_COMMENT_SET_VISIBLE,
 	CLOSE_COMPONENT,
 	SET_SELECTED_ANNOTATION,
+	SET_HOVERED_ANNOTATION,
 }
 
 export interface InlineCommentPluginOptions {
@@ -72,6 +73,13 @@ export type InlineCommentAction =
 				selectAnnotationMethod?: VIEW_METHOD;
 				isOpeningMediaCommentFromToolbar?: boolean;
 			};
+	  }
+	| {
+			type: ACTIONS.SET_HOVERED_ANNOTATION;
+			data: {
+				hoveredAnnotations: AnnotationInfo[];
+				selectAnnotationMethod?: VIEW_METHOD;
+			};
 	  };
 
 export type InlineCommentPluginState = {
@@ -81,6 +89,7 @@ export type InlineCommentPluginState = {
 	mouseData: InlineCommentMouseData;
 	draftDecorationSet?: DecorationSet;
 	bookmark?: SelectionBookmark;
+	hoveredAnnotations?: AnnotationInfo[];
 
 	// Denotes if annotations are allowed to be create on empty nodes or nodes of whitespace (Confluence spec)
 	disallowOnWhitespace: boolean;

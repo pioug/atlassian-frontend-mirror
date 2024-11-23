@@ -30,6 +30,10 @@ const markStyles = () => css`
 			&[data-has-focus='true'] {
 			${AnnotationSharedCSSByState().focus}
 		}
+		&[data-is-hovered='true']:not([data-has-focus='true']),
+		&:hover:not(:focus) {
+			${AnnotationSharedCSSByState().hover}
+		}
 	}
 `;
 
@@ -64,6 +68,7 @@ type MarkComponentProps = {
 	dataAttributes: AnnotationDataAttributes;
 	state: AnnotationMarkStates | null;
 	hasFocus: boolean;
+	isHovered: boolean;
 	onClick: (props: OnAnnotationClickPayload) => void;
 	useBlockLevel?: boolean;
 };
@@ -74,6 +79,7 @@ export const MarkComponent = ({
 	id,
 	state,
 	hasFocus,
+	isHovered,
 	onClick,
 	useBlockLevel,
 }: React.PropsWithChildren<MarkComponentProps>) => {
@@ -138,6 +144,7 @@ export const MarkComponent = ({
 				...dataAttributes,
 				'data-mark-annotation-state': state,
 				'data-has-focus': hasFocus,
+				'data-is-hovered': isHovered,
 			};
 
 	const desktopAccessibilityAttributes = isInlineCommentsKbAccessible

@@ -6,8 +6,7 @@ import { Fragment } from 'react';
 
 import { jsx } from '@compiled/react';
 
-import { Hide } from '../src/compiled/responsive/hide';
-import { Show } from '../src/compiled/responsive/show';
+import { Hide, Show } from '@atlaskit/primitives/responsive';
 
 const breakpoints = ['xxs', 'xs', 'sm', 'md', 'lg', 'xl'] as const;
 

@@ -279,6 +279,22 @@ describe('Provider', () => {
 			expect(provider['documentService']).toBeInstanceOf(NullDocumentService);
 			expect(provider['api']).toBeInstanceOf(NullApi);
 		});
+
+		it('Should set the presenceActivity of the provider when passed in', () => {
+			const provider = createSocketIOCollabProvider(testProviderPresenceConfig);
+
+			provider.setupForPresenceOnly(clientId, 'viewer');
+
+			expect(provider['presenceActivity']).toBe('viewer');
+		});
+
+		it('Should not set the presenceActivity of the provider when not passed in', () => {
+			const provider = createSocketIOCollabProvider(testProviderPresenceConfig);
+
+			provider.setupForPresenceOnly(clientId);
+
+			expect(provider['presenceActivity']).toBeUndefined();
+		});
 	});
 
 	describe('initialisation', () => {

@@ -32,7 +32,7 @@ const MarkElement = ({
 }: MarkElementProps) => {
 	const updateSubscriber = useInlineCommentSubscriberContext();
 	const states = useContext(InlineCommentsStateContext);
-	const hasFocus = useHasFocusEvent({ id, updateSubscriber });
+	const { hasFocus, isHovered } = useHasFocusEvent({ id, updateSubscriber });
 	const dataAttributesMemorized = useMemo(() => dataAttributes, [dataAttributes]);
 	const onClick = useCallback(
 		(props: OnAnnotationClickPayload) => {
@@ -67,6 +67,7 @@ const MarkElement = ({
 			annotationParentIds={activeParentIds}
 			onClick={onClick}
 			hasFocus={hasFocus}
+			isHovered={isHovered}
 			state={states[id]}
 			useBlockLevel={useBlockLevel}
 		>

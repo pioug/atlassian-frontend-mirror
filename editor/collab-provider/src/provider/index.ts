@@ -17,6 +17,7 @@ import type {
 	CollabActivityAckPayload,
 	CollabActivityAIProviderChangedPayload,
 	UserPermitType,
+	PresenceActivity,
 } from '@atlaskit/editor-common/collab';
 
 import { createLogger } from '../helpers/utils';
@@ -83,6 +84,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
 	// UserID is the users actual account id.
 	private userId?: string;
+
+	// PresenceId is used to correlate to independent websocket connections together (presence and editor)
+	private presenceId?: string;
+	// PresenceActivity is used to determine if the user is a viewer or editor, only used in the presence connection
+	private presenceActivity?: 'viewer' | 'editor';
 
 	private presenceUpdateTimeout?: number;
 
@@ -157,6 +163,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		);
 		this.metadataService = new MetadataService(this.emitCallback, this.channel.sendMetadata);
 		this.namespaceService = new NamespaceService();
+		this.presenceId = this.config.presenceId;
 
 		if (config.isPresenceOnly) {
 			// this check is specifically for the presence only
@@ -259,12 +266,15 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	private setUserId = (id: string) => {
 		this.userId = id;
 	};
+
 	private getPresenceData = (): PresenceData => {
 		return {
 			sessionId: this.sessionId!,
 			userId: this.userId!,
 			clientId: this.clientId!,
 			permit: this.permit,
+			presenceId: this.presenceId,
+			presenceActivity: this.presenceActivity,
 		};
 	};
 
@@ -349,8 +359,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	}
 
 	// Only used for the presence - opts out of the document service and api service
-	setupForPresenceOnly(clientId: string) {
+	setupForPresenceOnly(clientId: string, presenceActivity?: PresenceActivity) {
 		this.clientId = clientId;
+		this.presenceActivity = presenceActivity;
 		this.checkForCookies();
 		try {
 			if (!this.isChannelInitialized) {

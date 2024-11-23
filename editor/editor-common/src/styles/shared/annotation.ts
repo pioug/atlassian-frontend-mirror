@@ -9,6 +9,7 @@ export const AnnotationSharedClassNames = {
 	focus: `${annotationPrefix}-focus`,
 	blur: `${annotationPrefix}-blur`,
 	draft: `${annotationPrefix}-draft`,
+	hover: `${annotationPrefix}-hover`,
 };
 
 export const blockAnnotationPrefix = 'ak-editor-block-annotation';
@@ -54,6 +55,11 @@ export const AnnotationSharedCSSByState = () => {
 				background: token('color.background.accent.yellow.subtlest'),
 				borderBottomColor: token('color.border.accent.yellow'),
 			}),
+			hover: css({
+				background: token('color.background.accent.yellow.subtlest.hovered'),
+				borderBottomColor: token('color.border.accent.yellow'),
+				boxShadow: token('elevation.shadow.overlay'),
+			}),
 		};
 	} else {
 		return {
@@ -97,6 +103,10 @@ export const annotationSharedStyles = () =>
 
 					.${AnnotationSharedClassNames.blur} {
 						${AnnotationSharedCSSByState().blur};
+					}
+					.${AnnotationSharedClassNames.hover} {
+						${AnnotationSharedCSSByState().common};
+						${AnnotationSharedCSSByState().hover};
 					}
 				}
 			`

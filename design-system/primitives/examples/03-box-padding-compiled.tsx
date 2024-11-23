@@ -5,8 +5,7 @@
 import { jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
-
-import { Box, Inline, Stack } from '../src/compiled';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 
 const spacingValues = [
 	'space.0',

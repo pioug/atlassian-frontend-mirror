@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.3.1
+
+### Patch Changes
+
+- [#166517](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166517)
+  [`c50bc0f9a3564`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c50bc0f9a3564) -
+  Add VC calculations for without invisible elements
+
 ## 2.3.0
 
 ### Minor Changes

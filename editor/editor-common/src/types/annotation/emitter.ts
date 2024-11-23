@@ -10,13 +10,17 @@ export interface AnnotationState<Type> {
 
 export enum AnnotationUpdateEvent {
 	SET_ANNOTATION_FOCUS = 'SET_ANNOTATION_FOCUS',
+	SET_ANNOTATION_HOVERED = 'SET_ANNOTATION_HOVERED',
 	SET_ANNOTATION_STATE = 'SET_ANNOTATION_STATE',
 	REMOVE_ANNOTATION_FOCUS = 'REMOVE_ANNOTATION_FOCUS',
+	REMOVE_ANNOTATION_HOVERED = 'REMOVE_ANNOTATION_HOVERED',
 	ON_ANNOTATION_CLICK = 'ON_ANNOTATION_CLICK',
 	DESELECT_ANNOTATIONS = 'DESELECT_ANNOTATIONS',
 }
 
 type SetFocusPayload = Record<'annotationId', AnnotationId>;
+type SetHoveredPayload = Record<'annotationId', AnnotationId>;
+
 export type OnAnnotationClickPayload = {
 	annotationIds: Array<AnnotationId>;
 	eventTarget: HTMLElement;
@@ -29,6 +33,7 @@ type SetStatePayload = Record<AnnotationId, AnnotationState<AnnotationTypes.INLI
 export type AnnotationUpdateEventPayloads = {
 	[AnnotationUpdateEvent.ON_ANNOTATION_CLICK]: OnAnnotationClickPayload;
 	[AnnotationUpdateEvent.SET_ANNOTATION_FOCUS]: SetFocusPayload;
+	[AnnotationUpdateEvent.SET_ANNOTATION_HOVERED]: SetHoveredPayload;
 	[AnnotationUpdateEvent.SET_ANNOTATION_STATE]: SetStatePayload;
 };
 

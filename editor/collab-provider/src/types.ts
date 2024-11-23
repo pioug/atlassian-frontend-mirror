@@ -11,6 +11,7 @@ import type {
 	Metadata,
 	UserPermitType,
 	Activity,
+	PresenceActivity,
 } from '@atlaskit/editor-common/collab';
 import { type CatchupEventReason } from './helpers/const';
 
@@ -104,6 +105,13 @@ export interface Config {
 	 * @default false
 	 */
 	__livePage?: boolean;
+
+	/**
+	 * Configure the provider to pass along a persistent presenceId during presence events. This presenceId will be used
+	 * to calculate the colors of the presence avatars as well as the editors telepointers. Since these two features are split across
+	 * multiple websocket connections, the presenceId is used to correlate the two.
+	 */
+	presenceId?: string;
 }
 
 export interface InitAndAuthData {
@@ -160,6 +168,8 @@ export type PresenceData = {
 	userId: string | undefined;
 	clientId: number | string;
 	permit?: UserPermitType;
+	presenceId?: string;
+	presenceActivity?: PresenceActivity;
 };
 
 export type PresencePayload = PresenceData & {

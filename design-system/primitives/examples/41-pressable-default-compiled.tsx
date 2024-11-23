@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Pressable } from '../src/compiled';
+import { Pressable } from '@atlaskit/primitives/compiled';
 
 export default function Default() {
 	return (

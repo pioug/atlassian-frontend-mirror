@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Heading from '@atlaskit/heading';
-
-import { Stack, Text } from '../src/compiled';
+import { Stack, Text } from '@atlaskit/primitives/compiled';
 
 const sizes = ['small', 'UNSAFE_small', 'medium', 'large'] as const;
 const weights = ['regular', 'medium', 'semibold', 'bold'] as const;

@@ -115,7 +115,7 @@ describe('vc-observer', () => {
 			'vc:updates': [{ time: 5, vc: 100, elements: ['body > div'] }],
 			'vc:time': expect.any(Number),
 			'vc:total': 10000,
-			'vc:attrs': {
+			'vc:next': {
 				25: 5,
 				50: 5,
 				75: 5,
@@ -226,7 +226,7 @@ describe('vc-observer', () => {
 			],
 			'vc:time': expect.any(Number),
 			'vc:total': 10000,
-			'vc:attrs': {
+			'vc:next': {
 				25: 5,
 				50: 5,
 				75: 10,
@@ -337,7 +337,7 @@ describe('vc-observer', () => {
 			],
 			'vc:time': expect.any(Number),
 			'vc:total': 10000,
-			'vc:attrs': {
+			'vc:next': {
 				25: 5,
 				50: 5,
 				75: 5,
@@ -453,7 +453,7 @@ describe('vc-observer', () => {
 			],
 			'vc:time': expect.any(Number),
 			'vc:total': 10000,
-			'vc:attrs': {
+			'vc:next': {
 				25: 5,
 				50: 5,
 				75: 10,
@@ -520,7 +520,7 @@ describe('vc-observer', () => {
 			'vc:updates': [{ time: 5, vc: 100, elements: ['div#a'] }],
 			'vc:time': expect.any(Number),
 			'vc:total': 10000,
-			'vc:attrs': {
+			'vc:next': {
 				25: 5,
 				50: 5,
 				75: 5,
@@ -585,7 +585,7 @@ describe('vc-observer', () => {
 			'vc:updates': [{ time: 10, vc: 100, elements: ['div#b'] }],
 			'vc:time': expect.any(Number),
 			'vc:total': 2500,
-			'vc:attrs': {
+			'vc:next': {
 				25: 10,
 				50: 10,
 				75: 10,
@@ -655,7 +655,7 @@ describe('vc-observer', () => {
 			],
 			'vc:time': expect.any(Number),
 			'vc:total': 10000,
-			'vc:attrs': {
+			'vc:next': {
 				25: 3,
 				50: 3,
 				75: 10,

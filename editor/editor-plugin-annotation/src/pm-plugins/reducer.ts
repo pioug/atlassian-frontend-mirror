@@ -86,6 +86,13 @@ export default (
 				isInlineCommentViewClosed: false,
 				isOpeningMediaCommentFromToolbar: action.data.isOpeningMediaCommentFromToolbar,
 			};
+		case ACTIONS.SET_HOVERED_ANNOTATION:
+			return {
+				...pluginState,
+				hoveredAnnotations: [...action.data.hoveredAnnotations],
+				skipSelectionHandling: true,
+				isInlineCommentViewClosed: false,
+			};
 		default:
 			return pluginState;
 	}

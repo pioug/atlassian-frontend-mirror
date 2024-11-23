@@ -13,6 +13,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	clearDirtyMark,
 	closeComponent,
+	setHoveredAnnotation,
 	setInlineCommentsVisibility,
 	setSelectedAnnotation,
 	updateInlineCommentResolvedState,
@@ -76,6 +77,7 @@ const initialState = (
 	return {
 		annotations: {},
 		selectedAnnotations: [],
+		hoveredAnnotations: [],
 		mouseData: {
 			isSelecting: false,
 		},
@@ -161,12 +163,25 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 				);
 			const mouseUp = (event: Event) => onMouseUp(editorView.state, editorView.dispatch)(event);
 			const setVisibility = (isVisible: boolean) => onSetVisibility(editorView)(isVisible);
+
 			const setSelectedAnnotationFn = (annotationId?: string) => {
 				if (!annotationId) {
 					closeComponent()(editorView.state, editorView.dispatch);
 				} else {
 					setSelectedAnnotation(annotationId)(editorView.state, editorView.dispatch);
 				}
+			};
+
+			const setHoveredAnnotationFn = (annotationId?: string) => {
+				if (!annotationId) {
+					closeComponent()(editorView.state, editorView.dispatch);
+				} else {
+					setHoveredAnnotation(annotationId)(editorView.state, editorView.dispatch);
+				}
+			};
+
+			const removeHoveredannotationFn = () => {
+				setHoveredAnnotation('')(editorView.state, editorView.dispatch);
 			};
 
 			const { updateSubscriber } = provider;
@@ -177,7 +192,9 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 					.on('unresolve', unResolve)
 					.on('create', unResolve)
 					.on('setvisibility', setVisibility)
-					.on('setselectedannotation', setSelectedAnnotationFn);
+					.on('setselectedannotation', setSelectedAnnotationFn)
+					.on('sethoveredannotation', setHoveredAnnotationFn)
+					.on('removehoveredannotation', removeHoveredannotationFn);
 			}
 
 			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
@@ -204,7 +221,9 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 							.off('unresolve', unResolve)
 							.off('create', unResolve)
 							.off('setvisibility', setVisibility)
-							.off('setselectedannotation', setSelectedAnnotationFn);
+							.off('setselectedannotation', setSelectedAnnotationFn)
+							.off('sethoveredannotation', setHoveredAnnotationFn)
+							.off('removehoveredannotation', removeHoveredannotationFn);
 					}
 				},
 			};
@@ -244,6 +263,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 					selectedAnnotations,
 					isVisible,
 					isInlineCommentViewClosed,
+					hoveredAnnotations,
 				} = getPluginState(state) || {};
 
 				let decorations = draftDecorationSet ?? DecorationSet.empty;
@@ -268,6 +288,11 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 									!!selectedAnnotations?.some(
 										(selectedAnnotation) => selectedAnnotation.id === mark.attrs.id,
 									);
+								const isHovered =
+									!isInlineCommentViewClosed &&
+									!!hoveredAnnotations?.some(
+										(hoveredAnnotation) => hoveredAnnotation.id === mark.attrs.id,
+									);
 
 								if (isSupportedBlockNode) {
 									focusDecorations.push(
@@ -291,6 +316,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 													class: `${getAnnotationViewClassname(
 														isUnresolved,
 														isSelected,
+														isHovered,
 													)} ${isUnresolved}`,
 													nodeName: 'span',
 												}),
@@ -304,6 +330,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 														class: `${getAnnotationViewClassname(
 															isUnresolved,
 															isSelected,
+															isHovered,
 														)} ${isUnresolved}`,
 													},
 													{ key: decorationKey.block },
@@ -316,6 +343,7 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 												class: `${getAnnotationViewClassname(
 													isUnresolved,
 													isSelected,
+													isHovered,
 												)} ${isUnresolved}`,
 												nodeName: 'span',
 											}),

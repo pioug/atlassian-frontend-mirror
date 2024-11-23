@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 95.4.0
+
+### Minor Changes
+
+- [#167231](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167231)
+  [`335a373081eaf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/335a373081eaf) -
+  [ux] Added hoveredAnnotation for the renderer and the editor to accomodate the newly implemented
+  comment's panel
+
+## 95.3.0
+
+### Minor Changes
+
+- [#167312](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167312)
+  [`4fe6eb3b36fc3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4fe6eb3b36fc3) -
+  Add support for optional properties, presenceId and presenceActivity, within collab-provider
+
 ## 95.2.0
 
 ### Minor Changes

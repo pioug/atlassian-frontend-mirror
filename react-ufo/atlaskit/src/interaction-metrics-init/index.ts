@@ -69,10 +69,14 @@ export const init = (
 		return;
 	}
 
-	if (window !== undefined) {
-		window.__REACT_UFO_ENABLE_PERF_TRACING = Boolean(
-			sessionStorage.getItem('additionalPerfMarks') === 'true',
-		);
+	try {
+		if (window !== undefined) {
+			window.__REACT_UFO_ENABLE_PERF_TRACING = Boolean(
+				sessionStorage.getItem('additionalPerfMarks') === 'true',
+			);
+		}
+	} catch (err) {
+		/* do nothing */
 	}
 
 	setUFOConfig(config);

@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.3.2
+
+### Patch Changes
+
+- [#167556](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167556)
+  [`63da6ebbd7549`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/63da6ebbd7549) -
+  add try catch to sessionStorage access within ufo init script
+
 ## 2.3.1
 
 ### Patch Changes

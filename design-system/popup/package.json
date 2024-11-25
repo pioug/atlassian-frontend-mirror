@@ -39,7 +39,7 @@
 		"runReact18": true,
 		"website": {
 			"name": "Popup",
-			"category": "Components"
+			"category": "Overlays and layering"
 		}
 	},
 	"dependencies": {

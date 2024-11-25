@@ -38,7 +38,7 @@
 		"runReact18": true,
 		"website": {
 			"name": "Pagination",
-			"category": "Components"
+			"category": "Navigation"
 		}
 	},
 	"dependencies": {

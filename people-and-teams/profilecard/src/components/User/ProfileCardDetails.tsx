@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl-next';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import relativeDate from '../../internal/relative-date';
 import messages from '../../messages';
@@ -35,8 +36,7 @@ const fullNameLabelStyles = xcss({
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
-	fontSize: '18px',
-	fontWeight: '400',
+	fontSize: token('font.body.large'),
 	letterSpacing: 'normal',
 	lineHeight: `${24 / 18}em`,
 });

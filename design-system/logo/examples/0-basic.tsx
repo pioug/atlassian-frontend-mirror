@@ -60,7 +60,7 @@ export default () => (
 			<tbody>
 				<tr>
 					<td>
-						<AtlassianLogo />
+						<AtlassianLogo testId="atlassian-logo" />
 					</td>
 					<td>
 						<AtlassianIcon />

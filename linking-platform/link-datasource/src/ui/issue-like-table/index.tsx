@@ -830,43 +830,45 @@ export const IssueLikeDataTableView = ({
 									shouldUseWidth,
 									width,
 								});
-
 								// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-								if (fg('platform-datasources-enable-two-way-sync')) {
-									return (
-										<InlineEditableTableCell
-											key={cellKey}
-											data-testid={testId && `${testId}--cell-${cellIndex}`}
-											colSpan={isEditable && isLastCell ? 2 : undefined}
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-											style={loadingRowStyle}
-											css={[wrappedColumnKeys?.includes(cellKey) ? null : truncateStyles]}
-										>
-											{content}
-										</InlineEditableTableCell>
-									);
-								} else {
-									// extra padding is required around skeleton loader to avoid vertical jumps when data loads
-									if (key?.includes('loading')) {
-										loadingRowStyle = {
-											...loadingRowStyle,
-											paddingBlock: token('space.100', '8px'),
-										};
+								if (fg('enable_datasource_react_sweet_state')) {
+									// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+									if (fg('platform-datasources-enable-two-way-sync')) {
+										return (
+											<InlineEditableTableCell
+												key={cellKey}
+												data-testid={testId && `${testId}--cell-${cellIndex}`}
+												colSpan={isEditable && isLastCell ? 2 : undefined}
+												// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+												style={loadingRowStyle}
+												css={[wrappedColumnKeys?.includes(cellKey) ? null : truncateStyles]}
+											>
+												{content}
+											</InlineEditableTableCell>
+										);
 									}
-
-									return (
-										<TableCell
-											key={cellKey}
-											data-testid={testId && `${testId}--cell-${cellIndex}`}
-											colSpan={isEditable && isLastCell ? 2 : undefined}
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-											style={loadingRowStyle}
-											css={[wrappedColumnKeys?.includes(cellKey) ? null : truncateStyles]}
-										>
-											{content}
-										</TableCell>
-									);
 								}
+
+								// extra padding is required around skeleton loader to avoid vertical jumps when data loads
+								if (key?.includes('loading')) {
+									loadingRowStyle = {
+										...loadingRowStyle,
+										paddingBlock: token('space.100', '8px'),
+									};
+								}
+
+								return (
+									<TableCell
+										key={cellKey}
+										data-testid={testId && `${testId}--cell-${cellIndex}`}
+										colSpan={isEditable && isLastCell ? 2 : undefined}
+										// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+										style={loadingRowStyle}
+										css={[wrappedColumnKeys?.includes(cellKey) ? null : truncateStyles]}
+									>
+										{content}
+									</TableCell>
+								);
 							})}
 						</tr>
 					))}

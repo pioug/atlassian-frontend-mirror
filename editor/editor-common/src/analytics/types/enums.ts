@@ -277,6 +277,7 @@ export enum ACTION_SUBJECT_ID {
 	ACTION = 'action',
 	AI_DEFINITIONS_DEFINE_BUTTON = 'aiDefinitionsDefineButton',
 	AI_DEFINITIONS_AUTO_HIGHLIGHT = 'aiDefinitionsAutoHighlight',
+	AI_PANELS_BODIED_EXTENSION = 'aiPanelsBodiedExtension',
 	ALL = 'all',
 	ALT_TEXT = 'altText',
 	ANNOTATE_BUTTON = 'annotateButton',

@@ -54,7 +54,7 @@ describe('ColorPicker', () => {
 		expect(colorButton).toHaveAttribute('aria-expanded', 'true');
 
 		// popup to have color options
-		expect(getAllByRole('option')).toHaveLength(2);
+		expect(getAllByRole('radio')).toHaveLength(2);
 	});
 
 	describe('FFs enabled', () => {

@@ -1,5 +1,19 @@
 # @atlaskit/share
 
+## 4.23.0
+
+### Minor Changes
+
+- [#166181](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166181)
+  [`21e43f81fb5aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/21e43f81fb5aa) -
+  [ux] Added additional tab prop
+
+### Patch Changes
+
+- [#167430](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167430)
+  [`c01f64d7d85f5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c01f64d7d85f5) -
+  Replace hard-coded font size with design tokens
+
 ## 4.22.1
 
 ### Patch Changes

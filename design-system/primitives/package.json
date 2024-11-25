@@ -19,8 +19,8 @@
 	"atlassian": {
 		"team": "Design System Team",
 		"website": {
-			"category": "Primitives",
 			"name": "Primitives",
+			"category": "Primitives",
 			"status": {
 				"type": "beta"
 			},

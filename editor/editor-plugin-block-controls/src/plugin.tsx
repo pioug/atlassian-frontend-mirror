@@ -18,7 +18,8 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 		return [
 			{
 				name: 'blockControlsPmPlugin',
-				plugin: ({ getIntl }) => createPlugin(api, getIntl),
+				plugin: ({ getIntl, nodeViewPortalProviderAPI }) =>
+					createPlugin(api, getIntl, nodeViewPortalProviderAPI),
 			},
 		];
 	},

@@ -21,7 +21,7 @@
 		"runReact18": true,
 		"website": {
 			"name": "Progress tracker",
-			"category": "Components"
+			"category": "Status indicators"
 		}
 	},
 	"dependencies": {

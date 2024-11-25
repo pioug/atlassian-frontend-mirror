@@ -21,7 +21,7 @@
 		"runReact18": true,
 		"website": {
 			"name": "Visually hidden",
-			"category": "Components"
+			"category": "Text and data display"
 		}
 	},
 	"dependencies": {

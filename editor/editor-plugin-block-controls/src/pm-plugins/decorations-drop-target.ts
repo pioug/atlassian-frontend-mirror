@@ -2,7 +2,9 @@ import { createElement } from 'react';
 
 import ReactDOM from 'react-dom';
 import { type IntlShape } from 'react-intl-next';
+import uuid from 'uuid';
 
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -116,15 +118,18 @@ export const findDropTargetDecs = (decorations: DecorationSet, from?: number, to
 export const createDropTargetDecoration = (
 	pos: number,
 	props: Omit<DropTargetProps, 'getPos'>,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	side?: number,
 	anchorRectCache?: AnchorRectCache,
 	isSameLayout?: boolean,
 ) => {
+	const key = uuid();
 	return Decoration.widget(
 		pos,
 		(_, getPos) => {
 			const element = document.createElement('div');
 			element.setAttribute('data-blocks-drop-target-container', 'true');
+			element.setAttribute('data-blocks-drop-target-key', key);
 			element.style.clear = 'unset';
 			if (fg('platform_editor_drag_and_drop_target_v2')) {
 				const { gap, offset } = getGapAndOffset(props.prevNode, props.nextNode, props.parentNode);
@@ -132,12 +137,28 @@ export const createDropTargetDecoration = (
 				element.style.setProperty(EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_GAP, `${gap}px`);
 				element.style.setProperty('display', 'block');
 
-				ReactDOM.render(
-					createElement(DropTargetV2, { ...props, getPos, anchorRectCache, isSameLayout }),
-					element,
-				);
+				if (fg('platform_editor_react18_plugin_portalprovider')) {
+					nodeViewPortalProviderAPI.render(
+						() => createElement(DropTargetV2, { ...props, getPos, anchorRectCache, isSameLayout }),
+						element,
+						key,
+					);
+				} else {
+					ReactDOM.render(
+						createElement(DropTargetV2, { ...props, getPos, anchorRectCache, isSameLayout }),
+						element,
+					);
+				}
 			} else {
-				ReactDOM.render(createElement(DropTarget, { ...props, getPos }), element);
+				if (fg('platform_editor_react18_plugin_portalprovider')) {
+					nodeViewPortalProviderAPI.render(
+						() => createElement(DropTarget, { ...props, getPos }),
+						element,
+						key,
+					);
+				} else {
+					ReactDOM.render(createElement(DropTarget, { ...props, getPos }), element);
+				}
 			}
 
 			return element;
@@ -152,19 +173,30 @@ export const createDropTargetDecoration = (
 export const createLayoutDropTargetDecoration = (
 	pos: number,
 	props: Omit<DropTargetLayoutProps, 'getPos'>,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	anchorRectCache?: AnchorRectCache,
 ) => {
+	const key = uuid();
 	return Decoration.widget(
 		pos,
 		(_, getPos) => {
 			const element = document.createElement('div');
 			element.setAttribute('data-blocks-drop-target-container', 'true');
+			element.setAttribute('data-blocks-drop-target-key', key);
 			element.style.clear = 'unset';
 
-			ReactDOM.render(
-				createElement(DropTargetLayout, { ...props, getPos, anchorRectCache }),
-				element,
-			);
+			if (fg('platform_editor_react18_plugin_portalprovider')) {
+				nodeViewPortalProviderAPI.render(
+					() => createElement(DropTargetLayout, { ...props, getPos, anchorRectCache }),
+					element,
+					key,
+				);
+			} else {
+				ReactDOM.render(
+					createElement(DropTargetLayout, { ...props, getPos, anchorRectCache }),
+					element,
+				);
+			}
 			return element;
 		},
 		{
@@ -177,12 +209,17 @@ export const dropTargetDecorations = (
 	newState: EditorState,
 	api: ExtractInjectionAPI<BlockControlsPlugin>,
 	formatMessage: IntlShape['formatMessage'],
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	activeNode?: ActiveNode,
 	anchorRectCache?: AnchorRectCache,
 	from?: number,
 	to?: number,
 ) => {
-	unmountDecorations('data-blocks-drop-target-container');
+	unmountDecorations(
+		nodeViewPortalProviderAPI,
+		'data-blocks-drop-target-container',
+		'data-blocks-drop-target-key',
+	);
 
 	const decs: Decoration[] = [];
 	const POS_END_OF_DOC = newState.doc.nodeSize - 2;
@@ -242,6 +279,7 @@ export const dropTargetDecorations = (
 								parent,
 								formatMessage,
 							},
+							nodeViewPortalProviderAPI,
 							anchorRectCache,
 						),
 					);
@@ -309,6 +347,7 @@ export const dropTargetDecorations = (
 					formatMessage,
 					dropTargetStyle: shouldShowFullHeight ? 'remainingHeight' : 'default',
 				},
+				nodeViewPortalProviderAPI,
 				-1,
 				anchorRectCache,
 				isSameLayout,
@@ -326,6 +365,7 @@ export const dropTargetDecorations = (
 						formatMessage,
 						dropTargetStyle: 'remainingHeight',
 					},
+					nodeViewPortalProviderAPI,
 					-1,
 					anchorRectCache,
 				),
@@ -350,6 +390,7 @@ export const dropTargetDecorations = (
 					prevNode: newState.doc.lastChild || undefined,
 					parentNode: newState.doc,
 				},
+				nodeViewPortalProviderAPI,
 				undefined,
 				anchorRectCache,
 			),

@@ -18,7 +18,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import Tabs, { Tab, TabList, TabPanel } from '@atlaskit/tabs';
 import { N300, R400 } from '@atlaskit/theme/colors';
-import { fontSizeSmall } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -88,7 +87,7 @@ const integrationIconWrapperStyles = css({
 const requiredFieldInfoStyles = css({
 	marginBottom: token('space.200', '16px'),
 	color: token('color.text.subtle', N300),
-	fontSize: `${fontSizeSmall()}px`,
+	font: token('font.body.small'),
 });
 
 const menuGroupContainerStyles = xcss({
@@ -368,16 +367,32 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 							additionalTabs?.map((tab) => <Tab key={`share-tab-${tab.label}`}>{tab.label}</Tab>)}
 					</TabList>
 					<TabPanel key={`share-tabPanel-default`}>
-						<div css={formWrapperStyles}>{this.renderShareForm()}</div>
+						<div css={formWrapperStyles}>
+							{fg('smart_links_for_plans_platform') ? (
+								<Box xcss={platformTabWrapper}>{this.renderShareForm()}</Box>
+							) : (
+								this.renderShareForm()
+							)}
+						</div>
 					</TabPanel>
 					<TabPanel key={`share-tabPanel-integration`}>
 						<AnalyticsContext data={{ source: INTEGRATION_MODAL_SOURCE }}>
 							<div css={formWrapperStyles}>
-								<IntegrationForm
-									Content={firstIntegration.Content}
-									onIntegrationClose={() => handleCloseDialog?.()}
-									changeTab={this.changeTab}
-								/>
+								{fg('smart_links_for_plans_platform') ? (
+									<Box xcss={platformTabWrapper}>
+										<IntegrationForm
+											Content={firstIntegration.Content}
+											onIntegrationClose={() => handleCloseDialog?.()}
+											changeTab={this.changeTab}
+										/>
+									</Box>
+								) : (
+									<IntegrationForm
+										Content={firstIntegration.Content}
+										onIntegrationClose={() => handleCloseDialog?.()}
+										changeTab={this.changeTab}
+									/>
+								)}
 							</div>
 						</AnalyticsContext>
 					</TabPanel>
@@ -410,6 +425,10 @@ export const ShareForm: React.FC<ShareFormProps> = (props) => (
 		)}
 	</Form>
 );
+
+const platformTabWrapper = xcss({
+	width: '304px',
+});
 
 ShareForm.defaultProps = {
 	isSharing: false,

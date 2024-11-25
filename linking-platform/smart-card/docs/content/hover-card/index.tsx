@@ -10,6 +10,7 @@ export default customMd`
 
 Hover cards can be used as a standalone component to wrap any other React component to display information about a supplied URL upon hovering on
 the child component. Depending on the resource type, different actions will be displayed.
+For hover preview on Smart Links (standalone and inside Editor), please see [inline card](./inline-card).
 
 &nbsp;
 

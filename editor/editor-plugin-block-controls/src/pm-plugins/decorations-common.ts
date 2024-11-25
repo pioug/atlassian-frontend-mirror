@@ -1,7 +1,9 @@
 import ReactDOM from 'react-dom';
 import uuid from 'uuid';
 
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const TYPE_DROP_TARGET_DEC = 'drop-target-decoration';
@@ -28,11 +30,22 @@ class ObjHash {
 	}
 }
 
-export const unmountDecorations = (selector: string) => {
+export const unmountDecorations = (
+	nodeViewPortalProviderAPI: PortalProviderAPI,
+	selector: string,
+	key: string,
+) => {
 	// Removing decorations manually instead of using native destroy function in prosemirror API
 	// as it was more responsive and causes less re-rendering
 	const decorationsToRemove = document.querySelectorAll(`[${selector}="true"]`);
 	decorationsToRemove.forEach((el) => {
-		ReactDOM.unmountComponentAtNode(el);
+		if (fg('platform_editor_react18_plugin_portalprovider')) {
+			const nodeKey = el.getAttribute(key);
+			if (nodeKey) {
+				nodeViewPortalProviderAPI.remove(nodeKey);
+			}
+		} else {
+			ReactDOM.unmountComponentAtNode(el);
+		}
 	});
 };

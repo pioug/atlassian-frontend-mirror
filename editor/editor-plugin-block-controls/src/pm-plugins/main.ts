@@ -9,6 +9,7 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { browser } from '@atlaskit/editor-common/browser';
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyDocument, isTextInput } from '@atlaskit/editor-common/utils';
@@ -133,6 +134,7 @@ export const newApply = (
 	currentState: PluginState,
 	newState: EditorState,
 	flags: FlagType,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	anchorRectCache?: AnchorRectCache,
 ) => {
 	let {
@@ -251,6 +253,7 @@ export const newApply = (
 			latestActiveNode?.pos,
 			latestActiveNode?.anchorName,
 			latestActiveNode?.nodeType,
+			nodeViewPortalProviderAPI,
 			latestActiveNode?.handleOptions,
 		);
 		decorations = decorations.add(newState.doc, [handleDec]);
@@ -261,7 +264,7 @@ export const newApply = (
 		(meta?.isDragging ?? isDragging) && maybeNodeCountChanged && !meta?.nodeMoved;
 
 	// Remove drop target decorations when dragging stops or they need to be redrawn
-	if (meta?.isDragging === false || isDropTargetsMissing) {
+	if (meta?.isDragging === false || isDropTargetsMissing || isBlocksDragTargetDebug()) {
 		const dropTargetDecs = findDropTargetDecs(decorations);
 		decorations = decorations.remove(dropTargetDecs);
 	}
@@ -273,6 +276,7 @@ export const newApply = (
 				newState,
 				api,
 				formatMessage,
+				nodeViewPortalProviderAPI,
 				latestActiveNode,
 				anchorRectCache,
 			);
@@ -317,6 +321,7 @@ export const oldApply = (
 	oldState: EditorState,
 	newState: EditorState,
 	flags: FlagType,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	anchorRectCache?: AnchorRectCache,
 ) => {
 	const { isNestedEnabled } = flags;
@@ -455,6 +460,7 @@ export const oldApply = (
 					meta?.activeNode?.pos ?? mappedPosisiton,
 					meta?.activeNode?.anchorName ?? decAtPos?.spec?.anchorName ?? activeNode?.anchorName,
 					meta?.activeNode?.nodeType ?? decAtPos?.spec?.nodeType ?? activeNode?.nodeType,
+					nodeViewPortalProviderAPI,
 					meta?.activeNode?.handleOptions,
 				);
 			} else {
@@ -473,6 +479,7 @@ export const oldApply = (
 					activeNode.pos,
 					anchorName,
 					nodeType,
+					nodeViewPortalProviderAPI,
 				);
 			}
 			decorations = decorations.add(newState.doc, [draghandleDec]);
@@ -495,6 +502,7 @@ export const oldApply = (
 			meta.activeNode.pos,
 			meta.activeNode.anchorName,
 			meta.activeNode.nodeType,
+			nodeViewPortalProviderAPI,
 			meta.activeNode.handleOptions,
 		);
 		decorations = decorations.add(newState.doc, [decs]);
@@ -515,11 +523,12 @@ export const oldApply = (
 			activeNodeWithNewNodeType.pos,
 			activeNodeWithNewNodeType.anchorName,
 			activeNodeWithNewNodeType.nodeType,
+			nodeViewPortalProviderAPI,
 		);
 		decorations = decorations.add(newState.doc, [decs]);
 	}
 
-	if (meta?.isDragging === false || isDropTargetsMissing) {
+	if (meta?.isDragging === false || isDropTargetsMissing || isBlocksDragTargetDebug()) {
 		// Remove drop target decoration when dragging stops
 		const dropTargetDecs = decorations.find(
 			undefined,
@@ -548,6 +557,7 @@ export const oldApply = (
 				newState,
 				api,
 				formatMessage,
+				nodeViewPortalProviderAPI,
 				isNestedEnabled ? meta?.activeNode ?? mappedActiveNodePos : meta?.activeNode,
 				anchorRectCache,
 			);
@@ -597,6 +607,7 @@ export const oldApply = (
 export const createPlugin = (
 	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
 	getIntl: () => IntlShape,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 ) => {
 	const { formatMessage } = getIntl();
 	const isNestedEnabled = editorExperiment('nested-dnd', true, { exposure: true });
@@ -633,7 +644,16 @@ export const createPlugin = (
 				newState: EditorState,
 			) {
 				if (isOptimisedApply) {
-					return newApply(api, formatMessage, tr, currentState, newState, flags, anchorRectCache);
+					return newApply(
+						api,
+						formatMessage,
+						tr,
+						currentState,
+						newState,
+						flags,
+						nodeViewPortalProviderAPI,
+						anchorRectCache,
+					);
 				}
 				return oldApply(
 					api,
@@ -643,6 +663,7 @@ export const createPlugin = (
 					oldState,
 					newState,
 					flags,
+					nodeViewPortalProviderAPI,
 					anchorRectCache,
 				);
 			},

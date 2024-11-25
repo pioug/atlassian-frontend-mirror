@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import { type IntlShape } from 'react-intl-next';
 import uuid from 'uuid';
 
+import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -41,11 +42,17 @@ export const dragHandleDecoration = (
 	pos: number,
 	anchorName: string,
 	nodeType: string,
+	nodeViewPortalProviderAPI: PortalProviderAPI,
 	handleOptions?: HandleOptions,
 ) => {
-	unmountDecorations('data-blocks-drag-handle-container');
+	unmountDecorations(
+		nodeViewPortalProviderAPI,
+		'data-blocks-drag-handle-container',
+		'data-blocks-drag-handle-key',
+	);
 
 	let unbind: UnbindFn;
+	const key = uuid();
 	return Decoration.widget(
 		pos,
 		(view, getPos) => {
@@ -57,6 +64,7 @@ export const dragHandleDecoration = (
 				: 'inline';
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
 			element.setAttribute('data-blocks-drag-handle-container', 'true');
+			element.setAttribute('data-blocks-drag-handle-key', key);
 			let isTopLevelNode = true;
 
 			if (editorExperiment('nested-dnd', true)) {
@@ -84,19 +92,37 @@ export const dragHandleDecoration = (
 			// due to margins applied to other nodes eg. Headings
 			element.style.clear = 'unset';
 
-			ReactDOM.render(
-				createElement(DragHandle, {
-					view,
-					api,
-					formatMessage,
-					getPos,
-					anchorName,
-					nodeType,
-					handleOptions,
-					isTopLevelNode,
-				}),
-				element,
-			);
+			if (fg('platform_editor_react18_plugin_portalprovider')) {
+				nodeViewPortalProviderAPI.render(
+					() =>
+						createElement(DragHandle, {
+							view,
+							api,
+							formatMessage,
+							getPos,
+							anchorName,
+							nodeType,
+							handleOptions,
+							isTopLevelNode,
+						}),
+					element,
+					key,
+				);
+			} else {
+				ReactDOM.render(
+					createElement(DragHandle, {
+						view,
+						api,
+						formatMessage,
+						getPos,
+						anchorName,
+						nodeType,
+						handleOptions,
+						isTopLevelNode,
+					}),
+					element,
+				);
+			}
 			return element;
 		},
 		{

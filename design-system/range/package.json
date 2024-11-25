@@ -21,7 +21,7 @@
 		"runReact18": true,
 		"website": {
 			"name": "Range",
-			"category": "Components"
+			"category": "Forms and input"
 		}
 	},
 	"dependencies": {

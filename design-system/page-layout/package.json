@@ -34,7 +34,7 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Page layout",
-			"category": "Components",
+			"category": "Layout and structure",
 			"status": {
 				"type": "intent-to-deprecate",
 				"description": "We are in the process of building a new page layout component: [@atlassian/navigation-system](https://staging.atlassian.design/components/navigation-system/page-layout/examples) (For Atlassian employees only at this stage)"

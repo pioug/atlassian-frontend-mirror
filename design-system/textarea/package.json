@@ -30,7 +30,7 @@
 		"runReact18": true,
 		"website": {
 			"name": "Text area",
-			"category": "Components"
+			"category": "Forms and input"
 		}
 	},
 	"af:exports": {

@@ -20,7 +20,7 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Skeleton",
-			"category": "Components",
+			"category": "Loading",
 			"status": {
 				"type": "alpha"
 			}

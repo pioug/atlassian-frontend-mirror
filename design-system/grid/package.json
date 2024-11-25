@@ -21,7 +21,7 @@
 		"runReact18": true,
 		"website": {
 			"name": "Layout grid",
-			"category": "Components",
+			"category": "Layout and structure",
 			"status": {
 				"type": "deprecated",
 				"description": "This package is deprecated.\n\nUse [grid primitive](https://atlassian.design/components/primitives/grid/examples)."

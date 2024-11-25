@@ -108,7 +108,7 @@ const packageLinks = [
 	},
 	{
 		name: 'Link datasource',
-		description: 'List of links (Jira issues, Confluence list)',
+		description: 'Smart Link List View (SLLV)',
 		elemBefore: <SmartLinkListIcon label="" />,
 		elemAfter: <LinkExternalIcon label="Open in new tab" />,
 		onClick: () => openUrl(toPackagePath('linking-platform', 'link-datasource')),

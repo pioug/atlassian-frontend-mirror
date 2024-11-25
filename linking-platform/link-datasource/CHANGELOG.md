@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 3.12.1
+
+### Patch Changes
+
+- [#167582](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167582)
+  [`668b477adfc03`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/668b477adfc03) -
+  Prevent problem with VR Test FF permutations by enforcing depency of `react_sweet_state` for
+  `enable-two-way-sync`
+
 ## 3.12.0
 
 ### Minor Changes

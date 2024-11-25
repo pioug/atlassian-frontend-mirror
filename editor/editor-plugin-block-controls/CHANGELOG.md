@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.23
+
+### Patch Changes
+
+- [#164073](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164073)
+  [`74421f65186ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/74421f65186ac) -
+  ED-25607: replace usages of ReactDOM.render with portal provider
+
 ## 2.13.22
 
 ### Patch Changes

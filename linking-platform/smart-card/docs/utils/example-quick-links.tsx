@@ -21,7 +21,13 @@ const ExampleQuickLinks = () => (
 				</Button>
 			)}
 		>
-			<DropdownItemGroup hasSeparator>
+			<DropdownItemGroup>
+				<DropdownItem
+					description="Examples of Smart Links"
+					onClick={() => navigateToUrl(toExamplePath('showcase'))}
+				>
+					Showcase
+				</DropdownItem>
 				<DropdownItem
 					description="Load Smart Link via URL, test the resolver, modify the link response"
 					onClick={() => navigateToUrl(toExamplePath('json-ld-editor'))}

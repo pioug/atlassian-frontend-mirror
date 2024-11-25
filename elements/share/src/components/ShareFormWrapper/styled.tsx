@@ -8,6 +8,7 @@ import { type PropsWithChildren } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type IntegrationMode } from '../../types/ShareEntities';
@@ -29,6 +30,12 @@ const calculateFormWrapperWidth = ({
 
 	if (!isMenuItemSelected && integrationMode === 'menu') {
 		return menuWrapperWidth;
+	}
+
+	if (fg('smart_links_for_plans_platform')) {
+		if (integrationMode === 'tabs') {
+			return 'auto';
+		}
 	}
 
 	return formWidth;

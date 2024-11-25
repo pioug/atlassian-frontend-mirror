@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 3.5.1
+
+### Patch Changes
+
+- [#167775](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167775)
+  [`0769cc797ece1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0769cc797ece1) -
+  Clean up color picker role fix feature gate
+
 ## 3.5.0
 
 ### Minor Changes

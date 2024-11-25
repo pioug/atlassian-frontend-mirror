@@ -29,7 +29,7 @@
 		"runReact18": true,
 		"website": {
 			"name": "Tooltip",
-			"category": "Components"
+			"category": "Overlays and layering"
 		}
 	},
 	"af:exports": {

@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { appLabelTextColor } from './constants';
@@ -17,9 +16,7 @@ export const ReportingLinesSection = styled.div({
 export const ReportingLinesHeading = styled.h3({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	color: appLabelTextColor,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: `${gridSize() * 1.5}px`,
-	fontWeight: 600,
+	font: token('font.heading.xxsmall'),
 	marginBottom: token('space.100', '8px'),
 });
 
@@ -32,8 +29,7 @@ export const ManagerSection = styled.div({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ManagerName = styled.span({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: `${gridSize() * 1.5}px`,
+	font: token('font.body.small'),
 	marginLeft: token('space.100', '8px'),
 });
 

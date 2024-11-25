@@ -29,7 +29,7 @@
 		"runReact18": true,
 		"website": {
 			"name": "Progress bar",
-			"category": "Components"
+			"category": "Loading"
 		}
 	},
 	"dependencies": {

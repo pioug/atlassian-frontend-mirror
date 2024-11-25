@@ -21,7 +21,7 @@
 		"runReact18": true,
 		"website": {
 			"name": "Spinner",
-			"category": "Components"
+			"category": "Loading"
 		}
 	},
 	"dependencies": {

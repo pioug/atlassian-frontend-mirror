@@ -21,7 +21,7 @@
 		"runReact18": true,
 		"website": {
 			"name": "Empty state",
-			"category": "Components"
+			"category": "Status indicators"
 		}
 	},
 	"dependencies": {

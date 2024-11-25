@@ -12,7 +12,6 @@ import { css, jsx } from '@emotion/react';
 import { COLOR_PICKER } from '../constants';
 import { useIntl } from 'react-intl-next';
 import messages from '../messages';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const MenuList = (props: MenuListComponentProps<Color>) => {
 	const {
@@ -27,7 +26,7 @@ export const MenuList = (props: MenuListComponentProps<Color>) => {
 	return (
 		<div
 			css={colorPaletteContainerStyles}
-			role={fg('jsw_roadmaps_fix-color-picker-roles') ? 'group' : 'listbox'}
+			role="group"
 			aria-label={formatMessage(messages.menuListAriaLabel)}
 			style={{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -55,11 +54,9 @@ export const Option = (props: OptionProps<Color>) => {
 		<div
 			css={colorCardWrapperStyles}
 			{...innerProps}
-			{...(fg('jsw_roadmaps_fix-color-picker-roles') && {
-				role: 'radio',
-				'aria-checked': isSelected,
-				'aria-selected': undefined,
-			})}
+			role="radio"
+			aria-checked={isSelected}
+			aria-selected={undefined}
 			aria-label={label}
 		>
 			<ColorCard

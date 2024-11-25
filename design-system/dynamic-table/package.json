@@ -39,7 +39,7 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Dynamic table",
-			"category": "Components"
+			"category": "Text and data display"
 		},
 		"runReact18": true
 	},

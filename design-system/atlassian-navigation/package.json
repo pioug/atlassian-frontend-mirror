@@ -44,7 +44,7 @@
 		"team": "Design System Team",
 		"website": {
 			"name": "Atlassian navigation",
-			"category": "Components",
+			"category": "Navigation",
 			"status": {
 				"type": "intent-to-deprecate",
 				"description": "We are in the process of building a new top navigation component: [@atlassian/navigation-system](https://staging.atlassian.design/components/navigation-system/top-navigation/examples) (For Atlassian employees only at this stage)"

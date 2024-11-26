@@ -1,32 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { type FieldProps } from '@atlaskit/form';
-import {
-	ActionOperationStatus,
-	type AtomicActionExecuteRequest,
-	type AtomicActionExecuteResponse,
-	type Status,
-} from '@atlaskit/linking-types';
+import { type Status } from '@atlaskit/linking-types';
 import Lozenge from '@atlaskit/lozenge';
 import { type FilterOptionOption } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';
 
 import { failUfoExperience, succeedUfoExperience } from '../../../../analytics/ufoExperiences';
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
-import { useDatasourceTableFlag } from '../../../../hooks/useDatasourceTableFlag';
+import { useLoadOptions } from '../../../../hooks/useLoadOptions';
 import type { ExecuteFetch } from '../../../../state/actions';
 import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
-import type { DatasourceTypeWithOnlyValues } from '../../types';
+import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
 
-interface Props extends Omit<FieldProps<string>, 'value'> {
-	currentValue: DatasourceTypeWithOnlyValues;
+interface StatusEditTypeProps extends Omit<FieldProps<string>, 'value'> {
+	currentValue: DatasourceTypeWithOnlyTypeValues<'status'>;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
 	executeFetch?: ExecuteFetch;
 }
 
-const StatusEditType = (props: Props) => {
+const StatusEditType = (props: StatusEditTypeProps) => {
 	const { currentValue, executeFetch } = props;
-	const { options, isLoading, hasFailed } = useStatusOptions({ executeFetch });
+	const { options, isLoading, hasFailed } = useLoadOptions<Status>({ executeFetch });
 	const experienceId = useDatasourceExperienceId();
 
 	useEffect(() => {
@@ -54,16 +49,16 @@ const StatusEditType = (props: Props) => {
 	return (
 		<Select<Status>
 			{...props}
-			testId="inline-edit-status"
 			autoFocus
+			options={options}
 			defaultMenuIsOpen
 			blurInputOnSelect
-			getOptionValue={(option) => option.text}
-			options={options}
-			isLoading={isLoading}
-			defaultValue={currentValue?.values?.[0] as Status}
-			filterOption={filterOption}
 			menuPlacement="auto"
+			isLoading={isLoading}
+			filterOption={filterOption}
+			testId="inline-edit-status"
+			getOptionValue={(option) => option.text}
+			defaultValue={currentValue?.values?.[0]}
 			formatOptionLabel={(option) => (
 				<Lozenge testId={`inline-edit-status-option-${option.text}`} {...option.style}>
 					{option.text}
@@ -81,66 +76,5 @@ const StatusEditType = (props: Props) => {
 
 const filterOption = (option: FilterOptionOption<Status>, inputValue: string) =>
 	option.data.text.toLowerCase().includes(inputValue.toLowerCase());
-
-const useStatusOptions = ({
-	fetchInputs,
-	executeFetch,
-}: {
-	fetchInputs?: AtomicActionExecuteRequest['parameters']['inputs'];
-	executeFetch?: ExecuteFetch;
-}) => {
-	const [{ options, isLoading, hasFailed }, setOptions] = useState({
-		isLoading: true,
-		options: [] as Status[],
-		hasFailed: false,
-	});
-
-	const { showErrorFlag } = useDatasourceTableFlag({ isFetchAction: true });
-
-	useEffect(() => {
-		let isMounted = true;
-		loadOptions(fetchInputs, executeFetch)
-			.then((options) => {
-				if (isMounted) {
-					setOptions({ isLoading: false, options, hasFailed: false });
-				}
-			})
-			.catch((err) => {
-				showErrorFlag();
-				setOptions({ isLoading: false, options: [], hasFailed: true });
-			});
-		return () => {
-			isMounted = false;
-		};
-	}, [fetchInputs, executeFetch, showErrorFlag]);
-
-	return { options, isLoading, hasFailed };
-};
-
-const loadOptions = async (
-	fetchInputs: AtomicActionExecuteRequest['parameters']['inputs'] = {},
-	executeFetch?: ExecuteFetch,
-): Promise<Status[]> => {
-	if (executeFetch) {
-		const result = await executeFetch<AtomicActionExecuteResponse<Status>>(fetchInputs);
-
-		const { operationStatus, entities } = result;
-
-		if (operationStatus === ActionOperationStatus.FAILURE) {
-			throw new Error('Failed to fetch status options');
-		}
-
-		if (entities) {
-			return entities.map((entity) => ({
-				id: entity.id,
-				text: entity.text,
-				style: entity.style,
-				transitionId: entity.transitionId,
-			}));
-		}
-	}
-
-	return [];
-};
 
 export default StatusEditType;

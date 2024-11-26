@@ -390,11 +390,6 @@ export const uploadChooseFileEmojiName = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const uploadChooseFileBrowse = css({
-	flex: '0 0 auto',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const uploadPreviewFooter = css({
 	display: 'flex',
 	flexDirection: 'column',

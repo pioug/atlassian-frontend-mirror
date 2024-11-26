@@ -1,5 +1,13 @@
 # @atlaskit/codemod-cli
 
+## 0.27.0
+
+### Minor Changes
+
+- [#163865](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163865)
+  [`e66453c2716df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e66453c2716df) -
+  Added new codemod for migrating to Link component from `@atlaskit/link`.
+
 ## 0.26.3
 
 ### Patch Changes

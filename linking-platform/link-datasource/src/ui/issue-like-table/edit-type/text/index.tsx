@@ -7,18 +7,17 @@ import { token } from '@atlaskit/tokens';
 
 import { succeedUfoExperience } from '../../../../analytics/ufoExperiences';
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
-import type { DatasourceTypeWithOnlyValues } from '../../types';
+import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
 
 interface TextEditTypeProps extends Omit<FieldProps<string>, 'value'> {
-	currentValue: DatasourceTypeWithOnlyValues;
+	currentValue: DatasourceTypeWithOnlyTypeValues<'string'>;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
 }
 
-export const toTextValue = (typeWithValues: DatasourceTypeWithOnlyValues): string =>
-	(typeWithValues.values?.[0] as string) ?? '';
-
 const TextEditType = (props: TextEditTypeProps) => {
 	const experienceId = useDatasourceExperienceId();
+
+	const { currentValue } = props;
 
 	useEffect(() => {
 		if (experienceId) {
@@ -42,7 +41,7 @@ const TextEditType = (props: TextEditTypeProps) => {
 					// We need 8px left padding to match read only version, but there is already 1px of border
 					padding: `${token('space.100', '8px')} calc(${token('space.100', '8px')} - 1px)`,
 				}}
-				value={toTextValue(props.currentValue)}
+				value={currentValue?.values?.[0] ?? ''}
 				onChange={(e) =>
 					props.setEditValues({
 						type: 'string',

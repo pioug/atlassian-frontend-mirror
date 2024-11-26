@@ -5,11 +5,16 @@ import type { DatasourceType } from '@atlaskit/linking-types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type ExecuteFetch } from '../../../state/actions';
-import { type DatasourceTypeWithOnlyTypeValues, type DatasourceTypeWithOnlyValues } from '../types';
+import {
+	type DatasourceTypeValueType,
+	type DatasourceTypeWithOnlyTypeValues,
+	type DatasourceTypeWithOnlyValues,
+} from '../types';
 
 import IconEditType from './icon';
 import StatusEditType from './status';
-import TextEditType, { toTextValue } from './text';
+import TextEditType from './text';
+import UserEditType from './user';
 
 // This is used in editor-card-plugin to identify if any type of inline edit is active.
 const ACTIVE_INLINE_EDIT_ID = 'sllv-active-inline-edit';
@@ -28,11 +33,11 @@ export const editType = ({
 	switch (defaultValue.type) {
 		case 'string':
 			return {
-				defaultValue: toTextValue(defaultValue),
+				defaultValue: toValueType<DatasourceTypeValueType<'string'>>(defaultValue) ?? '',
 				editView: ({ ...fieldProps }) => (
 					<TextEditType
 						{...fieldProps}
-						currentValue={currentValue}
+						currentValue={currentValue as DatasourceTypeWithOnlyTypeValues<'string'>}
 						setEditValues={setEditValues}
 						id={ACTIVE_INLINE_EDIT_ID}
 					/>
@@ -40,7 +45,7 @@ export const editType = ({
 			};
 		case 'icon':
 			return {
-				defaultValue: toTextValue(defaultValue),
+				defaultValue: toValueType<DatasourceTypeValueType<'icon'>>(defaultValue),
 				editView: ({ value, ...fieldProps }) => (
 					<IconEditType
 						{...fieldProps}
@@ -53,11 +58,25 @@ export const editType = ({
 			};
 		case 'status':
 			return {
-				defaultValue: toTextValue(defaultValue),
+				defaultValue: toValueType<DatasourceTypeValueType<'status'>>(defaultValue),
 				editView: ({ ...fieldProps }) => (
 					<StatusEditType
 						{...fieldProps}
-						currentValue={currentValue}
+						currentValue={currentValue as DatasourceTypeWithOnlyTypeValues<'status'>}
+						setEditValues={setEditValues}
+						id={ACTIVE_INLINE_EDIT_ID}
+						executeFetch={executeFetch}
+					/>
+				),
+			};
+		case 'user':
+			const value = toValueType<DatasourceTypeValueType<'user'>>(defaultValue);
+			return {
+				defaultValue: value?.atlassianUserId ?? '',
+				editView: ({ ...fieldProps }) => (
+					<UserEditType
+						{...fieldProps}
+						currentValue={currentValue as DatasourceTypeWithOnlyTypeValues<'user'>}
 						setEditValues={setEditValues}
 						id={ACTIVE_INLINE_EDIT_ID}
 						executeFetch={executeFetch}
@@ -73,6 +92,7 @@ export const isEditTypeSupported = (type: DatasourceType['type']) => {
 		'string',
 		...(fg('platform-datasources-enable-two-way-sync-statuses') ? ['status'] : []),
 		...(fg('platform-datasources-enable-two-way-sync-priority') ? ['icon'] : []),
+		...(fg('platform-datasources-enable-two-way-sync-assignee') ? ['user'] : []),
 	];
 	return supportedEditType.includes(type);
 };
@@ -81,3 +101,6 @@ export const isEditTypeSelectable = (type: DatasourceType['type']) => {
 	const selectEditTypes = ['status', 'icon', 'user'];
 	return selectEditTypes.includes(type);
 };
+
+export const toValueType = <T,>(typeWithValues: DatasourceTypeWithOnlyValues) =>
+	typeWithValues.values?.[0] as T;

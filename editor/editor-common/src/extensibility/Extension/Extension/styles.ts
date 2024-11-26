@@ -63,6 +63,10 @@ export const content = css({
 	'&.remove-border': {
 		border: 'none',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.hide-content': {
+		display: 'none',
+	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

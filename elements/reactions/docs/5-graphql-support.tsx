@@ -1,6 +1,7 @@
 import React from 'react';
 import { md, code, Props } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
+import { Text } from '@atlaskit/primitives';
 
 export default md`
 
@@ -126,11 +127,11 @@ ${(
 			appearance="information"
 			title="There should be only one instance of EmojiResource in your application"
 		>
-			<p>
+			<Text as="p">
 				Above examples show the best practice to integrate Graphql APIs. By extending from our
 				`ReactionsClient` interface, you are free to use any GrapqhQL client, any queries or
 				mutations, as long as they return the same type as defined in the interface.
-			</p>
+			</Text>
 		</SectionMessage>
 		<br />
 		<SectionMessage appearance="warning">

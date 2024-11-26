@@ -3,10 +3,10 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-import { isAlignable } from '../commands';
-import { getActiveAlignment } from '../utils';
+import { isAlignable } from '../editor-commands';
 
 import type { AlignmentPluginState } from './types';
+import { getActiveAlignment } from './utils';
 
 export function createInitialPluginState(
 	editorState: EditorState,

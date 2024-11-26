@@ -1,5 +1,13 @@
 # @atlaskit/radio
 
+## 6.6.0
+
+### Minor Changes
+
+- [#168150](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168150)
+  [`8189b94404af2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8189b94404af2) -
+  Update radio to match new icon styles behind feature flag.
+
 ## 6.5.5
 
 ### Patch Changes

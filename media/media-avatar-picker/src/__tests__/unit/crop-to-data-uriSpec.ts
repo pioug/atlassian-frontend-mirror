@@ -1,5 +1,3 @@
-import { CONTAINER_PADDING } from '../../image-cropper/styles';
-
 jest.mock('../../util');
 import { asMock, mockCanvas } from '@atlaskit/media-test-helpers';
 import { getCanvas } from '../../util';
@@ -15,6 +13,8 @@ describe('cropToDataURI()', () => {
 	let canvas: HTMLCanvasElement;
 	let context: CanvasRenderingContext2D;
 	let contextTransformationOrder: string[];
+
+	const CONTAINER_PADDING = 28;
 
 	const assertCropCoordinates = ({
 		left: expectedLeft,

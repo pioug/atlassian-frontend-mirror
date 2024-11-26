@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-caption
 
+## 1.11.5
+
+### Patch Changes
+
+- [#168198](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168198)
+  [`c191e2b8a81ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c191e2b8a81ea) -
+  ED-25807: refactors plugins to meet folder standards
+
 ## 1.11.4
 
 ### Patch Changes

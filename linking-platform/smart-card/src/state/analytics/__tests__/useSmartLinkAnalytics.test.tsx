@@ -7,7 +7,6 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 
 import { CardDisplay } from '../../../constants';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
-import { TrackQuickActionType } from '../../../utils/analytics/analytics';
 import { mocks } from '../../../utils/mocks';
 import { useSmartLinkAnalytics } from '../useSmartLinkAnalytics';
 
@@ -113,56 +112,6 @@ describe('useSmartLinkAnalytics', () => {
 							destinationObjectType: 'spaghetti-resource',
 							location: undefined,
 							id: 'NULL',
-						},
-						eventType,
-					},
-				}),
-				ANALYTICS_CHANNEL,
-			);
-		},
-	);
-
-	it.each([
-		['smartLinkQuickActionStarted', 'track', 'smartLinkQuickAction', 'started'],
-		['smartLinkQuickActionSuccess', 'track', 'smartLinkQuickAction', 'success'],
-		['smartLinkQuickActionFailed', 'track', 'smartLinkQuickAction', 'failed'],
-		['smartLinkQuickActionStarted', 'track', 'smartLinkQuickAction', 'started'],
-		['smartLinkQuickActionSuccess', 'track', 'smartLinkQuickAction', 'success'],
-		['smartLinkQuickActionFailed', 'track', 'smartLinkQuickAction', 'failed'],
-	])(
-		'action track event %s fires with expected payload',
-		(eventName, eventType, actionSubject, action) => {
-			const smartLinkActionType = TrackQuickActionType.StatusUpdate;
-			const spy = jest.fn();
-
-			const { result } = renderHook(() => useSmartLinkAnalytics(url), {
-				wrapper: ({ children }) => (
-					<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
-						{children}
-					</AnalyticsListener>
-				),
-			});
-			const event = (result.current as any)[eventType][eventName] as any;
-			event({ smartLinkActionType });
-			expect(spy).toHaveBeenCalledTimes(1);
-			expect(spy).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: {
-						action,
-						actionSubject,
-						attributes: {
-							componentName: 'smart-cards',
-							definitionId: 'spaghetti-id',
-							extensionKey: 'spaghetti-key',
-							destinationProduct: 'spaghetti-product',
-							destinationSubproduct: 'spaghetti-subproduct',
-							packageName: expect.any(String),
-							packageVersion: expect.any(String),
-							resourceType: 'spaghetti-resource',
-							destinationObjectType: 'spaghetti-resource',
-							location: undefined,
-							id: 'NULL',
-							smartLinkActionType,
 						},
 						eventType,
 					},

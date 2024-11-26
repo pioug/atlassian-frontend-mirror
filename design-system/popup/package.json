@@ -69,7 +69,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/icon": "^22.25.0",
+		"@atlaskit/icon": "^22.26.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^6.5.0",
 		"@atlaskit/toggle": "^13.4.0",

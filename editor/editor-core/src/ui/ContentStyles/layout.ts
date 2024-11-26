@@ -86,8 +86,6 @@ const layoutColumnStyles = () =>
 					${getSelectionStyles([SelectionStyle.Blanket])};
 					/* layout column selection shorter after layout border has been removed */
 					::before {
-						top: 12px;
-						height: calc(100% - 24px);
 						width: calc(100% - 8px);
 						left: 4px;
 					}

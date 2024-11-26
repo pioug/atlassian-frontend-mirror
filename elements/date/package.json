@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/date",
-	"version": "0.10.13",
+	"version": "0.11.0",
 	"description": "Fabric Date React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
 		"website": {
 			"name": "Date"
 		},
-		"runReact18": false
+		"runReact18": true
 	},
 	"config": {
 		"access": "public"
@@ -45,7 +45,7 @@
 		"date-fns": "^2.17.0"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
 		"@atlaskit/elements-test-helpers": "^0.7.0",

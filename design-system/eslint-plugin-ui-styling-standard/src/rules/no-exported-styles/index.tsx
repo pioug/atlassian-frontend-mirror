@@ -1,14 +1,17 @@
-import { createLintRule } from '../utils/create-rule';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
+
+import { createNoExportedRule } from '@atlaskit/eslint-utils/create-no-exported-rule';
 import {
 	isCss,
-	isStyled,
-	isKeyframes,
 	isCssMap,
+	isKeyframes,
+	isStyled,
 	isXcss,
 	type SupportedNameChecker,
 } from '@atlaskit/eslint-utils/is-supported-import';
-import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
-import { createNoExportedRule } from '@atlaskit/eslint-utils/create-no-exported-rule';
+
+import { createLintRule } from '../utils/create-rule';
 
 const schema: JSONSchema4 = [
 	{

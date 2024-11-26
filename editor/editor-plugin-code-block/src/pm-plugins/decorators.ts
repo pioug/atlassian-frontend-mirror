@@ -8,7 +8,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CodeBlockLineAttributes } from '../types';
 import { codeBlockClassNames } from '../ui/class-names';
-import { getAllCodeBlockNodesInDoc } from '../utils';
+
+import { getAllCodeBlockNodesInDoc } from './utils';
 
 export const DECORATION_WIDGET_TYPE = 'decorationWidgetType';
 export const DECORATION_WRAPPED_BLOCK_NODE_TYPE = 'decorationNodeType';

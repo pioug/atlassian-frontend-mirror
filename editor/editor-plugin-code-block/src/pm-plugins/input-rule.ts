@@ -14,7 +14,7 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 
-import { isConvertableToCodeBlock, transformToCodeBlockAction } from '../transform-to-code-block';
+import { isConvertableToCodeBlock, transformToCodeBlockAction } from './transform-to-code-block';
 
 export function createCodeBlockInputRule(
 	schema: Schema,

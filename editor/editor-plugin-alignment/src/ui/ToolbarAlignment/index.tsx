@@ -25,7 +25,7 @@ import {
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { AlignmentPlugin } from '../../plugin';
+import type { AlignmentPlugin } from '../../alignmentPluginType';
 import type { AlignmentPluginState, AlignmentState } from '../../pm-plugins/types';
 import Alignment from '../Alignment';
 

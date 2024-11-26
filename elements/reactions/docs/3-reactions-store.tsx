@@ -1,6 +1,7 @@
 import React from 'react';
 import { md, code, Props } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
+import { Text } from '@atlaskit/primitives';
 
 export default md`
 
@@ -12,9 +13,9 @@ export default md`
 			<br />
 			<SectionMessage appearance="information" title="">
 				You can instantiate an instance of the ReactionsStore object using the built in{' '}
-				<strong>MemoryReactionsStore</strong> class object that contains all logic required to
-				communicate with the store. It provides all the methods to interact with the store and the
-				API calls to the server, including logging
+				<Text as="strong">MemoryReactionsStore</Text> class object that contains all logic required
+				to communicate with the store. It provides all the methods to interact with the store and
+				the API calls to the server, including logging
 				<a
 					target="_blank"
 					rel="noopener noreferrer"

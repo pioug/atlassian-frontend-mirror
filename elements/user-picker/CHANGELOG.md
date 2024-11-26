@@ -1,5 +1,14 @@
 # @atlaskit/user-picker
 
+## 10.27.2
+
+### Patch Changes
+
+- [#168041](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168041)
+  [`87c8f13c37183`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87c8f13c37183) -
+  Migrate text elements to DS components
+- Updated dependencies
+
 ## 10.27.1
 
 ### Patch Changes

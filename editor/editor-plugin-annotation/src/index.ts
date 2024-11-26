@@ -1,6 +1,6 @@
-export { annotationPlugin } from './plugin';
+export { annotationPlugin } from './annotationPlugin';
+export type { AnnotationPlugin } from './annotationPluginType';
 export type {
-	AnnotationPlugin,
 	AnnotationProviders,
 	InlineCommentAnnotationProvider,
 	AnnotationInfo,

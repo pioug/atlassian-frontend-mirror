@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import type { ComponentClass, HTMLAttributes, ReactElement } from 'react';
-import { useCallback, useContext, useLayoutEffect, useState } from 'react';
+import { useCallback, useContext, useLayoutEffect, useMemo, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -51,12 +51,13 @@ const InsertMenu = ({
 	const [itemCount, setItemCount] = useState(0);
 	const [height, setHeight] = useState(DEFAULT_HEIGHT);
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const cache = new CellMeasurerCache({
-		fixedWidth: true,
-		defaultHeight: ELEMENT_ITEM_HEIGHT,
-		minHeight: ELEMENT_ITEM_HEIGHT,
-	});
+	const cache = useMemo(() => {
+		return new CellMeasurerCache({
+			fixedWidth: true,
+			defaultHeight: ELEMENT_ITEM_HEIGHT,
+			minHeight: ELEMENT_ITEM_HEIGHT,
+		});
+	}, []);
 
 	useLayoutEffect(() => {
 		// Figure based on visuals to exclude the searchbar, padding/margin, and the ViewMore item.

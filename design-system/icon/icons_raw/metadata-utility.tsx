@@ -6,6 +6,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage:
 			'Reserved for creating and adding an object as a secondary/tertiary action in a menu item.',
 	},
@@ -15,6 +16,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Know uses: sorting table headers or Bitbucket code difference.',
 	},
 	'arrow-left': {
@@ -23,6 +25,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Known uses: back to previous screen, previous slide.',
 	},
 	'arrow-right': {
@@ -31,6 +34,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Known uses: link to nested menu item, a linked menu item, next slide.',
 	},
 	'arrow-up': {
@@ -39,6 +43,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Known uses: back to top.',
 	},
 	'check-circle': {
@@ -47,6 +52,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: '📦 @atlaskit/icon/utility/check-circle',
 	},
 	'check-mark': {
@@ -55,6 +61,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: '📦 @atlaskit/icon/utility/check-mark',
 	},
 	'chevron-down': {
@@ -63,6 +70,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for dropdown menus, selects, accordions, and expands.',
 	},
 	'chevron-left': {
@@ -71,6 +79,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for collapse side nav and to indicate previous in dates.',
 	},
 	'chevron-right': {
@@ -79,6 +88,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for menu fly outs and to indicate next in dates.',
 	},
 	'chevron-up': {
@@ -87,6 +97,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for accordions.',
 	},
 	cross: {
@@ -95,6 +106,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Known uses: remove tag.',
 	},
 	'cross-circle': {
@@ -103,6 +115,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for Helper Messages in Forms.',
 	},
 	'drag-handle': {
@@ -111,6 +124,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for draggable elements.',
 	},
 	error: {
@@ -119,6 +133,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for Helper Messages in Forms.',
 	},
 	information: {
@@ -127,6 +142,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for Helper Messages in Forms.',
 	},
 	'link-external': {
@@ -150,6 +166,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for links that open up a new tab as a secondary/tertiary action.',
 	},
 	'lock-locked': {
@@ -168,6 +185,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for indicating something is locked in the side navigation Menu Item.',
 	},
 	'lock-unlocked': {
@@ -184,6 +202,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for indicating something is locked in the side navigation Menu Item.',
 	},
 	'show-more-horizontal': {
@@ -192,6 +211,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for secondary/tertiary more action menus.',
 	},
 	'show-more-vertical': {
@@ -200,6 +220,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for secondary/tertiary action menus, traditionally on mobile.',
 	},
 	'star-starred': {
@@ -208,6 +229,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for starred or favourited objects as a secondary/tertiary action.',
 	},
 	'star-unstarred': {
@@ -216,6 +238,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for starring or favoriting objects as a secondary/tertiary action.',
 	},
 	success: {
@@ -224,6 +247,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for Helper Messages in Forms.',
 	},
 	warning: {
@@ -232,6 +256,7 @@ const metadata: UNSAFE_IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'utility',
+		status: 'published',
 		usage: 'Reserved for Helper Messages in Forms.',
 	},
 };

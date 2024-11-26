@@ -256,9 +256,7 @@ export const SpriteEmoji = (props: Props) => {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 		<EmojiNodeWrapper {...props} type="sprite" className={classes}>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766  */}
-			<span className={emojiSprite} style={style}>
-				&nbsp;
-			</span>
+			<span className={emojiSprite} style={style} />
 		</EmojiNodeWrapper>
 	);
 };

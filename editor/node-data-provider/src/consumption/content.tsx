@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file
+
 import React from 'react';
 
 import { type DocNode } from '@atlaskit/adf-schema';

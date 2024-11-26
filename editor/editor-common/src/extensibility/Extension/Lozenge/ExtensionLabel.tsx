@@ -127,6 +127,21 @@ const i18n = defineMessages({
 	},
 });
 
+export const getShouldShowBodiedMacroLabel = (
+	isBodiedMacro: boolean | undefined,
+	isNodeHovered: boolean | undefined,
+	showLivePagesBodiedMacrosRendererView: boolean | undefined,
+	showBodiedExtensionRendererView: boolean | undefined,
+) => {
+	if (!isBodiedMacro) {
+		return isNodeHovered;
+	} // Bodied macros show the label by default
+	if (!showLivePagesBodiedMacrosRendererView) {
+		return true;
+	} // Keep showing labels as usual for default experience for bodied macros
+	return !!(isNodeHovered && !showBodiedExtensionRendererView); // For the new live pages bodied macro experience, we only show the label on hover in the "edit" view
+};
+
 type ExtensionLabelProps = {
 	text: string;
 	extensionName: string;
@@ -137,6 +152,7 @@ type ExtensionLabelProps = {
 	isBodiedMacro?: boolean;
 	showMacroButtonUpdates?: boolean;
 	showLivePagesBodiedMacrosRendererView?: boolean;
+	showBodiedExtensionRendererView?: boolean;
 };
 
 export const ExtensionLabel = ({
@@ -149,16 +165,20 @@ export const ExtensionLabel = ({
 	isBodiedMacro,
 	showMacroButtonUpdates,
 	showLivePagesBodiedMacrosRendererView,
+	showBodiedExtensionRendererView,
 }: ExtensionLabelProps) => {
 	const isInlineExtension = extensionName === 'inlineExtension';
 	const showDefaultBodiedStyles = isBodiedMacro && !isNodeHovered;
+	const shouldShowBodiedMacroLabel = getShouldShowBodiedMacroLabel(
+		isBodiedMacro,
+		isNodeHovered,
+		showLivePagesBodiedMacrosRendererView,
+		showBodiedExtensionRendererView,
+	);
 
 	const containerClassNames = classnames({
 		bodied: isBodiedMacro,
 	});
-
-	// For the new live pages bodied macro experience, we don't want to hide the label by default
-	const showBodiedMacroLabel = isBodiedMacro ? !showLivePagesBodiedMacrosRendererView : false;
 
 	const sharedLabelClassNames = classnames('extension-label', {
 		nested: isNodeNested,
@@ -166,8 +186,9 @@ export const ExtensionLabel = ({
 		bodied: isBodiedMacro,
 		'bodied-border': showDefaultBodiedStyles,
 		'bodied-background': showDefaultBodiedStyles,
-		'show-label': isNodeHovered || showBodiedMacroLabel,
+		'show-label': shouldShowBodiedMacroLabel,
 		'with-bodied-macro-live-page-styles': isBodiedMacro && showLivePagesBodiedMacrosRendererView,
+		'always-hide-label': isBodiedMacro && showBodiedExtensionRendererView, // Need this separate class since we don't ever want to show the label during view mode
 	});
 
 	const newButtonLabelClassNames = classnames({

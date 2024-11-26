@@ -7,6 +7,7 @@ import { Component } from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import AkButton from '@atlaskit/button/new';
+import Heading from '@atlaskit/heading';
 import FocusLock from 'react-focus-lock';
 import type { EmojiDescription } from '../../types';
 import { messages } from '../i18n';
@@ -18,7 +19,6 @@ import {
 	deletePreview,
 	deleteText,
 	emojiDeleteErrorMessage,
-	headingH5,
 	previewButtonGroup,
 } from './styles';
 import VisuallyHidden from '@atlaskit/visually-hidden';
@@ -102,9 +102,9 @@ class EmojiDeletePreview extends Component<Props & WrappedComponentProps, State>
 					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={deleteText}>
 						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-						<h2 css={headingH5}>
+						<Heading size="xxsmall">
 							<FormattedMessage {...messages.deleteEmojiTitle} />
-						</h2>
+						</Heading>
 						<FormattedMessage
 							{...messages.deleteEmojiDescription}
 							values={{ emojiShortName: emoji.shortName }}

@@ -18,7 +18,7 @@ import type { ReadOnlyParticipants } from '@atlaskit/editor-plugin-collab-edit';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { AvatarGroupPlugin } from '../plugin';
+import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
 
 import { avatarContainerStyles } from './styles';
 import toAvatar from './to-avatar';

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-accessibility-utils
 
+## 1.2.13
+
+### Patch Changes
+
+- [#167498](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167498)
+  [`e275b9ee8b698`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e275b9ee8b698) -
+  ED-25805: refactors plugins to meet folder standards
+
 ## 1.2.12
 
 ### Patch Changes

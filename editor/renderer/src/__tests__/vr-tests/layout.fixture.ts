@@ -113,6 +113,11 @@ export const Layout5ColWithWidthRenderer = generateRendererComponent({
 	appearance: 'full-page',
 });
 
+export const Layout5ColWithWidthInFullWidthRenderer = generateRendererComponent({
+	document: layout5ColWithWidthAndLayout5ColWithWide,
+	appearance: 'full-width',
+});
+
 export const Layout5ColWithWidthAndLayout5ColWithWideRenderer = generateRendererComponent({
 	document: layout5ColWithWidthAndLayout5ColWithWide,
 	appearance: 'full-page',

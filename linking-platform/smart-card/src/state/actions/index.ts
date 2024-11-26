@@ -110,13 +110,9 @@ export const useSmartCardActions = (id: string, url: string, analytics: Analytic
 				}
 				auth(services[0].url).then(
 					() => {
-						if (fg('smart-card-migrate-track-analytics')) {
-							fireEvent('track.applicationAccount.connected', {
-								definitionId: definitionId ?? null,
-							});
-						} else {
-							analytics.track.appAccountConnected({ definitionId, extensionKey });
-						}
+						fireEvent('track.applicationAccount.connected', {
+							definitionId: definitionId ?? null,
+						});
 						analytics.operational.connectSucceededEvent({
 							id,
 							definitionId,
@@ -147,7 +143,6 @@ export const useSmartCardActions = (id: string, url: string, analytics: Analytic
 			getSmartLinkState,
 			analytics.ui,
 			analytics.screen,
-			analytics.track,
 			analytics.operational,
 			id,
 			reload,

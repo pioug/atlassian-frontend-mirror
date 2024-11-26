@@ -39,11 +39,11 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^95.4.0",
+		"@atlaskit/editor-common": "^95.6.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tmp-editor-statsig": "^2.19.0",
+		"@atlaskit/tmp-editor-statsig": "^2.20.0",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0"
 	},

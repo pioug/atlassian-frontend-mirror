@@ -7,7 +7,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 
-import { changeAlignment } from '../commands';
+import { changeAlignment } from '../editor-commands';
 
 export function keymapPlugin(): SafePlugin {
 	const list = {};

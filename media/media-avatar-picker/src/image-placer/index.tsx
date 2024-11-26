@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@compiled/react';
 import React from 'react';
 import {
 	Rectangle,
@@ -17,7 +16,6 @@ import {
 import { ImagePlacerContainer } from './container';
 import { ImagePlacerImage } from './image';
 import { Margin } from './margin';
-import { imagePlacerWrapperStyles } from './styles';
 import { initialiseImagePreview, renderImageAtCurrentView } from './imageProcessor';
 import { zoomToFit, applyConstraints, transformVisibleBoundsToImageCoords } from './constraints';
 import { ImagePlacerErrorWrapper } from './imagePlacerErrorWrapper';
@@ -105,6 +103,10 @@ export interface ImagePlacerState {
 	dragOrigin?: Vector2;
 	src?: string | File;
 }
+
+const imagePlacerWrapperBaseStyles = css({
+	display: 'inline-block',
+});
 
 export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerState> {
 	imageSourceRect = new Rectangle(0, 0); /* original size of image (un-scaled) */
@@ -460,15 +462,16 @@ export class ImagePlacer extends React.Component<ImagePlacerProps, ImagePlacerSt
 
 	/* make it so */
 	render() {
-		const { backgroundColor, containerWidth, containerHeight, margin, isCircular, onRenderError } =
-			this.props;
+		const { containerWidth, containerHeight, margin, isCircular, onRenderError } = this.props;
 		const { errorMessage, src } = this.state;
 		const { imageBounds } = this;
 		const imgSrc = typeof src === 'string' ? src : undefined;
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			<div css={imagePlacerWrapperStyles({ backgroundColor })}>
+			<div
+				css={imagePlacerWrapperBaseStyles}
+				style={{ backgroundColor: this.props.backgroundColor }}
+			>
 				<ImagePlacerContainer
 					width={containerWidth}
 					height={containerHeight}

@@ -6,22 +6,23 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 
-import { getAutoClosingBracketInfo, shouldAutoCloseBracket } from '../ide-ux/bracket-handling';
-import { indent, insertIndent, insertNewlineWithIndent, outdent } from '../ide-ux/commands';
+import type { CodeBlockPlugin } from '../index';
+
+import { getAutoClosingBracketInfo, shouldAutoCloseBracket } from './ide-ux/bracket-handling';
+import { indent, insertIndent, insertNewlineWithIndent, outdent } from './ide-ux/commands';
 import {
 	getEndOfCurrentLine,
 	getLineInfo,
 	getStartOfCurrentLine,
 	isCursorInsideCodeBlock,
 	isSelectionEntirelyInsideCodeBlock,
-} from '../ide-ux/line-handling';
+} from './ide-ux/line-handling';
 import {
 	isClosingCharacter,
 	isCursorBeforeClosingCharacter,
-} from '../ide-ux/paired-character-handling';
-import { getAutoClosingQuoteInfo, shouldAutoCloseQuote } from '../ide-ux/quote-handling';
-import type { CodeBlockPlugin } from '../index';
-import { getCursor } from '../utils';
+} from './ide-ux/paired-character-handling';
+import { getAutoClosingQuoteInfo, shouldAutoCloseQuote } from './ide-ux/quote-handling';
+import { getCursor } from './utils';
 
 const ideUX = (pluginInjectionApi: ExtractInjectionAPI<CodeBlockPlugin> | undefined) => {
 	const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions;

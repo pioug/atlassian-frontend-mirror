@@ -1,9 +1,5 @@
-import {
-	EditorNodeContainerModel,
-	EditorTableModel,
-	expect,
-	editorPerformanceTestCase as test,
-} from '@af/editor-libra';
+import { expect, editorPerformanceTestCase as test } from '@af/editor-libra';
+import { EditorNodeContainerModel, EditorTableModel } from '@af/editor-libra/page-models';
 
 import { hugeDocument } from '../fixtures/huge-document';
 

@@ -3,8 +3,10 @@
  * @jsx jsx
  */
 import React, { type FormEvent, Fragment } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@compiled/react';
+import { cssMap } from '@atlaskit/css';
+
+import { token } from '@atlaskit/tokens';
 import { PureComponent } from 'react';
 import ModalDialog, { ModalFooter, ModalBody, useModal } from '@atlaskit/modal-dialog';
 import Button from '@atlaskit/button/standard-button';
@@ -16,12 +18,11 @@ import {
 } from 'react-intl-next';
 import { Field, HelperMessage } from '@atlaskit/form';
 import { fileToDataURI, dataURItoFile, messages } from '@atlaskit/media-ui';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { type Avatar } from '../avatar-list';
 import ImageNavigator, { type CropProperties } from '../image-navigator';
 import { PredefinedAvatarList } from '../predefined-avatar-list';
-import { formStyles, avatarPickerViewWrapperStyles, modalHeaderStyles } from './styles';
 import { PredefinedAvatarView } from '../predefined-avatar-view';
 import { type LoadParameters } from '../image-navigator/index';
 import ButtonGroup from '@atlaskit/button/button-group';
@@ -52,29 +53,55 @@ export const fixedCrop = {
 export type AvatarPickerDialogWithIntlProps = AvatarPickerDialogProps &
 	Partial<WrappedComponentProps>;
 
+const modalHeaderStyles = css({
+	// Using `&` twice to increase specificity
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&&': {
+		margin: token('space.200', '16px'),
+		font: token('font.heading.medium'),
+	},
+});
+
+const formStyles = css({
+	margin: 0,
+});
+
+const avatarPickerViewWrapperStyles = css({
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'flex-start',
+	textAlign: 'center',
+	minHeight: '339px',
+});
+
 const HeaderContent = ({ title }: { title?: string }) => {
 	const modal = useModal();
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<h1 data-testid="modal-header" css={modalHeaderStyles} id={modal.titleId}>
 			{title || <FormattedMessage {...messages.upload_an_avatar} />}
 		</h1>
 	);
 };
 
-const altTextFieldStyles = xcss({
-	paddingTop: 'space.100',
-	textAlign: 'left',
+const altTextFieldStyles = cssMap({
+	root: {
+		paddingTop: token('space.100'),
+		textAlign: 'left',
+	},
 });
 
-const croppingWrapperStyles = xcss({
-	display: 'inline-block',
-	userSelect: 'none',
+const croppingWrapperStyles = cssMap({
+	root: {
+		display: 'inline-block',
+		userSelect: 'none',
+	},
 });
 
-const predefinedAvatarWrapperStyles = xcss({
-	display: 'inline-block',
-	userSelect: 'none',
+const predefinedAvatarWrapperStyles = cssMap({
+	root: {
+		display: 'inline-block',
+		userSelect: 'none',
+	},
 });
 
 export class AvatarPickerDialog extends PureComponent<
@@ -235,10 +262,8 @@ export class AvatarPickerDialog extends PureComponent<
 
 				{this.state.isSubmitted && <SubmitErrorDialog />}
 
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<form aria-label="form" onSubmit={this.onSave} css={formStyles}>
 					<ModalBody>
-						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={avatarPickerViewWrapperStyles}>{this.renderBody()}</div>
 					</ModalBody>
 					{this.footerContent()}
@@ -332,7 +357,7 @@ export class AvatarPickerDialog extends PureComponent<
 		const { altText } = this.state;
 
 		return (
-			<Box xcss={altTextFieldStyles}>
+			<Box xcss={altTextFieldStyles.root}>
 				<Field
 					aria-required={true}
 					name="altText"
@@ -366,7 +391,7 @@ export class AvatarPickerDialog extends PureComponent<
 			case Mode.Cropping:
 				return (
 					<Box>
-						<Box xcss={croppingWrapperStyles}>
+						<Box xcss={croppingWrapperStyles.root}>
 							<ImageNavigator
 								imageSource={selectedImageSource}
 								errorMessage={errorMessage}
@@ -384,7 +409,7 @@ export class AvatarPickerDialog extends PureComponent<
 				);
 			case Mode.PredefinedAvatars:
 				return (
-					<Box xcss={predefinedAvatarWrapperStyles}>
+					<Box xcss={predefinedAvatarWrapperStyles.root}>
 						<PredefinedAvatarView
 							avatars={avatars}
 							onAvatarSelected={this.setSelectedAvatarState}

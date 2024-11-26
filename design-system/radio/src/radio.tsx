@@ -9,6 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 import __noop from '@atlaskit/ds-lib/noop';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	B200,
 	B300,
@@ -26,7 +27,6 @@ import {
 import { token } from '@atlaskit/tokens';
 
 import { type RadioProps } from './types';
-
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
@@ -149,6 +149,14 @@ const radioStyles = css({
 	},
 });
 
+const newRadioStyles = css({
+	transform: 'scale(calc(7.5 / 12))', // 15px
+	'&::after': {
+		width: 'calc(5.6px * 12 / 7)', // 6px
+		height: 'calc(5.6px * 12 / 7)', // 6px
+	},
+});
+
 const InnerRadio = forwardRef(function Radio(props: RadioProps, ref: Ref<HTMLInputElement>) {
 	const {
 		ariaLabel,
@@ -197,7 +205,14 @@ const InnerRadio = forwardRef(function Radio(props: RadioProps, ref: Ref<HTMLInp
 				// isInvalid is used in a nonstandard way so cannot
 				// use :invalid selector
 				data-invalid={isInvalid ? 'true' : undefined}
-				css={radioStyles}
+				css={[
+					radioStyles,
+					// eslint-disable-next-line @atlaskit/platform/no-preconditioning, @atlaskit/platform/ensure-feature-flag-prefix
+					fg('platform-visual-refresh-icons') &&
+						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+						fg('platform-icon-control-migration') &&
+						newRadioStyles,
+				]}
 				ref={ref}
 			/>
 			{label ? <span css={labelPaddingStyles}>{label}</span> : null}

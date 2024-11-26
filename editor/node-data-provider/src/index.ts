@@ -1,9 +1,5 @@
 import type { buildCaches } from './cache';
 
-// re exported to avoid type issues
-// this type is only used in jsdoc comments in this file.
-export type { buildCaches as __doNotUseThisType };
-
 /**
  * This is the base class for creating a node data provider for an editor plugin.
  *

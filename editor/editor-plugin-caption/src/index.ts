@@ -1,2 +1,2 @@
-export type { CaptionPlugin } from './types';
-export { default as captionPlugin } from './plugin';
+export type { CaptionPlugin } from './captionPluginType';
+export { default as captionPlugin } from './captionPlugin';

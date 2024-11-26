@@ -1,4 +1,5 @@
-import { EditorNodeContainerModel, expect, editorTestCase as test } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
+import { EditorNodeContainerModel } from '@af/editor-libra/page-models';
 
 import {
 	blockCardAdf,

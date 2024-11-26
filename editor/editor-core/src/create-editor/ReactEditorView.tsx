@@ -82,6 +82,7 @@ import { createSchema } from './create-schema';
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
 import { editorMessages } from './messages';
 import ReactEditorViewContext from './ReactEditorViewContext';
+
 const EDIT_AREA_ID = 'ak-editor-textarea';
 
 export interface EditorViewProps {
@@ -410,6 +411,9 @@ export class ReactEditorView<T = {}> extends React.Component<
 			dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
 			featureFlags: createFeatureFlagsFromProps(props.editorProps.featureFlags),
 			getIntl: () => this.props.intl,
+			onEditorStateUpdated: fg('platform_editor_catch_missing_injection_states')
+				? this.pluginInjectionAPI.onEditorViewUpdated
+				: undefined,
 		});
 
 		const newState = state.reconfigure({ plugins: plugins as Plugin[] });
@@ -519,6 +523,9 @@ export class ReactEditorView<T = {}> extends React.Component<
 			dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
 			featureFlags: this.featureFlags,
 			getIntl: () => this.props.intl,
+			onEditorStateUpdated: fg('platform_editor_catch_missing_injection_states')
+				? this.pluginInjectionAPI.onEditorViewUpdated
+				: undefined,
 		});
 
 		this.contentTransformer = contentTransformerProvider
@@ -627,11 +634,15 @@ export class ReactEditorView<T = {}> extends React.Component<
 			}
 
 			this.view.updateState(editorState);
-			this.pluginInjectionAPI.onEditorViewUpdated({
-				newEditorState: editorState,
-				oldEditorState,
-			});
 
+			if (!fg('platform_editor_catch_missing_injection_states')) {
+				this.pluginInjectionAPI.onEditorViewUpdated({
+					newEditorState: editorState,
+					oldEditorState,
+				});
+			}
+
+			// ED-25839: Investigate if we also want to migrate this API to use `onEditorStateUpdated` in `createPMPlugins`
 			this.onEditorViewStateUpdated({
 				originalTransaction: transaction,
 				transactions,

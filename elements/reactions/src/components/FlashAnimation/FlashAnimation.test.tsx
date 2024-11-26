@@ -1,4 +1,5 @@
 import React from 'react';
+import { Text } from '@atlaskit/primitives';
 import { screen } from '@testing-library/react';
 import { mockReactDomWarningGlobal, renderWithIntl } from '../../__tests__/_testing-library';
 import {
@@ -11,7 +12,7 @@ import { flashAnimation } from './styles';
 describe('@atlaskit/reactions/components/FlashAnimation', () => {
 	const renderFlash = (props: Partial<FlashAnimationProps> = {}) => (
 		<FlashAnimation {...props}>
-			<span>my background will flash</span>
+			<Text>my background will flash</Text>
 		</FlashAnimation>
 	);
 	mockReactDomWarningGlobal();

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { EditorMainToolbarModel, expect, editorTestCase as test } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
+import { EditorMainToolbarModel } from '@af/editor-libra/page-models';
 
 // These tests uses bounding box instead of `expect...toHaveCSS('width', ...)`
 // to avoid pixel-perfect comparison, which is a source of flake

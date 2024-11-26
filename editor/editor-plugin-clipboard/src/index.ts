@@ -1,2 +1,2 @@
-export { default as clipboardPlugin } from './plugin';
-export type { ClipboardPlugin } from './plugin';
+export { default as clipboardPlugin } from './clipboardPlugin';
+export type { ClipboardPlugin } from './clipboardPluginType';

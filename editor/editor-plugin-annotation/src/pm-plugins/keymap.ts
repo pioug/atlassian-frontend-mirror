@@ -4,7 +4,7 @@ import { addInlineComment, bindKeymapWithCommand } from '@atlaskit/editor-common
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
-import { setInlineCommentDraftState } from '../commands';
+import { setInlineCommentDraftState } from '../editor-commands';
 
 export function keymapPlugin(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): SafePlugin {
 	const list = {};

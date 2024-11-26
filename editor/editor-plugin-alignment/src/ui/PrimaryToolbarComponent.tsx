@@ -4,8 +4,8 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { changeAlignment } from '../commands';
-import type { AlignmentPlugin } from '../plugin';
+import type { AlignmentPlugin } from '../alignmentPluginType';
+import { changeAlignment } from '../editor-commands';
 import type { AlignmentState } from '../pm-plugins/types';
 
 import ToolbarAlignment from './ToolbarAlignment';

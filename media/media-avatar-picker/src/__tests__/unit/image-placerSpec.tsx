@@ -672,7 +672,7 @@ describe('Image Placer', () => {
 			wrapper.update();
 			const errorWrapper = wrapper.find(ImagePlacerErrorWrapper);
 			expect(errorWrapper).toHaveLength(1);
-			expect(errorWrapper.dive().text()).toEqual('some-error');
+			expect(errorWrapper.render().text()).toEqual('some-error');
 		});
 
 		it('should render onRenderError if error and passed', () => {

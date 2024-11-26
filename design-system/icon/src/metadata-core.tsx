@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `UNSAFE_createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::3e4b0e69c4beda61c98a08ff1b371463>>
+ * @codegen <<SignedSource::2bc63b966f9ddb3b49da0d4179774c48>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -2279,7 +2279,7 @@ const metadata: Record<string, metadata> = {
 		oldName: ['editor/hint', 'emoji/objects', 'lightbulb-filled', 'lightbulb'],
 		type: 'core',
 		categorization: 'multi-purpose',
-		usage: 'Multi purpose - Known uses: learnings in Atlas, initiatives in Jira.',
+		usage: 'Known uses: learnings in Atlas.',
 		team: 'Design System Team',
 	},
 	link: {
@@ -3498,6 +3498,28 @@ const metadata: Record<string, metadata> = {
 			'Multi purpose - Known uses: classifications in Enterprise Trust, security in Jira (Spork)',
 		team: 'Design System Team',
 	},
+	'shield-strikethrough': {
+		keywords: [
+			'shield-strikethrough',
+			'shieldstrikethrough',
+			'icon',
+			'core',
+			'️security',
+			'secure',
+			'safety',
+			'defence',
+			'protection',
+			'guard',
+			'strikethrough',
+			'classification',
+		],
+		componentName: 'ShieldStrikethroughIcon',
+		package: '@atlaskit/icon/core/shield-strikethrough',
+		type: 'core',
+		categorization: 'multi-purpose',
+		usage: 'Known uses: No classification in Enterprise Trust',
+		team: 'Enterprise Trust',
+	},
 	shortcut: {
 		keywords: ['shortcut', 'export', 'icon', 'core', 'addshortcut', 'square', 'plus'],
 		componentName: 'ShortcutIcon',
@@ -4666,6 +4688,26 @@ const metadata: Record<string, metadata> = {
 		usage: 'Single purpose - Reserved for previous video when icon is overlayed on Media.',
 		team: 'Design System Team',
 	},
+	'video-skip-backward-fifteen': {
+		keywords: [
+			'video-skip-backward-fifteen',
+			'videoskipbackwardfifteen',
+			'icon',
+			'core',
+			'video',
+			'media',
+			'skip',
+			'backwards',
+			'15',
+			'seconds',
+		],
+		componentName: 'VideoSkipBackwardFifteenIcon',
+		package: '@atlaskit/icon/core/video-skip-backward-fifteen',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for skipping video content backward by 15 seconds.',
+		team: 'Design System Team',
+	},
 	'video-skip-backward-ten': {
 		keywords: [
 			'video-skip-backward-ten',
@@ -4677,12 +4719,33 @@ const metadata: Record<string, metadata> = {
 			'skip',
 			'backwards',
 			'10',
+			'seconds',
 		],
 		componentName: 'VideoSkipBackwardTenIcon',
 		package: '@atlaskit/icon/core/video-skip-backward-ten',
 		type: 'core',
 		categorization: 'single-purpose',
 		usage: 'Reserved for skipping video content backwards by 10 seconds.',
+		team: 'Design System Team',
+	},
+	'video-skip-forward-fifteen': {
+		keywords: [
+			'video-skip-forward-fifteen',
+			'videoskipforwardfifteen',
+			'icon',
+			'core',
+			'video',
+			'media',
+			'skip',
+			'forward',
+			'15',
+			'seconds',
+		],
+		componentName: 'VideoSkipForwardFifteenIcon',
+		package: '@atlaskit/icon/core/video-skip-forward-fifteen',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for skipping video content forward by 15 seconds.',
 		team: 'Design System Team',
 	},
 	'video-skip-forward-ten': {

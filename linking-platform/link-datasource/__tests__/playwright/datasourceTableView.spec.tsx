@@ -186,4 +186,27 @@ test.describe('DatasourceTableView', () => {
 			ignoreCase: true,
 		});
 	});
+
+	test('can filter options with type-ahead in assignee column', async ({ page }) => {
+		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
+		await withFeatureFlags(page, [
+			'enable_datasource_react_sweet_state',
+			'platform-datasources-enable-two-way-sync',
+			'platform-datasources-enable-two-way-sync-assignee',
+			'enable_datasource_supporting_actions',
+		]);
+
+		await page
+			.getByTestId(
+				'datasource-table-view--row-ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/10',
+			)
+			.getByTestId('link-datasource-render-type--user--avatar')
+			.click();
+		await page.getByRole('combobox').fill('jim');
+
+		await expect(page.getByRole('listbox').getByRole('option')).toHaveCount(1);
+		await expect(page.getByRole('listbox').getByRole('option')).toHaveText('jim zhai', {
+			ignoreCase: true,
+		});
+	});
 });

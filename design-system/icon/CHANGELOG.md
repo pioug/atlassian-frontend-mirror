@@ -1,5 +1,31 @@
 # @atlaskit/icon
 
+## 22.26.0
+
+### Minor Changes
+
+- [#168599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168599)
+  [`48b86e5124c23`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48b86e5124c23) -
+  This release adds a supplementary set of icons to `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/core`**
+
+  - `shield-strikethrough`
+  - `video-skip-backward-fifteen`
+  - `video-skip-forward-fifteen`
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `field-radio-group`
+  - `sidebar-collapse`
+  - `sidebar-expand`
+  - `video-skip-backward-ten`
+  - `video-skip-forward-ten`
+
 ## 22.25.0
 
 ### Minor Changes

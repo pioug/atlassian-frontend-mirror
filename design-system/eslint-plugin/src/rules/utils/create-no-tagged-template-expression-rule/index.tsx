@@ -1,4 +1,7 @@
+/* eslint-disable @atlassian/tangerine/import/entry-points */
+
 // Original source from Compiled https://github.com/atlassian-labs/compiled/blob/master/packages/eslint-plugin/src/utils/create-no-tagged-template-expression-rule/index.ts
+
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 import type { Rule } from 'eslint';

@@ -17,8 +17,8 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { resetShouldIgnoreFollowingMutations } from '../actions';
-import type { CodeBlockPlugin } from '../plugin';
+import type { CodeBlockPlugin } from '../codeBlockPluginType';
+import { resetShouldIgnoreFollowingMutations } from '../editor-commands';
 import { getPluginState } from '../pm-plugins/main-state';
 import { codeBlockClassNames } from '../ui/class-names';
 

@@ -2,15 +2,28 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 
 import { AvatarList, type Avatar } from '../avatar-list';
 import EditorMoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--editor-more';
 import Button from '@atlaskit/button/standard-button';
-import { predefinedAvatarsWrapperStyles } from './styles';
 import { useIntl } from 'react-intl-next';
 import { messages } from '@atlaskit/media-ui';
+
+const predefinedAvatarsWrapperStyles = css({
+	display: 'flex',
+});
+
+const showMoreButtonStyles = css({
+	width: '40px',
+	height: '40px',
+	borderRadius: token('border.radius.circle', '50%'),
+	alignItems: 'center',
+	justifyContent: 'center',
+	margin: 0,
+	padding: 0,
+});
 
 export interface PredefinedAvatarListProps {
 	avatars: Array<Avatar>;
@@ -32,7 +45,6 @@ export const PredefinedAvatarList = ({
 	const intl = useIntl();
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={predefinedAvatarsWrapperStyles} id="predefined-avatar-wrapper">
 			<AvatarList
 				avatars={avatars}
@@ -44,11 +56,10 @@ export const PredefinedAvatarList = ({
 				aria-label={
 					showMoreAvatarsButtonLabel || intl.formatMessage(messages.show_more_avatars_btn_label)
 				}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-				className="show-more-button"
 				appearance="subtle"
 				iconAfter={<EditorMoreIcon label="" LEGACY_size="large" color="currentColor" />}
 				onClick={onShowMore}
+				css={showMoreButtonStyles}
 			/>
 		</div>
 	);

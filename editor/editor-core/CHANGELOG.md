@@ -1,5 +1,37 @@
 # @atlaskit/editor-core
 
+## 202.3.2
+
+### Patch Changes
+
+- [#168660](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168660)
+  [`f8ce71831c9b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f8ce71831c9b1) -
+  [ux] ED-25862: Remove the 12px top from layout column selection
+- Updated dependencies
+
+## 202.3.1
+
+### Patch Changes
+
+- [#167666](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167666)
+  [`1e925c655550f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1e925c655550f) -
+  Some editor states were occassionally missed by the editor API due to an edge case - this change
+  ensures all prosemirror states are observed fixing some minor bugs (ie. context panel not closing
+  when changing selection).
+
+## 202.3.0
+
+### Minor Changes
+
+- [#166206](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166206)
+  [`589f49d62238b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/589f49d62238b) -
+  [ux] Adds logic to change bodied macro from edit to view mode and vice versa. Also updates some
+  styling/interactions based on this new feature.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 202.2.0
 
 ### Minor Changes

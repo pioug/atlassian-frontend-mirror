@@ -7,7 +7,6 @@ import { IntlProvider } from 'react-intl-next';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
 import * as useResolve from '../../../../../../../state/hooks/use-resolve';
@@ -163,97 +162,50 @@ describe('ServerAction', () => {
 	// @see packages/linking-platform/smart-card/src/view/__tests__/analytics/action.test.tsx
 	// for a more comprehensive analytics tests
 	describe('analytics', () => {
-		describe('fires analytics events on action success', () => {
-			ffTest(
-				'smart-card-migrate-track-analytics',
-				async () => {
-					const uiSpy = jest.spyOn(mockAnalytics.ui, 'smartLinkServerActionClickedEvent');
-					const action = getAction();
-					renderComponentFF({ action });
+		it('fires analytics events on action success', async () => {
+			const uiSpy = jest.spyOn(mockAnalytics.ui, 'smartLinkServerActionClickedEvent');
+			const action = getAction();
+			renderComponentFF({ action });
 
-					const element = await screen.findByTestId(testId);
-					await userEvent.click(element);
+			const element = await screen.findByTestId(testId);
+			await userEvent.click(element);
 
-					expect(uiSpy).toHaveBeenCalled();
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLinkQuickAction',
-							action: 'started',
-						}),
-					);
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLinkQuickAction',
-							action: 'success',
-						}),
-					);
-				},
-				async () => {
-					const uiSpy = jest.spyOn(mockAnalytics.ui, 'smartLinkServerActionClickedEvent');
-					const trackStartedSpy = jest.spyOn(mockAnalytics.track, 'smartLinkQuickActionStarted');
-					const trackSuccessSpy = jest.spyOn(mockAnalytics.track, 'smartLinkQuickActionSuccess');
-
-					const action = getAction();
-					renderComponent({ action });
-
-					const element = await screen.findByTestId(testId);
-					act(() => {
-						fireEvent.click(element);
-					});
-					await flushPromises();
-
-					expect(uiSpy).toHaveBeenCalled();
-					expect(trackStartedSpy).toHaveBeenCalled();
-					expect(trackSuccessSpy).toHaveBeenCalled();
-				},
+			expect(uiSpy).toHaveBeenCalled();
+			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLinkQuickAction',
+					action: 'started',
+				}),
+			);
+			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLinkQuickAction',
+					action: 'success',
+				}),
 			);
 		});
 
-		describe('fires analytics events on action fails', () => {
-			ffTest(
-				'smart-card-migrate-track-analytics',
-				async () => {
-					const uiSpy = jest.spyOn(mockAnalytics.ui, 'smartLinkServerActionClickedEvent');
-					const action = getAction();
-					const mockInvoke = jest.fn().mockImplementationOnce(() => Promise.reject());
-					renderComponentFF({ action }, mockInvoke);
+		it('fires analytics events on action fails', async () => {
+			const uiSpy = jest.spyOn(mockAnalytics.ui, 'smartLinkServerActionClickedEvent');
+			const action = getAction();
+			const mockInvoke = jest.fn().mockImplementationOnce(() => Promise.reject());
+			renderComponentFF({ action }, mockInvoke);
 
-					const element = await screen.findByTestId(testId);
-					await userEvent.click(element);
+			const element = await screen.findByTestId(testId);
+			await userEvent.click(element);
 
-					expect(uiSpy).toHaveBeenCalled();
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLinkQuickAction',
-							action: 'started',
-						}),
-					);
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLinkQuickAction',
-							action: 'failed',
-						}),
-					);
-				},
-				async () => {
-					const uiSpy = jest.spyOn(mockAnalytics.ui, 'smartLinkServerActionClickedEvent');
-					const trackStartedSpy = jest.spyOn(mockAnalytics.track, 'smartLinkQuickActionStarted');
-					const trackFailedSpy = jest.spyOn(mockAnalytics.track, 'smartLinkQuickActionFailed');
-
-					const action = getAction();
-					const mockInvoke = jest.fn().mockImplementationOnce(() => Promise.reject());
-					renderComponent({ action }, mockInvoke);
-
-					const element = await screen.findByTestId(testId);
-					act(() => {
-						fireEvent.click(element);
-					});
-					await flushPromises();
-
-					expect(uiSpy).toHaveBeenCalled();
-					expect(trackStartedSpy).toHaveBeenCalled();
-					expect(trackFailedSpy).toHaveBeenCalled();
-				},
+			expect(uiSpy).toHaveBeenCalled();
+			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLinkQuickAction',
+					action: 'started',
+				}),
+			);
+			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLinkQuickAction',
+					action: 'failed',
+				}),
 			);
 		});
 	});

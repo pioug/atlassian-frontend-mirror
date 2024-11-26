@@ -1,5 +1,23 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.20.1
+
+### Patch Changes
+
+- [#167651](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167651)
+  [`5149d4fb1b488`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5149d4fb1b488) -
+  Removed experiment editor*ai*-\_proactive_ai_spelling_and_grammar and defaulted the S+G config to
+  on
+
+## 2.20.0
+
+### Minor Changes
+
+- [#168098](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168098)
+  [`fb613ef23788c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb613ef23788c) -
+  [https://product-fabric.atlassian.net/browse/EDF-1995](EDF-1995) - clean up
+  `platform_editor_ai_command_palette_post_ga` Statsig experiment
+
 ## 2.19.0
 
 ### Minor Changes

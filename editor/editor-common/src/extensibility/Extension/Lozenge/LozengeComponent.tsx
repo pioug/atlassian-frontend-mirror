@@ -37,6 +37,8 @@ type LozengeComponentProps = {
 	setIsNodeHovered?: (isHovered: boolean) => void;
 	isBodiedMacro?: boolean;
 	showLivePagesBodiedMacrosRendererView?: boolean;
+	showBodiedExtensionRendererView?: boolean;
+	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
 };
 
 export const LozengeComponent = ({
@@ -53,6 +55,8 @@ export const LozengeComponent = ({
 	setIsNodeHovered,
 	isBodiedMacro,
 	showLivePagesBodiedMacrosRendererView,
+	showBodiedExtensionRendererView,
+	setShowBodiedExtensionRendererView,
 }: LozengeComponentProps) => {
 	const capitalizedTitle = capitalizeFirstLetter(title);
 	if (showMacroInteractionDesignUpdates) {
@@ -68,12 +72,15 @@ export const LozengeComponent = ({
 					isBodiedMacro={isBodiedMacro}
 					showMacroButtonUpdates={showMacroButtonUpdates}
 					showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+					showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 				/>
 				{showLivePagesBodiedMacrosRendererView && isBodiedMacro && (
 					<EditToggle
 						isNodeHovered={isNodeHovered}
 						setIsNodeHovered={setIsNodeHovered}
 						customContainerStyles={customContainerStyles}
+						showBodiedExtensionRendererView={showBodiedExtensionRendererView}
+						setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
 					/>
 				)}
 			</Fragment>

@@ -6,7 +6,7 @@ import type { AvatarProps } from '@atlaskit/avatar-group';
 import type { CollabParticipant } from '@atlaskit/editor-common/collab';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import type { AvatarGroupPlugin } from '../plugin';
+import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
 
 import { ColoredAvatarItem } from './colored-avatar-item';
 

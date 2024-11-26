@@ -13,8 +13,8 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 
+import type { CaptionPlugin } from '../captionPluginType';
 import captionNodeView from '../nodeviews';
-import type { CaptionPlugin } from '../types';
 
 import { pluginKey } from './plugin-key';
 

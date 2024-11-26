@@ -1,6 +1,7 @@
 import React from 'react';
 import { md, code } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
+import { Text } from '@atlaskit/primitives';
 
 export default md`
 Emoji provider mainly controls what type of emojis you want to support, how to resolve emojis, and how to upload custom emojis if enabled.
@@ -32,7 +33,7 @@ ${code`
 				appearance="warning"
 				title="There should be only one instance of EmojiResource in your application"
 			>
-				<p>Make sure EmojiResource is initialised only once.</p>
+				<Text as="p">Make sure EmojiResource is initialised only once.</Text>
 			</SectionMessage>
 		</>
 	)}

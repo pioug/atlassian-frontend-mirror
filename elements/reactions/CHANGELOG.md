@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 22.16.3
+
+### Patch Changes
+
+- [#165681](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165681)
+  [`57716f58fccef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57716f58fccef) -
+  [ux] typography changes to text and heading
+- Updated dependencies
+
 ## 22.16.2
 
 ### Patch Changes

@@ -19,6 +19,7 @@ import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-
 import TextField from '@atlaskit/textfield';
 import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import AkButton from '@atlaskit/button/standard-button';
+import { Text } from '@atlaskit/primitives';
 import FocusLock from 'react-focus-lock';
 
 import type { EmojiUpload, Message } from '../../types';
@@ -33,10 +34,8 @@ import {
 	closeEmojiUploadButton,
 	emojiChooseFileErrorMessage,
 	emojiUpload,
-	emojiUploadBottom,
 	emojiUploadTop,
 	headingH5,
-	uploadChooseFileBrowse,
 	uploadChooseFileEmojiName,
 	uploadChooseFileMessage,
 	uploadChooseFileRow,
@@ -175,7 +174,7 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 					/>
 				</span>
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-				<span css={uploadChooseFileBrowse}>
+				<Text>
 					<FormattedMessage {...messages.emojiChooseFileScreenReaderDescription}>
 						{() => (
 							<FileChooser
@@ -188,14 +187,14 @@ const ChooseEmojiFile = memo((props: ChooseEmojiFilePropsType) => {
 							/>
 						)}
 					</FormattedMessage>
-				</span>
+				</Text>
 			</div>
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-			<div css={emojiUploadBottom} id={fileChooserButtonDescriptionId}>
+			<div id={fileChooserButtonDescriptionId}>
 				{!errorMessage ? (
-					<p>
+					<Text as="p" size="small">
 						<FormattedMessage {...messages.emojiImageRequirements} />
-					</p>
+					</Text>
 				) : (
 					<EmojiErrorMessage messageStyles={emojiChooseFileErrorMessage} message={errorMessage} />
 				)}

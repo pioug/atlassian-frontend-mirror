@@ -462,11 +462,12 @@ describe('Avatar Picker Dialog', () => {
 		const showMoreButton = await screen.findByRole('button', { name: /Show more/i });
 		await userEvent.click(showMoreButton);
 
-		const img = document.querySelector(`input[type=radio][aria-label="${someAvatar.name}"] + img`);
+		const img = document.querySelector(`img[src="${someAvatar.dataURI}"]`);
+
 		expect(img).toBeInTheDocument();
 		expect(img?.getAttribute('src')).toEqual(someAvatar.dataURI);
 
-		const text = document.querySelector('h2.description');
+		const text = document.querySelector('h2');
 		expect(text).toBeInTheDocument();
 		expect(text?.textContent).toEqual('some text');
 	});

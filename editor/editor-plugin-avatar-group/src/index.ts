@@ -1,2 +1,2 @@
-export type { AvatarGroupPlugin } from './plugin';
-export { avatarGroupPlugin } from './plugin';
+export type { AvatarGroupPlugin } from './avatarGroupPluginType';
+export { avatarGroupPlugin } from './avatarGroupPlugin';

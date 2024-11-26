@@ -53,8 +53,6 @@ export type ConnectFailedEventProps = CommonEventProps & {
 	reason?: string;
 };
 
-export type TrackAppAccountConnectedProps = CommonEventProps;
-
 export type UiAuthEventProps = CommonEventProps & {
 	display: CardInnerAppearance;
 };

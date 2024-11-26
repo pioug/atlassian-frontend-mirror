@@ -18,16 +18,10 @@ import {
 } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { ignoreFollowingMutations, resetShouldIgnoreFollowingMutations } from '../actions';
+import { ignoreFollowingMutations, resetShouldIgnoreFollowingMutations } from '../editor-commands';
 import type { CodeBlockPlugin } from '../index';
 import { codeBlockNodeView } from '../nodeviews/code-block';
-import { pluginKey } from '../plugin-key';
 import { codeBlockClassNames } from '../ui/class-names';
-import {
-	findCodeBlock,
-	getAllChangedCodeBlocksInTransaction,
-	getAllCodeBlockNodesInDoc,
-} from '../utils';
 
 import { ACTIONS } from './actions';
 import {
@@ -36,6 +30,12 @@ import {
 	updateDecorationSetWithWordWrappedDecorator,
 } from './decorators';
 import { type CodeBlockState } from './main-state';
+import { pluginKey } from './plugin-key';
+import {
+	findCodeBlock,
+	getAllChangedCodeBlocksInTransaction,
+	getAllCodeBlockNodesInDoc,
+} from './utils';
 
 export const createPlugin = ({
 	useLongPressSelection = false,

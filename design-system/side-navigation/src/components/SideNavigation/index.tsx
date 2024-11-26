@@ -8,6 +8,7 @@ import { forwardRef } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N10, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -72,6 +73,14 @@ const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
 				aria-label={label}
 				css={sideNavStyles}
 				data-vc={`side-navigation${isServer ? '-ssr' : ''}`}
+				{...(isServer &&
+					fg('add_ssr_placeholder_replacements_to_nin_and_nav') && {
+						'data-ssr-placeholder': 'side-navigation-placeholder',
+					})}
+				{...(!isServer &&
+					fg('add_ssr_placeholder_replacements_to_nin_and_nav') && {
+						'data-ssr-placeholder-replace': 'side-navigation-placeholder',
+					})}
 			>
 				<SELECTION_STYLE_CONTEXT_DO_NOT_USE.Provider value="notch">
 					{children}

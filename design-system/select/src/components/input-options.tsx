@@ -7,8 +7,11 @@ import { Component } from 'react';
 
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
+import { type IconProps } from '@atlaskit/icon';
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
 import RadioIcon from '@atlaskit/icon/glyph/radio';
+import PrimitiveSVGIcon from '@atlaskit/icon/svg';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B300, B400, B75, N0, N100, N20, N20A, N30, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -215,14 +218,50 @@ class ControlOption<Option = OptionType, IsMulti extends boolean = false> extend
 	}
 }
 
+const NewCheckboxIcon = (props: IconProps) => (
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+	<PrimitiveSVGIcon {...props}>
+		<g fillRule="evenodd">
+			<rect x="5.5" y="5.5" width="13" height="13" rx="1.5" fill="currentColor" />
+			<path
+				fillRule="evenodd"
+				clipRule="evenodd"
+				d="M16.3262 9.48011L15.1738 8.51984L10.75 13.8284L8.82616 11.5198L7.67383 12.4801L10.1738 15.4801C10.3163 15.6511 10.5274 15.75 10.75 15.75C10.9726 15.75 11.1837 15.6511 11.3262 15.4801L16.3262 9.48011Z"
+				fill="inherit"
+			/>
+		</g>
+	</PrimitiveSVGIcon>
+);
+
+const NewRadioIcon = (props: IconProps) => (
+	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+	<PrimitiveSVGIcon {...props}>
+		<g fillRule="evenodd">
+			<circle cx="12" cy="12" r="6.75" fill="currentColor" strokeWidth="1.5" />
+			<circle cx="12" cy="12" r="3" fill="inherit" />
+		</g>
+	</PrimitiveSVGIcon>
+);
+
 /**
  * __Checkbox option__
  */
 export const CheckboxOption = <OptionT extends OptionType>(
 	props: OptionProps<OptionT, true>,
-	// TODO https://product-fabric.atlassian.net/browse/DSP-20768
-	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons, @repo/internal/react/no-unsafe-spread-props
-): JSX.Element => <ControlOption<OptionT, true> Icon={CheckboxIcon} {...props} />;
+	// ): JSX.Element => <ControlOption<OptionT, true> Icon={CheckboxIcon} {...props} />;
+): JSX.Element => (
+	<ControlOption<OptionT, true>
+		Icon={
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix, @atlaskit/platform/no-preconditioning
+			fg('platform-visual-refresh-icons') && fg('platform-icon-control-migration')
+				? NewCheckboxIcon
+				: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+					CheckboxIcon
+		}
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+	/>
+);
 
 /**
  * __Radio option__
@@ -230,5 +269,15 @@ export const CheckboxOption = <OptionT extends OptionType>(
 export const RadioOption = <OptionT extends OptionType>(props: OptionProps<OptionT, false>) => (
 	// TODO https://product-fabric.atlassian.net/browse/DSP-20769
 	// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons, @repo/internal/react/no-unsafe-spread-props
-	<ControlOption Icon={RadioIcon} {...props} />
+	<ControlOption
+		Icon={
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix, @atlaskit/platform/no-preconditioning
+			fg('platform-visual-refresh-icons') && fg('platform-icon-control-migration')
+				? NewRadioIcon
+				: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+					RadioIcon
+		}
+		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+		{...props}
+	/>
 );

@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugins
 
+## 5.7.0
+
+### Minor Changes
+
+- [#168257](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168257)
+  [`af1677146b18a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af1677146b18a) -
+  Create new connectivity plugin which can be used to detect the current network status.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.6.72
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.6.71
 
 ### Patch Changes

@@ -1,6 +1,7 @@
 import React from 'react';
 import { md, Example, code, Props } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
+import { Text } from '@atlaskit/primitives';
 
 import ConnectedReactionPickerExample from '../examples/00-connected-reaction-picker';
 
@@ -105,10 +106,10 @@ export default md`
 				appearance="warning"
 				title="There should be only one instance of EmojiResource in your application"
 			>
-				<p>
+				<Text as="p">
 					Make sure EmojiResource is initialised only once to avoid performance issues using
 					useMemo.
-				</p>
+				</Text>
 			</SectionMessage>
 		</>
 	)}

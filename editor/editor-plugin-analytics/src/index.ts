@@ -1,3 +1,3 @@
-export { analyticsPlugin } from './plugin';
-export type { AnalyticsPlugin, AnalyticsPluginOptions } from './plugin';
-export type { CreateAttachPayloadIntoTransaction } from './analytics-api/attach-payload-into-transaction';
+export { analyticsPlugin } from './analyticsPlugin';
+export type { AnalyticsPlugin, AnalyticsPluginOptions } from './analyticsPluginType';
+export type { CreateAttachPayloadIntoTransaction } from './pm-plugins/analytics-api/attach-payload-into-transaction';

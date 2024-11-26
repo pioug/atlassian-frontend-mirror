@@ -12,6 +12,7 @@ import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Avatar from '@atlaskit/avatar/Avatar';
 import Spinner from '@atlaskit/spinner';
 import { useTabPanel } from '@atlaskit/tabs';
+import { Text } from '@atlaskit/primitives';
 
 import { messages } from '../../shared/i18n';
 import { type ReactionSummary } from '../../types';
@@ -61,14 +62,14 @@ export const ReactionView = ({ selectedEmojiId, emojiProvider, reaction }: React
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={reactionViewStyle} {...tabPanelAttributes}>
-			<p>
+			<Text as="p">
 				<ResourcedEmoji
 					emojiProvider={emojiProvider}
 					emojiId={{ id: selectedEmojiId, shortName: '' }}
 					fitToHeight={24}
 				/>
 				{intl.formatMessage(messages.emojiName, { emojiName })}
-			</p>
+			</Text>
 			{alphabeticalNames.length === 0 ? (
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				<div css={centerSpinner}>

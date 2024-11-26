@@ -1,5 +1,17 @@
 # @atlaskit/status
 
+## 1.8.0
+
+### Minor Changes
+
+- [#166052](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166052)
+  [`45e71a1daa411`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45e71a1daa411) -
+  Adds peerdependency version range for react 17 + 18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.7.0
 
 ### Minor Changes

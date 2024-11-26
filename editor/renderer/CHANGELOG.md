@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 112.6.1
+
+### Patch Changes
+
+- [#168591](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168591)
+  [`b75a552ecb1c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b75a552ecb1c6) -
+  [ED-25816] Fix: non full-width resized layout becomes full width in full-width renderer
+- Updated dependencies
+
 ## 112.6.0
 
 ### Minor Changes

@@ -11,8 +11,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { codeBidiWarningPluginKey } from '../plugin-key';
-
+import { codeBidiWarningPluginKey } from './plugin-key';
 import reducer from './reducer';
 
 export const pluginFactoryCreator = (nodeViewPortalProviderAPI: PortalProviderAPI) =>

@@ -369,7 +369,8 @@ const fullWidthStyles = ({ appearance }: RendererWrapperProps) => {
 		max-width: ${akEditorFullWidthLayoutWidth}px;
 		margin: 0 auto;
 
-		.fabric-editor-breakout-mark,
+		/* don't override if the breakout mark has width attribute defined */
+		.fabric-editor-breakout-mark:not([data-has-width='true']),
 		.ak-renderer-extension {
 			width: 100% !important;
 		}

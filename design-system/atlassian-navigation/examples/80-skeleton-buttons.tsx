@@ -9,6 +9,7 @@ import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
 import Drawer from '@atlaskit/drawer';
+import Link from '@atlaskit/link';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
@@ -288,9 +289,9 @@ const JiraIntegrationWithSkeletonButtonsExample = () => {
 			</p>
 			<p>
 				SkeletonButtons are different to the other{' '}
-				<a href="https://atlaskit.atlassian.com/examples/navigation/atlassian-navigation/themed-skeleton-example">
+				<Link href="https://atlaskit.atlassian.com/examples/navigation/atlassian-navigation/themed-skeleton-example">
 					Skeleton components
-				</a>
+				</Link>
 				. They are a light-weight, single HTML button element with some CSS that represents their
 				more heavy interactive counterparts.
 			</p>

@@ -1,15 +1,18 @@
+/* eslint-disable @atlassian/tangerine/import/entry-points */
+
+import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 import estraverse from 'estraverse';
 
-import { createLintRule } from '../utils/create-rule';
 import {
-	isCss,
 	getImportSources,
-	isStyled,
-	isKeyframes,
+	isCss,
 	isCssMap,
+	isKeyframes,
+	isStyled,
 	isXcss,
 } from '@atlaskit/eslint-utils/is-supported-import';
-import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
+
+import { createLintRule } from '../utils/create-rule';
 
 const schema: JSONSchema4 = [
 	{

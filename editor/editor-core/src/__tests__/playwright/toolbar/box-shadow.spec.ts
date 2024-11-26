@@ -1,4 +1,5 @@
-import { EditorMainToolbarModel, expect, editorTestCase as test } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
+import { EditorMainToolbarModel } from '@af/editor-libra/page-models';
 
 import { adf } from './box-shadow.spec.ts-fixtures';
 

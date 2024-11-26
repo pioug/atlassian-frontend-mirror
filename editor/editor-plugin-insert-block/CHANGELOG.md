@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.15
+
+### Patch Changes
+
+- [#168711](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168711)
+  [`b2f2dc82e10b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b2f2dc82e10b3) -
+  Memoises the CellMeasurerCache used in the insert menu
+
 ## 2.4.14
 
 ### Patch Changes

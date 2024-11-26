@@ -1,5 +1,32 @@
 # @atlaskit/icon-lab
 
+## 1.2.0
+
+### Minor Changes
+
+- [#168599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168599)
+  [`48b86e5124c23`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48b86e5124c23) -
+  This release adds a supplementary set of icons to `@atlaskit/icon-lab`.
+
+  ### Added:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `assets-data-manager`
+  - `assets-schema`
+  - `initiative`
+  - `qr-code`
+
+  ### Updated:
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `vulnerability`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.0
 
 ### Minor Changes

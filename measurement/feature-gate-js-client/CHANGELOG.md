@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.23.2
+
+### Patch Changes
+
+- [#167601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167601)
+  [`46d0f99bcbbac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46d0f99bcbbac) -
+  Fixed type for window.**FEATUREGATES_JS**
+
 ## 4.23.1
 
 ### Patch Changes

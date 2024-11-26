@@ -2,6 +2,7 @@ import React from 'react';
 import { md, Example, code, AtlassianInternalWarning, Props } from '@atlaskit/docs';
 import SectionMessage from '@atlaskit/section-message';
 import SimpleEmojiExample from '../examples/00-simple-emoji';
+import { Text } from '@atlaskit/primitives';
 
 const SimpleEmojiSource = require('!!raw-loader!../examples/00-simple-emoji');
 const EmojiProps = require('!!extract-react-types-loader!../src/components/common/Emoji');
@@ -59,10 +60,10 @@ export default md`
 				appearance="warning"
 				title="Emoji provider is required to be configured in order to use components from this package."
 			>
-				<p>
+				<Text as="p">
 					Please refer to `Emoji picker` section for more information on how to configure emoji
 					provider.
-				</p>
+				</Text>
 			</SectionMessage>
 		</>
 	)}

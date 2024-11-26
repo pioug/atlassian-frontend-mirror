@@ -6,6 +6,7 @@
 import { css, jsx } from '@emotion/react';
 
 import { NavigationAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -98,6 +99,14 @@ export const AtlassianNavigation = (props: AtlassianNavigationProps) => {
 					data-testid={testId && `${testId}-header`}
 					role="banner"
 					data-vc={`atlassian-navigation${isServer ? '-ssr' : ''}`}
+					{...(isServer &&
+						fg('add_ssr_placeholder_replacements_to_nin_and_nav') && {
+							'data-ssr-placeholder': 'atlassian-navigation-placeholder',
+						})}
+					{...(!isServer &&
+						fg('add_ssr_placeholder_replacements_to_nin_and_nav') && {
+							'data-ssr-placeholder-replace': 'atlassian-navigation-placeholder',
+						})}
 				>
 					<nav css={leftStyles} aria-label={label}>
 						{AppSwitcher && <AppSwitcher />}

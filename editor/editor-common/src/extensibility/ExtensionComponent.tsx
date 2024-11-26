@@ -50,15 +50,34 @@ export interface State {
 	};
 	activeChildIndex?: number; // Holds the currently active Frame/Tab/Card
 	isNodeHovered?: boolean;
+	showBodiedExtensionRendererView?: boolean; // Main state which will keep track to show the renderer or editor view of bodied macros in live pages. Controlled via the EditToggle
 }
 
 /* temporary type until FG cleaned up */
 export type PropsNew = Omit<Props, 'extensionProvider'> & {
 	extensionProvider?: ExtensionProvider;
+	showBodiedExtensionRendererView?: boolean;
+	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
 };
 
 /* temporary type until FG cleaned up */
-export type StateNew = Omit<State, 'extensionProvider'>;
+export type StateNew = Omit<State, 'extensionProvider' | 'showBodiedExtensionRendererView'>;
+
+const isEmptyBodiedMacro = (node: PMNode) => {
+	if (node.type.name !== 'bodiedExtension') {
+		return false;
+	}
+
+	const firstChildNode = node?.content?.firstChild;
+	const firstGrandChildNode = firstChildNode?.firstChild;
+
+	// If firstChildNode?.childCount > 1 means there is content along with the placeholder.
+	const isEmptyWithPlacholder =
+		firstGrandChildNode?.type?.name === 'placeholder' && firstChildNode?.childCount === 1;
+	const isEmptyWithNoContent = !firstGrandChildNode && node.childCount === 1;
+
+	return isEmptyWithPlacholder || isEmptyWithNoContent;
+};
 
 export class ExtensionComponentOld extends Component<Props, State> {
 	private privatePropsParsed = false;
@@ -68,6 +87,14 @@ export class ExtensionComponentOld extends Component<Props, State> {
 
 	UNSAFE_componentWillMount() {
 		this.mounted = true;
+
+		const { node, showLivePagesBodiedMacrosRendererView } = this.props;
+		// We only care about this empty state on first page load or insertion to determine the view
+		if (showLivePagesBodiedMacrosRendererView && !isEmptyBodiedMacro(node)) {
+			this.setState({
+				showBodiedExtensionRendererView: true,
+			});
+		}
 	}
 
 	componentDidMount() {
@@ -100,6 +127,12 @@ export class ExtensionComponentOld extends Component<Props, State> {
 	setIsNodeHovered = (isHovered: boolean) => {
 		this.setState({
 			isNodeHovered: isHovered,
+		});
+	};
+
+	setShowBodiedExtensionRendererView = (showRendererView: boolean) => {
+		this.setState({
+			showBodiedExtensionRendererView: showRendererView,
 		});
 	};
 
@@ -167,6 +200,8 @@ export class ExtensionComponentOld extends Component<Props, State> {
 						isNodeNested={isNodeNested}
 						setIsNodeHovered={this.setIsNodeHovered}
 						showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+						showBodiedExtensionRendererView={this.state.showBodiedExtensionRendererView}
+						setShowBodiedExtensionRendererView={this.setShowBodiedExtensionRendererView}
 					>
 						{extensionHandlerResult}
 					</Extension>
@@ -257,14 +292,22 @@ export class ExtensionComponentOld extends Component<Props, State> {
 
 	private handleExtension = (pmNode: PMNode, actions: MultiBodiedExtensionActions | undefined) => {
 		const { extensionHandlers, editorView } = this.props;
+		const { showBodiedExtensionRendererView } = this.state; // State will only be true if the gate is on and meets requirements
 		const { extensionType, extensionKey, parameters, text } = pmNode.attrs;
 		const isBodiedExtension = pmNode.type.name === 'bodiedExtension';
 
-		if (isBodiedExtension) {
+		if (isBodiedExtension && !showBodiedExtensionRendererView) {
 			return;
 		}
 
 		const fragmentLocalId = pmNode?.marks?.find((m) => m.type.name === 'fragment')?.attrs?.localId;
+
+		const nodeContent: PMNode[] = [];
+		if (isBodiedExtension) {
+			pmNode?.content?.forEach((childNode) => {
+				nodeContent.push(childNode);
+			});
+		}
 
 		const node: ExtensionParams<Parameters> = {
 			type: pmNode.type.name as
@@ -275,7 +318,7 @@ export class ExtensionComponentOld extends Component<Props, State> {
 			extensionType,
 			extensionKey,
 			parameters,
-			content: text,
+			content: isBodiedExtension ? (nodeContent.length ? nodeContent : text) : text,
 			localId: pmNode.attrs.localId,
 			fragmentLocalId,
 		};
@@ -307,9 +350,17 @@ export class ExtensionComponentOld extends Component<Props, State> {
 }
 
 export const ExtensionComponentNew = (props: Props) => {
-	const { extensionProvider: extensionProviderResolver, ...restProps } = props;
+	const {
+		extensionProvider: extensionProviderResolver,
+		showLivePagesBodiedMacrosRendererView,
+		node,
+		...restProps
+	} = props;
 	const [extensionProvider, setExtensionProvider] = useState<ExtensionProvider | undefined>(
 		undefined,
+	);
+	const [showBodiedExtensionRendererView, setShowBodiedExtensionRendererView] = useState<boolean>(
+		!!(showLivePagesBodiedMacrosRendererView && !isEmptyBodiedMacro(node)),
 	);
 	const mountedRef = useRef(true);
 
@@ -328,7 +379,16 @@ export const ExtensionComponentNew = (props: Props) => {
 		});
 	}, [extensionProviderResolver]);
 
-	return <ExtensionComponentInner {...restProps} extensionProvider={extensionProvider} />;
+	return (
+		<ExtensionComponentInner
+			{...restProps}
+			extensionProvider={extensionProvider}
+			node={node}
+			showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+			showBodiedExtensionRendererView={showBodiedExtensionRendererView}
+			setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
+		/>
+	);
 };
 
 class ExtensionComponentInner extends Component<PropsNew, StateNew> {
@@ -363,6 +423,8 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 			macroInteractionDesignFeatureFlags,
 			extensionProvider,
 			showLivePagesBodiedMacrosRendererView,
+			showBodiedExtensionRendererView,
+			setShowBodiedExtensionRendererView,
 		} = this.props;
 
 		const { selection } = editorView.state;
@@ -415,6 +477,8 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 						isNodeNested={isNodeNested}
 						setIsNodeHovered={this.setIsNodeHovered}
 						showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+						showBodiedExtensionRendererView={showBodiedExtensionRendererView}
+						setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
 					>
 						{extensionHandlerResult}
 					</Extension>
@@ -491,15 +555,22 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 	}
 
 	private handleExtension = (pmNode: PMNode, actions: MultiBodiedExtensionActions | undefined) => {
-		const { extensionHandlers, editorView } = this.props;
+		const { extensionHandlers, editorView, showBodiedExtensionRendererView } = this.props;
 		const { extensionType, extensionKey, parameters, text } = pmNode.attrs;
 		const isBodiedExtension = pmNode.type.name === 'bodiedExtension';
 
-		if (isBodiedExtension) {
+		if (isBodiedExtension && !showBodiedExtensionRendererView) {
 			return;
 		}
 
 		const fragmentLocalId = pmNode?.marks?.find((m) => m.type.name === 'fragment')?.attrs?.localId;
+
+		const nodeContent: PMNode[] = [];
+		if (isBodiedExtension) {
+			pmNode?.content?.forEach((childNode) => {
+				nodeContent.push(childNode);
+			});
+		}
 
 		const node: ExtensionParams<Parameters> = {
 			type: pmNode.type.name as
@@ -510,7 +581,7 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 			extensionType,
 			extensionKey,
 			parameters,
-			content: text,
+			content: isBodiedExtension ? (nodeContent.length ? nodeContent : text) : text,
 			localId: pmNode.attrs.localId,
 			fragmentLocalId,
 		};

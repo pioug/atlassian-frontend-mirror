@@ -1,5 +1,13 @@
 # @atlaskit/media-avatar-picker
 
+## 25.0.0
+
+### Major Changes
+
+- [#163285](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163285)
+  [`8227541db679d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8227541db679d) -
+  Migrates Avatar Picker from Emotion to Compiled CSS
+
 ## 24.10.5
 
 ### Patch Changes

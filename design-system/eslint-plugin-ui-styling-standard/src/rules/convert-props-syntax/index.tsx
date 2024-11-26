@@ -1,4 +1,7 @@
+import type { Rule, Scope, SourceCode } from 'eslint';
+import { isNodeOfType } from 'eslint-codemod-utils';
 import { analyze } from 'eslint-scope';
+import ESTraverse from 'estraverse';
 import type {
 	ArrowFunctionExpression,
 	AssignmentProperty,
@@ -7,11 +10,10 @@ import type {
 	MemberExpression,
 	ObjectExpression,
 } from 'estree-jsx';
+
+import { isEmotion, isStyledComponents } from '@atlaskit/eslint-utils/is-supported-import';
+
 import { createLintRule } from '../utils/create-rule';
-import { isStyledComponents, isEmotion } from '@atlaskit/eslint-utils/is-supported-import';
-import type { Rule, Scope, SourceCode } from 'eslint';
-import ESTraverse from 'estraverse';
-import { isNodeOfType } from 'eslint-codemod-utils';
 
 type PropInfo = {
 	/**

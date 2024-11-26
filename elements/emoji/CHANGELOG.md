@@ -1,5 +1,14 @@
 # @atlaskit/emoji
 
+## 67.11.1
+
+### Patch Changes
+
+- [#165681](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165681)
+  [`57716f58fccef`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/57716f58fccef) -
+  [ux] typography changes to text and heading
+- Updated dependencies
+
 ## 67.11.0
 
 ### Minor Changes

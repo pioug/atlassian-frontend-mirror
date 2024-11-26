@@ -1,5 +1,20 @@
 # @atlaskit/link-datasource
 
+## 3.13.0
+
+### Minor Changes
+
+- [#165646](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165646)
+  [`4f3ffed207bd9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f3ffed207bd9) -
+  [ux] Add assignee inline edit component for datasource
+
+### Patch Changes
+
+- [#166191](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166191)
+  [`4a75bbe263f85`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a75bbe263f85) -
+  Internal refactor behind ff - Make loadOptions reusable for all inline edit dropdown fields
+- Updated dependencies
+
 ## 3.12.1
 
 ### Patch Changes

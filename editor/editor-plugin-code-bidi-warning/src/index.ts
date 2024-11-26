@@ -1,2 +1,2 @@
-export { codeBidiWarningPlugin } from './plugin';
-export type { CodeBidiWarningPlugin } from './plugin';
+export { codeBidiWarningPlugin } from './codeBidiWarningPlugin';
+export type { CodeBidiWarningPlugin } from './codeBidiWarningPluginType';

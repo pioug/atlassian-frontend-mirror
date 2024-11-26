@@ -37,13 +37,25 @@ const extensionLabelStyles = css`
 		display: inline;
 	}
 
-	// Bodied extension edit toggle styles
+	// Start of bodied extension edit toggle styles
 	&.danger.${akEditorSelectedNodeClassName} > span > .extension-edit-toggle-container {
 		opacity: 1;
 	}
 
 	&:not(.danger).${akEditorSelectedNodeClassName} > span > .extension-edit-toggle-container {
 		opacity: 1;
+	}
+
+	// In view mode of the bodied macro, we never want to show the extension label
+	&.danger.${akEditorSelectedNodeClassName} > span > div > .extension-label.always-hide-label {
+		opacity: 0;
+	}
+
+	&:not(.danger).${akEditorSelectedNodeClassName}
+		> span
+		> div
+		> .extension-label.always-hide-label {
+		opacity: 0;
 	}
 
 	// .with-bodied-macro-live-page-styles class will only be added to bodied macros with the renderer mode gate enabled

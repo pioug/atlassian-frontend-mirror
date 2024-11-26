@@ -59,7 +59,7 @@ export { CLIENT_VERSION } from './version';
 
 declare global {
 	interface Window {
-		__FEATUREGATES_JS__: FeatureGates;
+		__FEATUREGATES_JS__: typeof FeatureGates;
 		__CRITERION__?: {
 			addFeatureFlagAccessed?: (flagName: string, flagValue: FeatureFlagValue) => void;
 			addUFOHold?: (id: string, name: string, labelStack: string, startTime: number) => void;

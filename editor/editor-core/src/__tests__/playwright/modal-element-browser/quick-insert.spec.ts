@@ -1,4 +1,5 @@
-import { EditorTypeAheadModel, expect, editorTestCase as test } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
+import { EditorTypeAheadModel } from '@af/editor-libra/page-models';
 
 test.use({
 	editorProps: {

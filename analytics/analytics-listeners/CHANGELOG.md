@@ -1,5 +1,13 @@
 # @atlaskit/analytics-listeners
 
+## 8.12.0
+
+### Minor Changes
+
+- [#168042](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168042)
+  [`8664a030292cc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8664a030292cc) -
+  Adding analytics context to attributes for AVP listener
+
 ## 8.11.1
 
 ### Patch Changes

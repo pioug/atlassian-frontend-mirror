@@ -15,8 +15,6 @@ export {
 	chunkloadFailedEvent,
 	connectSucceededEvent,
 	connectFailedEvent,
-	trackAppAccountAuthStarted,
-	trackAppAccountConnected,
 	uiAuthEvent,
 	uiAuthAlternateAccountEvent,
 	uiCardClickedEvent,

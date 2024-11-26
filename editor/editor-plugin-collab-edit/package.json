@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-collab-edit",
-	"version": "1.23.1",
+	"version": "1.23.2",
 	"description": "Collab Edit plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,9 +36,9 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^44.2.0",
 		"@atlaskit/custom-steps": "^0.9.0",
-		"@atlaskit/editor-common": "^95.4.0",
+		"@atlaskit/editor-common": "^95.6.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
-		"@atlaskit/editor-plugin-analytics": "1.10.4",
+		"@atlaskit/editor-plugin-analytics": "1.10.5",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
@@ -61,7 +61,7 @@
 		"@atlaskit/editor-plugin-unsupported-content": "^1.9.0",
 		"@atlaskit/editor-test-helpers": "^20.0.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/synchrony-test-helpers": "^2.5.0",
+		"@atlaskit/synchrony-test-helpers": "^3.0.0",
 		"@atlaskit/util-data-test": "^17.13.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",

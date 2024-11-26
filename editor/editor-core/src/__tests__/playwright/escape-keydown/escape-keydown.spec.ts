@@ -1,13 +1,12 @@
+import { expect, editorTestCase as test } from '@af/editor-libra';
 import {
 	EditorDateModel,
 	EditorEmojiModel,
 	EditorMainToolbarModel,
 	EditorNodeContainerModel,
 	EditorPopupModel,
-	expect,
-	fixTest,
-	editorTestCase as test,
-} from '@af/editor-libra';
+} from '@af/editor-libra/page-models';
+import { fixTest } from '@af/integration-testing';
 
 import { adfDate, emptyDocument } from './escape-keydown.spec.ts-fixtures';
 

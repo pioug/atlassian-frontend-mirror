@@ -1,3 +1,3 @@
-export { default as codeBlockPlugin } from './plugin';
-export type { CodeBlockPlugin } from './plugin';
+export { default as codeBlockPlugin } from './codeBlockPlugin';
+export type { CodeBlockPlugin } from './codeBlockPluginType';
 export type { CodeBlockOptions } from './types';

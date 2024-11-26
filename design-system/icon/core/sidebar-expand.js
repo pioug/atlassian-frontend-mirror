@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8db9793265c068a5b317c9b7a01c8103>>
+ * @codegen <<SignedSource::67bd8e50f260741b99439472e94111fa>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SidebarExpandIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.25 2.75H14c.69 0 1.25.56 1.25 1.25v8c0 .69-.56 1.25-1.25 1.25h-2.75m0-10.5H2C1.31 2.75.75 3.31.75 4v8c0 .69.56 1.25 1.25 1.25h9.25m0-10.5v10.5M5 5.5 7.5 8 5 10.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.25 1.75H14c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25h-2.75m0-12.5H2C1.31 1.75.75 2.31.75 3v10c0 .69.56 1.25 1.25 1.25h9.25m0-12.5v12.5M5 5.5 7.5 8 5 10.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SidebarExpandIcon.displayName = 'SidebarExpandIcon';

@@ -170,16 +170,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-09-24
-	platform_editor_ai_command_palette_post_ga: {
-		productKeys: {
-			confluence: 'platform_editor_ai_command_palette_post_ga',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
-	},
-
 	platform_editor_table_use_shared_state_hook: {
 		productKeys: {
 			confluence: 'platform_editor_table_use_shared_state_hook',
@@ -285,14 +275,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	'editor_ai_-_proactive_ai_spelling_and_grammar': {
-		productKeys: {
-			confluence: 'editor_ai_-_proactive_ai_spelling_and_grammar',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'default-off', 'default-on']),
-		defaultValue: 'control' as 'control' | 'default-off' | 'default-on',
-	},
 	'platform_editor_ai-prompts-placeholder': {
 		productKeys: {
 			confluence: 'platform_editor_ai-prompts-placeholder',
@@ -368,6 +350,15 @@ export const editorExperimentsConfig = {
 	platform_editor_ai_1p_smart_link_unfurl_in_prompt: {
 		productKeys: {
 			confluence: 'platform_editor_ai_1p_smart_link_unfurl_in_prompt',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2024-11-21
+	platform_editor_ai_draft_with_ai: {
+		productKeys: {
+			confluence: 'platform_editor_ai_draft_with_ai',
 		},
 		param: 'isEnabled',
 		typeGuard: isBoolean,

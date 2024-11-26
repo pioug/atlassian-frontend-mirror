@@ -10,12 +10,11 @@ import { type JsonLd } from 'json-ld-types';
 import { FormattedMessage } from 'react-intl-next';
 
 import { extractProvider } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../messages';
-import { getExtensionKey, hasAuthScopeOverrides } from '../../../../state/helpers';
+import { hasAuthScopeOverrides } from '../../../../state/helpers';
 import UnauthorisedViewContent from '../../../common/UnauthorisedViewContent';
 import { type ActionItem } from '../../../FlexibleCard/components/blocks/types';
 import { AuthorizeAction } from '../../actions/flexible/AuthorizeAction';
@@ -42,7 +41,6 @@ const FlexibleUnauthorisedView = ({
 	...props
 }: FlexibleBlockCardProps) => {
 	const { analytics, cardState, onAuthorize } = props;
-	const extensionKey = getExtensionKey(cardState?.details) ?? '';
 	const data = cardState.details?.data as JsonLd.Data.BaseData;
 	const providerName = extractProvider(data)?.text;
 	const isProductIntegrationSupported = hasAuthScopeOverrides(cardState?.details);
@@ -50,16 +48,10 @@ const FlexibleUnauthorisedView = ({
 
 	const handleAuthorize = useCallback(() => {
 		if (onAuthorize) {
-			if (fg('smart-card-migrate-track-analytics')) {
-				fireEvent('track.applicationAccount.authStarted', {});
-			} else {
-				analytics?.track.appAccountAuthStarted({
-					extensionKey,
-				});
-			}
+			fireEvent('track.applicationAccount.authStarted', {});
 			onAuthorize();
 		}
-	}, [onAuthorize, extensionKey, analytics?.track, fireEvent]);
+	}, [onAuthorize, fireEvent]);
 
 	const content = useMemo(
 		() =>

@@ -6,14 +6,12 @@ import { getMeasure } from '../performance';
 import { type AnalyticsPayload } from '../types';
 
 import {
-	type CommonEventProps,
 	type ConnectFailedEventProps,
 	type ConnectSucceededEventProps,
 	type InvokeFailedEventProps,
 	type InvokeSucceededEventProps,
 	type ResolvedEventProps,
 	type ScreenAuthPopupEventProps,
-	type TrackAppAccountConnectedProps,
 	type UiActionClickedEventProps,
 	type UiAuthAlternateAccountEventProps,
 	type UiAuthEventProps,
@@ -242,123 +240,6 @@ export const connectFailedEvent = ({
 		destinationProduct,
 		destinationSubproduct,
 		location,
-	},
-});
-
-/**
- * @deprecated
- */
-export const trackAppAccountConnected = ({
-	definitionId,
-	extensionKey,
-	destinationProduct,
-	destinationSubproduct,
-	location,
-}: TrackAppAccountConnectedProps): AnalyticsPayload => ({
-	action: 'connected',
-	actionSubject: 'applicationAccount',
-	eventType: 'track',
-	attributes: {
-		...context,
-		definitionId,
-		extensionKey,
-		destinationProduct,
-		destinationSubproduct,
-		location,
-	},
-});
-
-/**
- * @deprecated
- */
-export const trackAppAccountAuthStarted = ({
-	extensionKey,
-	location,
-}: TrackAppAccountConnectedProps): AnalyticsPayload => ({
-	action: 'authStarted',
-	actionSubject: 'applicationAccount',
-	eventType: 'track',
-	attributes: {
-		...context,
-		extensionKey,
-		location,
-	},
-});
-
-/**
- * @deprecated
- */
-export const trackSmartLinkQuickActionStarted = ({
-	smartLinkActionType,
-	...attributes
-}: CommonEventProps & {
-	smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
-}): AnalyticsPayload => ({
-	action: 'started',
-	actionSubject: 'smartLinkQuickAction',
-	eventType: 'track',
-	attributes: {
-		...context,
-		...attributes,
-		smartLinkActionType:
-			SmartLinkActionTypeTrackingEventMapper[smartLinkActionType] ?? smartLinkActionType,
-	},
-});
-
-/**
- * @deprecated
- */
-export const trackSmartLinkQuickActionSuccess = ({
-	smartLinkActionType,
-	...attributes
-}: CommonEventProps & {
-	smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
-}): AnalyticsPayload => ({
-	action: 'success',
-	actionSubject: 'smartLinkQuickAction',
-	eventType: 'track',
-	attributes: {
-		...context,
-		...attributes,
-		smartLinkActionType:
-			SmartLinkActionTypeTrackingEventMapper[smartLinkActionType] ?? smartLinkActionType,
-	},
-});
-
-/**
- * @deprecated
- */
-export const trackSmartLinkQuickActionFailed = ({
-	smartLinkActionType,
-	...attributes
-}: CommonEventProps & {
-	smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
-}): AnalyticsPayload => ({
-	action: 'failed',
-	actionSubject: 'smartLinkQuickAction',
-	eventType: 'track',
-	attributes: {
-		...context,
-		...attributes,
-		smartLinkActionType:
-			SmartLinkActionTypeTrackingEventMapper[smartLinkActionType] ?? smartLinkActionType,
-	},
-});
-
-/**
- * @deprecated
- */
-export const trackHoverCardResolutionStarted = ({
-	display,
-	...attributes
-}: UiAuthEventProps): AnalyticsPayload => ({
-	action: 'resolved',
-	actionSubject: 'hoverCard',
-	eventType: 'track',
-	attributes: {
-		...context,
-		...attributes,
-		display,
 	},
 });
 

@@ -24,21 +24,21 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import type { AnnotationPlugin } from '../annotationPluginType';
 import {
 	closeComponent,
 	createAnnotation,
 	removeInlineCommentNearSelection,
 	setInlineCommentDraftState,
 	updateInlineCommentResolvedState,
-} from '../commands';
-import type { AnnotationPlugin, AnnotationProviders } from '../types';
-import { AnnotationTestIds } from '../types';
+} from '../editor-commands';
 import {
 	getAllAnnotations,
 	getAnnotationViewKey,
 	getPluginState,
 	getSelectionPositions,
-} from '../utils';
+} from '../pm-plugins/utils';
+import { type AnnotationProviders, AnnotationTestIds } from '../types';
 
 import { AnnotationViewWrapper } from './AnnotationViewWrapper';
 

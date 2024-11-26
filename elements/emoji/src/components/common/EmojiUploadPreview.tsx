@@ -6,6 +6,7 @@ import { PureComponent } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import AkButton from '@atlaskit/button/standard-button';
+import Heading from '@atlaskit/heading';
 import { FormattedMessage, injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { customCategory } from '../../util/constants';
 import type { EmojiDescription, Message } from '../../types';
@@ -75,9 +76,9 @@ class EmojiUploadPreview extends PureComponent<
 				<div css={uploadPreview} data-testid={uploadPreviewTestId}>
 					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<div css={uploadPreviewText}>
-						<h5>
+						<Heading size="xsmall">
 							<FormattedMessage {...messages.emojiPreviewTitle} />
-						</h5>
+						</Heading>
 						<div id={addEmojiPreviewDescriptionId}>
 							<FormattedMessage {...messages.emojiPreview} values={{ emoji: emojiComponent }} />
 						</div>

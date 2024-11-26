@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 10.1.1
+
+### Patch Changes
+
+- [#168466](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168466)
+  [`c99d4b41e3ddd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c99d4b41e3ddd) -
+  ED-25632 Allow node nesting transform errors to be logged in Editor collab-provider
+
 ## 10.1.0
 
 ### Minor Changes

@@ -1,10 +1,9 @@
+import { expect, editorTestCase as test } from '@af/editor-libra';
 import {
 	EditorInsertMenuModel,
 	EditorMainToolbarModel,
 	EditorModalElementBrowserModel,
-	expect,
-	editorTestCase as test,
-} from '@af/editor-libra';
+} from '@af/editor-libra/page-models';
 
 test.use({
 	editorProps: {

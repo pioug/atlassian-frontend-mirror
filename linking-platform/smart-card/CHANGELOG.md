@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 30.4.0
+
+### Minor Changes
+
+- [#168765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168765)
+  [`12c1df09ceb6b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/12c1df09ceb6b) -
+  [ux] Update action button text for automtion and related link actions
+
 ## 30.3.4
 
 ### Patch Changes

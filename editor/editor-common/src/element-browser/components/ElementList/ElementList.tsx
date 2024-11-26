@@ -122,12 +122,13 @@ function ElementListOld({
 		});
 	}, [createAnalyticsEvent]);
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const cache = new CellMeasurerCache({
-		fixedWidth: true,
-		defaultHeight: 75,
-		minHeight: 75,
-	});
+	const cache = useMemo(() => {
+		return new CellMeasurerCache({
+			fixedWidth: true,
+			defaultHeight: 75,
+			minHeight: 75,
+		});
+	}, []);
 
 	const columnWidth = (containerWidth - ELEMENT_ITEM_PADDING * 2) / columnCount;
 	const rowCount = Math.ceil(items.length / columnCount);
@@ -326,14 +327,16 @@ function ElementListNew({
 		});
 	}, [createAnalyticsEvent]);
 
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	const listCache =
-		cache ??
-		new CellMeasurerCache({
-			fixedWidth: true,
-			defaultHeight: ELEMENT_ITEM_HEIGHT,
-			minHeight: ELEMENT_ITEM_HEIGHT,
-		});
+	const listCache = useMemo(() => {
+		return (
+			cache ??
+			new CellMeasurerCache({
+				fixedWidth: true,
+				defaultHeight: ELEMENT_ITEM_HEIGHT,
+				minHeight: ELEMENT_ITEM_HEIGHT,
+			})
+		);
+	}, [cache]);
 
 	useEffect(() => {
 		// need to recalculate values if we have the same items, but they're reordered

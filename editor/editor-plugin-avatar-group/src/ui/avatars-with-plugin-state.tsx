@@ -11,7 +11,7 @@ import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/
 import type { CollabInviteToEditProps } from '@atlaskit/editor-plugin-collab-edit';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { AvatarGroupPlugin } from '../plugin';
+import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
 
 import { Avatars } from './avatars';
 import { InviteToEditButton } from './invite-to-edit';

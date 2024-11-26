@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 18.6.0
+
+### Minor Changes
+
+- [#167480](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167480)
+  [`e78013c5d716b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e78013c5d716b) -
+  Update checkbox and radio select to match new icon styles behind feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.5.3
 
 ### Patch Changes

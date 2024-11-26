@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { md } from '@atlaskit/docs';
+import Link from '@atlaskit/link';
 import SectionMessage from '@atlaskit/section-message';
 
 export default md`
 ${(
 	<SectionMessage appearance="information">
 		This component is documented on{' '}
-		<a href="https://atlassian.design/components">atlassian.design</a>
+		<Link href="https://atlassian.design/components">atlassian.design</Link>
 	</SectionMessage>
 )}
 `;

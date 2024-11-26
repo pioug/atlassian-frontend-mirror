@@ -4,61 +4,73 @@ import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import { messages, MediaImage } from '@atlaskit/media-ui';
 import { isImageRemote } from './isImageRemote';
-import { CONTAINER_PADDING } from './styles';
 import { token } from '@atlaskit/tokens';
 import { IconButton } from '@atlaskit/button/new';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { cx, cssMap } from '@atlaskit/css';
 import { ERROR } from '../avatar-picker-dialog';
 import { CONTAINER_INNER_SIZE } from '../avatar-picker-dialog/layout-const';
 
-const removeImageContainerStyles = xcss({
-	position: 'absolute',
-	right: 'space.050',
-	top: 'space.050',
+const CONTAINER_PADDING = 28;
+
+const removeImageContainerStyles = cssMap({
+	root: {
+		position: 'absolute',
+		right: token('space.050'),
+		top: token('space.050'),
+	},
 });
 
-const dragOverlayStyles = xcss({
-	position: 'absolute',
-	width: '100%',
-	height: '100%',
-	cursor: 'move',
+const dragOverlayStyles = cssMap({
+	root: {
+		position: 'absolute',
+		width: '100%',
+		height: '100%',
+		cursor: 'move',
+	},
 });
 
-const maskShadow = {
+const maskPositionStyle = cssMap({
+	root: {
+		position: 'absolute',
+	},
+});
+
+const maskStyles = {
+	top: `${CONTAINER_PADDING}px`,
+	bottom: `${CONTAINER_PADDING}px`,
+	left: `${CONTAINER_PADDING}px`,
+	right: `${CONTAINER_PADDING}px`,
+	opacity: token('opacity.disabled'),
 	boxShadow: `0 0 0 100px ${token('elevation.surface.overlay', 'rgba(255, 255, 255)')}`,
 };
 
-const maskStyles = xcss({
-	position: 'absolute',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	top: `${CONTAINER_PADDING}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	bottom: `${CONTAINER_PADDING}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	left: `${CONTAINER_PADDING}px`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	right: `${CONTAINER_PADDING}px`,
-	opacity: 'opacity.disabled',
+const rectMaskStyles = cssMap({
+	root: {
+		borderRadius: token('border.radius.100'),
+	},
 });
 
-const rectMaskStyles = xcss({
-	borderRadius: 'border.radius.100',
+const circularMaskStyles = cssMap({
+	root: {
+		borderRadius: token('border.radius.circle'),
+	},
 });
 
-const circularMaskStyles = xcss({
-	borderRadius: 'border.radius.circle',
+const containerStyles = cssMap({
+	root: {
+		position: 'relative',
+		overflow: 'hidden',
+		borderRadius: token('border.radius.100'),
+	},
 });
 
-const containerStyles = xcss({
-	position: 'relative',
-	overflow: 'hidden',
-	borderRadius: 'border.radius.100',
-});
-
-const imageContainerStyles = xcss({
-	position: 'absolute',
-	userSelect: 'none',
-	borderRadius: 'border.radius.100',
+const imageContainerStyles = cssMap({
+	root: {
+		position: 'absolute',
+		userSelect: 'none',
+		borderRadius: token('border.radius.100'),
+	},
 });
 
 export interface ImageCropperProp {
@@ -124,27 +136,7 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 			onImageLoaded,
 			intl: { formatMessage },
 		} = this.props;
-		const containerDimensions = xcss({
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			width: `${containerSize}px`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			height: `${containerSize}px`,
-		});
 		const width = imageWidth ? `${imageWidth}px` : 'auto';
-		const height = imageHeight ? `${imageHeight}px` : 'auto';
-
-		const imageContainerDynamicStyles = xcss({
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			width,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			height,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			display: width === 'auto' ? 'none' : 'block',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			top: `${top}px`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			left: `${left}px`,
-		});
 
 		let crossOrigin: '' | 'anonymous' | 'use-credentials' | undefined;
 		try {
@@ -154,10 +146,23 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 		}
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			<Box testId="image-cropper" id="container" xcss={[containerStyles, containerDimensions]}>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage */}
-				<Box id="image-container" xcss={[imageContainerStyles, imageContainerDynamicStyles]}>
+			<Box
+				testId="image-cropper"
+				id="container"
+				xcss={containerStyles.root}
+				style={{ width: `${containerSize}px`, height: `${containerSize}px` }}
+			>
+				<Box
+					id="image-container"
+					xcss={imageContainerStyles.root}
+					style={{
+						width: imageWidth ? `${imageWidth}px` : 'auto',
+						height: imageHeight ? `${imageHeight}px` : 'auto',
+						display: width === 'auto' ? 'none' : 'block',
+						top: `${top}px`,
+						left: `${left}px`,
+					}}
+				>
 					<MediaImage
 						crossOrigin={crossOrigin}
 						dataURI={imageSource}
@@ -170,13 +175,13 @@ export class ImageCropper extends Component<ImageCropperProp & WrappedComponentP
 				</Box>
 				{isCircularMask ? (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					<Box xcss={[maskStyles, circularMaskStyles]} style={maskShadow} />
+					<Box xcss={cx(circularMaskStyles.root, maskPositionStyle.root)} style={maskStyles} />
 				) : (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					<Box xcss={[maskStyles, rectMaskStyles]} style={maskShadow} />
+					<Box xcss={cx(rectMaskStyles.root, maskPositionStyle.root)} style={maskStyles} />
 				)}
-				<Box id="drag-overlay" xcss={dragOverlayStyles} onMouseDown={this.onDragStarted} />
-				<Box id="remove-image-container" xcss={removeImageContainerStyles}>
+				<Box id="drag-overlay" xcss={dragOverlayStyles.root} onMouseDown={this.onDragStarted} />
+				<Box id="remove-image-container" xcss={removeImageContainerStyles.root}>
 					<IconButton
 						id="remove-image-button"
 						icon={(iconProps) => (

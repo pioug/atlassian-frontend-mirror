@@ -11,7 +11,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { getCursor } from '../utils';
+import { getCursor } from './utils';
 
 const deleteCurrentItem =
 	($from: ResolvedPos) =>

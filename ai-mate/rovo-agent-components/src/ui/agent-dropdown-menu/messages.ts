@@ -46,9 +46,4 @@ export default defineMessages({
 		defaultMessage: 'View full profile',
 		description: 'Button to view an agent full profile',
 	},
-	transferOwnership: {
-		id: 'rovo-chat.view-agents.transfer-ownership',
-		defaultMessage: 'Transfer ownership',
-		description: 'Button to transfer ownership of an agent',
-	},
 } as const);

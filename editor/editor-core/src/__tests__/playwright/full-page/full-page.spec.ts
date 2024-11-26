@@ -1,3 +1,4 @@
+import { expect, editorTestCase as test } from '@af/editor-libra';
 import {
 	EditorDateInputModel,
 	EditorDateModel,
@@ -5,9 +6,7 @@ import {
 	EditorNodeContainerModel,
 	EditorPopupModel,
 	EditorTableModel,
-	expect,
-	editorTestCase as test,
-} from '@af/editor-libra';
+} from '@af/editor-libra/page-models';
 
 import { tableAdf, twoDatesAdf } from './full-page.spec.ts-fixtures/adf';
 

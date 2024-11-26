@@ -1,7 +1,8 @@
 import React from 'react';
 import { PureComponent } from 'react';
 
-import { Pressable } from '@atlaskit/primitives';
+import { Text, Pressable } from '@atlaskit/primitives';
+import Heading from '@atlaskit/heading';
 
 import type { EmojiProvider } from '../src/resource';
 import { ResourcedEmoji } from '../src/element';
@@ -20,7 +21,7 @@ const EmojiUsageList = (props: React.PropsWithChildren<EmojiUsageProps>) => {
 	let emojiUsageList;
 
 	if (emojiList.length === 0) {
-		emojiUsageList = <span>None</span>;
+		emojiUsageList = <Text>None</Text>;
 	} else {
 		emojiUsageList = (
 			<span>
@@ -47,7 +48,7 @@ const EmojiUsageList = (props: React.PropsWithChildren<EmojiUsageProps>) => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
-			<h4>Emojis ordered by usage</h4>
+			<Heading size="small">Emojis ordered by usage</Heading>
 			{emojiUsageList}
 		</div>
 	);
@@ -66,7 +67,7 @@ export class LocalStorageView extends PureComponent<LocalStorageViewProps, any> 
 	render() {
 		let renderedQueue;
 		if (this.props.emojiQueue.length === 0) {
-			renderedQueue = <span>None</span>;
+			renderedQueue = <Text>None</Text>;
 		} else {
 			renderedQueue = (
 				<span>
@@ -90,7 +91,7 @@ export class LocalStorageView extends PureComponent<LocalStorageViewProps, any> 
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
-				<h4>Emoji Queue (from localStorage)</h4>
+				<Heading size="small">Emoji Queue (from localStorage)</Heading>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>{renderedQueue}</pre>
 			</div>

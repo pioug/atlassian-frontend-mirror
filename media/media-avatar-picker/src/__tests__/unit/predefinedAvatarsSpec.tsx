@@ -8,7 +8,7 @@ describe('PredefinedAvatarView', () => {
 			const component = mountWithIntlContext(
 				<PredefinedAvatarView avatars={[]} onAvatarSelected={() => {}} />,
 			);
-			expect(component.find('.description').text()).toEqual('Default avatars');
+			expect(component.find('h2').text()).toEqual('Default avatars');
 		});
 
 		it('should use different caption text when predefinedAvatarsText is passed', () => {
@@ -19,7 +19,7 @@ describe('PredefinedAvatarView', () => {
 					predefinedAvatarsText="default icons"
 				/>,
 			);
-			expect(component.find('.description').text()).toEqual('default icons');
+			expect(component.find('h2').text()).toEqual('default icons');
 		});
 	});
 });

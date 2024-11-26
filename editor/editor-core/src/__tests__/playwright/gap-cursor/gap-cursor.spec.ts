@@ -1,12 +1,11 @@
+import { expect, editorTestCase as test } from '@af/editor-libra';
 import {
 	EditorExtensionDeleteConfirmationModel,
 	EditorExtensionModel,
 	EditorFloatingToolbarModel,
 	EditorGapCursorModel,
 	EditorNodeContainerModel,
-	expect,
-	editorTestCase as test,
-} from '@af/editor-libra';
+} from '@af/editor-libra/page-models';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 

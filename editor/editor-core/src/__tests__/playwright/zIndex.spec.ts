@@ -1,4 +1,5 @@
 import type { EditorPageInterface } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
 import {
 	EditorEmojiPickerModel,
 	EditorFloatingToolbarModel,
@@ -7,9 +8,7 @@ import {
 	EditorNodeContainerModel,
 	EditorPopupModel,
 	EditorTableModel,
-	expect,
-	editorTestCase as test,
-} from '@af/editor-libra';
+} from '@af/editor-libra/page-models';
 
 import { emptyAdf } from '../__fixtures__/base-adfs';
 

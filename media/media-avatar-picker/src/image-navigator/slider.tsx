@@ -2,14 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@compiled/react';
+import { token } from '@atlaskit/tokens';
 import { Component } from 'react';
 import FieldRange from '@atlaskit/range';
 import ScaleLargeIcon from '@atlaskit/icon/glyph/media-services/scale-large';
 import ScaleSmallIcon from '@atlaskit/icon/glyph/media-services/scale-small';
 import Button from '@atlaskit/button/standard-button';
-import { sliderWrapperStyles } from './styles';
 
 export interface SliderProps {
 	value: number;
@@ -20,13 +19,23 @@ export const defaultProps = {
 	value: 0,
 };
 
+const sliderWrapperStyles = css({
+	display: 'flex',
+	alignItems: 'center',
+	width: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.zoom_button svg': {
+		position: 'relative',
+		left: token('space.negative.025', '-2px'),
+	},
+});
+
 export class Slider extends Component<SliderProps, {}> {
 	static defaultProps = defaultProps;
 
 	render() {
 		const { value, onChange } = this.props;
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div data-testid="slider" css={sliderWrapperStyles}>
 				<Button
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

@@ -1,3 +1,5 @@
+/* eslint-disable @atlassian/tangerine/import/entry-points */
+
 import { type JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 
 export type RuleConfig = {

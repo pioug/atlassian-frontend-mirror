@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@compiled/react';
 import { useRef, useEffect } from 'react';
 
 import { R400 } from '@atlaskit/theme/colors';
@@ -12,7 +11,13 @@ import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import Flag from '@atlaskit/flag';
 import { messages } from '@atlaskit/media-ui';
 import { useIntl } from 'react-intl-next';
-import { avatarPickerErrorStyles } from './styles';
+
+const avatarPickerErrorStyles = css({
+	marginTop: token('space.0', '0px'),
+	marginRight: token('space.200', '16px'),
+	marginLeft: token('space.200', '16px'),
+	marginBottom: token('space.200', '16px'),
+});
 
 export const SubmitErrorDialog = () => {
 	const intl = useIntl();
@@ -25,7 +30,6 @@ export const SubmitErrorDialog = () => {
 	}, []);
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={avatarPickerErrorStyles} ref={flagContainerRef}>
 			<Flag
 				appearance="error"

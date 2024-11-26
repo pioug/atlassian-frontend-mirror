@@ -1,10 +1,11 @@
 import { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/error-reporter';
-import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { type SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
 
 import type { EditorConfig, EditorPlugin, PluginsOptions, PMPluginCreateConfig } from '../types';
 
+import { createEditorStateNotificationPlugin } from './editorStateNotificationPlugin';
 import { sortByOrder } from './sort-by-order';
 
 export function sortByRank(a: { rank: number }, b: { rank: number }): number {
@@ -106,7 +107,7 @@ export function processPluginsList(plugins: EditorPlugin[]): EditorConfig {
 export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
 	const { editorConfig } = config;
 
-	return editorConfig.pmPlugins
+	const pmPlugins = editorConfig.pmPlugins
 		.sort(sortByOrder('plugins'))
 		.map(({ plugin }) =>
 			plugin({
@@ -123,6 +124,10 @@ export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
 			}),
 		)
 		.filter((plugin): plugin is SafePlugin => typeof plugin !== 'undefined');
+	if (config.onEditorStateUpdated !== undefined) {
+		return [createEditorStateNotificationPlugin(config.onEditorStateUpdated), ...pmPlugins];
+	}
+	return pmPlugins;
 }
 
 export function createErrorReporter(errorReporterHandler?: ErrorReportingHandler) {

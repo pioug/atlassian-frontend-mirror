@@ -9,7 +9,12 @@ import { CustomError } from '../errors/custom-errors';
 
 const EVENT_SUBJECT = 'collab';
 
-const loggableErrorName = ['RangeError', 'TypeError', 'TransformError'];
+const loggableErrorName = [
+	'RangeError',
+	'TypeError',
+	'TransformError',
+	'NodeNestingTransformError',
+];
 
 enum COLLAB_SERVICE {
 	NCS = 'ncs',

@@ -1,4 +1,7 @@
 import React, { type ReactElement, cloneElement, type ChangeEvent, useState } from 'react';
+
+import { Text } from '@atlaskit/primitives';
+
 import { EmojiResource, type EmojiProvider, type EmojiResourceConfig } from '../src/resource';
 
 export function getEmojiConfig(allowUpload = true) {
@@ -57,10 +60,10 @@ export const ResourcedEmojiControl = (props: React.PropsWithChildren<Props>) => 
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<div style={{ paddingBottom }}>{cloneElement(children, { emojiProvider })}</div>
 			<div>
-				<p>
+				<Text as="p">
 					<label htmlFor="emoji-urls">EmojiLoader config</label>
-				</p>
-				<p>
+				</Text>
+				<Text as="p">
 					<textarea
 						id="emoji-urls"
 						rows={15}
@@ -69,7 +72,7 @@ export const ResourcedEmojiControl = (props: React.PropsWithChildren<Props>) => 
 						onChange={emojiConfigChange}
 						defaultValue={JSON.stringify(emojiConfig, null, 2)}
 					/>
-				</p>
+				</Text>
 			</div>
 		</div>
 	);

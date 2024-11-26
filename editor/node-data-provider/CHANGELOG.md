@@ -1,5 +1,14 @@
 # @atlaskit/node-data-provider
 
+## 3.0.0
+
+### Major Changes
+
+- [#168498](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168498)
+  [`b618d5eba05a9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b618d5eba05a9) -
+  Removed private exported type `__doNotUseThisType`. This was only used for docs locally, and was
+  not meant to be exported
+
 ## 2.1.3
 
 ### Patch Changes

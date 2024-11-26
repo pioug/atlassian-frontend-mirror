@@ -22,6 +22,8 @@ export type DatasourceTypeWithOnlyTypeValues<K> = {
 	values: Extract<DatasourceType, { type: K }>['value'][];
 };
 
+export type DatasourceTypeValueType<K> = Extract<DatasourceType, { type: K }>['value'];
+
 export type TableViewPropsRenderType = (item: DatasourceTypeWithOnlyValues) => React.ReactNode;
 
 export interface ColumnSizesMap {

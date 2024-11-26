@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 4.9.3
+
+### Patch Changes
+
+- [#168160](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168160)
+  [`5c96046203b6f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c96046203b6f) -
+  Tag top and side navigation components for SSR placeholder replacement
+
 ## 4.9.2
 
 ### Patch Changes

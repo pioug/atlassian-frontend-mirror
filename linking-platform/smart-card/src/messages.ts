@@ -239,7 +239,7 @@ export const messages: Messages = defineMessages({
 	},
 	automation_action_title: {
 		id: 'fabric.linking.automation-action.title',
-		defaultMessage: 'View automation rules...',
+		defaultMessage: 'View automation rules',
 		description:
 			'The title of the button in a hover card to open an automation menu for a given SmartLink.',
 	},
@@ -918,8 +918,8 @@ export const messages: Messages = defineMessages({
 		description: 'Shown as the title for the related links modal',
 	},
 	related_links_view_related_urls: {
-		id: 'fabric.linking.related_links_view_related_urls.nonfinal',
-		defaultMessage: 'View recent links...',
+		id: 'fabric.linking.related_links_view_related_urls',
+		defaultMessage: 'View recent links',
 		description: 'Action to view related links to the given resource',
 	},
 	related_links_found_in: {

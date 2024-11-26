@@ -1,5 +1,17 @@
 # @atlaskit/dropdown-menu
 
+## 12.23.0
+
+### Minor Changes
+
+- [#166959](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166959)
+  [`9b3927dbda348`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b3927dbda348) -
+  Update checkbox and radio to match new icon styles behind feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.22.3
 
 ### Patch Changes

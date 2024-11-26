@@ -8,7 +8,7 @@ import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { clipboardPluginKey } from '../plugin-key';
+import { clipboardPluginKey } from './plugin-key';
 
 export enum ClipboardEventType {
 	CUT = 'CUT',

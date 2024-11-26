@@ -251,6 +251,9 @@ function ReactEditorView(props: EditorViewProps) {
 				dispatchAnalyticsEvent: dispatchAnalyticsEvent,
 				featureFlags,
 				getIntl: () => props.intl,
+				onEditorStateUpdated: fg('platform_editor_catch_missing_injection_states')
+					? pluginInjectionAPI.current.onEditorViewUpdated
+					: undefined,
 			});
 
 			contentTransformer.current = contentTransformerProvider
@@ -461,6 +464,9 @@ function ReactEditorView(props: EditorViewProps) {
 				dispatchAnalyticsEvent: dispatchAnalyticsEvent,
 				featureFlags,
 				getIntl: () => props.intl,
+				onEditorStateUpdated: fg('platform_editor_catch_missing_injection_states')
+					? pluginInjectionAPI.current.onEditorViewUpdated
+					: undefined,
 			});
 
 			const newState = state.reconfigure({ plugins: plugins as Plugin[] });
@@ -481,11 +487,14 @@ function ReactEditorView(props: EditorViewProps) {
 			oldEditorState,
 			newEditorState,
 		}: EditorViewStateUpdatedCallbackProps) => {
-			pluginInjectionAPI.current.onEditorViewUpdated({
-				newEditorState,
-				oldEditorState,
-			});
+			if (!fg('platform_editor_catch_missing_injection_states')) {
+				pluginInjectionAPI.current.onEditorViewUpdated({
+					newEditorState,
+					oldEditorState,
+				});
+			}
 
+			// ED-25839: Investigate if we also want to migrate this API to use `onEditorStateUpdated` in `createPMPlugins`
 			config.current?.onEditorViewStateUpdatedCallbacks.forEach((entry) => {
 				entry.callback({
 					originalTransaction,

@@ -1,4 +1,6 @@
-import { BROWSERS, expect, fixTest, editorTestCase as test } from '@af/editor-libra';
+import { expect, editorTestCase as test } from '@af/editor-libra';
+import { fixTest } from '@af/integration-testing';
+import { BROWSERS } from '@af/integration-testing/config/constants';
 
 import {
 	noTrailingSpacesWithPlaceholder,

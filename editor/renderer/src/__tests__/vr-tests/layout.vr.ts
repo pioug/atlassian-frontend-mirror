@@ -18,6 +18,7 @@ import {
 	Layout4ColWithWidthRenderer,
 	Layout5ColWithWidthRenderer,
 	Layout5ColWithWidthAndLayout5ColWithWideRenderer,
+	Layout5ColWithWidthInFullWidthRenderer,
 } from './layout.fixture';
 import { snapshot } from '@af/visual-regression';
 
@@ -60,6 +61,13 @@ snapshot(Layout5ColWithWidthRenderer, {
 });
 
 snapshot(Layout5ColWithWidthAndLayout5ColWithWideRenderer, {
+	featureFlags: {
+		advanced_layouts: true,
+		platform_editor_advanced_layouts_breakout_resizing: true,
+	},
+});
+
+snapshot(Layout5ColWithWidthInFullWidthRenderer, {
 	featureFlags: {
 		advanced_layouts: true,
 		platform_editor_advanced_layouts_breakout_resizing: true,

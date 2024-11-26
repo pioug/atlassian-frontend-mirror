@@ -85,6 +85,7 @@ export default (
 		packageHierarchy: packageHierarchy.join(',') || undefined,
 		...{ packageName, packageVersion },
 		...merge(extraAttributes, payloadAttributes),
+		...merge({}, ...event.context),
 	};
 	// Ensure navigation tag is not duplicated by using Set
 	const tags: Set<string> = new Set(event.payload.tags || []);

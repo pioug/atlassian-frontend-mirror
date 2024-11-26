@@ -1,5 +1,4 @@
 import { isRotated } from '@atlaskit/media-ui';
-import { CONTAINER_PADDING } from './styles';
 import { getCanvas } from '../util';
 
 export interface Rect {
@@ -8,6 +7,8 @@ export interface Rect {
 	width: number;
 	height: number;
 }
+
+const CONTAINER_PADDING = 28;
 
 export const cropToDataURI = (
 	imageElement: HTMLImageElement,

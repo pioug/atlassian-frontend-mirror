@@ -1,7 +1,5 @@
 import React, { useCallback, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
 import useInvoke from '../../../../../../state/hooks/use-invoke';
@@ -31,67 +29,34 @@ const ServerAction = ({
 
 			try {
 				setIsLoading(true);
-
 				analytics?.ui.smartLinkServerActionClickedEvent({
 					smartLinkActionType,
 				});
-
-				if (fg('smart-card-migrate-track-analytics')) {
-					fireEvent('track.smartLinkQuickAction.started', {
-						smartLinkActionType,
-					});
-				} else {
-					analytics?.track.smartLinkQuickActionStarted({ smartLinkActionType });
-				}
-
+				fireEvent('track.smartLinkQuickAction.started', {
+					smartLinkActionType,
+				});
 				const request = createInvokeRequest(action);
 				await invoke(request);
-
-				if (fg('smart-card-migrate-track-analytics')) {
-					fireEvent('track.smartLinkQuickAction.success', {
-						smartLinkActionType,
-					});
-				} else {
-					analytics?.track.smartLinkQuickActionSuccess({ smartLinkActionType });
-				}
-
+				fireEvent('track.smartLinkQuickAction.success', {
+					smartLinkActionType,
+				});
 				if (action.reload && action.reload.url) {
 					await reload(action.reload.url, true, undefined, action.reload.id);
 				}
-
 				setIsLoading(false);
-
 				if (onClick) {
 					onClick();
 				}
 			} catch (err: any) {
 				setIsLoading(false);
-
-				if (fg('smart-card-migrate-track-analytics')) {
-					fireEvent('track.smartLinkQuickAction.failed', {
-						smartLinkActionType,
-						reason: getInvokeFailureReason(err),
-					});
-				} else {
-					analytics?.track.smartLinkQuickActionFailed({
-						smartLinkActionType,
-						reason: getInvokeFailureReason(err),
-					});
-				}
-
+				fireEvent('track.smartLinkQuickAction.failed', {
+					smartLinkActionType,
+					reason: getInvokeFailureReason(err),
+				});
 				onErrorCallback?.();
 			}
 		}
-	}, [
-		action,
-		analytics?.track,
-		analytics?.ui,
-		invoke,
-		onClick,
-		onErrorCallback,
-		reload,
-		fireEvent,
-	]);
+	}, [action, analytics?.ui, invoke, onClick, onErrorCallback, reload, fireEvent]);
 
 	return <Action {...props} isLoading={isLoading} onClick={handleClick} />;
 };

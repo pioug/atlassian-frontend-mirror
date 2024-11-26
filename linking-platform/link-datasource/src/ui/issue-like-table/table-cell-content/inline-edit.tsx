@@ -35,6 +35,8 @@ const getBackendUpdateValue = (typedNewValue: DatasourceTypeWithOnlyValues): str
 			return typedNewValue.values[0] || '';
 		case 'status':
 			return typedNewValue.values[0]?.transitionId || '';
+		case 'user':
+			return typedNewValue.values[0]?.atlassianUserId || '';
 		case 'icon':
 			return typedNewValue.values[0]?.id || '';
 	}
@@ -58,6 +60,7 @@ const mapUpdatedItem = (
 				},
 			};
 		case 'status':
+		case 'user':
 		case 'icon':
 			return newValue.values[0]
 				? {

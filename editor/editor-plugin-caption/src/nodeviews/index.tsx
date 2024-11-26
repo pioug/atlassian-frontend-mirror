@@ -17,7 +17,7 @@ import { Caption } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { CaptionPlugin } from '../types';
+import type { CaptionPlugin } from '../captionPluginType';
 
 export class CaptionNodeView extends SelectionBasedNodeView {
 	private selected = this.insideSelection();

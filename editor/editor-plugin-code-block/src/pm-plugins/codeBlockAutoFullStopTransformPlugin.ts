@@ -4,7 +4,7 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { findCodeBlock } from '../utils';
+import { findCodeBlock } from './utils';
 
 export const codeBlockAutoFullStopTransformPluginKey = new PluginKey(
 	'codeBlockAutoFullStopTransformPluginKey',

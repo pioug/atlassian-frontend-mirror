@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `UNSAFE_createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::d67ababae6561c34c361bb99f053f31d>>
+ * @codegen <<SignedSource::8f87948f3b7bd2da3ce6d53f84f07265>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -71,6 +71,43 @@ interface metadata {
 }
 
 const metadata: Record<string, metadata> = {
+	'assets-data-manager': {
+		keywords: [
+			'assets-data-manager',
+			'assetsdatamanager',
+			'icon',
+			'icon-lab',
+			'core',
+			'data manager',
+			'assets',
+			'CMDB',
+			'configuration management database',
+		],
+		componentName: 'AssetsDataManagerIcon',
+		package: '@atlaskit/icon-lab/core/assets-data-manager',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for JSM Assets.',
+		team: 'Assets',
+	},
+	'assets-schema': {
+		keywords: [
+			'assets-schema',
+			'assetsschema',
+			'icon',
+			'icon-lab',
+			'core',
+			'assets',
+			'CMDB',
+			'configuration management database',
+		],
+		componentName: 'AssetsSchemaIcon',
+		package: '@atlaskit/icon-lab/core/assets-schema',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for JSM Assets.',
+		team: 'Assets',
+	},
 	'book-open': {
 		keywords: [
 			'book-open',
@@ -156,6 +193,26 @@ const metadata: Record<string, metadata> = {
 		usage: 'Multi purpose',
 		team: 'Design System Team',
 	},
+	initiative: {
+		keywords: [
+			'initiative',
+			'icon',
+			'icon-lab',
+			'core',
+			'fortune teller',
+			'crystal ball',
+			'future',
+			'issue type',
+			'system object',
+			'work collection',
+		],
+		componentName: 'InitiativeIcon',
+		package: '@atlaskit/icon-lab/core/initiative',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Representing Jira Initiatives',
+		team: 'Jira Enterprise',
+	},
 	lozenge: {
 		keywords: ['lozenge', 'icon', 'icon-lab', 'core', 'insert', 'status', 'badge'],
 		componentName: 'LozengeIcon',
@@ -200,6 +257,15 @@ const metadata: Record<string, metadata> = {
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose',
 		team: 'Design System Team',
+	},
+	'qr-code': {
+		keywords: ['qr-code', 'qrcode', 'icon', 'icon-lab', 'core', 'QR code', 'barcode'],
+		componentName: 'QrCodeIcon',
+		package: '@atlaskit/icon-lab/core/qr-code',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for QR code experiences.',
+		team: 'Assets',
 	},
 	'roadmaps-plan': {
 		keywords: [

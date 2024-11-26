@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::7c3b4cb4e2396681526312391189b36e>>
+ * @codegen <<SignedSource::21cc5e8a48fa1ff0264c5abb7df80aa6>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const SidebarCollapseIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M4.75 2.75H2C1.31 2.75.75 3.31.75 4v8c0 .69.56 1.25 1.25 1.25h2.75m0-10.5H14c.69 0 1.25.56 1.25 1.25v8c0 .69-.56 1.25-1.25 1.25H4.75m0-10.5v10.5M11 5.5 8.5 8l2.5 2.5"/>`
+  dangerouslySetGlyph: `<path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M4.75 1.75H2C1.31 1.75.75 2.31.75 3v10c0 .69.56 1.25 1.25 1.25h2.75m0-12.5H14c.69 0 1.25.56 1.25 1.25v10c0 .69-.56 1.25-1.25 1.25H4.75m0-12.5v12.5M11 5.5 8.5 8l2.5 2.5"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 SidebarCollapseIcon.displayName = 'SidebarCollapseIcon';

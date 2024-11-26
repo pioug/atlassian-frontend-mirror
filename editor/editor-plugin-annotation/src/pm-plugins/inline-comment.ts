@@ -18,14 +18,13 @@ import {
 	setSelectedAnnotation,
 	updateInlineCommentResolvedState,
 	updateMouseState,
-} from '../commands';
+} from '../editor-commands';
 import {
 	AnnotationNodeView,
 	getAnnotationViewClassname,
 	getBlockAnnotationViewClassname,
 } from '../nodeviews';
 import type { InlineCommentAnnotationProvider } from '../types';
-import { decorationKey, getAllAnnotations, getPluginState, inlineCommentPluginKey } from '../utils';
 
 import { createPluginState } from './plugin-factory';
 import type {
@@ -33,6 +32,7 @@ import type {
 	InlineCommentPluginOptions,
 	InlineCommentPluginState,
 } from './types';
+import { decorationKey, getAllAnnotations, getPluginState, inlineCommentPluginKey } from './utils';
 
 const fetchProviderStates = async (
 	provider: InlineCommentAnnotationProvider,

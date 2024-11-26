@@ -4,13 +4,11 @@
  */
 /* eslint-disable no-console */
 import React, { type ReactNode } from 'react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@compiled/react';
 import Button from '@atlaskit/button/standard-button';
 import { ModalTransition } from '@atlaskit/modal-dialog';
 import { type Avatar, AvatarPickerDialog } from '../src';
 import { generateAvatars } from '../example-helpers';
-import { layoutStyles } from './styles';
 import {
 	type AvatarPickerDialogPropsAlt,
 	type AvatarPickerDialogPropsNoAlt,
@@ -42,6 +40,14 @@ type StatefulAvatarPickerDialogPropsToOmit =
 	| 'onCancel'
 	| 'isLoading'
 	| 'predefinedAvatarsText';
+
+const layoutStyles = css({
+	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'center',
+	justifyContent: 'space-around',
+	height: '80vh',
+});
 
 export default class StatefulAvatarPickerDialog extends React.Component<
 	| Partial<AsyncAvatarPickerDialogPropsNoAlt>
@@ -166,7 +172,6 @@ export default class StatefulAvatarPickerDialog extends React.Component<
 		const { requireAltText } = this.props;
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={layoutStyles}>
 				<Button appearance="primary" onClick={this.openPicker}>
 					Open sesame!

@@ -8,7 +8,7 @@ import { jsx } from '@emotion/react';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { R100 } from '@atlaskit/theme/colors';
 
-import type { AvatarGroupPlugin } from '../plugin';
+import type { AvatarGroupPlugin } from '../avatarGroupPluginType';
 
 import { badge } from './styles';
 

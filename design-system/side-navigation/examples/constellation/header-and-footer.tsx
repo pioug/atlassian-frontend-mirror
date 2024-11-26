@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Icon from '@atlaskit/icon';
+import Link from '@atlaskit/link';
 
 import {
 	Footer,
@@ -40,8 +41,8 @@ const Example = () => {
 						iconBefore={<Icon label="" glyph={SampleIcon} />}
 						description={
 							<div>
-								<a href="https://www.atlassian.design">Give feedback</a> {' ∙ '}
-								<a href="https://www.atlassian.design">About this project</a>
+								<Link href="https://www.atlassian.design">Give feedback</Link> {' ∙ '}
+								<Link href="https://www.atlassian.design">About this project</Link>
 							</div>
 						}
 					>

@@ -1,5 +1,33 @@
 # @atlaskit/editor-common
 
+## 95.6.1
+
+### Patch Changes
+
+- [#168711](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168711)
+  [`b2f2dc82e10b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b2f2dc82e10b3) -
+  Memoises the CellMeasurerCache used in the insert menu
+- Updated dependencies
+
+## 95.6.0
+
+### Minor Changes
+
+- [#166206](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166206)
+  [`589f49d62238b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/589f49d62238b) -
+  [ux] Adds logic to change bodied macro from edit to view mode and vice versa. Also updates some
+  styling/interactions based on this new feature.
+
+## 95.5.0
+
+### Minor Changes
+
+- [#166140](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166140)
+  [`3c5e0d8de190a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c5e0d8de190a) -
+  [ux] EDF-1724: Additional cleanup of unused action and types for ai panels and adding render
+  analytics for better usage tracking including a new `aiPanelsBodiedExtension rendered` UI event
+  that includes tracking panel status and nodeMarkCount.
+
 ## 95.4.0
 
 ### Minor Changes

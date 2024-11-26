@@ -1,5 +1,13 @@
 # @atlaskit/checkbox
 
+## 15.2.0
+
+### Minor Changes
+
+- [#166921](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166921)
+  [`9875764c197bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9875764c197bb) -
+  Update checkbox to match new icon styles behind feature flag.
+
 ## 15.1.1
 
 ### Patch Changes

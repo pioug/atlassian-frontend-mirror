@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { getUrl } from '@atlaskit/linking-common';
-import { type SmartLinkActionType } from '@atlaskit/linking-types';
 
 import {
 	chunkloadFailedEvent,
@@ -13,8 +12,6 @@ import {
 	invokeFailedEvent,
 	invokeSucceededEvent,
 	screenAuthPopupEvent,
-	trackAppAccountAuthStarted,
-	trackAppAccountConnected,
 	uiActionClickedEvent,
 	uiAuthAlternateAccountEvent,
 	uiAuthEvent,
@@ -30,15 +27,7 @@ import {
 	uiSmartLinkStatusLozengeButtonClicked,
 	uiSmartLinkStatusOpenPreviewButtonClicked,
 } from '../../utils/analytics';
-import {
-	trackHoverCardResolutionStarted,
-	type TrackQuickActionFailureReason,
-	type TrackQuickActionType,
-	trackSmartLinkQuickActionFailed,
-	trackSmartLinkQuickActionStarted,
-	trackSmartLinkQuickActionSuccess,
-	uiServerActionClicked,
-} from '../../utils/analytics/analytics';
+import { uiServerActionClicked } from '../../utils/analytics/analytics';
 import {
 	type CommonEventProps,
 	type ConnectFailedEventProps,
@@ -47,7 +36,6 @@ import {
 	type InvokeFailedEventProps,
 	type InvokeSucceededEventProps,
 	type ScreenAuthPopupEventProps,
-	type TrackAppAccountConnectedProps,
 	type UiActionClickedEventProps,
 	type UiAuthAlternateAccountEventProps,
 	type UiAuthEventProps,
@@ -818,121 +806,6 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 		[defaultId, commonAttributes, dispatchAnalytics],
 	);
 
-	/** Contains all track analytics events */
-	const track = useMemo(
-		() => ({
-			/**
-			 * This fires an event which represents a user connecting their account to view a Smart Link.
-			 * @param definitionId The definitionId of the Smart Link resolver invoked.
-			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
-			 * @returns
-			 * @deprecated
-			 */
-			appAccountConnected: ({
-				extensionKey,
-				definitionId,
-				resourceType,
-				destinationProduct,
-				destinationSubproduct,
-				location,
-			}: TrackAppAccountConnectedProps) =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						trackAppAccountConnected({
-							...commonAttributes,
-							extensionKey,
-							definitionId,
-							resourceType,
-							destinationProduct,
-							destinationSubproduct,
-							location,
-						}),
-						commonAttributes,
-					),
-				),
-
-			/**
-			 * This fires an event which represents a user starting the Smart Link connect account process.
-			 * @param location a location where the Smart Link auth action was initiated.
-			 * @param extensionKey The extensionKey of the Smart Link resolver invoked.
-			 * @returns
-			 * @deprecated
-			 */
-			appAccountAuthStarted: ({ extensionKey, location }: TrackAppAccountConnectedProps) =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						trackAppAccountAuthStarted({
-							...commonAttributes,
-							extensionKey,
-							location,
-						}),
-						commonAttributes,
-					),
-				),
-
-			/**
-			 * This fires a tracking event before an action invoke api call is made
-			 * @deprecated
-			 */
-			smartLinkQuickActionStarted: (props: {
-				smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
-			}) =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						trackSmartLinkQuickActionStarted({ ...commonAttributes, ...props }),
-						commonAttributes,
-					),
-				),
-
-			/**
-			 * This fires a tracking event after an action invoke api call is successful
-			 * @deprecated
-			 */
-			smartLinkQuickActionSuccess: (props: {
-				smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
-			}) =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						trackSmartLinkQuickActionSuccess({ ...commonAttributes, ...props }),
-						commonAttributes,
-					),
-				),
-
-			/**
-			 * This fires a tracking event after an action invoke api call has failed
-			 * @deprecated
-			 */
-			smartLinkQuickActionFailed: (props: {
-				smartLinkActionType: SmartLinkActionType | TrackQuickActionType;
-				reason?: TrackQuickActionFailureReason;
-				step?: string;
-			}) =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						trackSmartLinkQuickActionFailed({ ...commonAttributes, ...props }),
-						commonAttributes,
-					),
-				),
-
-			/**
-			 * Fires a track event when we call loadMetadata() to get information for a hover card
-			 * @deprecated
-			 */
-			hoverCardResolutionStarted: () =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						trackHoverCardResolutionStarted({
-							display: 'hoverCardPreview',
-							...commonAttributes,
-						}),
-						commonAttributes,
-					),
-				),
-		}),
-
-		[commonAttributes, dispatchAnalytics],
-	);
-
 	/** Contains all screen analytics events */
 	const screen = useMemo(
 		() => ({
@@ -990,7 +863,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 		[commonAttributes, dispatchAnalytics],
 	);
 
-	return useMemo(() => ({ ui, operational, track, screen }), [ui, operational, track, screen]);
+	return useMemo(() => ({ ui, operational, screen }), [ui, operational, screen]);
 };
 
 export type AnalyticsFacade = ReturnType<typeof useSmartLinkAnalytics>;

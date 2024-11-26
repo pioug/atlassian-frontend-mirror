@@ -8,16 +8,15 @@ import {
 } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
+import reducer from './reducer';
+import type { InlineCommentPluginState } from './types';
 import {
 	decorationKey,
 	findAnnotationsInSelection,
 	inlineCommentPluginKey,
 	isBlockNodeAnnotationsSelected,
 	isSelectedAnnotationsChanged,
-} from '../utils';
-
-import reducer from './reducer';
-import type { InlineCommentPluginState } from './types';
+} from './utils';
 
 const handleDocChanged = (
 	tr: ReadonlyTransaction,

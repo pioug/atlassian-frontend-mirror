@@ -2,9 +2,8 @@ import { codeBidiWarningMessages } from '@atlaskit/editor-common/messages';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorAppearance, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
 
-import { codeBidiWarningPluginKey } from '../plugin-key';
-
 import { createBidiWarningsDecorationSetFromDoc, pluginFactoryCreator } from './plugin-factory';
+import { codeBidiWarningPluginKey } from './plugin-key';
 
 export const createPlugin = (
 	{ dispatch, getIntl, nodeViewPortalProviderAPI }: PMPluginFactoryParams,

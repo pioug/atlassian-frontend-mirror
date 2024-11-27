@@ -8,6 +8,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Heading from '@atlaskit/heading';
+import { Box, Text } from '@atlaskit/primitives';
 
 // eslint-disable-next-line @atlassian/tangerine/import/no-parent-imports
 import { MockLinkPickerPromisePlugin } from '../../__tests__/__helpers/mock-plugins';
@@ -56,39 +57,45 @@ export const BorderWrapper = ({ children }: { children: React.ReactNode }) => (
 
 export const LazyLoadingWithoutDisplayTextExample = () => {
 	return (
-		<div>
+		<Box>
 			<Heading size="xlarge">Without display text</Heading>
-			<p>LinkPicker on left, LoaderFallback on right. These should have similar height</p>
+			<Text as="p">
+				LinkPicker on left, LoaderFallback on right. These should have similar height
+			</Text>
 			<BorderWrapper>
 				<LinkPicker onSubmit={() => {}} onCancel={() => {}} hideDisplayText={true} />
-				<div>
+				<Box>
 					<LoaderFallback hideDisplayText={true}></LoaderFallback>
-				</div>
+				</Box>
 			</BorderWrapper>
-		</div>
+		</Box>
 	);
 };
 
 export const LazyLoadingWithDisplayTextExample = () => {
 	return (
-		<div>
+		<Box>
 			<Heading size="xlarge">With display text</Heading>
-			<p>LinkPicker on left, LoaderFallback on right. These should have similar height</p>
+			<Text as="p">
+				LinkPicker on left, LoaderFallback on right. These should have similar height
+			</Text>
 			<BorderWrapper>
 				<LinkPicker onSubmit={() => {}} onCancel={() => {}} hideDisplayText={false} />
-				<div>
+				<Box>
 					<LoaderFallback hideDisplayText={false} />
-				</div>
+				</Box>
 			</BorderWrapper>
-		</div>
+		</Box>
 	);
 };
 
 export const LazyLoadingWithoutDisplayTextWithOnePluginExample = () => {
 	return (
-		<div>
+		<Box>
 			<Heading size="xlarge">Without display text, with one plugin</Heading>
-			<p>LinkPicker on left, LoaderFallback on right. These should have similar height</p>
+			<Text as="p">
+				LinkPicker on left, LoaderFallback on right. These should have similar height
+			</Text>
 			<BorderWrapper>
 				<LinkPicker
 					plugins={plugins.slice(0, 1)}
@@ -96,34 +103,38 @@ export const LazyLoadingWithoutDisplayTextWithOnePluginExample = () => {
 					onCancel={() => {}}
 					hideDisplayText={true}
 				/>
-				<div>
+				<Box>
 					<LoaderFallback hideDisplayText={true} plugins={plugins.slice(0, 1)} />
-				</div>
+				</Box>
 			</BorderWrapper>
-		</div>
+		</Box>
 	);
 };
 
 export const LazyLoadingWithDisplayTextWithOnePluginExample = () => {
 	return (
-		<div>
+		<Box>
 			<Heading size="xlarge">With display text, with one plugin</Heading>
-			<p>LinkPicker on left, LoaderFallback on right. These should have similar height</p>
+			<Text as="p">
+				LinkPicker on left, LoaderFallback on right. These should have similar height
+			</Text>
 			<BorderWrapper>
 				<LinkPicker plugins={plugins.slice(0, 1)} onSubmit={() => {}} onCancel={() => {}} />
-				<div>
+				<Box>
 					<LoaderFallback plugins={plugins.slice(0, 1)} />
-				</div>
+				</Box>
 			</BorderWrapper>
-		</div>
+		</Box>
 	);
 };
 
 export const LazyLoadingWithoutDisplayTextWithPluginsExample = () => {
 	return (
-		<div>
+		<Box>
 			<Heading size="xlarge">Without display text, with plugins</Heading>
-			<p>LinkPicker on left, LoaderFallback on right. These should have similar height</p>
+			<Text as="p">
+				LinkPicker on left, LoaderFallback on right. These should have similar height
+			</Text>
 			<BorderWrapper>
 				<LinkPicker
 					plugins={plugins}
@@ -132,19 +143,21 @@ export const LazyLoadingWithoutDisplayTextWithPluginsExample = () => {
 					hideDisplayText={true}
 					featureFlags={{ scrollingTabs: true }}
 				/>
-				<div>
+				<Box>
 					<LoaderFallback hideDisplayText={true} isLoadingPlugins={true} plugins={plugins} />
-				</div>
+				</Box>
 			</BorderWrapper>
-		</div>
+		</Box>
 	);
 };
 
 export const LazyLoadingWithDisplayTextWithPluginsExample = () => {
 	return (
-		<div>
+		<Box>
 			<Heading size="xlarge">With display text, with plugins</Heading>
-			<p>LinkPicker on left, LoaderFallback on right. These should have similar height</p>
+			<Text as="p">
+				LinkPicker on left, LoaderFallback on right. These should have similar height
+			</Text>
 			<BorderWrapper>
 				<LinkPicker
 					plugins={plugins}
@@ -152,21 +165,23 @@ export const LazyLoadingWithDisplayTextWithPluginsExample = () => {
 					onCancel={() => {}}
 					featureFlags={{ scrollingTabs: true }}
 				/>
-				<div>
+				<Box>
 					<LoaderFallback isLoadingPlugins={true} plugins={plugins} />
-				</div>
+				</Box>
 			</BorderWrapper>
-		</div>
+		</Box>
 	);
 };
 
 export const LazyLoadingEditModeWithDisplayTextWithPluginsExample = () => {
 	return (
-		<div>
+		<Box>
 			<Heading size="xlarge">
 				Edit mode (mounted with url prop), with display text, with plugins
 			</Heading>
-			<p>LinkPicker on left, LoaderFallback on right. These should have similar height</p>
+			<Text as="p">
+				LinkPicker on left, LoaderFallback on right. These should have similar height
+			</Text>
 			<BorderWrapper>
 				<LinkPicker
 					plugins={plugins}
@@ -175,14 +190,14 @@ export const LazyLoadingEditModeWithDisplayTextWithPluginsExample = () => {
 					onCancel={() => {}}
 					featureFlags={{ scrollingTabs: true }}
 				/>
-				<div>
+				<Box>
 					<LoaderFallback
 						url="https://www.atlassian.com"
 						isLoadingPlugins={true}
 						plugins={plugins}
 					/>
-				</div>
+				</Box>
 			</BorderWrapper>
-		</div>
+		</Box>
 	);
 };

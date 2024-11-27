@@ -93,6 +93,7 @@ function ProfileCardTrigger<T>({
 				);
 			}}
 			content={() => (
+				// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 				<div onMouseEnter={onMouseEnter} onMouseLeave={hideProfilecard} onFocus={showProfilecard}>
 					{isLoading ? (
 						<ProfileCardWrapper>

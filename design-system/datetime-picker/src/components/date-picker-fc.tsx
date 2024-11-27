@@ -571,7 +571,8 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 
 	return (
 		// These event handlers must be on this element because the events come
-		// from different child elements.  Cannot use Box primtive until we remove ...innerProps
+		// from different child elements.
+		// Until innerProps is removed, it must remain a div rather than a primitive component.
 		<div
 			{...innerProps}
 			css={pickerContainerStyles}
@@ -582,10 +583,10 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 			onInput={onTextInput}
 			onKeyDown={onInputKeyDown}
 			ref={getContainerRef}
-			// loophole role="presentation" as it solves the onclick, onfocus, etc. typecheck errors
+			// Since the onclick, onfocus are passed down, adding role="presentation" prevents typecheck errors.
 			role="presentation"
 		>
-			{/* because this input type="hidden", does not need to be textfield component */}
+			{/* Because this is ia hidden input field, it does not need to be Textfield component. */}
 			<input
 				name={name}
 				type="hidden"

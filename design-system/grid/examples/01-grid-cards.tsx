@@ -27,7 +27,7 @@ export default ({
 				<Box xcss={itemStyles} />
 			</GridItem>
 			{Array.from({ length: 8 }).map((_, i) => (
-				<GridItem span={{ sm: 4, lg: 3 }} key={`small-items-${i}`}>
+				<GridItem span={{ sm: 4, lg: 3 }} key={`small-items-${i}`} testId={`grid-item-${i}`}>
 					<Box xcss={itemStyles}>{i + 1}</Box>
 				</GridItem>
 			))}

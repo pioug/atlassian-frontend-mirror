@@ -176,6 +176,7 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 			return (
 				<div>
 					<h1>E-mail HTML</h1>
+					{/* eslint-disable-next-line jsx-a11y/iframe-has-title */}
 					<iframe
 						ref={this.onEmailRef}
 						frameBorder="0"

@@ -7,8 +7,7 @@
 import { jsx } from '@emotion/react';
 
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
-
-import { token } from '../../../src';
+import { token } from '@atlaskit/tokens';
 
 /**
  * Card for displaying a single pairing and its contrast

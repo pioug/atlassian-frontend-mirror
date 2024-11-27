@@ -28,7 +28,6 @@ describe('useSmartLinkClientExtension', () => {
 
 		expect(result.current).toEqual({
 			invoke: expect.any(Function),
-			relatedUrls: expect.any(Function),
 		});
 	});
 
@@ -223,83 +222,6 @@ describe('useSmartLinkClientExtension', () => {
 
 				await expect(() => result.current.invoke(data)).not.toThrow();
 			});
-		});
-	});
-
-	describe('related-urls', () => {
-		const url = 'http://foo.bar.example.com';
-
-		it('makes request to /related-urls', async () => {
-			mockFetch.mockResolvedValueOnce({
-				json: async () => undefined,
-				ok: true,
-				text: async () => undefined,
-			});
-
-			const { result } = renderHook(() => {
-				const cardClient = new CardClient();
-				return useSmartLinkClientExtension(cardClient);
-			});
-			await result.current.relatedUrls(url);
-
-			expect(mockFetch).toHaveBeenNthCalledWith(
-				1,
-				expect.stringContaining(`/related-urls?url=${encodeURIComponent(url)}`),
-				{
-					credentials: 'include',
-					headers: {
-						Accept: 'application/json',
-						'Cache-Control': 'private',
-						'Content-Type': 'application/json',
-					},
-					method: 'get',
-				},
-			);
-		});
-
-		it('returns response data on 200', async () => {
-			mockFetch.mockResolvedValueOnce({
-				json: async () => ({
-					foo: 'bar',
-				}),
-				ok: true,
-				status: 200,
-			});
-			const { result } = renderHook(() => {
-				const cardClient = new CardClient();
-				return useSmartLinkClientExtension(cardClient);
-			});
-			expect(await result.current.relatedUrls(url)).toStrictEqual({
-				foo: 'bar',
-			});
-		});
-
-		it('rejects on error', async () => {
-			const error = new Error();
-			mockFetch.mockRejectedValueOnce(error);
-
-			const { result } = renderHook(() => {
-				const cardClient = new CardClient();
-				return useSmartLinkClientExtension(cardClient);
-			});
-
-			await expect(result.current.relatedUrls(url)).rejects.toBe(error);
-		});
-
-		it.each([
-			201, 202, 203, 204, 205, 206, 207, 208, 226, 400, 401, 402, 403, 404, 405, 406, 407, 408, 409,
-			410, 411, 412, 413, 414, 415, 416, 417, 421, 422, 423, 424, 425, 426, 428, 429, 431, 451, 500,
-			501, 502, 503, 504, 505, 506, 507, 508, 511,
-		])('throws %s response', async (status: number) => {
-			const expectedResponse = { ok: false, status };
-			mockFetch.mockResolvedValueOnce(expectedResponse);
-
-			const { result } = renderHook(() => {
-				const cardClient = new CardClient();
-				return useSmartLinkClientExtension(cardClient);
-			});
-
-			await expect(result.current.relatedUrls(url)).rejects.toBe(expectedResponse);
 		});
 	});
 });

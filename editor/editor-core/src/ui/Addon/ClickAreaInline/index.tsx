@@ -34,6 +34,7 @@ export const ClickAreaInline = ({ editorView, children }: Props) => {
 		[editorView],
 	);
 
+	// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 	return <div data-testid="click-wrapper" css={clickArea} onMouseDown={handleMouseDown} />;
 };
 

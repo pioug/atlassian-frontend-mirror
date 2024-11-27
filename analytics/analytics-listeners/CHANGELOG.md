@@ -1,5 +1,14 @@
 # @atlaskit/analytics-listeners
 
+## 8.13.0
+
+### Minor Changes
+
+- [#167243](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167243)
+  [`e96979b15083b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e96979b15083b) -
+  Add non privacy safe attributes to the media analytics listenr, so they get passed along if they
+  were included.
+
 ## 8.12.0
 
 ### Minor Changes

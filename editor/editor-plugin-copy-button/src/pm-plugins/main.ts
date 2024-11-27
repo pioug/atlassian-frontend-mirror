@@ -3,7 +3,7 @@ import type { MarkType, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import type { CopyButtonPluginState } from '../types';
+import type { CopyButtonPluginState } from '../copyButtonPluginType';
 
 import { copyButtonPluginKey } from './plugin-key';
 

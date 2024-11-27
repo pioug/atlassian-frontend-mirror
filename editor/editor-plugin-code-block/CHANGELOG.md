@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.5.8
+
+### Patch Changes
+
+- [#167313](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167313)
+  [`40d491ee58258`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40d491ee58258) -
+  ED-24230 Remove code wrapping for editor FG
+
+## 3.5.7
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- Updated dependencies
+
 ## 3.5.6
 
 ### Patch Changes

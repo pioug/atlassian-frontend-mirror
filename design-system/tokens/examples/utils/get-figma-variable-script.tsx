@@ -1,4 +1,4 @@
-import { type ThemeOptionsSchema } from '../../src/theme-config';
+import { type ThemeOptionsSchema } from '@atlaskit/tokens';
 
 export default function getFigmaVariableScript(
 	customTheme: ThemeOptionsSchema,

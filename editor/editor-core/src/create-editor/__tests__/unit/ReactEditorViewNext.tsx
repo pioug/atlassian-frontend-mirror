@@ -83,13 +83,7 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import {
-	blockquote,
-	code_block,
-	doc,
-	p,
-	unsupportedNodeAttribute,
-} from '@atlaskit/editor-test-helpers/doc-builder';
+import { blockquote, code_block, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { mention } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -679,14 +673,7 @@ describe('@atlaskit/editor-core', () => {
 					expect(processRawValueWithoutValidationSpy).not.toHaveBeenCalled();
 
 					expect(editorView.state.doc.toJSON()).toEqual(
-						doc(
-							blockquote(
-								unsupportedNodeAttribute({
-									type: { nodeType: 'codeBlock' },
-									unsupported: { uniqueId: null },
-								})(code_block()()),
-							),
-						)(defaultSchema).toJSON(),
+						doc(blockquote(code_block()()))(defaultSchema).toJSON(),
 					);
 				});
 			});

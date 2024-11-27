@@ -71,7 +71,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/textfield": "^6.5.0",
+		"@atlaskit/textfield": "^6.6.0",
 		"@atlaskit/tooltip": "^18.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",

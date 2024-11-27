@@ -1,5 +1,25 @@
 # @atlaskit/forge-react-types
 
+## 0.31.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.31.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.31.0
+
+### Minor Changes
+
+- [#168779](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168779)
+  [`21af8728a17db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/21af8728a17db) -
+  Add isRequired prop to DatePicker
+
 ## 0.30.1
 
 ### Patch Changes

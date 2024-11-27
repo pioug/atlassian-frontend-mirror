@@ -108,6 +108,7 @@ class Example extends React.Component<{}, ExampleState> {
 						</p>
 					</div>
 					<PreviewImageContainer>
+						{/* eslint-disable-next-line jsx-a11y/alt-text */}
 						<img src={preview.src} />
 						<pre>{JSON.stringify(preview.metadata, null, 4)}</pre>
 					</PreviewImageContainer>

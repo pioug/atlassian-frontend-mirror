@@ -16,7 +16,6 @@ export type CardViewProps = CardProps & Pick<ProviderProps, 'client'>;
 // 	frameStyle?: CardProps['frameStyle'];
 // 	isSelected?: CardProps['isSelected'];
 // 	url?: CardProps['url'];
-// 	useLegacyBlockCard?: boolean;
 // 	/**
 // 	 * If this isn't specified, the card will only inherit the width of the parent and the height will be determined by the content.
 // 	 * Enabling this is required to test card content overflow issues.
@@ -57,7 +56,6 @@ const CardView = ({
 	frameStyle,
 	isSelected,
 	url = 'https://some.url',
-	useLegacyBlockCard = false,
 	inheritDimensions,
 	truncateInline,
 }: CardViewProps) => (
@@ -69,7 +67,6 @@ const CardView = ({
 				/* Embed-specific props */
 				frameStyle={frameStyle}
 				isSelected={isSelected}
-				useLegacyBlockCard={useLegacyBlockCard}
 				inheritDimensions={inheritDimensions}
 				truncateInline={truncateInline}
 			/>

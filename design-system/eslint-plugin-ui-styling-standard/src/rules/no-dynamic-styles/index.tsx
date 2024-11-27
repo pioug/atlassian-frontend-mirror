@@ -1,5 +1,6 @@
-import esquery from 'esquery';
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
+import esquery from 'esquery';
 
 import {
 	getImportSources,

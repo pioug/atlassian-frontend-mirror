@@ -17,21 +17,17 @@ export function removeBreakout(isLivePage?: boolean): Command {
 		const marks = node.node.marks.filter((m) => m.type.name !== 'breakout');
 		const tr = state.tr.setNodeMarkup(node.pos, node.node.type, node.node.attrs, marks);
 
-		if (fg('editor_support_code_block_wrapping')) {
-			if (node.node.type === state.schema.nodes.expand) {
-				updateExpandedState(tr, node, isLivePage);
-			} else if (
-				!fg('editor_code_block_wrapping_language_change_bug') &&
-				node.node.type === state.schema.nodes.codeBlock
-			) {
-				const newNode = tr.doc.nodeAt(node.pos);
-				const oldNode = node.node;
-				if (newNode) {
-					transferCodeBlockWrappedValue(oldNode, newNode);
-				}
-			}
-		} else {
+		if (node.node.type === state.schema.nodes.expand) {
 			updateExpandedState(tr, node, isLivePage);
+		} else if (
+			!fg('editor_code_block_wrapping_language_change_bug') &&
+			node.node.type === state.schema.nodes.codeBlock
+		) {
+			const newNode = tr.doc.nodeAt(node.pos);
+			const oldNode = node.node;
+			if (newNode) {
+				transferCodeBlockWrappedValue(oldNode, newNode);
+			}
 		}
 
 		tr.setMeta('scrollIntoView', false);

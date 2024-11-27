@@ -28,6 +28,7 @@ export const Wrapper = (props: WrapperProps) => {
 	} = props;
 
 	return (
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 		<div
 			id="newFileExperienceWrapper"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

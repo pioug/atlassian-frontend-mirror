@@ -13,6 +13,7 @@ const imageWrapperStyles = css({
 });
 
 export const ImageWrapper = ({ x, y, width, height, transform, ...props }: any) => (
+	// eslint-disable-next-line jsx-a11y/alt-text
 	<img
 		css={imageWrapperStyles}
 		style={{

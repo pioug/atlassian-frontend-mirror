@@ -3,7 +3,7 @@ import { type JsonLd } from 'json-ld-types';
 import { type CardType, getStatus } from '@atlaskit/linking-common';
 import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 
-import { type ResolvedAttributesType } from '../common/utils/analytics/analytics.codegen';
+import { type ResolvedAttributesType } from '../common/utils/analytics/analytics.types';
 import { getDisplayCategory } from './get-display-category';
 import { type LinkDetails } from '../types';
 

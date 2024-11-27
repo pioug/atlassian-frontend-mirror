@@ -31,21 +31,23 @@ describe('TagGroup', () => {
 	});
 
 	it('should justify to the start when alignment not set', () => {
-		const { container } = render(
+		render(
 			<TagGroup>
 				<Tag text="test" />
 			</TagGroup>,
 		);
-		expect(container.firstChild).toHaveStyle(`justify-content: flex-start`);
+		const tagGroup = screen.getByRole('group');
+		expect(tagGroup).toHaveStyle('justify-content: flex-start');
 	});
 
 	it('should justify to the end when alignment is set to end', () => {
-		const { container } = render(
+		render(
 			<TagGroup alignment="end">
 				<Tag text="test" />
 			</TagGroup>,
 		);
-		expect(container.firstChild).toHaveStyle(`justify-content: flex-end`);
+		const tagGroup = screen.getByRole('group');
+		expect(tagGroup).toHaveStyle(`justify-content: flex-end`);
 	});
 	it('should should have attribute role="group"', () => {
 		render(

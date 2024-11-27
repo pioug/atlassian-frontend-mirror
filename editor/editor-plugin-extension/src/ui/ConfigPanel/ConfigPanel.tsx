@@ -474,6 +474,7 @@ class ConfigPanel extends React.Component<Props, State> {
 							{(onFieldChange) => {
 								this.onFieldChange = onFieldChange;
 								return (
+									// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
 									<form
 										{...formProps}
 										noValidate

@@ -41,9 +41,10 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/table": "*",
-		"@atlaskit/textfield": "^6.5.0",
+		"@atlaskit/textfield": "^6.6.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/resolver-core": "0.0.25",
 		"@testing-library/react": "^12.1.5",

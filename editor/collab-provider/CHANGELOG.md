@@ -1,5 +1,22 @@
 # @atlaskit/collab-provider
 
+## 10.1.3
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- Updated dependencies
+
+## 10.1.2
+
+### Patch Changes
+
+- [#168141](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168141)
+  [`7f239fc40666c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f239fc40666c) -
+  CP getIsNamespaceLocked API
+
 ## 10.1.1
 
 ### Patch Changes

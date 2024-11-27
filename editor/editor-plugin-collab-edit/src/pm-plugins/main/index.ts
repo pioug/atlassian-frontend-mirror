@@ -21,9 +21,10 @@ import type {
 import { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { addSynchronyErrorAnalytics } from '../../analytics';
-import { initialize } from '../../events/initialize';
-import type { CollabEditPlugin, PrivateCollabEditOptions, ProviderCallback } from '../../types';
+import type { CollabEditPlugin } from '../../collabEditPluginType';
+import type { PrivateCollabEditOptions, ProviderCallback } from '../../types';
+import { addSynchronyErrorAnalytics } from '../analytics';
+import { initialize } from '../events/initialize';
 
 import { pluginKey } from './plugin-key';
 import { PluginState } from './plugin-state';

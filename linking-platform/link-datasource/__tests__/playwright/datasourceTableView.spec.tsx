@@ -144,6 +144,7 @@ test.describe('DatasourceTableView', () => {
 		);
 	});
 	test('can update priority column', async ({ page }) => {
+		page.setViewportSize({ width: 1920, height: 1080 });
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
 		await withFeatureFlags(page, [
 			'enable_datasource_react_sweet_state',

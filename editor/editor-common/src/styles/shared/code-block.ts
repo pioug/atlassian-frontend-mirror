@@ -20,19 +20,14 @@ export const CodeBlockSharedCssClassName = {
 	CODEBLOCK_LINE_NUMBER_GUTTER: 'line-number-gutter',
 	CODEBLOCK_CONTENT: 'code-content',
 	DS_CODEBLOCK: '[data-ds--code--code-block]',
-
-	// Feature Gate editor_support_code_block_wrapping:
-	CODEBLOCK_CONTENT_WRAPPER_FG: 'code-block-content-wrapper--fg',
-	CODEBLOCK_CONTENT_FG: 'code-content--fg',
-	CODEBLOCK_CONTENT_FG_WRAPPED: 'code-content--fg-wrapped',
+	CODEBLOCK_CONTENT_WRAPPED: 'code-content--wrapped',
 	CODEBLOCK_CONTAINER_LINE_NUMBER_WIDGET: 'code-content__line-number--wrapped',
-	CODEBLOCK_LINE_NUMBER_GUTTER_FG: 'line-number-gutter--fg',
 };
 
 export const codeBlockSharedStyles = () => css`
-	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_FG_WRAPPED}
-		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER_FG}
-		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_FG} {
+	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPED}
+		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}
+		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT} {
 		margin-right: ${token('space.100', '8px')};
 
 		code {
@@ -42,8 +37,8 @@ export const codeBlockSharedStyles = () => css`
 		}
 	}
 
-	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER_FG}
-		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_FG} {
+	.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER}
+		> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT} {
 		display: flex;
 		flex: 1;
 
@@ -86,6 +81,7 @@ export const codeBlockSharedStyles = () => css`
 		}
 
 		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER} {
+			position: relative;
 			background-color: ${token('color.background.neutral')};
 			display: flex;
 			border-radius: ${token('border.radius', '3px')};
@@ -122,35 +118,7 @@ export const codeBlockSharedStyles = () => css`
 			overflow-y: hidden;
 		}
 
-		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_WRAPPER_FG} {
-			// relative position set so number gutter remains absolute on horizontal scroll.
-			position: relative;
-		}
-
 		.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER} {
-			flex-shrink: 0;
-			text-align: right;
-			background-color: ${token('color.background.neutral')};
-			padding: ${token('space.100', '8px')};
-			position: relative;
-
-			span {
-				display: block;
-				line-height: 0;
-				font-size: 0;
-
-				::before {
-					display: inline-block;
-					content: counter(line);
-					counter-increment: line;
-					color: ${token('color.text.subtlest')};
-					font-size: ${relativeFontSizeToBase16(14)};
-					line-height: 1.5rem;
-				}
-			}
-		}
-
-		.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER_FG} {
 			background-color: ${token('color.background.neutral')};
 			position: relative;
 			width: var(--lineNumberGutterWidth, 2rem);
@@ -161,23 +129,6 @@ export const codeBlockSharedStyles = () => css`
 		}
 
 		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT} {
-			display: flex;
-			flex: 1;
-
-			code {
-				flex-grow: 1;
-				tab-size: 4;
-				cursor: text;
-				color: ${token('color.text')};
-				border-radius: ${token('border.radius', '3px')};
-				margin: ${token('space.100', '8px')};
-				white-space: pre;
-				font-size: ${relativeFontSizeToBase16(14)};
-				line-height: 1.5rem;
-			}
-		}
-
-		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT_FG} {
 			code {
 				tab-size: 4;
 				cursor: text;

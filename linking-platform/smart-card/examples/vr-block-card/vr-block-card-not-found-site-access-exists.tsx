@@ -17,13 +17,3 @@ export const BlockCardNotFoundSiteAccessExists = () => (
 		url="https://site.atlassian.net/browse/key-1"
 	/>
 );
-
-export const BlockCardNotFoundSiteAccessExistsLegacy = () => (
-	<VRCardView
-		appearance="block"
-		client={new NotFoundWithSiteAccessExistsClient()}
-		overrideCss={containerStyles}
-		url="https://site.atlassian.net/browse/key-1"
-		useLegacyBlockCard={true}
-	/>
-);

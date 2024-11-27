@@ -50,7 +50,7 @@ const ResultBox = styled.div({
 	whiteSpace: 'nowrap',
 });
 
-const displayResults = (width?: Number) => <ResultBox>Width: {width}</ResultBox>;
+const displayResults = (width?: number) => <ResultBox>Width: {width}</ResultBox>;
 
 export default function Example() {
 	return (

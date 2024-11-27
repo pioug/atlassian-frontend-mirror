@@ -126,6 +126,7 @@ class TemplatePanel extends React.Component<
 			<ContextPanel visible={true} editorAPI={this.props.editorAPI}>
 				<div>
 					{templates.map((tmpl, idx) => (
+						// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 						<div css={templateCard} key={idx} onClick={() => this.selectTemplate(tmpl)}>
 							<h4>{tmpl.title}</h4>
 							<p>{tmpl.desc}</p>

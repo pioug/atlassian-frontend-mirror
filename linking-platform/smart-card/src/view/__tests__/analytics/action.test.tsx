@@ -164,7 +164,6 @@ describe('actions', () => {
 	});
 
 	describe.each([
-		['block card', { display: 'block', props: { useLegacyBlockCard: true } }],
 		[
 			'flexible block card',
 			{

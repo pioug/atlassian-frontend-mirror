@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-date
 
+## 2.4.11
+
+### Patch Changes
+
+- [#169354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169354)
+  [`a083b7233a98e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a083b7233a98e) -
+  ED-25809: refactors plugins to meet folder standards
+
+## 2.4.10
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- Updated dependencies
+
 ## 2.4.9
 
 ### Patch Changes

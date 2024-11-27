@@ -1,6 +1,3 @@
-/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
-import rafSchedule from 'raf-schd';
-
 import { browser } from '@atlaskit/editor-common/browser';
 import {
 	codeBlockWrappedStates,
@@ -27,28 +24,24 @@ const MATCH_NEWLINES = new RegExp('\n', 'g');
 const toDOM = (node: Node, contentEditable: boolean, formattedAriaLabel: string) =>
 	[
 		'div',
-		{ class: 'code-block' },
+		{ class: codeBlockClassNames.container },
 		['div', { class: codeBlockClassNames.start, contenteditable: 'false' }],
 		[
 			'div',
 			{
-				class: `${codeBlockClassNames.contentWrapper} ${fg('editor_support_code_block_wrapping') && codeBlockClassNames.contentWrapperFg}`,
+				class: codeBlockClassNames.contentWrapper,
 			},
 			[
 				'div',
 				{
-					class: fg('editor_support_code_block_wrapping')
-						? codeBlockClassNames.gutterFg
-						: codeBlockClassNames.gutter,
+					class: codeBlockClassNames.gutter,
 					contenteditable: 'false',
 				},
 			],
 			[
 				'div',
 				{
-					class: fg('editor_support_code_block_wrapping')
-						? `${codeBlockClassNames.contentFg}`
-						: codeBlockClassNames.content,
+					class: codeBlockClassNames.content,
 				},
 				[
 					'code',
@@ -97,21 +90,15 @@ export class CodeBlockView {
 		this.node = node;
 		this.dom = dom as HTMLElement;
 		this.contentDOM = contentDOM as HTMLElement;
-		this.lineNumberGutter = this.dom.querySelector(
-			`.${fg('editor_support_code_block_wrapping') ? codeBlockClassNames.gutterFg : codeBlockClassNames.gutter}`,
-		) as HTMLElement;
+		this.lineNumberGutter = this.dom.querySelector(`.${codeBlockClassNames.gutter}`) as HTMLElement;
 		this.api = api;
 
-		if (fg('editor_support_code_block_wrapping')) {
-			this.maintainDynamicGutterSize();
+		this.maintainDynamicGutterSize();
 
-			// Ensure the code block node has a wrapped state.
-			// Wrapped state may already exist from breakout's recreating the node.
-			if (!codeBlockWrappedStates.has(node)) {
-				codeBlockWrappedStates.set(node, defaultWordWrapState);
-			}
-		} else {
-			this.ensureLineNumbers();
+		// Ensure the code block node has a wrapped state.
+		// Wrapped state may already exist from breakout's recreating the node.
+		if (!codeBlockWrappedStates.has(node)) {
+			codeBlockWrappedStates.set(node, defaultWordWrapState);
 		}
 		this.handleEditorDisabledChanged();
 	}
@@ -178,23 +165,6 @@ export class CodeBlockView {
 		}
 	}
 
-	private ensureLineNumbers = rafSchedule(() => {
-		let lines = 1;
-		this.node.forEach((node) => {
-			const text = node.text;
-			if (text) {
-				lines += (node.text!.match(MATCH_NEWLINES) || []).length;
-			}
-		});
-
-		while (this.lineNumberGutter.childElementCount < lines) {
-			this.lineNumberGutter.appendChild(document.createElement('span'));
-		}
-		while (this.lineNumberGutter.childElementCount > lines) {
-			this.lineNumberGutter.removeChild(this.lineNumberGutter.lastChild!);
-		}
-	});
-
 	/**
 	 * As the code block updates we get the maximum amount of digits in a line number and expand the number gutter to reflect this.
 	 */
@@ -217,10 +187,8 @@ export class CodeBlockView {
 			return false;
 		}
 		if (node !== this.node) {
-			if (fg('editor_support_code_block_wrapping')) {
-				if (!fg('editor_code_block_wrapping_language_change_bug')) {
-					transferCodeBlockWrappedValue(this.node, node);
-				}
+			if (!fg('editor_code_block_wrapping_language_change_bug')) {
+				transferCodeBlockWrappedValue(this.node, node);
 			}
 
 			if (node.attrs.language !== this.node.attrs.language) {
@@ -228,11 +196,7 @@ export class CodeBlockView {
 			}
 			this.node = node;
 
-			if (fg('editor_support_code_block_wrapping')) {
-				this.maintainDynamicGutterSize();
-			} else {
-				this.ensureLineNumbers();
-			}
+			this.maintainDynamicGutterSize();
 
 			if (browser.android) {
 				this.coalesceDOMElements();

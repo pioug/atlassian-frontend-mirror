@@ -74,6 +74,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 							this.setState({ imageId });
 						}}
 					/>
+					{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 					<label>Width</label>
 					<Textfield
 						label="width"
@@ -81,6 +82,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 						value={`${width}`}
 						onChange={this.onWidthChange}
 					/>
+					{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 					<label>Height</label>
 					<Textfield
 						label="height"
@@ -110,6 +112,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 								return null;
 							}
 
+							// eslint-disable-next-line jsx-a11y/alt-text
 							return <img src={data.src} />;
 						}}
 					</MediaImage>

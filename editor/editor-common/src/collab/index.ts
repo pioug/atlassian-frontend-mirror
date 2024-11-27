@@ -482,6 +482,8 @@ export interface CollabEditProvider<Events extends CollabEvents = CollabEvents> 
 	sendMessage<K extends keyof Events>(data: { type: K } & Events[K]): void;
 
 	getFinalAcknowledgedState(): Promise<ResolvedEditorState>;
+
+	getIsNamespaceLocked(): boolean;
 }
 
 export type CollabEditOptions = {

@@ -585,9 +585,11 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 		return (
 			// These event handlers must be on this element because the events come
 			// from different child elements.
+			// Until innerProps is removed, it must remain a div rather than a primitive component.
 			<div
 				{...innerProps}
 				css={pickerContainerStyles}
+				// Since the onclick, onfocus are passed down, adding role="presentation" prevents typecheck errors.
 				role="presentation"
 				onBlur={this.onContainerBlur}
 				onFocus={this.onContainerFocus}
@@ -597,6 +599,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 				ref={this.getContainerRef}
 				data-testid={testId && `${testId}--container`}
 			>
+				{/* Because this is ia hidden input field, it does not need to be Textfield component. */}
 				<input name={name} type="hidden" value={value} data-testid={testId && `${testId}--input`} />
 				<Select
 					appearance={this.props.appearance}

@@ -42,12 +42,15 @@ export default () => {
 			<Provider client={new CustomClient('staging')}>
 				<HoverCard url="https://www.mockurl.com" canOpen={canOpen}>
 					<div css={styles}>
+						{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 						<div data-testid="hover-test-can-open-left" onMouseEnter={() => setCanOpen(true)}>
 							Open
 						</div>
+						{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 						<div data-testid="hover-test-cannot-open" onMouseEnter={() => setCanOpen(false)}>
 							Close
 						</div>
+						{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 						<div data-testid="hover-test-can-open-right" onMouseEnter={() => setCanOpen(true)}>
 							Open
 						</div>

@@ -40,6 +40,7 @@ export const Metadata = ({ text, icon, iconUrl, tooltip }: MetadataProps) => {
 	let metadataIcon = icon || null;
 
 	if (!metadataIcon && iconUrl) {
+		// eslint-disable-next-line jsx-a11y/alt-text
 		metadataIcon = <img src={iconUrl} css={imgStyles} />;
 	}
 

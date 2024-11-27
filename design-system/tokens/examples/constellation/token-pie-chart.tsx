@@ -2,8 +2,7 @@ import React from 'react';
 
 import ReactECharts from 'echarts-for-react';
 
-import getTokenValue from '../../src/get-token-value';
-import useThemeObserver from '../../src/use-theme-observer';
+import { getTokenValue, useThemeObserver } from '@atlaskit/tokens';
 
 export const TokenPieChartCodeBlock = `
   //  This is using echarts-for-react to generate graphs and it's using canvas under the hood

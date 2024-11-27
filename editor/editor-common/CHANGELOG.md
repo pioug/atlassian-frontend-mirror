@@ -1,5 +1,45 @@
 # @atlaskit/editor-common
 
+## 95.7.1
+
+### Patch Changes
+
+- [#167313](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167313)
+  [`40d491ee58258`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40d491ee58258) -
+  ED-24230 Remove code wrapping for editor FG
+
+## 95.7.0
+
+### Minor Changes
+
+- [#168624](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168624)
+  [`6d928c0cb9227`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d928c0cb9227) -
+  [ux] [ED-25832] Hide external image badges for atlassian.com domains
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- Updated dependencies
+
+## 95.6.3
+
+### Patch Changes
+
+- [#168706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168706)
+  [`b1eef0648c061`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b1eef0648c061) -
+  [ED-25767] Fix responsiveness difference in editor vs renderer
+
+## 95.6.2
+
+### Patch Changes
+
+- [#168141](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168141)
+  [`7f239fc40666c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f239fc40666c) -
+  CP getIsNamespaceLocked API
+- Updated dependencies
+
 ## 95.6.1
 
 ### Patch Changes

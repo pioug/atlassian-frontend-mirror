@@ -255,7 +255,6 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
 				onKeyDown={this.onKeyDown}
 			>
 				<AkStatusPicker
-					// eslint-disable-next-line jsx-a11y/no-autofocus
 					autoFocus={isNew || focusStatusInput}
 					selectedColor={color}
 					text={text}
@@ -311,7 +310,6 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
 							onKeyDown={this.onKeyDown}
 						>
 							<AkStatusPicker
-								// eslint-disable-next-line jsx-a11y/no-autofocus
 								autoFocus={isNew || focusStatusInput}
 								selectedColor={color}
 								text={text}

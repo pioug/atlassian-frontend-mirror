@@ -130,6 +130,7 @@ export const LinkSearchListItem = forwardRef<HTMLDivElement, LinkSearchListItemP
 		const subtitleItems = item.subtitleItems || getDefaultSubtitleItems(item, intl);
 
 		return (
+			// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 			<div
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={composeListItemStyles(selected)}

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "2.13.23",
+	"version": "2.13.26",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -33,8 +33,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^44.2.0",
-		"@atlaskit/editor-common": "^95.6.0",
+		"@atlaskit/adf-schema": "^46.1.0",
+		"@atlaskit/editor-common": "^95.7.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.3.0",
@@ -51,7 +51,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
 		"@atlaskit/primitives": "^13.2.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.20.0",
+		"@atlaskit/tmp-editor-statsig": "^2.21.0",
 		"@atlaskit/tokens": "^2.3.0",
 		"@atlaskit/tooltip": "^18.9.0",
 		"@babel/runtime": "^7.0.0",
@@ -143,6 +143,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_element_dnd_nested_fix_patch_4": {
+			"type": "boolean"
+		},
+		"platform_editor_element_dnd_nested_fix_patch_5": {
 			"type": "boolean"
 		},
 		"platform_editor_element_dnd_nested_type_error_fix": {

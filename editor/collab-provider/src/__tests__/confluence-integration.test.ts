@@ -651,5 +651,59 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			let stepsJson = steps && steps.map((s) => s.toJSON());
 			expect(stepsJson).toEqual([{ from: 2, to: 3, stepType: 'replace' }]);
 		});
+
+		it('should lock and auto unlock namespace after waiting time', async () => {
+			provider.initialize(getStateMock);
+
+			// Initially, the namespace should be unlocked
+			expect(provider.getIsNamespaceLocked()).toBe(false);
+
+			const namespaceService = (provider as any).namespaceService;
+
+			// Simulate a namespace lock event
+			await namespaceService.onNamespaceStatusChanged({
+				isLocked: true,
+				waitTimeInMs: 1000,
+				timestamp: Date.now(),
+			});
+
+			// After the event, the namespace should be locked
+			expect(provider.getIsNamespaceLocked()).toBe(true);
+
+			// Wait for the lock expiration
+			await new Promise((resolve) => setTimeout(resolve, 1000));
+
+			// After the wait time, the namespace should be unlocked
+			expect(provider.getIsNamespaceLocked()).toBe(false);
+		});
+
+		it('should lock and unlock namespace when emit status event', async () => {
+			provider.initialize(getStateMock);
+
+			// Initially, the namespace should be unlocked
+			expect(provider.getIsNamespaceLocked()).toBe(false);
+
+			const namespaceService = (provider as any).namespaceService;
+
+			// Simulate a namespace lock event
+			await namespaceService.onNamespaceStatusChanged({
+				isLocked: true,
+				waitTimeInMs: 1000,
+				timestamp: Date.now(),
+			});
+
+			// After the event, the namespace should be locked
+			expect(provider.getIsNamespaceLocked()).toBe(true);
+
+			// Simulate an immediate unlock without wait time
+			await namespaceService.onNamespaceStatusChanged({
+				isLocked: false,
+				waitTimeInMs: 0,
+				timestamp: Date.now(),
+			});
+
+			// The namespace should remain unlocked
+			expect(provider.getIsNamespaceLocked()).toBe(false);
+		});
 	});
 });

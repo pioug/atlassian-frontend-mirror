@@ -63,10 +63,7 @@ describe('<RemoveButton />', () => {
 
 	it('should apply the given onMouseOver', () => {
 		const onMouseOver = jest.fn();
-		render(
-			// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-			<RemoveButton onMouseOver={onMouseOver} testId="remove-button" />,
-		);
+		render(<RemoveButton onMouseOver={onMouseOver} testId="remove-button" />);
 
 		const removeButton = screen.getByTestId('remove-button');
 		fireEvent.mouseOver(removeButton);
@@ -76,10 +73,7 @@ describe('<RemoveButton />', () => {
 
 	it('should apply the given onMouseOut', () => {
 		const onMouseOut = jest.fn();
-		render(
-			// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
-			<RemoveButton onMouseOut={onMouseOut} testId="remove-button" />,
-		);
+		render(<RemoveButton onMouseOut={onMouseOut} testId="remove-button" />);
 
 		const removeButton = screen.getByTestId('remove-button');
 		fireEvent.mouseOut(removeButton);

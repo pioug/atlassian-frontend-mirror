@@ -129,6 +129,7 @@ const LinkInfo = ({
 				<Heading size="medium" testId={`${testId}-title`}>
 					{title}
 				</Heading>
+				{/* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */}
 				<span tabIndex={0} />
 			</div>
 			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}

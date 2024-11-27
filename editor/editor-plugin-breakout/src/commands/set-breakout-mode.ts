@@ -17,21 +17,17 @@ export function setBreakoutMode(mode: BreakoutMode, isLivePage?: boolean): Comma
 			state.schema.marks.breakout.create({ mode }),
 		]);
 
-		if (fg('editor_support_code_block_wrapping')) {
-			if (node.node.type === state.schema.nodes.expand) {
-				updateExpandedState(tr, node, isLivePage);
-			} else if (
-				!fg('editor_code_block_wrapping_language_change_bug') &&
-				node.node.type === state.schema.nodes.codeBlock
-			) {
-				const newNode = tr.doc.nodeAt(node.pos);
-				const oldNode = node.node;
-				if (newNode) {
-					transferCodeBlockWrappedValue(oldNode, newNode);
-				}
-			}
-		} else {
+		if (node.node.type === state.schema.nodes.expand) {
 			updateExpandedState(tr, node, isLivePage);
+		} else if (
+			!fg('editor_code_block_wrapping_language_change_bug') &&
+			node.node.type === state.schema.nodes.codeBlock
+		) {
+			const newNode = tr.doc.nodeAt(node.pos);
+			const oldNode = node.node;
+			if (newNode) {
+				transferCodeBlockWrappedValue(oldNode, newNode);
+			}
 		}
 
 		tr.setMeta('scrollIntoView', false);

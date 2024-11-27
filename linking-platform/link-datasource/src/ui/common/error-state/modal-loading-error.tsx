@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { fontFallback } from '@atlaskit/theme/typography';
+import { Box, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -29,15 +29,6 @@ const errorMessageContainerStyles = css({
 	placeItems: 'center',
 });
 
-const errorMessageStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	font: token('font.heading.small', fontFallback.heading.small),
-});
-
-const errorDescriptionStyles = css({
-	margin: 0,
-});
-
 interface ModalLoadingErrorProps {
 	errorMessage?: React.ReactNode;
 }
@@ -54,14 +45,14 @@ export const ModalLoadingError = ({
 	}, [fireEvent]);
 
 	return (
-		<div css={errorContainerStyles} data-testid="datasource-modal--loading-error">
+		<Box xcss={errorContainerStyles} testId="datasource-modal--loading-error">
 			<LoadingErrorSVG />
-			<div css={errorMessageContainerStyles}>
-				<span css={errorMessageStyles}>
+			<Box xcss={errorMessageContainerStyles}>
+				<Text size="small">
 					<FormattedMessage {...loadingErrorMessages.unableToLoadResults} />
-				</span>
-				<p css={errorDescriptionStyles}>{errorMessage}</p>
-			</div>
-		</div>
+				</Text>
+				<Text as="p">{errorMessage}</Text>
+			</Box>
+		</Box>
 	);
 };

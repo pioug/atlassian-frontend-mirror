@@ -23,8 +23,9 @@ import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
 import type { DateType } from '../../types';
-import { formatDateType, parseDateType } from '../../utils/formatParse';
-import { adjustDate, findDateSegmentByPosition, isDatePossiblyValid } from '../../utils/internal';
+
+import { formatDateType, parseDateType } from './utils/formatParse';
+import { adjustDate, findDateSegmentByPosition, isDatePossiblyValid } from './utils/internal';
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const dateTextFieldWrapper = css({

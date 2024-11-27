@@ -386,6 +386,7 @@ const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 						}}
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={popupWrapperStyle}
+						// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
 						tabIndex={0}
 					>
 						<RepositionOnUpdate update={update} settings={settings}>

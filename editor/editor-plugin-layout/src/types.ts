@@ -18,6 +18,8 @@ export type PresetLayout =
 	| 'two_right_sidebar'
 	| 'two_left_sidebar'
 	| 'three_with_sidebars'
+	| 'three_left_sidebars'
+	| 'three_right_sidebars'
 	| 'four_equal'
 	| 'five_equal';
 

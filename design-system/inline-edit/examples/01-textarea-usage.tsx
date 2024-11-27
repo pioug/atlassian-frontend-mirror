@@ -39,6 +39,7 @@ const InlineEditExample = () => {
 				onConfirm={setEditValue}
 				keepEditViewOpenOnBlur
 				readViewFitContainerWidth
+				testId="textarea-usage"
 			/>
 		</Box>
 	);

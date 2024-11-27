@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 2.13.4
+
+### Patch Changes
+
+- [#168892](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168892)
+  [`5eb2a70adb262`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5eb2a70adb262) -
+  Remove react-router-dom from devDependencies as it is incompatible with React 18.
+
 ## 2.13.3
 
 ### Patch Changes

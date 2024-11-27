@@ -242,7 +242,9 @@ const DragHandleComponent = ({
 				aria-label={formatMessage(isRow ? messages.rowDragHandle : messages.columnDragHandle)}
 				aria-expanded={isDragMenuOpen && isDragMenuTarget ? 'true' : 'false'}
 				aria-haspopup="menu"
+				// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
 				onMouseOver={onMouseOver}
+				// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
 				onMouseOut={onMouseOut}
 				onMouseUp={(e) => {
 					// return focus to editor so copying table selections whilst still works, i cannot call e.preventDefault in a mousemove event as this stops dragstart events from firing

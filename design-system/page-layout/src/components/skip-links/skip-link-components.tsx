@@ -128,6 +128,7 @@ export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
 	const label = skipLinksLabel || DEFAULT_I18N_PROPS_SKIP_LINKS;
 
 	return (
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			onFocus={attachEscHandler}
 			onBlur={removeEscHandler}

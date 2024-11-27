@@ -450,39 +450,16 @@ describe('DatasourceTableView', () => {
 		expect(mockReset).toHaveBeenCalledWith({ shouldForceRequest: true, shouldResetColumns: false });
 	});
 
-	ffTest.on(
-		'platform.linking-platform.datasource-assets_update_refresh_button_dt3qk',
-		'reset() with shouldResetColumns',
-		() => {
-			it('should call reset() with shouldResetColumns', () => {
-				const { getByRole, mockReset } = setupAssetsTable();
-				asMock(mockReset).mockReset();
-				getByRole('button', { name: 'Refresh' }).click();
-				expect(mockReset).toHaveBeenCalledTimes(1);
-				expect(mockReset).toHaveBeenCalledWith({
-					shouldForceRequest: true,
-					shouldResetColumns: true,
-				});
-			});
-		},
-	);
-
-	ffTest.off(
-		'platform.linking-platform.datasource-assets_update_refresh_button_dt3qk',
-		'reset() with shouldResetColumns',
-		() => {
-			it('should call reset() with shouldResetColumns', () => {
-				const { getByRole, mockReset } = setupAssetsTable();
-				asMock(mockReset).mockReset();
-				getByRole('button', { name: 'Refresh' }).click();
-				expect(mockReset).toHaveBeenCalledTimes(1);
-				expect(mockReset).toHaveBeenCalledWith({
-					shouldForceRequest: true,
-					shouldResetColumns: false,
-				});
-			});
-		},
-	);
+	it('should call reset() with shouldResetColumns to be true when Assets Table', () => {
+		const { getByRole, mockReset } = setupAssetsTable();
+		asMock(mockReset).mockReset();
+		getByRole('button', { name: 'Refresh' }).click();
+		expect(mockReset).toHaveBeenCalledTimes(1);
+		expect(mockReset).toHaveBeenCalledWith({
+			shouldForceRequest: true,
+			shouldResetColumns: true,
+		});
+	});
 
 	it('should not show duplicate response items when a new column is added', () => {
 		const { rerender, getByTestId } = setup({

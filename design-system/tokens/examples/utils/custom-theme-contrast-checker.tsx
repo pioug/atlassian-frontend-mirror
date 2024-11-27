@@ -1,7 +1,9 @@
+import { type ActiveTokens } from '@atlaskit/tokens';
+import { dark as rawTokensDark, light as rawTokensLight } from '@atlaskit/tokens/tokens-raw';
+
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import generatedPairs from '../../src/artifacts/generated-pairs';
-import type tokens from '../../src/artifacts/token-names';
-import rawTokensDark from '../../src/artifacts/tokens-raw/atlassian-dark';
-import rawTokensLight from '../../src/artifacts/tokens-raw/atlassian-light';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { getContrastRatio } from '../../src/utils/color-utils';
 
 export interface CustomThemeContrastCheckResult {
@@ -9,17 +11,15 @@ export interface CustomThemeContrastCheckResult {
 	desiredContrast: number;
 	previousContrast: number;
 	foreground: {
-		tokenName: Token;
+		tokenName: ActiveTokens;
 		color: string;
 	};
 	background: {
-		tokenName: Token;
+		tokenName: ActiveTokens;
 		color: string;
 	};
-	updatedTokens?: Token[];
+	updatedTokens?: ActiveTokens[];
 }
-
-type Token = keyof typeof tokens;
 
 const getColorFromTokenRaw = (tokenName: string, mode: 'light' | 'dark'): string => {
 	return (mode === 'light' ? rawTokensLight : rawTokensDark).find(
@@ -70,11 +70,11 @@ export const customThemeContrastChecker = ({
 
 		contrastCheckFailedPairings.push({
 			foreground: {
-				tokenName: foreground as Token,
+				tokenName: foreground as ActiveTokens,
 				color: foregroundColor || rawForegroundColor,
 			},
 			background: {
-				tokenName: background as Token,
+				tokenName: background as ActiveTokens,
 				color: backgroundColor || rawBackgroundColor,
 			},
 			contrast,

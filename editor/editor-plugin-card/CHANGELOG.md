@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugin-card
 
+## 4.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.4.7
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- Updated dependencies
+
+## 4.4.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.4
 
 ### Patch Changes

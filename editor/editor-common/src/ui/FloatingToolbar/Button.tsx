@@ -112,6 +112,7 @@ export default ({
 				hideTooltipOnClick={hideTooltipOnClick}
 				position="top"
 			>
+				{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 				<div onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 					<Pulse pulse={pulse || spotlightConfig?.pulse}>
 						{/* TODO: (from codemod) CustomThemeButton will be deprecated. Please consider migrating to Pressable or Anchor Primitives with custom styles. */}

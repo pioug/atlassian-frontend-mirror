@@ -1,8 +1,8 @@
-export { collabEditPlugin } from './plugin';
+export { collabEditPlugin } from './collabEditPlugin';
+export type { CollabEditPlugin } from './collabEditPluginType';
 export type {
 	CollabInitializedMetadata,
 	CollabEditPluginSharedState,
-	CollabEditPlugin,
 	ReadOnlyParticipants,
 	PrivateCollabEditOptions,
 	CollabInviteToEditProps,

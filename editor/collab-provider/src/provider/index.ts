@@ -656,6 +656,13 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		}
 	};
 
+	/**
+	 * Returns the namespace locking status via true/false
+	 */
+	getIsNamespaceLocked(): boolean {
+		return this.namespaceService.getIsNamespaceLocked();
+	}
+
 	getUnconfirmedSteps = (): readonly ProseMirrorStep[] | undefined => {
 		return this.documentService.getUnconfirmedSteps();
 	};

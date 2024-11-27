@@ -44,6 +44,7 @@ export const EmojiRadioButton = forwardRef<HTMLInputElement, Props>((props: Prop
 	const { emoji, selectOnHover, ariaLabelText, defaultChecked } = props;
 
 	return (
+		// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
 		<label
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={emojiButton}

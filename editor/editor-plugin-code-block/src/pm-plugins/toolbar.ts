@@ -14,7 +14,6 @@ import DeleteIcon from '@atlaskit/icon/core/delete';
 import CopyIcon from '@atlaskit/icon/core/migration/copy';
 import TextWrapIcon from '@atlaskit/icon/core/text-wrap';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	changeLanguage,
@@ -151,16 +150,14 @@ export const getToolbarConfig =
 			title: 'CodeBlock floating controls',
 			getDomRef: (view) => findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
 			nodeType,
-			items: fg('editor_support_code_block_wrapping')
-				? [
-						languageSelect,
-						separator,
-						codeBlockWrapButton,
-						separator,
-						...copyToClipboardItems,
-						deleteButton,
-					]
-				: [languageSelect, separator, ...copyToClipboardItems, deleteButton],
+			items: [
+				languageSelect,
+				separator,
+				codeBlockWrapButton,
+				separator,
+				...copyToClipboardItems,
+				deleteButton,
+			],
 			scrollable: true,
 		};
 	};

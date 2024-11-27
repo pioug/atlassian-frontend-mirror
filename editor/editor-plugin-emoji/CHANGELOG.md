@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-emoji
 
+## 2.7.7
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- Updated dependencies
+
 ## 2.7.6
 
 ### Patch Changes

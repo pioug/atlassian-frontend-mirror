@@ -17,6 +17,7 @@ const Example = () => {
 	});
 	return (
 		<div style={{ padding: `${token('space.250', '20px')}` }}>
+			{/* eslint-disable-next-line jsx-a11y/iframe-has-title */}
 			<iframe
 				name="Basic MediaViewer Example"
 				src="./examples.html?groupId=media&packageId=media-viewer&exampleId=basic-example&mode=none"

@@ -15,10 +15,10 @@ import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
+import palettesRaw from '@atlaskit/tokens/palettes-raw';
+import tokenNames from '@atlaskit/tokens/token-names';
 
-import { token } from '../../../src';
-import palettesRaw from '../../../src/entry-points/palettes-raw';
-import tokenNames from '../../../src/entry-points/token-names';
 import { isHex } from '../utils/search-params';
 import { type Theme, type TokenName } from '../utils/types';
 

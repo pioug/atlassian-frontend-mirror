@@ -218,7 +218,7 @@ describe('Avatar', () => {
 			testId?: string;
 			onClick?: MouseEventHandler;
 		}> = ({ testId, onClick, children }) => (
-			// eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 			<div onClick={(e) => typeof onClick === 'function' && onClick(e)} data-testid={testId}>
 				{children}
 			</div>

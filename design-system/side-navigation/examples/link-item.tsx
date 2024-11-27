@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { type MouseEvent } from 'react';
 
 import BookIcon from '@atlaskit/icon/glyph/book';
@@ -9,6 +8,7 @@ import { LinkItem } from '../src';
 
 const Example = () => (
 	<Box onClick={(e: MouseEvent) => e.preventDefault()}>
+		{/* eslint-disable jsx-a11y/anchor-is-valid */}
 		<LinkItem href="#">My articles</LinkItem>
 		<LinkItem href="#" isDisabled>
 			My articles
@@ -40,6 +40,7 @@ const Example = () => (
 		>
 			My articles
 		</LinkItem>
+		{/* eslint-enable jsx-a11y/anchor-is-valid */}
 	</Box>
 );
 

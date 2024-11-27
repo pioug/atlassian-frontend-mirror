@@ -1,9 +1,7 @@
-import type tokenNames from '../../../src/entry-points/token-names';
-
-type TokenName = keyof typeof tokenNames;
+import { type ActiveTokens } from '@atlaskit/tokens';
 
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
-export const defaultCustomTheme: { name: TokenName; value: string }[] = [
+export const defaultCustomTheme: { name: ActiveTokens; value: string }[] = [
 	/*** DS token overrides ***/
 	/* Brand tokens */
 	{ name: 'color.text.brand', value: '#64329a' },

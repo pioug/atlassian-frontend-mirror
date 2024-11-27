@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/media-has-caption */
 import React, { useEffect, useState } from 'react';
 import { type MediaClient, type MediaFileArtifacts, type MediaType } from '@atlaskit/media-client';
 
@@ -74,13 +73,13 @@ export const NativeMediaViewer = ({ id, mediaClient }: NativeMediaViewerProps) =
 
 	switch (mediaType) {
 		case 'image':
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, jsx-a11y/alt-text -- Ignored via go/DSP-18766
 			return <img style={{ width: '100%' }} src={url} />;
 		case 'video':
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, jsx-a11y/media-has-caption -- Ignored via go/DSP-18766
 			return <video style={{ width: '100%' }} src={url} />;
 		case 'audio':
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, jsx-a11y/media-has-caption -- Ignored via go/DSP-18766
 			return <audio style={{ width: '100%' }} src={url} />;
 		case 'doc':
 			return (

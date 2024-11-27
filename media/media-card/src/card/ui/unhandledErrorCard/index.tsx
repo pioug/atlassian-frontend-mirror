@@ -80,7 +80,7 @@ export class UnhandledErrorCard extends Component<UnhandledErrorCardProps, {}> {
 	render() {
 		const { dimensions, onClick } = this.props;
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Ignored via go/DSP-18766
 			<div css={wrapperStyles(dimensions)} onClick={onClick}>
 				<WarningIcon
 					label="Error"

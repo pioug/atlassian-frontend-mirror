@@ -243,6 +243,7 @@ export const EmojiActions = (props: EmojiActionsProps) => {
 	}
 
 	return (
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			data-testid={emojiActionsTestId}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766

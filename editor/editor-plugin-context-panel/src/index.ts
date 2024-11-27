@@ -1,3 +1,3 @@
-export { contextPanelPlugin } from './plugin';
-export type { ContextPanelPlugin } from './plugin';
+export { contextPanelPlugin } from './contextPanelPlugin';
+export type { ContextPanelPlugin } from './contextPanelPluginType';
 export type { ApplyChangeHandler } from './types';

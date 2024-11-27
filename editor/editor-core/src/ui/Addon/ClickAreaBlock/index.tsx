@@ -37,6 +37,7 @@ export const ClickAreaBlock = ({ editorView, editorDisabled, children }: Props) 
 	);
 
 	return (
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div data-testid="click-wrapper" css={clickWrapper} onMouseDown={handleMouseDown}>
 			{children}
 		</div>

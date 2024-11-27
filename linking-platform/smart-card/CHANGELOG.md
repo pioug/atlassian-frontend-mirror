@@ -1,5 +1,48 @@
 # @atlaskit/smart-card
 
+## 31.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 31.0.1
+
+### Patch Changes
+
+- [#168956](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168956)
+  [`311ab96847a83`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/311ab96847a83) -
+  Remove related link urls experiment
+- Updated dependencies
+
+## 31.0.0
+
+### Major Changes
+
+- [#168886](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168886)
+  [`1b7dbf4237106`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b7dbf4237106) -
+  Remove deprecated prop `useLegacyBlockCard`
+
+### Patch Changes
+
+- [#167375](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167375)
+  [`ce85e442a7d6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce85e442a7d6e) -
+  [ux] Use atlaskit primitives for typography
+
+## 30.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 30.4.1
+
+### Patch Changes
+
+- [#168176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168176)
+  [`49d838b4eb2ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49d838b4eb2ab) -
+  Remove FF smart-card-migrate-track-analytics
+
 ## 30.4.0
 
 ### Minor Changes

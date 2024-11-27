@@ -129,6 +129,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 			{(tooltipProps) => {
 				delete tooltipProps['aria-describedby'];
 				return (
+					// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 					<div
 						{...tooltipProps}
 						ref={
@@ -137,6 +138,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 								: mergeRefs([ref, tooltipProps.ref])
 						}
 						role={role}
+						// eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
 						tabIndex={selected ? 0 : -1}
 						aria-checked={ariaChecked}
 						aria-label={ariaLabel}

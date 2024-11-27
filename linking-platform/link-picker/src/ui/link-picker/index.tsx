@@ -487,8 +487,6 @@ export const LinkPicker = withLinkPickerAnalyticsContext(
 								: intl.formatMessage(messages.linkPlaceholder)
 						}
 						value={url}
-						// https://hello.atlassian.net/wiki/spaces/~63466d7f8bb342276b512142/pages/3057616221/JFE+linting+recommendations#jsx-a11y%2Fno-autofocus
-						// eslint-disable-next-line jsx-a11y/no-autofocus
 						autoFocus
 						clearLabel={intl.formatMessage(formMessages.clearLink)}
 						error={invalidUrl ? intl.formatMessage(formMessages.linkInvalid) : null}

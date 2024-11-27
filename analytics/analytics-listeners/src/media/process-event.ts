@@ -62,6 +62,7 @@ export function processEvent(event: UIAnalyticsEvent): GasPayload {
 			listenerVersion,
 			...(mediaRegion ? { mediaRegion } : undefined),
 		},
+		nonPrivacySafeAttributes: event.payload.nonPrivacySafeAttributes,
 	};
 
 	return payload;

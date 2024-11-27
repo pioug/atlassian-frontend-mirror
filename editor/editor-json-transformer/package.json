@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-json-transformer",
-	"version": "8.21.0",
+	"version": "8.21.1",
 	"description": "JSON transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
 		"./types": "./src/types.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^44.2.0",
+		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/adf-utils": "^19.13.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -50,7 +50,7 @@
 		"lodash": "^4.17.21"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-plugin-highlight": "1.18.7",
+		"@atlaskit/editor-plugin-highlight": "1.18.8",
 		"react": "^16.8.0",
 		"typescript": "~5.4.2"
 	},

@@ -3,7 +3,7 @@ import '@atlaskit/link-test-helpers/jest';
 
 import React from 'react';
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { type JsonLd } from 'json-ld-types';
 import { IntlProvider } from 'react-intl-next';
@@ -39,297 +39,6 @@ describe('smart-card: card states, block', () => {
 		jest.clearAllMocks();
 	});
 
-	describe('render method: withUrl', () => {
-		describe('> state: loading', () => {
-			/**
-			 * Note EDM-10399 React18 Migration: This test is a bit odd as it asserts a loading state (an intermediate state),
-			 * then asserts that the loading state is removed and a mocked function was called.
-			 */
-			it('block: should render loading state initially', async () => {
-				render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} />
-						</Provider>
-					</IntlProvider>,
-				);
-
-				await waitFor(async () => {
-					expect(screen.getByTestId('block-card-resolving-view')).toBeInTheDocument();
-				});
-
-				await waitFor(() => {
-					expect(screen.queryByTestId('block-card-resolving-view')).not.toBeInTheDocument();
-				});
-				expect(mockFetch).toHaveBeenCalledTimes(1);
-			});
-		});
-
-		describe('> state: resolved', () => {
-			it('block: should render with metadata when resolved', async () => {
-				render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} />
-						</Provider>
-					</IntlProvider>,
-				);
-				const resolvedViewName = await screen.findByText('I love cheese');
-				const resolvedViewDescription = await screen.findByText(
-					'Here is your serving of cheese: 🧀',
-				);
-				expect(resolvedViewName).toBeInTheDocument();
-				expect(resolvedViewDescription).toBeInTheDocument();
-				expect(mockFetch).toHaveBeenCalledTimes(1);
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						display: 'block',
-						status: 'resolved',
-					}),
-				);
-			});
-
-			it('block: should render with metadata when resolved and call onResolve if provided', async () => {
-				render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} onResolve={mockOnResolve} />
-						</Provider>
-					</IntlProvider>,
-				);
-				const resolvedViewName = await screen.findByText('I love cheese');
-				const resolvedViewDescription = await screen.findByText(
-					'Here is your serving of cheese: 🧀',
-				);
-				expect(resolvedViewName).toBeInTheDocument();
-				expect(resolvedViewDescription).toBeInTheDocument();
-				expect(mockFetch).toHaveBeenCalledTimes(1);
-				expect(mockOnResolve).toHaveBeenCalledTimes(1);
-			});
-
-			it('should re-render when URL changes', async () => {
-				let resolvedView = null;
-				const { rerender } = render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} />
-						</Provider>
-					</IntlProvider>,
-				);
-				resolvedView = await screen.findByText('I love cheese');
-				expect(resolvedView).toBeInTheDocument();
-				expect(mockFetch).toHaveBeenCalledTimes(1);
-
-				rerender(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url="https://google.com" />
-						</Provider>
-					</IntlProvider>,
-				);
-				resolvedView = await screen.findByText('I love cheese');
-				expect(mockFetch).toHaveBeenCalledTimes(2);
-			});
-
-			it('should not re-render when appearance changes', async () => {
-				let resolvedView = null;
-				const { rerender } = render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} />
-						</Provider>
-					</IntlProvider>,
-				);
-				resolvedView = await screen.findByText('I love cheese');
-				expect(resolvedView).toBeInTheDocument();
-				expect(mockFetch).toHaveBeenCalledTimes(1);
-
-				rerender(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} />
-						</Provider>
-					</IntlProvider>,
-				);
-				resolvedView = await screen.findByText('I love cheese');
-				expect(mockFetch).toHaveBeenCalledTimes(1);
-			});
-		});
-
-		describe('> state: forbidden', () => {
-			describe('with auth services available', () => {
-				it('block: renders the forbidden view if no access, with auth prompt', async () => {
-					mockFetch.mockImplementationOnce(async () => mocks.forbidden);
-					render(
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} onError={mockOnError} />
-						</Provider>,
-					);
-					const frame = await screen.findByTestId('block-card-forbidden-view');
-					expect(frame).toBeInTheDocument();
-					const forbiddenLink = await screen.findByText(mockUrl);
-					expect(forbiddenLink).toBeInTheDocument();
-					const forbiddenLinkButton = screen.getByRole('button');
-					expect(forbiddenLinkButton).toBeInTheDocument();
-					expect(forbiddenLinkButton!.textContent).toContain('Try another account');
-					expect(mockFetch).toHaveBeenCalledTimes(1);
-					expect(mockOnError).toHaveBeenCalledWith({
-						url: mockUrl,
-						status: 'forbidden',
-					});
-				});
-			});
-
-			describe('with no auth services available', () => {
-				it('block: renders the forbidden view if no access, no auth prompt', async () => {
-					mockFetch.mockImplementationOnce(async () => mocks.forbiddenWithNoAuth);
-					render(
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} onError={mockOnError} />
-						</Provider>,
-					);
-					const frame = await screen.findByTestId('block-card-forbidden-view');
-					expect(frame).toBeInTheDocument();
-					const forbiddenLink = await screen.findByText(mockUrl);
-					const forbiddenLinkButton = screen.queryByRole('button');
-					expect(forbiddenLink).toBeInTheDocument();
-					expect(forbiddenLinkButton).not.toBeInTheDocument();
-					expect(mockFetch).toHaveBeenCalledTimes(1);
-					expect(mockOnError).toHaveBeenCalledWith({
-						url: mockUrl,
-						status: 'forbidden',
-					});
-				});
-			});
-		});
-
-		describe('> state: unauthorized', () => {
-			describe('with auth services available', () => {
-				it('block: renders with connect flow', async () => {
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					render(
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} onError={mockOnError} />
-						</Provider>,
-					);
-					const frame = await screen.findByTestId('block-card-unauthorized-view');
-					expect(frame).toBeInTheDocument();
-					const unauthorizedLink = await screen.findByText(mockUrl);
-					expect(unauthorizedLink).toBeInTheDocument();
-					const unauthorizedLinkButton = screen.getByTestId('button-connect-account');
-					expect(unauthorizedLinkButton).toBeInTheDocument();
-					expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
-					expect(mockFetch).toHaveBeenCalledTimes(1);
-					expect(mockOnError).toHaveBeenCalledWith({
-						url: mockUrl,
-						status: 'unauthorized',
-					});
-				});
-			});
-
-			describe('with auth services not available', () => {
-				it('block: renders without connect flow', async () => {
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorizedWithNoAuth);
-					render(
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} onError={mockOnError} />
-						</Provider>,
-					);
-					const frame = await screen.findByTestId('block-card-unauthorized-view');
-					expect(frame).toBeInTheDocument();
-					const unauthorizedLink = await screen.findByText(mockUrl);
-					const unauthorizedLinkButton = screen.queryByRole('button');
-					expect(unauthorizedLink).toBeInTheDocument();
-					expect(unauthorizedLinkButton).not.toBeInTheDocument();
-					expect(mockFetch).toHaveBeenCalledTimes(1);
-					expect(mockOnError).toHaveBeenCalledWith({
-						url: mockUrl,
-						status: 'unauthorized',
-					});
-				});
-			});
-
-			describe('with authFlow explicitly disabled', () => {
-				it('block: renders as blue link', async () => {
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					render(
-						<Provider client={mockClient} authFlow="disabled">
-							<Card
-								testId="disabled-authFlow-card"
-								appearance="block"
-								url={mockUrl}
-								onError={mockOnError}
-							/>
-						</Provider>,
-					);
-					const dumbLink = await screen.findByTestId('disabled-authFlow-card-fallback');
-					expect(dumbLink).toBeInTheDocument();
-					expect(mockFetch).toHaveBeenCalledTimes(1);
-					expect(mockOnError).toHaveBeenCalledWith({
-						url: mockUrl,
-						status: 'fallback',
-					});
-				});
-			});
-		});
-
-		describe('> state: error', () => {
-			it('block: renders error card when resolve fails', async () => {
-				mockFetch.mockImplementationOnce(() => Promise.reject(new Error('Something went wrong')));
-				render(
-					<Provider client={mockClient}>
-						<Card useLegacyBlockCard appearance="block" url={mockUrl} onError={mockOnError} />
-					</Provider>,
-				);
-				const frame = await screen.findByTestId('block-card-errored-view');
-				const link = await screen.findByText(mockUrl);
-
-				expect(frame).toBeInTheDocument();
-				expect(link).toBeInTheDocument();
-				expect(mockFetch).toHaveBeenCalledTimes(1);
-				expect(mockOnError).toHaveBeenCalledWith({
-					url: mockUrl,
-					status: 'errored',
-				});
-			});
-
-			it('block: renders not found card when link not found', async () => {
-				mockFetch.mockImplementationOnce(async () => mocks.notFound);
-				render(
-					<Provider client={mockClient}>
-						<Card useLegacyBlockCard appearance="block" url={mockUrl} onError={mockOnError} />
-					</Provider>,
-				);
-				const frame = await screen.findByTestId('block-card-not-found-view');
-				expect(frame).toBeInTheDocument();
-				const link = await screen.findByText(mockUrl);
-				expect(link).toBeInTheDocument();
-				expect(mockFetch).toHaveBeenCalledTimes(1);
-				expect(mockOnError).toHaveBeenCalledWith({
-					url: mockUrl,
-					status: 'not_found',
-				});
-			});
-		});
-
-		describe('> state: invalid', () => {
-			it('block: does not throw error when state is invalid', async () => {
-				const storeOptions = {
-					initialState: { [mockUrl as string]: {} },
-				} as CardProviderStoreOpts;
-				render(
-					<Provider client={mockClient} storeOptions={storeOptions}>
-						<Card useLegacyBlockCard appearance="block" url={mockUrl} />
-					</Provider>,
-				);
-
-				const link = await screen.findByTestId('block-card-resolved-view');
-				expect(link).toBeInTheDocument();
-			});
-		});
-	});
-
 	describe('link clicked', () => {
 		it('fires `link clicked` analytics event when clicked', async () => {
 			window.open = jest.fn();
@@ -338,7 +47,7 @@ describe('smart-card: card states, block', () => {
 				<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} id="some-id" />
+							<Card appearance="block" url={mockUrl} id="some-id" />
 						</Provider>
 					</IntlProvider>
 				</AnalyticsListener>,
@@ -375,7 +84,8 @@ describe('smart-card: card states, block', () => {
 			);
 		});
 	});
-	describe('render method: withUrl and new FF', () => {
+
+	describe('render method: withUrl', () => {
 		describe('> state: loading', () => {
 			it('block: should render loading state initially', async () => {
 				render(
@@ -388,23 +98,6 @@ describe('smart-card: card states, block', () => {
 				const loadingView = await screen.findByTestId('smart-block-resolving-view');
 				expect(loadingView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
-			});
-
-			it(`block: shouldn't render loading state initially if useLegacyBlockCard passed`, async () => {
-				render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} />
-						</Provider>
-					</IntlProvider>,
-				);
-
-				const oldLoadingView = await screen.findByTestId('block-card-resolving-view');
-				expect(oldLoadingView).toBeTruthy();
-
-				const smartLoadingView = screen.queryByTestId('smart-block-resolving-view');
-
-				expect(smartLoadingView).toBeNull();
 			});
 		});
 
@@ -650,11 +343,7 @@ describe('smart-card: card states, block', () => {
 					mockFetch.mockImplementationOnce(async () => response);
 					const renderResult = render(
 						<Provider client={mockClient}>
-							<Card
-								useLegacyBlockCard
-								appearance="block"
-								url="https://site.atlassian.net/browse/key-1"
-							/>
+							<Card appearance="block" url="https://site.atlassian.net/browse/key-1" />
 						</Provider>,
 					);
 					await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -797,9 +486,12 @@ describe('smart-card: card states, block', () => {
 					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
 					render(
 						<Provider client={mockClient} authFlow="disabled">
-							<Card useLegacyBlockCard appearance="block" url={mockUrl} onError={mockOnError} />
+							<Card appearance="block" url={mockUrl} onError={mockOnError} testId="unauthorized" />
 						</Provider>,
 					);
+
+					await screen.findByTestId('unauthorized-fallback');
+
 					const dumbLink = await screen.findByText(mockUrl);
 					expect(dumbLink).toBeInTheDocument();
 					expect(mockFetch).toHaveBeenCalledTimes(1);
@@ -860,11 +552,11 @@ describe('smart-card: card states, block', () => {
 				} as CardProviderStoreOpts;
 				render(
 					<Provider client={mockClient} storeOptions={storeOptions}>
-						<Card useLegacyBlockCard appearance="block" url={mockUrl} />
+						<Card appearance="block" url={mockUrl} />
 					</Provider>,
 				);
 
-				const link = await screen.findByTestId('block-card-resolved-view');
+				const link = await screen.findByTestId('smart-block-resolved-view');
 				expect(link).toBeInTheDocument();
 			});
 		});

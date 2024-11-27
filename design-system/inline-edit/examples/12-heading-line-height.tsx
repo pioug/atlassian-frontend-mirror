@@ -69,7 +69,6 @@ const InlineEditExample = () => {
 				editView={({ errorMessage, ...fieldProps }) => (
 					<Textfield
 						{...fieldProps}
-						// eslint-disable-next-line jsx-a11y/no-autofocus
 						autoFocus
 						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 						css={textFieldStyles}

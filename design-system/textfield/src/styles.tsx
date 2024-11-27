@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+import { media } from '@atlaskit/primitives';
 import { B200, N0, N10, N100, N200, N30, N70, N900, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -125,7 +127,9 @@ export const inputStyles = () =>
 		boxSizing: 'border-box',
 		color: 'inherit',
 		cursor: 'inherit',
-		font: token('font.body'),
+		font: fg('platform_design_system_team_safari_input_fix')
+			? token('font.body.large')
+			: token('font.body'),
 		minWidth: '0',
 		outline: 'none',
 		width: '100%',
@@ -133,10 +137,14 @@ export const inputStyles = () =>
 			fontFamily: token('font.family.code'),
 		},
 		'&[data-compact]': {
-			padding: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
+			padding: fg('platform_design_system_team_safari_input_fix')
+				? `${token('space.025', '2px')} ${token('space.075', '6px')}`
+				: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
 		},
 		'&:not([data-compact])': {
-			padding: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
+			padding: fg('platform_design_system_team_safari_input_fix')
+				? `${token('space.075', '6px')} ${token('space.075', '6px')}`
+				: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
 		},
 		'&[disabled]': {
 			// Safari (WebKit) adds a -webkit-text-fill-color style to disabled inputs
@@ -163,6 +171,19 @@ export const inputStyles = () =>
 		'@media screen and (-ms-high-contrast: active)': {
 			'&[disabled]': {
 				color: 'GrayText',
+			},
+		},
+		[`${media.above.xs}`]: {
+			font: fg('platform_design_system_team_safari_input_fix') ? token('font.body') : undefined,
+			'&[data-compact]': {
+				padding: fg('platform_design_system_team_safari_input_fix')
+					? `${token('space.050', '4px')} ${token('space.075', '6px')}`
+					: undefined,
+			},
+			'&:not([data-compact])': {
+				padding: fg('platform_design_system_team_safari_input_fix')
+					? `${token('space.100', '8px')} ${token('space.075', '6px')}`
+					: undefined,
 			},
 		},
 	}) as const;

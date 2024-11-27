@@ -1084,7 +1084,6 @@ describe('Modal create specific tests', () => {
 	});
 
 	it('should display a custom hero when provided', async () => {
-		//  eslint-disable-next-line jsx-a11y/img-redundant-alt
 		const HeroModal = () => <img src="some image here" alt="some alt text here" />;
 		setupModalCreate({
 			modalHero: <HeroModal />,

@@ -73,6 +73,7 @@ const LozengeActionError = ({
 				{isPreviewAvailable ? (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={linkStyles}>
+						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
 						<a target="_blank" data-testid={`${testId}-open-embed`} onClick={handlePreviewOpen}>
 							<FormattedMessage {...messages.open_issue_in_jira} />
 						</a>

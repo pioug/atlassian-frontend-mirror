@@ -1,5 +1,18 @@
 # @atlaskit/textfield
 
+## 6.6.0
+
+### Minor Changes
+
+- [#161890](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161890)
+  [`6735226160872`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6735226160872) -
+  Update the font size and padding styles for the text field component at the `xs` breakpoint. The
+  font size will be increased to 16px to prevent IOS Safari from zooming in on the text field when
+  it is focused. Styles for larger breakpoints will remain unchanged.
+
+  These changes are currently behind a feature gate and will be evaluated for effectiveness. If
+  successful, they will be included in a future release.
+
 ## 6.5.5
 
 ### Patch Changes

@@ -71,7 +71,7 @@ export const NativeMediaPreview = ({
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<Pressable testId="media-native-preview" xcss={nativePreviewButtonStyles} onClick={onClick}>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, jsx-a11y/alt-text -- Ignored via go/DSP-18766 */}
 				<img style={{ maxWidth: '100%' }} src={url} />
 			</Pressable>
 		);

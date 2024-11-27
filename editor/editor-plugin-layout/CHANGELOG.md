@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.12.7
+
+### Patch Changes
+
+- [#169585](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169585)
+  [`3b4997f849243`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b4997f849243) -
+  Use correct icons for 3 column layout distributions for new visual refresh
+
+## 1.12.6
+
+### Patch Changes
+
+- [#169290](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169290)
+  [`128ec4e2667bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/128ec4e2667bc) -
+  ED-25824 fix invalid layout after undo or other operations.
+
+## 1.12.5
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- [#168790](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168790)
+  [`e08e221fb797c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e08e221fb797c) -
+  Add new distributions for 3 column layouts for advanced layouts
+- Updated dependencies
+
 ## 1.12.4
 
 ### Patch Changes

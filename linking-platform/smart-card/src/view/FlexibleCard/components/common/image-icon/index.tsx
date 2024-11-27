@@ -15,6 +15,7 @@ const ImageIcon = ({ defaultIcon, testId, url, onError, onLoad }: ImageIconProps
 	<ImageLoader
 		src={url}
 		loading={<LoadingSkeleton testId={`${testId}-loading`} />}
+		// eslint-disable-next-line jsx-a11y/alt-text
 		loaded={<img src={url} data-testid={`${testId}-image`} />}
 		errored={defaultIcon}
 		onError={onError}

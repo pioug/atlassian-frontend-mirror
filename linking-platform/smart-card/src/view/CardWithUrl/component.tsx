@@ -54,7 +54,6 @@ function Component({
 	hoverPreviewOptions,
 	showAuthTooltip,
 	analyticsEvents,
-	useLegacyBlockCard,
 	removeTextHighlightingFromTitle,
 	resolvingPlaceholder,
 	truncateInline,
@@ -306,7 +305,7 @@ function Component({
 					testId={testId}
 					actionOptions={actionOptions}
 					platform={platform}
-					enableFlexibleBlockCard={useLegacyBlockCard !== true}
+					enableFlexibleBlockCard={true}
 				/>
 			);
 		case 'embed':

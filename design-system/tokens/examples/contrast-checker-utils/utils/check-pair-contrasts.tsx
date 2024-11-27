@@ -1,8 +1,10 @@
 import { normal } from 'color-blend';
 
+import { dark as rawTokensDark, light as rawTokensLight } from '@atlaskit/tokens/tokens-raw';
+
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import generatedPairs from '../../../src/artifacts/generated-pairs';
-import rawTokensDark from '../../../src/artifacts/tokens-raw/atlassian-dark';
-import rawTokensLight from '../../../src/artifacts/tokens-raw/atlassian-light';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { getContrastRatio, hexToRgbA } from '../../../src/utils/color-utils';
 
 const groupedTokens: { [key: string]: typeof rawTokensDark } = {};

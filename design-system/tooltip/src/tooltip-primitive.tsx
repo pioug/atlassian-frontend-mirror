@@ -57,10 +57,10 @@ const TooltipPrimitive = forwardRef<HTMLDivElement, TooltipPrimitiveProps>(
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={className}
 					// Because the tooltip should not be focusable, there is no reason to have key events.
-					/* eslint-disable jsx-a11y/mouse-events-have-key-events */
+					/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */
 					onMouseOut={onMouseOut}
+					/* eslint-disable-next-line jsx-a11y/mouse-events-have-key-events */
 					onMouseOver={onMouseOver}
-					/* eslint-enable jsx-a11y/mouse-events-have-key-events */
 					css={primitiveStyles}
 					data-placement={placement}
 					data-testid={testId}

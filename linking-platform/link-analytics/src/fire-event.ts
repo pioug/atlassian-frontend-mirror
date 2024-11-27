@@ -9,10 +9,9 @@ import {
 } from './types';
 import { getDomainFromUrl, mergeAttributes } from './utils';
 import { resolveAttributes } from './utils';
-import { ANALYTICS_CHANNEL } from './consts';
-import createEventPayload, {
-	type LinkCreatedAttributesType,
-} from './common/utils/analytics/analytics.codegen';
+import { EVENT_CHANNEL } from './common/utils/constants';
+import type { LinkCreatedAttributesType } from './common/utils/analytics/analytics.types';
+import createEventPayload from './common/utils/analytics/create-event-payload';
 import {
 	type DatasourceDataRequest,
 	type DatasourceDataResponse,
@@ -49,7 +48,7 @@ const fireEvent = (
 		});
 
 		event.context.push(PACKAGE_DATA);
-		event.fire(ANALYTICS_CHANNEL);
+		event.fire(EVENT_CHANNEL);
 	};
 };
 
@@ -114,10 +113,10 @@ export const fireDatasourceEvent = (
 			createAnalyticsEvent({
 				...payload,
 				actionSubjectId: 'jlol',
-			}).fire(ANALYTICS_CHANNEL);
+			}).fire(EVENT_CHANNEL);
 		}
 
 		event.context.push(PACKAGE_DATA);
-		event.fire(ANALYTICS_CHANNEL);
+		event.fire(EVENT_CHANNEL);
 	};
 };

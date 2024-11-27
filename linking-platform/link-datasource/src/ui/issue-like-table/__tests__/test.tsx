@@ -1674,7 +1674,7 @@ describe('IssueLikeDataTableView', () => {
 
 								expect(queryByTestId('dob-column-heading')).toHaveStyle('max-width: 128px');
 
-								expect(queryByTestId('priority-column-heading')).toHaveStyle('max-width: 110px');
+								expect(queryByTestId('priority-column-heading')).toHaveStyle('max-width: 100px');
 							});
 
 							it('should render the header and cells with given column width in draggable mode', () => {

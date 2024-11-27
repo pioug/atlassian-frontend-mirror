@@ -21,6 +21,7 @@ function urlWithCard(url: string) {
 	return (
 		<>
 			<p>
+				{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 				This URL: <a>{url}</a> maps to this card:
 			</p>
 			<Card url={url} appearance="block" />

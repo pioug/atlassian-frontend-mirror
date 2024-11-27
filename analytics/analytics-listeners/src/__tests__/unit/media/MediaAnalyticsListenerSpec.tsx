@@ -102,6 +102,31 @@ describe('MediaAnalyticsListener', () => {
 		);
 	});
 
+	it('should include non privacy safe attributes', () => {
+		fireAndVerify(
+			{
+				eventType: EVENT_TYPE,
+				action: ACTION,
+				actionSubject: ACTION_SUBJECT,
+				nonPrivacySafeAttributes: {
+					url: 'https://atlassian.com',
+				},
+			},
+			{
+				action: ACTION,
+				actionSubject: ACTION_SUBJECT,
+				source: DEFAULT_SOURCE,
+				tags: expect.arrayContaining([MEDIA_TAG]),
+				attributes: {
+					listenerVersion: LISTENER_VERSION,
+				},
+				nonPrivacySafeAttributes: {
+					url: 'https://atlassian.com',
+				},
+			},
+		);
+	});
+
 	it('should send event with listener version', () => {
 		fireAndVerify(
 			{

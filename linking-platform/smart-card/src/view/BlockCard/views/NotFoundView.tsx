@@ -68,6 +68,7 @@ export const NotFoundView = ({
 			<Content isCompact>
 				<div>
 					<ContentHeader onClick={handleClick} link={link}>
+						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 						<Link url={link} testId={testId} />
 					</ContentHeader>
 					<Byline>

@@ -17,6 +17,7 @@ import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { EVEN_DISTRIBUTED_COL_WIDTHS } from './consts';
 import { pluginKey } from './pm-plugins/plugin-key';
@@ -31,8 +32,6 @@ export const TWO_COL_LAYOUTS: PresetLayout[] = [
 	'two_right_sidebar',
 ];
 export const THREE_COL_LAYOUTS: PresetLayout[] = ['three_equal', 'three_with_sidebars'];
-export const FOUR_COL_LAYOUTS: PresetLayout[] = ['four_equal'];
-export const FIVE_COL_LAYOUTS: PresetLayout[] = ['five_equal'];
 
 const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
 	if (isPreRelease2()) {
@@ -49,6 +48,10 @@ const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
 				return [66.66, 33.33];
 			case 'three_with_sidebars':
 				return [25, 50, 25];
+			case 'three_left_sidebars':
+				return [25, 25, 50];
+			case 'three_right_sidebars':
+				return [50, 25, 25];
 			case 'four_equal':
 				return [25, 25, 25, 25];
 			case 'five_equal':
@@ -75,12 +78,15 @@ const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
 };
 
 const isValidLayoutWidthDistributions = (layoutSection: Node) => {
-	const totalWidth = mapChildren(layoutSection, (column) => column.attrs.width).reduce(
-		(total, width) => {
-			return total + width;
-		},
-		0,
-	);
+	let totalWidth = 0;
+	mapChildren(layoutSection, (column) => column.attrs.width).forEach((width) => {
+		if (typeof width === 'number' && isFinite(width) && width > 0 && width <= 100) {
+			totalWidth += width;
+		}
+
+		// not a valid width, e.g. 0, 100, undefined
+		return false;
+	});
 
 	return Math.round(totalWidth) === 100;
 };
@@ -100,6 +106,10 @@ export const getPresetLayout = (section: Node): PresetLayout | undefined => {
 				return 'three_equal';
 			case '25,50,25':
 				return 'three_with_sidebars';
+			case '50,25,25':
+				return 'three_right_sidebars';
+			case '25,25,50':
+				return 'three_left_sidebars';
 			case '50,50':
 				return 'two_equal';
 			case '33.33,66.66':
@@ -483,14 +493,39 @@ function layoutNeedChanges(node: Node): boolean {
 	return !getPresetLayout(node);
 }
 
+const getDefaultPresetLayout = (layoutNode: Node): PresetLayout => {
+	const layoutColumnCount = layoutNode.childCount;
+
+	if (layoutColumnCount <= 1) {
+		return 'single';
+	}
+	switch (layoutColumnCount) {
+		case 2:
+			return 'two_equal';
+		case 3:
+			return 'three_equal';
+		case 4:
+			return 'four_equal';
+		case 5:
+			return 'five_equal';
+		default:
+			return 'five_equal';
+	}
+};
+
 function getLayoutChange(node: Node, pos: number, schema: Schema): Change | undefined {
 	if (node.type === schema.nodes.layoutSection) {
 		if (!layoutNeedChanges(node)) {
 			return;
 		}
 
-		const presetLayout =
-			node.childCount === 2 ? 'two_equal' : node.childCount === 3 ? 'three_equal' : 'single';
+		const presetLayout = editorExperiment('advanced_layouts', true)
+			? getDefaultPresetLayout(node)
+			: node.childCount === 2
+				? 'two_equal'
+				: node.childCount === 3
+					? 'three_equal'
+					: 'single';
 
 		const fixedColumns = columnWidth(node, schema, getWidthsForPreset(presetLayout));
 
@@ -540,10 +575,18 @@ export const fixColumnSizes = (changedTr: Transaction, state: EditorState) => {
 
 export const fixColumnStructure = (state: EditorState) => {
 	const { pos, selectedLayout } = pluginKey.getState(state) as LayoutState;
+
 	if (pos !== null && selectedLayout) {
 		const node = state.doc.nodeAt(pos);
-		if (node && node.childCount !== getWidthsForPreset(selectedLayout).length) {
-			return forceSectionToPresetLayout(state, node, pos, selectedLayout);
+
+		if (node) {
+			if (node.childCount !== getWidthsForPreset(selectedLayout).length) {
+				return forceSectionToPresetLayout(state, node, pos, selectedLayout);
+			}
+
+			if (!isValidLayoutWidthDistributions(node) && editorExperiment('advanced_layouts', true)) {
+				return forceSectionToPresetLayout(state, node, pos, selectedLayout);
+			}
 		}
 	}
 	return;

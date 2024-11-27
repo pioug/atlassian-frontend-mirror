@@ -509,6 +509,10 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 	};
 
+	getIsNamespaceLocked(): boolean {
+		return this.isNameSpaceLocked();
+	}
+
 	updateDocument = ({ doc, version, metadata, reserveCursor }: CollabInitPayload) => {
 		this.providerEmitCallback('init', {
 			doc,

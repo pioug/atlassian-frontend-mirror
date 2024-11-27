@@ -1,2 +1,2 @@
-export { dataConsumerPlugin } from './plugin';
-export type { DataConsumerPlugin } from './plugin';
+export { dataConsumerPlugin } from './dataConsumerPlugin';
+export type { DataConsumerPlugin } from './dataConsumerPluginType';

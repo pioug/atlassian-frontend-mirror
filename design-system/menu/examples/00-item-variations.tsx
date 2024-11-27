@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { HashRouter, Link } from 'react-router-dom';
-
 import EmojiCustomIcon from '@atlaskit/icon/glyph/emoji/custom';
 import StarIcon from '@atlaskit/icon/glyph/star';
 import { token } from '@atlaskit/tokens';
@@ -136,19 +134,6 @@ const ItemVariants = () => {
 				Custom element using em tag, but with some extra text to make the content a bit longer than
 				usual.
 			</CustomItem>
-			<HashRouter>
-				<CustomItem
-					component={Link}
-					to="/my-route"
-					testId="item-custom-router"
-					description="some custom text"
-					isSelected
-					iconAfter={<StarIcon label="" />}
-					iconBefore={<EmojiCustomIcon label="" />}
-				>
-					I'm a react-router link rendered using CustomItem
-				</CustomItem>
-			</HashRouter>
 
 			<Section>
 				<SkeletonHeadingItem testId="skeleton-heading-item" />

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-context-identifier
 
+## 1.3.11
+
+### Patch Changes
+
+- [#168970](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168970)
+  [`97db2d026001d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/97db2d026001d) -
+  ED-25808: refactors plugins to meet folder standards
+- Updated dependencies
+
 ## 1.3.10
 
 ### Patch Changes

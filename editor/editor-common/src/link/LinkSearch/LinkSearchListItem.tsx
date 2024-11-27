@@ -143,6 +143,7 @@ class LinkSearchListItem extends React.PureComponent<Props & WrappedComponentPro
 	render() {
 		const { item, selected, id, role } = this.props;
 		return (
+			// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
 			<li
 				css={[container, selected && containerSelected]}
 				role={role}

@@ -38,7 +38,6 @@ export type CardWithUrlContentProps = {
 	showAuthTooltip?: boolean;
 	analyticsEvents?: AnalyticsFacade;
 	placeholder?: string;
-	useLegacyBlockCard?: boolean;
 	removeTextHighlightingFromTitle?: boolean;
 	resolvingPlaceholder?: string;
 	truncateInline?: boolean;

@@ -15,6 +15,7 @@ import {
 	tableSharedStyle,
 	columnLayoutSharedStyle,
 	columnLayoutResponsiveSharedStyle,
+	columnLayoutResponsiveRendererStyles,
 	blockquoteSharedStyles,
 	headingsSharedStyles,
 	ruleSharedStyles,
@@ -842,6 +843,9 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
       ${isAdvancedLayoutsPreRelease2()
 			? columnLayoutResponsiveSharedStyle
 			: columnLayoutSharedStyle};
+
+		${isAdvancedLayoutsPreRelease2() && columnLayoutResponsiveRendererStyles};
+
 		& [data-layout-section] {
 			margin-top: ${token('space.250', '20px')};
 			& > div + div {

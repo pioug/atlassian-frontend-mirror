@@ -1,8 +1,3 @@
-export { default as datePlugin } from './plugin';
-export type {
-	DatePlugin,
-	DatePluginSharedState,
-	DatePluginConfig,
-	DateType,
-	InsertDate,
-} from './types';
+export { default as datePlugin } from './datePlugin';
+export type { DatePlugin } from './datePluginType';
+export type { DatePluginSharedState, DatePluginConfig, DateType, InsertDate } from './types';

@@ -8,8 +8,7 @@
 import { jsx } from '@emotion/react';
 
 import { Stack } from '@atlaskit/primitives';
-
-import { token } from '../src';
+import { token } from '@atlaskit/tokens';
 
 import { useVrGlobalTheme } from './utils/use-vr-global-theme';
 

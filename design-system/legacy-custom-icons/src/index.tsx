@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::8f103238b79e41dd191c8091d5f3f19f>>
+ * @codegen <<SignedSource::adc3d3f39588d1d10be45dd5f4f374f3>>
  * @codegenCommand yarn generate-artifacts
  */
 export { default as AirTableFilterIcon } from './ui/air-table-filter-icon';
@@ -85,6 +85,7 @@ export { default as ManualTriggerIcon } from './ui/manual-trigger-icon';
 export { default as MegaphoneIcon } from './ui/megaphone-icon';
 export { default as MegaphoneStarIcon } from './ui/megaphone-star-icon';
 export { default as MicrosoftSharepointIcon } from './ui/microsoft-sharepoint-icon';
+export { default as MinorPriorityIcon } from './ui/minor-priority-icon';
 export { default as MiroFilterIcon } from './ui/miro-filter-icon';
 export { default as MiroIcon } from './ui/miro-icon';
 export { default as MsTeamsIcon } from './ui/ms-teams-icon';
@@ -123,6 +124,8 @@ export { default as SlackIcon } from './ui/slack-icon';
 export { default as SlackIconAiMate } from './ui/slack-icon-ai-mate';
 export { default as SlackSearchResultIcon } from './ui/slack-search-result-icon';
 export { default as StopTypingIcon } from './ui/stop-typing-icon';
+export { default as SubtaskDraggableIcon } from './ui/subtask-draggable-icon';
+export { default as SubtaskObjectIcon } from './ui/subtask-object-icon';
 export { default as TagIcon } from './ui/tag-icon';
 export { default as TaskIcon } from './ui/task-icon';
 export { default as TeamsIcon } from './ui/teams-icon';

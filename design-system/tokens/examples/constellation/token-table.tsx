@@ -11,8 +11,7 @@ import Avatar from '@atlaskit/avatar';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import DynamicTable from '@atlaskit/dynamic-table';
 import { Box, xcss } from '@atlaskit/primitives';
-
-import token from '../../src/get-token';
+import { token } from '@atlaskit/tokens';
 
 const TokenTableCodeBlock = `
 import { N50A, N60A } from '@atlaskit/theme/colors';

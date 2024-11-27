@@ -1,3 +1,3 @@
-export { decorationsPlugin } from './plugin';
-export type { DecorationsPlugin } from './plugin';
-export type { HoverDecorationHandler, DecorationState } from './pm-plugin';
+export { decorationsPlugin } from './decorationsPlugin';
+export type { DecorationsPlugin } from './decorationsPluginType';
+export type { HoverDecorationHandler, DecorationState } from './pm-plugins/main';

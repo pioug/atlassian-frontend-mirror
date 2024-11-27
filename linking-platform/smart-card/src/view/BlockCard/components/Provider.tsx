@@ -45,6 +45,7 @@ export const Provider = ({ name, icon }: ProviderProps) => {
 
 	if (typeof icon === 'string') {
 		iconToRender = (
+			// eslint-disable-next-line jsx-a11y/alt-text
 			<img
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="smart-link-icon"

@@ -11,7 +11,7 @@ import {
 	timestampToTaskContext,
 } from '@atlaskit/editor-common/utils';
 
-import { setDatePickerAt } from '../actions';
+import { setDatePickerAt } from '../pm-plugins/actions';
 
 export function DateNodeView(props: InlineNodeViewComponentProps) {
 	const {
@@ -37,7 +37,7 @@ export function DateNodeView(props: InlineNodeViewComponentProps) {
 	const color = withinIncompleteTask && isPastDate(timestamp) ? 'red' : undefined;
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions -- Ignored via go/DSP-18766
 		<span className={DateSharedCssClassName.DATE_WRAPPER} onClick={handleClick}>
 			<Date color={color} value={timestamp}>
 				{withinIncompleteTask

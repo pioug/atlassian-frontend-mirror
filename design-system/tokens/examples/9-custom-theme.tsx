@@ -20,13 +20,14 @@ import Lozenge from '@atlaskit/lozenge';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import { Radio } from '@atlaskit/radio';
 import Select from '@atlaskit/select';
+import { setGlobalTheme, type ThemeOptionsSchema, token } from '@atlaskit/tokens';
 
-import { setGlobalTheme, token } from '../src';
-import { type ThemeOptionsSchema } from '../src/theme-config';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { getContrastRatio } from '../src/utils/color-utils';
 import {
 	generateColors,
 	generateTokenMapWithContrastCheck,
+	// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 } from '../src/utils/generate-custom-color-ramp';
 
 import Accordion from './contrast-checker-utils/components/accordion';
@@ -162,7 +163,7 @@ export default () => {
 						contrastBase={previousContrast.toPrecision(4)}
 						contrastCustom={contrast.toPrecision(4)}
 						baseThemeType={colorMode}
-						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+						// eslint-disable-next-line @atlaskit/design-system/no-unsafe-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={{ marginBottom: token('space.050', '4px') }}
 					/>
 				);

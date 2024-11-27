@@ -1,11 +1,13 @@
+// eslint-disable-next-line @atlassian/tangerine/import/entry-points
+import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 import type { Expression, SpreadElement } from 'estree';
 
 import {
 	getImportSources,
 	hasStyleObjectArguments,
 } from '@atlaskit/eslint-utils/is-supported-import';
+
 import { createLintRule } from '../utils/create-rule';
-import type { JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 
 const schema: JSONSchema4 = [
 	{

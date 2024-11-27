@@ -1,6 +1,6 @@
-export { contextIdentifierPlugin } from './plugin';
+export { contextIdentifierPlugin } from './contextIdentifierPlugin';
 export type {
 	ContextIdentifierPlugin,
 	Configuration as ContextIdentifierConfiguration,
 	PluginConfiguration,
-} from './types';
+} from './contextIdentifierPluginType';

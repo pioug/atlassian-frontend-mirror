@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 1.47.8
+
+### Patch Changes
+
+- [#167375](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167375)
+  [`ce85e442a7d6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce85e442a7d6e) -
+  [ux] Use atlaskit primitives for typography
+
 ## 1.47.7
 
 ### Patch Changes

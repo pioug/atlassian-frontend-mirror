@@ -11,7 +11,7 @@ import { Form, FormSpy } from 'react-final-form';
 import { useIntl } from 'react-intl-next';
 
 import { RequiredAsterisk } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -194,9 +194,9 @@ export const CreateForm = <FormData extends Record<string, any> = {}>({
 							}}
 						/>
 						{!hideRequiredFieldMessage && (
-							<p>
+							<Text as="p">
 								{intl.formatMessage(messages.requiredFieldInstruction)} <RequiredAsterisk />
-							</p>
+							</Text>
 						)}
 						<Box>{children}</Box>
 						{!hideFooter && (

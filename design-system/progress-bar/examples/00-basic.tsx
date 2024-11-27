@@ -13,6 +13,6 @@ export const containerStyle: React.CSSProperties = {
 export default () => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	<div style={containerStyle}>
-		<ProgressBar value={progress} ariaLabel="Done: 4 of 10 issues" />
+		<ProgressBar value={progress} testId="progress-bar" ariaLabel="Done: 4 of 10 issues" />
 	</div>
 );

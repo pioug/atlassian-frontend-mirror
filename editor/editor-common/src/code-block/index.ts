@@ -9,9 +9,6 @@ export const defaultWordWrapState = false;
 export const codeBlockWrappedStates: WeakMap<PmNode, boolean | undefined> = new WeakMap();
 
 export const isCodeBlockWordWrapEnabled = (codeBlockNode: PmNode): boolean => {
-	if (!fg('editor_support_code_block_wrapping')) {
-		return false;
-	}
 	const currentNodeWordWrapState = codeBlockWrappedStates.get(codeBlockNode);
 
 	return currentNodeWordWrapState !== undefined ? currentNodeWordWrapState : defaultWordWrapState;
@@ -25,9 +22,6 @@ export const transferCodeBlockWrappedValue = (
 	oldCodeBlockNode: PmNode,
 	newCodeBlockNode: PmNode,
 ): void => {
-	if (!fg('editor_support_code_block_wrapping')) {
-		return;
-	}
 	// Don't overwrite the value for the new node if it already exists.
 	// This can happen when a drag&drop is swapping nodes.
 	if (codeBlockWrappedStates.has(newCodeBlockNode)) {
@@ -50,10 +44,7 @@ export const updateCodeBlockWrappedStateNodeKeys = (
 	newCodeBlockNodes: NodeWithPos[],
 	oldState: EditorState,
 ): void => {
-	if (
-		!fg('editor_support_code_block_wrapping') ||
-		!fg('editor_code_block_wrapping_language_change_bug')
-	) {
+	if (!fg('editor_code_block_wrapping_language_change_bug')) {
 		return;
 	}
 

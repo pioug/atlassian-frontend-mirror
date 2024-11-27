@@ -1,7 +1,9 @@
-import tokenNames from '../../../src/entry-points/token-names';
+import { type ActiveTokens } from '@atlaskit/tokens';
+import tokenNames from '@atlaskit/tokens/token-names';
+
 import { baseTokenNames } from '../components/base-token-editor';
 
-import type { BaseTokens, ColorMode, Theme, TokenName } from './types';
+import type { BaseTokens, ColorMode, Theme } from './types';
 
 const url = new URL(window.location.href);
 const params = new URLSearchParams(window.location.search);
@@ -27,7 +29,7 @@ export const getSearchParams = (): {
 		.map(([key, value]) => {
 			if (Object.keys(tokenNames).includes(key)) {
 				return {
-					name: key as TokenName,
+					name: key as ActiveTokens,
 					value: value,
 				};
 			}

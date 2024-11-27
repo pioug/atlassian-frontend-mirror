@@ -292,6 +292,7 @@ const TypeAheadListComponent = React.memo(
 				<CellMeasurer key={key} cache={cache} parent={parent} columnIndex={0} rowIndex={index}>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 					<div style={style} data-index={index}>
+						{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 						<div
 							data-testid={`list-item-height-observed-${index}`}
 							onMouseMove={(e) => onMouseMove(e, index)}

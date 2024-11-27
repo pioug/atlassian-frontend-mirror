@@ -223,7 +223,7 @@ export const updateDecorationSetWithWordWrappedDecorator = (
 			pos,
 			pos + innerNode.nodeSize,
 			{
-				class: codeBlockClassNames.contentFgWrapped,
+				class: codeBlockClassNames.contentWrapped,
 			},
 			{ type: DECORATION_WRAPPED_BLOCK_NODE_TYPE }, // Allows for quick filtering of decorations while using `find`
 		);

@@ -231,6 +231,7 @@ class Example extends React.Component<{}, ExampleState> {
 					<GridColumn>
 						{exportedDataURI ? (
 							<div css={exportedImageWrapperStyles} style={{ background: `url('${checkeredBg}')` }}>
+								{/* eslint-disable-next-line jsx-a11y/alt-text */}
 								<img
 									css={exportedImageStyles}
 									src={exportedDataURI}

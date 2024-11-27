@@ -294,6 +294,7 @@ const IntegrationContent = (props: ContentProps) => {
 	return (
 		<>
 			<div>Share to Integration form</div>
+			{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 			<a
 				href="#"
 				onClick={() => {
@@ -309,6 +310,7 @@ const IntegrationContent = (props: ContentProps) => {
 const AdditionalTabContent = (props: ContentProps) => (
 	<>
 		<div>This is a custom tab in the share dialog</div>
+		{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 		<a
 			href="#"
 			onClick={() => {

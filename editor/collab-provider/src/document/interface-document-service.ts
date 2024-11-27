@@ -30,6 +30,7 @@ export interface DocumentServiceInterface {
 	throttledCatchupv2(): void;
 	getCurrentState(): Promise<ResolvedEditorState>;
 	getFinalAcknowledgedState(): Promise<ResolvedEditorState>;
+	getIsNamespaceLocked(): boolean;
 	getUnconfirmedSteps(): readonly ProseMirrorStep[] | undefined;
 	getCurrentPmVersion(): number;
 	onErrorHandled: (error: InternalError) => void;

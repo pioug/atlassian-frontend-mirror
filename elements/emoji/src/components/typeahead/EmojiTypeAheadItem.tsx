@@ -50,6 +50,7 @@ class EmojiTypeAheadItemInternal extends PureComponent<Props, {}> {
 
 		return (
 			<EmojiCommonProvider emojiProvider={emojiProvider}>
+				{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 				<div
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 					className={`ak-emoji-typeahead-item ${selected ? typeaheadSelected : ''}`}

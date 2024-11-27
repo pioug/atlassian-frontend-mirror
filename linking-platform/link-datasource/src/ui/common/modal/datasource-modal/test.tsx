@@ -8,6 +8,7 @@ import '@atlaskit/link-test-helpers/jest';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FlagsProvider } from '@atlaskit/flag';
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
+import { Box, Text } from '@atlaskit/primitives';
 
 import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id';
 import { InlineEdit } from '../../../issue-like-table/table-cell-content/inline-edit';
@@ -20,7 +21,7 @@ const testIds = {
 };
 
 const MockReadView = () => {
-	return <div data-testid={testIds.readView}>Test</div>;
+	return <Box testId={testIds.readView}>Test</Box>;
 };
 
 describe('DatasourceModal', () => {
@@ -59,7 +60,7 @@ describe('DatasourceModal', () => {
 								columnKey="fake-column"
 								execute={executeFn}
 								datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
-								readView={<p>Test</p>}
+								readView={<Text as="p">Test</Text>}
 							/>
 						</DatasourceExperienceIdProvider>
 					</FlagsProvider>

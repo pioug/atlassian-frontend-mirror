@@ -224,8 +224,10 @@ export const HoverCardComponent = ({
 	const trigger = useCallback(
 		({ 'aria-haspopup': ariaHasPopup, 'aria-expanded': ariaExpanded, ...triggerProps }: any) => (
 			<span ref={parentSpan}>
+				{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
 				<span
 					{...triggerProps}
+					// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
 					onMouseOver={initShowCard}
 					onMouseLeave={initHideCard}
 					onMouseMove={setMousePosition}

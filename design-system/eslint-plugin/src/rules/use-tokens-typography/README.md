@@ -49,8 +49,8 @@ css({ font: token('font.body') });
 
 ## Options
 
-`shouldEnforceFallbacks`: Set to `false` to ensure token fallback values are not added. Defaults to
-`true`.
+`shouldEnforceFallbacks`: Set to `true` to ensure token fallback values are added. Defaults to
+`false`.
 
 `enableUnsafeAutofix`: Rule creates errors with autofixes instead of suggestions. Defaults to
 `false`.

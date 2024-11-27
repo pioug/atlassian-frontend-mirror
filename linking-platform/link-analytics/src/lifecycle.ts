@@ -9,8 +9,8 @@ import {
 	type LinkLifecycleEventCallback,
 	type SmartLinkLifecycleMethods,
 } from './types';
-import { ANALYTICS_CHANNEL } from './consts';
-import createEventPayload from './common/utils/analytics/analytics.codegen';
+import { EVENT_CHANNEL } from './common/utils/constants';
+import createEventPayload from './common/utils/analytics/create-event-payload';
 import { runWhenIdle } from './utils';
 import { useDatasourceClientExtension } from '@atlaskit/link-client-extension';
 
@@ -49,7 +49,7 @@ export const useSmartLinkLifecycleAnalytics = (): SmartLinkLifecycleMethods => {
 			(...args) => {
 				try {
 					runWhenIdle(() => {
-						createAndFireEvent(ANALYTICS_CHANNEL)(
+						createAndFireEvent(EVENT_CHANNEL)(
 							createEventPayload('operational.fireAnalyticEvent.commenced', {
 								action,
 							}),
@@ -62,7 +62,7 @@ export const useSmartLinkLifecycleAnalytics = (): SmartLinkLifecycleMethods => {
 						fireEvent(action, createAnalyticsEvent, client, store)(...args);
 					});
 				} catch (error: unknown) {
-					createAndFireEvent(ANALYTICS_CHANNEL)(
+					createAndFireEvent(EVENT_CHANNEL)(
 						createEventPayload('operational.fireAnalyticEvent.failed', {
 							error: error instanceof Error ? error.toString() : '',
 							action,
@@ -88,7 +88,7 @@ export const useDatasourceLifecycleAnalytics = (): DatasourceLifecycleMethods =>
 			(...args) => {
 				try {
 					runWhenIdle(() => {
-						createAndFireEvent(ANALYTICS_CHANNEL)(
+						createAndFireEvent(EVENT_CHANNEL)(
 							createEventPayload('operational.fireAnalyticEvent.commenced', {
 								action,
 							}),
@@ -101,7 +101,7 @@ export const useDatasourceLifecycleAnalytics = (): DatasourceLifecycleMethods =>
 						fireDatasourceEvent(action, createAnalyticsEvent, getDatasourceData)(...args);
 					});
 				} catch (error) {
-					createAndFireEvent(ANALYTICS_CHANNEL)(
+					createAndFireEvent(EVENT_CHANNEL)(
 						createEventPayload('operational.fireAnalyticEvent.failed', {
 							error: error instanceof Error ? error.toString() : '',
 							action,

@@ -1,5 +1,13 @@
 # @atlaskit/link-create
 
+## 2.13.12
+
+### Patch Changes
+
+- [#167375](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167375)
+  [`ce85e442a7d6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce85e442a7d6e) -
+  [ux] Use atlaskit primitives for typography
+
 ## 2.13.11
 
 ### Patch Changes

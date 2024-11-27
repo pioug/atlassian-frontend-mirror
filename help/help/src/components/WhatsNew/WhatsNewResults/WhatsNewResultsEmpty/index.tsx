@@ -49,6 +49,7 @@ export const WhatsNewResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 							componentName: 'WhatsNewResultsEmpty',
 						}}
 					>
+						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 						<a href="#" onClick={handleClearFilterLinkClick}>
 							{formatMessage(messages.help_whats_new_no_results_clear_filter_button_label)}
 						</a>

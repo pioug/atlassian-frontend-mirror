@@ -494,7 +494,6 @@ describe('focus lock', () => {
 					<input
 						// This is required to test a very unique implementation for an
 						// internal Chrome plugin. See DSP-11753 for more info.
-						// eslint-disable-next-line jsx-a11y/no-autofocus
 						autoFocus={true}
 						data-testid="input-field-outside-modal"
 						type="text"
@@ -533,7 +532,6 @@ describe('focus lock', () => {
 						data-atlas-extension="test"
 						// This is required to test a very unique implementation for an
 						// internal Chrome plugin. See DSP-11753 for more info.
-						// eslint-disable-next-line jsx-a11y/no-autofocus
 						autoFocus={true}
 						data-testid="input-field-outside-modal"
 						type="text"

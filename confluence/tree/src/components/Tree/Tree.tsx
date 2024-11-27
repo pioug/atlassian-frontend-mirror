@@ -323,6 +323,7 @@ export default class Tree extends Component<Props, State> {
 					{(provided: DroppableProvided) => {
 						const finalProvided: DroppableProvided = this.patchDroppableProvided(provided);
 						return (
+							// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 							<div
 								ref={finalProvided.innerRef}
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

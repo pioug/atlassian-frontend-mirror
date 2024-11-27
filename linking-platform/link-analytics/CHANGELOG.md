@@ -1,5 +1,11 @@
 # @atlaskit/link-analytics
 
+## 8.5.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.5.1
 
 ### Patch Changes

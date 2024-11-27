@@ -37,7 +37,7 @@ export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, { onClick: (
 			? { ...messages.placeholderWithDoubleClickPrompt }
 			: { ...messages.placeholder };
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
+			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 			<span
 				ref={ref}
 				css={placeholder}

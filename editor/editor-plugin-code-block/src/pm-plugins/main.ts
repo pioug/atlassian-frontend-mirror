@@ -115,9 +115,7 @@ export const createPlugin = ({
 			init(_, state): CodeBlockState {
 				const node = findCodeBlock(state, state.selection);
 
-				const initialDecorations: Decoration[] = fg('editor_support_code_block_wrapping')
-					? generateInitialDecorations(state)
-					: [];
+				const initialDecorations: Decoration[] = generateInitialDecorations(state);
 
 				return {
 					pos: node ? node.pos : null,
@@ -130,7 +128,7 @@ export const createPlugin = ({
 			apply(tr, pluginState: CodeBlockState, _oldState, newState): CodeBlockState {
 				const meta = tr.getMeta(pluginKey);
 
-				if (meta?.type === ACTIONS.SET_IS_WRAPPED && fg('editor_support_code_block_wrapping')) {
+				if (meta?.type === ACTIONS.SET_IS_WRAPPED) {
 					const node = findCodeBlock(newState, tr.selection);
 					return {
 						...pluginState,
@@ -149,31 +147,27 @@ export const createPlugin = ({
 					// specifically used for updating word wrap node decorators (does not cover drag & drop, validateWordWrappedDecorators does).
 					let updatedDecorationSet = pluginState.decorations.map(tr.mapping, tr.doc);
 
-					if (fg('editor_support_code_block_wrapping')) {
-						const codeBlockNodes = fg('editor_code_wrapping_perf_improvement_ed-25141')
-							? getAllChangedCodeBlocksInTransaction(tr)
-							: getAllCodeBlockNodesInDoc(newState);
+					const codeBlockNodes = fg('editor_code_wrapping_perf_improvement_ed-25141')
+						? getAllChangedCodeBlocksInTransaction(tr)
+						: getAllCodeBlockNodesInDoc(newState);
 
-						if (codeBlockNodes) {
-							if (fg('editor_code_block_wrapping_language_change_bug')) {
-								updateCodeBlockWrappedStateNodeKeys(codeBlockNodes, _oldState);
-							}
-
-							updatedDecorationSet = updateCodeBlockDecorations(
-								tr,
-								codeBlockNodes,
-								updatedDecorationSet,
-							);
+					if (codeBlockNodes) {
+						if (fg('editor_code_block_wrapping_language_change_bug')) {
+							updateCodeBlockWrappedStateNodeKeys(codeBlockNodes, _oldState);
 						}
+
+						updatedDecorationSet = updateCodeBlockDecorations(
+							tr,
+							codeBlockNodes,
+							updatedDecorationSet,
+						);
 					}
 
 					const newPluginState: CodeBlockState = {
 						...pluginState,
 						pos: node ? node.pos : null,
 						isNodeSelected: tr.selection instanceof NodeSelection,
-						decorations: fg('editor_support_code_block_wrapping')
-							? updatedDecorationSet
-							: DecorationSet.empty,
+						decorations: updatedDecorationSet,
 					};
 					return newPluginState;
 				}
@@ -205,10 +199,7 @@ export const createPlugin = ({
 		key: pluginKey,
 		props: {
 			decorations(state) {
-				if (fg('editor_support_code_block_wrapping')) {
-					return pluginKey.getState(state).decorations || DecorationSet.empty;
-				}
-				return undefined;
+				return pluginKey.getState(state).decorations || DecorationSet.empty;
 			},
 			nodeViews: {
 				codeBlock: (node: PMNode, view: EditorView, getPos: getPosHandler) => {
@@ -220,15 +211,10 @@ export const createPlugin = ({
 			handleClickOn: createSelectionClickHandler(
 				['codeBlock'],
 				(target) =>
-					fg('editor_support_code_block_wrapping')
-						? !!(
-								target.classList.contains(codeBlockClassNames.lineNumberWidget) ||
-								target.classList.contains(codeBlockClassNames.gutterFg)
-							)
-						: !!(
-								target.closest(`.${codeBlockClassNames.gutter}`) ||
-								target.classList.contains(codeBlockClassNames.content)
-							),
+					!!(
+						target.classList.contains(codeBlockClassNames.lineNumberWidget) ||
+						target.classList.contains(codeBlockClassNames.gutter)
+					),
 				{ useLongPressSelection },
 			),
 			handleDOMEvents,

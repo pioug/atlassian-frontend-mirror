@@ -1303,6 +1303,15 @@ describe('Provider', () => {
 			expect(provider.getMetadata()).toEqual(sampleMetadata);
 			expect(setMetadataSpy).toBeCalledWith(sampleMetadata);
 		});
+
+		it('getIsNamespaceLocked: Should get namespace lock status', () => {
+			const getIsNamespaceLockedSpy = jest.spyOn(
+				(provider as any).namespaceService,
+				'getIsNamespaceLocked',
+			);
+			provider.getIsNamespaceLocked();
+			expect(getIsNamespaceLockedSpy).toBeCalled();
+		});
 	});
 
 	describe('View Permission Only', () => {

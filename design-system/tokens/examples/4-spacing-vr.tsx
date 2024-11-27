@@ -8,68 +8,71 @@ import { jsx } from '@emotion/react';
 
 import { Box, Inline, xcss } from '@atlaskit/primitives';
 
-import { token } from '../src';
-import type defaultTokenValues from '../src/artifacts/token-default-values';
-
 import { useVrGlobalTheme } from './utils/use-vr-global-theme';
 
-const ExampleSizeBox = ({
-	scaleToken,
-	fallback,
-}: {
-	scaleToken: keyof typeof defaultTokenValues;
-	fallback: string;
-}) => {
-	// Since we're using this for the width/height it needs to be positive
-	const absToken = scaleToken.replace('.negative', '') as keyof typeof defaultTokenValues;
-
-	const boxStyles = xcss({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		width: token(absToken, fallback),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: token(absToken, fallback),
-		backgroundColor: 'color.background.brand.bold',
-		position: 'relative',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		insetBlockStart: scaleToken.includes('negative') ? token(absToken, fallback) : '0',
-	});
-
-	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-	return <Box xcss={boxStyles}></Box>;
+const styleMap = {
+	'space.negative.400': xcss({ marginBlockStart: 'space.negative.400' }),
+	'space.negative.300': xcss({ marginBlockStart: 'space.negative.300' }),
+	'space.negative.200': xcss({ marginBlockStart: 'space.negative.200' }),
+	'space.negative.150': xcss({ marginBlockStart: 'space.negative.150' }),
+	'space.negative.100': xcss({ marginBlockStart: 'space.negative.100' }),
+	'space.negative.075': xcss({ marginBlockStart: 'space.negative.075' }),
+	'space.negative.050': xcss({ marginBlockStart: 'space.negative.050' }),
+	'space.negative.025': xcss({ marginBlockStart: 'space.negative.025' }),
+	'0': xcss({ marginBlockStart: '0' }),
+	'space.025': xcss({ marginBlockStart: 'space.025' }),
+	'space.050': xcss({ marginBlockStart: 'space.050' }),
+	'space.075': xcss({ marginBlockStart: 'space.075' }),
+	'space.100': xcss({ marginBlockStart: 'space.100' }),
+	'space.150': xcss({ marginBlockStart: 'space.150' }),
+	'space.200': xcss({ marginBlockStart: 'space.200' }),
+	'space.300': xcss({ marginBlockStart: 'space.300' }),
+	'space.400': xcss({ marginBlockStart: 'space.400' }),
+	'space.500': xcss({ marginBlockStart: 'space.500' }),
+	'space.600': xcss({ marginBlockStart: 'space.600' }),
+	'space.800': xcss({ marginBlockStart: 'space.800' }),
+	'space.1000': xcss({ marginBlockStart: 'space.1000' }),
 };
-
-const containerStyles = xcss({
+const rootStyles = xcss({
 	// To ensure the VR snapshot captures the absolutely-positioned negative Boxes
 	height: '200px',
+});
+
+const containerStyles = xcss({
+	paddingBlockStart: 'space.500',
+});
+const baseBoxStyles = xcss({
+	backgroundColor: 'color.background.discovery.bold',
+	height: '64px',
+	width: '64px',
 });
 
 export default () => {
 	useVrGlobalTheme();
 	return (
-		<Box testId="spacing" xcss={containerStyles}>
+		<Box testId="spacing" xcss={rootStyles}>
 			<h1>Spacing scale</h1>
-			<Inline space="space.100" alignBlock="end">
-				{/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
-				<ExampleSizeBox scaleToken="space.negative.400" fallback="2em" />
-				<ExampleSizeBox scaleToken="space.negative.300" fallback="12px" />
-				<ExampleSizeBox scaleToken="space.negative.200" fallback="32px" />
-				<ExampleSizeBox scaleToken="space.negative.150" fallback="4rem" />
-				<ExampleSizeBox scaleToken="space.negative.100" fallback="40px" />
-				<ExampleSizeBox scaleToken="space.negative.075" fallback="22px" />
-				<ExampleSizeBox scaleToken="space.negative.050" fallback="6px" />
-				<ExampleSizeBox scaleToken="space.negative.025" fallback="12px" />
-				<ExampleSizeBox scaleToken="space.025" fallback="12px" />
-				<ExampleSizeBox scaleToken="space.050" fallback="6px" />
-				<ExampleSizeBox scaleToken="space.075" fallback="22px" />
-				<ExampleSizeBox scaleToken="space.100" fallback="40px" />
-				<ExampleSizeBox scaleToken="space.150" fallback="4rem" />
-				<ExampleSizeBox scaleToken="space.200" fallback="32px" />
-				<ExampleSizeBox scaleToken="space.300" fallback="12px" />
-				<ExampleSizeBox scaleToken="space.400" fallback="2em" />
-				<ExampleSizeBox scaleToken="space.500" fallback="52px" />
-				<ExampleSizeBox scaleToken="space.600" fallback="0.5rem" />
-				<ExampleSizeBox scaleToken="space.800" fallback="0.5rem" />
-				<ExampleSizeBox scaleToken="space.1000" fallback="0.5rem" />
+			<Inline space="space.100" xcss={containerStyles}>
+				<Box xcss={[baseBoxStyles, styleMap['space.negative.400']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.negative.300']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.negative.200']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.negative.150']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.negative.100']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.negative.075']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.negative.050']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.negative.025']]} />
+				<Box xcss={[baseBoxStyles, styleMap['0']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.050']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.075']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.100']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.150']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.200']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.300']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.400']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.500']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.600']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.800']]} />
+				<Box xcss={[baseBoxStyles, styleMap['space.1000']]} />
 			</Inline>
 		</Box>
 	);

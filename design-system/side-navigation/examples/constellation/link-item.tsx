@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 
 import BookIcon from '@atlaskit/icon/glyph/book';
@@ -9,9 +8,11 @@ const ButtonItemExample = () => {
 	return (
 		<div>
 			<Section>
+				{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 				<LinkItem href="#">My articles</LinkItem>
 			</Section>
 			<Section>
+				{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 				<LinkItem href="#" description="All published articles" iconBefore={<BookIcon label="" />}>
 					My articles
 				</LinkItem>

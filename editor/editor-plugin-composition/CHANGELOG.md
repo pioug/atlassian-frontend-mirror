@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-composition
 
+## 1.2.12
+
+### Patch Changes
+
+- [#168970](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168970)
+  [`97db2d026001d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/97db2d026001d) -
+  ED-25808: refactors plugins to meet folder standards
+- Updated dependencies
+
 ## 1.2.11
 
 ### Patch Changes

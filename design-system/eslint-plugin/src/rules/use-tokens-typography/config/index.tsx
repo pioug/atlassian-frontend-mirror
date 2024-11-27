@@ -28,7 +28,7 @@ export const ruleSchema: JSONSchema4 = {
 
 const defaultConfig: RuleConfig = {
 	failSilently: false,
-	shouldEnforceFallbacks: true,
+	shouldEnforceFallbacks: false,
 	enableUnsafeAutofix: false,
 };
 

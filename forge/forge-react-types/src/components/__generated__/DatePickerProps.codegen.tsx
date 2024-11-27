@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - DatePickerProps
  *
- * @codegen <<SignedSource::42eaa9f29e60017a2248e671b55923b2>>
+ * @codegen <<SignedSource::1da6b38ff77e9ba90fed8f7e3fdcab6b>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/datepicker/__generated__/index.partial.tsx <<SignedSource::8ac4bc3fdccbecd1e2f4aec3dca13ea0>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/datepicker/__generated__/index.partial.tsx <<SignedSource::d7ce045cdb974347d07688b1b6a7faac>>
  */
 import type { DateTimePickerSelectProps } from '@atlaskit/datetime-picker';
 
@@ -27,25 +27,25 @@ type Appearance = 'default' | 'subtle' | 'none';
 type Spacing = 'compact' | 'default';
 
 export type DatePickerProps = {
-   appearance?: Appearance;
-   autoFocus?: boolean;
-   defaultIsOpen?: boolean;
-   defaultValue?: string;
-   disabled?: string[];
-   maxDate?: string;
-   minDate?: string;
-   isDisabled?: boolean;
-   isOpen?: boolean;
-   nextMonthLabel?: string;
-   previousMonthLabel?: string;
-   spacing?: Spacing;
-   value?: string;
-   isInvalid?: boolean;
-   dateFormat?: string;
-   placeholder?: string;
-   locale?: string;
-   testId?: string;
-   weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
-   onChange?:(value: string) => void;
-   selectProps?: DateTimePickerSelectProps;
-} & Partial<Omit<FieldProps, 'onChange' | 'isRequired' >>;
+	appearance?: Appearance;
+	autoFocus?: boolean;
+	defaultIsOpen?: boolean;
+	defaultValue?: string;
+	disabled?: string[];
+	maxDate?: string;
+	minDate?: string;
+	isDisabled?: boolean;
+	isOpen?: boolean;
+	nextMonthLabel?: string;
+	previousMonthLabel?: string;
+	spacing?: Spacing;
+	value?: string;
+	isInvalid?: boolean;
+	dateFormat?: string;
+	placeholder?: string;
+	locale?: string;
+	testId?: string;
+	weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+	onChange?: (value: string) => void;
+	selectProps?: DateTimePickerSelectProps;
+} & Partial<Omit<FieldProps, 'onChange'>>;

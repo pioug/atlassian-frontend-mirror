@@ -6,6 +6,7 @@
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
+import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkAlignment, SmartLinkDirection, SmartLinkSize } from '../../../../../../constants';
@@ -21,6 +22,14 @@ const actionStyles: SerializedStyles = css({
 	':hover': {
 		color: token('color.text.subtle', '#8993A4'),
 		textDecoration: 'underline',
+	},
+});
+
+const actionHoverStyles: SerializedStyles = css({
+	position: 'relative',
+	zIndex: 1,
+	'&:focus': {
+		outlineOffset: token('space.negative.025', '-2px'),
 	},
 });
 
@@ -44,6 +53,8 @@ const getMessageStyles = (size: SmartLinkSize, hasAction: boolean): SerializedSt
 				outline: `${token('color.border.focused', '#388BFF')} solid 2px`,
 			},
 		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		hasAction ? actionHoverStyles : '',
 	);
 };
 
@@ -73,17 +84,15 @@ const TitleBlockErroredView = ({
 			{title}
 			{descriptor && (
 				<ElementGroup direction={SmartLinkDirection.Horizontal} align={SmartLinkAlignment.Right}>
-					<span
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-						className={hasAction ? 'has-action' : ''}
+					<Box
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						css={getMessageStyles(size, hasAction)}
+						xcss={getMessageStyles(size, hasAction)}
 						onClick={onClick}
-						data-testid={`${testId}-errored-view-message`}
+						testId={`${testId}-errored-view-message`}
 						tabIndex={hasAction ? 0 : -1}
 					>
 						<FormattedMessage {...descriptor} values={values} />
-					</span>
+					</Box>
 				</ElementGroup>
 			)}
 			{actionGroup}

@@ -1,5 +1,22 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.21.1
+
+### Patch Changes
+
+- [#168879](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168879)
+  [`b6dd0c637ded9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b6dd0c637ded9) -
+  [EDF-1903] Add platform_editor_ai_unsplash_page_header experiment
+
+## 2.21.0
+
+### Minor Changes
+
+- [#166948](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166948)
+  [`0ab57e453a9f5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ab57e453a9f5) -
+  EDF-1639: Add prefillable prompts for Confluence pages so that when a user selects such prompt, it
+  will prefill their AI input field. This is an experiment under platform_editor_ai_draft_with_ai.
+
 ## 2.20.1
 
 ### Patch Changes

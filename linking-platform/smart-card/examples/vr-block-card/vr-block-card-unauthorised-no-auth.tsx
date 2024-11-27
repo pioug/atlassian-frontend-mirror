@@ -6,11 +6,3 @@ import VRCardView from '../utils/vr-card-view';
 export const BlockCardUnauthorisedViewWithNoAuth = () => (
 	<VRCardView appearance="block" client={new UnAuthClientWithNoAuthFlow()} />
 );
-
-export const BlockCardUnauthorisedViewWithNoAuthLegacy = () => (
-	<VRCardView
-		appearance="block"
-		client={new UnAuthClientWithNoAuthFlow()}
-		useLegacyBlockCard={true}
-	/>
-);

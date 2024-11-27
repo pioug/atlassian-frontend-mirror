@@ -1,5 +1,21 @@
 # @atlaskit/legacy-custom-icons
 
+## 0.20.0
+
+### Minor Changes
+
+- [#169599](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169599)
+  [`7b6ac1ec88f5d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7b6ac1ec88f5d) -
+  Move custom icons to legacy icon package in preparation for upcoming iconography refresh.
+
+## 0.19.0
+
+### Minor Changes
+
+- [#169119](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169119)
+  [`829be72513577`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/829be72513577) -
+  Move custom icons to legacy icon package in preparation for upcoming iconography refresh.
+
 ## 0.18.0
 
 ### Minor Changes

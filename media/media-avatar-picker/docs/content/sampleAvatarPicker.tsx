@@ -20,6 +20,7 @@ const AvatarApp = ({ isOpen }: AvatarAppProps) => {
 				<Button appearance="primary" onClick={() => setDialogOpen(true)}>
 					Open sesame!
 				</Button>
+				{/* eslint-disable-next-line jsx-a11y/alt-text */}
 				<img
 					width={400}
 					height={360}

@@ -1,5 +1,41 @@
 # @atlaskit/editor-core
 
+## 202.4.1
+
+### Patch Changes
+
+- [#167313](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167313)
+  [`40d491ee58258`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40d491ee58258) -
+  ED-24230 Remove code wrapping for editor FG
+
+## 202.4.0
+
+### Minor Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+
+### Patch Changes
+
+- Updated dependencies
+
+## 202.3.4
+
+### Patch Changes
+
+- [#168706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168706)
+  [`b1eef0648c061`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b1eef0648c061) -
+  [ED-25767] Fix responsiveness difference in editor vs renderer
+
+## 202.3.3
+
+### Patch Changes
+
+- [#168832](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168832)
+  [`6a5261e14e959`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a5261e14e959) -
+  [ux] ED-25834 allow comment on inline node selection
+
 ## 202.3.2
 
 ### Patch Changes

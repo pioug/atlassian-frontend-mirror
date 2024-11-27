@@ -1,5 +1,5 @@
-import type { CompositionPlugin, CompositionState } from './plugin';
-import { compositionPlugin } from './plugin';
+import { compositionPlugin } from './compositionPlugin';
+import type { CompositionPlugin, CompositionState } from './compositionPluginType';
 
 export type { CompositionPlugin, CompositionState };
 export { compositionPlugin };

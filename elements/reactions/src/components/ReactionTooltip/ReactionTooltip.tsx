@@ -58,7 +58,7 @@ export const ReactionTooltip = ({
 	 */
 	const content =
 		!users || users.length === 0 || !isEnabled ? null : (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, jsx-a11y/no-noninteractive-tabindex -- Ignored via go/DSP-18766
 			<div css={tooltipStyle} tabIndex={0}>
 				<ul>
 					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
@@ -68,6 +68,7 @@ export const ReactionTooltip = ({
 					})}
 					{/* If count of reactions higher then given threshold then render custom message */}
 
+					{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
 					<li
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 						css={allowUserDialog ? [footerStyle, underlineStyle] : footerStyle}

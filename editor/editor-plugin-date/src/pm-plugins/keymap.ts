@@ -2,8 +2,7 @@ import { bindKeymapWithCommand, enter, keymap, tab } from '@atlaskit/editor-comm
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
-import { closeDatePicker, focusDateInput, openDatePicker } from '../actions';
-
+import { closeDatePicker, focusDateInput, openDatePicker } from './actions';
 import { getPluginState } from './main';
 
 export function keymapPlugin(): SafePlugin {

@@ -55,7 +55,9 @@ class CornerControlComponent extends Component<CornerControlProps & WrappedCompo
 						danger: isActive && isInDanger,
 					})}
 					onClick={this.selectTable}
+					// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
 					onMouseOver={this.hoverTable}
+					// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
 					onMouseOut={this.clearHoverSelection}
 				/>
 

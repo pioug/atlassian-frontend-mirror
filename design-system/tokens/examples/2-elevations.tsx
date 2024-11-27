@@ -7,8 +7,7 @@
 import { css, jsx } from '@emotion/react';
 
 import AtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
-
-import { token } from '../src';
+import { token } from '@atlaskit/tokens';
 
 import { useVrGlobalTheme } from './utils/use-vr-global-theme';
 

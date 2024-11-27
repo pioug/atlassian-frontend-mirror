@@ -460,6 +460,7 @@ export const EmojiNodeWrapper = forwardRef<
 	}
 
 	return (
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<span
 			{...accessibilityProps}
 			ref={ref}

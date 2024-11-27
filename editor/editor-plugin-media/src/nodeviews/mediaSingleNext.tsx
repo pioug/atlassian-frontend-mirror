@@ -609,6 +609,7 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 	}, [widthType, mediaSingleWidthAttribute]);
 
 	const MediaChildren = (
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
 		<figure
 			ref={mediaSingleWrapperRef}
 			css={figureWrapperStyles}
@@ -627,7 +628,17 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 				>
 					{({ badgeSize }: { badgeSize: 'small' | 'medium' }) => (
 						<>
-							{shouldShowExternalMediaBadge && <ExternalImageBadge badgeSize={badgeSize} />}
+							{fg('platform_editor_hide_external_media_badge') ? (
+								<ExternalImageBadge
+									badgeSize={badgeSize}
+									type={childMediaNodeAttrs.type}
+									url={
+										childMediaNodeAttrs.type === 'external' ? childMediaNodeAttrs.url : undefined
+									}
+								/>
+							) : (
+								shouldShowExternalMediaBadge && <ExternalImageBadge badgeSize={badgeSize} />
+							)}
 							{mediaOptions.allowCommentsOnMedia && (
 								<CommentBadgeNextWrapper
 									view={view}

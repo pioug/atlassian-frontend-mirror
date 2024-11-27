@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.13.0",
+	"version": "3.13.4",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,7 @@
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^44.2.0",
+		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/atlassian-context": "^0.0.2",
 		"@atlaskit/avatar": "^21.17.0",
@@ -57,7 +57,7 @@
 		"@atlaskit/jql-editor": "^4.10.0",
 		"@atlaskit/jql-editor-autocomplete-rest": "^2.1.0",
 		"@atlaskit/layering": "^0.8.0",
-		"@atlaskit/link-client-extension": "^2.4.0",
+		"@atlaskit/link-client-extension": "^3.0.0",
 		"@atlaskit/linking-common": "^6.0.0",
 		"@atlaskit/linking-types": "^9.5.0",
 		"@atlaskit/logo": "^14.3.0",
@@ -73,11 +73,11 @@
 		"@atlaskit/primitives": "^13.2.0",
 		"@atlaskit/react-select": "^1.4.0",
 		"@atlaskit/select": "^18.6.0",
-		"@atlaskit/smart-card": "^30.4.0",
+		"@atlaskit/smart-card": "^31.0.0",
 		"@atlaskit/smart-user-picker": "6.11.2",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/tag": "^12.6.0",
-		"@atlaskit/textfield": "6.5.5",
+		"@atlaskit/textfield": "6.6.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.3.0",
 		"@atlaskit/tooltip": "^18.9.0",
@@ -177,9 +177,6 @@
 			"type": "boolean"
 		},
 		"platform-datasources-enable-two-way-sync-assignee": {
-			"type": "boolean"
-		},
-		"platform.linking-platform.datasource-assets_update_refresh_button_dt3qk": {
 			"type": "boolean"
 		},
 		"platform-datasources-use-refactored-config-modal": {

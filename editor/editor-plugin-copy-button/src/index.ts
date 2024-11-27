@@ -1,2 +1,2 @@
-export type { CopyButtonPlugin, CopyButtonPluginState } from './types';
-export { copyButtonPlugin } from './plugin';
+export type { CopyButtonPlugin, CopyButtonPluginState } from './copyButtonPluginType';
+export { copyButtonPlugin } from './copyButtonPlugin';

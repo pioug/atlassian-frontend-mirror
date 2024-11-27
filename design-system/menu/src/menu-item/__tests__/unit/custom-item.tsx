@@ -6,7 +6,6 @@ import { createSerializer, matchers } from '@emotion/jest';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import { HashRouter, Link } from 'react-router-dom';
 
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
@@ -171,7 +170,7 @@ describe('<CustomItem />', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 		render(
-			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, jsx-a11y/no-static-element-interactions
 			<div onDragStart={dragStartEvent}>
 				<CustomItem component={Component} testId="target">
 					Hello world
@@ -190,7 +189,7 @@ describe('<CustomItem />', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 		render(
-			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, jsx-a11y/no-static-element-interactions
 			<div onDragStart={dragStartEvent}>
 				<CustomItem component={Component} testId="target" UNSAFE_isDraggable>
 					Hello world
@@ -219,18 +218,6 @@ describe('<CustomItem />', () => {
 		);
 
 		expect(screen.getByTestId('target')).toHaveAttribute('href', '/my-details');
-	});
-
-	it('should work with a component from an external library', () => {
-		render(
-			<HashRouter>
-				<CustomItem to="/my-details" component={Link} testId="target">
-					Hello world
-				</CustomItem>
-			</HashRouter>,
-		);
-
-		expect(screen.getByTestId('target')).toHaveAttribute('href', '#/my-details');
 	});
 
 	ffTest.on(
@@ -405,7 +392,7 @@ describe('<CustomItem />', () => {
 				// Return if default was prevented which we will then assert later
 				const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 				render(
-					// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+					// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, jsx-a11y/no-static-element-interactions
 					<div onDragStart={dragStartEvent}>
 						<CustomItem component={Component} testId="target">
 							Hello world
@@ -424,7 +411,7 @@ describe('<CustomItem />', () => {
 				// Return if default was prevented which we will then assert later
 				const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 				render(
-					// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+					// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, jsx-a11y/no-static-element-interactions
 					<div onDragStart={dragStartEvent}>
 						<CustomItem component={Component} testId="target" UNSAFE_isDraggable>
 							Hello world
@@ -453,18 +440,6 @@ describe('<CustomItem />', () => {
 				);
 
 				expect(screen.getByTestId('target')).toHaveAttribute('href', '/my-details');
-			});
-
-			it('should work with a component from an external library', () => {
-				render(
-					<HashRouter>
-						<CustomItem to="/my-details" component={Link} testId="target">
-							Hello world
-						</CustomItem>
-					</HashRouter>,
-				);
-
-				expect(screen.getByTestId('target')).toHaveAttribute('href', '#/my-details');
 			});
 		},
 	);

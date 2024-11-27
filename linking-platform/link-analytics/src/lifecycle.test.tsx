@@ -5,7 +5,7 @@ import '@atlaskit/link-test-helpers/jest';
 import { IntlProvider } from 'react-intl-next';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { fireEvent, waitFor } from '@testing-library/dom';
+import { fireEvent, waitFor } from '@testing-library/react';
 import { renderHook } from '@testing-library/react-hooks';
 import { act } from '@testing-library/react';
 
@@ -13,7 +13,7 @@ import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { LinkPicker, type LinkPickerProps } from '@atlaskit/link-picker';
 
-import { ANALYTICS_CHANNEL } from './consts';
+import { EVENT_CHANNEL } from './common/utils/constants';
 import { useSmartLinkLifecycleAnalytics } from './lifecycle';
 import { runWhenIdle } from './utils';
 import { fakeFactory, mocks } from './__fixtures__/mocks';
@@ -52,9 +52,9 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 
 		const onEvent = jest.fn();
 		const renderResult = renderHook(() => useSmartLinkLifecycleAnalytics(), {
-			wrapper: ({ children }: React.PropsWithChildren<{}>) => (
+			wrapper: ({ children }: React.PropsWithChildren<Record<string, unknown>>) => (
 				<SmartCardProvider client={mockClient}>
-					<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
+					<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onEvent}>
 						{children}
 					</AnalyticsListener>
 				</SmartCardProvider>
@@ -113,7 +113,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 							},
 						},
 					},
-					ANALYTICS_CHANNEL,
+					EVENT_CHANNEL,
 				);
 			});
 		});
@@ -158,7 +158,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 							},
 						},
 					},
-					ANALYTICS_CHANNEL,
+					EVENT_CHANNEL,
 				);
 			});
 		});
@@ -203,7 +203,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 							},
 						},
 					},
-					ANALYTICS_CHANNEL,
+					EVENT_CHANNEL,
 				);
 			});
 		});
@@ -229,7 +229,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 							},
 						},
 					},
-					ANALYTICS_CHANNEL,
+					EVENT_CHANNEL,
 				);
 			});
 		});
@@ -258,7 +258,7 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 								},
 							},
 						},
-						ANALYTICS_CHANNEL,
+						EVENT_CHANNEL,
 					);
 				});
 			},
@@ -319,10 +319,10 @@ describe('useSmartLinkLifecycleAnalytics', () => {
 			};
 
 			const renderResult = render(<Component />, {
-				wrapper: ({ children }: React.PropsWithChildren<{}>) => (
+				wrapper: ({ children }: React.PropsWithChildren<Record<string, unknown>>) => (
 					<IntlProvider locale="en">
 						<SmartCardProvider client={mockClient}>
-							<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
+							<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onEvent}>
 								{children}
 							</AnalyticsListener>
 						</SmartCardProvider>

@@ -30,6 +30,10 @@ export class NullDocumentService implements DocumentServiceInterface {
 		return Promise.resolve({} as ResolvedEditorState);
 	}
 
+	getIsNamespaceLocked() {
+		return false;
+	}
+
 	getUnconfirmedSteps() {
 		return undefined;
 	}

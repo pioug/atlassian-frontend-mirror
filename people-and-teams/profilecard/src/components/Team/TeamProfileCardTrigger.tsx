@@ -415,7 +415,6 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 					trigger={(triggerProps) => this.renderTrigger(triggerProps)}
 					zIndex={layers.modal()}
 					shouldFlip
-					// eslint-disable-next-line jsx-a11y/no-autofocus
 					autoFocus={this.props.trigger !== 'hover' && !this.openedByHover}
 					shouldRenderToParent={fg('enable_appropriate_reading_order_in_profile_card')}
 				/>

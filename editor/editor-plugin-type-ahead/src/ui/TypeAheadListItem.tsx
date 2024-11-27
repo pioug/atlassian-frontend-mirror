@@ -1,5 +1,3 @@
-// Disabling for ED-21403 fixing accessibility issue.
-/* eslint-disable jsx-a11y/role-supports-aria-props */
 /**
  * @jsxRuntime classic
  * @jsx jsx

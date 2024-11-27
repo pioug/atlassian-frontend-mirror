@@ -17,7 +17,7 @@ export function codeBlockAutoFullStopTransformPlugin() {
 			oldState: EditorState,
 			newState: EditorState,
 		) {
-			if (!fg('editor_support_code_block_wrapping') || !fg('code_block_auto_insertion_bug_fix')) {
+			if (!fg('code_block_auto_insertion_bug_fix')) {
 				return undefined;
 			}
 

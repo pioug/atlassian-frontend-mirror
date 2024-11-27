@@ -75,6 +75,7 @@ const InlineExtension = (props: Props) => {
 					setIsNodeHovered={setIsNodeHovered}
 				/>
 			)}
+			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 			<div
 				data-testid="inline-extension-wrapper"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766

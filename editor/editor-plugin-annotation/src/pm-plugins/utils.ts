@@ -351,6 +351,7 @@ export const isSelectionValid = (
 ): AnnotationSelectionType => {
 	const { selection } = state;
 	const { disallowOnWhitespace } = getPluginState(state) || {};
+	const allowedInlineNodes = ['emoji', 'status', 'date', 'mention', 'inlineCard'];
 
 	// Allow media so that it can enter draft mode
 	if (currentMediaNodeWithPos(state)?.node) {
@@ -359,7 +360,13 @@ export const isSelectionValid = (
 
 	if (
 		selection.empty ||
-		!(selection instanceof TextSelection || selection instanceof AllSelection)
+		!(
+			selection instanceof TextSelection ||
+			selection instanceof AllSelection ||
+			(selection instanceof NodeSelection &&
+				allowedInlineNodes.includes(selection.node.type.name) &&
+				fg('platform_inline_node_as_valid_annotation_selection'))
+		)
 	) {
 		return AnnotationSelectionType.INVALID;
 	}
@@ -380,7 +387,7 @@ export const isSelectionValid = (
 		return AnnotationSelectionType.INVALID;
 	}
 
-	if (isEmptyTextSelection(selection, state.schema)) {
+	if (!(selection instanceof NodeSelection) && isEmptyTextSelection(selection, state.schema)) {
 		return AnnotationSelectionType.INVALID;
 	}
 
@@ -410,7 +417,10 @@ export const isSupportedBlockNode = (node: Node, supportedBlockNodes: string[] =
  * Checks if any of the nodes in a given selection are completely whitespace
  * This is to conform to Confluence annotation specifications
  */
-export function hasInvalidWhitespaceNode(selection: TextSelection | AllSelection, schema: Schema) {
+export function hasInvalidWhitespaceNode(
+	selection: TextSelection | AllSelection | NodeSelection,
+	schema: Schema,
+) {
 	let foundInvalidWhitespace = false;
 
 	const content = selection.content().content;

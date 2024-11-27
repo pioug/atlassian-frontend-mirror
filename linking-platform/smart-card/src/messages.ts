@@ -144,8 +144,6 @@ export type MessageKey =
 	| 'save'
 	| 'unlink_account'
 	| RequestAccessMessageKey
-	| 'related_work_items_not_found'
-	| 'last_mentioned_in'
 	| 'related'
 	| 'generic_error_message'
 	| 'related_links_modal_error_header'
@@ -891,16 +889,6 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.linking.forbidden_description',
 		defaultMessage: 'Contact your admin to request access to {hostname}.',
 		description: 'Informs the user that they must contact the site administrator for access.',
-	},
-	related_work_items_not_found: {
-		id: 'fabric.linking.related_work_items_not_found',
-		defaultMessage: 'This link is not mentioned anywhere else.',
-		description: 'Informs the user that there are no related resources for a given url',
-	},
-	last_mentioned_in: {
-		id: 'fabric.linking.last_mentioned_in',
-		defaultMessage: 'Last mentioned in',
-		description: 'Informs the user about where the resource was last mentioned in',
 	},
 	related: {
 		id: 'fabric.linking.related',

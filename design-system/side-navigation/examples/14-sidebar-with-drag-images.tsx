@@ -225,7 +225,7 @@ const ADragDropView = ({ items }: { items: any[] }) => {
 	};
 
 	const moveToTop = useCallback(
-		(index) => {
+		(index: number) => {
 			if (index > 0) {
 				const updatedItems = [...draggables];
 				const [movedItem] = updatedItems.splice(index, 1);
@@ -239,7 +239,7 @@ const ADragDropView = ({ items }: { items: any[] }) => {
 	);
 
 	const moveUp = useCallback(
-		(index) => {
+		(index: number) => {
 			if (index > 0) {
 				const updatedItems = [...draggables];
 				const [movedItem] = updatedItems.splice(index, 1);
@@ -253,7 +253,7 @@ const ADragDropView = ({ items }: { items: any[] }) => {
 	);
 
 	const moveDown = useCallback(
-		(index) => {
+		(index: number) => {
 			if (index < draggables.length - 1) {
 				const updatedItems = [...draggables];
 				const [movedItem] = updatedItems.splice(index, 1);
@@ -267,7 +267,7 @@ const ADragDropView = ({ items }: { items: any[] }) => {
 	);
 
 	const moveToBottom = useCallback(
-		(index) => {
+		(index: number) => {
 			if (index < draggables.length - 1) {
 				const updatedItems = [...draggables];
 				const [movedItem] = updatedItems.splice(index, 1);

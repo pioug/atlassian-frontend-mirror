@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-breakout
 
+## 1.9.4
+
+### Patch Changes
+
+- [#167313](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167313)
+  [`40d491ee58258`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40d491ee58258) -
+  ED-24230 Remove code wrapping for editor FG
+
+## 1.9.3
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- Updated dependencies
+
 ## 1.9.2
 
 ### Patch Changes

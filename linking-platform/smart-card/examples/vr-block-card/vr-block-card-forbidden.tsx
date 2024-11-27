@@ -6,6 +6,3 @@ import VRCardView from '../utils/vr-card-view';
 export const BlockCardForbiddenView = () => (
 	<VRCardView appearance="block" client={new ForbiddenClient()} />
 );
-export const BlockCardForbiddenViewLegacy = () => (
-	<VRCardView appearance="block" client={new ForbiddenClient()} useLegacyBlockCard={true} />
-);

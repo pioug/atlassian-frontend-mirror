@@ -41,6 +41,16 @@ export const toolbarMessages = defineMessages({
 		defaultMessage: 'Three columns with sidebars layout',
 		description: 'Layout with 3 columns laid out as 25% - 50% - 25%',
 	},
+	threeColumnsWithLeftSidebars: {
+		id: 'fabric.editor.threeColumnsWithLeftSidebars',
+		defaultMessage: 'Three columns with left sidebar layout',
+		description: 'Layout with 3 columns laid out as 25% - 25% - 50%',
+	},
+	threeColumnsWithRightSidebars: {
+		id: 'fabric.editor.threeColumnsWithRightSidebars',
+		defaultMessage: 'Three columns with right sidebar layout',
+		description: 'Layout with 3 columns laid out as 50% - 25% - 25%',
+	},
 	floatingToolbarRadioGroupAriaLabel: {
 		id: 'fabric.editor.floatingToolbar.floatingToolbarRadioGroupAriaLabel',
 		defaultMessage: 'Layout options',

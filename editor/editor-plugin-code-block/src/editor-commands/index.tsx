@@ -29,7 +29,6 @@ import {
 	removeSelectedNode,
 	safeInsert,
 } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ACTIONS } from '../pm-plugins/actions';
 import { copySelectionPluginKey } from '../pm-plugins/codeBlockCopySelectionPlugin';
@@ -248,9 +247,6 @@ export function insertCodeBlockWithAnalytics(
 export const toggleWordWrapStateForCodeBlockNode =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>
 	(state, dispatch) => {
-		if (!fg('editor_support_code_block_wrapping')) {
-			return false;
-		}
 		const codeBlockNode = findCodeBlock(state)?.node;
 		const { tr } = state;
 

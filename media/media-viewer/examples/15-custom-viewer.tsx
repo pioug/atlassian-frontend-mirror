@@ -139,6 +139,7 @@ const HTMLRenderer = ({
 	if (!content) {
 		return <Spinner />;
 	}
+	// eslint-disable-next-line jsx-a11y/iframe-has-title
 	return <iframe ref={iframeElement} css={iframeStyles}></iframe>;
 };
 

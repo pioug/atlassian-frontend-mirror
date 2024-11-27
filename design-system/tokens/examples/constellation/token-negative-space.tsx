@@ -6,8 +6,7 @@
 import { css, jsx } from '@emotion/react';
 
 import { Bleed } from '@atlaskit/primitives';
-
-import token from '../../src/get-token';
+import { token } from '@atlaskit/tokens';
 
 const TokenNegativeSpaceCodeBlock = `
 import { token } from '@atlaskit/tokens';

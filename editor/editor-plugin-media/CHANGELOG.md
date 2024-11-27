@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-media
 
+## 1.42.6
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- [#168624](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168624)
+  [`6d928c0cb9227`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d928c0cb9227) -
+  [ux] [ED-25832] Hide external image badges for atlassian.com domains
+- Updated dependencies
+
+## 1.42.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.42.4
 
 ### Patch Changes

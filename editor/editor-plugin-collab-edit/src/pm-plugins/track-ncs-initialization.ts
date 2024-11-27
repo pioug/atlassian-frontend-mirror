@@ -6,7 +6,8 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { AddMarkStep } from '@atlaskit/editor-prosemirror/transform';
 
 import type { CollabInitializedMetadata } from '../types';
-import { originalTransactionHasMeta } from '../utils';
+
+import { originalTransactionHasMeta } from './utils';
 
 export const trackNCSInitializationPluginKey = new PluginKey<CollabInitializedMetadata>(
 	'collabTrackNCSInitializationPlugin',

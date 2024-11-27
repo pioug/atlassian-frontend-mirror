@@ -43,6 +43,7 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",

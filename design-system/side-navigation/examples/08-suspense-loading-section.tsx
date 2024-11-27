@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { lazy, Suspense } from 'react';
 
 import BacklogIcon from '@atlaskit/icon/glyph/backlog';
@@ -52,6 +51,7 @@ const LazySettingsSectionItems = makeLazy(() => {
 const LazyRootItems = makeLazy(() => {
 	return (
 		<Section title="My project">
+			{/* eslint-disable jsx-a11y/anchor-is-valid */}
 			<LinkItem href="#" iconBefore={<RoadmapIcon label="" />}>
 				Roadmap
 			</LinkItem>
@@ -64,6 +64,7 @@ const LazyRootItems = makeLazy(() => {
 			<LinkItem href="#" iconBefore={<GraphLineIcon label="" />}>
 				Reports
 			</LinkItem>
+			{/* eslint-enable jsx-a11y/anchor-is-valid */}
 			<SettingsSection />
 		</Section>
 	);

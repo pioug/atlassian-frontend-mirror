@@ -48,6 +48,7 @@ export default class NumberColumn extends Component<Props, any> {
 			>
 				{rowHeights.map((rowHeight, index) =>
 					isDragAndDropEnabled ? (
+						// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 						<div
 							key={`wrapper-${index}`}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -55,11 +56,13 @@ export default class NumberColumn extends Component<Props, any> {
 							data-index={index}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={this.getCellStyles(index, rowHeight)}
+							// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
 							onMouseOver={() => updateCellHoverLocation(index)}
 						>
 							{hasHeaderRow ? (index > 0 ? index : null) : index + 1}
 						</div>
 					) : (
+						// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 						<div
 							key={`wrapper-${index}`}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -68,7 +71,9 @@ export default class NumberColumn extends Component<Props, any> {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							style={this.getCellStyles(index, rowHeight)}
 							onClick={(event) => this.selectRow(index, event)}
+							// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
 							onMouseOver={() => this.hoverRows(index)}
+							// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
 							onMouseOut={this.clearHoverSelection}
 						>
 							{hasHeaderRow ? (index > 0 ? index : null) : index + 1}

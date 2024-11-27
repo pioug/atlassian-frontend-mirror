@@ -1,2 +1,2 @@
-export { contextMenuPlugin } from './plugin';
-export type { ContextMenuPlugin } from './plugin';
+export { contextMenuPlugin } from './contextMenuPlugin';
+export type { ContextMenuPlugin } from './contextMenuPluginType';

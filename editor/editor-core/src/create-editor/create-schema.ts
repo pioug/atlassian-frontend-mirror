@@ -1,3 +1,4 @@
+import { sanitizeNodes } from '@atlaskit/adf-schema/schema';
 import { createProseMirrorMetadata } from '@atlaskit/editor-common/prosemirror-dom-metadata';
 import type {
 	DOMOutputSpec,
@@ -10,7 +11,6 @@ import { Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MarkConfig, NodeConfig } from '../types/pm-config';
-import { sanitizeNodes } from '../utils/sanitizeNodes';
 
 import { fixExcludes } from './create-editor';
 import { sortByOrder } from './sort-by-order';

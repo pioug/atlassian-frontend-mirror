@@ -364,4 +364,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2024-11-26
+	platform_editor_ai_unsplash_page_header: {
+		productKeys: {
+			confluence: 'platform_editor_ai_unsplash_page_header',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

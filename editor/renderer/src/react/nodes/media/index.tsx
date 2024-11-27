@@ -35,6 +35,7 @@ import {
 	EVENT_TYPE,
 	VIEW_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnalyticsEventPayload } from '../../../analytics/events';
 import { MODE, PLATFORM } from '../../../analytics/events';
@@ -434,7 +435,15 @@ class Media extends PureComponent<MediaProps, {}> {
 								>
 									{({ badgeSize }: { badgeSize: 'small' | 'medium' }) => (
 										<>
-											{shouldShowExternalMediaBadge && <ExternalImageBadge badgeSize={badgeSize} />}
+											{fg('platform_editor_hide_external_media_badge') ? (
+												<ExternalImageBadge
+													badgeSize={badgeSize}
+													type={this.props.type}
+													url={this.props.type === 'external' ? this.props.url : undefined}
+												/>
+											) : (
+												shouldShowExternalMediaBadge && <ExternalImageBadge badgeSize={badgeSize} />
+											)}
 											{showCommentBadge && (
 												<CommentBadgeNextWrapper
 													marks={annotationMarks}

@@ -5,34 +5,26 @@
 import { useEffect } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
-import { fontFallback } from '@atlaskit/theme/typography';
-import { token } from '@atlaskit/tokens';
+import { Grid, Text, xcss } from '@atlaskit/primitives';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 
 import { loadingErrorMessages } from './messages';
 
-const noResultsContainerStyles = css({
-	margin: `${token('space.500', '40px')} auto`,
-	display: 'grid',
-	gap: token('space.300', '24px'),
+const noResultsContainerStyles = xcss({
+	margin: 'space.500',
+	gap: 'space.300',
 	placeItems: 'center',
 	placeSelf: 'center',
 });
 
-const noResultsMessageContainerStyles = css({
-	display: 'grid',
-	gap: token('space.100', '8px'),
+const noResultsMessageContainerStyles = xcss({
+	gap: 'space.100',
 	placeItems: 'center',
-});
-
-const noResultsMessageStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	font: token('font.heading.small', fontFallback.heading.small),
 });
 
 interface NoResultsProps {
@@ -47,7 +39,7 @@ export const NoResults = ({ onRefresh }: NoResultsProps) => {
 	}, [fireEvent]);
 
 	return (
-		<div css={noResultsContainerStyles} data-testid="datasource-modal--no-results">
+		<Grid xcss={noResultsContainerStyles} testId="datasource-modal--no-results">
 			<svg
 				width="131"
 				height="120"
@@ -191,16 +183,16 @@ export const NoResults = ({ onRefresh }: NoResultsProps) => {
 					</clipPath>
 				</defs>
 			</svg>
-			<div css={noResultsMessageContainerStyles}>
-				<span css={noResultsMessageStyles}>
+			<Grid xcss={noResultsMessageContainerStyles}>
+				<Text as="span" size="large" weight="bold">
 					<FormattedMessage {...loadingErrorMessages.noResultsFound} />
-				</span>
+				</Text>
 				{onRefresh && (
 					<Button appearance="primary" onClick={onRefresh}>
 						<FormattedMessage {...loadingErrorMessages.refresh} />
 					</Button>
 				)}
-			</div>
-		</div>
+			</Grid>
+		</Grid>
 	);
 };

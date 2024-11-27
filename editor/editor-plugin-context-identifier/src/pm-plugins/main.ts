@@ -3,7 +3,11 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
-import type { Configuration, ContextIdentifierPlugin, PluginConfiguration } from '../types';
+import type {
+	Configuration,
+	ContextIdentifierPlugin,
+	PluginConfiguration,
+} from '../contextIdentifierPluginType';
 
 export const pluginKey = new PluginKey<Configuration | undefined>('contextIdentiferPlugin');
 

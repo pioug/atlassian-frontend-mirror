@@ -12,6 +12,7 @@ import styled from '@emotion/styled';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { mockDatasourceFetchRequests } from '@atlaskit/link-test-helpers/datasource';
+import { Text } from '@atlaskit/primitives';
 
 import { fetchMessagesForLocale } from '../src/common/utils/locale/fetch-messages-for-locale';
 import { DatasourceExperienceIdProvider } from '../src/contexts/datasource-experience-id';
@@ -119,7 +120,7 @@ const ExampleBody = ({
 					wrappedColumnKeys={wrappedColumnKeys}
 				/>
 			) : (
-				<span>Loading ...</span>
+				<Text as="span">Loading ...</Text>
 			)}
 		</TableViewWrapper>
 	);

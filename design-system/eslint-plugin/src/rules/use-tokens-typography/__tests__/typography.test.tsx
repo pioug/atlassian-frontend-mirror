@@ -111,9 +111,8 @@ export const typographyTests: Tests = {
 							desc: `Convert to font token`,
 							output: outdent`
 					import { token } from '@atlaskit/tokens';
-					import { fontFallback } from '@atlaskit/theme/typography';
 					const styles = css({
-						font: token('font.heading.xsmall', fontFallback.heading.xsmall),
+						font: token('font.heading.xsmall'),
 						padding: '8px'
 					})`,
 						},
@@ -162,9 +161,8 @@ export const typographyTests: Tests = {
 							desc: `Convert to font token`,
 							output: outdent`
 								import { token } from '@atlaskit/tokens';
-								import { fontFallback } from '@atlaskit/theme/typography';
 								const styles = css({
-									font: token('font.body.UNSAFE_small', fontFallback.body.UNSAFE_small),
+									font: token('font.body.UNSAFE_small'),
 								})`,
 						},
 					],
@@ -187,11 +185,10 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
 									padding: '8px',
-									font: token('font.body.large', fontFallback.body.large),
+									font: token('font.body.large'),
 									color: 'red'
 								})`,
 						},
@@ -215,10 +212,9 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.large', fontFallback.body.large),
+									font: token('font.body.large'),
 									padding: '8px',
 								})`,
 						},
@@ -241,11 +237,10 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body', fontFallback.body.medium),
-								fontWeight: token('font.weight.medium', '500'),
+									font: token('font.body'),
+								fontWeight: token('font.weight.medium'),
 								})`,
 						},
 					],
@@ -268,11 +263,10 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
 									padding: '8px',
-									font: token('font.body.large', fontFallback.body.large),
+									font: token('font.body.large'),
 									color: 'red'
 								})`,
 						},
@@ -296,11 +290,10 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.small', fontFallback.body.small),
-								fontWeight: token('font.weight.semibold', '600'),
+									font: token('font.body.small'),
+								fontWeight: token('font.weight.semibold'),
 								})`,
 						},
 					],
@@ -326,11 +319,10 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body', fontFallback.body.medium),
-								fontWeight: token('font.weight.medium', '500'),
+									font: token('font.body'),
+								fontWeight: token('font.weight.medium'),
 									':hover': {
 										fontSize: '14px',
 										fontWeight: 500,
@@ -345,11 +337,10 @@ export const typographyTests: Tests = {
 		// nested object, fontSize match, fontWeight conversion
 		{
 			code: outdent`
-				import { fontFallback } from '@atlaskit/theme/typography';
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
-					font: token('font.body', fontFallback.body.medium),
-					fontWeight: token('font.weight.medium', '500'),
+					font: token('font.body'),
+					fontWeight: token('font.weight.medium'),
 					':hover': {
 						fontSize: '14px',
 						fontWeight: 500,
@@ -362,14 +353,13 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body', fontFallback.body.medium),
-									fontWeight: token('font.weight.medium', '500'),
+									font: token('font.body'),
+									fontWeight: token('font.weight.medium'),
 									':hover': {
-										font: token('font.body', fontFallback.body.medium),
-								fontWeight: token('font.weight.medium', '500'),
+										font: token('font.body'),
+								fontWeight: token('font.weight.medium'),
 									}
 								})`,
 						},
@@ -392,11 +382,10 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.large', fontFallback.body.large),
-								fontFamily: token('font.family.brand.heading', '"Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+									font: token('font.body.large'),
+								fontFamily: token('font.family.brand.heading'),
 								})`,
 						},
 					],
@@ -420,11 +409,10 @@ export const typographyTests: Tests = {
 							desc: `Convert to font token`,
 							output: outdent`
 								import { token } from '@atlaskit/tokens';
-								import { h100, fontFallback } from '@atlaskit/theme/typography';
-
+								import { h100 } from '@atlaskit/theme/typography';
 								const styles = css({
-									font: token('font.body.large', fontFallback.body.large),
-								fontFamily: token('font.family.brand.body', '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+									font: token('font.body.large'),
+								fontFamily: token('font.family.brand.body'),
 								})`,
 						},
 					],
@@ -446,10 +434,9 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.large', fontFallback.body.large),
+									font: token('font.body.large'),
 								fontFamily: CharlieTextVariable,
 								})`,
 						},
@@ -473,10 +460,9 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.large', fontFallback.body.large),
+									font: token('font.body.large'),
 								fontFamily: token('font.family.brand.body'),
 								})`,
 						},
@@ -500,10 +486,9 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.large', fontFallback.body.large),
+									font: token('font.body.large'),
 								fontFamily: token('font.family.code'),
 								})`,
 						},
@@ -527,10 +512,9 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.large', fontFallback.body.large),
+									font: token('font.body.large'),
 								})`,
 						},
 					],
@@ -553,10 +537,9 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.large', fontFallback.body.large),
+									font: token('font.body.large'),
 								})`,
 						},
 					],
@@ -578,10 +561,9 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.large', fontFallback.body.large),
+									font: token('font.body.large'),
 								fontStyle: 'italic',
 								})`,
 						},
@@ -607,12 +589,11 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.large', fontFallback.body.large),
-								fontWeight: token('font.weight.medium', '500'),
-								fontFamily: token('font.family.brand.body', '"Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif'),
+									font: token('font.body.large'),
+								fontWeight: token('font.weight.medium'),
+								fontFamily: token('font.family.brand.body'),
 								fontStyle: 'italic',
 								})`,
 						},
@@ -670,10 +651,9 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = styled.div({
-									font: token('font.heading.xsmall', fontFallback.heading.xsmall),
+									font: token('font.heading.xsmall'),
 									padding: '8px'
 								})`,
 						},
@@ -697,11 +677,10 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const someValue = fontSizeSmall();
 								const styles = css({
-									font: token('font.body.small', fontFallback.body.small),
+									font: token('font.body.small'),
 								});`,
 						},
 					],
@@ -723,10 +702,9 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body', fontFallback.body.medium),
+									font: token('font.body'),
 								});`,
 						},
 					],
@@ -748,11 +726,10 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.body.UNSAFE_small', fontFallback.body.UNSAFE_small),
-								fontWeight: token('font.weight.bold', '700'),
+									font: token('font.body.UNSAFE_small'),
+								fontWeight: token('font.weight.bold'),
 								});`,
 						},
 					],
@@ -774,10 +751,9 @@ export const typographyTests: Tests = {
 						{
 							desc: `Convert to font token`,
 							output: outdent`
-								import { fontFallback } from '@atlaskit/theme/typography';
 								import { token } from '@atlaskit/tokens';
 								const styles = css({
-									font: token('font.heading.xxsmall', fontFallback.heading.xxsmall),
+									font: token('font.heading.xxsmall'),
 								});`,
 						},
 					],
@@ -795,9 +771,8 @@ export const typographyTests: Tests = {
 			errors: [{ messageId: 'noRawTypographyValues' }],
 			output: outdent`
 				import { token } from '@atlaskit/tokens';
-				import { fontFallback } from '@atlaskit/theme/typography';
 				const styles = css({
-					font: token('font.heading.xsmall', fontFallback.heading.xsmall),
+					font: token('font.heading.xsmall'),
 				})`,
 		},
 	],

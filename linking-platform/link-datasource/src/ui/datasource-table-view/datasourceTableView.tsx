@@ -9,7 +9,6 @@ import { css, jsx } from '@emotion/react';
 
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../analytics';
 import { componentMetadata } from '../../analytics/constants';
@@ -144,9 +143,7 @@ const DatasourceTableViewWithoutAnalytics = ({
 	const forcedReset = useCallback(() => {
 		reset({
 			shouldForceRequest: true,
-			shouldResetColumns:
-				fg('platform.linking-platform.datasource-assets_update_refresh_button_dt3qk') &&
-				datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
+			shouldResetColumns: datasourceId === ASSETS_LIST_OF_LINKS_DATASOURCE_ID,
 		});
 	}, [reset, datasourceId]);
 

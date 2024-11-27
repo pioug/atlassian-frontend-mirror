@@ -31,6 +31,7 @@ const iframeContent = `
 `;
 
 const MockIFrame = injectable(IFrame, ({ childRef, ...props }) => (
+	// eslint-disable-next-line jsx-a11y/iframe-has-title
 	<iframe ref={childRef} {...props} srcDoc={iframeContent} />
 ));
 

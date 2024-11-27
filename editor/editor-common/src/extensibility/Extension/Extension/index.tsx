@@ -87,8 +87,6 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		const pos: number | undefined = typeof getPos === 'function' ? getPos() : undefined;
 
 		return typeof pos !== 'undefined' && !isNaN(pos) && view.state.doc.resolve(pos).depth === 0;
-
-		return false;
 	}, [view, getPos]);
 
 	const shouldBreakout =
@@ -176,6 +174,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
 				/>
 			)}
+			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 			<div
 				ref={handleRef}
 				data-layout={node.attrs.layout}

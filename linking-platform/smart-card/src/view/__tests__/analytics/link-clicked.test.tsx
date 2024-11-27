@@ -93,7 +93,6 @@ describe('`link clicked`', () => {
 			{ appearance: 'inline' },
 			{ selector: () => screen.findByTestId('card-resolved-view') },
 		],
-		['legacy block card', { appearance: 'block', useLegacyBlockCard: true }],
 		[
 			'block card',
 			{ appearance: 'block' },

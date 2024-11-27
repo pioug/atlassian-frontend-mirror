@@ -1,5 +1,13 @@
 # @atlaskit/prosemirror-collab
 
+## 0.10.4
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+
 ## 0.10.3
 
 ### Patch Changes

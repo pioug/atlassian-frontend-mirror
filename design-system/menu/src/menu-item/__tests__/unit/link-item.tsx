@@ -177,7 +177,6 @@ describe('<LinkItem />', () => {
 		it('should not callback on click when disabled', () => {
 			const callback = jest.fn();
 			render(
-				// eslint-disable-next-line jsx-a11y/click-events-have-key-events
 				<LinkItem href="http://www.atlassian.com" isDisabled onClick={callback} testId="target">
 					Atlassian
 				</LinkItem>,
@@ -219,7 +218,7 @@ describe('<LinkItem />', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 		render(
-			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, jsx-a11y/no-static-element-interactions
 			<div onDragStart={dragStartEvent}>
 				<LinkItem href="http://www.atlassian.com" testId="target">
 					Atlassian
@@ -240,7 +239,7 @@ describe('<LinkItem />', () => {
 		// Return if default was prevented which we will then assert later
 		const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 		render(
-			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+			// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, jsx-a11y/no-static-element-interactions
 			<div onDragStart={dragStartEvent}>
 				<LinkItem href="http://www.atlassian.com" testId="target" UNSAFE_isDraggable>
 					Atlassian
@@ -810,7 +809,6 @@ describe('<LinkItem />', () => {
 				it('should not callback on click when disabled', () => {
 					const callback = jest.fn();
 					render(
-						// eslint-disable-next-line jsx-a11y/click-events-have-key-events
 						<LinkItem href="http://www.atlassian.com" isDisabled onClick={callback} testId="target">
 							Atlassian
 						</LinkItem>,
@@ -852,7 +850,7 @@ describe('<LinkItem />', () => {
 				// Return if default was prevented which we will then assert later
 				const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 				render(
-					// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+					// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, jsx-a11y/no-static-element-interactions
 					<div onDragStart={dragStartEvent}>
 						<LinkItem href="http://www.atlassian.com" testId="target">
 							Atlassian
@@ -873,7 +871,7 @@ describe('<LinkItem />', () => {
 				// Return if default was prevented which we will then assert later
 				const dragStartEvent = jest.fn((e) => e.defaultPrevented);
 				render(
-					// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+					// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, jsx-a11y/no-static-element-interactions
 					<div onDragStart={dragStartEvent}>
 						<LinkItem href="http://www.atlassian.com" testId="target" UNSAFE_isDraggable>
 							Atlassian

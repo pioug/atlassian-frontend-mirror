@@ -17,6 +17,7 @@ import type {
 	FloatingToolbarSeparator,
 	Icon,
 } from '@atlaskit/editor-common/types';
+import { type NodeType, type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import DeleteIcon from '@atlaskit/icon/core/delete';
@@ -37,6 +38,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { deleteActiveLayoutNode, getPresetLayout, setPresetLayout } from './actions';
 import type { PresetLayout } from './types';
+import { LayoutThreeWithLeftSidebarsIcon } from './ui/icons/LayoutThreeWithLeftSidebars';
+import { LayoutThreeWithRightSidebarsIcon } from './ui/icons/LayoutThreeWithRightSidebars';
 import { isPreRelease2 } from './utils/preRelease';
 
 import type { LayoutPlugin } from './index';
@@ -101,7 +104,8 @@ const SIDEBAR_LAYOUT_TYPES: PresetLayoutButtonItem[] = [
 	},
 ];
 
-const LAYOUT_DISTRIBUTION_TYPES: PresetLayoutButtonItem[] = [
+// These are used for advanced layout options
+const LAYOUT_WITH_TWO_COL_DISTRIBUTION = [
 	{
 		id: 'editor.layout.twoEquals',
 		type: 'two_equal',
@@ -123,6 +127,9 @@ const LAYOUT_DISTRIBUTION_TYPES: PresetLayoutButtonItem[] = [
 		icon: LayoutTwoColumnsSidebarLeftIcon,
 		iconFallback: LayoutTwoLeftSidebarIcon,
 	},
+] as const;
+
+const LAYOUT_WITH_THREE_COL_DISTRIBUTION = [
 	{
 		id: 'editor.layout.threeEquals',
 		type: 'three_equal',
@@ -137,14 +144,21 @@ const LAYOUT_DISTRIBUTION_TYPES: PresetLayoutButtonItem[] = [
 		icon: LayoutThreeColumnsSidebarsIcon,
 		iconFallback: LayoutThreeWithSidebarsIcon,
 	},
-];
-
-const SIDEBAR_LAYOUT_TYPES_BY_COLUMNS = {
-	2: [LAYOUT_DISTRIBUTION_TYPES[0], LAYOUT_DISTRIBUTION_TYPES[1], LAYOUT_DISTRIBUTION_TYPES[2]],
-	3: [LAYOUT_DISTRIBUTION_TYPES[3], LAYOUT_DISTRIBUTION_TYPES[4]],
-	4: [],
-	5: [],
-};
+	{
+		id: 'editor.layout.threeRightSidebars',
+		type: 'three_right_sidebars',
+		title: toolbarMessages.threeColumnsWithRightSidebars,
+		icon: LayoutThreeWithRightSidebarsIcon,
+		iconFallback: LayoutThreeWithRightSidebarsIcon,
+	},
+	{
+		id: 'editor.layout.threeLeftSidebars',
+		type: 'three_left_sidebars',
+		title: toolbarMessages.threeColumnsWithLeftSidebars,
+		icon: LayoutThreeWithLeftSidebarsIcon,
+		iconFallback: LayoutThreeWithLeftSidebarsIcon,
+	},
+] as const;
 
 const buildLayoutButton = (
 	intl: IntlShape,
@@ -166,6 +180,95 @@ const buildLayoutButton = (
 export const layoutToolbarTitle = 'Layout floating controls';
 
 const iconPlaceholder = LayoutTwoColumnsIcon as unknown as ReactNode; // TODO: Replace with proper icon ED-25466
+
+const getAdvancedLayoutItems = ({
+	addSidebarLayouts,
+	intl,
+	editorAnalyticsAPI,
+	state,
+	node,
+	nodeType,
+	separator,
+	deleteButton,
+	currentLayout,
+}: {
+	addSidebarLayouts: boolean;
+	intl: IntlShape;
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	state: EditorState;
+	node: PMNode;
+	nodeType: NodeType;
+	separator: FloatingToolbarSeparator;
+	deleteButton: FloatingToolbarButton<Command>;
+	currentLayout: string | undefined;
+}) => {
+	const numberOfColumns = node.content.childCount || 2;
+
+	const distributionOptions =
+		numberOfColumns === 2
+			? LAYOUT_WITH_TWO_COL_DISTRIBUTION
+			: numberOfColumns === 3
+				? LAYOUT_WITH_THREE_COL_DISTRIBUTION
+				: [];
+
+	const columnOptions: DropdownOptions<Command> = [
+		{
+			title: intl.formatMessage(layoutMessages.columnOption, { count: 2 }), //'2-columns',
+			icon: iconPlaceholder,
+			onClick: setPresetLayout(editorAnalyticsAPI)('two_equal', intl.formatMessage),
+			selected: numberOfColumns === 2,
+		},
+		{
+			title: intl.formatMessage(layoutMessages.columnOption, { count: 3 }), //'3-columns'
+			icon: iconPlaceholder,
+			onClick: setPresetLayout(editorAnalyticsAPI)('three_equal', intl.formatMessage),
+			selected: numberOfColumns === 3,
+		},
+		{
+			title: intl.formatMessage(layoutMessages.columnOption, { count: 4 }), //'4-columns'
+			icon: iconPlaceholder,
+			onClick: setPresetLayout(editorAnalyticsAPI)('four_equal', intl.formatMessage),
+			selected: numberOfColumns === 4,
+		},
+		{
+			title: intl.formatMessage(layoutMessages.columnOption, { count: 5 }), //'5-columns'
+			icon: iconPlaceholder,
+			onClick: setPresetLayout(editorAnalyticsAPI)('five_equal', intl.formatMessage),
+			selected: numberOfColumns === 5,
+		},
+	];
+
+	return [
+		{
+			type: 'dropdown',
+			title: intl.formatMessage(layoutMessages.columnOption, { count: numberOfColumns }), //`${numberOfColumns}-columns`,
+			options: columnOptions,
+			showSelected: true,
+			testId: 'column-options-button',
+		},
+		...(distributionOptions.length > 0 ? [separator] : []),
+		...(addSidebarLayouts
+			? distributionOptions.map((i) =>
+					buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
+				)
+			: []),
+		separator,
+		{
+			type: 'copy-button',
+			supportsViewMode: !fg('platform_editor_remove_copy_button_from_view_mode'),
+			items: [
+				{
+					state,
+					formatMessage: intl.formatMessage,
+					nodeType,
+				},
+			],
+		},
+		separator,
+		deleteButton,
+	] as FloatingToolbarItem<Command>[];
+};
+
 export const buildToolbar = (
 	state: EditorState,
 	intl: IntlShape,
@@ -180,7 +283,6 @@ export const buildToolbar = (
 	const node = state.doc.nodeAt(pos);
 	if (node) {
 		const currentLayout = getPresetLayout(node);
-		const numberOfColumns = node.content.childCount || 2;
 
 		const separator: FloatingToolbarSeparator = {
 			type: 'separator',
@@ -205,87 +307,49 @@ export const buildToolbar = (
 			tabIndex: null,
 		};
 
-		const layoutTypes = isPreRelease2()
-			? []
-			: allowSingleColumnLayout
-				? LAYOUT_TYPES_WITH_SINGLE_COL
-				: LAYOUT_TYPES;
-
-		const columnOptions: DropdownOptions<Command> = [
-			{
-				title: intl.formatMessage(layoutMessages.columnOption, { count: 2 }), //'2-columns',
-				icon: iconPlaceholder,
-				onClick: setPresetLayout(editorAnalyticsAPI)('two_equal', intl.formatMessage),
-				selected: numberOfColumns === 2,
-			},
-			{
-				title: intl.formatMessage(layoutMessages.columnOption, { count: 3 }), //'3-columns'
-				icon: iconPlaceholder,
-				onClick: setPresetLayout(editorAnalyticsAPI)('three_equal', intl.formatMessage),
-				selected: numberOfColumns === 3,
-			},
-			{
-				title: intl.formatMessage(layoutMessages.columnOption, { count: 4 }), //'4-columns'
-				icon: iconPlaceholder,
-				onClick: setPresetLayout(editorAnalyticsAPI)('four_equal', intl.formatMessage),
-				selected: numberOfColumns === 4,
-			},
-			{
-				title: intl.formatMessage(layoutMessages.columnOption, { count: 5 }), //'5-columns'
-				icon: iconPlaceholder,
-				onClick: setPresetLayout(editorAnalyticsAPI)('five_equal', intl.formatMessage),
-				selected: numberOfColumns === 5,
-			},
-		];
-		const sidebarTypesByColumns =
-			SIDEBAR_LAYOUT_TYPES_BY_COLUMNS[
-				numberOfColumns as keyof typeof SIDEBAR_LAYOUT_TYPES_BY_COLUMNS
-			] || [];
+		const layoutTypes = allowSingleColumnLayout ? LAYOUT_TYPES_WITH_SINGLE_COL : LAYOUT_TYPES;
 
 		return {
 			title: layoutToolbarTitle,
 			getDomRef: (view) => findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
 			nodeType,
 			groupLabel: intl.formatMessage(toolbarMessages.floatingToolbarRadioGroupAriaLabel),
-			items: [
-				...((isPreRelease2()
-					? [
-							{
-								type: 'dropdown',
-								title: intl.formatMessage(layoutMessages.columnOption, { count: numberOfColumns }), //`${numberOfColumns}-columns`,
-								options: columnOptions,
-								showSelected: true,
-								testId: 'column-options-button',
-							},
-							...(sidebarTypesByColumns.length > 0 ? [separator] : []),
-						]
-					: []) as FloatingToolbarItem<Command>[]),
-				...layoutTypes.map((i) => buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI)),
-				...(addSidebarLayouts
-					? isPreRelease2()
-						? sidebarTypesByColumns.map((i) =>
-								buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
-							)
-						: SIDEBAR_LAYOUT_TYPES.map((i) =>
-								buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
-							)
-					: []),
-				separator,
-				{
-					type: 'copy-button',
-					supportsViewMode: !fg('platform_editor_remove_copy_button_from_view_mode'),
-					items: [
+			items: isPreRelease2()
+				? getAdvancedLayoutItems({
+						addSidebarLayouts,
+						intl,
+						editorAnalyticsAPI,
+						state,
+						nodeType,
+						node,
+						separator,
+						deleteButton,
+						currentLayout,
+					})
+				: [
+						...layoutTypes.map((i) =>
+							buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
+						),
+						...(addSidebarLayouts
+							? SIDEBAR_LAYOUT_TYPES.map((i) =>
+									buildLayoutButton(intl, i, currentLayout, editorAnalyticsAPI),
+								)
+							: []),
+						separator,
 						{
-							state,
-							formatMessage: intl.formatMessage,
-							nodeType,
+							type: 'copy-button',
+							supportsViewMode: !fg('platform_editor_remove_copy_button_from_view_mode'),
+							items: [
+								{
+									state,
+									formatMessage: intl.formatMessage,
+									nodeType,
+								},
+							],
 						},
+						separator,
+						deleteButton,
 					],
-				},
-
-				separator,
-				deleteButton,
-			],
 			scrollable: true,
 		};
 	}

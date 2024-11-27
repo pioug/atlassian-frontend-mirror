@@ -1,5 +1,40 @@
 # @atlaskit/link-datasource
 
+## 3.13.4
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- Updated dependencies
+
+## 3.13.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.13.2
+
+### Patch Changes
+
+- [#168237](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168237)
+  [`ea4ae217d120e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea4ae217d120e) -
+  The change here updates Jira SLLV priority column default width from `110px` to `100px`
+- [#168803](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168803)
+  [`35628ad72f2b2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/35628ad72f2b2) -
+  Clean up FF platform.linking-platform.datasource-assets_update_refresh_button_dt3qk
+
+## 3.13.1
+
+### Patch Changes
+
+- [#167375](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167375)
+  [`ce85e442a7d6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce85e442a7d6e) -
+  [ux] Use atlaskit primitives for typography
+- Updated dependencies
+
 ## 3.13.0
 
 ### Minor Changes

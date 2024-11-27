@@ -7,6 +7,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import DocumentFilledIcon from '@atlaskit/icon/core/migration/file--editor-file';
+import { Inline } from '@atlaskit/primitives';
 import { N50, N90 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -23,7 +24,7 @@ export interface ResolvingProps {
 /**
  * Class name for selecting non-flexible resolving block card
  *
- * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
+ * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
  * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
  */
 export const blockCardResolvingViewClassName = 'block-card-resolving-view';
@@ -54,8 +55,8 @@ export const ResolvingView = ({
 			label="document-icon"
 			LEGACY_margin="0 -4.3px 0 -4px"
 		/>
-		<span css={messageStyles}>
+		<Inline xcss={messageStyles}>
 			<FormattedMessage {...messages.loading} />
-		</span>
+		</Inline>
 	</Frame>
 );

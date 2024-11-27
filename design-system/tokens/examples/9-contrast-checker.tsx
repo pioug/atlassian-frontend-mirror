@@ -20,9 +20,10 @@ import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
 import Select from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
+import { setGlobalTheme } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { setGlobalTheme } from '../src';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { getCSSCustomProperty } from '../src/utils/token-ids';
 
 import Accordion from './contrast-checker-utils/components/accordion';

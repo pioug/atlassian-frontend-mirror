@@ -8,6 +8,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import { Box, Inline, xcss } from '@atlaskit/primitives';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -39,6 +40,11 @@ const messageStyles = css({
 	maxHeight: gs(3),
 });
 
+const boxStyles = xcss({
+	paddingLeft: 'space.050',
+	paddingRight: 'space.050',
+});
+
 export const EmbedCardErroredView = ({
 	onRetry,
 	isSelected = false,
@@ -52,9 +58,11 @@ export const EmbedCardErroredView = ({
 		testId={testId}
 	>
 		<ErrorIcon LEGACY_size="small" color={token('color.icon.danger', R300)} label="error-icon" />
-		<span css={messageStyles}>
-			<FormattedMessage {...messages.could_not_load_link} />
-		</span>
+		<Box xcss={boxStyles}>
+			<Inline xcss={messageStyles}>
+				<FormattedMessage {...messages.could_not_load_link} />
+			</Inline>
+		</Box>
 		<Button testId="err-view-retry" appearance="link" spacing="none" onClick={onRetry}>
 			<FormattedMessage {...messages.try_again} />
 		</Button>

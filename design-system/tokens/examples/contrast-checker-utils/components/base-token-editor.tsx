@@ -15,9 +15,11 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
+import palettesRaw from '@atlaskit/tokens/palettes-raw';
 
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import palettesBrandRefreshRaw from '../../../src/artifacts/palettes-raw/palette-brand-refresh';
-import palettesRaw from '../../../src/entry-points/palettes-raw';
+// eslint-disable-next-line @atlaskit/platform/use-entrypoints-in-examples
 import { getAlpha, getContrastRatio } from '../../../src/utils/color-utils';
 import { isHex } from '../utils/search-params';
 import { type BaseTokens } from '../utils/types';

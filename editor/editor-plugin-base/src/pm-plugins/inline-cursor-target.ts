@@ -7,11 +7,19 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export const inlineCursorTargetStateKey = new PluginKey('inlineCursorTargetPlugin');
 
-export const isInlineNodeView = (node: Node | null | undefined) => {
-	return node && node.type.isInline && !node.type.isText;
+const isInlineNodeView = (node: Node | null | undefined) => {
+	/**
+	 * If inlineNodeView is a hardbreak we don't want to add decorations
+	 * as it breaks soft line breaks for Japanese/Chinese keyboards.
+	 */
+	const isHardBreak =
+		fg('platform_editor_prevent_decorations_on_hardbreak') &&
+		node?.type === node?.type.schema.nodes.hardBreak;
+	return node && node.type.isInline && !node.type.isText && !isHardBreak;
 };
 export interface InlineCursorTargetState {
 	cursorTarget?: {

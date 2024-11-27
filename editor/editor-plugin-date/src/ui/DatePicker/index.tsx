@@ -145,8 +145,6 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 								onEmptySubmit={this.handleEmptySubmitDate}
 								locale={intl.locale}
 								dispatchAnalyticsEvent={dispatchAnalyticsEvent}
-								// Passthrough prop here
-								// eslint-disable-next-line jsx-a11y/no-autofocus
 								autoFocus={autoFocus}
 								autoSelectAll={isNew}
 							/>

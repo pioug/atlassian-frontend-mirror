@@ -1875,7 +1875,6 @@ cases(
 		rerender(<Select {...renderProps} isSearchable />);
 
 		const setInputValue = (val: string) => {
-			// eslint-disable-next-line jsx-a11y/no-autofocus
 			rerender(<Select {...renderProps} autoFocus inputValue={val} />);
 		};
 
@@ -1983,7 +1982,6 @@ cases(
 		rerender(<Select {...renderProps} isSearchable />);
 
 		const setInputValue = (val: string) => {
-			// eslint-disable-next-line jsx-a11y/no-autofocus
 			rerender(<Select {...renderProps} autoFocus inputValue={val} />);
 		};
 
@@ -2229,12 +2227,10 @@ cases(
 
 test('accessibility > to show the number of options available in A11yText when the menu is Open', () => {
 	let { container, rerender } = render(
-		// eslint-disable-next-line jsx-a11y/no-autofocus
 		<Select {...BASIC_PROPS} inputValue={''} autoFocus menuIsOpen />,
 	);
 
 	let setInputValue = (val: string) => {
-		// eslint-disable-next-line jsx-a11y/no-autofocus
 		rerender(<Select {...BASIC_PROPS} autoFocus menuIsOpen inputValue={val} />);
 	};
 

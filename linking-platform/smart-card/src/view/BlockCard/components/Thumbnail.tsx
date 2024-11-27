@@ -60,6 +60,7 @@ export const ThumbnailWithBackground = ({ src, color, testId }: ImageProps) => {
 			data-testid={testId}
 			data-trello-do-not-use-override={testId}
 		>
+			{/* eslint-disable-next-line jsx-a11y/alt-text */}
 			<img src={src} css={thumbnailImgStyles} />
 		</div>
 	);

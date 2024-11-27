@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "8.1.0",
+	"version": "8.1.1",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,14 +27,14 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^44.2.0",
+		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/custom-steps": "^0.9.0",
-		"@atlaskit/editor-common": "^95.6.0",
+		"@atlaskit/editor-common": "^95.7.0",
 		"@atlaskit/editor-palette": "1.6.3",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
-		"@atlaskit/editor-plugin-batch-attribute-updates": "1.1.5",
+		"@atlaskit/editor-plugin-batch-attribute-updates": "1.1.6",
 		"@atlaskit/editor-plugin-content-insertion": "^1.10.0",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-plugin-guideline": "^1.2.0",
@@ -51,7 +51,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
 		"@atlaskit/primitives": "^13.2.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.20.0",
+		"@atlaskit/tmp-editor-statsig": "^2.21.0",
 		"@atlaskit/toggle": "^13.4.0",
 		"@atlaskit/tokens": "^2.3.0",
 		"@atlaskit/tooltip": "^18.9.0",

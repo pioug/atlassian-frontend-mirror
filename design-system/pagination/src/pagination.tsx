@@ -178,6 +178,8 @@ function InnerPagination<T extends React.ReactNode>(
  * - [Code](https://atlassian.design/components/pagination/code)
  * - [Usage](https://atlassian.design/components/pagination/usage)
  */
-const Pagination = memo(forwardRef(InnerPagination)) as typeof InnerPagination;
+const Pagination = memo(forwardRef(InnerPagination)) as <T>(
+	props: PaginationPropTypes<T> & { ref?: React.Ref<HTMLDivElement> },
+) => React.ReactElement;
 
 export default Pagination;

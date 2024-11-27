@@ -13,7 +13,7 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.js",
 	"atlassian": {
-		"team": "AFP: App Infrastructure",
+		"team": "UIP Frontend Observability",
 		"website": {
 			"name": "Analytics",
 			"deprecated": "Please use the @atlaskit/analytics-next package instead."

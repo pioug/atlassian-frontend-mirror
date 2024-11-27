@@ -320,8 +320,6 @@ const TimePicker = forwardRef(
 					aria-describedby={ariaDescribedBy}
 					aria-label={label || undefined}
 					appearance={appearance}
-					// we need this disabled as we might need focus to move to the select
-					// eslint-disable-next-line jsx-a11y/no-autofocus
 					autoFocus={autoFocus}
 					clearControlLabel={clearControlLabel}
 					components={selectComponents}

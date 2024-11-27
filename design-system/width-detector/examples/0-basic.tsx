@@ -42,7 +42,7 @@ export default function Example() {
 							<>
 								<p>This div has a max width of {containerDivStyle.maxWidth}</p>
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-								<p className="my-component-child">{width}</p>
+								<p className="my-component-child">{width?.toString()}</p>
 								<p>This component has been rendered {n} times.</p>
 							</>
 						);

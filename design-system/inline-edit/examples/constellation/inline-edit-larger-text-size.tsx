@@ -36,7 +36,7 @@ const InlineEditExample = () => {
 				defaultValue={editValue}
 				editButtonLabel={editValue || initialValue}
 				editView={({ errorMessage, ...fieldProps }) => (
-					// eslint-disable-next-line jsx-a11y/no-autofocus, @atlaskit/design-system/no-unsafe-style-overrides
+					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
 					<Textfield {...fieldProps} autoFocus css={textFieldStyles} />
 				)}
 				readView={() => (

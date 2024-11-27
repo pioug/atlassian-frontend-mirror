@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 
 import BacklogIcon from '@atlaskit/icon/glyph/backlog';
@@ -105,6 +104,7 @@ const LoadingSkeleton = () => {
 						}
 					>
 						<Section title="My project">
+							{/* eslint-disable jsx-a11y/anchor-is-valid */}
 							<LinkItem href="#" iconBefore={<RoadmapIcon label="" />}>
 								Roadmap
 							</LinkItem>
@@ -117,6 +117,7 @@ const LoadingSkeleton = () => {
 							<LinkItem href="#" iconBefore={<GraphLineIcon label="" />}>
 								Reports
 							</LinkItem>
+							{/* eslint-enable jsx-a11y/anchor-is-valid */}
 							<SettingsItem />
 						</Section>
 					</LoadingItems>

@@ -232,6 +232,7 @@ export default function Example() {
 				</p>
 				<p>
 					Use real client?
+					{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 					<label htmlFor="realClient">
 						<input
 							checked={isRealClient}

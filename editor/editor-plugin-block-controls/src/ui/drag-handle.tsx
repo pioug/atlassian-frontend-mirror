@@ -34,7 +34,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -129,7 +129,7 @@ export const DragHandle = ({
 	const [blockCardWidth, setBlockCardWidth] = useState(768);
 	const [dragHandleSelected, setDragHandleSelected] = useState(false);
 	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
-
+	const isLayoutColumn = nodeType === 'layoutColumn';
 	useEffect(() => {
 		// blockCard/datasource width is rendered correctly after this decoraton does. We need to observe for changes.
 		if (nodeType === 'blockCard') {
@@ -185,6 +185,12 @@ export const DragHandle = ({
 	// as expected with a node selection. This workaround sets the selection to the node on mouseDown,
 	// but ensures the preview is generated correctly.
 	const handleMouseDown = useCallback(() => {
+		if (
+			!(isLayoutColumn && isPreRelease2()) &&
+			fg('platform_editor_element_drag_and_drop_ed_24885')
+		) {
+			return undefined;
+		}
 		api?.core?.actions.execute(({ tr }) => {
 			const startPos = getPos();
 			if (startPos === undefined) {
@@ -195,12 +201,17 @@ export const DragHandle = ({
 			if (!node) {
 				return tr;
 			}
-			const $startPos = tr.doc.resolve(startPos + node.nodeSize);
-			const selection = new TextSelection($startPos);
+			let selection;
+			if (isLayoutColumn && isPreRelease2()) {
+				selection = new NodeSelection(tr.doc.resolve(startPos));
+			} else {
+				const $startPos = tr.doc.resolve(startPos + node.nodeSize);
+				selection = new TextSelection($startPos);
+			}
 			tr.setSelection(selection);
 			return tr;
 		});
-	}, [api?.core?.actions, getPos]);
+	}, [api?.core?.actions, getPos, isLayoutColumn]);
 
 	const handleKeyDown = useCallback(
 		(e: KeyboardEvent<HTMLButtonElement>) => {
@@ -311,6 +322,10 @@ export const DragHandle = ({
 		const isBlockCard = nodeType === 'blockCard' && !!blockCardWidth;
 		const isEmbedCard = nodeType === 'embedCard';
 
+		const isMacroInteractionUpdates = fg('platform_editor_element_dnd_nested_fix_patch_5')
+			? macroInteractionUpdates && isExtension
+			: macroInteractionUpdates;
+
 		let innerContainer: HTMLElement | null = null;
 		if (dom) {
 			if (isEmbedCard) {
@@ -326,12 +341,11 @@ export const DragHandle = ({
 		}
 
 		const isEdgeCase = (hasResizer || isExtension || isEmbedCard || isBlockCard) && innerContainer;
-		const isLayoutColumn = nodeType === 'layoutColumn';
 
 		if (supportsAnchor) {
 			return {
 				left: isEdgeCase
-					? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType)})`
+					? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
 					: isPreRelease2() && isLayoutColumn
 						? `calc((anchor(${anchorName} right) + anchor(${anchorName} left))/2 - ${DRAG_HANDLE_HEIGHT / 2}px)`
 						: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType, parentNodeType)}px)`,
@@ -348,13 +362,13 @@ export const DragHandle = ({
 		}
 		return {
 			left: isEdgeCase
-				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType)})`
-				: getLeftPosition(dom, nodeType, innerContainer, macroInteractionUpdates, parentNodeType),
+				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
+				: getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType),
 			top: fg('platform_editor_elements_dnd_ed_23674')
 				? getTopPosition(dom, nodeType)
 				: getTopPosition(dom),
 		};
-	}, [anchorName, nodeType, view, blockCardWidth, macroInteractionUpdates, getPos]);
+	}, [anchorName, nodeType, view, blockCardWidth, macroInteractionUpdates, getPos, isLayoutColumn]);
 
 	const [positionStyles, setPositionStyles] = useState<CSSProperties>({ display: 'none' });
 
@@ -515,16 +529,14 @@ export const DragHandle = ({
 			type="button"
 			css={[
 				dragHandleButtonStyles,
-				isPreRelease2() && nodeType === 'layoutColumn' && layoutColumnDragHandleStyles,
+				isPreRelease2() && isLayoutColumn && layoutColumnDragHandleStyles,
 				dragHandleSelected && selectedStyles,
 			]}
 			ref={buttonRef}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={positionStyles}
 			onClick={handleOnClick}
-			onMouseDown={
-				fg('platform_editor_element_drag_and_drop_ed_24885') ? undefined : handleMouseDown
-			}
+			onMouseDown={handleMouseDown}
 			onKeyDown={handleKeyDown}
 			data-testid="block-ctrl-drag-handle"
 		>

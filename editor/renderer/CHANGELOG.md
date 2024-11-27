@@ -1,5 +1,31 @@
 # @atlaskit/renderer
 
+## 112.6.4
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- [#168624](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168624)
+  [`6d928c0cb9227`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d928c0cb9227) -
+  [ux] [ED-25832] Hide external image badges for atlassian.com domains
+- Updated dependencies
+
+## 112.6.3
+
+### Patch Changes
+
+- [#168706](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168706)
+  [`b1eef0648c061`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b1eef0648c061) -
+  [ED-25767] Fix responsiveness difference in editor vs renderer
+
+## 112.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 112.6.1
 
 ### Patch Changes

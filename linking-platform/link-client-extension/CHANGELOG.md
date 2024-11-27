@@ -1,5 +1,13 @@
 # @atlaskit/link-client-extension
 
+## 3.0.0
+
+### Major Changes
+
+- [#168956](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168956)
+  [`311ab96847a83`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/311ab96847a83) -
+  Remove related link urls experiment
+
 ## 2.4.2
 
 ### Patch Changes

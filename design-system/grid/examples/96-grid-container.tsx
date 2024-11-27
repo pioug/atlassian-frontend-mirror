@@ -20,7 +20,7 @@ const NestedGrid = () => {
 		/* set maxWidth and hasInlinePadding on GridContainer instead of Grid */
 		<GridContainer maxWidth={undefined} hasInlinePadding={true}>
 			<Grid>
-				<GridItem span={{ xxs: 4 }}>
+				<GridItem span={{ xxs: 4 }} testId="grid-item">
 					<Box xcss={itemStyles}>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 						<p style={{ textAlign: 'center' }}>span 4</p>

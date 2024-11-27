@@ -9,6 +9,7 @@ import { css, jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/standard-button';
+import { Box, Inline, Text } from '@atlaskit/primitives';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
@@ -35,10 +36,6 @@ const errorMessageStyles = css({
 	font: token('font.heading.small', fontFallback.heading.small),
 });
 
-const errorDescriptionStyles = css({
-	margin: 0,
-});
-
 interface LoadingErrorProps {
 	onRefresh?: () => void;
 }
@@ -53,21 +50,21 @@ export const LoadingError = ({ onRefresh }: LoadingErrorProps) => {
 	}, [fireEvent]);
 
 	return (
-		<div css={errorContainerStyles} data-testid="datasource--loading-error">
+		<Box xcss={errorContainerStyles} testId="datasource--loading-error">
 			<LoadingErrorSVG />
-			<div css={errorMessageContainerStyles}>
-				<span css={errorMessageStyles}>
+			<Box xcss={errorMessageContainerStyles}>
+				<Inline as="span" xcss={errorMessageStyles}>
 					<FormattedMessage {...loadingErrorMessages.unableToLoadItems} />
-				</span>
-				<p css={errorDescriptionStyles}>
+				</Inline>
+				<Text as="p">
 					<FormattedMessage {...loadingErrorMessages.checkConnection} />
-				</p>
+				</Text>
 				{onRefresh && (
 					<Button appearance="primary" onClick={onRefresh}>
 						<FormattedMessage {...loadingErrorMessages.refresh} />
 					</Button>
 				)}
-			</div>
-		</div>
+			</Box>
+		</Box>
 	);
 };

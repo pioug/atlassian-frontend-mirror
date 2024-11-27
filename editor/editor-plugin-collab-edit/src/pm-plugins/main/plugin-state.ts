@@ -12,14 +12,14 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import { Participants } from '../../participants';
 import type { ReadOnlyParticipants } from '../../types';
+import { Participants } from '../participants';
 import {
 	createTelepointers,
 	findPointers,
 	getPositionOfTelepointer,
 	isReplaceStep,
-} from '../../utils';
+} from '../utils';
 
 export { TELEPOINTER_DIM_CLASS };
 

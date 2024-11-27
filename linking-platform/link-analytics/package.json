@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-analytics",
-	"version": "8.5.1",
+	"version": "8.5.2",
 	"description": "Contains analytics and utils to assist in instrumenting Linking Platform components.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,11 +30,11 @@
 		"runReact18": true
 	},
 	"scripts": {
-		"codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/link-analytics run codegen-analytics'"
+		"codegen-analytics": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-analytics --output ./src/common/utils/analytics"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
-		"@atlaskit/link-client-extension": "^2.4.0",
+		"@atlaskit/link-client-extension": "^3.0.0",
 		"@atlaskit/linking-common": "^6.0.0",
 		"@atlaskit/linking-types": "^9.5.0",
 		"@babel/runtime": "^7.0.0",

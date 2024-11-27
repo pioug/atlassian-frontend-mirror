@@ -615,6 +615,7 @@ export const ImageWrapper = forwardRef(
 		}: ImageWrapperProps & ClassName,
 		ref,
 	) => (
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 		<div
 			data-testid={datatestId}
 			onClick={onClick}
@@ -666,6 +667,7 @@ export const Img = ({
 		}
 	}, [canDrag, isDragging]);
 	return (
+		// eslint-disable-next-line jsx-a11y/alt-text, jsx-a11y/no-noninteractive-element-interactions
 		<img
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}

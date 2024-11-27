@@ -20,6 +20,7 @@ export default () => {
 	const onMouseLeave = useCallback(() => setHoverState(false), [setHoverState]);
 
 	return (
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div css={wrapper} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 			<EditorPanelIcon
 				testId="source-icon"

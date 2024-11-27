@@ -1,5 +1,30 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.26
+
+### Patch Changes
+
+- [#168770](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168770)
+  [`0107980b9bac7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0107980b9bac7) -
+  ED-25623 Fix drag handle alignment when inline extension is nested inside table
+
+## 2.13.25
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- Updated dependencies
+
+## 2.13.24
+
+### Patch Changes
+
+- [#168183](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168183)
+  [`5d8ee46d0ab46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d8ee46d0ab46) -
+  Fix dragging issue of a layout column while layout is selected
+
 ## 2.13.23
 
 ### Patch Changes

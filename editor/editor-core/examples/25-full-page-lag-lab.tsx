@@ -267,6 +267,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
 					value={variableLatencyFrom}
 					onChange={updateLatency(onVariableLatencyFromChange)}
 				/>
+				{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 				<label> to </label>
 				<input
 					min="0"
@@ -295,6 +296,7 @@ const LatencyPanel = (props: LatencyPanelProps) => {
 
 			<div>
 				<p>
+					{/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
 					<label>Focus latency (ms)</label>
 				</p>
 				<input

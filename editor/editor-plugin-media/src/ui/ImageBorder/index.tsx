@@ -396,6 +396,7 @@ const ImageBorder = ({
 				forcePlacement={true}
 				stick={true}
 			>
+				{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 				<div
 					onMouseLeave={() => {
 						setIsColorSubmenuOpen(false);

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import token from '../../src/get-token';
+import { token } from '@atlaskit/tokens';
 
 import Card from './token-card-base';
 

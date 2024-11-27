@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.25.3
+
+### Patch Changes
+
+- [#165765](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165765)
+  [`3f441f30e6507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f441f30e6507) -
+  Bump adf-schema to 46.0.0
+- Updated dependencies
+
+## 1.25.2
+
+### Patch Changes
+
+- [#168832](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168832)
+  [`6a5261e14e959`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a5261e14e959) -
+  [ux] ED-25834 allow comment on inline node selection
+
 ## 1.25.1
 
 ### Patch Changes

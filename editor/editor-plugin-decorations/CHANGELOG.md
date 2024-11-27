@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-decorations
 
+## 1.3.11
+
+### Patch Changes
+
+- [#169354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169354)
+  [`a083b7233a98e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a083b7233a98e) -
+  ED-25809: refactors plugins to meet folder standards
+
 ## 1.3.10
 
 ### Patch Changes

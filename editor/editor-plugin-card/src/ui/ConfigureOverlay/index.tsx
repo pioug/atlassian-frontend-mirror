@@ -42,6 +42,7 @@ const OverlayWrapper = ({
 	}, []);
 
 	return (
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<span
 			onMouseEnter={() => {
 				setShowConfigureButton(true);

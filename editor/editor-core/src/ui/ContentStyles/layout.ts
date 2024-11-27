@@ -18,7 +18,6 @@ import {
 	akLayoutGutterOffset,
 	getSelectionStyles,
 	gridMediumMaxWidth,
-	layoutBreakpointWidth,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -188,6 +187,30 @@ const rowSeparatorStyles = (viewMode?: 'edit' | 'view') => css`
 		position: absolute;
 		width: calc(100% - 32px);
 		margin-top: -13px;
+
+		/* clear styles for column separator */
+		border-left: unset;
+		margin-left: unset;
+		height: unset;
+	}
+`;
+
+const layoutWithSeparatorBorderResponsiveStyles = (
+	breakpoint: number,
+	viewMode?: 'edit' | 'view',
+	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+) => css`
+	&.selected,
+	&:hover,
+	&.selected.danger,
+	&.${akEditorSelectedNodeClassName}:not(.danger) {
+		[data-layout-column]:not(:first-of-type) {
+			${fg('platform_editor_advanced_layouts_breakout_resizing')
+				? `@container editor-area (max-width:${breakpoint}px)`
+				: `@media screen and (max-width: ${gridMediumMaxWidth - 1}px)`} {
+				${rowSeparatorStyles(viewMode)}
+			}
+		}
 	}
 `;
 
@@ -195,16 +218,7 @@ const rowSeparatorStyles = (viewMode?: 'edit' | 'view') => css`
 const layoutWithSeparatorBorderStyles = (viewMode?: 'edit' | 'view') => css`
 	&.selected [data-layout-column]:not(:first-of-type),
 	&:hover [data-layout-column]:not(:first-of-type) {
-		${fg('platform_editor_advanced_layouts_breakout_resizing')
-			? `@container layout-area (min-width:${layoutBreakpointWidth.MEDIUM}px)`
-			: `	@media screen and (min-width: ${gridMediumMaxWidth}px)`} {
-			${columnSeparatorStyles(viewMode)}
-		}
-		${fg('platform_editor_advanced_layouts_breakout_resizing')
-			? `@container layout-area (max-width:${layoutBreakpointWidth.MEDIUM - 1}px)`
-			: `@media screen and (max-width: ${gridMediumMaxWidth - 1}px)`} {
-			${rowSeparatorStyles(viewMode)}
-		}
+		${columnSeparatorStyles(viewMode)}
 	}
 
 	&.selected.danger
@@ -215,16 +229,7 @@ const layoutWithSeparatorBorderStyles = (viewMode?: 'edit' | 'view') => css`
 			${akEditorDeleteBorder};
 		border-radius: 4px;
 		[data-layout-column]:not(:first-of-type) {
-			${fg('platform_editor_advanced_layouts_breakout_resizing')
-				? `@container layout-area (min-width:${layoutBreakpointWidth.MEDIUM}px)`
-				: `	@media screen and (min-width: ${gridMediumMaxWidth}px)`} {
-				${columnSeparatorStyles(viewMode)}
-			}
-			${fg('platform_editor_advanced_layouts_breakout_resizing')
-				? `@container layout-area (max-width:${layoutBreakpointWidth.MEDIUM - 1}px)`
-				: `@media screen and (max-width: ${gridMediumMaxWidth - 1}px)`} {
-				${rowSeparatorStyles(viewMode)}
-			}
+			${columnSeparatorStyles(viewMode)}
 		}
 	}
 
@@ -242,19 +247,54 @@ const layoutWithSeparatorBorderStyles = (viewMode?: 'edit' | 'view') => css`
 			}
 		}
 		[data-layout-column]:not(:first-of-type) {
-			${fg('platform_editor_advanced_layouts_breakout_resizing')
-				? `@container layout-area (min-width:${layoutBreakpointWidth.MEDIUM}px)`
-				: `	@media screen and (min-width: ${gridMediumMaxWidth}px)`} {
-				${columnSeparatorStyles(viewMode)}
-			}
-			${fg('platform_editor_advanced_layouts_breakout_resizing')
-				? `@container layout-area (max-width:${layoutBreakpointWidth.MEDIUM - 1}px)`
-				: `@media screen and (max-width: ${gridMediumMaxWidth - 1}px)`} {
-				${rowSeparatorStyles(viewMode)}
-			}
+			${columnSeparatorStyles(viewMode)}
 		}
 	}
 `;
+
+const layoutResponsiveStyles = (viewMode?: 'edit' | 'view') =>
+	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
+	css`
+		/* chosen breakpoints in container queries are to make sure layout responsiveness in editor aligns with renderer */
+		/* not resized layout in full-width editor */
+		.fabric-editor--full-width-mode .ProseMirror {
+			> .layoutSectionView-content-wrap {
+				[data-layout-section] {
+					@container editor-area (max-width:854px) {
+						flex-direction: column;
+					}
+				}
+
+				${layoutWithSeparatorBorderResponsiveStyles(854, viewMode)}
+			}
+		}
+
+		/* not resized layout in fixed-width editor */
+		.ak-editor-content-area:not(.fabric-editor--full-width-mode) .ProseMirror {
+			> .layoutSectionView-content-wrap {
+				[data-layout-section] {
+					@container editor-area (max-width:918px) {
+						flex-direction: column;
+					}
+				}
+
+				${layoutWithSeparatorBorderResponsiveStyles(918, viewMode)}
+			}
+		}
+
+		/* resized layout in full/fixed-width editor */
+		.ProseMirror .fabric-editor-breakout-mark {
+			.layoutSectionView-content-wrap {
+				[data-layout-section] {
+					@container editor-area (max-width:950px) {
+						flex-direction: column;
+					}
+				}
+
+				${layoutWithSeparatorBorderResponsiveStyles(950, viewMode)}
+			}
+		}
+	`;
 
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- Needs manual remediation
 export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
@@ -350,6 +390,8 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 				: layoutBorderStyles(viewMode)}
 		}
 	}
+
+	${editorExperiment('advanced_layouts', true) && layoutResponsiveStyles(viewMode)}
 
 	.fabric-editor--full-width-mode .ProseMirror {
 		[data-layout-section] {

@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.0.0
+
+### Major Changes
+
+- [#168980](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168980)
+  [`d9aae425eae69`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d9aae425eae69) -
+  `use-tokens-typography` defaults not adding token fallbacks anymore. Automatic fallbacks can still
+  be enabled by setting the `shouldEnforceFallbacks: true` config option.
+
 ## 10.26.0
 
 ### Minor Changes

@@ -94,6 +94,7 @@ export const EditToggle = ({
 	}, [showBodiedExtensionRendererView, setShowBodiedExtensionRendererView]);
 
 	return (
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
 			data-testid="extension-edit-toggle-container"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -104,9 +105,11 @@ export const EditToggle = ({
 			style={customContainerStyles}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className="extension-edit-toggle-container"
+			// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
 			onMouseOver={() => setIsNodeHovered?.(true)}
 			onMouseLeave={() => setIsNodeHovered?.(false)}
 		>
+			{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
 			<span
 				data-testid="edit-toggle"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

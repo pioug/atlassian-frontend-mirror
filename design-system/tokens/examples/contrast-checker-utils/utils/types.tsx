@@ -1,10 +1,10 @@
-import type tokenNames from '../../../src/artifacts/token-names';
-import { type baseTokens } from '../components/base-token-editor';
+import { type ActiveTokens } from '@atlaskit/tokens';
 
-export type TokenName = keyof typeof tokenNames;
+import { type baseTokens } from '../components/base-token-editor';
+export type TokenName = ActiveTokens;
 export type BaseTokens = typeof baseTokens;
 export type ColorMode = 'light' | 'dark';
 export type Theme = {
-	name: TokenName;
+	name: ActiveTokens;
 	value: string;
 }[];

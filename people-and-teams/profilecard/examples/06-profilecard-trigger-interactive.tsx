@@ -32,6 +32,7 @@ export default function Example() {
 			<MainStage>
 				<Section>
 					<h4>Profilecard triggered by hover</h4>
+					{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
 					<a href="#">An interactive link to test hover</a>
 					<InteractiveTrigger resourceClient={mockClient} />
 				</Section>

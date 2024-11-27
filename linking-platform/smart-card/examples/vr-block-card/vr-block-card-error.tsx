@@ -6,6 +6,3 @@ import VRCardView from '../utils/vr-card-view';
 export const BlockCardErrorView = () => (
 	<VRCardView appearance="block" client={new ErroredClient()} />
 );
-export const BlockCardErrorViewLegacy = () => (
-	<VRCardView appearance="block" client={new ErroredClient()} useLegacyBlockCard={true} />
-);

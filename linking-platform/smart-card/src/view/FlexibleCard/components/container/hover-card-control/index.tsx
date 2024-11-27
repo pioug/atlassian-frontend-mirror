@@ -77,6 +77,7 @@ const HoverCardControl = ({
 			url={url}
 			hoverPreviewOptions={hoverPreviewOptions}
 		>
+			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 			<span
 				onMouseLeave={onMouseLeave}
 				onMouseMove={onMouseMove}

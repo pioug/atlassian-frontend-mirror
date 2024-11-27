@@ -49,20 +49,5 @@ export const useSmartLinkClientExtension = (cardClient: CardClient) => {
 		[resolverUrl],
 	);
 
-	const relatedUrls = useCallback(
-		async <TResponse>(url: string) => {
-			return await request<TResponse>(
-				'get',
-				`${resolverUrl}/related-urls?url=${encodeURIComponent(url)}`,
-				undefined,
-				{
-					'Cache-Control': 'private',
-				},
-				[200],
-			);
-		},
-		[resolverUrl],
-	);
-
-	return useMemo(() => ({ invoke, relatedUrls }), [invoke, relatedUrls]);
+	return useMemo(() => ({ invoke }), [invoke]);
 };

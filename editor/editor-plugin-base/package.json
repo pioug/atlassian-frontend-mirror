@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-base",
-	"version": "2.0.4",
+	"version": "2.0.5",
 	"description": "Base plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,13 +34,13 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-schema": "^44.2.0",
-		"@atlaskit/editor-common": "^95.6.0",
+		"@atlaskit/adf-schema": "^46.1.0",
+		"@atlaskit/editor-common": "^95.7.0",
 		"@atlaskit/editor-plugin-context-identifier": "^1.3.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tmp-editor-statsig": "^2.20.0",
+		"@atlaskit/tmp-editor-statsig": "^2.21.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"techstack": {
@@ -80,6 +80,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_improved_scroll_gutter": {
+			"type": "boolean"
+		},
+		"platform_editor_prevent_decorations_on_hardbreak": {
 			"type": "boolean"
 		}
 	}

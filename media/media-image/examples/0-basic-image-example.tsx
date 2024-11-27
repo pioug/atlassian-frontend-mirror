@@ -52,6 +52,7 @@ class Example extends Component<{}, ExampleState> {
 						return null;
 					}
 
+					// eslint-disable-next-line jsx-a11y/alt-text
 					return <img src={data.src} />;
 				}}
 			</MediaImage>

@@ -6,7 +6,8 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import { AddMarkStep, RemoveMarkStep } from '@atlaskit/editor-prosemirror/transform';
 
 import type { LastOrganicChangeMetadata } from '../types';
-import { isOrganicChange } from '../utils';
+
+import { isOrganicChange } from './utils';
 
 export const trackLastOrganicChangePluginKey = new PluginKey<LastOrganicChangeMetadata>(
 	'collabTrackLastOrganicChangePlugin',

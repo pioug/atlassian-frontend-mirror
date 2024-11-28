@@ -49,6 +49,7 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 					isDragging: true,
 					activeNode: { pos, anchorName, nodeType },
 				});
+
 				return tr;
 			},
 	},

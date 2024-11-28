@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.4.1
+
+### Patch Changes
+
+- [#167336](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167336)
+  [`ddb0846c39a88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ddb0846c39a88) -
+  Integrate styles of select and react-select in a single place
+
 ## 1.4.0
 
 ### Minor Changes

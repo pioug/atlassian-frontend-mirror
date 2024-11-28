@@ -4,13 +4,13 @@
  * They are defined here so the hashing algorithm doesn't need to search test files for example usage each time
  */
 {
-  "testExamples": [
-    "00-single-select.tsx",
-    "03-checkbox-select.tsx",
-    "05-validation.tsx",
-    "11-select-in-modal-dialog.tsx",
-    "24-disabled.tsx",
-    "26-appearance.tsx"
-  ],
-  "exampleDependencies": []
+	"testExamples": [
+		"00-single-select.tsx",
+		"03-checkbox-select.tsx",
+		"05-validation.tsx",
+		"11-select-in-modal-dialog.tsx",
+		"24-disabled.tsx",
+		"26-appearance.tsx",
+	],
+	"exampleDependencies": [],
 }

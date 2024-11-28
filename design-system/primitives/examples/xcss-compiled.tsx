@@ -24,12 +24,16 @@ const styles = cssMap({
 	},
 	interactive: {
 		cursor: 'pointer',
-		border: `${token('border.width')} solid ${token('color.border')}`,
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		borderColor: token('color.border'),
 	},
 	focused: {
 		color: 'var(--ds-text-selected)',
 		backgroundColor: 'var(--ds-background-selected)',
-		border: `${token('border.width')} solid ${token('color.border.selected')}`,
+		borderWidth: token('border.width'),
+		borderStyle: 'solid',
+		borderColor: token('color.border.selected'),
 	},
 	dashedBorder: {
 		borderStyle: 'dashed',

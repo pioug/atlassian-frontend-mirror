@@ -64,6 +64,7 @@ export class ParticipantsService {
 		private sendPresenceJoined: () => void,
 		private getPresenceData: () => PresenceData,
 		private setUserId: (id: string) => void,
+		private getAIProviderActiveIds?: () => string[],
 	) {}
 
 	sendAIProviderChanged = (payload: {
@@ -87,19 +88,44 @@ export class ParticipantsService {
 				}
 			}
 
-			const presencePayload: PresencePayload = {
-				sessionId: `${payload.providerId}::${payload.sessionId}`,
-				userId: payload.providerId,
-				clientId: `${payload.providerId}::${payload.clientId}`,
-				permit: payload.permit,
-				timestamp: Date.now(),
-			};
+			const presencePayload = this.buildAIProviderPresencePayload(payload.providerId);
 
 			if (payload.action === 'add') {
-				this.channelBroadcast('participant:updated', presencePayload);
+				this.sendAIProviderParticipantUpdated(presencePayload);
 			} else if (payload.action === 'remove') {
-				this.channelBroadcast('participant:left', presencePayload);
+				this.sendAIProviderParticipantLeft(presencePayload);
 			}
+		}
+	};
+
+	private buildAIProviderPresencePayload = (providerId: string) => {
+		const defaultPresenceData = this.getPresenceData();
+		const presencePayload: PresencePayload = {
+			sessionId: `${providerId}::${defaultPresenceData.sessionId}`,
+			userId: providerId,
+			clientId: `${providerId}::${defaultPresenceData.clientId}`,
+			permit: { isPermittedToComment: false, isPermittedToEdit: false, isPermittedToView: false },
+			timestamp: Date.now(),
+		};
+
+		return presencePayload;
+	};
+
+	private sendAIProviderParticipantUpdated = (payload: PresencePayload) => {
+		this.channelBroadcast('participant:updated', payload);
+	};
+
+	private sendAIProviderParticipantLeft = (payload: PresencePayload) => {
+		this.channelBroadcast('participant:left', payload);
+	};
+
+	// Refresh current AI providers
+	private sendAIProvidersPresence = () => {
+		if (this.getAIProviderActiveIds) {
+			this.getAIProviderActiveIds().forEach((aiProviderId) => {
+				const presenceData = this.buildAIProviderPresencePayload(aiProviderId);
+				this.sendAIProviderParticipantUpdated(presenceData);
+			});
 		}
 	};
 
@@ -340,6 +366,9 @@ export class ParticipantsService {
 				() => this.sendPresence(),
 				SEND_PRESENCE_INTERVAL,
 			);
+
+			// Expose existing AI providers to the newly joined user
+			this.sendAIProvidersPresence();
 		} catch (error) {
 			// We don't want to throw errors for Presence features as they tend to self-restore
 			this.analyticsHelper?.sendErrorEvent(error, 'Error while sending presence');

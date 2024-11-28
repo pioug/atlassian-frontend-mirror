@@ -39,7 +39,7 @@ describe('AutomationAction', () => {
 		setup();
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
-		expect(element.textContent).toBe('View automation rules...');
+		expect(element.textContent).toBe('View automation rules');
 	});
 
 	describe('with tooltip', () => {

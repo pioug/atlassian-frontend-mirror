@@ -1,5 +1,29 @@
 # @atlaskit/link-datasource
 
+## 3.13.7
+
+### Patch Changes
+
+- [#170311](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170311)
+  [`176c804341ecb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/176c804341ecb) -
+  Internal refactor behind ff - Add layering to prevent close on esc when closing dropdown on inline
+  edits
+
+## 3.13.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.13.5
+
+### Patch Changes
+
+- [#168167](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168167)
+  [`2f949715bc7af`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f949715bc7af) -
+  [ux] updating design of J2WS assignee column and dropdown and add unassigned option
+- Updated dependencies
+
 ## 3.13.4
 
 ### Patch Changes

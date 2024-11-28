@@ -7,6 +7,8 @@ import { type ReactNode } from 'react';
 
 import { css, jsx, keyframes } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 import { getStyleProps } from '../utils';
 
@@ -75,28 +77,29 @@ export interface DropdownIndicatorProps<
 	 */
 	isFocused: boolean;
 	isDisabled: boolean;
+	/**
+	 * Whether the select is compact.
+	 */
+	isCompact?: boolean;
 }
 
-const baseCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
-	isFocused,
-	theme: {
-		spacing: { baseUnit },
-		colors,
-	},
-}:
-	| DropdownIndicatorProps<Option, IsMulti, Group>
-	| ClearIndicatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
+export const dropdownIndicatorCSS = <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+>({
+	isCompact,
+	isDisabled,
+}: DropdownIndicatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'indicatorContainer',
 	display: 'flex',
 	transition: 'color 150ms',
-	color: isFocused ? colors.neutral60 : colors.neutral20,
-	padding: baseUnit * 2,
+	color: isDisabled ? token('color.text.disabled') : token('color.text.subtle'),
+	padding: `${isCompact ? 0 : token('space.075')} ${token('space.025')}`,
 	':hover': {
-		color: isFocused ? colors.neutral80 : colors.neutral40,
+		color: token('color.text.subtle'),
 	},
 });
-
-export const dropdownIndicatorCSS = baseCSS;
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const DropdownIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
@@ -137,9 +140,28 @@ export interface ClearIndicatorProps<
 	 * The focused state of the select.
 	 */
 	isFocused: boolean;
+	/**
+	 * Whether the select is compact.
+	 */
+	isCompact?: boolean;
 }
 
-export const clearIndicatorCSS = baseCSS;
+export const clearIndicatorCSS = <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+>({
+	isCompact,
+}: ClearIndicatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
+	label: 'indicatorContainer',
+	display: 'flex',
+	transition: 'color 150ms',
+	color: token('color.text.subtlest'),
+	padding: `${isCompact ? 0 : token('space.075')} ${token('space.025')}`,
+	':hover': {
+		color: token('color.text.subtle'),
+	},
+});
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const ClearIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
@@ -179,17 +201,13 @@ export const indicatorSeparatorCSS = <
 	Group extends GroupBase<Option>,
 >({
 	isDisabled,
-	theme: {
-		spacing: { baseUnit },
-		colors,
-	},
 }: IndicatorSeparatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'indicatorSeparator',
 	alignSelf: 'stretch',
 	width: 1,
-	backgroundColor: isDisabled ? colors.neutral10 : colors.neutral20,
-	marginBottom: baseUnit * 2,
-	marginTop: baseUnit * 2,
+	backgroundColor: isDisabled ? token('color.border.disabled') : token('color.border'),
+	marginBottom: token('space.100'),
+	marginTop: token('space.100'),
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
@@ -231,10 +249,8 @@ export const loadingIndicatorCSS = <
 >({
 	isFocused,
 	size,
-	theme: {
-		colors,
-		spacing: { baseUnit },
-	},
+	isCompact,
+	theme: { colors },
 }: LoadingIndicatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'loadingIndicator',
 	display: 'flex',
@@ -246,7 +262,7 @@ export const loadingIndicatorCSS = <
 	textAlign: 'center',
 	verticalAlign: 'middle',
 	color: isFocused ? colors.neutral60 : colors.neutral20,
-	padding: baseUnit * 2,
+	padding: `${isCompact ? 0 : token('space.075')} ${token('space.100')}`,
 });
 
 interface LoadingDotProps {
@@ -288,6 +304,10 @@ export interface LoadingIndicatorProps<
 	 * Set size of the container.
 	 */
 	size: number;
+	/**
+	 * Whether the select is compact.
+	 */
+	isCompact?: boolean;
 }
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

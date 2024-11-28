@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 202.5.0
+
+### Minor Changes
+
+- [#169227](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169227)
+  [`498a7599c27ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/498a7599c27ae) -
+  Remove twoLineEditorToolbar evaluations in toolbar components
+
 ## 202.4.1
 
 ### Patch Changes

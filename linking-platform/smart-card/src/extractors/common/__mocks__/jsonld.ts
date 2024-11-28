@@ -201,7 +201,7 @@ export const TEST_DOCUMENT_WITH_ACTIONS: JsonLd.Data.BaseData = {
 
 export const TEST_DOCUMENT_WITH_DOWNLOAD_ACTION: JsonLd.Data.BaseData = {
 	...TEST_DOCUMENT,
-	'atlassian:downloadUrl': 'https://my.url.com',
+	'atlassian:downloadUrl': TEST_URL,
 	'schema:potentialAction': [TEST_DOWNLOAD_ACTION],
 };
 
@@ -238,3 +238,35 @@ export const TEST_DATA_WITH_LATEST_COMMIT_TEXT = {
 	...TEST_BASE_DATA,
 	'atlassian:latestCommit': '83f45c9',
 } as JsonLd.Data.SourceCodeRepository;
+
+// Full JSON LD responses
+export const TEST_RESPONSE: JsonLd.Response = {
+	data: TEST_DOCUMENT,
+	meta: TEST_RESOLVED_META_DATA,
+};
+
+export const TEST_RESPONSE_WITH_PREVIEW_AND_DOWNLOAD: JsonLd.Response = {
+	...TEST_RESPONSE,
+	data: {
+		...TEST_DOCUMENT_WITH_DOWNLOAD_ACTION,
+		preview: PREVIEW,
+	},
+};
+
+export const TEST_RESPONSE_WITH_DOWNLOAD: JsonLd.Response = {
+	...TEST_RESPONSE,
+	data: TEST_DOCUMENT_WITH_DOWNLOAD_ACTION,
+};
+
+export const TEST_RESPONSE_WITH_PREVIEW: JsonLd.Response = {
+	...TEST_RESPONSE,
+	data: {
+		...TEST_DOCUMENT,
+		preview: PREVIEW,
+	},
+};
+
+export const TEST_RESPONSE_WITH_VIEW: JsonLd.Response = {
+	...TEST_RESPONSE,
+	data: TEST_DOCUMENT_WITH_VIEW_ACTION,
+};

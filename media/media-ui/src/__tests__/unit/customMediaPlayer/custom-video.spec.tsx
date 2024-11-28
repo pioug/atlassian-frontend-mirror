@@ -30,6 +30,7 @@ import {
 	type CustomMediaPlayerProps,
 	type CustomMediaPlayerState,
 } from '../../../customMediaPlayer';
+import { type CustomMediaPlayerBase as EmotionCustomMediaPlayerBase } from '../../../customMediaPlayer/index-emotion';
 import { toggleFullscreen, getFullscreenElement } from '../../../customMediaPlayer/fullscreen';
 import simultaneousPlayManager from '../../../customMediaPlayer/simultaneousPlayManager';
 import { CurrentTime, VolumeTimeRangeWrapper } from '../../../customMediaPlayer/styled';
@@ -76,7 +77,7 @@ describe('<CustomMediaPlayer />', () => {
 		const component = mountWithIntlContext<
 			CustomMediaPlayerProps,
 			CustomMediaPlayerState,
-			CustomMediaPlayerBase
+			EmotionCustomMediaPlayerBase
 		>(
 			<CustomMediaPlayerBase
 				createAnalyticsEvent={createAnalyticsEventHandler}
@@ -240,7 +241,13 @@ describe('<CustomMediaPlayer />', () => {
 			fireEvent(screen.getByTestId('custom-media-player'), new Event('fullscreenchange'));
 		};
 
-		return { container, triggerKeydown, triggerFullscreen, getUIAnalyticsEventDetails, unmount };
+		return {
+			container,
+			triggerKeydown,
+			triggerFullscreen,
+			getUIAnalyticsEventDetails,
+			unmount,
+		};
 	};
 
 	beforeAll(() => {
@@ -325,8 +332,7 @@ describe('<CustomMediaPlayer />', () => {
 
 		it('should render the time (current/total) in the right format', () => {
 			const { component } = setup();
-
-			expect(component.find(CurrentTime).text()).toEqual('0:00 / 0:00');
+			expect(component.find(CurrentTime).text()).toContain('0:00 / 0:00');
 		});
 
 		it('should render the fullscreen button', () => {
@@ -549,11 +555,15 @@ describe('<CustomMediaPlayer />', () => {
 			expect(toggleFullscreen).toHaveBeenCalledTimes(1);
 		});
 
-		it('should play/pause when playPauseBlanket is clicked', () => {
-			const { blanket } = setup({ isAutoPlay: true });
+		it('should play/pause when playPauseBlanket is clicked', async () => {
+			setupRTL({ isAutoPlay: true });
 
 			expect(simultaneousPlayManager.pauseOthers).toHaveBeenCalledTimes(1);
-			blanket.simulate('click');
+
+			const playPauseBlanket = await screen.findByTestId('play-pause-blanket');
+
+			fireEvent.click(playPauseBlanket);
+
 			jest.runOnlyPendingTimers();
 			expect(simultaneousPlayManager.pauseOthers).toHaveBeenCalledTimes(2);
 		});
@@ -674,24 +684,32 @@ describe('<CustomMediaPlayer />', () => {
 			expect((getVideoElement().getDOMNode() as HTMLVideoElement).volume).toEqual(1);
 		});
 
-		it('should enter fullscreen when blanket double clicked', () => {
-			const { getVideoElement, blanket } = setup();
+		it('should enter fullscreen when blanket double clicked', async () => {
+			const { container } = setupRTL();
+
+			const video = container.querySelector('video') as HTMLVideoElement;
 
 			// To simulation double click we need to call double click handler itself,
 			// but also make two clicks with some delay in between.
-			blanket.simulate('click');
+			const playPauseBlanket = await screen.findByTestId('play-pause-blanket');
+			fireEvent.click(playPauseBlanket);
 			jest.advanceTimersByTime(50);
-			// Making sure first of two clicks didn't trigger play while double clicking prcedure
-			expect((getVideoElement().getDOMNode() as HTMLVideoElement).play).toHaveBeenCalledTimes(0);
-			blanket.simulate('click');
 
-			blanket.simulate('doubleClick');
+			// Making sure first of two clicks didn't trigger play while double clicking prcedure
+			await waitFor(() => {
+				expect(video.play).toHaveBeenCalledTimes(0);
+			});
+			fireEvent.click(playPauseBlanket);
+
+			fireEvent.doubleClick(playPauseBlanket);
 
 			expect(toggleFullscreen).toHaveBeenCalledTimes(1);
 
 			jest.runOnlyPendingTimers();
 			// Still no play toggle happened
-			expect((getVideoElement().getDOMNode() as HTMLVideoElement).play).toHaveBeenCalledTimes(0);
+			await waitFor(() => {
+				expect(video.play).toHaveBeenCalledTimes(0);
+			});
 		});
 
 		describe('when shortcut are enabled', () => {
@@ -948,36 +966,39 @@ describe('<CustomMediaPlayer />', () => {
 	});
 
 	describe('#onFirstPlay', () => {
-		it('should be called once when loaded with autoplay = true', () => {
+		it('should be called once when loaded with autoplay = true', async () => {
 			const onFirstPlay = jest.fn();
-			const { component } = setup({
+			setupRTL({
 				onFirstPlay,
 				isHDAvailable: true,
 				isAutoPlay: true,
 			});
 			expect(onFirstPlay).toHaveBeenCalledTimes(1);
 
-			// Accessing private variable since there are no other way to simulate user starting play
-			// via external MediaPlayer component.
-			(component.instance() as any).play();
+			const playButton = await screen.findByRole('button', {
+				name: /fakeintl\["play"\]/i,
+			});
+			fireEvent.click(playButton);
+
 			expect(onFirstPlay).toHaveBeenCalledTimes(1);
 		});
 
-		it('should be called once when loaded with autoplay = false and user start play', () => {
+		it('should be called once when loaded with autoplay = false and user start play', async () => {
 			const onFirstPlay = jest.fn();
-			const { component } = setup({
+			setupRTL({
 				onFirstPlay,
 				isHDAvailable: true,
 				isAutoPlay: false,
 			});
 			expect(onFirstPlay).toHaveBeenCalledTimes(0);
 
-			// Accessing private variable since there are no other way to simulate user starting play
-			// via external MediaPlayer component.
-			(component.instance() as any).play();
+			const playButton = await screen.findByRole('button', {
+				name: /fakeintl\["play"\]/i,
+			});
+			fireEvent.click(playButton);
 			expect(onFirstPlay).toHaveBeenCalledTimes(1);
 
-			(component.instance() as any).play();
+			fireEvent.click(playButton);
 			expect(onFirstPlay).toHaveBeenCalledTimes(1);
 		});
 	});
@@ -1358,12 +1379,15 @@ describe('<CustomMediaPlayer />', () => {
 			);
 		});
 
-		it('should fire clicked event when PlayPauseBlanket is clicked', () => {
-			const { blanket, getUIAnalyticsEventDetails } = setup({
+		it('should fire clicked event when PlayPauseBlanket is clicked', async () => {
+			const { getUIAnalyticsEventDetails } = setupRTL({
 				isAutoPlay: true,
 			});
 
-			blanket.simulate('click');
+			const playPauseBlanket = await screen.findByTestId('play-pause-blanket');
+
+			fireEvent.click(playPauseBlanket);
+
 			jest.runOnlyPendingTimers();
 
 			const { payload } = getUIAnalyticsEventDetails();

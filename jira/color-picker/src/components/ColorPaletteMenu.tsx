@@ -11,7 +11,7 @@ import {
 	type MouseEvent,
 	type Ref,
 } from 'react';
-import { Mode, type Palette } from '../types';
+import { Mode, type Palette, type ColorCardVariant } from '../types';
 import {
 	type UIAnalyticsEvent,
 	createAndFireEvent,
@@ -62,6 +62,8 @@ export type Props = {
 	mode?: Mode;
 	/** the ref object (usually the currently selected color palette) that consumer can leverage to focus on load */
 	initialFocusRef?: Ref<HTMLDivElement>;
+	/** Variant of color card */
+	variant?: ColorCardVariant;
 };
 
 export const ColorPaletteMenuWithoutAnalytics = ({
@@ -77,6 +79,7 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 	cols = 6,
 	mode = Mode.Standard,
 	initialFocusRef,
+	variant = 'fill',
 }: Props) => {
 	const { options, value: selectedValue } = getOptions(palette, selectedColor);
 	const fullLabel = `${label}, ${selectedValue.label} selected`;
@@ -181,6 +184,7 @@ export const ColorPaletteMenuWithoutAnalytics = ({
 							initialFocusRef={value === selectedValue.value ? initialFocusRef : undefined}
 							isInsideMenu={isInsideMenu}
 							onKeyDown={handleKeyDown}
+							variant={variant}
 						/>
 					</div>
 				))}

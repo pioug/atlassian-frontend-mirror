@@ -41,7 +41,9 @@ const labelStyles = css({
 });
 
 const exportedImageStyles = css({
-	border: `1px solid ${token('color.border', '#ccc')}`,
+	borderWidth: '1px',
+	borderStyle: 'solid',
+	borderColor: token('color.border', '#ccc'),
 });
 
 const exportedImageWrapperStyles = css({

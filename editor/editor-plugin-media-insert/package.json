@@ -28,7 +28,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^95.7.0",
+		"@atlaskit/editor-common": "^95.8.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-media": "^1.42.0",
 		"@atlaskit/editor-prosemirror": "6.0.0",
@@ -40,7 +40,7 @@
 		"@atlaskit/media-client-react": "^2.3.0",
 		"@atlaskit/media-picker": "^67.0.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^13.2.0",
+		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/section-message": "^6.7.0",
 		"@atlaskit/tabs": "^16.5.0",
 		"@atlaskit/textfield": "^6.6.0",

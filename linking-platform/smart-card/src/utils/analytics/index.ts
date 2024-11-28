@@ -20,7 +20,6 @@ export {
 	uiCardClickedEvent,
 	uiActionClickedEvent,
 	uiClosedAuthEvent,
-	screenAuthPopupEvent,
 	uiRenderSuccessEvent,
 	uiRenderFailedEvent,
 	uiHoverCardViewedEvent,

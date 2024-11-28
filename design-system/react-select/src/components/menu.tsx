@@ -20,6 +20,8 @@ import { autoUpdate } from '@floating-ui/dom';
 import { createPortal } from 'react-dom';
 import useLayoutEffect from 'use-isomorphic-layout-effect';
 
+import { token } from '@atlaskit/tokens';
+
 import {
 	type CoercedMenuPlacement,
 	type CommonProps,
@@ -298,11 +300,14 @@ export const menuCSS = <Option, IsMulti extends boolean, Group extends GroupBase
 	position: 'absolute',
 	width: '100%',
 	zIndex: 1,
-	backgroundColor: colors.neutral0,
 	borderRadius: borderRadius,
-	boxShadow: '0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1)',
 	marginBottom: spacing.menuGutter,
 	marginTop: spacing.menuGutter,
+	backgroundColor: token('elevation.surface.overlay', 'white'),
+	boxShadow: token(
+		'elevation.shadow.overlay',
+		'0 0 0 1px hsl(0deg 0% 0% / 10%), 0 4px 11px hsl(0deg 0% 0% / 10%)',
+	),
 });
 
 const PortalPlacementContext = createContext<{
@@ -419,16 +424,13 @@ export interface MenuListProps<
 }
 export const menuListCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	maxHeight,
-	theme: {
-		spacing: { baseUnit },
-	},
 }: MenuListProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	maxHeight,
 	overflowY: 'auto',
 	position: 'relative', // required for offset[Height, Top] > keyboard scroll
 	WebkitOverflowScrolling: 'touch',
-	paddingBottom: baseUnit,
-	paddingTop: baseUnit,
+	paddingTop: token('space.100', '8px'),
+	paddingBottom: token('space.100', '8px'),
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

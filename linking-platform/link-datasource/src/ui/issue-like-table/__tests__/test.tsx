@@ -1098,18 +1098,21 @@ describe('IssueLikeDataTableView', () => {
 									},
 									emoji: { data: ':D' },
 									summary: { data: 'some summary' },
+									assignee: { data: 'some assignee' },
 								},
 								{
 									id: { data: `id2` },
 									task: { data: 'TASK-2' },
 									emoji: { data: ':)' },
 									summary: { data: 'some summary' },
+									assignee: { data: 'some assignee' },
 								},
 								{
 									id: { data: `id3` },
 									task: { data: 'TASK-3' },
 									emoji: { data: ':(' },
 									summary: { data: 'some summary' },
+									assignee: { data: 'some assignee' },
 								},
 							];
 							const itemIds = setupItemIds(items);
@@ -1133,6 +1136,11 @@ describe('IssueLikeDataTableView', () => {
 									key: 'summary',
 									title: 'summary',
 									type: 'string',
+								},
+								{
+									key: 'assignee',
+									title: 'assignee',
+									type: 'user',
 								},
 							];
 
@@ -1247,6 +1255,7 @@ describe('IssueLikeDataTableView', () => {
 						it.each<[string, number]>([
 							['task', 32],
 							['summary', 208],
+							['assignee', 100],
 						])(
 							'should not allow column "%s" width smaller then %d when resized',
 							async (key, expectedMinWidth) => {
@@ -1258,8 +1267,14 @@ describe('IssueLikeDataTableView', () => {
 									items,
 									itemIds,
 									columns,
-									visibleColumnKeys: ['id', 'summary', 'task', 'emoji'],
-									columnCustomSizes: { id: 100, task: 200, summary: 300, emoji: 300 },
+									visibleColumnKeys: ['id', 'summary', 'task', 'emoji', 'assignee'],
+									columnCustomSizes: {
+										id: 100,
+										task: 200,
+										summary: 300,
+										emoji: 300,
+										assignee: 200,
+									},
 									hasNextPage: false,
 								});
 
@@ -1482,7 +1497,7 @@ describe('IssueLikeDataTableView', () => {
 							const pickerOptionTitles = Array.from(allOptions).map(
 								(el) => (el as HTMLElement).innerText,
 							);
-							expect(pickerOptionTitles).toEqual(['task', 'id', 'emoji', 'summary']);
+							expect(pickerOptionTitles).toEqual(['task', 'id', 'emoji', 'assignee', 'summary']);
 						});
 
 						it('should not be able to drag and drop between tables', async () => {

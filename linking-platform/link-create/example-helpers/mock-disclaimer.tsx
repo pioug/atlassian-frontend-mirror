@@ -17,5 +17,5 @@ export const MockDisclaimer = () => {
 		);
 	}
 
-	return <p>{disclaimer}</p>;
+	return <Text as="p">{disclaimer}</Text>;
 };

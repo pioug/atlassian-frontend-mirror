@@ -453,6 +453,10 @@ export class VCObserver {
 		this.measureStop();
 	};
 
+	public abortObservation(abortReason: VCAbortReason = 'custom') {
+		this.setAbortReason(abortReason, performance.now());
+	}
+
 	private setAbortReason(abort: VCAbortReason, timestamp: number, info = '') {
 		if (this.abortReason.reason === null || this.abortReason.blocking === false) {
 			this.abortReason.reason = abort;

@@ -1,3 +1,3 @@
-export { beforePrimaryToolbarPlugin } from './plugin';
-export type { BeforePrimaryToolbarPlugin } from './plugin';
-export type { ReactComponents } from './types';
+export { beforePrimaryToolbarPlugin } from './beforePrimaryToolbarPlugin';
+export type { BeforePrimaryToolbarPlugin } from './beforePrimaryToolbarPluginType';
+export type { ReactComponents } from './types/ReactComponents';

@@ -16,9 +16,5 @@
         "../src/**/*.test.*",
         "../src/**/test.*"
     ],
-    "references": [
-        {
-            "path": "../../../monorepo-tooling/codemod-utils/afm-cc/tsconfig.json"
-        }
-    ]
+    "references": []
 }

@@ -29,6 +29,7 @@ export class MediaInlineCardErroredView extends React.Component<MediaInlineCardE
 
 	render() {
 		const { onClick, isSelected, testId = 'media-inline-card-errored-view', icon } = this.props;
+
 		return (
 			<Frame testId={testId} onClick={onClick} isSelected={isSelected}>
 				<IconAndTitleLayout

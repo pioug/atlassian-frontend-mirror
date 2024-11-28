@@ -1,7 +1,7 @@
 import '@atlaskit/link-test-helpers/jest';
 import React from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
@@ -11,7 +11,6 @@ import { type CardClient } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { Provider } from '../../../index';
 import * as analyticsEvents from '../../../utils/analytics';
@@ -87,147 +86,110 @@ describe('smart-card: forbidden analytics', () => {
 			},
 		);
 
-		describe('should fire analytics events when attempting to connect with an alternate account succeeds', () => {
-			ffTest(
-				'platform_smart-card-migrate-screen-analytics',
-				async () => {
-					const mockUrl = 'https://https://this.is.a.url';
-					const mockAnalyticsClient = {
-						sendUIEvent: jest.fn().mockResolvedValue(undefined),
-						sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
-						sendTrackEvent: jest.fn().mockResolvedValue(undefined),
-						sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-					} satisfies AnalyticsWebClient;
+		it('should fire analytics events when attempting to connect with an alternate account succeeds', async () => {
+			const mockUrl = 'https://https://this.is.a.url';
+			const mockAnalyticsClient = {
+				sendUIEvent: jest.fn().mockResolvedValue(undefined),
+				sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+				sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+				sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+			} satisfies AnalyticsWebClient;
 
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card testId="forbiddenCard1" appearance="inline" url={mockUrl} />
-								</Provider>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
-
-					await screen.findByTestId('forbiddenCard1-forbidden-view');
-					const forbiddenLinkButton = await screen.findByRole('button');
-					const forbiddenLinkButtonHTML = forbiddenLinkButton as HTMLElement;
-					expect(forbiddenLinkButtonHTML.innerText).toContain('Restricted content');
-
-					// Mock out auth flow, & click connect.
-					asMockFunction(auth).mockImplementationOnce(async () => {});
-
-					mockFetch.mockImplementationOnce(async () => mocks.success);
-					await userEvent.click(forbiddenLinkButton);
-					const resolvedView = await screen.findByTestId('forbiddenCard1-resolved-view');
-					expect(resolvedView).toBeTruthy();
-
-					expect(analyticsEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
-					expect(analyticsEvents.uiAuthAlternateAccountEvent).toHaveBeenCalledTimes(1);
-					expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'viewed',
-							name: 'consentModal',
-							attributes: expect.objectContaining({
-								display: 'inline',
-								extensionKey: 'object-provider',
-								definitionId: 'd1',
-							}),
-						}),
-					);
-
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'applicationAccount',
-							action: 'connected',
-							attributes: expect.objectContaining({
-								display: 'inline',
-								status: 'forbidden',
-								extensionKey: 'object-provider',
-								definitionId: 'd1',
-							}),
-						}),
-					);
-					expect(analyticsEvents.connectSucceededEvent).toHaveBeenCalledTimes(1);
-				},
-				async () => {
-					const mockUrl = 'https://https://this.is.a.url';
-					const mockAnalyticsClient = {
-						sendUIEvent: jest.fn().mockResolvedValue(undefined),
-						sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
-						sendTrackEvent: jest.fn().mockResolvedValue(undefined),
-						sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-					} satisfies AnalyticsWebClient;
-
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card testId="forbiddenCard1" appearance="inline" url={mockUrl} />
-								</Provider>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
-
-					await screen.findByTestId('forbiddenCard1-forbidden-view');
-					const forbiddenLinkButton = await screen.findByRole('button');
-					const forbiddenLinkButtonHTML = forbiddenLinkButton as HTMLElement;
-					expect(forbiddenLinkButtonHTML.innerText).toContain('Restricted content');
-
-					// Mock out auth flow, & click connect.
-					asMockFunction(auth).mockImplementationOnce(async () => {});
-
-					mockFetch.mockImplementationOnce(async () => mocks.success);
-					await userEvent.click(forbiddenLinkButton);
-					const resolvedView = await screen.findByTestId('forbiddenCard1-resolved-view');
-					expect(resolvedView).toBeTruthy();
-
-					expect(analyticsEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
-					expect(analyticsEvents.uiAuthAlternateAccountEvent).toHaveBeenCalledTimes(1);
-
-					expect(analyticsEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'applicationAccount',
-							action: 'connected',
-							attributes: expect.objectContaining({
-								display: 'inline',
-								status: 'forbidden',
-								extensionKey: 'object-provider',
-								definitionId: 'd1',
-							}),
-						}),
-					);
-					expect(analyticsEvents.connectSucceededEvent).toHaveBeenCalledTimes(1);
-				},
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card testId="forbiddenCard1" appearance="inline" url={mockUrl} />
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
 			);
+
+			await screen.findByTestId('forbiddenCard1-forbidden-view');
+			const forbiddenLinkButton = await screen.findByRole('button');
+			const forbiddenLinkButtonHTML = forbiddenLinkButton as HTMLElement;
+			expect(forbiddenLinkButtonHTML.innerText).toContain('Restricted content');
+
+			// Mock out auth flow, & click connect.
+			asMockFunction(auth).mockImplementationOnce(async () => {});
+
+			mockFetch.mockImplementationOnce(async () => mocks.success);
+			await userEvent.click(forbiddenLinkButton);
+			const resolvedView = await screen.findByTestId('forbiddenCard1-resolved-view');
+			expect(resolvedView).toBeTruthy();
+
+			expect(analyticsEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
+			expect(analyticsEvents.uiAuthAlternateAccountEvent).toHaveBeenCalledTimes(1);
+			expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'viewed',
+					name: 'consentModal',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						extensionKey: 'object-provider',
+						definitionId: 'd1',
+					}),
+				}),
+			);
+
+			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'applicationAccount',
+					action: 'connected',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						status: 'forbidden',
+						extensionKey: 'object-provider',
+						definitionId: 'd1',
+					}),
+				}),
+			);
+			expect(analyticsEvents.connectSucceededEvent).toHaveBeenCalledTimes(1);
 		});
 
 		it('should fire analytics events when attempting to connect with an alternate account fails', async () => {
+			const mockAnalyticsClient = {
+				sendUIEvent: jest.fn().mockResolvedValue(undefined),
+				sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+				sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+				sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+			} satisfies AnalyticsWebClient;
 			const mockUrl = 'https://this.is.the.fifth.url';
-			const { container } = render(
-				<IntlProvider locale="en">
-					<Provider client={mockClient}>
-						<Card testId="forbiddenCard2" appearance="inline" url={mockUrl} />
-					</Provider>
-				</IntlProvider>,
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card testId="forbiddenCard2" appearance="inline" url={mockUrl} />
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
 			);
-			const forbiddenLink = await screen.findByTestId('forbiddenCard2-forbidden-view');
-			const forbiddenLinkButton = container.querySelector('[type="button"]');
-			expect(forbiddenLink).toBeTruthy();
+			await screen.findByTestId('forbiddenCard2-forbidden-view');
+			const forbiddenLinkButton = await screen.findByRole('button');
+			expect(forbiddenLinkButton).toBeInTheDocument();
 			expect(forbiddenLinkButton).toBeTruthy();
 			const forbiddenLinkButtonHTML = forbiddenLinkButton as HTMLElement;
-			expect(forbiddenLinkButtonHTML!.innerText).toContain('Restricted content');
+			expect(forbiddenLinkButtonHTML.innerText).toContain('Restricted content');
 			// Mock out auth flow, & click connect.
 			asMockFunction(auth).mockImplementationOnce(() => Promise.reject(new AuthError('')));
-			fireEvent.click(forbiddenLinkButton!);
-
 			mockFetch.mockImplementationOnce(async () => mocks.success);
+
+			await userEvent.click(forbiddenLinkButton);
 			const unresolvedView = await screen.findByTestId('forbiddenCard2-resolved-view');
 			expect(unresolvedView).toBeTruthy();
 			expect(analyticsEvents.unresolvedEvent).toHaveBeenCalledTimes(1);
 			expect(analyticsEvents.uiAuthAlternateAccountEvent).toHaveBeenCalledTimes(1);
-			expect(analyticsEvents.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
+			expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'viewed',
+					name: 'consentModal',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						extensionKey: 'object-provider',
+						definitionId: 'd1',
+					}),
+				}),
+			);
 			expect(analyticsEvents.connectFailedEvent).toHaveBeenCalledTimes(1);
 			expect(analyticsEvents.connectFailedEvent).toHaveBeenCalledWith({
 				id: expect.any(String),

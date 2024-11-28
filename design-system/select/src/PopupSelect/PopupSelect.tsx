@@ -19,7 +19,6 @@ import { N80 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import Select from '../Select';
-import baseStyles from '../styles';
 import {
 	type ActionMeta,
 	type AriaOnFocusProps,
@@ -197,19 +196,12 @@ export default class PopupSelect<
 	unbindWindowClick: UnbindFn | null = null;
 	unbindWindowKeydown: UnbindFn | null = null;
 
-	defaultStyles: StylesConfig<Option, IsMulti> = mergeStyles(
-		baseStyles(
-			this.props.validationState || (this.props.isInvalid ? 'error' : 'default'),
-			this.props.spacing === 'compact',
-			'default',
-		),
-		{
-			groupHeading: (provided) => ({
-				...provided,
-				color: token('color.text.subtlest', N80),
-			}),
-		},
-	);
+	defaultStyles: StylesConfig<Option, IsMulti> = {
+		groupHeading: (provided) => ({
+			...provided,
+			color: token('color.text.subtlest', N80),
+		}),
+	};
 
 	isOpenControlled = this.props.isOpen !== undefined;
 	defaultOpenState = this.isOpenControlled ? this.props.isOpen : this.props.defaultIsOpen;

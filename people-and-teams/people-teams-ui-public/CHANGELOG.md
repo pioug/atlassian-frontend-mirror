@@ -1,5 +1,13 @@
 # @atlaskit/people-teams-ui-public
 
+## 1.7.0
+
+### Minor Changes
+
+- [#163454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/163454)
+  [`94c0f58b72b12`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/94c0f58b72b12) -
+  Migrate to new icons behind feature flag
+
 ## 1.6.4
 
 ### Patch Changes

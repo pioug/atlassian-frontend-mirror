@@ -227,6 +227,25 @@ const createPlugin = (
 		key: pluginKey,
 		props: {
 			handleDOMEvents: {
+				blur: (view, event) => {
+					if (fg('platform_editor_legacy_content_macro')) {
+						const currentTarget = event.relatedTarget as HTMLElement;
+						const source = event.target as HTMLElement;
+						const selection = view.state.selection;
+
+						// If the focus is going from outside to inside an area designated as an editable area of an extension, and an extension is the current selection, then the extension selection is reset.
+						if (
+							selection instanceof NodeSelection &&
+							selection.node.type === view.state.schema.nodes.extension &&
+							currentTarget.closest('.extension-editable-area') &&
+							!source.closest('.extension-editable-area')
+						) {
+							const emptySelection = new TextSelection(view.state.doc.resolve(0));
+							const tr = view.state.tr.setSelection(emptySelection);
+							view.dispatch(tr);
+						}
+					}
+				},
 				/**
 				 * ED-18072 - Cannot shift + arrow past bodied extension if it is not empty.
 				 * This code is to handle the case where the selection starts inside or on the node and the user is trying to shift + arrow.
@@ -419,15 +438,18 @@ const createPlugin = (
 				{ useLongPressSelection },
 			),
 			handleDrop(view, event, slice, moved) {
-				if (!allowDragAndDrop) {
-					// Completely disable DND for extension nodes when allowDragAndDrop is false
-					const isExtension =
-						slice.content.childCount === 1 &&
-						slice.content.firstChild?.type === view.state.schema.nodes.extension;
+				if (fg('platform_editor_legacy_content_macro')) {
+					if (!allowDragAndDrop) {
+						// Completely disable DND for extension nodes when allowDragAndDrop is false
+						const isExtension =
+							slice.content.childCount === 1 &&
+							slice.content.firstChild?.type === view.state.schema.nodes.extension;
 
-					return isExtension;
+						return isExtension;
+					}
+					return false;
 				}
-				return true;
+				return false;
 			},
 		},
 	});

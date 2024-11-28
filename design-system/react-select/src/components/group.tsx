@@ -6,6 +6,8 @@ import { type ComponentType, type ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { type SelectProps } from '../select';
 import {
 	type CommonProps,
@@ -58,11 +60,13 @@ export interface GroupProps<
 	options: Options<Option>;
 }
 
-export const groupCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
-	theme: { spacing },
-}: GroupProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
-	paddingBottom: spacing.baseUnit * 2,
-	paddingTop: spacing.baseUnit * 2,
+export const groupCSS = <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+>({}: GroupProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
+	paddingBottom: token('space.100'),
+	paddingTop: token('space.100'),
 });
 
 const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
@@ -118,19 +122,22 @@ export type GroupHeadingProps<
 	Group extends GroupBase<Option> = GroupBase<Option>,
 > = GroupHeadingPropsDefinedProps<Option, IsMulti, Group> & JSX.IntrinsicElements['div'];
 
-export const groupHeadingCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
-	theme: { colors, spacing },
-}: GroupHeadingProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
+export const groupHeadingCSS = <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+>({}: GroupHeadingProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'group',
 	cursor: 'default',
 	display: 'block',
-	color: colors.neutral40,
 	fontSize: '75%',
-	fontWeight: 500,
 	marginBottom: '0.25em',
-	paddingLeft: spacing.baseUnit * 3,
-	paddingRight: spacing.baseUnit * 3,
-	textTransform: 'uppercase',
+	paddingLeft: token('space.150'),
+	paddingRight: token('space.150'),
+	font: token('font.body.small'),
+	color: token('color.text.subtle'),
+	fontWeight: `${token('font.weight.bold')} !important`,
+	textTransform: 'none',
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

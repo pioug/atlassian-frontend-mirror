@@ -139,7 +139,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							priority: 1100,
 							icon: () => <IconTwoColumnLayout />,
 							action(insert, state) {
-								const tr = insert(createMultiColumnLayoutSection(state, 2, formatMessage));
+								const tr = insert(createMultiColumnLayoutSection(state, 2));
 								return tr;
 							},
 						},
@@ -151,7 +151,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							priority: 1100,
 							icon: () => <IconThreeColumnLayout />,
 							action(insert, state) {
-								const tr = insert(createMultiColumnLayoutSection(state, 3, formatMessage));
+								const tr = insert(createMultiColumnLayoutSection(state, 3));
 								return tr;
 							},
 						},
@@ -163,7 +163,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							priority: 1100,
 							icon: () => <IconFourColumnLayout />,
 							action(insert, state) {
-								const tr = insert(createMultiColumnLayoutSection(state, 4, formatMessage));
+								const tr = insert(createMultiColumnLayoutSection(state, 4));
 								return tr;
 							},
 						},
@@ -175,7 +175,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							priority: 1100,
 							icon: () => <IconFiveColumnLayout />,
 							action(insert, state) {
-								const tr = insert(createMultiColumnLayoutSection(state, 5, formatMessage));
+								const tr = insert(createMultiColumnLayoutSection(state, 5));
 								return tr;
 							},
 						},

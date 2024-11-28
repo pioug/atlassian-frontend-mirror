@@ -13,6 +13,7 @@ import { messages } from '@atlaskit/media-ui';
 
 const predefinedAvatarsWrapperStyles = css({
 	display: 'flex',
+	alignItems: 'center',
 });
 
 const showMoreButtonStyles = css({

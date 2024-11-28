@@ -52,6 +52,10 @@ const getInvokeOpts = (
 	},
 });
 
+/**
+ * @private
+ * @deprecated - use extractPreviewActionProps instead
+ */
 export const extractPreviewAction = ({
 	extensionKey = 'empty-object-provider',
 	viewProps,

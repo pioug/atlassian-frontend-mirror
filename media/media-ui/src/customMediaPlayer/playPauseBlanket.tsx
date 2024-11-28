@@ -1,11 +1,13 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import React from 'react';
+import { PlayPauseBlanket as EmotionPlayPauseBlanket } from './playPauseBlanket-emotion';
+import { PlayPauseBlanket as CompiledPlayPauseBlanket } from './playPauseBlanket-compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const PlayPauseBlanket = styled.div({
-	width: '100%',
-	height: '100%',
-	cursor: 'pointer',
-});
-
-PlayPauseBlanket.displayName = 'PlayPauseBlanket';
+export const PlayPauseBlanket = (
+	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>,
+) =>
+	fg('platform_media_compiled') ? (
+		<CompiledPlayPauseBlanket {...props} />
+	) : (
+		<EmotionPlayPauseBlanket {...props} />
+	);

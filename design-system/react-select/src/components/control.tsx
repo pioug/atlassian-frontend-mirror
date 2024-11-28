@@ -6,6 +6,8 @@ import { type ReactNode, type Ref } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 import { getStyleProps } from '../utils';
 
@@ -32,6 +34,15 @@ export interface ControlProps<
 	 */
 	isFocused: boolean;
 	/**
+	 * Whether the select is invalid.
+	 */
+	isInvalid: boolean | undefined;
+	/**
+	 * Whether the select is compact.
+	 */
+	isCompact?: boolean;
+	appearance?: 'default' | 'subtle' | 'none';
+	/**
 	 * Whether the select is expanded.
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
@@ -41,28 +52,91 @@ export interface ControlProps<
 export const css = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	isDisabled,
 	isFocused,
-	theme: { colors, borderRadius, spacing },
-}: ControlProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
-	label: 'control',
-	alignItems: 'center',
-	cursor: 'default',
-	display: 'flex',
-	flexWrap: 'wrap',
-	justifyContent: 'space-between',
-	minHeight: spacing.controlHeight,
-	outline: '0 !important',
-	position: 'relative',
-	transition: 'all 100ms',
-	backgroundColor: isDisabled ? colors.neutral5 : colors.neutral0,
-	borderColor: isDisabled ? colors.neutral10 : isFocused ? colors.primary : colors.neutral20,
-	borderRadius: borderRadius,
-	borderStyle: 'solid',
-	borderWidth: 1,
-	boxShadow: isFocused ? `0 0 0 1px ${colors.primary}` : undefined,
-	'&:hover': {
-		borderColor: isFocused ? colors.primary : colors.neutral30,
-	},
-});
+	isInvalid,
+	isCompact,
+	appearance,
+}: ControlProps<Option, IsMulti, Group>): CSSObjectWithLabel => {
+	let borderColor: string = isFocused ? token('color.border.focused') : token('color.border.input');
+	let backgroundColor: string = isFocused
+		? token('color.background.input.pressed')
+		: token('color.background.input');
+	let backgroundColorHover: string = isFocused
+		? token('color.background.input.pressed')
+		: token('color.background.input.hovered');
+	let borderColorHover: string = isFocused
+		? token('color.border.focused')
+		: token('color.border.input');
+
+	if (isDisabled) {
+		backgroundColor = token('color.background.disabled');
+		borderColor = token('color.background.disabled');
+	}
+	if (isInvalid) {
+		borderColor = token('color.border.danger');
+		borderColorHover = token('color.border.danger');
+	}
+
+	const transitionDuration = '200ms';
+
+	if (appearance === 'subtle') {
+		borderColor = isFocused ? token('color.border.focused') : 'transparent';
+		backgroundColor = isFocused ? token('elevation.surface') : 'transparent';
+		backgroundColorHover = isFocused
+			? token('color.background.input.pressed')
+			: token('color.background.input.hovered');
+	}
+	if (appearance === 'none') {
+		borderColor = 'transparent';
+		backgroundColor = 'transparent';
+		backgroundColorHover = 'transparent';
+		borderColorHover = 'transparent';
+	}
+
+	return {
+		label: 'control',
+		alignItems: 'center',
+		cursor: 'default',
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'space-between',
+		outline: '0 !important',
+		position: 'relative',
+		// Turn pointer events off when disabled - this makes it so hover etc don't work.
+		pointerEvents: isDisabled ? 'none' : undefined,
+		backgroundColor,
+		borderColor,
+		borderStyle: 'solid',
+		borderRadius: token('border.radius.100', '3px'),
+		borderWidth: token('border.width', '1px'),
+		boxShadow: isInvalid ? `inset 0 0 0 ${token('border.width', '1px')} ${borderColor}` : 'none',
+		'&:focus-within': {
+			boxShadow: `inset 0 0 0 ${token('border.width', '1px')} ${borderColor}`,
+		},
+		minHeight: isCompact ? 32 : 40,
+		padding: 0,
+		transition: `background-color ${transitionDuration} ease-in-out,
+border-color ${transitionDuration} ease-in-out`,
+		'::-webkit-scrollbar': {
+			height: 8,
+			width: 8,
+		},
+		'::-webkit-scrollbar-corner': {
+			display: 'none',
+		},
+		':hover': {
+			'::-webkit-scrollbar-thumb': {
+				// scrollbars occur only if the user passes in a custom component with overflow: scroll
+				backgroundColor: 'rgba(0,0,0,0.2)',
+			},
+			cursor: 'pointer',
+			backgroundColor: backgroundColorHover,
+			borderColor: borderColorHover,
+		},
+		'::-webkit-scrollbar-thumb:hover': {
+			backgroundColor: 'rgba(0,0,0,0.4)',
+		},
+	};
+};
 
 const Control = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ControlProps<Option, IsMulti, Group>,

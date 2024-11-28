@@ -1,9 +1,13 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, cssMap, jsx } from '@atlaskit/css';
+import { token } from '@atlaskit/tokens';
 import { type MediaType } from '@atlaskit/media-common';
 import { getMimeIcon } from './util';
-import { MediaTypeIcon } from './media-type-icon';
-import { IconWrapper } from './media-type-icon';
-
+import { IconWrapper, MediaTypeIcon } from './media-type-icon';
+import { fg } from '@atlaskit/platform-feature-flags';
 type MediaTypeProps = {
 	testId?: string;
 	mediaType?: MediaType;
@@ -11,6 +15,15 @@ type MediaTypeProps = {
 	name?: string;
 	size?: 'small' | 'large';
 };
+
+const iconWrapperStyleMap = cssMap({
+	small: {},
+	large: { padding: token('space.050', '4px') },
+});
+
+const iconWrapperStyles = css({
+	display: 'inline-flex',
+});
 
 /*
  * Renders an icon. First, check if the mimeType corresponds to any of the special mimeType icons (.gif, .sketch, .exe, ect). If so, render that icon.
@@ -29,7 +42,15 @@ export const MimeTypeIcon = ({
 	// a corresponding mimetype icon and label was found.
 	if (iconInfo) {
 		const Icon = iconInfo.icon;
-		return (
+		return fg('platform_media_compiled') ? (
+			<div
+				data-testid={testId}
+				data-type={iconInfo.label}
+				css={[iconWrapperStyles, iconWrapperStyleMap[size ?? 'small']]}
+			>
+				<Icon label={iconInfo.label} />
+			</div>
+		) : (
 			<IconWrapper data-testid={testId} data-type={iconInfo.label} size={size}>
 				<Icon label={iconInfo.label} />
 			</IconWrapper>

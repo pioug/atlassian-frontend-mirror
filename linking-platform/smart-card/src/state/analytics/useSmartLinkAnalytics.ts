@@ -11,7 +11,6 @@ import {
 	instrumentEvent,
 	invokeFailedEvent,
 	invokeSucceededEvent,
-	screenAuthPopupEvent,
 	uiActionClickedEvent,
 	uiAuthAlternateAccountEvent,
 	uiAuthEvent,
@@ -35,7 +34,6 @@ import {
 	type InstrumentEventProps,
 	type InvokeFailedEventProps,
 	type InvokeSucceededEventProps,
-	type ScreenAuthPopupEventProps,
 	type UiActionClickedEventProps,
 	type UiAuthAlternateAccountEventProps,
 	type UiAuthEventProps,
@@ -809,35 +807,6 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 	/** Contains all screen analytics events */
 	const screen = useMemo(
 		() => ({
-			/**
-			 * This fires an event which represents the connect account page being opened.
-			 * @param definitionId The definitionId of the Smart Link resolver invoked.
-			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
-			 * @returns
-			 * @deprecated remove when platform_smart-card-migrate-screen-analytics is cleaned up
-			 */
-			authPopupEvent: ({
-				extensionKey,
-				definitionId,
-				resourceType,
-				destinationProduct,
-				destinationSubproduct,
-				location,
-			}: ScreenAuthPopupEventProps) =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						screenAuthPopupEvent({
-							...commonAttributes,
-							extensionKey,
-							definitionId,
-							resourceType,
-							destinationProduct,
-							destinationSubproduct,
-							location,
-						}),
-						commonAttributes,
-					),
-				),
 			/**
 			 * This fires an event that represents when a user view a modal.
 			 * @param data A partial analytics event payload

@@ -1,5 +1,14 @@
 # @atlaskit/primitives
 
+## 13.3.0
+
+### Minor Changes
+
+- [#165860](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165860)
+  [`c2dec1ca710f3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c2dec1ca710f3) -
+  Adds an experimental Focusable component under the Compiled entrypoint, which requires a specific
+  setup.
+
 ## 13.2.0
 
 ### Minor Changes

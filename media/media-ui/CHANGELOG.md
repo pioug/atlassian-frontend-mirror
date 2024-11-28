@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 27.0.0
+
+### Major Changes
+
+- [#169432](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169432)
+  [`d3cd99e113f4c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3cd99e113f4c) -
+  Migrates Media UI to Compiled CSS behind a feature flag.
+
 ## 26.2.6
 
 ### Patch Changes

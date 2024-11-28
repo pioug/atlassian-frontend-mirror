@@ -50,7 +50,7 @@
 		"@atlaskit/locale": "^2.8.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popper": "^6.3.0",
-		"@atlaskit/primitives": "^13.2.0",
+		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/select": "^18.6.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.3.0",

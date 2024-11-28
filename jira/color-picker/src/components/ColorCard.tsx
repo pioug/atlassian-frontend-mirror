@@ -13,12 +13,13 @@ import React, {
 import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import Tooltip from '@atlaskit/tooltip';
 import { COLOR_PALETTE_MENU, KEY_ENTER, KEY_SPACE, KEY_TAB } from '../constants';
+import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { N0, DN600A, B75 } from '@atlaskit/theme/colors';
 import { mergeRefs } from 'use-callback-ref';
-import type { ColorCardType } from '../types';
+import type { ColorCardType, ColorCardVariant } from '../types';
 import type { IconColor } from '@atlaskit/tokens/css-type-schema';
 
 export interface Props {
@@ -35,6 +36,7 @@ export interface Props {
 	focused?: boolean;
 	isOption?: boolean;
 	isTabbing?: boolean;
+	variant?: ColorCardVariant;
 }
 
 export type ColorCardRef = {
@@ -55,6 +57,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 		isTabbing,
 		onClick,
 		onKeyDown,
+		variant = 'fill',
 	} = props;
 
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -123,6 +126,9 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 
 	const ariaChecked = isColorPaletteMenu ? selected : undefined;
 	const ariaLabel = isColorPaletteMenu ? label : undefined;
+	const isOutlineVariant =
+		fg('thor_colourful_single_select_milestone1_gate') && variant === 'outline';
+	const newCheckmarkColor = isOutlineVariant ? token('color.icon') : checkMarkColor;
 
 	return (
 		<Tooltip content={label}>
@@ -153,10 +159,18 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 						onKeyDown={handleKeyDown}
 					>
 						<div css={colorCardWrapperStyles}>
-							<div css={colorCardContentStyles} style={{ background: value || 'transparent' }}>
+							<div
+								css={isOutlineVariant ? colorCardContentStylesOutline : colorCardContentStyles}
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+								style={
+									isOutlineVariant
+										? { borderColor: value || 'grey' }
+										: { backgroundColor: value || 'transparent' }
+								}
+							>
 								{selected && (
 									<EditorDoneIcon
-										color={checkMarkColor as IconColor}
+										color={newCheckmarkColor as IconColor}
 										label=""
 										spacing="spacious"
 										LEGACY_margin="1px"
@@ -213,4 +227,11 @@ const colorCardContentStyles = css({
 	height: token('space.300', '24px'),
 	borderRadius: token('border.radius.100', '3px'),
 	boxShadow: `inset 0px 0px 0px 1px ${token('color.background.inverse.subtle', DN600A)}`,
+});
+const colorCardContentStylesOutline = css({
+	width: token('space.300', '24px'),
+	height: token('space.300', '24px'),
+	borderRadius: token('border.radius.100', '3px'),
+	borderWidth: token('border.width.outline', '2px'),
+	borderStyle: 'solid',
 });

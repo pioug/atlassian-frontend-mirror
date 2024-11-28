@@ -22,6 +22,9 @@
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../tokens/afm-post-office/tsconfig.json"
 		}
 	]
 }

@@ -48,7 +48,9 @@ const droppingAnimation = css({
 
 const border = css({
 	'&::after': {
-		border: `2px dashed ${token('color.border', '#d0d6d0')}`,
+		borderWidth: '2px',
+		borderStyle: 'dashed',
+		borderColor: token('color.border', '#d0d6d0'),
 	},
 });
 

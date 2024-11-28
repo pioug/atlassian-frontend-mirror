@@ -12,6 +12,7 @@ import type {
 	PMPluginFactoryParams,
 } from '@atlaskit/editor-common/types';
 import { calcBreakoutWidthPx } from '@atlaskit/editor-common/utils';
+import { type BlockControlsPlugin } from '@atlaskit/editor-plugin-block-controls';
 import { type EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { WidthPlugin, WidthPluginState } from '@atlaskit/editor-plugin-width';
@@ -24,6 +25,7 @@ import {
 	akEditorSwoopCubicBezier,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { pluginKey } from './plugin-key';
 import type { BreakoutPluginState } from './types';
@@ -266,15 +268,23 @@ const LayoutButtonWrapper = ({
 	mountPoint,
 }: LayoutButtonWrapperProps) => {
 	// Re-render with `width` (but don't use state) due to https://bitbucket.org/atlassian/%7Bc8e2f021-38d2-46d0-9b7a-b3f7b428f724%7D/pull-requests/24272
-	const { breakoutState, editorViewModeState, editorDisabledState } = useSharedPluginState(api, [
-		'width',
-		'breakout',
-		'editorViewMode',
-		'editorDisabled',
-	]);
+	const { breakoutState, editorViewModeState, editorDisabledState, blockControlsState } =
+		useSharedPluginState(api, [
+			'width',
+			'breakout',
+			'editorViewMode',
+			'editorDisabled',
+			'blockControls',
+		]);
+
+	if (blockControlsState?.isDragging || blockControlsState?.isPMDragging) {
+		if (editorExperiment('advanced_layouts', true)) {
+			return null;
+		}
+	}
+
 	const isViewMode = editorViewModeState?.mode === 'view';
 	const isEditMode = editorViewModeState?.mode === 'edit';
-
 	if (fg('platform_editor_react_editor_view_react_18')) {
 		return !isViewMode &&
 			editorDisabledState !== undefined &&
@@ -313,6 +323,7 @@ export type BreakoutPlugin = NextEditorPlugin<
 			WidthPlugin,
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<EditorDisabledPlugin>,
+			OptionalPlugin<BlockControlsPlugin>,
 		];
 		sharedState: Partial<BreakoutPluginState>;
 	}

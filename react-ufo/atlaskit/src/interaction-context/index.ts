@@ -3,7 +3,7 @@ import { type Context, useContext } from 'react';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
 
 export type CustomData = {
-	[key: string]: null | undefined | string | number | boolean | undefined | CustomData;
+	[key: string]: null | string | number | boolean | undefined | CustomData;
 };
 
 export type CustomTiming = {

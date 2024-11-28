@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-table
 
+## 8.2.0
+
+### Minor Changes
+
+- [#169553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169553)
+  [`4232aaa0d75e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4232aaa0d75e4) -
+  Fix type on resize handle for drag and drop table class name
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.1.1
 
 ### Patch Changes

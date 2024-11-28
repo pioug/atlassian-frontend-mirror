@@ -33,3 +33,5 @@ export type InvokeClientActionProps = {
 	 */
 	extensionKey?: string;
 };
+
+export type InvokeClientActionHandler = (opts: InvokeClientActionProps) => Promise<void>;

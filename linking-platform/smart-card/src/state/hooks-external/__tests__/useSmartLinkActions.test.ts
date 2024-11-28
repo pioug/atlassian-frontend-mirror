@@ -8,6 +8,8 @@ jest.mock('@atlaskit/link-provider', () => {
 import { renderHook } from '@testing-library/react-hooks';
 import { type JsonLd } from 'json-ld-types';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils/src';
+
 import { extractBlockProps } from '../../../extractors/block';
 import { mocks } from '../../../utils/mocks';
 import { useSmartCardState } from '../../store';
@@ -171,5 +173,91 @@ describe(useSmartLinkActions.name, () => {
 
 		// resolved state
 		expect(result.current).toHaveLength(2);
+	});
+
+	ffTest.on('smart-card-use-refactored-usesmartlinkactions', '', () => {
+		beforeEach(() => {
+			jest.resetAllMocks();
+		});
+
+		it('returns empty list when no data available', () => {
+			mockNoActions();
+
+			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+
+			expect(result.current).toEqual([]);
+		});
+		it('returns list of actions when data available', () => {
+			mockWithActions();
+
+			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+
+			expect(result.current).toHaveLength(2);
+		});
+
+		it('returns server-based action', () => {
+			mockWithActions();
+
+			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+
+			expect(result.current?.[0]).toMatchObject({ id: 'comment' });
+		});
+
+		it('returns client-based action', () => {
+			mockWithActions();
+
+			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+
+			expect(result.current?.[1]).toMatchObject({ id: 'preview' });
+		});
+
+		it('invokes correct promise on trigger of action (first)', () => {
+			const actionHandler = mockWithActions();
+
+			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+
+			result.current?.[0].invoke();
+			expect(actionHandler).toHaveBeenCalledTimes(1);
+		});
+
+		it('invokes correct promise on trigger of action (second)', () => {
+			const actionHandler = mockWithActions();
+
+			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+
+			result.current?.[1].invoke();
+			expect(actionHandler).toHaveBeenCalledTimes(1);
+		});
+
+		it('returns no actions when actionOptions.hide is true', () => {
+			mockWithActions();
+
+			const { result } = renderHook(() =>
+				useSmartLinkActions({
+					url,
+					appearance,
+					actionOptions: { hide: true },
+				}),
+			);
+
+			expect(result.current).toEqual([]);
+		});
+
+		it('returns actions as expected when useSmartCardState changes', () => {
+			mockLifecycle();
+
+			const { result, rerender } = renderHook(() => useSmartLinkActions({ url, appearance }));
+
+			// pending state
+			expect(result.current).toEqual([]);
+			rerender();
+
+			// resolving state
+			expect(result.current).toEqual([]);
+			rerender();
+
+			// resolved state
+			expect(result.current).toHaveLength(2);
+		});
 	});
 });

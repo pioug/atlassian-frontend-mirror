@@ -1,5 +1,3 @@
-import { type IntlShape } from 'react-intl-next';
-
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
@@ -9,7 +7,6 @@ import {
 	LAYOUT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
-import { layoutMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Command, TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 import { flatmap, getStepRange, isEmptyDocument, mapChildren } from '@atlaskit/editor-common/utils';
 import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
@@ -151,51 +148,26 @@ export const getSelectedLayout = (
 	return current;
 };
 
-const createPlaceholderNode = (schema: Schema, formatMessage?: IntlShape['formatMessage']) => {
-	if (!formatMessage) {
-		return undefined;
-	}
-	const { paragraph, placeholder } = schema.nodes;
-	//create a paragraph node with content of placeholder node
-	const placeholderNode = placeholder.createChecked({
-		text: formatMessage(messages.layoutPlaceholder),
-	}) as Node;
-	return paragraph.createAndFill(undefined, placeholderNode) as Node;
-};
-
-export const createMultiColumnLayoutSection = (
-	state: EditorState,
-	numberOfColumns: number,
-	formatMessage: IntlShape['formatMessage'],
-) => {
+export const createMultiColumnLayoutSection = (state: EditorState, numberOfColumns: number = 2) => {
 	const { layoutSection, layoutColumn } = state.schema.nodes;
 
-	const placeholder = createPlaceholderNode(state.schema, formatMessage);
-	const layoutColumnNode = layoutColumn.createAndFill(
-		{ width: EVEN_DISTRIBUTED_COL_WIDTHS[numberOfColumns] },
-		placeholder,
-	) as Node;
-
 	const columns = Fragment.fromArray(
-		Array.from({ length: numberOfColumns }, () => layoutColumnNode),
+		Array.from(
+			{ length: numberOfColumns },
+			() =>
+				layoutColumn.createAndFill({ width: EVEN_DISTRIBUTED_COL_WIDTHS[numberOfColumns] }) as Node,
+		),
 	);
 	return layoutSection.createAndFill(undefined, columns) as Node;
 };
 
-export const createDefaultLayoutSection = (
-	state: EditorState,
-	formatMessage?: IntlShape['formatMessage'],
-) => {
+export const createDefaultLayoutSection = (state: EditorState) => {
 	const { layoutSection, layoutColumn } = state.schema.nodes;
-
-	const placeholder = isPreRelease2()
-		? createPlaceholderNode(state.schema, formatMessage)
-		: undefined;
 
 	// create a 50-50 layout by default
 	const columns = Fragment.fromArray([
-		layoutColumn.createAndFill({ width: 50 }, placeholder) as Node,
-		layoutColumn.createAndFill({ width: 50 }, placeholder) as Node,
+		layoutColumn.createAndFill({ width: 50 }) as Node,
+		layoutColumn.createAndFill({ width: 50 }) as Node,
 	]);
 
 	return layoutSection.createAndFill(undefined, columns) as Node;
@@ -210,7 +182,7 @@ export const insertLayoutColumns: Command = (state, dispatch) => {
 
 export const insertLayoutColumnsWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	(inputMethod: TOOLBAR_MENU_TYPE, formatMessage?: IntlShape['formatMessage']): Command =>
+	(inputMethod: TOOLBAR_MENU_TYPE): Command =>
 		withAnalytics(editorAnalyticsAPI, {
 			action: ACTION.INSERTED,
 			actionSubject: ACTION_SUBJECT.DOCUMENT,
@@ -221,7 +193,7 @@ export const insertLayoutColumnsWithAnalytics =
 			eventType: EVENT_TYPE.TRACK,
 		})((state, dispatch) => {
 			if (dispatch) {
-				dispatch(safeInsert(createDefaultLayoutSection(state, formatMessage))(state.tr));
+				dispatch(safeInsert(createDefaultLayoutSection(state))(state.tr));
 			}
 			return true;
 		});
@@ -229,7 +201,7 @@ export const insertLayoutColumnsWithAnalytics =
 /**
  * Add a column to the right of existing layout
  */
-function addColumn(schema: Schema, pos: number, formatMessage?: IntlShape['formatMessage']) {
+function addColumn(schema: Schema, pos: number) {
 	if (!isPreRelease2()) {
 		return (tr: Transaction) => {
 			tr.replaceWith(
@@ -239,24 +211,21 @@ function addColumn(schema: Schema, pos: number, formatMessage?: IntlShape['forma
 			);
 		};
 	}
-	const placeholder = createPlaceholderNode(schema, formatMessage);
+
 	return (tr: Transaction) => {
 		tr.replaceWith(
 			tr.mapping.map(pos),
 			tr.mapping.map(pos),
-			schema.nodes.layoutColumn.createAndFill(undefined, placeholder) as Node,
+			schema.nodes.layoutColumn.createAndFill(undefined) as Node,
 		);
 	};
 }
-const containPlaceholderOnly = (node: Node, schema: Schema) =>
-	node.childCount === 1 &&
-	node.firstChild?.childCount === 1 &&
-	node.firstChild?.firstChild?.type === schema.nodes.placeholder;
+
 function removeLastColumnInLayout(column: Node, columnPos: number, insideRightEdgePos: number) {
 	return (tr: Transaction) => {
 		// check if the column only contains a paragraph with a placeholder text
 		// if so, remove the whole column, otherwise just remove the paragraph
-		if (isEmptyDocument(column) || containPlaceholderOnly(column, tr.doc.type.schema)) {
+		if (isEmptyDocument(column)) {
 			tr.replaceRange(
 				tr.mapping.map(columnPos - 1),
 				tr.mapping.map(insideRightEdgePos),
@@ -294,15 +263,10 @@ const fromThreeColstoOne = (node: Node, tr: Transaction, insideRightEdgePos: num
 	)(tr);
 };
 
-const increaseColumns = (
-	schema: Schema,
-	pos: number,
-	newColumnsNumber = 1,
-	formatMessage?: IntlShape['formatMessage'],
-) => {
+const increaseColumns = (schema: Schema, pos: number, newColumnsNumber = 1) => {
 	return (tr: Transaction) => {
 		for (let i = 0; i < newColumnsNumber; i++) {
-			addColumn(schema, pos, formatMessage)(tr);
+			addColumn(schema, pos)(tr);
 		}
 	};
 };
@@ -330,7 +294,6 @@ function forceColumnStructure(
 	node: Node,
 	pos: number,
 	presetLayout: PresetLayout,
-	formatMessage?: IntlShape['formatMessage'],
 ): Transaction {
 	const tr = state.tr;
 	const insideRightEdgeOfLayoutSection = pos + node.nodeSize - 1;
@@ -344,7 +307,7 @@ function forceColumnStructure(
 
 		// 2 columns -> 3 columns
 	} else if (THREE_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 2) {
-		fromTwoColsToThree(state.schema, insideRightEdgeOfLayoutSection, formatMessage)(tr);
+		fromTwoColsToThree(state.schema, insideRightEdgeOfLayoutSection)(tr);
 
 		// 2 columns -> 1 column
 	} else if (ONE_COL_LAYOUTS.indexOf(presetLayout) >= 0 && numCols === 2) {
@@ -371,7 +334,6 @@ function forceColumnStructureNew(
 	node: Node,
 	pos: number,
 	presetLayout: PresetLayout,
-	formatMessage?: IntlShape['formatMessage'],
 ): Transaction {
 	const tr = state.tr;
 	const insideRightEdgeOfLayoutSection = pos + node.nodeSize - 1;
@@ -379,7 +341,7 @@ function forceColumnStructureNew(
 
 	const columnChange = getWidthsForPreset(presetLayout).length - numCols;
 	if (columnChange > 0) {
-		increaseColumns(state.schema, insideRightEdgeOfLayoutSection, columnChange, formatMessage)(tr);
+		increaseColumns(state.schema, insideRightEdgeOfLayoutSection, columnChange)(tr);
 	} else if (columnChange < 0) {
 		decreaseColumns(node, insideRightEdgeOfLayoutSection, -columnChange)(tr);
 	}
@@ -429,10 +391,9 @@ export function forceSectionToPresetLayout(
 	node: Node,
 	pos: number,
 	presetLayout: PresetLayout,
-	formatMessage?: IntlShape['formatMessage'],
 ): Transaction {
 	const forceColumnStructureFn = isPreRelease2() ? forceColumnStructureNew : forceColumnStructure;
-	let tr = forceColumnStructureFn(state, node, pos, presetLayout, formatMessage);
+	let tr = forceColumnStructureFn(state, node, pos, presetLayout);
 
 	// save the selection here, since forcing column widths causes a change over the
 	// entire layoutSection, which remaps selection to the end. not remapping here
@@ -452,7 +413,7 @@ export function forceSectionToPresetLayout(
 
 export const setPresetLayout =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	(layout: PresetLayout, formatMessage?: IntlShape['formatMessage']): Command =>
+	(layout: PresetLayout): Command =>
 	(state, dispatch) => {
 		const { pos, selectedLayout } = pluginKey.getState(state) as LayoutState;
 		if (selectedLayout === layout || pos === null) {
@@ -464,7 +425,7 @@ export const setPresetLayout =
 			return false;
 		}
 
-		let tr = forceSectionToPresetLayout(state, node, pos, layout, formatMessage);
+		let tr = forceSectionToPresetLayout(state, node, pos, layout);
 		if (tr) {
 			editorAnalyticsAPI?.attachAnalyticsEvent({
 				action: ACTION.CHANGED_LAYOUT,

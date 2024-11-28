@@ -7,7 +7,7 @@ import { css, jsx } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import type { ReactComponents } from '../types';
+import { type ReactComponents } from '../types/ReactComponents';
 
 const beforePrimaryToolbarPluginWrapperStyles = css({
 	display: 'flex',

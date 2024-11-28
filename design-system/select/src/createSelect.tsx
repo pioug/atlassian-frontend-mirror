@@ -12,7 +12,6 @@ import React, {
 import {
 	type AriaOnFocusProps,
 	type GroupBase,
-	mergeStyles,
 	type OptionsOrGroups,
 } from '@atlaskit/react-select';
 import type BaseSelect from '@atlaskit/react-select/base';
@@ -26,7 +25,6 @@ import {
 } from './components';
 import { Input } from './components/input-aria-describedby';
 import { NoOptionsMessage } from './components/no-options';
-import baseStyles from './styles';
 import {
 	type AsyncSelectProps,
 	type AtlaskitSelectRefType,
@@ -48,13 +46,10 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 		IsMulti extends boolean = false,
 	>(props: AtlaskitSelectProps<Option, IsMulti>, forwardedRef: Ref<AtlaskitSelectRefType>) {
 		const {
-			appearance,
 			ariaLiveMessages,
 			components: componentsProp,
 			isInvalid, // TODO: set to true when cleaning up validationState prop so it has a default value
 			onClickPreventDefault = true,
-			spacing = 'default',
-			styles = {},
 			tabSelectsValue = false,
 			validationState = 'default',
 			...restProps
@@ -91,8 +86,6 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 			}
 		}, [descriptionId, isSearchable]);
 
-		const isCompact = spacing === 'compact';
-
 		/**
 		 * The following `useImperativeHandle` hook exists for the sake of backwards compatibility.
 		 * This component used to be a class component which set the value of the `ref` prop to object with the properties and value as below.
@@ -127,20 +120,9 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 				}
 				tabSelectsValue={tabSelectsValue}
 				onClickPreventDefault={onClickPreventDefault}
-				isInvalid={isInvalid}
+				isInvalid={isInvalid || validationState === 'error'}
 				{...restProps}
 				components={components}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				styles={mergeStyles(
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					baseStyles<Option, IsMulti>(
-						// This will cover both props for invalid state while giving priority to isInvalid. When cleaning up validationState, we can just keep the inner condition.
-						typeof isInvalid !== 'undefined' ? (isInvalid ? 'error' : 'default') : validationState!,
-						isCompact,
-						appearance || 'default',
-					),
-					styles,
-				)}
 				// indicates react-select to be async by default using the base Select component
 				// so that makers can pass all async props on the base select to async load options.
 				isAsync

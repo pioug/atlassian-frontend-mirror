@@ -12,6 +12,7 @@ import { canShowAction } from '../../../utils/actions/can-show-action';
 import { CardAction, type CardActionOptions } from '../../../view/Card/types';
 import { extractDownloadUrl } from '../../common/detail';
 import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
+import { extractIsTrusted } from '../../common/meta/extractIsTrusted';
 import { extractLinkIcon } from '../icon';
 
 export const extractPreviewAction = (
@@ -35,6 +36,7 @@ export const extractPreviewAction = (
 			linkIcon: extractLinkIcon(response),
 			url: extractLink(data),
 			isSupportTheming: extractIsSupportTheming(meta),
+			isTrusted: extractIsTrusted(meta),
 		};
 	}
 };

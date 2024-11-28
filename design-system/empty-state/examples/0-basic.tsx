@@ -31,6 +31,7 @@ const props = {
 	primaryAction,
 	secondaryAction,
 	tertiaryAction,
+	testId: 'empty-state--basic',
 };
 
 export default () => <EmptyState {...props} />;

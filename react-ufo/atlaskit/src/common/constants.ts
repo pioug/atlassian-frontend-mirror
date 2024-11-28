@@ -1,1 +1,3 @@
-export const REACT_UFO_VERSION = '1.0.1';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+export const REACT_UFO_VERSION = fg('react-ufo-payload-segment-compressed') ? '2.0.0' : '1.0.1';

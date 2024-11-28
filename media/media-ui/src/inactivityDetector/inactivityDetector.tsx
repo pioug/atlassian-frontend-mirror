@@ -89,6 +89,7 @@ export class InactivityDetector extends Component<
 					this.checkMouseMovement()
 				}
 				onClick={this.checkMouseMovement}
+				data-testid="inactivity-detector-wrapper"
 			>
 				{children(this.checkMouseMovement)}
 			</InactivityDetectorWrapper>

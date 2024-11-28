@@ -11,7 +11,7 @@ import {
 	useContext,
 } from 'react';
 
-import { jsx, cssMap as unboundedCssMap } from '@compiled/react';
+import { cx, jsx, cssMap as unboundedCssMap } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
@@ -19,9 +19,9 @@ import { type RouterLinkComponentProps, useRouterLink } from '@atlaskit/app-prov
 import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
-import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
+import Focusable from './focusable';
 import type { BasePrimitiveProps, StyleProp } from './types';
 
 type BaseAnchorProps = {
@@ -76,24 +76,6 @@ const styles = unboundedCssMap({
 	root: {
 		boxSizing: 'border-box',
 		textDecoration: 'underline',
-	},
-	// NOTE: This duplicates FocusRing styles from `@atlaskit/focus-ring` and may want to be replaced by a `Focusable` primitive.
-	focusRing: {
-		'&:focus, &:focus-visible': {
-			outlineColor: token('color.border.focused'),
-			outlineOffset: token('space.025'),
-			outlineStyle: 'solid',
-			outlineWidth: token('border.width.outline'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:focus:not(:focus-visible)': {
-			outline: 'none',
-		},
-		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
-			'&:focus-visible': {
-				outline: '1px solid',
-			},
-		},
 	},
 });
 
@@ -177,7 +159,9 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 	const Component = isRouterLink ? RouterLink : 'a';
 
 	return (
-		<Component
+		<Focusable
+			// @ts-expect-error we don't allow `a` on Focusable for makers as they should use Anchor instead
+			as={Component}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- TODO: Allow pass-through from `props.xcss`
 			className={xcss}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- TODO: Properly type this and allow pass-through if we can determine the type
@@ -185,7 +169,6 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 			ref={ref}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...safeHtmlAttributes}
-			// @ts-expect-error
 			href={!isRouterLink && typeof href !== 'string' ? undefined : href}
 			target={target}
 			onClick={onClick}
@@ -199,15 +182,16 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 					? `${ariaLabelledBy} ${opensNewWindowLabelId}`
 					: ariaLabelledBy
 			}
-			css={[styles.root, styles.focusRing]}
-			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- TODO: We need to handle pass-through `xcss` => `xcss` here.
+			xcss={cx(styles.root, xcss)}
+			testId={testId}
 			data-is-router-link={testId ? (isRouterLink ? 'true' : 'false') : undefined}
 		>
 			{children}
 			{target === '_blank' && ((children && !ariaLabel && !ariaLabelledBy) || ariaLabelledBy) && (
 				<VisuallyHidden id={opensNewWindowLabelId}>{opensInNewWindowLabel}</VisuallyHidden>
 			)}
-		</Component>
+		</Focusable>
 	);
 };
 

@@ -5,17 +5,13 @@ import { render } from '@testing-library/react';
 import { axe } from '@af/accessibility-testing';
 
 import FocusRing from '../../src';
-import FocusRingCompiled from '../../src/compiled';
 
-describe.each([
-	['emotion', FocusRing],
-	['compiled', FocusRingCompiled],
-])('variant=%p', (_variant, Component) => {
+describe('focus ring', () => {
 	it('Basic focus ring with button should pass axe audit', async () => {
 		const { container } = render(
-			<Component>
+			<FocusRing>
 				<button type="button">Native Button</button>
-			</Component>,
+			</FocusRing>,
 		);
 		await axe(container);
 	});

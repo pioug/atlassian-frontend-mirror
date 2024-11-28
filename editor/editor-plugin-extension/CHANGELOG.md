@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-extension
 
+## 1.18.3
+
+### Patch Changes
+
+- [#170141](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170141)
+  [`ffd83c94a6a9d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ffd83c94a6a9d) -
+  Wrap handleDrop logic added as part of the legacy content macro on the extension in a feature
+  gate.
+
+## 1.18.2
+
+### Patch Changes
+
+- [#168661](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168661)
+  [`2061425d2a648`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2061425d2a648) -
+  ED-25724 - Legacy Content Macro: Add logic that deselects the extension node when the user clicks
+  into the LCM editable area.
+
 ## 1.18.1
 
 ### Patch Changes

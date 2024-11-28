@@ -8,6 +8,8 @@ export { default as Text, type TextProps } from './components/text';
 export { default as Pressable, type PressableProps } from './components/pressable';
 export { default as Anchor, type AnchorProps } from './components/anchor';
 export { media, type Breakpoint, type MediaQuery, UNSAFE_useMediaQuery } from './responsive';
+export { default as Focusable } from './components/focusable';
+export type { FocusableProps } from './components/focusable';
 
 // TODO: This is still not figured out from before…
 export { useSurface as UNSAFE_useSurface } from './components/internal/surface-provider';

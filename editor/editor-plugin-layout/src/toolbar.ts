@@ -172,7 +172,7 @@ const buildLayoutButton = (
 	iconFallback: item.iconFallback,
 	testId: item.title.id ? `${item.title.id}` : undefined,
 	title: intl.formatMessage(item.title),
-	onClick: setPresetLayout(editorAnalyticsAPI)(item.type, intl.formatMessage),
+	onClick: setPresetLayout(editorAnalyticsAPI)(item.type),
 	selected: !!currentLayout && currentLayout === item.type,
 	tabIndex: null,
 });
@@ -215,25 +215,25 @@ const getAdvancedLayoutItems = ({
 		{
 			title: intl.formatMessage(layoutMessages.columnOption, { count: 2 }), //'2-columns',
 			icon: iconPlaceholder,
-			onClick: setPresetLayout(editorAnalyticsAPI)('two_equal', intl.formatMessage),
+			onClick: setPresetLayout(editorAnalyticsAPI)('two_equal'),
 			selected: numberOfColumns === 2,
 		},
 		{
 			title: intl.formatMessage(layoutMessages.columnOption, { count: 3 }), //'3-columns'
 			icon: iconPlaceholder,
-			onClick: setPresetLayout(editorAnalyticsAPI)('three_equal', intl.formatMessage),
+			onClick: setPresetLayout(editorAnalyticsAPI)('three_equal'),
 			selected: numberOfColumns === 3,
 		},
 		{
 			title: intl.formatMessage(layoutMessages.columnOption, { count: 4 }), //'4-columns'
 			icon: iconPlaceholder,
-			onClick: setPresetLayout(editorAnalyticsAPI)('four_equal', intl.formatMessage),
+			onClick: setPresetLayout(editorAnalyticsAPI)('four_equal'),
 			selected: numberOfColumns === 4,
 		},
 		{
 			title: intl.formatMessage(layoutMessages.columnOption, { count: 5 }), //'5-columns'
 			icon: iconPlaceholder,
-			onClick: setPresetLayout(editorAnalyticsAPI)('five_equal', intl.formatMessage),
+			onClick: setPresetLayout(editorAnalyticsAPI)('five_equal'),
 			selected: numberOfColumns === 5,
 		},
 	];

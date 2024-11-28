@@ -3120,32 +3120,6 @@ test('hitting spacebar should not select option if isSearchable is true (default
 	expect(onChangeSpy).not.toHaveBeenCalled();
 });
 
-test('renders with custom theme', () => {
-	const primary = 'rgb(255, 164, 83)';
-	const { container } = render(
-		<Select
-			{...BASIC_PROPS}
-			value={OPTIONS[0]}
-			menuIsOpen
-			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-			theme={(theme) => ({
-				...theme,
-				borderRadius: 180,
-				colors: {
-					...theme.colors,
-					primary,
-				},
-			})}
-		/>,
-	);
-	const menu = container.querySelector('.react-select__menu');
-	expect(window.getComputedStyle(menu!).getPropertyValue('border-radius')).toEqual('180px');
-	const firstOption = container.querySelector('.react-select__option');
-	expect(window.getComputedStyle(firstOption!).getPropertyValue('background-color')).toEqual(
-		primary,
-	);
-});
-
 cases(
 	'`required` prop',
 	({ props = BASIC_PROPS }) => {

@@ -13,7 +13,8 @@ export type {
 	MediaInlineCardLoadingViewProps,
 } from './MediaInlineCard';
 export { Ellipsify } from './ellipsify';
-export type { EllipsifyProps } from './ellipsify';
+export { default as ModalSpinner } from './modalSpinner';
+export type { EllipsifyProps } from './ellipsify-compiled';
 export { toHumanReadableMediaSize } from './humanReadableSize';
 export {
 	absolute,
@@ -60,13 +61,12 @@ export { Shortcut, keyCodes } from './shortcut';
 export type { ShortcutProps } from './shortcut';
 export { formatDuration } from './formatDuration';
 export { default as MediaButton } from './MediaButton';
-export { default as ModalSpinner } from './modalSpinner';
 export { MediaImage } from './mediaImage';
 export type { MediaImageProps, MediaImageState } from './mediaImage';
 export { InactivityDetector } from './inactivityDetector/inactivityDetector';
 export type { WithShowControlMethodProp, AccessTypes, AccessContext } from './types';
 export { isIntersectionObserverSupported } from './intersectionObserver';
 export { Truncate } from './truncateText';
-export type { TruncateProps } from './truncateText';
+export type { TruncateProps } from './truncateText-compiled';
 export { errorIcon } from './errorIcon';
 export { formatDate } from './formatDate';

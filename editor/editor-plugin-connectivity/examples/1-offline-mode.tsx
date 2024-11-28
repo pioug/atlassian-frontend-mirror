@@ -4,6 +4,7 @@ import { IntlProvider } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
@@ -13,7 +14,7 @@ import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
 import { cardPlugin } from '@atlaskit/editor-plugins/card';
-import { connectivityPlugin } from '@atlaskit/editor-plugins/connectivity';
+import { connectivityPlugin, type ConnectivityPlugin } from '@atlaskit/editor-plugins/connectivity';
 import { contentInsertionPlugin } from '@atlaskit/editor-plugins/content-insertion';
 import { copyButtonPlugin } from '@atlaskit/editor-plugins/copy-button';
 import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
@@ -25,21 +26,27 @@ import { gridPlugin } from '@atlaskit/editor-plugins/grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';
 import { insertBlockPlugin } from '@atlaskit/editor-plugins/insert-block';
 import { mediaPlugin } from '@atlaskit/editor-plugins/media';
+import { mentionsPlugin } from '@atlaskit/editor-plugins/mentions';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
+import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { Box, xcss } from '@atlaskit/primitives';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
+import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 
 const styles = xcss({ height: '100%' });
 const smartCardClient = new ConfluenceCardClient('stg');
 
-// TODO type correctly
-function OfflineIndicator({ editorApi }: { editorApi: any }) {
+function OfflineIndicator({
+	editorApi,
+}: {
+	editorApi: PublicPluginAPI<ConnectivityPlugin> | undefined;
+}) {
 	const { connectivityState } = useSharedPluginState(editorApi, ['connectivity']);
 	return (
 		<Box as="span" padding="space.100">
@@ -85,9 +92,10 @@ function Editor() {
 			.add(guidelinePlugin)
 			.add(gridPlugin)
 			.add(focusPlugin)
-			.add(mediaPlugin)
+			.add([mediaPlugin, { provider: storyMediaProviderFactory() }])
 			.add([analyticsPlugin, {}])
 			.add(contentInsertionPlugin)
+			.add(mentionsPlugin)
 			.add([tablesPlugin, { tableOptions: { advanced: true } }])
 			.add([emojiPlugin, { emojiProvider: getEmojiResource() }])
 			.add([cardPlugin, { provider: Promise.resolve(cardProviderStaging) }])
@@ -110,7 +118,11 @@ function Editor() {
 		<Box xcss={styles}>
 			<SimulateMode />
 			<OfflineIndicator editorApi={editorApi} />
-			<ComposableEditor appearance="full-page" preset={preset} />
+			<ComposableEditor
+				appearance="full-page"
+				preset={preset}
+				mentionProvider={Promise.resolve(mentionResourceProvider)}
+			/>
 		</Box>
 	);
 }

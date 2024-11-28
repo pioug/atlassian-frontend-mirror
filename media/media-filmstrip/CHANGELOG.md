@@ -1,5 +1,13 @@
 # @atlaskit/media-filmstrip
 
+## 48.0.0
+
+### Major Changes
+
+- [#167558](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167558)
+  [`599e9d4f0f5b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/599e9d4f0f5b5) -
+  migrate styles from emotion to compiled
+
 ## 47.5.0
 
 ### Minor Changes

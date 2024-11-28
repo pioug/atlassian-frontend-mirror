@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.4.0
+
+### Minor Changes
+
+- [#169410](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169410)
+  [`70969d8e13353`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70969d8e13353) -
+  Optimising React UFO payload size by referncing segments tree
+
+## 2.3.3
+
+### Patch Changes
+
+- [#169231](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169231)
+  [`bf7c1455e4d57`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bf7c1455e4d57) -
+  allow for custom VC abort reasons
+
 ## 2.3.2
 
 ### Patch Changes

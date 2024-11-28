@@ -4,7 +4,7 @@ exports[`Avatar Picker Styles image-navigator DragZone is dropping file 1`] = `
 [
   null,
   <div
-    class="_1bsbuuw1 _4t3iuuw1 _1e0c1txw _2lx21bp4 _4cvr1h6o _1bah1h6o _1yt41q64 _kqswh2mm _2rko1osq _v5641ggo _re8d1dpy _aetrb3bt _14mj1osq _18postnw _15l2idpf _19doidpf _z0ai1osq _1qdg1osq _qc5o1qgh _bfhk1iy1 _8l3m1hxg _46ts17y1 _eq431vak"
+    class="_1bsbuuw1 _4t3iuuw1 _1e0c1txw _2lx21bp4 _4cvr1h6o _1bah1h6o _1yt41q64 _kqswh2mm _2rko1osq _v5641ggo _re8d1dpy _aetrb3bt _14mj1osq _18postnw _15l2idpf _19doidpf _z0ai1osq _1qdg1osq _qc5o1qgh _bfhk1iy1 _8l3m1lp0 _46ts17y1 _39yqyh40 _1tv3gq9o"
     data-testid="dragzone"
   />,
 ]
@@ -14,7 +14,7 @@ exports[`Avatar Picker Styles image-navigator DragZone is not dropping file 1`] 
 [
   null,
   <div
-    class="_1bsbuuw1 _4t3iuuw1 _1e0c1txw _2lx21bp4 _4cvr1h6o _1bah1h6o _1yt41q64 _kqswh2mm _2rko1osq _v5641ggo _re8d1dpy _aetrb3bt _14mj1osq _18postnw _15l2idpf _19doidpf _z0ai1osq _1qdg1osq _qc5o1qgh _eq431vak"
+    class="_1bsbuuw1 _4t3iuuw1 _1e0c1txw _2lx21bp4 _4cvr1h6o _1bah1h6o _1yt41q64 _kqswh2mm _2rko1osq _v5641ggo _re8d1dpy _aetrb3bt _14mj1osq _18postnw _15l2idpf _19doidpf _z0ai1osq _1qdg1osq _qc5o1qgh _39yqyh40 _1tv3gq9o _8l3m1lp0"
     data-testid="dragzone"
   />,
 ]

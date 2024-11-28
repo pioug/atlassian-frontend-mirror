@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics",
-	"version": "8.1.5",
+	"version": "8.1.6",
 	"description": "The Atlaskit Component Analytics Framework",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -24,13 +24,13 @@
 		"prop-types": "^15.5.10"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"devDependencies": {
 		"@atlaskit/ssr": "*",
 		"@types/react-redux": "^5.0.0",
 		"enzyme": "^3.10.0",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"react-redux": "^5.1.2",
 		"redux": "^3.7.2",
 		"wait-for-expect": "^1.2.0"

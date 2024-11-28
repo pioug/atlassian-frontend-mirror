@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { type FieldProps } from '@atlaskit/form';
+import { Layering } from '@atlaskit/layering';
 import { type Status } from '@atlaskit/linking-types';
 import Lozenge from '@atlaskit/lozenge';
 import { type FilterOptionOption } from '@atlaskit/react-select';
@@ -47,30 +48,32 @@ const StatusEditType = (props: StatusEditTypeProps) => {
 	}, [experienceId, isLoading, hasFailed]);
 
 	return (
-		<Select<Status>
-			{...props}
-			autoFocus
-			options={options}
-			defaultMenuIsOpen
-			blurInputOnSelect
-			menuPlacement="auto"
-			isLoading={isLoading}
-			filterOption={filterOption}
-			testId="inline-edit-status"
-			getOptionValue={(option) => option.text}
-			defaultValue={currentValue?.values?.[0]}
-			formatOptionLabel={(option) => (
-				<Lozenge testId={`inline-edit-status-option-${option.text}`} {...option.style}>
-					{option.text}
-				</Lozenge>
-			)}
-			onChange={(e) =>
-				props.setEditValues({
-					type: 'status',
-					values: e ? [e] : [],
-				})
-			}
-		/>
+		<Layering isDisabled={false}>
+			<Select<Status>
+				{...props}
+				autoFocus
+				options={options}
+				defaultMenuIsOpen
+				blurInputOnSelect
+				menuPlacement="auto"
+				isLoading={isLoading}
+				filterOption={filterOption}
+				testId="inline-edit-status"
+				getOptionValue={(option) => option.text}
+				defaultValue={currentValue?.values?.[0]}
+				formatOptionLabel={(option) => (
+					<Lozenge testId={`inline-edit-status-option-${option.text}`} {...option.style}>
+						{option.text}
+					</Lozenge>
+				)}
+				onChange={(e) =>
+					props.setEditValues({
+						type: 'status',
+						values: e ? [e] : [],
+					})
+				}
+			/>
+		</Layering>
 	);
 };
 

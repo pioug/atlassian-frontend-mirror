@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.13.0
+
+### Minor Changes
+
+- [#169492](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169492)
+  [`31cbda90535ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/31cbda90535ea) -
+  New eslint rule to expand css shorthand property 'border' into 'borderWidth',
+  'borderStyle','borderColor'
+
 ## 0.12.0
 
 ### Minor Changes

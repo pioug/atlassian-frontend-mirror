@@ -1,16 +1,18 @@
 import React from 'react';
 import { Component } from 'react';
 import {
-	TimeLine,
-	CurrentTimeLine,
-	BufferedTime,
-	CurrentTimeTooltip,
-	TimeRangeWrapper,
-	CurrentTimeLineThumb,
-} from './styled';
+	CurrentTimeTooltip as EmotionCurrentTimeTooltip,
+	TimeRangeWrapper as EmotionTimeRangeWrapper,
+} from './styled-emotion';
+import {
+	CurrentTimeTooltip as CompiledCurrentTimeTooltip,
+	TimeRangeWrapper as CompiledTimeRangeWrapper,
+} from './styled-compiled';
 import { formatDuration, secondsToTime } from '../formatDuration';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import { messages } from '../messages';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { BufferedTime, CurrentTimeLine, CurrentTimeLineThumb, TimeLine } from './styled';
 
 export interface TimeRangeProps {
 	currentTime: number;
@@ -26,6 +28,8 @@ export interface TimeRangeProps {
 
 export interface TimeRangeState {
 	isDragging: boolean;
+	timeLineThumbIsHover: boolean;
+	timeLineThumbIsFocus: boolean;
 	dragStartClientX: number; // clientX value at the beginning of a slider
 }
 
@@ -40,6 +44,8 @@ export class TimeRangeBase extends Component<
 
 	state: TimeRangeState = {
 		isDragging: false,
+		timeLineThumbIsHover: false,
+		timeLineThumbIsFocus: false,
 		dragStartClientX: 0,
 	};
 
@@ -206,7 +212,7 @@ export class TimeRangeBase extends Component<
 	};
 
 	render() {
-		const { isDragging } = this.state;
+		const { isDragging, timeLineThumbIsHover, timeLineThumbIsFocus } = this.state;
 		const { currentTime, duration, bufferedTime, disableThumbTooltip, isAlwaysActive, intl } =
 			this.props;
 		const currentPosition = (currentTime * 100) / duration;
@@ -223,48 +229,76 @@ export class TimeRangeBase extends Component<
 			hours: videoTotalHours,
 		} = secondsToTime(duration);
 
-		return (
-			<TimeRangeWrapper showAsActive={isAlwaysActive} onMouseDown={this.onThumbMouseDown}>
-				<TimeLine ref={this.wrapperElement}>
-					<BufferedTime style={{ width: `${bufferedTimePercentage}%` }} />
-					<CurrentTimeLine style={{ width: `${currentPosition}%` }}>
-						<CurrentTimeLineThumb
-							role="slider"
-							ref={this.thumbElement}
-							onKeyDown={this.onTimeLineThumbKeydown}
-							tabIndex={0}
-							aria-orientation="horizontal"
-							aria-label={intl.formatMessage(messages.video_seeker_label_assistive_text)}
-							aria-valuemin={0}
-							aria-valuemax={Math.floor(duration)}
-							aria-valuenow={Math.floor(currentTime)}
-							aria-valuetext={intl.formatMessage(messages.video_seeker_assistive_text_time_value, {
-								currentTimeHours: currentTimeHours
-									? this.numberFormatterHours.format(currentTimeHours)
-									: '',
-								currentTimeMinutes: this.numberFormatterMinutes.format(currentTimeMinutes),
-								currentTimeSeconds: this.numberFormatterSeconds.format(currentTimeSeconds),
-								videoTotalHours: videoTotalHours
-									? this.numberFormatterHours.format(videoTotalHours)
-									: '',
-								videoTotalMinutes: this.numberFormatterMinutes.format(videoTotalMinutes),
-								videoTotalSeconds: this.numberFormatterSeconds.format(videoTotalSeconds),
-							})}
-						>
-							{disableThumbTooltip ? null : (
-								<CurrentTimeTooltip
-									draggable={false}
-									isDragging={isDragging}
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-									className="current-time-tooltip"
-								>
-									{formatDuration(currentTime)}
-								</CurrentTimeTooltip>
-							)}
-						</CurrentTimeLineThumb>
-					</CurrentTimeLine>
-				</TimeLine>
-			</TimeRangeWrapper>
+		const timelineThumbText = intl.formatMessage(messages.video_seeker_assistive_text_time_value, {
+			currentTimeHours: currentTimeHours ? this.numberFormatterHours.format(currentTimeHours) : '',
+			currentTimeMinutes: this.numberFormatterMinutes.format(currentTimeMinutes),
+			currentTimeSeconds: this.numberFormatterSeconds.format(currentTimeSeconds),
+			videoTotalHours: videoTotalHours ? this.numberFormatterHours.format(videoTotalHours) : '',
+			videoTotalMinutes: this.numberFormatterMinutes.format(videoTotalMinutes),
+			videoTotalSeconds: this.numberFormatterSeconds.format(videoTotalSeconds),
+		});
+
+		const currentTimeTooltip = fg('platform_media_compiled') ? (
+			<CompiledCurrentTimeTooltip
+				draggable={false}
+				isDragging={isDragging}
+				timeLineThumbIsHover={timeLineThumbIsHover}
+				timeLineThumbIsFocus={timeLineThumbIsFocus}
+			>
+				{formatDuration(currentTime)}
+			</CompiledCurrentTimeTooltip>
+		) : (
+			<EmotionCurrentTimeTooltip
+				draggable={false}
+				isDragging={isDragging}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className="current-time-tooltip"
+			>
+				{formatDuration(currentTime)}
+			</EmotionCurrentTimeTooltip>
+		);
+
+		const timeline = (
+			<TimeLine ref={this.wrapperElement}>
+				<BufferedTime style={{ width: `${bufferedTimePercentage}%` }} data-testid="buffered-time" />
+				<CurrentTimeLine style={{ width: `${currentPosition}%` }} data-testid="current-timeline">
+					<CurrentTimeLineThumb
+						role="slider"
+						ref={this.thumbElement}
+						onKeyDown={this.onTimeLineThumbKeydown}
+						tabIndex={0}
+						aria-orientation="horizontal"
+						aria-label={intl.formatMessage(messages.video_seeker_label_assistive_text)}
+						aria-valuemin={0}
+						aria-valuemax={Math.floor(duration)}
+						aria-valuenow={Math.floor(currentTime)}
+						aria-valuetext={timelineThumbText}
+						onMouseOver={() => this.setState({ timeLineThumbIsHover: true })}
+						onMouseOut={() => this.setState({ timeLineThumbIsHover: false })}
+						onFocus={() => this.setState({ timeLineThumbIsFocus: true })}
+						onBlur={() => this.setState({ timeLineThumbIsFocus: false })}
+					>
+						{disableThumbTooltip ? null : currentTimeTooltip}
+					</CurrentTimeLineThumb>
+				</CurrentTimeLine>
+			</TimeLine>
+		);
+
+		return fg('platform_media_compiled') ? (
+			<CompiledTimeRangeWrapper
+				onMouseDown={this.onThumbMouseDown}
+				data-testid="time-range-wrapper"
+			>
+				{timeline}
+			</CompiledTimeRangeWrapper>
+		) : (
+			<EmotionTimeRangeWrapper
+				showAsActive={isAlwaysActive}
+				onMouseDown={this.onThumbMouseDown}
+				data-testid="time-range-wrapper"
+			>
+				{timeline}
+			</EmotionTimeRangeWrapper>
 		);
 	}
 }

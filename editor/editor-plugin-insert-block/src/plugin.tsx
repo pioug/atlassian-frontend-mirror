@@ -396,6 +396,7 @@ function ToolbarInsertBlockWithInjectionApi({
 		typeAheadState,
 		placeholderTextState,
 		insertBlockState,
+		connectivityState,
 	} = useSharedPluginState(pluginInjectionApi, [
 		'hyperlink',
 		'date',
@@ -407,6 +408,7 @@ function ToolbarInsertBlockWithInjectionApi({
 		'typeAhead',
 		'placeholderText',
 		'insertBlock',
+		'connectivity',
 	]);
 
 	const getEmojiProvider = () => {
@@ -455,6 +457,7 @@ function ToolbarInsertBlockWithInjectionApi({
 			mediaUploadsEnabled={(mediaState && mediaState.allowsUploads) ?? undefined}
 			onShowMediaPicker={onShowMediaPicker}
 			mediaSupported={!!mediaState}
+			isEditorOffline={connectivityState?.mode === 'offline'}
 			imageUploadSupported={!!pluginInjectionApi?.imageUpload}
 			imageUploadEnabled={imageUploadState?.enabled}
 			handleImageUpload={pluginInjectionApi?.imageUpload?.actions.startUpload}

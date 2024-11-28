@@ -32,6 +32,7 @@ export interface Props {
 	mentionsSupported?: boolean;
 	mediaUploadsEnabled?: boolean;
 	mediaSupported?: boolean;
+	isEditorOffline?: boolean;
 	imageUploadSupported?: boolean;
 	imageUploadEnabled?: boolean;
 	handleImageUpload?: (event?: ImageUploadPluginReferenceEvent) => Command;

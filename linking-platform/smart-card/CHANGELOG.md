@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 32.0.0
+
+### Major Changes
+
+- [#169454](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169454)
+  [`c4bdbc7fc7e2e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c4bdbc7fc7e2e) -
+  EDM-10924 Remove deprecated client entrypoint from smart-card
+
+### Minor Changes
+
+- [#169491](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169491)
+  [`b0b713c370025`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b0b713c370025) -
+  Refactor useSmartLinkActions hook to remove dependency on extractBlockProps
+
+## 31.0.3
+
+### Patch Changes
+
+- [#169708](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169708)
+  [`17cabe50b6e6b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17cabe50b6e6b) -
+  Remove FF platform_smart-card-migrate-screen-analytics
+- Updated dependencies
+
 ## 31.0.2
 
 ### Patch Changes

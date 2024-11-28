@@ -1,9 +1,9 @@
 import React from 'react';
-import { Truncate, type TruncateProps, TruncateLeft, TruncateRight } from '../../truncateText';
-import { mount } from 'enzyme';
-import { calculateTruncation } from '../../truncateText';
+import { Truncate } from '../../truncateText';
+import { type TruncateProps, calculateTruncation } from '../../truncateText-compiled';
+import { render, screen } from '@testing-library/react';
 
-const setup = (props: TruncateProps) => mount(<Truncate {...props} />);
+const setupRTL = (props: TruncateProps) => render(<Truncate {...props} />);
 
 describe('TruncateText', () => {
 	describe('Text Calculation', () => {
@@ -20,16 +20,15 @@ describe('TruncateText', () => {
 	});
 
 	describe('Truncate Component', () => {
-		it('it should create left and right elements when required', () => {
-			const el = setup({
+		it('it should create left and right elements when required', async () => {
+			setupRTL({
 				text: '1234567890.ext',
 				startFixedChars: 5,
 				endFixedChars: 4,
 			});
-			expect(el.find(TruncateLeft)).toHaveLength(1);
-			expect(el.find(TruncateRight)).toHaveLength(1);
-			expect(el.find(TruncateLeft).text()).toEqual('1234567890');
-			expect(el.find(TruncateRight).text()).toEqual('.ext');
+
+			expect(await screen.findByTestId('truncate-left')).toHaveTextContent('1234567890');
+			expect(await screen.findByTestId('truncate-right')).toHaveTextContent('.ext');
 		});
 	});
 });

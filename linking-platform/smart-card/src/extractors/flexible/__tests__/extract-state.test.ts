@@ -234,6 +234,7 @@ describe('extractState', () => {
 				url,
 				previewData: {
 					isSupportTheming: true,
+					isTrusted: true,
 					linkIcon: {
 						url: 'https://icon-url',
 						label: 'Flexible UI Task',

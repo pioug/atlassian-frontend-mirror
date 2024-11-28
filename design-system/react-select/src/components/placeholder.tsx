@@ -6,6 +6,8 @@ import { type ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 import { getStyleProps } from '../utils';
 
@@ -27,13 +29,12 @@ export interface PlaceholderProps<
 }
 
 export const placeholderCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
-	theme: { spacing, colors },
+	isDisabled,
 }: PlaceholderProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'placeholder',
 	gridArea: '1 / 1 / 2 / 3',
-	color: colors.neutral50,
-	marginLeft: spacing.baseUnit / 2,
-	marginRight: spacing.baseUnit / 2,
+	margin: `0 ${token('space.025')}`,
+	color: isDisabled ? token('color.text.disabled') : token('color.text.subtlest'),
 });
 
 const Placeholder = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(

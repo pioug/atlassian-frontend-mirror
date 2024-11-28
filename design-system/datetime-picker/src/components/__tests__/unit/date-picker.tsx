@@ -848,6 +848,47 @@ describe('DatePicker', () => {
 		expect(screen.getByRole('button', { name: clearControlLabel })).toBeInTheDocument();
 	});
 
+	describe('Calendar', () => {
+		// This is to ensure we have good code coverage for one of our helper functions
+		it('should go to the previous month with the previous month button is clicked', async () => {
+			const user = userEvent.setup();
+			render(
+				createDatePicker({
+					testId,
+					shouldShowCalendarButton: true,
+					defaultValue: '2000-12-31',
+				}),
+			);
+
+			const calendarButton = screen.getByTestId(`${testId}--open-calendar-button`);
+			expect(queryCalendar()).not.toBeInTheDocument();
+
+			// Open calendar
+			await user.click(calendarButton);
+			expect(queryCalendar()).toBeInTheDocument();
+
+			// An element within the calendar's container should have focus
+			const previousMonthButton = screen.getByTestId(`${testId}--calendar--previous-month`);
+			expect(previousMonthButton).toBeInTheDocument();
+
+			let currentMonthYearText = screen.getByTestId(
+				`${testId}--calendar--current-month-year`,
+			).textContent;
+			await user.click(previousMonthButton);
+			let newMonthYearText = screen.getByTestId(
+				`${testId}--calendar--current-month-year`,
+			).textContent;
+
+			expect(currentMonthYearText).not.toEqual(newMonthYearText);
+
+			currentMonthYearText = newMonthYearText;
+			await user.click(previousMonthButton);
+			newMonthYearText = screen.getByTestId(`${testId}--calendar--current-month-year`).textContent;
+
+			expect(currentMonthYearText).not.toEqual(newMonthYearText);
+		});
+	});
+
 	describe('Edge cases', () => {
 		it("should use today's date if year over 9999 is given", () => {
 			const onChangeSpy = jest.fn();

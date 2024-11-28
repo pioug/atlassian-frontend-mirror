@@ -100,6 +100,9 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	private readonly documentService: DocumentService | NullDocumentService;
 	private readonly namespaceService: NamespaceService;
 
+	// Local IDs of active AI Providers
+	private aiProviderActiveIds: string[] = [];
+
 	/**
 	 * Wrapper for this.emit, it binds scope for callbacks and waits for initialising of the editor before emitting events.
 	 * Waiting for the collab provider to become connected to the editor ensures the editor doesn't miss any events.
@@ -160,6 +163,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			this.channel.sendPresenceJoined,
 			this.getPresenceData,
 			this.setUserId,
+			this.getAIProviderActiveIds,
 		);
 		this.metadataService = new MetadataService(this.emitCallback, this.channel.sendMetadata);
 		this.namespaceService = new NamespaceService();
@@ -509,6 +513,14 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			this.analyticsHelper?.sendErrorEvent(error, 'Error while sending message - telepointer');
 		}
 	}
+
+	setAIProviderActiveIds(ids: string[] = []) {
+		this.aiProviderActiveIds = ids;
+	}
+
+	private getAIProviderActiveIds = () => {
+		return this.aiProviderActiveIds;
+	};
 
 	// Note: this gets triggered on page reload for Firefox (not other browsers) because of closeOnBeforeunload: false
 	private onDisconnected = ({ reason }: { reason: string }) => {

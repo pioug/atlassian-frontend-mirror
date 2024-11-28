@@ -280,6 +280,8 @@ export type PreviewActionData = {
 	url?: string;
 	/* It determines whether a link source supports different design theme modes */
 	isSupportTheming?: boolean;
+	/* It determines whether link source can be trusted in iframe */
+	isTrusted?: boolean;
 };
 
 export type ViewActionData = {

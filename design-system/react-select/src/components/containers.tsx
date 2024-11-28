@@ -6,6 +6,8 @@ import { type ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 import { getStyleProps } from '../utils';
 
@@ -38,8 +40,10 @@ export const containerCSS = <Option, IsMulti extends boolean, Group extends Grou
 }: ContainerProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'container',
 	direction: isRtl ? 'rtl' : undefined,
-	pointerEvents: isDisabled ? 'none' : undefined, // cancel mouse events when disabled
 	position: 'relative',
+	font: token('font.body'),
+	pointerEvents: 'all',
+	cursor: isDisabled ? 'not-allowed' : undefined,
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
@@ -78,15 +82,19 @@ export interface ValueContainerProps<
 	 */
 	children: ReactNode;
 	isDisabled: boolean;
+	/**
+	 * Whether the select is compact.
+	 */
+	isCompact?: boolean;
 }
 export const valueContainerCSS = <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
 >({
-	theme: { spacing },
 	isMulti,
 	hasValue,
+	isCompact,
 	selectProps: { controlShouldRenderValue },
 }: ValueContainerProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	alignItems: 'center',
@@ -96,7 +104,7 @@ export const valueContainerCSS = <
 	WebkitOverflowScrolling: 'touch',
 	position: 'relative',
 	overflow: 'hidden',
-	padding: `${spacing.baseUnit / 2}px ${spacing.baseUnit * 2}px`,
+	padding: `${isCompact ? 0 : token('space.025')} ${token('space.075')}`,
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc
@@ -147,6 +155,7 @@ export const indicatorsContainerCSS = (): CSSObjectWithLabel => ({
 	alignSelf: 'stretch',
 	display: 'flex',
 	flexShrink: 0,
+	paddingRight: token('space.050'),
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

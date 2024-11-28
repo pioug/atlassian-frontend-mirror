@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.12.8
+
+### Patch Changes
+
+- [#169277](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169277)
+  [`4d8433c0b731a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d8433c0b731a) -
+  ED-25872 improve placeholder usability for layout
+- Updated dependencies
+
 ## 1.12.7
 
 ### Patch Changes

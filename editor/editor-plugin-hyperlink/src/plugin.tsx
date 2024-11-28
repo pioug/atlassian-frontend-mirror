@@ -12,16 +12,24 @@ import { addLink, tooltip } from '@atlaskit/editor-common/keymaps';
 import { LinkAction } from '@atlaskit/editor-common/link';
 import type { HyperlinkState, LinkToolbarState } from '@atlaskit/editor-common/link';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { IconLink } from '@atlaskit/editor-common/quick-insert';
 import type {
+	Command,
+	CommandDispatch,
 	EditorCommand,
+	FloatingToolbarButton,
 	HyperlinkPluginOptions,
 	NextEditorPlugin,
 	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
+import { canLinkBeCreatedInRange } from '@atlaskit/editor-common/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { CardPlugin } from '@atlaskit/editor-plugin-card';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import LinkIcon from '@atlaskit/icon/core/migration/link--editor-link';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { HideLinkToolbar, InsertLink, ShowLinkToolbar, UpdateLink } from './commands';
 import {
@@ -109,6 +117,8 @@ const getPosFromActiveLinkMark = (state: LinkToolbarState) => {
 			return undefined;
 	}
 };
+
+const selectionToolbarLinkButtonTestId = 'ak-editor-selection-toolbar-link-button';
 
 /**
  * Hyperlink plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
@@ -246,7 +256,40 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 					},
 				},
 			],
+
 			floatingToolbar: getToolbarConfig(options, api),
+
+			selectionToolbar: (state, { formatMessage }) => {
+				if (editorExperiment('contextual_formatting_toolbar', true, { exposure: true })) {
+					const toolbarButton = () => {
+						const { from, to } = state.selection;
+						const isEnabled = canLinkBeCreatedInRange(from, to)(state);
+						const title = formatMessage(messages.link);
+
+						return {
+							type: 'button',
+							disabled: !isEnabled,
+							testId: `${selectionToolbarLinkButtonTestId}`,
+							icon: LinkIcon,
+							title: title,
+							tooltipContent: tooltip(addLink, title),
+							showTitle: false,
+							onClick: (state: EditorState, dispatch?: CommandDispatch) => {
+								return editorCommandToPMCommand(
+									showLinkToolbar(INPUT_METHOD.FLOATING_TB, api?.analytics?.actions),
+								)(state, dispatch);
+							},
+						} as FloatingToolbarButton<Command>;
+					};
+
+					return {
+						isToolbarAbove: true,
+						items: [toolbarButton()],
+					};
+				} else {
+					return undefined;
+				}
+			},
 		},
 	};
 };

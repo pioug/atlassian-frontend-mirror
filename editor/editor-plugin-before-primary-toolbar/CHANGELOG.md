@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-before-primary-toolbar
 
+## 1.3.11
+
+### Patch Changes
+
+- [#168482](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168482)
+  [`532800ecabbd1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/532800ecabbd1) -
+  ED-25806: migrate editor-plugin-before-primary-toolbar to editor standards
+
 ## 1.3.10
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/media-avatar-picker
 
+## 25.0.1
+
+### Patch Changes
+
+- [#169432](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169432)
+  [`1138249832644`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1138249832644) -
+  [ux] Fixes alignment of ellipsis in predefined avatar list
+- Updated dependencies
+
 ## 25.0.0
 
 ### Major Changes

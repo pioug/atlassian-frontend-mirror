@@ -1,5 +1,14 @@
 # @atlaskit/link-analytics
 
+## 8.5.3
+
+### Patch Changes
+
+- [#168880](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168880)
+  [`570b3c702f4bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/570b3c702f4bc) -
+  Migrates analytics types to codegen via @atlassian/analytics-tooling. No expected functional
+  changes.
+
 ## 8.5.2
 
 ### Patch Changes

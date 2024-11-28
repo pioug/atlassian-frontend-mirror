@@ -25,7 +25,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/primitives": "^13.2.0",
+		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/tokens": "^2.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

@@ -20,6 +20,7 @@ const AppearancesExample = () => {
 		<Box>
 			<Wrapper>
 				<ProgressIndicator
+					testId="progress-indicator"
 					selectedIndex={0}
 					values={['one', 'two', 'three']}
 					appearance="default"

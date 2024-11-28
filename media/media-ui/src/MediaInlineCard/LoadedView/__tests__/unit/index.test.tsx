@@ -15,8 +15,9 @@ describe('LoadedView', () => {
 		const element = mount(
 			<MediaInlineCardLoadedView icon="some-link-to-icon" title="some text content" />,
 		);
-		const elementIcon = element.find(Icon);
-		expect(elementIcon).toHaveLength(1);
+		const elementIcon = element
+			.find({ 'data-testid': 'media-inline-card-icon-and-title-image' })
+			.first();
 		const elementIconImage = elementIcon.find('img');
 		expect(elementIconImage).toHaveLength(1);
 		expect(elementIconImage.props()).toEqual(

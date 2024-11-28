@@ -308,7 +308,8 @@ type InputMethod =
 	| INPUT_METHOD.TOOLBAR
 	| INPUT_METHOD.QUICK_INSERT
 	| INPUT_METHOD.SHORTCUT
-	| INPUT_METHOD.INSERT_MENU;
+	| INPUT_METHOD.INSERT_MENU
+	| INPUT_METHOD.FLOATING_TB;
 
 export type ShowLinkToolbar = (inputMethod: InputMethod) => EditorCommand;
 

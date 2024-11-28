@@ -6,6 +6,8 @@ import { type InputHTMLAttributes } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 import { cleanCommonProps, getStyleProps } from '../utils';
 
@@ -56,7 +58,7 @@ export const inputCSS = <Option, IsMulti extends boolean, Group extends GroupBas
 	margin: spacing.baseUnit / 2,
 	paddingBottom: spacing.baseUnit / 2,
 	paddingTop: spacing.baseUnit / 2,
-	color: colors.neutral80,
+	color: token('color.text', 'hsl(0, 0%, 20%)'),
 });
 
 const spacingStyle = {

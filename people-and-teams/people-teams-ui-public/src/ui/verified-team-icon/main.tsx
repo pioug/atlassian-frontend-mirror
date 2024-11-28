@@ -3,7 +3,8 @@ import React from 'react';
 import { useIntl } from 'react-intl-next';
 
 import { type Size } from '@atlaskit/icon';
-import { VerifiedIcon } from '@atlaskit/legacy-custom-icons';
+import VerifiedIcon from '@atlaskit/icon/core/status-verified';
+import { VerifiedIcon as LegacyVerifiedIcon } from '@atlaskit/legacy-custom-icons';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -48,13 +49,21 @@ export const VerifiedTeamIcon = ({
 			<span tabIndex={0} role="button" aria-hidden="true" data-testid="verified-team-icon">
 				{' '}
 				<VerifiedIcon
-					primaryColor={token('color.icon.accent.blue')}
-					size={size}
+					color={token('color.icon.accent.blue')}
+					LEGACY_size={size}
 					label={tooltipContent}
+					spacing="spacious"
+					LEGACY_fallbackIcon={LegacyVerifiedIcon}
 				/>
 			</span>
 		</Tooltip>
 	) : (
-		<VerifiedIcon primaryColor={token('color.icon.accent.blue')} size={size} label={label} />
+		<VerifiedIcon
+			color={token('color.icon.accent.blue')}
+			LEGACY_size={size}
+			spacing="spacious"
+			label={label}
+			LEGACY_fallbackIcon={LegacyVerifiedIcon}
+		/>
 	);
 };

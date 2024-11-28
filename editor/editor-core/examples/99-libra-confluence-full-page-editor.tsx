@@ -29,7 +29,8 @@ import type { ResolveResponse } from '@atlaskit/smart-card/types';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
-import { createSearchProvider, Scope } from '@atlassian/search-provider';
+import { Scope } from '@atlassian/search-client';
+import { createSearchProvider } from '@atlassian/search-provider';
 
 import type { EditorNextProps, EditorProps } from '../src/types/editor-props';
 import { version } from '../src/version-wrapper';

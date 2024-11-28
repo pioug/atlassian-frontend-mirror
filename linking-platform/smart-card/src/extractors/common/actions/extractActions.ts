@@ -67,6 +67,10 @@ export const getActionsFromJsonLd = (jsonLd: JsonLd.Data.BaseData): JsonLd.Primi
 	return actions;
 };
 
+/**
+ * @private
+ * @deprecated - use flexible extractors instead
+ */
 export function extractClientActions(
 	jsonLd: JsonLd.Data.BaseData,
 	handler: InvokeHandler,

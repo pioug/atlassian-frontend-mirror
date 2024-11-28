@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/color-picker",
-	"version": "3.5.1",
+	"version": "3.6.0",
 	"description": "Jira Color Picker Component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/primitives": "^13.2.0",
+		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/a11y-jest-testing": "*",
 		"@testing-library/react": "^12.1.5",
@@ -81,6 +81,9 @@
 	},
 	"platform-feature-flags": {
 		"platform-design-system-dsp-20821-color-pickr-focus": {
+			"type": "boolean"
+		},
+		"thor_colourful_single_select_milestone1_gate": {
 			"type": "boolean"
 		},
 		"one_event_rules_them_all_fg": {

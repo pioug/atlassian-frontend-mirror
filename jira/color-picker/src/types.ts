@@ -14,4 +14,6 @@ export enum Mode {
 	Standard,
 }
 
+export type ColorCardVariant = 'fill' | 'outline';
+
 export type SwatchSize = 'small' | 'default';

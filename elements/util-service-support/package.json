@@ -34,7 +34,7 @@
 		"./types": "./src/types.ts"
 	},
 	"atlassian": {
-		"team": "UIP Dev Infra"
+		"team": "Build Infra"
 	},
 	"config": {
 		"access": "public"

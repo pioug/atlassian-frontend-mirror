@@ -56,6 +56,7 @@ type TypeAheadLinkAEP = TypeAheadAEP<
 			| INPUT_METHOD.INSERT_MENU
 			| INPUT_METHOD.QUICK_INSERT
 			| INPUT_METHOD.SHORTCUT
+			| INPUT_METHOD.FLOATING_TB
 			/**
 			 * For Typeahead - Empty line prompt experiment
 			 * Clean up ticket ED-24824

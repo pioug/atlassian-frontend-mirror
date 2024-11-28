@@ -44,7 +44,7 @@ export const Option = (props: OptionProps<Color>) => {
 	const {
 		data: { value, label },
 		//@ts-ignore react-select unsupported props
-		selectProps: { checkMarkColor, onOptionKeyDown, isTabbing },
+		selectProps: { checkMarkColor, onOptionKeyDown, isTabbing, variant },
 		isFocused,
 		isSelected,
 		innerProps,
@@ -69,6 +69,7 @@ export const Option = (props: OptionProps<Color>) => {
 				selected={isSelected}
 				onKeyDown={(value) => onOptionKeyDown(value)}
 				isTabbing={isTabbing}
+				variant={variant}
 			/>
 		</div>
 	);

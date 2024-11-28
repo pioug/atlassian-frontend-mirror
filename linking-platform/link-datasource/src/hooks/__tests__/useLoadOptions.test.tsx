@@ -26,7 +26,7 @@ describe('useLoadOptions', () => {
 		</IntlProvider>
 	);
 
-	const setup = (loaderProps: LoadOptionsProps) => {
+	const setup = (loaderProps: LoadOptionsProps<unknown>) => {
 		mockUseDatasourceTableFlag.mockReturnValue({ showErrorFlag: mockShowErrorFlag });
 
 		const { result, waitForNextUpdate, rerender } = renderHook(

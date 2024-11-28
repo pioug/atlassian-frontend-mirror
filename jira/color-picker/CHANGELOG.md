@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 3.6.0
+
+### Minor Changes
+
+- [#169778](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169778)
+  [`0e59b2c7cdc48`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e59b2c7cdc48) -
+  [ux] Added outline variant support for Color picker
+
 ## 3.5.1
 
 ### Patch Changes

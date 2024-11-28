@@ -10,7 +10,18 @@ import {
 	type Icon,
 } from '@atlaskit/linking-types';
 
-import { blocker, high, low, major, medium, trivial } from '../../images';
+import {
+	blocker,
+	high,
+	low,
+	major,
+	medium,
+	mike,
+	nidhin,
+	profile,
+	sasha,
+	trivial,
+} from '../../images';
 
 export const ORS_ACTIONS_DISCOVERY_ENDPOINT = /\/gateway\/api\/object-resolver\/actions$/;
 export const ORS_ACTIONS_EXECUTION_ENDPOINT = /\/gateway\/api\/object-resolver\/actions\/execute$/;
@@ -177,7 +188,7 @@ export const mockActionsExecution = () => {
 			};
 		},
 		{
-			delay: 100,
+			delay: 500,
 			overwriteRoutes: true,
 		},
 	);
@@ -231,30 +242,26 @@ export const cannedStatuses = [
 export const cannedUsers = [
 	{
 		atlassianUserId: '5b45501cfc9d8158972cdd2c',
-		displayName: 'Jake Coppinger',
-		avatarSource:
-			'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/5b45501cfc9d8158972cdd2c/18e39bf4-66b3-448e-94e7-6d9427f05fb1/48',
+		displayName: 'Mike Dao',
+		avatarSource: mike,
 		url: 'https://product-fabric.atlassian.net/jira/people/5b45501cfc9d8158972cdd2c',
 	},
 	{
 		atlassianUserId: '70121:3238cd5c-e4d3-43b1-a125-211cc2811c25',
-		displayName: 'Andres Hernandez',
-		avatarSource:
-			'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/70121:3238cd5c-e4d3-43b1-a125-211cc2811c25/47714102-d792-4d19-b1c0-c28ea44ad2bf/48',
+		displayName: 'Nidhin Joseph',
+		avatarSource: nidhin,
 		url: 'https://product-fabric.atlassian.net/jira/people/70121:3238cd5c-e4d3-43b1-a125-211cc2811c25',
 	},
 	{
 		atlassianUserId: '712020:b0ba73bb-ef99-4329-b35d-23e35fffdf5b',
-		displayName: 'Zoe Stevens',
-		avatarSource:
-			'https://secure.gravatar.com/avatar/91afe209315b97fde1616cd5484ae0fd?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FZS-2.png',
+		displayName: 'Aleksandr Sasha Motsjonov',
+		avatarSource: sasha,
 		url: 'https://product-fabric.atlassian.net/jira/people/712020:b0ba73bb-ef99-4329-b35d-23e35fffdf5b',
 	},
 	{
 		atlassianUserId: '712020:12f32ca4-7684-4e6d-b3a7-078ae26aa5c8',
-		displayName: 'Jim Zhai',
-		avatarSource:
-			'https://avatar-management--avatars.us-west-2.prod.public.atl-paas.net/712020:12f32ca4-7684-4e6d-b3a7-078ae26aa5c8/54753443-83e8-4fc1-8622-307d06f11620/48',
+		displayName: 'Scott Farquhar',
+		avatarSource: profile,
 		url: 'https://product-fabric.atlassian.net/jira/people/712020:12f32ca4-7684-4e6d-b3a7-078ae26aa5c8',
 	},
 ];

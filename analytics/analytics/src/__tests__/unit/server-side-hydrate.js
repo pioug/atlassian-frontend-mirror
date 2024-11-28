@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 import { ssr } from '@atlaskit/ssr';
 import waitForExpect from 'wait-for-expect';
@@ -16,7 +16,9 @@ test('should ssr then hydrate analytics correctly', async () => {
 	const elem = document.createElement('div');
 	elem.innerHTML = await ssr(Example);
 
-	ReactDOM.hydrate(<Example />, elem);
+	const root = createRoot(elem);
+	root.render(<Example />);
+
 	await waitForExpect(() => {
 		// ignore warnings caused by emotion's server-side rendering approach
 		// eslint-disable-next-line no-console

@@ -6,7 +6,7 @@ export const AbortEvent = {
 	resize: 'resize',
 } as const;
 
-export type VCAbortReason = 'scroll' | 'keypress' | 'resize' | 'error' | 'not-supported';
+export type VCAbortReason = 'custom' | 'scroll' | 'keypress' | 'resize' | 'error' | 'not-supported';
 
 export type VCAbortReasonType = {
 	reason: null | VCAbortReason;

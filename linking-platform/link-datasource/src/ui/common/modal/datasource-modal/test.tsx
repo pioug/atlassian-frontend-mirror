@@ -1,7 +1,6 @@
 import React from 'react';
 
-// eslint-disable-next-line import/order
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 
 import '@atlaskit/link-test-helpers/jest';
 
@@ -81,7 +80,7 @@ describe('DatasourceModal', () => {
 	it('when triggering inline-edit, pressing Escape, should cancel editing and keep the modal open', () => {
 		const onModalCloseFn = jest.fn();
 		const executeFn = jest.fn();
-		const { getByTestId } = render(
+		render(
 			<SmartCardProvider client={new CardClient()}>
 				<DatasourceModal onClose={onModalCloseFn}>
 					<FlagsProvider>
@@ -98,17 +97,62 @@ describe('DatasourceModal', () => {
 				</DatasourceModal>
 			</SmartCardProvider>,
 		);
-		fireEvent.click(getByTestId(testIds.readView));
+		fireEvent.click(screen.getByTestId(testIds.readView));
 
-		expect(getByTestId(testIds.editView)).toBeInTheDocument();
-		fireEvent.keyDown(getByTestId(testIds.editView), {
+		expect(screen.getByTestId(testIds.editView)).toBeInTheDocument();
+		fireEvent.keyDown(screen.getByTestId(testIds.editView), {
 			key: 'Escape',
 			code: 'Escape',
 			keyCode: 27,
 			charCode: 27,
 		});
 
-		expect(getByTestId(testIds.readView)).toBeInTheDocument();
+		expect(screen.getByTestId(testIds.readView)).toBeInTheDocument();
+
+		expect(onModalCloseFn).toHaveBeenCalledTimes(0);
+	});
+
+	it('when triggering inline-edit dropdowns, pressing Escape, should cancel editing and keep the modal open', async () => {
+		const onModalCloseFn = jest.fn();
+		const executeFn = jest.fn();
+		render(
+			<SmartCardProvider client={new CardClient()}>
+				<DatasourceModal onClose={onModalCloseFn}>
+					<FlagsProvider>
+						<DatasourceExperienceIdProvider>
+							<InlineEdit
+								ari="fake-ari"
+								columnKey="status"
+								execute={executeFn}
+								datasourceTypeWithValues={{
+									type: 'status',
+									values: [
+										{
+											text: 'Test',
+											style: {
+												appearance: 'inprogress',
+											},
+										},
+									],
+								}}
+								readView={<MockReadView />}
+							/>
+						</DatasourceExperienceIdProvider>
+					</FlagsProvider>
+				</DatasourceModal>
+			</SmartCardProvider>,
+		);
+		fireEvent.click(screen.getByTestId(testIds.readView));
+
+		expect(screen.getByRole('combobox')).toBeInTheDocument();
+		fireEvent.keyDown(screen.getByRole('combobox'), {
+			key: 'Escape',
+			code: 'Escape',
+			keyCode: 27,
+			charCode: 27,
+		});
+
+		expect(screen.getByTestId(testIds.readView)).toBeInTheDocument();
 
 		expect(onModalCloseFn).toHaveBeenCalledTimes(0);
 	});

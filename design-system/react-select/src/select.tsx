@@ -478,6 +478,11 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	 */
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	required?: boolean;
+	/**
+	 * This prop affects the height of the select control. Compact is gridSize() * 4, default is gridSize * 5
+	 */
+	spacing?: 'compact' | 'default';
+	appearance: 'default' | 'subtle' | 'none';
 	// temp fix to support unofficial props.
 	[key: string]: any;
 }
@@ -2022,7 +2027,7 @@ export default class Select<
 	renderClearIndicator() {
 		const { ClearIndicator } = this.getComponents();
 		const { commonProps } = this;
-		const { clearControlLabel, isDisabled, isLoading } = this.props;
+		const { clearControlLabel, isDisabled, isLoading, spacing } = this.props;
 		const { isFocused } = this.state;
 
 		if (!this.isClearable() || !ClearIndicator || isDisabled || !this.hasValue() || isLoading) {
@@ -2034,6 +2039,7 @@ export default class Select<
 			onTouchEnd: this.onClearIndicatorTouchEnd,
 			'aria-hidden': 'true',
 		};
+		const isCompact = spacing === 'compact';
 
 		return (
 			<ClearIndicator
@@ -2041,18 +2047,20 @@ export default class Select<
 				{...commonProps}
 				innerProps={innerProps}
 				isFocused={isFocused}
+				isCompact={isCompact}
 			/>
 		);
 	}
 	renderLoadingIndicator() {
 		const { LoadingIndicator } = this.getComponents();
 		const { commonProps } = this;
-		const { isDisabled, isLoading } = this.props;
+		const { isDisabled, isLoading, spacing } = this.props;
 		const { isFocused } = this.state;
 
 		if (!LoadingIndicator || !isLoading) {
 			return null;
 		}
+		const isCompact = spacing === 'compact';
 
 		const innerProps = { 'aria-hidden': 'true' };
 		return (
@@ -2061,6 +2069,7 @@ export default class Select<
 				innerProps={innerProps}
 				isDisabled={isDisabled}
 				isFocused={isFocused}
+				isCompact={isCompact}
 			/>
 		);
 	}
@@ -2084,8 +2093,9 @@ export default class Select<
 			return null;
 		}
 		const { commonProps } = this;
-		const { isDisabled } = this.props;
+		const { isDisabled, spacing } = this.props;
 		const { isFocused } = this.state;
+		const isCompact = spacing === 'compact';
 
 		const innerProps = {
 			onMouseDown: this.onDropdownIndicatorMouseDown,
@@ -2099,6 +2109,7 @@ export default class Select<
 				innerProps={innerProps}
 				isDisabled={isDisabled}
 				isFocused={isFocused}
+				isCompact={isCompact}
 			/>
 		);
 	}
@@ -2360,10 +2371,18 @@ export default class Select<
 	render() {
 		const { Control, IndicatorsContainer, SelectContainer, ValueContainer } = this.getComponents();
 
-		const { className, id, isDisabled, menuIsOpen } = this.props;
+		const {
+			className,
+			id,
+			isDisabled,
+			menuIsOpen,
+			isInvalid,
+			appearance = 'default',
+			spacing = 'default',
+		} = this.props;
 		const { isFocused } = this.state;
 		const commonProps = (this.commonProps = this.getCommonProps());
-
+		const isCompact = spacing === 'compact';
 		return (
 			<SelectContainer
 				{...commonProps}
@@ -2384,11 +2403,14 @@ export default class Select<
 						onMouseDown: this.onControlMouseDown,
 						onTouchEnd: this.onControlTouchEnd,
 					}}
+					appearance={appearance}
+					isInvalid={isInvalid}
 					isDisabled={isDisabled}
 					isFocused={isFocused}
 					menuIsOpen={menuIsOpen}
+					isCompact={isCompact}
 				>
-					<ValueContainer {...commonProps} isDisabled={isDisabled}>
+					<ValueContainer {...commonProps} isDisabled={isDisabled} isCompact={isCompact}>
 						{this.renderPlaceholderOrValue()}
 						{this.renderInput()}
 					</ValueContainer>

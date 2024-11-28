@@ -12,43 +12,17 @@ test.describe('Toolbar with long width and short height', () => {
 		withCollab: true,
 	});
 
-	test.describe('with two line feature flag off', () => {
-		test.use({
-			editorProps: {
-				featureFlags: { twoLineEditorToolbar: false },
-				primaryToolbarComponents: <div></div>,
-			},
-		});
-
-		test('should span entire width', async ({ editor }) => {
-			const toolbar = EditorMainToolbarModel.from(editor);
-
-			const toolbarBoundingBox = await toolbar.mainToolbar.boundingBox();
-			expect(toolbarBoundingBox?.width).toBeCloseTo(1250);
-		});
-
-		test('should show one line', async ({ editor }) => {
-			const toolbar = EditorMainToolbarModel.from(editor);
-
-			const toolbarBoundingBox = await toolbar.mainToolbar.boundingBox();
-			expect(toolbarBoundingBox?.height).toBeCloseTo(32);
-		});
+	test.use({
+		editorProps: {
+			primaryToolbarComponents: <div></div>,
+		},
 	});
 
-	test.describe('with two line feature flag on', () => {
-		test.use({
-			editorProps: {
-				featureFlags: { twoLineEditorToolbar: true },
-				primaryToolbarComponents: <div></div>,
-			},
-		});
+	test('should show one line', async ({ editor }) => {
+		const toolbar = EditorMainToolbarModel.from(editor);
 
-		test('should show one line', async ({ editor }) => {
-			const toolbar = EditorMainToolbarModel.from(editor);
-
-			const toolbarBoundingBox = await toolbar.mainToolbar.boundingBox();
-			expect(toolbarBoundingBox?.height).toBeCloseTo(32);
-		});
+		const toolbarBoundingBox = await toolbar.mainToolbar.boundingBox();
+		expect(toolbarBoundingBox?.height).toBeCloseTo(32);
 	});
 });
 
@@ -58,21 +32,17 @@ test.describe('Toolbar with mid width and short height', () => {
 		viewport: { width: 870, height: 300 },
 		withCollab: true,
 	});
+	test.use({
+		editorProps: {
+			primaryToolbarComponents: <div></div>,
+		},
+	});
 
-	test.describe('with two line feature flag on', () => {
-		test.use({
-			editorProps: {
-				featureFlags: { twoLineEditorToolbar: true },
-				primaryToolbarComponents: <div></div>,
-			},
-		});
+	test('should show one line', async ({ editor }) => {
+		const toolbar = EditorMainToolbarModel.from(editor);
 
-		test('should show one line', async ({ editor }) => {
-			const toolbar = EditorMainToolbarModel.from(editor);
-
-			const toolbarBoundingBox = await toolbar.mainToolbar.boundingBox();
-			expect(toolbarBoundingBox?.height).toBeCloseTo(32);
-		});
+		const toolbarBoundingBox = await toolbar.mainToolbar.boundingBox();
+		expect(toolbarBoundingBox?.height).toBeCloseTo(32);
 	});
 });
 
@@ -82,36 +52,16 @@ test.describe('Toolbar with short width and short height', () => {
 		viewport: { width: 400, height: 300 },
 		withCollab: true,
 	});
-
-	test.describe('with two line feature flag off', () => {
-		test.use({
-			editorProps: {
-				featureFlags: { twoLineEditorToolbar: false },
-				primaryToolbarComponents: <div></div>,
-			},
-		});
-
-		test('should show one line', async ({ editor }) => {
-			const toolbar = EditorMainToolbarModel.from(editor);
-
-			const toolbarBoundingBox = await toolbar.mainToolbar.boundingBox();
-			expect(toolbarBoundingBox?.height).toBeCloseTo(32);
-		});
+	test.use({
+		editorProps: {
+			primaryToolbarComponents: <div></div>,
+		},
 	});
 
-	test.describe('with two line feature flag on', () => {
-		test.use({
-			editorProps: {
-				featureFlags: { twoLineEditorToolbar: true },
-				primaryToolbarComponents: <div></div>,
-			},
-		});
+	test('should show two lines', async ({ editor }) => {
+		const toolbar = EditorMainToolbarModel.from(editor);
 
-		test('should show two lines', async ({ editor }) => {
-			const toolbar = EditorMainToolbarModel.from(editor);
-
-			const toolbarBoundingBox = await toolbar.mainToolbar.boundingBox();
-			expect(toolbarBoundingBox?.height).toBeCloseTo(56);
-		});
+		const toolbarBoundingBox = await toolbar.mainToolbar.boundingBox();
+		expect(toolbarBoundingBox?.height).toBeCloseTo(56);
 	});
 });

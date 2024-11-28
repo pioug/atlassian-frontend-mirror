@@ -80,11 +80,6 @@ export type UiServerActionClickedEventProps = CommonEventProps & {
 	smartLinkActionType: SmartLinkActionType;
 };
 
-/**
- * @deprecated remove when platform_smart-card-migrate-screen-analytics is cleaned up
- */
-export type ScreenAuthPopupEventProps = CommonEventProps;
-
 export type UiClosedAuthEventProps = CommonEventProps & {
 	display: CardInnerAppearance;
 };

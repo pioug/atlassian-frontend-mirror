@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "112.6.4",
+	"version": "112.6.7",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,13 +23,13 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/adf-utils": "^19.13.0",
+		"@atlaskit/adf-utils": "^19.14.0",
 		"@atlaskit/analytics-listeners": "^8.13.0",
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/code": "^15.6.0",
-		"@atlaskit/editor-common": "^95.7.0",
+		"@atlaskit/editor-common": "^95.8.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-palette": "1.6.3",
 		"@atlaskit/editor-prosemirror": "6.0.0",
@@ -42,11 +42,11 @@
 		"@atlaskit/media-client": "^28.3.0",
 		"@atlaskit/media-client-react": "^2.3.0",
 		"@atlaskit/media-common": "^11.7.0",
-		"@atlaskit/media-filmstrip": "^47.5.0",
-		"@atlaskit/media-ui": "^26.2.0",
+		"@atlaskit/media-filmstrip": "^48.0.0",
+		"@atlaskit/media-ui": "^27.0.0",
 		"@atlaskit/media-viewer": "^49.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/smart-card": "^31.0.0",
+		"@atlaskit/smart-card": "^32.0.0",
 		"@atlaskit/status": "^1.8.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/theme": "^14.0.0",

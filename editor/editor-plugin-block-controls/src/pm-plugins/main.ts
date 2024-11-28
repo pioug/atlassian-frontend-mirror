@@ -97,6 +97,7 @@ const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) =>
 							},
 						})(tr);
 					}
+
 					return tr.setMeta(key, {
 						isDragging: false,
 						isPMDragging: false,

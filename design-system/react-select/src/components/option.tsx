@@ -6,6 +6,8 @@ import { type ReactNode, type RefCallback } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 import { getStyleProps } from '../utils';
 
@@ -58,23 +60,55 @@ export const optionCSS = <Option, IsMulti extends boolean, Group extends GroupBa
 	isDisabled,
 	isFocused,
 	isSelected,
-	theme: { spacing, colors },
-}: OptionProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
-	label: 'option',
-	cursor: 'default',
-	display: 'block',
-	fontSize: 'inherit',
-	width: '100%',
-	userSelect: 'none',
-	WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
-	backgroundColor: isSelected ? colors.primary : isFocused ? colors.primary25 : 'transparent',
-	color: isDisabled ? colors.neutral20 : isSelected ? colors.neutral0 : 'inherit',
-	padding: `${spacing.baseUnit * 2}px ${spacing.baseUnit * 3}px`,
-	// provide some affordance on touch devices
-	':active': {
-		backgroundColor: !isDisabled ? (isSelected ? colors.primary : colors.primary50) : undefined,
-	},
-});
+}: OptionProps<Option, IsMulti, Group>): CSSObjectWithLabel => {
+	let color: string = token('color.text');
+	if (isDisabled) {
+		color = token('color.text.disabled');
+	} else if (isSelected) {
+		color = token('color.text.selected');
+	}
+
+	let boxShadow;
+	let backgroundColor;
+	if (isDisabled) {
+		backgroundColor = undefined;
+	} else if (isSelected && isFocused) {
+		backgroundColor = token('color.background.selected.hovered');
+	} else if (isSelected) {
+		backgroundColor = token('color.background.selected');
+	} else if (isFocused) {
+		backgroundColor = token('color.background.neutral.subtle.hovered');
+	}
+	if (!isDisabled && (isFocused || isSelected)) {
+		boxShadow = `inset 2px 0px 0px ${token('color.border.selected')}`;
+	}
+
+	const cursor = isDisabled ? 'not-allowed' : 'default';
+
+	return {
+		label: 'option',
+		display: 'block',
+		fontSize: 'inherit',
+		width: '100%',
+		userSelect: 'none',
+		WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
+		padding: `${token('space.075')} ${token('space.150')}`,
+		backgroundColor,
+		color,
+		cursor,
+		boxShadow,
+		':active': {
+			backgroundColor: !isDisabled
+				? isSelected
+					? token('color.background.selected.pressed')
+					: token('color.background.neutral.subtle.pressed')
+				: undefined,
+		},
+		'@media screen and (-ms-high-contrast: active)': {
+			borderLeft: !isDisabled && (isFocused || isSelected) ? '2px solid transparent' : '',
+		},
+	};
+};
 
 const Option = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: OptionProps<Option, IsMulti, Group>,

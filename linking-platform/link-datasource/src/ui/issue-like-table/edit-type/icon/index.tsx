@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { type FieldProps } from '@atlaskit/form';
+import { Layering } from '@atlaskit/layering';
 import { type Icon } from '@atlaskit/linking-types';
 // FilterOptionOption is used in the filterOption function which is part of the public API, but the type itself is not exported
 // eslint-disable-next-line import/no-extraneous-dependencies,no-restricted-imports
@@ -52,33 +53,35 @@ const IconEditType = (props: IconEditTypeProps) => {
 	}, [experienceId, isLoading, hasFailed]);
 
 	return (
-		<Select<Icon>
-			{...props}
-			autoFocus
-			blurInputOnSelect
-			defaultMenuIsOpen
-			options={options}
-			menuPlacement="auto"
-			isLoading={isLoading}
-			filterOption={filterOption}
-			testId="inline-edit-priority"
-			defaultValue={currentValue?.values?.[0]}
-			getOptionValue={(option) => option.text || ''}
-			formatOptionLabel={({ source, label, text }) => (
-				<SharedIconComponent
-					iconUrl={source}
-					text={text}
-					label={label}
-					testId={`inline-edit-priority-option-${label}`}
-				/>
-			)}
-			onChange={(e) =>
-				props.setEditValues({
-					type: 'icon',
-					values: e ? [e] : [],
-				})
-			}
-		/>
+		<Layering isDisabled={false}>
+			<Select<Icon>
+				{...props}
+				autoFocus
+				blurInputOnSelect
+				defaultMenuIsOpen
+				options={options}
+				menuPlacement="auto"
+				isLoading={isLoading}
+				filterOption={filterOption}
+				testId="inline-edit-priority"
+				defaultValue={currentValue?.values?.[0]}
+				getOptionValue={(option) => option.text || ''}
+				formatOptionLabel={({ source, label, text }) => (
+					<SharedIconComponent
+						iconUrl={source}
+						text={text}
+						label={label}
+						testId={`inline-edit-priority-option-${label}`}
+					/>
+				)}
+				onChange={(e) =>
+					props.setEditValues({
+						type: 'icon',
+						values: e ? [e] : [],
+					})
+				}
+			/>
+		</Layering>
 	);
 };
 

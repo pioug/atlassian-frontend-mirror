@@ -10,7 +10,6 @@ import {
 	type MetadataStatus,
 } from '@atlaskit/linking-common';
 import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
@@ -101,13 +100,9 @@ export const useSmartCardActions = (id: string, url: string, analytics: Analytic
 				});
 			}
 			if (services.length > 0) {
-				if (fg('platform_smart-card-migrate-screen-analytics')) {
-					fireEvent('screen.consentModal.viewed', {
-						definitionId: definitionId ?? null,
-					});
-				} else {
-					analytics.screen.authPopupEvent({ definitionId, extensionKey });
-				}
+				fireEvent('screen.consentModal.viewed', {
+					definitionId: definitionId ?? null,
+				});
 				auth(services[0].url).then(
 					() => {
 						fireEvent('track.applicationAccount.connected', {
@@ -139,15 +134,7 @@ export const useSmartCardActions = (id: string, url: string, analytics: Analytic
 				);
 			}
 		},
-		[
-			getSmartLinkState,
-			analytics.ui,
-			analytics.screen,
-			analytics.operational,
-			id,
-			reload,
-			fireEvent,
-		],
+		[getSmartLinkState, analytics.ui, analytics.operational, id, reload, fireEvent],
 	);
 
 	const invoke = useCallback(

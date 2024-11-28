@@ -447,7 +447,17 @@ describe('smart-card: unauthorized analytics', () => {
 			expect(resolvedView).toBeTruthy();
 			expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
 			expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
-			expect(analytics.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
+			expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'viewed',
+					name: 'consentModal',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						extensionKey: 'object-provider',
+						definitionId: 'd1',
+					}),
+				}),
+			);
 
 			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
@@ -488,14 +498,23 @@ describe('smart-card: unauthorized analytics', () => {
 		`(
 			'should fire connectFailed event when auth fails with errorType = $errorType',
 			async (errorType) => {
+				const mockAnalyticsClient = {
+					sendUIEvent: jest.fn().mockResolvedValue(undefined),
+					sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+					sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+					sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+				} satisfies AnalyticsWebClient;
+
 				const mockUrl = 'https://https://this.is.the.second.url';
 				mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
 				render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card testId="unauthorizedCard2" appearance="inline" url={mockUrl} />
-						</Provider>
-					</IntlProvider>,
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card testId="unauthorizedCard2" appearance="inline" url={mockUrl} />
+							</Provider>
+						</IntlProvider>
+					</FabricAnalyticsListeners>,
 				);
 				const unauthorizedLink = await screen.findByTestId(
 					'unauthorizedCard2-unauthorized-view',
@@ -522,7 +541,17 @@ describe('smart-card: unauthorized analytics', () => {
 				expect(unresolvedView).toBeTruthy();
 				expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
 				expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
-				expect(analytics.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
+				expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'viewed',
+						name: 'consentModal',
+						attributes: expect.objectContaining({
+							display: 'inline',
+							extensionKey: 'object-provider',
+							definitionId: 'd1',
+						}),
+					}),
+				);
 				expect(analytics.connectFailedEvent).toHaveBeenCalledTimes(1);
 				expect(analytics.connectFailedEvent).toHaveBeenCalledWith({
 					definitionId: 'd1',
@@ -551,14 +580,22 @@ describe('smart-card: unauthorized analytics', () => {
 		);
 
 		it('should fire connectFailed when auth dialog was closed', async () => {
+			const mockAnalyticsClient = {
+				sendUIEvent: jest.fn().mockResolvedValue(undefined),
+				sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+				sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+				sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+			} satisfies AnalyticsWebClient;
 			const mockUrl = 'https://https://this.is.the.third.url';
 			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
 			render(
-				<IntlProvider locale="en">
-					<Provider client={mockClient}>
-						<Card testId="unauthorizedCard3" appearance="inline" url={mockUrl} />
-					</Provider>
-				</IntlProvider>,
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card testId="unauthorizedCard3" appearance="inline" url={mockUrl} />
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
 			);
 			const unauthorizedLink = await screen.findByTestId(
 				'unauthorizedCard3-unauthorized-view',
@@ -583,7 +620,17 @@ describe('smart-card: unauthorized analytics', () => {
 			expect(resolvedView).toBeTruthy();
 			expect(analytics.unresolvedEvent).toHaveBeenCalledTimes(1);
 			expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
-			expect(analytics.screenAuthPopupEvent).toHaveBeenCalledTimes(1);
+			expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'viewed',
+					name: 'consentModal',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						extensionKey: 'object-provider',
+						definitionId: 'd1',
+					}),
+				}),
+			);
 			expect(analytics.uiClosedAuthEvent).toHaveBeenCalledTimes(1);
 			expect(analytics.connectFailedEvent).toHaveBeenCalledTimes(1);
 			expect(analytics.connectFailedEvent).toHaveBeenCalledWith({

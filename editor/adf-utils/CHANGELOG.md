@@ -1,5 +1,13 @@
 # @atlaskit/adf-utils
 
+## 19.14.0
+
+### Minor Changes
+
+- [#169499](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169499)
+  [`7d83c833bbcb1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d83c833bbcb1) -
+  Remove v16->v17 codemod, and associated jscodeshift/codemod-utils dependencies.
+
 ## 19.13.2
 
 ### Patch Changes

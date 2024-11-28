@@ -75,10 +75,10 @@ export const DisableWidth500Example = () => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ width: 500 }}>
-			<h1>Width: 500</h1>
-			<h2>Without plugins</h2>
+			<Heading size="xlarge">Width: 500</Heading>
+			<Heading size="large">Without plugins</Heading>
 			<DisableWidthExample />
-			<h2>With plugins</h2>
+			<Heading size="large">With plugins</Heading>
 			<DisableWidthWithPluginsExample />
 		</div>
 	);
@@ -88,10 +88,10 @@ export const DisableWidth300Example = () => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ width: 300 }}>
-			<h1>Width: 300</h1>
-			<h2>Without plugins</h2>
+			<Heading size="xlarge">Width: 300</Heading>
+			<Heading size="large">Without plugins</Heading>
 			<DisableWidthExample />
-			<h2>With plugins</h2>
+			<Heading size="large">With plugins</Heading>
 			<DisableWidthWithPluginsExample />
 		</div>
 	);

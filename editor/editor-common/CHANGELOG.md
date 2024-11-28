@@ -1,5 +1,29 @@
 # @atlaskit/editor-common
 
+## 95.8.1
+
+### Patch Changes
+
+- [#169050](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169050)
+  [`5c9efb7242669`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c9efb7242669) -
+  [ux] Adds link button to the Selection toolbar.
+- Updated dependencies
+
+## 95.8.0
+
+### Minor Changes
+
+- [#168811](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168811)
+  [`549034b075634`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/549034b075634) -
+  Updated editor UGC tokens for refreshed theme to reference Atlassian Sans font - this is still
+  Inter Variable just renamed
+
+## 95.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 95.7.1
 
 ### Patch Changes

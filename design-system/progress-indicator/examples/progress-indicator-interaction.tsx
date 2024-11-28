@@ -76,6 +76,7 @@ const Example = () => {
 					values={values}
 					ariaControls="custom-panel"
 					size="default"
+					testId="progress-indicator"
 				/>
 				<Button isDisabled={selectedIndex === values.length - 1} onClick={handleNext}>
 					Next

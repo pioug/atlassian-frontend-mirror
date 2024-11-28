@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
+import { useIntl } from 'react-intl-next';
 import { useDebouncedCallback } from 'use-debounce';
 
 import Avatar, { AvatarItem } from '@atlaskit/avatar';
 import { type FieldProps } from '@atlaskit/form';
+import { Layering } from '@atlaskit/layering';
 import { type User } from '@atlaskit/linking-types';
+import { type FilterOptionOption } from '@atlaskit/react-select/src';
 import Select from '@atlaskit/select';
+import Tooltip from '@atlaskit/tooltip';
 
 import { failUfoExperience, succeedUfoExperience } from '../../../../analytics/ufoExperiences';
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
@@ -13,6 +17,7 @@ import { useLoadOptions } from '../../../../hooks/useLoadOptions';
 import type { ExecuteFetch } from '../../../../state/actions';
 import { SEARCH_DEBOUNCE_MS } from '../../../common/modal/popup-select/constants';
 import { USER_TYPE_TEST_ID } from '../../render-type/user';
+import { userTypeMessages } from '../../render-type/user/messages';
 import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
 import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
 
@@ -31,12 +36,25 @@ const UserEditType = (props: UserEditTypeProps) => {
 		SEARCH_DEBOUNCE_MS,
 	);
 
+	const { formatMessage } = useIntl();
+
+	const emptyUser = useMemo(
+		() => ({
+			accountId: null,
+			displayName: formatMessage(userTypeMessages.userDefaultdisplayNameValue),
+			avatarUrls: {},
+		}),
+		[formatMessage],
+	);
+
 	const { options, isLoading, hasFailed } = useLoadOptions<User>({
 		executeFetch,
 		fetchInputs,
+		emptyOption: emptyUser,
 	});
 
 	const experienceId = useDatasourceExperienceId();
+
 	useEffect(() => {
 		if (!experienceId) {
 			return;
@@ -60,39 +78,47 @@ const UserEditType = (props: UserEditTypeProps) => {
 	}, [experienceId, isLoading, hasFailed]);
 
 	return (
-		<Select<User>
-			{...props}
-			autoFocus
-			defaultMenuIsOpen
-			blurInputOnSelect
-			options={options}
-			isLoading={isLoading}
-			testId="inline-edit-user"
-			filterOption={() => true} // necessary, otherwise by default all options will be filtered out on user input
-			onInputChange={handleUserInputDebounced}
-			defaultValue={currentValue?.values?.[0]}
-			getOptionValue={(option) => option.atlassianUserId!}
-			formatOptionLabel={(option) => (
-				<AvatarItem
-					avatar={
-						<Avatar
-							appearance="circle"
-							size={'small'}
-							src={option.avatarSource}
-							testId={`${USER_TYPE_TEST_ID}--avatar--${option.atlassianUserId}`}
+		<Layering isDisabled={false}>
+			<Select<User>
+				{...props}
+				autoFocus
+				defaultMenuIsOpen
+				blurInputOnSelect
+				options={options}
+				isLoading={isLoading}
+				testId="inline-edit-user"
+				filterOption={filterOption}
+				menuPlacement="auto"
+				onInputChange={handleUserInputDebounced}
+				defaultValue={currentValue?.values?.[0]}
+				getOptionValue={(option) => option.atlassianUserId!}
+				formatOptionLabel={(option) => (
+					<Tooltip content={option.displayName}>
+						<AvatarItem
+							avatar={
+								<Avatar
+									appearance="circle"
+									size={'small'}
+									src={option.avatarSource}
+									testId={`${USER_TYPE_TEST_ID}--avatar--${option.atlassianUserId}`}
+								/>
+							}
+							primaryText={option.displayName}
 						/>
-					}
-					primaryText={option.displayName}
-				/>
-			)}
-			onChange={(e) =>
-				props.setEditValues({
-					type: 'user',
-					values: e ? [e] : [],
-				})
-			}
-		/>
+					</Tooltip>
+				)}
+				onChange={(e) =>
+					props.setEditValues({
+						type: 'user',
+						values: e ? [e] : [],
+					})
+				}
+			/>
+		</Layering>
 	);
 };
+
+const filterOption = (option: FilterOptionOption<User>, inputValue: string) =>
+	option.data.displayName?.toLowerCase().includes(inputValue.toLowerCase()) ?? false;
 
 export default UserEditType;

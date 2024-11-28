@@ -170,8 +170,8 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 		return event.altKey && (event.key === 'F9' || event.keyCode === 120);
 	}, []);
 
-	const isTwoLineToolbarEnabled =
-		!!customPrimaryToolbarComponents && !!featureFlags?.twoLineEditorToolbar;
+	// When primary toolbar components is undefined, do not show two line editor toolbar
+	const isTwoLineToolbarEnabled = !!customPrimaryToolbarComponents;
 
 	const handleEscape = useCallback(
 		(event: KeyboardEvent) => {

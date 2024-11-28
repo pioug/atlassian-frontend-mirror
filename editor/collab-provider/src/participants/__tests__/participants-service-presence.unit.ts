@@ -8,6 +8,7 @@ describe('participants-service-presence', () => {
 	let getUser: any;
 	let sendPresenceJoined: any;
 	let setUserId: any;
+	let getAIProviderActiveIds: any;
 	let getPresenceData: any;
 	let analyticsHelper: AnalyticsHelper;
 	let analyticsSpy: any;
@@ -20,6 +21,7 @@ describe('participants-service-presence', () => {
 		getUser = jest.fn();
 		sendPresenceJoined = jest.fn();
 		setUserId = jest.fn();
+		getAIProviderActiveIds = jest.fn().mockReturnValue(['abc']);
 		getPresenceData = jest.fn().mockReturnValue(payload);
 		analyticsHelper = new AnalyticsHelper('nope');
 		analyticsSpy = jest.spyOn(analyticsHelper, 'sendErrorEvent');
@@ -39,6 +41,7 @@ describe('participants-service-presence', () => {
 			sendPresenceJoined,
 			getPresenceData,
 			setUserId,
+			getAIProviderActiveIds,
 		);
 	});
 
@@ -55,8 +58,19 @@ describe('participants-service-presence', () => {
 			});
 
 			it('should broadcast presence', () => {
-				expect(broadcast).toBeCalledTimes(1);
+				expect(broadcast).toBeCalledTimes(2);
 				expect(broadcast).toBeCalledWith('participant:updated', payload);
+				expect(broadcast).toBeCalledWith('participant:updated', {
+					clientId: 'abc::666',
+					permit: {
+						isPermittedToComment: false,
+						isPermittedToEdit: false,
+						isPermittedToView: false,
+					},
+					sessionId: 'abc::420',
+					timestamp: 1502841600000,
+					userId: 'abc',
+				});
 			});
 
 			it('should call sendPresenceJoined', () => {
@@ -84,9 +98,19 @@ describe('participants-service-presence', () => {
 	describe('onPresenceJoined', () => {
 		it('should broadcast presence', () => {
 			participantsService.onPresenceJoined(payload);
-			expect(broadcast).toBeCalledTimes(1);
+			expect(broadcast).toBeCalledTimes(2);
 			expect(broadcast).toBeCalledWith('participant:updated', payload);
-			expect(broadcast).toBeCalledTimes(1);
+			expect(broadcast).toBeCalledWith('participant:updated', {
+				clientId: 'abc::666',
+				permit: {
+					isPermittedToComment: false,
+					isPermittedToEdit: false,
+					isPermittedToView: false,
+				},
+				sessionId: 'abc::420',
+				timestamp: 1502841600000,
+				userId: 'abc',
+			});
 		});
 
 		it('should send analytics on error', () => {
@@ -112,12 +136,26 @@ describe('participants-service-presence', () => {
 			});
 
 			it('should get Presence data from provider', () => {
-				expect(getPresenceData).toBeCalledTimes(1);
+				// This is called twice because getAIProviderActiveIds also uses getPresenceData
+				// to combine AI Provider info with the user's presence data
+				expect(getPresenceData).toBeCalledTimes(2);
+				expect(getAIProviderActiveIds).toBeCalledTimes(1);
 			});
 
 			it('should broadcast presence', () => {
-				expect(broadcast).toBeCalledTimes(1);
+				expect(broadcast).toBeCalledTimes(2);
 				expect(broadcast).toBeCalledWith('participant:updated', payload);
+				expect(broadcast).toBeCalledWith('participant:updated', {
+					clientId: 'abc::666',
+					permit: {
+						isPermittedToComment: false,
+						isPermittedToEdit: false,
+						isPermittedToView: false,
+					},
+					sessionId: 'abc::420',
+					timestamp: 1502841600000,
+					userId: 'abc',
+				});
 			});
 
 			it('should set timeout', () => {

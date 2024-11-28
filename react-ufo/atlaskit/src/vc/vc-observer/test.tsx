@@ -63,6 +63,15 @@ describe('vc-observer', () => {
 		});
 	});
 
+	test('is aborted when abortCalculation is called', () => {
+		vc.start({ startTime: 0 });
+		vc.abortObservation();
+		const result = vc.getVCResult({ start: 0, stop: 1000, tti: 3, prefix: '' });
+		expect(result).toHaveProperty('vc:state', false);
+		expect(result).toHaveProperty('vc:abort:reason', 'custom');
+		expect(result).not.toHaveProperty('metrics:vc');
+	});
+
 	test('handles full screen updates', () => {
 		vc.start({ startTime: 0 });
 		callbacks.forEach((fn: Callback) => {

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.25.4
+
+### Patch Changes
+
+- [#169327](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169327)
+  [`d1439013677f3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d1439013677f3) -
+  [ED-25834] adding tests for allow comment on inline node selection
+- Updated dependencies
+
 ## 1.25.3
 
 ### Patch Changes

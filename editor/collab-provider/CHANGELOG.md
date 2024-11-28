@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 10.2.0
+
+### Minor Changes
+
+- [#169676](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169676)
+  [`141d88bf511d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/141d88bf511d4) -
+  [ux] EDF-2302 Facepile bug fixes - rehydration, avatar update + analytics
+
 ## 10.1.3
 
 ### Patch Changes

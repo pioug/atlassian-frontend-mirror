@@ -1,2 +1,2 @@
-export { betterTypeHistoryPlugin } from './plugin';
-export type { BetterTypeHistoryPlugin, BetterTypeHistoryAPI } from './types';
+export { betterTypeHistoryPlugin } from './betterTypeHistoryPlugin';
+export type { BetterTypeHistoryPlugin, BetterTypeHistoryAPI } from './betterTypeHistoryPluginType';

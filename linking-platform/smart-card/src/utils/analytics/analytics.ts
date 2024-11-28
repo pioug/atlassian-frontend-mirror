@@ -11,7 +11,6 @@ import {
 	type InvokeFailedEventProps,
 	type InvokeSucceededEventProps,
 	type ResolvedEventProps,
-	type ScreenAuthPopupEventProps,
 	type UiActionClickedEventProps,
 	type UiAuthAlternateAccountEventProps,
 	type UiAuthEventProps,
@@ -365,28 +364,6 @@ export const uiClosedAuthEvent = ({
 		destinationSubproduct,
 		location,
 		display,
-	},
-});
-
-/**
- * @deprecated remove when platform_smart-card-migrate-screen-analytics is cleaned up
- */
-export const screenAuthPopupEvent = ({
-	extensionKey,
-	definitionId,
-	destinationProduct,
-	destinationSubproduct,
-	location,
-}: ScreenAuthPopupEventProps): AnalyticsPayload => ({
-	actionSubject: 'consentModal',
-	eventType: 'screen',
-	attributes: {
-		...context,
-		extensionKey,
-		definitionId,
-		destinationProduct,
-		destinationSubproduct,
-		location,
 	},
 });
 

@@ -83,8 +83,7 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 	const { editorAPI } = props;
 
 	// When primary toolbar components is undefined, do not show two line editor toolbar
-	const twoLineEditorToolbar =
-		!!props.customPrimaryToolbarComponents && !!props.featureFlags?.twoLineEditorToolbar;
+	const twoLineEditorToolbar = !!props.customPrimaryToolbarComponents;
 
 	const nonCustomToolbar = (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
@@ -113,8 +112,7 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 	const customToolbar = (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={customToolbarWrapperStyle}>
-			{twoLineEditorToolbar &&
-			!!props.customPrimaryToolbarComponents &&
+			{!!props.customPrimaryToolbarComponents &&
 			'before' in props.customPrimaryToolbarComponents ? (
 				<BeforePrimaryToolbarWrapper
 					beforePrimaryToolbarComponents={props.customPrimaryToolbarComponents?.before}

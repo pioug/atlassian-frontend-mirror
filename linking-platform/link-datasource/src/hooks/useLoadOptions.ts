@@ -35,12 +35,17 @@ type LoadOptionsState<Entities> = {
 	hasFailed: boolean;
 };
 
-export type LoadOptionsProps = {
+export type LoadOptionsProps<T> = {
 	fetchInputs?: AtomicActionExecuteRequest['parameters']['inputs'];
 	executeFetch?: ExecuteFetch;
+	emptyOption?: T;
 };
 
-export const useLoadOptions = <T>({ fetchInputs, executeFetch }: LoadOptionsProps) => {
+export const useLoadOptions = <T>({
+	fetchInputs,
+	executeFetch,
+	emptyOption,
+}: LoadOptionsProps<T>) => {
 	const [{ options, isLoading, hasFailed }, setOptions] = useState<LoadOptionsState<T>>({
 		isLoading: true,
 		options: [],
@@ -54,7 +59,11 @@ export const useLoadOptions = <T>({ fetchInputs, executeFetch }: LoadOptionsProp
 		loadOptions<T>(fetchInputs, executeFetch)
 			.then((options) => {
 				if (isMounted) {
-					setOptions({ isLoading: false, options, hasFailed: false });
+					setOptions({
+						isLoading: false,
+						options: emptyOption ? [emptyOption, ...options] : options,
+						hasFailed: false,
+					});
 				}
 			})
 			.catch((err) => {
@@ -64,7 +73,7 @@ export const useLoadOptions = <T>({ fetchInputs, executeFetch }: LoadOptionsProp
 		return () => {
 			isMounted = false;
 		};
-	}, [fetchInputs, executeFetch, showErrorFlag]);
+	}, [fetchInputs, executeFetch, showErrorFlag, emptyOption]);
 
 	return { options, isLoading, hasFailed };
 };

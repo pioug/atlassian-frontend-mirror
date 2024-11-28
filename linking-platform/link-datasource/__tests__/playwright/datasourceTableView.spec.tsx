@@ -203,10 +203,10 @@ test.describe('DatasourceTableView', () => {
 			)
 			.getByTestId('link-datasource-render-type--user--avatar')
 			.click();
-		await page.getByRole('combobox').fill('jim');
+		await page.getByRole('combobox').fill('mike');
 
 		await expect(page.getByRole('listbox').getByRole('option')).toHaveCount(1);
-		await expect(page.getByRole('listbox').getByRole('option')).toHaveText('jim zhai', {
+		await expect(page.getByRole('listbox').getByRole('option')).toHaveText('Mike Dao', {
 			ignoreCase: true,
 		});
 	});

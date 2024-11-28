@@ -133,6 +133,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 			tableSelectorSupported: props.tableSelectorSupported,
 			mediaUploadsEnabled: props.mediaUploadsEnabled,
 			mediaSupported: props.mediaSupported,
+			isEditorOffline: props.isEditorOffline,
 			imageUploadSupported: props.imageUploadSupported,
 			imageUploadEnabled: props.imageUploadEnabled,
 			mentionsSupported: props.mentionsSupported,
@@ -678,8 +679,8 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 	};
 
 	private insertLayoutColumns = (inputMethod: TOOLBAR_MENU_TYPE): boolean => {
-		const { editorView, pluginInjectionApi, intl } = this.props;
-		pluginInjectionApi?.layout?.actions.insertLayoutColumns(inputMethod, intl.formatMessage)(
+		const { editorView, pluginInjectionApi } = this.props;
+		pluginInjectionApi?.layout?.actions.insertLayoutColumns(inputMethod)(
 			editorView.state,
 			editorView.dispatch,
 		);

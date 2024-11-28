@@ -9,7 +9,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { B100, DN600A, N0 } from '@atlaskit/theme/colors';
-import { type SwatchSize } from '../types';
+import { type SwatchSize, type ColorCardVariant } from '../types';
 
 export interface Props {
 	value: string;
@@ -19,6 +19,7 @@ export interface Props {
 	swatchSize?: SwatchSize;
 	isDisabled?: boolean;
 	id?: string;
+	variant?: ColorCardVariant;
 }
 
 const ColorCard = ({
@@ -29,6 +30,7 @@ const ColorCard = ({
 	swatchSize = 'default',
 	isDisabled,
 	id,
+	variant = 'fill',
 }: Props) => {
 	const handleMouseDown = useCallback((event: MouseEvent<HTMLButtonElement>) => {
 		event.preventDefault();
@@ -45,6 +47,11 @@ const ColorCard = ({
 		},
 		[onClick],
 	);
+	const isOutlineVariant =
+		fg('thor_colourful_single_select_milestone1_gate') && variant === 'outline';
+	const colorCardStyles = isOutlineVariant
+		? { borderColor: value || 'grey' }
+		: { backgroundColor: value || 'transparent' };
 
 	return (
 		<Tooltip content={label}>
@@ -69,12 +76,11 @@ const ColorCard = ({
 				<span css={colorCardWrapperStyles}>
 					<span
 						css={[
-							colorCardContentStyles,
+							isOutlineVariant ? colorCardContentStylesOutline : colorCardContentStyles,
 							swatchSize === 'small' ? smallColorCardContentSize : defaultColorCardContentSize,
 						]}
-						style={{
-							background: value || 'transparent',
-						}}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+						style={colorCardStyles}
 					/>
 				</span>
 			</button>
@@ -137,6 +143,11 @@ const colorCardWrapperStyles = css({
 const colorCardContentStyles = css({
 	borderRadius: token('border.radius.100', '3px'),
 	boxShadow: `inset 0px 0px 0px 1px ${token('color.background.inverse.subtle', DN600A)}`,
+});
+const colorCardContentStylesOutline = css({
+	borderRadius: token('border.radius.100', '3px'),
+	borderWidth: token('border.width.outline', '2px'),
+	borderStyle: 'solid',
 });
 
 const smallColorCardContentSize = css({

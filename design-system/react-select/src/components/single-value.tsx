@@ -6,6 +6,8 @@ import { type ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { token } from '@atlaskit/tokens';
+
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 import { getStyleProps } from '../utils';
 
@@ -35,7 +37,7 @@ export interface SingleValueProps<
 
 export const css = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	isDisabled,
-	theme: { spacing, colors },
+	theme: { spacing },
 }: SingleValueProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'singleValue',
 	gridArea: '1 / 1 / 2 / 3',
@@ -43,9 +45,8 @@ export const css = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
-	color: isDisabled ? colors.neutral40 : colors.neutral80,
-	marginLeft: spacing.baseUnit / 2,
-	marginRight: spacing.baseUnit / 2,
+	margin: `0 ${token('space.025')}`,
+	color: isDisabled ? token('color.text.disabled') : token('color.text'),
 });
 
 const SingleValue = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(

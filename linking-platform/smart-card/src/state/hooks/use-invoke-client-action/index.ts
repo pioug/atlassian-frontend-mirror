@@ -5,16 +5,18 @@ import uuid from 'uuid';
 import * as measure from '../../../utils/performance';
 import { failUfoExperience, startUfoExperience, succeedUfoExperience } from '../../analytics';
 
-import type { InvokeClientActionProps, UseInvokeClientActionProps } from './types';
+import type { InvokeClientActionHandler, UseInvokeClientActionProps } from './types';
 
 const ACTION_EXPERIENCE_NAME = 'smart-link-action-invocation';
 
 /**
  * Invoke client action such as preview, download and open link
  */
-const useInvokeClientAction = ({ analytics }: UseInvokeClientActionProps) =>
+const useInvokeClientAction = ({
+	analytics,
+}: UseInvokeClientActionProps): InvokeClientActionHandler =>
 	useCallback(
-		async ({ actionType, actionFn, extensionKey, display }: InvokeClientActionProps) => {
+		async ({ actionType, actionFn, extensionKey, display }) => {
 			const experienceId = uuid();
 
 			// Begin performance instrumentation.

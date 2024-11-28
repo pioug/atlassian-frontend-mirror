@@ -8,7 +8,7 @@ import { type Config, getConfig, getUfoNameOverrides } from '../config';
 import { getBm3Timings } from '../custom-timings';
 import { getPageVisibilityState } from '../hidden-timing';
 import * as initialPageLoadExtraTiming from '../initial-page-load-extra-timing';
-import type { LabelStack, SegmentLabel } from '../interaction-context';
+import type { LabelStack } from '../interaction-context';
 import {
 	interactionSpans as atlaskitInteractionSpans,
 	postInteractionLog,
@@ -19,7 +19,13 @@ import * as ssr from '../ssr';
 import { getVCObserver } from '../vc';
 
 import type { OptimizedLabelStack } from './common/types';
-import { isSegmentLabel, sanitizeUfoName } from './common/utils';
+import {
+	buildSegmentTree,
+	labelStackStartWith,
+	optimizeLabelStack,
+	sanitizeUfoName,
+	stringifyLabelStackFully,
+} from './common/utils';
 
 function getUfoNameOverride(interaction: InteractionMetrics): string {
 	const { ufoName, apdex } = interaction;
@@ -36,22 +42,6 @@ function getUfoNameOverride(interaction: InteractionMetrics): string {
 	} catch (e: any) {
 		return ufoName;
 	}
-}
-
-type StringifiedLabelStack = string;
-function stringifyLabelStackFully(labelStack: LabelStack): StringifiedLabelStack {
-	return labelStack
-		.map((l) => {
-			if (isSegmentLabel(l)) {
-				return `${l.name}:${l.segmentId}`;
-			}
-			return l.name;
-		})
-		.join('/');
-}
-
-function labelStackStartWith(labelStack: LabelStack, startWith: LabelStack) {
-	return stringifyLabelStackFully(labelStack).startsWith(stringifyLabelStackFully(startWith));
 }
 
 function getEarliestLegacyStopTime(interaction: InteractionMetrics, labelStack: LabelStack) {
@@ -389,15 +379,6 @@ const getTracingContextData = (interaction: InteractionMetrics) => {
 	return tracingContextData;
 };
 
-// interaction metric
-
-function optimizeLabelStack(labelStack: LabelStack) {
-	return labelStack.map((ls) => ({
-		n: ls.name,
-		...((ls as SegmentLabel).segmentId ? { s: (ls as SegmentLabel).segmentId } : {}),
-	}));
-}
-
 function optimizeCustomData(interaction: InteractionMetrics) {
 	const { customData, legacyMetrics } = interaction;
 	const customDataMap = customData.reduce((result, { labelStack, data }) => {
@@ -598,7 +579,7 @@ function optimizeCustomTimings(
 	customTimings: InteractionMetrics['customTimings'],
 	interactionStart: number,
 ) {
-	const updatedCustomTimings = customTimings.reduce(
+	return customTimings.reduce(
 		(result, item) => {
 			Object.keys(item.data).forEach((key) => {
 				if (item.data[key].startTime >= interactionStart) {
@@ -618,8 +599,6 @@ function optimizeCustomTimings(
 			endTime: number;
 		}[],
 	);
-
-	return updatedCustomTimings;
 }
 
 function optimizeMarks(marks: InteractionMetrics['marks']) {
@@ -638,7 +617,6 @@ function optimizeApdex(apdex: ApdexType[]) {
 	}));
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function objectToArray(obj: Record<string, any> = {}) {
 	return Object.keys(obj).reduce(
 		(result, key) => {
@@ -649,7 +627,6 @@ function objectToArray(obj: Record<string, any> = {}) {
 
 			return result;
 		},
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[] as { label: string; data: any }[],
 	);
 }
@@ -736,6 +713,7 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
 
 	const segments = config.killswitchNestedSegments ? [] : knownSegments;
+	const segmentTree = buildSegmentTree(segments.map((segment) => segment.labelStack));
 	const isDetailedPayload = pageVisibilityAtTTAI === 'visible';
 	const isPageLoad = type === 'page_load';
 
@@ -862,10 +840,13 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 					apdex: optimizeApdex(interaction.apdex),
 					end: Math.round(end),
 					start: Math.round(start),
-					segments: segments.map(({ labelStack, ...others }) => ({
-						...others,
-						labelStack: optimizeLabelStack(labelStack),
-					})),
+					segments:
+						REACT_UFO_VERSION === '2.0.0'
+							? segmentTree
+							: segments.map(({ labelStack, ...others }) => ({
+									...others,
+									labelStack: optimizeLabelStack(labelStack),
+								})),
 					marks: optimizeMarks(interaction.marks),
 					customData: optimizeCustomData(interaction),
 					reactProfilerTimings: optimizeReactProfilerTimings(

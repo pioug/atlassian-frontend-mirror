@@ -1,5 +1,14 @@
 # @atlaskit/link-create
 
+## 2.13.13
+
+### Patch Changes
+
+- [#170108](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170108)
+  [`d63cb6ded600e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d63cb6ded600e) -
+  Convert typography
+- Updated dependencies
+
 ## 2.13.12
 
 ### Patch Changes

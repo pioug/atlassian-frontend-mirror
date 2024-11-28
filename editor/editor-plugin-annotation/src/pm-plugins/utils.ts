@@ -352,22 +352,21 @@ export const isSelectionValid = (
 	const { selection } = state;
 	const { disallowOnWhitespace } = getPluginState(state) || {};
 	const allowedInlineNodes = ['emoji', 'status', 'date', 'mention', 'inlineCard'];
+	const isSelectionEmpty = selection.empty;
+	const isTextOrAllSelection =
+		selection instanceof TextSelection || selection instanceof AllSelection;
+	const isValidNodeSelection =
+		selection instanceof NodeSelection &&
+		allowedInlineNodes.includes(selection.node.type.name) &&
+		fg('platform_inline_node_as_valid_annotation_selection');
+	const isValidSelection = isTextOrAllSelection || isValidNodeSelection;
 
 	// Allow media so that it can enter draft mode
 	if (currentMediaNodeWithPos(state)?.node) {
 		return AnnotationSelectionType.VALID;
 	}
 
-	if (
-		selection.empty ||
-		!(
-			selection instanceof TextSelection ||
-			selection instanceof AllSelection ||
-			(selection instanceof NodeSelection &&
-				allowedInlineNodes.includes(selection.node.type.name) &&
-				fg('platform_inline_node_as_valid_annotation_selection'))
-		)
-	) {
+	if (isSelectionEmpty || !isValidSelection) {
 		return AnnotationSelectionType.INVALID;
 	}
 

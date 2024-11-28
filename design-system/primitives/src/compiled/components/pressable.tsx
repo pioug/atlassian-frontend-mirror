@@ -11,13 +11,13 @@ import {
 	useContext,
 } from 'react';
 
-import { jsx, cssMap as unboundedCssMap } from '@compiled/react';
+import { cx, jsx, cssMap as unboundedCssMap } from '@compiled/react';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
 import InteractionContext, { type InteractionContextType } from '@atlaskit/interaction-context';
-import { token } from '@atlaskit/tokens';
 
+import Focusable from './focusable';
 import type { BasePrimitiveProps, StyleProp } from './types';
 
 type BasePressableProps = {
@@ -75,24 +75,6 @@ const styles = unboundedCssMap({
 	disabled: {
 		cursor: 'not-allowed',
 	},
-	// NOTE: This duplicates FocusRing styles from `@atlaskit/focus-ring` and may want to be replaced by a `Focusable` primitive.
-	focusRing: {
-		'&:focus, &:focus-visible': {
-			outlineColor: token('color.border.focused'),
-			outlineOffset: token('space.025'),
-			outlineStyle: 'solid',
-			outlineWidth: token('border.width.outline'),
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:focus:not(:focus-visible)': {
-			outline: 'none',
-		},
-		'@media screen and (forced-colors: active), screen and (-ms-high-contrast: active)': {
-			'&:focus-visible': {
-				outline: '1px solid',
-			},
-		},
-	},
 });
 
 /**
@@ -145,10 +127,9 @@ const Pressable = forwardRef(
 		const { className: _spreadClass, ...safeHtmlAttributes } = htmlAttributes;
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/no-html-button
-			<button
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- TODO: Allow pass-through from `props.xcss`
-				className={xcss}
+			<Focusable
+				// @ts-expect-error we don't allow `button` on Focusable for makers as they should use Pressable instead
+				as="button"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- TODO: Properly type this and allow pass-through if we can determine the type
 				style={style}
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
@@ -157,12 +138,13 @@ const Pressable = forwardRef(
 				type={type}
 				onClick={onClick}
 				disabled={isDisabled}
-				css={[styles.root, styles.focusRing, isDisabled && styles.disabled]}
-				data-testid={testId}
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- TODO: We need to handle pass-through `xcss` => `xcss` here.
+				xcss={cx(styles.root, isDisabled && styles.disabled, xcss)}
+				testId={testId}
 				ref={ref}
 			>
 				{children}
-			</button>
+			</Focusable>
 		);
 	},
 );

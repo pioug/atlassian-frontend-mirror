@@ -1,10 +1,13 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-import { token } from '@atlaskit/tokens';
-import { IconTitleWrapper } from '../IconAndTitleLayout/styled';
+import React from 'react';
+import { SpinnerWrapper as EmotionSpinnerWrapper } from './styled-emotion';
+import { SpinnerWrapper as CompiledSpinnerWrapper } from './styled-compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const SpinnerWrapper = styled(IconTitleWrapper)({
-	verticalAlign: 'baseline',
-	marginLeft: token('space.025', '2px'),
-});
+export const SpinnerWrapper = (
+	props: React.DetailedHTMLProps<React.HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>,
+) =>
+	fg('platform_media_compiled') ? (
+		<CompiledSpinnerWrapper {...props} />
+	) : (
+		<EmotionSpinnerWrapper {...props} />
+	);

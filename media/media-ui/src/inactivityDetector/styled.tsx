@@ -1,30 +1,23 @@
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-import { hideControlsClassName } from '../classNames';
+import React, { forwardRef } from 'react';
+import { InactivityDetectorWrapper as EmotionInactivityDetectorWrapper } from './styled-emotion';
+import {
+	InactivityDetectorWrapper as CompiledInactivityDetectorWrapper,
+	type ContentWrapperProps,
+} from './styled-compiled';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-export interface ContentWrapperProps {
-	controlsAreVisible: boolean;
-}
+export const InactivityDetectorWrapper = forwardRef(
+	(
+		props: ContentWrapperProps &
+			React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> &
+			React.ClassAttributes<HTMLDivElement>,
+		ref,
+	) =>
+		fg('platform_media_compiled') ? (
+			<CompiledInactivityDetectorWrapper {...props} ref={ref as React.RefObject<HTMLDivElement>} />
+		) : (
+			<EmotionInactivityDetectorWrapper {...props} ref={ref as React.RefObject<HTMLDivElement>} />
+		),
+);
 
-const handleControlsVisibility = ({ controlsAreVisible }: ContentWrapperProps) => `
-  transition: opacity .3s;
-  opacity: ${controlsAreVisible ? '1' : '0'};
-`;
-
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const InactivityDetectorWrapper = styled.div`
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex: 1;
-	overflow: visible;
-	align-items: center;
-	justify-content: center;
-	position: relative;
-
-	.${hideControlsClassName} {
-		${handleControlsVisibility};
-	}
-`;
-
-InactivityDetectorWrapper.displayName = 'InactivityDetectorWrapper';
+export type { ContentWrapperProps } from './styled-compiled';

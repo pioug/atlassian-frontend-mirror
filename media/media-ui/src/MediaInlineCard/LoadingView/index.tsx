@@ -28,6 +28,7 @@ export class MediaInlineCardLoadingView extends React.Component<MediaInlineCardL
 			inlinePreloaderStyle,
 			testId = 'media-inline-card-loading-view',
 		} = this.props;
+
 		if (inlinePreloaderStyle === 'on-right-without-skeleton') {
 			return (
 				<Frame testId={testId} onClick={onClick} isSelected={isSelected}>

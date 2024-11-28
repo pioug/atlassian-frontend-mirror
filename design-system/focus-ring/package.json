@@ -33,12 +33,10 @@
 	],
 	"atlaskit:src": "src/index.tsx",
 	"af:exports": {
-		".": "./src/index.tsx",
-		"./compiled": "./src/compiled/index.tsx"
+		".": "./src/index.tsx"
 	},
 	"exports": {
-		".": "./src/index.tsx",
-		"./compiled": "./src/compiled/index.tsx"
+		".": "./src/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/tokens": "^2.3.0",

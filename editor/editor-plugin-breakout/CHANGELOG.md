@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-breakout
 
+## 1.9.5
+
+### Patch Changes
+
+- [#169284](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169284)
+  [`6e121d2945aae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e121d2945aae) -
+  ED-25760 draop hints are not triggered for unchanged layout
+
 ## 1.9.4
 
 ### Patch Changes

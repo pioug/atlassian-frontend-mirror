@@ -65,6 +65,7 @@ export interface CreateItemsConfig {
 	numberOfButtons: number;
 	formatMessage: WrappedComponentProps['intl']['formatMessage'];
 	isNewMenuEnabled?: boolean;
+	isEditorOffline?: boolean;
 }
 
 export interface BlockMenuItem extends MenuItem {
@@ -118,9 +119,12 @@ const createInsertBlockItems = (
 		numberOfButtons,
 		schema,
 		formatMessage,
+		isEditorOffline,
 	} = config;
 
 	const items: MenuItem[] = [];
+
+	const isOffline = isEditorOffline === true;
 
 	if (actionSupported) {
 		items.push(
@@ -148,7 +152,7 @@ const createInsertBlockItems = (
 			media({
 				content: formatMessage(messages.addMediaFiles),
 				tooltipDescription: formatMessage(messages.mediaFilesDescription),
-				disabled: false,
+				disabled: isOffline,
 			}),
 		);
 	}
@@ -157,7 +161,7 @@ const createInsertBlockItems = (
 		items.push(
 			imageUpload({
 				content: formatMessage(messages.image),
-				disabled: !imageUploadEnabled,
+				disabled: !imageUploadEnabled || isOffline,
 			}),
 		);
 	}
@@ -167,7 +171,7 @@ const createInsertBlockItems = (
 			mention({
 				content: formatMessage(messages.mention),
 				tooltipDescription: formatMessage(messages.mentionDescription),
-				disabled: !isTypeAheadAllowed || !!mentionsDisabled,
+				disabled: !isTypeAheadAllowed || !!mentionsDisabled || isOffline,
 				'aria-haspopup': 'listbox',
 			}),
 		);
@@ -178,7 +182,7 @@ const createInsertBlockItems = (
 			emoji({
 				content: formatMessage(messages.emoji),
 				tooltipDescription: formatMessage(messages.emojiDescription),
-				disabled: emojiDisabled || !isTypeAheadAllowed,
+				disabled: emojiDisabled || !isTypeAheadAllowed || isOffline,
 				'aria-haspopup': 'dialog',
 			}),
 		);

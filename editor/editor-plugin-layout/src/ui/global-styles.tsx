@@ -2,23 +2,38 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, Global, jsx } from '@emotion/react';
+import { useMemo } from 'react';
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-global-styles, @atlaskit/ui-styling-standard/use-compiled
+import { css, Global, jsx } from '@emotion/react';
+import { useIntl } from 'react-intl-next';
+
+import { layoutMessages as messages } from '@atlaskit/editor-common/messages';
 import { token } from '@atlaskit/tokens';
 
-const globalStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	'.ProseMirror [data-layout-column] span.pm-placeholder__text[data-placeholder]': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		'&::after': {
-			color: token('color.text.disabled', '#A5ADBA'),
-			font: token('font.body'),
-			fontStyle: 'italic',
-		},
-	},
-});
+const getPlaceholderStyle = (message: string) =>
+	css({
+		// when paragraph is the only child, and it only has a trailingBreak.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'.ProseMirror [data-layout-column] > [data-layout-content] > p:only-child:has(.ProseMirror-trailingBreak:only-child)':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+				'&::before': {
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+					content: `"${message}"`,
+					position: 'absolute',
+					color: token('color.text.disabled', '#A5ADBA'),
+					font: token('font.body'),
+					marginTop: token('space.050', '4px'),
+				},
+			},
+	});
 
 export const GlobalStylesWrapper = () => {
-	return <Global styles={globalStyles} />;
+	const { formatMessage } = useIntl();
+	const placeholderStyle = useMemo(() => {
+		return getPlaceholderStyle(formatMessage(messages.layoutPlaceholder));
+	}, [formatMessage]);
+
+	return <Global styles={placeholderStyle} />;
 };

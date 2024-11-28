@@ -11,6 +11,7 @@ import ensureFeatureFlagPrefix from './rules/ensure-feature-flag-prefix';
 import ensureCriticalDependencyResolutions from './rules/ensure-critical-dependency-resolutions';
 import ensureValidPlatformYarnProtocolUsage from './rules/ensure-valid-platform-yarn-protocol-usage';
 import ensureValidBinValues from './rules/ensure-valid-bin-values';
+import expandBorderShorthand from './rules/compiled/expand-border-shorthand';
 import noInvalidStorybookDecoratorUsage from './rules/no-invalid-storybook-decorator-usage';
 import ensurePublishValid from './rules/ensure-publish-valid';
 import ensureNativeAndAfExportsSynced from './rules/ensure-native-and-af-exports-synced';
@@ -33,6 +34,7 @@ export const rules = {
 	'ensure-critical-dependency-resolutions': ensureCriticalDependencyResolutions,
 	'ensure-valid-platform-yarn-protocol-usage': ensureValidPlatformYarnProtocolUsage,
 	'ensure-valid-bin-values': ensureValidBinValues,
+	'expand-border-shorthand': expandBorderShorthand,
 	'no-duplicate-dependencies': noDuplicateDependencies,
 	'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
 	'no-pre-post-install-scripts': noPreAndPostInstallScripts,
@@ -58,6 +60,7 @@ const commonConfig = {
 	'@atlaskit/platform/ensure-atlassian-team': 'error',
 	'@atlaskit/platform/no-module-level-eval-nav4': 'error',
 	// Compiled: rules that are not included via `@compiled/recommended
+	'@atlaskit/platform/expand-border-shorthand': 'warn',
 	'@compiled/jsx-pragma': [
 		'error',
 		{

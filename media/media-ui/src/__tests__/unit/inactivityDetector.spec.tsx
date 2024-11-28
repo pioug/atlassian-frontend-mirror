@@ -2,7 +2,6 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { InactivityDetector, type WithShowControlMethodProp } from '../..';
 import { asMock } from '@atlaskit/media-common/test-helpers';
-import { InactivityDetectorWrapper } from '../../inactivityDetector/styled';
 
 class DummyChild extends React.Component<WithShowControlMethodProp> {
 	render() {
@@ -61,7 +60,7 @@ describe('InactivityDetector', () => {
 		const { component } = setup();
 
 		expect(component.state('controlsAreVisible')).toBeTruthy();
-		component.find(InactivityDetectorWrapper).simulate('mouseMove');
+		component.find({ 'data-testid': 'inactivity-detector-wrapper' }).simulate('mouseMove');
 		jest.runOnlyPendingTimers();
 		expect(component.state('controlsAreVisible')).toBeFalsy();
 	});
@@ -70,7 +69,7 @@ describe('InactivityDetector', () => {
 		const { component } = setup();
 
 		expect(component.state('controlsAreVisible')).toBeTruthy();
-		component.find(InactivityDetectorWrapper).simulate('mouseOut');
+		component.find({ 'data-testid': 'inactivity-detector-wrapper' }).simulate('mouseOut');
 		jest.runOnlyPendingTimers();
 		expect(component.state('controlsAreVisible')).toBeFalsy();
 	});
@@ -80,7 +79,7 @@ describe('InactivityDetector', () => {
 		const elementWithControls = document.createElement('div');
 
 		elementWithControls.classList.add('mvng-hide-controls');
-		component.find(InactivityDetectorWrapper).simulate('mouseMove', {
+		component.find({ 'data-testid': 'inactivity-detector-wrapper' }).simulate('mouseMove', {
 			target: elementWithControls,
 		});
 		jest.runOnlyPendingTimers();
@@ -90,7 +89,9 @@ describe('InactivityDetector', () => {
 	it('should start with controls visible', () => {
 		const { component } = setup();
 
-		expect(component.find(InactivityDetectorWrapper).prop('controlsAreVisible')).toBeTruthy();
+		expect(
+			component.find({ 'data-testid': 'inactivity-detector-wrapper' }).prop('controlsAreVisible'),
+		).toBeTruthy();
 	});
 
 	it('should clear the timeout when component gets unmounted', () => {

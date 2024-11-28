@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.27
+
+### Patch Changes
+
+- [#169284](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169284)
+  [`6e121d2945aae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e121d2945aae) -
+  ED-25760 draop hints are not triggered for unchanged layout
+
 ## 2.13.26
 
 ### Patch Changes

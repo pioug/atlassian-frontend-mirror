@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 3.2.10
+
+### Patch Changes
+
+- [#169050](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169050)
+  [`5c9efb7242669`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c9efb7242669) -
+  [ux] Adds link button to the Selection toolbar.
+
+## 3.2.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.8
 
 ### Patch Changes

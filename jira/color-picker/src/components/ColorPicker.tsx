@@ -5,7 +5,7 @@
 import React from 'react';
 import { PopupSelect, type PopupSelectProps, type ValueType } from '@atlaskit/select';
 import Trigger from './Trigger';
-import { type Color, type Palette, type SwatchSize } from '../types';
+import { type Color, type Palette, type SwatchSize, type ColorCardVariant } from '../types';
 import * as components from './components';
 import { KEY_ARROW_DOWN, KEY_ARROW_UP, KEY_TAB, KEY_ESCAPE } from '../constants';
 import {
@@ -48,6 +48,8 @@ export interface Props {
 	isDisabledSelectedSwatch?: boolean;
 	/** onMenuOpen handler */
 	onMenuOpen?: () => void;
+	/** Display filled or outline variant of the color */
+	variant?: ColorCardVariant;
 }
 
 const defaultPopperProps: Partial<PopupSelectProps['popperProps']> = {
@@ -125,6 +127,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 			showDefaultSwatchColor = true,
 			isDisabledSelectedSwatch,
 			intl,
+			variant = 'fill',
 		} = this.props;
 		const { options, value } = getOptions(palette, selectedColor, showDefaultSwatchColor);
 		const fullLabel = this.getFullLabel(intl, value, label);
@@ -140,6 +143,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 							swatchSize={selectedColourSwatchSize}
 							isDisabled={isDisabledSelectedSwatch}
 							id={triggerId}
+							variant={variant}
 						/>
 					</div>
 				)}
@@ -157,6 +161,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 				//@ts-ignore react-select unsupported props
 				cols={cols}
 				checkMarkColor={checkMarkColor}
+				variant={variant}
 				onKeyDown={this.onKeyDown}
 				isTabbing={this.state.isTabbing}
 				onOptionKeyDown={this.onOptionKeyDown}

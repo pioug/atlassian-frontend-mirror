@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "31.0.2",
+	"version": "32.0.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -53,7 +53,7 @@
 		"@atlaskit/outbound-auth-flow-client": "^3.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popup": "^1.29.0",
-		"@atlaskit/primitives": "^13.2.0",
+		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/section-message": "^6.7.0",
 		"@atlaskit/select": "^18.6.0",
 		"@atlaskit/spinner": "^16.3.0",
@@ -152,7 +152,6 @@
 	},
 	"af:exports": {
 		"./ssr": "./src/ssr.tsx",
-		"./client": "./src/client/index.ts",
 		"./types": "./src/types.ts",
 		"./hooks": "./src/hooks.ts",
 		"./hover-card": "./src/hoverCard.ts",
@@ -161,7 +160,6 @@
 	},
 	"exports": {
 		"./ssr": "./src/ssr.tsx",
-		"./client": "./src/client/index.ts",
 		"./types": "./src/types.ts",
 		"./hooks": "./src/hooks.ts",
 		"./hover-card": "./src/hoverCard.ts",
@@ -185,7 +183,7 @@
 		"smart_links_for_plans_platform": {
 			"type": "boolean"
 		},
-		"platform_smart-card-migrate-screen-analytics": {
+		"smart-card-use-refactored-usesmartlinkactions": {
 			"type": "boolean"
 		}
 	}

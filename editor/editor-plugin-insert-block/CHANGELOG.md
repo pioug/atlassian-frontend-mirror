@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.16
+
+### Patch Changes
+
+- [#169233](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169233)
+  [`2ca37f881a673`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ca37f881a673) -
+  [ux] Disable media, emoji, and mention toolbar items while the editor is offline.
+
 ## 2.4.15
 
 ### Patch Changes

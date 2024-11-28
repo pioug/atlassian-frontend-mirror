@@ -5,7 +5,7 @@
 import React, { useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 import { FormattedMessage } from 'react-intl-next';
@@ -33,6 +33,12 @@ const avatarWrapperStyles = xcss({
 
 const widthObserverWrapperStyles = xcss({
 	position: 'relative',
+});
+
+const labelWrapperStyles = css({
+	textOverflow: 'ellipsis',
+	whiteSpace: 'nowrap',
+	overflow: 'hidden',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -87,9 +93,11 @@ const UserType = ({ users }: { users: UserProps[] }) => {
 						testId={`${testId}--avatar`}
 					/>
 				</Box>
-				{children || displayName || (
-					<FormattedMessage {...userTypeMessages.userDefaultdisplayNameValue} />
-				)}
+				<span css={labelWrapperStyles}>
+					{children || displayName || (
+						<FormattedMessage {...userTypeMessages.userDefaultdisplayNameValue} />
+					)}
+				</span>
 			</Box>
 		);
 	} else {

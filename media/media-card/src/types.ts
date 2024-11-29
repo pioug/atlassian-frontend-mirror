@@ -130,6 +130,8 @@ export interface SharedCardProps {
 	readonly titleBoxIcon?: TitleBoxIcon;
 	// Sets viewer options
 	readonly viewerOptions?: ViewerOptionsProps;
+	/** Sets options for viewer **/
+	readonly includeHashForDuplicateFiles?: boolean;
 }
 
 export interface CardOnClickCallback {

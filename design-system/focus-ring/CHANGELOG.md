@@ -1,5 +1,13 @@
 # @atlaskit/focus-ring
 
+## 2.0.0
+
+### Major Changes
+
+- [#170214](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170214)
+  [`ed07db7789d4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed07db7789d4e) -
+  Remove Compiled variant.
+
 ## 1.7.0
 
 ### Minor Changes

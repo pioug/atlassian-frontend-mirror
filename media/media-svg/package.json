@@ -40,8 +40,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/css": "^0.6.0",
-		"@atlaskit/media-client": "^28.3.0",
-		"@atlaskit/media-client-react": "^2.3.0",
+		"@atlaskit/media-client": "^28.4.0",
+		"@atlaskit/media-client-react": "^2.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@babel/runtime": "^7.0.0",
@@ -55,8 +55,8 @@
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/form": "^10.5.0",
-		"@atlaskit/media-state": "^1.1.0",
+		"@atlaskit/form": "^10.6.0",
+		"@atlaskit/media-state": "^1.2.0",
 		"@atlaskit/media-test-data": "^2.7.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/range": "^7.4.0",

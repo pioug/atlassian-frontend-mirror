@@ -10,7 +10,6 @@ import {
 	setAnalyticsContext,
 } from '../utils/mediaPerformanceObserver/mediaPerformanceObserver';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 import UFOLabel from '@atlaskit/react-ufo/label';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
@@ -35,15 +34,11 @@ export const CardWithPerformanceObserver = (props: CardBaseProps & WrappedCompon
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	useEffect(() => {
-		if (fg('platform.media-card-performance-observer_a803k')) {
-			startResourceObserver();
-		}
+		startResourceObserver();
 	}, []);
 
 	useEffect(() => {
-		if (fg('platform.media-card-performance-observer_a803k')) {
-			setAnalyticsContext(createAnalyticsEvent);
-		}
+		setAnalyticsContext(createAnalyticsEvent);
 	}, [createAnalyticsEvent]);
 
 	return <CardBase {...props} />;

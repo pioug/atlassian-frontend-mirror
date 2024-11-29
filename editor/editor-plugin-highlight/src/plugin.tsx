@@ -13,6 +13,7 @@ import type {
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { TextFormattingPlugin } from '@atlaskit/editor-plugin-text-formatting';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changeColor } from './commands';
 import { keymapPlugin } from './pm-plugins/keymap';
@@ -104,7 +105,10 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 
 		pluginsOptions: {
 			selectionToolbar() {
-				if (!options?.textHighlightingFloatingToolbarExperiment) {
+				if (
+					!options?.textHighlightingFloatingToolbarExperiment &&
+					editorExperiment('contextual_formatting_toolbar', false, { exposure: true })
+				) {
 					return;
 				}
 

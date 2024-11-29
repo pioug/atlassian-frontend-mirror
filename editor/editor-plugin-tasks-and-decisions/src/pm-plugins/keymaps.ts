@@ -53,7 +53,10 @@ import {
 	walkOut,
 } from './helpers';
 
-type IndentationInputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
+type IndentationInputMethod =
+	| INPUT_METHOD.KEYBOARD
+	| INPUT_METHOD.TOOLBAR
+	| INPUT_METHOD.FLOATING_TB;
 const indentationAnalytics = (
 	curIndentLevel: number,
 	direction: INDENT_DIRECTION,

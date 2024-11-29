@@ -38,6 +38,7 @@ type BaseFileState = {
 	id: string;
 	occurrenceKey?: string;
 	metadataTraceContext?: MediaTraceContext;
+	hash?: string;
 };
 
 type NonErrorBaseFileState = {

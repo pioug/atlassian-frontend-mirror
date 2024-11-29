@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/app-provider",
-	"version": "1.4.2",
+	"version": "1.4.3",
 	"description": "A top level provider for the Design System.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -42,7 +42,7 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^2.3.0",
+		"@atlaskit/tokens": "^2.4.0",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0"
 	},
@@ -51,7 +51,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/ds-lib": "^3.2.0",
+		"@atlaskit/ds-lib": "^3.3.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
@@ -59,7 +59,6 @@
 		"@testing-library/user-event": "^14.4.3",
 		"react-dom": "^16.8.0",
 		"react-resource-router": "^0.20.0",
-		"react-router-dom": "^4.2.2",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

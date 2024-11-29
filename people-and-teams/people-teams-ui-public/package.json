@@ -39,10 +39,10 @@
 		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.26.0",
+		"@atlaskit/icon": "^22.27.0",
 		"@atlaskit/legacy-custom-icons": "^0.20.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/tokens": "^2.3.0",
+		"@atlaskit/tokens": "^2.4.0",
 		"@atlaskit/tooltip": "^18.9.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1",

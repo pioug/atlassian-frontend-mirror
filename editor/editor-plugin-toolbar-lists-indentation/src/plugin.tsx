@@ -3,8 +3,10 @@ import React from 'react';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
 import type {
+	Command,
 	ExtractInjectionAPI,
 	FeatureFlags,
+	FloatingToolbarCustom,
 	NextEditorPlugin,
 	OptionalPlugin,
 	ToolbarUIComponentFactory,
@@ -16,9 +18,12 @@ import type { IndentationPlugin } from '@atlaskit/editor-plugin-indentation';
 import type { ListPlugin } from '@atlaskit/editor-plugin-list';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugin-tasks-and-decisions';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getIndentationButtonsState } from './pm-plugins/indentation-buttons';
+import { ToolbarType } from './types';
 import ToolbarListsIndentation from './ui';
+import { FloatingToolbarComponent } from './ui/FloatingToolbarComponent';
 
 type Config = {
 	showIndentationButtons: boolean;
@@ -78,6 +83,40 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 
 	return {
 		name: 'toolbarListsIndentation',
+
+		pluginsOptions: {
+			selectionToolbar() {
+				if (editorExperiment('contextual_formatting_toolbar', true, { exposure: true })) {
+					const toolbarCustom: FloatingToolbarCustom<Command> = {
+						type: 'custom',
+						render: (view) => {
+							if (!view) {
+								return;
+							}
+
+							return (
+								<FloatingToolbarComponent
+									editorView={view}
+									featureFlags={featureFlags}
+									pluginInjectionApi={api}
+									showIndentationButtons={showIndentationButtons}
+									allowHeadingAndParagraphIndentation={allowHeadingAndParagraphIndentation}
+								/>
+							);
+						},
+						fallback: [],
+					};
+
+					return {
+						rank: -9,
+						isToolbarAbove: true,
+						items: [toolbarCustom],
+					};
+				} else {
+					return undefined;
+				}
+			},
+		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
@@ -147,6 +186,7 @@ export function PrimaryToolbarComponent({
 			outdentDisabled={toolbarListsIndentationState!.outdentDisabled}
 			indentationStateNode={toolbarListsIndentationState?.node}
 			pluginInjectionApi={pluginInjectionApi}
+			toolbarType={ToolbarType.PRIMARY}
 		/>
 	);
 }

@@ -1,5 +1,17 @@
 # @atlaskit/icon
 
+## 22.27.0
+
+### Minor Changes
+
+- [#168743](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168743)
+  [`b27dba8a5f3cd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b27dba8a5f3cd) -
+  Update types to improve compatibility with React 18.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 22.26.0
 
 ### Minor Changes

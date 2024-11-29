@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::d647e618ad00afc6f87c6d5c1d31c0ee>>
+ * @codegen <<SignedSource::7e45ac93d412d213cbcc8ae4cccdc206>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -375,7 +375,10 @@ export type FontWeight =
 	| 'var(--ds-font-weight-regular)'
 	| 'var(--ds-font-weight-medium)'
 	| 'var(--ds-font-weight-semibold)'
-	| 'var(--ds-font-weight-bold)';
+	| 'var(--ds-font-weight-bold)'
+	| 'inherit'
+	| 'initial'
+	| 'unset';
 export type FontFamily =
 	| 'var(--ds-font-family-heading)'
 	| 'var(--ds-font-family-body)'

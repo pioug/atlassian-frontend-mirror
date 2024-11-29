@@ -45,7 +45,7 @@ import { outdentList } from './outdent-list';
 
 export { outdentList, indentList };
 
-export type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
+export type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
 
 export const enterKeyCommand =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>

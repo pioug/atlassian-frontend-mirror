@@ -1,5 +1,14 @@
 # @atlaskit/ds-lib
 
+## 3.3.0
+
+### Minor Changes
+
+- [#168743](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168743)
+  [`f7e6b20c99795`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7e6b20c99795) -
+  Update IdProvider to improve compatibility with React 18: wrapped the returned children in a
+  Fragment to ensure a single root element is always returned.
+
 ## 3.2.2
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # @atlaskit/media-client
 
+## 28.4.0
+
+### Minor Changes
+
+- [#170821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170821)
+  [`52532d238c0b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52532d238c0b6) -
+  Enabled the deduplication of files in media-filmstrip by passing includeHashForDuplicateFiles flag
+  to /items
+
+## 28.3.1
+
+### Patch Changes
+
+- [#165609](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165609)
+  [`b29c0cc4fef46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b29c0cc4fef46) -
+  Cleaned up media card perf observer feature flag
+
 ## 28.3.0
 
 ### Minor Changes

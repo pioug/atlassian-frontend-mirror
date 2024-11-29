@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 3.13.8
+
+### Patch Changes
+
+- [#170440](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170440)
+  [`9ad9b0b68bcea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ad9b0b68bcea) -
+  Fix persisting values of inline select components in link-datasource
+
 ## 3.13.7
 
 ### Patch Changes

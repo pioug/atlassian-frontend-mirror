@@ -1,5 +1,17 @@
 # @atlaskit/forge-react-types
 
+## 0.32.0
+
+### Minor Changes
+
+- [#169638](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169638)
+  [`1aeeddb9199eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1aeeddb9199eb) -
+  Add grow prop to Inline, expose additional style properties to Box
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.31.2
 
 ### Patch Changes

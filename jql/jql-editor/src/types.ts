@@ -8,7 +8,13 @@ export type {
 	HydratedUser,
 } from './ui/types';
 
-export type { ExternalMessage, ExternalError, ExternalWarning, ExternalInfo } from './state/types';
+export type {
+	ExternalMessage,
+	ExternalError,
+	ExternalWarning,
+	ExternalInfo,
+	CustomComponents,
+} from './state/types';
 
 export type {
 	AutocompleteProvider,

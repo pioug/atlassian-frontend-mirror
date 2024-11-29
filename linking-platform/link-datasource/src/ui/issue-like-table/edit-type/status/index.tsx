@@ -60,7 +60,7 @@ const StatusEditType = (props: StatusEditTypeProps) => {
 				filterOption={filterOption}
 				testId="inline-edit-status"
 				getOptionValue={(option) => option.text}
-				defaultValue={currentValue?.values?.[0]}
+				value={currentValue?.values?.[0]}
 				formatOptionLabel={(option) => (
 					<Lozenge testId={`inline-edit-status-option-${option.text}`} {...option.style}>
 						{option.text}

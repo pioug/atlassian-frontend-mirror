@@ -1,5 +1,21 @@
 # @atlaskit/media-filmstrip
 
+## 48.1.0
+
+### Minor Changes
+
+- [#170821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170821)
+  [`52532d238c0b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52532d238c0b6) -
+  Enabled the deduplication of files in media-filmstrip by passing includeHashForDuplicateFiles flag
+  to /items
+- [#170821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170821)
+  [`5b183e77826a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b183e77826a3) -
+  Added isLazy flag to disable lazy loading (helps in easier testing)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 48.0.0
 
 ### Major Changes

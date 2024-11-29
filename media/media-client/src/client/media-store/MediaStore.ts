@@ -24,6 +24,7 @@ import type {
 	AppendChunksToUploadRequestBody,
 	TouchedFiles,
 	MediaApi,
+	CopyFileParams,
 } from './types';
 import { FILE_CACHE_MAX_AGE, MAX_RESOLUTION } from '../../constants';
 import { getArtifactUrl } from '../../models/artifacts';
@@ -387,7 +388,7 @@ export class MediaStore implements MediaApi {
 			params: extendImageParams(params, fetchMaxRes),
 			headers,
 			traceContext,
-			addMediaClientParam: fg('platform.media-card-performance-observer_a803k') && true,
+			addMediaClientParam: true,
 		};
 
 		return this.request(`/file/${id}/${imageEndpoint}`, options, controller, true).then(
@@ -399,6 +400,7 @@ export class MediaStore implements MediaApi {
 		ids: string[],
 		collectionName?: string,
 		traceContext?: MediaTraceContext,
+		includeHashForDuplicateFiles?: boolean,
 	): Promise<MediaStoreResponse<ItemsPayload>> {
 		const descriptors = ids.map((id) => ({
 			type: 'file',
@@ -415,7 +417,7 @@ export class MediaStore implements MediaApi {
 			...metadata,
 			authContext: { collectionName },
 			headers: jsonHeaders,
-			body: JSON.stringify({ descriptors }),
+			body: JSON.stringify({ descriptors, includeHashForDuplicateFiles }),
 			traceContext,
 		};
 
@@ -486,6 +488,54 @@ export class MediaStore implements MediaApi {
 		};
 
 		return this.request('/file/copy/withToken', options).then(createMapResponseToJson(metadata));
+	}
+
+	copyFile(
+		id: string,
+		params: CopyFileParams,
+		traceContext?: MediaTraceContext,
+	): Promise<MediaStoreResponse<MediaFile>> {
+		const metadata: RequestMetadata = {
+			method: 'POST',
+			endpoint: '/v2/file/copy',
+		};
+
+		const options: MediaStoreRequestOptions = {
+			...metadata,
+			authContext: { collectionName: params.collection },
+			params,
+			headers: jsonHeaders,
+			body: JSON.stringify({ id }),
+			traceContext,
+		};
+
+		return this.request('/v2/file/copy', options).then(createMapResponseToJson(metadata));
+	}
+
+	async registerCopyIntents(
+		ids: string[],
+		collectionName?: string,
+		traceContext?: MediaTraceContext,
+	): Promise<void> {
+		const files = ids.map((id) => ({
+			id,
+			collection: collectionName,
+		}));
+
+		const metadata: RequestMetadata = {
+			method: 'POST',
+			endpoint: '/file/copy/intents',
+		};
+
+		const options: MediaStoreRequestOptions = {
+			...metadata,
+			authContext: { collectionName },
+			headers: jsonHeaders,
+			body: JSON.stringify({ files }),
+			traceContext,
+		};
+
+		await this.request('/file/copy/intents', options);
 	}
 
 	async request(

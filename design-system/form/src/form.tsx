@@ -66,29 +66,23 @@ interface FormChildrenProps {
 	onKeyDown: (event: React.KeyboardEvent<HTMLElement>) => void;
 }
 
+type FormChildrenArgs<FormValues> = {
+	formProps: FormChildrenProps;
+	disabled: boolean;
+	dirty: boolean;
+	submitting: boolean;
+	getState: () => FormState<FormValues>;
+	getValues: () => FormValues;
+	setFieldValue: (name: string, value: any) => void;
+	reset: (initialValues?: FormValues) => void;
+};
+
 export interface FormProps<FormValues> {
 	/**
 	 *  The contents rendered inside of the form. This is a function where the props will be passed from the form. The function props you can access are `dirty`, `submitting` and `disabled`.
 	 *  You can read more about these props in [react-final form documentation](https://final-form.org/docs/final-form/types/FormState).
 	 */
-	children: (args: {
-		formProps: FormChildrenProps;
-		// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-		disabled: boolean;
-		// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-		dirty: boolean;
-		// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-		submitting: boolean;
-		getState: () => FormState<FormValues>;
-
-		/**
-		 * @deprecated
-		 */
-		getValues: () => FormValues;
-
-		setFieldValue: (name: string, value: any) => void;
-		reset: (initialValues?: FormValues) => void;
-	}) => ReactNode;
+	children: ((args: FormChildrenArgs<FormValues>) => ReactNode) | (() => void) | ReactNode;
 	/**
 	 *   Event handler called when the form is submitted. Fields must be free of validation errors.
 	 */
@@ -145,7 +139,7 @@ export default function Form<FormValues extends Record<string, any> = {}>(
 
 	useEffect(() => {
 		const unsubscribe = form.subscribe(
-			({ dirty, submitting }) => {
+			({ dirty, submitting }: { dirty: boolean; submitting: boolean }) => {
 				setState({ dirty, submitting });
 			},
 			{
@@ -215,24 +209,33 @@ export default function Form<FormValues extends Record<string, any> = {}>(
 		return { registerField, getCurrentValue, subscribe: form.subscribe };
 	}, [registerField, getCurrentValue, form.subscribe]);
 
+	const childrenContent = (() => {
+		if (typeof children === 'function') {
+			const result =
+				children.length > 0
+					? (children as (args: FormChildrenArgs<FormValues>) => ReactNode)({
+							formProps: {
+								onSubmit: handleSubmit,
+								ref: formRef,
+								onKeyDown: handleKeyDown,
+							},
+							dirty,
+							reset: handleReset,
+							submitting,
+							disabled: isDisabled,
+							getState: () => form.getState(),
+							getValues: () => form.getState().values,
+							setFieldValue: form.change,
+						})
+					: (children as () => ReactNode | void)();
+			return result === undefined ? null : result;
+		}
+		return children;
+	})();
+
 	return (
 		<FormContext.Provider value={FormContextValue}>
-			<IsDisabledContext.Provider value={isDisabled}>
-				{children({
-					formProps: {
-						onSubmit: handleSubmit,
-						ref: formRef,
-						onKeyDown: handleKeyDown,
-					},
-					dirty,
-					reset: handleReset,
-					submitting,
-					disabled: isDisabled,
-					getState: () => form.getState(),
-					getValues: () => form.getState().values, // TODO: deprecate
-					setFieldValue: form.change,
-				})}
-			</IsDisabledContext.Provider>
+			<IsDisabledContext.Provider value={isDisabled}>{childrenContent}</IsDisabledContext.Provider>
 		</FormContext.Provider>
 	);
 }

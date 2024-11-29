@@ -90,7 +90,7 @@ const UserEditType = (props: UserEditTypeProps) => {
 				filterOption={filterOption}
 				menuPlacement="auto"
 				onInputChange={handleUserInputDebounced}
-				defaultValue={currentValue?.values?.[0]}
+				value={currentValue?.values?.[0]}
 				getOptionValue={(option) => option.atlassianUserId!}
 				formatOptionLabel={(option) => (
 					<Tooltip content={option.displayName}>

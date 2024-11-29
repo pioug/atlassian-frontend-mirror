@@ -1,5 +1,21 @@
 # @atlaskit/tokens
 
+## 2.4.0
+
+### Minor Changes
+
+- [#169533](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169533)
+  [`7cee6c17dfdaf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7cee6c17dfdaf) -
+  Expands type coverage for the `fontWeight` property to include vendor defaults such as 'inherit'
+  'initial' 'unset'.
+
+  This change does not impact the `@atlaskit/tokens` API directly, but it does expand type coverage
+  of css properties/tokens used via `@atlaskit/css`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.0
 
 ### Minor Changes

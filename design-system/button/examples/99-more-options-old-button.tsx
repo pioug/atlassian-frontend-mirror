@@ -152,7 +152,7 @@ const BuildStory = (props: ButtonProps) => {
 			<div css={styles.sample}>
 				<span>
 					text
-					<Button appearance={appearance} iconBefore={<Question label="">Question</Question>}>
+					<Button appearance={appearance} iconBefore={<Question label="" />}>
 						Info
 					</Button>
 					text

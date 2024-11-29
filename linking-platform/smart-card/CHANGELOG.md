@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 32.1.0
+
+### Minor Changes
+
+- [#170211](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170211)
+  [`c2506e15d813c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c2506e15d813c) -
+  Smart card to always show lozenge if `atlassian:state` exists, regardless of json ld type
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.0.0
 
 ### Major Changes

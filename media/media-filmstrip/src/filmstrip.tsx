@@ -1,38 +1,10 @@
 import React from 'react';
 import { Component } from 'react';
-import {
-	Card,
-	type CardAction,
-	type CardOnClickCallback,
-	type CardEvent,
-	defaultImageCardDimensions,
-	CardLoading,
-} from '@atlaskit/media-card';
-import { type Identifier } from '@atlaskit/media-client';
-import { type MediaClientConfig } from '@atlaskit/media-core';
-import { type MediaFeatureFlags } from '@atlaskit/media-common';
+import { Card, defaultImageCardDimensions, CardLoading } from '@atlaskit/media-card';
 import { FilmstripView } from './filmstripView';
 import { generateIdentifierKey } from './utils/generateIdentifierKey';
-import { type ViewerOptionsProps } from '@atlaskit/media-viewer';
-
-export interface FilmstripItem {
-	readonly identifier: Identifier;
-	readonly actions?: Array<CardAction>;
-	readonly selectable?: boolean;
-	readonly selected?: boolean;
-	readonly onClick?: CardOnClickCallback;
-	readonly onMouseEnter?: (result: CardEvent) => void;
-	readonly shouldEnableDownloadButton?: boolean;
-}
-
-export type FilmstripProps = {
-	items: FilmstripItem[];
-	shouldOpenMediaViewer?: boolean;
-	mediaClientConfig?: MediaClientConfig;
-	testId?: string;
-	featureFlags?: MediaFeatureFlags;
-	viewerOptions?: ViewerOptionsProps;
-};
+import { type FilmstripProps } from './types';
+import { DeduplicatedFilmStrip } from './deduplicatedFilmstrip';
 
 export interface FilmstripState {
 	animate: boolean;
@@ -50,7 +22,7 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
 		this.setState({ animate, offset });
 
 	private renderCards() {
-		const { items, mediaClientConfig, shouldOpenMediaViewer, featureFlags, viewerOptions } =
+		const { items, mediaClientConfig, shouldOpenMediaViewer, featureFlags, viewerOptions, isLazy } =
 			this.props;
 
 		return items.map((item) => {
@@ -80,6 +52,7 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
 					mediaViewerItems={mediaViewerItems}
 					featureFlags={featureFlags}
 					viewerOptions={viewerOptions}
+					isLazy={isLazy}
 					{...item}
 				/>
 			);
@@ -87,7 +60,11 @@ export class Filmstrip extends Component<FilmstripProps, FilmstripState> {
 	}
 
 	render() {
-		const { testId = 'media-filmstrip' } = this.props;
+		const { testId = 'media-filmstrip', includeHashForDuplicateFiles } = this.props;
+		if (includeHashForDuplicateFiles) {
+			return <DeduplicatedFilmStrip {...this.props} />;
+		}
+
 		const { animate, offset } = this.state;
 
 		return (

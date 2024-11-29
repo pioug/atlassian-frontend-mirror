@@ -110,6 +110,34 @@ export interface OtherGlyphProps {
 	isFacadeDisabled?: boolean;
 }
 
+/**
+ * Props for legacy icons –– including the children prop to resolve R18 type errors
+ */
+export interface LegacyOtherGlyphProps {
+	/**
+	 * Text used to describe what the icon is in context.
+	 */
+	label: string;
+
+	/**
+	 * A `testId` prop is provided for specified elements,
+	 */
+	testId?: string;
+
+	/**
+	 * Used to opt out of the icon facade.
+	 */
+	isFacadeDisabled?: boolean;
+
+	/**
+	 * The content to be rendered inside the glyph component.
+	 * Only for legacy icons that used R16's implicit children prop.
+	 * It doesn't actually serve any purpose, but is required to resolve R18 type errors
+	 * without updating all the legacy icon usages.
+	 */
+	children?: ReactNode;
+}
+
 interface IconInternalGlyphProps {
 	/**
 	 * @deprecated
@@ -120,7 +148,7 @@ interface IconInternalGlyphProps {
 	dangerouslySetGlyph?: string;
 }
 
-export interface GlyphProps extends OtherGlyphProps, GlyphSizeProps, GlyphColorProps {}
+export interface GlyphProps extends LegacyOtherGlyphProps, GlyphSizeProps, GlyphColorProps {}
 
 export interface NewCoreGlyphProps
 	extends OtherGlyphProps,

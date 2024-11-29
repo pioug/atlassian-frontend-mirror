@@ -34,7 +34,7 @@ jest.mock('popper.js', () => {
 describe('inline-dialog', () => {
 	it('should render the children of an inline dialog as the target', () => {
 		render(
-			<InlineDialog content={() => null}>
+			<InlineDialog content={null}>
 				<div data-testid="child-content">Click me!</div>
 			</InlineDialog>,
 		);
@@ -143,7 +143,7 @@ describe('inline-dialog', () => {
 
 			it('should add event listener onOpen', () => {
 				render(
-					<InlineDialog content={() => null} isOpen testId="inline-dialog">
+					<InlineDialog content={null} isOpen testId="inline-dialog">
 						<div id="children" />
 					</InlineDialog>,
 				);
@@ -163,7 +163,7 @@ describe('inline-dialog', () => {
 				jest.useFakeTimers(); // mock timers
 
 				const { rerender } = render(
-					<InlineDialog content={() => null} isOpen testId="inline-dialog">
+					<InlineDialog content={null} isOpen testId="inline-dialog">
 						<div id="children" />
 					</InlineDialog>,
 				);
@@ -177,7 +177,7 @@ describe('inline-dialog', () => {
 				expect(addSpy.mock.calls.filter(([event]) => event === 'keydown')).toHaveLength(1);
 
 				rerender(
-					<InlineDialog content={() => null} testId="inline-dialog">
+					<InlineDialog content={null} testId="inline-dialog">
 						<div id="children" />
 					</InlineDialog>,
 				);
@@ -195,7 +195,7 @@ describe('inline-dialog', () => {
 			jest.useFakeTimers(); // mock timers
 
 			render(
-				<InlineDialog content={() => null} onClose={callback} isOpen>
+				<InlineDialog content={null} onClose={callback} isOpen>
 					<div id="children" />
 				</InlineDialog>,
 			);
@@ -214,7 +214,7 @@ describe('inline-dialog', () => {
 			jest.useFakeTimers(); // mock timers
 
 			render(
-				<InlineDialog content={() => null} onClose={callback} isOpen>
+				<InlineDialog content={null} onClose={callback} isOpen>
 					<div id="children" />
 				</InlineDialog>,
 			);
@@ -233,7 +233,7 @@ describe('inline-dialog', () => {
 			jest.useFakeTimers(); // mock timers
 
 			render(
-				<InlineDialog content={() => null} onClose={callback} isOpen>
+				<InlineDialog content={null} onClose={callback} isOpen>
 					<button type="button" id="children">
 						Test
 					</button>
@@ -259,7 +259,7 @@ describe('inline-dialog', () => {
 		it('should NOT invoke onClose callback when isOpen is false', () => {
 			const callback = jest.fn();
 			render(
-				<InlineDialog content={() => null} onClose={callback}>
+				<InlineDialog content={null} onClose={callback}>
 					<div id="children" />
 				</InlineDialog>,
 			);

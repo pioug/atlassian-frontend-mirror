@@ -152,6 +152,12 @@ export type MediaStoreCopyFileWithTokenBody = {
 	sourceFile: SourceFile;
 };
 
+export type CopyFileParams = {
+	sourceCollection?: string;
+	collection?: string;
+	replaceFileId?: string;
+};
+
 export type MediaStoreCopyFileWithTokenParams = {
 	// Name of the collection to insert the file to.
 	readonly collection?: string;
@@ -274,6 +280,7 @@ export interface MediaApi {
 		ids: string[],
 		collectionName?: string,
 		traceContext?: MediaTraceContext,
+		includeHashForDuplicateFiles?: boolean,
 	) => Promise<MediaStoreResponse<ItemsPayload>>;
 
 	getImageMetadata: (
@@ -294,6 +301,10 @@ export interface MediaApi {
 		params: MediaStoreCopyFileWithTokenParams,
 		traceContext?: MediaTraceContext,
 	) => Promise<MediaStoreResponse<MediaFile>>;
+
+	copyFile: (id: string, params: CopyFileParams) => Promise<MediaStoreResponse<MediaFile>>;
+
+	registerCopyIntents: (ids: string[], collectionName: string) => Promise<void>;
 
 	request: (
 		path: string,

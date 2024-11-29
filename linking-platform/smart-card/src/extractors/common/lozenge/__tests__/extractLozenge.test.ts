@@ -1,5 +1,7 @@
 import { type JsonLd } from 'json-ld-types';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import {
 	TEST_BASE_DATA,
 	TEST_NAME,
@@ -7,6 +9,7 @@ import {
 	TEST_UNDEFINED_LINK,
 } from '../../__mocks__/jsonld';
 import { extractLozenge } from '../extractLozenge';
+import { type LinkStateType } from '../types';
 
 describe('extractors.lozenge.lozenge', () => {
 	it('returns undefined if type unsupported for lozenge', () => {
@@ -95,4 +98,53 @@ describe('extractors.lozenge.lozenge', () => {
 			}),
 		).toEqual({ text: 'UNDEFINED', appearance: 'inprogress' });
 	});
+
+	ffTest.on(
+		'linking_platform_show_lozenge_atlassian_state',
+		'When linking_platform_show_lozenge_atlassian_state is enabled',
+		() => {
+			it('returns lozenge for any other types if there is atlassian:state', () => {
+				expect(
+					extractLozenge({
+						...TEST_BASE_DATA,
+						'@type': ['Object', 'Profile'],
+						'atlassian:state': {
+							'@type': 'Object',
+							name: 'Rovo Agent',
+							appearance: 'default',
+						},
+					} as LinkStateType),
+				).toEqual({ text: 'Rovo Agent', appearance: 'default' });
+			});
+
+			it('should not return lozenge for any other types if there is no atlassian:state', () => {
+				expect(
+					extractLozenge({
+						...TEST_BASE_DATA,
+						'@type': ['Object', 'Profile'],
+					} as LinkStateType),
+				).toEqual(undefined);
+			});
+		},
+	);
+
+	ffTest.off(
+		'linking_platform_show_lozenge_atlassian_state',
+		'When linking_platform_show_lozenge_atlassian_state is disabled',
+		() => {
+			it('does not return lozenge for any other types if the', () => {
+				expect(
+					extractLozenge({
+						...TEST_BASE_DATA,
+						'@type': ['Object', 'Profile'],
+						'atlassian:state': {
+							'@type': 'Object',
+							name: 'Rovo Agent',
+							appearance: 'default',
+						},
+					} as LinkStateType),
+				).toEqual(undefined);
+			});
+		},
+	);
 });

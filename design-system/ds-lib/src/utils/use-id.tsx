@@ -130,7 +130,7 @@ export const IdProvider = forwardRef<string, IdProviderProps>(
 			}
 		}, [id, ref]);
 
-		return typeof children === 'function' ? children({ id }) : children;
+		return <>{typeof children === 'function' ? children({ id }) : children}</>;
 	},
 );
 

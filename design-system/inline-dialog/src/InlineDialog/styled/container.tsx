@@ -2,7 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { forwardRef } from 'react';
+import {
+	type CSSProperties,
+	type FocusEventHandler,
+	forwardRef,
+	type MouseEventHandler,
+	type ReactNode,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -31,11 +37,11 @@ const containerStyles = css({
 });
 
 interface ContainerProps {
-	children: React.ReactNode;
-	onBlur?: React.FocusEventHandler<HTMLElement>;
-	onClick?: React.MouseEventHandler<HTMLElement>;
-	onFocus?: React.FocusEventHandler<HTMLElement>;
-	style: React.CSSProperties;
+	children: ReactNode | (() => ReactNode);
+	onBlur?: FocusEventHandler<HTMLElement>;
+	onClick?: MouseEventHandler<HTMLElement>;
+	onFocus?: FocusEventHandler<HTMLElement>;
+	style: CSSProperties;
 	testId?: string;
 }
 
@@ -69,10 +75,10 @@ export const Container = forwardRef<HTMLDivElement, ContainerProps>(
 						),
 						...style,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					} as unknown as React.CSSProperties
+					} as unknown as CSSProperties
 				}
 			>
-				{children}
+				{typeof children === 'function' ? children() : children}
 			</div>
 		);
 	},

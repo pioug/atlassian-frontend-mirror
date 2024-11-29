@@ -1,5 +1,33 @@
 # @atlaskit/media-card
 
+## 78.15.0
+
+### Minor Changes
+
+- [#170821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170821)
+  [`52532d238c0b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52532d238c0b6) -
+  Enabled the deduplication of files in media-filmstrip by passing includeHashForDuplicateFiles flag
+  to /items
+
+### Patch Changes
+
+- Updated dependencies
+
+## 78.14.2
+
+### Patch Changes
+
+- [#166250](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166250)
+  [`cfa981b21fead`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cfa981b21fead) -
+  Media Performance Obsever logs all the metrics through React UFO
+- [#165609](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165609)
+  [`b29c0cc4fef46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b29c0cc4fef46) -
+  Cleaned up media card perf observer feature flag
+- [#169329](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169329)
+  [`1333f96f0c802`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1333f96f0c802) -
+  Removed SVG for Media Group Feature Gate
+- Updated dependencies
+
 ## 78.14.1
 
 ### Patch Changes

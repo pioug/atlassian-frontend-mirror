@@ -12,12 +12,12 @@ export const OverflowLayoutRenderer = generateRendererComponent({
 	extensionHandlers,
 });
 
-export const Layout4ColRenderer = generateRendererComponent({
+export const Layout4ColInFullWidthRenderer = generateRendererComponent({
 	document: layout4Col,
 	appearance: 'full-width',
 });
 
 export const Layout5ColRenderer = generateRendererComponent({
 	document: layout5Col,
-	appearance: 'full-width',
+	appearance: 'full-page',
 });

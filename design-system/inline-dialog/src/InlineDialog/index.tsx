@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { type FC, memo, useCallback, useEffect, useRef } from 'react';
+import React, { type FC, memo, type Ref, useCallback, useEffect, useRef } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -18,6 +18,11 @@ import type { InlineDialogProps } from '../types';
 
 import NodeResolverWrapper from './node-resolver-wrapper';
 import { Container } from './styled/container';
+
+interface ReferenceChildrenProps {
+	ref: Ref<HTMLElement>;
+	style?: React.CSSProperties;
+}
 
 const checkIsChildOfPortal = (node: HTMLElement | null): boolean => {
 	if (!node) {
@@ -159,7 +164,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 					style={style}
 					testId={testId}
 				>
-					{content}
+					{typeof content === 'function' ? content() : content}
 				</Container>
 			)}
 		</Popper>
@@ -168,7 +173,7 @@ const InlineDialog: FC<InlineDialogProps> = memo<InlineDialogProps>(function Inl
 	return (
 		<Manager>
 			<Reference>
-				{({ ref }) => (
+				{({ ref }: ReferenceChildrenProps) => (
 					<NodeResolverWrapper
 						innerRef={(node: HTMLElement) => {
 							triggerRef.current = node;

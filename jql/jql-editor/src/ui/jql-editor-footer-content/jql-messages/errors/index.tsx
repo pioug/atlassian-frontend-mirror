@@ -4,17 +4,21 @@ import { di } from 'react-magnetic-di';
 
 import { ErrorMessage } from '@atlaskit/form';
 import { JQLSyntaxError } from '@atlaskit/jql-ast';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { JQL_EDITOR_INPUT_ID } from '../../../../common/constants';
 import { commonMessages } from '../../../../common/messages';
+import { useEditorThemeContext } from '../../../../hooks/use-editor-theme';
 import { useEditorViewIsInvalid } from '../../../../hooks/use-editor-view-is-invalid';
 import {
+	useCustomErrorComponent,
 	useExternalMessages,
 	useIntl,
 	useJqlError,
 	useScopedId,
 	useStoreActions,
 } from '../../../../state';
+import { type CustomErrorComponent } from '../../../../state/types';
 import { FormatMessages, MessageContainer } from '../format';
 
 import { messages } from './messages';
@@ -52,15 +56,74 @@ const useFormattedErrorMessage = (): ReactNode => {
 	return null;
 };
 
+type CustomErrorMessageProps = Omit<
+	React.ComponentProps<CustomErrorComponent>,
+	'editorTheme' // omitting the editorTheme prop since that will be injected by the CustomErrorMessage component itself
+> & {
+	Component: CustomErrorComponent;
+};
+
+/**
+ * This is a decorator component to include the editorTheme prop to the already passed list of props
+ */
+const CustomComponentDecoratedWithEditorTheme = (props: CustomErrorMessageProps) => {
+	di(useEditorThemeContext);
+
+	const { Component, ...rest } = props;
+	const editorThemeContext = useEditorThemeContext();
+
+	// This is a slightly redundant condition.
+	// Technically, CustomErrorMessage component should never be called with an undefined Component
+	// This is enforced by the static types. Adding this condition as an extra layer of protection
+	if (!Component) {
+		return <>props.children</>;
+	}
+
+	return <Component editorTheme={editorThemeContext} {...rest} />;
+};
+
 export const ErrorMessages = () => {
-	di(useScopedId, useFormattedErrorMessage);
+	di(useScopedId, useFormattedErrorMessage, useCustomErrorComponent);
 
 	const [editorId] = useScopedId(JQL_EDITOR_INPUT_ID);
 	const errorMessage = useFormattedErrorMessage();
 
+	const testId = 'jql-editor-validation';
+
+	if (fg('custom_components_for_jql_editor')) {
+		// eslint-disable-next-line react-hooks/rules-of-hooks
+		const [CustomErrorComponent] = useCustomErrorComponent();
+
+		const childrenToRender =
+			errorMessage != null ? (
+				<MessageContainer>
+					<ErrorMessage testId={testId}>
+						<span role="alert" aria-describedby={editorId}>
+							{errorMessage}
+						</span>
+					</ErrorMessage>
+				</MessageContainer>
+			) : null;
+
+		// Only render CustomErrorComponent if there is an errorMessage
+		if (errorMessage != null && CustomErrorComponent) {
+			return (
+				<CustomComponentDecoratedWithEditorTheme
+					testId={testId}
+					editorId={editorId}
+					Component={CustomErrorComponent}
+				>
+					{childrenToRender}
+				</CustomComponentDecoratedWithEditorTheme>
+			);
+		}
+
+		return childrenToRender;
+	}
+
 	return errorMessage != null ? (
 		<MessageContainer>
-			<ErrorMessage testId="jql-editor-validation">
+			<ErrorMessage testId={testId}>
 				<span role="alert" aria-describedby={editorId}>
 					{errorMessage}
 				</span>

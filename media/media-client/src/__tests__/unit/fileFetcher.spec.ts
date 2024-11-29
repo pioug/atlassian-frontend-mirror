@@ -1060,6 +1060,7 @@ describe('FileFetcher', () => {
 				['copied-file-id'],
 				destination.collection,
 				expect.any(Object),
+				undefined,
 			);
 		});
 

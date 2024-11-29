@@ -25,6 +25,13 @@ it('should ssr then hydrate basic example correctly', async () => {
 	// No other errors from e.g. hydrate
 	// eslint-disable-next-line no-console
 	const mockCalls = (console.error as jest.Mock).mock.calls;
+
+	// Logs console errors if they exist to quickly surface errors for debuggin in CI
+	if (mockCalls.length) {
+		console.warn('Hydration errors:');
+		mockCalls.forEach((call) => console.warn(call));
+	}
+
 	expect(mockCalls.length).toBe(0);
 });
 
@@ -42,5 +49,12 @@ it('should ssr then hydrate themed example correctly', async () => {
 
 	// eslint-disable-next-line no-console
 	const mockCalls = (console.error as jest.Mock).mock.calls;
+
+	// Logs console errors if they exist to quickly surface errors for debuggin in CI
+	if (mockCalls.length) {
+		console.warn('Hydration errors:');
+		mockCalls.forEach((call) => console.warn(call));
+	}
+
 	expect(mockCalls.length).toBe(0);
 });

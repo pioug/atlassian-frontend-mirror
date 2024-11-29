@@ -1,12 +1,18 @@
 import React from 'react';
 
 import { textColor } from '@atlaskit/adf-schema';
-import { type ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import {
+	type Command,
+	type FloatingToolbarCustom,
+	type ToolbarUIComponentFactory,
+} from '@atlaskit/editor-common/types';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changeColor } from './commands/change-color';
 import type { TextColorPluginConfig, TextColorPluginState } from './pm-plugins/main';
 import { createPlugin, pluginKey as textColorPluginKey } from './pm-plugins/main';
-import type { TextColorPlugin } from './types';
+import type { TextColorInputMethod, TextColorPlugin } from './types';
+import { FloatingToolbarComponent } from './ui/FloatingToolbarComponent';
 import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 
 const pluginConfig = (
@@ -71,8 +77,37 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		},
 
 		actions: {
-			changeColor: (color: string) => {
-				return changeColor(color, api?.analytics?.actions);
+			changeColor: (color: string, inputMethod?: TextColorInputMethod) => {
+				return changeColor(color, api?.analytics?.actions, inputMethod);
+			},
+		},
+
+		pluginsOptions: {
+			selectionToolbar: () => {
+				if (editorExperiment('contextual_formatting_toolbar', true, { exposure: true })) {
+					const toolbarCustom: FloatingToolbarCustom<Command> = {
+						type: 'custom',
+						render: (view, _idx, dispatchAnalyticsEvent) => {
+							if (!view) {
+								return;
+							}
+							return (
+								<FloatingToolbarComponent
+									editorView={view}
+									dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+									api={api}
+								/>
+							);
+						},
+						fallback: [],
+					};
+					return {
+						isToolbarAbove: true,
+						items: [toolbarCustom],
+					};
+				} else {
+					return undefined;
+				}
 			},
 		},
 

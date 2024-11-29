@@ -57,7 +57,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { changeColor as changeColorWithAnalytics } from '../../commands/change-color';
 import type { TextColorPluginState } from '../../pm-plugins/main';
-import type { TextColorPlugin } from '../../types';
+import type { TextColorPlugin, ToolbarType } from '../../types';
+import { getInputMethod } from '../../utils/inputType';
 
 import { EditorTextColorIcon } from './icon';
 
@@ -79,6 +80,7 @@ export interface Props {
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	disabled?: boolean;
 	pluginInjectionApi: ExtractInjectionAPI<TextColorPlugin> | undefined;
+	toolbarType: ToolbarType;
 }
 
 interface HandleOpenChangeData {
@@ -95,10 +97,11 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 	private toolbarItemRef = React.createRef<HTMLElement>();
 
 	changeColor = (color: string, editorAnalyticsApi: EditorAnalyticsAPI | undefined) =>
-		changeColorWithAnalytics(color, editorAnalyticsApi)(
-			this.props.editorView.state,
-			this.props.editorView.dispatch,
-		);
+		changeColorWithAnalytics(
+			color,
+			editorAnalyticsApi,
+			getInputMethod(this.props.toolbarType),
+		)(this.props.editorView.state, this.props.editorView.dispatch);
 
 	render() {
 		const { isOpen, isOpenedByKeyboard } = this.state;

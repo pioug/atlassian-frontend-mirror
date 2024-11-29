@@ -1,7 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { Page } from '@playwright/test';
 
-import { Layout4ColRenderer, Layout5ColRenderer, OverflowLayoutRenderer } from './layout.fixture';
+import {
+	Layout4ColInFullWidthRenderer,
+	Layout5ColRenderer,
+	OverflowLayoutRenderer,
+} from './layout.fixture';
 
 import { snapshotInformational } from '@af/visual-regression';
 
@@ -25,67 +29,47 @@ snapshotInformational(OverflowLayoutRenderer, {
 });
 
 // Advanced layouts
-snapshotInformational(Layout4ColRenderer, {
-	description: '4 column layout when layout size < 550px',
+snapshotInformational(Layout4ColInFullWidthRenderer, {
+	description: '4 column layout when layout size < 630px',
 	featureFlags: { advanced_layouts: true },
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
-			width: 500,
+			width: 629,
 			height: 400,
 		});
 	},
 });
 
-snapshotInformational(Layout4ColRenderer, {
-	description: '4 column layout when layout size between 550px and 759px',
+snapshotInformational(Layout4ColInFullWidthRenderer, {
+	description: '4 column layout when layout size is 630px',
 	featureFlags: { advanced_layouts: true },
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
-			width: 700,
-			height: 400,
-		});
-	},
-});
-
-snapshotInformational(Layout4ColRenderer, {
-	description: '4 column layout when layout size >= 760px',
-	featureFlags: { advanced_layouts: true },
-	prepare: async (page: Page) => {
-		await page.setViewportSize({
-			width: 1000,
+			width: 630,
 			height: 400,
 		});
 	},
 });
 
 snapshotInformational(Layout5ColRenderer, {
-	description: '5 column layout when layout size < 550px',
+	description: '5 column layout when layout size < 630px',
 	featureFlags: { advanced_layouts: true },
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
-			width: 500,
+			width: 693,
 			height: 400,
 		});
 	},
 });
 
 snapshotInformational(Layout5ColRenderer, {
-	description: '5 column layout when layout size between 550px and 759px',
+	description: '5 column layout when layout size is 630px',
 	featureFlags: { advanced_layouts: true },
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
-			width: 700,
-			height: 400,
-		});
-	},
-});
-
-snapshotInformational(Layout5ColRenderer, {
-	description: '5 column layout when layout size >= 760px',
-	featureFlags: { advanced_layouts: true },
-	prepare: async (page: Page) => {
-		await page.setViewportSize({
-			width: 1000,
+			// There are 64px padding in full page editor
+			// hence to have 630px layout width, we need 630 + 64
+			width: 694,
 			height: 400,
 		});
 	},

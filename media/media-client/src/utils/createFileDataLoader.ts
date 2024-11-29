@@ -13,6 +13,7 @@ export const MAX_BATCH_SIZE = 100;
 export type DataloaderKey = {
 	readonly id: string;
 	readonly collectionName?: string;
+	readonly includeHashForDuplicateFiles?: boolean;
 };
 
 export type DataloaderResult = MediaItemDetails | NotFoundMediaItemDetails;
@@ -84,6 +85,17 @@ export type FileIdsByCollection = { [collectionName: string]: string[] };
 export function createBatchLoadingFunc(mediaStore: MediaStore) {
 	return async (keys: ReadonlyArray<DataloaderKey>): Promise<Array<DataloaderResult | Error>> => {
 		const nonCollectionName = '__media-single-file-collection__';
+
+		const includeHashByCollection = keys.reduce<Record<string, boolean>>((acc, key) => {
+			const collectionName = key.collectionName || nonCollectionName;
+
+			if (key.includeHashForDuplicateFiles) {
+				acc[collectionName] = key.includeHashForDuplicateFiles;
+			}
+
+			return acc;
+		}, {});
+
 		const fileIdsByCollection = keys.reduce<FileIdsByCollection>((acc, key) => {
 			const collectionName = key.collectionName || nonCollectionName;
 			const fileIds = acc[collectionName] || [];
@@ -105,11 +117,17 @@ export function createBatchLoadingFunc(mediaStore: MediaStore) {
 					spanId: getRandomHex(8),
 				};
 				const fileIds = fileIdsByCollection[collectionNameKey];
+				const includeHashForDuplicateFiles = includeHashByCollection[collectionNameKey];
 				const collectionName =
 					collectionNameKey === nonCollectionName ? undefined : collectionNameKey;
 
 				try {
-					const response = await mediaStore.getItems(fileIds, collectionName, metadataTraceContext);
+					const response = await mediaStore.getItems(
+						fileIds,
+						collectionName,
+						metadataTraceContext,
+						includeHashForDuplicateFiles,
+					);
 
 					const itemsWithMetadataTraceContext = response.data.items.map((item) => ({
 						...item,

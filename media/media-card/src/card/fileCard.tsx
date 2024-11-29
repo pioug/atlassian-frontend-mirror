@@ -65,7 +65,6 @@ import { type CardAction, createDownloadAction } from './actions';
 import { performanceNow } from './performance';
 import { useContext } from 'react';
 import { DateOverrideContext } from '../dateOverrideContext';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface FileCardProps extends CardEventProps {
 	/** Overlay the media file. */
@@ -114,6 +113,8 @@ export interface FileCardProps extends CardEventProps {
 	readonly shouldHideTooltip?: boolean;
 	/** Sets options for viewer **/
 	readonly viewerOptions?: ViewerOptionsProps;
+	/** Sets options for viewer **/
+	readonly includeHashForDuplicateFiles?: boolean;
 }
 
 export const FileCard = ({
@@ -145,6 +146,7 @@ export const FileCard = ({
 	onMouseEnter,
 	videoControlsWrapperRef,
 	viewerOptions,
+	includeHashForDuplicateFiles,
 }: FileCardProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	//----------------------------------------------------------------//
@@ -175,6 +177,7 @@ export const FileCard = ({
 		skipRemote: !isCardVisible,
 		collectionName: identifier.collectionName,
 		occurrenceKey: identifier.occurrenceKey,
+		includeHashForDuplicateFiles,
 	});
 
 	const prevFileState: NonErrorFileState | undefined = usePrevious(
@@ -265,15 +268,13 @@ export const FileCard = ({
 		error ||
 		(previewError &&
 		previewError.primaryReason !== 'failed-processing' &&
-		(fileStateValue?.mimeType !== 'image/svg+xml' || !fg('platform_media_group_svg'))
+		fileStateValue?.mimeType !== 'image/svg+xml'
 			? previewError
 			: undefined);
 
 	const finalStatus = finalError
 		? 'error'
-		: status === 'failed-processing' &&
-			  fileStateValue?.mimeType === 'image/svg+xml' &&
-			  fg('platform_media_group_svg')
+		: status === 'failed-processing' && fileStateValue?.mimeType === 'image/svg+xml'
 			? 'loading-preview'
 			: status;
 
@@ -457,7 +458,7 @@ export const FileCard = ({
 	};
 
 	const onImageError = (newCardPreview?: MediaFilePreview) => {
-		if (metadata.mimeType === 'image/svg+xml' && fg('platform_media_group_svg')) {
+		if (metadata.mimeType === 'image/svg+xml') {
 			return;
 		}
 		onImageErrorBase(newCardPreview);
@@ -468,7 +469,7 @@ export const FileCard = ({
 	};
 
 	const onImageLoad = (newCardPreview?: MediaFilePreview) => {
-		if (metadata.mimeType === 'image/svg+xml' && fg('platform_media_group_svg')) {
+		if (metadata.mimeType === 'image/svg+xml') {
 			return;
 		}
 		onImageLoadBase(newCardPreview);

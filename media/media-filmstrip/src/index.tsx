@@ -8,5 +8,6 @@ export type {
 	SizeEvent,
 } from './filmstripView';
 export { Filmstrip } from './filmstrip';
-export type { FilmstripItem, FilmstripProps, FilmstripState } from './filmstrip';
+export type { FilmstripState } from './filmstrip';
+export type { FilmstripItem, FilmstripProps } from './types';
 export { mediaFilmstripItemDOMSelector } from './dom';

@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-text-color
 
+## 1.16.0
+
+### Minor Changes
+
+- [#167675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167675)
+  [`9c0185ccd82d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c0185ccd82d3) -
+  [ux] Adds inputMethod as an optional argument in changeColor plugin action and enables text
+  coloroption in the Selection toolbar.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.15.8
 
 ### Patch Changes

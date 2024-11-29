@@ -27,7 +27,7 @@ export interface InlineDialogProps extends WithAnalyticsEventsProps {
 	/**
 	 * The elements to be displayed within the InlineDialog.
 	 */
-	content: ReactNode;
+	content: ReactNode | (() => ReactNode);
 	/**
 	 * Sets whether to show or hide the dialog.
 	 */

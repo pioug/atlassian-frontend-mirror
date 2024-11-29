@@ -19,6 +19,7 @@ export interface GetFileOptions {
 	preview?: PreviewOptions;
 	collectionName?: string;
 	occurrenceKey?: string;
+	includeHashForDuplicateFiles?: boolean;
 }
 
 export interface PreviewableFileState {
@@ -72,6 +73,7 @@ export const mapMediaFileToFileState = (mediaFile: MediaStoreResponse<MediaFile>
 		representations,
 		createdAt,
 		metadataTraceContext,
+		hash,
 	} = mediaFile.data;
 	const baseState = {
 		id,
@@ -82,6 +84,7 @@ export const mapMediaFileToFileState = (mediaFile: MediaStoreResponse<MediaFile>
 		artifacts,
 		representations,
 		createdAt,
+		hash,
 		metadataTraceContext,
 	};
 

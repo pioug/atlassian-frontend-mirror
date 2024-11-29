@@ -6,6 +6,7 @@
 import { css, Global, jsx } from '@emotion/react';
 
 import {
+	akEditorBreakoutPadding,
 	akEditorCalculatedWideLayoutWidth,
 	akEditorCalculatedWideLayoutWidthSmallViewport,
 } from '@atlaskit/editor-shared-styles';
@@ -301,6 +302,25 @@ const withAnchorNameZindexNestedStyle = css({
 	},
 });
 
+// This style is used to define width for block card (with datasource) that does not have layout
+// In full-width editor, block card has width of full-width layout
+// In fixed-width editor, block card has width of wide layout
+const blockCardWithoutLayout = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ak-editor-content-area.fabric-editor--full-width-mode .ProseMirror .ProseMirror-widget[data-blocks-drop-target-container="true"]':
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+			'--ak-editor-block-card-width': `min(calc(100cqw - ${akEditorBreakoutPadding}px), 1800px)`,
+		},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'.ak-editor-content-area .ProseMirror .ProseMirror-widget[data-blocks-drop-target-container="true"]':
+		{
+			'--ak-editor-block-card-width':
+				'max(var(--ak-editor--legacy-breakout-wide-layout-width), var(--ak-editor--line-length))',
+		},
+});
+
 export const GlobalStylesWrapper = () => {
 	return (
 		<Global
@@ -311,6 +331,7 @@ export const GlobalStylesWrapper = () => {
 				withDeleteLinesStyleFix,
 				withMediaSingleStyleFix,
 				legacyBreakoutWideLayoutStyle,
+				editorExperiment('advanced_layouts', true) ? blockCardWithoutLayout : undefined,
 				fg('platform_editor_element_dnd_nested_fix_patch_1')
 					? withDividerInPanelStyleFix
 					: undefined,

@@ -17,6 +17,13 @@ test('should ssr then hydrate correctly', async () => {
 
 	// eslint-disable-next-line no-console
 	const mockCalls = (console.error as jest.Mock).mock.calls;
+
+	// Logs console errors if they exist to quickly surface errors for debuggin in CI
+	if (mockCalls.length) {
+		console.warn('Hydration errors:');
+		mockCalls.forEach((call) => console.warn(call));
+	}
+
 	expect(mockCalls.length).toBe(0);
 	cleanup();
 	consoleMock.mockRestore();

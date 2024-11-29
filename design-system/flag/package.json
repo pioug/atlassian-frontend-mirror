@@ -57,14 +57,14 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/ds-lib": "^3.2.0",
+		"@atlaskit/ds-lib": "^3.3.0",
 		"@atlaskit/heading": "^3.1.0",
-		"@atlaskit/icon": "^22.26.0",
+		"@atlaskit/icon": "^22.27.0",
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/portal": "^4.9.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^2.3.0",
+		"@atlaskit/tokens": "^2.4.0",
 		"@atlaskit/visually-hidden": "^1.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
@@ -75,6 +75,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
+		"@af/visual-regression": "*",
 		"@atlaskit/radio": "^6.6.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",

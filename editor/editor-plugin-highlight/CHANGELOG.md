@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.19.0
+
+### Minor Changes
+
+- [#167675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167675)
+  [`9c0185ccd82d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c0185ccd82d3) -
+  [ux] Enables Highlight color option in the Selection toolbar.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.18.8
 
 ### Patch Changes

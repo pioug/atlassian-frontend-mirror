@@ -1,5 +1,18 @@
 # @atlaskit/editor-core
 
+## 202.5.1
+
+### Patch Changes
+
+- [#170673](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170673)
+  [`09f6aa8666f9b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09f6aa8666f9b) -
+  [ux] [ED-25899] Update layout breakpoint to 630px in renderer and corresponding breakpoints in
+  editor
+- [#168302](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168302)
+  [`8f6860829c29a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f6860829c29a) -
+  [ux] ED-25729: Hide separator when drop indicators are visible
+- Updated dependencies
+
 ## 202.5.0
 
 ### Minor Changes

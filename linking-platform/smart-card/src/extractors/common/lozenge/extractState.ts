@@ -1,8 +1,11 @@
-import { type JsonLd } from 'json-ld-types';
-
 import { token } from '@atlaskit/tokens';
 
-import { type AccentShortName, type LinkLozenge, type LinkState } from './types';
+import {
+	type AccentShortName,
+	type LinkLozenge,
+	type LinkState,
+	type LinkStateType,
+} from './types';
 import { OMIT_STATES, VALID_STATES } from './utils';
 
 // Maps accent color short names to their corresponding background and text colors
@@ -55,13 +58,7 @@ const lozengeAccentStyles: Record<
 	},
 };
 
-export const extractState = (
-	jsonLd:
-		| JsonLd.Data.SourceCodePullRequest
-		| JsonLd.Data.Document
-		| JsonLd.Data.Project
-		| JsonLd.Data.Goal,
-): LinkLozenge | undefined => {
+export const extractState = (jsonLd: LinkStateType): LinkLozenge | undefined => {
 	const state = jsonLd['atlassian:state'];
 	if (state) {
 		if (typeof state === 'string') {

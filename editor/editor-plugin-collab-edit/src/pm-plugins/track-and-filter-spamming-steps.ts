@@ -17,7 +17,6 @@ import {
 	ReplaceStep,
 	type Step,
 } from '@atlaskit/editor-prosemirror/transform';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { TrackSpammingStepsMetadata } from '../types';
 
@@ -148,10 +147,9 @@ export const createFilterTransaction = (
 
 			// Track analytics for the filtered transaction
 			trackFilteredTransaction(tr);
-			if (fg('platform_editor_filter_spamming_transactions')) {
-				// Filter transaction
-				return false;
-			}
+
+			// Filter transaction
+			return false;
 		}
 		return true; // Allow the transaction
 	};

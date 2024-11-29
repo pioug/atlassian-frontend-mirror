@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.4.1
+
+### Patch Changes
+
+- [#170689](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170689)
+  [`960d36f94739d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/960d36f94739d) -
+  [React UFO] Fix sessionStorage no access error
+
 ## 2.4.0
 
 ### Minor Changes

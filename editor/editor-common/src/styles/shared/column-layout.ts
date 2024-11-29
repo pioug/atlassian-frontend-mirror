@@ -1,7 +1,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { gridMediumMaxWidth, layoutBreakpointWidth } from '@atlaskit/editor-shared-styles';
+import { gridMediumMaxWidth } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 const columnLayoutSharedStyle = css({
@@ -51,13 +51,15 @@ const columnLayoutResponsiveSharedStyle = css({
 	},
 });
 
+const LAYOUT_BREAKPOINT_RENDERER = 629;
+
 const columnLayoutResponsiveRendererStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.layout-section-container': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-layout-section]': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-			[`@container layout-area (max-width:${layoutBreakpointWidth.MEDIUM - 1}px)`]: {
+			[`@container layout-area (max-width:${LAYOUT_BREAKPOINT_RENDERER}px)`]: {
 				flexDirection: 'column',
 			},
 		},

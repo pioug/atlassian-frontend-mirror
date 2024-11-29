@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 1.14.0
+
+### Minor Changes
+
+- [#170579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170579)
+  [`f9d3dc2a8b76d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f9d3dc2a8b76d) -
+  [ux] Adds lists and indentation items to the selection toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.13.7
 
 ### Patch Changes

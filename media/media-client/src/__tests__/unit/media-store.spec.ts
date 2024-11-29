@@ -942,8 +942,8 @@ describe('MediaStore', () => {
 
 		describe('getImage', () => {
 			describe('should return file image preview only in commercial environment', () => {
-				const nonCdnURL = `${baseUrl}/file/123/image?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`;
-				const cdnURL = `${baseUrl}/file/123/image/cdn?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`;
+				const nonCdnURL = `${baseUrl}/file/123/image?allowAnimated=true&clientId=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`;
+				const cdnURL = `${baseUrl}/file/123/image/cdn?allowAnimated=true&clientId=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`;
 				ffTest(
 					'platform_media_cdn_delivery',
 					async () => {
@@ -1026,7 +1026,7 @@ describe('MediaStore', () => {
 				});
 
 				expect(fetchMock).toHaveBeenCalledWith(
-					`${baseUrl}/file/123/image?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&upscale=true&version=2`,
+					`${baseUrl}/file/123/image?allowAnimated=true&clientId=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&upscale=true&version=2`,
 					{
 						method: 'GET',
 						headers: {
@@ -1074,6 +1074,7 @@ describe('MediaStore', () => {
 							upscale: true,
 							version: 2,
 							width: 4096,
+							clientId: 'some-client-id',
 						},
 						traceContext: {
 							traceId: 'test-trace-id',
@@ -1102,7 +1103,7 @@ describe('MediaStore', () => {
 				);
 
 				expect(fetchMock).toHaveBeenCalledWith(
-					`${baseUrl}/file/123/image?allowAnimated=true&height=4096&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&upscale=true&version=2&width=4096`,
+					`${baseUrl}/file/123/image?allowAnimated=true&clientId=some-client-id&height=4096&max-age=${FILE_CACHE_MAX_AGE}&mode=full-fit&upscale=true&version=2&width=4096`,
 					{
 						method: 'GET',
 						headers: {
@@ -1133,7 +1134,7 @@ describe('MediaStore', () => {
 				);
 
 				expect(fetchMock).toHaveBeenCalledWith(
-					`${baseUrl}/file/123/image?allowAnimated=true&height=4096&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&upscale=true&version=2&width=4096`,
+					`${baseUrl}/file/123/image?allowAnimated=true&clientId=some-client-id&height=4096&max-age=${FILE_CACHE_MAX_AGE}&mode=crop&upscale=true&version=2&width=4096`,
 					{
 						method: 'GET',
 						headers: {
@@ -1155,7 +1156,7 @@ describe('MediaStore', () => {
 				await mediaStore.getImage('123');
 
 				expect(fetchMock).toHaveBeenCalledWith(
-					`${baseUrl}/file/123/image?allowAnimated=true&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`,
+					`${baseUrl}/file/123/image?allowAnimated=true&clientId=some-client-id&max-age=${FILE_CACHE_MAX_AGE}&mode=crop`,
 					{
 						method: 'GET',
 						headers: {
@@ -1788,6 +1789,144 @@ describe('MediaStore', () => {
 				}
 
 				expect.assertions(1);
+			});
+		});
+
+		describe('copyFile', () => {
+			const params = {
+				sourceCollection: 'some-source-collection',
+				collection: 'some-collection',
+				replaceFileId: 'some-other-id',
+			};
+
+			it('should POST to /file/copy/withToken endpoint with correct options', async () => {
+				fetchMock.once(JSON.stringify({ data }), {
+					status: 201,
+					statusText: 'Created',
+				});
+
+				const response = await mediaStore.copyFile('some-id', params);
+
+				expect(response).toEqual({ data });
+				expect(fetchMock).toHaveBeenCalledWith(
+					`${baseUrl}/v2/file/copy?collection=some-collection&replaceFileId=some-other-id&sourceCollection=some-source-collection`,
+					{
+						method: 'POST',
+						headers: {
+							'X-Client-Id': clientId,
+							Authorization: `Bearer ${token}`,
+							Accept: 'application/json',
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({ id: 'some-id' }),
+					},
+				);
+			});
+
+			it('calls request with traceContext', async () => {
+				fetchMock.once(JSON.stringify({ data }), {
+					status: 201,
+					statusText: 'Created',
+				});
+
+				await mediaStore.copyFile('some-id', params, {
+					traceId: 'some-trace-id',
+				});
+
+				expect(requestModuleMock).toBeCalledWith(
+					`${baseUrl}/v2/file/copy`,
+					expect.objectContaining({
+						auth: {
+							baseUrl: 'http://some-host',
+							clientId: 'some-client-id',
+							token: 'some-token',
+						},
+						body: '{"id":"some-id"}',
+						clientOptions: undefined,
+						endpoint: '/v2/file/copy',
+						headers: {
+							Accept: 'application/json',
+							'Content-Type': 'application/json',
+						},
+						method: 'POST',
+						params: {
+							collection: 'some-collection',
+							replaceFileId: 'some-other-id',
+							sourceCollection: 'some-source-collection',
+						},
+						traceContext: {
+							traceId: 'some-trace-id',
+							spanId: expect.any(String),
+						},
+					}),
+					undefined,
+				);
+			});
+		});
+
+		describe('registerCopyIntents', () => {
+			it('should POST to /file/copy/intents endpoint with correct options', async () => {
+				fetchMock.once(JSON.stringify({ data }), {
+					status: 201,
+					statusText: 'Created',
+				});
+
+				const response = await mediaStore.registerCopyIntents(
+					['some-id', 'some-other-id'],
+					'some-collection',
+				);
+
+				expect(response).toEqual(undefined);
+				expect(fetchMock).toHaveBeenCalledWith(`${baseUrl}/file/copy/intents`, {
+					method: 'POST',
+					headers: {
+						'X-Client-Id': clientId,
+						Authorization: `Bearer ${token}`,
+						Accept: 'application/json',
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						files: [
+							{ id: 'some-id', collection: 'some-collection' },
+							{ id: 'some-other-id', collection: 'some-collection' },
+						],
+					}),
+				});
+			});
+
+			it('calls request with traceContext', async () => {
+				fetchMock.once(JSON.stringify({ data }), {
+					status: 201,
+					statusText: 'Created',
+				});
+
+				await mediaStore.registerCopyIntents(['some-id', 'some-other-id'], 'some-collection', {
+					traceId: 'some-trace-id',
+				});
+
+				expect(requestModuleMock).toBeCalledWith(
+					`${baseUrl}/file/copy/intents`,
+					expect.objectContaining({
+						auth: {
+							baseUrl: 'http://some-host',
+							clientId: 'some-client-id',
+							token: 'some-token',
+						},
+						body: '{"files":[{"id":"some-id","collection":"some-collection"},{"id":"some-other-id","collection":"some-collection"}]}',
+						clientOptions: undefined,
+						endpoint: '/file/copy/intents',
+						headers: {
+							Accept: 'application/json',
+							'Content-Type': 'application/json',
+						},
+						method: 'POST',
+						traceContext: {
+							traceId: 'some-trace-id',
+							spanId: expect.any(String),
+						},
+					}),
+					undefined,
+				);
 			});
 		});
 

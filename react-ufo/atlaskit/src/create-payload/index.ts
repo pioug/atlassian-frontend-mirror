@@ -1,11 +1,14 @@
 import Bowser from 'bowser-ultralight';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { getLighthouseMetrics } from '../additional-payload';
 import * as bundleEvalTiming from '../bundle-eval-timing';
 import type { ApdexType, BM3Event, InteractionMetrics, InteractionType } from '../common';
 import { REACT_UFO_VERSION } from '../common/constants';
 import { type Config, getConfig, getUfoNameOverrides } from '../config';
 import { getBm3Timings } from '../custom-timings';
+import { getGlobalErrorCount } from '../global-error-handler';
 import { getPageVisibilityState } from '../hidden-timing';
 import * as initialPageLoadExtraTiming from '../initial-page-load-extra-timing';
 import type { LabelStack } from '../interaction-context';
@@ -689,6 +692,51 @@ function getPayloadSize(payload: Object): number {
 	return Math.round(new TextEncoder().encode(JSON.stringify(payload)).length / 1024);
 }
 
+function getStylesheetMetrics() {
+	if (!fg('ufo_capture_stylesheet_metrics')) {
+		return {};
+	}
+	try {
+		const stylesheets = Array.from(document.styleSheets);
+		const stylesheetCount = stylesheets.length;
+		const cssrules = Array.from(document.styleSheets).reduce((acc, item) => {
+			// Other domain stylesheets throw a SecurityError
+			try {
+				return acc + item.cssRules.length;
+			} catch (e) {
+				return acc;
+			}
+		}, 0);
+
+		const styleElements = document.querySelectorAll('style').length;
+		const styleProps = document.querySelectorAll('[style]');
+		const styleDeclarations = Array.from(document.querySelectorAll('[style]')).reduce(
+			(acc, item) => {
+				try {
+					if ('style' in item) {
+						return acc + (item as HTMLDivElement).style.length;
+					} else {
+						return acc;
+					}
+				} catch (e) {
+					return acc;
+				}
+			},
+			0,
+		);
+
+		return {
+			stylesheets: stylesheetCount,
+			styleElements,
+			styleProps: styleProps.length,
+			styleDeclarations,
+			cssrules: cssrules,
+		};
+	} catch (e) {
+		return {};
+	}
+}
+
 function createInteractionMetricsPayload(interaction: InteractionMetrics, interactionId: string) {
 	const interactionPayloadStart = performance.now();
 	const config = getConfig();
@@ -816,6 +864,9 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 				...getVCMetrics(interaction),
 				...config.additionalPayloadData?.(interaction),
 				...getTracingContextData(interaction),
+				...getStylesheetMetrics(),
+
+				errorCount: getGlobalErrorCount(),
 
 				interactionMetrics: {
 					namePrefix: config.namePrefix || '',
@@ -853,6 +904,7 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 						interaction.reactProfilerTimings,
 						start,
 					),
+					errorCount: interaction.errors.length,
 					...labelStack,
 					...getPageLoadInteractionMetrics(),
 					...getDetailedInteractionMetrics(),

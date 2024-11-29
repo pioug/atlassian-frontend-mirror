@@ -22,6 +22,7 @@ export type MediaFile = {
 	readonly artifacts: MediaFileArtifacts;
 	readonly representations: MediaRepresentations;
 	readonly createdAt?: number;
+	readonly hash?: string;
 	readonly metadataTraceContext?: MediaTraceContext;
 };
 
@@ -34,6 +35,7 @@ export type MediaItemDetails = {
 	readonly artifacts: MediaFileArtifacts;
 	readonly representations: MediaRepresentations;
 	readonly createdAt?: number;
+	readonly hash?: string;
 	readonly metadataTraceContext?: MediaTraceContext;
 };
 

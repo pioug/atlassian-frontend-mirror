@@ -1,5 +1,20 @@
 # @atlaskit/modal-dialog
 
+## 12.18.0
+
+### Minor Changes
+
+- [#170669](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170669)
+  [`cc302b83d5934`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cc302b83d5934) -
+  Fixes the top and bottom borders which indicate scrollability for modal content on React 18 by
+  rewriting internal hooks.
+
+## 12.17.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 12.17.13
 
 ### Patch Changes

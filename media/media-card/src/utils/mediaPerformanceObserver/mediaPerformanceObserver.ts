@@ -73,7 +73,12 @@ export const setAnalyticsContext = (newAnalyticsContext: CreateUIAnalyticsEvent)
 	window[MEDIA_CARD_PERF_STATE_KEY].mediaCardCreateAnalyticsEvent = newAnalyticsContext;
 };
 
+const isDefinedPerformanceObserver = () => typeof window['PerformanceObserver'] !== 'undefined';
+
 export const startResourceObserver = () => {
+	if (!isDefinedPerformanceObserver()) {
+		return;
+	}
 	if (window[MEDIA_CARD_PERF_STATE_KEY]?.mediaCardPerfObserver) {
 		return;
 	}

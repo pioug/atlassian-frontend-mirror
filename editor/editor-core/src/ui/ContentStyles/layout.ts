@@ -260,12 +260,12 @@ const layoutResponsiveStyles = (viewMode?: 'edit' | 'view') =>
 		.fabric-editor--full-width-mode .ProseMirror {
 			> .layoutSectionView-content-wrap {
 				[data-layout-section] {
-					@container editor-area (max-width:854px) {
+					@container editor-area (max-width:724px) {
 						flex-direction: column;
 					}
 				}
 
-				${layoutWithSeparatorBorderResponsiveStyles(854, viewMode)}
+				${layoutWithSeparatorBorderResponsiveStyles(724, viewMode)}
 			}
 		}
 
@@ -273,12 +273,12 @@ const layoutResponsiveStyles = (viewMode?: 'edit' | 'view') =>
 		.ak-editor-content-area:not(.fabric-editor--full-width-mode) .ProseMirror {
 			> .layoutSectionView-content-wrap {
 				[data-layout-section] {
-					@container editor-area (max-width:918px) {
+					@container editor-area (max-width:788px) {
 						flex-direction: column;
 					}
 				}
 
-				${layoutWithSeparatorBorderResponsiveStyles(918, viewMode)}
+				${layoutWithSeparatorBorderResponsiveStyles(788, viewMode)}
 			}
 		}
 
@@ -286,12 +286,12 @@ const layoutResponsiveStyles = (viewMode?: 'edit' | 'view') =>
 		.ProseMirror .fabric-editor-breakout-mark {
 			.layoutSectionView-content-wrap {
 				[data-layout-section] {
-					@container editor-area (max-width:950px) {
+					@container editor-area (max-width:820px) {
 						flex-direction: column;
 					}
 				}
 
-				${layoutWithSeparatorBorderResponsiveStyles(950, viewMode)}
+				${layoutWithSeparatorBorderResponsiveStyles(820, viewMode)}
 			}
 		}
 	`;
@@ -392,6 +392,11 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 	}
 
 	${editorExperiment('advanced_layouts', true) && layoutResponsiveStyles(viewMode)}
+
+	// hide separator when element is dragging on top of a layout column
+	[data-blocks-drop-target-container] ~ [data-layout-column] > [data-layout-content]::before {
+		display: none;
+	}
 
 	.fabric-editor--full-width-mode .ProseMirror {
 		[data-layout-section] {

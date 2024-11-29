@@ -1,3 +1,3 @@
 export { textColorPlugin } from './plugin';
-export type { TextColorPlugin } from './types';
+export type { TextColorInputMethod, TextColorPlugin } from './types';
 export type { TextColorPluginState, TextColorPluginConfig } from './pm-plugins/main';

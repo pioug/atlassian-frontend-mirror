@@ -25,6 +25,12 @@ interface State {
 	year: number;
 }
 
+interface ChangedDate {
+	day: number;
+	month: number;
+	year: number;
+}
+
 export default () => {
 	const [state, setState] = useReducer(reducer, {
 		disabled: ['2017-08-04'],
@@ -45,7 +51,7 @@ export default () => {
 		[state.selected],
 	);
 
-	const handleChange = useCallback((changedDate) => {
+	const handleChange = useCallback((changedDate: ChangedDate) => {
 		const { day, month, year } = changedDate;
 		setState({
 			day,

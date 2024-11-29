@@ -138,7 +138,7 @@ export type Shadow = ${mapToCssVar(shadow)};
 export type TextColorPressed = ${mapToCssVar(textColorPressed)};
 export type TextColor = 'transparent' | TextColorPressed | ${mapToCssVar(textColor)}
 export type Opacity = ${mapToCssVar(opacity)} | 0 | 1 | '0' | '1';
-export type FontWeight = ${mapToCssVar(fontWeight)};
+export type FontWeight = ${mapToCssVar(fontWeight)} | 'inherit' | 'initial' | 'unset';
 export type FontFamily = ${mapToCssVar(fontFamily)};
 
 export interface CSSPropertiesHovered {

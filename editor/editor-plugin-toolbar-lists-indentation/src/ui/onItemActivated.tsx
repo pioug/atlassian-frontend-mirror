@@ -1,4 +1,4 @@
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { type INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -10,17 +10,18 @@ export const onItemActivated =
 	(
 		pluginInjectionApi: ExtractInjectionAPI<ToolbarListsIndentationPlugin> | undefined,
 		indentationStateNode: IndentationButtonNode | undefined,
+		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB,
 	) =>
 	({ buttonName, editorView }: { buttonName: ButtonName; editorView: EditorView }) => {
 		switch (buttonName) {
 			case 'bullet_list':
 				pluginInjectionApi?.core?.actions.execute(
-					pluginInjectionApi?.list?.commands.toggleBulletList(INPUT_METHOD.TOOLBAR),
+					pluginInjectionApi?.list?.commands.toggleBulletList(inputMethod),
 				);
 				break;
 			case 'ordered_list':
 				pluginInjectionApi?.core?.actions.execute(
-					pluginInjectionApi?.list?.commands.toggleOrderedList(INPUT_METHOD.TOOLBAR),
+					pluginInjectionApi?.list?.commands.toggleOrderedList(inputMethod),
 				);
 
 				break;
@@ -28,18 +29,18 @@ export const onItemActivated =
 			case 'indent': {
 				const node = indentationStateNode;
 				if (node === 'paragraph_heading') {
-					pluginInjectionApi?.indentation?.actions.indentParagraphOrHeading(INPUT_METHOD.TOOLBAR)(
+					pluginInjectionApi?.indentation?.actions.indentParagraphOrHeading(inputMethod)(
 						editorView.state,
 						editorView.dispatch,
 					);
 				}
 				if (node === 'list') {
 					pluginInjectionApi?.core?.actions.execute(
-						pluginInjectionApi?.list?.commands.indentList(INPUT_METHOD.TOOLBAR),
+						pluginInjectionApi?.list?.commands.indentList(inputMethod),
 					);
 				}
 				if (node === 'taskList') {
-					pluginInjectionApi?.taskDecision?.actions.indentTaskList(INPUT_METHOD.TOOLBAR)(
+					pluginInjectionApi?.taskDecision?.actions.indentTaskList(inputMethod)(
 						editorView.state,
 						editorView.dispatch,
 					);
@@ -50,18 +51,18 @@ export const onItemActivated =
 			case 'outdent': {
 				const node = indentationStateNode;
 				if (node === 'paragraph_heading') {
-					pluginInjectionApi?.indentation?.actions.outdentParagraphOrHeading(INPUT_METHOD.TOOLBAR)(
+					pluginInjectionApi?.indentation?.actions.outdentParagraphOrHeading(inputMethod)(
 						editorView.state,
 						editorView.dispatch,
 					);
 				}
 				if (node === 'list') {
 					pluginInjectionApi?.core?.actions.execute(
-						pluginInjectionApi?.list?.commands.outdentList(INPUT_METHOD.TOOLBAR),
+						pluginInjectionApi?.list?.commands.outdentList(inputMethod),
 					);
 				}
 				if (node === 'taskList') {
-					pluginInjectionApi?.taskDecision?.actions.outdentTaskList(INPUT_METHOD.TOOLBAR)(
+					pluginInjectionApi?.taskDecision?.actions.outdentTaskList(inputMethod)(
 						editorView.state,
 						editorView.dispatch,
 					);

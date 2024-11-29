@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.13.28
+
+### Patch Changes
+
+- [#170667](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170667)
+  [`4932e429b1256`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4932e429b1256) -
+  [ED-25679] Fix inline drop target positioning for block card, embeded card and chart extension
+  with breakout layout
+
 ## 2.13.27
 
 ### Patch Changes

@@ -1,4 +1,10 @@
-import { type FocusEvent, type MouseEvent, type MutableRefObject, type ReactNode } from 'react';
+import {
+	type FocusEvent,
+	type MouseEvent,
+	type MutableRefObject,
+	type PropsWithChildren,
+	type ReactNode,
+} from 'react';
 
 import { type IntlShape } from 'react-intl-next';
 import { type Subscription } from 'rxjs/Subscription';
@@ -13,6 +19,7 @@ import {
 } from '@atlaskit/jql-autocomplete';
 
 import { type JqlEditorAnalyticsEvent } from '../analytics';
+import { type EditorTheme } from '../hooks/use-editor-theme';
 import {
 	type AutocompleteOptionGroup,
 	type AutocompleteProvider,
@@ -79,6 +86,18 @@ export type ExternalInfo = {
 	 * Message to display.
 	 */
 	message: ReactNode;
+};
+
+export type CustomErrorComponent = React.ComponentType<
+	PropsWithChildren<{
+		testId: string;
+		editorTheme: EditorTheme;
+		editorId: string;
+	}>
+>;
+
+export type CustomComponents = {
+	ErrorMessage?: CustomErrorComponent;
 };
 
 export type ExternalMessage = ExternalError | ExternalWarning | ExternalInfo;
@@ -243,6 +262,11 @@ export type State = {
 	 * handled which will prevent default behaviour of the help button, i.e. `e.preventDefault()`.
 	 */
 	onSyntaxHelp?: (e: MouseEvent<HTMLElement>) => boolean;
+
+	/**
+	 * Custom components to take over the rendering of certain parts of the jql editor
+	 */
+	customComponents?: CustomComponents;
 };
 
 export type DebugMessageEventAttribute = string | number | boolean | void | null;
@@ -265,4 +289,5 @@ export type Props = {
 	enableRichInlineNodes: boolean;
 	onSyntaxHelp?: (e: MouseEvent<HTMLElement>) => boolean;
 	onFocus?: (e: FocusEvent<HTMLElement>) => void;
+	customComponents?: CustomComponents;
 };

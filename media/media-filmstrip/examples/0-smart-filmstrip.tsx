@@ -168,6 +168,14 @@ class Example extends Component<{}, ExampleState> {
 			next: (state: FileState) => {
 				if (state.status === 'uploading') {
 					const { id } = state;
+					// prevent adding the same file id mutliple times
+					if (
+						this.state.items.some(
+							(item) => item.identifier.mediaItemType === 'file' && item.identifier.id === id,
+						)
+					) {
+						return;
+					}
 					const { items } = this.state;
 					const newItem: FilmstripItem = {
 						...this.cardProps,

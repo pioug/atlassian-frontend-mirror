@@ -10,6 +10,7 @@ import type { Command, HigherOrderCommand } from '@atlaskit/editor-common/types'
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 
 import { pluginKey } from '../pm-plugins/main';
+import type { TextColorInputMethod } from '../types';
 import { getActiveColor } from '../utils/color';
 
 import { removeColor } from './remove-color';
@@ -27,6 +28,7 @@ function createWithColorAnalytics(
 	previousColor: string | null,
 	palette: PaletteColor[],
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	inputMethod?: TextColorInputMethod,
 ): HigherOrderCommand {
 	const newColorFromPalette = palette.find(({ value }) => value === newColor);
 	const previousColorFromPalette = palette.find(({ value }) => value === previousColor);
@@ -44,12 +46,17 @@ function createWithColorAnalytics(
 		attributes: {
 			newColor: newColorLabel.toLowerCase(),
 			previousColor: previousColorLabel.toLowerCase(),
+			inputMethod,
 		},
 	});
 }
 
 export const changeColor =
-	(color: string, editorAnalyticsApi: EditorAnalyticsAPI | undefined): Command =>
+	(
+		color: string,
+		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+		inputMethod?: TextColorInputMethod,
+	): Command =>
 	(state, dispatch) => {
 		const { textColor } = state.schema.marks;
 		if (textColor) {
@@ -61,6 +68,7 @@ export const changeColor =
 				activeColor,
 				pluginState?.palette || [],
 				editorAnalyticsApi,
+				inputMethod,
 			);
 
 			if (pluginState?.disabled) {

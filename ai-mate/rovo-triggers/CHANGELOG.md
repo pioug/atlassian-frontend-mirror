@@ -1,5 +1,13 @@
 # @atlaskit/rovo-triggers
 
+## 1.4.1
+
+### Patch Changes
+
+- [#170106](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170106)
+  [`a77f143e57528`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a77f143e57528) -
+  Fixed invalid styles that were not rendering.
+
 ## 1.4.0
 
 ### Minor Changes

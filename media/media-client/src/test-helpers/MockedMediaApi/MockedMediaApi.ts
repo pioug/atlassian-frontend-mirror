@@ -140,6 +140,18 @@ const getMediaApi = ({ getItem }: { setItems: SetItems; getItem: GetItem }): Med
 		};
 	},
 
+	copyFile: async (fileId, params) => {
+		const fileItem = getItem(fileId);
+		if (!fileItem) {
+			throw new Error('404 - MockedMediaApi.copy: file not found');
+		}
+		return {
+			data: getMediaFile(fileItem),
+		};
+	},
+
+	registerCopyIntents: async (ids, collectionName) => {},
+
 	// TODO
 	removeCollectionFile: async () => {},
 

@@ -1,16 +1,23 @@
 import React from 'react';
 
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import noop from 'lodash/noop';
 import { type IntlShape } from 'react-intl-next';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import { JQLParseError, JQLSyntaxError } from '@atlaskit/jql-ast';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { mockIntl } from '../../../../../mocks';
 import { commonMessages } from '../../../../common/messages';
 import { useEditorViewIsInvalid } from '../../../../hooks/use-editor-view-is-invalid';
-import { useExternalMessages, useIntl, useJqlError, useStoreActions } from '../../../../state';
+import {
+	useCustomErrorComponent,
+	useExternalMessages,
+	useIntl,
+	useJqlError,
+	useStoreActions,
+} from '../../../../state';
 import { type ExternalMessagesNormalized } from '../../../../state/types';
 
 import { ErrorMessages } from './index';
@@ -54,12 +61,15 @@ const useStoreActionsMock = jest.fn<[null, any], []>(() => [
 
 const useEditorViewIsInvalidMock = jest.fn<boolean, []>(() => false);
 
+const useCustomErrorComponentMock = jest.fn<[React.ComponentType, any], []>(() => [() => null, {}]);
+
 const deps = [
 	injectable(useIntl, (): [IntlShape, any] => [mockIntl, {}]),
 	injectable(useJqlError, useJQLErrorMock),
 	injectable(useExternalMessages, useExternalMessagesMock),
 	injectable(useStoreActions, useStoreActionsMock),
 	injectable(useEditorViewIsInvalid, useEditorViewIsInvalidMock),
+	injectable(useCustomErrorComponent, useCustomErrorComponentMock),
 ];
 
 const renderErrorMessages = () => {
@@ -78,6 +88,61 @@ describe('ErrorMessages', () => {
 		useJQLErrorMock.mockReturnValue([null, {}]);
 		useEditorViewIsInvalidMock.mockReturnValue(false);
 		useExternalMessagesMock.mockReturnValue([normalizedExternalMessagesEmpty, {}]);
+	});
+
+	ffTest.on('custom_components_for_jql_editor', 'custom_components_for_jql_editor', () => {
+		describe('Custom error component', () => {
+			// Note: Most of these tests are only a smoke tests. We're essentially testing the mocks
+			// However, These still are good tests to ensure basic things like errors not throwing and props being passed down correctly
+
+			it('Uses custom component to override rendering', () => {
+				const CustomErrorMessage = jest.fn((props) => {
+					const { testId, editorTheme, editorId, children, ...rest } = props;
+
+					// Expect some critical props to be passed down
+					expect(testId).toBe('jql-editor-validation');
+					expect(editorTheme).toStrictEqual({
+						defaultMaxRows: expect.any(Number),
+						expanded: expect.any(Boolean),
+						expandedRows: expect.any(Number),
+						isCompact: expect.any(Boolean),
+						isSearch: expect.any(Boolean),
+						toggleExpanded: expect.any(Function),
+					});
+					expect(editorId).toEqual(expect.any(String));
+
+					return <div {...rest}>{children}</div>;
+				});
+
+				useJQLErrorMock.mockReturnValue([syntaxError, {}]);
+				useEditorViewIsInvalidMock.mockReturnValue(true);
+				useCustomErrorComponentMock.mockReturnValue([CustomErrorMessage, {}]);
+
+				renderErrorMessages();
+
+				expect(CustomErrorMessage).toHaveBeenCalled();
+				expect(screen.queryByTestId('jql-editor-validation')).toBeInTheDocument();
+				expect(screen.queryByText(syntaxError.message, { exact: false })).toBeInTheDocument();
+				expect(screen.queryByRole('alert')?.getAttribute('aria-describedby')).toEqual(
+					expect.any(String),
+				);
+			});
+
+			it('Does not use the custom component when errorMessage is empty', () => {
+				const CustomErrorMessage = jest.fn(() => {
+					return null;
+				});
+
+				useJQLErrorMock.mockReturnValue([null, {}]);
+				useEditorViewIsInvalidMock.mockReturnValue(false);
+				useCustomErrorComponentMock.mockReturnValue([CustomErrorMessage, {}]);
+
+				renderErrorMessages();
+
+				expect(CustomErrorMessage).not.toHaveBeenCalled();
+				expect(screen.queryByTestId('jql-editor-validation')).not.toBeInTheDocument();
+			});
+		});
 	});
 
 	it(`does not render an error message when there are no errors`, () => {

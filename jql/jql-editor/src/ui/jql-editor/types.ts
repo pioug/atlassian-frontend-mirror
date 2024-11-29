@@ -3,7 +3,7 @@ import { type FocusEvent, type MouseEvent, type Ref } from 'react';
 import { type Jast } from '@atlaskit/jql-ast';
 
 import { type AutocompleteProvider } from '../../plugins/autocomplete/types';
-import { type ExternalMessage } from '../../state/types';
+import { type CustomComponents, type ExternalMessage } from '../../state/types';
 
 export type HydratedUser = {
 	type: 'user';
@@ -104,4 +104,9 @@ export type JQLEditorUIProps = {
 	 * Ref callback to force the focus event
 	 */
 	inputRef?: Ref<{ focus: () => void }>;
+
+	/**
+	 * Custom components to take over the rendering of certain parts of JQL editor
+	 */
+	customComponents?: CustomComponents;
 };

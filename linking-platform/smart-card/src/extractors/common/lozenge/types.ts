@@ -1,3 +1,5 @@
+import { type JsonLd } from 'json-ld-types';
+
 import { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
 
 import { type InvokeActions } from '../../../state/hooks/use-invoke/types';
@@ -29,3 +31,9 @@ export type LinkDocumentState = 'archived' | 'draft' | 'current';
 export type LinkPullRequestState = 'open' | 'merged' | 'declined' | 'closed';
 
 export type LinkState = LinkDocumentState & LinkPullRequestState;
+
+export type LinkStateType =
+	| JsonLd.Data.Document
+	| JsonLd.Data.SourceCodePullRequest
+	| JsonLd.Data.Project
+	| JsonLd.Data.Goal;

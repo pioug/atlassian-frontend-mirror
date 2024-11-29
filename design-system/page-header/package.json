@@ -26,7 +26,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/tokens": "^2.3.0",
+		"@atlaskit/tokens": "^2.4.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -38,7 +38,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/breadcrumbs": "^14.0.0",
-		"@atlaskit/ds-lib": "^3.2.0",
+		"@atlaskit/ds-lib": "^3.3.0",
 		"@atlaskit/page": "^12.6.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^6.6.0",

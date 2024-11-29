@@ -25,4 +25,5 @@ export type {
 	ExternalError,
 	ExternalWarning,
 	ExternalInfo,
+	CustomComponents,
 } from './types';

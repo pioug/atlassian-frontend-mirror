@@ -161,7 +161,7 @@ export class FileFetcherImpl implements FileFetcher {
 	};
 
 	public getFileState(id: string, options: GetFileOptions = {}): MediaSubscribable {
-		const { collectionName, occurrenceKey } = options;
+		const { collectionName, occurrenceKey, includeHashForDuplicateFiles } = options;
 		if (!isValidId(id)) {
 			const subject = createMediaSubject<FileState>();
 			const err = new FileFetcherError('invalidFileId', id, {
@@ -191,7 +191,12 @@ export class FileFetcherImpl implements FileFetcher {
 		}
 		return fromObservable(
 			getFileStreamsCache().getOrInsert(id, () => {
-				const subject = this.createDownloadFileStream(id, collectionName);
+				const subject = this.createDownloadFileStream(
+					id,
+					collectionName,
+					undefined,
+					includeHashForDuplicateFiles,
+				);
 				subject.subscribe({
 					next: (fileState) => {
 						this.setFileState(id, fileState);
@@ -227,6 +232,7 @@ export class FileFetcherImpl implements FileFetcher {
 		id: string,
 		collectionName?: string,
 		occurrenceKey?: string,
+		includeHashForDuplicateFiles?: boolean,
 	): ReplaySubject<FileState> => {
 		const subject = createMediaSubject<FileState>();
 		const poll = new PollingFunction();
@@ -238,6 +244,7 @@ export class FileFetcherImpl implements FileFetcher {
 			const response = await this.dataloader.load({
 				id,
 				collectionName,
+				includeHashForDuplicateFiles,
 			});
 
 			if (isNotFoundMediaItemDetails(response)) {

@@ -19,8 +19,8 @@ type flagData = {
 	title: string;
 };
 
-const getRandomIcon = () => {
-	const icons = iconMap() as { [key: string]: object };
+const getRandomIcon = (): ReactNode => {
+	const icons = iconMap() as { [key: string]: ReactNode };
 	const iconArray = Object.keys(icons).map((i) => icons[i]);
 	return iconArray[Math.floor(Math.random() * iconArray.length)];
 };

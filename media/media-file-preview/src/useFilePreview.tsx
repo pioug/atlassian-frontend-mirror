@@ -12,7 +12,6 @@ import {
 	type MediaTraceContext,
 	type SSR,
 } from '@atlaskit/media-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createFailedSSRObject, extractErrorInfo, type SSRStatus } from './analytics';
 import { ensureMediaFilePreviewError, ImageLoadError, MediaFilePreviewError } from './errors';
@@ -103,9 +102,7 @@ export const useFilePreview = ({
 		'max-age': maxAge,
 	};
 
-	if (fg('platform.media-card-performance-observer_a803k')) {
-		imageURLParams = { ...imageURLParams, source };
-	}
+	imageURLParams = { ...imageURLParams, source };
 
 	const previewInitializer = (): MediaFilePreview | undefined => {
 		const preview = mediaFilePreviewCache.get(identifier.id, resizeMode);

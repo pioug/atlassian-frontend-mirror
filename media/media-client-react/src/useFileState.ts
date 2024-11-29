@@ -15,10 +15,16 @@ export type UseFileStateOptions = {
 	// If `true`, we don't fetch remote file state if not found in the cache.
 	// The default value is `false`
 	skipRemote?: boolean;
+	includeHashForDuplicateFiles?: boolean;
 };
 
 export function useFileState(id: string, options: UseFileStateOptions = {}): UseFileStateResult {
-	const { collectionName, occurrenceKey, skipRemote = false } = options;
+	const {
+		collectionName,
+		occurrenceKey,
+		skipRemote = false,
+		includeHashForDuplicateFiles,
+	} = options;
 	const mediaClient = useMediaClient();
 	const fileState = useMediaStore((state) => state.files[id]);
 	useEffect(() => {
@@ -27,9 +33,18 @@ export function useFileState(id: string, options: UseFileStateOptions = {}): Use
 			mediaClient.file.getFileState(id, {
 				collectionName,
 				occurrenceKey,
+				includeHashForDuplicateFiles,
 			});
 		}
-	}, [id, mediaClient, collectionName, occurrenceKey, skipRemote, fileState]);
+	}, [
+		id,
+		mediaClient,
+		collectionName,
+		occurrenceKey,
+		skipRemote,
+		fileState,
+		includeHashForDuplicateFiles,
+	]);
 
 	return { fileState };
 }

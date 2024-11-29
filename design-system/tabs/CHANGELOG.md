@@ -1,5 +1,11 @@
 # @atlaskit/tabs
 
+## 16.5.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 16.5.3
 
 ### Patch Changes

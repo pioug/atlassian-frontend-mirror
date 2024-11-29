@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 
 import Heading from '@atlaskit/heading';
 import { Box, Pressable, Stack, Text, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import { type Topic, usePublish, useSubscribe } from '../src';
 
@@ -19,7 +18,6 @@ const contentStyles = xcss({
 
 const descriptionStyles = xcss({
 	padding: 'space.300',
-	fontSize: token('font.body.UNSAFE_small'),
 });
 
 const publisherStyles = xcss({

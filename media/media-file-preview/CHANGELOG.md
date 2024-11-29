@@ -1,5 +1,13 @@
 # @atlaskit/media-file-preview
 
+## 0.9.4
+
+### Patch Changes
+
+- [#165609](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165609)
+  [`b29c0cc4fef46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b29c0cc4fef46) -
+  Cleaned up media card perf observer feature flag
+
 ## 0.9.3
 
 ### Patch Changes

@@ -55,7 +55,6 @@ import { useBreakpoint } from './useBreakpoint';
 import OpenMediaViewerButton from './ui/openMediaViewerButton/openMediaViewerButton';
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { SvgView } from './svgView';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export interface CardViewProps {
 	readonly identifier?: FileIdentifier;
@@ -208,7 +207,7 @@ export const CardViewBase = ({
 		const defaultConfig: RenderConfigByStatus = {
 			renderTypeIcon: !didImageRender && !didSvgRender,
 			renderImageRenderer: !didSvgRender,
-			renderSvgView: mimeType === 'image/svg+xml' && fg('platform_media_group_svg'),
+			renderSvgView: mimeType === 'image/svg+xml',
 			renderPlayButton: !!cardPreview && mediaType === 'video',
 			renderBlanket: !disableOverlay,
 			renderTitleBox: !disableOverlay,
@@ -242,11 +241,7 @@ export const CardViewBase = ({
 				return defaultConfig;
 			case 'error':
 			case 'failed-processing':
-				if (
-					status === 'failed-processing' &&
-					mimeType === 'image/svg+xml' &&
-					fg('platform_media_group_svg')
-				) {
+				if (status === 'failed-processing' && mimeType === 'image/svg+xml') {
 					return loadingConfig;
 				}
 

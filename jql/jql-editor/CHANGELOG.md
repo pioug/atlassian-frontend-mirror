@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 4.11.0
+
+### Minor Changes
+
+- [#169739](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169739)
+  [`0eafd620f45b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0eafd620f45b3) -
+  Implement mechanism to override JQL Editor components [GRAVITYAI-1949]
+
 ## 4.10.7
 
 ### Patch Changes

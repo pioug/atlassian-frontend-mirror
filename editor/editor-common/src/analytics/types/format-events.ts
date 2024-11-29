@@ -48,7 +48,7 @@ type FormatSuperSubAEP = FormatAEP<
 type FormatIndentationAEP = FormatAEP<
 	ACTION_SUBJECT_ID.FORMAT_INDENT,
 	{
-		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.KEYBOARD;
+		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.KEYBOARD | INPUT_METHOD.FLOATING_TB;
 		direction: INDENT_DIRECTION.INDENT | INDENT_DIRECTION.OUTDENT;
 		previousIndentationLevel: number;
 		newIndentLevel: number;
@@ -104,6 +104,7 @@ type FormatColorAEP = FormatAEP<
 	{
 		newColor: string;
 		previousColor: string;
+		inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
 	}
 >;
 
@@ -114,7 +115,8 @@ type FormatListAEP = FormatAEP<
 			| INPUT_METHOD.TOOLBAR
 			| INPUT_METHOD.KEYBOARD
 			| INPUT_METHOD.FORMATTING
-			| INPUT_METHOD.QUICK_INSERT;
+			| INPUT_METHOD.QUICK_INSERT
+			| INPUT_METHOD.FLOATING_TB;
 	}
 >;
 

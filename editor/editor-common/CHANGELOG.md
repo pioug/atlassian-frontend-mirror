@@ -1,5 +1,34 @@
 # @atlaskit/editor-common
 
+## 95.9.1
+
+### Patch Changes
+
+- [#170673](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170673)
+  [`09f6aa8666f9b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/09f6aa8666f9b) -
+  [ux] [ED-25899] Update layout breakpoint to 630px in renderer and corresponding breakpoints in
+  editor
+- Updated dependencies
+
+## 95.9.0
+
+### Minor Changes
+
+- [#167675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167675)
+  [`9c0185ccd82d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c0185ccd82d3) -
+  [ux] Adds inputMethod as an optional argument in changeColor plugin action and enables text
+  coloroption in the Selection toolbar.
+
+### Patch Changes
+
+- [#165609](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/165609)
+  [`b29c0cc4fef46`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b29c0cc4fef46) -
+  Cleaned up media card perf observer feature flag
+- [#170579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170579)
+  [`f9d3dc2a8b76d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f9d3dc2a8b76d) -
+  [ux] Adds lists and indentation items to the selection toolbar
+- Updated dependencies
+
 ## 95.8.1
 
 ### Patch Changes

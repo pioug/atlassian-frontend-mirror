@@ -1,5 +1,18 @@
 # @atlaskit/media-client-react
 
+## 2.4.0
+
+### Minor Changes
+
+- [#170821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170821)
+  [`52532d238c0b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/52532d238c0b6) -
+  Enabled the deduplication of files in media-filmstrip by passing includeHashForDuplicateFiles flag
+  to /items
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.3.0
 
 ### Minor Changes

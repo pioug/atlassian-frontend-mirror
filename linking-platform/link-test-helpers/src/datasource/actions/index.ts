@@ -188,7 +188,7 @@ export const mockActionsExecution = () => {
 			};
 		},
 		{
-			delay: 500,
+			delay: 600,
 			overwriteRoutes: true,
 		},
 	);

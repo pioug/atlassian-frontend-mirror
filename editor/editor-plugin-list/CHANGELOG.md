@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-list
 
+## 3.9.6
+
+### Patch Changes
+
+- [#170579](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170579)
+  [`f9d3dc2a8b76d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f9d3dc2a8b76d) -
+  [ux] Adds lists and indentation items to the selection toolbar
+- Updated dependencies
+
 ## 3.9.5
 
 ### Patch Changes

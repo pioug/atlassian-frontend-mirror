@@ -136,6 +136,7 @@ describe('MediaClient', () => {
 							[id],
 							'some-collection',
 							expect.any(Object),
+							undefined,
 						);
 						expect(state).toEqual({
 							id,

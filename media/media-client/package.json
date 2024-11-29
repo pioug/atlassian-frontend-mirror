@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client",
-	"version": "28.3.0",
+	"version": "28.4.0",
 	"description": "Media API Web Client Library",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -60,9 +60,9 @@
 	},
 	"devDependencies": {
 		"@atlaskit/media-core": "^34.3.0",
-		"@atlaskit/media-state": "^1.1.0",
+		"@atlaskit/media-state": "^1.2.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/tokens": "^2.3.0",
+		"@atlaskit/tokens": "^2.4.0",
 		"@atlassian/feature-flags-test-utils": "0.2.3",
 		"@emotion/react": "^11.7.1",
 		"@types/deep-equal": "^1.0.1",
@@ -86,9 +86,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.media-card-performance-observer_a803k": {
-			"type": "boolean"
-		},
 		"platform_media_cdn_single_host": {
 			"type": "boolean"
 		},

@@ -19,6 +19,7 @@ import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { computeJqlInsights, isListOperator, type JQLParseError } from '@atlaskit/jql-ast';
 import { JQLAutocomplete, type JQLRuleSuggestion } from '@atlaskit/jql-autocomplete';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	ActionSubject,
@@ -64,6 +65,7 @@ import {
 	type AutocompletePosition,
 	type AutocompleteState,
 	type ContextAwareJQLSuggestions,
+	type CustomErrorComponent,
 	type ExternalError,
 	type ExternalErrorAttributes,
 	type ExternalMessagesNormalized,
@@ -852,6 +854,15 @@ export const useExternalMessages = createHook<State, Actions, ExternalMessagesNo
 	},
 });
 
+export const useCustomErrorComponent = createHook<State, Actions, CustomErrorComponent | undefined>(
+	Store,
+	{
+		selector: (state) => {
+			return state.customComponents?.ErrorMessage;
+		},
+	},
+);
+
 const memoizedAutocompleteOptionsSelector = createSelector<
 	State,
 	void,
@@ -1033,6 +1044,7 @@ export const EditorStateContainer = createContainer<State, Actions, Props>(Store
 				enableRichInlineNodes,
 				onDebugUnsafeMessage,
 				onSyntaxHelp,
+				customComponents,
 			},
 		) => {
 			setState({
@@ -1058,6 +1070,7 @@ export const EditorStateContainer = createContainer<State, Actions, Props>(Store
 						: undefined,
 				onDebugUnsafeMessage,
 				onSyntaxHelp,
+				customComponents: fg('custom_components_for_jql_editor') ? customComponents : undefined,
 			});
 
 			dispatch(actions.initialiseEditorState());
@@ -1075,6 +1088,7 @@ export const EditorStateContainer = createContainer<State, Actions, Props>(Store
 				enableRichInlineNodes,
 				onDebugUnsafeMessage,
 				onSyntaxHelp,
+				customComponents,
 			},
 		) => {
 			const { controlledQuery, query } = getState();
@@ -1099,6 +1113,7 @@ export const EditorStateContainer = createContainer<State, Actions, Props>(Store
 				enableRichInlineNodes,
 				onDebugUnsafeMessage,
 				onSyntaxHelp,
+				customComponents: fg('custom_components_for_jql_editor') ? customComponents : undefined,
 			});
 		},
 });

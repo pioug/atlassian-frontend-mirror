@@ -10,6 +10,7 @@ type GlobalError = {
 	errorStack?: string;
 };
 
+let globalCount = 0;
 const errors: GlobalError[] = [];
 
 let push = (
@@ -44,7 +45,10 @@ export const sinkErrorHandler = (
 	errors.length = 0;
 };
 
+export const getGlobalErrorCount = () => globalCount;
+
 const handleError = (e: ErrorEvent) => {
+	globalCount++;
 	if (e.error?.UFOhasCaught === undefined) {
 		try {
 			if (e.error instanceof Error) {
@@ -66,6 +70,7 @@ const handleError = (e: ErrorEvent) => {
 };
 
 const handlePromiseRejection = (e: PromiseRejectionEvent) => {
+	globalCount++;
 	if (e.reason instanceof Error) {
 		push('GlobalErrorHandler', null, e.reason.name, e.reason.message, e.reason.stack);
 	} else if (e.reason) {

@@ -22,7 +22,10 @@ export type NewAttributes = IndentationMarkAttributes | undefined | false;
 export type IndentationChangesOptions = {
 	direction: INDENT_DIRECTION;
 };
-export type IndentationInputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
+export type IndentationInputMethod =
+	| INPUT_METHOD.KEYBOARD
+	| INPUT_METHOD.TOOLBAR
+	| INPUT_METHOD.FLOATING_TB;
 
 const indentTypes: Record<string, string> = {
 	paragraph: INDENT_TYPE.PARAGRAPH,

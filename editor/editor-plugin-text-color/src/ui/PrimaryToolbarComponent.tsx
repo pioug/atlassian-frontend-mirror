@@ -6,6 +6,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { TextColorPlugin } from '../types';
+import { ToolbarType } from '../types';
 
 import ToolbarTextColor from './ToolbarTextColor';
 
@@ -42,6 +43,7 @@ export function PrimaryToolbarComponent({
 			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 			disabled={disabled}
 			pluginInjectionApi={api}
+			toolbarType={ToolbarType.PRIMARY}
 		/>
 	);
 }

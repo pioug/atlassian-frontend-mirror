@@ -22,7 +22,7 @@ import { getRestartListsAttributes } from '../utils/analytics';
 import { findFirstParentListNode } from '../utils/find';
 import { isInsideListItem, isInsideTableCell } from '../utils/selection';
 
-type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR;
+type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
 export const outdentList =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	(inputMethod: InputMethod = INPUT_METHOD.KEYBOARD): EditorCommand => {

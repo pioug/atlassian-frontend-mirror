@@ -26,7 +26,7 @@ import Form, {
 
 describe('should pass axe accessibility testing', () => {
 	it('Form', async () => {
-		const { container } = render(<Form onSubmit={noop}>{noop}</Form>);
+		const { container } = render(<Form onSubmit={noop}>{null}</Form>);
 		await axe(container);
 	});
 

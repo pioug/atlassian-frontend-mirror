@@ -64,7 +64,7 @@ const IconEditType = (props: IconEditTypeProps) => {
 				isLoading={isLoading}
 				filterOption={filterOption}
 				testId="inline-edit-priority"
-				defaultValue={currentValue?.values?.[0]}
+				value={currentValue?.values?.[0]}
 				getOptionValue={(option) => option.text || ''}
 				formatOptionLabel={({ source, label, text }) => (
 					<SharedIconComponent

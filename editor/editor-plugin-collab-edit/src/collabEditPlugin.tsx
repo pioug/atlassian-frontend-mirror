@@ -195,10 +195,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				},
 			];
 
-			if (
-				fg('platform_editor_filter_transactions_analytics') ||
-				fg('platform_editor_filter_spamming_transactions')
-			) {
+			if (fg('platform_editor_filter_transactions_analytics')) {
 				plugins.push({
 					name: 'trackAndFilterSpammingSteps',
 					plugin: () =>
@@ -216,12 +213,10 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				});
 			}
 
-			if (fg('platform_editor_last_organic_change')) {
-				plugins.push({
-					name: 'collabTrackLastOrganicChangePlugin',
-					plugin: createLastOrganicChangePlugin,
-				});
-			}
+			plugins.push({
+				name: 'collabTrackLastOrganicChangePlugin',
+				plugin: createLastOrganicChangePlugin,
+			});
 
 			return plugins;
 		},

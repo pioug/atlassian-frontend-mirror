@@ -27,6 +27,9 @@
             "path": "../../media-client/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../media-client-react/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../media-common/afm-cc/tsconfig.json"
         },
         {

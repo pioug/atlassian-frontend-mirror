@@ -3,10 +3,10 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::0d08fdca953a1eb1130683499e509165>>
+ * @codegen <<SignedSource::eb8cd1263459fb798341024dc0c461ea>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
-import { type AnalyticsEventAttributes, type EventKey } from './analytics.types';
+import type { AnalyticsEventAttributes, EventKey } from './analytics.types';
 
 type OptionalIfUndefined<T> = undefined extends T ? [param?: T] : [param: T];
 

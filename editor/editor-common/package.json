@@ -216,7 +216,7 @@
 		"@atlaskit/link-datasource": "^3.13.0",
 		"@atlaskit/link-picker": "^1.47.0",
 		"@atlaskit/media-card": "^78.15.0",
-		"@atlaskit/media-client": "^28.4.0",
+		"@atlaskit/media-client": "^28.5.0",
 		"@atlaskit/media-client-react": "^2.4.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-file-preview": "^0.9.0",

@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 32.1.1
+
+### Patch Changes
+
+- [#170976](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170976)
+  [`dd792fd8a84f0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd792fd8a84f0) -
+  Fix analytics naming for smartLinkIframe focused
+
 ## 32.1.0
 
 ### Minor Changes

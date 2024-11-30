@@ -1,5 +1,14 @@
 # @atlaskit/media-client
 
+## 28.5.0
+
+### Minor Changes
+
+- [#170974](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170974)
+  [`215eb993c1ea3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/215eb993c1ea3) -
+  Added `registerCopyIntents` and `copyFile` endpoints to meida client to enable cross client copy
+  and paste
+
 ## 28.4.0
 
 ### Minor Changes

@@ -290,7 +290,7 @@ events:
           required: true
           type: number
           description: Percentage element was visible at end of dwell
-  - smartLinkIframe focus:
+  - smartLinkIframe focused:
       type: ui
       description: fires when a user clicks or tabs into a Smart Link's iframe.
       attributes:

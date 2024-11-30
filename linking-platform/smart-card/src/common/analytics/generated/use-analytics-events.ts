@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::3fdfbbdbdb062babb9a2ab4e53454d79>>
+ * @codegen <<SignedSource::1f3587129789e7883af37adad3817cd2>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 import { useCallback } from 'react';
@@ -12,7 +12,7 @@ import { useAnalyticsEvents as useAnalyticsNextEvents } from '@atlaskit/analytic
 
 import { EVENT_CHANNEL } from '../constants';
 
-import { type EventKey } from './analytics.types';
+import type { EventKey } from './analytics.types';
 import createEventPayload from './create-event-payload';
 
 export const useAnalyticsEvents = () => {

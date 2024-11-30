@@ -44,7 +44,7 @@
 		"@atlaskit/form": "^10.6.0",
 		"@atlaskit/icon": "^22.27.0",
 		"@atlaskit/icon-file-type": "^6.7.0",
-		"@atlaskit/media-client": "^28.4.0",
+		"@atlaskit/media-client": "^28.5.0",
 		"@atlaskit/media-client-react": "^2.4.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-svg": "^1.0.0",

@@ -215,7 +215,7 @@ function Component({
 	);
 
 	const onIframeFocus = useCallback(() => {
-		fireEvent('ui.smartLinkIframe.focus', {
+		fireEvent('ui.smartLinkIframe.focused', {
 			id,
 			definitionId: definitionId ?? null,
 			display: isFlexibleUi ? 'flexible' : appearance,

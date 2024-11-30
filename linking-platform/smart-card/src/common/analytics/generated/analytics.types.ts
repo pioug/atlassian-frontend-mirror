@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::b25cecd58c98d2c650c7c6c94fdf3c0c>>
+ * @codegen <<SignedSource::6a2a0a5715993e0dd235d38d95d6bbcc>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -81,7 +81,7 @@ export type SmartLinkIframeDwelledAttributesType = {
 	dwellTime: number;
 	dwellPercentVisible: number;
 };
-export type SmartLinkIframeFocusAttributesType = {
+export type SmartLinkIframeFocusedAttributesType = {
 	id: string;
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
 	definitionId: string | null;
@@ -164,7 +164,7 @@ export type AnalyticsEventAttributes = {
 	'ui.smartLinkIframe.dwelled': SmartLinkIframeDwelledAttributesType;
 	/**
 	 * fires when a user clicks or tabs into a Smart Link's iframe. */
-	'ui.smartLinkIframe.focus': SmartLinkIframeFocusAttributesType;
+	'ui.smartLinkIframe.focused': SmartLinkIframeFocusedAttributesType;
 	/**
 	 * user connecting their account to view a Smart Link. */
 	'track.applicationAccount.connected': ApplicationAccountConnectedAttributesType;

@@ -7,6 +7,7 @@ import type {
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
@@ -43,7 +44,11 @@ export type TypeAheadPlugin = NextEditorPlugin<
 	'typeAhead',
 	{
 		pluginConfiguration: TypeAheadPluginOptions | undefined;
-		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<FeatureFlagsPlugin>];
+		dependencies: [
+			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<FeatureFlagsPlugin>,
+			OptionalPlugin<ConnectivityPlugin>,
+		];
 		sharedState: TypeAheadPluginSharedState;
 		actions: {
 			isOpen: (editorState: EditorState) => boolean;

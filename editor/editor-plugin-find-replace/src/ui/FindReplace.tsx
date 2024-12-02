@@ -15,7 +15,7 @@ import type { MatchCaseProps } from '../types';
 
 import Find from './Find';
 import Replace from './Replace';
-import { ruleStyles, wrapperPaddingStyles, wrapperStyles } from './styles';
+import { ruleStyles, wrapperPaddingStyles, wrapperStyles } from './ui-styles';
 
 export type FindReplaceProps = {
 	findText?: string;

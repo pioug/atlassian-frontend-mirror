@@ -40,10 +40,10 @@ describe('FlexibleResolvedView', () => {
 		const snippetBlock = await screen.findByTestId('smart-block-snippet-resolved-view');
 		const previewBlock = await screen.findByTestId('smart-block-preview-resolved-view');
 
-		expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-		expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
-		expect(footerBlock.firstElementChild?.textContent?.trim()).toBe('Confluence');
-		expect(footerBlock.children[1]?.textContent?.trim()).toBe('Open preview');
+		expect(titleBlock).toHaveTextContent('I love cheese');
+		expect(snippetBlock).toHaveTextContent('Here is your serving of cheese');
+		expect(footerBlock.firstElementChild).toHaveTextContent('Confluence');
+		expect(footerBlock.children[1]).toHaveTextContent('Open preview');
 		expect(previewBlock).toBeDefined();
 	});
 
@@ -71,6 +71,6 @@ describe('FlexibleResolvedView', () => {
 
 		const followAction = await screen.findByTestId('smart-action-follow-action');
 		expect(followAction).toBeInTheDocument();
-		expect(followAction.textContent).toEqual('Follow');
+		expect(followAction).toHaveTextContent('Follow');
 	});
 });

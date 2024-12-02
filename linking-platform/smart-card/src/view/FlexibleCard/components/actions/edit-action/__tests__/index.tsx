@@ -36,6 +36,6 @@ describe('EditAction', () => {
 		setup({ onClick: () => '' });
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
-		expect(element.textContent).toBe('Edit');
+		expect(element).toHaveTextContent('Edit');
 	});
 });

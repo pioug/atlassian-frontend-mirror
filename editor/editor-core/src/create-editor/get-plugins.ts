@@ -1,16 +1,19 @@
 import type { IntlShape } from 'react-intl-next';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { Dispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ReactHookFactory, UIComponentFactory } from '@atlaskit/editor-common/types';
+import type {
+	FeatureFlags,
+	MarkConfig,
+	NodeConfig,
+	ReactHookFactory,
+	UIComponentFactory,
+} from '@atlaskit/editor-common/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
-
-import type { Dispatch, EventDispatcher } from '../event-dispatcher';
-import type { FeatureFlags } from '../types/feature-flags';
-import type { MarkConfig, NodeConfig } from '../types/pm-config';
 
 export type LightPMPluginFactoryParams = {
 	// We can type this safe, we already remove the real code from this types

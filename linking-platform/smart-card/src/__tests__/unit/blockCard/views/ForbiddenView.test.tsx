@@ -27,7 +27,7 @@ describe('Block card views - Forbidden', () => {
 	it('renders view', () => {
 		renderWithIntl(<BlockCardForbiddenView {...props} testId="forbidden-view" />);
 		const frame = screen.getByTestId('forbidden-view');
-		expect(frame.textContent).toMatch(
+		expect(frame).toHaveTextContent(
 			/https:\/\/github.com\/changesets\/changesetsYou'll need to request access or try a different account to view this preview./,
 		);
 		const icon = screen.getByTestId('forbidden-view-lock-icon');

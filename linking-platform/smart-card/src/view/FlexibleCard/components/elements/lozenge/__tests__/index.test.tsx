@@ -23,7 +23,7 @@ describe('Element: Lozenge', () => {
 		const element = await screen.findByTestId(testId);
 
 		expect(element).toBeTruthy();
-		expect(element.textContent).toBe(text);
+		expect(element).toHaveTextContent(text);
 	});
 
 	it('does not render when no text in element', async () => {
@@ -47,7 +47,7 @@ describe('Element: Lozenge', () => {
 				const element = await screen.findByTestId(testId);
 
 				expect(element).toBeTruthy();
-				expect(element.textContent).toBe(text);
+				expect(element).toHaveTextContent(text);
 			});
 		}
 	});
@@ -56,7 +56,7 @@ describe('Element: Lozenge', () => {
 		render(<Lozenge text={text} appearance={'spaghetti' as any} />);
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeTruthy();
-		expect(element.textContent).toBe(text);
+		expect(element).toHaveTextContent(text);
 	});
 
 	it('renders with override css', async () => {

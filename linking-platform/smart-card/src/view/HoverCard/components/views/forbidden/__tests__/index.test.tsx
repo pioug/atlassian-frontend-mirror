@@ -56,11 +56,11 @@ describe('Forbidden Hover Card', () => {
 		const mainContentElement = await screen.findByTestId('hover-card-forbidden-view-content');
 		const buttonElement = await screen.findByTestId('hover-card-forbidden-view-button');
 
-		expect(titleElement.textContent).toBe('Join Jira to view this content');
-		expect(mainContentElement.textContent).toBe(
+		expect(titleElement).toHaveTextContent('Join Jira to view this content');
+		expect(mainContentElement).toHaveTextContent(
 			'Your team uses Jira to collaborate and you can start using it right away!',
 		);
-		expect(buttonElement.textContent).toBe('Join now');
+		expect(buttonElement).toHaveTextContent('Join now');
 	});
 
 	it('does not render forbidden hover card when accessContext is undefined', async () => {

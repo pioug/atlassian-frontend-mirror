@@ -13,10 +13,11 @@ import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { moveNodeViaShortcut } from '../commands/move-node';
-import { showDragHandleAtSelection } from '../commands/show-drag-handle';
-import { DIRECTION } from '../consts';
-import type { BlockControlsPlugin } from '../types';
+import type { BlockControlsPlugin } from '../blockControlsPluginType';
+import { moveNodeViaShortcut } from '../editor-commands/move-node';
+import { showDragHandleAtSelection } from '../editor-commands/show-drag-handle';
+
+import { DIRECTION } from './utils/consts';
 
 function keymapList(
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-fragment",
-	"version": "1.9.6",
+	"version": "1.9.7",
 	"description": "Fragment plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,8 +35,8 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/editor-common": "^95.9.0",
-		"@atlaskit/editor-prosemirror": "6.0.0",
+		"@atlaskit/editor-common": "^95.10.0",
+		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -48,6 +48,9 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
+			"code-structure": [
+				"editor-plugin"
+			],
 			"import-structure": [
 				"atlassian-conventions"
 			],

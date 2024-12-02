@@ -1,7 +1,7 @@
-export { blockControlsPlugin } from './plugin';
+export { blockControlsPlugin } from './blockControlsPlugin';
 export type {
 	BlockControlsPlugin,
 	BlockControlsSharedState,
 	HandleOptions,
 	MoveNodeMethod,
-} from './types';
+} from './blockControlsPluginType';

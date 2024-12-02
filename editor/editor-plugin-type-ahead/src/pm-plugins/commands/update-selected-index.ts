@@ -1,13 +1,23 @@
-import type { Command } from '@atlaskit/editor-common/types';
+import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
+import type { TypeAheadPlugin } from '../../typeAheadPluginType';
 import { ACTIONS } from '../actions';
+import { itemIsDisabled } from '../item-is-disabled';
 import { pluginKey as typeAheadPluginKey } from '../key';
 
-export const updateSelectedIndex = (selectedIndex: number): Command => {
+export const updateSelectedIndex = (
+	selectedIndex: number,
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined,
+): Command => {
 	return (state, dispatch) => {
 		const pluginState = typeAheadPluginKey.getState(state);
 
 		if (pluginState?.selectedIndex === selectedIndex) {
+			return false;
+		}
+
+		// If the new index is disabled ignore this call, we can use the previous index
+		if (itemIsDisabled(pluginState?.items[selectedIndex], api)) {
 			return false;
 		}
 

@@ -49,7 +49,7 @@ describe('Follow Project Action', () => {
 			setup({ as: 'stack-item' });
 			const element = await screen.findByTestId(testId);
 			expect(element).toBeInTheDocument();
-			expect(element.textContent).toBe('Follow project');
+			expect(element).toHaveTextContent('Follow project');
 		});
 
 		it('renders stack item tooltip', async () => {
@@ -60,7 +60,7 @@ describe('Follow Project Action', () => {
 			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Follow to get notifications on this project');
+			expect(tooltip).toHaveTextContent('Follow to get notifications on this project');
 		});
 
 		it('renders project icon', async () => {

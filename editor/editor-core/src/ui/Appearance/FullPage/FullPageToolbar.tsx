@@ -15,7 +15,13 @@ import type { CollabEditOptions } from '@atlaskit/editor-common/collab';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type {
+	EditorAppearance,
+	FeatureFlags,
+	OptionalPlugin,
+	PublicPluginAPI,
+	ToolbarUIComponentFactory,
+} from '@atlaskit/editor-common/types';
 import { ContextPanelConsumer } from '@atlaskit/editor-common/ui';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
@@ -27,13 +33,8 @@ import type { FindReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { EditorActions } from '../../../index';
-import type {
-	EditorAppearance,
-	PrimaryToolbarComponents,
-	ToolbarUIComponentFactory,
-} from '../../../types';
-import type { FeatureFlags } from '../../../types/feature-flags';
-import Toolbar from '../../Toolbar';
+import type { PrimaryToolbarComponents } from '../../../types';
+import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
 
 import { BeforePrimaryToolbarWrapper } from './BeforeWrapper';
 import {

@@ -4,10 +4,12 @@ import { InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { closest } from '@atlaskit/editor-common/utils';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
+import { type TypeAheadPlugin } from '../typeAheadPluginType';
 import type { PopupMountPointReference, TypeAheadHandler, TypeAheadPluginState } from '../types';
 
 import { ACTIONS } from './actions';
@@ -35,6 +37,7 @@ type Props = {
 	typeAheadHandlers: Array<TypeAheadHandler>;
 	getIntl: () => IntlShape;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 };
 export function createPlugin({
 	reactDispatch,
@@ -42,12 +45,14 @@ export function createPlugin({
 	typeAheadHandlers,
 	getIntl,
 	nodeViewPortalProviderAPI,
+	api,
 }: Props): SafePlugin {
 	const intl = getIntl();
 	const { createDecorations, removeDecorations } = factoryDecorations({
 		intl,
 		nodeViewPortalProviderAPI,
 		popupMountRef,
+		api,
 	});
 	const reducer = createReducer({
 		createDecorations,

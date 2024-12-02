@@ -1,3 +1,6 @@
-export { breakoutPlugin } from './plugin';
-export type { BreakoutPlugin, BreakoutPluginOptions } from './plugin';
-export type { BreakoutPluginState } from './types';
+export { breakoutPlugin } from './breakoutPlugin';
+export type {
+	BreakoutPlugin,
+	BreakoutPluginOptions,
+	BreakoutPluginState,
+} from './breakoutPluginType';

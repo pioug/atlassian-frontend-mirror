@@ -1,2 +1,2 @@
-export { guidelinePlugin } from './plugin';
-export type { GuidelinePlugin } from './plugin';
+export { guidelinePlugin } from './guidelinePlugin';
+export type { GuidelinePlugin } from './guidelinePluginType';

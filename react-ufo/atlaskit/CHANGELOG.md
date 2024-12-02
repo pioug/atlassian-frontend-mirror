@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.4.2
+
+### Patch Changes
+
+- [#171586](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171586)
+  [`abec7f72a0d71`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/abec7f72a0d71) -
+  add experimental as a noop prop to UFO hold
+
 ## 2.4.1
 
 ### Patch Changes

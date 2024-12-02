@@ -1,7 +1,7 @@
 export type {
-	FindReplacePlugin,
 	FindReplaceToolbarButtonActionProps,
 	FindReplaceOptions,
 	FindReplacePluginState,
 } from './types';
-export { findReplacePlugin } from './plugin';
+export { findReplacePlugin } from './findReplacePlugin';
+export type { FindReplacePlugin } from './findReplacePluginType';

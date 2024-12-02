@@ -44,7 +44,7 @@ jest.mock('@atlaskit/editor-common/performance/measure-render', () => ({
 	}),
 }));
 
-jest.mock('@atlaskit/editor-plugin-base/src/utils/inputTrackingConfig', () => ({
+jest.mock('@atlaskit/editor-plugin-base/src/pm-plugins/utils/inputTrackingConfig', () => ({
 	inputTracking: {
 		enabled: true,
 		samplingRate: 1,

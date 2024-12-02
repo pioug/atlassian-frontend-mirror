@@ -23,7 +23,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/blog/16'
+				'./artifacts/glyph/blog/16'
 			),
 	},
 	'branch/16': {
@@ -33,7 +33,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/branch/16'
+				'./artifacts/glyph/branch/16'
 			),
 	},
 	'bug/16': {
@@ -43,7 +43,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/bug/16'
+				'./artifacts/glyph/bug/16'
 			),
 	},
 	'calendar/16': {
@@ -53,7 +53,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/calendar/16'
+				'./artifacts/glyph/calendar/16'
 			),
 	},
 	'changes/16': {
@@ -63,7 +63,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/changes/16'
+				'./artifacts/glyph/changes/16'
 			),
 	},
 	'code/16': {
@@ -73,7 +73,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/code/16'
+				'./artifacts/glyph/code/16'
 			),
 	},
 	'commit/16': {
@@ -83,7 +83,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/commit/16'
+				'./artifacts/glyph/commit/16'
 			),
 	},
 	'epic/16': {
@@ -93,7 +93,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/epic/16'
+				'./artifacts/glyph/epic/16'
 			),
 	},
 	'improvement/16': {
@@ -103,7 +103,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/improvement/16'
+				'./artifacts/glyph/improvement/16'
 			),
 	},
 	'incident/16': {
@@ -113,7 +113,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/incident/16'
+				'./artifacts/glyph/incident/16'
 			),
 	},
 	'issue/16': {
@@ -123,7 +123,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/issue/16'
+				'./artifacts/glyph/issue/16'
 			),
 	},
 	'new-feature/16': {
@@ -133,7 +133,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/new-feature/16'
+				'./artifacts/glyph/new-feature/16'
 			),
 	},
 	'page/16': {
@@ -143,7 +143,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/page/16'
+				'./artifacts/glyph/page/16'
 			),
 	},
 	'problem/16': {
@@ -153,7 +153,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/problem/16'
+				'./artifacts/glyph/problem/16'
 			),
 	},
 	'pull-request/16': {
@@ -163,7 +163,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/pull-request/16'
+				'./artifacts/glyph/pull-request/16'
 			),
 	},
 	'question/16': {
@@ -173,7 +173,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/question/16'
+				'./artifacts/glyph/question/16'
 			),
 	},
 	'story/16': {
@@ -183,7 +183,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/story/16'
+				'./artifacts/glyph/story/16'
 			),
 	},
 	'subtask/16': {
@@ -193,7 +193,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/subtask/16'
+				'./artifacts/glyph/subtask/16'
 			),
 	},
 	'task/16': {
@@ -203,7 +203,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/task/16'
+				'./artifacts/glyph/task/16'
 			),
 	},
 	'blog/24': {
@@ -213,7 +213,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/blog/24'
+				'./artifacts/glyph/blog/24'
 			),
 	},
 	'branch/24': {
@@ -223,7 +223,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/branch/24'
+				'./artifacts/glyph/branch/24'
 			),
 	},
 	'bug/24': {
@@ -233,7 +233,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/bug/24'
+				'./artifacts/glyph/bug/24'
 			),
 	},
 	'calendar/24': {
@@ -243,7 +243,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/calendar/24'
+				'./artifacts/glyph/calendar/24'
 			),
 	},
 	'changes/24': {
@@ -253,7 +253,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/changes/24'
+				'./artifacts/glyph/changes/24'
 			),
 	},
 	'code/24': {
@@ -263,7 +263,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/code/24'
+				'./artifacts/glyph/code/24'
 			),
 	},
 	'commit/24': {
@@ -273,7 +273,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/commit/24'
+				'./artifacts/glyph/commit/24'
 			),
 	},
 	'epic/24': {
@@ -283,7 +283,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/epic/24'
+				'./artifacts/glyph/epic/24'
 			),
 	},
 	'improvement/24': {
@@ -293,7 +293,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/improvement/24'
+				'./artifacts/glyph/improvement/24'
 			),
 	},
 	'incident/24': {
@@ -303,7 +303,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/incident/24'
+				'./artifacts/glyph/incident/24'
 			),
 	},
 	'issue/24': {
@@ -313,7 +313,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/issue/24'
+				'./artifacts/glyph/issue/24'
 			),
 	},
 	'new-feature/24': {
@@ -323,7 +323,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/new-feature/24'
+				'./artifacts/glyph/new-feature/24'
 			),
 	},
 	'page/24': {
@@ -333,7 +333,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/page/24'
+				'./artifacts/glyph/page/24'
 			),
 	},
 	'problem/24': {
@@ -343,7 +343,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/problem/24'
+				'./artifacts/glyph/problem/24'
 			),
 	},
 	'pull-request/24': {
@@ -353,7 +353,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/pull-request/24'
+				'./artifacts/glyph/pull-request/24'
 			),
 	},
 	'question/24': {
@@ -363,7 +363,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/question/24'
+				'./artifacts/glyph/question/24'
 			),
 	},
 	'story/24': {
@@ -373,7 +373,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/story/24'
+				'./artifacts/glyph/story/24'
 			),
 	},
 	'subtask/24': {
@@ -383,7 +383,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/subtask/24'
+				'./artifacts/glyph/subtask/24'
 			),
 	},
 	'task/24': {
@@ -393,7 +393,7 @@ export const metaDataWithPackageLoader: Record<string, Data> = {
 		packageLoader: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_icon" */
-				'@atlaskit/icon-object/glyph/task/24'
+				'./artifacts/glyph/task/24'
 			),
 	},
 };

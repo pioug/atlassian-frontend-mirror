@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-max-content-size
 
+## 1.3.11
+
+### Patch Changes
+
+- [#170868](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170868)
+  [`ed6ece7d3c533`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed6ece7d3c533) -
+  ED-25814: refactors plugins to meet folder standards
+- Updated dependencies
+
 ## 1.3.10
 
 ### Patch Changes

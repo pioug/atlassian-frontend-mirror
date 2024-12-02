@@ -1,5 +1,45 @@
 # @atlaskit/editor-cq-transformer
 
+## 8.13.6
+
+### Patch Changes
+
+- [#170384](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170384)
+  [`843d9078072b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/843d9078072b5) -
+  Fix re-exports in @atlaskit/editor-core and @atlaskit/editor-confluence-transformer
+
+  ## Moved Entry Points:
+
+  - @atlaskit/editor-core/element-browser -> atlaskit/editor-common/element-browser
+  - @atlaskit/editor-core/messages -> @atlaskit/editor-common/messages
+  - @atlaskit/editor-core/preset-builder -> @atlaskit/editor-common/preset
+
+  ## Moved Exports:
+
+  ### @atlaskit/editor-core:
+
+  - AnalyticsEventPayload -> @atlaskit/editor-common/analytics
+  - EditorPlugin -> @atlaskit/editor-common/types
+  - setTextSelection -> @atlaskit/editor-common/utils
+
+  ### @atlaskit/editor-core/editor
+
+  { EditorAppearance, EditorPlugin, MarkConfig, NodeConfig, NodeViewConfig, PluginsOptions,
+  PMPlugin, PMPluginFactory, PMPluginFactoryParams, ToolbarUIComponentFactory,
+  ToolbarUiComponentFactoryParams, UIComponentFactory, UiComponentFactoryParams, } ->
+  `@atlaskit/editor-common/types`
+
+  ### @atlaskit/editor-core/test-utils
+
+  - DispatchAnalyticsEvent -> '@atlaskit/editor-common/analytics';
+  - FeatureFlags -> '@atlaskit/editor-common/types';
+  - EventDispatcher -> '@atlaskit/editor-common/event-dispatcher';
+  - Dispatch -> '@atlaskit/editor-common/event-dispatcher';
+  - GapCursorSelection-> '@atlaskit/editor-common/selection';
+  - Side -> GapCursorSide -> '@atlaskit/editor-common/selection';
+
+- Updated dependencies
+
 ## 8.13.5
 
 ### Patch Changes

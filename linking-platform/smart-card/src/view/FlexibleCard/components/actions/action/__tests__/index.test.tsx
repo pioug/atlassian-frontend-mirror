@@ -43,7 +43,7 @@ describe('Action', () => {
 			const element = await screen.findByTestId(testId);
 
 			expect(element).toBeTruthy();
-			expect(element.textContent).toBe('spaghetti');
+			expect(element).toHaveTextContent('spaghetti');
 		});
 
 		it('calls onClick when button is clicked', async () => {
@@ -54,7 +54,7 @@ describe('Action', () => {
 			const element = await screen.findByTestId(testId);
 
 			expect(element).toBeTruthy();
-			expect(element.textContent).toBe('spaghetti');
+			expect(element).toHaveTextContent('spaghetti');
 
 			await user.click(element);
 			expect(mockOnClick).toHaveBeenCalled();
@@ -116,7 +116,7 @@ describe('Action', () => {
 			const element = await screen.findByTestId(testId);
 
 			expect(element).toBeTruthy();
-			expect(element.textContent).toBe('spaghetti');
+			expect(element).toHaveTextContent('spaghetti');
 		});
 
 		it('calls onClick when dropdown item is clicked', async () => {
@@ -127,7 +127,7 @@ describe('Action', () => {
 			const element = await screen.findByTestId(testId);
 
 			expect(element).toBeTruthy();
-			expect(element.textContent).toBe(text);
+			expect(element).toHaveTextContent(text);
 
 			await user.click(element);
 			expect(onClick).toHaveBeenCalled();
@@ -157,7 +157,7 @@ describe('Action', () => {
 			const element = await screen.findByRole('button');
 
 			expect(element).toBeInTheDocument();
-			expect(element.textContent).toBe(content);
+			expect(element).toHaveTextContent(content);
 		});
 
 		it('calls onClick when stack item is clicked', async () => {
@@ -167,7 +167,7 @@ describe('Action', () => {
 			const element = await screen.findByRole('button');
 
 			expect(element).toBeTruthy();
-			expect(element.textContent).toBe(content);
+			expect(element).toHaveTextContent(content);
 
 			await user.click(element);
 			expect(onClick).toHaveBeenCalled();
@@ -231,7 +231,7 @@ describe('Action', () => {
 				const element = await screen.findByRole('button');
 				await user.hover(element);
 				const tooltip = await screen.findByRole('tooltip');
-				expect(tooltip.textContent).toBe(content);
+				expect(tooltip).toHaveTextContent(content);
 			});
 
 			it('renders tooltip message', async () => {
@@ -239,7 +239,7 @@ describe('Action', () => {
 				const element = await screen.findByRole('button');
 				await user.hover(element);
 				const tooltip = await screen.findByRole('tooltip');
-				expect(tooltip.textContent).toBe(tooltipMessage);
+				expect(tooltip).toHaveTextContent(tooltipMessage);
 			});
 
 			it('hides tooltip when hideTooltip is set to true', async () => {

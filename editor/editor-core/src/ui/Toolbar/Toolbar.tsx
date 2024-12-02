@@ -1,8 +1,9 @@
 import React from 'react';
 
+import { ToolbarSize } from '@atlaskit/editor-common/types';
+
 import type { ToolbarProps } from './toolbar-types';
 import { ToolbarInner } from './ToolbarInner';
-import { ToolbarSize } from './types';
 
 export const Toolbar = (props: ToolbarProps): JSX.Element => {
 	return (

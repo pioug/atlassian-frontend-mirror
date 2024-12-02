@@ -5,7 +5,7 @@
  * are put together - but for now `Builder` & `Preset` aim to beinterchangeable.
  */
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Fragment, Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -55,6 +55,14 @@ export type CorePlugin = NextEditorPlugin<
 			 * @returns (boolean) if the blur was successful
 			 */
 			blur: () => boolean;
+
+			/**
+			 * Replaces the current content of the editor with the provided raw value.
+			 *
+			 * @param replaceValue - The new content to replace the current content. It can be of any type.
+			 * @returns A boolean indicating whether the replacement was successful.
+			 */
+			replaceDocument: (replaceValue: Node | Fragment | Array<Node> | Object | string) => boolean;
 
 			/**
 			 * Request the editor document.

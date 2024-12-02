@@ -16,11 +16,11 @@ import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element
 import { B200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
-import type { BlockControlsPlugin } from '../types';
-import { useActiveAnchorTracker } from '../utils/active-anchor-tracker';
-import { type AnchorRectCache, isAnchorSupported } from '../utils/anchor-utils';
-import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
+import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracker';
+import { type AnchorRectCache, isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
+import { isBlocksDragTargetDebug } from '../pm-plugins/utils/drag-target-debug';
 
 // 8px gap + 16px on left and right
 const DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH = 40;

@@ -1,2 +1,2 @@
-export { featureFlagsPlugin } from './plugin';
-export type { FeatureFlagsPlugin } from './plugin';
+export { featureFlagsPlugin } from './featureFlagsPlugin';
+export type { FeatureFlagsPlugin } from './featureFlagsPluginType';

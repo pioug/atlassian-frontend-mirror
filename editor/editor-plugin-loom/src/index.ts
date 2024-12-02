@@ -1,6 +1,6 @@
-export { loomPlugin } from './plugin';
-export type { LoomPlugin } from './plugin';
-export type { LoomPluginState } from './pm-plugin';
+export { loomPlugin } from './loomPlugin';
+export type { LoomPlugin } from './loomPluginType';
+export type { LoomPluginState } from './pm-plugins/main';
 export type {
 	LoomPluginOptions,
 	LoomProviderOptions,

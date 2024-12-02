@@ -58,7 +58,7 @@ describe('createElement', () => {
 			const element = await screen.findByTestId(testId);
 
 			expect(Component).toBeDefined();
-			expect(element.textContent).toEqual('Feb 22, 2022');
+			expect(element).toHaveTextContent('Feb 22, 2022');
 		});
 
 		it('creates State component from Lozenge element', async () => {
@@ -143,7 +143,7 @@ describe('createElement', () => {
 				const element = await screen.findByTestId('smart-element-text');
 
 				expect(Component).toBeDefined();
-				expect(element.textContent).toEqual(expect.stringContaining(context[key] as string));
+				expect(element).toHaveTextContent(context[key] as string);
 				expect(element).toBeDefined();
 			},
 		);
@@ -200,7 +200,7 @@ describe('createElement', () => {
 
 		const element = await screen.findByTestId(testId);
 
-		expect(element.textContent).toEqual(expectedTextContent);
+		expect(element).toHaveTextContent(expectedTextContent);
 		expect(element).toHaveStyleDeclaration('color', expect.stringContaining('#44546F'));
 	});
 });

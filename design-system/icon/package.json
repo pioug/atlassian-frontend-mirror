@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "22.27.0",
-	"description": "An icon is a visual representation of a command, device, directory, or common action.",
+	"version": "22.28.0",
+	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
 	},
@@ -22,15 +22,15 @@
 			"name": "Icon",
 			"category": "Images and icons",
 			"status": {
-				"type": "open-alpha",
-				"description": "These are new icons that will be released as part of Atlassian's visual refresh. Use the legacy icons for current product experiences.",
+				"type": "beta",
+				"description": "These icons are part of Atlassian's visual refresh. Use the legacy icons for current product experiences.",
 				"actions": [
 					{
 						"text": "View legacy icons",
 						"href": "/components/icon/icon-legacy/"
 					},
 					{
-						"text": "Migration guide",
+						"text": "Migrate to new icons",
 						"href": "/components/icon/migration-guide/"
 					}
 				]
@@ -77,11 +77,11 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
-		"@af/icon-build-process": "^2.2.0",
+		"@af/icon-build-process": "^2.3.0",
 		"@af/visual-regression": "*",
 		"@atlaskit/code": "^15.6.0",
 		"@atlaskit/ds-lib": "^3.3.0",
-		"@atlaskit/logo": "^14.3.0",
+		"@atlaskit/logo": "^15.0.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^6.6.0",

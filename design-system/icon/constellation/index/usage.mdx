@@ -10,14 +10,15 @@ import menuDont from './images/menu-dont.png';
 ## Usage
 
 Clear and consistent icon use should help people complete tasks, providing more affordance for
-certain actions and entities across Atlassian products. Use icons following these guidelines:
+certain actions and features across Atlassian products. Use icons following these guidelines.
 
-<!-- todo: link to icon drawing info/foundation guidance here once done -->
+For more on Atlassian's icon style and how icons are drawn, see the
+[iconography foundation](/foundations/iconography).
 
 ### Use clear, recognizable icons
 
 There are very few icons that have clear associations across cultures and contexts. Use icons with
-clear and established associations to features or concepts.
+clear and established associations to across the web wherever possible.
 
 <DoDont
 	type="do"
@@ -27,7 +28,7 @@ clear and established associations to features or concepts.
 	}}
 >
 	Use symbols that clearly represent a concept. Use metaphors with clear and established
-	associations wherever possible.
+	associations across products and industries.
 </DoDont>
 
 <DoDont
@@ -37,8 +38,8 @@ clear and established associations to features or concepts.
 		alt: 'A wrench and screwdriver crossed as an icon.',
 	}}
 >
-	Use caution when associating a new metaphor with an icon that isn’t widely established. It may be
-	confused with another concept or may not be understood.
+	Don't use uncommon icons. Be careful when creating or using new symbols as icons. They may be
+	confused with other concepts or misunderstood.
 </DoDont>
 
 ### Icon types: Use icons consistently across Atlassian experiences
@@ -51,7 +52,7 @@ We organize our icons in categories to help with consistency across products and
   context.
 
 Check the usage description of the icon for details on where it's typically used. You can find these
-descriptions in the [icon explorer](/components/icon/) or in Figma.
+descriptions in the [icon explorer](/components/icon/icon-explorer) or in Figma.
 
 ### Don't overuse icons
 
@@ -68,8 +69,7 @@ icons are needed at all.
 		alt: 'A more actions menu where each menu item is simple text label.',
 	}}
 >
-	Use symbols that clearly represent a concept. Use metaphors with clear and established
-	associations wherever possible.
+	Use an icon to aid navigation and provide clarity.
 </DoDont>
 
 <DoDont
@@ -79,8 +79,7 @@ icons are needed at all.
 		alt: 'A more actions menu where each menu item has a different icon preceding the text label. Other icon buttons surround the menu.',
 	}}
 >
-	Use caution when associating a new metaphor with an icon that isn’t widely established. It may be
-	confused with another concept or may not be understood.
+	Don't use too many icons in an area. This can create visual noise and make things harder to find.
 </DoDont>
 
 ## Accessibility
@@ -96,22 +95,25 @@ If a UI element has a text label, there’s usually no need to provide an access
 icon as well. The visible text label should communicate the same idea as the icon, and repeating
 this info to assistive technologies isn’t necessary.
 
-### Provide labels for assistive technologies for meaningful icons that don't have supporting labels
+### Provide accessible labels for icons that communicate additional information
 
-Most of the time icons are associated with a button or element that also has a text label. In these
-cases, you don’t need to provide alternative text for the icon, because the label clarifies the
-meaning of the icon.
+Most of the time, icons are associated with text labels on buttons or other elements. In these
+cases, don’t provide alternative text for the icon, because the label describes the meaning of the
+icon already. In code, this can be done by setting the required `label` prop to an empty string
+(`""`).
 
 If an icon doesn’t have an existing text label or accessible text, provide a clear label with the
 `label` prop.
 
-Sometimes an icon communicates additional information about a feature, such as a warning or external
-link icon. In these cases, make sure that information is available to people using assistive
-technology, either through the icon label or through other methods.
+Sometimes an icon communicates additional information about a feature, such as a warning status or
+external link icon. In these cases, make sure that information is available to people using
+assistive technologies, either through the icon label or through other methods.
 
-### Touch target size
+### Target size
 
-Minimum touch target size is 24 by 24px.
+When icons are placed inside interactive elements, such as buttons and links, the size of the target
+for pointer inputs should be a minimum of 24 by 24 pixels, unless exempt from
+[Target Size (Minimum) (Level AA)](https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html).
 
 Using [icon button](/components/button/icon-button) will ensure the target is large enough, but use
 caution when composing custom selectable elements with icons.
@@ -125,16 +127,17 @@ products. Don't scale or resize the icons. Instead, use existing sizes and compo
 
 ### Core 16px icons (default)
 
-The majority of icons in products are 16 by 16px. Add padding equally around an icon following our
-spacing system guidance to make icons fit larger spaces.
+The majority of icons in products are 16 by 16px.
+
+Icons have no padding by default, allowing the buttons or other components to control the whitespace
+between icons and other elements. Use center-alignment to position icons in larger spaces.
 
 ![Icon with padding around it.](./images/icon-spacing.png)
 
 ### Utility 12px icons
 
-A select few icons are available at a smaller size for visual alignment or affordance in small
-spaces. Because the size is smaller and harder to read, we only offer certain system icons at this
-size.
+A select few icons are available at a smaller size for visual alignment in small spaces. Because the
+size is smaller and harder to read, we only offer certain system icons at this size.
 
 ![Diagram of 12 pixel utility icons in components. The X that indicates clearing a field and the drag handle dots icon are both 12 px.](./images/utility-icons.png)
 
@@ -143,7 +146,7 @@ size.
 We don't offer regular icons larger than 16px.
 
 The icon tile, however, comes in varying sizes for specific use cases requiring more emphasis or
-color. Consider using [icon tile](/components/icon/icon-tile/) for icons larger than 16px.
+color. Consider using [icon tile](/components/icon/icon-tile/usage) for icons larger than 16px.
 
 ![Icon tiles with red backgrounds appearing from smallest to largest. There's a 16, 24, 32, and 48 pixel tile.](./images/icon-tile-size.png)
 
@@ -155,8 +158,10 @@ For all new features, we recommend using [Atlassian Design System](/components/)
 
 ## Related
 
-- [Iconography foundation](/foundations/iconography/)
-- [Icon tile](/components/icon/icon-tile/)
-- [Icon button](/components/button/icon-button)
+- For more on icon design, go to the [iconography foundation](/foundations/iconography/).
+- To add a new icon to the system,
+  [contribute an icon](/foundations/iconography#contribution-and-adding-new-icons).
+- For icons with colored backgrounds, use [icon tile](/components/icon/icon-tile/).
+- For buttons with icons, use [icon button](/components/button/icon-button).
 
 <!-- todo: Add icon lab and contribution links when those are ready -->

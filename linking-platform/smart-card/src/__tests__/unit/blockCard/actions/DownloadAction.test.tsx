@@ -29,7 +29,7 @@ describe('DownloadAction', () => {
 		});
 
 		const { container } = renderWithIntl(action.text);
-		expect(container.textContent).toBe('Download');
+		expect(container).toHaveTextContent('Download');
 
 		const handlerExecutor = action.promise;
 		await expect(handlerExecutor()).resolves.toBe(undefined);

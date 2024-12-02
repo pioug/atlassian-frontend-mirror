@@ -8,11 +8,11 @@ import { useEffect, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import Spinner from '@atlaskit/spinner';
 import { createCollabEditProvider } from '@atlaskit/synchrony-test-helpers';
 
 import SidebarContainer from '../example-helpers/SidebarContainer';
-import type { EditorAppearance } from '../src/editor';
 
 import { InviteToEditButton } from './3-collab';
 import FullPageExample, { getAppearance, LOCALSTORAGE_defaultDocKey } from './5-full-page';

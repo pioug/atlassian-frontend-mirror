@@ -51,24 +51,29 @@ function TBody<ObjectType extends object>({ rows, children }: BodyProps<ObjectTy
 		[rows, sortFn],
 	);
 
+	const renderedChildren = (() => {
+		if (typeof children === 'function') {
+			return sortedRows?.map(({ idx, ...row }) => (
+				<RowProvider key={idx} value={idx}>
+					{
+						// @ts-expect-error
+						children(row)
+					}
+				</RowProvider>
+			));
+		}
+
+		const childrenArray = Array.isArray(children) ? children : [children];
+		return childrenArray.map((row, idx) => (
+			<RowProvider key={idx} value={idx}>
+				{row}
+			</RowProvider>
+		));
+	})();
+
 	return (
 		<TableBodyProvider value={true}>
-			<TBodyPrimitive>
-				{typeof children === 'function' && sortedRows
-					? sortedRows.map(({ idx, ...row }) => (
-							<RowProvider key={idx} value={idx}>
-								{
-									// @ts-expect-error
-									children(row)
-								}
-							</RowProvider>
-						))
-					: Children.map(children, (row, idx) => (
-							<RowProvider key={idx} value={idx}>
-								{row}
-							</RowProvider>
-						))}
-			</TBodyPrimitive>
+			<TBodyPrimitive>{renderedChildren}</TBodyPrimitive>
 		</TableBodyProvider>
 	);
 }

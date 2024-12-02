@@ -41,7 +41,7 @@ describe('FollowAction', () => {
 			setup();
 			const element = await screen.findByTestId(testId);
 			expect(element).toBeInTheDocument();
-			expect(element.textContent).toBe('Follow');
+			expect(element).toHaveTextContent('Follow');
 		});
 
 		it('renders tooltip', async () => {
@@ -52,7 +52,7 @@ describe('FollowAction', () => {
 			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Follow');
+			expect(tooltip).toHaveTextContent('Follow');
 		});
 	});
 });

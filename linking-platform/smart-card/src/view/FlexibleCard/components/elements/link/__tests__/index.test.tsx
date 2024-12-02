@@ -23,7 +23,7 @@ describe('Element: Link', () => {
 		expect(element.getAttribute('data-smart-element-link')).toBeTruthy();
 		expect(element).toBeInstanceOf(HTMLAnchorElement);
 		expect(element.getAttribute('href')).toBe(url);
-		expect(element.textContent).toBe(text);
+		expect(element).toHaveTextContent(text);
 	});
 
 	describe('size', () => {
@@ -131,7 +131,7 @@ describe('Element: Link', () => {
 			const tooltip = await screen.findByTestId(`${testId}-tooltip`);
 
 			expect(tooltip).toBeInTheDocument();
-			expect(tooltip.textContent).toBe(text);
+			expect(tooltip).toHaveTextContent(text);
 		});
 
 		it('shows tooltip on hover when hideTooltip is false', async () => {
@@ -143,7 +143,7 @@ describe('Element: Link', () => {
 			const tooltip = await screen.findByTestId(`${testId}-tooltip`);
 
 			expect(tooltip).toBeInTheDocument();
-			expect(tooltip.textContent).toBe(text);
+			expect(tooltip).toHaveTextContent(text);
 		});
 
 		it('does not show tooltip on hover when hideTooltip is true', async () => {

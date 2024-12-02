@@ -308,7 +308,7 @@ describe('smart-card: card states, flexible', () => {
 
 			expect(view).toBeTruthy();
 			expect(icon.getAttribute('aria-label')).toBe('Confluence');
-			expect(link.textContent).toBe(mockUrl);
+			expect(link).toHaveTextContent(mockUrl);
 			expect(message).not.toBeInTheDocument();
 			expect(mockOnError).toHaveBeenCalledWith({
 				url: mockUrl,

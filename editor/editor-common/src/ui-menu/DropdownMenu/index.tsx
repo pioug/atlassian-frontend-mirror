@@ -172,6 +172,7 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 							}
 						},
 					};
+
 		return (
 			<Popup
 				target={isOpen ? target : undefined}

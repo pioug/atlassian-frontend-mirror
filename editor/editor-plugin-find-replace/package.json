@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-find-replace",
-	"version": "1.7.14",
+	"version": "1.7.15",
 	"description": "find replace plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -29,21 +29,21 @@
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
 		".": "./src/index.ts",
-		"./styles": "./src/styles.ts"
+		"./styles": "./src/ui/styles.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./styles": "./src/styles.ts"
+		"./styles": "./src/ui/styles.ts"
 	},
 	"dependencies": {
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^95.9.0",
+		"@atlaskit/editor-common": "^95.10.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.0.0",
-		"@atlaskit/editor-prosemirror": "6.0.0",
+		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/form": "^10.6.0",
-		"@atlaskit/icon": "^22.27.0",
+		"@atlaskit/icon": "^22.28.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/textfield": "^6.6.0",
@@ -58,7 +58,7 @@
 	"devDependencies": {
 		"@af/visual-regression": "*",
 		"@atlaskit/editor-plugin-block-type": "^4.0.0",
-		"@atlaskit/editor-plugin-text-formatting": "^1.15.0",
+		"@atlaskit/editor-plugin-text-formatting": "^1.16.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",
 		"mockdate": "^3.0.5",
@@ -71,6 +71,9 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
+			"code-structure": [
+				"editor-plugin"
+			],
 			"import-structure": [
 				"atlassian-conventions"
 			],

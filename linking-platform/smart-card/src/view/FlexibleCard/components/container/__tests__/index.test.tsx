@@ -98,7 +98,7 @@ describe('Container', () => {
 
 			expect(link).toHaveAttribute('href', url);
 			expect(link).toHaveAttribute('target', target);
-			expect(link.textContent).toBe(text);
+			expect(link).toHaveTextContent(text);
 		});
 
 		it('triggers onClick even when link is clicked', async () => {
@@ -259,7 +259,7 @@ describe('Container', () => {
 				const message = await screen.findByTestId('smart-block-title-errored-view-message');
 				fireEvent(message, new MouseEvent('click', { bubbles: true, cancelable: true }));
 
-				expect(message.textContent).toEqual("Can't find link");
+				expect(message).toHaveTextContent("Can't find link");
 				expect(onClick).toHaveBeenCalled();
 			});
 		});

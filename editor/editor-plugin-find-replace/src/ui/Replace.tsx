@@ -34,7 +34,7 @@ import {
 	sectionWrapperStyles,
 	sectionWrapperStylesAlternate,
 	textFieldWrapper,
-} from './styles';
+} from './ui-styles';
 
 export type ReplaceProps = {
 	canReplace: boolean;

@@ -12,7 +12,7 @@ describe('find-replace wrapper', () => {
 
 	it('check ./find-replace/styles exports all the same variables as the original', () => {
 		const original = require('@atlaskit/editor-plugin-find-replace/styles');
-		const wrapper = require('../find-replace/styles');
+		const wrapper = require('../find-replace/ui/styles');
 		const originalKeys = Object.keys(original).sort();
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);

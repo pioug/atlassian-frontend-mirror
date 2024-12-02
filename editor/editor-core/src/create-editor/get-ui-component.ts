@@ -1,7 +1,9 @@
-import type { EditorAppearance, EditorAppearanceComponentProps } from '../types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
+
+import type { EditorAppearanceComponentProps } from '../types';
 import Chromeless from '../ui/Appearance/Chromeless';
-import Comment from '../ui/Appearance/Comment';
-import FullPage from '../ui/Appearance/FullPage';
+import { CommentEditorWithIntl as Comment } from '../ui/Appearance/Comment/Comment';
+import { FullPageEditor as FullPage } from '../ui/Appearance/FullPage/FullPage';
 
 type ReturnType = React.ComponentType<
 	// Can't compute editor api at run time

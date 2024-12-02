@@ -1,8 +1,53 @@
 import React, { memo } from 'react';
 
 import Button from '@atlaskit/button/standard-button';
+import { cssMap, cx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Anchor, Box, Pressable } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import type { SectionMessageActionProps } from './types';
+
+const styles = cssMap({
+	common: {
+		color: token('color.link'),
+		font: token('font.body'),
+		fontWeight: token('font.weight.medium'),
+
+		'&:hover': {
+			color: token('color.link'),
+		},
+
+		'&:active': {
+			color: token('color.link.pressed'),
+		},
+	},
+	anchor: {
+		'&:hover': {
+			textDecoration: 'underline',
+		},
+
+		'&:visited': {
+			color: token('color.link.visited'),
+		},
+
+		// @ts-expect-error - chained pseudos are not supported properly
+		'&:visited:hover': {
+			color: token('color.link.visited'),
+		},
+		'&:visited:active': {
+			color: token('color.link.visited.pressed'),
+		},
+	},
+	pressable: {
+		backgroundColor: token('color.background.neutral.subtle'),
+		padding: token('space.0'),
+
+		'&:hover': {
+			textDecoration: 'underline',
+		},
+	},
+});
 
 /**
  * __Section message action__
@@ -20,9 +65,35 @@ const SectionMessageAction = memo(function SectionMessageAction({
 	testId,
 	linkComponent,
 }: SectionMessageActionProps) {
-	// FIXME: This path doesn't make sense
-	// If the intent of the design for this component is to use an action, not providing `href` or `onClick`
-	// makes the use case invalid. This should be addressed.
+	if (!linkComponent && fg('platform_section_message_action_migration')) {
+		if (href) {
+			return (
+				<Anchor
+					testId={testId}
+					onClick={onClick}
+					href={href}
+					xcss={cx(styles.common, styles.anchor)}
+				>
+					{children}
+				</Anchor>
+			);
+		}
+
+		if (onClick) {
+			return (
+				<Pressable testId={testId} onClick={onClick} xcss={cx(styles.common, styles.pressable)}>
+					{children}
+				</Pressable>
+			);
+		}
+
+		return (
+			<Box as="span" testId={testId}>
+				{children}
+			</Box>
+		);
+	}
+
 	return onClick || href ? (
 		<Button
 			testId={testId}
@@ -38,7 +109,5 @@ const SectionMessageAction = memo(function SectionMessageAction({
 		<>{children}</>
 	);
 });
-
-SectionMessageAction.displayName = 'SectionMessageAction';
 
 export default SectionMessageAction;

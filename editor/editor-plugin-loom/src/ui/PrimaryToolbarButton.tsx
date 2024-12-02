@@ -14,8 +14,8 @@ import type {
 	ToolbarUIComponentFactory,
 } from '@atlaskit/editor-common/types';
 
-import { executeRecordVideo } from '../commands';
-import type { LoomPlugin } from '../plugin';
+import type { LoomPlugin } from '../loomPluginType';
+import { executeRecordVideo } from '../pm-plugins/commands';
 import { type ButtonComponentProps, type LoomPluginOptions } from '../types';
 
 import ToolbarButtonComponent from './ToolbarButtonComponent';

@@ -52,7 +52,7 @@ describe('ContentContainer', () => {
 		const contentContainer = await screen.findByTestId(testId);
 
 		expect(contentContainer).toBeInTheDocument();
-		expect(contentContainer.textContent).toBe(content);
+		expect(contentContainer).toHaveTextContent(content);
 		expect(contentContainer.classList.contains(hoverCardClassName)).toBe(true);
 	});
 

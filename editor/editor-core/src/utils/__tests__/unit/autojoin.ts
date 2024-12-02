@@ -1,7 +1,7 @@
 import type { DocBuilder } from '@atlaskit/editor-common/types';
 import { autoJoinTr } from '@atlaskit/editor-common/utils';
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { wrapInList } from '@atlaskit/editor-plugin-list/src/actions/wrap-and-join-lists';
+import { wrapInList } from '@atlaskit/editor-plugin-list/src/pm-plugins/actions/wrap-and-join-lists';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';

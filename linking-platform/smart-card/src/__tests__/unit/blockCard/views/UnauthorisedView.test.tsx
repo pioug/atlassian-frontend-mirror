@@ -35,9 +35,9 @@ describe('BlockCard Views - Unauthorised', () => {
 			/>,
 		);
 		const nameFrame = screen.getByTestId('unauthorised-view-link');
-		expect(nameFrame.textContent).toBe(mockUrl);
+		expect(nameFrame).toHaveTextContent(mockUrl);
 		const byline = screen.getByTestId('unauthorised-view-byline');
-		expect(byline.textContent).toBe(
+		expect(byline).toHaveTextContent(
 			`To show a preview of this link, connect your cool theatre stuff account.`,
 		);
 	});
@@ -78,7 +78,7 @@ describe('BlockCard Views - Unauthorised', () => {
 		// Check button is there
 		const button = screen.getByTestId('button-test-button');
 		expect(button).toBeInTheDocument();
-		expect(button.textContent).toBe('One of a kind');
+		expect(button).toHaveTextContent('One of a kind');
 
 		// Click button, expecting it to succeed.
 		fireEvent.click(button);
@@ -127,7 +127,7 @@ describe('BlockCard Views - Unauthorised', () => {
 		// Check button is there
 		const button = screen.getByTestId('button-test-button');
 		expect(button).toBeInTheDocument();
-		expect(button.textContent).toBe('One of a kind');
+		expect(button).toHaveTextContent('One of a kind');
 	});
 
 	it('clicking on link should have no side-effects', () => {

@@ -56,10 +56,10 @@ describe('FlexibleUnauthorisedView', () => {
 		renderComponent();
 
 		const title = await screen.findByTestId(titleTestId);
-		expect(title.textContent).toBe(url);
+		expect(title).toHaveTextContent(url);
 
 		const description = await screen.findByTestId(descriptionTestId);
-		expect(description.textContent).toBe(
+		expect(description).toHaveTextContent(
 			'Connect your 3P account to collaborate on work across Atlassian products. Learn more about Smart Links.',
 		);
 
@@ -69,7 +69,7 @@ describe('FlexibleUnauthorisedView', () => {
 		expect(learnMoreUrl).toBe(CONTENT_URL_SECURITY_AND_PERMISSIONS);
 
 		const button = await screen.findByTestId(buttonTestId);
-		expect(button.textContent).toBe('Connect to 3P');
+		expect(button).toHaveTextContent('Connect to 3P');
 	});
 
 	it('renders unauthorised view with alternative message when `hasScopeOverrides` flag is present in meta', async () => {
@@ -97,10 +97,10 @@ describe('FlexibleUnauthorisedView', () => {
 		});
 
 		const title = await screen.findByTestId(titleTestId);
-		expect(title.textContent).toBe(url);
+		expect(title).toHaveTextContent(url);
 
 		const description = await screen.findByTestId(descriptionTestId);
-		expect(description.textContent).toBe(
+		expect(description).toHaveTextContent(
 			'Connect your 3P account to collaborate on work across Atlassian products. Learn more about connecting your account to Atlassian products.',
 		);
 
@@ -110,7 +110,7 @@ describe('FlexibleUnauthorisedView', () => {
 		expect(learnMoreUrl).toBe(CONTENT_URL_3P_ACCOUNT_AUTH);
 
 		const button = await screen.findByTestId(buttonTestId);
-		expect(button.textContent).toBe('Connect to 3P');
+		expect(button).toHaveTextContent('Connect to 3P');
 	});
 
 	it('renders unauthorised view without provider name', async () => {
@@ -122,15 +122,15 @@ describe('FlexibleUnauthorisedView', () => {
 		});
 
 		const title = await screen.findByTestId(titleTestId);
-		expect(title.textContent).toBe(url);
+		expect(title).toHaveTextContent(url);
 
 		const description = await screen.findByTestId(descriptionTestId);
-		expect(description.textContent).toBe(
+		expect(description).toHaveTextContent(
 			'Connect your account to collaborate on work across Atlassian products. Learn more about Smart Links.',
 		);
 
 		const button = await screen.findByTestId(buttonTestId);
-		expect(button.textContent).toBe('Connect');
+		expect(button).toHaveTextContent('Connect');
 	});
 
 	it('renders unauthorised view with no auth flow', async () => {
@@ -139,10 +139,10 @@ describe('FlexibleUnauthorisedView', () => {
 		});
 
 		const title = await screen.findByTestId(titleTestId);
-		expect(title.textContent).toBe(url);
+		expect(title).toHaveTextContent(url);
 
 		const description = await screen.findByTestId(descriptionTestId);
-		expect(description.textContent).toBe(
+		expect(description).toHaveTextContent(
 			"You're trying to preview a link to a private 3P page. We recommend you review the URL or contact the page owner.",
 		);
 
@@ -160,10 +160,10 @@ describe('FlexibleUnauthorisedView', () => {
 		});
 
 		const title = await screen.findByTestId(titleTestId);
-		expect(title.textContent).toBe(url);
+		expect(title).toHaveTextContent(url);
 
 		const description = await screen.findByTestId(descriptionTestId);
-		expect(description.textContent).toBe(
+		expect(description).toHaveTextContent(
 			"You're trying to preview a link to a private page. We recommend you review the URL or contact the page owner.",
 		);
 

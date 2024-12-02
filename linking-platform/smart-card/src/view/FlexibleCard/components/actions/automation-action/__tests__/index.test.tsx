@@ -39,7 +39,7 @@ describe('AutomationAction', () => {
 		setup();
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
-		expect(element.textContent).toBe('View automation rules');
+		expect(element).toHaveTextContent('View automation rules');
 	});
 
 	describe('with tooltip', () => {
@@ -50,7 +50,7 @@ describe('AutomationAction', () => {
 			await userEvent.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Select an automation rule to run');
+			expect(tooltip).toHaveTextContent('Select an automation rule to run');
 		});
 		it('renders updated tooltip after onClick', async () => {
 			setup();

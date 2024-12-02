@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-breakout
 
+## 1.9.6
+
+### Patch Changes
+
+- [#169341](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169341)
+  [`b8cceed0c0786`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b8cceed0c0786) -
+  ED-25806: migrates file structure to editor engineering standards
+
 ## 1.9.5
 
 ### Patch Changes

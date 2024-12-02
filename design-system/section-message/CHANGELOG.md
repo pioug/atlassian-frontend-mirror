@@ -1,5 +1,15 @@
 # @atlaskit/section-message
 
+## 6.8.0
+
+### Minor Changes
+
+- [#170738](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170738)
+  [`ee3ce64bb7f38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee3ce64bb7f38) -
+  We are testing changes behind a feature gate. Section message actions have been updated to use
+  automatic router link configuration (from App provider), as well as default link underlines. If
+  this change is successful it will be available in a later release.
+
 ## 6.7.0
 
 ### Minor Changes

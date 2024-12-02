@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-fragment
 
+## 1.9.7
+
+### Patch Changes
+
+- [#169604](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169604)
+  [`11e14d646fe74`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/11e14d646fe74) -
+  ED-25811: refactors plugins to meet folder standards
+- Updated dependencies
+
 ## 1.9.6
 
 ### Patch Changes

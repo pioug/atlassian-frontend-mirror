@@ -30,7 +30,7 @@ describe('Element: Text', () => {
 			);
 			const element = await screen.findByTestId(testId);
 			expect(element).toBeTruthy();
-			expect(element.textContent).toBe('Created yesterday');
+			expect(element).toHaveTextContent('Created yesterday');
 		});
 
 		it('should render modified at element', async () => {
@@ -42,7 +42,7 @@ describe('Element: Text', () => {
 			);
 			const element = await screen.findByTestId(testId);
 			expect(element).toBeTruthy();
-			expect(element.textContent).toBe('Updated last week');
+			expect(element).toHaveTextContent('Updated last week');
 		});
 	});
 
@@ -56,7 +56,7 @@ describe('Element: Text', () => {
 			);
 			const element = await screen.findByTestId(testId);
 			expect(element).toBeTruthy();
-			expect(element.textContent).toBe('Created on Jan 17, 2022');
+			expect(element).toHaveTextContent('Created on Jan 17, 2022');
 		});
 
 		it('should render another modified at element', async () => {
@@ -68,7 +68,7 @@ describe('Element: Text', () => {
 			);
 			const element = await screen.findByTestId(testId);
 			expect(element).toBeTruthy();
-			expect(element.textContent).toBe('Updated on Jan 5, 2022');
+			expect(element).toHaveTextContent('Updated on Jan 5, 2022');
 		});
 	});
 
@@ -100,7 +100,7 @@ describe('Element: Text', () => {
 		);
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeTruthy();
-		expect(element.textContent).toBe('First commit on Jan 17, 2022');
+		expect(element).toHaveTextContent('First commit on Jan 17, 2022');
 	});
 
 	it('should render overridden text for modified on element', async () => {
@@ -112,6 +112,6 @@ describe('Element: Text', () => {
 		);
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeTruthy();
-		expect(element.textContent).toBe('Last commit on Jan 17, 2022');
+		expect(element).toHaveTextContent('Last commit on Jan 17, 2022');
 	});
 });

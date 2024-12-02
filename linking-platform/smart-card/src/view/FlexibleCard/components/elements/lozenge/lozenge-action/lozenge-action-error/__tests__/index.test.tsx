@@ -69,13 +69,13 @@ describe('LozengeActionError', () => {
 		// make sure error text is correct
 		const errorMessage = await screen.findByTestId(`${testId}-error-message`);
 		expect(errorMessage).toBeDefined();
-		expect(errorMessage.textContent).toEqual(TEXT_ERROR_MESSAGE);
+		expect(errorMessage).toHaveTextContent(TEXT_ERROR_MESSAGE);
 		expect(errorMessage).toHaveStyleDeclaration('-webkit-line-clamp', '8');
 
 		// make sure an error link is present
 		const link = await screen.findByTestId(`${testId}-open-embed`);
 		expect(link).toBeDefined();
-		expect(link.textContent).toBe('Open issue in Jira');
+		expect(link).toHaveTextContent('Open issue in Jira');
 	});
 
 	it('does not render preview modal link if a preview action is not available', async () => {
@@ -90,7 +90,7 @@ describe('LozengeActionError', () => {
 		// make sure error text is correct
 		const errorMessage = await screen.findByTestId(`${testId}-error-message`);
 		expect(errorMessage).toBeDefined();
-		expect(errorMessage.textContent).toEqual(TEXT_ERROR_MESSAGE);
+		expect(errorMessage).toHaveTextContent(TEXT_ERROR_MESSAGE);
 		expect(errorMessage).toHaveStyleDeclaration('-webkit-line-clamp', '8');
 
 		// make sure an error link is not present
@@ -127,7 +127,7 @@ describe('LozengeActionError', () => {
 		// make sure error text is correct
 		const errorMessage = await screen.findByTestId(`${testId}-error-message`);
 		expect(errorMessage).toBeDefined();
-		expect(errorMessage.textContent).toEqual(TEXT_ERROR_MESSAGE);
+		expect(errorMessage).toHaveTextContent(TEXT_ERROR_MESSAGE);
 		expect(errorMessage).toHaveStyleDeclaration('-webkit-line-clamp', MAX_LINE_NUMBER.toString());
 	});
 
@@ -141,7 +141,7 @@ describe('LozengeActionError', () => {
 		// make sure an error link is present
 		const link = await screen.findByTestId(`${testId}-open-embed`);
 		expect(link).toBeDefined();
-		expect(link.textContent).toBe('Open issue in Jira');
+		expect(link).toHaveTextContent('Open issue in Jira');
 
 		link.click();
 
@@ -163,7 +163,7 @@ describe('LozengeActionError', () => {
 		// make sure an error link is present
 		const link = await screen.findByTestId(`${testId}-open-embed`);
 		expect(link).toBeDefined();
-		expect(link.textContent).toBe('Open issue in Jira');
+		expect(link).toHaveTextContent('Open issue in Jira');
 
 		link.click();
 
@@ -189,7 +189,7 @@ describe('LozengeActionError', () => {
 		// make sure an error link is present
 		const link = await screen.findByTestId(`${testId}-open-embed`);
 		expect(link).toBeDefined();
-		expect(link.textContent).toBe('Open issue in Jira');
+		expect(link).toHaveTextContent('Open issue in Jira');
 
 		link.click();
 

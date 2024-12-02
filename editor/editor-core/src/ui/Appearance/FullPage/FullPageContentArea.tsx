@@ -11,12 +11,16 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { fullPageMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type {
+	EditorAppearance,
+	FeatureFlags,
 	OptionalPlugin,
 	PublicPluginAPI,
 	ReactHookFactory,
+	UIComponentFactory,
 } from '@atlaskit/editor-common/types';
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import { type ViewMode } from '@atlaskit/editor-plugins/editor-viewmode';
@@ -24,15 +28,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../../../actions';
-import type { EventDispatcher } from '../../../event-dispatcher';
-import type {
-	ContentComponents,
-	EditorAppearance,
-	ReactComponents,
-	UIComponentFactory,
-} from '../../../types';
-import type { FeatureFlags } from '../../../types/feature-flags';
-import { ClickAreaBlock } from '../../Addon';
+import type { ContentComponents, ReactComponents } from '../../../types';
+import ClickAreaBlock from '../../Addon/ClickAreaBlock';
 import { ContextPanel } from '../../ContextPanel';
 import PluginSlot from '../../PluginSlot';
 

@@ -46,14 +46,14 @@
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.27.0",
+		"@atlaskit/icon": "^22.28.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
-		"@af/icon-build-process": "^2.2.0",
+		"@af/icon-build-process": "^2.3.0",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",
 		"enzyme": "^3.10.0",

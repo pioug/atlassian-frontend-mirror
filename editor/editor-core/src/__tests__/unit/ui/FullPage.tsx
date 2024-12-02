@@ -11,7 +11,7 @@ import { doc, extension, p } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
-import FullPage from '../../../ui/Appearance/FullPage';
+import { FullPageEditor as FullPage } from '../../../ui/Appearance/FullPage/FullPage';
 import EditorContext from '../../../ui/EditorContext';
 
 const mountWithContext = (node: React.ReactNode) =>

@@ -1,10 +1,11 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { EditorPluginInjectionAPI, EditorPresetBuilder } from '@atlaskit/editor-common/preset';
+import type { EditorPlugin } from '@atlaskit/editor-common/types';
 import type { ScrollGutterPluginOptions } from '@atlaskit/editor-plugins/base';
 import type { BlockTypePluginOptions } from '@atlaskit/editor-plugins/block-type';
 
 import type { DefaultPresetPluginOptions } from '../../src/presets/default';
-import type { EditorPlugin, EditorProps } from '../types';
+import type { EditorProps } from '../types';
 import type { EditorPluginFeatureProps } from '../types/editor-props';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 
@@ -34,7 +35,7 @@ export function getScrollGutterOptions(props: EditorProps): ScrollGutterPluginOp
 export function getDefaultPresetOptionsFromEditorProps(
 	props: EditorProps,
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
-	// Omit placeholder since it's an existing prop in `DefaultPresetPluginOptions` and will get overidden there
+	// Omit placeholder since it's an existing prop in `DefaultPresetPluginOptions` and will get overridden there
 ): DefaultPresetPluginOptions & Omit<EditorPluginFeatureProps, 'placeholder'> {
 	const appearance = props.appearance;
 

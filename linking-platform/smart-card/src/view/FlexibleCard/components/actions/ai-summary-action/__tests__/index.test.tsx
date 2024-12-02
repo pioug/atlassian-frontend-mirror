@@ -67,7 +67,7 @@ describe('AISummaryAction', () => {
 		const element = await findByTestId(`${testId}-summarise-action`);
 
 		expect(element).toBeInTheDocument();
-		expect(element.textContent).toBe('Summarize with AI');
+		expect(element).toHaveTextContent('Summarize with AI');
 	});
 
 	it('does not render AI summary action if action data is not present', async () => {
@@ -223,7 +223,7 @@ describe('AISummaryAction', () => {
 			await userEvent.hover(element);
 
 			const tooltip = await findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Copy summary');
+			expect(tooltip).toHaveTextContent('Copy summary');
 		});
 
 		it('renders updated tooltip after click', async () => {
@@ -240,7 +240,7 @@ describe('AISummaryAction', () => {
 			await userEvent.hover(element);
 
 			const tooltip = await findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Copied summary to clipboard');
+			expect(tooltip).toHaveTextContent('Copied summary to clipboard');
 		});
 
 		it('resets tooltip message after tooltip hides', async () => {

@@ -1,12 +1,13 @@
 import { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
 import type { ErrorReportingHandler } from '@atlaskit/editor-common/error-reporter';
+import { sortByOrder } from '@atlaskit/editor-common/legacy-rank-plugins';
 import { type SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorPlugin, PluginsOptions } from '@atlaskit/editor-common/types';
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
 
-import type { EditorConfig, EditorPlugin, PluginsOptions, PMPluginCreateConfig } from '../types';
+import type { EditorConfig, PMPluginCreateConfig } from '../types';
 
 import { createEditorStateNotificationPlugin } from './editorStateNotificationPlugin';
-import { sortByOrder } from './sort-by-order';
 
 export function sortByRank(a: { rank: number }, b: { rank: number }): number {
 	return a.rank - b.rank;

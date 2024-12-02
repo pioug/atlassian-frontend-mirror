@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 112.6.8
+
+### Patch Changes
+
+- [#167504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167504)
+  [`83a2ce1f5117e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83a2ce1f5117e) -
+  Replaced deprecated typography styles with new components and tokens.
+- Updated dependencies
+
 ## 112.6.7
 
 ### Patch Changes

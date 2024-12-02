@@ -27,13 +27,13 @@ import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { removeBreakout } from '../commands/remove-breakout';
-import { setBreakoutMode } from '../commands/set-breakout-mode';
-import { getPluginState } from '../plugin-key';
-import type { BreakoutPluginState } from '../types';
-import { getBreakoutMode } from '../utils/get-breakout-mode';
-import { isBreakoutMarkAllowed } from '../utils/is-breakout-mark-allowed';
-import { isSupportedNodeForBreakout } from '../utils/is-supported-node';
+import type { BreakoutPluginState } from '../breakoutPluginType';
+import { removeBreakout } from '../editor-commands/remove-breakout';
+import { setBreakoutMode } from '../editor-commands/set-breakout-mode';
+import { getPluginState } from '../pm-plugins/plugin-key';
+import { getBreakoutMode } from '../pm-plugins/utils/get-breakout-mode';
+import { isBreakoutMarkAllowed } from '../pm-plugins/utils/is-breakout-mark-allowed';
+import { isSupportedNodeForBreakout } from '../pm-plugins/utils/is-supported-node';
 
 const toolbarButtonWrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766

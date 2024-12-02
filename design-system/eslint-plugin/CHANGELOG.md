@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.0.1
+
+### Patch Changes
+
+- [#169436](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169436)
+  [`8c910a5de1c93`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c910a5de1c93) -
+  Updates `no-legacy-icon` to no longer error on references to @atlaskit/icon-object
+- Updated dependencies
+
 ## 11.0.0
 
 ### Major Changes

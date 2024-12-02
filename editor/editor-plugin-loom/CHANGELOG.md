@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-loom
 
+## 3.1.20
+
+### Patch Changes
+
+- [#170473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170473)
+  [`2c463f9682286`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c463f9682286) -
+  ED-25813: refactors plugins to meet folder standards
+- Updated dependencies
+
+## 3.1.19
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.18
 
 ### Patch Changes

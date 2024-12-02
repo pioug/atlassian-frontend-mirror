@@ -3,6 +3,7 @@ import { Device, snapshot } from '@af/visual-regression';
 
 import Basic from '../../../examples/00-basic-example';
 import AppearanceVariations from '../../../examples/01-appearance-variations';
+import Actions from '../../../examples/06-actions';
 import Testing from '../../../examples/99-testing';
 
 snapshot(Basic, {
@@ -29,6 +30,12 @@ snapshot(AppearanceVariations, {
 			},
 		},
 	],
+});
+
+snapshot(Actions, {
+	featureFlags: {
+		platform_section_message_action_migration: [true, false],
+	},
 });
 
 snapshot(Testing, {

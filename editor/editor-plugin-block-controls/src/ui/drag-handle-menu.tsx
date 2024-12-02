@@ -3,7 +3,7 @@ import React from 'react';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import type { BlockControlsPlugin } from '../types';
+import type { BlockControlsPlugin } from '../blockControlsPluginType';
 
 export const DragHandleMenu = ({
 	api,

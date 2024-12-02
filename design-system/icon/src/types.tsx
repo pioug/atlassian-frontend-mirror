@@ -51,7 +51,7 @@ export interface GlyphColorProps {
 export interface NewGlyphColorProps {
 	/**
 	 * Color for the icon. Supports any icon or text design token, or 'currentColor' to inherit the current text color.
-	 * Defaults to `currentColor`, inheriting the current text color.
+	 * Defaults to `currentColor`.
 	 */
 	color?:
 		| IconColor
@@ -72,19 +72,14 @@ export interface GlyphSizeProps {
 
 export interface NewCoreGlyphSpacingProps {
 	/**
-	 * Core Icons have only one available size, but can be displayed with additional spacing.
-	 * "none" is default, and allows the icon to be placed in buttons and allows the parent component to manage spacing.
-	 * "spacious" provides accessible spacing between the icon and other elements.
+	 * Core icons (16px) have no additional spacing by default, but can be set to "spacious", creating a 24px bounding box.
 	 */
 	spacing?: IconSpacing;
 }
 
 export interface NewUtilityGlyphSpacingProps {
 	/**
-	 * Utility Icons have only one available size, but can be displayed with additional spacing.
-	 * "none" is default, and allows the icon to be placed in buttons and allows the parent component to manage spacing.
-	 * "compact" provides accessible compact spacing between the icon and other elements.
-	 * "spacious" provides accessible spacing between the icon and other elements.
+	 * Adds padding around the icon. Utility icons (12px) have no spacing by default, but can be set to "compact" (16px bounding box) or "spacious" (24px bounding box).
 	 */
 	spacing?: UtilityIconSpacing;
 }
@@ -258,6 +253,11 @@ export interface IconTileProps {
 	 * Legacy component to render when the icon refresh feature flag is turned off.
 	 */
 	LEGACY_fallbackComponent?: ReactElement;
+	/**
+	 * A unique string that appears as a data attribute `data-testid` in the rendered code,
+	 * serving as a hook for automated tests.
+	 */
+	testId?: string;
 }
 
 export interface SkeletonProps {

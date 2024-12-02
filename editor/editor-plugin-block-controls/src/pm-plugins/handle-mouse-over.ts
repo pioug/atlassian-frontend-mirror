@@ -4,8 +4,7 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { type BlockControlsPlugin } from '../types';
-import { isPreRelease1, isPreRelease2 } from '../utils/advanced-layouts-flags';
+import { type BlockControlsPlugin } from '../blockControlsPluginType';
 
 const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
 	if (target instanceof HTMLHeadingElement || target instanceof HTMLParagraphElement) {
@@ -65,7 +64,10 @@ export const handleMouseOver = (
 			return false;
 		}
 
-		if (rootElement.getAttribute('data-drag-handler-node-type') === 'media' && isPreRelease1()) {
+		if (
+			rootElement.getAttribute('data-drag-handler-node-type') === 'media' &&
+			editorExperiment('advanced_layouts', true)
+		) {
 			rootElement = rootElement.closest(
 				'[data-drag-handler-anchor-name][data-drag-handler-node-type="mediaSingle"]',
 			);
@@ -129,7 +131,7 @@ export const handleMouseOver = (
 		}
 
 		const node = view.state.doc.nodeAt(pos);
-		if (isPreRelease2() && node && isLayoutColumnWithoutContent(node)) {
+		if (editorExperiment('advanced_layouts', true) && node && isLayoutColumnWithoutContent(node)) {
 			// Don't show drag handle when there is no content/only placeholder in layout column
 			return false;
 		}

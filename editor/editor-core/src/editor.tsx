@@ -1,3 +1,6 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -14,34 +17,18 @@ import type { EditorProps } from './types/editor-props';
 import editorDeprecationWarnings from './utils/editorDeprecationWarnings';
 
 export type {
-	AllowedBlockTypes,
 	Command,
 	CommandDispatch,
 	DomAtPos,
-	EditorAppearance,
 	EditorAppearanceComponentProps,
 	EditorConfig,
 	EditorInstance,
-	EditorPlugin,
 	EditorProps,
 	ExtensionConfig,
 	ExtensionProvidersProp,
-	MarkConfig,
 	MessageDescriptor,
-	NodeConfig,
-	NodeViewConfig,
-	PluginsOptions,
-	PMPlugin,
 	PMPluginCreateConfig,
-	PMPluginFactory,
-	PMPluginFactoryParams,
-	ReactComponents,
-	ToolbarUIComponentFactory,
-	ToolbarUiComponentFactoryParams,
-	UIComponentFactory,
-	UiComponentFactoryParams,
 } from './types';
-export type { FeedbackInfo } from '@atlaskit/editor-common/types';
 
 interface WrapperProps {
 	props: EditorProps;

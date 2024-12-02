@@ -4,7 +4,7 @@ import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-import type { Command } from '../types';
+import type { Command } from '../types/command';
 
 export const newlinePreserveMarksKey = new PluginKey('newlinePreserveMarksPlugin');
 

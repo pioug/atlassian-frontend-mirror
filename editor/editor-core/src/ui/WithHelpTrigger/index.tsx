@@ -10,11 +10,11 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { createDispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { analyticsEventKey } from '@atlaskit/editor-common/utils/analytics';
 import { deprecatedOpenHelpCommand } from '@atlaskit/editor-plugins/help-dialog';
 
 import type EditorActions from '../../actions';
-import { createDispatch } from '../../event-dispatcher';
 
 interface WithHelpTriggerProps {
 	render: (openHelp: () => void) => React.ReactNode;

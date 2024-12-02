@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-emoji",
-	"version": "2.7.7",
+	"version": "2.7.8",
 	"description": "Emoji plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,10 +21,10 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/editor-common": "^95.9.0",
+		"@atlaskit/editor-common": "^95.10.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
-		"@atlaskit/editor-plugin-type-ahead": "^1.10.0",
-		"@atlaskit/editor-prosemirror": "6.0.0",
+		"@atlaskit/editor-plugin-type-ahead": "^1.11.0",
+		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/emoji": "^67.11.0",
 		"@atlaskit/node-data-provider": "^3.0.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",

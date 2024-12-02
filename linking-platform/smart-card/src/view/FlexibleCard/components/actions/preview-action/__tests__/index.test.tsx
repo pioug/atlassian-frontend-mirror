@@ -38,7 +38,7 @@ describe('PreviewAction', () => {
 		setup();
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
-		expect(element.textContent).toBe('Open preview');
+		expect(element).toHaveTextContent('Open preview');
 	});
 
 	it('opens embed modal on click', async () => {
@@ -64,7 +64,7 @@ describe('PreviewAction', () => {
 			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Open preview');
+			expect(tooltip).toHaveTextContent('Open preview');
 		});
 
 		it('renders stack item tooltip', async () => {
@@ -75,7 +75,7 @@ describe('PreviewAction', () => {
 			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Open a full screen preview of this link');
+			expect(tooltip).toHaveTextContent('Open a full screen preview of this link');
 		});
 	});
 });

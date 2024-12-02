@@ -14,6 +14,7 @@ import type { ListRowRenderer } from 'react-virtualized/dist/commonjs/List';
 import { List } from 'react-virtualized/dist/commonjs/List';
 
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
@@ -21,11 +22,11 @@ import { token } from '@atlaskit/tokens';
 import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-index';
 import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../pm-plugins/constants';
 import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../pm-plugins/utils';
+import { type TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadHandler, TypeAheadItem } from '../types';
 
 import { AssistiveText } from './AssistiveText';
 import { TypeAheadListItem } from './TypeAheadListItem';
-
 const LIST_ITEM_ESTIMATED_HEIGHT = 64;
 const LIST_WIDTH = 320;
 
@@ -43,6 +44,7 @@ type TypeAheadListProps = {
 	decorationElement: HTMLElement;
 	triggerHandler?: TypeAheadHandler;
 	moreElementsInQuickInsertViewEnabled?: boolean;
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 } & WrappedComponentProps;
 
 const TypeaheadAssistiveTextPureComponent = React.memo(
@@ -72,6 +74,7 @@ const TypeAheadListComponent = React.memo(
 		decorationElement,
 		triggerHandler,
 		moreElementsInQuickInsertViewEnabled,
+		api,
 	}: TypeAheadListProps) => {
 		const listRef = useRef<List>() as React.MutableRefObject<List>;
 		const listContainerRef = useRef<HTMLDivElement>(null);
@@ -113,18 +116,19 @@ const TypeAheadListComponent = React.memo(
 
 		const focusTargetElement = useCallback(() => {
 			//To reset the selected index
-			updateSelectedIndex(-1)(editorView.state, editorView.dispatch);
+			updateSelectedIndex(-1, api)(editorView.state, editorView.dispatch);
 			listRef.current.scrollToRow(0);
 			decorationElement?.querySelector<HTMLSpanElement>(`[role='combobox']`)?.focus();
-		}, [editorView, listRef, decorationElement]);
+		}, [editorView, listRef, decorationElement, api]);
 
 		const selectNextItem = useMemo(
 			() =>
 				moveSelectedIndex({
 					editorView,
 					direction: 'next',
+					api,
 				}),
-			[editorView],
+			[editorView, api],
 		);
 
 		const selectPreviousItem = useMemo(
@@ -132,8 +136,9 @@ const TypeAheadListComponent = React.memo(
 				moveSelectedIndex({
 					editorView,
 					direction: 'previous',
+					api,
 				}),
-			[editorView],
+			[editorView, api],
 		);
 
 		const lastVisibleStartIndex = lastVisibleIndexes.current.startIndex;
@@ -178,7 +183,7 @@ const TypeAheadListComponent = React.memo(
 			if (selectedIndex === index) {
 				return;
 			}
-			updateSelectedIndex(index)(editorView.state, editorView.dispatch);
+			updateSelectedIndex(index, api)(editorView.state, editorView.dispatch);
 		};
 
 		useLayoutEffect(() => {
@@ -286,6 +291,10 @@ const TypeAheadListComponent = React.memo(
 			items.length,
 		]);
 
+		const firstOnlineSupportedRow = useMemo(() => {
+			return items.findIndex((item) => item.isDisabledOffline !== true);
+		}, [items]);
+
 		const renderRow: ListRowRenderer = ({ index, key, style, parent }) => {
 			const currentItem = items[index];
 			return (
@@ -300,6 +309,7 @@ const TypeAheadListComponent = React.memo(
 							<TypeAheadListItem
 								key={items[index].title}
 								item={currentItem}
+								firstOnlineSupportedIndex={firstOnlineSupportedRow}
 								itemsLength={items.length}
 								itemIndex={index}
 								selectedIndex={selectedIndex}
@@ -309,6 +319,7 @@ const TypeAheadListComponent = React.memo(
 										.listItemAriaLabel
 								}
 								moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
+								api={api}
 							/>
 						</div>
 					</div>

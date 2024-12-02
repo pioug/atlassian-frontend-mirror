@@ -14,10 +14,10 @@ import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { IntlErrorBoundary } from '@atlaskit/editor-common/intl-error-boundary';
 import { logException } from '@atlaskit/editor-common/monitoring';
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import type { UserBrowserExtensionResults } from '@atlaskit/editor-common/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { FeatureFlags } from '../types/feature-flags';
 import { isOutdatedBrowser } from '../utils/outdatedBrowsers';
 
 import { WithEditorView } from './WithEditorView';

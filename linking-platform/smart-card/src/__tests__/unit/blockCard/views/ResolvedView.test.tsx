@@ -28,7 +28,7 @@ describe('Block card views - Resolved', () => {
 	it('renders view', () => {
 		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...props} />);
 		const frame = screen.getByTestId('resolved-view');
-		expect(frame.textContent).toBe('https://github.com/atlassian/changesetsHouse of Holbein');
+		expect(frame).toHaveTextContent('https://github.com/atlassian/changesetsHouse of Holbein');
 	});
 
 	it('renders should show metadata', () => {
@@ -38,7 +38,7 @@ describe('Block card views - Resolved', () => {
 		};
 		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
 		const frame = screen.getByTestId('resolved-view-meta');
-		expect(frame.textContent).toBe('fill my goblet up to the brim');
+		expect(frame).toHaveTextContent('fill my goblet up to the brim');
 	});
 
 	it('renders should show byline', () => {
@@ -48,7 +48,7 @@ describe('Block card views - Resolved', () => {
 		};
 		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
 		const frame = screen.getByTestId('resolved-view-by');
-		expect(frame.textContent).toBe('V real react node');
+		expect(frame).toHaveTextContent('V real react node');
 	});
 
 	it('renders should show description', () => {
@@ -58,7 +58,7 @@ describe('Block card views - Resolved', () => {
 		};
 		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
 		const frame = screen.getByTestId('resolved-view-by');
-		expect(frame.textContent).toBe('Tall, large, Henry the eighth');
+		expect(frame).toHaveTextContent('Tall, large, Henry the eighth');
 	});
 
 	it('renders should show byline if both byline and description are passed', () => {
@@ -69,7 +69,7 @@ describe('Block card views - Resolved', () => {
 		};
 		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
 		const frame = screen.getByTestId('resolved-view-by');
-		expect(frame.textContent).toBe('V real react node');
+		expect(frame).toHaveTextContent('V real react node');
 	});
 
 	it('renders should show the metadata if both metadata and byline are passed', () => {
@@ -80,7 +80,7 @@ describe('Block card views - Resolved', () => {
 		};
 		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
 		const frame = screen.getByTestId('resolved-view-meta');
-		expect(frame.textContent).toBe('fill my goblet up to the brim');
+		expect(frame).toHaveTextContent('fill my goblet up to the brim');
 	});
 
 	it('renders a passed image as a background', () => {
@@ -143,7 +143,7 @@ describe('Block card views - Resolved', () => {
 		};
 		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
 		const emojiTest = screen.getByTestId('emoji');
-		expect(emojiTest.textContent).toBe('😍');
+		expect(emojiTest).toHaveTextContent('😍');
 	});
 
 	it('renders should show emoji instead of blog icon', () => {
@@ -157,6 +157,6 @@ describe('Block card views - Resolved', () => {
 		};
 		renderWithIntl(<BlockCardResolvedView testId="resolved-view" {...resolvedProps} />);
 		const emojiTest = screen.getByTestId('emoji');
-		expect(emojiTest.textContent).toBe('😍');
+		expect(emojiTest).toHaveTextContent('😍');
 	});
 });

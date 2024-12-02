@@ -42,7 +42,7 @@ import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import * as measure from '@atlaskit/editor-common/performance-measures';
 import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
+import type { EditorAppearance, QuickInsertOptions } from '@atlaskit/editor-common/types';
 import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { analyticsClient } from '@atlaskit/editor-test-helpers/analytics-client-mock';
@@ -52,7 +52,6 @@ import sendKeyToPm from '@atlaskit/editor-test-helpers/send-key-to-pm';
 import * as featureFlagsFromProps from '../../create-editor/feature-flags-from-props';
 import Editor from '../../editor';
 import { EditorActions } from '../../index';
-import type { EditorAppearance } from '../../types';
 import measurements from '../../utils/performance/measure-enum';
 import { name as packageName, version as packageVersion } from '../../version-wrapper';
 

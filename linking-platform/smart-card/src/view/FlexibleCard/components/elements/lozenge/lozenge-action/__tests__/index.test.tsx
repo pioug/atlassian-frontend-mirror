@@ -158,7 +158,7 @@ describe('LozengeAction', () => {
 		const element = await screen.findByTestId(triggerTestId);
 
 		expect(element).toBeTruthy();
-		expect(element.textContent?.trim()).toBe(text);
+		expect(element).toHaveTextContent(text);
 	});
 
 	it('renders element with non-string content', async () => {
@@ -173,7 +173,7 @@ describe('LozengeAction', () => {
 		const element = await screen.findByTestId(triggerTestId);
 
 		expect(element).toBeTruthy();
-		expect(element.textContent?.trim()).toBe(text);
+		expect(element).toHaveTextContent(text);
 	});
 
 	it('does not call reload action on render', async () => {
@@ -223,11 +223,11 @@ describe('LozengeAction', () => {
 		});
 		const item1 = await screen.findByTestId(`${testId}-item-0`);
 		expect(item1).toBeTruthy();
-		expect(item1.textContent).toBe('Done');
+		expect(item1).toHaveTextContent('Done');
 
 		const item2 = await screen.findByTestId(`${testId}-item-1`);
 		expect(item2).toBeTruthy();
-		expect(item2.textContent).toBe('Moved');
+		expect(item2).toHaveTextContent('Moved');
 	});
 
 	it('does not render active item', async () => {
@@ -241,7 +241,7 @@ describe('LozengeAction', () => {
 		});
 		const item1 = await screen.findByTestId(`${testId}-item-0`);
 		expect(item1).toBeTruthy();
-		expect(item1.textContent).toBe('Done');
+		expect(item1).toHaveTextContent('Done');
 
 		const item2 = screen.queryByTestId(`${testId}-item-1`);
 		expect(item2).not.toBeInTheDocument();
@@ -263,11 +263,11 @@ describe('LozengeAction', () => {
 		});
 		const item1 = await screen.findByTestId(`${testId}-item-0`);
 		expect(item1).toBeTruthy();
-		expect(item1.textContent).toBe('Done');
+		expect(item1).toHaveTextContent('Done');
 
 		const item2 = await screen.findByTestId(`${testId}-item-1`);
 		expect(item2).toBeTruthy();
-		expect(item2.textContent).toBe(text);
+		expect(item2).toHaveTextContent(text);
 	});
 
 	it('invokes load action only once', async () => {
@@ -339,7 +339,7 @@ describe('LozengeAction', () => {
 
 		const element = await screen.findByTestId(`${testId}-fallback`);
 		expect(element).toBeTruthy();
-		expect(element.textContent?.trim()).toBe(text);
+		expect(element).toHaveTextContent(text);
 	});
 
 	it('invokes load action again if the previous load fails', async () => {
@@ -518,7 +518,7 @@ describe('LozengeAction', () => {
 		// making sure error message is correct
 		const error = await screen.findByTestId(`${testId}-error-message`);
 		expect(error).toBeTruthy();
-		expect(error.textContent).toBe('Field Labels must be provided');
+		expect(error).toHaveTextContent('Field Labels must be provided');
 	});
 
 	describe('error link', () => {
@@ -553,7 +553,7 @@ describe('LozengeAction', () => {
 			// making sure error link is present
 			const link = await screen.findByTestId(`${testId}-open-embed`);
 			expect(link).toBeDefined();
-			expect(link.textContent).toBe('Open issue in Jira');
+			expect(link).toHaveTextContent('Open issue in Jira');
 		});
 
 		it('does not render error with a link when preview data is not available', async () => {

@@ -33,7 +33,7 @@ import {
 } from './hooks/responsive-toolbar-buttons';
 import { MoreButton } from './more-button';
 import { SingleToolbarButtons } from './single-toolbar-buttons';
-import type { MenuIconItem } from './types';
+import type { MenuIconItem, ToolbarType } from './types';
 
 export type ToolbarFormattingProps = {
 	editorView: EditorView;
@@ -47,6 +47,7 @@ export type ToolbarFormattingProps = {
 	editorAnalyticsAPI?: EditorAnalyticsAPI;
 	textFormattingState: TextFormattingState | undefined;
 	api: ExtractInjectionAPI<TextFormattingPlugin> | undefined;
+	toolbarType: ToolbarType;
 };
 const ToolbarFormatting = ({
 	shouldUseResponsiveToolbar,
@@ -61,6 +62,7 @@ const ToolbarFormatting = ({
 	editorAnalyticsAPI,
 	textFormattingState,
 	api,
+	toolbarType,
 }: ToolbarFormattingProps & WrappedComponentProps) => {
 	const [message, setMessage] = useState('');
 
@@ -70,11 +72,13 @@ const ToolbarFormatting = ({
 		isToolbarDisabled,
 		editorAnalyticsAPI,
 		textFormattingState,
+		toolbarType,
 	});
 	const clearIcon = useClearIcon({
 		textFormattingState,
 		intl,
 		editorAnalyticsAPI,
+		toolbarType,
 	});
 
 	const menuIconTypeList = useResponsiveIconTypeMenu({
@@ -202,7 +206,9 @@ const ToolbarFormatting = ({
 							isReducedSpacing={isReducedSpacing}
 							moreButtonLabel={moreFormattingButtonLabel}
 							hasFormattingActive={hasFormattingActive}
+							hasMoreButton={true}
 							items={items}
+							intl={intl}
 						/>
 					)}
 				</span>
@@ -228,6 +234,7 @@ const Toolbar = ({
 	editorAnalyticsAPI,
 	textFormattingState,
 	api,
+	toolbarType,
 }: ToolbarFormattingProps & WrappedComponentProps) => {
 	return (
 		<ToolbarFormatting
@@ -242,6 +249,7 @@ const Toolbar = ({
 			intl={intl}
 			editorAnalyticsAPI={editorAnalyticsAPI}
 			api={api}
+			toolbarType={toolbarType}
 		/>
 	);
 };

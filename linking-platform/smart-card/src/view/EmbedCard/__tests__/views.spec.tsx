@@ -54,7 +54,7 @@ describe('EmbedCard Views', () => {
 			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />);
 			const outerFrame = screen.getByTestId('embed-card-resolved-view');
 			const innerFrame = screen.getByTestId('embed-card-resolved-view-frame');
-			expect(outerFrame.textContent).toBe('Smart Link Assets');
+			expect(outerFrame).toHaveTextContent('Smart Link Assets');
 			expect(innerFrame).toBeTruthy();
 			expect(innerFrame.getAttribute('src')).toBe(props.preview?.src);
 		});
@@ -92,7 +92,7 @@ describe('EmbedCard Views', () => {
 			render(<EmbedCardResolvedView testId="embed-card-resolved-view" {...props} />);
 			const outerFrame = screen.getByTestId('embed-card-resolved-view');
 
-			expect(outerFrame.textContent).toBe('Dropbox');
+			expect(outerFrame).toHaveTextContent('Dropbox');
 		});
 
 		it('clicking on link should have no side-effects', () => {
@@ -176,7 +176,7 @@ describe('EmbedCard Views', () => {
 		it('renders view', () => {
 			renderWithIntl(<BlockCardResolvingView testId="embed-card-resolving-view" />);
 			const frame = screen.getByTestId('embed-card-resolving-view');
-			expect(frame.textContent).toBe('Loading...');
+			expect(frame).toHaveTextContent('Loading...');
 		});
 	});
 
@@ -184,18 +184,18 @@ describe('EmbedCard Views', () => {
 		it('renders view', () => {
 			renderWithIntl(<EmbedCardErroredView testId="errored-view" />);
 			const frame = screen.getByTestId('errored-view');
-			expect(frame.textContent).toBe("We couldn't load this link for an unknown reason.Try again");
+			expect(frame).toHaveTextContent("We couldn't load this link for an unknown reason.Try again");
 		});
 
 		it('renders view - clicking on retry enacts callback', () => {
 			const onRetryMock = jest.fn();
 			renderWithIntl(<EmbedCardErroredView testId="errored-view" onRetry={onRetryMock} />);
 			const frame = screen.getByTestId('errored-view');
-			expect(frame.textContent).toBe("We couldn't load this link for an unknown reason.Try again");
+			expect(frame).toHaveTextContent("We couldn't load this link for an unknown reason.Try again");
 
 			// Check the button is there
 			const button = screen.getByTestId('err-view-retry');
-			expect(button.textContent).toBe('Try again');
+			expect(button).toHaveTextContent('Try again');
 
 			// Click it, check mock is called
 			fireEvent.click(button);

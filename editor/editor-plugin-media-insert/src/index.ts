@@ -1,2 +1,2 @@
-export { mediaInsertPlugin } from './plugin';
-export type { MediaInsertPlugin, MediaInsertPluginState } from './types';
+export { mediaInsertPlugin } from './mediaInsertPlugin';
+export type { MediaInsertPlugin, MediaInsertPluginState } from './mediaInsertPluginType';

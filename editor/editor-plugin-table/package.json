@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "8.2.0",
+	"version": "8.2.1",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/custom-steps": "^0.9.0",
-		"@atlaskit/editor-common": "^95.9.0",
+		"@atlaskit/editor-common": "^95.10.0",
 		"@atlaskit/editor-palette": "1.6.3",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
@@ -40,10 +40,10 @@
 		"@atlaskit/editor-plugin-guideline": "^1.2.0",
 		"@atlaskit/editor-plugin-selection": "^1.5.0",
 		"@atlaskit/editor-plugin-width": "^1.3.0",
-		"@atlaskit/editor-prosemirror": "6.0.0",
+		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/editor-tables": "^2.8.0",
-		"@atlaskit/icon": "^22.27.0",
+		"@atlaskit/icon": "^22.28.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/pragmatic-drag-and-drop": "^1.4.0",
@@ -132,6 +132,12 @@
 			"type": "boolean"
 		},
 		"platform_editor_use_nested_table_pm_nodes": {
+			"type": "boolean"
+		},
+		"platform_editor_set_alignment_when_resized": {
+			"type": "boolean"
+		},
+		"platform_editor_table_drag_menu_mount_point_fix": {
 			"type": "boolean"
 		}
 	}

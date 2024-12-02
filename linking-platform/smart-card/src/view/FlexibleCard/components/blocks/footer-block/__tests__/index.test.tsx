@@ -64,7 +64,7 @@ describe('FooterBlock', () => {
 		const provider = await screen.findByTestId(`${testIdBase}-provider`);
 		expect(provider).toBeDefined();
 		const providerLabel = await screen.findByTestId(`${testIdBase}-provider-label`);
-		expect(providerLabel.textContent).toBe('Confluence');
+		expect(providerLabel).toHaveTextContent('Confluence');
 	});
 
 	it('should not render provider when hideProvider is true', async () => {
@@ -105,7 +105,7 @@ describe('FooterBlock', () => {
 
 		const deleteAction = await screen.findByTestId('some-delete-actionItem-test-id');
 		expect(deleteAction).toBeDefined();
-		expect(deleteAction.textContent).toBe('Delete');
+		expect(deleteAction).toHaveTextContent('Delete');
 
 		await user.click(deleteAction);
 		expect(actionItem.onClick).toHaveBeenCalled();

@@ -1,2 +1,2 @@
-export { borderPlugin } from './plugin';
-export type { BorderPlugin } from './plugin';
+export { borderPlugin } from './borderPlugin';
+export type { BorderPlugin } from './borderPluginType';

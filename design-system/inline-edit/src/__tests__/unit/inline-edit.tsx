@@ -345,7 +345,11 @@ describe('InlineEdit component', () => {
 							/>
 						)}
 						readView={() => (
-							<div data-testid="read-view">{editValue || 'Click to enter value'}</div>
+							<div data-testid="read-view">
+								{editValue.length > 0
+									? editValue.map((option) => option.label).join(', ')
+									: 'Click to enter value'}
+							</div>
 						)}
 						onConfirm={onConfirm}
 					/>

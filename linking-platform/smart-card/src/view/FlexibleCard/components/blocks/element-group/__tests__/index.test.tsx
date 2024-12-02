@@ -23,7 +23,7 @@ describe('ElementGroup', () => {
 
 		expect(elementGroup).toBeTruthy();
 		expect(elementGroup.getAttribute('data-smart-element-group')).toBeTruthy();
-		expect(elementGroup.textContent).toBe('I am an element group.');
+		expect(elementGroup).toHaveTextContent('I am an element group.');
 	});
 
 	it('renders element group with custom css', async () => {

@@ -13,8 +13,7 @@ import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { maxLayoutColumnSupported } from '../consts';
-import type { ActiveNode, BlockControlsPlugin } from '../types';
+import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
 import { nodeMargins } from '../ui/consts';
 import { DropTarget, type DropTargetProps } from '../ui/drop-target';
 import { DropTargetLayout, type DropTargetLayoutProps } from '../ui/drop-target-layout';
@@ -23,12 +22,12 @@ import {
 	EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_GAP,
 	EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET,
 } from '../ui/drop-target-v2';
-import { isPreRelease2 } from '../utils/advanced-layouts-flags';
-import { type AnchorRectCache } from '../utils/anchor-utils';
-import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
-import { canMoveNodeToIndex, isInSameLayout } from '../utils/validation';
 
 import { getNestedDepth, TYPE_DROP_TARGET_DEC, unmountDecorations } from './decorations-common';
+import { type AnchorRectCache } from './utils/anchor-utils';
+import { maxLayoutColumnSupported } from './utils/consts';
+import { isBlocksDragTargetDebug } from './utils/drag-target-debug';
+import { canMoveNodeToIndex, isInSameLayout } from './utils/validation';
 
 const IGNORE_NODES = [
 	'tableCell',
@@ -248,7 +247,7 @@ export const dropTargetDecorations = (
 		prevNodeStack.push(node);
 	};
 
-	const isAdvancedLayoutsPreRelease2 = isPreRelease2();
+	const isAdvancedLayoutsPreRelease2 = editorExperiment('advanced_layouts', true);
 
 	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, index) => {
 		let depth = 0;

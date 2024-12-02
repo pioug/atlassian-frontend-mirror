@@ -19,7 +19,7 @@ describe('Element: Text', () => {
 
 		expect(element).toBeTruthy();
 		expect(element.getAttribute('data-smart-element-text')).toBeTruthy();
-		expect(element.textContent).toBe(content);
+		expect(element).toHaveTextContent(content);
 	});
 
 	it('renders formatted message', async () => {
@@ -65,7 +65,7 @@ describe('Element: Text', () => {
 
 		const element = await screen.findByTestId(testId);
 
-		expect(element.textContent).toBe('Created by someone');
+		expect(element).toHaveTextContent('Created by someone');
 	});
 
 	it('does not renders without either message or children', async () => {

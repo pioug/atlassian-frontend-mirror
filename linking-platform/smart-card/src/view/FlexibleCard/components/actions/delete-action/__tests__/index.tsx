@@ -36,6 +36,6 @@ describe('DeleteAction', () => {
 		setup({ onClick: () => '' });
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
-		expect(element.textContent).toBe('Delete');
+		expect(element).toHaveTextContent('Delete');
 	});
 });

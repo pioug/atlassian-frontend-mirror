@@ -35,7 +35,7 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
 				const element = await screen.findByTestId(testId);
 
 				expect(element).toBeTruthy();
-				expect(element.textContent).toBe(name);
+				expect(element).toHaveTextContent(name);
 			});
 
 			it(`should render ${NamedAction.name} with custom text`, async () => {
@@ -55,7 +55,7 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
 				const element = await screen.findByTestId(testId);
 
 				expect(element).toBeTruthy();
-				expect(element.textContent).toBe('spaghetti');
+				expect(element).toHaveTextContent('spaghetti');
 			});
 
 			it('should call the supplied onClick when button is clicked', async () => {
@@ -112,7 +112,7 @@ export const testNamedAction = ({ name, NamedAction }: Options) => {
 			const tooltip = await screen.findByTestId(`${testId}-tooltip`);
 
 			expect(tooltip).toBeTruthy();
-			expect(tooltip.textContent).toBe(name);
+			expect(tooltip).toHaveTextContent(name);
 		});
 	});
 };

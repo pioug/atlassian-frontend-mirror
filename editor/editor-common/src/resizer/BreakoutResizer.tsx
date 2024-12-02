@@ -75,7 +75,7 @@ const defaultStyles = {
  * BreakoutResizer is a common component used to resize nodes that support the 'Breakout' mark, so it requires
  * correct ADF support.
  *
- * use platform_editor_advanced_layouts_breakout_resizing
+ * use experiment platform_editor_advanced_layouts
  */
 const BreakoutResizer = ({
 	editorView,

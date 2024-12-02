@@ -14,13 +14,13 @@ import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { B200 } from '@atlaskit/theme/colors';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
-import { useActiveAnchorTracker } from '../utils/active-anchor-tracker';
-import { showResponsiveLayout } from '../utils/advanced-layouts-flags';
-import { type AnchorRectCache, isAnchorSupported } from '../utils/anchor-utils';
-import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
+import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracker';
+import { type AnchorRectCache, isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
+import { isBlocksDragTargetDebug } from '../pm-plugins/utils/drag-target-debug';
 
 import { type DropTargetProps } from './drop-target';
 
@@ -106,7 +106,6 @@ export const InlineDropTarget = ({
 	const [isActiveAnchor] = useActiveAnchorTracker(anchorName);
 
 	const isLeftPosition = position === 'left';
-	const shouldShowResponsiveLayout = showResponsiveLayout();
 
 	const nodeDimension: NodeDimensionType = useMemo(() => {
 		if (!nextNode) {
@@ -160,7 +159,7 @@ export const InlineDropTarget = ({
 		// Set the height target anchor name to the first or last column of the layout section so that it also works for stacked layout
 		let heightTargetAnchorName = targetAnchorName;
 		if (
-			shouldShowResponsiveLayout &&
+			editorExperiment('advanced_layouts', true) &&
 			nextNode.type.name === 'layoutSection' &&
 			nextNode.firstChild &&
 			nextNode.lastChild
@@ -203,7 +202,7 @@ export const InlineDropTarget = ({
 		}
 
 		return defaultNodeDimension;
-	}, [anchorName, anchorRectCache, nextNode, position, isLeftPosition, shouldShowResponsiveLayout]);
+	}, [anchorName, anchorRectCache, nextNode, position, isLeftPosition]);
 
 	const onDrop = useCallback(() => {
 		const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
@@ -223,11 +222,9 @@ export const InlineDropTarget = ({
 	}, [api, getPos, position]);
 
 	const inlineHoverZoneRectStyle = useMemo(() => {
-		const isLayoutNode = nextNode?.type.name === 'layoutSection';
-		const layoutAdjustment =
-			isLayoutNode && shouldShowResponsiveLayout
-				? { width: 11, height: 4, top: 6, bottom: 2 }
-				: undefined;
+		const isLayoutNode =
+			editorExperiment('advanced_layouts', true) && nextNode?.type.name === 'layoutSection';
+		const layoutAdjustment = isLayoutNode ? { width: 11, height: 4, top: 6, bottom: 2 } : undefined;
 
 		return css(
 			{
@@ -241,17 +238,16 @@ export const InlineDropTarget = ({
 					: `calc((100% - ${nodeDimension.width})/2 - ${GAP}px - ${layoutAdjustment?.width || 0}px)`,
 				height: `calc(${nodeDimension.height} + ${layoutAdjustment?.height || 0}px)`,
 			},
-			isLayoutNode &&
-				shouldShowResponsiveLayout && {
-					top: isLeftPosition
-						? `calc(${nodeDimension.top} + ${layoutAdjustment?.top || 0}px)`
-						: 'unset',
-					bottom: isLeftPosition
-						? 'unset'
-						: `calc(${nodeDimension.bottom} - ${layoutAdjustment?.bottom || 0}px)`,
-				},
+			isLayoutNode && {
+				top: isLeftPosition
+					? `calc(${nodeDimension.top} + ${layoutAdjustment?.top || 0}px)`
+					: 'unset',
+				bottom: isLeftPosition
+					? 'unset'
+					: `calc(${nodeDimension.bottom} - ${layoutAdjustment?.bottom || 0}px)`,
+			},
 		);
-	}, [anchorName, isLeftPosition, nodeDimension, nextNode, shouldShowResponsiveLayout]);
+	}, [nextNode?.type.name, anchorName, isLeftPosition, nodeDimension]);
 
 	const dropIndicatorPos = useMemo(() => {
 		return isLeftPosition ? 'right' : 'left';

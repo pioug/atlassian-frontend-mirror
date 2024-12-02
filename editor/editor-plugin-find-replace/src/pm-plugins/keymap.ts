@@ -5,7 +5,7 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { Command } from '@atlaskit/editor-common/types';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
-import { activateWithAnalytics } from '../commands-with-analytics';
+import { activateWithAnalytics } from './commands-with-analytics';
 
 const activateFindReplace =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): Command =>

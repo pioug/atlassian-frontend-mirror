@@ -212,11 +212,13 @@ export type { SelectionToolbarGroup, SelectionToolbarHandler } from './selection
 
 export type { FeedbackInfo } from './feedback-dialog';
 
-// DEPREACTED
+/**
+ *  @deprecated
+ */
 import type { EditorPresetBuilder, ExtractPresetAPI } from '../preset';
 
 /**
- * @depreacted
+ * @deprecated
  *
  * Please use ExtractPresetAPI from "@atlaskit/editor-common/preset" instead.
  */

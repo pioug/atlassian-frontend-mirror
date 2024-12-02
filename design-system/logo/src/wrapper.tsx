@@ -3,45 +3,40 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
-import { sizes, type WrapperProps } from './constants';
-import { type Size } from './types';
+import { type WrapperProps } from './constants';
 
 const CSS_VAR_COLOR = '--logo-color';
 const CSS_VAR_FILL = '--logo-fill';
 
-const baseWrapperStyles = css({
-	display: 'inline-block',
-	position: 'relative',
-	color: `var(${CSS_VAR_COLOR})`,
-	fill: `var(${CSS_VAR_FILL})`,
-	lineHeight: 1,
-	userSelect: 'none',
-	whiteSpace: 'normal',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'> svg': {
-		height: '100%',
-		fill: 'inherit',
+const styles = cssMapUnbound({
+	root: {
+		display: 'inline-block',
+		position: 'relative',
+		color: `var(${CSS_VAR_COLOR})`,
+		fill: `var(${CSS_VAR_FILL})`,
+		lineHeight: 1,
+		userSelect: 'none',
+		whiteSpace: 'normal',
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'> svg': {
+			height: '100%',
+			fill: 'inherit',
+		},
 	},
-});
-
-const stopColorStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	stop: {
-		stopColor: 'currentColor',
+		// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'& stop': {
+			stopColor: 'currentColor',
+		},
 	},
+	xsmall: { height: '16px' },
+	small: { height: '24px' },
+	medium: { height: '32px' },
+	large: { height: '40px' },
+	xlarge: { height: '48px' },
 });
-
-type SizeStyles = Record<Size, SerializedStyles>;
-const sizeStyles = Object.entries(sizes).reduce((acc, [key, val]) => {
-	acc[key as Size] = css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: `${val}px`,
-	});
-	return acc;
-}, {} as Partial<SizeStyles>) as SizeStyles;
 
 /**
  * __Wrapper__
@@ -65,7 +60,7 @@ const Wrapper = ({
 
 	return (
 		<span
-			css={[baseWrapperStyles, shouldApplyStopColor && stopColorStyles, size && sizeStyles[size]]}
+			css={[styles.root, shouldApplyStopColor && styles.stop, size && styles[size]]}
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={

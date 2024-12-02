@@ -4,8 +4,11 @@ import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import reducer from '../reducer';
 import type { FindReplacePluginState, Match } from '../types';
+
+import { initialState } from './main';
+import { findReplacePluginKey } from './plugin-key';
+import reducer from './reducer';
 import {
 	createDecorations,
 	findDecorationFromMatch,
@@ -14,11 +17,8 @@ import {
 	isMatchAffectedByStep,
 	removeDecorationsFromSet,
 	removeMatchesFromSet,
-} from '../utils';
-import { findUniqueItemsIn } from '../utils/array'; // TODO: move into index export
-
-import { initialState } from './main';
-import { findReplacePluginKey } from './plugin-key';
+} from './utils';
+import { findUniqueItemsIn } from './utils/array'; // TODO: move into index export
 
 const handleDocChanged = (
 	tr: ReadonlyTransaction,

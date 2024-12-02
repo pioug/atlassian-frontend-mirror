@@ -45,6 +45,7 @@ import {
 	unsupportedStyles,
 	whitespaceSharedStyles,
 } from '@atlaskit/editor-common/styles';
+import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { blocktypeStyles } from '@atlaskit/editor-plugins/block-type/styles';
 import { findReplaceStyles } from '@atlaskit/editor-plugins/find-replace/styles';
 import { textHighlightStyle } from '@atlaskit/editor-plugins/paste-options-toolbar/styles';
@@ -69,7 +70,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
-import type { FeatureFlags } from '../../types/feature-flags';
 
 import { aiPanelStyles } from './ai-panels';
 import { codeBlockStyles } from './code-block';

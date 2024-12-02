@@ -16,7 +16,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import type { ListState } from '../types';
-import { isWrappingPossible } from '../utils/selection';
+
+import { isWrappingPossible } from './utils/selection';
 
 const listPluginKey = new PluginKey<ListState>('listPlugin');
 export const pluginKey = listPluginKey;

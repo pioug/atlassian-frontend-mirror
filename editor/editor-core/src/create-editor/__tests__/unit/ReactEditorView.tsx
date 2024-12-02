@@ -44,7 +44,7 @@ jest.mock('@atlaskit/editor-common/performance/measure-render', () => ({
 	}),
 }));
 
-jest.mock('@atlaskit/editor-plugin-base/src/utils/inputTrackingConfig', () => ({
+jest.mock('@atlaskit/editor-plugin-base/src/pm-plugins/utils/inputTrackingConfig', () => ({
 	inputTracking: {
 		enabled: true,
 		samplingRate: 1,
@@ -86,9 +86,8 @@ import type {
 import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import * as ProcessRawValueModule from '@atlaskit/editor-common/process-raw-value';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import { measureRender, SEVERITY } from '@atlaskit/editor-common/utils';
-import { analyticsEventKey, toJSON } from '@atlaskit/editor-common/utils';
+import type { EditorAppearance, PublicPluginAPI } from '@atlaskit/editor-common/types';
+import { analyticsEventKey, measureRender, SEVERITY, toJSON } from '@atlaskit/editor-common/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -97,9 +96,15 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { blockquote, code_block, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { media, mediaGroup, mention } from '@atlaskit/editor-test-helpers/doc-builder';
+import {
+	blockquote,
+	code_block,
+	doc,
+	media,
+	mediaGroup,
+	mention,
+	p,
+} from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import patchEditorViewForJSDOM from '@atlaskit/editor-test-helpers/jsdom-fixtures';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -115,7 +120,7 @@ import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { mountWithIntl } from '../../../__tests__/__helpers/enzyme';
-import type { EditorAppearance, EditorProps } from '../../../types';
+import type { EditorProps } from '../../../types';
 import type { EditorConfig } from '../../../types/editor-config';
 import PluginSlot from '../../../ui/PluginSlot';
 import {

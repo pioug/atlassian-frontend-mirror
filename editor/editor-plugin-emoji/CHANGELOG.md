@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-emoji
 
+## 2.7.8
+
+### Patch Changes
+
+- [#171350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171350)
+  [`436dfb28a4833`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/436dfb28a4833) -
+  [ux] Support disabled type-ahead items while user is offline for media, emoji, and mentions.
+- Updated dependencies
+
 ## 2.7.7
 
 ### Patch Changes

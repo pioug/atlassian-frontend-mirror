@@ -28,7 +28,7 @@ describe('Block card views - Not Found', () => {
 	it('renders view', () => {
 		renderWithIntl(<BlockCardNotFoundView {...props} testId="not-found-view" />);
 		const frame = screen.getByTestId('not-found-view');
-		expect(frame.textContent).toMatch(
+		expect(frame).toHaveTextContent(
 			/https:\/\/github.com\/changesets\/changesetsThe page doesn't exist or it may have changed after this link was added./,
 		);
 		const icon = screen.getByTestId('not-found-view-warning-icon');

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-media-insert
 
+## 4.0.7
+
+### Patch Changes
+
+- [#171350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171350)
+  [`436dfb28a4833`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/436dfb28a4833) -
+  [ux] Support disabled type-ahead items while user is offline for media, emoji, and mentions.
+- [#170868](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170868)
+  [`ed6ece7d3c533`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed6ece7d3c533) -
+  ED-25814: refactors plugins to meet folder standards
+- Updated dependencies
+
 ## 4.0.6
 
 ### Patch Changes

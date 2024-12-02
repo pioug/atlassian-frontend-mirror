@@ -68,11 +68,11 @@ describe('usePrefetch', () => {
 
 		expect(mockPrefetchStore[mockUrl]).toBe(true);
 
-		expect(mockConnections.client.prefetchData).toBeCalled();
+		expect(mockConnections.client.prefetchData).toHaveBeenCalled();
 		expect(mockConnections.client.prefetchData).toHaveBeenCalledTimes(1);
 		expect(mockConnections.client.prefetchData).toHaveBeenCalledWith(mockUrl);
 
-		expect(mockStore.dispatch).toBeCalled();
+		expect(mockStore.dispatch).toHaveBeenCalled();
 		expect(mockStore.dispatch).toHaveBeenCalledTimes(2);
 		expect(mockStore.dispatch).toHaveBeenCalledWith({
 			url: mockUrl,
@@ -94,11 +94,11 @@ describe('usePrefetch', () => {
 
 		expect(mockPrefetchStore[mockUrl]).toBe(true);
 
-		expect(mockConnections.client.prefetchData).toBeCalled();
+		expect(mockConnections.client.prefetchData).toHaveBeenCalled();
 		expect(mockConnections.client.prefetchData).toHaveBeenCalledTimes(1);
 		expect(mockConnections.client.prefetchData).toHaveBeenCalledWith(mockUrl);
 
-		expect(mockStore.dispatch).toBeCalled();
+		expect(mockStore.dispatch).toHaveBeenCalled();
 		expect(mockStore.dispatch).toHaveBeenCalledTimes(2);
 		expect(mockStore.dispatch).toHaveBeenCalledWith({
 			url: mockUrl,
@@ -126,8 +126,8 @@ describe('usePrefetch', () => {
 
 		expect(mockPrefetchStore[mockUrl]).toBeUndefined();
 
-		expect(mockConnections.client.prefetchData).not.toBeCalled();
-		expect(mockStore.dispatch).not.toBeCalled();
+		expect(mockConnections.client.prefetchData).not.toHaveBeenCalled();
+		expect(mockStore.dispatch).not.toHaveBeenCalled();
 	});
 
 	it('does not fall over when client.prefetchData() throws an error (prefetch failures should not be visible)', async () => {
@@ -139,7 +139,7 @@ describe('usePrefetch', () => {
 		const prefetcher = result.current;
 		await prefetcher();
 
-		expect(mockConnections.client.prefetchData).toBeCalled();
+		expect(mockConnections.client.prefetchData).toHaveBeenCalled();
 		expect(mockConnections.client.prefetchData).toHaveBeenCalledTimes(1);
 		expect(mockConnections.client.prefetchData).toHaveBeenCalledWith(mockUrl);
 	});
@@ -155,7 +155,7 @@ describe('usePrefetch', () => {
 		const prefetcher = result.current;
 		await prefetcher();
 
-		expect(mockConnections.client.prefetchData).not.toBeCalled();
-		expect(mockStore.dispatch).not.toBeCalled();
+		expect(mockConnections.client.prefetchData).not.toHaveBeenCalled();
+		expect(mockStore.dispatch).not.toHaveBeenCalled();
 	});
 });

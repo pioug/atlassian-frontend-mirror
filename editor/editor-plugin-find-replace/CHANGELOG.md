@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 1.7.15
+
+### Patch Changes
+
+- [#169604](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169604)
+  [`11e14d646fe74`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/11e14d646fe74) -
+  ED-25811: refactors plugins to meet folder standards
+- Updated dependencies
+
 ## 1.7.14
 
 ### Patch Changes

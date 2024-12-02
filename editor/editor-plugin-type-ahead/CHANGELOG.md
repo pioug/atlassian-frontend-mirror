@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.11.0
+
+### Minor Changes
+
+- [#171350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171350)
+  [`436dfb28a4833`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/436dfb28a4833) -
+  [ux] Support disabled type-ahead items while user is offline for media, emoji, and mentions.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.10.8
 
 ### Patch Changes

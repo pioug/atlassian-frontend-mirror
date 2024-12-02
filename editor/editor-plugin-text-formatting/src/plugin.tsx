@@ -2,6 +2,8 @@ import React from 'react';
 
 import { code, em, strike, strong, subsup, underline } from '@atlaskit/adf-schema';
 import type {
+	Command,
+	FloatingToolbarCustom,
 	NextEditorPlugin,
 	OptionalPlugin,
 	TextFormattingOptions,
@@ -10,6 +12,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import {
 	toggleCodeWithAnalytics,
@@ -31,6 +34,7 @@ import textFormattingInputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
 import { plugin as pmPlugin, pluginKey as textFormattingPluginKey } from './pm-plugins/main';
 import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
+import { FloatingToolbarTextFormalWithIntl as FloatingToolbarComponent } from './ui/FloatingToolbarComponent';
 import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 
 export type TextFormattingPlugin = NextEditorPlugin<
@@ -140,6 +144,37 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 				...textFormattingPluginKey.getState(editorState),
 				formattingIsPresent: clearFormattingPluginKey.getState(editorState)?.formattingIsPresent,
 			};
+		},
+
+		pluginsOptions: {
+			selectionToolbar: () => {
+				if (editorExperiment('contextual_formatting_toolbar', true, { exposure: true })) {
+					const toolbarCustom: FloatingToolbarCustom<Command> = {
+						type: 'custom',
+						render: (view) => {
+							if (!view) {
+								return;
+							}
+
+							return (
+								<FloatingToolbarComponent
+									api={api}
+									editorView={view}
+									editorAnalyticsAPI={api?.analytics?.actions}
+								/>
+							);
+						},
+						fallback: [],
+					};
+
+					return {
+						isToolbarAbove: true,
+						items: [toolbarCustom],
+					};
+				} else {
+					return undefined;
+				}
+			},
 		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,

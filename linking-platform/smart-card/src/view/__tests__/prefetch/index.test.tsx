@@ -85,7 +85,7 @@ describe('smart-card: prefetching of content', () => {
 		// - Assertions that we rendered the correct Smart Link (and the store
 		// has the correct data in it) ⬇️.
 		expect(resolvedView).toBeTruthy();
-		expect(resolvedView.textContent).toBe('I love cheese');
+		expect(resolvedView).toHaveTextContent('I love cheese');
 		// - Assertions that fetch was called ⬇️
 		expect(mockFetch).toHaveBeenCalledTimes(1);
 		// - Assertions that prefetch was not called ⬇️
@@ -141,7 +141,7 @@ describe('smart-card: prefetching of content', () => {
 		// in the viewport. The result in the DOM should be a placeholder for the link.
 		// - Assertions that we rendered the correct Smart Link ⬇️.
 		expect(lazyPlaceholderView).toBeTruthy();
-		expect(lazyPlaceholderView.textContent).toBe('spaghetti');
+		expect(lazyPlaceholderView).toHaveTextContent('spaghetti');
 		// - Assertions that fetch was not called ⬇️
 		expect(mockFetch).not.toHaveBeenCalled();
 		// - Assertions that prefetch was called ⬇️
@@ -176,7 +176,7 @@ describe('smart-card: prefetching of content', () => {
 		const resolvedView = await screen.findByTestId('inline-card-resolved-view');
 
 		expect(resolvedView).toBeTruthy();
-		expect(resolvedView.textContent).toBe('I love cheese');
+		expect(resolvedView).toHaveTextContent('I love cheese');
 
 		// - Assertions that we started and finished the UFO render experience in that order.
 		await waitFor(() => {

@@ -5,7 +5,7 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, TypeAheadHandler } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { MentionsPlugin } from '../types';
+import type { MentionsPlugin } from '../mentionsPluginType';
 
 import ToolbarMention from './ToolbarMention';
 

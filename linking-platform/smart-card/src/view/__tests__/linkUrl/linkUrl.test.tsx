@@ -157,7 +157,7 @@ describe('LinkUrl', () => {
 		it('should warning message with correct text', () => {
 			setup();
 			const body = screen.getByTestId('link-with-safety-warning--body');
-			expect(body.textContent).toBe(
+			expect(body).toHaveTextContent(
 				'The link https://otherUrl.url is taking you to a different site, https://some.url',
 			);
 		});

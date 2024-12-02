@@ -4,8 +4,8 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-import { LayoutSectionView } from '../node-views';
-import { type LayoutPlugin } from '../plugin';
+import { type LayoutPlugin } from '../layoutPluginType';
+import { LayoutSectionView } from '../nodeviews';
 import type { LayoutPluginOptions } from '../types';
 
 export const pluginKey = new PluginKey('layoutResizingPlugin');

@@ -1,5 +1,15 @@
 # @atlaskit/progress-tracker
 
+## 8.11.0
+
+### Minor Changes
+
+- [#170799](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170799)
+  [`5c6ea433574d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c6ea433574d2) -
+  We are testing changes behind a feature gate. Progress tracker steps have been updated to use
+  automatic router link configuration (from App provider). If this change is successful it will be
+  available in a later release.
+
 ## 8.10.3
 
 ### Patch Changes

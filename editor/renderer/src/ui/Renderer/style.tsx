@@ -507,15 +507,13 @@ const stickyScrollbarStyles = `
 	   bottom:  ${token('space.250', '20px')}; // MAX_BROWSER_SCROLLBAR_HEIGHT = 20;
 	 }
   `;
-const isAdvancedLayoutsPreRelease2 = () =>
-	editorExperiment('advanced_layouts', true) ||
-	fg('platform_editor_advanced_layouts_pre_release_2');
 
 export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: any) => {
 	const { colorMode, typography } = getGlobalTheme();
 	// This is required to be compatible with styled-components prop structure.
 	const themeProps = { theme };
 	const { useBlockRenderForCodeBlock, appearance } = wrapperProps;
+	const isAdvancedLayoutsOn = editorExperiment('advanced_layouts', true);
 
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/design-system/no-css-tagged-template-expression
 	return css`
@@ -840,16 +838,12 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 
 		${getLightWeightCodeBlockStylesForRootRendererStyleSheet()}
 
-      ${isAdvancedLayoutsPreRelease2()
-			? columnLayoutResponsiveSharedStyle
-			: columnLayoutSharedStyle};
-
-		${isAdvancedLayoutsPreRelease2() && columnLayoutResponsiveRendererStyles};
-
+      ${isAdvancedLayoutsOn ? columnLayoutResponsiveSharedStyle : columnLayoutSharedStyle};
+		${isAdvancedLayoutsOn && columnLayoutResponsiveRendererStyles};
 		& [data-layout-section] {
 			margin-top: ${token('space.250', '20px')};
 			& > div + div {
-				margin-left: ${isAdvancedLayoutsPreRelease2() ? 0 : token('space.400', '32px')};
+				margin-left: ${isAdvancedLayoutsOn ? 0 : token('space.400', '32px')};
 			}
 
 			@media screen and (max-width: ${gridMediumMaxWidth}px) {

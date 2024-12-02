@@ -1,12 +1,14 @@
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
+import type {
+	EditorAppearance,
+	ToolbarSize,
+	ToolbarUIComponentFactory,
+} from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type EditorActions from '../../actions';
-import type { EditorAppearance } from '../../types/editor-appearance';
-
-import type { ToolbarSize, ToolbarUIComponentFactory } from './types';
 
 export interface ToolbarBreakPoint {
 	width: number;

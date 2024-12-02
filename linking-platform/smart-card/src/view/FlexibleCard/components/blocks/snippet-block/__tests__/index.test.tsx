@@ -21,7 +21,7 @@ describe('SnippetBlock', () => {
 		const block = await screen.findByTestId(`${testId}-resolved-view`);
 
 		expect(block).toBeDefined();
-		expect(block.textContent).toBe('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
+		expect(block).toHaveTextContent('Lorem ipsum dolor sit amet, consectetur adipiscing elit.');
 	});
 
 	describe('with maxLines', () => {
@@ -103,7 +103,7 @@ describe('SnippetBlock', () => {
 
 		const block = await screen.findByTestId(testId);
 
-		expect(block.textContent).toBe('text override for a non resolved state');
+		expect(block).toHaveTextContent('text override for a non resolved state');
 	});
 
 	it('renders with override text', async () => {
@@ -116,7 +116,7 @@ describe('SnippetBlock', () => {
 
 		const block = await screen.findByTestId(testId);
 
-		expect(block.textContent).toBe('text override');
+		expect(block).toHaveTextContent('text override');
 	});
 
 	it('renders with override css', async () => {

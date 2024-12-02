@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-object",
-	"version": "6.7.1",
+	"version": "6.8.0",
 	"description": "An object icon is used to represent an Atlassian-specific content type.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,34 +33,24 @@
 			"category": "Images and icons"
 		}
 	},
-	"af:exports": {
-		"./metadata": "./src/entry-points/metadata.tsx",
-		"./glyph": "./glyph",
-		".": "./src/index.tsx"
-	},
-	"exports": {
-		"./metadata": "./src/entry-points/metadata.tsx",
-		"./glyph/*": {
-			"types": "./glyph/*.d.ts",
-			"default": "./glyph/*.js"
-		},
-		".": "./src/index.tsx"
-	},
 	"scripts": {
 		"build-glyphs": "ts-node --project ../../../tsconfig.node.json ./build/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.27.0",
+		"@atlaskit/icon": "^22.28.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
-		"@af/icon-build-process": "^2.2.0",
+		"@af/formatting": "*",
+		"@af/icon-build-process": "^2.3.0",
 		"@atlaskit/textfield": "^6.6.0",
 		"@atlaskit/tooltip": "^18.9.0",
 		"@atlaskit/visual-regression": "*",
+		"@atlassian/codegen": "^0.1.2",
 		"@emotion/styled": "^11.0.0",
 		"fs-extra": "^4.0.2",
 		"jscodeshift": "^0.13.0",
@@ -84,6 +74,96 @@
 				"emotion"
 			],
 			"deprecation": "no-deprecated-imports"
+		}
+	},
+	"af:exports": {
+		"./metadata": "./src/entry-points/metadata.tsx",
+		"./glyph/blog/16": "./src/artifacts/glyph/blog/16.tsx",
+		"./glyph/blog/24": "./src/artifacts/glyph/blog/24.tsx",
+		"./glyph/branch/16": "./src/artifacts/glyph/branch/16.tsx",
+		"./glyph/branch/24": "./src/artifacts/glyph/branch/24.tsx",
+		"./glyph/bug/16": "./src/artifacts/glyph/bug/16.tsx",
+		"./glyph/bug/24": "./src/artifacts/glyph/bug/24.tsx",
+		"./glyph/calendar/16": "./src/artifacts/glyph/calendar/16.tsx",
+		"./glyph/calendar/24": "./src/artifacts/glyph/calendar/24.tsx",
+		"./glyph/changes/16": "./src/artifacts/glyph/changes/16.tsx",
+		"./glyph/changes/24": "./src/artifacts/glyph/changes/24.tsx",
+		"./glyph/code/16": "./src/artifacts/glyph/code/16.tsx",
+		"./glyph/code/24": "./src/artifacts/glyph/code/24.tsx",
+		"./glyph/commit/16": "./src/artifacts/glyph/commit/16.tsx",
+		"./glyph/commit/24": "./src/artifacts/glyph/commit/24.tsx",
+		"./glyph/epic/16": "./src/artifacts/glyph/epic/16.tsx",
+		"./glyph/epic/24": "./src/artifacts/glyph/epic/24.tsx",
+		"./glyph/improvement/16": "./src/artifacts/glyph/improvement/16.tsx",
+		"./glyph/improvement/24": "./src/artifacts/glyph/improvement/24.tsx",
+		"./glyph/incident/16": "./src/artifacts/glyph/incident/16.tsx",
+		"./glyph/incident/24": "./src/artifacts/glyph/incident/24.tsx",
+		"./glyph/issue/16": "./src/artifacts/glyph/issue/16.tsx",
+		"./glyph/issue/24": "./src/artifacts/glyph/issue/24.tsx",
+		"./glyph/new-feature/16": "./src/artifacts/glyph/new-feature/16.tsx",
+		"./glyph/new-feature/24": "./src/artifacts/glyph/new-feature/24.tsx",
+		"./glyph/page/16": "./src/artifacts/glyph/page/16.tsx",
+		"./glyph/page/24": "./src/artifacts/glyph/page/24.tsx",
+		"./glyph/problem/16": "./src/artifacts/glyph/problem/16.tsx",
+		"./glyph/problem/24": "./src/artifacts/glyph/problem/24.tsx",
+		"./glyph/pull-request/16": "./src/artifacts/glyph/pull-request/16.tsx",
+		"./glyph/pull-request/24": "./src/artifacts/glyph/pull-request/24.tsx",
+		"./glyph/question/16": "./src/artifacts/glyph/question/16.tsx",
+		"./glyph/question/24": "./src/artifacts/glyph/question/24.tsx",
+		"./glyph/story/16": "./src/artifacts/glyph/story/16.tsx",
+		"./glyph/story/24": "./src/artifacts/glyph/story/24.tsx",
+		"./glyph/subtask/16": "./src/artifacts/glyph/subtask/16.tsx",
+		"./glyph/subtask/24": "./src/artifacts/glyph/subtask/24.tsx",
+		"./glyph/task/16": "./src/artifacts/glyph/task/16.tsx",
+		"./glyph/task/24": "./src/artifacts/glyph/task/24.tsx",
+		".": "./src/index.tsx"
+	},
+	"exports": {
+		"./metadata": "./src/entry-points/metadata.tsx",
+		"./glyph/blog/16": "./src/artifacts/glyph/blog/16.tsx",
+		"./glyph/blog/24": "./src/artifacts/glyph/blog/24.tsx",
+		"./glyph/branch/16": "./src/artifacts/glyph/branch/16.tsx",
+		"./glyph/branch/24": "./src/artifacts/glyph/branch/24.tsx",
+		"./glyph/bug/16": "./src/artifacts/glyph/bug/16.tsx",
+		"./glyph/bug/24": "./src/artifacts/glyph/bug/24.tsx",
+		"./glyph/calendar/16": "./src/artifacts/glyph/calendar/16.tsx",
+		"./glyph/calendar/24": "./src/artifacts/glyph/calendar/24.tsx",
+		"./glyph/changes/16": "./src/artifacts/glyph/changes/16.tsx",
+		"./glyph/changes/24": "./src/artifacts/glyph/changes/24.tsx",
+		"./glyph/code/16": "./src/artifacts/glyph/code/16.tsx",
+		"./glyph/code/24": "./src/artifacts/glyph/code/24.tsx",
+		"./glyph/commit/16": "./src/artifacts/glyph/commit/16.tsx",
+		"./glyph/commit/24": "./src/artifacts/glyph/commit/24.tsx",
+		"./glyph/epic/16": "./src/artifacts/glyph/epic/16.tsx",
+		"./glyph/epic/24": "./src/artifacts/glyph/epic/24.tsx",
+		"./glyph/improvement/16": "./src/artifacts/glyph/improvement/16.tsx",
+		"./glyph/improvement/24": "./src/artifacts/glyph/improvement/24.tsx",
+		"./glyph/incident/16": "./src/artifacts/glyph/incident/16.tsx",
+		"./glyph/incident/24": "./src/artifacts/glyph/incident/24.tsx",
+		"./glyph/issue/16": "./src/artifacts/glyph/issue/16.tsx",
+		"./glyph/issue/24": "./src/artifacts/glyph/issue/24.tsx",
+		"./glyph/new-feature/16": "./src/artifacts/glyph/new-feature/16.tsx",
+		"./glyph/new-feature/24": "./src/artifacts/glyph/new-feature/24.tsx",
+		"./glyph/page/16": "./src/artifacts/glyph/page/16.tsx",
+		"./glyph/page/24": "./src/artifacts/glyph/page/24.tsx",
+		"./glyph/problem/16": "./src/artifacts/glyph/problem/16.tsx",
+		"./glyph/problem/24": "./src/artifacts/glyph/problem/24.tsx",
+		"./glyph/pull-request/16": "./src/artifacts/glyph/pull-request/16.tsx",
+		"./glyph/pull-request/24": "./src/artifacts/glyph/pull-request/24.tsx",
+		"./glyph/question/16": "./src/artifacts/glyph/question/16.tsx",
+		"./glyph/question/24": "./src/artifacts/glyph/question/24.tsx",
+		"./glyph/story/16": "./src/artifacts/glyph/story/16.tsx",
+		"./glyph/story/24": "./src/artifacts/glyph/story/24.tsx",
+		"./glyph/subtask/16": "./src/artifacts/glyph/subtask/16.tsx",
+		"./glyph/subtask/24": "./src/artifacts/glyph/subtask/24.tsx",
+		"./glyph/task/16": "./src/artifacts/glyph/task/16.tsx",
+		"./glyph/task/24": "./src/artifacts/glyph/task/24.tsx",
+		".": "./src/index.tsx"
+	},
+	"platform-feature-flags": {
+		"icon-object-migration": {
+			"type": "boolean",
+			"showOnWebsiteForTransitiveDependencies": true
 		}
 	}
 }

@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 32.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.2.1
+
+### Patch Changes
+
+- [#167504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167504)
+  [`83a2ce1f5117e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83a2ce1f5117e) -
+  Replaced deprecated typography styles with new components and tokens.
+- Updated dependencies
+
+## 32.2.0
+
+### Minor Changes
+
+- [#168570](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168570)
+  [`cd8f5fa3d2b57`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd8f5fa3d2b57) -
+  [ux] EDM-11342 Cleanup of AI summary agent FF
+
 ## 32.1.1
 
 ### Patch Changes

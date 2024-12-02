@@ -29,14 +29,15 @@ export const TypeAheadMenu = React.memo(
 			triggerHandler!,
 			editorView,
 			items,
+			api,
 		);
 		const setSelectedItem = React.useCallback(
 			({ index: nextIndex }: { index: number }) => {
 				queueMicrotask(() => {
-					updateSelectedIndex(nextIndex)(editorView.state, editorView.dispatch);
+					updateSelectedIndex(nextIndex, api)(editorView.state, editorView.dispatch);
 				});
 			},
-			[editorView],
+			[editorView, api],
 		);
 		const insertItem = React.useCallback(
 			(mode: SelectItemMode = SelectItemMode.SELECTED, index: number) => {

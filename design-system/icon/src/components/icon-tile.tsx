@@ -134,6 +134,7 @@ const iconTileStyles = css({
 	boxSizing: 'border-box',
 	alignItems: 'center',
 	justifyContent: 'center',
+	fontSize: 0 /* Prevents parent font-size from affecting the container */,
 });
 
 /**
@@ -153,6 +154,7 @@ export default function IconTile(props: IconTileProps) {
 		size = '24',
 		shape = 'square',
 		LEGACY_fallbackComponent,
+		testId,
 	} = props;
 
 	const ExpandedIcon = Icon as ComponentType<InternalIconPropsNew>;
@@ -161,7 +163,10 @@ export default function IconTile(props: IconTileProps) {
 		return LEGACY_fallbackComponent;
 	} else {
 		return (
-			<span css={[iconTileStyles, appearanceMap[appearance], sizeMap[size], shapeMap[shape]]}>
+			<span
+				data-testid={testId}
+				css={[iconTileStyles, appearanceMap[appearance], sizeMap[size], shapeMap[shape]]}
+			>
 				<ExpandedIcon color="currentColor" label={label} spacing="spacious" shouldScale={true} />
 			</span>
 		);

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-editor
 
+## 1.3.0
+
+### Minor Changes
+
+- [#170695](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170695)
+  [`1975de52244da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1975de52244da) -
+  Added a new rule no-htmlElement-assignment
+
 ## 1.2.0
 
 ### Minor Changes

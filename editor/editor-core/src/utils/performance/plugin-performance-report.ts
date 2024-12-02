@@ -13,8 +13,6 @@ import {
 	EVENT_NAME_VIEW_STATE_UPDATED,
 } from './track-transactions';
 
-export type { PluginMethodReport, PluginsReport, NodeCount, PluginPerformanceReportData };
-
 export interface OutlierReport {
 	stateApplyOutlier: number | undefined;
 	viewUpdateOutlier: number | undefined;

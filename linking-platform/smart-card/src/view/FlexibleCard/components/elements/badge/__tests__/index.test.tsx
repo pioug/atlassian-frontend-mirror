@@ -30,7 +30,7 @@ describe('Element: Badge', () => {
 
 		expect(element).toBeTruthy();
 		expect(element.getAttribute('data-smart-element-badge')).toBeTruthy();
-		expect(element.textContent).toBe('99');
+		expect(element).toHaveTextContent('99');
 	});
 
 	it('renders image as badge icon', async () => {

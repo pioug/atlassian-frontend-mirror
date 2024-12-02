@@ -1,5 +1,14 @@
 # @atlaskit/icon
 
+## 22.28.0
+
+### Minor Changes
+
+- [#169436](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169436)
+  [`e52faf54c03cd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e52faf54c03cd) -
+  Adds `testId` to Icon Tile. Fixes bug where icon tiles could render incorrectly when placed inside
+  headings.
+
 ## 22.27.0
 
 ### Minor Changes

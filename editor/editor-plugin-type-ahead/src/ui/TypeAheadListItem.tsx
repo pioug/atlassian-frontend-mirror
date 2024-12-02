@@ -8,14 +8,17 @@ import React, { useCallback, useLayoutEffect, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 import { useIntl } from 'react-intl-next';
 
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { IconFallback } from '@atlaskit/editor-common/quick-insert';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
 import { B400, N200, N30, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { type TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadItem, TypeAheadItemRenderProps } from '../types';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -129,6 +132,10 @@ const selectedStyle = css`
 	box-shadow: inset 2px 0px 0px ${token('color.border.focused', B400)};
 `;
 
+const disabledStyle = css({
+	color: token('color.text.disabled'),
+});
+
 const FallbackIcon = React.memo(({ label }: Record<'label', string>) => {
 	return <IconFallback />;
 });
@@ -143,6 +150,8 @@ type TypeAheadListItemProps = {
 	ariaLabel?: string;
 	onItemClick: (mode: SelectItemMode, index: number) => void;
 	moreElementsInQuickInsertViewEnabled?: boolean;
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
+	firstOnlineSupportedIndex: number;
 };
 
 type CustomItemComponentWrapperProps = {
@@ -150,6 +159,7 @@ type CustomItemComponentWrapperProps = {
 		props: TypeAheadItemRenderProps,
 	) => React.ReactElement<TypeAheadItemRenderProps> | null;
 	isSelected: boolean;
+	itemIsDisabled: boolean;
 	ariaLabel: string | undefined;
 	itemsLength: number;
 	customItemRef: React.RefObject<HTMLDivElement>;
@@ -161,6 +171,7 @@ const CustomItemComponentWrapper = React.memo((props: CustomItemComponentWrapper
 	const {
 		customRenderItem,
 		isSelected,
+		itemIsDisabled,
 		ariaLabel,
 		itemsLength,
 		customItemRef,
@@ -170,8 +181,12 @@ const CustomItemComponentWrapper = React.memo((props: CustomItemComponentWrapper
 
 	const Comp = customRenderItem;
 	const listItemClasses = useMemo(() => {
-		return [customRenderItemDivStyle, isSelected && selectedStyle];
-	}, [isSelected]);
+		return [
+			customRenderItemDivStyle,
+			isSelected && !itemIsDisabled && selectedStyle,
+			itemIsDisabled && disabledStyle,
+		];
+	}, [isSelected, itemIsDisabled]);
 
 	return (
 		<div
@@ -208,12 +223,31 @@ export const TypeAheadListItem = React.memo(
 		itemIndex,
 		ariaLabel,
 		moreElementsInQuickInsertViewEnabled,
+		api,
+		firstOnlineSupportedIndex,
 	}: TypeAheadListItemProps) => {
+		const { connectivityState } = useSharedPluginState(api, ['connectivity']);
+		const isItemDisabled = (item: TypeAheadItem | undefined) =>
+			connectivityState?.mode === 'offline' && (item?.isDisabledOffline ?? false);
+		const itemIsDisabled = isItemDisabled(item);
+		const isFirstEnabledIndex =
+			connectivityState?.mode === 'offline' &&
+			itemIndex === firstOnlineSupportedIndex &&
+			selectedIndex === -1;
+
 		/**
 		 * To select and highlight the first Item when no item is selected
 		 * However selectedIndex remains -1, So that user does not skip the first item when down arrow key is used from typeahead query(inputQuery.tsx)
 		 */
-		const isSelected = itemIndex === selectedIndex || (selectedIndex === -1 && itemIndex === 0);
+		let isSelected = false;
+		// Feature gated - connectivity is only available on desktop and behind a feature gate on full page mode
+		if (connectivityState === undefined) {
+			isSelected = itemIndex === selectedIndex || (selectedIndex === -1 && itemIndex === 0);
+		} else {
+			isSelected =
+				itemIndex === selectedIndex ||
+				(selectedIndex === -1 && (itemIndex === 0 || isFirstEnabledIndex) && !itemIsDisabled);
+		}
 
 		// Assistive text
 		const intl = useIntl();
@@ -232,15 +266,18 @@ export const TypeAheadListItem = React.memo(
 		}, [icon, title, moreElementsInQuickInsertViewEnabled]);
 
 		const insertSelectedItem = useCallback(() => {
+			if (itemIsDisabled) {
+				return;
+			}
 			onItemClick(SelectItemMode.SELECTED, itemIndex);
-		}, [onItemClick, itemIndex]);
+		}, [onItemClick, itemIndex, itemIsDisabled]);
 
 		const customItemRef = React.useRef<HTMLDivElement>(null);
 		const buttonItemRef = React.useRef<HTMLDivElement>(null);
-		const shouldUpdateFocus = selectedIndex === itemIndex;
+		const shouldUpdateFocus = selectedIndex === itemIndex && !isFirstEnabledIndex;
 		const listItemClasses = useMemo(() => {
-			return [selectionFrame, isSelected && selectedStyle];
-		}, [isSelected]);
+			return [selectionFrame, isSelected && !itemIsDisabled && selectedStyle];
+		}, [isSelected, itemIsDisabled]);
 
 		useLayoutEffect(() => {
 			if (shouldUpdateFocus) {
@@ -257,6 +294,7 @@ export const TypeAheadListItem = React.memo(
 		if (customRenderItem) {
 			return (
 				<CustomItemComponentWrapper
+					itemIsDisabled={itemIsDisabled}
 					customRenderItem={customRenderItem}
 					isSelected={isSelected}
 					ariaLabel={ariaLabel}
@@ -285,6 +323,7 @@ export const TypeAheadListItem = React.memo(
 					aria-posinset={itemIndex}
 					role="option"
 					ref={buttonItemRef}
+					isDisabled={itemIsDisabled}
 					// @ts-ignore
 					css={listItemClasses}
 				>
@@ -292,7 +331,13 @@ export const TypeAheadListItem = React.memo(
 						<div css={[itemText]}>
 							<div css={itemBody}>
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-								<div css={[itemTitle, moreElementsInQuickInsertViewEnabled && itemTitleOverride]}>
+								<div
+									css={[
+										itemTitle,
+										moreElementsInQuickInsertViewEnabled && itemTitleOverride,
+										itemIsDisabled && disabledStyle,
+									]}
+								>
 									{item.title}
 								</div>
 								<div css={itemAfter}>
@@ -305,6 +350,7 @@ export const TypeAheadListItem = React.memo(
 								css={[
 									itemDescription,
 									moreElementsInQuickInsertViewEnabled && itemDescriptionOverride,
+									itemIsDisabled && disabledStyle,
 								]}
 							>
 								{item.description}

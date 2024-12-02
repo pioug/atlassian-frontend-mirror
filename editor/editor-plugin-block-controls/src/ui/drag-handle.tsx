@@ -44,11 +44,10 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
+import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
-import type { BlockControlsPlugin, HandleOptions } from '../types';
-import { getNestedNodePosition, selectNode } from '../utils';
-import { isPreRelease2 } from '../utils/advanced-layouts-flags';
-import { getLeftPosition, getTopPosition } from '../utils/drag-handle-positions';
+import { getNestedNodePosition, selectNode } from '../pm-plugins/utils';
+import { getLeftPosition, getTopPosition } from '../pm-plugins/utils/drag-handle-positions';
 
 import {
 	DRAG_HANDLE_BORDER_RADIUS,
@@ -186,7 +185,7 @@ export const DragHandle = ({
 	// but ensures the preview is generated correctly.
 	const handleMouseDown = useCallback(() => {
 		if (
-			!(isLayoutColumn && isPreRelease2()) &&
+			!(isLayoutColumn && editorExperiment('advanced_layouts', true)) &&
 			fg('platform_editor_element_drag_and_drop_ed_24885')
 		) {
 			return undefined;
@@ -202,7 +201,7 @@ export const DragHandle = ({
 				return tr;
 			}
 			let selection;
-			if (isLayoutColumn && isPreRelease2()) {
+			if (isLayoutColumn && editorExperiment('advanced_layouts', true)) {
 				selection = new NodeSelection(tr.doc.resolve(startPos));
 			} else {
 				const $startPos = tr.doc.resolve(startPos + node.nodeSize);
@@ -346,12 +345,12 @@ export const DragHandle = ({
 			return {
 				left: isEdgeCase
 					? `calc(anchor(${anchorName} start) + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
-					: isPreRelease2() && isLayoutColumn
+					: editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc((anchor(${anchorName} right) + anchor(${anchorName} left))/2 - ${DRAG_HANDLE_HEIGHT / 2}px)`
 						: `calc(anchor(${anchorName} start) - ${DRAG_HANDLE_WIDTH}px - ${dragHandleGap(nodeType, parentNodeType)}px)`,
 
 				top:
-					isPreRelease2() && isLayoutColumn
+					editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc(anchor(${anchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
 						: fg('platform_editor_elements_dnd_ed_23674')
 							? `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`
@@ -529,7 +528,9 @@ export const DragHandle = ({
 			type="button"
 			css={[
 				dragHandleButtonStyles,
-				isPreRelease2() && isLayoutColumn && layoutColumnDragHandleStyles,
+				editorExperiment('advanced_layouts', true) &&
+					isLayoutColumn &&
+					layoutColumnDragHandleStyles,
 				dragHandleSelected && selectedStyles,
 			]}
 			ref={buttonRef}

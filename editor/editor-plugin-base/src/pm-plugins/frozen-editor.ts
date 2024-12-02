@@ -25,8 +25,9 @@ import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { BasePlugin } from '../index';
-import { setInteractionType } from '../utils/frozen-editor';
-import InputLatencyTracker from '../utils/input-latency-tracking';
+
+import { setInteractionType } from './utils/frozen-editor';
+import InputLatencyTracker from './utils/input-latency-tracking';
 
 export const frozenEditorPluginKey = new PluginKey('frozenEditor');
 

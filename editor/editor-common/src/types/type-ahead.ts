@@ -51,6 +51,9 @@ export type TypeAheadItem = {
 	key?: string | number;
 	icon?: () => ReactElement<any>;
 	render?: (props: TypeAheadItemRenderProps) => React.ReactElement<TypeAheadItemRenderProps> | null;
+	// Offline editing work - when we move away from `PluginOptions` (to be deprecated) for editor we need to avoid this
+	// but for now this greatly simplifies our work
+	isDisabledOffline?: boolean;
 	[key: string]: any;
 };
 

@@ -27,11 +27,11 @@
 		"singleton": true
 	},
 	"dependencies": {
-		"@atlaskit/editor-prosemirror": "6.0.0",
+		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-common": "^95.9.0"
+		"@atlaskit/editor-common": "^95.10.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

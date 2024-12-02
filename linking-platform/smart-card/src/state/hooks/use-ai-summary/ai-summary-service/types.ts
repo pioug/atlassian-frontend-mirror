@@ -35,15 +35,8 @@ export type AISummaryStatus = 'ready' | 'loading' | 'error' | 'done';
 export type PostAgentPayload = {
 	/**
 	 * Which agent in `assistance_service` to use.
-	 *
-	 * The AI mate team requested Linking Platform to move away from the default
-	 * summary agent and create our own.
-	 *
-	 * There is likely to be a future migration from `assistance-service`
-	 * to `convo-ai` which is currently unclear:
-	 * https://atlassian.slack.com/archives/C05S4PH8YAY/p1728528096549549
 	 */
-	recipient_agent_named_id: 'smartlink_summary_agent' | 'summary_agent';
+	recipient_agent_named_id: 'smartlink_summary_agent';
 	agent_input_context: AgentInputContext;
 	user_intent?: string;
 };

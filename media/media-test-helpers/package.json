@@ -28,7 +28,7 @@
 	"dependencies": {
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/checkbox": "^15.2.0",
-		"@atlaskit/icon": "^22.27.0",
+		"@atlaskit/icon": "^22.28.0",
 		"@atlaskit/locale": "^2.8.0",
 		"@atlaskit/media-client": "^28.5.0",
 		"@atlaskit/media-common": "^11.7.0",

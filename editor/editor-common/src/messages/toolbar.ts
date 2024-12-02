@@ -56,6 +56,11 @@ export const toolbarMessages = defineMessages({
 		defaultMessage: 'Text formatting',
 		description: 'Aria label for the wrapper of text format buttons',
 	},
+	textFormat: {
+		id: 'fabric.editor.textFormat',
+		defaultMessage: 'Format text',
+		description: 'Aria label for the wrapper of text format buttons',
+	},
 	bold: {
 		id: 'fabric.editor.bold',
 		defaultMessage: 'Bold',

@@ -24,15 +24,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-export { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN };
-
-const isPreRelease2 = () => {
-	return (
-		editorExperiment('advanced_layouts', true) ||
-		fg('platform_editor_advanced_layouts_pre_release_2')
-	);
-};
-
 const firstNodeWithNotMarginTop = () =>
 	editorExperiment('nested-dnd', true)
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
@@ -60,7 +51,7 @@ const firstNodeWithNotMarginTop = () =>
 
 // TODO handle responsive
 const layoutColumnStyles = () =>
-	isPreRelease2()
+	editorExperiment('advanced_layouts', true)
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 			css`
 				> [data-layout-column] {
@@ -104,7 +95,7 @@ const layoutColumnStyles = () =>
 			`;
 
 const layoutSectionStyles = () =>
-	fg('platform_editor_advanced_layouts_breakout_resizing')
+	editorExperiment('advanced_layouts', true)
 		? // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression
 			css`
 				${columnLayoutResponsiveSharedStyle};
@@ -205,9 +196,7 @@ const layoutWithSeparatorBorderResponsiveStyles = (
 	&.selected.danger,
 	&.${akEditorSelectedNodeClassName}:not(.danger) {
 		[data-layout-column]:not(:first-of-type) {
-			${fg('platform_editor_advanced_layouts_breakout_resizing')
-				? `@container editor-area (max-width:${breakpoint}px)`
-				: `@media screen and (max-width: ${gridMediumMaxWidth - 1}px)`} {
+			@container editor-area (max-width:${breakpoint}px) {
 				${rowSeparatorStyles(viewMode)}
 			}
 		}
@@ -221,8 +210,7 @@ const layoutWithSeparatorBorderStyles = (viewMode?: 'edit' | 'view') => css`
 		${columnSeparatorStyles(viewMode)}
 	}
 
-	&.selected.danger
-		${fg('platform_editor_advanced_layouts_breakout_resizing') ? `[data-layout-section]` : ``} {
+	&.selected.danger [data-layout-section] {
 		background-color: ${token('color.background.danger', akEditorDeleteBackground)};
 
 		box-shadow: 0 0 0 ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px
@@ -233,8 +221,7 @@ const layoutWithSeparatorBorderStyles = (viewMode?: 'edit' | 'view') => css`
 		}
 	}
 
-	&.${akEditorSelectedNodeClassName}:not(.danger)
-		${fg('platform_editor_advanced_layouts_breakout_resizing') ? `[data-layout-section]` : ``} {
+	&.${akEditorSelectedNodeClassName}:not(.danger) [data-layout-section] {
 		box-shadow: 0 0 0 ${viewMode === 'view' ? 0 : akEditorSelectedBorderSize}px
 			${token('color.border.selected')};
 		border-radius: 4px;
@@ -407,7 +394,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 	}
 
 	${editorExperiment('nested-dnd', true) &&
-	!fg('platform_editor_advanced_layouts_breakout_resizing') &&
+	editorExperiment('advanced_layouts', false) &&
 	`.ak-editor-content-area.appearance-full-page .ProseMirror [data-layout-section] {
 				margin: ${token('space.100', '8px')} -${akLayoutGutterOffset + 8}px 0;
 				}`}

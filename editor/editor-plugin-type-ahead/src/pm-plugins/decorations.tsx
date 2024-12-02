@@ -7,6 +7,7 @@ import uuid from 'uuid';
 import { keyName as keyNameNormalized } from 'w3c-keyname';
 
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { ReadonlyTransaction, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
@@ -16,6 +17,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { B400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type {
 	CreateTypeAheadDecorations,
 	PopupMountPointReference,
@@ -32,6 +34,7 @@ type FactoryProps = {
 	intl: IntlShape;
 	popupMountRef: PopupMountPointReference;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 };
 
 type FactoryReturn = {
@@ -43,6 +46,7 @@ export const factoryDecorations = ({
 	intl,
 	popupMountRef,
 	nodeViewPortalProviderAPI,
+	api,
 }: FactoryProps): FactoryReturn => {
 	const createDecorations: CreateTypeAheadDecorations = (
 		tr: ReadonlyTransaction,
@@ -133,6 +137,7 @@ export const factoryDecorations = ({
 									popupsScrollableElement={popupMountRef.current?.popupsScrollableElement}
 									onUndoRedo={onUndoRedo}
 									reopenQuery={reopenQuery}
+									api={api}
 								/>
 							</IntlProvider>
 						),
@@ -158,6 +163,7 @@ export const factoryDecorations = ({
 								popupsScrollableElement={popupMountRef.current?.popupsScrollableElement}
 								onUndoRedo={onUndoRedo}
 								reopenQuery={reopenQuery}
+								api={api}
 							/>
 						</IntlProvider>,
 						typeaheadComponent,

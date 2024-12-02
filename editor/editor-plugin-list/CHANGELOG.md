@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-list
 
+## 3.9.7
+
+### Patch Changes
+
+- [#170473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170473)
+  [`2c463f9682286`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c463f9682286) -
+  ED-25813: refactors plugins to meet folder standards
+- Updated dependencies
+
 ## 3.9.6
 
 ### Patch Changes

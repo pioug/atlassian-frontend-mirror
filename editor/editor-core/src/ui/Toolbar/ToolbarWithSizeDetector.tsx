@@ -8,6 +8,7 @@ import React, { useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { ToolbarSize } from '@atlaskit/editor-common/types';
 import { akEditorMobileMaxWidth } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 import { WidthObserver } from '@atlaskit/width-detector';
@@ -18,7 +19,6 @@ import { useElementWidth } from './hooks';
 import { Toolbar } from './Toolbar';
 import { toolbarSizeToWidth, widthToToolbarSize } from './toolbar-size';
 import type { ToolbarWithSizeDetectorProps } from './toolbar-types';
-import { ToolbarSize } from './types';
 
 const toolbar = css({
 	width: '100%',

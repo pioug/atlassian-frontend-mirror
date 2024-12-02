@@ -7,8 +7,8 @@ import type { QuickInsertHandlerFn } from '@atlaskit/editor-common/types';
 import VideoIcon from '@atlaskit/icon/core/video';
 import { token } from '@atlaskit/tokens';
 
-import { recordVideo, recordVideoFailed } from '../commands';
-import { loomPluginKey } from '../pm-plugin';
+import { recordVideo, recordVideoFailed } from '../pm-plugins/commands';
+import { loomPluginKey } from '../pm-plugins/main';
 
 export const getQuickInsertItem =
 	(editorAnalyticsAPI?: EditorAnalyticsAPI): QuickInsertHandlerFn =>

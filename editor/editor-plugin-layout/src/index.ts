@@ -1,3 +1,3 @@
-export { layoutPlugin } from './plugin';
-export type { LayoutPlugin } from './plugin';
+export { layoutPlugin } from './layoutPlugin';
+export type { LayoutPlugin } from './layoutPluginType';
 export type { LayoutPluginOptions } from './types';

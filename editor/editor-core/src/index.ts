@@ -1,3 +1,6 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 // Used in products integration code
 export { name, version } from './version-wrapper';
 export { default as Editor } from './editor';
@@ -26,12 +29,10 @@ export {
 	ContextPanel,
 } from './ui/ContextPanel';
 
-export type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-
 // Used in editor-test-helpers and mobile bridge
-export { getNodesCount, measurements } from './utils';
-export { setTextSelection } from '@atlaskit/editor-common/utils';
-export type { Command, EditorPlugin, EditorProps, EditorInstance, CommandDispatch } from './types';
+export { getNodesCount } from './utils/getNodesCount';
+export { default as measurements } from './utils/performance/measure-enum';
+export type { Command, EditorProps, EditorInstance, CommandDispatch } from './types';
 export { default as EditorActions } from './actions';
 
 export { createEditorContentStyle } from './ui/ContentStyles';

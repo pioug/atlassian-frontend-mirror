@@ -16,7 +16,7 @@ describe('Element: AtlaskitBadge', () => {
 
 		expect(element).toBeTruthy();
 		expect(element.getAttribute('data-smart-element-atlaskit-badge')).toBeTruthy();
-		expect(element.textContent).toBe('5');
+		expect(element).toHaveTextContent('5');
 	});
 
 	it('renders with override css', async () => {

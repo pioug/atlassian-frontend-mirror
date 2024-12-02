@@ -4,8 +4,6 @@ import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { isPreRelease1, isPreRelease2 } from '../utils/advanced-layouts-flags';
-
 import { getNestedDepth, getNodeAnchor, TYPE_NODE_DEC } from './decorations-common';
 
 const IGNORE_NODES = [
@@ -34,7 +32,7 @@ export const shouldDescendIntoNode = (node: PMNode) => {
 		}
 	}
 
-	if (isPreRelease1()) {
+	if (editorExperiment('advanced_layouts', true)) {
 		return !IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT.includes(node.type.name);
 	}
 
@@ -59,7 +57,7 @@ const shouldIgnoreNode = (
 		depth === 1 &&
 		node === parent.firstChild &&
 		'tableRow' === node.type.name &&
-		isPreRelease1();
+		editorExperiment('advanced_layouts', true);
 
 	if (isFirstTableRow) {
 		return false;
@@ -104,7 +102,9 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 	const docFrom = from === undefined || from < 0 ? 0 : from;
 	const docTo = to === undefined || to > newState.doc.nodeSize - 2 ? newState.doc.nodeSize - 2 : to;
 
-	const ignore_nodes = isPreRelease2() ? IGNORE_NODES_NEXT : IGNORE_NODES;
+	const ignore_nodes = editorExperiment('advanced_layouts', true)
+		? IGNORE_NODES_NEXT
+		: IGNORE_NODES;
 	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, index) => {
 		let depth = 0;
 		let anchorName;

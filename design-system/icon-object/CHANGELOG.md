@@ -1,5 +1,19 @@
 # @atlaskit/icon-object
 
+## 6.8.0
+
+### Minor Changes
+
+- [#169436](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169436)
+  [`571aeaa4c8c45`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/571aeaa4c8c45) -
+  Migrate to new icons and icon-tile, behind a feature flag. Icon tile components have also been
+  updated to use the standard export process for `@atlaskit` components, with optimised exports for
+  cjs, es2019 and esm.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.7.1
 
 ### Patch Changes

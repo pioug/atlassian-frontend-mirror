@@ -204,6 +204,7 @@ export const typeAheadPlugin: TypeAheadPlugin = ({ api }) => {
 							reactDispatch: dispatch,
 							typeAheadHandlers: typeAhead,
 							nodeViewPortalProviderAPI,
+							api,
 						}),
 				},
 				{

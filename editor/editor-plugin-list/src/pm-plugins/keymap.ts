@@ -25,7 +25,7 @@ import {
 	indentList as indentListCommand,
 	outdentList as outdentListCommand,
 	toggleList,
-} from '../commands';
+} from './commands';
 
 export function keymapPlugin(
 	featureFlags: FeatureFlags,

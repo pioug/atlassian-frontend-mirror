@@ -29,7 +29,7 @@ import {
 	sectionWrapperStyles,
 	sectionWrapperStylesAlternate,
 	textFieldWrapper,
-} from './styles';
+} from './ui-styles';
 
 export const FIND_DEBOUNCE_MS = 100;
 

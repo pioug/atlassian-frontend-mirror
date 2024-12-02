@@ -49,7 +49,7 @@ describe('UnfollowAction', () => {
 			setup();
 			const element = await screen.findByTestId(testId);
 			expect(element).toBeInTheDocument();
-			expect(element.textContent).toBe('Unfollow');
+			expect(element).toHaveTextContent('Unfollow');
 		});
 
 		it('renders tooltip', async () => {
@@ -60,7 +60,7 @@ describe('UnfollowAction', () => {
 			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Unfollow');
+			expect(tooltip).toHaveTextContent('Unfollow');
 		});
 	});
 
@@ -69,7 +69,7 @@ describe('UnfollowAction', () => {
 			setup({ as: 'stack-item' });
 			const element = await screen.findByTestId(testId);
 			expect(element).toBeInTheDocument();
-			expect(element.textContent).toBe('Unfollow project');
+			expect(element).toHaveTextContent('Unfollow project');
 		});
 
 		it('renders stack item tooltip', async () => {
@@ -80,7 +80,7 @@ describe('UnfollowAction', () => {
 			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Unfollow to stop receiving project notifications');
+			expect(tooltip).toHaveTextContent('Unfollow to stop receiving project notifications');
 		});
 
 		it('renders project icon', async () => {

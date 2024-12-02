@@ -382,6 +382,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 								priority: 400,
 								keywords: ['attachment', 'gif', 'media', 'picture', 'image', 'video', 'file'],
 								icon: () => <IconImages />,
+								isDisabledOffline: true,
 								action(insert, state) {
 									const pluginState = stateKey.getState(state);
 									pluginState?.showMediaPicker();

@@ -141,7 +141,7 @@ describe('EmbedModal', () => {
 			title,
 		});
 
-		expect((await screen.findByTestId(`${testId}-title`)).textContent).toEqual(title);
+		expect(await screen.findByTestId(`${testId}-title`)).toHaveTextContent(title);
 	});
 
 	it('renders an iframe', async () => {
@@ -231,7 +231,7 @@ describe('EmbedModal', () => {
 				expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
 
 				const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
-				expect(tooltip.textContent).toBe('View in Confluence');
+				expect(tooltip).toHaveTextContent('View in Confluence');
 			});
 
 			it('trigger open url when clicking url button', async () => {

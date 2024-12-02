@@ -13,7 +13,7 @@ describe('RetryAction', () => {
 		});
 
 		const { container } = renderWithIntl(action.text);
-		expect(container.textContent).toBe('Try again');
+		expect(container).toHaveTextContent('Try again');
 
 		const handlerExecutor = action.promise;
 		await expect(handlerExecutor()).resolves.toBe('action invoked');

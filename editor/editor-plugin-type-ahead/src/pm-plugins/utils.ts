@@ -1,12 +1,15 @@
 import type { IntlShape } from 'react-intl-next';
 
 import { TypeAheadAvailableNodes, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
+import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import { type TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadHandler, TypeAheadItem } from '../types';
 
 import { updateSelectedIndex } from './commands/update-selected-index';
+import { itemIsDisabled } from './item-is-disabled';
 import { pluginKey as typeAheadPluginKey } from './key';
 import { StatsModifier } from './stats-modifier';
 
@@ -63,6 +66,37 @@ export const findHandler = (id: string, state: EditorState): TypeAheadHandler | 
 	return typeAheadHandlers.find((h: TypeAheadHandler) => h.id === id) || null;
 };
 
+export const skipForwardToSafeItem = (
+	currentIndex: number,
+	nextIndex: number,
+	listSize: number,
+	itemIsDisabled: (idx: number) => boolean,
+): number => {
+	// Use a loop to find the next selectable item
+	for (let idx = nextIndex; idx < listSize; idx++) {
+		if (!itemIsDisabled(idx)) {
+			return idx;
+		}
+	}
+	// If no selectable items are found, return currentIndex
+	return currentIndex;
+};
+
+export const skipBackwardToSafeItem = (
+	currentIndex: number,
+	nextIndex: number,
+	itemIsDisabled: (idx: number) => boolean,
+): number => {
+	// Use a loop to find the next non-selectable item when going backwards
+	for (let idx = nextIndex; idx >= 0; idx--) {
+		if (!itemIsDisabled(idx)) {
+			return idx;
+		}
+	}
+	// If no non-selectable items are found, return currentIndex
+	return currentIndex;
+};
+
 export const findHandlerByTrigger = ({
 	trigger,
 	editorState,
@@ -88,9 +122,10 @@ export const findHandlerByTrigger = ({
 type MoveSelectedIndexProps = {
 	editorView: EditorView;
 	direction: 'next' | 'previous';
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 };
 export const moveSelectedIndex =
-	({ editorView, direction }: MoveSelectedIndexProps) =>
+	({ editorView, direction, api }: MoveSelectedIndexProps) =>
 	() => {
 		const typeAheadState = getPluginState(editorView.state);
 		if (!typeAheadState) {
@@ -101,6 +136,8 @@ export const moveSelectedIndex =
 			typeAheadState.stats instanceof StatsModifier ? typeAheadState.stats : new StatsModifier();
 
 		let nextIndex;
+
+		const isDisabled = (idx: number) => itemIsDisabled(items[idx], api);
 		if (direction === 'next') {
 			stats.increaseArrowDown();
 
@@ -116,16 +153,20 @@ export const moveSelectedIndex =
 			 *
 			 */
 			if (selectedIndex === -1 && items.length > 1) {
-				nextIndex = 1;
+				// If the first item is disabled we actually want to skip to the 3rd item
+				// on the first arrow down
+				nextIndex = isDisabled(0) && items.length > 2 ? 2 : 1;
 			} else {
 				nextIndex = selectedIndex >= items.length - 1 ? 0 : selectedIndex + 1;
 			}
+			nextIndex = skipForwardToSafeItem(selectedIndex, nextIndex, items.length, isDisabled);
 		} else {
 			stats.increaseArrowUp();
 			nextIndex = selectedIndex <= 0 ? items.length - 1 : selectedIndex - 1;
+			nextIndex = skipBackwardToSafeItem(selectedIndex, nextIndex, isDisabled);
 		}
 
-		updateSelectedIndex(nextIndex)(editorView.state, editorView.dispatch);
+		updateSelectedIndex(nextIndex, api)(editorView.state, editorView.dispatch);
 	};
 
 type TypeAheadAssistiveLabels = {

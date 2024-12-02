@@ -24,10 +24,16 @@
             "path": "../../../monorepo-tooling/codemod-utils/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../css/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../heading/afm-cc/tsconfig.json"
         },
         {
             "path": "../../icon/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {
             "path": "../../primitives/afm-cc/tsconfig.json"

@@ -2,7 +2,7 @@ import React from 'react';
 
 import { CoreEditor } from '../composable-editor/core-editor';
 import { type EditorNextProps } from '../types/editor-props';
-import FullPage from '../ui/Appearance/FullPage';
+import { FullPageEditor as FullPage } from '../ui/Appearance/FullPage/FullPage';
 
 export type FullWidthEditorProps = Pick<
 	EditorNextProps,

@@ -12,8 +12,9 @@ import { useIntl } from 'react-intl-next';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import messages from '@atlaskit/editor-common/messages';
 import { GRID_GUTTER } from '@atlaskit/editor-common/styles';
-import type { OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { EditorAppearance, OptionalPlugin } from '@atlaskit/editor-common/types';
 import { WidthConsumer, WidthProvider } from '@atlaskit/editor-common/ui';
 import { ToolbarArrowKeyNavigationProvider } from '@atlaskit/editor-common/ui-menu';
 import type { MaxContentSizePlugin } from '@atlaskit/editor-plugins/max-content-size';
@@ -23,12 +24,11 @@ import { tableCommentEditorStyles } from '@atlaskit/editor-plugins/table/ui/comm
 import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
-import messages from '../../../messages';
-import type { EditorAppearance, EditorAppearanceComponentProps } from '../../../types';
-import { ClickAreaBlock } from '../../Addon';
+import type { EditorAppearanceComponentProps } from '../../../types';
+import ClickAreaBlock from '../../Addon/ClickAreaBlock';
 import { createEditorContentStyle } from '../../ContentStyles';
 import PluginSlot from '../../PluginSlot';
-import Toolbar from '../../Toolbar';
+import { ToolbarWithSizeDetector as Toolbar } from '../../Toolbar/ToolbarWithSizeDetector';
 import WithFlash from '../../WithFlash';
 
 import { MainToolbar, mainToolbarCustomComponentsSlotStyle } from './Toolbar';

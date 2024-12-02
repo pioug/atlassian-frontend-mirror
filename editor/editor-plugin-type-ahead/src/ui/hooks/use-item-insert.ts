@@ -1,12 +1,15 @@
 import { useCallback, useLayoutEffect, useRef } from 'react';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { closeTypeAhead } from '../../pm-plugins/commands/close-type-ahead';
 import { insertTypeAheadItem } from '../../pm-plugins/commands/insert-type-ahead-item';
 import { setSelectionBeforeQuery } from '../../pm-plugins/commands/set-selection-before-query';
 import { CloseSelectionOptions } from '../../pm-plugins/constants';
+import { itemIsDisabled } from '../../pm-plugins/item-is-disabled';
+import type { TypeAheadPlugin } from '../../typeAheadPluginType';
 import type {
 	OnInsertSelectedItem,
 	OnInsertSelectedItemProps,
@@ -53,6 +56,7 @@ export const useItemInsert = (
 	triggerHandler: TypeAheadHandler,
 	editorView: EditorView,
 	items: Array<TypeAheadItem>,
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined,
 ): [OnInsertSelectedItem, OnTextInsert, OnItemMatch] => {
 	const editorViewRef = useRef(editorView);
 	const itemsRef = useRef(items);
@@ -94,6 +98,10 @@ export const useItemInsert = (
 				return;
 			}
 
+			const isDisabled = itemIsDisabled(itemToInsert, api);
+			if (isDisabled) {
+				return;
+			}
 			const { current: view } = editorViewRef;
 
 			insertTypeAheadItem(view)({
@@ -104,7 +112,7 @@ export const useItemInsert = (
 				sourceListItem,
 			});
 		},
-		[triggerHandler, onTextInsert],
+		[triggerHandler, onTextInsert, api],
 	);
 
 	const onItemMatch = useCallback(

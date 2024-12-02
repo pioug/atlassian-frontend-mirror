@@ -46,7 +46,7 @@ describe('Element: Icon', () => {
 		const element = await screen.findByTestId(testId);
 
 		expect(element).toBeTruthy();
-		expect(element.textContent).toBe('💡');
+		expect(element).toHaveTextContent('💡');
 	});
 
 	it('renders ImageIcon when url is provided', async () => {
@@ -91,7 +91,7 @@ describe('Element: Icon', () => {
 			const imageIcon = screen.queryByTestId('smart-element-icon-image');
 			const akIcon = screen.queryByTestId('smart-element-icon-icon');
 
-			expect(customIcon.textContent).toBe('💡');
+			expect(customIcon).toHaveTextContent('💡');
 			expect(imageIcon).not.toBeInTheDocument();
 			expect(akIcon).not.toBeInTheDocument();
 		});

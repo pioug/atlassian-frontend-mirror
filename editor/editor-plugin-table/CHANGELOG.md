@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 8.2.1
+
+### Patch Changes
+
+- [#169304](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169304)
+  [`305b55f6ac586`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/305b55f6ac586) -
+  Set alignment to center for tables during resizing, this fixes issues with tables in comment
+  editor where the width attribute defaults to inherit even if a table has been resized
+
 ## 8.2.0
 
 ### Minor Changes

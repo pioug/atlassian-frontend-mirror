@@ -1,5 +1,5 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
-import type { EditorAppearance } from '@atlaskit/editor-common/types';
+import type { EditorAppearance, FeatureFlags } from '@atlaskit/editor-common/types';
 import { shouldForceTracking } from '@atlaskit/editor-common/utils';
 import { accessibilityUtilsPlugin } from '@atlaskit/editor-plugins/accessibility-utils';
 import { alignmentPlugin } from '@atlaskit/editor-plugins/alignment';
@@ -57,7 +57,6 @@ import type {
 	EditorSharedPropsWithPlugins,
 	PrimaryToolbarComponents,
 } from '../types/editor-props';
-import type { FeatureFlags } from '../types/feature-flags';
 import { isFullPage as fullPageCheck } from '../utils/is-full-page';
 import { version as coreVersion } from '../version-wrapper';
 
@@ -66,7 +65,7 @@ import type { DefaultPresetPluginOptions } from './default';
 
 export type UniversalPresetProps = DefaultPresetPluginOptions &
 	EditorSharedPropsWithPlugins &
-	// Omit placeholder since it's an existing prop in `DefaultPresetPluginOptions` and will get overidden there
+	// Omit placeholder since it's an existing prop in `DefaultPresetPluginOptions` and will get overridden there
 	Omit<EditorPluginFeatureProps, 'placeholder'> &
 	EditorProviderProps;
 

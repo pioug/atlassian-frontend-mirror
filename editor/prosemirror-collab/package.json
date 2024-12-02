@@ -33,7 +33,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-prosemirror": "6.0.0",
+		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@babel/runtime": "^7.0.0",
 		"uuid": "^3.1.0"
 	},

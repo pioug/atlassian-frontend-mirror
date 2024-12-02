@@ -10,15 +10,19 @@ import isEqual from 'lodash/isEqual';
 
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ReactHookFactory } from '@atlaskit/editor-common/types';
+import type {
+	EditorAppearance,
+	ReactHookFactory,
+	UIComponentFactory,
+} from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../../actions';
-import type { EventDispatcher } from '../../event-dispatcher';
-import type { EditorAppearance, UIComponentFactory } from '../../types';
-import { whichTransitionEvent } from '../../utils';
+import type {} from '../../types';
+import { whichTransitionEvent } from '../../utils/whichTransitionEvent';
 import { ErrorBoundary } from '../ErrorBoundary';
 
 import { MountPluginHooks } from './mount-plugin-hooks';

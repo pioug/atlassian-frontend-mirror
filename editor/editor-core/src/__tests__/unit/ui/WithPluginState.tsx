@@ -2,7 +2,10 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
+import { createDispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { EditorPlugin } from '@atlaskit/editor-common/types';
 import {
 	WithPluginState,
 	WithPluginStateInner,
@@ -16,9 +19,6 @@ import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import EditorActions from '../../../actions';
-import type { Dispatch } from '../../../event-dispatcher';
-import { createDispatch, EventDispatcher } from '../../../event-dispatcher';
-import type { EditorPlugin } from '../../../types/editor-plugin';
 import EditorContext from '../../../ui/EditorContext';
 import { name } from '../../../version-wrapper';
 

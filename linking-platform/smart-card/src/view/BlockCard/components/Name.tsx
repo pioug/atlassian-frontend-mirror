@@ -27,8 +27,12 @@ export const blockCardContentHeaderNameClassName = 'block-card-content-header-na
 
 const baseStyles = css({
 	font: token('font.heading.xsmall'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	lineHeight: gs(2.5),
+	/**
+	 * The xsmall heading token has a line height of 20px in the modernized/refreshed themes,
+	 * but 16px in legacy theme which causes alignment issues.
+	 * Remove this lineHeight once all consuming apps are using modernized/refreshed themes.
+	 */
+	lineHeight: '20px',
 	// Spec: show max two lines.
 	display: '-webkit-box',
 	overflow: 'hidden',

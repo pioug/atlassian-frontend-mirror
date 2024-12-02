@@ -15,11 +15,10 @@ import { layers } from '@atlaskit/theme/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
-import { useActiveAnchorTracker } from '../utils/active-anchor-tracker';
-import { isPreRelease2 } from '../utils/advanced-layouts-flags';
-import { type AnchorRectCache, isAnchorSupported } from '../utils/anchor-utils';
-import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
-import { shouldAllowInlineDropTarget } from '../utils/inline-drop-target';
+import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracker';
+import { type AnchorRectCache, isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
+import { isBlocksDragTargetDebug } from '../pm-plugins/utils/drag-target-debug';
+import { shouldAllowInlineDropTarget } from '../pm-plugins/utils/inline-drop-target';
 
 import { getNestedNodeLeftPaddingMargin } from './consts';
 import { type DropTargetProps, type DropTargetStyle } from './drop-target';
@@ -125,7 +124,7 @@ const HoverZone = ({
 			return dropTargetForElements({
 				element: ref.current,
 				onDragEnter: () => {
-					if (!isNestedDropTarget && isPreRelease2()) {
+					if (!isNestedDropTarget && editorExperiment('advanced_layouts', true)) {
 						setActiveAnchor();
 					}
 					onDragEnter();

@@ -1,9 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { typography } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -36,8 +33,9 @@ export const listStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const listTitleStyles = css(typography.h100(), {
-	textTransform: 'uppercase',
-	marginTop: 0,
+export const listTitleStyles = css({
+	font: token('font.body.small'),
+	fontWeight: token('font.weight.bold'),
+	color: token('color.text.subtlest'),
 	marginBottom: token('space.050', '4px'),
 });

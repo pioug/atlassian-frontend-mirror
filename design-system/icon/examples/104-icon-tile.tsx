@@ -15,7 +15,7 @@ const IconSizeExample = () => {
 
 	useEffect(() => {
 		// eslint-disable-next-line import/extensions, import/dynamic-import-chunkname
-		import('@atlaskit/icon-object/glyph/new-feature/24.js').then((module) => {
+		import('@atlaskit/icon-object/glyph/new-feature/24').then((module) => {
 			setNewFeatureIconObject(
 				() => module.default as unknown as FunctionComponent<NewCoreIconProps>,
 			);

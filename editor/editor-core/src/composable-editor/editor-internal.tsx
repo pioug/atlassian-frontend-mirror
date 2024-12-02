@@ -10,6 +10,7 @@ import { css, jsx } from '@emotion/react';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { FireAnalyticsCallback } from '@atlaskit/editor-common/analytics';
 import { ACTION, ACTION_SUBJECT } from '@atlaskit/editor-common/analytics';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { usePortalProvider } from '@atlaskit/editor-common/portal';
 import type {
 	AllEditorPresetPluginTypes,
@@ -31,7 +32,6 @@ import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from
 import type { EditorViewProps } from '../create-editor/ReactEditorView';
 import ReactEditorView from '../create-editor/ReactEditorView';
 import ReactEditorViewNext from '../create-editor/ReactEditorViewNext';
-import type { EventDispatcher } from '../event-dispatcher';
 import { ContextAdapter } from '../nodeviews/context-adapter';
 import { type EditorAppearanceComponentProps } from '../types';
 import type { EditorNextProps, EditorProps } from '../types/editor-props';

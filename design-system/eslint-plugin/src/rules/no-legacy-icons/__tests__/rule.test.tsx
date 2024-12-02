@@ -348,23 +348,6 @@ describe('no-legacy-icons', () => {
 				}),
 			},
 			{
-				name: 'Icon object with no migration advice',
-				code: `
-				import Branch16Icon from '@atlaskit/icon-object/glyph/branch/16';
-
-				<Branch16Icon label="" />
-				//No migration advice given in migration map and thus this is a manual migration
-				`,
-				errors: [
-					{
-						messageId: 'noLegacyIconsManualMigration',
-					},
-					{
-						messageId: 'cantFindSuitableReplacement',
-					},
-				],
-			},
-			{
 				name: 'Renamed icon by reference',
 				code: `
 				import AddIcon from '@atlaskit/icon/glyph/add';

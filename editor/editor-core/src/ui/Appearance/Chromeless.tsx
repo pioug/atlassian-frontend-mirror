@@ -8,7 +8,7 @@ import React, { Fragment } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { type OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { EditorAppearance, OptionalPlugin } from '@atlaskit/editor-common/types';
 import { type EditorViewModePlugin } from '@atlaskit/editor-plugins/editor-viewmode';
 import type {
 	MaxContentSizePlugin,
@@ -17,7 +17,7 @@ import type {
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { token } from '@atlaskit/tokens';
 
-import type { EditorAppearance, EditorAppearanceComponentProps } from '../../types';
+import type { EditorAppearanceComponentProps } from '../../types';
 import { createEditorContentStyle } from '../ContentStyles';
 import PluginSlot from '../PluginSlot';
 import WithFlash from '../WithFlash';

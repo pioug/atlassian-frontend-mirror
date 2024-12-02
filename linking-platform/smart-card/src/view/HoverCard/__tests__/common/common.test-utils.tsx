@@ -217,7 +217,7 @@ export const runCommonHoverCardTests = (
 		const tooltip = await screen.findByRole('tooltip');
 
 		expect(content).toBeTruthy();
-		expect(tooltip.textContent).toBe('Copy link');
+		expect(tooltip).toHaveTextContent('Copy link');
 	});
 
 	describe('show-hide behaviour', () => {
@@ -445,8 +445,8 @@ export const runCommonHoverCardTests = (
 			const downloadButton = await screen.findByTestId('smart-action-download-action');
 			const previewButton = await screen.findByTestId('smart-action-preview-action');
 
-			expect(downloadButton.textContent).toBe('Download file');
-			expect(previewButton.textContent).toBe('Open preview');
+			expect(downloadButton).toHaveTextContent('Download file');
+			expect(previewButton).toHaveTextContent('Open preview');
 		});
 
 		it('should not render smartlinks actions if disabled', async () => {

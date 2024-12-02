@@ -5,9 +5,9 @@ export type {
 	IndentList,
 	InputMethod,
 	IsInsideListItem,
-	ListPlugin,
 	ListState,
 	OutdentList,
 	ToggleBulletList,
 	ToggleOrderedList,
+	ListPlugin,
 } from '@atlaskit/editor-plugin-list';

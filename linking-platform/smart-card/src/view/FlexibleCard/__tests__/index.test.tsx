@@ -57,7 +57,7 @@ describe('FlexibleCard', () => {
 
 		expect(container).toBeTruthy();
 		expect(titleBlock).toBeTruthy();
-		expect(titleBlock.textContent).toEqual(title);
+		expect(titleBlock).toHaveTextContent(title);
 	});
 
 	describe('hover preview', () => {

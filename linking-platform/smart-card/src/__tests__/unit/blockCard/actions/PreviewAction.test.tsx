@@ -32,7 +32,7 @@ describe('PreviewAction', () => {
 		});
 
 		const { container } = renderWithIntl(action.text);
-		expect(container.textContent).toBe('Open preview');
+		expect(container).toHaveTextContent('Open preview');
 
 		const handlerExecutor = action.promise;
 		await handlerExecutor();
@@ -67,7 +67,7 @@ describe('PreviewAction', () => {
 		renderWithIntl(<PreviewWrapper />);
 		const modal = await screen.findByTestId('preview-modal');
 		expect(modal).toBeTruthy();
-		expect(modal.textContent).toBe('My modal mock');
+		expect(modal).toHaveTextContent('My modal mock');
 		expect(modal.id).toBe(mockPopupMountPointId);
 	});
 });

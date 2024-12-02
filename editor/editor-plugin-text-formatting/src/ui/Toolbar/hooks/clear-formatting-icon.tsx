@@ -7,7 +7,6 @@ import { useCallback, useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { clearFormatting as clearFormattingKeymap, tooltip } from '@atlaskit/editor-common/keymaps';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
@@ -15,17 +14,20 @@ import type { Command, TextFormattingState } from '@atlaskit/editor-common/types
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 
 import { clearFormattingWithAnalytics } from '../../../commands/clear-formatting';
-import type { IconHookProps, MenuIconItem } from '../types';
+import { getInputMethod } from '../../../input-method-utils';
+import type { IconHookProps, MenuIconItem, ToolbarType } from '../types';
 
 interface ClearIconHookProps extends IconHookProps {
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	textFormattingState: TextFormattingState | undefined;
+	toolbarType: ToolbarType;
 }
 
 export const useClearIcon = ({
 	intl,
 	textFormattingState,
 	editorAnalyticsAPI,
+	toolbarType,
 }: ClearIconHookProps): MenuIconItem | null => {
 	const isPluginAvailable = Boolean(textFormattingState);
 	const formattingIsPresent = Boolean(textFormattingState?.formattingIsPresent);
@@ -33,8 +35,11 @@ export const useClearIcon = ({
 
 	const clearFormattingToolbar: Command = useCallback(
 		(state, dispatch) =>
-			clearFormattingWithAnalytics(INPUT_METHOD.TOOLBAR, editorAnalyticsAPI)(state, dispatch),
-		[editorAnalyticsAPI],
+			clearFormattingWithAnalytics(getInputMethod(toolbarType), editorAnalyticsAPI)(
+				state,
+				dispatch,
+			),
+		[editorAnalyticsAPI, toolbarType],
 	);
 
 	return useMemo(() => {

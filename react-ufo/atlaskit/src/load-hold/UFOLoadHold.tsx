@@ -53,14 +53,17 @@ type Props = {
 	name: string;
 	hold?: boolean;
 	children?: ReactNode;
+
+	// TODO: implement Experimental UFO Holds functionality as per https://product-fabric.atlassian.net/browse/AFO-3080
+	experimental?: boolean;
 };
 
-export default function UFOLoadHold({ children, name, hold = true }: Props) {
+export default function UFOLoadHold({ children, name, hold = true, experimental = false }: Props) {
 	// react-18: useId instead
 	const context = useContext(UFOInteractionContext);
 
 	useLayoutEffectSAFE(() => {
-		if (hold && context != null) {
+		if (hold && !experimental && context != null) {
 			return context.hold(name);
 		}
 	}, [hold, context, name]);

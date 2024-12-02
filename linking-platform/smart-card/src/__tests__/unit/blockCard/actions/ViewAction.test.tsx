@@ -24,7 +24,7 @@ describe('ViewAction', () => {
 		});
 
 		const { container } = renderWithIntl(action.text);
-		expect(container.textContent).toBe('View');
+		expect(container).toHaveTextContent('View');
 
 		const handlerExecutor = action.promise;
 		await expect(handlerExecutor()).resolves.toBe(undefined);
@@ -41,7 +41,7 @@ describe('ViewAction', () => {
 		});
 
 		const { container } = renderWithIntl(action.text);
-		expect(container.textContent).toBe('View');
+		expect(container).toHaveTextContent('View');
 
 		const handlerExecutor = action.promise;
 		await expect(handlerExecutor()).resolves.toBe(undefined);

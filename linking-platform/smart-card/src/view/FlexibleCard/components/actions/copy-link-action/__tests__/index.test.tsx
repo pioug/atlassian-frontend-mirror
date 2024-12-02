@@ -37,7 +37,7 @@ describe('CopyLinkAction', () => {
 		setup();
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
-		expect(element.textContent).toBe('Copy link');
+		expect(element).toHaveTextContent('Copy link');
 	});
 
 	describe('with tooltip', () => {
@@ -49,7 +49,7 @@ describe('CopyLinkAction', () => {
 			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Copy link');
+			expect(tooltip).toHaveTextContent('Copy link');
 		});
 
 		it('renders updated tooltip after onClick', async () => {
@@ -60,7 +60,7 @@ describe('CopyLinkAction', () => {
 			await user.click(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Copied!');
+			expect(tooltip).toHaveTextContent('Copied!');
 		});
 
 		it('resets tooltip message after tooltip hides', async () => {

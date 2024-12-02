@@ -16,7 +16,7 @@ import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import VideoIcon from '@atlaskit/icon/core/video';
 import { token } from '@atlaskit/tokens';
 
-import type { LoomPlugin } from '../plugin';
+import type { LoomPlugin } from '../loomPluginType';
 import { type ButtonComponentProps } from '../types';
 
 // This const is derived from the breakpoint where the toolbar hides its icons. It is used to hide the text in the AI button.

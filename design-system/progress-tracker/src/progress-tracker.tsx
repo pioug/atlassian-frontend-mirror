@@ -8,6 +8,7 @@ import { useEffect, useRef } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { spacing as spacingOptions } from './constants';
@@ -18,6 +19,7 @@ import {
 	varSpacing,
 } from './internal/constants';
 import Link from './internal/link';
+import LinkNew from './internal/link-new';
 import Stage from './internal/stage';
 import type { LinkComponentProps, ProgressTrackerStageRenderProp, Spacing, Stages } from './types';
 
@@ -77,9 +79,10 @@ const ProgressTracker = ({
 	items = [],
 	spacing = 'cosy',
 	render = {
-		// Anchor content is coming from another location
-		// eslint-disable-next-line jsx-a11y/anchor-has-content
-		link: ({ item }: LinkComponentProps) => <Link {...item} />,
+		link: ({ item }: LinkComponentProps) =>
+			// Anchor content is coming from another location
+			// eslint-disable-next-line jsx-a11y/anchor-has-content
+			fg('platform_progress_tracker_link_migration') ? <LinkNew {...item} /> : <Link {...item} />,
 	},
 	animated = true,
 	testId,

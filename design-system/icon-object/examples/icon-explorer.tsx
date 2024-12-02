@@ -1,4 +1,5 @@
 import React, { Component, type ComponentType, type FormEvent } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
@@ -6,11 +7,12 @@ import Button from '@atlaskit/button/new';
 import TextField from '@atlaskit/textfield';
 
 import metadata from '../src/metadata';
+
 import IconExplorerCell from './utils/icon-explorer-cell';
 
 const allIcons = Promise.all(
 	Object.keys(metadata).map(async (name) => {
-		const icon = await import(`../glyph/${name}.js`);
+		const icon = await import(`../src/artifacts/glyph/${name}.tsx`);
 		return { name, icon: icon.default };
 	}),
 ).then((newData) =>

@@ -14,7 +14,7 @@ describe('AuthorizeAction', () => {
 		});
 
 		const { container } = renderWithIntl(action.text);
-		expect(container.textContent).toBe('Connect');
+		expect(container).toHaveTextContent('Connect');
 
 		const handlerExecutor = action.promise;
 		await expect(handlerExecutor()).resolves.toBe('action invoked');

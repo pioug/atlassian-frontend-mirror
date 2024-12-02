@@ -11,7 +11,7 @@ import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/vie
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { BlockControlsPlugin, HandleOptions } from '../types';
+import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
 import { DragHandle } from '../ui/drag-handle';
 
 import { TYPE_HANDLE_DEC, TYPE_NODE_DEC, unmountDecorations } from './decorations-common';

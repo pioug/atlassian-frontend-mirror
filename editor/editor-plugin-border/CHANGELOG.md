@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-border
 
+## 1.7.7
+
+### Patch Changes
+
+- [#169341](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169341)
+  [`b8cceed0c0786`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b8cceed0c0786) -
+  ED-25806: migrates file structure to editor engineering standards
+
 ## 1.7.6
 
 ### Patch Changes

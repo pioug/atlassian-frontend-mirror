@@ -16,8 +16,12 @@ import type {
 	SearchProvider,
 } from '@atlaskit/editor-common/provider-factory';
 import type {
+	EditorAppearance,
+	EditorPlugin,
+	EmptyStateHandler,
 	FeedbackInfo,
 	LinkingOptions,
+	PerformanceTracking,
 	QuickInsertOptions,
 	TextFormattingOptions,
 	Transformer,
@@ -43,14 +47,8 @@ import type { TaskDecisionProvider } from '@atlaskit/task-decision';
 
 import type EditorActions from '../actions';
 
-import type { EditorAppearance } from './editor-appearance';
 import type { EditorOnChangeHandler } from './editor-onchange';
-import type { EditorPlugin } from './editor-plugin';
-import type { EmptyStateHandler } from './empty-state-handler';
 import type { ExtensionConfig } from './extension-config';
-import type { PerformanceTracking } from './performance-tracking';
-
-export type { UseStickyToolbarType };
 
 export type ReactComponents = ReactElement | ReactElement[];
 
@@ -158,7 +156,7 @@ interface EditorBaseProps {
 	onCancel?: (editorView: EditorView) => void;
 
 	/**
-	 * @deprecated do not use, value is hardcoded. Can be mocked for tests. Config exists here: platform/packages/editor/editor-plugin-base/src/utils/inputTrackingConfig.ts
+	 * @deprecated do not use, value is hardcoded. Can be mocked for tests. Config exists here: platform/packages/editor/editor-plugin-base/src/pm-plugins/utils/inputTrackingConfig.ts
 	 * @description The nth keystroke after which an input time taken event is sent, 0 to disable it
 	 * @default 100
 	 */
@@ -234,7 +232,7 @@ export interface EditorSharedPropsWithPlugins {
 	onSave?: (editorView: EditorView) => void;
 
 	/**
-	 * @deprecated do not use, value is hardcoded. Can be mocked for tests. Config exists here: platform/packages/editor/editor-plugin-base/src/utils/inputTrackingConfig.ts
+	 * @deprecated do not use, value is hardcoded. Can be mocked for tests. Config exists here: platform/packages/editor/editor-plugin-base/src/pm-plugins/utils/inputTrackingConfig.ts
 	 * @description Control performance metric measurements and tracking
 	 */
 	performanceTracking?: PerformanceTracking;
@@ -404,7 +402,7 @@ export interface EditorPluginFeatureProps {
 	// Enable indentation support for `heading` and `paragraph`
 	allowIndentation?: boolean;
 
-	// Enable showing of indentaion buttons in editor toolbar
+	// Enable showing of indentation buttons in editor toolbar
 	showIndentationButtons?: boolean;
 
 	// Enable find/replace functionality within the editor.

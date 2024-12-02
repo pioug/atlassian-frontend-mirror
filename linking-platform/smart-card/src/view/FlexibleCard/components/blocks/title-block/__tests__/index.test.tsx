@@ -311,7 +311,7 @@ describe('TitleBlock', () => {
 				});
 
 				const element = await screen.findByTestId(titleTestId);
-				expect(element.textContent).toEqual('Spaghetti');
+				expect(element).toHaveTextContent('Spaghetti');
 
 				expect(element).toHaveStyleDeclaration('color', expect.stringContaining('#44546F'));
 			},
@@ -343,7 +343,7 @@ describe('TitleBlock', () => {
 
 			const message = await screen.findByTestId('smart-block-title-errored-view-message');
 
-			expect(message.textContent).toEqual("Can't find link");
+			expect(message).toHaveTextContent("Can't find link");
 		});
 
 		it("doesn't renders formatted message", async () => {

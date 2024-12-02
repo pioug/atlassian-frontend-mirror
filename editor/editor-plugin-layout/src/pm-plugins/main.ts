@@ -9,12 +9,12 @@ import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import { fixColumnSizes, fixColumnStructure, getSelectedLayout } from '../actions';
 import type { LayoutPluginOptions } from '../types';
-import { getMaybeLayoutSection } from '../utils';
 
+import { fixColumnSizes, fixColumnStructure, getSelectedLayout } from './actions';
 import { pluginKey } from './plugin-key';
 import type { Change, LayoutState } from './types';
+import { getMaybeLayoutSection } from './utils';
 
 export const DEFAULT_LAYOUT = 'two_equal';
 

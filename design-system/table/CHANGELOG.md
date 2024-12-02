@@ -1,5 +1,13 @@
 # @atlaskit/table
 
+## 0.9.0
+
+### Minor Changes
+
+- [#171035](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171035)
+  [`c96a116f5cbc9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c96a116f5cbc9) -
+  Improve React 18 compatibility and typesafety.
+
 ## 0.8.6
 
 ### Patch Changes

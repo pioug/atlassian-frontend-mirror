@@ -9,6 +9,7 @@ export type Props = {
 	mediaClient: MediaClient;
 	item: NonErrorFileState;
 	customRendererConfig: CustomRendererConfig;
+	collectionName?: string;
 	onError: (error: MediaViewerError, fileItem?: FileState) => void;
 	onSuccess: () => void;
 };
@@ -17,6 +18,7 @@ export const CustomViewer = ({
 	mediaClient,
 	item,
 	customRendererConfig,
+	collectionName,
 	onSuccess,
 	onError,
 }: Props) => {
@@ -29,11 +31,11 @@ export const CustomViewer = ({
 		// This approach handles aborting in-progress request outside of the custom-renderer concern
 		if (item.status === 'processed' || item.status === 'failed-processing') {
 			setGetBinaryContent(
-				() => () => mediaClient.mediaStore.getFileBinary(item.id, undefined, abortController),
+				() => () => mediaClient.mediaStore.getFileBinary(item.id, collectionName, abortController),
 			);
 		}
 		return () => abortController.abort();
-	}, [item, mediaClient]);
+	}, [collectionName, item, mediaClient]);
 
 	const onLoadFailed = useCallback(
 		(error: Error): void => {

@@ -1,11 +1,9 @@
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { ToolbarUIComponentFactory, UIComponentFactory } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { OnEditorViewStateUpdated } from '../create-editor/get-plugins';
-import type { EventDispatcher } from '../event-dispatcher';
-import type { ToolbarUIComponentFactory } from '../ui/Toolbar/types';
-
-import type { UIComponentFactory } from './ui-components';
 
 export interface EditorInstance {
 	editorView: EditorView;

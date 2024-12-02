@@ -1,7 +1,7 @@
 import React from 'react';
 
-import CodeIcon16 from '../glyph/code/16';
-import CodeIcon24 from '../glyph/code/24';
+import CodeIcon16 from '../src/artifacts/glyph/code/16';
+import CodeIcon24 from '../src/artifacts/glyph/code/24';
 
 export default () => (
 	<div>

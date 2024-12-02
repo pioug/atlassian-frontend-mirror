@@ -23,7 +23,7 @@ describe('Block card views - Errored', () => {
 	it('renders view without try again if no retry handler present', () => {
 		renderWithIntl(<BlockCardErroredView testId="errored-view" />);
 		const frame = screen.getByTestId('errored-view');
-		expect(frame.textContent).toBe("We couldn't load this link for an unknown reason.");
+		expect(frame).toHaveTextContent("We couldn't load this link for an unknown reason.");
 		const icon = screen.getByTestId('errored-view-warning-icon');
 		expect(icon.getAttribute('aria-label')).toBe('errored-warning-icon');
 	});
@@ -32,11 +32,11 @@ describe('Block card views - Errored', () => {
 		const onRetryMock = jest.fn();
 		renderWithIntl(<BlockCardErroredView testId="errored-view" onRetry={onRetryMock} />);
 		const frame = screen.getByTestId('errored-view');
-		expect(frame.textContent).toBe("We couldn't load this link for an unknown reason.Try again");
+		expect(frame).toHaveTextContent("We couldn't load this link for an unknown reason.Try again");
 
 		// Check the button is there
 		const button = screen.getByTestId('button-try-again');
-		expect(button.textContent).toBe('Try again');
+		expect(button).toHaveTextContent('Try again');
 
 		// Click it, check mock is called
 		fireEvent.click(button);

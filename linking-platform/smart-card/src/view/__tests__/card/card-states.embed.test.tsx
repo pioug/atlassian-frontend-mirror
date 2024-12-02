@@ -212,7 +212,7 @@ describe('smart-card: card states, embed', () => {
 					expect(forbiddenLink).toBeInTheDocument();
 					const forbiddenLinkButton = container.querySelector('button');
 					expect(forbiddenLinkButton).toBeInTheDocument();
-					expect(forbiddenLinkButton!.textContent).toContain('Try another account');
+					expect(forbiddenLinkButton).toHaveTextContent('Try another account');
 					expect(mockFetch).toHaveBeenCalledTimes(1);
 					expect(mockOnError).toHaveBeenCalledWith({
 						url: mockUrl,

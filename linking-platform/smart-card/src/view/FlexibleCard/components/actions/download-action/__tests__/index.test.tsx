@@ -37,14 +37,14 @@ describe('DownloadAction', () => {
 		setup();
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
-		expect(element.textContent).toBe('Download');
+		expect(element).toHaveTextContent('Download');
 	});
 
 	it('renders stack item action', async () => {
 		setup({ as: 'stack-item' });
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
-		expect(element.textContent).toBe('Download file');
+		expect(element).toHaveTextContent('Download file');
 	});
 
 	describe('with tooltip', () => {
@@ -56,7 +56,7 @@ describe('DownloadAction', () => {
 			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Download');
+			expect(tooltip).toHaveTextContent('Download');
 		});
 
 		it('renders stack item tooltip', async () => {
@@ -67,7 +67,7 @@ describe('DownloadAction', () => {
 			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Download this file into your local storage');
+			expect(tooltip).toHaveTextContent('Download this file into your local storage');
 		});
 	});
 });

@@ -18,8 +18,8 @@ import { layers } from '@atlaskit/theme/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import type { BlockControlsPlugin } from '../types';
-import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
+import type { BlockControlsPlugin } from '../blockControlsPluginType';
+import { isBlocksDragTargetDebug } from '../pm-plugins/utils/drag-target-debug';
 
 import {
 	dropTargetMarginMap,
@@ -155,7 +155,7 @@ export const DropTarget = ({
 			return;
 		}
 
-		// This should be moved to platform/packages/editor/editor-plugin-block-controls/src/utils/validation.ts
+		// This should be moved to platform/packages/editor/editor-plugin-block-controls/src/pm-plugins/utils/validation.ts
 		// Since we are moved to drop-target-v2
 		// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
 		if (editorExperiment('nest-media-and-codeblock-in-quote', false)) {

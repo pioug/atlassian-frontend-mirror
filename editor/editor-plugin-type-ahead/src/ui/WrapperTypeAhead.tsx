@@ -1,11 +1,14 @@
 import React, { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { updateQuery } from '../pm-plugins/commands/update-query';
 import type { CloseSelectionOptions } from '../pm-plugins/constants';
-import { getPluginState, moveSelectedIndex } from '../pm-plugins/utils';
+import { itemIsDisabled } from '../pm-plugins/item-is-disabled';
+import { getPluginState, moveSelectedIndex, skipForwardToSafeItem } from '../pm-plugins/utils';
+import type { TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadHandler, TypeAheadInputMethod } from '../types';
 
 import { useItemInsert } from './hooks/use-item-insert';
@@ -25,6 +28,7 @@ type WrapperProps = {
 	popupsBoundariesElement?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	inputMethod?: TypeAheadInputMethod;
+	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined;
 };
 
 export const WrapperTypeAhead = React.memo(
@@ -40,6 +44,7 @@ export const WrapperTypeAhead = React.memo(
 		getDecorationPosition,
 		reopenQuery,
 		onUndoRedo,
+		api,
 	}: WrapperProps) => {
 		const [closed, setClosed] = useState(false);
 		const [query, setQuery] = useState<string>(reopenQuery || '');
@@ -51,23 +56,25 @@ export const WrapperTypeAhead = React.memo(
 			queryRef.current = query;
 		}, [query]);
 
-		const [onItemInsert, onTextInsert] = useItemInsert(triggerHandler, editorView, items);
+		const [onItemInsert, onTextInsert] = useItemInsert(triggerHandler, editorView, items, api);
 
 		const selectNextItem = useMemo(
 			() =>
 				moveSelectedIndex({
 					editorView,
 					direction: 'next',
+					api,
 				}),
-			[editorView],
+			[editorView, api],
 		);
 		const selectPreviousItem = useMemo(
 			() =>
 				moveSelectedIndex({
 					editorView,
 					direction: 'previous',
+					api,
 				}),
-			[editorView],
+			[editorView, api],
 		);
 
 		const cancel = useCallback(
@@ -95,6 +102,13 @@ export const WrapperTypeAhead = React.memo(
 				const { current: view } = editorViewRef;
 
 				const { selectedIndex } = getPluginState(view.state)!;
+				const safeSelectedIndex = skipForwardToSafeItem(selectedIndex, 1, items.length, (idx) =>
+					itemIsDisabled(items[idx], api),
+				);
+				// If the only safe index is -1 then none are safe - do not insert item
+				if (safeSelectedIndex === -1) {
+					return;
+				}
 				setClosed(true);
 				queueMicrotask(() => {
 					onItemInsert({
@@ -104,7 +118,7 @@ export const WrapperTypeAhead = React.memo(
 					});
 				});
 			},
-			[onItemInsert],
+			[onItemInsert, api, items],
 		);
 
 		const showTypeAheadPopupList = useCallback(() => {}, []);

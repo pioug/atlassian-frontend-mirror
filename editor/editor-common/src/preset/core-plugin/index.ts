@@ -1,6 +1,7 @@
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Fragment, Node, Schema } from '@atlaskit/editor-prosemirror/model';
 
+import { processRawFragmentValue, processRawValue } from '../../../src/utils/processRawValue';
 import type {
 	CorePlugin,
 	DefaultTransformerResultCallback,
@@ -52,6 +53,26 @@ export const corePlugin: CorePlugin = ({ config }) => {
 
 				(editorView.dom as HTMLElement).blur();
 				return true;
+			},
+			replaceDocument: (replaceValue: Node | Fragment | Array<Node> | Object | String) => {
+				const editorView = config?.getEditorView();
+				if (!editorView || replaceValue === undefined || replaceValue === null) {
+					return false;
+				}
+
+				const { state } = editorView;
+				const { schema } = state;
+
+				const content = Array.isArray(replaceValue)
+					? processRawFragmentValue(schema, replaceValue)
+					: processRawValue(schema, replaceValue);
+
+				if (content) {
+					const tr = state.tr.replaceWith(0, state.doc.nodeSize - 2, content);
+					editorView.dispatch(tr.scrollIntoView());
+					return true;
+				}
+				return false;
 			},
 
 			requestDocument<GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>>(

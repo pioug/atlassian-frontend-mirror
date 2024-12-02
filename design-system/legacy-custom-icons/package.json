@@ -318,7 +318,7 @@
 		"./subtask-object-icon": "./src/ui/subtask-object-icon/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.27.0",
+		"@atlaskit/icon": "^22.28.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.4.0",
 		"@babel/runtime": "^7.0.0"

@@ -4,13 +4,13 @@ import { mount } from 'enzyme';
 import { act } from 'react-dom/test-utils';
 
 import { isSSR } from '@atlaskit/editor-common/core-utils';
+import { ToolbarSize } from '@atlaskit/editor-common/types';
+import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
 import type { WidthObserver } from '@atlaskit/width-detector';
 
 import { Toolbar } from '../../../ui/Toolbar/Toolbar';
 import { ToolbarWithSizeDetector } from '../../../ui/Toolbar/ToolbarWithSizeDetector';
-import type { ToolbarUIComponentFactory } from '../../../ui/Toolbar/types';
-import { ToolbarSize } from '../../../ui/Toolbar/types';
 
 let mockInnerSetWidth: Function | undefined;
 

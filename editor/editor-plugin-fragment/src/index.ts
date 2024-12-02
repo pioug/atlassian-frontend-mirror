@@ -1,2 +1,2 @@
-export type { FragmentPlugin } from './plugin';
-export { fragmentPlugin } from './plugin';
+export { fragmentPlugin } from './fragmentPlugin';
+export type { FragmentPlugin } from './fragmentPluginType';

@@ -16,7 +16,7 @@ import { getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers/fakeMe
 import { mountWithIntl } from '../../../../__tests__/__helpers/enzyme';
 import EditorActions from '../../../../actions';
 import EditorContext from '../../../EditorContext';
-import Comment from '../../Comment';
+import { CommentEditorWithIntl as Comment } from '../../Comment/Comment';
 
 describe('comment editor', () => {
 	afterEach(() => {

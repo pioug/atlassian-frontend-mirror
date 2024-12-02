@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 1.16.0
+
+### Minor Changes
+
+- [#170931](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170931)
+  [`5a4a927fac223`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a4a927fac223) -
+  [ux] Adds text formatting option to the Selection toolbar.
+
 ## 1.15.7
 
 ### Patch Changes

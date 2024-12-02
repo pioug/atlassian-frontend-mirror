@@ -10,21 +10,18 @@ import { css, jsx } from '@emotion/react';
 
 import { propDeprecationWarning } from '@atlaskit/ds-lib/deprecation-warning';
 import { N30A } from '@atlaskit/theme/colors';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize as gridSizeFn } from '@atlaskit/theme/constants';
-import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import HeadingItem from '../menu-item/heading-item';
 import type { SectionProps } from '../types';
 
-const gridSize = gridSizeFn();
+const gridSize = 8;
 const itemHeadingTopMargin = gridSize * 2.5;
 const itemHeadingBottomMargin = gridSize * 0.75;
 // Skeleton content is slightly shorter than the real content.
 // Because of that we slightly increase the top margin to offset this so the
 // containing size both real and skeleton always equal approx 30px.
-const itemHeadingContentHeight = headingSizes.h100.lineHeight;
+const itemHeadingContentHeight = 16; // Originally headingSizes.h100.lineHeight from '@atlaskit/theme/typography'
 const skeletonHeadingHeight = gridSize;
 const skeletonHeadingMarginOffset = 3;
 const skeletonHeadingTopMargin =

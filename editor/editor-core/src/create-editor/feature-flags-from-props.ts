@@ -1,8 +1,7 @@
 import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
+import type { DisableSpellcheckByBrowser, FeatureFlags } from '@atlaskit/editor-common/types';
 
-import type { DisableSpellcheckByBrowser } from '../types/browser';
 import type { EditorNextProps } from '../types/editor-props';
-import type { FeatureFlags } from '../types/feature-flags';
 
 function verifyJSON(json: string) {
 	try {

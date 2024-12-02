@@ -1,6 +1,5 @@
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 import { N10, N30 } from '@atlaskit/theme/colors';
-import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { VAR_SCROLL_INDICATOR_COLOR, VAR_SEPARATOR_COLOR } from '../../common/constants';
@@ -11,7 +10,7 @@ const scrollIndicatorHeight = 2;
 const scrollIndicatorBorderRadius = '1px';
 const containerPadding = 8;
 
-const itemHeadingContentHeight = headingSizes.h100.lineHeight;
+const itemHeadingContentHeight = 16; // Originally headingSizes.h100.lineHeight from '@atlaskit/theme/typography'
 const skeletonHeadingHeight = containerPadding;
 const skeletonHeadingMarginOffset = 3;
 // Skeleton content is slightly shorter than the real content.

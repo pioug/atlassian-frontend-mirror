@@ -22,7 +22,7 @@ describe('Block', () => {
 
 		expect(block).toBeTruthy();
 		expect(block.getAttribute('data-smart-block')).toBeTruthy();
-		expect(block.textContent).toBe('I am a block.');
+		expect(block).toHaveTextContent('I am a block.');
 		expect(block).toHaveStyleDeclaration('justify-content', 'flex-start');
 	});
 

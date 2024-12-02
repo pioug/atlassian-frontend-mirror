@@ -1,6 +1,8 @@
 import type { AnalyticsEventPayload } from '@atlaskit/analytics-next/AnalyticsEvent';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { ResolvedEditorState } from '@atlaskit/editor-common/collab';
+import { createDispatch } from '@atlaskit/editor-common/event-dispatcher';
+import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import {
 	processRawFragmentValue,
 	processRawValue,
@@ -19,8 +21,6 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { findParentNode, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { EventDispatcher } from '../event-dispatcher';
-import { createDispatch } from '../event-dispatcher';
 import { getEditorValueWithMedia } from '../utils/action';
 import deprecationWarnings from '../utils/deprecation-warnings';
 import { findNodePosByFragmentLocalIds } from '../utils/nodes-by-localIds';
@@ -235,6 +235,10 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 		return isEmptyDocument(this.editorView.state.doc);
 	}
 
+	/**
+	 * @deprecated - please use `replaceDocument` found in the core plugin actions instead
+	 * using this will reset your Editor State which could cause some things to break (like emojis)
+	 */
 	replaceDocument(
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		rawValue: any,

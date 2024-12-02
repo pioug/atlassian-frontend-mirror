@@ -101,7 +101,7 @@ describe('HoverCard', () => {
 		it('should still render the full screen view action on inline link hover when disabled via flexui prop', async () => {
 			await setup();
 			const previewButton = await screen.findByTestId('smart-action-preview-action');
-			expect(previewButton.textContent).toBe('Open preview');
+			expect(previewButton).toHaveTextContent('Open preview');
 		});
 
 		describe('hover preview feature flag:', () => {
@@ -191,7 +191,7 @@ describe('HoverCard', () => {
 
 				expect(mockFetch).toHaveBeenCalledTimes(0);
 				const element = await screen.findByTestId('inline-card-resolved-view');
-				expect(element.textContent).toBe('I am a fan of cheese');
+				expect(element).toHaveTextContent('I am a fan of cheese');
 
 				jest.useFakeTimers({ legacyFakeTimers: true });
 				const event = userEvent.setup({ delay: null });
@@ -227,9 +227,9 @@ describe('HoverCard', () => {
 				expect(screen.queryByTestId('hover-card-loading-view')).toBeNull();
 
 				// trim because the icons are causing new lines in the textContent
-				expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-				expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
-				expect(footerBlock.textContent?.trim()).toBe('Confluence');
+				expect(titleBlock).toHaveTextContent(/I love cheese$/);
+				expect(snippetBlock).toHaveTextContent(/Here is your serving of cheese$/);
+				expect(footerBlock).toHaveTextContent('Confluence');
 			});
 
 			it('should fall back to default path if fetch fails', async () => {
@@ -244,9 +244,9 @@ describe('HoverCard', () => {
 				expect(screen.queryByTestId('hover-card-loading-view')).toBeNull();
 
 				// trim because the icons are causing new lines in the textContent
-				expect(titleBlock.textContent?.trim()).toBe('I am a fan of cheese');
-				expect(snippetBlock.textContent).toBe('');
-				expect(footerBlock.textContent?.trim()).toBe('');
+				expect(titleBlock).toHaveTextContent('I am a fan of cheese');
+				expect(snippetBlock).toHaveTextContent('');
+				expect(footerBlock).toHaveTextContent('');
 			});
 		});
 	});

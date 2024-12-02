@@ -57,7 +57,7 @@ describe('ViewRelatedLinksAction', () => {
 		const element = await findByTestId(testId);
 
 		expect(element).toBeInTheDocument();
-		expect(element.textContent).toBe('View recent links');
+		expect(element).toHaveTextContent('View recent links');
 	});
 
 	it('does not render related links action if action data is not present', async () => {

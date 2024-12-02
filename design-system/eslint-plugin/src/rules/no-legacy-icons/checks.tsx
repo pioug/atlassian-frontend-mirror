@@ -91,9 +91,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 		if (
 			moduleSource &&
 			typeof moduleSource === 'string' &&
-			['@atlaskit/icon/glyph/', '@atlaskit/icon-object/glyph/'].find((val) =>
-				moduleSource.startsWith(val),
-			) &&
+			['@atlaskit/icon/glyph/'].find((val) => moduleSource.startsWith(val)) &&
 			node.specifiers.length > 0
 		) {
 			for (const spec of node.specifiers) {
@@ -249,9 +247,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 			const moduleSource = node.source.value;
 			if (
 				typeof moduleSource === 'string' &&
-				['@atlaskit/icon/glyph/', '@atlaskit/icon-object/glyph/'].find((val) =>
-					moduleSource.startsWith(val),
-				) &&
+				['@atlaskit/icon/glyph/'].find((val) => moduleSource.startsWith(val)) &&
 				node.specifiers.length
 			) {
 				for (const spec of node.specifiers) {

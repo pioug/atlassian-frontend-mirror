@@ -3,10 +3,10 @@ export type {
 	IndentList,
 	InputMethod,
 	IsInsideListItem,
-	ListPlugin,
 	ListState,
 	OutdentList,
 	ToggleBulletList,
 	ToggleOrderedList,
 } from './types';
-export { listPlugin } from './plugin';
+export { listPlugin } from './listPlugin';
+export type { ListPlugin } from './listPluginType';

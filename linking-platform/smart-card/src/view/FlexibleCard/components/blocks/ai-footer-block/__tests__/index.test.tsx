@@ -75,7 +75,7 @@ describe('AIFooterBlock', () => {
 
 		const providerLabel = await screen.findByTestId(`${testIdBase}-provider-label`);
 
-		expect(providerLabel.textContent).toBe('Confluence');
+		expect(providerLabel).toHaveTextContent('Confluence');
 	});
 
 	it('renders with override css', async () => {

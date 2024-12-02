@@ -14,7 +14,7 @@ describe('ForbiddenAction', () => {
 		});
 
 		const { container } = renderWithIntl(action.text);
-		expect(container.textContent).toBe('Try another account');
+		expect(container).toHaveTextContent('Try another account');
 
 		const handlerExecutor = action.promise;
 		await expect(handlerExecutor()).resolves.toBe('action invoked');

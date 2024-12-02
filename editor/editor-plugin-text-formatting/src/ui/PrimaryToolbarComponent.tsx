@@ -7,6 +7,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { TextFormattingPlugin } from '../plugin';
 
 import Toolbar from './Toolbar';
+import { ToolbarType } from './Toolbar/types';
 
 interface PrimaryToolbarComponentProps {
 	api: ExtractInjectionAPI<TextFormattingPlugin> | undefined;
@@ -41,6 +42,7 @@ export function PrimaryToolbarComponent({
 			shouldUseResponsiveToolbar={shouldUseResponsiveToolbar}
 			editorAnalyticsAPI={api?.analytics?.actions}
 			api={api}
+			toolbarType={ToolbarType.PRIMARY}
 		/>
 	);
 }

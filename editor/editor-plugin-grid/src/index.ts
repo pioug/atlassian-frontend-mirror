@@ -1,3 +1,3 @@
-export { gridPlugin } from './plugin';
-export type { GridPlugin, GridPluginOptions } from './plugin';
-export type { Highlights, GridPluginState } from './types';
+export { gridPlugin } from './gridPlugin';
+export type { GridPlugin } from './gridPluginType';
+export type { CreateDisplayGrid, Highlights, GridPluginOptions, GridPluginState } from './types';

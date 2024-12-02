@@ -89,11 +89,11 @@ describe('Unauthorised Hover Card', () => {
 		const buttonElement = screen.getByTestId('hover-card-unauthorised-view-button');
 
 		expect(iconElement).toBeTruthy();
-		expect(titleElement.textContent).toBe('Connect your Google account');
-		expect(mainContentElement.textContent).toBe(
+		expect(titleElement).toHaveTextContent('Connect your Google account');
+		expect(mainContentElement).toHaveTextContent(
 			'Connect your Google account to collaborate on work across Atlassian products. Learn more about Smart Links.',
 		);
-		expect(buttonElement.textContent).toBe('Connect to Google');
+		expect(buttonElement).toHaveTextContent('Connect to Google');
 	});
 
 	it('"learn more" link should have a correct url', () => {
@@ -121,11 +121,11 @@ describe('Unauthorised Hover Card', () => {
 		const buttonElement = screen.getByTestId('hover-card-unauthorised-view-button');
 
 		expect(iconElement).toBeTruthy();
-		expect(titleElement.textContent).toBe('Connect your Google account');
-		expect(mainContentElement.textContent).toBe(
+		expect(titleElement).toHaveTextContent('Connect your Google account');
+		expect(mainContentElement).toHaveTextContent(
 			'Connect your Google account to collaborate on work across Atlassian products. Learn more about connecting your account to Atlassian products.',
 		);
-		expect(buttonElement.textContent).toBe('Connect to Google');
+		expect(buttonElement).toHaveTextContent('Connect to Google');
 	});
 
 	it('uses alternative "learn more" url when `hasScopeOverrides` flag is present in the meta', () => {

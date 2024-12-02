@@ -37,7 +37,7 @@ const formatTypes: Record<string, string> = {
 };
 
 export function clearFormattingWithAnalytics(
-	inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT,
+	inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT | INPUT_METHOD.FLOATING_TB,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 ): Command {
 	return clearFormatting(inputMethod, editorAnalyticsAPI);
@@ -75,7 +75,7 @@ function clearNodeFormattingOnSelection(
 }
 
 export function clearFormatting(
-	inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT,
+	inputMethod?: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT | INPUT_METHOD.FLOATING_TB,
 	editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 ): Command {
 	return function (state, dispatch): boolean {

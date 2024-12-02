@@ -50,7 +50,7 @@ describe('ActionGroup', () => {
 			const actionGroup = await waitFor(() => container.firstChild);
 
 			expect(actionGroup).toBeTruthy();
-			expect(actionGroup?.textContent).toMatch('Delete');
+			expect(actionGroup).toHaveTextContent('Delete');
 		});
 
 		it('should not render ellipse button', async () => {
@@ -117,7 +117,7 @@ describe('ActionGroup', () => {
 						`smart-element-test-${i + visibleButtonsNum}`,
 					);
 					expect(secondActionElement).toBeDefined();
-					expect(secondActionElement?.textContent).toMatch('Delete');
+					expect(secondActionElement).toHaveTextContent('Delete');
 				}
 			});
 
@@ -197,7 +197,7 @@ describe('ActionGroup', () => {
 						const icon = await screen.findByTestId(iconTestId);
 						expect(icon).toBeDefined();
 
-						expect(element.textContent).toEqual(expectedContent);
+						expect(element).toHaveTextContent(expectedContent);
 					});
 
 					it('should render only content', async () => {
@@ -208,7 +208,7 @@ describe('ActionGroup', () => {
 
 						expect(screen.queryByTestId(iconTestId)).toBeNull();
 
-						expect(element.textContent).toEqual(expectedContent);
+						expect(element).toHaveTextContent(expectedContent);
 					});
 
 					if (asDropdownItem) {
@@ -221,7 +221,7 @@ describe('ActionGroup', () => {
 							const icon = await screen.findByTestId(iconTestId);
 							expect(icon).toBeDefined();
 
-							expect(element.textContent).toEqual(expectedContent);
+							expect(element).toHaveTextContent(expectedContent);
 						});
 					} else {
 						it('should render only icon', async () => {
@@ -233,7 +233,7 @@ describe('ActionGroup', () => {
 							const icon = await screen.findByTestId(iconTestId);
 							expect(icon).toBeDefined();
 
-							expect(element.textContent).toEqual('');
+							expect(element).toHaveTextContent('');
 						});
 					}
 				});

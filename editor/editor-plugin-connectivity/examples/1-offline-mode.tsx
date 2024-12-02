@@ -25,11 +25,13 @@ import { focusPlugin } from '@atlaskit/editor-plugins/focus';
 import { gridPlugin } from '@atlaskit/editor-plugins/grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';
 import { insertBlockPlugin } from '@atlaskit/editor-plugins/insert-block';
+import { layoutPlugin } from '@atlaskit/editor-plugins/layout';
 import { mediaPlugin } from '@atlaskit/editor-plugins/media';
 import { mentionsPlugin } from '@atlaskit/editor-plugins/mentions';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
+import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
@@ -99,6 +101,8 @@ function Editor() {
 			.add([tablesPlugin, { tableOptions: { advanced: true } }])
 			.add([emojiPlugin, { emojiProvider: getEmojiResource() }])
 			.add([cardPlugin, { provider: Promise.resolve(cardProviderStaging) }])
+			.add(layoutPlugin)
+			.add(tasksAndDecisionsPlugin)
 			// .add([
 			// 	loomPlugin,
 			// 	{

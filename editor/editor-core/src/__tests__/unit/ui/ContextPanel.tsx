@@ -3,6 +3,7 @@ import React from 'react';
 // eslint-disable-next-line
 import { render, screen, waitFor } from '@testing-library/react';
 
+import type { EditorPlugin } from '@atlaskit/editor-common/types';
 import { ContextPanelConsumer, ContextPanelWidthProvider } from '@atlaskit/editor-common/ui';
 import { contextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -10,7 +11,6 @@ import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
-import type { EditorPlugin } from '../../../types';
 import { ContextPanel, SwappableContentArea } from '../../../ui/ContextPanel';
 
 describe('SwappableContentArea', () => {

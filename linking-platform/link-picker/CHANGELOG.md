@@ -1,5 +1,14 @@
 # @atlaskit/link-picker
 
+## 1.47.10
+
+### Patch Changes
+
+- [#167504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167504)
+  [`83a2ce1f5117e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/83a2ce1f5117e) -
+  Replaced deprecated typography styles with new components and tokens.
+- Updated dependencies
+
 ## 1.47.9
 
 ### Patch Changes

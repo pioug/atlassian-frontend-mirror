@@ -10,7 +10,6 @@ import { calcBreakoutWithCustomWidth, calcBreakoutWidth } from '@atlaskit/editor
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { MarkProps } from '../types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 const wrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -29,7 +28,7 @@ export default function Breakout(props: MarkProps<BreakoutMarkAttrs>) {
 					data-mode={props.mode}
 					{...(editorExperiment('advanced_layouts', true) && { 'data-has-width': !!props.width })}
 					style={{
-						width: fg('platform_editor_advanced_layouts_breakout_resizing')
+						width: editorExperiment('advanced_layouts', true)
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 								calcBreakoutWithCustomWidth(
 									props.mode,

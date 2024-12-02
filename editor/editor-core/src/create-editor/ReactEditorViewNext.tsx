@@ -18,6 +18,7 @@ import type {
 	DispatchAnalyticsEvent,
 	FireAnalyticsCallback,
 } from '@atlaskit/editor-common/analytics';
+import { createDispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useConstructor, usePreviousState } from '@atlaskit/editor-common/hooks';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
@@ -37,6 +38,7 @@ import type {
 	ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
 import type { OptionalPlugin, PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
+import { ReactEditorViewContext } from '@atlaskit/editor-common/ui-react';
 import {
 	analyticsEventKey,
 	getAnalyticsEventSeverity,
@@ -54,7 +56,6 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useProviders } from '../composable-editor/hooks/useProviders';
-import { createDispatch, EventDispatcher } from '../event-dispatcher';
 import type { EditorConfig, EditorProps } from '../types';
 import type { EditorViewStateUpdatedCallbackProps } from '../types/editor-config';
 import type { EditorNextProps } from '../types/editor-props';
@@ -77,7 +78,6 @@ import { handleEditorFocus } from './ReactEditorView/handleEditorFocus';
 import { useDispatchTransaction } from './ReactEditorView/useDispatchTransaction';
 import { useFireFullWidthEvent } from './ReactEditorView/useFireFullWidthEvent';
 import { usePluginPerformanceObserver } from './ReactEditorView/usePluginPerformanceObserver';
-import ReactEditorViewContext from './ReactEditorViewContext';
 
 const EDIT_AREA_ID = 'ak-editor-textarea';
 

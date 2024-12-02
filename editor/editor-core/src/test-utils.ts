@@ -1,6 +1,15 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
+import { sortByOrder } from '@atlaskit/editor-common/legacy-rank-plugins';
 import type { EditorPluginInjectionAPI } from '@atlaskit/editor-common/preset';
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
-import type { ReactHookFactory, UIComponentFactory } from '@atlaskit/editor-common/types';
+import type {
+	MarkConfig,
+	NodeConfig,
+	ReactHookFactory,
+	UIComponentFactory,
+} from '@atlaskit/editor-common/types';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Plugin } from '@atlaskit/editor-prosemirror/state';
@@ -14,12 +23,8 @@ import type {
 	LightPMPluginFactoryParams,
 	OnEditorViewStateUpdated,
 } from './create-editor/get-plugins';
-import { sortByOrder } from './create-editor/sort-by-order';
-import type { MarkConfig, NodeConfig } from './types/pm-config';
 
 export type { LightEditorPlugin } from './create-editor/get-plugins';
-export type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-export type { FeatureFlags } from './types/feature-flags';
 
 export interface LightEditorConfig {
 	nodes: NodeConfig[];
@@ -130,10 +135,6 @@ export const createPMSchemaAndPlugins =
 			editorConfig,
 		};
 	};
-
-export { EventDispatcher } from './event-dispatcher';
-export type { Dispatch } from './event-dispatcher';
-export { GapCursorSelection, Side as GapCursorSide } from '@atlaskit/editor-common/selection';
 
 export function setTextSelection(view: EditorView, anchor: number, head?: number) {
 	const { state } = view;

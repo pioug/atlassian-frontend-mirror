@@ -32,3 +32,8 @@ export type MenuIconState = {
 export type IconHookProps = {
 	isToolbarDisabled?: boolean;
 } & WrappedComponentProps;
+
+export enum ToolbarType {
+	PRIMARY = 'primaryToolbar',
+	FLOATING = 'floatingToolbar',
+}

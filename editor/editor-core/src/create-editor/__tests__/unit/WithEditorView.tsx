@@ -3,6 +3,7 @@ import React from 'react';
 
 import { mount } from 'enzyme';
 
+import { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { LightEditorPlugin } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
@@ -13,7 +14,6 @@ import {
 } from '@atlaskit/editor-test-helpers/create-prosemirror-editor';
 
 import EditorActions from '../../../actions';
-import { EventDispatcher } from '../../../event-dispatcher';
 import EditorContext from '../../../ui/EditorContext';
 import { WithEditorView } from '../../WithEditorView';
 

@@ -114,9 +114,9 @@ describe('standalone hover card', () => {
 		const snippetBlock = await screen.findByTestId('smart-block-snippet-resolved-view');
 		const footerBlock = await screen.findByTestId('smart-ai-footer-block-resolved-view');
 		// trim because the icons are causing new lines in the textContent
-		expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-		expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
-		expect(footerBlock.textContent?.trim()).toBe('Confluence');
+		expect(titleBlock).toHaveTextContent(/I love cheese$/);
+		expect(snippetBlock).toHaveTextContent('Here is your serving of cheese');
+		expect(footerBlock).toHaveTextContent('Confluence');
 	});
 
 	it('should clear up timeout if the component unmounts before the hover card shows up', async () => {

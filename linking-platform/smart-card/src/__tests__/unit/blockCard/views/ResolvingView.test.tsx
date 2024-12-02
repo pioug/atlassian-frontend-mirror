@@ -10,6 +10,6 @@ describe('Block card views - Resolving', () => {
 	it('renders view', () => {
 		renderWithIntl(<BlockCardResolvingView testId="resolving-view" />);
 		const frame = screen.getByTestId('resolving-view');
-		expect(frame.textContent).toBe('Loading...');
+		expect(frame).toHaveTextContent('Loading...');
 	});
 });

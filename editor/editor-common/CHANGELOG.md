@@ -1,5 +1,26 @@
 # @atlaskit/editor-common
 
+## 95.10.1
+
+### Patch Changes
+
+- [#170931](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170931)
+  [`5a4a927fac223`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5a4a927fac223) -
+  [ux] Adds text formatting option to the Selection toolbar.
+- Updated dependencies
+
+## 95.10.0
+
+### Minor Changes
+
+- [#161872](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/161872)
+  [`11eec41d47477`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/11eec41d47477) -
+  added new replace action to the core plugin actions to enable document replacement in a way that
+  doesn't reset editor state
+- [#171350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171350)
+  [`436dfb28a4833`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/436dfb28a4833) -
+  [ux] Support disabled type-ahead items while user is offline for media, emoji, and mentions.
+
 ## 95.9.1
 
 ### Patch Changes

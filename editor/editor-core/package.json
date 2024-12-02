@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "202.5.1",
+	"version": "203.0.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,14 +43,14 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^95.9.0",
+		"@atlaskit/editor-common": "^95.10.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.7.1",
 		"@atlaskit/editor-plugins": "^5.8.0",
-		"@atlaskit/editor-prosemirror": "6.0.0",
+		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/emoji": "^67.11.0",
-		"@atlaskit/icon": "^22.27.0",
+		"@atlaskit/icon": "^22.28.0",
 		"@atlaskit/media-card": "^78.15.0",
 		"@atlaskit/mention": "^23.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -89,21 +89,21 @@
 		"@atlaskit/editor-plugin-list": "^3.9.0",
 		"@atlaskit/editor-plugin-paste": "^2.0.0",
 		"@atlaskit/link-provider": "^1.17.0",
-		"@atlaskit/logo": "^14.3.0",
+		"@atlaskit/logo": "^15.0.0",
 		"@atlaskit/media-core": "^34.3.0",
 		"@atlaskit/media-integration-test-helpers": "^3.1.0",
 		"@atlaskit/media-test-helpers": "^34.6.0",
 		"@atlaskit/modal-dialog": "^12.18.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/renderer": "^112.6.0",
-		"@atlaskit/smart-card": "^32.1.0",
+		"@atlaskit/smart-card": "^32.2.0",
 		"@atlaskit/synchrony-test-helpers": "^3.0.0",
 		"@atlaskit/toggle": "^13.4.0",
 		"@atlaskit/util-data-test": "^17.13.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "3.0.0",
+		"@atlassian/search-provider": "3.0.1",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^6.4.0",
 		"@testing-library/react": "^12.1.5",
@@ -292,13 +292,6 @@
 		"platform_editor_react_editor_view_react_18": {
 			"type": "boolean"
 		},
-		"platform_editor_advanced_layouts_pre_release_1": {
-			"type": "boolean"
-		},
-		"platform_editor_advanced_layouts_pre_release_2": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_utilize_linebreakreplacement": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -329,10 +322,6 @@
 		"platform_editor_fix_api_strict_mode": {
 			"type": "boolean"
 		},
-		"platform_editor_advanced_layouts_breakout_resizing": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_use_nested_table_pm_nodes": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -356,6 +345,14 @@
 		"platform_editor_hide_external_media_badge": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_set_alignment_when_resized": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_table_drag_menu_mount_point_fix": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"stricter": {
@@ -369,17 +366,14 @@
 		"./create-editor-content-style": "./src/ui/ContentStyles/index.tsx",
 		"./editor-context": "./src/editor-context.ts",
 		"./editor": "./src/editor.tsx",
-		"./element-browser": "./src/element-browser.ts",
 		"./i18n": "./src/i18n/index.ts",
 		"./i18n-languages": "./src/i18n/languages.ts",
 		"./labs-next": "./src/labs-next.ts",
-		"./messages": "./src/messages.ts",
 		"./preset-default": "./src/preset-default.ts",
 		"./preset-universal": "./src/preset-universal.ts",
 		"./test-utils": "./src/test-utils.ts",
 		"./use-preset": "./src/use-preset.ts",
 		"./use-preset-context": "./src/presets/context.tsx",
-		"./preset-builder": "./src/preset-builder.ts",
 		"./appearance-editor-full-page": "./src/editor-appearances/FullPageEditor.tsx",
 		"./appearance-editor-full-width": "./src/editor-appearances/FullWidthEditor.tsx",
 		"./appearance-editor-comment": "./src/editor-appearances/CommentEditor.tsx",
@@ -392,18 +386,15 @@
 		"./create-editor-content-style": "./src/ui/ContentStyles/index.tsx",
 		"./editor-context": "./src/editor-context.ts",
 		"./editor": "./src/editor.tsx",
-		"./element-browser": "./src/element-browser.ts",
 		"./i18n": "./src/i18n/index.ts",
 		"./i18n/*": "./src/i18n/*.ts",
 		"./i18n-languages": "./src/i18n/languages.ts",
 		"./labs-next": "./src/labs-next.ts",
-		"./messages": "./src/messages.ts",
 		"./preset-default": "./src/preset-default.ts",
 		"./preset-universal": "./src/preset-universal.ts",
 		"./test-utils": "./src/test-utils.ts",
 		"./use-preset": "./src/use-preset.ts",
 		"./use-preset-context": "./src/presets/context.tsx",
-		"./preset-builder": "./src/preset-builder.ts",
 		"./appearance-editor-full-page": "./src/editor-appearances/FullPageEditor.tsx",
 		"./appearance-editor-full-width": "./src/editor-appearances/FullWidthEditor.tsx",
 		"./appearance-editor-comment": "./src/editor-appearances/CommentEditor.tsx",

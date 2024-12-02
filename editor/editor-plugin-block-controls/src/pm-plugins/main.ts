@@ -24,12 +24,7 @@ import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/ad
 import { type CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { BlockControlsPlugin, PluginState } from '../types';
-import { defaultActiveAnchorTracker } from '../utils/active-anchor-tracker';
-import { isPreRelease2 } from '../utils/advanced-layouts-flags';
-import { AnchorRectCache, isAnchorSupported } from '../utils/anchor-utils';
-import { isBlocksDragTargetDebug } from '../utils/drag-target-debug';
-import { getTrMetadata } from '../utils/transactions';
+import type { BlockControlsPlugin, PluginState } from '../blockControlsPluginType';
 
 import { findNodeDecs, nodeDecorations } from './decorations-anchor';
 import {
@@ -40,6 +35,10 @@ import {
 import { dropTargetDecorations, findDropTargetDecs } from './decorations-drop-target';
 import { handleMouseOver } from './handle-mouse-over';
 import { boundKeydownHandler } from './keymap';
+import { defaultActiveAnchorTracker } from './utils/active-anchor-tracker';
+import { AnchorRectCache, isAnchorSupported } from './utils/anchor-utils';
+import { isBlocksDragTargetDebug } from './utils/drag-target-debug';
+import { getTrMetadata } from './utils/transactions';
 
 export const key = new PluginKey<PluginState>('blockControls');
 
@@ -720,7 +719,7 @@ export const createPlugin = (
 					return false;
 				},
 				dragenter(_view: EditorView, event: DragEvent) {
-					if (isPreRelease2()) {
+					if (editorExperiment('advanced_layouts', true)) {
 						if (isHTMLElement(event.target)) {
 							const closestParentElement = event.target.closest(
 								'[data-drag-handler-anchor-depth="0"]',
@@ -739,7 +738,7 @@ export const createPlugin = (
 					}
 				},
 				dragstart(view: EditorView) {
-					if (isPreRelease2()) {
+					if (editorExperiment('advanced_layouts', true)) {
 						defaultActiveAnchorTracker.reset();
 					}
 

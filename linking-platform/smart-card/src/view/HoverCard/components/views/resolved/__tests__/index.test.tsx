@@ -157,10 +157,11 @@ describe('HoverCardResolvedView', () => {
 		const actionBlock = await findByTestId('smart-block-action');
 
 		const footerBlock = await findByTestId('smart-ai-footer-block-resolved-view');
-		expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-		expect(snippetBlock.textContent).toBe('Here is your serving of cheese');
+
+		expect(titleBlock).toHaveTextContent('I love cheese');
+		expect(snippetBlock).toHaveTextContent('Here is your serving of cheese');
 		expect(actionBlock).toBeInTheDocument();
-		expect(footerBlock.textContent?.trim()).toBe('Confluence');
+		expect(footerBlock).toHaveTextContent('Confluence');
 	});
 
 	describe('preview or snippet', () => {
@@ -199,8 +200,8 @@ describe('HoverCardResolvedView', () => {
 			const commentCount = await findByTestId('commentcount-metadata-element');
 			const reactCount = await findByTestId('reactcount-metadata-element');
 
-			expect(commentCount.textContent).toBe('4');
-			expect(reactCount.textContent).toBe('8');
+			expect(commentCount).toHaveTextContent('4');
+			expect(reactCount).toHaveTextContent('8');
 		});
 
 		it('renders correctly for jira links', async () => {
@@ -211,8 +212,8 @@ describe('HoverCardResolvedView', () => {
 			const priority = await findByTestId('priority-metadata-element');
 			const state = await findByTestId('state-metadata-element');
 
-			expect(priority.textContent).toBe('Major');
-			expect(state.textContent).toBe('Done');
+			expect(priority).toHaveTextContent('Major');
+			expect(state).toHaveTextContent('Done');
 		});
 
 		it('renders correctly for other providers', async () => {
@@ -223,8 +224,8 @@ describe('HoverCardResolvedView', () => {
 			const modifiedOn = await findByTestId('modifiedon-metadata-element');
 			await findByTestId('authorgroup-metadata-element');
 
-			expect(titleBlock.textContent?.trim()).toBe('I love cheese');
-			expect(modifiedOn.textContent).toBe('Updated on Jan 1, 2022');
+			expect(titleBlock).toHaveTextContent('I love cheese');
+			expect(modifiedOn).toHaveTextContent('Updated on Jan 1, 2022');
 		});
 	});
 
@@ -233,14 +234,14 @@ describe('HoverCardResolvedView', () => {
 			const { findByTestId } = setup();
 
 			const action = await findByTestId('smart-action-preview-action');
-			expect(action.textContent).toBe('Open preview');
+			expect(action).toHaveTextContent('Open preview');
 		});
 
 		it('renders CopyLinkAction', async () => {
 			const { findByTestId } = setup();
 
 			const action = await findByTestId('smart-action-copy-link-action');
-			expect(action.textContent).toBe('Copy link');
+			expect(action).toHaveTextContent('Copy link');
 		});
 
 		it('renders FollowAction', async () => {
@@ -251,7 +252,7 @@ describe('HoverCardResolvedView', () => {
 			});
 
 			const action = await findByTestId('smart-action-follow-action');
-			expect(action?.textContent).toEqual('Follow project');
+			expect(action).toHaveTextContent('Follow project');
 		});
 
 		describe('AISummaryAction', () => {
@@ -268,7 +269,7 @@ describe('HoverCardResolvedView', () => {
 				const aiSummaryAction = await findByTestId(
 					'smart-action-ai-summary-action-summarise-action',
 				);
-				expect(aiSummaryAction?.textContent).toEqual('Summarize with AI');
+				expect(aiSummaryAction).toHaveTextContent('Summarize with AI');
 			});
 
 			it('renders snippet as a placeholder', async () => {

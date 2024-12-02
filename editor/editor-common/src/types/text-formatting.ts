@@ -36,5 +36,5 @@ export interface TextFormattingState {
 	formattingIsPresent?: boolean;
 }
 
-export type InputMethodToolbar = INPUT_METHOD.TOOLBAR;
+export type InputMethodToolbar = INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
 export type InputMethodBasic = InputMethodToolbar | INPUT_METHOD.SHORTCUT | INPUT_METHOD.FORMATTING;

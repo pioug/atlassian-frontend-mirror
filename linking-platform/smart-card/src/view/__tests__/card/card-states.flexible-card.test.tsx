@@ -50,7 +50,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			expect(resolvedCard).toBeTruthy();
 			expect(resolvedViewName).toBeTruthy();
 			expect(resolvedViewDescription).toBeTruthy();
-			expect(mockFetch).toBeCalled();
+			expect(mockFetch).toHaveBeenCalled();
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 
 			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
@@ -75,7 +75,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 
 			expect(resolvedCard).toBeTruthy();
 			expect(resolvedView).toBeTruthy();
-			expect(mockFetch).toBeCalled();
+			expect(mockFetch).toHaveBeenCalled();
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 
 			rerender(
@@ -86,7 +86,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				</IntlProvider>,
 			);
 
-			expect(mockFetch).toBeCalled();
+			expect(mockFetch).toHaveBeenCalled();
 			expect(mockFetch).toHaveBeenCalledTimes(2);
 		});
 
@@ -104,7 +104,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			resolvedView = await screen.findByText('I love cheese');
 			expect(resolvedCard).toBeTruthy();
 			expect(resolvedView).toBeTruthy();
-			expect(mockFetch).toBeCalled();
+			expect(mockFetch).toHaveBeenCalled();
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 
 			rerender(
@@ -114,7 +114,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 					</Provider>
 				</IntlProvider>,
 			);
-			expect(mockFetch).toBeCalled();
+			expect(mockFetch).toHaveBeenCalled();
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 		});
 	});
@@ -155,8 +155,8 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(forbiddenLink).toBeTruthy();
 				const forbiddenLinkButton = screen.getByRole('button');
 				expect(forbiddenLinkButton).toBeTruthy();
-				expect(forbiddenLinkButton!.textContent).toContain('Try another account');
-				expect(mockFetch).toBeCalled();
+				expect(forbiddenLinkButton).toHaveTextContent('Try another account');
+				expect(mockFetch).toHaveBeenCalled();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
@@ -177,7 +177,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(forbiddenLink).toBeTruthy();
 
 				const messageContainer = await screen.findByTestId('smart-element-text');
-				expect(messageContainer.textContent).toBe(
+				expect(messageContainer).toHaveTextContent(
 					'Your team uses Google to collaborate and you can start using it right away!',
 				);
 
@@ -186,13 +186,13 @@ describe('smart-card: card states, flexible block withUrl', () => {
 
 				const forbiddenLinkButton = buttons[0];
 				expect(forbiddenLinkButton).toBeTruthy();
-				expect(forbiddenLinkButton!.textContent).toContain('Try another account');
+				expect(forbiddenLinkButton).toHaveTextContent('Try another account');
 
 				const joinButton = buttons[1];
 				expect(joinButton).toBeTruthy();
-				expect(joinButton!.textContent).toBe('Join now');
+				expect(joinButton!).toHaveTextContent('Join now');
 
-				expect(mockFetch).toBeCalled();
+				expect(mockFetch).toHaveBeenCalled();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
@@ -213,7 +213,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(forbiddenLink).toBeTruthy();
 
 				const messageContainer = await screen.findByTestId('smart-element-text');
-				expect(messageContainer.textContent).toBe(
+				expect(messageContainer).toHaveTextContent(
 					'Your team uses Google to collaborate. Send your admin a request for access.',
 				);
 
@@ -222,13 +222,13 @@ describe('smart-card: card states, flexible block withUrl', () => {
 
 				const forbiddenLinkButton = buttons[0];
 				expect(forbiddenLinkButton).toBeTruthy();
-				expect(forbiddenLinkButton!.textContent).toContain('Try another account');
+				expect(forbiddenLinkButton).toHaveTextContent('Try another account');
 
 				const joinButton = buttons[1];
 				expect(joinButton).toBeTruthy();
-				expect(joinButton!.textContent).toBe('Request access');
+				expect(joinButton!).toHaveTextContent('Request access');
 
-				expect(mockFetch).toBeCalled();
+				expect(mockFetch).toHaveBeenCalled();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
@@ -251,15 +251,15 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(forbiddenLink).toBeTruthy();
 
 				const messageContainer = await screen.findByTestId('smart-element-text');
-				expect(messageContainer.textContent).toBe(
+				expect(messageContainer).toHaveTextContent(
 					'Your request to access drive.google.com is awaiting admin approval.',
 				);
 
 				const forbiddenLinkButton = screen.getByText('Try another account');
 				expect(forbiddenLinkButton).toBeTruthy();
-				expect(forbiddenLinkButton!.textContent).toContain('Try another account');
+				expect(forbiddenLinkButton).toHaveTextContent('Try another account');
 
-				expect(mockFetch).toBeCalled();
+				expect(mockFetch).toHaveBeenCalled();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
@@ -280,15 +280,15 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(forbiddenLink).toBeTruthy();
 
 				const messageContainer = await screen.findByTestId('smart-element-text');
-				expect(messageContainer.textContent).toBe(
+				expect(messageContainer).toHaveTextContent(
 					'Contact your admin to request access to drive.google.com.',
 				);
 
 				const forbiddenLinkButton = screen.getByRole('button');
 				expect(forbiddenLinkButton).toBeTruthy();
-				expect(forbiddenLinkButton!.textContent).toContain('Try another account');
+				expect(forbiddenLinkButton).toHaveTextContent('Try another account');
 
-				expect(mockFetch).toBeCalled();
+				expect(mockFetch).toHaveBeenCalled();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
@@ -311,15 +311,15 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				expect(forbiddenLink).toBeTruthy();
 
 				const messageContainer = await screen.findByTestId('smart-element-text');
-				expect(messageContainer.textContent).toBe(
+				expect(messageContainer).toHaveTextContent(
 					"Your admin didn't approve your request to view Google pages from drive.google.com.",
 				);
 
 				const forbiddenLinkButton = screen.getByRole('button');
 				expect(forbiddenLinkButton).toBeTruthy();
-				expect(forbiddenLinkButton!.textContent).toContain('Try another account');
+				expect(forbiddenLinkButton).toHaveTextContent('Try another account');
 
-				expect(mockFetch).toBeCalled();
+				expect(mockFetch).toHaveBeenCalled();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
@@ -343,7 +343,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 				const forbiddenLinkButton = screen.queryByRole('button');
 				expect(forbiddenLink).toBeTruthy();
 				expect(forbiddenLinkButton).toBeFalsy();
-				expect(mockFetch).toBeCalled();
+				expect(mockFetch).toHaveBeenCalled();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 				expect(mockOnError).toHaveBeenCalledWith({
 					url: mockUrl,
@@ -367,7 +367,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			const unauthorizedLink = await screen.findByText(mockUrl);
 			expect(unauthorizedLink).toBeTruthy();
 
-			expect(mockFetch).toBeCalled();
+			expect(mockFetch).toHaveBeenCalled();
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 			expect(mockOnError).toHaveBeenCalledWith({
 				url: mockUrl,
@@ -376,7 +376,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 
 			const unauthorizedContent = screen.getByTestId('smart-block-unauthorized-view-content');
 			expect(unauthorizedContent).toBeTruthy();
-			expect(unauthorizedContent.textContent).toBe(
+			expect(unauthorizedContent).toHaveTextContent(
 				'Connect your account to collaborate on work across Atlassian products. Learn more about Smart Links.',
 			);
 
@@ -420,7 +420,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			const unauthorizedLink = await screen.findByText(mockUrl);
 			expect(unauthorizedLink).toBeTruthy();
 
-			expect(mockFetch).toBeCalled();
+			expect(mockFetch).toHaveBeenCalled();
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 			expect(mockOnError).toHaveBeenCalledWith({
 				url: mockUrl,
@@ -446,7 +446,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 
 			const unauthorizedContent = screen.getByTestId('smart-block-unauthorized-view-content');
 			expect(unauthorizedContent).toBeTruthy();
-			expect(unauthorizedContent.textContent).toBe(
+			expect(unauthorizedContent).toHaveTextContent(
 				'Connect your Google account to collaborate on work across Atlassian products. Learn more about Smart Links.',
 			);
 
@@ -478,7 +478,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			const unauthorizedLinkButton = screen.queryByRole('button');
 			expect(unauthorizedLink).toBeTruthy();
 			expect(unauthorizedLinkButton).toBeFalsy();
-			expect(mockFetch).toBeCalled();
+			expect(mockFetch).toHaveBeenCalled();
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 			expect(mockOnError).toHaveBeenCalledWith({
 				url: mockUrl,
@@ -500,7 +500,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 
 			expect(frame).toBeTruthy();
 			expect(link).toBeTruthy();
-			expect(mockFetch).toBeCalled();
+			expect(mockFetch).toHaveBeenCalled();
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 			expect(mockOnError).toHaveBeenCalledWith({
 				url: mockUrl,
@@ -526,7 +526,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			expect(frame).toBeTruthy();
 			const link = await screen.findByText("We can't show you this Jira page");
 			expect(link).toBeTruthy();
-			expect(mockFetch).toBeCalled();
+			expect(mockFetch).toHaveBeenCalled();
 			expect(mockFetch).toHaveBeenCalledTimes(1);
 			expect(mockOnError).toHaveBeenCalledWith({
 				url: mockUrl,

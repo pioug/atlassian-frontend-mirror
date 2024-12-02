@@ -162,6 +162,7 @@ export const createReducer = ({
 		} else if (shouldUpdateListItems) {
 			const { items } = params;
 			const { selectedIndex } = currentPluginState;
+
 			return {
 				...currentPluginState,
 				items,

@@ -1,9 +1,9 @@
-import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
+import type { EditorPlugin, NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 import createUniversalPresetInternal, {
 	type InitialPluginConfiguration,
 } from '../presets/universal';
-import type { EditorPlugin, EditorProps } from '../types';
+import type { EditorProps } from '../types';
 
 import { getDefaultPresetOptionsFromEditorProps } from './create-plugins-list';
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';

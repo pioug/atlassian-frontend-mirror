@@ -3,6 +3,7 @@ import React from 'react';
 import { fireEvent, queryByAttribute, render, screen } from '@testing-library/react';
 import cases from 'jest-in-case';
 
+import noop from '@atlaskit/ds-lib/noop';
 import CheckCircleIcon from '@atlaskit/icon/glyph/check-circle';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InfoIcon from '@atlaskit/icon/glyph/info';
@@ -10,6 +11,7 @@ import JiraLabsIcon from '@atlaskit/icon/glyph/jira/labs';
 import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
 import WarningIcon from '@atlaskit/icon/glyph/warning';
 import { Text } from '@atlaskit/primitives';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import SectionMessage, { SectionMessageAction } from '../../index';
 import { type Appearance } from '../../types';
@@ -124,18 +126,120 @@ describe('SectionMessage', () => {
 			expect(screen.getAllByText('·')).toHaveLength(1);
 		});
 
-		it('should render a link when passed an action', () => {
-			const { container } = render(
-				<SectionMessage
-					actions={
-						<SectionMessageAction href="https://atlaskit.atlassian.com/">aye</SectionMessageAction>
-					}
-				>
-					boo
-				</SectionMessage>,
-			);
+		describe('should render a link when passed a `href`', () => {
+			ffTest(
+				'platform_section_message_action_migration',
+				() => {
+					render(
+						<SectionMessage
+							actions={
+								<SectionMessageAction href="https://atlaskit.atlassian.com/" testId="action">
+									Foo
+								</SectionMessageAction>
+							}
+						>
+							Bar
+						</SectionMessage>,
+					);
 
-			expect(getByHref(container, 'https://atlaskit.atlassian.com/')?.textContent).toBe('aye');
+					expect(screen.getByTestId('action')).toBeInstanceOf(HTMLAnchorElement);
+				},
+				() => {
+					const { container } = render(
+						<SectionMessage
+							actions={
+								<SectionMessageAction href="https://atlaskit.atlassian.com/">
+									aye
+								</SectionMessageAction>
+							}
+						>
+							boo
+						</SectionMessage>,
+					);
+
+					expect(getByHref(container, 'https://atlaskit.atlassian.com/')?.textContent).toBe('aye');
+				},
+			);
+		});
+
+		describe('should render a link when passed both a `href` and `onClick`', () => {
+			ffTest(
+				'platform_section_message_action_migration',
+				() => {
+					render(
+						<SectionMessage
+							actions={
+								<SectionMessageAction
+									onClick={noop}
+									href="https://atlaskit.atlassian.com/"
+									testId="action"
+								>
+									Foo
+								</SectionMessageAction>
+							}
+						>
+							Bar
+						</SectionMessage>,
+					);
+
+					expect(screen.getByTestId('action')).toBeInstanceOf(HTMLAnchorElement);
+				},
+				() => {
+					render(
+						<SectionMessage
+							actions={
+								<SectionMessageAction
+									onClick={noop}
+									href="https://atlaskit.atlassian.com/"
+									testId="action"
+								>
+									Foo
+								</SectionMessageAction>
+							}
+						>
+							Bar
+						</SectionMessage>,
+					);
+
+					expect(screen.getByTestId('action')).toBeInstanceOf(HTMLAnchorElement);
+				},
+			);
+		});
+
+		describe('should render a button when passed a `onClick` with no `href`', () => {
+			ffTest(
+				'platform_section_message_action_migration',
+				() => {
+					render(
+						<SectionMessage
+							actions={
+								<SectionMessageAction onClick={noop} testId="action">
+									Foo
+								</SectionMessageAction>
+							}
+						>
+							Bar
+						</SectionMessage>,
+					);
+
+					expect(screen.getByTestId('action')).toBeInstanceOf(HTMLButtonElement);
+				},
+				() => {
+					render(
+						<SectionMessage
+							actions={
+								<SectionMessageAction onClick={noop} testId="action">
+									Foo
+								</SectionMessageAction>
+							}
+						>
+							Bar
+						</SectionMessage>,
+					);
+
+					expect(screen.getByTestId('action')).toBeInstanceOf(HTMLButtonElement);
+				},
+			);
 		});
 
 		it('should render a custom component when an action with href is passed', () => {

@@ -26,6 +26,8 @@ import { browser } from '@atlaskit/editor-common/browser';
 import { getDocStructure } from '@atlaskit/editor-common/core-utils';
 import { countNodes } from '@atlaskit/editor-common/count-nodes';
 import type { ErrorReporter } from '@atlaskit/editor-common/error-reporter';
+import { createDispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
+import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { getEnabledFeatureFlagKeys } from '@atlaskit/editor-common/normalize-feature-flags';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
 import { measureRender } from '@atlaskit/editor-common/performance/measure-render';
@@ -44,7 +46,14 @@ import type {
 	ContextIdentifierProvider,
 	ProviderFactory,
 } from '@atlaskit/editor-common/provider-factory';
-import type { PublicPluginAPI, Transformer } from '@atlaskit/editor-common/types';
+import type {
+	EditorAppearance,
+	EditorPlugin,
+	FeatureFlags,
+	PublicPluginAPI,
+	Transformer,
+} from '@atlaskit/editor-common/types';
+import { ReactEditorViewContext } from '@atlaskit/editor-common/ui-react';
 import {
 	analyticsEventKey,
 	getAnalyticsEventSeverity,
@@ -57,11 +66,8 @@ import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DirectEditorProps } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { createDispatch, EventDispatcher } from '../event-dispatcher';
-import type { Dispatch } from '../event-dispatcher';
-import type { EditorAppearance, EditorConfig, EditorPlugin, EditorProps } from '../types';
+import type { EditorConfig, EditorProps } from '../types';
 import type { EditorNextProps } from '../types/editor-props';
-import type { FeatureFlags } from '../types/feature-flags';
 import { findChangedNodesFromTransaction } from '../utils/findChangedNodesFromTransaction';
 import { getNodesCount } from '../utils/getNodesCount';
 import { isFullPage } from '../utils/is-full-page';
@@ -81,7 +87,6 @@ import createPluginsList from './create-plugins-list';
 import { createSchema } from './create-schema';
 import { createFeatureFlagsFromProps } from './feature-flags-from-props';
 import { editorMessages } from './messages';
-import ReactEditorViewContext from './ReactEditorViewContext';
 
 const EDIT_AREA_ID = 'ak-editor-textarea';
 

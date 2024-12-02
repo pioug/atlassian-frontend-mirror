@@ -12,6 +12,7 @@ import { BreadcrumbsMiscActions } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
@@ -33,7 +34,7 @@ import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decis
 
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import type { EditorActions } from '../src';
-import type { EditorAppearance, EditorProps } from '../src/editor';
+import type { EditorProps } from '../src/editor';
 import Editor from '../src/editor';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';

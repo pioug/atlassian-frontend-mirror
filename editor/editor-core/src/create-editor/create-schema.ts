@@ -1,5 +1,7 @@
 import { sanitizeNodes } from '@atlaskit/adf-schema/schema';
+import { sortByOrder } from '@atlaskit/editor-common/legacy-rank-plugins';
 import { createProseMirrorMetadata } from '@atlaskit/editor-common/prosemirror-dom-metadata';
+import type { MarkConfig, NodeConfig } from '@atlaskit/editor-common/types';
 import type {
 	DOMOutputSpec,
 	MarkSpec,
@@ -10,10 +12,7 @@ import type {
 import { Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { MarkConfig, NodeConfig } from '../types/pm-config';
-
 import { fixExcludes } from './create-editor';
-import { sortByOrder } from './sort-by-order';
 
 type toDOMType = (node: PMNode | PMMark) => DOMOutputSpec;
 

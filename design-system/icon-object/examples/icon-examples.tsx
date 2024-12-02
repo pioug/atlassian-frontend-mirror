@@ -5,7 +5,7 @@ import metadata from '../src/metadata';
 const icons16 = Object.keys(metadata)
 	.map((name) => {
 		if (name.includes('16')) {
-			return require(`../glyph/${name}.js`).default;
+			return require(`../src/artifacts/glyph/${name}`).default;
 		}
 
 		return null;
@@ -15,7 +15,7 @@ const icons16 = Object.keys(metadata)
 const icons24 = Object.keys(metadata)
 	.map((name) => {
 		if (name.includes('24')) {
-			return require(`../glyph/${name}.js`).default;
+			return require(`../src/artifacts/glyph/${name}`).default;
 		}
 
 		return null;

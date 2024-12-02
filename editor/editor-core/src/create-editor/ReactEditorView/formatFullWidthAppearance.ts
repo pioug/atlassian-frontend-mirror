@@ -1,6 +1,5 @@
 import { FULL_WIDTH_MODE } from '@atlaskit/editor-common/analytics';
-
-import type { EditorAppearance } from '../../types';
+import type { EditorAppearance } from '@atlaskit/editor-common/types';
 
 export const formatFullWidthAppearance = (
 	appearance: EditorAppearance | undefined,

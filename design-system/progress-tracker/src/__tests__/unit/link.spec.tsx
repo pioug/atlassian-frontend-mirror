@@ -7,6 +7,7 @@ import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import ProgressTrackerLink from '../../internal/link';
+import ProgressTrackerLinkNew from '../../internal/link-new';
 
 const item = {
 	id: 'visited-1',
@@ -37,6 +38,30 @@ describe('@atlaskit/progress-tracker/link', () => {
 		const user = userEvent.setup();
 
 		render(<ProgressTrackerLink {...item} />);
+		await user.click(screen.getByText(item.label));
+		expect(item.onClick).toHaveBeenCalledTimes(1);
+	});
+});
+
+describe('@atlaskit/progress-tracker/link-new', () => {
+	beforeEach(jest.resetAllMocks);
+
+	it('sanity check', () => {
+		render(<ProgressTrackerLinkNew {...item} />);
+		expect(screen.getByTestId(item.testId)).toBeInTheDocument();
+	});
+
+	it('should render the component as per props', () => {
+		render(<ProgressTrackerLinkNew {...item} />);
+		const element = screen.getByText(item.label);
+		expect(element).toHaveStyle(`color: ${token('color.text', colors.N800)}`);
+		expect(element).toHaveAttribute('href', item.href);
+	});
+
+	it('clicking visited link should trigger onClick', async () => {
+		const user = userEvent.setup();
+
+		render(<ProgressTrackerLinkNew {...item} />);
 		await user.click(screen.getByText(item.label));
 		expect(item.onClick).toHaveBeenCalledTimes(1);
 	});

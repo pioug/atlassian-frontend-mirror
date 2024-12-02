@@ -25,6 +25,7 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../commands-with-analytics';
@@ -574,10 +575,21 @@ export const TableResizer = ({
 			}
 
 			if (typeof pos === 'number') {
-				tr = tr.setNodeMarkup(pos, undefined, {
-					...node.attrs,
-					width: newWidth,
-				});
+				if (fg('platform_editor_set_alignment_when_resized')) {
+					tr = tr.setNodeMarkup(pos, undefined, {
+						...node.attrs,
+						width: newWidth,
+						layout:
+							node.attrs.layout !== ALIGN_START && node.attrs.layout !== ALIGN_CENTER
+								? ALIGN_CENTER
+								: node.attrs.layout,
+					});
+				} else {
+					tr = tr.setNodeMarkup(pos, undefined, {
+						...node.attrs,
+						width: newWidth,
+					});
+				}
 
 				const newNode = tr.doc.nodeAt(pos)!;
 				tr = scaleTable(
@@ -636,23 +648,23 @@ export const TableResizer = ({
 			return newWidth;
 		},
 		[
-			displayGapCursor,
-			updateWidth,
 			editorView,
 			getPos,
 			node,
-			tableRef,
-			scheduleResize,
-			displayGuideline,
-			attachAnalyticsEvent,
+			isCommentEditor,
+			widthToWidest,
 			endMeasure,
+			displayGapCursor,
+			displayGuideline,
+			updateWidth,
+			scheduleResize,
 			onResizeStop,
+			attachAnalyticsEvent,
+			tableRef,
+			pluginInjectionApi,
 			isTableScalingEnabled,
 			shouldUseIncreasedScalingPercent,
-			widthToWidest,
 			formatMessage,
-			pluginInjectionApi,
-			isCommentEditor,
 		],
 	);
 

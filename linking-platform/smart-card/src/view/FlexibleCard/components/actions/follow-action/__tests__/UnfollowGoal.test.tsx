@@ -49,7 +49,7 @@ describe('Unfollow Goal Action', () => {
 			setup({ as: 'stack-item' });
 			const element = await screen.findByTestId(testId);
 			expect(element).toBeInTheDocument();
-			expect(element.textContent).toBe('Unfollow goal');
+			expect(element).toHaveTextContent('Unfollow goal');
 		});
 
 		it('renders stack item tooltip', async () => {
@@ -60,7 +60,7 @@ describe('Unfollow Goal Action', () => {
 			await user.hover(element);
 
 			const tooltip = await screen.findByRole('tooltip');
-			expect(tooltip.textContent).toBe('Unfollow to stop receiving notifications for this goal');
+			expect(tooltip).toHaveTextContent('Unfollow to stop receiving notifications for this goal');
 		});
 
 		it('renders project icon', async () => {

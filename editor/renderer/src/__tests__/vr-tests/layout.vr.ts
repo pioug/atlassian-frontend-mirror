@@ -42,34 +42,29 @@ snapshot(Layout5ColRenderer);
 snapshot(Layout3ColWithWidthRenderer, {
 	featureFlags: {
 		advanced_layouts: true,
-		platform_editor_advanced_layouts_breakout_resizing: true,
 	},
 });
 
 snapshot(Layout4ColWithWidthRenderer, {
 	featureFlags: {
 		advanced_layouts: true,
-		platform_editor_advanced_layouts_breakout_resizing: true,
 	},
 });
 
 snapshot(Layout5ColWithWidthRenderer, {
 	featureFlags: {
 		advanced_layouts: true,
-		platform_editor_advanced_layouts_breakout_resizing: true,
 	},
 });
 
 snapshot(Layout5ColWithWidthAndLayout5ColWithWideRenderer, {
 	featureFlags: {
 		advanced_layouts: true,
-		platform_editor_advanced_layouts_breakout_resizing: true,
 	},
 });
 
 snapshot(Layout5ColWithWidthInFullWidthRenderer, {
 	featureFlags: {
 		advanced_layouts: true,
-		platform_editor_advanced_layouts_breakout_resizing: true,
 	},
 });

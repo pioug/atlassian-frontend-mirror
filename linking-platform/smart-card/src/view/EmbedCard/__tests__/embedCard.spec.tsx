@@ -325,15 +325,15 @@ describe('EmbedCard view component', () => {
 			expect(unauthorizedView).toBeTruthy();
 
 			const title = getByTestId(titleTestId);
-			expect(title.textContent).toBe('Connect your 3P account');
+			expect(title).toHaveTextContent('Connect your 3P account');
 
 			const description = getByTestId(descriptionTestId);
-			expect(description.textContent).toBe(
+			expect(description).toHaveTextContent(
 				'Connect your 3P account to collaborate on work across Atlassian products. Learn more about Smart Links.',
 			);
 
 			const action = getByTestId(buttonTestId);
-			expect(action.textContent).toBe('Connect to 3P');
+			expect(action).toHaveTextContent('Connect to 3P');
 		});
 
 		it('renders learn more anchor', () => {
@@ -355,15 +355,15 @@ describe('EmbedCard view component', () => {
 			expect(unauthorizedView).toBeTruthy();
 
 			const title = getByTestId(titleTestId);
-			expect(title.textContent).toBe('Connect your 3P account');
+			expect(title).toHaveTextContent('Connect your 3P account');
 
 			const description = getByTestId(descriptionTestId);
-			expect(description.textContent).toBe(
+			expect(description).toHaveTextContent(
 				'Connect your 3P account to collaborate on work across Atlassian products. Learn more about connecting your account to Atlassian products.',
 			);
 
 			const action = getByTestId(buttonTestId);
-			expect(action.textContent).toBe('Connect to 3P');
+			expect(action).toHaveTextContent('Connect to 3P');
 		});
 
 		it('renders learn more anchor with 3p auth url when `hasScopeOverrides` flag is provided in the meta', () => {
@@ -396,10 +396,10 @@ describe('EmbedCard view component', () => {
 			expect(svg).toBeInTheDocument();
 
 			const title = getByTestId(titleTestId);
-			expect(title.textContent).toBe("We can't display private pages from 3P");
+			expect(title).toHaveTextContent("We can't display private pages from 3P");
 
 			const description = getByTestId(descriptionTestId);
-			expect(description.textContent).toBe(
+			expect(description).toHaveTextContent(
 				"You're trying to preview a link to a private 3P page. We recommend you review the URL or contact the page owner.",
 			);
 
@@ -418,10 +418,10 @@ describe('EmbedCard view component', () => {
 			expect(svg).toBeInTheDocument();
 
 			const title = getByTestId(titleTestId);
-			expect(title.textContent).toBe("We can't display private pages");
+			expect(title).toHaveTextContent("We can't display private pages");
 
 			const description = getByTestId(descriptionTestId);
-			expect(description.textContent).toBe(
+			expect(description).toHaveTextContent(
 				"You're trying to preview a link to a private page. We recommend you review the URL or contact the page owner.",
 			);
 

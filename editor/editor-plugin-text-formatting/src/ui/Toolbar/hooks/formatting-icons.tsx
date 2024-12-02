@@ -8,7 +8,7 @@ import React, { useMemo } from 'react';
 import { jsx } from '@emotion/react';
 import type { MessageDescriptor, WrappedComponentProps } from 'react-intl-next';
 
-import { INPUT_METHOD, TOOLBAR_ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
+import { TOOLBAR_ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { Keymap } from '@atlaskit/editor-common/keymaps';
 import {
@@ -25,7 +25,12 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
-import type { Command, EditorCommand, TextFormattingState } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	EditorCommand,
+	InputMethodToolbar,
+	TextFormattingState,
+} from '@atlaskit/editor-common/types';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import BoldIcon from '@atlaskit/icon/core/migration/text-bold--editor-bold';
@@ -40,12 +45,14 @@ import {
 	toggleSuperscriptWithAnalytics,
 	toggleUnderlineWithAnalytics,
 } from '../../../commands';
+import { getInputMethod } from '../../../input-method-utils';
 import type { IconHookProps, MenuIconItem, MenuIconState } from '../types';
-import { IconTypes } from '../types';
+import { IconTypes, type ToolbarType } from '../types';
 
-const withToolbarInputMethod = (
-	func: (inputMethod: INPUT_METHOD.TOOLBAR) => EditorCommand,
-): Command => editorCommandToPMCommand(func(INPUT_METHOD.TOOLBAR));
+const withInputMethod = (
+	toolbarType: ToolbarType,
+	func: (inputMethod: InputMethodToolbar) => EditorCommand,
+): Command => editorCommandToPMCommand(func(getInputMethod(toolbarType)));
 
 type BuildIconProps = {
 	isToolbarDisabled: boolean;
@@ -63,43 +70,44 @@ type IconButtonType = {
 
 const IconButtons = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	toolbarType: ToolbarType,
 ): Record<IconTypes, IconButtonType> => ({
 	strong: {
 		buttonId: TOOLBAR_ACTION_SUBJECT_ID.TEXT_FORMATTING_STRONG,
-		command: withToolbarInputMethod(toggleStrongWithAnalytics(editorAnalyticsAPI)),
+		command: withInputMethod(toolbarType, toggleStrongWithAnalytics(editorAnalyticsAPI)),
 		message: toolbarMessages.bold,
 		tooltipKeymap: toggleBold,
 		component: () => <BoldIcon color="currentColor" spacing="spacious" label="" />,
 	},
 	em: {
 		buttonId: TOOLBAR_ACTION_SUBJECT_ID.TEXT_FORMATTING_ITALIC,
-		command: withToolbarInputMethod(toggleEmWithAnalytics(editorAnalyticsAPI)),
+		command: withInputMethod(toolbarType, toggleEmWithAnalytics(editorAnalyticsAPI)),
 		message: toolbarMessages.italic,
 		tooltipKeymap: toggleItalic,
 		component: () => <ItalicIcon color="currentColor" spacing="spacious" label="" />,
 	},
 	underline: {
-		command: withToolbarInputMethod(toggleUnderlineWithAnalytics(editorAnalyticsAPI)),
+		command: withInputMethod(toolbarType, toggleUnderlineWithAnalytics(editorAnalyticsAPI)),
 		message: toolbarMessages.underline,
 		tooltipKeymap: toggleUnderline,
 	},
 	strike: {
-		command: withToolbarInputMethod(toggleStrikeWithAnalytics(editorAnalyticsAPI)),
+		command: withInputMethod(toolbarType, toggleStrikeWithAnalytics(editorAnalyticsAPI)),
 		message: toolbarMessages.strike,
 		tooltipKeymap: toggleStrikethrough,
 	},
 	code: {
-		command: withToolbarInputMethod(toggleCodeWithAnalytics(editorAnalyticsAPI)),
+		command: withInputMethod(toolbarType, toggleCodeWithAnalytics(editorAnalyticsAPI)),
 		message: toolbarMessages.code,
 		tooltipKeymap: toggleCode,
 	},
 	subscript: {
-		command: withToolbarInputMethod(toggleSubscriptWithAnalytics(editorAnalyticsAPI)),
+		command: withInputMethod(toolbarType, toggleSubscriptWithAnalytics(editorAnalyticsAPI)),
 		message: toolbarMessages.subscript,
 		tooltipKeymap: toggleSubscript,
 	},
 	superscript: {
-		command: withToolbarInputMethod(toggleSuperscriptWithAnalytics(editorAnalyticsAPI)),
+		command: withInputMethod(toolbarType, toggleSuperscriptWithAnalytics(editorAnalyticsAPI)),
 		message: toolbarMessages.superscript,
 		tooltipKeymap: toggleSuperscript,
 	},
@@ -110,6 +118,7 @@ type GetIconProps = {
 	isDisabled: boolean;
 	isActive: boolean;
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	toolbarType: ToolbarType;
 } & WrappedComponentProps;
 const getIcon = ({
 	iconType,
@@ -117,8 +126,9 @@ const getIcon = ({
 	isActive,
 	intl,
 	editorAnalyticsAPI,
+	toolbarType,
 }: GetIconProps): MenuIconItem => {
-	const icon = IconButtons(editorAnalyticsAPI)[iconType];
+	const icon = IconButtons(editorAnalyticsAPI, toolbarType)[iconType];
 	const content = intl.formatMessage(icon.message);
 	const { tooltipKeymap } = icon;
 
@@ -187,7 +197,11 @@ const buildMenuIconState =
 		};
 	};
 
-const buildIcon = (iconMark: IconTypes, editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => {
+const buildIcon = (
+	iconMark: IconTypes,
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	toolbarType: ToolbarType,
+) => {
 	const getState = buildMenuIconState(iconMark);
 
 	return ({
@@ -210,6 +224,7 @@ const buildIcon = (iconMark: IconTypes, editorAnalyticsAPI: EditorAnalyticsAPI |
 					isActive,
 					intl,
 					editorAnalyticsAPI,
+					toolbarType,
 				}),
 			[isToolbarDisabled, isDisabled, isActive, intl],
 		);
@@ -226,6 +241,7 @@ interface FormattingIconHookProps extends IconHookProps {
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 	textFormattingState: TextFormattingState | undefined;
 	schema: Schema;
+	toolbarType: ToolbarType;
 }
 
 export const useFormattingIcons = ({
@@ -234,21 +250,23 @@ export const useFormattingIcons = ({
 	schema,
 	intl,
 	editorAnalyticsAPI,
+	toolbarType,
 }: FormattingIconHookProps): Array<MenuIconItem | null> => {
 	const props = {
 		schema,
 		textFormattingState,
 		intl,
 		isToolbarDisabled: Boolean(isToolbarDisabled),
+		toolbarType,
 	};
 
-	const buildStrongIcon = buildIcon(IconTypes.strong, editorAnalyticsAPI);
-	const buildEmIcon = buildIcon(IconTypes.em, editorAnalyticsAPI);
-	const buildUnderlineIcon = buildIcon(IconTypes.underline, editorAnalyticsAPI);
-	const buildStrikeIcon = buildIcon(IconTypes.strike, editorAnalyticsAPI);
-	const buildCodeIcon = buildIcon(IconTypes.code, editorAnalyticsAPI);
-	const buildSubscriptIcon = buildIcon(IconTypes.subscript, editorAnalyticsAPI);
-	const buildSuperscriptIcon = buildIcon(IconTypes.superscript, editorAnalyticsAPI);
+	const buildStrongIcon = buildIcon(IconTypes.strong, editorAnalyticsAPI, toolbarType);
+	const buildEmIcon = buildIcon(IconTypes.em, editorAnalyticsAPI, toolbarType);
+	const buildUnderlineIcon = buildIcon(IconTypes.underline, editorAnalyticsAPI, toolbarType);
+	const buildStrikeIcon = buildIcon(IconTypes.strike, editorAnalyticsAPI, toolbarType);
+	const buildCodeIcon = buildIcon(IconTypes.code, editorAnalyticsAPI, toolbarType);
+	const buildSubscriptIcon = buildIcon(IconTypes.subscript, editorAnalyticsAPI, toolbarType);
+	const buildSuperscriptIcon = buildIcon(IconTypes.superscript, editorAnalyticsAPI, toolbarType);
 
 	const strongIcon = buildStrongIcon(props);
 	const emIcon = buildEmIcon(props);

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-base
 
+## 2.0.6
+
+### Patch Changes
+
+- [#170774](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170774)
+  [`641b4dbf79095`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/641b4dbf79095) -
+  ED-25806: migrates editor plugins to folder standards
+- Updated dependencies
+
 ## 2.0.5
 
 ### Patch Changes

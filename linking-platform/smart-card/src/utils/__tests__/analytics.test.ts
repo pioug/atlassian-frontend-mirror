@@ -28,7 +28,7 @@ describe('fireSmartLinkEvent', () => {
 		fireSmartLinkEvent(payload, fakeCreateAnalyticsEvent);
 
 		expect(mockedFireFn).toHaveBeenCalledWith(ANALYTICS_CHANNEL);
-		expect(fakeCreateAnalyticsEvent).toBeCalled();
+		expect(fakeCreateAnalyticsEvent).toHaveBeenCalled();
 		expect(fakeCreateAnalyticsEvent).toHaveBeenCalledWith(payload);
 	});
 });

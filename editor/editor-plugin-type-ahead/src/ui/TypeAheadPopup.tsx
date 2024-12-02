@@ -313,6 +313,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 					decorationElement={anchorElement}
 					triggerHandler={triggerHandler}
 					moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
+					api={api}
 				/>
 			</div>
 		</Popup>

@@ -32,7 +32,7 @@ describe('Snippet', () => {
 	it('renders Snippet element', () => {
 		setup({ snippet: snippetContent });
 		const snippet = screen.queryByTestId(testId);
-		expect(snippet?.textContent).toBe(snippetContent);
+		expect(snippet).toHaveTextContent(snippetContent);
 		expect(snippet).toHaveStyleDeclaration('color', 'var(--ds-text, #172B4D)');
 	});
 
@@ -45,7 +45,7 @@ describe('Snippet', () => {
 		it('renders override content', () => {
 			setup(undefined, { content: overrideContent });
 			const snippet = screen.queryByTestId(testId);
-			expect(snippet?.textContent).toBe(overrideContent);
+			expect(snippet).toHaveTextContent(overrideContent);
 		});
 
 		it('renders intl message', () => {
@@ -72,7 +72,7 @@ describe('Snippet', () => {
 		it('renders override content as second priority', () => {
 			setup({ snippet: snippetContent }, { content: overrideContent });
 			const snippet = screen.queryByTestId(testId);
-			expect(snippet?.textContent).toBe(overrideContent);
+			expect(snippet).toHaveTextContent(overrideContent);
 		});
 	});
 

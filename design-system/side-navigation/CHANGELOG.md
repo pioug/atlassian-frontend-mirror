@@ -1,5 +1,14 @@
 # @atlaskit/side-navigation
 
+## 3.6.4
+
+### Patch Changes
+
+- [#167504](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167504)
+  [`3aef43e98843a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3aef43e98843a) -
+  Internal change to how styles are applied. There is no expected visual change.
+- Updated dependencies
+
 ## 3.6.3
 
 ### Patch Changes

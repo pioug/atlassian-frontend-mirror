@@ -1,8 +1,6 @@
-import type {
-	NodesCount,
-	PluginPerformanceReportData,
-	PluginPerformanceReportOptions,
-} from './plugin-performance-report';
+import type { PluginPerformanceReportData } from '@atlaskit/editor-common/analytics';
+
+import type { NodesCount, PluginPerformanceReportOptions } from './plugin-performance-report';
 import { PluginPerformanceReport } from './plugin-performance-report';
 import { SimpleMeasurementLogger } from './simple-measure-to-entries';
 import type { TransactionTracker } from './track-transactions';

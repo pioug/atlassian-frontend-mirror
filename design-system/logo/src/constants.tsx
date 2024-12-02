@@ -24,14 +24,6 @@ export type WrapperProps = LogoProps & {
 	svg: string;
 };
 
-export const sizes = {
-	xsmall: 16,
-	small: 24,
-	medium: 32,
-	large: 40,
-	xlarge: 48,
-} as const;
-
 /**
  * In order to pass linting rules, these props were renamed to be more descriptive i.e. props renamed to LogoProps and
  * defaultParams to defaultLogoParams. However, this is a breaking change as it is a file with public entry points. The code

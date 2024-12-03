@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::88e9a88c8c63124958931a2d4e3060d7>>
+ * @codegen <<SignedSource::5b6c35d68eec02b2681d2a43dfbfe10f>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _UNSAFE_baseNew = _interopRequireDefault(require("@atlaskit/icon/UNSAFE_base-new"));
+var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const AppSwitcherLegacyIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
+const AppSwitcherLegacyIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   dangerouslySetGlyph: `<path fill="currentcolor" d="M11.75 11.75h2.5v2.5h-2.5zm-10-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm5-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm5-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5z"/><path stroke="currentcolor" stroke-linejoin="round" stroke-width="1.5" d="M11.75 11.75h2.5v2.5h-2.5zm-10-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm5-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5zm5-10h2.5v2.5h-2.5zm0 5h2.5v2.5h-2.5z"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

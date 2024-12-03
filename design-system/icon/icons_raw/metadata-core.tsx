@@ -1,5 +1,5 @@
-import { type UNSAFE_IconMetadata } from '@af/icon-build-process';
-const metadata: UNSAFE_IconMetadata = {
+import { type IconMetadata } from '@af/icon-build-process';
+const metadata: IconMetadata = {
 	'ai-agent': {
 		keywords: ['Rovo', 'AI', 'chat agent', 'ai'],
 		categorization: 'single-purpose',
@@ -906,17 +906,6 @@ const metadata: UNSAFE_IconMetadata = {
 		usage:
 			'Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.',
 	},
-	// Added back as it was removed in a minor release
-	expand: {
-		keywords: ['diagonal', 'resize', 'enlarge'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage:
-			'Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.',
-	},
 	mention: {
 		keywords: ['at symbol', '@', 'tag', 'username'],
 		categorization: 'single-purpose',
@@ -1418,16 +1407,6 @@ const metadata: UNSAFE_IconMetadata = {
 			'Single purpose - Reserved for shrinking the height and width of modals, panels, media, or objects.',
 	},
 	'shrink-horizontal': {
-		keywords: ['contract', 'width', 'horizontal arrows'],
-		categorization: 'single-purpose',
-		location: '@atlaskit/icon',
-		team: 'Design System Team',
-		type: 'core',
-		status: 'published',
-		usage: 'Single purpose - Reserved for contracting or reducing the width of an element.',
-	},
-	// Added back as it was removed in a minor release
-	collapse: {
 		keywords: ['contract', 'width', 'horizontal arrows'],
 		categorization: 'single-purpose',
 		location: '@atlaskit/icon',
@@ -2291,17 +2270,6 @@ const metadata: UNSAFE_IconMetadata = {
 		type: 'core',
 		status: 'published',
 		usage: 'Multi purpose - Known uses: Request types in JSM, bugs in Jira.',
-	},
-	// Added back as it was removed in a minor release
-	'bulleted-list': {
-		keywords: ['bulleted-list', 'bulletedlist', 'icon', 'core', 'bullets', 'unordered list'],
-		location: '@atlaskit/icon',
-		oldName: ['bullet-list', 'editor/bullet-list'],
-		type: 'core',
-		categorization: 'multi-purpose',
-		usage: 'Multi purpose - Known uses: bulleted lists, view all.',
-		team: 'Design System Team',
-		status: 'published',
 	},
 	calendar: {
 		keywords: ['date', 'month', 'day', 'year', 'jira status'],

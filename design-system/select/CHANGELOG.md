@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 18.7.0
+
+### Minor Changes
+
+- [#171558](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171558)
+  [`d6493a162ba82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6493a162ba82) -
+  Update types to improve React 18 compatibility.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.6.1
 
 ### Patch Changes

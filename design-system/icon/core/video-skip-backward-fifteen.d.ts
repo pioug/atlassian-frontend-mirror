@@ -1,15 +1,13 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::677f5fc1c6f070d9410e2477630c7c91>>
+ * @codegen <<SignedSource::c5d1a91439f2863f0bec5dcfb9a7409d>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import type React from 'react';
-import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
-import type Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
 
 declare const VideoSkipBackwardFifteenIcon: {
-  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
+  (props: NewCoreIconProps): JSX.Element;
   displayName: string;
 };
 export default VideoSkipBackwardFifteenIcon;

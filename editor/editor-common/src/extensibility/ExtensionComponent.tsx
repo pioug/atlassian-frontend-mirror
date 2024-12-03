@@ -3,6 +3,7 @@ import React, { Component, useEffect, useLayoutEffect, useRef, useState } from '
 
 import memoizeOne from 'memoize-one';
 
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -20,7 +21,7 @@ import type {
 } from '../extensions';
 import type { ProsemirrorGetPosHandler } from '../react-node-view';
 import type { EditorAppearance } from '../types';
-import { getExtensionRenderer } from '../utils';
+import { getExtensionRenderer, nodeToJSON } from '../utils';
 
 import Extension from './Extension/Extension';
 import InlineExtension from './Extension/InlineExtension';
@@ -39,7 +40,8 @@ export interface Props {
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	eventDispatcher?: EventDispatcher;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
-	showLivePagesBodiedMacrosRendererView?: boolean;
+	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
+	rendererExtensionHandlers?: ExtensionHandlers;
 }
 
 export interface State {
@@ -90,7 +92,7 @@ export class ExtensionComponentOld extends Component<Props, State> {
 
 		const { node, showLivePagesBodiedMacrosRendererView } = this.props;
 		// We only care about this empty state on first page load or insertion to determine the view
-		if (showLivePagesBodiedMacrosRendererView && !isEmptyBodiedMacro(node)) {
+		if (!!showLivePagesBodiedMacrosRendererView?.(nodeToJSON(node)) && !isEmptyBodiedMacro(node)) {
 			this.setState({
 				showBodiedExtensionRendererView: true,
 			});
@@ -199,7 +201,9 @@ export class ExtensionComponentOld extends Component<Props, State> {
 						isNodeHovered={this.state.isNodeHovered}
 						isNodeNested={isNodeNested}
 						setIsNodeHovered={this.setIsNodeHovered}
-						showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+						showLivePagesBodiedMacrosRendererView={
+							!!showLivePagesBodiedMacrosRendererView?.(nodeToJSON(node))
+						}
 						showBodiedExtensionRendererView={this.state.showBodiedExtensionRendererView}
 						setShowBodiedExtensionRendererView={this.setShowBodiedExtensionRendererView}
 					>
@@ -360,7 +364,7 @@ export const ExtensionComponentNew = (props: Props) => {
 		undefined,
 	);
 	const [showBodiedExtensionRendererView, setShowBodiedExtensionRendererView] = useState<boolean>(
-		!!(showLivePagesBodiedMacrosRendererView && !isEmptyBodiedMacro(node)),
+		!!showLivePagesBodiedMacrosRendererView?.(nodeToJSON(node)) && !isEmptyBodiedMacro(node),
 	);
 	const mountedRef = useRef(true);
 
@@ -476,7 +480,9 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 						isNodeHovered={this.state.isNodeHovered}
 						isNodeNested={isNodeNested}
 						setIsNodeHovered={this.setIsNodeHovered}
-						showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+						showLivePagesBodiedMacrosRendererView={
+							!!showLivePagesBodiedMacrosRendererView?.(nodeToJSON(node))
+						}
 						showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 						setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
 					>

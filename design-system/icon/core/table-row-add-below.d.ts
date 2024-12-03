@@ -1,15 +1,13 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::62c6d93209e3de74475cd17e7fc74e75>>
+ * @codegen <<SignedSource::3157bbfda6c2f5cccfe4be75ff1e84df>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import type React from 'react';
-import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
-import type Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
 
 declare const TableRowAddBelowIcon: {
-  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
+  (props: NewCoreIconProps): JSX.Element;
   displayName: string;
 };
 export default TableRowAddBelowIcon;

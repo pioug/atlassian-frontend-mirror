@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/analytics-viewer",
-	"version": "0.6.3",
+	"version": "0.7.0",
 	"description": "Analytics viewer for the examples",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -22,7 +22,8 @@
 	},
 	"atlaskit:src": "src/index.ts",
 	"atlassian": {
-		"team": "UIP Frontend Observability"
+		"team": "UIP Frontend Observability",
+		"runReact18": true
 	},
 	"config": {
 		"access": "private"

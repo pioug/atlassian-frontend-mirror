@@ -1,15 +1,13 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a15033c0d77432be91ac9a28a41c8a2e>>
+ * @codegen <<SignedSource::693cd26d698ebfa15649ee9b942b6251>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import type React from 'react';
-import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
-import type Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
 
 declare const LibraryIcon: {
-  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
+  (props: NewCoreIconProps): JSX.Element;
   displayName: string;
 };
 export default LibraryIcon;

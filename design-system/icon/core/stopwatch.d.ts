@@ -1,15 +1,13 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cb1ae017c88f46f4fbe0fc417350bd9f>>
+ * @codegen <<SignedSource::c752c59b712975328921216bd00fe891>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import type React from 'react';
-import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
-import type Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
 
 declare const StopwatchIcon: {
-  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
+  (props: NewCoreIconProps): JSX.Element;
   displayName: string;
 };
 export default StopwatchIcon;

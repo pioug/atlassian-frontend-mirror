@@ -1,15 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::49cd38a67743f1a38e5f11daeb50fcfa>>
+ * @codegen <<SignedSource::69ec570eae0750b67f01e079cf37587c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
 import React from 'react';
-import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
-import Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
+import Icon from '@atlaskit/icon/base-new';
 
 declare const EditIconMigration: {
-  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
+  (props: Omit<NewCoreIconProps, | 'LEGACY_fallbackIcon'> ): JSX.Element;
   displayName: string;
 };
 export default EditIconMigration;

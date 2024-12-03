@@ -1,15 +1,13 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::c181b398955bd0f8c730fb14b4f403b9>>
+ * @codegen <<SignedSource::471b2fe5be658f3947c7507c23523e8b>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import type React from 'react';
-import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
-import type Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
 
 declare const ArrowUpLeftIcon: {
-  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
+  (props: NewCoreIconProps): JSX.Element;
   displayName: string;
 };
 export default ArrowUpLeftIcon;

@@ -1,15 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::2281b9936ea5faaf1400c178452beb2c>>
+ * @codegen <<SignedSource::ce8ae6dc857b6879c9813587974b6fb8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
 import React from 'react';
-import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
-import Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
+import Icon from '@atlaskit/icon/base-new';
 
 declare const VideoIconMigration: {
-  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
+  (props: Omit<NewCoreIconProps, | 'LEGACY_fallbackIcon'> ): JSX.Element;
   displayName: string;
 };
 export default VideoIconMigration;

@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::6a2a0a5715993e0dd235d38d95d6bbcc>>
+ * @codegen <<SignedSource::519effabaa6c383d7fa35374469faada>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -118,6 +118,28 @@ export type SmartLinkQuickActionFailedAttributesType = {
 export type ConsentModalViewedAttributesType = {
 	definitionId: string | null;
 };
+export type SmartLinkConnectSucceededAttributesType = {
+	definitionId: string | null;
+};
+export type SmartLinkConnectFailedAttributesType = {
+	reason: string | null;
+	definitionId: string | null;
+};
+export type SmartLinkResolvedAttributesType = {
+	definitionId: string | null;
+	duration: number | null;
+};
+export type SmartLinkUnresolvedAttributesType = {
+	definitionId: string | null;
+	error: Record<string, unknown> | null;
+	reason: string;
+};
+export type SmartLinkChunkLoadFailedAttributesType = {
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	definitionId: string | null;
+	error: Record<string, unknown>;
+	errorInfo: Record<string, unknown>;
+};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -183,6 +205,21 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fires an event which represents the connect account page being opened. */
 	'screen.consentModal.viewed': ConsentModalViewedAttributesType;
+	/**
+	 * fires an event that represents an account successfully being connected via a Smart Link. */
+	'operational.smartLink.connectSucceeded': SmartLinkConnectSucceededAttributesType;
+	/**
+	 * fires an event that represents an account unsuccessfully being connected. */
+	'operational.smartLink.connectFailed': SmartLinkConnectFailedAttributesType;
+	/**
+	 * fires an event which represents a Smart Link request succeeding. */
+	'operational.smartLink.resolved': SmartLinkResolvedAttributesType;
+	/**
+	 * fires an event which represents a Smart Link request failing. */
+	'operational.smartLink.unresolved': SmartLinkUnresolvedAttributesType;
+	/**
+	 * fires an event that represents when a Smart Link renders unsuccessfully. */
+	'operational.smartLink.chunkLoadFailed': SmartLinkChunkLoadFailedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

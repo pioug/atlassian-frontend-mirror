@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { type ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
@@ -54,7 +55,8 @@ export class ExtensionNode extends ReactNodeView {
 			extensionNodeViewOptions?: ExtensionNodeViewOptions;
 			pluginInjectionApi: ExtensionsPluginInjectionAPI;
 			macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
-			showLivePagesBodiedMacrosRendererView?: boolean;
+			showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
+			rendererExtensionHandlers?: ExtensionHandlers;
 		},
 		forwardRef: ForwardRef,
 	) {
@@ -81,6 +83,7 @@ export class ExtensionNode extends ReactNodeView {
 					pluginInjectionApi={props.pluginInjectionApi}
 					macroInteractionDesignFeatureFlags={props.macroInteractionDesignFeatureFlags}
 					showLivePagesBodiedMacrosRendererView={props.showLivePagesBodiedMacrosRendererView}
+					rendererExtensionHandlers={props.rendererExtensionHandlers}
 				/>
 			</ExtensionNodeWrapper>
 		);
@@ -95,7 +98,8 @@ export default function ExtensionNodeView(
 	extensionNodeViewOptions: ExtensionNodeViewOptions,
 	pluginInjectionApi: ExtensionsPluginInjectionAPI,
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags,
-	showLivePagesBodiedMacrosRendererView?: boolean,
+	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean,
+	rendererExtensionHandlers?: ExtensionHandlers,
 ) {
 	return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
 		return new ExtensionNode(node, view, getPos, portalProviderAPI, eventDispatcher, {
@@ -105,6 +109,7 @@ export default function ExtensionNodeView(
 			pluginInjectionApi,
 			macroInteractionDesignFeatureFlags,
 			showLivePagesBodiedMacrosRendererView,
+			rendererExtensionHandlers,
 		}).init();
 	};
 }

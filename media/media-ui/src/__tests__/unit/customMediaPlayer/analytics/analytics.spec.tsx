@@ -42,7 +42,7 @@ describe('CustomMediaPlayer Analytics', () => {
 
 		let updatePlayerMockCurrentTime: React.Dispatch<React.SetStateAction<number>> | undefined;
 
-		const MockMediaPlayer: React.FC<VideoProps> = (props: React.PropsWithChildren<VideoProps>) => {
+		const MockMediaPlayer: React.FC<VideoProps> = (props: VideoProps) => {
 			const { children } = props;
 			const [mockedCurrentTime, setMockedCurrentTime] = useState(currentTime);
 

@@ -68,6 +68,7 @@ export interface Team {
 		fullName: string;
 		avatarUrl: string;
 	}[];
+	isVerified?: boolean;
 }
 
 export interface RovoAgent {

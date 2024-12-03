@@ -13,12 +13,15 @@ const PropertyViewerContainer = styled.span({
 	border: '1px solid #888',
 });
 
-type Props<T extends {}> = {
+type Props<T extends Record<string, unknown>> = {
 	object: T;
-	property: keyof T;
+	property: string & keyof T;
 };
 
-export const PropertyViewer = <T extends {}>({ object, property }: Props<T>) => {
+export const PropertyViewer = <T extends Record<string, unknown>>({
+	object,
+	property,
+}: Props<T>) => {
 	if (object[property] !== undefined) {
 		return (
 			<PropertyViewerContainer>

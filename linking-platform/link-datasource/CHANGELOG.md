@@ -1,5 +1,34 @@
 # @atlaskit/link-datasource
 
+## 3.13.14
+
+### Patch Changes
+
+- [#172115](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172115)
+  [`9901c2636590b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9901c2636590b) -
+  [ux] Changing default width and min width of status column to 100px
+
+## 3.13.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.13.12
+
+### Patch Changes
+
+- [#170892](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170892)
+  [`fc4f33614b75d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc4f33614b75d) -
+  [ux] Adding tooltip to inline edit dropdown options
+- Updated dependencies
+
+## 3.13.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.13.10
 
 ### Patch Changes

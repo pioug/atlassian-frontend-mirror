@@ -134,3 +134,28 @@ snapshotInformational(IssueLikeTable, {
 		},
 	],
 });
+
+snapshotInformational(IssueLikeTable, {
+	description: 'User column - inline edit with flags enabled - options tooltip',
+	prepare: async (page: Page) => {
+		await page.getByTestId('link-datasource-render-type--user').first().click();
+
+		// Wait until the loaded user option 'blocker' is visible in the dropdown
+		await page.getByRole('listbox').getByText('Mike').waitFor({ state: 'visible' });
+		await page.getByRole('listbox').getByText('Mike').hover();
+	},
+	drawsOutsideBounds: true,
+	featureFlags: {
+		enable_datasource_react_sweet_state: true,
+		'platform-datasources-enable-two-way-sync': true,
+		'platform-datasources-enable-two-way-sync-assignee': true,
+		enable_datasource_supporting_actions: true,
+	},
+	ignoredErrors: [
+		{
+			pattern: /(received unsupported error)|(The above error occurred in the)/,
+			ignoredBecause: 'Intentionally triggering an error to capture error boundary fallback',
+			jiraIssueId: 'NONE-123',
+		},
+	],
+});

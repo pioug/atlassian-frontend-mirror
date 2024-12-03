@@ -302,7 +302,7 @@ export const dropTargetDecorations = (
 				}
 				return shouldDescend(node); //skip over, don't consider it a valid depth
 			}
-			const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode, node);
+			const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node);
 
 			//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
 			if (!canDrop && !isBlocksDragTargetDebug()) {

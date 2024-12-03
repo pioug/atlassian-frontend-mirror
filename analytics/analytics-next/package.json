@@ -103,7 +103,7 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform.analytics-next-use-modern-context_fqgbx": {
+		"analytics-next-use-modern-context_jira": {
 			"type": "boolean"
 		}
 	}

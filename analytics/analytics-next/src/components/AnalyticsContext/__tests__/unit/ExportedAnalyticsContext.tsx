@@ -18,7 +18,7 @@ jest.mock('../../ModernAnalyticsContext', () => ({
 
 describe('ExportedAnalyticsListener', () => {
 	ffTest(
-		'platform.analytics-next-use-modern-context_fqgbx',
+		'analytics-next-use-modern-context_jira',
 		() => {
 			render(
 				<AnalyticsContext data={{ ticket: 'MAGMA-123' }}>

@@ -12,7 +12,7 @@ import { getSelectedIndex } from './utils';
 import { createNavigatedEvent } from './analytics/events/ui/navigated';
 import { fireAnalytics } from './analytics';
 import { Pressable, xcss } from '@atlaskit/primitives';
-import { type UNSAFE_NewIconProps } from '@atlaskit/icon';
+import { type NewIconProps } from '@atlaskit/icon';
 
 export type NavigationDirection = 'prev' | 'next';
 
@@ -63,7 +63,7 @@ type IconProps = {
 	testId: string;
 };
 
-const withIconWrapper = (Component: React.ComponentType<UNSAFE_NewIconProps>) => {
+const withIconWrapper = (Component: React.ComponentType<NewIconProps>) => {
 	return ({ label, clickHandler, testId }: IconProps) => (
 		<Pressable
 			xcss={[wrapperStyles, label === 'Next' ? iconRightStyles : iconLeftStyles]}

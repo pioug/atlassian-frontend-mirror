@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.12.14
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.12.13
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.12.12
 
 ### Patch Changes

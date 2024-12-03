@@ -79,7 +79,7 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 		document.body.appendChild(container);
 		if (process.env.IS_REACT_18 === 'true') {
 			// @ts-ignore react-dom/client only available in react 18
-			// eslint-disable-next-line import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
+			// eslint-disable-next-line @repo/internal/import/no-unresolved, import/dynamic-import-chunkname -- react-dom/client only available in react 18
 			const { createRoot } = await import('react-dom/client');
 			root = createRoot(container!);
 		}

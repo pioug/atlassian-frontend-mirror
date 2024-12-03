@@ -1,5 +1,18 @@
 # @atlaskit/icon-file-type
 
+## 6.8.0
+
+### Minor Changes
+
+- [#171994](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171994)
+  [`be58e4bb2e387`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be58e4bb2e387) -
+  Re-building the icons due to UNSAFE types and entrypoints being renamed in the `@atlaskit/icon`
+  package.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.7.0
 
 ### Minor Changes

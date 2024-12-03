@@ -1,15 +1,15 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::a7e1de2c40e3e7e04b417d27ba64ff85>>
+ * @codegen <<SignedSource::b2c7ffb5c7e299fe6bd1acbcd04b6928>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
 import React from 'react';
-import type { NewCoreIconProps } from '@atlaskit/icon/UNSAFE_base-new';
-import Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type { NewCoreIconProps } from '@atlaskit/icon/base-new';
+import Icon from '@atlaskit/icon/base-new';
 
 declare const BriefcaseIconMigration: {
-  (props: Omit<NewCoreIconProps, 'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon'> ): JSX.Element;
+  (props: Omit<NewCoreIconProps, | 'LEGACY_fallbackIcon'> ): JSX.Element;
   displayName: string;
 };
 export default BriefcaseIconMigration;

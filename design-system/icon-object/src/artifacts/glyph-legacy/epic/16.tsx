@@ -1,11 +1,11 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6e0684606b83c0fb980bcb1c08cae949>>
+ * @codegen <<SignedSource::2cb559f656356bdb13b54acac6c1eee2>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
 
-import { UNSAFE_IconFacade as IconFacade } from '@atlaskit/icon/base';
+import { IconFacade } from '@atlaskit/icon/base';
 import type { GlyphProps } from '@atlaskit/icon/types';
 
 const Epic16Icon = (props: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => (

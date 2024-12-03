@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.18
+
+### Patch Changes
+
+- [#171994](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171994)
+  [`be58e4bb2e387`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be58e4bb2e387) -
+  Migrating usages of UNSAFE types and entrypoints that have been renamed in `@atlaskit/icon` and
+  `@atlaskit/icon-lab`.
+- Updated dependencies
+
+## 2.4.17
+
+### Patch Changes
+
+- [#171281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171281)
+  [`10b213d7981fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/10b213d7981fe) -
+  Prefer the plus menu button placement on the bottom where there is insufficient room on the top.
+- Updated dependencies
+
 ## 2.4.16
 
 ### Patch Changes

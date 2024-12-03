@@ -105,7 +105,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 				title={labelCellOptions}
 				keymap={focusToContextMenuTrigger}
 				onClick={handleClick}
-				iconBefore={<ExpandIcon label="" color="currentColor" isFacadeDisabled={true} />}
+				iconBefore={<ExpandIcon label="" color="currentColor" />}
 				aria-label={labelCellOptions}
 				aria-expanded={isContextualMenuOpen}
 			/>

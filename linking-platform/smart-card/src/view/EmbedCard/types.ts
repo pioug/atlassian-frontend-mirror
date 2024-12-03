@@ -1,5 +1,7 @@
 import { type ReactNode } from 'react';
 
+import { type CardProviderRenderers } from '@atlaskit/link-provider';
+
 import { type RequestAccessMessageKey } from '../../messages';
 import { type InvokeHandler } from '../../model/invoke-handler';
 import { type AnalyticsFacade } from '../../state/analytics';
@@ -33,6 +35,7 @@ export type EmbedCardProps = {
 	onIframeDwell?: (dwellTime: number, dwellPercentVisible: number) => void;
 	onIframeFocus?: () => void;
 	iframeUrlType?: EmbedIframeUrlType;
+	renderers?: CardProviderRenderers;
 };
 export interface WithShowControlMethodProp {
 	showControls?: () => void;

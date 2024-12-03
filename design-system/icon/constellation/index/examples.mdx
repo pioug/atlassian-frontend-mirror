@@ -5,6 +5,9 @@ order: 1
 import IconDefaultNew from '../../examples/constellation/icon-default-new.tsx';
 import IconUtility from '../../examples/constellation/icon-utility.tsx';
 import IconColor from '../../examples/constellation/icon-color.tsx';
+import IconLabel from '../../examples/constellation/icon-label.tsx';
+import IconMigration from '../../examples/constellation/icon-migration.tsx';
+import IconSpacing from '../../examples/constellation/icon-spacing.tsx';
 
 ## Default (16px)
 
@@ -19,10 +22,37 @@ glyphs aren't legible at this size, so only certain icons are offered at 12px.
 
 <Example Component={IconUtility} packageName="@atlaskit/icon" />
 
+## Label
+
+If an icon doesn’t have an existing text label or accessible text, provide a clear label with the
+`label` prop.
+
+If an icon is associated with a button or element that also has a text label, you don’t need to
+provide alternative text for the icon, because the label clarifies the meaning of the icon. You can
+do this by setting the `label` prop to an empty string (`""`).
+
+<Example Component={IconLabel} packageName="@atlaskit/icon" />
+
 ## Color
 
 Icons can use color tokens for icons, text, links, or the current text color.
 
 <Example Component={IconColor} packageName="@atlaskit/icon" />
 
-More examples coming soon.
+## Spacing props
+
+Icons support a `spacing` prop to add padding around the icon. `spacious` spacing sets the bounding
+box to `24px`; utility icons support an additional option, `compact`, that sets the bounding box to
+`16px`.
+
+<Example Component={IconSpacing} packageName="@atlaskit/icon" />
+
+## Migration
+
+Atlassian products can feature flag between the old and new icon components via the `migration`
+entrypoint for the new icons, or manually via the `LEGACY_fallbackIcon` prop.
+
+<Example Component={IconMigration} packageName="@atlaskit/icon" />
+
+To learn more about feature flagging and `LEGACY_` prefixed props, see the
+[icon migration guide](/components/icon/migration-guide#atlassian-developers).

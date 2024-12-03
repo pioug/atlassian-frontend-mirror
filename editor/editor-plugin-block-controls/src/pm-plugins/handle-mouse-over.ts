@@ -1,5 +1,4 @@
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -11,31 +10,6 @@ const isEmptyNestedParagraphOrHeading = (target: EventTarget | null) => {
 		return !target.parentElement?.classList.contains('ProseMirror') && target.textContent === '';
 	}
 	return false;
-};
-
-const isEmptyParagraphOrPlaceholder = (node?: PMNode | null): boolean => {
-	if (node && node.type.name === 'paragraph') {
-		return (
-			node.childCount === 0 ||
-			(node.childCount === 1 && node.firstChild?.type.name === 'placeholder')
-		);
-	}
-	return false;
-};
-
-const isLayoutColumnWithoutContent = (node: PMNode) => {
-	if (node?.type.name === 'layoutColumn') {
-		let foundNonEmptyNode = false;
-		for (let i = 0; i < node.childCount; i++) {
-			const child = node.child(i);
-			if (!isEmptyParagraphOrPlaceholder(child)) {
-				foundNonEmptyNode = true;
-				break;
-			}
-		}
-
-		return !foundNonEmptyNode;
-	}
 };
 
 export const handleMouseOver = (
@@ -128,12 +102,6 @@ export const handleMouseOver = (
 			}
 		} else {
 			pos = view.posAtDOM(rootElement, 0);
-		}
-
-		const node = view.state.doc.nodeAt(pos);
-		if (editorExperiment('advanced_layouts', true) && node && isLayoutColumnWithoutContent(node)) {
-			// Don't show drag handle when there is no content/only placeholder in layout column
-			return false;
 		}
 
 		let rootPos: number;

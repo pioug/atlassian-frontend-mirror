@@ -1,11 +1,11 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::cda124429f85e1a713acb7202de47f65>>
+ * @codegen <<SignedSource::d02e855adc6c6e52d92d1952a60d181c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
 
-import { UNSAFE_IconFacade as IconFacade } from '@atlaskit/icon/base';
+import { IconFacade } from '@atlaskit/icon/base';
 import type { GlyphProps } from '@atlaskit/icon/types';
 
 const Issue24Icon = (props: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => (

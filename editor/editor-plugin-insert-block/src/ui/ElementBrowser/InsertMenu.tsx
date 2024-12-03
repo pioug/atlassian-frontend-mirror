@@ -37,7 +37,7 @@ import { token } from '@atlaskit/tokens';
 
 import type { InsertMenuProps, SvgGetterParams } from './types';
 
-const DEFAULT_HEIGHT = 560;
+export const DEFAULT_HEIGHT = 560;
 
 const InsertMenu = ({
 	editorView,
@@ -207,7 +207,7 @@ const InsertMenu = ({
 			<ElementBrowserWrapper
 				handleClickOutside={toggleVisiblity}
 				handleEscapeKeydown={toggleVisiblity}
-				closeOnTab={true}
+				closeOnTab
 			>
 				<ElementBrowser
 					mode="inline"

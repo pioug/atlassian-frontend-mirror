@@ -1,11 +1,11 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::3b1c2d9c20556eaee90a304900c33f00>>
+ * @codegen <<SignedSource::426ff1debe71e8b9d8a16f3e635c26a8>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
 
-import { UNSAFE_IconFacade as IconFacade } from '@atlaskit/icon/base';
+import { IconFacade } from '@atlaskit/icon/base';
 import type { GlyphProps } from '@atlaskit/icon/types';
 
 const Improvement16Icon = (props: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => (

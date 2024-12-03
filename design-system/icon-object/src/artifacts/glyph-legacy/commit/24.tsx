@@ -1,11 +1,11 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::d146e653230d1f915fd85e3a68727099>>
+ * @codegen <<SignedSource::1bf4e367192434decf98ec95a6bf0b2e>>
  * @codegenCommand yarn build:icon-glyphs
  */
 import React from 'react';
 
-import { UNSAFE_IconFacade as IconFacade } from '@atlaskit/icon/base';
+import { IconFacade } from '@atlaskit/icon/base';
 import type { GlyphProps } from '@atlaskit/icon/types';
 
 const Commit24Icon = (props: Omit<GlyphProps, 'primaryColor' | 'secondaryColor' | 'size'>) => (

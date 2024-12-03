@@ -14,7 +14,7 @@ afterEach(() => {
 // 	See conversation https://hello.atlassian.net/wiki/x/HtE48
 let hydrateRoot: unknown;
 try {
-	// eslint-disable-next-line import/no-unresolved
+	// eslint-disable-next-line @repo/internal/import/no-unresolved
 	hydrateRoot = require('react-dom/client').hydrateRoot;
 } catch (e) {
 	/* Skipping error */

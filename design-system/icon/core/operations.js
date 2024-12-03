@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::b039f8c28dc08cf3bc8eedb29247fb45>>
+ * @codegen <<SignedSource::85d817b4d0c7a913713da922da0e3732>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _UNSAFE_baseNew = _interopRequireDefault(require("@atlaskit/icon/UNSAFE_base-new"));
+var _baseNew = _interopRequireDefault(require("@atlaskit/icon/base-new"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**
  * ⚠️ EXPERIMENTAL ⚠️ - New icons are in alpha - and subject to change or removal in future minor or patch releases.
@@ -23,7 +23,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-const OperationsIcon = props => /*#__PURE__*/_react.default.createElement(_UNSAFE_baseNew.default, Object.assign({
+const OperationsIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
   dangerouslySetGlyph: `<path stroke="currentcolor" stroke-width="1.5" d="M10.652 5.348A3.75 3.75 0 1 0 8 11.75m-.25-3.5 5.377-5.377A7.25 7.25 0 1 0 8 15.25"/><path fill="currentcolor" fill-rule="evenodd" d="M14.58 4.862a.75.75 0 0 1 .959.454l.008.025a.75.75 0 1 1-1.414.499l-.007-.02a.75.75 0 0 1 .454-.958m-2.798 2.573a.75.75 0 0 1 .713.786l-.001.015-.001.014a.75.75 0 1 1-1.498-.083v-.01l.001-.01a.75.75 0 0 1 .786-.712m3.497.184a.75.75 0 0 1 .71.787v.026a.75.75 0 1 1-1.498-.081V8.33a.75.75 0 0 1 .788-.711m-4.205 2.656a.75.75 0 0 1-.052 1.06l-.022.019a.75.75 0 1 1-1-1.118l.015-.013a.75.75 0 0 1 1.059.052m3.799.16a.75.75 0 0 1 .355.999l-.011.023a.75.75 0 0 1-1.353-.649l.01-.019a.75.75 0 0 1 .999-.355m-1.457 2.442a.75.75 0 0 1-.053 1.06l-.02.017a.75.75 0 1 1-1.001-1.117l.015-.014a.75.75 0 0 1 1.06.054m-2.278 1.703a.75.75 0 0 1-.454.959l-.025.008a.75.75 0 1 1-.499-1.414l.02-.007a.75.75 0 0 1 .958.454" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));

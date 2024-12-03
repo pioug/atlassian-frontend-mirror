@@ -94,6 +94,11 @@ interface CustomSelectProps extends WithAnalyticsEventsProps {
 export interface SelectProps<Option, IsMulti extends boolean = false>
 	extends ReactSelectProps<Option, IsMulti>,
 		CustomSelectProps {
+	formatOptionLabel?: (
+		data: Option,
+		formatOptionLabelMeta: FormatOptionLabelMeta<Option>,
+	) => React.ReactNode;
+	noOptionsMessage?: (obj: { inputValue: string }) => React.ReactNode;
 	// temp fix to support unofficial props. https://product-fabric.atlassian.net/browse/DSP-21074
 	[key: string]: any;
 }

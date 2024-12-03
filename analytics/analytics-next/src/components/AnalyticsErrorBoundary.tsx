@@ -50,7 +50,7 @@ export default class AnalyticsErrorBoundary extends Component<
 		const { data, children, ErrorComponent } = this.props;
 		const { hasError } = this.state;
 		const isModernContext =
-			isModernContextEnabledEnv || fg('platform.analytics-next-use-modern-context_fqgbx');
+			isModernContextEnabledEnv || fg('analytics-next-use-modern-context_jira');
 
 		if (hasError) {
 			if (ErrorComponent) {

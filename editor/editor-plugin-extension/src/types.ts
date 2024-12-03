@@ -1,3 +1,4 @@
+import type { ADFEntity } from '@atlaskit/adf-utils/types';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
 	ExtensionAPI,
@@ -63,7 +64,10 @@ export interface ExtensionPluginOptions extends LongPressSelectionPluginOptions 
 	extensionHandlers?: ExtensionHandlers;
 	appearance?: EditorAppearance;
 	allowDragAndDrop?: boolean;
-	__livePage?: boolean;
+	__rendererExtensionOptions?: {
+		rendererExtensionHandlers?: ExtensionHandlers;
+		isAllowedToUseRendererView: (node: ADFEntity) => boolean;
+	};
 }
 
 type InsertMacroFromMacroBrowser = (

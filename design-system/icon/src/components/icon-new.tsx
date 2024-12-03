@@ -10,13 +10,13 @@ import { css, jsx } from '@emotion/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import type { NewIconProps } from '../types';
+import type { UNSAFE_NewGlyphProps } from '../types';
 
 /**
  * We are hiding this props from consumers as it's reserved
  * for use by Icon Tile.
  */
-export type InternalIconPropsNew = NewIconProps & {
+export type InternalIconPropsNew = UNSAFE_NewGlyphProps & {
 	/**
 	 * @internal NOT FOR PUBLIC USE.
 	 * Sets whether the icon should inherit size from a parent. Used by Icon Tile.
@@ -128,7 +128,7 @@ const paddingMap = {
  * - [Examples](https://atlaskit.atlassian.com/packages/design-system/icon)
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
-export const Icon = memo(function Icon(props: NewIconProps) {
+export const Icon = memo(function Icon(props: UNSAFE_NewGlyphProps) {
 	const {
 		color = 'currentColor',
 		testId,

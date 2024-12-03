@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-filmstrip",
-	"version": "48.1.0",
+	"version": "48.1.1",
 	"description": "Includes components that show media cards as a filmstrip",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^22.28.0",
+		"@atlaskit/icon": "^23.0.0",
 		"@atlaskit/media-card": "^78.15.0",
 		"@atlaskit/media-client": "^28.5.0",
 		"@atlaskit/media-client-react": "^2.4.0",

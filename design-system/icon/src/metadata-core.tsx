@@ -1,9 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
- * To change the format of this file, modify `UNSAFE_createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
+ * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::2bc63b966f9ddb3b49da0d4179774c48>>
+ * @codegen <<SignedSource::7ee5d608c596d6e618679140e4d13235>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -589,27 +589,6 @@ const metadata: Record<string, metadata> = {
 		usage: 'Multi purpose - Known uses: Request types in JSM, bugs in Jira.',
 		team: 'Design System Team',
 	},
-	'bulleted-list': {
-		keywords: [
-			'bulleted-list',
-			'bulletedlist',
-			'icon',
-			'core',
-			'bulleted-list',
-			'bulletedlist',
-			'icon',
-			'core',
-			'bullets',
-			'unordered list',
-		],
-		componentName: 'BulletedListIcon',
-		package: '@atlaskit/icon/core/bulleted-list',
-		oldName: ['bullet-list', 'editor/bullet-list'],
-		type: 'core',
-		categorization: 'multi-purpose',
-		usage: 'Multi purpose - Known uses: bulleted lists, view all.',
-		team: 'Design System Team',
-	},
 	calendar: {
 		keywords: ['calendar', 'date', 'icon', 'core', 'date', 'month', 'day', 'year', 'jira status'],
 		componentName: 'CalendarIcon',
@@ -879,16 +858,6 @@ const metadata: Record<string, metadata> = {
 		type: 'core',
 		categorization: 'multi-purpose',
 		usage: 'Multi purpose - Known uses: deployments in Jira.',
-		team: 'Design System Team',
-	},
-	collapse: {
-		keywords: ['collapse', 'icon', 'core', 'contract', 'width', 'horizontal arrows'],
-		componentName: 'CollapseIcon',
-		package: '@atlaskit/icon/core/collapse',
-		oldName: ['editor/collapse'],
-		type: 'core',
-		categorization: 'single-purpose',
-		usage: 'Single purpose - Reserved for contracting or reducing the width of an element.',
 		team: 'Design System Team',
 	},
 	'collapse-horizontal': {
@@ -1496,17 +1465,6 @@ const metadata: Record<string, metadata> = {
 		type: 'core',
 		categorization: 'single-purpose',
 		usage: 'Single purpose - Reserved for when there is an error.',
-		team: 'Design System Team',
-	},
-	expand: {
-		keywords: ['expand', 'icon', 'core', 'diagonal', 'resize', 'enlarge'],
-		componentName: 'ExpandIcon',
-		package: '@atlaskit/icon/core/expand',
-		oldName: ['editor/expand', 'editor/image-resize', 'image-resize'],
-		type: 'core',
-		categorization: 'single-purpose',
-		usage:
-			'Single purpose - Reserved for resizing screens, panels, modals, or media to its maximum size.',
 		team: 'Design System Team',
 	},
 	'expand-horizontal': {

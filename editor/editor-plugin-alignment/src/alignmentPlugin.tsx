@@ -1,12 +1,18 @@
 import React from 'react';
 
 import { alignment } from '@atlaskit/adf-schema';
-import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	FloatingToolbarCustom,
+	ToolbarUIComponentFactory,
+} from '@atlaskit/editor-common/types';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AlignmentPlugin } from './alignmentPluginType';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { createPlugin, pluginKey } from './pm-plugins/main';
 import type { AlignmentPluginState } from './pm-plugins/types';
+import { FloatingToolbarComponent } from './ui/FloatingToolbarComponent';
 import { PrimaryToolbarComponent } from './ui/PrimaryToolbarComponent';
 
 export const defaultConfig: AlignmentPluginState = {
@@ -70,6 +76,31 @@ export const alignmentPlugin: AlignmentPlugin = ({ api }) => {
 					plugin: () => keymapPlugin(),
 				},
 			];
+		},
+
+		pluginsOptions: {
+			selectionToolbar: () => {
+				if (editorExperiment('contextual_formatting_toolbar', true, { exposure: true })) {
+					const toolbarCustom: FloatingToolbarCustom<Command> = {
+						type: 'custom',
+						render: (view) => {
+							if (!view) {
+								return;
+							}
+
+							return <FloatingToolbarComponent api={api} editorView={view} />;
+						},
+						fallback: [],
+					};
+
+					return {
+						isToolbarAbove: true,
+						items: [toolbarCustom],
+					};
+				} else {
+					return undefined;
+				}
+			},
 		},
 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,

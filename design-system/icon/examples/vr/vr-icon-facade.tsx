@@ -3,7 +3,7 @@ import React, { type FC } from 'react';
 import DashboardIcon from '@atlaskit/icon/core/dashboard';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { UNSAFE_IconFacade as IconFacade } from '../../src/entry-points/base';
+import { IconFacade } from '../../src/entry-points/base';
 import { type Size } from '../../src/types';
 
 const iconRowStyles = xcss({

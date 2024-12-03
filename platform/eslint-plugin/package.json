@@ -1,7 +1,7 @@
 {
 	"name": "@atlaskit/eslint-plugin-platform",
 	"description": "The essential plugin for use with Atlassian frontend platform tools",
-	"version": "0.13.0",
+	"version": "0.13.1",
 	"author": "Atlassian Pty Ltd",
 	"atlassian": {
 		"team": "Build Infra",
@@ -41,8 +41,12 @@
 	},
 	"devDependencies": {
 		"@atlassian/ts-loader": "*",
+		"@compiled/eslint-plugin": "^0.17.0",
 		"@types/eslint": "^8.56.6",
 		"eslint": "^8.57.0",
 		"outdent": "^0.5.0"
+	},
+	"peerDependencies": {
+		"@compiled/eslint-plugin": "^0.17.0"
 	}
 }

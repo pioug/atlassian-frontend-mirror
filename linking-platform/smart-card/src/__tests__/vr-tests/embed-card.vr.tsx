@@ -26,6 +26,8 @@ import EmbedCardNotFoundView from '../../../examples/vr-embed-card/vr-embed-card
 import EmbedCardNotFoundViewFrameHide from '../../../examples/vr-embed-card/vr-embed-card-not-found-frame-hide';
 import EmbedCardNotFoundSiteAccessExists from '../../../examples/vr-embed-card/vr-embed-card-not-found-site-access-exists';
 import EmbedCardResolvedView from '../../../examples/vr-embed-card/vr-embed-card-resolved';
+import EmbedCardResolvedViewNoPreview from '../../../examples/vr-embed-card/vr-embed-card-resolved-no-preview';
+import EmbedCardResolvingView from '../../../examples/vr-embed-card/vr-embed-card-resolving';
 import EmbedCardSelected from '../../../examples/vr-embed-card/vr-embed-card-selected';
 import EmbedCardUnauthorisedView from '../../../examples/vr-embed-card/vr-embed-card-unauthorised';
 import EmbedCardUnauthorisedViewFrameHide from '../../../examples/vr-embed-card/vr-embed-card-unauthorised-frame-hide';
@@ -49,6 +51,16 @@ snapshot(EmbedCardNotFoundView);
 snapshot(EmbedCardNotFoundDefault);
 snapshot(EmbedCardNotFoundSiteAccessExists);
 snapshot(EmbedCardResolvedView);
+snapshot(EmbedCardResolvedViewNoPreview, {
+	featureFlags: {
+		'smart-card-remove-block-card-from-embed': [true, false],
+	},
+});
+snapshot(EmbedCardResolvingView, {
+	featureFlags: {
+		'smart-card-remove-block-card-from-embed': [true, false],
+	},
+});
 snapshot(EmbedCardSelected);
 snapshot(EmbedCardUnauthorisedView);
 snapshot(EmbedCardUnauthorisedViewWithProviderImage);

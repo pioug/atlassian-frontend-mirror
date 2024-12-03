@@ -3,7 +3,7 @@ import React, { forwardRef, useCallback, useMemo, useState } from 'react';
 import deburr from 'lodash/deburr';
 import noop from 'lodash/noop';
 
-import { type IconProps, type UNSAFE_NewCoreIconProps } from '@atlaskit/icon';
+import { type IconProps, type NewCoreIconProps } from '@atlaskit/icon';
 import AlignLeftIcon from '@atlaskit/icon/core/align-left';
 import CalendarIcon from '@atlaskit/icon/core/calendar';
 import ClockIcon from '@atlaskit/icon/core/clock';
@@ -50,7 +50,7 @@ type Props = {
 };
 
 type ResizedIconProps = {
-	Icon: React.FC<UNSAFE_NewCoreIconProps>;
+	Icon: React.FC<NewCoreIconProps>;
 	LegacyIcon: ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => JSX.Element;
 };
 

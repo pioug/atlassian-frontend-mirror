@@ -57,6 +57,9 @@
 			"path": "../../../design-system/modal-dialog/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../people-teams-ui-public/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
 		},
 		{

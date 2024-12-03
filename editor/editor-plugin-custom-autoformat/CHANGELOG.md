@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-custom-autoformat
 
+## 1.4.8
+
+### Patch Changes
+
+- [#170234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170234)
+  [`7a27ccddccc3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7a27ccddccc3a) -
+  [ux] [ED-25446] Fix issue where after Shift+Enter autoformat does not occur. This is because an
+  Object Replacement Character is added after the first word of a soft line break. Thus a match was
+  never found. We now look for this case which should allow for autoformatting after a Replacement
+  Object Character.
+- Updated dependencies
+
 ## 1.4.7
 
 ### Patch Changes

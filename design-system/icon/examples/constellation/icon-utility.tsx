@@ -1,11 +1,10 @@
 import React from 'react';
 
+import ArrowRightIcon from '@atlaskit/icon/utility/arrow-right';
+import ChevronIcon from '@atlaskit/icon/utility/chevron-down';
+import DragHandleIcon from '@atlaskit/icon/utility/drag-handle';
+import ErrorIcon from '@atlaskit/icon/utility/error';
 import { Box, Inline } from '@atlaskit/primitives';
-
-import ArrowRightIcon from '../../utility/arrow-right';
-import ChevronIcon from '../../utility/chevron-down';
-import DragHandleIcon from '../../utility/drag-handle';
-import ErrorIcon from '../../utility/error';
 
 const IconUtilityExample = () => {
 	return (

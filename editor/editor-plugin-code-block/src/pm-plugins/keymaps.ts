@@ -2,14 +2,13 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { CommandDispatch } from '@atlaskit/editor-common/types';
 import { isEmptyNode } from '@atlaskit/editor-common/utils';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
-import type { Node, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import {
 	findParentNodeOfTypeClosestToPos,
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getCursor } from './utils';
 
@@ -28,40 +27,6 @@ const setTextSelection =
 		}
 		return tr;
 	};
-
-// This method converts the code block with a Paragraph, while replacing it's
-// newline `\n` characters with `hardBreak`s to ensure that they are retained in the
-// rendered output. `prosemirror-transform` v1.74 introduced new behaviour for
-// `setBlockType` which means we can't use it here without losing whitespace
-// https://github.com/ProseMirror/prosemirror-transform/blob/master/CHANGELOG.md#174-2023-07-28
-const replaceWithParagraph = (
-	node: Node,
-	nodePos: number,
-	$cursor: ResolvedPos,
-	state: EditorState,
-	dispatch: CommandDispatch,
-) => {
-	const { paragraph, hardBreak } = state.schema.nodes;
-	const nodeLines = node.textContent.split('\n');
-	const { tr } = state;
-
-	const newNodes: Node[] = [];
-
-	nodeLines.forEach((line, index) => {
-		if (index > 0) {
-			newNodes.push(hardBreak.create());
-		}
-		if (line) {
-			newNodes.push(state.schema.text(line));
-		}
-	});
-
-	const newParagraph = paragraph.createChecked([], newNodes);
-
-	tr.replaceWith(nodePos, nodePos + node.nodeSize, newParagraph);
-	setTextSelection($cursor.pos)(tr);
-	dispatch(tr);
-};
 
 export function keymapPlugin(schema: Schema): SafePlugin | undefined {
 	return keymap({
@@ -82,15 +47,11 @@ export function keymapPlugin(schema: Schema): SafePlugin | undefined {
 					return false;
 				}
 
-				if (fg('platform_editor_utilize_linebreakreplacement')) {
-					dispatch(
-						state.tr
-							.setNodeMarkup(node.pos, node.node.type, node.node.attrs, [])
-							.setBlockType($cursor.pos, $cursor.pos, paragraph),
-					);
-				} else {
-					replaceWithParagraph(node.node, node.pos, $cursor, state, dispatch);
-				}
+				dispatch(
+					state.tr
+						.setNodeMarkup(node.pos, node.node.type, node.node.attrs, [])
+						.setBlockType($cursor.pos, $cursor.pos, paragraph),
+				);
 
 				return true;
 			}

@@ -1,5 +1,20 @@
 # @atlaskit/onboarding
 
+## 12.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.1.8
+
+### Patch Changes
+
+- [#167574](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167574)
+  [`30792384f2240`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/30792384f2240) -
+  Removed feature flag to switch useElementBox to the 'polling' ResizeMethod. Now only props should
+  be used to control this.
+
 ## 12.1.7
 
 ### Patch Changes

@@ -28,17 +28,17 @@ export const autoScrollerFactory = ({ tableWrapper, getNode }: AutoScrollerFacto
 				return localId === node?.attrs.localId && type === 'table-column';
 			},
 			getOverflow: () => ({
-				fromTopEdge: {
+				forTopEdge: {
 					top: dropTargetExtendedWidth,
 					right: dropTargetExtendedWidth,
 					left: dropTargetExtendedWidth,
 				},
-				fromRightEdge: {
+				forRightEdge: {
 					right: dropTargetExtendedWidth,
 					top: dropTargetExtendedWidth,
 					bottom: dropTargetExtendedWidth,
 				},
-				fromLeftEdge: {
+				forLeftEdge: {
 					top: dropTargetExtendedWidth,
 					left: dropTargetExtendedWidth,
 					bottom: dropTargetExtendedWidth,

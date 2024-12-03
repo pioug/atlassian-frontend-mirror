@@ -1,5 +1,21 @@
 # @atlaskit/popup
 
+## 1.30.0
+
+### Minor Changes
+
+- [#171499](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171499)
+  [`397ca651978da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/397ca651978da) -
+  Adds `shouldDisableGpuAcceleration` prop to composable `PopupContent` API. This prop will
+  configure popper.js to position the popup using only position properties, without any `transform`
+  usage. This should not be used in most cases, but is needed for some layering issues.
+
+## 1.29.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.29.5
 
 ### Patch Changes

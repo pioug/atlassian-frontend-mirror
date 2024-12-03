@@ -6,9 +6,11 @@ import { createInsertNodeAPI } from './pm-plugins/api';
  * from `@atlaskit/editor-core`.
  */
 export const contentInsertionPlugin: ContentInsertionPlugin = ({ api }) => {
+	const { actions, commands } = createInsertNodeAPI(api?.analytics?.actions);
+
 	return {
 		name: 'contentInsertion',
-
-		actions: createInsertNodeAPI(api?.analytics?.actions),
+		actions,
+		commands,
 	};
 };

@@ -93,6 +93,7 @@ snapshotInformational(IssueLikeTable, {
 	description: 'Priority column - inline edit with flags enabled - loading',
 	prepare: async (page: Page) => {
 		await page.locator('[data-testid="link-datasource-render-type--icon"]').first().click();
+		await page.getByRole('listbox').getByText('Loading').waitFor({ state: 'visible' });
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {
@@ -117,6 +118,30 @@ snapshotInformational(IssueLikeTable, {
 
 		// Wait until the loaded priority option 'blocker' is visible in the dropdown
 		await page.getByRole('listbox').getByText('Blocker').waitFor({ state: 'visible' });
+	},
+	drawsOutsideBounds: true,
+	featureFlags: {
+		enable_datasource_react_sweet_state: true,
+		'platform-datasources-enable-two-way-sync': true,
+		'platform-datasources-enable-two-way-sync-priority': true,
+		enable_datasource_supporting_actions: true,
+	},
+	ignoredErrors: [
+		{
+			pattern: /(received unsupported error)|(The above error occurred in the)/,
+			ignoredBecause: 'Intentionally triggering an error to capture error boundary fallback',
+			jiraIssueId: 'NONE-123',
+		},
+	],
+});
+
+snapshotInformational(IssueLikeTable, {
+	description: 'Priority column - inline edit with flags enabled - options tooltip',
+	prepare: async (page: Page) => {
+		await page.getByTestId('link-datasource-render-type--icon').first().click();
+
+		await page.getByRole('listbox').getByText('Low').waitFor({ state: 'visible' });
+		await page.getByRole('listbox').getByText('Low').hover();
 	},
 	drawsOutsideBounds: true,
 	featureFlags: {

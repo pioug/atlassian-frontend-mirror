@@ -4,7 +4,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { type CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled
 import { css, jsx } from '@emotion/react';
@@ -14,7 +14,6 @@ import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { B200 } from '@atlaskit/theme/colors';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
@@ -24,10 +23,34 @@ import { isBlocksDragTargetDebug } from '../pm-plugins/utils/drag-target-debug';
 
 import { type DropTargetProps } from './drop-target';
 
+const HOVER_ZONE_WIDTH = '--editor-blocks-inline-hover-zone-width';
+const HOVER_ZONE_HEIGHT = '--editor-blocks-inline-hover-zone-height';
+const HOVER_ZONE_TOP = '--editor-blocks-inline-hover-zone-top';
+const HOVER_ZONE_BOTTOM = '--editor-blocks-inline-hover-zone-bottom';
+const HOVER_ZONE_ANCHOR_NAME = '--editor-blocks-inline-hover-zone-anchor-name';
+
 const hoverZoneCommonStyle = css({
 	position: 'absolute',
 	// above the top and bottom drop zone as block hover zone
 	zIndex: 120,
+	positionAnchor: `var(${HOVER_ZONE_ANCHOR_NAME})`,
+	minWidth: token('space.100', '8px'),
+	left: 0,
+	right: 0,
+	width: `var(${HOVER_ZONE_WIDTH})`,
+	height: `var(${HOVER_ZONE_HEIGHT})`,
+});
+
+const leftHoverZoneStyle = css({
+	right: `unset`,
+	top: `var(${HOVER_ZONE_TOP})`,
+	bottom: 'unset',
+});
+
+const rightHoverZoneStyle = css({
+	left: `unset`,
+	top: 'unset',
+	bottom: `var(${HOVER_ZONE_BOTTOM})`,
 });
 
 // gap between node boundary and drop indicator/drop zone
@@ -158,12 +181,7 @@ export const InlineDropTarget = ({
 
 		// Set the height target anchor name to the first or last column of the layout section so that it also works for stacked layout
 		let heightTargetAnchorName = targetAnchorName;
-		if (
-			editorExperiment('advanced_layouts', true) &&
-			nextNode.type.name === 'layoutSection' &&
-			nextNode.firstChild &&
-			nextNode.lastChild
-		) {
+		if (nextNode.type.name === 'layoutSection' && nextNode.firstChild && nextNode.lastChild) {
 			heightTargetAnchorName = isLeftPosition
 				? getNodeAnchor(nextNode.firstChild)
 				: getNodeAnchor(nextNode.lastChild);
@@ -221,33 +239,20 @@ export const InlineDropTarget = ({
 		}
 	}, [api, getPos, position]);
 
-	const inlineHoverZoneRectStyle = useMemo(() => {
-		const isLayoutNode =
-			editorExperiment('advanced_layouts', true) && nextNode?.type.name === 'layoutSection';
+	const hoverZoneRectStyle = useMemo(() => {
+		const isLayoutNode = nextNode?.type.name === 'layoutSection';
 		const layoutAdjustment = isLayoutNode ? { width: 11, height: 4, top: 6, bottom: 2 } : undefined;
 
-		return css(
-			{
-				positionAnchor: anchorName,
-				minWidth: token('space.100', '8px'),
-				left: isLeftPosition ? 0 : 'unset',
-				right: isLeftPosition ? 'unset' : 0,
-				top: `calc(anchor(top))`,
-				width: nodeDimension.widthOffset
-					? `calc((100% - ${nodeDimension.width})/2 - ${GAP}px + ${nodeDimension.widthOffset} - ${layoutAdjustment?.width || 0}px)`
-					: `calc((100% - ${nodeDimension.width})/2 - ${GAP}px - ${layoutAdjustment?.width || 0}px)`,
-				height: `calc(${nodeDimension.height} + ${layoutAdjustment?.height || 0}px)`,
-			},
-			isLayoutNode && {
-				top: isLeftPosition
-					? `calc(${nodeDimension.top} + ${layoutAdjustment?.top || 0}px)`
-					: 'unset',
-				bottom: isLeftPosition
-					? 'unset'
-					: `calc(${nodeDimension.bottom} - ${layoutAdjustment?.bottom || 0}px)`,
-			},
-		);
-	}, [nextNode?.type.name, anchorName, isLeftPosition, nodeDimension]);
+		return {
+			[HOVER_ZONE_WIDTH]: nodeDimension.widthOffset
+				? `calc((100% - ${nodeDimension.width})/2 - ${GAP}px + ${nodeDimension.widthOffset} - ${layoutAdjustment?.width || 0}px)`
+				: `calc((100% - ${nodeDimension.width})/2 - ${GAP}px - ${layoutAdjustment?.width || 0}px)`,
+			[HOVER_ZONE_HEIGHT]: `calc(${nodeDimension.height} + ${layoutAdjustment?.height || 0}px)`,
+			[HOVER_ZONE_TOP]: `calc(${nodeDimension.top} + ${layoutAdjustment?.top || 0}px)`,
+			[HOVER_ZONE_BOTTOM]: `calc(${nodeDimension.bottom} - ${layoutAdjustment?.bottom || 0}px)`,
+			[HOVER_ZONE_ANCHOR_NAME]: anchorName,
+		} as CSSProperties;
+	}, [nextNode?.type.name, nodeDimension, anchorName]);
 
 	const dropIndicatorPos = useMemo(() => {
 		return isLeftPosition ? 'right' : 'left';
@@ -272,7 +277,9 @@ export const InlineDropTarget = ({
 		<div
 			ref={ref}
 			data-testid={`drop-target-hover-zone-${position}`}
-			css={[hoverZoneCommonStyle, inlineHoverZoneRectStyle]}
+			css={[hoverZoneCommonStyle, isLeftPosition ? leftHoverZoneStyle : rightHoverZoneStyle]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={hoverZoneRectStyle}
 		>
 			{isDraggedOver || isBlocksDragTargetDebug() ? (
 				<DropIndicator edge={dropIndicatorPos} />

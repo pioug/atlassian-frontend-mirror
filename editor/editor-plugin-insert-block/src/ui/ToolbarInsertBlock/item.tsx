@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import { type UNSAFE_NewCoreIconProps } from '@atlaskit/icon';
+import { type NewCoreIconProps } from '@atlaskit/icon';
 import FieldTextIcon from '@atlaskit/icon-lab/core/field-text';
 import LozengeIcon from '@atlaskit/icon-lab/core/lozenge';
 import AngleBracketsIcon from '@atlaskit/icon/core/migration/angle-brackets--editor-code';
@@ -49,10 +49,7 @@ interface ItemInit {
 	name: string;
 	shortcut?: string;
 	Icon: React.ComponentType<
-		Omit<
-			UNSAFE_NewCoreIconProps,
-			'dangerouslySetGlyph' | 'type' | 'LEGACY_fallbackIcon' | 'spacing'
-		> & {
+		Omit<NewCoreIconProps, 'LEGACY_fallbackIcon' | 'spacing'> & {
 			label: string;
 			spacing: 'spacious';
 		}

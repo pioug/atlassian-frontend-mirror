@@ -7,7 +7,7 @@ import { EmojiResource, type EmojiProvider, type EmojiResourceConfig } from '../
 export function getEmojiConfig(allowUpload = true) {
 	let emojiConfig;
 	try {
-		// eslint-disable-next-line import/no-unresolved
+		// eslint-disable-next-line @repo/internal/import/no-unresolved
 		emojiConfig = require('../local-config')['default'] as EmojiResourceConfig;
 	} catch (e) {
 		emojiConfig = require('../local-config-example')['default'] as EmojiResourceConfig;

@@ -1,15 +1,11 @@
 import React, { type CSSProperties } from 'react';
+
 import { render, screen } from '@testing-library/react';
 
-import Icon, {
-	UNSAFE_IconNew as IconNew,
-	size,
-	type CustomGlyphProps,
-	type IconProps,
-} from '../../..';
-import AddIcon from '../../../../glyph/add';
 import AddIconNew from '../../../../core/add';
+import AddIcon from '../../../../glyph/add';
 import { sizes as sizeValues } from '../../../constants';
+import Icon, { type CustomGlyphProps, IconNew, type IconProps, size } from '../../../index';
 import { type Size } from '../../../types';
 
 describe('@atlaskit/icon', () => {
@@ -178,7 +174,7 @@ describe('@atlaskit/icon', () => {
 	});
 });
 
-describe('@atlaskit/icon/UNSAFE_base-new', () => {
+describe('@atlaskit/icon/base-new', () => {
 	describe('dangerouslySetGlyph prop', () => {
 		const id = 'customPath';
 		const customPathString = `<path data-testid="${id}" d=""></path>`;

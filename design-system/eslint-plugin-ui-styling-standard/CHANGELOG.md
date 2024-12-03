@@ -1,5 +1,22 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 1.0.4
+
+### Patch Changes
+
+- [#171997](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171997)
+  [`a433756c2ec76`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a433756c2ec76) -
+  Remove dependency not longer needed
+
+## 1.0.3
+
+### Patch Changes
+
+- [#171994](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171994)
+  [`be58e4bb2e387`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be58e4bb2e387) -
+  Migrating usages of UNSAFE types and entrypoints that have been renamed in `@atlaskit/icon` and
+  `@atlaskit/icon-lab`.
+
 ## 1.0.2
 
 ### Patch Changes

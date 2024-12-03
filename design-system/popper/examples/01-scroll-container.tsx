@@ -28,7 +28,7 @@ const BasicPopper = () => (
 	<Manager>
 		<Reference>
 			{({ ref }) => (
-				<Button appearance="primary" ref={ref}>
+				<Button testId="horizontal-scroll-identifier" appearance="primary" ref={ref}>
 					Reference element
 				</Button>
 			)}
@@ -37,6 +37,7 @@ const BasicPopper = () => (
 			{({ ref, style, placement, isReferenceHidden }) => (
 				<Popup
 					isReferenceHidden={isReferenceHidden}
+					data-testid="expanded-popup"
 					ref={ref}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={style}
@@ -79,7 +80,7 @@ export default () => (
 		>
 			<h2>Scroll down halfway, then across to see the popper</h2>
 			<Lorem count={10} />
-			<h2>Halfway, now scroll right</h2>
+			<h2 data-testid="vertical-scroll-identifier">Halfway, now scroll right</h2>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 			<div style={{ display: 'flex', justifyContent: 'center' }}>
 				<BasicPopper />

@@ -228,7 +228,7 @@ export const moveNode =
 				return tr;
 			}
 
-			if (!canMoveNodeToIndex(destParent, $to.index(), $from.node().child($from.index()))) {
+			if (!canMoveNodeToIndex(destParent, $to.index(), $from.node().child($from.index()), $to)) {
 				return tr;
 			}
 

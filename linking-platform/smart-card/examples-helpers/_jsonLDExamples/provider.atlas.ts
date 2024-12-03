@@ -46,6 +46,14 @@ export const AtlasProject = {
 	},
 };
 
+export const AtlasProjectNoPreview = {
+	...AtlasProject,
+	data: {
+		...AtlasProject.data,
+		preview: undefined,
+	},
+};
+
 export const AtlasGoal = {
 	meta: {
 		auth: [],

@@ -7,6 +7,7 @@
  * @codegenCommand yarn build:icon-glyphs
  */
 /* eslint-disable import/no-extraneous-dependencies -- This import is within the same package, hence self-referential. */
+
 interface Data {
 	keywords: string[];
 	componentName: string;

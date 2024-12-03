@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "22.28.0",
+	"version": "23.0.0",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -77,11 +77,15 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
-		"@af/icon-build-process": "^2.3.0",
+		"@af/icon-build-process": "^2.4.0",
+		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/code": "^15.6.0",
 		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/heading": "^4.0.0",
+		"@atlaskit/link": "^1.2.7",
 		"@atlaskit/logo": "^15.0.0",
+		"@atlaskit/menu": "^2.13.5",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^6.6.0",
@@ -135,8 +139,8 @@
 	"homepage": "https://atlassian.design/components/icon/",
 	"af:exports": {
 		"./base": "./src/entry-points/base.tsx",
-		"./UNSAFE_base-new": "./src/entry-points/base-new.tsx",
-		"./UNSAFE_migration-map": "./src/entry-points/migration-map.tsx",
+		"./base-new": "./src/entry-points/base-new.tsx",
+		"./migration-map": "./src/entry-points/migration-map.tsx",
 		"./constants": "./src/entry-points/constants.tsx",
 		"./deprecated-map": "./src/entry-points/deprecated-map.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",
@@ -151,8 +155,8 @@
 	},
 	"exports": {
 		"./base": "./src/entry-points/base.tsx",
-		"./UNSAFE_base-new": "./src/entry-points/base-new.tsx",
-		"./UNSAFE_migration-map": "./src/entry-points/migration-map.tsx",
+		"./base-new": "./src/entry-points/base-new.tsx",
+		"./migration-map": "./src/entry-points/migration-map.tsx",
 		"./constants": "./src/entry-points/constants.tsx",
 		"./deprecated-map": "./src/entry-points/deprecated-map.tsx",
 		"./metadata": "./src/entry-points/metadata.tsx",

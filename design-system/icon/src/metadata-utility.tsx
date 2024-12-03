@@ -1,9 +1,9 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *
- * To change the format of this file, modify `UNSAFE_createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
+ * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::eae29e6af1dc94a7dd24d2f620ae9efc>>
+ * @codegen <<SignedSource::20ebb8ddb0be6095662c7520a06da9a5>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {

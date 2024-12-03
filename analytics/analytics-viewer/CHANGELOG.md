@@ -1,5 +1,13 @@
 # @atlaskit/analytics-viewer
 
+## 0.7.0
+
+### Minor Changes
+
+- [#171558](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171558)
+  [`d6493a162ba82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6493a162ba82) -
+  Update types to improve React 18 compatibility.
+
 ## 0.6.3
 
 ### Patch Changes

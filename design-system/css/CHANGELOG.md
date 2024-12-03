@@ -1,5 +1,16 @@
 # @atlaskit/css
 
+## 0.7.0
+
+### Minor Changes
+
+- [#168289](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168289)
+  [`5fe404687ca98`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5fe404687ca98) -
+  Add a test helper to reduce issues when migrating to Compiled CSS.
+
+  Change dom `Node`'s `textContent` property to remove `Compiled CSS definitions` except for
+  `Compiled style nodes`.
+
 ## 0.6.2
 
 ### Patch Changes

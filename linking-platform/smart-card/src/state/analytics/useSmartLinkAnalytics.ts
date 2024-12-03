@@ -658,6 +658,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param id The unique ID for this Smart Link.
 			 * @param definitionId The definitionId of the Smart Link resolver invoked.
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
+			 * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
 			 */
 			connectSucceededEvent: ({
 				id,
@@ -695,6 +696,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param definitionId The definitionId of the Smart Link resolver invoked.
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
 			 * @param reason The reason why the Smart Link connect account failed.
+			 * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
 			 */
 			connectFailedEvent: ({
 				id,
@@ -736,6 +738,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
 			 * @param resourceType The type of resource that was invoked. This is provider specific (e.g. File, PullRequest).
 			 * @param error An error representing why the Smart Link request failed.
+			 * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
 			 */
 			instrument: ({
 				id,
@@ -766,11 +769,12 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			},
 
 			/**
-			 * This fires an event that represents when a Smart Link renders unsuccessfuly.
+			 * This fires an event that represents when a Smart Link renders unsuccessfully.
 			 * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
 			 * @param id The unique ID for this Smart Link.
 			 * @param error: An error representing why the Smart Link render failed.
 			 * @param errorInfo: Additional details about the error including the stack trace.
+			 * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
 			 */
 			chunkloadFailedEvent: ({
 				display,

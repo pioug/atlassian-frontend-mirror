@@ -71,11 +71,13 @@ export default function teamData({
 	displayName = 'Short',
 	members: memberCount = 1,
 	description = 'Long',
+	isVerified = false,
 }: {
 	headerImage?: 'None' | 'Picture';
 	displayName?: 'Short' | 'Medium' | 'Long' | 'Overlong';
 	members?: number;
 	description?: 'None' | 'Short' | 'Medium' | 'Long' | 'Overlong';
+	isVerified?: boolean;
 }): Team {
 	return {
 		id: 'team-id',
@@ -83,6 +85,7 @@ export default function teamData({
 		displayName: names[displayName] || names.Short,
 		members: members.slice(0, memberCount),
 		description: description ? descriptions[description] : descriptions.Long,
+		isVerified,
 	};
 }
 
@@ -91,11 +94,13 @@ export function staticTeamData({
 	displayName = 'Short',
 	members: memberCount = 1,
 	description = 'Long',
+	isVerified = false,
 }: {
 	headerImage?: 'None' | 'Picture';
 	displayName?: 'Short' | 'Medium' | 'Long' | 'Overlong';
 	members?: number;
 	description?: 'None' | 'Short' | 'Medium' | 'Long' | 'Overlong';
+	isVerified?: boolean;
 }): Team {
 	return {
 		id: 'team-id',
@@ -109,5 +114,6 @@ export function staticTeamData({
 			}))
 			.slice(0, memberCount),
 		description: description ? descriptions[description] : descriptions.Long,
+		isVerified,
 	};
 }

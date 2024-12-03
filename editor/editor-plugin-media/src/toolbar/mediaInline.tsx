@@ -23,7 +23,7 @@ import type { HoverDecorationHandler } from '@atlaskit/editor-plugin-decorations
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import DeleteIcon from '@atlaskit/icon/core/delete';
-import ExpandIcon from '@atlaskit/icon/core/expand';
+import ExpandIcon from '@atlaskit/icon/core/grow-diagonal';
 import ImageFullscreenIcon from '@atlaskit/icon/core/image-fullscreen';
 import ImageInlineIcon from '@atlaskit/icon/core/image-inline';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';

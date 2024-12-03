@@ -1,5 +1,5 @@
-import { type UNSAFE_IconMetadata } from '@af/icon-build-process';
-const metadata: UNSAFE_IconMetadata = {
+import { type IconMetadata } from '@af/icon-build-process';
+const metadata: IconMetadata = {
 	'assets-data-manager': {
 		keywords: ['data manager', 'assets', 'CMDB', 'configuration management database'],
 		categorization: 'single-purpose',

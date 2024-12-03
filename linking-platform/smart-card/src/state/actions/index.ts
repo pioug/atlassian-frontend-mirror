@@ -10,12 +10,13 @@ import {
 	type MetadataStatus,
 } from '@atlaskit/linking-common';
 import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
 import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
 import { type CardInnerAppearance } from '../../view/Card/types';
-import { type AnalyticsFacade } from '../analytics';
+import { type AnalyticsFacade, startUfoExperience } from '../analytics';
 import { getByDefinitionId, getDefinitionId, getExtensionKey, getServices } from '../helpers';
 import useInvokeClientAction from '../hooks/use-invoke-client-action';
 import useResolve from '../hooks/use-resolve';
@@ -108,20 +109,41 @@ export const useSmartCardActions = (id: string, url: string, analytics: Analytic
 						fireEvent('track.applicationAccount.connected', {
 							definitionId: definitionId ?? null,
 						});
-						analytics.operational.connectSucceededEvent({
-							id,
-							definitionId,
-							extensionKey,
-						});
+						if (fg('platform_smart-card-migrate-operational-analytics')) {
+							startUfoExperience('smart-link-authenticated', id, {
+								extensionKey,
+								status: 'success',
+							});
+							fireEvent('operational.smartLink.connectSucceeded', {
+								definitionId: definitionId ?? null,
+							});
+						} else {
+							analytics.operational.connectSucceededEvent({
+								id,
+								definitionId,
+								extensionKey,
+							});
+						}
 						reload();
 					},
 					(err: AuthError) => {
-						analytics.operational.connectFailedEvent({
-							id,
-							definitionId,
-							extensionKey,
-							reason: err.type,
-						});
+						if (fg('platform_smart-card-migrate-operational-analytics')) {
+							startUfoExperience('smart-link-authenticated', id, {
+								extensionKey,
+								status: err.type,
+							});
+							fireEvent('operational.smartLink.connectFailed', {
+								definitionId: definitionId ?? null,
+								reason: err.type ?? null,
+							});
+						} else {
+							analytics.operational.connectFailedEvent({
+								id,
+								definitionId,
+								extensionKey,
+								reason: err.type,
+							});
+						}
 						if (err.type === 'auth_window_closed') {
 							analytics.ui.closedAuthEvent({
 								display: appearance,

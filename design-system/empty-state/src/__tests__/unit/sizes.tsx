@@ -8,15 +8,15 @@ import { type Width } from '../../types';
 const sizes: Width[] = ['narrow', 'wide'];
 
 const widths = {
-	narrow: '304px',
-	wide: '464px',
+	narrow: '19pc', // 304px
+	wide: '29pc', // 464px
 };
 
 describe('<EmptyState size/width />', () => {
 	it('should default to wide', () => {
 		render(<EmptyState header="hello" testId="test" />);
 		const element = screen.getByTestId('test');
-		expect(element).toHaveStyleDeclaration('max-width', widths.wide);
+		expect(element).toHaveStyle(`max-width: ${widths.wide}`);
 	});
 
 	sizes.forEach((size) => {
@@ -31,19 +31,22 @@ describe('<EmptyState size/width />', () => {
 					/>,
 				);
 				const element = screen.getByTestId('test');
-				expect(element).toHaveStyleDeclaration('max-width', widths[size]);
+				// expect(element).toHaveStyleDeclaration('max-width', widths[size]);
+				expect(element).toHaveStyle(`max-width: ${widths[size]}`);
 			});
 
 			it('should support size', () => {
 				render(<EmptyState size={size} header="hello" testId="test" />);
 				const element = screen.getByTestId('test');
-				expect(element).toHaveStyleDeclaration('max-width', widths[size]);
+				//expect(element).toHaveStyleDeclaration('max-width', widths[size]);
+				expect(element).toHaveStyle(`max-width: ${widths[size]}`);
 			});
 
 			it('should support width', () => {
 				render(<EmptyState width={size} header="hello" testId="test" />);
 				const element = screen.getByTestId('test');
-				expect(element).toHaveStyleDeclaration('max-width', widths[size]);
+				//expect(element).toHaveStyleDeclaration('max-width', widths[size]);
+				expect(element).toHaveStyle(`max-width: ${widths[size]}`);
 			});
 		});
 	});

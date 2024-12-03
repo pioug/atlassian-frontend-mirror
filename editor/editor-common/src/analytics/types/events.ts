@@ -10,6 +10,7 @@ import type {
 
 import { type AIDefinitionsEventPayload } from './ai-definitions-events';
 import type { AvatarEventPayload } from './avatar';
+import { type BreakoutEventPayload } from './breakout-events';
 import type { ConfigPanelEventPayload } from './config-panel-events';
 import type { ContextMenuEventPayload } from './context-menu-events';
 import type { CutCopyEventPayload } from './cut-copy-events';
@@ -113,7 +114,8 @@ export type AnalyticsEventPayload<T = void> =
 	| MentionEventPayload
 	| EngagementPlatformEventPayload
 	| NestedTableActionsEventPayload
-	| AIDefinitionsEventPayload;
+	| AIDefinitionsEventPayload
+	| BreakoutEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,

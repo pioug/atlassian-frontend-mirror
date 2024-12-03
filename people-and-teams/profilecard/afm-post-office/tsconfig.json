@@ -57,6 +57,9 @@
 			"path": "../../../design-system/modal-dialog/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../people-teams-ui-public/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
 		},
 		{

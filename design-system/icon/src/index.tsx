@@ -1,5 +1,5 @@
 export { default } from './components/icon';
-export { default as UNSAFE_IconNew } from './components/icon-new';
+export { default as IconNew } from './components/icon-new';
 export { default as SVG } from './components/svg';
 export { sizeMap as size, sizes } from './constants';
 export { default as Skeleton } from './components/skeleton';
@@ -12,8 +12,8 @@ export type {
 	GlyphProps,
 	CustomGlyphProps,
 	SVGProps,
-	NewIconProps as UNSAFE_NewIconProps,
-	NewUtilityIconProps as UNSAFE_NewUtilityIconProps,
-	NewCoreIconProps as UNSAFE_NewCoreIconProps,
-	IconMigrationMap as UNSAFE_IconMigrationMap,
+	NewIconProps,
+	NewUtilityIconProps,
+	NewCoreIconProps,
+	IconMigrationMap,
 } from './types';

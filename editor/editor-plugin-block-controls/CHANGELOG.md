@@ -1,5 +1,43 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.14.0
+
+### Minor Changes
+
+- [#168172](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168172)
+  [`fa404ae4155f2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa404ae4155f2) -
+  [ux] [ED-25523] This change is adding experiment based gating to the drag and drop logic for
+  nested tables. We only allow nesting tables one level deep via drag and drop if the experiment is
+  active. Else, you cannot drag and drop a table into another table.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.13.31
+
+### Patch Changes
+
+- [#171553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171553)
+  [`ef0f90dd048d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ef0f90dd048d8) -
+  [ED-25917] Replace dynamic styles for inline hover zone with css var
+- [#171077](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171077)
+  [`0a92cf56671ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a92cf56671ac) -
+  ED-25867 always show drag handler for layout columns
+- Updated dependencies
+
+## 2.13.30
+
+### Patch Changes
+
+- [#171014](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171014)
+  [`6163248356c63`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6163248356c63) -
+  [ED-25833] Replace the following FGs with experiment `platform_editor_advanced_layouts`
+
+  - platform_editor_advanced_layouts_breakout_resizing
+  - platform_editor_advanced_layouts_pre_release_1
+  - platform_editor_advanced_layouts_pre_release_2
+
 ## 2.13.29
 
 ### Patch Changes

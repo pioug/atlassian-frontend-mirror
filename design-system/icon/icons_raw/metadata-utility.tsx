@@ -1,5 +1,5 @@
-import { type UNSAFE_IconMetadata } from '@af/icon-build-process';
-const metadata: UNSAFE_IconMetadata = {
+import { type IconMetadata } from '@af/icon-build-process';
+const metadata: IconMetadata = {
 	add: {
 		keywords: ['create', 'plus'],
 		categorization: 'utility',

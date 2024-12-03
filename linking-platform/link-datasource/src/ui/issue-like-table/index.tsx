@@ -325,7 +325,7 @@ export const getOrderedColumns = (
 const DEFAULT_WIDTH = COLUMN_BASE_WIDTH * 22;
 const keyBasedWidthMap: Record<string, number> = {
 	priority: COLUMN_BASE_WIDTH * 12.5, // 100px
-	status: COLUMN_BASE_WIDTH * 15,
+	status: COLUMN_BASE_WIDTH * 12.5,
 	summary: COLUMN_BASE_WIDTH * 45,
 	description: COLUMN_BASE_WIDTH * 31,
 	type: COLUMN_BASE_WIDTH * 6,

@@ -3,6 +3,7 @@ import React from 'react';
 import { type JsonLd } from 'json-ld-types';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { extractBlockProps } from '../../extractors/block';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
@@ -11,6 +12,7 @@ import { extractInlineProps } from '../../extractors/inline';
 import { getExtensionKey, hasAuthScopeOverrides } from '../../state/helpers';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
 import { BlockCardResolvedView, BlockCardResolvingView } from '../BlockCard';
+import FlexibleResolvedView from '../BlockCard/views/flexible/FlexibleResolvedView';
 import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
 
 import { type EmbedCardProps } from './types';
@@ -24,7 +26,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 	(
 		{
 			url,
-			cardState: { status, details },
+			cardState,
 			handleAuthorize,
 			handleErrorRetry,
 			handleFrameClick,
@@ -41,10 +43,13 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 			onIframeFocus,
 			iframeUrlType,
 			actionOptions,
+			renderers,
 		},
 		iframeRef,
 	) => {
 		const { createAnalyticsEvent } = useAnalyticsEvents();
+
+		const { status, details } = cardState;
 
 		const data = ((details && details.data) as JsonLd.Data.BaseData) || getEmptyJsonLd();
 		const meta = (details && details.meta) as JsonLd.Meta.BaseMeta;
@@ -54,6 +59,22 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 		switch (status) {
 			case 'pending':
 			case 'resolving':
+				if (fg('smart-card-remove-block-card-from-embed')) {
+					return (
+						<FlexibleResolvedView
+							url={url}
+							cardState={cardState}
+							onClick={handleFrameClick}
+							onError={onError}
+							onResolve={onResolve}
+							renderers={renderers}
+							actionOptions={actionOptions}
+							analytics={analytics}
+							testId={testId}
+						/>
+					);
+				}
+
 				return (
 					<BlockCardResolvingView
 						testId="embed-card-resolving-view"
@@ -96,6 +117,23 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 							/>
 						);
 					}
+
+					if (fg('smart-card-remove-block-card-from-embed')) {
+						return (
+							<FlexibleResolvedView
+								url={url}
+								cardState={cardState}
+								onClick={handleFrameClick}
+								onError={onError}
+								onResolve={onResolve}
+								renderers={renderers}
+								actionOptions={actionOptions}
+								analytics={analytics}
+								testId={testId}
+							/>
+						);
+					}
+
 					const resolvedBlockViewProps = extractBlockProps(data, meta, {
 						analytics,
 						origin: 'smartLinkEmbed',

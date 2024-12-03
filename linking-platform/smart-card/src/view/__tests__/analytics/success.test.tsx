@@ -8,6 +8,7 @@ import * as jestExtendedMatchers from 'jest-extended';
 import { IntlProvider } from 'react-intl-next';
 import uuid from 'uuid';
 
+import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { type CardClient } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
@@ -570,35 +571,362 @@ describe('smart-card: success analytics', () => {
 			});
 		});
 
-		it('should fire the resolved analytics event when the url was resolved', async () => {
-			const mockUrl = 'https://this.is.the.sixth.url';
-			render(
-				<IntlProvider locale="en">
-					<Provider client={mockClient}>
-						<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
-					</Provider>
-				</IntlProvider>,
-			);
-			const resolvedView = await screen.findByTestId('resolvedCard1-resolved-view');
-			const resolvedCard = screen.getByRole('button');
-			expect(resolvedView).toBeTruthy();
-			expect(resolvedCard).toBeTruthy();
-			expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
-			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
-				display: 'inline',
-				status: 'resolved',
-				definitionId: 'd1',
-				extensionKey: 'object-provider',
-				canBeDatasource: false,
-			});
+		describe('should fire the resolved analytics event when the url was resolved', () => {
+			ffTest(
+				'platform_smart-card-migrate-operational-analytics',
+				async () => {
+					const mockUrl = 'https://this.is.the.sixth.url';
+					const mockAnalyticsClient = {
+						sendUIEvent: jest.fn().mockResolvedValue(undefined),
+						sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+						sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+						sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+					} satisfies AnalyticsWebClient;
+					render(
+						<FabricAnalyticsListeners client={mockAnalyticsClient}>
+							<IntlProvider locale="en">
+								<Provider client={mockClient}>
+									<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
+								</Provider>
+							</IntlProvider>
+						</FabricAnalyticsListeners>,
+					);
+					const resolvedView = await screen.findByTestId('resolvedCard1-resolved-view');
+					const resolvedCard = screen.getByRole('button');
+					expect(resolvedView).toBeTruthy();
+					expect(resolvedCard).toBeTruthy();
+					expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							actionSubject: 'smartLink',
+							action: 'resolved',
+							attributes: expect.objectContaining({
+								id: 'some-uuid-1',
+								status: 'resolved',
+								extensionKey: 'object-provider',
+								definitionId: 'd1',
+								canBeDatasource: false,
+								duration: null,
+							}),
+						}),
+					);
+					expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+					expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
+						display: 'inline',
+						status: 'resolved',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						canBeDatasource: false,
+					});
 
-			expect(mockStartUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1');
-			expect(mockSucceedUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1', {
-				display: 'inline',
-				extensionKey: 'object-provider',
-			});
-			expect(mockSucceedUfoExperience).toHaveBeenCalledAfter(mockStartUfoExperience as jest.Mock);
+					expect(mockStartUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1');
+					expect(mockSucceedUfoExperience).toHaveBeenCalledWith(
+						'smart-link-rendered',
+						'some-uuid-1',
+						{
+							display: 'inline',
+							extensionKey: 'object-provider',
+						},
+					);
+					expect(mockSucceedUfoExperience).toHaveBeenCalledAfter(
+						mockStartUfoExperience as jest.Mock,
+					);
+				},
+				async () => {
+					const mockUrl = 'https://this.is.the.sixth.url';
+					render(
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card testId="resolvedCard1" appearance="inline" url={mockUrl} />
+							</Provider>
+						</IntlProvider>,
+					);
+					const resolvedView = await screen.findByTestId('resolvedCard1-resolved-view');
+					const resolvedCard = screen.getByRole('button');
+					expect(resolvedView).toBeTruthy();
+					expect(resolvedCard).toBeTruthy();
+					expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
+					expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+					expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
+						display: 'inline',
+						status: 'resolved',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						canBeDatasource: false,
+					});
+
+					expect(mockStartUfoExperience).toHaveBeenCalledWith('smart-link-rendered', 'some-uuid-1');
+					expect(mockSucceedUfoExperience).toHaveBeenCalledWith(
+						'smart-link-rendered',
+						'some-uuid-1',
+						{
+							display: 'inline',
+							extensionKey: 'object-provider',
+						},
+					);
+					expect(mockSucceedUfoExperience).toHaveBeenCalledAfter(
+						mockStartUfoExperience as jest.Mock,
+					);
+				},
+			);
+		});
+
+		describe('should fire clicked analytics event when flexible ui link with resolved URL is clicked', () => {
+			ffTest(
+				'platform_smart-card-migrate-operational-analytics',
+				async () => {
+					const mockUrl = 'https://this.is.the.seventh.url';
+					const mockAnalyticsClient = {
+						sendUIEvent: jest.fn().mockResolvedValue(undefined),
+						sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+						sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+						sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+					} satisfies AnalyticsWebClient;
+					render(
+						<FabricAnalyticsListeners client={mockAnalyticsClient}>
+							<IntlProvider locale="en">
+								<Provider client={mockClient}>
+									<Card testId="resolvedCard2" appearance="inline" url={mockUrl}>
+										<TitleBlock />
+									</Card>
+								</Provider>
+							</IntlProvider>
+						</FabricAnalyticsListeners>,
+					);
+					const resolvedView = await screen.findByTestId('smart-block-title-resolved-view');
+					expect(resolvedView).toBeTruthy();
+
+					const resolvedCard = screen.getByTestId('smart-element-link');
+					expect(resolvedCard).toBeTruthy();
+					expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							actionSubject: 'smartLink',
+							action: 'resolved',
+							attributes: expect.objectContaining({
+								id: 'some-uuid-1',
+								status: 'resolved',
+								extensionKey: 'object-provider',
+								definitionId: 'd1',
+								canBeDatasource: false,
+								duration: null,
+							}),
+						}),
+					);
+
+					asMock(isSpecialEvent).mockReturnValue(false);
+
+					await userEvent.click(resolvedCard);
+
+					// ensure default onclick for renderer is not triggered
+					expect(mockWindowOpen).toHaveBeenCalledTimes(0);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+						id: 'some-uuid-1',
+						display: 'flexible',
+						status: 'resolved',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						isModifierKeyPressed: false,
+					});
+
+					// With special key pressed
+					asMock(analytics.uiCardClickedEvent).mockReset();
+					mockWindowOpen.mockReset();
+
+					asMock(isSpecialEvent).mockReturnValue(true);
+
+					await userEvent.click(resolvedCard);
+
+					// ensure default onclick for renderer is not triggered
+					expect(mockWindowOpen).toHaveBeenCalledTimes(0);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+						id: 'some-uuid-1',
+						display: 'flexible',
+						status: 'resolved',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						isModifierKeyPressed: true,
+					});
+				},
+				async () => {
+					const mockUrl = 'https://this.is.the.seventh.url';
+					render(
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card testId="resolvedCard2" appearance="inline" url={mockUrl}>
+									<TitleBlock />
+								</Card>
+							</Provider>
+						</IntlProvider>,
+					);
+					const resolvedView = await screen.findByTestId('smart-block-title-resolved-view');
+					expect(resolvedView).toBeTruthy();
+
+					const resolvedCard = screen.getByTestId('smart-element-link');
+					expect(resolvedCard).toBeTruthy();
+					expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
+
+					asMock(isSpecialEvent).mockReturnValue(false);
+
+					await userEvent.click(resolvedCard);
+
+					// ensure default onclick for renderer is not triggered
+					expect(mockWindowOpen).toHaveBeenCalledTimes(0);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+						id: 'some-uuid-1',
+						display: 'flexible',
+						status: 'resolved',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						isModifierKeyPressed: false,
+					});
+
+					// With special key pressed
+					asMock(analytics.uiCardClickedEvent).mockReset();
+					mockWindowOpen.mockReset();
+
+					asMock(isSpecialEvent).mockReturnValue(true);
+
+					await userEvent.click(resolvedCard);
+
+					// ensure default onclick for renderer is not triggered
+					expect(mockWindowOpen).toHaveBeenCalledTimes(0);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+						id: 'some-uuid-1',
+						display: 'flexible',
+						status: 'resolved',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						isModifierKeyPressed: true,
+					});
+				},
+			);
+		});
+
+		describe('should fire clicked analytics event when a resolved URL is clicked on a inline link', () => {
+			ffTest(
+				'platform_smart-card-migrate-operational-analytics',
+				async () => {
+					const mockUrl = 'https://this.is.the.seventh.url';
+					const mockAnalyticsClient = {
+						sendUIEvent: jest.fn().mockResolvedValue(undefined),
+						sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+						sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+						sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+					} satisfies AnalyticsWebClient;
+
+					render(
+						<FabricAnalyticsListeners client={mockAnalyticsClient}>
+							<IntlProvider locale="en">
+								<Provider client={mockClient}>
+									<Card testId="resolvedCard2" appearance="inline" url={mockUrl} />
+								</Provider>
+							</IntlProvider>
+						</FabricAnalyticsListeners>,
+					);
+					const resolvedView = await screen.findByTestId('resolvedCard2-resolved-view');
+					expect(resolvedView).toBeTruthy();
+
+					const resolvedCard = screen.getByRole('button');
+					expect(resolvedCard).toBeTruthy();
+					expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							actionSubject: 'smartLink',
+							action: 'resolved',
+							attributes: expect.objectContaining({
+								id: 'some-uuid-1',
+								status: 'resolved',
+								extensionKey: 'object-provider',
+								definitionId: 'd1',
+								canBeDatasource: false,
+								duration: null,
+							}),
+						}),
+					);
+
+					asMock(isSpecialEvent).mockReturnValue(false);
+
+					await userEvent.click(resolvedCard);
+					expect(mockWindowOpen).toHaveBeenCalledTimes(1);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+						id: 'some-uuid-1',
+						display: 'inline',
+						status: 'resolved',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						isModifierKeyPressed: false,
+					});
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+
+					// With special key pressed
+					asMock(analytics.uiCardClickedEvent).mockReset();
+					mockWindowOpen.mockReset();
+					asMock(isSpecialEvent).mockReturnValue(true);
+
+					await userEvent.click(resolvedCard);
+
+					expect(mockWindowOpen).toHaveBeenCalledTimes(1);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+						id: 'some-uuid-1',
+						display: 'inline',
+						status: 'resolved',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						isModifierKeyPressed: true,
+					});
+				},
+				async () => {
+					const mockUrl = 'https://this.is.the.seventh.url';
+					render(
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card testId="resolvedCard2" appearance="inline" url={mockUrl} />
+							</Provider>
+						</IntlProvider>,
+					);
+					const resolvedView = await screen.findByTestId('resolvedCard2-resolved-view');
+					expect(resolvedView).toBeTruthy();
+
+					const resolvedCard = screen.getByRole('button');
+					expect(resolvedCard).toBeTruthy();
+					expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
+
+					asMock(isSpecialEvent).mockReturnValue(false);
+
+					await userEvent.click(resolvedCard);
+					expect(mockWindowOpen).toHaveBeenCalledTimes(1);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+						id: 'some-uuid-1',
+						display: 'inline',
+						status: 'resolved',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						isModifierKeyPressed: false,
+					});
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+
+					// With special key pressed
+					asMock(analytics.uiCardClickedEvent).mockReset();
+					mockWindowOpen.mockReset();
+					asMock(isSpecialEvent).mockReturnValue(true);
+
+					await userEvent.click(resolvedCard);
+
+					expect(mockWindowOpen).toHaveBeenCalledTimes(1);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+						id: 'some-uuid-1',
+						display: 'inline',
+						status: 'resolved',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						isModifierKeyPressed: true,
+					});
+				},
+			);
 		});
 
 		ffTest.on('send-smart-link-rendered-ufo-event-half-time', '', () => {
@@ -723,110 +1051,6 @@ describe('smart-card: success analytics', () => {
 				],
 				['smart-link-authenticated', 'some-uuid-2', { display: 'inline' }],
 			]);
-		});
-
-		it('should fire clicked analytics event when flexible ui link with resolved URL is clicked', async () => {
-			const mockUrl = 'https://this.is.the.seventh.url';
-			render(
-				<IntlProvider locale="en">
-					<Provider client={mockClient}>
-						<Card testId="resolvedCard2" appearance="inline" url={mockUrl}>
-							<TitleBlock />
-						</Card>
-					</Provider>
-				</IntlProvider>,
-			);
-			const resolvedView = await screen.findByTestId('smart-block-title-resolved-view');
-			expect(resolvedView).toBeTruthy();
-
-			const resolvedCard = screen.getByTestId('smart-element-link');
-			expect(resolvedCard).toBeTruthy();
-			expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
-
-			asMock(isSpecialEvent).mockReturnValue(false);
-
-			await userEvent.click(resolvedCard);
-
-			// ensure default onclick for renderer is not triggered
-			expect(mockWindowOpen).toHaveBeenCalledTimes(0);
-			expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-			expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
-				id: 'some-uuid-1',
-				display: 'flexible',
-				status: 'resolved',
-				definitionId: 'd1',
-				extensionKey: 'object-provider',
-				isModifierKeyPressed: false,
-			});
-
-			// With special key pressed
-			asMock(analytics.uiCardClickedEvent).mockReset();
-			mockWindowOpen.mockReset();
-
-			asMock(isSpecialEvent).mockReturnValue(true);
-
-			await userEvent.click(resolvedCard);
-
-			// ensure default onclick for renderer is not triggered
-			expect(mockWindowOpen).toHaveBeenCalledTimes(0);
-			expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-			expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
-				id: 'some-uuid-1',
-				display: 'flexible',
-				status: 'resolved',
-				definitionId: 'd1',
-				extensionKey: 'object-provider',
-				isModifierKeyPressed: true,
-			});
-		});
-
-		it('should fire clicked analytics event when a resolved URL is clicked on a inline link', async () => {
-			const mockUrl = 'https://this.is.the.seventh.url';
-			render(
-				<IntlProvider locale="en">
-					<Provider client={mockClient}>
-						<Card testId="resolvedCard2" appearance="inline" url={mockUrl} />
-					</Provider>
-				</IntlProvider>,
-			);
-			const resolvedView = await screen.findByTestId('resolvedCard2-resolved-view');
-			expect(resolvedView).toBeTruthy();
-
-			const resolvedCard = screen.getByRole('button');
-			expect(resolvedCard).toBeTruthy();
-			expect(analytics.resolvedEvent).toHaveBeenCalledTimes(1);
-
-			asMock(isSpecialEvent).mockReturnValue(false);
-
-			await userEvent.click(resolvedCard);
-			expect(mockWindowOpen).toHaveBeenCalledTimes(1);
-			expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
-				id: 'some-uuid-1',
-				display: 'inline',
-				status: 'resolved',
-				definitionId: 'd1',
-				extensionKey: 'object-provider',
-				isModifierKeyPressed: false,
-			});
-			expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-
-			// With special key pressed
-			asMock(analytics.uiCardClickedEvent).mockReset();
-			mockWindowOpen.mockReset();
-			asMock(isSpecialEvent).mockReturnValue(true);
-
-			await userEvent.click(resolvedCard);
-
-			expect(mockWindowOpen).toHaveBeenCalledTimes(1);
-			expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-			expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
-				id: 'some-uuid-1',
-				display: 'inline',
-				status: 'resolved',
-				definitionId: 'd1',
-				extensionKey: 'object-provider',
-				isModifierKeyPressed: true,
-			});
 		});
 
 		it('should fire render failure when an unexpected error happens', async () => {

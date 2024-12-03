@@ -1,6 +1,6 @@
 // #region Imports
 import { AddColumnStep } from '@atlaskit/custom-steps';
-import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
+import type { AnalyticsEventPayload, EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -9,10 +9,14 @@ import {
 	INPUT_METHOD,
 	TABLE_OVERFLOW_CHANGE_TRIGGER,
 } from '@atlaskit/editor-common/analytics';
+import {
+	getParentOfTypeCount,
+	getPositionAfterTopParentNodeOfType,
+} from '@atlaskit/editor-common/nesting';
 import type { Command, EditorCommand } from '@atlaskit/editor-common/types';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { Selection } from '@atlaskit/editor-prosemirror/state';
-import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
+import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { hasParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import {
@@ -21,6 +25,8 @@ import {
 	findTable,
 	selectedRect,
 } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { updateRowOrColumnMovedTransform } from '../pm-plugins/analytics/commands';
 import { META_KEYS } from '../pm-plugins/table-analytics';
@@ -28,6 +34,23 @@ import { rescaleColumns } from '../transforms/column-width';
 import type { PluginInjectionAPI } from '../types';
 import { checkIfHeaderRowEnabled, copyPreviousRow, createTableWithWidth } from '../utils';
 import { getAllowAddColumnCustomStep } from '../utils/get-allow-add-column-custom-step';
+
+type InsertTableWithNestingSupportCommand = (
+	options: {
+		isTableScalingEnabled?: boolean;
+		isTableAlignmentEnabled?: boolean;
+		isFullWidthModeEnabled?: boolean;
+		isCommentEditor?: boolean;
+		isChromelessEditor?: boolean;
+		isTableResizingEnabled?: boolean;
+		createTableProps?: {
+			rowsCount?: number;
+			colsCount?: number;
+		};
+	},
+	api: PluginInjectionAPI | undefined | null,
+	analyticsPayload?: AnalyticsEventPayload,
+) => EditorCommand;
 
 function addColumnAtCustomStep(column: number) {
 	return (tr: Transaction) => {
@@ -235,6 +258,11 @@ export const insertRow =
 		return true;
 	};
 
+/**
+ * @private
+ * @deprecated This function is deprecated - please use insertTableWithNestingSupport instead.
+ * (To be removed with feature gate: `platform_editor_use_nested_table_pm_nodes`)
+ */
 export const createTable =
 	(
 		isTableScalingEnabled?: boolean,
@@ -272,6 +300,11 @@ export const createTable =
 		return true;
 	};
 
+/**
+ * @private
+ * @deprecated This function is deprecated - please use insertTableWithNestingSupport instead.
+ * (To be removed with feature gate: `platform_editor_use_nested_table_pm_nodes`)
+ */
 export const insertTableWithSize =
 	(
 		isFullWidthModeEnabled?: boolean,
@@ -311,4 +344,87 @@ export const insertTableWithSize =
 			}
 			return newTr;
 		};
+	};
+
+/**
+ * Unified command to insert a new table into the editor.
+ *
+ * @param {Object} options - Configuration options for table insertion.
+ * @param {boolean} [options.isTableScalingEnabled=false] - Flag to enable table scaling.
+ * @param {boolean} [options.isTableAlignmentEnabled=false] - Flag to enable table alignment.
+ * @param {boolean} [options.isFullWidthModeEnabled=false] - Flag to enable full-width mode for the table.
+ * @param {boolean} [options.isCommentEditor=false] - Flag to indicate if the editor is in comment mode.
+ * @param {boolean} [options.isChromelessEditor=false] - Flag to indicate if the editor is chromeless.
+ * @param {boolean} [options.isTableResizingEnabled=false] - Flag to enable table resizing.
+ * @param {Object} [options.createTableProps={}] - Additional properties for table creation, including table size.
+ * @param {Object} api - PluginInjectinoApi object for content insertion commands.
+ * @param {Object} analyticsPayload - Payload for analytics tracking.
+ *
+ * @returns {Function} A function that takes a transaction and inserts a table.
+ */
+export const insertTableWithNestingSupport: InsertTableWithNestingSupportCommand =
+	(
+		{
+			isTableScalingEnabled = false,
+			isTableAlignmentEnabled = false,
+			isFullWidthModeEnabled = false,
+			isCommentEditor = false,
+			isChromelessEditor = false,
+			isTableResizingEnabled = false,
+			createTableProps = {},
+		},
+		api,
+		analyticsPayload,
+	) =>
+	({ tr }) => {
+		const { schema } = tr.doc.type;
+		const node = createTableWithWidth({
+			isTableScalingEnabled,
+			isTableAlignmentEnabled,
+			isFullWidthModeEnabled,
+			isCommentEditor,
+			isChromelessEditor,
+			isTableResizingEnabled,
+			createTableProps,
+		})(schema);
+
+		// If the cursor is inside a table
+		let insertAt: Selection | undefined;
+		if (
+			hasParentNodeOfType(schema.nodes.table)(tr.selection) &&
+			fg('platform_editor_use_nested_table_pm_nodes')
+		) {
+			// If the experiment is disabled, or we're trying to nest deeper than one level, we insert the table after the top table
+			if (
+				editorExperiment('nested-tables-in-tables', false, { exposure: true }) ||
+				getParentOfTypeCount(schema.nodes.table)(tr.selection.$from) > 1
+			) {
+				const positionAfterTopTable = getPositionAfterTopParentNodeOfType(schema.nodes.table)(
+					tr.selection.$from,
+				);
+				if (!positionAfterTopTable) {
+					return tr;
+				}
+				insertAt = TextSelection.create(tr.doc, positionAfterTopTable);
+			}
+		}
+
+		api?.contentInsertion?.commands?.insert({
+			node,
+			options: {
+				selectNodeInserted: false,
+				analyticsPayload: analyticsPayload
+					? {
+							...analyticsPayload,
+							attributes: {
+								...analyticsPayload.attributes,
+								localId: node.attrs.localId,
+							},
+						}
+					: undefined,
+				insertAt,
+			},
+		})({ tr });
+
+		return tr;
 	};

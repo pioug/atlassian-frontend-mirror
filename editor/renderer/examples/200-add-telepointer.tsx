@@ -1,6 +1,20 @@
 import React, { useState } from 'react';
 import { default as Renderer } from '../src/ui/Renderer';
 
+type Document = {
+	type: string;
+	version: number;
+	content: {
+		type: string;
+		content?: {
+			type: string;
+			text: string;
+		}[];
+	}[];
+};
+
+type Step = [string, Document];
+
 export default function AddTelepointerExample() {
 	const [updateStep, setUpdateStep] = useState(0);
 
@@ -37,7 +51,7 @@ export default function AddTelepointerExample() {
 	);
 }
 
-const docAdfUpdateSteps = [
+const docAdfUpdateSteps: Step[] = [
 	[
 		'empty doc',
 		{

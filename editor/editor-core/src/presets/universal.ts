@@ -20,7 +20,7 @@ import { dataConsumerPlugin } from '@atlaskit/editor-plugins/data-consumer';
 import { datePlugin } from '@atlaskit/editor-plugins/date';
 import { emojiPlugin, type EmojiPluginOptions } from '@atlaskit/editor-plugins/emoji';
 import { expandPlugin } from '@atlaskit/editor-plugins/expand';
-import { extensionPlugin } from '@atlaskit/editor-plugins/extension';
+import { extensionPlugin, type ExtensionPluginOptions } from '@atlaskit/editor-plugins/extension';
 import { feedbackDialogPlugin } from '@atlaskit/editor-plugins/feedback-dialog';
 import { findReplacePlugin } from '@atlaskit/editor-plugins/find-replace';
 import { fragmentPlugin } from '@atlaskit/editor-plugins/fragment';
@@ -94,6 +94,9 @@ export type InitialPluginConfiguration = {
 		quickInsertActionDescription?: string;
 		requestEditPermission?: () => void;
 		taskPlaceholder?: string;
+	};
+	extensionPlugin?: {
+		__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'];
 	};
 };
 
@@ -358,7 +361,7 @@ export default function createUniversalPresetInternal({
 					extensionHandlers: props.extensionHandlers,
 					useLongPressSelection: false,
 					appearance,
-					__livePage: props.__livePage,
+					...initialPluginConfiguration?.extensionPlugin,
 				},
 			],
 			Boolean(props.allowExtension),

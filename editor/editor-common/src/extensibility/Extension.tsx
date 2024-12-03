@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { type ADFEntity } from '@atlaskit/adf-utils/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -25,7 +26,8 @@ export interface Props {
 	pluginInjectionApi: ExtensionsPluginInjectionAPI;
 	eventDispatcher?: EventDispatcher;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
-	showLivePagesBodiedMacrosRendererView?: boolean;
+	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
+	rendererExtensionHandlers?: ExtensionHandlers;
 }
 
 export class Extension extends Component<Props, any> {
@@ -59,6 +61,7 @@ export class Extension extends Component<Props, any> {
 			eventDispatcher,
 			macroInteractionDesignFeatureFlags,
 			showLivePagesBodiedMacrosRendererView,
+			rendererExtensionHandlers,
 		} = this.props;
 
 		return (
@@ -75,6 +78,7 @@ export class Extension extends Component<Props, any> {
 				eventDispatcher={eventDispatcher}
 				macroInteractionDesignFeatureFlags={macroInteractionDesignFeatureFlags}
 				showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+				rendererExtensionHandlers={rendererExtensionHandlers}
 			/>
 		);
 	};

@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.0.2
+
+### Patch Changes
+
+- [#171994](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171994)
+  [`be58e4bb2e387`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be58e4bb2e387) -
+  Migrating usages of UNSAFE types and entrypoints that have been renamed in `@atlaskit/icon` and
+  `@atlaskit/icon-lab`.
+- Updated dependencies
+
 ## 11.0.1
 
 ### Patch Changes

@@ -2,11 +2,11 @@ import React from 'react';
 
 import { token } from '@atlaskit/tokens';
 import { Flex } from '@atlaskit/primitives';
-import { IconTile, type IconProps, type UNSAFE_NewCoreIconProps } from '@atlaskit/icon';
+import { IconTile, type IconProps, type NewCoreIconProps } from '@atlaskit/icon';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 type IconWrapperProps = {
-	Icon: React.FC<UNSAFE_NewCoreIconProps>;
+	Icon: React.FC<NewCoreIconProps>;
 	LegacyIcon: ({ label, primaryColor, secondaryColor, size, testId }: IconProps) => JSX.Element;
 	appearance: string;
 };

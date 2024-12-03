@@ -1,7 +1,13 @@
 import type { IntlShape } from 'react-intl-next/src/types';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import {
 	addColumnAfter,
 	addColumnAfterVO,
@@ -31,10 +37,12 @@ import {
 	toggleTable,
 } from '@atlaskit/editor-common/keymaps';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { GetEditorContainerWidth } from '@atlaskit/editor-common/types';
 import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { goToNextCell, moveCursorBackward, setFocusToCellMenu } from '../commands';
 import {
@@ -53,6 +61,7 @@ import {
 	addColumnAfter as addColumnAfterCommand,
 	addColumnBefore as addColumnBeforeCommand,
 	createTable,
+	insertTableWithNestingSupport,
 } from '../commands/insert';
 import { moveSourceWithAnalyticsViaShortcut } from '../pm-plugins/drag-and-drop/commands-with-analytics';
 import type { PluginInjectionAPI, PluginInjectionAPIWithA11y } from '../types';
@@ -90,15 +99,36 @@ export function keymapPlugin(
 	);
 	bindKeymapWithCommand(
 		toggleTable.common!,
-		createTable(
-			isTableScalingEnabled,
-			isTableAlignmentEnabled,
-			!!isFullWidthEnabled,
-			editorAnalyticsAPI,
-			isCommentEditor,
-			isChromelessEditor,
-			isTableResizingEnabled,
-		),
+		fg('platform_editor_use_nested_table_pm_nodes')
+			? editorCommandToPMCommand(
+					insertTableWithNestingSupport(
+						{
+							isTableScalingEnabled,
+							isTableAlignmentEnabled,
+							isFullWidthModeEnabled: !!isFullWidthEnabled,
+							isCommentEditor: isCommentEditor,
+							isChromelessEditor: isChromelessEditor,
+							isTableResizingEnabled,
+						},
+						api,
+						{
+							action: ACTION.INSERTED,
+							actionSubject: ACTION_SUBJECT.DOCUMENT,
+							actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+							attributes: { inputMethod: INPUT_METHOD.SHORTCUT },
+							eventType: EVENT_TYPE.TRACK,
+						},
+					),
+				)
+			: createTable(
+					isTableScalingEnabled,
+					isTableAlignmentEnabled,
+					!!isFullWidthEnabled,
+					editorAnalyticsAPI,
+					isCommentEditor,
+					isChromelessEditor,
+					isTableResizingEnabled,
+				),
 		list,
 	);
 	bindKeymapWithCommand(

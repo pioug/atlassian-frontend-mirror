@@ -1,5 +1,41 @@
 # @atlaskit/smart-card
 
+## 32.5.0
+
+### Minor Changes
+
+- [#168911](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168911)
+  [`bc902797bc22b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc902797bc22b) -
+  Migrate operational analytics event
+
+### Patch Changes
+
+- [#171994](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171994)
+  [`be58e4bb2e387`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be58e4bb2e387) -
+  Migrating usages of UNSAFE types and entrypoints that have been renamed in `@atlaskit/icon` and
+  `@atlaskit/icon-lab`.
+- Updated dependencies
+
+## 32.4.0
+
+### Minor Changes
+
+- [#170865](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170865)
+  [`774efa325781c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/774efa325781c) -
+  [ux] Removes the legacy block card views from the embed card for the resolving and fallback states
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.3.0
+
+### Minor Changes
+
+- [#171274](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171274)
+  [`3088957fbbf43`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3088957fbbf43) -
+  Clean up smart-card-use-refactored-usesmartlinkactions feature gate
+
 ## 32.2.2
 
 ### Patch Changes

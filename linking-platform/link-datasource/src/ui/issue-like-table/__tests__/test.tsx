@@ -1664,7 +1664,7 @@ describe('IssueLikeDataTableView', () => {
 								expect(queryAllByTestId('sometable--cell-0')[0]).toHaveStyle('max-width: 360px');
 
 								expect(queryByTestId('status-column-heading')).toHaveStyle(
-									`max-width: ${8 * 15}px`,
+									`max-width: ${8 * 12.5}px`,
 								);
 							});
 
@@ -1763,7 +1763,7 @@ describe('IssueLikeDataTableView', () => {
 								});
 
 								expect(queryByTestId('status-column-heading')).toHaveStyle({
-									width: `${8 * 15}px`,
+									width: `${8 * 12.5}px`,
 								});
 							});
 
@@ -2324,6 +2324,135 @@ describe('IssueLikeDataTableView', () => {
 
 						const flag = await screen.findByRole('alert');
 						expect(flag).toBeInTheDocument();
+					});
+				},
+			);
+
+			ffTest.on(
+				'platform-datasources-enable-two-way-sync-assignee',
+				'with 2 way sync for assignee on',
+				() => {
+					const items: DatasourceDataResponseItem[] = [
+						{
+							ari: { data: 'ari/id1' },
+							assignee: {
+								data: [],
+							},
+						},
+						{
+							ari: { data: 'ari/id2' },
+							assignee: {
+								data: {
+									atlassianUserId: '1',
+									displayName: 'John Doe',
+									avatarSource: 'source',
+								},
+							},
+						},
+						{
+							assignee: {
+								data: [],
+							},
+							ari: { data: 'ari/id3' },
+						},
+					];
+
+					const columns: DatasourceResponseSchemaProperty[] = [
+						{
+							key: 'assignee',
+							title: 'Assignee',
+							type: 'user',
+						},
+					];
+
+					const execute = jest.fn().mockResolvedValue({});
+
+					it('shows empty Avatar on hover for user cell conditionally', async () => {
+						const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+						actionStore.storeState.setState({
+							actionsByIntegration: {
+								jira: {
+									assignee: {
+										actionKey: 'atlassian:work-item:update:assignee',
+										type: 'string',
+									},
+								},
+							},
+							permissions: {
+								'ari/id1': {
+									assignee: { isEditable: true },
+								},
+								'ari/id2': {
+									assignee: { isEditable: true },
+								},
+							},
+						});
+
+						const executeFetch = jest.fn().mockResolvedValue({
+							operationStatus: ActionOperationStatus.SUCCESS,
+							errors: [],
+						});
+						mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+						setup({
+							items,
+							columns,
+							itemIds,
+							visibleColumnKeys: ['assignee'],
+						});
+
+						const cell1 = within(screen.getByTestId('sometable--row-ari/id1')).getByTestId(
+							'link-datasource-render-type--user',
+						);
+
+						const cell2 = within(screen.getByTestId('sometable--row-ari/id2')).getByTestId(
+							'link-datasource-render-type--user',
+						);
+
+						act(() => {
+							fireEvent.mouseOver(cell1);
+						});
+
+						expect(within(cell1).getByText('Unassigned')).toBeVisible();
+						expect(within(cell2).queryByText('Unassigned')).not.toBeInTheDocument();
+					});
+
+					it('should NOT show empty Avatar on hover for user cell when is not editable', async () => {
+						const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+						actionStore.storeState.setState({
+							actionsByIntegration: {
+								jira: {
+									assignee: {
+										actionKey: 'atlassian:work-item:update:assignee',
+										type: 'string',
+									},
+								},
+							},
+							permissions: {
+								'ari/id1': {
+									assignee: { isEditable: false },
+								},
+							},
+						});
+
+						mockUseExecuteAtomicAction.mockReturnValue({});
+
+						setup({
+							items,
+							columns,
+							itemIds,
+							visibleColumnKeys: ['assignee'],
+						});
+
+						const cell1 = within(screen.getByTestId('sometable--row-ari/id1')).getByTestId(
+							'inline-edit-read-view',
+						);
+
+						act(() => {
+							fireEvent.mouseOver(cell1);
+						});
+
+						expect(within(cell1).queryByText('Unassigned')).not.toBeInTheDocument();
 					});
 				},
 			);

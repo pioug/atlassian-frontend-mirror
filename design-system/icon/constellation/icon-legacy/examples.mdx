@@ -5,6 +5,7 @@ order: 1
 ---
 
 import IconDefault from '../../examples/constellation/icon-default.tsx';
+import IconMigration from '../../examples/constellation/icon-migration.tsx';
 import IconSmall from '../../examples/constellation/icon-small.tsx';
 import IconMedium from '../../examples/constellation/icon-medium.tsx';
 import IconLarge from '../../examples/constellation/icon-large.tsx';
@@ -17,6 +18,16 @@ import IconPrimaryColor from '../../examples/constellation/icon-primary-color.ts
 By default, icons are displayed in the `medium` size.
 
 <Example Component={IconDefault} packageName="@atlaskit/icon" />
+
+## Migration
+
+Atlassian products can feature flag between the old and new icon components via the `migration`
+entrypoint for the new icons, or manually via the `LEGACY_fallbackIcon` prop.
+
+<Example Component={IconMigration} packageName="@atlaskit/icon" />
+
+To learn more about feature flagging and `LEGACY_` prefixed props, see the
+[icon migration guide](/components/icon/migration-guide#atlassian-developers).
 
 ## Sizing
 

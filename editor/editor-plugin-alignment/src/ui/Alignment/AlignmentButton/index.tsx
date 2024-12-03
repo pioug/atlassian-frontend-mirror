@@ -33,6 +33,7 @@ function AlignmentButton({ label, isSelected, content, shortcut, onClick, value 
 			aria-keyshortcuts={getAriaKeyshortcuts(shortcut)}
 			onClick={onClickCallback}
 			iconBefore={content}
+			titlePosition={'bottom'}
 		/>
 	);
 }

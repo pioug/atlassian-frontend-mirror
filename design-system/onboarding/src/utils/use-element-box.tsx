@@ -2,8 +2,6 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 
 import { bind } from 'bind-event-listener';
 
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
-
 export interface ElementBoundingBox {
 	height: number;
 	left: number;
@@ -137,10 +135,7 @@ const usePollingElementBox = (element: HTMLElement, updateMethod: ResizeUpdateMe
  * @param element HTMLElement to watch when resizing.
  */
 export const useElementBox = (element: HTMLElement, resizeUpdateMethod?: ResizeUpdateMethod) => {
-	const updateMethod =
-		resizeUpdateMethod || getBooleanFF('platform.design-system.refresh-spotlight-on-interval')
-			? 'polling'
-			: 'resizeListener';
+	const updateMethod = resizeUpdateMethod || 'resizeListener';
 	const boxViaResizeListener = useResizeAwareElementBox(element, updateMethod);
 	const boxViaPolling = usePollingElementBox(element, updateMethod);
 

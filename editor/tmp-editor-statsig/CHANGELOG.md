@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.22.0
+
+### Minor Changes
+
+- [#170373](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170373)
+  [`999f7f7bcd35c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/999f7f7bcd35c) -
+  [https://product-fabric.atlassian.net/browse/EDF-1798](EDF-1798) - the Link Picker was added into
+  the Editor AI Command Palette prompts
+
 ## 2.21.1
 
 ### Patch Changes

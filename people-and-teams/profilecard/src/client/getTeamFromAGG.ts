@@ -52,6 +52,7 @@ const TEAM_FRAGMENT = `
       largeHeaderImageUrl
       smallAvatarImageUrl
       largeAvatarImageUrl
+	  isVerified
       members {
         nodes {
           member {

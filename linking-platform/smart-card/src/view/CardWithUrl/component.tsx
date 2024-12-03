@@ -1,6 +1,7 @@
 import React, { type MouseEvent, useCallback, useEffect, useMemo } from 'react';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CardDisplay } from '../../constants';
@@ -154,14 +155,36 @@ function Component({
 		measure.mark(id, state.status);
 		if (state.status !== 'pending' && state.status !== 'resolving') {
 			measure.create(id, state.status);
-			analytics.operational.instrument({
-				id,
-				status: state.status,
-				definitionId,
-				extensionKey: extensionKey ?? state.error?.extensionKey,
-				resourceType,
-				error: state.error,
-			});
+			if (fg('platform_smart-card-migrate-operational-analytics')) {
+				if (state.status === 'resolved') {
+					fireEvent('operational.smartLink.resolved', {
+						definitionId: definitionId ?? null,
+						duration: measure.getMeasure(id, state.status)?.duration ?? null,
+					});
+				} else if (state.error?.type !== 'ResolveUnsupportedError') {
+					fireEvent('operational.smartLink.unresolved', {
+						definitionId: definitionId ?? null,
+						reason: state.status,
+						error:
+							state.error === undefined
+								? null
+								: {
+										name: state.error.name,
+										kind: state.error.kind,
+										type: state.error.type,
+									},
+					});
+				}
+			} else {
+				analytics.operational.instrument({
+					id,
+					status: state.status,
+					definitionId,
+					extensionKey: extensionKey ?? state.error?.extensionKey,
+					resourceType,
+					error: state.error,
+				});
+			}
 		}
 	}, [
 		id,
@@ -172,6 +195,7 @@ function Component({
 		extensionKey,
 		resourceType,
 		analytics.operational,
+		fireEvent,
 	]);
 
 	// NB: once the smart-card has rendered into an end state, we capture
@@ -313,6 +337,7 @@ function Component({
 				<EmbedCard
 					id={id}
 					url={url}
+					renderers={renderers}
 					cardState={state}
 					iframeUrlType={embedIframeUrlType}
 					handleAuthorize={(services.length && handleAuthorize) || undefined}

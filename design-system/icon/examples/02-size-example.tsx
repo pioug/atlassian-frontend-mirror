@@ -3,25 +3,26 @@
  * @jsx jsx
  */
 import { useState } from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-
-import { type Size } from '../src/types';
+import { token } from '@atlaskit/tokens';
 
 import ActivityIcon from '../glyph/activity';
+import AddIcon from '../glyph/add';
 import AddCircleIcon from '../glyph/add-circle';
 import AddItemIcon from '../glyph/add-item';
-import AddIcon from '../glyph/add';
 import AddonIcon from '../glyph/addon';
-import AppSwitcherIcon from '../glyph/menu';
 import ArrowDownIcon from '../glyph/arrow-down';
-import ArrowLeftCircleIcon from '../glyph/arrow-left-circle';
 import ArrowLeftIcon from '../glyph/arrow-left';
+import ArrowLeftCircleIcon from '../glyph/arrow-left-circle';
 import ArrowRightIcon from '../glyph/arrow-right';
 import ArrowUpIcon from '../glyph/arrow-up';
-import { token } from '@atlaskit/tokens';
+import AppSwitcherIcon from '../glyph/menu';
+import { type Size } from '../src/types';
 
 const iconRowStyles = css({
 	display: 'flex',
@@ -68,7 +69,7 @@ const IconSizeExample = ({ defaultSize = 'medium' }: { defaultSize: Size }) => {
 			<div id="size-example" css={iconRowStyles}>
 				{demoIcons.map((Icon, i) => (
 					<span css={iconWrapperStyles} key={i}>
-						<Icon label={`Icon ${i}`} size={size} />
+						<Icon testId={`icon-${i}`} label={`Icon ${i}`} size={size} />
 					</span>
 				))}
 			</div>

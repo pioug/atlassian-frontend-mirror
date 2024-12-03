@@ -12,8 +12,6 @@ import {
 	LayoutWithMediaRenderer,
 	LayoutWithTextAndCodeblockRenderer,
 	Layout3ColWithDifferentTextRenderer,
-	Layout4ColRenderer,
-	Layout5ColRenderer,
 	Layout3ColWithWidthRenderer,
 	Layout4ColWithWidthRenderer,
 	Layout5ColWithWidthRenderer,
@@ -35,9 +33,6 @@ snapshot(LayoutWithDifferentTextRenderer);
 snapshot(LayoutWithMediaRenderer);
 snapshot(LayoutWithTextAndCodeblockRenderer);
 snapshot(Layout3ColWithDifferentTextRenderer);
-
-snapshot(Layout4ColRenderer);
-snapshot(Layout5ColRenderer);
 
 snapshot(Layout3ColWithWidthRenderer, {
 	featureFlags: {

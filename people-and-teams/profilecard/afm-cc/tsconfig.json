@@ -57,6 +57,9 @@
             "path": "../../../design-system/modal-dialog/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../people-teams-ui-public/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         },
         {

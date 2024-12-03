@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "20.12.2",
+	"version": "20.13.1",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -68,15 +68,16 @@
 		"@atlaskit/avatar-group": "^10.0.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/dropdown-menu": "^12.23.0",
-		"@atlaskit/empty-state": "^7.12.0",
+		"@atlaskit/empty-state": "^8.0.0",
 		"@atlaskit/focus-ring": "^2.0.0",
 		"@atlaskit/give-kudos": "^2.3.0",
-		"@atlaskit/icon": "^22.28.0",
+		"@atlaskit/icon": "^23.0.0",
 		"@atlaskit/lozenge": "^11.12.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/modal-dialog": "^12.18.0",
+		"@atlaskit/people-teams-ui-public": "^1.6.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/popup": "^1.29.0",
+		"@atlaskit/popup": "^1.30.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/rovo-agent-components": "^1.14.0",
 		"@atlaskit/rovo-triggers": "^1.4.0",
@@ -146,6 +147,9 @@
 			"type": "boolean"
 		},
 		"rovo_profile_card_open_chat_sidebar": {
+			"type": "boolean"
+		},
+		"show_verified_team_icon_in_profile_card": {
 			"type": "boolean"
 		}
 	}

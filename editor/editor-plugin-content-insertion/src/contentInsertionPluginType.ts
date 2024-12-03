@@ -6,7 +6,6 @@ import type { InsertNodeAPI } from './types';
 export type ContentInsertionPlugin = NextEditorPlugin<
 	'contentInsertion',
 	{
-		actions: InsertNodeAPI;
 		dependencies: [AnalyticsPlugin];
-	}
+	} & InsertNodeAPI
 >;

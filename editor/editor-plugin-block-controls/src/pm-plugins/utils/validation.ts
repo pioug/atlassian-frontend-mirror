@@ -1,7 +1,9 @@
 import memoizeOne from 'memoize-one';
 
+import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const isInsideTable = (nodeType: NodeType): Boolean => {
@@ -88,6 +90,7 @@ export function canMoveNodeToIndex(
 	destParent: PMNode,
 	indexIntoParent: number,
 	srcNode: PMNode,
+	$destNodePos: ResolvedPos,
 	destNode?: PMNode,
 ) {
 	let srcNodeType = srcNode.type;
@@ -120,6 +123,23 @@ export function canMoveNodeToIndex(
 			parentNodeType === 'expand' &&
 			(activeNodeType === 'expand' || activeNodeType === 'nestedExpand')
 		) {
+			return false;
+		}
+	}
+
+	// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
+	const isNestingTablesSupported =
+		fg('platform_editor_use_nested_table_pm_nodes') &&
+		editorExperiment('nested-tables-in-tables', true, { exposure: true });
+
+	// NOTE: this will block drop targets from showing for dragging a table into another table
+	// unless nested tables are supported and the nesting depth does not exceed 1
+	if (
+		(parentNodeType === 'tableCell' || parentNodeType === 'tableHeader') &&
+		activeNodeType === 'table'
+	) {
+		const nestingDepth = getParentOfTypeCount(srcNode?.type)($destNodePos);
+		if (!isNestingTablesSupported || (isNestingTablesSupported && nestingDepth > 1)) {
 			return false;
 		}
 	}

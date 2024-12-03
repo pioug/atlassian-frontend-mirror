@@ -5,9 +5,10 @@ import { filterCommand as filter } from '@atlaskit/editor-common/utils';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { Node } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPluginOptions } from '../types';
 
@@ -74,6 +75,29 @@ const getInitialPluginState = (options: LayoutPluginOptions, state: EditorState)
 	};
 };
 
+// To prevent a single-column layout,
+// if a user attempts to delete a layout column and
+// we will force remove the content instead.
+// There are some edge cases where user can delete a layout column
+// see packages/editor/editor-plugin-layout-tests/src/__tests__/unit/delete.ts
+const handleDeleteLayoutColumn: Command = (state, dispatch) => {
+	const sel = state.selection;
+
+	if (
+		sel instanceof NodeSelection &&
+		sel.node.type.name === 'layoutColumn' &&
+		sel.$from.parent.type.name === 'layoutSection' &&
+		sel.$from.parent.childCount === 2 &&
+		dispatch &&
+		editorExperiment('advanced_layouts', true)
+	) {
+		dispatch(state.tr.deleteRange(sel.from + 1, sel.from + sel.node.content.size));
+		return true;
+	}
+
+	return false;
+};
+
 export default (options: LayoutPluginOptions) =>
 	new SafePlugin<LayoutState>({
 		key: pluginKey,
@@ -83,6 +107,7 @@ export default (options: LayoutPluginOptions) =>
 			apply: (tr, pluginState, _oldState, newState) => {
 				if (tr.docChanged || tr.selectionSet) {
 					const maybeLayoutSection = getMaybeLayoutSection(newState);
+
 					const newPluginState = {
 						...pluginState,
 						pos: maybeLayoutSection ? maybeLayoutSection.pos : null,
@@ -109,6 +134,10 @@ export default (options: LayoutPluginOptions) =>
 			},
 			handleKeyDown: keydownHandler({
 				Tab: filter(isWholeSelectionInsideLayoutColumn, moveCursorToNextColumn),
+				'Mod-Backspace': handleDeleteLayoutColumn,
+				'Mod-Delete': handleDeleteLayoutColumn,
+				Backspace: handleDeleteLayoutColumn,
+				Delete: handleDeleteLayoutColumn,
 			}),
 			handleClickOn: createSelectionClickHandler(
 				['layoutColumn'],
@@ -146,7 +175,6 @@ export default (options: LayoutPluginOptions) =>
 			if (changes.length) {
 				let tr = newState.tr;
 				const selection = newState.selection.toJSON();
-
 				changes.forEach((change) => {
 					tr.replaceRange(change.from, change.to, change.slice);
 				});

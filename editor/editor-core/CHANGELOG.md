@@ -1,5 +1,39 @@
 # @atlaskit/editor-core
 
+## 203.0.3
+
+### Patch Changes
+
+- [#170778](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170778)
+  [`2202b03e196ad`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2202b03e196ad) -
+  [ux] [ED-25407] FF cleanup - platform_editor_utilize_linebreakreplacement
+- Updated dependencies
+
+## 203.0.2
+
+### Patch Changes
+
+- [#170815](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170815)
+  [`13e4ced269179`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/13e4ced269179) -
+  [ux] ED-25879 Default image insertion type should not be 'inline'
+- Updated dependencies
+
+## 203.0.1
+
+### Patch Changes
+
+- [#170442](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170442)
+  [`14b1ff1b28958`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14b1ff1b28958) -
+  ED-25803 Update to not pass mountPoint into dropdown menu popup so that dropdown menu will be
+  nested inside DragMenu pop up
+- [#171014](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171014)
+  [`6163248356c63`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6163248356c63) -
+  [ED-25833] Replace the following FGs with experiment `platform_editor_advanced_layouts`
+
+  - platform_editor_advanced_layouts_breakout_resizing
+  - platform_editor_advanced_layouts_pre_release_1
+  - platform_editor_advanced_layouts_pre_release_2
+
 ## 203.0.0
 
 ### Major Changes

@@ -58,9 +58,11 @@ const columnLayoutResponsiveRendererStyles = css({
 	'.layout-section-container': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'[data-layout-section]': {
+			gap: token('space.600', '48px'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-container-queries, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
 			[`@container layout-area (max-width:${LAYOUT_BREAKPOINT_RENDERER}px)`]: {
 				flexDirection: 'column',
+				gap: token('space.400', '32px'),
 			},
 		},
 	},

@@ -9,6 +9,9 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
+import type { EditorAnalyticsAPI } from '../analytics';
+import { type BreakoutEventPayload } from '../analytics/types/breakout-events';
 import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles';
 import { type EditorContainerWidth, type getPosHandlerNode } from '../types';
 
@@ -85,6 +88,7 @@ const BreakoutResizer = ({
 	disabled,
 	getEditorWidth,
 	parentRef,
+	editorAnalyticsApi,
 }: {
 	editorView: EditorView;
 	nodeType: BreakoutSupportedNodes;
@@ -93,6 +97,7 @@ const BreakoutResizer = ({
 	disabled?: boolean;
 	getEditorWidth: () => EditorContainerWidth | undefined;
 	parentRef?: HTMLElement;
+	editorAnalyticsApi?: EditorAnalyticsAPI;
 }) => {
 	const [{ minWidth, maxWidth, isResizing }, setResizingState] = useState<ResizingState>({
 		minWidth: undefined,
@@ -150,15 +155,29 @@ const BreakoutResizer = ({
 			const newTr = state.tr;
 
 			if (node && breakoutSupportedNodes.includes(node.type.name)) {
+				const newBreakoutWidth = Math.max(newWidth, akEditorDefaultLayoutWidth);
 				newTr.setNodeMarkup(pos, node.type, node.attrs, [
-					breakout.create({ width: Math.max(newWidth, akEditorDefaultLayoutWidth) }),
+					breakout.create({ width: newBreakoutWidth }),
 				]);
+
+				const breakoutResizePayload: BreakoutEventPayload = {
+					action: ACTION.RESIZED,
+					actionSubject: ACTION_SUBJECT.ELEMENT,
+					eventType: EVENT_TYPE.TRACK,
+					attributes: {
+						nodeType: node.type.name as BreakoutSupportedNodes,
+						prevWidth: originalState.width,
+						newWidth: newBreakoutWidth,
+					},
+				};
+				editorAnalyticsApi?.attachAnalyticsEvent(breakoutResizePayload)(newTr);
 			}
 			newTr.setMeta('is-resizer-resizing', false).setMeta('scrollIntoView', false);
+
 			dispatch(newTr);
 			setResizingState({ isResizing: false, minWidth: undefined, maxWidth: undefined });
 		},
-		[editorView, getPos],
+		[editorView, getPos, editorAnalyticsApi],
 	);
 
 	if (disabled) {

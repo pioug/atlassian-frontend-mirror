@@ -6,6 +6,7 @@ import { type Status } from '@atlaskit/linking-types';
 import Lozenge from '@atlaskit/lozenge';
 import { type FilterOptionOption } from '@atlaskit/react-select';
 import Select from '@atlaskit/select';
+import Tooltip from '@atlaskit/tooltip';
 
 import { failUfoExperience, succeedUfoExperience } from '../../../../analytics/ufoExperiences';
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
@@ -62,9 +63,11 @@ const StatusEditType = (props: StatusEditTypeProps) => {
 				getOptionValue={(option) => option.text}
 				value={currentValue?.values?.[0]}
 				formatOptionLabel={(option) => (
-					<Lozenge testId={`inline-edit-status-option-${option.text}`} {...option.style}>
-						{option.text}
-					</Lozenge>
+					<Tooltip content={option.text}>
+						<Lozenge testId={`inline-edit-status-option-${option.text}`} {...option.style}>
+							{option.text}
+						</Lozenge>
+					</Tooltip>
 				)}
 				onChange={(e) =>
 					props.setEditValues({

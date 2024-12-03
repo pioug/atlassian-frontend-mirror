@@ -48,7 +48,7 @@ import EditorLayoutThreeEqualIcon from '@atlaskit/icon/glyph/editor/layout-three
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import HipchatChevronDoubleDownIcon from '@atlaskit/icon/glyph/hipchat/chevron-double-down';
 import HipchatChevronDoubleUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-double-up';
-import type { UNSAFE_NewIconProps } from '@atlaskit/icon/types';
+import type { NewIconProps } from '@atlaskit/icon/types';
 
 import {
 	deleteColumnsWithAnalytics,
@@ -142,8 +142,8 @@ export type DragMenuOptionIdType =
 
 export interface DragMenuConfig extends Omit<DropdownOptionT<Command>, 'icon'> {
 	id: DragMenuOptionIdType;
-	icon?: React.ComponentType<React.PropsWithChildren<UNSAFE_NewIconProps>>;
-	iconFallback?: React.ComponentType<React.PropsWithChildren<UNSAFE_NewIconProps>>;
+	icon?: React.ComponentType<React.PropsWithChildren<NewIconProps>>;
+	iconFallback?: React.ComponentType<React.PropsWithChildren<NewIconProps>>;
 	keymap?: string;
 }
 

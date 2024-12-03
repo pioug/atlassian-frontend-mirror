@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _maximize = _interopRequireDefault(require("@atlaskit/icon/core/grow-diagonal"));
+var _maximize = _interopRequireDefault(require("@atlaskit/icon/core/maximize"));
 var _actualSize = _interopRequireDefault(require("@atlaskit/icon/glyph/media-services/actual-size"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**

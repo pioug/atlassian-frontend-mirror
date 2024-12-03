@@ -29,7 +29,7 @@
 		"@atlaskit/ds-lib": "^3.3.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/popup": "^1.29.0",
+		"@atlaskit/popup": "^1.30.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.4.0",
 		"@atlaskit/tooltip": "^18.9.0",

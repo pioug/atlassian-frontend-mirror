@@ -1,5 +1,36 @@
 # @atlaskit/icon
 
+## 23.0.0
+
+### Major Changes
+
+- [#171994](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171994)
+  [`be58e4bb2e387`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be58e4bb2e387) -
+  This release renames UNSAFE types and entrypoints. It also includes rebuilding the icons and
+  removing deprecated entrypoints.
+
+  ### Renamed entrypoints:
+
+  - `@atlaskit/icon/UNSAFE_base-new` → `@atlaskit/icon/base-new`
+  - `@atlaskit/icon/UNSAFE_migration-map` → `@atlaskit/icon/migration-map`
+
+  ### Removed entrypoints:
+
+  **`@atlaskit/icon/core`**
+
+  - `bulleted-list`
+  - `collapse`
+  - `expand`
+
+  **`@atlaskit/icon/core/migration`**
+
+  - `bulleted-list--bullet-list`
+  - `bulleted-list--editor-bullet-list`
+  - `collapse--editor-collapse`
+  - `expand--editor-expand`
+  - `expand--editor-image-resize`
+  - `expand--image-resize`
+
 ## 22.28.0
 
 ### Minor Changes

@@ -1,15 +1,13 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::478eb3d99a7529078a01d76471b38f8f>>
+ * @codegen <<SignedSource::f6c1d63ae4640c77ce8c0bb5ef956d19>>
  * @codegenCommand yarn build:icon-glyphs
  */
 
-import type React from 'react';
-import type { NewUtilityIconProps } from '@atlaskit/icon/UNSAFE_base-new';
-import type Icon from '@atlaskit/icon/UNSAFE_base-new';
+import type { NewUtilityIconProps } from '@atlaskit/icon/base-new';
 
 declare const ErrorIcon: {
-  (props: Omit<NewUtilityIconProps, 'dangerouslySetGlyph' | 'type'>): JSX.Element;
+  (props: NewUtilityIconProps): JSX.Element;
   displayName: string;
 };
 export default ErrorIcon;

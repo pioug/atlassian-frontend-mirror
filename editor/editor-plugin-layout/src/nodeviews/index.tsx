@@ -54,6 +54,7 @@ const LayoutBreakoutResizer = ({
 			getEditorWidth={getEditorWidth}
 			disabled={editorDisabledState?.editorDisabled === true}
 			parentRef={parentRef}
+			editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
 		/>
 	);
 };

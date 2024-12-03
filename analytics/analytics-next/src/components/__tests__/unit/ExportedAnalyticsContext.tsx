@@ -44,7 +44,7 @@ describe('ExportedAnalyticsListener with Error', () => {
 	};
 
 	ffTest(
-		'platform.analytics-next-use-modern-context_fqgbx',
+		'analytics-next-use-modern-context_jira',
 		() => {
 			render(
 				<AnalyticsErrorBoundary {...props} ErrorComponent={ErrorScreen} onError={onError}>
@@ -77,7 +77,7 @@ describe('ExportedAnalyticsListener with no Error', () => {
 	};
 
 	ffTest(
-		'platform.analytics-next-use-modern-context_fqgbx',
+		'analytics-next-use-modern-context_jira',
 		() => {
 			render(
 				<AnalyticsErrorBoundary {...props} onError={onError}>

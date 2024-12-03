@@ -1,5 +1,4 @@
-import type { NodeType } from '@atlaskit/editor-prosemirror/model';
-import type { Selection } from '@atlaskit/editor-prosemirror/state';
+import type { NodeType, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 
 /*
  * Returns the level of nesting of a given `nodeType` in the current selection.
@@ -11,9 +10,8 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
  */
 export const getParentOfTypeCount =
 	(nodeType: NodeType) =>
-	(selection: Selection): number => {
+	($from: ResolvedPos): number => {
 		let count = 0;
-		const { $from } = selection;
 		// Loop through parent nodes from bottom to top
 		for (let depth = $from.depth; depth > 0; depth--) {
 			const node = $from.node(depth);
@@ -34,8 +32,7 @@ export const getParentOfTypeCount =
  */
 export const getPositionAfterTopParentNodeOfType =
 	(nodeType: NodeType) =>
-	(selection: Selection): number | undefined => {
-		const { $from } = selection;
+	($from: ResolvedPos): number | undefined => {
 		// Loop through parent nodes from top to bottom
 		for (let depth = 1; depth <= $from.depth; depth++) {
 			const node = $from.node(depth);

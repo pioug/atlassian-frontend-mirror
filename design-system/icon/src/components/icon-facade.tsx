@@ -2,7 +2,11 @@ import React, { memo } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { IconFacadeProps, NewCoreIconProps, NewUtilityIconProps } from '../types';
+import type {
+	IconFacadeProps,
+	UNSAFE_NewCoreGlyphProps,
+	UNSAFE_NewUtilityGlyphProps,
+} from '../types';
 
 import LegacyIcon from './icon';
 
@@ -41,7 +45,7 @@ export const IconFacade = memo(function IconFacade({
 
 	if (useNewIcon && NewIcon && (size === 'small' || size === 'medium')) {
 		if (props.iconType === 'utility') {
-			const Icon = NewIcon as React.ComponentType<NewUtilityIconProps>;
+			const Icon = NewIcon as React.ComponentType<UNSAFE_NewUtilityGlyphProps>;
 			return (
 				<Icon
 					{...props}
@@ -55,7 +59,7 @@ export const IconFacade = memo(function IconFacade({
 				/>
 			);
 		} else {
-			const Icon = NewIcon as React.ComponentType<NewCoreIconProps>;
+			const Icon = NewIcon as React.ComponentType<UNSAFE_NewCoreGlyphProps>;
 			return (
 				<Icon
 					{...props}

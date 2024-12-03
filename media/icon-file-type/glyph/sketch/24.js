@@ -11,7 +11,7 @@ function _interopRequireDefault(e) {
 }
 const Sketch24Icon = (props) =>
 	/*#__PURE__*/ _react.default.createElement(
-		_base.UNSAFE_IconFacade,
+		_base.IconFacade,
 		Object.assign(
 			{
 				dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><path fill="#ff8b00" fill-rule="evenodd" d="M3 0h18a3 3 0 0 1 3 3v18a3 3 0 0 1-3 3H3a3 3 0 0 1-3-3V3a3 3 0 0 1 3-3m9.03 20c.29-.001.562-.126.752-.343l6.971-8a1 1 0 0 0 .095-1.185l-2.485-4a1 1 0 0 0-.85-.472h-8.84c-.334 0-.646.167-.832.444l-2.674 4a1 1 0 0 0 .081 1.216l7.03 8c.188.216.462.34.75.34"/></svg>`,

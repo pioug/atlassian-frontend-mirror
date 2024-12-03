@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-content-insertion
 
+## 1.11.0
+
+### Minor Changes
+
+- [#170735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170735)
+  [`147418939b2eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/147418939b2eb) -
+  [ux] ED-25880 Use consistent table insertion logic for primary toolbar button, primary toolbar
+  size selector dropdown and table insert keyboard shortcut which handles node nesting support
+
 ## 1.10.2
 
 ### Patch Changes

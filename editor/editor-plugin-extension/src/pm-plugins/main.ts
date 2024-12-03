@@ -34,7 +34,7 @@ import { clearEditingContext, updateState } from '../commands';
 import { lazyExtensionNodeView } from '../nodeviews/lazyExtension';
 import { createCommand, createPluginState, getPluginState } from '../plugin-factory';
 import { pluginKey } from '../plugin-key';
-import type { ExtensionPlugin } from '../types';
+import type { ExtensionPlugin, ExtensionPluginOptions } from '../types';
 import { getSelectedDomElement, getSelectedExtension } from '../utils';
 
 import { updateEditButton } from './utils';
@@ -182,7 +182,7 @@ const createPlugin = (
 	} = {},
 	featureFlags?: FeatureFlags,
 	allowDragAndDrop: boolean = true,
-	__livePage?: boolean,
+	__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'],
 ) => {
 	const state = createPluginState(dispatch, {
 		showEditButton: false,
@@ -197,9 +197,8 @@ const createPlugin = (
 		showMacroInteractionDesignUpdates: featureFlags?.macroInteractionUpdates ?? false,
 		showMacroButtonUpdates: featureFlags?.macroInteractionButtonUpdates ?? false,
 	};
-	const showLivePagesBodiedMacrosRendererView = !!(
-		__livePage && featureFlags?.livePagesBodiedMacrosRendererView
-	);
+	const showLivePagesBodiedMacrosRendererView =
+		__rendererExtensionOptions?.isAllowedToUseRendererView;
 
 	return new SafePlugin({
 		state,
@@ -377,6 +376,7 @@ const createPlugin = (
 					pluginInjectionApi,
 					macroInteractionDesignFeatureFlags,
 					showLivePagesBodiedMacrosRendererView,
+					__rendererExtensionOptions?.rendererExtensionHandlers,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews
 				inlineExtension: lazyExtensionNodeView(

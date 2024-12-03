@@ -93,7 +93,7 @@ const UserEditType = (props: UserEditTypeProps) => {
 				value={currentValue?.values?.[0]}
 				getOptionValue={(option) => option.atlassianUserId!}
 				formatOptionLabel={(option) => (
-					<Tooltip content={option.displayName}>
+					<Tooltip content={option.displayName ?? ''}>
 						<AvatarItem
 							avatar={
 								<Avatar

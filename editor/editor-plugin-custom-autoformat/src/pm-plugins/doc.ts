@@ -2,6 +2,7 @@ import type { AutoformatHandler } from '@atlaskit/editor-common/provider-factory
 import { processRawValue } from '@atlaskit/editor-common/utils';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CustomAutoformatState } from '../types';
 
@@ -39,6 +40,27 @@ export const buildHandler = (_regex: string, handler: AutoformatHandler): InputR
 	};
 };
 
+/**
+ * Shift enter adds an Object Replacement Character (/ufffc) after
+ * the first word in the soft break line. Text between replaces this
+ * with a '|' as it's a non-text node. We still want to replaceWith
+ * on a string starting with an Object Replacement Character.
+ */
+export const isSoftBreakMatch = (docText: string, match: string[]): boolean => {
+	const REPLACEMENT_CHARACTER = '\ufffc';
+
+	const docTextStartChar = docText[0];
+	const docTextEndSlice = docText.slice(1);
+
+	const matchStartChar = match[0][0];
+	const matchEndSlice = match[0].slice(1);
+
+	const slicesMatch = docTextEndSlice === matchEndSlice;
+	const isAlternator = docTextStartChar === '|';
+	const isObjReplaceChar = matchStartChar === REPLACEMENT_CHARACTER;
+	return slicesMatch && isAlternator && isObjReplaceChar;
+};
+
 export const completeReplacements = (view: EditorView, state: CustomAutoformatState) => {
 	const { inlineCard } = view.state.schema.nodes;
 
@@ -65,8 +87,12 @@ export const completeReplacements = (view: EditorView, state: CustomAutoformatSt
 			// get the current document text, adding # or | if we cross node boundaries
 			const docText = view.state.doc.textBetween(start, matchEndPos, '#', '|');
 
+			const canAutoformatAfterSoftbreak =
+				isSoftBreakMatch(docText, match) &&
+				fg('platform_editor_autoformat_object_replacement_char');
+
 			// only replace if text still remains the same as when typed at the start
-			if (docText === match[0]) {
+			if (docText === match[0] || canAutoformatAfterSoftbreak) {
 				tr = tr.replaceWith(
 					tr.mapping.map(start + prefix.length),
 					tr.mapping.map(end, -1),

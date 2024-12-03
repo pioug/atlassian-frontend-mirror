@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.4.3
+
+### Patch Changes
+
+- [#171491](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171491)
+  [`85cd3e428869a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/85cd3e428869a) -
+  observe attributes VC90 impact via ufo:vc:next
+
 ## 2.4.2
 
 ### Patch Changes

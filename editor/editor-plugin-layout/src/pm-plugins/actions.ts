@@ -76,16 +76,17 @@ const getWidthsForPreset = (presetLayout: PresetLayout): number[] => {
 
 const isValidLayoutWidthDistributions = (layoutSection: Node) => {
 	let totalWidth = 0;
+	let hasInvalidWidth = false;
+
 	mapChildren(layoutSection, (column) => column.attrs.width).forEach((width) => {
 		if (typeof width === 'number' && isFinite(width) && width > 0 && width <= 100) {
 			totalWidth += width;
+		} else {
+			hasInvalidWidth = true;
 		}
-
-		// not a valid width, e.g. 0, 100, undefined
-		return false;
 	});
 
-	return Math.round(totalWidth) === 100;
+	return !hasInvalidWidth && Math.round(totalWidth) === 100;
 };
 
 /**
@@ -118,6 +119,7 @@ export const getPresetLayout = (section: Node): PresetLayout | undefined => {
 			case '20,20,20,20,20':
 				return 'five_equal';
 		}
+
 		return;
 	}
 
@@ -138,10 +140,22 @@ export const getPresetLayout = (section: Node): PresetLayout | undefined => {
 	return;
 };
 
+const isLayoutOutOfSync = (node: Node, presetLayout: PresetLayout) => {
+	return node.childCount !== getWidthsForPreset(presetLayout).length;
+};
+
 export const getSelectedLayout = (
 	maybeLayoutSection: Node | undefined,
 	current: PresetLayout,
 ): PresetLayout => {
+	if (
+		maybeLayoutSection &&
+		isLayoutOutOfSync(maybeLayoutSection, current) &&
+		editorExperiment('advanced_layouts', true)
+	) {
+		return getDefaultPresetLayout(maybeLayoutSection);
+	}
+
 	if (maybeLayoutSection && getPresetLayout(maybeLayoutSection)) {
 		return getPresetLayout(maybeLayoutSection) || current;
 	}

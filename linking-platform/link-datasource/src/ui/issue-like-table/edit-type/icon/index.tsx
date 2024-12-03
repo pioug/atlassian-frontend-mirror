@@ -3,10 +3,9 @@ import React, { useEffect } from 'react';
 import { type FieldProps } from '@atlaskit/form';
 import { Layering } from '@atlaskit/layering';
 import { type Icon } from '@atlaskit/linking-types';
-// FilterOptionOption is used in the filterOption function which is part of the public API, but the type itself is not exported
-// eslint-disable-next-line import/no-extraneous-dependencies,no-restricted-imports
-import { type FilterOptionOption } from '@atlaskit/react-select/src/filters';
+import { type FilterOptionOption } from '@atlaskit/react-select/src';
 import Select from '@atlaskit/select';
+import Tooltip from '@atlaskit/tooltip';
 
 import { failUfoExperience, succeedUfoExperience } from '../../../../analytics/ufoExperiences';
 import { useDatasourceExperienceId } from '../../../../contexts/datasource-experience-id';
@@ -67,12 +66,14 @@ const IconEditType = (props: IconEditTypeProps) => {
 				value={currentValue?.values?.[0]}
 				getOptionValue={(option) => option.text || ''}
 				formatOptionLabel={({ source, label, text }) => (
-					<SharedIconComponent
-						iconUrl={source}
-						text={text}
-						label={label}
-						testId={`inline-edit-priority-option-${label}`}
-					/>
+					<Tooltip content={text ?? ''}>
+						<SharedIconComponent
+							iconUrl={source}
+							text={text}
+							label={label}
+							testId={`inline-edit-priority-option-${label}`}
+						/>
+					</Tooltip>
 				)}
 				onChange={(e) =>
 					props.setEditValues({

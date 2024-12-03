@@ -12,6 +12,7 @@ import { useDatasourceExperienceId } from '../../../contexts/datasource-experien
 import { useDatasourceTableFlag } from '../../../hooks/useDatasourceTableFlag';
 import { type DatasourceItem, useDatasourceActions, useDatasourceItem } from '../../../state';
 import { editType } from '../edit-type';
+import { EmptyAvatar } from '../shared-components/avatar';
 import type { DatasourceTypeWithOnlyValues } from '../types';
 
 export const InlineEditUFOExperience = 'inline-edit-rendered';
@@ -80,7 +81,10 @@ const isNewValue = (
 	newItem: DatasourceDataResponseItem,
 	existingData: DatasourceDataResponseItem,
 ) => {
-	return newItem[columnKey].data && newItem[columnKey].data !== existingData[columnKey].data;
+	return (
+		newItem[columnKey]?.data &&
+		(!existingData[columnKey]?.data || newItem[columnKey].data !== existingData[columnKey].data)
+	);
 };
 
 const useRefreshDatasourceItem = (item: DatasourceItem | undefined) => {
@@ -198,7 +202,7 @@ export const InlineEdit = ({
 					executeFetch,
 				})}
 				hideActionButtons
-				readView={() => readView}
+				readView={editableRenderType({ defaultValue: datasourceTypeWithValues, readView })}
 				readViewFitContainerWidth
 				isEditing={isEditing}
 				onEdit={onEdit}
@@ -207,4 +211,29 @@ export const InlineEdit = ({
 			/>
 		</Box>
 	);
+};
+
+/**
+ *
+ * This function allows us to manipulate the readView on editable cells.
+ * This way, for example, we can show a fallback Avatar on empty user cells.
+ *
+ */
+const editableRenderType = ({
+	defaultValue,
+	readView,
+}: {
+	defaultValue: DatasourceTypeWithOnlyValues;
+	readView: React.ReactNode;
+}) => {
+	return () => {
+		switch (defaultValue.type) {
+			case 'user':
+				if (!defaultValue.values?.[0]) {
+					return <EmptyAvatar />;
+				}
+		}
+
+		return readView;
+	};
 };

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.5.10
+
+### Patch Changes
+
+- [#170778](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170778)
+  [`2202b03e196ad`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2202b03e196ad) -
+  [ux] [ED-25407] FF cleanup - platform_editor_utilize_linebreakreplacement
+- Updated dependencies
+
+## 3.5.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.8
 
 ### Patch Changes

@@ -3,12 +3,13 @@ import { isInEmptyLine } from '@atlaskit/editor-common/utils';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MediaOptions } from '../types';
 import { canInsertMediaInline } from '../utils/media-files';
 import { isMediaSingle } from '../utils/media-single';
 
-import { isVideo } from './is-type';
+import { isImage, isVideo } from './is-type';
 import { isInsidePotentialEmptyParagraph } from './media-common';
 
 type MediaNodeType = 'inline' | 'block' | 'group';
@@ -22,6 +23,13 @@ export const getMediaNodeInsertionType = (
 	mediaOptions?: MediaOptions,
 	fileMimeType?: string,
 ): MediaNodeType => {
+	if (isImage(fileMimeType) && fg('platform_editor_media_block_default')) {
+		if (isMediaSingle(state.schema, fileMimeType)) {
+			return 'block';
+		}
+		return 'group';
+	}
+
 	const canInsertInlineNode =
 		getMediaFeatureFlag('mediaInline', mediaOptions?.featureFlags) &&
 		!isInEmptyLine(state) &&
@@ -44,6 +52,5 @@ export const getMediaNodeInsertionType = (
 	} else if (canInsertInlineNode) {
 		return 'inline';
 	}
-
 	return 'group';
 };

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 1.42.10
+
+### Patch Changes
+
+- [#170815](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170815)
+  [`13e4ced269179`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/13e4ced269179) -
+  [ux] ED-25879 Default image insertion type should not be 'inline'
+- Updated dependencies
+
 ## 1.42.9
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import { type UNSAFE_NewIconProps } from '@atlaskit/icon';
+import { type NewIconProps } from '@atlaskit/icon';
 import { N30, N900, R400 } from '@atlaskit/theme/colors';
 import {
 	borderRadius as getBorderRadius,
@@ -39,7 +39,7 @@ export const keylineHeight = 2;
 export const keylineColor = token('color.border', N30);
 export const textColor = token('color.text', N900);
 
-export const iconColor: { [key in Appearance]: UNSAFE_NewIconProps['color'] } = {
+export const iconColor: { [key in Appearance]: NewIconProps['color'] } = {
 	danger: token('color.icon.danger', R400),
 	warning: token('color.icon.warning', '#D97008'),
 } as const;

@@ -2,6 +2,10 @@ import React from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Heading from '@atlaskit/heading';
+/**
+ * TODO - https://product-fabric.atlassian.net/browse/DSP-21565
+ * Will be moved to @atlaskit/primitives/compiled, VRs will be updated.
+ */
 import { Box, Text } from '@atlaskit/primitives';
 import Spinner from '@atlaskit/spinner';
 

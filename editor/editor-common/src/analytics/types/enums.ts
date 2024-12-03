@@ -155,6 +155,7 @@ export enum ACTION {
 	UPLOAD_SUCCEEDED = 'uploadSucceeded',
 	UPLOAD_FAILED = 'uploadFailed',
 	TOGGLE_CODE_BLOCK_WRAP = 'toggleCodeBlockWrap',
+	RESIZED = 'resized',
 }
 
 export enum INPUT_METHOD {

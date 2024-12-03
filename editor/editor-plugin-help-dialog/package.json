@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-help-dialog",
-	"version": "1.9.6",
+	"version": "1.9.8",
 	"description": "Help Dialog plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,13 +34,13 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^95.10.0",
+		"@atlaskit/editor-common": "^95.11.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-quick-insert": "^1.7.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
-		"@atlaskit/heading": "^3.1.0",
-		"@atlaskit/icon": "^22.28.0",
+		"@atlaskit/heading": "^4.0.0",
+		"@atlaskit/icon": "^23.0.0",
 		"@atlaskit/modal-dialog": "^12.18.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/theme": "^14.0.0",

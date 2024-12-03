@@ -1,5 +1,20 @@
 # @atlaskit/heading
 
+## 4.0.0
+
+### Major Changes
+
+- [#171160](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171160)
+  [`0d474a7c26c0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d474a7c26c0d) -
+  Migrated from `@emotion/react` to `@compiled/react` in order to improve performance, align with
+  the rest of the Atlaskit techstack, and support React 18 Streaming SSR.
+
+  Please note, in order to use this version of `@atlaskit/heading`, you will need to ensure that
+  your bundler is configured to handle `.css` imports correctly. Most bundlers come with built-in
+  support for `.css` imports, so you may not need to do anything. If you are using a different
+  bundler, please refer to the documentation for that bundler to understand how to handle `.css`
+  imports.
+
 ## 3.1.0
 
 ### Minor Changes

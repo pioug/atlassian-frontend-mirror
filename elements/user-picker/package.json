@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/user-picker",
-	"version": "10.27.3",
+	"version": "10.27.4",
 	"description": "Fabric component for display a dropdown to select a user from",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -55,14 +55,14 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/avatar": "^21.17.0",
-		"@atlaskit/icon": "^22.28.0",
+		"@atlaskit/icon": "^23.0.0",
 		"@atlaskit/logo": "^15.0.0",
 		"@atlaskit/lozenge": "^11.12.0",
 		"@atlaskit/people-teams-ui-public": "^1.7.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popper": "^6.3.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/select": "^18.6.0",
+		"@atlaskit/select": "^18.7.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/teams-avatar": "^1.1.0",
 		"@atlaskit/theme": "^14.0.0",
@@ -81,9 +81,9 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@atlaskit/analytics-viewer": "^0.6.0",
+		"@atlaskit/analytics-viewer": "^0.7.0",
 		"@atlaskit/elements-test-helpers": "^0.7.0",
-		"@atlaskit/heading": "^3.1.0",
+		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
 		"@emotion/styled": "^11.0.0",

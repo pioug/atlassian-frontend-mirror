@@ -9,21 +9,36 @@ export type CreateInsertNodeAPIProps = {};
 export const createInsertNodeAPI = (
 	analyticsApi: EditorAnalyticsAPI | undefined,
 ): InsertNodeAPI => ({
-	insert: ({ state, dispatch, node, options }) => {
-		if (!state || !dispatch) {
-			return false;
-		}
+	actions: {
+		insert: ({ state, dispatch, node, options }) => {
+			if (!state || !dispatch) {
+				return false;
+			}
 
-		const { tr } = state;
+			const { tr } = state;
 
-		handleInsertContent({ node, options })(tr);
+			handleInsertContent({ node, options })(tr);
 
-		if (options.analyticsPayload) {
-			analyticsApi?.attachAnalyticsEvent(options.analyticsPayload)(tr);
-		}
+			if (options.analyticsPayload) {
+				analyticsApi?.attachAnalyticsEvent(options.analyticsPayload)(tr);
+			}
 
-		dispatch(tr);
+			dispatch(tr);
 
-		return true;
+			return true;
+		},
+	},
+	commands: {
+		insert:
+			({ node, options }) =>
+			({ tr }) => {
+				handleInsertContent({ node, options })(tr);
+
+				if (options.analyticsPayload) {
+					analyticsApi?.attachAnalyticsEvent(options.analyticsPayload)(tr);
+				}
+
+				return tr;
+			},
 	},
 });

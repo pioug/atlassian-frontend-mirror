@@ -1,7 +1,7 @@
 import type React from 'react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { type IconProps, type UNSAFE_NewIconProps } from '@atlaskit/icon/types';
+import { type IconProps, type NewIconProps } from '@atlaskit/icon/types';
 
 export type ButtonAppearance =
 	| 'default'
@@ -29,7 +29,7 @@ export type IconButtonSpacing = 'compact' | 'default';
 
 export type Spacing = ButtonSpacing | IconButtonSpacing;
 
-export type IconProp = React.ComponentType<IconProps | Omit<UNSAFE_NewIconProps, 'spacing'>>;
+export type IconProp = React.ComponentType<IconProps | Omit<NewIconProps, 'spacing'>>;
 
 export type IconSize = 'small' | 'large' | 'xlarge';
 

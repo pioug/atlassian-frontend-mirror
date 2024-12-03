@@ -163,8 +163,8 @@ const Sidebar = (props: SidebarProps) => {
 	) => {
 		return (
 			<tr>
-				<td>{item}: </td>
-				<td>{(fileState && fileState[item]) || <i>Unknown</i>}</td>
+				<td>{String(item)}: </td>
+				<td>{(fileState && String(fileState[item])) || <i>Unknown</i>}</td>
 			</tr>
 		);
 	};

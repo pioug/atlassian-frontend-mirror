@@ -17,7 +17,7 @@ import {
 import { mediaInsertMessages } from '@atlaskit/editor-common/messages';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
-import ExpandIcon from '@atlaskit/icon/core/expand';
+import ExpandIcon from '@atlaskit/icon/core/grow-diagonal';
 import { default as EditorFilePreviewIconLegacy } from '@atlaskit/icon/glyph/editor/file-preview';
 import { getMediaClient } from '@atlaskit/media-client-react';
 import { Box, Flex, Inline, Stack, xcss } from '@atlaskit/primitives';

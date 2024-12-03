@@ -1,11 +1,10 @@
 import React from 'react';
 
+import AttachmentIcon from '@atlaskit/icon/core/attachment';
+import ImageIcon from '@atlaskit/icon/core/image';
+import OfficeBuildingIcon from '@atlaskit/icon/core/office-building';
+import StopwatchIcon from '@atlaskit/icon/core/stopwatch';
 import { Box, Inline } from '@atlaskit/primitives';
-
-import AttachmentIcon from '../../core/attachment';
-import ImageIcon from '../../core/image';
-import OfficeBuildingIcon from '../../core/office-building';
-import StopwatchIcon from '../../core/stopwatch';
 
 const IconDefaultNewExample = () => {
 	return (

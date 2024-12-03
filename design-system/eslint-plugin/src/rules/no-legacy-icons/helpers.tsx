@@ -11,7 +11,7 @@ import {
 import baseMigrationMap, {
 	type IconMigrationSizeGuidance,
 	migrationOutcomeDescriptionMap,
-} from '@atlaskit/icon/UNSAFE_migration-map';
+} from '@atlaskit/icon/migration-map';
 
 export type IconMigrationError = Rule.ReportDescriptor;
 import { upcomingIcons } from './upcoming-icons';

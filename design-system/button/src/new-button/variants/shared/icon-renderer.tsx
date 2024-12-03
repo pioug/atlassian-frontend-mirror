@@ -1,15 +1,15 @@
 import React, { type ComponentClass, type FunctionComponent } from 'react';
 
-import { type IconProps, type UNSAFE_NewIconProps } from '@atlaskit/icon/types';
+import { type IconProps, type NewIconProps } from '@atlaskit/icon/types';
 
 import { type IconProp } from '../types';
 
 function isIconRenderProp(
 	func:
-		| FunctionComponent<IconProps | UNSAFE_NewIconProps>
-		| ComponentClass<IconProps | UNSAFE_NewIconProps>
-		| ((iconProp: IconProps | UNSAFE_NewIconProps) => IconProp),
-): func is (iconProp: IconProps | UNSAFE_NewIconProps) => IconProp {
+		| FunctionComponent<IconProps | NewIconProps>
+		| ComponentClass<IconProps | NewIconProps>
+		| ((iconProp: IconProps | NewIconProps) => IconProp),
+): func is (iconProp: IconProps | NewIconProps) => IconProp {
 	return (
 		!(func as any).displayName && // most function components and class components have a displayName, negate them
 		!(func as any).render && // forwardRef doesn't require a display name, however it does include a render function, negate them

@@ -105,7 +105,9 @@ export class Observers implements BrowserObservers {
 			renderStop: -1,
 		};
 		this.mutationObserver?.observe(document.body, {
-			attributeFilter: ['hidden', 'style', 'src'],
+			attributeFilter: fg('platform-ufo-vc-observe-attributes')
+				? ['hidden', 'style', 'src', 'class']
+				: ['hidden', 'style', 'src'],
 			attributeOldValue: true,
 			attributes: true,
 			childList: true,
@@ -258,16 +260,12 @@ export class Observers implements BrowserObservers {
 							});
 						} else if (mutation.type === 'attributes') {
 							if (mutation.target instanceof HTMLElement) {
-								// Commenting the following line temporarily.
-								// this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
-
-								// using the if below to collect data
-								// how would VC90 changes if only style display changes are accounted for
-								if (
+								const isDisplayStyleAttributeMutation =
 									mutation.attributeName === 'style' &&
 									this.getStyleDisplay(mutation.target.getAttribute('style')) !==
-										this.getStyleDisplay(mutation.oldValue)
-								) {
+										this.getStyleDisplay(mutation.oldValue);
+
+								if (fg('platform-ufo-vc-observe-attributes') || isDisplayStyleAttributeMutation) {
 									this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
 								}
 							}

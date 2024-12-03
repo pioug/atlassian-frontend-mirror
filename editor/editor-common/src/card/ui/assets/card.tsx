@@ -2,7 +2,7 @@
 import React from 'react';
 
 import Icon from '@atlaskit/icon';
-import type { CustomGlyphProps, UNSAFE_NewIconProps } from '@atlaskit/icon/types';
+import type { CustomGlyphProps, NewIconProps } from '@atlaskit/icon/types';
 
 const IconCardGlyph = (props: CustomGlyphProps) => {
 	return (
@@ -24,6 +24,6 @@ const IconCardGlyph = (props: CustomGlyphProps) => {
 	);
 };
 
-export const IconCard = (props: Omit<UNSAFE_NewIconProps, 'dangerouslySetGlyph' | 'type'>) => {
+export const IconCard = (props: NewIconProps) => {
 	return <Icon glyph={IconCardGlyph} {...props} />;
 };

@@ -5,6 +5,7 @@ import { Client } from '@atlaskit/smart-card';
 
 import {
 	AtlasProject,
+	AtlasProjectNoPreview,
 	GoogleDoc,
 	GoogleDocUrl,
 	YouTubeVideo,
@@ -25,6 +26,7 @@ const resolve = (
 	} as JsonLd.Response<JsonLd.Data.BaseData>);
 
 export const ResolvedClientUrl = AtlasProject.data.url;
+export const ResolvedClientUrlNoPreview = `${AtlasProject.data.url}/no-preview`;
 export const ResolvedClientEmbedUrl = YouTubeVideoUrl;
 export const ResolvedClientEmbedInteractiveUrl = GoogleDocUrl;
 export const ResolvedClientWithLongTitleUrl = `${AtlasProject.data.url}/long-title`;
@@ -44,6 +46,8 @@ export class ResolvedClient extends Client {
 				return resolve(url, AtlasProject as JsonLd.Response<JsonLd.Data.BaseData>, {
 					name: `${AtlasProject.data.name} | :~:text=highlight this`,
 				});
+			case ResolvedClientUrlNoPreview:
+				return resolve(url, AtlasProjectNoPreview as JsonLd.Response<JsonLd.Data.BaseData>);
 		}
 
 		const response = { ...AtlasProject };

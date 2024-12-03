@@ -92,7 +92,7 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 							},
 							featureFlags,
 							options.allowDragAndDrop,
-							options?.__livePage,
+							options?.__rendererExtensionOptions,
 						);
 					},
 				},

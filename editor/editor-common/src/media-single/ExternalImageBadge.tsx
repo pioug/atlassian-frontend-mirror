@@ -27,26 +27,28 @@ type ExternalImageBadgeProps = {
 
 const NO_EXTERNAL_BADGE_HOSTS = ['atlassian.com'];
 
-export const isUnbadgedHostname = (hostname: string | undefined) =>
-	Boolean(
+export const isUnbadgedUrl = (url: string | undefined) => {
+	let hostname: string;
+	try {
+		({ hostname } = new URL(url || ''));
+	} catch (e) {
+		// If the URL is invalid (or empty), just carry on showing the badge
+		return false;
+	}
+
+	return Boolean(
 		hostname &&
 			// Do not show badge for atlassian domains and subdomains
 			NO_EXTERNAL_BADGE_HOSTS.some((host) => hostname === host || hostname.endsWith(`.${host}`)),
 	);
+};
 
 export const ExternalImageBadge = ({ badgeSize, type, url }: ExternalImageBadgeProps) => {
 	const intl = useIntl();
 	const message = intl.formatMessage(externalMediaMessages.externalMediaFile);
 
 	if (fg('platform_editor_hide_external_media_badge')) {
-		let hostname: string | undefined;
-		try {
-			({ hostname } = new URL(url || ''));
-		} catch (e) {
-			// If the URL is invalid (or empty), just carry on showing the badge
-		}
-
-		if (type !== 'external' || isUnbadgedHostname(hostname)) {
+		if (type !== 'external' || isUnbadgedUrl(url)) {
 			return null;
 		}
 	}

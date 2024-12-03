@@ -1,5 +1,48 @@
 # @atlaskit/editor-plugin-table
 
+## 8.4.0
+
+### Minor Changes
+
+- [#168172](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168172)
+  [`fa404ae4155f2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa404ae4155f2) -
+  [ux] [ED-25523] This change is adding experiment based gating to the drag and drop logic for
+  nested tables. We only allow nesting tables one level deep via drag and drop if the experiment is
+  active. Else, you cannot drag and drop a table into another table.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 8.3.0
+
+### Minor Changes
+
+- [#170735](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170735)
+  [`147418939b2eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/147418939b2eb) -
+  [ux] ED-25880 Use consistent table insertion logic for primary toolbar button, primary toolbar
+  size selector dropdown and table insert keyboard shortcut which handles node nesting support
+
+### Patch Changes
+
+- [#170839](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170839)
+  [`90284312a1050`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/90284312a1050) -
+  Internal change to account for a dependency change.
+- [#171994](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171994)
+  [`be58e4bb2e387`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be58e4bb2e387) -
+  Migrating usages of UNSAFE types and entrypoints that have been renamed in `@atlaskit/icon` and
+  `@atlaskit/icon-lab`.
+- Updated dependencies
+
+## 8.2.2
+
+### Patch Changes
+
+- [#170442](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170442)
+  [`14b1ff1b28958`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14b1ff1b28958) -
+  ED-25803 Update to not pass mountPoint into dropdown menu popup so that dropdown menu will be
+  nested inside DragMenu pop up
+
 ## 8.2.1
 
 ### Patch Changes

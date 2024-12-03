@@ -90,7 +90,11 @@ export const createPMPlugin = (
 
 					Object.keys(ruleset).forEach((rule) => {
 						const inputRule: InputRule = {
-							matchTyping: new RegExp('(\\s+|^)' + rule + '(\\s|,|\\.)$'),
+							/**
+							 * On Shift + Enter, after the first word an Object Replacement Character (/ufffc) is added.
+							 * We still want to match strings that start with an Object Replacement Character.
+							 */
+							matchTyping: new RegExp('(\\s+|^|\\ufffc)' + rule + '(\\s|,|\\.)$'),
 							matchEnter: new RegExp('(\\s+|^)' + rule + '()$'),
 							handler: buildHandler(rule, ruleset[rule]),
 						};

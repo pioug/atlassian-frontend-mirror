@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.12.11
+
+### Patch Changes
+
+- [#171974](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171974)
+  [`bc888f2b9c449`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc888f2b9c449) -
+  Fire analytics event from BreakoutResizer component when breakout is resized
+- [#171077](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171077)
+  [`0a92cf56671ac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a92cf56671ac) -
+  ED-25867 always show drag handler for layout columns
+- Updated dependencies
+
+## 1.12.10
+
+### Patch Changes
+
+- [#171014](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171014)
+  [`6163248356c63`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6163248356c63) -
+  [ED-25833] Replace the following FGs with experiment `platform_editor_advanced_layouts`
+
+  - platform_editor_advanced_layouts_breakout_resizing
+  - platform_editor_advanced_layouts_pre_release_1
+  - platform_editor_advanced_layouts_pre_release_2
+
 ## 1.12.9
 
 ### Patch Changes

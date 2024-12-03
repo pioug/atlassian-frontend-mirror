@@ -344,3 +344,103 @@ events:
           required: false
           type: string
           description: The definitionId of the Smart Link resolver invoked.
+  - smartLink connectSucceeded:
+      type: operational
+      description:
+        fires an event that represents an account successfully being connected via a Smart Link.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+  - smartLink connectFailed:
+      type: operational
+      description: fires an event that represents an account unsuccessfully being connected.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+        reason:
+          required: false
+          description: The reason why the Smart Link connect account failed.
+          type: string
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+  - smartLink resolved:
+      type: operational
+      description: fires an event which represents a Smart Link request succeeding.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+        status:
+          type:
+            [
+              'pending',
+              'resolving',
+              'resolved',
+              'errored',
+              'fallback',
+              'unauthorized',
+              'forbidden',
+              'not_found',
+            ]
+          description: The status of the link resolution at the time of the event.
+          required: false
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+        duration:
+          required: false
+          type: number
+  - smartLink unresolved:
+      type: operational
+      description: fires an event which represents a Smart Link request failing.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+        status:
+          type:
+            [
+              'pending',
+              'resolving',
+              'resolved',
+              'errored',
+              'fallback',
+              'unauthorized',
+              'forbidden',
+              'not_found',
+            ]
+          description: The status of the link resolution at the time of the event.
+          required: false
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+        error:
+          required: false
+          description: The reason why the Smart Link connect account failed.
+          type: object
+        reason:
+          required: true
+          type: string
+  - smartLink chunkLoadFailed:
+      type: operational
+      description: fires an event that represents when a Smart Link renders unsuccessfully.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+        display:
+          required: true
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          description: Whether the card was an Inline, Block, Embed or Flexible UI.
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+        error:
+          required: true
+          description: An error representing why the Smart Link render failed.
+          type: object
+        errorInfo:
+          required: true
+          description: Additional details about the error including the stack trace.
+          type: object

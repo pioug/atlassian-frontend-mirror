@@ -13,6 +13,7 @@ import { FormattedMessage } from 'react-intl-next';
 import Avatar, { type SizeType } from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarProps } from '@atlaskit/avatar-group';
 import { type User } from '@atlaskit/linking-types';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { WidthObserver } from '@atlaskit/width-detector';
 
@@ -75,7 +76,14 @@ export const USER_TYPE_TEST_ID = 'link-datasource-render-type--user';
 const UserType = ({ users }: { users: UserProps[] }) => {
 	const [width, setWidth] = useState<number | null>(null);
 
-	if (users.length <= 1) {
+	let multipleUsers = false;
+	if (fg('platform-datasources-enable-two-way-sync-assignee')) {
+		multipleUsers = users.length === 1;
+	} else {
+		multipleUsers = users.length <= 1;
+	}
+
+	if (multipleUsers) {
 		const {
 			avatarSource,
 			avatarSize = 'small',

@@ -1,5 +1,25 @@
 # @atlaskit/profilecard
 
+## 20.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 20.13.0
+
+### Minor Changes
+
+- [#168492](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168492)
+  [`17a403de4132a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17a403de4132a) -
+  [ux] Show manged team icon in team profile card
+
+## 20.12.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.12.2
 
 ### Patch Changes

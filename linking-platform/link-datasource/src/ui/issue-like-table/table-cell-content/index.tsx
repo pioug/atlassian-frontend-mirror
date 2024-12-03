@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import { type DatasourceType } from '@atlaskit/linking-types';
+import { type DatasourceDataResponseItem, type DatasourceType } from '@atlaskit/linking-types';
 import { Box, xcss } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -165,6 +165,25 @@ const InlineEditableCell = ({
 	);
 };
 
+const toDatasourceTypeWithValues = ({
+	rowData,
+	columnKey,
+	columnType,
+}: {
+	rowData: DatasourceDataResponseItem;
+	columnKey: string;
+	columnType: DatasourceType['type'];
+}) => {
+	// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
+	const value = rowData[columnKey]?.data;
+	const values = !value ? [] : Array.isArray(value) ? value : [value];
+
+	return {
+		type: columnType,
+		values,
+	} as DatasourceTypeWithOnlyValues;
+};
+
 export const TableCellContent = ({
 	id,
 	columnKey,
@@ -177,26 +196,16 @@ export const TableCellContent = ({
 	if (item) {
 		const { integrationKey, ari, data: rowData } = item;
 
-		const isEditType =
-			!!ari && !!integrationKey && rowData[columnKey] && isEditTypeSupported(columnType);
+		const isEditType = !!ari && !!integrationKey && isEditTypeSupported(columnType);
 
 		if (isEditType) {
-			// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
-			const value = rowData[columnKey]?.data;
-			const values = Array.isArray(value) ? value : [value];
-
-			const datasourceTypeWithValues = {
-				type: columnType,
-				values,
-			} as DatasourceTypeWithOnlyValues;
-
 			return (
 				<InlineEditableCell
 					ari={ari}
 					columnKey={columnKey}
 					renderItem={renderItem}
 					integrationKey={integrationKey}
-					values={datasourceTypeWithValues}
+					values={toDatasourceTypeWithValues({ rowData, columnKey, columnType })}
 					wrappedColumnKeys={wrappedColumnKeys}
 				/>
 			);

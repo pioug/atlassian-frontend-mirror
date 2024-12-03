@@ -136,7 +136,7 @@ jest.mock('@atlaskit/icon-lab/metadata', () => ({
 	},
 }));
 
-jest.mock('@atlaskit/icon/UNSAFE_migration-map', () => ({
+jest.mock('@atlaskit/icon/migration-map', () => ({
 	'bullet-list': {
 		newIcon: { name: 'list-bulleted', type: 'core', package: '@atlaskit/icon' },
 		additionalIcons: [{ name: 'bulleted-list', type: 'core', package: '@atlaskit/icon' }],

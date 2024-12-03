@@ -1,5 +1,22 @@
 # @atlaskit/icon-lab
 
+## 2.0.0
+
+### Major Changes
+
+- [#171994](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171994)
+  [`be58e4bb2e387`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be58e4bb2e387) -
+  This release renames the UNSAFE migration map entrypoint. Also includes re-building the icons due
+  to UNSAFE types and entrypoints being renamed in the `@atlaskit/icon` package.
+
+  ### Renamed entrypoints:
+
+  - `@atlaskit/icon-lab/UNSAFE_migration-map` → `@atlaskit/icon-lab/migration-map`
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.0
 
 ### Minor Changes

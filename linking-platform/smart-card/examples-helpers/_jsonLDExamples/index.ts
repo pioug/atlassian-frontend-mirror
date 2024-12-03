@@ -26,7 +26,7 @@ export {
 	ConfluenceTemplate,
 } from './provider.confluence';
 export { TrelloBoard, TrelloCard } from './provider.trello';
-export { AtlasGoal, AtlasProject } from './provider.atlas';
+export { AtlasGoal, AtlasProject, AtlasProjectNoPreview } from './provider.atlas';
 export { JiraIssue, JiraIssueAssigned, JiraTasks, JiraProject } from './provider.jira';
 export { SlackMessage, SlackChannel } from './provider.slack';
 export { YouTubeVideo, YouTubeVideoUrl } from './provider.youtube';

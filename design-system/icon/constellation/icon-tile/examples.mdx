@@ -4,13 +4,32 @@ description: An icon with background shape, color, and size options.
 order: 0
 ---
 
-import IconTileTemp from '../../examples/constellation/icon-tile-temp.tsx';
+import IconTileShape from '../../examples/constellation/icon-tile-shape.tsx';
+import IconTileSize from '../../examples/constellation/icon-tile-size.tsx';
+import IconTileAppearance from '../../examples/constellation/icon-tile-appearance.tsx';
 
 ## Icon tile sizes and appearances
 
-Icon tile has an icon with a background tile and color. It comes in multiple size options for
-different layouts.
+Icon tile places an icon on background tile of a specified size, shape and color. It allows icons to
+be prominently highlighted in a layout, such as next to a heading.
 
-More information on icon tile coming soon.
+### Shape
 
-<Example Component={IconTileTemp} packageName="@atlaskit/icon" />
+Icon Tile is available in two shapes: `square` and `circle`.
+
+<Example Component={IconTileShape} packageName="@atlaskit/icon" />
+
+### Size
+
+Unlike standard icons, icons inside Icon Tiles can scale up and down for use in different layouts.
+There are five options, representing the width and height in pixels: `16`, `24`, `36`, `40` and
+`48`.
+
+<Example Component={IconTileSize} packageName="@atlaskit/icon" />
+
+### Appearance
+
+Appearance options for Icon Tile exist for each hue of available accent token, including `bold`
+variants that provide more contrast.
+
+<Example Component={IconTileAppearance} packageName="@atlaskit/icon" />

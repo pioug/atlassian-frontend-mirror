@@ -4,25 +4,25 @@
  */
 import { type FC } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
-import { h600 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 type HeaderProps = {
 	children: string;
 	level?: number;
 };
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-array-arguments -- Ignored via go/DSP-18766
-const headerStyles = css([
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	h600(),
-	{
-		marginTop: token('space.0', '0px'),
-		marginBottom: token('space.200', '16px'),
-	},
-]);
+
+const headerStyles = css({
+	color: token('color.text'),
+	fontSize: `${20 / 14}em`,
+	fontStyle: 'inherit',
+	fontWeight: token('font.weight.medium', '500'),
+	letterSpacing: `-0.008em`,
+	lineHeight: 24 / 20,
+	marginBlockEnd: token('space.200', '16px'),
+	marginBlockStart: token('space.0', '0px'),
+});
 
 /**
  * __Header__

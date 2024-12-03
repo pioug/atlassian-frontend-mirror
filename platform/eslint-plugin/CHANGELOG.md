@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 0.13.1
+
+### Patch Changes
+
+- [#171997](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171997)
+  [`4a7b02da0e9f0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4a7b02da0e9f0) -
+  Added missing dependency
+
 ## 0.13.0
 
 ### Minor Changes

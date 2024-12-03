@@ -26,6 +26,7 @@ import {
 	getParentOfTypeCount,
 	getPositionAfterTopParentNodeOfType,
 } from '@atlaskit/editor-common/nesting';
+import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type {
 	Command,
@@ -46,7 +47,6 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { GuidelinePlugin } from '@atlaskit/editor-plugin-guideline';
 import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
-import { type Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -55,7 +55,7 @@ import { tableEditing } from '@atlaskit/editor-tables/pm-plugins';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { insertTableWithSize } from './commands/insert';
+import { insertTableWithNestingSupport, insertTableWithSize } from './commands/insert';
 import { pluginConfig } from './create-plugin-config';
 import { createPlugin as createTableAnalyticsPlugin } from './pm-plugins/analytics/plugin';
 import { pluginKey as tableAnalyticsPluginKey } from './pm-plugins/analytics/plugin-key';
@@ -228,69 +228,93 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 			insertTable:
 				(analyticsPayload): Command =>
 				(state, dispatch) => {
-					const node = createTableWithWidth({
-						isTableScalingEnabled: options?.isTableScalingEnabled,
-						isTableAlignmentEnabled: options?.tableOptions.allowTableAlignment,
-						isFullWidthModeEnabled: options?.fullWidthEnabled,
-						isCommentEditor: options?.isCommentEditor,
-						isChromelessEditor: options?.isChromelessEditor,
-						isTableResizingEnabled: options?.tableOptions.allowTableResizing,
-					})(state.schema);
+					if (fg('platform_editor_use_nested_table_pm_nodes')) {
+						return editorCommandToPMCommand(
+							insertTableWithNestingSupport(
+								{
+									isTableScalingEnabled: options?.isTableScalingEnabled,
+									isTableAlignmentEnabled: options?.tableOptions.allowTableAlignment,
+									isFullWidthModeEnabled: options?.fullWidthEnabled,
+									isCommentEditor: options?.isCommentEditor,
+									isChromelessEditor: options?.isChromelessEditor,
+									isTableResizingEnabled: options?.tableOptions.allowTableResizing,
+								},
+								api,
+								analyticsPayload,
+							),
+						)(state, dispatch);
+					} else {
+						const node = createTableWithWidth({
+							isTableScalingEnabled: options?.isTableScalingEnabled,
+							isTableAlignmentEnabled: options?.tableOptions.allowTableAlignment,
+							isFullWidthModeEnabled: options?.fullWidthEnabled,
+							isCommentEditor: options?.isCommentEditor,
+							isChromelessEditor: options?.isChromelessEditor,
+							isTableResizingEnabled: options?.tableOptions.allowTableResizing,
+						})(state.schema);
 
-					// If the cursor is inside a table
-					let insertAt: Selection | undefined;
-					if (
-						hasParentNodeOfType(state.schema.nodes.table)(state.selection) &&
-						fg('platform_editor_use_nested_table_pm_nodes')
-					) {
-						// If the experiment is disabled, or we're trying to nest deeper than one level, we insert the table after the top table
-						if (
-							editorExperiment('nested-tables-in-tables', false, { exposure: true }) ||
-							getParentOfTypeCount(state.schema.nodes.table)(state.selection) > 1
-						) {
-							const positionAfterTopTable = getPositionAfterTopParentNodeOfType(
-								state.schema.nodes.table,
-							)(state.selection);
-							if (!positionAfterTopTable) {
-								return false;
-							}
-							insertAt = TextSelection.create(state.doc, positionAfterTopTable);
-						}
-					}
-
-					return (
-						api?.contentInsertion?.actions?.insert({
-							state,
-							dispatch,
-							node,
-							options: {
-								selectNodeInserted: false,
-								analyticsPayload: {
-									...analyticsPayload,
-									attributes: {
-										...analyticsPayload.attributes,
-										localId: node.attrs.localId,
+						return (
+							api?.contentInsertion?.actions?.insert({
+								state,
+								dispatch,
+								node,
+								options: {
+									selectNodeInserted: false,
+									analyticsPayload: {
+										...analyticsPayload,
+										attributes: {
+											...analyticsPayload.attributes,
+											localId: node.attrs.localId,
+										},
 									},
 								},
-								insertAt,
-							},
-						}) ?? false
-					);
+							}) ?? false
+						);
+					}
 				},
 		},
 
 		commands: {
-			insertTableWithSize: insertTableWithSize(
-				options?.fullWidthEnabled,
-				options?.isTableScalingEnabled,
-				options?.tableOptions.allowTableAlignment,
-				api?.analytics?.actions,
-				options?.isCommentEditor,
-			),
+			insertTableWithSize: fg('platform_editor_use_nested_table_pm_nodes')
+				? (rowsCount, colsCount, inputMethod) =>
+						insertTableWithNestingSupport(
+							{
+								isTableScalingEnabled: options?.isTableScalingEnabled,
+								isTableAlignmentEnabled: options?.tableOptions.allowTableAlignment,
+								isFullWidthModeEnabled: options?.fullWidthEnabled,
+								isCommentEditor: options?.isCommentEditor,
+								isChromelessEditor: options?.isChromelessEditor,
+								isTableResizingEnabled: options?.tableOptions.allowTableResizing,
+								createTableProps: {
+									rowsCount,
+									colsCount,
+								},
+							},
+							api,
+							{
+								action: ACTION.INSERTED,
+								actionSubject: ACTION_SUBJECT.DOCUMENT,
+								actionSubjectId: ACTION_SUBJECT_ID.TABLE,
+								attributes: {
+									inputMethod: inputMethod ?? INPUT_METHOD.PICKER,
+									totalRowCount: rowsCount,
+									totalColumnCount: colsCount,
+								},
+								eventType: EVENT_TYPE.TRACK,
+							},
+						)
+				: insertTableWithSize(
+						options?.fullWidthEnabled,
+						options?.isTableScalingEnabled,
+						options?.tableOptions.allowTableAlignment,
+						api?.analytics?.actions,
+						options?.isCommentEditor,
+					),
 		},
 
 		nodes() {
 			const { allowColumnResizing } = pluginConfig(options?.tableOptions);
+			// TODO: ED-25901 - We need to move this into a plugin config option so we don't accidentally enable nested nodes in Jira
 			const isNestingSupported = fg('platform_editor_use_nested_table_pm_nodes');
 
 			return isNestingSupported
@@ -781,12 +805,12 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 							// If the experiment is disabled, or we're trying to nest deeper than one level, we insert the table after the top table
 							if (
 								editorExperiment('nested-tables-in-tables', false, { exposure: true }) ||
-								getParentOfTypeCount(state.schema.nodes.table)(state.selection) > 1
+								getParentOfTypeCount(state.schema.nodes.table)(state.selection.$from) > 1
 							) {
 								// Nesting is too deep insert table after the top parent table
 								const positionAfterTopTable = getPositionAfterTopParentNodeOfType(
 									state.schema.nodes.table,
-								)(state.selection);
+								)(state.selection.$from);
 								tr = safeInsert(tableNode, positionAfterTopTable)(tr);
 								tr.scrollIntoView();
 							} else {

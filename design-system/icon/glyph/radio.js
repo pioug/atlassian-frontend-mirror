@@ -8,7 +8,7 @@ var _react = _interopRequireDefault(require("react"));
 var _base = require("@atlaskit/icon/base");
 var _radioChecked = _interopRequireDefault(require("@atlaskit/icon/core/radio-checked"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
-const RadioIcon = props => /*#__PURE__*/_react.default.createElement(_base.UNSAFE_IconFacade, Object.assign({
+const RadioIcon = props => /*#__PURE__*/_react.default.createElement(_base.IconFacade, Object.assign({
   dangerouslySetGlyph: `<svg width="24" height="24" viewBox="0 0 24 24" role="presentation"><g fill-rule="evenodd"><circle cx="12" cy="12" r="6" fill="currentcolor"/><circle cx="12" cy="12" r="2" fill="inherit"/></g></svg>`
 }, props, {
   newIcon: _radioChecked.default

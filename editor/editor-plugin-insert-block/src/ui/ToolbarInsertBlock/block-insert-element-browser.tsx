@@ -3,9 +3,10 @@ import React from 'react';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { InsertBlockPlugin } from '../../index';
-import InsertMenu from '../ElementBrowser/InsertMenu';
+import InsertMenu, { DEFAULT_HEIGHT } from '../ElementBrowser/InsertMenu';
 import type { OnInsert } from '../ElementBrowser/types';
 
 import type { BlockMenuItem } from './create-items';
@@ -35,19 +36,26 @@ export interface BlockInsertElementBrowserProps {
 	isActive: boolean;
 }
 
+// This determines how the popup should fit. We prefer the insert menu
+// opening on the bottom as we have a search bar and should only open on
+// top if there is more than sufficient room.
+const FIT_HEIGHT_BUFFER = 100;
+
 export const BlockInsertElementBrowser = (props: BlockInsertElementBrowserProps) => {
 	return (
 		<>
 			{props.open && (
 				<Popup
 					target={props.plusButtonRef}
-					fitHeight={500}
+					fitHeight={
+						fg('platform_editor_consistent_insert_menu') ? DEFAULT_HEIGHT + FIT_HEIGHT_BUFFER : 500
+					}
 					fitWidth={350}
 					offset={[0, 3]}
 					mountTo={props.popupsMountPoint}
 					boundariesElement={props.popupsBoundariesElement}
 					scrollableElement={props.popupsScrollableElement}
-					preventOverflow={true}
+					preventOverflow
 					alignX="right"
 				>
 					<InsertMenu

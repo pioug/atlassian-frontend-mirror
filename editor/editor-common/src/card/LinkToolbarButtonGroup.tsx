@@ -8,7 +8,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
-import type { UNSAFE_NewCoreIconProps } from '@atlaskit/icon/types';
+import type { NewCoreIconProps } from '@atlaskit/icon/types';
 
 import { FloatingToolbarButton as Button } from '../ui';
 
@@ -48,10 +48,8 @@ export interface ButtonOptionProps {
 	disabled: boolean;
 	tooltipContent?: string | null;
 	onClick: () => void;
-	icon: (props: Omit<UNSAFE_NewCoreIconProps, 'dangerouslySetGlyph' | 'type'>) => JSX.Element;
-	iconFallback: (
-		props: Omit<UNSAFE_NewCoreIconProps, 'dangerouslySetGlyph' | 'type'>,
-	) => JSX.Element;
+	icon: (props: NewCoreIconProps) => JSX.Element;
+	iconFallback: (props: NewCoreIconProps) => JSX.Element;
 }
 
 export interface LinkToolbarButtonGroupProps {
@@ -63,7 +61,7 @@ export const LinkToolbarButtonGroup = ({ options }: LinkToolbarButtonGroupProps)
 		<ButtonGroup>
 			{options.map(
 				({ onClick, selected, disabled, testId, tooltipContent, title, icon, iconFallback }) => {
-					const ButtonIcon = icon as (props: UNSAFE_NewCoreIconProps) => JSX.Element;
+					const ButtonIcon = icon as (props: NewCoreIconProps) => JSX.Element;
 					return (
 						<DisallowedWrapper
 							css={disabled ? disallowedWrapperStyle : defaultWrapperStyle}

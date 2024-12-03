@@ -93,6 +93,9 @@ export const fireSmartLinkEvent = (
 	}
 };
 
+/**
+ * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ */
 export const resolvedEvent = (props: ResolvedEventProps): AnalyticsPayload => ({
 	action: 'resolved',
 	actionSubject: 'smartLink',
@@ -103,6 +106,9 @@ export const resolvedEvent = (props: ResolvedEventProps): AnalyticsPayload => ({
 	},
 });
 
+/**
+ * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ */
 export const unresolvedEvent = ({
 	id,
 	definitionId,
@@ -199,6 +205,9 @@ export const invokeFailedEvent = ({
 	};
 };
 
+/**
+ * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ */
 export const connectSucceededEvent = ({
 	definitionId,
 	extensionKey,
@@ -219,6 +228,9 @@ export const connectSucceededEvent = ({
 	},
 });
 
+/**
+ * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ */
 export const connectFailedEvent = ({
 	definitionId,
 	extensionKey,
@@ -514,6 +526,9 @@ export const uiLearnMoreLinkClickedEvent = (): AnalyticsPayload => ({
 	},
 });
 
+/**
+ * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ */
 export const chunkloadFailedEvent = ({
 	display,
 	error,

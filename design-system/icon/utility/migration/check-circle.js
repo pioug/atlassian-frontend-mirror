@@ -10,7 +10,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _react = _interopRequireDefault(require("react"));
-var _checkCircle = _interopRequireDefault(require("@atlaskit/icon/utility/success"));
+var _checkCircle = _interopRequireDefault(require("@atlaskit/icon/utility/check-circle"));
 var _checkCircle2 = _interopRequireDefault(require("@atlaskit/icon/glyph/check-circle"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 /**

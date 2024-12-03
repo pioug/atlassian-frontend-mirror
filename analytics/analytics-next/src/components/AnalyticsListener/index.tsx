@@ -9,8 +9,7 @@ import ModernAnalyticsListener from './ModernAnalyticsListener';
 import { type AnalyticsListenerFunction } from './types';
 
 const ExportedAnalyticsListener: AnalyticsListenerFunction = (props) => {
-	const isModernContext =
-		isModernContextEnabledEnv || fg('platform.analytics-next-use-modern-context_fqgbx');
+	const isModernContext = isModernContextEnabledEnv || fg('analytics-next-use-modern-context_jira');
 
 	return isModernContext ? (
 		<ModernAnalyticsListener {...props} />

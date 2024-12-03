@@ -143,6 +143,19 @@ type CommonContentPopupProps = Pick<
 	// It could be nice to also support ReactNode e.g. `ReactNode | ((props: ContentProps) => ReactNode)`,
 	// so that consumers don't need to use a function when they are not using the props that are passed.
 	children: (props: ContentProps) => React.ReactNode;
+
+	/**
+	 * ___Use with caution___
+	 *
+	 * Disables popper.js GPU acceleration for this popup.
+	 * This means only positioning will be used, without any transforms.
+	 *
+	 * Performance will be degraded if the popup is expected to move.
+	 *
+	 * This should almost never be used, but is sometimes needed
+	 * to resolve layering issues.
+	 */
+	shouldDisableGpuAcceleration?: boolean;
 };
 
 type ShouldFitContainerContentPopupProps = CommonContentPopupProps & {
@@ -156,6 +169,21 @@ type StandardPopupContentProps = CommonContentPopupProps & {
 };
 
 export type PopupContentProps = ShouldFitContainerContentPopupProps | StandardPopupContentProps;
+
+/**
+ * Disables popper.js GPU acceleration for this popup.
+ * This means only positioning will be used, without any transforms.
+ *
+ * Performance will be degraded if the popup is expected to move.
+ */
+const shouldDisableGpuAccelerationModifiers = [
+	{
+		name: 'computeStyles',
+		options: {
+			gpuAcceleration: false,
+		},
+	},
+];
 
 /**
  * __Popup content__
@@ -185,6 +213,7 @@ export const PopupContent = ({
 	shouldDisableFocusLock = false,
 	shouldFitContainer,
 	shouldFitViewport,
+	shouldDisableGpuAcceleration = false,
 }: PopupContentProps) => {
 	useEnsureIsInsidePopup();
 	const isOpen = useContext(IsOpenContext);
@@ -227,6 +256,7 @@ export const PopupContent = ({
 				triggerRef={triggerRef}
 				strategy={strategy}
 				shouldFitViewport={shouldFitViewport}
+				modifiers={shouldDisableGpuAcceleration ? shouldDisableGpuAccelerationModifiers : undefined}
 			/>
 		</Layering>
 	);

@@ -2,7 +2,7 @@ import React from 'react';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
 import LegacyEditorFilePreviewIcon from '@atlaskit/icon/glyph/editor/file-preview';
-import EditorFilePreviewIcon from '@atlaskit/icon/core/expand';
+import EditorFilePreviewIcon from '@atlaskit/icon/core/grow-diagonal';
 import Button from '@atlaskit/button';
 import { messages } from '@atlaskit/media-ui';
 // eslint-disable-next-line import/no-extraneous-dependencies

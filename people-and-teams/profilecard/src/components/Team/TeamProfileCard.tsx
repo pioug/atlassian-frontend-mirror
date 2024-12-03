@@ -8,8 +8,10 @@ import Button from '@atlaskit/button/standard-button';
 import FocusRing from '@atlaskit/focus-ring';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
 import { LinkItem, MenuGroup } from '@atlaskit/menu';
+import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
+import { Inline } from '@atlaskit/primitives';
 import { layers } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -333,7 +335,12 @@ const TeamProfilecardContent = ({
 			<CardHeader image={team.largeHeaderImageUrl || team.smallHeaderImageUrl} />
 			<CardContent>
 				<Tooltip content={team.displayName}>
-					<TeamName>{team.displayName}</TeamName>
+					<Inline>
+						<TeamName>{team.displayName}</TeamName>
+						{team.isVerified && fg('show_verified_team_icon_in_profile_card') && (
+							<VerifiedTeamIcon size="medium" />
+						)}
+					</Inline>
 				</Tooltip>
 				<TeamMembers
 					analytics={analytics}

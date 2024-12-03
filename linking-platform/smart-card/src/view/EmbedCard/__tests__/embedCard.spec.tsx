@@ -1,9 +1,11 @@
 import React from 'react';
 
-import { fireEvent, screen, within } from '@testing-library/react';
+import { screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { type JsonLd } from 'json-ld-types';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type CardState } from '@atlaskit/linking-common';
 import {
 	expectFunctionToHaveBeenCalledWith,
@@ -11,6 +13,7 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { setGlobalTheme } from '@atlaskit/tokens';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,
@@ -44,21 +47,23 @@ const setup = (cardState: CardState, url: string, props?: Partial<EmbedCardProps
 
 	const renderResult = renderWithIntl(
 		<AnalyticsListener onEvent={onEventMock} channel={ANALYTICS_CHANNEL}>
-			<EmbedCard
-				url={url}
-				cardState={cardState}
-				isSelected={true}
-				frameStyle="show"
-				inheritDimensions={true}
-				handleAuthorize={jest.fn()}
-				handleErrorRetry={jest.fn()}
-				handleFrameClick={handleFrameClickMock}
-				analytics={mockAnalytics}
-				handleInvoke={jest.fn()}
-				onResolve={onResolveMock}
-				ref={ref}
-				{...props}
-			/>
+			<SmartCardProvider>
+				<EmbedCard
+					url={url}
+					cardState={cardState}
+					isSelected={true}
+					frameStyle="show"
+					inheritDimensions={true}
+					handleAuthorize={jest.fn()}
+					handleErrorRetry={jest.fn()}
+					handleFrameClick={handleFrameClickMock}
+					analytics={mockAnalytics}
+					handleInvoke={jest.fn()}
+					onResolve={onResolveMock}
+					ref={ref}
+					{...props}
+				/>
+			</SmartCardProvider>
 		</AnalyticsListener>,
 	);
 
@@ -157,9 +162,11 @@ describe('EmbedCard view component', () => {
 			});
 		});
 
-		it('should call handleFrameClick when title is clicked', () => {
+		it('should call handleFrameClick when title is clicked', async () => {
 			const { getByText, handleFrameClickMock } = setup(cardStateOverride, expectedUrl);
-			fireEvent.click(getByText(expectedName));
+
+			await userEvent.click(getByText(expectedName));
+
 			expect(handleFrameClickMock).toHaveBeenCalled();
 		});
 
@@ -232,12 +239,13 @@ describe('EmbedCard view component', () => {
 			expect(forbiddenView).toBeTruthy();
 		});
 
-		it('fires buttonClicked event on click of the request access button', () => {
+		it('fires buttonClicked event on click of the request access button', async () => {
 			const cardState = getForbiddenCardState(undefined);
 
 			const { getByTestId, onEventMock } = setup(cardState, expectedUrl);
 			const requestAccessButton = getByTestId('button-request_access');
-			fireEvent.click(requestAccessButton);
+
+			await userEvent.click(requestAccessButton);
 
 			expect(onEventMock).toBeFiredWithAnalyticEventOnce({
 				payload: {
@@ -457,6 +465,80 @@ describe('EmbedCard view component', () => {
 			const image = screen.getByTestId('embed-card-not-found-view-unresolved-image');
 			const svg = within(image).getByTestId('not-found-svg');
 			expect(svg).toBeInTheDocument();
+		});
+	});
+
+	describe('resolving view', () => {
+		const expectedUrl = 'https://resolving-link';
+
+		const getResolvingCardState = (): CardState => ({
+			status: 'resolving',
+			details: {
+				meta: {
+					visibility: 'public',
+					access: 'granted',
+				},
+				data: {
+					...baseData,
+					url: expectedUrl,
+				},
+			},
+		});
+
+		it('renders resolving view', () => {
+			const cardState = getResolvingCardState();
+			const { getByTestId } = setup(cardState, expectedUrl);
+			const resolvingView = getByTestId('embed-card-resolving-view');
+			expect(resolvingView).toBeTruthy();
+		});
+
+		ffTest.on('smart-card-remove-block-card-from-embed', '', () => {
+			it('should render flexible resolving view', () => {
+				const cardState = getResolvingCardState();
+				const { getByTestId } = setup(cardState, expectedUrl);
+
+				const resolveView = getByTestId('smart-block-title-resolving-view');
+				expect(resolveView).toBeTruthy();
+				expect(resolveView).toHaveTextContent(expectedUrl);
+			});
+		});
+	});
+
+	describe('resolved view with no preview', () => {
+		const expectedUrl = 'http://some-url.com';
+		const expectedName = 'some-name';
+
+		const cardStateOverride: CardState = {
+			status: 'resolved',
+			details: {
+				meta: {
+					access: 'granted',
+					visibility: 'public',
+				},
+				data: {
+					...baseData,
+					url: expectedUrl,
+					name: expectedName,
+				},
+			},
+		};
+
+		it('should render block resolved view', () => {
+			const { getByTestId, iframeEl } = setup(cardStateOverride, expectedUrl);
+
+			const resolveView = getByTestId('block-card-resolved-view');
+			expect(resolveView).toBeTruthy();
+			expect(iframeEl).toBeNull();
+		});
+
+		ffTest.on('smart-card-remove-block-card-from-embed', '', () => {
+			it('should render flexible resolved view', () => {
+				const { getByTestId, iframeEl } = setup(cardStateOverride, expectedUrl);
+
+				const resolveView = getByTestId('smart-block-resolved-view');
+				expect(resolveView).toBeTruthy();
+				expect(iframeEl).toBeNull();
+			});
 		});
 	});
 });

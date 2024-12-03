@@ -1,5 +1,29 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.14.0
+
+### Minor Changes
+
+- [#170744](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170744)
+  [`115a1beee1131`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/115a1beee1131) -
+  [ux] Adds text alignment to the selection toolbar
+
+### Patch Changes
+
+- [#171994](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171994)
+  [`be58e4bb2e387`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be58e4bb2e387) -
+  Migrating usages of UNSAFE types and entrypoints that have been renamed in `@atlaskit/icon` and
+  `@atlaskit/icon-lab`.
+- Updated dependencies
+
+## 1.13.8
+
+### Patch Changes
+
+- [#171647](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171647)
+  [`6c7e6b55bfa57`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6c7e6b55bfa57) -
+  Close the alignment dropdown when the alignment toolbar icon is clicked
+
 ## 1.13.7
 
 ### Patch Changes

@@ -44,10 +44,16 @@ export type InvokeFailedEventProps = CommonEventProps & {
 	reason: string;
 };
 
+/**
+ * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ */
 export type ConnectSucceededEventProps = CommonEventProps & {
 	id?: string;
 };
 
+/**
+ * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ */
 export type ConnectFailedEventProps = CommonEventProps & {
 	id?: string;
 	reason?: string;
@@ -90,6 +96,9 @@ export type UiRenderSuccessEventProps = CommonEventProps & {
 	canBeDatasource?: boolean;
 };
 
+/**
+ * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ */
 export type UiRenderFailedEventProps = CommonEventProps & {
 	display: CardInnerAppearance;
 	error: Error;
@@ -114,6 +123,9 @@ export type UiHoverCardOpenLinkClickedEventProps = CommonEventProps & {
 	previewInvokeMethod?: PreviewInvokeMethod;
 };
 
+/**
+ * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ */
 export type InstrumentEventProps = CommonEventProps & {
 	error?: APIError;
 	status: CardType;

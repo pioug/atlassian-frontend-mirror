@@ -26,7 +26,11 @@ import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
-import type { AlignmentPluginState, AlignmentState } from '../../pm-plugins/types';
+import {
+	type AlignmentPluginState,
+	type AlignmentState,
+	ToolbarType,
+} from '../../pm-plugins/types';
 import Alignment from '../Alignment';
 
 import { IconMap } from './icon-map';
@@ -45,6 +49,7 @@ export interface Props {
 	isReducedSpacing?: boolean;
 	disabled?: boolean;
 	api: ExtractInjectionAPI<AlignmentPlugin> | undefined;
+	toolbarType: ToolbarType;
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -85,7 +90,9 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 							this.hide({ isOpen: false, event });
 						}
 					}}
-					onOpenChange={this.onOpenChange}
+					onOpenChange={
+						fg('platform_editor_fix_toolbar_alignment_item') ? undefined : this.onOpenChange
+					}
 					handleEscapeKeydown={this.hideOnEscape}
 					arrowKeyNavigationProviderOptions={{
 						type: ArrowKeyNavigationType.MENU,
@@ -151,7 +158,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 	}
 
 	componentDidUpdate(prevProps: Props) {
-		if (this.state.isOpen) {
+		if (this.props.toolbarType !== ToolbarType.FLOATING && this.state.isOpen) {
 			// by triggering the keyboard event with a setTimeout, we ensure that the tooltip
 			// associated with the alignment button doesn't render until the next render cycle
 			// where the popup will be correctly positioned and the relative position of the tooltip
@@ -170,6 +177,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 		if (togglePopup) {
 			this.toggleOpen();
 		}
+
 		return this.props.changeAlignment(align);
 	};
 

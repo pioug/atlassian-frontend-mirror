@@ -1,5 +1,17 @@
 # @atlaskit/calendar
 
+## 15.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.1.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 15.1.1
 
 ### Patch Changes

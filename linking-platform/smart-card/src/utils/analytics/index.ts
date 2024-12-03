@@ -31,6 +31,9 @@ export {
 	uiSmartLinkStatusOpenPreviewButtonClicked,
 } from './analytics';
 
+/**
+ * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ */
 export const instrumentEvent = ({
 	id,
 	status,

@@ -1,5 +1,48 @@
 # @atlaskit/editor-common
 
+## 95.11.0
+
+### Minor Changes
+
+- [#168172](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168172)
+  [`fa404ae4155f2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa404ae4155f2) -
+  [ux] [ED-25523] This change is adding experiment based gating to the drag and drop logic for
+  nested tables. We only allow nesting tables one level deep via drag and drop if the experiment is
+  active. Else, you cannot drag and drop a table into another table.
+
+## 95.10.3
+
+### Patch Changes
+
+- [#171500](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171500)
+  [`76d8f83277b7d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/76d8f83277b7d) -
+  [ux] Update the gap between layout columns in Renderer to align with Editor
+- [#171974](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171974)
+  [`bc888f2b9c449`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc888f2b9c449) -
+  Fire analytics event from BreakoutResizer component when breakout is resized
+- [#171994](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171994)
+  [`be58e4bb2e387`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be58e4bb2e387) -
+  Migrating usages of UNSAFE types and entrypoints that have been renamed in `@atlaskit/icon` and
+  `@atlaskit/icon-lab`.
+- [#169517](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169517)
+  [`e9bdceff7dd34`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9bdceff7dd34) -
+  Refactor url parsing for image badges
+- Updated dependencies
+
+## 95.10.2
+
+### Patch Changes
+
+- [#171014](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171014)
+  [`6163248356c63`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6163248356c63) -
+  [ED-25833] Replace the following FGs with experiment `platform_editor_advanced_layouts`
+
+  - platform_editor_advanced_layouts_breakout_resizing
+  - platform_editor_advanced_layouts_pre_release_1
+  - platform_editor_advanced_layouts_pre_release_2
+
+- Updated dependencies
+
 ## 95.10.1
 
 ### Patch Changes

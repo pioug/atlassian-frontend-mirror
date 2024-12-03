@@ -1,5 +1,11 @@
 # @atlaskit/teams-avatar
 
+## 1.1.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.4
 
 ### Patch Changes

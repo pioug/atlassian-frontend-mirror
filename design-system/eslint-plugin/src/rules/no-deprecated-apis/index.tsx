@@ -1,4 +1,4 @@
-import { AST_NODE_TYPES, ASTUtils, type TSESLint, type TSESTree } from '@typescript-eslint/utils';
+import { AST_NODE_TYPES, ASTUtils, type TSESTree } from '@typescript-eslint/utils';
 
 import { createRule } from '../utils/create-rule';
 import { getConfig } from '../utils/get-deprecated-config';
@@ -33,7 +33,7 @@ const findJSXElementName = (jsxAttributeNode: TSESTree.JSXAttribute): string | u
 
 export const name = 'no-deprecated-apis';
 
-const rule = createRule<[{ deprecatedConfig: DeprecatedConfig }], string, TSESLint.RuleListener>({
+const rule = createRule<[{ deprecatedConfig: DeprecatedConfig }], string>({
 	name,
 	defaultOptions: [
 		{
@@ -44,7 +44,7 @@ const rule = createRule<[{ deprecatedConfig: DeprecatedConfig }], string, TSESLi
 		type: 'suggestion',
 		docs: {
 			description: 'Disallow using deprecated APIs.',
-			recommended: 'error',
+			recommended: 'strict',
 		},
 		messages: {
 			noDeprecatedJSXAttributes: 'The JSX attribute {{propName}} has been deprecated.',
@@ -69,7 +69,7 @@ const rule = createRule<[{ deprecatedConfig: DeprecatedConfig }], string, TSESLi
 										actionableVersion: { type: 'string' },
 									},
 									required: ['moduleSpecifier'],
-									additionalProperites: false,
+									additionalProperties: false,
 								},
 							},
 						},

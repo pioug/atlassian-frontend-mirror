@@ -43,10 +43,16 @@
 			"path": "../../design-system/code/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/css/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
 			"path": "../icon-file-type/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/legacy-custom-icons/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/locale/tsconfig.app.json"

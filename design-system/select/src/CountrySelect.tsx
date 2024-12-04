@@ -5,6 +5,7 @@
  */
 import { css, jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 
@@ -72,13 +73,18 @@ const CountrySelect = (props: SelectProps<Country>) => {
 			isMulti={false}
 			options={countryOptions}
 			ariaLiveMessages={
-				isCountryOptionsGrouped(countryOptions)
-					? {
-							onFocus: (data) => onCountryOptionFocus(data, countryOptions as CountyGroupOptions[]),
-							...ariaLiveMessages,
-						}
-					: { ...ariaLiveMessages }
+				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+				fg('design_system_select-a11y-improvement')
+					? undefined
+					: isCountryOptionsGrouped(countryOptions)
+						? {
+								onFocus: (data) =>
+									onCountryOptionFocus(data, countryOptions as CountyGroupOptions[]),
+								...ariaLiveMessages,
+							}
+						: { ...ariaLiveMessages }
 			}
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...props}
 		/>
 	);

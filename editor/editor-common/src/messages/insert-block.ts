@@ -171,6 +171,11 @@ export const toolbarInsertBlockMessages = defineMessages({
 		defaultMessage: 'Structure your page using sections',
 		description: 'Create a multi column section or layout',
 	},
+	columnsDescriptionAdvancedLayout: {
+		id: 'fabric.editor.columns.advanced.layout.description',
+		defaultMessage: 'Insert {numberOfColumns} equal columns',
+		description: 'Create a multi column section or layout',
+	},
 	status: {
 		id: 'fabric.editor.status',
 		defaultMessage: 'Status',

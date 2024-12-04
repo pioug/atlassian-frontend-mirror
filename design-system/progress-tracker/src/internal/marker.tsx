@@ -5,36 +5,20 @@
  */
 import { type FC } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
-import {
-	LABEL_TOP_SPACING,
-	PROGRESS_BAR_HEIGHT,
-	varBackgroundColor,
-	varMarkerColor,
-	varTransitionDelay,
-	varTransitionEasing,
-	varTransitionSpeed,
-} from './constants';
+import { token } from '@atlaskit/tokens';
 
 const progressMarkerStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	width: PROGRESS_BAR_HEIGHT,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: PROGRESS_BAR_HEIGHT,
+	width: token('space.100', '8px'),
+	height: token('space.100', '8px'),
 	position: 'absolute',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: `var(${varBackgroundColor})`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: PROGRESS_BAR_HEIGHT,
+	backgroundColor: `var(--ds--pt--bg)`,
+	borderRadius: token('space.100', '8px'),
 	insetInlineStart: '50%',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	transform: `translate(-50%, calc(-1 * ${LABEL_TOP_SPACING}))`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	transition: `opacity var(${varTransitionSpeed}) var(${varTransitionEasing}), background-color var(${varTransitionSpeed}) var(${varTransitionEasing})`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	transitionDelay: `var(${varTransitionDelay})`,
+	transform: `translate(-50%, calc(-1 * ${token('space.250')}))`,
+	transition: `opacity var(--ds--pt--ts) var(--ds--pt--te), background-color var(--ds--pt--ts) var(--ds--pt--te)`,
+	transitionDelay: `var(--ds--pt--td)`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.fade-appear': {
 		opacity: 0.01,
@@ -45,13 +29,11 @@ const progressMarkerStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.fade-enter': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		backgroundColor: `var(${varMarkerColor})`,
+		backgroundColor: `var(--ds--pt--mc)`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.fade-enter.fade-enter-active': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		backgroundColor: `var(${varBackgroundColor})`,
+		backgroundColor: `var(--ds--pt--bg)`,
 	},
 });
 

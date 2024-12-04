@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-table
 
+## 8.4.2
+
+### Patch Changes
+
+- [#172333](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172333)
+  [`e5c206f3f7783`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5c206f3f7783) -
+  [ux] ED-25533 Set default size of nested tables to 2x2
+
+## 8.4.1
+
+### Patch Changes
+
+- [#168321](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168321)
+  [`01cada6d7a4d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01cada6d7a4d7) -
+  Fix bug where new icon types had an additional prop isFacadeDisabled that was not used
+- Updated dependencies
+
 ## 8.4.0
 
 ### Minor Changes

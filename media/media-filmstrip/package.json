@@ -61,7 +61,7 @@
 	"devDependencies": {
 		"@atlaskit/media-core": "^34.3.0",
 		"@atlaskit/media-test-data": "^2.6.1",
-		"@atlaskit/media-test-helpers": "^34.6.0",
+		"@atlaskit/media-test-helpers": "^34.7.0",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^12.1.5",
 		"@types/debounce": "^1.2.0",

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 // eslint-disable-next-line @repo/internal/fs/filename-pattern-match
 import React, {
 	type ComponentType,
@@ -9,6 +10,7 @@ import React, {
 	useRef,
 } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type AriaOnFocusProps,
 	type GroupBase,
@@ -71,7 +73,7 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 			[componentsProp],
 		);
 
-		const descriptionId = props['aria-describedby'];
+		const descriptionId = props['aria-describedby'] || props['descriptionId'];
 		const isSearchable = props.isSearchable;
 		useEffect(() => {
 			if (!isSearchable && descriptionId) {
@@ -105,18 +107,21 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 		return (
 			<WrappedComponent
 				ref={internalSelectRef}
-				aria-live="assertive"
+				aria-live={fg('design_system_select-a11y-improvement') ? undefined : 'assertive'}
 				ariaLiveMessages={
-					isOptionsGrouped(props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>)
-						? {
-								onFocus: (data: AriaOnFocusProps<OptionType, GroupBase<OptionType>>) =>
-									onFocus(
-										data,
-										props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>,
-									),
-								...ariaLiveMessages,
-							}
-						: { ...ariaLiveMessages }
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+					fg('design_system_select-a11y-improvement')
+						? undefined
+						: isOptionsGrouped(props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>)
+							? {
+									onFocus: (data: AriaOnFocusProps<OptionType, GroupBase<OptionType>>) =>
+										onFocus(
+											data,
+											props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>,
+										),
+									...ariaLiveMessages,
+								}
+							: { ...ariaLiveMessages }
 				}
 				tabSelectsValue={tabSelectsValue}
 				onClickPreventDefault={onClickPreventDefault}

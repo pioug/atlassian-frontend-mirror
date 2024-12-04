@@ -35,19 +35,6 @@ describe('@atlaskit comments', () => {
 					expect(link).toHaveAttribute('href', href);
 					expect(screen.getByText('children')).toBeInTheDocument();
 				});
-
-				it('should render link with author styles', () => {
-					render(
-						<CommentField href="#" hasAuthor>
-							Comment
-						</CommentField>,
-					);
-
-					expect(screen.getByRole('link')).toHaveStyleRule(
-						'font-weight',
-						'var(--ds-font-weight-medium, 500)',
-					);
-				});
 			});
 
 			describe('if href not provided', () => {
@@ -57,15 +44,6 @@ describe('@atlaskit comments', () => {
 					expect(screen.getByRole('presentation')).toBeInTheDocument();
 					expect(screen.queryByRole('link')).not.toBeInTheDocument();
 					expect(screen.getByText('children')).toBeInTheDocument();
-				});
-
-				it('should render span with author styles', () => {
-					render(<CommentField hasAuthor testId="comment-field" />);
-
-					expect(screen.getByTestId('comment-field')).toHaveStyleRule(
-						'font-weight',
-						'var(--ds-font-weight-medium, 500)',
-					);
 				});
 			});
 		});

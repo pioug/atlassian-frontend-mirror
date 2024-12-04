@@ -60,6 +60,7 @@ type InsufficientEditingPermission = {
 	message: string;
 	recoverable: boolean;
 	reason?: string;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
 	 */
@@ -77,6 +78,7 @@ type InvalidUserToken = {
 	code: PROVIDER_ERROR_CODE.INVALID_USER_TOKEN;
 	message: string;
 	recoverable: boolean;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
 	 */
@@ -94,6 +96,7 @@ type DocumentNotFound = {
 	code: PROVIDER_ERROR_CODE.DOCUMENT_NOT_FOUND;
 	message: string;
 	recoverable: boolean;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
 	 */
@@ -124,6 +127,7 @@ type FailToSave = {
 	code: PROVIDER_ERROR_CODE.FAIL_TO_SAVE;
 	message: string;
 	recoverable: boolean;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
 	 */
@@ -143,6 +147,7 @@ type DocumentNotRestore = {
 	code: PROVIDER_ERROR_CODE.DOCUMENT_RESTORE_ERROR;
 	message: string;
 	recoverable: boolean;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
 	 */
@@ -161,6 +166,7 @@ type InitialisationError = {
 	code: PROVIDER_ERROR_CODE.INITIALISATION_ERROR;
 	message: string;
 	recoverable: boolean;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
 	 */
@@ -178,6 +184,7 @@ type NetworkIssue = {
 	code: PROVIDER_ERROR_CODE.NETWORK_ISSUE;
 	message: string;
 	recoverable: boolean;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
 	 */
@@ -200,6 +207,7 @@ type InvalidProviderConfiguration = {
 	message: string;
 	recoverable: boolean;
 	reason: string;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
 	 */
@@ -216,6 +224,7 @@ type InternalServiceError = {
 	message: string;
 	recoverable: boolean;
 	reason: string;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
 	 */
@@ -226,6 +235,7 @@ type ProviderDocumentUpdateError = {
 	code: PROVIDER_ERROR_CODE.DOCUMENT_UPDATE_ERROR;
 	message: 'The provider failed to apply changes to the editor';
 	recoverable: boolean;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated switch to using either the error code or the recoverable flag
 	 */

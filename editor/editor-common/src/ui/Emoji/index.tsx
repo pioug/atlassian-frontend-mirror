@@ -8,6 +8,7 @@ import { type ProviderFactory } from '../../provider-factory';
 
 export interface EmojiProps extends EmojiId {
 	allowTextFallback?: boolean;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	// @deprecated - remains for compatability with legacy emoji props
 	providers?: ProviderFactory;
 	fitToHeight?: number;

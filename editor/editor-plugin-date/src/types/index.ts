@@ -3,10 +3,13 @@ import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type {
 	EditorCommand,
 	NextEditorPlugin,
+	OptionalPlugin,
 	TOOLBAR_MENU_TYPE,
 } from '@atlaskit/editor-common/types';
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 
 export type DateSegment = 'day' | 'month' | 'year';
 
@@ -39,7 +42,12 @@ export type DatePlugin = NextEditorPlugin<
 	'date',
 	{
 		pluginConfiguration: DatePluginConfig | undefined;
-		dependencies: [typeof analyticsPlugin, EditorDisabledPlugin];
+		dependencies: [
+			typeof analyticsPlugin,
+			EditorDisabledPlugin,
+			OptionalPlugin<AnnotationPlugin>,
+			OptionalPlugin<EditorViewModePlugin>,
+		];
 		sharedState: DatePluginSharedState;
 		commands: {
 			insertDate: InsertDate;

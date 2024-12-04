@@ -17,7 +17,7 @@ import { MainWrapper } from '../example-helpers';
 import { mediaInlineTableStyles, mediaInlineWrapperStyles } from '../example-helpers/styles';
 
 const mockImageFile: MockFileInputParams = {
-	id: '0c3c64b9-65ad-4592-89d0-f838beebd81e',
+	id: '57b9af11-eead-4711-85fa-9d393278c314',
 	name: 'me_skate.png',
 	mediaType: 'image',
 	mimeType: 'image/png',

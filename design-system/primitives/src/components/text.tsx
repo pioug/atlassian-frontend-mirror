@@ -4,12 +4,10 @@
  */
 import {
 	type ComponentPropsWithRef,
-	createContext,
 	type ElementType,
 	forwardRef,
 	type ReactNode,
 	type Ref,
-	useContext,
 } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -18,6 +16,7 @@ import invariant from 'tiny-invariant';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { HasTextAncestorProvider, useHasTextAncestor } from '../utils/has-text-ancestor-context';
 import {
 	inverseColorMap,
 	type TextColor,
@@ -112,9 +111,6 @@ const truncationStyles = css({
 const wordBreakMap = {
 	breakAll: css({ wordBreak: 'break-all' }),
 };
-
-const HasTextAncestorContext = createContext(false);
-const useHasTextAncestor = () => useContext(HasTextAncestorContext);
 
 /**
  * Custom hook designed to abstract the parsing of the color props and make it clearer in the future how color is reconciled between themes and tokens.
@@ -211,7 +207,7 @@ const Text = forwardRef(
 			// no need to re-apply context if the text is already wrapped
 			component
 		) : (
-			<HasTextAncestorContext.Provider value={true}>{component}</HasTextAncestorContext.Provider>
+			<HasTextAncestorProvider value={true}>{component}</HasTextAncestorProvider>
 		);
 	},
 );

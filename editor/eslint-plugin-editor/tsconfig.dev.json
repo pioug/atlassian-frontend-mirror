@@ -26,11 +26,7 @@
 		"**/codemods/**/*.ts",
 		"**/codemods/**/*.tsx"
 	],
-	"exclude": [
-		"./dist/**/*",
-		"./build/**/*",
-		"./node_modules/**/*"
-	],
+	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"baseUrl": "./",
 		"composite": true,
@@ -38,7 +34,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		}
 	],
 	"files": []

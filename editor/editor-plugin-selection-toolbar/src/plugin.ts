@@ -18,6 +18,7 @@ import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { toggleToolbar } from './commands';
 import { selectionToolbarPluginKey } from './plugin-key';
@@ -180,8 +181,24 @@ export const selectionToolbarPlugin: NextEditorPlugin<
 				for (let i = 0; i < resolved.length; i++) {
 					// add a seperator icon after each group except the last
 					items.push(...resolved[i].items);
-					if (i !== resolved.length - 1) {
-						items.push({ type: 'separator' });
+
+					if (editorExperiment('contextual_formatting_toolbar', true)) {
+						let shouldNotAddSeparator = false;
+						if (resolved[i] && resolved[i + 1]) {
+							shouldNotAddSeparator =
+								(resolved[i]?.pluginName === 'textColor' &&
+									resolved[i + 1]?.pluginName === 'highlight') ||
+								(resolved[i]?.pluginName === 'alignment' &&
+									resolved[i + 1]?.pluginName === 'toolbarListsIndentation');
+						}
+
+						if (i !== resolved.length - 1 && !shouldNotAddSeparator) {
+							items.push({ type: 'separator' });
+						}
+					} else {
+						if (i !== resolved.length - 1) {
+							items.push({ type: 'separator' });
+						}
 					}
 				}
 

@@ -241,7 +241,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 
 		pluginsOptions: {
 			selectionToolbar: () => {
-				if (editorExperiment('contextual_formatting_toolbar', true)) {
+				if (editorExperiment('contextual_formatting_toolbar', true, { exposure: true })) {
 					const toolbarCustom: FloatingToolbarCustom<Command> = {
 						type: 'custom',
 						render: (view, _idx, _dispatchAnalyticsEvent) => {
@@ -257,6 +257,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 					return {
 						isToolbarAbove: true,
 						items: [toolbarCustom],
+						rank: 8,
 					};
 				} else {
 					return undefined;

@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 203.1.0
+
+### Minor Changes
+
+- [#166906](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166906)
+  [`aac76c4a54baf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aac76c4a54baf) -
+  added **rendererExtensionOptions option to pass renderer extension handlers to extensions in
+  editor to allow displaying of renderer view for bodiedExtensions—optional not required. To use for
+  extension plugin, pass **rendererExtensionOptions to universal preset via its
+  initialPluginConfiguration prop. To use for referentialityPlugin, use \_\_rendererExtensionOptions
+  option. In a future release, changes will be added to use this new option. Note: option is not
+  fully supported currently and is intended for use for confluence live pages
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 203.0.3
 
 ### Patch Changes

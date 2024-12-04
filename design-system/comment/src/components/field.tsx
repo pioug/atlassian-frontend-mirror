@@ -1,8 +1,12 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { type FC, type ReactNode } from 'react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { Box, xcss } from '@atlaskit/primitives';
-import Anchor from '@atlaskit/primitives/anchor';
+import { cssMap, cx, jsx } from '@atlaskit/css';
+import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 export interface CommentFieldProps {
@@ -18,28 +22,36 @@ export interface CommentFieldProps {
 	testId?: string;
 }
 
-const textStyles = xcss({
-	color: 'color.text.subtle',
+const textStyles = cssMap({
+	root: {
+		color: token('color.text.subtle'),
+	},
 });
 
-const anchorStyles = xcss({
-	textDecoration: 'none',
-
-	':hover': {
-		color: 'color.link',
-		textDecoration: 'underline',
-	},
-	':active': {
-		color: 'color.link.pressed',
+const anchorStyles = cssMap({
+	root: {
 		textDecoration: 'none',
+
+		'&:hover': {
+			color: token('color.link'),
+			textDecoration: 'underline',
+		},
+		'&:active': {
+			color: token('color.link.pressed'),
+			textDecoration: 'none',
+		},
 	},
 });
 
-const noAuthorStyles = xcss({
-	fontWeight: 'inherit',
+const noAuthorStyles = cssMap({
+	root: {
+		fontWeight: 'inherit',
+	},
 });
-const hasAuthorStyles = xcss({
-	fontWeight: token('font.weight.medium', '500'),
+const hasAuthorStyles = cssMap({
+	root: {
+		fontWeight: token('font.weight.medium'),
+	},
 });
 
 /**
@@ -61,7 +73,11 @@ const Field: FC<CommentFieldProps> = ({
 	return href ? (
 		<Anchor
 			href={href}
-			xcss={[textStyles, anchorStyles, hasAuthor ? hasAuthorStyles : noAuthorStyles]}
+			xcss={cx(
+				textStyles.root,
+				anchorStyles.root,
+				hasAuthor ? hasAuthorStyles.root : noAuthorStyles.root,
+			)}
 			onClick={onClick}
 			onFocus={onFocus}
 			onMouseOver={onMouseOver}
@@ -70,9 +86,8 @@ const Field: FC<CommentFieldProps> = ({
 			{children}
 		</Anchor>
 	) : (
-		<Box
-			as="span"
-			xcss={[textStyles, hasAuthor ? hasAuthorStyles : noAuthorStyles]}
+		<span
+			css={[textStyles.root, hasAuthor ? hasAuthorStyles.root : noAuthorStyles.root]}
 			/**
 			 * It is not normally acceptable to add key handlers to non-interactive elements
 			 * as this is an accessibility anti-pattern. However, because this instance is
@@ -84,10 +99,10 @@ const Field: FC<CommentFieldProps> = ({
 			onClick={onClick}
 			onFocus={onFocus}
 			onMouseOver={onMouseOver}
-			testId={testId}
+			data-testid={testId}
 		>
 			{children}
-		</Box>
+		</span>
 	);
 };
 

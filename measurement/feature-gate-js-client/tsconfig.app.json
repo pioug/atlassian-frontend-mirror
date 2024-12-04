@@ -31,6 +31,10 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__feature-gate-js-client/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../uip/atlassian-context/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

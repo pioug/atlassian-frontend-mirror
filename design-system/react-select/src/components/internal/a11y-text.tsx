@@ -15,6 +15,7 @@ const styles = css({
 	clip: 'rect(1px, 1px, 1px, 1px)',
 	label: 'a11yText',
 	overflow: 'hidden',
+	userSelect: 'none', // while hidden text is sitting in the DOM, it should not be selectable
 	whiteSpace: 'nowrap',
 });
 const A11yText = (props: JSX.IntrinsicElements['span']) => (

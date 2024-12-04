@@ -4,6 +4,7 @@ export interface LinkUrlProps extends React.AnchorHTMLAttributes<HTMLAnchorEleme
 	 */
 	checkSafety?: boolean;
 	testId?: string;
+	isLinkComponent?: boolean;
 }
 
 export type PackageDataType = {

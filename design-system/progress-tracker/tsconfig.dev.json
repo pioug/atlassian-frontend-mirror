@@ -33,16 +33,22 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../accessibility-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
 		},
 		{
 			"path": "../button/tsconfig.app.json"
+		},
+		{
+			"path": "../css/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
@@ -52,6 +58,9 @@
 		},
 		{
 			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../link/tsconfig.app.json"
 		},
 		{
 			"path": "../primitives/tsconfig.app.json"

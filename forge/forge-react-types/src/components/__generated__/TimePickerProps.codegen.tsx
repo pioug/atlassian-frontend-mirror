@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TimePickerProps
  *
- * @codegen <<SignedSource::db62df2c8928eb77a589694a6741e9ae>>
+ * @codegen <<SignedSource::900a8ca4989787ed581746e8c8ee267a>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/timepicker/__generated__/index.partial.tsx <<SignedSource::45eaafdd9a1bbc8b356cc8a9b5365bc1>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/timepicker/__generated__/index.partial.tsx <<SignedSource::5c2d81f7609af38cf6593bb1d4e06fe1>>
  */
 import type { DateTimePickerSelectProps } from '@atlaskit/datetime-picker';
 
@@ -23,13 +23,10 @@ export interface FieldProps {
 	name: string;
 }
 
-type Appearance = 'default' | 'subtle' | 'none';
 type Spacing = 'compact' | 'default';
 
 export type TimePickerProps = {
-	appearance?: Appearance;
 	autoFocus?: boolean;
-	defaultIsOpen?: boolean;
 	defaultValue?: string;
 	isOpen?: boolean;
 	label?: string;
@@ -44,5 +41,5 @@ export type TimePickerProps = {
 	placeholder?: string;
 	locale?: string;
 	testId?: string;
-  selectProps?: DateTimePickerSelectProps;
-} & Partial<Omit<FieldProps, 'onChange' | 'isRequired'>>;
+	selectProps?: DateTimePickerSelectProps;
+} & Partial<Omit<FieldProps, 'onChange'>>;

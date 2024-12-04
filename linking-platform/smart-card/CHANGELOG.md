@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 32.5.1
+
+### Patch Changes
+
+- [#171430](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171430)
+  [`d100d121a8a38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d100d121a8a38) -
+  [ux] Update editor's links to use design system's standards
+
 ## 32.5.0
 
 ### Minor Changes

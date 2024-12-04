@@ -263,6 +263,7 @@ export default class RendererActions
 		}
 	}
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * This is replaced by `isRangeAnnotatable`.
 	 *

@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 3.2.15
+
+### Patch Changes
+
+- [#172933](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172933)
+  [`8323af2381d00`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8323af2381d00) -
+  [ux] Arranges items in the Selection toolbar under the Contextual toolbar experiment flag
+- Updated dependencies
+
+## 3.2.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.13
 
 ### Patch Changes

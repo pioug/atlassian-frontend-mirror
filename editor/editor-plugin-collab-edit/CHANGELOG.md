@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 1.23.6
+
+### Patch Changes
+
+- [#171509](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171509)
+  [`3365b4ddb40ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3365b4ddb40ce) -
+  Cleaned up FF platform_editor_filter_transactions_analytics
+
+## 1.23.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.23.4
 
 ### Patch Changes

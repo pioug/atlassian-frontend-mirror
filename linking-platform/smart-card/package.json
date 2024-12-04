@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "32.5.0",
+	"version": "32.5.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -41,6 +41,7 @@
 		"@atlaskit/icon-object": "^6.9.0",
 		"@atlaskit/icon-priority": "^6.3.0",
 		"@atlaskit/legacy-custom-icons": "^0.20.0",
+		"@atlaskit/link": "^1.2.1",
 		"@atlaskit/link-analytics": "^8.5.0",
 		"@atlaskit/link-client-extension": "^3.0.0",
 		"@atlaskit/link-extractors": "^1.9.0",
@@ -90,9 +91,8 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/analytics-listeners": "^8.13.0",
 		"@atlaskit/css-reset": "^6.11.0",
-		"@atlaskit/link": "^1.2.1",
 		"@atlaskit/link-test-helpers": "^7.5.0",
-		"@atlaskit/media-test-helpers": "^34.6.0",
+		"@atlaskit/media-test-helpers": "^34.7.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/analytics-tooling": "*",
@@ -187,6 +187,9 @@
 			"type": "boolean"
 		},
 		"smart-card-remove-block-card-from-embed": {
+			"type": "boolean"
+		},
+		"platform_editor_hyperlink_underline": {
 			"type": "boolean"
 		}
 	}

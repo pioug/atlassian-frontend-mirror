@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-text-color
 
+## 1.16.3
+
+### Patch Changes
+
+- [#172933](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172933)
+  [`8323af2381d00`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8323af2381d00) -
+  [ux] Arranges items in the Selection toolbar under the Contextual toolbar experiment flag
+- Updated dependencies
+
+## 1.16.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.16.1
 
 ### Patch Changes

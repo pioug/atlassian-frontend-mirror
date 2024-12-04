@@ -2,18 +2,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+
 import { type FC, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
+import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
-const contentSlotStyles = css({
-	minWidth: 0,
-	gridArea: 'comment-area',
-	paddingBlockStart: token('space.025', '2px'),
-	wordWrap: 'break-word',
+const contentSlotStyles = cssMap({
+	root: {
+		minWidth: '0px',
+		gridArea: 'comment-area',
+		paddingBlockStart: token('space.025', '2px'),
+		wordWrap: 'break-word',
+	},
 });
 
 interface ContentSlotProps {

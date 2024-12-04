@@ -1,13 +1,13 @@
 import React, { type FC } from 'react';
 
 import { cssMap } from '@atlaskit/css';
-import Anchor from '@atlaskit/primitives/anchor';
+import { Anchor } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type Stage } from '../types';
 
 const styles = cssMap({
-	root: {
+	anchor: {
 		textDecoration: 'none',
 		color: token('color.text'),
 		// @ts-expect-error - inherited font is needed here
@@ -30,7 +30,7 @@ const styles = cssMap({
 const Link: FC<Stage & { testId?: string }> = ({ href, onClick, label, testId }) => {
 	return (
 		<Anchor
-			xcss={styles.root}
+			xcss={styles.anchor}
 			// TODO: We should not be rendering empty hrefs on anchors. This should be plain text or a button/pressable if `onClick` is provided.
 			href={href || ''}
 			onClick={onClick}

@@ -154,6 +154,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 		return true;
 	}
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated This is deprecated and is no longer maintained.
 	 *
@@ -235,6 +236,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 		return isEmptyDocument(this.editorView.state.doc);
 	}
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated - please use `replaceDocument` found in the core plugin actions instead
 	 * using this will reset your Editor State which could cause some things to break (like emojis)
@@ -243,6 +245,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		rawValue: any,
 		shouldScrollToBottom = true,
+		// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 		/** @deprecated [ED-14158] shouldAddToHistory is not being used in this function */
 		shouldAddToHistory = true,
 	): boolean {

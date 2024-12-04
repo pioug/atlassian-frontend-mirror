@@ -1,13 +1,10 @@
 import React from 'react';
 
-import { matchers } from '@emotion/jest';
 import { render, screen } from '@testing-library/react';
 
 import Avatar from '@atlaskit/avatar';
 
 import { CommentLayout } from '../../../index';
-
-expect.extend(matchers);
 
 describe('@atlaskit comments', () => {
 	describe('CommentLayout', () => {
@@ -90,25 +87,6 @@ describe('@atlaskit comments', () => {
 				);
 				expect(screen.getByTestId('parent')).toHaveTextContent(/child1/);
 				expect(screen.getByTestId('parent')).toHaveTextContent(/child2/);
-			});
-
-			it('should apply inline styles if shouldRenderNestedCommentsInline prop is true', () => {
-				const childComments = [
-					<CommentLayout key="1" content="child1" />,
-					<CommentLayout key="2" content="child2" />,
-				];
-				render(
-					<CommentLayout content="parent" testId="parent" shouldRenderNestedCommentsInline>
-						{childComments}
-					</CommentLayout>,
-				);
-
-				const parent = screen.getByTestId('parent');
-
-				expect(parent).toHaveStyleRule(
-					'grid-template-areas',
-					'"avatar-area comment-area" "nested-comments-area nested-comments-area"',
-				);
 			});
 		});
 

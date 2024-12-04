@@ -44,6 +44,7 @@ export const makeGetRecentItemBody = (cloudId: string) => ({
 	},
 });
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  * @deprecated - Please use @atlassian/recent-work-client instead
  */

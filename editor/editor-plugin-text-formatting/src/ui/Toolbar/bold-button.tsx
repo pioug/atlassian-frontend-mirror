@@ -17,6 +17,8 @@ import BoldIcon from '@atlaskit/icon/core/migration/text-bold--editor-bold';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import { ToolbarType } from './types';
+
 type BoldButtonProps = {
 	label: string;
 	isReducedSpacing: boolean;
@@ -25,6 +27,7 @@ type BoldButtonProps = {
 	'aria-expanded': React.AriaAttributes['aria-expanded'];
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 	onKeyDown?: (event: React.KeyboardEvent) => void;
+	toolbarType: ToolbarType;
 };
 
 export const BoldToolbarButton = ({
@@ -35,11 +38,13 @@ export const BoldToolbarButton = ({
 	'aria-expanded': ariaExpanded,
 	onClick,
 	onKeyDown,
+	toolbarType,
 }: BoldButtonProps) => {
+	const reducedSpacing = toolbarType === ToolbarType.FLOATING ? 'compact' : 'none';
 	return (
 		<ToolbarButton
 			testId={'ak-editor-selection-toolbar-format-text-button'}
-			spacing={isReducedSpacing ? 'none' : 'default'}
+			spacing={isReducedSpacing ? reducedSpacing : 'default'}
 			disabled={isDisabled}
 			selected={isSelected}
 			aria-label={label}

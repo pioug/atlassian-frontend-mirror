@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockTypePlugin } from '../../blockTypePluginType';
 import type { TextBlockTypes } from '../block-types';
@@ -23,10 +22,6 @@ const FloatingToolbarSettings = {
 
 export function FloatingToolbarComponent({ api }: FloatingToolbarComponentProps) {
 	const { blockTypeState } = useSharedPluginState(api, ['blockType']);
-
-	useEffect(() => {
-		editorExperiment('contextual_formatting_toolbar', true, { exposure: true });
-	}, []);
 
 	const boundSetBlockType = useCallback(
 		(name: TextBlockTypes) =>

@@ -786,15 +786,16 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 					action(insert, state) {
 						// see comment on tablesPlugin.getSharedState on usage
 						const tableState = api?.table?.sharedState.currentState();
-
-						const tableNode = createTableWithWidth({
+						const tableNodeProps = {
 							isTableScalingEnabled: options?.isTableScalingEnabled,
 							isTableAlignmentEnabled: options?.tableOptions.allowTableAlignment,
 							isFullWidthModeEnabled: tableState?.isFullWidthModeEnabled,
 							isCommentEditor: options?.isCommentEditor,
 							isChromelessEditor: options?.isChromelessEditor,
 							isTableResizingEnabled: options?.tableOptions.allowTableResizing,
-						})(state.schema);
+						};
+
+						let tableNode = createTableWithWidth(tableNodeProps)(state.schema);
 
 						let { tr } = state;
 						// If the cursor is inside a table
@@ -815,6 +816,10 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 								tr.scrollIntoView();
 							} else {
 								// Table can be nested in parent table
+								tableNode = createTableWithWidth({
+									...tableNodeProps,
+									isNestedTable: true,
+								})(state.schema);
 								tr = insert(tableNode);
 							}
 						} else {

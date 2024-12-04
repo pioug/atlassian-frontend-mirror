@@ -93,6 +93,7 @@ export const DEFAULT_EMBED_CARD_HEIGHT = 480;
 
 export const MAX_BROWSER_SCROLLBAR_HEIGHT = 20;
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 // @deprecated
 export const ATLASSIAN_NAVIGATION_HEIGHT = '56px';
 

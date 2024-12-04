@@ -212,11 +212,13 @@ export type { SelectionToolbarGroup, SelectionToolbarHandler } from './selection
 
 export type { FeedbackInfo } from './feedback-dialog';
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  *  @deprecated
  */
 import type { EditorPresetBuilder, ExtractPresetAPI } from '../preset';
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  * @deprecated
  *

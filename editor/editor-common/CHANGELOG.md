@@ -1,5 +1,48 @@
 # @atlaskit/editor-common
 
+## 96.1.0
+
+### Minor Changes
+
+- [#172933](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172933)
+  [`8323af2381d00`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8323af2381d00) -
+  Adds optional pluginName to the Selection group
+
+### Patch Changes
+
+- [#171783](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171783)
+  [`ec56ec65d9dae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec56ec65d9dae) -
+  [ux] ED-25929: Layout option quick insert improvements
+
+## 96.0.2
+
+### Patch Changes
+
+- [#172333](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172333)
+  [`e5c206f3f7783`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5c206f3f7783) -
+  [ux] ED-25533 Set default size of nested tables to 2x2
+
+## 96.0.1
+
+### Patch Changes
+
+- [#169716](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169716)
+  [`4fbd1fe0084b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4fbd1fe0084b3) -
+  ED-25072 update and insert layout analytics.
+
+## 96.0.0
+
+### Major Changes
+
+- [#166906](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166906)
+  [`aac76c4a54baf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aac76c4a54baf) -
+  added **rendererExtensionOptions option to pass renderer extension handlers to extensions in
+  editor to allow displaying of renderer view for bodiedExtensions—optional not required. To use for
+  extension plugin, pass **rendererExtensionOptions to universal preset via its
+  initialPluginConfiguration prop. To use for referentialityPlugin, use \_\_rendererExtensionOptions
+  option. In a future release, changes will be added to use this new option. Note: option is not
+  fully supported currently and is intended for use for confluence live pages
+
 ## 95.11.0
 
 ### Minor Changes

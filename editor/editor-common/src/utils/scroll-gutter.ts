@@ -1,4 +1,5 @@
 export const GUTTER_SIZE_IN_PX = 120; // Default gutter size
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  * @deprecated - [ED-23844] only used in Editor Core
  */

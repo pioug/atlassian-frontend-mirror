@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import type { LinkProps } from '@atlaskit/link';
 
 import { fireLinkClickedEvent } from '../../utils/analytics/click';
 
@@ -10,7 +11,7 @@ export enum ClickButton {
 	Right = 2,
 }
 
-export const useLinkClicked = <T extends React.MouseEventHandler>(
+export const useLinkClicked = <T extends Exclude<LinkProps['onClick'], undefined>>(
 	/**
 	 * Handler to
 	 */

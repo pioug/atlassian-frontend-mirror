@@ -108,9 +108,10 @@ export const toolbarListsIndentationPlugin: ToolbarListsIndentationPlugin = ({ c
 					};
 
 					return {
-						rank: -9,
+						rank: 3,
 						isToolbarAbove: true,
 						items: [toolbarCustom],
+						pluginName: 'toolbarListsIndentation',
 					};
 				} else {
 					return undefined;

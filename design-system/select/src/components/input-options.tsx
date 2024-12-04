@@ -14,6 +14,7 @@ import PrimitiveSVGIcon from '@atlaskit/icon/svg';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { B300, B400, B75, N0, N100, N20, N20A, N30, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { type OptionProps, type OptionType } from '../types';
 
@@ -164,6 +165,7 @@ class ControlOption<Option = OptionType, IsMulti extends boolean = false> extend
 
 	render() {
 		const { getStyles, Icon, children, innerProps, innerRef, ...rest } = this.props;
+		const { isDisabled, isSelected } = this.props;
 
 		// prop assignment
 		const props = {
@@ -174,6 +176,11 @@ class ControlOption<Option = OptionType, IsMulti extends boolean = false> extend
 		};
 
 		const [styles, classes] = getPrimitiveStyles({ getStyles, ...rest });
+
+		const isVoiceOver =
+			(/iPad|iPhone|iPod/.test(navigator.userAgent) || navigator.platform === 'MacIntel') && // temporary check for now
+			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+			fg('design_system_select-a11y-improvement');
 
 		return (
 			// These need to remain this way because `react-select` passes props with
@@ -212,7 +219,16 @@ class ControlOption<Option = OptionType, IsMulti extends boolean = false> extend
 						/>
 					) : null}
 				</div>
-				<div css={baseOptionStyles}>{children}</div>
+				<div css={baseOptionStyles}>
+					{children}
+					{/* Funny story, aria-selected does not work very well with VoiceOver, so it needs to be removed but we still need to express selected state
+					https://bugs.webkit.org/show_bug.cgi?id=209076
+					VoiceOver does not announce aria-disabled the first time, so going this route
+					*/}
+					{isVoiceOver && (isSelected || isDisabled) && (
+						<VisuallyHidden>{`${isSelected ? ',selected' : ''}${isDisabled ? ',dimmed' : ''}`}</VisuallyHidden>
+					)}
+				</div>
 			</div>
 		);
 	}

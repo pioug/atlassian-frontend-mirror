@@ -224,6 +224,7 @@ export function findCutBefore($pos: ResolvedPos): ResolvedPos | null {
 	return null;
 }
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  * @deprecated
  *

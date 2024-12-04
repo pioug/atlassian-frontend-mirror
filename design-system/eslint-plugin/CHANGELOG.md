@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.1.0
+
+### Minor Changes
+
+- [#169407](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169407)
+  [`fc5784691adcf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc5784691adcf) -
+  `use-tokens-typography` rule now reports on `fontSize` used with tokens since this is invalid
+  syntax. If the token is a typography token, it will suggest switching `fontSize` to `font` with a
+  fixer. If the token is not a typography token it will only report.
+
 ## 11.0.2
 
 ### Patch Changes

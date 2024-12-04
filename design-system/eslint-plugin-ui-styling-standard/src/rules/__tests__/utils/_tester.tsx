@@ -1,6 +1,4 @@
-/* eslint-disable @repo/internal/fs/filename-pattern-match */
-/* eslint-disable no-undef */
-import { ESLintUtils } from '@typescript-eslint/utils';
+import { TSESLint } from '@typescript-eslint/utils';
 import { RuleTester } from 'eslint';
 
 import __noop from '@atlaskit/ds-lib/noop';
@@ -20,8 +18,8 @@ import __noop from '@atlaskit/ds-lib/noop';
 	});
 };
 
-export const typescriptEslintTester = new ESLintUtils.RuleTester({
-	parser: '@typescript-eslint/parser',
+export const typescriptEslintTester = new TSESLint.RuleTester({
+	parser: require.resolve('@typescript-eslint/parser'),
 	parserOptions: {
 		ecmaVersion: 2020,
 		sourceType: 'module',

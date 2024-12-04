@@ -1,9 +1,19 @@
+import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorCommand, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Fragment, type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
+import {
+	Fragment,
+	type Node as PMNode,
+	type ResolvedPos,
+	type Schema,
+} from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { maxLayoutColumnSupported } from '../pm-plugins/utils/consts';
+import {
+	fireInsertLayoutAnalytics,
+	fireMoveNodeAnalytics,
+} from '../pm-plugins/utils/fire-analytics';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
 import { updateColumnWidths } from '../pm-plugins/utils/update-column-widths';
 import { isInSameLayout } from '../pm-plugins/utils/validation';
@@ -53,8 +63,11 @@ const moveToExistingLayout = (
 	from: number,
 	to: number,
 	tr: Transaction,
-	isSameLayout: boolean,
+	$originalFrom: ResolvedPos,
+	$originalTo: ResolvedPos,
+	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 ) => {
+	const isSameLayout = isInSameLayout($originalFrom, $originalTo);
 	if (isSameLayout) {
 		// reorder columns
 		tr.delete(from, from + sourceNode.nodeSize);
@@ -62,10 +75,30 @@ const moveToExistingLayout = (
 		tr.insert(mappedTo, sourceNode)
 			.setSelection(new NodeSelection(tr.doc.resolve(mappedTo)))
 			.scrollIntoView();
+		fireMoveNodeAnalytics(
+			tr,
+			INPUT_METHOD.DRAG_AND_DROP,
+			$originalFrom.depth,
+			$originalFrom.nodeAfter?.type.name || '',
+			1,
+			'layoutSection',
+			true,
+			api,
+		);
 	} else if (toLayout.childCount < maxLayoutColumnSupported()) {
 		insertToDestination(tr, to, sourceNode, toLayout, toLayoutPos);
 		const mappedFrom = tr.mapping.map(from);
 		removeFromSource(tr, tr.doc.resolve(mappedFrom));
+		fireMoveNodeAnalytics(
+			tr,
+			INPUT_METHOD.DRAG_AND_DROP,
+			$originalFrom.depth,
+			$originalFrom.nodeAfter?.type.name || '',
+			1,
+			'layoutSection',
+			false,
+			api,
+		);
 	}
 	return tr;
 };
@@ -169,7 +202,9 @@ export const moveToLayout =
 				from,
 				toPos,
 				tr,
-				isInSameLayout($from, $to),
+				$from,
+				$to,
+				api,
 			);
 		} else if (toNode.type === layoutColumn) {
 			const toLayout = $to.parent;
@@ -183,7 +218,9 @@ export const moveToLayout =
 				from,
 				toPos,
 				tr,
-				isInSameLayout($from, $to),
+				$from,
+				$to,
+				api,
 			);
 		} else {
 			let toNodeWithoutBreakout: PMNode | Fragment = toNode;
@@ -217,6 +254,8 @@ export const moveToLayout =
 					tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [
 						breakout.create({ mode: breakoutMode }),
 					]);
+
+				fireInsertLayoutAnalytics(tr, api);
 			}
 
 			return tr;

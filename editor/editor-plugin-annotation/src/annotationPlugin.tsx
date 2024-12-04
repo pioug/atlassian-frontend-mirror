@@ -7,6 +7,7 @@ import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from './annotationPluginType';
 import { setInlineCommentDraftState, showInlineCommentForBlockNode } from './editor-commands';
@@ -106,12 +107,17 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 				) {
 					const { isToolbarAbove } = annotationProviders.inlineComment;
 
-					return buildToolbar(api?.analytics?.actions)({
+					const toolbarConfig = buildToolbar(api?.analytics?.actions)({
 						state,
 						intl,
 						isToolbarAbove,
 						api,
 					}) as SelectionToolbarGroup;
+
+					return {
+						...toolbarConfig,
+						rank: editorExperiment('contextual_formatting_toolbar', true) ? 1 : undefined,
+					};
 				}
 			},
 		},

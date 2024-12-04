@@ -36,7 +36,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
@@ -55,6 +55,9 @@
 		},
 		{
 			"path": "../emoji/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/section-message/tsconfig.app.json"

@@ -48,7 +48,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/formatting/tsconfig.app.json"

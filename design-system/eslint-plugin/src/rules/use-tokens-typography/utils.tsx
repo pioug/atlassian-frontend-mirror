@@ -94,6 +94,18 @@ export const typographyValueToToken = typographyTokens
 		};
 	});
 
+export function isValidTypographyToken(tokenName: string) {
+	return typographyTokens
+		.filter((t) => t.attributes.group === 'typography')
+		.filter(
+			(t) =>
+				t.cleanName.includes('font.heading') ||
+				t.cleanName.includes('font.body') ||
+				t.cleanName.includes('font.code'),
+		)
+		.find((t) => t.cleanName === tokenName);
+}
+
 export function findTypographyTokenForValues(fontSize: string, lineHeight?: string) {
 	let matchingTokens = typographyValueToToken
 		.filter((token) => token.values.fontSize === fontSize)

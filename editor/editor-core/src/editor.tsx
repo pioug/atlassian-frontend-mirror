@@ -44,6 +44,7 @@ interface EditorPropsWithInitialPluginConfiguration extends EditorProps {
 	initialPluginConfiguration?: InitialPluginConfiguration;
 }
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  * @deprecated - Please use the `ComposableEditor` component instead.
  * We strongly encourage the use of custom presets, however your easiest migration path is to use the `useUniversalPreset` hook.

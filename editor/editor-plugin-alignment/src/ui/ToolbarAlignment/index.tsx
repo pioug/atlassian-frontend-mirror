@@ -24,6 +24,7 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AlignmentPlugin } from '../../alignmentPluginType';
 import {
@@ -77,6 +78,10 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 
 		const title = intl.formatMessage(messages.alignment);
 
+		const reducedSpacing = editorExperiment('contextual_formatting_toolbar', true)
+			? 'compact'
+			: 'none';
+
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<span css={wrapper}>
@@ -102,7 +107,7 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 					closeOnTab={true}
 					trigger={
 						<ToolbarButton
-							spacing={isReducedSpacing ? 'none' : 'default'}
+							spacing={isReducedSpacing ? reducedSpacing : 'default'}
 							disabled={disabled}
 							selected={isOpen}
 							title={title}

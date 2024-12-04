@@ -115,7 +115,9 @@ export const buildToolbar =
 
 		const createComment: FloatingToolbarButton<Command> = {
 			type: 'button',
-			showTitle: true,
+			showTitle: editorExperiment('contextual_formatting_toolbar', true, { exposure: true })
+				? false
+				: true,
 			disabled: selectionValid === AnnotationSelectionType.DISABLED,
 			testId: AnnotationTestIds.floatingToolbarCreateButton,
 			icon: CommentIcon,

@@ -123,10 +123,13 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 					fallback: [],
 				};
 
+				const rank = editorExperiment('contextual_formatting_toolbar', true) ? 5 : -9;
+
 				return {
-					rank: -9,
+					rank,
 					isToolbarAbove: true,
 					items: [toolbarCustom],
+					pluginName: 'highlight',
 				};
 			},
 		},

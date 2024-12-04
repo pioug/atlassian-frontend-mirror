@@ -12,11 +12,24 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
+import {
+	annotationMessages,
+	toolbarInsertBlockMessages as messages,
+} from '@atlaskit/editor-common/messages';
 import { IconDate } from '@atlaskit/editor-common/quick-insert';
 import { DateSharedCssClassName } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI, UiComponentFactoryParams } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	ExtractInjectionAPI,
+	FloatingToolbarItem,
+	UiComponentFactoryParams,
+} from '@atlaskit/editor-common/types';
+import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
+import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
+import CommentIcon from '@atlaskit/icon/core/comment';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DatePlugin } from './datePluginType';
 import { closeDatePicker, closeDatePickerWithAnalytics, createDate } from './pm-plugins/actions';
@@ -74,7 +87,6 @@ function ContentComponent({
 	const dateNode = element?.classList.contains(DateSharedCssClassName.DATE_CONTAINER)
 		? element
 		: (element?.querySelector(`.${DateSharedCssClassName.DATE_CONTAINER}`) as HTMLElement | null);
-
 	return (
 		<DatePicker
 			mountTo={popupsMountPoint}
@@ -217,6 +229,82 @@ const datePlugin: DatePlugin = ({ config: options = {}, api }) => ({
 				},
 			},
 		],
+		floatingToolbar: (state, intl) => {
+			const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+
+			if (!isViewMode || !fg('platform_inline_node_as_valid_annotation_selection')) {
+				return undefined;
+			}
+			const onClick: Command = (stateFromClickEvent, dispatch) => {
+				if (!api?.annotation) {
+					return true;
+				}
+				const command = api.annotation?.actions?.setInlineCommentDraftState(
+					true,
+					INPUT_METHOD.TOOLBAR,
+				);
+				return command(stateFromClickEvent, dispatch);
+			};
+
+			return {
+				title: 'Date floating toolbar',
+				nodeType: [state.schema.nodes.date],
+				getDomRef: (editorView) => {
+					const dateState = datePluginKey.getState(state);
+					const datePosition = dateState?.showDatePickerAt;
+
+					if (!datePosition) {
+						return undefined;
+					}
+
+					const domAtPos = editorView.domAtPos.bind(editorView);
+					const domRef = findDomRefAtPos(datePosition, domAtPos);
+					const isHTMLElement = (element: Node): element is HTMLElement => {
+						return element instanceof HTMLElement;
+					};
+
+					if (isHTMLElement(domRef)) {
+						return domRef;
+					}
+					return undefined;
+				},
+				onPositionCalculated: calculateToolbarPositionAboveSelection('Date floating toolbar'),
+				items: (node: ProseMirrorNode): Array<FloatingToolbarItem<Command>> => {
+					const annotationState = api?.annotation?.sharedState.currentState();
+					const activeCommentMark = node.marks.find(
+						(mark) =>
+							mark.type.name === 'annotation' &&
+							annotationState?.annotations[mark.attrs.id] === false,
+					);
+					const showAnnotation =
+						annotationState &&
+						annotationState.isVisible &&
+						!annotationState.bookmark &&
+						!annotationState.mouseData.isSelecting &&
+						!activeCommentMark;
+
+					if (showAnnotation) {
+						return [
+							{
+								type: 'button',
+								showTitle: true,
+								testId: 'add-comment-date-button',
+								icon: CommentIcon,
+								title: intl.formatMessage(annotationMessages.createComment),
+								onClick,
+								tooltipContent: (
+									<ToolTipContent
+										description={intl.formatMessage(annotationMessages.createComment)}
+									/>
+								),
+								supportsViewMode: true,
+							},
+						];
+					}
+					return [];
+				},
+			};
+		},
 	},
 });
 

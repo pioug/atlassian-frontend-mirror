@@ -44,10 +44,10 @@
 		"./package.json": "./package.json"
 	},
 	"dependencies": {
-		"@atlaskit/eslint-plugin-design-system": "^11.0.0",
+		"@atlaskit/eslint-plugin-design-system": "^11.1.0",
 		"@atlaskit/eslint-utils": "^1.7.0",
 		"@babel/runtime": "^7.0.0",
-		"@typescript-eslint/utils": "^5.48.1",
+		"@typescript-eslint/utils": "^7.1.0",
 		"ajv": "^6.12.6",
 		"eslint-codemod-utils": "^1.8.6",
 		"eslint-scope": "^8.0.0",
@@ -66,6 +66,7 @@
 		"@types/eslint": "^8.56.6",
 		"@types/eslint__eslintrc": "^2.1.2",
 		"@types/estraverse": "^5.1.7",
+		"@types/json-schema": "^7.0.15",
 		"eslint": "^8.57.0",
 		"lodash": "^4.17.21",
 		"typescript": "~5.4.2"

@@ -4,12 +4,10 @@
  */
 import {
 	type ComponentPropsWithRef,
-	createContext,
 	type ElementType,
 	forwardRef,
 	type ReactNode,
 	type Ref,
-	useContext,
 } from 'react';
 
 import { jsx, cssMap as unboundedCssMap } from '@compiled/react';
@@ -18,6 +16,8 @@ import invariant from 'tiny-invariant';
 import { cssMap } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
+
+import { HasTextAncestorProvider, useHasTextAncestor } from '../../utils/has-text-ancestor-context';
 
 import { useSurface } from './internal/surface-provider';
 import type { BasePrimitiveProps, FontSize, FontWeight, TextAlign, TextColor } from './types';
@@ -70,9 +70,6 @@ type TextPropsBase<T extends ElementType = 'span'> = {
 
 export type TextProps<T extends ElementType = 'span'> = TextPropsBase<T> &
 	Omit<BasePrimitiveProps, 'xcss'>;
-
-const HasTextAncestorContext = createContext(false);
-const useHasTextAncestor = () => useContext(HasTextAncestorContext);
 
 /**
  * Custom hook designed to abstract the parsing of the color props and make it clearer in the future how color is reconciled between themes and tokens.
@@ -240,7 +237,7 @@ const Text = forwardRef(
 		const hasTextAncestor = useHasTextAncestor();
 		const color = useColor(colorProp, hasTextAncestor);
 
-		if (!fg('platform-primitives-nested-text-inherit-size') && !size) {
+		if ((!fg('platform-primitives-nested-text-inherit-size') || !hasTextAncestor) && !size) {
 			size = 'medium';
 		}
 
@@ -249,7 +246,7 @@ const Text = forwardRef(
 				id={id}
 				css={[
 					styles.root,
-					size ? fontSizeMap[size] : !hasTextAncestor && fontSizeMap.medium,
+					size && fontSizeMap[size],
 					color && textColorMap[color],
 					maxLines && styles.truncation,
 					maxLines === 1 && styles.breakAll,
@@ -273,9 +270,7 @@ const Text = forwardRef(
 			return component;
 		}
 
-		return (
-			<HasTextAncestorContext.Provider value={true}>{component}</HasTextAncestorContext.Provider>
-		);
+		return <HasTextAncestorProvider value={true}>{component}</HasTextAncestorProvider>;
 	},
 );
 

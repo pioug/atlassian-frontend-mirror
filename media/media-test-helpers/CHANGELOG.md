@@ -1,5 +1,13 @@
 # @atlaskit/media-test-helpers
 
+## 34.7.0
+
+### Minor Changes
+
+- [#170684](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170684)
+  [`c59e0bb5f0c1c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c59e0bb5f0c1c) -
+  ED-25572 Move all media dev service urls to staging
+
 ## 34.6.5
 
 ### Patch Changes

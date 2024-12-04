@@ -8,7 +8,7 @@ import Comment, {
 	CommentTime,
 } from '@atlaskit/comment';
 import Link from '@atlaskit/link';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import avatarImg from './images/avatar_400x400.jpg';
 

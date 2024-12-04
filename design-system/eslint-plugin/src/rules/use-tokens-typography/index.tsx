@@ -32,7 +32,7 @@ const rule = createLintRule({
 		},
 		messages: {
 			noRawTypographyValues:
-				'Typography primitives or tokens should be used instead of hard-coded values.\n\n@meta <<{{payload}}>>.',
+				'Typography primitives or tokens should be used instead of hard-coded values.\n\n@meta <<{{payload}}>>.\n\nNOTE: Using tokens with the `fontSize` property is invalid. Any `font.heading` or `font.body` tokens must use the CSS `font` property.',
 		},
 		schema: ruleSchema,
 	},

@@ -9,6 +9,7 @@ import { Manager, type Modifier, Popper, type PopperProps, Reference } from 'rea
 import { shallowEqualObjects } from 'shallow-equal';
 
 import { IdProvider } from '@atlaskit/ds-lib/use-id';
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type GroupBase,
 	mergeStyles,
@@ -77,6 +78,7 @@ export interface PopupSelectProps<
 	/**
 	 * Defines whether the menu should close when selected. The default is `true`.
 	 */
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	closeMenuOnSelect?: boolean;
 	/**
 	 * Defines whether the menu should be closed by pressing the Tab key. The default is `true`.
@@ -129,13 +131,15 @@ export interface PopupSelectProps<
 	 */
 	target?: (options: PopupSelectTriggerProps & { isOpen: boolean }) => ReactNode;
 	isOpen?: boolean;
+	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	defaultIsOpen?: boolean;
 	/**
 	 * Use this to set whether the component uses compact or standard spacing.
 	 */
 	spacing?: 'default' | 'compact';
 	/**
-	 * @deprecated Use isInvalid instead. The state of validation if used in a form
+	 *  @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
+	 *  Use isInvalid instead. The state of validation if used in a form
 	 */
 	validationState?: ValidationState;
 	/**
@@ -305,6 +309,8 @@ export default class PopupSelect<
 			case 'Escape':
 			case 'Esc':
 				this.close();
+				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+				fg('design_system_select-a11y-improvement') && event.stopPropagation(); // keep ESC on select from dismissing parent layers
 				break;
 			default:
 		}
@@ -622,6 +628,15 @@ export default class PopupSelect<
 						<FocusLock disabled={!focusLockEnabled} returnFocus>
 							<Select<Option, IsMulti>
 								aria-label={providedAriaLabel}
+								// TODO: Popup Select does not work well with active-descendant
+								aria-live={
+									(/iPad|iPhone|iPod/.test(navigator.userAgent) ||
+										navigator.platform === 'MacIntel') && // temporary check for now
+									// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+									fg('design_system_select-a11y-improvement')
+										? 'assertive' // only needed on Apple products
+										: undefined
+								}
 								backspaceRemovesValue={false}
 								controlShouldRenderValue={false}
 								isClearable={false}

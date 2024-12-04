@@ -82,7 +82,7 @@
 		"@atlaskit/media-picker": "^67.0.0",
 		"@atlaskit/media-state": "^1.2.0",
 		"@atlaskit/media-test-data": "^2.7.0",
-		"@atlaskit/media-test-helpers": "^34.6.0",
+		"@atlaskit/media-test-helpers": "^34.7.0",
 		"@atlaskit/radio": "^6.6.0",
 		"@atlaskit/range": "^7.4.0",
 		"@atlaskit/ssr": "*",

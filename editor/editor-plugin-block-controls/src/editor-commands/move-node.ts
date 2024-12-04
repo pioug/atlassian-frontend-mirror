@@ -28,6 +28,7 @@ import type { BlockControlsPlugin, MoveNodeMethod } from '../blockControlsPlugin
 import { key } from '../pm-plugins/main';
 import { getNestedNodePosition, selectNode } from '../pm-plugins/utils';
 import { DIRECTION } from '../pm-plugins/utils/consts';
+import { fireMoveNodeAnalytics } from '../pm-plugins/utils/fire-analytics';
 import { setCursorPositionAtMovedNode } from '../pm-plugins/utils/getSelection';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
 import {
@@ -206,11 +207,11 @@ export const moveNode =
 		const size = node?.nodeSize ?? 1;
 		const end = start + size;
 
+		const $from = tr.doc.resolve(start);
 		let mappedTo;
 		if (editorExperiment('nested-dnd', true)) {
 			const nodeCopy = tr.doc.slice(start, end, false); // cut the content
 			const $to = tr.doc.resolve(to);
-			const $from = tr.doc.resolve(start);
 			const destType = $to.node().type;
 			const destParent = $to.node($to.depth);
 
@@ -225,6 +226,7 @@ export const moveNode =
 				tr.insert(mappedTo, fragment)
 					.setSelection(Selection.near(tr.doc.resolve(mappedTo)))
 					.scrollIntoView();
+
 				return tr;
 			}
 
@@ -268,18 +270,33 @@ export const moveNode =
 		tr.setMeta(key, { nodeMoved: true });
 		api?.core.actions.focus();
 		const $mappedTo = tr.doc.resolve(mappedTo);
-		api?.analytics?.actions.attachAnalyticsEvent({
-			eventType: EVENT_TYPE.TRACK,
-			action: ACTION.MOVED,
-			actionSubject: ACTION_SUBJECT.ELEMENT,
-			actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
-			attributes: {
-				nodeDepth: resolvedNode.depth,
-				nodeType: node.type.name,
-				destinationNodeDepth: $mappedTo?.depth,
-				...(fg('platform_editor_element_drag_and_drop_ed_23873') && { inputMethod }),
-			},
-		})(tr);
+
+		if (editorExperiment('advanced_layouts', true)) {
+			fireMoveNodeAnalytics(
+				tr,
+				inputMethod,
+				resolvedNode.depth,
+				node.type.name,
+				$mappedTo?.depth,
+				$mappedTo?.parent.type.name,
+				$from.sameParent($mappedTo),
+				api,
+			);
+		} else {
+			api?.analytics?.actions.attachAnalyticsEvent({
+				eventType: EVENT_TYPE.TRACK,
+				action: ACTION.MOVED,
+				actionSubject: ACTION_SUBJECT.ELEMENT,
+				actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
+				attributes: {
+					nodeDepth: resolvedNode.depth,
+					nodeType: node.type.name,
+					destinationNodeDepth: $mappedTo?.depth,
+					destinationNodeType: $mappedTo?.parent.type.name,
+					...(fg('platform_editor_element_drag_and_drop_ed_23873') && { inputMethod }),
+				},
+			})(tr);
+		}
 
 		if (fg('platform_editor_element_drag_and_drop_ed_23873')) {
 			const movedMessage =

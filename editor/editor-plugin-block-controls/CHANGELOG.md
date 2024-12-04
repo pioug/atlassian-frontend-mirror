@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.14.2
+
+### Patch Changes
+
+- [#169716](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169716)
+  [`4fbd1fe0084b3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4fbd1fe0084b3) -
+  ED-25072 update and insert layout analytics.
+
+## 2.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.14.0
 
 ### Minor Changes

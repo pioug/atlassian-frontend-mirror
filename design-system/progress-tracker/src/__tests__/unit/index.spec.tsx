@@ -5,12 +5,6 @@ import { render, screen } from '@testing-library/react';
 import { token } from '@atlaskit/tokens';
 
 import { ProgressTracker, type Stages } from '../../index';
-import {
-	varSpacing,
-	varTransitionDelay,
-	varTransitionEasing,
-	varTransitionSpeed,
-} from '../../internal/constants';
 import { type Stage } from '../../types';
 
 const items: Stages = [
@@ -108,7 +102,7 @@ const testBackwardsRenderTransitions = (
 ) => {
 	progressTrackerStages.forEach((stage, index) => {
 		const delay = (progressTrackerStages.length - 1 - index) * 50;
-		expect(stage).toHaveStyle(`${varTransitionDelay}: ${delay}ms`);
+		expect(stage).toHaveStyle(`--ds--pt--td: ${delay}ms`);
 	});
 };
 
@@ -116,8 +110,8 @@ const testMultiStepRenderTransitions = (
 	progressTrackerStages: NodeListOf<HTMLLIElement> | HTMLElement[],
 ) => {
 	progressTrackerStages.forEach((stage, index) => {
-		expect(stage).toHaveStyle(`${varTransitionDelay}: ${index * 50}ms`);
-		expect(stage).toHaveStyle(`${varTransitionEasing}: linear`);
+		expect(stage).toHaveStyle(`--ds--pt--td: ${index * 50}ms`);
+		expect(stage).toHaveStyle(`--ds--pt--te: linear`);
 	});
 };
 
@@ -125,15 +119,15 @@ const testNoOrSingleStepRenderTransitions = (
 	progressTrackerStages: NodeListOf<HTMLLIElement> | HTMLElement[],
 ) => {
 	progressTrackerStages.forEach((stage) => {
-		expect(stage).toHaveStyle(`${varTransitionDelay}: 0ms`);
-		expect(stage).toHaveStyle(`${varTransitionEasing}: cubic-bezier(0.15,1,0.3,1)`);
+		expect(stage).toHaveStyle(`--ds--pt--td: 0ms`);
+		expect(stage).toHaveStyle(`--ds--pt--te: cubic-bezier(0.15,1,0.3,1)`);
 	});
 };
 
 const testNotAnimated = (progressTrackerStages: NodeListOf<HTMLLIElement> | HTMLElement[]) => {
 	progressTrackerStages.forEach((stage) => {
-		expect(stage).toHaveStyle(`${varTransitionDelay}: 0ms`);
-		expect(stage).toHaveStyle(`${varTransitionSpeed}: 0ms`);
+		expect(stage).toHaveStyle(`--ds--pt--td: 0ms`);
+		expect(stage).toHaveStyle(`--ds--pt--ts: 0ms`);
 	});
 };
 
@@ -143,15 +137,24 @@ describe('@atlaskit/progress-tracker', () => {
 
 		const progressTracker = screen.getByTestId('progress-tracker');
 		expect(progressTracker).toBeInTheDocument();
-		//eslint-disable-next-line testing-library/no-node-access
-		expect(progressTracker.childElementCount).toBe(6);
+
+		const childElements = progressTracker.childNodes;
+
+		// childNodes is returning text nodes and tags as child element, filtering out only li elements
+		let listElementCount = 0;
+		childElements.forEach((el) => {
+			if (el.nodeName === 'LI') {
+				listElementCount++;
+			}
+		});
+		expect(listElementCount).toBe(6);
 	});
 
 	it('should have "cosy" spacing style by default', () => {
 		render(<ProgressTracker items={items} testId="progress-tracker" />);
 
 		expect(screen.getByTestId('progress-tracker')).toHaveStyle(
-			`${varSpacing}: ${token('space.200', '16px')}`,
+			`--ds--pt--sp: ${token('space.200', '16px')}`,
 		);
 	});
 
@@ -159,7 +162,7 @@ describe('@atlaskit/progress-tracker', () => {
 		render(<ProgressTracker items={items} testId="progress-tracker" spacing="compact" />);
 
 		expect(screen.getByTestId('progress-tracker')).toHaveStyle(
-			`${varSpacing}: ${token('space.050', '4px')}`,
+			`--ds--pt--sp: ${token('space.050', '4px')}`,
 		);
 	});
 

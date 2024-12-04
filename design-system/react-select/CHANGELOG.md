@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.4.2
+
+### Patch Changes
+
+- [#172260](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172260)
+  [`9934fe89f1e6a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9934fe89f1e6a) -
+  Improving assisstive technology support by adding better semantics and reducing live region usage
+
 ## 1.4.1
 
 ### Patch Changes

@@ -235,6 +235,7 @@ export {
 export { createCompareNodes } from './compareNodes';
 export { compose } from './compose';
 export { isTextInput } from './is-text-input';
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  * @deprecated - [ED-23844] moving to own entry point @atlaskit/editor-common/whitespace
  */

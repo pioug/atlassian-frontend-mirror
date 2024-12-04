@@ -60,6 +60,7 @@ export default class Conversation extends React.PureComponent<Props, State> {
 		onEditorClose: () => {},
 	};
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/*
     TODO: Remove me when editor is instrumented
     Only use this method when instrumenting something that isn't instrumented itself (like Editor)

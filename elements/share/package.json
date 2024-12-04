@@ -72,7 +72,7 @@
 		"react": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-test-helpers": "^20.0.0",
+		"@atlaskit/editor-test-helpers": "^20.1.0",
 		"@atlaskit/flag": "^15.8.0",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
 		"@testing-library/react": "^12.1.5",

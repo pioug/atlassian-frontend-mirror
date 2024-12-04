@@ -34,7 +34,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/button/tsconfig.app.json"
@@ -53,9 +53,6 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
 		}
 	]
 }

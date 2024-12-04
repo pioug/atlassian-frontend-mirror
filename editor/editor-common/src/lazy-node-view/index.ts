@@ -88,6 +88,7 @@ const resolvedNodesPerEditorView: WeakMap<EditorView, Map<string, NodeViewFactor
 const debounceToEditorViewMap: WeakMap<EditorView, [number | null, Set<string>]> = new WeakMap();
 
 const testOnlyIgnoreLazyNodeViewSet = new WeakSet<EditorView>();
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  * 🧱 Internal: Editor FE Platform
  *

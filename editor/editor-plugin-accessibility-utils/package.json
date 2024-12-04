@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-accessibility-utils",
-	"version": "1.2.13",
+	"version": "1.2.14",
 	"description": "Accessibility utils for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^95.11.0",
+		"@atlaskit/editor-common": "^96.1.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/visually-hidden": "^1.5.0",
 		"@babel/runtime": "^7.0.0"

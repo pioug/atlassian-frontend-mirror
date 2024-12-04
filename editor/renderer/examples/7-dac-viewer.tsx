@@ -126,6 +126,7 @@ export default class Example extends PureComponent<{}, State> {
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						height: 320,
 					}}
+					// eslint-disable-next-line react/no-string-refs  -- Ignored via go/ED-25883
 					ref="input"
 					onChange={this.onChange}
 					value={this.state.value}

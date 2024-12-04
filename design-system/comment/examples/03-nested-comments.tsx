@@ -2,7 +2,7 @@ import React, { type FC, type ReactNode } from 'react';
 
 import Avatar from '@atlaskit/avatar';
 import Comment, { CommentAction, CommentAuthor } from '@atlaskit/comment';
-import { Box, Text } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 
 import avatarImg from './images/avatar_400x400.jpg';
 

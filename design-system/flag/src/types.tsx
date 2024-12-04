@@ -93,6 +93,10 @@ type AutoDismissFlagPropsWithoutId = {
 	 * If not specified, the default is `2`.
 	 */
 	headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+	/**
+	 * Milliseconds to delay the screen reader announcement due to announcement conflict.
+	 */
+	delayAnnouncement?: number;
 };
 
 // Normal AutoDismissFlagProps should include the id

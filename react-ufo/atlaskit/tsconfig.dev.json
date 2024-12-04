@@ -33,7 +33,13 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "../../observability/interaction-context/tsconfig.app.json"
+		},
+		{
+			"path": "../../accessibility/axe-integration/a11y-jest-testing/tsconfig.app.json"
 		}
 	],
 	"files": []

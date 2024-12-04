@@ -1,5 +1,14 @@
 # @atlaskit/link-datasource
 
+## 3.13.15
+
+### Patch Changes
+
+- [#172253](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172253)
+  [`2578ad0189e51`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2578ad0189e51) -
+  [ux] Internal refactor behind ff - Allow inline edit on `user` column when previously unassigned.
+  Adds fallback Avatar unassigned user.
+
 ## 3.13.14
 
 ### Patch Changes

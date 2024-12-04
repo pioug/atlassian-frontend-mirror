@@ -30,13 +30,22 @@
 			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-annotation/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-editor-disabled/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/form/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/locale/afm-jira/tsconfig.json"

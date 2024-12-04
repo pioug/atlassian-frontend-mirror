@@ -13,6 +13,7 @@ export type SelectionToolbarGroup = {
 	 */
 	rank?: number;
 	items: Array<FloatingToolbarItem<Command>>;
+	pluginName?: string;
 };
 /**
  * The selection toolbar is a floating toolbar that is displayed for

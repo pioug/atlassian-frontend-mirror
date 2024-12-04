@@ -13,10 +13,12 @@ import type { ScrollGutterPluginOptions } from './pm-plugins/scroll-gutter/plugi
 export interface BasePluginOptions {
 	allowScrollGutter?: ScrollGutterPluginOptions;
 	allowInlineCursorTarget?: boolean;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated do not use
 	 */
 	inputTracking?: InputTracking;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated do not use
 	 */

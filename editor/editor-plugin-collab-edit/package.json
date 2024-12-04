@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-collab-edit",
-	"version": "1.23.4",
+	"version": "1.23.6",
 	"description": "Collab Edit plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,9 +36,9 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/custom-steps": "^0.9.0",
-		"@atlaskit/editor-common": "^95.11.0",
+		"@atlaskit/editor-common": "^96.1.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
-		"@atlaskit/editor-plugin-analytics": "1.10.6",
+		"@atlaskit/editor-plugin-analytics": "1.10.7",
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
@@ -59,7 +59,7 @@
 		"@atlaskit/editor-plugin-text-formatting": "^1.16.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.11.0",
 		"@atlaskit/editor-plugin-unsupported-content": "^1.9.0",
-		"@atlaskit/editor-test-helpers": "^20.0.0",
+		"@atlaskit/editor-test-helpers": "^20.1.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/synchrony-test-helpers": "^3.0.0",
 		"@atlaskit/util-data-test": "^17.13.0",
@@ -105,9 +105,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_editor_filter_transactions_analytics": {
-			"type": "boolean"
-		},
 		"platform_editor_use_nested_table_pm_nodes": {
 			"type": "boolean"
 		}

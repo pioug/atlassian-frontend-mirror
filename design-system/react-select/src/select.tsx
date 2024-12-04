@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 import React, {
 	type AriaAttributes,
 	Component,
@@ -488,7 +489,8 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 }
 
 export const defaultProps = {
-	'aria-live': 'polite',
+	// aria-live is by default with the live region so we don't need it
+	'aria-live': fg('design_system_select-a11y-improvement') ? undefined : 'polite',
 	backspaceRemovesValue: true,
 	blurInputOnSelect: isTouchCapable(),
 	captureMenuScroll: !isTouchCapable(),
@@ -818,7 +820,7 @@ export default class Select<
 	openAfterFocus = false;
 	scrollToFocusedOptionOnUpdate = false;
 	userIsDragging?: boolean;
-	isAppleDevice = fg('design_system_select-a11y-improvement') ? isSafari() : isAppleDevice();
+	isVoiceOver = fg('design_system_select-a11y-improvement') && isAppleDevice();
 
 	// Refs
 	// ------------------------------
@@ -1330,7 +1332,14 @@ export default class Select<
 		props: StylesProps<Option, IsMulti, Group>[Key],
 	) => this.props.classNames[key]?.(props as any);
 	getElementId = (
-		element: 'group' | 'input' | 'listbox' | 'option' | 'placeholder' | 'live-region',
+		element:
+			| 'group'
+			| 'input'
+			| 'listbox'
+			| 'option'
+			| 'placeholder'
+			| 'live-region'
+			| 'multi-message',
 	) => {
 		return `${this.state.instancePrefix}-${element}`;
 	};
@@ -1395,6 +1404,33 @@ export default class Select<
 	}
 	formatGroupLabel(data: Group) {
 		return this.props.formatGroupLabel(data);
+	}
+	calculateDescription(action?: String) {
+		const descriptionProp = this.props['aria-describedby'] || this.props['descriptionId'];
+		const { isMulti } = this.props;
+		const { selectValue } = this.state;
+		const defaultDescription = selectValue.length
+			? this.getElementId('live-region')
+			: this.getElementId('placeholder');
+
+		if (selectValue.length && action !== 'initial-input-focus') {
+			return;
+		}
+
+		if (isMulti && isAppleDevice() && !isSafari()) {
+			// chrome only friends
+			return {
+				'aria-describedby': descriptionProp
+					? [descriptionProp, defaultDescription, this.getElementId('multi-message')].join(' ')
+					: [defaultDescription, this.getElementId('multi-message')].join(' '),
+			};
+		} else {
+			return {
+				'aria-describedby': descriptionProp
+					? [descriptionProp, defaultDescription].join(' ')
+					: defaultDescription,
+			};
+		}
 	}
 
 	// ==============================
@@ -1793,6 +1829,7 @@ export default class Select<
 						prevInputValue: inputValue,
 					});
 					this.onMenuClose();
+					fg('design_system_select-a11y-improvement') && event.stopPropagation(); // keep ESC on select from dismissing parent layers
 				} else if (isClearable && escapeClearsValue) {
 					this.clearValue();
 				}
@@ -1879,38 +1916,33 @@ export default class Select<
 
 		const id = inputId || this.getElementId('input');
 
-		const description = this.props['aria-describedby'] || descriptionId;
-
 		// aria attributes makes the JSX "noisy", separated for clarity
 		const ariaAttributes = {
 			'aria-autocomplete': 'both' as const,
 			'aria-errormessage': this.props['aria-errormessage'],
 			'aria-expanded': menuIsOpen,
+			// TODO: aria-haspopup is implied as listbox with role="combobox" and was deprecated for aria 1.2, we still might need to keep it for back compat
 			'aria-haspopup': 'listbox' as AriaAttributes['aria-haspopup'],
-			'aria-describedby': description,
+			'aria-describedby': this.props['aria-describedby'] || descriptionId,
 			'aria-invalid': this.props['aria-invalid'] || isInvalid,
 			'aria-label': this.props['aria-label'] || label,
 			'aria-labelledby': this.props['aria-labelledby'] || labelId,
 			'aria-required': required || isRequired,
 			role: 'combobox',
 			'aria-activedescendant': this.state.focusedOptionId || undefined,
+			// Safari needs aria-owns in order for aria-activedescendant to work properly
+			'aria-owns':
+				isSafari() && fg('design_system_select-a11y-improvement')
+					? this.getElementId('listbox')
+					: undefined,
 			...(menuIsOpen && {
 				'aria-controls': this.getElementId('listbox'),
 			}),
+			// TODO: Might need to remove this
 			...(!isSearchable && {
 				'aria-readonly': true,
 			}),
-			...(this.hasValue()
-				? ariaSelection?.action === 'initial-input-focus' && {
-						'aria-describedby': description
-							? [description, this.getElementId('live-region')].join(' ')
-							: this.getElementId('live-region'),
-					}
-				: {
-						'aria-describedby': description
-							? [description, this.getElementId('placeholder')].join(' ')
-							: this.getElementId('placeholder'),
-					}),
+			...this.calculateDescription(ariaSelection?.action),
 		};
 
 		if (!isSearchable) {
@@ -2164,10 +2196,17 @@ export default class Select<
 				onMouseMove: onHover,
 				onMouseOver: onHover,
 				role: 'option',
+				// We don't want aria-selected on Apple devices or if it's false. It does nasty things.
 				'aria-selected':
-					!commonProps.isMulti && fg('design_system_select-a11y-improvement')
-						? isSelected || undefined
+					(!commonProps.isMulti || this.isVoiceOver || !isSelected) &&
+					fg('design_system_select-a11y-improvement')
+						? undefined
 						: isSelected,
+				// We don't want aria-disabled on Apple devices or if it's false. It's just noisy.
+				'aria-disabled':
+					(isAppleDevice() || !isDisabled) && fg('design_system_select-a11y-improvement')
+						? undefined
+						: isDisabled,
 				'aria-describedby': fg('design_system_select-a11y-improvement') ? headingId : undefined,
 			};
 
@@ -2272,15 +2311,16 @@ export default class Select<
 									}}
 									innerProps={{
 										role: 'listbox',
-										// don't add aria-multiselectable when ff is on and the value is false
-										'aria-multiselectable': fg('design_system_select-a11y-improvement')
-											? commonProps.isMulti || undefined
-											: commonProps.isMulti,
+										'aria-multiselectable':
+											(this.isVoiceOver || !commonProps.isMulti) &&
+											fg('design_system_select-a11y-improvement')
+												? undefined
+												: commonProps.isMulti,
 										id: this.getElementId('listbox'),
 										// add aditional label on listbox when ff is on
 										...(fg('design_system_select-a11y-improvement') && {
 											'aria-label': label,
-											'aria-labelledby': labelId,
+											'aria-labelledby': `${labelId || this.getElementId('input')} ${commonProps.isMulti && isSafari() ? this.getElementId('multi-message') : ''}`,
 										}),
 									}}
 									isLoading={isLoading}
@@ -2363,8 +2403,16 @@ export default class Select<
 				isFocused={isFocused}
 				selectValue={selectValue}
 				focusableOptions={focusableOptions}
-				isAppleDevice={this.isAppleDevice}
+				isAppleDevice={this.isVoiceOver}
 			/>
+		);
+	}
+
+	renderMultiselectMessage() {
+		return (
+			<span id={this.getElementId('multi-message')} hidden>
+				, multiple selections available,
+			</span>
 		);
 	}
 
@@ -2396,6 +2444,7 @@ export default class Select<
 				isFocused={isFocused}
 			>
 				{this.renderLiveRegion()}
+				{commonProps.isMulti && this.isVoiceOver && this.renderMultiselectMessage()}
 				<Control
 					{...commonProps}
 					innerRef={this.getControlRef}

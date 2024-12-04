@@ -33,7 +33,7 @@
 	},
 	"references": [
 		{
-			"path": "../theme/tsconfig.app.json"
+			"path": "../tokens/tsconfig.app.json"
 		}
 	],
 	"files": []

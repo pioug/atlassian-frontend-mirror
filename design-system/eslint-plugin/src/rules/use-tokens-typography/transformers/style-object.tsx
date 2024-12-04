@@ -23,14 +23,15 @@ import {
 	findFontFamilyValueForToken,
 	findFontWeightTokenForValue,
 	findTypographyTokenForValues,
-	fontWeightMap,
 	type FontWeightMap,
+	fontWeightMap,
 	getLiteralProperty,
 	getTokenProperty,
 	insertFallbackImportFull,
 	insertFallbackImportSpecifier,
 	insertTokensImport,
 	isValidPropertyNode,
+	isValidTypographyToken,
 	notUndefined,
 	type TokenValueMap,
 } from '../utils';
@@ -127,22 +128,46 @@ export const StyleObject = {
 		}
 
 		// -- Match tokens --
-		let matchingTokens = findTypographyTokenForValues(fontSizeValue, lineHeightValue);
+		// Check if fontSize is a token (this is invalid syntax but unfortunately a common occurence)
+		// We may as well auto-fix `fontSize` to `font` and keep the token.
+		// Other tokens like `fontSize: token('space.100')` will not autofix, but still report
+		let matchingTokens: TokenValueMap[] = [];
 
-		if (matchingTokens.length) {
-			// If we have multiple matching tokens, try matching fontWeight
-			let matchingTokensWithWeight = matchingTokens.filter((token) =>
-				fontWeightValue ? token.values.fontWeight === fontWeightValue : token,
-			);
+		const isFontSizeAToken = isDecendantOfGlobalToken(fontSizeNode.value);
+		if (isFontSizeAToken) {
+			// Specifically match for valid, non-deprecated font.heading|body|code tokens
+			const match = fontSizeValue.match(/font.(body|heading|code)[^']*/);
+			if (match) {
+				const matchedTokenName = match[0];
+				// This is really just a double check to be 100% certain the token exists
+				// and that we're not trying to apply a deprecated fontSize token to the font property
+				if (isValidTypographyToken(matchedTokenName)) {
+					matchingTokens = [
+						{
+							tokenName: matchedTokenName,
+						} as TokenValueMap,
+					];
+				}
+			}
+		} else {
+			// Standard matching against fontSize/lineHeight values
+			matchingTokens = findTypographyTokenForValues(fontSizeValue, lineHeightValue);
 
-			if (matchingTokensWithWeight.length) {
-				// Possibly narrowed down tokens
-				matchingTokens = matchingTokensWithWeight;
-			} else {
-				// Ended up with 0 matches by matching fontWeight
-				// return body token and add fontWeight manually
-				matchingTokens = matchingTokens.filter((token) => token.tokenName.includes('.body'));
-				shouldAddFontWeight = true;
+			if (matchingTokens.length) {
+				// If we have multiple matching tokens, try matching fontWeight
+				let matchingTokensWithWeight = matchingTokens.filter((token) =>
+					fontWeightValue ? token.values.fontWeight === fontWeightValue : token,
+				);
+
+				if (matchingTokensWithWeight.length) {
+					// Possibly narrowed down tokens
+					matchingTokens = matchingTokensWithWeight;
+				} else {
+					// Ended up with 0 matches by matching fontWeight
+					// return body token and add fontWeight manually
+					matchingTokens = matchingTokens.filter((token) => token.tokenName.includes('.body'));
+					shouldAddFontWeight = true;
+				}
 			}
 		}
 
@@ -282,11 +307,7 @@ export const StyleObject = {
 
 		// -- Font size --
 		const fontSizeNode = ASTObject.getEntryByPropertyName(node, 'fontSize');
-		if (
-			!fontSizeNode ||
-			!isValidPropertyNode(fontSizeNode) ||
-			isDecendantOfGlobalToken(fontSizeNode.value)
-		) {
+		if (!fontSizeNode || !isValidPropertyNode(fontSizeNode)) {
 			return { success: false };
 		}
 		const fontSizeRaw = getValueForPropertyNode(fontSizeNode, context);

@@ -1,6 +1,8 @@
 import React, { type FC } from 'react';
 
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { cssMap, cx } from '@atlaskit/css';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import type { CommentProps } from '../types';
 
@@ -8,12 +10,16 @@ import Footer from './footer';
 import Header from './header';
 import CommentLayout from './layout';
 
-const disabledTextStyles = xcss({
-	color: 'color.text.disabled',
+const disabledTextStyles = cssMap({
+	root: {
+		color: token('color.text.disabled'),
+	},
 });
 
-const commentTextStyles = xcss({
-	color: 'color.text',
+const commentTextStyles = cssMap({
+	root: {
+		color: token('color.text'),
+	},
 });
 
 /**
@@ -74,7 +80,7 @@ const Comment: FC<CommentProps> = ({
 						<Header testId={testId && `${testId}-header`} {...headerProps} />
 						<Box
 							testId={testId && `${testId}-content`}
-							xcss={isSaving || isError ? disabledTextStyles : commentTextStyles}
+							xcss={cx(isSaving || isError ? disabledTextStyles.root : commentTextStyles.root)}
 						>
 							{content}
 						</Box>

@@ -101,9 +101,12 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 						},
 						fallback: [],
 					};
+
 					return {
 						isToolbarAbove: true,
 						items: [toolbarCustom],
+						rank: 6,
+						pluginName: 'textColor',
 					};
 				} else {
 					return undefined;

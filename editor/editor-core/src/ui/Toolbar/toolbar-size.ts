@@ -21,6 +21,7 @@ const toolbarSizesFullPageNext: ToolbarBreakPoint[] = [
 	{ width: ToolbarWidthsFullPageNext.S, size: ToolbarSize.S },
 ];
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /** @deprecated
  * To be removed as part of ED-25129 in favour of toolbarSizesFullPageNext along with references
  * to platform_editor_toolbar_responsive_fixes feature gate
@@ -41,6 +42,7 @@ const toolbarSizesNext: ToolbarBreakPoint[] = [
 	{ width: ToolbarWidthsNext.S, size: ToolbarSize.S },
 ];
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /** @deprecated
  * To be removed as part of ED-25129 in favour of toolbarSizesNext along with references
  * to platform_editor_toolbar_responsive_fixes feature gate

@@ -318,7 +318,7 @@ export const genericDataURI =
 // === VR test ids ===
 
 export const vrVideoDetails = {
-	id: '0c3c64b9-65ad-4592-89d0-f838beebd81e',
+	id: '57b9af11-eead-4711-85fa-9d393278c314',
 	name: 'video.mp4',
 	dataUri: videoURI,
 	previewDataUri: videoPreviewURI,

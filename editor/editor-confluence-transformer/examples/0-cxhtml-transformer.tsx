@@ -101,6 +101,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 
 	render() {
 		return (
+			// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883
 			<div ref="root">
 				<fieldset
 					style={{
@@ -126,6 +127,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							height: 100,
 						}}
+						// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883
 						ref="input"
 					/>
 					<button onClick={this.handleImportClick}>Import</button>
@@ -184,6 +186,7 @@ class Example extends Component<ExampleProps, ExampleState> {
 		);
 	}
 
+	// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883
 	private handleImportClick = () => this.setState({ input: this.refs.input.value });
 	private handleInsertCodeClick = () => this.setState({ input: CODE_MACRO });
 	private handleInsertJiraIssueClick = () => this.setState({ input: JIRA_ISSUE });
@@ -235,6 +238,7 @@ export default class ExampleWrapper extends Component<ExampleWrapperProps, Examp
 		const xml = this.state.prettify ? pd.xml(this.state.cxhtml || '') : this.state.cxhtml || '';
 
 		return (
+			// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883
 			<div ref="root">
 				<Example onChange={this.handleChange} />
 

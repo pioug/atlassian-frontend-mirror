@@ -12,6 +12,7 @@ import { getEventHandler } from '../../utils';
 import { PLATFORM, MODE } from '../../analytics/events';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { MarkProps } from '../types';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { token } from '@atlaskit/tokens';
 import LinkUrl from '@atlaskit/smart-card/link-url';
@@ -83,6 +84,9 @@ export default function Link(props: MarkProps<LinkProps>) {
 				}}
 				{...anchorProps}
 				{...dataAttributes}
+				{...(fg('platform_editor_hyperlink_underline') && {
+					isLinkComponent: true,
+				})}
 			>
 				{props.children}
 			</LinkUrl>

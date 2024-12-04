@@ -285,6 +285,7 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 					return {
 						isToolbarAbove: true,
 						items: [toolbarButton()],
+						rank: 2,
 					};
 				} else {
 					return undefined;

@@ -1,3 +1,4 @@
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 // @deprecated
 // @private This rank is not stable and should not be trusted. If you need to change this file, please let the Editor lego team know about it
 export const rankEditorPlugins = {
@@ -195,6 +196,7 @@ export const rankEditorPlugins = {
 	],
 };
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 // @deprecated
 // @private This rank is not stable and should not be trusted. If you need to change this file, please let the Editor lego team know about it
 export function sortByOrder(item: 'plugins' | 'nodes' | 'marks') {
@@ -208,6 +210,7 @@ export function sortByOrder(item: 'plugins' | 'nodes' | 'marks') {
 // function avoided that whole mess. If someone can think of a better way to implement
 // the above and below into a single function please do so
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 // @deprecated
 // @private This rank is not stable and should not be trusted. If you need to change this file, please let the Editor lego team know about it
 export function sortByOrderWithTypeName(item: 'plugins' | 'nodes' | 'marks') {

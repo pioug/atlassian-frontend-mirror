@@ -34,7 +34,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
@@ -100,6 +100,9 @@
 			"path": "../../design-system/range/tsconfig.app.json"
 		},
 		{
+			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{
@@ -125,9 +128,6 @@
 		},
 		{
 			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
-		},
-		{
-			"path": "../../react-ufo/core/tsconfig.app.json"
 		},
 		{
 			"path": "../../data/ufo-internal/tsconfig.app.json"

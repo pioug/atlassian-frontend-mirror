@@ -10,7 +10,7 @@ import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import { BoldToolbarButton } from './bold-button';
 import { useMenuState } from './hooks/menu-state';
 import { MoreButton } from './more-button';
-import type { MenuIconItem } from './types';
+import { type MenuIconItem, ToolbarType } from './types';
 
 type DropdownMenuProps = {
 	editorView: EditorView;
@@ -22,6 +22,7 @@ type DropdownMenuProps = {
 	popupsMountPoint?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	hasMoreButton: boolean;
+	toolbarType: ToolbarType;
 } & WrappedComponentProps;
 
 export const FormattingTextDropdownMenu = React.memo(
@@ -36,6 +37,7 @@ export const FormattingTextDropdownMenu = React.memo(
 		popupsScrollableElement,
 		hasMoreButton,
 		intl,
+		toolbarType,
 	}: DropdownMenuProps) => {
 		const [isMenuOpen, toggleMenu, closeMenu] = useMenuState();
 		const [isOpenedByKeyboard, setIsOpenedByKeyboard] = useState(false);
@@ -117,6 +119,7 @@ export const FormattingTextDropdownMenu = React.memo(
 								setIsOpenedByKeyboard(true);
 							}
 						}}
+						toolbarType={toolbarType}
 					/>
 				)}
 			</DropdownMenu>

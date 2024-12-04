@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-helpers",
-	"version": "34.6.5",
+	"version": "34.7.0",
 	"description": "Collection of test helpers used in media component stories and specs",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -76,6 +76,7 @@
 		"./globalEventEmitterListeners": "./src/globalEventEmitterListeners.ts",
 		"./mediaPickerAuthProvider": "./src/mediaPickerAuthProvider.ts",
 		"./getAuthFromContextProvider": "./src/getAuthFromContextProvider.ts",
+		"./getMediaAuthProvider": "./src/getMediaAuthProvider.ts",
 		"./mockData": "./src/utils/mockData.ts",
 		".": "./src/index.tsx"
 	},
@@ -92,6 +93,7 @@
 		"./globalEventEmitterListeners": "./src/globalEventEmitterListeners.ts",
 		"./mediaPickerAuthProvider": "./src/mediaPickerAuthProvider.ts",
 		"./getAuthFromContextProvider": "./src/getAuthFromContextProvider.ts",
+		"./getMediaAuthProvider": "./src/getMediaAuthProvider.ts",
 		"./mockData": "./src/utils/mockData.ts",
 		".": "./src/index.tsx"
 	},

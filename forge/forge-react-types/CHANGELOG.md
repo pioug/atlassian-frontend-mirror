@@ -1,5 +1,17 @@
 # @atlaskit/forge-react-types
 
+## 0.33.0
+
+### Minor Changes
+
+- [#172352](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172352)
+  [`b4e5a04b0a7b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b4e5a04b0a7b1) -
+  Removes deprecated props from UI Kit components
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 0.32.3
 
 ### Patch Changes

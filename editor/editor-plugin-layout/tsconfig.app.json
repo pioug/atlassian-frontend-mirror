@@ -42,6 +42,12 @@
 			"path": "../editor-plugin-decorations/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-editor-disabled/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-width/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/icon/tsconfig.app.json"
 		},
 		{
@@ -49,6 +55,9 @@
 		},
 		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
 		}
 	]
 }

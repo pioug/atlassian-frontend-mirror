@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-copy-button",
-	"version": "1.3.14",
+	"version": "1.3.15",
 	"description": "editor-plugin-copy-button for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^95.11.0",
+		"@atlaskit/editor-common": "^96.1.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-decorations": "^1.3.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",

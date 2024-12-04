@@ -2,6 +2,7 @@ import { isPerformanceAPIAvailable } from './is-performance-api-available';
 
 const measureMap = new Map<string, number>();
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  * @deprecated use 'startMeasure' from '@atlaskit/editor-common/performance-measures'
  */
@@ -13,6 +14,7 @@ export function startMeasure(measureName: string) {
 	measureMap.set(measureName, performance.now());
 }
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  * @deprecated use 'stopMeasure' from '@atlaskit/editor-common/performance-measures'
  */
@@ -41,6 +43,7 @@ export function stopMeasure(
 	}
 }
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  * @deprecated use 'clearMeasure' from '@atlaskit/editor-common/performance-measures'
  */

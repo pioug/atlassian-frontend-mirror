@@ -5,7 +5,6 @@ import { render as renderFn, screen } from '@testing-library/react';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { varBackgroundColor } from '../../internal/constants';
 import ProgressTrackerLink from '../../internal/link';
 import ProgressTrackerStage from '../../internal/stage';
 import { type LinkComponentProps, type Stage } from '../../types';
@@ -72,10 +71,8 @@ describe('@atlaskit/progress-tracker/stage', () => {
 
 		// get root styles
 		const styles = getComputedStyle(baseElement);
-		expect(styles.getPropertyValue(varBackgroundColor)).toEqual(
-			token('color.icon.subtle', colors.N70),
-		);
-		expect(marker).toHaveStyleDeclaration('background-color', `var(${varBackgroundColor})`);
+		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.subtle', colors.N70));
+		expect(marker).toHaveStyle(`background-color: var(--ds--pt--bg)`);
 
 		expect(title).toHaveStyle(`color: ${token('color.text.subtle', colors.N300)}`);
 	});
@@ -110,10 +107,8 @@ describe('@atlaskit/progress-tracker/stage', () => {
 
 		// get root styles
 		const styles = getComputedStyle(baseElement);
-		expect(styles.getPropertyValue(varBackgroundColor)).toEqual(
-			token('color.icon.brand', colors.B300),
-		);
-		expect(marker).toHaveStyleDeclaration('background-color', `var(${varBackgroundColor})`);
+		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.brand', colors.B300));
+		expect(marker).toHaveStyle(`background-color: var(--ds--pt--bg)`);
 
 		expect(title).toHaveStyle(`color: ${token('color.text.brand', colors.B300)}`);
 	});
@@ -148,10 +143,8 @@ describe('@atlaskit/progress-tracker/stage', () => {
 
 		// get root styles
 		const styles = getComputedStyle(baseElement);
-		expect(styles.getPropertyValue(varBackgroundColor)).toEqual(
-			token('color.icon.brand', colors.B300),
-		);
-		expect(marker).toHaveStyleDeclaration('background-color', `var(${varBackgroundColor})`);
+		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.brand', colors.B300));
+		expect(marker).toHaveStyle(`background-color: var(--ds--pt--bg)`);
 
 		expect(title).toHaveStyle(`color: ${token('color.text.disabled', colors.N70)}`);
 	});
@@ -186,10 +179,8 @@ describe('@atlaskit/progress-tracker/stage', () => {
 
 		// get root styles
 		const styles = getComputedStyle(baseElement);
-		expect(styles.getPropertyValue(varBackgroundColor)).toEqual(
-			token('color.icon.brand', colors.B300),
-		);
-		expect(marker).toHaveStyleDeclaration('background-color', `var(${varBackgroundColor})`);
+		expect(styles.getPropertyValue('--ds--pt--bg')).toEqual(token('color.icon.brand', colors.B300));
+		expect(marker).toHaveStyle(`background-color: var(--ds--pt--bg)`);
 
 		expect(title).toHaveStyle(`color: ${token('color.text', colors.N800)}`);
 	});

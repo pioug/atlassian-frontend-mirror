@@ -34,7 +34,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/accessibility-testing/tsconfig.app.json"

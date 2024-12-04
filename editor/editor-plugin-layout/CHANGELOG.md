@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.12.13
+
+### Patch Changes
+
+- [#171783](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171783)
+  [`ec56ec65d9dae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec56ec65d9dae) -
+  [ux] ED-25929: Layout option quick insert improvements
+- Updated dependencies
+
+## 1.12.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.12.11
 
 ### Patch Changes

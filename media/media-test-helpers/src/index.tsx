@@ -84,7 +84,8 @@ export { createMouseEvent } from './createMouseEvent';
 export type { MouseEventProps } from './createMouseEvent';
 export { createTouchEvent } from './createTouchEvent';
 export type { TouchEventProps } from './createTouchEvent';
-export const authProviderBaseURL = 'https://media.dev.atl-paas.net';
+export const authProviderBaseURL = 'https://media.staging.atl-paas.net/items';
+export { MEDIA_BASE_URL, MEDIA_PLAYGROUND_BASE_URL } from './mediaBaseURLS';
 export { mediaPickerAuthProvider, defaultMediaPickerAuthProvider } from './mediaPickerAuthProvider';
 export {
 	generateFilesFromTestData,
@@ -148,7 +149,7 @@ export {
 	MockFileList,
 	getMockClipboardEvent,
 } from './clipboardEventMocks';
-export { getAuthFromContextProvider } from './getAuthFromContextProvider';
+export { getMediaAuthProvider } from './getMediaAuthProvider';
 export { addGlobalEventEmitterListeners } from './globalEventEmitterListeners';
 export { fakeImage } from './utils/mockData';
 export { enableMediaUfoLogger } from './ufoLogger';

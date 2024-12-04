@@ -1,5 +1,13 @@
 # @atlaskit/flag
 
+## 15.8.13
+
+### Patch Changes
+
+- [#173066](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173066)
+  [`2eea1b16e9f57`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2eea1b16e9f57) -
+  delayAnnouncement type added for AutoDismissFlag
+
 ## 15.8.12
 
 ### Patch Changes

@@ -2,16 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type FC, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import React, { type FC, type ReactNode } from 'react';
 
+import { cssMap, jsx } from '@atlaskit/css';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const editedContentStyles = css({
-	color: token('color.text.subtlest', N200),
+const editedContentStyles = cssMap({
+	root: {
+		color: token('color.text.subtlest', N200),
+	},
 });
 
 export interface EditedProps {
@@ -31,7 +32,7 @@ export interface EditedProps {
 
 const Edited: FC<EditedProps> = ({ children, onFocus, onMouseOver }) => (
 	// eslint-disable-next-line jsx-a11y/no-static-element-interactions
-	<span css={editedContentStyles} onFocus={onFocus} onMouseOver={onMouseOver}>
+	<span css={editedContentStyles.root} onFocus={onFocus} onMouseOver={onMouseOver}>
 		{children}
 	</span>
 );

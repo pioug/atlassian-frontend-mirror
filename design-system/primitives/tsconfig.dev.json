@@ -34,7 +34,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../accessibility-testing/tsconfig.app.json"
@@ -97,6 +97,9 @@
 			"path": "../../observability/interaction-context/tsconfig.app.json"
 		},
 		{
+			"path": "../link/tsconfig.app.json"
+		},
+		{
 			"path": "../logo/tsconfig.app.json"
 		},
 		{
@@ -113,6 +116,9 @@
 		},
 		{
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+		},
+		{
+			"path": "../textfield/tsconfig.app.json"
 		},
 		{
 			"path": "../toggle/tsconfig.app.json"

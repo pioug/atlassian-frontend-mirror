@@ -34,7 +34,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../../analytics/analytics-listeners/tsconfig.app.json"
@@ -47,6 +47,9 @@
 		},
 		{
 			"path": "../editor-test-helpers/tsconfig.app.json"
+		},
+		{
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
 		},
 		{
 			"path": "../prosemirror-collab/tsconfig.app.json"

@@ -209,6 +209,7 @@ const ToolbarFormatting = ({
 							hasMoreButton={true}
 							items={items}
 							intl={intl}
+							toolbarType={toolbarType}
 						/>
 					)}
 				</span>

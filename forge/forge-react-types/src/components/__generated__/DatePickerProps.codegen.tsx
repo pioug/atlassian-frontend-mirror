@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - DatePickerProps
  *
- * @codegen <<SignedSource::1da6b38ff77e9ba90fed8f7e3fdcab6b>>
+ * @codegen <<SignedSource::7d5ca188bceddb8dc1bab0cc6c12b7eb>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/datepicker/__generated__/index.partial.tsx <<SignedSource::d7ce045cdb974347d07688b1b6a7faac>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/datepicker/__generated__/index.partial.tsx <<SignedSource::e7893d718c9c99386f3ffafcffbbfbf7>>
  */
 import type { DateTimePickerSelectProps } from '@atlaskit/datetime-picker';
 
@@ -23,13 +23,10 @@ export interface FieldProps {
 	name: string;
 }
 
-type Appearance = 'default' | 'subtle' | 'none';
 type Spacing = 'compact' | 'default';
 
 export type DatePickerProps = {
-	appearance?: Appearance;
 	autoFocus?: boolean;
-	defaultIsOpen?: boolean;
 	defaultValue?: string;
 	disabled?: string[];
 	maxDate?: string;
@@ -48,4 +45,5 @@ export type DatePickerProps = {
 	weekStartDay?: 0 | 1 | 2 | 3 | 4 | 5 | 6;
 	onChange?: (value: string) => void;
 	selectProps?: DateTimePickerSelectProps;
+	shouldShowCalendarButton?: boolean;
 } & Partial<Omit<FieldProps, 'onChange'>>;

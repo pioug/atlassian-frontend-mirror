@@ -1,23 +1,14 @@
-/* eslint-disable @atlaskit/design-system/no-nested-styles */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import { useEffect, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { spacing as spacingOptions } from './constants';
-import {
-	ANIMATION_EASE_OUT,
-	LINEAR_TRANSITION_SPEED,
-	TRANSITION_SPEED,
-	varSpacing,
-} from './internal/constants';
 import Link from './internal/link';
 import LinkNew from './internal/link-new';
 import Stage from './internal/stage';
@@ -28,14 +19,19 @@ const containerStyles = css({
 	width: '100%',
 	margin: '0 auto',
 	padding: token('space.0', '0px'),
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	gap: `var(${varSpacing})`,
+	gap: `var(--ds--pt--sp)`,
 	listStyleType: 'none',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles -- Ignored via go/DSP-18766
 	'&&': {
 		marginBlockStart: token('space.500', '40px'),
 	},
 });
+
+const spacingOptions = {
+	comfortable: token('space.500', '40px'),
+	cosy: token('space.200', '16px'),
+	compact: token('space.050', '4px'),
+};
 
 export interface ProgressTrackerProps {
 	/**
@@ -117,9 +113,9 @@ const ProgressTracker = ({
 	const progressItems = items.map((stage, index) => {
 		let transitionSpeed = 0;
 		let transitionDelay = 0;
-		const transitionEasing = progressChanges > 1 ? 'linear' : ANIMATION_EASE_OUT;
+		const transitionEasing = progressChanges > 1 ? 'linear' : 'cubic-bezier(0.15,1,0.3,1)';
 		if (animated) {
-			transitionSpeed = progressChanges > 1 ? LINEAR_TRANSITION_SPEED : TRANSITION_SPEED;
+			transitionSpeed = progressChanges > 1 ? 50 : 300;
 			if (stage.percentageComplete < previousStages[index].percentageComplete) {
 				/**
 				 * Load each transition sequentially in reverse.
@@ -149,7 +145,7 @@ const ProgressTracker = ({
 
 	const listInlineStyles = {
 		gridTemplateColumns: `repeat(${items.length}, 1fr)`,
-		[varSpacing]: spacingOptions[spacing],
+		['--ds--pt--sp']: spacingOptions[spacing],
 		maxWidth: 8 * 10 * items.length * 2,
 	};
 

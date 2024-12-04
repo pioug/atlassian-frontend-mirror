@@ -44,6 +44,9 @@
 			"path": "../mention/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
 			"path": "../../people-and-teams/profilecard/tsconfig.app.json"
 		},
 		{

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 import type { AriaAttributes } from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -178,11 +179,17 @@ export const defaultAriaLiveMessages = {
 			case 'deselect-option':
 			case 'pop-value':
 			case 'remove-value':
-				return `option ${label}, deselected.`;
+				return (label.length && fg('design_system_select-a11y-improvement')) ||
+					!fg('design_system_select-a11y-improvement')
+					? `option ${label}, deselected`
+					: ''; // TODO: this should be handled on backspace|delete if no value, but doing it here first
 			case 'clear':
 				return 'All selected options have been cleared.';
 			case 'initial-input-focus':
-				return `option${labels.length > 1 ? 's' : ''} ${labels.join(',')}, selected.`;
+				return (label.length && fg('design_system_select-a11y-improvement')) ||
+					!fg('design_system_select-a11y-improvement')
+					? `option${labels.length > 1 ? 's' : ''} ${labels.join(',')}, selected.`
+					: '';
 			case 'select-option':
 				return isDisabled
 					? `option ${label} is disabled. Select another option.`
@@ -193,16 +200,7 @@ export const defaultAriaLiveMessages = {
 	},
 
 	onFocus: <Option, Group extends GroupBase<Option>>(props: AriaOnFocusProps<Option, Group>) => {
-		const {
-			context,
-			focused,
-			options,
-			label = '',
-			selectValue,
-			isMulti,
-			isDisabled,
-			isSelected,
-		} = props;
+		const { context, focused, options, label = '', selectValue, isDisabled, isSelected } = props;
 
 		const getArrayIndex = (arr: OptionsOrGroups<Option, Group>, item: Option) =>
 			arr && arr.length ? `(${arr.indexOf(item) + 1} of ${arr.length})` : '';
@@ -211,12 +209,10 @@ export const defaultAriaLiveMessages = {
 			return `value ${label} focused, ${getArrayIndex(selectValue, focused)}.`;
 		}
 
-		if (context === 'menu') {
+		// No longer needed after fg('design_system_select-a11y-improvement') is cleaned up
+		if (context === 'menu' && !fg('design_system_select-a11y-improvement')) {
 			const disabled = isDisabled ? ' disabled' : '';
-			// don't announce not selected for single selection
-			const notSelectedStatus =
-				!isMulti && fg('design_system_select-a11y-improvement') ? '' : ' not selected';
-			const status = `${isSelected ? ' selected' : notSelectedStatus}${disabled}`;
+			const status = `${isSelected ? ' selected' : ' not selected'}${disabled}`;
 			return `${label}${status}, ${getArrayIndex(options, focused)}, completion selected`;
 		}
 		return '';

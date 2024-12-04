@@ -1,5 +1,13 @@
 # @atlaskit/icon
 
+## 23.0.1
+
+### Patch Changes
+
+- [#168321](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168321)
+  [`01cada6d7a4d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01cada6d7a4d7) -
+  Fix bug where new icon types had an additional prop isFacadeDisabled that was not used
+
 ## 23.0.0
 
 ### Major Changes

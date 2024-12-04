@@ -1,14 +1,22 @@
-import React, { useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import ArrowLeftCircleIcon from '@atlaskit/icon/glyph/arrow-left';
 import ArrowRightCircleIcon from '@atlaskit/icon/glyph/arrow-right';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { ProgressTracker, type Stages } from '@atlaskit/progress-tracker';
+import { token } from '@atlaskit/tokens';
 
-const borderBottomStyles = xcss({
-	borderStyle: 'solid',
-	borderWidth: 'border.width',
+const styles = cssMap({
+	buttonGroupStyles: {
+		borderStyle: 'solid',
+		borderWidth: token('border.width'),
+	},
 });
 
 function createTrackerItems(stages: number, currentStage: number): Stages {
@@ -39,7 +47,7 @@ export default () => {
 	return (
 		<Stack space="space.100">
 			<Tracker itemsNumber={itemsNumber} currentStage={currentStage} />
-			<Box xcss={borderBottomStyles}>
+			<Box xcss={styles.buttonGroupStyles}>
 				<Button
 					onClick={() => {
 						setCurrentStage(0);

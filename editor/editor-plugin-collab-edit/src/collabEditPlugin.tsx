@@ -7,7 +7,6 @@ import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { collab, getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 
 import type { CollabEditPlugin } from './collabEditPluginType';
@@ -195,23 +194,21 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 				},
 			];
 
-			if (fg('platform_editor_filter_transactions_analytics')) {
-				plugins.push({
-					name: 'trackAndFilterSpammingSteps',
-					plugin: () =>
-						trackSpammingStepsPlugin((tr: Transaction) => {
-							const sanitizedSteps = tr.steps.map((step) => sanitizeFilteredStep(step));
-							api?.analytics?.actions?.fireAnalyticsEvent({
-								action: ACTION.STEPS_FILTERED,
-								actionSubject: ACTION_SUBJECT.COLLAB,
-								attributes: {
-									steps: sanitizedSteps,
-								},
-								eventType: EVENT_TYPE.OPERATIONAL,
-							});
-						}),
-				});
-			}
+			plugins.push({
+				name: 'trackAndFilterSpammingSteps',
+				plugin: () =>
+					trackSpammingStepsPlugin((tr: Transaction) => {
+						const sanitizedSteps = tr.steps.map((step) => sanitizeFilteredStep(step));
+						api?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.STEPS_FILTERED,
+							actionSubject: ACTION_SUBJECT.COLLAB,
+							attributes: {
+								steps: sanitizedSteps,
+							},
+							eventType: EVENT_TYPE.OPERATIONAL,
+						});
+					}),
+			});
 
 			plugins.push({
 				name: 'collabTrackLastOrganicChangePlugin',

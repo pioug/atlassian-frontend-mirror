@@ -1,7 +1,6 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
-import { type AriaOnFocus } from '@atlaskit/react-select';
 import Select, { type FormatOptionLabelMeta, type OptionType } from '@atlaskit/select';
 
 type CustomOption = {
@@ -56,17 +55,10 @@ const formatOptionLabel = (option: OptionType, { context }: FormatOptionLabelMet
 	}
 	return option.label;
 };
-
-const onFocus: AriaOnFocus<CustomOption> = ({ focused, isDisabled }): string =>
-	`You are currently focused on option ${focused.label}${
-		focused.description ? `, ${focused.description}` : ''
-	}${isDisabled ? ', disabled' : ''}`;
-
 const Example = () => (
 	<>
 		<Label htmlFor="option-w-desc-example">Which city do you live in?</Label>
 		<Select
-			ariaLiveMessages={{ onFocus }}
 			inputId="option-w-desc-example"
 			formatOptionLabel={formatOptionLabel}
 			options={options}

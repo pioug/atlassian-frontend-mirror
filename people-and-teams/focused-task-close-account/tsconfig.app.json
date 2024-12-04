@@ -49,6 +49,9 @@
 			"path": "../../design-system/inline-dialog/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/primitives/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/section-message/tsconfig.app.json"
 		},
 		{

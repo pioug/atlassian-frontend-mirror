@@ -80,6 +80,7 @@ interface MediaSingleNodeState {
 	isCopying: boolean;
 }
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /*
  * @deprecated Please use the MediaSingleNodeNext
  */

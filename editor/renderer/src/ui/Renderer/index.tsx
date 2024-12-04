@@ -815,5 +815,6 @@ const RendererWithAnnotationSelection = (props: RendererProps) => {
 	);
 };
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /* @deprecated using this version of the renderer causes the RendererActions to inaccessible from any consumers */
 export default RendererWithAnnotationSelection;

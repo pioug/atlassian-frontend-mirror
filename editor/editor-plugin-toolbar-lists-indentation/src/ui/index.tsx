@@ -11,7 +11,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { ToolbarListsIndentationPlugin } from '../plugin';
 import type { IndentationButtonNode } from '../pm-plugins/indentation-buttons';
-import { type ToolbarType } from '../types';
+import { ToolbarType } from '../types';
 import { getInputMethod } from '../utils/input-method';
 
 import { onItemActivated } from './onItemActivated';
@@ -36,7 +36,7 @@ export interface Props {
 	outdentDisabled?: boolean;
 	indentationStateNode?: IndentationButtonNode;
 	pluginInjectionApi?: ExtractInjectionAPI<ToolbarListsIndentationPlugin> | undefined;
-	toolbarType?: ToolbarType;
+	toolbarType: ToolbarType;
 }
 
 export default function ToolbarListsIndentation(props: Props) {
@@ -62,7 +62,7 @@ export default function ToolbarListsIndentation(props: Props) {
 
 	const inputMethod = toolbarType ? getInputMethod(toolbarType) : INPUT_METHOD.TOOLBAR;
 
-	if (isSmall) {
+	if (isSmall || toolbarType === ToolbarType.FLOATING) {
 		return (
 			<ToolbarDropdown
 				editorView={props.editorView}
@@ -81,6 +81,7 @@ export default function ToolbarListsIndentation(props: Props) {
 				onItemActivated={onItemActivated(pluginInjectionApi, indentationStateNode, inputMethod)}
 				featureFlags={featureFlags}
 				pluginInjectionApi={pluginInjectionApi}
+				toolbarType={toolbarType}
 			/>
 		);
 	}

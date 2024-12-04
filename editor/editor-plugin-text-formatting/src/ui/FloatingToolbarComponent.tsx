@@ -79,6 +79,7 @@ const FloatingToolbarTextFormat = ({
 			hasFormattingActive={FloatingToolbarSettings.hasMoreButton}
 			hasMoreButton={FloatingToolbarSettings.hasMoreButton}
 			intl={intl}
+			toolbarType={FloatingToolbarSettings.toolbarType}
 		/>
 	);
 };

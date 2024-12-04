@@ -230,6 +230,7 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 	private renderExampleContent(additionalRendererProps: object) {
 		return (
 			<div
+				// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883
 				ref="root"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={{ position: 'relative', padding: token('space.250', '20px') }}

@@ -2,6 +2,7 @@ import React from 'react';
 
 import { type GasPayload } from '@atlaskit/analytics-gas-types';
 import { type AnalyticsEventPayload, type UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { type LinkProps } from '@atlaskit/link';
 import { browser } from '@atlaskit/linking-common/user-agent';
 
 import { useLinkClicked, useMouseDownEvent } from '../../state/analytics/useLinkClicked';
@@ -179,12 +180,9 @@ const getDisplayName = (WrappedComponent: React.ElementType<any> | string): stri
 };
 
 export function withLinkClickedEvent<
-	Component extends React.ElementType<{
-		onClick?: React.MouseEventHandler<HTMLAnchorElement>;
-		onMouseDown?: React.MouseEventHandler<HTMLAnchorElement>;
-	}>,
+	Component extends Extract<React.ElementType, 'a'> | React.ComponentType<LinkProps>,
 >(WrappedComponent: Component) {
-	const Component = (props: React.ComponentProps<Component>) => {
+	const Component = (props: LinkProps) => {
 		const onClick = useLinkClicked(props.onClick);
 		const onMouseDown = useMouseDownEvent(props.onMouseDown);
 		return React.createElement(WrappedComponent, {

@@ -31,12 +31,13 @@ import BulletListIcon from '@atlaskit/icon/core/migration/list-bulleted--editor-
 import ExpandIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { ButtonName, ToolbarProps } from '../types';
+import { type ButtonName, type ToolbarProps, ToolbarType } from '../types';
 
 export type DropdownProps = ToolbarProps & {
 	popupsMountPoint?: HTMLElement;
 	popupsBoundariesElement?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
+	toolbarType: ToolbarType;
 };
 
 export function ToolbarDropdown(props: DropdownProps) {
@@ -89,6 +90,8 @@ export function ToolbarDropdown(props: DropdownProps) {
 		});
 	};
 
+	const reducedSpacing = props.toolbarType === ToolbarType.FLOATING ? 'compact' : 'none';
+
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<span css={wrapperStyle}>
@@ -111,7 +114,7 @@ export function ToolbarDropdown(props: DropdownProps) {
 				}}
 			>
 				<ToolbarButton
-					spacing={isReducedSpacing ? 'none' : 'default'}
+					spacing={isReducedSpacing ? reducedSpacing : 'default'}
 					selected={bulletListActive || orderedListActive}
 					aria-expanded={isDropdownOpen}
 					aria-haspopup

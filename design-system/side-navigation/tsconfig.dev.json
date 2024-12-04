@@ -33,7 +33,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../accessibility-testing/tsconfig.app.json"
@@ -67,6 +67,9 @@
 		},
 		{
 			"path": "../image/tsconfig.app.json"
+		},
+		{
+			"path": "../link/tsconfig.app.json"
 		},
 		{
 			"path": "../logo/tsconfig.app.json"

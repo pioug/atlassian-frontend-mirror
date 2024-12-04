@@ -53,6 +53,7 @@ export interface Config {
 		auth?: AuthCallback | InitAndAuthData,
 		productInfo?: ProductInformation,
 	) => SocketIOSocket;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated: Use promise based getAnalyticsWebClient instead
 	 */

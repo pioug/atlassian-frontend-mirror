@@ -34,10 +34,13 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../accessibility-testing/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
@@ -74,6 +77,9 @@
 		},
 		{
 			"path": "../logo/tsconfig.app.json"
+		},
+		{
+			"path": "../menu/tsconfig.app.json"
 		},
 		{
 			"path": "../modal-dialog/tsconfig.app.json"

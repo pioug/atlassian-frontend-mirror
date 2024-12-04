@@ -739,6 +739,7 @@ export class EditorPresetBuilder<
 	StackPlugins extends AllEditorPresetPluginTypes[] = [],
 > {
 	private readonly data: [...StackPlugins];
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated Use `apiResolver` instead
 	 */

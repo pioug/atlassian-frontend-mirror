@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/platform/ensure-feature-flag-prefix */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -245,8 +246,10 @@ const LiveRegion = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 			{/* action, then for all other actions we use the live region below */}
 			<A11yText id={id}>{isInitialFocus && ScreenReaderText}</A11yText>
 			<A11yText
-				aria-live={isA11yImprovementEnabled ? 'polite' : ariaLive}
-				role={isA11yImprovementEnabled ? 'status' : 'log'}
+				aria-live={ariaLive} // Should be undefined by default unless a specific use case requires it
+				aria-atomic={fg('design_system_select-a11y-improvement') ? undefined : 'false'}
+				aria-relevant={fg('design_system_select-a11y-improvement') ? undefined : 'additions text'}
+				role={fg('design_system_select-a11y-improvement') ? 'status' : 'log'}
 			>
 				{isFocused && !isInitialFocus && ScreenReaderText}
 			</A11yText>

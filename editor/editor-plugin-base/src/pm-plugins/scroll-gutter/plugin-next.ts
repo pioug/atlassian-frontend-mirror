@@ -24,6 +24,7 @@ function createGutter(gutterSize: number, parent: HTMLElement | null) {
 export type ScrollGutterPluginOptions = {
 	/** Element the page uses for scrolling */
 	getScrollElement?: (view: EditorView) => HTMLElement | null;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated
 	 *
@@ -32,6 +33,7 @@ export type ScrollGutterPluginOptions = {
 	 * Default is true
 	 */
 	allowCustomScrollHandler?: boolean;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated
 	 *

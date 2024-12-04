@@ -1,16 +1,12 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type FC, type ReactNode } from 'react';
+import React, { type FC, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 
-import { Box, xcss } from '@atlaskit/primitives';
-
-const avatarSectionStyles = xcss({
-	gridArea: 'avatar-area',
+const avatarSectionStyles = cssMap({
+	root: {
+		gridArea: 'avatar-area',
+	},
 });
 
 interface AvatarSlotProps {
@@ -27,7 +23,7 @@ interface AvatarSlotProps {
  *
  */
 const AvatarSlot: FC<AvatarSlotProps> = ({ children }) => (
-	<Box xcss={avatarSectionStyles}>{children}</Box>
+	<Box xcss={avatarSectionStyles.root}>{children}</Box>
 );
 
 export default AvatarSlot;

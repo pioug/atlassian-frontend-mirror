@@ -1,6 +1,10 @@
 import React from 'react';
 
+import { di } from 'react-magnetic-di';
+
 import { withAnalyticsContext } from '@atlaskit/analytics-next';
+import AKLink from '@atlaskit/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { withLinkClickedEvent } from '../../utils/analytics/click';
 import { LinkAnalyticsContext } from '../../utils/analytics/LinkAnalyticsContext';
@@ -15,7 +19,8 @@ const PACKAGE_DATA: PackageDataType = {
 	componentName: 'linkUrl',
 };
 
-const Link = withLinkClickedEvent('a');
+const Anchor = withLinkClickedEvent('a');
+export const LinkComponent = withLinkClickedEvent(AKLink);
 
 const LinkUrl = ({
 	href,
@@ -23,16 +28,21 @@ const LinkUrl = ({
 	checkSafety = true,
 	onClick,
 	testId = 'link-with-safety',
+	isLinkComponent = false,
 	...props
 }: LinkUrlProps) => {
+	di(LinkComponent, useLinkWarningModal);
 	const { isLinkSafe, showSafetyWarningModal, ...linkWarningModalProps } = useLinkWarningModal();
+
+	const Link =
+		isLinkComponent && fg('platform_editor_hyperlink_underline') ? LinkComponent : Anchor;
 
 	return (
 		<>
 			<LinkAnalyticsContext url={href} display="url">
 				<Link
 					data-testid={testId}
-					href={href}
+					href={href || ''}
 					onClick={(e) => {
 						if (!checkSafety) {
 							onClick && onClick(e);

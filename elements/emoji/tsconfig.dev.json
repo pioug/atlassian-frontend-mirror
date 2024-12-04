@@ -37,7 +37,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
@@ -62,6 +62,9 @@
 		},
 		{
 			"path": "../../design-system/form/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/heading/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/icon/tsconfig.app.json"

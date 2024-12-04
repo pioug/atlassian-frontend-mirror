@@ -57,7 +57,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { changeColor as changeColorWithAnalytics } from '../../commands/change-color';
 import type { TextColorPluginState } from '../../pm-plugins/main';
-import type { TextColorPlugin, ToolbarType } from '../../types';
+import { type TextColorPlugin, ToolbarType } from '../../types';
 import { getInputMethod } from '../../utils/inputType';
 
 import { EditorTextColorIcon } from './icon';
@@ -145,6 +145,8 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 			pluginState.color,
 		);
 
+		const reducedSpacing = this.props.toolbarType === ToolbarType.FLOATING ? 'compact' : 'none';
+
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<span css={wrapperStyle}>
@@ -168,7 +170,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 					trigger={
 						<ToolbarButton
 							buttonId={TOOLBAR_BUTTON.TEXT_COLOR}
-							spacing={isReducedSpacing ? 'none' : 'default'}
+							spacing={isReducedSpacing ? reducedSpacing : 'default'}
 							disabled={disabled || pluginState.disabled}
 							selected={isOpen}
 							aria-label={labelTextColor}

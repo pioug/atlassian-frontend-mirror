@@ -109,8 +109,10 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 				? [
 						{
 							id: 'twocolumnslayout',
-							title: formatMessage(layoutMessages.twoColumns),
-							description: formatMessage(messages.columnsDescription),
+							title: formatMessage(layoutMessages.twoColumnsAdvancedLayout),
+							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
+								numberOfColumns: 'two',
+							}),
 							keywords: ['layout', 'column', 'section', 'two column'],
 							priority: 1100,
 							icon: () => <IconTwoColumnLayout />,
@@ -121,8 +123,10 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 						},
 						{
 							id: 'threecolumnslayout',
-							title: formatMessage(layoutMessages.threeColumns),
-							description: formatMessage(messages.columnsDescription),
+							title: formatMessage(layoutMessages.threeColumnsAdvancedLayout),
+							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
+								numberOfColumns: 'three',
+							}),
 							keywords: ['layout', 'column', 'section', 'three column'],
 							priority: 1100,
 							icon: () => <IconThreeColumnLayout />,
@@ -134,7 +138,9 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 						{
 							id: 'fourcolumnslayout',
 							title: formatMessage(layoutMessages.fourColumns),
-							description: formatMessage(messages.columnsDescription),
+							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
+								numberOfColumns: 'four',
+							}),
 							keywords: ['layout', 'column', 'section', 'four column'],
 							priority: 1100,
 							icon: () => <IconFourColumnLayout />,
@@ -146,7 +152,9 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 						{
 							id: 'fivecolumnslayout',
 							title: formatMessage(layoutMessages.fiveColumns),
-							description: formatMessage(messages.columnsDescription),
+							description: formatMessage(messages.columnsDescriptionAdvancedLayout, {
+								numberOfColumns: 'five',
+							}),
 							keywords: ['layout', 'column', 'section', 'five column'],
 							priority: 1100,
 							icon: () => <IconFiveColumnLayout />,

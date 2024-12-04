@@ -146,6 +146,7 @@ export type FeatureFlags = {
 	 */
 	twoLineEditorToolbar?: boolean;
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated
 	 * @description

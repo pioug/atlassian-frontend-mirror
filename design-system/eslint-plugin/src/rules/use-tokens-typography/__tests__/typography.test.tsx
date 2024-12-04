@@ -1,6 +1,8 @@
 import outdent from 'outdent';
 
-import { tester, typescriptEslintTester } from '../../__tests__/utils/_tester';
+// @ts-ignore
+import { ruleTester } from '@atlassian/eslint-utils';
+
 import rule from '../index';
 
 import type { Tests } from './_types';
@@ -37,14 +39,25 @@ export const typographyTests: Tests = {
 		{
 			code: `
 				const styles = css({
-					fontSize: token('font.body.large'),
+					font: token('font.body.large'),
 					fontStyle: 'italic'
 				})`,
 		},
 	],
 	invalid: [
 		// NO FIXES
-
+		// fontSize used with space token
+		{
+			code: `
+				const styles = css({
+					fontSize: token('space.100'),
+				})`,
+			errors: [
+				{
+					messageId: 'noRawTypographyValues',
+				},
+			],
+		},
 		// No token match for fontSize + lineHeight
 		{
 			code: `
@@ -93,8 +106,30 @@ export const typographyTests: Tests = {
 				})`,
 			errors: [{ messageId: 'noRawTypographyValues' }],
 		},
-
 		// FIXES
+		// fontSize used with typography token
+		{
+			code: outdent`
+				import { token } from '@atlaskit/tokens';
+				const styles = css({
+					fontSize: token('font.body.large'),
+				})`,
+			errors: [
+				{
+					messageId: 'noRawTypographyValues',
+					suggestions: [
+						{
+							desc: `Convert to font token`,
+							output: outdent`
+								import { token } from '@atlaskit/tokens';
+								const styles = css({
+									font: token('font.body.large'),
+								})`,
+						},
+					],
+				},
+			],
+		},
 		// fontSize and fontWeight - 1 token match
 		{
 			code: outdent`
@@ -274,7 +309,6 @@ export const typographyTests: Tests = {
 				},
 			],
 		},
-
 		// fontSize match, fontWeight conversion
 		{
 			code: outdent`
@@ -452,7 +486,6 @@ export const typographyTests: Tests = {
 					fontFamily: token('font.family.brand.body'),
 					fontSize: '16px',
 				})`,
-
 			errors: [
 				{
 					messageId: 'noRawTypographyValues',
@@ -478,7 +511,6 @@ export const typographyTests: Tests = {
 					fontFamily: token('font.family.code'),
 					fontSize: '16px',
 				})`,
-
 			errors: [
 				{
 					messageId: 'noRawTypographyValues',
@@ -504,7 +536,6 @@ export const typographyTests: Tests = {
 					fontFamily: token('font.family.body'),
 					fontSize: '16px',
 				})`,
-
 			errors: [
 				{
 					messageId: 'noRawTypographyValues',
@@ -529,7 +560,6 @@ export const typographyTests: Tests = {
 					fontSize: '16px',
 					fontStyle: 'normal',
 				})`,
-
 			errors: [
 				{
 					messageId: 'noRawTypographyValues',
@@ -614,7 +644,6 @@ export const typographyTests: Tests = {
 					fontStyle: 'italic',
 					letterSpacing: '-0.008em',
 				})`,
-
 			errors: [
 				{
 					messageId: 'noRawTypographyValues',
@@ -643,7 +672,6 @@ export const typographyTests: Tests = {
 					fontWeight: 600,
 					padding: '8px'
 				})`,
-
 			errors: [
 				{
 					messageId: 'noRawTypographyValues',
@@ -669,7 +697,6 @@ export const typographyTests: Tests = {
 				const styles = css({
 					fontSize: someValue,
 				});`,
-
 			errors: [
 				{
 					messageId: 'noRawTypographyValues',
@@ -694,7 +721,6 @@ export const typographyTests: Tests = {
 				const styles = css({
 					fontSize: fontSize(),
 				});`,
-
 			errors: [
 				{
 					messageId: 'noRawTypographyValues',
@@ -778,10 +804,7 @@ export const typographyTests: Tests = {
 	],
 };
 
-typescriptEslintTester.run(
-	'use-tokens-typography',
-	// @ts-expect-error
-	rule,
-	typographyTests,
-);
-tester.run('use-tokens-typography', rule, typographyTests);
+ruleTester.run('use-tokens-typography', rule, {
+	valid: typographyTests.valid,
+	invalid: typographyTests.invalid,
+});

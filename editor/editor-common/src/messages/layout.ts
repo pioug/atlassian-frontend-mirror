@@ -11,19 +11,29 @@ export const toolbarMessages = defineMessages({
 		defaultMessage: 'Two columns layout',
 		description: 'Layout with two columns of equal width',
 	},
+	twoColumnsAdvancedLayout: {
+		id: 'fabric.editor.twoColumns',
+		defaultMessage: '2 Column layout',
+		description: 'Layout with two columns of equal width',
+	},
 	threeColumns: {
 		id: 'fabric.editor.threeColumns',
 		defaultMessage: 'Three columns layout',
 		description: 'Layout with three columns of equal width',
 	},
+	threeColumnsAdvancedLayout: {
+		id: 'fabric.editor.threeColumns',
+		defaultMessage: '3 Column layout',
+		description: 'Layout with three columns of equal width',
+	},
 	fourColumns: {
 		id: 'fabric.editor.fourColumns',
-		defaultMessage: 'Four columns layout',
+		defaultMessage: '4 Column layout',
 		description: 'Layout with four columns of equal width',
 	},
 	fiveColumns: {
 		id: 'fabric.editor.fiveColumns',
-		defaultMessage: 'Five columns layout',
+		defaultMessage: '5 Column layout',
 		description: 'Layout with five columns of equal width',
 	},
 	rightSidebar: {
@@ -63,7 +73,7 @@ export const toolbarMessages = defineMessages({
 	},
 	columnOption: {
 		id: 'fabric.editor.layout.columnOption',
-		defaultMessage: '{count, plural, one {-column} other {{count}-columns}}',
+		defaultMessage: '{count, plural, one { Column} other {{count} Columns}}',
 		description: 'column option text for layout',
 	},
 });

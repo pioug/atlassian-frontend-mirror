@@ -282,6 +282,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		};
 	};
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * Initialisation logic, called by Jira with a dummy getState function, deprecated in favour of the setup method which allows more configuration
 	 * @param {Function} getState Function that returns the editor state, used to retrieve collab-edit properties and to interact with prosemirror-collab
@@ -537,6 +538,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		return this.unsubscribeAll();
 	}
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * Disconnect the provider, disconnect it's connection to the back-end service and unsubscribe all event listeners on the provider.
 	 * Used by Confluence to disable the provider when a user doesn't have access to a resource.
@@ -547,6 +549,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		return this.unsubscribeAll();
 	}
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * Disconnect the provider's connection to the back-end service and unsubscribe from all events emitted by this provider. Kept to keep roughly aligned to Synchrony API, which you need to call for each event.
 	 * @deprecated use destroy instead, it does the same thing
@@ -569,6 +572,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		return this;
 	}
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * Update the title of the document in the collab provider and optionally broadcast it to other participants and NCS
 	 * @deprecated use setMetadata instead, it does the same thing
@@ -588,6 +592,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		}
 	}
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * Set editor width, not used any more
 	 * @deprecated use setMetadata instead, it does the same thing

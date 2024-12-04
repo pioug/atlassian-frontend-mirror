@@ -32,7 +32,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../../analytics/analytics-namespaced-context/tsconfig.app.json"

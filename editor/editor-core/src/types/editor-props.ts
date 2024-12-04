@@ -155,6 +155,7 @@ interface EditorBaseProps {
 	// Set for an on cancel callback.
 	onCancel?: (editorView: EditorView) => void;
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated do not use, value is hardcoded. Can be mocked for tests. Config exists here: platform/packages/editor/editor-plugin-base/src/pm-plugins/utils/inputTrackingConfig.ts
 	 * @description The nth keystroke after which an input time taken event is sent, 0 to disable it
@@ -231,6 +232,7 @@ export interface EditorSharedPropsWithPlugins {
 	// Set for an on save callback.
 	onSave?: (editorView: EditorView) => void;
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated do not use, value is hardcoded. Can be mocked for tests. Config exists here: platform/packages/editor/editor-plugin-base/src/pm-plugins/utils/inputTrackingConfig.ts
 	 * @description Control performance metric measurements and tracking
@@ -253,11 +255,13 @@ export interface EditorProps
 		EditorPluginFeatureProps,
 		EditorSharedPropsWithPlugins,
 		EditorProviderProps {
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated Do not use outside of Editor team.
 	 * This has subtle side effects - you __WILL__ break functionality without implementer knowledge of editor-core internals
 	 */
 	dangerouslyAppendPlugins?: {
+		// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 		/**
 		 * @deprecated Do not use outside of Editor team.
 		 */
@@ -273,6 +277,7 @@ export interface EditorNextProps
 		EditorSharedPropsWithPlugins,
 		EditorProviderProps {
 	preset: EditorPresetBuilder<AllPluginNames[], AllEditorPresetPluginTypes[]>;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated
 	 * This prop does nothing and will be removed soon.
@@ -284,6 +289,7 @@ export interface EditorNextProps
 	 */
 	linking?: LinkingOptions;
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * @deprecated
 	 * This prop is no longer required and will be removed soon.
@@ -311,10 +317,13 @@ export interface EditorNextProps
 	// the associated component's content
 	assistiveDescribedBy?: string;
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	// @deprecated - pass provider directly to emojiPlugin via the preset
 	emojiProvider?: Providers['emojiProvider'];
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	// @deprecated - pass taskDecisionProvider directly to taskDecisionPlugin via the preset
 	taskDecisionProvider?: Promise<TaskDecisionProvider>;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	// @deprecated - pass autoformattingProvider directly to customAutoformatPlugin via the preset
 	autoformattingProvider?: Providers['autoformattingProvider'];
 }
@@ -446,6 +455,7 @@ export interface EditorPluginFeatureProps {
 	feedbackInfo?: FeedbackInfo;
 
 	mention?: MentionPluginConfig;
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/**
 	 * flag to indicate display name instead of nick name should be inserted for mentions
 	 * default: false, which inserts the nick name
@@ -471,9 +481,11 @@ export interface EditorPluginFeatureProps {
 	// Set to add custom menu items to the insert (plus) menu dropdown.
 	insertMenuItems?: MenuItem[];
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/** @deprecated Use linking.smartLinks prop instead. */
 	UNSAFE_cards?: CardOptions;
 
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 	/** @deprecated Use linking.smartLinks prop instead. */
 	smartLinks?: CardOptions;
 

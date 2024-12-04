@@ -32,6 +32,7 @@ export type FullWidthEditorProps = Pick<
 	onEditorReady?: () => void;
 };
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /**
  * Editor component based on `ComposableEditor` which sets the `appearance` to "full-width".
  *

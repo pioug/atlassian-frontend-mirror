@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 1.4.0
+
+### Minor Changes
+
+- [#172933](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172933)
+  [`8323af2381d00`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8323af2381d00) -
+  Adds optional pluginName to the Selection group
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.3.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.2
 
 ### Patch Changes

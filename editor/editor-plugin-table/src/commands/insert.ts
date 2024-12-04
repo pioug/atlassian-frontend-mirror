@@ -378,18 +378,10 @@ export const insertTableWithNestingSupport: InsertTableWithNestingSupportCommand
 	) =>
 	({ tr }) => {
 		const { schema } = tr.doc.type;
-		const node = createTableWithWidth({
-			isTableScalingEnabled,
-			isTableAlignmentEnabled,
-			isFullWidthModeEnabled,
-			isCommentEditor,
-			isChromelessEditor,
-			isTableResizingEnabled,
-			createTableProps,
-		})(schema);
 
 		// If the cursor is inside a table
 		let insertAt: Selection | undefined;
+		let isNestedTable = false;
 		if (
 			hasParentNodeOfType(schema.nodes.table)(tr.selection) &&
 			fg('platform_editor_use_nested_table_pm_nodes')
@@ -406,8 +398,22 @@ export const insertTableWithNestingSupport: InsertTableWithNestingSupportCommand
 					return tr;
 				}
 				insertAt = TextSelection.create(tr.doc, positionAfterTopTable);
+			} else {
+				// Table can be nested in parent table
+				isNestedTable = true;
 			}
 		}
+
+		const node = createTableWithWidth({
+			isTableScalingEnabled,
+			isTableAlignmentEnabled,
+			isFullWidthModeEnabled,
+			isCommentEditor,
+			isChromelessEditor,
+			isTableResizingEnabled,
+			isNestedTable,
+			createTableProps,
+		})(schema);
 
 		api?.contentInsertion?.commands?.insert({
 			node,

@@ -170,6 +170,7 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 					return {
 						isToolbarAbove: true,
 						items: [toolbarCustom],
+						rank: 7,
 					};
 				} else {
 					return undefined;

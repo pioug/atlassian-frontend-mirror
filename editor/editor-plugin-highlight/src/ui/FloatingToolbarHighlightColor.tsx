@@ -115,7 +115,7 @@ const FloatingToolbarHighlightColor = ({
 			trigger={
 				<ToolbarButton
 					buttonId={TOOLBAR_BUTTON.BACKGROUND_COLOR}
-					spacing={editorExperiment('contextual_formatting_toolbar', true) ? 'none' : 'compact'}
+					spacing={'compact'}
 					disabled={highlightState.disabled}
 					selected={isDropdownOpen}
 					aria-label={title}

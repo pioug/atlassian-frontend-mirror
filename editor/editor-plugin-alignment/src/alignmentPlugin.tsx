@@ -96,6 +96,8 @@ export const alignmentPlugin: AlignmentPlugin = ({ api }) => {
 					return {
 						isToolbarAbove: true,
 						items: [toolbarCustom],
+						rank: 4,
+						pluginName: 'alignment',
 					};
 				} else {
 					return undefined;

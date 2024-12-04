@@ -93,6 +93,7 @@ export function closest(node: HTMLElement | null | undefined, s: string): HTMLEl
 	return null;
 }
 
+// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
 /*
  * @deprecated - Use HTMLElement.protoype.closest instead
  */

@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-clipboard
 
+## 1.3.12
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.11
 
 ### Patch Changes

@@ -1,8 +1,8 @@
 import { type Auth, type AuthProvider, type AuthContext } from '@atlaskit/media-core';
 import { defaultCollectionName } from './collectionNames';
+import { MEDIA_PLAYGROUND_BASE_URL } from './mediaBaseURLS';
 
 const cachedAuths: { [key: string]: Promise<Auth> } = {};
-const authProviderBaseURL = 'https://media-playground.dev.atl-paas.net/';
 
 export class StoryBookAuthProvider {
 	static create(
@@ -19,7 +19,7 @@ export class StoryBookAuthProvider {
 				headers,
 				body: access ? JSON.stringify({ access }) : undefined,
 			};
-			const url = `${authProviderBaseURL}/token/tenant?collection=${collectionName}&environment=${environment}`;
+			const url = `${MEDIA_PLAYGROUND_BASE_URL}/token/tenant?collection=${collectionName}&environment=${environment}`;
 			const response = fetch(url, config);
 
 			// We leverage the fact, that our internal /toke/tenant API returns data in the same format as Auth

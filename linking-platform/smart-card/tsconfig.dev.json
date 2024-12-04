@@ -38,7 +38,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
@@ -66,6 +66,9 @@
 		},
 		{
 			"path": "../../design-system/code/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/datetime-picker/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/website/docs/tsconfig.app.json"

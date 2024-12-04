@@ -101,8 +101,12 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 
 	render() {
 		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			<div ref="root" style={{ padding: token('space.250', '20px') }}>
+			<div
+				// eslint-disable-next-line react/no-string-refs -- Ignored via go/ED-25883
+				ref="root"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={{ padding: token('space.250', '20px') }}
+			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 				<fieldset style={{ marginBottom: token('space.250', '20px') }}>
 					<legend>Input</legend>

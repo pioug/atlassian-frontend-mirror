@@ -35,13 +35,16 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../editor-examples-helpers/tsconfig.app.json"
 		},
 		{
 			"path": "../libra/tsconfig.app.json"
+		},
+		{
+			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/gemini-visual-regression/tsconfig.app.json"
@@ -255,6 +258,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
+		},
+		{
+			"path": "../../search/search-client/tsconfig.app.json"
 		},
 		{
 			"path": "../search-provider/tsconfig.app.json"

@@ -34,7 +34,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/test-tooling/integration-testing/tsconfig.app.json"
@@ -140,6 +140,9 @@
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../people-and-teams/profilecard/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/radio/tsconfig.app.json"

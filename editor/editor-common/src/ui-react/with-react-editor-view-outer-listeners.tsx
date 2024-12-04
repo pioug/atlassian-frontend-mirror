@@ -69,7 +69,8 @@ class WithOutsideClick extends PureComponent<
 
 		const domNode = fg('platform_editor_replace_finddomnode_in_common')
 			? this.props.outsideClickTargetRef.current?.deref()
-			: ReactDOM.findDOMNode(this);
+			: // eslint-disable-next-line react/no-find-dom-node -- Ignored via go/ED-25883
+				ReactDOM.findDOMNode(this);
 
 		if (!domNode || (evt.target instanceof Node && !domNode.contains(evt.target))) {
 			this.props.handleClickOutside(evt);

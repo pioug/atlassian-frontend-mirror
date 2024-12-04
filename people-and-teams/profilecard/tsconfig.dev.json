@@ -63,6 +63,9 @@
 			"path": "../../design-system/inline-edit/tsconfig.app.json"
 		},
 		{
+			"path": "../people-teams-ui-public/tsconfig.app.json"
+		},
+		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{

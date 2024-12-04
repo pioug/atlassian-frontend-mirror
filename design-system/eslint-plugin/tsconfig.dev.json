@@ -36,7 +36,7 @@
 	},
 	"references": [
 		{
-			"path": "tsconfig.app.json"
+			"path": "./tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/formatting/tsconfig.app.json"
@@ -49,6 +49,9 @@
 		},
 		{
 			"path": "../icon/tsconfig.app.json"
+		},
+		{
+			"path": "../icon-lab/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"

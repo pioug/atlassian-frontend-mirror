@@ -6,7 +6,7 @@ import Skeleton from '@atlaskit/skeleton';
 export default function All() {
 	return (
 		<Stack space="space.300" testId="skeleton-group">
-			<Stack space="space.050">
+			<Stack space="space.050" testId="skeleton-default">
 				<Text>Default</Text>
 				<Skeleton width="200px" height="16px" testId="skeleton" />
 			</Stack>

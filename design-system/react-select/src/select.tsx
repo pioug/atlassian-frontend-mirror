@@ -2320,7 +2320,7 @@ export default class Select<
 										// add aditional label on listbox when ff is on
 										...(fg('design_system_select-a11y-improvement') && {
 											'aria-label': label,
-											'aria-labelledby': `${labelId || this.getElementId('input')} ${commonProps.isMulti && isSafari() ? this.getElementId('multi-message') : ''}`,
+											'aria-labelledby': `${labelId || this.inputRef?.id || this.getElementId('input')} ${commonProps.isMulti && isSafari() ? this.getElementId('multi-message') : ''}`,
 										}),
 									}}
 									isLoading={isLoading}

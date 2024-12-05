@@ -46,6 +46,10 @@ export type PageHeaderProps = {
 	 * Used as the ID of the inner h1 tag. This is exposed so the header text can be used as label of other elements by aria-labelledby.
 	 */
 	id?: string;
+	/**
+	 * A testId prop is provided for specified elements, which is a unique string that appears as a data attribute data-testid in the rendered code, serving as a hook for automated tests.
+	 */
+	testId?: string;
 };
 
 /**
@@ -67,6 +71,7 @@ const PageHeader = ({
 	id,
 	disableTitleStyles = false,
 	truncateTitle = false,
+	testId,
 }: PageHeaderProps) => {
 	return (
 		<OuterWrapper>
@@ -80,6 +85,7 @@ const PageHeader = ({
 							ref={innerRef as React.Ref<HTMLHeadingElement>}
 							truncateTitle={truncateTitle}
 							id={id}
+							testId={testId}
 						>
 							{children}
 						</StyledTitleWrapper>

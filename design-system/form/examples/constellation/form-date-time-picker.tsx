@@ -53,7 +53,7 @@ const FormDateTimePickerExample = () => {
 						<Field name="DOB" label="Date of Birth" defaultValue="" isRequired>
 							{({ fieldProps: { id, ...rest }, error }) => (
 								<Fragment>
-									<DatePicker {...rest} id={id} />
+									<DatePicker shouldShowCalendarButton {...rest} id={id} />
 									{error && <ErrorMessage>Please select a date of birth.</ErrorMessage>}
 								</Fragment>
 							)}
@@ -71,6 +71,7 @@ const FormDateTimePickerExample = () => {
 										<DateTimePicker
 											{...rest}
 											datePickerProps={{
+												shouldShowCalendarButton: true,
 												selectProps: {
 													// @ts-ignore - https://product-fabric.atlassian.net/browse/DSP-21000
 													validationState,

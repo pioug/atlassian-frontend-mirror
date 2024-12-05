@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-quick-insert
 
+## 1.8.0
+
+### Minor Changes
+
+- [#173737](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173737)
+  [`965f739a481f5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/965f739a481f5) -
+  [ux] Items are disabled in the plus menu while offline. This affects arrow navigation in the plus
+  menu and element browser
+
 ## 1.7.3
 
 ### Patch Changes

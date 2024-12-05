@@ -1,13 +1,13 @@
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Fragment, Node, Schema } from '@atlaskit/editor-prosemirror/model';
 
-import { processRawFragmentValue, processRawValue } from '../../../src/utils/processRawValue';
 import type {
 	CorePlugin,
 	DefaultTransformerResultCallback,
 	InferTransformerResultCallback,
 	Transformer,
 } from '../../types';
+import { processRawFragmentValue, processRawValue } from '../../utils/processRawValue';
 import { editorCommandToPMCommand } from '../editor-commands';
 
 import { scheduleDocumentRequest } from './requestDocument';

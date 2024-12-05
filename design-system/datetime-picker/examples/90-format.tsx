@@ -24,6 +24,7 @@ export default () => {
 			/>
 			<Label htmlFor="react-select-date--input">DatePicker - dateFormat (DD/MM/YYYY)</Label>
 			<DatePicker
+				shouldShowCalendarButton
 				id="react-select-date--input"
 				clearControlLabel="Clear datePicker - dateFormat (DD/MM/YYYY)"
 				onChange={console.log}
@@ -40,6 +41,7 @@ export default () => {
 					label: 'DateTimePicker - dateFormat (HH:mm) & timeFormat (Do MMMM YYYY), time',
 				}}
 				datePickerProps={{
+					shouldShowCalendarButton: true,
 					dateFormat: 'Do MMMM YYYY',
 					label: 'DateTimePicker - dateFormat (HH:mm) & timeFormat (Do MMMM YYYY), date',
 				}}

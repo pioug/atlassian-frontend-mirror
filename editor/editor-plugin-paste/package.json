@@ -34,10 +34,10 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^96.1.0",
+		"@atlaskit/editor-common": "^96.2.0",
 		"@atlaskit/editor-markdown-transformer": "^5.13.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
-		"@atlaskit/editor-plugin-annotation": "^1.25.0",
+		"@atlaskit/editor-plugin-annotation": "^1.26.0",
 		"@atlaskit/editor-plugin-better-type-history": "^1.9.0",
 		"@atlaskit/editor-plugin-card": "^4.4.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
@@ -49,7 +49,7 @@
 		"@atlaskit/media-client": "^28.5.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tmp-editor-statsig": "^2.22.0",
+		"@atlaskit/tmp-editor-statsig": "^2.23.0",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21",
 		"uuid": "^3.1.0"

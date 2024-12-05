@@ -6,6 +6,8 @@ import { type ReactNode } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+import { media } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
@@ -41,9 +43,14 @@ export const containerCSS = <Option, IsMulti extends boolean, Group extends Grou
 	label: 'container',
 	direction: isRtl ? 'rtl' : undefined,
 	position: 'relative',
-	font: token('font.body'),
+	font: fg('platform_design_system_team_safari_input_fix')
+		? token('font.body.large')
+		: token('font.body'),
 	pointerEvents: 'all',
 	cursor: isDisabled ? 'not-allowed' : undefined,
+	[`${media.above.xs}`]: {
+		font: fg('platform_design_system_team_safari_input_fix') ? token('font.body') : undefined,
+	},
 });
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

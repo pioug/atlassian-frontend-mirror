@@ -2,7 +2,16 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { Fragment, useContext, useLayoutEffect, useRef, PureComponent } from 'react';
+import React, {
+	Fragment,
+	useContext,
+	useLayoutEffect,
+	useRef,
+	PureComponent,
+	useCallback,
+	useMemo,
+	useEffect,
+} from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -79,6 +88,7 @@ export const defaultNodeComponents: NodeComponentsProps = nodeToReact;
 /**
  * Exported due to enzyme test reliance on this component.
  */
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class __RendererClassComponent extends PureComponent<RendererProps & { startPos?: number }> {
 	private providerFactory: ProviderFactory;
 	private serializer: ReactSerializer;
@@ -540,11 +550,452 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 	}
 }
 
+const handleMouseTripleClickInTables = (event: MouseEvent) => {
+	if (browser.ios || browser.android) {
+		return;
+	}
+	const badBrowser = browser.chrome || browser.safari;
+	const tripleClick = event.detail >= 3;
+	if (!(badBrowser && tripleClick)) {
+		return;
+	}
+	const selection = window.getSelection();
+	if (!selection) {
+		return;
+	}
+	const { type, anchorNode, focusNode } = selection;
+	const rangeSelection = Boolean(type === 'Range' && anchorNode && focusNode);
+	if (!rangeSelection) {
+		return;
+	}
+	const target = event.target as HTMLElement;
+	const tableCell = target.closest('td,th');
+	const clickedInCell = Boolean(tableCell);
+	if (!clickedInCell) {
+		return;
+	}
+	const anchorInCell = tableCell!.contains(anchorNode);
+	const focusInCell = tableCell!.contains(focusNode);
+	const selectionStartsOrEndsOutsideClickedCell = !(anchorInCell && focusInCell);
+	if (!selectionStartsOrEndsOutsideClickedCell) {
+		return;
+	}
+
+	// Ensure that selecting text in the renderer doesn't trigger onUnhandledClick
+	// This logic originated in jira-frontend:
+	// src/packages/issue/issue-view/src/views/field/rich-text/rich-text-inline-edit-view.js
+
+	// The selection is required to be checked in `onMouseDown` and here. If not here, a new
+	// selection isn't reported; if not in `onMouseDown`, a click outside the selection will
+	// return an empty selection, which will erroneously fire onUnhandledClick.
+
+	const elementToSelect: Element | null | undefined = anchorInCell
+		? anchorNode!.parentElement?.closest('div,p')
+		: focusInCell
+			? focusNode!.parentElement?.closest('div,p')
+			: tableCell;
+	if (elementToSelect) {
+		selection.selectAllChildren(elementToSelect);
+	}
+};
+
+/**
+ * Handle clicks inside renderer. If the click isn't on media, in the media picker, or on a
+ * link, call the onUnhandledClick eventHandler (which in Jira for example, may switch the
+ * renderer out for the editor).
+ * @param event Click event anywhere inside renderer
+ */
+const handleWrapperOnClick = (
+	event: React.MouseEvent,
+	props: RendererProps & { startPos?: number },
+	mouseDownSelection: React.MutableRefObject<string | undefined>,
+) => {
+	const targetElement = event.target as HTMLElement;
+
+	handleMouseTripleClickInTables(event as unknown as MouseEvent);
+
+	// ED-14862: When a user triple clicks to select a line of content inside a
+	// a table cell, but the browser incorrectly moves the selection start or end into
+	// a different table cell, we manually set the selection back to within the original
+	// table cell the user intended to target
+	if (!props.eventHandlers?.onUnhandledClick) {
+		return;
+	}
+	if (!(targetElement instanceof window.Element)) {
+		return;
+	}
+
+	const rendererWrapper = event.currentTarget as HTMLElement;
+
+	const isInteractiveElementInTree = findInTree(
+		targetElement,
+		rendererWrapper,
+		isInteractiveElement,
+	);
+	if (isInteractiveElementInTree) {
+		return;
+	}
+
+	// Ensure that selecting text in the renderer doesn't trigger onUnhandledClick
+	// This logic originated in jira-frontend:
+	// src/packages/issue/issue-view/src/views/field/rich-text/rich-text-inline-edit-view.js
+
+	// The selection is required to be checked in `onMouseDown` and here. If not here, a new
+	// selection isn't reported; if not in `onMouseDown`, a click outside the selection will
+	// return an empty selection, which will erroneously fire onUnhandledClick.
+	const windowSelection = window.getSelection();
+	const selection: string | undefined =
+		windowSelection !== null ? windowSelection.toString() : undefined;
+	const hasSelection = selection && selection.length !== 0;
+
+	const hasSelectionMouseDown =
+		mouseDownSelection.current && mouseDownSelection.current.length !== 0;
+	const allowEditBasedOnSelection = !hasSelection && !hasSelectionMouseDown;
+
+	if (allowEditBasedOnSelection) {
+		props.eventHandlers.onUnhandledClick(event);
+	}
+};
+
+const RendererFunctionalComponent = (props: RendererProps & { startPos?: number }) => {
+	let mouseDownSelection = useRef<string | undefined>(undefined);
+	const providerFactory = useMemo(
+		() => props.dataProviders || new ProviderFactory(),
+		[props.dataProviders],
+	);
+
+	const createRendererContext = useMemo(
+		() =>
+			(
+				featureFlags: RendererProps['featureFlags'],
+				isTopLevelRenderer: RendererProps['isTopLevelRenderer'],
+			) => {
+				const normalizedFeatureFlags = normalizeFeatureFlags(featureFlags);
+				return {
+					featureFlags: normalizedFeatureFlags,
+					isTopLevelRenderer: isTopLevelRenderer === undefined,
+				};
+			},
+		[],
+	);
+
+	const fireAnalyticsEvent: FireAnalyticsCallback = useCallback(
+		(event) => {
+			const { createAnalyticsEvent } = props;
+
+			if (createAnalyticsEvent) {
+				const channel = FabricChannel.editor;
+				createAnalyticsEvent(event).fire(channel);
+			}
+		},
+		[props],
+	);
+
+	const deriveSerializerProps = useCallback(
+		(props: RendererProps & { startPos: number }): ReactSerializerInit => {
+			const stickyHeaders = props.stickyHeaders
+				? props.stickyHeaders === true
+					? {}
+					: props.stickyHeaders
+				: undefined;
+			const { annotationProvider } = props;
+			const allowAnnotationsDraftMode = Boolean(
+				annotationProvider &&
+					annotationProvider.inlineComment &&
+					annotationProvider.inlineComment.allowDraftMode,
+			);
+
+			const { featureFlags } = createRendererContext(props.featureFlags, props.isTopLevelRenderer);
+
+			return {
+				startPos: props.startPos,
+				providers: providerFactory,
+				eventHandlers: props.eventHandlers,
+				extensionHandlers: props.extensionHandlers,
+				portal: props.portal,
+				objectContext: {
+					adDoc: props.document,
+					schema: props.schema,
+					...props.rendererContext,
+				} as RendererContext,
+				appearance: props.appearance,
+				disableHeadingIDs: props.disableHeadingIDs,
+				disableActions: props.disableActions,
+				allowHeadingAnchorLinks: props.allowHeadingAnchorLinks,
+				allowColumnSorting: props.allowColumnSorting,
+				fireAnalyticsEvent: fireAnalyticsEvent,
+				shouldOpenMediaViewer: props.shouldOpenMediaViewer,
+				allowAltTextOnImages: props.allowAltTextOnImages,
+				stickyHeaders,
+				allowMediaLinking: props.media && props.media.allowLinking,
+				surroundTextNodesWithTextWrapper: allowAnnotationsDraftMode,
+				media: props.media,
+				emojiResourceConfig: props.emojiResourceConfig,
+				smartLinks: props.smartLinks,
+				allowCopyToClipboard: props.allowCopyToClipboard,
+				allowWrapCodeBlock: props.allowWrapCodeBlock,
+				allowCustomPanels: props.allowCustomPanels,
+				allowAnnotations: props.allowAnnotations,
+				allowSelectAllTrap: props.allowSelectAllTrap,
+				allowPlaceholderText: props.allowPlaceholderText,
+				nodeComponents: props.nodeComponents,
+				allowWindowedCodeBlock: featureFlags?.allowWindowedCodeBlock,
+				isInsideOfInlineExtension: props.isInsideOfInlineExtension,
+				textHighlighter: props.UNSTABLE_textHighlighter,
+				allowTableAlignment: props.UNSTABLE_allowTableAlignment,
+				allowTableResizing: props.UNSTABLE_allowTableResizing,
+			};
+		},
+		[createRendererContext, providerFactory, fireAnalyticsEvent],
+	);
+
+	const serializer = useMemo(
+		() => new ReactSerializer(deriveSerializerProps({ ...props, startPos: props.startPos ?? 0 })),
+		[deriveSerializerProps, props],
+	);
+	const localRef = useRef<HTMLDivElement>(null);
+	const editorRef = props.innerRef || localRef;
+	const id = useMemo(() => uuid(), []);
+	const renderedMeasurementDistortedDurationMonitor = useMemo(
+		() => getDistortedDurationMonitor(),
+		[],
+	);
+
+	// we are doing this to ensure it runs as
+	// early as possible in the React lifecycle
+	// to avoid any other side effects
+	const measureStarted = useRef(false);
+
+	const startAnalyticsMeasure = () => {
+		startMeasure(`Renderer Render Time: ${id}`);
+	};
+
+	if (!measureStarted.current) {
+		startAnalyticsMeasure();
+		measureStarted.current = true;
+	}
+
+	const anchorLinkAnalytics = useCallback(() => {
+		const hash = window.location.hash && decodeURIComponent(window.location.hash.slice(1));
+		const disableHeadingIDs = props.disableHeadingIDs;
+
+		if (!disableHeadingIDs && hash && editorRef && editorRef.current instanceof HTMLElement) {
+			const anchorLinkElement = document.getElementById(hash);
+			if (anchorLinkElement && editorRef.current.contains(anchorLinkElement)) {
+				fireAnalyticsEvent({
+					action: ACTION.VIEWED,
+					actionSubject: ACTION_SUBJECT.ANCHOR_LINK,
+					attributes: { platform: PLATFORM.WEB, mode: MODE.RENDERER },
+					eventType: EVENT_TYPE.UI,
+				});
+			}
+		}
+	}, [props.disableHeadingIDs, editorRef, fireAnalyticsEvent]);
+
+	const getSchema = useMemo(() => {
+		return (schema?: Schema, adfStage?: 'final' | 'stage0') => {
+			if (schema) {
+				return schema;
+			}
+			return getSchemaBasedOnStage(adfStage);
+		};
+	}, []);
+
+	const onMouseDownEditView = () => {
+		const windowSelection = window.getSelection();
+		mouseDownSelection.current = windowSelection !== null ? windowSelection.toString() : undefined;
+	};
+
+	const { dataProviders, analyticsEventSeverityTracking } = props;
+
+	useEffect(() => {
+		let rafID: number;
+
+		const handleAnalytics = () => {
+			fireAnalyticsEvent({
+				action: ACTION.STARTED,
+				actionSubject: ACTION_SUBJECT.RENDERER,
+				attributes: { platform: PLATFORM.WEB },
+				eventType: EVENT_TYPE.UI,
+			});
+
+			rafID = requestAnimationFrame(() => {
+				stopMeasure(`Renderer Render Time: ${id}`, (duration) => {
+					const forceSeverityTracking =
+						typeof analyticsEventSeverityTracking === 'undefined' && shouldForceTracking();
+
+					const severity =
+						!!forceSeverityTracking || analyticsEventSeverityTracking?.enabled
+							? getAnalyticsEventSeverity(
+									duration,
+									analyticsEventSeverityTracking?.severityNormalThreshold ??
+										NORMAL_SEVERITY_THRESHOLD,
+									analyticsEventSeverityTracking?.severityDegradedThreshold ??
+										DEGRADED_SEVERITY_THRESHOLD,
+								)
+							: undefined;
+
+					const isTTRTrackingExplicitlyDisabled = analyticsEventSeverityTracking?.enabled === false;
+
+					if (!isTTRTrackingExplicitlyDisabled) {
+						fireAnalyticsEvent({
+							action: ACTION.RENDERED,
+							actionSubject: ACTION_SUBJECT.RENDERER,
+							attributes: {
+								platform: PLATFORM.WEB,
+								duration,
+								distortedDuration: renderedMeasurementDistortedDurationMonitor!.distortedDuration,
+								ttfb: getResponseEndTime(),
+								nodes: countNodes(props.document),
+								severity,
+							},
+							eventType: EVENT_TYPE.OPERATIONAL,
+						});
+					}
+
+					renderedMeasurementDistortedDurationMonitor!.cleanup();
+				});
+				anchorLinkAnalytics();
+			});
+		};
+
+		handleAnalytics();
+
+		return () => {
+			if (rafID) {
+				window.cancelAnimationFrame(rafID);
+			}
+
+			if (dataProviders) {
+				providerFactory.destroy();
+			}
+		};
+		// we are going to ignore this because I'm doing this on purpose
+		// having a dependency array means we run stopMeasure twice per render
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
+	try {
+		const schema = getSchema(props.schema, props.adfStage);
+
+		const { result, stat, pmDoc } = renderDocument(
+			props.document,
+			serializer,
+			schema,
+			props.adfStage,
+			props.useSpecBasedValidator,
+			id,
+			fireAnalyticsEvent,
+			props.unsupportedContentLevelsTracking,
+			props.appearance,
+			props.includeNodesCountInStats,
+		);
+
+		if (props.onComplete) {
+			props.onComplete(stat);
+		}
+
+		const rendererOutput = (
+			<RendererContextProvider
+				value={createRendererContext(props.featureFlags, props.isTopLevelRenderer)}
+			>
+				<ActiveHeaderIdProvider value={getActiveHeadingId(props.allowHeadingAnchorLinks)}>
+					<AnalyticsContext.Provider
+						value={{
+							fireAnalyticsEvent: (event: AnalyticsEventPayload) => fireAnalyticsEvent(event),
+						}}
+					>
+						<SmartCardStorageProvider>
+							<ProviderFactoryProvider value={providerFactory}>
+								<RendererWrapper
+									allowAnnotations={props.allowAnnotations}
+									appearance={props.appearance}
+									allowNestedHeaderLinks={isNestedHeaderLinksEnabled(props.allowHeadingAnchorLinks)}
+									allowColumnSorting={props.allowColumnSorting}
+									allowCopyToClipboard={props.allowCopyToClipboard}
+									allowWrapCodeBlock={props.allowWrapCodeBlock}
+									allowCustomPanels={props.allowCustomPanels}
+									allowPlaceholderText={props.allowPlaceholderText}
+									useBlockRenderForCodeBlock={
+										createRendererContext(props.featureFlags, props.isTopLevelRenderer).featureFlags
+											.useBlockRenderForCodeBlock ?? true
+									}
+									addTelepointer={props.addTelepointer}
+									innerRef={editorRef}
+									onClick={(event) => handleWrapperOnClick(event, props, mouseDownSelection)}
+									onMouseDown={onMouseDownEditView}
+									ssr={props.media?.ssr}
+									isInsideOfInlineExtension={props.isInsideOfInlineExtension}
+									isTopLevelRenderer={
+										createRendererContext(props.featureFlags, props.isTopLevelRenderer)
+											.isTopLevelRenderer
+									}
+								>
+									{props.enableSsrInlineScripts ? <BreakoutSSRInlineScript /> : null}
+									<RendererActionsInternalUpdater
+										doc={pmDoc}
+										schema={schema}
+										onAnalyticsEvent={fireAnalyticsEvent}
+									>
+										{result}
+									</RendererActionsInternalUpdater>
+								</RendererWrapper>
+							</ProviderFactoryProvider>
+						</SmartCardStorageProvider>
+					</AnalyticsContext.Provider>
+				</ActiveHeaderIdProvider>
+			</RendererContextProvider>
+		);
+
+		let rendererResult = props.truncated ? (
+			<TruncatedWrapper height={props.maxHeight} fadeHeight={props.fadeOutHeight}>
+				{rendererOutput}
+			</TruncatedWrapper>
+		) : (
+			rendererOutput
+		);
+
+		return <Fragment>{rendererResult}</Fragment>;
+	} catch (e) {
+		if (props.onError) {
+			props.onError(e);
+		}
+		return (
+			<RendererWrapper
+				allowAnnotations={props.allowAnnotations}
+				appearance={props.appearance}
+				allowCopyToClipboard={props.allowCopyToClipboard}
+				allowWrapCodeBlock={props.allowWrapCodeBlock}
+				allowPlaceholderText={props.allowPlaceholderText}
+				allowColumnSorting={props.allowColumnSorting}
+				allowNestedHeaderLinks={isNestedHeaderLinksEnabled(props.allowHeadingAnchorLinks)}
+				useBlockRenderForCodeBlock={
+					createRendererContext(props.featureFlags, props.isTopLevelRenderer).featureFlags
+						.useBlockRenderForCodeBlock ?? true
+				}
+				addTelepointer={props.addTelepointer}
+				onClick={(event) => handleWrapperOnClick(event, props, mouseDownSelection)}
+				isTopLevelRenderer={
+					createRendererContext(props.featureFlags, props.isTopLevelRenderer).isTopLevelRenderer
+				}
+			>
+				<UnsupportedBlock />
+			</RendererWrapper>
+		);
+	}
+};
+
 export function Renderer(props: RendererProps) {
 	const { startPos } = React.useContext(AnnotationsPositionContext);
 	const { isTopLevelRenderer } = useRendererContext();
 
-	return (
+	return fg('platform_editor_react18_renderer') ? (
+		<RendererFunctionalComponent
+			{...props}
+			startPos={startPos}
+			isTopLevelRenderer={isTopLevelRenderer}
+		/>
+	) : (
 		// eslint-disable-next-line react/jsx-pascal-case
 		<__RendererClassComponent
 			{...props}
@@ -633,7 +1084,7 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 
 	const initialUpdate = React.useRef(true);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		// We must check if window is defined, if it isn't we are in a SSR environment
 		// and we don't want to add the telepointer
 		if (typeof window !== 'undefined' && addTelepointer && innerRef?.current) {

@@ -24,6 +24,7 @@ import preferFG from './rules/feature-gating/prefer-fg';
 import noAlias from './rules/feature-gating/no-alias';
 import useEntrypointsInExamples from './rules/use-entrypoints-in-examples';
 import useRecommendedUtils from './rules/feature-gating/use-recommended-utils';
+import expandBackgroundShorthand from './rules/compiled/expand-background-shorthand';
 
 export const rules = {
 	'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
@@ -35,6 +36,7 @@ export const rules = {
 	'ensure-valid-platform-yarn-protocol-usage': ensureValidPlatformYarnProtocolUsage,
 	'ensure-valid-bin-values': ensureValidBinValues,
 	'expand-border-shorthand': expandBorderShorthand,
+	'expand-background-shorthand': expandBackgroundShorthand,
 	'no-duplicate-dependencies': noDuplicateDependencies,
 	'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
 	'no-pre-post-install-scripts': noPreAndPostInstallScripts,
@@ -60,7 +62,8 @@ const commonConfig = {
 	'@atlaskit/platform/ensure-atlassian-team': 'error',
 	'@atlaskit/platform/no-module-level-eval-nav4': 'error',
 	// Compiled: rules that are not included via `@compiled/recommended
-	'@atlaskit/platform/expand-border-shorthand': 'warn',
+	'@atlaskit/platform/expand-border-shorthand': 'error',
+	'@atlaskit/platform/expand-background-shorthand': 'warn',
 	'@compiled/jsx-pragma': [
 		'error',
 		{

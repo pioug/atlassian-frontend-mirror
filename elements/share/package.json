@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "4.23.2",
+	"version": "4.23.3",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -53,8 +53,8 @@
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/smart-user-picker": "^6.11.0",
 		"@atlaskit/spinner": "^16.3.0",
-		"@atlaskit/tabs": "^16.5.0",
-		"@atlaskit/textarea": "^5.6.0",
+		"@atlaskit/tabs": "^17.0.0",
+		"@atlaskit/textarea": "^5.7.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.4.0",
 		"@atlaskit/tooltip": "^18.9.0",

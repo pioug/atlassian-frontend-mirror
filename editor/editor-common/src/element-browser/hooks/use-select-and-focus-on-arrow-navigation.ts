@@ -1,6 +1,7 @@
 import type React from 'react';
 import { useCallback, useEffect, useReducer, useRef } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 /**
  * a custom hook that handles keyboard navigation for Arrow keys based on a
  * given listSize, and a step (for up and down arrows).
@@ -100,13 +101,30 @@ const moveReducer = (state: ReducerState, action: ReducerAction): ReducerState =
 				selectedItemIndex: canFocusViewMore ? undefined : listSize,
 			};
 		} else {
-			return {
-				...state,
-				focusOnSearch: false,
-				focusOnViewMore: false,
-				focusedItemIndex: 0,
-				selectedItemIndex: 0,
-			};
+			if (fg('platform_editor_is_disabled_state_element_browser')) {
+				const newIndex = action.payload.positions
+					? action.payload.positions - (action.payload.step ?? 1)
+					: 0;
+				const safeIndex = ensureSafeIndex(newIndex, state.listSize);
+				const isLastItemFocused = newIndex > listSize;
+				const focusOnSearch = isLastItemFocused && !canFocusViewMore;
+				const focusOnViewMore = isLastItemFocused && !!canFocusViewMore;
+				return {
+					...state,
+					focusOnSearch: focusOnSearch,
+					focusOnViewMore: focusOnViewMore,
+					focusedItemIndex: safeIndex,
+					selectedItemIndex: safeIndex,
+				};
+			} else {
+				return {
+					...state,
+					focusOnSearch: false,
+					focusOnViewMore: false,
+					focusedItemIndex: 0,
+					selectedItemIndex: 0,
+				};
+			}
 		}
 	}
 
@@ -208,6 +226,51 @@ const getInitialState =
 		canFocusViewMore,
 	});
 
+// Get the offset forwards - skip items that are disabled
+const skipForwardOffsetToSafeItem = (
+	currentIndex: number | undefined,
+	listSize: number,
+	stepSize: number,
+	itemIsDisabled: (idx: number) => boolean,
+): number | undefined => {
+	if (currentIndex === undefined) {
+		return undefined;
+	}
+	// Iterate through the list starting from the next item
+	for (let offset = 1; currentIndex + offset * stepSize <= listSize; offset++) {
+		if (!itemIsDisabled(currentIndex + offset * stepSize)) {
+			return offset * stepSize;
+		}
+	}
+
+	// Move to the last place if possible
+	return listSize - currentIndex + 1;
+};
+
+// Get the offset backwards - skip items that are disabled
+const skipBackwardOffsetToSafeItem = (
+	currentIndex: number | undefined,
+	stepSize: number,
+	itemIsDisabled: (idx: number) => boolean,
+): number | undefined => {
+	if (currentIndex === undefined) {
+		return undefined;
+	}
+
+	// Iterate backwards starting from the previous item
+	for (let offset = 1; currentIndex - offset * stepSize >= -1; offset++) {
+		if (
+			!itemIsDisabled(currentIndex - offset * stepSize) ||
+			currentIndex - offset * stepSize === -1
+		) {
+			return offset * stepSize;
+		}
+	}
+
+	// Move to search if no available index
+	return currentIndex + 1;
+};
+
 export type useSelectAndFocusReturnType = {
 	selectedItemIndex?: number;
 	onKeyDown: (e: React.KeyboardEvent<HTMLDivElement>) => void;
@@ -224,6 +287,7 @@ function useSelectAndFocusOnArrowNavigation(
 	listSize: number,
 	step: number,
 	canFocusViewMore: boolean,
+	itemIsDisabled: (index: number) => boolean,
 	isFocusSearch?: boolean,
 ): useSelectAndFocusReturnType {
 	const [state, dispatch] = useReducer(
@@ -353,20 +417,50 @@ function useSelectAndFocusOnArrowNavigation(
 					e.stopPropagation();
 					return setFocusOnSearch();
 
-				case 'ArrowRight':
-					return move(e, +1);
+				case 'ArrowRight': {
+					if (fg('platform_editor_is_disabled_state_element_browser')) {
+						const itemIndex = focusOnSearch ? -1 : selectedItemIndex;
+						const nextItem =
+							skipForwardOffsetToSafeItem(itemIndex, listSize, 1, itemIsDisabled) ?? 1;
+						return move(e, nextItem);
+					} else {
+						return move(e, +1);
+					}
+				}
 
-				case 'ArrowLeft':
-					return move(e, -1);
+				case 'ArrowLeft': {
+					if (fg('platform_editor_is_disabled_state_element_browser')) {
+						const nextItem =
+							skipBackwardOffsetToSafeItem(selectedItemIndex, 1, itemIsDisabled) ?? 1;
+						return move(e, -nextItem);
+					} else {
+						return move(e, -1);
+					}
+				}
 
-				case 'ArrowDown':
-					return move(e, +step);
+				case 'ArrowDown': {
+					if (fg('platform_editor_is_disabled_state_element_browser')) {
+						const itemIndex = focusOnSearch ? -step : selectedItemIndex;
+						const nextItem =
+							skipForwardOffsetToSafeItem(itemIndex, listSize, step, itemIsDisabled) ?? step;
+						return move(e, +nextItem, step);
+					} else {
+						return move(e, +step);
+					}
+				}
 
-				case 'ArrowUp':
-					return move(e, -step, step);
+				case 'ArrowUp': {
+					if (fg('platform_editor_is_disabled_state_element_browser')) {
+						const nextItem =
+							skipBackwardOffsetToSafeItem(selectedItemIndex, step, itemIsDisabled) ?? step;
+						return move(e, Math.min(-nextItem, -step), step);
+					} else {
+						return move(e, -step, step);
+					}
+				}
 			}
 		},
-		[focusOnSearch, setFocusOnSearch, move, step],
+		[focusOnSearch, setFocusOnSearch, move, selectedItemIndex, itemIsDisabled, listSize, step],
 	);
 
 	useEffect(() => {

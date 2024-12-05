@@ -180,7 +180,9 @@ export const selectionToolbarPlugin: NextEditorPlugin<
 				// This flattens the groups passed into the floating toolbar into a single list of items
 				for (let i = 0; i < resolved.length; i++) {
 					// add a seperator icon after each group except the last
-					items.push(...resolved[i].items);
+					if (Array.isArray(resolved[i]?.items)) {
+						items.push(...resolved[i].items);
+					}
 
 					if (editorExperiment('contextual_formatting_toolbar', true)) {
 						let shouldNotAddSeparator = false;

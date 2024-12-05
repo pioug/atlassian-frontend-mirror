@@ -10,11 +10,17 @@
 
 import React, { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css } from '@compiled/react';
 
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	bottomBar: {
+		marginBlockStart: token('space.200'),
+	},
+});
 
 const truncateStyles = css({
 	overflowX: 'hidden',
@@ -71,10 +77,6 @@ const titleContainerTruncateStyles = css({
 	flexShrink: 1,
 });
 
-const bottomBarStyles = xcss({
-	marginBlockStart: 'space.200',
-});
-
 /**
  * __Outer wrapper__.
  *
@@ -90,6 +92,7 @@ interface StyledTitleWrapperProps {
 	children?: React.ReactNode;
 	id?: string;
 	truncateTitle?: boolean;
+	testId?: string;
 }
 
 /**
@@ -99,9 +102,15 @@ interface StyledTitleWrapperProps {
  *
  */
 export const StyledTitleWrapper = React.forwardRef<HTMLHeadingElement, StyledTitleWrapperProps>(
-	({ children, id, truncateTitle }, ref) => {
+	({ children, id, truncateTitle, testId }, ref) => {
 		return (
-			<h1 css={[titleStyles, truncateTitle && truncateStyles]} ref={ref} tabIndex={-1} id={id}>
+			<h1
+				css={[titleStyles, truncateTitle && truncateStyles]}
+				ref={ref}
+				tabIndex={-1}
+				id={id}
+				data-testid={testId && `${testId}--title`}
+			>
 				{children}
 			</h1>
 		);
@@ -156,5 +165,5 @@ export const ActionsWrapper = ({ children }: { children: ReactNode }) => {
  *
  */
 export const BottomBarWrapper = ({ children }: { children: ReactNode }) => {
-	return <Box xcss={bottomBarStyles}>{children}</Box>;
+	return <Box xcss={styles.bottomBar}>{children}</Box>;
 };

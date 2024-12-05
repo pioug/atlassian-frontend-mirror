@@ -3,7 +3,7 @@ import React, { type ReactNode } from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import Tabs, { Tab, TabList, TabPanel, useTabPanel } from '../../index';
 import { TabPanelContext } from '../../internal/context';

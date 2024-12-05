@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/codegen/signed-source-integrity */
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
  *

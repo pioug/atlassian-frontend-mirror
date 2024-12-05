@@ -4,12 +4,18 @@
  */
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css } from '@compiled/react';
 
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import Tabs, { TabList, TabPanel, useTab } from '@atlaskit/tabs';
 import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	customTab: {
+		font: token('font.body.small'),
+	},
+});
 
 const panelStyles = css({
 	display: 'flex',
@@ -30,15 +36,11 @@ export const Panel = ({ children }: { children: ReactNode }) => (
 	<div css={panelStyles}>{children}</div>
 );
 
-const customTabStyles = xcss({
-	fontSize: '16px',
-});
-
 const CustomTab = ({ label }: { label: string }) => {
 	const tabAttributes = useTab();
 
 	return (
-		<Box xcss={customTabStyles} {...tabAttributes}>
+		<Box xcss={styles.customTab} {...tabAttributes}>
 			{label}
 		</Box>
 	);

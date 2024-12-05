@@ -739,7 +739,7 @@ export function ElementItem({
 		[index, inlineMode, item, onInsertItem, setFocusedItemIndex],
 	);
 
-	const { icon, title, description, keyshortcut } = item;
+	const { icon, title, description, keyshortcut, isDisabled } = item;
 	return (
 		<Tooltip content={description} testId={`element-item-tooltip-${index}`}>
 			<ButtonItem
@@ -750,6 +750,7 @@ export function ElementItem({
 				ref={ref}
 				testId={`element-item-${index}`}
 				id={`searched-item-${index}`}
+				isDisabled={isDisabled}
 			>
 				<ItemContent
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -758,6 +759,7 @@ export function ElementItem({
 					title={title}
 					description={description}
 					keyshortcut={keyshortcut}
+					isDisabled={isDisabled}
 				/>
 			</ButtonItem>
 		</Tooltip>
@@ -775,47 +777,59 @@ const ElementBefore = memo(({ icon }: Partial<QuickInsertItem>) => (
 	<div css={[itemIcon, itemIconStyle]}>{icon ? icon() : <IconFallback />}</div>
 ));
 
-const ItemContent = memo(({ title, description, keyshortcut }: Partial<QuickInsertItem>) => {
-	if (fg('platform_editor_typography_ugc')) {
-		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			<div css={itemBody} className="item-body">
-				<div css={itemText}>
-					<Stack space="space.025">
+const ItemContent = memo(
+	({ title, description, keyshortcut, isDisabled }: Partial<QuickInsertItem>) => {
+		if (fg('platform_editor_typography_ugc')) {
+			return (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				<div css={itemBody} className="item-body">
+					<div css={itemText}>
+						<Stack space="space.025">
+							<div css={itemTitleWrapper}>
+								<Text color={isDisabled ? 'color.text.disabled' : undefined} maxLines={1}>
+									{title}
+								</Text>
+								<div css={itemAfter}>
+									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
+									{keyshortcut && <div css={shortcutStyle}>{keyshortcut}</div>}
+								</div>
+							</div>
+							{description && (
+								<Text
+									color={isDisabled ? 'color.text.disabled' : 'color.text.subtle'}
+									size="small"
+									maxLines={2}
+								>
+									{description}
+								</Text>
+							)}
+						</Stack>
+					</div>
+				</div>
+			);
+		} else {
+			return (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				<div css={itemBody} className="item-body">
+					<div css={itemText}>
 						<div css={itemTitleWrapper}>
-							<Text maxLines={1}>{title}</Text>
+							{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text*/}
+							<p css={isDisabled ? itemTitleDisabled : itemTitle}>{title}</p>
 							<div css={itemAfter}>
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								{keyshortcut && <div css={shortcutStyle}>{keyshortcut}</div>}
 							</div>
 						</div>
 						{description && (
-							<Text color="color.text.subtle" size="small" maxLines={2}>
-								{description}
-							</Text>
+							// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
+							<p css={isDisabled ? itemDescriptionDisabled : itemDescription}>{description}</p>
 						)}
-					</Stack>
-				</div>
-			</div>
-		);
-	} else {
-		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			<div css={itemBody} className="item-body">
-				<div css={itemText}>
-					<div css={itemTitleWrapper}>
-						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text*/}
-						<p css={itemTitle}>{title}</p>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-						<div css={itemAfter}>{keyshortcut && <div css={shortcutStyle}>{keyshortcut}</div>}</div>
 					</div>
-					{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text*/}
-					{description && <p css={itemDescription}>{description}</p>}
 				</div>
-			</div>
-		);
-	}
-});
+			);
+		}
+	},
+);
 
 const elementItemsWrapper = css({
 	flex: 1,
@@ -896,6 +910,15 @@ const itemDescription = css(multilineStyle, {
 	marginTop: token('space.025', '2px'),
 });
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+const itemDescriptionDisabled = css(multilineStyle, {
+	overflow: 'hidden',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	fontSize: relativeFontSizeToBase16(11.67),
+	color: token('color.text.disabled'),
+	marginTop: token('space.025', '2px'),
+});
+
 const itemText = css({
 	width: 'inherit',
 	whiteSpace: 'initial',
@@ -910,6 +933,14 @@ const itemTitle = css({
 	overflow: 'hidden',
 	whiteSpace: 'nowrap',
 	textOverflow: 'ellipsis',
+});
+
+const itemTitleDisabled = css({
+	width: '100%',
+	overflow: 'hidden',
+	whiteSpace: 'nowrap',
+	textOverflow: 'ellipsis',
+	color: token('color.text.disabled'),
 });
 
 const itemAfter = css({

@@ -45,6 +45,14 @@ type ConstructorOptions = {
 	selectorConfig: SelectorConfig;
 };
 
+function isInsideEditorContainer(target: Element): boolean {
+	if (!target || typeof target.closest !== 'function') {
+		return false;
+	}
+
+	return Boolean(target.closest('.ProseMirror'));
+}
+
 export class Observers implements BrowserObservers {
 	private intersectionObserver: IntersectionObserver | null;
 
@@ -355,6 +363,12 @@ export class Observers implements BrowserObservers {
 
 								if (!isVisible) {
 									data.ignoreReason = 'not-visible';
+								}
+							}
+
+							if (fg('platform_editor_ed-25937_ignore_mutations_for_ttvc')) {
+								if (isInsideEditorContainer(target)) {
+									data.ignoreReason = 'editor-container-mutation';
 								}
 							}
 

@@ -188,7 +188,7 @@ export default () => {
 								}))}
 							/>
 							<Break />
-							<DatePicker testId="date-picker" />
+							<DatePicker shouldShowCalendarButton testId="date-picker" />
 							<Break />
 							<DropdownMenu testId="dropdown-menu" trigger="I'm a dropdown menu, click me!">
 								<DropdownItemGroup>

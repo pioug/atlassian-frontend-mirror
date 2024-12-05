@@ -8,14 +8,12 @@ import { Fragment, lazy, Suspense, useMemo } from 'react';
 import { css, jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
-import Loadable from 'react-loadable';
 
 import { IconButton } from '@atlaskit/button/new';
 import type { Icon } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import { N200 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
@@ -121,21 +119,14 @@ const Header = ({
 	intl,
 }: Props) => {
 	const ResolvedIcon = useMemo(() => {
-		if (fg('platform_editor_react18_phase2_loadable')) {
-			return lazy(() =>
-				icon().then((Cmp) => {
-					if ('default' in Cmp) {
-						return Cmp;
-					}
-					return { default: Cmp };
-				}),
-			);
-		}
-
-		return Loadable<{ label: string }, never>({
-			loader: icon,
-			loading: () => null,
-		});
+		return lazy(() =>
+			icon().then((Cmp) => {
+				if ('default' in Cmp) {
+					return Cmp;
+				}
+				return { default: Cmp };
+			}),
+		);
 	}, [icon]);
 
 	return (

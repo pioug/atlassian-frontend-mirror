@@ -187,6 +187,13 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 		isFocusSearch = !categoryBeenChosen.current || !isEmptySearchTerm;
 	}
 
+	const itemIsDisabled = useCallback(
+		(index: number) => {
+			return items[index]?.isDisabled ?? false;
+		},
+		[items],
+	);
+
 	const {
 		selectedItemIndex,
 		focusedItemIndex,
@@ -201,6 +208,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 		items.length - 1,
 		columnCount,
 		!!viewMoreItem,
+		itemIsDisabled,
 		isFocusSearch,
 	);
 
@@ -247,7 +255,7 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 				return;
 			}
 
-			if (onInsertItem && selectedItem != null) {
+			if (onInsertItem && selectedItem != null && !(selectedItem.isDisabled ?? false)) {
 				onInsertItem(selectedItem);
 			}
 			e.preventDefault();

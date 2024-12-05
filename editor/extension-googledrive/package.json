@@ -28,7 +28,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/adf-utils": "^19.14.0",
-		"@atlaskit/editor-common": "^96.1.0",
+		"@atlaskit/editor-common": "^96.2.0",
 		"@atlaskit/icon": "^23.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@types/gapi": "0.0.44"

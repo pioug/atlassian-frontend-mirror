@@ -47,7 +47,7 @@
 	"devDependencies": {
 		"@af/formatting": "*",
 		"@af/icon-build-process": "^2.4.0",
-		"@atlaskit/textfield": "^6.6.0",
+		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/tooltip": "^18.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/codegen": "^0.1.2",

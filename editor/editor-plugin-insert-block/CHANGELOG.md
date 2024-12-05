@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.20
+
+### Patch Changes
+
+- [#173737](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173737)
+  [`965f739a481f5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/965f739a481f5) -
+  [ux] Items are disabled in the plus menu while offline. This affects arrow navigation in the plus
+  menu and element browser
+- Updated dependencies
+
 ## 2.4.19
 
 ### Patch Changes

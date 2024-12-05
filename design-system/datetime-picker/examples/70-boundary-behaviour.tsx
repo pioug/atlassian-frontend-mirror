@@ -57,7 +57,7 @@ export default () => {
 								id="react-select-above--input"
 								defaultValue={dateTimePickerValue}
 								onChange={onDateTimePickerChange}
-								datePickerProps={{ label: 'DateTime, date' }}
+								datePickerProps={{ shouldShowCalendarButton: true, label: 'DateTime, date' }}
 								timePickerProps={{ label: 'DateTime, time' }}
 								clearControlLabel="Clear DateTime"
 							/>

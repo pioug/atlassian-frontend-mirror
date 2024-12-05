@@ -9,25 +9,16 @@ import { Fragment, useCallback, useEffect, useMemo, useRef } from 'react';
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import { type DatasourceParameters } from '@atlaskit/linking-types';
 import { ModalBody, ModalFooter, ModalHeader, ModalTitle } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
-import { componentMetadata } from '../../../analytics/constants';
-import {
-	type AnalyticsContextAttributesType,
-	type AnalyticsContextType,
-	type ComponentMetaDataType,
-} from '../../../analytics/generated/analytics.types';
 import { DatasourceAction, DatasourceSearchMethod } from '../../../analytics/types';
 import { type Site } from '../../../common/types';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
-import { DatasourceExperienceIdProvider } from '../../../contexts/datasource-experience-id';
-import { UserInteractionsProvider, useUserInteractions } from '../../../contexts/user-interactions';
+import { useUserInteractions } from '../../../contexts/user-interactions';
 import i18nEN from '../../../i18n/en';
 import { useAvailableSites } from '../../../services/useAvailableSites';
 import { StoreContainer } from '../../../state';
@@ -59,7 +50,6 @@ import {
 
 import { ConfluenceSearchInitialStateSVG } from './confluence-search-initial-state-svg';
 import { confluenceSearchModalMessages } from './messages';
-import { PlainConfluenceSearchConfigModal as PlainConfluenceSearchConfigModalOld } from './ModalOld';
 
 const inputContainerStyles = xcss({
 	alignItems: 'baseline',
@@ -435,22 +425,6 @@ export const PlainConfluenceSearchConfigModal = (
 	);
 };
 
-const analyticsContextAttributes: AnalyticsContextAttributesType = {
-	dataProvider: 'confluence-search',
-};
-
-const analyticsContextData: AnalyticsContextType & ComponentMetaDataType = {
-	...componentMetadata.configModal,
-	source: 'datasourceConfigModal',
-};
-
-const contextData = {
-	...analyticsContextData,
-	attributes: {
-		...analyticsContextAttributes,
-	},
-};
-
 const ConnectedConfluenceSearchConfigModal =
 	createDatasourceModal<ConfluenceSearchDatasourceParameters>({
 		isValidParameters,
@@ -459,35 +433,21 @@ const ConnectedConfluenceSearchConfigModal =
 	});
 
 export const ConfluenceSearchConfigModal = (props: ConfluenceSearchConfigModalProps) => {
-	if (fg('platform-datasources-use-refactored-config-modal')) {
-		return (
-			<StoreContainer>
-				<ConnectedConfluenceSearchConfigModal
-					{...props}
-					/**
-					 * If the intial parameters are not valid, we will not initialise the modal state
-					 * with `overrideParameters`. This is to allow the modal to be opened without
-					 * any initial parameters and require the user to perform a search.
-					 */
-					parameters={
-						props.overrideParameters && isValidParameters(props.parameters)
-							? { ...props.parameters, ...props.overrideParameters }
-							: props.parameters
-					}
-				/>
-			</StoreContainer>
-		);
-	}
-
 	return (
 		<StoreContainer>
-			<AnalyticsContext data={contextData}>
-				<DatasourceExperienceIdProvider>
-					<UserInteractionsProvider>
-						<PlainConfluenceSearchConfigModalOld {...props} />
-					</UserInteractionsProvider>
-				</DatasourceExperienceIdProvider>
-			</AnalyticsContext>
+			<ConnectedConfluenceSearchConfigModal
+				{...props}
+				/**
+				 * If the intial parameters are not valid, we will not initialise the modal state
+				 * with `overrideParameters`. This is to allow the modal to be opened without
+				 * any initial parameters and require the user to perform a search.
+				 */
+				parameters={
+					props.overrideParameters && isValidParameters(props.parameters)
+						? { ...props.parameters, ...props.overrideParameters }
+						: props.parameters
+				}
+			/>
 		</StoreContainer>
 	);
 };

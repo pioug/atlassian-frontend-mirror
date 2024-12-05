@@ -28,7 +28,7 @@ export default () => {
 				}}
 				isInvalid={invalid}
 				clearControlLabel="Clear current time"
-				datePickerProps={{ label: `Current date` }}
+				datePickerProps={{ shouldShowCalendarButton: true, label: `Current date` }}
 			/>
 		</Box>
 	);

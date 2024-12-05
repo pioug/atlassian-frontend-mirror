@@ -1,6 +1,6 @@
 # `shorthand-property-sorting`
 
-This ESLint rule enforces the expansion of CSS `border` shorthand property, into it's longhand
+This ESLint rule enforces the expansion of CSS `border` shorthand property, into its longhand
 equivalents `borderStyle`, `borderWidth`, `borderColor`, for packages that originates from
 `@compiled/react`, and `@atlaskit/css`.
 

@@ -391,6 +391,24 @@ export function contentAllowedInCodeBlock(state: EditorState): boolean {
 	return isAllowedChild;
 }
 
+/**
+ * 	Check if a fragment contains a particular node by iterating through all the nodes in the fragment.
+ *  If the node type is found will stop looking and return true.
+ *  If the node type is not found, it will return false.
+ */
+export function fragmentContainsNodeType(fragment: Fragment, nodeType: NodeType): boolean {
+	let doesContainNodeType = false;
+	fragment.descendants((node) => {
+		if (node.type === nodeType) {
+			doesContainNodeType = true;
+			// Stop looking
+			return false;
+		}
+		return true;
+	});
+	return doesContainNodeType;
+}
+
 // For platform_editor_element_level_templates experiment only
 // clean up ticket ED-24873
 const insertTemplateFragment = ({

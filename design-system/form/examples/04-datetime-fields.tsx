@@ -114,6 +114,7 @@ export default () => {
 										<DateTimePicker
 											{...rest}
 											datePickerProps={{
+												shouldShowCalendarButton: true,
 												selectProps: {
 													'aria-invalid': ariaInvalid,
 													ref: preferenceFieldRef,

@@ -36,9 +36,7 @@ const fullNameLabelStyles = xcss({
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
-	fontSize: token('font.body.large'),
-	letterSpacing: 'normal',
-	lineHeight: `${24 / 18}em`,
+	font: token('font.body.large'),
 });
 
 const noMetaLabelStyles = xcss({

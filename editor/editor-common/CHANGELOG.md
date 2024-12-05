@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 96.2.0
+
+### Minor Changes
+
+- [#168049](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168049)
+  [`f0b76d1c73ba0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f0b76d1c73ba0) -
+  [ux] Utilizing the new extension plugin's \_\_rendererExtensionOptions option to be able to render
+  renderer view of bodied extensions on toggle in editor
+
+## 96.1.1
+
+### Patch Changes
+
+- [#173737](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173737)
+  [`965f739a481f5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/965f739a481f5) -
+  [ux] Items are disabled in the plus menu while offline. This affects arrow navigation in the plus
+  menu and element browser
+- [#173404](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173404)
+  [`e5dc6a590c2e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e5dc6a590c2e9) -
+  fixed import path to resolve build error
+- [#170241](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170241)
+  [`05530abbeb871`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/05530abbeb871) -
+  [ux] [ED-25804] [ED-25147] Make sure that Editor AI cannot insert tables nested more than two
+  times into the Editor
+- Updated dependencies
+
 ## 96.1.0
 
 ### Minor Changes

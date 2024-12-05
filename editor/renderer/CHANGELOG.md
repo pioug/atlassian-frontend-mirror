@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 112.6.13
+
+### Patch Changes
+
+- [#156429](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/156429)
+  [`01453825d9537`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01453825d9537) -
+  added renderer functional component behind FF as part of React18 upgrade
+
 ## 112.6.12
 
 ### Patch Changes

@@ -384,15 +384,6 @@ function ReactEditorView(props: EditorViewProps) {
 	// Initialise phase
 	// Using constructor hook so we setup and dispatch analytics before anything else
 	useConstructor(() => {
-		dispatchAnalyticsEvent({
-			action: ACTION.STARTED,
-			actionSubject: ACTION_SUBJECT.EDITOR,
-			attributes: {
-				platform: PLATFORMS.WEB,
-				featureFlags: featureFlags ? getEnabledFeatureFlagKeys(featureFlags) : [],
-			},
-			eventType: EVENT_TYPE.UI,
-		});
 		// Transaction dispatching is already enabled by default prior to
 		// mounting, but we reset it here, just in case the editor view
 		// instance is ever recycled (mounted again after unmounting) with
@@ -405,6 +396,16 @@ function ReactEditorView(props: EditorViewProps) {
 		// we dispatch analytics events in plugin initialisation
 		eventDispatcher.on(analyticsEventKey, handleAnalyticsEvent);
 		eventDispatcher.on('resetEditorState', resetEditorState);
+
+		dispatchAnalyticsEvent({
+			action: ACTION.STARTED,
+			actionSubject: ACTION_SUBJECT.EDITOR,
+			attributes: {
+				platform: PLATFORMS.WEB,
+				featureFlags: featureFlags ? getEnabledFeatureFlagKeys(featureFlags) : [],
+			},
+			eventType: EVENT_TYPE.UI,
+		});
 	});
 
 	// Cleanup

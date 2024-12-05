@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 203.2.0
+
+### Minor Changes
+
+- [#172055](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172055)
+  [`0d29a934f8699`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d29a934f8699) -
+  add UFO interaction names to comment editor buttons
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 203.1.0
 
 ### Minor Changes

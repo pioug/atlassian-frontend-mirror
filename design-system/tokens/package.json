@@ -48,7 +48,7 @@
 		"@atlaskit/calendar": "^15.1.0",
 		"@atlaskit/checkbox": "^15.2.0",
 		"@atlaskit/radio": "^6.6.0",
-		"@atlaskit/textfield": "^6.6.0",
+		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/tooltip": "^18.9.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/codegen": "^0.1.0",

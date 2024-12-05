@@ -9,6 +9,7 @@ interface State {
 	isDialogOpen: boolean;
 }
 
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class InlineDialogDatepickerExample extends Component<{}, State> {
 	state = {
 		isDialogOpen: true,
@@ -43,7 +44,7 @@ export default class InlineDialogDatepickerExample extends Component<{}, State> 
 				</div>
 				<div>
 					<label htmlFor="datepicker">Date picker</label>
-					<DatePicker id="datepicker" testId="date-picker" />
+					<DatePicker shouldShowCalendarButton id="datepicker" testId="date-picker" />
 				</div>
 			</div>
 		);

@@ -21,7 +21,7 @@ import type {
 } from '../extensions';
 import type { ProsemirrorGetPosHandler } from '../react-node-view';
 import type { EditorAppearance } from '../types';
-import { getExtensionRenderer, nodeToJSON } from '../utils';
+import { getExtensionRenderer, nodeToJSON, toJSON } from '../utils';
 
 import Extension from './Extension/Extension';
 import InlineExtension from './Extension/InlineExtension';
@@ -79,6 +79,15 @@ const isEmptyBodiedMacro = (node: PMNode) => {
 	const isEmptyWithNoContent = !firstGrandChildNode && node.childCount === 1;
 
 	return isEmptyWithPlacholder || isEmptyWithNoContent;
+};
+
+const getBodiedExtensionContent = (node: PMNode): ADFEntity[] | string | undefined => {
+	const bodiedExtensionContent: ADFEntity[] = [];
+	node.content.forEach((childNode: PMNode) => {
+		bodiedExtensionContent.push(nodeToJSON(childNode));
+	});
+
+	return !!bodiedExtensionContent.length ? bodiedExtensionContent : node.attrs.text;
 };
 
 export class ExtensionComponentOld extends Component<Props, State> {
@@ -295,7 +304,7 @@ export class ExtensionComponentOld extends Component<Props, State> {
 	}
 
 	private handleExtension = (pmNode: PMNode, actions: MultiBodiedExtensionActions | undefined) => {
-		const { extensionHandlers, editorView } = this.props;
+		const { extensionHandlers, editorView, rendererExtensionHandlers } = this.props;
 		const { showBodiedExtensionRendererView } = this.state; // State will only be true if the gate is on and meets requirements
 		const { extensionType, extensionKey, parameters, text } = pmNode.attrs;
 		const isBodiedExtension = pmNode.type.name === 'bodiedExtension';
@@ -305,13 +314,7 @@ export class ExtensionComponentOld extends Component<Props, State> {
 		}
 
 		const fragmentLocalId = pmNode?.marks?.find((m) => m.type.name === 'fragment')?.attrs?.localId;
-
-		const nodeContent: PMNode[] = [];
-		if (isBodiedExtension) {
-			pmNode?.content?.forEach((childNode) => {
-				nodeContent.push(childNode);
-			});
-		}
+		const content = isBodiedExtension ? getBodiedExtensionContent(pmNode) : text;
 
 		const node: ExtensionParams<Parameters> = {
 			type: pmNode.type.name as
@@ -322,10 +325,18 @@ export class ExtensionComponentOld extends Component<Props, State> {
 			extensionType,
 			extensionKey,
 			parameters,
-			content: isBodiedExtension ? (nodeContent.length ? nodeContent : text) : text,
+			content,
 			localId: pmNode.attrs.localId,
 			fragmentLocalId,
 		};
+
+		if (isBodiedExtension) {
+			const rendererExtensionHandler = rendererExtensionHandlers?.[extensionType];
+			if (!rendererExtensionHandler) {
+				return null;
+			}
+			return getExtensionRenderer(rendererExtensionHandler)(node, toJSON(editorView.state.doc));
+		}
 
 		let result;
 
@@ -561,7 +572,12 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 	}
 
 	private handleExtension = (pmNode: PMNode, actions: MultiBodiedExtensionActions | undefined) => {
-		const { extensionHandlers, editorView, showBodiedExtensionRendererView } = this.props;
+		const {
+			extensionHandlers,
+			editorView,
+			showBodiedExtensionRendererView,
+			rendererExtensionHandlers,
+		} = this.props;
 		const { extensionType, extensionKey, parameters, text } = pmNode.attrs;
 		const isBodiedExtension = pmNode.type.name === 'bodiedExtension';
 
@@ -570,13 +586,7 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 		}
 
 		const fragmentLocalId = pmNode?.marks?.find((m) => m.type.name === 'fragment')?.attrs?.localId;
-
-		const nodeContent: PMNode[] = [];
-		if (isBodiedExtension) {
-			pmNode?.content?.forEach((childNode) => {
-				nodeContent.push(childNode);
-			});
-		}
+		const content = isBodiedExtension ? getBodiedExtensionContent(pmNode) : text;
 
 		const node: ExtensionParams<Parameters> = {
 			type: pmNode.type.name as
@@ -587,10 +597,18 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 			extensionType,
 			extensionKey,
 			parameters,
-			content: isBodiedExtension ? (nodeContent.length ? nodeContent : text) : text,
+			content,
 			localId: pmNode.attrs.localId,
 			fragmentLocalId,
 		};
+
+		if (isBodiedExtension) {
+			const rendererExtensionHandler = rendererExtensionHandlers?.[extensionType];
+			if (!rendererExtensionHandler) {
+				return null;
+			}
+			return getExtensionRenderer(rendererExtensionHandler)(node, toJSON(editorView.state.doc));
+		}
 
 		let result;
 

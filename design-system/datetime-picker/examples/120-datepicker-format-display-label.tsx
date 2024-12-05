@@ -17,6 +17,7 @@ export default () => (
 	<Box>
 		<Label htmlFor="datepicker">Date picker</Label>
 		<DatePicker
+			shouldShowCalendarButton
 			id="datepicker"
 			clearControlLabel="Clear date picker"
 			onChange={logValue}

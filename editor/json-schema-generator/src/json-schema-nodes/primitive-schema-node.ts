@@ -16,5 +16,3 @@ export default class PrimitiveSchemaNode<T extends Indexed> extends SchemaNodeWi
 		return this.toJSON();
 	}
 }
-
-export type { Indexed };

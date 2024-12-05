@@ -1,5 +1,25 @@
 # @atlaskit/select
 
+## 18.8.0
+
+### Minor Changes
+
+- [#173737](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173737)
+  [`667640085e5c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/667640085e5c7) -
+  Update the font size for the textarea and select components at the `xs` breakpoint. The font size
+  will be increased to 16px to prevent IOS Safari from zooming in on the text field when it is
+  focused. Styles for larger breakpoints will remain unchanged.
+
+  Apply a fix to the textfield component to ensure monospace is correctly applied to the input at
+  the `media.above.xs` breakpoint.
+
+  These changes are currently behind a feature gate and will be evaluated for effectiveness. If
+  successful, they will be included in a future release.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.7.1
 
 ### Patch Changes

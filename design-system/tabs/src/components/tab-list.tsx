@@ -4,15 +4,14 @@
  */
 import { Children, createRef, type KeyboardEvent, type ReactNode, useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { B400, B500, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useTabList } from '../hooks';
 import { TabContext } from '../internal/context';
-import { getTabListStyles, getTabListStylesOld } from '../internal/styles';
 import { type TabListProps } from '../types';
 
 const baseStyles = css({
@@ -21,10 +20,157 @@ const baseStyles = css({
 	position: 'relative',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const tabListStyles = getTabListStyles();
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const tabListStylesOld = getTabListStylesOld();
+const tabListStyles = css({
+	fontWeight: token('font.weight.medium', '500'),
+	marginInlineStart: token('space.negative.100', '-8px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
+	'& [role="tab"]': {
+		margin: 0,
+		padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
+		position: 'relative',
+		color: token('color.text.subtle', N500),
+		cursor: 'pointer',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		'&:hover': {
+			// TODO: interaction states will be reviewed in DSP-1438
+			color: token('color.text.subtle', B400),
+			'&::after': {
+				width: 'inherit',
+				height: 0,
+				margin: 0,
+				position: 'absolute',
+				borderBlockEnd: `${token('border.width.indicator')} solid ${token('color.border', 'transparent')}`,
+				content: '""',
+				insetBlockEnd: 0,
+				insetInlineEnd: token('space.100', '8px'),
+				insetInlineStart: token('space.100', '8px'),
+			},
+		},
+		'&:active': {
+			// TODO: interaction states will be reviewed in DSP-1438
+			color: token('color.text', B500),
+			'&::after': {
+				width: 'inherit',
+				height: 0,
+				margin: 0,
+				position: 'absolute',
+				borderBlockEnd: `${token('border.width.indicator')} solid ${token('color.border', 'transparent')}`,
+				content: '""',
+				insetBlockEnd: 0,
+				insetInlineEnd: token('space.100', '8px'),
+				insetInlineStart: token('space.100', '8px'),
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
+		'&[aria-selected="true"]': {
+			color: token('color.text.selected', B400),
+			'&::after': {
+				width: 'inherit',
+				height: 0,
+				margin: 0,
+				position: 'absolute',
+				// This line is a border so it is visible in high contrast mode
+				borderBlockEnd: `${token('border.width.indicator')} solid ${token('color.border.selected', B400)}`,
+				content: '""',
+				insetBlockEnd: 0,
+				insetInlineEnd: token('space.100', '8px'),
+				insetInlineStart: token('space.100', '8px'),
+			},
+		},
+	},
+	'&::before': {
+		width: 'inherit',
+		height: token('border.width'),
+		margin: 0,
+		position: 'absolute',
+		// This line is not a border so the selected line is visible in high contrast mode
+		backgroundColor: token('color.border', N30),
+		content: '""',
+		insetBlockEnd: 0,
+		insetInlineEnd: 0,
+		insetInlineStart: token('space.100', '8px'),
+	},
+});
+
+const tabListStylesOld = css({
+	fontWeight: token('font.weight.medium', '500'),
+	marginInlineStart: token('space.negative.100', '-8px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
+	'& [role="tab"]': {
+		margin: 0,
+		padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
+		position: 'relative',
+		color: token('color.text.subtle', N500),
+		cursor: 'pointer',
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		whiteSpace: 'nowrap',
+		'&:hover': {
+			// TODO: interaction states will be reviewed in DSP-1438
+			color: token('color.text.subtle', B400),
+			'&::after': {
+				width: 'inherit',
+				height: 0,
+				margin: 0,
+				position: 'absolute',
+				borderBlockEnd: `${token('border.width.outline', '2px')} solid ${token('color.border', 'transparent')}`,
+				borderRadius: token('border.radius.050', '2px'),
+				content: '""',
+				insetBlockEnd: 0,
+				insetInlineEnd: token('space.100', '8px'),
+				insetInlineStart: token('space.100', '8px'),
+			},
+		},
+		'&:active': {
+			// TODO: interaction states will be reviewed in DSP-1438
+			color: token('color.text', B500),
+			'&::after': {
+				width: 'inherit',
+				height: 0,
+				margin: 0,
+				position: 'absolute',
+				borderBlockEnd: `${token('border.width.outline', '2px')} solid ${token('color.border', 'transparent')}`,
+				borderRadius: token('border.radius.050', '2px'),
+				content: '""',
+				insetBlockEnd: 0,
+				insetInlineEnd: token('space.100', '8px'),
+				insetInlineStart: token('space.100', '8px'),
+			},
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
+		'&[aria-selected="true"]': {
+			color: token('color.text.selected', B400),
+			'&::after': {
+				width: 'inherit',
+				height: 0,
+				margin: 0,
+				position: 'absolute',
+				// This line is a border so it is visible in high contrast mode
+				borderBlockEnd: `${token('border.width.outline', '2px')} solid ${token('color.border.selected', B400)}`,
+				borderRadius: token('border.radius.050', '2px'),
+				content: '""',
+				insetBlockEnd: 0,
+				insetInlineEnd: token('space.100', '8px'),
+				insetInlineStart: token('space.100', '8px'),
+			},
+		},
+	},
+	'&::before': {
+		width: 'inherit',
+		height: token('border.width.outline', '2px'),
+		margin: 0,
+		position: 'absolute',
+		// This line is not a border so the selected line is visible in high contrast mode
+		backgroundColor: token('color.border', N30),
+		borderRadius: token('border.radius.050', '2px'),
+		content: '""',
+		insetBlockEnd: 0,
+		insetInlineEnd: 0,
+		insetInlineStart: token('space.100', '8px'),
+	},
+});
 
 /**
  * __TabList__

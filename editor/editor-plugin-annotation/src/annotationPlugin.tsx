@@ -114,10 +114,14 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 						api,
 					}) as SelectionToolbarGroup;
 
-					return {
-						...toolbarConfig,
-						rank: editorExperiment('contextual_formatting_toolbar', true) ? 1 : undefined,
-					};
+					if (!toolbarConfig) {
+						return undefined;
+					} else {
+						return {
+							...toolbarConfig,
+							rank: editorExperiment('contextual_formatting_toolbar', true) ? 1 : undefined,
+						};
+					}
 				}
 			},
 		},

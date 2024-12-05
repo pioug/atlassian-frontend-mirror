@@ -82,10 +82,21 @@ function Editor() {
 			.add(basePlugin)
 			.add(blockTypePlugin)
 			.add(typeAheadPlugin)
-			.add(quickInsertPlugin)
+			.add([
+				quickInsertPlugin,
+				{
+					enableElementBrowser: true,
+				},
+			])
 			.add(hyperlinkPlugin)
 			.add(widthPlugin)
-			.add(insertBlockPlugin)
+			.add([
+				insertBlockPlugin,
+				{
+					showElementBrowserLink: true,
+					appearance: 'full-page',
+				},
+			])
 			.add(editorDisabledPlugin)
 			.add(decorationsPlugin)
 			.add(copyButtonPlugin)

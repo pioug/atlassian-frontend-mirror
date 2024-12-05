@@ -73,8 +73,7 @@ import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import * as ProcessRawValueModule from '@atlaskit/editor-common/process-raw-value';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
-import { measureRender, SEVERITY } from '@atlaskit/editor-common/utils';
-import { toJSON } from '@atlaskit/editor-common/utils';
+import { measureRender, SEVERITY, toJSON } from '@atlaskit/editor-common/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -156,6 +155,17 @@ describe('@atlaskit/editor-core', () => {
 	});
 
 	afterEach(jest.clearAllMocks);
+
+	it('should trigger editor started analytics event', () => {
+		renderWithIntl(<ReactEditorView {...requiredProps()} {...analyticsProps()} />);
+
+		expect(mockFire).toHaveBeenCalledWith({
+			payload: expect.objectContaining({
+				action: 'started',
+				actionSubject: 'editor',
+			}),
+		});
+	});
 
 	describe('sanitize private content', () => {
 		const document = doc(p('hello', mention({ id: '1', text: '@cheese' })(), '{endPos}'))(

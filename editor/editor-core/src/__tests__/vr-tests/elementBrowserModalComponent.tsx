@@ -72,10 +72,53 @@ const ElementBrowserComp = () => {
 
 	return <ElementBrowserWithIntl getItems={getItems} />;
 };
-export default () => (
+export const ElementBrowserModal = () => (
 	<div css={hideEnterKey}>
 		<EditorContext>
 			<ElementBrowserComp />
+		</EditorContext>
+	</div>
+);
+
+const ElementBrowserCompWithDisabled = () => {
+	const getItems: () => QuickInsertItem[] = () => [
+		{
+			name: 'item-1',
+			title: 'Item 1',
+			description: 'Item 1 description',
+			action: () => false,
+			categories: ['category-2'],
+		},
+		{
+			name: 'item-2',
+			title: 'Item 2',
+			description: 'Item 2 description',
+			action: () => false,
+			isDisabled: true,
+			categories: ['category-3'],
+		},
+		{
+			name: 'item-3',
+			title: 'Item 3',
+			isDisabled: true,
+			action: () => false,
+			categories: ['category-3'],
+		},
+		{
+			name: 'item-4',
+			title: 'Item 4',
+			description: 'Item 4 description',
+			action: () => false,
+			categories: ['category-3'],
+		},
+	];
+
+	return <ElementBrowserWithIntl getItems={getItems} />;
+};
+export const ElementBrowserModalWithDisabled = () => (
+	<div css={hideEnterKey}>
+		<EditorContext>
+			<ElementBrowserCompWithDisabled />
 		</EditorContext>
 	</div>
 );

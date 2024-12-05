@@ -30,7 +30,7 @@ const imgStyles = css({
 });
 
 const textStyles = css({
-	fontSize: token('space.150', '12px'),
+	font: token('font.body.UNSAFE_small'),
 	color: `${token('color.text.subtlest', N300)}`,
 	marginRight: token('space.050', '4px'),
 	marginLeft: token('space.025', '2px'),

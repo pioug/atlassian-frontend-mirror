@@ -10,7 +10,6 @@ import { Fragment, useCallback, useEffect, useMemo, useRef, useState } from 'rea
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
 
-import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
 import type { DatasourceParameters, Link } from '@atlaskit/linking-types';
 import {
@@ -20,15 +19,9 @@ import {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
-import { componentMetadata, EVENT_CHANNEL } from '../../../analytics/constants';
-import type {
-	AnalyticsContextAttributesType,
-	AnalyticsContextType,
-	ComponentMetaDataType,
-} from '../../../analytics/generated/analytics.types';
+import { EVENT_CHANNEL } from '../../../analytics/constants';
 import { DatasourceAction, DatasourceDisplay } from '../../../analytics/types';
 import { startUfoExperience } from '../../../analytics/ufoExperiences';
 import { useColumnPickerRenderedFailedUfoExperience } from '../../../analytics/ufoExperiences/hooks/useColumnPickerRenderedFailedUfoExperience';
@@ -36,11 +29,8 @@ import { useDataRenderedUfoExperience } from '../../../analytics/ufoExperiences/
 import { mapSearchMethod } from '../../../analytics/utils';
 import type { DisplayViewModes, JiraSearchMethod, Site } from '../../../common/types';
 import { fetchMessagesForLocale } from '../../../common/utils/locale/fetch-messages-for-locale';
-import {
-	DatasourceExperienceIdProvider,
-	useDatasourceExperienceId,
-} from '../../../contexts/datasource-experience-id';
-import { UserInteractionsProvider, useUserInteractions } from '../../../contexts/user-interactions';
+import { useDatasourceExperienceId } from '../../../contexts/datasource-experience-id';
+import { useUserInteractions } from '../../../contexts/user-interactions';
 import i18nEN from '../../../i18n/en';
 import { useAvailableSites } from '../../../services/useAvailableSites';
 import { StoreContainer } from '../../../state';
@@ -77,7 +67,6 @@ import {
 
 import { JiraInitialStateSVG } from './jira-issues-initial-state-svg';
 import { modalMessages } from './messages';
-import { PlainJiraIssuesConfigModalOld } from './ModalOld';
 
 const getDisplayValue = (currentViewMode: DisplayViewModes, itemCount: number) => {
 	if (currentViewMode === 'table') {
@@ -509,22 +498,6 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 	);
 };
 
-const analyticsContextAttributes: AnalyticsContextAttributesType = {
-	dataProvider: 'jira-issues',
-};
-
-const analyticsContextData: AnalyticsContextType & ComponentMetaDataType = {
-	...componentMetadata.configModal,
-	source: 'datasourceConfigModal',
-};
-
-const contextData = {
-	...analyticsContextData,
-	attributes: {
-		...analyticsContextAttributes,
-	},
-};
-
 const ConnectedJiraIssueConfigModal = createDatasourceModal({
 	isValidParameters,
 	dataProvider: 'jira-issues',
@@ -558,19 +531,5 @@ const JiraIssuesConfigModalWithExtraAnalyticsOnInsert = (props: JiraConfigModalP
 };
 
 export const JiraIssuesConfigModal = (props: JiraConfigModalProps) => {
-	if (fg('platform-datasources-use-refactored-config-modal')) {
-		return <JiraIssuesConfigModalWithExtraAnalyticsOnInsert {...props} />;
-	}
-
-	return (
-		<StoreContainer>
-			<AnalyticsContext data={contextData}>
-				<DatasourceExperienceIdProvider>
-					<UserInteractionsProvider>
-						<PlainJiraIssuesConfigModalOld {...props} />
-					</UserInteractionsProvider>
-				</DatasourceExperienceIdProvider>
-			</AnalyticsContext>
-		</StoreContainer>
-	);
+	return <JiraIssuesConfigModalWithExtraAnalyticsOnInsert {...props} />;
 };

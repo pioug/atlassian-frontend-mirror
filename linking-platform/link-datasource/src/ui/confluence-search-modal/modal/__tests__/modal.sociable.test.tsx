@@ -7,7 +7,6 @@ import { IntlProvider } from 'react-intl-next';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import SmartLinkClient from '../../../../../examples-helpers/smartLinkCustomClient';
 import { useCurrentUserInfo } from '../../basic-filters/hooks/useCurrentUserInfo';
@@ -157,213 +156,211 @@ describe('ConfluenceSearchConfigModal', () => {
 		});
 	});
 
-	ffTest.both('platform-datasources-use-refactored-config-modal', '', () => {
-		it('should return all results when user search with empty search term', async () => {
-			givenDatasourceForAllQueries([
-				{
-					id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/921076941',
-					title: 'Confluence Page 1',
-				},
-			]);
+	it('should return all results when user search with empty search term', async () => {
+		givenDatasourceForAllQueries([
+			{
+				id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/921076941',
+				title: 'Confluence Page 1',
+			},
+		]);
 
-			await userOpenModal();
+		await userOpenModal();
 
-			await userPerformSearchWithCurrentTerm();
+		await userPerformSearchWithCurrentTerm();
 
-			expect(
-				await within(await screen.findByTestId('confluence-search-datasource-table')).findByText(
-					'Confluence Page 1',
-				),
-			).toBeVisible();
-		});
+		expect(
+			await within(await screen.findByTestId('confluence-search-datasource-table')).findByText(
+				'Confluence Page 1',
+			),
+		).toBeVisible();
+	});
 
-		it('should return filtered results when user search with search term', async () => {
-			givenDatasourceDataForQuery({ searchString: 'Confluence Page 1' }, [
-				{
-					id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/921076941',
-					title: 'Confluence Page 1',
-				},
-			]);
+	it('should return filtered results when user search with search term', async () => {
+		givenDatasourceDataForQuery({ searchString: 'Confluence Page 1' }, [
+			{
+				id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/921076941',
+				title: 'Confluence Page 1',
+			},
+		]);
 
-			await userOpenModal();
+		await userOpenModal();
 
-			await userPerformSearchWithTerm('Confluence Page 1');
+		await userPerformSearchWithTerm('Confluence Page 1');
 
-			expect(
-				await within(await screen.findByTestId('confluence-search-datasource-table')).findByText(
-					'Confluence Page 1',
-				),
-			).toBeVisible();
-		});
+		expect(
+			await within(await screen.findByTestId('confluence-search-datasource-table')).findByText(
+				'Confluence Page 1',
+			),
+		).toBeVisible();
+	});
 
-		it('should return results matching the latest search term when user search multiple times', async () => {
-			givenDatasourceDataForQuery({ searchString: 'search term 1' }, [
-				{
-					id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/1',
-					title: 'Confluence Page 1',
-				},
-			]);
-			givenDatasourceDataForQuery({ searchString: 'search term 2' }, [
-				{
-					id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/2',
-					title: 'Confluence Page 2',
-				},
-			]);
+	it('should return results matching the latest search term when user search multiple times', async () => {
+		givenDatasourceDataForQuery({ searchString: 'search term 1' }, [
+			{
+				id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/1',
+				title: 'Confluence Page 1',
+			},
+		]);
+		givenDatasourceDataForQuery({ searchString: 'search term 2' }, [
+			{
+				id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/2',
+				title: 'Confluence Page 2',
+			},
+		]);
 
-			await userOpenModal();
+		await userOpenModal();
 
-			await userPerformSearchWithTerm('search term 1');
-			await userPerformSearchWithTerm('search term 2');
+		await userPerformSearchWithTerm('search term 1');
+		await userPerformSearchWithTerm('search term 2');
 
-			expect(
-				await within(await screen.findByTestId('confluence-search-datasource-table')).findByText(
-					'Confluence Page 2',
-				),
-			).toBeVisible();
-		});
+		expect(
+			await within(await screen.findByTestId('confluence-search-datasource-table')).findByText(
+				'Confluence Page 2',
+			),
+		).toBeVisible();
+	});
 
-		it('should load results that reflect valid parameters on modal open even if no form fields are interacted with', async () => {
-			givenDatasourceDataForQuery({ searchString: '', spaceKeys: ['foo'], entityTypes: ['page'] }, [
-				{
-					id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/1',
-					title: 'Confluence Page 1',
-				},
-			]);
-			givenDatasourceDataForQuery(
-				{ searchString: '', spaceKeys: ['space-key-1'], entityTypes: ['blog'] },
-				[
-					{
-						id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:blog/1',
-						title: 'Confluence Blog 1',
-					},
-				],
-			);
-
-			const onInsert = jest.fn();
-
-			await userOpenModal({
-				parameters: {
-					cloudId: '1',
-					searchString: '',
-					spaceKeys: ['space-key-1'],
-				},
-				overrideParameters: {
-					entityTypes: ['blog'],
-				},
-				onInsert,
-			});
-
-			const table = await screen.findByTestId('confluence-search-datasource-table');
-			expect(await within(table).findByText('Confluence Blog 1')).toBeVisible();
-
-			await userClickInsert();
-
-			expect(onInsert).toHaveBeenCalledWith(
-				expect.objectContaining({
-					attrs: expect.objectContaining({
-						url: 'https://hello.atlassian.net/wiki/search?text=',
-						datasource: expect.objectContaining({
-							id: 'confluence-datasource-id',
-							parameters: expect.objectContaining({
-								cloudId: '1',
-								spaceKeys: ['space-key-1'],
-								entityTypes: ['blog'],
-							}),
-						}),
-					}),
-				}),
-				expect.anything(),
-			);
-		});
-
-		it('should load results that reflect overrides on modal open if parameters prop is a valid set of parameters', async () => {
-			givenDatasourceDataForQuery({ searchString: 'search term 1', entityTypes: ['page'] }, [
-				{
-					id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/1',
-					title: 'Confluence Page 1',
-				},
-			]);
-			givenDatasourceDataForQuery({ searchString: 'search term 1', entityTypes: ['blog'] }, [
+	it('should load results that reflect valid parameters on modal open even if no form fields are interacted with', async () => {
+		givenDatasourceDataForQuery({ searchString: '', spaceKeys: ['foo'], entityTypes: ['page'] }, [
+			{
+				id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/1',
+				title: 'Confluence Page 1',
+			},
+		]);
+		givenDatasourceDataForQuery(
+			{ searchString: '', spaceKeys: ['space-key-1'], entityTypes: ['blog'] },
+			[
 				{
 					id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:blog/1',
 					title: 'Confluence Blog 1',
 				},
-			]);
+			],
+		);
 
-			await userOpenModal({
-				parameters: {
-					cloudId: '1',
-					searchString: 'search term 1',
-				},
-				overrideParameters: {
-					entityTypes: ['blog'],
-				},
-			});
+		const onInsert = jest.fn();
 
-			const table = await screen.findByTestId('confluence-search-datasource-table');
-			expect(await within(table).findByText('Confluence Blog 1')).toBeVisible();
-			expect(within(table).queryByText('Confluence Page 1')).not.toBeInTheDocument();
+		await userOpenModal({
+			parameters: {
+				cloudId: '1',
+				searchString: '',
+				spaceKeys: ['space-key-1'],
+			},
+			overrideParameters: {
+				entityTypes: ['blog'],
+			},
+			onInsert,
 		});
 
-		it('should reset parameters but preserve parameters not controlled by form fields', async () => {
-			givenDatasourceDataForQuery({ searchString: 'search term 1', spaceKeys: ['space-key-1'] }, [
-				{
-					id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/1',
-					title: 'Confluence Page 1',
-				},
-			]);
-			givenDatasourceDataForQuery({ searchString: 'search term 2', spaceKeys: ['space-key-1'] }, [
-				{
-					id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:blog/1',
-					title: 'Confluence Blog 1',
-				},
-			]);
+		const table = await screen.findByTestId('confluence-search-datasource-table');
+		expect(await within(table).findByText('Confluence Blog 1')).toBeVisible();
 
-			const onInsert = jest.fn();
+		await userClickInsert();
 
-			await userOpenModal({
-				onInsert,
-				parameters: {
-					cloudId: '1',
-					searchString: 'search term 1',
-					spaceKeys: ['space-key-1'],
-				},
-			});
-
-			expect(
-				await within(await screen.findByTestId('confluence-search-datasource-table')).findByText(
-					'Confluence Page 1',
-				),
-			).toBeVisible();
-
-			await userChangeSite('World Site');
-
-			await userPerformSearchWithTerm('search term 2');
-
-			expect(
-				await within(await screen.findByTestId('confluence-search-datasource-table')).findByText(
-					'Confluence Blog 1',
-				),
-			).toBeVisible();
-
-			await userClickInsert();
-
-			expect(onInsert).toHaveBeenCalledWith(
-				expect.objectContaining({
-					attrs: expect.objectContaining({
-						url: 'https://world.atlassian.net/wiki/search?text=search+term+2',
-						datasource: expect.objectContaining({
-							id: 'confluence-datasource-id',
-							parameters: expect.objectContaining({
-								cloudId: '2',
-								searchString: 'search term 2',
-								spaceKeys: ['space-key-1'],
-							}),
+		expect(onInsert).toHaveBeenCalledWith(
+			expect.objectContaining({
+				attrs: expect.objectContaining({
+					url: 'https://hello.atlassian.net/wiki/search?text=',
+					datasource: expect.objectContaining({
+						id: 'confluence-datasource-id',
+						parameters: expect.objectContaining({
+							cloudId: '1',
+							spaceKeys: ['space-key-1'],
+							entityTypes: ['blog'],
 						}),
 					}),
 				}),
-				expect.anything(),
-			);
+			}),
+			expect.anything(),
+		);
+	});
+
+	it('should load results that reflect overrides on modal open if parameters prop is a valid set of parameters', async () => {
+		givenDatasourceDataForQuery({ searchString: 'search term 1', entityTypes: ['page'] }, [
+			{
+				id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/1',
+				title: 'Confluence Page 1',
+			},
+		]);
+		givenDatasourceDataForQuery({ searchString: 'search term 1', entityTypes: ['blog'] }, [
+			{
+				id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:blog/1',
+				title: 'Confluence Blog 1',
+			},
+		]);
+
+		await userOpenModal({
+			parameters: {
+				cloudId: '1',
+				searchString: 'search term 1',
+			},
+			overrideParameters: {
+				entityTypes: ['blog'],
+			},
 		});
+
+		const table = await screen.findByTestId('confluence-search-datasource-table');
+		expect(await within(table).findByText('Confluence Blog 1')).toBeVisible();
+		expect(within(table).queryByText('Confluence Page 1')).not.toBeInTheDocument();
+	});
+
+	it('should reset parameters but preserve parameters not controlled by form fields', async () => {
+		givenDatasourceDataForQuery({ searchString: 'search term 1', spaceKeys: ['space-key-1'] }, [
+			{
+				id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:page/1',
+				title: 'Confluence Page 1',
+			},
+		]);
+		givenDatasourceDataForQuery({ searchString: 'search term 2', spaceKeys: ['space-key-1'] }, [
+			{
+				id: 'ari:cloud:confluence:61ae97a3-2835-4727-82d6-3d6a055c39a9:blog/1',
+				title: 'Confluence Blog 1',
+			},
+		]);
+
+		const onInsert = jest.fn();
+
+		await userOpenModal({
+			onInsert,
+			parameters: {
+				cloudId: '1',
+				searchString: 'search term 1',
+				spaceKeys: ['space-key-1'],
+			},
+		});
+
+		expect(
+			await within(await screen.findByTestId('confluence-search-datasource-table')).findByText(
+				'Confluence Page 1',
+			),
+		).toBeVisible();
+
+		await userChangeSite('World Site');
+
+		await userPerformSearchWithTerm('search term 2');
+
+		expect(
+			await within(await screen.findByTestId('confluence-search-datasource-table')).findByText(
+				'Confluence Blog 1',
+			),
+		).toBeVisible();
+
+		await userClickInsert();
+
+		expect(onInsert).toHaveBeenCalledWith(
+			expect.objectContaining({
+				attrs: expect.objectContaining({
+					url: 'https://world.atlassian.net/wiki/search?text=search+term+2',
+					datasource: expect.objectContaining({
+						id: 'confluence-datasource-id',
+						parameters: expect.objectContaining({
+							cloudId: '2',
+							searchString: 'search term 2',
+							spaceKeys: ['space-key-1'],
+						}),
+					}),
+				}),
+			}),
+			expect.anything(),
+		);
 	});
 });

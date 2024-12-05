@@ -8,7 +8,9 @@ export default () => {
 	return (
 		<Box>
 			<Field name="date" label="Date" isRequired>
-				{({ fieldProps: { ...rest } }) => <DatePicker clearControlLabel="Clear date" {...rest} />}
+				{({ fieldProps: { ...rest } }) => (
+					<DatePicker shouldShowCalendarButton clearControlLabel="Clear date" {...rest} />
+				)}
 			</Field>
 
 			<Field name="time" label="Time" isRequired>
@@ -20,7 +22,7 @@ export default () => {
 					<DateTimePicker
 						{...rest}
 						clearControlLabel="Clear datetime"
-						datePickerProps={{ label: 'Datetime, date' }}
+						datePickerProps={{ shouldShowCalendarButton: true, label: 'Datetime, date' }}
 						timePickerProps={{ label: 'Datetime, time' }}
 					/>
 				)}

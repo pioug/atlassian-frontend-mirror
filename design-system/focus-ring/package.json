@@ -50,7 +50,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/textfield": "^6.6.0",
+		"@atlaskit/textfield": "^6.7.0",
 		"@testing-library/react": "^12.1.5",
 		"react-dom": "^16.8.0",
 		"typescript": "~5.4.2",

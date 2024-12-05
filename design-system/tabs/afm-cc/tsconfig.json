@@ -25,6 +25,9 @@
             "path": "../../../monorepo-tooling/codemod-utils/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../css/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../focus-ring/afm-cc/tsconfig.json"
         },
         {

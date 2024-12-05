@@ -16,7 +16,7 @@ export default () => {
 						Sizes
 					</Heading>
 					{sizes.map((size) => (
-						<Text key={size} size={size}>
+						<Text key={size} size={size} testId="text-example">
 							Text size: {size}
 						</Text>
 					))}

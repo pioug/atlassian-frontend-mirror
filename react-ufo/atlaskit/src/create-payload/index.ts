@@ -761,7 +761,10 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 	const pageVisibilityAtTTAI = getPageVisibilityUpToTTAI(interaction);
 
 	const segments = config.killswitchNestedSegments ? [] : knownSegments;
-	const segmentTree = buildSegmentTree(segments.map((segment) => segment.labelStack));
+	const segmentTree =
+		REACT_UFO_VERSION === '2.0.0'
+			? buildSegmentTree(segments.map((segment) => segment.labelStack))
+			: {};
 	const isDetailedPayload = pageVisibilityAtTTAI === 'visible';
 	const isPageLoad = type === 'page_load';
 

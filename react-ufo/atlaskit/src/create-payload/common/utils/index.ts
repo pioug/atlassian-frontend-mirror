@@ -21,27 +21,21 @@ export function isSegmentLabel(obj: any): obj is SegmentLabel {
 
 export function buildSegmentTree(labelStacks: LabelStack[]): SegmentTree {
 	const r: SegmentItem = { n: 'segment-tree-root', c: {} };
-
 	labelStacks.forEach((labelStack) => {
 		let currentNode = r;
-		labelStack.forEach((label, index) => {
+		labelStack.forEach((label) => {
 			const name = label.name;
 			const id = isSegmentLabel(label) ? label.segmentId : undefined;
-
-			const key = id !== undefined ? id.toString() : name;
-
-			if (currentNode.c && !currentNode.c[key]) {
+			const key = id !== undefined ? id : name;
+			if (!currentNode.c) {
+				currentNode.c = {};
+			}
+			if (!currentNode.c[key]) {
 				currentNode.c[key] = { n: name };
 			}
-
-			currentNode = currentNode.c?.[key]!;
-
-			if (index < labelStack.length - 1) {
-				currentNode.c = { ...(currentNode.c || {}) };
-			}
+			currentNode = currentNode.c[key];
 		});
 	});
-
 	return { r };
 }
 

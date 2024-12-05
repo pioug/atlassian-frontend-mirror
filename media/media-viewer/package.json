@@ -53,7 +53,7 @@
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/side-navigation": "^3.6.0",
 		"@atlaskit/spinner": "^16.3.0",
-		"@atlaskit/textfield": "^6.6.0",
+		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.4.0",
 		"@atlaskit/ufo": "^0.3.0",

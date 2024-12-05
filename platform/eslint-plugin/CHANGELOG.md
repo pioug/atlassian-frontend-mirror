@@ -1,5 +1,21 @@
 # @atlaskit/eslint-plugin-platform
 
+## 1.0.0
+
+### Major Changes
+
+- [#168864](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168864)
+  [`49e4510bd86d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49e4510bd86d3) -
+  update eslint rule 'expand-border-properties' from warn to error
+
+## 0.14.0
+
+### Minor Changes
+
+- [#173404](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173404)
+  [`7818ef3312ccd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7818ef3312ccd) -
+  Eslint rule for expand-background-shorthand with token
+
 ## 0.13.1
 
 ### Patch Changes

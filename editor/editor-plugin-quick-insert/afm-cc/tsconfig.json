@@ -24,6 +24,9 @@
             "path": "../../editor-common/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-connectivity/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-type-ahead/afm-cc/tsconfig.json"
         },
         {

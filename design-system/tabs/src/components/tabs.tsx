@@ -4,14 +4,12 @@
  */
 import { Children, Fragment, type ReactNode, useCallback, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import type UIAnalyticsEvent from '@atlaskit/analytics-next/UIAnalyticsEvent';
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
 
 import { TabListContext, TabPanelContext } from '../internal/context';
-import { getTabsStyles } from '../internal/styles';
 import { type SelectedType, type TabsProps } from '../types';
 
 const baseStyles = css({
@@ -23,8 +21,24 @@ const baseStyles = css({
 	flexGrow: 1,
 });
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const tabsStyles = getTabsStyles();
+const tabsStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles -- Ignored via go/DSP-18766
+	'& [role="tabpanel"]': {
+		display: 'flex',
+		/*
+		NOTE min-height set to 0% because of Firefox bug
+		FF http://stackoverflow.com/questions/28636832/firefox-overflow-y-not-working-with-nested-flexbox
+		*/
+		minHeight: '0%',
+		flexGrow: 1,
+	},
+	// The hidden attribute doesn't work on flex elements
+	// Change display to be none
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&& > [hidden]': {
+		display: 'none',
+	},
+});
 
 const analyticsAttributes = {
 	componentName: 'tabs',

@@ -24,6 +24,7 @@ type Props = {
 
 const Modal = ({
 	quickInsertState,
+	isOffline,
 	editorView,
 	helpUrl,
 	insertItem,
@@ -31,6 +32,7 @@ const Modal = ({
 }: {
 	editorView: EditorView;
 	quickInsertState: QuickInsertSharedState | undefined;
+	isOffline: boolean;
 	helpUrl?: string;
 	insertItem?: (
 		item: QuickInsertItem,
@@ -43,10 +45,17 @@ const Modal = ({
 			getSuggestions?.({
 				query,
 				category,
+			})?.map((item) => {
+				return isOffline && item.isDisabledOffline ? { ...item, isDisabled: true } : item;
 			}) ?? [],
 		// See: https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/157796/overview?commentId=8559952
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[getSuggestions, quickInsertState?.lazyDefaultItems, quickInsertState?.providedItems],
+		[
+			getSuggestions,
+			quickInsertState?.lazyDefaultItems,
+			quickInsertState?.providedItems,
+			isOffline,
+		],
 	);
 
 	const focusInEditor = useCallback(() => {
@@ -101,13 +110,17 @@ const Modal = ({
 };
 
 export default ({ editorView, helpUrl, pluginInjectionAPI }: Props) => {
-	const { quickInsertState } = useSharedPluginState(pluginInjectionAPI, ['quickInsert']);
+	const { quickInsertState, connectivityState } = useSharedPluginState(pluginInjectionAPI, [
+		'quickInsert',
+		'connectivity',
+	]);
 
 	return (
 		<Modal
 			quickInsertState={quickInsertState ?? undefined}
 			editorView={editorView}
 			helpUrl={helpUrl}
+			isOffline={connectivityState?.mode === 'offline'}
 			insertItem={pluginInjectionAPI?.quickInsert?.actions?.insertItem}
 			getSuggestions={pluginInjectionAPI?.quickInsert?.actions?.getSuggestions}
 		/>

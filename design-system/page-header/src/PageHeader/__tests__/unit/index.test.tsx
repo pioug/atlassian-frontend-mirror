@@ -84,9 +84,9 @@ describe('@atlaskit/page-header', () => {
 
 		const element = screen.getByText('Long heading text');
 
-		expect(element).toHaveStyleDeclaration('white-space', 'nowrap');
-		expect(element).toHaveStyleDeclaration('text-overflow', 'ellipsis');
-		expect(element).toHaveStyleDeclaration('overflow-x', 'hidden');
+		expect(element).toHaveCompiledCss('white-space', 'nowrap');
+		expect(element).toHaveCompiledCss('text-overflow', 'ellipsis');
+		expect(element).toHaveCompiledCss('overflow-x', 'hidden');
 	});
 
 	it('should set received id prop as id of inner h1 element', () => {

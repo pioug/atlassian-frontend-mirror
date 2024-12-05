@@ -16,5 +16,9 @@
 		"../src/**/*.test.*",
 		"../src/**/test.*"
 	],
-	"references": []
+	"references": [
+		{
+			"path": "../../../design-system/eslint-utils/afm-jira/tsconfig.json"
+		}
+	]
 }

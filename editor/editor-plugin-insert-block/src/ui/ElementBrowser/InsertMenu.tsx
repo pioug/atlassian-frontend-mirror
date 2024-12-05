@@ -11,6 +11,7 @@ import { CellMeasurerCache } from 'react-virtualized/dist/commonjs/CellMeasurer'
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import { ELEMENT_ITEM_HEIGHT, ElementBrowser } from '@atlaskit/editor-common/element-browser';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import {
 	IconCode,
@@ -121,6 +122,8 @@ const InsertMenu = ({
 		[editorView, toggleVisiblity, pluginInjectionApi, isFullPageAppearance],
 	);
 
+	const { connectivityState } = useSharedPluginState(pluginInjectionApi, ['connectivity']);
+
 	const getItems = useCallback(
 		(query?: string, category?: string) => {
 			let result;
@@ -132,19 +135,31 @@ const InsertMenu = ({
 			 */
 			if (query) {
 				result =
-					pluginInjectionApi?.quickInsert?.actions.getSuggestions({
-						query,
-						category,
-					}) ?? [];
+					pluginInjectionApi?.quickInsert?.actions
+						.getSuggestions({
+							query,
+							category,
+						})
+						?.map((item) =>
+							connectivityState?.mode === 'offline' && item.isDisabledOffline
+								? { ...item, isDisabled: true }
+								: item,
+						) ?? [];
 			} else {
 				const featuredQuickInsertSuggestions =
-					pluginInjectionApi?.quickInsert?.actions.getSuggestions({
-						category,
-						featuredItems: true,
-						// @ts-ignore
-						templateItems:
-							isFullPageAppearance && editorExperiment('element-level-templates', true),
-					}) ?? [];
+					pluginInjectionApi?.quickInsert?.actions
+						.getSuggestions({
+							category,
+							featuredItems: true,
+							// @ts-ignore
+							templateItems:
+								isFullPageAppearance && editorExperiment('element-level-templates', true),
+						})
+						?.map((item) =>
+							connectivityState?.mode === 'offline' && item.isDisabledOffline
+								? { ...item, isDisabled: true }
+								: item,
+						) ?? [];
 
 				if (isFullPageAppearance && editorExperiment('element-level-templates', true)) {
 					// Make sure template options appear as top 5 items
@@ -165,7 +180,12 @@ const InsertMenu = ({
 			setItemCount(result.length);
 			return result;
 		},
-		[pluginInjectionApi?.quickInsert?.actions, quickInsertDropdownItems, isFullPageAppearance],
+		[
+			pluginInjectionApi?.quickInsert?.actions,
+			quickInsertDropdownItems,
+			isFullPageAppearance,
+			connectivityState,
+		],
 	);
 
 	const emptyStateHandler =

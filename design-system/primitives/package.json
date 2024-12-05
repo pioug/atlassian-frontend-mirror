@@ -145,6 +145,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/formatting": "*",
+		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^13.4.0",

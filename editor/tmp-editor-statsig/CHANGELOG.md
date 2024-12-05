@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.23.0
+
+### Minor Changes
+
+- [#173124](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173124)
+  [`58ca6c04a3498`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/58ca6c04a3498) -
+  [https://product-fabric.atlassian.net/browse/EDF-2050](EDF-2050) - add @mention support into the
+  Editor AI Command Palette
+
 ## 2.22.0
 
 ### Minor Changes

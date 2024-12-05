@@ -5,6 +5,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, type CSSObject } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+import { media } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import * as componentTokens from './component-tokens';
@@ -267,6 +269,21 @@ const staticStyles = css({
 	},
 });
 
+// suggestion: these two could be merged into cssMap during @compiled rewrite
+const newFontStyles = css({
+	font: token('font.body.large'),
+	[media.above.xs]: {
+		font: token('font.body'),
+	},
+});
+const monospacedFontFamilyStyles = css({
+	fontFamily: codeFontFamily,
+	[media.above.xs]: {
+		// Reapply the monospaced font family as the font declaration used in the breakpoint in newFontStyles overrides it otherwise
+		fontFamily: codeFontFamily,
+	},
+});
+
 export const getBaseStyles = ({
 	minimumRows,
 	resize,
@@ -284,8 +301,18 @@ export const getBaseStyles = ({
 		resizeStyle(resize),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		borderStyle(appearance),
+
+		// @todo: remove in `platform_design_system_team_safari_input_fix` cleanup
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontFamilyStyle(isMonospaced),
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+		fg('platform_design_system_team_safari_input_fix') ? newFontStyles : undefined,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
+		isMonospaced && fg('platform_design_system_team_safari_input_fix')
+			? monospacedFontFamilyStyles
+			: undefined,
+
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		{ maxHeight },
 	);

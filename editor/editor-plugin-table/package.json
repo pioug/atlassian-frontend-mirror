@@ -30,7 +30,7 @@
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/custom-steps": "^0.9.0",
-		"@atlaskit/editor-common": "^96.1.0",
+		"@atlaskit/editor-common": "^96.2.0",
 		"@atlaskit/editor-palette": "1.6.3",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
@@ -51,7 +51,7 @@
 		"@atlaskit/pragmatic-drag-and-drop-hitbox": "^1.0.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.22.0",
+		"@atlaskit/tmp-editor-statsig": "^2.23.0",
 		"@atlaskit/toggle": "^13.4.0",
 		"@atlaskit/tokens": "^2.4.0",
 		"@atlaskit/tooltip": "^18.9.0",
@@ -132,7 +132,8 @@
 			"type": "boolean"
 		},
 		"platform_editor_use_nested_table_pm_nodes": {
-			"type": "boolean"
+			"type": "boolean",
+			"referenceOnly": true
 		},
 		"platform_editor_set_alignment_when_resized": {
 			"type": "boolean"

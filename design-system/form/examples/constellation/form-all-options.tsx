@@ -97,6 +97,7 @@ const FormAllOptionsExample = () => (
 									<DateTimePicker
 										{...rest}
 										datePickerProps={{
+											shouldShowCalendarButton: true,
 											label: 'Select date',
 											id: id,
 										}}

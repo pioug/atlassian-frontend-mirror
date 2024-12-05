@@ -3,8 +3,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import __noop from '@atlaskit/ds-lib/noop';
 import InlineEdit from '@atlaskit/inline-edit';
@@ -28,8 +27,7 @@ const editViewStyles = css({
 	cursor: 'inherit',
 	font: token('font.heading.large'),
 	outline: 'none',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':focus': {
+	'&:focus': {
 		border: `2px solid ${token('color.border.focused')}`,
 	},
 });
@@ -37,6 +35,7 @@ const editViewStyles = css({
 const CustomTitleComponent = () => {
 	return (
 		<InlineEdit
+			testId="custom-title"
 			readView={() => <div css={readViewStyles}>Editable title</div>}
 			editView={(props, ref) => <input css={editViewStyles} {...props} ref={ref} />}
 			defaultValue="Editable title"

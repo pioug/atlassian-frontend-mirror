@@ -147,7 +147,6 @@ describe('rate-control', () => {
 			'platform.fe.inline.smart-links.smart-link-rendered': 1,
 			'platform.fe.inline.smart-links.smart-link-authenticated': 1,
 			'platform.fe.inline.smart-links.smart-link-action-invocation': 1,
-			'platform.fe.inline-result.search-dialog.search-active': 1,
 			'platform.fe.inline-result.emoji.emoji-rendered': 1,
 			'platform.fe.inline-result.emoji.emoji-resource-fetched': 1,
 			'platform.fe.inline-result.emoji.emoji-picker-opened': 1,

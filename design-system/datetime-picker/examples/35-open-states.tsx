@@ -12,6 +12,8 @@ export default () => {
 			<Label id="open" htmlFor="react-select-is-open--input">
 				Always open
 			</Label>
+			{/* This should be ignored for the sake of the example */}
+			{/* eslint-disable-next-line @atlaskit/design-system/use-datetime-picker-calendar-button */}
 			<DatePicker id="react-select-is-open--input" clearControlLabel="Clear always open" isOpen />
 			<Label id="open-calendar" htmlFor="react-select-is-open-calendar--input">
 				Always open with calendar button

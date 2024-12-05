@@ -1,5 +1,20 @@
 # @atlaskit/link-datasource
 
+## 3.13.17
+
+### Patch Changes
+
+- [#174013](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174013)
+  [`39cb9b152b1bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/39cb9b152b1bc) -
+  Removes feature flag platform-datasources-use-refactored-config-modal which removes the old
+  implementation of the Jira and Confluence SLLV modals, and now uses a refactored implementation.
+
+## 3.13.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.13.15
 
 ### Patch Changes

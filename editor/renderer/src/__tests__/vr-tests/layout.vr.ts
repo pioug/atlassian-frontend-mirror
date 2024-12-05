@@ -19,6 +19,7 @@ import {
 	Layout5ColWithWidthInFullWidthRenderer,
 } from './layout.fixture';
 import { snapshot } from '@af/visual-regression';
+import { flagsForVrTests } from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
 
 snapshot(OverflowLayoutRenderer);
 snapshot(Layout2ColRenderer);
@@ -35,31 +36,21 @@ snapshot(LayoutWithTextAndCodeblockRenderer);
 snapshot(Layout3ColWithDifferentTextRenderer);
 
 snapshot(Layout3ColWithWidthRenderer, {
-	featureFlags: {
-		advanced_layouts: true,
-	},
+	...flagsForVrTests,
 });
 
 snapshot(Layout4ColWithWidthRenderer, {
-	featureFlags: {
-		advanced_layouts: true,
-	},
+	...flagsForVrTests,
 });
 
 snapshot(Layout5ColWithWidthRenderer, {
-	featureFlags: {
-		advanced_layouts: true,
-	},
+	...flagsForVrTests,
 });
 
 snapshot(Layout5ColWithWidthAndLayout5ColWithWideRenderer, {
-	featureFlags: {
-		advanced_layouts: true,
-	},
+	...flagsForVrTests,
 });
 
 snapshot(Layout5ColWithWidthInFullWidthRenderer, {
-	featureFlags: {
-		advanced_layouts: true,
-	},
+	...flagsForVrTests,
 });

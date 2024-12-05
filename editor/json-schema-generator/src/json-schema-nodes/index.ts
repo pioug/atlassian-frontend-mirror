@@ -1,14 +1,4 @@
-import SchemaNode from './schema-node';
-export { default as StringSchemaNode } from './string-schema-node';
-export { default as ArraySchemaNode } from './array-schema-node';
-export { default as ObjectSchemaNode } from './object-schema-node';
-export { default as EnumSchemaNode } from './enum-schema-node';
-export { default as ConstSchemaNode } from './const-schema-node';
-export { default as PrimitiveSchemaNode } from './primitive-schema-node';
-export { default as RefSchemaNode } from './ref-schema-node';
-export { default as EmptySchemaNode } from './empty-schema-node';
-export { default as AnyOfSchemaNode } from './any-of-schema-node';
-export { default as AllOfSchemaNode } from './all-of-schema-node';
+import type SchemaNode from './schema-node';
 
 export type JSONSchemaVersion = 'draft-04';
 
@@ -66,5 +56,3 @@ export default class JSONSchemaNode {
 		};
 	}
 }
-
-export { SchemaNode };

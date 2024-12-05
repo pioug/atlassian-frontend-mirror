@@ -8,6 +8,7 @@ import {
 } from './layout.fixture';
 
 import { snapshotInformational } from '@af/visual-regression';
+import { flagsForVrTests } from '@atlaskit/editor-test-helpers/advanced-layouts-flags';
 
 snapshotInformational(OverflowLayoutRenderer, {
 	description: 'layout with overflow on left',
@@ -31,7 +32,7 @@ snapshotInformational(OverflowLayoutRenderer, {
 // Advanced layouts
 snapshotInformational(Layout4ColInFullWidthRenderer, {
 	description: '4 column layout when layout size < 630px',
-	featureFlags: { advanced_layouts: true },
+	...flagsForVrTests,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
 			width: 629,
@@ -42,7 +43,7 @@ snapshotInformational(Layout4ColInFullWidthRenderer, {
 
 snapshotInformational(Layout4ColInFullWidthRenderer, {
 	description: '4 column layout when layout size is 630px',
-	featureFlags: { advanced_layouts: true },
+	...flagsForVrTests,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
 			width: 630,
@@ -53,7 +54,7 @@ snapshotInformational(Layout4ColInFullWidthRenderer, {
 
 snapshotInformational(Layout5ColRenderer, {
 	description: '5 column layout when layout size < 630px',
-	featureFlags: { advanced_layouts: true },
+	...flagsForVrTests,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
 			width: 693,
@@ -64,7 +65,7 @@ snapshotInformational(Layout5ColRenderer, {
 
 snapshotInformational(Layout5ColRenderer, {
 	description: '5 column layout when layout size is 630px',
-	featureFlags: { advanced_layouts: true },
+	...flagsForVrTests,
 	prepare: async (page: Page) => {
 		await page.setViewportSize({
 			// There are 64px padding in full page editor

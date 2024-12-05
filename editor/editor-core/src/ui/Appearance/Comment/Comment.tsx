@@ -305,12 +305,18 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 									onClick={handleSave}
 									testId="comment-save-button"
 									isDisabled={disabled || saveButtonDisabled}
+									interactionName="editor-comment-save-button"
 								>
 									{intl.formatMessage(messages.saveButton)}
 								</Button>
 							)}
 							{!!onCancel && (
-								<Button appearance="subtle" onClick={handleCancel} isDisabled={disabled}>
+								<Button
+									appearance="subtle"
+									onClick={handleCancel}
+									isDisabled={disabled}
+									interactionName="editor-comment-cancel-button"
+								>
 									{intl.formatMessage(messages.cancelButton)}
 								</Button>
 							)}

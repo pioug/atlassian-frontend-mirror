@@ -39,7 +39,6 @@ const modeSwitcherStyles = css({
 	boxSizing: 'border-box',
 	display: 'inline-flex',
 	gap: token('space.050', '4px'),
-	lineHeight: token('space.200', '16px'),
 	padding: token('space.050', '4px'),
 	'&:disabled': {
 		opacity: '0.5',
@@ -58,8 +57,8 @@ const modeInputStyles = css({
 
 const modeSwitcherLabelStyles = css({
 	color: token('color.text.subtlest', N700),
-	fontSize: token('space.150', '12px'),
-	fontWeight: '600',
+	font: token('font.body.UNSAFE_small'),
+	fontWeight: token('font.weight.semibold'),
 	textTransform: 'uppercase',
 
 	padding: `${token('space.050', '4px')}`,

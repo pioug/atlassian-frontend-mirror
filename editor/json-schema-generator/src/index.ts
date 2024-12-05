@@ -1,4 +1,5 @@
-/* eslint-disable no-bitwise */
+// Disable no-re-export rule for entry point files
+/* eslint-disable no-bitwise, @atlaskit/editor/no-re-export */
 import {
 	type Node,
 	type Type,
@@ -15,18 +16,17 @@ import { resolve, join } from 'path';
 import * as prettier from 'prettier';
 import mkdirp from 'mkdirp';
 
-import JSONSchemaNode, {
-	type SchemaNode,
-	StringSchemaNode,
-	ArraySchemaNode,
-	ObjectSchemaNode,
-	EnumSchemaNode,
-	PrimitiveSchemaNode,
-	RefSchemaNode,
-	EmptySchemaNode,
-	AnyOfSchemaNode,
-	AllOfSchemaNode,
-} from './json-schema-nodes';
+import { default as StringSchemaNode } from './json-schema-nodes/string-schema-node';
+import { default as ArraySchemaNode } from './json-schema-nodes/array-schema-node';
+import { default as ObjectSchemaNode } from './json-schema-nodes/object-schema-node';
+import { default as EnumSchemaNode } from './json-schema-nodes/enum-schema-node';
+import { default as PrimitiveSchemaNode } from './json-schema-nodes/primitive-schema-node';
+import { default as RefSchemaNode } from './json-schema-nodes/ref-schema-node';
+import { default as EmptySchemaNode } from './json-schema-nodes/empty-schema-node';
+import { default as AnyOfSchemaNode } from './json-schema-nodes/any-of-schema-node';
+import { default as AllOfSchemaNode } from './json-schema-nodes/all-of-schema-node';
+import type SchemaNode from './json-schema-nodes/schema-node';
+import JSONSchemaNode from './json-schema-nodes';
 
 import {
 	extractLiteralValue,

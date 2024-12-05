@@ -135,15 +135,21 @@ export const inputStyles = () =>
 		width: '100%',
 		'&[data-monospaced]': {
 			fontFamily: token('font.family.code'),
+			[media.above.xs]: {
+				// Reapply the monospaced font family as the font declaration in a breakpoint on the root will override it otherwise
+				fontFamily: fg('platform_design_system_team_safari_input_fix')
+					? token('font.family.code')
+					: undefined,
+			},
 		},
 		'&[data-compact]': {
 			padding: fg('platform_design_system_team_safari_input_fix')
-				? `${token('space.025', '2px')} ${token('space.075', '6px')}`
+				? `${token('space.025')} ${token('space.075')}`
 				: `${token('space.050', '4px')} ${token('space.075', '6px')}`,
 		},
 		'&:not([data-compact])': {
 			padding: fg('platform_design_system_team_safari_input_fix')
-				? `${token('space.075', '6px')} ${token('space.075', '6px')}`
+				? `${token('space.075')} ${token('space.075')}`
 				: `${token('space.100', '8px')} ${token('space.075', '6px')}`,
 		},
 		'&[disabled]': {
@@ -173,16 +179,16 @@ export const inputStyles = () =>
 				color: 'GrayText',
 			},
 		},
-		[`${media.above.xs}`]: {
+		[media.above.xs]: {
 			font: fg('platform_design_system_team_safari_input_fix') ? token('font.body') : undefined,
 			'&[data-compact]': {
 				padding: fg('platform_design_system_team_safari_input_fix')
-					? `${token('space.050', '4px')} ${token('space.075', '6px')}`
+					? `${token('space.050')} ${token('space.075')}`
 					: undefined,
 			},
 			'&:not([data-compact])': {
 				padding: fg('platform_design_system_team_safari_input_fix')
-					? `${token('space.100', '8px')} ${token('space.075', '6px')}`
+					? `${token('space.100')} ${token('space.075')}`
 					: undefined,
 			},
 		},

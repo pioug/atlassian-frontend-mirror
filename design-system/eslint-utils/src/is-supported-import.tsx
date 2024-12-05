@@ -212,3 +212,4 @@ export const isImportedFrom =
 export const isStyledComponents = isImportedFrom('styled-components');
 export const isCompiled = isImportedFrom('@compiled/', false);
 export const isEmotion = isImportedFrom('@emotion/', false);
+export const isAtlasKitCSS = isImportedFrom('@atlaskit/css', false);

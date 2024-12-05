@@ -1,5 +1,23 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.4.5
+
+### Patch Changes
+
+- [#172240](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172240)
+  [`db973dafd5ae2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db973dafd5ae2) -
+  correctly feature flag and optimise buildSegmentTree function
+- [#172231](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172231)
+  [`de6f706c54af6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de6f706c54af6) -
+  [ED-25937] Skip TTVC calculation from changes that comes from the Editor container
+
+## 2.4.4
+
+### Patch Changes
+
+- [`a03da52505965`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a03da52505965) -
+  Remove the flag from test files as well as its not present on LD or Statsig
+
 ## 2.4.3
 
 ### Patch Changes

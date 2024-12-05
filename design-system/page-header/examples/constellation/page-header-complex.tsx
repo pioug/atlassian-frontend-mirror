@@ -1,21 +1,27 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import Breadcrumbs, { BreadcrumbsItem } from '@atlaskit/breadcrumbs';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import __noop from '@atlaskit/ds-lib/noop';
 import PageHeader from '@atlaskit/page-header';
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 
-const selectContainerStyles = xcss({
-	flex: '0 0 200px',
-	marginInlineStart: 'space.100',
-});
+const styles = cssMap({
+	selectContainer: {
+		flex: '0 0 200px',
+		marginInlineStart: token('space.100'),
+	},
 
-const flexBoxStyles = xcss({
-	flex: '0 0 200px',
+	flexBox: {
+		flex: '0 0 200px',
+	},
 });
 
 const breadcrumbs = (
@@ -33,10 +39,10 @@ const actionsContent = (
 );
 const barContent = (
 	<Inline>
-		<Box xcss={flexBoxStyles}>
+		<Box xcss={styles.flexBox}>
 			<TextField isCompact placeholder="Filter" aria-label="Filter" />
 		</Box>
-		<Box xcss={selectContainerStyles}>
+		<Box xcss={styles.selectContainer}>
 			<Select spacing="compact" placeholder="Choose an option" aria-label="Choose an option" />
 		</Box>
 	</Inline>

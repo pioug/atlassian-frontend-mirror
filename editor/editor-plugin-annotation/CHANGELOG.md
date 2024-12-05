@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.26.0
+
+### Minor Changes
+
+- [#173684](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173684)
+  [`e022c83d84bd3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e022c83d84bd3) -
+  Fix errors caused by not checking for undefined annotation toolbar
+
 ## 1.25.7
 
 ### Patch Changes

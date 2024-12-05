@@ -22,6 +22,9 @@ const separateBorderProperties = (
 	if (EXCLUDED_VALUES.includes(borderString)) {
 		return;
 	}
+	if (borderString.includes('var(--')) {
+		return;
+	}
 
 	context.report({
 		node: property,
@@ -44,7 +47,7 @@ const isCompiledAPI = (importDeclaration: ImportDeclaration, callExpression: Cal
 	}
 
 	return importDeclaration.specifiers.some(
-		(specifier) => specifier.type === 'ImportSpecifier' && specifier.imported.name === functionName,
+		(specifier) => specifier.type === 'ImportSpecifier' && specifier.local.name === functionName,
 	);
 };
 
@@ -74,21 +77,12 @@ export const expandBorderShorthand: Rule.RuleModule = {
 				if (importDeclaration) {
 					if (isCompiledAPI(importDeclaration, callExpression)) {
 						if (node.value.type === 'Literal' && node.value.value !== null) {
-							if (typeof node.value.value === 'string') {
-								const borderString = node.value.value;
-								separateBorderProperties(borderString, node, context);
-							} else if (node.value.raw) {
-								const borderString = node.value.raw;
+							const borderString =
+								typeof node.value.value === 'string' ? node.value.value : node.value.raw;
+							if (borderString) {
 								separateBorderProperties(borderString, node, context);
 							}
 						} else if (node.value.type === 'TemplateLiteral') {
-							if (node.value.quasis.length > 1 || node.value.expressions.length > 0) {
-								context.report({
-									node,
-									messageId: 'expandBorderShorthand',
-								});
-								return;
-							}
 							if (node.value.quasis.length === 1 && node.value.quasis[0].value.cooked) {
 								const borderQuasis: string = node.value.quasis[0].value.cooked;
 								separateBorderProperties(borderQuasis, node, context);

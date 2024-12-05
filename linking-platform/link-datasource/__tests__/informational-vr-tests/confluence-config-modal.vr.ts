@@ -26,9 +26,6 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 		await page.waitForSelector('[data-testid="link-datasource-render-type--link"]');
 	},
 	description: 'Last Updated filter open state with custom date pickers',
-	featureFlags: {
-		'platform-datasources-use-refactored-config-modal': [true, false],
-	},
 	drawsOutsideBounds: true,
 });
 
@@ -38,8 +35,5 @@ snapshotInformational(ConfluenceSearchConfigModal, {
 		await page.waitForSelector('[data-testid="basic-filter-popup-select-option--avatar"]');
 	},
 	description: 'Edited/Created by CLOL filter in open state',
-	featureFlags: {
-		'platform-datasources-use-refactored-config-modal': [true, false],
-	},
 	drawsOutsideBounds: true,
 });

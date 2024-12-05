@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 2.0.1
+
+### Patch Changes
+
+- [#173426](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173426)
+  [`2ce125017f62d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ce125017f62d) -
+  cleanup platform_editor_react18_phase2_loadable
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

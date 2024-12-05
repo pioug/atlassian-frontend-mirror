@@ -96,7 +96,11 @@ function isTypeExport(exportName: string, statements: string[]): boolean {
 function createExportStatementsForAfExport(importName: string, filePath: string) {
 	const { variableExports, typeExports } = findExportedVariablesAndTypes(filePath);
 
-	let exportStatements = ['// THIS FILE IS GENERATED. DO NOT MODIFY IT MANUALLY.'];
+	let exportStatements = [
+		'// THIS FILE IS GENERATED via packages/editor/editor-plugins/scripts/update-editor-plugins.ts. DO NOT MODIFY IT MANUALLY.',
+		'// Disable no-re-export rule for entry point files',
+		'/* eslint-disable @atlaskit/editor/no-re-export */',
+	];
 
 	if (variableExports.length > 0) {
 		const variableExportStatement = `export { ${variableExports.join(

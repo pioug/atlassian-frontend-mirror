@@ -1,13 +1,10 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { forwardRef } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { forwardRef } from 'react';
 
 import FocusRing from '@atlaskit/focus-ring';
+/**
+ * TODO - https://product-fabric.atlassian.net/browse/DSP-21564
+ * Will be moved to @atlaskit/primitives/compiled, VRs will be updated.
+ */
 import { Text } from '@atlaskit/primitives';
 
 import { useTab } from '../hooks';

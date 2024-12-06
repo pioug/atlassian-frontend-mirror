@@ -10,7 +10,9 @@ import { type IntlShape } from 'react-intl-next';
 
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { layoutBreakpointWidth } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { B200 } from '@atlaskit/theme/colors';
@@ -21,6 +23,7 @@ import { getNodeAnchor } from '../pm-plugins/decorations-common';
 import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracker';
 import { type AnchorRectCache, isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../pm-plugins/utils/drag-target-debug';
+import { getInsertLayoutStep, updateSelection } from '../pm-plugins/utils/update-selection';
 
 // 8px gap + 16px on left and right
 const DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH = 40;
@@ -90,9 +93,27 @@ export const DropTargetLayout = (
 		}
 
 		const to = getPos();
+		let mappedTo: number | undefined;
 		if (to !== undefined) {
 			const { pos: from } = activeNode;
-			api?.core?.actions.execute(api?.blockControls?.commands?.moveToLayout(from, to));
+			api?.core?.actions.execute(({ tr }) => {
+				api?.blockControls?.commands?.moveToLayout(from, to)({ tr });
+				if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+					const insertColumnStep = getInsertLayoutStep(tr);
+					mappedTo = (insertColumnStep as ReplaceStep)?.from;
+				}
+
+				return tr;
+			});
+
+			if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+				api?.core?.actions.execute(({ tr }) => {
+					if (mappedTo !== undefined) {
+						updateSelection(tr, mappedTo);
+					}
+					return tr;
+				});
+			}
 		}
 	}, [api, getPos, activeNode]);
 

@@ -10,9 +10,9 @@ import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/ad
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
+import { containsHeaderColumn, getColumnsWidths, getRowHeights } from '../../pm-plugins/utils';
 import type { CellHoverMeta, DraggableSourceData, PluginInjectionAPI } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
-import { containsHeaderColumn, getColumnsWidths, getRowHeights } from '../../utils';
 
 import { ColumnControls } from './ColumnControls';
 import { ColumnDropTargets } from './ColumnDropTargets';

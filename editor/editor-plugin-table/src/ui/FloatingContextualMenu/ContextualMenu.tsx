@@ -62,7 +62,7 @@ import {
 	hoverRows,
 	setFocusToCellMenu,
 	toggleContextualMenu,
-} from '../../commands';
+} from '../../pm-plugins/commands';
 import {
 	deleteColumnsWithAnalytics,
 	deleteRowsWithAnalytics,
@@ -74,18 +74,18 @@ import {
 	setColorWithAnalytics,
 	sortColumnWithAnalytics,
 	splitCellWithAnalytics,
-} from '../../commands-with-analytics';
+} from '../../pm-plugins/commands/commands-with-analytics';
 import { getPluginState } from '../../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../../pm-plugins/plugin-key';
 import { getNewResizeStateFromSelectedColumns } from '../../pm-plugins/table-resizing/utils/resize-state';
-import { canMergeCells } from '../../transforms';
-import { TableCssClassName as ClassName } from '../../types';
-import type { PluginInjectionAPI } from '../../types';
+import { canMergeCells } from '../../pm-plugins/transforms';
 import {
 	getMergedCellsPositions,
 	getSelectedColumnIndexes,
 	getSelectedRowIndexes,
-} from '../../utils';
+} from '../../pm-plugins/utils';
+import { TableCssClassName as ClassName } from '../../types';
+import type { PluginInjectionAPI } from '../../types';
 import {
 	colorPalletteColumns,
 	contextualMenuDropdownWidth,

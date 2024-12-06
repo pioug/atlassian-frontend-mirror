@@ -61,7 +61,7 @@
 		"@atlaskit/icon-file-type": "^6.8.0",
 		"@atlaskit/media-core": "^34.3.0",
 		"@atlaskit/media-test-helpers": "^34.7.0",
-		"@atlaskit/range": "^7.4.0",
+		"@atlaskit/range": "^8.0.0",
 		"@emotion/react": "^11.7.1",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",

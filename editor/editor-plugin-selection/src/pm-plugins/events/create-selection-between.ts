@@ -1,6 +1,7 @@
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const DOC_START_POS = 0;
 
@@ -69,10 +70,23 @@ function findNextSelectionPosition({
 	//ED-20209: If the targetHead position is just before some node, Then return $targetHead and not select any node.
 	let maybeNode = null;
 
-	if ($targetHead.pos !== DOC_START_POS) {
-		const justBeforeHeadPos = $targetHead.pos - 1;
-		const $resolvedJustBeforeHeadPos = doc.resolve(justBeforeHeadPos);
-		maybeNode = $resolvedJustBeforeHeadPos.nodeAfter;
+	if (fg('platform_editor_fix_drag_and_drop_lists')) {
+		// prosemirror calls 'createSelectionBetween' for native 'drop' events, it passes $anchor
+		// and $head which are based on a transformed document, but only provides the original
+		// doc. Need to remap the $head pos to last element in doc to avoid RangeErrors.
+		if ($targetHead.pos >= doc.nodeSize) {
+			maybeNode = doc.resolve(doc.nodeSize - 2).nodeBefore;
+		} else if ($targetHead.pos !== DOC_START_POS) {
+			const justBeforeHeadPos = $targetHead.pos - 1;
+			const $resolvedJustBeforeHeadPos = doc.resolve(justBeforeHeadPos);
+			maybeNode = $resolvedJustBeforeHeadPos.nodeAfter;
+		}
+	} else {
+		if ($targetHead.pos !== DOC_START_POS) {
+			const justBeforeHeadPos = $targetHead.pos - 1;
+			const $resolvedJustBeforeHeadPos = doc.resolve(justBeforeHeadPos);
+			maybeNode = $resolvedJustBeforeHeadPos.nodeAfter;
+		}
 	}
 
 	if (maybeNode === null) {

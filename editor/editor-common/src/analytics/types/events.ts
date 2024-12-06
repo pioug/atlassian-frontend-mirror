@@ -8,6 +8,7 @@ import type {
 	UserBrowserExtensionResults,
 } from '../../utils';
 
+import { type AICommandPaletteEventPayload } from './ai-command-palette-events';
 import { type AIDefinitionsEventPayload } from './ai-definitions-events';
 import type { AvatarEventPayload } from './avatar';
 import { type BreakoutEventPayload } from './breakout-events';
@@ -115,6 +116,7 @@ export type AnalyticsEventPayload<T = void> =
 	| EngagementPlatformEventPayload
 	| NestedTableActionsEventPayload
 	| AIDefinitionsEventPayload
+	| AICommandPaletteEventPayload
 	| BreakoutEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<

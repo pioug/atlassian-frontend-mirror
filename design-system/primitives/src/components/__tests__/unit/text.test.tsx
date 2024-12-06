@@ -49,8 +49,8 @@ describe('Text component', () => {
 		});
 
 		it('throws with an invalid "as" attribute', () => {
-			// @ts-ignore purposefully providing an invalid value to test invariant behaviour
-			expect(() => render(<Text as="address">Text</Text>)).toThrow(
+			// Purposefully providing an invalid value to test invariant behaviour
+			expect(() => render(<Text as={'address' as any}>Text</Text>)).toThrow(
 				new Error(
 					'Invariant failed: @atlaskit/primitives: Text received an invalid "as" value of "address"',
 				),

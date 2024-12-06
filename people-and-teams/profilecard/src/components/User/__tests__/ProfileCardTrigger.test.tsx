@@ -5,6 +5,7 @@ import { userEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos';
+import { toBeAccessible } from '@atlassian/a11y-jest-testing';
 
 import ProfileClient from '../../../client/ProfileCardClient';
 import { getMockProfileClient } from '../../../mocks';
@@ -74,6 +75,13 @@ describe('Profile card trigger', () => {
 			</IntlProvider>,
 		);
 	};
+
+	it('should capture and report a11y violations', async () => {
+		expect.extend({ toBeAccessible });
+
+		const { container } = renderProfileCardTrigger({});
+		await expect(container).toBeAccessible();
+	});
 
 	it('renders the trigger', async () => {
 		renderProfileCardTrigger({});
@@ -172,5 +180,47 @@ describe('Profile card trigger', () => {
 					relevantCallArgs.teamCentralBaseUrl !== undefined,
 			).toBe(true);
 		});
+	});
+
+	it('renders tabIndex 0 when ariaHideProfileTrigger is not set', async () => {
+		renderProfileCardTrigger({
+			prepopulatedData: { fullName: 'Tester' },
+		});
+
+		const profileTriggerButton = await screen.findByRole('button', {
+			name: 'More information about Tester',
+		});
+
+		expect(profileTriggerButton).toHaveAttribute('tabIndex', '0');
+		expect(profileTriggerButton).not.toHaveAttribute('aria-hidden');
+		expect(profileTriggerButton).toHaveAttribute('aria-label');
+	});
+
+	it('renders tabIndex 0 when ariaHideProfileTrigger is false', async () => {
+		renderProfileCardTrigger({
+			prepopulatedData: { fullName: 'Tester' },
+			ariaHideProfileTrigger: false,
+		});
+		const profileTriggerButton = await screen.findByRole('button', {
+			name: 'More information about Tester',
+		});
+
+		expect(profileTriggerButton).toHaveAttribute('tabIndex', '0');
+		expect(profileTriggerButton).not.toHaveAttribute('aria-hidden');
+		expect(profileTriggerButton).toHaveAttribute('aria-label');
+	});
+
+	it('renders tabIndex -1 when ariaHideProfileTrigger is true', async () => {
+		renderProfileCardTrigger({
+			prepopulatedData: { fullName: 'Tester' },
+			ariaHideProfileTrigger: true,
+			testId: 'profile-card-testid',
+		});
+		const profileTriggerButton = await screen.findByTestId('profile-card-testid');
+
+		expect(profileTriggerButton).toHaveAttribute('tabIndex', '-1');
+		expect(profileTriggerButton).toHaveAttribute('aria-hidden', 'true');
+		expect(profileTriggerButton).not.toHaveAttribute('aria-label');
+		expect(profileTriggerButton).not.toHaveAttribute('aria-labelledby');
 	});
 });

@@ -44,27 +44,28 @@ import { chainCommands } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { goToNextCell, moveCursorBackward, setFocusToCellMenu } from '../commands';
+import { moveSourceWithAnalyticsViaShortcut } from '../pm-plugins/drag-and-drop/commands-with-analytics';
+import type { PluginInjectionAPI, PluginInjectionAPIWithA11y } from '../types';
+
+import { goToNextCell, moveCursorBackward, setFocusToCellMenu } from './commands';
+import {
+	activateNextResizeArea,
+	initiateKeyboardColumnResizing,
+	stopKeyboardColumnResizing,
+} from './commands/column-resize';
 import {
 	addRowAroundSelection,
 	changeColumnWidthByStepWithAnalytics,
 	deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut,
 	deleteTableIfSelectedWithAnalytics,
 	emptyMultipleCellsWithAnalytics,
-} from '../commands-with-analytics';
-import {
-	activateNextResizeArea,
-	initiateKeyboardColumnResizing,
-	stopKeyboardColumnResizing,
-} from '../commands/column-resize';
+} from './commands/commands-with-analytics';
 import {
 	addColumnAfter as addColumnAfterCommand,
 	addColumnBefore as addColumnBeforeCommand,
 	createTable,
 	insertTableWithNestingSupport,
-} from '../commands/insert';
-import { moveSourceWithAnalyticsViaShortcut } from '../pm-plugins/drag-and-drop/commands-with-analytics';
-import type { PluginInjectionAPI, PluginInjectionAPIWithA11y } from '../types';
+} from './commands/insert';
 
 export function keymapPlugin(
 	getEditorContainerWidth: GetEditorContainerWidth,

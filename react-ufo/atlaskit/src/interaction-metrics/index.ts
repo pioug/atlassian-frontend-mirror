@@ -22,17 +22,35 @@ import type {
 	SpanType,
 } from '../common';
 import { getAwaitBM3TTIList, getCapabilityRate, getConfig } from '../config';
+import { ExperimentalInteractionMetrics } from '../create-experimental-interaction-metrics-payload';
 import { clearActiveTrace, type TraceIdContext } from '../experience-trace-id-context';
-import {
-	allFeatureFlagsAccessed,
-	currentFeatureFlagsAccessed,
-	type FeatureFlagValue,
-} from '../feature-flags-accessed';
-import type { LabelStack, SegmentLabel } from '../interaction-context';
+import { allFeatureFlagsAccessed, currentFeatureFlagsAccessed } from '../feature-flags-accessed';
+import type { LabelStack } from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
 import { getVCObserver } from '../vc';
 
-import interactions from './common/constants';
+import {
+	addHoldCriterion,
+	addSegmentObserver,
+	callCancelCallbacks,
+	callCleanUpCallbacks,
+	getSegmentCacheKey,
+	isPerformanceTracingEnabled,
+	labelStackToString,
+	pushToQueue,
+	reactProfilerTimingMap,
+	removeHoldCriterion,
+	removeSegmentObserver,
+} from './common';
+import interactions, {
+	CLEANUP_TIMEOUT,
+	CLEANUP_TIMEOUT_AFTER_APDEX,
+	interactionQueue,
+	moduleLoadingRequests,
+	segmentCache,
+	type SegmentObserver,
+	segmentObservers,
+} from './common/constants';
 import PostInteractionLog from './post-interaction-log';
 
 export type {
@@ -57,17 +75,7 @@ const PreviousInteractionLog = {
 };
 
 export const postInteractionLog = new PostInteractionLog();
-
-const interactionQueue: { id: string; data: InteractionMetrics }[] = [];
-const segmentCache = new Map<string, SegmentInfo>();
-const CLEANUP_TIMEOUT = 60 * 1000;
-const CLEANUP_TIMEOUT_AFTER_APDEX = 15 * 1000;
-
-interface SegmentObserver {
-	onAdd: (segment: SegmentInfo) => void;
-	onRemove: (segment: SegmentInfo) => void;
-}
-const segmentObservers: SegmentObserver[] = [];
+export const experimentalInteractionLog = new ExperimentalInteractionMetrics();
 
 export function getActiveInteraction() {
 	const interactionId = getInteractionId();
@@ -75,41 +83,6 @@ export function getActiveInteraction() {
 		return;
 	}
 	return interactions.get(interactionId.current);
-}
-
-function isPerformanceTracingEnabled() {
-	return (
-		getConfig()?.enableAdditionalPerformanceMarks ||
-		window.__REACT_UFO_ENABLE_PERF_TRACING ||
-		process.env.NODE_ENV !== 'production'
-	);
-}
-
-function labelStackToString(labelStack: LabelStack | null | undefined, name?: string) {
-	const stack = [...(labelStack ?? [])];
-	if (name) {
-		stack.push({ name });
-	}
-	return stack.map((l) => l.name)?.join('/');
-}
-function labelStackToIdString(labelStack: LabelStack | null | undefined) {
-	return labelStack
-		?.map((l) => ('segmentId' in l ? `${l.name}:${l.segmentId}` : `${l.name}`))
-		?.join('/');
-}
-function addSegmentObserver(observer: SegmentObserver) {
-	segmentObservers.push(observer);
-
-	for (const segmentInfo of segmentCache.values()) {
-		observer.onAdd(segmentInfo);
-	}
-}
-function removeSegmentObserver(observer: SegmentObserver) {
-	const index = segmentObservers.findIndex((obs) => obs === observer);
-
-	if (index !== -1) {
-		segmentObservers.splice(index, 1);
-	}
 }
 
 export function remove(interactionId: string) {
@@ -258,14 +231,6 @@ export function addLoad(identifier: string, start: number, end: number) {
 	addSpanToAll('bundle_load', identifier, null, start, end - start);
 }
 
-const moduleLoadingRequests: Record<
-	string,
-	{
-		start: number;
-		timeoutId: ReturnType<typeof setTimeout> | number | undefined;
-	}
-> = {};
-
 export function extractModuleName(input: string): string {
 	let result = input ?? '';
 
@@ -276,26 +241,24 @@ export function extractModuleName(input: string): string {
 	return result;
 }
 
-function addHoldCriterion(id: string, labelStack: LabelStack, name: string, startTime: number) {
-	if (!window.__CRITERION__?.addUFOHold) {
-		return;
-	}
-	window.__CRITERION__.addUFOHold(id, labelStackToString(labelStack), name, startTime);
-}
-
-function removeHoldCriterion(id: string) {
-	if (!window.__CRITERION__?.removeUFOHold) {
-		return;
-	}
-	window.__CRITERION__.removeUFOHold(id);
-}
-
-export function addHold(interactionId: string, labelStack: LabelStack, name: string) {
+export function addHold(
+	interactionId: string,
+	labelStack: LabelStack,
+	name: string,
+	experimental: boolean,
+) {
 	const interaction = interactions.get(interactionId);
 	const id = createUUID();
 	if (interaction != null) {
+		const holdActive = { labelStack, name, start: 0 };
 		const start = performance.now();
-		interaction.holdActive.set(id, { labelStack, name, start });
+		if (getConfig()?.enableExperimentalHolds && experimental) {
+			interaction.holdExpActive.set(id, { ...holdActive, start });
+		}
+		if (!experimental) {
+			interaction.holdActive.set(id, { ...holdActive, start });
+		}
+
 		addHoldCriterion(id, labelStack, name, start);
 		return () => {
 			const end = performance.now();
@@ -313,9 +276,17 @@ export function addHold(interactionId: string, labelStack: LabelStack, name: str
 			removeHoldCriterion(id);
 			const currentInteraction = interactions.get(interactionId);
 			const currentHold = interaction.holdActive.get(id);
-			if (currentInteraction != null && currentHold != null) {
-				currentInteraction.holdInfo.push({ ...currentHold, end });
-				interaction.holdActive.delete(id);
+			const expHold = interaction.holdExpActive.get(id);
+			if (currentInteraction != null) {
+				if (currentHold != null) {
+					currentInteraction.holdInfo.push({ ...currentHold, end });
+					interaction.holdActive.delete(id);
+				}
+
+				if (expHold != null) {
+					currentInteraction.holdExpInfo.push({ ...expHold, end });
+					interaction.holdExpActive.delete(id);
+				}
 			}
 		};
 	}
@@ -479,24 +450,13 @@ export const addProfilerTimings = (
 	}
 };
 
-const pushToQueue = (id: string, data: InteractionMetrics) => {
-	interactionQueue.push({ id, data });
-};
-
 let handleInteraction = pushToQueue;
-
-function callCleanUpCallbacks(interaction: InteractionMetrics) {
-	interaction.cleanupCallbacks.reverse().forEach((cleanUpCallback) => {
-		cleanUpCallback();
-	});
-}
 
 const finishInteraction = (
 	id: string,
 	data: InteractionMetrics,
 	endTime: number = performance.now(),
 ) => {
-	// eslint-disable-next-line no-param-reassign
 	data.end = endTime;
 	try {
 		// for Firefox 102 and older
@@ -508,7 +468,6 @@ const finishInteraction = (
 		// do nothing
 	}
 	if (data.featureFlags) {
-		// eslint-disable-next-line no-param-reassign
 		data.featureFlags.during = Object.fromEntries(currentFeatureFlagsAccessed);
 	}
 	clearActiveTrace();
@@ -516,7 +475,7 @@ const finishInteraction = (
 	if (getConfig()?.vc?.stopVCAtInteractionFinish) {
 		data.vc = getVCObserver().getVCRawData();
 	}
-	remove(id);
+
 	PreviousInteractionLog.name = data.ufoName || 'unknown';
 	PreviousInteractionLog.isAborted = data.abortReason != null;
 	if (data.ufoName) {
@@ -524,38 +483,7 @@ const finishInteraction = (
 	}
 
 	if (isPerformanceTracingEnabled()) {
-		const profilerTimingMap = new Map<
-			string,
-			{ labelStack: LabelStack; start?: number; end?: number }
-		>();
-		data.reactProfilerTimings.forEach((profilerTiming) => {
-			const labelStackId = labelStackToIdString(profilerTiming.labelStack);
-			if (labelStackId) {
-				const timing = profilerTimingMap.get(labelStackId) ?? {
-					labelStack: profilerTiming.labelStack,
-				};
-				timing.start =
-					profilerTiming.startTime < (timing.start ?? Number.MAX_SAFE_INTEGER)
-						? profilerTiming.startTime
-						: timing.start;
-				timing.end =
-					profilerTiming.commitTime > (timing.end ?? Number.MIN_SAFE_INTEGER)
-						? profilerTiming.commitTime
-						: timing.end;
-				profilerTimingMap.set(labelStackId, timing);
-			}
-		});
-		try {
-			// for Firefox 102 and older
-			for (const [, { labelStack, start, end }] of profilerTimingMap.entries()) {
-				performance.measure(`🛸 ${labelStackToString(labelStack)} [segment_ttai]`, {
-					start,
-					end,
-				});
-			}
-		} catch (e) {
-			// do nothing
-		}
+		reactProfilerTimingMap(data);
 	}
 
 	try {
@@ -578,30 +506,49 @@ export const sinkInteractionHandler = (sinkFn: (id: string, data: InteractionMet
 	}
 };
 
+export const sinkExperimentalHandler = (
+	sinkFn: (interactionId: string, interaction: InteractionMetrics) => void | Promise<void>,
+) => {
+	experimentalInteractionLog.sinkHandler(sinkFn);
+};
+
 export const sinkPostInteractionLogHandler = (
 	sinkFn: (output: PostInteractionLogOutput) => void | Promise<void>,
 ) => {
 	postInteractionLog.sinkHandler(sinkFn);
 };
 
+// a flag to prevent mutliple submittions
+let activeSubmitted = false;
+
 export function tryComplete(interactionId: string, endTime?: number) {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
-		const noMoreHolds = interaction.holdActive.size === 0;
-		if (noMoreHolds) {
-			finishInteraction(interactionId, interaction, endTime);
+		const noMoreActiveHolds = interaction.holdActive.size === 0;
+		const noMoreExpHolds = interaction.holdExpActive.size === 0;
 
+		const postInteraction = () => {
 			if (getConfig()?.postInteractionLog?.enabled) {
 				postInteractionLog.onInteractionComplete(interaction);
 			}
+			remove(interactionId);
+			activeSubmitted = false;
+		};
+
+		if (noMoreActiveHolds) {
+			if (!activeSubmitted) {
+				finishInteraction(interactionId, interaction, endTime);
+				activeSubmitted = true;
+			}
+
+			if (noMoreExpHolds) {
+				if (getConfig()?.enableExperimentalHolds) {
+					experimentalInteractionLog.onInteractionComplete(interactionId, interaction, endTime);
+				}
+				postInteraction();
+			}
 		}
 	}
-}
-
-function callCancelCallbacks(interaction: InteractionMetrics) {
-	interaction.cancelCallbacks.reverse().forEach((cancelCallback) => {
-		cancelCallback();
-	});
 }
 
 export function abort(interactionId: string, abortReason: AbortReasonType) {
@@ -610,6 +557,10 @@ export function abort(interactionId: string, abortReason: AbortReasonType) {
 		callCancelCallbacks(interaction);
 		interaction.abortReason = abortReason;
 		finishInteraction(interactionId, interaction);
+		if (getConfig()?.enableExperimentalHolds) {
+			experimentalInteractionLog.onInteractionComplete(interactionId, interaction);
+		}
+		remove(interactionId);
 	}
 }
 
@@ -620,6 +571,10 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		interaction.abortReason = 'new_interaction';
 		interaction.abortedByInteractionName = interactionName;
 		finishInteraction(interactionId, interaction);
+		if (getConfig()?.enableExperimentalHolds) {
+			experimentalInteractionLog.onInteractionComplete(interactionId, interaction);
+		}
+		remove(interactionId);
 	}
 }
 
@@ -628,15 +583,17 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 		const noMoreHolds = interaction.holdActive.size === 0;
 		if (!noMoreHolds) {
 			callCancelCallbacks(interaction);
-			// eslint-disable-next-line no-param-reassign
 			interaction.abortReason = abortReason;
 			if (abortedByInteractionName != null) {
-				// eslint-disable-next-line no-param-reassign
 				interaction.abortedByInteractionName = abortedByInteractionName;
 			}
 		}
 
 		finishInteraction(interactionId, interaction);
+		if (getConfig()?.enableExperimentalHolds) {
+			experimentalInteractionLog.onInteractionComplete(interactionId, interaction);
+		}
+		remove(interactionId);
 	});
 }
 
@@ -700,9 +657,11 @@ export function addNewInteraction(
 		requestInfo: [],
 		reactProfilerTimings: [],
 		holdInfo: [],
+		holdExpInfo: [],
 		holdActive: new Map(),
+		holdExpActive: new Map(),
 		// measure when we execute this code
-		// from this we can measure the input delay -
+		// from this, we can measure the input delay -
 		// how long the browser took to hand execution back to JS)
 		measureStart: performance.now(),
 		rate,
@@ -831,21 +790,6 @@ export function addRequestInfo(
 	}
 }
 
-function isSegmentLabel(obj: any): obj is SegmentLabel {
-	return obj && typeof obj.name === 'string' && typeof obj.segmentId === 'string';
-}
-
-function getSegmentCacheKey(labelStack: LabelStack) {
-	return labelStack
-		.map((l) => {
-			if (isSegmentLabel(l)) {
-				return `${l.name}_${l.segmentId}`;
-			}
-			return l.name;
-		})
-		.join('|');
-}
-
 export function addSegment(labelStack: LabelStack) {
 	const key = getSegmentCacheKey(labelStack);
 	const existingSegment = segmentCache.get(key);
@@ -896,19 +840,6 @@ export function addRedirect(
 				// do nothing
 			}
 		}
-	}
-}
-declare global {
-	interface Window {
-		__REACT_UFO_ENABLE_PERF_TRACING?: boolean;
-		__UFO_COMPACT_PAYLOAD__?: boolean;
-		__CRITERION__?: {
-			addFeatureFlagAccessed?: (flagName: string, flagValue: FeatureFlagValue) => void;
-			addUFOHold?: (id: string, name: string, labelStack: string, startTime: number) => void;
-			removeUFOHold?: (id: string) => void;
-			getFeatureFlagOverride?: (flagName: string) => boolean | undefined;
-			getExperimentValueOverride?: <T>(experimentName: string, parameterName: string) => T;
-		};
 	}
 }
 

@@ -3,7 +3,10 @@ import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider
 import TaskItemWithProviders from './task-item-with-providers';
 import { type RendererContext, type NodeProps } from '../types';
 import { FabricElementsAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
-import { TaskItemsFormatProvider, TaskItemsFormatConsumer } from '../../ui/TaskItemsFormatContext';
+import {
+	TaskItemsFormatProvider,
+	TaskItemsFormatConsumer,
+} from '../../ui/TaskItemsFormatContext/TaskItemsFormatContext';
 
 export interface Props {
 	localId: string;

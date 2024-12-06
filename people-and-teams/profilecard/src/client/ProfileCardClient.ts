@@ -1,6 +1,5 @@
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import { getATLContextUrl, isFedRamp } from '@atlaskit/atlassian-context';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type AgentIdType,
@@ -70,10 +69,6 @@ class ProfileCardClient implements ProfileClient {
 	}
 
 	async getTeamCentralBaseUrl(teamCentralScopes?: TeamCentralScopes) {
-		if (!fg('enable_ptc_sharded_townsquare_calls')) {
-			return Promise.resolve(this.tcClient?.options.teamCentralBaseUrl);
-		}
-
 		if (this.tcClient === undefined) {
 			return Promise.resolve(undefined);
 		}
@@ -143,9 +138,7 @@ function maybeCreateTeamCentralClient(
 	if (clients?.teamCentralClient) {
 		return clients.teamCentralClient;
 	}
-	const teamCentralEnabled = fg('enable_ptc_sharded_townsquare_calls')
-		? config.teamCentralDisabled !== true
-		: config.teamCentralUrl;
+	const teamCentralEnabled = config.teamCentralDisabled !== true;
 	return teamCentralEnabled ? new TeamCentralCardClient({ ...config }) : undefined;
 }
 

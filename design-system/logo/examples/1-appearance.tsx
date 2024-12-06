@@ -22,6 +22,8 @@ import {
 	CompassLogo,
 	ConfluenceIcon,
 	ConfluenceLogo,
+	FocusIcon,
+	FocusLogo,
 	GuardIcon,
 	GuardLogo,
 	HalpIcon,
@@ -104,6 +106,7 @@ export default () => (
 				{buildRows(BitbucketLogo, BitbucketIcon)}
 				{buildRows(CompassLogo, CompassIcon)}
 				{buildRows(ConfluenceLogo, ConfluenceIcon)}
+				{buildRows(FocusLogo, FocusIcon)}
 				{buildRows(HalpLogo, HalpIcon)}
 				{buildRows(JiraAlignLogo, JiraAlignIcon)}
 				{buildRows(JiraLogo, JiraIcon)}

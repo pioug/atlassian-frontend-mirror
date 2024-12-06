@@ -18,9 +18,9 @@ import { token } from '@atlaskit/tokens';
 import { getPluginState as getDnDPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';
 import type { TriggerType } from '../../pm-plugins/drag-and-drop/types';
 import { getPluginState } from '../../pm-plugins/plugin-factory';
+import { findDuplicatePosition, hasMergedCellsInSelection } from '../../pm-plugins/utils';
 import { TableCssClassName as ClassName } from '../../types';
 import type { CellHoverMeta, TableDirection } from '../../types';
-import { findDuplicatePosition, hasMergedCellsInSelection } from '../../utils';
 import { dragTableInsertColumnButtonSize } from '../consts';
 import { DragPreview } from '../DragPreview';
 

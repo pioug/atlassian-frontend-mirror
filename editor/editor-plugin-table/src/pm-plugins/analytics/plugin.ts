@@ -8,7 +8,7 @@ import {
 	getTableElementMoveTypeBySlice,
 	getTableSelectionType,
 	isInsideFirstCellOfRowOrColumn,
-} from '../../commands/misc';
+} from '../commands/misc';
 
 import { resetRowOrColumnMovedTransform, updateRowOrColumnMoved } from './commands';
 import { createPluginState } from './plugin-factory';

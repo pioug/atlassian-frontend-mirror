@@ -13,13 +13,13 @@ import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { token } from '@atlaskit/tokens';
 
-import { clearHoverSelection } from '../../../commands';
+import { clearHoverSelection } from '../../../pm-plugins/commands';
 import { toggleDragMenu } from '../../../pm-plugins/drag-and-drop/commands';
 import type { TriggerType } from '../../../pm-plugins/drag-and-drop/types';
 import { getPluginState as getTablePluginState } from '../../../pm-plugins/plugin-factory';
+import { getRowHeights, getRowsParams, getSelectedRowIndexes } from '../../../pm-plugins/utils';
 import { TableCssClassName as ClassName } from '../../../types';
 import type { CellHoverMeta, DraggableSourceData, HandleTypes } from '../../../types';
-import { getRowHeights, getRowsParams, getSelectedRowIndexes } from '../../../utils';
 import { dropTargetExtendedWidth } from '../../consts';
 import type { DragHandleAppearance } from '../../DragHandle';
 import { DragHandle } from '../../DragHandle';

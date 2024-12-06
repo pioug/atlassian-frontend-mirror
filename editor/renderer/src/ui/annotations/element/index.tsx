@@ -6,11 +6,9 @@ import {
 	type AnnotationTypes,
 } from '@atlaskit/adf-schema';
 import { MarkComponent } from './mark';
-import {
-	useInlineCommentSubscriberContext,
-	useHasFocusEvent,
-	useInlineCommentsFilter,
-} from '../hooks';
+import { useInlineCommentsFilter } from '../hooks/use-inline-comments-filter';
+import { useInlineCommentSubscriberContext } from '../hooks/use-inline-comment-subscriber';
+import { useHasFocusEvent } from '../hooks/use-events';
 import { InlineCommentsStateContext } from '../context';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';

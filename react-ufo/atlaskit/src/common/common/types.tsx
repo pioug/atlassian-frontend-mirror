@@ -97,7 +97,6 @@ export interface SegmentInfo {
 export interface CustomData {
 	[key: string]:
 		| null
-		| undefined
 		| string
 		| number
 		| boolean
@@ -138,7 +137,9 @@ export interface InteractionMetrics {
 	spans: Span[];
 	requestInfo: (RequestInfo & { labelStack: LabelStack })[];
 	holdInfo: HoldInfo[];
+	holdExpInfo: HoldInfo[];
 	holdActive: Map<string, HoldActive>;
+	holdExpActive: Map<string, HoldActive>;
 	reactProfilerTimings: ReactProfilerTiming[];
 	measureStart: number;
 	rate: number;
@@ -150,11 +151,11 @@ export interface InteractionMetrics {
 	abortedByInteractionName?: string;
 
 	/**
-	 * Apdex is legacy performance measurement where it is
+	 * Apdex is a legacy performance measurement where it is
 	 * capturing TTI at arbitrary point in the code (bm3/UFOv1)
 	 *
 	 * We are intercepting its values now just so we can use it for
-	 * topline metric, but should encourage teams adopt TTAI
+	 * topline metric, but should encourage teams to adopt TTAI
 	 *
 	 * This field might be ignored/dropped in the future.
 	 */
@@ -206,7 +207,7 @@ export interface EnhancedUFOInteractionContextType
 		RelayMetricsRecorder,
 		LazyLoadProfilerContext {
 	// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-	_internalHold(labelStack: LabelStack, name: string): void | (() => void);
+	_internalHold(labelStack: LabelStack, name: string, experimental: boolean): void | (() => void);
 	_internalHoldByID(
 		labelStack: LabelStack,
 		id: string,

@@ -13,6 +13,8 @@ import {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import { SurfaceContext } from '../utils/surface-provider';
+import { type SVGElements } from '../utils/types';
 import {
 	type BackgroundColor,
 	backgroundColorStylesMap,
@@ -23,8 +25,6 @@ import {
 } from '../xcss/style-maps.partial';
 import { parseXcss } from '../xcss/xcss';
 
-import { SurfaceContext } from './internal/surface-provider';
-import { type SVGElements } from './internal/types';
 import type { BasePrimitiveProps, StyleProp } from './types';
 
 // Can either Exclude or Extract - here we're excluding all SVG-related elements, <button> elements (handled by Pressable), and <a> elements (handled by Anchor)

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::bac80069d7b0f78f35481ac249ff888e>>
+ * @codegen <<SignedSource::832dff75a8e14ad806604a97c2da3298>>
  * @codegenCommand yarn generate-artifacts
  */
 import AirTableFilterIcon from '../../src/ui/air-table-filter-icon';
@@ -85,7 +85,6 @@ import ManualTriggerIcon from '../../src/ui/manual-trigger-icon';
 import MegaphoneIcon from '../../src/ui/megaphone-icon';
 import MegaphoneStarIcon from '../../src/ui/megaphone-star-icon';
 import MicrosoftSharepointIcon from '../../src/ui/microsoft-sharepoint-icon';
-import MinorPriorityIcon from '../../src/ui/minor-priority-icon';
 import MiroFilterIcon from '../../src/ui/miro-filter-icon';
 import MiroIcon from '../../src/ui/miro-icon';
 import MsTeamsIcon from '../../src/ui/ms-teams-icon';
@@ -124,8 +123,6 @@ import SlackIcon from '../../src/ui/slack-icon';
 import SlackIconAiMate from '../../src/ui/slack-icon-ai-mate';
 import SlackSearchResultIcon from '../../src/ui/slack-search-result-icon';
 import StopTypingIcon from '../../src/ui/stop-typing-icon';
-import SubtaskDraggableIcon from '../../src/ui/subtask-draggable-icon';
-import SubtaskObjectIcon from '../../src/ui/subtask-object-icon';
 import TagIcon from '../../src/ui/tag-icon';
 import TaskIcon from '../../src/ui/task-icon';
 import TeamsIcon from '../../src/ui/teams-icon';
@@ -227,7 +224,6 @@ export default {
 	MegaphoneIcon,
 	MegaphoneStarIcon,
 	MicrosoftSharepointIcon,
-	MinorPriorityIcon,
 	MiroFilterIcon,
 	MiroIcon,
 	MsTeamsIcon,
@@ -266,8 +262,6 @@ export default {
 	SlackIconAiMate,
 	SlackSearchResultIcon,
 	StopTypingIcon,
-	SubtaskDraggableIcon,
-	SubtaskObjectIcon,
 	TagIcon,
 	TaskIcon,
 	TeamsIcon,

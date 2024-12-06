@@ -26,14 +26,20 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
-import { addBoldInEmptyHeaderCells, clearHoverSelection, setTableRef } from '../commands';
-import { stopKeyboardColumnResizing } from '../commands/column-resize';
 import {
-	removeResizeHandleDecorations,
-	transformSliceRemoveCellBackgroundColor,
-	transformSliceToAddTableHeaders,
-	transformSliceToRemoveColumnsWidths,
-} from '../commands/misc';
+	lazyTableCellView,
+	lazyTableHeaderView,
+	lazyTableRowView,
+	lazyTableView,
+} from '../nodeviews/lazy-node-views';
+import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
+import type {
+	InvalidNodeAttr,
+	PluginConfig,
+	PluginInjectionAPI,
+	PluginInjectionAPIWithA11y,
+} from '../types';
+import { TableCssClassName as ClassName } from '../types';
 import {
 	handleBlur,
 	handleClick,
@@ -47,33 +53,27 @@ import {
 	handleTripleClick,
 	whenTableInFocus,
 	withCellTracking,
-} from '../event-handlers';
+} from '../ui/event-handlers';
+
+import { addBoldInEmptyHeaderCells, clearHoverSelection, setTableRef } from './commands';
+import { stopKeyboardColumnResizing } from './commands/column-resize';
 import {
-	lazyTableCellView,
-	lazyTableHeaderView,
-	lazyTableRowView,
-	lazyTableView,
-} from '../nodeviews/lazy-node-views';
-import { pluginKey as decorationsPluginKey } from '../pm-plugins/decorations/plugin';
-import { fixTables, replaceSelectedTable } from '../transforms';
-import type {
-	InvalidNodeAttr,
-	PluginConfig,
-	PluginInjectionAPI,
-	PluginInjectionAPIWithA11y,
-} from '../types';
-import { TableCssClassName as ClassName } from '../types';
+	removeResizeHandleDecorations,
+	transformSliceRemoveCellBackgroundColor,
+	transformSliceToAddTableHeaders,
+	transformSliceToRemoveColumnsWidths,
+} from './commands/misc';
+import { defaultHoveredCell, defaultTableSelection } from './default-table-selection';
+import { createPluginState, getPluginState } from './plugin-factory';
+import { pluginKey } from './plugin-key';
+import { fixTables, replaceSelectedTable } from './transforms';
 import {
 	findControlsHoverDecoration,
 	transformSliceToCorrectEmptyTableCells,
 	transformSliceToFixHardBreakProblemOnCopyFromCell,
 	transformSliceToRemoveOpenTable,
-} from '../utils';
-import { isHeaderRowRequired, transformSliceTableLayoutDefaultToCenter } from '../utils/paste';
-
-import { defaultHoveredCell, defaultTableSelection } from './default-table-selection';
-import { createPluginState, getPluginState } from './plugin-factory';
-import { pluginKey } from './plugin-key';
+} from './utils';
+import { isHeaderRowRequired, transformSliceTableLayoutDefaultToCenter } from './utils/paste';
 
 export const createPlugin = (
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,

@@ -1,5 +1,13 @@
 # @atlaskit/logo
 
+## 15.1.0
+
+### Minor Changes
+
+- [#174515](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174515)
+  [`e948b27b6716a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e948b27b6716a) -
+  [ux] Add Focus product logo.
+
 ## 15.0.0
 
 ### Major Changes

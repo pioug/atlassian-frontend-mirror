@@ -1,10 +1,8 @@
 import { snapshot } from '@af/visual-regression';
 import {
 	TableRenderer,
-	TableRendererOverflow,
 	TableRendererWideOverflow,
 	TableRendererFullWidthOverflow,
-	TableRendererWithInlineComments,
 	TableRendererWrappedNodes,
 	TableRendererComplexNodes,
 	TableRendererBackgroundColor,
@@ -17,6 +15,10 @@ import {
 	TableRendererWideWithoutAppearance,
 	TableRendererFullWidthWithoutAppearance,
 } from './table.fixture';
+import {
+	TableRendererOverflow,
+	TableRendererWithInlineComments,
+} from '../__helpers/rendererComponents';
 
 snapshot(TableRenderer, {
 	description: 'Table renderer should NOT render a right shadow',

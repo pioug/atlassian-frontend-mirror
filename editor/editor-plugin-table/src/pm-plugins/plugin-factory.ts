@@ -1,9 +1,8 @@
 import { pluginFactory } from '@atlaskit/editor-common/utils';
 
-import { handleDocOrSelectionChanged } from '../handlers';
-import reducer from '../reducer';
-
+import { handleDocOrSelectionChanged } from './handlers';
 import { pluginKey } from './plugin-key';
+import reducer from './reducer';
 
 export const { createPluginState, createCommand, getPluginState } = pluginFactory(
 	pluginKey,

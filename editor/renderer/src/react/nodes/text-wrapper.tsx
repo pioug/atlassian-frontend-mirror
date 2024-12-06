@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import React from 'react';
-import { TextWithAnnotationDraft } from '../../ui/annotations';
+import { TextWithAnnotationDraft } from '../../ui/annotations/draft/component';
 import type { TextHighlighter } from '../types';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 

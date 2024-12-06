@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-avatar-group
 
+## 2.0.17
+
+### Patch Changes
+
+- [#172929](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172929)
+  [`ee80242ee0a31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee80242ee0a31) -
+  Remediate re-exports
+- Updated dependencies
+
 ## 2.0.16
 
 ### Patch Changes

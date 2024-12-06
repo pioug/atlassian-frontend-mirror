@@ -44,10 +44,10 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
       <style
         data-cmpld="true"
       >
-        ._16jlidpf{flex-grow:0}._ahbq1wug{margin-inline-start:auto}._bozgxy5q{padding-inline-start:var(--ds-space-400,2pc)}._1oblusic &gt;{text-align:right}
+        ._16jlidpf{flex-grow:0}._ahbq1wug{margin-inline-start:auto}._bozgxy5q{padding-inline-start:var(--ds-space-400,2pc)}
       </style>
       <div
-        class="_p12f1osq _16jlidpf _1o9zidpf _i0dl1wug _6rthu2gc _ahbq1wug _bozgxy5q _o5721q9c _1oblusic"
+        class="_p12f1osq _16jlidpf _1o9zidpf _i0dl1wug _6rthu2gc _ahbq1wug _bozgxy5q _o5721q9c"
       >
         <div>
           Action
@@ -111,10 +111,10 @@ exports[`@atlaskit/page-header should render correctly with disableTitleStyles p
       <style
         data-cmpld="true"
       >
-        ._16jlidpf{flex-grow:0}._ahbq1wug{margin-inline-start:auto}._bozgxy5q{padding-inline-start:var(--ds-space-400,2pc)}._o5721q9c{white-space:nowrap}._1oblusic &gt;{text-align:right}
+        ._16jlidpf{flex-grow:0}._ahbq1wug{margin-inline-start:auto}._bozgxy5q{padding-inline-start:var(--ds-space-400,2pc)}._o5721q9c{white-space:nowrap}
       </style>
       <div
-        class="_p12f1osq _16jlidpf _1o9zidpf _i0dl1wug _6rthu2gc _ahbq1wug _bozgxy5q _o5721q9c _1oblusic"
+        class="_p12f1osq _16jlidpf _1o9zidpf _i0dl1wug _6rthu2gc _ahbq1wug _bozgxy5q _o5721q9c"
       >
         <div>
           Action

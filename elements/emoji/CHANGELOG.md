@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 67.11.4
+
+### Patch Changes
+
+- [#172929](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172929)
+  [`5d4cee56fe58b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d4cee56fe58b) -
+  [ux] Fixes bug that can result in emoji upload not finishing.
+
 ## 67.11.3
 
 ### Patch Changes

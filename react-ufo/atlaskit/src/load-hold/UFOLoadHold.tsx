@@ -24,8 +24,7 @@ const useLayoutEffectSAFE = typeof window === 'undefined' ? useEffect : useLayou
  *   return (
  *     <>
  *       <Skeleton />
- *       <UFOLoadHold name="card">
- *     </UFOLoadHold>
+ *       <UFOLoadHold name="card" />
  *   )
  * }
  * ```
@@ -53,8 +52,6 @@ type Props = {
 	name: string;
 	hold?: boolean;
 	children?: ReactNode;
-
-	// TODO: implement Experimental UFO Holds functionality as per https://product-fabric.atlassian.net/browse/AFO-3080
 	experimental?: boolean;
 };
 
@@ -63,8 +60,8 @@ export default function UFOLoadHold({ children, name, hold = true, experimental 
 	const context = useContext(UFOInteractionContext);
 
 	useLayoutEffectSAFE(() => {
-		if (hold && !experimental && context != null) {
-			return context.hold(name);
+		if (hold && context != null) {
+			return context.hold(name, experimental);
 		}
 	}, [hold, context, name]);
 

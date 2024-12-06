@@ -1,5 +1,3 @@
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { type ReportingLinesUser, type TeamCentralReportingLinesData } from '../types';
 
 import CachingClient, { type CacheConfig } from './CachingClient';
@@ -46,14 +44,6 @@ export type TeamCentralCardClientOptions = CacheConfig & {
 	 */
 	orgId?: string;
 	teamCentralDisabled?: boolean;
-	/* eslint-disable @repo/internal/deprecations/deprecation-ticket-required */
-	/**
-	 * @deprecated
-	 * Enables Team Central functionality if enabled e.g. /gateway/api/watermelon/graphql
-	 */
-	teamCentralUrl?: string;
-	/** URL to the Team Central app e.g. team.atlassian.com */
-	teamCentralBaseUrl?: string;
 };
 
 let isTCReadyPromiseMap: Map<string, Promise<boolean>> = new Map();
@@ -157,33 +147,17 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	 * `public` so that mock client can override it; do not use it otherwise!
 	 */
 	async makeRequest(userId: string) {
-		if (fg('enable_ptc_sharded_townsquare_calls')) {
-			if (this.options.teamCentralDisabled === true) {
-				throw new Error('makeRequest cannot be called when the client has been disabled');
-			}
-
-			const query = buildReportingLinesQuery(userId);
-
-			const response = await directoryGraphqlQuery<{
-				reportingLines: TeamCentralReportingLinesData;
-			}>('/gateway/api/watermelon/graphql?operationName=ReportingLines', query);
-
-			return response.reportingLines;
-		} else {
-			if (!this.options.teamCentralUrl) {
-				throw new Error(
-					'options.teamCentralUrl is a required parameter for retrieving Team Central data',
-				);
-			}
-
-			const query = buildReportingLinesQuery(userId);
-
-			const response = await directoryGraphqlQuery<{
-				reportingLines: TeamCentralReportingLinesData;
-			}>(`${this.options.teamCentralUrl}?operationName=ReportingLines`, query);
-
-			return response.reportingLines;
+		if (this.options.teamCentralDisabled === true) {
+			throw new Error('makeRequest cannot be called when the client has been disabled');
 		}
+
+		const query = buildReportingLinesQuery(userId);
+
+		const response = await directoryGraphqlQuery<{
+			reportingLines: TeamCentralReportingLinesData;
+		}>('/gateway/api/watermelon/graphql?operationName=ReportingLines', query);
+
+		return response.reportingLines;
 	}
 
 	checkWorkspaceExists(): Promise<boolean> {
@@ -207,10 +181,6 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	}
 
 	private preloadIsGlobalExperienceWorkspace(cloudId?: string) {
-		if (!fg('enable_ptc_sharded_townsquare_calls')) {
-			return Promise.resolve(false);
-		}
-
 		if (cloudId === undefined) {
 			return Promise.resolve(false);
 		}
@@ -232,9 +202,8 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 
 	private hasTCWorkspace(config: TeamCentralCardClientOptions) {
 		if (config.cloudId) {
-			const maybeShardedApiPath = this.getMaybeShardedApiPath(config.cloudId);
 			return fetch(
-				`${maybeShardedApiPath}/organization/containsAnyWorkspace?cloudId=${config.cloudId}`,
+				`${this.getShardedApiPath(config.cloudId)}/organization/containsAnyWorkspace?cloudId=${config.cloudId}`,
 			).then((res) => {
 				return !res || (res && res.ok);
 			});
@@ -244,10 +213,9 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	}
 
 	private async isGlobalExperienceWorkspaceForCloudId(cloudId: string): Promise<boolean> {
-		const maybeShardedApiPath = this.getMaybeShardedApiPath(cloudId);
 		try {
 			const response = await fetch(
-				`${maybeShardedApiPath}/workspace/existsWithWorkspaceType?cloudId=${cloudId}`,
+				`${this.getShardedApiPath(cloudId)}/workspace/existsWithWorkspaceType?cloudId=${cloudId}`,
 				{
 					credentials: 'include',
 				},
@@ -263,10 +231,6 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	}
 
 	private preloadOrgId(gatewayGraphqlUrl: string, cloudId?: string, orgId?: string) {
-		if (!fg('enable_ptc_sharded_townsquare_calls')) {
-			return Promise.resolve(null);
-		}
-
 		if (cloudId === undefined) {
 			return Promise.resolve(null);
 		}
@@ -288,11 +252,8 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		return orgIdForCloudIdPromise;
 	}
 
-	private getMaybeShardedApiPath(cloudId: string) {
-		const maybeShardedPath = fg('enable_ptc_sharded_townsquare_calls')
-			? `/townsquare/s/${cloudId}`
-			: '/watermelon';
-		return `/gateway/api${maybeShardedPath}`;
+	private getShardedApiPath(cloudId: string) {
+		return `/gateway/api/townsquare/s/${cloudId}`;
 	}
 
 	private filterReportingLinesUser(users: ReportingLinesUser[] = []): ReportingLinesUser[] {

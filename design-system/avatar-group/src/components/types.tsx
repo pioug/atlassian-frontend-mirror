@@ -6,6 +6,7 @@ import { type MenuGroupProps } from '@atlaskit/menu';
 import { type ContentProps } from '@atlaskit/popup';
 
 import type { AvatarGroupItemProps } from './avatar-group-item';
+import { type MoreIndicatorProps } from './more-indicator';
 
 export type DeepRequired<T> = {
 	[P in keyof T]-?: Required<T[P]>;
@@ -29,6 +30,12 @@ export interface AvatarGroupOverrides {
 			Component: typeof Avatar | ElementType<AvatarProps>,
 			props: AvatarProps,
 			index: number,
+		) => ReactNode;
+	};
+	MoreIndicator?: {
+		render?: (
+			Component: ForwardRefExoticComponent<MoreIndicatorProps & RefAttributes<HTMLButtonElement>>,
+			props: MoreIndicatorProps,
 		) => ReactNode;
 	};
 }

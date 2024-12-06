@@ -18,7 +18,7 @@ import { act } from 'react-dom/test-utils';
 import type { ApplyAnnotation } from '../../../../../actions/index';
 import type RendererActions from '../../../../../actions/index';
 import { RendererContext } from '../../../../RendererActionsContext';
-import * as DraftMock from '../../../draft';
+import { updateWindowSelectionAroundDraft } from '../../../draft/dom';
 import type { Position } from '../../../types';
 import { SelectionInlineCommentMounter } from '../../mounter';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
@@ -27,7 +27,7 @@ import { ffTest } from '@atlassian/feature-flags-test-utils';
 // eslint-disable-next-line @atlaskit/platform/no-alias
 import * as platformFeatureFlags from '@atlaskit/platform-feature-flags';
 
-jest.mock('../../../draft');
+jest.mock('../../../draft/dom');
 
 const inlineNodeTypesTestId = 'inline-nodes-type';
 
@@ -138,13 +138,13 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 			it('should update the native selection in the next animation frame', (done) => {
 				const { applyDraftModeCallback } = renderMounter();
 
-				expect(DraftMock.updateWindowSelectionAroundDraft).toHaveBeenCalledTimes(0);
+				expect(updateWindowSelectionAroundDraft).toHaveBeenCalledTimes(0);
 				act(() => {
 					applyDraftModeCallback({ keepNativeSelection: true });
 				});
 
 				window.requestAnimationFrame(() => {
-					expect(DraftMock.updateWindowSelectionAroundDraft).toHaveBeenCalledTimes(1);
+					expect(updateWindowSelectionAroundDraft).toHaveBeenCalledTimes(1);
 					done();
 				});
 			});

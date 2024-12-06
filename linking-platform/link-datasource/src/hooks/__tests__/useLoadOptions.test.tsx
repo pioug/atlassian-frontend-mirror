@@ -95,10 +95,33 @@ describe('useLoadOptions', () => {
 			expect(mockExecuteFetch).toHaveBeenCalledWith({ id: '1' });
 		});
 
-		it('should return isLoading as true when the fetch is in progress', () => {
+		it('should return isLoading as true when initially loaded', () => {
 			const { result } = setup({ executeFetch: mockExecuteFetch });
 			const { isLoading } = result.current;
 			expect(isLoading).toEqual(true);
+		});
+
+		it('should return isLoading as true when the fetch is in progress', async () => {
+			const { result, rerender, waitForNextUpdate } = setup({ executeFetch: mockExecuteFetch });
+			mockExecuteFetch.mockResolvedValue({
+				operationStatus: 'SUCCESS',
+				errors: [],
+				entities: [
+					{
+						id: '1',
+						name: 'Option 1',
+					},
+					{
+						id: '2',
+						name: 'Option 2',
+					},
+				],
+			});
+			rerender({ fetchInputs: { name: 'Option 3' }, executeFetch: mockExecuteFetch });
+			waitForNextUpdate();
+
+			expect(result.current.isLoading).toEqual(true);
+			expect(result.current.options).toEqual([]);
 		});
 	});
 

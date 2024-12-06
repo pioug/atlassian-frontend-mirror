@@ -20,15 +20,15 @@ import {
 	akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
 
-import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../commands-with-analytics';
+import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import {
 	TABLE_MAX_WIDTH,
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
 } from '../pm-plugins/table-resizing/utils';
+import { ALIGN_CENTER, ALIGN_START } from '../pm-plugins/utils/alignment';
 import type { PluginInjectionAPI, TableSharedState } from '../types';
 import { TableCssClassName as ClassName } from '../types';
-import { ALIGN_CENTER, ALIGN_START } from '../utils/alignment';
 
 import { getAlignmentStyle } from './table-container-styles';
 import { TableResizer } from './TableResizer';

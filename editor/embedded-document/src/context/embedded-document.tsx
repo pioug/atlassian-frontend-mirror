@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 import type { ReactElement } from 'react';
-import { Component } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
 import type { Actions, Mode, State } from './context';
 import { Context } from './context';
-import type { Provider, ProviderProps } from '../provider';
+import type { Provider } from '../provider/provider';
+import type { ProviderProps } from '../provider';
 import { getProvider } from '../provider';
 import type { Document } from '../model';
 import { akEditorGutterPaddingDynamic } from '@atlaskit/editor-shared-styles';

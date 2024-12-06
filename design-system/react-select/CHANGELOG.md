@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.5.2
+
+### Patch Changes
+
+- [#167291](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/167291)
+  [`4645a4d115b15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4645a4d115b15) -
+  Fix the calculation of scroll space below to place menu bottom as much as possible
+
 ## 1.5.1
 
 ### Patch Changes

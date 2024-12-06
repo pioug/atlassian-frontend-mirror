@@ -11,13 +11,14 @@ import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } f
 
 interface TextEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'string'>;
+	labelId?: string;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
 }
 
 const TextEditType = (props: TextEditTypeProps) => {
 	const experienceId = useDatasourceExperienceId();
 
-	const { currentValue } = props;
+	const { currentValue, labelId } = props;
 
 	useEffect(() => {
 		if (experienceId) {
@@ -42,6 +43,7 @@ const TextEditType = (props: TextEditTypeProps) => {
 					padding: `${token('space.100', '8px')} calc(${token('space.100', '8px')} - 1px)`,
 				}}
 				value={currentValue?.values?.[0] ?? ''}
+				aria-labelledby={labelId}
 				onChange={(e) =>
 					props.setEditValues({
 						type: 'string',

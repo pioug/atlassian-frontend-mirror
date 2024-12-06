@@ -15,18 +15,18 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
 
-import { stopKeyboardColumnResizing } from '../../commands/column-resize';
-import { updateResizeHandleDecorations } from '../../commands/misc';
-import { updateColumnWidths } from '../../transforms';
 import type { PluginInjectionAPI } from '../../types';
-import { getSelectedColumnIndexes, isTableNested } from '../../utils';
+import { stopKeyboardColumnResizing } from '../commands/column-resize';
+import { updateResizeHandleDecorations } from '../commands/misc';
+import { getPluginState as getTablePluginState } from '../plugin-factory';
+import { META_KEYS } from '../table-analytics';
+import { updateColumnWidths } from '../transforms';
+import { getSelectedColumnIndexes, isTableNested } from '../utils';
 import {
 	ALIGN_CENTER,
 	ALIGN_START,
 	shouldChangeAlignmentToCenterResized,
-} from '../../utils/alignment';
-import { getPluginState as getTablePluginState } from '../plugin-factory';
-import { META_KEYS } from '../table-analytics';
+} from '../utils/alignment';
 
 import { evenColumns, setDragging, stopResizing } from './commands';
 import { getPluginState } from './plugin-factory';

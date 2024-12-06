@@ -28,8 +28,8 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../commands-with-analytics';
-import { updateWidthToWidest } from '../commands/misc';
+import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
+import { updateWidthToWidest } from '../pm-plugins/commands/misc';
 import { META_KEYS } from '../pm-plugins/table-analytics';
 import {
 	COLUMN_MIN_WIDTH,
@@ -40,6 +40,28 @@ import {
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
 } from '../pm-plugins/table-resizing/utils';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
+import {
+	ALIGN_CENTER,
+	ALIGN_START,
+	normaliseAlignment,
+	shouldChangeAlignmentToCenterResized,
+} from '../pm-plugins/utils/alignment';
+import {
+	generateResizedPayload,
+	generateResizeFrameRatePayloads,
+	useMeasureFramerate,
+} from '../pm-plugins/utils/analytics';
+import {
+	defaultGuidelines,
+	defaultGuidelinesForPreserveTable,
+	PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
+} from '../pm-plugins/utils/guidelines';
+import {
+	defaultSnappingWidths,
+	defaultTablePreserveSnappingWidths,
+	findClosestSnap,
+	PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET,
+} from '../pm-plugins/utils/snapping';
 import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
 import {
 	TABLE_GUIDELINE_VISIBLE_ADJUSTMENT,
@@ -47,28 +69,6 @@ import {
 	TABLE_HIGHLIGHT_TOLERANCE,
 	TABLE_SNAP_GAP,
 } from '../ui/consts';
-import {
-	ALIGN_CENTER,
-	ALIGN_START,
-	normaliseAlignment,
-	shouldChangeAlignmentToCenterResized,
-} from '../utils/alignment';
-import {
-	generateResizedPayload,
-	generateResizeFrameRatePayloads,
-	useMeasureFramerate,
-} from '../utils/analytics';
-import {
-	defaultGuidelines,
-	defaultGuidelinesForPreserveTable,
-	PRESERVE_TABLE_GUIDELINES_LENGTH_OFFSET,
-} from '../utils/guidelines';
-import {
-	defaultSnappingWidths,
-	defaultTablePreserveSnappingWidths,
-	findClosestSnap,
-	PRESERVE_TABLE_SNAPPING_LENGTH_OFFSET,
-} from '../utils/snapping';
 
 interface TableResizerProps {
 	width: number;

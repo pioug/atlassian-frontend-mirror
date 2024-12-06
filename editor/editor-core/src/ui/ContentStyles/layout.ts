@@ -78,6 +78,7 @@ const layoutColumnStyles = () =>
 					::before {
 						width: calc(100% - 8px);
 						left: 4px;
+						border-radius: ${token('border.radius', '3px')};
 					}
 				}
 			`

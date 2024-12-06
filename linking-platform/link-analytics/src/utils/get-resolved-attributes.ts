@@ -26,6 +26,7 @@ export const getResolvedAttributes = (
 		displayCategory,
 		extensionKey: details?.meta?.key ?? null,
 		destinationTenantId: details?.meta?.tenantId ?? null,
+		destinationActivationId: details?.meta?.activationId ?? null,
 		destinationContainerId: details?.meta?.containerId ?? null,
 		destinationCategory: details?.meta?.category ?? null,
 		destinationProduct: details?.meta?.product ?? null,

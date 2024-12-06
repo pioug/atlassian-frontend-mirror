@@ -157,7 +157,7 @@ export default class SiteEmojiResource {
 								progressCallback({
 									percent: state.progress * mediaProportionOfProgress,
 								});
-							} else if (state.status === 'processing') {
+							} else if (state.status === 'processing' || state.status === 'processed') {
 								subscription.unsubscribe();
 								const totalUploadTime = Date.now() - startTime;
 								const mediaUploadTime = totalUploadTime - tokenLoadTime;

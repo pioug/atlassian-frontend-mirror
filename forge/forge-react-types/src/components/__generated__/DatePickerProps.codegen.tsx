@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - DatePickerProps
  *
- * @codegen <<SignedSource::7d5ca188bceddb8dc1bab0cc6c12b7eb>>
+ * @codegen <<SignedSource::1283480b16535a85647a618a3ae8762a>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/datepicker/__generated__/index.partial.tsx <<SignedSource::e7893d718c9c99386f3ffafcffbbfbf7>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/datepicker/__generated__/index.partial.tsx <<SignedSource::5408131ac700a0baedb02ef897692c12>>
  */
 import type { DateTimePickerSelectProps } from '@atlaskit/datetime-picker';
 
@@ -23,10 +23,13 @@ export interface FieldProps {
 	name: string;
 }
 
+type Appearance = 'default' | 'subtle' | 'none';
 type Spacing = 'compact' | 'default';
 
 export type DatePickerProps = {
+	appearance?: Appearance;
 	autoFocus?: boolean;
+	defaultIsOpen?: boolean;
 	defaultValue?: string;
 	disabled?: string[];
 	maxDate?: string;

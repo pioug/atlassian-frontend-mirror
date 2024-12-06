@@ -6,11 +6,6 @@ import { tableColorAdf } from '../__fixtures__/table-color';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
-export {
-	TableRendererOverflow,
-	TableRendererWithInlineComments,
-} from '../__helpers/rendererComponents';
-
 export const TableRenderer = generateRendererComponent({
 	document: tableAdf,
 	appearance: 'full-width',

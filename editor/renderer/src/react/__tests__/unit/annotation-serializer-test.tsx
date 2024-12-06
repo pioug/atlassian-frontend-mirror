@@ -4,7 +4,7 @@ import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { ReactSerializer } from '../../../index';
 import AnnotationComponent from '../../marks/annotation';
-import { AnnotationMark } from '../../../ui/annotations';
+import { MarkElement as AnnotationMark } from '../../../ui/annotations/element';
 import { simpleDocument as doc } from './__fixtures__/documents';
 import { IntlProvider } from 'react-intl-next';
 

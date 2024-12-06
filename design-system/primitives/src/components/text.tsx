@@ -17,6 +17,7 @@ import invariant from 'tiny-invariant';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { HasTextAncestorProvider, useHasTextAncestor } from '../utils/has-text-ancestor-context';
+import { useSurface } from '../utils/surface-provider';
 import {
 	inverseColorMap,
 	type TextColor,
@@ -27,7 +28,6 @@ import {
 	textWeightStylesMap,
 } from '../xcss/style-maps.partial';
 
-import { useSurface } from './internal/surface-provider';
 import type { BasePrimitiveProps } from './types';
 
 const asAllowlist = ['span', 'p', 'strong', 'em'] as const;

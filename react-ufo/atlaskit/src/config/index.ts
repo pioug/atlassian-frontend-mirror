@@ -94,6 +94,7 @@ export type Config = {
 	readonly shouldCalculateLighthouseMetricsFromTTAI?: boolean;
 	readonly timeWindowForLateMutationsInMilliseconds?: number;
 	readonly manuallyTrackReactProfilerMounts?: boolean;
+	readonly enableExperimentalHolds?: boolean;
 	/**
 	 * @deprecated setting this will do nothing now
 	 */

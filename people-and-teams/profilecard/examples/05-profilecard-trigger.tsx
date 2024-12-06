@@ -201,6 +201,48 @@ export default function Example() {
 					</span>
 				</Section>
 
+				<Section>
+					<h4>Profilecard trigger hidden from screen readers</h4>
+					<span>
+						Lorem ipsum{' '}
+						<ProfileCardTrigger
+							{...defaultProps}
+							userId="1"
+							actions={[
+								{
+									label: 'View profile',
+									id: 'view-profile',
+									callback: () => {},
+								},
+							]}
+							ariaHideProfileTrigger
+						>
+							<strong>hover over me</strong>
+						</ProfileCardTrigger>
+						{' or '}
+						<ProfileCardTrigger
+							{...defaultProps}
+							userId="3"
+							resourceClient={getMockProfileClient(10, 0, {
+								accountType: 'customer',
+							})}
+							trigger="click"
+							actions={[
+								{
+									label: 'View profile',
+									id: 'view-profile',
+									callback: () => {},
+									shouldRender: (data: any) => data && data.accountType !== 'customer',
+								},
+							]}
+							ariaHideProfileTrigger
+						>
+							<strong>click me</strong>
+						</ProfileCardTrigger>{' '}
+						dolor sit amet
+					</span>
+				</Section>
+
 				<BlankSpace>Scroll down to test focus behaviour</BlankSpace>
 
 				<Section>

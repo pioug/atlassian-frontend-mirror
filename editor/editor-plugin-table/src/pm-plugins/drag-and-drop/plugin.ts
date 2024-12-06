@@ -11,10 +11,10 @@ import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 
 import type { DraggableSourceData } from '../../types';
-import { findNearestCellIndexToPoint, hasMergedCellsInBetween } from '../../utils';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 import { pluginKey as tablePluginKey } from '../plugin-key';
 import { insertColgroupFromNode } from '../table-resizing/utils';
+import { findNearestCellIndexToPoint, hasMergedCellsInBetween } from '../utils';
 
 import { DragAndDropActionType } from './actions';
 import { clearDropTarget, setDropTarget, toggleDragMenu } from './commands';

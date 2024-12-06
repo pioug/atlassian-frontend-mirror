@@ -4,8 +4,9 @@ import type { EditorState, SafePluginSpec } from '@atlaskit/editor-prosemirror/s
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { isGapCursorSelection } from './editor-common';
+import type { InputRuleWrapper } from './editor-common';
 import { createInputRulePlugin } from './plugin';
-import type { InputRuleWrapper, OnInputEvent } from './types';
+import type { OnInputEvent } from './types';
 
 const hasUnsupportedMarks = (
 	state: EditorState,

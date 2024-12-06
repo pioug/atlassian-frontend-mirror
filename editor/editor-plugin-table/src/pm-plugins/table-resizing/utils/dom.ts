@@ -4,9 +4,9 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { TableCssClassName as ClassName } from '../../../types';
-import { colWidthsForRow } from '../../../utils/column-controls';
-import { getRowHeights } from '../../../utils/row-controls';
 import { getPluginState as getMainPluginState } from '../../plugin-factory';
+import { colWidthsForRow } from '../../utils/column-controls';
+import { getRowHeights } from '../../utils/row-controls';
 
 export const updateControls = () => (state: EditorState) => {
 	const { tableRef } = getMainPluginState(state);

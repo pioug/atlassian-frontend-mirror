@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 8.4.3
+
+### Patch Changes
+
+- [#173154](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173154)
+  [`944d3dd95a50c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/944d3dd95a50c) -
+  ED-25111: refactors table plugin to meet folder standards
+- Updated dependencies
+
 ## 8.4.2
 
 ### Patch Changes

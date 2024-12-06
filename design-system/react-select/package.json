@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "1.5.1",
+	"version": "1.5.2",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -69,6 +69,9 @@
 			"type": "boolean"
 		},
 		"platform_design_system_team_safari_input_fix": {
+			"type": "boolean"
+		},
+		"design-system-select-fix-placement": {
 			"type": "boolean"
 		}
 	},

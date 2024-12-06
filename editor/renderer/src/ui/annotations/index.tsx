@@ -73,6 +73,3 @@ export const AnnotationsWrapper = (props: AnnotationsWrapperProps) => {
 		</ProvidersContext.Provider>
 	);
 };
-
-export { TextWithAnnotationDraft } from './draft';
-export { MarkElement as AnnotationMark } from './element';

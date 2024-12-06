@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.14.10
+
+### Patch Changes
+
+- [#174525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174525)
+  [`d9ad30f6ed76a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d9ad30f6ed76a) -
+  [ux] Editor toolbar delete icon color fix
+- Updated dependencies
+
 ## 1.14.9
 
 ### Patch Changes

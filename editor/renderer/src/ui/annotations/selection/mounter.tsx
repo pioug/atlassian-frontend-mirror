@@ -6,7 +6,7 @@ import type {
 	InlineCommentSelectionComponentProps,
 } from '@atlaskit/editor-common/types';
 import type { ApplyAnnotation } from '../../../actions/index';
-import { updateWindowSelectionAroundDraft } from '../draft';
+import { updateWindowSelectionAroundDraft } from '../draft/dom';
 import type { Position } from '../types';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';

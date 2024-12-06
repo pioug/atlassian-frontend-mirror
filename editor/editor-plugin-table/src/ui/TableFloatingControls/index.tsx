@@ -10,12 +10,12 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { hoverCell, hoverRows, selectRow, selectRows } from '../../commands';
-import type { TablePlugin } from '../../plugin';
+import { hoverCell, hoverRows, selectRow, selectRows } from '../../pm-plugins/commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
+import { isTableNested } from '../../pm-plugins/utils/nodes';
+import type { TablePlugin } from '../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../types';
 import type { CellHoverMeta } from '../../types';
-import { isTableNested } from '../../utils/nodes';
 
 import {
 	CornerControls,

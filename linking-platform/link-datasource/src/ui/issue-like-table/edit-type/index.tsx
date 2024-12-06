@@ -22,11 +22,13 @@ const ACTIVE_INLINE_EDIT_ID = 'sllv-active-inline-edit';
 export const editType = ({
 	defaultValue,
 	currentValue,
+	labelId,
 	setEditValues,
 	executeFetch,
 }: {
 	defaultValue: DatasourceTypeWithOnlyValues;
 	currentValue: DatasourceTypeWithOnlyValues;
+	labelId?: string;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
 	executeFetch?: ExecuteFetch;
 }): Pick<React.ComponentProps<typeof InlineEdit>, 'defaultValue' | 'editView'> => {
@@ -40,6 +42,7 @@ export const editType = ({
 						currentValue={currentValue as DatasourceTypeWithOnlyTypeValues<'string'>}
 						setEditValues={setEditValues}
 						id={ACTIVE_INLINE_EDIT_ID}
+						labelId={labelId}
 					/>
 				),
 			};
@@ -53,6 +56,7 @@ export const editType = ({
 						setEditValues={setEditValues}
 						id={ACTIVE_INLINE_EDIT_ID}
 						executeFetch={executeFetch}
+						labelId={labelId}
 					></IconEditType>
 				),
 			};
@@ -66,6 +70,7 @@ export const editType = ({
 						setEditValues={setEditValues}
 						id={ACTIVE_INLINE_EDIT_ID}
 						executeFetch={executeFetch}
+						labelId={labelId}
 					/>
 				),
 			};
@@ -80,6 +85,7 @@ export const editType = ({
 						setEditValues={setEditValues}
 						id={ACTIVE_INLINE_EDIT_ID}
 						executeFetch={executeFetch}
+						labelId={labelId}
 					/>
 				),
 			};

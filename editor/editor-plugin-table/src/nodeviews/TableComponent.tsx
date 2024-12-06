@@ -29,13 +29,7 @@ import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import { autoSizeTable, clearHoverSelection } from '../commands';
-import {
-	handleMouseOut,
-	handleMouseOver,
-	isTableInFocus,
-	withCellTracking,
-} from '../event-handlers';
+import { autoSizeTable, clearHoverSelection } from '../pm-plugins/commands';
 import { autoScrollerFactory } from '../pm-plugins/drag-and-drop/utils';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import type { RowStickyState, StickyPluginState } from '../pm-plugins/sticky-headers';
@@ -62,10 +56,6 @@ import {
 	getScalingPercentForTableWithoutWidth,
 	getTableScalingPercent,
 } from '../pm-plugins/table-resizing/utils/misc';
-import type { CellHoverMeta, PluginInjectionAPI } from '../types';
-import { TableCssClassName as ClassName, ShadowEvent } from '../types';
-import TableFloatingColumnControls from '../ui/TableFloatingColumnControls';
-import TableFloatingControls from '../ui/TableFloatingControls';
 import {
 	containsHeaderRow,
 	getAssistiveMessage,
@@ -74,7 +64,17 @@ import {
 	tablesHaveDifferentColumnWidths,
 	tablesHaveDifferentNoOfColumns,
 	tablesHaveDifferentNoOfRows,
-} from '../utils';
+} from '../pm-plugins/utils';
+import type { CellHoverMeta, PluginInjectionAPI } from '../types';
+import { TableCssClassName as ClassName, ShadowEvent } from '../types';
+import {
+	handleMouseOut,
+	handleMouseOver,
+	isTableInFocus,
+	withCellTracking,
+} from '../ui/event-handlers';
+import TableFloatingColumnControls from '../ui/TableFloatingColumnControls';
+import TableFloatingControls from '../ui/TableFloatingControls';
 
 import { ExternalDropTargets } from './ExternalDropTargets';
 import { OverflowShadowsObserver } from './OverflowShadowsObserver';

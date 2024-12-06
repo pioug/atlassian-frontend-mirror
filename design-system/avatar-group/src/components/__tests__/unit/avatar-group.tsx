@@ -304,6 +304,56 @@ describe('<AvatarGroup />', () => {
 		expect(screen.getAllByTestId('avatar')[0]).toHaveAttribute('data-index', '0');
 	});
 
+	it('should open overflow dropdown if no override', async () => {
+		const user = userEvent.setup();
+		render(
+			<AvatarGroup
+				testId="test"
+				appearance="stack"
+				data={generateData({ avatarCount: 4 })}
+				maxCount={3}
+			/>,
+		);
+
+		expect(screen.queryByTestId('test--overflow-menu')).not.toBeInTheDocument();
+
+		await user.click(screen.getByTestId('test--overflow-menu--trigger'));
+
+		expect(screen.getByTestId('test--overflow-menu')).toBeInTheDocument();
+		expect(screen.getByTestId('test--avatar-group-item-2')).toBeInTheDocument();
+		expect(screen.getByTestId('test--avatar-group-item-3')).toBeInTheDocument();
+	});
+
+	it('should open overflow dropdown if MoreIndicator has override', async () => {
+		const user = userEvent.setup();
+		render(
+			<AvatarGroup
+				testId="test"
+				appearance="stack"
+				data={generateData({ avatarCount: 4 })}
+				maxCount={3}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+				overrides={{
+					MoreIndicator: {
+						render: (_, props) => (
+							<button type="button" {...props} data-testid={props.testId} onClick={props.onClick}>
+								Test MoreIndicator
+							</button>
+						),
+					},
+				}}
+			/>,
+		);
+
+		expect(screen.queryByTestId('test--overflow-menu')).not.toBeInTheDocument();
+
+		await user.click(screen.getByTestId('test--overflow-menu--trigger'));
+
+		expect(screen.getByTestId('test--overflow-menu')).toBeInTheDocument();
+		expect(screen.getByTestId('test--avatar-group-item-2')).toBeInTheDocument();
+		expect(screen.getByTestId('test--avatar-group-item-3')).toBeInTheDocument();
+	});
+
 	it('should pass the index of the avatar when onAvatarClicked is fired from the more menu', async () => {
 		const user = userEvent.setup();
 		const onClick = jest.fn();

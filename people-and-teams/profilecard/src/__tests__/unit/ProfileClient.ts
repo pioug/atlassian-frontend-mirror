@@ -62,7 +62,6 @@ describe('Profilecard', () => {
 
 			const client = new ProfileClient({
 				gatewayGraphqlUrl: clientUrl,
-				teamCentralUrl: clientUrl,
 			});
 
 			expect(client.tcClient).toEqual(undefined);
@@ -76,7 +75,6 @@ describe('Profilecard', () => {
 
 			const client = new ProfileClient({
 				gatewayGraphqlUrl: clientUrl,
-				teamCentralUrl: clientUrl,
 			});
 
 			expect(client.tcClient).toBeInstanceOf(TeamCentralCardClient);

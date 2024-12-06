@@ -1,5 +1,13 @@
 # @atlaskit/link-analytics
 
+## 8.6.0
+
+### Minor Changes
+
+- [#174545](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174545)
+  [`401a215e8702c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/401a215e8702c) -
+  Add the activation id to the event
+
 ## 8.5.3
 
 ### Patch Changes

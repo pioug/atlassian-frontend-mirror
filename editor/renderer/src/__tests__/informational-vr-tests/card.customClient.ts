@@ -10,7 +10,8 @@ import { unauthorized } from './images/unauthorized';
 import { avatarImage } from './images/avatar';
 import { iconAtlas } from './images/atlas';
 
-import { forbiddenJira, imageForbiddenJiraEmbed } from './images/index';
+import forbiddenJira from './images/forbidden-jira.svg';
+import imageForbiddenJiraEmbed from './images/forbidden-jira-embed.svg';
 
 export const embedContent = `
 <html>

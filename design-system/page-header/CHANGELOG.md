@@ -1,5 +1,12 @@
 # @atlaskit/page-header
 
+## 11.0.2
+
+### Patch Changes
+
+- [`84c480f78de1e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/84c480f78de1e) -
+  Remove unncessary styling code that breaks in Parcel CSS transformation.
+
 ## 11.0.1
 
 ### Patch Changes

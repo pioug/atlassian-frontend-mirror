@@ -13,13 +13,14 @@ import { render } from '@testing-library/react';
 import React from 'react';
 import { act } from 'react-dom/test-utils';
 import type { ApplyAnnotation } from '../../../../../actions/index';
-import * as DraftMock from '../../../draft';
+import { updateWindowSelectionAroundDraft } from '../../../draft/dom';
 import type { Position } from '../../../types';
 import { Mounter } from '../../mounter';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analytics-event-mock';
 
-jest.mock('../../../draft');
+jest.mock('../../../draft/dom');
+jest.mock('../../../draft/component');
 
 describe('Annotations: Mounter', () => {
 	const fakeApplyAnnotation: jest.Mock = jest.fn().mockReturnValue({});
@@ -105,13 +106,13 @@ describe('Annotations: Mounter', () => {
 			it('should update the native selection in the next animation frame', (done) => {
 				const { applyDraftModeCallback } = renderMounter();
 
-				expect(DraftMock.updateWindowSelectionAroundDraft).toHaveBeenCalledTimes(0);
+				expect(updateWindowSelectionAroundDraft).toHaveBeenCalledTimes(0);
 				act(() => {
 					applyDraftModeCallback({ keepNativeSelection: true });
 				});
 
 				window.requestAnimationFrame(() => {
-					expect(DraftMock.updateWindowSelectionAroundDraft).toHaveBeenCalledTimes(1);
+					expect(updateWindowSelectionAroundDraft).toHaveBeenCalledTimes(1);
 					done();
 				});
 			});

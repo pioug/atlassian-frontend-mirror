@@ -10,7 +10,9 @@ import { type CSSProperties, useCallback, useEffect, useMemo, useRef, useState }
 import { css, jsx } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import { akEditorBreakoutPadding } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { B200 } from '@atlaskit/theme/colors';
@@ -20,6 +22,7 @@ import { getNodeAnchor } from '../pm-plugins/decorations-common';
 import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracker';
 import { type AnchorRectCache, isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../pm-plugins/utils/drag-target-debug';
+import { getInsertLayoutStep, updateSelection } from '../pm-plugins/utils/update-selection';
 
 import { type DropTargetProps } from './drop-target';
 
@@ -229,13 +232,32 @@ export const InlineDropTarget = ({
 		}
 
 		const toPos = getPos();
+		let mappedTo: number | undefined;
 		if (activeNode && toPos !== undefined) {
 			const { pos: start } = activeNode;
-			api?.core?.actions.execute(
+
+			const moveToEnd = position === 'right';
+			api?.core?.actions.execute(({ tr }) => {
 				api?.blockControls?.commands?.moveToLayout(start, toPos, {
-					moveToEnd: position === 'right',
-				}),
-			);
+					moveToEnd,
+				})({ tr });
+
+				if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+					const insertLayoutStep = getInsertLayoutStep(tr);
+					mappedTo = (insertLayoutStep as ReplaceStep)?.from;
+				}
+
+				return tr;
+			});
+
+			if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+				api?.core?.actions.execute(({ tr }) => {
+					if (mappedTo !== undefined) {
+						updateSelection(tr, mappedTo, moveToEnd);
+					}
+					return tr;
+				});
+			}
 		}
 	}, [api, getPos, position]);
 

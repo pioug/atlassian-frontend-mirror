@@ -230,12 +230,9 @@ const createPlugin = (
 					if (fg('platform_editor_legacy_content_macro')) {
 						const currentTarget = event.relatedTarget as HTMLElement;
 						const source = event.target as HTMLElement;
-						const selection = view.state.selection;
 
-						// If the focus is going from outside to inside an area designated as an editable area of an extension, and an extension is the current selection, then the extension selection is reset.
+						// If the focus is going from outside to inside an area designated as an editable area of an extension, then the extension selection is reset.
 						if (
-							selection instanceof NodeSelection &&
-							selection.node.type === view.state.schema.nodes.extension &&
 							currentTarget.closest('.extension-editable-area') &&
 							!source.closest('.extension-editable-area')
 						) {

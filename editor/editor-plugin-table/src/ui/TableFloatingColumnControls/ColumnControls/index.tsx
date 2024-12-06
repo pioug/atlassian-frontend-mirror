@@ -18,13 +18,13 @@ import {
 	hoverColumns,
 	selectColumn,
 	selectColumns,
-} from '../../../commands';
-import type { TablePlugin } from '../../../plugin';
+} from '../../../pm-plugins/commands';
 import { toggleDragMenu } from '../../../pm-plugins/drag-and-drop/commands';
 import type { TriggerType } from '../../../pm-plugins/drag-and-drop/types';
+import { getRowsParams, getSelectedColumnIndexes } from '../../../pm-plugins/utils';
+import type { TablePlugin } from '../../../tablePluginType';
 import type { CellHoverMeta, HandleTypes } from '../../../types';
 import { TableCssClassName as ClassName } from '../../../types';
-import { getRowsParams, getSelectedColumnIndexes } from '../../../utils';
 import type { DragHandleAppearance } from '../../DragHandle';
 import { DragHandle } from '../../DragHandle';
 

@@ -268,12 +268,7 @@ export class Observers implements BrowserObservers {
 							});
 						} else if (mutation.type === 'attributes') {
 							if (mutation.target instanceof HTMLElement) {
-								const isDisplayStyleAttributeMutation =
-									mutation.attributeName === 'style' &&
-									this.getStyleDisplay(mutation.target.getAttribute('style')) !==
-										this.getStyleDisplay(mutation.oldValue);
-
-								if (fg('platform-ufo-vc-observe-attributes') || isDisplayStyleAttributeMutation) {
+								if (fg('platform-ufo-vc-observe-attributes')) {
 									this.observeElement(mutation.target, mutation, 'attr', ignoreReason);
 								}
 							}
@@ -282,25 +277,6 @@ export class Observers implements BrowserObservers {
 					this.measureStop();
 				})
 			: null;
-	}
-
-	private getStyleDisplay(styleAttributeValue: string | null | undefined) {
-		if (!styleAttributeValue) {
-			return undefined;
-		}
-
-		// Split the style string into individual declarations
-		const declarations = styleAttributeValue.split(';');
-		// Iterate over each declaration
-		for (const declaration of declarations) {
-			// Trim whitespace and split into property and value
-			const [property, value] = declaration.split(':').map((part) => part.trim());
-			// Check if the property is 'display'
-			if (property && property.toLowerCase() === 'display') {
-				return value;
-			}
-		}
-		return undefined;
 	}
 
 	private getElementName(element: HTMLElement) {

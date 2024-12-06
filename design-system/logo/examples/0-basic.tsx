@@ -18,6 +18,8 @@ import {
 	CompassLogo,
 	ConfluenceIcon,
 	ConfluenceLogo,
+	FocusIcon,
+	FocusLogo,
 	GuardIcon,
 	GuardLogo,
 	HalpIcon,
@@ -101,6 +103,14 @@ export default () => (
 					</td>
 					<td>
 						<ConfluenceIcon />
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<FocusLogo />
+					</td>
+					<td>
+						<FocusIcon />
 					</td>
 				</tr>
 				<tr>

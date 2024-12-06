@@ -279,6 +279,7 @@ export enum ACTION_SUBJECT_ID {
 	AI_DEFINITIONS_DEFINE_BUTTON = 'aiDefinitionsDefineButton',
 	AI_DEFINITIONS_AUTO_HIGHLIGHT = 'aiDefinitionsAutoHighlight',
 	AI_PANELS_BODIED_EXTENSION = 'aiPanelsBodiedExtension',
+	AI_PROMPT_LINK_PICKER_BUTTON = 'aiPromptLinkPickerButton',
 	ALL = 'all',
 	ALT_TEXT = 'altText',
 	ANNOTATE_BUTTON = 'annotateButton',

@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
-
 import '@atlaskit/link-test-helpers/jest';
+import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { FlagsProvider } from '@atlaskit/flag';
@@ -51,19 +51,22 @@ describe('DatasourceModal', () => {
 		const executeFn = jest.fn();
 		const { container } = render(
 			<SmartCardProvider client={new CardClient()}>
-				<DatasourceModal onClose={onClose}>
-					<FlagsProvider>
-						<DatasourceExperienceIdProvider>
-							<InlineEdit
-								ari="fake-ari"
-								columnKey="fake-column"
-								execute={executeFn}
-								datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
-								readView={<Text as="p">Test</Text>}
-							/>
-						</DatasourceExperienceIdProvider>
-					</FlagsProvider>
-				</DatasourceModal>
+				<IntlProvider locale="en">
+					<DatasourceModal onClose={onClose}>
+						<FlagsProvider>
+							<DatasourceExperienceIdProvider>
+								<InlineEdit
+									ari="fake-ari"
+									columnKey="fake-column"
+									columnTitle="Fake column"
+									execute={executeFn}
+									datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
+									readView={<Text as="p">Test</Text>}
+								/>
+							</DatasourceExperienceIdProvider>
+						</FlagsProvider>
+					</DatasourceModal>
+				</IntlProvider>
 			</SmartCardProvider>,
 		);
 
@@ -82,19 +85,22 @@ describe('DatasourceModal', () => {
 		const executeFn = jest.fn();
 		render(
 			<SmartCardProvider client={new CardClient()}>
-				<DatasourceModal onClose={onModalCloseFn}>
-					<FlagsProvider>
-						<DatasourceExperienceIdProvider>
-							<InlineEdit
-								ari="fake-ari"
-								columnKey="fake-column"
-								execute={executeFn}
-								datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
-								readView={<MockReadView />}
-							/>
-						</DatasourceExperienceIdProvider>
-					</FlagsProvider>
-				</DatasourceModal>
+				<IntlProvider locale="en">
+					<DatasourceModal onClose={onModalCloseFn}>
+						<FlagsProvider>
+							<DatasourceExperienceIdProvider>
+								<InlineEdit
+									ari="fake-ari"
+									columnKey="fake-column"
+									columnTitle="Fake column"
+									execute={executeFn}
+									datasourceTypeWithValues={{ type: 'string', values: ['Test'] }}
+									readView={<MockReadView />}
+								/>
+							</DatasourceExperienceIdProvider>
+						</FlagsProvider>
+					</DatasourceModal>
+				</IntlProvider>
 			</SmartCardProvider>,
 		);
 		fireEvent.click(screen.getByTestId(testIds.readView));
@@ -117,29 +123,32 @@ describe('DatasourceModal', () => {
 		const executeFn = jest.fn();
 		render(
 			<SmartCardProvider client={new CardClient()}>
-				<DatasourceModal onClose={onModalCloseFn}>
-					<FlagsProvider>
-						<DatasourceExperienceIdProvider>
-							<InlineEdit
-								ari="fake-ari"
-								columnKey="status"
-								execute={executeFn}
-								datasourceTypeWithValues={{
-									type: 'status',
-									values: [
-										{
-											text: 'Test',
-											style: {
-												appearance: 'inprogress',
+				<IntlProvider locale="en">
+					<DatasourceModal onClose={onModalCloseFn}>
+						<FlagsProvider>
+							<DatasourceExperienceIdProvider>
+								<InlineEdit
+									ari="fake-ari"
+									columnKey="status"
+									columnTitle="Status"
+									execute={executeFn}
+									datasourceTypeWithValues={{
+										type: 'status',
+										values: [
+											{
+												text: 'Test',
+												style: {
+													appearance: 'inprogress',
+												},
 											},
-										},
-									],
-								}}
-								readView={<MockReadView />}
-							/>
-						</DatasourceExperienceIdProvider>
-					</FlagsProvider>
-				</DatasourceModal>
+										],
+									}}
+									readView={<MockReadView />}
+								/>
+							</DatasourceExperienceIdProvider>
+						</FlagsProvider>
+					</DatasourceModal>
+				</IntlProvider>
 			</SmartCardProvider>,
 		);
 		fireEvent.click(screen.getByTestId(testIds.readView));

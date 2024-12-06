@@ -57,7 +57,7 @@ import {
 	type RowType,
 } from './types';
 import { useIsOnScreen } from './useIsOnScreen';
-import { COLUMN_BASE_WIDTH, getWidthCss } from './utils';
+import { COLUMN_BASE_WIDTH, getFieldLabelById, getWidthCss } from './utils';
 
 const tableSidePadding = token('space.200', '16px');
 
@@ -574,7 +574,7 @@ export const IssueLikeDataTableView = ({
 				? itemIds.map<RowType>((id, rowIndex) => {
 						return {
 							key: id,
-							cells: visibleSortedColumns.map<RowCellType>(({ key, type }, cellIndex) => {
+							cells: visibleSortedColumns.map<RowCellType>(({ key, type, title }, cellIndex) => {
 								return {
 									key,
 									columnKey: key,
@@ -584,6 +584,7 @@ export const IssueLikeDataTableView = ({
 											id={id}
 											columnKey={key}
 											columnType={type}
+											columnTitle={title}
 											wrappedColumnKeys={wrappedColumnKeys}
 											renderItem={renderItem}
 										/>
@@ -591,6 +592,7 @@ export const IssueLikeDataTableView = ({
 										<ReadOnlyCell
 											id={id}
 											columnKey={key}
+											columnTitle={title}
 											columnType={type}
 											wrappedColumnKeys={wrappedColumnKeys}
 											renderItem={renderItem}
@@ -757,7 +759,9 @@ export const IssueLikeDataTableView = ({
 									position="bottom-start"
 									testId={'datasource-header-content'}
 								>
-									<span css={headerStyles}>{content}</span>
+									<span css={headerStyles} id={getFieldLabelById(key)}>
+										{content}
+									</span>
 								</Tooltip>
 							);
 

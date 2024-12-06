@@ -14,9 +14,11 @@ import { type ExecuteFetch } from '../../../../state/actions';
 import { SharedIconComponent } from '../../shared-components/icon';
 import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
 import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
+import { getCleanedSelectProps } from '../../utils';
 
 interface IconEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'icon'>;
+	labelId?: string;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
 	executeFetch?: ExecuteFetch;
 }
@@ -25,7 +27,7 @@ interface IconEditTypeProps extends Omit<FieldProps<string>, 'value'> {
  * Should be gated by FF rollout of platform-datasources-enable-two-way-sync-priority
  */
 const IconEditType = (props: IconEditTypeProps) => {
-	const { currentValue, executeFetch } = props;
+	const { currentValue, labelId, executeFetch } = props;
 	const { options, isLoading, hasFailed } = useLoadOptions<Icon>({ executeFetch });
 	const experienceId = useDatasourceExperienceId();
 
@@ -54,7 +56,7 @@ const IconEditType = (props: IconEditTypeProps) => {
 	return (
 		<Layering isDisabled={false}>
 			<Select<Icon>
-				{...props}
+				{...getCleanedSelectProps(props)}
 				autoFocus
 				blurInputOnSelect
 				defaultMenuIsOpen
@@ -64,6 +66,7 @@ const IconEditType = (props: IconEditTypeProps) => {
 				filterOption={filterOption}
 				testId="inline-edit-priority"
 				value={currentValue?.values?.[0]}
+				labelId={labelId}
 				getOptionValue={(option) => option.text || ''}
 				formatOptionLabel={({ source, label, text }) => (
 					<Tooltip content={text ?? ''}>

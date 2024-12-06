@@ -7,9 +7,9 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { isRowSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { clearHoverSelection } from '../../../commands';
+import { clearHoverSelection } from '../../../pm-plugins/commands';
+import { getRowHeights } from '../../../pm-plugins/utils';
 import { TableCssClassName as ClassName } from '../../../types';
-import { getRowHeights } from '../../../utils';
 import { tableBorderColor } from '../../consts';
 
 interface Props {

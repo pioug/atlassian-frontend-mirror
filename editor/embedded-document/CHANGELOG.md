@@ -1,5 +1,14 @@
 # @atlaskit/embedded-document
 
+## 0.9.97
+
+### Patch Changes
+
+- [#174760](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174760)
+  [`f25387429be19`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f25387429be19) -
+  Removed internal re-exports
+- Updated dependencies
+
 ## 0.9.96
 
 ### Patch Changes

@@ -4,7 +4,7 @@ import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
 import { TableDecorations } from '../../../types';
-import { createResizeHandleDecoration, updateDecorations } from '../../../utils/decoration';
+import { createResizeHandleDecoration, updateDecorations } from '../../utils/decoration';
 
 import { composeDecorations } from './compose-decorations';
 import type { DecorationTransformer } from './types';

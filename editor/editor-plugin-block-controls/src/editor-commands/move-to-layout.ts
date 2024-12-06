@@ -7,6 +7,7 @@ import {
 	type Schema,
 } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { maxLayoutColumnSupported } from '../pm-plugins/utils/consts';
@@ -72,9 +73,12 @@ const moveToExistingLayout = (
 		// reorder columns
 		tr.delete(from, from + sourceNode.nodeSize);
 		const mappedTo = tr.mapping.map(to);
-		tr.insert(mappedTo, sourceNode)
-			.setSelection(new NodeSelection(tr.doc.resolve(mappedTo)))
-			.scrollIntoView();
+
+		tr.insert(mappedTo, sourceNode);
+		if (!fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+			tr.setSelection(new NodeSelection(tr.doc.resolve(mappedTo))).scrollIntoView();
+		}
+
 		fireMoveNodeAnalytics(
 			tr,
 			INPUT_METHOD.DRAG_AND_DROP,
@@ -86,9 +90,21 @@ const moveToExistingLayout = (
 			api,
 		);
 	} else if (toLayout.childCount < maxLayoutColumnSupported()) {
-		insertToDestination(tr, to, sourceNode, toLayout, toLayoutPos);
-		const mappedFrom = tr.mapping.map(from);
-		removeFromSource(tr, tr.doc.resolve(mappedFrom));
+		if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+			removeFromSource(tr, tr.doc.resolve(from));
+			insertToDestination(
+				tr,
+				tr.mapping.map(to),
+				sourceNode,
+				toLayout,
+				tr.mapping.map(toLayoutPos),
+			);
+		} else {
+			insertToDestination(tr, to, sourceNode, toLayout, toLayoutPos);
+			const mappedFrom = tr.mapping.map(from);
+			removeFromSource(tr, tr.doc.resolve(mappedFrom));
+		}
+
 		fireMoveNodeAnalytics(
 			tr,
 			INPUT_METHOD.DRAG_AND_DROP,
@@ -119,10 +135,11 @@ const insertToDestination = (
 		{ width: newColumnWidth },
 		sourceNode.type.name === 'layoutColumn' ? sourceNode.content : sourceNode,
 	);
-	tr.insert(to, content)
-		.setSelection(new NodeSelection(tr.doc.resolve(to)))
-		.scrollIntoView();
+	tr.insert(to, content);
 
+	if (!fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+		tr.setSelection(new NodeSelection(tr.doc.resolve(to))).scrollIntoView();
+	}
 	return tr;
 };
 
@@ -195,6 +212,7 @@ export const moveToLayout =
 
 		if (toNode.type === layoutSection) {
 			const toPos = options?.moveToEnd ? to + toNode.nodeSize - 1 : to + 1;
+
 			return moveToExistingLayout(
 				toNode,
 				to,
@@ -210,7 +228,6 @@ export const moveToLayout =
 			const toLayout = $to.parent;
 			const toLayoutPos = to - $to.parentOffset - 1;
 			const toPos = options?.moveToEnd ? to + toNode.nodeSize : to;
-
 			return moveToExistingLayout(
 				toLayout,
 				toLayoutPos,
@@ -245,10 +262,11 @@ export const moveToLayout =
 			if (newLayout) {
 				tr = removeFromSource(tr, $from);
 				const mappedTo = tr.mapping.map(to);
-				tr.delete(mappedTo, mappedTo + toNodeWithoutBreakout.nodeSize)
-					.insert(mappedTo, newLayout)
-					.setSelection(new NodeSelection(tr.doc.resolve(mappedTo)))
-					.scrollIntoView();
+
+				tr.delete(mappedTo, mappedTo + toNodeWithoutBreakout.nodeSize).insert(mappedTo, newLayout);
+				if (!fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+					tr.setSelection(new NodeSelection(tr.doc.resolve(mappedTo))).scrollIntoView();
+				}
 
 				breakoutMode &&
 					tr.setNodeMarkup(mappedTo, newLayout.type, newLayout.attrs, [

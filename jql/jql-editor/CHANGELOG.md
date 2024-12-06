@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 4.11.2
+
+### Patch Changes
+
+- [#168855](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168855)
+  [`4f494b4c71772`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4f494b4c71772) -
+  Add interactionName to JQL Editor searching state buttons for UFO reporting
+
 ## 4.11.1
 
 ### Patch Changes

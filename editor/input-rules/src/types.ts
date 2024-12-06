@@ -3,8 +3,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { InputRuleWrapper } from './editor-common';
 
-export type { InputRuleHandler, InputRuleWrapper, OnHandlerApply } from './editor-common';
-
 export type HandleInputEvent = (props: {
 	view: EditorView;
 	from: number;

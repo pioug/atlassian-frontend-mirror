@@ -14,6 +14,9 @@ import {
 	syncStickyRowToTable,
 	updateStickyMargins as updateTableMargin,
 } from '../pm-plugins/table-resizing/utils/dom';
+import type { TableDOMElements } from '../pm-plugins/utils/dom';
+import { getTop, getTree } from '../pm-plugins/utils/dom';
+import { supportedHeaderRow } from '../pm-plugins/utils/nodes';
 import type { TablePluginState } from '../types';
 import { TableCssClassName as ClassName, TableCssClassName } from '../types';
 import {
@@ -22,9 +25,6 @@ import {
 	tableControlsSpacing,
 	tableScrollbarOffset,
 } from '../ui/consts';
-import type { TableDOMElements } from '../utils/dom';
-import { getTop, getTree } from '../utils/dom';
-import { supportedHeaderRow } from '../utils/nodes';
 
 import TableNodeView from './TableNodeViewBase';
 

@@ -2,13 +2,9 @@ import type { SafePluginSpec } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
 import { TEXT_INPUT_RULE_TRANSACTION_KEY } from './constants';
+import type { InputRuleWrapper } from './editor-common';
 import { createInputEventHandler } from './handler';
-import type {
-	InputRulePluginState,
-	InputRuleWrapper,
-	OnBeforeRegexMatch,
-	OnInputEvent,
-} from './types';
+import type { InputRulePluginState, OnBeforeRegexMatch, OnInputEvent } from './types';
 
 type Options = {
 	allowInsertTextOnDocument?: boolean;

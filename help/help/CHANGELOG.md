@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.11.5
+
+### Patch Changes
+
+- [#172708](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172708)
+  [`c52ae1a7bd78c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c52ae1a7bd78c) -
+  add styling to negative feedback section legend and aria-labelledby attribute to buttons
+
 ## 7.11.4
 
 ### Patch Changes

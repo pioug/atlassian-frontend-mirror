@@ -1,8 +1,8 @@
 import React, { useCallback, useContext } from 'react';
 import type { AnnotationsDraftContextWrapperChildrenProps } from './context';
 import { AnnotationsDraftContextWrapper, ProvidersContext } from './context';
-import { HoverRangeValidator } from './hover';
-import { SelectionRangeValidator } from './selection';
+import { RangeValidator as HoverRangeValidator } from './hover/range-validator';
+import { SelectionRangeValidator } from './selection/range-validator';
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import {
 	useAnnotationRangeDispatch,

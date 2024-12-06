@@ -13,6 +13,8 @@ import {
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
+import { type PluginInjectionAPI } from '../types';
+
 import {
 	arrowLeftFromTable,
 	arrowRightFromTable,
@@ -20,8 +22,7 @@ import {
 	selectColumns,
 	selectRows,
 	shiftArrowUpFromTable,
-} from '../commands/selection';
-import { type PluginInjectionAPI } from '../types';
+} from './commands/selection';
 
 export function tableSelectionKeymapPlugin(
 	pluginInjectionApi?: PluginInjectionAPI,

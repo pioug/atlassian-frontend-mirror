@@ -222,7 +222,27 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 										<form {...formProps} name="form-example">
 											{!wasHelpful && (
 												<fieldset>
-													<legend hidden={true}>
+													<legend
+														id="feedbackReason-label"
+														style={{
+															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+															position: 'absolute',
+															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+															width: '1px',
+															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+															height: '1px',
+															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+															margin: '-1px',
+															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+															padding: '0',
+															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+															border: '0',
+															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+															clip: 'rect(0, 0, 0, 0)',
+															// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+															overflow: 'hidden',
+														}}
+													>
 														{formatMessage(messages.help_article_rating_form_title)}
 													</legend>
 													<Field name="feedbackReason" isRequired>
@@ -231,6 +251,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 																{...fieldProps}
 																options={negativeFeedbackReason}
 																onChange={radioGroupReasonOnChange}
+																aria-labelledby="feedbackReason-label"
 															/>
 														)}
 													</Field>

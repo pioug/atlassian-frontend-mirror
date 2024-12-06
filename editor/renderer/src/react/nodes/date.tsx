@@ -6,7 +6,7 @@ import {
 	timestampToTaskContext,
 } from '@atlaskit/editor-common/utils';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
-import { useTaskItemsFormatContext } from '../../ui/TaskItemsFormatContext';
+import { useTaskItemsFormatContext } from '../../ui/TaskItemsFormatContext/TaskItemsFormatContext';
 import {
 	type MarkDataAttributes,
 	useInlineAnnotationProps,

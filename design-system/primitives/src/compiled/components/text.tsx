@@ -18,8 +18,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { HasTextAncestorProvider, useHasTextAncestor } from '../../utils/has-text-ancestor-context';
+import { useSurface } from '../../utils/surface-provider';
 
-import { useSurface } from './internal/surface-provider';
 import type { BasePrimitiveProps, FontSize, FontWeight, TextAlign, TextColor } from './types';
 
 const asAllowlist = ['span', 'p', 'strong', 'em'] as const;

@@ -9,8 +9,8 @@ import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { findTable, isTableSelected, selectTable } from '@atlaskit/editor-tables/utils';
 
-import { clearHoverSelection } from '../../../commands';
-import type { TablePlugin } from '../../../plugin';
+import { clearHoverSelection } from '../../../pm-plugins/commands';
+import type { TablePlugin } from '../../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../../types';
 
 import type { CornerControlProps } from './types';

@@ -1,7 +1,5 @@
 import { type Provider } from './provider';
 import { default as ServiceProvider } from './service-provider';
-export { ServiceProvider };
-export type { Provider };
 
 export interface ProviderProps {
 	provider?: Provider;

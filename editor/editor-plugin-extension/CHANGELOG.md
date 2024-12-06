@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 2.0.2
+
+### Patch Changes
+
+- [#169955](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169955)
+  [`3c2ffc27c518e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c2ffc27c518e) -
+  ED-25863 add logic to stop the LCM inner editor losing focus. Tweak blur logic for extension to
+  fully remove current selection when clicking into the LCM.
+
 ## 2.0.1
 
 ### Patch Changes

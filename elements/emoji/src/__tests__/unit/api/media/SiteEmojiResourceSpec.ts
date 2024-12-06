@@ -95,7 +95,7 @@ describe('SiteEmojiResource', () => {
 			],
 		};
 
-		const setup = () => {
+		const setup = (status = 'processed') => {
 			const uploadFile = jest.fn().mockReturnValue(
 				new Observable((observer) => {
 					window.setTimeout(() => {
@@ -104,7 +104,7 @@ describe('SiteEmojiResource', () => {
 							id: '123',
 							name: 'some-name',
 							size: 1,
-							status: 'processing',
+							status,
 						});
 					});
 				}),
@@ -119,59 +119,65 @@ describe('SiteEmojiResource', () => {
 			return { uploadFile };
 		};
 
-		it('successful upload', () => {
-			const { uploadFile } = setup();
-			const tokenManagerStub = sinon.createStubInstance(TokenManager) as any;
-			const siteEmojiResource = new TestSiteEmojiResource(tokenManagerStub);
+		describe('successful upload', () => {
+			const testUploadStatuses = ['processing', 'processed'];
 
-			fetchMock.post({
-				matcher: siteServiceConfig.url,
-				response: {
-					body: serviceResponse,
-				},
-				name: 'emoji-upload',
+			testUploadStatuses.forEach((status, index) => {
+				it(`when upload status is: ${status}`, () => {
+					const { uploadFile } = setup(status);
+					const tokenManagerStub = sinon.createStubInstance(TokenManager) as any;
+					const siteEmojiResource = new TestSiteEmojiResource(tokenManagerStub);
+
+					fetchMock.post({
+						matcher: siteServiceConfig.url,
+						response: {
+							body: serviceResponse,
+						},
+						name: 'emoji-upload',
+					});
+
+					tokenManagerStub.getToken.returns(Promise.resolve(defaultMediaApiToken()));
+
+					const uploadPromise = siteEmojiResource.uploadEmoji(upload).then((emoji) => {
+						const { altRepresentations, ...serviceEmoji } = serviceResponse.emojis[0];
+						expect(emoji).toEqual({
+							...serviceEmoji,
+							representation: {
+								mediaPath: 'http://media/123.png',
+								width: 20,
+								height: 30,
+							},
+							altRepresentation: {
+								mediaPath: 'http://media/456.png',
+								width: 40,
+								height: 60,
+							},
+						});
+
+						expect(uploadFile).toHaveBeenCalledTimes(1);
+						expect(uploadFile).toBeCalledWith({
+							collection: 'emoji-collection',
+							content: 'data:cheese',
+							name: 'cheese.png',
+						});
+
+						const uploadEmojiCalls = fetchMock.calls('emoji-upload');
+						expect(uploadEmojiCalls).toHaveLength(1);
+						const options = uploadEmojiCalls[0][1];
+						const body = JSON.parse(options.body);
+						const { shortName, name, width, height } = upload;
+						expect(body).toEqual({
+							shortName,
+							name,
+							width,
+							height,
+							fileId: '123',
+						});
+					});
+
+					return uploadPromise;
+				});
 			});
-
-			tokenManagerStub.getToken.returns(Promise.resolve(defaultMediaApiToken()));
-
-			const uploadPromise = siteEmojiResource.uploadEmoji(upload).then((emoji) => {
-				const { altRepresentations, ...serviceEmoji } = serviceResponse.emojis[0];
-				expect(emoji).toEqual({
-					...serviceEmoji,
-					representation: {
-						mediaPath: 'http://media/123.png',
-						width: 20,
-						height: 30,
-					},
-					altRepresentation: {
-						mediaPath: 'http://media/456.png',
-						width: 40,
-						height: 60,
-					},
-				});
-
-				expect(uploadFile).toHaveBeenCalledTimes(1);
-				expect(uploadFile).toBeCalledWith({
-					collection: 'emoji-collection',
-					content: 'data:cheese',
-					name: 'cheese.png',
-				});
-
-				const uploadEmojiCalls = fetchMock.calls('emoji-upload');
-				expect(uploadEmojiCalls).toHaveLength(1);
-				const options = uploadEmojiCalls[0][1];
-				const body = JSON.parse(options.body);
-				const { shortName, name, width, height } = upload;
-				expect(body).toEqual({
-					shortName,
-					name,
-					width,
-					height,
-					fileId: '123',
-				});
-			});
-
-			return uploadPromise;
 		});
 
 		it('upload error to media', () => {

@@ -37,36 +37,51 @@ export const BaseSearch = ({ isDisabled, isSearching, label, onSearch }: Props) 
 	}, []);
 
 	return fg('platform-component-visual-refresh') ? (
-		<Box xcss={buttonContainerStyle}>
-			<IconButton
-				label={label}
+		<>
+			<Box xcss={buttonContainerStyle}>
+				<IconButton
+					label={label}
+					isDisabled={isDisabled}
+					testId="jql-editor-search"
+					appearance={'primary'}
+					spacing="compact"
+					onClick={onSearch}
+					onKeyDown={preventRepeatClick}
+					isLoading={isSearching}
+					icon={SearchIcon}
+					{...(fg('add_nin_press_interactions') && {
+						interactionName: 'jql-editor-base-search-button',
+					})}
+				/>
+			</Box>
+		</>
+	) : (
+		<>
+			<LoadingButton
+				aria-label={label}
 				isDisabled={isDisabled}
 				testId="jql-editor-search"
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				style={style}
 				appearance={'primary'}
-				spacing="compact"
+				spacing={'none'}
 				onClick={onSearch}
 				onKeyDown={preventRepeatClick}
 				isLoading={isSearching}
-				icon={SearchIcon}
+				iconBefore={
+					<Box xcss={iconStyle}>
+						<SearchIcon
+							color="currentColor"
+							label={''}
+							LEGACY_size={'medium'}
+							LEGACY_margin="-4px"
+						/>
+					</Box>
+				}
+				{...(fg('add_nin_press_interactions') && {
+					interactionName: 'jql-editor-base-search-button',
+				})}
 			/>
-		</Box>
-	) : (
-		<LoadingButton
-			aria-label={label}
-			isDisabled={isDisabled}
-			testId="jql-editor-search"
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={style}
-			appearance={'primary'}
-			spacing={'none'}
-			onClick={onSearch}
-			onKeyDown={preventRepeatClick}
-			isLoading={isSearching}
-			iconBefore={
-				<Box xcss={iconStyle}>
-					<SearchIcon color="currentColor" label={''} LEGACY_size={'medium'} LEGACY_margin="-4px" />
-				</Box>
-			}
-		/>
+		</>
 	);
 };

@@ -49,10 +49,8 @@ import {
 	MediaBadges,
 } from '@atlaskit/editor-common/media-single';
 import { injectIntl } from 'react-intl-next';
-import {
-	useInlineCommentSubscriberContext,
-	useInlineCommentsFilter,
-} from '../../../ui/annotations/hooks';
+import { useInlineCommentsFilter } from '../../../ui/annotations/hooks/use-inline-comments-filter';
+import { useInlineCommentSubscriberContext } from '../../../ui/annotations/hooks/use-inline-comment-subscriber';
 import { AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 

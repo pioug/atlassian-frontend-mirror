@@ -1,5 +1,31 @@
 # @atlaskit/profilecard
 
+## 21.0.0
+
+### Major Changes
+
+- [#169629](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169629)
+  [`8657e106f5a52`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8657e106f5a52) -
+  Remove feature gate that moved calls to status to be sharded, and moved the URL configuration back
+  inside of the component (instead of exposing it outwards unnecessarily)
+
+  N.B. for the breaking changes, there are a couple of props going into the PTC components,
+  `teamCentralUrl` and `teamCentralBaseUrl`, that have been removed because they are no longer
+  necessary. These props made consuemrs of the component choose the URL, but a change was made
+  previously to move it back inside of the component and resolve it internally, so consumers of the
+  component need not configure this any more.
+
+  Consequently, if you are trying to upgrade to the major version bumps, you just need to remove
+  those props, as they're otherwise being ignored 🙏
+
+## 20.14.0
+
+### Minor Changes
+
+- [#173927](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173927)
+  [`af2002ae95b31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af2002ae95b31) -
+  Add ariaHideProfileTrigger to hide profile card trigger via aria-hidden="true" and tabIndex="-1"
+
 ## 20.13.1
 
 ### Patch Changes

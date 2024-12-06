@@ -55,8 +55,6 @@ const titleContainerStyles = css({
 	minWidth: 0,
 	maxWidth: '100%',
 	flex: '1 0 auto',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	flexShrink: undefined,
 	marginBlockEnd: token('space.100', '8px'),
 });
 
@@ -67,10 +65,6 @@ const actionStyles = css({
 	marginInlineStart: 'auto',
 	paddingInlineStart: token('space.400', '32px'),
 	whiteSpace: 'nowrap',
-	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'>': {
-		textAlign: 'right',
-	},
 });
 
 const titleContainerTruncateStyles = css({

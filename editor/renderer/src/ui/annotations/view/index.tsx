@@ -1,6 +1,6 @@
 import React, { useContext, useMemo, useCallback } from 'react';
 import { ProvidersContext } from '../context';
-import { useAnnotationClickEvent } from '../hooks';
+import { useAnnotationClickEvent } from '../hooks/use-events';
 import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { RendererContext } from '../../../ui/RendererActionsContext';
 import { type AnnotationTypes } from '@atlaskit/adf-schema';

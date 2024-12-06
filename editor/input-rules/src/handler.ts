@@ -6,10 +6,10 @@ import {
 	TEXT_INPUT_RULE_TRANSACTION_KEY,
 } from './constants';
 import { isGapCursorSelection } from './editor-common';
+import type { InputRuleWrapper } from './editor-common';
 import type {
 	HandleInputEvent,
 	InputRulePluginState,
-	InputRuleWrapper,
 	MatchedRule,
 	OnBeforeRegexMatch,
 	OnInputEvent,

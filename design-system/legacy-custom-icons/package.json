@@ -169,10 +169,7 @@
 		"./share-point-icon": "./src/ui/share-point-icon/index.tsx",
 		"./share-point-search-result-icon": "./src/ui/share-point-search-result-icon/index.tsx",
 		"./hash-tag-icon": "./src/ui/hash-tag-icon/index.tsx",
-		"./slack-search-result-icon": "./src/ui/slack-search-result-icon/index.tsx",
-		"./minor-priority-icon": "./src/ui/minor-priority-icon/index.tsx",
-		"./subtask-draggable-icon": "./src/ui/subtask-draggable-icon/index.tsx",
-		"./subtask-object-icon": "./src/ui/subtask-object-icon/index.tsx"
+		"./slack-search-result-icon": "./src/ui/slack-search-result-icon/index.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
@@ -312,10 +309,7 @@
 		"./share-point-icon": "./src/ui/share-point-icon/index.tsx",
 		"./share-point-search-result-icon": "./src/ui/share-point-search-result-icon/index.tsx",
 		"./hash-tag-icon": "./src/ui/hash-tag-icon/index.tsx",
-		"./slack-search-result-icon": "./src/ui/slack-search-result-icon/index.tsx",
-		"./minor-priority-icon": "./src/ui/minor-priority-icon/index.tsx",
-		"./subtask-draggable-icon": "./src/ui/subtask-draggable-icon/index.tsx",
-		"./subtask-object-icon": "./src/ui/subtask-object-icon/index.tsx"
+		"./slack-search-result-icon": "./src/ui/slack-search-result-icon/index.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^23.0.0",

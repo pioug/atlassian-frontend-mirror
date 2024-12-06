@@ -31,8 +31,8 @@ import { MediaClientContext, MediaClientProvider } from '@atlaskit/media-client-
 import type { ImageLoaderProps } from '@atlaskit/editor-common/utils';
 import { renderWithIntl } from '../../../__helpers/render';
 
-jest.mock('../../../../ui/annotations/hooks', () => ({
-	...jest.requireActual('../../../../ui/annotations/hooks'),
+jest.mock('../../../../ui/annotations/hooks/use-inline-comments-filter', () => ({
+	...jest.requireActual('../../../../ui/annotations/hooks/use-inline-comments-filter'),
 	useInlineCommentsFilter: jest.fn().mockReturnValue(['foo']),
 }));
 

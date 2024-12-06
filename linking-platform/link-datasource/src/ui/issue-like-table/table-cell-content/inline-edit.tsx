@@ -1,4 +1,6 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
+
+import { useIntl } from 'react-intl-next';
 
 import AKInlineEdit from '@atlaskit/inline-edit';
 import { type AtomicActionExecuteResponse } from '@atlaskit/linking-types';
@@ -14,6 +16,9 @@ import { type DatasourceItem, useDatasourceActions, useDatasourceItem } from '..
 import { editType } from '../edit-type';
 import { EmptyAvatar } from '../shared-components/avatar';
 import type { DatasourceTypeWithOnlyValues } from '../types';
+import { getFieldLabelById } from '../utils';
+
+import { tableCellMessages } from './messages';
 
 export const InlineEditUFOExperience = 'inline-edit-rendered';
 
@@ -24,6 +29,7 @@ const editContainerStyles = xcss({
 interface InlineEditProps {
 	ari: string;
 	columnKey: string;
+	columnTitle: string;
 	readView: React.ReactNode;
 	datasourceTypeWithValues: DatasourceTypeWithOnlyValues;
 	execute: (value: string | number) => Promise<AtomicActionExecuteResponse>;
@@ -45,6 +51,21 @@ const getBackendUpdateValue = (typedNewValue: DatasourceTypeWithOnlyValues): str
 	throw new Error(
 		`Datasource 2 way sync Backend update value not implemented for type ${typedNewValue.type}`,
 	);
+};
+
+const getCurrentFieldLabel = (typedNewValue: DatasourceTypeWithOnlyValues): string | number => {
+	switch (typedNewValue.type) {
+		case 'string':
+			return typedNewValue.values[0] || '';
+		case 'status':
+			return typedNewValue.values[0]?.text || '';
+		case 'user':
+			return typedNewValue.values[0]?.displayName || '';
+		case 'icon':
+			return typedNewValue.values[0]?.text || '';
+		default:
+			return '';
+	}
 };
 
 const mapUpdatedItem = (
@@ -108,6 +129,7 @@ export const InlineEdit = ({
 	executeFetch,
 	readView,
 	columnKey,
+	columnTitle,
 	datasourceTypeWithValues,
 }: InlineEditProps) => {
 	const [isEditing, setIsEditing] = useState(false);
@@ -192,6 +214,15 @@ export const InlineEdit = ({
 		}
 	}, [columnKey, entityType, fireEvent, integrationKey]);
 
+	const { formatMessage } = useIntl();
+
+	const editButtonLabel = useMemo(() => {
+		return formatMessage(tableCellMessages.editButtonLabel, {
+			fieldName: columnTitle,
+			fieldValue: getCurrentFieldLabel(editValues),
+		});
+	}, [columnTitle, formatMessage, editValues]);
+
 	return (
 		<Box xcss={editContainerStyles}>
 			<AKInlineEdit
@@ -200,6 +231,7 @@ export const InlineEdit = ({
 					currentValue: editValues,
 					setEditValues,
 					executeFetch,
+					labelId: getFieldLabelById(columnKey),
 				})}
 				hideActionButtons
 				readView={editableRenderType({ defaultValue: datasourceTypeWithValues, readView })}
@@ -208,6 +240,7 @@ export const InlineEdit = ({
 				onEdit={onEdit}
 				onCancel={onCancelEdit}
 				onConfirm={() => onCommitUpdate(editValues)}
+				editButtonLabel={editButtonLabel}
 			/>
 		</Box>
 	);

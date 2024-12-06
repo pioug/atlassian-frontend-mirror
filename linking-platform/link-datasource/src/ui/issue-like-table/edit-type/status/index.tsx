@@ -14,15 +14,17 @@ import { useLoadOptions } from '../../../../hooks/useLoadOptions';
 import type { ExecuteFetch } from '../../../../state/actions';
 import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
 import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
+import { getCleanedSelectProps } from '../../utils';
 
 interface StatusEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'status'>;
+	labelId?: string;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
 	executeFetch?: ExecuteFetch;
 }
 
 const StatusEditType = (props: StatusEditTypeProps) => {
-	const { currentValue, executeFetch } = props;
+	const { currentValue, labelId, executeFetch } = props;
 	const { options, isLoading, hasFailed } = useLoadOptions<Status>({ executeFetch });
 	const experienceId = useDatasourceExperienceId();
 
@@ -51,7 +53,7 @@ const StatusEditType = (props: StatusEditTypeProps) => {
 	return (
 		<Layering isDisabled={false}>
 			<Select<Status>
-				{...props}
+				{...getCleanedSelectProps(props)}
 				autoFocus
 				options={options}
 				defaultMenuIsOpen
@@ -62,6 +64,7 @@ const StatusEditType = (props: StatusEditTypeProps) => {
 				testId="inline-edit-status"
 				getOptionValue={(option) => option.text}
 				value={currentValue?.values?.[0]}
+				labelId={labelId}
 				formatOptionLabel={(option) => (
 					<Tooltip content={option.text}>
 						<Lozenge testId={`inline-edit-status-option-${option.text}`} {...option.style}>
@@ -69,6 +72,7 @@ const StatusEditType = (props: StatusEditTypeProps) => {
 						</Lozenge>
 					</Tooltip>
 				)}
+				getOptionLabel={(option) => option.text}
 				onChange={(e) =>
 					props.setEditValues({
 						type: 'status',

@@ -12,7 +12,7 @@ import { RendererContext } from '../../../RendererActionsContext';
 import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { AnnotationTypes } from '@atlaskit/adf-schema';
 
-jest.mock('../../hooks', () => ({
+jest.mock('../../hooks/use-events', () => ({
 	useAnnotationClickEvent: jest.fn().mockReturnValue([
 		{
 			id: '',

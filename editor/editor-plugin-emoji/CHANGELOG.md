@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-emoji
 
+## 2.7.10
+
+### Patch Changes
+
+- [#173838](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173838)
+  [`66ed8e1cd9c74`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66ed8e1cd9c74) -
+  [ux] ED-25836 show comment in floating toolbar for emoji
+- Updated dependencies
+
 ## 2.7.9
 
 ### Patch Changes

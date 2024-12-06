@@ -9,7 +9,7 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, isTableSelected, selectTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { clearHoverSelection, hoverTable } from '../../../commands';
+import { clearHoverSelection, hoverTable } from '../../../pm-plugins/commands';
 import { TableCssClassName as ClassName } from '../../../types';
 
 import type { CornerControlProps } from './types';

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "20.13.1",
+	"version": "21.0.0",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -65,7 +65,7 @@
 		"@atlaskit/analytics-next": "^10.1.0",
 		"@atlaskit/atlassian-context": "^0.0.2",
 		"@atlaskit/avatar": "^21.17.0",
-		"@atlaskit/avatar-group": "^10.0.0",
+		"@atlaskit/avatar-group": "^10.1.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/dropdown-menu": "^12.23.0",
 		"@atlaskit/empty-state": "^8.0.0",
@@ -132,9 +132,6 @@
 	},
 	"platform-feature-flags": {
 		"enable_appropriate_reading_order_in_profile_card": {
-			"type": "boolean"
-		},
-		"enable_ptc_sharded_townsquare_calls": {
 			"type": "boolean"
 		},
 		"enable_agent_profile_card": {

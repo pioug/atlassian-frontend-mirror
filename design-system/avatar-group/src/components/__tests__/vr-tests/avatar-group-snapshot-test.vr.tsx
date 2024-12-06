@@ -3,6 +3,7 @@ import { snapshot } from '@af/visual-regression';
 import BasicAvatarGroup from '../../../../examples/02-basic-avatar-group';
 import BorderColorExample from '../../../../examples/03-avatar-group-border-color';
 import AvatarGroupPlayground from '../../../../examples/10-avatar-group-playground';
+import OverridesMoreIndicatorExample from '../../../../examples/30-overrides-more-indicator';
 import VRStackingContextExample from '../../../../examples/vr-stacking-context';
 
 snapshot(BasicAvatarGroup, {
@@ -59,4 +60,8 @@ snapshot(BorderColorExample, {
 snapshot(VRStackingContextExample, {
 	description:
 		'Avatar group should create a new stacking context so that avatars do not pop in front of floating items',
+});
+
+snapshot(OverridesMoreIndicatorExample, {
+	description: 'More indicator should display override',
 });

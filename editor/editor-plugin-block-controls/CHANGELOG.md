@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.14.3
+
+### Patch Changes
+
+- [#169746](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169746)
+  [`5bfb485e85507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5bfb485e85507) -
+  [ux] [ED-25925] After drag and drop to create a new layout or update an existing layout,
+  placecursor at the end of last node in the newly created column
+
 ## 2.14.2
 
 ### Patch Changes

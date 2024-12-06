@@ -80,8 +80,6 @@ export default function Example() {
 		{
 			gatewayGraphqlUrl: 'https://api-private.stg.atlassian.com/graphql',
 			url: 'DUMMY',
-			teamCentralUrl: 'teamCentralUrl',
-			teamCentralBaseUrl: 'http://localhost:3000',
 			productIdentifier: 'test',
 		},
 	);

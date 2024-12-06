@@ -165,7 +165,7 @@ const ToolbarItems = React.memo(
 						if (selected) {
 							return token('color.icon.selected');
 						}
-						return token('color.icon');
+						return 'currentColor';
 					};
 
 					return (

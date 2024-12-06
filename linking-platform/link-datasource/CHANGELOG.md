@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 3.13.18
+
+### Patch Changes
+
+- [#172124](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172124)
+  [`e1ccef8760b47`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e1ccef8760b47) -
+  Add labels to inline editable fields to improve accessibility
+- [#168855](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168855)
+  [`eb71b8f29a212`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb71b8f29a212) -
+  Refactor behind ff - Fixes loading state not showing on user typeahead search
+- Updated dependencies
+
 ## 3.13.17
 
 ### Patch Changes

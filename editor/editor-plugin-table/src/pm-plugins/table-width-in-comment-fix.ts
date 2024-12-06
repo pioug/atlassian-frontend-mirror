@@ -19,7 +19,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 
-import { ALIGN_START } from '../utils/alignment';
+import { ALIGN_START } from './utils/alignment';
 
 type TableWidthInCommentFixPluginState = {
 	documentHasLoadedOnce: boolean;

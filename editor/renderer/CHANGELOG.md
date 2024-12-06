@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 112.6.14
+
+### Patch Changes
+
+- [#174633](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174633)
+  [`11d98912f520d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/11d98912f520d) -
+  Removed internal re-exports
+
 ## 112.6.13
 
 ### Patch Changes

@@ -108,6 +108,7 @@ export default function ProfilecardTriggerNext({
 	viewingUserId,
 	product,
 	agentActions,
+	ariaHideProfileTrigger = false,
 }: ProfileCardTriggerProps) {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { formatMessage } = useIntl();
@@ -424,18 +425,18 @@ export default function ProfilecardTriggerNext({
 							{...containerListeners}
 							ref={ref}
 							data-testid={testId}
-							aria-labelledby={ariaLabelledBy}
+							{...(!ariaHideProfileTrigger && { 'aria-labelledby': ariaLabelledBy })}
 							{...(disabledAriaAttributes
 								? {}
 								: {
 										role: 'button',
-										tabIndex: 0,
-										'aria-label': getLabelMessage(
-											ariaLabel,
-											profilecardProps.fullName,
-											formatMessage,
-										),
+										//  aria-hidden cannot contain focusable elements: https://dequeuniversity.com/rules/axe/3.5/aria-hidden-focus
+										tabIndex: ariaHideProfileTrigger ? -1 : 0,
+										'aria-label': ariaHideProfileTrigger
+											? undefined
+											: getLabelMessage(ariaLabel, profilecardProps.fullName, formatMessage),
 									})}
+							{...(ariaHideProfileTrigger && { 'aria-hidden': 'true' })}
 						>
 							{children}
 						</span>

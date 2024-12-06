@@ -6,8 +6,9 @@ import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-s
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { code_block, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
+import type { InputRuleWrapper } from '../../editor-common';
 import { createInputEventHandler } from '../../handler';
-import type { HandleInputEvent, InputRuleWrapper } from '../../types';
+import type { HandleInputEvent } from '../../types';
 
 describe('input-tule/handles/createInputEventHandler', () => {
 	let inputEvent: HandleInputEvent;

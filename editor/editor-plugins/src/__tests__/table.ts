@@ -4,7 +4,7 @@ export {};
 describe('table wrapper', () => {
 	it('check ./table/types exports all the same variables as the original', () => {
 		const original = require('@atlaskit/editor-plugin-table/types');
-		const wrapper = require('../table/types');
+		const wrapper = require('../table/types/index');
 		const originalKeys = Object.keys(original).sort();
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);
@@ -44,7 +44,7 @@ describe('table wrapper', () => {
 
 	it('check ./table/commands exports all the same variables as the original', () => {
 		const original = require('@atlaskit/editor-plugin-table/commands');
-		const wrapper = require('../table/commands/index');
+		const wrapper = require('../table/pm-plugins/commands/index');
 		const originalKeys = Object.keys(original).sort();
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);

@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 96.3.0
+
+### Minor Changes
+
+- [#171036](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171036)
+  [`94759470241e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/94759470241e2) -
+  [https://product-fabric.atlassian.net/browse/EDF-2044](EDF-2044) - add analytics for Editor AI
+  Command Palette link picker
+
+### Patch Changes
+
+- [#174281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174281)
+  [`5178c89e2308f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5178c89e2308f) -
+  ED-25929: Fix layout insert msg formatting for i18n
+- Updated dependencies
+
 ## 96.2.0
 
 ### Minor Changes

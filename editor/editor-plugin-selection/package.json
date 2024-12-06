@@ -20,7 +20,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^96.2.0",
+		"@atlaskit/editor-common": "^96.3.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/editor-tables": "^2.8.0",
@@ -85,6 +85,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_mark_boundary_cursor": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_drag_and_drop_lists": {
 			"type": "boolean"
 		}
 	}

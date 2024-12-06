@@ -21,15 +21,10 @@ import {
 } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
-import { SurfaceContext } from './internal/surface-provider';
-import { type SVGElements } from './internal/types';
-import type {
-	BackgroundColorToken,
-	BasePrimitiveProps,
-	PaddingToken,
-	StyleProp,
-	SurfaceColorToken,
-} from './types';
+import { SurfaceContext } from '../../utils/surface-provider';
+import type { BackgroundColorToken, SVGElements } from '../../utils/types';
+
+import type { BasePrimitiveProps, PaddingToken, StyleProp, SurfaceColorToken } from './types';
 
 // Can either Exclude or Extract - here we're excluding all SVG-related elements, <button> elements (handled by Pressable), and <a> elements (handled by Anchor)
 type AllowedElements = Exclude<keyof JSX.IntrinsicElements, SVGElements | 'button' | 'a'>;

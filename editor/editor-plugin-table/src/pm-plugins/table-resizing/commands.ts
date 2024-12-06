@@ -5,9 +5,9 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { isTableSelected } from '@atlaskit/editor-tables/utils';
 
-import { updateColumnWidths } from '../../transforms';
 import type { PluginInjectionAPI } from '../../types';
 import { META_KEYS } from '../table-analytics';
+import { updateColumnWidths } from '../transforms';
 
 import { createCommand, getPluginState } from './plugin-factory';
 import type { ResizeState } from './utils';

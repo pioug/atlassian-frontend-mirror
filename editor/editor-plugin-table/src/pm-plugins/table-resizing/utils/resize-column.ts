@@ -13,7 +13,7 @@ import {
 	ALIGN_CENTER,
 	ALIGN_START,
 	shouldChangeAlignmentToCenterResized,
-} from '../../../utils/alignment';
+} from '../../utils/alignment';
 
 import { getTableScalingPercent } from './misc';
 import { growColumn, shrinkColumn, updateAffectedColumn } from './resize-logic';

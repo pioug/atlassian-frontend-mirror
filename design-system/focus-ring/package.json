@@ -49,6 +49,7 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/textfield": "^6.7.0",
 		"@testing-library/react": "^12.1.5",

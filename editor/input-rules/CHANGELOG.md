@@ -1,5 +1,13 @@
 # @atlaskit/prosemirror-input-rules
 
+## 3.2.3
+
+### Patch Changes
+
+- [#164503](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164503)
+  [`9dcc5abdbf880`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9dcc5abdbf880) -
+  Removed internal re-exports in input rules
+
 ## 3.2.2
 
 ### Patch Changes

@@ -26,10 +26,13 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable } from '@atlaskit/editor-tables/utils';
 
-import { insertColumnWithAnalytics, insertRowWithAnalytics } from '../../commands-with-analytics';
+import {
+	insertColumnWithAnalytics,
+	insertRowWithAnalytics,
+} from '../../pm-plugins/commands/commands-with-analytics';
+import { checkIfNumberColumnEnabled } from '../../pm-plugins/utils';
 import { TableCssClassName as ClassName } from '../../types';
 import type { PluginInjectionAPI } from '../../types';
-import { checkIfNumberColumnEnabled } from '../../utils';
 
 import getPopupOptions from './getPopupOptions';
 import InsertButton, { DragAndDropInsertButton } from './InsertButton';

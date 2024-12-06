@@ -4,7 +4,7 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { TablePlugin } from '../../plugin';
+import type { TablePlugin } from '../../tablePluginType';
 
 import { CornerControls } from './CornerControls';
 import { RowControls } from './RowControls';

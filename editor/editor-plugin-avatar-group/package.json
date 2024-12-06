@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-avatar-group",
-	"version": "2.0.16",
+	"version": "2.0.17",
 	"description": "Avatar Group plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,8 +39,8 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/avatar-group": "^10.0.0",
-		"@atlaskit/editor-common": "^96.2.0",
+		"@atlaskit/avatar-group": "^10.1.0",
+		"@atlaskit/editor-common": "^96.3.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-collab-edit": "^1.23.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",

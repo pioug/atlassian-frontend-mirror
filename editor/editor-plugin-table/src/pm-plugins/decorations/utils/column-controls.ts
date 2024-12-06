@@ -11,7 +11,7 @@ import {
 	findColumnControlSelectedDecoration,
 	findControlsHoverDecoration,
 	updateDecorations,
-} from '../../../utils/decoration';
+} from '../../utils/decoration';
 
 import { composeDecorations } from './compose-decorations';
 import type { BuildDecorationTransformerParams, DecorationTransformer } from './types';

@@ -24,10 +24,19 @@
 			"path": "../../editor-plugin-analytics/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-annotation/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-type-ahead/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../elements/emoji/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../node-data-provider/afm-jira/tsconfig.json"

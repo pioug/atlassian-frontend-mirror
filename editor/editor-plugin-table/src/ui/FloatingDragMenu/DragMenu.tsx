@@ -47,27 +47,27 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import Toggle from '@atlaskit/toggle';
 
-import { clearHoverSelection, hoverColumns, hoverRows } from '../../commands';
+import { clearHoverSelection, hoverColumns, hoverRows } from '../../pm-plugins/commands';
 import {
 	setColorWithAnalytics,
 	toggleHeaderColumnWithAnalytics,
 	toggleHeaderRowWithAnalytics,
 	toggleNumberColumnWithAnalytics,
-} from '../../commands-with-analytics';
+} from '../../pm-plugins/commands/commands-with-analytics';
 import { toggleDragMenu } from '../../pm-plugins/drag-and-drop/commands';
 import { getPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';
 import { getPluginState as getTablePluginState } from '../../pm-plugins/plugin-factory';
-import type { PluginConfig, PluginInjectionAPI, TableDirection } from '../../types';
-import { TableCssClassName as ClassName } from '../../types';
 import {
 	checkIfHeaderColumnEnabled,
 	checkIfHeaderRowEnabled,
 	checkIfNumberColumnEnabled,
 	getSelectedColumnIndexes,
 	getSelectedRowIndexes,
-} from '../../utils';
-import type { DragMenuConfig, DragMenuOptionIdType } from '../../utils/drag-menu';
-import { getDragMenuConfig } from '../../utils/drag-menu';
+} from '../../pm-plugins/utils';
+import type { DragMenuConfig, DragMenuOptionIdType } from '../../pm-plugins/utils/drag-menu';
+import { getDragMenuConfig } from '../../pm-plugins/utils/drag-menu';
+import { TableCssClassName as ClassName } from '../../types';
+import type { PluginConfig, PluginInjectionAPI, TableDirection } from '../../types';
 import { colorPalletteColumns } from '../consts';
 
 import { DropdownMenu } from './DropdownMenu';

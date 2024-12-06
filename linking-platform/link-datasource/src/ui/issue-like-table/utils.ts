@@ -1,3 +1,5 @@
+import { type FieldProps } from '@atlaskit/form';
+
 import { DatasourceAction } from '../../analytics/types';
 
 export const COLUMN_BASE_WIDTH = 8;
@@ -57,3 +59,17 @@ export const getColumnAction = (
 		return DatasourceAction.COLUMN_REORDERED;
 	}
 };
+
+/**
+ * Remove deprecated `aria-labelledby` prop from select component props.
+ */
+export const getCleanedSelectProps = (props: Omit<FieldProps<string>, 'value'>) => {
+	// Component Field auto adds `aria-labelledby` prop, which is deprecated and should not be used - https://hello.jira.atlassian.cloud/browse/ENGHEALTH-14529
+	const { 'aria-labelledby': removedLabelByProps, ...selectProps } = props;
+	return selectProps;
+};
+
+/**
+ * Create id for table header to be used as aria-labelledby on form fields.
+ */
+export const getFieldLabelById = (fieldId: string) => `datasource-header-title-${fieldId}`;

@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 10.1.0
+
+### Minor Changes
+
+- [#174545](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174545)
+  [`102616f7c8d08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/102616f7c8d08) -
+  [ux] Add override for MoreIndicator
+
 ## 10.0.4
 
 ### Patch Changes

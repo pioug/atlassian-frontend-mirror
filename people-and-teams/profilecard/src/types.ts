@@ -201,6 +201,7 @@ export interface ProfileCardTriggerProps {
 	product?: string;
 	viewingUserId?: string;
 	agentActions?: AgentActionsType;
+	ariaHideProfileTrigger?: boolean;
 }
 
 export interface ProfileCardTriggerState {

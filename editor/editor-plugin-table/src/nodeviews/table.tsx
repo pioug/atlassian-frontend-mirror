@@ -21,15 +21,15 @@ import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { pluginConfig as getPluginConfig } from '../create-plugin-config';
+import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
 import { pluginKey as tableDragAndDropPluginKey } from '../pm-plugins/drag-and-drop';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing';
 import { generateColgroup } from '../pm-plugins/table-resizing/utils';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
+import { isTableNested } from '../pm-plugins/utils';
 import type { PluginInjectionAPI } from '../types';
-import { isTableNested } from '../utils';
 
 import TableComponent from './TableComponent';
 import { TableComponentWithSharedState } from './TableComponentWithSharedState';

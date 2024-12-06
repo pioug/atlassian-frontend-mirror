@@ -5,47 +5,38 @@
 
 import { type CSSProperties, forwardRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { B200, B300, B400, N30, N40, N50A, N60A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import * as theme from './theme';
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 	ref: React.Ref<HTMLInputElement>;
 	valuePercent: string;
 };
 
-const VAR_THUMB_BORDER_COLOR = '--thumb-border';
-const VAR_THUMB_SHADOW = '--thumb-shadow';
-const VAR_THUMB_BACKGROUND_COLOR = '--thumb-bg';
-const VAR_TRACK_BACKGROUND_COLOR = '--track-bg';
-const VAR_TRACK_FOREGROUND_COLOR = '--track-fg';
-const VAR_TRACK_FOREGROUND_WIDTH = '--track-fg-width';
-
 const sliderThumbStyles = {
 	boxSizing: 'border-box',
-	width: theme.thumb.size,
-	height: theme.thumb.size,
+	width: 16,
+	height: 16,
 	border: 'none',
-	background: `var(${VAR_THUMB_BACKGROUND_COLOR}, ${theme.thumb.background.default})`,
+	background: `var(--thumb-bg, ${token('color.background.neutral.bold', B400)})`,
 	// adapted from @atlaskit/focus-ring
-	outline: `solid 2px var(${VAR_THUMB_BORDER_COLOR})`,
+	outline: 'solid 2px var(--thumb-border)',
 	outlineOffset: '2px',
 	borderRadius: token('border.radius.circle', '50%'),
-	boxShadow: `var(${VAR_THUMB_SHADOW})`,
+	boxShadow: 'var(--thumb-shadow)',
 	cursor: 'pointer', // Different implicit behavior across browsers -> making it explicit.
-	transition: `background-color ${theme.transitionDuration} ease-in-out`,
+	transition: 'background-color 0.2s ease-in-out',
 } as const;
 
 const sliderTrackStyles = {
-	borderRadius: theme.track.borderRadius,
+	borderRadius: 2,
 	border: 0,
 	cursor: 'pointer',
-	height: theme.track.height,
+	height: 4,
 	width: '100%',
-	transition: `background-color ${theme.transitionDuration} ease-in-out`,
+	transition: 'background-color 0.2s ease-in-out',
 } as const;
 
 // Styles are split per browser as they are implemented differently
@@ -58,8 +49,8 @@ const browserStyles = {
 		'::-webkit-slider-thumb': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			...sliderThumbStyles,
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			marginBlockStart: -(theme.thumb.size - theme.track.height) / 2,
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/use-tokens-space -- Ignored via go/DSP-18766
+			marginBlockStart: '-6px',
 			WebkitAppearance: 'none',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -74,17 +65,16 @@ const browserStyles = {
 			 *
 			 * Individual properties have been used over the `background` shorthand for readability.
 			 */
-			backgroundColor: `var(${VAR_TRACK_BACKGROUND_COLOR})`,
-			backgroundImage: `linear-gradient(var(${VAR_TRACK_FOREGROUND_COLOR}), var(${VAR_TRACK_FOREGROUND_COLOR}))`,
+			backgroundColor: 'var(--track-bg)',
+			backgroundImage: 'linear-gradient(var(--track-fg), var(--track-fg))',
 			backgroundRepeat: 'no-repeat',
-			backgroundSize: `var(${VAR_TRACK_FOREGROUND_WIDTH}) 100%`,
+			backgroundSize: 'var(--track-fg-width) 100%',
 			// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'[dir="rtl"] &': {
 				backgroundPosition: 'right',
 			},
 		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		':disabled': {
+		'&:disabled': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'::-webkit-slider-thumb, ::-webkit-slider-runnable-track': {
 				cursor: 'not-allowed',
@@ -102,16 +92,15 @@ const browserStyles = {
 		'::-moz-range-progress': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			...sliderTrackStyles,
-			background: `var(${VAR_TRACK_FOREGROUND_COLOR})`,
+			background: 'var(--track-fg)',
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'::-moz-range-track': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			...sliderTrackStyles,
-			background: `var(${VAR_TRACK_BACKGROUND_COLOR})`,
+			background: 'var(--track-bg)',
 		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		':disabled': {
+		'&:disabled': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'::-moz-range-thumb, ::-moz-range-progress, ::-moz-range-track': {
 				cursor: 'not-allowed',
@@ -122,45 +111,33 @@ const browserStyles = {
 
 const baseStyles = css({
 	width: '100%', // Has a fixed width by default
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: theme.input.height, // Otherwise thumb will collide with previous box element
+	height: 40, // Otherwise thumb will collide with previous box element
 	background: 'transparent', // Otherwise white
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':focus': {
+	'&:focus': {
 		outline: 'none',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':disabled': {
+	'&:disabled': {
 		cursor: 'not-allowed',
 		opacity: token('opacity.disabled', '0.4'),
 	},
 });
 
 const themeStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	[VAR_THUMB_SHADOW]: theme.thumb.boxShadow.default,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	[VAR_TRACK_BACKGROUND_COLOR]: theme.track.background.default,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	[VAR_TRACK_FOREGROUND_COLOR]: theme.track.foreground.default,
+	'--thumb-shadow': token('utility.UNSAFE.transparent', `0 4px 8px -2px ${N50A}, 0 0 1px ${N60A}`),
+	'--track-bg': token('color.background.neutral', N30),
+	'--track-fg': token('color.background.neutral.bold', B400),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':hover:not(:disabled)': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		[VAR_THUMB_BACKGROUND_COLOR]: theme.thumb.background.hovered,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		[VAR_TRACK_BACKGROUND_COLOR]: theme.track.background.hovered,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		[VAR_TRACK_FOREGROUND_COLOR]: theme.track.foreground.hovered,
+		'--thumb-bg': token('color.background.neutral.bold.hovered', B300),
+		'--track-bg': token('color.background.neutral.hovered', N40),
+		'--track-fg': token('color.background.neutral.bold.hovered', B300),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':active:not(:disabled)': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		[VAR_THUMB_BACKGROUND_COLOR]: theme.thumb.background.pressed,
+		'--thumb-bg': token('color.background.neutral.bold.pressed', B200),
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':focus-visible': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		[VAR_THUMB_BORDER_COLOR]: theme.thumb.borderColor.focused,
+	'&:focus-visible': {
+		'--thumb-border': token('color.border.focused', B200),
 	},
 });
 
@@ -174,13 +151,11 @@ export const Input = forwardRef((props: InputProps, ref: React.Ref<HTMLInputElem
 	return (
 		<input
 			{...strippedProps}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			style={
 				{
 					// We are creating a css variable to control the "progress" portion of the range input
 					// This avoids us needing to create a new css class for each new percentage value
-					[VAR_TRACK_FOREGROUND_WIDTH]: `${valuePercent}%`,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					'--track-fg-width': `${valuePercent}%`,
 				} as CSSProperties
 			}
 			ref={ref}

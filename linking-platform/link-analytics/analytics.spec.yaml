@@ -70,6 +70,11 @@ context:
       required: false
       description: |
         The `tenantId` of the linked resource if relevant.
+    destinationActivationId:
+        type: string
+        required: false
+        description: |
+            The `activationId` of the linked resource if relevant.
     canBeDatasource:
       type: boolean
       required: false

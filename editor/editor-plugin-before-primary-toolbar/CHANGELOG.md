@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-before-primary-toolbar
 
+## 1.3.13
+
+### Patch Changes
+
+- [#172929](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172929)
+  [`ee80242ee0a31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ee80242ee0a31) -
+  Remediate re-exports
+- Updated dependencies
+
 ## 1.3.12
 
 ### Patch Changes

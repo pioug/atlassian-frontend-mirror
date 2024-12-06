@@ -24,10 +24,19 @@
             "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-annotation/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../editor-plugin-editor-viewmode/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-type-ahead/afm-cc/tsconfig.json"
         },
         {
             "path": "../../../elements/emoji/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../design-system/icon/afm-cc/tsconfig.json"
         },
         {
             "path": "../../node-data-provider/afm-cc/tsconfig.json"

@@ -8,10 +8,10 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { clearHoverSelection } from '../../../commands';
+import { clearHoverSelection } from '../../../pm-plugins/commands';
+import type { RowParams } from '../../../pm-plugins/utils';
+import { getRowClassNames, getRowHeights, getRowsParams } from '../../../pm-plugins/utils';
 import { TableCssClassName as ClassName } from '../../../types';
-import type { RowParams } from '../../../utils';
-import { getRowClassNames, getRowHeights, getRowsParams } from '../../../utils';
 import { tableControlsSpacing, tableToolbarSize } from '../../consts';
 
 export interface Props {

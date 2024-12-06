@@ -31,6 +31,7 @@ import { EditorInternal } from './editor-internal';
 import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
 import useMemoEditorProps from './hooks/useMemoEditorProps';
 import useProviderFactory from './hooks/useProviderFactory';
+import { useTrackDangerouslyAppendPlugins } from './temp_useTrackDangerousPlugins';
 import sendDurationAnalytics from './utils/sendDurationAnalytics';
 
 /**
@@ -54,6 +55,8 @@ function Editor(passedProps: EditorProps & EditorNextProps & WithAppearanceCompo
 		},
 		[createAnalyticsEvent],
 	);
+
+	useTrackDangerouslyAppendPlugins(passedProps, handleAnalyticsEvent);
 
 	const getFeatureFlagsFromRef = useCallback(() => {
 		return {

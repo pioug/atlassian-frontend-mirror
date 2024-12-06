@@ -14,18 +14,21 @@ import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { getSelectionRect, isTableSelected } from '@atlaskit/editor-tables/utils';
 
-import { clearHoverSelection, hoverColumns, hoverRows } from '../../commands';
-import { deleteColumnsWithAnalytics, deleteRowsWithAnalytics } from '../../commands-with-analytics';
+import { clearHoverSelection, hoverColumns, hoverRows } from '../../pm-plugins/commands';
+import {
+	deleteColumnsWithAnalytics,
+	deleteRowsWithAnalytics,
+} from '../../pm-plugins/commands/commands-with-analytics';
 import { getPluginState as getTablePluginState } from '../../pm-plugins/plugin-factory';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
-import type { PluginInjectionAPI, TableDirection } from '../../types';
-import { TableCssClassName as ClassName } from '../../types';
 import {
 	getColumnDeleteButtonParams,
 	getColumnsWidths,
 	getRowDeleteButtonParams,
 	getRowHeights,
-} from '../../utils';
+} from '../../pm-plugins/utils';
+import type { PluginInjectionAPI, TableDirection } from '../../types';
+import { TableCssClassName as ClassName } from '../../types';
 import { stickyRowZIndex } from '../consts';
 
 import DeleteButton from './DeleteButton';

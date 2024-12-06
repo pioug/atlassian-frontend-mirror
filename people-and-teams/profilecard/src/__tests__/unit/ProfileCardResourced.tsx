@@ -10,7 +10,6 @@ import { profileCardRendered } from '../../util/analytics';
 const clientUrl = 'https://foo/';
 const client = new ProfileClient({
 	url: clientUrl,
-	teamCentralUrl: clientUrl,
 });
 
 const flexiTime = (event: Record<string, any>) => ({

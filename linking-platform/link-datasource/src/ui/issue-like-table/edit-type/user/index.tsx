@@ -20,15 +20,17 @@ import { USER_TYPE_TEST_ID } from '../../render-type/user';
 import { userTypeMessages } from '../../render-type/user/messages';
 import { InlineEditUFOExperience } from '../../table-cell-content/inline-edit';
 import type { DatasourceTypeWithOnlyTypeValues, DatasourceTypeWithOnlyValues } from '../../types';
+import { getCleanedSelectProps } from '../../utils';
 
 interface UserEditTypeProps extends Omit<FieldProps<string>, 'value'> {
 	currentValue: DatasourceTypeWithOnlyTypeValues<'user'>;
+	labelId?: string;
 	setEditValues: React.Dispatch<React.SetStateAction<DatasourceTypeWithOnlyValues>>;
 	executeFetch?: ExecuteFetch;
 }
 
 const UserEditType = (props: UserEditTypeProps) => {
-	const { currentValue, executeFetch } = props;
+	const { currentValue, labelId, executeFetch } = props;
 	const [fetchInputs, setFetchInputs] = useState({ query: '' });
 
 	const [handleUserInputDebounced] = useDebouncedCallback(
@@ -80,7 +82,7 @@ const UserEditType = (props: UserEditTypeProps) => {
 	return (
 		<Layering isDisabled={false}>
 			<Select<User>
-				{...props}
+				{...getCleanedSelectProps(props)}
 				autoFocus
 				defaultMenuIsOpen
 				blurInputOnSelect
@@ -91,7 +93,9 @@ const UserEditType = (props: UserEditTypeProps) => {
 				menuPlacement="auto"
 				onInputChange={handleUserInputDebounced}
 				value={currentValue?.values?.[0]}
+				labelId={labelId}
 				getOptionValue={(option) => option.atlassianUserId!}
+				getOptionLabel={(option) => option.displayName || ''}
 				formatOptionLabel={(option) => (
 					<Tooltip content={option.displayName ?? ''}>
 						<AvatarItem

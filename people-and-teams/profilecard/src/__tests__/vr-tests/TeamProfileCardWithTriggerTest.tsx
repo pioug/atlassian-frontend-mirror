@@ -3,18 +3,9 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored - Test file
 import styled from '@emotion/styled';
 
-import ProfileCardClient from '../../client';
 import TeamProfilecardTrigger from '../../components/Team';
-import { getMockTeamClient } from '../../mocks';
 import { staticTeamData } from '../../mocks/team-data';
-import { type Team } from '../../types';
-const clientArgs = {
-	cacheSize: 10,
-	cacheMaxAge: 0,
-	url: 'DUMMY',
-	gatewayGraphqlUrl: 'https://api-private.stg.atlassian.com/graphql',
-	cloudId: 'site-id',
-};
+import { type ProfileClient, type Team } from '../../types';
 
 const teamClientData: {
 	team: Team;
@@ -33,13 +24,11 @@ const teamClientData: {
 	traceId: 'trace-id',
 };
 
-const MockTeamClient = getMockTeamClient(teamClientData);
-
-const mockTeamClient = new MockTeamClient(clientArgs);
-
-const profileClient = new ProfileCardClient(clientArgs, {
-	teamClient: mockTeamClient,
-});
+const profileClient = {
+	getTeamProfile: () => Promise.resolve(teamClientData.team),
+	shouldShowGiveKudos: () => Promise.resolve(true),
+	getTeamCentralBaseUrl: () => Promise.resolve('mock-team-central-base-url'),
+} as unknown as ProfileClient;
 
 const defaultProps = {
 	teamId: '4ecf4119-dcc4-43a0-a60b-94ed7b7446b0',
@@ -74,16 +63,18 @@ const defaultProps = {
 	generateUserLink: (userId: string) => `/people/${userId}`,
 };
 
-export const TeamProfileCardWithTriggerTest = () => (
-	<Wrapper>
-		<span>
-			Hover to preview the team:{' '}
-			<TeamProfilecardTrigger {...defaultProps} trigger="hover">
-				<strong data-testId="trigger">The Cool Team</strong>
-			</TeamProfilecardTrigger>
-		</span>
-	</Wrapper>
-);
+export const TeamProfileCardWithTriggerTest = () => {
+	return (
+		<Wrapper>
+			<span>
+				Hover to preview the team:{' '}
+				<TeamProfilecardTrigger {...defaultProps} trigger="hover">
+					<strong data-testId="trigger">The Cool Team</strong>
+				</TeamProfilecardTrigger>
+			</span>
+		</Wrapper>
+	);
+};
 
 // As part of HOT-109153, we saw the profilecard inheriting styles from its parents
 /* eslint-disable @atlaskit/ui-styling-standard/no-styled -- Intentional for test */

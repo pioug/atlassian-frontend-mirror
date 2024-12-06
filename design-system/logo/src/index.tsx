@@ -24,6 +24,7 @@ export { AtlasIcon, AtlasLogo } from './atlas-logo';
 export { AtlassianMarketplaceIcon, AtlassianMarketplaceLogo } from './atlassian-marketplace-logo';
 export { RovoIcon, RovoLogo } from './rovo-logo';
 export { GuardIcon, GuardLogo } from './guard-logo';
+export { FocusIcon, FocusLogo } from './focus-logo';
 export { AtlassianAccessIcon, AtlassianAccessLogo } from './atlassian-access-logo';
 export {
 	AtlassianAdministrationIcon,

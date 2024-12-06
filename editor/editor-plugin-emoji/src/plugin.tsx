@@ -8,7 +8,11 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
+import {
+	annotationMessages,
+	toolbarInsertBlockMessages as messages,
+} from '@atlaskit/editor-common/messages';
 import { IconEmoji } from '@atlaskit/editor-common/quick-insert';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
@@ -16,11 +20,13 @@ import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
 import type {
 	Command,
 	ExtractInjectionAPI,
+	FloatingToolbarItem,
 	PMPluginFactoryParams,
 	TypeAheadHandler,
 	TypeAheadItem,
 } from '@atlaskit/editor-common/types';
-import { Fragment } from '@atlaskit/editor-prosemirror/model';
+import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
+import { type Node as ProseMirrorNode, Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, SafeStateField, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji';
@@ -30,6 +36,7 @@ import {
 	recordSelectionSucceededSli,
 	SearchSort,
 } from '@atlaskit/emoji';
+import CommentIcon from '@atlaskit/icon/core/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createEmojiFragment, insertEmoji } from './commands/insert-emoji';
@@ -293,6 +300,60 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 				},
 			],
 			typeAhead,
+			floatingToolbar: (state, intl) => {
+				const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+				if (!isViewMode || !fg('platform_inline_node_as_valid_annotation_selection')) {
+					return undefined;
+				}
+				const onClick: Command = (stateFromClickEvent, dispatch) => {
+					if (!api?.annotation) {
+						return true;
+					}
+					const command = api.annotation?.actions?.setInlineCommentDraftState(
+						true,
+						INPUT_METHOD.TOOLBAR,
+					);
+					return command(stateFromClickEvent, dispatch);
+				};
+				return {
+					title: 'Emoji floating toolbar',
+					nodeType: [state.schema.nodes.emoji],
+					onPositionCalculated: calculateToolbarPositionAboveSelection('Emoji floating toolbar'),
+					items: (node: ProseMirrorNode): Array<FloatingToolbarItem<Command>> => {
+						const annotationState = api?.annotation?.sharedState.currentState();
+						const activeCommentMark = node.marks.find(
+							(mark) =>
+								mark.type.name === 'annotation' &&
+								annotationState?.annotations[mark.attrs.id] === false,
+						);
+						const showAnnotation =
+							annotationState &&
+							annotationState.isVisible &&
+							!annotationState.bookmark &&
+							!annotationState.mouseData.isSelecting &&
+							!activeCommentMark;
+						if (showAnnotation) {
+							return [
+								{
+									type: 'button',
+									showTitle: true,
+									testId: 'add-comment-emoji-button',
+									icon: CommentIcon,
+									title: intl.formatMessage(annotationMessages.createComment),
+									onClick,
+									tooltipContent: (
+										<ToolTipContent
+											description={intl.formatMessage(annotationMessages.createComment)}
+										/>
+									),
+									supportsViewMode: true,
+								},
+							];
+						}
+						return [];
+					},
+				};
+			},
 		},
 	};
 };

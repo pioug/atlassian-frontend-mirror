@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 
 import {
 	ActionOperationStatus,
@@ -29,10 +29,14 @@ const loadOptions = async <T>(
 	return entities ?? [];
 };
 
-type LoadOptionsState<Entities> = {
+type LoadOptionsState<E> = {
 	isLoading: boolean;
-	options: Entities[];
+	options: E[];
 	hasFailed: boolean;
+};
+
+const reducer = <T>(state: LoadOptionsState<T>, payload: Partial<LoadOptionsState<T>>) => {
+	return { ...state, ...payload };
 };
 
 export type LoadOptionsProps<T> = {
@@ -46,7 +50,7 @@ export const useLoadOptions = <T>({
 	executeFetch,
 	emptyOption,
 }: LoadOptionsProps<T>) => {
-	const [{ options, isLoading, hasFailed }, setOptions] = useState<LoadOptionsState<T>>({
+	const [{ options, isLoading, hasFailed }, dispatch] = useReducer(reducer<T>, {
 		isLoading: true,
 		options: [],
 		hasFailed: false,
@@ -56,10 +60,13 @@ export const useLoadOptions = <T>({
 
 	useEffect(() => {
 		let isMounted = true;
+		// Set the loading state before sending the request
+		dispatch({ isLoading: true });
+		// Query the options
 		loadOptions<T>(fetchInputs, executeFetch)
 			.then((options) => {
 				if (isMounted) {
-					setOptions({
+					dispatch({
 						isLoading: false,
 						options: emptyOption ? [emptyOption, ...options] : options,
 						hasFailed: false,
@@ -68,7 +75,7 @@ export const useLoadOptions = <T>({
 			})
 			.catch((err) => {
 				showErrorFlag();
-				setOptions({ isLoading: false, options: [], hasFailed: true });
+				dispatch({ isLoading: false, options: [], hasFailed: true });
 			});
 		return () => {
 			isMounted = false;

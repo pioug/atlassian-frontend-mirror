@@ -1,5 +1,16 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.4.6
+
+### Patch Changes
+
+- [#174829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174829)
+  [`381735c03773b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/381735c03773b) -
+  add ufo: prefix to error count and stylesheet count metrics
+- [#174760](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174760)
+  [`0c5bbf0079bee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c5bbf0079bee) -
+  Remove display style attribute mutation check
+
 ## 2.4.5
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugins
 
+## 5.8.19
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.18
+
+### Patch Changes
+
+- [#169746](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169746)
+  [`5bfb485e85507`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5bfb485e85507) -
+  [ux] [ED-25925] After drag and drop to create a new layout or update an existing layout,
+  placecursor at the end of last node in the newly created column
+- Updated dependencies
+
 ## 5.8.17
 
 ### Patch Changes

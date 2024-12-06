@@ -170,6 +170,10 @@ function getOverrides(overrides?: AvatarGroupOverrides): DeepRequired<AvatarGrou
 			),
 			...(overrides && overrides.Avatar),
 		},
+		MoreIndicator: {
+			render: (Component, props) => <Component {...props} />,
+			...(overrides && overrides.MoreIndicator),
+		},
 	};
 }
 
@@ -277,22 +281,20 @@ const AvatarGroup = ({
 			'aria-expanded'?: boolean;
 			'aria-haspopup'?: boolean | 'dialog';
 			onClick: MouseEventHandler;
-		}) => (
-			<MoreIndicator
-				buttonProps={showMoreButtonProps}
-				borderColor={borderColor}
-				count={total - max}
-				size={size}
-				testId={testId && `${testId}--overflow-menu--trigger`}
-				isActive={isOpen}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-				{...props}
-				aria-controls={ariaControls}
-				aria-expanded={ariaExpanded}
-				aria-haspopup={ariaHasPopup}
-				onClick={onClick}
-			/>
-		);
+		}) =>
+			getOverrides(overrides).MoreIndicator.render(MoreIndicator, {
+				buttonProps: showMoreButtonProps,
+				borderColor: borderColor,
+				count: total - max,
+				size: size,
+				testId: testId && `${testId}--overflow-menu--trigger`,
+				isActive: isOpen,
+				'aria-controls': ariaControls,
+				'aria-expanded': ariaExpanded,
+				'aria-haspopup': ariaHasPopup,
+				onClick,
+				...props,
+			});
 
 		// bail if the consumer wants to handle onClick
 		if (typeof onMoreClick === 'function') {

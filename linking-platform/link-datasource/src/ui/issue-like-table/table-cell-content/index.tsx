@@ -18,6 +18,7 @@ import { InlineEdit } from './inline-edit';
 interface TableCellContentProps {
 	id: string;
 	columnKey: string;
+	columnTitle: string;
 	columnType: DatasourceType['type'];
 	/** Used to retrieve cell content from the store */
 	renderItem: TableViewPropsRenderType;
@@ -105,12 +106,14 @@ const InlineEditableCell = ({
 	ari,
 	values,
 	columnKey,
+	columnTitle,
 	renderItem,
 	integrationKey,
 	wrappedColumnKeys,
 }: {
 	ari: string;
 	columnKey: string;
+	columnTitle: string;
 	integrationKey: string;
 	wrappedColumnKeys: string[] | undefined;
 	values: DatasourceTypeWithOnlyValues;
@@ -160,6 +163,7 @@ const InlineEditableCell = ({
 			executeFetch={executeFetch}
 			readView={readView}
 			columnKey={columnKey}
+			columnTitle={columnTitle}
 			datasourceTypeWithValues={values}
 		/>
 	);
@@ -187,6 +191,7 @@ const toDatasourceTypeWithValues = ({
 export const TableCellContent = ({
 	id,
 	columnKey,
+	columnTitle,
 	columnType,
 	renderItem,
 	wrappedColumnKeys,
@@ -203,6 +208,7 @@ export const TableCellContent = ({
 				<InlineEditableCell
 					ari={ari}
 					columnKey={columnKey}
+					columnTitle={columnTitle}
 					renderItem={renderItem}
 					integrationKey={integrationKey}
 					values={toDatasourceTypeWithValues({ rowData, columnKey, columnType })}
@@ -222,6 +228,7 @@ export const TableCellContent = ({
 			<ReadOnlyCell
 				id={id}
 				columnKey={columnKey}
+				columnTitle={columnTitle}
 				columnType={columnType}
 				wrappedColumnKeys={wrappedColumnKeys}
 				renderItem={renderItem}

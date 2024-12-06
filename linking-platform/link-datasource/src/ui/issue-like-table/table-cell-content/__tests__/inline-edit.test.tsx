@@ -13,8 +13,10 @@ import { EVENT_CHANNEL } from '../../../../analytics';
 import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-experience-id';
 import { Store, StoreContainer } from '../../../../state';
 import { type DatasourceTypeWithOnlyValues } from '../../types';
+import { getFieldLabelById } from '../../utils';
 import { InlineEdit } from '../inline-edit';
 import '@atlaskit/link-test-helpers/jest';
+import { tableCellMessages } from '../messages';
 
 const store = defaultRegistry.getStore(Store);
 const onAnalyticFireEvent = jest.fn();
@@ -46,13 +48,26 @@ const testJiraAri = 'ari:test:something:with:issue/123123';
 
 describe('InlineEdit', () => {
 	const setup = (props: React.ComponentProps<typeof InlineEdit>) => {
-		render(
+		return render(
 			<SmartCardProvider client={new CardClient()}>
 				<IntlProvider locale="en">
 					<AnalyticsListener channel={EVENT_CHANNEL} onEvent={onAnalyticFireEvent}>
 						<FlagsProvider>
 							<DatasourceExperienceIdProvider>
-								<InlineEdit {...props} />,
+								<table>
+									<thead>
+										<tr>
+											<th id={getFieldLabelById(props.columnKey)}>Label of the field</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>
+												<InlineEdit {...props} />,
+											</td>
+										</tr>
+									</tbody>
+								</table>
 							</DatasourceExperienceIdProvider>
 						</FlagsProvider>
 					</AnalyticsListener>
@@ -79,6 +94,59 @@ describe('InlineEdit', () => {
 
 	const dataValues: DatasourceTypeWithOnlyValues = { type: 'string', values: ['Blahblah'] };
 
+	it.each([
+		['user', 'assignee'],
+		['status', 'status'],
+		['icon', 'priority'],
+		['string', 'summary'],
+	])('should capture and report a11y violations for %s fields', async (columnKey, columnTitle) => {
+		const execute = jest.fn().mockResolvedValue({});
+		const ari = testJiraAri;
+		store.storeState.setState({
+			items: {
+				[ari]: {
+					ari,
+					entityType: 'work-item',
+					integrationKey: 'jira',
+					data: {
+						ari: { data: ari },
+						summary: { data: 'Blahblah' },
+					},
+				},
+			},
+		});
+		mockUseExecuteAtomicAction.mockReturnValue({ execute });
+
+		const selectSource = {
+			type: columnKey as 'user' | 'status' | 'icon' | 'string',
+			values: [],
+		};
+
+		const result = setup({
+			ari,
+			columnKey,
+			columnTitle,
+			execute,
+			datasourceTypeWithValues: selectSource,
+			readView: <MockReadView ari={ari} />,
+		});
+
+		await expect(result.container).toBeAccessible();
+
+		await userEvent.click(
+			screen.getByRole('button', {
+				name: (fieldName) =>
+					fieldName.includes(
+						tableCellMessages.editButtonLabel.defaultMessage
+							.replace(/\{fieldValue\}/gi, '')
+							.replace(/\{fieldName\}/gi, columnTitle),
+					),
+			}),
+		);
+
+		await expect(result.container).toBeAccessible();
+	});
+
 	// This ensures that the id value is not changed to ensure filterTransaction works in packages/editor/editor-plugin-card/src/pm-plugins/main.ts
 	it('should have correct id value for when in edit view for prosemirror transaction filtering', async () => {
 		const execute = jest.fn().mockResolvedValue({});
@@ -101,6 +169,7 @@ describe('InlineEdit', () => {
 		setup({
 			ari,
 			columnKey: 'summary',
+			columnTitle: 'summary',
 			execute,
 			datasourceTypeWithValues: dataValues,
 			readView: <MockReadView ari={ari} />,
@@ -135,6 +204,7 @@ describe('InlineEdit', () => {
 		setup({
 			ari,
 			columnKey: 'summary',
+			columnTitle: 'summary',
 			execute,
 			datasourceTypeWithValues: dataValues,
 			readView: <MockReadView ari={ari} />,
@@ -175,6 +245,7 @@ describe('InlineEdit', () => {
 		setup({
 			ari,
 			columnKey: 'summary',
+			columnTitle: 'summary',
 			execute,
 			datasourceTypeWithValues: dataValues,
 			readView: <MockReadView ari={ari} />,
@@ -211,6 +282,7 @@ describe('InlineEdit', () => {
 		setup({
 			ari,
 			columnKey: 'summary',
+			columnTitle: 'summary',
 			execute,
 			datasourceTypeWithValues: dataValues,
 			readView: <MockReadView ari={ari} />,
@@ -252,6 +324,7 @@ describe('InlineEdit', () => {
 		setup({
 			ari,
 			columnKey: 'summary',
+			columnTitle: 'summary',
 			execute,
 			datasourceTypeWithValues: dataValues,
 			readView: <MockReadView ari={ari} />,
@@ -294,6 +367,7 @@ describe('InlineEdit', () => {
 		setup({
 			ari,
 			columnKey: 'summary',
+			columnTitle: 'summary',
 			execute,
 			datasourceTypeWithValues: dataValues,
 			readView: <MockReadView ari={ari} />,
@@ -336,6 +410,7 @@ describe('InlineEdit', () => {
 			setup({
 				ari,
 				columnKey: 'summary',
+				columnTitle: 'summary',
 				execute,
 				datasourceTypeWithValues: dataValues,
 				readView: <MockReadView ari={ari} />,
@@ -384,6 +459,7 @@ describe('InlineEdit', () => {
 			setup({
 				ari,
 				columnKey: 'summary',
+				columnTitle: 'summary',
 				execute,
 				datasourceTypeWithValues: dataValues,
 				readView: <MockReadView ari={ari} />,
@@ -446,6 +522,7 @@ describe('InlineEdit', () => {
 			setup({
 				ari,
 				columnKey: 'summary',
+				columnTitle: 'summary',
 				execute,
 				datasourceTypeWithValues: dataValues,
 				readView: <MockReadView ari={ari} />,
@@ -495,6 +572,7 @@ describe('InlineEdit', () => {
 			setup({
 				ari,
 				columnKey: 'summary',
+				columnTitle: 'summary',
 				execute,
 				datasourceTypeWithValues: dataValues,
 				readView: <MockReadView ari={ari} />,
@@ -540,6 +618,7 @@ describe('InlineEdit', () => {
 			setup({
 				ari,
 				columnKey: 'summary',
+				columnTitle: 'summary',
 				execute,
 				datasourceTypeWithValues: dataValues,
 				readView: <MockReadView ari={ari} />,

@@ -1,16 +1,24 @@
-import React, { Fragment, useCallback, useEffect, useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Fragment, useCallback, useEffect, useState } from 'react';
 
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
 
+import { cssMap, jsx } from '@atlaskit/css';
 import { Label } from '@atlaskit/form';
-import { Box, Text, xcss } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import Range from '@atlaskit/range';
+import { token } from '@atlaskit/tokens';
 
-const styles = xcss({
-	padding: 'space.100',
-	display: 'flex',
-	flexDirection: 'column',
+const styles = cssMap({
+	root: {
+		padding: token('space.100'),
+		display: 'flex',
+		flexDirection: 'column',
+	},
 });
 
 function RateLimitedRange() {
@@ -51,13 +59,13 @@ function RateLimitedRange() {
 
 	return (
 		<Fragment>
-			<Box xcss={styles}>
+			<Box xcss={styles.root}>
 				<Text>
 					The content displayed beneath the range slider dynamically updates as you adjust the
 					slider's range.
 				</Text>
 			</Box>
-			<Box xcss={styles}>
+			<Box xcss={styles.root}>
 				<Label htmlFor="range-limited">Range limited</Label>
 			</Box>
 			<Range
@@ -71,7 +79,7 @@ function RateLimitedRange() {
 					throttled();
 				}}
 			/>
-			<Box aria-live="assertive" aria-atomic="true" xcss={styles}>
+			<Box aria-live="assertive" aria-atomic="true" xcss={styles.root}>
 				<Text>The current value is: {value}</Text>
 				<Text>onChange called: {onChangeCallCount}</Text>
 				<Text>debounced called: {debouncedCallCount}</Text>

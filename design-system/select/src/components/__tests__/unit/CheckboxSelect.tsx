@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/fs/filename-pattern-match */
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
@@ -19,7 +20,7 @@ const OPTIONS = [
 
 describe('Checkbox Select', () => {
 	it('should render all checkbox options', () => {
-		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} aria-label="Options" />);
+		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} label="Options" />);
 
 		expect(screen.getByText('1')).toBeInTheDocument();
 		expect(screen.getByText('2')).toBeInTheDocument();
@@ -28,14 +29,14 @@ describe('Checkbox Select', () => {
 	});
 
 	it('should show checkbox icon with every option', () => {
-		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} aria-label="Options" />);
+		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} label="Options" />);
 
 		// one icon represents select dropdown trigger
 		expect(screen.getAllByRole('presentation', { hidden: true })).toHaveLength(6);
 	});
 
 	it('should not hide option after selection and should render it in value container', async () => {
-		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} aria-label="Options" />);
+		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} label="Options" />);
 
 		expect(screen.getByText('1')).toBeInTheDocument();
 
@@ -46,7 +47,7 @@ describe('Checkbox Select', () => {
 	});
 
 	it('should not close menu after a checkbox is selected', async () => {
-		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} aria-label="Options" />);
+		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} label="Options" />);
 
 		expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true');
 
@@ -56,7 +57,7 @@ describe('Checkbox Select', () => {
 	});
 
 	it('should mark option as selected on user click', async () => {
-		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} aria-label="Options" />);
+		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} label="Options" />);
 
 		const checkboxToBeSelected = screen.getAllByRole('presentation', {
 			hidden: true,
@@ -78,7 +79,7 @@ describe('Checkbox Select', () => {
 	});
 
 	it('should allow multi selection of checkboxes', async () => {
-		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} aria-label="Options" />);
+		render(<AtlaskitCheckboxSelect menuIsOpen={true} options={OPTIONS} label="Options" />);
 
 		expect(screen.getAllByText('1')).toHaveLength(1);
 		expect(screen.getAllByText('2')).toHaveLength(1);

@@ -1875,7 +1875,7 @@ cases(
 		rerender(<Select {...renderProps} isSearchable />);
 
 		const setInputValue = (val: string) => {
-			rerender(<Select {...renderProps} autoFocus inputValue={val} />);
+			rerender(<Select {...renderProps} inputValue={val} />);
 		};
 
 		setInputValue('four');
@@ -1982,7 +1982,7 @@ cases(
 		rerender(<Select {...renderProps} isSearchable />);
 
 		const setInputValue = (val: string) => {
-			rerender(<Select {...renderProps} autoFocus inputValue={val} />);
+			rerender(<Select {...renderProps} inputValue={val} />);
 		};
 
 		setInputValue('1');
@@ -2049,7 +2049,7 @@ cases(
 
 cases(
 	'accessibility > passes through aria-labelledby prop',
-	({ props = { ...BASIC_PROPS, 'aria-labelledby': 'testing' } }) => {
+	({ props = { ...BASIC_PROPS, labelId: 'testing' } }) => {
 		let { container } = render(<Select {...props} />);
 		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
 			'aria-labelledby',
@@ -2061,7 +2061,7 @@ cases(
 		'multi select > should pass aria-labelledby prop down to input': {
 			props: {
 				...BASIC_PROPS,
-				'aria-labelledby': 'testing',
+				labelId: 'testing',
 				isMulti: true,
 			},
 		},
@@ -2127,7 +2127,7 @@ cases(
 
 cases(
 	'accessibility > passes through aria-invalid prop',
-	({ props = { ...BASIC_PROPS, 'aria-invalid': true } }) => {
+	({ props = { ...BASIC_PROPS, isInvalid: true } }) => {
 		let { container } = render(<Select {...props} />);
 		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
 			'aria-invalid',
@@ -2139,7 +2139,7 @@ cases(
 		'multi select > should pass aria-invalid prop down to input': {
 			props: {
 				...BASIC_PROPS,
-				'aria-invalid': true,
+				isInvalid: true,
 				isMulti: true,
 			},
 		},
@@ -2148,7 +2148,7 @@ cases(
 
 cases(
 	'accessibility > passes through aria-invalid prop',
-	({ props = { ...BASIC_PROPS, 'aria-invalid': true } }) => {
+	({ props = { ...BASIC_PROPS, isInvalid: true } }) => {
 		let { container } = render(<Select {...props} />);
 		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
 			'aria-invalid',
@@ -2160,7 +2160,7 @@ cases(
 		'multi select > should pass aria-invalid prop down to input': {
 			props: {
 				...BASIC_PROPS,
-				'aria-invalid': true,
+				isInvalid: true,
 				isMulti: true,
 			},
 		},
@@ -2188,7 +2188,7 @@ cases(
 
 cases(
 	'accessibility > passes through aria-label prop',
-	({ props = { ...BASIC_PROPS, 'aria-label': 'testing' } }) => {
+	({ props = { ...BASIC_PROPS, label: 'testing' } }) => {
 		let { container } = render(<Select {...props} />);
 		expect(container.querySelector('input.react-select__input')!).toHaveAttribute(
 			'aria-label',
@@ -2200,7 +2200,7 @@ cases(
 		'multi select > should pass aria-labelledby prop down to input': {
 			props: {
 				...BASIC_PROPS,
-				'aria-label': 'testing',
+				label: 'testing',
 				isMulti: true,
 			},
 		},
@@ -2226,12 +2226,10 @@ cases(
 );
 
 test('accessibility > to show the number of options available in A11yText when the menu is Open', () => {
-	let { container, rerender } = render(
-		<Select {...BASIC_PROPS} inputValue={''} autoFocus menuIsOpen />,
-	);
+	let { container, rerender } = render(<Select {...BASIC_PROPS} inputValue={''} menuIsOpen />);
 
 	let setInputValue = (val: string) => {
-		rerender(<Select {...BASIC_PROPS} autoFocus menuIsOpen inputValue={val} />);
+		rerender(<Select {...BASIC_PROPS} menuIsOpen inputValue={val} />);
 	};
 
 	const liveRegionResultsId = '#aria-results';

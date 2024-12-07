@@ -134,9 +134,6 @@
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		},
-		"custom_components_for_jql_editor": {
-			"type": "boolean"
-		},
 		"add_nin_press_interactions": {
 			"type": "boolean"
 		}

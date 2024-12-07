@@ -3,8 +3,6 @@ import React, { useEffect, useRef } from 'react';
 import { injectIntl, type IntlShape } from 'react-intl-next';
 import { di } from 'react-magnetic-di';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useJqlEditorAnalytics } from '../../analytics';
 import { EditorThemeContext, useEditorTheme } from '../../hooks/use-editor-theme';
 import { EditorStateContainer } from '../../state';
@@ -68,7 +66,7 @@ const JQLEditorInner = ({
 			enableRichInlineNodes={enableRichInlineNodes}
 			onSyntaxHelp={onSyntaxHelp}
 			onFocus={onFocus}
-			customComponents={fg('custom_components_for_jql_editor') ? customComponents : undefined}
+			customComponents={customComponents}
 		>
 			<EditorThemeContext.Provider value={editorTheme}>
 				<JQLEditorPortalRenderer>

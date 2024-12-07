@@ -627,7 +627,7 @@ export default class PopupSelect<
 					>
 						<FocusLock disabled={!focusLockEnabled} returnFocus>
 							<Select<Option, IsMulti>
-								aria-label={providedAriaLabel}
+								label={providedAriaLabel}
 								// TODO: Popup Select does not work well with active-descendant
 								aria-live={
 									(/iPad|iPhone|iPod/.test(navigator.userAgent) ||

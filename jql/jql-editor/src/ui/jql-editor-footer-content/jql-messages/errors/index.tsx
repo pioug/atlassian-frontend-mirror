@@ -4,7 +4,6 @@ import { di } from 'react-magnetic-di';
 
 import { ErrorMessage } from '@atlaskit/form';
 import { JQLSyntaxError } from '@atlaskit/jql-ast';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { JQL_EDITOR_INPUT_ID } from '../../../../common/constants';
 import { commonMessages } from '../../../../common/messages';
@@ -90,44 +89,31 @@ export const ErrorMessages = () => {
 
 	const testId = 'jql-editor-validation';
 
-	if (fg('custom_components_for_jql_editor')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		const [CustomErrorComponent] = useCustomErrorComponent();
+	const [CustomErrorComponent] = useCustomErrorComponent();
 
-		const childrenToRender =
-			errorMessage != null ? (
-				<MessageContainer>
-					<ErrorMessage testId={testId}>
-						<span role="alert" aria-describedby={editorId}>
-							{errorMessage}
-						</span>
-					</ErrorMessage>
-				</MessageContainer>
-			) : null;
+	const childrenToRender =
+		errorMessage != null ? (
+			<MessageContainer>
+				<ErrorMessage testId={testId}>
+					<span role="alert" aria-describedby={editorId}>
+						{errorMessage}
+					</span>
+				</ErrorMessage>
+			</MessageContainer>
+		) : null;
 
-		// Only render CustomErrorComponent if there is an errorMessage
-		if (errorMessage != null && CustomErrorComponent) {
-			return (
-				<CustomComponentDecoratedWithEditorTheme
-					testId={testId}
-					editorId={editorId}
-					Component={CustomErrorComponent}
-				>
-					{childrenToRender}
-				</CustomComponentDecoratedWithEditorTheme>
-			);
-		}
-
-		return childrenToRender;
+	// Only render CustomErrorComponent if there is an errorMessage
+	if (errorMessage != null && CustomErrorComponent) {
+		return (
+			<CustomComponentDecoratedWithEditorTheme
+				testId={testId}
+				editorId={editorId}
+				Component={CustomErrorComponent}
+			>
+				{childrenToRender}
+			</CustomComponentDecoratedWithEditorTheme>
+		);
 	}
 
-	return errorMessage != null ? (
-		<MessageContainer>
-			<ErrorMessage testId={testId}>
-				<span role="alert" aria-describedby={editorId}>
-					{errorMessage}
-				</span>
-			</ErrorMessage>
-		</MessageContainer>
-	) : null;
+	return childrenToRender;
 };

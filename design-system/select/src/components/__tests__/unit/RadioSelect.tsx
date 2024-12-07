@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/fs/filename-pattern-match */
 import React from 'react';
 
 import { render, screen } from '@testing-library/react';
@@ -19,7 +20,7 @@ const OPTIONS = [
 
 describe('Radio Select', () => {
 	it('should load radio icons with options', () => {
-		render(<AtlaskitRadioSelect menuIsOpen options={OPTIONS} aria-label="Options" />);
+		render(<AtlaskitRadioSelect menuIsOpen options={OPTIONS} label="Options" />);
 
 		expect(screen.getByText('1')).toBeInTheDocument();
 		expect(screen.getByText('2')).toBeInTheDocument();
@@ -30,7 +31,7 @@ describe('Radio Select', () => {
 	});
 
 	it('should not close menu after an option is selected', async () => {
-		render(<AtlaskitRadioSelect menuIsOpen={true} options={OPTIONS} aria-label="Options" />);
+		render(<AtlaskitRadioSelect menuIsOpen={true} options={OPTIONS} label="Options" />);
 
 		expect(screen.getByRole('combobox')).toHaveAttribute('aria-expanded', 'true');
 
@@ -40,7 +41,7 @@ describe('Radio Select', () => {
 	});
 
 	it('should mark option as selected on user click', async () => {
-		render(<AtlaskitRadioSelect menuIsOpen={true} options={OPTIONS} aria-label="Options" />);
+		render(<AtlaskitRadioSelect menuIsOpen={true} options={OPTIONS} label="Options" />);
 
 		const radioToBeSelected = screen.getAllByRole('presentation', {
 			hidden: true,
@@ -61,7 +62,7 @@ describe('Radio Select', () => {
 	});
 
 	it('should not allow to select multiple options', async () => {
-		render(<AtlaskitRadioSelect menuIsOpen options={OPTIONS} aria-label="Options" />);
+		render(<AtlaskitRadioSelect menuIsOpen options={OPTIONS} label="Options" />);
 
 		expect(screen.getAllByText('1')).toHaveLength(1);
 		expect(screen.getAllByText('2')).toHaveLength(1);

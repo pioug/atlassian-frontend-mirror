@@ -29,7 +29,7 @@ const PopupSelectExample = () => {
 			closeMenuOnSelect={false}
 			hideSelectedOptions={false}
 			isMulti
-			aria-label="Filter issue types"
+			label="Filter issue types"
 			placeholder="Filter issue types..."
 			target={({ isOpen, ...triggerProps }) => (
 				<Button {...triggerProps} isSelected={isOpen} iconAfter={ChevronDownIcon}>

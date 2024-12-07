@@ -38,7 +38,7 @@ describe('Country Select accessible labels and group labels', () => {
 	});
 
 	it('screen reader should announce the option labels, option serial number, and number of all options', async () => {
-		render(<CountrySelect options={OPTIONS} aria-label="Options" />);
+		render(<CountrySelect options={OPTIONS} label="Options" />);
 		const input = screen.getByRole('combobox');
 		const ariaLive = screen.getByRole('log');
 		await userEvent.click(input);
@@ -52,7 +52,7 @@ describe('Country Select accessible labels and group labels', () => {
 	});
 
 	it('screen reader should announce the group labels, option serial number in the group, and number of options in the group', async () => {
-		render(<CountrySelect options={groupedCountries} aria-label="Options" />);
+		render(<CountrySelect options={groupedCountries} label="Options" />);
 
 		await userEvent.click(screen.getByRole('combobox'));
 

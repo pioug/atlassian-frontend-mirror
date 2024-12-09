@@ -220,7 +220,7 @@ export const iconsInCustomComponent = [
 		import AddIcon from '@atlaskit/icon/core/migration/add';
 		import CustomComponent from '@atlaskit/custom';
 
-		<CustomComponent myIcon={<AddIcon color="currentColor" spacing="spacious"/>}/>
+		<CustomComponent myIcon={<AddIcon spacing="spacious"/>}/>
 		`,
 		errors: [
 			{
@@ -446,10 +446,10 @@ export const oldButtonTests = [
 		import CustomThemeButton from '@atlaskit/button/custom-theme-button';
 
 		<div>
-			<Button iconBefore={<AddIcon color="currentColor" label="" />} > Add </Button>
-			<StandardButton iconBefore={<AddIcon color="currentColor" label="" />} > Add </StandardButton>
-			<LoadingButton iconBefore={<AddIcon color="currentColor" label="" />} > Add </LoadingButton>
-			<CustomThemeButton iconBefore={<AddIcon color="currentColor" label="" />} > Add </CustomThemeButton>
+			<Button iconBefore={<AddIcon label="" />} > Add </Button>
+			<StandardButton iconBefore={<AddIcon label="" />} > Add </StandardButton>
+			<LoadingButton iconBefore={<AddIcon label="" />} > Add </LoadingButton>
+			<CustomThemeButton iconBefore={<AddIcon label="" />} > Add </CustomThemeButton>
 		</div>
 		`,
 		errors: Array(4).fill({
@@ -468,7 +468,7 @@ export const oldButtonTests = [
 		import AddIcon from '@atlaskit/icon/core/migration/add';
 		import Button from '@atlaskit/button';
 
-		<Button iconBefore={<AddIcon color="currentColor" label="" LEGACY_size="medium" />}>Add</Button>
+		<Button iconBefore={<AddIcon label="" LEGACY_size="medium" />}>Add</Button>
 		`,
 		errors: [
 			{
@@ -635,9 +635,9 @@ export const sizeTests = [
 	    import AddIcon from '@atlaskit/icon/core/migration/add';
 		() =>
 			<div>
-				<AddIcon color="currentColor" spacing="spacious" label="" />
-				<AddIcon color="currentColor" LEGACY_size="small" label="" />
-				<AddIcon color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />
+				<AddIcon spacing="spacious" label="" />
+				<AddIcon LEGACY_size="small" label="" />
+				<AddIcon LEGACY_size="medium" spacing="spacious" label="" />
 			</div>
 	  	`,
 		errors: Array(3).fill({
@@ -659,9 +659,9 @@ export const sizeTests = [
 		import ChevronDown from '@atlaskit/icon/utility/migration/chevron-down';
 		() =>
 			<div>
-				<ChevronDown color="currentColor" spacing="spacious" label="" />
-				<ChevronDown color="currentColor" LEGACY_size="small" spacing="compact" label="" />
-				<ChevronDown color="currentColor" LEGACY_size="medium" spacing="spacious" label="" />
+				<ChevronDown spacing="spacious" label="" />
+				<ChevronDown LEGACY_size="small" spacing="compact" label="" />
+				<ChevronDown LEGACY_size="medium" spacing="spacious" label="" />
 			</div>
 	  	`,
 		errors: Array(3).fill({
@@ -884,7 +884,7 @@ export const combinationOfAutoAndManualTests = [
 		import {token} from '@atlaskit/tokens';
 		const iconProps = {};
 		<div>
-		    <ActivityIcon color="currentColor" label="" LEGACY_size="small" />
+		    <ActivityIcon label="" LEGACY_size="small" />
 			<AddIconCombination
 				label=""
 				{...iconProps}
@@ -951,7 +951,7 @@ export const combinationOfAutoAndManualTests = [
 				<LoadingButton iconBefore={<AddIcon label="" />}> Add </LoadingButton>
 				<CustomThemeButton iconBefore={<AddIcon label="" size="large" />}> Add </CustomThemeButton>
 				<DefaultIcon label="" />
-				<ActivityIcon color="currentColor" spacing="spacious" label="" />
+				<ActivityIcon spacing="spacious" label="" />
 			</div>
 		);`,
 		errors: [
@@ -988,6 +988,81 @@ export const combinationOfAutoAndManualTests = [
 			{
 				messageId: 'noLegacyIconsAutoMigration',
 			},
+		],
+	},
+];
+
+/**
+ * ----- Safe mode -----------
+ */
+export const safeModeTests = [
+	{
+		name: 'Should not migratate activity icon',
+		options: [
+			{
+				shouldUseSafeMigrationMode: true,
+			},
+		],
+		code: `
+				import ActivityIcon from '@atlaskit/icon/glyph/activity';
+				const App = () => (
+					<ActivityIcon label='' />
+				);
+			`,
+		output: `
+				import ActivityIcon from '@atlaskit/icon/glyph/activity';
+				const App = () => (
+					<ActivityIcon label='' />
+				);
+			`,
+		errors: [
+			{ messageId: 'noLegacyIconsManualMigration' },
+			{ messageId: 'cantFindSuitableReplacement' },
+		],
+	},
+	{
+		name: 'Should migrate add icon',
+		options: [
+			{
+				shouldUseSafeMigrationMode: true,
+			},
+		],
+		code: `
+				import AddIcon from '@atlaskit/icon/glyph/add';
+				const App = () => (
+					<AddIcon label='Add to list' />
+				);
+			`,
+		output: `
+				import AddIcon from '@atlaskit/icon/core/migration/add';
+				const App = () => (
+					<AddIcon spacing="spacious" label='Add to list' />
+				);
+			`,
+		errors: [{ messageId: 'noLegacyIconsAutoMigration' }],
+	},
+	{
+		name: 'Should not migrate with secondary color',
+		options: [
+			{
+				shouldUseSafeMigrationMode: true,
+			},
+		],
+		code: `
+				import AddIcon from '@atlaskit/icon/glyph/add';
+				const App = () => (
+					<AddIcon label='Add to list' secondaryColor='green' />
+				);
+			`,
+		output: `
+				import AddIcon from '@atlaskit/icon/glyph/add';
+				const App = () => (
+					<AddIcon label='Add to list' secondaryColor='green' />
+				);
+			`,
+		errors: [
+			{ messageId: 'noLegacyIconsManualMigration' },
+			{ messageId: 'cantFindSuitableReplacement' },
 		],
 	},
 ];

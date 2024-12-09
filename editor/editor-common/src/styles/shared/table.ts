@@ -18,6 +18,7 @@ import {
 	akEditorWideLayoutWidth,
 	overflowShadow,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -178,6 +179,13 @@ const tableSharedStyle = () => css`
 					margin-top: ${token('space.150', '12px')};
 				}
 			}
+
+			${fg('platform_editor_nested_tables_renderer_styles')
+				? `// Ensures nested tables are compatible with parent table background color - uses specificity to ensure tables nested by extensions are not affected
+			> tbody > tr > td {
+				background-color: ${token('elevation.surface')};
+			}`
+				: ''}
 			th {
 				background-color: ${token('color.background.accent.gray.subtlest', akEditorTableToolbar)};
 				text-align: left;

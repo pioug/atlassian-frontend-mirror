@@ -42,7 +42,6 @@ export const fontFallback = {
 
 const baseHeading = (size: number, lineHeight: number) => ({
 	fontSize: `${size / 14}em`,
-	fontStyle: 'inherit',
 	lineHeight: lineHeight / size,
 });
 

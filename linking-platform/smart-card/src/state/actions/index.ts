@@ -87,18 +87,32 @@ export const useSmartCardActions = (id: string, url: string, analytics: Analytic
 			const services = getServices(details);
 			// When authentication is triggered, let GAS know!
 			if (status === 'unauthorized') {
-				analytics.ui.authEvent({
-					display: appearance,
-					definitionId,
-					extensionKey,
-				});
+				if (fg('platform_migrate-some-ui-events-smart-card')) {
+					fireEvent('ui.button.clicked.connectAccount', {
+						display: appearance,
+						definitionId: definitionId ?? null,
+					});
+				} else {
+					analytics.ui.authEvent({
+						display: appearance,
+						definitionId,
+						extensionKey,
+					});
+				}
 			}
 			if (status === 'forbidden') {
-				analytics.ui.authAlternateAccountEvent({
-					display: appearance,
-					definitionId,
-					extensionKey,
-				});
+				if (fg('platform_migrate-some-ui-events-smart-card')) {
+					fireEvent('ui.smartLink.clicked.tryAnotherAccount', {
+						display: appearance,
+						definitionId: definitionId ?? null,
+					});
+				} else {
+					analytics.ui.authAlternateAccountEvent({
+						display: appearance,
+						definitionId,
+						extensionKey,
+					});
+				}
 			}
 			if (services.length > 0) {
 				fireEvent('screen.consentModal.viewed', {
@@ -109,54 +123,45 @@ export const useSmartCardActions = (id: string, url: string, analytics: Analytic
 						fireEvent('track.applicationAccount.connected', {
 							definitionId: definitionId ?? null,
 						});
-						if (fg('platform_smart-card-migrate-operational-analytics')) {
-							startUfoExperience('smart-link-authenticated', id, {
-								extensionKey,
-								status: 'success',
-							});
-							fireEvent('operational.smartLink.connectSucceeded', {
-								definitionId: definitionId ?? null,
-							});
-						} else {
-							analytics.operational.connectSucceededEvent({
-								id,
-								definitionId,
-								extensionKey,
-							});
-						}
+						startUfoExperience('smart-link-authenticated', id, {
+							extensionKey,
+							status: 'success',
+						});
+						fireEvent('operational.smartLink.connectSucceeded', {
+							definitionId: definitionId ?? null,
+						});
+
 						reload();
 					},
 					(err: AuthError) => {
-						if (fg('platform_smart-card-migrate-operational-analytics')) {
-							startUfoExperience('smart-link-authenticated', id, {
-								extensionKey,
-								status: err.type,
-							});
-							fireEvent('operational.smartLink.connectFailed', {
-								definitionId: definitionId ?? null,
-								reason: err.type ?? null,
-							});
-						} else {
-							analytics.operational.connectFailedEvent({
-								id,
-								definitionId,
-								extensionKey,
-								reason: err.type,
-							});
-						}
+						startUfoExperience('smart-link-authenticated', id, {
+							extensionKey,
+							status: err.type,
+						});
+						fireEvent('operational.smartLink.connectFailed', {
+							definitionId: definitionId ?? null,
+							reason: err.type ?? null,
+						});
 						if (err.type === 'auth_window_closed') {
-							analytics.ui.closedAuthEvent({
-								display: appearance,
-								definitionId,
-								extensionKey,
-							});
+							if (fg('platform_migrate-some-ui-events-smart-card')) {
+								fireEvent('ui.consentModal.closed', {
+									display: appearance,
+									definitionId: definitionId ?? null,
+								});
+							} else {
+								analytics.ui.closedAuthEvent({
+									display: appearance,
+									definitionId,
+									extensionKey,
+								});
+							}
 						}
 						reload();
 					},
 				);
 			}
 		},
-		[getSmartLinkState, analytics.ui, analytics.operational, id, reload, fireEvent],
+		[getSmartLinkState, analytics.ui, id, reload, fireEvent],
 	);
 
 	const invoke = useCallback(

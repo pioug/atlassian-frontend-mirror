@@ -158,6 +158,9 @@
 		},
 		"platform_editor_react18_renderer": {
 			"type": "boolean"
+		},
+		"platform_editor_nested_tables_renderer_styles": {
+			"type": "boolean"
 		}
 	},
 	"af:exports": {

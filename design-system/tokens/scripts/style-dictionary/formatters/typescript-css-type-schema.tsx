@@ -214,6 +214,7 @@ export interface DesignTokenStyles {
   fontFamily: FontFamily;
   fontSize: never;
   fontSizeAdjust: never;
+  fontStyle: 'normal' | 'italic';
   fontWeight: FontWeight;
   gap: Space;
   height: SizeIntrinsic;

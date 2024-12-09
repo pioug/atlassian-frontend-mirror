@@ -5,7 +5,7 @@ import { token } from '@atlaskit/tokens';
 
 import { document as storyDataDocument } from './story-data';
 
-import type { MetaDataContext } from '../../src';
+import type { MetaDataContext } from '../../src/interfaces';
 import EmailSerializer from '../../src';
 
 export interface DemoRendererProps {

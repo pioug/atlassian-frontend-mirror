@@ -55,13 +55,10 @@ function removeCascadingParentTimingReport(reactProfilerTimings: ReactProfilerTi
 			const parentTimings = timingIndex.get(parentSegmentId);
 
 			const filteredParentTimings = parentTimings?.filter((parentTiming) => {
-				if (
+				return !(
 					parentTiming.startTime === timing.startTime &&
 					parentTiming.actualDuration === timing.actualDuration
-				) {
-					return false;
-				}
-				return true;
+				);
 			});
 			if (filteredParentTimings) {
 				timingIndex.set(parentSegmentId, filteredParentTimings);

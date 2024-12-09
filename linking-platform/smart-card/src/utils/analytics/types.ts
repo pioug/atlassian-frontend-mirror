@@ -45,28 +45,22 @@ export type InvokeFailedEventProps = CommonEventProps & {
 };
 
 /**
- * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
  */
-export type ConnectSucceededEventProps = CommonEventProps & {
-	id?: string;
-};
-
-/**
- * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
- */
-export type ConnectFailedEventProps = CommonEventProps & {
-	id?: string;
-	reason?: string;
-};
-
 export type UiAuthEventProps = CommonEventProps & {
 	display: CardInnerAppearance;
 };
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export type UiAuthAlternateAccountEventProps = CommonEventProps & {
 	display: CardInnerAppearance;
 };
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export type UiCardClickedEventProps = CommonEventProps & {
 	id: string;
 	display: CardInnerAppearance;
@@ -82,10 +76,16 @@ export type UiActionClickedEventProps = CommonEventProps & {
 	invokeType?: InvokeType;
 };
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export type UiServerActionClickedEventProps = CommonEventProps & {
 	smartLinkActionType: SmartLinkActionType;
 };
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export type UiClosedAuthEventProps = CommonEventProps & {
 	display: CardInnerAppearance;
 };
@@ -96,21 +96,24 @@ export type UiRenderSuccessEventProps = CommonEventProps & {
 	canBeDatasource?: boolean;
 };
 
-/**
- * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
- */
 export type UiRenderFailedEventProps = CommonEventProps & {
 	display: CardInnerAppearance;
 	error: Error;
 	errorInfo: ErrorInfo;
 };
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export type UiHoverCardViewedEventProps = CommonEventProps & {
 	previewDisplay: PreviewDisplay;
 	previewInvokeMethod?: PreviewInvokeMethod;
 	status: CardType;
 };
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export type UiHoverCardDismissedEventProps = CommonEventProps & {
 	previewDisplay: PreviewDisplay;
 	hoverTime: number;
@@ -118,18 +121,12 @@ export type UiHoverCardDismissedEventProps = CommonEventProps & {
 	status: CardType;
 };
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export type UiHoverCardOpenLinkClickedEventProps = CommonEventProps & {
 	previewDisplay: PreviewDisplay;
 	previewInvokeMethod?: PreviewInvokeMethod;
-};
-
-/**
- * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
- */
-export type InstrumentEventProps = CommonEventProps & {
-	error?: APIError;
-	status: CardType;
-	id: string;
 };
 
 export type ClickType = 'left' | 'middle' | 'right' | 'keyboard' | 'none';

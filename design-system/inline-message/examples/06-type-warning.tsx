@@ -3,7 +3,7 @@ import React from 'react';
 import Heading from '@atlaskit/heading';
 import InlineMessage from '@atlaskit/inline-message';
 import Link from '@atlaskit/link';
-import { Stack, Text } from '@atlaskit/primitives';
+import { Stack, Text } from '@atlaskit/primitives/compiled';
 
 const messageContent = (
 	<Stack space="space.100">

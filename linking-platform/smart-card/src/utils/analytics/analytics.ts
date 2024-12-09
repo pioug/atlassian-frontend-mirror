@@ -6,11 +6,8 @@ import { getMeasure } from '../performance';
 import { type AnalyticsPayload } from '../types';
 
 import {
-	type ConnectFailedEventProps,
-	type ConnectSucceededEventProps,
 	type InvokeFailedEventProps,
 	type InvokeSucceededEventProps,
-	type ResolvedEventProps,
 	type UiActionClickedEventProps,
 	type UiAuthAlternateAccountEventProps,
 	type UiAuthEventProps,
@@ -22,7 +19,6 @@ import {
 	type UiRenderFailedEventProps,
 	type UiRenderSuccessEventProps,
 	type UiServerActionClickedEventProps,
-	type UnresolvedEventProps,
 } from './types';
 
 export const ANALYTICS_CHANNEL = 'media';
@@ -93,56 +89,6 @@ export const fireSmartLinkEvent = (
 	}
 };
 
-/**
- * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
- */
-export const resolvedEvent = (props: ResolvedEventProps): AnalyticsPayload => ({
-	action: 'resolved',
-	actionSubject: 'smartLink',
-	eventType: 'operational',
-	attributes: {
-		...props,
-		...context,
-	},
-});
-
-/**
- * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
- */
-export const unresolvedEvent = ({
-	id,
-	definitionId,
-	extensionKey,
-	resourceType,
-	destinationSubproduct,
-	destinationProduct,
-	error,
-	status,
-	location,
-}: UnresolvedEventProps): AnalyticsPayload => ({
-	action: 'unresolved',
-	actionSubject: 'smartLink',
-	eventType: 'operational',
-	attributes: {
-		id,
-		...context,
-		...(definitionId ? { definitionId } : {}),
-		...(extensionKey ? { extensionKey } : {}),
-		...(resourceType ? { resourceType } : {}),
-		...(destinationSubproduct ? { destinationSubproduct } : {}),
-		...(destinationProduct ? { destinationProduct } : {}),
-		...(location ? { location } : {}),
-		reason: status,
-		error: error
-			? {
-					message: error?.message,
-					kind: error?.kind,
-					type: error?.type,
-				}
-			: undefined,
-	},
-});
-
 export const invokeSucceededEvent = ({
 	id,
 	actionType,
@@ -206,54 +152,8 @@ export const invokeFailedEvent = ({
 };
 
 /**
- * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
  */
-export const connectSucceededEvent = ({
-	definitionId,
-	extensionKey,
-	destinationProduct,
-	destinationSubproduct,
-	location,
-}: ConnectSucceededEventProps): AnalyticsPayload => ({
-	action: 'connectSucceeded',
-	actionSubject: 'smartLink',
-	eventType: 'operational',
-	attributes: {
-		...context,
-		definitionId,
-		extensionKey,
-		destinationProduct,
-		destinationSubproduct,
-		location,
-	},
-});
-
-/**
- * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
- */
-export const connectFailedEvent = ({
-	definitionId,
-	extensionKey,
-	destinationProduct,
-	destinationSubproduct,
-	location,
-	reason,
-}: ConnectFailedEventProps): AnalyticsPayload => ({
-	action: 'connectFailed',
-	actionSubject: 'smartLink',
-	actionSubjectId: reason,
-	eventType: 'operational',
-	attributes: {
-		...context,
-		reason,
-		extensionKey,
-		definitionId,
-		destinationProduct,
-		destinationSubproduct,
-		location,
-	},
-});
-
 export const uiAuthEvent = ({
 	definitionId,
 	extensionKey,
@@ -277,6 +177,9 @@ export const uiAuthEvent = ({
 	},
 });
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export const uiAuthAlternateAccountEvent = ({
 	definitionId,
 	extensionKey,
@@ -300,6 +203,9 @@ export const uiAuthAlternateAccountEvent = ({
 	},
 });
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export const uiCardClickedEvent = ({
 	id,
 	display,
@@ -357,6 +263,9 @@ export const uiActionClickedEvent = ({
 	},
 });
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export const uiClosedAuthEvent = ({
 	display,
 	extensionKey,
@@ -431,6 +340,9 @@ export const uiRenderFailedEvent = ({
 	},
 });
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export const uiHoverCardViewedEvent = ({
 	id,
 	previewDisplay,
@@ -459,6 +371,9 @@ export const uiHoverCardViewedEvent = ({
 	},
 });
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export const uiHoverCardDismissedEvent = ({
 	id,
 	previewDisplay,
@@ -489,6 +404,9 @@ export const uiHoverCardDismissedEvent = ({
 	},
 });
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export const uiHoverCardOpenLinkClickedEvent = ({
 	id,
 	previewDisplay,
@@ -516,6 +434,9 @@ export const uiHoverCardOpenLinkClickedEvent = ({
 	},
 });
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export const uiLearnMoreLinkClickedEvent = (): AnalyticsPayload => ({
 	action: 'clicked',
 	actionSubject: 'button',
@@ -527,34 +448,8 @@ export const uiLearnMoreLinkClickedEvent = (): AnalyticsPayload => ({
 });
 
 /**
- * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
  */
-export const chunkloadFailedEvent = ({
-	display,
-	error,
-	errorInfo,
-	extensionKey,
-	definitionId,
-	destinationProduct,
-	destinationSubproduct,
-	location,
-}: UiRenderFailedEventProps): AnalyticsPayload => ({
-	action: 'chunkLoadFailed',
-	actionSubject: 'smartLink',
-	eventType: 'operational',
-	attributes: {
-		...context,
-		error,
-		errorInfo,
-		display,
-		extensionKey,
-		definitionId,
-		destinationProduct,
-		destinationSubproduct,
-		location,
-	},
-});
-
 export const uiSmartLinkStatusLozengeButtonClicked = (): AnalyticsPayload => ({
 	action: 'clicked',
 	actionSubject: 'button',
@@ -565,6 +460,9 @@ export const uiSmartLinkStatusLozengeButtonClicked = (): AnalyticsPayload => ({
 	},
 });
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export const uiSmartLinkStatusListItemButtonClicked = (): AnalyticsPayload => ({
 	action: 'clicked',
 	actionSubject: 'button',
@@ -575,6 +473,9 @@ export const uiSmartLinkStatusListItemButtonClicked = (): AnalyticsPayload => ({
 	},
 });
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export const uiSmartLinkStatusOpenPreviewButtonClicked = (): AnalyticsPayload => ({
 	action: 'clicked',
 	actionSubject: 'button',
@@ -585,6 +486,9 @@ export const uiSmartLinkStatusOpenPreviewButtonClicked = (): AnalyticsPayload =>
 	},
 });
 
+/**
+ * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+ */
 export const uiServerActionClicked = ({
 	smartLinkActionType,
 }: UiServerActionClickedEventProps): AnalyticsPayload => ({

@@ -681,7 +681,7 @@ const createPropFixes = ({
 }) => {
 	const fixes: Rule.Fix[] = [];
 
-	const { spacing, insideNewButton } = metadata;
+	const { spacing } = metadata;
 	if (shouldUseMigrationPath && !legacyImportNode) {
 		return fixes;
 	}
@@ -700,20 +700,6 @@ const createPropFixes = ({
 
 		if (primaryColor && primaryColor.type === 'JSXAttribute') {
 			fixes.push(fixer.replaceText(primaryColor.name, 'color'));
-		}
-
-		// add color="currentColor" if
-		// 1. primaryColor prop is not set
-		// 2. icon is not imported from migration entrypoint
-		// 3. icon element is not inside a new button
-		if (
-			legacyImportNode &&
-			!primaryColor &&
-			!migrationImportNode &&
-			// value type need to be a string in Rule.ReportDescriptor
-			insideNewButton !== 'true'
-		) {
-			fixes.push(fixer.insertTextAfter(openingElement.name, ` color="currentColor"`));
 		}
 
 		// rename or remove size prop based on shouldUseMigrationPath,
@@ -869,12 +855,12 @@ export const throwAutoErrors = ({
 		},
 		new Set<string>(),
 	);
-	//group errors by import source and remove any unwanted errors
+	// Group errors by import source and remove any unwanted errors
 	const groupedErrorList = Object.entries(errorsAuto).reduce<
 		Record<string, ({ key: string } & Rule.ReportDescriptor)[]>
 	>((result, option) => {
 		const [key, error] = option;
-		//return early if no data
+		// Return early if no data
 		if (!error.data) {
 			return result;
 		}

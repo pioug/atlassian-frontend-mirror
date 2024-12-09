@@ -7,7 +7,7 @@ import {
 	MEDIA_PREVIEW_IMAGE_HEIGHT,
 } from '../styles/util';
 import { createContentId } from '../static';
-import type { IconString } from '../static';
+import type { IconString } from '../static/icons';
 import { getIconFromMediaType } from '../media-util';
 import { serializeStyle } from '../serialize-style';
 

@@ -47,15 +47,21 @@ function sinkInteraction(
 	});
 }
 
-function sinkExpInteraction(
+function sinkExperimentalInteractionMetrics(
 	instance: GenericAnalyticWebClientInstance,
 	payloadPackage: {
-		createPayload: (interactionId: string, interaction: InteractionMetrics) => any;
+		createExperimentalInteractionMetricsPayload: (
+			interactionId: string,
+			interaction: InteractionMetrics,
+		) => any;
 	},
 ) {
 	sinkExperimentalHandler((interactionId: string, interaction: InteractionMetrics) => {
 		scheduleCallback(idlePriority, () => {
-			const payload = payloadPackage.createPayload(interactionId, interaction);
+			const payload = payloadPackage.createExperimentalInteractionMetricsPayload(
+				interactionId,
+				interaction,
+			);
 			instance.sendOperationalEvent(payload);
 		});
 	});
@@ -116,13 +122,21 @@ export const init = (
 			/* webpackChunkName: "create-post-interaction-log-payload" */ '../create-post-interaction-log-payload'
 		),
 	]).then(
-		([awc, payloadPackage, expInteractionPayload, createPostInteractionLogPayloadPackage]) => {
+		([
+			awc,
+			payloadPackage,
+			createExperimentalInteractionMetricsPayload,
+			createPostInteractionLogPayloadPackage,
+		]) => {
 			if ((awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise) {
 				(awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise().then((client) => {
 					const instance = client.getInstance();
 					sinkInteraction(instance, payloadPackage);
-					if (config?.enableExperimentalHolds) {
-						sinkExpInteraction(instance, expInteractionPayload);
+					if (config?.experimentalInteractionMetrics?.enabled) {
+						sinkExperimentalInteractionMetrics(
+							instance,
+							createExperimentalInteractionMetricsPayload,
+						);
 					}
 					if (config.postInteractionLog?.enabled) {
 						sinkPostInteractionLog(instance, createPostInteractionLogPayloadPackage.default);
@@ -130,8 +144,11 @@ export const init = (
 				});
 			} else if ((awc as GenericAnalyticWebClientInstance).sendOperationalEvent) {
 				sinkInteraction(awc as GenericAnalyticWebClientInstance, payloadPackage);
-				if (config?.enableExperimentalHolds) {
-					sinkExpInteraction(awc as GenericAnalyticWebClientInstance, expInteractionPayload);
+				if (config?.experimentalInteractionMetrics?.enabled) {
+					sinkExperimentalInteractionMetrics(
+						awc as GenericAnalyticWebClientInstance,
+						createExperimentalInteractionMetricsPayload,
+					);
 				}
 				if (config.postInteractionLog?.enabled) {
 					sinkPostInteractionLog(

@@ -306,6 +306,7 @@ type IconMigrationResult = {
 		name: string;
 		type: string;
 		package: string;
+		isMigrationUnsafe?: boolean;
 	};
 	/**
 	 * Alternative new icon that the legacy icon can be migrated to

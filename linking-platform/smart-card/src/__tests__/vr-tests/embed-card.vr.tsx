@@ -51,16 +51,8 @@ snapshot(EmbedCardNotFoundView);
 snapshot(EmbedCardNotFoundDefault);
 snapshot(EmbedCardNotFoundSiteAccessExists);
 snapshot(EmbedCardResolvedView);
-snapshot(EmbedCardResolvedViewNoPreview, {
-	featureFlags: {
-		'smart-card-remove-block-card-from-embed': [true, false],
-	},
-});
-snapshot(EmbedCardResolvingView, {
-	featureFlags: {
-		'smart-card-remove-block-card-from-embed': [true, false],
-	},
-});
+snapshot(EmbedCardResolvedViewNoPreview);
+snapshot(EmbedCardResolvingView);
 snapshot(EmbedCardSelected);
 snapshot(EmbedCardUnauthorisedView);
 snapshot(EmbedCardUnauthorisedViewWithProviderImage);

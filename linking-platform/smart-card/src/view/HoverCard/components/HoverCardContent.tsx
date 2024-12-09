@@ -8,12 +8,14 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import { jsx } from '@emotion/react';
 import { type JsonLd } from 'json-ld-types';
 
-import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
 import { useSmartLinkAnalytics } from '../../../state/analytics';
-import { getExtensionKey, getServices } from '../../../state/helpers';
+import { getDefinitionId, getExtensionKey, getServices } from '../../../state/helpers';
 import { useSmartCardState } from '../../../state/store';
 import { type CardState } from '../../../state/types';
 import { isSpecialEvent } from '../../../utils';
@@ -45,12 +47,14 @@ const HoverCardContent = ({
 	onMouseLeave,
 	actionOptions,
 }: HoverCardContentProps) => {
-	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { createAnalyticsEvent } = useAnalyticsEventsNext();
+	const { fireEvent } = useAnalyticsEvents();
 	const defaultAnalytics = useSmartLinkAnalytics(url, id);
 	const analytics = _analytics ?? defaultAnalytics;
 	const extensionKey = useMemo(() => getExtensionKey(cardState.details), [cardState.details]);
 	const linkState = useSmartCardState(url);
 	const linkStatus = linkState.status ?? 'pending';
+	const definitionId = useMemo(() => getDefinitionId(cardState.details), [cardState.details]);
 
 	const { isAdminHubAIEnabled } = useSmartLinkContext();
 	const isAISummaryEnabled = getIsAISummaryEnabled(isAdminHubAIEnabled, cardState.details);
@@ -59,6 +63,8 @@ const HoverCardContent = ({
 
 	const statusRef = useRef(linkStatus);
 	const analyticsRef = useRef(analytics);
+	const fireEventRef = useRef(fireEvent);
+	const definitionIdRef = useRef(definitionId);
 
 	useEffect(() => {
 		/**
@@ -71,45 +77,76 @@ const HoverCardContent = ({
 		if (statusRef.current !== linkStatus) {
 			statusRef.current = linkStatus;
 		}
-	}, [analytics, linkStatus]);
+		if (fireEventRef.current !== fireEvent) {
+			fireEventRef.current = fireEvent;
+		}
+		if (definitionIdRef.current !== definitionId) {
+			definitionIdRef.current = definitionId;
+		}
+	}, [analytics, linkStatus, fireEvent, definitionId]);
 
 	useEffect(() => {
 		const previewDisplay = 'card';
 		const previewInvokeMethod = 'mouse_hover';
 		const cardOpenTime = Date.now();
 
-		analyticsRef.current.ui.hoverCardViewedEvent({
-			previewDisplay,
-			previewInvokeMethod,
-			status: statusRef.current,
-		});
+		const fireEventCurrent = fireEventRef.current;
+		if (fg('platform_migrate-some-ui-events-smart-card')) {
+			fireEventCurrent('ui.hoverCard.viewed', {
+				previewDisplay,
+				previewInvokeMethod,
+				definitionId: definitionIdRef.current ?? null,
+			});
+		} else {
+			analyticsRef.current.ui.hoverCardViewedEvent({
+				previewDisplay,
+				previewInvokeMethod,
+				status: statusRef.current,
+			});
+		}
 
 		return () => {
 			const hoverTime = Date.now() - cardOpenTime;
-
-			analyticsRef.current.ui.hoverCardDismissedEvent({
-				previewDisplay,
-				previewInvokeMethod,
-				hoverTime,
-				status: statusRef.current,
-			});
+			if (fg('platform_migrate-some-ui-events-smart-card')) {
+				fireEventCurrent('ui.hoverCard.dismissed', {
+					previewDisplay,
+					previewInvokeMethod,
+					hoverTime,
+					definitionId: definitionIdRef.current ?? null,
+				});
+			} else {
+				analyticsRef.current.ui.hoverCardDismissedEvent({
+					previewDisplay,
+					previewInvokeMethod,
+					hoverTime,
+					status: statusRef.current,
+				});
+			}
 		};
 	}, []);
 
 	const onClick = useCallback(
 		(event: React.MouseEvent) => {
 			const isModifierKeyPressed = isSpecialEvent(event);
-			analytics.ui.cardClickedEvent({
-				id,
-				display: CardDisplay.HoverCardPreview,
-				status: cardState.status,
-				isModifierKeyPressed,
-				actionSubjectId: 'titleGoToLink',
-			});
-
+			if (fg('platform_migrate-some-ui-events-smart-card')) {
+				fireEvent('ui.smartLink.clicked.titleGoToLink', {
+					id,
+					display: CardDisplay.HoverCardPreview,
+					isModifierKeyPressed,
+					definitionId: definitionId ?? null,
+				});
+			} else {
+				analytics.ui.cardClickedEvent({
+					id,
+					display: CardDisplay.HoverCardPreview,
+					status: cardState.status,
+					isModifierKeyPressed,
+					actionSubjectId: 'titleGoToLink',
+				});
+			}
 			fireLinkClickedEvent(createAnalyticsEvent)(event);
 		},
-		[createAnalyticsEvent, cardState.status, analytics.ui, id],
+		[createAnalyticsEvent, cardState.status, analytics.ui, id, fireEvent, definitionId],
 	);
 
 	const data = cardState.details?.data as JsonLd.Data.BaseData;

@@ -26,6 +26,7 @@ import { gridPlugin } from '@atlaskit/editor-plugins/grid';
 import { guidelinePlugin } from '@atlaskit/editor-plugins/guideline';
 import { insertBlockPlugin } from '@atlaskit/editor-plugins/insert-block';
 import { layoutPlugin } from '@atlaskit/editor-plugins/layout';
+import { loomPlugin } from '@atlaskit/editor-plugins/loom';
 import { mediaPlugin } from '@atlaskit/editor-plugins/media';
 import { mentionsPlugin } from '@atlaskit/editor-plugins/mentions';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
@@ -40,6 +41,8 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { Box, xcss } from '@atlaskit/primitives';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+
+import { getLoomProvider } from './utils/provider/loom-provider';
 
 const styles = xcss({ height: '100%' });
 const smartCardClient = new ConfluenceCardClient('stg');
@@ -114,17 +117,17 @@ function Editor() {
 			.add([cardPlugin, { provider: Promise.resolve(cardProviderStaging) }])
 			.add(layoutPlugin)
 			.add(tasksAndDecisionsPlugin)
-			// .add([
-			// 	loomPlugin,
-			// 	{
-			// 		...getLoomProvider({
-			// 			// NOTE: DEV MOVE - A public key referencing a sandbox loom account, this will eventially be substituted
-			// 			// for a session token that will intialise the SDK.
-			// 			publicAppId: '4dc78821-b6d2-44ee-ab43-54d0494290c8',
-			// 		}),
-			// 		shouldShowToolbarButton: true,
-			// 	},
-			// ])
+			.add([
+				loomPlugin,
+				{
+					...getLoomProvider({
+						// NOTE: DEV MOVE - A public key referencing a sandbox loom account, this will eventially be substituted
+						// for a session token that will intialise the SDK.
+						publicAppId: '4dc78821-b6d2-44ee-ab43-54d0494290c8',
+					}),
+					shouldShowToolbarButton: true,
+				},
+			])
 			.add(primaryToolbarPlugin)
 			.add(connectivityPlugin),
 	);

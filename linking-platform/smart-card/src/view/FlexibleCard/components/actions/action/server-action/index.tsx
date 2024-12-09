@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
 import useInvoke from '../../../../../../state/hooks/use-invoke';
@@ -29,9 +31,21 @@ const ServerAction = ({
 
 			try {
 				setIsLoading(true);
-				analytics?.ui.smartLinkServerActionClickedEvent({
-					smartLinkActionType,
-				});
+				if (fg('platform_migrate-some-ui-events-smart-card')) {
+					if (
+						smartLinkActionType === 'FollowEntityAction' ||
+						smartLinkActionType === 'UnfollowEntityAction'
+					) {
+						fireEvent('ui.button.clicked.smartLinkFollowButton', {});
+					} else {
+						fireEvent(`ui.button.clicked.${smartLinkActionType}`, {});
+					}
+				} else {
+					analytics?.ui.smartLinkServerActionClickedEvent({
+						smartLinkActionType,
+					});
+				}
+
 				fireEvent('track.smartLinkQuickAction.started', {
 					smartLinkActionType,
 				});

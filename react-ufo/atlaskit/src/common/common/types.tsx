@@ -187,6 +187,8 @@ export interface InteractionMetrics {
 	trace: TraceIdContext | null;
 	legacyMetrics?: BM3Event[];
 	vc?: VCRawDataType | null;
+	experimentalTTAI?: number;
+	experimentalVC90?: number;
 }
 
 export type LoadProfilerEventInfo = {
@@ -258,6 +260,8 @@ export type LastInteractionFinishInfo = Pick<
 	| 'abortedByInteractionName'
 	| 'routeName'
 	| 'type'
+	| 'experimentalVC90'
+	| 'experimentalTTAI'
 >;
 
 export type PostInteractionLogOutput = {

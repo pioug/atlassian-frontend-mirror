@@ -1,132 +1,174 @@
-import { typescriptEslintTester } from '../../__tests__/utils/_tester';
+import { tester } from '../../__tests__/utils/_tester';
 import rule, { name, noDeprecatedJSXAttributeMessageId } from '../index';
 
 import defaultMeta from './__fixtures__/default.json';
 import hasNamedSpecifiers from './__fixtures__/has-named-specifiers.json';
 
-typescriptEslintTester.run(name, rule, {
+tester.run(name, rule, {
 	valid: [
 		{
-			code: `import { SomeElement } from 'some-other-library';
+			name: 'cssFn 1',
+			code: `
+				import { SomeElement } from 'some-other-library';
 
-      const Element = () => (
-        <SomeElement cssFn={cssFn()} />
-      );`,
+				const Element = () => (
+					<SomeElement cssFn={cssFn()} />
+				);
+			`,
 		},
 		{
-			code: `import { SomeElement } from 'some-other-library';
+			name: 'cssFn 2',
+			code: `
+				import { SomeElement } from 'some-other-library';
 
-      const Element = () => (
-        <SomeElement cssFn={cssFn()} />
-      );`,
+				const Element = () => (
+					<SomeElement cssFn={cssFn()} />
+				);
+			`,
 			options: [{ deprecatedConfig: defaultMeta }],
 		},
 		{
-			code: `import { ButtonItem } from '@atlaskit/menu';
+			name: 'ButtonItem 1',
+			code: `
+				import { ButtonItem } from '@atlaskit/menu';
 
-      const Element = () => (
-        <ButtonItem />
-      );`,
+				const Element = () => (
+					<ButtonItem />
+				);
+			`,
 			options: [{ deprecatedConfig: defaultMeta }],
 		},
 		{
-			code: `import { ButtonItem } from '@atlaskit/side-navigation';
+			name: 'ButtonItem 1',
+			code: `
+				import { ButtonItem } from '@atlaskit/side-navigation';
 
-      const Element = () => (
-        <SomeUsage cssFn={cssFn()}>
-          <ButtonItem />
-        </SomeUsage>
-      );`,
+				const Element = () => (
+					<SomeUsage cssFn={cssFn()}>
+						<ButtonItem />
+					</SomeUsage>
+				);
+			`,
 			options: [{ deprecatedConfig: defaultMeta }],
 		},
 		{
-			code: `import InlineMessage from '@atlaskit/inline-message';
+			name: 'InlineMessage 1',
+			code: `
+				import InlineMessage from '@atlaskit/inline-message';
 
-      const Element = () => (
-        <InlineMessage appearance='connectivity' />
-      );`,
+				const Element = () => (
+					<InlineMessage appearance='connectivity' />
+				);
+			`,
 			options: [{ deprecatedConfig: defaultMeta }],
 		},
 		{
-			code: `import { Section } from '@atlaskit/inline-message';
+			name: 'InlineMessage 2',
+			code: `
+				import { Section } from '@atlaskit/inline-message';
 
-      const Element = () => (
-        <Section cssFn2={cssFn()} />
-      );`,
+				const Element = () => (
+					<Section cssFn2={cssFn()} />
+				);
+			`,
 			options: [{ deprecatedConfig: hasNamedSpecifiers }],
 		},
 	],
 
 	invalid: [
 		{
-			code: `import { ButtonItem } from '@atlaskit/menu';
+			name: 'ButtonItem 1',
+			code: `
+				import { ButtonItem } from '@atlaskit/menu';
 
-      const Element = () => (
-        <ButtonItem cssFn={cssFn()} />
-      );`,
+				const Element = () => (
+					<ButtonItem cssFn={cssFn()} />
+				);
+			`,
 			options: [{ deprecatedConfig: defaultMeta }],
 			errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
 		},
 		{
-			code: `import { ButtonItem } from '@atlaskit/side-navigation';
+			name: 'ButtonItem 2',
+			code: `
+				import { ButtonItem } from '@atlaskit/side-navigation';
 
-      const Element = () => (
-        <ButtonItem cssFn={cssFn()} />
-      );`,
+				const Element = () => (
+					<ButtonItem cssFn={cssFn()} />
+				);
+			`,
 			errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
 			options: [{ deprecatedConfig: defaultMeta }],
 		},
 		{
-			code: `import { ButtonItem } from '@atlaskit/side-navigation';
+			name: 'ButtonItem 3',
+			code: `
+				import { ButtonItem } from '@atlaskit/side-navigation';
 
-      const Element = () => (
-        <ButtonItem overrides={{ Item: { cssFn }}} />
-      );`,
+				const Element = () => (
+					<ButtonItem overrides={{ Item: { cssFn }}} />
+				);
+			`,
 			errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
 			options: [{ deprecatedConfig: defaultMeta }],
 		},
 		{
-			code: `import { ButtonItem } from '@atlaskit/menu';
+			name: 'ButtonItem 4',
+			code: `
+				import { ButtonItem } from '@atlaskit/menu';
 
-      const Element = () => (
-        <ButtonItem overrides={{ Item: { cssFn }}} />
-      );`,
+				const Element = () => (
+					<ButtonItem overrides={{ Item: { cssFn }}} />
+				);
+			`,
 			errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
 			options: [{ deprecatedConfig: defaultMeta }],
 		},
 		{
-			code: `import InlineMessage from '@atlaskit/inline-message';
+			name: 'ButtonItem 5',
+			code: `
+				import { ButtonItem } from '@atlaskit/menu';
 
-      const Element = () => (
-        <InlineMessage type='connectivity' />
-      );`,
-			errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
-			options: [{ deprecatedConfig: defaultMeta }],
-		},
-		{
-			code: `import { ButtonItem } from '@atlaskit/menu';
-
-        const Element = () => (
-          <ButtonItem cssFn2={cssFn()} />
-        );`,
+				const Element = () => (
+					<ButtonItem cssFn2={cssFn()} />
+				);
+			`,
 			errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
 			options: [{ deprecatedConfig: hasNamedSpecifiers }],
 		},
 		{
-			code: `import { MenuGroup } from '@atlaskit/menu';
+			name: 'InlineMessage 1',
+			code: `
+				import InlineMessage from '@atlaskit/inline-message';
 
-        const Element = () => (
-          <MenuGroup cssFn2={cssFn()} />
-        );`,
+				const Element = () => (
+					<InlineMessage type='connectivity' />
+				);
+			`,
+			errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
+			options: [{ deprecatedConfig: defaultMeta }],
+		},
+		{
+			name: 'MenuGroup',
+			code: `
+				import { MenuGroup } from '@atlaskit/menu';
+
+				const Element = () => (
+					<MenuGroup cssFn2={cssFn()} />
+				);
+			`,
 			errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
 			options: [{ deprecatedConfig: hasNamedSpecifiers }],
 		},
 		{
-			code: `import Heading from '@atlaskit/heading';
+			name: 'Heading',
+			code: `
+				import Heading from '@atlaskit/heading';
 
-        const Element = () => (
-          <Heading level="h700" />
-        );`,
+				const Element = () => (
+					<Heading level="h700" />
+				);
+			`,
 			errors: [{ messageId: noDeprecatedJSXAttributeMessageId }],
 			options: [{ deprecatedConfig: defaultMeta }],
 		},

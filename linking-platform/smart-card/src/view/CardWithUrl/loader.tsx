@@ -4,8 +4,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { di } from 'react-magnetic-di';
 import uuid from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { useSmartLinkAnalytics } from '../../state/analytics';
 import { importWithRetry } from '../../utils';
@@ -81,20 +79,12 @@ export function CardWithURLRenderer(props: CardProps) {
 			// to the reliability of the smart-card front-end components.
 			// Likewise, chunk loading errors are not caused by a failure of smart-card rendering.
 			if (error.name === 'ChunkLoadError') {
-				if (fg('platform_smart-card-migrate-operational-analytics')) {
-					fireEvent('operational.smartLink.chunkLoadFailed', {
-						display: appearance,
-						error: error as any,
-						errorInfo: errorInfo as any,
-						definitionId: null,
-					});
-				} else {
-					analytics.operational.chunkloadFailedEvent({
-						display: appearance,
-						error,
-						errorInfo,
-					});
-				}
+				fireEvent('operational.smartLink.chunkLoadFailed', {
+					display: appearance,
+					error: error as any,
+					errorInfo: errorInfo as any,
+					definitionId: null,
+				});
 			} else if (error.name !== 'APIError') {
 				analytics.ui.renderFailedEvent({
 					display: isFlexibleUi ? 'flexible' : appearance,
@@ -106,7 +96,7 @@ export function CardWithURLRenderer(props: CardProps) {
 
 			onError && onError({ status: 'errored', url: url ?? '', err: error });
 		},
-		[analytics.operational, analytics.ui, appearance, id, onError, url, isFlexibleUi, fireEvent],
+		[analytics.ui, appearance, id, onError, url, isFlexibleUi, fireEvent],
 	);
 
 	if (!url) {

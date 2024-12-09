@@ -2,8 +2,6 @@ import React from 'react';
 
 import { annotation } from '@atlaskit/adf-schema';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
-import type { UpdateEvent } from '@atlaskit/editor-common/annotation';
-import { AnnotationUpdateEmitter } from '@atlaskit/editor-common/annotation';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -15,16 +13,7 @@ import { inlineCommentPlugin } from './pm-plugins/inline-comment';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { buildToolbar } from './pm-plugins/toolbar';
 import { getPluginState, stripNonExistingAnnotations } from './pm-plugins/utils';
-import type {
-	AnnotationInfo,
-	AnnotationProviders,
-	AnnotationState,
-	AnnotationTypeProvider,
-	InlineCommentAnnotationProvider,
-	InlineCommentCreateComponentProps,
-	InlineCommentState,
-	InlineCommentViewComponentProps,
-} from './types';
+import type { AnnotationProviders } from './types';
 import { InlineCommentView } from './ui/InlineCommentView';
 
 export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders, api }) => {
@@ -172,16 +161,3 @@ function AnnotationContentComponent({
 		</div>
 	);
 }
-
-export { AnnotationUpdateEmitter };
-export type {
-	AnnotationProviders,
-	InlineCommentAnnotationProvider,
-	InlineCommentCreateComponentProps,
-	InlineCommentViewComponentProps,
-	AnnotationTypeProvider,
-	AnnotationInfo,
-	AnnotationState,
-	InlineCommentState,
-	UpdateEvent,
-};

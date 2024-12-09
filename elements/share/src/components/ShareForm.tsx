@@ -301,6 +301,7 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 			integrationMode = 'off',
 			shareIntegrations,
 			additionalTabs,
+			builtInTabContentWidth,
 			handleCloseDialog,
 		} = this.props;
 
@@ -347,6 +348,8 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 		}
 
 		if (integrationMode === 'tabs') {
+			const DEFAULT_TAB_CONTENT_WIDTH = 304;
+
 			return (
 				<Tabs
 					id="ShareForm-Tabs-Integrations"
@@ -368,7 +371,11 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 					</TabList>
 					<TabPanel key={`share-tabPanel-default`}>
 						<div css={formWrapperStyles}>
-							{fg('smart_links_for_plans_platform') ? (
+							{fg('share_popup_tab_content_width_override') ? (
+								<div style={{ width: `${builtInTabContentWidth || DEFAULT_TAB_CONTENT_WIDTH}px` }}>
+									{this.renderShareForm()}
+								</div>
+							) : fg('smart_links_for_plans_platform') ? (
 								<Box xcss={platformTabWrapper}>{this.renderShareForm()}</Box>
 							) : (
 								this.renderShareForm()
@@ -378,7 +385,17 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 					<TabPanel key={`share-tabPanel-integration`}>
 						<AnalyticsContext data={{ source: INTEGRATION_MODAL_SOURCE }}>
 							<div css={formWrapperStyles}>
-								{fg('smart_links_for_plans_platform') ? (
+								{fg('share_popup_tab_content_width_override') ? (
+									<div
+										style={{ width: `${builtInTabContentWidth || DEFAULT_TAB_CONTENT_WIDTH}px` }}
+									>
+										<IntegrationForm
+											Content={firstIntegration.Content}
+											onIntegrationClose={() => handleCloseDialog?.()}
+											changeTab={this.changeTab}
+										/>
+									</div>
+								) : fg('smart_links_for_plans_platform') ? (
 									<Box xcss={platformTabWrapper}>
 										<IntegrationForm
 											Content={firstIntegration.Content}

@@ -39,9 +39,6 @@
 			"path": "../hitbox/tsconfig.app.json"
 		},
 		{
-			"path": "../live-region/tsconfig.app.json"
-		},
-		{
 			"path": "../react-beautiful-dnd-autoscroll/tsconfig.app.json"
 		},
 		{

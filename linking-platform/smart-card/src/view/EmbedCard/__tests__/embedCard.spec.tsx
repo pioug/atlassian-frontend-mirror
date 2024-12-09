@@ -13,7 +13,6 @@ import {
 } from '@atlaskit/media-test-helpers';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 import { setGlobalTheme } from '@atlaskit/tokens';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,
@@ -488,19 +487,10 @@ describe('EmbedCard view component', () => {
 		it('renders resolving view', () => {
 			const cardState = getResolvingCardState();
 			const { getByTestId } = setup(cardState, expectedUrl);
-			const resolvingView = getByTestId('embed-card-resolving-view');
-			expect(resolvingView).toBeTruthy();
-		});
 
-		ffTest.on('smart-card-remove-block-card-from-embed', '', () => {
-			it('should render flexible resolving view', () => {
-				const cardState = getResolvingCardState();
-				const { getByTestId } = setup(cardState, expectedUrl);
-
-				const resolveView = getByTestId('smart-block-title-resolving-view');
-				expect(resolveView).toBeTruthy();
-				expect(resolveView).toHaveTextContent(expectedUrl);
-			});
+			const resolveView = getByTestId('smart-block-title-resolving-view');
+			expect(resolveView).toBeTruthy();
+			expect(resolveView).toHaveTextContent(expectedUrl);
 		});
 	});
 
@@ -526,19 +516,9 @@ describe('EmbedCard view component', () => {
 		it('should render block resolved view', () => {
 			const { getByTestId, iframeEl } = setup(cardStateOverride, expectedUrl);
 
-			const resolveView = getByTestId('block-card-resolved-view');
+			const resolveView = getByTestId('smart-block-resolved-view');
 			expect(resolveView).toBeTruthy();
 			expect(iframeEl).toBeNull();
-		});
-
-		ffTest.on('smart-card-remove-block-card-from-embed', '', () => {
-			it('should render flexible resolved view', () => {
-				const { getByTestId, iframeEl } = setup(cardStateOverride, expectedUrl);
-
-				const resolveView = getByTestId('smart-block-resolved-view');
-				expect(resolveView).toBeTruthy();
-				expect(iframeEl).toBeNull();
-			});
 		});
 	});
 });

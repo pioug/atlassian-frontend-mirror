@@ -2,14 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, type FC, type ReactNode, useCallback, useState } from 'react';
+import { type FC, type ReactNode, useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button';
 import InlineDialog from '@atlaskit/inline-dialog';
-import { Inline, Text } from '@atlaskit/primitives';
+import { Inline, Text } from '@atlaskit/primitives/compiled';
 import { B300, G200, P200, R300, Y200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -82,20 +81,23 @@ const rootStyles = css({
 	},
 });
 
-const iconColor = (appearance: IconAppearance) => {
-	switch (appearance) {
-		case 'connectivity':
-			return token('color.icon.brand', B300);
-		case 'confirmation':
-			return token('color.icon.success', G200);
-		case 'info':
-			return token('color.icon.discovery', P200);
-		case 'warning':
-			return token('color.icon.warning', Y200);
-		case 'error':
-			return token('color.icon.danger', R300);
-	}
-};
+const iconColor = cssMap({
+	connectivity: {
+		'--icon-accent-color': token('color.icon.brand', B300),
+	},
+	confirmation: {
+		'--icon-accent-color': token('color.icon.success', G200),
+	},
+	info: {
+		'--icon-accent-color': token('color.icon.discovery', P200),
+	},
+	warning: {
+		'--icon-accent-color': token('color.icon.warning', Y200),
+	},
+	error: {
+		'--icon-accent-color': token('color.icon.danger', R300),
+	},
+});
 
 /**
  * __Inline message__
@@ -142,17 +144,7 @@ const InlineMessage: FC<InlineMessageProps> = ({
 	}
 
 	return (
-		<div
-			css={rootStyles}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={
-				{
-					'--icon-accent-color': iconColor(appearance),
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				} as CSSProperties
-			}
-			data-testid={testId}
-		>
+		<div css={[rootStyles, iconColor[appearance]]} data-testid={testId}>
 			<InlineDialog
 				onClose={onCloseDialog}
 				content={children}

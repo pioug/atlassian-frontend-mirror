@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::7e45ac93d412d213cbcc8ae4cccdc206>>
+ * @codegen <<SignedSource::0090d7de827f8c18210077290c7586be>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -461,6 +461,7 @@ export interface DesignTokenStyles {
 	fontFamily: FontFamily;
 	fontSize: never;
 	fontSizeAdjust: never;
+	fontStyle: 'normal' | 'italic';
 	fontWeight: FontWeight;
 	gap: Space;
 	height: SizeIntrinsic;

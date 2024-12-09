@@ -24,9 +24,6 @@
             "path": "../../hitbox/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../live-region/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../react-beautiful-dnd-autoscroll/afm-cc/tsconfig.json"
         },
         {

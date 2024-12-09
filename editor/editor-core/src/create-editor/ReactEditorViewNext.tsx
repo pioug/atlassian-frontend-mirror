@@ -1,22 +1,22 @@
 import React, { useCallback, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
-import { injectIntl } from 'react-intl-next';
 import type { WrappedComponentProps } from 'react-intl-next';
+import { injectIntl } from 'react-intl-next';
 import uuid from 'uuid/v4';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
+import type {
+	AnalyticsDispatch,
+	AnalyticsEventPayload,
+	DispatchAnalyticsEvent,
+	FireAnalyticsCallback,
+} from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	EVENT_TYPE,
 	fireAnalyticsEvent,
 	PLATFORMS,
-} from '@atlaskit/editor-common/analytics';
-import type {
-	AnalyticsDispatch,
-	AnalyticsEventPayload,
-	DispatchAnalyticsEvent,
-	FireAnalyticsCallback,
 } from '@atlaskit/editor-common/analytics';
 import { createDispatch, EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useConstructor, usePreviousState } from '@atlaskit/editor-common/hooks';
@@ -267,7 +267,10 @@ function ReactEditorView(props: EditorViewProps) {
 			if (options.doc) {
 				// if the collabEdit API is set, skip this validation due to potential pm validation errors
 				// from docs that end up with invalid marks after processing (See #hot-111702 for more details)
-				if (api?.collabEdit !== undefined && fg('editor_load_conf_collab_docs_without_checks')) {
+				if (
+					(api?.collabEdit !== undefined && fg('editor_load_conf_collab_docs_without_checks')) ||
+					options.props.editorProps.skipValidation
+				) {
 					doc = processRawValueWithoutValidation(schema, options.doc, dispatchAnalyticsEvent);
 				} else {
 					doc = processRawValue(

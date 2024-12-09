@@ -138,6 +138,8 @@ export default class PostInteractionLog {
 		abortedByInteractionName,
 		routeName,
 		type,
+		experimentalTTAI,
+		experimentalVC90,
 	}: LastInteractionFinishInfo) {
 		this.lastInteractionFinish = {
 			ufoName,
@@ -148,6 +150,8 @@ export default class PostInteractionLog {
 			abortedByInteractionName,
 			routeName,
 			type,
+			experimentalTTAI,
+			experimentalVC90,
 		};
 
 		const timeout =

@@ -129,6 +129,9 @@
 		},
 		"smart_links_for_plans_platform": {
 			"type": "boolean"
+		},
+		"share_popup_tab_content_width_override": {
+			"type": "boolean"
 		}
 	}
 }

@@ -103,7 +103,16 @@ describe('`link clicked`', () => {
 				context: [PACKAGE_CONTEXT],
 			},
 		],
-		['embed', { appearance: 'embed' }],
+		[
+			'embed',
+			{ appearance: 'embed' },
+			{
+				beforeClick: async () => {
+					// wait for resolved view to render
+					await screen.findByTestId('card');
+				},
+			},
+		],
 	])('with `%s` appearance', (name, cardProps, options) => {
 		const setup = async (props: Partial<React.ComponentProps<typeof Card>> = {}) => {
 			const user = userEvent.setup();

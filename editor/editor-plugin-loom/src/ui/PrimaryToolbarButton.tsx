@@ -27,7 +27,7 @@ const CustomisableLoomToolbarButton = (
 ) =>
 	React.forwardRef<HTMLElement, ButtonComponentProps>((props, ref) => {
 		const { onClickBeforeInit, isDisabled = false, href, ...restProps } = props;
-		const { loomState } = useSharedPluginState(api, ['loom']);
+		const { loomState, connectivityState } = useSharedPluginState(api, ['loom', 'connectivity']);
 		const isLoomEnabled = !!loomState?.isEnabled;
 		const handleOnClick = useCallback(
 			(e: React.MouseEvent<HTMLElement, MouseEvent>) => {
@@ -45,7 +45,7 @@ const CustomisableLoomToolbarButton = (
 				hideTooltip={!!(restProps.onMouseEnter || restProps.onMouseLeave)}
 				// Ignore href if Loom is enabled so that it doesn't interfere with recording
 				href={isLoomEnabled ? undefined : href}
-				disabled={disabled || isDisabled}
+				disabled={disabled || isDisabled || connectivityState?.mode === 'offline'}
 				api={api}
 				appearance={appearance}
 				onClick={(e) => handleOnClick(e)}
@@ -64,7 +64,7 @@ const LoomToolbarButtonWrapper = ({
 	appearance: EditorAppearance;
 }) => {
 	const handleOnClick = useCallback(() => executeRecordVideo(api), [api]);
-	const { loomState } = useSharedPluginState(api, ['loom']);
+	const { loomState, connectivityState } = useSharedPluginState(api, ['loom', 'connectivity']);
 	if (!loomState) {
 		return null;
 	}
@@ -72,7 +72,7 @@ const LoomToolbarButtonWrapper = ({
 	return (
 		<ToolbarButtonComponent
 			// Disable the icon while the SDK isn't initialised
-			disabled={disabled || !loomState?.isEnabled}
+			disabled={disabled || !loomState?.isEnabled || connectivityState?.mode === 'offline'}
 			api={api}
 			appearance={appearance}
 			onClick={handleOnClick}

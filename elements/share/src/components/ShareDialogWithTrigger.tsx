@@ -579,6 +579,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 			integrationMode,
 			shareIntegrations,
 			additionalTabs,
+			builtInTabContentWidth,
 			isBrowseUsersDisabled,
 			userPickerOptions,
 		} = this.props;
@@ -634,6 +635,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 								integrationMode={integrationMode}
 								shareIntegrations={shareIntegrations}
 								additionalTabs={additionalTabs}
+								builtInTabContentWidth={builtInTabContentWidth}
 								isMenuItemSelected={isMenuItemSelected}
 								// actions
 								onLinkCopy={this.handleCopyLink}

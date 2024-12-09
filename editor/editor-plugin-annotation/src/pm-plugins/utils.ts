@@ -18,7 +18,6 @@ import {
 } from '@atlaskit/editor-common/styles';
 import {
 	canApplyAnnotationOnRange,
-	containsAnyAnnotations,
 	getAnnotationIdsFromRange,
 	getRangeInlineNodeNames,
 	hasAnnotationMark,
@@ -42,7 +41,6 @@ import { AnnotationSelectionType } from '../types';
 
 import type { InlineCommentPluginState } from './types';
 
-export { hasAnnotationMark, containsAnyAnnotations };
 function sum<T>(arr: Array<T>, f: (val: T) => number) {
 	return arr.reduce((val, x) => val + f(x), 0);
 }

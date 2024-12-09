@@ -200,6 +200,17 @@ const legacyBreakoutWideLayoutStyle = css({
 	},
 });
 
+const globalDnDStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.ProseMirror': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		'[data-layout-content]': {
+			userDrag: 'none',
+			userSelect: 'none',
+		},
+	},
+});
+
 const globalStyles = () =>
 	fg('platform_editor_element_dnd_nested_fix_patch_3')
 		? css({
@@ -326,6 +337,7 @@ export const GlobalStylesWrapper = () => {
 		<Global
 			styles={[
 				globalStyles(),
+				fg('platform_editor_advanced_layouts_post_fix_patch_1') && globalDnDStyle,
 				editorExperiment('nested-dnd', true) ? extendedHoverZoneNested() : extendedHoverZone(),
 				getTextNodeStyle(),
 				withDeleteLinesStyleFix,

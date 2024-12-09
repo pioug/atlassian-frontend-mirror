@@ -12,6 +12,7 @@ export type ShareFormProps = Pick<
 	| 'integrationMode'
 	| 'shareIntegrations'
 	| 'additionalTabs'
+	| 'builtInTabContentWidth'
 	| 'copyTooltipText'
 	| 'isPublicLink'
 	| 'onUserSelectionChange'

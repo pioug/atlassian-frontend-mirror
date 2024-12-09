@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::519effabaa6c383d7fa35374469faada>>
+ * @codegen <<SignedSource::050cd99cdd30e3c38674dc47986e3214>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -140,6 +140,48 @@ export type SmartLinkChunkLoadFailedAttributesType = {
 	error: Record<string, unknown>;
 	errorInfo: Record<string, unknown>;
 };
+export type SmartLinkClickedAttributesType = {
+	id: string;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	definitionId: string | null;
+	isModifierKeyPressed: boolean | null;
+};
+export type SmartLinkClickedTitleGoToLinkAttributesType = {
+	id: string;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	definitionId: string | null;
+	isModifierKeyPressed: boolean | null;
+};
+export type HoverCardViewedAttributesType = {
+	previewDisplay: 'card' | 'embed';
+	previewInvokeMethod: 'keyboard' | 'mouse_hover' | 'mouse_click' | null;
+	definitionId: string | null;
+};
+export type HoverCardDismissedAttributesType = {
+	previewDisplay: 'card' | 'embed';
+	hoverTime: number;
+	previewInvokeMethod: 'keyboard' | 'mouse_hover' | 'mouse_click' | null;
+	definitionId: string | null;
+};
+export type ButtonClickedConnectAccountAttributesType = {
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	definitionId: string | null;
+};
+export type SmartLinkClickedTryAnotherAccountAttributesType = {
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	definitionId: string | null;
+};
+export type ConsentModalClosedAttributesType = {
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	definitionId: string | null;
+};
+export type ButtonClickedLearnMoreAttributesType = {};
+export type ButtonClickedSmartLinkStatusLozengeAttributesType = {};
+export type ButtonClickedSmartLinkStatusListItemAttributesType = {};
+export type ButtonClickedSmartLinkStatusOpenPreviewAttributesType = {};
+export type ButtonClickedSmartLinkFollowButtonAttributesType = {};
+export type ButtonClickedStatusUpdateActionAttributesType = {};
+export type ButtonClickedGetStatusTransitionsActionAttributesType = {};
 
 export type AnalyticsEventAttributes = {
 	/**
@@ -220,6 +262,46 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fires an event that represents when a Smart Link renders unsuccessfully. */
 	'operational.smartLink.chunkLoadFailed': SmartLinkChunkLoadFailedAttributesType;
+	/**
+	 * fires an event that represents when a user clicks on a Smart Link. */
+	'ui.smartLink.clicked': SmartLinkClickedAttributesType;
+	/**
+	 * fires an event that represents when a user clicks on a Smart Link. */
+	'ui.smartLink.clicked.titleGoToLink': SmartLinkClickedTitleGoToLinkAttributesType;
+	/**
+	 * fires an event that represents a hover preview being opened. */
+	'ui.hoverCard.viewed': HoverCardViewedAttributesType;
+	/**
+	 * fires an event that represents a hover preview being dismissed. */
+	'ui.hoverCard.dismissed': HoverCardDismissedAttributesType;
+	/**
+	 * fires an event that represents when a user clicks on the authentication call to action with no current authenticated account. (i.e. Connect to Preview). */
+	'ui.button.clicked.connectAccount': ButtonClickedConnectAccountAttributesType;
+	/**
+	 * fires an event that represents when a user clicks on the authentication call to action with a forbidden authenticated account. (i.e. Try another account). */
+	'ui.smartLink.clicked.tryAnotherAccount': SmartLinkClickedTryAnotherAccountAttributesType;
+	/**
+	 * fires an event that represents when a user closed the authentication window without authenticating after opening it. */
+	'ui.consentModal.closed': ConsentModalClosedAttributesType;
+	/**
+	 * fires an event that signifies that a "Learn More" link was clicked on an unauthenticated card */
+	'ui.button.clicked.learnMore': ButtonClickedLearnMoreAttributesType;
+	/**
+	 * fires an event that represent a click was performed on a Status Lozenge */
+	'ui.button.clicked.smartLinkStatusLozenge': ButtonClickedSmartLinkStatusLozengeAttributesType;
+	/**
+	 * fires an event that represent a click was performed on a Status Lozenge's dropdown item */
+	'ui.button.clicked.smartLinkStatusListItem': ButtonClickedSmartLinkStatusListItemAttributesType;
+	/**
+	 * fires an event that represent a click was performed on a Status Lozenge open preview button */
+	'ui.button.clicked.smartLinkStatusOpenPreview': ButtonClickedSmartLinkStatusOpenPreviewAttributesType;
+	/**
+	 * fires an event that represents a click was performed on the follow button. */
+	'ui.button.clicked.smartLinkFollowButton': ButtonClickedSmartLinkFollowButtonAttributesType;
+	/** */
+	'ui.button.clicked.StatusUpdateAction': ButtonClickedStatusUpdateActionAttributesType;
+	/** */
+	'ui.button.clicked.GetStatusTransitionsAction': ButtonClickedGetStatusTransitionsActionAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

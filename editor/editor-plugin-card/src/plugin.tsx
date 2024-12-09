@@ -1,5 +1,6 @@
 import React from 'react';
 
+import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { CardPluginActions } from '@atlaskit/editor-common/card';
 import { cardMessages as messages } from '@atlaskit/editor-common/messages';
 import type { CardProvider, QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
@@ -8,9 +9,10 @@ import {
 	IconDatasourceConfluenceSearch,
 	IconDatasourceJiraIssue,
 } from '@atlaskit/editor-common/quick-insert';
-import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
+import type { NextEditorPlugin, OptionalPlugin, Command } from '@atlaskit/editor-common/types';
 import { canRenderDatasource } from '@atlaskit/editor-common/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { InlineCommentPluginState } from '@atlaskit/editor-plugin-annotation';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
@@ -42,6 +44,19 @@ import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
 import LayoutButton from './ui/LayoutButton';
 import { isDatasourceConfigEditable } from './utils';
 
+// Dummpy type of AnnotationPlugin
+// This is used to avoid editor universal preset's inferred type maximum length error
+// TODO: Remove this when the issue is fixed
+type DummyAnnotationPlugin = NextEditorPlugin<
+	'annotation',
+	{
+		sharedState: InlineCommentPluginState;
+		actions: {
+			setInlineCommentDraftState: (isDraft: boolean, inputMethod: INPUT_METHOD) => Command;
+		};
+	}
+>;
+
 export type CardPlugin = NextEditorPlugin<
 	'card',
 	{
@@ -56,6 +71,7 @@ export type CardPlugin = NextEditorPlugin<
 			FloatingToolbarPlugin,
 			OptionalPlugin<EditorDisabledPlugin>,
 			OptionalPlugin<SelectionPlugin>,
+			OptionalPlugin<DummyAnnotationPlugin>,
 		];
 		sharedState: CardPluginState | null;
 		actions: CardPluginActions;

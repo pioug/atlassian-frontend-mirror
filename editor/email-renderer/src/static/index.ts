@@ -4,26 +4,6 @@ import { type SerializeFragmentWithAttachmentsResult, type MediaImageBase64 } fr
 import { base64Prefix, imageOutputType } from './generator/constants';
 import { CS_CONTENT_PREFIX } from '../styles/util';
 
-export {
-	IconName,
-	archiveAttachment,
-	audioAttachment,
-	decision,
-	documentAttachment,
-	error,
-	expand,
-	genericAttachment,
-	info,
-	note,
-	success,
-	taskItemChecked,
-	taskItemUnchecked,
-	tip,
-	videoAttachment,
-	warning,
-} from './icons';
-export type { IconString } from './icons';
-
 const cidPrefix = 'cid:';
 const pfcsPrefix = CS_CONTENT_PREFIX;
 const cidMatcher = new RegExp(`src="${cidPrefix}${pfcsPrefix}-([\\w]*)-([\\w-]*)"`, 'gi');

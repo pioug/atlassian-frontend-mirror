@@ -4,11 +4,7 @@ import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { getUrl } from '@atlaskit/linking-common';
 
 import {
-	chunkloadFailedEvent,
-	connectFailedEvent,
-	connectSucceededEvent,
 	context,
-	instrumentEvent,
 	invokeFailedEvent,
 	invokeSucceededEvent,
 	uiActionClickedEvent,
@@ -29,9 +25,6 @@ import {
 import { uiServerActionClicked } from '../../utils/analytics/analytics';
 import {
 	type CommonEventProps,
-	type ConnectFailedEventProps,
-	type ConnectSucceededEventProps,
-	type InstrumentEventProps,
 	type InvokeFailedEventProps,
 	type InvokeSucceededEventProps,
 	type UiActionClickedEventProps,
@@ -129,6 +122,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param definitionId The definitionId of the Smart Link resolver invoked.
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
 			 * @returns
+			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
 			 */
 			authEvent: ({
 				display,
@@ -160,6 +154,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param definitionId The definitionId of the Smart Link resolver invoked.
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
 			 * @returns
+			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
 			 */
 			authAlternateAccountEvent: ({
 				display,
@@ -217,6 +212,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param location Where the Smart Link is currently rendered.
 			 * @param destinationProduct The product the Smart Link is linked to.
 			 * @returns
+			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
 			 */
 			cardClickedEvent: ({
 				id,
@@ -293,6 +289,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param definitionId The definitionId of the Smart Link resolver invoked.
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
 			 * @param previewInvokeMethod How the preview was triggered.
+			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
 			 */
 			hoverCardOpenLinkClickedEvent: ({
 				previewDisplay,
@@ -325,6 +322,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param definitionId The definitionId of the Smart Link resolver invoked.
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
 			 * @returns
+			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
 			 */
 			closedAuthEvent: ({
 				display,
@@ -469,6 +467,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
 			 * @param previewInvokeMethod How the preview was triggered.
 			 * @returns
+			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
 			 */
 			hoverCardViewedEvent: ({
 				previewDisplay,
@@ -507,6 +506,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param extensionKey The extensionKey of the Smart Link resolver invoked.
 			 * @param previewInvokeMethod How the preview was triggered.
 			 * @returns
+			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
 			 */
 			hoverCardDismissedEvent: ({
 				id,
@@ -544,12 +544,14 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * Fires an event that signifies that a "Learn More" link was clicked on an unauthenticated card
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
 			 * @param location The location where a link is displayed (jiraWebLinks, confluencePages etc)
+			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
 			 */
 			learnMoreClickedEvent: () =>
 				dispatchAnalytics(applyCommonAttributes(uiLearnMoreLinkClickedEvent(), commonAttributes)),
 
 			/**
 			 * Fires an event that represent a click was performed on a Status Lozenge
+			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
 			 */
 			smartLinkLozengeActionClickedEvent: () =>
 				dispatchAnalytics(
@@ -558,6 +560,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 
 			/**
 			 * Fires an event that represent a click was performed on a Status Lozenge's dropdown item
+			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
 			 */
 			smartLinkLozengeActionListItemClickedEvent: () =>
 				dispatchAnalytics(
@@ -566,11 +569,15 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 
 			/**
 			 * Fires an event that represent a click was performed on a Status Lozenge open preview button
+			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
 			 */
 			smartLinkLozengeActionErrorOpenPreviewClickedEvent: () =>
 				dispatchAnalytics(
 					applyCommonAttributes(uiSmartLinkStatusOpenPreviewButtonClicked(), commonAttributes),
 				),
+			/**
+			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
+			 */
 			smartLinkServerActionClickedEvent: (props: UiServerActionClickedEventProps) =>
 				dispatchAnalytics(applyCommonAttributes(uiServerActionClicked(props), commonAttributes)),
 		}),
@@ -642,157 +649,6 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 							actionType,
 							display,
 							reason,
-							extensionKey,
-							definitionId,
-							resourceType,
-							destinationProduct,
-							destinationSubproduct,
-							location,
-						}),
-						commonAttributes,
-					),
-				);
-			},
-			/**
-			 * This fires an event that represents an account successfully being connected via a Smart Link.
-			 * @param id The unique ID for this Smart Link.
-			 * @param definitionId The definitionId of the Smart Link resolver invoked.
-			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
-			 * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
-			 */
-			connectSucceededEvent: ({
-				id,
-				extensionKey,
-				definitionId,
-				resourceType,
-				destinationProduct,
-				destinationSubproduct,
-				location,
-			}: ConnectSucceededEventProps) => {
-				const experienceId = id ? id : defaultId;
-				startUfoExperience('smart-link-authenticated', experienceId, {
-					extensionKey,
-					status: 'success',
-				});
-				dispatchAnalytics(
-					applyCommonAttributes(
-						connectSucceededEvent({
-							...commonAttributes,
-							id: experienceId,
-							extensionKey,
-							definitionId,
-							resourceType,
-							destinationProduct,
-							destinationSubproduct,
-							location,
-						}),
-						commonAttributes,
-					),
-				);
-			},
-			/**
-			 * This fires an event that represents an account unsuccessfully being connected.
-			 * @param id The unique ID for this Smart Link.
-			 * @param definitionId The definitionId of the Smart Link resolver invoked.
-			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
-			 * @param reason The reason why the Smart Link connect account failed.
-			 * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
-			 */
-			connectFailedEvent: ({
-				id,
-				reason,
-				extensionKey,
-				definitionId,
-				resourceType,
-				destinationProduct,
-				destinationSubproduct,
-				location,
-			}: ConnectFailedEventProps) => {
-				const experienceId = id ? id : defaultId;
-				startUfoExperience('smart-link-authenticated', experienceId, {
-					extensionKey,
-					status: reason,
-				});
-				dispatchAnalytics(
-					applyCommonAttributes(
-						connectFailedEvent({
-							...commonAttributes,
-							id: experienceId,
-							reason,
-							extensionKey,
-							definitionId,
-							resourceType,
-							destinationProduct,
-							destinationSubproduct,
-							location,
-						}),
-						commonAttributes,
-					),
-				);
-			},
-			/**
-			 * This fires an event which represents a Smart Link request succeeding or failing based on the status.
-			 * @param id The unique ID for this Smart Link.
-			 * @param status The status of the Smart Link.
-			 * @param definitionId The definitionId of the Smart Link resolver invoked.
-			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
-			 * @param resourceType The type of resource that was invoked. This is provider specific (e.g. File, PullRequest).
-			 * @param error An error representing why the Smart Link request failed.
-			 * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
-			 */
-			instrument: ({
-				id,
-				status,
-				extensionKey,
-				definitionId,
-				resourceType,
-				destinationProduct,
-				destinationSubproduct,
-				location,
-				error,
-			}: InstrumentEventProps) => {
-				const event = instrumentEvent({
-					...commonAttributes,
-					id,
-					status,
-					extensionKey,
-					definitionId,
-					resourceType,
-					destinationProduct,
-					destinationSubproduct,
-					location,
-					error,
-				});
-				if (event) {
-					dispatchAnalytics(applyCommonAttributes(event, commonAttributes));
-				}
-			},
-
-			/**
-			 * This fires an event that represents when a Smart Link renders unsuccessfully.
-			 * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
-			 * @param id The unique ID for this Smart Link.
-			 * @param error: An error representing why the Smart Link render failed.
-			 * @param errorInfo: Additional details about the error including the stack trace.
-			 * @deprecated remove with platform_smart-card-migrate-operational-analytics clean up
-			 */
-			chunkloadFailedEvent: ({
-				display,
-				error,
-				errorInfo,
-				extensionKey,
-				definitionId,
-				resourceType,
-				destinationProduct,
-				destinationSubproduct,
-				location,
-			}: UiRenderFailedEventProps) => {
-				dispatchAnalytics(
-					applyCommonAttributes(
-						chunkloadFailedEvent({
-							display,
-							error,
-							errorInfo,
 							extensionKey,
 							definitionId,
 							resourceType,

@@ -6,7 +6,7 @@ import { css } from '@emotion/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { fontFamily, fontSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
-import { N60A, Y300, Y75 } from '@atlaskit/theme/colors';
+import { N60A, Y300, Y75, N40A } from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
 
 import { getGlobalTheme, token } from '@atlaskit/tokens';
@@ -54,7 +54,6 @@ import {
 	akEditorStickyHeaderZIndex,
 	relativeFontSizeToBase16,
 } from '@atlaskit/editor-shared-styles';
-import { N40A } from '@atlaskit/theme/colors';
 
 import { RendererCssClassName } from '../../consts';
 import type { RendererAppearance } from './types';
@@ -318,30 +317,64 @@ const tableSortableColumnStyle = ({
 				${headingsCss}
 			}
 
-			.${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
-				margin: 0;
-				.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-					opacity: 1;
-					transition: opacity 0.2s ease-in-out;
-				}
-			}
-
-			.${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-				.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-					opacity: 0;
-					&:focus {
-						opacity: 1;
+			${fg('platform_editor_nested_tables_renderer_styles')
+				? `
+					// New styles
+					> .${RendererCssClassName.SORTABLE_COLUMN}
+						> .${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
+						margin: 0;
+						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+							opacity: 1;
+							transition: opacity 0.2s ease-in-out;
+						}
 					}
-				}
-			}
 
-			&:hover {
-				.${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-					.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-						opacity: 1;
+					> .${RendererCssClassName.SORTABLE_COLUMN}
+						> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+							opacity: 0;
+							&:focus {
+								opacity: 1;
+							}
+						}
 					}
-				}
-			}
+
+					&:hover:not(:has(.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER} .${RendererCssClassName.SORTABLE_COLUMN}:hover))
+						> .${RendererCssClassName.SORTABLE_COLUMN}
+							> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+								opacity: 1;
+							}
+						}
+					}
+				`
+				: `
+					// old styles
+					.${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
+						margin: 0;
+						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+							opacity: 1;
+							transition: opacity 0.2s ease-in-out;
+						}
+					}
+
+					.${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+							opacity: 0;
+							&:focus {
+								opacity: 1;
+							}
+						}
+					}
+
+					&:hover {
+						.${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+								opacity: 1;
+							}
+						}
+					}
+				`}
 		}
 	`;
 };

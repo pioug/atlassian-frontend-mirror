@@ -3,7 +3,7 @@ import { createTag } from '../create-tag';
 import { createClassName, getInlineImageSizeFromParentNode } from '../styles/util';
 import { getIconFromMediaType } from '../media-util';
 import { createContentId } from '../static';
-import type { IconString } from '../static';
+import type { IconString } from '../static/icons';
 import { N30 } from '@atlaskit/adf-schema';
 import { applyMarks } from '../apply-marks';
 

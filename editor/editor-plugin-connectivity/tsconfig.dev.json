@@ -51,6 +51,9 @@
 			"path": "../editor-plugin-hyperlink/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-loom/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-primary-toolbar/tsconfig.app.json"
 		},
 		{

@@ -430,7 +430,7 @@ const createPlugin = (
 				['extension', 'bodiedExtension', 'multiBodiedExtension'],
 				(target) =>
 					fg('platform_editor_legacy_content_macro')
-						? !!target.closest('.extension-container')
+						? !target.closest('.extension-content') || !!target.closest('.extension-container')
 						: !target.closest('.extension-content'), // It's to enable nested extensions selection
 				{ useLongPressSelection },
 			),

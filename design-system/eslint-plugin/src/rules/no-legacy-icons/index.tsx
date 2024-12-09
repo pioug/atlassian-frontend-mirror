@@ -25,6 +25,9 @@ const rule = createLintRule({
 					shouldErrorForAutoMigration: {
 						type: 'boolean',
 					},
+					shouldUseSafeMigrationMode: {
+						type: 'boolean',
+					},
 					quiet: {
 						type: 'boolean',
 					},

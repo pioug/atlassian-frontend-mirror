@@ -91,17 +91,25 @@ function Component({
 	const handleClickWrapper = useCallback(
 		(event: MouseEvent) => {
 			const isModifierKeyPressed = isSpecialEvent(event);
-
-			analytics.ui.cardClickedEvent({
-				id,
-				display: isFlexibleUi ? CardDisplay.Flexible : appearance,
-				status: state.status,
-				definitionId,
-				extensionKey,
-				isModifierKeyPressed,
-				destinationProduct: product,
-				destinationSubproduct: subproduct,
-			});
+			if (fg('platform_migrate-some-ui-events-smart-card')) {
+				fireEvent('ui.smartLink.clicked', {
+					id,
+					display: isFlexibleUi ? CardDisplay.Flexible : appearance,
+					definitionId: definitionId ?? null,
+					isModifierKeyPressed,
+				});
+			} else {
+				analytics.ui.cardClickedEvent({
+					id,
+					display: isFlexibleUi ? CardDisplay.Flexible : appearance,
+					status: state.status,
+					definitionId,
+					extensionKey,
+					isModifierKeyPressed,
+					destinationProduct: product,
+					destinationSubproduct: subproduct,
+				});
+			}
 
 			if (!onClick && !isFlexibleUi) {
 				const clickUrl = getClickUrl(url, state.details);
@@ -138,6 +146,7 @@ function Component({
 			product,
 			subproduct,
 			createAnalyticsEvent,
+			fireEvent,
 		],
 	);
 	const handleAuthorize = useCallback(() => actions.authorize(appearance), [actions, appearance]);
@@ -155,34 +164,24 @@ function Component({
 		measure.mark(id, state.status);
 		if (state.status !== 'pending' && state.status !== 'resolving') {
 			measure.create(id, state.status);
-			if (fg('platform_smart-card-migrate-operational-analytics')) {
-				if (state.status === 'resolved') {
-					fireEvent('operational.smartLink.resolved', {
-						definitionId: definitionId ?? null,
-						duration: measure.getMeasure(id, state.status)?.duration ?? null,
-					});
-				} else if (state.error?.type !== 'ResolveUnsupportedError') {
-					fireEvent('operational.smartLink.unresolved', {
-						definitionId: definitionId ?? null,
-						reason: state.status,
-						error:
-							state.error === undefined
-								? null
-								: {
-										name: state.error.name,
-										kind: state.error.kind,
-										type: state.error.type,
-									},
-					});
-				}
-			} else {
-				analytics.operational.instrument({
-					id,
-					status: state.status,
-					definitionId,
-					extensionKey: extensionKey ?? state.error?.extensionKey,
-					resourceType,
-					error: state.error,
+
+			if (state.status === 'resolved') {
+				fireEvent('operational.smartLink.resolved', {
+					definitionId: definitionId ?? null,
+					duration: measure.getMeasure(id, state.status)?.duration ?? null,
+				});
+			} else if (state.error?.type !== 'ResolveUnsupportedError') {
+				fireEvent('operational.smartLink.unresolved', {
+					definitionId: definitionId ?? null,
+					reason: state.status,
+					error:
+						state.error === undefined
+							? null
+							: {
+									name: state.error.name,
+									kind: state.error.kind,
+									type: state.error.type,
+								},
 				});
 			}
 		}
@@ -194,7 +193,6 @@ function Component({
 		definitionId,
 		extensionKey,
 		resourceType,
-		analytics.operational,
 		fireEvent,
 	]);
 

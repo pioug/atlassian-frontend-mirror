@@ -696,6 +696,16 @@ export const createPlugin = (
 					// Currently we can only drag one node at a time
 					// so we only need to check first child
 					const draggable = dragging?.slice.content.firstChild;
+
+					if (
+						draggable?.type.name === 'layoutColumn' &&
+						fg('platform_editor_advanced_layouts_post_fix_patch_1')
+					) {
+						// we prevent native DnD for layoutColumn to prevent single column layout.
+						event.preventDefault();
+						return false;
+					}
+
 					const nodeElement = event.target?.closest('[data-drag-handler-anchor-name]');
 					if (!nodeElement) {
 						return false;

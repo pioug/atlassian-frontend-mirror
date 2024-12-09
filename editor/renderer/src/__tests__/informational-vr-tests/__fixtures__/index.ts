@@ -828,3 +828,91 @@ export const adfNestedExpandInsideExpand: DocNode = {
 		},
 	],
 };
+
+export const adfNestedTableInsideTable: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'table',
+			attrs: {
+				isNumberColumnEnabled: false,
+				layout: 'default',
+			},
+			content: [
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'extension',
+									attrs: {
+										extensionType: 'com.atlassian.nesting',
+										extensionKey: 'nested-table',
+										parameters: {
+											macroParams: {
+												nestedContent: {
+													value:
+														'{"type":"table","content":[{"type":"tableRow","content":[{"type":"tableHeader","content":[{"type":"text","text":"Header 1"}]},{"type":"tableHeader","content":[{"type":"text","text":"Header 2"}]}]},{"type":"tableRow","content":[{"type":"tableCell","content":[{"type":"text","text":"Cell 1"}]},{"type":"tableCell","content":[{"type":"text","text":"Cell 2"}]}]},{"type":"tableRow","content":[{"type":"tableCell","content":[{"type":"text","text":"Cell 1"}]},{"type":"tableCell","content":[{"type":"text","text":"Cell 2"}]}]}]}',
+												},
+											},
+										},
+									},
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: { background: '#DEEBFF' },
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: { background: '#DEEBFF' },
+							content: [
+								{
+									type: 'extension',
+									attrs: {
+										extensionType: 'com.atlassian.nesting',
+										extensionKey: 'nested-table',
+										parameters: {
+											macroParams: {
+												nestedContent: {
+													value:
+														'{"type":"table","content":[{"type":"tableRow","content":[{"type":"tableHeader","content":[{"type":"text","text":"Header 1"}]},{"type":"tableHeader","content":[{"type":"text","text":"Header 2"}]}]},{"type":"tableRow","content":[{"type":"tableCell","content":[{"type":"text","text":"Cell 1"}]},{"type":"tableCell","content":[{"type":"text","text":"Cell 2"}]}]}]}',
+												},
+											},
+										},
+									},
+								},
+							],
+						},
+					],
+				},
+			],
+		},
+	],
+};

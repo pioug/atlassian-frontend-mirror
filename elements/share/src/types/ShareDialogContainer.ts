@@ -168,6 +168,8 @@ export type ShareDialogContainerProps = {
 	shareIntegrations?: Array<Integration>;
 	/* List of additional tabs to be displayed */
 	additionalTabs?: Array<AdditionalTab>;
+	/* Content container width used by built-in tabs */
+	builtInTabContentWidth?: number;
 	/**
 	 * Optionally sets a tabIndex value if you need to set focus
 	 */

@@ -1,5 +1,7 @@
 import { act, fireEvent, screen, within } from '@testing-library/react';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../../extractors/constants';
 import * as analytics from '../../../../utils/analytics/analytics';
 import { mocks } from '../../../../utils/mocks';
@@ -128,64 +130,125 @@ export const unauthorizedViewTests = (
 		});
 
 		// TODO: Move the analytics test to analytics.test-utils.ts when EDM-7412 is completed
-		it('should fire viewed event when hover card is opened', async () => {
-			const mock = jest.spyOn(analytics, 'uiHoverCardViewedEvent');
+		describe('should fire viewed event when hover card is opened', () => {
+			ffTest(
+				'platform_migrate-some-ui-events-smart-card',
+				async () => {
+					const { mockAnalyticsClient } = await setup({
+						mock: mockUnauthorisedResponse,
+						testId: 'hover-card-trigger-wrapper',
+					});
 
-			await setup({
-				mock: mockUnauthorisedResponse,
-				testId: 'hover-card-trigger-wrapper',
-			});
+					// wait for card to be resolved
+					await screen.findByTestId(authTooltipId);
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							action: 'viewed',
+							actionSubject: 'hoverCard',
+							attributes: expect.objectContaining({
+								previewDisplay: 'card',
+								previewInvokeMethod: 'mouse_hover',
+								extensionKey: 'google-object-provider',
+								status: 'unauthorized',
+								definitionId: '440fdd47-25ac-4ac2-851f-1b7526365ade',
+								destinationObjectType: 'file',
+							}),
+						}),
+					);
+				},
+				async () => {
+					const mock = jest.spyOn(analytics, 'uiHoverCardViewedEvent');
 
-			//wait for card to be resolved
-			await screen.findByTestId(authTooltipId);
-			expect(analytics.uiHoverCardViewedEvent).toHaveBeenCalledTimes(1);
-			expect(mock.mock.results[0].value).toEqual(
-				getEventPayload({
-					action: 'viewed',
-					actionSubject: 'hoverCard',
-					additionalAttributes: {
-						...additionalPayloadAttributes,
-						extensionKey: 'google-object-provider',
-						status: 'unauthorized',
-						definitionId: '440fdd47-25ac-4ac2-851f-1b7526365ade',
-						destinationObjectType: 'file',
-						resourceType: 'file',
-					},
-				}),
+					await setup({
+						mock: mockUnauthorisedResponse,
+						testId: 'hover-card-trigger-wrapper',
+					});
+
+					//wait for card to be resolved
+					await screen.findByTestId(authTooltipId);
+					expect(analytics.uiHoverCardViewedEvent).toHaveBeenCalledTimes(1);
+					expect(mock.mock.results[0].value).toEqual(
+						getEventPayload({
+							action: 'viewed',
+							actionSubject: 'hoverCard',
+							additionalAttributes: {
+								...additionalPayloadAttributes,
+								extensionKey: 'google-object-provider',
+								status: 'unauthorized',
+								definitionId: '440fdd47-25ac-4ac2-851f-1b7526365ade',
+								destinationObjectType: 'file',
+								resourceType: 'file',
+							},
+						}),
+					);
+				},
 			);
 		});
 
 		// TODO: Move the analytics test to analytics.test-utils.ts when EDM-7412 is completed
-		it('should fire dismissed event when hover card is opened then closed', async () => {
-			const mock = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
+		describe('should fire dismissed event when hover card is opened then closed', () => {
+			ffTest(
+				'platform_migrate-some-ui-events-smart-card',
+				async () => {
+					const { element, event, mockAnalyticsClient } = await setup({
+						mock: mockUnauthorisedResponse,
+						testId: 'hover-card-trigger-wrapper',
+					});
+					// wait for card to be resolved
+					await screen.findByTestId(authTooltipId);
+					await event.unhover(element);
+					act(() => {
+						jest.runAllTimers();
+					});
+					expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							action: 'dismissed',
+							actionSubject: 'hoverCard',
+							attributes: expect.objectContaining({
+								previewDisplay: 'card',
+								previewInvokeMethod: 'mouse_hover',
+								extensionKey: 'google-object-provider',
+								hoverTime: 0,
+								status: 'unauthorized',
+								definitionId: '440fdd47-25ac-4ac2-851f-1b7526365ade',
+								destinationObjectType: 'file',
+							}),
+						}),
+					);
+				},
+				async () => {
+					const mock = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
 
-			const { element, event } = await setup({
-				mock: mockUnauthorisedResponse,
-				testId: 'hover-card-trigger-wrapper',
-			});
-			// wait for card to be resolved
-			await screen.findByTestId(authTooltipId);
-			await event.unhover(element);
-			act(() => {
-				jest.runAllTimers();
-			});
-			expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
-			expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledTimes(1);
+					const { element, event } = await setup({
+						mock: mockUnauthorisedResponse,
+						testId: 'hover-card-trigger-wrapper',
+					});
+					// wait for card to be resolved
+					await screen.findByTestId(authTooltipId);
+					await event.unhover(element);
+					act(() => {
+						jest.runAllTimers();
+					});
+					expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
+					expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledTimes(1);
 
-			expect(mock.mock.results[0].value).toEqual(
-				getEventPayload({
-					action: 'dismissed',
-					actionSubject: 'hoverCard',
-					additionalAttributes: {
-						...additionalPayloadAttributes,
-						extensionKey: 'google-object-provider',
-						hoverTime: 0,
-						status: 'unauthorized',
-						definitionId: '440fdd47-25ac-4ac2-851f-1b7526365ade',
-						destinationObjectType: 'file',
-						resourceType: 'file',
-					},
-				}),
+					expect(mock.mock.results[0].value).toEqual(
+						getEventPayload({
+							action: 'dismissed',
+							actionSubject: 'hoverCard',
+							additionalAttributes: {
+								...additionalPayloadAttributes,
+								extensionKey: 'google-object-provider',
+								hoverTime: 0,
+								status: 'unauthorized',
+								definitionId: '440fdd47-25ac-4ac2-851f-1b7526365ade',
+								destinationObjectType: 'file',
+								resourceType: 'file',
+							},
+						}),
+					);
+				},
 			);
 		});
 	});

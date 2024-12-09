@@ -10,9 +10,11 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { R50, R500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { useAnalyticsEvents } from '../../../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../../../messages';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../../state/flexible-ui-context';
 import useResolve from '../../../../../../../state/hooks/use-resolve';
@@ -30,6 +32,7 @@ const LozengeActionError = ({
 	url,
 	previewData,
 }: LozengeActionErrorProps) => {
+	const { fireEvent } = useAnalyticsEvents();
 	const reload = useResolve();
 	const analytics = useFlexibleUiAnalyticsContext();
 	const isPreviewAvailable = previewData && previewData.src !== undefined;
@@ -42,7 +45,11 @@ const LozengeActionError = ({
 
 	const handlePreviewOpen = useCallback(() => {
 		if (isPreviewAvailable) {
-			analytics?.ui.smartLinkLozengeActionErrorOpenPreviewClickedEvent();
+			if (fg('platform_migrate-some-ui-events-smart-card')) {
+				fireEvent('ui.button.clicked.smartLinkStatusOpenPreview', {});
+			} else {
+				analytics?.ui.smartLinkLozengeActionErrorOpenPreviewClickedEvent();
+			}
 
 			return openEmbedModalWithFlexibleUiIcon({
 				...previewData,
@@ -50,7 +57,7 @@ const LozengeActionError = ({
 				onClose: handlePreviewClose,
 			});
 		}
-	}, [analytics, handlePreviewClose, isPreviewAvailable, previewData]);
+	}, [analytics, handlePreviewClose, isPreviewAvailable, previewData, fireEvent]);
 
 	const content = useMemo(() => {
 		return (

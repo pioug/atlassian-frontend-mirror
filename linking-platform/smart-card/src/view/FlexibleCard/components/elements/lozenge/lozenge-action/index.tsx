@@ -9,6 +9,7 @@ import { jsx } from '@emotion/react';
 
 import DropdownMenu, { type CustomTriggerProps } from '@atlaskit/dropdown-menu';
 import type { ThemeAppearance } from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
 import extractLozengeActionItems from '../../../../../../extractors/action/extract-lozenge-action-items';
@@ -71,7 +72,11 @@ const LozengeAction = ({
 		async (args: { isOpen: boolean }) => {
 			setIsOpen(args.isOpen);
 			if (args.isOpen) {
-				analytics?.ui.smartLinkLozengeActionClickedEvent();
+				if (fg('platform_migrate-some-ui-events-smart-card')) {
+					fireEvent('ui.button.clicked.smartLinkStatusLozenge', {});
+				} else {
+					analytics?.ui.smartLinkLozengeActionClickedEvent();
+				}
 				fireEvent('track.smartLinkQuickAction.started', {
 					smartLinkActionType: TrackQuickActionType.StatusUpdate,
 				});
@@ -124,7 +129,11 @@ const LozengeAction = ({
 	const handleItemClick = useCallback(
 		async (id: string, text: string, appearance?: ThemeAppearance) => {
 			try {
-				analytics?.ui.smartLinkLozengeActionListItemClickedEvent();
+				if (fg('platform_migrate-some-ui-events-smart-card')) {
+					fireEvent('ui.button.clicked.smartLinkStatusListItem', {});
+				} else {
+					analytics?.ui.smartLinkLozengeActionListItemClickedEvent();
+				}
 				const updateAction = action?.update;
 				if (updateAction && id) {
 					setIsLoading(true);

@@ -10,6 +10,7 @@ import {
 	iconsInCustomComponent,
 	newButtonTests,
 	oldButtonTests,
+	safeModeTests,
 	sizeTests,
 	spreadPropsTests,
 } from './__helpers/test-helper';
@@ -165,7 +166,7 @@ describe('no-legacy-icons', () => {
 				output: `
 				import AddIcon from '@atlaskit/icon/core/migration/add';
 
-				<AddIcon color="currentColor" label="" LEGACY_size="medium" spacing="spacious" />
+				<AddIcon label="" LEGACY_size="medium" spacing="spacious" />
 				`,
 				errors: [
 					{
@@ -185,7 +186,7 @@ describe('no-legacy-icons', () => {
 				output: `
 				import AddIcon from '@atlaskit/icon/core/add';
 
-				<AddIcon color="currentColor" label=""  />
+				<AddIcon label=""  />
 				`,
 				errors: [
 					{
@@ -204,7 +205,7 @@ describe('no-legacy-icons', () => {
 				output: `
 				import AddIcon from '@atlaskit/icon/core/add';
 
-				<AddIcon color="currentColor" label=""  spacing="spacious" />
+				<AddIcon label=""  spacing="spacious" />
 				`,
 				errors: [
 					{
@@ -223,7 +224,7 @@ describe('no-legacy-icons', () => {
 				output: `
 				import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
 
-				<ChevronLeftIcon color="currentColor" label=""  spacing="spacious" />
+				<ChevronLeftIcon label=""  spacing="spacious" />
 				`,
 				errors: [
 					{
@@ -241,7 +242,7 @@ describe('no-legacy-icons', () => {
 				output: `
 				import DocumentIcon from '@atlaskit/icon/core/migration/file--document';
 
-				<DocumentIcon color="currentColor" spacing="spacious" label="" />
+				<DocumentIcon spacing="spacious" label="" />
 				`,
 				errors: [
 					{
@@ -259,7 +260,7 @@ describe('no-legacy-icons', () => {
 				output: `
 				import AddIcon from '@atlaskit/icon/core/migration/add';
 
-				<AddIcon color="currentColor" label="" LEGACY_size="medium" spacing="spacious" />
+				<AddIcon label="" LEGACY_size="medium" spacing="spacious" />
 				`,
 				errors: [
 					{
@@ -281,7 +282,7 @@ describe('no-legacy-icons', () => {
 				import { IconTile } from '@atlaskit/icon';
 				import ReposIcon from '@atlaskit/icon/core/migration/angle-brackets--bitbucket-repos';
 
-				<ReposIcon color="currentColor" LEGACY_size="small" label="" />
+				<ReposIcon LEGACY_size="small" label="" />
 				`,
 				errors: [
 					{
@@ -317,7 +318,7 @@ describe('no-legacy-icons', () => {
 				output: `
 				import {default as ChevronDownIcon} from '@atlaskit/icon/utility/migration/chevron-down';
 
-				<ChevronDownIcon color="currentColor" spacing="spacious" label="" />
+				<ChevronDownIcon spacing="spacious" label="" />
 				`,
 				errors: [
 					{
@@ -339,8 +340,8 @@ describe('no-legacy-icons', () => {
 				import AddIcon, {default as AddIcon2} from '@atlaskit/icon/core/migration/add';
 
 				<div>
-					<AddIcon color="currentColor" spacing="spacious" label="" />
-					<AddIcon2 color="currentColor" spacing="spacious" label="" />
+					<AddIcon spacing="spacious" label="" />
+					<AddIcon2 spacing="spacious" label="" />
 				</div>
 				`,
 				errors: Array(2).fill({
@@ -432,42 +433,46 @@ describe('no-legacy-icons', () => {
 	});
 	tester.run('exported icons', rule, {
 		valid: [],
-		invalid: [...exportedIconTests],
+		invalid: exportedIconTests,
 	});
 	tester.run('Icon map or array', rule, {
 		valid: [],
-		invalid: [...iconMapOrArray],
+		invalid: iconMapOrArray,
 	});
 	tester.run('Icons in custom components', rule, {
 		valid: [],
-		invalid: [...iconsInCustomComponent],
+		invalid: iconsInCustomComponent,
 	});
 	tester.run('Icons in new buttons', rule, {
 		valid: [],
-		invalid: [...newButtonTests],
+		invalid: newButtonTests,
 	});
 	tester.run('Icons in old buttons', rule, {
 		valid: [],
-		invalid: [...oldButtonTests],
+		invalid: oldButtonTests,
 	});
 	tester.run('Icons with spread props', rule, {
 		valid: [],
-		invalid: [...spreadPropsTests],
+		invalid: spreadPropsTests,
 	});
 	tester.run('Icons with size props', rule, {
 		valid: [],
-		invalid: [...sizeTests],
+		invalid: sizeTests,
 	});
 	tester.run('Icons with color props', rule, {
 		valid: [],
-		invalid: [...colorTests],
+		invalid: colorTests,
 	});
 	tester.run('Icons imported from migration paths and with shouldUseMigrationPath=false', rule, {
 		valid: [],
-		invalid: [...migrationPathTests],
+		invalid: migrationPathTests,
 	});
 	tester.run('Icons that have both auto and manual migrations', rule, {
 		valid: [],
-		invalid: [...combinationOfAutoAndManualTests],
+		invalid: combinationOfAutoAndManualTests,
+	});
+	tester.run('Safe migration mode', rule, {
+		valid: [],
+		invalid: safeModeTests,
 	});
 });

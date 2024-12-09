@@ -23,6 +23,7 @@ import type {
 } from '../common';
 import { getAwaitBM3TTIList, getCapabilityRate, getConfig } from '../config';
 import { ExperimentalInteractionMetrics } from '../create-experimental-interaction-metrics-payload';
+import { getExperimentalVCMetrics, getTTAI } from '../create-payload/common/utils';
 import { clearActiveTrace, type TraceIdContext } from '../experience-trace-id-context';
 import { allFeatureFlagsAccessed, currentFeatureFlagsAccessed } from '../feature-flags-accessed';
 import type { LabelStack } from '../interaction-context';
@@ -252,7 +253,7 @@ export function addHold(
 	if (interaction != null) {
 		const holdActive = { labelStack, name, start: 0 };
 		const start = performance.now();
-		if (getConfig()?.enableExperimentalHolds && experimental) {
+		if (getConfig()?.experimentalInteractionMetrics?.enabled && experimental) {
 			interaction.holdExpActive.set(id, { ...holdActive, start });
 		}
 		if (!experimental) {
@@ -529,7 +530,14 @@ export function tryComplete(interactionId: string, endTime?: number) {
 
 		const postInteraction = () => {
 			if (getConfig()?.postInteractionLog?.enabled) {
-				postInteractionLog.onInteractionComplete(interaction);
+				const experimentalVC90 =
+					getExperimentalVCMetrics(interaction)?.['metric:experimental:vc90'];
+				const experimentalTTAI = getTTAI(interaction);
+				postInteractionLog.onInteractionComplete({
+					...interaction,
+					experimentalTTAI,
+					experimentalVC90,
+				});
 			}
 			remove(interactionId);
 			activeSubmitted = false;
@@ -542,7 +550,7 @@ export function tryComplete(interactionId: string, endTime?: number) {
 			}
 
 			if (noMoreExpHolds) {
-				if (getConfig()?.enableExperimentalHolds) {
+				if (getConfig()?.experimentalInteractionMetrics?.enabled) {
 					experimentalInteractionLog.onInteractionComplete(interactionId, interaction, endTime);
 				}
 				postInteraction();
@@ -557,7 +565,7 @@ export function abort(interactionId: string, abortReason: AbortReasonType) {
 		callCancelCallbacks(interaction);
 		interaction.abortReason = abortReason;
 		finishInteraction(interactionId, interaction);
-		if (getConfig()?.enableExperimentalHolds) {
+		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
 			experimentalInteractionLog.onInteractionComplete(interactionId, interaction);
 		}
 		remove(interactionId);
@@ -571,7 +579,7 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		interaction.abortReason = 'new_interaction';
 		interaction.abortedByInteractionName = interactionName;
 		finishInteraction(interactionId, interaction);
-		if (getConfig()?.enableExperimentalHolds) {
+		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
 			experimentalInteractionLog.onInteractionComplete(interactionId, interaction);
 		}
 		remove(interactionId);
@@ -590,7 +598,7 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 		}
 
 		finishInteraction(interactionId, interaction);
-		if (getConfig()?.enableExperimentalHolds) {
+		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
 			experimentalInteractionLog.onInteractionComplete(interactionId, interaction);
 		}
 		remove(interactionId);

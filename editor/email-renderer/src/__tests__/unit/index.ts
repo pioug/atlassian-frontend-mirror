@@ -1,4 +1,4 @@
-import type { EmailSerializerOpts } from '../..';
+import type { EmailSerializerOpts, MetaDataContext } from '../../interfaces';
 import EmailSerializer from '../..';
 import { defaultSchema, getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import MockDate from 'mockdate';
@@ -53,7 +53,6 @@ import * as nestedExpandInExpand from './__fixtures__/nested-expand-in-expand.ad
 import * as codeblockInQuote from './__fixtures__/codeblock-in-quote.adf.json';
 import * as mediaSingleInQuote from './__fixtures__/media-single-in-quote.adf.json';
 import * as mediaGroupInQuote from './__fixtures__/media-group-in-quote.adf.json';
-import type { MetaDataContext } from '../../interfaces';
 
 const defaultTestOpts: EmailSerializerOpts = {
 	isImageStubEnabled: false,

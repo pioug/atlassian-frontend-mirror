@@ -444,3 +444,166 @@ events:
           required: true
           description: Additional details about the error including the stack trace.
           type: object
+  - smartLink clicked:
+      type: ui
+      description: fires an event that represents when a user clicks on a Smart Link.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
+        id:
+          required: true
+          type: string
+          description: The unique ID for this Smart Link.
+        display:
+          required: true
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          description: Whether the card was an Inline, Block, Embed or Flexible UI
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+        isModifierKeyPressed:
+          required: false
+          type: boolean
+          description: Whether a modifier key was pressed when clicking the Smart Link.
+  - smartLink clicked (titleGoToLink):
+      type: ui
+      description: fires an event that represents when a user clicks on a Smart Link.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
+        id:
+          required: true
+          type: string
+          description: The unique ID for this Smart Link.
+        display:
+          required: true
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          description: Whether the card was an Inline, Block, Embed or Flexible UI
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+        isModifierKeyPressed:
+          required: false
+          type: boolean
+          description: Whether a modifier key was pressed when clicking the Smart Link.
+  - hoverCard viewed:
+      type: ui
+      description: fires an event that represents a hover preview being opened.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
+        previewDisplay:
+          type: ['card', 'embed']
+          required: true
+          description: What format the preview is in.
+        previewInvokeMethod:
+          type: ['keyboard', 'mouse_hover', 'mouse_click']
+          required: false
+          description: How the preview was triggered.
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+  - hoverCard dismissed:
+      type: ui
+      description: fires an event that represents a hover preview being dismissed.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
+        previewDisplay:
+          type: ['card', 'embed']
+          required: true
+          description: What format the preview is in.
+        hoverTime:
+          type: number
+          required: true
+          description:
+            The duration that the user hovered over a Smart Link before the preview was dismissed.
+        previewInvokeMethod:
+          type: ['keyboard', 'mouse_hover', 'mouse_click']
+          required: false
+          description: How the preview was triggered.
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+  - button clicked (connectAccount):
+      type: ui
+      description:
+        fires an event that represents when a user clicks on the authentication call to action with
+        no current authenticated account. (i.e. Connect to Preview).
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+        display:
+          required: true
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          description: Whether the card was an Inline, Block, Embed or Flexible UI.
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+  - smartLink clicked (tryAnotherAccount):
+      type: ui
+      description:
+        fires an event that represents when a user clicks on the authentication call to action with
+        a forbidden authenticated account. (i.e. Try another account).
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+        display:
+          required: true
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          description: Whether the card was an Inline, Block, Embed or Flexible UI.
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+  - consentModal closed:
+      type: ui
+      description:
+        fires an event that represents when a user closed the authentication window without
+        authenticating after opening it.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+        display:
+          required: true
+          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          description: Whether the card was an Inline, Block, Embed or Flexible UI.
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+  - button clicked (learnMore):
+      type: ui
+      description:
+        fires an event that signifies that a "Learn More" link was clicked on an unauthenticated
+        card
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+  - button clicked (smartLinkStatusLozenge):
+      type: ui
+      description: fires an event that represent a click was performed on a Status Lozenge
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+  - button clicked (smartLinkStatusListItem):
+      type: ui
+      description:
+        fires an event that represent a click was performed on a Status Lozenge's dropdown item
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+  - button clicked (smartLinkStatusOpenPreview):
+      type: ui
+      description:
+        fires an event that represent a click was performed on a Status Lozenge open preview button
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+  - button clicked (smartLinkFollowButton):
+      type: ui
+      description: fires an event that represents a click was performed on the follow button.
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+  - button clicked (StatusUpdateAction):
+      type: ui
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]
+  - button clicked (GetStatusTransitionsAction):
+      type: ui
+      attributes:
+        <<: [*PackageMetaDataContext, *CommonContext]

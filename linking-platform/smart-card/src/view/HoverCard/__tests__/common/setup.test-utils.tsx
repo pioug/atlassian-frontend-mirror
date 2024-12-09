@@ -4,8 +4,10 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
+import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
+import { Box } from '@atlaskit/primitives';
 import { Card, type CardProps, Provider, type ProviderProps } from '@atlaskit/smart-card';
 import { setGlobalTheme } from '@atlaskit/tokens';
 
@@ -45,27 +47,36 @@ export const setup = async ({
 }: SetUpParams = {}) => {
 	const mockClient = new (fakeFactory(mockFetch))();
 	const analyticsSpy = jest.fn();
+	const mockAnalyticsClient = {
+		sendUIEvent: jest.fn().mockResolvedValue(undefined),
+		sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+		sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+		sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+	} satisfies AnalyticsWebClient;
+
 	setGlobalTheme({ colorMode: 'dark' });
 
 	const { container, findAllByTestId, queryByTestId, findByTestId, findByRole, queryByRole } =
 		render(
-			<AnalyticsListener channel={analytics.ANALYTICS_CHANNEL} onEvent={analyticsSpy}>
-				<IntlProvider locale="en">
-					<Provider client={mockClient} featureFlags={featureFlags}>
-						{component ? (
-							component
-						) : (
-							<Card
-								appearance="inline"
-								url={mockUrl}
-								showHoverPreview={true}
-								showAuthTooltip={true}
-								{...extraCardProps}
-							/>
-						)}
-					</Provider>
-				</IntlProvider>
-			</AnalyticsListener>,
+			<FabricAnalyticsListeners client={mockAnalyticsClient}>
+				<AnalyticsListener channel={analytics.ANALYTICS_CHANNEL} onEvent={analyticsSpy}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient} featureFlags={featureFlags}>
+							{component ? (
+								component
+							) : (
+								<Card
+									appearance="inline"
+									url={mockUrl}
+									showHoverPreview={true}
+									showAuthTooltip={true}
+									{...extraCardProps}
+								/>
+							)}
+						</Provider>
+					</IntlProvider>
+				</AnalyticsListener>
+			</FabricAnalyticsListeners>,
 		);
 
 	const element = await screen.findByTestId(testId);
@@ -85,6 +96,7 @@ export const setup = async ({
 		analyticsSpy,
 		dateSpy,
 		event,
+		mockAnalyticsClient,
 	};
 };
 
@@ -107,11 +119,11 @@ export const setupEventPropagationTest = async ({
 	const event = userEvent.setup({ delay: null });
 
 	const renderResult = render(
-		<div onClick={mockOnClick}>
+		<Box onClick={mockOnClick}>
 			<Provider client={mockClient}>
 				{component ?? <Card appearance="inline" url="https://some.url" showHoverPreview={true} />}
 			</Provider>
-		</div>,
+		</Box>,
 	);
 
 	const element = await screen.findByTestId(testId);

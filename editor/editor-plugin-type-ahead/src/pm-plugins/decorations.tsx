@@ -71,7 +71,14 @@ export const factoryDecorations = ({
 		let shouldFocusCursorInsideQuery = true;
 		const deco = Decoration.widget(
 			$cursor.pos,
-			(editorView: EditorView, getDecorationPosition: () => number | undefined) => {
+			(editorView: EditorView, getDecorationPositionUnsafe: () => number | undefined) => {
+				const getDecorationPosition = () => {
+					try {
+						return getDecorationPositionUnsafe();
+					} catch (e) {
+						return undefined;
+					}
+				};
 				typeaheadComponent.setAttribute('id', decorationId);
 				typeaheadComponent.setAttribute('role', 'search');
 

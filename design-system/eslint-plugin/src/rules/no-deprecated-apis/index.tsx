@@ -1,50 +1,49 @@
-import { AST_NODE_TYPES, ASTUtils, type TSESTree } from '@typescript-eslint/utils';
+import type { Rule } from 'eslint';
+import {
+	type Directive,
+	type ImportDeclaration,
+	isNodeOfType,
+	type JSXIdentifier,
+	type JSXOpeningElement,
+	type ModuleDeclaration,
+	type Statement,
+} from 'eslint-codemod-utils';
 
-import { createRule } from '../utils/create-rule';
+import { createLintRule } from '../utils/create-rule';
 import { getConfig } from '../utils/get-deprecated-config';
-import { type DeprecatedConfig, isDeprecatedJSXAttributeConfig } from '../utils/types';
+import { DeprecatedConfig, isDeprecatedJSXAttributeConfig } from '../utils/types';
 
 export const noDeprecatedJSXAttributeMessageId = 'noDeprecatedJSXAttributes';
 
-const isNodeOfType = <NodeType extends AST_NODE_TYPES>(node: TSESTree.Node, nodeType: NodeType) =>
-	ASTUtils.isNodeOfType(nodeType)(node);
-
 const isImportDeclaration = (
-	programStatement: TSESTree.ProgramStatement | undefined,
-): programStatement is TSESTree.ImportDeclaration => {
+	programStatement: Directive | Statement | ModuleDeclaration,
+): programStatement is ImportDeclaration => {
 	return programStatement?.type === 'ImportDeclaration';
 };
 
-const findJSXElementName = (jsxAttributeNode: TSESTree.JSXAttribute): string | undefined => {
-	if (
-		!jsxAttributeNode.parent ||
-		!isNodeOfType(jsxAttributeNode.parent, AST_NODE_TYPES.JSXOpeningElement)
-	) {
+const findJSXElementName = (jsxAttributeNode: Rule.Node): string | undefined => {
+	if (!jsxAttributeNode.parent || !isNodeOfType(jsxAttributeNode?.parent, 'JSXOpeningElement')) {
 		return;
 	}
 
-	const openingElement = jsxAttributeNode.parent as TSESTree.JSXOpeningElement;
-	if (!isNodeOfType(openingElement.name, AST_NODE_TYPES.JSXIdentifier)) {
+	const openingElement = jsxAttributeNode.parent as JSXOpeningElement;
+	if (!isNodeOfType(openingElement.name, 'JSXIdentifier')) {
 		return;
 	}
 
-	return (openingElement.name as TSESTree.JSXIdentifier).name;
+	return (openingElement.name as JSXIdentifier).name;
 };
 
 export const name = 'no-deprecated-apis';
 
-const rule = createRule<[{ deprecatedConfig: DeprecatedConfig }], string>({
-	name,
-	defaultOptions: [
-		{
-			deprecatedConfig: getConfig('jsxAttributes'),
-		},
-	],
+const rule = createLintRule({
 	meta: {
+		name,
 		type: 'suggestion',
 		docs: {
 			description: 'Disallow using deprecated APIs.',
-			recommended: 'strict',
+			recommended: true,
+			severity: 'error',
 		},
 		messages: {
 			noDeprecatedJSXAttributes: 'The JSX attribute {{propName}} has been deprecated.',
@@ -78,23 +77,19 @@ const rule = createRule<[{ deprecatedConfig: DeprecatedConfig }], string>({
 			},
 		],
 	},
-
-	create(context, [options]) {
-		// Get rule configuration
-		const { deprecatedConfig: defaultDeprecatedConfig } = options;
-
+	create(context) {
 		// Get the rule configuration specified otherwise use default config.
 		// A bit confusing as it seems that the default options have precedence over the user specified options.
-		const deprecatedConfig = context.options[0]?.deprecatedConfig || defaultDeprecatedConfig;
+		const deprecatedConfig: DeprecatedConfig =
+			context.options[0]?.deprecatedConfig || getConfig('jsxAttributes');
 
 		return {
 			// find JSX atribute - find name of attribute - get source and find relevant identifiers.
-			JSXAttribute(node) {
-				const jsxAttributeIdentifier = node.name;
-				if (!isNodeOfType(jsxAttributeIdentifier, AST_NODE_TYPES.JSXIdentifier)) {
+			JSXAttribute(node: Rule.Node) {
+				if (!isNodeOfType(node, 'JSXAttribute') || !isNodeOfType(node.name, 'JSXIdentifier')) {
 					return;
 				}
-				const jsxAttributeName = jsxAttributeIdentifier.name as string;
+				const jsxAttributeName = node.name.name;
 
 				if (
 					!isDeprecatedJSXAttributeConfig(deprecatedConfig) ||
@@ -108,13 +103,19 @@ const rule = createRule<[{ deprecatedConfig: DeprecatedConfig }], string>({
 				if (!jsxElementName) {
 					return;
 				}
-				const source = context.getSourceCode();
+				const source = context.sourceCode;
 
 				// find an import for the path of the banned api
 				deprecatedConfig[jsxAttributeName].forEach((importItem) => {
 					const importNode = source.ast.body
 						.filter(isImportDeclaration)
-						.find((node) => node.source.value.includes(importItem.moduleSpecifier));
+						.find(
+							(node) =>
+								node &&
+								node.source.value &&
+								typeof node.source.value === 'string' &&
+								node.source.value.includes(importItem.moduleSpecifier),
+						);
 
 					if (!importNode) {
 						return;

@@ -125,7 +125,14 @@ export const createDropTargetDecoration = (
 	const key = uuid();
 	return Decoration.widget(
 		pos,
-		(_, getPos) => {
+		(_, getPosUnsafe) => {
+			const getPos = () => {
+				try {
+					return getPosUnsafe();
+				} catch (e) {
+					return undefined;
+				}
+			};
 			const element = document.createElement('div');
 			element.setAttribute('data-blocks-drop-target-container', 'true');
 			element.setAttribute('data-blocks-drop-target-key', key);
@@ -178,7 +185,14 @@ export const createLayoutDropTargetDecoration = (
 	const key = uuid();
 	return Decoration.widget(
 		pos,
-		(_, getPos) => {
+		(_, getPosUnsafe) => {
+			const getPos = () => {
+				try {
+					return getPosUnsafe();
+				} catch (e) {
+					return undefined;
+				}
+			};
 			const element = document.createElement('div');
 			element.setAttribute('data-blocks-drop-target-container', 'true');
 			element.setAttribute('data-blocks-drop-target-key', key);

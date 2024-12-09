@@ -174,6 +174,9 @@
 		"send-smart-link-rendered-ufo-event-half-time": {
 			"type": "boolean"
 		},
+		"platform_migrate-some-ui-events-smart-card": {
+			"type": "boolean"
+		},
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
 		},
@@ -181,12 +184,6 @@
 			"type": "boolean"
 		},
 		"smart_links_for_plans_platform": {
-			"type": "boolean"
-		},
-		"platform_smart-card-migrate-operational-analytics": {
-			"type": "boolean"
-		},
-		"smart-card-remove-block-card-from-embed": {
 			"type": "boolean"
 		},
 		"platform_editor_hyperlink_underline": {

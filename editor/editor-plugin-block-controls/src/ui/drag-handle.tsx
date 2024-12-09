@@ -184,12 +184,21 @@ export const DragHandle = ({
 	// as expected with a node selection. This workaround sets the selection to the node on mouseDown,
 	// but ensures the preview is generated correctly.
 	const handleMouseDown = useCallback(() => {
-		if (
-			!(isLayoutColumn && editorExperiment('advanced_layouts', true)) &&
-			fg('platform_editor_element_drag_and_drop_ed_24885')
-		) {
+		if (editorExperiment('advanced_layouts', true)) {
+			// prevent native drag and drop.
+			if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+				buttonRef.current?.focus();
+			}
+
+			if (!isLayoutColumn) {
+				return undefined;
+			}
+		}
+
+		if (fg('platform_editor_element_drag_and_drop_ed_24885')) {
 			return undefined;
 		}
+
 		api?.core?.actions.execute(({ tr }) => {
 			const startPos = getPos();
 			if (startPos === undefined) {
@@ -208,6 +217,7 @@ export const DragHandle = ({
 				selection = new TextSelection($startPos);
 			}
 			tr.setSelection(selection);
+
 			return tr;
 		});
 	}, [api?.core?.actions, getPos, isLayoutColumn]);

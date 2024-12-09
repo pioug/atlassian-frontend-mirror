@@ -20,6 +20,7 @@ import { buildLayoutButtons, commandWithMetadata } from '@atlaskit/editor-common
 import type { CardOptions } from '@atlaskit/editor-common/card';
 import { getLinkPreferencesURLFromENV } from '@atlaskit/editor-common/link';
 import commonMessages, {
+	annotationMessages,
 	linkMessages,
 	linkToolbarMessages,
 	cardMessages as messages,
@@ -44,10 +45,12 @@ import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, removeSelectedNode } from '@atlaskit/editor-prosemirror/utils';
+import CommentIcon from '@atlaskit/icon/core/comment';
 import DeleteIcon from '@atlaskit/icon/core/delete';
 import LinkBrokenIcon from '@atlaskit/icon/core/link-broken';
 import LinkExternalIcon from '@atlaskit/icon/core/link-external';
 import SettingsIcon from '@atlaskit/icon/core/settings';
+import LegacyCommentIcon from '@atlaskit/icon/glyph/comment';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import CogIcon from '@atlaskit/icon/glyph/editor/settings';
 import UnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
@@ -335,6 +338,32 @@ const generateToolbarItems =
 		const isDatasource = isDatasourceNode(node);
 		const pluginState: CardPluginState | undefined = pluginKey.getState(state);
 
+		const annotationApiState = pluginInjectionApi?.annotation?.sharedState.currentState();
+
+		const activeCommentMark = node.marks.find(
+			(mark) =>
+				mark.type.name === 'annotation' && annotationApiState?.annotations[mark.attrs.id] === false,
+		);
+
+		const isCommentEnabled =
+			annotationApiState &&
+			annotationApiState.isVisible &&
+			!annotationApiState.bookmark &&
+			!annotationApiState.mouseData.isSelecting &&
+			!activeCommentMark &&
+			node.type === state.schema.nodes.inlineCard &&
+			fg('platform_inline_node_as_valid_annotation_selection');
+
+		const onCommentButtonClick: Command = (state, dispatch) => {
+			if (!pluginInjectionApi?.annotation || !isCommentEnabled) {
+				return false;
+			}
+
+			const { setInlineCommentDraftState } = pluginInjectionApi.annotation.actions;
+			const command = setInlineCommentDraftState(true, INPUT_METHOD.FLOATING_TB);
+			return command(state, dispatch);
+		};
+
 		const shouldRenderDatasourceToolbar =
 			isDatasource &&
 			cardOptions.allowDatasource &&
@@ -397,8 +426,24 @@ const generateToolbarItems =
 						{ type: 'separator' },
 					];
 
+			const commentItems: Array<FloatingToolbarItem<Command>> = isCommentEnabled
+				? [
+						{
+							id: 'editor.link.commentLink',
+							type: 'button',
+							icon: CommentIcon,
+							testId: 'inline-card-toolbar-comment-button',
+							iconFallback: LegacyCommentIcon,
+							title: intl.formatMessage(annotationMessages.createComment),
+							onClick: onCommentButtonClick,
+						},
+						{ type: 'separator' },
+					]
+				: [];
+
 			const toolbarItems: Array<FloatingToolbarItem<Command>> = [
 				...editItems,
+				...commentItems,
 				{
 					id: 'editor.link.openLink',
 					type: 'button',

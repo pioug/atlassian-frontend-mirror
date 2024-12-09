@@ -1,5 +1,8 @@
+import coinflip from '../coinflip';
 import type { InteractionMetrics } from '../common';
+import { getConfig, getExperimentalInteractionRate } from '../config';
 import { createInteractionMetricsPayload, getUfoNameOverride } from '../create-payload';
+import { getPageVisibilityState } from '../hidden-timing';
 import { VCObserver, type VCObserverOptions } from '../vc/vc-observer';
 
 export class ExperimentalInteractionMetrics {
@@ -48,8 +51,29 @@ export class ExperimentalInteractionMetrics {
 	}
 }
 
-export function createPayload(interactionId: string, interaction: InteractionMetrics) {
-	const ufoNameOverride = getUfoNameOverride(interaction);
-	const modifiedInteraction = { ...interaction, ufoName: ufoNameOverride };
+export function createExperimentalInteractionMetricsPayload(
+	interactionId: string,
+	interaction: InteractionMetrics,
+) {
+	const config = getConfig();
+
+	if (!config) {
+		throw Error('UFO Configuration not provided');
+	}
+
+	const ufoName = getUfoNameOverride(interaction);
+	const modifiedInteraction = { ...interaction, ufoName };
+	const rate = getExperimentalInteractionRate(ufoName, interaction.type);
+
+	if (!coinflip(rate)) {
+		return null;
+	}
+
+	const pageVisibilityState = getPageVisibilityState(interaction.start, interaction.end);
+
+	if (pageVisibilityState !== 'visible') {
+		return null;
+	}
+
 	return createInteractionMetricsPayload(modifiedInteraction, interactionId, true);
 }

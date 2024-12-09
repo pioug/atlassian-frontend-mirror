@@ -31,7 +31,7 @@ interface ContentSlotProps {
  *
  */
 const ContentSlot: FC<ContentSlotProps> = ({ children }) => (
-	<div css={contentSlotStyles}>{children}</div>
+	<div css={contentSlotStyles.root}>{children}</div>
 );
 
 export default ContentSlot;

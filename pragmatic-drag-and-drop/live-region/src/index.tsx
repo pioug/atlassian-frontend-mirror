@@ -1,3 +1,5 @@
+import { announceDelay } from './constants';
+
 let node: HTMLElement | null = null;
 
 const size = '1px';
@@ -26,7 +28,14 @@ const visuallyHiddenStyles = {
  */
 function createNode(): HTMLElement {
 	const node = document.createElement('div');
-	node.setAttribute('role', 'alert');
+	/**
+	 * Using `role="status"` instead of `role="alert"` so that the message
+	 * can be queued and read when able.
+	 *
+	 * We found with `role="alert"` the message was not reliably read when
+	 * focus changed.
+	 */
+	node.setAttribute('role', 'status');
 	Object.assign(node.style, visuallyHiddenStyles);
 	document.body.append(node);
 	return node;
@@ -42,18 +51,47 @@ function getNode(): HTMLElement {
 	return node;
 }
 
+let timerId: ReturnType<typeof setTimeout> | null = null;
+
+function tryClearTimer() {
+	if (timerId !== null) {
+		clearTimeout(timerId);
+	}
+	timerId = null;
+}
+
 /**
  * Announces the provided message to assistive technology.
  */
 export function announce(message: string) {
-	const node = getNode();
-	node.textContent = message;
+	/**
+	 * Calling this immediately to ensure a node exists and has time to be parsed
+	 * and exposed in the accessibility tree.
+	 */
+	getNode();
+
+	/**
+	 * Updating the message in a timeout so that it's less likely to be interrupted.
+	 *
+	 * This function is often called right before focus changes,
+	 * because the user has just taken an action.
+	 * This focus change would often cause the message to be skipped / interrupted.
+	 */
+	tryClearTimer();
+	timerId = setTimeout(() => {
+		timerId = null;
+		const node = getNode();
+		node.textContent = message;
+	}, announceDelay);
+
+	return;
 }
 
 /**
  * Removes the created live region. If there is no live region this is a no-op.
  */
 export function cleanup() {
+	tryClearTimer();
 	node?.remove();
 	node = null;
 }

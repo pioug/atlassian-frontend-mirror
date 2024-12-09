@@ -75,7 +75,7 @@ describe('MessageIcon component', () => {
 			it('should apply iconColorStyles if isOpen prop is true', () => {
 				const { container } = render(<MessageIcon appearance="info" isOpen={true} />);
 				// eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
-				expect(container.querySelector('span')).toHaveStyleRule(
+				expect(container.querySelector('span')).toHaveCompiledCss(
 					'color',
 					'var(--icon-accent-color)',
 				);
@@ -85,7 +85,7 @@ describe('MessageIcon component', () => {
 				const { container } = render(<MessageIcon appearance="info" isOpen={false} />);
 
 				// eslint-disable-next-line testing-library/no-container,testing-library/no-node-access
-				expect(container.querySelector('span')).toHaveStyleRule('color', 'var(--icon-color)');
+				expect(container.querySelector('span')).toHaveCompiledCss('color', 'var(--icon-color)');
 			});
 		});
 	});

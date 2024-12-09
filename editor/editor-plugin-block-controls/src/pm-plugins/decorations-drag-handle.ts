@@ -53,9 +53,10 @@ export const dragHandleDecoration = (
 
 	let unbind: UnbindFn;
 	const key = uuid();
+
 	return Decoration.widget(
 		pos,
-		(view, getPos) => {
+		(view, getPosUnsafe) => {
 			const element = document.createElement('span');
 			// Need to set it to inline to avoid text being split when merging two paragraphs
 			// platform_editor_element_dnd_nested_fix_patch_2 -> inline decoration causes focus issues when refocusing Editor into first line
@@ -66,6 +67,14 @@ export const dragHandleDecoration = (
 			element.setAttribute('data-blocks-drag-handle-container', 'true');
 			element.setAttribute('data-blocks-drag-handle-key', key);
 			let isTopLevelNode = true;
+
+			const getPos = () => {
+				try {
+					return getPosUnsafe();
+				} catch (e) {
+					return undefined;
+				}
+			};
 
 			if (editorExperiment('nested-dnd', true)) {
 				const newPos = fg('platform_editor_element_dnd_nested_fix_patch_3') ? getPos() : pos;

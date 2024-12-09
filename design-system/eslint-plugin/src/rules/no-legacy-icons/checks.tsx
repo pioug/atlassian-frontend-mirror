@@ -57,7 +57,7 @@ type ReturnObject = {
 };
 
 export const createChecks = (context: Rule.RuleContext): ReturnObject => {
-	//create global variables to be shared by the checks
+	// Create global variables to be shared by the checks
 	const { getPrimaryColor, getConfigFlag } = createHelpers(context);
 	const legacyIconImports: LegacyIconImportList = {};
 
@@ -76,6 +76,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 	const shouldErrorForAutoMigration = getConfigFlag('shouldErrorForAutoMigration', true);
 	const isQuietMode = getConfigFlag('quiet', false);
 	const shouldUseMigrationPath = getConfigFlag('shouldUseMigrationPath', true);
+	const shouldUseSafeMigrationMode = getConfigFlag('shouldUseSafeMigrationMode', false);
 
 	// Sorted list of ranges
 	let errorRanges: RangeList = [];
@@ -531,10 +532,11 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 			// Find size prop on node
 			let size: Size | null = 'medium';
 			let primaryColor: string | null = null;
+			let hasPrimaryColorProp = false;
+			let hasSecondaryColorProp = false;
 			let afterSpreadSet = new Set<string>();
 			let requiredAttributesAfterSpread = new Set(['size', 'primaryColor', 'secondaryColor']);
 			let hasSpread = false;
-			let hasPrimaryColorProp = false;
 
 			for (const attr of node.openingElement.attributes) {
 				// Detect spread props
@@ -576,10 +578,16 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 						primaryColor = getPrimaryColor(attr);
 						hasPrimaryColorProp = true;
 						break;
+
+					case 'secondaryColor':
+						hasSecondaryColorProp = true;
+						break;
 				}
 			}
 
 			let hasManualMigration = false;
+
+			// Flag manual migration if primary color cannot be migrated
 			if (
 				(primaryColor && !canMigrateColor(primaryColor)) ||
 				(hasPrimaryColorProp && !primaryColor)
@@ -600,6 +608,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				createCantMigrateSizeUnknown(node, errorsManual, legacyIconImports[name].packageName, name);
 				hasManualMigration = true;
 			}
+
 			// Do a set comparison - is requiredAttributesAfterSpread a subset of afterSpreadSet?
 			if (
 				hasSpread === true &&
@@ -618,6 +627,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				);
 				hasManualMigration = true;
 			}
+
 			// Check if it is an exported component?
 			if (legacyIconImports[name].exported) {
 				createCantMigrateReExportError(
@@ -628,6 +638,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				);
 				hasManualMigration = true;
 			}
+
 			const migrationMapObject = getMigrationMapObject(legacyIconImports[name].packageName);
 			const upcomingIcon = getUpcomingIcons(legacyIconImports[name].packageName);
 			const newIcon = migrationMapObject?.newIcon;
@@ -659,7 +670,19 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 				}
 			}
 
-			if (!hasManualMigration && (newIcon || upcomingIcon) && isNewIconMigratable) {
+			if (
+				shouldUseSafeMigrationMode &&
+				!hasManualMigration &&
+				(newIcon?.isMigrationUnsafe || size !== 'medium' || hasSecondaryColorProp)
+			) {
+				createCantFindSuitableReplacementError(
+					node,
+					legacyIconImports[name].packageName,
+					name,
+					errorsManual,
+					upcomingIcon ? true : migrationMapObject ? true : false,
+				);
+			} else if (!hasManualMigration && (newIcon || upcomingIcon) && isNewIconMigratable) {
 				createAutoMigrationError({
 					node,
 					importSource: legacyIconImports[name].packageName,

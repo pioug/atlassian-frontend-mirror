@@ -2,14 +2,22 @@ import React from 'react';
 
 import { status } from '@atlaskit/adf-schema';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
-import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
+import { addInlineComment, ToolTipContent } from '@atlaskit/editor-common/keymaps';
+import {
+	annotationMessages,
+	toolbarInsertBlockMessages as messages,
+} from '@atlaskit/editor-common/messages';
 import { IconStatus } from '@atlaskit/editor-common/quick-insert';
 import type {
-	ExtractInjectionAPI,
+	FloatingToolbarItem,
 	NextEditorPlugin,
 	OptionalPlugin,
+	Command,
 } from '@atlaskit/editor-common/types';
+import { calculateToolbarPositionAboveSelection } from '@atlaskit/editor-common/utils';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import CommentIcon from '@atlaskit/icon/core/comment';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { UpdateStatus } from './actions';
 import {
@@ -24,10 +32,44 @@ import { pluginKey } from './pm-plugins/plugin-key';
 import type { StatusPluginOptions, StatusState } from './types';
 import { ContentComponent } from './ui/ContentComponent';
 
+// This dummy type is to bypass the typescript compiler maximum length limit error
+// TODO: Fix the type definition of editor-core's createUniversalPreset
+type DummyAnnotationPlugin = NextEditorPlugin<
+	'annotation',
+	{
+		actions: {
+			setInlineCommentDraftState: (isDraft: boolean, inputMethod: INPUT_METHOD) => Command;
+		};
+		sharedState: {
+			annotations: Record<string, boolean>;
+			isVisible: boolean;
+			bookmark: boolean;
+			mouseData: {
+				isSelecting: boolean;
+			};
+		};
+	}
+>;
+
+// This dummy type is to bypass the typescript compiler maximum length limit error
+// TODO: Fix the type definition of editor-core's createUniversalPreset
+type DummyEditorViewModePlugin = NextEditorPlugin<
+	'editorViewMode',
+	{
+		sharedState: {
+			mode: 'view' | 'edit';
+		};
+	}
+>;
+
 export type StatusPlugin = NextEditorPlugin<
 	'status',
 	{
-		dependencies: [OptionalPlugin<AnalyticsPlugin>];
+		dependencies: [
+			OptionalPlugin<AnalyticsPlugin>,
+			OptionalPlugin<DummyAnnotationPlugin>,
+			OptionalPlugin<DummyEditorViewModePlugin>,
+		];
 		pluginConfiguration: StatusPluginOptions | undefined;
 		actions: {
 			commitStatusPicker: typeof commitStatusPicker;
@@ -41,7 +83,7 @@ export type StatusPlugin = NextEditorPlugin<
 	}
 >;
 
-const baseStatusPlugin: StatusPlugin = ({ config: options, api }) => ({
+export const statusPlugin: StatusPlugin = ({ config: options, api }) => ({
 	name: 'status',
 
 	nodes() {
@@ -83,6 +125,92 @@ const baseStatusPlugin: StatusPlugin = ({ config: options, api }) => ({
 			: undefined;
 	},
 
+	pluginsOptions: {
+		quickInsert: ({ formatMessage }) => {
+			if (options?.menuDisabled === true) {
+				return [];
+			}
+
+			return [
+				{
+					id: 'status',
+					title: formatMessage(messages.status),
+					description: formatMessage(messages.statusDescription),
+					priority: 700,
+					keywords: ['lozenge'],
+					icon: () => <IconStatus />,
+					action(_insert, state) {
+						return (
+							insertStatus(api?.analytics?.actions)(INPUT_METHOD.QUICK_INSERT)({ tr: state.tr }) ??
+							state.tr
+						);
+					},
+				},
+			];
+		},
+		floatingToolbar(state, intl) {
+			const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+
+			if (!fg('platform_inline_node_as_valid_annotation_selection') || !isViewMode) {
+				return undefined;
+			}
+
+			return {
+				title: 'Status floating toolbar',
+				nodeType: state.schema.nodes.status,
+				onPositionCalculated: calculateToolbarPositionAboveSelection('Status floating toolbar'),
+				items: (node) => {
+					const annotationState = api?.annotation?.sharedState.currentState();
+					const hasActiveMark = node.marks.some(
+						(mark) =>
+							mark.type.name === 'annotation' &&
+							annotationState?.annotations[mark.attrs.id] === false,
+					);
+					const showAnnotation =
+						annotationState &&
+						isViewMode &&
+						annotationState.isVisible &&
+						!annotationState.bookmark &&
+						!annotationState.mouseData.isSelecting &&
+						!hasActiveMark;
+
+					const onCommentClick: Command = (stateFromClickEvent, dispatch) => {
+						if (!api?.annotation) {
+							return true;
+						}
+
+						const command = api.annotation.actions.setInlineCommentDraftState(
+							true,
+							INPUT_METHOD.TOOLBAR,
+						);
+
+						return command(stateFromClickEvent, dispatch);
+					};
+
+					const createCommentMessage = intl.formatMessage(annotationMessages.createComment);
+
+					const commentItems: FloatingToolbarItem<Command>[] = showAnnotation
+						? [
+								{
+									type: 'button',
+									title: createCommentMessage,
+									onClick: onCommentClick,
+									showTitle: true,
+									tooltipContent: (
+										<ToolTipContent description={createCommentMessage} keymap={addInlineComment} />
+									),
+									icon: CommentIcon,
+									supportsViewMode: true,
+								},
+							]
+						: [];
+
+					return [...commentItems];
+				},
+			};
+		},
+	},
+
 	contentComponent({
 		editorView,
 		popupsMountPoint,
@@ -103,35 +231,3 @@ const baseStatusPlugin: StatusPlugin = ({ config: options, api }) => ({
 		);
 	},
 });
-
-const decorateWithPluginOptions = (
-	plugin: ReturnType<StatusPlugin>,
-	options: StatusPluginOptions | undefined,
-	api: ExtractInjectionAPI<StatusPlugin> | undefined,
-) => {
-	if (options?.menuDisabled === true) {
-		return plugin;
-	}
-	plugin.pluginsOptions = {
-		quickInsert: ({ formatMessage }) => [
-			{
-				id: 'status',
-				title: formatMessage(messages.status),
-				description: formatMessage(messages.statusDescription),
-				priority: 700,
-				keywords: ['lozenge'],
-				icon: () => <IconStatus />,
-				action(insert, state) {
-					return (
-						insertStatus(api?.analytics?.actions)(INPUT_METHOD.QUICK_INSERT)({ tr: state.tr }) ??
-						state.tr
-					);
-				},
-			},
-		],
-	};
-	return plugin;
-};
-
-export const statusPlugin: StatusPlugin = ({ config: options, api }) =>
-	decorateWithPluginOptions(baseStatusPlugin({ config: options, api }), options, api);

@@ -379,6 +379,9 @@
 		},
 		"platform_editor_hide_external_media_badge": {
 			"type": "boolean"
+		},
+		"platform_editor_nested_tables_renderer_styles": {
+			"type": "boolean"
 		}
 	}
 }

@@ -1093,6 +1093,7 @@ export type TokenisedProps = {
 	columnGap?: Space;
 	font?: Font | string;
 	fontFamily?: FontFamily | string;
+	fontStyle?: 'normal' | 'italic';
 	fontWeight?: FontWeight | string | number;
 	gap?: Space;
 	height?: Dimension | string;

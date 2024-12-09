@@ -1,3 +1,5 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import {
 	type Fragment,
@@ -163,20 +165,6 @@ export class EmailSerializer implements SerializerWithImages<string> {
 	}
 }
 
-export type {
-	Attrs,
-	EmailSerializerOpts,
-	MarkSerializer,
-	MarkSerializerOpts,
-	MediaMetaDataContextItem,
-	MediaType,
-	MetaDataContext,
-	NodeSerializer,
-	NodeSerializerOpts,
-	SmartCardWithDataAttributes,
-	SmartCardWithUrlAttributes,
-	Style,
-} from './interfaces';
 export {
 	CS_CONTENT_PREFIX,
 	MEDIA_PREVIEW_IMAGE_HEIGHT,

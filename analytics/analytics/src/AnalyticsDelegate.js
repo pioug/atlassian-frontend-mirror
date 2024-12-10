@@ -18,6 +18,9 @@ if (process.env.NODE_ENV !== 'production' && !process.env.CI) {
 	);
 }
 
+/**
+ * @deprecated Please use @atlaskit/analytics-next instead
+ */
 class AnalyticsDelegate extends Component {
 	static contextTypes = ContextTypes;
 

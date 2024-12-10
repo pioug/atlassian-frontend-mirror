@@ -28,13 +28,6 @@ export const typographyTests: Tests = {
 					lineHeight: '28px',
 				})`,
 		},
-		// fontWeight only
-		{
-			code: `
-				const styles = css({
-					fontWeight: 400,
-				})`,
-		},
 		// already a token + fontStyle italic
 		{
 			code: `
@@ -42,6 +35,28 @@ export const typographyTests: Tests = {
 					font: token('font.body.large'),
 					fontStyle: 'italic'
 				})`,
+		},
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = css({
+					fontWeight: token('font.weight.medium'),
+				})`,
+		},
+		// fontWeight only
+		{
+			code: `
+				const styles = css({
+					fontWeight: 400,
+				})`,
+		},
+		// Should not error on not style object
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const randomObject = {
+					fontWeight: 600,
+				}`,
 		},
 	],
 	invalid: [
@@ -799,6 +814,93 @@ export const typographyTests: Tests = {
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
 					font: token('font.heading.xsmall'),
+				})`,
+		},
+		// Errors on raw fontweight (only) and fixes it when X00 number
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = css({
+					fontWeight: 600,
+				})`,
+			errors: [{ messageId: 'noRawFontWeightValues' }],
+			output: outdent`
+				import { token } from '@atlaskit/tokens';
+				const styles = css({
+					fontWeight: token('font.weight.semibold'),
+				})`,
+		},
+		// Errors on raw fontweight (only) and does not fix when not X00 number
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = css({
+					fontWeight: 650,
+				})`,
+			errors: [{ messageId: 'noRawFontWeightValues' }],
+			output: outdent`
+				const styles = css({
+					fontWeight: 650,
+				})`,
+		},
+		// Fixes fontWeight: bold to token('font.weight.bold')
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = css({
+					fontWeight: 'bold',
+				})`,
+			errors: [{ messageId: 'noRawFontWeightValues' }],
+			output: outdent`
+				import { token } from '@atlaskit/tokens';
+				const styles = css({
+					fontWeight: token('font.weight.bold'),
+				})`,
+		},
+		// Fixes fontWeight: normal to token('font.weight.regular')
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = css({
+					fontWeight: 'normal',
+				})`,
+			errors: [{ messageId: 'noRawFontWeightValues' }],
+			output: outdent`
+				import { token } from '@atlaskit/tokens';
+				const styles = css({
+					fontWeight: token('font.weight.regular'),
+				})`,
+		},
+		// Test cssMap
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = cssMap({
+					bold: { fontWeight: 700 }
+				});`,
+			errors: [{ messageId: 'noRawFontWeightValues' }],
+			output: outdent`
+				import { token } from '@atlaskit/tokens';
+				const styles = cssMap({
+					bold: { fontWeight: token('font.weight.bold') }
+				});`,
+		},
+		// Test cssMap with nesting
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = cssMap({
+					bold: {
+						'& strong': { fontWeight: 'normal' }
+					}
+				})`,
+			errors: [{ messageId: 'noRawFontWeightValues' }],
+			output: outdent`
+				import { token } from '@atlaskit/tokens';
+				const styles = cssMap({
+					bold: {
+						'& strong': { fontWeight: token('font.weight.regular') }
+					}
 				})`,
 		},
 	],

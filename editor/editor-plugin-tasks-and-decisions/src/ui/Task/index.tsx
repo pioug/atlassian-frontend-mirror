@@ -12,7 +12,8 @@ import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ContentRef } from '@atlaskit/task-decision';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { type TaskAndDecisionsSharedState, type TasksAndDecisionsPlugin } from '../../types';
+import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
+import { type TaskAndDecisionsSharedState } from '../../types';
 
 import TaskItemWithProviders from './task-item-with-providers';
 

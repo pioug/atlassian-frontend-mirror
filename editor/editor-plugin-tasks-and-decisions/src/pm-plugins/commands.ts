@@ -3,8 +3,6 @@ import type { Command } from '@atlaskit/editor-common/types';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { findWrapping, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/transform';
 
-import { normalizeTaskItemsSelection } from '../utils';
-
 import {
 	getBlockRange,
 	isActionOrDecisionItem,
@@ -12,6 +10,7 @@ import {
 	liftBlock,
 	subtreeHeight,
 } from './helpers';
+import { normalizeTaskItemsSelection } from './utils';
 
 export const liftSelection: Command = (state, dispatch) => {
 	const normalizedSelection = normalizeTaskItemsSelection(state.selection);

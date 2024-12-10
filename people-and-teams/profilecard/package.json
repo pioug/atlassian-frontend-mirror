@@ -62,7 +62,7 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/atlassian-context": "^0.0.2",
 		"@atlaskit/avatar": "^21.17.0",
 		"@atlaskit/avatar-group": "^10.1.0",
@@ -71,7 +71,7 @@
 		"@atlaskit/empty-state": "^8.0.0",
 		"@atlaskit/focus-ring": "^2.0.0",
 		"@atlaskit/give-kudos": "^2.3.0",
-		"@atlaskit/icon": "^23.0.0",
+		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/lozenge": "^11.12.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/modal-dialog": "^12.18.0",

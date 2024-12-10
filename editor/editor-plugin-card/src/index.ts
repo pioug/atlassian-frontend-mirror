@@ -1,3 +1,3 @@
-export { cardPlugin } from './plugin';
-export type { CardPlugin } from './plugin';
+export { cardPlugin } from './cardPlugin';
+export type { CardPlugin } from './cardPluginType';
 export type { Request, CardPluginOptions, CardPluginState } from './types';

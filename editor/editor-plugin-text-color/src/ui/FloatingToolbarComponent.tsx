@@ -5,7 +5,7 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { TextColorPlugin } from '../types';
+import type { TextColorPlugin } from '../textColorPluginType';
 import { ToolbarType } from '../types';
 
 import ToolbarTextColor from './ToolbarTextColor';

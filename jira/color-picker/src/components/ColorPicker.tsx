@@ -151,7 +151,7 @@ class ColorPickerWithoutAnalyticsBase extends React.Component<Props & WrappedCom
 				maxMenuWidth="auto"
 				minMenuWidth="auto"
 				options={options}
-				aria-label={fullLabel}
+				label={fullLabel}
 				value={value}
 				components={components}
 				onChange={this.onChangeSelect}

@@ -40,7 +40,7 @@
 		"statsig-js-lite": "^1.6.0"
 	},
 	"devDependencies": {
-		"@atlassiansox/analytics-web-client": "^4.26.0",
+		"@atlassiansox/analytics-web-client": "^4.27.0",
 		"jest-fetch-mock": "^3.0.3",
 		"typescript": "~5.4.2"
 	},

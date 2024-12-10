@@ -10,7 +10,7 @@ import NodeResolver from 'react-node-resolver';
 interface NodeResolverSpotlightTargetProps {
 	hasNodeResolver: boolean;
 	children: ReactElement;
-	targetRef: (name: string) => (element: Element | null | undefined) => void;
+	getTargetRef: (name: string) => (element: HTMLElement | null | undefined) => void;
 	name: string;
 }
 const spanStyles = css({
@@ -24,27 +24,28 @@ const spanStyles = css({
  * @param {boolean} props.hasNodeResolver - Determines whether to apply the NodeResolver.
  * @param {ReactElement} props.children - The child elements to be wrapped.
  * @param {string} props.name - The name to reference from Spotlight.
- * @param {ReactElement} props.targetRef - Setting up Target Node in Spotlight Manager.
+ * @param {ReactElement} props.getTargetRef - Setting up Target Node in Spotlight Manager.
  * @returns {ReactElement} The children wrapped with NodeResolver if hasNodeResolver is true, wrape the children in a div setting innerRef with ref to the div.
  */
 const NodeResolverSpotlightTarget = ({
 	hasNodeResolver,
 	children,
-	targetRef,
+	getTargetRef,
 	name,
 }: NodeResolverSpotlightTargetProps) => {
 	const divRef = useRef<HTMLDivElement>(null);
 	useEffect(() => {
+		const targetRef = getTargetRef(name);
 		if (!hasNodeResolver) {
-			targetRef(name)(divRef.current?.firstElementChild);
+			targetRef(divRef.current?.firstElementChild as HTMLElement | null | undefined);
 		}
 		return () => {
-			!hasNodeResolver && targetRef(name)(undefined);
+			!hasNodeResolver && targetRef(undefined);
 		};
-	}, [hasNodeResolver, name, targetRef]);
+	}, [hasNodeResolver, name, getTargetRef]);
 
 	if (hasNodeResolver) {
-		return <NodeResolver innerRef={targetRef(name)}>{children}</NodeResolver>;
+		return <NodeResolver innerRef={getTargetRef(name)}>{children}</NodeResolver>;
 	}
 
 	return (

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "1.5.5",
+	"version": "1.5.6",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,6 +25,7 @@
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/editor-tables": "^2.8.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
+		"@atlaskit/tmp-editor-statsig": "2.24.0",
 		"@atlaskit/tokens": "^2.4.0",
 		"@babel/runtime": "^7.0.0"
 	},
@@ -36,6 +37,9 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
+			"code-structure": [
+				"editor-plugin"
+			],
 			"import-structure": [
 				"atlassian-conventions"
 			],
@@ -69,11 +73,11 @@
 	},
 	"af:exports": {
 		".": "./src/index.ts",
-		"./types": "./src/types.ts"
+		"./types": "./src/types/index.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",
-		"./types": "./src/types.ts"
+		"./types": "./src/types/index.ts"
 	},
 	"stricter": {
 		"no-unused-dependencies": {

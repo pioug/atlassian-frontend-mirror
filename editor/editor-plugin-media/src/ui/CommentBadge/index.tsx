@@ -14,7 +14,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { MediaNextEditorPluginType } from '../../next-plugin-type';
+import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { getPosHandler } from '../../types';
 
 type CommentBadgeProps = {

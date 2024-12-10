@@ -1,5 +1,15 @@
 # @atlaskit/comment
 
+## 12.0.1
+
+### Patch Changes
+
+- [#175763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175763)
+  [`5ee4ec31e3c07`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5ee4ec31e3c07) -
+  Fixes incorrect usage of cssMap where it was being passed directly into a css prop instead of
+  passing the nested default variant.
+- Updated dependencies
+
 ## 12.0.0
 
 ### Major Changes

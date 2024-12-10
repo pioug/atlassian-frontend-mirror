@@ -37,7 +37,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/jql-autocomplete": "^2.0.0",
 		"@babel/runtime": "^7.0.0",
 		"rxjs": "^5.5.0"

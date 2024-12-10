@@ -4,7 +4,7 @@ import { bindKeymapWithCommand, escape, insertRule } from '@atlaskit/editor-comm
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
-import { insertHorizontalRule } from '../commands';
+import { insertHorizontalRule } from './commands';
 
 export function keymapPlugin(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): SafePlugin {
 	const list = {};

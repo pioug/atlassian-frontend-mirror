@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { forwardRef, useState } from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Lorem from 'react-lorem-component';
 
 import { skipA11yAudit } from '@af/accessibility-testing';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
+import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 
 import {
 	Modal,
@@ -36,36 +37,38 @@ interface SpotlightDialogLabelProps {
 	children?: React.ReactNode;
 }
 
-const ElementStub = (props: ElementStubProps) => {
+const getMockDimensions = (props: ElementStubProps) => (ref: HTMLElement | null) => {
+	if (!ref) {
+		return;
+	}
+
+	// We calculate the bounding client rect from the props passed in.
+	ref.getBoundingClientRect = (): DOMRect => ({
+		width: props.width,
+		height: props.height,
+		left: props.marginLeft || 0,
+		top: props.marginTop || 0,
+		bottom: window.innerHeight - props.height - (props.marginBottom || 0),
+		right: window.innerWidth - props.width - (props.marginRight || 0),
+		x: 0,
+		y: 0,
+		toJSON() {
+			return JSON.stringify(this);
+		},
+	});
+};
+
+const ElementStub = forwardRef((props: ElementStubProps, ref: React.Ref<HTMLDivElement>) => {
 	return (
 		<div
 			data-testid={props.testId}
 			style={{ position: props.position }}
-			ref={(ref) => {
-				if (!ref) {
-					return;
-				}
-
-				// We calculate the bounding client rect from the props passed in.
-				ref.getBoundingClientRect = (): DOMRect => ({
-					width: props.width,
-					height: props.height,
-					left: props.marginLeft || 0,
-					top: props.marginTop || 0,
-					bottom: window.innerHeight - props.height - (props.marginBottom || 0),
-					right: window.innerWidth - props.width - (props.marginRight || 0),
-					x: 0,
-					y: 0,
-					toJSON() {
-						return JSON.stringify(this);
-					},
-				});
-			}}
+			ref={mergeRefs([ref, getMockDimensions(props)])}
 		>
 			{props.children}
 		</div>
 	);
-};
+});
 
 const buildOnboardingMarkup = (target: string) => (
 	<SpotlightManager>
@@ -414,5 +417,77 @@ describe('<Spotlight />', () => {
 			'aria-label',
 			'Introducing new feature',
 		);
+	});
+
+	describe('render prop children API', () => {
+		it('should use the referenced element for the clone', () => {
+			render(
+				<SpotlightManager>
+					<ul>
+						<SpotlightTarget name="target">
+							{({ targetRef }) => (
+								<li>
+									<ElementStub
+										ref={targetRef}
+										width={100}
+										height={50}
+										testId="target"
+										marginLeft={50}
+										marginTop={100}
+									>
+										List item content
+									</ElementStub>
+								</li>
+							)}
+						</SpotlightTarget>
+					</ul>
+
+					<Spotlight target="target">Spotlight for target</Spotlight>
+				</SpotlightManager>,
+			);
+
+			const spotlightTarget = screen.getByTestId('spotlight--target');
+
+			// Assert the dimensions are being read from the targeted element
+			expect(spotlightTarget).toHaveStyle({
+				position: 'fixed',
+				height: '50px',
+				width: '100px',
+				left: '50px',
+				top: '100px',
+			});
+
+			// Assert the list element is not being cloned for the target
+			expect(within(spotlightTarget).queryByRole('listitem')).not.toBeInTheDocument();
+		});
+	});
+
+	it('should not error if there is no spotlight manager', () => {
+		expect(() =>
+			render(
+				<>
+					<ul>
+						<SpotlightTarget name="target">
+							{({ targetRef }) => (
+								<li>
+									<ElementStub
+										ref={targetRef}
+										width={100}
+										height={50}
+										testId="target"
+										marginLeft={50}
+										marginTop={100}
+									>
+										List item content
+									</ElementStub>
+								</li>
+							)}
+						</SpotlightTarget>
+					</ul>
+
+					<Spotlight target="target">Spotlight for target</Spotlight>
+				</>,
+			),
+		).not.toThrow();
 	});
 });

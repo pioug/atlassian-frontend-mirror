@@ -1,0 +1,152 @@
+import React, { Component } from 'react';
+
+import PropTypes from 'prop-types';
+
+type AnalyticsData = {
+	[key: string]: any;
+};
+
+type WithAnalyticsProps = {
+	analyticsId?: string;
+	analyticsData?: AnalyticsData;
+	fireAnalyticsEvent?: (name: string, data?: AnalyticsData) => void;
+	firePrivateAnalyticsEvent?: (name: string, data?: AnalyticsData) => void;
+	getParentAnalyticsData?: (name: string) => AnalyticsData;
+	delegateAnalyticsEvent?: (analyticsId: string, data: any, isPrivate: boolean) => void;
+	innerRef?: React.Ref<any>;
+	[key: string]: any;
+};
+
+type WithAnalyticsState = {
+	evaluatedMap: {
+		[key: string]: string | ((...args: any[]) => void);
+	};
+};
+
+type WithAnalyticsContext = {
+	onAnalyticsEvent?: (name: string, data: AnalyticsData | undefined, isPrivate: boolean) => void;
+	getParentAnalyticsData?: (name: string, isPrivate: boolean) => AnalyticsData;
+};
+
+/**
+ * The withAnalytics HOC wraps a component and provides the `fireAnalyticsEvent`
+ * and `firePrivateAnalyticsEvent` methods to it as props. It contains the logic
+ * for how to fire events, including handling the analyticsId and analyticsData
+ * props. The `map` argument may be an object or a function that returns an object.
+ * The properties of the `map` object/result can be strings (the name of the event
+ * that will be fired) or functions (which are responsible for firing the event).
+ * You can specify a default `analyticsId` and `analyticsData` with the `defaultProps`
+ * param. Please be aware that specifying a default `analyticsId` will cause public
+ * events to always fire for your component unless it has been set to a falsy by
+ * the component consumer.
+ *
+ * @param WrappedComponent
+ * @param map
+ * @param defaultProps
+ * @param withDelegation
+ */
+const withAnalytics = (
+	WrappedComponent: React.ComponentType<any>,
+	map:
+		| { [key: string]: string | ((...args: any[]) => void) }
+		| ((fireAnalyticsEvent: (name: string, data?: AnalyticsData) => void) => {
+				[key: string]: string | ((...args: any[]) => void);
+		  }) = {},
+	defaultProps: Partial<WithAnalyticsProps> = {},
+	withDelegation?: boolean,
+) => {
+	return class WithAnalytics extends Component<WithAnalyticsProps, WithAnalyticsState> {
+		static displayName = `WithAnalytics(${WrappedComponent.displayName || WrappedComponent.name})`;
+
+		static contextTypes = {
+			onAnalyticsEvent: PropTypes.func,
+			getParentAnalyticsData: PropTypes.func,
+		};
+
+		static defaultProps: Partial<WithAnalyticsProps> = {
+			analyticsId: defaultProps.analyticsId,
+			analyticsData: defaultProps.analyticsData,
+		};
+
+		constructor(props: WithAnalyticsProps) {
+			super(props);
+			this.state = {
+				evaluatedMap: {},
+			};
+		}
+
+		componentDidMount() {
+			this.setState({
+				evaluatedMap: typeof map === 'function' ? map(this.fireAnalyticsEvent) : map,
+			});
+		}
+
+		delegateAnalyticsEvent = (analyticsId: string, data: any, isPrivate: boolean): void => {
+			const { onAnalyticsEvent } = this.context as WithAnalyticsContext;
+			if (!onAnalyticsEvent) {
+				return;
+			}
+			onAnalyticsEvent(analyticsId, data, isPrivate);
+		};
+
+		fireAnalyticsEvent = (name: string, data?: AnalyticsData): void => {
+			const { analyticsData, analyticsId } = this.props;
+			const { onAnalyticsEvent } = this.context as WithAnalyticsContext;
+			if (!analyticsId || !onAnalyticsEvent) {
+				return;
+			}
+			const eventData = { ...analyticsData, ...data };
+			onAnalyticsEvent(`${analyticsId}.${name}`, eventData, false);
+		};
+
+		privateAnalyticsEvent = (name: string, data?: AnalyticsData): void => {
+			const { onAnalyticsEvent } = this.context as WithAnalyticsContext;
+			if (!onAnalyticsEvent) {
+				return;
+			}
+			onAnalyticsEvent(`${name}`, data, true);
+		};
+
+		getParentAnalyticsData = (name: string): AnalyticsData => {
+			const { getParentAnalyticsData } = this.context as WithAnalyticsContext;
+			let parentData = {} as AnalyticsData;
+			if (typeof getParentAnalyticsData === 'function' && this.props.analyticsId) {
+				const { analyticsId } = this.props;
+				parentData = getParentAnalyticsData(`${analyticsId}.${name}`, false);
+			}
+			return parentData;
+		};
+
+		render() {
+			const { analyticsId, analyticsData, ...componentProps } = this.props;
+			Object.keys(this.state.evaluatedMap).forEach((prop) => {
+				const handler = this.state.evaluatedMap[prop];
+				const originalProp = componentProps[prop];
+				(componentProps[prop] as (...args: any[]) => void) = (...args: any[]) => {
+					if (typeof handler === 'function') {
+						handler(...args);
+					} else {
+						this.fireAnalyticsEvent(handler);
+					}
+					if (typeof originalProp === 'function') {
+						originalProp(...args);
+					}
+				};
+			});
+
+			return (
+				<WrappedComponent
+					fireAnalyticsEvent={this.fireAnalyticsEvent}
+					firePrivateAnalyticsEvent={this.privateAnalyticsEvent}
+					getParentAnalyticsData={this.getParentAnalyticsData}
+					delegateAnalyticsEvent={withDelegation ? this.delegateAnalyticsEvent : undefined}
+					analyticsId={analyticsId}
+					ref={this.props.innerRef}
+					{...componentProps}
+				/>
+			);
+		}
+	};
+};
+
+export default withAnalytics;

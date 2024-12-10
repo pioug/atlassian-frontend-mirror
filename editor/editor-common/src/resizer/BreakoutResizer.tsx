@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -89,6 +89,7 @@ const BreakoutResizer = ({
 	getEditorWidth,
 	parentRef,
 	editorAnalyticsApi,
+	displayGapCursor,
 }: {
 	editorView: EditorView;
 	nodeType: BreakoutSupportedNodes;
@@ -98,6 +99,7 @@ const BreakoutResizer = ({
 	getEditorWidth: () => EditorContainerWidth | undefined;
 	parentRef?: HTMLElement;
 	editorAnalyticsApi?: EditorAnalyticsAPI;
+	displayGapCursor: (toggle: boolean) => boolean;
 }) => {
 	const [{ minWidth, maxWidth, isResizing }, setResizingState] = useState<ResizingState>({
 		minWidth: undefined,
@@ -127,6 +129,7 @@ const BreakoutResizer = ({
 		let newMaxWidth;
 		const widthState = getEditorWidth();
 		const { dispatch, state } = editorView;
+		displayGapCursor(false);
 		if (
 			widthState !== undefined &&
 			widthState.lineLength !== undefined &&
@@ -140,7 +143,7 @@ const BreakoutResizer = ({
 		}
 		setResizingState({ isResizing: true, minWidth: newMinWidth, maxWidth: newMaxWidth });
 		dispatch(state.tr.setMeta('is-resizer-resizing', true));
-	}, [getEditorWidth, editorView]);
+	}, [getEditorWidth, editorView, displayGapCursor]);
 
 	const handleResizeStop = useCallback<HandleResize>(
 		(originalState, delta) => {
@@ -173,12 +176,19 @@ const BreakoutResizer = ({
 				editorAnalyticsApi?.attachAnalyticsEvent(breakoutResizePayload)(newTr);
 			}
 			newTr.setMeta('is-resizer-resizing', false).setMeta('scrollIntoView', false);
-
+			displayGapCursor(true);
 			dispatch(newTr);
 			setResizingState({ isResizing: false, minWidth: undefined, maxWidth: undefined });
 		},
-		[editorView, getPos, editorAnalyticsApi],
+		[getPos, editorView, displayGapCursor, editorAnalyticsApi],
 	);
+
+	useEffect(() => {
+		// clean up gap cursor if node was unmounting when resizing (e.g. during collab)
+		return () => {
+			displayGapCursor(true);
+		};
+	}, [displayGapCursor]);
 
 	if (disabled) {
 		return (

@@ -23,8 +23,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import RedoIcon from '@atlaskit/icon/core/migration/redo';
 import UndoIcon from '@atlaskit/icon/core/migration/undo';
 
-import { redoFromToolbar, undoFromToolbar } from '../../commands';
-import type { UndoRedoPlugin } from '../../types';
+import { redoFromToolbar, undoFromToolbar } from '../../pm-plugins/commands';
+import type { UndoRedoPlugin } from '../../undoRedoPluginType';
 
 export interface Props {
 	undoDisabled?: boolean;

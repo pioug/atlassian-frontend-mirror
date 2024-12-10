@@ -4,7 +4,7 @@ import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { TasksAndDecisionsPlugin } from '../types';
+import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 
 import { decisionItemNodeView } from './decisionItem';
 

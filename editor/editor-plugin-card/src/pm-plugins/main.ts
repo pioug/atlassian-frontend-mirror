@@ -11,16 +11,15 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { eventsFromTransaction } from '../analytics/events-from-tr';
-import { isLocalStorageKeyDiscovered } from '../common/local-storage';
 import type { cardPlugin } from '../index';
 import { InlineCardNodeView } from '../nodeviews/inlineCard';
 import { lazyBlockCardView } from '../nodeviews/lazy-block-card';
 import { lazyEmbedCardView } from '../nodeviews/lazy-embed-card';
 import { lazyInlineCardView } from '../nodeviews/lazy-inline-card';
 import type { CardPluginOptions, CardPluginState } from '../types';
+import { eventsFromTransaction } from '../ui/analytics/events-from-tr';
 import { isDatasourceTableLayout } from '../ui/LayoutButton/utils';
-import { isBlockSupportedAtPosition, isEmbedSupportedAtPosition } from '../utils';
+import { isLocalStorageKeyDiscovered } from '../ui/local-storage';
 
 import {
 	clearOverlayCandidate,
@@ -31,6 +30,7 @@ import { pluginKey } from './plugin-key';
 import reducer from './reducers';
 import { handleProvider, resolveWithProvider } from './util/resolve';
 import { getNewRequests, getPluginState, getPluginStateWithUpdatedPos } from './util/state';
+import { isBlockSupportedAtPosition, isEmbedSupportedAtPosition } from './utils';
 
 export { pluginKey } from './plugin-key';
 

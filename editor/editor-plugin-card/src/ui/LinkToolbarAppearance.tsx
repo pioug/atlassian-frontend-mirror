@@ -1,6 +1,5 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
 import type { IntlShape } from 'react-intl-next';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
@@ -21,12 +20,13 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { CardContext } from '@atlaskit/link-provider';
 
-import { LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR } from '../common/local-storage';
 import { changeSelectedCardToLink, setSelectedCardAppearance } from '../pm-plugins/doc';
-import { shouldRenderToolbarPulse } from '../toolbar';
-import { getResolvedAttributesFromStore } from '../utils';
+import { getResolvedAttributesFromStore } from '../pm-plugins/utils';
 
+import { LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR } from './local-storage';
 import { DiscoveryPulse } from './Pulse';
+import { shouldRenderToolbarPulse } from './toolbar';
+import { WithCardContext } from './WithCardContext';
 
 export interface LinkToolbarAppearanceProps {
 	intl: IntlShape;
@@ -41,14 +41,8 @@ export interface LinkToolbarAppearanceProps {
 	isDatasourceView?: boolean;
 }
 // eslint-disable-next-line @repo/internal/react/no-class-components
+
 export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearanceProps, {}> {
-	static contextTypes = {
-		contextAdapter: PropTypes.object,
-	};
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	context: any;
-
 	renderDropdown = (view?: EditorView, cardContext?: CardContext) => {
 		const {
 			url,
@@ -199,10 +193,13 @@ export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearance
 	};
 
 	render() {
-		const cardContext = this.context.contextAdapter ? this.context.contextAdapter.card : undefined;
 		const { editorView } = this.props;
 
-		return this.renderDropdown(editorView, cardContext && cardContext.value);
+		return (
+			<WithCardContext>
+				{(cardContext) => this.renderDropdown(editorView, cardContext && cardContext.value)}
+			</WithCardContext>
+		);
 	}
 }
 

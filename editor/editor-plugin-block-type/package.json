@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-type",
-	"version": "4.0.9",
+	"version": "4.0.10",
 	"description": "BlockType plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -45,12 +45,12 @@
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/editor-tables": "^2.8.0",
-		"@atlaskit/icon": "^23.0.0",
+		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.23.0",
+		"@atlaskit/tmp-editor-statsig": "^2.24.0",
 		"@atlaskit/tokens": "^2.4.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
@@ -62,7 +62,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/editor-plugin-quick-insert": "^1.8.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.11.0",
 		"@atlaskit/ssr": "*",
@@ -116,6 +116,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_nest_in_quotes_adf_change": {
+			"type": "boolean"
+		},
+		"platform_editor_toolbar_fix_for_disabled_options": {
 			"type": "boolean"
 		}
 	}

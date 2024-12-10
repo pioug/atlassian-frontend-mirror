@@ -32,9 +32,8 @@ import {
 	hasParentNodeOfType,
 } from '@atlaskit/editor-prosemirror/utils';
 
-import { insertTaskDecisionWithAnalytics } from '../commands';
-import type { GetContextIdentifier, TaskDecisionListType, TasksAndDecisionsPlugin } from '../types';
-import { normalizeTaskItemsSelection } from '../utils';
+import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
+import type { GetContextIdentifier, TaskDecisionListType } from '../types';
 
 import { joinAtCut, liftSelection, wrapSelectionInTaskList } from './commands';
 import {
@@ -52,6 +51,8 @@ import {
 	liftBlock,
 	walkOut,
 } from './helpers';
+import { insertTaskDecisionWithAnalytics } from './insert-commands';
+import { normalizeTaskItemsSelection } from './utils';
 
 type IndentationInputMethod =
 	| INPUT_METHOD.KEYBOARD

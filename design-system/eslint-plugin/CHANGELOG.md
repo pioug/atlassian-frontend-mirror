@@ -1,5 +1,44 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.3.0
+
+### Minor Changes
+
+- [#175432](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175432)
+  [`0a1070983ac76`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0a1070983ac76) -
+  `use-tokens-typography` rule now reports on `fontWeight` used with raw values (e.g. 600, 'bold').
+  If a matching token is found, a fix is suggested. This rule is disabled by default but can be
+  enabled under the name `font-weight`.
+
+### Patch Changes
+
+- [#173274](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173274)
+  [`fd5bac37c73ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fd5bac37c73ba) -
+  Fix eslint type error.
+
+## 11.2.0
+
+### Minor Changes
+
+- [#175583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175583)
+  [`75911cb003bd5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75911cb003bd5) - ####
+  no-legacy-icons
+
+  Add new `shouldUseSafeMigrationMode` flag to no-legacy-icons rule. When set to true, the autofixer
+  will only attempt to migrate icons that are visually similar and do not include secondary colors
+  or sizes other than medium.
+
+  Additionally, the autofixer will no longer attempt to explicity add `color="currentColor"` for
+  every migration as this is now the default.
+
+  #### no-deprecated-apis
+
+  Refactored to fix type errors and match code style of other rules.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.1.0
 
 ### Minor Changes

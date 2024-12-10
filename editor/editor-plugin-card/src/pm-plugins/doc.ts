@@ -42,12 +42,6 @@ import type {
 } from '@atlaskit/smart-card';
 
 import type { CardPluginState, Request } from '../types';
-import {
-	appearanceForNodeType,
-	isDatasourceConfigEditable,
-	isDatasourceNode,
-	selectedCardAppearance,
-} from '../utils';
 
 import {
 	hideDatasourceModal,
@@ -58,6 +52,12 @@ import {
 } from './actions';
 import { pluginKey } from './plugin-key';
 import { shouldReplaceLink } from './shouldReplaceLink';
+import {
+	appearanceForNodeType,
+	isDatasourceConfigEditable,
+	isDatasourceNode,
+	selectedCardAppearance,
+} from './utils';
 
 /**
  * Attempt to replace the link into the respective card.

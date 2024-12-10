@@ -23,7 +23,7 @@ import {
 	toggleSubscriptWithAnalytics,
 	toggleSuperscriptWithAnalytics,
 	toggleUnderlineWithAnalytics,
-} from '../commands';
+} from './commands';
 
 export default function keymapPlugin(
 	schema: Schema,

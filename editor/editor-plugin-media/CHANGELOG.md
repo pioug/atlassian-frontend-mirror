@@ -1,5 +1,26 @@
 # @atlaskit/editor-plugin-media
 
+## 1.42.16
+
+### Patch Changes
+
+- [#173312](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173312)
+  [`d6f0ca1ad022c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d6f0ca1ad022c) -
+  ED-25112: refactors media plugin to meet folder standards
+- Updated dependencies
+
+## 1.42.15
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.42.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.42.13
 
 ### Patch Changes

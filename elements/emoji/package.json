@@ -33,10 +33,10 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/heading": "^4.0.0",
-		"@atlaskit/icon": "^23.0.0",
+		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/media-client": "^28.5.0",
 		"@atlaskit/media-client-react": "^2.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",

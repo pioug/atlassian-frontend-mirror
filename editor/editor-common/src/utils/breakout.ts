@@ -56,6 +56,18 @@ const breakoutConsts: any = {
 				return '100%';
 		}
 	},
+	calcBreakoutWithCustomWidth: (
+		mode: 'full-width' | 'wide',
+		width: number | null,
+		editorContainerWidth: number,
+	) => {
+		if (width !== null && width > 0) {
+			const effectiveFullWidth = editorContainerWidth - breakoutConsts.padding;
+			// if below 0 then expect we're rendering in SSR
+			return `${Math.min(width, effectiveFullWidth)}px`;
+		}
+		return breakoutConsts.calcBreakoutWidth(mode, editorContainerWidth);
+	},
 	calcLineLength: () => breakoutConsts.defaultLayoutWidth,
 	calcWideWidth: (
 		containerWidth: number = breakoutConsts.defaultLayoutWidth,
@@ -101,19 +113,7 @@ export const absoluteBreakoutWidth = (
 export { breakoutConsts };
 export const calcWideWidth = breakoutConsts.calcWideWidth;
 export const calcBreakoutWidth = breakoutConsts.calcBreakoutWidth;
-
-// Calculate width for nodes using resizing and breakout mark, only applied in renderer
-export const calcBreakoutWithCustomWidth = (
-	mode: 'full-width' | 'wide',
-	width: number | null,
-	editorContainerWidth: number,
-) => {
-	if (width !== null && width > 0) {
-		const effectiveFullWidth = editorContainerWidth - breakoutConsts.padding;
-		return `${Math.min(width, effectiveFullWidth)}px`;
-	}
-	return calcBreakoutWidth(mode, editorContainerWidth);
-};
+export const calcBreakoutWithCustomWidth = breakoutConsts.calcBreakoutWithCustomWidth;
 
 export function calculateBreakoutStyles({
 	mode,

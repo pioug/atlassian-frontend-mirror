@@ -38,11 +38,11 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/code": "^15.6.0",
 		"@atlaskit/form": "^10.6.0",
-		"@atlaskit/icon": "^23.0.0",
+		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/icon-file-type": "^6.8.0",
 		"@atlaskit/media-client": "^28.5.0",
 		"@atlaskit/media-client-react": "^2.4.0",

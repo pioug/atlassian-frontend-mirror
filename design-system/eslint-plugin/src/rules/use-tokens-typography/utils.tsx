@@ -1,7 +1,7 @@
 import type { Rule } from 'eslint';
 import {
-	callExpression,
 	type CallExpression,
+	callExpression,
 	type Directive,
 	type EslintNode,
 	type Expression,
@@ -13,8 +13,8 @@ import {
 	type MemberExpression,
 	memberExpression,
 	type ModuleDeclaration,
-	property,
 	type Property,
+	property,
 	type SpreadElement,
 	type Statement,
 	type StringableASTNode,
@@ -126,6 +126,14 @@ export const fontWeightTokens = typographyTokens
 	});
 
 export function findFontWeightTokenForValue(fontWeight: string) {
+	if (fontWeight === "'normal'") {
+		fontWeight = '400';
+	}
+
+	if (fontWeight === "'bold'") {
+		fontWeight = '700';
+	}
+
 	return fontWeightTokens.find((token) => token.tokenValue === fontWeight);
 }
 

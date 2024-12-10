@@ -9,9 +9,9 @@ import { css, jsx } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-import { getSelectedNearestMediaContainerNodeAttrs } from '../../toolbar/utils';
+import { isVideo } from '../../pm-plugins/utils/is-type';
 import { type MediaPluginState } from '../../types';
-import { isVideo } from '../../utils/is-type';
+import { getSelectedNearestMediaContainerNodeAttrs } from '../../ui/toolbar/utils';
 
 import { RenderMediaViewer } from './PortalWrapper';
 

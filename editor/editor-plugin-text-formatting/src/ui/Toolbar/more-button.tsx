@@ -27,7 +27,6 @@ const MoreIconStyle = css({
 	display: 'flex',
 	alignItems: 'center',
 	height: token('space.300', '24px'),
-	padding: `0  ${token('space.025', '2px')}`,
 });
 
 export const MoreButton = React.memo(
@@ -51,7 +50,7 @@ export const MoreButton = React.memo(
 				iconBefore={
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={fg('platform-visual-refresh-icons') ? MoreIconStyle : triggerWrapperStyles}>
-						{<ShowMoreHorizontalIcon label="" color="currentColor" spacing="compact" />}
+						{<ShowMoreHorizontalIcon label="" color="currentColor" spacing="spacious" />}
 					</div>
 				}
 				aria-expanded={ariaExpanded}

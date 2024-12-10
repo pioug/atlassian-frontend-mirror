@@ -30,7 +30,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^23.0.0",
+		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.4.0",

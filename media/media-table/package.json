@@ -36,10 +36,10 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/dynamic-table": "^16.1.0",
-		"@atlaskit/icon": "^23.0.0",
+		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/media-client": "^28.5.0",
 		"@atlaskit/media-client-react": "^2.4.0",
 		"@atlaskit/media-ui": "^27.0.0",

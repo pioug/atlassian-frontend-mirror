@@ -4,8 +4,8 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { ToolbarListsIndentationPlugin } from '../plugin';
 import { getIndentationButtonsState } from '../pm-plugins/indentation-buttons';
+import type { ToolbarListsIndentationPlugin } from '../toolbarListsIndentationPluginType';
 import { ToolbarType } from '../types';
 
 import ToolbarListsIndentation from './index';

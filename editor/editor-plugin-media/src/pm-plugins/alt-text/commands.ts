@@ -9,11 +9,11 @@ import { withAnalytics } from '@atlaskit/editor-common/editor-analytics';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { getNodeType } from '../../toolbar/commands';
 import {
 	getMediaSingleOrInlineNodeFromSelection,
 	isMediaSingleOrInlineNodeSelected,
-} from '../../utils/media-common';
+} from '../../pm-plugins/utils/media-common';
+import { getNodeType } from '../../ui/toolbar/commands';
 
 import type { CloseMediaAltTextMenu, OpenMediaAltTextMenu, UpdateAltText } from './actions';
 

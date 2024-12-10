@@ -8,8 +8,8 @@ import type {
 	DatasourceCreatedEvent,
 	DatasourceDeletedEvent,
 	DatasourceUpdatedEvent,
-} from '../../analytics/types';
-import { EVENT, EVENT_SUBJECT } from '../../analytics/types';
+} from '../analytics/types';
+import { EVENT, EVENT_SUBJECT } from '../analytics/types';
 
 import type { AnalyticsBindingsProps } from './common';
 import { getMethod } from './common';

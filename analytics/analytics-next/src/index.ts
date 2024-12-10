@@ -47,3 +47,8 @@ export type {
 // Helper functions
 export { default as createAndFireEvent } from './utils/createAndFireEvent';
 export { default as cleanProps } from './utils/cleanProps';
+
+// Moved from deprecated @atlaskit/analytics
+export { default as AnalyticsDecorator } from './components/AnalyticsDecorator';
+export { default as AnalyticsDelegate } from './components/AnalyticsDelegate';
+export { default as withAnalytics } from './utils/withAnalytics';

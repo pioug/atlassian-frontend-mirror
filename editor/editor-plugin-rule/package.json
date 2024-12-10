@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-rule",
-	"version": "1.9.7",
+	"version": "1.9.8",
 	"description": "Rule plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -51,6 +51,9 @@
 	},
 	"techstack": {
 		"@atlassian/frontend": {
+			"code-structure": [
+				"editor-plugin"
+			],
 			"import-structure": [
 				"atlassian-conventions"
 			],

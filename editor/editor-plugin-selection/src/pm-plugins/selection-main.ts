@@ -4,14 +4,14 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
-import { SelectionActionTypes } from '../actions';
-import { createPluginState, getPluginState } from '../plugin-factory';
 import type { SelectionPluginOptions, SelectionPluginState } from '../types';
 import { selectionPluginKey } from '../types';
-import { getDecorations, shouldRecalcDecorations } from '../utils';
 
+import { SelectionActionTypes } from './actions';
 import { onCreateSelectionBetween } from './events/create-selection-between';
 import { createOnKeydown } from './events/keydown';
+import { createPluginState, getPluginState } from './plugin-factory';
+import { getDecorations, shouldRecalcDecorations } from './utils';
 
 export const getInitialState = (state: EditorState): SelectionPluginState => ({
 	decorationSet: getDecorations(state.tr),

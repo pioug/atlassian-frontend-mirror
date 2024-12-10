@@ -19,10 +19,10 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';
 
-import { updateCurrentMediaNodeAttrs } from '../../commands/helpers';
-import type { MediaNextEditorPluginType } from '../../next-plugin-type';
+import type { MediaNextEditorPluginType } from '../../mediaPluginType';
+import { updateCurrentMediaNodeAttrs } from '../../pm-plugins/commands/helpers';
+import { isMediaBlobUrlFromAttrs } from '../../pm-plugins/utils/media-common';
 import type { getPosHandler, getPosHandlerNode, MediaOptions } from '../../types';
-import { isMediaBlobUrlFromAttrs } from '../../utils/media-common';
 import type { MediaNodeViewProps } from '../types';
 
 import MediaNode from './media';

@@ -1,2 +1,2 @@
-export { toolbarListsIndentationPlugin } from './plugin';
-export type { ToolbarListsIndentationPlugin } from './plugin';
+export { toolbarListsIndentationPlugin } from './toolbarListsIndentationPlugin';
+export type { ToolbarListsIndentationPlugin } from './toolbarListsIndentationPluginType';

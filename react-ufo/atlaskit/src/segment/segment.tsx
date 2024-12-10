@@ -114,14 +114,14 @@ export default function UFOSegment({ name: segmentName, children }: Props) {
 			this: EnhancedUFOInteractionContextType,
 			labelStack: LabelStack,
 			name: string,
-			experimental = false,
-		) {
+			// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+		): (() => void) | void {
 			if (interactionId.current != null) {
 				if (parentContext) {
-					return parentContext._internalHold(labelStack, name, experimental);
+					return parentContext._internalHold(labelStack, name);
 				} else {
 					const capturedInteractionId = interactionId.current;
-					const disposeHold = addHold(interactionId.current, labelStack, name, experimental);
+					const disposeHold = addHold(interactionId.current, labelStack, name);
 					return () => {
 						if (capturedInteractionId === interactionId.current) {
 							disposeHold();
@@ -137,7 +137,8 @@ export default function UFOSegment({ name: segmentName, children }: Props) {
 			id: string,
 			name: string,
 			remove: boolean,
-		) {
+			// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+		): (() => void) | void {
 			if (interactionId.current != null) {
 				if (parentContext) {
 					parentContext._internalHoldByID(labelStack, name, id, remove);
@@ -165,9 +166,9 @@ export default function UFOSegment({ name: segmentName, children }: Props) {
 			hold(
 				this: EnhancedUFOInteractionContextType,
 				name: string | undefined = 'unknown',
-				experimental: boolean,
-			) {
-				return this._internalHold(this.labelStack, name, experimental);
+				// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+			): void | (() => void) {
+				return this._internalHold(this.labelStack, name);
 			},
 			addHoldByID(
 				this: EnhancedUFOInteractionContextType,

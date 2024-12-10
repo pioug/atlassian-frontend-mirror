@@ -42,15 +42,15 @@ import { getAttrsFromUrl } from '@atlaskit/media-client';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { insertAndSelectCaptionFromMediaSinglePos } from '../commands/captions';
-import type { MediaNextEditorPluginType } from '../next-plugin-type';
+import type { MediaNextEditorPluginType } from '../mediaPluginType';
+import { insertAndSelectCaptionFromMediaSinglePos } from '../pm-plugins/commands/captions';
 import type { MediaPluginState } from '../pm-plugins/types';
+import { isMediaBlobUrlFromAttrs } from '../pm-plugins/utils/media-common';
 import type { ForwardRef, MediaOptions } from '../types';
 import { CaptionPlaceholder, CaptionPlaceholderButton } from '../ui/CaptionPlaceholder';
 import { CommentBadge, CommentBadgeNextWrapper } from '../ui/CommentBadge';
 import ResizableMediaSingle from '../ui/ResizableMediaSingle';
 import ResizableMediaSingleNext from '../ui/ResizableMediaSingle/ResizableMediaSingleNext';
-import { isMediaBlobUrlFromAttrs } from '../utils/media-common';
 
 import { hasPrivateAttrsChanged } from './helpers';
 import { createMediaNodeUpdater } from './mediaNodeUpdater';

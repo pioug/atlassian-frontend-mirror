@@ -33,7 +33,7 @@
 		"codegen-analytics": "yarn run ts-analytics-codegen --command='yarn workspace @atlaskit/linking-common run codegen-analytics'"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.4.0",
 		"@babel/runtime": "^7.0.0",

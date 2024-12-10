@@ -7,9 +7,9 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 
 import { StatusNodeView } from '../nodeviews/status';
 import type { StatusPluginOptions, StatusState } from '../types';
-import { isEmptyStatus, mayGetStatusAtSelection } from '../utils';
 
 import { pluginKey } from './plugin-key';
+import { isEmptyStatus, mayGetStatusAtSelection } from './utils';
 
 export { pluginKey, pluginKeyName } from './plugin-key';
 export type { StatusState, StatusType, ClosingPayload } from '../types';

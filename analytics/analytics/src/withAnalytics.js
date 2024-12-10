@@ -9,18 +9,26 @@ if (process.env.NODE_ENV !== 'production' && !process.env.CI) {
 	);
 }
 
-/*
-The withAnalytics HOC wraps a component and provides the `fireAnalyticsEvent`
-and `firePrivateAnalyticsEvent` methods to it as props. It contains the logic
-for how to fire events, including handling the analyticsId and analyticsData
-props. The `map` argument may be an object or a function that returns an object.
-The properties of the `map` object/result can be strings (the name of the event
-that will be fired) or functions (which are responsible for firing the event).
-You can specify a default `analyticsId` and `analyticsData` with the `defaultProps`
-param. Please be aware that specifying a default `analyticsId` will cause public
-events to always fire for your component unless it has been set to a falsy by
-the component consumer.
-*/
+/**
+ * @deprecated Please use @atlaskit/analytics-next instead
+ *
+ * The withAnalytics HOC wraps a component and provides the `fireAnalyticsEvent`
+ * and `firePrivateAnalyticsEvent` methods to it as props. It contains the logic
+ * for how to fire events, including handling the analyticsId and analyticsData
+ * props. The `map` argument may be an object or a function that returns an object.
+ * The properties of the `map` object/result can be strings (the name of the event
+ * that will be fired) or functions (which are responsible for firing the event).
+ * You can specify a default `analyticsId` and `analyticsData` with the `defaultProps`
+ * param. Please be aware that specifying a default `analyticsId` will cause public
+ * events to always fire for your component unless it has been set to a falsy by
+ * the component consumer.
+ *
+ * @param WrappedComponent
+ * @param map
+ * @param defaultProps
+ * @param withDelegation
+ * @return {{contextTypes: {getParentAnalyticsData: Requireable<(...args: any[]) => any>, onAnalyticsEvent: Requireable<(...args: any[]) => any>}, displayName: string, defaultProps: {analyticsData: *, analyticsId: *}, evaluatedMap: *|{}, contextType?: React.Context<any> | undefined, new<P, S>(props: (Readonly<P> | P)): WithAnalytics, new<P, S>(props: P, context: any): WithAnalytics, prototype: WithAnalytics}}
+ */
 const withAnalytics = (WrappedComponent, map = {}, defaultProps = {}, withDelegation) =>
 	class WithAnalytics extends Component {
 		props;

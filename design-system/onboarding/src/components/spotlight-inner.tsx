@@ -174,9 +174,7 @@ class SpotlightInner extends React.Component<SpotlightInnerProps, State> {
 						{TargetReplacement && !replacementElement ? null : (
 							<Fade hasEntered={isOpen} onExited={onExited}>
 								{(animationStyles) => (
-									<Layering
-										isDisabled={fg('platform_design_system_team_spotlight_layering') ? false : true}
-									>
+									<Layering isDisabled={false}>
 										<SpotlightDialog
 											testId={`${testId}--dialog`}
 											actions={this.props.actions}

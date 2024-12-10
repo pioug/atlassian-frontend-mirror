@@ -1,5 +1,37 @@
 # @atlaskit/editor-core
 
+## 203.2.4
+
+### Patch Changes
+
+- [#174793](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174793)
+  [`43b642d08a4ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43b642d08a4ec) -
+  ED-24453 delay decoration removal on edge when users are interacting with spelling suggestions
+- Updated dependencies
+
+## 203.2.3
+
+### Patch Changes
+
+- [#176132](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176132)
+  [`738d9aeecf5e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/738d9aeecf5e1) -
+  [ED-24119] Replace Legacy React Context with proper React Context
+
+## 203.2.2
+
+### Patch Changes
+
+- [#174774](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174774)
+  [`8e4f117f6abde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e4f117f6abde) -
+  [ux] ED-25744 Resolve styling issues with column sort and background color for nested tables
+- [#174970](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174970)
+  [`43ca94d0ef378`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43ca94d0ef378) -
+  [ux] Apply border radius on layout column selection
+- [#175621](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175621)
+  [`a29cb9d714dd5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a29cb9d714dd5) -
+  ED-25918 Add skipValidation for ReactEditorViewNext
+- Updated dependencies
+
 ## 203.2.1
 
 ### Patch Changes

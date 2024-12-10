@@ -6,7 +6,7 @@ import type { MediaSingleProps } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 
-import type { MediaNextEditorPluginType } from '../../next-plugin-type';
+import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { getPosHandler } from '../../types';
 
 export type EnabledHandles = { left?: boolean; right?: boolean };

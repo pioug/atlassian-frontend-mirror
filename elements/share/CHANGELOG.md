@@ -1,5 +1,14 @@
 # @atlaskit/share
 
+## 4.23.4
+
+### Patch Changes
+
+- [#175551](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175551)
+  [`314a2e4eac1e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/314a2e4eac1e0) -
+  [ux] Allow the share popup content to occupy the whole width
+- Updated dependencies
+
 ## 4.23.3
 
 ### Patch Changes

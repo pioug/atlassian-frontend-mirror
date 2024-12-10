@@ -28,7 +28,7 @@
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/ds-lib": "^3.3.0",
-		"@atlaskit/icon": "^23.0.0",
+		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/layering": "^0.8.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",

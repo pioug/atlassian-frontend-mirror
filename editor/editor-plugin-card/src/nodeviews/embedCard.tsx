@@ -1,6 +1,5 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
 import rafSchedule from 'raf-schd';
 
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
@@ -168,13 +167,6 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	context: any;
-
-	static contextTypes = {
-		contextAdapter: PropTypes.object,
-	};
-
 	state: EmbedCardState = {
 		hasPreview: true,
 	};
@@ -227,11 +219,9 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 		})();
 
 		try {
-			const cardContext = this.context.contextAdapter
-				? this.context.contextAdapter.card
-				: undefined;
+			const cardContext = this.props.cardContext?.value ? this.props.cardContext?.value : undefined;
 
-			const hasPreview = cardContext && cardContext.value.extractors.getPreview(url, 'web');
+			const hasPreview = url && cardContext && cardContext.extractors.getPreview(url, 'web');
 
 			if (!hasPreview) {
 				this.setState({
@@ -348,7 +338,6 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 	render() {
 		const {
 			node,
-			cardContext,
 			allowResizing,
 			fullWidthMode,
 			view,
@@ -396,7 +385,7 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 			/>
 		);
 
-		const cardInner = (
+		return (
 			<EmbedResizeMessageListener
 				embedIframeRef={this.embedIframeRef}
 				onHeightUpdate={this.onHeightUpdate}
@@ -418,15 +407,6 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 					dispatchAnalyticsEvent={dispatchAnalyticsEvent}
 				/>
 			</EmbedResizeMessageListener>
-		);
-
-		// [WS-2307]: we only render card wrapped into a Provider when the value is ready
-		return (
-			<>
-				{cardContext && cardContext.value ? (
-					<cardContext.Provider value={cardContext.value}>{cardInner}</cardContext.Provider>
-				) : null}
-			</>
 		);
 	}
 }

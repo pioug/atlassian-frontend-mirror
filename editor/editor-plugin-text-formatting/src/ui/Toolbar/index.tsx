@@ -21,8 +21,8 @@ import type {
 import { Announcer } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { TextFormattingPlugin } from '../../plugin';
-import { compareItemsArrays, isArrayContainsContent } from '../../utils';
+import { compareItemsArrays, isArrayContainsContent } from '../../editor-commands/utils';
+import type { TextFormattingPlugin } from '../../textFormattingPluginType';
 
 import { FormattingTextDropdownMenu } from './dropdown-menu';
 import { useClearIcon } from './hooks/clear-formatting-icon';

@@ -30,9 +30,11 @@ button instead such as the [button component](/components/button/examples) or
 
 Link is also intended for use within a sentence or paragraph, or as a standalone text link. It has
 preset styles and appearances, but it's not customizable beyond this. If you need to use custom
-styles, use the [anchor primitive](/components/primitives/anchor/examples) instead.
+styles, use the [anchor primitive](/components/primitives/anchor/examples) instead, but ensure to
+follow
+[guidance to ensure it remains accessible](/components/primitives/anchor/usage#accessibility).
 
-## Setup AppProvider
+## Set up AppProvider
 
 The link component automatically uses the router component configured in the app provider to support
 Single Page Application routing. App provider is already widely adopted, but ensure your app has
@@ -42,7 +44,7 @@ cause full page reloads.
 For guidance on how to configure your router, see the
 [app provider documentation](/components/app-provider/examples#router-links).
 
-## Setup the ESlint rule
+## Set up the ESlint rule
 
 Use the `no-html-anchor` lint rule to prevent new usages of native HTML anchors in your codebase,
 and encourage the use of the link component.
@@ -110,7 +112,8 @@ VR tests.
 #### Underlines
 
 The link component includes a default underline to improve accessibility. This would cause visual
-changes if your application does not apply underlines to links in existing global styles.
+changes if your application does not apply underlines to links in existing global styles. **Do not
+remove this underline through style overrides as it will reintroduce accessibility violations**.
 
 <BeforeAfter
 	before={{
@@ -208,5 +211,5 @@ would cause visual changes if your existing global link styles don't have visite
 ### DOM element changes
 
 For links that open in new windows or tabs (using `target="_blank"`), the link component includes
-visually hidden text&nbsp;"(opens new window)" for screen reader users. This may affect unit tests
-that target the text content of links.
+visually hidden text <span style="white-space: nowrap;">"(opens new window)"</span> for screen
+reader users. This may affect unit tests that target the text content of links.

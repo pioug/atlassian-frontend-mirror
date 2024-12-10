@@ -46,6 +46,7 @@ export const breakoutInlineScriptContext = `
   breakoutConsts.mapBreakpointToLayoutMaxWidth = ${breakoutConsts.mapBreakpointToLayoutMaxWidth.toString()};
   breakoutConsts.getBreakpoint = ${breakoutConsts.getBreakpoint.toString()};
   breakoutConsts.calcBreakoutWidth = ${breakoutConsts.calcBreakoutWidth.toString()};
+  breakoutConsts.calcBreakoutWithCustomWidth = ${breakoutConsts.calcBreakoutWithCustomWidth.toString()};
   breakoutConsts.calcLineLength = ${breakoutConsts.calcLineLength.toString()};
   breakoutConsts.calcWideWidth = ${breakoutConsts.calcWideWidth.toString()};
   breakoutConsts.FullPagePadding = ${FullPagePadding.toString()};
@@ -93,6 +94,7 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 					let width;
 					const node = maybeNode as HTMLElement;
 					const mode = node.dataset.mode || node.dataset.layout || '';
+					const resizedBreakout = node.dataset.hasWidth === 'true';
 
 					if (!mode || !WIDE_LAYOUT_MODES.includes(mode)) {
 						return;
@@ -104,6 +106,12 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 							const rendererWidth = renderer!.offsetWidth;
 							const effectiveWidth = rendererWidth - breakoutConsts.padding;
 							width = `${Math.min(parseInt(node.style.width), effectiveWidth)}px`;
+						} else if (resizedBreakout) {
+							width = breakoutConsts.calcBreakoutWithCustomWidth(
+								mode,
+								node.dataset.width || null,
+								renderer!.offsetWidth,
+							);
 						} else {
 							width = breakoutConsts.calcBreakoutWidth(mode, renderer!.offsetWidth);
 						}

@@ -9,17 +9,17 @@ import { css, jsx } from '@emotion/react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 
-import useLinkUpgradeDiscoverability from '../../common/hooks/useLinkUpgradeDiscoverability';
+import type { SmartCardProps } from '../../nodeviews/genericCard';
+import { getResolvedAttributesFromStore } from '../../pm-plugins/utils';
+import useLinkUpgradeDiscoverability from '../hooks/useLinkUpgradeDiscoverability';
+import InlineCardOverlay from '../InlineCardOverlay';
 import {
 	isLocalStorageKeyDiscovered,
 	LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK,
 	LOCAL_STORAGE_DISCOVERY_KEY_TOOLBAR,
 	markLocalStorageKeyDiscovered,
 	ONE_DAY_IN_MILLISECONDS,
-} from '../../common/local-storage';
-import type { SmartCardProps } from '../../nodeviews/genericCard';
-import { getResolvedAttributesFromStore } from '../../utils';
-import InlineCardOverlay from '../InlineCardOverlay';
+} from '../local-storage';
 import { DiscoveryPulse } from '../Pulse';
 
 type AwarenessWrapperProps = {

@@ -16,8 +16,8 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { createInlineCodeFromTextInputWithAnalytics } from '../commands/text-formatting';
-import * as commands from '../commands/text-formatting';
+import { createInlineCodeFromTextInputWithAnalytics } from '../editor-commands/text-formatting';
+import * as commands from '../editor-commands/text-formatting';
 
 import { pluginKey } from './plugin-key';
 

@@ -32,8 +32,7 @@ import type { FilmstripItem } from '@atlaskit/media-filmstrip';
 import { Filmstrip } from '@atlaskit/media-filmstrip';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { useMediaProvider } from '../hooks/useMediaProvider';
-import type { MediaNextEditorPluginType } from '../next-plugin-type';
+import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import type { MediaPluginState } from '../pm-plugins/types';
 import type {
@@ -43,6 +42,7 @@ import type {
 	MediaOptions,
 	getPosHandler as ProsemirrorGetPosHandler,
 } from '../types';
+import { useMediaProvider } from '../ui/hooks/useMediaProvider';
 
 import { MediaGroupNext } from './mediaGroupNext';
 import { MediaNodeUpdater } from './mediaNodeUpdater';

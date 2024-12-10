@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.15.0
+
+### Minor Changes
+
+- [#173846](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173846)
+  [`9db562f586e8b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9db562f586e8b) -
+  ED-25939 prevent native dnd and use block controls
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.14.3
 
 ### Patch Changes

@@ -1,2 +1,2 @@
-export type { MediaNextEditorPluginType as MediaPlugin } from './next-plugin-type';
-export { mediaPlugin } from './plugin';
+export type { MediaNextEditorPluginType as MediaPlugin } from './mediaPluginType';
+export { mediaPlugin } from './mediaPlugin';

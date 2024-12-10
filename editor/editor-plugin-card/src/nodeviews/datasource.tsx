@@ -6,7 +6,6 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import PropTypes from 'prop-types';
 
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
@@ -23,11 +22,15 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, DecorationSource, EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { DatasourceAdf, DatasourceAdfView } from '@atlaskit/link-datasource';
 import { DatasourceTableView } from '@atlaskit/link-datasource';
+import {
+	EditorSmartCardProvider,
+	EditorSmartCardProviderValueGuard,
+} from '@atlaskit/link-provider';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { DatasourceErrorBoundary } from '../datasourceErrorBoundary';
 import type { cardPlugin } from '../index';
+import { DatasourceErrorBoundary } from '../ui/datasourceErrorBoundary';
 import { EditorAnalyticsContext } from '../ui/EditorAnalyticsContext';
 
 const getPosSafely = (pos: getPosHandler) => {
@@ -57,13 +60,6 @@ interface DatasourceComponentProps
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class DatasourceComponent extends React.PureComponent<DatasourceComponentProps> {
-	static contextTypes = {
-		contextAdapter: PropTypes.object,
-	};
-
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	context: any;
-
 	constructor(props: DatasourceComponentProps) {
 		super(props);
 	}
@@ -196,8 +192,6 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 	}
 
 	render() {
-		const cardContext = this.context.contextAdapter ? this.context.contextAdapter.card : undefined;
-
 		const datasource = this.getDatasource();
 		const attrs = this.props.node.attrs as DatasourceAdf['attrs'];
 		const tableView = this.getTableView();
@@ -205,11 +199,10 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 		if (tableView) {
 			const { visibleColumnKeys, columnCustomSizes, wrappedColumnKeys } = this.getColumnsInfo();
 
-			// [WS-2307]: we only render card wrapped into a Provider when the value is ready
-			if (cardContext && cardContext.value) {
-				return (
+			return (
+				<EditorSmartCardProviderValueGuard>
 					<EditorAnalyticsContext editorView={this.props.view}>
-						<cardContext.Provider value={cardContext.value}>
+						<EditorSmartCardProvider>
 							<DatasourceTableView
 								datasourceId={datasource.id}
 								parameters={datasource.parameters}
@@ -221,10 +214,10 @@ export class DatasourceComponent extends React.PureComponent<DatasourceComponent
 								onWrappedColumnChange={this.handleWrappedColumnChange}
 								wrappedColumnKeys={wrappedColumnKeys}
 							/>
-						</cardContext.Provider>
+						</EditorSmartCardProvider>
 					</EditorAnalyticsContext>
-				);
-			}
+				</EditorSmartCardProviderValueGuard>
+			);
 		}
 
 		return null;

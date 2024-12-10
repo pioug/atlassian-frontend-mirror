@@ -1,5 +1,14 @@
 # @atlaskit/focused-task-close-account
 
+## 2.3.5
+
+### Patch Changes
+
+- [#175554](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175554)
+  [`4d30a4c54bc43`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d30a4c54bc43) -
+  PTC-10378 fix space token enghealth
+- Updated dependencies
+
 ## 2.3.4
 
 ### Patch Changes

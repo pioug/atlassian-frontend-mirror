@@ -10,7 +10,7 @@ import type { InlineCommentPluginState } from '@atlaskit/editor-plugin-annotatio
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { MediaNextEditorPluginType } from '../next-plugin-type';
+import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import type { MediaPluginState } from '../pm-plugins/types';
 import type { ForwardRef, MediaOptions, getPosHandler as ProsemirrorGetPosHandler } from '../types';
 

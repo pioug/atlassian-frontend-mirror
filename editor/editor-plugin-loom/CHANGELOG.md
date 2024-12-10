@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-loom
 
+## 3.1.23
+
+### Patch Changes
+
+- [#174866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174866)
+  [`f942caa52a5dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f942caa52a5dd) -
+  [ux] Disable the loom plugin while offline.
+- Updated dependencies
+
 ## 3.1.22
 
 ### Patch Changes

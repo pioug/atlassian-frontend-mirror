@@ -28,15 +28,15 @@ import { getMediaClient } from '@atlaskit/media-client-react';
 import type { MediaClientConfig } from '@atlaskit/media-core/auth';
 import { MediaInlineCardLoadingView } from '@atlaskit/media-ui';
 
-import type { MediaNextEditorPluginType } from '../next-plugin-type';
+import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import type { MediaPluginState } from '../pm-plugins/types';
+import { isImage } from '../pm-plugins/utils/is-type';
 import type {
 	getPosHandler,
 	getPosHandlerNode,
 	getPosHandler as ProsemirrorGetPosHandler,
 } from '../types';
 import { MediaViewerContainer } from '../ui/MediaViewer/MediaViewerContainer';
-import { isImage } from '../utils/is-type';
 
 import { MediaNodeUpdater } from './mediaNodeUpdater';
 export interface MediaInlineProps {

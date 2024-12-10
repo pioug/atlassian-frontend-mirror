@@ -14,7 +14,7 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { type ExtractInjectionAPI, ToolbarSize } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { TextFormattingPlugin } from '../plugin';
+import type { TextFormattingPlugin } from '../textFormattingPluginType';
 
 import { FormattingTextDropdownMenu } from './Toolbar/dropdown-menu';
 import { useClearIcon } from './Toolbar/hooks/clear-formatting-icon';

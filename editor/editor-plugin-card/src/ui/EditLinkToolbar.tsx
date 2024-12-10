@@ -31,10 +31,10 @@ import type { Node } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { cardPlugin } from '../plugin';
+import type { cardPlugin } from '../cardPlugin';
 import { hideLinkToolbar, showLinkToolbar } from '../pm-plugins/actions';
 import { changeSelectedCardToLink, updateCard } from '../pm-plugins/doc';
-import { displayInfoForCard, findCardInfo } from '../utils';
+import { displayInfoForCard, findCardInfo } from '../pm-plugins/utils';
 
 export type EditLinkToolbarProps = {
 	view: EditorView;

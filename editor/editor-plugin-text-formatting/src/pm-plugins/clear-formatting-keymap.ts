@@ -4,7 +4,7 @@ import { bindKeymapWithCommand, clearFormatting } from '@atlaskit/editor-common/
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
-import { clearFormattingWithAnalytics } from '../commands/clear-formatting';
+import { clearFormattingWithAnalytics } from '../editor-commands/clear-formatting';
 
 export function keymapPlugin(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): SafePlugin {
 	const list = {};

@@ -1,5 +1,34 @@
 # @atlaskit/editor-plugin-card
 
+## 4.5.2
+
+### Patch Changes
+
+- [#175587](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175587)
+  [`92d72762ca509`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92d72762ca509) -
+  ED-25113: refactors card plugin to meet folder standards
+- Updated dependencies
+
+## 4.5.1
+
+### Patch Changes
+
+- [#176132](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176132)
+  [`738d9aeecf5e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/738d9aeecf5e1) -
+  [ED-24119] Replace Legacy React Context with proper React Context
+
+## 4.5.0
+
+### Minor Changes
+
+- [#175540](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175540)
+  [`fa908f67c5dba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fa908f67c5dba) -
+  [ux] ED-25903 support comment on smart links floating toolbar
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.4.13
 
 ### Patch Changes

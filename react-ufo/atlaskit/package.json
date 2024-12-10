@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "2.4.6",
+	"version": "2.5.0",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -32,7 +32,6 @@
 		"./coinflip": "./src/coinflip/index.ts",
 		"./common": "./src/common/index.ts",
 		"./config": "./src/config/index.ts",
-		"./create-experimental-interaction-metrics-payload": "./src/create-experimental-interaction-metrics-payload/index.ts",
 		"./create-payload": "./src/create-payload/index.ts",
 		"./create-post-interaction-log-payload": "./src/create-post-interaction-log-payload/index.ts",
 		"./custom-data": "./src/custom-data/index.ts",
@@ -79,7 +78,6 @@
 		"./coinflip": "./src/coinflip/index.ts",
 		"./common": "./src/common/index.ts",
 		"./config": "./src/config/index.ts",
-		"./create-experimental-interaction-metrics-payload": "./src/create-experimental-interaction-metrics-payload/index.ts",
 		"./create-payload": "./src/create-payload/index.ts",
 		"./create-post-interaction-log-payload": "./src/create-post-interaction-log-payload/index.ts",
 		"./custom-data": "./src/custom-data/index.ts",
@@ -121,7 +119,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/interaction-context": "^2.1.4",
+		"@atlaskit/interaction-context": "^2.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0",
@@ -184,10 +182,13 @@
 		"platform-ufo-vc-observe-attributes": {
 			"type": "boolean"
 		},
-		"react-ufo-payload-segment-compressed": {
+		"enable-react-ufo-payload-segment-compressed": {
 			"type": "boolean"
 		},
 		"ufo_capture_stylesheet_metrics": {
+			"type": "boolean"
+		},
+		"ufo-remove-vc-component-observations-after-ttai": {
 			"type": "boolean"
 		}
 	}

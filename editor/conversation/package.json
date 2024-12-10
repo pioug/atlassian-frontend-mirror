@@ -33,7 +33,7 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/avatar": "^21.17.0",
 		"@atlaskit/comment": "^12.0.0",
 		"@atlaskit/editor-common": "^96.3.0",

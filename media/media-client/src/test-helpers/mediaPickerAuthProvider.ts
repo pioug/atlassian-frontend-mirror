@@ -1,10 +1,10 @@
 import { type Auth, type AuthContext } from '@atlaskit/media-core';
 import { defaultCollectionName } from './collectionNames';
 
-export const authProviderBaseURL = 'https://media.dev.atl-paas.net';
+export const authProviderBaseURL = 'https://media.staging.atl-paas.net';
 const cachedAuths: { [key: string]: Promise<Auth> } = {};
 
-export type MediaEnv = 'dev' | 'staging';
+export type MediaEnv = 'staging';
 
 type Access = { [resource: string]: string[] };
 const accessUrns: { [key: string]: Access } = {
@@ -30,7 +30,7 @@ const accessUrns: { [key: string]: Access } = {
 const requestAuthProvider = async (
 	authEnvironment: string,
 	collectionName: string,
-	env: MediaEnv = 'dev',
+	env: MediaEnv = 'staging',
 ): Promise<Auth> => {
 	const url = `https://media-playground.${env}.atl-paas.net/token/tenant?environment=${authEnvironment}`;
 	const body = JSON.stringify({
@@ -47,7 +47,7 @@ const requestAuthProvider = async (
 		headers,
 	});
 
-	// We leverage the fact, that our internal /toke/tenant API returns data in the same format as Auth
+	// We leverage the fact, that our internal /token/tenant API returns data in the same format as Auth
 	return response.json();
 };
 

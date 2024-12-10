@@ -1,8 +1,6 @@
 import React, { useCallback } from 'react';
 import type { EventHandler, KeyboardEvent, MouseEvent } from 'react';
 
-import PropTypes from 'prop-types';
-
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
@@ -20,11 +18,12 @@ import { type CardContext } from '@atlaskit/link-provider';
 import { fg } from '@atlaskit/platform-feature-flags';
 import type { APIError, CardProps as BaseCardProps } from '@atlaskit/smart-card';
 
+import type { CardPlugin } from '../cardPluginType';
 import type { cardPlugin } from '../index';
-import type { CardPlugin } from '../plugin';
 import { changeSelectedCardToLinkFallback } from '../pm-plugins/doc';
 import { getPluginState } from '../pm-plugins/util/state';
-import { titleUrlPairFromNode } from '../utils';
+import { titleUrlPairFromNode } from '../pm-plugins/utils';
+import { WithCardContext } from '../ui/WithCardContext';
 
 export type EditorContext<T> = React.Context<T> & { value: T };
 
@@ -129,13 +128,6 @@ export function Card(
 	UnsupportedComponent: React.ComponentType<React.PropsWithChildren<unknown>>,
 ): React.ComponentType<React.PropsWithChildren<CardProps>> {
 	return class extends React.Component<CardProps> {
-		static contextTypes = {
-			contextAdapter: PropTypes.object,
-		};
-
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		context: any;
-
 		state = {
 			isError: false,
 		};
@@ -165,9 +157,6 @@ export function Card(
 				}
 			}
 
-			const cardContext = this.context.contextAdapter
-				? this.context.contextAdapter.card
-				: undefined;
 			const editorAppearance = getPluginState(this.props.view.state)?.editorAppearance;
 			const analyticsEditorAppearance = getAnalyticsEditorAppearance(editorAppearance);
 
@@ -186,12 +175,16 @@ export function Card(
 						__livePage={this.props.__livePage}
 					>
 						{({ onClick }) => (
-							<SmartCardComponent
-								key={url}
-								cardContext={cardContext}
-								{...this.props}
-								onClick={onClick}
-							/>
+							<WithCardContext>
+								{(cardContext) => (
+									<SmartCardComponent
+										key={url}
+										cardContext={cardContext}
+										{...this.props}
+										onClick={onClick}
+									/>
+								)}
+							</WithCardContext>
 						)}
 					</WithClickHandler>
 				</AnalyticsContext>

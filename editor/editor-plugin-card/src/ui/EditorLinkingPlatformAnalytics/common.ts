@@ -2,8 +2,8 @@ import { UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { ACTION, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { EditorCardPluginEvents } from '../../analytics/create-events-queue';
-import type { CardPluginEvent } from '../../analytics/types';
+import type { EditorCardPluginEvents } from '../analytics/create-events-queue';
+import type { CardPluginEvent } from '../analytics/types';
 
 export type AnalyticsBindingsProps = {
 	editorView: EditorView;

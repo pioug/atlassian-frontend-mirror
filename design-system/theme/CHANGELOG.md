@@ -1,5 +1,13 @@
 # @atlaskit/theme
 
+## 14.0.2
+
+### Patch Changes
+
+- [#175552](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175552)
+  [`0384c8ac8996a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0384c8ac8996a) -
+  Remove fontStyle inherit from heading mixins.
+
 ## 14.0.1
 
 ### Patch Changes

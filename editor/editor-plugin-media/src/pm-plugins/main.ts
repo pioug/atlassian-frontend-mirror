@@ -9,12 +9,12 @@ import uuid from 'uuid';
 
 import type { MediaADFAttrs, RichMediaLayout as MediaSingleLayout } from '@atlaskit/adf-schema';
 import type { InputMethodInsertMedia, InsertMediaVia } from '@atlaskit/editor-common/analytics';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
+	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { mediaInlineImagesEnabled } from '@atlaskit/editor-common/media-inline';
@@ -52,12 +52,18 @@ import type { UploadParams } from '@atlaskit/media-picker/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import * as helpers from '../commands/helpers';
-import { updateMediaNodeAttrs } from '../commands/helpers';
-import type { MediaPluginOptions } from '../media-plugin-options';
-import type { MediaNextEditorPluginType } from '../next-plugin-type';
-import type { PickerFacadeConfig } from '../picker-facade';
-import PickerFacade from '../picker-facade';
+import type { MediaNextEditorPluginType } from '../mediaPluginType';
+import { updateMediaNodeAttrs } from '../pm-plugins/commands/helpers';
+import * as helpers from '../pm-plugins/commands/helpers';
+import {
+	getMediaFromSupportedMediaNodesFromSelection,
+	isNodeDoubleClickSupportedInLivePagesViewMode,
+	removeMediaNode,
+	splitMediaGroup,
+} from '../pm-plugins/utils/media-common';
+import { insertMediaGroupNode, insertMediaInlineNode } from '../pm-plugins/utils/media-files';
+import { getMediaNodeInsertionType } from '../pm-plugins/utils/media-inline';
+import { insertMediaSingleNode } from '../pm-plugins/utils/media-single';
 import type {
 	MediaOptions,
 	MediaState,
@@ -65,20 +71,14 @@ import type {
 	MediaStateEventSubscriber,
 	getPosHandlerNode as ProsemirrorGetPosHandler,
 } from '../types';
-import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
+import type { MediaPluginOptions } from '../types/media-plugin-options';
 import DropPlaceholder from '../ui/Media/DropPlaceholder';
-import {
-	getMediaFromSupportedMediaNodesFromSelection,
-	isNodeDoubleClickSupportedInLivePagesViewMode,
-	removeMediaNode,
-	splitMediaGroup,
-} from '../utils/media-common';
-import { insertMediaGroupNode, insertMediaInlineNode } from '../utils/media-files';
-import { getMediaNodeInsertionType } from '../utils/media-inline';
-import { insertMediaSingleNode } from '../utils/media-single';
+import type { PlaceholderType } from '../ui/Media/DropPlaceholder';
 
 import { ACTIONS } from './actions';
 import { MediaTaskManager } from './mediaTaskManager';
+import type { PickerFacadeConfig } from './picker-facade';
+import PickerFacade from './picker-facade';
 import { stateKey } from './plugin-key';
 import type { MediaNodeWithPosHandler, MediaPluginState } from './types';
 

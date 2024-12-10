@@ -33,7 +33,7 @@
 		"codegen-analytics": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-analytics --output ./src/common/utils/analytics"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/link-client-extension": "^3.0.0",
 		"@atlaskit/linking-common": "^6.0.0",
 		"@atlaskit/linking-types": "^9.5.0",
@@ -43,7 +43,7 @@
 		"rusha": "^0.8.13"
 	},
 	"peerDependencies": {
-		"@atlaskit/link-provider": "^1.17.0",
+		"@atlaskit/link-provider": "^1.18.0",
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {

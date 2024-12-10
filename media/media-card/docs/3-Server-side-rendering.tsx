@@ -42,7 +42,7 @@ import { MediaClientConfig } from '@atlaskit/media-core';
 // The token lifespan must be long enough for related file data to be fetched
 const initialAuth = {
   clientId: "f41dff68-9c65-4def-803a-13a0b73f3986"
-  baseUrl: "https://media.dev.atl-paas.net"
+  baseUrl: "https://media.staging.atl-paas.net"
   token: "jwt-token"
 }
 
@@ -69,7 +69,7 @@ import { MediaClientConfig } from '@atlaskit/media-core';
 // The token lifespan must be long enough for file data to be fetched
 const initialAuth = {
   clientId: "f41dff68-9c65-4def-803a-13a0b73f3986"
-  baseUrl: "https://media.dev.atl-paas.net"
+  baseUrl: "https://media.staging.atl-paas.net"
   token: "jwt-token"
 }
 
@@ -97,7 +97,7 @@ import { ReactRenderer } from "@atlaskit/renderer";
 // The token lifespan must be long enough for file data to be fetched
 const initialAuth = {
   clientId: "f41dff68-9c65-4def-803a-13a0b73f3986"
-  baseUrl: "https://media.dev.atl-paas.net"
+  baseUrl: "https://media.staging.atl-paas.net"
   token: "jwt-token"
 }
 
@@ -125,7 +125,7 @@ import { ReactRenderer } from "@atlaskit/renderer";
 // The token lifespan must be long enough for file data to be fetched
 const initialAuth = {
   clientId: "f41dff68-9c65-4def-803a-13a0b73f3986"
-  baseUrl: "https://media.dev.atl-paas.net"
+  baseUrl: "https://media.staging.atl-paas.net"
   token: "jwt-token"
 }
 

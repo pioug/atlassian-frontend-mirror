@@ -8,15 +8,16 @@ import { jsx } from '@emotion/react';
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { ToolbarListsIndentationPlugin } from '../plugin';
 import type { IndentationButtonNode } from '../pm-plugins/indentation-buttons';
+import type { ToolbarListsIndentationPlugin } from '../toolbarListsIndentationPluginType';
 import { ToolbarType } from '../types';
-import { getInputMethod } from '../utils/input-method';
 
 import { onItemActivated } from './onItemActivated';
 import { Toolbar } from './Toolbar';
 import { ToolbarDropdown } from './ToolbarDropdown';
+import { getInputMethod } from './utils/input-method';
 
 export interface Props {
 	editorView: EditorView;
@@ -62,7 +63,21 @@ export default function ToolbarListsIndentation(props: Props) {
 
 	const inputMethod = toolbarType ? getInputMethod(toolbarType) : INPUT_METHOD.TOOLBAR;
 
+	let isDisabled;
 	if (isSmall || toolbarType === ToolbarType.FLOATING) {
+		if (fg('platform_editor_toolbar_fix_for_disabled_options')) {
+			const areAllOptionsDisabled = [
+				bulletListDisabled,
+				orderedListDisabled,
+				indentDisabled,
+				outdentDisabled,
+			].every((item) => Boolean(item) === true);
+
+			isDisabled = disabled || areAllOptionsDisabled;
+		} else {
+			isDisabled = disabled;
+		}
+
 		return (
 			<ToolbarDropdown
 				editorView={props.editorView}
@@ -77,7 +92,7 @@ export default function ToolbarListsIndentation(props: Props) {
 				orderedListDisabled={orderedListDisabled}
 				indentDisabled={indentDisabled}
 				outdentDisabled={outdentDisabled}
-				disabled={disabled}
+				disabled={isDisabled}
 				onItemActivated={onItemActivated(pluginInjectionApi, indentationStateNode, inputMethod)}
 				featureFlags={featureFlags}
 				pluginInjectionApi={pluginInjectionApi}

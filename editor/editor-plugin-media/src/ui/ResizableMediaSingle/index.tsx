@@ -30,7 +30,7 @@ import { akEditorWideLayoutWidth } from '@atlaskit/editor-shared-styles';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import { token } from '@atlaskit/tokens';
 
-import { checkMediaType } from '../../utils/check-media-type';
+import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
 
 import { wrapperStyle } from './styled';
 import type { EnabledHandles, Props } from './types';

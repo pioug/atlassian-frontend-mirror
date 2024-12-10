@@ -64,7 +64,6 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ api }) => {
 						selectionMarkerState?.isForcedHidden ||
 						(editorDisabledState?.editorDisabled ?? false)) ??
 					true;
-
 				requestAnimationFrame(() => dispatchShouldHideDecorations(editorView, shouldHide));
 			}, [editorView, focusState, typeAheadState, selectionMarkerState, editorDisabledState]);
 		},

@@ -9,8 +9,8 @@ import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import DecisionIcon from '@atlaskit/icon/glyph/editor/decision';
 
-import { insertTaskDecisionCommand } from '../../commands';
-import type { TasksAndDecisionsPlugin } from '../../types';
+import { insertTaskDecisionCommand } from '../../pm-plugins/insert-commands';
+import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 
 export interface Props {
 	editorView?: EditorView;

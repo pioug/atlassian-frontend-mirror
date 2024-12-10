@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.14.3
+
+### Patch Changes
+
+- [#175552](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175552)
+  [`b29361001f720`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b29361001f720) -
+  refactor: remediate re-exports in editor-plugin-ai-definitions, editor-plugin-alignment,
+  editor-plugin-analytics, editor-plugin-annotation
+- Updated dependencies
+
 ## 1.14.2
 
 ### Patch Changes

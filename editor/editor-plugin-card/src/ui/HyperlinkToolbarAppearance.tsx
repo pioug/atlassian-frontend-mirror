@@ -12,7 +12,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Flex } from '@atlaskit/primitives';
 
-import { type CardPlugin } from '../plugin';
+import { type CardPlugin } from '../cardPluginType';
 
 import { DatasourceAppearanceButton } from './DatasourceAppearanceButton';
 import { LinkToolbarAppearance } from './LinkToolbarAppearance';
@@ -77,6 +77,7 @@ export function HyperlinkToolbarAppearance(props: HyperlinkToolbarAppearanceProp
 	if (!supportedUrlsMap.get(url)) {
 		return null;
 	}
+
 	return (
 		<Flex>
 			<LinkToolbarAppearance

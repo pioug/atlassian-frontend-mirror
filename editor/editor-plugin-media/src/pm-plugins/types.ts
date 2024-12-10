@@ -6,14 +6,15 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 
-import type { MediaPluginOptions } from '../media-plugin-options';
-import type PickerFacade from '../picker-facade';
 import type {
 	MediaOptions,
 	MediaState,
 	MediaStateEventSubscriber,
 	ProsemirrorGetPosHandler,
 } from '../types';
+import type { MediaPluginOptions } from '../types/media-plugin-options';
+
+import type PickerFacade from './picker-facade';
 
 export interface MediaNodeWithPosHandler {
 	node: PMNode;

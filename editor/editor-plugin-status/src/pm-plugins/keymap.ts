@@ -4,10 +4,9 @@ import type { Command } from '@atlaskit/editor-common/types';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 
-import { setFocusOnStatusInput } from '../actions';
-import { mayGetStatusAtSelection } from '../utils';
-
+import { setFocusOnStatusInput } from './actions';
 import { pluginKey } from './plugin-key';
+import { mayGetStatusAtSelection } from './utils';
 
 export function keymapPlugin(): SafePlugin {
 	const list = {};

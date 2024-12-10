@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-extension
 
+## 2.0.3
+
+### Patch Changes
+
+- [#175651](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175651)
+  [`26349f1048cb4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/26349f1048cb4) -
+  ED-25982 - Revert selection click handler slightly so non-LCM extension nodes are selectable
+  again.
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

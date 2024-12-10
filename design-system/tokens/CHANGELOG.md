@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 2.4.1
+
+### Patch Changes
+
+- [#175552](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175552)
+  [`0384c8ac8996a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0384c8ac8996a) -
+  Narrow down fontStyle type definition to only allow `normal` and `italic`.
+
 ## 2.4.0
 
 ### Minor Changes

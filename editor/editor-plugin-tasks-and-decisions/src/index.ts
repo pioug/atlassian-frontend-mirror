@@ -1,6 +1,6 @@
-export { tasksAndDecisionsPlugin } from './plugin';
+export { tasksAndDecisionsPlugin } from './tasksAndDecisionsPlugin';
+export type { TasksAndDecisionsPlugin } from './tasksAndDecisionsPluginType';
 export type {
-	TasksAndDecisionsPlugin,
 	TaskDecisionPluginOptions,
 	TaskAndDecisionsSharedState,
 	TaskDecisionListType,

@@ -12,9 +12,9 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createParagraphNear } from '@atlaskit/editor-prosemirror/commands';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
-import { arrow, deleteNode } from '../gap-cursor/actions';
-import { Direction } from '../gap-cursor/direction';
-import { GapCursorSelection } from '../gap-cursor/selection';
+import { arrow, deleteNode } from './gap-cursor/actions';
+import { Direction } from './gap-cursor/direction';
+import { GapCursorSelection } from './gap-cursor/selection';
 
 export default function keymapPlugin(): SafePlugin {
 	const map = {};

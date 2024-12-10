@@ -1,5 +1,5 @@
-export { selectionPlugin } from './plugin';
-export type { SelectionPlugin } from './plugin';
+export { selectionPlugin } from './selectionPlugin';
+export type { SelectionPlugin } from './selectionPluginType';
 export type {
 	EditorSelectionAPI,
 	SetSelectionRelativeToNode,

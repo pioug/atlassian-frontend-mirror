@@ -13,8 +13,8 @@ import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import type { Command, TextFormattingState } from '@atlaskit/editor-common/types';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 
-import { clearFormattingWithAnalytics } from '../../../commands/clear-formatting';
-import { getInputMethod } from '../../../input-method-utils';
+import { clearFormattingWithAnalytics } from '../../../editor-commands/clear-formatting';
+import { getInputMethod } from '../input-method-utils';
 import type { IconHookProps, MenuIconItem, ToolbarType } from '../types';
 
 interface ClearIconHookProps extends IconHookProps {

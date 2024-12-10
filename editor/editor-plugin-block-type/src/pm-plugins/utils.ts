@@ -2,6 +2,7 @@ import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common
 import { createRule, createWrappingJoinRule } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { WRAPPER_BLOCK_TYPES } from './block-types';
 
@@ -71,28 +72,33 @@ function getSelectedWrapperNodes(state: EditorState): NodeType[] {
 			orderedList,
 			bulletList,
 			listItem,
+			caption,
 			codeBlock,
 			decisionItem,
 			decisionList,
 			taskItem,
 			taskList,
 		} = state.schema.nodes;
+
+		const wrapperNodes = [
+			blockquote,
+			panel,
+			orderedList,
+			bulletList,
+			listItem,
+			codeBlock,
+			decisionItem,
+			decisionList,
+			taskItem,
+			taskList,
+		];
+
+		if (fg('platform_editor_toolbar_fix_for_disabled_options')) {
+			wrapperNodes.push(caption);
+		}
+
 		state.doc.nodesBetween($from.pos, $to.pos, (node) => {
-			if (
-				node.isBlock &&
-				[
-					blockquote,
-					panel,
-					orderedList,
-					bulletList,
-					listItem,
-					codeBlock,
-					decisionItem,
-					decisionList,
-					taskItem,
-					taskList,
-				].indexOf(node.type) >= 0
-			) {
+			if (node.isBlock && wrapperNodes.indexOf(node.type) >= 0) {
 				nodes.push(node.type);
 			}
 		});
@@ -106,5 +112,6 @@ function getSelectedWrapperNodes(state: EditorState): NodeType[] {
 export function areBlockTypesDisabled(state: EditorState): boolean {
 	const nodesTypes: NodeType[] = getSelectedWrapperNodes(state);
 	const { panel } = state.schema.nodes;
+
 	return nodesTypes.filter((type) => type !== panel).length > 0;
 }

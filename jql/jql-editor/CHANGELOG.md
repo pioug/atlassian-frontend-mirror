@@ -1,5 +1,17 @@
 # @atlaskit/jql-editor
 
+## 4.12.0
+
+### Minor Changes
+
+- [#175241](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175241)
+  [`7815c3852aecc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7815c3852aecc) -
+  Cleanup FF to enable custom components in JQL editor [GRAVITYAI-1983]
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 4.11.2
 
 ### Patch Changes

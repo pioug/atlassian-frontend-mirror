@@ -30,7 +30,7 @@ import Popup from '@atlaskit/popup';
 import { Box, Pressable, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import type { TasksAndDecisionsPlugin } from '../types';
+import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import TaskItem from '../ui/Task';
 
 import { useShowPlaceholder } from './hooks/use-show-placeholder';

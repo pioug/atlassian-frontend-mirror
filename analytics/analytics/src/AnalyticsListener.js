@@ -19,6 +19,9 @@ if (process.env.NODE_ENV !== 'production' && !process.env.CI) {
 	);
 }
 
+/**
+ * @deprecated Please use @atlaskit/analytics-next instead
+ */
 class AnalyticsListener extends Component {
 	static defaultProps = {
 		match: '*',

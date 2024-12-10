@@ -43,10 +43,10 @@
 		"typecheck": "NODE_OPTIONS=--max-old-space-size=4096 tsc --noEmit --project ./tsconfig.json"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/drawer": "^9.2.0",
-		"@atlaskit/icon": "^23.0.0",
+		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/intl-messages-provider": "^1.0.2",
 		"@atlaskit/modal-dialog": "^12.18.0",
 		"@atlaskit/portal": "^4.9.0",

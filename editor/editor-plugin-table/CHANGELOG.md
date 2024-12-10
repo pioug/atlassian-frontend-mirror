@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 8.4.4
+
+### Patch Changes
+
+- [#173211](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173211)
+  [`d4cb284c5f049`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4cb284c5f049) -
+  Fix distribute cols steps to resolve collab issue
+- Updated dependencies
+
 ## 8.4.3
 
 ### Patch Changes

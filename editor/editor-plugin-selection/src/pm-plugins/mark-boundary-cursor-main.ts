@@ -2,10 +2,9 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import { createMarkBoundaryCursorDecoration } from '../mark-boundary-cursor/ui/mark-boundary-cursor-decoration';
-import { getActiveMarksSide } from '../mark-boundary-cursor/utils/active-marks-side';
-
 import { markBoundaryCursorPluginKey } from './mark-boundary-cursor-plugin-key';
+import { createMarkBoundaryCursorDecoration } from './mark-boundary-cursor/ui/mark-boundary-cursor-decoration';
+import { getActiveMarksSide } from './mark-boundary-cursor/utils/active-marks-side';
 
 export const createMarkBoundaryCursorPlugin = () => {
 	return new SafePlugin({

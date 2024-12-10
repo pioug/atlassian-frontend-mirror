@@ -2,7 +2,7 @@ import { bindKeymapWithCommand, moveLeft, moveRight } from '@atlaskit/editor-com
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
-import { arrowLeft, arrowRight } from '../commands';
+import { arrowLeft, arrowRight } from './commands';
 
 function keymapPlugin() {
 	const list = {};

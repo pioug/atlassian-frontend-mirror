@@ -2,10 +2,13 @@
 
 import { type JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 
+type Pattern = 'style-object' | 'font-weight';
+
 export type RuleConfig = {
 	failSilently: boolean;
 	shouldEnforceFallbacks: boolean;
 	enableUnsafeAutofix: boolean;
+	patterns: Pattern[];
 };
 
 export const ruleSchema: JSONSchema4 = {
@@ -30,6 +33,7 @@ const defaultConfig: RuleConfig = {
 	failSilently: false,
 	shouldEnforceFallbacks: false,
 	enableUnsafeAutofix: false,
+	patterns: ['style-object'],
 };
 
 export const getConfig = (overrides: Partial<RuleConfig>): RuleConfig => {

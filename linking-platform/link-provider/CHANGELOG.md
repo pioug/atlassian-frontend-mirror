@@ -1,5 +1,13 @@
 # @atlaskit/link-provider
 
+## 1.18.0
+
+### Minor Changes
+
+- [#176132](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176132)
+  [`738d9aeecf5e1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/738d9aeecf5e1) -
+  [ED-24119] Replace Legacy React Context with proper React Context
+
 ## 1.17.0
 
 ### Minor Changes

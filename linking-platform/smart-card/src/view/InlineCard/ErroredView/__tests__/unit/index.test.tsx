@@ -3,7 +3,7 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
 import { Provider } from '../../../../../index';
@@ -38,8 +38,7 @@ describe('Errored view', () => {
 					url={URL}
 					message="Error"
 					onRetry={onRetrySpy}
-					// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19513
-					icon={<WarningIcon label="my-icon" testId="warning-icon" />}
+					icon={<WarningIcon spacing="spacious" label="my-icon" testId="warning-icon" />}
 				/>
 			</IntlProvider>,
 		);

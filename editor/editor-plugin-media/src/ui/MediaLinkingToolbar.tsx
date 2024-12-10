@@ -23,13 +23,13 @@ import {
 import { mediaLinkToolbarMessages } from '@atlaskit/editor-common/media';
 import { linkToolbarMessages } from '@atlaskit/editor-common/messages';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import { ErrorMessage } from '@atlaskit/editor-common/ui';
-// Common Translations will live here
-import { PanelTextInput } from '@atlaskit/editor-common/ui';
 import {
 	FloatingToolbarButton as Button,
+	ErrorMessage,
 	FloatingToolbarSeparator as Separator,
 } from '@atlaskit/editor-common/ui';
+// Common Translations will live here
+import { PanelTextInput } from '@atlaskit/editor-common/ui';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import EditorUnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';

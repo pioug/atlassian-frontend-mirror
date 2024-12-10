@@ -24,11 +24,11 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/code": "^15.6.0",
 		"@atlaskit/css": "^0.7.0",
-		"@atlaskit/icon": "^23.0.0",
+		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/icon-file-type": "^6.8.0",
 		"@atlaskit/legacy-custom-icons": "^0.20.0",
 		"@atlaskit/locale": "^2.8.0",

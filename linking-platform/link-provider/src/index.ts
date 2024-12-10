@@ -2,7 +2,14 @@ export { SmartCardProvider } from './provider';
 export type { ProviderProps } from './provider';
 export { default as CardClient } from './client';
 export type { EnvironmentsKeys } from '@atlaskit/linking-common';
-export { useSmartLinkContext, SmartCardContext } from './state/context';
+export {
+	useSmartCardContext,
+	useSmartLinkContext,
+	SmartCardContext,
+	EditorSmartCardProvider,
+	EditorSmartCardProviderValueGuard,
+} from './state/context';
+// eslint-disable-next-line import/no-unresolved
 export type { CardContext } from './state/context';
 export type {
 	CardProviderRenderers,

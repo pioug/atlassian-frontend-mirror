@@ -7,7 +7,7 @@ import type { FileIdentifier, Identifier, MediaClientConfig } from '@atlaskit/me
 import { MediaViewer } from '@atlaskit/media-viewer';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { isExternalMedia } from '../../toolbar/utils';
+import { isExternalMedia } from '../../ui/toolbar/utils';
 
 interface RenderMediaViewerProps {
 	mediaClientConfig: MediaClientConfig;

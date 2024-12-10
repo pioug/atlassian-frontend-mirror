@@ -1,2 +1,2 @@
-export { rulePlugin } from './plugin';
-export type { RulePlugin } from './plugin';
+export { rulePlugin } from './rulePlugin';
+export type { RulePlugin } from './rulePluginType';

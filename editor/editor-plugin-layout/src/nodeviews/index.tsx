@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import { type EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
@@ -45,6 +45,17 @@ const LayoutBreakoutResizer = ({
 		return pluginInjectionApi?.width?.sharedState.currentState();
 	};
 
+	const displayGapCursor = useCallback(
+		(toggle: boolean) => {
+			return (
+				pluginInjectionApi?.core?.actions.execute(
+					pluginInjectionApi?.selection?.commands.displayGapCursor(toggle),
+				) ?? false
+			);
+		},
+		[pluginInjectionApi],
+	);
+
 	return (
 		<BreakoutResizer
 			getRef={forwardRef}
@@ -55,6 +66,7 @@ const LayoutBreakoutResizer = ({
 			disabled={editorDisabledState?.editorDisabled === true}
 			parentRef={parentRef}
 			editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
+			displayGapCursor={displayGapCursor}
 		/>
 	);
 };

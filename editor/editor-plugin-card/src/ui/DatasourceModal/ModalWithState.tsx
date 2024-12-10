@@ -12,22 +12,21 @@ import {
 	JiraIssuesConfigModal,
 } from '@atlaskit/link-datasource';
 import type { ConfigModalProps } from '@atlaskit/link-datasource';
+import { EditorSmartCardProviderValueGuard, useSmartLinkContext } from '@atlaskit/link-provider';
 import type { DatasourceAdf, InlineCardAdf } from '@atlaskit/linking-common';
 import type { DatasourceParameters } from '@atlaskit/linking-types';
 
-import { DatasourceErrorBoundary } from '../../datasourceErrorBoundary';
-import type { cardPlugin } from '../../plugin';
-import { CardContextProvider } from '../CardContextProvider';
+import type { cardPlugin } from '../../cardPlugin';
+import { DatasourceErrorBoundary } from '../datasourceErrorBoundary';
 
 import { DatasourceModal } from './index';
 
-const ModalWithState = ({
-	api,
-	editorView,
-}: {
+type ModalWithStateProps = {
 	api: ExtractInjectionAPI<typeof cardPlugin> | undefined;
 	editorView: EditorView;
-}) => {
+};
+const ModalWithState = ({ api, editorView }: ModalWithStateProps) => {
+	const cardContext = useSmartLinkContext();
 	const { cardState } = useSharedPluginState(api, ['card']);
 	if (!cardState) {
 		return null;
@@ -42,19 +41,23 @@ const ModalWithState = ({
 
 	return (
 		<DatasourceErrorBoundary view={editorView} datasourceModalType={datasourceModalType}>
-			<CardContextProvider>
-				{({ cardContext }) => (
-					<DatasourceModal
-						view={editorView}
-						cardContext={cardContext}
-						datasourceId={datasourceId}
-						componentType={componentType}
-					/>
-				)}
-			</CardContextProvider>
+			<DatasourceModal
+				view={editorView}
+				cardContext={cardContext}
+				datasourceId={datasourceId}
+				componentType={componentType}
+			/>
 		</DatasourceErrorBoundary>
 	);
 };
+
+const SafeModalWithState = React.memo(({ api, editorView }: ModalWithStateProps) => {
+	return (
+		<EditorSmartCardProviderValueGuard>
+			<ModalWithState api={api} editorView={editorView} />
+		</EditorSmartCardProviderValueGuard>
+	);
+});
 
 export type ModalTypeToComponentMap = {
 	componentType: React.ComponentType<
@@ -80,4 +83,4 @@ export const modalTypeToComponentMap: {
 	},
 };
 
-export default ModalWithState;
+export default SafeModalWithState;

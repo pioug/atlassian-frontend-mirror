@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 1.5.16
+
+### Patch Changes
+
+- [#174793](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174793)
+  [`43b642d08a4ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43b642d08a4ec) -
+  ED-24453 delay decoration removal on edge when users are interacting with spelling suggestions
+
 ## 1.5.15
 
 ### Patch Changes

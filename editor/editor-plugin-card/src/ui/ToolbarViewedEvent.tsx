@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next/useAnalyticsEvents';
-import type { CardContext } from '@atlaskit/link-provider';
+import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 
-import { getResolvedAttributesFromStore } from '../utils';
+import { getResolvedAttributesFromStore } from '../pm-plugins/utils';
 
-import { CardContextProvider } from './CardContextProvider';
 import type { EditorAnalyticsContextProps } from './EditorAnalyticsContext';
 import { EditorAnalyticsContext } from './EditorAnalyticsContext';
 
@@ -51,15 +50,12 @@ export const ToolbarViewedEvent = ({
 	display,
 	editorView,
 }: ToolbarViewedEventProps & Omit<EditorAnalyticsContextProps, 'children'>) => {
+	const cardContext = useSmartLinkContext();
 	return (
 		<EditorAnalyticsContext editorView={editorView}>
-			<CardContextProvider>
-				{({ cardContext }) =>
-					url ? (
-						<ToolbarViewedEventBase url={url} display={display} cardContext={cardContext} />
-					) : null
-				}
-			</CardContextProvider>
+			{url ? (
+				<ToolbarViewedEventBase url={url} display={display} cardContext={cardContext} />
+			) : null}
 		</EditorAnalyticsContext>
 	);
 };

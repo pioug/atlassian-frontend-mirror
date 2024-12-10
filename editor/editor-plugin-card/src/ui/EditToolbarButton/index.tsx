@@ -19,12 +19,12 @@ import {
 } from '@atlaskit/editor-common/ui-menu';
 import ExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import type { DatasourceAdf } from '@atlaskit/link-datasource';
+import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { ButtonItem } from '@atlaskit/menu';
 import { Flex } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { focusEditorView, isDatasourceConfigEditable } from '../../utils';
-import { CardContextProvider } from '../CardContextProvider';
+import { focusEditorView, isDatasourceConfigEditable } from '../../pm-plugins/utils';
 import { editDatasource } from '../editDatasourceAction';
 import { useFetchDatasourceDataInfo } from '../useFetchDatasourceDataInfo';
 import { useFetchDatasourceInfo } from '../useFetchDatasourceInfo';
@@ -288,49 +288,46 @@ export const EditToolbarButton = (props: EditDatasourceToolbarButtonProps) => {
 		onLinkEditClick,
 		url,
 	} = props;
+	const cardContext = useSmartLinkContext();
+
+	if (props.url) {
+		return (
+			<EditToolbarButtonWithUrl
+				datasourceId={datasourceId}
+				url={props.url}
+				intl={intl}
+				editorAnalyticsApi={editorAnalyticsApi}
+				editorView={editorView}
+				cardContext={cardContext}
+				onLinkEditClick={onLinkEditClick}
+				currentAppearance={currentAppearance}
+			/>
+		);
+	}
+	if (props.datasourceId && props.node) {
+		return (
+			<EditToolbarButtonWithDatasourceId
+				datasourceId={props.datasourceId}
+				node={props.node}
+				intl={intl}
+				editorAnalyticsApi={editorAnalyticsApi}
+				editorView={editorView}
+				onLinkEditClick={onLinkEditClick}
+				currentAppearance={currentAppearance}
+			/>
+		);
+	}
+
 	return (
-		<CardContextProvider>
-			{({ cardContext }) => {
-				if (props.url) {
-					return (
-						<EditToolbarButtonWithUrl
-							datasourceId={datasourceId}
-							url={props.url}
-							intl={intl}
-							editorAnalyticsApi={editorAnalyticsApi}
-							editorView={editorView}
-							cardContext={cardContext}
-							onLinkEditClick={onLinkEditClick}
-							currentAppearance={currentAppearance}
-						/>
-					);
-				}
-				if (props.datasourceId && props.node) {
-					return (
-						<EditToolbarButtonWithDatasourceId
-							datasourceId={props.datasourceId}
-							node={props.node}
-							intl={intl}
-							editorAnalyticsApi={editorAnalyticsApi}
-							editorView={editorView}
-							onLinkEditClick={onLinkEditClick}
-							currentAppearance={currentAppearance}
-						/>
-					);
-				}
-				return (
-					<EditToolbarButtonWithCardContext
-						datasourceId={datasourceId}
-						url={url}
-						intl={intl}
-						editorAnalyticsApi={editorAnalyticsApi}
-						editorView={editorView}
-						cardContext={cardContext}
-						onLinkEditClick={onLinkEditClick}
-						currentAppearance={currentAppearance}
-					/>
-				);
-			}}
-		</CardContextProvider>
+		<EditToolbarButtonWithCardContext
+			datasourceId={datasourceId}
+			url={url}
+			intl={intl}
+			editorAnalyticsApi={editorAnalyticsApi}
+			editorView={editorView}
+			cardContext={cardContext}
+			onLinkEditClick={onLinkEditClick}
+			currentAppearance={currentAppearance}
+		/>
 	);
 };

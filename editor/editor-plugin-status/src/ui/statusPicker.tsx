@@ -24,9 +24,10 @@ import { N0 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-import { DEFAULT_STATUS } from '../actions';
-import { analyticsState, createStatusAnalyticsAndFire } from '../analytics';
+import { DEFAULT_STATUS } from '../pm-plugins/actions';
 import type { ClosingPayload, StatusType } from '../types';
+
+import { analyticsState, createStatusAnalyticsAndFire } from './analytics';
 
 const PopupWithListeners = withOuterListeners(Popup);
 

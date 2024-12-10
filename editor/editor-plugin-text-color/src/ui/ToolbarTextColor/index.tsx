@@ -55,10 +55,11 @@ import TextStyleIcon from '@atlaskit/icon/core/text-style';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { changeColor as changeColorWithAnalytics } from '../../commands/change-color';
+import { changeColor as changeColorWithAnalytics } from '../../pm-plugins/commands/change-color';
 import type { TextColorPluginState } from '../../pm-plugins/main';
-import { type TextColorPlugin, ToolbarType } from '../../types';
-import { getInputMethod } from '../../utils/inputType';
+import { getInputMethod } from '../../pm-plugins/utils/inputType';
+import type { TextColorPlugin } from '../../textColorPluginType';
+import { ToolbarType } from '../../types';
 
 import { EditorTextColorIcon } from './icon';
 

@@ -15,7 +15,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { lazyDecisionView } from '../nodeviews/decision-lazy-node-view';
 import { lazyTaskView } from '../nodeviews/task-lazy-node-view';
-import type { TaskDecisionPluginState, TasksAndDecisionsPlugin } from '../types';
+import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
+import type { TaskDecisionPluginState } from '../types';
 
 import { focusTaskDecision, setProvider } from './actions';
 import {

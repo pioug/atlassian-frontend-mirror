@@ -8,7 +8,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { MediaNextEditorPluginType } from '../next-plugin-type';
+import type { MediaNextEditorPluginType } from '../mediaPluginType';
 
 import { ReactMediaInlineNode } from './mediaInline';
 

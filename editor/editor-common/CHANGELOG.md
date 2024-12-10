@@ -1,5 +1,44 @@
 # @atlaskit/editor-common
 
+## 96.3.4
+
+### Patch Changes
+
+- [#166865](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166865)
+  [`198153bb77b2f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/198153bb77b2f) -
+  Ensure gap cursor is displayed when element is unmounted
+- [#174793](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174793)
+  [`43b642d08a4ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/43b642d08a4ec) -
+  ED-24453 delay decoration removal on edge when users are interacting with spelling suggestions
+- Updated dependencies
+
+## 96.3.3
+
+### Patch Changes
+
+- [#175810](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175810)
+  [`f7a9d71722c78`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7a9d71722c78) -
+  ED-25989 adding analytic event for date inline node
+
+## 96.3.2
+
+### Patch Changes
+
+- [#175424](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175424)
+  [`a58e3d02b1639`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a58e3d02b1639) -
+  [ux] Fixes position of the Selection/floating toolbar to avoid horizontal scroll when text is
+  selected close to the right side of the viewport.
+- Updated dependencies
+
+## 96.3.1
+
+### Patch Changes
+
+- [#174774](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174774)
+  [`8e4f117f6abde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e4f117f6abde) -
+  [ux] ED-25744 Resolve styling issues with column sort and background color for nested tables
+- Updated dependencies
+
 ## 96.3.0
 
 ### Minor Changes

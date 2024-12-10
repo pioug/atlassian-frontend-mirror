@@ -1,5 +1,15 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.24.0
+
+### Minor Changes
+
+- [#176242](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176242)
+  [`15cf55160272d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15cf55160272d) -
+  [ux] EDF-2088 - Release additional prompts under FG platform_editor_ai_release_additional_prompts,
+  release make shorter, rephrase, convert to table and convert to list, don't release add
+  introduction and add conclusion
+
 ## 2.23.0
 
 ### Minor Changes

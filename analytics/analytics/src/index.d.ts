@@ -1,4 +1,4 @@
-import { Component, PureComponent } from 'react';
+import { Component } from 'react';
 
 export type EventMap = {
 	[eventName: string]: string | Function;
@@ -36,12 +36,18 @@ export interface AnalyticsListenerProps {
 	matchPrivate?: boolean;
 }
 
+/**
+ * @deprecated Please use @atlaskit/analytics-next instead
+ */
 export class AnalyticsListener extends Component<AnalyticsListenerProps, {}> {}
 
 export interface AnalyticsDelegateProps {
 	delegateAnalyticsEvent?: DelegateAnalyticsEvent;
 }
 
+/**
+ * @deprecated Please use @atlaskit/analytics-next instead
+ */
 export class AnalyticsDelegate extends Component<AnalyticsDelegateProps, {}> {}
 
 export interface AnalyticsDecoratorProps {
@@ -51,4 +57,7 @@ export interface AnalyticsDecoratorProps {
 	matchPrivate?: boolean;
 }
 
+/**
+ * @deprecated Please use @atlaskit/analytics-next instead
+ */
 export class AnalyticsDecorator extends Component<AnalyticsDecoratorProps, {}> {}

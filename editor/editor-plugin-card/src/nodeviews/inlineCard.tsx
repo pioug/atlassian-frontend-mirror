@@ -14,8 +14,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
 import { registerCard } from '../pm-plugins/actions';
+import { getAwarenessProps } from '../pm-plugins/utils';
 import OverlayWrapper from '../ui/ConfigureOverlay';
-import { getAwarenessProps } from '../utils';
 
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';

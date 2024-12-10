@@ -23,9 +23,11 @@ const labelStyles = css({
 const ToggleVisuallyHidden = ({
 	children,
 	id,
+	testId,
 }: {
 	id: string;
 	children(isVisible: boolean): ReactNode;
+	testId?: string;
 }) => {
 	const [isVisible, setIsVisible] = useState(false);
 
@@ -36,6 +38,7 @@ const ToggleVisuallyHidden = ({
 					id={id}
 					isChecked={isVisible}
 					onChange={(e) => setIsVisible(e.currentTarget.checked)}
+					testId="toggle-visually-hidden"
 				/>
 				<label htmlFor={id} css={labelStyles}>
 					Show hidden content

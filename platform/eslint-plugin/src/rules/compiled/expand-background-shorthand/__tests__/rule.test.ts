@@ -51,7 +51,7 @@ tester.run('expand-border-shorthand', expandBackgroundShorthand, {
 				background: 'transparent'
 			});
 			const styles2 = css({
-				background: url(image.png)
+				background: url('image.png')
 			});
 			const styles3 = css({
 				background: 0

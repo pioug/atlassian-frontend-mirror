@@ -1,5 +1,17 @@
 # @atlaskit/link-datasource
 
+## 3.14.0
+
+### Minor Changes
+
+- [#175432](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175432)
+  [`ae52ae7c25a20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae52ae7c25a20) -
+  Migrate to new icons behind feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.13.18
 
 ### Patch Changes

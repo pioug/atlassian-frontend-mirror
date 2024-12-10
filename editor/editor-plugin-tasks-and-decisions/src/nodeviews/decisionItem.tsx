@@ -7,7 +7,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 
-import type { TasksAndDecisionsPlugin } from '../types';
+import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
 import DecisionItem from '../ui/Decision';
 
 import { useShowPlaceholder } from './hooks/use-show-placeholder';

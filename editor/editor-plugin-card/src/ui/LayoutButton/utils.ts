@@ -1,7 +1,7 @@
 import { findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { isDatasourceNode } from '../../utils';
+import { isDatasourceNode } from '../../pm-plugins/utils';
 
 import { DATASOURCE_TABLE_LAYOUTS, type DatasourceTableLayout } from './types';
 

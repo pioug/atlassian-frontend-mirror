@@ -1,2 +1,2 @@
-export { scrollIntoViewPlugin } from './plugin';
-export type { ScrollIntoViewPlugin } from './plugin';
+export { scrollIntoViewPlugin } from './scrollIntoViewPlugin';
+export type { ScrollIntoViewPlugin } from './scrollIntoViewPluginType';

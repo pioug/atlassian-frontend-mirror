@@ -1,5 +1,14 @@
 # @atlaskit/select
 
+## 18.8.1
+
+### Patch Changes
+
+- [#174836](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174836)
+  [`8d2c4dcde79da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d2c4dcde79da) -
+  Update use of deprecated aria-label to proper label in PopupSelect
+- Updated dependencies
+
 ## 18.8.0
 
 ### Minor Changes

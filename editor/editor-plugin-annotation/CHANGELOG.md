@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.26.2
+
+### Patch Changes
+
+- [#175810](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175810)
+  [`f7a9d71722c78`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7a9d71722c78) -
+  ED-25989 adding analytic event for date inline node
+
+## 1.26.1
+
+### Patch Changes
+
+- [#175552](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175552)
+  [`b29361001f720`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b29361001f720) -
+  refactor: remediate re-exports in editor-plugin-ai-definitions, editor-plugin-alignment,
+  editor-plugin-analytics, editor-plugin-annotation
+- Updated dependencies
+
 ## 1.26.0
 
 ### Minor Changes

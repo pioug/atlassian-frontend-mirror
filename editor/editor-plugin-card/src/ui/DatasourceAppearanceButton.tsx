@@ -17,7 +17,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { buildDatasourceAdf } from '@atlaskit/link-datasource';
-import type { CardContext } from '@atlaskit/link-provider';
+import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import type { DatasourceAdf } from '@atlaskit/linking-common/types';
 import { Flex } from '@atlaskit/primitives';
 
@@ -25,7 +25,6 @@ import { updateCardViaDatasource } from '../pm-plugins/doc';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import type { CardPluginState } from '../types';
 
-import { CardContextProvider } from './CardContextProvider';
 import { DatasourceIcon } from './DatasourceIcon';
 import { useFetchDatasourceInfo } from './useFetchDatasourceInfo';
 
@@ -137,20 +136,17 @@ export const DatasourceAppearanceButton = ({
 	selected,
 	inputMethod,
 }: DatasourceAppearanceButtonProps) => {
+	const cardContext = useSmartLinkContext();
 	return (
-		<CardContextProvider>
-			{({ cardContext }) => (
-				<DatasourceAppearanceButtonWithCardContext
-					url={url}
-					intl={intl}
-					editorAnalyticsApi={editorAnalyticsApi}
-					editorView={editorView}
-					editorState={editorState}
-					cardContext={cardContext}
-					selected={selected}
-					inputMethod={inputMethod}
-				/>
-			)}
-		</CardContextProvider>
+		<DatasourceAppearanceButtonWithCardContext
+			url={url}
+			intl={intl}
+			editorAnalyticsApi={editorAnalyticsApi}
+			editorView={editorView}
+			editorState={editorState}
+			cardContext={cardContext}
+			selected={selected}
+			inputMethod={inputMethod}
+		/>
 	);
 };

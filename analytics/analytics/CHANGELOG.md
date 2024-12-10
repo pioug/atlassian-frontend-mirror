@@ -1,5 +1,13 @@
 # @atlaskit/analytics
 
+## 8.2.0
+
+### Minor Changes
+
+- [#176214](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176214)
+  [`c0c1a54579ce7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c0c1a54579ce7) -
+  Set @atlaskit/analytics deprecated and move functions to @atlaskit/analytics-next
+
 ## 8.1.6
 
 ### Patch Changes

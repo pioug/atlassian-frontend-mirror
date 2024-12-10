@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-date
 
+## 2.4.17
+
+### Patch Changes
+
+- [#175810](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175810)
+  [`f7a9d71722c78`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f7a9d71722c78) -
+  ED-25989 adding analytic event for date inline node
+- Updated dependencies
+
+## 2.4.16
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.15
 
 ### Patch Changes

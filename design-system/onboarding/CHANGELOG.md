@@ -1,5 +1,22 @@
 # @atlaskit/onboarding
 
+## 12.2.0
+
+### Minor Changes
+
+- [#176005](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176005)
+  [`a7f4659856234`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a7f4659856234) -
+  Adds optional render prop API to `SpotlightTarget` component. You can now use a function as the
+  children of `SpotlightTarget` and explicitly connect the `targetRef` to your component. This
+  provides fine-grained control over which element is cloned and avoids the need for a wrapping div
+  element.
+
+### Patch Changes
+
+- [#176005](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176005)
+  [`3f689d259d12e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f689d259d12e) -
+  GA layering into spotlight
+
 ## 12.1.9
 
 ### Patch Changes

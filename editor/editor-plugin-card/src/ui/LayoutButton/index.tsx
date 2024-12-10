@@ -20,7 +20,7 @@ import { B300, N20A, N300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { setCardLayout } from '../../pm-plugins/actions';
-import { isDatasourceNode } from '../../utils';
+import { isDatasourceNode } from '../../pm-plugins/utils';
 
 import type { DatasourceTableLayout, LayoutButtonProps, LayoutButtonWrapperProps } from './types';
 import { getDatasource, isDatasourceTableLayout } from './utils';

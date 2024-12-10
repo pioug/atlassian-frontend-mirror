@@ -3,8 +3,8 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { textColorPlugin } from '@atlaskit/editor-plugin-text-color';
 export type {
-	TextColorInputMethod,
 	TextColorPlugin,
+	TextColorInputMethod,
 	TextColorPluginState,
 	TextColorPluginConfig,
 } from '@atlaskit/editor-plugin-text-color';

@@ -249,6 +249,8 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	hideIcon?: boolean;
 	/**
 	 * Format the date with a string that is accepted by [date-fn's format function](https://date-fns.org/v1.29.0/docs/format).
+	 *
+	 * Note that though we are using `date-fns` version 2, we use [the tokens from `date-fns` version 1](https://date-fns.org/v1.30.1/docs/format) under the hood.
 	 */
 	dateFormat?: string;
 	/**

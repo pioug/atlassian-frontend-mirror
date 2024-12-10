@@ -6,33 +6,31 @@ import { getLighthouseMetrics } from '../additional-payload';
 import * as bundleEvalTiming from '../bundle-eval-timing';
 import type { ApdexType, BM3Event, InteractionMetrics, InteractionType } from '../common';
 import { REACT_UFO_VERSION } from '../common/constants';
-import { getConfig, getUfoNameOverrides } from '../config';
+import { type Config, getConfig, getUfoNameOverrides } from '../config';
 import { getBm3Timings } from '../custom-timings';
 import { getGlobalErrorCount } from '../global-error-handler';
 import { getPageVisibilityState } from '../hidden-timing';
 import * as initialPageLoadExtraTiming from '../initial-page-load-extra-timing';
 import type { LabelStack } from '../interaction-context';
-import { interactionSpans as atlaskitInteractionSpans } from '../interaction-metrics';
+import {
+	interactionSpans as atlaskitInteractionSpans,
+	postInteractionLog,
+} from '../interaction-metrics';
 import * as resourceTiming from '../resource-timing';
 import { roundEpsilon } from '../round-number';
 import * as ssr from '../ssr';
+import { getVCObserver } from '../vc';
 
 import type { OptimizedLabelStack } from './common/types';
 import {
 	buildSegmentTree,
-	getExperimentalVCMetrics,
-	getInteractionStatus,
-	getPageVisibilityUpToTTAI,
-	getSSRDoneTimeValue,
-	getTTAI,
-	getVCMetrics,
 	labelStackStartWith,
 	optimizeLabelStack,
 	sanitizeUfoName,
 	stringifyLabelStackFully,
 } from './common/utils';
 
-export function getUfoNameOverride(interaction: InteractionMetrics): string {
+function getUfoNameOverride(interaction: InteractionMetrics): string {
 	const { ufoName, apdex } = interaction;
 	try {
 		const ufoNameOverrides = getUfoNameOverrides();
@@ -43,7 +41,8 @@ export function getUfoNameOverride(interaction: InteractionMetrics): string {
 			}
 		}
 		return ufoName;
-	} catch (e: unknown) {
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	} catch (e: any) {
 		return ufoName;
 	}
 }
@@ -81,6 +80,11 @@ const getPageVisibilityUpToTTI = (interaction: InteractionMetrics) => {
 	const { start } = interaction;
 	const bm3EndTimeOrInteractionEndTime = getBm3EndTimeOrFallbackValue(interaction);
 	return getPageVisibilityState(start, bm3EndTimeOrInteractionEndTime);
+};
+
+const getPageVisibilityUpToTTAI = (interaction: InteractionMetrics) => {
+	const { start, end } = interaction;
+	return getPageVisibilityState(start, end);
 };
 
 const getVisibilityStateFromPerformance = (stop: number) => {
@@ -137,6 +141,15 @@ const getMoreAccuratePageVisibilityUpToTTAI = (interaction: InteractionMetrics) 
 	return old;
 };
 
+const getInteractionStatus = (interaction: InteractionMetrics) => {
+	const originalInteractionStatus = interaction.abortReason ? 'ABORTED' : 'SUCCEEDED';
+
+	const hasBm3TTI = interaction.apdex.length > 0;
+	const overrideStatus = hasBm3TTI ? 'SUCCEEDED' : originalInteractionStatus;
+
+	return { originalInteractionStatus, overrideStatus } as const;
+};
+
 const getResourceTimings = (start: number, end: number) =>
 	resourceTiming.getResourceTimings(start, end) ?? undefined;
 
@@ -163,6 +176,57 @@ const getPaintMetrics = (type: InteractionType) => {
 	});
 
 	return metrics;
+};
+
+const getVCMetrics = (interaction: InteractionMetrics) => {
+	const config = getConfig();
+	if (!config?.vc?.enabled) {
+		return {};
+	}
+	if (interaction.type !== 'page_load' && interaction.type !== 'transition') {
+		return {};
+	}
+
+	const ssr =
+		interaction.type === 'page_load' && config?.ssr ? { ssr: getSSRDoneTimeValue(config) } : null;
+
+	postInteractionLog.setVCObserverSSRConfig(ssr);
+
+	const tti = interaction.apdex?.[0]?.stopTime;
+	const prefix = 'ufo';
+	const result = getVCObserver().getVCResult({
+		start: interaction.start,
+		stop: interaction.end,
+		tti,
+		prefix,
+		vc: interaction.vc,
+		...ssr,
+	});
+
+	postInteractionLog.setLastInteractionFinishVCResult(result);
+
+	const VC = result?.['metrics:vc'] as {
+		[key: string]: number | null;
+	};
+
+	if (!VC || !result?.[`${prefix}:vc:clean`]) {
+		return result;
+	}
+
+	const interactionStatus = getInteractionStatus(interaction);
+	const pageVisibilityUpToTTAI = getPageVisibilityUpToTTAI(interaction);
+
+	if (
+		interactionStatus.originalInteractionStatus !== 'SUCCEEDED' ||
+		pageVisibilityUpToTTAI !== 'visible'
+	) {
+		return result;
+	}
+
+	return {
+		...result,
+		'metric:vc90': VC['90'],
+	};
 };
 
 const getNavigationMetrics = (type: InteractionType) => {
@@ -620,6 +684,10 @@ function getBm3TrackerTimings(interaction: InteractionMetrics) {
 	return { legacyMetrics };
 }
 
+function getSSRDoneTimeValue(config: Config | undefined): number | undefined {
+	return config?.ssr?.getSSRDoneTime ? config?.ssr?.getSSRDoneTime() : ssr.getSSRDoneTime();
+}
+
 function getPayloadSize(payload: Object): number {
 	return Math.round(new TextEncoder().encode(JSON.stringify(payload)).length / 1024);
 }
@@ -669,9 +737,6 @@ function getStylesheetMetrics() {
 	}
 }
 
-let regularTTAI: number | undefined;
-let expTTAI: number | undefined;
-
 function getErrorCounts(interaction: InteractionMetrics) {
 	return {
 		'ufo:errors:globalCount': getGlobalErrorCount(),
@@ -679,11 +744,7 @@ function getErrorCounts(interaction: InteractionMetrics) {
 	};
 }
 
-export function createInteractionMetricsPayload(
-	interaction: InteractionMetrics,
-	interactionId: string,
-	experimental?: boolean,
-) {
+function createInteractionMetricsPayload(interaction: InteractionMetrics, interactionId: string) {
 	const interactionPayloadStart = performance.now();
 	const config = getConfig();
 	if (!config) {
@@ -745,7 +806,7 @@ export function createInteractionMetricsPayload(
 	};
 	// Detailed payload. Page visibility = visible
 	const getDetailedInteractionMetrics = () => {
-		if (experimental || window.__UFO_COMPACT_PAYLOAD__ || !isDetailedPayload) {
+		if (window.__UFO_COMPACT_PAYLOAD__ || !isDetailedPayload) {
 			return {};
 		}
 
@@ -759,10 +820,7 @@ export function createInteractionMetricsPayload(
 			})),
 			holdActive: [...interaction.holdActive.values()],
 			redirects: optimizeRedirects(interaction.redirects, start),
-			holdInfo: optimizeHoldInfo(
-				experimental ? interaction.holdExpInfo : interaction.holdInfo,
-				start,
-			),
+			holdInfo: optimizeHoldInfo(interaction.holdInfo, start),
 			spans: optimizeSpans(spans, start),
 			requestInfo: optimizeRequestInfo(interaction.requestInfo, start),
 			customTimings: optimizeCustomTimings(interaction.customTimings, start),
@@ -784,12 +842,6 @@ export function createInteractionMetricsPayload(
 		};
 	};
 
-	if (experimental) {
-		expTTAI = getTTAI(interaction);
-	} else {
-		regularTTAI = getTTAI(interaction);
-	}
-
 	const newUFOName = sanitizeUfoName(ufoName);
 	const payload = {
 		actionSubject: 'experience',
@@ -810,9 +862,7 @@ export function createInteractionMetricsPayload(
 					payloadSource: 'platform',
 				},
 				'event:region': config.region || 'unknown',
-				'experience:key': experimental
-					? 'custom.experimental-interaction-metrics'
-					: 'custom.interaction-metrics',
+				'experience:key': 'custom.interaction-metrics',
 				'experience:name': newUFOName,
 
 				// root
@@ -822,7 +872,6 @@ export function createInteractionMetricsPayload(
 				...getPaintMetrics(type),
 				...getNavigationMetrics(type),
 				...getVCMetrics(interaction),
-				...(experimental ? getExperimentalVCMetrics(interaction) : undefined),
 				...config.additionalPayloadData?.(interaction),
 				...getTracingContextData(interaction),
 				...getStylesheetMetrics(),
@@ -869,20 +918,14 @@ export function createInteractionMetricsPayload(
 					...getDetailedInteractionMetrics(),
 					...getPageLoadDetailedInteractionMetrics(),
 					...getBm3TrackerTimings(interaction),
-					'metric:ttai': experimental ? regularTTAI || expTTAI : undefined,
-					'metric:experimental:ttai': experimental ? expTTAI : undefined,
 				},
 				'ufo:payloadTime': roundEpsilon(performance.now() - interactionPayloadStart),
 			},
 		},
 	};
 
-	if (experimental) {
-		regularTTAI = undefined;
-		expTTAI = undefined;
-	}
-
 	payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
+
 	return payload;
 }
 

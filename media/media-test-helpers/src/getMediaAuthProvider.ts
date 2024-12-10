@@ -33,7 +33,7 @@ export const requestMediaAuthProvider = async (): Promise<Auth> => {
 };
 
 export const getMediaAuthProvider = (_context?: AuthContext): Promise<Auth> => {
-	const collectionName = 'EditorExample';
+	const collectionName = 'MediaServicesSample';
 	const cacheKey = `${collectionName}:asap`;
 
 	if (!mediaCachedAuth[cacheKey]) {

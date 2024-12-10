@@ -1,6 +1,5 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
 import rafSchedule from 'raf-schd';
 
 import ReactNodeView, {
@@ -17,7 +16,7 @@ import { Card as SmartCard } from '@atlaskit/smart-card';
 
 import { Datasource } from '../nodeviews/datasource';
 import { registerCard } from '../pm-plugins/actions';
-import { isDatasourceNode } from '../utils';
+import { isDatasourceNode } from '../pm-plugins/utils';
 
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
@@ -25,10 +24,6 @@ import { Card } from './genericCard';
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 	private scrollContainer?: HTMLElement;
-
-	static contextTypes = {
-		contextAdapter: PropTypes.object,
-	};
 
 	constructor(props: SmartCardProps) {
 		super(props);

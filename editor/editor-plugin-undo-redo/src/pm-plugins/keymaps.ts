@@ -9,7 +9,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { redoFromKeyboard, undoFromKeyboard } from '../commands';
+import { redoFromKeyboard, undoFromKeyboard } from './commands';
 
 export function keymapPlugin(): SafePlugin {
 	const list = {};

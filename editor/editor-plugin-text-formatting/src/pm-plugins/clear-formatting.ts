@@ -3,7 +3,7 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 
-import { checkFormattingIsPresent } from '../utils';
+import { checkFormattingIsPresent } from '../editor-commands/utils';
 
 export interface ClearFormattingState {
 	formattingIsPresent?: boolean;

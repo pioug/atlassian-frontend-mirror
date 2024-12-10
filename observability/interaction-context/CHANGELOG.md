@@ -1,5 +1,21 @@
 # @atlaskit/interaction-context
 
+## 2.2.0
+
+### Minor Changes
+
+- [#176642](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176642)
+  [`66ae71c3d1e72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66ae71c3d1e72) -
+  Revert "AFO-3080: NO-ISSUE Experimental UFO holds and TTAI - 2nd iteration"
+
+## 2.1.7
+
+### Patch Changes
+
+- [#173211](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173211)
+  [`202bc8df0c75a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/202bc8df0c75a) -
+  Experimental UFO holds, VC90 and TTAI metrics
+
 ## 2.1.6
 
 ### Patch Changes

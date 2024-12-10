@@ -28,16 +28,16 @@ import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { akEditorDefaultLayoutWidth } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import {
 	insertAndSelectCaptionFromMediaSinglePos,
 	selectCaptionFromMediaSinglePos,
-} from '../commands/captions';
-import type { MediaNextEditorPluginType } from '../next-plugin-type';
+} from '../pm-plugins/commands/captions';
 import { stateKey } from '../pm-plugins/plugin-key';
-import { updateMediaSingleWidth } from '../toolbar/commands';
-import { calcNewLayout, getSelectedMediaSingle } from '../toolbar/utils';
 import type { MediaOptions } from '../types';
 import type { PixelEntryValidation } from '../ui/PixelEntry/types';
+import { updateMediaSingleWidth } from '../ui/toolbar/commands';
+import { calcNewLayout, getSelectedMediaSingle } from '../ui/toolbar/utils';
 
 import type { MediaPluginState } from './types';
 

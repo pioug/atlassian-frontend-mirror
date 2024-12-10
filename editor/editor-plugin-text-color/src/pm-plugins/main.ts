@@ -6,11 +6,11 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { token } from '@atlaskit/tokens';
 
-import { getActiveColor } from '../utils/color';
-import { DEFAULT_COLOR } from '../utils/constants';
-import { getDisabledState } from '../utils/disabled';
+import { getActiveColor } from './utils/color';
+import { DEFAULT_COLOR } from './utils/constants';
+import { getDisabledState } from './utils/disabled';
 
-export { DEFAULT_COLOR } from '../utils/constants';
+export { DEFAULT_COLOR } from './utils/constants';
 
 export type TextColorPluginState = {
 	palette: Array<PaletteColor>;

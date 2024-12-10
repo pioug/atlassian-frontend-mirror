@@ -22,7 +22,7 @@ import { ButtonItem } from '@atlaskit/menu';
 import { Flex } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
-import { focusEditorView } from '../../utils';
+import { focusEditorView } from '../../pm-plugins/utils';
 import { editDatasource } from '../editDatasourceAction';
 
 import type { EditDatasourceToolbarButtonWithCommonProps, EditVariant } from './types';

@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl-next';
 import uuid from 'uuid';
 
 import { type CreateFlagArgs, useFlags } from '@atlaskit/flag';
-import CrossCircleIcon from '@atlaskit/icon/glyph/cross-circle';
+import CrossCircleIcon from '@atlaskit/icon/core/migration/cross-circle';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
@@ -60,7 +60,9 @@ export const useDatasourceTableFlag = (options?: DatasourceTableFlagOptions) => 
 			showFlag({
 				// We need IconTile in order to scale the new icon to 24px
 				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-				icon: <CrossCircleIcon label="Error" primaryColor={token('color.icon.danger')} />,
+				icon: (
+					<CrossCircleIcon spacing="spacious" label="Error" color={token('color.icon.danger')} />
+				),
 				id: uuid(),
 				isAutoDismiss: true,
 				...(options?.isFetchAction

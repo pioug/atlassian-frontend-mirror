@@ -127,5 +127,48 @@ tester.run('no-dark-theme-vr-tests', rule, {
 				},
 			],
 		},
+		{
+			name: 'colorScheme set to both light and dark in informational VR test',
+			code: `
+	    import { snapshotInformational } from '@af/visual-regression';
+		import ComponentName from '../../examples';
+		snapshotInformational(ComponentName, {
+			variants: [
+				{
+					name: 'Light',
+					environment: {
+						colorScheme: 'light',
+					},
+				},
+				{
+					name: 'Dark',
+					environment: {
+						colorScheme: 'dark',
+					},
+				},
+			],
+		});
+			`,
+			output: `
+	    import { snapshotInformational } from '@af/visual-regression';
+		import ComponentName from '../../examples';
+		snapshotInformational(ComponentName, {
+			variants: [
+				{
+					name: 'Light',
+					environment: {
+						colorScheme: 'light',
+					},
+				},
+				
+			],
+		});
+			`,
+			errors: [
+				{
+					messageId: 'noDarkThemeVR',
+				},
+			],
+		},
 	],
 });

@@ -49,7 +49,7 @@
 		"./utilities": "./src/utilities.ts"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/ds-lib": "^3.3.0",
 		"@atlaskit/layering": "^0.8.0",
 		"@atlaskit/motion": "^1.9.0",

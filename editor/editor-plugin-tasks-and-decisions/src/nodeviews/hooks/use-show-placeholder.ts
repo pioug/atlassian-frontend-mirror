@@ -5,7 +5,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { TasksAndDecisionsPlugin } from '../../types';
+import type { TasksAndDecisionsPlugin } from '../../tasksAndDecisionsPluginType';
 
 type Props2 = {
 	editorView: EditorView;

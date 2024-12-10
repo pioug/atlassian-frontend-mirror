@@ -25,13 +25,13 @@ import {
 	updateAllMediaNodesAttrs,
 	updateCurrentMediaNodeAttrs,
 	updateMediaNodeAttrs,
-} from '../commands/helpers';
+} from '../pm-plugins/commands/helpers';
+import { batchMediaNodeAttrsUpdate } from '../pm-plugins/utils/batchMediaNodeAttrs';
 import type {
 	MediaOptions,
 	getPosHandler as ProsemirrorGetPosHandler,
 	SupportedMediaAttributes,
 } from '../types';
-import { batchMediaNodeAttrsUpdate } from '../utils/batchMediaNodeAttrs';
 
 type RemoteDimensions = { id: string; height: number; width: number };
 

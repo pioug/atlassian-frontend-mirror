@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-scroll-into-view
 
+## 1.3.12
+
+### Patch Changes
+
+- [#171440](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171440)
+  [`835f7bbff3122`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/835f7bbff3122) -
+  ED-25816: refactors plugins to meet folder standards
+
 ## 1.3.11
 
 ### Patch Changes

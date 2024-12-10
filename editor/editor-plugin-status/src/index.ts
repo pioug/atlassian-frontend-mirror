@@ -1,4 +1,4 @@
-export { statusPlugin } from './plugin';
-export type { StatusPlugin } from './plugin';
+export { statusPlugin } from './statusPlugin';
+export type { StatusPlugin } from './statusPluginType';
 export type { StatusState, StatusType, StatusPluginOptions, ClosingPayload } from './types';
-export type { UpdateStatus } from './actions';
+export type { UpdateStatus } from './pm-plugins/actions';

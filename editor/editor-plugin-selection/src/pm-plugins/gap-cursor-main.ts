@@ -15,12 +15,11 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
-import { deleteNode } from '../gap-cursor/actions';
-import { Direction } from '../gap-cursor/direction';
-import { getLayoutModeFromTargetNode, isIgnoredClick } from '../gap-cursor/utils';
-import { toDOM } from '../gap-cursor/utils/place-gap-cursor';
-
 import { gapCursorPluginKey } from './gap-cursor-plugin-key';
+import { deleteNode } from './gap-cursor/actions';
+import { Direction } from './gap-cursor/direction';
+import { getLayoutModeFromTargetNode, isIgnoredClick } from './gap-cursor/utils';
+import { toDOM } from './gap-cursor/utils/place-gap-cursor';
 
 const plugin = new SafePlugin({
 	key: gapCursorPluginKey,

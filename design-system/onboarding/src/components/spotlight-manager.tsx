@@ -10,7 +10,21 @@ import Blanket from '../styled/blanket';
 
 import { Fade } from './animation';
 
-const { Consumer: TargetConsumer, Provider: TargetProvider } = createContext<any>(undefined);
+export type TargetRef = (element: HTMLElement | null | undefined) => void;
+export type GetTargetRef = (
+	/**
+	 * The `name` prop passed to the corresponding `SpotlightTarget`
+	 *
+	 * This is used as a key into the `targets` map owned by `SpotlightManager`
+	 * because the `SpotlightManager` stores the target nodes for
+	 * descendant `SpotlightTarget` instances.
+	 */
+	name: string,
+) => TargetRef;
+
+const { Consumer: TargetConsumer, Provider: TargetProvider } = createContext<
+	GetTargetRef | undefined
+>(undefined);
 
 const SpotlightContext = createContext<{
 	opened: () => void;
@@ -102,7 +116,7 @@ export default class SpotlightManager extends PureComponent<
 		targets: {},
 	};
 
-	targetRef = (name: string) => (element: HTMLElement | void) => {
+	getTargetRef = (name: string) => (element: HTMLElement | null | undefined) => {
 		this.setState((state) => ({
 			targets: {
 				...state.targets,
@@ -129,7 +143,7 @@ export default class SpotlightManager extends PureComponent<
 		const { blanketIsTinted, children, component: Tag, onBlanketClicked } = this.props;
 		return (
 			<SpotlightStateProvider value={this.getStateProviderValue(this.state.targets)}>
-				<TargetProvider value={this.targetRef}>
+				<TargetProvider value={this.getTargetRef}>
 					<Container component={Tag || React.Fragment}>
 						<Fade hasEntered={this.state.spotlightCount > 0}>
 							{(animationStyles) => (

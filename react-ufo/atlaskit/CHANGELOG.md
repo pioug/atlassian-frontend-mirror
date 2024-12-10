@@ -1,5 +1,34 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.5.0
+
+### Minor Changes
+
+- [#176642](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176642)
+  [`66ae71c3d1e72`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/66ae71c3d1e72) -
+  Revert "AFO-3080: NO-ISSUE Experimental UFO holds and TTAI - 2nd iteration"
+
+### Patch Changes
+
+- [#174793](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174793)
+  [`abbfbb3b49665`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/abbfbb3b49665) -
+  remove VC observations after TTAI
+- Updated dependencies
+
+## 2.4.7
+
+### Patch Changes
+
+- [#175818](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175818)
+  [`1401a5646d271`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1401a5646d271) -
+  Add experimentalTTAI and experimentalVC90 to custom.post-interaction-log
+- [#173211](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173211)
+  [`202bc8df0c75a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/202bc8df0c75a) -
+  Experimental UFO holds, VC90 and TTAI metrics
+- [#175826](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175826)
+  [`b5c5bf59d1cff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b5c5bf59d1cff) -
+  add rate limiting to experimental interaction metrics
+
 ## 2.4.6
 
 ### Patch Changes

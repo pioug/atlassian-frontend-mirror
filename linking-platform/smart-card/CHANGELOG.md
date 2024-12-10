@@ -1,5 +1,35 @@
 # @atlaskit/smart-card
 
+## 32.7.0
+
+### Minor Changes
+
+- [#175432](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175432)
+  [`ae52ae7c25a20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae52ae7c25a20) -
+  Migrate to new icons behind feature flag.
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.6.0
+
+### Minor Changes
+
+- [#174435](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174435)
+  [`fc8332240eec9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc8332240eec9) -
+  Migration of some UI analytics
+- [#174257](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174257)
+  [`d2af0045121e9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d2af0045121e9) -
+  Clean up smart-card-remove-block-card-from-embed and update embed card resolving view testId
+
+### Patch Changes
+
+- [#175610](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175610)
+  [`cd659ec54a158`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cd659ec54a158) -
+  Remove FF platform_smart-card-migrate-operational-analytics
+- Updated dependencies
+
 ## 32.5.1
 
 ### Patch Changes

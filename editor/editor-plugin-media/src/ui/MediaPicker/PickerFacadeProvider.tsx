@@ -8,7 +8,7 @@ import { ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { BrowserConfig, ClipboardConfig, DropzoneConfig } from '@atlaskit/media-picker/types';
 
-import PickerFacade from '../../picker-facade';
+import PickerFacade from '../../pm-plugins/picker-facade';
 import type { MediaPluginState } from '../../pm-plugins/types';
 import type { CustomMediaPicker } from '../../types';
 

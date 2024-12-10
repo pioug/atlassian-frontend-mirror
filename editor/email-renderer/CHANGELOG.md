@@ -1,5 +1,28 @@
 # @atlaskit/email-renderer
 
+## 9.0.0
+
+### Major Changes
+
+- [#174866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174866)
+  [`01c26c7d77089`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/01c26c7d77089) -
+  Removed duplicated re-exports
+
+  The following types are exported from `@atlaskit/email-renderer/interfaces`:
+
+  - Attrs
+  - EmailSerializerOpts
+  - MarkSerializer
+  - MarkSerializerOpts
+  - MediaMetaDataContextItem
+  - MediaType
+  - MetaDataContext
+  - NodeSerializer
+  - NodeSerializerOpts
+  - SmartCardWithDataAttributes
+  - SmartCardWithUrlAttributes
+  - Style
+
 ## 8.14.6
 
 ### Patch Changes

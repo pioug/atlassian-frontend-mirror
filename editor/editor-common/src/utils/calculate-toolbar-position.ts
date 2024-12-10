@@ -1,4 +1,5 @@
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PopupPosition as Position } from '../ui';
 /*
@@ -16,7 +17,7 @@ import type { PopupPosition as Position } from '../ui';
 export const calculateToolbarPositionAboveSelection =
 	(toolbarTitle: string) =>
 	(editorView: EditorView, nextPos: Position): Position => {
-		const toolbar = document.querySelector(`div[aria-label="${toolbarTitle}"]`) as HTMLElement;
+		const toolbar = document.querySelector(`div[aria-label="${toolbarTitle}"]`);
 		if (!toolbar) {
 			return nextPos;
 		}
@@ -89,7 +90,7 @@ export const calculateToolbarPositionAboveSelection =
 export const calculateToolbarPositionTrackHead =
 	(toolbarTitle: string) =>
 	(editorView: EditorView, nextPos: Position): Position => {
-		const toolbar = document.querySelector(`div[aria-label="${toolbarTitle}"]`) as HTMLElement;
+		const toolbar = document.querySelector(`div[aria-label="${toolbarTitle}"]`);
 		if (!toolbar) {
 			return nextPos;
 		}
@@ -123,10 +124,19 @@ export const calculateToolbarPositionTrackHead =
 		if (top < wrapperBounds.top) {
 			({ top, left } = getCoordsBelowSelection(bottomCoords, toolbarRect));
 		}
+
+		let leftCoord = Math.max(0, left - wrapperBounds.left);
+		if (fg('platform_editor_selection_toolbar_scroll_fix')) {
+			if (leftCoord + toolbarRect.width > wrapperBounds.width) {
+				const scrollbarWidth = 20;
+				leftCoord = Math.max(0, wrapperBounds.width - (toolbarRect.width + scrollbarWidth));
+			}
+		}
+
 		// remap positions from browser document to wrapperBounds
 		return {
 			top: top - wrapperBounds.top + scrollWrapper.scrollTop,
-			left: Math.max(0, left - wrapperBounds.left),
+			left: leftCoord,
 		};
 	};
 

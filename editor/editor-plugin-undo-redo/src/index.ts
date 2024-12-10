@@ -1,2 +1,2 @@
-export { undoRedoPlugin } from './plugin';
-export type { UndoRedoPlugin } from './types';
+export { undoRedoPlugin } from './undoRedoPlugin';
+export type { UndoRedoPlugin } from './undoRedoPluginType';

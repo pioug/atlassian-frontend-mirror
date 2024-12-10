@@ -4,18 +4,23 @@ import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 
 import { getConfig, ruleSchema } from './config';
+import { FontWeight } from './transformers/font-weight';
 import { StyleObject } from './transformers/style-object';
 
 const create: Rule.RuleModule['create'] = (context: Rule.RuleContext) => {
 	const config = getConfig(context.options[0]);
 
-	return {
-		// const styles = css({ fontSize: '14px, ... }), styled.div({ fontSize: 14, ... })
-		ObjectExpression: errorBoundary(
-			(node: Rule.Node) => StyleObject.lint(node, { context, config }),
-			config,
-		),
-	};
+	return errorBoundary(
+		{
+			// const styles = css({ fontSize: '14px', ... }), styled.div({ fontSize: 14, ... })
+			ObjectExpression: (node: Rule.Node) => StyleObject.lint(node, { context, config }),
+
+			// const styles = css({ fontWeight: 600, 'bold', ... })
+			'ObjectExpression > Property > Identifier[name=/fontWeight/]': (node: Rule.Node) =>
+				FontWeight.lint(node, { context, config }),
+		},
+		config,
+	);
 };
 
 const rule = createLintRule({
@@ -33,6 +38,7 @@ const rule = createLintRule({
 		messages: {
 			noRawTypographyValues:
 				'Typography primitives or tokens should be used instead of hard-coded values.\n\n@meta <<{{payload}}>>.\n\nNOTE: Using tokens with the `fontSize` property is invalid. Any `font.heading` or `font.body` tokens must use the CSS `font` property.',
+			noRawFontWeightValues: 'Font weight tokens should be used instead of hard-coded values.',
 		},
 		schema: ruleSchema,
 	},

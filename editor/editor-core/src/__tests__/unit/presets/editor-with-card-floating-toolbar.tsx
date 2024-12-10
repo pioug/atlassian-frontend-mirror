@@ -1,4 +1,4 @@
-jest.mock('@atlaskit/editor-plugin-card/src/toolbar.tsx');
+jest.mock('@atlaskit/editor-plugin-card/src/ui/toolbar.tsx');
 
 import React from 'react';
 
@@ -9,8 +9,8 @@ import type { CardOptions } from '@atlaskit/editor-common/card';
 import { Editor } from '../../../index';
 
 describe('floatingToolbar is called with the right config', () => {
-	jest.mock('@atlaskit/editor-plugin-card/src/toolbar.tsx');
-	const { floatingToolbar } = require('@atlaskit/editor-plugin-card/src/toolbar');
+	jest.mock('@atlaskit/editor-plugin-card/src/ui/toolbar.tsx');
+	const { floatingToolbar } = require('@atlaskit/editor-plugin-card/src/ui/toolbar');
 	const linkingCardOptions: CardOptions = {
 		provider: Promise.resolve({} as any),
 	};

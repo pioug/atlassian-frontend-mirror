@@ -57,7 +57,6 @@ export const expandBackgroundShorthand: Rule.RuleModule = {
 							return fixer.replaceText(node.key, `backgroundColor`);
 						},
 					});
-					return;
 				}
 			},
 		};

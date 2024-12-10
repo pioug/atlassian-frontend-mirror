@@ -9,6 +9,9 @@ if (process.env.NODE_ENV !== 'production' && !process.env.CI) {
 	);
 }
 
+/**
+ * @deprecated Please use @atlaskit/analytics-next instead
+ */
 function cleanProps(props) {
 	/* eslint-disable no-unused-vars */
 	const {

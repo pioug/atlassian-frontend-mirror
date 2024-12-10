@@ -9,7 +9,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import AttachmentIcon from '@atlaskit/icon/glyph/editor/attachment';
 
-import type { MediaNextEditorPluginType } from '../../next-plugin-type';
+import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { MediaPluginState } from '../../pm-plugins/types';
 
 interface Props {

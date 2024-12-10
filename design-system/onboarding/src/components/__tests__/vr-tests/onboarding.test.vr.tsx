@@ -1,6 +1,7 @@
 import { snapshot } from '@af/visual-regression';
 
 import SpotlightTargetTabs from '../../../../examples/105-spotlight-target-tabs';
+import { SpotlightBasicChildrenFunctionDefaultOpenExample } from '../../../../examples/11-spotlight-basic-children-function';
 
 snapshot(SpotlightTargetTabs, {
 	variants: [
@@ -16,3 +17,5 @@ snapshot(SpotlightTargetTabs, {
 		},
 	],
 });
+
+snapshot(SpotlightBasicChildrenFunctionDefaultOpenExample, { drawsOutsideBounds: true });

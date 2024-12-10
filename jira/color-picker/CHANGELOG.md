@@ -1,5 +1,14 @@
 # @atlaskit/color-picker
 
+## 3.6.2
+
+### Patch Changes
+
+- [#175413](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175413)
+  [`1dc12b45c6ba1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1dc12b45c6ba1) -
+  Select: Update use of deprecated props
+- Updated dependencies
+
 ## 3.6.1
 
 ### Patch Changes

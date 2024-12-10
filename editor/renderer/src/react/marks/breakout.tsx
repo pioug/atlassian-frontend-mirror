@@ -26,7 +26,10 @@ export default function Breakout(props: MarkProps<BreakoutMarkAttrs>) {
 				<div
 					css={wrapperStyles}
 					data-mode={props.mode}
-					{...(editorExperiment('advanced_layouts', true) && { 'data-has-width': !!props.width })}
+					{...(editorExperiment('advanced_layouts', true) && {
+						'data-has-width': !!props.width,
+						'data-width': props.width,
+					})}
 					style={{
 						width: editorExperiment('advanced_layouts', true)
 							? // eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

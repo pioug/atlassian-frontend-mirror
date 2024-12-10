@@ -62,7 +62,7 @@ export {
 	vrVideoDetails,
 	svgFileIds,
 } from './exampleMediaItems';
-export const authProviderBaseURL = 'https://media.dev.atl-paas.net';
+export const authProviderBaseURL = 'https://media.staging.atl-paas.net';
 export { mediaPickerAuthProvider, defaultMediaPickerAuthProvider } from './mediaPickerAuthProvider';
 export { fakeMediaClient } from './fakeMediaClient';
 

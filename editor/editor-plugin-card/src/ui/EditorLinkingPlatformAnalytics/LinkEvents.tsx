@@ -2,9 +2,9 @@ import { useEffect, useMemo } from 'react';
 
 import { useSmartLinkLifecycleAnalytics } from '@atlaskit/link-analytics';
 
-import type { LinkCreatedEvent, LinkDeletedEvent, LinkUpdatedEvent } from '../../analytics/types';
-import { EVENT, EVENT_SUBJECT } from '../../analytics/types';
-import { appearanceForLink, getUrl } from '../../analytics/utils';
+import type { LinkCreatedEvent, LinkDeletedEvent, LinkUpdatedEvent } from '../analytics/types';
+import { EVENT, EVENT_SUBJECT } from '../analytics/types';
+import { appearanceForLink, getUrl } from '../analytics/utils';
 
 import type { AnalyticsBindingsProps } from './common';
 import { getDeleteType, getMethod, getSourceEventFromMetadata, getUpdateType } from './common';

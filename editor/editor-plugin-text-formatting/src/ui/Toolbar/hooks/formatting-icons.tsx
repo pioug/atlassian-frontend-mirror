@@ -44,8 +44,8 @@ import {
 	toggleSubscriptWithAnalytics,
 	toggleSuperscriptWithAnalytics,
 	toggleUnderlineWithAnalytics,
-} from '../../../commands';
-import { getInputMethod } from '../../../input-method-utils';
+} from '../../../pm-plugins/commands';
+import { getInputMethod } from '../input-method-utils';
 import type { IconHookProps, MenuIconItem, MenuIconState } from '../types';
 import { IconTypes, type ToolbarType } from '../types';
 

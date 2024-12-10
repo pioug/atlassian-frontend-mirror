@@ -301,6 +301,10 @@ export const StyleObject = {
 	},
 
 	_check(node: ObjectExpression & Rule.NodeParentExtension, { context, config }: MetaData): Check {
+		if (!config.patterns.includes('style-object')) {
+			return { success: false };
+		}
+
 		if (!isDecendantOfStyleBlock(node) && !isDecendantOfType(node, 'JSXExpressionContainer')) {
 			return { success: false };
 		}

@@ -8,10 +8,8 @@ import { type PostInteractionLogOutput } from '../common';
 import { type Config, setUFOConfig } from '../config';
 import { setupHiddenTimingCapture } from '../hidden-timing';
 import {
-	experimentalInteractionLog,
 	type InteractionMetrics,
 	postInteractionLog,
-	sinkExperimentalHandler,
 	sinkInteractionHandler,
 	sinkPostInteractionLogHandler,
 } from '../interaction-metrics';
@@ -43,26 +41,6 @@ function sinkInteraction(
 			payloads?.forEach((payload: any) => {
 				instance.sendOperationalEvent(payload);
 			});
-		});
-	});
-}
-
-function sinkExperimentalInteractionMetrics(
-	instance: GenericAnalyticWebClientInstance,
-	payloadPackage: {
-		createExperimentalInteractionMetricsPayload: (
-			interactionId: string,
-			interaction: InteractionMetrics,
-		) => any;
-	},
-) {
-	sinkExperimentalHandler((interactionId: string, interaction: InteractionMetrics) => {
-		scheduleCallback(idlePriority, () => {
-			const payload = payloadPackage.createExperimentalInteractionMetricsPayload(
-				interactionId,
-				interaction,
-			);
-			instance.sendOperationalEvent(payload);
 		});
 	});
 }
@@ -104,7 +82,6 @@ export const init = (
 		getVCObserver(vcOptions).start({ startTime: 0 });
 		postInteractionLog.initializeVCObserver(vcOptions);
 		postInteractionLog.startVCObserver({ startTime: 0 });
-		experimentalInteractionLog.initializeVCObserver(vcOptions).startVCObserver({ startTime: 0 });
 	}
 
 	setupHiddenTimingCapture();
@@ -114,49 +91,29 @@ export const init = (
 
 	Promise.all([
 		analyticsWebClientAsync,
+		// eslint-disable-next-line import/dynamic-import-chunkname
 		import(/* webpackChunkName: "create-payloads" */ '../create-payload'),
+		// eslint-disable-next-line import/dynamic-import-chunkname
 		import(
-			/* webpackChunkName: "create-experimental-interaction-metrics-payload" */ '../create-experimental-interaction-metrics-payload'
+			/* webpackChunkName: "create-post-intreaction-log-payload" */ '../create-post-interaction-log-payload'
 		),
-		import(
-			/* webpackChunkName: "create-post-interaction-log-payload" */ '../create-post-interaction-log-payload'
-		),
-	]).then(
-		([
-			awc,
-			payloadPackage,
-			createExperimentalInteractionMetricsPayload,
-			createPostInteractionLogPayloadPackage,
-		]) => {
-			if ((awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise) {
-				(awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise().then((client) => {
-					const instance = client.getInstance();
-					sinkInteraction(instance, payloadPackage);
-					if (config?.experimentalInteractionMetrics?.enabled) {
-						sinkExperimentalInteractionMetrics(
-							instance,
-							createExperimentalInteractionMetricsPayload,
-						);
-					}
-					if (config.postInteractionLog?.enabled) {
-						sinkPostInteractionLog(instance, createPostInteractionLogPayloadPackage.default);
-					}
-				});
-			} else if ((awc as GenericAnalyticWebClientInstance).sendOperationalEvent) {
-				sinkInteraction(awc as GenericAnalyticWebClientInstance, payloadPackage);
-				if (config?.experimentalInteractionMetrics?.enabled) {
-					sinkExperimentalInteractionMetrics(
-						awc as GenericAnalyticWebClientInstance,
-						createExperimentalInteractionMetricsPayload,
-					);
-				}
+	]).then(([awc, payloadPackage, createPostInteractionLogPayloadPackage]) => {
+		if ((awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise) {
+			(awc as GenericAnalyticWebClientPromise).getAnalyticsWebClientPromise().then((client) => {
+				const instance = client.getInstance();
+				sinkInteraction(instance, payloadPackage);
 				if (config.postInteractionLog?.enabled) {
-					sinkPostInteractionLog(
-						awc as GenericAnalyticWebClientInstance,
-						createPostInteractionLogPayloadPackage.default,
-					);
+					sinkPostInteractionLog(instance, createPostInteractionLogPayloadPackage.default);
 				}
+			});
+		} else if ((awc as GenericAnalyticWebClientInstance).sendOperationalEvent) {
+			sinkInteraction(awc as GenericAnalyticWebClientInstance, payloadPackage);
+			if (config.postInteractionLog?.enabled) {
+				sinkPostInteractionLog(
+					awc as GenericAnalyticWebClientInstance,
+					createPostInteractionLogPayloadPackage.default,
+				);
 			}
-		},
-	);
+		}
+	});
 };

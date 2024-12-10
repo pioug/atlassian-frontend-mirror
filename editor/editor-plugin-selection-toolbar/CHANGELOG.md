@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 1.5.1
+
+### Patch Changes
+
+- [#171440](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171440)
+  [`835f7bbff3122`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/835f7bbff3122) -
+  ED-25816: refactors plugins to meet folder standards
+- Updated dependencies
+
 ## 1.5.0
 
 ### Minor Changes

@@ -53,9 +53,9 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/avatar": "^21.17.0",
-		"@atlaskit/icon": "^23.0.0",
+		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/logo": "^15.1.0",
 		"@atlaskit/lozenge": "^11.12.0",
 		"@atlaskit/people-teams-ui-public": "^1.7.0",

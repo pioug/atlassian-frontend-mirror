@@ -1,3 +1,6 @@
+import debounce from 'lodash/debounce';
+
+import { browser } from '@atlaskit/editor-common/browser';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyDocument } from '@atlaskit/editor-common/utils';
@@ -5,6 +8,7 @@ import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemir
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { SelectionMarkerPlugin } from '../selectionMarkerPluginType';
 import { selectionDecoration } from '../ui/selection-decoration';
@@ -82,6 +86,10 @@ export const applyNextPluginState = (
 	};
 };
 
+const debouncedDecorations = debounce((state: EditorState) => {
+	return key.getState(state)?.decorations;
+}, 25);
+
 export const createPlugin = (api: ExtractInjectionAPI<SelectionMarkerPlugin> | undefined) => {
 	return new SafePlugin<PluginState>({
 		key,
@@ -98,7 +106,11 @@ export const createPlugin = (api: ExtractInjectionAPI<SelectionMarkerPlugin> | u
 		},
 		props: {
 			decorations: (state: EditorState) => {
-				return key.getState(state)?.decorations;
+				if (browser.ie && fg('platform_editor_plugin_selection_marker_bugfix')) {
+					return debouncedDecorations(state);
+				} else {
+					return key.getState(state)?.decorations;
+				}
 			},
 		},
 	});

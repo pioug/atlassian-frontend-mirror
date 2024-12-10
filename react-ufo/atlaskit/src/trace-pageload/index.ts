@@ -14,7 +14,7 @@ import {
 } from '../interaction-metrics';
 import UFORouteName from '../route-name-context';
 
-export const AWAITING_PAGELOAD_NAME = 'awaiting_pageload_name';
+const AWAITING_PAGELOAD_NAME = 'awaiting_pageload_name';
 
 export default function traceUFOPageLoad(
 	ufoName?: string | null | undefined,

@@ -1,5 +1,13 @@
 # @atlaskit/forge-react-types
 
+## 0.34.0
+
+### Minor Changes
+
+- [#173211](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/173211)
+  [`45299814f499e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45299814f499e) -
+  Add documentWithoutMedia to ADFRenderer
+
 ## 0.33.2
 
 ### Patch Changes

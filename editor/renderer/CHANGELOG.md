@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 112.6.15
+
+### Patch Changes
+
+- [#174774](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174774)
+  [`8e4f117f6abde`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e4f117f6abde) -
+  [ux] ED-25744 Resolve styling issues with column sort and background color for nested tables
+- Updated dependencies
+
 ## 112.6.14
 
 ### Patch Changes

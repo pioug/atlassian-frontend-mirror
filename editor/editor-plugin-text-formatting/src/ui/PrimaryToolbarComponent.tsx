@@ -4,7 +4,7 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, ToolbarSize } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { TextFormattingPlugin } from '../plugin';
+import type { TextFormattingPlugin } from '../textFormattingPluginType';
 
 import Toolbar from './Toolbar';
 import { ToolbarType } from './Toolbar/types';

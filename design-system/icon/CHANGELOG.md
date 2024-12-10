@@ -1,5 +1,14 @@
 # @atlaskit/icon
 
+## 23.1.0
+
+### Minor Changes
+
+- [#175583](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175583)
+  [`75911cb003bd5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75911cb003bd5) -
+  Add new property to migration map to indicate if an replacement icon is visually different to the
+  original.
+
 ## 23.0.1
 
 ### Patch Changes

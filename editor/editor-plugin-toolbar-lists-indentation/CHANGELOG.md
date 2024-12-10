@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-toolbar-lists-indentation
 
+## 1.14.5
+
+### Patch Changes
+
+- [#171551](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171551)
+  [`702c918817e78`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/702c918817e78) -
+  ED-25817: refactors plugins to meet folder standards
+
+## 1.14.4
+
+### Patch Changes
+
+- [#176005](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176005)
+  [`d4348ed45eed7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4348ed45eed7) -
+  [ux] When text selection is inside media caption or decision nodes, Main and Floating toolbars
+  should have Lists and Text styles options disabled.
+
 ## 1.14.3
 
 ### Patch Changes

@@ -69,8 +69,8 @@ import {
 	MEDIA_PLUGIN_IS_RESIZING_KEY,
 	MEDIA_PLUGIN_RESIZING_WIDTH_KEY,
 } from '../../pm-plugins/main';
-import { getMediaResizeAnalyticsEvent } from '../../utils/analytics';
-import { checkMediaType } from '../../utils/check-media-type';
+import { getMediaResizeAnalyticsEvent } from '../../pm-plugins/utils/analytics';
+import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
 
 import { ResizableMediaMigrationNotification } from './ResizableMediaMigrationNotification';
 import { wrapperStyle } from './styled';

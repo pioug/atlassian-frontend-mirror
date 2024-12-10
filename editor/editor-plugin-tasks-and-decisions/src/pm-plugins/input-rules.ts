@@ -15,13 +15,14 @@ import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state
 import { canInsert } from '@atlaskit/editor-prosemirror/utils';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
 
-import { changeInDepth, getListTypes, insertTaskDecisionAction } from '../commands';
 import type {
 	AddItemAttrs,
 	AddItemTransactionCreator,
 	GetContextIdentifier,
 	TaskDecisionListType,
 } from '../types';
+
+import { changeInDepth, getListTypes, insertTaskDecisionAction } from './insert-commands';
 
 const createListRule =
 	(

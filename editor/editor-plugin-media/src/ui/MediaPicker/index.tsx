@@ -3,7 +3,7 @@ import React from 'react';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import type { MediaNextEditorPluginType } from '../../next-plugin-type';
+import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import type { MediaPluginState } from '../../pm-plugins/types';
 
 import { BrowserWrapper } from './BrowserWrapper';

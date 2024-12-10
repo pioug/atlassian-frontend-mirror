@@ -11,7 +11,7 @@ import {
 
 import { createLintRule } from '../utils/create-rule';
 import { getConfig } from '../utils/get-deprecated-config';
-import { DeprecatedConfig, isDeprecatedJSXAttributeConfig } from '../utils/types';
+import { type DeprecatedConfig, isDeprecatedJSXAttributeConfig } from '../utils/types';
 
 export const noDeprecatedJSXAttributeMessageId = 'noDeprecatedJSXAttributes';
 

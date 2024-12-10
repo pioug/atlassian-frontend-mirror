@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-text-color
 
+## 1.16.4
+
+### Patch Changes
+
+- [#171551](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171551)
+  [`702c918817e78`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/702c918817e78) -
+  ED-25817: refactors plugins to meet folder standards
+
 ## 1.16.3
 
 ### Patch Changes

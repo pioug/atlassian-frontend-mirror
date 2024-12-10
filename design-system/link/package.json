@@ -51,7 +51,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/analytics-next": "^10.1.0",
+		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/app-provider": "^1.4.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-type
 
+## 4.0.10
+
+### Patch Changes
+
+- [#176005](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176005)
+  [`d4348ed45eed7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4348ed45eed7) -
+  [ux] When text selection is inside media caption or decision nodes, Main and Floating toolbars
+  should have Lists and Text styles options disabled.
+
 ## 4.0.9
 
 ### Patch Changes

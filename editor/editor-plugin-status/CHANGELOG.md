@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-status
 
+## 2.6.1
+
+### Patch Changes
+
+- [#171440](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171440)
+  [`835f7bbff3122`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/835f7bbff3122) -
+  ED-25816: refactors plugins to meet folder standards
+
+## 2.6.0
+
+### Minor Changes
+
+- [#174097](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174097)
+  [`b691b87e73dc2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b691b87e73dc2) -
+  [ux] ED-25902-add-floating-toolbar-in-view-mode
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.5.10
 
 ### Patch Changes

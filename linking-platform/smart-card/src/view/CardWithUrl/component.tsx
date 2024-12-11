@@ -7,6 +7,7 @@ import { useAnalyticsEvents } from '../../common/analytics/generated/use-analyti
 import { CardDisplay } from '../../constants';
 import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
 import { useSmartLink } from '../../state';
+import { succeedUfoExperience } from '../../state/analytics';
 import {
 	getCanBeDatasource,
 	getClickUrl,
@@ -202,14 +203,31 @@ function Component({
 	// - the unresolved states: viz. forbidden, not_found, unauthorized, errored.
 	useEffect(() => {
 		if (isFinalState(state.status)) {
-			analytics.ui.renderSuccessEvent({
-				display: isFlexibleUi ? 'flexible' : appearance,
-				status: state.status,
-				id,
-				definitionId,
-				extensionKey,
-				canBeDatasource,
-			});
+			if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
+				succeedUfoExperience('smart-link-rendered', id || 'NULL', {
+					extensionKey,
+					display: isFlexibleUi ? 'flexible' : appearance,
+				});
+
+				// UFO will disregard this if authentication experience has not yet been started
+				succeedUfoExperience('smart-link-authenticated', id || 'NULL', {
+					display: isFlexibleUi ? 'flexible' : appearance,
+				});
+
+				fireEvent('ui.smartLink.renderSuccess', {
+					definitionId: definitionId ?? null,
+					display: isFlexibleUi ? 'flexible' : appearance,
+				});
+			} else {
+				analytics.ui.renderSuccessEvent({
+					display: isFlexibleUi ? 'flexible' : appearance,
+					status: state.status,
+					id,
+					definitionId,
+					extensionKey,
+					canBeDatasource,
+				});
+			}
 		}
 	}, [
 		isFlexibleUi,
@@ -221,6 +239,7 @@ function Component({
 		analytics.ui,
 		id,
 		canBeDatasource,
+		fireEvent,
 	]);
 
 	const onIframeDwell = useCallback(
@@ -260,6 +279,7 @@ function Component({
 				cardState={cardState}
 				onAuthorize={(services.length && handleAuthorize) || undefined}
 				onClick={handleClickWrapper}
+				origin="smartLinkCard"
 				renderers={renderers}
 				ui={ui}
 				showHoverPreview={showHoverPreview}
@@ -317,8 +337,6 @@ function Component({
 					authFlow={config && config.authFlow}
 					cardState={state}
 					handleAuthorize={(services.length && handleAuthorize) || undefined}
-					handleErrorRetry={handleRetry}
-					handleInvoke={handleInvoke}
 					handleFrameClick={handleClickWrapper}
 					analytics={analytics}
 					isSelected={isSelected}
@@ -326,8 +344,6 @@ function Component({
 					onError={onError}
 					testId={testId}
 					actionOptions={actionOptions}
-					platform={platform}
-					enableFlexibleBlockCard={true}
 				/>
 			);
 		case 'embed':

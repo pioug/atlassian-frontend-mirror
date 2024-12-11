@@ -59,7 +59,12 @@ const rule: Rule.RuleModule = {
 						return;
 					}
 
-					const isReassignment = isIdentifierImportedFrom(node.init.name, IMPORT_SOURCES, context);
+					const isReassignment = isIdentifierImportedFrom(
+						node.init.name,
+						IMPORT_SOURCES,
+						context,
+						node,
+					);
 
 					if (isReassignment) {
 						context.report({

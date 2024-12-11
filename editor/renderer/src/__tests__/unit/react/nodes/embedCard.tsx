@@ -5,7 +5,8 @@ import '@atlaskit/link-test-helpers/jest';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import type { RendererAppearance } from '@atlaskit/renderer';
 
-import { Card, Client, Provider } from '@atlaskit/smart-card';
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { Card } from '@atlaskit/smart-card';
 import { render } from '@testing-library/react';
 
 import EmbedCard from '../../../../react/nodes/embedCard';

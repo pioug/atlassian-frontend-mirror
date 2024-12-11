@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
@@ -24,21 +25,28 @@ const DownloadAction = ({ onClick: onClickCallback, ...props }: DownloadActionPr
 	const data = context?.actions?.[ActionName.DownloadAction];
 
 	const onClick = useCallback(() => {
-		if (data?.downloadUrl) {
-			invoke({
-				actionType: ActionName.DownloadAction,
-				actionFn: async () => download(data?.downloadUrl),
-				// These values have already been set in analytics context.
-				// We only pass these here for ufo experience.
-				display: analytics?.display,
-				extensionKey: analytics?.extensionKey,
-			});
+		if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
+			if (data?.invokeAction) {
+				invoke(data.invokeAction);
+				onClickCallback?.();
+			}
+		} else {
+			if (data?.downloadUrl) {
+				invoke({
+					actionType: ActionName.DownloadAction,
+					actionFn: async () => download(data?.downloadUrl),
+					// These values have already been set in analytics context.
+					// We only pass these here for ufo experience.
+					display: analytics?.display,
+					extensionKey: analytics?.extensionKey,
+				});
 
-			if (onClickCallback) {
-				onClickCallback();
+				if (onClickCallback) {
+					onClickCallback();
+				}
 			}
 		}
-	}, [analytics, data?.downloadUrl, invoke, onClickCallback]);
+	}, [analytics, data, invoke, onClickCallback]);
 
 	const isStackItem = props.as === 'stack-item';
 	const label = isStackItem ? messages.download_file : messages.download;

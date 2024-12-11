@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.4.0
+
+### Minor Changes
+
+- [#177115](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177115)
+  [`baf5f90665687`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/baf5f90665687) -
+  `use-tokens-typography` rule now reports on `fontFamily` used with raw values. If a matching token
+  is found, a fix is suggested. This new pattern is disabled by default but can be enabled under the
+  name `font-family`.
+
 ## 11.3.0
 
 ### Minor Changes

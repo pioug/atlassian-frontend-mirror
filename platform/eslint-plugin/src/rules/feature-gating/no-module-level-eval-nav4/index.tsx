@@ -1,5 +1,6 @@
 import type { Rule } from 'eslint';
-import { type Node } from '../utils';
+import type { Node } from 'estree';
+import { getScope } from '../../util/context-compat';
 
 const featureLibraryFunctions = new Set([
 	/*
@@ -21,8 +22,8 @@ const featureLibraryFunctions = new Set([
 	'getWillShowNav4UserOptOut',
 ]);
 
-const isInFunctionLevel = (context: Rule.RuleContext) => {
-	let scope: any = context.getScope();
+const isInFunctionLevel = (context: Rule.RuleContext, node: Node) => {
+	let scope: any = getScope(context, node);
 
 	while (scope?.type !== 'module' && scope?.type !== 'global') {
 		if (scope.type === 'function') {
@@ -52,12 +53,12 @@ const rule: Rule.RuleModule = {
 	},
 	create(context) {
 		return {
-			'CallExpression[callee.type="Identifier"]': (node: Node<any>) => {
+			'CallExpression[callee.type="Identifier"]': (node: Node) => {
 				if (
 					node.type === 'CallExpression' &&
 					node.callee.type === 'Identifier' &&
 					featureLibraryFunctions.has(node.callee.name) &&
-					!isInFunctionLevel(context)
+					!isInFunctionLevel(context, node)
 				) {
 					context.report({
 						messageId: 'noModuleLevelEval',

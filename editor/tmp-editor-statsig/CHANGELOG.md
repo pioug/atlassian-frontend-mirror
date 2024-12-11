@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.25.0
+
+### Minor Changes
+
+- [#169428](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169428)
+  [`ded743b539788`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ded743b539788) -
+  [ux] ED-25865 auto expand selection to include inline node
+
 ## 2.24.0
 
 ### Minor Changes

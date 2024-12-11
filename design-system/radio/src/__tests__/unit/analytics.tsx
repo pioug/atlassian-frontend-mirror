@@ -28,7 +28,7 @@ describe('Radio analytics', () => {
 				</AnalyticsListener>
 			</AnalyticsListener>,
 		);
-		const radio: HTMLElement = screen.getByLabelText('test');
+		const radio: HTMLElement = screen.getByDisplayValue('test');
 		fireEvent.click(radio);
 		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 			payload: {
@@ -77,7 +77,7 @@ describe('Radio analytics', () => {
 				</AnalyticsListener>
 			</AnalyticsListener>,
 		);
-		const redRadio: HTMLElement = screen.getByLabelText('Red');
+		const redRadio: HTMLElement = screen.getByDisplayValue('red');
 		fireEvent.click(redRadio);
 		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 			payload: {
@@ -116,7 +116,7 @@ describe('Radio analytics', () => {
 			</AnalyticsListener>,
 		);
 
-		const radio: HTMLElement = screen.getByLabelText('test');
+		const radio: HTMLElement = screen.getByDisplayValue('test');
 		fireEvent.click(radio);
 
 		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
@@ -161,7 +161,7 @@ describe('Radio analytics', () => {
 			</AnalyticsListener>,
 		);
 
-		const redRadio: HTMLElement = screen.getByLabelText('Red');
+		const redRadio: HTMLElement = screen.getByDisplayValue('red');
 		fireEvent.click(redRadio);
 
 		const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
@@ -194,7 +194,7 @@ describe('Radio analytics', () => {
 
 		render(<Radio name="test" value="test" label="test" />);
 
-		const radio: HTMLElement = screen.getByLabelText('test');
+		const radio: HTMLElement = screen.getByDisplayValue('test');
 		fireEvent.click(radio);
 
 		expect(error).not.toHaveBeenCalled();
@@ -214,7 +214,7 @@ describe('Radio analytics', () => {
 			/>,
 		);
 
-		const redRadio: HTMLElement = screen.getByLabelText('Red');
+		const redRadio: HTMLElement = screen.getByDisplayValue('red');
 		fireEvent.click(redRadio);
 
 		expect(error).not.toHaveBeenCalled();

@@ -1,6 +1,9 @@
 import React from 'react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { context } from './analytics';
 
 type LinkAnalyticsContextProps = {
 	url?: string;
@@ -30,6 +33,7 @@ export const LinkAnalyticsContext = ({
 			data={{
 				source,
 				attributes: {
+					...(fg('platform-smart-card-migrate-embed-modal-analytics') ? context : {}),
 					displayCategory,
 					display,
 					id,

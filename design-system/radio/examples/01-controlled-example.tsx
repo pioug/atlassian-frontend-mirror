@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useState } from 'react';
+
+import { css, jsx } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import Form, { Field, FormFooter } from '@atlaskit/form';
@@ -10,6 +16,15 @@ const options = [
 	{ name: 'color2', value: 'yellow', label: 'Yellow' },
 	{ name: 'color2', value: 'green', label: 'Green' },
 ];
+
+const radioGroupStyles = css({
+	margin: '0.5em',
+	padding: '0.5em',
+	borderColor: '#ccc',
+	borderStyle: 'dashed',
+	borderWidth: '1px',
+	color: '#ccc',
+});
 
 export default function ControlledExample() {
 	// Form needs to be the source of truth for the form data.
@@ -41,24 +56,7 @@ export default function ControlledExample() {
 									/>
 								)}
 							</Field>
-							<div
-								style={{
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									borderStyle: 'dashed',
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									borderWidth: '1px',
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									borderColor: '#ccc',
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									padding: '0.5em',
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									color: '#ccc',
-									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-									margin: '0.5em',
-								}}
-							>
-								onChange called with value: {selectedOption}
-							</div>
+							<div css={radioGroupStyles}>onChange called with value: {selectedOption}</div>
 							<FormFooter>
 								<Button type="submit">Submit</Button>
 							</FormFooter>

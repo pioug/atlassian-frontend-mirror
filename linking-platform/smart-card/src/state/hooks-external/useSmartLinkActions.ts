@@ -3,6 +3,12 @@ import { useMemo } from 'react';
 import { type JsonLd } from 'json-ld-types';
 import uuid from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
+import { extractInvokeDownloadAction } from '../../extractors/action/extract-invoke-download-action';
+import { extractInvokePreviewAction } from '../../extractors/action/extract-invoke-preview-action';
+import { extractInvokeViewAction } from '../../extractors/action/extract-invoke-view-action';
 import { extractDownloadActionProps } from '../../extractors/action/extractDownloadActionProps';
 import { extractPreviewActionProps } from '../../extractors/action/extractPreviewActionProps';
 import { extractViewActionProps } from '../../extractors/action/extractViewActionProps';
@@ -70,6 +76,7 @@ export function useSmartLinkActions({
 
 	const linkState = useLinkState(url);
 	const linkAnalytics = useLinkAnalytics(url, id);
+	const { fireEvent } = useAnalyticsEvents();
 	const invokeClientAction = useInvokeClientAction({ analytics: linkAnalytics });
 
 	if (linkState.details && !actionOptions?.hide) {
@@ -85,19 +92,26 @@ export function useSmartLinkActions({
 
 		const actions = [];
 
-		const downloadActionProps = extractDownloadActionProps(opts);
+		const invokeParam = { actionOptions, appearance, id, response: linkState.details };
+		const downloadActionProps = fg('platform-smart-card-migrate-embed-modal-analytics')
+			? extractInvokeDownloadAction(invokeParam)
+			: extractDownloadActionProps(opts);
 		if (downloadActionProps) {
 			actions.push(
 				toAction(downloadActionProps, invokeClientAction, messages.download, 'download-content'),
 			);
 		}
 
-		const viewActionProps = extractViewActionProps(opts);
+		const viewActionProps = fg('platform-smart-card-migrate-embed-modal-analytics')
+			? extractInvokeViewAction(invokeParam)
+			: extractViewActionProps(opts);
 		if (viewActionProps) {
 			actions.push(toAction(viewActionProps, invokeClientAction, messages.view, 'view-content'));
 		}
 
-		const previewActionProps = extractPreviewActionProps(opts);
+		const previewActionProps = fg('platform-smart-card-migrate-embed-modal-analytics')
+			? extractInvokePreviewAction({ ...invokeParam, fireEvent, origin })
+			: extractPreviewActionProps(opts);
 		if (previewActionProps) {
 			actions.push(
 				toAction(

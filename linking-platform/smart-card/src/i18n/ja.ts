@@ -47,7 +47,7 @@ export default {
     '<b>{name}</b> に自動化を適用します。{br}選択可能な項目は、Confluence とスペース管理者によって管理されます。',
   'fabric.linking.automation-action.confluence.page.modal.title': 'ページ自動化',
   'fabric.linking.automation-action.icon.label': '自動化アイコン',
-  'fabric.linking.automation-action.title': '自動化ルールを表示...',
+  'fabric.linking.automation-action.title': '自動化ルールを表示',
   'fabric.linking.automation-action.tooltip': '実行する自動化ルールを選択',
   'fabric.linking.beta': 'ベータ版',
   'fabric.linking.cancel': 'キャンセル',
@@ -89,10 +89,10 @@ export default {
   'fabric.linking.download_file': 'ファイルをダウンロード',
   'fabric.linking.edit': '編集',
   'fabric.linking.follow': 'フォロー',
-  'fabric.linking.follow_goal': '目標をフォロー',
-  'fabric.linking.follow_goal_description': 'この目標をフォローすると、最新情報の通知が届きます',
+  'fabric.linking.follow_goal': '目的をフォロー',
+  'fabric.linking.follow_goal_description': 'この目的をフォローすると、最新情報の通知が届きます',
   'fabric.linking.follow_goal_error':
-    '目標をフォローする際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
+    '目的をフォローする際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
   'fabric.linking.follow_project': 'プロジェクトをフォロー',
   'fabric.linking.follow_project_description': 'フォローすると、このプロジェクトの通知が届きます',
   'fabric.linking.follow_project_error':
@@ -106,7 +106,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'このプレビューを表示するには、アクセスをリクエストするか別のアカウントで試してください。',
   'fabric.linking.join_to_view': '{context}に参加してこの課題を見る',
-  'fabric.linking.last_mentioned_in': '最近言及された場所',
   'fabric.linking.learn_more_about_connecting_account': 'アカウントをアトラシアン製品に接続する方法をご確認ください。',
   'fabric.linking.learn_more_about_smart_links': 'スマート リンクの詳細',
   'fabric.linking.link_safety_warning_message':
@@ -150,8 +149,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'ここに表示するリンクが見つかりませんでした。更新されたページやその他のコンテンツ タイプについて継続的に確認し、最近のリンクを追加していきます。',
   'fabric.linking.related_links_not_found': 'ここに表示するリンクが見つかりませんでした。',
-  'fabric.linking.related_links_view_related_urls.nonfinal': '最近のリンクを表示...',
-  'fabric.linking.related_work_items_not_found': 'このリンクは他のどこでも言及されていません。',
+  'fabric.linking.related_links_view_related_urls': '最近のリンクを表示',
   'fabric.linking.request_access': 'アクセスをリクエスト',
   'fabric.linking.request_access_description':
     'あなたのチームは {product} を使用してコラボレーションしています。管理者にアクセス権をリクエストしてください。',
@@ -182,10 +180,10 @@ export default {
   'fabric.linking.unauthorised_account_name': '{context} の非公開ページは表示できません',
   'fabric.linking.unauthorised_account_name_no_provider': '非公開ページは表示できません',
   'fabric.linking.unfollow': 'フォローを解除',
-  'fabric.linking.unfollow_goal': '目標をフォロー解除',
-  'fabric.linking.unfollow_goal_description': 'フォロー解除すると、この目標の通知が届かなくなります',
+  'fabric.linking.unfollow_goal': '目的をフォロー解除',
+  'fabric.linking.unfollow_goal_description': 'フォロー解除すると、この目的の通知が届かなくなります',
   'fabric.linking.unfollow_goal_error':
-    '目標をフォロー解除する際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
+    '目的をフォロー解除する際にエラーが発生しました。接続を確認するか、ページを更新してもう一度お試しください。',
   'fabric.linking.unfollow_project': 'プロジェクトをフォロー解除',
   'fabric.linking.unfollow_project_description': 'フォロー解除すると、プロジェクトの通知が届かなくなります',
   'fabric.linking.unfollow_project_error':

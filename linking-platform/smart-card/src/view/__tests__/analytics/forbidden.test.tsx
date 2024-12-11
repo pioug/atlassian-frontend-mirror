@@ -6,13 +6,12 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { type CardClient } from '@atlaskit/link-provider';
+import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { Provider } from '../../../index';
 import * as analyticsEvents from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';

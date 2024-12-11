@@ -43,11 +43,8 @@ export const BlockCardForbiddenViews = () => {
 							url={mockUrl}
 							handleAuthorize={() => {}}
 							analytics={mockAnalytics}
-							handleInvoke={() => Promise.resolve()}
-							handleErrorRetry={() => {}}
 							handleFrameClick={() => {}}
 							id={'12344'}
-							enableFlexibleBlockCard={true}
 							testId={'default-forbidden-view'}
 						/>
 						<h5>Forbidden view with 'DIRECT_ACCESS' </h5>
@@ -59,11 +56,8 @@ export const BlockCardForbiddenViews = () => {
 							url={mockUrl}
 							handleAuthorize={() => {}}
 							analytics={mockAnalytics}
-							handleInvoke={() => Promise.resolve()}
-							handleErrorRetry={() => {}}
 							handleFrameClick={() => {}}
 							id={'12344'}
-							enableFlexibleBlockCard={true}
 							testId={'direct-access-forbidden-view'}
 						/>
 						<h5>Forbidden view with 'REQUEST_ACCESS' </h5>
@@ -75,11 +69,8 @@ export const BlockCardForbiddenViews = () => {
 							url={mockUrl}
 							handleAuthorize={() => {}}
 							analytics={mockAnalytics}
-							handleInvoke={() => Promise.resolve()}
-							handleErrorRetry={() => {}}
 							handleFrameClick={() => {}}
 							id={'12344'}
-							enableFlexibleBlockCard={true}
 							testId={'request-access-forbidden-view'}
 						/>
 						<h5>Forbidden view with 'PENDING_REQUEST_EXISTS' </h5>
@@ -91,11 +82,8 @@ export const BlockCardForbiddenViews = () => {
 							url={mockUrl}
 							handleAuthorize={() => {}}
 							analytics={mockAnalytics}
-							handleInvoke={() => Promise.resolve()}
-							handleErrorRetry={() => {}}
 							handleFrameClick={() => {}}
 							id={'12344'}
-							enableFlexibleBlockCard={true}
 							testId={'pending-request-forbidden-view'}
 						/>
 						<h5>Forbidden view with 'FORBIDDEN' </h5>
@@ -107,11 +95,8 @@ export const BlockCardForbiddenViews = () => {
 							url={mockUrl}
 							handleAuthorize={() => {}}
 							analytics={mockAnalytics}
-							handleInvoke={() => Promise.resolve()}
-							handleErrorRetry={() => {}}
 							handleFrameClick={() => {}}
 							id={'12344'}
-							enableFlexibleBlockCard={true}
 							testId={'forbidden-forbidden-view'}
 						/>
 						<h5>Forbidden view with 'DENIED_REQUEST_EXISTS' </h5>
@@ -123,11 +108,8 @@ export const BlockCardForbiddenViews = () => {
 							url={mockUrl}
 							handleAuthorize={() => {}}
 							analytics={mockAnalytics}
-							handleInvoke={() => Promise.resolve()}
-							handleErrorRetry={() => {}}
 							handleFrameClick={() => {}}
 							id={'12344'}
-							enableFlexibleBlockCard={true}
 							testId={'denied-request-forbidden-view'}
 						/>
 					</div>

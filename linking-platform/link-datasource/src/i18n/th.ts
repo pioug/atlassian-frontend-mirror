@@ -83,6 +83,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'เรามีปัญหาในการพยายามอัปเดตให้เสร็จสิ้น โปรดรอสักครู่ แล้วลองอีกครั้ง โปรดติดต่อฝ่ายสนับสนุน หากเกิดปัญหานี้ขึ้นอย่างต่อเนื่อง',
   'linkDataSource.issue-line-table.error-generic-title': 'เกิดข้อผิดพลาดบางอย่าง',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'โปรดรอสักครู่ แล้วลองอีกครั้ง ตรวจสอบการตั้งค่าโปรเจกต์ของคุณ หรือติดต่อฝ่ายสนับสนุนหากเกิดปัญหานี้ขึ้นอย่างต่อเนื่อง',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'เรากำลังมีปัญหาในการดึงตัวเลือก',
   'linkDataSource.issue-line-table.unwrap-text': 'เลิกจัดข้อความล้อมรูปภาพ',
   'linkDataSource.issue-line-table.wrap-text': 'จัดข้อความล้อมรูปภาพ',
   'linkDataSource.checkConnectionWithSource':

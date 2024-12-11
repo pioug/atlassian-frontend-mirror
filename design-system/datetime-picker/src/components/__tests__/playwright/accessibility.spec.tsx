@@ -28,7 +28,7 @@ test('Time picker should pass base aXe audit', async ({ page }) => {
 
 test('DateTime picker should pass base aXe audit', async ({ page }) => {
 	await page.visitExample('design-system', 'datetime-picker', 'datetime-picker-states');
-	const calendarButton = page.getByLabel('Stock, date').and(page.getByRole('button'));
+	const calendarButton = page.getByRole('button', { name: 'Stock, date, Open calendar' });
 	await expect(calendarButton).toBeVisible();
 
 	await calendarButton.click();

@@ -45,7 +45,7 @@ export default {
     "Applica un'automazione a <b>{name}</b>.{br}Le selezioni disponibili sono controllate da Confluence e dagli amministratori dello spazio.",
   'fabric.linking.automation-action.confluence.page.modal.title': 'Automazioni di pagina',
   'fabric.linking.automation-action.icon.label': 'Icona di automazione',
-  'fabric.linking.automation-action.title': 'Visualizza le regole di automazione...',
+  'fabric.linking.automation-action.title': 'Visualizza regole di automazione',
   'fabric.linking.automation-action.tooltip': 'Seleziona una regola di automazione da eseguire',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Annulla',
@@ -105,7 +105,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     "Per visualizzare quest'anteprima devi richiedere l'accesso o provare con un altro account.",
   'fabric.linking.join_to_view': 'Unisciti a {context} per visualizzare questo ticket',
-  'fabric.linking.last_mentioned_in': 'Ultima menzione in',
   'fabric.linking.learn_more_about_connecting_account':
     'Scopri di più sulla connessione del tuo account ai prodotti Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Scopri di più sui Link intelligenti.',
@@ -151,8 +150,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Non sono stati trovati link da mostrare qui. Esaminiamo e aggiungiamo continuamente i link recenti per le pagine aggiornate o altri tipi di contenuti.',
   'fabric.linking.related_links_not_found': 'Non sono stati trovati link da mostrare qui.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Visualizza i link recenti...',
-  'fabric.linking.related_work_items_not_found': "Questo link non è menzionato da nessun'altra parte.",
+  'fabric.linking.related_links_view_related_urls': 'Visualizza link recenti',
   'fabric.linking.request_access': 'Richiedi accesso',
   'fabric.linking.request_access_description':
     "Il tuo team usa {product} per collaborare. Invia all'amministratore una richiesta di accesso.",

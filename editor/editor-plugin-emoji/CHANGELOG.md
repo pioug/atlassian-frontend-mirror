@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-emoji
 
+## 2.7.13
+
+### Patch Changes
+
+- [#176427](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176427)
+  [`9c2bd03adeebd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c2bd03adeebd) -
+  [ED-25999] adding analytic events for inline node of emoji,status and inlineCard
+
 ## 2.7.12
 
 ### Patch Changes

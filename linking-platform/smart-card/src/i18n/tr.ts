@@ -46,7 +46,7 @@ export default {
     '<b>{name}</b> sayfasına bir otomasyon uygulayın.{br}Kullanılabilir seçimler Confluence ve alan yöneticileri tarafından kontrol edilir.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Sayfa otomasyonları',
   'fabric.linking.automation-action.icon.label': 'Otomasyon simgesi',
-  'fabric.linking.automation-action.title': 'Otomasyon kurallarını görüntüleyin...',
+  'fabric.linking.automation-action.title': 'Otomasyon kurallarını görüntü',
   'fabric.linking.automation-action.tooltip': 'Çalıştırılacak otomasyon kuralını seçin',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'İptal',
@@ -89,10 +89,10 @@ export default {
   'fabric.linking.download_file': 'Dosyayı indir',
   'fabric.linking.edit': 'Düzenle',
   'fabric.linking.follow': 'Takip Et',
-  'fabric.linking.follow_goal': 'Hedefi takip et',
-  'fabric.linking.follow_goal_description': 'Güncellemelerle ilgili bildirimler almak için bu hedefi takip edin',
+  'fabric.linking.follow_goal': 'Amacı takip et',
+  'fabric.linking.follow_goal_description': 'Güncellemelerle ilgili bildirimler almak için bu amacı takip edin',
   'fabric.linking.follow_goal_error':
-    'Hedefi takip etmeye çalışırken bir sorunla karşılaşıldı. Bağlantınızı kontrol edin, sayfayı yenileyin ve tekrar deneyin.',
+    'Amacı takip etmeye çalışırken bir sorunla karşılaşıldı. Bağlantınızı kontrol edin, sayfayı yenileyin ve tekrar deneyin.',
   'fabric.linking.follow_project': 'Projeyi takip et',
   'fabric.linking.follow_project_description': 'Bu projeyle ilgili bildirimler almak için takip edin',
   'fabric.linking.follow_project_error':
@@ -106,7 +106,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Bu önizlemeyi görüntülemek için erişim izni talep etmeniz veya farklı bir hesap kullanmanız gerekir.',
   'fabric.linking.join_to_view': 'Bu konuyu görüntülemek için {context} ürününe katılın',
-  'fabric.linking.last_mentioned_in': 'En son şurada bahsedildi:',
   'fabric.linking.learn_more_about_connecting_account':
     'Hesabınızı Atlassian ürünlerine bağlamak hakkında daha fazla bilgi edinin.',
   'fabric.linking.learn_more_about_smart_links': 'Akıllı Bağlantılar hakkında daha fazla bilgi edinin.',
@@ -151,8 +150,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Burada gösterecek herhangi bir bağlantı bulunamadı. Güncellenen sayfalar veya diğer içerik türleri için en son bağlantıları sürekli olarak ekliyor ve bunları inceliyoruz.',
   'fabric.linking.related_links_not_found': 'Burada gösterecek herhangi bir bağlantı bulunamadı.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'En son bağlantıları görüntüleyin...',
-  'fabric.linking.related_work_items_not_found': 'Bu bağlantıdan başka hiçbir yerde bahsedilmedi.',
+  'fabric.linking.related_links_view_related_urls': 'En son bağlantıları görüntüle',
   'fabric.linking.request_access': 'Erişim talep edin',
   'fabric.linking.request_access_description':
     'Takımınız iş birliği yapmak için {product} kullanıyor. Yöneticinize bir erişim talebi gönderin.',
@@ -183,10 +181,10 @@ export default {
   'fabric.linking.unauthorised_account_name': '{context} üzerindeki özel sayfalar görüntülenemiyor',
   'fabric.linking.unauthorised_account_name_no_provider': 'Özel sayfalar görüntülenemiyor',
   'fabric.linking.unfollow': 'Takibi bırak',
-  'fabric.linking.unfollow_goal': 'Hedefi takip etmeyi bırak',
-  'fabric.linking.unfollow_goal_description': 'Bu hedefle ilgili bildirim almayı durdurmak için takip etmeyi bırakın',
+  'fabric.linking.unfollow_goal': 'Amacı takip etmeyi bırak',
+  'fabric.linking.unfollow_goal_description': 'Bu amaçla ilgili bildirim almayı durdurmak için takip etmeyi bırakın',
   'fabric.linking.unfollow_goal_error':
-    'Hedefi takip etmeyi bırakmaya çalışırken bir sorunla karşılaşıldı. Bağlantınızı kontrol edin, sayfayı yenileyin ve tekrar deneyin.',
+    'Amacı takip etmeyi bırakmaya çalışırken bir sorunla karşılaşıldı. Bağlantınızı kontrol edin, sayfayı yenileyin ve tekrar deneyin.',
   'fabric.linking.unfollow_project': 'Projeyi takip etmeyi bırak',
   'fabric.linking.unfollow_project_description': 'Proje bildirimi almayı durdurmak için takip etmeyi bırakın',
   'fabric.linking.unfollow_project_error':

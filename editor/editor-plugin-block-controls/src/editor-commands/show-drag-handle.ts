@@ -5,7 +5,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
-import { getNestedNodePosition } from '../pm-plugins/utils';
+import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
 
 export const showDragHandleAtSelection =
 	(api?: ExtractInjectionAPI<BlockControlsPlugin>, shouldFocusParentNode?: boolean): Command =>

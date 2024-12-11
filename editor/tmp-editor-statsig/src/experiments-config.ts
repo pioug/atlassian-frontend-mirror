@@ -392,4 +392,12 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	expand_selection_range_to_include_inline_node: {
+		productKeys: {
+			confluence: 'expand_selection_range_to_include_inline_node',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

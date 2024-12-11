@@ -2,10 +2,20 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, memo, useMemo, useState } from 'react';
+import {
+	type FocusEvent,
+	forwardRef,
+	type KeyboardEvent,
+	memo,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+import { bindAll } from 'bind-event-listener';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import __noop from '@atlaskit/ds-lib/noop';
@@ -61,9 +71,47 @@ const Toggle = memo(
 
 		const isControlled = typeof isChecked === 'undefined';
 		const [checked, setChecked] = useState(defaultChecked);
+		const [isKeyboardUsed, setIsKeyboardUsed] = useState<boolean | null>(true);
+		const wrapperRef = useRef<HTMLLabelElement>(null);
+
+		useEffect(() => {
+			if (id && wrapperRef.current && wrapperRef.current.parentElement) {
+				/*
+					DSP-21524 Handling the click on <label> that is linked via "for" attribute.
+					By default click on the label fires absolutely same onclick event as click on the input element.
+					To differentiate keyboard click from mouse we need this additional listener.
+				*/
+				const linkedLabel: HTMLLabelElement | null = wrapperRef.current.parentElement.querySelector(
+					`label[for='${id}']`,
+				);
+				if (linkedLabel) {
+					const unbind = bindAll(linkedLabel, [
+						{
+							type: 'click',
+							listener: (event) => {
+								setIsKeyboardUsed(false);
+								if (event?.detail > 1) {
+									/*
+									DSP-21524 double or triple click on label initiating the text selection for label text and adds additional step to tab order.
+									So here we set the isKeyboardUsed to true, to display focus ring on next Tab press
+									*/
+									setIsKeyboardUsed(true);
+								}
+							},
+						},
+					]);
+					return unbind;
+				}
+			}
+		}, [id, wrapperRef, isKeyboardUsed]);
 
 		const handleBlur = usePlatformLeafEventHandler({
-			fn: providedOnBlur,
+			fn: (event: FocusEvent<HTMLInputElement>, analyticsEvent: UIAnalyticsEvent) => {
+				if (!isKeyboardUsed) {
+					setIsKeyboardUsed(true);
+				}
+				providedOnBlur(event, analyticsEvent);
+			},
 			action: 'blur',
 			analyticsData: analyticsContext,
 			...analyticsAttributes,
@@ -88,6 +136,12 @@ const Toggle = memo(
 			...analyticsAttributes,
 		});
 
+		const onLabelKeyDown = (event: KeyboardEvent<HTMLElement>) => {
+			if ([' ', 'Tab', 'Space'].includes(event.key)) {
+				setIsKeyboardUsed(true);
+			}
+		};
+
 		const shouldChecked = isControlled ? checked : isChecked;
 
 		const controlProps = {
@@ -95,17 +149,23 @@ const Toggle = memo(
 			'data-disabled': isDisabled ? isDisabled : undefined,
 			'data-size': size,
 			'data-testid': testId ? testId : undefined,
+			// DSP-21524 Because label gets focus ring via focus-within and focus-within also triggers by mouse click we have to manually control the ring appearance.
+			onKeyDown: onLabelKeyDown,
+			onMouseDown: () => {
+				setIsKeyboardUsed(false);
+			},
 		};
-
-		const toggleStyles = useMemo(() => getStyles(size), [size]);
+		const toggleStyles = useMemo(
+			() => getStyles(size, Boolean(isKeyboardUsed)),
+			[size, isKeyboardUsed],
+		);
 
 		const legacyIconSize = iconSizeMap[size];
 
 		const labelId = useId();
-
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			<label {...controlProps} css={toggleStyles}>
+			<label {...controlProps} css={toggleStyles} ref={wrapperRef}>
 				{label ? (
 					<span id={labelId} hidden>
 						{label}

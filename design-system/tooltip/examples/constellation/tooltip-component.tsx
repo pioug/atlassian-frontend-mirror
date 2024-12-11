@@ -1,14 +1,13 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { styled } from '@compiled/react';
 
 import Button from '@atlaskit/button/new';
 import { token } from '@atlaskit/tokens';
-import Tooltip, { TooltipPrimitive } from '@atlaskit/tooltip';
+import Tooltip, { TooltipPrimitive, TooltipPrimitiveProps } from '@atlaskit/tooltip';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const InlineDialog = styled(TooltipPrimitive)({
+const InlineDialog = styled<TooltipPrimitiveProps>(TooltipPrimitive)({
 	background: 'white',
 	borderRadius: token('border.radius', '4px'),
 	boxShadow: token('elevation.shadow.overlay'),

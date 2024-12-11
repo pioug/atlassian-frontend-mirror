@@ -1,4 +1,10 @@
-import React, { Fragment, type SyntheticEvent, useCallback, useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Fragment, type SyntheticEvent, useCallback, useState } from 'react';
+
+import { css, jsx } from '@compiled/react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 import { RadioGroup } from '@atlaskit/radio';
@@ -11,6 +17,15 @@ const options: OptionsPropType = [
 	{ name: 'color', value: 'green', label: 'Green' },
 	{ name: 'color', value: 'black', label: 'Black' },
 ];
+
+const radioGroupStyles = css({
+	margin: '0.5em',
+	padding: '0.5em',
+	borderColor: '#ccc',
+	borderStyle: 'dashed',
+	borderWidth: '1px',
+	color: '#ccc',
+});
 
 export default function BasicExample() {
 	const [isDisabled, setIsDisabled] = useState<boolean>();
@@ -35,26 +50,7 @@ export default function BasicExample() {
 				onChange={onChange}
 				aria-labelledby="radiogroup-label"
 			/>
-			<div
-				style={{
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					borderStyle: 'dashed',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					borderWidth: '1px',
-
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					borderColor: '#ccc',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					padding: '0.5em',
-
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					color: '#ccc',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					margin: '0.5em',
-				}}
-			>
-				{onChangeResult}
-			</div>
+			<div css={radioGroupStyles}>{onChangeResult}</div>
 			<Checkbox
 				value="isDisabled"
 				label="Make this radio group disabled"

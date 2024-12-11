@@ -45,7 +45,7 @@ export default {
     'Apply an automation to <b>{name}</b>.{br}The available selections are controlled by Confluence and space administrators.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Page automations',
   'fabric.linking.automation-action.icon.label': 'Automation icon',
-  'fabric.linking.automation-action.title': 'View automation rules...',
+  'fabric.linking.automation-action.title': 'View automation rules',
   'fabric.linking.automation-action.tooltip': 'Select an automation rule to run',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Cancel',
@@ -104,7 +104,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     "You'll need to request access or try a different account to view this preview.",
   'fabric.linking.join_to_view': 'Join {context} to view this issue',
-  'fabric.linking.last_mentioned_in': 'Last mentioned in',
   'fabric.linking.learn_more_about_connecting_account':
     'Learn more about connecting your account to Atlassian products.',
   'fabric.linking.learn_more_about_smart_links': 'Learn more about Smart Links.',
@@ -149,8 +148,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     "We didn't find any links to show here. We continuously review and add recent links for updated pages or other content types.",
   'fabric.linking.related_links_not_found': "We didn't find any links to show here.",
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'View recent links...',
-  'fabric.linking.related_work_items_not_found': 'This link is not mentioned anywhere else.',
+  'fabric.linking.related_links_view_related_urls': 'View recent links',
   'fabric.linking.request_access': 'Request access',
   'fabric.linking.request_access_description':
     'Your team uses {product} to collaborate. Send your admin a request for access.',

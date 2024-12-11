@@ -41,7 +41,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
-import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/smart-card';
+import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-common';
 // TODO: ED-20519 Needs Macro extraction
 
 import { startTrackingPastedMacroPositions, stopTrackingPastedMacroPositions } from './commands';

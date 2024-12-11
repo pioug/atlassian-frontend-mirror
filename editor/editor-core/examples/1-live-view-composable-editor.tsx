@@ -10,8 +10,8 @@ import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
-import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 

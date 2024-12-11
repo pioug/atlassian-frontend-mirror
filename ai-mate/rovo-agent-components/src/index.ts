@@ -1,6 +1,7 @@
 export { AgentProfileInfo, AgentProfileCreator } from './ui/agent-profile-info';
 export { AgentStarCount } from './ui/agent-profile-info/agent-star-count';
 export { StarIconButton } from './common/ui/star-icon-button';
+export { LinkIconButton } from './common/ui/link-icon-button';
 export {
 	AgentConversationStarters,
 	ConversationStarters,

@@ -1,13 +1,16 @@
 import React from 'react';
 
+import { type JsonLd } from 'json-ld-types';
+
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+
 import { ConfluencePage } from '../../examples-helpers/_jsonLDExamples';
-import { Client, Provider, type ResolveResponse } from '../../src';
 import { HoverCardComponent } from '../../src/view/HoverCard/components/HoverCardComponent';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 class CustomClient extends Client {
 	fetchData(url: string) {
-		return Promise.resolve(ConfluencePage as ResolveResponse);
+		return Promise.resolve(ConfluencePage as JsonLd.Response);
 	}
 }
 

@@ -1,12 +1,9 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
 import { type FormatDateOptions, type IntlShape, useIntl } from 'react-intl-next';
 
 import { type DateTimeType, type DateType, type TimeType } from '@atlaskit/linking-types';
-
-import { fieldTextFontSize } from '../../styled';
+import { Text } from '@atlaskit/primitives/compiled';
 
 export interface DateProps {
 	testId?: string;
@@ -27,12 +24,6 @@ const timeOptions: FormatDateOptions = {
 	hour: '2-digit',
 	minute: '2-digit',
 };
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const DateTimeWrapper = styled.span({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: fieldTextFontSize,
-});
 
 export function getFormattedDate(
 	value: string,
@@ -71,7 +62,7 @@ const DateTimeRenderType = ({
 		return <></>;
 	}
 
-	return <DateTimeWrapper data-testid={testId}>{formattedString}</DateTimeWrapper>;
+	return <Text testId={testId}>{formattedString}</Text>;
 };
 
 export default DateTimeRenderType;

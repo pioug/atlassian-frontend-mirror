@@ -46,8 +46,9 @@ import Tooltip from '@atlaskit/tooltip';
 
 import type { BlockControlsPlugin, HandleOptions } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
-import { getNestedNodePosition, selectNode } from '../pm-plugins/utils';
 import { getLeftPosition, getTopPosition } from '../pm-plugins/utils/drag-handle-positions';
+import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
+import { selectNode } from '../pm-plugins/utils/getSelection';
 
 import {
 	DRAG_HANDLE_BORDER_RADIUS,

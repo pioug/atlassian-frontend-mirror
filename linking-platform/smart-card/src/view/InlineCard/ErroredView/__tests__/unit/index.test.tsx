@@ -4,9 +4,9 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { getBooleanFF } from '@atlaskit/platform-feature-flags';
 
-import { Provider } from '../../../../../index';
 import { InlineCardErroredView } from '../../index';
 
 jest.mock('@atlaskit/platform-feature-flags');

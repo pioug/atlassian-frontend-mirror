@@ -6,14 +6,13 @@ import { type RequestAccessMessageKey } from '../../messages';
 import { type InvokeHandler } from '../../model/invoke-handler';
 import { type AnalyticsFacade } from '../../state/analytics';
 import { type CardState } from '../../state/types';
-import { type ActionProps } from '../BlockCard/components/Action';
 import type {
 	CardActionOptions,
 	CardPlatform,
 	EmbedIframeUrlType,
 	OnResolveCallback,
 } from '../Card/types';
-import { type OnErrorCallback } from '../types';
+import { type ActionProps, type OnErrorCallback } from '../types';
 
 export type EmbedCardProps = {
 	url: string;

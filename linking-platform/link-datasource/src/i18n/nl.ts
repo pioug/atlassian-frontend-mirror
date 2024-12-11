@@ -84,6 +84,10 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'We hadden een probleem toen we de update probeerden te voltooien. Wacht een paar minuten en probeer het opnieuw. Neem contact op met de klantenservice als dit steeds gebeurt.',
   'linkDataSource.issue-line-table.error-generic-title': 'Er is iets misgegaan',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Wacht een paar minuten en probeer het opnieuw. Controleer je projectinstellingen of neem contact op met support als dit blijft gebeuren.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title':
+    'Er is een probleem opgetreden bij het ophalen van de opties',
   'linkDataSource.issue-line-table.unwrap-text': 'Tekst niet teruglopen',
   'linkDataSource.issue-line-table.wrap-text': 'Tekst teruglopen',
   'linkDataSource.checkConnectionWithSource':

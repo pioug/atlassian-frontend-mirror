@@ -6,8 +6,8 @@
 import { jsx } from '@emotion/react';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
-import { CardClient } from '@atlaskit/link-provider';
-import { Card, Provider, SnippetBlock, TitleBlock } from '@atlaskit/smart-card';
+import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { Card, SnippetBlock, TitleBlock } from '@atlaskit/smart-card';
 
 import { JiraIssue } from '../../examples-helpers/_jsonLDExamples';
 import useAISummaryAction from '../../src/state/hooks/use-ai-summary-action';

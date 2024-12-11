@@ -45,7 +45,7 @@ export default {
     'Tillämpa en automatisering för <b>{name}</b>.{br}Tillgängliga val styrs av Confluence- och utrymmesadministratörer.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Sidautomatiseringar',
   'fabric.linking.automation-action.icon.label': 'Automatiseringssymbol',
-  'fabric.linking.automation-action.title': 'Visa automatiseringsregler ...',
+  'fabric.linking.automation-action.title': 'Visa automatiseringsregler',
   'fabric.linking.automation-action.tooltip': 'Välj en automatiseringsregel att köra',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Avbryt',
@@ -105,7 +105,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Du måste begära åtkomst eller försöka med ett annat konto för att visa förhandsgranskningen.',
   'fabric.linking.join_to_view': 'Anslut till {context} för att visa ärendet',
-  'fabric.linking.last_mentioned_in': 'Senast omnämnd i',
   'fabric.linking.learn_more_about_connecting_account': 'Läs mer om att ansluta ditt konto till Atlassian-produkter.',
   'fabric.linking.learn_more_about_smart_links': 'Läs mer om smarta länkar.',
   'fabric.linking.link_safety_warning_message':
@@ -150,8 +149,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Vi hittade inga länkar att visa här. Vi granskar kontinuerligt och lägger till de senaste länkarna för uppdaterade sidor eller andra innehållstyper.',
   'fabric.linking.related_links_not_found': 'Vi hittade inga länkar att visa här.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Visa senaste länkar ...',
-  'fabric.linking.related_work_items_not_found': 'Länken nämns inte någon annanstans.',
+  'fabric.linking.related_links_view_related_urls': 'Visa senaste länkar',
   'fabric.linking.request_access': 'Begär åtkomst',
   'fabric.linking.request_access_description':
     'Ditt team använder {product} för att samarbeta. Skicka en åtkomstförfrågan till din administratör.',

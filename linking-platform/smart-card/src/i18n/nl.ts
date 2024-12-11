@@ -46,7 +46,7 @@ export default {
     'Een automatisering toepassen op <b>{name}</b>.{br}De beschikbare selecties worden beheerd door Confluence en spacebeheerders.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Pagina-automatiseringen',
   'fabric.linking.automation-action.icon.label': 'Pictogram automatisering',
-  'fabric.linking.automation-action.title': 'Automatiseringsregels weergeven ...',
+  'fabric.linking.automation-action.title': 'Automatiseringsregels bekijken',
   'fabric.linking.automation-action.tooltip': 'Selecteer een automatiseringsregel om uit te voeren',
   'fabric.linking.beta': 'Bèta',
   'fabric.linking.cancel': 'Annuleren',
@@ -106,7 +106,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Je moet om toegang vragen of een ander account proberen om deze voorvertoning te bekijken.',
   'fabric.linking.join_to_view': 'Word lid van {context} om deze issue te bekijken',
-  'fabric.linking.last_mentioned_in': 'Laatst vermeld in',
   'fabric.linking.learn_more_about_connecting_account':
     'Meer informatie over het koppelen van je account aan Atlassian-producten.',
   'fabric.linking.learn_more_about_smart_links': 'Meer informatie over Smart Links.',
@@ -152,8 +151,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     "We konden geen links vinden om hier weer te geven. We beoordelen links voortdurend en voegen regelmatig recente links toe voor bijgewerkte pagina's of andere inhoudstypes.",
   'fabric.linking.related_links_not_found': 'We konden geen links vinden om hier weer te geven.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Recente links bekijken ...',
-  'fabric.linking.related_work_items_not_found': 'Deze link wordt nergens anders vermeld.',
+  'fabric.linking.related_links_view_related_urls': 'Recente links bekijken',
   'fabric.linking.request_access': 'Toegang aanvragen',
   'fabric.linking.request_access_description':
     'Je team gebruikt {product} om samen te werken. Vraag je beheerder om toestemming.',

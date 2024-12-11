@@ -87,6 +87,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Houve um erro na tentativa de concluir a atualização. Aguarde alguns minutos e tente de novo. Entre em contato com o suporte se isso continuar acontecendo.',
   'linkDataSource.issue-line-table.error-generic-title': 'Algo deu errado',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Aguarde alguns minutos e tente de novo. Verifique as configurações do projeto ou entre em contato com o suporte se isso continuar acontecendo.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Há alguns problemas para encontrar opções',
   'linkDataSource.issue-line-table.unwrap-text': 'Não quebrar linha',
   'linkDataSource.issue-line-table.wrap-text': 'Quebrar linha',
   'linkDataSource.checkConnectionWithSource':

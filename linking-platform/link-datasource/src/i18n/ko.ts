@@ -82,6 +82,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     '업데이트를 완료하는 동안 문제가 발생했습니다. 몇 분 후에 다시 시도하세요. 이 문제가 지속되면 지원 팀에 문의하세요.',
   'linkDataSource.issue-line-table.error-generic-title': '문제가 발생했습니다',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    '몇 분 후에 다시 시도하세요. 프로젝트 설정을 확인하거나 이 문제가 지속되면 지원 팀에 문의하세요.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': '옵션을 가져오는 동안 문제가 발생했습니다',
   'linkDataSource.issue-line-table.unwrap-text': '텍스트 줄 바꿈 해제',
   'linkDataSource.issue-line-table.wrap-text': '텍스트 줄 바꿈',
   'linkDataSource.checkConnectionWithSource':

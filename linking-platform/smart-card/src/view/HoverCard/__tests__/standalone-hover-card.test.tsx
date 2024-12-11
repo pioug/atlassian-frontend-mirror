@@ -6,7 +6,8 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
-import { CardAction, Provider } from '@atlaskit/smart-card';
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { CardAction } from '@atlaskit/smart-card';
 import {
 	type HoverCardProps,
 	HoverCard as StandaloneHoverCard,

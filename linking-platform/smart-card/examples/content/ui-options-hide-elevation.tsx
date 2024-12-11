@@ -2,7 +2,9 @@ import React from 'react';
 
 import { type JsonLd } from 'json-ld-types';
 
-import { Card, Client, Provider, TitleBlock } from '../../src';
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+
+import { Card, TitleBlock } from '../../src';
 
 import { response1 } from './example-responses';
 

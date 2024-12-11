@@ -76,7 +76,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/radio": "^6.6.0",
+		"@atlaskit/radio": "^7.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/jest": "^11.8.0",

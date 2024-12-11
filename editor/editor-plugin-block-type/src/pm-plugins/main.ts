@@ -32,7 +32,7 @@ import {
 	TEXT_BLOCK_TYPES,
 	WRAPPER_BLOCK_TYPES,
 } from './block-types';
-import { setHeadingWithAnalytics, setNormalTextWithAnalytics } from './commands';
+import { setHeadingWithAnalytics, setNormalTextWithAnalytics } from './commands/block-type';
 import { HEADING_KEYS } from './consts';
 import type { BlockType } from './types';
 import { areBlockTypesDisabled } from './utils';

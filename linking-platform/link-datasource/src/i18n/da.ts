@@ -84,6 +84,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Vi havde problemer med at gennemføre opdateringen. Prøv igen om et par minutter. Kontakt support, hvis problemet varer ved.',
   'linkDataSource.issue-line-table.error-generic-title': 'Noget gik galt',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Prøv igen om et par minutter. Tjek dine projektindstillinger, eller kontakt support, hvis problemet varer ved.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Vi har problemer med at hente muligheder',
   'linkDataSource.issue-line-table.unwrap-text': 'Fjern ombrydning af tekst',
   'linkDataSource.issue-line-table.wrap-text': 'Ombryd tekst',
   'linkDataSource.checkConnectionWithSource':

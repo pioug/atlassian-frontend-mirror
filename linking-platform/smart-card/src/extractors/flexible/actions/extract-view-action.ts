@@ -7,6 +7,9 @@ import { canShowAction } from '../../../utils/actions/can-show-action';
 import { CardAction, type CardActionOptions } from '../../../view/Card/types';
 import { getActionsFromJsonLd } from '../../common/actions/extractActions';
 
+/**
+ * TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
+ */
 export const extractViewAction = (
 	data: JsonLd.Data.BaseData,
 	actionOptions?: CardActionOptions,

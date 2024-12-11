@@ -215,9 +215,6 @@
 			"path": "../../elements/share/tsconfig.app.json"
 		},
 		{
-			"path": "../../linking-platform/smart-card/tsconfig.app.json"
-		},
-		{
 			"path": "../../smart-experiences/smart-user-picker/tsconfig.app.json"
 		},
 		{

@@ -1,183 +1,95 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type MouseEvent } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { ActionName, ElementName, SmartLinkPosition } from '../../../constants';
+import FlexibleCard from '../../FlexibleCard';
+import {
+	FooterBlock,
+	MetadataBlock,
+	PreviewBlock,
+	SnippetBlock,
+	TitleBlock,
+} from '../../FlexibleCard/components/blocks';
+import type { ActionItem } from '../../FlexibleCard/components/blocks/types';
 
-import { type AvatarClickEventHandler } from '@atlaskit/avatar';
-import Lozenge from '@atlaskit/lozenge';
-
-import { type LozengeProps } from '../../../types';
-import { Byline } from '../../common/Byline';
-import { Icon, type IconProps } from '../../common/Icon';
-import { type MetadataProps } from '../../common/Metadata';
-import { MetadataList } from '../../common/MetadataList';
-import { gs } from '../../common/utils';
-import { type ContextViewModel } from '../../types';
-import { type ActionProps } from '../components/Action';
-import { ActionList } from '../components/ActionList';
-import { type Collaborator, CollaboratorList } from '../components/CollaboratorList';
-import { Content } from '../components/Content';
-import { ContentFooter } from '../components/ContentFooter';
-import { ContentHeader } from '../components/ContentHeader';
-import { Emoji } from '../components/Emoji';
-import { Frame } from '../components/Frame';
-import { Name } from '../components/Name';
-import { Provider } from '../components/Provider';
-import { Thumbnail } from '../components/Thumbnail';
-import { handleClickCommon } from '../utils/handlers';
-
-import { LozengeBlockWrapper } from './styled';
-
-const styles = css({
-	display: 'flex',
-	justifyContent: 'space-between',
-	alignItems: 'flex-start',
-});
-
-const lozengeStyles = {
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: gs(2.5),
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-};
-
-export interface ResolvedViewProps {
-	/* Details about the provider for the link */
-	context?: ContextViewModel;
-	/* URL to the link */
-	link?: string;
-	/* Icon for the header of the link */
-	icon: IconProps;
-	/* Metadata items for the link */
-	details?: Array<MetadataProps>;
-	/* Summary, description, or details about the resource */
-	byline?: React.ReactNode;
-	/* Summary, description, or details about the resource */
-	lozenge?: LozengeProps;
-	/* Image for the link */
-	thumbnail?: string;
-	/* Name or title */
-	title?: string;
-	/* Color of title text */
-	titleTextColor?: string;
-	/* Collaborators of the link */
-	users?: Collaborator[];
-	/* Actions which can be taken on the URL */
-	actions?: Array<ActionProps>;
-	/* Event handler - on avatar item */
-	handleAvatarClick?: AvatarClickEventHandler;
-	/* Event handler - on avatar dropdown items */
-	handleMoreAvatarsClick?: React.MouseEventHandler;
-	/* Event handler - on click of the card, to be passed down to clickable components */
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-	/* If selected, would be true in edit mode */
-	isSelected?: boolean;
-	testId?: string;
-	/* The Emoji prefix component that was added to the title text via Add emoji button */
-	titlePrefix?: React.ReactNode;
-	/* A flag that determines whether link source can be trusted in iframe */
-	isTrusted?: boolean;
-	/** It determines whether a link source supports different design theme modes */
-	isSupportTheming?: boolean;
-}
+import { metadataBlockCss } from './styled';
+import { type FlexibleBlockCardProps } from './types';
+import {
+	FlexibleCardUiOptions,
+	FooterBlockOptions,
+	getSimulatedBetterMetadata,
+	PreviewBlockOptions,
+	titleBlockOptions,
+} from './utils';
+import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
 /**
- * Class name for selecting non-flexible resolved block card
- *
- * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
- * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
+ * This view represents a Block card that has an 'Resolved' status.
+ * @see SmartLinkStatus
+ * @see FlexibleCardProps
  */
-export const blockCardResolvedViewClassName = 'block-card-resolved-view';
-/**
- * Class name for selecting non-flexible resolved byline
- *
- * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
- * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
- */
-export const blockCardResolvedViewByClassName = 'block-card-resolved-view-by';
+const ResolvedView = ({
+	cardState,
+	onClick,
+	onError,
+	onResolve,
+	actionOptions,
+	testId = 'smart-block-resolved-view',
+	url,
+	analytics,
+}: FlexibleBlockCardProps) => {
+	const [isPreviewBlockErrored, setIsPreviewBlockErrored] = useState<boolean>(false);
 
-export const ResolvedView = ({
-	icon = {},
-	actions = [],
-	thumbnail,
-	context = { text: '' },
-	title = '',
-	titleTextColor,
-	titlePrefix,
-	isSelected = false,
-	users = [],
-	handleAvatarClick = () => {},
-	handleMoreAvatarsClick = () => {},
-	onClick = () => {},
-	link = '',
-	byline = '',
-	lozenge,
-	details = [],
-	testId = 'block-card-resolved-view',
-}: ResolvedViewProps) => {
-	const resolvedMetadata =
-		details.length > 0 ? (
-			<MetadataList testId={testId ? `${testId}-meta` : undefined} items={details} />
-		) : undefined;
-	const resolvedByline = (
-		<Byline
-			testId={testId ? `${testId}-by` : undefined}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={blockCardResolvedViewByClassName}
-		>
-			{byline}
-		</Byline>
+	useEffect(() => {
+		setIsPreviewBlockErrored(false);
+	}, [url, cardState]);
+
+	const { titleMetadata, topMetadata, bottomMetadata } = getSimulatedBetterMetadata(
+		cardState.details,
 	);
 
-	const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
-
-	const hasActions = actions.length > 0;
+	const footerActions: ActionItem[] = useMemo(
+		() => [
+			{ name: ActionName.FollowAction, hideIcon: true },
+			{ name: ActionName.PreviewAction, hideIcon: true },
+			{ name: ActionName.DownloadAction, hideIcon: true },
+		],
+		[],
+	);
 
 	return (
-		<Frame
-			isSelected={isSelected}
+		<FlexibleCard
+			analytics={analytics}
+			appearance="block"
+			cardState={cardState}
+			onClick={onClick}
+			onError={onError}
+			onResolve={onResolve}
+			origin="smartLinkCard"
+			actionOptions={actionOptions}
 			testId={testId}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={blockCardResolvedViewClassName}
+			ui={FlexibleCardUiOptions}
+			url={url}
 		>
-			<Content>
-				<div>
-					<div css={styles}>
-						<ContentHeader onClick={handleClick} link={link}>
-							{titlePrefix ? <Emoji emoji={titlePrefix} /> : <Icon {...icon} />}
-							<Name name={title} textColor={titleTextColor} />
-							{lozenge && (
-								<LozengeBlockWrapper css={lozengeStyles}>
-									{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-									<Lozenge style={lozenge.style} {...lozenge}>
-										{lozenge.text}
-									</Lozenge>
-								</LozengeBlockWrapper>
-							)}
-						</ContentHeader>
-						<CollaboratorList
-							items={users}
-							handleAvatarClick={handleAvatarClick}
-							handleMoreAvatarsClick={handleMoreAvatarsClick}
-							testId={testId ? `${testId}-collaborator-list` : undefined}
-						/>
-					</div>
-					{resolvedByline}
-					{resolvedMetadata}
-				</div>
-				<ContentFooter hasSpaceBetween={hasActions}>
-					<Provider name={context.text} icon={context.icon} />
-					{hasActions && <ActionList items={actions} />}
-				</ContentFooter>
-			</Content>
-			{thumbnail ? (
-				<Thumbnail src={thumbnail} testId={testId ? `${testId}-thumb` : undefined} />
+			<TitleBlock
+				{...titleBlockOptions}
+				metadata={titleMetadata}
+				subtitle={[{ name: ElementName.Location }]}
+				metadataPosition={SmartLinkPosition.Top}
+			/>
+			<MetadataBlock primary={topMetadata} maxLines={1} overrideCss={metadataBlockCss} />
+			<SnippetBlock />
+			<MetadataBlock primary={bottomMetadata} maxLines={1} overrideCss={metadataBlockCss} />
+			{!isPreviewBlockErrored ? (
+				<PreviewBlock
+					{...PreviewBlockOptions}
+					onError={() => {
+						setIsPreviewBlockErrored(true);
+					}}
+				/>
 			) : null}
-		</Frame>
+			<FooterBlock {...FooterBlockOptions} actions={footerActions} />
+		</FlexibleCard>
 	);
 };
+
+export default withFlexibleUIBlockCardStyle(ResolvedView);

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-base
 
+## 2.0.9
+
+### Patch Changes
+
+- [#176803](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176803)
+  [`7a0ef514e8d39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7a0ef514e8d39) -
+  Add data-vc attribute to scroll-gutter
+
 ## 2.0.8
 
 ### Patch Changes

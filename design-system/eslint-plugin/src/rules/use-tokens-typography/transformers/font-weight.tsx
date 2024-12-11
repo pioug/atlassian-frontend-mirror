@@ -1,6 +1,6 @@
 /* eslint-disable @repo/internal/react/require-jsdoc */
 import type { Rule } from 'eslint';
-import { Identifier, isNodeOfType } from 'eslint-codemod-utils';
+import { isNodeOfType, Property } from 'eslint-codemod-utils';
 
 import { Root } from '../../../ast-nodes';
 import { getValueForPropertyNode } from '../../ensure-design-token-usage/utils';
@@ -15,11 +15,6 @@ interface MetaData {
 
 export const FontWeight = {
 	lint(node: Rule.Node, { context, config }: MetaData) {
-		// To force the correct node type
-		if (!isNodeOfType(node, 'Identifier')) {
-			return;
-		}
-
 		// Check whether all criteria needed to make a transformation are met
 		const success = FontWeight._check(node, { context, config });
 		if (success) {
@@ -31,8 +26,15 @@ export const FontWeight = {
 		}
 	},
 
-	_check(node: Identifier & Rule.NodeParentExtension, { context, config }: MetaData) {
+	_check(
+		node: Rule.Node,
+		{ context, config }: MetaData,
+	): node is Property & Rule.NodeParentExtension {
 		if (!config.patterns.includes('font-weight')) {
+			return false;
+		}
+
+		if (!isNodeOfType(node, 'Property')) {
 			return false;
 		}
 
@@ -40,11 +42,7 @@ export const FontWeight = {
 			return false;
 		}
 
-		if (!isNodeOfType(node.parent, 'Property')) {
-			return false;
-		}
-
-		const fontWeightValue = getValueForPropertyNode(node.parent, context);
+		const fontWeightValue = getValueForPropertyNode(node, context);
 		if (typeof fontWeightValue === 'string' && fontWeightValue.includes('font.weight.')) {
 			return false;
 		}
@@ -52,37 +50,27 @@ export const FontWeight = {
 		return true;
 	},
 
-	_fix(node: Identifier & Rule.NodeParentExtension, context: Rule.RuleContext) {
+	_fix(node: Property & Rule.NodeParentExtension, context: Rule.RuleContext) {
 		return (fixer: Rule.RuleFixer) => {
 			const fixes: Rule.Fix[] = [];
 
-			// -- Type assertions to force the correct node type --
-
-			if (!isNodeOfType(node.parent, 'Property')) {
-				return [];
+			// Type assertions to force the correct node type
+			if (!isNodeOfType(node.value, 'Literal')) {
+				return fixes;
+			}
+			if (!node.value.raw) {
+				return fixes;
 			}
 
-			if (!isNodeOfType(node.parent.value, 'Literal')) {
-				return [];
-			}
-
-			if (!node.parent.value.raw) {
-				return [];
-			}
-
-			// -- Fix: Replace raw value with token --
-
-			const matchingToken = findFontWeightTokenForValue(node.parent.value.raw)?.tokenName;
-
+			// Replace raw value with token if there is a token match
+			const matchingToken = findFontWeightTokenForValue(node.value.raw)?.tokenName;
 			if (!matchingToken) {
-				return [];
+				return fixes;
 			}
-
-			const fontWeightValueFix = fixer.replaceText(node.parent.value, `token('${matchingToken}')`);
+			const fontWeightValueFix = fixer.replaceText(node.value, `token('${matchingToken}')`);
 			fixes.push(fontWeightValueFix);
 
-			// -- Fix: Add import if it doesn't exist --
-
+			// Add import if it doesn't exist
 			const body = context.sourceCode.ast.body;
 			const tokensImportDeclarations = Root.findImportsByModule(body, '@atlaskit/tokens');
 

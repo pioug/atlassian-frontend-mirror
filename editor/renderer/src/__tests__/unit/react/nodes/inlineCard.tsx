@@ -2,13 +2,12 @@ import React from 'react';
 // eslint-disable-next-line @typescript-eslint/consistent-type-imports
 import { mount, ReactWrapper } from 'enzyme';
 import { fireEvent, render } from '@testing-library/react';
-import '@atlaskit/link-test-helpers/jest';
 import { asMock } from '@atlaskit/link-test-helpers/jest';
 import type { MockIntersectionObserverOpts } from '@atlaskit/link-test-helpers';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
 
-import type { ResolveResponse } from '@atlaskit/smart-card';
-import { Card, Provider, Client } from '@atlaskit/smart-card';
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+import { Card } from '@atlaskit/smart-card';
 import { CardSSR } from '@atlaskit/smart-card/ssr';
 
 import InlineCard from '../../../../react/nodes/inlineCard';
@@ -175,7 +174,7 @@ describe('Renderer - React/Nodes/InlineCard (RTL)', () => {
 						definitionId: 'd1',
 						key: 'object-provider',
 					},
-				} as ResolveResponse);
+				}) as ReturnType<Client['fetchData']>;
 			}
 		}
 

@@ -4,12 +4,14 @@ import { B200, N20, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const previewStyle = {
+	// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 	borderColor: fg('platform_editor_elements_drag_and_drop_ed_23189')
 		? token('color.border', N30)
 		: token('color.border.focused', B200),
 	borderStyle: 'solid',
 	borderRadius: token('border.radius.100', '3px'),
 	borderWidth: token('border.width.outline', '2px'),
+	// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 	backgroundColor: fg('platform_editor_elements_drag_and_drop_ed_23189')
 		? token('color.skeleton.subtle', N20)
 		: token('color.blanket.selected', '#388BFF14'),

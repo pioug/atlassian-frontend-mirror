@@ -9,8 +9,9 @@ import { jsx } from '@emotion/react';
 import { type JsonLd } from 'json-ld-types';
 
 import Button from '@atlaskit/button/new';
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { type CardStore } from '@atlaskit/linking-common';
-import { Card, Client, Provider } from '@atlaskit/smart-card';
+import { Card } from '@atlaskit/smart-card';
 
 import { BitbucketFile1 } from '../examples-helpers/_jsonLDExamples';
 

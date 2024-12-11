@@ -45,7 +45,7 @@ export default {
     'Áp dụng một phương thức tự động hóa cho <b>{name}</b>.{br}Các lựa chọn có sẵn được kiểm soát bởi Confluence và quản lý không gian.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Tự động hóa đối với trang',
   'fabric.linking.automation-action.icon.label': 'Biểu tượng tự động hóa',
-  'fabric.linking.automation-action.title': 'Xem quy tắc tự động hóa...',
+  'fabric.linking.automation-action.title': 'Xem quy tắc tự động hóa',
   'fabric.linking.automation-action.tooltip': 'Chọn quy tắc tự động hóa để chạy',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Hủy',
@@ -105,7 +105,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Bạn cần có quyền truy cập hoặc thử một tài khoản khác để xem bản xem trước này.',
   'fabric.linking.join_to_view': 'Tham gia {context} để xem vấn đề này',
-  'fabric.linking.last_mentioned_in': 'Được nhắc đến lần gần đây nhất trong',
   'fabric.linking.learn_more_about_connecting_account':
     'Tìm hiểu thêm về cách kết nối tài khoản với các sản phẩm của Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Tìm hiểu thêm về Liên kết Thông minh.',
@@ -151,8 +150,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Chúng tôi không tìm được liên kết nào để hiển thị ở đây. Chúng tôi liên tục xem xét và thêm các liên kết gần đây cho các trang cập nhật hoặc các loại nội dung khác.',
   'fabric.linking.related_links_not_found': 'Chúng tôi không tìm được liên kết nào để hiển thị ở đây.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Xem các liên kết gần đây...',
-  'fabric.linking.related_work_items_not_found': 'Liên kết này chưa được nhắc đến ở bất cứ đâu.',
+  'fabric.linking.related_links_view_related_urls': 'Xem các liên kết gần đây',
   'fabric.linking.request_access': 'Yêu cầu cấp quyền truy cập',
   'fabric.linking.request_access_description':
     'Nhóm của bạn sử dụng {product} để cộng tác. Hãy gửi yêu cầu cho quản trị viên của bạn để được cấp quyền truy cập.',

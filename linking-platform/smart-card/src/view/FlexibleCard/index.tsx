@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 
+import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
 import {
 	FlexibleUiAnalyticsContext,
@@ -7,6 +8,7 @@ import {
 	FlexibleUiOptionContext,
 } from '../../state/flexible-ui-context';
 import { useAISummaryConfig } from '../../state/hooks/use-ai-summary-config';
+import useResolve from '../../state/hooks/use-resolve';
 
 import Container from './components/container';
 import { type FlexibleCardProps } from './types';
@@ -28,6 +30,7 @@ const FlexibleCard = ({
 	onClick,
 	onError,
 	onResolve,
+	origin,
 	renderers,
 	showAuthTooltip,
 	showHoverPreview,
@@ -38,6 +41,9 @@ const FlexibleCard = ({
 	url,
 }: FlexibleCardProps) => {
 	const aiSummaryConfig = useAISummaryConfig();
+	const resolve = useResolve();
+
+	const { fireEvent } = useAnalyticsEvents();
 
 	const { status: cardType, details } = cardState;
 	const status = cardType as SmartLinkStatus;
@@ -46,14 +52,30 @@ const FlexibleCard = ({
 		() =>
 			getContextByStatus({
 				aiSummaryConfig,
+				appearance,
+				fireEvent,
 				response: details,
 				id,
+				origin,
 				renderers,
+				resolve,
 				actionOptions,
 				status,
 				url,
 			}),
-		[aiSummaryConfig, details, id, renderers, actionOptions, status, url],
+		[
+			aiSummaryConfig,
+			appearance,
+			details,
+			fireEvent,
+			id,
+			origin,
+			renderers,
+			actionOptions,
+			resolve,
+			status,
+			url,
+		],
 	);
 	const retry = getRetryOptions(url, status, details, onAuthorize);
 	const { title } = context || {};

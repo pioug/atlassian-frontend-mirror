@@ -8,10 +8,14 @@ import { type JsonLd } from 'json-ld-types';
 import uuid from 'uuid';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { type CardClient, type ProviderProps } from '@atlaskit/link-provider';
+import {
+	type CardClient,
+	SmartCardProvider as Provider,
+	type ProviderProps,
+} from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 
-import { ActionName, Card, Provider, TitleBlock } from '../../../index';
+import { ActionName, Card, TitleBlock } from '../../../index';
 import * as ufo from '../../../state/analytics/ufoExperiences';
 import * as utils from '../../../utils';
 import * as analytics from '../../../utils/analytics/analytics';

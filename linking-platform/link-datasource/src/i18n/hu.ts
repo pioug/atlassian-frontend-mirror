@@ -86,6 +86,10 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Hiba történt, amikor megpróbáltuk befejezni a frissítést. Várj néhány percet, majd próbálkozz újra. Ha a probléma továbbra is fennáll, vedd fel a kapcsolatot a támogatással.',
   'linkDataSource.issue-line-table.error-generic-title': 'Hiba történt',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Várj néhány percet, majd próbálkozz újra. Ha a probléma továbbra is fennáll, ellenőrizd a projektbeállításaidat, vagy fordulj a támogatáshoz.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title':
+    'Problémába ütköztünk a beállítások lekérése során',
   'linkDataSource.issue-line-table.unwrap-text': 'Szöveg több sorba rendezésének kikapcsolása',
   'linkDataSource.issue-line-table.wrap-text': 'Szöveg több sorba rendezése sortöréssel',
   'linkDataSource.checkConnectionWithSource':

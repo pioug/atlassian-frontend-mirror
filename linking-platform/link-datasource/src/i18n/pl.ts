@@ -86,6 +86,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Wystąpił problem podczas próby ukończenia aktualizacji. Poczekaj kilka minut, a potem spróbuj ponownie. Jeżeli sytuacja będzie się powtarzać, skontaktuj się z działem wsparcia.',
   'linkDataSource.issue-line-table.error-generic-title': 'Coś poszło nie tak',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Poczekaj kilka minut, a potem spróbuj ponownie. Sprawdź ustawienia projektu lub skontaktuj się z działem wsparcia, jeżeli sytuacja będzie się powtarzać.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Wystąpił problem podczas pobierania opcji',
   'linkDataSource.issue-line-table.unwrap-text': 'Cofnij zawijanie tekstu',
   'linkDataSource.issue-line-table.wrap-text': 'Zawijaj tekst',
   'linkDataSource.checkConnectionWithSource':

@@ -13,12 +13,13 @@ import {
 	withAnalyticsContext,
 	withAnalyticsEvents,
 } from '@atlaskit/analytics-next';
+import { IconButton } from '@atlaskit/button/new';
 import { IdProvider } from '@atlaskit/ds-lib/use-id';
 import CalendarIconNew from '@atlaskit/icon/core/migration/calendar';
 import CalendarIconOld from '@atlaskit/icon/glyph/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Pressable, xcss } from '@atlaskit/primitives';
+import { Box, xcss } from '@atlaskit/primitives';
 import Select, {
 	type ActionMeta,
 	type DropdownIndicatorProps,
@@ -28,9 +29,7 @@ import Select, {
 	mergeStyles,
 	type OptionType,
 } from '@atlaskit/select';
-import { N500, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { EmptyComponent } from '../internal';
 import {
@@ -57,6 +56,7 @@ const dropdownIndicatorStyles = xcss({
 	justifyContent: 'center',
 });
 
+// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 const CalendarIcon = fg('platform-visual-refresh-icon-ads-migration')
 	? CalendarIconNew
 	: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
@@ -104,46 +104,31 @@ const pickerContainerStyles = css({
 	position: 'relative',
 });
 
-const iconContainerStyles = css({
+const iconContainerStyles = xcss({
 	display: 'flex',
 	height: '100%',
 	position: 'absolute',
 	alignItems: 'center',
 	flexBasis: 'inherit',
-	color: token('color.text.subtlest', N70),
-	insetBlockStart: 0,
-	insetInlineEnd: 0,
+	color: 'color.text.subtlest',
+	insetBlockStart: 'space.0',
+	insetInlineEnd: 'space.0',
 	transition: `color 150ms`,
-	'&:hover': {
-		color: token('color.text.subtle', N500),
-	},
-});
-
-const iconSpacingWithClearButtonStyles = css({
-	marginInlineEnd: token('space.400', '2rem'),
-});
-
-const iconSpacingWithoutClearButtonStylesNew = css({
-	marginInlineEnd: token('space.050', '0.25rem'),
-});
-
-const iconSpacingWithoutClearButtonStyles = css({
-	marginInlineEnd: token('space.025', '0.125rem'),
-});
-
-const calendarButtonFixedSizeStyles = xcss({
-	width: `${32 / 14}em`,
-	height: `${32 / 14}em`,
-});
-
-const calendarButtonStyles = xcss({
-	borderRadius: 'border.radius',
 	':hover': {
-		backgroundColor: 'color.background.neutral.subtle.hovered',
+		color: 'color.text.subtle',
 	},
-	':active': {
-		backgroundColor: 'color.background.neutral.subtle.pressed',
-	},
+});
+
+const iconSpacingWithClearButtonStyles = xcss({
+	marginInlineEnd: 'space.400',
+});
+
+const iconSpacingWithoutClearButtonStylesNew = xcss({
+	marginInlineEnd: 'space.050',
+});
+
+const iconSpacingWithoutClearButtonStyles = xcss({
+	marginInlineEnd: 'space.025',
 });
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -580,7 +565,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 
 		// `label` takes precedence of the `inputLabel`
 		const fullopenCalendarLabel =
-			label || inputLabel ? `${label || inputLabel} , ${openCalendarLabel}` : openCalendarLabel;
+			label || inputLabel ? `${label || inputLabel}, ${openCalendarLabel}` : openCalendarLabel;
 
 		return (
 			// These event handlers must be on this element because the events come
@@ -659,46 +644,39 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 				{shouldShowCalendarButton && !isDisabled ? (
 					<IdProvider prefix="open-calendar-label--">
 						{({ id: openCalendarLabelId }) => (
-							<div
-								css={[
+							<Box
+								xcss={[
 									iconContainerStyles,
 									value && !hideIcon
 										? iconSpacingWithClearButtonStyles
-										: fg('platform-visual-refresh-icon-ads-migration')
+										: // eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+											fg('platform-visual-refresh-icon-ads-migration')
 											? iconSpacingWithoutClearButtonStylesNew
 											: iconSpacingWithoutClearButtonStyles,
 								]}
 							>
-								{inputLabelId && (
-									<VisuallyHidden id={openCalendarLabelId}>, {openCalendarLabel}</VisuallyHidden>
-								)}
-								<Pressable
-									{...(inputLabelId
-										? { 'aria-labelledby': `${inputLabelId} ${openCalendarLabelId}` }
-										: { 'aria-label': fullopenCalendarLabel })}
+								<IconButton
+									appearance="subtle"
+									label={!inputLabelId ? fullopenCalendarLabel : openCalendarLabel}
+									aria-labelledby={
+										inputLabelId ? `${inputLabelId} ${openCalendarLabelId}` : undefined
+									}
+									id={openCalendarLabelId}
+									icon={(iconProps) => (
+										<CalendarIcon
+											{...iconProps}
+											// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+											{...(fg('platform-visual-refresh-icon-ads-migration')
+												? { color: token('color.icon') }
+												: { primaryColor: token('color.icon') })}
+										/>
+									)}
 									onClick={this.onCalendarButtonClick}
 									onKeyDown={this.onCalendarButtonKeyDown}
 									ref={this.calendarButtonRef}
 									testId={testId && `${testId}--open-calendar-button`}
-									type="button"
-									backgroundColor="color.background.neutral.subtle"
-									padding={
-										fg('platform-visual-refresh-icon-ads-migration') ? 'space.0' : 'space.050'
-									}
-									xcss={[
-										calendarButtonStyles,
-										fg('platform-visual-refresh-icon-ads-migration') &&
-											calendarButtonFixedSizeStyles,
-									]}
-								>
-									<CalendarIcon
-										label=""
-										{...(fg('platform-visual-refresh-icon-ads-migration')
-											? { color: token('color.icon') }
-											: { primaryColor: token('color.icon') })}
-									/>
-								</Pressable>
-							</div>
+								/>
+							</Box>
 						)}
 					</IdProvider>
 				) : null}

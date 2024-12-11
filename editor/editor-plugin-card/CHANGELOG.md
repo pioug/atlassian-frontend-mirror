@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-card
 
+## 4.5.4
+
+### Patch Changes
+
+- [#176427](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176427)
+  [`9c2bd03adeebd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c2bd03adeebd) -
+  [ED-25999] adding analytic events for inline node of emoji,status and inlineCard
+- Updated dependencies
+
+## 4.5.3
+
+### Patch Changes
+
+- [#176983](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176983)
+  [`b62801c154a5b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b62801c154a5b) -
+  Migrated smart-card proxied exports (linking-common, link-provider, json-ld-types) to import from
+  modules directly
+
 ## 4.5.2
 
 ### Patch Changes

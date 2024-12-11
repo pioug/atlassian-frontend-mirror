@@ -51,10 +51,10 @@
 			"path": "../../elements/emoji/tsconfig.app.json"
 		},
 		{
-			"path": "../../elements/mention/tsconfig.app.json"
+			"path": "../../linking-platform/link-provider/tsconfig.app.json"
 		},
 		{
-			"path": "../../linking-platform/smart-card/tsconfig.app.json"
+			"path": "../../elements/mention/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/theme/tsconfig.app.json"

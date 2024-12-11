@@ -1,7 +1,6 @@
 import { type JsonLd } from 'json-ld-types';
 
 import { CardClient } from '@atlaskit/link-provider';
-import { Client } from '@atlaskit/smart-card';
 
 import {
 	AtlasProject,
@@ -31,7 +30,7 @@ export const ResolvedClientEmbedUrl = YouTubeVideoUrl;
 export const ResolvedClientEmbedInteractiveUrl = GoogleDocUrl;
 export const ResolvedClientWithLongTitleUrl = `${AtlasProject.data.url}/long-title`;
 export const ResolvedClientWithTextHighlightInTitleUrl = `${AtlasProject.data.url}/text-highlight-title`;
-export class ResolvedClient extends Client {
+export class ResolvedClient extends CardClient {
 	fetchData(url: string) {
 		switch (url) {
 			case ResolvedClientEmbedUrl:

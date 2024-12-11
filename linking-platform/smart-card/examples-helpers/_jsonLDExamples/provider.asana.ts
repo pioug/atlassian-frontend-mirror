@@ -1,4 +1,4 @@
-import { type ResolveResponse } from '../../src';
+import { type JsonLd } from 'json-ld-types';
 
 export const AsanaTaskJson = {
 	meta: {
@@ -89,4 +89,4 @@ export const AsanaTaskJson = {
 	},
 };
 
-export const AsanaTask = AsanaTaskJson as ResolveResponse;
+export const AsanaTask = AsanaTaskJson as JsonLd.Response;

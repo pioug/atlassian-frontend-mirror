@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 203.2.6
+
+### Patch Changes
+
+- [#170382](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170382)
+  [`acd14496d28fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/acd14496d28fd) -
+  [ux] Update styling for bodied macro in live pages, fix block macro width, and update tests
+- Updated dependencies
+
+## 203.2.5
+
+### Patch Changes
+
+- [#176983](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176983)
+  [`b62801c154a5b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b62801c154a5b) -
+  Migrated smart-card proxied exports (linking-common, link-provider, json-ld-types) to import from
+  modules directly
+
 ## 203.2.4
 
 ### Patch Changes

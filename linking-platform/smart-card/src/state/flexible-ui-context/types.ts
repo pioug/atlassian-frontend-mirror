@@ -7,8 +7,10 @@ import {
 	type MediaType,
 } from '../../constants';
 import { type LinkLozenge } from '../../extractors/common/lozenge/types';
-import type { CardInnerAppearance } from '../../view/Card/types';
-import type { AnalyticsFacade } from '../analytics';
+import { type AnalyticsOrigin } from '../../utils/types';
+import { type CardInnerAppearance } from '../../view/Card/types';
+import { type AnalyticsFacade } from '../analytics';
+import { type InvokeClientActionProps } from '../hooks/use-invoke-client-action/types';
 import { type InvokeRequestWithCardDetails } from '../hooks/use-invoke/types';
 
 /**
@@ -266,37 +268,60 @@ export type FlexibleUiActions = {
 };
 
 export type PreviewActionData = {
+	/* An action to invoke with useInvokeClientAction */
+	/* TODO: Mark as required on cleanup of platform-smart-card-migrate-embed-modal-analytics */
+	invokeAction?: InvokeClientActionProps;
 	/* A download link - if it is provided, the download button will be shown */
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
 	downloadUrl?: string;
 	/* This should be the icon of the provider, which will be displayed to the left of the title */
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
 	linkIcon?: Icon;
 	/* Name of the provider, used in the link out to the document. */
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
 	providerName?: string;
+	/* A name of the component where the modal is being triggered, for analytics */
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
+	origin?: AnalyticsOrigin;
 	/* URL used to load iframe */
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
 	src?: string;
 	/* The title of the document - this is displayed as a heading */
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
 	title?: string;
 	/* If you are not providing src, you should still provide a url, allowing people to access the page where the document is */
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
 	url?: string;
 	/* It determines whether a link source supports different design theme modes */
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
 	isSupportTheming?: boolean;
 	/* It determines whether link source can be trusted in iframe */
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
 	isTrusted?: boolean;
 };
 
+/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
 export type ViewActionData = {
 	/* A URL that will be navigated to upon clicking view actions */
 	viewUrl?: string;
 };
 
 export type DownloadActionData = {
-	/* A URL that will be download upon clicking download actions */
+	/* An action to invoke with useInvokeClientAction */
+	/* TODO: Mark as required on cleanup of platform-smart-card-migrate-embed-modal-analytics */
+	invokeAction?: InvokeClientActionProps;
+	/* A URL that will be downloaded upon clicking download actions */
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
 	downloadUrl?: string;
 };
 
 export type CopyLinkActionData = {
+	/* An action to invoke with useInvokeClientAction */
+	/* TODO: Mark as required on cleanup of platform-smart-card-migrate-embed-modal-analytics */
+	invokeAction?: InvokeClientActionProps;
 	/* A URL that will be copied upon clicking copy actions */
-	url: string;
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
+	url?: string;
 };
 export type AISummaryActionData = {
 	url: string;

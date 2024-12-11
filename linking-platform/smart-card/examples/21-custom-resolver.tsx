@@ -1,11 +1,12 @@
 import React from 'react';
 
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { Stack } from '@atlaskit/primitives';
 
 import { AsanaTask } from '../examples-helpers/_jsonLDExamples';
 import '../examples-helpers';
 import urlsJSON from '../examples-helpers/example-urls.json';
-import { Card, Client, Provider } from '../src';
+import { Card } from '../src';
 
 import ExampleContainer from './utils/example-container';
 

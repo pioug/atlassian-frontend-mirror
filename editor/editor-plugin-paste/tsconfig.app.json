@@ -69,6 +69,9 @@
 			"path": "../editor-tables/tsconfig.app.json"
 		},
 		{
+			"path": "../../linking-platform/linking-common/tsconfig.app.json"
+		},
+		{
 			"path": "../../media/media-client/tsconfig.app.json"
 		},
 		{
@@ -76,9 +79,6 @@
 		},
 		{
 			"path": "../../platform/feature-flags/tsconfig.app.json"
-		},
-		{
-			"path": "../../linking-platform/smart-card/tsconfig.app.json"
 		},
 		{
 			"path": "../tmp-editor-statsig/tsconfig.app.json"

@@ -9,7 +9,7 @@ import { extractEmbedProps } from '../../extractors/embed';
 import { extractInlineProps } from '../../extractors/inline';
 import { getExtensionKey, hasAuthScopeOverrides } from '../../state/helpers';
 import { getEmptyJsonLd, getForbiddenJsonLd } from '../../utils/jsonld';
-import FlexibleResolvedView from '../BlockCard/views/flexible/FlexibleResolvedView';
+import BlockCardResolvedView from '../BlockCard/views/ResolvedView';
 import { InlineCardResolvedView } from '../InlineCard/ResolvedView';
 
 import { type EmbedCardProps } from './types';
@@ -56,7 +56,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 			case 'pending':
 			case 'resolving':
 				return (
-					<FlexibleResolvedView
+					<BlockCardResolvedView
 						url={url}
 						cardState={cardState}
 						onClick={handleFrameClick}
@@ -105,7 +105,7 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 					}
 
 					return (
-						<FlexibleResolvedView
+						<BlockCardResolvedView
 							url={url}
 							cardState={cardState}
 							onClick={handleFrameClick}

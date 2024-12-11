@@ -5,9 +5,9 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { cardState, url } from '@atlaskit/media-test-helpers/smart-card-state';
 
-import { Client, Provider } from '../../index';
 import { CardSSR, type CardSSRProps } from '../../ssr';
 import { ANALYTICS_CHANNEL, context } from '../../utils/analytics';
 import { CardWithUrlContent } from '../../view/CardWithUrl/component';

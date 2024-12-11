@@ -25,7 +25,6 @@ import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider
 import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { APIError } from '@atlaskit/linking-common';
 import { getData } from '@atlaskit/media-integration-test-helpers/card-client';
-import type { ResolveResponse } from '@atlaskit/smart-card/types';
 import { currentUser, getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
@@ -43,8 +42,9 @@ const searchProvider = createSearchProvider(
 
 // copied from packages/media/media-integration-test-helpers/src/integration/smart-links-mock-client-utils.ts
 class MockedSmartCardClientNoTimeout extends CardClient {
-	mockRequest(url: string): Promise<ResolveResponse & { datasources?: Array<any> }> {
+	mockRequest(url: string): ReturnType<CardClient['fetchData']> {
 		const data = getData(url)!;
+
 		return new Promise((resolve, reject) => {
 			const resolution = () => {
 				if (url.endsWith('fatal')) {
@@ -61,11 +61,11 @@ class MockedSmartCardClientNoTimeout extends CardClient {
 		});
 	}
 
-	fetchData(url: string): Promise<ResolveResponse> {
+	fetchData(url: string) {
 		return this.mockRequest(url);
 	}
 
-	async prefetchData(url: string): Promise<ResolveResponse | undefined> {
+	async prefetchData(url: string) {
 		return this.mockRequest(url);
 	}
 }

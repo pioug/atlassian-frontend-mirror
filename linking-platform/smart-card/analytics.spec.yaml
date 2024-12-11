@@ -14,10 +14,6 @@ context:
       type: string
       required: false
       description: The provider identifier of the resolver that was used to resolve the link
-    resourceType:
-      required: false
-      type: string
-      description: Type of resource the link is pointing to
     destinationObjectType:
       type: string
       required: false
@@ -66,7 +62,7 @@ context:
         values
       required: false
     displayCategory:
-      type: ['smartLink', 'link']
+      type: [ 'smartLink', 'link' ]
       description: |
         The overarching category of what the link is shown as.
         `smartLink` : we are able to resolve the link and is displayed as a smart link
@@ -121,10 +117,6 @@ context:
       required: false
       type: string
       description: Where the Smart Link is currently rendered
-    resourceType:
-      required: false
-      type: string
-      description: Type of resource the link is pointing to
 
 attributes:
   AiInteractionAttributes: &AiInteractionAttributes
@@ -158,25 +150,70 @@ attributes:
           'StatusUpdate',
         ]
       description: The type of action being invoked
-
+  ClientActionAttributes: &ClientActionAttributes
+      actionType:
+          required: false
+          type: string
+          description: The type of action being invoked.
+      id:
+          required: false
+          type: string
+          description: The unique ID for this Smart Link.
+      definitionId:
+          type: string
+          required: false
+          description: The definitionId of the Smart Link resolver invoked.
+      display:
+          required: false
+          type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]
+          description: Whether the card was an Inline, Block, Embed or Flexible UI.
+      resourceType:
+          required: false
+          type: string
+          description: Type of resource the link is pointing to
 events:
+  - button clicked (copyLink):
+      type: ui
+      description: Fired when an copy link is clicked
+      attributes:
+          <<: [*PackageMetaDataContext, *ResolvedContext, *ClientActionAttributes]
+  - button clicked (downloadDocument):
+      type: ui
+      description: Fired when an download is clicked
+      attributes:
+          <<: [*PackageMetaDataContext, *ResolvedContext, *ClientActionAttributes ]
+  - button clicked (invokePreviewScreen):
+      type: ui
+      description: Fired when an preview is clicked
+      attributes:
+          <<: [ *PackageMetaDataContext, *ResolvedContext, *ClientActionAttributes ]
+  - button clicked (shortcutGoToLink):
+      type: ui
+      description: Fired when an view link is clicked
+      attributes:
+          <<: [*PackageMetaDataContext, *ResolvedContext, *ClientActionAttributes ]
+  - button clicked (issueStatusUpdate):
+      type: ui
+      description: fires an event that represents a user clicking on the preview action button
+      attributes:
+        <<: [ *PackageMetaDataContext, *CommonContext, *ClientActionAttributes ]
   - button clicked (aiSummary):
       type: ui
       description: fired when an ai summary is clicked
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
 
   - button clicked (copySummary):
       type: ui
       description: fired when the copy ai summary button is clicked
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
 
   - summary viewed:
       type: ui
       description: fired when a summary is viewed
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
         fromCache:
           required: false
           type: boolean
@@ -186,19 +223,19 @@ events:
       type: ui
       description: fired when a summary error is viewed
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
 
   - summary success:
       type: operational
       description: fired when a summary request finishes with a successful response
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
 
   - summary failed:
       type: operational
       description: fired when a summary request finishes with a failed response
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
         reason:
           required: false
           type: string
@@ -212,31 +249,31 @@ events:
       type: track
       description: fired when an explicit request is made to use an AI-powered feature
       attributes:
-        <<: [*PackageMetaDataContext, *AiInteractionAttributes]
+        <<: [ *PackageMetaDataContext, *AiInteractionAttributes ]
 
   - button clicked (automationAction):
       type: ui
       description: fired when the automation action button is clicked
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
 
   - button clicked (relatedLinks):
       type: ui
       description: fired when the related links action button is clicked
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
 
   - modal opened (relatedLinks):
       type: ui
       description: fired when related links modal is opened
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
 
   - modal closed (relatedLinks):
       type: ui
       description: fired when related links modal is closed
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
         dwellTime:
           required: true
           type: number
@@ -246,7 +283,7 @@ events:
       type: operational
       description: fired when related links are retrieved successfully
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
         incomingCount:
           type: number
           required: true
@@ -260,7 +297,7 @@ events:
       type: operational
       description: fired when related links retrieval fails
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
         reason:
           required: true
           type: string
@@ -269,14 +306,14 @@ events:
       type: ui
       description: fired when a user dwells their cursor on a Smart Link's iframe
       attributes:
-        <<: [*PackageMetaDataContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *ResolvedContext ]
         id:
           required: true
           type: string
           description: The unique ID for this Smart Link
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]
           description: Whether the card was an Inline, Block, Embed or Flexible UI
         definitionId:
           required: false
@@ -300,7 +337,7 @@ events:
           description: The unique ID for this Smart Link.
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]
           description: Whether the card was an Inline, Block, Embed or Flexible UI.
         definitionId:
           required: false
@@ -310,36 +347,36 @@ events:
       type: track
       description: user connecting their account to view a Smart Link.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonAttributes, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonAttributes, *CommonContext ]
   - applicationAccount authStarted:
       type: track
       description: user starting the Smart Link connect account process.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
   - smartLinkQuickAction started:
       type: track
       description: fires event before an action invoke api call is made
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext, *smartLinkActionTypeAttribute]
+        <<: [ *PackageMetaDataContext, *CommonContext, *smartLinkActionTypeAttribute ]
   - smartLinkQuickAction success:
       type: track
       description: fires a tracking event after an action invoke api call is successful
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext, *smartLinkActionTypeAttribute]
+        <<: [ *PackageMetaDataContext, *CommonContext, *smartLinkActionTypeAttribute ]
   - smartLinkQuickAction failed:
       type: track
       description: fires a tracking event after an action invoke api call has failed
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext, *smartLinkActionTypeAttribute]
+        <<: [ *PackageMetaDataContext, *CommonContext, *smartLinkActionTypeAttribute ]
         reason:
           required: false
           description: The reason for the failure
-          type: ['PermissionError', 'ValidationError', 'UnknownError']
+          type: [ 'PermissionError', 'ValidationError', 'UnknownError' ]
   - consentModal viewed:
       type: screen
       description: fires an event which represents the connect account page being opened.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
         definitionId:
           required: false
           type: string
@@ -349,7 +386,7 @@ events:
       description:
         fires an event that represents an account successfully being connected via a Smart Link.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
         definitionId:
           required: false
           type: string
@@ -358,7 +395,7 @@ events:
       type: operational
       description: fires an event that represents an account unsuccessfully being connected.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
         reason:
           required: false
           description: The reason why the Smart Link connect account failed.
@@ -371,7 +408,7 @@ events:
       type: operational
       description: fires an event which represents a Smart Link request succeeding.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
         status:
           type:
             [
@@ -397,7 +434,7 @@ events:
       type: operational
       description: fires an event which represents a Smart Link request failing.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
         status:
           type:
             [
@@ -427,10 +464,10 @@ events:
       type: operational
       description: fires an event that represents when a Smart Link renders unsuccessfully.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]
           description: Whether the card was an Inline, Block, Embed or Flexible UI.
         definitionId:
           required: false
@@ -444,18 +481,40 @@ events:
           required: true
           description: Additional details about the error including the stack trace.
           type: object
+  - smartLinkAction resolved:
+        type: operational
+        description: Fires an event when a Smart Link action is successfully resolved.
+        attributes:
+            <<: [*PackageMetaDataContext, *ResolvedContext, *ClientActionAttributes]
+            duration:
+                required: false
+                type: number
+                description: Total time the action take to complete its invocation
+  - smartLinkAction unresolved:
+        type: operational
+        description: Fires an event when a Smart Link action is failed to resolved.
+        attributes:
+            <<: [*PackageMetaDataContext, *ResolvedContext, *ClientActionAttributes]
+            duration:
+                required: false
+                type: number
+                description: Total time the action take to complete its invocation
+            reason:
+                required: false
+                type: string
+                description: Failure reason
   - smartLink clicked:
       type: ui
       description: fires an event that represents when a user clicks on a Smart Link.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *CommonContext, *ResolvedContext ]
         id:
           required: true
           type: string
           description: The unique ID for this Smart Link.
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]
           description: Whether the card was an Inline, Block, Embed or Flexible UI
         definitionId:
           required: false
@@ -469,14 +528,14 @@ events:
       type: ui
       description: fires an event that represents when a user clicks on a Smart Link.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *CommonContext, *ResolvedContext ]
         id:
           required: true
           type: string
           description: The unique ID for this Smart Link.
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]
           description: Whether the card was an Inline, Block, Embed or Flexible UI
         definitionId:
           required: false
@@ -490,13 +549,13 @@ events:
       type: ui
       description: fires an event that represents a hover preview being opened.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *CommonContext, *ResolvedContext ]
         previewDisplay:
-          type: ['card', 'embed']
+          type: [ 'card', 'embed' ]
           required: true
           description: What format the preview is in.
         previewInvokeMethod:
-          type: ['keyboard', 'mouse_hover', 'mouse_click']
+          type: [ 'keyboard', 'mouse_hover', 'mouse_click' ]
           required: false
           description: How the preview was triggered.
         definitionId:
@@ -507,9 +566,9 @@ events:
       type: ui
       description: fires an event that represents a hover preview being dismissed.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext, *ResolvedContext]
+        <<: [ *PackageMetaDataContext, *CommonContext, *ResolvedContext ]
         previewDisplay:
-          type: ['card', 'embed']
+          type: [ 'card', 'embed' ]
           required: true
           description: What format the preview is in.
         hoverTime:
@@ -518,7 +577,7 @@ events:
           description:
             The duration that the user hovered over a Smart Link before the preview was dismissed.
         previewInvokeMethod:
-          type: ['keyboard', 'mouse_hover', 'mouse_click']
+          type: [ 'keyboard', 'mouse_hover', 'mouse_click' ]
           required: false
           description: How the preview was triggered.
         definitionId:
@@ -531,10 +590,10 @@ events:
         fires an event that represents when a user clicks on the authentication call to action with
         no current authenticated account. (i.e. Connect to Preview).
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]
           description: Whether the card was an Inline, Block, Embed or Flexible UI.
         definitionId:
           required: false
@@ -546,10 +605,10 @@ events:
         fires an event that represents when a user clicks on the authentication call to action with
         a forbidden authenticated account. (i.e. Try another account).
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]
           description: Whether the card was an Inline, Block, Embed or Flexible UI.
         definitionId:
           required: false
@@ -561,10 +620,10 @@ events:
         fires an event that represents when a user closed the authentication window without
         authenticating after opening it.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
         display:
           required: true
-          type: ['inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview']
+          type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]
           description: Whether the card was an Inline, Block, Embed or Flexible UI.
         definitionId:
           required: false
@@ -576,34 +635,88 @@ events:
         fires an event that signifies that a "Learn More" link was clicked on an unauthenticated
         card
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
   - button clicked (smartLinkStatusLozenge):
       type: ui
       description: fires an event that represent a click was performed on a Status Lozenge
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
   - button clicked (smartLinkStatusListItem):
       type: ui
       description:
         fires an event that represent a click was performed on a Status Lozenge's dropdown item
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
   - button clicked (smartLinkStatusOpenPreview):
       type: ui
       description:
         fires an event that represent a click was performed on a Status Lozenge open preview button
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
   - button clicked (smartLinkFollowButton):
       type: ui
       description: fires an event that represents a click was performed on the follow button.
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
   - button clicked (StatusUpdateAction):
       type: ui
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
   - button clicked (GetStatusTransitionsAction):
       type: ui
       attributes:
-        <<: [*PackageMetaDataContext, *CommonContext]
+        <<: [ *PackageMetaDataContext, *CommonContext ]
+  - button clicked (embedPreviewResize):
+      type: ui
+      description:
+        fires an event that represents a user clicking on the resize button in the embed preview
+      attributes:
+        <<: [ *PackageMetaDataContext, *CommonContext ]
+        newSize:
+          required: true
+          type: [ 'large', 'small' ]
+          description: The new size of the embed preview
+        origin:
+          required: false
+          type: [ 'smartLinkCard', 'smartLinkEmbed', 'smartLinkInline', 'smartLinkPreviewHoverCard' ]
+          description: The origin of the resize event
+        previousSize:
+          required: true
+          type: [ 'large', 'small' ]
+          description: The previous size of the embed preview
+  - smartLink renderSuccess:
+      type: ui
+      description:
+        fires an event that represents when a Smart Link was rendered successfully (even if the
+        Smart Link errors out)
+      attributes:
+        <<: [ *PackageMetaDataContext, *CommonContext ]
+        display:
+          required: true
+          type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]
+          description: Whether the card was an Inline, Block, Embed or Flexible UI
+        definitionId:
+          required: false
+          type: string
+          description: The definitionId of the Smart Link resolver invoked.
+  - smartLink renderFailed:
+      type: ui
+      description: fires an event that represents when a Smart Link renders unsuccessfully.
+      attributes:
+        <<: [ *PackageMetaDataContext, *CommonContext ]
+        display:
+          required: true
+          type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]
+          description: Whether the card was an Inline, Block, Embed or Flexible UI
+        error:
+          required: true
+          description: An error object representing why the Smart Link render failed.
+          type: object
+        errorInfo:
+          required: true
+          description: Additional details about the error including the stack trace.
+          type: object
+        id:
+          required: false
+          type: string
+          description: The unique ID for this Smart Link

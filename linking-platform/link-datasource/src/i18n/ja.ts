@@ -84,6 +84,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     '更新を完了しようとして問題が発生しました。しばらくしてからもう一度お試しください。この問題が引き続き発生する場合は、サポートに連絡してください。',
   'linkDataSource.issue-line-table.error-generic-title': '問題が発生しました',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'しばらくしてからもう一度お試しください。この問題が引き続き発生する場合は、プロジェクト設定を確認するか、サポートに連絡してください。',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'オプションの取得中に問題が発生しました',
   'linkDataSource.issue-line-table.unwrap-text': 'テキストの折り返しを解除',
   'linkDataSource.issue-line-table.wrap-text': 'テキストを折り返す',
   'linkDataSource.checkConnectionWithSource':

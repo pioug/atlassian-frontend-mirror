@@ -4,8 +4,11 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { di } from 'react-magnetic-di';
 import uuid from 'uuid';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
-import { useSmartLinkAnalytics } from '../../state/analytics';
+import { useSmartLinkAnalytics } from '../../state';
+import { failUfoExperience, startUfoExperience } from '../../state/analytics';
 import { importWithRetry } from '../../utils';
 import { isFlexibleUiCard } from '../../utils/flexible';
 import { clearMarks, clearMeasures } from '../../utils/performance';
@@ -86,14 +89,25 @@ export function CardWithURLRenderer(props: CardProps) {
 					definitionId: null,
 				});
 			} else if (error.name !== 'APIError') {
-				analytics.ui.renderFailedEvent({
-					display: isFlexibleUi ? 'flexible' : appearance,
-					id,
-					error,
-					errorInfo,
-				});
+				if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
+					startUfoExperience('smart-link-rendered', id || 'NULL');
+					failUfoExperience('smart-link-rendered', id || 'NULL');
+					failUfoExperience('smart-link-authenticated', id || 'NULL');
+					fireEvent('ui.smartLink.renderFailed', {
+						display: isFlexibleUi ? 'flexible' : appearance,
+						id: id ?? null,
+						error: error as any,
+						errorInfo: errorInfo as any,
+					});
+				} else {
+					analytics.ui.renderFailedEvent({
+						display: isFlexibleUi ? 'flexible' : appearance,
+						id,
+						error,
+						errorInfo,
+					});
+				}
 			}
-
 			onError && onError({ status: 'errored', url: url ?? '', err: error });
 		},
 		[analytics.ui, appearance, id, onError, url, isFlexibleUi, fireEvent],

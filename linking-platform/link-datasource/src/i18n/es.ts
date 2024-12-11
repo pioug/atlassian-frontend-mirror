@@ -86,6 +86,10 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Se ha producido un error al completar la actualización. Espera unos minutos y vuelve a intentarlo. Ponte en contacto con el servicio de soporte si el problema persiste.',
   'linkDataSource.issue-line-table.error-generic-title': 'Se ha producido un error',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Espera unos minutos y vuelve a intentarlo. Comprueba la configuración del proyecto o ponte en contacto con el servicio de soporte si el problema persiste.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title':
+    'Estamos teniendo algunos problemas para obtener las opciones',
   'linkDataSource.issue-line-table.unwrap-text': 'Desajustar texto',
   'linkDataSource.issue-line-table.wrap-text': 'Ajustar texto',
   'linkDataSource.checkConnectionWithSource':

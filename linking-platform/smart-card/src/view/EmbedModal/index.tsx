@@ -1,11 +1,13 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useThemeObserver } from '@atlaskit/tokens';
 
-import { ActionName, CardDisplay } from '../../constants';
+import { ActionName, CardDisplay, SmartLinkSize } from '../../constants';
 import useInvokeClientAction from '../../state/hooks/use-invoke-client-action';
 import { downloadUrl, getPreviewUrlWithTheme, openUrl } from '../../utils';
+import Icon from '../FlexibleCard/components/elements/icon';
 
 import withAnalytics from './components/analytics';
 import EmbedContent from './components/embed-content';
@@ -23,11 +25,14 @@ const toWidth = (size: EmbedModalSize) =>
 const EmbedModal = ({
 	analytics,
 	download,
+	invokeDownloadAction,
 	extensionKey,
+	fireEvent,
 	icon,
 	iframeName,
 	isSupportTheming,
 	isTrusted = false,
+	linkIcon,
 	onClose,
 	onOpen,
 	onResize,
@@ -38,13 +43,14 @@ const EmbedModal = ({
 	testId = 'smart-embed-preview-modal',
 	title,
 	url,
+	invokeViewAction,
 }: EmbedModalProps) => {
 	const defaultWidth = toWidth(size);
 	const [isOpen, setIsOpen] = useState(showModal);
 	const [width, setWidth] = useState(defaultWidth);
 	const openAt = useRef<number>();
 
-	const invoke = useInvokeClientAction({ analytics });
+	const invoke = useInvokeClientAction({ analytics, fireEvent });
 
 	const handleOnOpenComplete = useCallback(() => {
 		openAt.current = Date.now();
@@ -75,22 +81,30 @@ const EmbedModal = ({
 	let previewUrl = src;
 
 	const handleOnViewActionClick = useCallback(() => {
-		invoke({
-			actionType: 'ViewAction',
-			actionFn: async () => openUrl(url),
-			display: CardDisplay.EmbedPreview,
-			extensionKey,
-		});
-	}, [extensionKey, invoke, url]);
+		if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
+			invokeViewAction && invoke(invokeViewAction);
+		} else {
+			invoke({
+				actionType: 'ViewAction',
+				actionFn: async () => openUrl(url),
+				display: CardDisplay.EmbedPreview,
+				extensionKey,
+			});
+		}
+	}, [extensionKey, invoke, url, invokeViewAction]);
 
 	const handleOnDownloadActionClick = useCallback(() => {
-		invoke({
-			actionType: ActionName.DownloadAction,
-			actionFn: async () => downloadUrl(download),
-			display: CardDisplay.EmbedPreview,
-			extensionKey,
-		});
-	}, [download, extensionKey, invoke]);
+		if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
+			invokeDownloadAction && invoke(invokeDownloadAction);
+		} else {
+			invoke({
+				actionType: ActionName.DownloadAction,
+				actionFn: async () => downloadUrl(download),
+				display: CardDisplay.EmbedPreview,
+				extensionKey,
+			});
+		}
+	}, [download, invokeDownloadAction, extensionKey, invoke]);
 
 	if (previewUrl && isSupportTheming) {
 		previewUrl = getPreviewUrlWithTheme(previewUrl, themeState);
@@ -108,10 +122,35 @@ const EmbedModal = ({
 					width={width}
 				>
 					<LinkInfo
-						icon={icon}
+						icon={
+							fg('platform-smart-card-migrate-embed-modal-analytics')
+								? linkIcon
+									? {
+											icon: <Icon {...linkIcon} size={SmartLinkSize.Large} />,
+											isFlexibleUi: true,
+										}
+									: undefined
+								: icon
+						}
 						providerName={providerName}
-						onViewButtonClick={url ? handleOnViewActionClick : undefined}
-						onDownloadButtonClick={download ? handleOnDownloadActionClick : undefined}
+						onViewButtonClick={
+							fg('platform-smart-card-migrate-embed-modal-analytics')
+								? invokeViewAction
+									? handleOnViewActionClick
+									: undefined
+								: url
+									? handleOnViewActionClick
+									: undefined
+						}
+						onDownloadButtonClick={
+							fg('platform-smart-card-migrate-embed-modal-analytics')
+								? invokeDownloadAction
+									? handleOnDownloadActionClick
+									: undefined
+								: download
+									? handleOnDownloadActionClick
+									: undefined
+						}
 						onResizeButtonClick={handleOnResizeClick}
 						size={width}
 						title={title}

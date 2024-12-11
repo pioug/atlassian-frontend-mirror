@@ -24,7 +24,7 @@ const getGateType = (node: Rule.Node, context: Rule.RuleContext): string => {
 			callee.type === 'Identifier' &&
 			// Experiments cannot have other experiments as preconditions, only gates
 			(callee.name === 'fg' || isExpUsage(callee.name)) &&
-			isAPIimport(callee.name, context);
+			isAPIimport(callee.name, context, node);
 
 		return isFeatureGate ? callee.name : '';
 	}

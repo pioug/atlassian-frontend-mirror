@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import MediaServicesActualSizeIcon from '@atlaskit/icon/core/migration/grow-diagonal--media-services-actual-size';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
@@ -24,25 +25,32 @@ const PreviewAction = ({ onClick: onClickCallback, ...props }: PreviewActionProp
 	const data = context?.actions?.[ActionName.PreviewAction];
 
 	const onClick = useCallback(() => {
-		if (data) {
-			invoke({
-				actionType: ActionName.PreviewAction,
-				actionFn: async () =>
-					openEmbedModalWithFlexibleUiIcon({
-						download: data?.downloadUrl,
-						extensionKey: analytics?.extensionKey,
-						analytics,
-						...data,
-					}),
-				// These values have already been set in analytics context.
-				// We only pass these here for ufo experience.
-				display: analytics?.display,
-				extensionKey: analytics?.extensionKey,
-			});
-		}
+		if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
+			if (data?.invokeAction) {
+				invoke(data.invokeAction);
+				onClickCallback?.();
+			}
+		} else {
+			if (data) {
+				invoke({
+					actionType: ActionName.PreviewAction,
+					actionFn: async () =>
+						openEmbedModalWithFlexibleUiIcon({
+							download: data?.downloadUrl,
+							extensionKey: analytics?.extensionKey,
+							analytics,
+							...data,
+						}),
+					// These values have already been set in analytics context.
+					// We only pass these here for ufo experience.
+					display: analytics?.display,
+					extensionKey: analytics?.extensionKey,
+				});
+			}
 
-		if (onClickCallback) {
-			onClickCallback();
+			if (onClickCallback) {
+				onClickCallback();
+			}
 		}
 	}, [analytics, data, invoke, onClickCallback]);
 

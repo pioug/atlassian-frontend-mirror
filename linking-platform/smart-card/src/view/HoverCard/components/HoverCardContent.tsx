@@ -167,6 +167,7 @@ const HoverCardContent = ({
 		cardState: cardState,
 		onClick: onClick,
 		onResolve: onResolve,
+		origin: 'smartLinkPreviewHoverCard',
 		renderers: renderers,
 		actionOptions,
 		ui: flexibleUiOptions,

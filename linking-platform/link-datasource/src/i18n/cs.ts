@@ -84,6 +84,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Při pokusu o dokončení aktualizace se vyskytl problém. Počkejte pár minut a zkuste to znovu. Pokud se problém opakuje, kontaktujte podporu.',
   'linkDataSource.issue-line-table.error-generic-title': 'Něco se pokazilo',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Počkejte pár minut a zkuste to znovu. Zkontrolujte nastavení projektu, a pokud se problém opakuje, kontaktujte podporu.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Při načítání možností došlo k problémům',
   'linkDataSource.issue-line-table.unwrap-text': 'Zrušit zalamování textu',
   'linkDataSource.issue-line-table.wrap-text': 'Zalomit text',
   'linkDataSource.checkConnectionWithSource':

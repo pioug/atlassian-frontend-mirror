@@ -44,7 +44,7 @@ export default {
     '<b>{name}</b>에 자동화를 적용합니다.{br}사용 가능한 선택 항목은 Confluence 및 스페이스 관리자가 제어합니다.',
   'fabric.linking.automation-action.confluence.page.modal.title': '페이지 자동화',
   'fabric.linking.automation-action.icon.label': '자동화 아이콘',
-  'fabric.linking.automation-action.title': '자동화 규칙 보기...',
+  'fabric.linking.automation-action.title': '자동화 규칙 보기',
   'fabric.linking.automation-action.tooltip': '실행할 자동화 규칙을 선택합니다',
   'fabric.linking.beta': '베타',
   'fabric.linking.cancel': '취소',
@@ -103,7 +103,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     '이 미리 보기를 확인하려면 액세스를 요청하거나 다른 계정으로 시도해야 합니다.',
   'fabric.linking.join_to_view': '{context}에 참여하여 이 이슈 보기',
-  'fabric.linking.last_mentioned_in': '마지막으로 멘션',
   'fabric.linking.learn_more_about_connecting_account':
     '계정을 Atlassian 제품에 연결하는 방법에 대해 자세히 알아보세요.',
   'fabric.linking.learn_more_about_smart_links': '스마트 링크에 대해 자세히 알아보세요.',
@@ -148,8 +147,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     '여기에 표시할 링크를 찾지 못했습니다. Atlassian은 업데이트된 페이지 또는 기타 콘텐츠 유형의 최근 링크를 지속적으로 검토 및 추가합니다.',
   'fabric.linking.related_links_not_found': '여기에 표시할 링크를 찾지 못했습니다.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': '최근 링크 보기...',
-  'fabric.linking.related_work_items_not_found': '이 링크는 다른 곳에서는 멘션되지 않았습니다.',
+  'fabric.linking.related_links_view_related_urls': '최근 링크 보기',
   'fabric.linking.request_access': '액세스 요청',
   'fabric.linking.request_access_description':
     '팀이 공동 작업하는 데 {product}을(를) 사용합니다. 관리자에게 액세스 요청을 보내세요.',

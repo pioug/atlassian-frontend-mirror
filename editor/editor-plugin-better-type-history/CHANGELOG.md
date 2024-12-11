@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-better-type-history
 
+## 1.9.8
+
+### Patch Changes
+
+- [#176596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176596)
+  [`86e9b63cc47f0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/86e9b63cc47f0) -
+  Remove internal re-exports
+
 ## 1.9.7
 
 ### Patch Changes

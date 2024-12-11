@@ -10,11 +10,19 @@ import {
 import { type PreviewActionData } from '../../../state/flexible-ui-context/types';
 import { canShowAction } from '../../../utils/actions/can-show-action';
 import { CardAction, type CardActionOptions } from '../../../view/Card/types';
+import {
+	extractInvokePreviewAction,
+	type ExtractInvokePreviewActionParam,
+} from '../../action/extract-invoke-preview-action';
 import { extractDownloadUrl } from '../../common/detail';
 import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
 import { extractIsTrusted } from '../../common/meta/extractIsTrusted';
 import { extractLinkIcon } from '../icon';
 
+/**
+ * TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
+ * Replaced with extractPreviewClientAction()
+ */
 export const extractPreviewAction = (
 	response: JsonLd.Response,
 	actionOptions?: CardActionOptions,
@@ -39,4 +47,11 @@ export const extractPreviewAction = (
 			isTrusted: extractIsTrusted(meta),
 		};
 	}
+};
+
+export const extractPreviewClientAction = (
+	param: ExtractInvokePreviewActionParam,
+): PreviewActionData | undefined => {
+	const invokeAction = extractInvokePreviewAction(param);
+	return invokeAction ? { invokeAction } : undefined;
 };

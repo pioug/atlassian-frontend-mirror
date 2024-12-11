@@ -1,5 +1,3 @@
-import { type JsonLd } from 'json-ld-types';
-
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
 import { iconBitbucket } from '../images';
@@ -250,7 +248,7 @@ export const response2 = {
 		url,
 		summary: 'Donec dui quam, malesuada ut magna a, faucibus sodales quam.',
 	},
-} as JsonLd.Response;
+};
 
 export const response3 = {
 	meta: {

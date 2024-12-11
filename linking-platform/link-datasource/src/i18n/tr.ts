@@ -85,6 +85,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Güncellemeyi tamamlamaya çalışırken bir sorun yaşandı. Birkaç dakika bekleyip ardından yeniden deneyin. Bu sorun devam ederse destek ekibiyle iletişime geçin.',
   'linkDataSource.issue-line-table.error-generic-title': 'Bir hata oluştu',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Birkaç dakika bekleyip ardından yeniden deneyin. Proje ayarlarınızı kontrol edin veya bu sorun devam ederse destek ekibiyle iletişime geçin.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Seçenekler alınırken bir sorun yaşandı',
   'linkDataSource.issue-line-table.unwrap-text': 'Metnin kaydırmasını kaldır',
   'linkDataSource.issue-line-table.wrap-text': 'Metni kaydır',
   'linkDataSource.checkConnectionWithSource':

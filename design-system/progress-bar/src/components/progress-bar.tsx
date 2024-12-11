@@ -29,21 +29,23 @@ const containerStyles = css({
 	width: '100%',
 	height: 6,
 	position: 'relative',
-	background: token('color.background.neutral', N40A),
+	backgroundColor: token('color.background.neutral', N40A),
 	borderRadius: token('border.radius', '3px'),
 	overflow: 'hidden',
 });
 
 const containerAppearance = cssMap({
-	default: { background: token('color.background.neutral', N40A) },
-	success: { background: token('color.background.neutral', N40A) },
-	inverse: { background: token('color.background.inverse.subtle', 'rgba(255, 255, 255, 0.5)') },
+	default: { backgroundColor: token('color.background.neutral', N40A) },
+	success: { backgroundColor: token('color.background.neutral', N40A) },
+	inverse: {
+		backgroundColor: token('color.background.inverse.subtle', 'rgba(255, 255, 255, 0.5)'),
+	},
 });
 
 const barAppearance = cssMap({
-	default: { background: token('color.background.neutral.bold', N500) },
-	success: { background: token('color.background.success.bold', G300) },
-	inverse: { background: token('elevation.surface', 'white') },
+	default: { backgroundColor: token('color.background.neutral.bold', N500) },
+	success: { backgroundColor: token('color.background.success.bold', G300) },
+	inverse: { backgroundColor: token('elevation.surface', 'white') },
 });
 
 const barStyles = css({

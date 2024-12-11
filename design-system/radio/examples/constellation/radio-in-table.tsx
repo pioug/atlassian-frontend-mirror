@@ -4,12 +4,21 @@
  */
 import { type SyntheticEvent, useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import { Radio } from '@atlaskit/radio';
 import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	selectedValue: {
+		marginBlock: token('space.200'),
+		padding: token('space.100'),
+		borderColor: token('color.border'),
+		borderStyle: 'dashed',
+		borderWidth: token('border.width'),
+		color: token('color.text'),
+	},
+});
 
 interface RadioOptions {
 	id: number;
@@ -54,15 +63,6 @@ const items: Array<RadioOptions> = [
 		updated: 'yesterday',
 	},
 ];
-
-const tableStyles = xcss({
-	marginBlock: 'space.200',
-	padding: 'space.100',
-	borderColor: 'color.border',
-	borderStyle: 'dashed',
-	borderWidth: 'border.width',
-	color: 'color.text',
-});
 
 export default function RadioInputExample() {
 	const [value, setValue] = useState<string>('1');
@@ -115,7 +115,7 @@ export default function RadioInputExample() {
 					))}
 				</tbody>
 			</table>
-			<Box xcss={tableStyles}>currently selected value: {value}</Box>
+			<Box xcss={styles.selectedValue}>currently selected value: {value}</Box>
 		</Box>
 	);
 }

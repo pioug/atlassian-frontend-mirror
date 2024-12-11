@@ -13,8 +13,8 @@ import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
-import { Frame } from '../../BlockCard/components/Frame';
 import { gs } from '../../common/utils';
+import { Frame } from '../components/ErrorFrame';
 
 export interface ErroredViewProps {
 	onRetry?: (val: any) => void;

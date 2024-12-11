@@ -1,5 +1,40 @@
 # @atlaskit/smart-card
 
+## 32.7.4
+
+### Patch Changes
+
+- [#177281](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177281)
+  [`b091c748c9873`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b091c748c9873) -
+  Rename block card component/files after legacy block card cleanup
+
+## 32.7.3
+
+### Patch Changes
+
+- [#170382](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/170382)
+  [`7f76b5be1e203`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7f76b5be1e203) -
+  Migrate UI events outside EmbedModal
+- [#176427](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176427)
+  [`f4a255aa30b2b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f4a255aa30b2b) -
+  Migrated smart-card proxied exports (linking-common, link-provider, json-ld-types) to import from
+  modules directly
+
+## 32.7.2
+
+### Patch Changes
+
+- [#176855](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176855)
+  [`ae3071a0a7c16`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae3071a0a7c16) -
+  Remove legacy block card code
+
+## 32.7.1
+
+### Patch Changes
+
+- [`6b8061fe8600e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6b8061fe8600e) -
+  Refactoring invoke client actions and analytics
+
 ## 32.7.0
 
 ### Minor Changes

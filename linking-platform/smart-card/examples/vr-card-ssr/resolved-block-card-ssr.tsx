@@ -1,15 +1,12 @@
 import React from 'react';
 
-import { type CardProviderStoreOpts } from '@atlaskit/link-provider';
-
 import {
-	ActionName,
-	Client,
-	Provider,
-	SmartLinkDirection,
-	SmartLinkPosition,
-	TitleBlock,
-} from '../../src';
+	type CardProviderStoreOpts,
+	CardClient as Client,
+	SmartCardProvider as Provider,
+} from '@atlaskit/link-provider';
+
+import { ActionName, SmartLinkDirection, SmartLinkPosition, TitleBlock } from '../../src';
 import { CardSSR } from '../../src/ssr';
 import { cardState, url } from '../utils/smart-card-ssr-state';
 

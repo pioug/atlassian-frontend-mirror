@@ -940,10 +940,6 @@ describe('DatePicker', () => {
 				const calendarButton = screen.getByRole('button', {
 					name: new RegExp(`${pickerLabel}.*${openCalendarLabel}`),
 				});
-				expect(calendarButton).toHaveAttribute(
-					'aria-label',
-					expect.stringMatching(new RegExp(`${pickerLabel}.*${openCalendarLabel}`)),
-				);
 				expect(calendarButton).toBeInTheDocument();
 			});
 
@@ -965,10 +961,9 @@ describe('DatePicker', () => {
 				);
 
 				expect(getInput()).not.toHaveAttribute('aria-label');
-				const calendarButton = screen.getByRole('button', {
-					name: new RegExp(`${pickerLabel}.*${openCalendarLabel}`),
-				});
+				const calendarButton = screen.getByTestId(`${testId}--open-calendar-button`);
 				expect(calendarButton).not.toHaveAttribute('aria-label');
+				expect(calendarButton).toHaveAttribute('aria-labelledby');
 				expect(calendarButton).toBeInTheDocument();
 			});
 		});

@@ -41,7 +41,7 @@
 		"@atlaskit/editor-plugins": "^5.8.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/reactions": "^22.16.0",
-		"@atlaskit/renderer": "^112.6.0",
+		"@atlaskit/renderer": "^112.7.0",
 		"@babel/runtime": "^7.0.0",
 		"date-fns": "^2.17.0",
 		"lodash": "^4.17.21",

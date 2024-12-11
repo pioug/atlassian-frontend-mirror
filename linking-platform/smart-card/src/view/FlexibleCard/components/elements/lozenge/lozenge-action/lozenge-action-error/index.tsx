@@ -17,6 +17,7 @@ import { token } from '@atlaskit/tokens';
 import { useAnalyticsEvents } from '../../../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../../../messages';
 import { useFlexibleUiAnalyticsContext } from '../../../../../../../state/flexible-ui-context';
+import useInvokeClientAction from '../../../../../../../state/hooks/use-invoke-client-action';
 import useResolve from '../../../../../../../state/hooks/use-resolve';
 import { getFormattedMessage, openEmbedModalWithFlexibleUiIcon } from '../../../../utils';
 
@@ -29,13 +30,18 @@ const LozengeActionError = ({
 	errorMessage,
 	testId,
 	maxLineNumber = MAX_LINE_NUMBER,
+	invokePreviewAction,
 	url,
 	previewData,
 }: LozengeActionErrorProps) => {
 	const { fireEvent } = useAnalyticsEvents();
 	const reload = useResolve();
 	const analytics = useFlexibleUiAnalyticsContext();
-	const isPreviewAvailable = previewData && previewData.src !== undefined;
+	const invoke = useInvokeClientAction({});
+
+	const isPreviewAvailable = fg('platform-smart-card-migrate-embed-modal-analytics')
+		? invokePreviewAction !== undefined
+		: previewData && previewData.src !== undefined;
 
 	const handlePreviewClose = useCallback(() => {
 		if (url) {
@@ -51,13 +57,25 @@ const LozengeActionError = ({
 				analytics?.ui.smartLinkLozengeActionErrorOpenPreviewClickedEvent();
 			}
 
-			return openEmbedModalWithFlexibleUiIcon({
-				...previewData,
-				analytics,
-				onClose: handlePreviewClose,
-			});
+			if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
+				invokePreviewAction && invoke(invokePreviewAction);
+			} else {
+				return openEmbedModalWithFlexibleUiIcon({
+					...previewData,
+					analytics,
+					onClose: handlePreviewClose,
+				});
+			}
 		}
-	}, [analytics, handlePreviewClose, isPreviewAvailable, previewData, fireEvent]);
+	}, [
+		analytics,
+		handlePreviewClose,
+		isPreviewAvailable,
+		invoke,
+		invokePreviewAction,
+		previewData,
+		fireEvent,
+	]);
 
 	const content = useMemo(() => {
 		return (

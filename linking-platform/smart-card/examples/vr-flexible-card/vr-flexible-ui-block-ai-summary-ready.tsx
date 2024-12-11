@@ -5,10 +5,10 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { CardClient } from '@atlaskit/link-provider';
+import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 
 import { JiraIssue } from '../../examples-helpers/_jsonLDExamples';
-import { Card, Provider, SnippetBlock, TitleBlock } from '../../src';
+import { Card, SnippetBlock, TitleBlock } from '../../src';
 import { getJsonLdResponse } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

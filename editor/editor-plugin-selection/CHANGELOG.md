@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-selection
 
+## 1.6.0
+
+### Minor Changes
+
+- [#169428](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169428)
+  [`dc52eec1d2269`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dc52eec1d2269) -
+  [ux] ED-25865 Auto include inline node as a part of selection when selection ends on an inline
+  node
+- [#169428](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/169428)
+  [`ded743b539788`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ded743b539788) -
+  [ux] ED-25865 auto expand selection to include inline node
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.5.6
 
 ### Patch Changes

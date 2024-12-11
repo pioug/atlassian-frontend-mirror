@@ -1,7 +1,13 @@
 import React from 'react';
 
 import { status } from '@atlaskit/adf-schema';
-import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import {
+	ACTION_SUBJECT_ID,
+	ACTION,
+	ACTION_SUBJECT,
+	EVENT_TYPE,
+	INPUT_METHOD,
+} from '@atlaskit/editor-common/analytics';
 import { addInlineComment, ToolTipContent } from '@atlaskit/editor-common/keymaps';
 import {
 	annotationMessages,
@@ -125,6 +131,17 @@ export const statusPlugin: StatusPlugin = ({ config: options, api }) => ({
 							true,
 							INPUT_METHOD.TOOLBAR,
 						);
+						api?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.CLICKED,
+							actionSubject: ACTION_SUBJECT.BUTTON,
+							actionSubjectId: ACTION_SUBJECT_ID.CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU,
+							eventType: EVENT_TYPE.UI,
+							attributes: {
+								source: 'highlightActionsMenu',
+								pageMode: 'edit',
+								sourceNode: 'status',
+							},
+						});
 
 						return command(stateFromClickEvent, dispatch);
 					};

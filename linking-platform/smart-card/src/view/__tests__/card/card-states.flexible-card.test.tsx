@@ -5,10 +5,15 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { type CardClient, type CardProviderStoreOpts } from '@atlaskit/link-provider';
+import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import {
+	type CardClient,
+	type CardProviderStoreOpts,
+	SmartCardProvider as Provider,
+} from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { Provider } from '../../../index';
 import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
@@ -20,6 +25,12 @@ describe('smart-card: card states, flexible block withUrl', () => {
 	let mockClient: CardClient;
 	let mockFetch: jest.Mock;
 	let mockUrl: string;
+	const mockAnalyticsClient = {
+		sendUIEvent: jest.fn().mockResolvedValue(undefined),
+		sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+		sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+		sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+	} satisfies AnalyticsWebClient;
 
 	beforeEach(() => {
 		mockFetch = jest.fn(() => Promise.resolve(mocks.success));
@@ -32,33 +43,73 @@ describe('smart-card: card states, flexible block withUrl', () => {
 	});
 
 	describe('> state: resolved', () => {
-		it('flexible block card: should render with metadata when resolved', async () => {
-			render(
-				<IntlProvider locale="en">
-					<Provider client={mockClient}>
-						<Card appearance="block" url={mockUrl} />
-					</Provider>
-				</IntlProvider>,
-			);
+		describe('flexible block card: should render with metadata when resolved', () => {
+			ffTest(
+				'platform-smart-card-migrate-embed-modal-analytics',
+				async () => {
+					render(
+						<FabricAnalyticsListeners client={mockAnalyticsClient}>
+							<IntlProvider locale="en">
+								<Provider client={mockClient}>
+									<Card appearance="block" url={mockUrl} />
+								</Provider>
+							</IntlProvider>
+						</FabricAnalyticsListeners>,
+					);
 
-			const resolvedCard = await screen.findByTestId('smart-block-resolved-view');
+					const resolvedCard = await screen.findByTestId('smart-block-resolved-view');
+					const resolvedViewName = await screen.findByText('I love cheese');
+					const resolvedViewDescription = await screen.findByText(
+						'Here is your serving of cheese: 🧀',
+					);
 
-			const resolvedViewName = await screen.findByText('I love cheese');
+					expect(resolvedCard).toBeTruthy();
+					expect(resolvedViewName).toBeTruthy();
+					expect(resolvedViewDescription).toBeTruthy();
+					expect(mockFetch).toHaveBeenCalled();
+					expect(mockFetch).toHaveBeenCalledTimes(1);
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							action: 'renderSuccess',
+							actionSubject: 'smartLink',
+							attributes: expect.objectContaining({
+								display: 'block',
+								status: 'resolved',
+							}),
+						}),
+					);
+				},
+				async () => {
+					render(
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card appearance="block" url={mockUrl} />
+							</Provider>
+						</IntlProvider>,
+					);
 
-			const resolvedViewDescription = await screen.findByText('Here is your serving of cheese: 🧀');
+					const resolvedCard = await screen.findByTestId('smart-block-resolved-view');
 
-			expect(resolvedCard).toBeTruthy();
-			expect(resolvedViewName).toBeTruthy();
-			expect(resolvedViewDescription).toBeTruthy();
-			expect(mockFetch).toHaveBeenCalled();
-			expect(mockFetch).toHaveBeenCalledTimes(1);
+					const resolvedViewName = await screen.findByText('I love cheese');
 
-			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					display: 'block',
-					status: 'resolved',
-				}),
+					const resolvedViewDescription = await screen.findByText(
+						'Here is your serving of cheese: 🧀',
+					);
+
+					expect(resolvedCard).toBeTruthy();
+					expect(resolvedViewName).toBeTruthy();
+					expect(resolvedViewDescription).toBeTruthy();
+					expect(mockFetch).toHaveBeenCalled();
+					expect(mockFetch).toHaveBeenCalledTimes(1);
+
+					expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+					expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							display: 'block',
+							status: 'resolved',
+						}),
+					);
+				},
 			);
 		});
 

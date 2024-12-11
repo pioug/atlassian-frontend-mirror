@@ -120,8 +120,6 @@ export const getStyles = memoizeOne(
 			}),
 			multiValueLabel: (css: any) => ({
 				...css,
-				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-				fontSize: '100%',
 				display: 'flex',
 			}),
 			multiValueRemove: (css: any) => ({

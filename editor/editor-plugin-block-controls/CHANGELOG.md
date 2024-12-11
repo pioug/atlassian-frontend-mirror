@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.15.2
+
+### Patch Changes
+
+- [#176596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176596)
+  [`86e9b63cc47f0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/86e9b63cc47f0) -
+  Remove internal re-exports
+- Updated dependencies
+
+## 2.15.1
+
+### Patch Changes
+
+- [#177040](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177040)
+  [`53996b8399acf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53996b8399acf) -
+  hot-113791 fix firefox layout selection issue
+
 ## 2.15.0
 
 ### Minor Changes

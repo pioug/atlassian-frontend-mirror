@@ -12,12 +12,3 @@ export type ExtractActionsProps = {
 	source?: CardInnerAppearance;
 	origin?: AnalyticsOrigin;
 };
-
-export interface ActionProps {
-	/** String identifier for the action (e.g. 'preview-content') */
-	id: string;
-	/** The text to be displayed in the action's button */
-	text: React.ReactNode;
-	/** The function to be called on clicking the action. This is a promise so the state can transition correctly after the action finishes */
-	invoke: () => Promise<any>;
-}

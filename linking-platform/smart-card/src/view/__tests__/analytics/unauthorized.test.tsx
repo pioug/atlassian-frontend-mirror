@@ -11,13 +11,12 @@ import uuid from 'uuid';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { AnalyticsContext } from '@atlaskit/analytics-next';
-import { type CardClient } from '@atlaskit/link-provider';
+import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { asMockFunction, type JestFunction } from '@atlaskit/media-test-helpers';
 import { auth, AuthError } from '@atlaskit/outbound-auth-flow-client';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { Provider } from '../../../index';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
@@ -756,31 +755,69 @@ describe('smart-card: unauthorized analytics', () => {
 			);
 		});
 
-		it('should fire success event when the link is rendered', async () => {
-			const mockUrl = 'https://https://this.is.a.url';
-			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-			render(
-				<IntlProvider locale="en">
-					<Provider client={mockClient}>
-						<Card testId="unauthorizedCard1" appearance="inline" url={mockUrl} />
-					</Provider>
-				</IntlProvider>,
-			);
+		describe('should fire success event when the link is rendered', () => {
+			ffTest(
+				'platform-smart-card-migrate-embed-modal-analytics',
+				async () => {
+					const mockUrl = 'https://https://this.is.a.url';
+					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+					render(
+						<FabricAnalyticsListeners client={mockAnalyticsClient}>
+							<IntlProvider locale="en">
+								<Provider client={mockClient}>
+									<Card testId="unauthorizedCard1" appearance="inline" url={mockUrl} />
+								</Provider>
+							</IntlProvider>
+						</FabricAnalyticsListeners>,
+					);
 
-			const unauthorizedLink = await screen.findByTestId(
-				'unauthorizedCard1-unauthorized-view',
-				{},
-				{ timeout: 10000 },
+					const unauthorizedLink = await screen.findByTestId(
+						'unauthorizedCard1-unauthorized-view',
+						{},
+						{ timeout: 10000 },
+					);
+					expect(unauthorizedLink).toBeTruthy();
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							action: 'renderSuccess',
+							actionSubject: 'smartLink',
+							attributes: expect.objectContaining({
+								display: 'inline',
+								status: 'unauthorized',
+								definitionId: 'd1',
+								extensionKey: 'object-provider',
+								canBeDatasource: false,
+							}),
+						}),
+					);
+				},
+				async () => {
+					const mockUrl = 'https://https://this.is.a.url';
+					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+					render(
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card testId="unauthorizedCard1" appearance="inline" url={mockUrl} />
+							</Provider>
+						</IntlProvider>,
+					);
+
+					const unauthorizedLink = await screen.findByTestId(
+						'unauthorizedCard1-unauthorized-view',
+						{},
+						{ timeout: 10000 },
+					);
+					expect(unauthorizedLink).toBeTruthy();
+					expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+					expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
+						display: 'inline',
+						status: 'unauthorized',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						canBeDatasource: false,
+					});
+				},
 			);
-			expect(unauthorizedLink).toBeTruthy();
-			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-			expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
-				display: 'inline',
-				status: 'unauthorized',
-				definitionId: 'd1',
-				extensionKey: 'object-provider',
-				canBeDatasource: false,
-			});
 		});
 
 		it('should fire connectSucceeded event when auth succeeds', async () => {

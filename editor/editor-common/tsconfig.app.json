@@ -89,6 +89,9 @@
 			"path": "../../linking-platform/link-picker/tsconfig.app.json"
 		},
 		{
+			"path": "../../linking-platform/linking-common/tsconfig.app.json"
+		},
+		{
 			"path": "../../media/media-card/tsconfig.app.json"
 		},
 		{

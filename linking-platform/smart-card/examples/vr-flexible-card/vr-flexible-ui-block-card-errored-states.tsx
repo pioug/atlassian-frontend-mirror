@@ -7,8 +7,8 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
 import { type AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
-import FlexibleErroredView from '../../src/view/BlockCard/views/flexible/FlexibleErroredView';
-import FlexibleUnauthorisedView from '../../src/view/BlockCard/views/flexible/FlexibleUnauthorisedView';
+import FlexibleErroredView from '../../src/view/BlockCard/views/ErroredView';
+import FlexibleUnauthorisedView from '../../src/view/BlockCard/views/UnauthorisedView';
 import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

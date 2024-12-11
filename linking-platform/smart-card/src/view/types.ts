@@ -1,18 +1,10 @@
-import { type ReactNode } from 'react';
-
+import { type Appearance } from '@atlaskit/button';
 import { type CardType } from '@atlaskit/linking-common';
 
 import { type RequestAccessMessageKey } from '../messages';
 
-import { type ActionProps } from './BlockCard/components/Action';
-
 export interface WithShowControlMethodProp {
 	showControls?: () => void;
-}
-
-export interface ContextViewModel {
-	icon?: ReactNode;
-	text: string;
 }
 
 export type AccessTypes =
@@ -29,6 +21,17 @@ export interface AccessContext {
 	cloudId?: string;
 	url?: string;
 	smartLinksAccessMetadataExperimentCohort?: 'experiment' | 'control' | 'not-enrolled';
+}
+
+export interface ActionProps {
+	/* Id of the action for use by ??? */
+	id: string;
+	/* The text to be displayed in the action's button */
+	text: React.ReactNode;
+	/* The function to be called on clicking the action. This is a promise so the state can transition correctly after the action finishes */
+	promise: () => Promise<any>;
+	/* The atlaskit button style to use in showing the action. This is the only button prop you have access to. */
+	buttonAppearance?: Appearance;
 }
 
 export interface RequestAccessContextProps extends AccessContext {

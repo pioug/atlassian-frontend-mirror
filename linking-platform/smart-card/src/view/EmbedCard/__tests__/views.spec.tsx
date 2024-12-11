@@ -6,7 +6,6 @@ import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 
 import { mocks } from '../../../utils/mocks';
 import { EmbedCardErroredView } from '../../../view/EmbedCard/views/ErroredView';
-import { BlockCardResolvingView } from '../../BlockCard';
 import { EmbedCardResolvedView, type EmbedCardResolvedViewProps } from '../views/ResolvedView';
 import UnresolvedView from '../views/unresolved-view';
 
@@ -168,15 +167,6 @@ describe('EmbedCard Views', () => {
 			);
 			const view = screen.getByTestId('embed-content-wrapper');
 			expect(window.getComputedStyle(view).getPropertyValue('overflow')).toEqual('auto');
-		});
-	});
-
-	// Same as BlockCard
-	describe('view: resolving', () => {
-		it('renders view', () => {
-			renderWithIntl(<BlockCardResolvingView testId="embed-card-resolving-view" />);
-			const frame = screen.getByTestId('embed-card-resolving-view');
-			expect(frame).toHaveTextContent('Loading...');
 		});
 	});
 

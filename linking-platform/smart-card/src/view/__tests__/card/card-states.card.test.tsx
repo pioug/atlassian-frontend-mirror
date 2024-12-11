@@ -10,12 +10,15 @@ import { IntlProvider } from 'react-intl-next';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { type CardClient, type CardProviderStoreOpts } from '@atlaskit/link-provider';
+import {
+	type CardClient,
+	type CardProviderStoreOpts,
+	SmartCardProvider as Provider,
+} from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { Provider } from '../../../index';
 import * as analytics from '../../../utils/analytics';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';

@@ -82,6 +82,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'We had an issue trying to complete the update. Wait a few minutes, then try again. Contact support if this keeps happening.',
   'linkDataSource.issue-line-table.error-generic-title': 'Something went wrong',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Wait a few minutes, then try again. Check your project settings or contact support if this keeps happening.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'We’re having trouble fetching options',
   'linkDataSource.issue-line-table.unwrap-text': 'Unwrap text',
   'linkDataSource.issue-line-table.wrap-text': 'Wrap text',
   'linkDataSource.jira-issues.accessInstructions': 'To request access, contact your site administrator.',

@@ -6,10 +6,13 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { type JsonLd } from 'json-ld-types';
 import { ErrorBoundary } from 'react-error-boundary';
 
-import { CardClient } from '@atlaskit/link-provider';
+import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { Box } from '@atlaskit/primitives';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { APIError, Provider } from '../../../index';
+import { APIError } from '../../../index';
 import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
@@ -21,6 +24,12 @@ describe('smart-card: card', () => {
 	let mockFetch: jest.Mock;
 	let mockUrl: string;
 	let consoleErrorFn: jest.SpyInstance;
+	const mockAnalyticsClient = {
+		sendUIEvent: jest.fn().mockResolvedValue(undefined),
+		sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+		sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+		sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+	} satisfies AnalyticsWebClient;
 
 	beforeEach(() => {
 		mockFetch = jest.fn(() => Promise.resolve(mocks.success));
@@ -35,34 +44,79 @@ describe('smart-card: card', () => {
 	});
 
 	describe('unhandled errors', () => {
-		it('are not thrown and onError method is called', async () => {
-			const mockErrorHandler = jest.fn();
-			render(
-				<Provider client={mockClient}>
-					<div>
-						Hello I am parent of card
-						<Card
-							appearance="block"
-							url={mockUrl}
-							onResolve={() => {
-								throw new Error('unexpected error');
-							}}
-							onError={mockErrorHandler}
-						/>
-					</div>
-				</Provider>,
+		describe('are not thrown and onError method is called', () => {
+			ffTest(
+				'platform-smart-card-migrate-embed-modal-analytics',
+				async () => {
+					const mockErrorHandler = jest.fn();
+					render(
+						<FabricAnalyticsListeners client={mockAnalyticsClient}>
+							<Provider client={mockClient}>
+								<Box>
+									Hello I am parent of card
+									<Card
+										appearance="block"
+										url={mockUrl}
+										onResolve={() => {
+											throw new Error('unexpected error');
+										}}
+										onError={mockErrorHandler}
+									/>
+								</Box>
+							</Provider>
+						</FabricAnalyticsListeners>,
+					);
+					await waitFor(() => expect(mockErrorHandler).toHaveBeenCalledTimes(1));
+					const parent = await screen.findByText('Hello I am parent of card');
+					expect(parent).toBeTruthy();
+					expect(mockErrorHandler).toHaveBeenCalledWith({
+						status: 'errored',
+						url: mockUrl,
+						err: expect.objectContaining({
+							message: 'unexpected error',
+						}),
+					});
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							actionSubject: 'smartLink',
+							action: 'renderFailed',
+							attributes: expect.objectContaining({
+								error: new Error('unexpected error'),
+								errorInfo: expect.any(Object),
+							}),
+						}),
+					);
+				},
+				async () => {
+					const mockErrorHandler = jest.fn();
+					render(
+						<Provider client={mockClient}>
+							<div>
+								Hello I am parent of card
+								<Card
+									appearance="block"
+									url={mockUrl}
+									onResolve={() => {
+										throw new Error('unexpected error');
+									}}
+									onError={mockErrorHandler}
+								/>
+							</div>
+						</Provider>,
+					);
+					await waitFor(() => expect(mockErrorHandler).toHaveBeenCalledTimes(1));
+					const parent = await screen.findByText('Hello I am parent of card');
+					expect(parent).toBeTruthy();
+					expect(mockErrorHandler).toHaveBeenCalledWith({
+						status: 'errored',
+						url: mockUrl,
+						err: expect.objectContaining({
+							message: 'unexpected error',
+						}),
+					});
+					expect(analytics.uiRenderFailedEvent).toHaveBeenCalledTimes(1);
+				},
 			);
-			await waitFor(() => expect(mockErrorHandler).toHaveBeenCalledTimes(1));
-			const parent = await screen.findByText('Hello I am parent of card');
-			expect(parent).toBeTruthy();
-			expect(mockErrorHandler).toHaveBeenCalledWith({
-				status: 'errored',
-				url: mockUrl,
-				err: expect.objectContaining({
-					message: 'unexpected error',
-				}),
-			});
-			expect(analytics.uiRenderFailedEvent).toHaveBeenCalledTimes(1);
 		});
 
 		it('fallback component is rendered', async () => {
@@ -98,6 +152,7 @@ describe('smart-card: card', () => {
 					);
 				}
 			}
+
 			const client = new MockClient();
 			const onError = jest.fn();
 			render(

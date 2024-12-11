@@ -1,17 +1,20 @@
 import React from 'react';
 
+import { type JsonLd } from 'json-ld-types';
+
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Heading from '@atlaskit/heading';
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 
-import { Card, Client, Provider, type ResolveResponse } from '../../src';
+import { Card } from '../../src';
 import { mocks } from '../../src/utils/mocks';
 
 class CustomClient extends Client {
-	constructor(private resp: ResolveResponse) {
+	constructor(private resp: JsonLd.Response) {
 		super();
 	}
-	fetchData(): Promise<ResolveResponse> {
+	fetchData(): Promise<JsonLd.Response> {
 		return Promise.resolve(this.resp);
 	}
 }

@@ -46,7 +46,7 @@ export default {
     'Zastosuj automatyzacje do <b>{name}</b>.{br}Opcje dostępne do wyboru są kontrolowane przez administratorów Confluence i przestrzeni.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Automatyzacje stron',
   'fabric.linking.automation-action.icon.label': 'Ikona automatyzacji',
-  'fabric.linking.automation-action.title': 'Wyświetl reguły automatyzacji…',
+  'fabric.linking.automation-action.title': 'Wyświetl reguły automatyzacji',
   'fabric.linking.automation-action.tooltip': 'Wybierz regułę automatyzacja do uruchomienia',
   'fabric.linking.beta': 'Wersja beta',
   'fabric.linking.cancel': 'Anuluj',
@@ -106,7 +106,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Musisz poprosić o dostęp lub spróbować innego konta, aby zobaczyć ten podgląd.',
   'fabric.linking.join_to_view': 'Dołącz do {context}, aby wyświetlić to zgłoszenie',
-  'fabric.linking.last_mentioned_in': 'Ostatnio wspomniano w',
   'fabric.linking.learn_more_about_connecting_account': 'Dowiedz się więcej o łączeniu konta z  produktami Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Dowiedz się więcej o inteligentnych łączach.',
   'fabric.linking.link_safety_warning_message':
@@ -150,8 +149,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Nie znaleziono żadnych łączy do wyświetlenia tutaj. Stale sprawdzamy i dodajemy najnowsze łącza do zaktualizowanych stron lub innych typów treści.',
   'fabric.linking.related_links_not_found': 'Nie znaleziono żadnych łączy do wyświetlenia tutaj.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Wyświetl ostatnio używane łącza…',
-  'fabric.linking.related_work_items_not_found': 'To łącze nie jest wspomniane nigdzie indziej.',
+  'fabric.linking.related_links_view_related_urls': 'Wyświetl ostatnio używane łącza',
   'fabric.linking.request_access': 'Poproś o dostęp',
   'fabric.linking.request_access_description':
     'Twój zespół używa {product} do współpracy. Poproś administratora o dostęp.',

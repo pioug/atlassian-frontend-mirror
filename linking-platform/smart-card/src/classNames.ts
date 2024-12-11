@@ -1,17 +1,14 @@
-export { contentFooterClassName } from './view/BlockCard/components/ContentFooter';
-export { metadataListClassName } from './view/common/MetadataList';
-export { blockCardResolvingViewClassName } from './view/BlockCard/views/ResolvingView';
-export {
-	blockCardResolvedViewClassName,
-	blockCardResolvedViewByClassName,
-} from './view/BlockCard/views/ResolvedView';
-export {
-	blockCardForbiddenViewClassName,
-	blockCardForbiddenViewLinkClassName,
-} from './view/BlockCard/views/ForbiddenView';
+export const contentFooterClassName = 'smart-link-content-footer';
+export const metadataListClassName = 'smart-link-metadata-list';
+export const blockCardResolvingViewClassName = 'block-card-resolving-view';
+export const blockCardResolvedViewClassName = 'block-card-resolved-view';
+export const blockCardResolvedViewByClassName = 'block-card-resolved-view-by';
+export const blockCardForbiddenViewClassName = 'block-card-forbidden-view';
+export const blockCardForbiddenViewLinkClassName = 'block-card-forbidden-view-link';
+
 export { blockCardIconImageClassName } from './view/common/Icon';
-export { blockCardContentClassName } from './view/BlockCard/components/Content';
-export { blockCardContentHeaderClassName } from './view/BlockCard/components/ContentHeader';
-export { blockCardContentHeaderNameClassName } from './view/BlockCard/components/Name';
-export { blockCardNotFoundViewClassName } from './view/BlockCard/views/NotFoundView';
-export { blockCardErroredViewClassName } from './view/BlockCard/views/ErroredView';
+export const blockCardContentClassName = 'block-card-content';
+export const blockCardContentHeaderClassName = 'block-card-content-header';
+export const blockCardContentHeaderNameClassName = 'block-card-content-header-name';
+export const blockCardNotFoundViewClassName = 'block-card-not-found-view';
+export const blockCardErroredViewClassName = 'block-card-errored-view';

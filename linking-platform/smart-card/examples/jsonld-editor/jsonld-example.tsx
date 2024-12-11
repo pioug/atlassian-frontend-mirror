@@ -1,18 +1,19 @@
 import React, { useCallback } from 'react';
 
+import { type JsonLd } from 'json-ld-types';
+
 import Button from '@atlaskit/button/new';
 import { Flex } from '@atlaskit/primitives';
 
 import * as examples from '../../examples-helpers/_jsonLDExamples';
-import { type ResolveResponse } from '../../src';
 import { getJsonLdResponse } from '../utils/flexible-ui';
 
 const JsonldExample = ({
 	defaultValue,
 	onSelect,
 }: {
-	defaultValue: ResolveResponse;
-	onSelect: (response: ResolveResponse) => void;
+	defaultValue: JsonLd.Response;
+	onSelect: (response: JsonLd.Response) => void;
 }) => {
 	const handleOnClick = useCallback(
 		({ data, meta }: any) => {

@@ -45,7 +45,7 @@ export default {
     "Appliquez une automatisation à <b>{name}</b>.{br}Les sélections disponibles sont contrôlées par Confluence et les administrateurs d'espace.",
   'fabric.linking.automation-action.confluence.page.modal.title': 'Automatisations de page',
   'fabric.linking.automation-action.icon.label': "Icône d'automatisation",
-  'fabric.linking.automation-action.title': "Afficher les règles d'automatisation…",
+  'fabric.linking.automation-action.title': "Afficher les règles d'automatisation",
   'fabric.linking.automation-action.tooltip': "Sélectionner une règle d'automatisation à exécuter",
   'fabric.linking.beta': 'Bêta',
   'fabric.linking.cancel': 'Annuler',
@@ -106,7 +106,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     "Vous devrez demander l'accès ou essayer un autre compte pour afficher cet aperçu.",
   'fabric.linking.join_to_view': 'Rejoignez {context} pour consulter ce ticket',
-  'fabric.linking.last_mentioned_in': 'Dernière mention dans',
   'fabric.linking.learn_more_about_connecting_account':
     'En savoir plus sur la connexion de votre compte aux produits Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'En savoir plus sur les liens intelligents.',
@@ -151,8 +150,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     "Nous n'avons trouvé aucun lien à afficher ici. Nous vérifions et ajoutons en permanence des liens récents pour les pages mises à jour ou d'autres types de contenu.",
   'fabric.linking.related_links_not_found': "Nous n'avons trouvé aucun lien à afficher ici.",
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Afficher les liens récents…',
-  'fabric.linking.related_work_items_not_found': "Ce lien n'est mentionné nulle part ailleurs.",
+  'fabric.linking.related_links_view_related_urls': 'Afficher les liens récents',
   'fabric.linking.request_access': "Demander l'accès",
   'fabric.linking.request_access_description':
     "Votre équipe utilise {product} pour collaborer. Envoyez une demande d'accès à votre administrateur.",

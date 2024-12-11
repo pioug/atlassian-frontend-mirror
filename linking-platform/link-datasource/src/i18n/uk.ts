@@ -87,6 +87,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Не вдалося завершити оновлення. Повторіть спробу через кілька хвилин. Якщо проблема не зникне, зверніться до служби підтримки.',
   'linkDataSource.issue-line-table.error-generic-title': 'Сталася помилка',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Повторіть спробу через кілька хвилин. Перевірте налаштування проєкту або зверніться до служби підтримки, якщо проблема не зникне.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Не вдається отримати варіанти',
   'linkDataSource.issue-line-table.unwrap-text': 'Розгорнути текст',
   'linkDataSource.issue-line-table.wrap-text': 'Згорнути текст',
   'linkDataSource.checkConnectionWithSource':

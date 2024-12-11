@@ -46,7 +46,7 @@ export default {
     'Anvend en automatisering til <b>{name}</b>.{br}De tilgængelige valg styres af Confluence- og områdeadministratorer.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Sideautomatiseringer',
   'fabric.linking.automation-action.icon.label': 'Ikon for automatisering',
-  'fabric.linking.automation-action.title': 'Se automatiseringsregler …',
+  'fabric.linking.automation-action.title': 'Vis automatiseringsregler',
   'fabric.linking.automation-action.tooltip': 'Vælg en automatiseringsregel, der skal køres',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Annuller',
@@ -106,7 +106,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Anmod om adgang, eller prøv med en anden konto for at se denne forhåndsvisning.',
   'fabric.linking.join_to_view': 'Deltag i {context} for at se denne sag',
-  'fabric.linking.last_mentioned_in': 'Sidst omtalt i',
   'fabric.linking.learn_more_about_connecting_account':
     'Få mere at vide om, hvordan du knytter din konto til Atlassian-produkter.',
   'fabric.linking.learn_more_about_smart_links': 'Få mere at vide om intelligente links.',
@@ -152,8 +151,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Vi fandt ikke nogen links at vise her. Vi gennemgår løbende og tilføjer nylige links til opdaterede sider eller andre indholdstyper.',
   'fabric.linking.related_links_not_found': 'Vi fandt ikke nogen links.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Se nylige links ...',
-  'fabric.linking.related_work_items_not_found': 'Dette link omtales ikke andre steder.',
+  'fabric.linking.related_links_view_related_urls': 'Vis nylige links',
   'fabric.linking.request_access': 'Anmod om adgang',
   'fabric.linking.request_access_description':
     'Dit team bruger {product} til at samarbejde. Send din administrator en anmodning om adgang.',

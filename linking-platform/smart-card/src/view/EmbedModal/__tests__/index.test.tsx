@@ -12,14 +12,20 @@ import * as jestExtendedMatchers from 'jest-extended';
 import { IntlProvider } from 'react-intl-next';
 import uuid from 'uuid';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { flushPromises } from '@atlaskit/link-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
+import { ActionName } from '../../../index';
 import { messages } from '../../../messages';
 import * as ufo from '../../../state/analytics/ufoExperiences';
 import { useSmartLinkAnalytics } from '../../../state/analytics/useSmartLinkAnalytics';
+import type { InvokeClientActionProps } from '../../../state/hooks/use-invoke-client-action/types';
 import * as utils from '../../../utils';
-import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
+import { context } from '../../../utils/analytics';
+import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 import { mocks } from '../../../utils/mocks';
 import { MAX_MODAL_SIZE } from '../constants';
 import EmbedModal from '../index';
@@ -31,7 +37,10 @@ jest.mock('uuid', () => ({
 }));
 jest.mock('@atlaskit/link-provider', () => ({
 	useSmartLinkContext: () => ({
-		store: { getState: () => ({ 'test-url': mocks.analytics }) },
+		store: {
+			getState: () => ({ 'test-url': mocks.analytics }),
+			subscribe: jest.fn(),
+		},
 	}),
 }));
 
@@ -43,14 +52,13 @@ const EXPERIENCE_TEST_ID = 'smart-link-action-invocation';
 const EXPECTED_COMMON_ATTRIBUTES = {
 	componentName: 'smart-cards',
 	definitionId: 'spaghetti-id',
+	destinationObjectType: 'spaghetti-resource',
 	destinationProduct: 'spaghetti-product',
 	destinationSubproduct: 'spaghetti-subproduct',
 	extensionKey: 'spaghetti-key',
-	location: 'test-location',
 	packageName: '@product/platform',
 	packageVersion: '0.0.0',
 	resourceType: 'spaghetti-resource',
-	destinationObjectType: 'spaghetti-resource',
 };
 
 const ThrowError = () => {
@@ -67,11 +75,44 @@ describe('EmbedModal', () => {
 	const location = 'test-location';
 	const spy = jest.fn();
 
+	const mockAnalyticsClient = {
+		sendUIEvent: jest.fn().mockResolvedValue(undefined),
+		sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+		sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+		sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+	} satisfies AnalyticsWebClient;
+
+	const invokeViewAction: InvokeClientActionProps = {
+		actionFn: jest.fn().mockResolvedValue(undefined),
+		actionSubjectId: 'shortcutGoToLink',
+		actionType: 'ViewAction',
+		definitionId: 'spaghetti-id',
+		display: 'embedPreview',
+		extensionKey: 'spaghetti-key',
+		id: 'test-id',
+		resourceType: 'spaghetti-resource',
+	};
+
+	const invokeDownloadAction: InvokeClientActionProps = {
+		actionFn: jest.fn().mockResolvedValue(undefined),
+		actionSubjectId: 'downloadDocument',
+		actionType: ActionName.DownloadAction,
+		definitionId: 'spaghetti-id',
+		display: 'embedPreview',
+		extensionKey: 'spaghetti-key',
+		id: 'test-id',
+		resourceType: 'spaghetti-resource',
+	};
+
 	const wrapper: RenderOptions['wrapper'] = ({ children }) => (
 		<IntlProvider locale="en">
-			<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
-				{children}
-			</AnalyticsListener>
+			<FabricAnalyticsListeners client={mockAnalyticsClient}>
+				<AnalyticsContext data={{ attributes: context }}>
+					<SmartLinkAnalyticsContext url="test-url" id={id}>
+						{children}
+					</SmartLinkAnalyticsContext>
+				</AnalyticsContext>
+			</FabricAnalyticsListeners>
 		</IntlProvider>
 	);
 
@@ -81,9 +122,12 @@ describe('EmbedModal', () => {
 		incomingProps?: Partial<React.ComponentProps<typeof EmbedModal>>;
 	}): JSX.Element => {
 		const analyticsEvents = useSmartLinkAnalytics('test-url', id, location);
+		const { fireEvent } = useAnalyticsEvents();
+
 		return (
 			<EmbedModal
-				extensionKey="object-provider"
+				extensionKey="spaghetti-key"
+				fireEvent={fireEvent}
 				iframeName="iframe-name"
 				onClose={() => {}}
 				showModal={true}
@@ -204,94 +248,153 @@ describe('EmbedModal', () => {
 			expectModalMaxSize(modal);
 		});
 
-		describe('with url button', () => {
-			it('renders url button', async () => {
-				renderEmbedModal({
-					url: 'https://link-url',
+		ffTest.off('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg off', () => {
+			describe('with url button', () => {
+				it('renders url button', async () => {
+					renderEmbedModal({
+						url: 'https://link-url',
+					});
+					const button = await screen.findByTestId(`${testId}-url-button`);
+					expect(button).toBeInTheDocument();
+
+					await userEvent.hover(button);
+
+					expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
+
+					const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
+					expect(tooltip.textContent).toBe(messages.viewOriginal.defaultMessage);
 				});
-				const button = await screen.findByTestId(`${testId}-url-button`);
-				expect(button).toBeInTheDocument();
 
-				await userEvent.hover(button);
+				it('renders url button with provider name', async () => {
+					renderEmbedModal({
+						providerName: 'Confluence',
+						url: 'https://link-url',
+					});
+					const button = await screen.findByTestId(`${testId}-url-button`);
 
-				expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
+					await userEvent.hover(button);
+					expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
 
-				const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
-				expect(tooltip.textContent).toBe(messages.viewOriginal.defaultMessage);
+					const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
+					expect(tooltip).toHaveTextContent('View in Confluence');
+				});
+
+				it('trigger open url when clicking url button', async () => {
+					const openUrlSpy = jest.spyOn(utils, 'openUrl');
+					renderEmbedModal({
+						url: 'https://link-url',
+					});
+					const button = await screen.findByTestId(`${testId}-url-button`);
+					await user.click(button);
+					await flushPromises();
+
+					expect(openUrlSpy).toHaveBeenCalledTimes(1);
+				});
+
+				it('does not render url button when url is not provided', () => {
+					renderEmbedModal();
+					const button = screen.queryByTestId(`${testId}-url-button`);
+					expect(button).not.toBeInTheDocument();
+				});
 			});
 
-			it('renders url button with provider name', async () => {
-				renderEmbedModal({
-					providerName: 'Confluence',
-					url: 'https://link-url',
+			describe('with download button', () => {
+				it('renders download button', async () => {
+					renderEmbedModal({
+						download: 'https://download-url',
+					});
+					const button = await screen.findByTestId(`${testId}-download-button`);
+					expect(button).toBeInTheDocument();
+
+					await userEvent.hover(button);
+					expect(await screen.findByTestId(`${testId}-download-tooltip`)).toBeInTheDocument();
+
+					const tooltip = await screen.findByTestId(`${testId}-download-tooltip`);
+					expect(tooltip.textContent).toBe(messages.download.defaultMessage);
 				});
-				const button = await screen.findByTestId(`${testId}-url-button`);
 
-				await userEvent.hover(button);
-				expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
+				it('triggers download when clicking download button', async () => {
+					const downloadUrlSpy = jest.spyOn(utils, 'downloadUrl');
+					const url = 'https://download-url';
+					renderEmbedModal({
+						download: url,
+					});
+					const button = await screen.findByTestId(`${testId}-download-button`);
 
-				const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
-				expect(tooltip).toHaveTextContent('View in Confluence');
-			});
+					await userEvent.hover(button);
+					expect(await screen.findByTestId(`${testId}-download-tooltip`)).toBeInTheDocument();
 
-			it('trigger open url when clicking url button', async () => {
-				const openUrlSpy = jest.spyOn(utils, 'openUrl');
-				renderEmbedModal({
-					url: 'https://link-url',
+					const tooltip = await screen.findByTestId(`${testId}-download-tooltip`);
+					expect(tooltip.textContent).toBe(messages.download.defaultMessage);
+
+					await user.click(button);
+					await flushPromises();
+
+					expect(downloadUrlSpy).toHaveBeenCalledTimes(1);
 				});
-				const button = await screen.findByTestId(`${testId}-url-button`);
-				await user.click(button);
-				await flushPromises();
 
-				expect(openUrlSpy).toHaveBeenCalledTimes(1);
-			});
-
-			it('does not render url button when url is not provided', () => {
-				renderEmbedModal();
-				const button = screen.queryByTestId(`${testId}-url-button`);
-				expect(button).not.toBeInTheDocument();
+				it('does not render download button when download url is not provided', () => {
+					renderEmbedModal();
+					const button = screen.queryByTestId(`${testId}-download-button`);
+					expect(button).not.toBeInTheDocument();
+				});
 			});
 		});
 
-		describe('with download button', () => {
-			it('renders download button', async () => {
-				renderEmbedModal({
-					download: 'https://download-url',
+		ffTest.on('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg on', () => {
+			describe('with url button', () => {
+				it('renders url button', async () => {
+					renderEmbedModal({ invokeViewAction });
+					const button = await screen.findByTestId(`${testId}-url-button`);
+					expect(button).toBeInTheDocument();
+
+					await userEvent.hover(button);
+
+					expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
+
+					const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
+					expect(tooltip.textContent).toBe(messages.viewOriginal.defaultMessage);
 				});
-				const button = await screen.findByTestId(`${testId}-download-button`);
-				expect(button).toBeInTheDocument();
 
-				await userEvent.hover(button);
-				expect(await screen.findByTestId(`${testId}-download-tooltip`)).toBeInTheDocument();
+				it('renders url button with provider name', async () => {
+					renderEmbedModal({
+						invokeViewAction,
+						providerName: 'Confluence',
+					});
+					const button = await screen.findByTestId(`${testId}-url-button`);
 
-				const tooltip = await screen.findByTestId(`${testId}-download-tooltip`);
-				expect(tooltip.textContent).toBe(messages.download.defaultMessage);
+					await userEvent.hover(button);
+					expect(await screen.findByTestId(`${testId}-url-tooltip`)).toBeInTheDocument();
+
+					const tooltip = await screen.findByTestId(`${testId}-url-tooltip`);
+					expect(tooltip).toHaveTextContent('View in Confluence');
+				});
+
+				it('does not render url button when url is not provided', () => {
+					renderEmbedModal();
+					const button = screen.queryByTestId(`${testId}-url-button`);
+					expect(button).not.toBeInTheDocument();
+				});
 			});
 
-			it('triggers download when clicking download button', async () => {
-				const downloadUrlSpy = jest.spyOn(utils, 'downloadUrl');
-				const url = 'https://download-url';
-				renderEmbedModal({
-					download: url,
+			describe('with download button', () => {
+				it('renders download button', async () => {
+					renderEmbedModal({ invokeDownloadAction });
+					const button = await screen.findByTestId(`${testId}-download-button`);
+					expect(button).toBeInTheDocument();
+
+					await userEvent.hover(button);
+					expect(await screen.findByTestId(`${testId}-download-tooltip`)).toBeInTheDocument();
+
+					const tooltip = await screen.findByTestId(`${testId}-download-tooltip`);
+					expect(tooltip.textContent).toBe(messages.download.defaultMessage);
 				});
-				const button = await screen.findByTestId(`${testId}-download-button`);
 
-				await userEvent.hover(button);
-				expect(await screen.findByTestId(`${testId}-download-tooltip`)).toBeInTheDocument();
-
-				const tooltip = await screen.findByTestId(`${testId}-download-tooltip`);
-				expect(tooltip.textContent).toBe(messages.download.defaultMessage);
-
-				await user.click(button);
-				await flushPromises();
-
-				expect(downloadUrlSpy).toHaveBeenCalledTimes(1);
-			});
-
-			it('does not render download button when download url is not provided', () => {
-				renderEmbedModal();
-				const button = screen.queryByTestId(`${testId}-download-button`);
-				expect(button).not.toBeInTheDocument();
+				it('does not render download button when download url is not provided', () => {
+					renderEmbedModal();
+					const button = screen.queryByTestId(`${testId}-download-button`);
+					expect(button).not.toBeInTheDocument();
+				});
 			});
 		});
 	});
@@ -322,50 +425,42 @@ describe('EmbedModal', () => {
 
 			await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
 
-			expect(spy).toHaveBeenCalledTimes(2);
-			expect(spy).toHaveBeenNthCalledWith(
+			expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenNthCalledWith(
 				1,
 				expect.objectContaining({
-					payload: {
-						action: 'viewed',
-						actionSubject: 'embedPreviewModal',
-						name: 'embedPreviewModal',
-						attributes: {
-							...EXPECTED_COMMON_ATTRIBUTES,
-							id,
-							origin: 'smartLinkPreviewHoverCard',
-							size: 'large',
-						},
-						eventType: 'screen',
-					},
+					action: 'viewed',
+					actionSubject: 'embedPreviewModal',
+					attributes: expect.objectContaining({
+						...EXPECTED_COMMON_ATTRIBUTES,
+						id,
+						origin: 'smartLinkPreviewHoverCard',
+						size: 'large',
+					}),
+					tags: ['media'],
 				}),
-				ANALYTICS_CHANNEL,
 			);
-			expect(spy).toHaveBeenLastCalledWith(
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith(
 				expect.objectContaining({
-					payload: {
-						action: 'renderSuccess',
-						actionSubject: 'smartLink',
-						attributes: {
-							id,
-							componentName: 'smart-cards',
-							definitionId: 'spaghetti-id',
-							display: 'embedPreview',
-							destinationProduct: 'spaghetti-product',
-							destinationSubproduct: 'spaghetti-subproduct',
-							extensionKey: 'spaghetti-key',
-							location,
-							packageName: expect.any(String),
-							packageVersion: expect.any(String),
-							resourceType: 'spaghetti-resource',
-							destinationObjectType: 'spaghetti-resource',
-							status: 'resolved',
-							canBeDatasource: false,
-						},
-						eventType: 'ui',
-					},
+					action: 'renderSuccess',
+					actionSubject: 'smartLink',
+					attributes: expect.objectContaining({
+						id,
+						componentName: 'smart-cards',
+						definitionId: 'spaghetti-id',
+						display: 'embedPreview',
+						destinationProduct: 'spaghetti-product',
+						destinationSubproduct: 'spaghetti-subproduct',
+						extensionKey: 'spaghetti-key',
+						location,
+						packageName: expect.any(String),
+						packageVersion: expect.any(String),
+						resourceType: 'spaghetti-resource',
+						destinationObjectType: 'spaghetti-resource',
+						status: 'resolved',
+						canBeDatasource: false,
+					}),
+					tags: ['media'],
 				}),
-				ANALYTICS_CHANNEL,
 			);
 		});
 
@@ -377,23 +472,19 @@ describe('EmbedModal', () => {
 			});
 
 			await waitFor(() => expect(onOpenFailed).toHaveBeenCalledTimes(1));
-			expect(spy).toHaveBeenCalledTimes(1);
-			expect(spy).toHaveBeenCalledWith(
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
-					payload: {
-						action: 'renderFailed',
-						actionSubject: 'smartLink',
-						attributes: {
-							...EXPECTED_COMMON_ATTRIBUTES,
-							id,
-							display: 'embedPreview',
-							error: expect.any(Object),
-							errorInfo: expect.any(Object),
-						},
-						eventType: 'ui',
-					},
+					action: 'renderFailed',
+					actionSubject: 'smartLink',
+					attributes: expect.objectContaining({
+						...EXPECTED_COMMON_ATTRIBUTES,
+						id,
+						display: 'embedPreview',
+						error: expect.any(Object),
+						errorInfo: expect.any(Object),
+					}),
+					tags: ['media'],
 				}),
-				ANALYTICS_CHANNEL,
 			);
 		});
 
@@ -411,23 +502,20 @@ describe('EmbedModal', () => {
 			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
 
 			expect(onClose).toHaveBeenCalledTimes(1);
-			expect(spy).toHaveBeenLastCalledWith(
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith(
 				expect.objectContaining({
-					payload: {
-						action: 'closed',
-						actionSubject: 'modal',
-						actionSubjectId: 'embedPreview',
-						attributes: {
-							...EXPECTED_COMMON_ATTRIBUTES,
-							id,
-							origin: 'smartLinkCard',
-							previewTime: expect.any(Number),
-							size: 'large',
-						},
-						eventType: 'ui',
-					},
+					action: 'closed',
+					actionSubject: 'modal',
+					actionSubjectId: 'embedPreview',
+					attributes: expect.objectContaining({
+						...EXPECTED_COMMON_ATTRIBUTES,
+						id,
+						origin: 'smartLinkCard',
+						previewTime: expect.any(Number),
+						size: 'large',
+					}),
+					tags: ['media'],
 				}),
-				ANALYTICS_CHANNEL,
 			);
 		});
 
@@ -441,161 +529,155 @@ describe('EmbedModal', () => {
 			const button = await screen.findByTestId(`${testId}-resize-button`);
 			await user.click(button);
 
-			expect(spy).toHaveBeenCalledWith(
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
-					payload: {
-						action: 'clicked',
-						actionSubject: 'button',
-						actionSubjectId: 'embedPreviewResize',
-						attributes: {
-							...EXPECTED_COMMON_ATTRIBUTES,
-							id,
-							newSize: 'small',
-							origin: 'smartLinkCard',
-							previousSize: 'large',
-						},
-						eventType: 'ui',
-					},
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'embedPreviewResize',
+					attributes: expect.objectContaining({
+						...EXPECTED_COMMON_ATTRIBUTES,
+						id,
+						newSize: 'small',
+						origin: 'smartLinkCard',
+						previousSize: 'large',
+					}),
+					tags: ['media'],
 				}),
-				ANALYTICS_CHANNEL,
 			);
 			expect(onResize).toHaveBeenCalledTimes(1);
 		});
 
-		it('dispatches analytics event on open url on a new tab', async () => {
-			const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
-			const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
-			uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
+		ffTest.both('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg', () => {
+			it('dispatches analytics event on open url on a new tab', async () => {
+				const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
+				const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
+				uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
 
-			renderEmbedModal({
-				url: 'https://link-url',
-			});
+				renderEmbedModal({ invokeViewAction, url: 'https://link-url' });
 
-			// Wait for stable and clear all ufo experience calls right before act.
-			await screen.findByTestId(testId);
-			await flushPromises();
-			ufoStartSpy.mockReset();
-			ufoSucceedSpy.mockReset();
+				// Wait for stable and clear all ufo experience calls right before act.
+				await screen.findByTestId(testId);
+				await flushPromises();
+				ufoStartSpy.mockReset();
+				ufoSucceedSpy.mockReset();
 
-			const button = await screen.findByTestId(`${testId}-url-button`);
-			await user.click(button);
-			await flushPromises();
+				const button = await screen.findByTestId(`${testId}-url-button`);
+				await user.click(button);
+				await flushPromises();
 
-			expect(spy).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: {
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
 						action: 'clicked',
 						actionSubject: 'button',
 						actionSubjectId: 'shortcutGoToLink',
-						attributes: {
+						attributes: expect.objectContaining({
 							...EXPECTED_COMMON_ATTRIBUTES,
 							id,
 							actionType: 'ViewAction',
 							display: 'embedPreview',
-						},
-						eventType: 'ui',
-					},
-				}),
-				ANALYTICS_CHANNEL,
-			);
-			expect(spy).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: {
+						}),
+						tags: ['media'],
+					}),
+				);
+				expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
 						action: 'resolved',
 						actionSubject: 'smartLinkAction',
-						attributes: {
+						attributes: expect.objectContaining({
 							...EXPECTED_COMMON_ATTRIBUTES,
 							id,
 							actionType: 'ViewAction',
 							display: 'embedPreview',
-						},
-						eventType: 'operational',
+						}),
+						tags: ['media'],
+					}),
+				);
+
+				expect(ufoStartSpy).toHaveBeenCalledTimes(1);
+				expect(ufoStartSpy).toHaveBeenCalledWith(
+					'smart-link-action-invocation',
+					EXPERIENCE_TEST_ID,
+					{
+						actionType: 'ViewAction',
+						display: 'embedPreview',
+						extensionKey: 'spaghetti-key',
+						invokeType: 'client',
 					},
-				}),
-				ANALYTICS_CHANNEL,
-			);
-
-			expect(ufoStartSpy).toHaveBeenCalledTimes(1);
-			expect(ufoStartSpy).toHaveBeenCalledWith('smart-link-action-invocation', EXPERIENCE_TEST_ID, {
-				actionType: 'ViewAction',
-				display: 'embedPreview',
-				extensionKey: 'object-provider',
-				invokeType: 'client',
-			});
-			expect(ufoSucceedSpy).toHaveBeenCalledTimes(1);
-			expect(ufoSucceedSpy).toHaveBeenCalledWith(
-				'smart-link-action-invocation',
-				EXPERIENCE_TEST_ID,
-			);
-			expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
-		});
-
-		it('dispatches analytics event on download url', async () => {
-			const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
-			const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
-			uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
-			const url = 'https://download-url';
-
-			renderEmbedModal({
-				download: url,
+				);
+				expect(ufoSucceedSpy).toHaveBeenCalledTimes(1);
+				expect(ufoSucceedSpy).toHaveBeenCalledWith(
+					'smart-link-action-invocation',
+					EXPERIENCE_TEST_ID,
+				);
+				expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
 			});
 
-			// Wait for stable and clear all ufo experience calls right before act.
-			await screen.findByTestId(testId);
-			await flushPromises();
-			ufoStartSpy.mockReset();
-			ufoSucceedSpy.mockReset();
+			it('dispatches analytics event on download url', async () => {
+				const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
+				const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');
+				uuid.mockReturnValueOnce(EXPERIENCE_TEST_ID);
+				const url = 'https://download-url';
 
-			const button = await screen.findByTestId(`${testId}-download-button`);
-			await user.click(button);
-			await flushPromises();
+				renderEmbedModal({
+					invokeDownloadAction,
+					download: url,
+				});
 
-			expect(spy).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: {
+				// Wait for stable and clear all ufo experience calls right before act.
+				await screen.findByTestId(testId);
+				await flushPromises();
+				ufoStartSpy.mockReset();
+				ufoSucceedSpy.mockReset();
+
+				const button = await screen.findByTestId(`${testId}-download-button`);
+				await user.click(button);
+				await flushPromises();
+
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
 						action: 'clicked',
 						actionSubject: 'button',
 						actionSubjectId: 'downloadDocument',
-						attributes: {
+						attributes: expect.objectContaining({
 							...EXPECTED_COMMON_ATTRIBUTES,
 							id,
 							actionType: 'DownloadAction',
 							display: 'embedPreview',
-						},
-						eventType: 'ui',
-					},
-				}),
-				ANALYTICS_CHANNEL,
-			);
-			expect(spy).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: {
+						}),
+						tags: ['media'],
+					}),
+				);
+				expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
 						action: 'resolved',
 						actionSubject: 'smartLinkAction',
-						attributes: {
+						attributes: expect.objectContaining({
 							...EXPECTED_COMMON_ATTRIBUTES,
 							id,
 							actionType: 'DownloadAction',
 							display: 'embedPreview',
-						},
-						eventType: 'operational',
+						}),
+						tags: ['media'],
+					}),
+				);
+				expect(ufoStartSpy).toHaveBeenCalledTimes(1);
+				expect(ufoStartSpy).toHaveBeenCalledWith(
+					'smart-link-action-invocation',
+					EXPERIENCE_TEST_ID,
+					{
+						actionType: 'DownloadAction',
+						display: 'embedPreview',
+						extensionKey: 'spaghetti-key',
+						invokeType: 'client',
 					},
-				}),
-				ANALYTICS_CHANNEL,
-			);
-			expect(ufoStartSpy).toHaveBeenCalledTimes(1);
-			expect(ufoStartSpy).toHaveBeenCalledWith('smart-link-action-invocation', EXPERIENCE_TEST_ID, {
-				actionType: 'DownloadAction',
-				display: 'embedPreview',
-				extensionKey: 'object-provider',
-				invokeType: 'client',
+				);
+				expect(ufoSucceedSpy).toHaveBeenCalledTimes(1);
+				expect(ufoSucceedSpy).toHaveBeenCalledWith(
+					'smart-link-action-invocation',
+					EXPERIENCE_TEST_ID,
+				);
+				expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
 			});
-			expect(ufoSucceedSpy).toHaveBeenCalledTimes(1);
-			expect(ufoSucceedSpy).toHaveBeenCalledWith(
-				'smart-link-action-invocation',
-				EXPERIENCE_TEST_ID,
-			);
-			expect(ufoStartSpy).toHaveBeenCalledBefore(ufoSucceedSpy as jest.Mock);
 		});
 	});
 });

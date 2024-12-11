@@ -10,9 +10,12 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { di } from 'react-magnetic-di';
 
 import { withAnalyticsEvents } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CardDisplay } from '../../constants';
-import { useSmartLinkAnalytics } from '../../state/analytics';
+import { useSmartLinkAnalytics } from '../../state';
+import { failUfoExperience, startUfoExperience } from '../../state/analytics';
 import { SmartLinkModalProvider } from '../../state/modal';
 
 import { HoverCardComponent } from './components/HoverCardComponent';
@@ -20,6 +23,7 @@ import { type HoverCardInternalProps, type HoverCardProps } from './types';
 
 const HoverCardWithErrorBoundary = (props: HoverCardProps & HoverCardInternalProps) => {
 	di(HoverCardComponent);
+	const { fireEvent } = useAnalyticsEvents();
 
 	const { url, id, children } = props;
 
@@ -27,14 +31,26 @@ const HoverCardWithErrorBoundary = (props: HoverCardProps & HoverCardInternalPro
 
 	const onError = useCallback(
 		(error: Error, info: ErrorInfo) => {
-			analytics.ui.renderFailedEvent({
-				display: CardDisplay.HoverCardPreview,
-				id,
-				error,
-				errorInfo: info,
-			});
+			if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
+				startUfoExperience('smart-link-rendered', id || 'NULL');
+				failUfoExperience('smart-link-rendered', id || 'NULL');
+				failUfoExperience('smart-link-authenticated', id || 'NULL');
+				fireEvent('ui.smartLink.renderFailed', {
+					display: CardDisplay.HoverCardPreview,
+					id: id ?? null,
+					error: error as any,
+					errorInfo: info as any,
+				});
+			} else {
+				analytics.ui.renderFailedEvent({
+					display: CardDisplay.HoverCardPreview,
+					id,
+					error,
+					errorInfo: info,
+				});
+			}
 		},
-		[analytics.ui, id],
+		[analytics.ui, id, fireEvent],
 	);
 
 	return (

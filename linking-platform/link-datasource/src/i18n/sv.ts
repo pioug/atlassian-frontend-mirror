@@ -85,6 +85,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Vi stötte på ett problem när vi försökte slutföra uppdateringen. Vänta några minuter och försök sedan igen. Kontakta supporten om detta fortsätter att hända.',
   'linkDataSource.issue-line-table.error-generic-title': 'Något gick fel',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Vänta några minuter och försök sedan igen. Kontrollera projektinställningarna eller kontakta support om detta fortsätter att hända.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Vi har problem med att hämta alternativ',
   'linkDataSource.issue-line-table.unwrap-text': 'Radbryt inte text',
   'linkDataSource.issue-line-table.wrap-text': 'Radbryt text',
   'linkDataSource.checkConnectionWithSource':

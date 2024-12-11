@@ -17,12 +17,13 @@ import { css, jsx } from '@emotion/react';
 import { isValid, parseISO } from 'date-fns';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import { IconButton } from '@atlaskit/button/new';
 import { useId } from '@atlaskit/ds-lib/use-id';
 import CalendarIconNew from '@atlaskit/icon/core/migration/calendar';
 import CalendarIconOld from '@atlaskit/icon/glyph/calendar';
 import { createLocalizationProvider, type LocalizationProvider } from '@atlaskit/locale';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Pressable, xcss } from '@atlaskit/primitives';
+import { Box, xcss } from '@atlaskit/primitives';
 import Select, {
 	type ActionMeta,
 	type DropdownIndicatorProps,
@@ -33,7 +34,6 @@ import Select, {
 	type OptionType,
 } from '@atlaskit/select';
 import { token } from '@atlaskit/tokens';
-import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { EmptyComponent } from '../internal';
 import {
@@ -111,21 +111,6 @@ const iconSpacingWithoutClearButtonStylesNew = xcss({
 
 const iconSpacingWithoutClearButtonStyles = xcss({
 	marginInlineEnd: 'space.025',
-});
-
-const calendarButtonFixedSizeStyles = xcss({
-	width: `${32 / 14}em`,
-	height: `${32 / 14}em`,
-});
-
-const calendarButtonStyles = xcss({
-	borderRadius: 'border.radius',
-	':hover': {
-		backgroundColor: 'color.background.neutral.subtle.hovered',
-	},
-	':active': {
-		backgroundColor: 'color.background.neutral.subtle.pressed',
-	},
 });
 /**
  * __Date picker__
@@ -566,7 +551,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 
 	// `label` takes precedence of the `inputLabel`
 	const fullopenCalendarLabel =
-		label || inputLabel ? `${label || inputLabel} , ${openCalendarLabel}` : openCalendarLabel;
+		label || inputLabel ? `${label || inputLabel}, ${openCalendarLabel}` : openCalendarLabel;
 	const openCalendarLabelId = `open-calendar-label--${useId()}`;
 
 	return (
@@ -661,32 +646,25 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 								: iconSpacingWithoutClearButtonStyles,
 					]}
 				>
-					{inputLabelId && (
-						<VisuallyHidden id={openCalendarLabelId}>, {openCalendarLabel}</VisuallyHidden>
-					)}
-					<Pressable
-						{...(inputLabelId
-							? { 'aria-labelledby': `${inputLabelId} ${openCalendarLabelId}` }
-							: { 'aria-label': fullopenCalendarLabel })}
+					<IconButton
+						appearance="subtle"
+						label={!inputLabelId ? fullopenCalendarLabel : openCalendarLabel}
+						aria-labelledby={inputLabelId ? `${inputLabelId} ${openCalendarLabelId}` : undefined}
+						id={openCalendarLabelId}
+						icon={(iconProps) => (
+							<CalendarIcon
+								{...iconProps}
+								// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+								{...(fg('platform-visual-refresh-icon-ads-migration')
+									? { color: token('color.icon') }
+									: { primaryColor: token('color.icon') })}
+							/>
+						)}
 						onClick={onCalendarButtonClick}
 						onKeyDown={onCalendarButtonKeyDown}
 						ref={calendarButtonRef}
 						testId={testId && `${testId}--open-calendar-button`}
-						type="button"
-						backgroundColor="color.background.neutral.subtle"
-						padding={fg('platform-visual-refresh-icon-ads-migration') ? 'space.0' : 'space.050'}
-						xcss={[
-							calendarButtonStyles,
-							fg('platform-visual-refresh-icon-ads-migration') && calendarButtonFixedSizeStyles,
-						]}
-					>
-						<CalendarIcon
-							label=""
-							{...(fg('platform-visual-refresh-icon-ads-migration')
-								? { color: token('color.icon') }
-								: { primaryColor: token('color.icon') })}
-						/>
-					</Pressable>
+					/>
 				</Box>
 			) : null}
 		</div>

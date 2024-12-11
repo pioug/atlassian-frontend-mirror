@@ -236,6 +236,7 @@ const primaryItems = [
 const JiraIntegrationExample = () => (
 	<Fragment>
 		<AtlassianNavigation
+			testId="atlassian-navigation"
 			label="site"
 			moreLabel="More"
 			primaryItems={primaryItems}

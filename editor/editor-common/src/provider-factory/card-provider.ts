@@ -1,4 +1,4 @@
-import type { CardAdf, DatasourceAdf } from '@atlaskit/smart-card';
+import type { CardAdf, DatasourceAdf } from '@atlaskit/linking-common';
 
 export type CardAppearance = 'inline' | 'block' | 'embed';
 

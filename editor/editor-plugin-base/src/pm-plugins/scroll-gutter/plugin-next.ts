@@ -12,6 +12,7 @@ const GUTTER_SELECTOR_NAME = 'editor-scroll-gutter';
 function createGutter(gutterSize: number, parent: HTMLElement | null) {
 	const gutter = document.createElement('div');
 	gutter.style.paddingBottom = `${gutterSize}px`;
+	gutter.setAttribute('data-vc', 'scroll-gutter');
 	gutter.id = GUTTER_SELECTOR_NAME;
 
 	if (parent) {

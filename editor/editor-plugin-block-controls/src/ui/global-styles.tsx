@@ -206,7 +206,6 @@ const globalDnDStyle = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
 		'[data-layout-content]': {
 			userDrag: 'none',
-			userSelect: 'none',
 		},
 	},
 });

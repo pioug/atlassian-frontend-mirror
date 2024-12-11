@@ -70,14 +70,14 @@ const rule: Rule.RuleModule = {
 				if (
 					node.callee.type === 'Identifier' &&
 					(!targetedFunctionsSwitch.has(node.callee.name) ||
-						!isIdentifierImportedFrom(node.callee.name, IMPORT_SOURCES, context))
+						!isIdentifierImportedFrom(node.callee.name, IMPORT_SOURCES, context, node))
 				) {
 					return;
 				}
 
 				const nameArgument = node.arguments[0];
 				if (nameArgument.type === 'Identifier') {
-					const def = getDef(nameArgument.name, context);
+					const def = getDef(nameArgument.name, context, node);
 					if (def != null && def.type === 'Variable') {
 						const { value } = def.node.init as any;
 

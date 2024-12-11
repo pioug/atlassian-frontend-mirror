@@ -3,7 +3,7 @@ import React, { type MouseEvent } from 'react';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
-import { handleClickCommon } from '../../BlockCard/utils/handlers';
+import { handleClickCommon } from '../../common/utils';
 import { type FrameStyle } from '../types';
 
 import {

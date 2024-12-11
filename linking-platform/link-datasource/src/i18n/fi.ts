@@ -86,6 +86,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Päivityksen viimeistelyssä oli ongelma. Yritä hetken päästä uudelleen. Ota yhteyttä tukeen, jos ongelma jatkuu.',
   'linkDataSource.issue-line-table.error-generic-title': 'Jokin meni vikaan',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Yritä hetken päästä uudelleen. Tarkista projektiasetukset tai ota yhteyttä tukeen, jos ongelma jatkuu.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Vaihtoehtojen haussa on ongelma',
   'linkDataSource.issue-line-table.unwrap-text': 'Poista tekstin rivitys',
   'linkDataSource.issue-line-table.wrap-text': 'Rivitä teksti',
   'linkDataSource.checkConnectionWithSource':

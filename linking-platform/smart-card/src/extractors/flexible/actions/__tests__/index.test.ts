@@ -1,5 +1,6 @@
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+import { ActionName, CardAction } from '../../../../index';
 import {
 	TEST_DOCUMENT,
 	TEST_DOCUMENT_WITH_ARI,
@@ -7,21 +8,63 @@ import {
 	TEST_DOCUMENT_WITH_PREVIEW,
 	TEST_DOCUMENT_WITH_VIEW_ACTION,
 	TEST_RESOLVED_META_DATA,
+	TEST_RESPONSE,
+	TEST_RESPONSE_WITH_DOWNLOAD,
+	TEST_RESPONSE_WITH_PREVIEW,
+	TEST_RESPONSE_WITH_PREVIEW_AND_DOWNLOAD,
 } from '../../../common/__mocks__/jsonld';
-import { extractDownloadAction } from '../extract-download-action';
-import { extractPreviewAction } from '../extract-preview-action';
+import { extractCopyLinkAction, extractCopyLinkClientAction } from '../extract-copy-link-action';
+import { extractDownloadAction, extractDownloadClientAction } from '../extract-download-action';
+import { extractPreviewAction, extractPreviewClientAction } from '../extract-preview-action';
 import { extractViewAction } from '../extract-view-action';
 import { extractViewRelatedLinksAction } from '../extract-view-related-links-action';
-import extractActions from '../index';
+import extractActions, { extractFlexibleCardActions } from '../index';
 
 describe('extractors.downloadAction', () => {
-	it('returns an extracted URL for download action', () => {
-		expect(extractDownloadAction(TEST_DOCUMENT_WITH_DOWNLOAD_ACTION)).toStrictEqual({
-			downloadUrl: 'https://my.url.com',
+	describe('extractDownloadAction', () => {
+		it('returns an extracted URL for download action', () => {
+			expect(extractDownloadAction(TEST_DOCUMENT_WITH_DOWNLOAD_ACTION)).toStrictEqual({
+				downloadUrl: 'https://my.url.com',
+			});
+		});
+		it('returns undefined for a document without a download action', () => {
+			expect(extractDownloadAction(TEST_DOCUMENT)).toBe(undefined);
 		});
 	});
-	it('returns undefined for a document without a download action', () => {
-		expect(extractDownloadAction(TEST_DOCUMENT)).toBe(undefined);
+
+	describe('extractDownloadClientAction', () => {
+		it('returns an extracted URL for download action', () => {
+			const action = extractDownloadClientAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_DOWNLOAD,
+			});
+			expect(action?.invokeAction?.actionFn).toBeDefined();
+			expect(action?.invokeAction?.actionType).toBe(ActionName.DownloadAction);
+		});
+
+		it('returns undefined for a document without a download action', () => {
+			const action = extractDownloadClientAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE,
+			});
+			expect(action).toBeUndefined();
+		});
+
+		it('does not return download action if excluded', () => {
+			const action = extractDownloadClientAction({
+				actionOptions: {
+					hide: false,
+					exclude: [CardAction.DownloadAction],
+				},
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_DOWNLOAD,
+			});
+
+			expect(action).toBeUndefined();
+		});
 	});
 });
 
@@ -37,50 +80,120 @@ describe('extractors.viewAction', () => {
 });
 
 describe('extractors.previewAction', () => {
-	it('returns an extracted URL for preview action', () => {
-		expect(
-			extractPreviewAction({
-				data: TEST_DOCUMENT_WITH_PREVIEW,
-				meta: TEST_RESOLVED_META_DATA,
-			}),
-		).toEqual({
-			downloadUrl: undefined,
-			isSupportTheming: false,
-			isTrusted: true,
-			linkIcon: { label: 'my name', url: 'https://my.url.com', render: undefined },
-			providerName: undefined,
-			src: 'https://my.url.com',
-			title: 'my name',
-			url: 'https://my.url.com',
+	describe('extractPreviewAction', () => {
+		it('returns an extracted URL for preview action', () => {
+			expect(
+				extractPreviewAction({
+					data: TEST_DOCUMENT_WITH_PREVIEW,
+					meta: TEST_RESOLVED_META_DATA,
+				}),
+			).toEqual({
+				downloadUrl: undefined,
+				isSupportTheming: false,
+				isTrusted: true,
+				linkIcon: { label: 'my name', url: 'https://my.url.com', render: undefined },
+				providerName: undefined,
+				src: 'https://my.url.com',
+				title: 'my name',
+				url: 'https://my.url.com',
+			});
+		});
+		it('returns an extracted URL with download for a preview action', () => {
+			expect(
+				extractPreviewAction({
+					data: {
+						...TEST_DOCUMENT_WITH_PREVIEW,
+						...TEST_DOCUMENT_WITH_DOWNLOAD_ACTION,
+					},
+					meta: TEST_RESOLVED_META_DATA,
+				}),
+			).toEqual({
+				downloadUrl: 'https://my.url.com',
+				isSupportTheming: false,
+				isTrusted: true,
+				linkIcon: { label: 'my name', url: 'https://my.url.com', render: undefined },
+				providerName: undefined,
+				src: 'https://my.url.com',
+				title: 'my name',
+				url: 'https://my.url.com',
+			});
+		});
+		it('returns undefined for a document without a preview action', () => {
+			expect(
+				extractPreviewAction({
+					data: TEST_DOCUMENT,
+					meta: TEST_RESOLVED_META_DATA,
+				}),
+			).toBe(undefined);
 		});
 	});
-	it('returns an extracted URL with download for a preview action', () => {
-		expect(
-			extractPreviewAction({
-				data: {
-					...TEST_DOCUMENT_WITH_PREVIEW,
-					...TEST_DOCUMENT_WITH_DOWNLOAD_ACTION,
+
+	describe('extractPreviewClientAction', () => {
+		it('returns an extracted URL for preview action', () => {
+			const action = extractPreviewClientAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+			});
+
+			expect(action?.invokeAction?.actionFn).toBeDefined();
+			expect(action?.invokeAction?.actionType).toBe(ActionName.PreviewAction);
+		});
+
+		it('does not return preview action if excluded', () => {
+			const action = extractPreviewClientAction({
+				actionOptions: {
+					hide: false,
+					exclude: [CardAction.PreviewAction],
 				},
-				meta: TEST_RESOLVED_META_DATA,
-			}),
-		).toEqual({
-			downloadUrl: 'https://my.url.com',
-			isSupportTheming: false,
-			isTrusted: true,
-			linkIcon: { label: 'my name', url: 'https://my.url.com', render: undefined },
-			providerName: undefined,
-			src: 'https://my.url.com',
-			title: 'my name',
-			url: 'https://my.url.com',
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE_WITH_PREVIEW,
+			});
+			expect(action).toBeUndefined();
+		});
+
+		it('returns undefined for a document without a preview action', () => {
+			const action = extractPreviewClientAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE,
+			});
+			expect(action).toBeUndefined();
 		});
 	});
-	it('returns undefined for a document without a preview action', () => {
-		expect(
-			extractPreviewAction({
-				data: TEST_DOCUMENT,
-				meta: TEST_RESOLVED_META_DATA,
-			}),
-		).toBe(undefined);
+});
+
+describe('extractors.copyLinkAction', () => {
+	describe('extractCopyLinkAction', () => {
+		it('returns an extracted URL for copy link action', () => {
+			expect(extractCopyLinkAction(TEST_DOCUMENT)).toEqual({ url: 'https://my.url.com' });
+		});
+	});
+	describe('extractCopyLinkClientAction', () => {
+		it('returns a copy link action', () => {
+			const action = extractCopyLinkClientAction({
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE,
+			});
+
+			expect(action?.invokeAction?.actionFn).toBeDefined();
+			expect(action?.invokeAction?.actionType).toBe(ActionName.CopyLinkAction);
+		});
+
+		it('does not return preview action if excluded', () => {
+			const action = extractCopyLinkClientAction({
+				actionOptions: {
+					hide: false,
+					exclude: [CardAction.CopyLinkAction],
+				},
+				appearance: 'block',
+				id: 'test-id',
+				response: TEST_RESPONSE,
+			});
+			expect(action).toBeUndefined();
+		});
 	});
 });
 
@@ -118,6 +231,59 @@ describe('extractors.viewRelatedLinks', () => {
 		).toBeUndefined();
 	});
 });
+
+describe('extractFlexibleCardActions', () => {
+	it('extracts client actions', () => {
+		const actions = extractFlexibleCardActions({
+			response: TEST_RESPONSE_WITH_PREVIEW_AND_DOWNLOAD,
+		});
+
+		expect(actions).toEqual({
+			CopyLinkAction: {
+				invokeAction: expect.objectContaining({
+					actionFn: expect.any(Function),
+					actionType: ActionName.CopyLinkAction,
+				}),
+			},
+			DownloadAction: {
+				invokeAction: expect.objectContaining({
+					actionFn: expect.any(Function),
+					actionType: ActionName.DownloadAction,
+				}),
+			},
+			PreviewAction: {
+				invokeAction: expect.objectContaining({
+					actionFn: expect.any(Function),
+					actionType: ActionName.PreviewAction,
+				}),
+			},
+		});
+	});
+
+	describe('ViewRelatedLinksAction', () => {
+		const meta = {
+			...TEST_RESOLVED_META_DATA,
+			supportedFeature: ['RelatedLinks'],
+		};
+		ffTest(
+			'platform-smart-card-view-related-urls-action',
+			/** Should return ViewRelatedLinksAction with url when FF is true*/
+			() => {
+				expect(
+					extractActions({ data: TEST_DOCUMENT_WITH_ARI, meta })?.ViewRelatedLinksAction,
+				).toEqual({
+					ari: TEST_DOCUMENT_WITH_ARI['atlassian:ari'],
+				});
+			},
+			() => {
+				expect(
+					extractActions({ data: TEST_DOCUMENT_WITH_ARI, meta })?.ViewRelatedLinksAction,
+				).toBeUndefined();
+			},
+		);
+	});
+});
+
 describe('extractActions', () => {
 	describe('ViewRelatedLinksAction', () => {
 		const meta = {

@@ -27,7 +27,7 @@ const validateCallExpression = (
 	const shouldWarn =
 		callee.type === 'Identifier' &&
 		targetedFunctionsSwitch.has(callee.name) &&
-		isAPIimport(callee.name, context);
+		isAPIimport(callee.name, context, node);
 
 	if (shouldWarn) {
 		const defDeclaration = findDefinitionDeclaration(node.parent);

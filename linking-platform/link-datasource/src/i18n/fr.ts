@@ -86,6 +86,10 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Nous avons rencontré un problème lors de la tentative de mise à jour. Patientez quelques minutes, puis réessayez. Contactez le support si le problème persiste.',
   'linkDataSource.issue-line-table.error-generic-title': "Une erreur s'est produite",
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Patientez quelques minutes, puis réessayez. Vérifiez les paramètres de votre projet ou contactez le support si le problème persiste.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title':
+    'Nous rencontrons des difficultés pour récupérer les options',
   'linkDataSource.issue-line-table.unwrap-text': 'Ne pas revenir à la ligne',
   'linkDataSource.issue-line-table.wrap-text': 'Revenir à la ligne',
   'linkDataSource.checkConnectionWithSource':

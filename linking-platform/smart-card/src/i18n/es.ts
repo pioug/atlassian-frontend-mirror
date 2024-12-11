@@ -46,7 +46,7 @@ export default {
     'Aplica una automatización a <b>{name}</b>.{br}Las selecciones disponibles están controladas por Confluence y los administradores del espacio.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Automatizaciones de páginas',
   'fabric.linking.automation-action.icon.label': 'Icono de automatización',
-  'fabric.linking.automation-action.title': 'Ver reglas de automatización...',
+  'fabric.linking.automation-action.title': 'Ver reglas de automatización',
   'fabric.linking.automation-action.tooltip': 'Selecciona una regla de automatización que ejecutar',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Cancelar',
@@ -88,10 +88,10 @@ export default {
   'fabric.linking.download_file': 'Descargar archivo',
   'fabric.linking.edit': 'Editar',
   'fabric.linking.follow': 'Seguir',
-  'fabric.linking.follow_goal': 'Seguir objetivo',
-  'fabric.linking.follow_goal_description': 'Sigue este objetivo para recibir notificaciones de las actualizaciones',
+  'fabric.linking.follow_goal': 'Seguir fin',
+  'fabric.linking.follow_goal_description': 'Sigue este fin para recibir notificaciones de las actualizaciones',
   'fabric.linking.follow_goal_error':
-    'Se ha producido un error al intentar seguir el objetivo. Comprueba tu conexión o actualiza la página y vuelve a intentarlo.',
+    'Se ha producido un error al intentar seguir el fin. Comprueba tu conexión o actualiza la página y vuelve a intentarlo.',
   'fabric.linking.follow_project': 'Seguir proyecto',
   'fabric.linking.follow_project_description': 'Sigue para recibir notificaciones de este proyecto',
   'fabric.linking.follow_project_error':
@@ -105,7 +105,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Deberás solicitar el acceso o probar con otra cuenta para obtener esta vista previa.',
   'fabric.linking.join_to_view': 'Únete a {context} para ver esta incidencia',
-  'fabric.linking.last_mentioned_in': 'Última mención en',
   'fabric.linking.learn_more_about_connecting_account':
     'Obtén más información sobre cómo conectar tu cuenta a los productos de Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Más información sobre los enlaces inteligentes.',
@@ -150,8 +149,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'No hemos encontrado ningún enlace para mostrar aquí. Revisamos y añadimos continuamente enlaces recientes de las páginas actualizadas u otros tipos de contenido.',
   'fabric.linking.related_links_not_found': 'No hemos encontrado ningún enlace que mostrar aquí.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Consultar enlaces recientes...',
-  'fabric.linking.related_work_items_not_found': 'Este enlace no se menciona en ningún otro sitio.',
+  'fabric.linking.related_links_view_related_urls': 'Consultar enlaces recientes',
   'fabric.linking.request_access': 'Solicitar acceso',
   'fabric.linking.request_access_description':
     'Tu equipo utiliza {product} para colaborar. Envía al administrador una solicitud para poder acceder.',
@@ -183,10 +181,10 @@ export default {
   'fabric.linking.unauthorised_account_name': 'No podemos mostrar las páginas privadas de {context}',
   'fabric.linking.unauthorised_account_name_no_provider': 'No podemos mostrar páginas privadas',
   'fabric.linking.unfollow': 'Dejar de seguir',
-  'fabric.linking.unfollow_goal': 'Dejar de seguir objetivo',
-  'fabric.linking.unfollow_goal_description': 'Deja de seguir para no recibir más notificaciones de este objetivo',
+  'fabric.linking.unfollow_goal': 'Dejar de seguir fin',
+  'fabric.linking.unfollow_goal_description': 'Deja de seguir para no recibir más notificaciones de este fin',
   'fabric.linking.unfollow_goal_error':
-    'Se ha producido un error al intentar dejar de seguir el objetivo. Comprueba tu conexión o actualiza la página y vuelve a intentarlo.',
+    'Se ha producido un error al intentar dejar de seguir el fin. Comprueba tu conexión o actualiza la página y vuelve a intentarlo.',
   'fabric.linking.unfollow_project': 'Dejar de seguir proyecto',
   'fabric.linking.unfollow_project_description': 'Deja de seguir para no recibir más notificaciones del proyecto',
   'fabric.linking.unfollow_project_error':

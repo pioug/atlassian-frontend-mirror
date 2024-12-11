@@ -5,9 +5,13 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import { type CardProviderStoreOpts } from '@atlaskit/link-provider';
+import {
+	type CardProviderStoreOpts,
+	CardClient as Client,
+	SmartCardProvider as Provider,
+} from '@atlaskit/link-provider';
 
-import { Card, Client, Provider } from '../../src';
+import { Card } from '../../src';
 import { mockSSRResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

@@ -48,7 +48,7 @@ export default {
     'Wenden Sie eine Automatisierung auf <b>{name}</b> an.{br}Die verfügbaren Auswahlen werden von Confluence- und Bereichsadministratoren gesteuert.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Seitenautomatisierungen',
   'fabric.linking.automation-action.icon.label': 'Symbol: Automatisierung',
-  'fabric.linking.automation-action.title': 'Automatisierungsregeln anzeigen ...',
+  'fabric.linking.automation-action.title': 'Automatisierungsregeln anzeigen',
   'fabric.linking.automation-action.tooltip': 'Wählen Sie eine Automatisierungsregel aus, die ausgeführt werden soll.',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Abbrechen',
@@ -109,7 +109,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Bitte senden Sie eine Zugriffsanfrage oder versuchen Sie, die Vorschau über ein anderes Konto anzusehen.',
   'fabric.linking.join_to_view': '{context} beitreten, um diesen Vorgang anzuzeigen',
-  'fabric.linking.last_mentioned_in': 'Zuletzt erwähnt in',
   'fabric.linking.learn_more_about_connecting_account':
     'Weitere Informationen zum Verbinden Ihres Kontos mit Atlassian-Produkten',
   'fabric.linking.learn_more_about_smart_links': 'Mehr über intelligente Links erfahren',
@@ -155,8 +154,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Es wurden keine Links zum Anzeigen gefunden. Die zuletzt aufgerufenen Links werden fortlaufend auf aktualisierte Seiten oder andere Inhaltstypen geprüft und ggf. hinzugefügt.',
   'fabric.linking.related_links_not_found': 'Es wurden keine Links zum Anzeigen gefunden.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Letzte Verknüpfungen anzeigen …',
-  'fabric.linking.related_work_items_not_found': 'Dieser Link wird nirgendwo sonst erwähnt.',
+  'fabric.linking.related_links_view_related_urls': 'Letzte Links anzeigen',
   'fabric.linking.request_access': 'Zugriff anfordern',
   'fabric.linking.request_access_description':
     'Ihr Team verwendet {product} zur Zusammenarbeit. Senden Sie Ihrem Administrator eine Zugriffsanfrage.',

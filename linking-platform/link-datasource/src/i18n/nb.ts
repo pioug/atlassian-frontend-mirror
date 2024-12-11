@@ -85,6 +85,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Vi hadde et problem med å fullføre oppdateringen. Vent noen minutter og prøv på nytt. Kontakt støtte hvis dette vedvarer.',
   'linkDataSource.issue-line-table.error-generic-title': 'Det oppstod en feil',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Vent noen minutter og prøv på nytt. Sjekk prosjektinnstillingene, eller kontakt støtte hvis dette vedvarer.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Vi har problemer med å hente alternativer',
   'linkDataSource.issue-line-table.unwrap-text': 'Fjern linjebryting',
   'linkDataSource.issue-line-table.wrap-text': 'Legg til linjebryting',
   'linkDataSource.checkConnectionWithSource':

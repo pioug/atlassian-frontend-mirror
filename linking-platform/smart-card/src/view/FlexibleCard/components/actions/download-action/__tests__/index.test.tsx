@@ -7,8 +7,10 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
+import * as useInvokeClientAction from '../../../../../../state/hooks/use-invoke-client-action';
 import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import DownloadAction from '../index';
 import { type DownloadActionProps } from '../types';
@@ -45,6 +47,22 @@ describe('DownloadAction', () => {
 		const element = await screen.findByTestId(testId);
 		expect(element).toBeInTheDocument();
 		expect(element).toHaveTextContent('Download file');
+	});
+
+	ffTest.both('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg', () => {
+		it('invokes action', async () => {
+			const invoke = jest.fn();
+			const spy = jest.spyOn(useInvokeClientAction, 'default').mockReturnValue(invoke);
+
+			setup();
+
+			const element = await screen.findByTestId(testId);
+			await userEvent.click(element);
+
+			expect(invoke).toHaveBeenCalledTimes(1);
+
+			spy.mockRestore();
+		});
 	});
 
 	describe('with tooltip', () => {

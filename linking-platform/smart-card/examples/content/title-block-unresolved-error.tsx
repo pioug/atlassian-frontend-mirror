@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { Card, Client, Provider, TitleBlock } from '../../src';
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+
+import { Card, TitleBlock } from '../../src';
 
 import { url } from './example-responses';
 

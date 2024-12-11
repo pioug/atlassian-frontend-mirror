@@ -46,7 +46,7 @@ export default {
     'Примените автоматизацию к странице <b>{name}</b>.{br}Доступные варианты контролируются администраторами Confluence и администраторами раздела.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Автоматизации для страниц',
   'fabric.linking.automation-action.icon.label': 'Значок автоматизации',
-  'fabric.linking.automation-action.title': 'Просмотреть правила автоматизации…',
+  'fabric.linking.automation-action.title': 'Просмотреть правила автоматизации',
   'fabric.linking.automation-action.tooltip': 'Выбрать правило автоматизации для запуска',
   'fabric.linking.beta': 'Бета-версия',
   'fabric.linking.cancel': 'Отмена',
@@ -107,7 +107,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Для предварительного просмотра этого элемента запросите право доступа или попробуйте воспользоваться другим аккаунтом.',
   'fabric.linking.join_to_view': 'Для просмотра этой задачи выполните подключение к {context}',
-  'fabric.linking.last_mentioned_in': 'Последнее упоминание',
   'fabric.linking.learn_more_about_connecting_account': 'Подробнее о подключении аккаунта к продуктам Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Подробнее об интеллектуальных ссылках.',
   'fabric.linking.link_safety_warning_message':
@@ -151,8 +150,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Ссылки для отображения не найдены. Мы постоянно проверяем и добавляем недавние ссылки на обновленные страницы и другие типы контента.',
   'fabric.linking.related_links_not_found': 'Ссылки для отображения не найдены.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Просмотреть недавние ссылки…',
-  'fabric.linking.related_work_items_not_found': 'Эта ссылка больше нигде не упоминается.',
+  'fabric.linking.related_links_view_related_urls': 'Просмотреть недавние ссылки',
   'fabric.linking.request_access': 'Запросить доступ',
   'fabric.linking.request_access_description':
     'Ваша команда использует {product} для совместной работы. Запросите у администратора доступ.',

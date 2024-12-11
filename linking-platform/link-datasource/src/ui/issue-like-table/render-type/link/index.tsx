@@ -5,10 +5,7 @@ import { Card } from '@atlaskit/smart-card';
 import { HoverCard } from '@atlaskit/smart-card/hover-card';
 import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N300 } from '@atlaskit/theme/colors';
-import { h300 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
-
-import { fieldTextFontSize } from '../../styled';
 
 interface LinkProps extends Link {
 	testId?: string;
@@ -16,9 +13,9 @@ interface LinkProps extends Link {
 
 const linkStyles = {
 	key: {
-		...h300(),
+		fontWeight: token('font.weight.semibold'),
 		color: token('color.text.subtlest', N300),
-		fontWeight: 600,
+		marginTop: token('space.250'),
 	},
 	default: {},
 };
@@ -35,8 +32,10 @@ const LinkRenderType = ({ style, url, text, testId = LINK_TYPE_TEST_ID }: LinkPr
 			<HoverCard url={url}>
 				<LinkUrl
 					href={url}
+					// NOTE: This will no longer apply styles to `@atlaskit/link` when platform_editor_hyperlink_underline is enabled.
+					// Wrap `@atlaskit/link` in a Text component to provide font styles to Link
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					style={{ ...linkStyle, fontSize: fieldTextFontSize }}
+					style={{ ...linkStyle }}
 					data-testid={testId}
 					target="_blank"
 				>

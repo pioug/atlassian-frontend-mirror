@@ -1,5 +1,8 @@
 import { type ErrorInfo } from 'react';
 
+import { type FireEventFunction } from '../../common/analytics/types';
+import { type Icon } from '../../state/flexible-ui-context/types';
+import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
 import { type IconProps } from '../common/Icon';
 
 import { type WithAnalytics } from './components/analytics/types';
@@ -16,15 +19,25 @@ export type EmbedModalContext = {
 
 export type EmbedModalProps = {
 	/* A download link - if it is provided, the download button will be shown */
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
 	download?: string;
+	/* A function to dispatch analytics event */
+	fireEvent?: FireEventFunction;
 	/* This should be the icon of the provider, which will be displayed to the left of the title */
+	/* TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics */
 	icon?: IconProps;
+	/* A download link action to invoke with useInvokeClientAction */
+	invokeDownloadAction?: InvokeClientActionProps;
+	/* An open link action to invoke with useInvokeClientAction */
+	invokeViewAction?: InvokeClientActionProps;
 	/* The name of the iframe, if you need that for an external reference */
 	iframeName: string;
 	/* A flag that determines whether link source can be trusted in iframe */
 	isTrusted?: boolean;
 	// /* It determines whether a link source supports different design theme modes */
 	isSupportTheming?: boolean;
+	/* A link icon */
+	linkIcon?: Icon;
 	/* Add responses to the modal being closed */
 	onClose: (context: EmbedModalContext) => void;
 	/* Called once the modal has finished opening - things such as dropbox want

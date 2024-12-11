@@ -8,16 +8,15 @@ import { type JsonLd } from 'json-ld-types';
 import { IntlProvider } from 'react-intl-next';
 
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
 import {
 	ActionName,
 	Card,
-	Client,
 	type ElementItem,
 	ElementName,
 	PreviewBlock,
-	Provider,
 	SmartLinkPosition,
 	SmartLinkSize,
 	SmartLinkTheme,

@@ -4,10 +4,15 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
+import { type JsonLd } from 'json-ld-types';
 
-import { type CardProviderStoreOpts } from '@atlaskit/link-provider';
+import {
+	type CardProviderStoreOpts,
+	CardClient as Client,
+	SmartCardProvider as Provider,
+} from '@atlaskit/link-provider';
 
-import { Card, Client, Provider, type ResolveResponse } from '../../src';
+import { Card } from '../../src';
 import {
 	mockConfluenceResponse,
 	mockSSRResponse,
@@ -17,7 +22,7 @@ import VRTestWrapper from '../utils/vr-test-wrapper';
 class CustomLoadingClient extends Client {
 	async fetchData(url: string) {
 		await new Promise(() => {});
-		return Promise.resolve(mockConfluenceResponse as ResolveResponse);
+		return Promise.resolve(mockConfluenceResponse as JsonLd.Response);
 	}
 }
 

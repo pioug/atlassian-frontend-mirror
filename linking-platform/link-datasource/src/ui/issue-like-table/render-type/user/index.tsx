@@ -17,15 +17,12 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { WidthObserver } from '@atlaskit/width-detector';
 
-import { fieldTextFontSize } from '../../styled';
-
 import { userTypeMessages } from './messages';
 
 const userWrapperStyles = xcss({
 	display: 'flex',
 	alignItems: 'center',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: `${fieldTextFontSize}px`,
+	font: 'font.body',
 });
 
 const avatarWrapperStyles = xcss({

@@ -3,10 +3,9 @@ import * as testMocks from '../../use-resolve/__tests__/index.test.mock';
 
 import { renderHook } from '@testing-library/react-hooks';
 
-import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import { APIError, type CardState } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers';
-import { type CardContext } from '@atlaskit/smart-card';
 
 import { mocks } from '../../../../utils/mocks';
 import useResponse from '../index';

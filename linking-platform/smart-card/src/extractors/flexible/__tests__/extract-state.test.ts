@@ -1,8 +1,10 @@
 import type { JsonLd } from 'json-ld-types';
 
 import { SmartLinkActionType } from '@atlaskit/linking-types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import jiraTask from '../../../__fixtures__/jira-task';
+import { ActionName } from '../../../index';
 import extractState from '../extract-state';
 
 describe('extractState', () => {
@@ -182,68 +184,110 @@ describe('extractState', () => {
 			expect(state?.action).toBeUndefined();
 		});
 
-		it('does not return preview data inside the action when preview is not provided in response', () => {
-			const state = extractState(
-				response([
-					{
-						'@type': 'UpdateAction',
-						name: 'UpdateAction',
-						dataUpdateAction: {
-							'@type': 'UpdateAction',
-							name: SmartLinkActionType.StatusUpdateAction,
-						},
-						refField: 'tag',
-						resourceIdentifiers,
-					},
-				]),
-				{ hide: false },
-				id,
-			);
+		ffTest.both(
+			'platform-smart-card-migrate-embed-modal-analytics',
+			'with analytics fg on and off',
+			() => {
+				it('does not return preview data inside the action when preview is not provided in response', () => {
+					const state = extractState(
+						response([
+							{
+								'@type': 'UpdateAction',
+								name: 'UpdateAction',
+								dataUpdateAction: {
+									'@type': 'UpdateAction',
+									name: SmartLinkActionType.StatusUpdateAction,
+								},
+								refField: 'tag',
+								resourceIdentifiers,
+							},
+						]),
+						{ hide: false },
+						id,
+					);
 
-			expect(state?.action).toBeDefined();
-			expect(state?.action?.update?.details).toEqual({
-				id,
-				url,
+					expect(state?.action).toBeDefined();
+					expect(state?.action?.update?.details).toEqual({
+						id,
+						url,
+					});
+				});
+			},
+		);
+
+		ffTest.on('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg on', () => {
+			it('returns preview data inside the action when preview is provided in response', () => {
+				const state = extractState(
+					response(
+						[
+							{
+								'@type': 'UpdateAction',
+								name: 'UpdateAction',
+								dataUpdateAction: {
+									'@type': 'UpdateAction',
+									name: SmartLinkActionType.StatusUpdateAction,
+								},
+								refField: 'tag',
+								resourceIdentifiers,
+							},
+						],
+						previewData,
+					),
+					{ hide: false },
+					id,
+				);
+
+				expect(state?.action).toBeDefined();
+				expect(state?.action?.update?.details).toEqual({
+					id,
+					url,
+					invokePreviewAction: expect.objectContaining({
+						actionFn: expect.any(Function),
+						actionType: ActionName.PreviewAction,
+					}),
+				});
 			});
 		});
 
-		it('returns preview data inside the action when preview is provided in response', () => {
-			const state = extractState(
-				response(
-					[
-						{
-							'@type': 'UpdateAction',
-							name: 'UpdateAction',
-							dataUpdateAction: {
+		ffTest.off('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg off', () => {
+			it('returns preview data inside the action when preview is provided in response', () => {
+				const state = extractState(
+					response(
+						[
+							{
 								'@type': 'UpdateAction',
-								name: SmartLinkActionType.StatusUpdateAction,
+								name: 'UpdateAction',
+								dataUpdateAction: {
+									'@type': 'UpdateAction',
+									name: SmartLinkActionType.StatusUpdateAction,
+								},
+								refField: 'tag',
+								resourceIdentifiers,
 							},
-							refField: 'tag',
-							resourceIdentifiers,
-						},
-					],
-					previewData,
-				),
-				{ hide: false },
-				id,
-			);
+						],
+						previewData,
+					),
+					{ hide: false },
+					id,
+				);
 
-			expect(state?.action).toBeDefined();
-			expect(state?.action?.update?.details).toEqual({
-				id,
-				url,
-				previewData: {
-					isSupportTheming: true,
-					isTrusted: true,
-					linkIcon: {
-						url: 'https://icon-url',
-						label: 'Flexible UI Task',
-					},
-					providerName: 'Jira',
-					src: 'https://jira-url/browse/id',
-					title: 'Flexible UI Task',
+				expect(state?.action).toBeDefined();
+				expect(state?.action?.update?.details).toEqual({
+					id,
 					url,
-				},
+					previewData: {
+						isSupportTheming: true,
+						isTrusted: true,
+						linkIcon: {
+							url: 'https://icon-url',
+							label: 'Flexible UI Task',
+						},
+						providerName: 'Jira',
+						src: 'https://jira-url/browse/id',
+						title: 'Flexible UI Task',
+						url,
+					},
+				});
 			});
 		});
 

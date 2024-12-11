@@ -4,11 +4,11 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { type JsonLd } from 'json-ld-types';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { CardClient } from '@atlaskit/link-provider';
+import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { Provider } from '../../../index';
 import { ChunkLoadError } from '../../../utils/__tests__/index.test';
 import * as analytics from '../../../utils/analytics';
 import { mocks } from '../../../utils/mocks';
@@ -18,9 +18,7 @@ import * as lazyComponent from '../../CardWithUrl/component-lazy';
 mockSimpleIntersectionObserver();
 
 jest.mock('react-lazily-render', () => (data: any) => data.content);
-
 jest.mock('react-transition-group/Transition', () => (data: any) => data.children);
-
 jest.mock('../../../utils/analytics/analytics');
 
 describe('smart-card: error analytics', () => {
@@ -28,6 +26,13 @@ describe('smart-card: error analytics', () => {
 	let mockUrl: string;
 	const mockedLazyComponent = jest.spyOn(lazyComponent, 'default');
 	let consoleErrorFn: jest.SpyInstance;
+	const mockAnalyticsClient = {
+		sendUIEvent: jest.fn().mockResolvedValue(undefined),
+		sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+		sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+		sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+	} satisfies AnalyticsWebClient;
+
 	beforeEach(() => {
 		mockWindowOpen = jest.fn();
 		mockUrl = 'https://my.url';
@@ -52,13 +57,8 @@ describe('smart-card: error analytics', () => {
 				);
 			}
 		}
+
 		const client = new MockClient();
-		const mockAnalyticsClient = {
-			sendUIEvent: jest.fn().mockResolvedValue(undefined),
-			sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
-			sendTrackEvent: jest.fn().mockResolvedValue(undefined),
-			sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-		} satisfies AnalyticsWebClient;
 		render(
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<Provider client={client}>
@@ -99,13 +99,8 @@ describe('smart-card: error analytics', () => {
 				);
 			}
 		}
+
 		const client = new MockClient();
-		const mockAnalyticsClient = {
-			sendUIEvent: jest.fn().mockResolvedValue(undefined),
-			sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
-			sendTrackEvent: jest.fn().mockResolvedValue(undefined),
-			sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-		} satisfies AnalyticsWebClient;
 		render(
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<Provider client={client}>
@@ -142,12 +137,7 @@ describe('smart-card: error analytics', () => {
 				);
 			}
 		}
-		const mockAnalyticsClient = {
-			sendUIEvent: jest.fn().mockResolvedValue(undefined),
-			sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
-			sendTrackEvent: jest.fn().mockResolvedValue(undefined),
-			sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-		} satisfies AnalyticsWebClient;
+
 		const client = new MockClient();
 		const onError = jest.fn();
 		render(
@@ -187,13 +177,8 @@ describe('smart-card: error analytics', () => {
 				);
 			}
 		}
+
 		const client = new MockClient();
-		const mockAnalyticsClient = {
-			sendUIEvent: jest.fn().mockResolvedValue(undefined),
-			sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
-			sendTrackEvent: jest.fn().mockResolvedValue(undefined),
-			sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-		} satisfies AnalyticsWebClient;
 		render(
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<Provider client={client}>
@@ -234,13 +219,8 @@ describe('smart-card: error analytics', () => {
 				);
 			}
 		}
+
 		const client = new MockClient();
-		const mockAnalyticsClient = {
-			sendUIEvent: jest.fn().mockResolvedValue(undefined),
-			sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
-			sendTrackEvent: jest.fn().mockResolvedValue(undefined),
-			sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-		} satisfies AnalyticsWebClient;
 		render(
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<Provider client={client}>
@@ -282,13 +262,8 @@ describe('smart-card: error analytics', () => {
 				);
 			}
 		}
+
 		const client = new MockClient();
-		const mockAnalyticsClient = {
-			sendUIEvent: jest.fn().mockResolvedValue(undefined),
-			sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
-			sendTrackEvent: jest.fn().mockResolvedValue(undefined),
-			sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-		} satisfies AnalyticsWebClient;
 		render(
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<Provider client={client}>
@@ -330,14 +305,9 @@ describe('smart-card: error analytics', () => {
 				);
 			}
 		}
+
 		const client = new MockClient();
 		const onError = jest.fn();
-		const mockAnalyticsClient = {
-			sendUIEvent: jest.fn().mockResolvedValue(undefined),
-			sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
-			sendTrackEvent: jest.fn().mockResolvedValue(undefined),
-			sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-		} satisfies AnalyticsWebClient;
 		render(
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<Provider client={client}>
@@ -375,7 +345,7 @@ describe('smart-card: error analytics', () => {
 		);
 	});
 
-	it('should render with current data on unexpected err', async () => {
+	describe('should render with current data on unexpected err', () => {
 		class MockClient extends CardClient {
 			async fetchData(url: string): Promise<JsonLd.Response> {
 				throw new APIError(
@@ -386,60 +356,112 @@ describe('smart-card: error analytics', () => {
 				);
 			}
 		}
-		const client = new MockClient();
-		const onError = jest.fn();
-		const mockAnalyticsClient = {
-			sendUIEvent: jest.fn().mockResolvedValue(undefined),
-			sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
-			sendTrackEvent: jest.fn().mockResolvedValue(undefined),
-			sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-		} satisfies AnalyticsWebClient;
 
-		render(
-			<FabricAnalyticsListeners client={mockAnalyticsClient}>
-				<Provider
-					client={client}
-					storeOptions={{
-						initialState: {
-							[mockUrl]: {
-								status: 'resolved' as const,
-								details: mocks.success,
-							},
-						},
-					}}
-				>
-					<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
-				</Provider>
-			</FabricAnalyticsListeners>,
-		);
-		const resolvedView = await screen.findByTestId('erroredLink-resolved-view');
+		ffTest(
+			'platform-smart-card-migrate-embed-modal-analytics',
+			async () => {
+				const client = new MockClient();
+				const onError = jest.fn();
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<Provider
+							client={client}
+							storeOptions={{
+								initialState: {
+									[mockUrl]: {
+										status: 'resolved' as const,
+										details: mocks.success,
+									},
+								},
+							}}
+						>
+							<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
+						</Provider>
+					</FabricAnalyticsListeners>,
+				);
+				const resolvedView = await screen.findByTestId('erroredLink-resolved-view');
+				const resolvedCard = screen.getByRole('button');
+				expect(resolvedView).toBeTruthy();
+				expect(resolvedCard).toBeTruthy();
+				expect(onError).not.toHaveBeenCalled();
+				expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						actionSubject: 'smartLink',
+						action: 'resolved',
+						attributes: expect.objectContaining({
+							id: expect.any(String),
+							status: 'resolved',
+							extensionKey: 'object-provider',
+							definitionId: 'd1',
+							canBeDatasource: false,
+							duration: null,
+						}),
+					}),
+				);
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'renderSuccess',
+						actionSubject: 'smartLink',
+						attributes: expect.objectContaining({
+							display: 'inline',
+							status: 'resolved',
+							definitionId: 'd1',
+							extensionKey: 'object-provider',
+							canBeDatasource: false,
+						}),
+					}),
+				);
+			},
+			async () => {
+				const client = new MockClient();
+				const onError = jest.fn();
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<Provider
+							client={client}
+							storeOptions={{
+								initialState: {
+									[mockUrl]: {
+										status: 'resolved' as const,
+										details: mocks.success,
+									},
+								},
+							}}
+						>
+							<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
+						</Provider>
+					</FabricAnalyticsListeners>,
+				);
+				const resolvedView = await screen.findByTestId('erroredLink-resolved-view');
 
-		const resolvedCard = screen.getByRole('button');
-		expect(resolvedView).toBeTruthy();
-		expect(resolvedCard).toBeTruthy();
-		expect(onError).not.toHaveBeenCalled();
-		expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-			expect.objectContaining({
-				actionSubject: 'smartLink',
-				action: 'resolved',
-				attributes: expect.objectContaining({
-					id: expect.any(String),
+				const resolvedCard = screen.getByRole('button');
+				expect(resolvedView).toBeTruthy();
+				expect(resolvedCard).toBeTruthy();
+				expect(onError).not.toHaveBeenCalled();
+				expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						actionSubject: 'smartLink',
+						action: 'resolved',
+						attributes: expect.objectContaining({
+							id: expect.any(String),
+							status: 'resolved',
+							extensionKey: 'object-provider',
+							definitionId: 'd1',
+							canBeDatasource: false,
+							duration: null,
+						}),
+					}),
+				);
+
+				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
+					display: 'inline',
 					status: 'resolved',
-					extensionKey: 'object-provider',
 					definitionId: 'd1',
+					extensionKey: 'object-provider',
 					canBeDatasource: false,
-					duration: null,
-				}),
-			}),
+				});
+			},
 		);
-
-		expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
-			display: 'inline',
-			status: 'resolved',
-			definitionId: 'd1',
-			extensionKey: 'object-provider',
-			canBeDatasource: false,
-		});
 	});
 
 	it('should throw ChunkLoadError and emit chunkLoadFailed event', async () => {
@@ -455,12 +477,6 @@ describe('smart-card: error analytics', () => {
 		});
 		const onError = jest.fn();
 		const client = new MockClient();
-		const mockAnalyticsClient = {
-			sendUIEvent: jest.fn().mockResolvedValue(undefined),
-			sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
-			sendTrackEvent: jest.fn().mockResolvedValue(undefined),
-			sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-		} satisfies AnalyticsWebClient;
 		render(
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<Provider client={client}>

@@ -7,11 +7,11 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { type CardClient } from '@atlaskit/link-provider';
+import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import * as userAgent from '@atlaskit/linking-common/user-agent';
 
-import { Provider, TitleBlock } from '../../../index';
+import { TitleBlock } from '../../../index';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { Card, type CardProps } from '../../Card';
@@ -172,17 +172,6 @@ describe('`link clicked`', () => {
 
 				await user.click(link);
 
-				/**
-				 * Old block cards render links with target blank, causing the link to open in new tab
-				 * This is not the case for inline + embed appearances + block(flexible) when the FF is enabled
-				 */
-				const getTestCaseClickOutcome = () => {
-					if (name === 'legacy block card') {
-						return 'clickThroughNewTabOrWindow';
-					}
-					return 'clickThrough';
-				};
-
 				expect(spy).toBeFiredWithAnalyticEventOnce(
 					{
 						payload: {
@@ -191,7 +180,7 @@ describe('`link clicked`', () => {
 							eventType: 'ui',
 							attributes: {
 								clickType: 'left',
-								clickOutcome: getTestCaseClickOutcome(),
+								clickOutcome: 'clickThrough',
 								defaultPrevented: true,
 								keysHeld: [],
 							},

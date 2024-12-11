@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::050cd99cdd30e3c38674dc47986e3214>>
+ * @codegen <<SignedSource::1e6835b50307a44a077c38d864a2c66e>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -12,7 +12,6 @@ export type PackageMetaDataContextType = {
 };
 export type CommonContextType = {
 	extensionKey: string | null;
-	resourceType: string | null;
 	destinationObjectType: string | null;
 	destinationSubproduct: string | null;
 	destinationProduct: string | null;
@@ -42,9 +41,43 @@ export type ResolvedContextType = {
 	destinationTenantId: string | null;
 	canBeDatasource: boolean | null;
 	location: string | null;
-	resourceType: string | null;
 };
 
+export type ButtonClickedCopyLinkAttributesType = {
+	actionType: string | null;
+	id: string | null;
+	definitionId: string | null;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | null;
+	resourceType: string | null;
+};
+export type ButtonClickedDownloadDocumentAttributesType = {
+	actionType: string | null;
+	id: string | null;
+	definitionId: string | null;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | null;
+	resourceType: string | null;
+};
+export type ButtonClickedInvokePreviewScreenAttributesType = {
+	actionType: string | null;
+	id: string | null;
+	definitionId: string | null;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | null;
+	resourceType: string | null;
+};
+export type ButtonClickedShortcutGoToLinkAttributesType = {
+	actionType: string | null;
+	id: string | null;
+	definitionId: string | null;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | null;
+	resourceType: string | null;
+};
+export type ButtonClickedIssueStatusUpdateAttributesType = {
+	actionType: string | null;
+	id: string | null;
+	definitionId: string | null;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | null;
+	resourceType: string | null;
+};
 export type ButtonClickedAiSummaryAttributesType = {};
 export type ButtonClickedCopySummaryAttributesType = {};
 export type SummaryViewedAttributesType = {
@@ -140,6 +173,23 @@ export type SmartLinkChunkLoadFailedAttributesType = {
 	error: Record<string, unknown>;
 	errorInfo: Record<string, unknown>;
 };
+export type SmartLinkActionResolvedAttributesType = {
+	actionType: string | null;
+	id: string | null;
+	definitionId: string | null;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | null;
+	resourceType: string | null;
+	duration: number | null;
+};
+export type SmartLinkActionUnresolvedAttributesType = {
+	actionType: string | null;
+	id: string | null;
+	definitionId: string | null;
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview' | null;
+	resourceType: string | null;
+	duration: number | null;
+	reason: string | null;
+};
 export type SmartLinkClickedAttributesType = {
 	id: string;
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
@@ -182,8 +232,43 @@ export type ButtonClickedSmartLinkStatusOpenPreviewAttributesType = {};
 export type ButtonClickedSmartLinkFollowButtonAttributesType = {};
 export type ButtonClickedStatusUpdateActionAttributesType = {};
 export type ButtonClickedGetStatusTransitionsActionAttributesType = {};
+export type ButtonClickedEmbedPreviewResizeAttributesType = {
+	newSize: 'large' | 'small';
+	origin:
+		| 'smartLinkCard'
+		| 'smartLinkEmbed'
+		| 'smartLinkInline'
+		| 'smartLinkPreviewHoverCard'
+		| null;
+	previousSize: 'large' | 'small';
+};
+export type SmartLinkRenderSuccessAttributesType = {
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	definitionId: string | null;
+};
+export type SmartLinkRenderFailedAttributesType = {
+	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
+	error: Record<string, unknown>;
+	errorInfo: Record<string, unknown>;
+	id: string | null;
+};
 
 export type AnalyticsEventAttributes = {
+	/**
+	 * Fired when an copy link is clicked */
+	'ui.button.clicked.copyLink': ButtonClickedCopyLinkAttributesType;
+	/**
+	 * Fired when an download is clicked */
+	'ui.button.clicked.downloadDocument': ButtonClickedDownloadDocumentAttributesType;
+	/**
+	 * Fired when an preview is clicked */
+	'ui.button.clicked.invokePreviewScreen': ButtonClickedInvokePreviewScreenAttributesType;
+	/**
+	 * Fired when an view link is clicked */
+	'ui.button.clicked.shortcutGoToLink': ButtonClickedShortcutGoToLinkAttributesType;
+	/**
+	 * fires an event that represents a user clicking on the preview action button */
+	'ui.button.clicked.issueStatusUpdate': ButtonClickedIssueStatusUpdateAttributesType;
 	/**
 	 * fired when an ai summary is clicked */
 	'ui.button.clicked.aiSummary': ButtonClickedAiSummaryAttributesType;
@@ -263,6 +348,12 @@ export type AnalyticsEventAttributes = {
 	 * fires an event that represents when a Smart Link renders unsuccessfully. */
 	'operational.smartLink.chunkLoadFailed': SmartLinkChunkLoadFailedAttributesType;
 	/**
+	 * Fires an event when a Smart Link action is successfully resolved. */
+	'operational.smartLinkAction.resolved': SmartLinkActionResolvedAttributesType;
+	/**
+	 * Fires an event when a Smart Link action is failed to resolved. */
+	'operational.smartLinkAction.unresolved': SmartLinkActionUnresolvedAttributesType;
+	/**
 	 * fires an event that represents when a user clicks on a Smart Link. */
 	'ui.smartLink.clicked': SmartLinkClickedAttributesType;
 	/**
@@ -302,6 +393,15 @@ export type AnalyticsEventAttributes = {
 	'ui.button.clicked.StatusUpdateAction': ButtonClickedStatusUpdateActionAttributesType;
 	/** */
 	'ui.button.clicked.GetStatusTransitionsAction': ButtonClickedGetStatusTransitionsActionAttributesType;
+	/**
+	 * fires an event that represents a user clicking on the resize button in the embed preview */
+	'ui.button.clicked.embedPreviewResize': ButtonClickedEmbedPreviewResizeAttributesType;
+	/**
+	 * fires an event that represents when a Smart Link was rendered successfully (even if the Smart Link errors out) */
+	'ui.smartLink.renderSuccess': SmartLinkRenderSuccessAttributesType;
+	/**
+	 * fires an event that represents when a Smart Link renders unsuccessfully. */
+	'ui.smartLink.renderFailed': SmartLinkRenderFailedAttributesType;
 };
 
 export type EventKey = keyof AnalyticsEventAttributes;

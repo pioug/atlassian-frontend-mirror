@@ -3,6 +3,10 @@ import React from 'react';
 import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
+import { ActionName } from '../../../../../../../../index';
+import * as useInvokeClientAction from '../../../../../../../../state/hooks/use-invoke-client-action';
 import * as useResolve from '../../../../../../../../state/hooks/use-resolve';
 import LozengeActionError from '../index';
 import { LozengeActionErrorMessages, type LozengeActionErrorProps } from '../types';
@@ -131,76 +135,102 @@ describe('LozengeActionError', () => {
 		expect(errorMessage).toHaveStyleDeclaration('-webkit-line-clamp', MAX_LINE_NUMBER.toString());
 	});
 
-	it('opens an preview modal on error link click', async () => {
-		renderComponent({
-			errorMessage: TEXT_ERROR_MESSAGE,
-			previewData,
-			url,
+	ffTest.on('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg', () => {
+		it('invokes preview action', async () => {
+			const invoke = jest.fn();
+			const spy = jest.spyOn(useInvokeClientAction, 'default').mockReturnValue(invoke);
+
+			renderComponent({
+				errorMessage: TEXT_ERROR_MESSAGE,
+				invokePreviewAction: { actionFn: jest.fn(), actionType: ActionName.PreviewAction },
+				url,
+			});
+
+			// make sure an error link is present
+			const link = await screen.findByTestId(`${testId}-open-embed`);
+			expect(link).toBeDefined();
+			expect(link).toHaveTextContent('Open issue in Jira');
+
+			link.click();
+
+			expect(invoke).toHaveBeenCalledTimes(1);
+
+			spy.mockRestore();
 		});
-
-		// make sure an error link is present
-		const link = await screen.findByTestId(`${testId}-open-embed`);
-		expect(link).toBeDefined();
-		expect(link).toHaveTextContent('Open issue in Jira');
-
-		link.click();
-
-		const previewModal = await screen.findByTestId('smart-embed-preview-modal');
-		expect(previewModal).toBeDefined();
 	});
 
-	it('reloads the link on preview modal close', async () => {
-		const mockReload = jest.fn();
-		renderComponent(
-			{
+	ffTest.off('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg', () => {
+		it('opens an preview modal on error link click', async () => {
+			renderComponent({
 				errorMessage: TEXT_ERROR_MESSAGE,
 				previewData,
 				url,
-			},
-			mockReload,
-		);
+			});
 
-		// make sure an error link is present
-		const link = await screen.findByTestId(`${testId}-open-embed`);
-		expect(link).toBeDefined();
-		expect(link).toHaveTextContent('Open issue in Jira');
+			// make sure an error link is present
+			const link = await screen.findByTestId(`${testId}-open-embed`);
+			expect(link).toBeDefined();
+			expect(link).toHaveTextContent('Open issue in Jira');
 
-		link.click();
+			link.click();
 
-		// make sure the preview modal is present
-		const previewModal = await screen.findByTestId('smart-embed-preview-modal');
-		expect(previewModal).toBeDefined();
-
-		const closeButton = await screen.findByTestId('smart-embed-preview-modal-close-button');
-		expect(closeButton).toBeDefined();
-		closeButton.click();
-
-		await waitForElementToBeRemoved(() => screen.queryByTestId('smart-embed-preview-modal'));
-		expect(mockReload).toHaveBeenCalledWith(url, true);
-	});
-
-	it('fires button clicked event with smartLinkStatusOpenPreview subject id when an embed preview is open', async () => {
-		renderComponent({
-			errorMessage: TEXT_ERROR_MESSAGE,
-			previewData,
-			url,
+			const previewModal = await screen.findByTestId('smart-embed-preview-modal');
+			expect(previewModal).toBeDefined();
 		});
 
-		// make sure an error link is present
-		const link = await screen.findByTestId(`${testId}-open-embed`);
-		expect(link).toBeDefined();
-		expect(link).toHaveTextContent('Open issue in Jira');
+		it('reloads the link on preview modal close', async () => {
+			const mockReload = jest.fn();
+			renderComponent(
+				{
+					errorMessage: TEXT_ERROR_MESSAGE,
+					previewData,
+					url,
+				},
+				mockReload,
+			);
 
-		link.click();
+			// make sure an error link is present
+			const link = await screen.findByTestId(`${testId}-open-embed`);
+			expect(link).toBeDefined();
+			expect(link).toHaveTextContent('Open issue in Jira');
 
-		// make sure the preview modal is present
-		const previewModal = await screen.findByTestId('smart-embed-preview-modal');
-		expect(previewModal).toBeDefined();
+			link.click();
 
-		const closeButton = await screen.findByTestId('smart-embed-preview-modal-close-button');
-		expect(closeButton).toBeDefined();
-		closeButton.click();
+			// make sure the preview modal is present
+			const previewModal = await screen.findByTestId('smart-embed-preview-modal');
+			expect(previewModal).toBeDefined();
 
-		expect(mockSmartLinkLozengeOpenPreviewClickedEvent).toHaveBeenCalledTimes(1);
+			const closeButton = await screen.findByTestId('smart-embed-preview-modal-close-button');
+			expect(closeButton).toBeDefined();
+			closeButton.click();
+
+			await waitForElementToBeRemoved(() => screen.queryByTestId('smart-embed-preview-modal'));
+			expect(mockReload).toHaveBeenCalledWith(url, true);
+		});
+
+		it('fires button clicked event with smartLinkStatusOpenPreview subject id when an embed preview is open', async () => {
+			renderComponent({
+				errorMessage: TEXT_ERROR_MESSAGE,
+				previewData,
+				url,
+			});
+
+			// make sure an error link is present
+			const link = await screen.findByTestId(`${testId}-open-embed`);
+			expect(link).toBeDefined();
+			expect(link).toHaveTextContent('Open issue in Jira');
+
+			link.click();
+
+			// make sure the preview modal is present
+			const previewModal = await screen.findByTestId('smart-embed-preview-modal');
+			expect(previewModal).toBeDefined();
+
+			const closeButton = await screen.findByTestId('smart-embed-preview-modal-close-button');
+			expect(closeButton).toBeDefined();
+			closeButton.click();
+
+			expect(mockSmartLinkLozengeOpenPreviewClickedEvent).toHaveBeenCalledTimes(1);
+		});
 	});
 });

@@ -1,5 +1,27 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.0.0
+
+### Major Changes
+
+- [#176646](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176646)
+  [`9612cd921a885`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9612cd921a885) -
+  ESlint rule for expand background shorthand with color token
+
+## 1.1.0
+
+### Minor Changes
+
+- [#176809](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176809)
+  [`ec53bfbf3e476`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec53bfbf3e476) -
+  support eslint v9
+
+### Patch Changes
+
+- [#176809](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176809)
+  [`d03658b0cfd2e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d03658b0cfd2e) -
+  remove compiled plugin from peer dependencies
+
 ## 1.0.0
 
 ### Major Changes

@@ -82,6 +82,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'CHÚNG TÔI ĐÃ GẶP VẤN ĐỀ KHI TÌM CÁCH HOÀN TẤT VIỆC CẬP NHẬT. HÃY CHỜ MỘT VÀI PHÚT, SAU ĐÓ THỬ LẠI. LIÊN HỆ VỚI BỘ PHẬN HỖ TRỢ NẾU ĐIỀU NÀY TIẾP TỤC XẢY RA.',
   'linkDataSource.issue-line-table.error-generic-title': 'ĐÃ XẢY RA LỖI',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Hãy chờ vài phút, rồi thử lại. Kiểm tra cài đặt dự án của bạn hoặc liên hệ với bộ phận hỗ trợ nếu tình trạng này vẫn tiếp diễn.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'Chúng tôi đang gặp sự cố khi tải các tùy chọn',
   'linkDataSource.issue-line-table.unwrap-text': 'Không xuống dòng tự động',
   'linkDataSource.issue-line-table.wrap-text': 'Xuống dòng tự động',
   'linkDataSource.checkConnectionWithSource':

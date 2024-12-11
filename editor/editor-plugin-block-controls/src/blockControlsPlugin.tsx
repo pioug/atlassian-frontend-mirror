@@ -7,7 +7,7 @@ import type { BlockControlsPlugin, HandleOptions } from './blockControlsPluginTy
 import { moveNode } from './editor-commands/move-node';
 import { moveToLayout } from './editor-commands/move-to-layout';
 import { createPlugin, key } from './pm-plugins/main';
-import { selectNode } from './pm-plugins/utils';
+import { selectNode } from './pm-plugins/utils/getSelection';
 import { DragHandleMenu } from './ui/drag-handle-menu';
 import { GlobalStylesWrapper } from './ui/global-styles';
 

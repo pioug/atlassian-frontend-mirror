@@ -10,13 +10,13 @@ import {
 	extractTitle,
 	type LinkTypeCreated,
 } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { type ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/types';
 import { extractSummary } from '../common/primitives';
 
-import extractActions from './actions';
-import { extractViewAction } from './actions/extract-view-action';
+import extractActions, { extractFlexibleCardActions } from './actions';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
 import extractPreview from './extract-preview';
 import extractPriority from './extract-priority';
@@ -49,8 +49,12 @@ import {
 } from './utils';
 
 const extractFlexibleUiContext = ({
+	appearance,
+	fireEvent,
 	id,
+	origin,
 	renderers,
+	resolve,
 	actionOptions,
 	response,
 	aiSummaryConfig,
@@ -64,8 +68,18 @@ const extractFlexibleUiContext = ({
 	const url = extractLink(data);
 
 	return {
-		// Use the original URL in edge cases, such as short links for AI summary and copy link actions.
-		actions: extractActions(response, props.url, actionOptions, id, aiSummaryConfig),
+		actions: fg('platform-smart-card-migrate-embed-modal-analytics')
+			? extractFlexibleCardActions({
+					actionOptions,
+					aiSummaryConfig,
+					appearance,
+					fireEvent,
+					id,
+					origin,
+					response,
+					url: props.url, // Use the original URL in edge cases, such as short links for AI summary and copy link actions.
+				})
+			: extractActions(response, props.url, actionOptions, id, aiSummaryConfig),
 		assignedToGroup: extractPersonAssignedToAsArray(
 			data as JsonLd.Data.Task | JsonLd.Data.TaskType,
 		),
@@ -83,7 +97,6 @@ const extractFlexibleUiContext = ({
 		assignedTo: extractAssignedTo(data),
 		createdOn: extractDateCreated(data as LinkTypeCreated),
 		dueOn: extractDueOn(data),
-		viewAction: extractViewAction(data, actionOptions),
 		latestCommit: extractLatestCommit(data as LinkTypeLatestCommit),
 		linkIcon: extractLinkIcon(response, renderers),
 		location: extractLocation(data),
@@ -97,7 +110,7 @@ const extractFlexibleUiContext = ({
 		sentOn: extractSentOn(data),
 		snippet: extractSummary(data) || undefined, // Explicitly set here to remove an empty string
 		sourceBranch: extractSourceBranch(data as JsonLd.Data.SourceCodePullRequest),
-		state: extractState(response, actionOptions, id),
+		state: extractState(response, actionOptions, id, appearance, origin, fireEvent, resolve),
 		subscriberCount: extractSubscriberCount(data),
 		subTasksProgress: extractSubTasksProgress(data),
 		storyPoints: extractStoryPoints(data),

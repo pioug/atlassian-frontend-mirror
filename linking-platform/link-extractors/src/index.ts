@@ -54,6 +54,7 @@ export {
 	extractPreview,
 	extractLink,
 	extractTitle,
+	extractSummary,
 	extractType,
 	extractUrlFromIconJsonLd,
 	extractUrlFromLinkJsonLd,

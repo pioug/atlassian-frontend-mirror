@@ -24,6 +24,9 @@ export const mockByUrl = (url: string) => {
 			auth: [],
 			definitionId: 'd1',
 			key: 'object-provider',
+			resourceType: 'object-resource',
+			subproduct: 'object-subproduct',
+			product: 'object-product',
 		},
 		data: {
 			'@context': {

@@ -1,20 +1,12 @@
 import { type JsonLd } from 'json-ld-types';
 
-export type { CardContext } from '@atlaskit/link-provider';
+export { type CardContext } from '@atlaskit/link-provider';
 import { type LozengeProps as AtlaskitLozengeProps } from '@atlaskit/lozenge';
 
-import { type RequestAccessMessageKey } from './messages';
-import { type ActionProps } from './view/BlockCard/components/Action';
-import { type AccessContext } from './view/types';
-
+/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15961 Internal documentation for deprecation (no external access)} */
 export type ResolveResponse = JsonLd.Response;
-export type { ProviderProps, CardType } from './state';
-export type { CardProps, CardAppearance, CardPlatform } from './view/Card/types';
-export interface RequestAccessContextProps extends AccessContext {
-	action?: ActionProps;
-	callToActionMessageKey?: RequestAccessMessageKey;
-	descriptiveMessageKey?: RequestAccessMessageKey;
-}
+export { type ProviderProps, type CardType } from './state';
+export { type CardProps, type CardAppearance, type CardPlatform } from './view/Card/types';
 
 export type InlinePreloaderStyle = 'on-left-with-skeleton' | 'on-right-without-skeleton';
 

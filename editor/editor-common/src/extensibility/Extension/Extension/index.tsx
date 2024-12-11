@@ -99,8 +99,10 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 
 	const classNames = classnames('extension-container', 'block', shadowClassNames, {
 		'with-overlay': !hasBody && !showMacroInteractionDesignUpdates,
-		'with-bodied-border': showMacroInteractionDesignUpdates && hasBody,
-		'with-margin-styles': showMacroInteractionDesignUpdates && !isNodeNested,
+		'with-bodied-border':
+			showMacroInteractionDesignUpdates && hasBody && !showBodiedExtensionRendererView,
+		'with-margin-styles':
+			showMacroInteractionDesignUpdates && !isNodeNested && !showBodiedExtensionRendererView,
 		'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
 		'with-danger-overlay': showMacroInteractionDesignUpdates,
 		'without-frame': removeBorder,
@@ -109,7 +111,10 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 
 	const overflowClassNames = classnames('extension-overflow-wrapper', {
 		'with-body': hasBody,
-		'with-margin-styles': showMacroInteractionDesignUpdates && !isNodeNested,
+		'with-margin-styles':
+			showMacroInteractionDesignUpdates && !isNodeNested && !showBodiedExtensionRendererView,
+		// Adding extra padding for renderer view so users can have a touch target to click on the extension
+		'with-padding-styles': showMacroInteractionDesignUpdates && showBodiedExtensionRendererView,
 	});
 
 	const headerClassNames = classnames({
@@ -176,6 +181,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 			)}
 			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
 			<div
+				data-testid="extension-container"
 				ref={handleRef}
 				data-layout={node.attrs.layout}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -188,7 +194,13 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 				onMouseLeave={() => handleMouseEvent(false)}
 			>
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-				<div className={overflowClassNames} css={overflowWrapperStyles}>
+				<div
+					data-testid="extension-overflow-wrapper"
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+					className={overflowClassNames}
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+					css={overflowWrapperStyles}
+				>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 					<div className={'extension-overlay'} css={overlay} />
 					<div
@@ -209,8 +221,15 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					</div>
 					{hasBody && (
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-						<div css={newContentStyles} className={newContentClassNames}>
+						<div
+							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+							css={newContentStyles}
+							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+							className={newContentClassNames}
+							data-testid="extension-new-content"
+						>
 							<div
+								data-testid="extension-content"
 								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 								css={content}
 								ref={handleContentDOMRef}

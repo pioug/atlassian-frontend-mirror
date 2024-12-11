@@ -75,6 +75,7 @@
 	},
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
+		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/dropdown-menu": "^12.23.0",
 		"@atlaskit/notification-indicator": "*",

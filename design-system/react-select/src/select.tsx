@@ -490,6 +490,7 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 
 export const defaultProps = {
 	// aria-live is by default with the live region so we don't need it
+	// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 	'aria-live': fg('design_system_select-a11y-improvement') ? undefined : 'polite',
 	backspaceRemovesValue: true,
 	blurInputOnSelect: isTouchCapable(),

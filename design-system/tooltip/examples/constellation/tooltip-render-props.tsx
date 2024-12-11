@@ -1,12 +1,15 @@
 import React, { Fragment, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+import { styled } from '@compiled/react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import AddIcon from '@atlaskit/icon/glyph/editor/add';
 import { token } from '@atlaskit/tokens';
-import Tooltip, { type PositionType, TooltipPrimitive } from '@atlaskit/tooltip';
+import Tooltip, {
+	type PositionType,
+	TooltipPrimitive,
+	TooltipPrimitiveProps,
+} from '@atlaskit/tooltip';
 
 const VALID_POSITIONS: PositionType[] = ['mouse', 'top', 'right', 'bottom', 'left'];
 
@@ -14,7 +17,7 @@ const shortMessage = "I'm a short tooltip";
 const longMessage = 'I am a longer tooltip with a decent amount of content inside';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const InlineDialog = styled(TooltipPrimitive)({
+const InlineDialog = styled<TooltipPrimitiveProps>(TooltipPrimitive)({
 	background: 'white',
 	borderRadius: '3px',
 	boxShadow: token('elevation.shadow.overlay'),

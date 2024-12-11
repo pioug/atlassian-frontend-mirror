@@ -1,5 +1,20 @@
 # @atlaskit/link-datasource
 
+## 3.15.0
+
+### Minor Changes
+
+- [#177219](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177219)
+  [`6d8f4a8bb02d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d8f4a8bb02d4) -
+  [ux] fix an issue where the sllv table can be blurry in renderer in some specific setup (wide
+  screen, chrome, used in a spot with limited width)
+
+## 3.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.14.0
 
 ### Minor Changes

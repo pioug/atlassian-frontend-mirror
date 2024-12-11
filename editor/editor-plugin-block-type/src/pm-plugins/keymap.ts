@@ -28,12 +28,9 @@ import { redo, undo } from '@atlaskit/editor-prosemirror/history';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 
 import * as blockTypes from './block-types';
-import {
-	cleanUpAtTheStartOfDocument,
-	deleteAndMoveCursor,
-	deleteBlockContent,
-	insertBlockQuoteWithAnalytics,
-} from './commands';
+import { cleanUpAtTheStartOfDocument, insertBlockQuoteWithAnalytics } from './commands/block-type';
+import { deleteAndMoveCursor } from './commands/delete-and-move-cursor';
+import { deleteBlockContent } from './commands/delete-block-content';
 import { isNodeAWrappingBlockNode } from './utils';
 
 const backspaceCommand = chainCommands(

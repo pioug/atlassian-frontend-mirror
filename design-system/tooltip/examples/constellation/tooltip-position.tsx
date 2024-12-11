@@ -1,85 +1,87 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import { type Placement, placements } from '@atlaskit/popper';
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { placements } from '@atlaskit/popper';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-const placementGridPositions: {
-	[placement in Placement]: ReturnType<typeof xcss>;
-} = {
-	'top-start': xcss({
+const placementGridPositions = cssMap({
+	'top-start': {
 		gridColumn: 2,
 		gridRow: 1,
-	}),
-	top: xcss({
+	},
+	top: {
 		gridColumn: 3,
 		gridRow: 1,
-	}),
-	'top-end': xcss({
+	},
+	'top-end': {
 		gridColumn: 4,
 		gridRow: 1,
-	}),
-	'bottom-start': xcss({
+	},
+	'bottom-start': {
 		gridColumn: 2,
 		gridRow: 5,
-	}),
-	bottom: xcss({
+	},
+	bottom: {
 		gridColumn: 3,
 		gridRow: 5,
-	}),
-	'bottom-end': xcss({
+	},
+	'bottom-end': {
 		gridColumn: 4,
 		gridRow: 5,
-	}),
-	'right-start': xcss({
+	},
+	'right-start': {
 		gridColumn: 5,
 		gridRow: 2,
-	}),
-	right: xcss({
+	},
+	right: {
 		gridColumn: 5,
 		gridRow: 3,
-	}),
-	'right-end': xcss({
+	},
+	'right-end': {
 		gridColumn: 5,
 		gridRow: 4,
-	}),
-	'left-start': xcss({
+	},
+	'left-start': {
 		gridColumn: 1,
 		gridRow: 2,
-	}),
-	left: xcss({
+	},
+	left: {
 		gridColumn: 1,
 		gridRow: 3,
-	}),
-	'left-end': xcss({
+	},
+	'left-end': {
 		gridColumn: 1,
 		gridRow: 4,
-	}),
-	'auto-start': xcss({
+	},
+	'auto-start': {
 		gridColumn: 3,
 		gridRow: 2,
-	}),
-	auto: xcss({
+	},
+	auto: {
 		gridColumn: 3,
 		gridRow: 3,
-	}),
-	'auto-end': xcss({
+	},
+	'auto-end': {
 		gridColumn: 3,
 		gridRow: 4,
-	}),
-};
+	},
+});
 
-const buttonGridStyles = xcss({
-	display: 'grid',
-	gap: 'space.100',
-	gridTemplate: 'repeat(5, 1fr) / repeat(5, 1fr)',
-	justifyItems: 'stretch',
+const buttonGridStyles = cssMap({
+	root: {
+		display: 'grid',
+		gap: token('space.100'),
+		gridTemplate: 'repeat(5, 1fr) / repeat(5, 1fr)',
+		justifyItems: 'stretch',
+	},
 });
 
 const PositionExample = () => {
 	return (
-		<Box xcss={buttonGridStyles}>
+		<Box xcss={buttonGridStyles.root}>
 			{placements.map((placement) => (
 				<Box key={placement} xcss={placementGridPositions[placement]}>
 					<Tooltip position={placement} content={placement}>

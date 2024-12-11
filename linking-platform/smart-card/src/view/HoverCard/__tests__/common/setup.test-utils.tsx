@@ -6,9 +6,10 @@ import { IntlProvider } from 'react-intl-next';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { AnalyticsListener } from '@atlaskit/analytics-next';
+import { SmartCardProvider as Provider, type ProviderProps } from '@atlaskit/link-provider';
 import { MockIntersectionObserverFactory } from '@atlaskit/link-test-helpers';
 import { Box } from '@atlaskit/primitives';
-import { Card, type CardProps, Provider, type ProviderProps } from '@atlaskit/smart-card';
+import { Card, type CardProps } from '@atlaskit/smart-card';
 import { setGlobalTheme } from '@atlaskit/tokens';
 
 import * as analytics from '../../../../utils/analytics/analytics';

@@ -11,6 +11,7 @@ import type {
 import {
 	ACTION,
 	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID as ACTION_SUBJECTID,
 	buildOpenedSettingsPayload,
 	buildVisitedLinkPayload,
 	EVENT_TYPE,
@@ -358,6 +359,17 @@ const generateToolbarItems =
 			if (!pluginInjectionApi?.annotation || !isCommentEnabled) {
 				return false;
 			}
+			pluginInjectionApi?.analytics?.actions?.fireAnalyticsEvent({
+				action: ACTION.CLICKED,
+				actionSubject: ACTION_SUBJECT.BUTTON,
+				actionSubjectId: ACTION_SUBJECTID.CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU,
+				eventType: EVENT_TYPE.UI,
+				attributes: {
+					source: 'highlightActionsMenu',
+					pageMode: 'edit',
+					sourceNode: 'inlineCard',
+				},
+			});
 
 			const { setInlineCommentDraftState } = pluginInjectionApi.annotation.actions;
 			const command = setInlineCommentDraftState(true, INPUT_METHOD.FLOATING_TB);

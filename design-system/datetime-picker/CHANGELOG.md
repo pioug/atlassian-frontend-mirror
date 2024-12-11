@@ -1,5 +1,19 @@
 # @atlaskit/datetime-picker
 
+## 15.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 15.10.0
+
+### Minor Changes
+
+- [#168398](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/168398)
+  [`3b1f085cfd51b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b1f085cfd51b) -
+  update calendar button component
+
 ## 15.9.6
 
 ### Patch Changes

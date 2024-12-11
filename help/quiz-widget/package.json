@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/quiz-widget",
-	"version": "2.2.4",
+	"version": "2.2.5",
 	"description": "A React component that gives a possibility to pass quizzes",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,7 +38,7 @@
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/radio": "^6.6.0",
+		"@atlaskit/radio": "^7.0.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/tokens": "^2.4.0",
 		"@babel/runtime": "^7.0.0",

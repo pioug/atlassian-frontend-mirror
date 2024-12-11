@@ -1,0 +1,171 @@
+---
+order: 2
+---
+
+Layering aims to provide an out-of-the-box layered experience with consistent API. It also handles
+multiple layers transparently. Layering uses React Context under the hood. We provide one component
+API and one hook API to easily embed layering into your components. In other words, the API ‘mocks’
+the layering structure by wrapping in Layering. It doesn't have to have correct component structures
+for it to work. For example:
+
+```ts
+	<MinimizableModal>
+		<ModalBody>
+			{children}
+		</ModalBody>
+	</MinimizableModal>
+```
+
+The default layering behavior is to assume a parent component is the true parent of children. If
+parent is not the true parent of children and they behave like they are, for example.
+
+```ts
+	<InPortal node={portalNode}>
+		{children}
+	</InPortal>
+	<Parent>
+		<OutPortal node={portalNode} />
+	</Parent>
+```
+
+We need to manually mock the layering by adding `Layering` . See the usage for details.
+
+## Usage
+
+The layering is replied on React context. `Layering` can provide two context with the same API, one
+is the global context(ie. out-most `Layering` This context is to track the level of the top-most
+layered component), the other is component based context(ie. any `Layering` inside the out-most
+`Layering` This context provides level of the given component). This means to use component based
+context, we will have to make sure there is already a global context as the out-most parent wrapper.
+See the usage below.
+
+```ts
+<Layering>
+// global context must be the parent of all component based context
+// unless we want to have another independent new layering system on the page.
+// any direct children under global context will have level 1
+// each Layering wrapper under global context would increase the level by 1
+...
+// inside the global context, we can have as many inner layerings as we want
+// Modal, Popup, Dropdown are already wrapped under Layering internally
+  <Modal> // level 1
+    <Popup />
+    <Dropdown />
+    <NestedDropdown />
+    <NestedPopup />
+    <Calendar />
+  </Modal>
+  <Dropdown /> // level 1
+// if the parent is not the true parent of children,we can add Layering around
+// children to mock it make sure chidlren have one level higher than its parent.
+  <InPortal node={portalNode}>
+    <Layering>
+      {children} // level will be 2
+    </Layering>
+  </InPortal>
+  <Parent> // level will be 1
+    <OutPortal node={portalNode} />
+  </Parent>
+</Layering>
+// Layering established the system, to use and get the layering info, we can use useLayering in components.
+const { currentLevel, topLevelRef, isLayerDisabled } = useLayering();
+```
+
+## API
+
+### Layering
+
+Layering is a component wrapper to provide layering context values so we can use layering hook to
+consume the context. The usage is to wrap the component we want to be a layer, then inside that
+component, we can utilize the hook to fetch layered information. See useLayering below.
+
+```ts
+<Layering>
+  <ModalDialog .../>
+</Layering>
+```
+
+Note: Layering has props isDisabled, default value is true Which means we disabled the wrapper
+unless makers set isDisabled false, eg.
+
+```ts
+<Layering
+isDisabled={getBooleanFF('platform.design-system-team.layering_qmiw3')
+       ? false
+       : undefined
+}>
+  <ModalDialog .../>
+</Layering>
+```
+
+In this way we can control if we want to enable layering or not via feature flags. If we disable it.
+Layering will be only an empty wrapper of children.
+
+```ts
+if (isDisabled) {
+  return <>{children}</>;
+}
+```
+
+### useLayering
+
+useLayering is a custom hook used anywhere inside Layering. We are providing three values:
+
+```ts
+const { currentLevel, topLevelRef, isLayerDisabled } = useLayering();
+```
+
+In a multiple layered context, currentLevel indicates the level of the current layered component,
+topLevelRef is a ref indicating the level of the top-most layered component. isLayerDisabled is a
+function to determine if the component is disabled layer due to it is the top component.
+
+We can use these values to help handle keyboard events and on close event.
+
+The default values:
+
+currentLevel 0 indicates no layering
+
+topLevelRef null ref indicates no layering
+
+isLayerDisabled false, if it is not true, means either no layering or it is a top layered
+component(not just a component, should be a layered component wrapping in a enabled Layering)
+
+Note: It is fine to call to call useLayering without Layering or within a disabled Layering . The
+value will be either default values or the value of the previous layered component(means the current
+component is not a layer). For exmaple
+
+```ts
+const CustomModal = () => {
+  const { currentLevel, topLevelRef, isLayerDisabled } = useLayering();
+  return (
+  <Component />
+  );
+}
+<div>
+ // currentLevel, topLevelRef, isLayerDisabled are default values.
+ <CustomModal />
+</div>
+// isDisabled is true by default, no need to include it if it is disabled.
+<Layering isDisabled={true}>
+  // currentLevel, topLevelRef, isLayerDisabled are default values.
+  <CustomModal />
+</Layering>
+<Layering isDisabled={false}>
+  // currentLevel, topLevelRef, isLayerDisabled are are 1, ref value 1, and false.
+  <CustomModal />
+</Layering>
+<Layering isDisabled={false}>
+  <Layering isDisabled={false}>
+    // currentLevel, topLevelRef, isLayerDisabled are 2, ref value 2, and false.
+    <CustomModal />
+  </Layering>
+</Layering>
+<Layering isDisabled={false}>
+  <Layering isDisabled={false}>
+    // currentLevel, topLevelRef, isLayerDisabled are 2, ref value 2, and false.
+    <CustomModal />
+  </Layering>
+  // currentLevel, topLevelRef, isLayerDisabled are 1, ref value 2, and true.
+  <CustomModal />
+</Layering>
+```

@@ -6,7 +6,7 @@ import { render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { Provider as SmartCardProvider } from '@atlaskit/smart-card';
+import { SmartCardProvider } from '@atlaskit/link-provider';
 
 import context from '../../../../../../__fixtures__/flexible-ui-data-context';
 import { SmartLinkStatus } from '../../../../../../constants';

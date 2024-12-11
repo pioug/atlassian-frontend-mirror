@@ -86,6 +86,10 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     "Si è verificato un problema durante il completamento dell'aggiornamento. Attendi qualche minuto e riprova. Se il problema persiste, contatta l'assistenza.",
   'linkDataSource.issue-line-table.error-generic-title': 'Si è verificato un problema',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    "Attendi qualche minuto e riprova. Se il problema persiste, controlla le impostazioni del progetto o contatta l'assistenza.",
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title':
+    'Stiamo riscontrando problemi nel recuperare le opzioni',
   'linkDataSource.issue-line-table.unwrap-text': 'Non portare a capo il testo',
   'linkDataSource.issue-line-table.wrap-text': 'Porta a capo il testo',
   'linkDataSource.checkConnectionWithSource':

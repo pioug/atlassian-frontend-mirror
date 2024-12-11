@@ -45,7 +45,7 @@ export default {
     'Aplique uma automação para <b>{name}</b>.{br}As seleções disponíveis são controladas pelos administradores do Confluence e do espaço.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Automações de página',
   'fabric.linking.automation-action.icon.label': 'Ícone de automação',
-  'fabric.linking.automation-action.title': 'Visualizar regras de automação...',
+  'fabric.linking.automation-action.title': 'Ver regras de automação',
   'fabric.linking.automation-action.tooltip': 'Selecione uma regra de automação para ser executada',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Cancelar',
@@ -105,7 +105,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Você precisa solicitar o acesso ou tentar usar outra conta para poder visualizar.',
   'fabric.linking.join_to_view': 'Entre em {context} para ver esse item',
-  'fabric.linking.last_mentioned_in': 'Mencionado pela última vez em',
   'fabric.linking.learn_more_about_connecting_account':
     'Saiba mais sobre como conectar a conta aos produtos Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Saiba mais sobre os links inteligentes.',
@@ -151,8 +150,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'A gente não encontrou nenhum link para mostrar aqui. A gente está sempre analisando e adicionando links recentes para páginas atualizadas ou outros tipos de conteúdo.',
   'fabric.linking.related_links_not_found': 'A gente não encontrou nenhum link para mostrar aqui.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Ver links recentes...',
-  'fabric.linking.related_work_items_not_found': 'Este link não está mencionado em nenhum outro lugar.',
+  'fabric.linking.related_links_view_related_urls': 'Ver links recentes',
   'fabric.linking.request_access': 'Solicitar acesso',
   'fabric.linking.request_access_description':
     'A equipe já usa o {product} para colaborar. Envie ao administrador uma solicitação de acesso.',

@@ -3,26 +3,30 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { useRef } from 'react';
 
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 import invariant from 'tiny-invariant';
 
-import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
+import { cssMap, cx } from '@atlaskit/css';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-const styles = xcss({
-	padding: 'space.100',
-	borderColor: 'color.border',
-	borderRadius: token('border.radius'),
-	borderStyle: 'solid',
-	borderWidth: token('border.width'),
+const styles = cssMap({
+	root: {
+		padding: token('space.100'),
+		borderColor: token('color.border'),
+		borderRadius: token('border.radius'),
+		borderStyle: 'solid',
+		borderWidth: token('border.width'),
+	},
 });
 
-const smallStyles = xcss({
-	width: '200px',
+const smallStyles = cssMap({
+	root: {
+		width: '200px',
+	},
 });
 
 const content = {
@@ -50,7 +54,7 @@ export default function Example() {
 				}}
 			>
 				{(props) => (
-					<Box {...props} xcss={[styles, smallStyles]}>
+					<Box {...props} xcss={cx(styles.root, smallStyles.root)}>
 						<Text ref={firstRef} maxLines={1}>
 							{content.first}
 						</Text>
@@ -70,7 +74,7 @@ export default function Example() {
 				}}
 			>
 				{(props) => (
-					<Box {...props} xcss={styles}>
+					<Box {...props} xcss={styles.root}>
 						<Text ref={secondRef} maxLines={1}>
 							{content.second}
 						</Text>

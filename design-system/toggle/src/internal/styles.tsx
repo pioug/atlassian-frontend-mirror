@@ -34,7 +34,7 @@ const borderWidth = 2;
 const paddingUnitless = globalGridSize / 4;
 const transition = 'transform 0.2s ease';
 
-export const getStyles = (size: Size): SerializedStyles => {
+export const getStyles = (size: Size, isKeyboardUsed: boolean): SerializedStyles => {
 	const colors = getColors();
 
 	// TODO: Use tokens and reorganize to alphasemantic ordering (DSP-11769 DSP-11770)
@@ -79,7 +79,7 @@ export const getStyles = (size: Size): SerializedStyles => {
 
 		'&:focus-within': {
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			border: `${borderWidth}px solid ${colors.borderColorFocus}`,
+			border: isKeyboardUsed ? `${borderWidth}px solid ${colors.borderColorFocus}` : '',
 		},
 
 		'&:hover': {

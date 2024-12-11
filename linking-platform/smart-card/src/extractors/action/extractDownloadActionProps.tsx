@@ -6,6 +6,10 @@ import { downloadUrl } from '../../utils';
 import { type ExtractActionsProps } from '../common/actions/types';
 import { extractDownloadAction as extractDownloadActionData } from '../flexible/actions/extract-download-action';
 
+/**
+ * TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
+ * Replace with platform/packages/linking-platform/smart-card/src/extractors/action/extract-invoke-download-action.ts
+ */
 export const extractDownloadActionProps = ({
 	response,
 	actionOptions,

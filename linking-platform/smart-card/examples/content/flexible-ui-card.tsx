@@ -3,17 +3,16 @@ import React from 'react';
 import { type JsonLd } from 'json-ld-types';
 
 import LikeIcon from '@atlaskit/icon/core/migration/thumbs-up--like';
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
 import {
 	ActionName,
 	Card,
-	Client,
 	ElementName,
 	FooterBlock,
 	MetadataBlock,
 	PreviewBlock,
-	Provider,
 	SmartLinkPosition,
 	SmartLinkSize,
 	SnippetBlock,
@@ -22,6 +21,7 @@ import {
 
 import { response1 } from './example-responses';
 
+// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
 setBooleanFeatureFlagResolver((flag) => flag === 'platform-visual-refresh-icons');
 
 class CustomClient extends Client {

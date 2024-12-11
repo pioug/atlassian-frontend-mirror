@@ -1,11 +1,16 @@
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
-import { type IconType, MediaType } from '../constants';
+import { ActionName, type IconType, MediaType } from '../constants';
 import { type FlexibleUiDataContext } from '../state/flexible-ui-context/types';
 
 const context: FlexibleUiDataContext = {
 	actions: {
 		PreviewAction: {
+			invokeAction: {
+				actionFn: jest.fn(),
+				actionType: ActionName.PreviewAction,
+			},
+			// TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
 			downloadUrl: 'https://www.link-url.com',
 			linkIcon: { url: 'Provider:Confluence' },
 			providerName: 'dropbox-object-provider',
@@ -14,6 +19,11 @@ const context: FlexibleUiDataContext = {
 			url: 'https://www.link-url.com',
 		},
 		DownloadAction: {
+			invokeAction: {
+				actionFn: jest.fn(),
+				actionType: ActionName.DownloadAction,
+			},
+			// TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
 			downloadUrl: 'https://www.link-url.com',
 		},
 		FollowAction: {
@@ -28,6 +38,11 @@ const context: FlexibleUiDataContext = {
 			isProject: true,
 		},
 		CopyLinkAction: {
+			invokeAction: {
+				actionFn: jest.fn(),
+				actionType: ActionName.CopyLinkAction,
+			},
+			// TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
 			url: 'https://www.link-url.com',
 		},
 		AISummaryAction: {

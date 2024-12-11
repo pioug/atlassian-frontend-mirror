@@ -87,6 +87,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'При обновлении возникла ошибка. Подождите несколько минут и повторите попытку. Если ошибка продолжает возникать, обратитесь в службу поддержки.',
   'linkDataSource.issue-line-table.error-generic-title': 'Произошла ошибка',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Подождите несколько минут и повторите попытку. Если проблема возникнет снова, проверьте настройки проекта или обратитесь в службу поддержки.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': 'При получении вариантов произошла ошибка',
   'linkDataSource.issue-line-table.unwrap-text': 'Не переносить текст',
   'linkDataSource.issue-line-table.wrap-text': 'Переносить текст',
   'linkDataSource.checkConnectionWithSource':

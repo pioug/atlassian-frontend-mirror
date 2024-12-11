@@ -1,95 +1,66 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import React, { type MouseEvent } from 'react';
+import React, { useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-import { FormattedMessage } from 'react-intl-next';
+import { type JsonLd } from 'json-ld-types';
+import { useIntl } from 'react-intl-next';
 
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import LockIcon from '@atlaskit/icon/glyph/lock';
+import { extractProvider } from '@atlaskit/link-extractors';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
-import { Byline } from '../../common/Byline';
-import { type IconProps } from '../../common/Icon';
-import { Content } from '../components/Content';
-import { ContentFooter } from '../components/ContentFooter';
-import { ContentHeader } from '../components/ContentHeader';
-import { Frame } from '../components/Frame';
-import { Link } from '../components/Link';
-import { Provider } from '../components/Provider';
-import { UnresolvedText } from '../components/UnresolvedText';
-import { handleClickCommon } from '../utils/handlers';
+import Text from '../../FlexibleCard/components/elements/text';
 
-const textDescriptionProps = { ...messages.not_found_description };
-
-export interface NotFoundProps {
-	/* Details about the provider for the link */
-	context?: { icon?: React.ReactNode; text: string };
-	/* URL to the link */
-	link?: string;
-	/* Event handler - on click of the card, to be passed down to clickable components */
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-	/* If selected, would be true in edit mode */
-	isSelected?: boolean;
-	/* Icon for the header of the link */
-	icon: IconProps;
-	/* Used for testing */
-	testId?: string;
-}
+import { type FlexibleBlockCardProps } from './types';
+import UnresolvedView from './unresolved-view';
+import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
 /**
- * Class name for selecting non-flexible not-found block card
+ * This view represents a Block Card with a 'Not_Found' status.
  *
- * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
- * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
+ * @see SmartLinkStatus
+ * @see FlexibleCardProps
  */
-export const blockCardNotFoundViewClassName = 'block-card-not-found-view';
+const NotFoundView = ({
+	testId = 'smart-block-not-found-view',
+	...props
+}: FlexibleBlockCardProps) => {
+	const intl = useIntl();
 
-export const NotFoundView = ({
-	context = { text: '' },
-	isSelected = false,
-	testId = 'block-card-not-found-view',
-	link = '',
-	onClick = () => {},
-}: NotFoundProps) => {
-	const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
+	const { cardState } = props;
+
+	const product = useMemo(() => {
+		const provider = extractProvider(cardState?.details?.data as JsonLd.Data.BaseData);
+		return provider?.text ?? '';
+	}, [cardState?.details?.data]);
+
+	const title = useMemo(
+		() =>
+			intl.formatMessage(messages.not_found_title, {
+				product,
+			}),
+		[intl, product],
+	);
+
+	const description = useMemo(
+		() => ({
+			descriptor: messages.not_found_description,
+		}),
+		[],
+	);
+
 	return (
-		<Frame
-			isSelected={isSelected}
-			testId={testId}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={blockCardNotFoundViewClassName}
-			isFluidHeight
-		>
-			<Content isCompact>
-				<div>
-					<ContentHeader onClick={handleClick} link={link}>
-						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-						<Link url={link} testId={testId} />
-					</ContentHeader>
-					<Byline>
-						<UnresolvedText
-							icon={
-								// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19513
-								<WarningIcon
-									label="not-found-warning-icon"
-									size="small"
-									primaryColor={token('color.icon.warning', R300)}
-									testId={`${testId}-warning-icon`}
-								/>
-							}
-							text={<FormattedMessage {...textDescriptionProps} />}
-						/>
-					</Byline>
-				</div>
-				<ContentFooter>
-					<Provider name={context.text} icon={context.icon} />
-				</ContentFooter>
-			</Content>
-		</Frame>
+		<UnresolvedView {...props} testId={testId} title={title}>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
+			<LockIcon
+				label="not-found-lock-icon"
+				size="small"
+				primaryColor={token('color.icon.danger', R300)}
+				testId={`${testId}-lock-icon`}
+			/>
+			<Text message={description} testId={`${testId}-message`} maxLines={3} />
+		</UnresolvedView>
 	);
 };
+
+export default withFlexibleUIBlockCardStyle(NotFoundView);

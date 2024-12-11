@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { type JsonLd } from 'json-ld-types';
 
+import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import {
 	type CardClient,
 	type CardProviderStoreOpts,
@@ -14,6 +15,7 @@ import {
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
 import { flushPromises } from '@atlaskit/media-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mockByUrl, mocks } from '../../../utils/mocks';
@@ -28,6 +30,12 @@ describe('smart-card: card states, flexible', () => {
 	let mockFetch: jest.Mock<Promise<JsonLd.Response>>;
 	let mockUrl: string;
 	let mockWindowOpen: jest.Mock;
+	const mockAnalyticsClient = {
+		sendUIEvent: jest.fn().mockResolvedValue(undefined),
+		sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+		sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+		sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+	} satisfies AnalyticsWebClient;
 
 	beforeEach(() => {
 		mockFetch = jest.fn(() => Promise.resolve(mocks.success));
@@ -192,71 +200,161 @@ describe('smart-card: card states, flexible', () => {
 		});
 	});
 
-	describe.each(['inline', 'block', 'embed'] satisfies CardAppearance[])(
+	describe.each<CardAppearance>(['inline', 'block', 'embed'])(
 		'with %s card appearance',
-		(appearance: CardAppearance) => {
+		(appearance) => {
 			const testId = 'smart-links-container'; // default Flexible UI container testId
 			beforeEach(() => {
 				jest.clearAllMocks();
 			});
-			it('renders Flexible UI', async () => {
-				render(
-					<Provider client={mockClient}>
-						<Card appearance={appearance} url={mockUrl}>
-							<TitleBlock />
-						</Card>
-					</Provider>,
-				);
 
-				const block = await screen.findByTestId(testId);
-				expect(block).toBeTruthy();
-				await waitFor(async () => {
-					// EDM-10399 Some React operations must be completed before this check can be made
-					expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-				});
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						display: 'flexible',
-						status: 'resolved',
-					}),
+			describe('renders Flexible UI', () => {
+				ffTest(
+					'platform-smart-card-migrate-embed-modal-analytics',
+					async () => {
+						render(
+							<FabricAnalyticsListeners client={mockAnalyticsClient}>
+								<Provider client={mockClient}>
+									<Card appearance={appearance} url={mockUrl}>
+										<TitleBlock />
+									</Card>
+								</Provider>
+							</FabricAnalyticsListeners>,
+						);
+
+						const block = await screen.findByTestId(testId);
+						expect(block).toBeTruthy();
+						await waitFor(async () => {
+							// EDM-10399 Some React operations must be completed before this check can be made
+							expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+								expect.objectContaining({
+									action: 'renderSuccess',
+									actionSubject: 'smartLink',
+									attributes: expect.objectContaining({
+										display: 'flexible',
+										status: 'resolved',
+									}),
+								}),
+							);
+						});
+					},
+					async () => {
+						render(
+							<Provider client={mockClient}>
+								<Card appearance={appearance} url={mockUrl}>
+									<TitleBlock />
+								</Card>
+							</Provider>,
+						);
+
+						const block = await screen.findByTestId(testId);
+						expect(block).toBeTruthy();
+						await waitFor(async () => {
+							// EDM-10399 Some React operations must be completed before this check can be made
+							expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+						});
+						expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								display: 'flexible',
+								status: 'resolved',
+							}),
+						);
+					},
 				);
 			});
 
-			it('does not render Flexible UI when card has no children', async () => {
-				render(
-					<Provider client={mockClient}>
-						<Card appearance={appearance} url={mockUrl} />
-					</Provider>,
-				);
-				const resolvedView = await screen.findByText('I love cheese');
-				expect(resolvedView).toBeInTheDocument();
-				expect(screen.queryByTestId(testId)).toBeNull();
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						display: appearance,
-						status: 'resolved',
-					}),
+			describe('does not render Flexible UI when card has no children', () => {
+				ffTest(
+					'platform-smart-card-migrate-embed-modal-analytics',
+					async () => {
+						render(
+							<FabricAnalyticsListeners client={mockAnalyticsClient}>
+								<Provider client={mockClient}>
+									<Card appearance={appearance} url={mockUrl} />
+								</Provider>
+							</FabricAnalyticsListeners>,
+						);
+						const resolvedView = await screen.findByText('I love cheese');
+						expect(resolvedView).toBeInTheDocument();
+						expect(screen.queryByTestId(testId)).toBeNull();
+
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'renderSuccess',
+								actionSubject: 'smartLink',
+								attributes: expect.objectContaining({
+									display: appearance,
+									status: 'resolved',
+								}),
+							}),
+						);
+					},
+					async () => {
+						render(
+							<Provider client={mockClient}>
+								<Card appearance={appearance} url={mockUrl} />
+							</Provider>,
+						);
+						const resolvedView = await screen.findByText('I love cheese');
+						expect(resolvedView).toBeInTheDocument();
+						expect(screen.queryByTestId(testId)).toBeNull();
+						expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+						expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								display: appearance,
+								status: 'resolved',
+							}),
+						);
+					},
 				);
 			});
 
-			it('does not render Flexible UI when card has no valid children', async () => {
-				render(
-					<Provider client={mockClient}>
-						<Card appearance={appearance} url={mockUrl}>
-							<div>Test</div>
-						</Card>
-					</Provider>,
-				);
-				const resolvedView = await screen.findByText('I love cheese');
-				expect(resolvedView).toBeInTheDocument();
-				expect(screen.queryByTestId(testId)).toBeNull();
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						display: appearance,
-						status: 'resolved',
-					}),
+			describe('does not render Flexible UI when card has no valid children', () => {
+				ffTest(
+					'platform-smart-card-migrate-embed-modal-analytics',
+					async () => {
+						render(
+							<FabricAnalyticsListeners client={mockAnalyticsClient}>
+								<Provider client={mockClient}>
+									<Card appearance={appearance} url={mockUrl}>
+										<div>Test</div>
+									</Card>
+								</Provider>
+							</FabricAnalyticsListeners>,
+						);
+						const resolvedView = await screen.findByText('I love cheese');
+						expect(resolvedView).toBeInTheDocument();
+						expect(screen.queryByTestId(testId)).toBeNull();
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'renderSuccess',
+								actionSubject: 'smartLink',
+								attributes: expect.objectContaining({
+									display: appearance,
+									status: 'resolved',
+								}),
+							}),
+						);
+					},
+					async () => {
+						render(
+							<Provider client={mockClient}>
+								<Card appearance={appearance} url={mockUrl}>
+									<div>Test</div>
+								</Card>
+							</Provider>,
+						);
+						const resolvedView = await screen.findByText('I love cheese');
+						expect(resolvedView).toBeInTheDocument();
+						expect(screen.queryByTestId(testId)).toBeNull();
+						expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+						expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								display: appearance,
+								status: 'resolved',
+							}),
+						);
+					},
 				);
 			});
 		},

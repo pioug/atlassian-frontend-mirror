@@ -63,7 +63,7 @@ const commonConfig = {
 	'@atlaskit/platform/no-module-level-eval-nav4': 'error',
 	// Compiled: rules that are not included via `@compiled/recommended
 	'@atlaskit/platform/expand-border-shorthand': 'error',
-	'@atlaskit/platform/expand-background-shorthand': 'warn',
+	'@atlaskit/platform/expand-background-shorthand': 'error',
 	'@compiled/jsx-pragma': [
 		'error',
 		{

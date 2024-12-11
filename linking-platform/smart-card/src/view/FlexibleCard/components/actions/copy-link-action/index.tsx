@@ -3,6 +3,7 @@ import React, { useCallback, useState } from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import LinkIcon from '@atlaskit/icon/core/migration/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { ActionName } from '../../../../../constants';
 import { messages } from '../../../../../messages';
@@ -24,22 +25,35 @@ const CopyLinkAction = ({ onClick: onClickCallback, ...props }: CopyLinkActionPr
 	const [tooltipMessage, setTooltipMessage] = useState(messages.copy_url_to_clipboard);
 
 	const onClick = useCallback(() => {
-		if (data && data.url) {
-			invoke({
-				actionType: ActionName.CopyLinkAction,
-				actionFn: async () => {
-					await navigator.clipboard.writeText(data.url ?? '');
-					setTooltipMessage(messages.copied_url_to_clipboard);
-				},
-				// These values have already been set in analytics context.
-				// We only pass these here for ufo experience.
-				display: analytics?.display,
-				extensionKey: analytics?.extensionKey,
-			});
-		}
+		if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
+			if (data?.invokeAction) {
+				invoke({
+					...data.invokeAction,
+					actionFn: async () => {
+						await data.invokeAction?.actionFn();
+						setTooltipMessage(messages.copied_url_to_clipboard);
+					},
+				});
+				onClickCallback?.();
+			}
+		} else {
+			if (data && data.url) {
+				invoke({
+					actionType: ActionName.CopyLinkAction,
+					actionFn: async () => {
+						await navigator.clipboard.writeText(data.url ?? '');
+						setTooltipMessage(messages.copied_url_to_clipboard);
+					},
+					// These values have already been set in analytics context.
+					// We only pass these here for ufo experience.
+					display: analytics?.display,
+					extensionKey: analytics?.extensionKey,
+				});
+			}
 
-		if (onClickCallback) {
-			onClickCallback();
+			if (onClickCallback) {
+				onClickCallback();
+			}
 		}
 	}, [analytics, data, invoke, onClickCallback]);
 

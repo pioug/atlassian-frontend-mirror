@@ -45,7 +45,7 @@ export default {
     'ใช้ระบบอัตโนมัติกับ <b>{name}</b>{br}ตัวเลือกที่มีอยู่จะได้รับการควบคุมโดย Confluence และผู้ดูแลระบบพื้นที่',
   'fabric.linking.automation-action.confluence.page.modal.title': 'ระบบอัตโนมัติของหน้าข้อมูล',
   'fabric.linking.automation-action.icon.label': 'ไอคอนระบบอัตโนมัติ',
-  'fabric.linking.automation-action.title': 'ดูกฎอัตโนมัติ...',
+  'fabric.linking.automation-action.title': 'ดูกกฎอัตโนมัติ',
   'fabric.linking.automation-action.tooltip': 'เลือกกฎอัตโนมัติที่จะเรียกใช้',
   'fabric.linking.beta': 'เบต้า',
   'fabric.linking.cancel': 'ยกเลิก',
@@ -105,7 +105,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'คุณอาจจำเป็นต้องร้องขอสิทธิ์การเข้าถึงหรือลองบัญชีอื่นเพื่อดูการแสดงตัวอย่างนี้',
   'fabric.linking.join_to_view': 'เข้าร่วม {context} เพื่อดูปัญหานี้',
-  'fabric.linking.last_mentioned_in': 'กล่าวถึงล่าสุดใน',
   'fabric.linking.learn_more_about_connecting_account':
     'เรียนรู้เพิ่มเติมเกี่ยวกับการเชื่อมต่อบัญชีของคุณกับผลิตภัณฑ์ของ Atlassian',
   'fabric.linking.learn_more_about_smart_links': 'เรียนรู้เพิ่มเติมเกี่ยวกับสมาร์ทลิงก์ (ลิงก์อัจฉริยะ)',
@@ -150,8 +149,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'เราไม่พบลิงก์ที่จะแสดงที่นี่ เราตรวจสอบอย่างต่อเนื่องและเพิ่มลิงก์ล่าสุดสำหรับหน้าข้อมูลที่อัปเดตหรือประเภทเนื้อหาอื่น ๆ',
   'fabric.linking.related_links_not_found': 'เราไม่พบลิงก์ที่จะแสดงที่นี่',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'ดูลิงก์ล่าสุด...',
-  'fabric.linking.related_work_items_not_found': 'ลิงก์นี้ไม่ได้ถูกกล่าวถึงในที่อื่น',
+  'fabric.linking.related_links_view_related_urls': 'ดูลิงก์ล่าสุด',
   'fabric.linking.request_access': 'ส่งคำขอเพื่อเข้าถึง',
   'fabric.linking.request_access_description':
     'ทีมของคุณใช้ {product} ในการทำงานร่วมกัน ส่งคำขอการเข้าถึงไปยังผู้ดูแลระบบของคุณ',

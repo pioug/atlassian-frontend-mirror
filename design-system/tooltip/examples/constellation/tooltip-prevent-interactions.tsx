@@ -1,8 +1,7 @@
 import React from 'react';
 
 import Button from '@atlaskit/button/new';
-import Inline from '@atlaskit/primitives/inline';
-import Stack from '@atlaskit/primitives/stack';
+import { Inline, Stack } from '@atlaskit/primitives/compiled';
 import Tooltip from '@atlaskit/tooltip';
 
 export default () => (

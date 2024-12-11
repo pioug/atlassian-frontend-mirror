@@ -24,7 +24,7 @@ const rule: Rule.RuleModule = {
 			) => {
 				if (
 					node.object.type === 'Identifier' &&
-					isIdentifierImportedFrom(node.object.name, BANNED_IMPORTS_SET, context)
+					isIdentifierImportedFrom(node.object.name, BANNED_IMPORTS_SET, context, node)
 				) {
 					context.report({
 						messageId: 'useRecommended',
@@ -42,7 +42,7 @@ const rule: Rule.RuleModule = {
 			) => {
 				if (
 					node.object.type === 'Identifier' &&
-					isIdentifierImportedFrom(node.object.name, BANNED_IMPORTS_SET, context)
+					isIdentifierImportedFrom(node.object.name, BANNED_IMPORTS_SET, context, node)
 				) {
 					context.report({
 						messageId: 'notSupported',

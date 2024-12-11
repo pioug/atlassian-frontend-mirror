@@ -46,13 +46,11 @@ describe('Link Type', () => {
 	});
 
 	it('renders as a smart link', async () => {
-		const { getByText, queryByTestId } = setup({
+		const { queryByTestId, findByText } = setup({
 			url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
 		});
 
-		await waitFor(() =>
-			getByText('EDM-5941: Implement mapping between data type and visual component'),
-		);
+		await findByText('EDM-5941: Implement mapping between data type and visual component');
 
 		const card = queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-view`);
 
@@ -61,13 +59,11 @@ describe('Link Type', () => {
 	});
 
 	it('opens a smart link in a new tab when clicked', async () => {
-		const { getByText, queryByTestId } = setup({
+		const { queryByTestId, findByText } = setup({
 			url: 'https://product-fabric.atlassian.net/browse/EDM-5941',
 		});
 
-		await waitFor(() =>
-			getByText('EDM-5941: Implement mapping between data type and visual component'),
-		);
+		await findByText('EDM-5941: Implement mapping between data type and visual component');
 
 		const card = queryByTestId(`${LINK_TYPE_TEST_ID}-resolved-view`);
 
@@ -125,7 +121,7 @@ describe('Link Type', () => {
 		expect(anchor).toHaveAttribute('target', '_blank');
 	});
 
-	it('renders with the styles when linkType is passed', async () => {
+	it('renders when linkType is passed', async () => {
 		const { queryByRole } = setup({
 			url: 'https://www.atlassian.com/',
 			text: 'Atlassian Website',
@@ -137,10 +133,5 @@ describe('Link Type', () => {
 		const anchor = queryByRole('link');
 
 		expect(anchor).toBeInTheDocument();
-		expect(anchor).toHaveStyle({
-			fontWeight: '600',
-			marginTop: '20px',
-			textTransform: 'uppercase',
-		});
 	});
 });

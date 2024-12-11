@@ -86,7 +86,7 @@ export function setBlockTypeWithAnalytics(
 	};
 }
 
-export function setNormalText(): EditorCommand {
+function setNormalText(): EditorCommand {
 	return function ({ tr }) {
 		const {
 			selection,

@@ -12,8 +12,8 @@ import messages from './messages';
 const pressableStarIconStyles = xcss({
 	background: 'transparent',
 	padding: 'space.0',
-	height: '32px',
-	width: '32px',
+	height: '24px',
+	width: '24px',
 });
 
 const hiddenStyles = xcss({

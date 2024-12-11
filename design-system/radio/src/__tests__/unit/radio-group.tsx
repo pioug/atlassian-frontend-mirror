@@ -19,7 +19,7 @@ describe('@atlaskit/radio', () => {
 					expect(screen.getAllByRole('radio').length).toBe(sampleOptions.length);
 
 					sampleOptions.forEach((option) => {
-						const radio = screen.getByLabelText(option.label) as HTMLInputElement;
+						const radio = screen.getByDisplayValue(option.value) as HTMLInputElement;
 						expect(radio.name).toBe(option.name);
 						expect(radio.value).toBe(option.value);
 						if (Boolean(option.isDisabled)) {
@@ -35,7 +35,7 @@ describe('@atlaskit/radio', () => {
 					const isDisabled = true;
 					render(<RadioGroup isDisabled={isDisabled} options={sampleOptions} />);
 					sampleOptions.forEach((option) => {
-						expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeDisabled();
+						expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeDisabled();
 					});
 				});
 				it('if set, overrides isDisabled values set on each option', () => {
@@ -55,7 +55,7 @@ describe('@atlaskit/radio', () => {
 						/>,
 					);
 					sampleOptions.forEach((option) => {
-						expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeDisabled();
+						expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeDisabled();
 					});
 				});
 			});
@@ -64,7 +64,7 @@ describe('@atlaskit/radio', () => {
 					const isRequired = true;
 					render(<RadioGroup isRequired={isRequired} options={sampleOptions} />);
 					sampleOptions.forEach((option) => {
-						expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeRequired();
+						expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeRequired();
 					});
 				});
 			});
@@ -74,14 +74,16 @@ describe('@atlaskit/radio', () => {
 					const testName = 'test-name';
 					render(<RadioGroup name={testName} options={sampleOptions} />);
 					sampleOptions.forEach((option) => {
-						expect((screen.getByLabelText(option.label) as HTMLInputElement).name).toBe(testName);
+						expect((screen.getByDisplayValue(option.value) as HTMLInputElement).name).toBe(
+							testName,
+						);
 					});
 				});
 
 				it('name property in options is used if there is no name passed into RadioGroup', () => {
 					render(<RadioGroup options={sampleOptions} />);
 					sampleOptions.forEach((option) => {
-						expect((screen.getByLabelText(option.label) as HTMLInputElement).name).toBe(
+						expect((screen.getByDisplayValue(option.value) as HTMLInputElement).name).toBe(
 							option.name,
 						);
 					});
@@ -93,9 +95,9 @@ describe('@atlaskit/radio', () => {
 					render(<RadioGroup value={sampleOptions[0].value} options={sampleOptions} />);
 					sampleOptions.forEach((option, index) => {
 						if (index === 0) {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeChecked();
 						} else {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).not.toBeChecked();
 						}
 					});
 				});
@@ -104,20 +106,20 @@ describe('@atlaskit/radio', () => {
 
 					sampleOptions.forEach((option, index) => {
 						if (index === 0) {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeChecked();
 						} else {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).not.toBeChecked();
 						}
 					});
 
-					const secondRadio = screen.getByLabelText(sampleOptions[1].label);
+					const secondRadio = screen.getByDisplayValue(sampleOptions[1].value);
 					fireEvent.click(secondRadio);
 
 					sampleOptions.forEach((option, index) => {
 						if (index === 0) {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeChecked();
 						} else {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).not.toBeChecked();
 						}
 					});
 				});
@@ -128,20 +130,20 @@ describe('@atlaskit/radio', () => {
 
 					sampleOptions.forEach((option, index) => {
 						if (index === 0) {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeChecked();
 						} else {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).not.toBeChecked();
 						}
 					});
 
-					const secondRadio = screen.getByLabelText(sampleOptions[1].label);
+					const secondRadio = screen.getByDisplayValue(sampleOptions[1].value);
 					fireEvent.click(secondRadio);
 
 					sampleOptions.forEach((option, index) => {
 						if (index === 0) {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeChecked();
 						} else {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).not.toBeChecked();
 						}
 					});
 
@@ -149,9 +151,9 @@ describe('@atlaskit/radio', () => {
 
 					sampleOptions.forEach((option, index) => {
 						if (index === 1) {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeChecked();
 						} else {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).not.toBeChecked();
 						}
 					});
 				});
@@ -164,7 +166,7 @@ describe('@atlaskit/radio', () => {
 					];
 					render(<RadioGroup options={options} />);
 					options.forEach((option) => {
-						expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+						expect(screen.getByDisplayValue(option.value) as HTMLInputElement).not.toBeChecked();
 					});
 				});
 
@@ -177,9 +179,9 @@ describe('@atlaskit/radio', () => {
 					render(<RadioGroup options={options} value="2" />);
 					options.forEach((option, index) => {
 						if (index === 2) {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeChecked();
 						} else {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).not.toBeChecked();
 						}
 					});
 				});
@@ -191,9 +193,9 @@ describe('@atlaskit/radio', () => {
 
 					sampleOptions.forEach((option, index) => {
 						if (index === 0) {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeChecked();
 						} else {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).not.toBeChecked();
 						}
 					});
 				});
@@ -202,19 +204,19 @@ describe('@atlaskit/radio', () => {
 
 					sampleOptions.forEach((option, index) => {
 						if (index === 0) {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeChecked();
 						} else {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).not.toBeChecked();
 						}
 					});
 
-					fireEvent.click(screen.getByLabelText('two'));
+					fireEvent.click(screen.getByDisplayValue('2'));
 
 					sampleOptions.forEach((option, index) => {
 						if (index === 1) {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).toBeChecked();
 						} else {
-							expect(screen.getByLabelText(option.label) as HTMLInputElement).not.toBeChecked();
+							expect(screen.getByDisplayValue(option.value) as HTMLInputElement).not.toBeChecked();
 						}
 					});
 				});
@@ -224,7 +226,7 @@ describe('@atlaskit/radio', () => {
 				it('is called once  a radio option is changed', () => {
 					const spy = jest.fn();
 					render(<RadioGroup onChange={spy} options={sampleOptions} />);
-					fireEvent.click(screen.getByLabelText('one'));
+					fireEvent.click(screen.getByDisplayValue('1'));
 					expect(spy).toHaveBeenCalledTimes(1);
 				});
 
@@ -238,7 +240,7 @@ describe('@atlaskit/radio', () => {
 							options={sampleOptions}
 						/>,
 					);
-					fireEvent.click(screen.getByLabelText('one'));
+					fireEvent.click(screen.getByDisplayValue('1'));
 					expect(value).toBe('1');
 				});
 			});

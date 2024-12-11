@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 1.14.9
+
+### Patch Changes
+
+- [#175202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175202)
+  [`a52a339ca158b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a52a339ca158b) -
+  Add copy link button to agent card in browse agents
+
 ## 1.14.8
 
 ### Patch Changes

@@ -6,10 +6,10 @@
 import { jsx } from '@emotion/react';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
-import { CardClient } from '@atlaskit/link-provider';
+import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 
 import { JiraIssue } from '../../examples-helpers/_jsonLDExamples';
-import { Card, Provider, SnippetBlock, TitleBlock } from '../../src';
+import { Card, SnippetBlock, TitleBlock } from '../../src';
 import useAISummaryAction from '../../src/state/hooks/use-ai-summary-action';
 import type { AISummaryState } from '../../src/state/hooks/use-ai-summary/ai-summary-service/types';
 import AIPrism from '../../src/view/common/ai-prism';

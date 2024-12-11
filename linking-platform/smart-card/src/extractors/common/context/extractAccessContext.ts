@@ -4,7 +4,7 @@ import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 
 import { messages } from '../../../messages';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
-import { ForbiddenAction } from '../../../view/BlockCard/actions/ForbiddenAction';
+import { ForbiddenAction } from '../../../view/common/access/ForbiddenAction';
 import { type RequestAccessContextProps } from '../../../view/types';
 import extractHostname from '../hostname/extractHostname';
 

@@ -46,7 +46,7 @@ export default {
     'Застосуйте автоматизацію до сторінки <b>{name}</b>.{br}Доступні варіанти контролюються адміністраторами Confluence і адміністраторами розділів.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Автоматизації сторінок',
   'fabric.linking.automation-action.icon.label': 'Значок автоматизації',
-  'fabric.linking.automation-action.title': 'Переглянути правила автоматизації…',
+  'fabric.linking.automation-action.title': 'Переглянути правила автоматизації',
   'fabric.linking.automation-action.tooltip': 'Виберіть правило автоматизації для запуску',
   'fabric.linking.beta': 'Бета-версія',
   'fabric.linking.cancel': 'Скасувати',
@@ -107,7 +107,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Надішліть запит на доступ або ввійдіть в інший обліковий запис для попереднього перегляду.',
   'fabric.linking.join_to_view': 'Можна приєднатися до {context}, щоб переглянути цю проблему',
-  'fabric.linking.last_mentioned_in': 'Остання згадка:',
   'fabric.linking.learn_more_about_connecting_account':
     'Докладніше про підключення облікового запису до продуктів Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Докладніше про смарт-посилання.',
@@ -152,8 +151,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Немає посилань для відображення. Ми постійно переглядаємо й додаємо останні посилання на оновлені сторінки або інші типи вмісту.',
   'fabric.linking.related_links_not_found': 'Немає посилань для відображення.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Переглянути нещодавні посилання…',
-  'fabric.linking.related_work_items_not_found': 'Це посилання більше ніде не згадується.',
+  'fabric.linking.related_links_view_related_urls': 'Переглянути нещодавні посилання',
   'fabric.linking.request_access': 'Надіслати запит на доступ',
   'fabric.linking.request_access_description':
     'Ваша команда використовує {product} для співпраці. Надішліть адміністратору запит на доступ до продукту.',

@@ -2,12 +2,9 @@
 import styled from '@emotion/styled';
 
 import { N40 } from '@atlaskit/theme/colors';
-import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 export const ScrollableContainerHeight = 590;
-
-export const fieldTextFontSize = token('font.body', fontFallback.body.medium);
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Table = styled.table({
@@ -90,8 +87,7 @@ export const TableCell = styled.td({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`${withTablePluginBodyPrefix()}`]: {
 		/* First section here is to override things editor table plugin css defines */
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		font: fieldTextFontSize,
+		font: token('font.body'),
 		padding: `${token('space.050', '4px')} ${token('space.100', '8px')}`,
 		border: 0,
 		minWidth: 'auto',
@@ -125,8 +121,7 @@ export const InlineEditableTableCell = styled.td({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	[`${withTablePluginBodyPrefix()}`]: {
 		/* First section here is to override things editor table plugin css defines */
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		font: fieldTextFontSize,
+		font: token('font.body'),
 		padding: `${token('space.0', '0')} ${token('space.0', '0')}`,
 		border: 0,
 		minWidth: 'auto',

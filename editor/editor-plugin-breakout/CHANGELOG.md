@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-breakout
 
+## 1.9.10
+
+### Patch Changes
+
+- [#176596](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176596)
+  [`86e9b63cc47f0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/86e9b63cc47f0) -
+  Remove internal re-exports
+- Updated dependencies
+
 ## 1.9.9
 
 ### Patch Changes

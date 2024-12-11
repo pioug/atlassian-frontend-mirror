@@ -37,9 +37,11 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockTypePlugin } from './blockTypePluginType';
 import type { TextBlockTypes } from './pm-plugins/block-types';
-import { setBlockTypeWithAnalytics } from './pm-plugins/commands';
 import type { InputMethod } from './pm-plugins/commands/block-type';
-import { insertBlockQuoteWithAnalytics } from './pm-plugins/commands/block-type';
+import {
+	setBlockTypeWithAnalytics,
+	insertBlockQuoteWithAnalytics,
+} from './pm-plugins/commands/block-type';
 import inputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin, pluginKey } from './pm-plugins/main';
@@ -283,5 +285,3 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 };
 
 export { blockTypePlugin };
-export { pluginKey } from './pm-plugins/main';
-export type { BlockTypeState } from './pm-plugins/main';

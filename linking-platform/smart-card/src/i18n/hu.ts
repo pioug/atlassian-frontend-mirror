@@ -46,7 +46,7 @@ export default {
     'Automatizálás alkalmazása a következőhöz: <b>{name}</b>.{br}Az elérhető kiválasztásokat a Confluence és a munkatér-adminisztrátorok szabályozzák.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Oldal automatizálása',
   'fabric.linking.automation-action.icon.label': 'Automatizálás ikon',
-  'fabric.linking.automation-action.title': 'Automatizálási szabályok megtekintése…',
+  'fabric.linking.automation-action.title': 'Automatizálási szabályok megtekintése',
   'fabric.linking.automation-action.tooltip': 'Futtatandó automatizálási szabály kiválasztása',
   'fabric.linking.beta': 'Béta',
   'fabric.linking.cancel': 'Mégse',
@@ -109,7 +109,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Az előnézet megtekintéséhez hozzáférést kell kérned, vagy másik fiókba kell belépned.',
   'fabric.linking.join_to_view': 'Az ügy megtekintése érdekében csatlakozz ehhez: {context}',
-  'fabric.linking.last_mentioned_in': 'Legutóbb megemlítve itt:',
   'fabric.linking.learn_more_about_connecting_account':
     'További információ a fiók csatlakoztatásáról az Atlassian-termékekhez.',
   'fabric.linking.learn_more_about_smart_links': 'További információ az okoslinkekről.',
@@ -154,8 +153,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Nem találtunk itt megjeleníthető linkeket. Folyamatosan ellenőrizzük és hozzáadjuk a legutóbbi linkeket, hogy frissített oldalakat és más tartalomtípusokat kapj.',
   'fabric.linking.related_links_not_found': 'Nem találtunk itt megjeleníthető linkeket.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Legutóbbi linkek megtekintése…',
-  'fabric.linking.related_work_items_not_found': 'Ez a link sehol máshol nincs megemlítve.',
+  'fabric.linking.related_links_view_related_urls': 'Legutóbbi linkek megtekintése',
   'fabric.linking.request_access': 'Hozzáférés kérése',
   'fabric.linking.request_access_description':
     'A csapatod a(z) {product} terméket használja az együttműködésre. Ha hozzáférést szeretnél kapni, küldj egy kérelmet az adminisztrátorodnak.',

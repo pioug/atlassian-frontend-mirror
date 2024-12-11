@@ -1,12 +1,16 @@
 import React from 'react';
 
-import { Card, Client, Provider, type ResolveResponse } from '../../src';
+import { type JsonLd } from 'json-ld-types';
+
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
+
+import { Card } from '../../src';
 import { mockUnauthorisedResponse } from '../../src/view/HoverCard/__tests__/__mocks__/mocks';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
 class CustomClient extends Client {
 	fetchData(url: string) {
-		return Promise.resolve(mockUnauthorisedResponse as ResolveResponse);
+		return Promise.resolve(mockUnauthorisedResponse as JsonLd.Response);
 	}
 }
 

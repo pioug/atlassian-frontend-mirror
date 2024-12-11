@@ -9,7 +9,7 @@ describe('Radio', () => {
 		const content = 'content';
 		render(<Radio name="name" value="value" label={content} />);
 		expect(screen.getByDisplayValue('value')).toBeInTheDocument();
-		expect(screen.getByLabelText(content)).toBeInTheDocument();
+		expect(screen.getByDisplayValue('value')).toBeInTheDocument();
 	});
 
 	describe('props', () => {
@@ -59,20 +59,20 @@ describe('Radio', () => {
 
 		it('should set value if value prop is set', () => {
 			render(<Radio value="value-val" label="test" />);
-			const radio = screen.getByLabelText('test') as HTMLInputElement;
+			const radio = screen.getByDisplayValue('value-val') as HTMLInputElement;
 			expect(radio.value).toBe('value-val');
 		});
 
 		it('should add extra props onto the input', () => {
 			render(<Radio label="test" {...{ ['data-foo']: 'radio-bar' }} />);
-			const radio = screen.getByLabelText('test') as HTMLInputElement;
+			const radio = screen.getByRole('radio') as HTMLInputElement;
 			expect(radio).toHaveAttribute('data-foo', 'radio-bar');
 		});
 
 		it('should accept input props', () => {
 			const spy = jest.fn();
 			render(<Radio label="test" onMouseDown={spy} />);
-			const radio = screen.getByLabelText('test') as HTMLInputElement;
+			const radio = screen.getByRole('radio') as HTMLInputElement;
 			fireEvent.mouseDown(radio);
 
 			expect(spy).toHaveBeenCalledTimes(1);
@@ -82,7 +82,7 @@ describe('Radio', () => {
 			const ref = React.createRef<HTMLInputElement>();
 			render(<Radio label="test" ref={ref} />);
 
-			const input = screen.getByLabelText('test');
+			const input = screen.getByRole('radio');
 			expect(input).toBe(ref.current);
 		});
 	});
@@ -91,7 +91,7 @@ describe('Radio', () => {
 		it('should be called once on change', () => {
 			const spy = jest.fn();
 			render(<Radio label="test" value="kachow" onChange={spy} />);
-			const radio = screen.getByLabelText('test') as HTMLInputElement;
+			const radio = screen.getByDisplayValue('kachow') as HTMLInputElement;
 			fireEvent.click(radio);
 			expect(spy).toHaveBeenCalledTimes(1);
 		});
@@ -107,7 +107,7 @@ describe('Radio', () => {
 					}}
 				/>,
 			);
-			const radio = screen.getByLabelText('test') as HTMLInputElement;
+			const radio = screen.getByDisplayValue('kachow') as HTMLInputElement;
 			fireEvent.click(radio);
 			expect(value).toBe('kachow');
 		});

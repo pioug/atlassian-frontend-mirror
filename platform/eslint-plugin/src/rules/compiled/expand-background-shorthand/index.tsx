@@ -5,11 +5,12 @@ import {
 	isCompiled,
 	isAtlasKitCSS,
 } from '@atlaskit/eslint-utils/is-supported-import';
+import { getScope } from '../../util/context-compat';
 
 // Checks if the function that holds the border property is using an import package that this rule is targeting
-const isCompiledAPI = (context: Rule.RuleContext): boolean => {
+const isCompiledAPI = (context: Rule.RuleContext, node: Node): boolean => {
 	const importSources = getImportSources(context);
-	const { references } = context.getScope();
+	const { references } = getScope(context, node);
 	const ancestors = context.getAncestors();
 	if (
 		ancestors.some(
@@ -49,7 +50,7 @@ export const expandBackgroundShorthand: Rule.RuleModule = {
 	create(context) {
 		return {
 			'Property[key.name="background"]': function (node: Property) {
-				if (isCompiledAPI(context) && isTokenCallExpression(node.value)) {
+				if (isCompiledAPI(context, node) && isTokenCallExpression(node.value)) {
 					context.report({
 						node,
 						messageId: 'expandBackgroundShorthand',

@@ -5,6 +5,10 @@ import { openUrl } from '../../utils';
 import { type ExtractActionsProps } from '../common/actions/types';
 import { extractViewAction as extractViewActionData } from '../flexible/actions/extract-view-action';
 
+/**
+ * TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
+ * Replace with platform/packages/linking-platform/smart-card/src/extractors/action/extract-invoke-view-action.ts
+ */
 export const extractViewActionProps = ({
 	response,
 	actionOptions,

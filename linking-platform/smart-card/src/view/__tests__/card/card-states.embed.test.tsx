@@ -6,10 +6,15 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { type JsonLd } from 'json-ld-types';
 import { IntlProvider } from 'react-intl-next';
 
-import { type CardClient, type CardProviderStoreOpts } from '@atlaskit/link-provider';
+import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
+import {
+	type CardClient,
+	type CardProviderStoreOpts,
+	SmartCardProvider as Provider,
+} from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { Provider } from '../../../index';
 import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
@@ -21,6 +26,13 @@ describe('smart-card: card states, embed', () => {
 	let mockClient: CardClient;
 	let mockFetch: jest.Mock;
 	let mockUrl: string;
+
+	const mockAnalyticsClient = {
+		sendUIEvent: jest.fn().mockResolvedValue(undefined),
+		sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+		sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+		sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+	} satisfies AnalyticsWebClient;
 
 	beforeEach(() => {
 		mockFetch = jest.fn(() => Promise.resolve(mocks.success));
@@ -60,24 +72,54 @@ describe('smart-card: card states, embed', () => {
 		});
 
 		describe('> state: resolved', () => {
-			it('embed: should render with metadata when resolved', async () => {
-				render(
-					<IntlProvider locale="en">
-						<Provider client={mockClient}>
-							<Card appearance="embed" url={mockUrl} />
-						</Provider>
-					</IntlProvider>,
-				);
-				const resolvedViewName = await screen.findByTestId('embed-card-resolved-view-frame');
-				expect(resolvedViewName).toBeInTheDocument();
-				expect(resolvedViewName.getAttribute('src')).toEqual('https://www.ilovecheese.com');
-				expect(mockFetch).toHaveBeenCalledTimes(1);
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						display: 'embed',
-						status: 'resolved',
-					}),
+			describe('embed: should render with metadata when resolved', () => {
+				ffTest(
+					'platform-smart-card-migrate-embed-modal-analytics',
+					async () => {
+						render(
+							<FabricAnalyticsListeners client={mockAnalyticsClient}>
+								<IntlProvider locale="en">
+									<Provider client={mockClient}>
+										<Card appearance="embed" url={mockUrl} />
+									</Provider>
+								</IntlProvider>
+							</FabricAnalyticsListeners>,
+						);
+						const resolvedViewName = await screen.findByTestId('embed-card-resolved-view-frame');
+						expect(resolvedViewName).toBeInTheDocument();
+						expect(resolvedViewName.getAttribute('src')).toEqual('https://www.ilovecheese.com');
+						expect(mockFetch).toHaveBeenCalledTimes(1);
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'renderSuccess',
+								actionSubject: 'smartLink',
+								attributes: expect.objectContaining({
+									display: 'embed',
+									status: 'resolved',
+								}),
+							}),
+						);
+					},
+					async () => {
+						render(
+							<IntlProvider locale="en">
+								<Provider client={mockClient}>
+									<Card appearance="embed" url={mockUrl} />
+								</Provider>
+							</IntlProvider>,
+						);
+						const resolvedViewName = await screen.findByTestId('embed-card-resolved-view-frame');
+						expect(resolvedViewName).toBeInTheDocument();
+						expect(resolvedViewName.getAttribute('src')).toEqual('https://www.ilovecheese.com');
+						expect(mockFetch).toHaveBeenCalledTimes(1);
+						expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
+						expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								display: 'embed',
+								status: 'resolved',
+							}),
+						);
+					},
 				);
 			});
 

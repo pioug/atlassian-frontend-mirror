@@ -7,18 +7,11 @@ import { jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
 import { AsanaTask } from '../../examples-helpers/_jsonLDExamples';
-import {
-	type ActionItem,
-	ActionName,
-	Card,
-	Client,
-	Provider,
-	SmartLinkPosition,
-	TitleBlock,
-} from '../../src';
+import { type ActionItem, ActionName, Card, SmartLinkPosition, TitleBlock } from '../../src';
 import { getJsonLdResponse } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 

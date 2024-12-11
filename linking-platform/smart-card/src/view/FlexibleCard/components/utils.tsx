@@ -222,6 +222,9 @@ export const hasWhiteSpace = (str: string): boolean => {
 	return str.search(/\s/) >= 0;
 };
 
+/**
+ * TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
+ */
 export const openEmbedModalWithFlexibleUiIcon = ({
 	linkIcon,
 	...props

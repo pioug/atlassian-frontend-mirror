@@ -87,6 +87,10 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     'Beim Versuch, das Update abzuschließen, ist ein Fehler aufgetreten. Bitte warten Sie ein paar Minuten und versuchen Sie es erneut. Wenden Sie sich an den Support, wenn das Problem weiterhin besteht.',
   'linkDataSource.issue-line-table.error-generic-title': 'Etwas ist schiefgelaufen',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    'Bitte warten Sie ein paar Minuten und versuchen Sie es erneut. Überprüfen Sie Ihre Projekteinstellungen oder wenden Sie sich an den Support, wenn das Problem weiterhin besteht.',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title':
+    'Beim Abrufen der Optionen ist ein Problem aufgetreten',
   'linkDataSource.issue-line-table.unwrap-text': 'Textumbruch aufheben',
   'linkDataSource.issue-line-table.wrap-text': 'Textumbruch anwenden',
   'linkDataSource.checkConnectionWithSource':

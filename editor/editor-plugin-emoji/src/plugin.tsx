@@ -309,6 +309,19 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 					if (!api?.annotation) {
 						return true;
 					}
+					if (api?.analytics?.actions) {
+						api?.analytics?.actions?.fireAnalyticsEvent({
+							action: ACTION.CLICKED,
+							actionSubject: ACTION_SUBJECT.BUTTON,
+							actionSubjectId: ACTION_SUBJECT_ID.CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU,
+							eventType: EVENT_TYPE.UI,
+							attributes: {
+								source: 'highlightActionsMenu',
+								pageMode: 'edit',
+								sourceNode: 'emoji',
+							},
+						});
+					}
 					const command = api.annotation?.actions?.setInlineCommentDraftState(
 						true,
 						INPUT_METHOD.TOOLBAR,

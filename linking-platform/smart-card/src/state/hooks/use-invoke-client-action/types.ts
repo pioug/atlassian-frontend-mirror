@@ -1,12 +1,23 @@
-import type { CardInnerAppearance } from '../../../view/Card/types';
-import type { AnalyticsFacade } from '../../analytics';
+import { type FireEventFunction } from '../../../common/analytics/types';
+import { type CardInnerAppearance } from '../../../view/Card/types';
+import { type AnalyticsFacade } from '../../analytics';
 
 export type UseInvokeClientActionProps = {
 	/**
 	 * Analytics object
 	 */
 	analytics?: AnalyticsFacade;
+	/**
+	 * A function to dispatch analytics events.
+	 */
+	fireEvent?: FireEventFunction;
 };
+
+export type InvokeClientActionSubjectId =
+	| 'copyLink'
+	| 'downloadDocument'
+	| 'invokePreviewScreen'
+	| 'shortcutGoToLink';
 
 export type InvokeClientActionProps = {
 	/**
@@ -15,9 +26,19 @@ export type InvokeClientActionProps = {
 	actionFn: () => Promise<void>;
 
 	/**
+	 * Invoke action subject id for analytics purposes.
+	 */
+	actionSubjectId?: InvokeClientActionSubjectId;
+
+	/**
 	 * Invoke action type for analytics purposes.
 	 */
 	actionType: string;
+
+	/**
+	 * Definition id for analytics purposes.
+	 */
+	definitionId?: string;
 
 	/**
 	 * Smart card display type
@@ -32,6 +53,16 @@ export type InvokeClientActionProps = {
 	 * useSmartLinkAnalytics() and/or into the analytic context.
 	 */
 	extensionKey?: string;
+
+	/**
+	 * ID for analytics purposes.
+	 */
+	id?: string;
+
+	/**
+	 * Resource type for analytics purposes.
+	 */
+	resourceType?: string;
 };
 
 export type InvokeClientActionHandler = (opts: InvokeClientActionProps) => Promise<void>;

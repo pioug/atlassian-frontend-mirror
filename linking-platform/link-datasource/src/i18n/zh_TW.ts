@@ -78,6 +78,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     '我們在嘗試完成更新時遇到問題。請稍候數分鐘，然後再試一次。如果這種情況持續發生，請連絡支援團隊。',
   'linkDataSource.issue-line-table.error-generic-title': '發生錯誤',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    '請稍候數分鐘，然後再試一次。如果這種情況持續發生，請檢查您的專案設定或連絡支援團隊。',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': '我們在擷取選項時遇到問題',
   'linkDataSource.issue-line-table.unwrap-text': '取消文字換行',
   'linkDataSource.issue-line-table.wrap-text': '將文字換行',
   'linkDataSource.checkConnectionWithSource': '請檢查您的連線並重新整理，或者<a>在 Jira 中開啟此查詢</a>加以檢閱。',

@@ -2,13 +2,17 @@ import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { type JsonLd } from 'json-ld-types';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import {
 	CardDisplay,
 	SmartLinkPosition,
 	SmartLinkSize,
 	SmartLinkStatus,
 } from '../../../../../constants';
-import { getCanBeDatasource } from '../../../../../state/helpers';
+import { succeedUfoExperience } from '../../../../../state/analytics';
+import { getCanBeDatasource, getDefinitionId } from '../../../../../state/helpers';
 import FlexibleCard from '../../../../FlexibleCard';
 import {
 	ActionBlock,
@@ -32,17 +36,41 @@ const HoverCardResolvedView = ({
 	isAISummaryEnabled,
 	onActionClick,
 	titleBlockProps,
+	id,
 }: HoverCardResolvedProps) => {
-	const canBeDatasource = getCanBeDatasource(cardState.details);
+	const { fireEvent } = useAnalyticsEvents();
+	const definitionId = React.useMemo(() => getDefinitionId(cardState.details), [cardState.details]);
+	const canBeDatasource = React.useMemo(
+		() => getCanBeDatasource(cardState.details),
+		[cardState.details],
+	);
+
 	useEffect(() => {
 		// Since this hover view is only rendered on resolved status,
 		// there is no need to check for statuses.
-		analytics.ui.renderSuccessEvent({
-			display: CardDisplay.HoverCardPreview,
-			status: cardState.status,
-			canBeDatasource,
-		});
-	}, [analytics.ui, cardState.status, canBeDatasource]);
+		if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
+			succeedUfoExperience('smart-link-rendered', id || 'NULL', {
+				extensionKey,
+				display: CardDisplay.HoverCardPreview,
+			});
+
+			// UFO will disregard this if authentication experience has not yet been started
+			succeedUfoExperience('smart-link-authenticated', id || 'NULL', {
+				display: CardDisplay.HoverCardPreview,
+			});
+
+			fireEvent('ui.smartLink.renderSuccess', {
+				definitionId: definitionId ?? null,
+				display: CardDisplay.HoverCardPreview,
+			});
+		} else {
+			analytics.ui.renderSuccessEvent({
+				display: CardDisplay.HoverCardPreview,
+				status: cardState.status,
+				canBeDatasource,
+			});
+		}
+	}, [analytics.ui, cardState.status, canBeDatasource, fireEvent, definitionId, extensionKey, id]);
 
 	const data = cardState.details?.data as JsonLd.Data.BaseData;
 

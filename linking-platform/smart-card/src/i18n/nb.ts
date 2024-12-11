@@ -46,7 +46,7 @@ export default {
     'Bruk en automatisering på <b>{name}</b>.{br}De tilgjengelige valgene styres av Confluence- og områdeadministratorer.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Sideautomatiseringer',
   'fabric.linking.automation-action.icon.label': 'Automatiseringsikon',
-  'fabric.linking.automation-action.title': 'Vis automatiseringsregler …',
+  'fabric.linking.automation-action.title': 'Vis automatiseringsregler',
   'fabric.linking.automation-action.tooltip': 'Velg automatiseringsregelen du vil kjøre',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Avbryt',
@@ -106,7 +106,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Du må be om tilgang eller prøve en annen konto for kunne se denne forhåndsvisningen.',
   'fabric.linking.join_to_view': 'Bli med {context} for å se denne saken',
-  'fabric.linking.last_mentioned_in': 'Sist omtalt i',
   'fabric.linking.learn_more_about_connecting_account': 'Finn ut mer om å koble kontoen din til Atlassian-produkter.',
   'fabric.linking.learn_more_about_smart_links': 'Finn ut mer om smartkoblinger.',
   'fabric.linking.link_safety_warning_message':
@@ -151,8 +150,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Vi finner ingen koblinger å vise her. Vi gjennomgår og legger stadig til nylige koblinger for oppdaterte sider eller andre innholdstyper.',
   'fabric.linking.related_links_not_found': 'Vi finner ingen koblinger å vise her.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Vis nylige koblinger …',
-  'fabric.linking.related_work_items_not_found': 'Denne koblingen er ikke omtalt andre steder.',
+  'fabric.linking.related_links_view_related_urls': 'Vis nylige koblinger',
   'fabric.linking.request_access': 'Be om tilgang',
   'fabric.linking.request_access_description':
     'Teamet ditt bruker {product} til å samarbeide. Be administratoren din om tilgang.',

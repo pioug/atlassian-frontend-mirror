@@ -45,7 +45,7 @@ export default {
     'Použijte automatizaci u položky <b>{name}</b>.{br}Dostupné výběry jsou určeny správci Confluence a prostorů.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Automatizace stránek',
   'fabric.linking.automation-action.icon.label': 'Ikona automatizace',
-  'fabric.linking.automation-action.title': 'Zobrazit pravidla automatizace…',
+  'fabric.linking.automation-action.title': 'Zobrazit pravidla automatizace',
   'fabric.linking.automation-action.tooltip': 'Vyberte pravidlo automatizace, které chcete spustit.',
   'fabric.linking.beta': 'Beta',
   'fabric.linking.cancel': 'Zrušit',
@@ -105,7 +105,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Pokud si chcete zobrazit tento náhled, požádejte o přístup nebo vyzkoušejte jiný účet.',
   'fabric.linking.join_to_view': 'Chcete-li si zobrazit tento požadavek, připojte se ke službě {context}.',
-  'fabric.linking.last_mentioned_in': 'Naposledy zmíněno v:',
   'fabric.linking.learn_more_about_connecting_account': 'Další informace o propojení účtu s produkty Atlassian.',
   'fabric.linking.learn_more_about_smart_links': 'Další informace o chytrých odkazech',
   'fabric.linking.link_safety_warning_message':
@@ -149,8 +148,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Nebyly nalezeny žádné odkazy, které bychom tu mohli zobrazit. Neustále kontrolujeme a přidáváme odkazy na nedávno aktualizované stránky nebo jiné typy obsahu.',
   'fabric.linking.related_links_not_found': 'Nebyly nalezeny žádné odkazy, které bychom tu mohli zobrazit.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Zobrazit nedávné odkazy…',
-  'fabric.linking.related_work_items_not_found': 'Tento odkaz není nikde jinde zmíněn.',
+  'fabric.linking.related_links_view_related_urls': 'Zobrazit nedávné odkazy',
   'fabric.linking.request_access': 'Požádat o přístup',
   'fabric.linking.request_access_description': 'Váš tým spolupracuje v {product}. Pošlete správci žádost o přístup.',
   'fabric.linking.request_access_pending': 'Čeká na schválení',

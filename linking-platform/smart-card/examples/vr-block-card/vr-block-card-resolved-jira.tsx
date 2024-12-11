@@ -2,7 +2,7 @@ import React from 'react';
 
 import { type JsonLd } from 'json-ld-types';
 
-import { Client } from '@atlaskit/smart-card';
+import { CardClient as Client } from '@atlaskit/link-provider';
 
 import { JiraIssue, JiraIssueAssigned, JiraProject } from '../../examples-helpers/_jsonLDExamples';
 import VRCardView from '../utils/vr-card-view';

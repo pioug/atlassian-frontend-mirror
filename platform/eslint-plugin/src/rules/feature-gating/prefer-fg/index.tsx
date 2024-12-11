@@ -1,7 +1,9 @@
 import type { Rule } from 'eslint';
 
 import { FEATURE_API_IMPORT_SOURCES } from '../../constants';
-import { type Node } from '../utils';
+import type { Node } from '../utils';
+import type { Program } from 'estree';
+import { getScope } from '../../util/context-compat';
 
 const validateUsage = (
 	node: Node<'CallExpression'>,
@@ -9,9 +11,9 @@ const validateUsage = (
 	context: Rule.RuleContext,
 	changeMap: Map<any, any>,
 ) => {
-	const resolved = context
-		.getScope()
-		.references.find((ref) => ref.identifier.name === utilName)?.resolved;
+	const resolved = getScope(context, node).references.find(
+		(ref) => ref.identifier.name === utilName,
+	)?.resolved;
 
 	const importSpecifierDefinition = resolved?.defs.find(
 		(def: any) =>
@@ -69,10 +71,10 @@ const rule: Rule.RuleModule = {
 				changeMap = changeMap || new Map();
 				validateUsage(node, 'getBooleanFF', context, changeMap);
 			},
-			'Program:exit': () => {
+			'Program:exit': (node: Program) => {
 				if (changeMap?.size) {
 					changeMap.forEach((changeCounts, importDeclaration) => {
-						const [moduleScope] = context.getScope().childScopes;
+						const [moduleScope] = getScope(context, node).childScopes;
 						const importSpecifiers = new Set(
 							importDeclaration.specifiers.map(({ imported }: any) => imported.name),
 						);

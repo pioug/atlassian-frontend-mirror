@@ -101,7 +101,6 @@ const truncateStyles = css({
 });
 
 const tableContainerStyles = css({
-	borderRadius: 'inherit',
 	borderBottomLeftRadius: 0,
 	borderBottomRightRadius: 0,
 	position: 'relative',

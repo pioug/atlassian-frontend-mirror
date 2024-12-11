@@ -78,6 +78,9 @@ export default {
   'linkDataSource.issue-line-table.error-generic-description':
     '我们在尝试完成更新时遇到问题。请稍等几分钟，然后重试。如果此情况持续发生，请联系支持团队。',
   'linkDataSource.issue-line-table.error-generic-title': '出错了',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-description':
+    '请稍等几分钟，然后重试。如果此情况持续发生，请检查您的项目设置，或联系支持团队。',
+  'linkDataSource.issue-line-table.fetch-action-error-generic-title': '获取选项时遇到问题',
   'linkDataSource.issue-line-table.unwrap-text': '取消换行',
   'linkDataSource.issue-line-table.wrap-text': '换行',
   'linkDataSource.checkConnectionWithSource': '请检查连接并刷新，或<a>在 Jira 中打开此查询</a>以进行查看。',

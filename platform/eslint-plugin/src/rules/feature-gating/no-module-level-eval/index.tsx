@@ -1,8 +1,10 @@
 import type { Rule } from 'eslint';
-import { isAPIimport, type Node } from '../utils';
+import type { Node } from 'estree';
+import { isAPIimport } from '../utils';
+import { getScope } from '../../util/context-compat';
 
-const isInFunctionLevel = (context: Rule.RuleContext) => {
-	let scope: any = context.getScope();
+const isInFunctionLevel = (context: Rule.RuleContext, node: Node) => {
+	let scope: any = getScope(context, node);
 
 	while (scope?.type !== 'module' && scope?.type !== 'global') {
 		if (scope.type === 'function') {
@@ -32,12 +34,12 @@ const rule: Rule.RuleModule = {
 	},
 	create(context) {
 		return {
-			'CallExpression[callee.type="Identifier"]': (node: Node<any>) => {
+			'CallExpression[callee.type="Identifier"]': (node: Node) => {
 				if (
 					node.type === 'CallExpression' &&
 					node.callee.type === 'Identifier' &&
-					isAPIimport(node.callee.name, context) &&
-					!isInFunctionLevel(context)
+					isAPIimport(node.callee.name, context, node) &&
+					!isInFunctionLevel(context, node)
 				) {
 					context.report({
 						messageId: 'noModuleLevelEval',

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.0.7
+
+### Patch Changes
+
+- [#176983](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176983)
+  [`b62801c154a5b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b62801c154a5b) -
+  Migrated smart-card proxied exports (linking-common, link-provider, json-ld-types) to import from
+  modules directly
+
 ## 2.0.6
 
 ### Patch Changes

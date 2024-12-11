@@ -1,4 +1,4 @@
-import { type ResolveResponse } from '../../src';
+import { type JsonLd } from 'json-ld-types';
 
 export const GithubFile = {
 	meta: {
@@ -33,7 +33,7 @@ export const GithubFile = {
 		},
 		name: 'test.txt',
 	},
-} as ResolveResponse;
+} as JsonLd.Response;
 
 export const GithubPullRequestJson = {
 	meta: {
@@ -149,7 +149,7 @@ export const GithubPullRequestJson = {
 	},
 };
 
-export const GithubPullRequest = GithubPullRequestJson as ResolveResponse;
+export const GithubPullRequest = GithubPullRequestJson as JsonLd.Response;
 
 export const GithubRepository = {
 	meta: {
@@ -202,7 +202,7 @@ export const GithubRepository = {
 		'atlassian:subscribers': [],
 		'atlassian:subscriberCount': '20488402',
 	},
-} as ResolveResponse;
+} as JsonLd.Response;
 
 export const GithubSourceCodeReference = {
 	meta: {
@@ -258,7 +258,7 @@ export const GithubSourceCodeReference = {
 		summary: 'qweqwe',
 		updated: '2018-05-23T14:43:41Z',
 	},
-} as ResolveResponse;
+} as JsonLd.Response;
 
 export const GitHubIssue = {
 	meta: {
@@ -371,4 +371,4 @@ export const GitHubIssue = {
 		updated: '2018-07-30T16:15:03Z',
 		url: 'https://github.com/user/repo-name/issues/535123525?a=2',
 	},
-} as ResolveResponse;
+} as JsonLd.Response;

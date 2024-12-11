@@ -42,3 +42,5 @@ const useResolve = () => {
 };
 
 export default useResolve;
+
+export type ResolveFunction = ReturnType<typeof useResolve>;

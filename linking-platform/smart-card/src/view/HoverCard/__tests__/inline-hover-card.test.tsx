@@ -18,9 +18,8 @@ import React from 'react';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import { type CardClient } from '@atlaskit/link-provider';
+import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 
-import { Provider } from '../../../index';
 import * as useSmartCardActions from '../../../state/actions';
 import { fakeFactory } from '../../../utils/mocks';
 import { Card } from '../../Card';

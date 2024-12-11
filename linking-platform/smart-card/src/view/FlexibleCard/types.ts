@@ -1,13 +1,20 @@
-import type { JsonLd } from 'json-ld-types';
+import { type JsonLd } from 'json-ld-types';
 import { type MessageDescriptor } from 'react-intl-next';
 
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { type CardState, type LinkingPlatformFeatureFlags } from '@atlaskit/linking-common';
 
+import { type FireEventFunction } from '../../common/analytics/types';
 import { type SmartLinkSize, type SmartLinkStatus, type SmartLinkTheme } from '../../constants';
 import { type AnalyticsFacade } from '../../state/analytics';
 import { type AISummaryConfig } from '../../state/hooks/use-ai-summary-config/types';
-import type { CardActionOptions, CardInnerAppearance, OnResolveCallback } from '../Card/types';
+import { type ResolveFunction } from '../../state/hooks/use-resolve';
+import { type AnalyticsOrigin } from '../../utils/types';
+import {
+	type CardActionOptions,
+	type CardInnerAppearance,
+	type OnResolveCallback,
+} from '../Card/types';
 import { type HoverPreviewOptions } from '../HoverCard/types';
 import { type OnErrorCallback } from '../types';
 
@@ -63,6 +70,11 @@ export type FlexibleCardProps = {
 	 * function to be called after a flexible card has rendered its resolved state
 	 */
 	onResolve?: OnResolveCallback;
+
+	/**
+	 * Smart links origin for analytics purposes
+	 */
+	origin?: AnalyticsOrigin;
 
 	/**
 	 * Any additional renderers required by Flexible UI. Currently used by icon
@@ -173,10 +185,12 @@ export type RetryOptions = {
 
 export type ExtractFlexibleUiDataContextParams = Pick<
 	FlexibleCardProps,
-	'id' | 'actionOptions' | 'renderers' | 'url'
+	'appearance' | 'id' | 'actionOptions' | 'origin' | 'renderers' | 'url'
 > & {
+	fireEvent?: FireEventFunction;
 	status?: SmartLinkStatus;
 	response?: JsonLd.Response;
+	resolve?: ResolveFunction;
 	featureFlags?: Partial<LinkingPlatformFeatureFlags>;
 	aiSummaryConfig?: AISummaryConfig;
 };

@@ -17,14 +17,13 @@ import { render, screen, waitFor } from '@testing-library/react';
 import * as jestExtendedMatchers from 'jest-extended';
 import uuid from 'uuid';
 
-import { type CardClient } from '@atlaskit/link-provider';
+import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import {
 	MockIntersectionObserverFactory,
 	type MockIntersectionObserverOpts,
 } from '@atlaskit/link-test-helpers';
 import { type JestFunction } from '@atlaskit/media-test-helpers';
 
-import { Provider } from '../../../index';
 import * as ufoWrapper from '../../../state/analytics/ufoExperiences';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';

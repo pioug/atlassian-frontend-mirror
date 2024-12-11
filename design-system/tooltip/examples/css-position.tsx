@@ -4,8 +4,7 @@
  */
 import { type CSSProperties, type FC, forwardRef, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { type ReactNode } from 'react-redux';
 
 import { token } from '@atlaskit/tokens';
@@ -29,7 +28,7 @@ const positionStyles = css({
 	width: '280px',
 	height: '60px',
 	padding: token('space.100', '8px'),
-	backgroundColor: `${token('color.background.neutral')}`,
+	backgroundColor: token('color.background.neutral'),
 	borderRadius: '5px',
 });
 

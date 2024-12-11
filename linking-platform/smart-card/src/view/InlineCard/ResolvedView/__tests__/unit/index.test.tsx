@@ -2,9 +2,9 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
+import { SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
-import { Provider } from '../../../../../index';
 import { type LozengeProps } from '../../../../../types';
 import { InlineCardResolvedView } from '../../index';
 

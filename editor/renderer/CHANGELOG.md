@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 112.7.0
+
+### Minor Changes
+
+- [#177219](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177219)
+  [`6d8f4a8bb02d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d8f4a8bb02d4) -
+  [ux] fix an issue where the sllv table can be blurry in renderer in some specific setup (wide
+  screen, chrome, used in a spot with limited width)
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.6.16
+
+### Patch Changes
+
+- [#176983](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176983)
+  [`b62801c154a5b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b62801c154a5b) -
+  Migrated smart-card proxied exports (linking-common, link-provider, json-ld-types) to import from
+  modules directly
+
 ## 112.6.15
 
 ### Patch Changes

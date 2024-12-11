@@ -5,8 +5,8 @@ import type { CardProvider } from '@atlaskit/editor-common/provider-factory';
 import { canRenderDatasource, hasDocAsParent } from '@atlaskit/editor-common/utils';
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { CardAdf, DatasourceAdf } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
-import type { CardAdf, DatasourceAdf } from '@atlaskit/smart-card';
 
 import type { Request } from '../../types';
 import { setProvider } from '../actions';

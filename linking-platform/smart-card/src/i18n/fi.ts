@@ -45,7 +45,7 @@ export default {
     'Käytä automaatiota sivulla <b>{name}</b>.{br}Confluencen ja työtilan ylläpitäjät hallitsevat käytettävissä olevia valintoja.',
   'fabric.linking.automation-action.confluence.page.modal.title': 'Sivun automaatiot',
   'fabric.linking.automation-action.icon.label': 'Automaatiokuvake',
-  'fabric.linking.automation-action.title': 'Näytä automaatiosäännöt...',
+  'fabric.linking.automation-action.title': 'Näytä automaatiosäännöt',
   'fabric.linking.automation-action.tooltip': 'Valitse suoritettava automaatiosääntö',
   'fabric.linking.beta': 'Beeta',
   'fabric.linking.cancel': 'Peruuta',
@@ -89,10 +89,10 @@ export default {
   'fabric.linking.download_file': 'Lataa tiedosto',
   'fabric.linking.edit': 'Muokkaa',
   'fabric.linking.follow': 'Seuraa',
-  'fabric.linking.follow_goal': 'Seuraa tavoitetta',
-  'fabric.linking.follow_goal_description': 'Seuraamalla tätä tavoitetta saat ilmoituksia päivityksistä',
+  'fabric.linking.follow_goal': 'Seuraa päämäärää',
+  'fabric.linking.follow_goal_description': 'Seuraamalla tätä päämäärää saat ilmoituksia päivityksistä',
   'fabric.linking.follow_goal_error':
-    'Kohtasimme virheen yrittäessämme seurata tavoitetta. Tarkista verkkoyhteytesi tai päivitä sivu ja yritä uudelleen.',
+    'Kohtasimme virheen yrittäessämme seurata päämäärää. Tarkista verkkoyhteytesi tai päivitä sivu ja yritä uudelleen.',
   'fabric.linking.follow_project': 'Seuraa projektia',
   'fabric.linking.follow_project_description': 'Seuraamalla saat ilmoituksia tästä projektista',
   'fabric.linking.follow_project_error':
@@ -107,7 +107,6 @@ export default {
   'fabric.linking.invalid_permissions_description':
     'Pyydä käyttöoikeus tai käytä toista tiliä, jos haluat nähdä tämän esikatselun.',
   'fabric.linking.join_to_view': 'Liity palveluun {context} niin voit tarkastella asiaa',
-  'fabric.linking.last_mentioned_in': 'Viimeksi mainittu kohteessa',
   'fabric.linking.learn_more_about_connecting_account': 'Lisätietoja tilisi yhdistämisestä Atlassian-tuotteisiin.',
   'fabric.linking.learn_more_about_smart_links': 'Lue lisää Smart Link -linkeistä.',
   'fabric.linking.link_safety_warning_message':
@@ -152,8 +151,7 @@ export default {
   'fabric.linking.related_links_modal_unavailable_message':
     'Täältä ei löytynyt näytettäviä linkkejä. Päivitettyjen sivujen tai muiden sisältötyyppien viimeaikaisia linkkejä tarkistetaan ja lisätään jatkuvasti.',
   'fabric.linking.related_links_not_found': 'Täältä ei löytynyt näytettäviä linkkejä.',
-  'fabric.linking.related_links_view_related_urls.nonfinal': 'Näytä viimeisimmät linkit...',
-  'fabric.linking.related_work_items_not_found': 'Tätä linkkiä ei ole mainittu missään muualla.',
+  'fabric.linking.related_links_view_related_urls': 'Näytä viimeisimmät linkit',
   'fabric.linking.request_access': 'Pyydä pääsyä',
   'fabric.linking.request_access_description':
     '{product} on tiimisi käytössä yhteistyön tukena. Pyydä käyttöoikeutta ylläpitäjältäsi.',

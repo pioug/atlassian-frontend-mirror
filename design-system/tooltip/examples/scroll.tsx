@@ -1,66 +1,57 @@
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
-
+import { cssMap, cx } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { Target } from './styled';
 
-const direction: { [key: string]: string } = {
-	horizontal: 'overflow-x',
-	vertical: 'overflow-y',
-	nested: 'overflow',
-};
+const parentBaseStyles = cssMap({
+	root: {
+		borderRadius: token('border.radius.100'),
+		marginBottom: token('space.100', '8px'),
+		height: '80px',
+		padding: token('space.100', '8px'),
+	},
+});
 
-interface StyledProps {
-	scroll: string;
-}
+const parentScrollStyles = cssMap({
+	horizontal: {
+		overflowX: 'scroll',
+	},
+	vertical: {
+		overflowY: 'scroll',
+	},
+	nested: {
+		overflow: 'scroll',
+	},
+});
 
-// eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Parent = styled.div<StyledProps>`
-	background-color: ${token('elevation.surface.sunken')};
-	border-radius: 5px;
-	margin-bottom: ${token('space.100', '8px')};
-	height: 64px;
-	padding: ${token('space.100', '8px')};
-	${(p) => direction[p.scroll]}: scroll;
-
-	&:last-child {
-		margin-bottom: ${token('space.0', '0px')};
-	}
-`;
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Shim = styled.div<StyledProps>(
-	{
+const shimStyles = cssMap({
+	horizontal: {
 		display: 'flex',
 		justifyContent: 'space-between',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		width: '200%' as 'auto',
+		flexDirection: 'row',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-	(p) =>
-		p.scroll === 'horizontal' &&
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		css({
-			width: '200%',
-			flexDirection: 'row',
-		}),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
-	(p) =>
-		p.scroll === 'vertical' &&
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		css({
-			height: '200%',
-			flexDirection: 'column',
-		}),
-);
+	vertical: {
+		display: 'flex',
+		justifyContent: 'space-between',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		height: '200%' as 'auto',
+		flexDirection: 'column',
+	},
+});
 
 export default () => (
-	<div>
-		<Parent scroll="horizontal">
-			<Shim scroll="horizontal">
+	<Box>
+		<Box
+			backgroundColor="elevation.surface.sunken"
+			xcss={cx(parentBaseStyles.root, parentScrollStyles.horizontal)}
+		>
+			<Box xcss={shimStyles.horizontal}>
 				<p>
 					Horizontal &mdash; scroll <strong>right</strong> to see the target.
 				</p>
@@ -71,10 +62,13 @@ export default () => (
 						</Target>
 					)}
 				</Tooltip>
-			</Shim>
-		</Parent>
-		<Parent scroll="vertical">
-			<Shim scroll="vertical">
+			</Box>
+		</Box>
+		<Box
+			backgroundColor="elevation.surface.sunken"
+			xcss={cx(parentBaseStyles.root, parentScrollStyles.vertical)}
+		>
+			<Box xcss={shimStyles.vertical}>
 				<p>
 					Vertical &mdash; scroll <strong>down</strong> to see the target.
 				</p>
@@ -85,21 +79,21 @@ export default () => (
 						</Target>
 					)}
 				</Tooltip>
-			</Shim>
-		</Parent>
-		<Parent scroll="horizontal">
-			<Shim scroll="horizontal">
+			</Box>
+		</Box>
+		<Box
+			backgroundColor="elevation.surface.sunken"
+			xcss={cx(parentBaseStyles.root, parentScrollStyles.horizontal)}
+		>
+			<Box xcss={shimStyles.horizontal}>
 				<p>
 					Nested &mdash; scroll <strong>right</strong> to see the target.
 				</p>
-				<Parent
-					scroll="vertical"
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						backgroundColor: token('elevation.surface.overlay'),
-					}}
+				<Box
+					backgroundColor="elevation.surface.overlay"
+					xcss={cx(parentBaseStyles.root, parentScrollStyles.vertical)}
 				>
-					<Shim scroll="vertical">
+					<Box xcss={shimStyles.vertical}>
 						<p>
 							Scroll <strong>down</strong> to see the target.
 						</p>
@@ -110,9 +104,9 @@ export default () => (
 								</Target>
 							)}
 						</Tooltip>
-					</Shim>
-				</Parent>
-			</Shim>
-		</Parent>
-	</div>
+					</Box>
+				</Box>
+			</Box>
+		</Box>
+	</Box>
 );

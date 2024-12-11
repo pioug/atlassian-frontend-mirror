@@ -29,8 +29,8 @@ export const wrapperStyle = css(wrapperDefault, {
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
-		margin: `0 ${token('space.negative.150', '-12px')}`,
-		padding: `0 ${token('space.150', '12px')}`,
+		margin: `0 ${token('space.negative.250', '-20px')}`,
+		padding: `0 ${token('space.250', '20px')}`,
 	},
 });
 
@@ -88,6 +88,10 @@ export const contentWrapper = css({
 export const overflowWrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-margin-styles': {
-		margin: `0 ${token('space.negative.150', '-12px')}`,
+		margin: `0 ${token('space.negative.250', '-20px')}`,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'&.with-padding-styles': {
+		padding: token('space.100', '8px'),
 	},
 });

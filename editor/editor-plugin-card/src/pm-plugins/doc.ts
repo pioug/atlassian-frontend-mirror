@@ -33,13 +33,13 @@ import type { Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/model'
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type {
 	CardAdf,
 	DatasourceAdf,
 	DatasourceAdfView,
 	InlineCardAdf,
-} from '@atlaskit/smart-card';
+} from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CardPluginState, Request } from '../types';
 

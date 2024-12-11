@@ -1,144 +1,116 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type MouseEvent } from 'react';
+import React, { useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-import { FormattedMessage } from 'react-intl-next';
+import { type JsonLd } from 'json-ld-types';
+import { useIntl } from 'react-intl-next';
 
-import LockIcon from '@atlaskit/icon/utility/migration/lock-locked--lock-filled';
-import { Flex, xcss } from '@atlaskit/primitives';
+import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import LockIcon from '@atlaskit/icon/glyph/lock';
+import { extractProvider } from '@atlaskit/link-extractors';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
+import { extractRequestAccessContextImproved } from '../../../extractors/common/context/extractAccessContext';
+import extractHostname from '../../../extractors/common/hostname/extractHostname';
 import { messages } from '../../../messages';
-import type { CardActionOptions } from '../../Card/types';
-import { Byline } from '../../common/Byline';
-import { type IconProps } from '../../common/Icon';
-import { type RequestAccessContextProps } from '../../types';
-import { type ActionProps } from '../components/Action';
-import { ActionList } from '../components/ActionList';
-import { Content } from '../components/Content';
-import { ContentFooter } from '../components/ContentFooter';
-import { ContentHeader } from '../components/ContentHeader';
-import { Frame } from '../components/Frame';
-import { Link } from '../components/Link';
-import { Provider } from '../components/Provider';
-import { UnresolvedText } from '../components/UnresolvedText';
-import { handleClickCommon } from '../utils/handlers';
+import { toMessage } from '../../../utils/intl-utils';
+import { getForbiddenJsonLd } from '../../../utils/jsonld';
+import { type ActionItem } from '../../FlexibleCard/components/blocks/types';
+import Text from '../../FlexibleCard/components/elements/text';
+import { ForbiddenAction } from '../actions/ForbiddenAction';
 
-const iconWrapperStyles = xcss({
-	marginRight: 'space.050',
-});
-
-export interface PermissionDeniedProps {
-	/* Actions which can be taken on the URL */
-	actions?: Array<ActionProps>;
-	/* Details about the provider for the link */
-	context?: { icon?: React.ReactNode; text: string };
-	/* Icon for the header of the link */
-	icon: IconProps;
-	/* URL to the link */
-	link?: string;
-	/* Event handler - on click of the card, to be passed down to clickable components */
-	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-	/* If selected, would be true in edit mode */
-	isSelected?: boolean;
-	testId?: string;
-	actionOptions?: CardActionOptions;
-	/* Describes additional metadata based on the type of access a user has to the link */
-	requestAccessContext?: RequestAccessContextProps;
-}
+import { type FlexibleBlockCardProps } from './types';
+import UnresolvedView from './unresolved-view';
+import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
 
 /**
- * Class name for selecting non-flexible forbidden block card
+ * This view represent a Block Card with the 'Forbidden' status.
+ * It should have a "Try another account" button that will allow a user to connect another account and view the block card.
  *
- * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
- * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
+ * @see SmartLinkStatus
+ * @see FlexibleCardProps
  */
-export const blockCardForbiddenViewClassName = 'block-card-forbidden-view';
+const ForbiddenView = ({
+	testId = 'smart-block-forbidden-view',
+	...props
+}: FlexibleBlockCardProps) => {
+	const { createAnalyticsEvent } = useAnalyticsEvents();
 
-/**
- * Class name for selecting link inside non-flexible forbidden block card
- *
- * @deprecated {@link https://hello.jira.atlassian.cloud/browse/ENGHEALTH-6878 Internal documentation for deprecation (no external access)}
- * Using this selctor is deprecated as once the flexible block card feature flag is removed, this class will no longer be used.
- */
-export const blockCardForbiddenViewLinkClassName = 'block-card-forbidden-view-link';
+	const intl = useIntl();
 
-export const ForbiddenView = ({
-	context = { text: '' },
-	isSelected = false,
-	actions = [],
-	testId = 'block-card-forbidden-view',
-	link = '',
-	onClick = () => {},
-	requestAccessContext = {},
-	actionOptions,
-}: PermissionDeniedProps) => {
-	const handleClick = (event: MouseEvent<HTMLElement>) => handleClickCommon(event, onClick);
+	const { cardState, onAuthorize, url } = props;
+	const details = cardState?.details;
+	const cardMetadata = details?.meta ?? getForbiddenJsonLd().meta;
+	const provider = extractProvider(details?.data as JsonLd.Data.BaseData);
+	const providerName = provider?.text || '';
 
-	const {
-		action,
-		descriptiveMessageKey = 'invalid_permissions_description',
-		hostname = '',
-		buttonDisabled,
-	} = requestAccessContext;
+	const messageContext = useMemo(() => {
+		const hostname = <b>{extractHostname(url)}</b>;
 
-	const items = action !== undefined && !(buttonDisabled ?? false) ? [...actions, action] : actions;
+		return { product: providerName, hostname };
+	}, [providerName, url]);
+
+	const requestAccessContext = useMemo(() => {
+		return extractRequestAccessContextImproved({
+			jsonLd: cardMetadata,
+			url,
+			product: providerName,
+			createAnalyticsEvent,
+		});
+	}, [cardMetadata, providerName, url, createAnalyticsEvent]);
+
+	const title = useMemo(() => {
+		const descriptor = toMessage(
+			messages.invalid_permissions,
+			requestAccessContext?.titleMessageKey,
+		);
+		return intl.formatMessage(descriptor, { product: providerName });
+	}, [intl, providerName, requestAccessContext?.titleMessageKey]);
+
+	const actions = useMemo<ActionItem[]>(() => {
+		let actionFromAccessContext: ActionItem[] = [];
+		const tryAnotherAccountAction = onAuthorize
+			? [ForbiddenAction(onAuthorize, 'try_another_account')]
+			: [];
+
+		if (requestAccessContext) {
+			const { action, callToActionMessageKey } = requestAccessContext;
+
+			actionFromAccessContext =
+				action && callToActionMessageKey
+					? [
+							ForbiddenAction(
+								action.promise,
+								callToActionMessageKey,
+								messageContext,
+								requestAccessContext?.buttonDisabled,
+							),
+						]
+					: [];
+		}
+
+		return [...tryAnotherAccountAction, ...actionFromAccessContext];
+	}, [onAuthorize, requestAccessContext, messageContext]);
 
 	return (
-		<Frame
-			isSelected={isSelected}
-			testId={testId}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			className={blockCardForbiddenViewClassName}
-			isFluidHeight
-		>
-			<Content isCompact>
-				<div>
-					<ContentHeader onClick={handleClick} link={link}>
-						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-						<Link
-							url={link}
-							testId={testId}
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-							className={blockCardForbiddenViewLinkClassName}
-						/>
-					</ContentHeader>
-					<Byline>
-						<UnresolvedText
-							icon={
-								<Flex alignItems="center" xcss={iconWrapperStyles}>
-									<LockIcon
-										label="forbidden-lock-icon"
-										LEGACY_size="small"
-										color={token('color.icon.danger', R300)}
-										testId={`${testId}-lock-icon`}
-										LEGACY_margin={`0 ${token('space.negative.050')} 0 0`}
-									/>
-								</Flex>
-							}
-							text={
-								<FormattedMessage
-									{...messages[descriptiveMessageKey]}
-									values={{
-										product: context.text,
-										context: context.text,
-										hostname,
-									}}
-								/>
-							}
-						/>
-					</Byline>
-				</div>
-				<ContentFooter>
-					<Provider name={context.text} icon={context.icon} />
-					{!actionOptions?.hide && <ActionList items={items} />}
-				</ContentFooter>
-			</Content>
-		</Frame>
+		<UnresolvedView {...props} actions={actions} showPreview={true} testId={testId} title={title}>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
+			<LockIcon
+				label="forbidden-lock-icon"
+				size="small"
+				primaryColor={token('color.icon.danger', R300)}
+				testId={`${testId}-lock-icon`}
+			/>
+			<Text
+				maxLines={3}
+				message={{
+					descriptor: toMessage(
+						messages.invalid_permissions_description,
+						requestAccessContext?.descriptiveMessageKey,
+					),
+					values: messageContext,
+				}}
+			/>
+		</UnresolvedView>
 	);
 };
+export default withFlexibleUIBlockCardStyle(ForbiddenView);

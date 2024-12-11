@@ -1,5 +1,14 @@
 # @atlaskit/layering
 
+## 1.0.0
+
+### Major Changes
+
+- [#175453](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175453)
+  [`6e2a886fe4874`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e2a886fe4874) -
+  Launch the first major version of the layering package and make it official on atlassian.design
+  website.
+
 ## 0.8.0
 
 ### Minor Changes

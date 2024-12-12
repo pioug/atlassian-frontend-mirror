@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import { InlineEditableTextfield } from '@atlaskit/inline-edit';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 const InlineEditableTextfieldDefault = () => {
 	const placeholderLabel = 'Initial description value';

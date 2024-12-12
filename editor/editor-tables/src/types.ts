@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 import type { Fragment, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';

@@ -1,5 +1,27 @@
 # @atlaskit/media-card
 
+## 78.15.4
+
+### Patch Changes
+
+- [#178053](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178053)
+  [`cb318c8c28c26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb318c8c28c26) -
+  Internal changes to typography.
+
+## 78.15.3
+
+### Patch Changes
+
+- [#177625](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177625)
+  [`5c74bd54645e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c74bd54645e7) -
+  Add data-vc prop to track TTVC mutation of media-card
+
+## 78.15.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 78.15.1
 
 ### Patch Changes

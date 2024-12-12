@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 3.15.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 3.15.1
+
+### Patch Changes
+
+- [#177441](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177441)
+  [`ad9c80eb0aa1f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad9c80eb0aa1f) -
+  Internal changes to typography styles. There may be some minor visual changes to align with
+  modernized typography styles.
+- Updated dependencies
+
 ## 3.15.0
 
 ### Minor Changes

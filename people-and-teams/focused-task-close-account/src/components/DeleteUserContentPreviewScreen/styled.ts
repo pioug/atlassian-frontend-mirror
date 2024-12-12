@@ -57,6 +57,6 @@ export const UserDetails = styled.div({
 	flexDirection: 'column',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	marginTop: `${gridSizeTimes(1.5)}px`,
-	fontWeight: 600,
+	fontWeight: token('font.weight.semibold'),
 	color: token('color.text.accent.blue', B400),
 });

@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.26.0
+
+### Minor Changes
+
+- [#175572](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175572)
+  [`40f53d4bf8e1a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40f53d4bf8e1a) -
+  [ux] EDF-1636: Remove 1p placeholder hints experiment platform_editor_ai_1p_placeholder_hints
+  making control the default experience again
+
 ## 2.25.0
 
 ### Minor Changes

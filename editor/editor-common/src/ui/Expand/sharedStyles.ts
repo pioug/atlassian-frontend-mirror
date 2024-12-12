@@ -103,7 +103,7 @@ const titleInputStyles = () =>
 		fontSize: relativeFontSizeToBase16(14),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		lineHeight: fg('platform-visual-refresh-icons') ? 1 : akEditorLineHeight,
-		fontWeight: 'normal',
+		fontWeight: token('font.weight.regular'),
 		color: token('color.text.subtlest'),
 		background: 'transparent',
 		display: 'flex',

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-status
 
+## 2.6.3
+
+### Patch Changes
+
+- [#178163](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178163)
+  [`b838eba8d205f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b838eba8d205f) -
+  ED-26030-hide-comment-toolbar-when-user-switch-back-to-edit-mode
+
 ## 2.6.2
 
 ### Patch Changes

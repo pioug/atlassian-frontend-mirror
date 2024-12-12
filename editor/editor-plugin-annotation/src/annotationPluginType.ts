@@ -1,5 +1,6 @@
 import type { Command, NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { EditorViewModeEffectsPlugin } from '@atlaskit/editor-plugin-editor-viewmode-effects';
 import type { EngagementPlatformPlugin } from '@atlaskit/editor-plugin-engagement-platform';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
@@ -29,6 +30,7 @@ export type AnnotationPlugin = NextEditorPlugin<
 		dependencies: [
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<EditorViewModeEffectsPlugin>,
+			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<FeatureFlagsPlugin>,
 			OptionalPlugin<EngagementPlatformPlugin>,
 		];

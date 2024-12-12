@@ -1306,6 +1306,7 @@ const ResizableMediaSingleToggle = ({
 		return (
 			<ResizableMediaSingleNextFunctional
 				allowBreakoutSnapPoints={allowBreakoutSnapPoints}
+				// eslint-disable-next-line react/no-children-prop
 				children={children}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={className}
@@ -1343,6 +1344,7 @@ const ResizableMediaSingleToggle = ({
 	return (
 		<ResizableMediaSingleNext
 			allowBreakoutSnapPoints={allowBreakoutSnapPoints}
+			// eslint-disable-next-line react/no-children-prop
 			children={children}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={className}

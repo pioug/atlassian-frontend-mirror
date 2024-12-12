@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 import type { IntlShape } from 'react-intl-next';
 
 import type { TableLayout } from '@atlaskit/adf-schema';

@@ -12,6 +12,7 @@ jest.mock('../../channel', () => {
 		getChannelToken() {
 			return jest.fn();
 		}
+		disconnect() {}
 	}
 	return {
 		Channel: MockChannel,
@@ -42,6 +43,10 @@ describe('addComment', () => {
 
 	afterEach(() => {
 		jest.resetAllMocks();
+	});
+
+	afterAll(() => {
+		provider.destroy();
 	});
 
 	it('returns success message when the response status is 201', async () => {

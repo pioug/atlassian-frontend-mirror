@@ -32,7 +32,6 @@ var defaultContrastMode = 'no-preference';
  * @returns {Object} Object of HTML attributes to be applied to the document root
  */
 var getThemeHtmlAttrs = function getThemeHtmlAttrs() {
-  var _result;
   var _ref = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {},
     _ref$colorMode = _ref.colorMode,
     colorMode = _ref$colorMode === void 0 ? _themeConfig.themeStateDefaults['colorMode'] : _ref$colorMode,
@@ -57,7 +56,7 @@ var getThemeHtmlAttrs = function getThemeHtmlAttrs() {
     spacing: spacing,
     typography: typography
   });
-  var result = (_result = {}, (0, _defineProperty2.default)(_result, _constants.THEME_DATA_ATTRIBUTE, themeAttribute), (0, _defineProperty2.default)(_result, _constants.COLOR_MODE_ATTRIBUTE, colorMode === 'auto' ? defaultColorMode : colorMode), _result);
+  var result = (0, _defineProperty2.default)((0, _defineProperty2.default)({}, _constants.THEME_DATA_ATTRIBUTE, themeAttribute), _constants.COLOR_MODE_ATTRIBUTE, colorMode === 'auto' ? defaultColorMode : colorMode);
   if ((0, _platformFeatureFlags.fg)('platform_increased-contrast-themes')) {
     result = _objectSpread(_objectSpread({}, result), {}, (0, _defineProperty2.default)({}, _constants.CONTRAST_MODE_ATTRIBUTE, contrastMode === 'auto' ? defaultContrastMode : contrastMode));
   }

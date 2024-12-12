@@ -32,13 +32,52 @@ export const typographyTests: Tests = {
 			options: [{ patterns: ['font-weight'] }],
 			code: outdent`
 				const styles = css({
-					fontWeight: 600,
+					fontWeight: 400,
 				})`,
 			errors: [{ messageId: 'noRawFontWeightValues' }],
 			output: outdent`
 				import { token } from '@atlaskit/tokens';
 				const styles = css({
+					fontWeight: token('font.weight.regular'),
+				})`,
+		},
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = css({
+					fontWeight: '500',
+				})`,
+			errors: [{ messageId: 'noRawFontWeightValues' }],
+			output: outdent`
+				import { token } from '@atlaskit/tokens';
+				const styles = css({
+					fontWeight: token('font.weight.medium'),
+				})`,
+		},
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = xcss({
+					fontWeight: '600',
+				})`,
+			errors: [{ messageId: 'noRawFontWeightValues' }],
+			output: outdent`
+				import { token } from '@atlaskit/tokens';
+				const styles = xcss({
 					fontWeight: token('font.weight.semibold'),
+				})`,
+		},
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = styled.div({
+					fontWeight: '700',
+				})`,
+			errors: [{ messageId: 'noRawFontWeightValues' }],
+			output: outdent`
+				import { token } from '@atlaskit/tokens';
+				const styles = styled.div({
+					fontWeight: token('font.weight.bold'),
 				})`,
 		},
 		// Errors on raw fontweight (only) and does not fix when not X00 number

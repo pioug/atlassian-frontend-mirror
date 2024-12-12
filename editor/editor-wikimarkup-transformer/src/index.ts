@@ -63,6 +63,7 @@ const normalizeContextObject = (context?: Context) => {
 		return context;
 	}
 	const mentionConversion: ConversionMap = {};
+	// eslint-disable-next-line guard-for-in
 	for (const key in context.conversion.mentionConversion) {
 		mentionConversion[key.toLowerCase()] = context.conversion.mentionConversion[key];
 	}

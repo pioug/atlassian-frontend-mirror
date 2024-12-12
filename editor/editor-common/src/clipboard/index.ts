@@ -72,9 +72,14 @@ export const copyHTMLToClipboard = async (elementToCopy: HTMLElement, plainTextT
 			throw new Error('Clipboard api is not supported');
 		}
 	} else if (typeof document !== undefined) {
-		// ED-17083 extension copy seems have issue with ClipboardItem API
-		// Hence of use of this polyfill
-		copyHTMLToClipboardPolyfill(elementToCopy, plainTextToCopy);
+		try {
+			// ED-17083 extension copy seems have issue with ClipboardItem API
+			// Hence of use of this polyfill
+			copyHTMLToClipboardPolyfill(elementToCopy, plainTextToCopy);
+		} catch (error) {
+			// eslint-disable-next-line no-console
+			console.log(error);
+		}
 	}
 };
 

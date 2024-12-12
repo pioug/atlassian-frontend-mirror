@@ -63,7 +63,7 @@ const colorPillStyles = css({
 	padding: token('space.100', '8px'),
 	borderRadius: token('border.radius', '3px'),
 	fontSize: '12px',
-	fontWeight: 600,
+	fontWeight: token('font.weight.semibold'),
 	marginBlockEnd: token('space.050', '4px'),
 	marginInlineEnd: token('space.050', '4px'),
 });

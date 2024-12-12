@@ -1,6 +1,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 import { h700 } from '@atlaskit/theme/typography';
+import { token } from '@atlaskit/tokens';
+
 import gridSizeTimes from '../../util/gridSizeTimes';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -37,7 +39,7 @@ export const Title = styled.div(h700, {
 export const MainInformationList = styled.ul({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> li b': {
-		fontWeight: 600,
+		fontWeight: token('font.weight.semibold'),
 	},
 });
 

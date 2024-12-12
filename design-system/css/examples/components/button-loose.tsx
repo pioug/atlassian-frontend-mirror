@@ -14,7 +14,7 @@ const buttonStyles = cssMap({
 		backgroundColor: token('color.background.brand.bold'),
 		borderRadius: '3px',
 		border: 0,
-		fontWeight: '500',
+		fontWeight: token('font.weight.medium'),
 		paddingBlock: '4px',
 		paddingInline: '8px',
 		'&:hover': {

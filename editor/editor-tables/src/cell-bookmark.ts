@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { Selection, type SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
 import { type Mappable } from '@atlaskit/editor-prosemirror/transform';

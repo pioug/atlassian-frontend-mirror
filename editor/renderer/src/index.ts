@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 export type { Serializer } from './serializer';
 
 export { default as ReactSerializer } from './react';

@@ -53,7 +53,7 @@ var Contrast = exports.Contrast = /*#__PURE__*/function () {
   function Contrast() {
     (0, _classCallCheck2.default)(this, Contrast);
   }
-  (0, _createClass2.default)(Contrast, null, [{
+  return (0, _createClass2.default)(Contrast, null, [{
     key: "ratioOfTones",
     value:
     /**
@@ -183,5 +183,4 @@ var Contrast = exports.Contrast = /*#__PURE__*/function () {
       return darkerSafe < 0.0 ? 0.0 : darkerSafe;
     }
   }]);
-  return Contrast;
 }();

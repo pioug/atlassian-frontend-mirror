@@ -611,6 +611,7 @@ export const createPlugin = (
 ) => {
 	const { formatMessage } = getIntl();
 	const isNestedEnabled = editorExperiment('nested-dnd', true, { exposure: true });
+	const isAdvancedLayoutEnabled = editorExperiment('advanced_layouts', true, { exposure: true });
 	const isOptimisedApply =
 		isNestedEnabled &&
 		editorExperiment('optimised-apply-dnd', true, {
@@ -620,10 +621,6 @@ export const createPlugin = (
 		isNestedEnabled,
 		isOptimisedApply,
 	};
-
-	if (fg('platform_editor_element_dnd_nested_fix_patch_2')) {
-		// TODO: Remove this once FG is used in code
-	}
 
 	let anchorRectCache: AnchorRectCache | undefined;
 
@@ -729,7 +726,7 @@ export const createPlugin = (
 					return false;
 				},
 				dragenter(_view: EditorView, event: DragEvent) {
-					if (editorExperiment('advanced_layouts', true)) {
+					if (isAdvancedLayoutEnabled) {
 						if (isHTMLElement(event.target)) {
 							const closestParentElement = event.target.closest(
 								'[data-drag-handler-anchor-depth="0"]',
@@ -748,7 +745,7 @@ export const createPlugin = (
 					}
 				},
 				dragstart(view: EditorView) {
-					if (editorExperiment('advanced_layouts', true)) {
+					if (isAdvancedLayoutEnabled) {
 						defaultActiveAnchorTracker.reset();
 					}
 

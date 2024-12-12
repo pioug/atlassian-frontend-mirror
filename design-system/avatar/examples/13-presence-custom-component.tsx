@@ -26,7 +26,7 @@ const DivPresence = styled.div({
 	color: token('color.text.inverse'),
 	display: 'flex',
 	fontSize: '0.75em',
-	fontWeight: 500,
+	fontWeight: token('font.weight.medium'),
 	height: '100%',
 	justifyContent: 'center',
 	textAlign: 'center',

@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 32.7.7
+
+### Patch Changes
+
+- [#178053](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178053)
+  [`cb318c8c28c26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb318c8c28c26) -
+  Internal changes to typography.
+
+## 32.7.6
+
+### Patch Changes
+
+- [#177262](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177262)
+  [`a37a3cccb88c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a37a3cccb88c6) -
+  Update summarize feature to receive output on user's preferred language
+
+## 32.7.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.7.4
 
 ### Patch Changes

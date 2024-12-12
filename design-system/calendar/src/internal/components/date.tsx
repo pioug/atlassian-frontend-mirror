@@ -4,15 +4,93 @@
  */
 import { forwardRef, memo, useCallback, useEffect, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
 import { Grid } from '@atlaskit/primitives';
+import { B200, B400, B50, N0, N200, N30, N40, N500, N600, N900 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import type { TabIndex } from '../../types';
-import { dateCellStyles as getDateCellStyles } from '../styles/date';
 import type { DateObj } from '../types';
+
+const dateCellSiblingStyle = css({
+	color: token('color.text.subtlest', N200),
+	'&:hover': {
+		color: token('color.text.subtlest', N200),
+	},
+});
+
+const dateCellTodayStyle = css({
+	color: token('color.text.selected', B400),
+	fontWeight: token('font.weight.bold', 'bold'),
+	'&::after': {
+		display: 'block',
+		height: 2,
+		position: 'absolute',
+		backgroundColor: 'currentColor',
+		content: '""',
+		insetBlockEnd: token('space.025', '2px'),
+		insetInlineEnd: token('space.025', '2px'),
+		insetInlineStart: token('space.025', '2px'),
+	},
+});
+
+const dateCellPrevSelectedStyle = css({
+	backgroundColor: token('color.background.selected', B50),
+	color: token('color.text.subtle', N600),
+	'&:hover': {
+		color: token('color.text.subtle', N600),
+	},
+});
+
+const dateCellSelectedStyle = css({
+	backgroundColor: token('color.background.selected', N500),
+	color: token('color.text.selected', N0),
+	'&:hover': {
+		backgroundColor: token('color.background.selected.hovered', B50),
+		color: token('color.text.selected', N600),
+	},
+});
+
+const dateCellDisabledStyle = css({
+	color: token('color.text.disabled', N40),
+	cursor: 'not-allowed',
+	'&:hover': {
+		backgroundColor: 'transparent',
+		color: token('color.text.disabled', N40),
+	},
+});
+
+const dateCellStyles = css({
+	display: 'block',
+	padding: `${token('space.050', '4px')} 9px`,
+	position: 'relative',
+	flexGrow: 1,
+	all: 'unset',
+	backgroundColor: 'transparent',
+	borderColor: 'transparent',
+	borderRadius: 3,
+	borderStyle: 'solid',
+	borderWidth: '2px',
+	color: token('color.text', N900),
+	cursor: 'pointer',
+	font: token('font.body'),
+	textAlign: 'center',
+	'&:focus-visible': {
+		borderColor: token('color.border.focused', B200),
+		borderStyle: 'solid',
+		borderWidth: '2px',
+	},
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
+		color: token('color.text', N900),
+	},
+	'&:active': {
+		backgroundColor: token('color.background.neutral.subtle.pressed', B50),
+		color: token('color.text', N900),
+	},
+});
 
 interface DateProps {
 	children: number;
@@ -89,14 +167,17 @@ const Date = memo(
 			}
 		}, [onClick]);
 
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		const dateCellStyles = css(getDateCellStyles());
-
 		return (
 			<Grid role="gridcell" alignItems="center">
 				<button
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-					css={dateCellStyles}
+					css={[
+						dateCellStyles,
+						isSibling && dateCellSiblingStyle,
+						isToday && dateCellTodayStyle,
+						isPreviouslySelected && dateCellPrevSelectedStyle,
+						isSelected && dateCellSelectedStyle,
+						isDisabled && dateCellDisabledStyle,
+					]}
 					aria-current={isToday ? 'date' : undefined}
 					aria-disabled={isDisabled || undefined}
 					aria-label={`${day}, ${dayLong} ${monthLong} ${year}`}

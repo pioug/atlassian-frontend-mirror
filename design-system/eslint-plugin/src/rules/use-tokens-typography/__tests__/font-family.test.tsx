@@ -56,26 +56,26 @@ export const typographyTests: Tests = {
 		{
 			options: [{ patterns: ['font-family'] }],
 			code: outdent`
-				const styles = css({
-					fontFamily: '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif',
+				const styles = xcss({
+					fontFamily: "-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,'Fira Sans','Droid Sans','Helvetica Neue',sans-serif",
 				})`,
 			errors: [{ messageId: 'noRawFontFamilyValues' }],
 			output: outdent`
 				import { token } from '@atlaskit/tokens';
-				const styles = css({
+				const styles = xcss({
 					fontFamily: token('font.family.body'),
 				})`,
 		},
 		{
 			options: [{ patterns: ['font-family'] }],
 			code: outdent`
-				const styles = css({
+				const styles = styled.code({
 					fontFamily: 'ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace',
 				})`,
 			errors: [{ messageId: 'noRawFontFamilyValues' }],
 			output: outdent`
 				import { token } from '@atlaskit/tokens';
-				const styles = css({
+				const styles = styled.code({
 					fontFamily: token('font.family.code'),
 				})`,
 		},

@@ -9,6 +9,7 @@ describe('UnsupportedMark', () => {
 		const { container, getByText } = render(
 			<UnsupportedMark
 				dataAttributes={{ 'data-renderer-mark': true }}
+				// eslint-disable-next-line react/no-children-prop
 				children={<DummyComponent />}
 			/>,
 		);

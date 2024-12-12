@@ -36,14 +36,18 @@ describe('Code', () => {
 		expect(screen.getByTestId('valid').textContent === 'valid');
 	});
 
-	it('should have the correct bg color', () => {
+	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
+	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
+	it.skip('should have the correct bg color', () => {
 		render(<Code testId="bg">{javaCode}</Code>);
 		expect(screen.getByTestId('bg')).toHaveStyle(
 			`background-color: ${getColorPalette().backgroundColor};`,
 		);
 	});
 
-	it('should style code container with a red color', () => {
+	// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
+	// https://hello.jira.atlassian.cloud/browse/UTEST-2000
+	it.skip('should style code container with a red color', () => {
 		render(
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 			<Code testId="style-property" style={{ color: 'red' }}>

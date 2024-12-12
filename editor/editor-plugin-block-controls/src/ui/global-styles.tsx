@@ -173,6 +173,7 @@ const withFormatInLayoutStyleFixSelectors = [
 	`${dragHandleContainer}:first-child + ${dropTargetContainer} + .fabric-editor-alignment > p:first-child`,
 	`${dropTargetContainer}:first-child + .fabric-editor-alignment > p:first-child`,
 	`${dropTargetContainer}:first-child + .fabric-editor-indentation-mark > p:first-child`,
+	`${dragHandleContainer}:first-child + .fabric-editor-indentation-mark > :is(h1, h2, h3, h4, h5, h6):first-child`,
 ].join(', ');
 
 /**
@@ -276,6 +277,15 @@ const withFormatInLayoutStyleFix = css({
 	},
 });
 
+const headingWithIndentationInLayoutStyleFix = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+	[`${dragHandleContainer}:first-child + .fabric-editor-indentation-mark > :is(h1, h2, h3, h4, h5, h6):first-child`]:
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			marginTop: '0 !important',
+		},
+});
+
 const getTextNodeStyle = () => {
 	return fg('platform_editor_element_controls_chrome_input_fix')
 		? withInlineNodeStyleWithChromeFix
@@ -342,6 +352,7 @@ export const GlobalStylesWrapper = () => {
 				withDeleteLinesStyleFix,
 				withMediaSingleStyleFix,
 				legacyBreakoutWideLayoutStyle,
+				headingWithIndentationInLayoutStyleFix,
 				editorExperiment('advanced_layouts', true) ? blockCardWithoutLayout : undefined,
 				fg('platform_editor_element_dnd_nested_fix_patch_1')
 					? withDividerInPanelStyleFix

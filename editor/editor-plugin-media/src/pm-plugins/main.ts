@@ -22,9 +22,9 @@ import {
 	CAPTION_PLACEHOLDER_ID,
 	getMaxWidthForNestedNodeNext,
 } from '@atlaskit/editor-common/media-single';
+import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { type PortalProviderAPI } from '@atlaskit/editor-common/src/portal';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { browser, ErrorReporter } from '@atlaskit/editor-common/utils';
 import type { WidthPluginState } from '@atlaskit/editor-plugin-width';

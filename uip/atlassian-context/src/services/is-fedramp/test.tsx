@@ -17,20 +17,16 @@ describe('isFedRamp', () => {
 	});
 
 	it('check if a match exists if perimeter is unset', () => {
-		Object.defineProperty(globalThis, 'location', {
-			value: {
-				hostname: 'api-private.atlassian-fex.com',
-			},
+		jsdom.reconfigure({
+			url: 'https://api-private.atlassian-fex.com',
 		});
 
 		expect(isFedRamp()).toBeTruthy();
 	});
 
 	describe('matching for fedramp domains', () => {
-		Object.defineProperty(globalThis, 'location', {
-			value: {
-				hostname: 'api-private.atlassian-us-gov-mod.com',
-			},
+		jsdom.reconfigure({
+			url: 'https://api-private.atlassian-us-gov-mod.com',
 		});
 
 		expect(isFedRamp()).toBeTruthy();

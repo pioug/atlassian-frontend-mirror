@@ -62,7 +62,7 @@ const PrimitiveMention = forwardRef<HTMLSpanElement, PrimitiveMentionProps>(
 					padding: 0 0.3em 2px 0.23em;
 					line-height: 1.714;
 					font-size: 1em;
-					font-weight: normal;
+					font-weight: ${token('font.weight.regular')};
 					word-break: break-word;
 					&:hover {
 						background: ${getStyle({ mentionType }, 'hoveredBackground')};

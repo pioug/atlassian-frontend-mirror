@@ -34,7 +34,7 @@ export const WhatsNewTitleText = styled.span({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N800),
 	fontSize: `${fontSize()}px`,
-	fontWeight: 600,
+	fontWeight: token('font.weight.semibold'),
 	whiteSpace: 'normal',
 	overflowX: 'hidden',
 	paddingBottom: token('space.100', '8px'),
@@ -47,7 +47,7 @@ export const WhatsNewRelatedLinksTitleText = styled.span({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N800),
 	fontSize: `${fontSizeSmall()}px`,
-	fontWeight: 600,
+	fontWeight: token('font.weight.semibold'),
 	whiteSpace: 'normal',
 	overflowX: 'hidden',
 	paddingBottom: token('space.100', '8px'),

@@ -1,11 +1,17 @@
-import type { ResolvedEditorState, SyncUpErrorFunction } from '@atlaskit/editor-common/collab';
+import { fg } from '@atlaskit/platform-feature-flags';
+import type {
+	ResolvedEditorState,
+	SyncUpErrorFunction,
+	CollabEvents,
+	CollabInitPayload,
+	StepJson,
+} from '@atlaskit/editor-common/collab';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import type AnalyticsHelper from '../analytics/analytics-helper';
 import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const';
 import type { MetadataService } from '../metadata/metadata-service';
 import type { Catchupv2Response, ChannelEvent, ReconcileResponse, StepsPayload } from '../types';
 
-import type { CollabEvents, CollabInitPayload, StepJson } from '@atlaskit/editor-common/collab';
 import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -401,7 +407,7 @@ export class DocumentService implements DocumentServiceInterface {
 		// We can then reconcile the document with the preserved state.
 		const unconfirmedSteps = this.getUnconfirmedSteps();
 		const currentState = await this.getCurrentState();
-		const useReconcile = Boolean(unconfirmedSteps?.length && currentState && !targetClientId);
+		let useReconcile = Boolean(unconfirmedSteps?.length && currentState && !targetClientId);
 
 		try {
 			// Reset the editor,
@@ -418,13 +424,41 @@ export class DocumentService implements DocumentServiceInterface {
 			});
 			this.metadataService.updateMetadata(metadata);
 
-			// If there are unconfirmed steps, attempt to reconcile our current state with with recovered document
-			if (useReconcile && currentState) {
-				await this.fetchReconcile(JSON.stringify(currentState.content), 'fe-restore');
-			} else if (unconfirmedSteps?.length) {
-				// we don't want to use reconcile for restore triggered by catchup client out of sync (when targetClientId is provided)
-				// as this results in all changes made while the client was out of sync being lost
-				this.applyLocalSteps(unconfirmedSteps);
+			if (fg('restore_localstep_fallback_reconcile')) {
+				try {
+					this.analyticsHelper?.sendActionEvent(
+						EVENT_ACTION.REINITIALISE_DOCUMENT,
+						EVENT_STATUS.INFO,
+						{
+							numUnconfirmedSteps: unconfirmedSteps?.length,
+							hasTitle: !!metadata?.title,
+							clientId: this.clientId,
+							targetClientId,
+							triggeredByCatchup: targetClientId ? true : false,
+						},
+					);
+
+					if (unconfirmedSteps?.length) {
+						this.applyLocalSteps(unconfirmedSteps);
+					}
+				} catch (applyLocalStepsError) {
+					this.analyticsHelper?.sendErrorEvent(
+						applyLocalStepsError,
+						`Error while onRestore with applyLocalSteps. Will fallback to fetchReconcile`,
+					);
+
+					useReconcile = true;
+					await this.fetchReconcile(JSON.stringify(currentState.content), 'fe-restore');
+				}
+			} else {
+				// If there are unconfirmed steps, attempt to reconcile our current state with with recovered document
+				if (useReconcile && currentState) {
+					await this.fetchReconcile(JSON.stringify(currentState.content), 'fe-restore');
+				} else if (unconfirmedSteps?.length) {
+					// we don't want to use reconcile for restore triggered by catchup client out of sync (when targetClientId is provided)
+					// as this results in all changes made while the client was out of sync being lost
+					this.applyLocalSteps(unconfirmedSteps);
+				}
 			}
 
 			this.analyticsHelper?.sendActionEvent(

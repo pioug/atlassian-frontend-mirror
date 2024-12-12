@@ -35,7 +35,7 @@ export const WhatsNewResultsListGroupTitle = styled.div({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text.subtlest', colors.N200),
 	fontSize: `${fontSizeSmall()}px`,
-	fontWeight: 'bold',
+	fontWeight: token('font.weight.bold'),
 	padding: `0 ${token('space.100', '8px')} ${token('space.100', '8px')} ${token(
 		'space.100',
 		'8px',

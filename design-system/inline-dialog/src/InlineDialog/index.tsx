@@ -1,11 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React, { type FC, memo, type Ref, useCallback, useEffect, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';

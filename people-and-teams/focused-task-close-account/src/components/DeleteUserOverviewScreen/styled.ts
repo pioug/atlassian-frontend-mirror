@@ -45,7 +45,7 @@ export const SectionMessageOuter = styled.div({
 export const MainInformationList = styled.ul({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> li b': {
-		fontWeight: 600,
+		fontWeight: token('font.weight.semibold'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'p + ul': {

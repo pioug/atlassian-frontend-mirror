@@ -3,10 +3,12 @@
  *
  * Extract component prop types from UIKit 2 components - ModalProps
  *
- * @codegen <<SignedSource::3531cbed54819e4160e6549d69d19f55>>
+ * @codegen <<SignedSource::a21036e321653b2b4f2dcdcc23017b42>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/modal/__generated__/index.partial.tsx <<SignedSource::ca1ac57c4bc55db851325b0ab1ff0021>>
  */
+/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
+
 import React from 'react';
 import PlatformModalDialog from '@atlaskit/modal-dialog';
 

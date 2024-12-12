@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 12.18.3
+
+### Patch Changes
+
+- [#178053](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178053)
+  [`cb318c8c28c26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb318c8c28c26) -
+  Internal changes to typography.
+
 ## 12.18.2
 
 ### Patch Changes

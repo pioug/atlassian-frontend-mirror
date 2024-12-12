@@ -12,22 +12,12 @@ const defaultProps: EditPageProps = {
 };
 
 const mockDefaultHost = 'mock.host';
-const mockDefaultProtocol = 'abc:';
-const originalLocation: Location = window.location;
+const mockDefaultProtocol = 'http:';
 
 beforeEach(() => {
-	// @ts-ignore Mock window.location in Jest
-	delete window.location;
-
-	window.location = {
-		...originalLocation,
-		host: mockDefaultHost,
-		protocol: mockDefaultProtocol,
-	};
-});
-
-afterEach(() => {
-	window.location = originalLocation;
+	jsdom.reconfigure({
+		url: `${mockDefaultProtocol}//${mockDefaultHost}/wiki/spaces/TEST/pages/edit-embed/123`,
+	});
 });
 
 it('should use the default locale to localize by if no locale was provided', async () => {

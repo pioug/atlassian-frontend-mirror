@@ -163,5 +163,6 @@ export const ExtensionsPlaceholder = (props: Props) => {
 		children.push(<Separator />);
 	}
 
+	// eslint-disable-next-line react/no-children-prop
 	return <ButtonGroup children={children} />;
 };

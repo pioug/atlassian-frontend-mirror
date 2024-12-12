@@ -36,7 +36,7 @@ export const tooltipStyle = css({
 export const emojiNameStyle = css({
 	textTransform: 'capitalize',
 	color: token('color.text.inverse', N90),
-	fontWeight: 600,
+	fontWeight: token('font.weight.semibold'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

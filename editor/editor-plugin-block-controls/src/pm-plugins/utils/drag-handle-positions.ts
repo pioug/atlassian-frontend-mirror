@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import {
 	DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT,
 	DRAG_HANDLE_H3_TOP_ADJUSTMENT,
@@ -15,12 +17,20 @@ export const getTopPosition = (dom: HTMLElement | null, type?: string) => {
 	}
 	const table = dom.querySelector('table');
 
-	if (table) {
+	const isTable = fg('platform_editor_advanced_layouts_post_fix_patch_1')
+		? table && (!type || type === 'table')
+		: table;
+
+	if (isTable) {
 		return `${dom.offsetTop + (table?.offsetTop || 0)}px`;
 	} else if (type === 'rule') {
 		return `${dom.offsetTop - DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT}px`;
 	} else if (type === 'layoutColumn') {
-		return `${-DRAG_HANDLE_WIDTH}px`;
+		if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+			return `${-dom.offsetTop / 2}px`;
+		} else {
+			return `${-DRAG_HANDLE_WIDTH}px`;
+		}
 	} else if (type === 'heading-3') {
 		return `${dom.offsetTop - DRAG_HANDLE_H3_TOP_ADJUSTMENT}px`;
 	} else if (type === 'heading-4') {

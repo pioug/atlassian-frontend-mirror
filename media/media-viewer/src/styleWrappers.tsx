@@ -45,7 +45,7 @@ const headerWrapperStyles = ({ isArchiveSideBarVisible }: HeaderWrapperProps) =>
 		backgroundPosition: isArchiveSideBarVisible ? `${ArchiveSideBarWidth}px 0` : '0',
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
 		color: '#c7d1db',
-		fontWeight: 500,
+		fontWeight: token('font.weight.medium'),
 		padding: token('space.300', '24px'),
 		boxSizing: 'border-box',
 		pointerEvents: 'none',

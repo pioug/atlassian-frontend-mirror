@@ -1,22 +1,28 @@
 import React, { useState } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import InlineEdit from '@atlaskit/inline-edit';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	paddingBlockStart: 'space.100',
-	paddingInlineEnd: 'space.100',
-	paddingBlockEnd: 'space.600',
+const containerStyles = cssMap({
+	root: {
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.600'),
+	},
 });
 
-const readViewContainerStyles = xcss({
-	display: 'flex',
-	font: 'font.body',
-	maxWidth: '100%',
-	paddingBlock: 'space.100',
-	paddingInline: 'space.075',
-	wordBreak: 'break-word',
+const readViewContainerStyles = cssMap({
+	root: {
+		display: 'flex',
+		font: token('font.body'),
+		maxWidth: '100%',
+		paddingBlock: token('space.100'),
+		paddingInline: token('space.075'),
+		wordBreak: 'break-word',
+	},
 });
 
 const InlineEditStatelessExample = () => {
@@ -25,7 +31,7 @@ const InlineEditStatelessExample = () => {
 	const [isEditing, setEditing] = useState(true);
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={containerStyles.root}>
 			<InlineEdit
 				defaultValue={editValue}
 				label="Description"
@@ -33,7 +39,7 @@ const InlineEditStatelessExample = () => {
 				isEditing={isEditing}
 				editView={({ errorMessage, ...fieldProps }) => <Textfield {...fieldProps} autoFocus />}
 				readView={() => (
-					<Box xcss={readViewContainerStyles} testId="read-view">
+					<Box xcss={readViewContainerStyles.root} testId="read-view">
 						{editValue}
 					</Box>
 				)}

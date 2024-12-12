@@ -1,4 +1,5 @@
 export type {
+	AdfRendererProps,
 	BadgeProps,
 	BleedProps,
 	BoxProps,
@@ -70,7 +71,5 @@ export type {
 	SingleValueChartProps,
 	PieChartProps,
 } from './components/charts';
-
-export type { AdfRendererProps } from './components/adfrenderer';
 
 export type { ChartColorTokens } from './types';

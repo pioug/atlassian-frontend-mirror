@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 // Was copied from https://github.com/ProseMirror/prosemirror-tables/blob/master/src/cellselection.js
 
 // This file defines a ProseMirror selection subclass that models

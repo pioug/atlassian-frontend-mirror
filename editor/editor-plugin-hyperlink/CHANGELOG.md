@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 3.2.21
+
+### Patch Changes
+
+- [#176525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176525)
+  [`9a26a8f7de8ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a26a8f7de8ab) -
+  updated hyperlink plugin to EES003
+- Updated dependencies
+
 ## 3.2.20
 
 ### Patch Changes

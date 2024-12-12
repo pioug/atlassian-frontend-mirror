@@ -126,11 +126,11 @@ export const fontWeightTokens = typographyTokens
 	});
 
 export function findFontWeightTokenForValue(fontWeight: string) {
-	if (fontWeight === "'normal'") {
+	if (fontWeight === 'normal') {
 		fontWeight = '400';
 	}
 
-	if (fontWeight === "'bold'") {
+	if (fontWeight === 'bold') {
 		fontWeight = '700';
 	}
 

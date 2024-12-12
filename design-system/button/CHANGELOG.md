@@ -1,5 +1,27 @@
 # @atlaskit/button
 
+## 20.3.7
+
+### Patch Changes
+
+- [#177505](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177505)
+  [`520c68d91d401`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/520c68d91d401) -
+  Updated dividers in Visually refreshed split button to use color.border
+
+## 20.3.6
+
+### Patch Changes
+
+- [#178053](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178053)
+  [`cb318c8c28c26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb318c8c28c26) -
+  Internal changes to typography.
+
+## 20.3.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.3.4
 
 ### Patch Changes

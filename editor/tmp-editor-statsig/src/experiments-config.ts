@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 import { isBoolean, oneOf } from './type-guards';
 
 export type EditorExperimentsConfig = typeof editorExperimentsConfig;
@@ -216,16 +219,6 @@ export const editorExperimentsConfig = {
 		param: 'isEnabled',
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
-	},
-	// Added 2024-10-16
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_1p_placeholder_hints/setup
-	platform_editor_ai_1p_placeholder_hints: {
-		productKeys: {
-			confluence: 'platform_editor_ai_1p_placeholder_hints',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'example-placeholders', 'tip-placeholders']),
-		defaultValue: 'control' as 'control' | 'example-placeholders' | 'tip-placeholders',
 	},
 	// Added 2024-10-14
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_advanced_layouts/setup

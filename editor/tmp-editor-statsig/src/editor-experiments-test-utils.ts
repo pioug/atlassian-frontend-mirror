@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 // This is loosely based on the `ffTest` util from `@atlassian/feature-flags-test-utils` package.
 
 import { type EditorExperimentOverrides, setupEditorExperiments } from './setup';

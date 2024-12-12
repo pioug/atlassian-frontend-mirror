@@ -1,3 +1,4 @@
+import { fg } from '@atlaskit/platform-feature-flags';
 import {
 	type AriaOnFocusProps,
 	type GroupBase,
@@ -21,6 +22,10 @@ export function onFocus(
 	});
 
 	const groupOptionIndex = groupData?.options.findIndex(isOptionFocused) ?? 0;
+
+	if (focused.label && groupData?.label && fg('design_system_select-a11y-improvement')) {
+		return `${focused.label}, ${groupData?.label}`;
+	}
 
 	return `Option ${focused.label}, ${groupData?.label} group, item ${
 		groupOptionIndex + 1

@@ -55,7 +55,7 @@ const tableStyles = css({
 const headerStyles = css({
 	borderBlockEnd: `1px solid ${token('color.border')}`,
 	fontSize: '1em',
-	fontWeight: 'normal',
+	fontWeight: token('font.weight.regular'),
 	lineHeight: '1.4',
 	marginBlockEnd: token('space.050'),
 	paddingBlockEnd: token('space.100'),

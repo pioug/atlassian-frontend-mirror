@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
 import InlineDialog from '@atlaskit/inline-dialog';
 import { token } from '@atlaskit/tokens';

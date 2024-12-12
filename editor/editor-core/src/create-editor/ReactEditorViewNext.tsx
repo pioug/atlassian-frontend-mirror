@@ -387,14 +387,6 @@ function ReactEditorView(props: EditorViewProps) {
 	// Initialise phase
 	// Using constructor hook so we setup and dispatch analytics before anything else
 	useConstructor(() => {
-		// Transaction dispatching is already enabled by default prior to
-		// mounting, but we reset it here, just in case the editor view
-		// instance is ever recycled (mounted again after unmounting) with
-		// the same key.
-		// Although storing mounted state is an anti-pattern in React,
-		// we do so here so that we can intercept and abort asynchronous
-		// ProseMirror transactions when a dismount is imminent.
-		canDispatchTransactions.current = true;
 		// This needs to be before initialising editorState because
 		// we dispatch analytics events in plugin initialisation
 		eventDispatcher.on(analyticsEventKey, handleAnalyticsEvent);
@@ -410,6 +402,25 @@ function ReactEditorView(props: EditorViewProps) {
 			eventType: EVENT_TYPE.UI,
 		});
 	});
+
+	useLayoutEffect(() => {
+		// Transaction dispatching is already enabled by default prior to
+		// mounting, but we reset it here, just in case the editor view
+		// instance is ever recycled (mounted again after unmounting) with
+		// the same key.
+		// AND since React 18 effects may run multiple times so we need to ensure
+		// this is reset so that transactions are still allowed.
+		// Although storing mounted state is an anti-pattern in React,
+		// we do so here so that we can intercept and abort asynchronous
+		// ProseMirror transactions when a dismount is imminent.
+		canDispatchTransactions.current = true;
+		return () => {
+			// We can ignore any transactions from this point onwards.
+			// This serves to avoid potential runtime exceptions which could arise
+			// from an async dispatched transaction after it's unmounted.
+			canDispatchTransactions.current = false;
+		};
+	}, []);
 
 	// Cleanup
 	useLayoutEffect(() => {

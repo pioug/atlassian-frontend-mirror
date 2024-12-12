@@ -36,6 +36,7 @@ const getDeviceInfo = (nAgt: string, nVersion: string) => {
 			r: /(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/,
 		},
 	];
+	// eslint-disable-next-line guard-for-in
 	for (let client in clientStrings) {
 		const clientObj = clientStrings[client];
 		if (clientObj.r.test(nAgt)) {

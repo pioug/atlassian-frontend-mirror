@@ -8,7 +8,7 @@ import { Block } from '../examples-util/helpers';
 
 const customStyles: CSSProperties = {
 	textAlign: 'center',
-	fontWeight: 600,
+	fontWeight: token('font.weight.semibold'),
 	color: token('color.text.inverse'),
 	backgroundColor: token('color.background.brand.bold'),
 };

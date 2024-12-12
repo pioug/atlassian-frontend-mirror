@@ -1,5 +1,40 @@
 # @atlaskit/editor-core
 
+## 203.2.10
+
+### Patch Changes
+
+- [#176299](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176299)
+  [`798c7904ad3ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/798c7904ad3ff) -
+  ED-25926 improve placeholder and seperator apperance
+- [#178053](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178053)
+  [`cb318c8c28c26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb318c8c28c26) -
+  Internal changes to typography.
+- Updated dependencies
+
+## 203.2.9
+
+### Patch Changes
+
+- [#176217](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176217)
+  [`38f5a9c8db167`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/38f5a9c8db167) -
+  ED-25953 Fix table overflow when page changes from full page to full width
+
+## 203.2.8
+
+### Patch Changes
+
+- [#174977](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174977)
+  [`d96316360ee1d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d96316360ee1d) -
+  Block stale transactions when the react editor view is unmounted
+- Updated dependencies
+
+## 203.2.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 203.2.6
 
 ### Patch Changes

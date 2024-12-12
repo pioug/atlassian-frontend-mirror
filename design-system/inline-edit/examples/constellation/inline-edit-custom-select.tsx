@@ -4,33 +4,39 @@
  */
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
+import { cssMap, jsx } from '@atlaskit/css';
 import InlineEdit from '@atlaskit/inline-edit';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Tag from '@atlaskit/tag';
 import Group from '@atlaskit/tag-group';
+import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	paddingBlockStart: 'space.100',
-	paddingInlineEnd: 'space.100',
-	paddingBlockEnd: 'space.600',
+const containerStyles = cssMap({
+	root: {
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.600'),
+	},
 });
 
-const readViewContainerStyles = xcss({
-	font: 'font.body',
-	paddingBlock: 'space.100',
-	paddingInline: 'space.075',
+const readViewContainerStyles = cssMap({
+	root: {
+		font: token('font.body'),
+		paddingBlock: token('space.100'),
+		paddingInline: token('space.075'),
+	},
 });
 
-const editViewContainerStyles = xcss({
-	position: 'relative',
-	zIndex: 'dialog',
+const editViewContainerStyles = cssMap({
+	root: {
+		position: 'relative',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		zIndex: 'dialog' as any,
+	},
 });
 
-const tagGroupContainerStyles = xcss({ padding: 'space.050' });
+const tagGroupContainerStyles = cssMap({ root: { padding: token('space.050') } });
 const selectOptions = [
 	{ label: 'CSS', value: 'CSS' },
 	{ label: 'Design', value: 'Design' },
@@ -54,21 +60,21 @@ const InlineEditCustomSelectExample = () => {
 	};
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={containerStyles.root}>
 			<InlineEdit<ValueType<OptionType, true>>
 				defaultValue={editValue}
 				label={inlineEditLabel}
 				editButtonLabel={editValue.length > 0 ? inlineEditLabel : selectLabel}
 				editView={(fieldProps) => (
-					<Box xcss={editViewContainerStyles}>
+					<Box xcss={editViewContainerStyles.root}>
 						<Select {...fieldProps} options={selectOptions} isMulti autoFocus openMenuOnFocus />
 					</Box>
 				)}
 				readView={() =>
 					editValue && editValue.length === 0 ? (
-						<Box xcss={readViewContainerStyles}>{selectLabel}</Box>
+						<Box xcss={readViewContainerStyles.root}>{selectLabel}</Box>
 					) : (
-						<Box xcss={tagGroupContainerStyles}>
+						<Box xcss={tagGroupContainerStyles.root}>
 							<Group label="Selected skills">
 								{editValue &&
 									editValue.map((option: OptionType) => (

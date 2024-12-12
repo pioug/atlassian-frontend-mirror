@@ -1,6 +1,7 @@
 import uuid from 'uuid';
 
 import { type EnvironmentsKeys, getBaseUrl } from '@atlaskit/linking-common';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { readStream } from './readStream';
 import {
@@ -23,6 +24,7 @@ export class AISummaryService implements AISummaryServiceInt {
 	private config: AISummaryServiceConfig;
 	private url: string;
 	private ari?: string;
+	private locale?: string;
 	private subscribedStateSetters = new Set<StateSetter>();
 
 	private onStart?: AISummaryServiceProps['onStart'];
@@ -41,6 +43,7 @@ export class AISummaryService implements AISummaryServiceInt {
 
 		this.url = props.url;
 		this.ari = props.ari;
+		this.locale = props.locale;
 
 		this.onStart = props.onStart;
 		this.onSuccess = props.onSuccess;
@@ -66,6 +69,9 @@ export class AISummaryService implements AISummaryServiceInt {
 				content_ari: this.ari,
 				prompt_id: 'smart_links',
 				summary_output_mimetype: 'text/markdown',
+				...(fg('send_locale_to_summarize_in_assistance-service') && {
+					locale: this.locale,
+				}),
 			},
 		};
 

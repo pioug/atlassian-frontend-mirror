@@ -43,7 +43,7 @@ const labelContainerStyles = css({
 	width: '100%',
 	alignItems: 'center',
 	display: 'flex',
-	fontWeight: 500,
+	fontWeight: token('font.weight.medium'),
 });
 
 const expandContentContainerHiddenStyles = css({

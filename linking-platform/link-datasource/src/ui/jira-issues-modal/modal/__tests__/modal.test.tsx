@@ -50,22 +50,11 @@ jest.mock('../../../../services/useBasicFilterAGG', () => {
 jest.useFakeTimers();
 
 describe('JiraIssuesConfigModal', () => {
-	const prevWindowLocation = window.location;
 	const user = userEvent.setup({ delay: null });
 
 	beforeEach(() => {
-		Object.defineProperty(window, 'location', {
-			configurable: true,
-			enumerable: true,
-			value: new URL('https://hello.atlassian.net'),
-		});
-	});
-
-	afterEach(() => {
-		Object.defineProperty(window, 'location', {
-			configurable: true,
-			enumerable: true,
-			value: prevWindowLocation,
+		jsdom.reconfigure({
+			url: 'https://hello.atlassian.net',
 		});
 	});
 

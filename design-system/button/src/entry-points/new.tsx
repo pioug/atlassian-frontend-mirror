@@ -7,4 +7,10 @@ export {
 } from '../new-button/variants/icon/link';
 export { SplitButton } from '../new-button/containers/split-button';
 
-export type { Appearance, Spacing } from '../new-button/variants/types';
+export type {
+	Appearance,
+	Spacing,
+	IconProp,
+	IconButtonSpacing,
+	IconButtonAppearance,
+} from '../new-button/variants/types';

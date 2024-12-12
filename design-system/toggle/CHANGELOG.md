@@ -1,5 +1,13 @@
 # @atlaskit/toggle
 
+## 13.4.10
+
+### Patch Changes
+
+- [#174437](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174437)
+  [`e59c6f1913cf9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e59c6f1913cf9) -
+  fix focus ring appearance logic on toggle component
+
 ## 13.4.9
 
 ### Patch Changes

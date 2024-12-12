@@ -3,10 +3,12 @@
  *
  * Extract component prop types from UIKit 2 components - LinkButtonProps
  *
- * @codegen <<SignedSource::a0706b50117ae79c37006d0abc9de444>>
+ * @codegen <<SignedSource::8ceca7ac3238c0f6b6d222d171994cf3>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/link-button.partial.tsx <<SignedSource::6977fab8ea9a5478c26d6e1e77eab843>>
  */
+/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
+
 import type { LinkButtonProps as PlatformLinkButtonProps } from '@atlaskit/button/new';
 import React from 'react';
 

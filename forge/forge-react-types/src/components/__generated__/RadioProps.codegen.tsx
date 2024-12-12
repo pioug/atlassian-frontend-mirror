@@ -3,10 +3,12 @@
  *
  * Extract component prop types from UIKit 2 components - RadioProps
  *
- * @codegen <<SignedSource::e022f493d36ef87f3f686367c3344680>>
+ * @codegen <<SignedSource::326831c949bb5cbb99e073727ad8d55e>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/radio/__generated__/index.partial.tsx <<SignedSource::f8ac68c1f51a8a6ea746a657fc9ee4da>>
  */
+/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
+
 import React from 'react';
 import { Radio as PlatformRadio } from '@atlaskit/radio';
 import type { EventHandlerProps } from './types.codegen';

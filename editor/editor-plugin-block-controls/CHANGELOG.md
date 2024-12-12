@@ -1,5 +1,37 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.15.6
+
+### Patch Changes
+
+- [#177508](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177508)
+  [`49a5afedb8155`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49a5afedb8155) -
+  [ux] ED-25951: Fixed the jittering for heading with indentation in layouts
+- Updated dependencies
+
+## 2.15.5
+
+### Patch Changes
+
+- [#177432](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177432)
+  [`08919a1aae553`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/08919a1aae553) -
+  [ux] Fixes top position of the drag handle for layoutColumn node type.
+
+## 2.15.4
+
+### Patch Changes
+
+- [#177055](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177055)
+  [`5d0549c752360`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d0549c752360) -
+  ED-25056 add exposure for advanced layouts
+- Updated dependencies
+
+## 2.15.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.15.2
 
 ### Patch Changes

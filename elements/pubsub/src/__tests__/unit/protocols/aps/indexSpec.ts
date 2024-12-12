@@ -46,14 +46,8 @@ describe('APS', () => {
 		mockHttpTransport.subscribe.mockImplementation(() => Promise.resolve());
 		mockWebsocketTransport.subscribe.mockImplementation(() => Promise.resolve());
 
-		Object.defineProperty(window, 'location', {
-			get() {
-				return {
-					protocol: 'https:',
-					host: 'jdog.jira-dev.com',
-					origin: 'https://jdog.jira-dev.com',
-				};
-			},
+		jsdom.reconfigure({
+			url: 'https://jdog.jira-dev.com',
 		});
 	});
 

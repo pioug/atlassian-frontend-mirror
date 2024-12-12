@@ -173,6 +173,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 	private wrapperWidth?: number;
 	private wrapperReisizeObserver?: ResizeObserver;
 
+	private updateColGroupFromFullWidthChange?: boolean;
+
 	private dragAndDropCleanupFn?: CleanupFn;
 
 	constructor(props: ComponentProps) {
@@ -180,7 +182,13 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const { options, containerWidth, getNode } = props;
 		this.node = getNode();
 		this.containerWidth = containerWidth;
+
 		this.isInitialOverflowSent = false;
+
+		if (!this.updateColGroupFromFullWidthChange) {
+			this.updateColGroupFromFullWidthChange =
+				options?.isFullWidthModeEnabled && !options?.wasFullWidthModeEnabled;
+		}
 
 		// store table size using previous full-width mode so can detect if it has changed.
 		const isFullWidthModeEnabled = options ? options.wasFullWidthModeEnabled : false;
@@ -429,6 +437,14 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			tableNode.attrs.isNumberColumnEnabled !== this.node.attrs.isNumberColumnEnabled;
 		const isNumberOfColumnsChanged = tablesHaveDifferentNoOfColumns(tableNode, this.node);
 
+		const { width: containerWidthValue, lineLength: containerLineLength } = containerWidth;
+		const isLineLengthChanged = this.containerWidth?.lineLength !== containerLineLength;
+
+		const isFullWidthModeAndLineLengthChanged =
+			this.updateColGroupFromFullWidthChange &&
+			isLineLengthChanged &&
+			fg('platform_editor_table_overflow_in_full_width_fix');
+
 		const maybeScale =
 			isTableSquashed ||
 			isTableWidthChanged ||
@@ -436,14 +452,12 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isNumberColumnChanged ||
 			isNumberOfColumnsChanged;
 
-		if (force || maybeScale) {
-			const { width: containerWidthValue } = containerWidth;
+		if (force || maybeScale || isFullWidthModeAndLineLengthChanged) {
 			const isWidthChanged = this.containerWidth?.width !== containerWidthValue;
 			const wasTableResized = hasTableBeenResized(this.node);
 			const isTableResized = hasTableBeenResized(tableNode);
 			const isColumnsDistributed = wasTableResized && !isTableResized;
 			const isTableDisplayModeChanged = this.node.attrs.displayMode !== tableNode.attrs.displayMode;
-
 			const shouldUpdateColgroup =
 				isWidthChanged ||
 				isColumnsDistributed ||
@@ -451,7 +465,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				isTableWidthChanged ||
 				isTableDisplayModeChanged ||
 				isNumberColumnChanged ||
-				isNumberOfColumnsChanged;
+				isNumberOfColumnsChanged ||
+				isFullWidthModeAndLineLengthChanged;
 
 			const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
 
@@ -523,6 +538,11 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				});
 			}
 		}
+
+		if (isFullWidthModeAndLineLengthChanged) {
+			this.updateColGroupFromFullWidthChange = false;
+		}
+
 		this.tableNodeWidth = tableNodeWidth;
 		this.wasResizing = isResizing;
 		this.containerWidth = containerWidth;

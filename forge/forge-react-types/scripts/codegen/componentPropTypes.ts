@@ -188,7 +188,7 @@ const generateSharedTypesFile = (componentOutputDir: string) => {
 	fs.writeFileSync(typesFilePath, signedSourceCode);
 };
 
-const generateComponentPropTypes = (componentPropTypeFilter?: string) => {
+const generateComponentPropTypes = (componentName?: string) => {
 	const componentOutputDir = resolve(__dirname, '..', '..', 'src', 'components', '__generated__');
 	const componentIndexSourceFile = forgeUIProject.addSourceFileAtPath(
 		require.resolve('@atlassian/forge-ui/UIKit'),
@@ -196,7 +196,7 @@ const generateComponentPropTypes = (componentPropTypeFilter?: string) => {
 	try {
 		const componentPropTypeSymbols = componentIndexSourceFile
 			.getExportSymbols()
-			.filter((symbol) => symbol.getName().endsWith(componentPropTypeFilter ?? 'Props'))
+			.filter((symbol) => symbol.getName().endsWith(`${componentName}Props` ?? 'Props'))
 			.sort((a, b) => a.getName().localeCompare(b.getName()));
 
 		// generate share types file first

@@ -1,11 +1,18 @@
-import React, { Component } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Component } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import InlineDialog from '@atlaskit/inline-dialog';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
-const containerStyles = xcss({
-	minHeight: '120px',
+const styles = cssMap({
+	container: {
+		minHeight: '120px',
+	},
 });
 
 interface State {
@@ -27,7 +34,7 @@ export default class InlineDialogDefaultExample extends Component<{}, State> {
 
 	render() {
 		return (
-			<Box xcss={containerStyles}>
+			<Box xcss={styles.container}>
 				<InlineDialog
 					onClose={() => {
 						this.setState({ dialogOpen: false });

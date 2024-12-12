@@ -10,11 +10,9 @@ import {
 	type ReactNode,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { N0, N50A, N60A, N900 } from '@atlaskit/theme/colors';
-import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 const CSS_THEME_BACKGROUND = '--theme-background';
@@ -26,7 +24,7 @@ const containerStyles = css({
 	maxWidth: `${8 * 56}px`,
 	maxHeight: `${8 * 56}px`,
 	padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
-	zIndex: layers.dialog(),
+	zIndex: 300,
 	background: `var(${CSS_THEME_BACKGROUND})`,
 	borderRadius: token('border.radius', '3px'),
 	boxShadow: `var(${CSS_THEME_BOX_SHADOW})`,

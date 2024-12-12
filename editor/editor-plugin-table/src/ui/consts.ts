@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 import { tableCellBorderWidth, tableMarginTop } from '@atlaskit/editor-common/styles';
 import {
 	akEditorTableBorder,

@@ -1,5 +1,15 @@
 # @atlaskit/collab-provider
 
+## 10.2.2
+
+### Patch Changes
+
+- [#177897](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177897)
+  [`f2e0ea2ac3c20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f2e0ea2ac3c20) -
+  FF restore_localstep_fallback_reconcile to handle offline user onRestoredocument with
+  applyLocalSteps and fallback using fetchReoncile
+- Updated dependencies
+
 ## 10.2.1
 
 ### Patch Changes

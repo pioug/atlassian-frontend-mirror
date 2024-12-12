@@ -10,6 +10,7 @@ import { jsx } from '@emotion/react';
 import NestIcon from '@atlaskit/icon/glyph/editor/number-list';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
 import { G100, G200, G400 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import {
 	ButtonItem,
@@ -69,7 +70,7 @@ const CustomisedExample = () => {
 						width: '100%',
 						whiteSpace: 'nowrap',
 						color: G400,
-						fontWeight: 'bold',
+						fontWeight: token('font.weight.bold'),
 						textOverflow: 'ellipsis',
 						overflow: 'hidden',
 					}}

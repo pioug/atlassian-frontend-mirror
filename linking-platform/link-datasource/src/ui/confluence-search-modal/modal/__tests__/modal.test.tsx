@@ -56,8 +56,6 @@ const mockUserRecommendationHook = {
 };
 
 describe('ConfluenceSearchConfigModal', () => {
-	const prevWindowLocation = window.location;
-
 	const testIds = {
 		insertButton: 'confluence-search-datasource-modal--insert-button',
 		initialState: 'datasource-modal--initial-state-view',
@@ -71,19 +69,7 @@ describe('ConfluenceSearchConfigModal', () => {
 	};
 
 	beforeEach(() => {
-		Object.defineProperty(window, 'location', {
-			configurable: true,
-			enumerable: true,
-			value: new URL('https://hello.atlassian.net'),
-		});
-	});
-
-	afterEach(() => {
-		Object.defineProperty(window, 'location', {
-			configurable: true,
-			enumerable: true,
-			value: prevWindowLocation,
-		});
+		jsdom.reconfigure({ url: 'https://hello.atlassian.net' });
 	});
 
 	beforeEach(() => {

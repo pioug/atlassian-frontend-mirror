@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.4.1
+
+### Patch Changes
+
+- [#177916](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177916)
+  [`e37f82d3c0388`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e37f82d3c0388) -
+  Fix for `use-tokens-typography` font weight number values as strings.
+
 ## 11.4.0
 
 ### Minor Changes

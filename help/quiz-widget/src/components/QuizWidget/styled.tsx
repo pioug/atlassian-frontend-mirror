@@ -19,7 +19,7 @@ export const Quiz = styled.div({
 export const QuizName = styled.div({
 	margin: '3px 0',
 	fontSize: '24px',
-	fontWeight: 500,
+	fontWeight: token('font.weight.medium'),
 	paddingLeft: token('space.250', '20px'),
 });
 
@@ -74,7 +74,7 @@ export const NavQuiz = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const NavAction = styled.span({
 	fontSize: '14px',
-	fontWeight: 500,
+	fontWeight: token('font.weight.medium'),
 	display: 'flex',
 	alignItems: 'center',
 });
@@ -87,7 +87,7 @@ export const Score = styled.div({
 	display: 'flex',
 	flexDirection: 'column',
 	textAlign: 'start',
-	fontWeight: 400,
+	fontWeight: token('font.weight.regular'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- needs manual remediation
 	gap: '5px',
 });

@@ -283,7 +283,7 @@ export function getCss({
 		fontStyle: 'normal',
 		// Chrome recently changed button so that they use 'arial' as the font family
 		fontFamily: 'inherit',
-		fontWeight: 500,
+		fontWeight: token('font.weight.medium'),
 		// margin for button has been applied to css reset
 		maxWidth: '100%',
 		// Needed to position overlay

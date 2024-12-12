@@ -23,7 +23,7 @@ import {
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import { hideLinkToolbar, showLinkToolbar } from '../commands';
+import { hideLinkToolbar, showLinkToolbar } from '../editor-commands/commands';
 import { stateKey } from '../pm-plugins/main';
 
 import { toolbarKey } from './toolbar-buttons';

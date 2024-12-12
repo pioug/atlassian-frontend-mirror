@@ -1,3 +1,6 @@
+// Disable no-re-export rule for entry point files
+/* eslint-disable @atlaskit/editor/no-re-export */
+
 import isEqual from 'lodash/isEqual';
 
 import {
@@ -58,6 +61,7 @@ const isHardBreak = isType('hardBreak');
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const filterNull = (subject: any) => {
 	let output = { ...subject };
+	// eslint-disable-next-line guard-for-in
 	for (const key in output) {
 		const current = output[key];
 		if (current === null) {

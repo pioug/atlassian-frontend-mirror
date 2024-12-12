@@ -28,7 +28,7 @@ var ColorModeObserver = /*#__PURE__*/function () {
     (0, _classCallCheck2.default)(this, ColorModeObserver);
     (0, _defineProperty2.default)(this, "unbindThemeChangeListener", null);
   }
-  (0, _createClass2.default)(ColorModeObserver, [{
+  return (0, _createClass2.default)(ColorModeObserver, [{
     key: "getColorMode",
     value: function getColorMode() {
       if (!darkModeMql) {
@@ -55,7 +55,6 @@ var ColorModeObserver = /*#__PURE__*/function () {
       }
     }
   }]);
-  return ColorModeObserver;
 }();
 /**
  * A singleton color mode observer - binds "auto" switching logic to a single `mediaQueryList` listener

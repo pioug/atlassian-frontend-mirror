@@ -23,6 +23,7 @@ const hashFeedbackInfo = (feedbackInfo: FeedbackInfo): string => {
 };
 
 export const openFeedbackDialog = async (feedbackInfo?: FeedbackInfo) =>
+	// eslint-disable-next-line no-async-promise-executor
 	new Promise(async (resolve, reject) => {
 		const combinedFeedbackInfo = {
 			// default value assignment

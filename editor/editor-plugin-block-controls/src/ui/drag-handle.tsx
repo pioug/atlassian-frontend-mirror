@@ -370,6 +370,7 @@ export const DragHandle = ({
 								: `anchor(${anchorName} start)`,
 			};
 		}
+
 		return {
 			left: isEdgeCase
 				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`

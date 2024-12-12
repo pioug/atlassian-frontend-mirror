@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import { ErrorMessage } from '@atlaskit/form';
 import InlineEdit from '@atlaskit/inline-edit';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
+import { token } from '@atlaskit/tokens';
 
-const readViewContainerStyles = xcss({
-	font: 'font.body',
-	paddingBlock: 'space.100',
-	paddingInline: 'space.075',
-	wordBreak: 'break-word',
+const readViewContainerStyles = cssMap({
+	root: {
+		font: token('font.body'),
+		paddingBlock: token('space.100'),
+		paddingInline: token('space.075'),
+		wordBreak: 'break-word',
+	},
 });
 
-const editContainerStyles = xcss({
-	width: '50%',
+const editContainerStyles = cssMap({
+	root: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		width: '50%' as any,
+	},
 });
 
 const InlineEditExample = () => {
@@ -54,7 +61,7 @@ const InlineEditExample = () => {
 	};
 
 	return (
-		<Box padding="space.100" xcss={editContainerStyles}>
+		<Box padding="space.100" xcss={editContainerStyles.root}>
 			<Button testId="clear-button" onClick={clearInlineEditContent}>
 				Clear inline edit validation
 			</Button>
@@ -74,7 +81,7 @@ const InlineEditExample = () => {
 					</>
 				)}
 				readView={() => (
-					<Box xcss={readViewContainerStyles} testId="read-view">
+					<Box xcss={readViewContainerStyles.root} testId="read-view">
 						{editValue || initialValue}
 					</Box>
 				)}

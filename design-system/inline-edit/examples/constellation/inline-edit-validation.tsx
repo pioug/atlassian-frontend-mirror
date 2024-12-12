@@ -1,32 +1,41 @@
 import React, { useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InlineDialog from '@atlaskit/inline-dialog';
 import InlineEdit from '@atlaskit/inline-edit';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
-const containerStyles = xcss({
-	paddingBlockStart: 'space.100',
-	paddingInlineEnd: 'space.100',
-	paddingBlockEnd: 'space.600',
-	width: '50%',
+const containerStyles = cssMap({
+	root: {
+		paddingBlockStart: token('space.100'),
+		paddingInlineEnd: token('space.100'),
+		paddingBlockEnd: token('space.600'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		width: '50%' as any,
+	},
 });
 
-const errorIconContainerStyles = xcss({
-	paddingInlineEnd: 'space.075',
-	lineHeight: '100%',
+const errorIconContainerStyles = cssMap({
+	root: {
+		paddingInlineEnd: token('space.075'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		lineHeight: '100%' as any,
+	},
 });
 
-const readViewContainerStyles = xcss({
-	display: 'flex',
-	font: 'font.body',
-	maxWidth: '100%',
-	paddingBlock: 'space.100',
-	paddingInline: 'space.075',
-	wordBreak: `break-word`,
+const readViewContainerStyles = cssMap({
+	root: {
+		display: 'flex',
+		font: token('font.body'),
+		maxWidth: '100%',
+		paddingBlock: token('space.100'),
+		paddingInline: token('space.075'),
+		wordBreak: `break-word`,
+	},
 });
 
 const InlineEditValidationExample = () => {
@@ -69,7 +78,7 @@ const InlineEditValidationExample = () => {
 	};
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={containerStyles.root}>
 			<Button testId="clear-button" onClick={clearInlineEditContent}>
 				Clear field
 			</Button>
@@ -88,7 +97,7 @@ const InlineEditValidationExample = () => {
 							{...fieldProps}
 							elemAfterInput={
 								fieldProps.isInvalid && (
-									<Box xcss={errorIconContainerStyles}>
+									<Box xcss={errorIconContainerStyles.root}>
 										<ErrorIcon label="error" primaryColor={token('color.icon.danger')} />
 									</Box>
 								)
@@ -98,7 +107,7 @@ const InlineEditValidationExample = () => {
 					</InlineDialog>
 				)}
 				readView={() => (
-					<Box xcss={readViewContainerStyles} testId="read-view">
+					<Box xcss={readViewContainerStyles.root} testId="read-view">
 						{editValue}
 					</Box>
 				)}

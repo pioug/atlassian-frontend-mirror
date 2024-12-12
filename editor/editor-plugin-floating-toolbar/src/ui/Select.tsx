@@ -88,7 +88,7 @@ export default function Search(props: Props) {
 			menuPortalTarget={props.mountPoint}
 			onMenuOpen={onMenuOpen}
 			onMenuClose={onMenuClose}
-			aria-label={props.ariaLabel}
+			label={props.ariaLabel}
 			classNamePrefix={props.classNamePrefix}
 		/>
 	);

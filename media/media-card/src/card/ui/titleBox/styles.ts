@@ -59,7 +59,7 @@ const iconOverlapStyles = `padding-right: 10px;`;
 export const titleBoxHeaderStyles = ({ hasIconOverlap }: TitleBoxHeaderProps) =>
 	css(
 		{
-			fontWeight: 600,
+			fontWeight: token('font.weight.semibold'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		infoStyles,

@@ -22,6 +22,7 @@ const loadJiraCollectorDialogScript = (
 	contentId: string,
 	tabId: string,
 ): Promise<() => void> => {
+	// eslint-disable-next-line no-async-promise-executor
 	return new Promise(async (resolve, reject) => {
 		if (window.jQuery) {
 			window.ATL_JQ_PAGE_PROPS = {

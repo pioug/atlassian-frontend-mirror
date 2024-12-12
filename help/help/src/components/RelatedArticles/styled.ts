@@ -30,7 +30,7 @@ export const truncate = (width: string = '100%') =>
 export const RelatedArticlesTitle = styled.div(baseHeading(16, 20), {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N800),
-	fontWeight: 600,
+	fontWeight: token('font.weight.semibold'),
 	letterSpacing: '-0.006em',
 	padding: `${token('space.200', '16px')} 0`,
 });

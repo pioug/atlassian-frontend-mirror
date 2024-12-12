@@ -4,24 +4,25 @@
  */
 import { memo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
-import { Box, Text, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Text } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import WeekDayGrid from './week-day-grid';
+
+const styles = cssMap({
+	columnHeader: {
+		minWidth: '2.5rem',
+		whiteSpace: 'nowrap',
+		display: 'flex',
+		justifyContent: 'center',
+	},
+});
 
 interface WeekHeaderProps {
 	daysShort: string[];
 	testId?: string;
 }
-
-const columnHeaderStyles = xcss({
-	minWidth: 'size.400', // Account for languages with short week day names
-	whiteSpace: 'nowrap', // Account for languages with long week day names
-	display: 'flex',
-	justifyContent: 'center',
-});
 
 const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({ daysShort, testId }) {
 	return (
@@ -29,7 +30,7 @@ const WeekHeader = memo<WeekHeaderProps>(function WeekHeader({ daysShort, testId
 			{daysShort.map((shortDay) => (
 				<Box
 					padding="space.100"
-					xcss={columnHeaderStyles}
+					xcss={styles.columnHeader}
 					key={shortDay}
 					role="columnheader"
 					testId={testId && `${testId}--column-header`}

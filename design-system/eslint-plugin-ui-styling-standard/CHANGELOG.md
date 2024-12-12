@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-ui-styling-standard
 
+## 1.1.0
+
+### Minor Changes
+
+- [#178147](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178147)
+  [`06f80813d818b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/06f80813d818b) -
+  Handle the false-positive of enforce-style-prop when assigned via `style={style}` passing around
+  full objects, rather than simply inline `style={{ … }}` objects.
+
 ## 1.0.4
 
 ### Patch Changes

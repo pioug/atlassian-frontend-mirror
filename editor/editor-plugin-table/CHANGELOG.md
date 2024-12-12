@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 8.4.6
+
+### Patch Changes
+
+- [#176217](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176217)
+  [`38f5a9c8db167`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/38f5a9c8db167) -
+  ED-25953 Fix table overflow when page changes from full page to full width
+
+## 8.4.5
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.4
 
 ### Patch Changes

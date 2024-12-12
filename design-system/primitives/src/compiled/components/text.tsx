@@ -107,7 +107,7 @@ const styles = unboundedCssMap({
 		margin: 0,
 		overflowWrap: 'anywhere',
 	},
-	'as.strong': { fontWeight: 'bold' },
+	'as.strong': { fontWeight: token('font.weight.bold') },
 	'as.em': { fontStyle: 'italic' },
 	'textAlign.center': { textAlign: 'center' },
 	'textAlign.end': { textAlign: 'end' },

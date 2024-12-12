@@ -570,7 +570,9 @@ export default class PopupSelect<
 					? props.getOptionLabel(focused as Option)
 					: focused.label;
 
-			const ariaLabelText = `Option ${optionName} focused, ${optionIndex + 1} of ${totalLength}.
+			const ariaLabelText = fg('design_system_select-a11y-improvement')
+				? `${optionName}`
+				: `Option ${optionName} focused, ${optionIndex + 1} of ${totalLength}.
 			${totalLength} results available.
 			${ariaLabelSuffix}
 			`;
@@ -581,8 +583,9 @@ export default class PopupSelect<
 		};
 
 		const onReactSelectFocus = (onFocusProps: AriaOnFocusProps<Option, GroupBase<Option>>) => {
-			const ariaLabelSuffix =
-				' Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu.';
+			const ariaLabelSuffix = fg('design_system_select-a11y-improvement')
+				? ''
+				: ' Use Up and Down to choose options, press Enter to select the currently focused option, press Escape to exit the menu.';
 			let ariaLabelText = '';
 			let ariaLiveMessage = '';
 			if (props.options?.length) {
@@ -651,15 +654,11 @@ export default class PopupSelect<
 								maxMenuHeight={this.getMaxHeight()}
 								components={selectComponents}
 								onChange={this.handleSelectChange}
-								ariaLiveMessages={
-									!showSearchControl
-										? {
-												// Overwriting ariaLiveMessages builtin onFocus method to announce selected option when popup has been opened
-												onFocus: onReactSelectFocus,
-												...props.ariaLiveMessages, // priority to use user handlers if provided
-											}
-										: props.ariaLiveMessages
-								}
+								ariaLiveMessages={{
+									// Overwriting ariaLiveMessages builtin onFocus method to announce selected option when popup has been opened
+									onFocus: onReactSelectFocus,
+									...props.ariaLiveMessages, // priority to use user handlers if provided
+								}}
 							/>
 							{footer}
 						</FocusLock>

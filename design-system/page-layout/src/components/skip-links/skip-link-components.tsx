@@ -52,7 +52,7 @@ const skipLinkStyles = css({
 	},
 });
 
-const skipLinkHeadingStyles = css({ fontWeight: 600 });
+const skipLinkHeadingStyles = css({ fontWeight: token('font.weight.semibold') });
 
 const skipLinkListStyles = css({
 	listStylePosition: 'outside',

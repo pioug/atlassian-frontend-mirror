@@ -1,19 +1,25 @@
 import React, { useState } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import InlineEdit from '@atlaskit/inline-edit';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Select, { type OptionType, type ValueType } from '@atlaskit/select';
 import Tag from '@atlaskit/tag';
 import Group from '@atlaskit/tag-group';
+import { token } from '@atlaskit/tokens';
 
-const readViewContainerStyles = xcss({
-	font: 'font.body',
-	paddingBlock: 'space.100',
-	paddingInline: 'space.075',
+const readViewContainerStyles = cssMap({
+	root: {
+		font: token('font.body'),
+		paddingBlock: token('space.100'),
+		paddingInline: token('space.075'),
+	},
 });
 
-const editViewContainerStyles = xcss({
-	position: 'relative',
+const editViewContainerStyles = cssMap({
+	root: {
+		position: 'relative',
+	},
 });
 
 const selectOptions = [
@@ -46,13 +52,13 @@ const InlineEditExample = () => {
 				label={inlineEditLabel}
 				editButtonLabel={editValue.length > 0 ? inlineEditLabel : selectLabel}
 				editView={(fieldProps) => (
-					<Box xcss={editViewContainerStyles}>
+					<Box xcss={editViewContainerStyles.root}>
 						<Select {...fieldProps} options={selectOptions} isMulti autoFocus openMenuOnFocus />
 					</Box>
 				)}
 				readView={() =>
 					editValue && editValue.length === 0 ? (
-						<Box xcss={readViewContainerStyles} testId="read-view">
+						<Box xcss={readViewContainerStyles.root} testId="read-view">
 							{selectLabel}
 						</Box>
 					) : (

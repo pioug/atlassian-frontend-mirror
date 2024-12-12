@@ -4,28 +4,22 @@
  */
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
+import { css, jsx } from '@compiled/react';
 
 const spacingScale = {
-	SMALLEST: gridSize() * 0.5,
-	SMALL: gridSize() * 1,
-	MEDIUM: gridSize() * 2,
-	LARGE: gridSize() * 3,
-	XLARGE: gridSize() * 4,
-	XXLARGE: gridSize() * 5,
-	LARGEST: gridSize() * 20,
+	SMALLEST: 4,
+	SMALL: 8,
+	MEDIUM: 16,
+	LARGE: 24,
+	XLARGE: 32,
+	XXLARGE: 40,
+	LARGEST: 160,
 };
-
-const CSS_SIZE_SPACING = '--size-spacing';
 
 const stackLayoutStyles = css({
 	display: 'grid',
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	gap: `var(${CSS_SIZE_SPACING})`,
+	gap: `var(--size-spacing)`,
 	gridAutoFlow: 'column',
 });
 
@@ -65,7 +59,7 @@ const StackLayout = ({
 			]}
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			style={{ [CSS_SIZE_SPACING]: `${spacingScale[size]}px` } as React.CSSProperties}
+			style={{ ['--size-spacing']: `${spacingScale[size]}px` } as React.CSSProperties}
 		>
 			{children}
 		</div>

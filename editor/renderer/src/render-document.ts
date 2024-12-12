@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 import memoizeOne from 'memoize-one';
 import { type Serializer } from './serializer';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';

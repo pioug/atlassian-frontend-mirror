@@ -39,7 +39,7 @@ const headerStyles = css({
 const titleStyles = css({
 	margin: 0,
 	fontSize: '20px',
-	fontWeight: 500,
+	fontWeight: token('font.weight.medium'),
 	lineHeight: 1,
 });
 

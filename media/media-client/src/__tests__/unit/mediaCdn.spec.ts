@@ -1,18 +1,12 @@
 import { mapToMediaCdnUrl } from '../../utils/mediaCdn';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 
-Object.defineProperty(window, 'location', {
-	value: {
-		hostname: '',
-	},
-});
-
 describe('mediaCdn', () => {
 	beforeEach(() => {
 		setBooleanFeatureFlagResolver(() => true);
-		// @ts-expect-error - TS2790 - The operand of a 'delete' operator must be optional.
-		delete global.MICROS_PERIMETER;
-		window.location.hostname = 'hello.atlassian.net';
+		jsdom.reconfigure({
+			url: 'https://hello.atlassian.net',
+		});
 	});
 
 	it('should map to cdn url if mapping found', () => {
@@ -56,13 +50,17 @@ describe('mediaCdn', () => {
 			'https://api.media.atlassian.com/path/to/resource',
 		);
 
-		window.location.hostname = 'atlassian-us-gov-mod.com';
+		jsdom.reconfigure({
+			url: 'https://atlassian-us-gov-mod.com',
+		});
 		expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
 			'https://api.media.atlassian.com/path/to/resource',
 		);
 
 		global.MICROS_PERIMETER = 'commercial';
-		window.location.hostname = 'hello.atlassian.net';
+		jsdom.reconfigure({
+			url: 'https://hello.atlassian.net',
+		});
 		expect(mapToMediaCdnUrl(originalUrl, '')).toBe(
 			'https://media-cdn.atlassian.com/path/to/resource',
 		);

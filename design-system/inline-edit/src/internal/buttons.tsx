@@ -5,8 +5,7 @@
  * @jsx jsx
  */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { IconButton } from '@atlaskit/button/new';
 import ConfirmIcon from '@atlaskit/icon/glyph/check';
@@ -54,17 +53,7 @@ interface ButtonsProp {
 	onCancelClick: (event: React.MouseEvent<HTMLElement>) => void;
 	testId?: string;
 }
-// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
-// Remove links that the component does not have (such as usage). If there are no links remove them all.
-/**
- * __Buttons__
- *
- * A buttons {description}.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
+
 const Buttons = ({
 	confirmButtonLabel,
 	cancelButtonLabel,

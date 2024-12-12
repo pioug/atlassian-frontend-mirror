@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 /* eslint-disable */

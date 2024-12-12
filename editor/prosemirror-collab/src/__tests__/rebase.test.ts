@@ -40,6 +40,7 @@ function runRebase(transforms: readonly Transform[], expected: Node) {
 
 	expect(full.doc).toEqualDocument(expected);
 
+	// eslint-disable-next-line guard-for-in
 	for (let tag in (start as any).tag) {
 		let mapped = full.mapping.mapResult((start as any).tag[tag]);
 

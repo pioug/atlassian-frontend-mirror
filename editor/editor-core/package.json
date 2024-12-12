@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.2.6",
+	"version": "203.2.10",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^96.3.0",
+		"@atlaskit/editor-common": "^96.4.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.8.0",
 		"@atlaskit/editor-plugins": "^5.8.0",
@@ -55,9 +55,9 @@
 		"@atlaskit/mention": "^23.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
-		"@atlaskit/tmp-editor-statsig": "^2.25.0",
+		"@atlaskit/tmp-editor-statsig": "^2.26.0",
 		"@atlaskit/tokens": "^2.4.0",
-		"@atlaskit/tooltip": "^18.9.0",
+		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/width-detector": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -83,8 +83,8 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.14.0",
 		"@atlaskit/analytics-listeners": "^8.13.0",
-		"@atlaskit/collab-provider": "10.2.1",
-		"@atlaskit/editor-plugin-annotation": "1.26.2",
+		"@atlaskit/collab-provider": "10.2.2",
+		"@atlaskit/editor-plugin-annotation": "1.26.3",
 		"@atlaskit/editor-plugin-card": "^4.5.0",
 		"@atlaskit/editor-plugin-list": "^3.9.0",
 		"@atlaskit/editor-plugin-paste": "^2.0.0",
@@ -103,7 +103,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "3.0.6",
+		"@atlassian/search-provider": "3.0.7",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^6.4.0",
 		"@testing-library/react": "^12.1.5",
@@ -370,6 +370,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_nested_tables_renderer_styles": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_table_overflow_in_full_width_fix": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

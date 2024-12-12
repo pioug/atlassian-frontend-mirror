@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 export { addColumnAt } from './utils/add-column-at';
 export { addColumn, columnIsHeader } from './utils/add-column';
 export { addRowAt } from './utils/add-row-at';

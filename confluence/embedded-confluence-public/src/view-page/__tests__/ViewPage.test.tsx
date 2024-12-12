@@ -13,18 +13,13 @@ const defaultProps: ViewPageProps = {
 };
 
 const mockDefaultHost = 'mock.host';
-const mockDefaultProtocol = 'abc:';
+const mockDefaultProtocol = 'http:';
 const originalLocation: Location = window.location;
 
 beforeEach(() => {
-	// @ts-ignore Mock window.location in Jest
-	delete window.location;
-
-	window.location = {
-		...originalLocation,
-		host: mockDefaultHost,
-		protocol: mockDefaultProtocol,
-	};
+	jsdom.reconfigure({
+		url: `${mockDefaultProtocol}//${mockDefaultHost}`,
+	});
 });
 
 afterEach(() => {

@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 /**
   This package is based on prosemirror-tables, https://github.com/ProseMirror/prosemirror-tables
 

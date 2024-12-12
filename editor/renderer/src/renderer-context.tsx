@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 import React from 'react';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 

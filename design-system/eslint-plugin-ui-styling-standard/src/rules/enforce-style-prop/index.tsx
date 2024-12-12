@@ -38,8 +38,6 @@ const isIdentifierAllowed = (context: Rule.RuleContext, identifier: Identifier):
 
 	const variableDefinition = variable.defs[0].node;
 
-	// console.log('@@variableDefinition', variableDefinition);
-
 	// If identifier is a RestElement, report warning
 	if ((variable.identifiers[0] as IdentifierWithParent)?.parent?.type === 'RestElement') {
 		return false;
@@ -84,6 +82,7 @@ function isPropertyValueAllowed(property: ObjProperty, context: Rule.RuleContext
 	if (property.type === 'SpreadElement') {
 		return false;
 	}
+
 	// property.type === 'Property', moving on to check if value is static
 	if (property.value.type === 'Literal') {
 		return false;
@@ -165,7 +164,8 @@ export const rule = createLintRule({
 
 				// we've reached an attribute named style
 
-				let expression: ObjectExpression;
+				let expression: ObjectExpression | null = null;
+				let reportOnNodeExpression: boolean = false;
 				if (
 					// @ts-expect-error -- TSAsExpression is not valid in estree
 					node.expression.type === 'TSAsExpression' &&
@@ -178,22 +178,61 @@ export const rule = createLintRule({
 				} else if (node.expression.type === 'ObjectExpression') {
 					// Typical `style={{ … }}` scenario
 					expression = node.expression;
-				} else {
+				} else if (node.expression.type === 'Identifier') {
+					/*
+					 * Example:
+					 * ```tsx
+					 * const style = { width: 100 };
+					 * <div style={style} />
+					 * ```
+					 */
+					const variable = findVariable({
+						sourceCode: context.getSourceCode(),
+						identifier: node.expression,
+					});
+
+					// Types are alluding us here, but we really only want an ObjectExpression here
+					// Additionally, if we have multiple variable definitions, we're in some unhandled scenario
+					// so we're only going to look at the first one…
+					const hopefulObjectExpression: ObjectExpression | undefined =
+						variable?.defs?.[0]?.node?.init;
+					if (hopefulObjectExpression?.type === 'ObjectExpression') {
+						expression = hopefulObjectExpression;
+					}
+
+					reportOnNodeExpression = true;
+				}
+
+				if (!expression?.properties) {
 					context.report({
 						node: node,
 						messageId: 'enforce-style-prop',
 					});
+
 					return;
 				}
 
-				expression.properties.forEach((value) => {
-					if (!isPropertyValueAllowed(value, context)) {
+				if (reportOnNodeExpression) {
+					// In some cases we want to report on the `node.expression` itself, eg.
+					// `styles` in `style={styles}` should get the error
+					if (expression.properties.some((value) => !isPropertyValueAllowed(value, context))) {
 						context.report({
-							node: value,
+							node: node.expression,
 							messageId: 'enforce-style-prop',
 						});
 					}
-				});
+				} else {
+					// Typically we want to report on the individual styles, eg.
+					// `color: 'red'` in `style={{ color: 'red' }}` should get the error
+					expression.properties.forEach((value) => {
+						if (!isPropertyValueAllowed(value, context)) {
+							context.report({
+								node: value,
+								messageId: 'enforce-style-prop',
+							});
+						}
+					});
+				}
 			},
 		};
 	},

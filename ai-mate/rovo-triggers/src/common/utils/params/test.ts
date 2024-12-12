@@ -17,13 +17,8 @@ describe('Rovo Query', () => {
 	beforeAll(() => {
 		jest.spyOn(window.history, 'replaceState').mockImplementation(() => {});
 
-		Object.defineProperty(window, 'location', {
-			value: {
-				href: 'http://example.com',
-				pathname: '/test',
-				search: '',
-			},
-			writable: true,
+		jsdom.reconfigure({
+			url: 'http://example.com',
 		});
 		Object.defineProperty(window, 'history', {
 			value: {

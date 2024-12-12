@@ -8,6 +8,7 @@ import React, { useCallback } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { LoadingButton } from '@atlaskit/button';
+import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { SmartLinkSize } from '../../../../../../constants';
@@ -33,7 +34,7 @@ const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) => {
 		case SmartLinkSize.Small:
 			return css({
 				fontSize: '0.75rem',
-				fontWeight: 500,
+				fontWeight: token('font.weight.medium'),
 				lineHeight: '1rem',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				'button, button:hover, button:focus, button:active': [

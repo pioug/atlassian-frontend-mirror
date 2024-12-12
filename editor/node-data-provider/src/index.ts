@@ -179,6 +179,7 @@ export class NodeDataProvider<INode extends ReceivableNode, Result extends unkno
 		if (!this.pending[key]) {
 			const abortController = new AbortController();
 			this.pending[key] = {
+				// eslint-disable-next-line no-async-promise-executor
 				resolving: new Promise(async (res, rej) => {
 					try {
 						const result = await this.resolve(node, { signal: abortController.signal }).catch(

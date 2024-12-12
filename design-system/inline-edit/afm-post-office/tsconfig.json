@@ -27,6 +27,9 @@
 			"path": "../../../monorepo-tooling/codemod-utils/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../css/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../form/afm-post-office/tsconfig.json"
 		},
 		{

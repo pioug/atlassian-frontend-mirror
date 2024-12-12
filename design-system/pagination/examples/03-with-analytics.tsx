@@ -4,7 +4,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
 import Pagination from '@atlaskit/pagination';
-import Stack from '@atlaskit/primitives/stack';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 export default function AnalyticsExample() {
 	const [analyticEventContext, setAnalyticEventContext] = useState({});

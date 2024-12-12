@@ -38,7 +38,7 @@ describe('Element: Link', () => {
 			const element = await screen.findByTestId(testId);
 
 			expect(element).toHaveStyleDeclaration('font-size', expectedFontSize);
-			expect(element).toHaveStyleDeclaration('font-weight', '400');
+			expect(element).toHaveStyleDeclaration('font-weight', 'var(--ds-font-weight-regular, 400)');
 		});
 	});
 
@@ -91,7 +91,7 @@ describe('Element: Link', () => {
 			const element = await screen.findByTestId(testId);
 
 			expect(element).toHaveStyleDeclaration('color', expect.stringContaining('#44546F'));
-			expect(element).toHaveStyleDeclaration('font-weight', '400');
+			expect(element).toHaveStyleDeclaration('font-weight', 'var(--ds-font-weight-regular, 400)');
 		});
 	});
 

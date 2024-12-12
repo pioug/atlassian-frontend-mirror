@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/focused-task-close-account",
-	"version": "2.3.5",
+	"version": "2.3.6",
 	"description": "This package contains all of the UI components needed to assemble the focused tasks for deactivating and deleting users' accounts in accordance with the GDPR \"Right to be forgotten\".",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/drawer": "^9.2.0",
 		"@atlaskit/icon": "^23.1.0",
-		"@atlaskit/inline-dialog": "^15.3.0",
+		"@atlaskit/inline-dialog": "^16.0.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/section-message": "^6.8.0",
 		"@atlaskit/theme": "^14.0.0",

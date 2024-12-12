@@ -1,11 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { Fragment, useCallback, useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import React, { Fragment, useCallback, useState } from 'react';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
@@ -16,11 +9,7 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
-import { Flex, Grid, xcss } from '@atlaskit/primitives';
-
-const boldStyles = css({
-	fontWeight: 'bold',
-});
+import { Flex, Grid, Text, xcss } from '@atlaskit/primitives';
 
 const gridStyles = xcss({
 	width: '100%',
@@ -65,8 +54,8 @@ export default function Example() {
 						</ModalHeader>
 						<ModalBody>
 							Duplicating this page will make it a child page of{' '}
-							<span css={boldStyles}>Search - user exploration</span>, in the{' '}
-							<span css={boldStyles}>Search & Smarts</span> space.
+							<Text weight="bold">Search - user exploration</Text>, in the{' '}
+							<Text weight="bold">Search & Smarts</Text> space.
 						</ModalBody>
 						<ModalFooter>
 							<Button appearance="subtle" onClick={closeModal}>

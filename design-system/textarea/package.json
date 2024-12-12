@@ -37,13 +37,15 @@
 		".": "./src/index.tsx",
 		"./component-tokens": "./src/component-tokens.tsx",
 		"./styles": "./src/styles.tsx",
-		"./text-area": "./src/text-area.tsx"
+		"./text-area": "./src/text-area.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"exports": {
 		".": "./src/index.tsx",
 		"./component-tokens": "./src/component-tokens.tsx",
 		"./styles": "./src/styles.tsx",
-		"./text-area": "./src/text-area.tsx"
+		"./text-area": "./src/text-area.tsx",
+		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.2.0",

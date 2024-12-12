@@ -141,6 +141,9 @@ class ImportDeclarationProxy {
 const isSharedUIKit2TypesImport = (importDeclaration: ImportDeclaration) => {
 	return (
 		importDeclaration.isTypeOnly() &&
+		// file is a relative import
+		importDeclaration.getModuleSpecifierValue().charAt(0) === '.' &&
+		// file is named types
 		importDeclaration.getModuleSpecifierValue().split('/').pop() === 'types'
 	);
 };
@@ -306,7 +309,13 @@ const consolidateCodeSections: CodeConsolidator = ({
 	dependentTypeCode,
 	componentPropCode,
 }) => {
-	return [importCode, externalTypesCode, dependentTypeCode, componentPropCode]
+	return [
+		'/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */',
+		importCode,
+		externalTypesCode,
+		dependentTypeCode,
+		componentPropCode,
+	]
 		.filter((code) => !!code)
 		.join('\n\n');
 };

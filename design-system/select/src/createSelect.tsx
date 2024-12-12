@@ -110,18 +110,17 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 				aria-live={fg('design_system_select-a11y-improvement') ? undefined : 'assertive'}
 				ariaLiveMessages={
 					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-					fg('design_system_select-a11y-improvement')
-						? undefined
-						: isOptionsGrouped(props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>)
-							? {
-									onFocus: (data: AriaOnFocusProps<OptionType, GroupBase<OptionType>>) =>
-										onFocus(
-											data,
-											props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>,
-										),
-									...ariaLiveMessages,
-								}
-							: { ...ariaLiveMessages }
+					//TO DO: Still need live region for PopupSelect because of the menu being open by default
+					isOptionsGrouped(props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>)
+						? {
+								onFocus: (data: AriaOnFocusProps<OptionType, GroupBase<OptionType>>) =>
+									onFocus(
+										data,
+										props.options as OptionsOrGroups<OptionType, GroupType<OptionType>>,
+									),
+								...ariaLiveMessages,
+							}
+						: { ...ariaLiveMessages }
 				}
 				tabSelectsValue={tabSelectsValue}
 				onClickPreventDefault={onClickPreventDefault}

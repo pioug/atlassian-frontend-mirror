@@ -230,11 +230,12 @@ const datePlugin: DatePlugin = ({ config: options = {}, api }) => ({
 			},
 		],
 		floatingToolbar: (state, intl) => {
-			const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+			const isViewMode = () => api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 
-			if (!isViewMode || !fg('platform_inline_node_as_valid_annotation_selection')) {
+			if (!isViewMode() || !fg('platform_inline_node_as_valid_annotation_selection')) {
 				return undefined;
 			}
+
 			const onClick: Command = (stateFromClickEvent, dispatch) => {
 				if (!api?.annotation) {
 					return true;
@@ -292,6 +293,7 @@ const datePlugin: DatePlugin = ({ config: options = {}, api }) => ({
 					const showAnnotation =
 						annotationState &&
 						annotationState.isVisible &&
+						isViewMode() &&
 						!annotationState.bookmark &&
 						!annotationState.mouseData.isSelecting &&
 						!activeCommentMark;

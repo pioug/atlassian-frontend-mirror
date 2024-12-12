@@ -140,12 +140,9 @@ describe('_getEnvironmentFromDomain', () => {
 		['atlassian-stg-fedm.net', 'stg', 'fedramp-moderate'],
 	];
 	test.each(expected)('given %s, should return %s and %s', (hostname, env, perimeter) => {
-		// @ts-ignore Mock window.location in Jest
-		delete globalThis.location;
-		// @ts-ignore Mock window.location in Jest
-		globalThis.location = {
-			hostname,
-		};
+		jsdom.reconfigure({
+			url: `https://${hostname}`,
+		});
 		expect(_getEnvironmentFromDomain()).toEqual([env, perimeter]);
 		// @ts-ignore Mock window.location in Jest
 		delete globalThis.location;

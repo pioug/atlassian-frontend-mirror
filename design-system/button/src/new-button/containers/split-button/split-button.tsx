@@ -10,13 +10,6 @@ import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { type Spacing } from '../../variants/types';
-
-const heights: { [key in Spacing]: string } = {
-	default: `${32 / 14}em`,
-	compact: `${24 / 14}em`,
-};
-
 import { SplitButtonContext } from './split-button-context';
 import type {
 	SplitButtonAppearance,
@@ -33,16 +26,6 @@ const baseDividerStyles = css({
 	// When buttons are selected they have a zIndex of 2 applied.
 	// See use-button-base.tsx.
 	zIndex: 1,
-});
-
-const defaultDividerStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: heights.default,
-});
-
-const compactDividerStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: heights.compact,
 });
 
 const dividerDisabledStyles = css({
@@ -73,13 +56,40 @@ const dividerAppearance: Record<SplitButtonContextAppearance, SerializedStyles> 
 	}),
 };
 
+const dividerRefreshedAppearance: Record<SplitButtonContextAppearance, SerializedStyles> = {
+	...dividerAppearance,
+	default: css({
+		backgroundColor: token('color.border', '#091E4224'),
+	}),
+	primary: css({
+		backgroundColor: token('color.border.inverse', '#FFF'),
+		opacity: 0.64,
+	}),
+};
+
 const dividerRefreshedOffsetStyles = css({
 	marginInline: `calc(0px - ${token('border.width')})`,
 });
 
 const dividerHeight: Record<SplitButtonSpacing, SerializedStyles> = {
-	default: defaultDividerStyles,
-	compact: compactDividerStyles,
+	default: css({
+		height: `${32 / 14}em`,
+	}),
+	compact: css({
+		height: `${24 / 14}em`,
+	}),
+};
+
+const defaultDividerHeight: Record<SplitButtonSpacing, SerializedStyles> = {
+	// The divider height is calculated by subtracting twice the border width from the button height.
+	// This ensures the divider does not intersect with the button's border, avoiding visual issues
+	// caused by overlapping alpha colors (color.border) at the intersection.
+	default: css({
+		height: `calc(${32 / 14}em - ${token('border.width', '1px')} - ${token('border.width', '1px')})`,
+	}),
+	compact: css({
+		height: `calc(${24 / 14}em - ${token('border.width', '1px')} - ${token('border.width', '1px')})`,
+	}),
 };
 
 type DividerProps = {
@@ -97,12 +107,17 @@ export const Divider = ({ appearance, spacing, isDisabled = false }: DividerProp
 		<div
 			css={[
 				baseDividerStyles,
-				dividerHeight[spacing],
+				appearance === 'default' && !isDisabled && fg('platform-component-visual-refresh')
+					? defaultDividerHeight[spacing]
+					: dividerHeight[spacing],
 				isDisabled &&
 					(fg('platform-component-visual-refresh')
 						? dividerDisabledRefreshedStyles
 						: dividerDisabledStyles),
-				!isDisabled && dividerAppearance[appearance],
+				!isDisabled &&
+					(fg('platform-component-visual-refresh')
+						? dividerRefreshedAppearance[appearance]
+						: dividerAppearance[appearance]),
 				fg('platform-component-visual-refresh') && dividerRefreshedOffsetStyles,
 			]}
 		/>

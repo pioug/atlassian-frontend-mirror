@@ -4,19 +4,20 @@
  */
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
 import InlineEdit from '@atlaskit/inline-edit';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
-const readViewContainerStyles = xcss({
-	font: 'font.heading.large',
-	paddingBlock: 'space.100',
-	paddingInline: 'space.075',
-	wordBreak: 'break-word',
+const readViewContainerStyles = cssMap({
+	root: {
+		font: token('font.heading.large'),
+		paddingBlock: token('space.100'),
+		paddingInline: token('space.075'),
+		wordBreak: 'break-word',
+	},
 });
 
 const textFieldStyles = css({
@@ -40,7 +41,7 @@ const InlineEditExample = () => {
 					<Textfield {...fieldProps} autoFocus css={textFieldStyles} />
 				)}
 				readView={() => (
-					<Box xcss={readViewContainerStyles} testId="read-view">
+					<Box xcss={readViewContainerStyles.root} testId="read-view">
 						{editValue || initialValue}
 					</Box>
 				)}

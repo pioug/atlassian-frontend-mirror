@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.14.12
+
+### Patch Changes
+
+- [`c8de60de91ead`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c8de60de91ead) -
+  Select: Update use of deprecated props
+- Updated dependencies
+
+## 1.14.11
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.14.10
 
 ### Patch Changes

@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { ADNode } from '@atlaskit/editor-common/validator';

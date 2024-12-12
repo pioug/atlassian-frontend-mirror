@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Pagination from '@atlaskit/pagination';
-import { Inline, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import SectionMessage from '@atlaskit/section-message';
+import { token } from '@atlaskit/tokens';
 
-const customEllipsisStyles = xcss({
-	margin: 'space.0',
+const styles = cssMap({
+	customEllipsis: {
+		margin: token('space.0'),
+	},
 });
 
 export default function CustomEllipsisExample() {
@@ -22,7 +26,7 @@ export default function CustomEllipsisExample() {
 			<Pagination
 				testId="pagination"
 				renderEllipsis={({ key }: { key: string }) => (
-					<Inline key={key} as="li" xcss={customEllipsisStyles}>
+					<Inline key={key} as="li" xcss={styles.customEllipsis}>
 						<Button onClick={handleEllipsisCLick} appearance="subtle" aria-label="Expand list">
 							&hellip;
 						</Button>

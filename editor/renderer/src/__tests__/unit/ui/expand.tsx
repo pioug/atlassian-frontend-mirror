@@ -9,6 +9,7 @@ describe('Expand', () => {
 			<ExpandWithInt
 				title={'Expand test title'}
 				nodeType={'expand'}
+				// eslint-disable-next-line react/no-children-prop
 				children={<p>Text inside expand</p>}
 				rendererAppearance={'full-page'}
 			/>,

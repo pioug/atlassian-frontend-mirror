@@ -22,7 +22,7 @@ import type {
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { HyperlinkPlugin } from '../plugin';
+import type { HyperlinkPlugin } from '../hyperlinkPluginType';
 
 import { ButtonWrapper } from './decorations';
 

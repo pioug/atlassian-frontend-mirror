@@ -30,7 +30,7 @@ var ThemeMutationObserver = exports.default = /*#__PURE__*/function () {
     this.callback = callback;
     ThemeMutationObserver.callbacks.add(callback);
   }
-  (0, _createClass2.default)(ThemeMutationObserver, [{
+  return (0, _createClass2.default)(ThemeMutationObserver, [{
     key: "observe",
     value: function observe() {
       if (!ThemeMutationObserver.observer) {
@@ -58,7 +58,6 @@ var ThemeMutationObserver = exports.default = /*#__PURE__*/function () {
       }
     }
   }]);
-  return ThemeMutationObserver;
 }();
 (0, _defineProperty2.default)(ThemeMutationObserver, "observer", null);
 (0, _defineProperty2.default)(ThemeMutationObserver, "callbacks", new Set());

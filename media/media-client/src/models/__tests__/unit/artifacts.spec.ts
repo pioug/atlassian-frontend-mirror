@@ -2,10 +2,8 @@ import { getArtifactUrl } from '../../artifacts';
 import { setBooleanFeatureFlagResolver } from '@atlaskit/platform-feature-flags';
 import { type MediaFileArtifacts } from '@atlaskit/media-state';
 
-Object.defineProperty(window, 'location', {
-	value: {
-		hostname: '',
-	},
+jsdom.reconfigure({
+	url: 'about:blank',
 });
 
 describe('getArtifactUrl', () => {
@@ -44,7 +42,9 @@ describe('getArtifactUrl', () => {
 				processingStatus: 'succeeded',
 			},
 		};
-		window.location.hostname = 'atlassian-us-gov-mod.com';
+		jsdom.reconfigure({
+			url: 'https://atlassian-us-gov-mod.com',
+		});
 		expect(getArtifactUrl(artifacts, 'video_640.mp4')).toBe('someurl.com');
 	});
 });

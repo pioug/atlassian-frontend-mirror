@@ -1,5 +1,19 @@
 # @atlaskit/help
 
+## 7.11.8
+
+### Patch Changes
+
+- [#178053](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178053)
+  [`cb318c8c28c26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb318c8c28c26) -
+  Internal changes to typography.
+
+## 7.11.7
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.11.6
 
 ### Patch Changes

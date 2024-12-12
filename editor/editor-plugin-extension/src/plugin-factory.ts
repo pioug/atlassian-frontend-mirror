@@ -12,6 +12,7 @@ const factory = pluginFactory(pluginKey, reducer, {
 		}
 
 		const positions = { ...previousPositions };
+		// eslint-disable-next-line guard-for-in
 		for (const key in positions) {
 			positions[key] = tr.mapping.map(positions[key]);
 		}

@@ -19,6 +19,7 @@ import type { EditorState, PluginKey } from '@atlaskit/editor-prosemirror/state'
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
@@ -382,6 +383,10 @@ export const createTableView = (
 		isDragAndDropEnabled,
 		isTableScalingEnabled, // same as options.isTableScalingEnabled
 	} = getPluginState(view.state);
+
+	// Use shared state for isFullWidthModeEnabled and wasFullWidthModeEnabled for most up-to-date values
+	const tableState = pluginInjectionApi?.table?.sharedState.currentState();
+
 	const { allowColumnResizing, allowControls, allowTableResizing, allowTableAlignment } =
 		getPluginConfig(pluginConfig);
 
@@ -396,8 +401,12 @@ export const createTableView = (
 		eventDispatcher,
 		getPos: getPos as getPosHandlerNode,
 		options: {
-			isFullWidthModeEnabled,
-			wasFullWidthModeEnabled,
+			isFullWidthModeEnabled: fg('platform_editor_table_overflow_in_full_width_fix')
+				? tableState?.isFullWidthModeEnabled
+				: isFullWidthModeEnabled,
+			wasFullWidthModeEnabled: fg('platform_editor_table_overflow_in_full_width_fix')
+				? tableState?.wasFullWidthModeEnabled
+				: wasFullWidthModeEnabled,
 			isDragAndDropEnabled,
 			isTableScalingEnabled, // same as options.isTableScalingEnabled
 			isCommentEditor,

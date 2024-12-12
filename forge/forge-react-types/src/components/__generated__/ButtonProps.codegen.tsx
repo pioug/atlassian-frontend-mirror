@@ -3,10 +3,12 @@
  *
  * Extract component prop types from UIKit 2 components - ButtonProps
  *
- * @codegen <<SignedSource::489ab2b0a37f1ef3c6463d8c427acf2d>>
+ * @codegen <<SignedSource::c29e7149d653838ec5536420b8518bf7>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/index.partial.tsx <<SignedSource::98b5f936725e04433d64b0ae5e85b701>>
  */
+/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
+
 import type { ButtonProps as PlatformButtonProps } from '@atlaskit/button/new';
 
 export type Icon =

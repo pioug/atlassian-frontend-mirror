@@ -3,10 +3,12 @@
  *
  * Extract component prop types from UIKit 2 components - TextfieldProps
  *
- * @codegen <<SignedSource::45c617e56bc06c911a5944941288beba>>
+ * @codegen <<SignedSource::53927afe8c8adcca03f0cfa65f9b44dc>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/textfield/index.tsx <<SignedSource::3cab13a24ee050b7fe926e8e6a19858b>>
  */
+/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
+
 import React from 'react';
 import PlatformTextfield from '@atlaskit/textfield';
 import type { EventHandlerProps } from './types.codegen';

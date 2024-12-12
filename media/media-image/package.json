@@ -23,10 +23,12 @@
 	"sideEffects": false,
 	"atlaskit:src": "src/index.ts",
 	"af:exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./internal-types": "./src/types.tsx"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./internal-types": "./src/types.tsx"
 	},
 	"atlassian": {
 		"team": "Media Experience",

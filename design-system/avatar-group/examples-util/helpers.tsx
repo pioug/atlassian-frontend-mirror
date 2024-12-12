@@ -58,7 +58,7 @@ export const Heading = styled.div({
 	color: token('color.text.subtlest'),
 	display: 'flex',
 	fontSize: '0.8rem',
-	fontWeight: 500,
+	fontWeight: token('font.weight.medium'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- needs manual remediation
 	marginBottom: '0.5em',
 	textTransform: 'uppercase',

@@ -107,6 +107,7 @@ const manifestFunction = ({
 			{
 				key: 'item',
 				action: () =>
+					// eslint-disable-next-line no-async-promise-executor
 					new Promise(async (resolve, reject) => {
 						try {
 							const node = await pickFromGoogle(appKey, clientID);

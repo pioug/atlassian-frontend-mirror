@@ -141,7 +141,7 @@ const getStyles = (
 		display: flex;
 		font-size: inherit;
 		font-style: normal;
-		font-weight: normal;
+		font-weight: ${token('font.weight.regular')};
 		line-height: 1;
 		outline: none;
 		margin: ${token('space.0', '0px')};

@@ -35,6 +35,7 @@ describe('static asset rendering tests', () => {
 
 	// these tests make sure that the generator does not spew out something unexpected
 	it('generator: icons match snapshots', () => {
+		// eslint-disable-next-line guard-for-in
 		for (const icon in icons.IconName) {
 			expect(icons[icon as icons.IconString]).toMatchSnapshot(icon);
 		}

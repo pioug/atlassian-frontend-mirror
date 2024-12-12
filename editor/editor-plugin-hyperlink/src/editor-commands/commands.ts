@@ -25,7 +25,7 @@ import type { Mark, Node, ResolvedPos } from '@atlaskit/editor-prosemirror/model
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-import { stateKey } from './pm-plugins/main';
+import { stateKey } from '../pm-plugins/main';
 
 function setLinkHrefEditorCommand(
 	href: string,

@@ -1,5 +1,19 @@
 # @atlaskit/profilecard
 
+## 21.0.2
+
+### Patch Changes
+
+- [#178053](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178053)
+  [`cb318c8c28c26`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb318c8c28c26) -
+  Internal changes to typography.
+
+## 21.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.0.0
 
 ### Major Changes

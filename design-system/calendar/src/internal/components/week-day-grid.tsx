@@ -1,19 +1,19 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
-import { Grid } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { Grid } from '@atlaskit/primitives/compiled';
 
 interface WeekDayGridProps extends React.HTMLAttributes<HTMLElement> {
 	testId?: string;
 	children: ReactNode;
 	isHidden?: boolean;
 }
+
+const styles = cssMap({
+	templateColumns: {
+		gridTemplateColumns: 'repeat(7, minmax(max-content, 1fr))',
+	},
+});
 
 /**
  * __Week day grid__
@@ -23,7 +23,7 @@ interface WeekDayGridProps extends React.HTMLAttributes<HTMLElement> {
  */
 const WeekDayGrid = ({ testId, children, isHidden }: WeekDayGridProps) => {
 	const row = (
-		<Grid testId={testId} templateColumns="repeat(7, minmax(max-content, 1fr))" role="row">
+		<Grid testId={testId} xcss={styles.templateColumns} role="row">
 			{children}
 		</Grid>
 	);

@@ -22,6 +22,7 @@ export type AISummaryServiceProps = {
 	 */
 	ari?: string;
 	envKey?: EnvironmentsKeys;
+	locale?: string;
 	url: string;
 };
 
@@ -46,6 +47,7 @@ export type AgentInputContext = {
 	content_ari?: string;
 	prompt_id: PromptId;
 	summary_output_mimetype?: SummaryOutputMimeType;
+	locale?: string;
 };
 
 export type PromptId = 'smart_links';

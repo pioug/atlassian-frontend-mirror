@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Pagination from '@atlaskit/pagination';
-import Stack from '@atlaskit/primitives/stack';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 const Pages = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 

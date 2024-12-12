@@ -105,6 +105,7 @@ export default (
 					let awaitAllDefinitions: Promise<null>[] = [];
 
 					jsonSchema.definitions.forEach(async (def, name) => {
+						// eslint-disable-next-line no-async-promise-executor
 						const promise = new Promise<null>(async (resolve) => {
 							const fileName = getPmName(name);
 							exports.push(`export { default as ${fileName} } from './${fileName}';`);

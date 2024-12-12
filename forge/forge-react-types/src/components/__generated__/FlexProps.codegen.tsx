@@ -3,10 +3,12 @@
  *
  * Extract component prop types from UIKit 2 components - FlexProps
  *
- * @codegen <<SignedSource::1f18f5388b502796000a15fb5906ba25>>
+ * @codegen <<SignedSource::6cc8834108a5a35b246bb5b6d336a307>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/flex/__generated__/index.partial.tsx <<SignedSource::524c2a52b6d867c671d4937480ca329c>>
  */
+/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
+
 import React from 'react';
 import { Flex as PlatformFlex } from '@atlaskit/primitives';
 

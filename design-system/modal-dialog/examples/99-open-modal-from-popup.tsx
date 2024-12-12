@@ -1,10 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
-import { css, jsx } from '@emotion/react';
 import { createHook, createStore } from 'react-sweet-state';
 
 import Button from '@atlaskit/button/new';
@@ -17,7 +12,7 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import Popup from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 
 const Store = createStore({
 	// value of the store on initialisation
@@ -41,10 +36,6 @@ export const useIsFocused = createHook(Store);
 
 const contentStyles = xcss({
 	padding: 'space.200',
-});
-
-const boldStyles = css({
-	fontWeight: 'bold',
 });
 
 const PopupDefaultExample = () => {
@@ -97,8 +88,8 @@ const PopupDefaultExample = () => {
 						</ModalHeader>
 						<ModalBody>
 							Duplicating this page will make it a child page of{' '}
-							<span css={boldStyles}>Search - user exploration</span>, in the{' '}
-							<span css={boldStyles}>Search & Smarts</span> space.
+							<Text weight="bold">Search - user exploration</Text>, in the{' '}
+							<Text weight="bold">Search & Smarts</Text> space.
 						</ModalBody>
 						<ModalFooter>
 							<Button appearance="subtle" onClick={closeModal}>

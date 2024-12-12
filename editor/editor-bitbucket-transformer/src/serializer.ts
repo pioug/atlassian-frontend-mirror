@@ -143,6 +143,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 			// in Markdown may be opened and closed in different order, so
 			// that order of the marks for the token matches the order in
 			// active.
+			// eslint-disable-next-line no-labels
 			outer: for (let i = 0; i < len; i++) {
 				const mark: Mark = marks[i];
 				if (!(this.marks[mark.type.name as any] as any).mixable) {
@@ -167,6 +168,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 								.concat(mark)
 								.concat(marks.slice(j, len));
 						}
+						// eslint-disable-next-line no-labels
 						continue outer;
 					}
 				}

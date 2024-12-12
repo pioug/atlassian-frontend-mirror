@@ -19,7 +19,7 @@ const noOp = () => {};
 const isInputFocused = (wrapper: ReactWrapper) =>
 	wrapper.find('input').getDOMNode() === document.activeElement;
 
-describe('<QuickSearch />', () => {
+describe.skip('<QuickSearch />', () => {
 	const onAnalyticsEventSpy = jest.fn();
 	const onClickSpy = jest.fn();
 

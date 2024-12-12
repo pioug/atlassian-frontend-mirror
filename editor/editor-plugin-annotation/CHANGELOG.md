@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.26.3
+
+### Patch Changes
+
+- [#177132](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177132)
+  [`089d1f8b617d7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/089d1f8b617d7) -
+  [ux] Shows title next to comment icon on the Selection toolbar when page is in View only mode and
+  Contextual toolbar is enabled
+
 ## 1.26.2
 
 ### Patch Changes

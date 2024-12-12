@@ -1,1 +1,1 @@
-export type { InlineEditableTextfieldProps, InlineEditProps } from '../types';
+export type { InlineEditableTextfieldProps, InlineEditProps, ExtendedFieldProps } from '../types';

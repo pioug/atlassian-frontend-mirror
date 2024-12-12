@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 import type { MediaADFAttrs, MediaInlineAttributes } from '@atlaskit/adf-schema';
 import type { ProviderFactory, Providers } from '@atlaskit/editor-common/provider-factory';
 import type { HandlePositioning } from '@atlaskit/editor-common/resizer';

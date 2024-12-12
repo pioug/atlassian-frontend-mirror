@@ -320,7 +320,7 @@ describe('Container', () => {
 				const element = await screen.findByTestId('smart-element-link');
 
 				expect(element).toHaveStyleDeclaration('color', expect.stringContaining('#44546F'));
-				expect(element).toHaveStyleDeclaration('font-weight', '400');
+				expect(element).toHaveStyleDeclaration('font-weight', 'var(--ds-font-weight-regular, 400)');
 			});
 
 			it('overrides block theme', async () => {

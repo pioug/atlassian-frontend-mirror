@@ -63,7 +63,7 @@ export const FontFamily = {
 			}
 
 			// Replace raw value with token if there is a token match
-			const matchingToken = findFontFamilyTokenForValue(node.value.raw);
+			const matchingToken = findFontFamilyTokenForValue(String(node.value.value));
 			if (!matchingToken) {
 				return fixes;
 			}

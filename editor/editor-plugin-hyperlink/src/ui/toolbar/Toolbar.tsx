@@ -57,11 +57,10 @@ import {
 	onEscapeCallback,
 	removeLink,
 	updateLink,
-} from './commands';
-import { stateKey } from './pm-plugins/main';
-import { toolbarKey } from './pm-plugins/toolbar-buttons';
-
-import type { hyperlinkPlugin } from './index';
+} from '../../editor-commands/commands';
+import type { hyperlinkPlugin } from '../../hyperlinkPlugin';
+import { stateKey } from '../../pm-plugins/main';
+import { toolbarKey } from '../../pm-plugins/toolbar-buttons';
 
 /* type guard for edit links */
 function isEditLink(linkMark: EditInsertedState | InsertState): linkMark is EditInsertedState {

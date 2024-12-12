@@ -35,13 +35,14 @@ function changedDescendants(
 	let offset = offsetStart;
 	const oldSize = old.childCount;
 	const curSize = cur.childCount;
+	// eslint-disable-next-line no-labels
 	outer: for (let i = 0, j = 0; i < curSize; i++) {
 		const child = cur.child(i);
 		for (let scan = j, e = Math.min(oldSize, i + 3); scan < e; scan++) {
 			if (old.child(scan) === child) {
 				j = scan + 1;
 				offset += child.nodeSize;
-				// eslint-disable-next-line no-continue
+				// eslint-disable-next-line no-continue, no-labels
 				continue outer;
 			}
 		}

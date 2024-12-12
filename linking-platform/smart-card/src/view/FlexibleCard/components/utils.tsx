@@ -7,6 +7,7 @@ import Loadable from 'react-loadable';
 
 import { type Spacing } from '@atlaskit/button';
 import type { Space } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../../constants';
 import { type PreviewActionData } from '../../../state/flexible-ui-context/types';
@@ -110,7 +111,7 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 		case SmartLinkSize.XLarge:
 			return css({
 				fontSize: '1.25rem',
-				fontWeight: 400,
+				fontWeight: token('font.weight.regular'),
 				letterSpacing: '-0.008em',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
@@ -119,7 +120,7 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 		case SmartLinkSize.Medium:
 			return css({
 				fontSize: '0.875rem',
-				fontWeight: 400,
+				fontWeight: token('font.weight.regular'),
 				letterSpacing: '-0.003em',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
@@ -128,7 +129,7 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 		default:
 			return css({
 				fontSize: '0.75rem',
-				fontWeight: 400,
+				fontWeight: token('font.weight.regular'),
 				letterSpacing: '0em',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),

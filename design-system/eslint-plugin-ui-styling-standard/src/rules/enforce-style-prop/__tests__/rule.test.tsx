@@ -169,6 +169,16 @@ typescriptEslintTester.run(
       `,
 			},
 			{
+				name: 'Full complex objects are okay',
+				code: `
+        function Component(props) {
+					const height = getHeight(props);
+          const styles = { width: props.width, height };
+          return <div style={styles} />
+        }
+      `,
+			},
+			{
 				name: 'Let variables are ok',
 				code: `
         function Component(props) {
@@ -214,6 +224,46 @@ typescriptEslintTester.run(
         }
       `,
 				errors: [{ messageId: 'enforce-style-prop' }, { messageId: 'enforce-style-prop' }],
+			},
+			{
+				name: 'Basic test for static css objects',
+				code: `
+					function Component(props) {
+						const styles = { margin: 0, color: 'red' };
+						return <div style={styles} />;
+					}
+      	`,
+				errors: [{ messageId: 'enforce-style-prop', line: 4 }],
+			},
+			{
+				name: 'Basic test for mixed css objects',
+				code: `
+					function Component(props) {
+						const styles = {
+							margin: props.margin,
+							color: 'red',
+						};
+
+						return <div style={styles} />
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop', line: 8 }],
+			},
+			{
+				name: 'Basic test for a class-based component',
+				code: `
+					class BlankExperience extends Component {
+						render () {
+							const styles = {
+								margin: this.props.margin,
+								color: 'red',
+							};
+
+							return <div style={styles} />
+						}
+					}
+				`,
+				errors: [{ messageId: 'enforce-style-prop', line: 9 }],
 			},
 			{
 				name: 'No constants passed to style',

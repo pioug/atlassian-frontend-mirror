@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 import { type EditorExperimentsConfig, editorExperimentsConfig } from './experiments-config';

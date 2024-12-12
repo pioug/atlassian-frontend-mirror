@@ -27,7 +27,7 @@ const messageStyle = () =>
 		fontSize: `${12 / 14}em`,
 		fontStyle: 'inherit',
 		lineHeight: 16 / 12,
-		fontWeight: 'normal',
+		fontWeight: token('font.weight.regular'),
 		color: token('color.text.subtlest'),
 		marginTop: token('space.050', '4px'),
 		display: 'flex',

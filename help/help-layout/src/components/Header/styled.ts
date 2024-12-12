@@ -37,7 +37,7 @@ export const HeaderTitle = styled.h1({
 	color: token('color.text.subtle', colors.N500),
 	textAlign: 'center',
 	fontSize: '1rem',
-	fontWeight: 600,
+	fontWeight: token('font.weight.semibold'),
 	lineHeight: token('space.800', '56px'),
 	width: '100%',
 	whiteSpace: 'nowrap',

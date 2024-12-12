@@ -186,7 +186,7 @@ export const FullNameLabel = styled.h2`
 	white-space: nowrap;
 
 	font-size: 18px;
-	font-weight: 400;
+	font-weight: ${token('font.weight.regular')};
 	letter-spacing: normal;
 	color: ${(props: FullNameLabelProps) =>
 		props.isDisabledAccount ? headerTextColorInactive : headerTextColor};
@@ -238,7 +238,7 @@ export const AppTitleLabel = styled.span`
 	border-radius: ${borderRadius()};
 	padding: 0 ${token('space.075', '6px')};
 	width: fit-content;
-	font-weight: bold;
+	font-weight: ${token('font.weight.bold')};
 	text-transform: uppercase;
 
 	font-size: 12px;

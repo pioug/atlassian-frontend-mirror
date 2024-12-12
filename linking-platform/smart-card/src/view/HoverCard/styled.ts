@@ -66,7 +66,7 @@ export const titleBlockCss = css`
 	}
 
 	[data-smart-element='Title'] {
-		font-weight: 600;
+		font-weight: ${token('font.weight.semibold')};
 	}
 `;
 

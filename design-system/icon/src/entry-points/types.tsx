@@ -6,7 +6,9 @@ export type {
 	SkeletonProps,
 	SVGProps,
 	NewIconProps,
+	NewGlyphColorProps,
 	NewUtilityIconProps,
 	NewCoreIconProps,
 	IconMigrationMap,
+	IconSpacing,
 } from '../types';

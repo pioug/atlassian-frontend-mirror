@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/primitives",
-	"version": "13.3.2",
+	"version": "13.3.3",
 	"description": "Primitives are token-backed low-level building blocks.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -149,7 +149,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^13.4.0",
-		"@atlaskit/tooltip": "^18.9.0",
+		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/codegen": "^0.1.0",
 		"@testing-library/react": "^12.1.5",

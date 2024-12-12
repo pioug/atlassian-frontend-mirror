@@ -32,6 +32,7 @@ jest.mock('../../channel', () => {
 			fetchCatchupv2: () => jest.fn(),
 			sendMetadata: () => jest.fn(),
 			fetchReconcile: () => jest.fn(),
+			disconnect: jest.fn(),
 		};
 	}
 	return {
@@ -127,6 +128,7 @@ describe('reconnection analytics', () => {
 
 		(requestAnimationFrame as any).step();
 		expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(0);
+		provider.destroy();
 	});
 	it('Should trigger reconnecting analytics after being disconnected for more than 3s', async () => {
 		const fakeAnalyticsWebClient = {
@@ -171,6 +173,7 @@ describe('reconnection analytics', () => {
 			source: 'unknown',
 			tags: ['editor'],
 		});
+		provider.destroy();
 	});
 
 	it('Should trigger reconnecting analytics after being disconnected for more than 5s', async () => {
@@ -216,5 +219,6 @@ describe('reconnection analytics', () => {
 			source: 'unknown',
 			tags: ['editor'],
 		});
+		provider.destroy();
 	});
 });

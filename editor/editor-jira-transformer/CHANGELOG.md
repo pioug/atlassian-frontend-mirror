@@ -1,5 +1,27 @@
 # @atlaskit/editor-jira-transformer
 
+## 9.0.0
+
+### Major Changes
+
+- [#175024](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175024)
+  [`12d16f17f14cc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/12d16f17f14cc) -
+  Remove re-exports from @atlaskit/editor-jira-transformer, @af/editor-examples-helpers
+
+  # Breaking changes
+
+  ## @atlaskit/editor-jira-transformer
+
+  @atlaskit/editor-jira-transformer/schema -> @atlaskit/adf-schema/schema-jira
+
+  ## @atlassian/editor-plugin-ai
+
+  @atlassian/editor-plugin-ai/AILogo -> @atlassian/generative-ai-modal/assets/Logo
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.11.6
 
 ### Patch Changes

@@ -54,7 +54,10 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				(editorView.dom as HTMLElement).blur();
 				return true;
 			},
-			replaceDocument: (replaceValue: Node | Fragment | Array<Node> | Object | String) => {
+			replaceDocument: (
+				replaceValue: Node | Fragment | Array<Node> | Object | String,
+				options?: { scrollIntoView?: boolean },
+			) => {
 				const editorView = config?.getEditorView();
 				if (!editorView || replaceValue === undefined || replaceValue === null) {
 					return false;
@@ -69,7 +72,11 @@ export const corePlugin: CorePlugin = ({ config }) => {
 
 				if (content) {
 					const tr = state.tr.replaceWith(0, state.doc.nodeSize - 2, content);
-					editorView.dispatch(tr.scrollIntoView());
+					if (options?.scrollIntoView ?? true) {
+						editorView.dispatch(tr.scrollIntoView());
+					} else {
+						editorView.dispatch(tr);
+					}
 					return true;
 				}
 				return false;

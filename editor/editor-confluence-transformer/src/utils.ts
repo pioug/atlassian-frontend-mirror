@@ -16,6 +16,7 @@ import { type Macro } from './types';
 export function marksFromStyle(schema: Schema, style: CSSStyleDeclaration): ReadonlyArray<Mark> {
 	let marks: ReadonlyArray<Mark> = [];
 
+	// eslint-disable-next-line no-labels
 	styles: for (let i = 0; i < style.length; i++) {
 		const name = style.item(i);
 		const value = style.getPropertyValue(name);
@@ -23,26 +24,31 @@ export function marksFromStyle(schema: Schema, style: CSSStyleDeclaration): Read
 		switch (name) {
 			case 'text-decoration-color':
 			case 'text-decoration-style':
+				// eslint-disable-next-line no-labels
 				continue styles;
 			case 'text-decoration-line':
 			case 'text-decoration':
 				switch (value) {
 					case 'line-through':
 						marks = schema.marks.strike.create().addToSet(marks);
+						// eslint-disable-next-line no-labels
 						continue styles;
 				}
 				break;
 			case 'color':
 				marks = schema.marks.textColor.create({ color: normalizeHexColor(value) }).addToSet(marks);
+				// eslint-disable-next-line no-labels
 				continue styles;
 			case 'background-color':
 				marks = schema.marks.backgroundColor
 					.create({ color: normalizeHexColor(value) })
 					.addToSet(marks);
+				// eslint-disable-next-line no-labels
 				continue styles;
 			case 'font-family':
 				if (value === 'monospace') {
 					marks = schema.marks.code.create().addToSet(marks);
+					// eslint-disable-next-line no-labels
 					continue styles;
 				}
 		}
@@ -91,6 +97,7 @@ export function findTraversalPath(roots: Node[]) {
 	const outqueue = [] as Node[];
 
 	let elem: Element | undefined;
+	// eslint-disable-next-line no-unmodified-loop-condition
 	while ((elem = inqueue.shift() as Element)) {
 		outqueue.push(elem);
 		let children;

@@ -1,13 +1,16 @@
 import React, { type FC, useState } from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import InlineEdit from '@atlaskit/inline-edit';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 
-const readViewContainerStyles = xcss({
-	display: 'flex',
-	maxWidth: '100%',
-	wordBreak: 'break-word',
+const readViewContainerStyles = cssMap({
+	root: {
+		display: 'flex',
+		maxWidth: '100%',
+		wordBreak: 'break-word',
+	},
 });
 
 const ReadViewContainer: FC<{ children: string }> = ({ children }) => (
@@ -15,7 +18,7 @@ const ReadViewContainer: FC<{ children: string }> = ({ children }) => (
 		paddingBlockStart="space.150"
 		paddingBlockEnd="space.150"
 		padding="space.100"
-		xcss={readViewContainerStyles}
+		xcss={readViewContainerStyles.root}
 		testId="read-view"
 	>
 		{children}

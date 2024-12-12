@@ -1,8 +1,9 @@
 import React, { useCallback, useRef } from 'react';
 
+import { cssMap, cx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/glyph/error';
 import InlineDialog from '@atlaskit/inline-dialog';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -10,23 +11,30 @@ import { token } from '@atlaskit/tokens';
 import InlineEdit from './inline-edit';
 import { type InlineEditableTextfieldProps } from './types';
 
-const errorIconContainerStyles = xcss({
-	lineHeight: '100%',
-	paddingInlineEnd: 'space.075',
+const errorIconContainerStyles = cssMap({
+	root: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		lineHeight: '100%' as any,
+		paddingInlineEnd: token('space.075'),
+	},
 });
 
-const readViewForTextFieldStyles = xcss({
-	display: 'flex',
-	font: 'font.body',
-	maxWidth: '100%',
-	paddingBlock: 'space.100',
-	paddingInline: 'space.075',
-	wordBreak: 'break-word',
+const readViewForTextFieldStyles = cssMap({
+	root: {
+		display: 'flex',
+		font: token('font.body'),
+		maxWidth: '100%',
+		paddingBlock: token('space.100'),
+		paddingInline: token('space.075'),
+		wordBreak: 'break-word',
+	},
 });
 
-const compactStyles = xcss({
-	paddingBlock: 'space.050',
-	paddingInline: 'space.075',
+const compactStyles = cssMap({
+	root: {
+		paddingBlock: token('space.050'),
+		paddingInline: token('space.075'),
+	},
 });
 
 const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
@@ -62,7 +70,7 @@ const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
 						ref={textFieldRef}
 						elemAfterInput={
 							isInvalid && (
-								<Box xcss={errorIconContainerStyles}>
+								<Box xcss={errorIconContainerStyles.root}>
 									<ErrorIcon label="error" primaryColor={token('color.icon.danger', R400)} />
 								</Box>
 							)
@@ -75,7 +83,7 @@ const InlineEditableTextfield = (props: InlineEditableTextfieldProps) => {
 			)}
 			readView={() => (
 				<Box
-					xcss={[readViewForTextFieldStyles, isCompact && compactStyles]}
+					xcss={cx(readViewForTextFieldStyles.root, isCompact && compactStyles.root)}
 					data-compact={isCompact}
 					testId={testId && `read-view-${testId}`}
 				>

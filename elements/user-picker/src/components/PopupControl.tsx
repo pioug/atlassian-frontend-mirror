@@ -24,7 +24,7 @@ const getLabelStyle = () =>
 	css({
 		color: token('color.text.subtlest', N200),
 		fontSize: `${fontSize}px`,
-		fontWeight: 600,
+		fontWeight: token('font.weight.semibold'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		lineHeight: `${lineHeight}`,
 		paddingBottom: token('space.050', '4px'),

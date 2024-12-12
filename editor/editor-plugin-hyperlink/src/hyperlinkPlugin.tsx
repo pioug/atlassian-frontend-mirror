@@ -10,28 +10,20 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { addLink, tooltip } from '@atlaskit/editor-common/keymaps';
 import { LinkAction } from '@atlaskit/editor-common/link';
-import type { HyperlinkState, LinkToolbarState } from '@atlaskit/editor-common/link';
+import type { LinkToolbarState } from '@atlaskit/editor-common/link';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { editorCommandToPMCommand } from '@atlaskit/editor-common/preset';
 import { IconLink } from '@atlaskit/editor-common/quick-insert';
 import type {
 	Command,
 	CommandDispatch,
-	EditorCommand,
 	FloatingToolbarButton,
-	HyperlinkPluginOptions,
-	NextEditorPlugin,
-	OptionalPlugin,
 } from '@atlaskit/editor-common/types';
 import { canLinkBeCreatedInRange } from '@atlaskit/editor-common/utils';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { CardPlugin } from '@atlaskit/editor-plugin-card';
-import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import LinkIcon from '@atlaskit/icon/core/migration/link--editor-link';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { HideLinkToolbar, InsertLink, ShowLinkToolbar, UpdateLink } from './commands';
 import {
 	hideLinkToolbarSetMeta,
 	insertLinkWithAnalytics,
@@ -39,71 +31,14 @@ import {
 	showLinkToolbar,
 	updateLink,
 	updateLinkEditorCommand,
-} from './commands';
+} from './editor-commands/commands';
+import type { HyperlinkPlugin } from './hyperlinkPluginType';
 import fakeCursorToolbarPlugin from './pm-plugins/fake-cursor-for-toolbar';
 import { createInputRulePlugin } from './pm-plugins/input-rule';
 import { createKeymapPlugin } from './pm-plugins/keymap';
 import { plugin, stateKey } from './pm-plugins/main';
 import { toolbarButtonsPlugin } from './pm-plugins/toolbar-buttons';
-import { getToolbarConfig } from './Toolbar';
-
-export type HyperlinkPlugin = NextEditorPlugin<
-	'hyperlink',
-	{
-		pluginConfiguration: HyperlinkPluginOptions | undefined;
-		dependencies: [
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<CardPlugin>,
-			OptionalPlugin<EditorViewModePlugin>,
-		];
-		actions: {
-			hideLinkToolbar: HideLinkToolbar;
-			insertLink: InsertLink;
-			updateLink: UpdateLink;
-		};
-		commands: {
-			/**
-			 * EditorCommand to show link toolbar.
-			 *
-			 * Example:
-			 *
-			 * ```
-			 * const newTr = pluginInjectionApi?.hyperlink.commands.showLinkToolbar(
-			 *   inputMethod
-			 * )({ tr })
-			 * ```
-			 */
-			showLinkToolbar: ShowLinkToolbar;
-
-			/**
-			 * EditorCommand to edit the current active link.
-			 *
-			 * Example:
-			 *
-			 * ```
-			 * api.core.actions.execute(
-			 *   api.hyperlink.commands.updateLink(href, text)
-			 * )
-			 * ```
-			 */
-			updateLink: (href: string, text: string) => EditorCommand;
-
-			/**
-			 * EditorCommand to remove the current active link.
-			 *
-			 * Example:
-			 *
-			 * ```
-			 * api.core.actions.execute(
-			 *   api.hyperlink.commands.removeLink()
-			 * )
-			 * ```
-			 */
-			removeLink: () => EditorCommand;
-		};
-		sharedState: HyperlinkState | undefined;
-	}
->;
+import { getToolbarConfig } from './ui/toolbar/Toolbar';
 
 const getPosFromActiveLinkMark = (state: LinkToolbarState) => {
 	if (state === undefined) {

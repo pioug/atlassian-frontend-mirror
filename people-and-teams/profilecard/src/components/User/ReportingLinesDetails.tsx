@@ -36,7 +36,7 @@ function getProfileHref(userId: string, profileUrl?: string) {
 const reportingLinesHeadingDefaultStyles = xcss({
 	color: 'color.text',
 	font: 'font.heading.xxsmall',
-	fontWeight: 600,
+	fontWeight: 'font.weight.semibold',
 	marginBottom: 'space.100',
 });
 const reportingLinesHeadingStyles = xcss({

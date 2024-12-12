@@ -97,9 +97,9 @@ export const statusPlugin: StatusPlugin = ({ config: options, api }) => ({
 			];
 		},
 		floatingToolbar(state, intl) {
-			const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+			const isViewMode = () => api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
 
-			if (!fg('platform_inline_node_as_valid_annotation_selection') || !isViewMode) {
+			if (!fg('platform_inline_node_as_valid_annotation_selection') || !isViewMode()) {
 				return undefined;
 			}
 
@@ -116,7 +116,7 @@ export const statusPlugin: StatusPlugin = ({ config: options, api }) => ({
 					);
 					const showAnnotation =
 						annotationState &&
-						isViewMode &&
+						isViewMode() &&
 						annotationState.isVisible &&
 						!annotationState.bookmark &&
 						!annotationState.mouseData.isSelecting &&

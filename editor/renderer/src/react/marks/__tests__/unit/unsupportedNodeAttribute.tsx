@@ -9,6 +9,7 @@ describe('UnsupportedNodeAttribute', () => {
 		const { container } = render(
 			<UnsupportedNodeAttribute
 				dataAttributes={{ 'data-renderer-mark': true }}
+				// eslint-disable-next-line react/no-children-prop
 				children={<DummyComponent />}
 			/>,
 		);

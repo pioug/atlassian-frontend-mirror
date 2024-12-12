@@ -28,7 +28,7 @@ var ContrastModeObserver = /*#__PURE__*/function () {
     (0, _classCallCheck2.default)(this, ContrastModeObserver);
     (0, _defineProperty2.default)(this, "unbindContrastChangeListener", null);
   }
-  (0, _createClass2.default)(ContrastModeObserver, [{
+  return (0, _createClass2.default)(ContrastModeObserver, [{
     key: "getContrastMode",
     value: function getContrastMode() {
       if (!contrastModeMql) {
@@ -55,7 +55,6 @@ var ContrastModeObserver = /*#__PURE__*/function () {
       }
     }
   }]);
-  return ContrastModeObserver;
 }();
 /**
  * A singleton contrast mode observer - binds "auto" switching logic to a single `mediaQueryList` listener

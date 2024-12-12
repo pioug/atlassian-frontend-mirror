@@ -7,11 +7,12 @@ import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import { BreakoutResizer, ignoreResizerMutations } from '@atlaskit/editor-common/resizer';
 import { type ExtractInjectionAPI, type getPosHandlerNode } from '@atlaskit/editor-common/types';
 import {
-	type DOMOutputSpec,
 	DOMSerializer,
+	type DOMOutputSpec,
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type LayoutPlugin } from '../layoutPluginType';
 import { type LayoutPluginOptions } from '../types';
@@ -24,6 +25,36 @@ type LayoutSectionViewProps = {
 	eventDispatcher: EventDispatcher;
 	pluginInjectionApi?: ExtractInjectionAPI<LayoutPlugin>;
 	options: LayoutPluginOptions;
+};
+
+const isEmptyParagraph = (node?: PMNode | null): boolean => {
+	return !!node && node.type.name === 'paragraph' && !node.childCount;
+};
+
+const isEmptyLayout = (node?: PMNode) => {
+	if (!node) {
+		return false;
+	}
+	// fast check
+	// each column should have size 2 from layoutcolumn and 2 from empty paragraph
+	if (node.content.size / node.childCount !== 4) {
+		return false;
+	}
+
+	let isEmpty = true;
+
+	node.content.forEach((maybelayoutColumn) => {
+		if (
+			maybelayoutColumn.type.name !== 'layoutColumn' ||
+			maybelayoutColumn.childCount > 1 ||
+			!isEmptyParagraph(maybelayoutColumn.firstChild)
+		) {
+			isEmpty = false;
+			return;
+		}
+	});
+
+	return isEmpty;
 };
 
 const LayoutBreakoutResizer = ({
@@ -83,6 +114,7 @@ const toDOM = () =>
 export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	options: LayoutPluginOptions;
 	layoutDOM?: HTMLElement;
+	isEmpty?: boolean;
 
 	constructor(props: {
 		node: PMNode;
@@ -101,6 +133,10 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 			props.eventDispatcher,
 			props,
 		);
+		if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+			this.isEmpty = isEmptyLayout(this.node);
+		}
+
 		this.options = props.options;
 	}
 
@@ -109,8 +145,13 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 			dom: HTMLElement;
 			contentDOM?: HTMLElement;
 		};
+
 		this.layoutDOM = container.querySelector('[data-layout-section]') as HTMLElement;
 		this.layoutDOM.setAttribute('data-column-rule-style', this.node.attrs.columnRuleStyle);
+		if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+			this.layoutDOM.setAttribute('data-empty-layout', Boolean(this.isEmpty).toString());
+		}
+
 		return { dom: container, contentDOM };
 	}
 
@@ -121,6 +162,13 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 	}
 
 	render(props: LayoutSectionViewProps, forwardRef: ForwardRef) {
+		if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+			this.isEmpty = isEmptyLayout(this.node);
+			if (this.layoutDOM) {
+				this.layoutDOM.setAttribute('data-empty-layout', Boolean(this.isEmpty).toString());
+			}
+		}
+
 		return (
 			<LayoutBreakoutResizer
 				pluginInjectionApi={props.pluginInjectionApi}

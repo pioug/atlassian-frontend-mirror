@@ -123,6 +123,7 @@ export const serialize = async (
 
 	// Crunch fields down to parameters
 	const parameters = result.reduce<Parameters>((obj: Parameters, current: Parameters) => {
+		// eslint-disable-next-line guard-for-in
 		for (const key in current) {
 			obj[key] = current[key];
 		}
@@ -183,6 +184,7 @@ const serializeExpandField = async (
 	const results: ParametersWithDuplicateFields = [];
 
 	if (!field.hasGroupedValues) {
+		// eslint-disable-next-line guard-for-in
 		for (const fieldName in value) {
 			results.push({ [fieldName]: value[fieldName] });
 		}
@@ -227,6 +229,7 @@ const serializeTabGroupField = async (
 			value[tabField.name] = tabFieldParameters;
 		} else {
 			// Copy into tabGroup value
+			// eslint-disable-next-line guard-for-in
 			for (const fieldName in tabFieldParameters) {
 				value[fieldName] = tabFieldParameters[fieldName];
 			}
@@ -237,6 +240,7 @@ const serializeTabGroupField = async (
 	if (field.hasGroupedValues) {
 		results.push({ [field.name]: value });
 	} else {
+		// eslint-disable-next-line guard-for-in
 		for (const fieldName in value) {
 			results.push({ [fieldName]: value });
 		}
@@ -259,6 +263,7 @@ const serializeTabField = async (
 		results.push({ [tabField.name]: tabFieldParameters });
 	} else {
 		// Copy into tabGroup value
+		// eslint-disable-next-line guard-for-in
 		for (const fieldName in tabFieldParameters) {
 			results.push({ [fieldName]: tabFieldParameters[fieldName] });
 		}
@@ -443,6 +448,7 @@ const convertToParametersObject = (
 	}
 
 	return parameters.reduce<Parameters>((obj: Parameters, current: Parameters) => {
+		// eslint-disable-next-line guard-for-in
 		for (const key in current) {
 			const keys = Object.keys(obj);
 			let resultKey = key;
@@ -465,6 +471,7 @@ const convertToParametersArray = (
 		return parameters;
 	}
 	const dataArray = [];
+	// eslint-disable-next-line guard-for-in
 	for (const name in parameters) {
 		dataArray.push({ [name]: parameters[name] });
 	}

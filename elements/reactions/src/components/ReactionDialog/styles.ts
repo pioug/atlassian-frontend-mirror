@@ -182,7 +182,7 @@ export const reactionViewStyle = css({
 		color: `${token('color.text', N800)}`,
 		textTransform: 'capitalize',
 		font: token('font.body.large'),
-		fontWeight: 600,
+		fontWeight: token('font.weight.semibold'),
 		lineHeight: '20px',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {

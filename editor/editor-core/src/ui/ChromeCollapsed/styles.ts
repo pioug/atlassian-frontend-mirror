@@ -21,7 +21,7 @@ export const inputStyle = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontSize: relativeFontSizeToBase16(14),
 		width: '100%',
-		fontWeight: 400,
+		fontWeight: token('font.weight.regular'),
 		lineHeight: 1.42857142857143,
 		letterSpacing: '-0.005em',
 		color: token('color.text.subtlest'),

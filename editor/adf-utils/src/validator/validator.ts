@@ -753,6 +753,7 @@ export function validator(
 		errorCallback: ErrorCallback | undefined,
 	) {
 		let invalidValues: ADFEntity['attrs'] = {};
+		// eslint-disable-next-line guard-for-in
 		for (let invalidAttr in invalidAttrs) {
 			invalidValues[invalidAttrs[invalidAttr]] =
 				prevEntity.attrs && prevEntity.attrs[invalidAttrs[invalidAttr]];

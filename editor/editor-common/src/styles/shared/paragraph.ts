@@ -7,6 +7,7 @@ import { css } from '@emotion/react';
 
 import { akEditorLineHeight, blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import editorUGCToken from '../../ugc-tokens/get-editor-ugc-token';
 
@@ -33,7 +34,7 @@ export const paragraphSharedStyles = (
 					fontSize: '1em',
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 					lineHeight: akEditorLineHeight,
-					fontWeight: 'normal',
+					fontWeight: token('font.weight.regular'),
 					marginTop: blockNodesVerticalMargin,
 					marginBottom: 0,
 					letterSpacing: '-0.005em',

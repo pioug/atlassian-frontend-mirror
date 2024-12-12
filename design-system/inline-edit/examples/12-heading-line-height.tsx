@@ -4,17 +4,18 @@
  */
 import { type FC, type ReactNode, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
 import InlineEdit from '@atlaskit/inline-edit';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
-const messageStyles = xcss({
-	borderRadius: 'border.radius',
+const messageStyles = cssMap({
+	root: {
+		borderRadius: token('border.radius'),
+	},
 });
 
 const ReadViewContainer: FC<{ children: ReactNode }> = ({ children }) => (
@@ -26,7 +27,7 @@ const ReadViewContainer: FC<{ children: ReactNode }> = ({ children }) => (
 const Message: FC<{ children: string }> = ({ children }) => (
 	<Box
 		backgroundColor="color.background.danger.bold"
-		xcss={messageStyles}
+		xcss={messageStyles.root}
 		style={{
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			color: token('color.text.inverse'),

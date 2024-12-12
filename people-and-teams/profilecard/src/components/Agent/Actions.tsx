@@ -41,7 +41,7 @@ const chatToAgentButtonWrapper = xcss({
 	display: 'flex',
 	justifyContent: 'center',
 	lineHeight: '20px',
-	fontWeight: '500',
+	fontWeight: 'font.weight.medium',
 });
 
 const chatPillButtonInlineStyles = xcss({ paddingInline: 'space.025' });

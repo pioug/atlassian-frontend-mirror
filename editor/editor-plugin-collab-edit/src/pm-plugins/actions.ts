@@ -1,5 +1,6 @@
 import * as allAdfSchemaSteps from '@atlaskit/adf-schema/steps';
 import * as allAtlaskitCustomSteps from '@atlaskit/custom-steps';
+import { type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
 	CollabEditProvider,
 	CollabEventConnectionData,
@@ -9,7 +10,6 @@ import type {
 	CollabSendableSelection,
 	CollabTelepointerPayload,
 } from '@atlaskit/editor-common/collab';
-import { type EditorAnalyticsAPI } from '@atlaskit/editor-common/src/analytics';
 import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AllSelection, NodeSelection } from '@atlaskit/editor-prosemirror/state';
 import { Step } from '@atlaskit/editor-prosemirror/transform';

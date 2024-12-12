@@ -113,11 +113,14 @@ export const buildToolbar =
 				: annotationMessages.createCommentInvalid,
 		);
 
+		const isViewMode = api?.editorViewMode?.sharedState.currentState()?.mode === 'view';
+
 		const createComment: FloatingToolbarButton<Command> = {
 			type: 'button',
-			showTitle: editorExperiment('contextual_formatting_toolbar', true, { exposure: true })
-				? false
-				: true,
+			showTitle:
+				!isViewMode && editorExperiment('contextual_formatting_toolbar', true, { exposure: true })
+					? false
+					: true,
 			disabled: selectionValid === AnnotationSelectionType.DISABLED,
 			testId: AnnotationTestIds.floatingToolbarCreateButton,
 			icon: CommentIcon,

@@ -16,7 +16,7 @@ exports[`ArticleContent Match snapshot 1`] = `
   font-size: inherit;
   font-style: normal;
   font-family: inherit;
-  font-weight: 500;
+  font-weight: var(--ds-font-weight-medium, 500);
   max-width: 100%;
   position: relative;
   text-align: center;

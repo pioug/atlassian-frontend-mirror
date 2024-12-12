@@ -88,7 +88,7 @@ export const row = css({
 export const dialogHeader = {
 	'&': {
 		fontSize: relativeFontSizeToBase16(24),
-		fontWeight: 400,
+		fontWeight: token('font.weight.regular'),
 		color: token('color.text.subtle', N400),
 		letterSpacing: 'normal',
 		lineHeight: 1.42857142857143,

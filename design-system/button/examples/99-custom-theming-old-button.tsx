@@ -86,7 +86,7 @@ const baseStyles: CSSObject = {
 	border: 'none',
 	padding: `0px ${token('space.200', '16px')}`,
 	borderRadius: '15px',
-	fontWeight: 'bold',
+	fontWeight: token('font.weight.bold'),
 };
 
 const customTheme = {

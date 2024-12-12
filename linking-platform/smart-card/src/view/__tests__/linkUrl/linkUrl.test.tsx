@@ -13,21 +13,17 @@ import LinkUrl from '../../LinkUrl';
 describe('LinkUrl', () => {
 	let LinkUrlTestId: string = 'link-with-safety';
 	let originalWindowOpen: typeof window.open;
-	const { location } = window;
 
 	beforeAll(() => {
-		delete (window as any).location;
-		(window as any).location = {
-			assign: jest.fn(),
-			origin: 'https://my-website.com',
-		};
 		originalWindowOpen = window.open;
 		window.open = jest.fn();
+		jsdom.reconfigure({
+			url: 'https://my-website.com',
+		});
 	});
 
 	afterAll(() => {
 		window.open = originalWindowOpen;
-		window.location = location;
 	});
 
 	const checkWarningPresence = (

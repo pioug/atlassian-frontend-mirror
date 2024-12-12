@@ -44,7 +44,7 @@ const titleStyles = css({
 	fontSize: relativeFontSizeToBase16(fontSize()),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	lineHeight: akEditorLineHeight,
-	fontWeight: 'normal',
+	fontWeight: token('font.weight.regular'),
 	display: 'flex',
 	flex: 1,
 	margin: 0,

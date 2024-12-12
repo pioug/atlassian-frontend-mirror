@@ -4,37 +4,42 @@
  */
 import React, { useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { css, cssMap, jsx } from '@atlaskit/css';
+import { Pressable } from '@atlaskit/primitives/compiled';
 import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const readViewContainerStyles = css({
-	lineHeight: 1,
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+	lineHeight: 1 as any,
 });
 
-const editButtonStyles = xcss({
-	display: 'block',
-	margin: 'space.0',
-	padding: 'space.0',
-	appearance: 'none',
-	background: 'transparent',
-	border: 0,
-	lineHeight: 1,
-	outline: 0,
-
-	':focus-visible': {
+const editButtonStyles = cssMap({
+	root: {
+		display: 'block',
+		margin: token('space.0'),
+		padding: token('space.0'),
+		appearance: 'none',
+		backgroundColor: 'transparent',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		borderWidth: token('border.width.0') as 'var(--ds-border-width)',
+		borderStyle: 'none',
+		borderColor: 'transparent',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		lineHeight: 1 as any,
 		outline: 0,
-	},
 
-	// @ts-expect-error
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
-	':focus + div': {
-		borderColor: 'color.border.focused',
-		borderWidth: 'border.width.outline',
-		borderStyle: 'solid',
+		'&:focus-visible': {
+			outline: 0,
+		},
+
+		// @ts-expect-error
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&:focus + div': {
+			borderColor: token('color.border.focused'),
+			borderWidth: token('border.width.outline'),
+			borderStyle: 'solid',
+		},
 	},
 });
 
@@ -43,11 +48,13 @@ const readViewWrapperStyles = css({
 	boxSizing: 'border-box',
 	width: 'auto',
 	maxWidth: '100%',
-	border: '2px solid transparent',
+	borderColor: 'transparent',
 	borderRadius: token('border.radius', '3px'),
+	borderStyle: 'solid',
+	borderWidth: token('border.width.outline'),
 	transition: 'background 0.2s',
 	'&:hover': {
-		background: token('color.background.neutral.subtle.hovered', N30),
+		backgroundColor: token('color.background.neutral.subtle.hovered', N30),
 	},
 });
 
@@ -101,7 +108,7 @@ const ReadView = ({
 	return (
 		<div css={readViewContainerStyles}>
 			<Pressable
-				xcss={editButtonStyles}
+				xcss={editButtonStyles.root}
 				onClick={onEditRequested}
 				ref={editButtonRef}
 				testId={testId && `${testId}--edit-button`}

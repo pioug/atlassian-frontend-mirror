@@ -1,5 +1,25 @@
 # @atlaskit/inline-edit
 
+## 14.0.0
+
+### Major Changes
+
+- [#175115](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175115)
+  [`a39f1957d919f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a39f1957d919f) -
+  Migrated from `@emotion/react` to `@compiled/react` in order to improve performance, align with
+  the rest of the Atlaskit techstack, and support React 18 Streaming SSR. Please note, in order to
+  use this version of `@atlaskit/inline-edit`, you will need to ensure that your bundler is
+  configured to handle `.css` imports correctly.
+
+  Most bundlers come with built-in support for `.css` imports, so you may not need to do anything.
+  If you are using a different bundler, please refer to the documentation for that bundler to
+  understand how to handle `.css` imports. For more information on the migration, please refer to
+  [RFC-73 Migrating our components to Compiled CSS-in-JS](https://community.developer.atlassian.com/t/rfc-73-migrating-our-components-to-compiled-css-in-js/85953).
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 13.7.9
 
 ### Patch Changes

@@ -35,7 +35,7 @@ export const imageContainer = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emailDomainWrapper = css({
-	fontWeight: 'bold',
+	fontWeight: token('font.weight.bold'),
 });
 
 export type ExternalUserOptionProps = WithAnalyticsEventsProps & {

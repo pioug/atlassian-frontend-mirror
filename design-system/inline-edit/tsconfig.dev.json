@@ -51,6 +51,9 @@
 			"path": "../../monorepo-tooling/codemod-utils/tsconfig.app.json"
 		},
 		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
 			"path": "../datetime-picker/tsconfig.app.json"
 		},
 		{

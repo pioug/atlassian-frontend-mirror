@@ -190,7 +190,7 @@ const syntaxKeywordColors = (theme: CodeBlockTheme): CSSObject => ({
 		},
 		'&.important': {
 			color: theme.importantColor,
-			fontWeight: 'bold',
+			fontWeight: token('font.weight.bold'),
 		},
 	},
 });

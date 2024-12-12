@@ -58,7 +58,7 @@ export const Heading = styled.div({
 	color: token('color.text.subtlest'),
 	display: 'flex',
 	fontSize: '0.8rem',
-	fontWeight: 500,
+	fontWeight: token('font.weight.medium'),
 	marginBottom: token('space.100', '0.5em'),
 	textTransform: 'uppercase',
 });

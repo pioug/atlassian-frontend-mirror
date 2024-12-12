@@ -3,10 +3,12 @@
  *
  * Extract component prop types from UIKit 2 components - InlineEditProps
  *
- * @codegen <<SignedSource::6f9f7793b1fa146a1d3ae743f8ed6483>>
+ * @codegen <<SignedSource::a9f12cdb3310eb05479934fb78d94123>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
  * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline-edit/index.tsx <<SignedSource::9f519f258e72d24157290a0844371df9>>
  */
+/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
+
 import React from 'react';
 import { default as PlatformInlineEdit } from '@atlaskit/inline-edit';
 

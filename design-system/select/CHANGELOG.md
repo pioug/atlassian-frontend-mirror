@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 18.8.2
+
+### Patch Changes
+
+- [#174375](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174375)
+  [`89790d380dd8c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89790d380dd8c) -
+  Restore aria-live messages for PopupSelect
+
 ## 18.8.1
 
 ### Patch Changes

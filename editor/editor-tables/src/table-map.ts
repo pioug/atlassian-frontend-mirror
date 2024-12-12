@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 
 import type { Axis } from './types';

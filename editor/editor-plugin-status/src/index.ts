@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 export { statusPlugin } from './statusPlugin';
 export type { StatusPlugin } from './statusPluginType';
 export type { StatusState, StatusType, StatusPluginOptions, ClosingPayload } from './types';

@@ -93,13 +93,7 @@ describe('<Heading />', () => {
 	};
 
 	describe('When click on copy anchor link button', () => {
-		let locationBackup: Location;
-		beforeEach(() => {
-			locationBackup = window.location;
-		});
-
 		afterEach(() => {
-			window.location = locationBackup;
 			mockCopyTextToClipboard.mockClear();
 			heading.unmount();
 		});
@@ -122,12 +116,8 @@ describe('<Heading />', () => {
 		});
 
 		it('Should call "copyTextToClipboard" with correct hash replaced and query params cleared', () => {
-			Object.defineProperty(window, 'location', {
-				writable: true,
-				value: {
-					href: 'http://localhost/some-path?focusedCommentId=123#some-other-link',
-					hash: '#some-other-link',
-				},
+			jsdom.reconfigure({
+				url: 'http://localhost/some-path?focusedCommentId=123#some-other-link',
 			});
 			heading = renderHeadingWithAnchor();
 			heading.find('button').simulate('click');

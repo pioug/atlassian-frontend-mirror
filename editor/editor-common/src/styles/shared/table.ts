@@ -158,7 +158,7 @@ const tableSharedStyle = () => css`
 			th,
 			td {
 				min-width: ${tableCellMinWidth}px;
-				font-weight: normal;
+				font-weight: ${token('font.weight.regular')};
 				vertical-align: top;
 				border: 1px solid ${token('color.background.accent.gray.subtler', akEditorTableBorder)};
 				border-right-width: 0;

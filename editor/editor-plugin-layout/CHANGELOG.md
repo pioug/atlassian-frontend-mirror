@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.12.14
+
+### Patch Changes
+
+- [#176299](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176299)
+  [`798c7904ad3ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/798c7904ad3ff) -
+  ED-25926 improve placeholder and seperator apperance
+- Updated dependencies
+
 ## 1.12.13
 
 ### Patch Changes

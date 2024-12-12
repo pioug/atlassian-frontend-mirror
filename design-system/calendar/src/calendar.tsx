@@ -4,13 +4,11 @@
  */
 import { forwardRef, memo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next/usePlatformLeafEventHandler';
+import { cssMap, jsx } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import { useId } from '@atlaskit/ds-lib/use-id';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 
 import Header from './internal/components/header';
 import WeekDaysComponent from './internal/components/week-days';
@@ -24,9 +22,11 @@ import useHandleDateSelect from './internal/hooks/use-handle-date-select';
 import useLocale from './internal/hooks/use-locale';
 import type { CalendarProps } from './types';
 
-const boxStyles = xcss({
-	display: 'inline-block',
-	userSelect: 'none',
+const styles = cssMap({
+	box: {
+		display: 'inline-block',
+		userSelect: 'none',
+	},
 });
 
 const analyticsAttributes = {
@@ -179,7 +179,7 @@ const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(function Calenda
 			ref={ref}
 		>
 			<Box
-				xcss={boxStyles}
+				xcss={styles.box}
 				padding="space.200"
 				aria-label="calendar"
 				testId={testId && `${testId}--calendar`}

@@ -1,11 +1,12 @@
 import React, { forwardRef, memo, type SyntheticEvent } from 'react';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
+import { cssMap } from '@atlaskit/css';
 import noop from '@atlaskit/ds-lib/noop';
 import useControlled from '@atlaskit/ds-lib/use-controlled';
 import ChevronLeftLargeIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
 import ChevronRightLargeIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-large';
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import Navigator from './internal/components/navigator';
@@ -14,6 +15,21 @@ import renderDefaultEllipsis from './internal/components/render-ellipsis';
 import { emptyObject } from './internal/constants';
 import collapseRange from './internal/utils/collapse-range';
 import { type PaginationPropTypes } from './types';
+
+const styles = cssMap({
+	paginationMenu: {
+		padding: token('space.0'),
+		margin: token('space.0'),
+	},
+
+	paginationMenuItem: {
+		marginBlockStart: token('space.0'),
+	},
+
+	navigatorIconWrapper: {
+		paddingInline: token('space.075'),
+	},
+});
 
 const analyticsAttributes = {
 	componentName: 'pagination',
@@ -26,24 +42,11 @@ interface OnChangeData {
 	selectedPageIndex: number;
 }
 
-const paginationMenuStyles = xcss({
-	padding: 'space.0',
-	margin: 'space.0',
-});
-
-const paginationMenuItemStyles = xcss({
-	marginBlockStart: 'space.0',
-});
-
-const navigatorIconWrapperStyles = xcss({
-	paddingInline: 'space.075',
-});
-
 function NavigatorIcon({ chevronDirection }: { chevronDirection: 'left' | 'right' }) {
 	const Chevron = chevronDirection === 'left' ? ChevronLeftLargeIcon : ChevronRightLargeIcon;
 
 	return (
-		<Box as="span" xcss={navigatorIconWrapperStyles}>
+		<Box as="span" xcss={styles.navigatorIconWrapper}>
 			<Chevron label="" LEGACY_margin={`0 ${token('space.negative.075')}`} color="currentColor" />
 		</Box>
 	);
@@ -101,7 +104,7 @@ function InnerPagination<T extends React.ReactNode>(
 		return (
 			<Inline
 				as="li"
-				xcss={paginationMenuItemStyles}
+				xcss={styles.paginationMenuItem}
 				key={`page-${getPageLabel ? getPageLabel(page, currPageIndex) : currPageIndex}`}
 			>
 				<PageComponent
@@ -138,7 +141,7 @@ function InnerPagination<T extends React.ReactNode>(
 					aria-label={previousLabel}
 					testId={testId && `${testId}--left-navigator`}
 				/>
-				<Inline space="space.0" alignBlock="baseline" as="ul" xcss={paginationMenuStyles}>
+				<Inline space="space.0" alignBlock="baseline" as="ul" xcss={styles.paginationMenu}>
 					{collapseRange(
 						pages,
 						selectedIndexValue,

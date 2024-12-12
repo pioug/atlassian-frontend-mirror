@@ -55,7 +55,7 @@ const selectWrapperStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		textAlign: 'left !important',
 	},
-	fontWeight: 'normal',
+	fontWeight: token('font.weight.regular'),
 });
 
 interface State {

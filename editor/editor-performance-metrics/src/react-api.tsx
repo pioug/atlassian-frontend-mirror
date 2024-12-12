@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 /**
  * @jsxRuntime classic
  * @jsx jsx

@@ -26,7 +26,7 @@ export const titleBlockCss = css({
 	gap: token('space.100', '0.5em'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"[data-smart-element='Title']": {
-		fontWeight: 600,
+		fontWeight: token('font.weight.semibold'),
 	},
 });
 

@@ -39,6 +39,9 @@
 			"path": "../button/tsconfig.app.json"
 		},
 		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
 			"path": "../form/tsconfig.app.json"
 		},
 		{

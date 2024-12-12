@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-emoji
 
+## 2.7.15
+
+### Patch Changes
+
+- [#178163](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178163)
+  [`b838eba8d205f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b838eba8d205f) -
+  ED-26030-hide-comment-toolbar-when-user-switch-back-to-edit-mode
+
+## 2.7.14
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.13
 
 ### Patch Changes

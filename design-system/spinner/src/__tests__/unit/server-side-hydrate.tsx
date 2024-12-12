@@ -3,7 +3,9 @@ import { screen } from '@testing-library/react';
 import noop from '@atlaskit/ds-lib/noop';
 import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
-test('should ssr then hydrate correctly', async () => {
+// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
+// https://hello.jira.atlassian.cloud/browse/UTEST-2000
+test.skip('should ssr then hydrate correctly', async () => {
 	const examplePath = require.resolve('../../../examples/0-basic.tsx');
 	const consoleMock = jest.spyOn(console, 'error').mockImplementation(noop);
 	const elem = document.createElement('div');

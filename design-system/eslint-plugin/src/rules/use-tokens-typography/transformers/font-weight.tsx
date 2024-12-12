@@ -63,7 +63,7 @@ export const FontWeight = {
 			}
 
 			// Replace raw value with token if there is a token match
-			const matchingToken = findFontWeightTokenForValue(node.value.raw)?.tokenName;
+			const matchingToken = findFontWeightTokenForValue(String(node.value.value))?.tokenName;
 			if (!matchingToken) {
 				return fixes;
 			}

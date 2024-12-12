@@ -101,7 +101,7 @@ const telepointerStyles = (colorMode?: 'light' | 'dark') => {
 				top: 0;
 				left: 0;
 				font-size: 10px;
-				font-weight: 700;
+				font-weight: ${token('font.weight.bold')};
 				width: 12.5px;
 				height: 13px;
 				padding-top: 1px;
@@ -639,7 +639,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 		& .UnknownBlock {
 			font-family: ${fontFamily()};
 			font-size: ${relativeFontSizeToBase16(fontSize())};
-			font-weight: 400;
+			font-weight: ${token('font.weight.regular')};
 			white-space: pre-wrap;
 			word-wrap: break-word;
 		}

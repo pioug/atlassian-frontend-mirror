@@ -194,7 +194,6 @@ export const FilterPopupSelect = ({
 				MenuList: CustomMenuList,
 				DropdownIndicator: CustomDropdownIndicator,
 				LoadingIndicator: undefined, // disables the three ... indicator in the searchbox when picker is loading
-				IndicatorSeparator: undefined, // disables the | separator between search input and icon
 			}}
 			options={sortedOptions}
 			value={selectedOptions}

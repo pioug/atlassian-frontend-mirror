@@ -11,7 +11,7 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { isTextSelection } from '@atlaskit/editor-common/utils';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
-import { getIndentCommand, getOutdentCommand } from '../commands';
+import { getIndentCommand, getOutdentCommand } from '../editor-commands';
 
 export function keymapPlugin(
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,

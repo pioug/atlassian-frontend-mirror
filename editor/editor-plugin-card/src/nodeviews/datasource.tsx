@@ -27,7 +27,6 @@ import {
 	EditorSmartCardProviderValueGuard,
 } from '@atlaskit/link-provider';
 import { DATASOURCE_DEFAULT_LAYOUT } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { cardPlugin } from '../index';
 import { DatasourceErrorBoundary } from '../ui/datasourceErrorBoundary';
@@ -286,14 +285,12 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 	 * @see {@link https://prosemirror.net/docs/ref/#view.NodeView.stopEvent}
 	 */
 	stopEvent(event: Event) {
-		if (fg('platform-datasources-enable-two-way-sync')) {
-			const isFormElement = [HTMLButtonElement, HTMLInputElement].some(
-				(element) => event.target instanceof element,
-			);
+		const isFormElement = [HTMLButtonElement, HTMLInputElement].some(
+			(element) => event.target instanceof element,
+		);
 
-			if (isFormElement) {
-				return true;
-			}
+		if (isFormElement) {
+			return true;
 		}
 
 		return false;
@@ -301,12 +298,9 @@ export class Datasource extends ReactNodeView<DatasourceProps> {
 
 	render() {
 		const { attrs } = this.node;
-
-		if (fg('platform-datasources-enable-two-way-sync')) {
-			// EDM-10607: Workaround to remove datasource table draggable attribute
-			// @ts-ignore TS2341: Property domRef is private
-			this.domRef?.setAttribute('draggable', 'false');
-		}
+		// EDM-10607: Workaround to remove datasource table draggable attribute
+		// @ts-ignore TS2341: Property domRef is private
+		this.domRef?.setAttribute('draggable', 'false');
 
 		return (
 			<DatasourceErrorBoundary

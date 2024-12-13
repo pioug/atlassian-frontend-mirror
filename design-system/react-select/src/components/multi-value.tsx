@@ -4,17 +4,17 @@
  */
 import { type ComponentType, type ReactNode } from 'react';
 
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
+import LegacySelectClearIcon from '@atlaskit/icon/glyph/select-clear';
+import CrossIcon from '@atlaskit/icon/utility/cross';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Inline, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { type SelectProps } from '../select';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 import { getStyleProps } from '../utils';
-
-import { CrossIcon } from './indicators';
-
 interface MultiValueComponents<Option, IsMulti extends boolean, Group extends GroupBase<Option>> {
 	Container: ComponentType<MultiValueGenericProps<Option, IsMulti, Group>>;
 	Label: ComponentType<MultiValueGenericProps<Option, IsMulti, Group>>;
@@ -42,7 +42,6 @@ export interface MultiValueProps<
 export const multiValueCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	isDisabled,
 	isFocused,
-	theme: { spacing, borderRadius, colors },
 }: MultiValueProps<Option, IsMulti, Group>): CSSObjectWithLabel => {
 	let backgroundColor;
 	let color;
@@ -201,14 +200,59 @@ export interface MultiValueRemoveProps<
 	data: Option;
 	innerProps: JSX.IntrinsicElements['div'];
 	selectProps: SelectProps<Option, IsMulti, Group>;
+	isDisabled: boolean;
 }
+
+const disabledStyles = css({
+	display: 'none',
+});
+
+const enabledStyles = css({
+	display: 'inherit',
+});
+
+const iconWrapperStyles = xcss({
+	padding: 'space.025',
+});
+
+const renderIcon = () => {
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+	if (fg('platform-component-visual-refresh')) {
+		return <CrossIcon label="Clear" color="currentColor" />;
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+	if (fg('platform-visual-refresh-icons-legacy-facade')) {
+		return (
+			<Inline xcss={iconWrapperStyles}>
+				<CrossIcon label="Clear" color="currentColor" />
+			</Inline>
+		);
+	}
+
+	return (
+		// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+		<LegacySelectClearIcon
+			label="Clear"
+			primaryColor="transparent"
+			size="small"
+			secondaryColor="inherit"
+		/>
+	);
+};
+
 export function MultiValueRemove<Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
-	children,
+	isDisabled,
 	innerProps,
 }: MultiValueRemoveProps<Option, IsMulti, Group>) {
 	return (
 		<div role="button" {...innerProps}>
-			{children || <CrossIcon size={14} />}
+			<div
+				css={isDisabled ? disabledStyles : enabledStyles}
+				data-testid={isDisabled ? 'hide-clear-icon' : 'show-clear-icon'}
+			>
+				{renderIcon()}
+			</div>
 		</div>
 	);
 }
@@ -252,6 +296,7 @@ const MultiValue = <Option, IsMulti extends boolean, Group extends GroupBase<Opt
 					'aria-label': `Remove ${children || 'option'}`,
 					...removeProps,
 				}}
+				isDisabled={isDisabled}
 				selectProps={selectProps}
 			/>
 		</Container>

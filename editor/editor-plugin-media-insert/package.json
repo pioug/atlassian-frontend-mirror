@@ -28,9 +28,9 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^96.4.0",
+		"@atlaskit/editor-common": "^96.5.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
-		"@atlaskit/editor-plugin-media": "^1.42.0",
+		"@atlaskit/editor-plugin-media": "^1.43.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/form": "^10.6.0",

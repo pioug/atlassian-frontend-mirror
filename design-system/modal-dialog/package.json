@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/modal-dialog",
-	"version": "12.18.3",
+	"version": "12.18.5",
 	"description": "A modal dialog displays content that requires user interaction, in a layer above the page.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.2.0",
-		"@atlaskit/blanket": "^13.3.0",
+		"@atlaskit/blanket": "^14.0.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/ds-lib": "^3.3.0",
 		"@atlaskit/focus-ring": "^2.0.0",
@@ -61,7 +61,7 @@
 		"@atlaskit/dropdown-menu": "^12.23.0",
 		"@atlaskit/popup": "^1.30.0",
 		"@atlaskit/radio": "^7.0.0",
-		"@atlaskit/select": "^18.8.0",
+		"@atlaskit/select": "^18.9.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/tooltip": "^19.0.0",
@@ -139,6 +139,9 @@
 		"design-system-closed-all-when-click-outside": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_dst_allowlist-aui-dialog-for-ak-modal": {
+			"type": "boolean"
 		}
 	},
 	"homepage": "https://atlassian.design/components/modal-dialog/"

@@ -1,5 +1,6 @@
 import type { Command, NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { EditorViewModeEffectsPlugin } from '@atlaskit/editor-plugin-editor-viewmode-effects';
 import type { EngagementPlatformPlugin } from '@atlaskit/editor-plugin-engagement-platform';
@@ -33,6 +34,7 @@ export type AnnotationPlugin = NextEditorPlugin<
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<FeatureFlagsPlugin>,
 			OptionalPlugin<EngagementPlatformPlugin>,
+			OptionalPlugin<ConnectivityPlugin>,
 		];
 		actions: {
 			stripNonExistingAnnotations: StripNonExistingAnnotations;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 
 export default () => (

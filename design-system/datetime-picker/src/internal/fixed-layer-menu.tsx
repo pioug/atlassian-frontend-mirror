@@ -34,7 +34,6 @@ export const FixedLayerMenu = ({
 	selectOption,
 	selectProps,
 	setValue,
-	theme,
 	children,
 	...rest
 }: MenuProps<OptionType>) => (
@@ -70,8 +69,6 @@ export const FixedLayerMenu = ({
 				selectOption={selectOption}
 				selectProps={selectProps}
 				setValue={setValue}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-unsafe-style-overrides
-				theme={theme}
 			>
 				{children}
 			</components.Menu>

@@ -64,7 +64,6 @@ function updateSelectProps(j: core.JSCodeshift, source: ReturnType<typeof j>, va
 			'isRTL',
 			'menuShouldBlockScroll',
 			'screenReaderStatus',
-			'theme',
 		];
 
 		const propsToReplace = {

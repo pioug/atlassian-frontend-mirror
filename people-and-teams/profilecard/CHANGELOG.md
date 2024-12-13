@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 21.0.3
+
+### Patch Changes
+
+- [#178297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178297)
+  [`7abc8162b32ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7abc8162b32ab) -
+  Internal changes to typography styles. There may be some minor visual changes to align with
+  modernized typography styles.
+- [#172505](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172505)
+  [`e43cba2a879aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e43cba2a879aa) -
+  Remove explicit jest extension with .toBeAccessible matcher
+
 ## 21.0.2
 
 ### Patch Changes

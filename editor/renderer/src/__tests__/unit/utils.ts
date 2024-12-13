@@ -1,8 +1,7 @@
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p, strong } from '@atlaskit/editor-test-helpers/doc-builder';
-import { ADFEncoder } from '../../index';
-import { getText, findInTree } from '../../utils';
+import { ADFEncoder, getText, findInTree } from '../../utils';
 
 describe('Renderer - utils', () => {
 	describe('ADFEncoder', () => {

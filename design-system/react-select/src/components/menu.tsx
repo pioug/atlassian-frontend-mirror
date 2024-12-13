@@ -21,6 +21,7 @@ import { createPortal } from 'react-dom';
 import useLayoutEffect from 'use-isomorphic-layout-effect';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -296,16 +297,15 @@ const coercePlacement = (p: MenuPlacement) => (p === 'auto' ? 'bottom' : p);
 
 export const menuCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	placement,
-	theme: { borderRadius, spacing, colors },
 }: MenuProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'menu',
 	[alignToControl(placement)]: '100%',
 	position: 'absolute',
 	width: '100%',
 	zIndex: 1,
-	borderRadius: borderRadius,
-	marginBottom: spacing.menuGutter,
-	marginTop: spacing.menuGutter,
+	borderRadius: token('border.radius'),
+	marginBottom: token('space.100'),
+	marginTop: token('space.100'),
 	backgroundColor: token('elevation.surface.overlay', 'white'),
 	boxShadow: token(
 		'elevation.shadow.overlay',
@@ -329,14 +329,14 @@ export const MenuPlacer = <Option, IsMulti extends boolean, Group extends GroupB
 		menuPlacement,
 		menuPosition,
 		menuShouldScrollIntoView,
-		theme,
 	} = props;
 
 	const { setPortalPlacement } = useContext(PortalPlacementContext) || {};
 	const ref = useRef<HTMLDivElement | null>(null);
 	const [maxHeight, setMaxHeight] = useState(maxMenuHeight);
 	const [placement, setPlacement] = useState<CoercedMenuPlacement | null>(null);
-	const { controlHeight } = theme.spacing;
+	// The minimum height of the control
+	const controlHeight = 38;
 
 	useLayoutEffect(() => {
 		const menuEl = ref.current;
@@ -461,15 +461,13 @@ export const MenuList = <Option, IsMulti extends boolean, Group extends GroupBas
 // Menu Notices
 // ==============================
 
-const noticeCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
-	theme: {
-		spacing: { baseUnit },
-		colors,
-	},
-}: NoticeProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
+const noticeCSS = <
+	Option,
+	IsMulti extends boolean,
+	Group extends GroupBase<Option>,
+>({}: NoticeProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	textAlign: 'center',
-	color: colors.neutral40,
-	padding: `${baseUnit * 2}px ${baseUnit * 3}px`,
+	padding: `${token('space.100')} ${token('space.150')}`,
 });
 export const noOptionsMessageCSS = noticeCSS;
 export const loadingMessageCSS = noticeCSS;
@@ -505,7 +503,7 @@ export const NoOptionsMessage = <Option, IsMulti extends boolean, Group extends 
 			role="option"
 			{...innerProps}
 		>
-			{children}
+			<Text color="color.text.subtle">{children}</Text>
 		</div>
 	);
 };
@@ -526,7 +524,7 @@ export const LoadingMessage = <Option, IsMulti extends boolean, Group extends Gr
 			// eslint-disable-next-line jsx-a11y/role-has-required-aria-props
 			role="option"
 		>
-			{children}
+			<Text color="color.text.subtle">{children}</Text>
 		</div>
 	);
 };

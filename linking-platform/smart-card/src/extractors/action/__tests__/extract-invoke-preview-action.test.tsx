@@ -40,7 +40,9 @@ describe('extractInvokePreviewAction', () => {
 		await action?.actionFn();
 
 		expect(openEmbedModal).toHaveBeenCalledWith({
+			extensionKey: 'object-provider',
 			fireEvent,
+			id: 'test-id',
 			invokeDownloadAction: {
 				actionFn: expect.any(Function),
 				actionSubjectId: 'downloadDocument',

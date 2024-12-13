@@ -45,7 +45,6 @@ export type {
 	ClearIndicatorProps,
 	DropdownIndicatorProps,
 	IndicatorsContainerProps,
-	IndicatorSeparatorProps,
 	LoadingIndicatorProps,
 	// we have found usages of the types below in AF and other repos
 	MultiValueProps,

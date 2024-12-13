@@ -17,9 +17,7 @@ import {
 } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import * as analytics from '../../../utils/analytics';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
@@ -268,37 +266,23 @@ describe('smart-card: card states, block', () => {
 					expect(actionElement).toBeInTheDocument();
 				});
 
-				describe('block: renders with actions and fires click event', () => {
-					ffTest(
-						'platform_migrate-some-ui-events-smart-card',
-						async () => {
-							renderWithActionOptions();
+				it('block: renders with actions and fires click event', async () => {
+					renderWithActionOptions();
 
-							await screen.findByText(resolvedLinkText);
-							const actionElement = screen.getByTestId(actionElementTestId);
-							await userEvent.click(actionElement);
-							expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-								expect.objectContaining({
-									actionSubject: 'button',
-									action: 'clicked',
-									actionSubjectId: 'smartLinkStatusLozenge',
-									attributes: expect.objectContaining({
-										display: 'block',
-										status: 'resolved',
-										extensionKey: 'object-provider',
-									}),
-								}),
-							);
-						},
-						async () => {
-							renderWithActionOptions();
-
-							await screen.findByText(resolvedLinkText);
-							const actionElement = screen.getByTestId(actionElementTestId);
-							await userEvent.click(actionElement);
-
-							expect(analytics.uiSmartLinkStatusLozengeButtonClicked).toHaveBeenCalledTimes(1);
-						},
+					await screen.findByText(resolvedLinkText);
+					const actionElement = screen.getByTestId(actionElementTestId);
+					await userEvent.click(actionElement);
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							actionSubject: 'button',
+							action: 'clicked',
+							actionSubjectId: 'smartLinkStatusLozenge',
+							attributes: expect.objectContaining({
+								display: 'block',
+								status: 'resolved',
+								extensionKey: 'object-provider',
+							}),
+						}),
 					);
 				});
 			});

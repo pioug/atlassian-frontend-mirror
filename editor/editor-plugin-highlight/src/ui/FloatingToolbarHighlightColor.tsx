@@ -36,7 +36,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
-import type { HighlightPlugin } from '../plugin';
+import type { HighlightPlugin } from '../highlightPluginType';
 
 import { EditorHighlightIcon } from './shared/EditorHighlightIcon';
 import { PaletteDropdown } from './shared/PaletteDropdown';

@@ -13,10 +13,8 @@ import {
 	getClickUrl,
 	getDefinitionId,
 	getExtensionKey,
-	getProduct,
 	getResourceType,
 	getServices,
-	getSubproduct,
 	isFinalState,
 } from '../../state/helpers';
 import { SmartLinkModalProvider } from '../../state/modal';
@@ -76,8 +74,6 @@ function Component({
 	const definitionId = getDefinitionId(state.details);
 	const extensionKey = getExtensionKey(state.details);
 	const resourceType = getResourceType(state.details);
-	const product = getProduct(state.details);
-	const subproduct = getSubproduct(state.details);
 	const services = getServices(state.details);
 	const canBeDatasource = getCanBeDatasource(state.details);
 
@@ -92,25 +88,12 @@ function Component({
 	const handleClickWrapper = useCallback(
 		(event: MouseEvent) => {
 			const isModifierKeyPressed = isSpecialEvent(event);
-			if (fg('platform_migrate-some-ui-events-smart-card')) {
-				fireEvent('ui.smartLink.clicked', {
-					id,
-					display: isFlexibleUi ? CardDisplay.Flexible : appearance,
-					definitionId: definitionId ?? null,
-					isModifierKeyPressed,
-				});
-			} else {
-				analytics.ui.cardClickedEvent({
-					id,
-					display: isFlexibleUi ? CardDisplay.Flexible : appearance,
-					status: state.status,
-					definitionId,
-					extensionKey,
-					isModifierKeyPressed,
-					destinationProduct: product,
-					destinationSubproduct: subproduct,
-				});
-			}
+			fireEvent('ui.smartLink.clicked', {
+				id,
+				display: isFlexibleUi ? CardDisplay.Flexible : appearance,
+				definitionId: definitionId ?? null,
+				isModifierKeyPressed,
+			});
 
 			if (!onClick && !isFlexibleUi) {
 				const clickUrl = getClickUrl(url, state.details);
@@ -137,15 +120,10 @@ function Component({
 			id,
 			url,
 			state.details,
-			state.status,
-			analytics.ui,
 			appearance,
 			definitionId,
-			extensionKey,
 			onClick,
 			isFlexibleUi,
-			product,
-			subproduct,
 			createAnalyticsEvent,
 			fireEvent,
 		],
@@ -215,7 +193,6 @@ function Component({
 				});
 
 				fireEvent('ui.smartLink.renderSuccess', {
-					definitionId: definitionId ?? null,
 					display: isFlexibleUi ? 'flexible' : appearance,
 				});
 			} else {

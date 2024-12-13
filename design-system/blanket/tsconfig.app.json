@@ -29,8 +29,7 @@
 	"compilerOptions": {
 		"baseUrl": "./",
 		"composite": true,
-		"outDir": "../../../tsDist/@atlaskit__blanket/app",
-		"types": ["@emotion/react/types/css-prop"]
+		"outDir": "../../../tsDist/@atlaskit__blanket/app"
 	},
 	"files": ["../../../typings/node.d.ts"],
 	"references": [

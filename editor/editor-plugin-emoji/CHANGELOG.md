@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-emoji
 
+## 2.7.16
+
+### Patch Changes
+
+- [#177988](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177988)
+  [`8f78c40775b7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f78c40775b7c) -
+  ED-25810 - refactors editor plugins to engineering standards
+- Updated dependencies
+
 ## 2.7.15
 
 ### Patch Changes

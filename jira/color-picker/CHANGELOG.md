@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 3.6.4
+
+### Patch Changes
+
+- [#172505](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172505)
+  [`e43cba2a879aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e43cba2a879aa) -
+  Remove explicit jest extension with .toBeAccessible matcher
+
 ## 3.6.3
 
 ### Patch Changes

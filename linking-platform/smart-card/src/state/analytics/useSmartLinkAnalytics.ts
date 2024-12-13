@@ -8,36 +8,16 @@ import {
 	invokeFailedEvent,
 	invokeSucceededEvent,
 	uiActionClickedEvent,
-	uiAuthAlternateAccountEvent,
-	uiAuthEvent,
-	uiCardClickedEvent,
-	uiClosedAuthEvent,
-	uiHoverCardDismissedEvent,
-	uiHoverCardOpenLinkClickedEvent,
-	uiHoverCardViewedEvent,
-	uiLearnMoreLinkClickedEvent,
 	uiRenderFailedEvent,
 	uiRenderSuccessEvent,
-	uiSmartLinkStatusListItemButtonClicked,
-	uiSmartLinkStatusLozengeButtonClicked,
-	uiSmartLinkStatusOpenPreviewButtonClicked,
 } from '../../utils/analytics';
-import { uiServerActionClicked } from '../../utils/analytics/analytics';
 import {
 	type CommonEventProps,
 	type InvokeFailedEventProps,
 	type InvokeSucceededEventProps,
 	type UiActionClickedEventProps,
-	type UiAuthAlternateAccountEventProps,
-	type UiAuthEventProps,
-	type UiCardClickedEventProps,
-	type UiClosedAuthEventProps,
-	type UiHoverCardDismissedEventProps,
-	type UiHoverCardOpenLinkClickedEventProps,
-	type UiHoverCardViewedEventProps,
 	type UiRenderFailedEventProps,
 	type UiRenderSuccessEventProps,
-	type UiServerActionClickedEventProps,
 } from '../../utils/analytics/types';
 import { type AnalyticsName, type AnalyticsPayload } from '../../utils/types';
 import {
@@ -116,73 +96,10 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 	const ui = useMemo(
 		() => ({
 			/**
-			 * This fires an event that represents when a user clicks on the authentication
-			 * call to action with no current authenticated account. (i.e. Connect to Preview).
-			 * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
-			 * @param definitionId The definitionId of the Smart Link resolver invoked.
-			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
-			 * @returns
-			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
-			 */
-			authEvent: ({
-				display,
-				extensionKey,
-				definitionId,
-				resourceType,
-				destinationProduct,
-				destinationSubproduct,
-				location,
-			}: UiAuthEventProps) =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						uiAuthEvent({
-							display,
-							extensionKey,
-							definitionId,
-							resourceType,
-							destinationProduct,
-							destinationSubproduct,
-							location,
-						}),
-						commonAttributes,
-					),
-				),
-			/**
-			 * This fires an event that represents when a user clicks on the authentication
-			 * call to action with a forbidden authenticated account. (i.e. Try another account).
-			 * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
-			 * @param definitionId The definitionId of the Smart Link resolver invoked.
-			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
-			 * @returns
-			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
-			 */
-			authAlternateAccountEvent: ({
-				display,
-				extensionKey,
-				definitionId,
-				resourceType,
-				destinationProduct,
-				destinationSubproduct,
-				location,
-			}: UiAuthAlternateAccountEventProps) =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						uiAuthAlternateAccountEvent({
-							display,
-							extensionKey,
-							definitionId,
-							resourceType,
-							destinationProduct,
-							destinationSubproduct,
-							location,
-						}),
-						commonAttributes,
-					),
-				),
-			/**
 			 * This fires an event that represents when a user
 			 * click a button.
 			 * @param data A partial analytics event payload
+			 * @deprecated consider removing when cleaning up FF platform-smart-card-migrate-embed-modal-analytics
 			 */
 			buttonClickedEvent: (
 				data: Partial<AnalyticsPayload> & {
@@ -201,49 +118,6 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 						commonAttributes,
 					),
 				),
-			/**
-			 * This fires an event that represents when a user clicks on a Smart Link.
-			 * @param id The unique ID for this Smart Link.
-			 * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
-			 * @param status What status the Smart Link is currently in (e.g. resolved, unresolved)
-			 * @param definitionId The definitionId of the Smart Link resolver invoked.
-			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
-			 * @param isModifierKeyPressed Whether a modifier key was pressed when clicking the Smart Link.
-			 * @param location Where the Smart Link is currently rendered.
-			 * @param destinationProduct The product the Smart Link is linked to.
-			 * @returns
-			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
-			 */
-			cardClickedEvent: ({
-				id,
-				display,
-				status,
-				definitionId,
-				extensionKey,
-				isModifierKeyPressed,
-				location,
-				destinationProduct,
-				destinationSubproduct,
-				actionSubjectId,
-			}: UiCardClickedEventProps) =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						uiCardClickedEvent({
-							id,
-							display,
-							status,
-							definitionId,
-							extensionKey,
-							isModifierKeyPressed,
-							location,
-							destinationProduct,
-							destinationSubproduct,
-							actionSubjectId,
-						}),
-						commonAttributes,
-					),
-				),
-
 			/**
 			 * This fires an event that represents when a user clicks on a Smart Link action.
 			 * Note: This also starts the UFO smart-link-action-invocation experience.
@@ -283,73 +157,9 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 				);
 			},
 			/**
-			 * This fires an event that represents when a user clicks on a hover preview's "navigate to link" button.
-			 * https://product-fabric.atlassian.net/wiki/spaces/EM/pages/3206743323/Analytics+Metrics+-+Hover+Previews
-			 * @param previewDisplay What format the preview is in.
-			 * @param definitionId The definitionId of the Smart Link resolver invoked.
-			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
-			 * @param previewInvokeMethod How the preview was triggered.
-			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
-			 */
-			hoverCardOpenLinkClickedEvent: ({
-				previewDisplay,
-				definitionId,
-				extensionKey,
-				destinationProduct,
-				destinationSubproduct,
-				location,
-				previewInvokeMethod,
-			}: UiHoverCardOpenLinkClickedEventProps) => {
-				dispatchAnalytics(
-					applyCommonAttributes(
-						uiHoverCardOpenLinkClickedEvent({
-							id: defaultId,
-							previewDisplay,
-							definitionId,
-							extensionKey,
-							destinationProduct,
-							destinationSubproduct,
-							location,
-							previewInvokeMethod,
-						}),
-						commonAttributes,
-					),
-				);
-			},
-			/**
-			 * This fires an event that represents when a user closed the authentication window without authenticating after opening it.
-			 * @param display Whether the card was an Inline, Block, Embed or Flexible UI.
-			 * @param definitionId The definitionId of the Smart Link resolver invoked.
-			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
-			 * @returns
-			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
-			 */
-			closedAuthEvent: ({
-				display,
-				extensionKey,
-				definitionId,
-				resourceType,
-				destinationProduct,
-				destinationSubproduct,
-				location,
-			}: UiClosedAuthEventProps) =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						uiClosedAuthEvent({
-							display,
-							extensionKey,
-							definitionId,
-							resourceType,
-							destinationProduct,
-							destinationSubproduct,
-							location,
-						}),
-						commonAttributes,
-					),
-				),
-			/**
 			 * This fires an event that represents when a user close a modal.
 			 * @param data A partial analytics event payload
+			 * @deprecated consider removing when cleaning up FF platform-smart-card-migrate-embed-modal-analytics
 			 */
 			modalClosedEvent: (
 				data: Partial<AnalyticsPayload> & {
@@ -376,6 +186,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param definitionId The definitionId of the Smart Link resolver invoked.
 			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
 			 * @param canBeDatasource An indicator that shows that a smart link can be converted to a datasource
+			 * @deprecated consider removing when cleaning up FF platform-smart-card-migrate-embed-modal-analytics
 			 */
 			renderSuccessEvent: ({
 				display,
@@ -423,6 +234,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 			 * @param id The unique ID for this Smart Link.
 			 * @param error: An error representing why the Smart Link render failed.
 			 * @param errorInfo: Additional details about the error including the stack trace.
+			 * @deprecated consider removing when cleaning up FF platform-smart-card-migrate-embed-modal-analytics
 			 */
 			renderFailedEvent: ({
 				display,
@@ -460,126 +272,6 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 					),
 				);
 			},
-			/**
-			 * This fires an event that represents a hover preview being opened.
-			 * @param hoverDisplay Whether the hover preview was displayed as a card or embed.
-			 * @param definitionId The definitionId of the Smart Link resolver invoked.
-			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
-			 * @param previewInvokeMethod How the preview was triggered.
-			 * @returns
-			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
-			 */
-			hoverCardViewedEvent: ({
-				previewDisplay,
-				previewInvokeMethod,
-				id,
-				extensionKey,
-				definitionId,
-				resourceType,
-				destinationProduct,
-				destinationSubproduct,
-				location,
-				status,
-			}: UiHoverCardViewedEventProps) =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						uiHoverCardViewedEvent({
-							id,
-							previewDisplay,
-							extensionKey,
-							definitionId,
-							resourceType,
-							destinationProduct,
-							destinationSubproduct,
-							location,
-							previewInvokeMethod,
-							status,
-						}),
-						commonAttributes,
-					),
-				),
-			/**
-			 * This fires an event that represents a hover preview being dismissed.
-			 * @param hoverDisplay Whether the hover preview was displayed as a card or embed.
-			 * @param hoverTime The duration that the user hovered over a Smart Link before the preview was dismissed.
-			 * @param definitionId The definitionId of the Smart Link resolver invoked.
-			 * @param extensionKey The extensionKey of the Smart Link resolver invoked.
-			 * @param previewInvokeMethod How the preview was triggered.
-			 * @returns
-			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
-			 */
-			hoverCardDismissedEvent: ({
-				id,
-				previewDisplay,
-				hoverTime,
-				previewInvokeMethod,
-				extensionKey,
-				definitionId,
-				resourceType,
-				destinationProduct,
-				destinationSubproduct,
-				location,
-				status,
-			}: UiHoverCardDismissedEventProps) =>
-				dispatchAnalytics(
-					applyCommonAttributes(
-						uiHoverCardDismissedEvent({
-							previewDisplay,
-							id,
-							hoverTime,
-							extensionKey,
-							definitionId,
-							resourceType,
-							destinationProduct,
-							destinationSubproduct,
-							location,
-							previewInvokeMethod,
-							status,
-						}),
-						commonAttributes,
-					),
-				),
-
-			/**
-			 * Fires an event that signifies that a "Learn More" link was clicked on an unauthenticated card
-			 * @param extensionKey The extensionKey of the Smart Link resovler invoked.
-			 * @param location The location where a link is displayed (jiraWebLinks, confluencePages etc)
-			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
-			 */
-			learnMoreClickedEvent: () =>
-				dispatchAnalytics(applyCommonAttributes(uiLearnMoreLinkClickedEvent(), commonAttributes)),
-
-			/**
-			 * Fires an event that represent a click was performed on a Status Lozenge
-			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
-			 */
-			smartLinkLozengeActionClickedEvent: () =>
-				dispatchAnalytics(
-					applyCommonAttributes(uiSmartLinkStatusLozengeButtonClicked(), commonAttributes),
-				),
-
-			/**
-			 * Fires an event that represent a click was performed on a Status Lozenge's dropdown item
-			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
-			 */
-			smartLinkLozengeActionListItemClickedEvent: () =>
-				dispatchAnalytics(
-					applyCommonAttributes(uiSmartLinkStatusListItemButtonClicked(), commonAttributes),
-				),
-
-			/**
-			 * Fires an event that represent a click was performed on a Status Lozenge open preview button
-			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
-			 */
-			smartLinkLozengeActionErrorOpenPreviewClickedEvent: () =>
-				dispatchAnalytics(
-					applyCommonAttributes(uiSmartLinkStatusOpenPreviewButtonClicked(), commonAttributes),
-				),
-			/**
-			 * @deprecated consider removing when cleaning up FF platform_migrate-some-ui-events-smart-card
-			 */
-			smartLinkServerActionClickedEvent: (props: UiServerActionClickedEventProps) =>
-				dispatchAnalytics(applyCommonAttributes(uiServerActionClicked(props), commonAttributes)),
 		}),
 		[dispatchAnalytics, commonAttributes, defaultId, extractedExtensionKey],
 	);
@@ -669,7 +361,7 @@ export const useSmartLinkAnalytics = (url: string, id?: string, defaultLocation?
 		() => ({
 			/**
 			 * This fires an event that represents when a user view a modal.
-			 * @param data A partial analytics event payload
+			 * @deprecated consider removing when cleaning up FF platform-smart-card-migrate-embed-modal-analytics
 			 */
 			modalViewedEvent: (
 				data: Partial<AnalyticsPayload> & {

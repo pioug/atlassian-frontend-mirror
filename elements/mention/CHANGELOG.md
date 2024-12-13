@@ -1,5 +1,14 @@
 # @atlaskit/mention
 
+## 23.4.7
+
+### Patch Changes
+
+- [#178297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178297)
+  [`7abc8162b32ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7abc8162b32ab) -
+  Internal changes to typography styles. There may be some minor visual changes to align with
+  modernized typography styles.
+
 ## 23.4.6
 
 ### Patch Changes

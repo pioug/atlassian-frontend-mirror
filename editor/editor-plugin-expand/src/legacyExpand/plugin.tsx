@@ -20,8 +20,6 @@ import { expandKeymap } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { getToolbarConfig } from './toolbar';
 
-export { pluginKey } from './pm-plugins/plugin-factory';
-
 export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 	// Confluence is injecting the FF through editor props, from an experiment
 	// Jira is pulling it in through platform feature flags, from a feature gate

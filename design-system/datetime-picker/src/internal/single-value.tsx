@@ -24,7 +24,6 @@ export const makeSingleValue =
 		selectOption,
 		selectProps,
 		setValue,
-		theme,
 		...rest
 	}: SingleValueProps<OptionType, false>) => {
 		return (
@@ -49,8 +48,6 @@ export const makeSingleValue =
 				selectOption={selectOption}
 				selectProps={selectProps}
 				setValue={setValue}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-unsafe-style-overrides
-				theme={theme}
 			>
 				{children}
 			</components.SingleValue>

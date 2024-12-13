@@ -1,5 +1,17 @@
 # @atlaskit/select
 
+## 18.9.0
+
+### Minor Changes
+
+- [#177875](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177875)
+  [`d0c3d27216b7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0c3d27216b7c) -
+  Remove theme prop and merge customized components for performance
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 18.8.2
 
 ### Patch Changes

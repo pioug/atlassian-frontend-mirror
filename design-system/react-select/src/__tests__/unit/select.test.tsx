@@ -318,7 +318,7 @@ cases(
 	({ props, searchString }) => {
 		let { rerender } = render(<Select {...props} />);
 		rerender(<Select {...props} inputValue={searchString} />);
-		expect(screen.getByText('No options')).toHaveClass('react-select__menu-notice--no-options');
+		expect(screen.getByText('No options')).toBeInTheDocument();
 	},
 	{
 		'single Select > should show NoOptionsMessage': {
@@ -347,9 +347,7 @@ cases(
 	({ props, expectNoOptionsMessage, searchString }) => {
 		let { rerender } = render(<Select {...props} />);
 		rerender(<Select {...props} inputValue={searchString} />);
-		expect(screen.getByText(expectNoOptionsMessage)).toHaveClass(
-			'react-select__menu-notice--no-options',
-		);
+		expect(screen.getByText(expectNoOptionsMessage)).toBeInTheDocument();
 	},
 	{
 		'single Select > should show NoOptionsMessage returned from noOptionsMessage function prop': {

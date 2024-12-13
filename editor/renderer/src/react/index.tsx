@@ -3,7 +3,7 @@ import type { ComponentType } from 'react';
 import type { Fragment, Mark, Node } from '@atlaskit/editor-prosemirror/model';
 import { MarkType } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import type { Serializer } from '../';
+import type { Serializer } from '../serializer';
 import type {
 	RendererAppearance,
 	StickyHeaderConfig,

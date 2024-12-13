@@ -21,7 +21,6 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 [true, false].forEach((ffValue) => {
 	test(`(ff ${ffValue}) When DatePicker is focused & backspace pressed, the input should be cleared and defaulted to the place holder date`, async ({
 		page,
-		skipAxeCheck,
 	}) => {
 		await page.visitExample(
 			'design-system',
@@ -43,14 +42,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.keyboard.press('Backspace');
 		const nextDate = await page.locator(datePicker).first().textContent();
 		expect(nextDate?.trim()).toContain('2/18/1993');
-		// failing for placeholder and background color in Select
-		// https://product-fabric.atlassian.net/browse/DSP-19111
-		skipAxeCheck();
 	});
 
 	test(`(ff ${ffValue}) When choosing another day in a Datetime picker focused, the date should be updated to the new value`, async ({
 		page,
-		skipAxeCheck,
 	}) => {
 		await page.visitExample(
 			'design-system',
@@ -72,9 +67,6 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.keyboard.press('Enter');
 
 		await expect(page.locator(value)).not.toHaveText(previousDate!);
-		// failing for placeholder and background color in Select
-		// https://product-fabric.atlassian.net/browse/DSP-19111
-		skipAxeCheck();
 	});
 
 	test(`(ff ${ffValue}) Clicking a disabled datepicker should not toggle its internal open state, resulting in it being open once enabled`, async ({
@@ -302,7 +294,6 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 
 	test(`(ff ${ffValue}) When DatePicker is opened should set focus to current date on ArrowDown keypress`, async ({
 		page,
-		skipAxeCheck,
 	}) => {
 		await page.visitExample(
 			'design-system',
@@ -318,14 +309,10 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.keyboard.press('ArrowDown');
 		await expect(page.locator(calendar)).toBeVisible();
 		await expect(page.locator(focusedDate).first()).toBeFocused();
-		// failing for placeholder and background color in Select
-		// https://product-fabric.atlassian.net/browse/DSP-19111
-		skipAxeCheck();
 	});
 
 	test(`(ff ${ffValue}) When DatePicker is opened should set focus to current date on ArrowUp keypress`, async ({
 		page,
-		skipAxeCheck,
 	}) => {
 		await page.visitExample(
 			'design-system',
@@ -341,15 +328,9 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.keyboard.press('ArrowUp');
 		await expect(page.locator(calendar)).toBeVisible();
 		await expect(page.locator(focusedDate).first()).toBeFocused();
-		// failing for placeholder and background color in Select
-		// https://product-fabric.atlassian.net/browse/DSP-19111
-		skipAxeCheck();
 	});
 
-	test(`(ff ${ffValue}) should open calendar when focused via mouse`, async ({
-		page,
-		skipAxeCheck,
-	}) => {
+	test(`(ff ${ffValue}) should open calendar when focused via mouse`, async ({ page }) => {
 		await page.visitExample(
 			'design-system',
 			'datetime-picker',
@@ -363,7 +344,6 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.locator(datePicker).first().click();
 		await expect(page.locator(calendar)).toBeVisible();
 		await expect(page.locator(input).first()).toBeFocused();
-		skipAxeCheck();
 	});
 
 	test(`(ff ${ffValue}) When focusing on input via mouse, calendar picker should open`, async ({

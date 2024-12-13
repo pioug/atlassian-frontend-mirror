@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.15.7
+
+### Patch Changes
+
+- [#178258](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178258)
+  [`89f4f17d79f0e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/89f4f17d79f0e) -
+  ED-26037 fix insert nested node to layout
+
 ## 2.15.6
 
 ### Patch Changes

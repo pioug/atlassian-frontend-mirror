@@ -1,7 +1,7 @@
 import React from 'react';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { RendererContext } from '../types';
-import type { Serializer } from '../..';
+import type { Serializer } from '../../serializer';
 import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-history
 
+## 1.3.12
+
+### Patch Changes
+
+- [#176419](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176419)
+  [`effc4757ea064`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/effc4757ea064) -
+  updated history plugin to match EES003
+
 ## 1.3.11
 
 ### Patch Changes

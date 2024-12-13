@@ -15,7 +15,7 @@ import ApprovalsTrackerIcon from '../assets/approvals-tracker';
 import DecisionMatrixIcon from '../assets/decision-matrix';
 import DiscussionNotesIcon from '../assets/discussion-notes';
 import InstructionsOutlineIcon from '../assets/instructions-outline';
-import { type InsertBlockPlugin } from '../plugin';
+import { type InsertBlockPlugin } from '../insertBlockPlugin';
 
 import {
 	actionList,

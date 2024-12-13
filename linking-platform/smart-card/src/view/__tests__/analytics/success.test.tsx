@@ -257,301 +257,158 @@ describe('smart-card: success analytics', () => {
 			);
 		});
 
-		describe('should fire clicked analytics event when flexible ui link with resolved URL is clicked', () => {
-			ffTest(
-				'platform_migrate-some-ui-events-smart-card',
-				async () => {
-					const mockUrl = 'https://this.is.the.seventh.url';
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card testId="resolvedCard2" appearance="inline" url={mockUrl}>
-										<TitleBlock />
-									</Card>
-								</Provider>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
-					const resolvedView = await screen.findByTestId('smart-block-title-resolved-view');
-					expect(resolvedView).toBeTruthy();
+		it('should fire clicked analytics event when flexible ui link with resolved URL is clicked', async () => {
+			const mockUrl = 'https://this.is.the.seventh.url';
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card testId="resolvedCard2" appearance="inline" url={mockUrl}>
+								<TitleBlock />
+							</Card>
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
+			);
+			const resolvedView = await screen.findByTestId('smart-block-title-resolved-view');
+			expect(resolvedView).toBeTruthy();
 
-					const resolvedCard = screen.getByTestId('smart-element-link');
-					expect(resolvedCard).toBeTruthy();
-					expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLink',
-							action: 'resolved',
-							attributes: expect.objectContaining({
-								id: 'some-uuid-1',
-								status: 'resolved',
-								extensionKey: 'object-provider',
-								definitionId: 'd1',
-								canBeDatasource: false,
-								duration: null,
-							}),
-						}),
-					);
+			const resolvedCard = screen.getByTestId('smart-element-link');
+			expect(resolvedCard).toBeTruthy();
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'resolved',
+					attributes: expect.objectContaining({
+						id: 'some-uuid-1',
+						status: 'resolved',
+						extensionKey: 'object-provider',
+						definitionId: 'd1',
+						canBeDatasource: false,
+						duration: null,
+					}),
+				}),
+			);
 
-					asMock(isSpecialEvent).mockReturnValue(false);
+			asMock(isSpecialEvent).mockReturnValue(false);
 
-					await userEvent.click(resolvedCard);
+			await userEvent.click(resolvedCard);
 
-					// ensure default onclick for renderer is not triggered
-					expect(mockWindowOpen).toHaveBeenCalledTimes(0);
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLink',
-							action: 'clicked',
-							attributes: expect.objectContaining({
-								id: 'some-uuid-1',
-								display: 'flexible',
-								status: 'resolved',
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								isModifierKeyPressed: false,
-							}),
-						}),
-					);
-
-					// With special key pressed
-					asMock(mockAnalyticsClient.sendUIEvent).mockReset();
-					mockWindowOpen.mockReset();
-
-					asMock(isSpecialEvent).mockReturnValue(true);
-
-					await userEvent.click(resolvedCard);
-
-					// ensure default onclick for renderer is not triggered
-					expect(mockWindowOpen).toHaveBeenCalledTimes(0);
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLink',
-							action: 'clicked',
-							attributes: expect.objectContaining({
-								id: 'some-uuid-1',
-								display: 'flexible',
-								status: 'resolved',
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								isModifierKeyPressed: true,
-							}),
-						}),
-					);
-				},
-				async () => {
-					const mockUrl = 'https://this.is.the.seventh.url';
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card testId="resolvedCard2" appearance="inline" url={mockUrl}>
-										<TitleBlock />
-									</Card>
-								</Provider>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
-					const resolvedView = await screen.findByTestId('smart-block-title-resolved-view');
-					expect(resolvedView).toBeTruthy();
-
-					const resolvedCard = screen.getByTestId('smart-element-link');
-					expect(resolvedCard).toBeTruthy();
-					expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLink',
-							action: 'resolved',
-							attributes: expect.objectContaining({
-								id: 'some-uuid-1',
-								status: 'resolved',
-								extensionKey: 'object-provider',
-								definitionId: 'd1',
-								canBeDatasource: false,
-								duration: null,
-							}),
-						}),
-					);
-
-					asMock(isSpecialEvent).mockReturnValue(false);
-
-					await userEvent.click(resolvedCard);
-
-					// ensure default onclick for renderer is not triggered
-					expect(mockWindowOpen).toHaveBeenCalledTimes(0);
-					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+			// ensure default onclick for renderer is not triggered
+			expect(mockWindowOpen).toHaveBeenCalledTimes(0);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'clicked',
+					attributes: expect.objectContaining({
 						id: 'some-uuid-1',
 						display: 'flexible',
 						status: 'resolved',
 						definitionId: 'd1',
 						extensionKey: 'object-provider',
 						isModifierKeyPressed: false,
-					});
+					}),
+				}),
+			);
 
-					// With special key pressed
-					asMock(analytics.uiCardClickedEvent).mockReset();
-					mockWindowOpen.mockReset();
+			// With special key pressed
+			asMock(mockAnalyticsClient.sendUIEvent).mockReset();
+			mockWindowOpen.mockReset();
 
-					asMock(isSpecialEvent).mockReturnValue(true);
+			asMock(isSpecialEvent).mockReturnValue(true);
 
-					await userEvent.click(resolvedCard);
+			await userEvent.click(resolvedCard);
 
-					// ensure default onclick for renderer is not triggered
-					expect(mockWindowOpen).toHaveBeenCalledTimes(0);
-					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+			// ensure default onclick for renderer is not triggered
+			expect(mockWindowOpen).toHaveBeenCalledTimes(0);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'clicked',
+					attributes: expect.objectContaining({
 						id: 'some-uuid-1',
 						display: 'flexible',
 						status: 'resolved',
 						definitionId: 'd1',
 						extensionKey: 'object-provider',
 						isModifierKeyPressed: true,
-					});
-				},
+					}),
+				}),
 			);
 		});
 
-		describe('should fire clicked analytics event when a resolved URL is clicked on a inline link', () => {
-			ffTest(
-				'platform_migrate-some-ui-events-smart-card',
-				async () => {
-					const mockUrl = 'https://this.is.the.seventh.url';
+		it('should fire clicked analytics event when a resolved URL is clicked on a inline link', async () => {
+			const mockUrl = 'https://this.is.the.seventh.url';
 
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card testId="resolvedCard2" appearance="inline" url={mockUrl} />
-								</Provider>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
-					const resolvedView = await screen.findByTestId('resolvedCard2-resolved-view');
-					expect(resolvedView).toBeTruthy();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card testId="resolvedCard2" appearance="inline" url={mockUrl} />
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
+			);
+			const resolvedView = await screen.findByTestId('resolvedCard2-resolved-view');
+			expect(resolvedView).toBeTruthy();
 
-					const resolvedCard = screen.getByRole('button');
-					expect(resolvedCard).toBeTruthy();
-					expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLink',
-							action: 'resolved',
-							attributes: expect.objectContaining({
-								id: 'some-uuid-1',
-								status: 'resolved',
-								extensionKey: 'object-provider',
-								definitionId: 'd1',
-								canBeDatasource: false,
-								duration: null,
-							}),
-						}),
-					);
+			const resolvedCard = screen.getByRole('button');
+			expect(resolvedCard).toBeTruthy();
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'resolved',
+					attributes: expect.objectContaining({
+						id: 'some-uuid-1',
+						status: 'resolved',
+						extensionKey: 'object-provider',
+						definitionId: 'd1',
+						canBeDatasource: false,
+						duration: null,
+					}),
+				}),
+			);
 
-					asMock(isSpecialEvent).mockReturnValue(false);
+			asMock(isSpecialEvent).mockReturnValue(false);
 
-					await userEvent.click(resolvedCard);
-					expect(mockWindowOpen).toHaveBeenCalledTimes(1);
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'clicked',
-							actionSubject: 'smartLink',
-							attributes: expect.objectContaining({
-								id: 'some-uuid-1',
-								display: 'inline',
-								status: 'resolved',
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								isModifierKeyPressed: false,
-							}),
-						}),
-					);
-
-					// With special key pressed
-					asMock(mockAnalyticsClient.sendUIEvent).mockReset();
-					mockWindowOpen.mockReset();
-					asMock(isSpecialEvent).mockReturnValue(true);
-
-					await userEvent.click(resolvedCard);
-
-					expect(mockWindowOpen).toHaveBeenCalledTimes(1);
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'clicked',
-							actionSubject: 'smartLink',
-							attributes: expect.objectContaining({
-								id: 'some-uuid-1',
-								display: 'inline',
-								status: 'resolved',
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								isModifierKeyPressed: true,
-							}),
-						}),
-					);
-				},
-				async () => {
-					const mockUrl = 'https://this.is.the.seventh.url';
-
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card testId="resolvedCard2" appearance="inline" url={mockUrl} />
-								</Provider>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
-					const resolvedView = await screen.findByTestId('resolvedCard2-resolved-view');
-					expect(resolvedView).toBeTruthy();
-
-					const resolvedCard = screen.getByRole('button');
-					expect(resolvedCard).toBeTruthy();
-					expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLink',
-							action: 'resolved',
-							attributes: expect.objectContaining({
-								id: 'some-uuid-1',
-								status: 'resolved',
-								extensionKey: 'object-provider',
-								definitionId: 'd1',
-								canBeDatasource: false,
-								duration: null,
-							}),
-						}),
-					);
-
-					asMock(isSpecialEvent).mockReturnValue(false);
-
-					await userEvent.click(resolvedCard);
-					expect(mockWindowOpen).toHaveBeenCalledTimes(1);
-					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+			await userEvent.click(resolvedCard);
+			expect(mockWindowOpen).toHaveBeenCalledTimes(1);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'smartLink',
+					attributes: expect.objectContaining({
 						id: 'some-uuid-1',
 						display: 'inline',
 						status: 'resolved',
 						definitionId: 'd1',
 						extensionKey: 'object-provider',
 						isModifierKeyPressed: false,
-					});
-					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
+					}),
+				}),
+			);
 
-					// With special key pressed
-					asMock(analytics.uiCardClickedEvent).mockReset();
-					mockWindowOpen.mockReset();
-					asMock(isSpecialEvent).mockReturnValue(true);
+			// With special key pressed
+			asMock(mockAnalyticsClient.sendUIEvent).mockReset();
+			mockWindowOpen.mockReset();
+			asMock(isSpecialEvent).mockReturnValue(true);
 
-					await userEvent.click(resolvedCard);
+			await userEvent.click(resolvedCard);
 
-					expect(mockWindowOpen).toHaveBeenCalledTimes(1);
-					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
+			expect(mockWindowOpen).toHaveBeenCalledTimes(1);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'smartLink',
+					attributes: expect.objectContaining({
 						id: 'some-uuid-1',
 						display: 'inline',
 						status: 'resolved',
 						definitionId: 'd1',
 						extensionKey: 'object-provider',
 						isModifierKeyPressed: true,
-					});
-				},
+					}),
+				}),
 			);
 		});
 
@@ -864,6 +721,27 @@ describe('smart-card: success analytics', () => {
 									attributes: expect.objectContaining({
 										error: new Error(),
 										errorInfo: expect.any(Object),
+										canBeDatasource: false,
+										componentName: 'smart-cards',
+										definitionId: null,
+										destinationActivationId: null,
+										destinationCategory: null,
+										destinationContainerId: null,
+										destinationObjectId: null,
+										destinationObjectType: null,
+										destinationProduct: null,
+										destinationSubproduct: null,
+										destinationTenantId: null,
+										display: 'inline',
+										displayCategory: 'smartLink',
+										extensionKey: null,
+										id: expect.any(String),
+										listenerVersion: expect.any(String),
+										packageName: expect.any(String),
+										packageVersion: expect.any(String),
+										resourceType: null,
+										status: 'pending',
+										statusDetails: null,
 									}),
 								}),
 							);

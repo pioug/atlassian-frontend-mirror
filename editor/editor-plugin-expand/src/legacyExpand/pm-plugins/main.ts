@@ -5,6 +5,11 @@ import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
+import {
+	findExpand,
+	transformSliceExpandToNestedExpand,
+	transformSliceNestedExpandToExpand,
+} from '@atlaskit/editor-common/transforms';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type Slice } from '@atlaskit/editor-prosemirror/model';
 import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
@@ -15,11 +20,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { ExpandPlugin } from '../../types';
 import { setExpandRef } from '../commands';
 import ExpandNodeView from '../nodeviews';
-import {
-	findExpand,
-	transformSliceExpandToNestedExpand,
-	transformSliceNestedExpandToExpand,
-} from '../utils';
 
 import { createPluginState, getPluginState, pluginKey } from './plugin-factory';
 

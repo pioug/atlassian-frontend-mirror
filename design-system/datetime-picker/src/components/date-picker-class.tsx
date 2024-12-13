@@ -589,7 +589,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 				<Select
 					appearance={this.props.appearance}
 					aria-describedby={ariaDescribedBy}
-					aria-label={label || undefined}
+					label={label || undefined}
 					autoFocus={autoFocus}
 					clearControlLabel={clearControlLabel}
 					closeMenuOnSelect

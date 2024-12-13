@@ -3,9 +3,9 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
-import type { HighlightPlugin } from '../plugin';
-import { getActiveColor } from '../utils/color';
-import { getDisabledState } from '../utils/disabled';
+import { getActiveColor } from '../editor-commands/color';
+import { getDisabledState } from '../editor-commands/disabled';
+import type { HighlightPlugin } from '../highlightPluginType';
 
 export const highlightPluginKey = new PluginKey<HighlightPluginState>('highlight');
 

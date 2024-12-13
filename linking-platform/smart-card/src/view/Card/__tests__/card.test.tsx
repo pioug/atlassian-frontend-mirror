@@ -76,6 +76,7 @@ describe('smart-card: card', () => {
 							message: 'unexpected error',
 						}),
 					});
+
 					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 						expect.objectContaining({
 							actionSubject: 'smartLink',
@@ -83,6 +84,27 @@ describe('smart-card: card', () => {
 							attributes: expect.objectContaining({
 								error: new Error('unexpected error'),
 								errorInfo: expect.any(Object),
+								canBeDatasource: false,
+								componentName: 'smart-cards',
+								definitionId: null,
+								destinationActivationId: null,
+								destinationCategory: null,
+								destinationContainerId: null,
+								destinationObjectId: null,
+								destinationObjectType: null,
+								destinationProduct: null,
+								destinationSubproduct: null,
+								destinationTenantId: null,
+								display: 'block',
+								displayCategory: 'smartLink',
+								extensionKey: null,
+								id: expect.any(String),
+								listenerVersion: expect.any(String),
+								packageName: expect.any(String),
+								packageVersion: expect.any(String),
+								resourceType: null,
+								status: 'pending',
+								statusDetails: null,
 							}),
 						}),
 					);

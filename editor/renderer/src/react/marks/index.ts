@@ -1,3 +1,5 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Mapping file
 import type { ComponentType } from 'react';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import Code from './code';

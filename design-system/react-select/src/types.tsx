@@ -90,8 +90,6 @@ export interface CommonProps<Option, IsMulti extends boolean, Group extends Grou
 		action: SetValueAction,
 		option?: Option,
 	) => void;
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	theme: Theme;
 }
 
 export interface CommonPropsAndClassName<

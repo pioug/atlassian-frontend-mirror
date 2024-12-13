@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
 import { Label } from '@atlaskit/form';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 

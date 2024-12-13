@@ -1,9 +1,49 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { type Size } from './types';
+
+const styles = cssMap({
+	iconContainer: {
+		display: 'inline-flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+		transition: 'opacity 0.2s ease',
+
+		position: 'absolute',
+		insetBlockStart: token('space.025'),
+	},
+
+	iconContainerRegular: {
+		width: '16px',
+		height: '16px',
+	},
+
+	iconContainerLarge: {
+		width: '20px',
+		height: '20px',
+	},
+
+	hidden: {
+		opacity: 0,
+	},
+
+	left: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		insetInlineStart: '3px' as any,
+	},
+
+	right: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		insetInlineEnd: '3px' as any,
+	},
+});
 
 type IconContainerProps = {
 	children: React.ReactNode;
@@ -11,33 +51,6 @@ type IconContainerProps = {
 	isHidden: boolean;
 	position: 'left' | 'right';
 };
-
-const iconContainerStyles = xcss({
-	display: 'inline-flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-	transition: 'opacity 0.2s ease',
-
-	position: 'absolute',
-	insetBlockStart: 'space.025',
-});
-const iconContainerRegularStyles = xcss({
-	width: '16px',
-	height: '16px',
-});
-const iconContainerLargeStyles = xcss({
-	width: '20px',
-	height: '20px',
-});
-const hiddenStyles = xcss({
-	opacity: 0,
-});
-const leftStyles = xcss({
-	insetInlineStart: '3px',
-});
-const rightStyles = xcss({
-	insetInlineEnd: '3px',
-});
 
 /**
  * __Icon container__
@@ -48,14 +61,14 @@ const IconContainer = ({ children, size, isHidden, position }: IconContainerProp
 	return (
 		<Box
 			as="span"
-			xcss={[
-				iconContainerStyles,
-				isHidden && fg('platform-visual-refresh-icons') && hiddenStyles,
-				size === 'regular' && iconContainerRegularStyles,
-				size === 'large' && iconContainerLargeStyles,
-				position === 'left' && leftStyles,
-				position === 'right' && rightStyles,
-			]}
+			xcss={cx(
+				styles.iconContainer,
+				isHidden && fg('platform-visual-refresh-icons') && styles.hidden,
+				size === 'regular' && styles.iconContainerRegular,
+				size === 'large' && styles.iconContainerLarge,
+				position === 'left' && styles.left,
+				position === 'right' && styles.right,
+			)}
 		>
 			{children}
 		</Box>

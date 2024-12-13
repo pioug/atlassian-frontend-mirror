@@ -5,7 +5,6 @@ import { render, screen } from '@testing-library/react';
 import IconRecent from '@atlaskit/icon/core/migration/clock--recent';
 import IconEmail from '@atlaskit/icon/core/migration/email';
 import IconLocation from '@atlaskit/icon/core/migration/location';
-import { toBeAccessible } from '@atlassian/a11y-jest-testing';
 
 import { IconLabel } from '../../components/Icon';
 
@@ -43,7 +42,6 @@ describe('Profilecard', () => {
 		});
 
 		it('should capture and report a11y violations', async () => {
-			expect.extend({ toBeAccessible });
 			const { container } = render(<IconLabel icon="location">Labeltext</IconLabel>);
 			// Known violation: The <dt> and <dd> elements in LabelIcon are not wrapped by a <dl> element within LabelIcon itself.
 			// However, there is a <dl> element in LabelIcon's parent component, so overall the structure is correct.

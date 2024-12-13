@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 2.0.0
+
+### Major Changes
+
+- [#166462](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/166462)
+  [`e4a4cf9cca618`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e4a4cf9cca618) -
+  Removed re-exports of external dependency.
+
+  @atlaskit/editor-plugin-collab-edit:
+
+  - type { CollabInviteToEditProps } -> @atlaskit/editor-common/collab
+
 ## 1.23.7
 
 ### Patch Changes

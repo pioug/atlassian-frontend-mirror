@@ -14,7 +14,6 @@ snapshotInformational(IssueLikeTable, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		enable_datasource_react_sweet_state: true,
-		'platform-datasources-enable-two-way-sync': true,
 		'platform-datasources-enable-two-way-sync-statuses': true,
 		enable_datasource_supporting_actions: true,
 	},
@@ -36,7 +35,6 @@ snapshotInformational(IssueLikeTable, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		enable_datasource_react_sweet_state: true,
-		'platform-datasources-enable-two-way-sync': true,
 		'platform-datasources-enable-two-way-sync-statuses': true,
 		enable_datasource_supporting_actions: true,
 	},
@@ -60,7 +58,6 @@ snapshotInformational(IssueLikeTable, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		enable_datasource_react_sweet_state: true,
-		'platform-datasources-enable-two-way-sync': true,
 		'platform-datasources-enable-two-way-sync-statuses': true,
 		enable_datasource_supporting_actions: true,
 	},

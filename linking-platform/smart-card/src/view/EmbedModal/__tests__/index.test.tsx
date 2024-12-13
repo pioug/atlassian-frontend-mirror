@@ -27,6 +27,7 @@ import * as utils from '../../../utils';
 import { context } from '../../../utils/analytics';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
 import { mocks } from '../../../utils/mocks';
+import * as LinkInfo from '../components/link-info';
 import { MAX_MODAL_SIZE } from '../constants';
 import EmbedModal from '../index';
 
@@ -72,7 +73,6 @@ describe('EmbedModal', () => {
 	const testId = 'embed-modal';
 	let mockWindowOpen: jest.Mock;
 	const id = 'test-id';
-	const location = 'test-location';
 	const spy = jest.fn();
 
 	const mockAnalyticsClient = {
@@ -121,13 +121,14 @@ describe('EmbedModal', () => {
 	}: {
 		incomingProps?: Partial<React.ComponentProps<typeof EmbedModal>>;
 	}): JSX.Element => {
-		const analyticsEvents = useSmartLinkAnalytics('test-url', id, location);
+		const analyticsEvents = useSmartLinkAnalytics('test-url', id);
 		const { fireEvent } = useAnalyticsEvents();
 
 		return (
 			<EmbedModal
 				extensionKey="spaghetti-key"
 				fireEvent={fireEvent}
+				id={id}
 				iframeName="iframe-name"
 				onClose={() => {}}
 				showModal={true}
@@ -401,11 +402,12 @@ describe('EmbedModal', () => {
 
 	it('triggers open failed callback when modal content throws error', async () => {
 		const onOpenFailed = jest.fn();
-		renderEmbedModal({
-			icon: { icon: <ThrowError /> },
-			onOpenFailed,
-		});
+		const spy = jest.spyOn(LinkInfo, 'default').mockReturnValue(<ThrowError />);
+
+		renderEmbedModal({ onOpenFailed });
 		expect(onOpenFailed).toHaveBeenCalledTimes(1);
+
+		spy.mockRestore();
 	});
 
 	describe('with analytics', () => {
@@ -415,139 +417,137 @@ describe('EmbedModal', () => {
 			spy.mockClear();
 		});
 
-		it('dispatches analytics event on modal open', async () => {
-			const onOpen = jest.fn();
-			renderEmbedModal({
-				onOpen,
-				origin: 'smartLinkPreviewHoverCard',
-			});
-			await screen.findByTestId(testId);
-
-			await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
-
-			expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenNthCalledWith(
-				1,
-				expect.objectContaining({
-					action: 'viewed',
-					actionSubject: 'embedPreviewModal',
-					attributes: expect.objectContaining({
-						...EXPECTED_COMMON_ATTRIBUTES,
-						id,
-						origin: 'smartLinkPreviewHoverCard',
-						size: 'large',
-					}),
-					tags: ['media'],
-				}),
-			);
-			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith(
-				expect.objectContaining({
-					action: 'renderSuccess',
-					actionSubject: 'smartLink',
-					attributes: expect.objectContaining({
-						id,
-						componentName: 'smart-cards',
-						definitionId: 'spaghetti-id',
-						display: 'embedPreview',
-						destinationProduct: 'spaghetti-product',
-						destinationSubproduct: 'spaghetti-subproduct',
-						extensionKey: 'spaghetti-key',
-						location,
-						packageName: expect.any(String),
-						packageVersion: expect.any(String),
-						resourceType: 'spaghetti-resource',
-						destinationObjectType: 'spaghetti-resource',
-						status: 'resolved',
-						canBeDatasource: false,
-					}),
-					tags: ['media'],
-				}),
-			);
-		});
-
-		it('dispatches analytics event on modal open failed', async () => {
-			const onOpenFailed = jest.fn();
-			renderEmbedModal({
-				icon: { icon: <ThrowError /> },
-				onOpenFailed,
-			});
-
-			await waitFor(() => expect(onOpenFailed).toHaveBeenCalledTimes(1));
-			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					action: 'renderFailed',
-					actionSubject: 'smartLink',
-					attributes: expect.objectContaining({
-						...EXPECTED_COMMON_ATTRIBUTES,
-						id,
-						display: 'embedPreview',
-						error: expect.any(Object),
-						errorInfo: expect.any(Object),
-					}),
-					tags: ['media'],
-				}),
-			);
-		});
-
-		it('dispatches analytics event on modal close', async () => {
-			const onClose = jest.fn();
-			const onOpen = jest.fn();
-			renderEmbedModal({
-				onClose,
-				onOpen,
-				origin: 'smartLinkCard',
-			});
-			await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
-			const button = await screen.findByTestId(`${testId}-close-button`);
-			await user.click(button);
-			await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
-
-			expect(onClose).toHaveBeenCalledTimes(1);
-			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith(
-				expect.objectContaining({
-					action: 'closed',
-					actionSubject: 'modal',
-					actionSubjectId: 'embedPreview',
-					attributes: expect.objectContaining({
-						...EXPECTED_COMMON_ATTRIBUTES,
-						id,
-						origin: 'smartLinkCard',
-						previewTime: expect.any(Number),
-						size: 'large',
-					}),
-					tags: ['media'],
-				}),
-			);
-		});
-
-		it('dispatches analytics event on resize modal', async () => {
-			const onResize = jest.fn();
-			renderEmbedModal({
-				onResize,
-				origin: 'smartLinkCard',
-			});
-
-			const button = await screen.findByTestId(`${testId}-resize-button`);
-			await user.click(button);
-
-			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-				expect.objectContaining({
-					action: 'clicked',
-					actionSubject: 'button',
-					actionSubjectId: 'embedPreviewResize',
-					attributes: expect.objectContaining({
-						...EXPECTED_COMMON_ATTRIBUTES,
-						id,
-						newSize: 'small',
-						origin: 'smartLinkCard',
-						previousSize: 'large',
-					}),
-					tags: ['media'],
-				}),
-			);
-			expect(onResize).toHaveBeenCalledTimes(1);
-		});
-
 		ffTest.both('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg', () => {
+			it('dispatches analytics event on modal open', async () => {
+				const onOpen = jest.fn();
+				renderEmbedModal({
+					onOpen,
+					origin: 'smartLinkPreviewHoverCard',
+				});
+				await screen.findByTestId(testId);
+
+				await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
+
+				expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'viewed',
+						attributes: expect.objectContaining({
+							...EXPECTED_COMMON_ATTRIBUTES,
+							id,
+							origin: 'smartLinkPreviewHoverCard',
+							size: 'large',
+						}),
+						name: 'embedPreviewModal',
+						tags: ['media'],
+					}),
+				);
+
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith(
+					expect.objectContaining({
+						action: 'renderSuccess',
+						actionSubject: 'smartLink',
+						attributes: expect.objectContaining({
+							id,
+							componentName: 'smart-cards',
+							definitionId: 'spaghetti-id',
+							display: 'embedPreview',
+							destinationProduct: 'spaghetti-product',
+							destinationSubproduct: 'spaghetti-subproduct',
+							extensionKey: 'spaghetti-key',
+							packageName: expect.any(String),
+							packageVersion: expect.any(String),
+							resourceType: 'spaghetti-resource',
+							destinationObjectType: 'spaghetti-resource',
+							status: 'resolved',
+							canBeDatasource: false,
+						}),
+						tags: ['media'],
+					}),
+				);
+			});
+
+			it('dispatches analytics event on modal open failed', async () => {
+				const spy = jest.spyOn(LinkInfo, 'default').mockReturnValue(<ThrowError />);
+				const onOpenFailed = jest.fn();
+				renderEmbedModal({ onOpenFailed });
+
+				await waitFor(() => expect(onOpenFailed).toHaveBeenCalledTimes(1));
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'renderFailed',
+						actionSubject: 'smartLink',
+						attributes: expect.objectContaining({
+							...EXPECTED_COMMON_ATTRIBUTES,
+							id,
+							display: 'embedPreview',
+							error: expect.any(Object),
+							errorInfo: expect.any(Object),
+						}),
+						tags: ['media'],
+					}),
+				);
+				spy.mockRestore();
+			});
+
+			it('dispatches analytics event on modal close', async () => {
+				const onClose = jest.fn();
+				const onOpen = jest.fn();
+				renderEmbedModal({
+					onClose,
+					onOpen,
+					origin: 'smartLinkCard',
+				});
+				await waitFor(() => expect(onOpen).toHaveBeenCalledTimes(1));
+				const button = await screen.findByTestId(`${testId}-close-button`);
+				await user.click(button);
+				await waitForElementToBeRemoved(() => screen.queryByTestId(testId));
+
+				expect(onClose).toHaveBeenCalledTimes(1);
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenLastCalledWith(
+					expect.objectContaining({
+						action: 'closed',
+						actionSubject: 'modal',
+						actionSubjectId: 'embedPreview',
+						attributes: expect.objectContaining({
+							...EXPECTED_COMMON_ATTRIBUTES,
+							id,
+							origin: 'smartLinkCard',
+							previewTime: expect.any(Number),
+							size: 'large',
+						}),
+						tags: ['media'],
+					}),
+				);
+			});
+
+			it('dispatches analytics event on resize modal', async () => {
+				const onResize = jest.fn();
+				renderEmbedModal({
+					onResize,
+					origin: 'smartLinkCard',
+				});
+
+				const button = await screen.findByTestId(`${testId}-resize-button`);
+				await user.click(button);
+
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'clicked',
+						actionSubject: 'button',
+						actionSubjectId: 'embedPreviewResize',
+						attributes: expect.objectContaining({
+							...EXPECTED_COMMON_ATTRIBUTES,
+							id,
+							newSize: 'small',
+							origin: 'smartLinkCard',
+							previousSize: 'large',
+						}),
+						tags: ['media'],
+					}),
+				);
+				expect(onResize).toHaveBeenCalledTimes(1);
+			});
+
 			it('dispatches analytics event on open url on a new tab', async () => {
 				const ufoStartSpy = jest.spyOn(ufo, 'startUfoExperience');
 				const ufoSucceedSpy = jest.spyOn(ufo, 'succeedUfoExperience');

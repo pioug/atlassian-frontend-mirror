@@ -16,7 +16,7 @@ import {
 	stickyHeadersUnresizedTableNumberedColumn,
 	stickyHeadersUnresizedTableWithoutHeaderRow,
 } from '../__fixtures__/sticky-header-adf';
-import { Renderer } from '../../ui';
+import Renderer from '../../ui/Renderer';
 import type { DocNode } from '@atlaskit/adf-schema';
 
 function StickyHeaderFixture({ adf }: { adf: unknown }) {

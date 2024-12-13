@@ -1,5 +1,22 @@
 # @atlaskit/link-datasource
 
+## 3.15.4
+
+### Patch Changes
+
+- [#175841](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175841)
+  [`f21aa44e58c1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f21aa44e58c1b) -
+  removing platform-datasources-enable-two-way-sync FF
+
+## 3.15.3
+
+### Patch Changes
+
+- [#177875](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177875)
+  [`d0c3d27216b7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0c3d27216b7c) -
+  Clean up props for select new improvement on theme and customized components
+- Updated dependencies
+
 ## 3.15.2
 
 ### Patch Changes

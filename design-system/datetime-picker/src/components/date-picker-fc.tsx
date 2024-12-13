@@ -581,7 +581,7 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 			<Select
 				appearance={appearance}
 				aria-describedby={ariaDescribedBy}
-				aria-label={label || undefined}
+				label={label || undefined}
 				autoFocus={autoFocus}
 				clearControlLabel={clearControlLabel}
 				closeMenuOnSelect

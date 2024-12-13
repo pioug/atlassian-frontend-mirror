@@ -16,7 +16,7 @@ import {
 	adfMediaSingle,
 	adfRightWrappedMediaInsideTable,
 } from './__fixtures__';
-import { Renderer } from '../../ui';
+import Renderer from '../../ui/Renderer';
 
 const smartCardClient = new CardClient('stg');
 

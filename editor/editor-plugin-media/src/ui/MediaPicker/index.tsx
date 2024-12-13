@@ -37,7 +37,7 @@ const MediaPicker = ({
 	onBrowseFn,
 	editorDomElement,
 }: MediaPickerProps) => {
-	const { focusState } = useSharedPluginState(api, ['focus']);
+	const { focusState, connectivityState } = useSharedPluginState(api, ['focus', 'connectivity']);
 	const featureFlags = mediaState.mediaOptions && mediaState.mediaOptions.featureFlags;
 
 	const editorDom = editorDomElement as HTMLElement;
@@ -60,7 +60,11 @@ const MediaPicker = ({
 			{clipboard}
 			<DropzoneWrapper
 				mediaState={mediaState}
-				isActive={!isPopupOpened}
+				isActive={
+					!isPopupOpened &&
+					// If we're offline don't show the dropzone
+					connectivityState?.mode !== 'offline'
+				}
 				featureFlags={featureFlags}
 				editorDomElement={editorDomElement}
 				appearance={appearance}

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.19.4
+
+### Patch Changes
+
+- [#176534](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176534)
+  [`a62f4ab06923e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a62f4ab06923e) -
+  updated folder structure of highlight plugin to match ees003
+
 ## 1.19.3
 
 ### Patch Changes

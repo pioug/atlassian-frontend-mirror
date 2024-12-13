@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-indentation
 
+## 1.8.9
+
+### Patch Changes
+
+- [#177206](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177206)
+  [`8584b1acd8d81`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8584b1acd8d81) -
+  updated indentation plugin to meet EES 003
+
 ## 1.8.8
 
 ### Patch Changes

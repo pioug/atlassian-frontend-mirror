@@ -92,13 +92,7 @@ const moveToExistingLayout = (
 	} else if (toLayout.childCount < maxLayoutColumnSupported()) {
 		if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
 			removeFromSource(tr, tr.doc.resolve(from));
-			insertToDestination(
-				tr,
-				tr.mapping.map(to),
-				sourceNode,
-				toLayout,
-				tr.mapping.map(toLayoutPos),
-			);
+			insertToDestinationNoWidthUpdate(tr, tr.mapping.map(to), sourceNode);
 		} else {
 			insertToDestination(tr, to, sourceNode, toLayout, toLayoutPos);
 			const mappedFrom = tr.mapping.map(from);
@@ -116,6 +110,26 @@ const moveToExistingLayout = (
 			api,
 		);
 	}
+	return tr;
+};
+
+/**
+ * This function is similar to insertToDestination
+ * But without update width step, mainly rely on the append transaction from layout.
+ * @param tr
+ * @param to
+ * @param sourceNode
+ * @returns
+ */
+const insertToDestinationNoWidthUpdate = (tr: Transaction, to: number, sourceNode: PMNode) => {
+	const { layoutColumn } = tr.doc.type.schema.nodes || {};
+
+	const content = layoutColumn.createChecked(
+		{ width: 0 },
+		sourceNode.type.name === 'layoutColumn' ? sourceNode.content : sourceNode,
+	);
+	tr.insert(to, content);
+
 	return tr;
 };
 
@@ -184,7 +198,6 @@ export const moveToLayout =
 	(from: number, to: number, options?: { moveToEnd?: boolean }): EditorCommand =>
 	({ tr }) => {
 		const canMove = canMoveToLayout(from, to, tr);
-
 		if (!canMove) {
 			return tr;
 		}

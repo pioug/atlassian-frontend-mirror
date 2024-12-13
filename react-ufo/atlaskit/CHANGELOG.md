@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.5.1
+
+### Patch Changes
+
+- [#172505](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172505)
+  [`e43cba2a879aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e43cba2a879aa) -
+  Remove explicit jest extension with .toBeAccessible matcher
+
 ## 2.5.0
 
 ### Minor Changes

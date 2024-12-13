@@ -1,5 +1,4 @@
 import { fg } from '@atlaskit/platform-feature-flags';
-import { toBeAccessible } from '@atlassian/a11y-jest-testing';
 import { render } from '@testing-library/react';
 import ColorCard, { type Props } from '../../components/ColorCard';
 import React from 'react';
@@ -16,8 +15,6 @@ jest.mock('@atlaskit/platform-feature-flags');
 const mockGetBooleanFG = fg as jest.MockedFunction<typeof fg>;
 
 describe('ColorCard', () => {
-	expect.extend({ toBeAccessible });
-
 	beforeEach(() => {
 		mockGetBooleanFG.mockReturnValue(true);
 	});

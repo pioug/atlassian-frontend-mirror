@@ -9,11 +9,9 @@ import { jsx } from '@emotion/react';
 
 import DropdownMenu, { type CustomTriggerProps } from '@atlaskit/dropdown-menu';
 import type { ThemeAppearance } from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
 import extractLozengeActionItems from '../../../../../../extractors/action/extract-lozenge-action-items';
-import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
 import useInvoke from '../../../../../../state/hooks/use-invoke';
 import { isInvokeCustomError } from '../../../../../../state/hooks/use-invoke/utils';
 import useResolve from '../../../../../../state/hooks/use-resolve';
@@ -57,8 +55,6 @@ const LozengeAction = ({
 	const [errorMessage, setErrorMessage] = useState<string | MessageProps>();
 
 	const reload = useResolve();
-	//TODO EDM-6583 Replace usage of useFlexibleUiAnalyticsContext with linking platform analytics context from find team.
-	const analytics = useFlexibleUiAnalyticsContext();
 	const invoke = useInvoke();
 	const { fireEvent } = useAnalyticsEvents();
 
@@ -72,11 +68,7 @@ const LozengeAction = ({
 		async (args: { isOpen: boolean }) => {
 			setIsOpen(args.isOpen);
 			if (args.isOpen) {
-				if (fg('platform_migrate-some-ui-events-smart-card')) {
-					fireEvent('ui.button.clicked.smartLinkStatusLozenge', {});
-				} else {
-					analytics?.ui.smartLinkLozengeActionClickedEvent();
-				}
+				fireEvent('ui.button.clicked.smartLinkStatusLozenge', {});
 				fireEvent('track.smartLinkQuickAction.started', {
 					smartLinkActionType: TrackQuickActionType.StatusUpdate,
 				});
@@ -110,7 +102,7 @@ const LozengeAction = ({
 				setErrorMessage(undefined);
 			}
 		},
-		[action.read, analytics, invoke, isLoaded, text, fireEvent],
+		[action.read, invoke, isLoaded, text, fireEvent],
 	);
 
 	const trigger = useCallback(
@@ -129,11 +121,8 @@ const LozengeAction = ({
 	const handleItemClick = useCallback(
 		async (id: string, text: string, appearance?: ThemeAppearance) => {
 			try {
-				if (fg('platform_migrate-some-ui-events-smart-card')) {
-					fireEvent('ui.button.clicked.smartLinkStatusListItem', {});
-				} else {
-					analytics?.ui.smartLinkLozengeActionListItemClickedEvent();
-				}
+				fireEvent('ui.button.clicked.smartLinkStatusListItem', {});
+
 				const updateAction = action?.update;
 				if (updateAction && id) {
 					setIsLoading(true);
@@ -167,7 +156,7 @@ const LozengeAction = ({
 				}
 			}
 		},
-		[action?.update, analytics, invoke, linkId, reload, url, fireEvent],
+		[action?.update, invoke, linkId, reload, url, fireEvent],
 	);
 
 	const dropdownItemGroup = useMemo(() => {

@@ -14,7 +14,7 @@ import {
 	AnnotationUpdateEmitter,
 	type InlineCommentAnnotationProvider,
 } from '@atlaskit/editor-common/types';
-import { Renderer } from '../../ui';
+import Renderer from '../../ui/Renderer';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { SelectionInlineComponentMock } from './annotationSelectionComponentMock';
 

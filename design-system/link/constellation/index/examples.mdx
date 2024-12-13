@@ -2,6 +2,9 @@
 order: 0
 ---
 
+import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
+import Link from '@atlaskit/link';
+
 import Default from '../../examples/constellation/link-default';
 import Subtle from '../../examples/constellation/link-subtle';
 import Inverse from '../../examples/constellation/link-inverse';
@@ -10,6 +13,18 @@ import NewWindow from '../../examples/constellation/link-new-window';
 import BodyCopy from '../../examples/constellation/link-body-copy';
 import FontStyleInheritance from '../../examples/constellation/link-font-style-inheritance';
 import HtmlAttributes from '../../examples/constellation/link-html-attributes';
+
+<SectionMessage
+	appearance="information"
+	actions={[
+		<SectionMessageAction href="/components/primitives/anchor/examples">
+			View anchor documentation
+		</SectionMessageAction>,
+	]}
+>
+	Link is for use in text. If you need a non-text element to behave like a link, such as a card, use
+	the <Link href="/components/primitives/anchor/examples">anchor primitive</Link>.
+</SectionMessage>
 
 ## Default
 

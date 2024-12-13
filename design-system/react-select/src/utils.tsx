@@ -101,7 +101,6 @@ export const cleanCommonProps = <
 		selectOption,
 		selectProps,
 		setValue,
-		theme, // not listed in commonProps documentation
 		...innerProps
 	} = props;
 	return { ...innerProps };

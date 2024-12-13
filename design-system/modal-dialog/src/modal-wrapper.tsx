@@ -15,6 +15,7 @@ import Blanket from '@atlaskit/blanket';
 import noop from '@atlaskit/ds-lib/noop';
 import { Layering } from '@atlaskit/layering';
 import FadeIn from '@atlaskit/motion/fade-in';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Portal from '@atlaskit/portal';
 import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
@@ -39,8 +40,16 @@ const fillScreenStyles = css({
 });
 
 const allowlistElements = (element: HTMLElement, callback?: (element: HTMLElement) => boolean) => {
-	// allows focus to reach elements outside the modal if they contain the data-atlas-extension attribute
+	const isAuiDialogAllowlisted = fg('platform_dst_allowlist-aui-dialog-for-ak-modal');
+	// Allow focus to reach elements outside the modal:
+
+	//  if those contain the data-atlas-extension attribute
 	if (element.hasAttribute('data-atlas-extension')) {
+		return false;
+	}
+
+	// if AUI dialog is allowListed and visible
+	if (isAuiDialogAllowlisted && !!document.querySelector('.aui-blanket:not([hidden])')) {
 		return false;
 	}
 	// allows to pass a callback function to allow elements be ignored by focus lock

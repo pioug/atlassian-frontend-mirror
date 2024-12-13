@@ -8,7 +8,7 @@ import { captionComplicated } from '../visual-regression/media/__fixtures__/capt
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 
-import { Renderer } from '../../ui';
+import Renderer from '../../ui/Renderer';
 import type { DocNode } from '@atlaskit/adf-schema';
 
 const Media = ({ adf, appearance }: { adf: DocNode; appearance: string }) => {

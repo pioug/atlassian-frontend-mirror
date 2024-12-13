@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-editor-disabled
 
+## 1.3.12
+
+### Patch Changes
+
+- [#177988](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177988)
+  [`8f78c40775b7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f78c40775b7c) -
+  ED-25810 - refactors editor plugins to engineering standards
+
 ## 1.3.11
 
 ### Patch Changes

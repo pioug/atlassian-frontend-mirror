@@ -6,5 +6,5 @@ export type {
 	EmojiPluginOptions,
 	EmojiPluginState,
 	EmojiPluginSharedState,
-} from './types';
-export { emojiPlugin } from './plugin';
+} from './emojiPluginType';
+export { emojiPlugin } from './emojiPlugin';

@@ -10,7 +10,6 @@ import {
 	type MetadataStatus,
 } from '@atlaskit/linking-common';
 import { auth, type AuthError } from '@atlaskit/outbound-auth-flow-client';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
@@ -87,32 +86,16 @@ export const useSmartCardActions = (id: string, url: string, analytics: Analytic
 			const services = getServices(details);
 			// When authentication is triggered, let GAS know!
 			if (status === 'unauthorized') {
-				if (fg('platform_migrate-some-ui-events-smart-card')) {
-					fireEvent('ui.button.clicked.connectAccount', {
-						display: appearance,
-						definitionId: definitionId ?? null,
-					});
-				} else {
-					analytics.ui.authEvent({
-						display: appearance,
-						definitionId,
-						extensionKey,
-					});
-				}
+				fireEvent('ui.button.clicked.connectAccount', {
+					display: appearance,
+					definitionId: definitionId ?? null,
+				});
 			}
 			if (status === 'forbidden') {
-				if (fg('platform_migrate-some-ui-events-smart-card')) {
-					fireEvent('ui.smartLink.clicked.tryAnotherAccount', {
-						display: appearance,
-						definitionId: definitionId ?? null,
-					});
-				} else {
-					analytics.ui.authAlternateAccountEvent({
-						display: appearance,
-						definitionId,
-						extensionKey,
-					});
-				}
+				fireEvent('ui.smartLink.clicked.tryAnotherAccount', {
+					display: appearance,
+					definitionId: definitionId ?? null,
+				});
 			}
 			if (services.length > 0) {
 				fireEvent('screen.consentModal.viewed', {
@@ -143,25 +126,17 @@ export const useSmartCardActions = (id: string, url: string, analytics: Analytic
 							reason: err.type ?? null,
 						});
 						if (err.type === 'auth_window_closed') {
-							if (fg('platform_migrate-some-ui-events-smart-card')) {
-								fireEvent('ui.consentModal.closed', {
-									display: appearance,
-									definitionId: definitionId ?? null,
-								});
-							} else {
-								analytics.ui.closedAuthEvent({
-									display: appearance,
-									definitionId,
-									extensionKey,
-								});
-							}
+							fireEvent('ui.consentModal.closed', {
+								display: appearance,
+								definitionId: definitionId ?? null,
+							});
 						}
 						reload();
 					},
 				);
 			}
 		},
-		[getSmartLinkState, analytics.ui, id, reload, fireEvent],
+		[getSmartLinkState, id, reload, fireEvent],
 	);
 
 	const invoke = useCallback(

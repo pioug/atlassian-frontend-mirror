@@ -1,4 +1,6 @@
 import React from 'react';
+import Heading from '@atlaskit/heading';
+import { Stack, Text, xcss } from '@atlaskit/primitives';
 import { type HttpError } from '../../api/MentionResource';
 import {
 	DefaultAdvisedAction,
@@ -8,12 +10,6 @@ import {
 	LoginAgain,
 } from '../../util/i18n';
 import { GenericErrorIllustration } from './GenericErrorIllustration';
-import {
-	MentionListAdviceStyle,
-	MentionListErrorHeadlineStyle,
-	MentionListErrorStyle,
-} from './styles';
-
 export interface Props {
 	error?: Error;
 }
@@ -46,15 +42,27 @@ export default class MentionListError extends React.PureComponent<Props, {}> {
 		const { error } = this.props;
 		const ErrorMessage = MentionListError.getAdvisedActionMessage(error);
 		return (
-			<MentionListErrorStyle>
+			<Stack
+				space="space.400"
+				alignBlock="center"
+				alignInline="center"
+				xcss={mentionListErrorStyles}
+			>
 				<GenericErrorIllustration />
-				<MentionListErrorHeadlineStyle>
-					<DefaultHeadline />
-				</MentionListErrorHeadlineStyle>
-				<MentionListAdviceStyle>
-					<ErrorMessage />
-				</MentionListAdviceStyle>
-			</MentionListErrorStyle>
+				<Stack space="space.100">
+					<Heading size="xsmall" as="div">
+						<DefaultHeadline />
+					</Heading>
+					<Text as="p" color="color.text.subtle">
+						<ErrorMessage />
+					</Text>
+				</Stack>
+			</Stack>
 		);
 	}
 }
+
+const mentionListErrorStyles = xcss({
+	paddingBlock: 'space.500',
+	textAlign: 'center',
+});

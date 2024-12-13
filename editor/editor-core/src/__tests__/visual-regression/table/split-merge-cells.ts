@@ -8,7 +8,6 @@ import {
 	splitCells,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
 	Appearance,
@@ -16,7 +15,7 @@ import {
 	initFullPageEditorWithAdf,
 	snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { type PuppeteerPage, waitForFloatingControl } from '@atlaskit/visual-regression/helper';
 
 import adf from './__fixtures__/default-table.adf.json';
 

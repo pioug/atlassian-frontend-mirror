@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-extension
 
+## 2.0.8
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.0.7
+
+### Patch Changes
+
+- [#178297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178297)
+  [`7abc8162b32ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7abc8162b32ab) -
+  Internal changes to typography styles. There may be some minor visual changes to align with
+  modernized typography styles.
+
 ## 2.0.6
 
 ### Patch Changes

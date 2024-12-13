@@ -7,6 +7,5 @@ snapshot(IssueLikeTableLoading, {
 	drawsOutsideBounds: true,
 	featureFlags: {
 		enable_datasource_react_sweet_state: [true, false],
-		'platform-datasources-enable-two-way-sync': [true, false],
 	},
 });

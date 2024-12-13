@@ -41,7 +41,6 @@ const defaultSingleValueProps = {
 	getValue: noop as Props['getValue'],
 	options: [],
 	selectOption: noop,
-	theme: {} as Props['theme'],
 	data: data as Props['data'],
 	selectProps: selectProps as unknown as Props['selectProps'],
 };

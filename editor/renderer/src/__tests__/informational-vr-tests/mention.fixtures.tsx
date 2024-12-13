@@ -8,7 +8,7 @@ import ProfileCardClient from '@atlaskit/profilecard/client';
 import { getMockProfileClient } from '@atlaskit/profilecard/mocks';
 import { IntlProvider } from 'react-intl-next';
 
-import { Renderer } from '../../ui';
+import Renderer from '../../ui/Renderer';
 
 const mentionProvider = Promise.resolve({
 	shouldHighlightMention(mention: { id: string }) {

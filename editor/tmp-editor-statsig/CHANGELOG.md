@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.26.1
+
+### Patch Changes
+
+- [#172505](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/172505)
+  [`3816509a67f5c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3816509a67f5c) -
+  EDF-2055 Added platform_editor_ai_knowledge_from_current_page experiment
+
 ## 2.26.0
 
 ### Minor Changes

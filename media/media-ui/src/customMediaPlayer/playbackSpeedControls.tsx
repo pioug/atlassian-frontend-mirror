@@ -11,7 +11,7 @@ import {
 	type GroupedOptionsType,
 	type ActionMeta,
 } from '@atlaskit/select';
-import { N600, DN900 } from '@atlaskit/theme/colors';
+import { DN900 } from '@atlaskit/theme/colors';
 import { type NumericalCardDimensions } from '@atlaskit/media-common';
 import { FormattedMessage, type WrappedComponentProps, injectIntl } from 'react-intl-next';
 import Tooltip from '@atlaskit/tooltip';
@@ -143,10 +143,6 @@ export class PlaybackSpeedControls extends Component<
 					maxMenuHeight={popupHeight}
 					options={this.speedOptions()}
 					value={value}
-					theme={(theme) => ({
-						...theme,
-						colors: { ...theme.colors, primary25: N600 },
-					})}
 					closeMenuOnScroll={true}
 					onChange={this.onPlaybackSpeedChange}
 					target={({ ref, isOpen, onKeyDown: popupKeydown }) => (

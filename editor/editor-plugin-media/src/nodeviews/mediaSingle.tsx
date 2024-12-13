@@ -664,23 +664,11 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 	createDomRef(): HTMLElement {
 		const domRef = document.createElement('div');
 
-		if (fg('platform_editor_prevent_delete_image_in_view_mode')) {
-			// controll the domRef contentEditable attribute based on the editor view mode
-			this.unsubscribeToViewModeChange = this.subscribeToViewModeChange(domRef);
-			const initialViewMode =
-				this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState()
-					?.mode;
-			this.updateDomRefContentEditable(domRef, initialViewMode);
-		} else {
-			if (
-				this.reactComponentProps.mediaOptions &&
-				this.reactComponentProps.mediaOptions.allowMediaSingleEditable
-			) {
-				// workaround Chrome bug in https://product-fabric.atlassian.net/browse/ED-5379
-				// see also: https://github.com/ProseMirror/prosemirror/issues/884
-				domRef.contentEditable = 'true';
-			}
-		}
+		// control the domRef contentEditable attribute based on the editor view mode
+		this.unsubscribeToViewModeChange = this.subscribeToViewModeChange(domRef);
+		const initialViewMode =
+			this.reactComponentProps.pluginInjectionApi?.editorViewMode?.sharedState.currentState()?.mode;
+		this.updateDomRefContentEditable(domRef, initialViewMode);
 
 		if (fg('platform_editor_media_extended_resize_experience')) {
 			domRef.classList.add('media-extended-resize-experience');

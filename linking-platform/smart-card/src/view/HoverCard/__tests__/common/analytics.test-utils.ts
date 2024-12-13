@@ -34,12 +34,6 @@ const defaultPayloadAttributes = {
 	componentName: 'smart-cards',
 };
 
-export const additionalPayloadAttributes = {
-	previewDisplay: 'card',
-	previewInvokeMethod: 'mouse_hover',
-	status: 'resolved',
-};
-
 const getHoverCardContextResolvedAttributes = (
 	isAnalyticsContextResolvedOnHover: boolean,
 	display?: string,
@@ -70,6 +64,9 @@ const getHoverCardContextResolvedAttributes = (
 	},
 ];
 
+/**
+ * Look to clean up on FF platform-smart-card-migrate-embed-modal-analytics
+ */
 export const getEventPayload = ({
 	action,
 	actionSubject,
@@ -102,217 +99,113 @@ export const analyticsTests = (
 		const { display, isAnalyticsContextResolvedOnHover } = config;
 
 		it('should fire hover card viewed event with correct data in the analytics context', async () => {
-			const { analyticsSpy } = await setup();
+			const { mockAnalyticsClient } = await setup();
 			await screen.findByTestId('hover-card');
-
-			expect(analyticsSpy).toBeFiredWithAnalyticEventOnce({
-				payload: {
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
 					action: 'viewed',
 					actionSubject: 'hoverCard',
-					attributes: additionalPayloadAttributes,
-				},
-				context: getHoverCardContextResolvedAttributes(isAnalyticsContextResolvedOnHover, display),
+					attributes: expect.objectContaining({
+						previewDisplay: 'card',
+						previewInvokeMethod: 'mouse_hover',
+						status: 'resolved',
+					}),
+				}),
+			);
+		});
+
+		it('should fire viewed event when hover card is opened', async () => {
+			const { mockAnalyticsClient } = await setup();
+
+			// wait for card to be resolved
+			const hoverCard = await screen.findByTestId('hover-card');
+			within(hoverCard).getByTestId('smart-block-title-resolved-view');
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'viewed',
+					actionSubject: 'hoverCard',
+					attributes: expect.objectContaining({
+						previewDisplay: 'card',
+						previewInvokeMethod: 'mouse_hover',
+						status: 'resolved',
+					}),
+				}),
+			);
+		});
+
+		it('should fire closed event when hover card is opened then closed', async () => {
+			const { element, event, mockAnalyticsClient } = await setup();
+			// wait for card to be resolved
+			const hoverCard = await screen.findByTestId('hover-card');
+			within(hoverCard).getByTestId('smart-block-title-resolved-view');
+			await event.unhover(element);
+			act(() => {
+				jest.runAllTimers();
 			});
-		});
-
-		describe('should fire viewed event when hover card is opened', () => {
-			ffTest(
-				'platform_migrate-some-ui-events-smart-card',
-				async () => {
-					const { mockAnalyticsClient } = await setup();
-
-					// wait for card to be resolved
-					const hoverCard = await screen.findByTestId('hover-card');
-					within(hoverCard).getByTestId('smart-block-title-resolved-view');
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'viewed',
-							actionSubject: 'hoverCard',
-							attributes: expect.objectContaining({
-								previewDisplay: 'card',
-								previewInvokeMethod: 'mouse_hover',
-								status: 'resolved',
-							}),
-						}),
-					);
-				},
-				async () => {
-					const mock = jest.spyOn(analytics, 'uiHoverCardViewedEvent');
-					await setup();
-
-					// wait for card to be resolved
-					const hoverCard = await screen.findByTestId('hover-card');
-					within(hoverCard).getByTestId('smart-block-title-resolved-view');
-					expect(analytics.uiHoverCardViewedEvent).toHaveBeenCalledTimes(1);
-					expect(mock.mock.results[0].value).toEqual(
-						getEventPayload({
-							action: 'viewed',
-							actionSubject: 'hoverCard',
-							additionalAttributes: additionalPayloadAttributes,
-						}),
-					);
-				},
+			expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'dismissed',
+					actionSubject: 'hoverCard',
+					attributes: expect.objectContaining({
+						previewDisplay: 'card',
+						previewInvokeMethod: 'mouse_hover',
+						status: 'resolved',
+						hoverTime: 0,
+					}),
+				}),
 			);
 		});
 
-		describe('should fire closed event when hover card is opened then closed', () => {
-			ffTest(
-				'platform_migrate-some-ui-events-smart-card',
-				async () => {
-					const { element, event, mockAnalyticsClient } = await setup();
-					// wait for card to be resolved
-					const hoverCard = await screen.findByTestId('hover-card');
-					within(hoverCard).getByTestId('smart-block-title-resolved-view');
-					await event.unhover(element);
-					act(() => {
-						jest.runAllTimers();
-					});
-					expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'dismissed',
-							actionSubject: 'hoverCard',
-							attributes: expect.objectContaining({
-								previewDisplay: 'card',
-								previewInvokeMethod: 'mouse_hover',
-								status: 'resolved',
-								hoverTime: 0,
-							}),
-						}),
-					);
-				},
-				async () => {
-					const mock = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
-
-					const { element, event } = await setup();
-					// wait for card to be resolved
-					const hoverCard = await screen.findByTestId('hover-card');
-					within(hoverCard).getByTestId('smart-block-title-resolved-view');
-					await event.unhover(element);
-					act(() => {
-						jest.runAllTimers();
-					});
-					expect(screen.queryByTestId('hover-card')).not.toBeInTheDocument();
-
-					expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledTimes(1);
-					expect(mock.mock.results[0].value).toEqual(
-						getEventPayload({
-							action: 'dismissed',
-							actionSubject: 'hoverCard',
-							additionalAttributes: {
-								...additionalPayloadAttributes,
-								hoverTime: 0,
-							},
-						}),
-					);
-				},
+		it('should fire clicked event when title is clicked', async () => {
+			const { analyticsSpy, event, mockAnalyticsClient } = await setup();
+			const contextAttributes = getHoverCardContextResolvedAttributes(
+				isAnalyticsContextResolvedOnHover,
+				display,
 			);
-		});
+			act(() => {
+				jest.runAllTimers();
+			});
 
-		describe('should fire clicked event when title is clicked', () => {
-			ffTest(
-				'platform_migrate-some-ui-events-smart-card',
-				async () => {
-					const { analyticsSpy, event, mockAnalyticsClient } = await setup();
-					const contextAttributes = getHoverCardContextResolvedAttributes(
-						isAnalyticsContextResolvedOnHover,
-						display,
-					);
-					act(() => {
-						jest.runAllTimers();
-					});
+			const hoverCard = await screen.findByTestId('hover-card');
+			const link = within(hoverCard).getByTestId('smart-element-link');
 
-					const hoverCard = await screen.findByTestId('hover-card');
-					const link = within(hoverCard).getByTestId('smart-element-link');
+			await event.click(link);
 
-					await event.click(link);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'smartLink',
+					actionSubjectId: 'titleGoToLink',
+					attributes: expect.objectContaining({
+						definitionId: 'd1',
+						extensionKey: 'confluence-object-provider',
+						status: 'resolved',
+						isModifierKeyPressed: false,
+						display: 'hoverCardPreview',
+					}),
+				}),
+			);
 
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'clicked',
-							actionSubject: 'smartLink',
-							actionSubjectId: 'titleGoToLink',
-							attributes: expect.objectContaining({
-								definitionId: 'd1',
-								extensionKey: 'confluence-object-provider',
-								status: 'resolved',
-								isModifierKeyPressed: false,
-								display: 'hoverCardPreview',
-							}),
-						}),
-					);
-
-					expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
-						{
-							context: contextAttributes,
-							payload: {
-								action: 'clicked',
-								actionSubject: 'link',
-							},
-						},
-						analytics.ANALYTICS_CHANNEL,
-					);
-					expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
-						{
-							context: contextAttributes,
-							payload: {
-								action: 'clicked',
-								actionSubject: 'smartLink',
-							},
-						},
-						analytics.ANALYTICS_CHANNEL,
-					);
+			expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+				{
+					context: contextAttributes,
+					payload: {
+						action: 'clicked',
+						actionSubject: 'link',
+					},
 				},
-				async () => {
-					const spy = jest.spyOn(analytics, 'uiCardClickedEvent');
-					const { analyticsSpy, event } = await setup();
-					const contextAttributes = getHoverCardContextResolvedAttributes(
-						isAnalyticsContextResolvedOnHover,
-						display,
-					);
-					act(() => {
-						jest.runAllTimers();
-					});
-
-					const hoverCard = await screen.findByTestId('hover-card');
-					const link = within(hoverCard).getByTestId('smart-element-link');
-
-					await event.click(link);
-
-					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-					expect(spy.mock.results[0].value).toEqual(
-						getEventPayload({
-							action: 'clicked',
-							actionSubject: 'smartLink',
-							actionSubjectId: 'titleGoToLink',
-							additionalAttributes: {
-								status: 'resolved',
-								isModifierKeyPressed: false,
-								display: 'hoverCardPreview',
-							},
-						}),
-					);
-					expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
-						{
-							context: contextAttributes,
-							payload: {
-								action: 'clicked',
-								actionSubject: 'link',
-							},
-						},
-						analytics.ANALYTICS_CHANNEL,
-					);
-					expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
-						{
-							context: contextAttributes,
-							payload: {
-								action: 'clicked',
-								actionSubject: 'smartLink',
-							},
-						},
-						analytics.ANALYTICS_CHANNEL,
-					);
+				analytics.ANALYTICS_CHANNEL,
+			);
+			expect(analyticsSpy).toBeFiredWithAnalyticEventOnce(
+				{
+					context: contextAttributes,
+					payload: {
+						action: 'clicked',
+						actionSubject: 'smartLink',
+					},
 				},
+				analytics.ANALYTICS_CHANNEL,
 			);
 		});
 
@@ -382,9 +275,43 @@ export const analyticsTests = (
 		});
 
 		describe('should fire clicked event and close event when preview button is clicked', () => {
-			// TODO: uiActionClickedEvent ffTest
 			ffTest(
-				'platform_migrate-some-ui-events-smart-card',
+				'platform-smart-card-migrate-embed-modal-analytics',
+				async () => {
+					const { event, mockAnalyticsClient } = await setup({
+						mock: mockBaseResponseWithPreview,
+					});
+
+					await screen.findByTestId('smart-block-title-resolved-view');
+					const button = await screen.findByTestId('smart-action-preview-action');
+					await event.click(button);
+
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							action: 'clicked',
+							actionSubject: 'button',
+							actionSubjectId: 'invokePreviewScreen',
+							attributes: expect.objectContaining({
+								actionType: 'PreviewAction',
+								display: 'hoverCardPreview',
+								extensionKey: 'test-object-provider',
+							}),
+						}),
+					);
+					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+						expect.objectContaining({
+							action: 'dismissed',
+							actionSubject: 'hoverCard',
+							attributes: expect.objectContaining({
+								previewDisplay: 'card',
+								previewInvokeMethod: 'mouse_hover',
+								status: 'resolved',
+								extensionKey: 'test-object-provider',
+								hoverTime: 0,
+							}),
+						}),
+					);
+				},
 				async () => {
 					const clickSpy = jest.spyOn(analytics, 'uiActionClickedEvent');
 
@@ -421,45 +348,6 @@ export const analyticsTests = (
 								extensionKey: 'test-object-provider',
 								hoverTime: 0,
 							}),
-						}),
-					);
-				},
-				async () => {
-					const clickSpy = jest.spyOn(analytics, 'uiActionClickedEvent');
-					const closeSpy = jest.spyOn(analytics, 'uiHoverCardDismissedEvent');
-
-					const { event } = await setup({
-						mock: mockBaseResponseWithPreview,
-					});
-
-					await screen.findByTestId('smart-block-title-resolved-view');
-					const button = await screen.findByTestId('smart-action-preview-action');
-
-					await event.click(button);
-
-					expect(analytics.uiActionClickedEvent).toHaveBeenCalledTimes(1);
-					expect(clickSpy.mock.results[0].value).toEqual(
-						getEventPayload({
-							action: 'clicked',
-							actionSubject: 'button',
-							actionSubjectId: 'invokePreviewScreen',
-							additionalAttributes: {
-								actionType: 'PreviewAction',
-								display: 'hoverCardPreview',
-								extensionKey: 'test-object-provider',
-							},
-						}),
-					);
-					expect(analytics.uiHoverCardDismissedEvent).toHaveBeenCalledTimes(1);
-					expect(closeSpy.mock.results[0].value).toEqual(
-						getEventPayload({
-							action: 'dismissed',
-							actionSubject: 'hoverCard',
-							additionalAttributes: {
-								...additionalPayloadAttributes,
-								extensionKey: 'test-object-provider',
-								hoverTime: 0,
-							},
 						}),
 					);
 				},

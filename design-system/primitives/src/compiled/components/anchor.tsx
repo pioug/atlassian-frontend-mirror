@@ -49,7 +49,7 @@ type BaseAnchorProps = {
 	 * Override the default text to signify that a link opens in a new window.
 	 * This is appended to the `aria-label` attribute when the `target` prop is set to `_blank`.
 	 */
-	opensInNewWindowLabel?: string;
+	newWindowLabel?: string;
 	/**
 	 * Forwarded ref.
 	 */
@@ -105,7 +105,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		target,
 		testId,
 		xcss,
-		opensInNewWindowLabel = '(opens new window)',
+		newWindowLabel = '(opens new window)',
 		...htmlAttributes
 	}: AnchorProps<RouterLinkConfig>,
 	ref?: Ref<HTMLAnchorElement>,
@@ -174,7 +174,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 			onClick={onClick}
 			aria-label={
 				ariaLabel && target === '_blank' && !ariaLabelledBy
-					? `${ariaLabel} ${opensInNewWindowLabel}`
+					? `${ariaLabel} , ${newWindowLabel}`
 					: ariaLabel
 			}
 			aria-labelledby={
@@ -189,7 +189,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		>
 			{children}
 			{target === '_blank' && ((children && !ariaLabel && !ariaLabelledBy) || ariaLabelledBy) && (
-				<VisuallyHidden id={opensNewWindowLabelId}>{opensInNewWindowLabel}</VisuallyHidden>
+				<VisuallyHidden id={opensNewWindowLabelId}>{newWindowLabel}</VisuallyHidden>
 			)}
 		</Focusable>
 	);

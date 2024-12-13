@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.23
+
+### Patch Changes
+
+- [#177216](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177216)
+  [`92df986420bc1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92df986420bc1) -
+  updated insert block plugin to EES 003
+- Updated dependencies
+
 ## 2.4.22
 
 ### Patch Changes

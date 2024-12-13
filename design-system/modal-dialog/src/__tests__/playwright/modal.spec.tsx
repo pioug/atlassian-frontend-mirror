@@ -136,7 +136,7 @@ test.describe('Modal Dialog Scroll', () => {
 		await expect(body).toHaveAttribute('tabindex', '0');
 		await expect(body).toHaveAttribute('role', 'region');
 		const label = await body.getAttribute('aria-label');
-		await expect(label).not.toBeNull();
+		expect(label).not.toBeNull();
 	});
 });
 
@@ -268,5 +268,61 @@ test.describe('Modal over a popup', () => {
 
 		await page.keyboard.press('Escape');
 		await expect(open).toBeHidden();
+	});
+
+	test(`Aui dialog's inner elements should be available for focus interaction while opened from AK modal, FG on`, async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'modal-dialog', 'open-aui-from-popup-in-modal', {
+			featureFlag: 'platform_dst_allowlist-aui-dialog-for-ak-modal',
+		});
+		const atlaskitDialogTrigger = page.getByTestId('ak-modal-trigger');
+		await atlaskitDialogTrigger.focus();
+		await atlaskitDialogTrigger.click();
+		const atlaskitDialog = page.getByTestId('ak-modal');
+		const akPopupTrigger = page.getByTestId('popup-trigger');
+		const auiDialogTrigger = page.getByTestId('aui-trigger');
+
+		await expect(atlaskitDialog).toBeVisible();
+		await expect(akPopupTrigger).toBeFocused();
+
+		await akPopupTrigger.click();
+		await auiDialogTrigger.focus();
+		await auiDialogTrigger.click();
+
+		const auiInput = page.getByTestId('aui-input');
+		const auiSubmitButton = page.getByTestId('aui-submit-button');
+
+		await auiInput.click();
+		await expect(auiInput).toBeFocused();
+
+		await page.keyboard.press('Tab');
+		await expect(auiSubmitButton).toBeFocused();
+
+		await page.keyboard.press('Tab');
+		await expect(auiInput).toBeFocused();
+	});
+	test(`Aui dialog's inner elements should be available for focus interaction while opened from AK modal, FG off`, async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'modal-dialog', 'open-aui-from-popup-in-modal');
+		const atlaskitDialogTrigger = page.getByTestId('ak-modal-trigger');
+		await atlaskitDialogTrigger.focus();
+		await atlaskitDialogTrigger.click();
+		const atlaskitDialog = page.getByTestId('ak-modal');
+		const akPopupTrigger = page.getByTestId('popup-trigger');
+		const auiDialogTrigger = page.getByTestId('aui-trigger');
+
+		await expect(atlaskitDialog).toBeVisible();
+		await expect(akPopupTrigger).toBeFocused();
+
+		await akPopupTrigger.click();
+		await auiDialogTrigger.focus();
+		await auiDialogTrigger.click();
+
+		const auiInput = page.getByTestId('aui-input');
+
+		await auiInput.click();
+		await expect(auiInput).not.toBeFocused();
 	});
 });

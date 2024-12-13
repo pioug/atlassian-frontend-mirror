@@ -5,7 +5,6 @@ import Trigger from '../../components/Trigger';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
-import { toBeAccessible } from '@atlassian/a11y-jest-testing';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 jest.mock('@atlaskit/platform-feature-flags');
@@ -63,7 +62,6 @@ describe('ColorPicker', () => {
 		});
 
 		test('should capture and report a11y violations', async () => {
-			expect.extend({ toBeAccessible });
 			const { container, getByLabelText } = renderUI();
 
 			const colorButton = getByLabelText('Blue selected, Color picker');

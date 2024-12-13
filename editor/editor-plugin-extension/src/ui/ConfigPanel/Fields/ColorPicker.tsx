@@ -17,7 +17,6 @@ import {
 import { ColorPickerButton } from '@atlaskit/editor-common/ui-menu';
 import { Field } from '@atlaskit/form';
 import { Text } from '@atlaskit/primitives';
-import { headingSizes } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import FieldMessages from '../FieldMessages';
@@ -203,9 +202,7 @@ const colorPickerWrapperStyles = css({
 });
 
 const colorPickerLabelStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: `${headingSizes.h400.size}px`,
-	marginTop: 0,
+	font: token('font.body'),
 });
 
 interface Props {

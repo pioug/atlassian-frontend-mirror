@@ -75,10 +75,7 @@ test.describe('DatasourceTableView', () => {
 
 	test('toggles edit mode on string column', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
-		await withFeatureFlags(page, [
-			'enable_datasource_react_sweet_state',
-			'platform-datasources-enable-two-way-sync',
-		]);
+		await withFeatureFlags(page, ['enable_datasource_react_sweet_state']);
 
 		await expect(page.getByTestId('inline-edit-text')).toBeHidden();
 		await page.getByText('FIRST! This level contains five Dragon coins').click();
@@ -88,10 +85,7 @@ test.describe('DatasourceTableView', () => {
 	// eslint-disable-next-line playwright/no-skipped-test
 	test.skip('shows flag after edit fail', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
-		await withFeatureFlags(page, [
-			'enable_datasource_react_sweet_state',
-			'platform-datasources-enable-two-way-sync',
-		]);
+		await withFeatureFlags(page, ['enable_datasource_react_sweet_state']);
 
 		await page.getByText('FIRST! This level contains five Dragon coins').click();
 		await page.getByTestId('inline-edit-text').fill('new value');
@@ -102,10 +96,7 @@ test.describe('DatasourceTableView', () => {
 
 	test('Load actions and permissions when scrolling new pages into view', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
-		await withFeatureFlags(page, [
-			'enable_datasource_react_sweet_state',
-			'platform-datasources-enable-two-way-sync',
-		]);
+		await withFeatureFlags(page, ['enable_datasource_react_sweet_state']);
 
 		await page.getByText('FIRST! This level contains five Dragon coins').click();
 		await expect(page.getByTestId('inline-edit-text')).toBeVisible();
@@ -129,7 +120,6 @@ test.describe('DatasourceTableView', () => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
 		await withFeatureFlags(page, [
 			'enable_datasource_react_sweet_state',
-			'platform-datasources-enable-two-way-sync',
 			'platform-datasources-enable-two-way-sync-statuses',
 			'enable_datasource_supporting_actions',
 		]);
@@ -148,7 +138,6 @@ test.describe('DatasourceTableView', () => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
 		await withFeatureFlags(page, [
 			'enable_datasource_react_sweet_state',
-			'platform-datasources-enable-two-way-sync',
 			'platform-datasources-enable-two-way-sync-priority',
 			'enable_datasource_supporting_actions',
 		]);
@@ -174,7 +163,6 @@ test.describe('DatasourceTableView', () => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
 		await withFeatureFlags(page, [
 			'enable_datasource_react_sweet_state',
-			'platform-datasources-enable-two-way-sync',
 			'platform-datasources-enable-two-way-sync-statuses',
 			'enable_datasource_supporting_actions',
 		]);
@@ -192,7 +180,6 @@ test.describe('DatasourceTableView', () => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
 		await withFeatureFlags(page, [
 			'enable_datasource_react_sweet_state',
-			'platform-datasources-enable-two-way-sync',
 			'platform-datasources-enable-two-way-sync-assignee',
 			'enable_datasource_supporting_actions',
 		]);

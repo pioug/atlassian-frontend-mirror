@@ -1,14 +1,9 @@
 import React from 'react';
 
 import { Label } from '@atlaskit/form';
-import Select, { type LoadingIndicatorProps, type OptionType } from '@atlaskit/select';
-import Spinner from '@atlaskit/spinner';
+import Select, { type OptionType } from '@atlaskit/select';
 
 import { cities } from '../common/data';
-
-const LoadingIndicator = (props: LoadingIndicatorProps<OptionType>) => {
-	return <Spinner {...props} />;
-};
 
 const filterCities = (inputValue: string) =>
 	cities.filter((i) => i.label.toLowerCase().includes(inputValue.toLowerCase()));
@@ -29,7 +24,6 @@ export default () => {
 				cacheOptions
 				defaultOptions
 				loadOptions={promiseOptions}
-				components={{ LoadingIndicator }}
 			/>
 		</>
 	);

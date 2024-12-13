@@ -32,7 +32,6 @@ import {
 	type StylesConfig,
 	type StylesProps,
 } from './styles';
-import { defaultTheme, type ThemeConfig } from './theme';
 import {
 	type ActionMeta,
 	type FocusDirection,
@@ -444,13 +443,6 @@ export interface SelectProps<Option, IsMulti extends boolean, Group extends Grou
 	 * A basic example can be found at the bottom of the [Replacing builtins](/advanced#replacing-builtins) documentation.
 	 */
 	styles: StylesConfig<Option, IsMulti, Group>;
-	/**
-	 * Theme modifier method
-	 *
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-14529 Internal documentation for deprecation (no external access)}
-	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	theme?: ThemeConfig;
 	/**
 	 * Sets the tabIndex attribute on the input for focus. Since focus is already managed, the only acceptable value to be used is '-1' in rare cases when removing this field from the document tab order is required.
 	 *
@@ -1255,26 +1247,6 @@ export default class Select<
 	// ==============================
 	// Getters
 	// ==============================
-
-	getTheme() {
-		// Use the default theme if there are no customisations.
-		if (!this.props.theme) {
-			return defaultTheme;
-		}
-		// If the theme prop is a function, assume the function
-		// knows how to merge the passed-in default theme with
-		// its own modifications.
-		if (typeof this.props.theme === 'function') {
-			return this.props.theme(defaultTheme);
-		}
-		// Otherwise, if a plain theme object was passed in,
-		// overlay it with the default theme.
-		return {
-			...defaultTheme,
-			...this.props.theme,
-		};
-	}
-
 	getFocusedOptionId = (focusedOption: Option) => {
 		return getFocusedOptionId(this.state.focusableOptionsWithIds, focusedOption);
 	};
@@ -1309,7 +1281,6 @@ export default class Select<
 			selectOption,
 			selectProps: props,
 			setValue,
-			theme: this.getTheme(),
 		};
 	}
 
@@ -2070,7 +2041,6 @@ export default class Select<
 		const innerProps = {
 			onMouseDown: this.onClearIndicatorMouseDown,
 			onTouchEnd: this.onClearIndicatorTouchEnd,
-			'aria-hidden': 'true',
 		};
 		const isCompact = spacing === 'compact';
 
@@ -2106,20 +2076,7 @@ export default class Select<
 			/>
 		);
 	}
-	renderIndicatorSeparator() {
-		const { DropdownIndicator, IndicatorSeparator } = this.getComponents();
 
-		// separator doesn't make sense without the dropdown indicator
-		if (!DropdownIndicator || !IndicatorSeparator) {
-			return null;
-		}
-
-		const { commonProps } = this;
-		const { isDisabled } = this.props;
-		const { isFocused } = this.state;
-
-		return <IndicatorSeparator {...commonProps} isDisabled={isDisabled} isFocused={isFocused} />;
-	}
 	renderDropdownIndicator() {
 		const { DropdownIndicator } = this.getComponents();
 		if (!DropdownIndicator) {
@@ -2467,7 +2424,6 @@ export default class Select<
 					<IndicatorsContainer {...commonProps} isDisabled={isDisabled}>
 						{this.renderClearIndicator()}
 						{this.renderLoadingIndicator()}
-						{this.renderIndicatorSeparator()}
 						{this.renderDropdownIndicator()}
 					</IndicatorsContainer>
 				</Control>

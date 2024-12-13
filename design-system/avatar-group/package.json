@@ -46,7 +46,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "^13.4.0",
+		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/styled": "^11.0.0",
 		"@testing-library/react": "^12.1.5",

@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 13.3.4
+
+### Patch Changes
+
+- [#178771](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178771)
+  [`77f2655aef31d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77f2655aef31d) -
+  Fixing label text for compiled/anchor to be 1:1 with primitive as part of compiled migration
+
 ## 13.3.3
 
 ### Patch Changes

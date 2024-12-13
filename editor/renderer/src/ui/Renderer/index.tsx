@@ -46,7 +46,7 @@ import type { MediaSSR, RendererContext } from '../../';
 import { ReactSerializer, renderDocument } from '../../';
 import { TELEPOINTER_ID, rendererStyles } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
-import type { RendererAppearance, NodeComponentsProps } from './types';
+import type { RendererAppearance } from './types';
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 import type { AnalyticsEventPayload, FireAnalyticsCallback } from '../../analytics/events';
 import { PLATFORM, MODE } from '../../analytics/events';
@@ -68,7 +68,6 @@ import { useRendererContext, RendererContextProvider } from '../../renderer-cont
 import memoizeOne from 'memoize-one';
 import { ErrorBoundary } from './ErrorBoundary';
 import { EditorMediaClientProvider } from '../../react/utils/EditorMediaClientProvider';
-import { nodeToReact } from '../../react/nodes';
 import { countNodes } from './count-nodes';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
@@ -82,8 +81,6 @@ const setAsQueryContainerStyles = css({
 	containerType: 'inline-size',
 	contain: 'layout style inline-size',
 });
-
-export const defaultNodeComponents: NodeComponentsProps = nodeToReact;
 
 /**
  * Exported due to enzyme test reliance on this component.

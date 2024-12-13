@@ -11,13 +11,10 @@ import { RendererWithAnalytics as Renderer, AnnotationsWrapper } from '../src/';
 import { RendererActionsContext } from '../src/actions';
 import { AnnotationMarkStates, AnnotationTypes } from '@atlaskit/adf-schema';
 import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
-import {
-	ExampleSelectionInlineComponent,
-	ExampleViewInlineCommentComponent,
-	annotationsStore,
-	AnnotationsStoreProvider,
-	ExampleHoverInlineComponent,
-} from './helper/annotations';
+import { annotationsStore, AnnotationsStoreProvider } from './helper/annotations/store';
+import { ExampleSelectionInlineComponent } from './helper/annotations/selection';
+import { ExampleHoverInlineComponent } from './helper/annotations/hover';
+import { ExampleViewInlineCommentComponent } from './helper/annotations/view';
 import type { DocNode, AnnotationId } from '@atlaskit/adf-schema';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';

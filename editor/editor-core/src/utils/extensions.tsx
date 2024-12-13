@@ -71,6 +71,7 @@ export async function extensionProviderToQuickInsertProvider(
 						keywords: item.keywords,
 						featured: item.featured,
 						categories: item.categories,
+						isDisabledOffline: true,
 						action: (insert, state, source) => {
 							if (typeof item.node === 'function') {
 								resolveImport(item.node()).then((node) => {

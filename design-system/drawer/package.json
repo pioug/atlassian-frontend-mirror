@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/drawer",
-	"version": "9.2.6",
+	"version": "9.2.7",
 	"description": "A drawer is a panel that slides in from the left side of the screen.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.2.0",
-		"@atlaskit/blanket": "^13.3.0",
+		"@atlaskit/blanket": "^14.0.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/layering": "^1.0.0",

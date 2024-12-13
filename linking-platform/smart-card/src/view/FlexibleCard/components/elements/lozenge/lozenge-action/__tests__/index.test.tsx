@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-unnecessary-act */
 import React from 'react';
 
 import { act, fireEvent, render, screen, waitForElementToBeRemoved } from '@testing-library/react';
@@ -7,6 +8,7 @@ import { IntlProvider } from 'react-intl-next';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { flushPromises } from '@atlaskit/link-test-helpers';
 import { InvokeError, SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions';
+import { Text } from '@atlaskit/primitives';
 
 import extractLozengeActionItems from '../../../../../../../extractors/action/extract-lozenge-action-items';
 import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
@@ -19,26 +21,6 @@ import {
 import LozengeAction from '../index';
 import { LozengeActionErrorMessages } from '../lozenge-action-error/types';
 import { type LozengeActionProps } from '../types';
-
-const mockSmartLinkLozengeActionClickedEvent = jest.fn();
-const mockSmartLinkLozengeActionListItemClickedEvent = jest.fn();
-const mockSmartLinkLozengeOpenPreviewClickedEvent = jest.fn();
-
-jest.mock('../../../../../../../state/flexible-ui-context', () => ({
-	useFlexibleUiAnalyticsContext: () => ({
-		ui: {
-			smartLinkLozengeActionClickedEvent: mockSmartLinkLozengeActionClickedEvent,
-			smartLinkLozengeActionListItemClickedEvent: mockSmartLinkLozengeActionListItemClickedEvent,
-			smartLinkLozengeActionErrorOpenPreviewClickedEvent:
-				mockSmartLinkLozengeOpenPreviewClickedEvent,
-			renderSuccessEvent: jest.fn(),
-			modalClosedEvent: jest.fn(),
-		},
-		screen: {
-			modalViewedEvent: jest.fn(),
-		},
-	}),
-}));
 
 describe('LozengeAction', () => {
 	const testId = 'test-smart-element-lozenge-dropdown';
@@ -92,35 +74,7 @@ describe('LozengeAction', () => {
 		};
 	};
 
-	/**
-	 * EDM-11030 look at cleaning up if not used anymore
-	 */
 	const renderComponent = (
-		props?: Partial<LozengeActionProps>,
-		mockInvoke = jest.fn(),
-		mockResolve = jest.fn(),
-	) => {
-		jest.spyOn(useInvoke, 'default').mockReturnValue(mockInvoke);
-		jest.spyOn(useResolve, 'default').mockReturnValue(mockResolve);
-
-		const component = (
-			<IntlProvider locale="en">
-				<LozengeAction
-					action={props?.action || getAction()}
-					appearance={appearance}
-					testId={testId}
-					text={text}
-					{...props}
-				/>
-			</IntlProvider>
-		);
-
-		const result = render(component);
-
-		return { ...result, component };
-	};
-
-	const renderComponentFF = (
 		props?: Partial<LozengeActionProps>,
 		mockInvoke = jest.fn(),
 		mockResolve = jest.fn(),
@@ -163,9 +117,9 @@ describe('LozengeAction', () => {
 
 	it('renders element with non-string content', async () => {
 		const node = (
-			<span>
+			<Text as="span">
 				{text} <img src="random-image" />
-			</span>
+			</Text>
 		);
 
 		renderComponent({ text: node });
@@ -205,8 +159,8 @@ describe('LozengeAction', () => {
 		renderComponent({ action: getAction() }, mockInvoke);
 
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		expect(mockInvoke).toHaveBeenCalledTimes(1);
 		expect(mockInvoke).toHaveBeenNthCalledWith(1, getAction().read, extractLozengeActionItems);
@@ -218,8 +172,8 @@ describe('LozengeAction', () => {
 		renderComponent({ action: getAction() }, mockInvoke);
 
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		const item1 = await screen.findByTestId(`${testId}-item-0`);
 		expect(item1).toBeTruthy();
@@ -236,8 +190,8 @@ describe('LozengeAction', () => {
 		renderComponent({ action: getAction() }, mockInvoke);
 
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		const item1 = await screen.findByTestId(`${testId}-item-0`);
 		expect(item1).toBeTruthy();
@@ -258,8 +212,8 @@ describe('LozengeAction', () => {
 		renderComponent({ action: getAction(), text: node }, mockInvoke);
 
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		const item1 = await screen.findByTestId(`${testId}-item-0`);
 		expect(item1).toBeTruthy();
@@ -278,16 +232,16 @@ describe('LozengeAction', () => {
 		const element = await screen.findByTestId(triggerTestId);
 
 		// First open (load)
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		await screen.findByTestId(`${testId}-item-0`);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		// Second open
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		await screen.findByTestId(`${testId}-item-0`);
 
@@ -300,8 +254,8 @@ describe('LozengeAction', () => {
 		renderComponent({ action: getAction() }, mockInvoke);
 
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 
 		// making sure error message is correct
@@ -318,8 +272,8 @@ describe('LozengeAction', () => {
 		renderComponent({ action: getAction() }, mockInvoke);
 
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 
 		// making sure error message is correct
@@ -352,18 +306,18 @@ describe('LozengeAction', () => {
 		renderComponent({ action: getAction() }, mockInvoke);
 
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		await screen.findByTestId(`${testId}-error`);
 
 		// Close dropdown
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		// Open dropdownagain
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		const item = await screen.findByTestId(`${testId}-item-0`);
 
@@ -382,12 +336,12 @@ describe('LozengeAction', () => {
 		renderComponent({ action: getAction() }, mockInvoke);
 
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		const item = await screen.findByTestId(`${testId}-item-0`);
-		act(() => {
-			fireEvent.click(item);
+		await act(async () => {
+			await userEvent.click(item);
 		});
 		expect(mockInvoke).toHaveBeenNthCalledWith(2, {
 			action: expect.objectContaining({
@@ -425,12 +379,12 @@ describe('LozengeAction', () => {
 		const itemTestId = `${testId}-item-0`;
 		let element = await screen.findByTestId(triggerTestId);
 
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		const item = await screen.findByTestId(itemTestId);
 		await act(async () => {
-			fireEvent.click(item);
+			await userEvent.click(item);
 		});
 		element = await screen.findByTestId(triggerTestId);
 
@@ -450,13 +404,13 @@ describe('LozengeAction', () => {
 
 		const itemTestId = `${testId}-item-0`;
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 
 		const item = await screen.findByTestId(itemTestId);
-		act(() => {
-			fireEvent.click(item);
+		await act(async () => {
+			await userEvent.click(item);
 		});
 
 		// making sure the dropdown is not visible
@@ -480,12 +434,12 @@ describe('LozengeAction', () => {
 		renderComponent({ action: getAction() }, mockInvoke);
 
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		const item = await screen.findByTestId(`${testId}-item-0`);
-		act(() => {
-			fireEvent.click(item);
+		await act(async () => {
+			await userEvent.click(item);
 		});
 
 		// making sure error message is correct
@@ -507,12 +461,12 @@ describe('LozengeAction', () => {
 		renderComponent({ action: getAction() }, mockInvoke);
 
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		const item = await screen.findByTestId(`${testId}-item-0`);
-		act(() => {
-			fireEvent.click(item);
+		await act(async () => {
+			await userEvent.click(item);
 		});
 
 		// making sure error message is correct
@@ -542,12 +496,12 @@ describe('LozengeAction', () => {
 			);
 
 			const element = await screen.findByTestId(triggerTestId);
-			act(() => {
-				fireEvent.click(element);
+			await act(async () => {
+				await userEvent.click(element);
 			});
 			const item = await screen.findByTestId(`${testId}-item-0`);
-			act(() => {
-				fireEvent.click(item);
+			await act(async () => {
+				await userEvent.click(item);
 			});
 
 			// making sure error link is present
@@ -567,12 +521,12 @@ describe('LozengeAction', () => {
 			renderComponent({ action: getAction() }, mockInvoke);
 
 			const element = await screen.findByTestId(triggerTestId);
-			act(() => {
-				fireEvent.click(element);
+			await act(async () => {
+				await userEvent.click(element);
 			});
 			const item = await screen.findByTestId(`${testId}-item-0`);
-			act(() => {
-				fireEvent.click(item);
+			await act(async () => {
+				await userEvent.click(item);
 			});
 
 			// making sure error link is not present
@@ -600,12 +554,12 @@ describe('LozengeAction', () => {
 			);
 
 			const element = await screen.findByTestId(triggerTestId);
-			act(() => {
-				fireEvent.click(element);
+			await act(async () => {
+				await userEvent.click(element);
 			});
 			const item = await screen.findByTestId(`${testId}-item-0`);
-			act(() => {
-				fireEvent.click(item);
+			await act(async () => {
+				await userEvent.click(item);
 			});
 
 			// making sure error link is present
@@ -642,12 +596,12 @@ describe('LozengeAction', () => {
 			);
 
 			const element = await screen.findByTestId(triggerTestId);
-			act(() => {
-				fireEvent.click(element);
+			await act(async () => {
+				await userEvent.click(element);
 			});
 			const item = await screen.findByTestId(`${testId}-item-0`);
-			act(() => {
-				fireEvent.click(item);
+			await act(async () => {
+				await userEvent.click(item);
 			});
 
 			// making sure error link is present
@@ -683,13 +637,13 @@ describe('LozengeAction', () => {
 		renderComponent({ action: getAction() }, mockInvoke, mockResolve);
 
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 
 		const item = await screen.findByTestId(`${testId}-item-0`);
-		act(() => {
-			fireEvent.click(item);
+		await act(async () => {
+			await userEvent.click(item);
 		});
 
 		const error = await screen.findByTestId(`${testId}-error`);
@@ -710,21 +664,21 @@ describe('LozengeAction', () => {
 		renderComponent({ action: getAction() }, mockInvoke);
 
 		const element = await screen.findByTestId(triggerTestId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		const item = await screen.findByTestId(`${testId}-item-0`);
-		act(() => {
-			fireEvent.click(item);
+		await act(async () => {
+			await userEvent.click(item);
 		});
 		await screen.findByTestId(`${testId}-error`);
 		// Close dropdown
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 		// Open dropdown again
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 
 		expect(await screen.findByTestId(`${testId}-item-0`)).toBeInTheDocument();
@@ -735,10 +689,18 @@ describe('LozengeAction', () => {
 			renderComponent({ action: getAction() });
 
 			const element = await screen.findByTestId(triggerTestId);
-			act(() => {
-				fireEvent.click(element);
+			expect(true).toBe(true);
+			await act(async () => {
+				await userEvent.click(element);
 			});
-			expect(mockSmartLinkLozengeActionClickedEvent).toHaveBeenCalledTimes(1);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'button',
+					action: 'clicked',
+					actionSubjectId: 'smartLinkStatusLozenge',
+					attributes: expect.objectContaining({}),
+				}),
+			);
 		});
 
 		it('fires button clicked event with smartLinkStatusListItem subject id when an item is clicked', async () => {
@@ -749,14 +711,21 @@ describe('LozengeAction', () => {
 			renderComponent({ action: getAction() }, mockInvoke);
 
 			const element = await screen.findByTestId(triggerTestId);
-			act(() => {
-				fireEvent.click(element);
+			await act(async () => {
+				await userEvent.click(element);
 			});
 			const item = await screen.findByTestId(`${testId}-item-0`);
-			act(() => {
-				fireEvent.click(item);
+			await act(async () => {
+				await userEvent.click(item);
 			});
-			expect(mockSmartLinkLozengeActionListItemClickedEvent).toHaveBeenCalledTimes(1);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'button',
+					action: 'clicked',
+					actionSubjectId: 'smartLinkStatusListItem',
+					attributes: expect.objectContaining({}),
+				}),
+			);
 		});
 
 		it('fires button clicked event with smartLinkStatusOpenPreview subject id when an embed preview is open', async () => {
@@ -779,12 +748,12 @@ describe('LozengeAction', () => {
 			);
 
 			const element = await screen.findByTestId(triggerTestId);
-			act(() => {
-				fireEvent.click(element);
+			await act(async () => {
+				await userEvent.click(element);
 			});
 			const item = await screen.findByTestId(`${testId}-item-0`);
-			act(() => {
-				fireEvent.click(item);
+			await act(async () => {
+				await userEvent.click(item);
 			});
 
 			// making sure error link is present
@@ -793,12 +762,18 @@ describe('LozengeAction', () => {
 
 			// making sure the preview opens on click
 			link.click();
-
-			expect(mockSmartLinkLozengeOpenPreviewClickedEvent).toHaveBeenCalledTimes(1);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'button',
+					action: 'clicked',
+					actionSubjectId: 'smartLinkStatusOpenPreview',
+					attributes: expect.objectContaining({}),
+				}),
+			);
 		});
 
 		it('fires smartLinkQuickAction started event when action is initiated', async () => {
-			renderComponentFF({ action: getAction() });
+			renderComponent({ action: getAction() });
 			const element = await screen.findByTestId(triggerTestId);
 			await userEvent.click(element);
 
@@ -822,7 +797,7 @@ describe('LozengeAction', () => {
 				])
 				.mockResolvedValueOnce(undefined);
 
-			renderComponentFF({ action: getAction() }, mockInvoke);
+			renderComponent({ action: getAction() }, mockInvoke);
 
 			const element = await screen.findByTestId(triggerTestId);
 			await userEvent.click(element);
@@ -854,7 +829,7 @@ describe('LozengeAction', () => {
 				throw new Error();
 			});
 
-			renderComponentFF({ action: getAction({ url, id }) }, mockInvoke);
+			renderComponent({ action: getAction({ url, id }) }, mockInvoke);
 			const element = await screen.findByTestId(triggerTestId);
 			await userEvent.click(element);
 
@@ -884,11 +859,11 @@ describe('LozengeAction', () => {
 				.fn()
 				.mockResolvedValueOnce([{ id: '1', text: 'In Progress', appearance: 'inprogress' }]);
 
-			renderComponentFF({ action: getAction({ url, id }) }, mockInvoke);
+			renderComponent({ action: getAction({ url, id }) }, mockInvoke);
 
 			const element = await screen.findByTestId(triggerTestId);
-			act(() => {
-				fireEvent.click(element);
+			await act(async () => {
+				await userEvent.click(element);
 			});
 
 			await flushPromises();
@@ -913,15 +888,15 @@ describe('LozengeAction', () => {
 					throw new Error();
 				});
 
-			renderComponentFF({ action: getAction({ url, id }) }, mockInvoke);
+			renderComponent({ action: getAction({ url, id }) }, mockInvoke);
 
 			const element = await screen.findByTestId(triggerTestId);
-			act(() => {
-				fireEvent.click(element);
+			await act(async () => {
+				await userEvent.click(element);
 			});
 			const item = await screen.findByTestId(`${testId}-item-0`);
-			act(() => {
-				fireEvent.click(item);
+			await act(async () => {
+				await userEvent.click(item);
 			});
 
 			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
@@ -944,15 +919,15 @@ describe('LozengeAction', () => {
 					throw new InvokeError('Field labels is required', 400);
 				});
 
-			renderComponentFF({ action: getAction({ url, id }) }, mockInvoke);
+			renderComponent({ action: getAction({ url, id }) }, mockInvoke);
 
 			const element = await screen.findByTestId(triggerTestId);
-			act(() => {
-				fireEvent.click(element);
+			await act(async () => {
+				await userEvent.click(element);
 			});
 			const item = await screen.findByTestId(`${testId}-item-0`);
-			act(() => {
-				fireEvent.click(item);
+			await act(async () => {
+				await userEvent.click(item);
 			});
 
 			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(

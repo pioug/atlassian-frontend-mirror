@@ -47,7 +47,7 @@ import {
 	TableHeading,
 	withTablePluginHeaderPrefix,
 } from './styled';
-import { ReadOnlyCell, TableCellContent } from './table-cell-content';
+import { TableCellContent } from './table-cell-content';
 import { TruncateTextTag } from './truncate-text-tag';
 import {
 	type DatasourceTypeWithOnlyValues,
@@ -467,12 +467,10 @@ export const IssueLikeDataTableView = ({
 		() => ({
 			key: 'loading',
 			cells: headerColumns.map<RowCellType>((column) => ({
-				content: fg('platform-datasources-enable-two-way-sync') ? (
+				content: (
 					<Box paddingInline="space.100">
 						<Skeleton borderRadius={8} width="100%" height={14} testId="issues-table-row-loading" />
 					</Box>
-				) : (
-					<Skeleton borderRadius={8} width="100%" height={14} testId="issues-table-row-loading" />
 				),
 				key: column.key,
 			})),
@@ -578,21 +576,12 @@ export const IssueLikeDataTableView = ({
 									key,
 									columnKey: key,
 									// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-									content: fg('platform-datasources-enable-two-way-sync') ? (
+									content: (
 										<TableCellContent
 											id={id}
 											columnKey={key}
 											columnType={type}
 											columnTitle={title}
-											wrappedColumnKeys={wrappedColumnKeys}
-											renderItem={renderItem}
-										/>
-									) : (
-										<ReadOnlyCell
-											id={id}
-											columnKey={key}
-											columnTitle={title}
-											columnType={type}
 											wrappedColumnKeys={wrappedColumnKeys}
 											renderItem={renderItem}
 										/>
@@ -835,21 +824,18 @@ export const IssueLikeDataTableView = ({
 								});
 								// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 								if (fg('enable_datasource_react_sweet_state')) {
-									// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-									if (fg('platform-datasources-enable-two-way-sync')) {
-										return (
-											<InlineEditableTableCell
-												key={cellKey}
-												data-testid={testId && `${testId}--cell-${cellIndex}`}
-												colSpan={isEditable && isLastCell ? 2 : undefined}
-												// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-												style={loadingRowStyle}
-												css={[wrappedColumnKeys?.includes(cellKey) ? null : truncateStyles]}
-											>
-												{content}
-											</InlineEditableTableCell>
-										);
-									}
+									return (
+										<InlineEditableTableCell
+											key={cellKey}
+											data-testid={testId && `${testId}--cell-${cellIndex}`}
+											colSpan={isEditable && isLastCell ? 2 : undefined}
+											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+											style={loadingRowStyle}
+											css={[wrappedColumnKeys?.includes(cellKey) ? null : truncateStyles]}
+										>
+											{content}
+										</InlineEditableTableCell>
+									);
 								}
 
 								// extra padding is required around skeleton loader to avoid vertical jumps when data loads
@@ -880,11 +866,7 @@ export const IssueLikeDataTableView = ({
 		</div>
 	);
 
-	return fg('platform-datasources-enable-two-way-sync') ? (
-		<FlagsProvider>{view}</FlagsProvider>
-	) : (
-		view
-	);
+	return <FlagsProvider>{view}</FlagsProvider>;
 };
 
 export const EmptyState = TableEmptyState;

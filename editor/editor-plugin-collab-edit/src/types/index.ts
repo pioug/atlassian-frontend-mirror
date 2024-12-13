@@ -7,13 +7,6 @@ import type {
 import { type Step } from '@atlaskit/editor-prosemirror/dist/types/transform';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
-export type {
-	InviteToEditComponentProps,
-	InviteToEditButtonProps,
-	CollabInviteToEditProps,
-	CollabAnalyticsProps,
-} from '@atlaskit/editor-common/collab';
-
 export type PrivateCollabEditOptions = CollabEditOptions & {
 	sanitizePrivateContent?: boolean;
 	onSyncUpError?: SyncUpErrorFunction;

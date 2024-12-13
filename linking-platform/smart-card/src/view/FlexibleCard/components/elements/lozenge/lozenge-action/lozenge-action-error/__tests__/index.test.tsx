@@ -3,6 +3,7 @@ import React from 'react';
 import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
+import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ActionName } from '../../../../../../../../index';
@@ -11,28 +12,18 @@ import * as useResolve from '../../../../../../../../state/hooks/use-resolve';
 import LozengeActionError from '../index';
 import { LozengeActionErrorMessages, type LozengeActionErrorProps } from '../types';
 
-const mockSmartLinkLozengeOpenPreviewClickedEvent = jest.fn();
-
-jest.mock('../../../../../../../../state/flexible-ui-context', () => ({
-	useFlexibleUiAnalyticsContext: () => ({
-		ui: {
-			smartLinkLozengeActionErrorOpenPreviewClickedEvent:
-				mockSmartLinkLozengeOpenPreviewClickedEvent,
-			modalClosedEvent: jest.fn(),
-			renderSuccessEvent: jest.fn(),
-		},
-		screen: {
-			modalViewedEvent: jest.fn(),
-		},
-	}),
-}));
-
 describe('LozengeActionError', () => {
 	const testId = 'test-smart-element-lozenge-dropdown';
 	const TEXT_ERROR_MESSAGE = 'Field "root cause" must be filled out before status change';
 	const MESSAGE_PROP_ERROR_MESSAGE = LozengeActionErrorMessages.noData;
 	const MAX_LINE_NUMBER = 20;
 	const url = 'https://linchen.jira-dev.com/browse/AT-1';
+	const mockAnalyticsClient = {
+		sendUIEvent: jest.fn().mockResolvedValue(undefined),
+		sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+		sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+		sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+	} satisfies AnalyticsWebClient;
 
 	const previewData = {
 		isSupportTheming: true,
@@ -49,9 +40,11 @@ describe('LozengeActionError', () => {
 		jest.spyOn(useResolve, 'default').mockReturnValue(mockResolve);
 
 		return render(
-			<IntlProvider locale="en">
-				<LozengeActionError testId={testId} {...props} />,
-			</IntlProvider>,
+			<FabricAnalyticsListeners client={mockAnalyticsClient}>
+				<IntlProvider locale="en">
+					<LozengeActionError testId={testId} {...props} />,
+				</IntlProvider>
+			</FabricAnalyticsListeners>,
 		);
 	};
 
@@ -229,8 +222,14 @@ describe('LozengeActionError', () => {
 			const closeButton = await screen.findByTestId('smart-embed-preview-modal-close-button');
 			expect(closeButton).toBeDefined();
 			closeButton.click();
-
-			expect(mockSmartLinkLozengeOpenPreviewClickedEvent).toHaveBeenCalledTimes(1);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'button',
+					action: 'clicked',
+					actionSubjectId: 'smartLinkStatusOpenPreview',
+					attributes: expect.objectContaining({}),
+				}),
+			);
 		});
 	});
 });

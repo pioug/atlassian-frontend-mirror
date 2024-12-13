@@ -4,21 +4,23 @@
  */
 import { useCallback, useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import Blanket from '@atlaskit/blanket';
 import Button from '@atlaskit/button/new';
-import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const eventResultStyles = xcss({
-	padding: 'space.100',
-	borderColor: 'color.border',
-	borderStyle: 'dashed',
-	borderWidth: 'border.width',
-	borderRadius: 'border.radius.100',
-	color: 'color.text.subtlest',
+const eventResultStyles = cssMap({
+	root: {
+		padding: token('space.100'),
+		borderColor: token('color.border'),
+		borderStyle: 'dashed',
+		borderWidth: token('border.width'),
+		borderRadius: token('border.radius.100'),
+		color: token('color.text.subtlest'),
+	},
 });
 
 const BasicExample = () => {
@@ -66,7 +68,7 @@ const BasicExample = () => {
 				shouldAllowClickThrough={shouldAllowClickThrough}
 				testId="basic-blanket"
 			/>
-			<Box role="status" xcss={eventResultStyles}>
+			<Box role="status" xcss={eventResultStyles.root}>
 				Blanket isTinted:{String(isBlanketVisible)} shouldAllowClickThrough:
 				{String(shouldAllowClickThrough)}
 			</Box>

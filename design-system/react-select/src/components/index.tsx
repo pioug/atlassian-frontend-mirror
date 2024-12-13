@@ -15,14 +15,8 @@ import Group, { GroupHeading, type GroupHeadingProps, type GroupProps } from './
 import {
 	ClearIndicator,
 	type ClearIndicatorProps,
-	CrossIcon,
-	type CrossIconProps,
-	DownChevron,
-	type DownChevronProps,
 	DropdownIndicator,
 	type DropdownIndicatorProps,
-	IndicatorSeparator,
-	type IndicatorSeparatorProps,
 	LoadingIndicator,
 	type LoadingIndicatorProps,
 } from './indicators';
@@ -57,12 +51,9 @@ export interface SelectComponents<
 	ClearIndicator: ComponentType<ClearIndicatorProps<Option, IsMulti, Group>>;
 	Control: ComponentType<ControlProps<Option, IsMulti, Group>>;
 	DropdownIndicator: ComponentType<DropdownIndicatorProps<Option, IsMulti, Group>> | null;
-	DownChevron: ComponentType<DownChevronProps>;
-	CrossIcon: ComponentType<CrossIconProps>;
 	Group: ComponentType<GroupProps<Option, IsMulti, Group>>;
 	GroupHeading: ComponentType<GroupHeadingProps<Option, IsMulti, Group>>;
 	IndicatorsContainer: ComponentType<IndicatorsContainerProps<Option, IsMulti, Group>>;
-	IndicatorSeparator: ComponentType<IndicatorSeparatorProps<Option, IsMulti, Group>> | null;
 	Input: ComponentType<InputProps<Option, IsMulti, Group>>;
 	LoadingIndicator: ComponentType<LoadingIndicatorProps<Option, IsMulti, Group>>;
 	Menu: ComponentType<MenuProps<Option, IsMulti, Group>>;
@@ -91,12 +82,9 @@ export const components = {
 	ClearIndicator: ClearIndicator,
 	Control: Control,
 	DropdownIndicator: DropdownIndicator,
-	DownChevron: DownChevron,
-	CrossIcon: CrossIcon,
 	Group: Group,
 	GroupHeading: GroupHeading,
 	IndicatorsContainer: IndicatorsContainer,
-	IndicatorSeparator: IndicatorSeparator,
 	Input: Input,
 	LoadingIndicator: LoadingIndicator,
 	Menu: Menu,

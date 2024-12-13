@@ -1,6 +1,8 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Select from '@atlaskit/select';
 import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
+
 import selectEvent from 'react-select-event';
 import { type ConcurrentExperience, type UFOExperience, ufologger } from '@atlaskit/ufo';
 import { mount, shallow, type ReactWrapper } from 'enzyme';
@@ -348,7 +350,7 @@ describe('BaseUserPicker', () => {
 
 	it('should trigger props.onClear if onChange with clear action', async () => {
 		const onClear = jest.fn();
-		const { getByLabelText } = render(
+		render(
 			getBasePickerWithForm({
 				onClear,
 				defaultValue: {
@@ -358,10 +360,9 @@ describe('BaseUserPicker', () => {
 				},
 			}),
 		);
-
-		// use helper library to trigger clear event
-		await selectEvent.clearFirst(getByLabelText('Test'));
-
+		// clear button is available when hover or focus
+		await userEvent.hover(screen.getByRole('combobox'));
+		await userEvent.click(screen.getByRole('button', { name: /clear/i }));
 		expect(onClear).toHaveBeenCalled();
 	});
 

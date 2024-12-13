@@ -1,5 +1,22 @@
 # @atlaskit/datetime-picker
 
+## 15.10.4
+
+### Patch Changes
+
+- [#177875](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177875)
+  [`d0c3d27216b7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0c3d27216b7c) -
+  Clean up props for select new improvement on theme and customized components
+- Updated dependencies
+
+## 15.10.3
+
+### Patch Changes
+
+- [#177689](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177689)
+  [`e399f0a6a7c5b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e399f0a6a7c5b) -
+  Select: Update use of deprecated props
+
 ## 15.10.2
 
 ### Patch Changes

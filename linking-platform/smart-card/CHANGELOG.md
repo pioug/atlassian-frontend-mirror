@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 32.7.9
+
+### Patch Changes
+
+- [#171388](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/171388)
+  [`87d9dab6e4f6d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87d9dab6e4f6d) -
+  Add definitionId and resourceType to SmartLinkAnalyticsContext and migrate EmbedModal analytics
+
+## 32.7.8
+
+### Patch Changes
+
+- [#178101](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178101)
+  [`cdea830cdccf2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cdea830cdccf2) -
+  FF clean up platform_migrate-some-ui-events-smart-card
+
 ## 32.7.7
 
 ### Patch Changes

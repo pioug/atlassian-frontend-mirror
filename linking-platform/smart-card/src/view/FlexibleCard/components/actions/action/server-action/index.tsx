@@ -1,9 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
-import { useFlexibleUiAnalyticsContext } from '../../../../../../state/flexible-ui-context';
 import useInvoke from '../../../../../../state/hooks/use-invoke';
 import { getInvokeFailureReason } from '../../../../../../state/hooks/use-invoke/utils';
 import useResolve from '../../../../../../state/hooks/use-resolve';
@@ -19,8 +16,6 @@ const ServerAction = ({
 	...props
 }: ServerActionProps) => {
 	const [isLoading, setIsLoading] = useState<boolean>(false);
-
-	const analytics = useFlexibleUiAnalyticsContext();
 	const invoke = useInvoke();
 	const reload = useResolve();
 	const { fireEvent } = useAnalyticsEvents();
@@ -28,22 +23,15 @@ const ServerAction = ({
 	const handleClick = useCallback(async () => {
 		if (action) {
 			const smartLinkActionType = action.action?.actionType;
-
 			try {
 				setIsLoading(true);
-				if (fg('platform_migrate-some-ui-events-smart-card')) {
-					if (
-						smartLinkActionType === 'FollowEntityAction' ||
-						smartLinkActionType === 'UnfollowEntityAction'
-					) {
-						fireEvent('ui.button.clicked.smartLinkFollowButton', {});
-					} else {
-						fireEvent(`ui.button.clicked.${smartLinkActionType}`, {});
-					}
+				if (
+					smartLinkActionType === 'FollowEntityAction' ||
+					smartLinkActionType === 'UnfollowEntityAction'
+				) {
+					fireEvent('ui.button.clicked.smartLinkFollowButton', {});
 				} else {
-					analytics?.ui.smartLinkServerActionClickedEvent({
-						smartLinkActionType,
-					});
+					fireEvent(`ui.button.clicked.${smartLinkActionType}`, {});
 				}
 
 				fireEvent('track.smartLinkQuickAction.started', {
@@ -70,7 +58,7 @@ const ServerAction = ({
 				onErrorCallback?.();
 			}
 		}
-	}, [action, analytics?.ui, invoke, onClick, onErrorCallback, reload, fireEvent]);
+	}, [action, invoke, onClick, onErrorCallback, reload, fireEvent]);
 
 	return <Action {...props} isLoading={isLoading} onClick={handleClick} />;
 };

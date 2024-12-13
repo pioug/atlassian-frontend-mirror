@@ -4,22 +4,25 @@
  */
 import { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Blanket from '@atlaskit/blanket';
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { useCloseOnEscapePress } from '@atlaskit/layering';
-import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const blanketChildStyles = xcss({
-	width: '50%',
-	marginBlock: 'space.800',
-	marginInline: 'auto',
-	padding: 'space.500',
-	backgroundColor: 'elevation.surface',
+const blanketChildStyles = cssMap({
+	root: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		width: '50%' as any,
+		marginBlock: token('space.800'),
+		marginInline: 'auto',
+		padding: token('space.500'),
+		backgroundColor: token('elevation.surface'),
+	},
 });
 
 const BasicExample = () => {
@@ -56,7 +59,7 @@ const BasicExample = () => {
 				shouldAllowClickThrough={shouldAllowClickThrough}
 				testId="blanket-with-children"
 			>
-				<Stack space="space.200" xcss={blanketChildStyles} grow="hug">
+				<Stack space="space.200" xcss={blanketChildStyles.root} grow="hug">
 					<Stack>
 						<Heading size="xlarge">Blanket Heading</Heading>
 						<Lorem count={20} />

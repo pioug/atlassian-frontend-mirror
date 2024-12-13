@@ -16,12 +16,11 @@ import {
 	waitForMediaToBeLoaded,
 } from '@atlaskit/editor-test-helpers/page-objects/media';
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
-import { waitForFloatingControl } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
 	initFullPageEditorWithAdf,
 	snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
-import type { PuppeteerPage } from '@atlaskit/visual-regression/helper';
+import { type PuppeteerPage, waitForFloatingControl } from '@atlaskit/visual-regression/helper';
 
 /* eslint-disable import/no-extraneous-dependencies -- Removed from package.json to fix  circular depdencies */
 import type { EditorProps } from '../../../../types';

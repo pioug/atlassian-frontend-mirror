@@ -8,7 +8,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import { type EmojiPlugin, type EmojiPluginOptions } from '../types';
+import { type EmojiPlugin, type EmojiPluginOptions } from '../emojiPluginType';
 import Emoji from '../ui/Emoji';
 import { NdpEmoji } from '../ui/NdpEmoji';
 

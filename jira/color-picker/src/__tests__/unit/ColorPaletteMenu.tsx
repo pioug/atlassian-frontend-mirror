@@ -3,7 +3,6 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { ColorPaletteMenuWithoutAnalytics as ColorPaletteMenu } from '../..';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { toBeAccessible } from '@atlassian/a11y-jest-testing';
 
 jest.mock('@atlaskit/platform-feature-flags');
 const mockGetBooleanFG = fg as jest.MockedFunction<typeof fg>;
@@ -31,7 +30,6 @@ describe('ColorPaletteMenu', () => {
 		});
 
 		test('should capture and report a11y violations', async () => {
-			expect.extend({ toBeAccessible });
 			const { container } = renderUI();
 
 			await expect(container).toBeAccessible();

@@ -43,7 +43,7 @@ const barContent = (
 			<TextField isCompact placeholder="Filter" aria-label="Filter" />
 		</Box>
 		<Box xcss={styles.selectContainer}>
-			<Select spacing="compact" placeholder="Choose an option" aria-label="Choose an option" />
+			<Select spacing="compact" placeholder="Choose an option" label="Choose an option" />
 		</Box>
 	</Inline>
 );

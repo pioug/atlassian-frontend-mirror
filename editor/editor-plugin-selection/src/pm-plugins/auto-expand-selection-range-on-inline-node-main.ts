@@ -1,5 +1,5 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { autoExpandSelectionRangeOnInlineNodePluginKey } from './auto-expand-selection-range-on-inline-node-key';
@@ -30,8 +30,8 @@ export const createAutoExpandSelectionRangeOnInlineNodePlugin = () => {
 					const { dispatch, state } = view;
 					const { selection } = state;
 
-					// terminate early if current selection is on a node
-					if (selection instanceof NodeSelection) {
+					// terminate early if current selection is not a text selection -> e.g. table cell selection
+					if (!(selection instanceof TextSelection)) {
 						return;
 					}
 

@@ -1,5 +1,41 @@
 # @atlaskit/editor-plugins
 
+## 5.9.0
+
+### Minor Changes
+
+- [#178022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178022)
+  [`34c30d3598c59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/34c30d3598c59) -
+  [ED-25936] Editor Plugin to abort UFO TTVC on user interaction
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.36
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.8.35
+
+### Patch Changes
+
+- [#177206](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177206)
+  [`8584b1acd8d81`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8584b1acd8d81) -
+  updated indentation plugin to meet EES 003
+- Updated dependencies
+
+## 5.8.34
+
+### Patch Changes
+
+- [#177216](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177216)
+  [`92df986420bc1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92df986420bc1) -
+  updated insert block plugin to EES 003
+- Updated dependencies
+
 ## 5.8.33
 
 ### Patch Changes

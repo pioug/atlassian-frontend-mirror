@@ -1,8 +1,8 @@
-import { startMessage } from './actions/startMessage';
-import { stopMessage } from './actions/stopMessage';
+import { startMessage } from './editor-actions/startMessage';
+import { stopMessage } from './editor-actions/stopMessage';
 import type { EngagementPlatformPlugin } from './engagementPlatformPluginType';
-import { engagementPlatformPmPlugin } from './pmPlugins/engagementPlatformPmPlugin/engagementPlatformPmPlugin';
-import { engagementPlatformPmPluginKey } from './pmPlugins/engagementPlatformPmPlugin/engagementPlatformPmPluginKey';
+import { engagementPlatformPmPlugin } from './pm-plugins/engagementPlatformPmPlugin/engagementPlatformPmPlugin';
+import { engagementPlatformPmPluginKey } from './pm-plugins/engagementPlatformPmPlugin/engagementPlatformPmPluginKey';
 
 export const engagementPlatformPlugin: EngagementPlatformPlugin = ({ config, api }) => {
 	return {

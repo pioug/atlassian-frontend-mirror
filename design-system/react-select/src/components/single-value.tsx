@@ -37,7 +37,6 @@ export interface SingleValueProps<
 
 export const css = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	isDisabled,
-	theme: { spacing },
 }: SingleValueProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'singleValue',
 	gridArea: '1 / 1 / 2 / 3',

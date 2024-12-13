@@ -3,7 +3,7 @@ import type { ComponentType, PropsWithChildren, ReactNode } from 'react';
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
-import type { EngagementPlatformPmPluginState } from './pmPlugins/engagementPlatformPmPlugin/types';
+import type { EngagementPlatformPmPluginState } from './pm-plugins/engagementPlatformPmPlugin/types';
 
 export type EngagementPlatformPlugin = NextEditorPlugin<
 	'engagementPlatform',

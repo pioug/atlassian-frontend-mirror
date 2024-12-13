@@ -5,16 +5,13 @@ import {
 	getSelectorForTableCell,
 	tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
-import {
-	retryUntilStablePosition,
-	waitForFloatingControl,
-} from '@atlaskit/editor-test-helpers/page-objects/toolbar';
-import type { PuppeteerPage } from '@atlaskit/editor-test-helpers/page-objects/types';
+import { retryUntilStablePosition } from '@atlaskit/editor-test-helpers/page-objects/toolbar';
 import {
 	Appearance,
 	initEditorWithAdf,
 	snapshot,
 } from '@atlaskit/editor-test-helpers/vr-utils/base-utils';
+import { type PuppeteerPage, waitForFloatingControl } from '@atlaskit/visual-regression/helper';
 
 import type { EditorProps } from '../../../types';
 

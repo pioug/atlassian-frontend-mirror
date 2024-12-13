@@ -8,7 +8,7 @@ import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-cli
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 
-import { Renderer } from '../../ui';
+import Renderer from '../../ui/Renderer';
 import {
 	NotFoundClient,
 	ForbiddenClient,

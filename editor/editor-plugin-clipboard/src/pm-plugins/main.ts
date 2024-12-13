@@ -142,5 +142,3 @@ export const sendClipboardAnalytics = (
 };
 
 export const setLastEventType = (eventType: ClipboardEventType) => (lastEventType = eventType);
-
-export { getAnalyticsPayload };

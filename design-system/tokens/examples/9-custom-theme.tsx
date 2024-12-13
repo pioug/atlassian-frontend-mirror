@@ -225,7 +225,7 @@ export default () => {
 						<Inline space="space.100">
 							<p id="baseTheme">Base theme:</p>
 							<Select
-								aria-labelledby="baseTheme"
+								labelId="baseTheme"
 								value={
 									colorMode === 'light'
 										? { label: 'Light mode', value: 'light' }

@@ -72,7 +72,7 @@
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/textfield": "^6.7.0",
-		"@atlaskit/toggle": "^13.4.0",
+		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@compiled/react": "^0.18.1",

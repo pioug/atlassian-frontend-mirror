@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-unsupported-content
 
+## 1.9.8
+
+### Patch Changes
+
+- [#178297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178297)
+  [`a9d850d3addc7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a9d850d3addc7) -
+  NOISSUE: refactors unsupported content to meet folder standards
+
 ## 1.9.7
 
 ### Patch Changes

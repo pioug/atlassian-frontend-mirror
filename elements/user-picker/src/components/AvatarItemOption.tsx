@@ -45,8 +45,7 @@ const optionWrapper = css({
 });
 
 const getTextStyle = (isSecondary?: boolean) => {
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	const secondaryCssArgs = isSecondary ? { fontSize: '0.85em' } : {};
+	const secondaryCssArgs = isSecondary ? { font: token('font.body.small') } : {};
 
 	return css({
 		margin: 0,

@@ -17,7 +17,6 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 import {
 	type ClearIndicatorProps,
 	type ControlProps,
-	type IndicatorSeparatorProps,
 	type MenuProps,
 	type MultiValueRemoveProps,
 	type OptionType,
@@ -112,10 +111,6 @@ const Menu = ({ children, innerProps }: MenuProps<OptionType, boolean>) => (
 	<div {...innerProps}>{children}</div>
 );
 
-const IndicatorSeparator = (props: IndicatorSeparatorProps) => (
-	<components.IndicatorSeparator {...props} />
-);
-
 const ClearIndicator = (props: ClearIndicatorProps) => <components.ClearIndicator {...props} />;
 
 const MultiValueRemove = (props: MultiValueRemoveProps) => (
@@ -126,7 +121,6 @@ export const defaultComponents = {
 	Control,
 	DropdownIndicator,
 	Menu,
-	IndicatorSeparator,
 	ClearIndicator,
 	MultiValueRemove,
 };

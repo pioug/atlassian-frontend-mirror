@@ -20,8 +20,6 @@ import type { SmartLinksOptions } from '../types/smartLinksOptions';
 import type { DocNode } from '@atlaskit/adf-schema';
 import type { TextHighlighter } from '../react/types';
 
-export type { NodeComponentsProps } from './Renderer/types';
-
 interface RawObjectFeatureFlags {
 	['renderer-render-tracking']: string;
 }

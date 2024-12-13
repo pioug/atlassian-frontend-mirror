@@ -106,16 +106,12 @@ export const smartCardStyles = () => css`
 			.${DATASOURCE_INNER_CONTAINER_CLASSNAME} {
 				${getSelectionStyles([SelectionStyle.BoxShadow])}
 
-				${fg('platform-datasources-enable-two-way-sync')
-					? `
-					input::selection {
-						background-color: ${token('color.background.selected.hovered')};
-					}
-					input::-moz-selection {
-						background-color: ${token('color.background.selected.hovered')};
-					}
-				`
-					: ''}
+				input::selection {
+					background-color: ${token('color.background.selected.hovered')};
+				}
+				input::-moz-selection {
+					background-color: ${token('color.background.selected.hovered')};
+				}
 			}
 		}
 

@@ -8,7 +8,7 @@ import { jsx, css } from '@emotion/react';
 
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { RendererContext } from '../types';
-import type { Serializer } from '../..';
+import type { Serializer } from '../../serializer';
 import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';

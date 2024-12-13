@@ -5,7 +5,7 @@ import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-cli
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 
 import { adfMediaWrappedLeft } from '../__fixtures__/media-pixel-width';
-import { Renderer } from '../../ui';
+import Renderer from '../../ui/Renderer';
 
 const Media = ({ adf, appearance }: { adf: Record<string, unknown>; appearance: string }) => {
 	return (

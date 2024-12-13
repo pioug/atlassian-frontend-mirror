@@ -1,3 +1,5 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Mapping file
 import type React from 'react';
 import Loadable from 'react-loadable';
 import type { Fragment, Node, Mark } from '@atlaskit/editor-prosemirror/model';

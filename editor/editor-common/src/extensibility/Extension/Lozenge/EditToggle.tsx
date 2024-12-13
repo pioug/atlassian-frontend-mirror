@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import type { CSSProperties } from 'react';
+import type { CSSProperties, KeyboardEvent } from 'react';
 import { useCallback } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -39,6 +39,10 @@ const buttonStyles = css({
 	'&:hover': {
 		backgroundColor: token('color.background.neutral.subtle.hovered'),
 	},
+	outlineColor: token('color.border.focused'),
+	border: 'none',
+	backgroundColor: token('color.background.neutral.subtle'),
+	color: token('color.text.subtle'),
 });
 
 const showButtonContainerStyle = css({
@@ -93,6 +97,15 @@ export const EditToggle = ({
 		setShowBodiedExtensionRendererView?.(!showBodiedExtensionRendererView);
 	}, [showBodiedExtensionRendererView, setShowBodiedExtensionRendererView]);
 
+	const handleKeyDown = useCallback(
+		(event: KeyboardEvent) => {
+			if (event.key === 'Enter') {
+				handleClick();
+			}
+		},
+		[handleClick],
+	);
+
 	return (
 		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 		<div
@@ -108,21 +121,25 @@ export const EditToggle = ({
 			// eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
 			onMouseOver={() => setIsNodeHovered?.(true)}
 			onMouseLeave={() => setIsNodeHovered?.(false)}
+			tabIndex={-1}
 		>
-			{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
-			<span
+			<button
+				type="button"
 				data-testid="edit-toggle"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				css={buttonStyles}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className="extension-edit-toggle"
 				onClick={handleClick}
+				onKeyDown={handleKeyDown}
+				onFocus={() => setIsNodeHovered?.(true)}
+				onBlur={() => setIsNodeHovered?.(false)}
 			>
 				<Flex as="span" xcss={iconStyles}>
 					{icon}
 				</Flex>
 				{text}
-			</span>
+			</button>
 		</div>
 	);
 };

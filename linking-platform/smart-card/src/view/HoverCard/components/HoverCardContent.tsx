@@ -10,7 +10,6 @@ import { type JsonLd } from 'json-ld-types';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
@@ -62,18 +61,14 @@ const HoverCardContent = ({
 	const services = getServices(linkState.details);
 
 	const statusRef = useRef(linkStatus);
-	const analyticsRef = useRef(analytics);
 	const fireEventRef = useRef(fireEvent);
 	const definitionIdRef = useRef(definitionId);
 
 	useEffect(() => {
 		/**
-		 * Must access current analytics object value via ref because its not stable
+		 * Must access object value via ref because its not stable
 		 * and it can trigger useEffect to re-run below
 		 */
-		if (analyticsRef.current !== analytics) {
-			analyticsRef.current = analytics;
-		}
 		if (statusRef.current !== linkStatus) {
 			statusRef.current = linkStatus;
 		}
@@ -83,70 +78,43 @@ const HoverCardContent = ({
 		if (definitionIdRef.current !== definitionId) {
 			definitionIdRef.current = definitionId;
 		}
-	}, [analytics, linkStatus, fireEvent, definitionId]);
+	}, [linkStatus, fireEvent, definitionId]);
 
 	useEffect(() => {
 		const previewDisplay = 'card';
 		const previewInvokeMethod = 'mouse_hover';
 		const cardOpenTime = Date.now();
-
 		const fireEventCurrent = fireEventRef.current;
-		if (fg('platform_migrate-some-ui-events-smart-card')) {
-			fireEventCurrent('ui.hoverCard.viewed', {
-				previewDisplay,
-				previewInvokeMethod,
-				definitionId: definitionIdRef.current ?? null,
-			});
-		} else {
-			analyticsRef.current.ui.hoverCardViewedEvent({
-				previewDisplay,
-				previewInvokeMethod,
-				status: statusRef.current,
-			});
-		}
+
+		fireEventCurrent('ui.hoverCard.viewed', {
+			previewDisplay,
+			previewInvokeMethod,
+			definitionId: definitionIdRef.current ?? null,
+		});
 
 		return () => {
 			const hoverTime = Date.now() - cardOpenTime;
-			if (fg('platform_migrate-some-ui-events-smart-card')) {
-				fireEventCurrent('ui.hoverCard.dismissed', {
-					previewDisplay,
-					previewInvokeMethod,
-					hoverTime,
-					definitionId: definitionIdRef.current ?? null,
-				});
-			} else {
-				analyticsRef.current.ui.hoverCardDismissedEvent({
-					previewDisplay,
-					previewInvokeMethod,
-					hoverTime,
-					status: statusRef.current,
-				});
-			}
+			fireEventCurrent('ui.hoverCard.dismissed', {
+				previewDisplay,
+				previewInvokeMethod,
+				hoverTime,
+				definitionId: definitionIdRef.current ?? null,
+			});
 		};
 	}, []);
 
 	const onClick = useCallback(
 		(event: React.MouseEvent) => {
 			const isModifierKeyPressed = isSpecialEvent(event);
-			if (fg('platform_migrate-some-ui-events-smart-card')) {
-				fireEvent('ui.smartLink.clicked.titleGoToLink', {
-					id,
-					display: CardDisplay.HoverCardPreview,
-					isModifierKeyPressed,
-					definitionId: definitionId ?? null,
-				});
-			} else {
-				analytics.ui.cardClickedEvent({
-					id,
-					display: CardDisplay.HoverCardPreview,
-					status: cardState.status,
-					isModifierKeyPressed,
-					actionSubjectId: 'titleGoToLink',
-				});
-			}
+			fireEvent('ui.smartLink.clicked.titleGoToLink', {
+				id,
+				display: CardDisplay.HoverCardPreview,
+				isModifierKeyPressed,
+				definitionId: definitionId ?? null,
+			});
 			fireLinkClickedEvent(createAnalyticsEvent)(event);
 		},
-		[createAnalyticsEvent, cardState.status, analytics.ui, id, fireEvent, definitionId],
+		[createAnalyticsEvent, id, fireEvent, definitionId],
 	);
 
 	const data = cardState.details?.data as JsonLd.Data.BaseData;

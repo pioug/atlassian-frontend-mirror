@@ -3,8 +3,9 @@ import React, { useEffect } from 'react';
 import { type AnalyticsEventPayload } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button/standard-button';
 import IconError from '@atlaskit/icon/glyph/cross-circle';
+import { Text } from '@atlaskit/primitives';
 
-import { ErrorText, ErrorTitle, ErrorWrapper } from '../../styled/Error';
+import { ErrorTitle, ErrorWrapper } from '../../styled/Error';
 import { type ProfileCardErrorType } from '../../types';
 import { profileCardRendered } from '../../util/analytics';
 
@@ -40,7 +41,9 @@ const ErrorMessage = (props: Props) => {
 			<ErrorTitle>
 				Oops, looks like we’re having issues
 				<br />
-				{reload && <ErrorText>Try again and we’ll give it another shot</ErrorText>}
+				{reload && (
+					<Text color="color.text.subtlest">Try again and we’ll give it another shot</Text>
+				)}
 			</ErrorTitle>
 		);
 	};

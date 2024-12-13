@@ -2,7 +2,7 @@
 
 import { type JSONSchema4 } from '@typescript-eslint/utils/dist/json-schema';
 
-type Pattern = 'style-object' | 'font-weight' | 'font-family';
+type Pattern = 'style-object' | 'font-weight' | 'font-family' | 'banned-properties';
 
 export type RuleConfig = {
 	failSilently: boolean;
@@ -29,7 +29,7 @@ export const ruleSchema: JSONSchema4 = {
 				type: 'array',
 				items: {
 					type: 'string',
-					enum: ['style-object', 'font-weight', 'font-family'],
+					enum: ['style-object', 'font-weight', 'font-family', 'banned-properties'],
 				},
 			},
 		},

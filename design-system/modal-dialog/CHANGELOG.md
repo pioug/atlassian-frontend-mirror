@@ -1,5 +1,20 @@
 # @atlaskit/modal-dialog
 
+## 12.18.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 12.18.4
+
+### Patch Changes
+
+- [#175556](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175556)
+  [`1011dce3bcb2d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1011dce3bcb2d) -
+  [ux] This change allowlists the AUI dialog for @atlaskit/modal-dialog's focus management and is
+  implemented behind a feature flag. If successful, it will be available in later releases.
+
 ## 12.18.3
 
 ### Patch Changes

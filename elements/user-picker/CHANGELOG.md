@@ -1,5 +1,31 @@
 # @atlaskit/user-picker
 
+## 10.28.1
+
+### Patch Changes
+
+- [#178696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178696)
+  [`268232b3ae8c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/268232b3ae8c6) -
+  added rendering verified team icon to default-result-renderer if search result includes isVerified
+
+## 10.28.0
+
+### Minor Changes
+
+- [#178473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178473)
+  [`5aa723c66cf92`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5aa723c66cf92) -
+  [ux] Typography uplift, use Atlassian Design System font for secondary text in Avatar dropdown
+  options
+
+## 10.27.8
+
+### Patch Changes
+
+- [#177875](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177875)
+  [`d0c3d27216b7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0c3d27216b7c) -
+  Clean up props for select new improvement on theme and customized components
+- Updated dependencies
+
 ## 10.27.7
 
 ### Patch Changes

@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import Blanket from '@atlaskit/blanket';
 import Button from '@atlaskit/button/new';
 import { useCloseOnEscapePress } from '@atlaskit/layering';
-import { Stack, Text } from '@atlaskit/primitives';
+import { Stack, Text } from '@atlaskit/primitives/compiled';
 
 const BasicExample = () => {
 	const [isBlanketVisible, setIsBlanketVisible] = useState(false);

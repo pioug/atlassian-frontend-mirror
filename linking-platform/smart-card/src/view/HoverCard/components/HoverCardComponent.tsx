@@ -19,7 +19,7 @@ import CustomPopupContainer from '../components/CustomPopupContainer';
 import HoverCardContent from '../components/HoverCardContent';
 import { CARD_GAP_PX, HOVER_CARD_Z_INDEX } from '../styled';
 import { type HoverCardComponentProps, type HoverCardContentProps } from '../types';
-const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
+export const HOVER_CARD_SOURCE = 'smartLinkPreviewHoverCard';
 
 const FADE_IN_DELAY = 500;
 const FADE_OUT_DELAY = 300;

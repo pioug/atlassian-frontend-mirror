@@ -73,7 +73,7 @@
 		"@atlaskit/popup": "^1.30.0",
 		"@atlaskit/side-navigation": "^3.6.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "^13.4.0",
+		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/dom": "^10.1.0",

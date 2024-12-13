@@ -121,7 +121,9 @@ export const buildToolbar =
 				!isViewMode && editorExperiment('contextual_formatting_toolbar', true, { exposure: true })
 					? false
 					: true,
-			disabled: selectionValid === AnnotationSelectionType.DISABLED,
+			disabled:
+				selectionValid === AnnotationSelectionType.DISABLED ||
+				api?.connectivity?.sharedState?.currentState()?.mode === 'offline',
 			testId: AnnotationTestIds.floatingToolbarCreateButton,
 			icon: CommentIcon,
 			iconFallback: LegacyCommentIcon,

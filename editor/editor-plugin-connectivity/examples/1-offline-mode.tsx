@@ -5,12 +5,14 @@ import { IntlProvider } from 'react-intl-next';
 import Button from '@atlaskit/button/new';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
+import { EditorActions } from '@atlaskit/editor-core';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { hyperlinkPlugin } from '@atlaskit/editor-plugin-hyperlink';
 import { primaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolbar';
 import { typeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
+import { annotationPlugin } from '@atlaskit/editor-plugins/annotation';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';
 import { cardPlugin } from '@atlaskit/editor-plugins/card';
@@ -20,6 +22,7 @@ import { copyButtonPlugin } from '@atlaskit/editor-plugins/copy-button';
 import { decorationsPlugin } from '@atlaskit/editor-plugins/decorations';
 import { editorDisabledPlugin } from '@atlaskit/editor-plugins/editor-disabled';
 import { emojiPlugin } from '@atlaskit/editor-plugins/emoji';
+import { extensionPlugin } from '@atlaskit/editor-plugins/extension';
 import { floatingToolbarPlugin } from '@atlaskit/editor-plugins/floating-toolbar';
 import { focusPlugin } from '@atlaskit/editor-plugins/focus';
 import { gridPlugin } from '@atlaskit/editor-plugins/grid';
@@ -31,11 +34,17 @@ import { mediaPlugin } from '@atlaskit/editor-plugins/media';
 import { mentionsPlugin } from '@atlaskit/editor-plugins/mentions';
 import { quickInsertPlugin } from '@atlaskit/editor-plugins/quick-insert';
 import { selectionPlugin } from '@atlaskit/editor-plugins/selection';
+import { selectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolbar';
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
+import {
+	getExampleExtensionProviders,
+	ExampleCreateInlineCommentWithRepliesComponent,
+	ExampleViewInlineCommentWithRepliesComponent,
+} from '@atlaskit/editor-test-helpers/example-helpers';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -116,7 +125,21 @@ function Editor() {
 			.add([emojiPlugin, { emojiProvider: getEmojiResource() }])
 			.add([cardPlugin, { provider: Promise.resolve(cardProviderStaging) }])
 			.add(layoutPlugin)
+			.add([selectionToolbarPlugin, {}])
 			.add(tasksAndDecisionsPlugin)
+			.add([
+				annotationPlugin,
+				{
+					inlineComment: {
+						createComponent: ExampleCreateInlineCommentWithRepliesComponent,
+						viewComponent: ExampleViewInlineCommentWithRepliesComponent,
+						getState: async () => {
+							return [];
+						},
+						disallowOnWhitespace: true,
+					},
+				},
+			])
 			.add([
 				loomPlugin,
 				{
@@ -129,7 +152,8 @@ function Editor() {
 				},
 			])
 			.add(primaryToolbarPlugin)
-			.add(connectivityPlugin),
+			.add(connectivityPlugin)
+			.add(extensionPlugin),
 	);
 
 	return (
@@ -140,6 +164,9 @@ function Editor() {
 				appearance="full-page"
 				preset={preset}
 				mentionProvider={Promise.resolve(mentionResourceProvider)}
+				extensionProviders={(editorActions?: EditorActions) => [
+					getExampleExtensionProviders(editorApi, editorActions),
+				]}
 			/>
 		</Box>
 	);

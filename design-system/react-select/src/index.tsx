@@ -4,7 +4,6 @@ import useStateManager from './use-state-manager';
 
 export { default } from './state-manager';
 export { mergeStyles } from './styles';
-export { defaultTheme } from './theme';
 export { createFilter, type FilterOptionOption } from './filters';
 export { components } from './components';
 export type SelectInstance<
@@ -26,7 +25,6 @@ export type { GroupProps, GroupHeadingProps } from './components/group';
 export type {
 	ClearIndicatorProps,
 	DropdownIndicatorProps,
-	IndicatorSeparatorProps,
 	LoadingIndicatorProps,
 } from './components/indicators';
 export type { InputProps } from './components/input';
@@ -39,7 +37,6 @@ export type {
 export type { OptionProps } from './components/option';
 export type { PlaceholderProps } from './components/placeholder';
 export type { SingleValueProps } from './components/single-value';
-export type { ThemeConfig } from './theme';
 export type { ClassNamesConfig, StylesConfig } from './styles';
 export {
 	type GroupBase,

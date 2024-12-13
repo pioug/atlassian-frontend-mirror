@@ -11,13 +11,13 @@ import { LinkItem, MenuGroup } from '@atlaskit/menu';
 import { VerifiedTeamIcon } from '@atlaskit/people-teams-ui-public/verified-team-icon';
 import { fg } from '@atlaskit/platform-feature-flags';
 import Popup from '@atlaskit/popup';
-import { Inline } from '@atlaskit/primitives';
+import { Inline, Text } from '@atlaskit/primitives';
 import { layers } from '@atlaskit/theme/constants';
 import Tooltip from '@atlaskit/tooltip';
 
 import messages from '../../messages';
 import { AnimatedKudosButton, AnimationWrapper, KudosBlobAnimation } from '../../styled/Card';
-import { ErrorWrapper, TeamErrorText, TeamErrorTitle } from '../../styled/Error';
+import { ErrorWrapper, TeamErrorText } from '../../styled/Error';
 import {
 	ActionButtons,
 	AvatarSection,
@@ -395,9 +395,9 @@ const ErrorMessage = ({
 	return (
 		<ErrorWrapper data-testid="team-profilecard-error">
 			<ErrorIllustration />
-			<TeamErrorTitle>
+			<Text as="p" weight="semibold">
 				<FormattedMessage {...messages.teamErrorTitle} />
-			</TeamErrorTitle>
+			</Text>
 			<TeamErrorText>
 				<FormattedMessage {...messages.teamErrorText} />
 			</TeamErrorText>

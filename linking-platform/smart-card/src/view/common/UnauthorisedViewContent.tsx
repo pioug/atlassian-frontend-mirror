@@ -2,8 +2,6 @@ import React, { useCallback } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CONTENT_URL_3P_ACCOUNT_AUTH, CONTENT_URL_SECURITY_AND_PERMISSIONS } from '../../constants';
 import { messages } from '../../messages';
@@ -44,17 +42,12 @@ const UnauthorisedViewContent = ({
 	providerName,
 	isProductIntegrationSupported,
 	testId = 'unauthorised-view-content',
-	analytics,
 }: UnauthorisedViewContentProps) => {
 	const { fireEvent } = useAnalyticsEvents();
 
 	const handleLearnMoreClick = useCallback(() => {
-		if (fg('platform_migrate-some-ui-events-smart-card')) {
-			fireEvent('ui.button.clicked.learnMore', {});
-		} else {
-			analytics?.ui.learnMoreClickedEvent();
-		}
-	}, [analytics?.ui, fireEvent]);
+		fireEvent('ui.button.clicked.learnMore', {});
+	}, [fireEvent]);
 
 	const learnMoreMessage = isProductIntegrationSupported
 		? messages.learn_more_about_connecting_account

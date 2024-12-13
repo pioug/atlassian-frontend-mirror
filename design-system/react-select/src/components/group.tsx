@@ -17,7 +17,6 @@ import {
 	type GetStyles,
 	type GroupBase,
 	type Options,
-	type Theme,
 } from '../types';
 import { cleanCommonProps, getStyleProps } from '../utils';
 
@@ -81,7 +80,6 @@ const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 		headingProps,
 		innerProps,
 		label,
-		theme,
 		selectProps,
 	} = props;
 	return (
@@ -89,8 +87,6 @@ const Group = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>
 			<Heading
 				{...headingProps}
 				selectProps={selectProps}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-				theme={theme}
 				getStyles={getStyles}
 				getClassNames={getClassNames}
 				cx={cx}
@@ -109,8 +105,6 @@ interface GroupHeadingPropsDefinedProps<
 > extends ForwardedHeadingProps<Option, Group> {
 	className?: string | undefined;
 	selectProps: SelectProps<Option, IsMulti, Group>;
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
-	theme: Theme;
 	getStyles: GetStyles<Option, IsMulti, Group>;
 	getClassNames: CommonProps<Option, IsMulti, Group>['getClassNames'];
 	cx: CX;
@@ -130,13 +124,12 @@ export const groupHeadingCSS = <
 	label: 'group',
 	cursor: 'default',
 	display: 'block',
-	fontSize: '75%',
 	marginBottom: '0.25em',
 	paddingLeft: token('space.150'),
 	paddingRight: token('space.150'),
 	font: token('font.body.small'),
 	color: token('color.text.subtle'),
-	fontWeight: `${token('font.weight.bold')} !important`,
+	fontWeight: token('font.weight.bold'),
 	textTransform: 'none',
 });
 

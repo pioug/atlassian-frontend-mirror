@@ -34,8 +34,8 @@ import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex } from '@atlaskit/primitives';
 
-import { setPalette } from '../commands';
-import type { HighlightPlugin } from '../plugin';
+import { setPalette } from '../editor-commands';
+import type { HighlightPlugin } from '../highlightPluginType';
 
 import { EditorHighlightIcon } from './shared/EditorHighlightIcon';
 import { PaletteDropdown } from './shared/PaletteDropdown';

@@ -10,6 +10,7 @@ import {
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { GapCursorSelection, RelativeSelectionPos, Side } from '@atlaskit/editor-common/selection';
 import type { SelectionSharedState } from '@atlaskit/editor-common/selection';
+import { findExpand } from '@atlaskit/editor-common/transforms';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isEmptyNode, isPositionNearTableRow } from '@atlaskit/editor-common/utils';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
@@ -20,7 +21,6 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExpandPlugin } from '../../types';
 import { deleteExpand, focusIcon, focusTitle } from '../commands';
-import { findExpand } from '../utils';
 
 const isExpandNode = (node: PMNode) => {
 	return node?.type.name === 'expand' || node?.type.name === 'nestedExpand';

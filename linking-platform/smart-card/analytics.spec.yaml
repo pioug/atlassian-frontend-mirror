@@ -381,6 +381,19 @@ events:
           required: false
           type: string
           description: The definitionId of the Smart Link resolver invoked.
+  - embedPreviewModal viewed:
+      type: screen
+      description: Fires an event that represents when a user view a modal.
+      attributes:
+        <<: [ *PackageMetaDataContext, *CommonContext ]
+        origin:
+          required: false
+          type: [ 'smartLinkCard', 'smartLinkEmbed', 'smartLinkInline', 'smartLinkPreviewHoverCard' ]
+          description: The origin of the event
+        size:
+          required: false
+          type: [ 'large', 'small' ]
+          description: The size of the modal
   - smartLink connectSucceeded:
       type: operational
       description:
@@ -629,6 +642,23 @@ events:
           required: false
           type: string
           description: The definitionId of the Smart Link resolver invoked.
+  - modal closed (embedPreview):
+      type: ui
+      description: Fires an event that represents when a user close a modal.
+      attributes:
+        <<: [ *PackageMetaDataContext, *CommonContext ]
+        origin:
+          required: false
+          type: [ 'smartLinkCard', 'smartLinkEmbed', 'smartLinkInline', 'smartLinkPreviewHoverCard' ]
+          description: The origin of the event
+        previewTime:
+          required: false
+          type: number
+          description: Duration that user spent on the preview.
+        size:
+          required: false
+          type: [ 'large', 'small' ]
+          description: The size of the modal
   - button clicked (learnMore):
       type: ui
       description:
@@ -695,15 +725,11 @@ events:
           required: true
           type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]
           description: Whether the card was an Inline, Block, Embed or Flexible UI
-        definitionId:
-          required: false
-          type: string
-          description: The definitionId of the Smart Link resolver invoked.
   - smartLink renderFailed:
       type: ui
       description: fires an event that represents when a Smart Link renders unsuccessfully.
       attributes:
-        <<: [ *PackageMetaDataContext, *CommonContext ]
+        <<: [ *PackageMetaDataContext, *CommonContext]
         display:
           required: true
           type: [ 'inline', 'block', 'embed', 'embedPreview', 'flexible', 'hoverCardPreview' ]

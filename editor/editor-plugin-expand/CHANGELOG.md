@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.10.8
+
+### Patch Changes
+
+- [#178005](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178005)
+  [`3a71ff9cf31d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a71ff9cf31d4) -
+  ED-25723 removing feature flag and use exisiting implementation for handleScrollToSelection for
+  singlePlayerExapnd
+
 ## 2.10.7
 
 ### Patch Changes

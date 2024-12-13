@@ -18,8 +18,6 @@ import {
 	type ClearIndicatorProps,
 	dropdownIndicatorCSS,
 	type DropdownIndicatorProps,
-	indicatorSeparatorCSS,
-	type IndicatorSeparatorProps,
 	loadingIndicatorCSS,
 	type LoadingIndicatorProps,
 } from './components/indicators';
@@ -54,7 +52,6 @@ export interface StylesProps<Option, IsMulti extends boolean, Group extends Grou
 	group: GroupProps<Option, IsMulti, Group>;
 	groupHeading: GroupHeadingProps<Option, IsMulti, Group>;
 	indicatorsContainer: IndicatorsContainerProps<Option, IsMulti, Group>;
-	indicatorSeparator: IndicatorSeparatorProps<Option, IsMulti, Group>;
 	input: InputProps<Option, IsMulti, Group>;
 	loadingIndicator: LoadingIndicatorProps<Option, IsMulti, Group>;
 	loadingMessage: NoticeProps<Option, IsMulti, Group>;
@@ -83,7 +80,6 @@ export const defaultStyles: {
 	group: groupCSS,
 	groupHeading: groupHeadingCSS,
 	indicatorsContainer: indicatorsContainerCSS,
-	indicatorSeparator: indicatorSeparatorCSS,
 	input: inputCSS,
 	loadingIndicator: loadingIndicatorCSS,
 	loadingMessage: loadingMessageCSS,

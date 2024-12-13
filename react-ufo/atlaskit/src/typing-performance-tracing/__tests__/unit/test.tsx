@@ -2,8 +2,6 @@ import React from 'react';
 
 import { render, screen } from '@testing-library/react';
 
-import { toBeAccessible } from '@atlassian/a11y-jest-testing';
-
 import { getTypingPerformanceTracingMethod } from '../../../config';
 import { addMetadata, addNewInteraction, tryComplete } from '../../../interaction-metrics';
 import useUFOTypingPerformanceTracing from '../../index';
@@ -52,7 +50,6 @@ describe('use typing performance tracing', () => {
 
 	beforeEach(() => {
 		jest.useFakeTimers();
-		expect.extend({ toBeAccessible });
 		// @ts-expect-error - TS2740 - Type '{ now: () => number; }' is missing the following properties from type 'Performance': navigation, onresourcetimingbufferfull, timeOrigin, timing, and 13 more.
 		global.performance = {
 			now: jest

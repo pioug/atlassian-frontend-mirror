@@ -9,7 +9,7 @@ import EditorInfoIcon from '@atlaskit/icon/glyph/editor/info';
 import QuoteIcon from '@atlaskit/icon/glyph/quote';
 
 import ExpandIcon from '../assets/expand';
-import type { InsertBlockPlugin } from '../plugin';
+import type { InsertBlockPlugin } from '../insertBlockPlugin';
 
 export const transformationOptions = (
 	api: ExtractInjectionAPI<InsertBlockPlugin> | undefined,

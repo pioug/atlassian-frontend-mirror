@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.15.2",
+	"version": "3.15.4",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -71,8 +71,8 @@
 		"@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll": "^1.2.0",
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/react-select": "^1.5.0",
-		"@atlaskit/select": "^18.8.0",
+		"@atlaskit/react-select": "^1.6.0",
+		"@atlaskit/select": "^18.9.0",
 		"@atlaskit/smart-card": "^32.7.0",
 		"@atlaskit/smart-user-picker": "6.11.2",
 		"@atlaskit/spinner": "^16.3.0",
@@ -162,9 +162,6 @@
 	},
 	"platform-feature-flags": {
 		"enable_datasource_react_sweet_state": {
-			"type": "boolean"
-		},
-		"platform-datasources-enable-two-way-sync": {
 			"type": "boolean"
 		},
 		"enable_datasource_supporting_actions": {

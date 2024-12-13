@@ -11,6 +11,7 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
+import { findExpand } from '@atlaskit/editor-common/transforms';
 import type { Command } from '@atlaskit/editor-common/types';
 import { createWrapSelectionTransaction } from '@atlaskit/editor-common/utils';
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -25,7 +26,6 @@ import type { InsertMethod } from '../types';
 import { isNestedInExpand } from '../utils';
 
 import { createCommand } from './pm-plugins/plugin-factory';
-import { findExpand } from './utils';
 
 export const setExpandRef = (ref?: HTMLDivElement | null): Command =>
 	createCommand(

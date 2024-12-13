@@ -4,5 +4,6 @@ import { type AnalyticsOrigin } from '../../../../utils/types';
 export type WithAnalytics = {
 	analytics?: AnalyticsFacade;
 	extensionKey?: string;
+	id?: string;
 	origin?: AnalyticsOrigin;
 };

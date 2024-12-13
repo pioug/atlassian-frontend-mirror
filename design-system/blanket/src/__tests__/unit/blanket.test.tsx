@@ -18,13 +18,13 @@ describe('ak-blanket', () => {
 
 	describe('props', () => {
 		describe('isTinted', () => {
-			// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-			// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-			it.skip('should not get tint styling by default', () => {
+			it('should not get tint styling by default', () => {
 				render(<Blanket />);
 				const blanket = screen.getByRole('presentation');
 
-				expect(getComputedStyle(blanket).backgroundColor).toBe('transparent');
+				expect(blanket).toHaveCompiledCss({
+					backgroundColor: 'initial',
+				});
 			});
 
 			it('should get tint styling when prop set', () => {
@@ -34,13 +34,13 @@ describe('ak-blanket', () => {
 				expect(getComputedStyle(blanket).backgroundColor).not.toBe('transparent');
 			});
 
-			// skipping this test as it does not work with jsdom.reconfigure. Need to rewrite this test.
-			// https://hello.jira.atlassian.cloud/browse/UTEST-2000
-			it.skip('should not get tint styling when prop set to false', () => {
+			it('should not get tint styling when prop set to false', () => {
 				render(<Blanket isTinted={false} />);
 				const blanket = screen.getByRole('presentation');
 
-				expect(getComputedStyle(blanket).backgroundColor).toBe('transparent');
+				expect(blanket).toHaveCompiledCss({
+					backgroundColor: 'initial',
+				});
 			});
 		});
 
@@ -49,13 +49,13 @@ describe('ak-blanket', () => {
 				render(<Blanket testId="blanket" />);
 				const blanket = screen.getByRole('presentation');
 
-				expect(getComputedStyle(blanket).pointerEvents).toBe('initial');
+				expect(getComputedStyle(blanket).pointerEvents).toBe('auto');
 			});
 			it('should set correct pointer-events values for different shouldAllowClickThrough prop value', () => {
 				const { rerender } = render(<Blanket shouldAllowClickThrough={false} />);
 				const blanket = screen.getByRole('presentation');
 
-				expect(getComputedStyle(blanket).pointerEvents).toBe('initial');
+				expect(getComputedStyle(blanket).pointerEvents).toBe('auto');
 
 				rerender(<Blanket shouldAllowClickThrough={true} />);
 

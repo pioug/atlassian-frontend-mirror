@@ -23,7 +23,8 @@ import { document as storyDataDocument } from './story-data';
 import type { RendererProps } from '../../src/ui/renderer-props';
 import { default as Renderer } from '../../src/ui/Renderer';
 
-import { renderDocument, TextSerializer } from '../../src';
+import { renderDocument } from '../../src';
+import TextSerializer from '../../src/text';
 
 import Sidebar, { getDefaultShowSidebarState } from './NavigationNext';
 import type { RendererAppearance, HeadingAnchorLinksProps } from '../../src/ui/Renderer/types';

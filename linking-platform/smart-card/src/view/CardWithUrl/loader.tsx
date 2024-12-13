@@ -10,6 +10,7 @@ import { useAnalyticsEvents } from '../../common/analytics/generated/use-analyti
 import { useSmartLinkAnalytics } from '../../state';
 import { failUfoExperience, startUfoExperience } from '../../state/analytics';
 import { importWithRetry } from '../../utils';
+import { useSmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
 import { isFlexibleUiCard } from '../../utils/flexible';
 import { clearMarks, clearMeasures } from '../../utils/performance';
 import { type CardProps } from '../Card/types';
@@ -69,7 +70,15 @@ export function CardWithURLRenderer(props: CardProps) {
 	} = props;
 
 	const analytics = useSmartLinkAnalytics(url ?? '', id);
+
 	const isFlexibleUi = isFlexibleUiCard(children);
+
+	const analyticsContext = useSmartLinkAnalyticsContext({
+		display: isFlexibleUi ? 'flexible' : appearance,
+		id,
+		url: url ?? '',
+	});
+
 	const errorHandler = useCallback(
 		(error: Error, info: ErrorInfo) => {
 			const { componentStack } = info;
@@ -83,6 +92,7 @@ export function CardWithURLRenderer(props: CardProps) {
 			// Likewise, chunk loading errors are not caused by a failure of smart-card rendering.
 			if (error.name === 'ChunkLoadError') {
 				fireEvent('operational.smartLink.chunkLoadFailed', {
+					...analyticsContext?.attributes,
 					display: appearance,
 					error: error as any,
 					errorInfo: errorInfo as any,
@@ -94,6 +104,7 @@ export function CardWithURLRenderer(props: CardProps) {
 					failUfoExperience('smart-link-rendered', id || 'NULL');
 					failUfoExperience('smart-link-authenticated', id || 'NULL');
 					fireEvent('ui.smartLink.renderFailed', {
+						...analyticsContext?.attributes,
 						display: isFlexibleUi ? 'flexible' : appearance,
 						id: id ?? null,
 						error: error as any,
@@ -110,7 +121,7 @@ export function CardWithURLRenderer(props: CardProps) {
 			}
 			onError && onError({ status: 'errored', url: url ?? '', err: error });
 		},
-		[analytics.ui, appearance, id, onError, url, isFlexibleUi, fireEvent],
+		[analytics.ui, analyticsContext, appearance, id, onError, url, isFlexibleUi, fireEvent],
 	);
 
 	if (!url) {

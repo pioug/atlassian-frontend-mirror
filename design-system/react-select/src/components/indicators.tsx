@@ -5,8 +5,12 @@
 
 import { type ReactNode } from 'react';
 
-import { css, jsx, keyframes } from '@emotion/react';
+import { jsx } from '@emotion/react';
 
+import DownIcon from '@atlaskit/icon/utility/migration/chevron-down';
+import CrossIcon from '@atlaskit/icon/utility/migration/cross-circle--select-clear';
+import { Inline, Pressable, xcss } from '@atlaskit/primitives';
+import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
@@ -16,44 +20,18 @@ import { getStyleProps } from '../utils';
 // Dropdown & Clear Icons
 // ==============================
 
-const styles = css({
-	display: 'inline-block',
-	fill: 'currentColor',
-	lineHeight: 1,
-	stroke: 'currentColor',
-	strokeWidth: 0,
+const iconContainerStyles = xcss({
+	all: 'unset',
+	outline: 'revert',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+	padding: 'space.025',
 });
-const Svg = ({ size, ...props }: JSX.IntrinsicElements['svg'] & { size: number }) => (
-	<svg
-		height={size}
-		width={size}
-		viewBox="0 0 20 20"
-		aria-hidden="true"
-		focusable="false"
-		css={styles}
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-		{...props}
-	/>
-);
 
-export type CrossIconProps = JSX.IntrinsicElements['svg'] & { size?: number };
-
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const CrossIcon = (props: CrossIconProps) => (
-	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-	<Svg size={20} {...props}>
-		<path d="M14.348 14.849c-0.469 0.469-1.229 0.469-1.697 0l-2.651-3.030-2.651 3.029c-0.469 0.469-1.229 0.469-1.697 0-0.469-0.469-0.469-1.229 0-1.697l2.758-3.15-2.759-3.152c-0.469-0.469-0.469-1.228 0-1.697s1.228-0.469 1.697 0l2.652 3.031 2.651-3.031c0.469-0.469 1.228-0.469 1.697 0s0.469 1.229 0 1.697l-2.758 3.152 2.758 3.15c0.469 0.469 0.469 1.229 0 1.698z" />
-	</Svg>
-);
-export type DownChevronProps = JSX.IntrinsicElements['svg'] & { size?: number };
-
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const DownChevron = (props: DownChevronProps) => (
-	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-	<Svg size={20} {...props}>
-		<path d="M4.516 7.548c0.436-0.446 1.043-0.481 1.576 0l3.908 3.747 3.908-3.747c0.533-0.481 1.141-0.446 1.574 0 0.436 0.445 0.408 1.197 0 1.615-0.406 0.418-4.695 4.502-4.695 4.502-0.217 0.223-0.502 0.335-0.787 0.335s-0.57-0.112-0.789-0.335c0 0-4.287-4.084-4.695-4.502s-0.436-1.17 0-1.615z" />
-	</Svg>
-);
+const dropdownWrapperStyles = xcss({
+	padding: 'space.075',
+});
 
 // ==============================
 // Dropdown & Clear Buttons
@@ -105,7 +83,7 @@ export const dropdownIndicatorCSS = <
 export const DropdownIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: DropdownIndicatorProps<Option, IsMulti, Group>,
 ) => {
-	const { children, innerProps } = props;
+	const { innerProps, children } = props;
 	return (
 		<div
 			{...getStyleProps(props, 'dropdownIndicator', {
@@ -114,7 +92,17 @@ export const DropdownIndicator = <Option, IsMulti extends boolean, Group extends
 			})}
 			{...innerProps}
 		>
-			{children || <DownChevron />}
+			{children ? (
+				children
+			) : (
+				<Inline as="span" xcss={dropdownWrapperStyles}>
+					<DownIcon
+						color="currentColor"
+						label="open"
+						LEGACY_margin={token('space.negative.075', '-0.375rem')}
+					/>
+				</Inline>
+			)}
 		</div>
 	);
 };
@@ -167,7 +155,7 @@ export const clearIndicatorCSS = <
 export const ClearIndicator = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>(
 	props: ClearIndicatorProps<Option, IsMulti, Group>,
 ) => {
-	const { children, innerProps } = props;
+	const { innerProps, clearControlLabel = 'clear' } = props;
 	return (
 		<div
 			{...getStyleProps(props, 'clearIndicator', {
@@ -176,56 +164,15 @@ export const ClearIndicator = <Option, IsMulti extends boolean, Group extends Gr
 			})}
 			{...innerProps}
 		>
-			{children || <CrossIcon />}
+			<Pressable xcss={iconContainerStyles} tabIndex={-1} aria-label={clearControlLabel}>
+				<CrossIcon
+					label=""
+					color="currentColor"
+					LEGACY_size="small"
+					LEGACY_margin={token('space.negative.025', '-0.125rem')}
+				/>
+			</Pressable>
 		</div>
-	);
-};
-
-// ==============================
-// Separator
-// ==============================
-
-export interface IndicatorSeparatorProps<
-	Option = unknown,
-	IsMulti extends boolean = boolean,
-	Group extends GroupBase<Option> = GroupBase<Option>,
-> extends CommonPropsAndClassName<Option, IsMulti, Group> {
-	isDisabled: boolean;
-	isFocused: boolean;
-	innerProps?: JSX.IntrinsicElements['span'];
-}
-
-export const indicatorSeparatorCSS = <
-	Option,
-	IsMulti extends boolean,
-	Group extends GroupBase<Option>,
->({
-	isDisabled,
-}: IndicatorSeparatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
-	label: 'indicatorSeparator',
-	alignSelf: 'stretch',
-	width: 1,
-	backgroundColor: isDisabled ? token('color.border.disabled') : token('color.border'),
-	marginBottom: token('space.100'),
-	marginTop: token('space.100'),
-});
-
-// eslint-disable-next-line @repo/internal/react/require-jsdoc
-export const IndicatorSeparator = <
-	Option,
-	IsMulti extends boolean,
-	Group extends GroupBase<Option>,
->(
-	props: IndicatorSeparatorProps<Option, IsMulti, Group>,
-) => {
-	const { innerProps } = props;
-	return (
-		<span
-			{...innerProps}
-			{...getStyleProps(props, 'indicatorSeparator', {
-				'indicator-separator': true,
-			})}
-		/>
 	);
 };
 
@@ -233,58 +180,16 @@ export const IndicatorSeparator = <
 // Loading
 // ==============================
 
-const loadingDotAnimations = keyframes({
-	'0%, 80%, 100%': {
-		opacity: 0,
-	},
-	'40%': {
-		opacity: 1,
-	},
-});
-
 export const loadingIndicatorCSS = <
 	Option,
 	IsMulti extends boolean,
 	Group extends GroupBase<Option>,
 >({
-	isFocused,
-	size,
 	isCompact,
-	theme: { colors },
 }: LoadingIndicatorProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	label: 'loadingIndicator',
-	display: 'flex',
-	transition: 'color 150ms',
-	alignSelf: 'center',
-	fontSize: size,
-	lineHeight: 1,
-	marginRight: size,
-	textAlign: 'center',
-	verticalAlign: 'middle',
-	color: isFocused ? colors.neutral60 : colors.neutral20,
 	padding: `${isCompact ? 0 : token('space.075')} ${token('space.100')}`,
 });
-
-interface LoadingDotProps {
-	delay: number;
-	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
-	offset: boolean;
-}
-const LoadingDot = ({ delay, offset }: LoadingDotProps) => (
-	<span
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-		css={{
-			animation: `${loadingDotAnimations} 1s ease-in-out ${delay}ms infinite;`,
-			backgroundColor: 'currentColor',
-			borderRadius: '1em',
-			display: 'inline-block',
-			marginLeft: offset ? '1em' : undefined,
-			height: '1em',
-			verticalAlign: 'top',
-			width: '1em',
-		}}
-	/>
-);
 
 export interface LoadingIndicatorProps<
 	Option = unknown,
@@ -325,9 +230,7 @@ export const LoadingIndicator = <Option, IsMulti extends boolean, Group extends 
 			})}
 			{...innerProps}
 		>
-			<LoadingDot delay={0} offset={isRtl} />
-			<LoadingDot delay={160} offset />
-			<LoadingDot delay={320} offset={!isRtl} />
+			<Spinner size="small" />
 		</div>
 	);
 };

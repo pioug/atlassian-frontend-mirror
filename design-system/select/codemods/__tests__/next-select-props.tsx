@@ -22,7 +22,6 @@ describe('Update Select props', () => {
 						isRTL={true}
 						menuShouldBlockScroll={true}
 						screenReaderStatus={''}
-						theme={{}}
 					/>
 				);
 			};
@@ -54,7 +53,6 @@ describe('Update Select props', () => {
 						isRTL={true}
 						menuShouldBlockScroll={true}
 						screenReaderStatus={''}
-						theme={{}}
 					/>
 				);
 			};
@@ -73,7 +71,6 @@ describe('Update Select props', () => {
 						isRTL={true}
 						menuShouldBlockScroll={true}
 						screenReaderStatus={''}
-						theme={{}}
 					/>
 				);
 			};
@@ -108,7 +105,6 @@ describe('Update Select props', () => {
 							isRTL={true}
 							menuShouldBlockScroll={true}
 							screenReaderStatus={''}
-							theme={{}}
 						/>
 					);
 				};
@@ -247,7 +243,6 @@ describe('Update Select props', () => {
 							isRTL={true}
 							menuShouldBlockScroll={true}
 							screenReaderStatus={''}
-							theme={{}}
 						/>
 					);
 				};
@@ -264,7 +259,6 @@ describe('Update Select props', () => {
 							isRTL={true}
 							menuShouldBlockScroll={true}
 							screenReaderStatus={''}
-							theme={{}}
 						/>
 					);
 				};
@@ -289,7 +283,6 @@ describe('Update Select props', () => {
 							isRTL={true}
 							menuShouldBlockScroll={true}
 							screenReaderStatus={''}
-							theme={{}}
 						/>
 					);
 				};

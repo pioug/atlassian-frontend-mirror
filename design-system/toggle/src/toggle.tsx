@@ -2,19 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import {
+import React, {
 	type FocusEvent,
 	forwardRef,
 	type KeyboardEvent,
 	memo,
 	useEffect,
-	useMemo,
 	useRef,
 	useState,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 import { bindAll } from 'bind-event-listener';
 
 import { type UIAnalyticsEvent, usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
@@ -23,10 +21,163 @@ import { useId } from '@atlaskit/ds-lib/use-id';
 import type { Size as IconSize } from '@atlaskit/icon/types';
 import CheckMarkIcon from '@atlaskit/icon/utility/migration/check-mark--editor-done';
 import CloseIcon from '@atlaskit/icon/utility/migration/cross--editor-close';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { B200, G400, G500, N0, N20, N200, N400, N70 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import IconContainer from './icon-container';
-import { getStyles } from './internal/styles';
 import { type Size, type ToggleProps } from './types';
+
+const basicStyles = css({
+	display: 'inline-block',
+	boxSizing: 'content-box',
+	margin: token('space.025'),
+	padding: token('space.025'),
+	position: 'relative',
+	backgroundClip: 'content-box',
+	backgroundColor: token('color.background.neutral.bold', N200),
+	borderColor: 'transparent',
+	borderStyle: 'solid',
+	borderWidth: '2px',
+	color: token('color.icon.inverse', N0),
+	transition: 'transform 0.2s ease',
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&[data-disabled]:not([data-checked])': {
+		backgroundColor: token('color.background.disabled', N20),
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&[data-disabled][data-checked],&[data-disabled][data-checked]:hover': {
+		backgroundColor: token('color.background.disabled', N20),
+	},
+
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.bold.hovered', N400),
+		cursor: 'pointer',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&[data-disabled]:hover,&[data-disabled][data-checked]:hover,&[data-disabled]:not([data-checked]):hover':
+		{
+			cursor: 'not-allowed',
+		},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&[data-checked]': {
+		backgroundColor: token('color.background.success.bold', G400),
+		color: token('color.icon.inverse', N0),
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&[data-checked]:hover': {
+		backgroundColor: token('color.background.success.bold.hovered', G500),
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:not([data-checked]):hover': {
+		backgroundColor: token('color.background.neutral.bold.hovered', N400),
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&[data-disabled]:not([data-checked]):hover': {
+		backgroundColor: token('color.background.disabled', N20),
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&[data-disabled], &[data-disabled][data-checked], &[data-disabled][data-checked]:hover': {
+		color: token('color.icon.disabled', N70),
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'input[type="checkbox"]': {
+		margin: 0,
+		padding: 0,
+		border: 'none',
+		opacity: 0,
+		'&:focus': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+			outline: 'none !important',
+		},
+	},
+
+	// slider
+	'&::before': {
+		position: 'absolute',
+		backgroundColor: token('color.icon.inverse', N0),
+		borderRadius: token('border.radius.circle', '50%'),
+		content: '""',
+		insetBlockEnd: `4px`,
+		insetInlineStart: `4px`,
+		transform: 'initial',
+		transition: 'transform 0.2s ease',
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&[data-checked]::before': {
+		backgroundColor: token('color.icon.inverse', N0),
+	},
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'&[data-disabled]::before': {
+		zIndex: 1,
+		backgroundColor: token('color.icon.inverse', N0),
+	},
+
+	'@media screen and (forced-colors: active)': {
+		'&::before': {
+			filter: 'grayscale(100%) invert(1)',
+		},
+		'&:focus-within': {
+			outline: '1px solid',
+		},
+	},
+});
+
+const borderStyles = css({
+	'&:focus-within': {
+		borderColor: token('color.border.focused', B200),
+		borderStyle: 'solid',
+		borderWidth: '2px',
+	},
+});
+
+const iconStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'> span > span': {
+		width: '20px',
+		height: '20px',
+	},
+});
+
+const sizeStyles = cssMap({
+	regular: {
+		borderRadius: token('space.200'),
+		height: token('space.200'),
+		width: token('space.400'),
+		'&::before': {
+			height: token('space.150'),
+			width: `12px`,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&[data-checked]::before': {
+			transform: `translateX(${token('space.200')})`,
+		},
+	},
+	large: {
+		borderRadius: token('space.250'),
+		height: token('space.250'),
+		width: token('space.500'),
+		'&::before': {
+			height: token('space.200'),
+			width: `16px`,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&[data-checked]::before': {
+			transform: `translateX(${token('space.250')})`,
+		},
+	},
+});
 
 const noop = __noop;
 
@@ -155,17 +306,21 @@ const Toggle = memo(
 				setIsKeyboardUsed(false);
 			},
 		};
-		const toggleStyles = useMemo(
-			() => getStyles(size, Boolean(isKeyboardUsed)),
-			[size, isKeyboardUsed],
-		);
 
 		const legacyIconSize = iconSizeMap[size];
 
 		const labelId = useId();
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			<label {...controlProps} css={toggleStyles} ref={wrapperRef}>
+			<label
+				{...controlProps}
+				css={[
+					basicStyles,
+					isKeyboardUsed && borderStyles,
+					size === 'large' && !fg('platform-visual-refresh-icons') && iconStyles,
+					sizeStyles[size],
+				]}
+				ref={wrapperRef}
+			>
 				{label ? (
 					<span id={labelId} hidden>
 						{label}

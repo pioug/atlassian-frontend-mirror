@@ -265,8 +265,7 @@ const getValueFromIdentifier = (
 	if (
 		isNodeOfType(definition.node, 'ImportSpecifier') &&
 		isNodeOfType(definition.node.parent!, 'ImportDeclaration') &&
-		definition.node.parent.source.value ===
-			'@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles'
+		definition.node.parent.source.value === '@atlassian/jira-common-styles/src/main.tsx'
 	) {
 		return definition.node.imported.name === 'gridSize' ? 8 : null;
 	}

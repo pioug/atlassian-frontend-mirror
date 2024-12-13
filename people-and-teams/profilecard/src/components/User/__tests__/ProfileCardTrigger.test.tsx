@@ -5,7 +5,6 @@ import { userEvent } from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { GiveKudosLauncherLazy } from '@atlaskit/give-kudos';
-import { toBeAccessible } from '@atlassian/a11y-jest-testing';
 
 import ProfileClient from '../../../client/ProfileCardClient';
 import { getMockProfileClient } from '../../../mocks';
@@ -77,8 +76,6 @@ describe('Profile card trigger', () => {
 	};
 
 	it('should capture and report a11y violations', async () => {
-		expect.extend({ toBeAccessible });
-
 		const { container } = renderProfileCardTrigger({});
 		await expect(container).toBeAccessible();
 	});

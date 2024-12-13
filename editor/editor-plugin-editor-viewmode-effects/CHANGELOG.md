@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-editor-viewmode-effects
 
+## 1.1.16
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.1.15
+
+### Patch Changes
+
+- [#177988](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177988)
+  [`8f78c40775b7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f78c40775b7c) -
+  ED-25810 - refactors editor plugins to engineering standards
+
 ## 1.1.14
 
 ### Patch Changes

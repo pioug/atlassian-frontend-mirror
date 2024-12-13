@@ -5,15 +5,13 @@
 
 import { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
 import Badge from '@atlaskit/badge';
 import Blanket from '@atlaskit/blanket';
 import Button from '@atlaskit/button/new';
+import { css, cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { useCloseOnEscapePress } from '@atlaskit/layering';
-import { Box, Inline, Text, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Text } from '@atlaskit/primitives/compiled';
 import Toggle from '@atlaskit/toggle';
 import { token } from '@atlaskit/tokens';
 
@@ -26,22 +24,23 @@ const labelStyles = css({
 	marginBlockStart: token('space.0', '0px'),
 });
 
-const blanketStyles = xcss({
-	display: 'inline-flex',
-	boxSizing: 'border-box',
-	maxWidth: '144px',
-	flexDirection: 'column',
-	background: token('elevation.surface'),
-	borderColor: 'color.border',
-	borderStyle: 'dashed',
-	borderWidth: 'border.width',
-	borderRadius: 'border.radius.100',
-	pointerEvents: 'initial',
+const blanketStyles = cssMap({
+	root: {
+		display: 'inline-flex',
+		boxSizing: 'border-box',
+		maxWidth: '144px',
+		flexDirection: 'column',
+		borderColor: token('color.border'),
+		borderStyle: 'dashed',
+		borderWidth: token('border.width'),
+		borderRadius: token('border.radius.100'),
+		pointerEvents: 'initial',
+	},
 });
 
 const behindOffsetStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-	marginInlineStart: '144px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+	marginInlineStart: '144px' as any,
 });
 
 const BasicExample = () => {
@@ -77,7 +76,7 @@ const BasicExample = () => {
 				shouldAllowClickThrough={shouldAllowClickThrough}
 				onBlanketClicked={incrementBlanketCountClicked}
 			>
-				<Box xcss={blanketStyles}>
+				<Box backgroundColor="elevation.surface" xcss={blanketStyles.root}>
 					<Heading size="large" testId="child-heading">
 						Blanket children
 					</Heading>

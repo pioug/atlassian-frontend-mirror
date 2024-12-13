@@ -19,5 +19,3 @@ export type CreateDisplayGrid = (view: EditorView) => DisplayGrid;
 export interface GridPluginOptions {
 	shouldCalcBreakoutGridLines?: boolean;
 }
-
-export type { GridType };

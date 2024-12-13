@@ -60,7 +60,6 @@ const HoverCardResolvedView = ({
 			});
 
 			fireEvent('ui.smartLink.renderSuccess', {
-				definitionId: definitionId ?? null,
 				display: CardDisplay.HoverCardPreview,
 			});
 		} else {

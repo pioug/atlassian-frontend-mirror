@@ -3,7 +3,7 @@
  *
  * Generates Typescript types for analytics events from analytics.spec.yaml
  *
- * @codegen <<SignedSource::1e6835b50307a44a077c38d864a2c66e>>
+ * @codegen <<SignedSource::84c7074821df29c52dd13557dab19219>>
  * @codegenCommand yarn workspace @atlassian/analytics-tooling run analytics:codegen smart-card
  */
 export type PackageMetaDataContextType = {
@@ -151,6 +151,15 @@ export type SmartLinkQuickActionFailedAttributesType = {
 export type ConsentModalViewedAttributesType = {
 	definitionId: string | null;
 };
+export type EmbedPreviewModalViewedAttributesType = {
+	origin:
+		| 'smartLinkCard'
+		| 'smartLinkEmbed'
+		| 'smartLinkInline'
+		| 'smartLinkPreviewHoverCard'
+		| null;
+	size: 'large' | 'small' | null;
+};
 export type SmartLinkConnectSucceededAttributesType = {
 	definitionId: string | null;
 };
@@ -225,6 +234,16 @@ export type ConsentModalClosedAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
 	definitionId: string | null;
 };
+export type ModalClosedEmbedPreviewAttributesType = {
+	origin:
+		| 'smartLinkCard'
+		| 'smartLinkEmbed'
+		| 'smartLinkInline'
+		| 'smartLinkPreviewHoverCard'
+		| null;
+	previewTime: number | null;
+	size: 'large' | 'small' | null;
+};
 export type ButtonClickedLearnMoreAttributesType = {};
 export type ButtonClickedSmartLinkStatusLozengeAttributesType = {};
 export type ButtonClickedSmartLinkStatusListItemAttributesType = {};
@@ -244,7 +263,6 @@ export type ButtonClickedEmbedPreviewResizeAttributesType = {
 };
 export type SmartLinkRenderSuccessAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
-	definitionId: string | null;
 };
 export type SmartLinkRenderFailedAttributesType = {
 	display: 'inline' | 'block' | 'embed' | 'embedPreview' | 'flexible' | 'hoverCardPreview';
@@ -333,6 +351,9 @@ export type AnalyticsEventAttributes = {
 	 * fires an event which represents the connect account page being opened. */
 	'screen.consentModal.viewed': ConsentModalViewedAttributesType;
 	/**
+	 * Fires an event that represents when a user view a modal. */
+	'screen.embedPreviewModal.viewed': EmbedPreviewModalViewedAttributesType;
+	/**
 	 * fires an event that represents an account successfully being connected via a Smart Link. */
 	'operational.smartLink.connectSucceeded': SmartLinkConnectSucceededAttributesType;
 	/**
@@ -374,6 +395,9 @@ export type AnalyticsEventAttributes = {
 	/**
 	 * fires an event that represents when a user closed the authentication window without authenticating after opening it. */
 	'ui.consentModal.closed': ConsentModalClosedAttributesType;
+	/**
+	 * Fires an event that represents when a user close a modal. */
+	'ui.modal.closed.embedPreview': ModalClosedEmbedPreviewAttributesType;
 	/**
 	 * fires an event that signifies that a "Learn More" link was clicked on an unauthenticated card */
 	'ui.button.clicked.learnMore': ButtonClickedLearnMoreAttributesType;

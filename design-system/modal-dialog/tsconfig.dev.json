@@ -54,6 +54,9 @@
 			"path": "../avatar-group/tsconfig.app.json"
 		},
 		{
+			"path": "../banner/tsconfig.app.json"
+		},
+		{
 			"path": "../breadcrumbs/tsconfig.app.json"
 		},
 		{

@@ -4,6 +4,9 @@ description: An anchor is a primitive for building custom links.
 order: 0
 ---
 
+import SectionMessage, { SectionMessageAction } from '@atlaskit/section-message';
+import Link from '@atlaskit/link';
+
 import AnchorDefault from '../../examples/constellation/anchor/default';
 import AnchorBasic from '../../examples/constellation/anchor/basic';
 import AnchorStyled from '../../examples/constellation/anchor/styled';
@@ -14,7 +17,24 @@ import AnchorAnalytics from '../../examples/constellation/anchor/analytics';
 import AnchorAnalyticsGASv3 from '../../examples/constellation/anchor/analytics-gasv3';
 
 import { CodeDocsHeader } from '@af/design-system-docs-ui';
-import SectionMessage from '@atlaskit/section-message';
+
+<SectionMessage
+	appearance="information"
+	actions={[
+		<SectionMessageAction href="/components/link/examples">
+			View link documentation
+		</SectionMessageAction>,
+		<SectionMessageAction href="/components/button/link-button/examples">
+			View link button documentation
+		</SectionMessageAction>,
+	]}
+>
+	Anchor is for building non-text links, such as a card. It comes with minimal styling. If you're
+	using a link within text, use the purpose-built{' '}
+	<Link href="/components/link/examples">link component</Link>. For links that appear as buttons,
+	use the existing <Link href="/components/button/link-button/examples">link button component</Link>
+	.
+</SectionMessage>
 
 <CodeDocsHeader
 	name="@atlaskit/primitives"
@@ -24,9 +44,6 @@ import SectionMessage from '@atlaskit/section-message';
 
 Anchor is a primitive for building custom links with Atlassian Design System styling, routing
 support, and built-in event tracking. It renders an anchor `<a>` element.
-
-Only use anchor when existing components such as [link](/components/link/examples) or
-[link button](/components/button/link-button/examples) can't be customized to fit your needs.
 
 ## Default
 

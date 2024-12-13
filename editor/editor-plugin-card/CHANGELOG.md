@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 4.5.5
+
+### Patch Changes
+
+- [#175841](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175841)
+  [`f21aa44e58c1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f21aa44e58c1b) -
+  removing platform-datasources-enable-two-way-sync FF
+
 ## 4.5.4
 
 ### Patch Changes

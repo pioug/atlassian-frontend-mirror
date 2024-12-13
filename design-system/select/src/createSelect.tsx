@@ -4,9 +4,7 @@ import React, {
 	type ComponentType,
 	forwardRef,
 	type Ref,
-	useEffect,
 	useImperativeHandle,
-	useMemo,
 	useRef,
 } from 'react';
 
@@ -18,15 +16,6 @@ import {
 } from '@atlaskit/react-select';
 import type BaseSelect from '@atlaskit/react-select/base';
 
-import {
-	ClearIndicator,
-	DropdownIndicator,
-	IndicatorSeparator,
-	LoadingIndicator,
-	MultiValueRemove,
-} from './components';
-import { Input } from './components/input-aria-describedby';
-import { NoOptionsMessage } from './components/no-options';
 import {
 	type AsyncSelectProps,
 	type AtlaskitSelectRefType,
@@ -49,7 +38,6 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 	>(props: AtlaskitSelectProps<Option, IsMulti>, forwardedRef: Ref<AtlaskitSelectRefType>) {
 		const {
 			ariaLiveMessages,
-			components: componentsProp,
 			isInvalid, // TODO: set to true when cleaning up validationState prop so it has a default value
 			onClickPreventDefault = true,
 			tabSelectsValue = false,
@@ -58,35 +46,6 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 		} = props;
 
 		const internalSelectRef = useRef<BaseSelect | null>(null);
-
-		const components = useMemo(
-			() => ({
-				ClearIndicator,
-				DropdownIndicator,
-				LoadingIndicator,
-				MultiValueRemove,
-				IndicatorSeparator,
-				Input,
-				NoOptionsMessage,
-				...componentsProp,
-			}),
-			[componentsProp],
-		);
-
-		const descriptionId = props['aria-describedby'] || props['descriptionId'];
-		const isSearchable = props.isSearchable;
-		useEffect(() => {
-			if (!isSearchable && descriptionId) {
-				// when isSearchable is false, react-select will create its own dummy input instead of using ours,
-				// so we need to manually add the additional aria-describedby using ref.
-				const input = internalSelectRef.current?.inputRef;
-				const ariaDescribedby = input?.getAttribute('aria-describedby');
-
-				if (!ariaDescribedby?.includes(descriptionId)) {
-					input?.setAttribute('aria-describedby', `${ariaDescribedby} ${descriptionId}`);
-				}
-			}
-		}, [descriptionId, isSearchable]);
 
 		/**
 		 * The following `useImperativeHandle` hook exists for the sake of backwards compatibility.
@@ -126,7 +85,6 @@ export default function createSelect(WrappedComponent: ComponentType<any>) {
 				onClickPreventDefault={onClickPreventDefault}
 				isInvalid={isInvalid || validationState === 'error'}
 				{...restProps}
-				components={components}
 				// indicates react-select to be async by default using the base Select component
 				// so that makers can pass all async props on the base select to async load options.
 				isAsync

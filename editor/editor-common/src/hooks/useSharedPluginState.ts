@@ -12,7 +12,7 @@ import type {
 	PluginDependenciesAPI,
 } from '../types/next-editor-plugin';
 
-type NamedPluginStatesFromInjectionAPI<
+export type NamedPluginStatesFromInjectionAPI<
 	API extends ExtractInjectionAPI<NextEditorPlugin<any, any>>,
 	PluginNames extends string | number | symbol,
 > = Readonly<{
@@ -27,7 +27,7 @@ type NamedPluginStatesFromInjectionAPI<
 		: never;
 }>;
 
-type ExtractPluginNames<API extends EditorInjectionAPI<any, any>> = keyof API;
+export type ExtractPluginNames<API extends EditorInjectionAPI<any, any>> = keyof API;
 
 type NamedPluginKeys = Readonly<{
 	[stateName: string]: PluginDependenciesAPI<NextEditorPlugin<any, any>> | undefined;
@@ -70,6 +70,9 @@ function useStaticPlugins<T>(plugins: T[]): T[] {
 }
 
 /**
+ *
+ * NOTE: Generally you may want to use `usePluginStateSelector` over this which behaves similarly
+ * but selects a slice of the state which is more performant.
  *
  * ⚠️⚠️⚠️ This is a debounced hook ⚠️⚠️⚠️
  * If the plugins you are listening to generate multiple shared states while the user is typing,

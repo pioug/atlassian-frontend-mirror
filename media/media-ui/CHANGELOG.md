@@ -1,5 +1,14 @@
 # @atlaskit/media-ui
 
+## 27.0.5
+
+### Patch Changes
+
+- [#177875](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177875)
+  [`d0c3d27216b7c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0c3d27216b7c) -
+  Clean up props for select new improvement on theme and customized components
+- Updated dependencies
+
 ## 27.0.4
 
 ### Patch Changes

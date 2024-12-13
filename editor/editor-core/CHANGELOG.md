@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 203.4.0
+
+### Minor Changes
+
+- [#178022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178022)
+  [`34c30d3598c59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/34c30d3598c59) -
+  [ED-25936] Editor Plugin to abort UFO TTVC on user interaction
+
+### Patch Changes
+
+- Updated dependencies
+
+## 203.3.0
+
+### Minor Changes
+
+- [#176529](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176529)
+  [`5c207d4755be8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c207d4755be8) -
+  [ux] Disabled extensions in typeahead list when editor is in offline mode
+
+## 203.2.11
+
+### Patch Changes
+
+- [#178005](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178005)
+  [`3a71ff9cf31d4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3a71ff9cf31d4) -
+  ED-25723 removing feature flag and use exisiting implementation for handleScrollToSelection for
+  singlePlayerExapnd
+
 ## 203.2.10
 
 ### Patch Changes

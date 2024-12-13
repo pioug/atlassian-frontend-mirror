@@ -1,5 +1,5 @@
 import assert from 'assert';
-import * as sinon from 'sinon';
+import sinon from 'sinon';
 import { defaultSchema as schema } from '@atlaskit/adf-schema/schema-default';
 import {
 	NodeNestingTransformError,
@@ -30,7 +30,8 @@ jest.mock('@atlaskit/adf-utils/transforms', () => ({
 }));
 
 import * as common from '@atlaskit/editor-common/validator';
-import { renderDocument, type Serializer } from '../../index';
+import { type Serializer } from '../../serializer';
+import { renderDocument } from '../../render-document';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
 

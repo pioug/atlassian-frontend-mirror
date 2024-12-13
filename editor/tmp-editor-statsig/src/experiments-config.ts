@@ -393,4 +393,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2024-12-03
+	platform_editor_ai_knowledge_from_current_page: {
+		productKeys: {
+			confluence: 'platform_editor_ai_knowledge_from_current_page',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

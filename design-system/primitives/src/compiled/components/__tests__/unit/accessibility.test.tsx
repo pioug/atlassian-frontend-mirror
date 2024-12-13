@@ -63,7 +63,7 @@ describe('Primitives', () => {
 					);
 
 					const anchor = screen.getByTestId('anchor');
-					expect(anchor).toHaveAccessibleName(`Jira ${OPENS_NEW_WINDOW_LABEL}`);
+					expect(anchor).toHaveAccessibleName(`Jira , ${OPENS_NEW_WINDOW_LABEL}`);
 				});
 				it('to `aria-labelledby`', () => {
 					render(
@@ -95,7 +95,7 @@ describe('Primitives', () => {
 					);
 
 					const anchor = screen.getByTestId('anchor');
-					expect(anchor).toHaveAccessibleName(`Atlas ${OPENS_NEW_WINDOW_LABEL}`);
+					expect(anchor).toHaveAccessibleName(`Atlas , ${OPENS_NEW_WINDOW_LABEL}`);
 
 					// Ensure label has not been added elsewhere
 					expect(anchor).not.toHaveTextContent(OPENS_NEW_WINDOW_LABEL);

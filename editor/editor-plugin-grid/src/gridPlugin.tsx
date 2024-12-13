@@ -6,7 +6,7 @@ import classnames from 'classnames';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type { ExtractInjectionAPI, GridType } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
@@ -16,13 +16,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 import type { GridPlugin } from './gridPluginType';
-import type {
-	CreateDisplayGrid,
-	GridPluginOptions,
-	GridPluginState,
-	GridType,
-	Highlights,
-} from './types';
+import type { CreateDisplayGrid, GridPluginOptions, GridPluginState, Highlights } from './types';
 
 export const GRID_SIZE = 12;
 

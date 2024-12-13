@@ -21,7 +21,7 @@ describe('BaseUserPicker', () => {
 			<IntlProvider locale="en">
 				<BaseUserPicker
 					SelectComponent={Select}
-					components={null}
+					components={{}}
 					fieldId={'123'}
 					styles={{}}
 					width={100}

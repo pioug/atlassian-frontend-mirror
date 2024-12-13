@@ -2,7 +2,6 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/anal
 import React from 'react';
 import AnalyticsContext from '../../analytics/analyticsContext';
 import { ElementSelection } from './element-selection';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const useSelectAllTrap = <T extends HTMLElement>(): React.MutableRefObject<T | null> => {
 	const { fireAnalyticsEvent } = React.useContext(AnalyticsContext);
@@ -27,9 +26,7 @@ export const useSelectAllTrap = <T extends HTMLElement>(): React.MutableRefObjec
 			}
 
 			const elementSelection = ElementSelection.fromWindow();
-			const isInput = fg('platform-datasources-enable-two-way-sync')
-				? (e.target as HTMLInputElement)?.matches?.('input')
-				: false;
+			const isInput = (e.target as HTMLInputElement)?.matches?.('input');
 			if (elementSelection.eq(caught.current) || isInput) {
 				fireAnalyticsEvent({
 					eventType: EVENT_TYPE.TRACK,

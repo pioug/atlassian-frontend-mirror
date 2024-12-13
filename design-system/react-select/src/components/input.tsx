@@ -48,17 +48,16 @@ export type InputProps<
 export const inputCSS = <Option, IsMulti extends boolean, Group extends GroupBase<Option>>({
 	isDisabled,
 	value,
-	theme: { spacing, colors },
 }: InputProps<Option, IsMulti, Group>): CSSObjectWithLabel => ({
 	visibility: isDisabled ? 'hidden' : 'visible',
 	// force css to recompute when value change due to @emotion bug.
 	// We can remove it whenever the bug is fixed.
 	transform: value ? 'translateZ(0)' : '',
 	...containerStyle,
-	margin: spacing.baseUnit / 2,
-	paddingBottom: spacing.baseUnit / 2,
-	paddingTop: spacing.baseUnit / 2,
-	color: token('color.text', 'hsl(0, 0%, 20%)'),
+	margin: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingTop: token('space.025'),
+	color: token('color.text'),
 });
 
 const spacingStyle = {

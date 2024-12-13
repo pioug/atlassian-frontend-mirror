@@ -5,6 +5,10 @@ import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import { expandClassNames } from '@atlaskit/editor-common/styles';
+import {
+	transformSliceExpandToNestedExpand,
+	transformSliceNestedExpandToExpand,
+} from '@atlaskit/editor-common/transforms';
 import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { type Slice } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
@@ -14,7 +18,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExpandPlugin } from '../../types';
 import ExpandNodeView from '../node-views';
-import { transformSliceExpandToNestedExpand, transformSliceNestedExpandToExpand } from '../utils';
 
 export const pluginKey = new PluginKey('expandPlugin');
 
@@ -62,9 +65,6 @@ export const createPlugin = (
 				return containsClass(event.target as Element, expandClassNames.titleContainer);
 			},
 			handleScrollToSelection() {
-				if (fg('platform_editor_expand_auto_scroll')) {
-					return true;
-				}
 				return containsClass(document.activeElement, expandClassNames.titleInput);
 			},
 			handleClickOn: createSelectionClickHandler(

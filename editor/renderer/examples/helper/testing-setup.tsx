@@ -12,8 +12,8 @@ import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 import type { RendererProps } from '../../src/ui/renderer-props';
 import { default as Renderer } from '../../src/ui/Renderer';
-import { document as defaultDoc } from '../helper/story-data';
-import Sidebar from '../helper/NavigationNext';
+import { document as defaultDoc } from './story-data';
+import Sidebar from './NavigationNext';
 import type { MentionProvider } from '@atlaskit/mention/types';
 import { EmbedHelper } from '@atlaskit/media-integration-test-helpers/embed-helper';
 import AnalyticsListeners from '@atlaskit/analytics-listeners';
@@ -28,7 +28,7 @@ import { RendererActionsContext as RendererContext } from '../../src/ui/Renderer
 import { WithRendererActions } from '../../src/ui/RendererActionsContext/WithRendererActions';
 import type { AnnotationId } from '@atlaskit/adf-schema';
 import { AnnotationTypes, AnnotationMarkStates } from '@atlaskit/adf-schema';
-import { ExampleSelectionInlineComponent } from '../helper/annotations';
+import { ExampleSelectionInlineComponent } from './annotations/selection';
 import { IntlProvider } from 'react-intl-next';
 
 const mediaMockServer = createEditorMediaMock();

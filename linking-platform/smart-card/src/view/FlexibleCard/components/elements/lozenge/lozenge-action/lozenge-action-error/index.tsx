@@ -51,11 +51,7 @@ const LozengeActionError = ({
 
 	const handlePreviewOpen = useCallback(() => {
 		if (isPreviewAvailable) {
-			if (fg('platform_migrate-some-ui-events-smart-card')) {
-				fireEvent('ui.button.clicked.smartLinkStatusOpenPreview', {});
-			} else {
-				analytics?.ui.smartLinkLozengeActionErrorOpenPreviewClickedEvent();
-			}
+			fireEvent('ui.button.clicked.smartLinkStatusOpenPreview', {});
 
 			if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
 				invokePreviewAction && invoke(invokePreviewAction);

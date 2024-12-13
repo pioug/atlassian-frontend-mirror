@@ -293,23 +293,20 @@ export const useDatasourceTableState = ({
 					);
 					setResponseItemIds((currentIds) => [...currentIds, ...newIds]);
 
-					if (fg('platform-datasources-enable-two-way-sync')) {
-						if (!isFedRamp()) {
-							if (typeof integrationKey === 'string') {
-								const aris = items.reduce<string[]>(
-									(acc, item) =>
-										typeof item.ari?.data === 'string' ? [...acc, item.ari.data] : acc,
-									[],
-								);
+					if (!isFedRamp()) {
+						if (typeof integrationKey === 'string') {
+							const aris = items.reduce<string[]>(
+								(acc, item) => (typeof item.ari?.data === 'string' ? [...acc, item.ari.data] : acc),
+								[],
+							);
 
-								if (aris.length && entityType) {
-									discoverActions({
-										aris,
-										integrationKey,
-										fieldKeys,
-										entityType,
-									});
-								}
+							if (aris.length && entityType) {
+								discoverActions({
+									aris,
+									integrationKey,
+									fieldKeys,
+									entityType,
+								});
 							}
 						}
 					}

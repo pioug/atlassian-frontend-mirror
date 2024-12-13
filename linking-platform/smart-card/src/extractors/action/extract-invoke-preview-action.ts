@@ -9,7 +9,7 @@ import {
 
 import { type FireEventFunction } from '../../common/analytics/types';
 import { ActionName, CardAction } from '../../index';
-import { getDefinitionId, getExtensionKey, getResourceType } from '../../state/helpers';
+import { getExtensionKey } from '../../state/helpers';
 import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-client-action/types';
 import { canShowAction } from '../../utils/actions/can-show-action';
 import { type AnalyticsOrigin } from '../../utils/types';
@@ -43,11 +43,15 @@ export const extractInvokePreviewAction = (
 	const src = extractPreviewData(data, 'web')?.src;
 	if (src) {
 		const url = extractLink(data);
+		const extensionKey = getExtensionKey(response);
 		return {
 			actionFn: async () =>
 				openEmbedModal({
 					fireEvent,
+					extensionKey,
+					id,
 					invokeDownloadAction: extractInvokeDownloadAction(param),
+					invokeViewAction: extractInvokeViewAction(param, true),
 					isSupportTheming: extractIsSupportTheming(meta),
 					isTrusted: extractIsTrusted(meta),
 					linkIcon: extractLinkIcon(response),
@@ -57,15 +61,12 @@ export const extractInvokePreviewAction = (
 					src,
 					title: extractTitle(data),
 					url,
-					invokeViewAction: extractInvokeViewAction(param, true),
 				}),
 			actionSubjectId: 'invokePreviewScreen',
 			actionType: ActionName.PreviewAction,
-			definitionId: getDefinitionId(response),
 			display,
-			extensionKey: getExtensionKey(response),
+			extensionKey,
 			id,
-			resourceType: getResourceType(response),
 		};
 	}
 };

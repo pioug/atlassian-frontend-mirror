@@ -4,8 +4,8 @@ import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 
-import { changeColor } from '../../commands';
-import type { HighlightPlugin } from '../../plugin';
+import { changeColor } from '../../editor-commands';
+import type { HighlightPlugin } from '../../highlightPluginType';
 
 type UseDropdownEventArgs = {
 	setIsDropdownOpen: (isOpen: boolean) => void;

@@ -47,6 +47,7 @@ import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { textColorPlugin } from '@atlaskit/editor-plugins/text-color';
 import { toolbarListsIndentationPlugin } from '@atlaskit/editor-plugins/toolbar-lists-indentation';
+import { ufoPlugin } from '@atlaskit/editor-plugins/ufo';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { EditorProps } from '../types';
@@ -163,6 +164,7 @@ export default function createUniversalPresetInternal({
 	};
 
 	const finalPreset = defaultPreset
+		.add(ufoPlugin)
 		.add(dataConsumerPlugin)
 		.add(accessibilityUtilsPlugin)
 		.add(contentInsertionPlugin)

@@ -1,6 +1,7 @@
+/* eslint-disable testing-library/no-unnecessary-act */
 import React from 'react';
 
-import { act, fireEvent, render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
@@ -56,30 +57,6 @@ describe('ServerAction', () => {
 		jest.spyOn(useResolve, 'default').mockReturnValue(mockResolve);
 
 		const component = (
-			<IntlProvider locale="en">
-				<ServerAction
-					action={props?.action || getAction()}
-					content="button text"
-					testId={testId}
-					{...props}
-				/>
-			</IntlProvider>
-		);
-
-		const result = render(component);
-
-		return { ...result, component };
-	};
-
-	const renderComponentFF = (
-		props?: Partial<ServerActionProps>,
-		mockInvoke = jest.fn(),
-		mockResolve = jest.fn(),
-	) => {
-		jest.spyOn(useInvoke, 'default').mockReturnValue(mockInvoke);
-		jest.spyOn(useResolve, 'default').mockReturnValue(mockResolve);
-
-		const component = (
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<IntlProvider locale="en">
 					<ServerAction
@@ -115,8 +92,8 @@ describe('ServerAction', () => {
 		renderComponent({ action }, mockInvoke);
 
 		const element = await screen.findByTestId(testId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 
 		expect(mockInvoke).toHaveBeenCalledTimes(1);
@@ -131,8 +108,8 @@ describe('ServerAction', () => {
 		renderComponent({ action }, mockInvoke, mockResolve);
 
 		const element = await screen.findByTestId(testId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 
 		await flushPromises();
@@ -150,8 +127,8 @@ describe('ServerAction', () => {
 		renderComponent({ action }, mockInvoke, mockResolve);
 
 		const element = await screen.findByTestId(testId);
-		act(() => {
-			fireEvent.click(element);
+		await act(async () => {
+			await userEvent.click(element);
 		});
 
 		await flushPromises();
@@ -163,14 +140,20 @@ describe('ServerAction', () => {
 	// for a more comprehensive analytics tests
 	describe('analytics', () => {
 		it('fires analytics events on action success', async () => {
-			const uiSpy = jest.spyOn(mockAnalytics.ui, 'smartLinkServerActionClickedEvent');
 			const action = getAction();
-			renderComponentFF({ action });
+			renderComponent({ action });
 
 			const element = await screen.findByTestId(testId);
 			await userEvent.click(element);
 
-			expect(uiSpy).toHaveBeenCalled();
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'button',
+					action: 'clicked',
+					actionSubjectId: 'smartLinkFollowButton',
+					attributes: expect.objectContaining({}),
+				}),
+			);
 			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					actionSubject: 'smartLinkQuickAction',
@@ -186,15 +169,21 @@ describe('ServerAction', () => {
 		});
 
 		it('fires analytics events on action fails', async () => {
-			const uiSpy = jest.spyOn(mockAnalytics.ui, 'smartLinkServerActionClickedEvent');
 			const action = getAction();
 			const mockInvoke = jest.fn().mockImplementationOnce(() => Promise.reject());
-			renderComponentFF({ action }, mockInvoke);
+			renderComponent({ action }, mockInvoke);
 
 			const element = await screen.findByTestId(testId);
 			await userEvent.click(element);
 
-			expect(uiSpy).toHaveBeenCalled();
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'button',
+					action: 'clicked',
+					actionSubjectId: 'smartLinkFollowButton',
+					attributes: expect.objectContaining({}),
+				}),
+			);
 			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					actionSubject: 'smartLinkQuickAction',

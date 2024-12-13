@@ -58,202 +58,224 @@ describe('smart-card: unauthorized analytics', () => {
 	});
 
 	describe('unauthorized', () => {
-		describe('should fire clicked event when the link is clicked', () => {
-			ffTest(
-				'platform_migrate-some-ui-events-smart-card',
-				async () => {
-					const mockUrl = 'https://https://this.is.a.url';
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card testId="unauthorizedCard1" appearance="inline" url={mockUrl} />
-								</Provider>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
+		it('should fire clicked event when the link is clicked', async () => {
+			const mockUrl = 'https://https://this.is.a.url';
+			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card testId="unauthorizedCard1" appearance="inline" url={mockUrl} />
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
+			);
 
-					const unauthorizedLink = await waitFor(
-						() =>
-							screen
-								.getByTestId('unauthorizedCard1-unauthorized-view')
-								.getElementsByTagName('a')[0],
+			const unauthorizedLink = await waitFor(
+				() =>
+					screen.getByTestId('unauthorizedCard1-unauthorized-view').getElementsByTagName('a')[0],
 
-						{ timeout: 10000 },
-					);
-					expect(unauthorizedLink).toBeTruthy();
-					await userEvent.click(unauthorizedLink);
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'clicked',
-							actionSubject: 'smartLink',
-							attributes: expect.objectContaining({
-								display: 'inline',
-								status: 'unauthorized',
-								definitionId: 'd1',
-								id: 'some-uuid-1',
-								extensionKey: 'object-provider',
-								isModifierKeyPressed: false,
-							}),
-						}),
-					);
-				},
-				async () => {
-					const mockUrl = 'https://https://this.is.a.url';
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					render(
-						<IntlProvider locale="en">
-							<Provider client={mockClient}>
-								<Card testId="unauthorizedCard1" appearance="inline" url={mockUrl} />
-							</Provider>
-						</IntlProvider>,
-					);
-
-					const unauthorizedLink = await waitFor(
-						() =>
-							screen
-								.getByTestId('unauthorizedCard1-unauthorized-view')
-								.getElementsByTagName('a')[0],
-
-						{ timeout: 10000 },
-					);
-					expect(unauthorizedLink).toBeTruthy();
-					await userEvent.click(unauthorizedLink);
-					expect(analytics.uiCardClickedEvent).toHaveBeenCalledTimes(1);
-					expect(analytics.uiCardClickedEvent).toHaveBeenCalledWith({
-						id: 'some-uuid-1',
+				{ timeout: 10000 },
+			);
+			expect(unauthorizedLink).toBeTruthy();
+			await userEvent.click(unauthorizedLink);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'smartLink',
+					attributes: expect.objectContaining({
 						display: 'inline',
 						status: 'unauthorized',
 						definitionId: 'd1',
+						id: 'some-uuid-1',
 						extensionKey: 'object-provider',
 						isModifierKeyPressed: false,
-					});
-				},
+					}),
+				}),
 			);
 		});
 
-		describe.each<CardAppearance>(['block', 'embed'])(
+		it.each<CardAppearance>(['block', 'embed'])(
 			'should fire "learn more" clicked event when the button is clicked',
-			(appearance) => {
-				ffTest(
-					'platform_migrate-some-ui-events-smart-card',
-					async () => {
-						const mockUrl = 'https://https://this.is.a.url';
-						mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-						render(
-							<FabricAnalyticsListeners client={mockAnalyticsClient}>
-								<IntlProvider locale="en">
-									<Provider client={mockClient}>
-										<Card appearance={appearance as CardAppearance} url={mockUrl} testId="test" />
-									</Provider>
-								</IntlProvider>
-							</FabricAnalyticsListeners>,
-						);
+			async (appearance) => {
+				const mockUrl = 'https://https://this.is.a.url';
+				mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card appearance={appearance as CardAppearance} url={mockUrl} testId="test" />
+							</Provider>
+						</IntlProvider>
+					</FabricAnalyticsListeners>,
+				);
 
-						const learnMoreButton = await screen.findByTestId(
-							'test-learn-more',
-							{},
-							{ timeout: 10000 },
-						);
-						expect(learnMoreButton).toBeTruthy();
-						await userEvent.click(learnMoreButton!);
-						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								actionSubject: 'button',
-								action: 'clicked',
-								actionSubjectId: 'learnMore',
-								attributes: expect.objectContaining({
-									display: appearance,
-									id: 'some-uuid-1',
-									status: 'unauthorized',
-									extensionKey: 'object-provider',
-								}),
-							}),
-						);
-					},
-					async () => {
-						const mockUrl = 'https://https://this.is.a.url';
-						mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-						render(
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card appearance={appearance as CardAppearance} url={mockUrl} testId="test" />
-								</Provider>
-							</IntlProvider>,
-						);
-
-						const learnMoreButton = await screen.findByTestId(
-							'test-learn-more',
-							{},
-							{ timeout: 10000 },
-						);
-						expect(learnMoreButton).toBeTruthy();
-						await userEvent.click(learnMoreButton!);
-
-						expect(analytics.uiLearnMoreLinkClickedEvent).toHaveBeenCalledTimes(1);
-					},
+				const learnMoreButton = await screen.findByTestId(
+					'test-learn-more',
+					{},
+					{ timeout: 10000 },
+				);
+				expect(learnMoreButton).toBeTruthy();
+				await userEvent.click(learnMoreButton!);
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						actionSubject: 'button',
+						action: 'clicked',
+						actionSubjectId: 'learnMore',
+						attributes: expect.objectContaining({
+							display: appearance,
+							id: 'some-uuid-1',
+							status: 'unauthorized',
+							extensionKey: 'object-provider',
+						}),
+					}),
 				);
 			},
 		);
 
-		describe('should fire clicked event when the "learn more" button is clicked on unauthorized hover card', () => {
-			ffTest(
-				'platform_migrate-some-ui-events-smart-card',
-				async () => {
-					const mockUrl = 'https://this.is.a.url';
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card
-										url={mockUrl}
-										appearance="inline"
-										testId="unauthorized-inline-card"
-										showAuthTooltip={true}
-									/>
-								</Provider>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
+		it('should fire clicked event when the "learn more" button is clicked on unauthorized hover card', async () => {
+			const mockUrl = 'https://this.is.a.url';
+			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card
+								url={mockUrl}
+								appearance="inline"
+								testId="unauthorized-inline-card"
+								showAuthTooltip={true}
+							/>
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
+			);
 
-					const unauthorizedLink = await screen.findByTestId(
-						'unauthorized-inline-card-unauthorized-view',
-						{},
-						{ timeout: 10000 },
-					);
+			const unauthorizedLink = await screen.findByTestId(
+				'unauthorized-inline-card-unauthorized-view',
+				{},
+				{ timeout: 10000 },
+			);
 
-					await userEvent.hover(unauthorizedLink);
-					const authTooltip = await screen.findByTestId('hover-card-unauthorised-view');
+			await userEvent.hover(unauthorizedLink);
+			const authTooltip = await screen.findByTestId('hover-card-unauthorised-view');
 
-					expect(authTooltip).toBeTruthy();
+			expect(authTooltip).toBeTruthy();
 
-					const learnMoreButton = screen.getByTestId('unauthorised-view-content-learn-more');
-					expect(learnMoreButton).toBeTruthy();
+			const learnMoreButton = screen.getByTestId('unauthorised-view-content-learn-more');
+			expect(learnMoreButton).toBeTruthy();
 
-					await userEvent.click(learnMoreButton!);
+			await userEvent.click(learnMoreButton!);
 
-					// verify ui button clicked event is fired
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'button',
-							action: 'clicked',
-							actionSubjectId: 'learnMore',
-							attributes: expect.objectContaining({
-								display: 'hoverCardPreview',
-								id: 'some-uuid-1',
-								status: 'unauthorized',
-								extensionKey: 'object-provider',
-							}),
-						}),
-					);
-				},
-				async () => {
-					const mockUrl = 'https://this.is.a.url';
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					render(
+			// verify ui button clicked event is fired
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'button',
+					action: 'clicked',
+					actionSubjectId: 'learnMore',
+					attributes: expect.objectContaining({
+						display: 'hoverCardPreview',
+						id: 'some-uuid-1',
+						status: 'unauthorized',
+						extensionKey: 'object-provider',
+					}),
+				}),
+			);
+		});
+
+		it.each<[CardAppearance, string]>([
+			['block', 'smart-action-connect-account'],
+			['embed', 'connect-account'],
+		])(
+			'should fire analytics events when the connect button is clicked on %s card',
+			async (card, buttonTestId) => {
+				const mockUrl = 'https://https://this.is.a.url';
+				mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
 						<IntlProvider locale="en">
+							<AnalyticsContext
+								data={{
+									attributes: {
+										definitionId: 'd1',
+									},
+								}}
+							>
+								<Provider client={mockClient}>
+									<Card appearance={card} url={mockUrl} />
+								</Provider>
+							</AnalyticsContext>
+						</IntlProvider>
+					</FabricAnalyticsListeners>,
+				);
+
+				const connectButton = await screen.findByTestId(buttonTestId, {}, { timeout: 10000 });
+				expect(connectButton).toBeTruthy();
+				asMockFunction(auth).mockImplementationOnce(async () => {});
+				await userEvent.click(connectButton!);
+
+				// verify ui button clicked event is fired
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'clicked',
+						actionSubject: 'button',
+						actionSubjectId: 'connectAccount',
+						attributes: expect.objectContaining({
+							display: card,
+							definitionId: 'd1',
+							extensionKey: 'object-provider',
+							id: 'some-uuid-1',
+							status: 'unauthorized',
+						}),
+					}),
+				);
+
+				// verify track event authStarted is fired
+				expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						actionSubject: 'applicationAccount',
+						action: 'authStarted',
+						attributes: expect.objectContaining({
+							display: card,
+							definitionId: 'd1',
+							extensionKey: 'object-provider',
+							id: 'some-uuid-1',
+							status: 'unauthorized',
+						}),
+					}),
+				);
+				// verify track event connected is fired
+				expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						actionSubject: 'applicationAccount',
+						action: 'connected',
+						attributes: expect.objectContaining({
+							display: card,
+							definitionId: 'd1',
+							extensionKey: 'object-provider',
+							id: 'some-uuid-1',
+							status: 'unauthorized',
+						}),
+					}),
+				);
+			},
+		);
+
+		it('should fire clicked event when the connect button is clicked on unauthorized hover card', async () => {
+			const mockUrl = 'https://https://this.is.a.url';
+			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<AnalyticsContext
+							data={{
+								attributes: {
+									definitionId: 'd1',
+								},
+							}}
+						>
 							<Provider client={mockClient}>
 								<Card
 									url={mockUrl}
@@ -262,496 +284,151 @@ describe('smart-card: unauthorized analytics', () => {
 									showAuthTooltip={true}
 								/>
 							</Provider>
-						</IntlProvider>,
-					);
-
-					const unauthorizedLink = await screen.findByTestId(
-						'unauthorized-inline-card-unauthorized-view',
-						{},
-						{ timeout: 10000 },
-					);
-
-					await userEvent.hover(unauthorizedLink);
-					const authTooltip = await screen.findByTestId('hover-card-unauthorised-view');
-
-					expect(authTooltip).toBeTruthy();
-
-					const learnMoreButton = screen.getByTestId('unauthorised-view-content-learn-more');
-					expect(learnMoreButton).toBeTruthy();
-
-					await userEvent.click(learnMoreButton!);
-
-					// verify ui button clicked event is fired
-					expect(analytics.uiLearnMoreLinkClickedEvent).toHaveBeenCalledTimes(1);
-				},
+						</AnalyticsContext>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
 			);
-		});
 
-		describe.each<[CardAppearance, string]>([
-			['block', 'smart-action-connect-account'],
-			['embed', 'connect-account'],
-		])(
-			'should fire analytics events when the connect button is clicked on %s card',
-			(card, buttonTestId) => {
-				ffTest(
-					'platform_migrate-some-ui-events-smart-card',
-					async () => {
-						const mockUrl = 'https://https://this.is.a.url';
-						mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+			const unauthorizedLink = await screen.findByTestId(
+				'unauthorized-inline-card-unauthorized-view',
+				{},
+				{ timeout: 10000 },
+			);
 
-						render(
-							<FabricAnalyticsListeners client={mockAnalyticsClient}>
-								<IntlProvider locale="en">
-									<AnalyticsContext
-										data={{
-											attributes: {
-												definitionId: 'd1',
-											},
-										}}
-									>
-										<Provider client={mockClient}>
-											<Card appearance={card} url={mockUrl} />
-										</Provider>
-									</AnalyticsContext>
-								</IntlProvider>
-							</FabricAnalyticsListeners>,
-						);
+			await userEvent.hover(unauthorizedLink);
 
-						const connectButton = await screen.findByTestId(buttonTestId, {}, { timeout: 10000 });
-						expect(connectButton).toBeTruthy();
-						asMockFunction(auth).mockImplementationOnce(async () => {});
-						await userEvent.click(connectButton!);
+			const authTooltip = await screen.findByTestId('hover-card-unauthorised-view');
 
-						// verify ui button clicked event is fired
-						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								action: 'clicked',
-								actionSubject: 'button',
-								actionSubjectId: 'connectAccount',
-								attributes: expect.objectContaining({
-									display: card,
-									definitionId: 'd1',
-									extensionKey: 'object-provider',
-									id: 'some-uuid-1',
-									status: 'unauthorized',
-								}),
-							}),
-						);
+			expect(authTooltip).toBeTruthy();
 
-						// verify track event authStarted is fired
-						expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								actionSubject: 'applicationAccount',
-								action: 'authStarted',
-								attributes: expect.objectContaining({
-									display: card,
-									definitionId: 'd1',
-									extensionKey: 'object-provider',
-									id: 'some-uuid-1',
-									status: 'unauthorized',
-								}),
-							}),
-						);
-						// verify track event connected is fired
-						expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								actionSubject: 'applicationAccount',
-								action: 'connected',
-								attributes: expect.objectContaining({
-									display: card,
-									definitionId: 'd1',
-									extensionKey: 'object-provider',
-									id: 'some-uuid-1',
-									status: 'unauthorized',
-								}),
-							}),
-						);
-					},
-					async () => {
-						const mockUrl = 'https://https://this.is.a.url';
-						mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+			const connectButton = screen.getByTestId('smart-action');
+			expect(connectButton).toBeTruthy();
 
-						render(
-							<FabricAnalyticsListeners client={mockAnalyticsClient}>
-								<IntlProvider locale="en">
-									<AnalyticsContext
-										data={{
-											attributes: {
-												definitionId: 'd1',
-											},
-										}}
-									>
-										<Provider client={mockClient}>
-											<Card appearance={card} url={mockUrl} />
-										</Provider>
-									</AnalyticsContext>
-								</IntlProvider>
-							</FabricAnalyticsListeners>,
-						);
+			asMockFunction(auth).mockImplementationOnce(async () => {});
+			await userEvent.click(connectButton!);
 
-						const connectButton = await screen.findByTestId(buttonTestId, {}, { timeout: 10000 });
-						expect(connectButton).toBeTruthy();
-						asMockFunction(auth).mockImplementationOnce(async () => {});
-						await userEvent.click(connectButton!);
-
-						// verify ui button clicked event is fired
-						expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
-						expect(analytics.uiAuthEvent).toHaveBeenCalledWith({
-							display: card,
-							definitionId: 'd1',
-							extensionKey: 'object-provider',
-						});
-
-						// verify track event authStarted is fired
-						expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								actionSubject: 'applicationAccount',
-								action: 'authStarted',
-								attributes: expect.objectContaining({
-									definitionId: 'd1',
-									extensionKey: 'object-provider',
-									id: 'some-uuid-1',
-								}),
-							}),
-						);
-						// verify track event connected is fired
-						expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								actionSubject: 'applicationAccount',
-								action: 'connected',
-								attributes: expect.objectContaining({
-									definitionId: 'd1',
-									extensionKey: 'object-provider',
-									id: 'some-uuid-1',
-								}),
-							}),
-						);
-					},
-				);
-			},
-		);
-
-		describe('should fire clicked event when the connect button is clicked on unauthorized hover card', () => {
-			ffTest(
-				'platform_migrate-some-ui-events-smart-card',
-				async () => {
-					const mockUrl = 'https://https://this.is.a.url';
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<AnalyticsContext
-									data={{
-										attributes: {
-											definitionId: 'd1',
-										},
-									}}
-								>
-									<Provider client={mockClient}>
-										<Card
-											url={mockUrl}
-											appearance="inline"
-											testId="unauthorized-inline-card"
-											showAuthTooltip={true}
-										/>
-									</Provider>
-								</AnalyticsContext>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
-
-					const unauthorizedLink = await screen.findByTestId(
-						'unauthorized-inline-card-unauthorized-view',
-						{},
-						{ timeout: 10000 },
-					);
-
-					await userEvent.hover(unauthorizedLink);
-
-					const authTooltip = await screen.findByTestId('hover-card-unauthorised-view');
-
-					expect(authTooltip).toBeTruthy();
-
-					const connectButton = screen.getByTestId('smart-action');
-					expect(connectButton).toBeTruthy();
-
-					asMockFunction(auth).mockImplementationOnce(async () => {});
-					await userEvent.click(connectButton!);
-
-					// verify ui button clicked event is fired
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'clicked',
-							actionSubject: 'button',
-							actionSubjectId: 'connectAccount',
-							attributes: expect.objectContaining({
-								display: 'hoverCardPreview',
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								id: 'some-uuid-1',
-								status: 'unauthorized',
-							}),
-						}),
-					);
-
-					// verify track event authStarted is fired
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'applicationAccount',
-							action: 'authStarted',
-							attributes: expect.objectContaining({
-								display: 'hoverCardPreview',
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								id: 'some-uuid-1',
-								status: 'unauthorized',
-							}),
-						}),
-					);
-					// verify track event connected is fired
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'applicationAccount',
-							action: 'connected',
-							attributes: expect.objectContaining({
-								display: 'hoverCardPreview',
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								id: 'some-uuid-1',
-								status: 'unauthorized',
-							}),
-						}),
-					);
-				},
-				async () => {
-					const mockUrl = 'https://https://this.is.a.url';
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<AnalyticsContext
-									data={{
-										attributes: {
-											definitionId: 'd1',
-										},
-									}}
-								>
-									<Provider client={mockClient}>
-										<Card
-											url={mockUrl}
-											appearance="inline"
-											testId="unauthorized-inline-card"
-											showAuthTooltip={true}
-										/>
-									</Provider>
-								</AnalyticsContext>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
-
-					const unauthorizedLink = await screen.findByTestId(
-						'unauthorized-inline-card-unauthorized-view',
-						{},
-						{ timeout: 10000 },
-					);
-
-					await userEvent.hover(unauthorizedLink);
-
-					const authTooltip = await screen.findByTestId('hover-card-unauthorised-view');
-
-					expect(authTooltip).toBeTruthy();
-
-					const connectButton = screen.getByTestId('smart-action');
-					expect(connectButton).toBeTruthy();
-
-					asMockFunction(auth).mockImplementationOnce(async () => {});
-					await userEvent.click(connectButton!);
-
-					// verify ui button clicked event is fired
-					expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
-					expect(analytics.uiAuthEvent).toHaveBeenCalledWith({
+			// verify ui button clicked event is fired
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'connectAccount',
+					attributes: expect.objectContaining({
 						display: 'hoverCardPreview',
 						definitionId: 'd1',
 						extensionKey: 'object-provider',
-					});
+						id: 'some-uuid-1',
+						status: 'unauthorized',
+					}),
+				}),
+			);
 
-					// verify track event authStarted is fired
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'applicationAccount',
-							action: 'authStarted',
-							attributes: expect.objectContaining({
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								id: 'some-uuid-1',
-							}),
-						}),
-					);
-					// verify track event connected is fired
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'applicationAccount',
-							action: 'connected',
-							attributes: expect.objectContaining({
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								id: 'some-uuid-1',
-							}),
-						}),
-					);
-				},
+			// verify track event authStarted is fired
+			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'applicationAccount',
+					action: 'authStarted',
+					attributes: expect.objectContaining({
+						display: 'hoverCardPreview',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						id: 'some-uuid-1',
+						status: 'unauthorized',
+					}),
+				}),
+			);
+			// verify track event connected is fired
+			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'applicationAccount',
+					action: 'connected',
+					attributes: expect.objectContaining({
+						display: 'hoverCardPreview',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						id: 'some-uuid-1',
+						status: 'unauthorized',
+					}),
+				}),
 			);
 		});
 
-		describe('should fire clicked event when the connect button is clicked on unauthorized inline card', () => {
-			ffTest(
-				'platform_migrate-some-ui-events-smart-card',
-				async () => {
-					const mockUrl = 'https://https://this.is.a.url';
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+		it('should fire clicked event when the connect button is clicked on unauthorized inline card', async () => {
+			const mockUrl = 'https://https://this.is.a.url';
+			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
 
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<AnalyticsContext
-									data={{
-										attributes: {
-											definitionId: 'd1',
-										},
-									}}
-								>
-									<Provider client={mockClient}>
-										<Card url={mockUrl} appearance="inline" testId="unauthorized-inline-card" />
-									</Provider>
-								</AnalyticsContext>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<AnalyticsContext
+							data={{
+								attributes: {
+									definitionId: 'd1',
+								},
+							}}
+						>
+							<Provider client={mockClient}>
+								<Card url={mockUrl} appearance="inline" testId="unauthorized-inline-card" />
+							</Provider>
+						</AnalyticsContext>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
+			);
 
-					const connectButton = await screen.findByTestId(
-						'button-connect-account',
-						{},
-						{ timeout: 10000 },
-					);
+			const connectButton = await screen.findByTestId(
+				'button-connect-account',
+				{},
+				{ timeout: 10000 },
+			);
 
-					expect(connectButton).toBeTruthy();
+			expect(connectButton).toBeTruthy();
 
-					asMockFunction(auth).mockImplementationOnce(async () => {});
-					await userEvent.click(connectButton!);
+			asMockFunction(auth).mockImplementationOnce(async () => {});
+			await userEvent.click(connectButton!);
 
-					// verify ui button clicked event is fired
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'clicked',
-							actionSubject: 'button',
-							actionSubjectId: 'connectAccount',
-							attributes: expect.objectContaining({
-								display: 'inline',
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								id: 'some-uuid-1',
-								status: 'unauthorized',
-							}),
-						}),
-					);
-
-					// verify track event authStarted is fired
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'applicationAccount',
-							action: 'authStarted',
-							attributes: expect.objectContaining({
-								display: 'inline',
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								id: 'some-uuid-1',
-								status: 'unauthorized',
-							}),
-						}),
-					);
-					// verify track event connected is fired
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'applicationAccount',
-							action: 'connected',
-							attributes: expect.objectContaining({
-								display: 'inline',
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								id: 'some-uuid-1',
-								status: 'unauthorized',
-							}),
-						}),
-					);
-				},
-				async () => {
-					const mockUrl = 'https://https://this.is.a.url';
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<AnalyticsContext
-									data={{
-										attributes: {
-											definitionId: 'd1',
-										},
-									}}
-								>
-									<Provider client={mockClient}>
-										<Card url={mockUrl} appearance="inline" testId="unauthorized-inline-card" />
-									</Provider>
-								</AnalyticsContext>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
-
-					const connectButton = await screen.findByTestId(
-						'button-connect-account',
-						{},
-						{ timeout: 10000 },
-					);
-
-					expect(connectButton).toBeTruthy();
-
-					asMockFunction(auth).mockImplementationOnce(async () => {});
-					await userEvent.click(connectButton!);
-
-					// verify ui button clicked event is fired
-					expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
-					expect(analytics.uiAuthEvent).toHaveBeenCalledWith({
+			// verify ui button clicked event is fired
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'connectAccount',
+					attributes: expect.objectContaining({
 						display: 'inline',
 						definitionId: 'd1',
 						extensionKey: 'object-provider',
-					});
+						id: 'some-uuid-1',
+						status: 'unauthorized',
+					}),
+				}),
+			);
 
-					// verify track event authStarted is fired
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'applicationAccount',
-							action: 'authStarted',
-							attributes: expect.objectContaining({
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								id: 'some-uuid-1',
-							}),
-						}),
-					);
-					// verify track event connected is fired
-					expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'applicationAccount',
-							action: 'connected',
-							attributes: expect.objectContaining({
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								id: 'some-uuid-1',
-							}),
-						}),
-					);
-				},
+			// verify track event authStarted is fired
+			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'applicationAccount',
+					action: 'authStarted',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						id: 'some-uuid-1',
+						status: 'unauthorized',
+					}),
+				}),
+			);
+			// verify track event connected is fired
+			expect(mockAnalyticsClient.sendTrackEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'applicationAccount',
+					action: 'connected',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						id: 'some-uuid-1',
+						status: 'unauthorized',
+					}),
+				}),
 			);
 		});
 
@@ -872,7 +549,18 @@ describe('smart-card: unauthorized analytics', () => {
 					}),
 				}),
 			);
-			expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'connectAccount',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						extensionKey: 'object-provider',
+						definitionId: 'd1',
+					}),
+				}),
+			);
 			expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
 					action: 'viewed',
@@ -924,416 +612,225 @@ describe('smart-card: unauthorized analytics', () => {
 			expect(mockStartUfoExperience).toHaveBeenCalledBefore(mockSucceedUfoExperience as jest.Mock);
 		});
 
-		describe.each<string>([`${undefined}`, 'access_denied'])(
+		it.each<string>([`${undefined}`, 'access_denied'])(
 			'should fire connectFailed event when auth fails with errorType = $errorType',
-			(errorType) => {
-				ffTest(
-					'platform_migrate-some-ui-events-smart-card',
-					async () => {
-						const mockUrl = 'https://https://this.is.the.second.url';
-						mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-						render(
-							<FabricAnalyticsListeners client={mockAnalyticsClient}>
-								<IntlProvider locale="en">
-									<Provider client={mockClient}>
-										<Card testId="unauthorizedCard2" appearance="inline" url={mockUrl} />
-									</Provider>
-								</IntlProvider>
-							</FabricAnalyticsListeners>,
-						);
-						const unauthorizedLink = await screen.findByTestId(
-							'unauthorizedCard2-unauthorized-view',
-							{},
-							{ timeout: 10000 },
-						);
-						const unauthorizedLinkButton = screen.getByTestId('button-connect-account');
-						expect(unauthorizedLink).toBeTruthy();
-						expect(unauthorizedLinkButton).toBeTruthy();
-						expect(unauthorizedLinkButton.innerHTML).toContain('Connect');
-						// Mock out auth flow, & click connect.
-						asMockFunction(auth).mockImplementationOnce(() =>
-							Promise.reject(new AuthError('', errorType as any)),
-						);
+			async (errorType) => {
+				const mockUrl = 'https://https://this.is.the.second.url';
+				mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card testId="unauthorizedCard2" appearance="inline" url={mockUrl} />
+							</Provider>
+						</IntlProvider>
+					</FabricAnalyticsListeners>,
+				);
+				const unauthorizedLink = await screen.findByTestId(
+					'unauthorizedCard2-unauthorized-view',
+					{},
+					{ timeout: 10000 },
+				);
+				const unauthorizedLinkButton = screen.getByTestId('button-connect-account');
+				expect(unauthorizedLink).toBeTruthy();
+				expect(unauthorizedLinkButton).toBeTruthy();
+				expect(unauthorizedLinkButton.innerHTML).toContain('Connect');
+				// Mock out auth flow, & click connect.
+				asMockFunction(auth).mockImplementationOnce(() =>
+					Promise.reject(new AuthError('', errorType as any)),
+				);
 
-						// todo: determine why this test breaks when using userEvent.click()
-						fireEvent.click(unauthorizedLinkButton);
+				// todo: determine why this test breaks when using userEvent.click()
+				fireEvent.click(unauthorizedLinkButton);
 
-						const unresolvedView = await screen.findByTestId(
-							'unauthorizedCard2-unauthorized-view',
-							{},
-							{ timeout: 10000 },
-						);
-						expect(unresolvedView).toBeTruthy();
-						expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								actionSubject: 'smartLink',
-								action: 'unresolved',
-								attributes: expect.objectContaining({
-									id: expect.any(String),
-									status: 'unauthorized',
-									extensionKey: 'object-provider',
-									definitionId: 'd1',
-									reason: 'unauthorized',
-								}),
-							}),
-						);
-						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								action: 'clicked',
-								actionSubject: 'button',
-								actionSubjectId: 'connectAccount',
-								attributes: expect.objectContaining({
-									display: 'inline',
-									definitionId: 'd1',
-									extensionKey: 'object-provider',
-									id: 'some-uuid-1',
-									status: 'unauthorized',
-								}),
-							}),
-						);
-						expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								action: 'viewed',
-								name: 'consentModal',
-								attributes: expect.objectContaining({
-									display: 'inline',
-									extensionKey: 'object-provider',
-									definitionId: 'd1',
-								}),
-							}),
-						);
+				const unresolvedView = await screen.findByTestId(
+					'unauthorizedCard2-unauthorized-view',
+					{},
+					{ timeout: 10000 },
+				);
+				expect(unresolvedView).toBeTruthy();
+				expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						actionSubject: 'smartLink',
+						action: 'unresolved',
+						attributes: expect.objectContaining({
+							id: expect.any(String),
+							status: 'unauthorized',
+							extensionKey: 'object-provider',
+							definitionId: 'd1',
+							reason: 'unauthorized',
+						}),
+					}),
+				);
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'clicked',
+						actionSubject: 'button',
+						actionSubjectId: 'connectAccount',
+						attributes: expect.objectContaining({
+							display: 'inline',
+							definitionId: 'd1',
+							extensionKey: 'object-provider',
+							id: 'some-uuid-1',
+							status: 'unauthorized',
+						}),
+					}),
+				);
+				expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'viewed',
+						name: 'consentModal',
+						attributes: expect.objectContaining({
+							display: 'inline',
+							extensionKey: 'object-provider',
+							definitionId: 'd1',
+						}),
+					}),
+				);
 
-						expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								action: 'connectFailed',
-								actionSubject: 'smartLink',
-								attributes: expect.objectContaining({
-									definitionId: 'd1',
-									extensionKey: 'object-provider',
-									reason: errorType,
-									id: expect.any(String),
-								}),
-							}),
-						);
+				expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'connectFailed',
+						actionSubject: 'smartLink',
+						attributes: expect.objectContaining({
+							definitionId: 'd1',
+							extensionKey: 'object-provider',
+							reason: errorType,
+							id: expect.any(String),
+						}),
+					}),
+				);
 
-						expect(mockStartUfoExperience).toHaveBeenCalledWith(
-							'smart-link-authenticated',
-							'some-uuid-1',
-							{
-								extensionKey: 'object-provider',
-								status: errorType,
-							},
-						);
-
-						expect(mockSucceedUfoExperience).toHaveBeenCalledWith(
-							'smart-link-authenticated',
-							'some-uuid-1',
-							{
-								display: 'inline',
-							},
-						);
+				expect(mockStartUfoExperience).toHaveBeenCalledWith(
+					'smart-link-authenticated',
+					'some-uuid-1',
+					{
+						extensionKey: 'object-provider',
+						status: errorType,
 					},
-					async () => {
-						const mockUrl = 'https://https://this.is.the.second.url';
-						mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-						render(
-							<FabricAnalyticsListeners client={mockAnalyticsClient}>
-								<IntlProvider locale="en">
-									<Provider client={mockClient}>
-										<Card testId="unauthorizedCard2" appearance="inline" url={mockUrl} />
-									</Provider>
-								</IntlProvider>
-							</FabricAnalyticsListeners>,
-						);
-						const unauthorizedLink = await screen.findByTestId(
-							'unauthorizedCard2-unauthorized-view',
-							{},
-							{ timeout: 10000 },
-						);
-						const unauthorizedLinkButton = screen.getByTestId('button-connect-account');
-						expect(unauthorizedLink).toBeTruthy();
-						expect(unauthorizedLinkButton).toBeTruthy();
-						expect(unauthorizedLinkButton.innerHTML).toContain('Connect');
-						// Mock out auth flow, & click connect.
-						asMockFunction(auth).mockImplementationOnce(() =>
-							Promise.reject(new AuthError('', errorType as any)),
-						);
+				);
 
-						// todo: determine why this test breaks when using userEvent.click()
-						fireEvent.click(unauthorizedLinkButton);
-
-						const unresolvedView = await screen.findByTestId(
-							'unauthorizedCard2-unauthorized-view',
-							{},
-							{ timeout: 10000 },
-						);
-						expect(unresolvedView).toBeTruthy();
-						expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								actionSubject: 'smartLink',
-								action: 'unresolved',
-								attributes: expect.objectContaining({
-									id: expect.any(String),
-									status: 'unauthorized',
-									extensionKey: 'object-provider',
-									definitionId: 'd1',
-									reason: 'unauthorized',
-								}),
-							}),
-						);
-						expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
-						expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								action: 'viewed',
-								name: 'consentModal',
-								attributes: expect.objectContaining({
-									display: 'inline',
-									extensionKey: 'object-provider',
-									definitionId: 'd1',
-								}),
-							}),
-						);
-
-						expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								action: 'connectFailed',
-								actionSubject: 'smartLink',
-								attributes: expect.objectContaining({
-									definitionId: 'd1',
-									extensionKey: 'object-provider',
-									reason: errorType,
-									id: expect.any(String),
-								}),
-							}),
-						);
-
-						expect(mockStartUfoExperience).toHaveBeenCalledWith(
-							'smart-link-authenticated',
-							'some-uuid-1',
-							{
-								extensionKey: 'object-provider',
-								status: errorType,
-							},
-						);
-
-						expect(mockSucceedUfoExperience).toHaveBeenCalledWith(
-							'smart-link-authenticated',
-							'some-uuid-1',
-							{
-								display: 'inline',
-							},
-						);
+				expect(mockSucceedUfoExperience).toHaveBeenCalledWith(
+					'smart-link-authenticated',
+					'some-uuid-1',
+					{
+						display: 'inline',
 					},
 				);
 			},
 		);
 
-		describe('should fire connectFailed when auth dialog was closed', () => {
-			ffTest(
-				'platform_migrate-some-ui-events-smart-card',
-				async () => {
-					const mockUrl = 'https://https://this.is.the.third.url';
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card testId="unauthorizedCard3" appearance="inline" url={mockUrl} />
-								</Provider>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
-					const unauthorizedLink = await screen.findByTestId(
-						'unauthorizedCard3-unauthorized-view',
-						{},
-						{ timeout: 10000 },
-					);
-					const unauthorizedLinkButton = screen.getByTestId('button-connect-account');
-					expect(unauthorizedLink).toBeTruthy();
-					expect(unauthorizedLinkButton).toBeTruthy();
-					expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
-					// Mock out auth flow, & click connect.
-					asMockFunction(auth).mockImplementationOnce(() =>
-						Promise.reject(new AuthError('', 'auth_window_closed')),
-					);
-					await userEvent.click(unauthorizedLinkButton!);
+		it('should fire connectFailed when auth dialog was closed', async () => {
+			const mockUrl = 'https://https://this.is.the.third.url';
+			mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<IntlProvider locale="en">
+						<Provider client={mockClient}>
+							<Card testId="unauthorizedCard3" appearance="inline" url={mockUrl} />
+						</Provider>
+					</IntlProvider>
+				</FabricAnalyticsListeners>,
+			);
+			const unauthorizedLink = await screen.findByTestId(
+				'unauthorizedCard3-unauthorized-view',
+				{},
+				{ timeout: 10000 },
+			);
+			const unauthorizedLinkButton = screen.getByTestId('button-connect-account');
+			expect(unauthorizedLink).toBeTruthy();
+			expect(unauthorizedLinkButton).toBeTruthy();
+			expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
+			// Mock out auth flow, & click connect.
+			asMockFunction(auth).mockImplementationOnce(() =>
+				Promise.reject(new AuthError('', 'auth_window_closed')),
+			);
+			await userEvent.click(unauthorizedLinkButton!);
 
-					const resolvedView = await screen.findByTestId(
-						'unauthorizedCard3-resolved-view',
-						{},
-						{ timeout: 10000 },
-					);
-					expect(resolvedView).toBeTruthy();
-					expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLink',
-							action: 'unresolved',
-							attributes: expect.objectContaining({
-								id: expect.any(String),
-								status: 'unauthorized',
-								extensionKey: 'object-provider',
-								definitionId: 'd1',
-								reason: 'unauthorized',
-							}),
-						}),
-					);
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'clicked',
-							actionSubject: 'button',
-							actionSubjectId: 'connectAccount',
-							attributes: expect.objectContaining({
-								display: 'inline',
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								id: 'some-uuid-1',
-								status: 'unauthorized',
-							}),
-						}),
-					);
-					expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'viewed',
-							name: 'consentModal',
-							attributes: expect.objectContaining({
-								display: 'inline',
-								extensionKey: 'object-provider',
-								definitionId: 'd1',
-							}),
-						}),
-					);
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'closed',
-							actionSubject: 'consentModal',
-							attributes: expect.objectContaining({
-								display: 'inline',
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								id: 'some-uuid-1',
-								status: 'unauthorized',
-							}),
-						}),
-					);
-					expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLink',
-							action: 'connectFailed',
-							attributes: expect.objectContaining({
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								reason: 'auth_window_closed',
-								id: expect.any(String),
-							}),
-						}),
-					);
+			const resolvedView = await screen.findByTestId(
+				'unauthorizedCard3-resolved-view',
+				{},
+				{ timeout: 10000 },
+			);
+			expect(resolvedView).toBeTruthy();
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'unresolved',
+					attributes: expect.objectContaining({
+						id: expect.any(String),
+						status: 'unauthorized',
+						extensionKey: 'object-provider',
+						definitionId: 'd1',
+						reason: 'unauthorized',
+					}),
+				}),
+			);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'button',
+					actionSubjectId: 'connectAccount',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						id: 'some-uuid-1',
+						status: 'unauthorized',
+					}),
+				}),
+			);
+			expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'viewed',
+					name: 'consentModal',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						extensionKey: 'object-provider',
+						definitionId: 'd1',
+					}),
+				}),
+			);
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'closed',
+					actionSubject: 'consentModal',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						id: 'some-uuid-1',
+						status: 'unauthorized',
+					}),
+				}),
+			);
+			expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'connectFailed',
+					attributes: expect.objectContaining({
+						definitionId: 'd1',
+						extensionKey: 'object-provider',
+						reason: 'auth_window_closed',
+						id: expect.any(String),
+					}),
+				}),
+			);
 
-					expect(mockStartUfoExperience).toHaveBeenCalledWith(
-						'smart-link-authenticated',
-						'some-uuid-1',
-						{
-							extensionKey: 'object-provider',
-							status: 'auth_window_closed',
-						},
-					);
-
-					expect(mockSucceedUfoExperience).toHaveBeenCalledWith(
-						'smart-link-authenticated',
-						'some-uuid-1',
-						{
-							display: 'inline',
-						},
-					);
+			expect(mockStartUfoExperience).toHaveBeenCalledWith(
+				'smart-link-authenticated',
+				'some-uuid-1',
+				{
+					extensionKey: 'object-provider',
+					status: 'auth_window_closed',
 				},
-				async () => {
-					const mockUrl = 'https://https://this.is.the.third.url';
-					mockFetch.mockImplementationOnce(async () => mocks.unauthorized);
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card testId="unauthorizedCard3" appearance="inline" url={mockUrl} />
-								</Provider>
-							</IntlProvider>
-						</FabricAnalyticsListeners>,
-					);
-					const unauthorizedLink = await screen.findByTestId(
-						'unauthorizedCard3-unauthorized-view',
-						{},
-						{ timeout: 10000 },
-					);
-					const unauthorizedLinkButton = screen.getByTestId('button-connect-account');
-					expect(unauthorizedLink).toBeTruthy();
-					expect(unauthorizedLinkButton).toBeTruthy();
-					expect(unauthorizedLinkButton!.innerHTML).toContain('Connect');
-					// Mock out auth flow, & click connect.
-					asMockFunction(auth).mockImplementationOnce(() =>
-						Promise.reject(new AuthError('', 'auth_window_closed')),
-					);
-					await userEvent.click(unauthorizedLinkButton!);
+			);
 
-					const resolvedView = await screen.findByTestId(
-						'unauthorizedCard3-resolved-view',
-						{},
-						{ timeout: 10000 },
-					);
-					expect(resolvedView).toBeTruthy();
-					expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLink',
-							action: 'unresolved',
-							attributes: expect.objectContaining({
-								id: expect.any(String),
-								status: 'unauthorized',
-								extensionKey: 'object-provider',
-								definitionId: 'd1',
-								reason: 'unauthorized',
-							}),
-						}),
-					);
-					expect(analytics.uiAuthEvent).toHaveBeenCalledTimes(1);
-					expect(mockAnalyticsClient.sendScreenEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							action: 'viewed',
-							name: 'consentModal',
-							attributes: expect.objectContaining({
-								display: 'inline',
-								extensionKey: 'object-provider',
-								definitionId: 'd1',
-							}),
-						}),
-					);
-
-					expect(analytics.uiClosedAuthEvent).toHaveBeenCalledTimes(1);
-					expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLink',
-							action: 'connectFailed',
-							attributes: expect.objectContaining({
-								definitionId: 'd1',
-								extensionKey: 'object-provider',
-								reason: 'auth_window_closed',
-								id: expect.any(String),
-							}),
-						}),
-					);
-
-					expect(mockStartUfoExperience).toHaveBeenCalledWith(
-						'smart-link-authenticated',
-						'some-uuid-1',
-						{
-							extensionKey: 'object-provider',
-							status: 'auth_window_closed',
-						},
-					);
-
-					expect(mockSucceedUfoExperience).toHaveBeenCalledWith(
-						'smart-link-authenticated',
-						'some-uuid-1',
-						{
-							display: 'inline',
-						},
-					);
+			expect(mockSucceedUfoExperience).toHaveBeenCalledWith(
+				'smart-link-authenticated',
+				'some-uuid-1',
+				{
+					display: 'inline',
 				},
 			);
 		});

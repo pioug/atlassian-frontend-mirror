@@ -1,19 +1,21 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-export type { Serializer } from './serializer';
-
 export { default as ReactSerializer } from './react';
 export { default as TextSerializer } from './text';
 
-export { default as ReactRenderer, defaultNodeComponents } from './ui/Renderer';
-export { RendererWithAnalytics, AnnotationsWrapper } from './ui';
+export { default as ReactRenderer, RendererWithAnalytics } from './ui/Renderer';
+export { nodeToReact as defaultNodeComponents } from './react/nodes';
+export { AnnotationsWrapper } from './ui/annotations';
+
+export type { Serializer } from './serializer';
 export type {
 	HeadingAnchorLinksProps,
 	RendererAppearance,
 	StickyHeaderProps,
+	NodeComponentsProps,
 } from './ui/Renderer/types';
-export type { RendererProps, NodeComponentsProps } from './ui/renderer-props';
+export type { RendererProps } from './ui/renderer-props';
 export type { RendererContext, NodeProps } from './react/types';
 export { ADFEncoder } from './utils';
 

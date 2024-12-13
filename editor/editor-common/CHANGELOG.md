@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 96.5.2
+
+### Patch Changes
+
+- [#175841](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175841)
+  [`f21aa44e58c1b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f21aa44e58c1b) -
+  removing platform-datasources-enable-two-way-sync FF
+
+## 96.5.1
+
+### Patch Changes
+
+- [#178536](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178536)
+  [`2809409329363`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2809409329363) -
+  Adds keyboard events to select/de-select the bodied macros EditToggle for accessibility
+
+## 96.5.0
+
+### Minor Changes
+
+- [#175556](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/175556)
+  [`e883046c970ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e883046c970ff) -
+  Introduces new usePluginStateSelector hook which can be used to efficiently listen to a slice of
+  an editor plugins state.
+
 ## 96.4.1
 
 ### Patch Changes

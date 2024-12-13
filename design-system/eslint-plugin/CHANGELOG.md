@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.5.0
+
+### Minor Changes
+
+- [#178296](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178296)
+  [`0111a43a2fcfb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0111a43a2fcfb) -
+  `use-tokens-typography` rule now reports on banned style properties like `lineHeight` and
+  `letterSpacing`. This new pattern is disabled by default but can be enabled under the name
+  `banned-properties`.
+
 ## 11.4.1
 
 ### Patch Changes

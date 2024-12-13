@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-media
 
+## 1.43.1
+
+### Patch Changes
+
+- [#177963](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177963)
+  [`9c85947f30827`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c85947f30827) -
+  Clean up feature gate on media single
+
+## 1.43.0
+
+### Minor Changes
+
+- [#178313](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178313)
+  [`29cb5563c4f9f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/29cb5563c4f9f) -
+  [ux] Disables dropzone while the editor is offline
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.42.18
 
 ### Patch Changes

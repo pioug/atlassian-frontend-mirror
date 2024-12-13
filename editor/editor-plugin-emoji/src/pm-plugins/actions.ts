@@ -6,8 +6,8 @@ import {
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EmojiDescription, EmojiProvider } from '@atlaskit/emoji';
 
-import { emojiPluginKey } from '../plugin';
-import { type EmojiPlugin } from '../types';
+import { emojiPluginKey } from '../emojiPlugin';
+import { type EmojiPlugin } from '../emojiPluginType';
 
 export const ACTIONS = {
 	SET_PROVIDER: 'SET_PROVIDER',

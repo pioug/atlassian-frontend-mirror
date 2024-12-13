@@ -8,6 +8,5 @@ export type {
 	CollabEditPluginSharedState,
 	ReadOnlyParticipants,
 	PrivateCollabEditOptions,
-	CollabInviteToEditProps,
 	CollabSendableSteps,
 } from '@atlaskit/editor-plugin-collab-edit';

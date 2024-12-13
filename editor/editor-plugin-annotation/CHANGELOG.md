@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.26.4
+
+### Patch Changes
+
+- [#177868](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177868)
+  [`431c4ab75f0c5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/431c4ab75f0c5) -
+  [ux] Disable the annotation selection toolbar while offline.
+
 ## 1.26.3
 
 ### Patch Changes

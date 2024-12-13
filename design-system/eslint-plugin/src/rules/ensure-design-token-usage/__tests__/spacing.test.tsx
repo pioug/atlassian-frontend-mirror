@@ -1233,7 +1233,7 @@ const someStyles = {
 import styled from 'styled-components';
 import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
-import { gridSize, layers } from '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles';
+import { gridSize, layers } from '@atlassian/jira-common-styles/src/main.tsx';
 
 export const stickyLineExtraLengthLeft = gridSize;
 
@@ -1257,7 +1257,7 @@ export const StickyWrapper = styled.div\`
 import styled from 'styled-components';
 import { colors } from '@atlaskit/theme';
 import { token } from '@atlaskit/tokens';
-import { gridSize, layers } from '@atlassian/jira-common-legacy-do-not-add-anything-new/src/styles';
+import { gridSize, layers } from '@atlassian/jira-common-styles/src/main.tsx';
 
 export const stickyLineExtraLengthLeft = gridSize;
 

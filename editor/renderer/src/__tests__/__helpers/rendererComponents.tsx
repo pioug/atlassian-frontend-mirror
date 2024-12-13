@@ -25,7 +25,7 @@ import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { IntlProvider } from 'react-intl-next';
-import { Renderer } from '../../ui';
+import Renderer from '../../ui/Renderer';
 import type { RendererProps } from '../..';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { MockMediaClientProvider } from '@atlaskit/editor-test-helpers/media-client-mock';

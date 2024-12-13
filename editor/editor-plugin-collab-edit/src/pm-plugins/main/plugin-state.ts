@@ -21,8 +21,6 @@ import {
 	isReplaceStep,
 } from '../utils';
 
-export { TELEPOINTER_DIM_CLASS };
-
 /**
  * Returns position where it's possible to place a decoration.
  */

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-selection
 
+## 1.6.2
+
+### Patch Changes
+
+- [#178297](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178297)
+  [`a067ce11e9631`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a067ce11e9631) -
+  NO-ISSUE-restrict-auto-selection-expand-on-textselection
+- Updated dependencies
+
 ## 1.6.1
 
 ### Patch Changes

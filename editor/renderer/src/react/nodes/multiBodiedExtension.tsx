@@ -13,7 +13,7 @@ import { renderExtension } from './extension';
 import ExtensionRenderer from '../../ui/ExtensionRenderer';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { RendererContext } from '../types';
-import type { Serializer } from '../..';
+import type { Serializer } from '../../serializer';
 import type { ExtensionLayout } from '@atlaskit/adf-schema';
 import type {
 	ExtensionHandlers,

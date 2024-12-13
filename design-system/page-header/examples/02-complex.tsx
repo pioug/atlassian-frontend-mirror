@@ -32,7 +32,7 @@ const barContent = (
 		</div>
 		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 		<div style={{ flex: '0 0 200px', marginLeft: token('space.100', '8px') }}>
-			<Select spacing="compact" placeholder="Choose an option" aria-label="Choose an option" />
+			<Select spacing="compact" placeholder="Choose an option" label="Choose an option" />
 		</div>
 	</div>
 );

@@ -421,7 +421,9 @@ describe('DateTimePicker', () => {
 			const datePicker = screen.getByTestId(datePickerTestId);
 			const timePicker = screen.getByTestId(timePickerTestId);
 
-			expect(datePicker).toHaveAttribute('aria-label', datePickerDefaultAriaLabel);
+			// This tests `label` because we are mocking the select and just spreading
+			// everything in it. Yeah it sucks.
+			expect(datePicker).toHaveAttribute('label', datePickerDefaultAriaLabel);
 			expect(timePicker).toHaveAttribute('aria-label', timePickerDefaultAriaLabel);
 		});
 
@@ -436,7 +438,9 @@ describe('DateTimePicker', () => {
 			const datePicker = screen.getByTestId(datePickerTestId);
 			const timePicker = screen.getByTestId(timePickerTestId);
 
-			expect(datePicker).toHaveAttribute('aria-label', label);
+			// This tests `label` because we are mocking the select and just spreading
+			// everything in it. Yeah it sucks.
+			expect(datePicker).toHaveAttribute('label', label);
 			expect(timePicker).toHaveAttribute('aria-label', label);
 
 			// Make sure the default labels are not used anywhere

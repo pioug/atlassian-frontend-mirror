@@ -156,7 +156,7 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 			fetchMock.reset();
 		});
 
-		ffTest.on('platform-datasources-enable-two-way-sync', 'when jaws enabled', () => {
+		describe('when jaws enabled', () => {
 			it('cells should not be editable when there are no update actions available', async () => {
 				mockFetchDatasourceData([
 					{
@@ -347,32 +347,6 @@ ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
 							},
 						},
 					});
-				});
-			});
-		});
-
-		ffTest.off('platform-datasources-enable-two-way-sync', 'when jaws disabled', () => {
-			it('cells should not be editable', async () => {
-				mockOnePageOfItemsWithPermissions({
-					items: [
-						{
-							ari,
-							fieldKey: 'summary',
-							fieldValue: 'Hello world',
-							isEditable: true,
-						},
-					],
-					integrationKey: 'acme',
-				});
-
-				renderTable();
-
-				await screen.findByRole('cell', { name: 'Hello world' });
-
-				expect(fetchMock.called(ORS_ACTIONS_DISCOVERY_ENDPOINT)).toBe(false);
-				expect(actionsStore.storeState.getState()).toStrictEqual({
-					actionsByIntegration: {},
-					permissions: {},
 				});
 			});
 		});

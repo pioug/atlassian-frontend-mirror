@@ -51,7 +51,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/app-provider": "^1.4.0",
 		"@atlaskit/modal-dialog": "^12.18.0",
-		"@atlaskit/toggle": "^13.4.0",
+		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/dom": "^10.1.0",

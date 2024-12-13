@@ -19,7 +19,7 @@ import Heading from '@atlaskit/heading';
 import CrossIcon from '@atlaskit/icon/glyph/cross';
 import { Box, xcss } from '@atlaskit/primitives';
 
-import { type InsertBlockOptions, type InsertBlockPlugin } from '../../plugin';
+import { type InsertBlockOptions, type InsertBlockPlugin } from '../../insertBlockPlugin';
 import { toggleInsertMenuRightRail } from '../../pm-plugins/commands';
 import InsertMenu from '../ElementBrowser/InsertMenu';
 import type { OnInsert } from '../ElementBrowser/types';

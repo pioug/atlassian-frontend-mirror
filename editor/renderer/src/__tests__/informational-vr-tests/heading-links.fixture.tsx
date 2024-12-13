@@ -1,5 +1,5 @@
 import React from 'react';
-import { Renderer } from '../../ui';
+import Renderer from '../../ui/Renderer';
 
 import {
 	adfHeadingsInsideTable,

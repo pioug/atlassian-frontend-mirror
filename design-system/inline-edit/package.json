@@ -60,7 +60,7 @@
 		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^3.3.0",
 		"@atlaskit/section-message": "^6.8.0",
-		"@atlaskit/select": "^18.8.0",
+		"@atlaskit/select": "^18.9.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/tag": "^12.6.0",
 		"@atlaskit/tag-group": "^11.0.0",

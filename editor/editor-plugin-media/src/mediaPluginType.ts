@@ -7,6 +7,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { AnnotationPlugin } from '@atlaskit/editor-plugin-annotation';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
@@ -41,6 +42,7 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			SelectionPlugin,
 			OptionalPlugin<AnnotationPlugin>,
 			OptionalPlugin<FeatureFlagsPlugin>,
+			OptionalPlugin<ConnectivityPlugin>,
 		];
 		sharedState: MediaPluginState | null;
 		actions: {

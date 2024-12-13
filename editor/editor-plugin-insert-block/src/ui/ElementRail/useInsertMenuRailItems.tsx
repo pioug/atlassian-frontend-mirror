@@ -6,7 +6,7 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { InsertBlockOptions, insertBlockPlugin } from '../../plugin';
+import type { InsertBlockOptions, insertBlockPlugin } from '../../insertBlockPlugin';
 import { createItems } from '../ToolbarInsertBlock/create-items';
 
 export const useInsertMenuRailItems = (

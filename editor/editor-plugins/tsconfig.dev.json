@@ -279,6 +279,9 @@
 			"path": "../editor-plugin-type-ahead/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-ufo/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-undo-redo/tsconfig.app.json"
 		},
 		{

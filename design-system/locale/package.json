@@ -41,7 +41,7 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/select": "^18.8.0",
+		"@atlaskit/select": "^18.9.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

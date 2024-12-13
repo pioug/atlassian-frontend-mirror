@@ -16,6 +16,7 @@ import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractPresetAPI } from '@atlaskit/editor-common/src/preset';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
 import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 // eslint-disable-next-line @atlaskit/editor/warn-no-restricted-imports
 import type { EditorActions } from '@atlaskit/editor-core';
 import { EditorContext } from '@atlaskit/editor-core';
@@ -49,7 +50,11 @@ interface ListToolbarProps {
 }
 
 function ListToolbar({ editorApi }: ListToolbarProps) {
-	const { listState } = useSharedPluginState(editorApi, ['list']);
+	const bulletListDisabled = useSharedPluginStateSelector(editorApi, 'list.bulletListDisabled');
+	const bulletListActive = useSharedPluginStateSelector(editorApi, 'list.bulletListActive');
+	const orderedListDisabled = useSharedPluginStateSelector(editorApi, 'list.orderedListDisabled');
+	const orderedListActive = useSharedPluginStateSelector(editorApi, 'list.orderedListActive');
+
 	const toggleOrderedList = editorApi?.list?.commands.toggleOrderedList(INPUT_METHOD.TOOLBAR);
 
 	const toggleBulletList = editorApi?.list?.commands.toggleBulletList(INPUT_METHOD.TOOLBAR);
@@ -57,20 +62,20 @@ function ListToolbar({ editorApi }: ListToolbarProps) {
 	return (
 		<ButtonGroup>
 			<Button
-				isDisabled={listState?.bulletListDisabled}
+				isDisabled={bulletListDisabled}
 				onClick={() => {
 					editorApi?.core?.actions.execute(toggleBulletList);
 				}}
-				isSelected={listState?.bulletListActive}
+				isSelected={bulletListActive}
 			>
 				Bullet List
 			</Button>
 			<Button
-				isDisabled={listState?.orderedListDisabled}
+				isDisabled={orderedListDisabled}
 				onClick={() => {
 					editorApi?.core?.actions.execute(toggleOrderedList);
 				}}
-				isSelected={listState?.orderedListActive}
+				isSelected={orderedListActive}
 			>
 				Ordered List
 			</Button>
@@ -100,7 +105,7 @@ interface ToolbarProps {
 }
 
 function Toolbar({ editorApi }: ToolbarProps) {
-	const { hyperlinkState } = useSharedPluginState(editorApi, ['hyperlink']);
+	const activeLinkMark = useSharedPluginStateSelector(editorApi, 'hyperlink.activeLinkMark');
 
 	// Using effect in toolbar
 	const pluginStateEffect = React.useCallback((states) => {
@@ -121,12 +126,12 @@ function Toolbar({ editorApi }: ToolbarProps) {
 
 			<Button
 				appearance="subtle"
-				isDisabled={hyperlinkState?.activeLinkMark !== undefined}
+				isDisabled={activeLinkMark !== undefined}
 				onClick={() => {
 					editorApi?.core?.actions.execute(showLinkToolbarAction);
 				}}
 			>
-				{hyperlinkState?.activeLinkMark ? 'Active Link' : 'Insert Link'}
+				{activeLinkMark ? 'Active Link' : 'Insert Link'}
 			</Button>
 
 			<Button

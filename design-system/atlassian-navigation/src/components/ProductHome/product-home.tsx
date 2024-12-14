@@ -137,15 +137,15 @@ const siteTitleStyles = css({
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
 const ProductHome = ({
+	'aria-label': ariaLabel,
+	href,
 	icon: Icon,
 	logo: Logo,
-	siteTitle,
-	onClick,
-	href,
-	onMouseDown,
-	testId,
 	logoMaxWidth = 260,
-	'aria-label': ariaLabel,
+	onClick,
+	onMouseDown,
+	siteTitle,
+	testId,
 	...rest
 }: ProductHomeProps) => {
 	const theme = useTheme();
@@ -184,6 +184,7 @@ const ProductHome = ({
 				onMouseDown={preventFocusRing}
 				data-testid={testId && `${testId}-container`}
 				aria-label={ariaLabel}
+				// Made all props explicit, leaving just in case
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			>

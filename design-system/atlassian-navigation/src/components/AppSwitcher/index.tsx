@@ -18,10 +18,30 @@ import { type AppSwitcherProps } from './types';
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
 export const AppSwitcher = forwardRef((props: AppSwitcherProps, ref: Ref<any>) => {
-	const { tooltip, ...iconButtonProps } = props;
+	const {
+		component,
+		href,
+		id,
+		isDisabled,
+		isSelected,
+		label,
+		onBlur,
+		onClick,
+		onFocus,
+		onMouseDown,
+		onMouseEnter,
+		onMouseLeave,
+		onMouseUp,
+		target,
+		testId,
+		tooltip,
+		...rest
+	} = props;
 
 	return (
 		<IconButton
+			component={component}
+			href={href}
 			icon={
 				<AppSwitcherIcon
 					color="currentColor"
@@ -29,26 +49,49 @@ export const AppSwitcher = forwardRef((props: AppSwitcherProps, ref: Ref<any>) =
 					label={typeof tooltip === 'string' ? tooltip : 'Switch apps'}
 				/>
 			}
-			tooltip={tooltip}
+			id={id}
+			isDisabled={isDisabled}
+			isSelected={isSelected}
+			label={label}
+			onBlur={onBlur}
+			onClick={onClick}
+			onFocus={onFocus}
+			onMouseDown={onMouseDown}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+			onMouseUp={onMouseUp}
 			ref={ref}
-			{...iconButtonProps}
+			target={target}
+			testId={testId}
+			tooltip={tooltip}
+			// These are all explicit, leaving it in just in case
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+			{...rest}
 		/>
 	);
 });
 
-// TODO: Fill in the component {description} and ensure links point to the correct {packageName} location.
-// Remove links that the component does not have (such as usage). If there are no links remove them all.
-/**
- * __App switcher nav 4__
- *
- * An app switcher nav 4 {description}.
- *
- * - [Examples](https://atlassian.design/components/{packageName}/examples)
- * - [Code](https://atlassian.design/components/{packageName}/code)
- * - [Usage](https://atlassian.design/components/{packageName}/usage)
- */
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const AppSwitcherNav4 = forwardRef((props: AppSwitcherProps, ref: Ref<any>) => {
-	const { tooltip, ...iconButtonProps } = props;
+	const {
+		component,
+		href,
+		id,
+		isDisabled,
+		isSelected,
+		label,
+		onBlur,
+		onClick,
+		onFocus,
+		onMouseDown,
+		onMouseEnter,
+		onMouseLeave,
+		onMouseUp,
+		target,
+		testId,
+		tooltip,
+		...rest
+	} = props;
 
 	return (
 		<IconButton
@@ -58,9 +101,26 @@ export const AppSwitcherNav4 = forwardRef((props: AppSwitcherProps, ref: Ref<any
 					color={token('color.icon')}
 				/>
 			}
-			tooltip={tooltip}
+			component={component}
+			href={href}
+			id={id}
+			isDisabled={isDisabled}
+			isSelected={isSelected}
+			label={label}
+			onBlur={onBlur}
+			onClick={onClick}
+			onFocus={onFocus}
+			onMouseDown={onMouseDown}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+			onMouseUp={onMouseUp}
 			ref={ref}
-			{...iconButtonProps}
+			target={target}
+			testId={testId}
+			tooltip={tooltip}
+			// These are all explicit, leaving it in just in case
+			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+			{...rest}
 		/>
 	);
 });

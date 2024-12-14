@@ -15,17 +15,57 @@ import { type ProfileProps } from './types';
  */
 export const Profile = forwardRef<HTMLElement, ProfileProps>(
 	(props: ProfileProps, ref: Ref<HTMLElement>) => {
-		const { label: labelProp, tooltip } = props;
+		const {
+			component,
+			href,
+			icon,
+			id,
+			isDisabled,
+			isSelected,
+			label: labelProp,
+			onBlur,
+			onClick,
+			onFocus,
+			onMouseDown,
+			onMouseEnter,
+			onMouseLeave,
+			onMouseUp,
+			target,
+			testId,
+			theme,
+			tooltip,
+			...rest
+		} = props;
 		const label =
 			labelProp || (typeof tooltip === 'string' ? tooltip : 'Your profile and settings');
 
-		// All other implementations of IconButton within the components are using spread props, so
-		// to use explicit props could cause regressions.
-		// TODO: Remove these spread props for better static analysis
-		// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 		return (
 			<div role="listitem">
-				<IconButton label={label} ref={ref} {...props} />
+				<IconButton
+					component={component}
+					href={href}
+					icon={icon}
+					id={id}
+					isDisabled={isDisabled}
+					isSelected={isSelected}
+					label={label}
+					onBlur={onBlur}
+					onClick={onClick}
+					onFocus={onFocus}
+					onMouseDown={onMouseDown}
+					onMouseEnter={onMouseEnter}
+					onMouseLeave={onMouseLeave}
+					onMouseUp={onMouseUp}
+					ref={ref}
+					target={target}
+					testId={testId}
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					theme={theme}
+					tooltip={tooltip}
+					// These are mostly explicit, leaving it in just in case
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+					{...rest}
+				/>
 			</div>
 		);
 	},

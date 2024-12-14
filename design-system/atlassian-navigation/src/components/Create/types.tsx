@@ -10,7 +10,6 @@ export interface CreateProps {
 	/**
 	 * Aria-label attribute for create button
 	 */
-	// eslint-disable-next-line @repo/internal/react/consistent-props-definitions
 	label?: string;
 
 	/**

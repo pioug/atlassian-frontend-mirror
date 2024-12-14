@@ -23,6 +23,7 @@ export type Props = {
 	visible: boolean;
 	editorAPI: PublicPluginAPI<[OptionalPlugin<ContextPanelPlugin>]> | undefined;
 	children?: React.ReactElement;
+	hasPadding?: boolean;
 };
 
 const ANIM_SPEED_MS = 500;
@@ -47,11 +48,14 @@ export const content = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transition: `width 600ms ${akEditorSwoopCubicBezier}`,
 	boxSizing: 'border-box',
-	padding: `${token('space.200', '16px')} ${token('space.200', '16px')} 0px`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	width: `${akEditorContextPanelWidth}px`,
 	height: '100%',
 	overflowY: 'auto',
+});
+
+const paddingStyles = css({
+	padding: `${token('space.200', '16px')} ${token('space.200', '16px')} 0px`,
 });
 
 type SwappableContentAreaProps = {
@@ -141,6 +145,7 @@ export class SwappableContentArea extends React.PureComponent<SwappableContentAr
 		const width = akEditorContextPanelWidth;
 		const userVisible = !!this.props.visible;
 		const visible = userVisible || !!this.state.currentPluginContent;
+		const hasPadding = this.props.hasPadding === undefined ? true : this.props.hasPadding;
 
 		return (
 			<ContextPanelConsumer>
@@ -155,7 +160,10 @@ export class SwappableContentArea extends React.PureComponent<SwappableContentAr
 							aria-labelledby="context-panel-title"
 							role="dialog"
 						>
-							<div data-testid="context-panel-content" css={[content, !visible && panelHidden]}>
+							<div
+								data-testid="context-panel-content"
+								css={[content, hasPadding && paddingStyles, !visible && panelHidden]}
+							>
 								{this.showPluginContent() || this.showProvidedContent(userVisible)}
 							</div>
 						</div>

@@ -27,9 +27,12 @@ import { type PrimaryDropdownButtonProps } from './types';
  */
 export const PrimaryDropdownButton = forwardRef<HTMLElement, PrimaryDropdownButtonProps>(
 	(props: PrimaryDropdownButtonProps, ref: Ref<HTMLElement>) => {
+		const { component, isHighlighted, isLoading, onClick, testId, theme, tooltip, ...rest } = props;
 		return (
 			<PrimaryButton
+				component={component}
 				iconAfter={
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 					fg('platform-component-visual-refresh') ? (
 						<ChevronIcon label="" color="currentColor" />
 					) : (
@@ -40,8 +43,17 @@ export const PrimaryDropdownButton = forwardRef<HTMLElement, PrimaryDropdownButt
 						/>
 					)
 				}
+				isHighlighted={isHighlighted}
+				isLoading={isLoading}
+				onClick={onClick}
 				ref={ref}
-				{...props}
+				testId={testId}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+				theme={theme}
+				tooltip={tooltip}
+				// These are mostly explicit, leaving it in just in case
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...rest}
 			/>
 		);
 	},

@@ -86,7 +86,7 @@ export const Create = ({
 					aria-label={label}
 					onClick={onClick}
 					href={href}
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-unsafe-style-overrides
 					theme={getCreateButtonTheme(theme)}
 					testId={testId && `${testId}-button`}
 					data-hide-on-smallscreens

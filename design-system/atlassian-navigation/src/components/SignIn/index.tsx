@@ -15,10 +15,30 @@ import { type SignInProps } from './types';
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
 export const SignIn = (props: SignInProps) => {
-	const { tooltip, ...iconButtonProps } = props;
+	const {
+		component,
+		href,
+		id,
+		isDisabled,
+		isSelected,
+		label,
+		onBlur,
+		onClick,
+		onFocus,
+		onMouseDown,
+		onMouseEnter,
+		onMouseLeave,
+		onMouseUp,
+		target,
+		testId,
+		tooltip,
+		...rest
+	} = props;
 	return (
 		<div role="listitem">
 			<IconButton
+				component={component}
+				href={href}
 				icon={
 					<LogInIcon
 						color="currentColor"
@@ -26,9 +46,23 @@ export const SignIn = (props: SignInProps) => {
 						label={typeof tooltip === 'string' ? tooltip : 'Sign-in Icon'}
 					/>
 				}
+				id={id}
+				isDisabled={isDisabled}
+				isSelected={isSelected}
+				label={label}
+				onBlur={onBlur}
+				onClick={onClick}
+				onFocus={onFocus}
+				onMouseDown={onMouseDown}
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
+				onMouseUp={onMouseUp}
+				target={target}
+				testId={testId}
 				tooltip={tooltip}
+				// These are all explicit, leaving it in just in case
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-				{...iconButtonProps}
+				{...rest}
 			/>
 		</div>
 	);

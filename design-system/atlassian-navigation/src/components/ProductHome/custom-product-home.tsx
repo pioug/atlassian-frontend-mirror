@@ -117,16 +117,16 @@ const siteTitleStyles = css({
  */
 const CustomProductHome = (props: CustomProductHomeProps) => {
 	const {
+		href,
 		iconAlt,
 		iconUrl,
 		logoAlt,
-		logoUrl,
-		href,
-		onClick,
-		siteTitle,
-		onMouseDown,
-		testId,
 		logoMaxWidth = 260,
+		logoUrl,
+		onClick,
+		onMouseDown,
+		siteTitle,
+		testId,
 		...rest
 	} = props;
 	const theme = useTheme();
@@ -160,6 +160,8 @@ const CustomProductHome = (props: CustomProductHomeProps) => {
 				onClick={onClick}
 				onMouseDown={preventFocusRing}
 				data-testid={testId && `${testId}-container`}
+				// Currently all props are mapped, but leaving in case people are
+				// passing non-explicit props
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 				{...rest}
 			>

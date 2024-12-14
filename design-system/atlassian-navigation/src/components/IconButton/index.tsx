@@ -19,19 +19,54 @@ import { type IconButtonProps } from './types';
  */
 export const IconButton = forwardRef<HTMLElement, IconButtonProps>(
 	(props: IconButtonProps, ref: Ref<HTMLElement>) => {
-		const { icon, label, testId, tooltip, ...buttonProps } = props;
-		const theme = useTheme();
+		const {
+			icon,
+			label,
+			testId,
+			tooltip,
+			component,
+			href,
+			id,
+			isDisabled,
+			isSelected,
+			onBlur,
+			onClick,
+			onFocus,
+			onMouseDown,
+			onMouseEnter,
+			onMouseLeave,
+			onMouseUp,
+			target,
+			theme,
+			...rest
+		} = props;
+		const themeFromContext = useTheme();
 
 		const button = (
 			<Button
 				appearance="primary"
 				aria-label={label}
-				testId={testId}
+				component={component}
+				href={href}
 				iconBefore={icon}
+				id={id}
+				isDisabled={isDisabled}
+				isSelected={isSelected}
+				onBlur={onBlur}
+				onClick={onClick}
+				onFocus={onFocus}
+				onMouseDown={onMouseDown}
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
+				onMouseUp={onMouseUp}
 				ref={ref}
-				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-				theme={getIconButtonTheme(theme)}
-				{...buttonProps}
+				target={target}
+				testId={testId}
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-unsafe-style-overrides
+				theme={theme || getIconButtonTheme(themeFromContext)}
+				// These are all explicit, leaving it in just in case
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...rest}
 			/>
 		);
 

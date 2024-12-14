@@ -51,6 +51,10 @@ export const AgentProfileCreator = ({
 		| {
 				type: 'FORGE';
 				name: string;
+		  }
+		| {
+				type: 'OOTB';
+				name: string;
 		  };
 	isLoading: boolean;
 	onCreatorLinkClick: () => void;
@@ -76,7 +80,7 @@ export const AgentProfileCreator = ({
 			return null;
 		}
 
-		if (creator.type === 'SYSTEM') {
+		if (creator.type === 'SYSTEM' || creator.type === 'OOTB') {
 			return formatMessage(messages.agentCreatedBy, {
 				creatorNameWithLink: (
 					<Inline alignBlock="center" testId="atlassian-icon">

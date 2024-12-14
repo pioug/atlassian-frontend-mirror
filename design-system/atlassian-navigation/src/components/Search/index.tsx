@@ -147,23 +147,58 @@ const SearchComponent = (props: SearchComponentProps) => {
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
 export const Search = (props: SearchProps) => {
-	const { placeholder, tooltip, label, value, ...iconButtonProps } = props;
+	const {
+		component,
+		href,
+		id,
+		isDisabled,
+		isSelected,
+		label,
+		onBlur,
+		onClick,
+		onFocus,
+		onMouseDown,
+		onMouseEnter,
+		onMouseLeave,
+		onMouseUp,
+		placeholder,
+		target,
+		testId,
+		tooltip,
+		value,
+		...rest
+	} = props;
 
 	return (
 		<Fragment>
 			<SearchComponent
-				onClick={iconButtonProps.onClick}
+				onClick={onClick}
 				placeholder={placeholder}
 				label={label}
 				value={value || ''}
 			/>
 			<IconButton
+				component={component}
 				// @ts-ignore Overriding styles is not supported.
 				css={searchIconStyles}
+				href={href}
 				icon={<SearchIcon color="currentColor" spacing="spacious" label={label} />}
+				id={id}
+				isDisabled={isDisabled}
+				isSelected={isSelected}
+				onBlur={onBlur}
+				onClick={onClick}
+				onFocus={onFocus}
+				onMouseDown={onMouseDown}
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
+				onMouseUp={onMouseUp}
+				target={target}
+				testId={testId}
 				tooltip={tooltip}
+				// Made all explicit, this is left just in case
 				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
-				{...iconButtonProps}
+				{...rest}
 			/>
 		</Fragment>
 	);

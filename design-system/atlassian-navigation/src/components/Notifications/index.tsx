@@ -19,11 +19,33 @@ const NOTIFICATIONS_BADGE_ID = 'atlassian-navigation-notification-count';
  * - [Code](https://atlassian.design/components/atlassian-navigation/code)
  */
 export const Notifications = forwardRef((props: NotificationsProps, ref: Ref<any>) => {
-	const { badge, tooltip, ...iconButtonProps } = props;
+	const {
+		badge,
+		component,
+		href,
+		id,
+		isDisabled,
+		isSelected,
+		label,
+		onBlur,
+		onClick,
+		onFocus,
+		onMouseDown,
+		onMouseEnter,
+		onMouseLeave,
+		onMouseUp,
+		target,
+		testId,
+		tooltip,
+		...rest
+	} = props;
 
 	return (
 		<BadgeContainer id={NOTIFICATIONS_BADGE_ID} badge={badge} role="listitem">
 			<IconButton
+				aria-describedby={NOTIFICATIONS_BADGE_ID}
+				component={component}
+				href={href}
 				icon={
 					<NotificationIcon
 						spacing="spacious"
@@ -31,10 +53,24 @@ export const Notifications = forwardRef((props: NotificationsProps, ref: Ref<any
 						label={typeof tooltip === 'string' ? tooltip : 'Notification Icon'}
 					/>
 				}
-				tooltip={tooltip}
+				id={id}
+				isDisabled={isDisabled}
+				isSelected={isSelected}
+				label={label}
+				onBlur={onBlur}
+				onClick={onClick}
+				onFocus={onFocus}
+				onMouseDown={onMouseDown}
+				onMouseEnter={onMouseEnter}
+				onMouseLeave={onMouseLeave}
+				onMouseUp={onMouseUp}
 				ref={ref}
-				aria-describedby={NOTIFICATIONS_BADGE_ID}
-				{...iconButtonProps}
+				target={target}
+				testId={testId}
+				tooltip={tooltip}
+				// These are all explicit, leaving it in just in case
+				// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+				{...rest}
 			/>
 		</BadgeContainer>
 	);

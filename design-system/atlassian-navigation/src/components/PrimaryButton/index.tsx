@@ -59,16 +59,28 @@ const buttonHighlightedStyles = css({
  */
 export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
 	(props: PrimaryButtonProps, ref: Ref<HTMLElement>) => {
-		const { children, testId, tooltip, isSelected, isHighlighted, ...buttonProps } = props;
-		const theme = useTheme();
+		const {
+			children,
+			component,
+			isHighlighted,
+			isLoading,
+			isSelected,
+			onClick,
+			testId,
+			theme,
+			tooltip,
+			...rest
+		} = props;
+		const themeFromContext = useTheme();
 
 		const button = (
 			<div
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={
 					{
-						[VAR_BUTTON_SELECTED_COLOR]: theme.mode.primaryButton.selected.color,
-						[VAR_BUTTON_SELECTED_BORDER_COLOR]: theme.mode.primaryButton.selected.borderColor,
+						[VAR_BUTTON_SELECTED_COLOR]: themeFromContext.mode.primaryButton.selected.color,
+						[VAR_BUTTON_SELECTED_BORDER_COLOR]:
+							themeFromContext.mode.primaryButton.selected.borderColor,
 					} as React.CSSProperties
 				}
 				css={[buttonBaseStyles, isHighlighted && buttonHighlightedStyles]}
@@ -77,12 +89,17 @@ export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
 			>
 				<Button
 					appearance="primary"
-					testId={testId}
-					ref={ref}
+					component={component}
+					isLoading={isLoading}
 					isSelected={isSelected}
-					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
-					theme={getPrimaryButtonTheme(theme)}
-					{...buttonProps}
+					onClick={onClick}
+					ref={ref}
+					testId={testId}
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides, @atlaskit/design-system/no-unsafe-style-overrides
+					theme={theme || getPrimaryButtonTheme(themeFromContext)}
+					// These are all explicit, leaving it in just in case
+					// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
+					{...rest}
 				>
 					{children}
 				</Button>

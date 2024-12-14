@@ -338,7 +338,10 @@ export function createPlugin(
 						});
 					}
 
-					view.dispatch(tr);
+					// the handlePaste definition overrides the generic prosemirror behaviour which would previously
+					// include a uiEvent meta of paste. To align with the docs (https://prosemirror.net/docs/ref/#state.Transaction)
+					// This will re-add the uiEvent meta.
+					view.dispatch(tr.setMeta('uiEvent', 'paste'));
 				};
 
 				slice = handleParagraphBlockMarks(state, slice);

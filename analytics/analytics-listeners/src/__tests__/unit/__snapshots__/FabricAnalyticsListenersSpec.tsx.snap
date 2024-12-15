@@ -132,11 +132,11 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Fa
     id="dummy"
   >
     <button
-      class=" emotion-1"
+      class="emotion-1"
       type="button"
     >
       <span
-        class=" emotion-0"
+        class="emotion-0"
       >
         fabric-elements
       </span>
@@ -277,11 +277,11 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Na
     id="dummy"
   >
     <button
-      class=" emotion-1"
+      class="emotion-1"
       type="button"
     >
       <span
-        class=" emotion-0"
+        class="emotion-0"
       >
         navigation
       </span>
@@ -422,11 +422,11 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Po
     id="dummy"
   >
     <button
-      class=" emotion-1"
+      class="emotion-1"
       type="button"
     >
       <span
-        class=" emotion-0"
+        class="emotion-0"
       >
         postOffice
       </span>
@@ -567,11 +567,11 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render an A
     id="dummy"
   >
     <button
-      class=" emotion-1"
+      class="emotion-1"
       type="button"
     >
       <span
-        class=" emotion-0"
+        class="emotion-0"
       >
         atlaskit
       </span>

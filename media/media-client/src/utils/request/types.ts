@@ -11,6 +11,7 @@ export type RetryOptions = {
 	readonly startTimeoutInMs: number;
 	readonly maxAttempts: number;
 	readonly factor: number;
+	readonly shouldRetryError?: (err: any) => boolean;
 };
 
 export type ClientOptions = {

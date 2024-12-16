@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
 import {
@@ -123,7 +125,9 @@ const FlexibleCard = ({
 						showHoverPreview={showHoverPreview}
 						hoverPreviewOptions={hoverPreviewOptions}
 						actionOptions={actionOptions}
-						showAuthTooltip={showAuthTooltip}
+						showAuthTooltip={
+							fg('platform_deprecate-showauthtooltip-smart-card') ? undefined : showAuthTooltip
+						}
 						status={status}
 					>
 						{children}

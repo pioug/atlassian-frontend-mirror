@@ -48,6 +48,7 @@ export type FontFamilyPaletteValues =
 	| 'FontFamilyiOSSans'
 	| 'FontFamilyAndroidSans'
 	| 'FontFamilyWebMono'
+	| 'FontFamilyWebMonoRefreshed'
 	| 'FontFamilyiOSMono'
 	| 'FontFamilyAndroidMono';
 
@@ -261,6 +262,12 @@ const fontFamilyPalette: FontFamilyPaletteTokenSchema<FontFamilyPaletteValues> =
 		},
 		FontFamilyWebMono: {
 			value: `ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace`,
+			attributes: {
+				group: 'fontFamily',
+			},
+		},
+		FontFamilyWebMonoRefreshed: {
+			value: `\"Atlassian Mono\", ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace`,
 			attributes: {
 				group: 'fontFamily',
 			},

@@ -7,6 +7,8 @@
  */
 //German (Germany)
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Bearbeitung abgeschlossen',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Änderungen vornehmen',
   'editor-common-extensibility.macro.button.configure': '{macroName} konfigurieren',
   'fabric.editor.action': 'Aufgabe',
   'fabric.editor.action.description': 'Aufgaben erstellen und zuweisen',
@@ -226,7 +228,7 @@ export default {
   'fabric.editor.findNext': 'Nächstes suchen',
   'fabric.editor.findPrevious': 'Vorheriges suchen',
   'fabric.editor.findReplaceToolbarButton': 'Suchen und ersetzen',
-  'fabric.editor.fiveColumns': 'Layout mit fünf Spalten',
+  'fabric.editor.fiveColumns': 'Layout mit 5 Spalten',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Abbrechen',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Verbundene Elemente ebenfalls löschen',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -240,7 +242,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Nach links scrollen',
   'fabric.editor.floatingToolbar.scrollRight': 'Nach rechts scrollen',
   'fabric.editor.focusTableResizeHandle': 'Ziehpunkt zur Größenänderung der Tabelle fokussieren',
-  'fabric.editor.fourColumns': 'Layout mit vier Spalten',
+  'fabric.editor.fourColumns': 'Layout mit 4 Spalten',
   'fabric.editor.headerColumn': 'Kopfzeilen-Spalte',
   'fabric.editor.headerRow': 'Kopfzeile',
   'fabric.editor.heading1': 'Überschrift 1',
@@ -315,7 +317,7 @@ export default {
     '{userRole, select, admin {Teammitglied zu {productName} einladen} trusted {Teammitglied zu {productName} einladen} other {Teammitglied zu {productName} hinzufügen}}',
   'fabric.editor.italic': 'Kursiv',
   'fabric.editor.keyboardShortcuts': 'Tastenkombinationen',
-  'fabric.editor.layout.columnOption': '{count, plural, one { Spalte} other {{count} Spalten}}',
+  'fabric.editor.layout.columnOption': '{count, plural, one {Spalte} other {{count} Spalten}}',
   'fabric.editor.layout.placeholder': 'Inhalt hinzufügen',
   'fabric.editor.layoutFixedWidth': 'Zurück zur Mitte',
   'fabric.editor.layoutFullWidth': 'Volle Breite wählen',
@@ -510,7 +512,9 @@ export default {
   'fabric.editor.textFormatting': 'Textformatierung',
   'fabric.editor.textStyles': 'Textstile: {blockTypeName}',
   'fabric.editor.textStylesTooltip': 'Textstile',
-  'fabric.editor.threeColumns': 'Layout mit drei Spalten',
+  'fabric.editor.threeColumns': 'Layout mit 3 Spalten',
+  'fabric.editor.threeColumnsWithLeftSidebars': 'Layout mit drei Spalten und Seitenleiste links',
+  'fabric.editor.threeColumnsWithRightSidebars': 'Layout mit drei Spalten und Seitenleiste rechts',
   'fabric.editor.threeColumnsWithSidebars': 'Layout mit drei Spalten und Seitenleisten',
   'fabric.editor.time.ago': 'vor',
   'fabric.editor.time.updated': 'Aktualisiert',
@@ -524,7 +528,7 @@ export default {
   'fabric.editor.tooltip.nestedExpand': 'eine verschachtelte Erweiterung',
   'fabric.editor.tooltip.taskList': 'eine Aufgabe',
   'fabric.editor.turnInto': 'Verwandeln in',
-  'fabric.editor.twoColumns': 'Layout mit zwei Spalten',
+  'fabric.editor.twoColumns': 'Layout mit 2 Spalten',
   'fabric.editor.typeAhead.popupLabel': 'Ergebnisse der Vorschlagsfunktion',
   'fabric.editor.typeAhead.quickInsertInputLabel':
     'Beginnen Sie die Eingabe, um nach Optionen für Tastenkombinationen zu suchen oder diese zu filtern',

@@ -29,11 +29,12 @@ import type {
 import { FILE_CACHE_MAX_AGE, MAX_RESOLUTION } from '../../constants';
 import { getArtifactUrl } from '../../models/artifacts';
 import { type MediaFile, type MediaUpload } from '../../models/media';
-import { request } from '../../utils/request';
+import { isRequestError, request } from '../../utils/request';
 import {
 	createUrl,
 	createMapResponseToJson,
 	createMapResponseToBlob,
+	defaultShouldRetryError,
 	extendTraceContext,
 } from '../../utils/request/helpers';
 import { mapToMediaCdnUrl } from '../../utils/mediaCdn';
@@ -507,6 +508,13 @@ export class MediaStore implements MediaApi {
 			headers: jsonHeaders,
 			body: JSON.stringify({ id }),
 			traceContext,
+			clientOptions: {
+				retryOptions: {
+					shouldRetryError: (err) =>
+						defaultShouldRetryError(err) ||
+						(isRequestError(err) && err?.metadata?.statusCode === 401),
+				},
+			},
 		};
 
 		return this.request('/v2/file/copy', options).then(createMapResponseToJson(metadata));

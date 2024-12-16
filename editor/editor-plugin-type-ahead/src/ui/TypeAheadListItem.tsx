@@ -11,7 +11,11 @@ import { useIntl } from 'react-intl-next';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { IconFallback } from '@atlaskit/editor-common/quick-insert';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import {
+	type ExtractInjectionAPI,
+	type TypeAheadItem,
+	type TypeAheadItemRenderProps,
+} from '@atlaskit/editor-common/types';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { ButtonItem } from '@atlaskit/menu';
@@ -19,7 +23,6 @@ import { B400, N200, N30, N800 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type TypeAheadPlugin } from '../typeAheadPluginType';
-import type { TypeAheadItem, TypeAheadItemRenderProps } from '../types';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const itemIcon = css({

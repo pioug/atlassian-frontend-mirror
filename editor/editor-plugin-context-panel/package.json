@@ -29,7 +29,7 @@
 		"@atlaskit/editor-common": "^96.5.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tmp-editor-statsig": "^2.26.0",
+		"@atlaskit/tmp-editor-statsig": "^2.27.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

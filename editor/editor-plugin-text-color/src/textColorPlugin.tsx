@@ -9,7 +9,7 @@ import {
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { changeColor } from './pm-plugins/commands/change-color';
-import type { TextColorPluginConfig, TextColorPluginState } from './pm-plugins/main';
+import type { TextColorPluginConfig } from './pm-plugins/main';
 import { createPlugin, pluginKey as textColorPluginKey } from './pm-plugins/main';
 import type { TextColorPlugin } from './textColorPluginType';
 import type { TextColorInputMethod } from './types';
@@ -118,6 +118,3 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 		primaryToolbarComponent: !api?.primaryToolbar ? primaryToolbarComponent : undefined,
 	};
 };
-
-export { textColorPluginKey };
-export type { TextColorPluginState };

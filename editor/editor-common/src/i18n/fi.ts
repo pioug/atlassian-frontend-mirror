@@ -7,6 +7,8 @@
  */
 //Finnish
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Muokkaus valmis',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Tee muokkauksia',
   'editor-common-extensibility.macro.button.configure': 'Määritä {macroName}',
   'fabric.editor.action': 'Tehtävä',
   'fabric.editor.action.description': 'Luo ja määrää toimintokohteita',
@@ -308,7 +310,7 @@ export default {
     '{userRole, select, admin {Kutsu tiimikaveri tuotteeseen {productName}} trusted {Kutsu tiimikaveri tuotteeseen {productName}} other {Lisää tiimikaveri tuotteeseen {productName}}}',
   'fabric.editor.italic': 'Kursivoitu',
   'fabric.editor.keyboardShortcuts': 'Pikanäppäimet',
-  'fabric.editor.layout.columnOption': '{count, plural, one {-sarakkeinen} other {{count}-sarakkeinen}}',
+  'fabric.editor.layout.columnOption': '{count, plural, one {Sarake} other {{count} saraketta}}',
   'fabric.editor.layout.placeholder': 'Lisää sisältöä',
   'fabric.editor.layoutFixedWidth': 'Takaisin keskelle',
   'fabric.editor.layoutFullWidth': 'Näytä koko leveydellä',
@@ -494,10 +496,13 @@ export default {
   'fabric.editor.text.formatting.off': 'Tekstin muotoilu pois käytöstä',
   'fabric.editor.textColor': '{selectedColorName} tekstin väri',
   'fabric.editor.textColorTooltip': 'Tekstin väri',
+  'fabric.editor.textFormat': 'Muotoile tekstiä',
   'fabric.editor.textFormatting': 'Tekstin muotoilu',
   'fabric.editor.textStyles': 'Tekstityylit: {blockTypeName}',
   'fabric.editor.textStylesTooltip': 'Tekstityylit',
   'fabric.editor.threeColumns': 'Kolmen sarakkeen asettelu',
+  'fabric.editor.threeColumnsWithLeftSidebars': 'Kolme saraketta vasemmanpuoleisen sivupalkin kanssa ‑asettelu',
+  'fabric.editor.threeColumnsWithRightSidebars': 'Kolme saraketta oikeanpuoleisen sivupalkin kanssa ‑asettelu',
   'fabric.editor.threeColumnsWithSidebars': 'Kolme saraketta sivupalkkien kanssa ‑asettelu',
   'fabric.editor.time.ago': 'sitten',
   'fabric.editor.time.updated': 'Päivitetty',

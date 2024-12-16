@@ -7,6 +7,8 @@
  */
 //Ukrainian (Ukraine)
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Редагування виконано',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Внести зміни',
   'editor-common-extensibility.macro.button.configure': 'Налаштувати {macroName}',
   'fabric.editor.action': 'Задача',
   'fabric.editor.action.description': 'Створити та призначити задачу',
@@ -314,7 +316,7 @@ export default {
   'fabric.editor.italic': 'Курсив',
   'fabric.editor.keyboardShortcuts': 'Гарячі клавіші',
   'fabric.editor.layout.columnOption':
-    '{count, plural, one {{count}-стовп.} few {{count}-стовп.} many {{count}-стовп.} other {{count}-стовп.}}',
+    '{count, plural, one {{count} стовпець} few {{count} стовпці} many {{count} стовпців} other {{count} стовпців}}',
   'fabric.editor.layout.placeholder': 'Додайте вміст',
   'fabric.editor.layoutFixedWidth': 'Стандартне відображення',
   'fabric.editor.layoutFullWidth': 'Відобразити повну ширину',
@@ -509,10 +511,13 @@ export default {
   'fabric.editor.text.formatting.off': 'Форматування тексту вимкнуто',
   'fabric.editor.textColor': 'Колір тексту: {selectedColorName}',
   'fabric.editor.textColorTooltip': 'Колір тексту',
+  'fabric.editor.textFormat': 'Форматувати текст',
   'fabric.editor.textFormatting': 'Форматування у вигляді тексту',
   'fabric.editor.textStyles': 'Стилі тексту: {blockTypeName}',
   'fabric.editor.textStylesTooltip': 'Стилі тексту',
-  'fabric.editor.threeColumns': 'Макет із трьома стовпцями',
+  'fabric.editor.threeColumns': 'Макет із 3 стовпцями',
+  'fabric.editor.threeColumnsWithLeftSidebars': 'Макет із трьома стовпцями з лівою бічною панеллю',
+  'fabric.editor.threeColumnsWithRightSidebars': 'Макет із трьома стовпцями з правою бічною панеллю',
   'fabric.editor.threeColumnsWithSidebars': 'Макет із трьома стовпцями з бічними панелями',
   'fabric.editor.time.ago': 'тому',
   'fabric.editor.time.updated': 'Змінено',
@@ -526,7 +531,7 @@ export default {
   'fabric.editor.tooltip.nestedExpand': 'вкладена розгортка',
   'fabric.editor.tooltip.taskList': 'задача',
   'fabric.editor.turnInto': 'Перетворити',
-  'fabric.editor.twoColumns': 'Макет із двома стовпцями',
+  'fabric.editor.twoColumns': 'Макет із 2 стовпцями',
   'fabric.editor.typeAhead.popupLabel': 'Прогнозування результатів',
   'fabric.editor.typeAhead.quickInsertInputLabel':
     'Почніть вводити текст, щоб знайти або відфільтрувати варіанти гарячих клавіш',

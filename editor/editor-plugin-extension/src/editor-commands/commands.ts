@@ -26,9 +26,9 @@ import {
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
 
-import { createCommand } from './plugin-factory';
-import type { ExtensionAction, ExtensionState, RejectSave } from './types';
-import { getSelectedExtension } from './utils';
+import type { ExtensionAction, ExtensionState, RejectSave } from '../extensionPluginType';
+import { createCommand } from '../pm-plugins/plugin-factory';
+import { getSelectedExtension } from '../pm-plugins/utils';
 
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points

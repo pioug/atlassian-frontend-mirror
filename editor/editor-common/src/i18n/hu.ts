@@ -7,6 +7,8 @@
  */
 //Hungarian
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Szerkesztés kész',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Szerkesztések elvégzése',
   'editor-common-extensibility.macro.button.configure': '{macroName} konfigurálása',
   'fabric.editor.action': 'Teendő',
   'fabric.editor.action.description': 'Műveleti elemek létrehozása és hozzárendelése',
@@ -224,7 +226,7 @@ export default {
   'fabric.editor.findNext': 'Következő keresése',
   'fabric.editor.findPrevious': 'Előző keresése',
   'fabric.editor.findReplaceToolbarButton': 'Keresés és csere',
-  'fabric.editor.fiveColumns': 'Ötoszlopos elrendezés',
+  'fabric.editor.fiveColumns': '5 oszlopos elrendezés',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Mégse',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'A kapcsolódó elemek is törlődjenek',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -237,7 +239,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Görgetés balra',
   'fabric.editor.floatingToolbar.scrollRight': 'Görgetés jobbra',
   'fabric.editor.focusTableResizeHandle': 'Táblázat méretét módosító kapcsoló',
-  'fabric.editor.fourColumns': 'Négyoszlopos elrendezés',
+  'fabric.editor.fourColumns': '4 oszlopos elrendezés',
   'fabric.editor.headerColumn': 'Fejlécoszlop',
   'fabric.editor.headerRow': 'Fejlécsor',
   'fabric.editor.heading1': '1. szintű címsor',
@@ -313,7 +315,6 @@ export default {
     '{userRole, select, admin {Csapattag meghívása a(z) {productName} termékbe} trusted {Csapattag meghívása a(z) {productName} termékbe} other {Csapattag hozzáadása a(z) {productName} termékhez}}',
   'fabric.editor.italic': 'Dőlt',
   'fabric.editor.keyboardShortcuts': 'Billentyűparancsok',
-  'fabric.editor.layout.columnOption': '{count, plural, one {oszlopos} other {{count} oszlopos}}',
   'fabric.editor.layout.placeholder': 'Tartalom hozzáadása',
   'fabric.editor.layoutFixedWidth': 'Vissza a középponthoz',
   'fabric.editor.layoutFullWidth': 'Teljes szélességű nézet',
@@ -501,10 +502,13 @@ export default {
   'fabric.editor.text.formatting.off': 'Szövegformázás kikapcsolva',
   'fabric.editor.textColor': '{selectedColorName} szövegszín',
   'fabric.editor.textColorTooltip': 'Szövegszín',
+  'fabric.editor.textFormat': 'Szöveg formázása',
   'fabric.editor.textFormatting': 'Szöveg formázása',
   'fabric.editor.textStyles': '{blockTypeName} jellegű szövegstílusok',
   'fabric.editor.textStylesTooltip': 'Szövegstílusok',
-  'fabric.editor.threeColumns': 'Háromoszlopos elrendezés',
+  'fabric.editor.threeColumns': '3 oszlopos elrendezés',
+  'fabric.editor.threeColumnsWithLeftSidebars': 'Háromoszlopos elrendezés bal oldali oldalsávval',
+  'fabric.editor.threeColumnsWithRightSidebars': 'Háromoszlopos elrendezés jobb oldali oldalsávval',
   'fabric.editor.threeColumnsWithSidebars': 'Háromoszlopos elrendezés oldalsávval',
   'fabric.editor.time.ago': 'ezelőtt',
   'fabric.editor.time.updated': 'Frissítve',
@@ -518,7 +522,7 @@ export default {
   'fabric.editor.tooltip.nestedExpand': 'beágyazott kibontás',
   'fabric.editor.tooltip.taskList': 'műveleti elem',
   'fabric.editor.turnInto': 'Átalakítás',
-  'fabric.editor.twoColumns': 'Kétoszlopos elrendezés',
+  'fabric.editor.twoColumns': '2 oszlopos elrendezés',
   'fabric.editor.typeAhead.popupLabel': 'Előre gépelt eredmények',
   'fabric.editor.typeAhead.quickInsertInputLabel':
     'Kezdj el gépelni a hivatkozási beállítások kereséséhez vagy szűréséhez',

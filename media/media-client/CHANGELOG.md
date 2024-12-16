@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 28.6.0
+
+### Minor Changes
+
+- [#179378](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179378)
+  [`cb26b4db4b6ad`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb26b4db4b6ad) -
+  Calling the /v2/file/copy endpoint in file.copyFile if auth providers are not given
+
 ## 28.5.0
 
 ### Minor Changes

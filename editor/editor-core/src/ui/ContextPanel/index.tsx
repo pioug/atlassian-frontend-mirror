@@ -24,6 +24,7 @@ export type Props = {
 	editorAPI: PublicPluginAPI<[OptionalPlugin<ContextPanelPlugin>]> | undefined;
 	children?: React.ReactElement;
 	hasPadding?: boolean;
+	customWidth?: number;
 };
 
 const ANIM_SPEED_MS = 500;
@@ -142,10 +143,15 @@ export class SwappableContentArea extends React.PureComponent<SwappableContentAr
 	};
 
 	render() {
-		const width = akEditorContextPanelWidth;
+		const width = this.props.customWidth ?? akEditorContextPanelWidth;
 		const userVisible = !!this.props.visible;
 		const visible = userVisible || !!this.state.currentPluginContent;
 		const hasPadding = this.props.hasPadding === undefined ? true : this.props.hasPadding;
+		const customPanelWidthStyles = css({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @repo/internal/react/no-class-components
+			width: `${this.props.customWidth}px`,
+			overflowX: 'hidden',
+		});
 
 		return (
 			<ContextPanelConsumer>
@@ -155,14 +161,25 @@ export class SwappableContentArea extends React.PureComponent<SwappableContentAr
 
 					return (
 						<div
-							css={[panel, !visible && panelHidden]}
+							css={[
+								panel,
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage
+								this.props.customWidth && customPanelWidthStyles,
+								!visible && panelHidden,
+							]}
 							data-testid="context-panel-panel"
 							aria-labelledby="context-panel-title"
 							role="dialog"
 						>
 							<div
 								data-testid="context-panel-content"
-								css={[content, hasPadding && paddingStyles, !visible && panelHidden]}
+								css={[
+									content,
+									hasPadding && paddingStyles,
+									// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/consistent-css-prop-usage
+									this.props.customWidth && customPanelWidthStyles,
+									!visible && panelHidden,
+								]}
 							>
 								{this.showPluginContent() || this.showProvidedContent(userVisible)}
 							</div>

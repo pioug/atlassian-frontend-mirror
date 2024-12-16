@@ -213,7 +213,7 @@ describe('@atlaskit/dynamic-table', () => {
 				render(<DynamicTableStateless head={newHead} rows={newRows} testId={testId} />);
 
 				const thead = screen.getByTestId(`${testId}--head`);
-				const sortButton = screen.getByRole('button');
+				const sortButton = screen.getAllByRole('button')[0];
 				const trTestIdPattern = new RegExp(`${testId}--row`);
 				const trList = screen.getAllByTestId(trTestIdPattern);
 				const tdTestIdPattern = new RegExp(`${testId}--cell`);

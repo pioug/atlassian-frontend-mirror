@@ -44,7 +44,7 @@
 		"@atlaskit/dropdown-menu": "^12.23.0",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/icon": "^23.1.0",
-		"@atlaskit/media-client": "^28.5.0",
+		"@atlaskit/media-client": "^28.6.0",
 		"@atlaskit/media-client-react": "^2.4.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-file-preview": "^0.9.0",

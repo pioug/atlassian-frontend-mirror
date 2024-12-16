@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "32.7.9",
+	"version": "32.7.10",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -178,6 +178,9 @@
 			"type": "boolean"
 		},
 		"linking_platform_show_lozenge_atlassian_state": {
+			"type": "boolean"
+		},
+		"platform_deprecate-showauthtooltip-smart-card": {
 			"type": "boolean"
 		},
 		"smart_links_for_plans_platform": {

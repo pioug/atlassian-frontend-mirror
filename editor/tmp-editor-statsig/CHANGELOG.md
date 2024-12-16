@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.27.0
+
+### Minor Changes
+
+- [#177496](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177496)
+  [`dfb96360f8958`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dfb96360f8958) -
+  Remove optimise-apply-dnd experiment
+
 ## 2.26.1
 
 ### Patch Changes

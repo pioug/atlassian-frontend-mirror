@@ -4,6 +4,7 @@ import testData from './_data-json.json';
 
 export const sortKey = 'first_name';
 export const secondSortKey = 'last_name';
+export const thirdSortKey = 'party';
 
 // Presidents data
 export const head: HeadType = {
@@ -16,6 +17,11 @@ export const head: HeadType = {
 		{
 			key: secondSortKey,
 			content: 'Last name',
+		},
+		{
+			key: thirdSortKey,
+			content: 'Party',
+			isSortable: true,
 		},
 	],
 };

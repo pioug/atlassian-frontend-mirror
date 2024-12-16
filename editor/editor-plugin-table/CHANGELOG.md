@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-table
 
+## 8.4.8
+
+### Patch Changes
+
+- [#178631](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178631)
+  [`2848916284e6e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2848916284e6e) -
+  [ux] [ED-25641] This change disables resizing and alignment options for tables nested inside of
+  tables.
+
 ## 8.4.7
 
 ### Patch Changes

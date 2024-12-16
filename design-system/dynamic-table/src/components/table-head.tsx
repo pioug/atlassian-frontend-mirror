@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { validateSortKey } from '../internal/helpers';
 import { Head } from '../styled/table-head';
 import { type HeadType, type RowCellType, type SortOrderType } from '../types';
@@ -18,7 +20,14 @@ interface TableHeadProps {
 	testId?: string;
 }
 
-class TableHead extends React.Component<TableHeadProps, {}> {
+class TableHead extends React.Component<TableHeadProps, { activeSortButtonId: string | null }> {
+	constructor(props: TableHeadProps) {
+		super(props);
+		this.state = {
+			activeSortButtonId: null,
+		};
+	}
+
 	UNSAFE_componentWillMount() {
 		validateSortKey(this.props.sortKey, this.props.head);
 	}
@@ -32,6 +41,7 @@ class TableHead extends React.Component<TableHeadProps, {}> {
 	render() {
 		const { head, sortKey, sortOrder, isFixedSize, onSort, isRanking, isRankable, testId } =
 			this.props;
+		const { activeSortButtonId } = this.state;
 
 		if (!head) {
 			return null;
@@ -62,6 +72,22 @@ class TableHead extends React.Component<TableHeadProps, {}> {
 							...restCellProps
 						} = cell;
 
+						const headCellId = `head-cell-${index}`;
+
+						const handleClick = fg('platform-component-visual-refresh')
+							? () => {
+									this.setState({ activeSortButtonId: headCellId });
+
+									if (isSortable) {
+										onSort(cell)();
+									}
+								}
+							: () => {
+									if (isSortable) {
+										onSort(cell)();
+									}
+								};
+
 						return (
 							<HeadCellComponent
 								colSpan={colSpan}
@@ -70,7 +96,9 @@ class TableHead extends React.Component<TableHeadProps, {}> {
 								isSortable={!!isSortable}
 								isRanking={isRanking}
 								key={key || index}
-								onClick={isSortable ? onSort(cell) : undefined}
+								headCellId={headCellId}
+								activeSortButtonId={activeSortButtonId}
+								onClick={handleClick}
 								testId={cellTestId || testId}
 								shouldTruncate={shouldTruncate}
 								sortOrder={key === sortKey ? sortOrder : undefined}

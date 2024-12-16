@@ -27,6 +27,7 @@ const getPlaceholderStyle = (message: string) => {
 						color: token('color.text.disabled', '#A5ADBA'),
 						font: token('font.body'),
 						marginTop: token('space.050', '4px'),
+						pointerEvents: 'none',
 					},
 				},
 		});

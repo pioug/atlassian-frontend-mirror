@@ -514,7 +514,7 @@ const finishInteraction = (
 	clearActiveTrace();
 	callCleanUpCallbacks(data);
 	if (getConfig()?.vc?.stopVCAtInteractionFinish) {
-		data.vc = getVCObserver().getVCRawData(data.end);
+		data.vc = getVCObserver().getVCRawData();
 	}
 	remove(id);
 	PreviousInteractionLog.name = data.ufoName || 'unknown';

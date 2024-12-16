@@ -132,7 +132,9 @@ export const isTableNested = (state: EditorState, tablePos = 0): boolean => {
 		parent.type === nodeTypes.layoutColumn ||
 		parent.type === nodeTypes.expand ||
 		parent.type === nodeTypes.bodiedExtension ||
-		parent.type === nodeTypes.extensionFrame
+		parent.type === nodeTypes.extensionFrame ||
+		parent.type === nodeTypes.tableHeader ||
+		parent.type === nodeTypes.tableCell
 	);
 };
 

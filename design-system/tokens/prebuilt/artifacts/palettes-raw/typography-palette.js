@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::909dfaa0e3366d4739e13971248bd7c0>>
+ * @codegen <<SignedSource::e4e9ea6d283fd02d4b56206ad5eaabdc>>
  * @codegenCommand yarn build tokens
  */
 var tokens = [{
@@ -84,6 +84,21 @@ var tokens = [{
   },
   "name": "typography.fontFamily.FontFamilyWebMono",
   "path": ["typography", "fontFamily", "FontFamilyWebMono"]
+}, {
+  "value": "\"Atlassian Mono\", ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
+  "attributes": {
+    "group": "fontFamily"
+  },
+  "filePath": "schema/palettes/typography-palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": "\"Atlassian Mono\", ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
+    "attributes": {
+      "group": "fontFamily"
+    }
+  },
+  "name": "typography.fontFamily.FontFamilyWebMonoRefreshed",
+  "path": ["typography", "fontFamily", "FontFamilyWebMonoRefreshed"]
 }, {
   "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
   "attributes": {

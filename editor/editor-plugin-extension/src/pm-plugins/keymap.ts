@@ -3,7 +3,7 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
-import { clearEditingContext } from '../commands';
+import { clearEditingContext } from '../editor-commands/commands';
 
 import { getPluginState } from './main';
 

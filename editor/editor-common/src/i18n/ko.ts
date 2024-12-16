@@ -7,6 +7,8 @@
  */
 //Korean
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': '편집 완료',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': '편집',
   'editor-common-extensibility.macro.button.configure': '{macroName} 구성',
   'fabric.editor.action': '작업 항목',
   'fabric.editor.action.description': '작업 항목 만들기 및 할당',
@@ -306,7 +308,7 @@ export default {
     '{userRole, select, admin {팀원을 {productName}에 초대} trusted {팀원을 {productName}에 초대} other {팀원을 {productName}에 추가}}',
   'fabric.editor.italic': '기울임꼴',
   'fabric.editor.keyboardShortcuts': '키보드 단축키',
-  'fabric.editor.layout.columnOption': '{count, plural, other {{count}개 열}}',
+  'fabric.editor.layout.columnOption': '{count, plural, other {열 {count}개}}',
   'fabric.editor.layout.placeholder': '콘텐츠 추가',
   'fabric.editor.layoutFixedWidth': '원래 너비로',
   'fabric.editor.layoutFullWidth': '전체 너비로 표시',
@@ -489,10 +491,13 @@ export default {
   'fabric.editor.text.formatting.off': '텍스트 서식 꺼짐',
   'fabric.editor.textColor': '{selectedColorName} 텍스트 색상',
   'fabric.editor.textColorTooltip': '텍스트 색상',
+  'fabric.editor.textFormat': '텍스트 서식',
   'fabric.editor.textFormatting': '텍스트 서식',
   'fabric.editor.textStyles': '{blockTypeName} 텍스트 스타일',
   'fabric.editor.textStylesTooltip': '텍스트 스타일',
   'fabric.editor.threeColumns': '열 3개 레이아웃',
+  'fabric.editor.threeColumnsWithLeftSidebars': '왼쪽 사이드바 레이아웃이 있는 열 3개',
+  'fabric.editor.threeColumnsWithRightSidebars': '오른쪽 사이드바 레이아웃이 있는 열 3개',
   'fabric.editor.threeColumnsWithSidebars': '사이드바 레이아웃이 있는 열 3개',
   'fabric.editor.time.ago': '전',
   'fabric.editor.time.updated': '업데이트됨',

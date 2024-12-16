@@ -151,6 +151,10 @@ export function createMapResponseToBlob(
 	};
 }
 
+export const defaultShouldRetryError = (err: any) =>
+	isFetchNetworkError(err) ||
+	(isRequestError(err) && !!err?.metadata?.statusCode && err.metadata.statusCode >= 500);
+
 export const DEFAULT_RETRY_OPTIONS: RetryOptions = {
 	startTimeoutInMs: 1000, // 1 second is generally a good timeout to start
 	maxAttempts: 5, // Current test delay is 60s, so retries should finish before if a promise takes < 1s
@@ -182,7 +186,12 @@ export async function fetchRetry(
 		...DEFAULT_RETRY_OPTIONS,
 		...overwriteOptions,
 	};
-	const { startTimeoutInMs, maxAttempts, factor } = options;
+	const {
+		startTimeoutInMs,
+		maxAttempts,
+		factor,
+		shouldRetryError = defaultShouldRetryError,
+	} = options;
 
 	let attempts = 0;
 	let timeoutInMs = startTimeoutInMs;
@@ -205,11 +214,7 @@ export async function fetchRetry(
 				throw new RequestError('clientAbortedRequest', metadata, err);
 			}
 
-			if (
-				(!isFetchNetworkError(err) && !isRequestError(err)) ||
-				(isRequestError(err) &&
-					(!err.metadata || !err.metadata.statusCode || err.metadata.statusCode < 500))
-			) {
+			if (!shouldRetryError(err)) {
 				throw err;
 			}
 

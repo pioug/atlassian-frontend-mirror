@@ -7,6 +7,8 @@
  */
 //Swedish
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Redigeringen är klar',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Gör ändringar',
   'editor-common-extensibility.macro.button.configure': 'Konfigurera {macroName}',
   'fabric.editor.action': 'Uppgift',
   'fabric.editor.action.description': 'Skapa och tilldela åtgärdsuppgifter',
@@ -311,7 +313,7 @@ export default {
     '{userRole, select, admin {Bjud in teammedlem till {productName}} trusted {Bjud in teammedlem till {productName}} other {Lägg till teammedlem i {productName}}}',
   'fabric.editor.italic': 'Kursiv',
   'fabric.editor.keyboardShortcuts': 'Kortkommandon',
-  'fabric.editor.layout.columnOption': '{count, plural, one {kolumn} other {{count} kolumner}}',
+  'fabric.editor.layout.columnOption': '{count, plural, one {Kolumn} other {{count} kolumner}}',
   'fabric.editor.layout.placeholder': 'Lägg till innehåll',
   'fabric.editor.layoutFixedWidth': 'Tillbaka till centrera',
   'fabric.editor.layoutFullWidth': 'Använd full bredd',
@@ -498,10 +500,13 @@ export default {
   'fabric.editor.text.formatting.off': 'Textformatering av',
   'fabric.editor.textColor': 'Textfärg {selectedColorName}',
   'fabric.editor.textColorTooltip': 'Textfärg',
+  'fabric.editor.textFormat': 'Formatera text',
   'fabric.editor.textFormatting': 'Textformatering',
   'fabric.editor.textStyles': 'Textstilar {blockTypeName}',
   'fabric.editor.textStylesTooltip': 'Textstilar',
   'fabric.editor.threeColumns': 'Layout med tre kolumner',
+  'fabric.editor.threeColumnsWithLeftSidebars': 'Layout med tre kolumner och sidopanel vänster',
+  'fabric.editor.threeColumnsWithRightSidebars': 'Layout med tre kolumner och sidopanel höger',
   'fabric.editor.threeColumnsWithSidebars': 'Layout med tre kolumner och sidopaneler',
   'fabric.editor.time.ago': 'sedan',
   'fabric.editor.time.updated': 'Uppdaterad',

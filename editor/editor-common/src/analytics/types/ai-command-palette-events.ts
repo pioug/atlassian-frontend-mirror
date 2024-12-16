@@ -1,6 +1,16 @@
 import { type ACTION, type ACTION_SUBJECT, type ACTION_SUBJECT_ID } from './enums';
 import { type UIAEP } from './utils';
 
+type PromptMentionButtonClickedAEP = UIAEP<
+	ACTION.CLICKED,
+	ACTION_SUBJECT.BUTTON,
+	ACTION_SUBJECT_ID.AI_PROMPT_MENTION_BUTTON,
+	{
+		promptType: 'user-input' | 'interrogate';
+	},
+	undefined
+>;
+
 type PromptLinkPickerButtonClickedAEP = UIAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.BUTTON,
@@ -11,4 +21,6 @@ type PromptLinkPickerButtonClickedAEP = UIAEP<
 	undefined
 >;
 
-export type AICommandPaletteEventPayload = PromptLinkPickerButtonClickedAEP;
+export type AICommandPaletteEventPayload =
+	| PromptLinkPickerButtonClickedAEP
+	| PromptMentionButtonClickedAEP;

@@ -12,18 +12,18 @@ import {
 	createEditSelectedExtensionAction,
 	insertOrReplaceBodiedExtension,
 	insertOrReplaceExtension,
-} from './actions';
-import { forceAutoSave } from './commands';
-import { getContextPanel } from './context-panel';
-import { createExtensionAPI } from './extension-api';
+} from './editor-actions/actions';
+import { forceAutoSave } from './editor-commands/commands';
+import type { ExtensionPlugin, InsertOrReplaceExtensionType } from './extensionPluginType';
+import { createExtensionAPI } from './pm-plugins/extension-api';
 import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin as createMacroPlugin } from './pm-plugins/macro';
 import { insertMacroFromMacroBrowser, runMacroAutoConvert } from './pm-plugins/macro/actions';
 import { createPlugin, pluginKey } from './pm-plugins/main';
+import { bodiedExtensionSpecWithFixedToDOM } from './pm-plugins/toDOM-fixes/bodiedExtension';
+import { getToolbarConfig } from './pm-plugins/toolbar';
 import { createPlugin as createUniqueIdPlugin } from './pm-plugins/unique-id';
-import { bodiedExtensionSpecWithFixedToDOM } from './toDOM-fixes/bodiedExtension';
-import { getToolbarConfig } from './toolbar';
-import type { ExtensionPlugin, InsertOrReplaceExtensionType } from './types';
+import { getContextPanel } from './ui/context-panel';
 
 export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};

@@ -11,6 +11,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { type SortOrderType } from '@atlaskit/dynamic-table/types';
+import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
 
 import { caption, head, rows } from './content/sample-data';
 
@@ -55,3 +56,9 @@ const ControlledSorting = () => {
 };
 
 export default ControlledSorting;
+
+ControlledSorting.decorators = [
+	withPlatformFeatureFlags({
+		'platform-component-visual-refresh': true,
+	}),
+];

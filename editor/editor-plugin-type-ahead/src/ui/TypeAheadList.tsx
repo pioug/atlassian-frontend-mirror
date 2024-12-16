@@ -14,7 +14,7 @@ import type { ListRowRenderer } from 'react-virtualized/dist/commonjs/List';
 import { List } from 'react-virtualized/dist/commonjs/List';
 
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type ExtractInjectionAPI, type TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { MenuGroup } from '@atlaskit/menu';
 import { token } from '@atlaskit/tokens';
@@ -23,7 +23,7 @@ import { updateSelectedIndex } from '../pm-plugins/commands/update-selected-inde
 import { TYPE_AHEAD_DECORATION_ELEMENT_ID } from '../pm-plugins/constants';
 import { getTypeAheadListAriaLabels, moveSelectedIndex } from '../pm-plugins/utils';
 import { type TypeAheadPlugin } from '../typeAheadPluginType';
-import type { TypeAheadHandler, TypeAheadItem } from '../types';
+import type { TypeAheadHandler } from '../types';
 
 import { AssistiveText } from './AssistiveText';
 import { TypeAheadListItem } from './TypeAheadListItem';

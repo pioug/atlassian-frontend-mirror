@@ -12,7 +12,11 @@ import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/anal
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import { TypeAheadAvailableNodes } from '@atlaskit/editor-common/type-ahead';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type {
+	ExtractInjectionAPI,
+	TypeAheadItem,
+	TypeAheadHandler,
+} from '@atlaskit/editor-common/types';
 import { findOverflowScrollParent, Popup } from '@atlaskit/editor-common/ui';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -26,7 +30,7 @@ import {
 	TYPE_AHEAD_POPUP_CONTENT_CLASS,
 } from '../pm-plugins/constants';
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
-import type { OnSelectItem, TypeAheadHandler, TypeAheadItem } from '../types';
+import type { OnSelectItem } from '../types';
 
 import { TypeAheadList } from './TypeAheadList';
 

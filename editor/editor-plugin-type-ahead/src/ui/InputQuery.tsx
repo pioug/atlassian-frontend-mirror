@@ -12,6 +12,7 @@ import { keyName as keyNameNormalized } from 'w3c-keyname';
 
 import { browser } from '@atlaskit/editor-common/browser';
 import { SelectItemMode, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
+import type { TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { blockNodesVerticalMargin } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
@@ -22,7 +23,6 @@ import {
 	TYPE_AHEAD_POPUP_CONTENT_CLASS,
 } from '../pm-plugins/constants';
 import { getPluginState } from '../pm-plugins/utils';
-import type { TypeAheadItem } from '../types';
 
 import { AssistiveText } from './AssistiveText';
 

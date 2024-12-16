@@ -1,12 +1,12 @@
 import type { IntlShape } from 'react-intl-next';
 
 import { TypeAheadAvailableNodes, typeAheadListMessages } from '@atlaskit/editor-common/type-ahead';
-import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { type ExtractInjectionAPI, type TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { type TypeAheadPlugin } from '../typeAheadPluginType';
-import type { TypeAheadHandler, TypeAheadItem } from '../types';
+import type { TypeAheadHandler } from '../types';
 
 import { updateSelectedIndex } from './commands/update-selected-index';
 import { itemIsDisabled } from './item-is-disabled';

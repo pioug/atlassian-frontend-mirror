@@ -26,7 +26,7 @@ import type { Fragment, Node as PmNode } from '@atlaskit/editor-prosemirror/mode
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { forceAutoSave } from './commands';
+import type { forceAutoSave } from './editor-commands/commands';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type RejectSave = (reason?: any) => void;

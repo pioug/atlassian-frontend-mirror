@@ -63,7 +63,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
-		"@atlaskit/atlassian-navigation": "^4.9.0",
+		"@atlaskit/atlassian-navigation": "^4.10.0",
 		"@atlaskit/atlassian-notifications": "^0.5.0",
 		"@atlaskit/drawer": "^9.2.0",
 		"@atlaskit/logo": "^15.1.0",

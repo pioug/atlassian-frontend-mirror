@@ -10,13 +10,14 @@ import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
-import { buildExtensionNode } from './actions';
-import { clearEditingContext, forceAutoSave, updateState } from './commands';
-import { getPluginState } from './pm-plugins/main';
-import type { ExtensionPlugin, ExtensionState } from './types';
-import ConfigPanelLoader from './ui/ConfigPanel/ConfigPanelLoader';
-import { SaveIndicator } from './ui/SaveIndicator/SaveIndicator';
-import { getSelectedExtension } from './utils';
+import { buildExtensionNode } from '../editor-actions/actions';
+import { clearEditingContext, forceAutoSave, updateState } from '../editor-commands/commands';
+import type { ExtensionPlugin, ExtensionState } from '../extensionPluginType';
+import { getPluginState } from '../pm-plugins/main';
+import { getSelectedExtension } from '../pm-plugins/utils';
+
+import ConfigPanelLoader from './ConfigPanel/ConfigPanelLoader';
+import { SaveIndicator } from './SaveIndicator/SaveIndicator';
 
 const areParametersEqual = (
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

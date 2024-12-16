@@ -80,7 +80,9 @@
 			"dom-events": "use-bind-event-listener",
 			"design-system": "v1",
 			"deprecation": "no-deprecated-imports",
-			"styling": []
+			"styling": [
+				"emotion"
+			]
 		}
 	},
 	"homepage": "https://atlaskit.atlassian.com/packages/design-system/eslint-utils"

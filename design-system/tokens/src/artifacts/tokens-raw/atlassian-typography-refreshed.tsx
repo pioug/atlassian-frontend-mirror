@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::dce942b8ed1c06fabf9d37bbecb9cca4>>
+ * @codegen <<SignedSource::6058c6751a5967271869a82517102e49>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -753,7 +753,7 @@ const tokens = [
       "introduced": "1.14.0",
       "description": "For representing code only."
     },
-    "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
+    "value": "\"Atlassian Mono\", ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
     "filePath": "schema/themes/atlassian-typography-refreshed/font-family.tsx",
     "isSource": true,
     "original": {
@@ -763,7 +763,7 @@ const tokens = [
         "introduced": "1.14.0",
         "description": "For representing code only."
       },
-      "value": "FontFamilyWebMono"
+      "value": "FontFamilyWebMonoRefreshed"
     },
     "name": "font.family.code",
     "path": [
@@ -781,7 +781,7 @@ const tokens = [
       "description": "For representing code only.",
       "deprecated": "1.29.0"
     },
-    "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
+    "value": "\"Atlassian Mono\", ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
     "filePath": "schema/themes/atlassian-typography-refreshed/font-family.tsx",
     "isSource": true,
     "original": {
@@ -792,7 +792,7 @@ const tokens = [
         "description": "For representing code only.",
         "deprecated": "1.29.0"
       },
-      "value": "FontFamilyWebMono"
+      "value": "FontFamilyWebMonoRefreshed"
     },
     "name": "font.family.monospace",
     "path": [

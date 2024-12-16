@@ -23,6 +23,9 @@ export type InlineCardProps = {
 	renderers?: CardProviderRenderers;
 	showHoverPreview?: boolean;
 	hoverPreviewOptions?: HoverPreviewOptions;
+	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-23150 Internal documentation for deprecation (no external access)}
+	 */
 	showAuthTooltip?: boolean;
 	actionOptions?: CardActionOptions;
 	analytics: AnalyticsFacade;

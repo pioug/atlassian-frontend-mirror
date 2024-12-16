@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "112.7.3",
+	"version": "112.7.5",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -39,7 +39,7 @@
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/link-datasource": "^3.15.0",
 		"@atlaskit/media-card": "^78.15.0",
-		"@atlaskit/media-client": "^28.5.0",
+		"@atlaskit/media-client": "^28.6.0",
 		"@atlaskit/media-client-react": "^2.4.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-filmstrip": "^48.1.0",
@@ -50,7 +50,7 @@
 		"@atlaskit/status": "^1.8.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.26.0",
+		"@atlaskit/tmp-editor-statsig": "^2.27.0",
 		"@atlaskit/tokens": "^2.4.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@babel/runtime": "^7.0.0",
@@ -160,6 +160,12 @@
 			"type": "boolean"
 		},
 		"platform_editor_nested_tables_renderer_styles": {
+			"type": "boolean"
+		},
+		"inline_comments_keyboard_accessible_renderer": {
+			"type": "boolean"
+		},
+		"confluence-frontend-comments-panel": {
 			"type": "boolean"
 		}
 	},

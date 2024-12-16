@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 2.4.3
+
+### Patch Changes
+
+- [#174905](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174905)
+  [`4d46b49f15e36`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4d46b49f15e36) -
+  Added Atlassian Mono font to typography refreshed theme.
+
 ## 2.4.2
 
 ### Patch Changes

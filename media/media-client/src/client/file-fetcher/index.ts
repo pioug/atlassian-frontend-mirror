@@ -62,13 +62,27 @@ export { isFileFetcherError, FileFetcherError } from './error';
 export interface CopySourceFile {
 	id: string;
 	collection?: string;
-	authProvider: AuthProvider;
+	authProvider?: AuthProvider;
 }
 
 export interface CopyDestination extends MediaStoreCopyFileWithTokenParams {
-	authProvider: AuthProvider;
+	authProvider?: AuthProvider;
 	mediaStore?: MediaApi;
 }
+
+type CopySourceFileWithToken = CopySourceFile & {
+	authProvider: AuthProvider;
+};
+
+type CopyDestinationWithToken = CopyDestination & {
+	authProvider: AuthProvider;
+};
+
+const isCopySourceFileWithToken = (token: CopySourceFile): token is CopySourceFileWithToken =>
+	!!token.authProvider;
+
+const isCopyDestinationWithToken = (token: CopyDestination): token is CopyDestinationWithToken =>
+	!!token.authProvider;
 
 export interface CopyFileOptions {
 	preview?: FilePreview | Promise<FilePreview>;
@@ -545,12 +559,11 @@ export class FileFetcherImpl implements FileFetcher {
 		await this.mediaApi.testUrl(url, { traceContext });
 	}
 
-	public async copyFile(
-		source: CopySourceFile,
-		destination: CopyDestination,
-		options: CopyFileOptions = {},
+	private async copyFileWithToken(
+		source: CopySourceFileWithToken,
+		destination: CopyDestinationWithToken,
 		traceContext?: MediaTraceContext,
-	): Promise<MediaFile> {
+	) {
 		const { authProvider, collection: sourceCollection, id } = source;
 		const {
 			authProvider: destinationAuthProvider,
@@ -558,7 +571,7 @@ export class FileFetcherImpl implements FileFetcher {
 			replaceFileId,
 			occurrenceKey,
 		} = destination;
-		const { preview, mimeType } = options;
+
 		const mediaStore =
 			destination.mediaStore ||
 			new MediaApi({
@@ -580,11 +593,49 @@ export class FileFetcherImpl implements FileFetcher {
 			occurrenceKey,
 		};
 
+		const { data } = await mediaStore.copyFileWithToken(body, params, traceContext);
+		return data;
+	}
+
+	private async copyFileWithIntent(
+		source: CopySourceFile,
+		destination: CopyDestination,
+		traceContext?: MediaTraceContext,
+	) {
+		const res = await this.mediaApi.copyFile(
+			source.id,
+			{
+				sourceCollection: source.collection,
+				collection: destination.collection,
+				replaceFileId: destination.replaceFileId,
+			},
+			traceContext,
+		);
+
+		const { data } = res;
+
+		return data;
+	}
+
+	public async copyFile(
+		source: CopySourceFile,
+		destination: CopyDestination,
+		options: CopyFileOptions = {},
+		traceContext?: MediaTraceContext,
+	): Promise<MediaFile> {
+		const { id } = source;
+		const { collection: destinationCollectionName, replaceFileId, occurrenceKey } = destination;
+		const { preview, mimeType } = options;
 		const cache = getFileStreamsCache();
 		let processingSubscription: Subscription | undefined;
 
 		try {
-			const { data: copiedFile } = await mediaStore.copyFileWithToken(body, params, traceContext);
+			let copiedFile: MediaFile;
+			if (isCopySourceFileWithToken(source) && isCopyDestinationWithToken(destination)) {
+				copiedFile = await this.copyFileWithToken(source, destination, traceContext);
+			} else {
+				copiedFile = await this.copyFileWithIntent(source, destination, traceContext);
+			}
 
 			// if we were passed a "mimeType", we propagate it into copiedFileWithMimeType
 			const copiedFileWithMimeType: MediaFile = {

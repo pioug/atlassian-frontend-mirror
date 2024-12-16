@@ -76,8 +76,8 @@
 		"use-memo-one": "^1.1.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0 || ^17.0.0 || ^18.0.0",
-		"react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"devDependencies": {
 		"@atlaskit/ssr": "*",
@@ -85,6 +85,11 @@
 		"@testing-library/react": "^12.1.5",
 		"storybook-addon-performance": "^0.17.3",
 		"typescript": "~5.4.2"
+	},
+	"overrides": {
+		"@atlaskit/analytics-next-stable-react-context": {
+			"react": "^18.2.0"
+		}
 	},
 	"techstack": {
 		"@atlassian/frontend": {

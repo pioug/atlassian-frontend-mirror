@@ -7,6 +7,8 @@
  */
 //Norwegian (Bokmål)
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Redigering fullført',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Rediger',
   'editor-common-extensibility.macro.button.configure': 'Konfigurer {macroName}',
   'fabric.editor.action': 'Handlingselement',
   'fabric.editor.action.description': 'Opprett og tilordne handlinger',
@@ -309,7 +311,7 @@ export default {
     '{userRole, select, admin {Inviter teammedlemmer til {productName}} trusted {Inviter teammedlemmer til {productName}} other {Legg til teammedlem i {productName}}}',
   'fabric.editor.italic': 'Kursiv',
   'fabric.editor.keyboardShortcuts': 'Tastatursnarveier',
-  'fabric.editor.layout.columnOption': '{count, plural, one {1 kolonne} other {{count} kolonner}}',
+  'fabric.editor.layout.columnOption': '{count, plural, one {Kolonne} other {{count} kolonner}}',
   'fabric.editor.layout.placeholder': 'Legg til innhold',
   'fabric.editor.layoutFixedWidth': 'Tilbake til midten',
   'fabric.editor.layoutFullWidth': 'Gå for full bredde',
@@ -495,10 +497,13 @@ export default {
   'fabric.editor.text.formatting.off': 'Tekstformatering av',
   'fabric.editor.textColor': 'Tekstfargen {selectedColorName}',
   'fabric.editor.textColorTooltip': 'Tekstfarge',
+  'fabric.editor.textFormat': 'Formater tekst',
   'fabric.editor.textFormatting': 'Tekstformatering',
   'fabric.editor.textStyles': 'Tekststiler {blockTypeName}',
   'fabric.editor.textStylesTooltip': 'Tekststiler',
   'fabric.editor.threeColumns': 'Oppsett for tre kolonner',
+  'fabric.editor.threeColumnsWithLeftSidebars': 'Oppsett for tre kolonner med sidepanel til venstre',
+  'fabric.editor.threeColumnsWithRightSidebars': 'Oppsett for tre kolonner med sidepanel til høyre',
   'fabric.editor.threeColumnsWithSidebars': 'Oppsett for tre kolonner med sidelinjer',
   'fabric.editor.time.ago': 'siden',
   'fabric.editor.time.updated': 'Oppdatert',

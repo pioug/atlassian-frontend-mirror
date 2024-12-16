@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 4.10.0
+
+### Minor Changes
+
+- [#178538](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178538)
+  [`883a3a2291949`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/883a3a2291949) -
+  Make spread props explicit and clean up ESLint disables within components.
+
 ## 4.9.5
 
 ### Patch Changes

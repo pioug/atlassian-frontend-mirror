@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 32.7.10
+
+### Patch Changes
+
+- [#177496](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177496)
+  [`1ca26bb289278`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1ca26bb289278) -
+  [ux] Deprecate showAuthToolTip
+
 ## 32.7.9
 
 ### Patch Changes

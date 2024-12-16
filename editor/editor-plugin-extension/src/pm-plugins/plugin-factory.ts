@@ -1,8 +1,9 @@
 import { pluginFactory } from '@atlaskit/editor-common/utils';
 
+import type { ExtensionState } from '../extensionPluginType';
+
 import { pluginKey } from './plugin-key';
 import reducer from './reducer';
-import type { ExtensionState } from './types';
 
 const factory = pluginFactory(pluginKey, reducer, {
 	mapping(tr, state) {

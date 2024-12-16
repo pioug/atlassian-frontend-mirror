@@ -8,5 +8,5 @@ export type {
 	InsertOrReplaceExtensionType,
 	RunMacroAutoConvert,
 	RejectSave,
-} from './types';
-export { extensionPlugin } from './plugin';
+} from './extensionPluginType';
+export { extensionPlugin } from './extensionPlugin';

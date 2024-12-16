@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.0.8
+
+### Patch Changes
+
+- [#164986](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/164986)
+  [`a85153a79b5e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a85153a79b5e2) -
+  Added the uiEvent paste meta back into the paste transaction
+
 ## 2.0.7
 
 ### Patch Changes

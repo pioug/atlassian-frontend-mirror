@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-extension
 
+## 2.0.9
+
+### Patch Changes
+
+- [#179199](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179199)
+  [`cceabd041774c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cceabd041774c) -
+  ED-25810: refactor extension plugin to editor standards
+
 ## 2.0.8
 
 ### Patch Changes

@@ -670,6 +670,35 @@ describe('FileFetcher', () => {
 			]);
 		});
 
+		it('should call mediaStore.copyFile when authProvider is not given', async () => {
+			const { items, fileFetcher, mediaStore } = setup();
+			const copyFileMock = jest
+				.fn()
+				.mockResolvedValue({ data: { mimeType: 'application/octet-stream' } });
+
+			mediaStore.copyFile = copyFileMock;
+
+			const source = {
+				id: items[0].id,
+				collection: 'someCollectionName',
+			};
+			const destination = {
+				collection: RECENTS_COLLECTION,
+				mediaStore,
+			};
+
+			await fileFetcher.copyFile(source, destination);
+			expectFunctionToHaveBeenCalledWith(copyFileMock, [
+				source.id,
+				{
+					collection: RECENTS_COLLECTION,
+					sourceCollection: source.collection,
+					replaceFileId: undefined,
+				},
+				undefined,
+			]);
+		});
+
 		it('should populate cache when copied file "processingStatus" is succeeded', async () => {
 			const { items, fileFetcher, mockAuthProvider } = setup();
 			const copiedFile: MediaFile = {

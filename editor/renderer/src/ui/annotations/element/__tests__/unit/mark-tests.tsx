@@ -7,6 +7,8 @@ import { render, unmountComponentAtNode } from 'react-dom';
 import { MarkComponent } from '../../mark';
 import { IntlProvider } from 'react-intl-next';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 jest.mock('@atlaskit/feature-gate-js-client');
 
 describe('Annotations/Mark', () => {
@@ -46,100 +48,104 @@ describe('Annotations/Mark', () => {
 		});
 		container.remove();
 	});
+	ffTest.on(
+		'inline_comments_keyboard_accessible_renderer',
+		'when inline keyboard accessible renderer fg is on',
+		() => {
+			describe('when state is active', () => {
+				const state = AnnotationMarkStates.ACTIVE;
 
-	describe('when state is active', () => {
-		const state = AnnotationMarkStates.ACTIVE;
-		(FeatureGates.checkGate as jest.Mock).mockReturnValue(true);
+				beforeEach(() => {
+					if (process.env.IS_REACT_18 === 'true') {
+						act(() => {
+							root.render(
+								<IntlProvider locale="en">
+									<MarkComponent
+										id={fakeId}
+										annotationParentIds={annotationParentIds}
+										dataAttributes={fakeDataAttributes}
+										state={state}
+										hasFocus={false}
+										onClick={onClick}
+										isHovered={false}
+									>
+										<small>some</small>
+									</MarkComponent>
+									,
+								</IntlProvider>,
+							);
+						});
+					} else {
+						render(
+							<IntlProvider locale="en">
+								<MarkComponent
+									id={fakeId}
+									annotationParentIds={annotationParentIds}
+									dataAttributes={fakeDataAttributes}
+									state={state}
+									hasFocus={false}
+									onClick={onClick}
+									isHovered={false}
+								>
+									<small>some</small>
+								</MarkComponent>
+							</IntlProvider>,
+							container,
+						);
+					}
+				});
 
-		beforeEach(() => {
-			if (process.env.IS_REACT_18 === 'true') {
-				act(() => {
-					root.render(
-						<IntlProvider locale="en">
-							<MarkComponent
-								id={fakeId}
-								annotationParentIds={annotationParentIds}
-								dataAttributes={fakeDataAttributes}
-								state={state}
-								hasFocus={false}
-								onClick={onClick}
-								isHovered={false}
-							>
-								<small>some</small>
-							</MarkComponent>
-							,
-						</IntlProvider>,
+				it('should render the data attributes', async () => {
+					const markWrapper = container.querySelector('mark');
+					expect(markWrapper).not.toBeNull();
+					expect(Object.assign({}, markWrapper!.dataset)).toEqual({
+						id: fakeId,
+						markAnnotationType: 'inlineComment',
+						markAnnotationState: 'active',
+						markType: 'annotation',
+						rendererMark: 'true',
+						hasFocus: 'false',
+						isHovered: 'false',
+					});
+					expect(markWrapper!.getAttribute('role')).toEqual('button');
+					expect(markWrapper!.getAttribute('tabIndex')).toEqual('0');
+					expect(markWrapper!.getAttribute('aria-expanded')).toEqual('false');
+				});
+
+				it('should render the aria-details with parent ids and the mark id', async () => {
+					const markWrapper = container.querySelector('mark');
+					expect(markWrapper).not.toBeNull();
+					expect(markWrapper!.getAttribute('aria-details')).toEqual('lol_1, fakeId');
+				});
+
+				it('should not render the aria-disabled', async () => {
+					const markWrapper = container.querySelector('mark');
+					expect(markWrapper!.getAttribute('aria-disabled')).toBeNull();
+				});
+
+				it('should prevent default when clicked', async () => {
+					const markWrapper = container.querySelector('mark');
+					const clickEvent = new MouseEvent('click', {
+						bubbles: true,
+						cancelable: true,
+					});
+					Object.assign(clickEvent, { preventDefault: jest.fn() });
+					fireEvent(markWrapper!, clickEvent);
+					expect(clickEvent.preventDefault).toHaveBeenCalledTimes(1);
+				});
+
+				it('should call onClick prop when clicked', async () => {
+					const markWrapper = container.querySelector('mark');
+					markWrapper!.click();
+					expect(onClick).toHaveBeenCalledWith(
+						expect.objectContaining({
+							annotationIds: [...annotationParentIds, fakeId],
+						}),
 					);
 				});
-			} else {
-				render(
-					<IntlProvider locale="en">
-						<MarkComponent
-							id={fakeId}
-							annotationParentIds={annotationParentIds}
-							dataAttributes={fakeDataAttributes}
-							state={state}
-							hasFocus={false}
-							onClick={onClick}
-							isHovered={false}
-						>
-							<small>some</small>
-						</MarkComponent>
-					</IntlProvider>,
-					container,
-				);
-			}
-		});
-
-		it('should render the data attributes', async () => {
-			const markWrapper = container.querySelector('mark');
-			expect(markWrapper).not.toBeNull();
-			expect(Object.assign({}, markWrapper!.dataset)).toEqual({
-				id: fakeId,
-				markAnnotationType: 'inlineComment',
-				markAnnotationState: 'active',
-				markType: 'annotation',
-				rendererMark: 'true',
-				hasFocus: 'false',
-				isHovered: 'false',
 			});
-			expect(markWrapper!.getAttribute('role')).toEqual('button');
-			expect(markWrapper!.getAttribute('tabIndex')).toEqual('0');
-			expect(markWrapper!.getAttribute('aria-expanded')).toEqual('false');
-		});
-
-		it('should render the aria-details with parent ids and the mark id', async () => {
-			const markWrapper = container.querySelector('mark');
-			expect(markWrapper).not.toBeNull();
-			expect(markWrapper!.getAttribute('aria-details')).toEqual('lol_1, fakeId');
-		});
-
-		it('should not render the aria-disabled', async () => {
-			const markWrapper = container.querySelector('mark');
-			expect(markWrapper!.getAttribute('aria-disabled')).toBeNull();
-		});
-
-		it('should prevent default when clicked', async () => {
-			const markWrapper = container.querySelector('mark');
-			const clickEvent = new MouseEvent('click', {
-				bubbles: true,
-				cancelable: true,
-			});
-			Object.assign(clickEvent, { preventDefault: jest.fn() });
-			fireEvent(markWrapper!, clickEvent);
-			expect(clickEvent.preventDefault).toHaveBeenCalledTimes(1);
-		});
-
-		it('should call onClick prop when clicked', async () => {
-			const markWrapper = container.querySelector('mark');
-			markWrapper!.click();
-			expect(onClick).toHaveBeenCalledWith(
-				expect.objectContaining({
-					annotationIds: [...annotationParentIds, fakeId],
-				}),
-			);
-		});
-	});
+		},
+	);
 
 	describe('when 2 marks overlaps in active state', () => {
 		const state = AnnotationMarkStates.ACTIVE;

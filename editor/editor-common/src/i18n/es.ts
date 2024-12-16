@@ -7,6 +7,8 @@
  */
 //Spanish (International)
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Edición completada',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Editar',
   'editor-common-extensibility.macro.button.configure': 'Configurar {macroName}',
   'fabric.editor.action': 'Elemento de acción',
   'fabric.editor.action.description': 'Crear y asignar elementos de acción',
@@ -223,7 +225,7 @@ export default {
   'fabric.editor.findNext': 'Buscar siguiente',
   'fabric.editor.findPrevious': 'Buscar anterior',
   'fabric.editor.findReplaceToolbarButton': 'Buscar y reemplazar',
-  'fabric.editor.fiveColumns': 'Diseño de cinco columnas',
+  'fabric.editor.fiveColumns': 'Diseño de 5 columnas',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Cancelar',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Eliminar también los elementos conectados',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -237,7 +239,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Desplazarse a la izquierda',
   'fabric.editor.floatingToolbar.scrollRight': 'Desplazarse a la derecha',
   'fabric.editor.focusTableResizeHandle': 'Controlador de cambio de tamaño de la tabla centrado',
-  'fabric.editor.fourColumns': 'Diseño de cuatro columnas',
+  'fabric.editor.fourColumns': 'Diseño de 4 columnas',
   'fabric.editor.headerColumn': 'Columna de encabezado',
   'fabric.editor.headerRow': 'Fila de encabezado',
   'fabric.editor.heading1': 'Título 1',
@@ -313,7 +315,7 @@ export default {
     '{userRole, select, admin {Invita a un compañero de equipo a {productName}} trusted {Invita a un compañero de equipo a {productName}} other {Añade a un compañero de equipo a {productName}}}',
   'fabric.editor.italic': 'Cursiva',
   'fabric.editor.keyboardShortcuts': 'Métodos abreviados de teclado',
-  'fabric.editor.layout.columnOption': '{count, plural, one {-columna} other {{count}-columnas}}',
+  'fabric.editor.layout.columnOption': '{count, plural, one {Columna} other {{count} columnas}}',
   'fabric.editor.layout.placeholder': 'Añadir contenido',
   'fabric.editor.layoutFixedWidth': 'Volver a centrar',
   'fabric.editor.layoutFullWidth': 'Usar ancho completo',
@@ -507,7 +509,9 @@ export default {
   'fabric.editor.textFormatting': 'Formato de texto',
   'fabric.editor.textStyles': 'Estilos de texto {blockTypeName}',
   'fabric.editor.textStylesTooltip': 'Estilos de texto',
-  'fabric.editor.threeColumns': 'Diseño de tres columnas',
+  'fabric.editor.threeColumns': 'Diseño de 3 columnas',
+  'fabric.editor.threeColumnsWithLeftSidebars': 'Tres columnas con diseño de barra lateral izquierda',
+  'fabric.editor.threeColumnsWithRightSidebars': 'Tres columnas con diseño de barra lateral derecha',
   'fabric.editor.threeColumnsWithSidebars': 'Tres columnas con diseño de barras laterales',
   'fabric.editor.time.ago': 'antes',
   'fabric.editor.time.updated': 'Actualizado',
@@ -521,7 +525,7 @@ export default {
   'fabric.editor.tooltip.nestedExpand': 'una expansión anidada',
   'fabric.editor.tooltip.taskList': 'un elemento de acción',
   'fabric.editor.turnInto': 'Convertir en',
-  'fabric.editor.twoColumns': 'Diseño de dos columnas',
+  'fabric.editor.twoColumns': 'Diseño de 2 columnas',
   'fabric.editor.typeAhead.popupLabel': 'Resultados de escritura predictiva',
   'fabric.editor.typeAhead.quickInsertInputLabel':
     'Comienza a escribir para buscar o filtrar opciones de atajos de teclado',

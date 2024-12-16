@@ -28,10 +28,11 @@ import type { NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
 import { setTextSelection } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { setEditingContextToContextPanel } from './commands';
-import { insertMacroFromMacroBrowser } from './pm-plugins/macro/actions';
-import { pluginKey as macroPluginKey } from './pm-plugins/macro/plugin-key';
-import type { CreateExtensionAPI } from './types';
+import { setEditingContextToContextPanel } from '../editor-commands/commands';
+import type { CreateExtensionAPI } from '../extensionPluginType';
+
+import { insertMacroFromMacroBrowser } from './macro/actions';
+import { pluginKey as macroPluginKey } from './macro/plugin-key';
 import {
 	findNodePosWithLocalId,
 	getDataConsumerMark,

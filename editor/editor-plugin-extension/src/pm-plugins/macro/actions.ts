@@ -30,7 +30,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { getPluginState as getExtensionPluginState } from '../../plugin-factory';
+import { getPluginState as getExtensionPluginState } from '../plugin-factory';
 
 import { pluginKey } from './plugin-key';
 

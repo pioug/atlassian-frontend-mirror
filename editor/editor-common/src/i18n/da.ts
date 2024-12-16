@@ -7,6 +7,8 @@
  */
 //Danish (Denmark)
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Færdig med at redigere',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Foretag redigeringer',
   'editor-common-extensibility.macro.button.configure': 'Konfigurer {macroName}',
   'fabric.editor.action': 'Handlingsgenstand',
   'fabric.editor.action.description': 'Opret og tildel handlingsgenstande',
@@ -310,7 +312,7 @@ export default {
     '{userRole, select, admin {Inviter teammedlemmer til {productName}} trusted {Inviter teammedlemmer til {productName}} other {Tilføj teammedlem til {productName}}}',
   'fabric.editor.italic': 'Kursiv',
   'fabric.editor.keyboardShortcuts': 'Tastaturgenveje',
-  'fabric.editor.layout.columnOption': '{count, plural, one { kolonne} other {{count} kolonner}}',
+  'fabric.editor.layout.columnOption': '{count, plural, one {Kolonne} other {{count} kolonner}}',
   'fabric.editor.layout.placeholder': 'Tilføj indhold',
   'fabric.editor.layoutFixedWidth': 'Tilbage til centrering',
   'fabric.editor.layoutFullWidth': 'Vis i fuld bredde',
@@ -498,10 +500,13 @@ export default {
   'fabric.editor.text.formatting.off': 'Tekstformatering fra',
   'fabric.editor.textColor': '{selectedColorName} tekstfarve',
   'fabric.editor.textColorTooltip': 'Tekstfarve',
+  'fabric.editor.textFormat': 'Formatér tekst',
   'fabric.editor.textFormatting': 'Tekstformatering',
   'fabric.editor.textStyles': '{blockTypeName} tekstformatering',
   'fabric.editor.textStylesTooltip': 'Tekstformatering',
   'fabric.editor.threeColumns': 'Layout med tre kolonner',
+  'fabric.editor.threeColumnsWithLeftSidebars': 'Layout med tre kolonner med venstre sidebjælke',
+  'fabric.editor.threeColumnsWithRightSidebars': 'Layout med tre kolonner med højre sidebjælke',
   'fabric.editor.threeColumnsWithSidebars': 'Layout med tre kolonner med sidebjælker',
   'fabric.editor.time.ago': 'siden',
   'fabric.editor.time.updated': 'Opdateret',

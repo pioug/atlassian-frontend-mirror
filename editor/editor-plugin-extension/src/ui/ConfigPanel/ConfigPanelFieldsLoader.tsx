@@ -12,7 +12,7 @@ import type {
 } from '@atlaskit/editor-common/extensions';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 
-import type { ExtensionPlugin, RejectSave } from '../../types';
+import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
 
 import ConfigPanel from './ConfigPanel';
 import { useStateFromPromise } from './use-state-from-promise';

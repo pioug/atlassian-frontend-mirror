@@ -7,6 +7,8 @@
  */
 //Vietnamese (Vietnam)
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Đã chỉnh sửa xong',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Tiến hành sửa',
   'editor-common-extensibility.macro.button.configure': 'Cấu hình {macroName}',
   'fabric.editor.action': 'Mục thao tác',
   'fabric.editor.action.description': 'Tạo và chỉ định các mục thao tác',
@@ -220,7 +222,7 @@ export default {
   'fabric.editor.findNext': 'Tìm tiếp theo',
   'fabric.editor.findPrevious': 'Tìm trước đó',
   'fabric.editor.findReplaceToolbarButton': 'Tìm kiếm và thay thế',
-  'fabric.editor.fiveColumns': 'Bố cục năm cột',
+  'fabric.editor.fiveColumns': 'Bố cục 5 cột',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Hủy',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Đồng thời xóa các thành phần được kết nối',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -233,7 +235,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Cuộn sang trái',
   'fabric.editor.floatingToolbar.scrollRight': 'Cuộn sang phải',
   'fabric.editor.focusTableResizeHandle': 'Ô điều khiển thay đổi kích thước bảng tiêu điểm',
-  'fabric.editor.fourColumns': 'Bố cục bốn cột',
+  'fabric.editor.fourColumns': 'Bố cục 4 cột',
   'fabric.editor.headerColumn': 'Cột tiêu đề',
   'fabric.editor.headerRow': 'Hàng tiêu đề',
   'fabric.editor.heading1': 'Heading 1',
@@ -494,7 +496,9 @@ export default {
   'fabric.editor.textFormatting': 'Định dang văn bản',
   'fabric.editor.textStyles': 'Kiểu văn bản {blockTypeName}',
   'fabric.editor.textStylesTooltip': 'Kiểu văn bản',
-  'fabric.editor.threeColumns': 'Bố cục ba cột',
+  'fabric.editor.threeColumns': 'Bố cục 3 cột',
+  'fabric.editor.threeColumnsWithLeftSidebars': 'Bố cục ba cột có thanh bên bên trái',
+  'fabric.editor.threeColumnsWithRightSidebars': 'Bố cục ba cột có thanh bên bên phải',
   'fabric.editor.threeColumnsWithSidebars': 'Bố cục ba cột có các thanh bên',
   'fabric.editor.time.ago': 'trước',
   'fabric.editor.time.updated': 'Đã cập nhật',
@@ -508,7 +512,7 @@ export default {
   'fabric.editor.tooltip.nestedExpand': 'nút mở rộng lồng nhau',
   'fabric.editor.tooltip.taskList': 'một mục thao tác',
   'fabric.editor.turnInto': 'Chuyển thành',
-  'fabric.editor.twoColumns': 'Bố cục hai cột',
+  'fabric.editor.twoColumns': 'Bố cục 2 cột',
   'fabric.editor.typeAhead.popupLabel': 'Kết quả tự động điền',
   'fabric.editor.typeAhead.quickInsertInputLabel': 'Bắt đầu nhập để tìm kiếm hoặc lọc các tùy chọn lối tắt',
   'fabric.editor.typeAhead.quickInsertPopupLabel': 'Lối tắt để chèn và định dạng',

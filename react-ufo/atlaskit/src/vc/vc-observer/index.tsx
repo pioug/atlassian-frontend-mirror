@@ -157,7 +157,7 @@ export class VCObserver {
 		return `${this.abortReason.reason}${info}`;
 	};
 
-	getVCRawData = (stopTime?: number): VCRawDataType | null => {
+	getVCRawData = (): VCRawDataType | null => {
 		this.measureStart();
 
 		if (!this.active) {
@@ -169,18 +169,6 @@ export class VCObserver {
 		const abortReasonInfo = this.getAbortReasonInfo();
 		this.measureStop();
 
-		let componentsLog: ComponentsLogType = {};
-		if (stopTime && fg('ufo-remove-vc-component-observations-after-ttai')) {
-			Object.entries(this.componentsLog).forEach(([_timestamp, value]) => {
-				const timestamp = Number(_timestamp);
-				if (stopTime > timestamp) {
-					componentsLog[timestamp] = value;
-				}
-			});
-		} else {
-			componentsLog = { ...this.componentsLog };
-		}
-
 		return {
 			abortReasonInfo,
 			abortReason: { ...this.abortReason },
@@ -188,7 +176,7 @@ export class VCObserver {
 			heatmapNext: this.heatmapNext,
 			outOfBoundaryInfo: this.outOfBoundaryInfo,
 			totalTime: Math.round(this.totalTime + this.observers.getTotalTime()),
-			componentsLog,
+			componentsLog: { ...this.componentsLog },
 			viewport: { ...this.viewport },
 			oldDomUpdatesEnabled: this.oldDomUpdatesEnabled,
 			devToolsEnabled: this.devToolsEnabled,
@@ -208,7 +196,7 @@ export class VCObserver {
 		// add local measurement
 		const fullPrefix = prefix !== undefined && prefix !== '' ? `${prefix}:` : '';
 
-		const rawData = vc !== undefined ? vc : this.getVCRawData(stop);
+		const rawData = vc !== undefined ? vc : this.getVCRawData();
 		if (rawData === null) {
 			return {};
 		}
@@ -260,10 +248,22 @@ export class VCObserver {
 			/* empty */
 		}
 
+		let _componentsLog: ComponentsLogType = {};
+		if (fg('ufo-remove-vc-component-observations-after-ttai')) {
+			Object.entries(this.componentsLog).forEach(([_timestamp, value]) => {
+				const timestamp = Number(_timestamp);
+				if (stop > timestamp) {
+					_componentsLog[timestamp] = value;
+				}
+			});
+		} else {
+			_componentsLog = { ...componentsLog };
+		}
+
 		const vcNext = VCObserver.calculateVC({
 			heatmap: heatmapNext,
 			ssr,
-			componentsLog: { ...componentsLog },
+			componentsLog: _componentsLog,
 			viewport,
 		});
 

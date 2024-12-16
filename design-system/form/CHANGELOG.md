@@ -1,5 +1,13 @@
 # @atlaskit/form
 
+## 10.6.3
+
+### Patch Changes
+
+- [#174905](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174905)
+  [`450cbe9dbf8ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/450cbe9dbf8ff) -
+  Upgrade from react-router-dom v4 to v6.
+
 ## 10.6.2
 
 ### Patch Changes

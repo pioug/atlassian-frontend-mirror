@@ -1,5 +1,13 @@
 # @atlaskit/menu
 
+## 2.13.7
+
+### Patch Changes
+
+- [#174905](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/174905)
+  [`450cbe9dbf8ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/450cbe9dbf8ff) -
+  Upgrade from react-router-dom v4 to v6.
+
 ## 2.13.6
 
 ### Patch Changes

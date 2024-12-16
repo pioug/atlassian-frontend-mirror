@@ -25,7 +25,8 @@ import {
 import textFormattingCursorPlugin from './pm-plugins/cursor';
 import textFormattingInputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
-import { plugin as pmPlugin, pluginKey as textFormattingPluginKey } from './pm-plugins/main';
+import { plugin as pmPlugin } from './pm-plugins/main';
+import { pluginKey as textFormattingPluginKey } from './pm-plugins/plugin-key';
 import textFormattingSmartInputRulePlugin from './pm-plugins/smart-input-rule';
 import type { TextFormattingPlugin } from './textFormattingPluginType';
 import { FloatingToolbarTextFormalWithIntl as FloatingToolbarComponent } from './ui/FloatingToolbarComponent';

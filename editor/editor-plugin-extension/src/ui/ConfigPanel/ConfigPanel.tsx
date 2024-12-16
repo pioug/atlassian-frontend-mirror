@@ -30,7 +30,7 @@ import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
 import Form, { FormFooter } from '@atlaskit/form';
 
-import type { ExtensionPlugin, RejectSave } from '../../types';
+import type { ExtensionPlugin, RejectSave } from '../../extensionPluginType';
 
 import { ALLOWED_LOGGED_MACRO_PARAMS } from './constants';
 import ErrorMessage from './ErrorMessage';

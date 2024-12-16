@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.15.9
+
+### Patch Changes
+
+- [#177093](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177093)
+  [`49e25b7064252`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/49e25b7064252) -
+  Vertically centres drag handles for text nodes
+
+## 2.15.8
+
+### Patch Changes
+
+- [#177496](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177496)
+  [`dfb96360f8958`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dfb96360f8958) -
+  Remove optimise-apply-dnd experiment
+- Updated dependencies
+
 ## 2.15.7
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 1.15.0
+
+### Minor Changes
+
+- [#177668](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177668)
+  [`d0c36355f77b6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d0c36355f77b6) -
+  Fix bug where ootb agents don't have owners in agent profile
+
 ## 1.14.11
 
 ### Patch Changes

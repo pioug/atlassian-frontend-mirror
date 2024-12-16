@@ -7,9 +7,8 @@ import { findDomRefAtPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { commitStatusPicker, updateStatus } from '../pm-plugins/actions';
-import type { ClosingPayload } from '../pm-plugins/plugin';
 import type { StatusPlugin } from '../statusPluginType';
-import type { StatusType } from '../types';
+import type { StatusType, ClosingPayload } from '../types';
 
 import StatusPicker from './statusPicker';
 

@@ -1,12 +1,8 @@
 import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
 import type {
-	TypeAheadForceSelect,
 	TypeAheadHandler,
-	TypeAheadInsert,
 	TypeAheadItem,
-	TypeAheadItemRenderProps,
-	TypeAheadSelectItem,
 	TypeAheadStats,
 	UiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
@@ -17,17 +13,13 @@ import type {
 } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
 
-import type { CloseSelectionOptions } from '../pm-plugins/constants';
+// Weird mix of where this type is imported from...
+// Need to move it to this plugin and untangle all refferences to the editor-common one.
+// ED-26054
+// eslint-disable-next-line @atlaskit/editor/no-re-export
+export type { TypeAheadHandler } from '@atlaskit/editor-common/types';
 
-export type {
-	TypeAheadStats,
-	TypeAheadItemRenderProps,
-	TypeAheadInsert,
-	TypeAheadSelectItem,
-	TypeAheadItem,
-	TypeAheadForceSelect,
-	TypeAheadHandler,
-};
+import type { CloseSelectionOptions } from '../pm-plugins/constants';
 
 export type OnSelectItem = (props: { index: number; item: TypeAheadItem }) => void;
 

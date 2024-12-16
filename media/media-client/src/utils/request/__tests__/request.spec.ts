@@ -219,6 +219,41 @@ describe('request', () => {
 
 			expect.assertions(2);
 		});
+
+		it('should retry functionToRetry if condition meets custom shouldRetryError', async () => {
+			const requestMetadata: RequestMetadata = {
+				method: 'GET',
+				endpoint: '/uri',
+			};
+
+			const functionToRetry = jest.fn().mockImplementation(() => {
+				const serverError = new RequestError('serverUnauthorized', {
+					...requestMetadata,
+					statusCode: 401,
+				});
+				throw serverError;
+			});
+
+			try {
+				await fetchRetry(functionToRetry, requestMetadata, {
+					maxAttempts: 3,
+					shouldRetryError: (err) => isRequestError(err) && err.metadata?.statusCode === 401,
+				});
+			} catch (err: any) {
+				if (!isRequestError(err)) {
+					return expect(isRequestError(err)).toBeTruthy();
+				}
+				expect(functionToRetry).toHaveBeenCalledTimes(3);
+				expect(err.attributes).toMatchObject({
+					reason: 'serverUnauthorized',
+					method: 'GET',
+					endpoint: '/uri',
+					statusCode: 401,
+				});
+			}
+
+			expect.assertions(2);
+		});
 	});
 
 	const url = 'http://some-url/';

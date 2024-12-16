@@ -7,6 +7,8 @@
  */
 //Polish (Poland)
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Edycja ukończona',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Wprowadź zmiany',
   'editor-common-extensibility.macro.button.configure': 'Skonfiguruj makro {macroName}',
   'fabric.editor.action': 'Element akcji',
   'fabric.editor.action.description': 'Utwórz i przypisz elementy akcji',
@@ -224,7 +226,7 @@ export default {
   'fabric.editor.findNext': 'Znajdź następne',
   'fabric.editor.findPrevious': 'Znajdź poprzednie',
   'fabric.editor.findReplaceToolbarButton': 'Znajdź i zamień',
-  'fabric.editor.fiveColumns': 'Układ pięciokolumnowy',
+  'fabric.editor.fiveColumns': 'Układ 5-kolumnowy',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Anuluj',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Usuń także połączone elementy',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -237,7 +239,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Przewiń w lewo',
   'fabric.editor.floatingToolbar.scrollRight': 'Przewiń w prawo',
   'fabric.editor.focusTableResizeHandle': 'Koncentracja na uchwycie zmiany rozmiaru tabeli',
-  'fabric.editor.fourColumns': 'Układ czterokolumnowy',
+  'fabric.editor.fourColumns': 'Układ 4-kolumnowy',
   'fabric.editor.headerColumn': 'Kolumna nagłówka',
   'fabric.editor.headerRow': 'Wiersz nagłówka',
   'fabric.editor.heading1': 'Nagłówek 1',
@@ -314,7 +316,7 @@ export default {
   'fabric.editor.italic': 'Kursywa',
   'fabric.editor.keyboardShortcuts': 'Skróty klawiszowe',
   'fabric.editor.layout.columnOption':
-    '{count, plural, one {-kolumnowy} few {{count}-kolumnowy} many {{count}-kolumnowy} other {{count}-kolumnowy}}',
+    '{count, plural, one {Kolumna} few {{count} kolumny} many {{count} kolumn} other {{count} kolumny}}',
   'fabric.editor.layout.placeholder': 'Dodaj treści',
   'fabric.editor.layoutFixedWidth': 'Powrót do centrum',
   'fabric.editor.layoutFullWidth': 'Pełna szerokość',
@@ -512,7 +514,9 @@ export default {
   'fabric.editor.textFormatting': 'Formatowanie tekstu',
   'fabric.editor.textStyles': 'Style tekstu: {blockTypeName}',
   'fabric.editor.textStylesTooltip': 'Style tekstu',
-  'fabric.editor.threeColumns': 'Układ trzykolumnowy',
+  'fabric.editor.threeColumns': 'Układ 3-kolumnowy',
+  'fabric.editor.threeColumnsWithLeftSidebars': 'Układ trzykolumnowy z paskiem bocznym z lewej strony',
+  'fabric.editor.threeColumnsWithRightSidebars': 'Układ trzykolumnowy z paskiem bocznym z prawej strony',
   'fabric.editor.threeColumnsWithSidebars': 'Układ trzykolumnowy z paskami bocznymi',
   'fabric.editor.time.ago': 'temu',
   'fabric.editor.time.updated': 'Zaktualizowano',
@@ -526,7 +530,7 @@ export default {
   'fabric.editor.tooltip.nestedExpand': 'zagnieżdżony węzeł rozwijany',
   'fabric.editor.tooltip.taskList': 'czynność do wykonania',
   'fabric.editor.turnInto': 'Zmień w',
-  'fabric.editor.twoColumns': 'Układ dwukolumnowy',
+  'fabric.editor.twoColumns': 'Układ 2-kolumnowy',
   'fabric.editor.typeAhead.popupLabel': 'Wyniki autouzupełniania',
   'fabric.editor.typeAhead.quickInsertInputLabel': 'Zacznij pisać, aby wyszukać lub filtrować opcje skrótów',
   'fabric.editor.typeAhead.quickInsertPopupLabel': 'Skróty do wstawiania i formatowania',

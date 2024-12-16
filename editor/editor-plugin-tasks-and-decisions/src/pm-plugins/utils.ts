@@ -1,8 +1,5 @@
-import { transformSliceToDecisionList } from '@atlaskit/editor-common/transforms';
 import type { Node as PMNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
-
-export { transformSliceToDecisionList };
 
 function isTaskListNode(node: PMNode | null | undefined) {
 	return Boolean(node && node.type && 'taskList' === node.type.name);

@@ -1,5 +1,10 @@
 import { InsertTypeAheadStages, InsertTypeAheadStep } from '@atlaskit/adf-schema/steps';
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
+import type {
+	TypeAheadHandler,
+	TypeAheadInsert,
+	TypeAheadItem,
+} from '@atlaskit/editor-common/types';
 import { closeHistory } from '@atlaskit/editor-prosemirror/history';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
@@ -7,7 +12,6 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import type { TypeAheadHandler, TypeAheadInsert, TypeAheadItem } from '../../types';
 import { ACTIONS } from '../actions';
 import { pluginKey } from '../key';
 import { StatsModifier } from '../stats-modifier';

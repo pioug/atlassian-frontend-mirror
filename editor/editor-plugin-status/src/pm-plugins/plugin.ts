@@ -11,9 +11,6 @@ import type { StatusPluginOptions, StatusState } from '../types';
 import { pluginKey } from './plugin-key';
 import { isEmptyStatus, mayGetStatusAtSelection } from './utils';
 
-export { pluginKey, pluginKeyName } from './plugin-key';
-export type { StatusState, StatusType, ClosingPayload } from '../types';
-
 const createPlugin = (
 	pmPluginFactoryParams: PMPluginFactoryParams,
 	options?: StatusPluginOptions,

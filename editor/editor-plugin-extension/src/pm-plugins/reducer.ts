@@ -1,4 +1,4 @@
-import type { ExtensionAction, ExtensionState } from './types';
+import type { ExtensionAction, ExtensionState } from '../extensionPluginType';
 
 export default function (pluginState: ExtensionState, action: ExtensionAction): ExtensionState {
 	switch (action.type) {

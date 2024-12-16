@@ -1,5 +1,7 @@
 import { act, fireEvent, screen, within } from '@testing-library/react';
 
+import { ffTest } from '@atlassian/feature-flags-test-utils';
+
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../../extractors/constants';
 import * as analytics from '../../../../utils/analytics/analytics';
 import { mocks } from '../../../../utils/mocks';
@@ -65,26 +67,64 @@ export const unauthorizedViewTests = (
 			testIds: { unauthorizedTestId },
 		} = config;
 
-		it('shows Unauthorised hover card when the "showAuthTooltip" is true', async () => {
-			await setup({
-				mock: mockUnauthorisedResponse,
-				testId: unauthorizedTestId,
+		ffTest.off('platform_deprecate-showauthtooltip-smart-card', '', () => {
+			it('shows Unauthorised hover card when the "showAuthTooltip" is true', async () => {
+				await setup({
+					extraCardProps: { showAuthTooltip: true, showHoverPreview: false },
+					mock: mockUnauthorisedResponse,
+					testId: unauthorizedTestId,
+				});
+
+				const unauthorisedHoverCard = await screen.findByTestId(authTooltipId);
+				expect(unauthorisedHoverCard).toBeTruthy();
 			});
-
-			const unauthorisedHoverCard = await screen.findByTestId(authTooltipId);
-
-			expect(unauthorisedHoverCard).toBeTruthy();
 		});
 
-		it('does not render a hover card for unauthorised card when "showAuthTooltip" is false', async () => {
-			const mockFetch = jest.fn(() => Promise.resolve(mockUnauthorisedResponse));
-			await setup({
-				extraCardProps: { showAuthTooltip: false },
-				mockFetch,
-				testId: unauthorizedTestId,
-			});
+		ffTest.on('platform_deprecate-showauthtooltip-smart-card', '', () => {
+			// This test can be deleted in FF clean up of platform_deprecate-showauthtooltip-smart-card
+			it.each<boolean | undefined>([true, false, undefined])(
+				`shows Unauthorised hover card when the "showAuthTooltip" is %s and "showHoverPreview" is true`,
+				async (showAuthTooltip) => {
+					await setup({
+						extraCardProps: { showAuthTooltip, showHoverPreview: true },
+						mock: mockUnauthorisedResponse,
+						testId: unauthorizedTestId,
+					});
 
-			expect(screen.queryByTestId('hover-card-trigger-wrapper')).toBeNull();
+					const unauthorisedHoverCard = await screen.findByTestId(authTooltipId);
+					expect(unauthorisedHoverCard).toBeTruthy();
+				},
+			);
+		});
+
+		ffTest.off('platform_deprecate-showauthtooltip-smart-card', '', () => {
+			it('does not render a hover card for unauthorised card when "showAuthTooltip" is false', async () => {
+				const mockFetch = jest.fn(() => Promise.resolve(mockUnauthorisedResponse));
+				await setup({
+					extraCardProps: { showAuthTooltip: false, showHoverPreview: true },
+					mockFetch,
+					testId: unauthorizedTestId,
+				});
+
+				expect(screen.queryByTestId('hover-card-trigger-wrapper')).toBeNull();
+				expect(screen.queryByTestId('hover-card-unauthorised-view')).toBeNull();
+			});
+		});
+
+		ffTest.on('platform_deprecate-showauthtooltip-smart-card', '', () => {
+			it.each<boolean | undefined>([true, false, undefined])(
+				'does not render a hover card when "showHoverPreview" is false',
+				async (showAuthTooltip) => {
+					const mockFetch = jest.fn(() => Promise.resolve(mockUnauthorisedResponse));
+					await setup({
+						extraCardProps: { showAuthTooltip, showHoverPreview: false },
+						mockFetch,
+						testId: unauthorizedTestId,
+					});
+					expect(screen.queryByTestId('hover-card-trigger-wrapper')).toBeNull();
+					expect(screen.queryByTestId('hover-card-unauthorised-view')).toBeNull();
+				},
+			);
 		});
 
 		it('renders the correct view of unauthorised hover card', async () => {
@@ -111,19 +151,21 @@ export const unauthorizedViewTests = (
 			}
 		});
 
-		it('does not render auth tooltip when the auth flow is not present in the response', async () => {
-			await setup({
-				extraCardProps: { showAuthTooltip: true },
-				mock: {
-					...mockUnauthorisedResponse,
-					meta: {
-						...mockUnauthorisedResponse.meta,
-						auth: [],
+		ffTest.both('platform_deprecate-showauthtooltip-smart-card', '', () => {
+			it('does not render auth tooltip when the auth flow is not present in the response', async () => {
+				await setup({
+					extraCardProps: { showAuthTooltip: true, showHoverPreview: true },
+					mock: {
+						...mockUnauthorisedResponse,
+						meta: {
+							...mockUnauthorisedResponse.meta,
+							auth: [],
+						},
 					},
-				},
-				testId: unauthorizedTestId,
+					testId: unauthorizedTestId,
+				});
+				expect(screen.queryByTestId(authTooltipId)).toBeNull();
 			});
-			expect(screen.queryByTestId(authTooltipId)).toBeNull();
 		});
 
 		it('should fire viewed event when hover card is opened', async () => {

@@ -62,7 +62,7 @@
         "introduced": "1.14.0",
         "description": "For representing code only."
       },
-      "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace"
+      "value": "\"Atlassian Mono\", ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace"
     },
     "Typography refreshed/font.family.brand.heading": {
       "attributes": {

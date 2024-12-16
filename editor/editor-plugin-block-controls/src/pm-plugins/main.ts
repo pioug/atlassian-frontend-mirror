@@ -124,7 +124,6 @@ const initialState: PluginState = {
 
 export interface FlagType {
 	isNestedEnabled: boolean;
-	isOptimisedApply: boolean;
 }
 
 export const newApply = (
@@ -612,14 +611,8 @@ export const createPlugin = (
 	const { formatMessage } = getIntl();
 	const isNestedEnabled = editorExperiment('nested-dnd', true, { exposure: true });
 	const isAdvancedLayoutEnabled = editorExperiment('advanced_layouts', true, { exposure: true });
-	const isOptimisedApply =
-		isNestedEnabled &&
-		editorExperiment('optimised-apply-dnd', true, {
-			exposure: true,
-		});
 	const flags: FlagType = {
 		isNestedEnabled,
-		isOptimisedApply,
 	};
 
 	let anchorRectCache: AnchorRectCache | undefined;
@@ -640,7 +633,7 @@ export const createPlugin = (
 				oldState: EditorState,
 				newState: EditorState,
 			) {
-				if (isOptimisedApply) {
+				if (isNestedEnabled) {
 					return newApply(
 						api,
 						formatMessage,

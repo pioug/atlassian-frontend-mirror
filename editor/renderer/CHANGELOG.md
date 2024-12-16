@@ -1,5 +1,21 @@
 # @atlaskit/renderer
 
+## 112.7.5
+
+### Patch Changes
+
+- [#179610](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179610)
+  [`bd2c53ff5831b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd2c53ff5831b) -
+  [ux] Bug fix to remove the hover state from all the nodes which are not required
+
+## 112.7.4
+
+### Patch Changes
+
+- [#178990](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178990)
+  [`99dddf300e09d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/99dddf300e09d) -
+  Removed internal re-exports and use more specific imports
+
 ## 112.7.3
 
 ### Patch Changes

@@ -7,6 +7,8 @@
  */
 //English (United Kingdom)
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': 'Done editing',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': 'Make edits',
   'editor-common-extensibility.macro.button.configure': 'Configure {macroName}',
   'fabric.editor.action': 'Action item',
   'fabric.editor.action.description': 'Create and assign action items',
@@ -85,6 +87,8 @@ export default {
   'fabric.editor.columnMovedRight': 'Column moved right to {index} of {total}',
   'fabric.editor.columnSelected': 'Column {index} of {total} selected',
   'fabric.editor.columns': 'Layouts',
+  'fabric.editor.columns.advanced.layout.description':
+    'Insert {numberOfColumns} equal {numberOfColumns, plural, one {column} other {columns}}',
   'fabric.editor.columns.description': 'Structure your page using sections',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {A column has been} other {{count} columns have been}} inserted',
@@ -220,7 +224,7 @@ export default {
   'fabric.editor.findNext': 'Find next',
   'fabric.editor.findPrevious': 'Find previous',
   'fabric.editor.findReplaceToolbarButton': 'Find and replace',
-  'fabric.editor.fiveColumns': 'Five columns layout',
+  'fabric.editor.fiveColumns': '5 Column layout',
   'fabric.editor.floatingToolbar.confirmModalCancel': 'Cancel',
   'fabric.editor.floatingToolbar.confirmModalCheckboxLabel': 'Also delete connected elements',
   'fabric.editor.floatingToolbar.confirmModalConnectedUnit':
@@ -233,7 +237,7 @@ export default {
   'fabric.editor.floatingToolbar.scrollLeft': 'Scroll left',
   'fabric.editor.floatingToolbar.scrollRight': 'Scroll right',
   'fabric.editor.focusTableResizeHandle': 'Focus table resize handle',
-  'fabric.editor.fourColumns': 'Four columns layout',
+  'fabric.editor.fourColumns': '4 Column layout',
   'fabric.editor.headerColumn': 'Header column',
   'fabric.editor.headerRow': 'Header row',
   'fabric.editor.heading1': 'Heading 1',
@@ -308,7 +312,7 @@ export default {
     '{userRole, select, admin {Invite} trusted {Invite} other {Add}} teammate to {productName}',
   'fabric.editor.italic': 'Italic',
   'fabric.editor.keyboardShortcuts': 'Keyboard shortcuts',
-  'fabric.editor.layout.columnOption': '{count, plural, one {-column} other {{count}-columns}}',
+  'fabric.editor.layout.columnOption': '{count, plural, one { Column} other {{count} Columns}}',
   'fabric.editor.layout.placeholder': 'Add content',
   'fabric.editor.layoutFixedWidth': 'Back to center',
   'fabric.editor.layoutFullWidth': 'Go full width',
@@ -491,10 +495,13 @@ export default {
   'fabric.editor.text.formatting.off': 'Text formatting Off',
   'fabric.editor.textColor': '{selectedColorName} Text colour',
   'fabric.editor.textColorTooltip': 'Text colour',
+  'fabric.editor.textFormat': 'Format text',
   'fabric.editor.textFormatting': 'Text formatting',
   'fabric.editor.textStyles': '{blockTypeName} Text styles',
   'fabric.editor.textStylesTooltip': 'Text styles',
-  'fabric.editor.threeColumns': 'Three columns layout',
+  'fabric.editor.threeColumns': '3 Column layout',
+  'fabric.editor.threeColumnsWithLeftSidebars': 'Three columns with left sidebar layout',
+  'fabric.editor.threeColumnsWithRightSidebars': 'Three columns with right sidebar layout',
   'fabric.editor.threeColumnsWithSidebars': 'Three columns with sidebars layout',
   'fabric.editor.time.ago': 'ago',
   'fabric.editor.time.updated': 'Updated',
@@ -508,7 +515,7 @@ export default {
   'fabric.editor.tooltip.nestedExpand': 'a nested expand',
   'fabric.editor.tooltip.taskList': 'an action item',
   'fabric.editor.turnInto': 'Turn into',
-  'fabric.editor.twoColumns': 'Two columns layout',
+  'fabric.editor.twoColumns': '2 Column layout',
   'fabric.editor.typeAhead.popupLabel': 'Typeahead results',
   'fabric.editor.typeAhead.quickInsertInputLabel': 'Begin typing to search or filter shortcut options',
   'fabric.editor.typeAhead.quickInsertPopupLabel': 'Shortcuts for inserts and formatting',

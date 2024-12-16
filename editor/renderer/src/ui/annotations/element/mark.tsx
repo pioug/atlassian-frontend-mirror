@@ -6,7 +6,6 @@ import type React from 'react';
 import { useMemo, useCallback } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 import { AnnotationSharedCSSByState } from '@atlaskit/editor-common/styles';
 import type { OnAnnotationClickPayload } from '@atlaskit/editor-common/types';
@@ -30,9 +29,8 @@ const markStyles = () => css`
 			&[data-has-focus='true'] {
 			${AnnotationSharedCSSByState().focus}
 		}
-		&[data-is-hovered='true']:not([data-has-focus='true']),
-		&:hover:not(:focus) {
-			${AnnotationSharedCSSByState().hover}
+		&[data-is-hovered='true']:not([data-has-focus='true']) {
+			${fg('confluence-frontend-comments-panel') ? AnnotationSharedCSSByState().hover : ''}
 		}
 	}
 `;
@@ -83,9 +81,7 @@ export const MarkComponent = ({
 	onClick,
 	useBlockLevel,
 }: React.PropsWithChildren<MarkComponentProps>) => {
-	const isInlineCommentsKbAccessible = FeatureGates.checkGate(
-		'inline_comments_keyboard_accessible_renderer',
-	);
+	const isInlineCommentsKbAccessible = fg('inline_comments_keyboard_accessible_renderer');
 
 	const intl = useIntl();
 	const annotationIds = useMemo(

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.12.16
+
+### Patch Changes
+
+- [#179199](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179199)
+  [`4182e53f13c87`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4182e53f13c87) -
+  ED-26051 add analytics when inserting layouts ED-26010 fix firefox placeholder selection
+
+## 1.12.15
+
+### Patch Changes
+
+- [#177517](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177517)
+  [`aeb14b8b4eab8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/aeb14b8b4eab8) -
+  ED-26010 fix firefox placeholder selection issue
+
 ## 1.12.14
 
 ### Patch Changes

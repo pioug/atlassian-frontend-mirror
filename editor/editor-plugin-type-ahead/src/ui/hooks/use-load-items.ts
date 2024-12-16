@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
+import type { TypeAheadHandler, TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { updateListItem } from '../../pm-plugins/commands/update-list-items';
-import type { TypeAheadHandler, TypeAheadItem } from '../../types';
 
 const EMPTY_LIST_ITEM: Array<TypeAheadItem> = [];
 export const useLoadItems = (

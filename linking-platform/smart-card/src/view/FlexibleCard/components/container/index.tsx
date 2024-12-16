@@ -8,6 +8,7 @@ import React, { useContext } from 'react';
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import { di } from 'react-magnetic-di';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -243,7 +244,10 @@ const Container = ({
 	const canShowHoverPreview = showHoverPreview && status === 'resolved';
 	// `retry` object contains action that can be performed on
 	// unresolved link (unauthorized, forbidden, not found, etc.)
-	const canShowAuthTooltip = showAuthTooltip && status === 'unauthorized' && retry !== undefined;
+	const canShowAuthTooltip =
+		(fg('platform_deprecate-showauthtooltip-smart-card') ? showHoverPreview : showAuthTooltip) &&
+		status === 'unauthorized' &&
+		retry !== undefined;
 
 	const container = (
 		<div

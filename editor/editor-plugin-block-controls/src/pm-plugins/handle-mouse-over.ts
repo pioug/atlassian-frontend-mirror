@@ -54,14 +54,29 @@ export const handleMouseOver = (
 		const parentElement = rootElement.parentElement?.closest('[data-drag-handler-anchor-name]');
 		const parentElementType = parentElement?.getAttribute('data-drag-handler-node-type');
 
-		// We want to exlude handles from showing for direct decendant of table nodes (i.e. nodes in cells)
 		if (
-			parentElement &&
-			parentElementType === 'table' &&
-			editorExperiment('nested-dnd', true) &&
-			editorExperiment('table-nested-dnd', false, { exposure: true })
+			editorExperiment('advanced_layouts', true) &&
+			fg('platform_editor_advanced_layouts_post_fix_patch_1')
 		) {
-			rootElement = parentElement;
+			// We want to exclude handles from showing for direct descendant of table nodes (i.e. nodes in cells)
+			if (
+				parentElement &&
+				(parentElementType === 'table' || parentElementType === 'tableRow') &&
+				editorExperiment('nested-dnd', true) &&
+				editorExperiment('table-nested-dnd', false, { exposure: true })
+			) {
+				rootElement = parentElement;
+			}
+		} else {
+			// We want to exclude handles from showing for direct descendant of table nodes (i.e. nodes in cells)
+			if (
+				parentElement &&
+				parentElementType === 'table' &&
+				editorExperiment('nested-dnd', true) &&
+				editorExperiment('table-nested-dnd', false, { exposure: true })
+			) {
+				rootElement = parentElement;
+			}
 		}
 
 		const anchorName = rootElement.getAttribute('data-drag-handler-anchor-name')!;

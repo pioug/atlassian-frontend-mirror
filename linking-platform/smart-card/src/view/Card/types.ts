@@ -56,6 +56,7 @@ interface HoverPreviewProps extends ActionProps {
 	hoverPreviewOptions?: HoverPreviewOptions;
 	/**
 	 * Flag to display unresolved views on hover preview.
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-23150 Internal documentation for deprecation (no external access)}
 	 */
 	showAuthTooltip?: boolean;
 }

@@ -11,10 +11,14 @@ export const DRAG_HANDLE_MAX_GAP = 12;
 export const DRAG_HANDLE_MAX_WIDTH_PLUS_GAP = DRAG_HANDLE_WIDTH + DRAG_HANDLE_MAX_GAP;
 
 export const DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT = 4 + 2; // 4px for the divider vertical padding and 2px for the divider height
-export const DRAG_HANDLE_H3_TOP_ADJUSTMENT = 2;
+export const DRAG_HANDLE_H1_TOP_ADJUSTMENT = 5;
+export const DRAG_HANDLE_H2_TOP_ADJUSTMENT = 2;
+export const DRAG_HANDLE_H3_TOP_ADJUSTMENT = 1;
 export const DRAG_HANDLE_H4_TOP_ADJUSTMENT = 3;
 export const DRAG_HANDLE_H5_TOP_ADJUSTMENT = 3;
 export const DRAG_HANDLE_H6_TOP_ADJUSTMENT = 3;
+export const DRAG_HANDLE_LAYOUT_SECTION_TOP_ADJUSTMENT = 8;
+export const DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT = 2;
 
 const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
 
@@ -55,14 +59,8 @@ export const getNestedNodeLeftPaddingMargin = (nodeType?: string) => {
 export const topPositionAdjustment = (nodeType: string) => {
 	if (editorExperiment('advanced_layouts', true)) {
 		switch (nodeType) {
-			case 'rule':
-				return -DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT;
-			case 'table':
-				return DRAG_HANDLE_HEIGHT;
 			case 'layoutSection':
-				return 8;
-			default:
-				return 0;
+				return DRAG_HANDLE_LAYOUT_SECTION_TOP_ADJUSTMENT;
 		}
 	}
 
@@ -72,7 +70,11 @@ export const topPositionAdjustment = (nodeType: string) => {
 		case 'table':
 			return DRAG_HANDLE_HEIGHT;
 		case 'paragraph':
-			return 2;
+			return DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT;
+		case 'heading-1':
+			return DRAG_HANDLE_H1_TOP_ADJUSTMENT;
+		case 'heading-2':
+			return DRAG_HANDLE_H2_TOP_ADJUSTMENT;
 		case 'heading-3':
 			return -DRAG_HANDLE_H3_TOP_ADJUSTMENT;
 		case 'heading-4':

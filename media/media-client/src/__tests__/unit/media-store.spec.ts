@@ -25,6 +25,7 @@ import { resolveAuth, resolveInitialAuth } from '../../client/media-store/resolv
 import { type Auth } from '@atlaskit/media-core';
 import * as requestModule from '../../utils/request';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
+import { nextTick } from '@atlaskit/media-common/test-helpers';
 
 const requestModuleMock = jest.spyOn(requestModule, 'request');
 
@@ -58,6 +59,14 @@ describe.skip('MediaStore', () => {
 		});
 	});
 	const checkWebpSupportMock = checkWebpSupport as jest.Mock;
+
+	beforeAll(() => {
+		jest.useFakeTimers();
+	});
+
+	afterAll(() => {
+		jest.useRealTimers();
+	});
 
 	afterEach(() => {
 		fetchMock.resetMocks();
@@ -1834,7 +1843,7 @@ describe.skip('MediaStore', () => {
 					traceId: 'some-trace-id',
 				});
 
-				expect(requestModuleMock).toBeCalledWith(
+				expect(requestModuleMock).toHaveBeenCalledWith(
 					`${baseUrl}/v2/file/copy`,
 					expect.objectContaining({
 						auth: {
@@ -1843,7 +1852,11 @@ describe.skip('MediaStore', () => {
 							token: 'some-token',
 						},
 						body: '{"id":"some-id"}',
-						clientOptions: undefined,
+						clientOptions: {
+							retryOptions: {
+								shouldRetryError: expect.any(Function),
+							},
+						},
 						endpoint: '/v2/file/copy',
 						headers: {
 							Accept: 'application/json',
@@ -1862,6 +1875,33 @@ describe.skip('MediaStore', () => {
 					}),
 					undefined,
 				);
+			});
+
+			it('retries 401 responses', async () => {
+				fetchMock
+					.once(JSON.stringify({}), {
+						status: 401,
+						statusText: 'Unauthorized',
+					})
+					.once(JSON.stringify({ data }), {
+						status: 201,
+						statusText: 'Created',
+					});
+
+				const resPromise = mediaStore.copyFile('some-id', params, {
+					traceId: 'some-trace-id',
+				});
+
+				await nextTick();
+				await nextTick();
+				await nextTick();
+
+				jest.advanceTimersByTime(1001);
+
+				const res = await resPromise;
+
+				expect(res).toEqual({ data });
+				expect(fetchMock).toHaveBeenCalledTimes(2);
 			});
 		});
 

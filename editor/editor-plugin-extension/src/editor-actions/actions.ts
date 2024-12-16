@@ -30,10 +30,10 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { createExtensionAPI, getEditInLegacyMacroBrowser } from './extension-api';
-import { getPluginState } from './pm-plugins/main';
-import type { InsertOrReplaceExtensionType } from './types';
-import { findExtensionWithLocalId } from './utils';
+import type { InsertOrReplaceExtensionType } from '../extensionPluginType';
+import { createExtensionAPI, getEditInLegacyMacroBrowser } from '../pm-plugins/extension-api';
+import { getPluginState } from '../pm-plugins/main';
+import { findExtensionWithLocalId } from '../pm-plugins/utils';
 
 export const buildExtensionNode = <S extends Schema>(
 	type: 'inlineExtension' | 'extension' | 'bodiedExtension' | 'multiBodiedExtension',

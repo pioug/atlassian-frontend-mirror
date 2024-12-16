@@ -23,6 +23,8 @@ import {
 	IconTwoColumnLayout,
 } from '@atlaskit/editor-common/quick-insert';
 import type { FloatingToolbarConfig, PMPlugin } from '@atlaskit/editor-common/types';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { LayoutPlugin } from './layoutPluginType';
@@ -104,8 +106,24 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 			}
 			return undefined;
 		},
-		quickInsert: ({ formatMessage }) =>
-			editorExperiment('advanced_layouts', true)
+		quickInsert: ({ formatMessage }) => {
+			const withInsertLayoutAnalytics = (tr: Transaction) => {
+				if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {
+					api?.analytics?.actions?.attachAnalyticsEvent({
+						action: ACTION.INSERTED,
+						actionSubject: ACTION_SUBJECT.DOCUMENT,
+						actionSubjectId: ACTION_SUBJECT_ID.LAYOUT,
+						attributes: {
+							inputMethod: INPUT_METHOD.QUICK_INSERT,
+						},
+						eventType: EVENT_TYPE.TRACK,
+					})(tr);
+				}
+
+				return tr;
+			};
+
+			return editorExperiment('advanced_layouts', true)
 				? [
 						{
 							id: 'twocolumnslayout',
@@ -118,6 +136,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							icon: () => <IconTwoColumnLayout />,
 							action(insert, state) {
 								const tr = insert(createMultiColumnLayoutSection(state, 2));
+								withInsertLayoutAnalytics(tr);
 								return tr;
 							},
 						},
@@ -132,6 +151,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							icon: () => <IconThreeColumnLayout />,
 							action(insert, state) {
 								const tr = insert(createMultiColumnLayoutSection(state, 3));
+								withInsertLayoutAnalytics(tr);
 								return tr;
 							},
 						},
@@ -146,6 +166,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							icon: () => <IconFourColumnLayout />,
 							action(insert, state) {
 								const tr = insert(createMultiColumnLayoutSection(state, 4));
+								withInsertLayoutAnalytics(tr);
 								return tr;
 							},
 						},
@@ -160,6 +181,7 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 							icon: () => <IconFiveColumnLayout />,
 							action(insert, state) {
 								const tr = insert(createMultiColumnLayoutSection(state, 5));
+								withInsertLayoutAnalytics(tr);
 								return tr;
 							},
 						},
@@ -186,7 +208,8 @@ export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 								return tr;
 							},
 						},
-					],
+					];
+		},
 	},
 	contentComponent() {
 		return editorExperiment('advanced_layouts', true) ? <GlobalStylesWrapper /> : null;

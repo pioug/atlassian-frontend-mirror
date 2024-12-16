@@ -57,12 +57,12 @@
 	},
 	"devDependencies": {
 		"@atlaskit/activity": "^1.0.1",
-		"@atlaskit/editor-core": "^203.4.0",
+		"@atlaskit/editor-core": "^203.6.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-test-helpers": "^21.0.0",
 		"@atlaskit/mention": "^23.4.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "2.4.2",
+		"@atlaskit/tokens": "2.4.3",
 		"@atlaskit/util-data-test": "^17.13.0",
 		"@emotion/react": "^11.7.1",
 		"typescript": "~5.4.2"

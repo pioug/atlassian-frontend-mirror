@@ -1,5 +1,12 @@
 # @atlaskit/jql-editor
 
+## 4.13.0
+
+### Minor Changes
+
+- [`56ace8c4742e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56ace8c4742e5) -
+  [ux] Change JQL editor search icon appearance from primary to default
+
 ## 4.12.2
 
 ### Patch Changes

@@ -2,7 +2,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	DRAG_HANDLE_DIVIDER_TOP_ADJUSTMENT,
-	DRAG_HANDLE_H3_TOP_ADJUSTMENT,
+	DRAG_HANDLE_H1_TOP_ADJUSTMENT,
+	DRAG_HANDLE_H2_TOP_ADJUSTMENT,
 	DRAG_HANDLE_H4_TOP_ADJUSTMENT,
 	DRAG_HANDLE_H5_TOP_ADJUSTMENT,
 	DRAG_HANDLE_H6_TOP_ADJUSTMENT,
@@ -31,8 +32,12 @@ export const getTopPosition = (dom: HTMLElement | null, type?: string) => {
 		} else {
 			return `${-DRAG_HANDLE_WIDTH}px`;
 		}
+	} else if (type === 'heading-1') {
+		return `${dom.offsetTop + DRAG_HANDLE_H1_TOP_ADJUSTMENT}px`;
+	} else if (type === 'heading-2') {
+		return `${dom.offsetTop + DRAG_HANDLE_H2_TOP_ADJUSTMENT}px`;
 	} else if (type === 'heading-3') {
-		return `${dom.offsetTop - DRAG_HANDLE_H3_TOP_ADJUSTMENT}px`;
+		return `${dom.offsetTop}px`;
 	} else if (type === 'heading-4') {
 		return `${dom.offsetTop - DRAG_HANDLE_H4_TOP_ADJUSTMENT}px`;
 	} else if (type === 'heading-5') {

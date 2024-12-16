@@ -30,14 +30,14 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { clearEditingContext, updateState } from '../commands';
+import { clearEditingContext, updateState } from '../editor-commands/commands';
+import type { ExtensionPlugin, ExtensionPluginOptions } from '../extensionPluginType';
 import { lazyExtensionNodeView } from '../nodeviews/lazyExtension';
-import { createCommand, createPluginState, getPluginState } from '../plugin-factory';
-import { pluginKey } from '../plugin-key';
-import type { ExtensionPlugin, ExtensionPluginOptions } from '../types';
-import { getSelectedDomElement, getSelectedExtension } from '../utils';
 
-import { updateEditButton } from './utils';
+import { createCommand, createPluginState, getPluginState } from './plugin-factory';
+import { pluginKey } from './plugin-key';
+import { updateEditButton } from './update-edit-button';
+import { getSelectedDomElement, getSelectedExtension } from './utils';
 
 const shouldShowEditButton = (
 	extensionHandler?: Extension | ExtensionHandler,

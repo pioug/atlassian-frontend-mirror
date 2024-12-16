@@ -21,8 +21,6 @@ import * as commands from '../editor-commands/text-formatting';
 
 import { pluginKey } from './plugin-key';
 
-export { pluginKey };
-
 const isSelectionInlineCursor = (selection: Selection) => {
 	if (selection instanceof NodeSelection) {
 		return true;

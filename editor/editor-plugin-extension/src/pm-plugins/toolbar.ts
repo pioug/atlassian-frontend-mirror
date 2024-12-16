@@ -30,11 +30,16 @@ import WideIcon from '@atlaskit/icon/glyph/editor/media-wide';
 import RemoveIcon from '@atlaskit/icon/glyph/editor/remove';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { editExtension } from './actions';
-import { removeDescendantNodes, removeExtension, updateExtensionLayout } from './commands';
-import { pluginKey as macroPluginKey } from './pm-plugins/macro/plugin-key';
-import { getPluginState } from './pm-plugins/main';
-import type { ExtensionState } from './types';
+import { editExtension } from '../editor-actions/actions';
+import {
+	removeDescendantNodes,
+	removeExtension,
+	updateExtensionLayout,
+} from '../editor-commands/commands';
+import type { ExtensionState } from '../extensionPluginType';
+
+import { pluginKey as macroPluginKey } from './macro/plugin-key';
+import { getPluginState } from './main';
 import { getSelectedExtension } from './utils';
 import type { Position } from './utils';
 

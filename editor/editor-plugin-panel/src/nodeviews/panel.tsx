@@ -32,6 +32,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { PanelPlugin, PanelPluginOptions } from '../types';
 import { panelAttrsToDom } from '../utils';
 
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Mapping export
 export const panelIcons: {
 	[key in PanelType]: React.ComponentType<{ label: string }>;
 } = {
@@ -43,6 +45,7 @@ export const panelIcons: {
 	error: PanelErrorIcon,
 	custom: PanelInfoIcon,
 };
+/* eslint-enable @atlaskit/editor/no-re-export */
 
 interface PanelIconAttributes {
 	panelAttributes: PanelAttributes;

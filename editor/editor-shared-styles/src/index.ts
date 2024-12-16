@@ -90,6 +90,6 @@ export {
 	hideNativeBrowserTextSelectionStyles,
 } from './selection';
 
-export { overflowShadow } from './overflow-shadow';
+export { overflowShadow } from './overflow-shadow/overflow-shadow';
 
 export { getParticipantColor } from './utils';

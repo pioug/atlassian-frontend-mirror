@@ -1,7 +1,11 @@
 import { useCallback, useLayoutEffect, useRef } from 'react';
 
 import { SelectItemMode } from '@atlaskit/editor-common/type-ahead';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type {
+	ExtractInjectionAPI,
+	TypeAheadHandler,
+	TypeAheadItem,
+} from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { closeTypeAhead } from '../../pm-plugins/commands/close-type-ahead';
@@ -17,8 +21,6 @@ import type {
 	OnItemMatchProps,
 	OnTextInsert,
 	OnTextInsertProps,
-	TypeAheadHandler,
-	TypeAheadItem,
 } from '../../types';
 
 type InsertRawQueryProps = {

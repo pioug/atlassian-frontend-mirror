@@ -7,6 +7,8 @@
  */
 //Japanese
 export default {
+  'editor-common-extensibility-extension-lozenge-editToggle.done.editing': '編集を完了',
+  'editor-common-extensibility-extension-lozenge-editToggle.make.edits': '編集',
   'editor-common-extensibility.macro.button.configure': '{macroName} を構成',
   'fabric.editor.action': 'アクション アイテム',
   'fabric.editor.action.description': 'アクション アイテムを作成して割り当て',
@@ -493,10 +495,13 @@ export default {
   'fabric.editor.text.formatting.off': 'テキスト書式設定オフ',
   'fabric.editor.textColor': '「{selectedColorName}」テキスト カラー',
   'fabric.editor.textColorTooltip': 'テキストの色',
+  'fabric.editor.textFormat': 'テキストを書式設定',
   'fabric.editor.textFormatting': 'テキスト書式設定',
   'fabric.editor.textStyles': '「{blockTypeName}」テキスト スタイル',
   'fabric.editor.textStylesTooltip': 'テキスト スタイル',
   'fabric.editor.threeColumns': '3 列レイアウト',
+  'fabric.editor.threeColumnsWithLeftSidebars': '左サイド バー付き 3 列レイアウト',
+  'fabric.editor.threeColumnsWithRightSidebars': '右サイド バー付き 3 列レイアウト',
   'fabric.editor.threeColumnsWithSidebars': 'サイド バー付き 3 列レイアウト',
   'fabric.editor.time.ago': '前',
   'fabric.editor.time.updated': '最終更新',

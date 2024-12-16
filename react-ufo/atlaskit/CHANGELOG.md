@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.5.2
+
+### Patch Changes
+
+- [#179378](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179378)
+  [`0c54148687bda`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c54148687bda) -
+  move filtering of components log to allow for ufo:vc:next observation
+
 ## 2.5.1
 
 ### Patch Changes

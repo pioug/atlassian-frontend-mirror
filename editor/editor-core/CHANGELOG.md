@@ -1,5 +1,21 @@
 # @atlaskit/editor-core
 
+## 203.6.0
+
+### Minor Changes
+
+- [#179329](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179329)
+  [`d3944ea7be4f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3944ea7be4f6) -
+  [ux] Allowing custom width for editor context panel
+
+## 203.5.0
+
+### Minor Changes
+
+- [#178994](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178994)
+  [`75a272d4afdbb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75a272d4afdbb) -
+  [ux] making padding optional for content panels
+
 ## 203.4.0
 
 ### Minor Changes

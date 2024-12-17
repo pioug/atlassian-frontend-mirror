@@ -1,5 +1,14 @@
 # @atlaskit/toggle
 
+## 14.0.1
+
+### Patch Changes
+
+- [#180314](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180314)
+  [`88b53688f1c39`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/88b53688f1c39) -
+  Fix bug where linked labels with single quotes in the ID would fail to be detected, leading to an
+  invalid internal selector"
+
 ## 14.0.0
 
 ### Major Changes

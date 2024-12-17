@@ -5,8 +5,7 @@
 import { memo } from 'react';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { Text } from '@atlaskit/primitives';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 
 import WeekDayGrid from './week-day-grid';
 

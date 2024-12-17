@@ -17,6 +17,7 @@ import {
 
 import { spacing as spacingScale } from '@atlaskit/tokens/tokens-raw';
 
+import { getScope, getSourceCode } from '../utils/context-compat';
 import { findIdentifierInParentScope } from '../utils/find-in-parent';
 import { isColorCssPropertyName, isCurrentSurfaceCustomPropertyName } from '../utils/is-color';
 
@@ -235,7 +236,7 @@ export const getRawExpression = (node: EslintNode, context: Rule.RuleContext): s
 	}
 	const [start, end] = node.range;
 
-	return context.getSourceCode().getText().substring(start, end).replaceAll('\n', '');
+	return getSourceCode(context).getText().substring(start, end).replaceAll('\n', '');
 };
 
 const getValueFromIdentifier = (
@@ -250,7 +251,7 @@ const getValueFromIdentifier = (
 		return 8;
 	}
 
-	const scope = context.getScope();
+	const scope = getScope(context, node);
 	const variable = findIdentifierInParentScope({
 		scope,
 		identifierName: node.name,

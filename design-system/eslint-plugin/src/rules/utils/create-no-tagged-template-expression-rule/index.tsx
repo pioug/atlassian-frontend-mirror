@@ -13,6 +13,8 @@ import {
 	type SupportedNameChecker,
 } from '@atlaskit/eslint-utils/is-supported-import';
 
+import { getScope, getSourceCode } from '../context-compat';
+
 import { generate } from './generate';
 import { getTaggedTemplateExpressionOffset } from './get-tagged-template-expression-offset';
 import { toArguments } from './to-arguments';
@@ -49,7 +51,7 @@ export const createNoTaggedTemplateExpressionRule =
 
 		return {
 			TaggedTemplateExpression(node) {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 
 				if (!isUsage(node.tag, references, importSources)) {
 					return;
@@ -60,7 +62,7 @@ export const createNoTaggedTemplateExpressionRule =
 					node,
 					*fix(fixer: RuleFixer) {
 						const { quasi } = node;
-						const source = context.getSourceCode();
+						const source = getSourceCode(context);
 
 						// TODO Eventually handle comments instead of skipping them
 						// Skip auto-fixing comments

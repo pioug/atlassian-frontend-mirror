@@ -128,6 +128,14 @@ function classifyTokenPair(
 		['bold', 'bolder', 'boldest'].includes(foregroundToken.emphasis)
 	);
 
+	// Chart pairs should only include raised and default background token surfaces
+	const isInvalidChartPair = !!(
+		foregroundToken.type === 'chart' &&
+		backgroundToken.type === 'surface' &&
+		backgroundToken.role !== 'raised' &&
+		backgroundToken.role !== 'default'
+	);
+
 	// Bold backgrounds need contrast against subtle backgrounds
 	const backgroundBackgroundPair = !!(
 		backgroundToken.type === 'background' &&
@@ -171,6 +179,7 @@ function classifyTokenPair(
 			!isDisabledPair &&
 			!isDefaultBorder &&
 			!isTransparent &&
+			!isInvalidChartPair &&
 			(isBoldPair ||
 				isBoldWarningPair ||
 				isSubtlePair ||
@@ -323,10 +332,13 @@ export const typescriptTokenPairingsFormatter: Format['formatter'] = ({ dictiona
 		const needsTextContrast = possiblePair && ['text', 'link'].includes(foregroundMetadata.type);
 
 		if (possiblePair) {
+			// Chart color tokens need a different contrast. 2.4 ratio is required for charts
+			const isForegroundChartType = foregroundMetadata.type === 'chart';
+			const desiredContrast = needsTextContrast ? 4.5 : isForegroundChartType ? 2.4 : 3;
 			recommendedPairs.push({
 				foreground: getTokenId(foregroundMetadata.name),
 				background: getTokenId(backgroundMetadata.name),
-				desiredContrast: needsTextContrast ? 4.5 : 3,
+				desiredContrast,
 				...(layeredTokens.length > 0 && { layeredTokens }),
 			});
 		}

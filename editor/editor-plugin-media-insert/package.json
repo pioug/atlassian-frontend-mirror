@@ -50,7 +50,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"@atlaskit/tokens": "^2.4.0"
+		"@atlaskit/tokens": "^2.5.0"
 	},
 	"devDependencies": {
 		"typescript": "~5.4.2"

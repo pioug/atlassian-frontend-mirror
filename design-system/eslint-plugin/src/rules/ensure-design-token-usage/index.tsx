@@ -9,6 +9,7 @@ import {
 
 import { getImportSources } from '@atlaskit/eslint-utils/is-supported-import';
 
+import { getScope, getSourceCode } from '../utils/context-compat';
 import { createLintRule } from '../utils/create-rule';
 import { errorBoundary } from '../utils/error-boundary';
 import { includesHardCodedColor } from '../utils/is-color';
@@ -91,7 +92,7 @@ const createWithConfig: (initialConfig: RuleConfig) => Rule.RuleModule['create']
 				},
 				// const styles = css({ color: 'red', margin: '4px' }), styled.div({ color: 'red', margin: '4px' })
 				ObjectExpression: (parentNode: Rule.Node) => {
-					const { references } = context.getScope();
+					const { references } = getScope(context, parentNode);
 					/**
 					 * NOTE: This rule doesn't have an `importSources` config option,
 					 * so this will just be equal to DEFAULT_IMPORT_SOURCES (which is fine)
@@ -197,7 +198,7 @@ const createWithConfig: (initialConfig: RuleConfig) => Rule.RuleModule['create']
 							return;
 						}
 						const globalFontSize = getFontSizeValueInScope(processedCssLines);
-						const textForSource = context.getSourceCode().getText(node.quasi);
+						const textForSource = getSourceCode(context).getText(node.quasi);
 						const allReplacedValues: string[][] = [];
 
 						const completeSource = processedCssLines.reduce(

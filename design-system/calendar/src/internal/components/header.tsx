@@ -5,7 +5,7 @@ import { useId } from '@atlaskit/ds-lib/use-id';
 import Heading from '@atlaskit/heading';
 import ChevronLeftIcon from '@atlaskit/icon/utility/migration/chevron-left--chevron-left-large';
 import ChevronRightIcon from '@atlaskit/icon/utility/migration/chevron-right--chevron-right-large';
-import { Box, Inline } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 
 import { type TabIndex } from '../../types';
 

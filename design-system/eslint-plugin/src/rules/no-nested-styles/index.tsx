@@ -2,6 +2,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
+import { getScope } from '../utils/context-compat';
 import { createLintRule } from '../utils/create-rule';
 import { findIdentifierInParentScope } from '../utils/find-in-parent';
 
@@ -15,7 +16,7 @@ const allowedResponsiveImports = ['@atlaskit/primitives/responsive', '@atlaskit/
 const isMediaObject = (node: Rule.Node, context: Rule.RuleContext) => {
 	if (node.type === 'MemberExpression') {
 		if (node.object.type === 'MemberExpression' && node.object.object.type === 'Identifier') {
-			const scope = context.getScope();
+			const scope = getScope(context, node);
 			const variable = findIdentifierInParentScope({
 				scope,
 				identifierName: node.object.object.name,

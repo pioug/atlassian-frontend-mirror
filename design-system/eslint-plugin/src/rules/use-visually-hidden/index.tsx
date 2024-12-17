@@ -7,6 +7,7 @@ import {
 	isNodeOfType,
 } from 'eslint-codemod-utils';
 
+import { getSourceCode } from '../utils/context-compat';
 import { createLintRule } from '../utils/create-rule';
 import { isCssInJsObjectNode, isCssInJsTemplateNode } from '../utils/is-node';
 
@@ -37,7 +38,7 @@ const rule = createLintRule({
 	},
 
 	create(context) {
-		const source = context.getSourceCode();
+		const source = getSourceCode(context);
 
 		return {
 			ImportDeclaration(node) {

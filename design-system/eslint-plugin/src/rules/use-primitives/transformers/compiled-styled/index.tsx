@@ -3,6 +3,7 @@ import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXElement, type VariableDeclarator } from 'eslint-codemod-utils';
 
 import * as ast from '../../../../ast-nodes';
+import { getScope, getSourceCode } from '../../../utils/context-compat';
 import { type RuleConfig } from '../../config';
 import { isValidCssPropertiesToTransform } from '../../utils';
 import { validateStyles } from '../../utils/validate-styles';
@@ -75,7 +76,7 @@ export const CompiledStyled = {
 
 		const styledComponentJsxRef = findValidJsxUsageToTransform(
 			styledComponentVariableRef.id.name,
-			context.getScope(),
+			getScope(context, node),
 			anyOrder,
 		);
 
@@ -88,7 +89,7 @@ export const CompiledStyled = {
 		}
 
 		const importDeclaration = ast.Root.findImportsByModule(
-			context.getSourceCode().ast.body,
+			getSourceCode(context).ast.body,
 			'@atlaskit/primitives',
 		);
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.6.0",
+	"version": "203.6.1",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -56,7 +56,7 @@
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/tmp-editor-statsig": "^2.27.0",
-		"@atlaskit/tokens": "^2.4.0",
+		"@atlaskit/tokens": "^2.5.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/width-detector": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
@@ -198,9 +198,6 @@
 		"linking_platform_smart_links_in_live_pages": {
 			"type": "boolean",
 			"referenceOnly": true
-		},
-		"platform_editor_drag_and_drop_expand_style_fix": {
-			"type": "boolean"
 		},
 		"platform_editor_media_batch_updates": {
 			"type": "boolean",
@@ -357,6 +354,10 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_advanced_layouts_post_fix_patch_2": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_plugin_selection_marker_bugfix": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -370,6 +371,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_table_overflow_in_full_width_fix": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_table_row_span_fix": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

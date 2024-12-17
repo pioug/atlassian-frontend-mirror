@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.27.1
+
+### Patch Changes
+
+- [#179266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179266)
+  [`19a796ab55276`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/19a796ab55276) -
+  EDF-2116 - Cleanup FG platform_editor_ai_release_additional_prompts and experiment
+  platform_editor_ai_additional_editor_prompts
+
 ## 2.27.0
 
 ### Minor Changes

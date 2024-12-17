@@ -56,12 +56,6 @@ const dropdownIndicatorStyles = xcss({
 	justifyContent: 'center',
 });
 
-// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
-const CalendarIcon = fg('platform-visual-refresh-icon-ads-migration')
-	? CalendarIconNew
-	: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-		CalendarIconOld;
-
 type DatePickerProps = typeof datePickerDefaultProps & DatePickerBaseProps;
 
 interface State {
@@ -137,6 +131,11 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 	containerRef: HTMLElement | null = null;
 	calendarRef: React.RefObject<HTMLDivElement | null> = createRef();
 	calendarButtonRef: React.RefObject<HTMLButtonElement> = createRef();
+
+	CalendarIcon = fg('platform-visual-refresh-icon-ads-migration')
+		? CalendarIconNew
+		: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+			CalendarIconOld;
 
 	constructor(props: any) {
 		super(props);
@@ -449,7 +448,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 			openCalendarLabel = 'Open calendar',
 			disabled,
 			disabledDateFilter,
-			icon: Icon = CalendarIcon as unknown as React.ComponentType<
+			icon: Icon = this.CalendarIcon as unknown as React.ComponentType<
 				DropdownIndicatorProps<OptionType>
 			>,
 			id = '',
@@ -663,7 +662,7 @@ class DatePickerComponent extends Component<DatePickerProps, State> {
 									}
 									id={openCalendarLabelId}
 									icon={(iconProps) => (
-										<CalendarIcon
+										<this.CalendarIcon
 											{...iconProps}
 											// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 											{...(fg('platform-visual-refresh-icon-ads-migration')

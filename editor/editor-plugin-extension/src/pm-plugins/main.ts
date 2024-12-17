@@ -233,8 +233,8 @@ const createPlugin = (
 
 						// If the focus is going from outside to inside an area designated as an editable area of an extension, then the extension selection is reset.
 						if (
-							currentTarget.closest('.extension-editable-area') &&
-							!source.closest('.extension-editable-area')
+							!!currentTarget.closest('.extension-editable-area') !==
+							!!source.closest('.extension-editable-area')
 						) {
 							const emptySelection = new TextSelection(view.state.doc.resolve(0));
 							const tr = view.state.tr.setSelection(emptySelection);

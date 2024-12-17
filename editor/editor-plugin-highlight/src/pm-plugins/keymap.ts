@@ -7,7 +7,7 @@ import {
 import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
-import { togglePalette } from '../editor-commands';
+import { togglePalette } from '../editor-commands/palette';
 import type { HighlightPlugin } from '../highlightPluginType';
 
 export function keymapPlugin({ api }: { api: ExtractInjectionAPI<HighlightPlugin> | undefined }) {

@@ -1,5 +1,14 @@
 # @atlaskit/datetime-picker
 
+## 15.10.5
+
+### Patch Changes
+
+- [#178643](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178643)
+  [`598b1dc3753cc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/598b1dc3753cc) -
+  Fix instances of module level FG evaluation
+- Updated dependencies
+
 ## 15.10.4
 
 ### Patch Changes

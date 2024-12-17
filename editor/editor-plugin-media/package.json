@@ -72,7 +72,7 @@
 		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tmp-editor-statsig": "^2.27.0",
-		"@atlaskit/tokens": "^2.4.0",
+		"@atlaskit/tokens": "^2.5.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

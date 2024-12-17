@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-paste",
-	"version": "2.0.8",
+	"version": "2.0.9",
 	"description": "Paste plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -122,6 +122,9 @@
 			"type": "boolean"
 		},
 		"editor_nest_media_and_codeblock_in_quotes_jira": {
+			"type": "boolean"
+		},
+		"platform_editor_use_nested_table_pm_nodes": {
 			"type": "boolean"
 		}
 	}

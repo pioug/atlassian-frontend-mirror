@@ -17,7 +17,7 @@ import Table, {
 
 export default function Expandable() {
 	return (
-		<Table testId='expandable-table'>
+		<Table testId="expandable-table">
 			<THead>
 				<HeadCell>
 					{/* A hidden label can be used to title the column for accessibility */}

@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 203.6.1
+
+### Patch Changes
+
+- [#179495](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179495)
+  [`5df4aaaa16713`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5df4aaaa16713) -
+  [ux] Fixed resizing issue when layout is stacked on a narrow screen and resizer item gets
+  min-width bigger than max-width.
+- [#179438](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179438)
+  [`942f24408add6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/942f24408add6) -
+  Remove FG
+
 ## 203.6.0
 
 ### Minor Changes

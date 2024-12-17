@@ -7,6 +7,10 @@ import type { CardOptions, QueueCardsFromTransactionAction } from '@atlaskit/edi
 import { insideTable } from '@atlaskit/editor-common/core-utils';
 import type { ExtensionAutoConvertHandler } from '@atlaskit/editor-common/extensions';
 import { anyMarkActive } from '@atlaskit/editor-common/mark';
+import {
+	getParentOfTypeCount,
+	getPositionAfterTopParentNodeOfType,
+} from '@atlaskit/editor-common/nesting';
 import { GapCursorSelection, Side } from '@atlaskit/editor-common/selection';
 import type { Command, CommandDispatch } from '@atlaskit/editor-common/types';
 import {
@@ -42,6 +46,7 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { replaceSelectedTable } from '@atlaskit/editor-tables/utils';
 import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-common';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 // TODO: ED-20519 Needs Macro extraction
 
 import { startTrackingPastedMacroPositions, stopTrackingPastedMacroPositions } from './commands';
@@ -927,6 +932,66 @@ export function handleTableContentPasteInBodiedExtension(slice: Slice): Command 
 			dispatch(state.tr.replaceSelection(newSlice));
 			return true;
 		}
+		return false;
+	};
+}
+
+export function handleNestedTablePaste(slice: Slice, isNestingTablesSupported?: boolean): Command {
+	return (state, dispatch) => {
+		if (!isNestingTablesSupported || !insideTable(state)) {
+			return false;
+		}
+
+		const { schema, selection } = state;
+
+		let sliceHasTable = false;
+
+		slice.content.forEach((node) => {
+			if (node.type === state.schema.nodes.table) {
+				sliceHasTable = true;
+			}
+		});
+
+		if (sliceHasTable) {
+			if (
+				editorExperiment('nested-tables-in-tables', true, {
+					exposure: true,
+				})
+			) {
+				/* TEST COHORT */
+				// if slice has table - if pasting to deeply nested location place paste after top table
+				if (getParentOfTypeCount(schema.nodes.table)(selection.$from) > 1) {
+					const positionAfterTopTable = getPositionAfterTopParentNodeOfType(schema.nodes.table)(
+						selection.$from,
+					);
+
+					let { tr } = state;
+					tr = safeInsert(slice.content, positionAfterTopTable)(tr);
+					tr.scrollIntoView();
+
+					if (dispatch) {
+						dispatch(tr);
+						return true;
+					}
+				}
+			} else {
+				/* CONTROL COHORT */
+				// if slice has table - place paste after top table
+				const positionAfterTopTable = getPositionAfterTopParentNodeOfType(schema.nodes.table)(
+					selection.$from,
+				);
+
+				let { tr } = state;
+				tr = safeInsert(slice.content, positionAfterTopTable)(tr);
+				tr.scrollIntoView();
+
+				if (dispatch) {
+					dispatch(tr);
+					return true;
+				}
+			}
+		}
+
 		return false;
 	};
 }

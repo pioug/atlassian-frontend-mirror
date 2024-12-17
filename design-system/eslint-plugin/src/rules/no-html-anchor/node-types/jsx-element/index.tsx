@@ -3,6 +3,7 @@ import type { Rule } from 'eslint';
 import type { ImportDeclaration } from 'eslint-codemod-utils';
 
 import * as ast from '../../../../ast-nodes';
+import { getSourceCode } from '../../../utils/context-compat';
 import { isSupportedForLint } from '../supported';
 
 interface MetaData {
@@ -20,7 +21,7 @@ export const JSXElement = {
 		}
 
 		const nodeName = ast.JSXElement.getName(node);
-		const sourceCode = context.getSourceCode();
+		const sourceCode = getSourceCode(context);
 		const importDeclarations = sourceCode.ast.body.filter(isImportDeclaration);
 
 		let existingLinkName = null;

@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9957d1dda57e005ed28cf2ed0124d936>>
+ * @codegen <<SignedSource::c366b35cbbeedcaf13c5d825a911a14a>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -278,22 +278,22 @@ html[data-color-mode="dark"][data-theme~="dark:light"] {
   --ds-interaction-pressed: #00000052;
   --ds-skeleton: #0515240F;
   --ds-skeleton-subtle: #17171708;
-  --ds-chart-categorical-1: #2898BD;
-  --ds-chart-categorical-1-hovered: #227D9B;
-  --ds-chart-categorical-2: #803FA5;
-  --ds-chart-categorical-2-hovered: #48245D;
-  --ds-chart-categorical-3: #E06C00;
-  --ds-chart-categorical-3-hovered: #BD5B00;
-  --ds-chart-categorical-4: #943D73;
-  --ds-chart-categorical-4-hovered: #50253F;
-  --ds-chart-categorical-5: #123263;
-  --ds-chart-categorical-5-hovered: #1C2B42;
-  --ds-chart-categorical-6: #BF63F3;
-  --ds-chart-categorical-6-hovered: #AF59E1;
-  --ds-chart-categorical-7: #50253F;
-  --ds-chart-categorical-7-hovered: #3D2232;
-  --ds-chart-categorical-8: #9E4C00;
-  --ds-chart-categorical-8-hovered: #693200;
+  --ds-chart-categorical-1: #357DE8;
+  --ds-chart-categorical-1-hovered: #1868DB;
+  --ds-chart-categorical-2: #82B536;
+  --ds-chart-categorical-2-hovered: #6A9A23;
+  --ds-chart-categorical-3: #BF63F3;
+  --ds-chart-categorical-3-hovered: #AF59E1;
+  --ds-chart-categorical-4: #F68909;
+  --ds-chart-categorical-4-hovered: #E06C00;
+  --ds-chart-categorical-5: #1558BC;
+  --ds-chart-categorical-5-hovered: #123263;
+  --ds-chart-categorical-6: #964AC0;
+  --ds-chart-categorical-6-hovered: #803FA5;
+  --ds-chart-categorical-7: #42B2D7;
+  --ds-chart-categorical-7-hovered: #2898BD;
+  --ds-chart-categorical-8: #BD5B00;
+  --ds-chart-categorical-8-hovered: #9E4C00;
   --ds-chart-lime-bold: #6A9A23;
   --ds-chart-lime-bold-hovered: #5B7F24;
   --ds-chart-lime-bolder: #5B7F24;
@@ -358,24 +358,24 @@ html[data-color-mode="dark"][data-theme~="dark:light"] {
   --ds-chart-gray-boldest-hovered: #3B3D42;
   --ds-chart-brand: #357DE8;
   --ds-chart-brand-hovered: #1868DB;
-  --ds-chart-danger: #F15B50;
-  --ds-chart-danger-hovered: #E2483D;
+  --ds-chart-danger: #E2483D;
+  --ds-chart-danger-hovered: #C9372C;
   --ds-chart-danger-bold: #AE2E24;
   --ds-chart-danger-bold-hovered: #5D1F1A;
-  --ds-chart-warning: #E06C00;
-  --ds-chart-warning-hovered: #BD5B00;
-  --ds-chart-warning-bold: #9E4C00;
-  --ds-chart-warning-bold-hovered: #693200;
-  --ds-chart-success: #6A9A23;
-  --ds-chart-success-hovered: #5B7F24;
-  --ds-chart-success-bold: #4C6B1F;
-  --ds-chart-success-bold-hovered: #37471F;
+  --ds-chart-warning: #F68909;
+  --ds-chart-warning-hovered: #E06C00;
+  --ds-chart-warning-bold: #BD5B00;
+  --ds-chart-warning-bold-hovered: #9E4C00;
+  --ds-chart-success: #82B536;
+  --ds-chart-success-hovered: #6A9A23;
+  --ds-chart-success-bold: #5B7F24;
+  --ds-chart-success-bold-hovered: #4C6B1F;
   --ds-chart-discovery: #BF63F3;
   --ds-chart-discovery-hovered: #AF59E1;
   --ds-chart-discovery-bold: #803FA5;
   --ds-chart-discovery-bold-hovered: #48245D;
-  --ds-chart-information: #4688EC;
-  --ds-chart-information-hovered: #357DE8;
+  --ds-chart-information: #357DE8;
+  --ds-chart-information-hovered: #1868DB;
   --ds-chart-information-bold: #1558BC;
   --ds-chart-information-bold-hovered: #123263;
   --ds-surface: #FFFFFF;

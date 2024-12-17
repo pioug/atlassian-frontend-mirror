@@ -2,6 +2,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
+import { getScope } from '../utils/context-compat';
 import { createLintRule } from '../utils/create-rule';
 import { getImportName } from '../utils/get-import-name';
 
@@ -36,7 +37,7 @@ const rule = createLintRule({
 
 				// Get the name of the SpotlightCard import
 				const spotlightCardImportName = getImportName(
-					context.getScope(),
+					getScope(context, node),
 					'@atlaskit/onboarding',
 					'SpotlightCard',
 				);

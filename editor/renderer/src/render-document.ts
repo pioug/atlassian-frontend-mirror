@@ -1,27 +1,27 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import memoizeOne from 'memoize-one';
-import { type Serializer } from './serializer';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
-import { getValidDocument } from '@atlaskit/editor-common/validator';
-import type { ADFStage } from '@atlaskit/editor-common/validator';
-import {
-	validateADFEntity,
-	findAndTrackUnsupportedContentNodes,
-} from '@atlaskit/editor-common/utils';
-import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
-import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import { type AnalyticsEventPayload, PLATFORM } from './analytics/events';
-import { trackUnsupportedContentLevels } from './analytics/unsupported-content';
-import { type RendererAppearance } from './ui/Renderer/types';
 import {
 	transformMediaLinkMarks,
 	transformNestedTablesIncomingDocument,
 } from '@atlaskit/adf-utils/transforms';
-import { countNodes } from './ui/Renderer/count-nodes';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
+import {
+	findAndTrackUnsupportedContentNodes,
+	validateADFEntity,
+} from '@atlaskit/editor-common/utils';
+import type { ADFStage } from '@atlaskit/editor-common/validator';
+import { getValidDocument } from '@atlaskit/editor-common/validator';
+import { type Node as PMNode, type Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
+import memoizeOne from 'memoize-one';
+import { PLATFORM, type AnalyticsEventPayload } from './analytics/events';
+import { trackUnsupportedContentLevels } from './analytics/unsupported-content';
+import { type Serializer } from './serializer';
+import { countNodes } from './ui/Renderer/count-nodes';
+import { type RendererAppearance } from './ui/Renderer/types';
 
 export interface RenderOutput<T> {
 	result: T;
@@ -64,6 +64,7 @@ const _validation = (
 	adfStage: ADFStage,
 	useSpecBasedValidator: boolean,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+	skipValidation?: boolean,
 ) => {
 	let result;
 
@@ -79,7 +80,9 @@ const _validation = (
 			});
 		}
 
-		result = validateADFEntity(schema, transformedAdf || doc, dispatchAnalyticsEvent);
+		result = skipValidation
+			? transformedAdf || doc
+			: validateADFEntity(schema, transformedAdf || doc, dispatchAnalyticsEvent);
 	} else {
 		result = getValidDocument(doc, schema, adfStage);
 	}
@@ -134,15 +137,16 @@ const _validation = (
 };
 
 const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
-	const [newDoc, newSchema, newADFStage, newUseSpecValidator] = newArgs;
-	const [oldDoc, oldSchema, oldADFStage, oldUseSpecValidator] = lastArgs;
+	const [newDoc, newSchema, newADFStage, newUseSpecValidator, skipValidation] = newArgs;
+	const [oldDoc, oldSchema, oldADFStage, oldUseSpecValidator, oldSkipValidation] = lastArgs;
 
 	// we're ignoring changes to dispatchAnalyticsEvent in this check
 	const result =
 		areDocsEqual(newDoc, oldDoc) &&
 		newSchema === oldSchema &&
 		newADFStage === oldADFStage &&
-		newUseSpecValidator === oldUseSpecValidator;
+		newUseSpecValidator === oldUseSpecValidator &&
+		skipValidation === oldSkipValidation;
 
 	return result;
 });
@@ -217,11 +221,19 @@ export const renderDocument = <T>(
 	unsupportedContentLevelsTracking?: UnsupportedContentLevelsTracking,
 	appearance?: RendererAppearance,
 	includeNodesCountInStats?: boolean,
+	skipValidation?: boolean,
 ): RenderOutput<T | null> => {
 	const stat: RenderOutputStat = { sanitizeTime: 0 };
 
 	const { output: validDoc, time: sanitizeTime } = withStopwatch(() => {
-		return memoValidation(doc, schema, adfStage, useSpecBasedValidator, dispatchAnalyticsEvent);
+		return memoValidation(
+			doc,
+			schema,
+			adfStage,
+			useSpecBasedValidator,
+			dispatchAnalyticsEvent,
+			skipValidation,
+		);
 	});
 
 	// save sanitize time to stats

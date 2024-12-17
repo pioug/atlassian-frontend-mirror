@@ -36,8 +36,8 @@ const expectedFailedLightPairs = [
 	['color.link.pressed', 'color.background.selected.hovered'],
 	['color.link.visited', 'color.background.brand.subtlest.hovered'],
 	['color.link.visited', 'color.background.selected.hovered'],
-	['color.chart.brand', 'elevation.surface.hovered'],
-	['color.chart.brand', 'elevation.surface.raised.hovered'],
+	['color.chart.brand', 'elevation.surface.pressed'],
+	['color.chart.brand', 'elevation.surface.raised.pressed'],
 ];
 
 describe('tokenRampAdjustment', () => {

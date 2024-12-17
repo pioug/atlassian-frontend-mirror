@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::499a40a2715a3687a0eb5a6a25114e02>>
+ * @codegen <<SignedSource::62f6caabd88b17fe7f89c141fee3f0e2>>
  * @codegenCommand yarn build tokens
  */
 const tokens = [
@@ -7871,7 +7871,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
-    "value": "#2898BD",
+    "value": "#4688EC",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -7881,7 +7881,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "Teal600"
+      "value": "Blue500"
     },
     "name": "color.chart.categorical.1.[default]",
     "path": [
@@ -7900,7 +7900,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.1."
     },
-    "value": "#42B2D7",
+    "value": "#669DF1",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -7910,7 +7910,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.1."
       },
-      "value": "Teal500"
+      "value": "Blue400"
     },
     "name": "color.chart.categorical.1.hovered",
     "path": [
@@ -7929,7 +7929,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "For data visualisation only. Follow numbered sequence."
     },
-    "value": "#D8A0F7",
+    "value": "#94C748",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -7939,7 +7939,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "Purple300"
+      "value": "Lime400"
     },
     "name": "color.chart.categorical.2.[default]",
     "path": [
@@ -7958,7 +7958,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.2."
     },
-    "value": "#EED7FC",
+    "value": "#B3DF72",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -7968,7 +7968,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.2."
       },
-      "value": "Purple200"
+      "value": "Lime300"
     },
     "name": "color.chart.categorical.2.hovered",
     "path": [
@@ -7979,6 +7979,296 @@ const tokens = [
       "hovered"
     ],
     "cleanName": "color.chart.categorical.2.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#C97CF4",
+    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Purple400"
+    },
+    "name": "color.chart.categorical.3.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "3",
+      "[default]"
+    ],
+    "cleanName": "color.chart.categorical.3"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.3."
+    },
+    "value": "#D8A0F7",
+    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.3."
+      },
+      "value": "Purple300"
+    },
+    "name": "color.chart.categorical.3.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "3",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.3.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#FCA700",
+    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Orange400"
+    },
+    "name": "color.chart.categorical.4.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "4",
+      "[default]"
+    ],
+    "cleanName": "color.chart.categorical.4"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.4."
+    },
+    "value": "#FBC828",
+    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.4."
+      },
+      "value": "Orange300"
+    },
+    "name": "color.chart.categorical.4.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "4",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.4.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#1558BC",
+    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Blue800"
+    },
+    "name": "color.chart.categorical.5.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "5",
+      "[default]"
+    ],
+    "cleanName": "color.chart.categorical.5"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.5."
+    },
+    "value": "#1868DB",
+    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.5."
+      },
+      "value": "Blue700"
+    },
+    "name": "color.chart.categorical.5.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "5",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.5.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#964AC0",
+    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Purple700"
+    },
+    "name": "color.chart.categorical.6.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "6",
+      "[default]"
+    ],
+    "cleanName": "color.chart.categorical.6"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.6."
+    },
+    "value": "#AF59E1",
+    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.6."
+      },
+      "value": "Purple600"
+    },
+    "name": "color.chart.categorical.6.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "6",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.6.hovered"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "For data visualisation only. Follow numbered sequence."
+    },
+    "value": "#42B2D7",
+    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "For data visualisation only. Follow numbered sequence."
+      },
+      "value": "Teal500"
+    },
+    "name": "color.chart.categorical.7.[default]",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "7",
+      "[default]"
+    ],
+    "cleanName": "color.chart.categorical.7"
+  },
+  {
+    "attributes": {
+      "group": "paint",
+      "state": "active",
+      "introduced": "0.13.3",
+      "description": "Hovered state of color.chart.categorical.7."
+    },
+    "value": "#6CC3E0",
+    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
+    "isSource": true,
+    "original": {
+      "attributes": {
+        "group": "paint",
+        "state": "active",
+        "introduced": "0.13.3",
+        "description": "Hovered state of color.chart.categorical.7."
+      },
+      "value": "Teal400"
+    },
+    "name": "color.chart.categorical.7.hovered",
+    "path": [
+      "color",
+      "chart",
+      "categorical",
+      "7",
+      "hovered"
+    ],
+    "cleanName": "color.chart.categorical.7.hovered"
   },
   {
     "attributes": {
@@ -7999,296 +8289,6 @@ const tokens = [
       },
       "value": "Orange600"
     },
-    "name": "color.chart.categorical.3.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "3",
-      "[default]"
-    ],
-    "cleanName": "color.chart.categorical.3"
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.3."
-    },
-    "value": "#F68909",
-    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.3."
-      },
-      "value": "Orange500"
-    },
-    "name": "color.chart.categorical.3.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "3",
-      "hovered"
-    ],
-    "cleanName": "color.chart.categorical.3.hovered"
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#F797D2",
-    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "Magenta300"
-    },
-    "name": "color.chart.categorical.4.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "4",
-      "[default]"
-    ],
-    "cleanName": "color.chart.categorical.4"
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.4."
-    },
-    "value": "#FDD0EC",
-    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.4."
-      },
-      "value": "Magenta200"
-    },
-    "name": "color.chart.categorical.4.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "4",
-      "hovered"
-    ],
-    "cleanName": "color.chart.categorical.4.hovered"
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#CFE1FD",
-    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "Blue200"
-    },
-    "name": "color.chart.categorical.5.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "5",
-      "[default]"
-    ],
-    "cleanName": "color.chart.categorical.5"
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.5."
-    },
-    "value": "#E9F2FE",
-    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.5."
-      },
-      "value": "Blue100"
-    },
-    "name": "color.chart.categorical.5.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "5",
-      "hovered"
-    ],
-    "cleanName": "color.chart.categorical.5.hovered"
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#AF59E1",
-    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "Purple600"
-    },
-    "name": "color.chart.categorical.6.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "6",
-      "[default]"
-    ],
-    "cleanName": "color.chart.categorical.6"
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.6."
-    },
-    "value": "#BF63F3",
-    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.6."
-      },
-      "value": "Purple500"
-    },
-    "name": "color.chart.categorical.6.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "6",
-      "hovered"
-    ],
-    "cleanName": "color.chart.categorical.6.hovered"
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#FDD0EC",
-    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "Magenta200"
-    },
-    "name": "color.chart.categorical.7.[default]",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "7",
-      "[default]"
-    ],
-    "cleanName": "color.chart.categorical.7"
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "Hovered state of color.chart.categorical.7."
-    },
-    "value": "#FFECF8",
-    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "Hovered state of color.chart.categorical.7."
-      },
-      "value": "Magenta100"
-    },
-    "name": "color.chart.categorical.7.hovered",
-    "path": [
-      "color",
-      "chart",
-      "categorical",
-      "7",
-      "hovered"
-    ],
-    "cleanName": "color.chart.categorical.7.hovered"
-  },
-  {
-    "attributes": {
-      "group": "paint",
-      "state": "active",
-      "introduced": "0.13.3",
-      "description": "For data visualisation only. Follow numbered sequence."
-    },
-    "value": "#FBC828",
-    "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
-    "isSource": true,
-    "original": {
-      "attributes": {
-        "group": "paint",
-        "state": "active",
-        "introduced": "0.13.3",
-        "description": "For data visualisation only. Follow numbered sequence."
-      },
-      "value": "Orange300"
-    },
     "name": "color.chart.categorical.8.[default]",
     "path": [
       "color",
@@ -8306,7 +8306,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.categorical.8."
     },
-    "value": "#FCE4A6",
+    "value": "#F68909",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -8316,7 +8316,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.8."
       },
-      "value": "Orange200"
+      "value": "Orange500"
     },
     "name": "color.chart.categorical.8.hovered",
     "path": [
@@ -10245,7 +10245,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.danger."
     },
-    "value": "#FD9891",
+    "value": "#F87168",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -10255,7 +10255,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.danger."
       },
-      "value": "Red300"
+      "value": "Red400"
     },
     "name": "color.chart.danger.bold.[default]",
     "path": [
@@ -10274,7 +10274,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.danger.bold."
     },
-    "value": "#FFD5D2",
+    "value": "#FD9891",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -10284,7 +10284,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.danger.bold."
       },
-      "value": "Red200"
+      "value": "Red300"
     },
     "name": "color.chart.danger.bold.hovered",
     "path": [
@@ -10303,7 +10303,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "For data visualisation communicating caution, such as 'at risk' statuses."
     },
-    "value": "#FCA700",
+    "value": "#F68909",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -10313,7 +10313,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "For data visualisation communicating caution, such as 'at risk' statuses."
       },
-      "value": "Orange400"
+      "value": "Orange500"
     },
     "name": "color.chart.warning.[default].[default]",
     "path": [
@@ -10332,7 +10332,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.warning."
     },
-    "value": "#FBC828",
+    "value": "#FCA700",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -10342,7 +10342,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.warning."
       },
-      "value": "Orange300"
+      "value": "Orange400"
     },
     "name": "color.chart.warning.[default].hovered",
     "path": [
@@ -10361,7 +10361,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "A stronger emphasis option of color.chart.warning."
     },
-    "value": "#FCE4A6",
+    "value": "#FBC828",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -10371,7 +10371,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.warning."
       },
-      "value": "Orange200"
+      "value": "Orange300"
     },
     "name": "color.chart.warning.bold.[default]",
     "path": [
@@ -10390,7 +10390,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.warning.bold."
     },
-    "value": "#FFF5DB",
+    "value": "#FCE4A6",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -10400,7 +10400,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.warning.bold."
       },
-      "value": "Orange100"
+      "value": "Orange200"
     },
     "name": "color.chart.warning.bold.hovered",
     "path": [
@@ -10535,7 +10535,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "For data visualisation communicating 'new' statuses."
     },
-    "value": "#AF59E1",
+    "value": "#BF63F3",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -10545,7 +10545,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "For data visualisation communicating 'new' statuses."
       },
-      "value": "Purple600"
+      "value": "Purple500"
     },
     "name": "color.chart.discovery.[default].[default]",
     "path": [
@@ -10564,7 +10564,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.discovery."
     },
-    "value": "#BF63F3",
+    "value": "#C97CF4",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -10574,7 +10574,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.discovery."
       },
-      "value": "Purple500"
+      "value": "Purple400"
     },
     "name": "color.chart.discovery.[default].hovered",
     "path": [
@@ -10651,7 +10651,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "For data visualisation communicating low priority or in-progress statuses."
     },
-    "value": "#357DE8",
+    "value": "#4688EC",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -10661,7 +10661,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "For data visualisation communicating low priority or in-progress statuses."
       },
-      "value": "Blue600"
+      "value": "Blue500"
     },
     "name": "color.chart.information.[default].[default]",
     "path": [
@@ -10680,7 +10680,7 @@ const tokens = [
       "introduced": "0.13.3",
       "description": "Hovered state of color.chart.information."
     },
-    "value": "#4688EC",
+    "value": "#669DF1",
     "filePath": "schema/themes/atlassian-dark-brand-refresh/color/chart.tsx",
     "isSource": true,
     "original": {
@@ -10690,7 +10690,7 @@ const tokens = [
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.information."
       },
-      "value": "Blue500"
+      "value": "Blue400"
     },
     "name": "color.chart.information.[default].hovered",
     "path": [

@@ -3,6 +3,7 @@ import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
+import { getSourceCode } from '../../utils/context-compat';
 
 import {
 	addColorInheritAttributeFix,
@@ -116,7 +117,7 @@ export const ParagraphElements = {
 		}
 
 		const importDeclaration = ast.Root.findImportsByModule(
-			context.getSourceCode().ast.body,
+			getSourceCode(context).ast.body,
 			'@atlaskit/primitives',
 		);
 

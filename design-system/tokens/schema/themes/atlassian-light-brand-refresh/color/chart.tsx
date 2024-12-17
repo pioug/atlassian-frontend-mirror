@@ -23,28 +23,28 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
 			success: {
 				'[default]': {
 					'[default]': {
-						value: 'Lime600',
+						value: 'Lime500',
 					},
 					hovered: {
-						value: 'Lime700',
+						value: 'Lime600',
 					},
 				},
 				bold: {
 					'[default]': {
-						value: 'Lime800',
+						value: 'Lime700',
 					},
 					hovered: {
-						value: 'Lime900',
+						value: 'Lime800',
 					},
 				},
 			},
 			danger: {
 				'[default]': {
 					'[default]': {
-						value: 'Red500',
+						value: 'Red600',
 					},
 					hovered: {
-						value: 'Red600',
+						value: 'Red700',
 					},
 				},
 				bold: {
@@ -59,28 +59,28 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
 			warning: {
 				'[default]': {
 					'[default]': {
-						value: 'Orange600',
+						value: 'Orange500',
 					},
 					hovered: {
-						value: 'Orange700',
+						value: 'Orange600',
 					},
 				},
 				bold: {
 					'[default]': {
-						value: 'Orange800',
+						value: 'Orange700',
 					},
 					hovered: {
-						value: 'Orange900',
+						value: 'Orange800',
 					},
 				},
 			},
 			information: {
 				'[default]': {
 					'[default]': {
-						value: 'Blue500',
+						value: 'Blue600',
 					},
 					hovered: {
-						value: 'Blue600',
+						value: 'Blue700',
 					},
 				},
 				bold: {
@@ -113,45 +113,21 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
 			categorical: {
 				1: {
 					'[default]': {
-						value: 'Teal600',
+						value: 'Blue600',
 					},
 					hovered: {
-						value: 'Teal700',
+						value: 'Blue700',
 					},
 				},
 				2: {
 					'[default]': {
-						value: 'Purple800',
+						value: 'Lime500',
 					},
 					hovered: {
-						value: 'Purple900',
+						value: 'Lime600',
 					},
 				},
 				3: {
-					'[default]': {
-						value: 'Orange600',
-					},
-					hovered: {
-						value: 'Orange700',
-					},
-				},
-				4: {
-					'[default]': {
-						value: 'Magenta800',
-					},
-					hovered: {
-						value: 'Magenta900',
-					},
-				},
-				5: {
-					'[default]': {
-						value: 'Blue900',
-					},
-					hovered: {
-						value: 'Blue1000',
-					},
-				},
-				6: {
 					'[default]': {
 						value: 'Purple500',
 					},
@@ -159,20 +135,44 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
 						value: 'Purple600',
 					},
 				},
-				7: {
+				4: {
 					'[default]': {
-						value: 'Magenta900',
+						value: 'Orange500',
 					},
 					hovered: {
-						value: 'Magenta1000',
+						value: 'Orange600',
+					},
+				},
+				5: {
+					'[default]': {
+						value: 'Blue800',
+					},
+					hovered: {
+						value: 'Blue900',
+					},
+				},
+				6: {
+					'[default]': {
+						value: 'Purple700',
+					},
+					hovered: {
+						value: 'Purple800',
+					},
+				},
+				7: {
+					'[default]': {
+						value: 'Teal500',
+					},
+					hovered: {
+						value: 'Teal600',
 					},
 				},
 				8: {
 					'[default]': {
-						value: 'Orange800',
+						value: 'Orange700',
 					},
 					hovered: {
-						value: 'Orange900',
+						value: 'Orange800',
 					},
 				},
 			},

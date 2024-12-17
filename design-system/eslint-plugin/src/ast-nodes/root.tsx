@@ -10,6 +10,8 @@ import {
 	type Statement,
 } from 'eslint-codemod-utils';
 
+import { getSourceCode } from '../rules/utils/context-compat';
+
 import { Import } from './import';
 
 type ImportData = Parameters<typeof insertImportDeclaration>[1]; // Little bit unreadable, but better than duplicating the type
@@ -65,7 +67,7 @@ export const Root = {
 		fixer: Rule.RuleFixer,
 	): Rule.Fix | undefined {
 		// Find any imports that match the packageName
-		const root = context.getSourceCode().ast.body;
+		const root = getSourceCode(context).ast.body;
 		const importDeclarations = this.findImportsByModule(root, module);
 
 		// The named import doesn't exist yet, we can just insert a whole new one
@@ -89,7 +91,7 @@ export const Root = {
 		fixer: Rule.RuleFixer,
 	) {
 		// Find any imports that match the packageName
-		const root = context.getSourceCode().ast.body;
+		const root = getSourceCode(context).ast.body;
 		const importDeclarations = this.findImportsByModule(root, module);
 
 		// The import already exist exist

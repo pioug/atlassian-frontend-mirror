@@ -3,6 +3,7 @@ import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXElement } from 'eslint-codemod-utils';
 
 import * as ast from '../../../ast-nodes';
+import { getSourceCode } from '../../utils/context-compat';
 
 import {
 	addColorInheritAttributeFix,
@@ -54,7 +55,7 @@ export const EmphasisElements = {
 
 		// If there is more than one `@atlaskit/primitives` import, then it becomes difficult to determine which import to transform
 		const importDeclaration = ast.Root.findImportsByModule(
-			context.getSourceCode().ast.body,
+			getSourceCode(context).ast.body,
 			'@atlaskit/primitives',
 		);
 		if (importDeclaration.length > 1) {

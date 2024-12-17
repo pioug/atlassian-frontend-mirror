@@ -7,6 +7,7 @@ import {
 	akEditorGutterPadding,
 	akEditorGutterPaddingDynamic,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '../analytics';
@@ -57,10 +58,22 @@ const getHandleStyle = (node: BreakoutSupportedNodes) => {
 export const ignoreResizerMutations = (
 	mutation: MutationRecord | { type: 'selection'; target: Element },
 ) => {
-	return (
-		(mutation.target as HTMLElement).classList.contains('resizer-item') ||
-		(mutation.type === 'attributes' && mutation.attributeName === 'style')
-	);
+	if (fg('platform_editor_breakoutresizer_remove_assertion')) {
+		if (mutation.target instanceof Element) {
+			return (
+				mutation.target.classList.contains('resizer-item') ||
+				(mutation.type === 'attributes' && mutation.attributeName === 'style')
+			);
+		}
+
+		return mutation.type === 'attributes' && mutation.attributeName === 'style';
+	} else {
+		return (
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			(mutation.target as HTMLElement).classList.contains('resizer-item') ||
+			(mutation.type === 'attributes' && mutation.attributeName === 'style')
+		);
+	}
 };
 
 const resizingStyles = {
@@ -135,11 +148,16 @@ const BreakoutResizer = ({
 			widthState.lineLength !== undefined &&
 			widthState.width !== undefined
 		) {
-			newMinWidth = Math.min(widthState.lineLength, akEditorDefaultLayoutWidth);
 			newMaxWidth = Math.min(
 				widthState.width - akEditorGutterPaddingDynamic() * 2 - akEditorGutterPadding,
 				akEditorFullWidthLayoutWidth,
 			);
+
+			if (fg('platform_editor_advanced_layouts_post_fix_patch_2')) {
+				newMinWidth = Math.min(widthState.lineLength, akEditorDefaultLayoutWidth, newMaxWidth);
+			} else {
+				newMinWidth = Math.min(widthState.lineLength, akEditorDefaultLayoutWidth);
+			}
 		}
 		setResizingState({ isResizing: true, minWidth: newMinWidth, maxWidth: newMaxWidth });
 		dispatch(state.tr.setMeta('is-resizer-resizing', true));

@@ -6,10 +6,7 @@ import type { SelectionPlugin } from '@atlaskit/editor-plugin-selection';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type { insertLayoutColumnsWithAnalytics } from './pm-plugins/actions';
-import { pluginKey } from './pm-plugins/plugin-key';
 import type { LayoutPluginOptions } from './types';
-
-export { pluginKey };
 
 export type LayoutPlugin = NextEditorPlugin<
 	'layout',

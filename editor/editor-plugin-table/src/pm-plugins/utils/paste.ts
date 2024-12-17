@@ -1,8 +1,10 @@
+import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { flatmap, mapChildren, mapSlice } from '@atlaskit/editor-common/utils';
-import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';
-import type { EditorState } from '@atlaskit/editor-prosemirror/state';
-import { flatten } from '@atlaskit/editor-prosemirror/utils';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import { Slice, Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
+import { flatten, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getPluginState } from '../plugin-factory';
 
@@ -23,6 +25,54 @@ export const unwrapContentFromTable = (maybeTable: PMNode): PMNode | PMNode[] =>
 	return maybeTable;
 };
 
+// Flattens nested tables after a given nesting depth
+// If this looks familiar, it's a heavily modified version of `mapFragment` which has been
+// adjusted to support tracking nesting depth. This wasn't possible by using `mapFragment` directly
+const unwrapNestedTables = (
+	content: Fragment,
+	schema: Schema,
+	unwrapNestDepth: number,
+	currentNestDepth = 0,
+): PMNode[] => {
+	const flattenNested = (node: PMNode, tableDepth: number) => {
+		if (node.type === schema.nodes.table) {
+			if (tableDepth >= unwrapNestDepth) {
+				return unwrapContentFromTable(node);
+			}
+			return node;
+		}
+		return node;
+	};
+
+	const children = [] as PMNode[];
+	for (let i = 0, size = content.childCount; i < size; i++) {
+		const node = content.child(i);
+		const transformed = node.isLeaf
+			? flattenNested(node, currentNestDepth)
+			: flattenNested(
+					node.copy(
+						Fragment.fromArray(
+							unwrapNestedTables(
+								node.content,
+								schema,
+								unwrapNestDepth,
+								node.type === schema.nodes.table ? currentNestDepth + 1 : currentNestDepth,
+							),
+						),
+					),
+					currentNestDepth,
+				);
+		if (transformed) {
+			if (Array.isArray(transformed)) {
+				children.push(...transformed);
+			} else {
+				children.push(transformed);
+			}
+		}
+	}
+	return children;
+};
+
 export const removeTableFromFirstChild = (node: PMNode, i: number): PMNode | PMNode[] => {
 	return i === 0 ? unwrapContentFromTable(node) : node;
 };
@@ -33,6 +83,87 @@ export const removeTableFromLastChild = (
 	fragment: Fragment,
 ): PMNode | PMNode[] => {
 	return i === fragment.childCount - 1 ? unwrapContentFromTable(node) : node;
+};
+
+export const transformSliceToRemoveNestedTables = (
+	slice: Slice,
+	schema: Schema,
+	selection: Selection,
+): Slice => {
+	const isNestingAllowed = editorExperiment('nested-tables-in-tables', true);
+	const { table, tableCell, tableHeader } = schema.nodes;
+	let openEnd = slice.openEnd;
+
+	const newFragment = flatmap(slice.content, (node, i, fragment) => {
+		// if pasted content is a node that supports nesting a table
+		// such as layoutSection or expand allow 1 level by default
+		let allowedTableNesting = 1;
+
+		if (isNestingAllowed) {
+			const isPasteInTable = hasParentNodeOfType([table, tableCell, tableHeader])(selection);
+			const isPasteInNestedTable = getParentOfTypeCount(schema.nodes.table)(selection.$from) > 1;
+			const isCellPaste =
+				isPasteInTable &&
+				slice.content.childCount === 1 &&
+				slice.content.firstChild?.type === table;
+
+			// if nesting is allowed we bump up the default nesting allowance to 2 to support
+			// two levels of nesting in nodes that support table nesting already such as layoutSection and expands
+			allowedTableNesting = 2;
+
+			// however if pasted content is a table, allow just one level
+			if (node.type === schema.nodes.table) {
+				allowedTableNesting = 1;
+
+				// if paste is inside a table, allow no further nesting
+				if (isPasteInTable) {
+					allowedTableNesting = 0;
+				}
+
+				// unless we are pasting inside a nested table, then bounce back to 1 level
+				// because editor-plugin-paste will lift the table to the parent table (just below it)
+				if (isPasteInNestedTable) {
+					allowedTableNesting = 1;
+				}
+
+				// paste of table cells into a table cell - content is spread across multiple cells
+				// by editor-tables so needs to be treated a little differently
+				if (isCellPaste) {
+					allowedTableNesting = 1;
+					if (isPasteInNestedTable) {
+						allowedTableNesting = 0;
+					}
+				}
+			}
+
+			// Prevent invalid openEnd after pasting tables with a selection that ends inside a nested table cell.
+			// If the slice ends with a selection that ends inside a nested table, and we paste inside a table we
+			// need to adjust the openEnd because it is no longer correct. If we don't, Prosemirror fires an exception
+			// because it iterates to a non-existent depth and the transform will not be applied
+			if (
+				slice.openEnd >= 7 && // depth of a nested table cell
+				slice.content.childCount > 1 &&
+				slice.content.lastChild?.type === table &&
+				isPasteInTable
+			) {
+				// re-point the slice's openEnd to non-nested table cell depth
+				openEnd = 4;
+			}
+		} else {
+			// for layouts and expands, we start with 1 level of nesting as set above
+
+			// if pasted content is a table, don't allow further nesting
+			if (node.type === schema.nodes.table) {
+				allowedTableNesting = 0;
+			}
+		}
+
+		// after we've worked out what the allowed nesting depth is, unwrap nested tables
+		const newChildren = unwrapNestedTables(node.content, schema, allowedTableNesting);
+		return node.copy(Fragment.fromArray(newChildren));
+	});
+
+	return new Slice(newFragment, slice.openStart, openEnd);
 };
 
 /**

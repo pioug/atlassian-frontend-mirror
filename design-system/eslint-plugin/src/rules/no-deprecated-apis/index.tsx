@@ -9,6 +9,7 @@ import {
 	type Statement,
 } from 'eslint-codemod-utils';
 
+import { getSourceCode } from '../utils/context-compat';
 import { createLintRule } from '../utils/create-rule';
 import { getConfig } from '../utils/get-deprecated-config';
 import { type DeprecatedConfig, isDeprecatedJSXAttributeConfig } from '../utils/types';
@@ -84,7 +85,7 @@ const rule = createLintRule({
 			context.options[0]?.deprecatedConfig || getConfig('jsxAttributes');
 
 		return {
-			// find JSX atribute - find name of attribute - get source and find relevant identifiers.
+			// find JSX attribute - find name of attribute - get source and find relevant identifiers.
 			JSXAttribute(node: Rule.Node) {
 				if (!isNodeOfType(node, 'JSXAttribute') || !isNodeOfType(node.name, 'JSXIdentifier')) {
 					return;
@@ -103,7 +104,7 @@ const rule = createLintRule({
 				if (!jsxElementName) {
 					return;
 				}
-				const source = context.sourceCode;
+				const source = getSourceCode(context);
 
 				// find an import for the path of the banned api
 				deprecatedConfig[jsxAttributeName].forEach((importItem) => {

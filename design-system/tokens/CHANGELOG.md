@@ -1,5 +1,14 @@
 # @atlaskit/tokens
 
+## 2.5.0
+
+### Minor Changes
+
+- [#177967](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/177967)
+  [`f387ab1f662e4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f387ab1f662e4) -
+  Updated the visual refresh color.chart token values. Reduced the required contrast for a chart
+  color token.
+
 ## 2.4.3
 
 ### Patch Changes

@@ -113,7 +113,7 @@ export const Popup: FC<PopupProps> = memo(
 				<Reference>
 					{({ ref }) => {
 						return trigger({
-							ref: !fg('platform-design-system-dsp-20476-dropdown-menu')
+							ref: !fg('platform-design-system-popup-ref')
 								? getMergedTriggerRef(ref, setTriggerRef, isOpen)
 								: getMergedTriggerRefNew(ref, setTriggerRef),
 							'aria-controls': isOpen ? id : undefined,

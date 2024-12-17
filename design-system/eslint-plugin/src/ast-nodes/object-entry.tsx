@@ -2,6 +2,8 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type Property, type SpreadElement } from 'eslint-codemod-utils';
 
+import { getSourceCode } from '../rules/utils/context-compat';
+
 export const ObjectEntry = {
 	getProperty(
 		node: Property,
@@ -52,8 +54,7 @@ export const ObjectEntry = {
 		context: Rule.RuleContext,
 		fixer: Rule.RuleFixer,
 	): Rule.Fix {
-		// context.getSourceCode() is deprecated in favour of context.sourceCode, however this returns undefined for some reason
-		const sourceCode = context.getSourceCode();
+		const sourceCode = getSourceCode(context);
 
 		// fixer.remove() doesn't account for things like commas or newlines within an ObjectExpression and will result in invalid output.
 		// This approach specifically removes the node and trailing comma, and should work for single- and multi-line objects.

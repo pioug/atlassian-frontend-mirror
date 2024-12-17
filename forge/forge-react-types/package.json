@@ -29,7 +29,7 @@
 	"dependencies": {
 		"@atlaskit/badge": "^16.4.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/calendar": "^16.0.0",
+		"@atlaskit/calendar": "^16.1.0",
 		"@atlaskit/checkbox": "^15.2.0",
 		"@atlaskit/code": "^15.6.0",
 		"@atlaskit/datetime-picker": "^15.10.0",
@@ -56,7 +56,7 @@
 		"@atlaskit/textarea": "^5.7.0",
 		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/toggle": "^14.0.0",
-		"@atlaskit/tokens": "^2.4.0",
+		"@atlaskit/tokens": "^2.5.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@babel/runtime": "^7.0.0"
 	},

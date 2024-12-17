@@ -3,6 +3,8 @@ import { type ImportDeclaration, isNodeOfType, type Program } from 'eslint-codem
 
 import { type ImportSource } from '@atlaskit/eslint-utils/is-supported-import';
 
+import { getSourceCode } from './context-compat';
+
 type RuleContext = Rule.RuleContext;
 
 /**
@@ -28,7 +30,7 @@ export const getFirstSupportedImport = (
 		);
 	};
 
-	const source = context.getSourceCode();
+	const source = getSourceCode(context);
 	const supportedImports = source.ast.body.filter(isSupportedImport);
 
 	if (supportedImports.length) {

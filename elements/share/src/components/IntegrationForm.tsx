@@ -7,7 +7,6 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import { h500 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 import { type ContentProps } from '../types';
@@ -16,7 +15,8 @@ import { type ContentProps } from '../types';
 export const formWrapperStyle = css`
 	[class^='FormHeader__FormHeaderWrapper'] {
 		h1:first-child {
-			${h500()}
+			font: ${token('font.heading.small')};
+			margin-top: ${token('space.300')};
 
 			> span {
 				/* jira has a class override font settings on h1 > span in gh-custom-field-pickers.css */

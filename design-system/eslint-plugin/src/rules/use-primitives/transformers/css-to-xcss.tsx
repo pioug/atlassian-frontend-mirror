@@ -11,6 +11,7 @@ import {
 } from 'eslint-codemod-utils';
 
 import { allSpaceMap, positiveSpaceMap } from '../../../common/token-maps.partial';
+import { getScope } from '../../utils/context-compat';
 import {
 	getAttributeValueIdentifier,
 	getFunctionArgumentAtPos,
@@ -44,7 +45,10 @@ export const cssToXcssTransformer = (
 		return [];
 	}
 
-	const cssVariableDefinition = getIdentifierInParentScope(context.getScope(), cssVariableName);
+	const cssVariableDefinition = getIdentifierInParentScope(
+		getScope(context, node),
+		cssVariableName,
+	);
 
 	const cssVariableValue = getVariableDefinitionValue(cssVariableDefinition);
 

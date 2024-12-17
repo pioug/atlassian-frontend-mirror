@@ -14,7 +14,7 @@ import { type FileIdentifier, MediaClient } from '@atlaskit/media-client';
 import { token } from '@atlaskit/tokens';
 import { cardFlowHeaderStyles } from '../example-helpers/styles';
 import { MainWrapper } from '../example-helpers';
-const env = sessionStorage.getItem('env') === 'staging' ? 'staging' : 'dev';
+const env = 'staging';
 const mediaClientConfig = createUploadMediaClientConfig(undefined, env);
 const mediaClient = new MediaClient(mediaClientConfig);
 

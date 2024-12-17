@@ -38,6 +38,7 @@ import {
 	handlePastePreservingMarks,
 	handleRichText,
 	handleSelectedTable,
+	handleNestedTablePaste,
 } from '../handlers';
 import type { PastePlugin } from '../index';
 import { getPasteSource } from '../util';
@@ -552,6 +553,16 @@ export const handleExpandWithAnalytics =
 				pasteSplitList: true,
 			}),
 		)(handleExpandPaste(slice, isNestingExpandsSupported));
+
+export const handleNestedTablePasteWithAnalytics =
+	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined, isNestingTablesSupported: boolean) =>
+	(view: EditorView, event: ClipboardEvent, slice: Slice): Command =>
+		injectAnalyticsPayloadBeforeCommand(editorAnalyticsAPI)(
+			createPasteAnalyticsPayloadBySelection(event, slice, {
+				type: PasteTypes.richText,
+				pasteSplitList: true,
+			}),
+		)(handleNestedTablePaste(slice, isNestingTablesSupported));
 
 export const handleSelectedTableWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>

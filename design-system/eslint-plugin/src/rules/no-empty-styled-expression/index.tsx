@@ -3,6 +3,7 @@ import type { CallExpression } from 'estree';
 
 import { getImportSources, isStyled } from '@atlaskit/eslint-utils/is-supported-import';
 
+import { getScope } from '../utils/context-compat';
 import { createLintRule } from '../utils/create-rule';
 
 type RuleModule = Rule.RuleModule;
@@ -29,7 +30,7 @@ const createNoEmptyStyledExpressionRule =
 
 		return {
 			'CallExpression[callee.type="MemberExpression"]': (node: CallExpression) => {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 
 				// If we have styled.div(...), make sure `callee` only refers to the
 				// `styled` part instead of the whole `styled.div` expression.

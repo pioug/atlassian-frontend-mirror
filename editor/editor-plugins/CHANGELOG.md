@@ -1,5 +1,33 @@
 # @atlaskit/editor-plugins
 
+## 5.9.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.8
+
+### Patch Changes
+
+- [#179495](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179495)
+  [`5df4aaaa16713`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5df4aaaa16713) -
+  [ux] Fixed resizing issue when layout is stacked on a narrow screen and resizer item gets
+  min-width bigger than max-width.
+- Updated dependencies
+
+## 5.9.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 5.9.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.9.5
 
 ### Patch Changes

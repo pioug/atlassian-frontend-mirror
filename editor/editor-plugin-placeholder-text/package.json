@@ -34,7 +34,7 @@
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^2.4.0",
+		"@atlaskit/tokens": "^2.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

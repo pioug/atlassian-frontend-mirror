@@ -86,7 +86,7 @@ export { createTouchEvent } from './createTouchEvent';
 export type { TouchEventProps } from './createTouchEvent';
 export const authProviderBaseURL = 'https://media.staging.atl-paas.net/items';
 export { MEDIA_BASE_URL, MEDIA_PLAYGROUND_BASE_URL } from './mediaBaseURLS';
-export { mediaPickerAuthProvider, defaultMediaPickerAuthProvider } from './mediaPickerAuthProvider';
+export { mediaPickerAuthProvider } from './mediaPickerAuthProvider';
 export {
 	generateFilesFromTestData,
 	MediaMock,

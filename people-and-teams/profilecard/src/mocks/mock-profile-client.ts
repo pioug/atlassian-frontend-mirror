@@ -42,7 +42,7 @@ export default function getMockProfileClient(BaseProfileClient: any, modifyRespo
 	}
 
 	class MockTeamCentralClient extends TeamCentralCardClient {
-		createTcReadyPromise(config: TeamCentralCardClientOptions): Promise<boolean> {
+		createOrgContainsAnyWorkspacePromise(config: TeamCentralCardClientOptions): Promise<boolean> {
 			return Promise.resolve(true);
 		}
 

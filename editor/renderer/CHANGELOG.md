@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 112.7.6
+
+### Patch Changes
+
+- [#180264](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180264)
+  [`9f430235ceef5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f430235ceef5) -
+  ED-26043 Add skipValidation to ReactRenderer
+
 ## 112.7.5
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @atlaskit/profilecard
 
+## 21.0.4
+
+### Patch Changes
+
+- [#179093](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179093)
+  [`fc80a0b0d4961`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fc80a0b0d4961) -
+  Fix reporting lines to be available outside of Atlassian Home
+- Updated dependencies
+
 ## 21.0.3
 
 ### Patch Changes

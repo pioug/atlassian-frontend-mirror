@@ -3,6 +3,7 @@ import type { Rule } from 'eslint';
 import { isNodeOfType, type Property as ObjectEntry } from 'eslint-codemod-utils';
 
 import * as ast from '../../../../ast-nodes';
+import { getSourceCode } from '../../../utils/context-compat';
 
 import { styleMap } from './style-map';
 import supported from './supported';
@@ -39,15 +40,7 @@ export const StyleProperty = {
 		}
 
 		const importDeclarations = ast.Root.findImportsByModule(
-			/**
-			 * `context.getSourceCode()` is deprecated in favour of `context.sourceCode`.
-			 * However, `context.sourceCode` returns undefined for some usages. This may be a bug
-			 * in the `eslint` package. So, use `getSourceCode()` instead.
-			 *
-			 * Note: `context.sourceCode` works in testing environments. So, it is hard to validate whether it
-			 * will work in the wild. Even if the tests pass, don't assume it will work in production.
-			 */
-			context.getSourceCode().ast.body,
+			getSourceCode(context).ast.body,
 			'@atlaskit/primitives',
 		);
 

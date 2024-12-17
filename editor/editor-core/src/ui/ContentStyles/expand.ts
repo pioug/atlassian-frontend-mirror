@@ -13,7 +13,6 @@ import {
 	getSelectionStyles,
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -100,7 +99,6 @@ export const expandStyles = () => css`
 		${sharedExpandStyles.contentStyles({ expanded: false, focused: false })()}
 		cursor: text;
 		padding-top: 0px;
-		${fg('platform_editor_drag_and_drop_expand_style_fix') && `overflow-x: clip;`}
 	}
 
 	.${expandClassNames.titleInput} {

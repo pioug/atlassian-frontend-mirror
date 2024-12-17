@@ -233,7 +233,7 @@ const Toggle = memo(
 					To differentiate keyboard click from mouse we need this additional listener.
 				*/
 				const linkedLabel: HTMLLabelElement | null = wrapperRef.current.parentElement.querySelector(
-					`label[for='${id}']`,
+					`label[for="${id}"]`,
 				);
 				if (linkedLabel) {
 					const unbind = bindAll(linkedLabel, [

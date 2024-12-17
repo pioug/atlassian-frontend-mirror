@@ -1,8 +1,12 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { type ReportingLinesUser, type TeamCentralReportingLinesData } from '../types';
 
 import CachingClient, { type CacheConfig } from './CachingClient';
 import { getOrgIdForCloudIdFromAGG } from './getOrgIdForCloudIdFromAGG';
 import { directoryGraphqlQuery } from './graphqlUtils';
+
+const UNSHARDED_PREFIX = '/gateway/api/watermelon';
 
 export const buildReportingLinesQuery = (aaid: string) => ({
 	query: `
@@ -46,9 +50,9 @@ export type TeamCentralCardClientOptions = CacheConfig & {
 	teamCentralDisabled?: boolean;
 };
 
-let isTCReadyPromiseMap: Map<string, Promise<boolean>> = new Map();
-const globalExperiencePromiseCache: Map<string, Promise<boolean>> = new Map();
+const orgContainsAnyWorkspacePromiseCache: Map<string, Promise<boolean>> = new Map();
 const orgIdPromiseCache: Map<string, Promise<string | null>> = new Map();
+const workspaceExistsWithTypePromiseCache: Map<string, Promise<string | undefined>> = new Map();
 
 class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData> {
 	options: TeamCentralCardClientOptions;
@@ -61,19 +65,17 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	 * catch a pretty specific edge case.
 	 */
 	bypassOnFailure: boolean;
-	isTCReadyPromise: Promise<boolean>;
+	orgContainsAnyWorkspacePromise: Promise<boolean>;
 
-	private isGlobalExperienceWorkspacePromise: Promise<boolean>;
 	private orgIdPromise: Promise<string | null>;
+	private workspaceExistsWithTypePromise: Promise<string | undefined>;
 
 	constructor(options: TeamCentralCardClientOptions) {
 		super(options);
 		this.options = options;
 		this.bypassOnFailure = false;
-		this.isTCReadyPromise = this.createTcReadyPromise(options);
-		this.isGlobalExperienceWorkspacePromise = this.preloadIsGlobalExperienceWorkspace(
-			options.cloudId,
-		);
+		this.orgContainsAnyWorkspacePromise = this.createOrgContainsAnyWorkspacePromise(options);
+		this.workspaceExistsWithTypePromise = this.preloadWorkspaceExistsWithType(options.cloudId);
 		this.orgIdPromise = this.preloadOrgId(
 			options.gatewayGraphqlUrl,
 			options.cloudId,
@@ -81,12 +83,12 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		);
 	}
 
-	createTcReadyPromise(config: TeamCentralCardClientOptions): Promise<boolean> {
+	createOrgContainsAnyWorkspacePromise(config: TeamCentralCardClientOptions) {
 		if (config.cloudId) {
-			let promise = isTCReadyPromiseMap.get(config.cloudId);
+			let promise = orgContainsAnyWorkspacePromiseCache.get(config.cloudId);
 			if (!promise) {
-				promise = this.hasTCWorkspace(config);
-				isTCReadyPromiseMap.set(config.cloudId, promise);
+				promise = this.getOrgContainsAnyWorkspace(config.cloudId);
+				orgContainsAnyWorkspacePromiseCache.set(config.cloudId, promise);
 			}
 			return promise;
 		}
@@ -94,9 +96,9 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 	}
 
 	getReportingLines(userId: string): Promise<TeamCentralReportingLinesData> {
-		return this.isTCReadyPromise.then(
-			(workSpaceExists) => {
-				if (workSpaceExists) {
+		return this.orgContainsAnyWorkspacePromise.then(
+			(orgContainsAnyWorkspace) => {
+				if (orgContainsAnyWorkspace) {
 					if (!userId) {
 						return Promise.reject(new Error('userId missing'));
 					}
@@ -160,10 +162,15 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		return response.reportingLines;
 	}
 
-	checkWorkspaceExists(): Promise<boolean> {
-		return this.isTCReadyPromise.then(
-			(workSpaceExists) => {
-				if (workSpaceExists) {
+	async checkWorkspaceExists() {
+		const workspaceExistsPromise = fg('enable_ptc_townsquare_reporting_lines_unsharded')
+			? this.workspaceExistsWithTypePromise.then(
+					(workspaceExistsWithType) => workspaceExistsWithType !== undefined,
+				)
+			: this.orgContainsAnyWorkspacePromise;
+		return workspaceExistsPromise.then(
+			(workspaceExistsWithType) => {
+				if (workspaceExistsWithType) {
 					return Promise.resolve(true);
 				}
 				return Promise.resolve(false);
@@ -172,38 +179,39 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		);
 	}
 
-	getIsGlobalExperienceWorkspace() {
-		return this.isGlobalExperienceWorkspacePromise;
+	async getIsGlobalExperienceWorkspace() {
+		return (await this.workspaceExistsWithTypePromise) === 'GLOBAL_EXPERIENCE';
 	}
 
 	getOrgId() {
 		return this.orgIdPromise;
 	}
 
-	private preloadIsGlobalExperienceWorkspace(cloudId?: string) {
+	private preloadWorkspaceExistsWithType(cloudId?: string) {
 		if (cloudId === undefined) {
-			return Promise.resolve(false);
+			return Promise.resolve(undefined);
 		}
 
-		const maybeIsGlobalExperienceWorkspaceForCloudIdPromise =
-			globalExperiencePromiseCache.get(cloudId);
+		const maybeWorkspaceExistsWithTypePromise = workspaceExistsWithTypePromiseCache.get(cloudId);
 
-		if (maybeIsGlobalExperienceWorkspaceForCloudIdPromise !== undefined) {
-			return maybeIsGlobalExperienceWorkspaceForCloudIdPromise;
+		if (maybeWorkspaceExistsWithTypePromise !== undefined) {
+			return maybeWorkspaceExistsWithTypePromise;
 		}
 
-		const isGlobalExperienceWorkspaceForCloudIdPromise =
-			this.isGlobalExperienceWorkspaceForCloudId(cloudId);
+		const workspaceExistsWithTypePromise = this.getWorkspaceExistsWithType(cloudId);
 
-		globalExperiencePromiseCache.set(cloudId, isGlobalExperienceWorkspaceForCloudIdPromise);
+		workspaceExistsWithTypePromiseCache.set(cloudId, workspaceExistsWithTypePromise);
 
-		return isGlobalExperienceWorkspaceForCloudIdPromise;
+		return workspaceExistsWithTypePromise;
 	}
 
-	private hasTCWorkspace(config: TeamCentralCardClientOptions) {
-		if (config.cloudId) {
+	private getOrgContainsAnyWorkspace(cloudId?: string) {
+		if (cloudId) {
 			return fetch(
-				`${this.getShardedApiPath(config.cloudId)}/organization/containsAnyWorkspace?cloudId=${config.cloudId}`,
+				(fg('enable_ptc_townsquare_reporting_lines_unsharded')
+					? UNSHARDED_PREFIX
+					: this.getShardedApiPath(cloudId)) +
+					`/organization/containsAnyWorkspace?cloudId=${cloudId}`,
 			).then((res) => {
 				return !res || (res && res.ok);
 			});
@@ -212,7 +220,7 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 		}
 	}
 
-	private async isGlobalExperienceWorkspaceForCloudId(cloudId: string): Promise<boolean> {
+	private async getWorkspaceExistsWithType(cloudId: string) {
 		try {
 			const response = await fetch(
 				`${this.getShardedApiPath(cloudId)}/workspace/existsWithWorkspaceType?cloudId=${cloudId}`,
@@ -222,11 +230,10 @@ class TeamCentralCardClient extends CachingClient<TeamCentralReportingLinesData>
 			);
 			if (response.ok) {
 				const workspaceType = await response.text();
-				return Promise.resolve(workspaceType === 'GLOBAL_EXPERIENCE');
+				return Promise.resolve(workspaceType);
 			}
-			return Promise.resolve(false);
 		} catch (err) {
-			return Promise.resolve(false);
+			return Promise.resolve(undefined);
 		}
 	}
 

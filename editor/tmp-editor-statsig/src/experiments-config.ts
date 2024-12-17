@@ -191,16 +191,6 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
 	},
-	// Added 2024-10-02
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_additional_editor_prompts/setup
-	platform_editor_ai_additional_editor_prompts: {
-		productKeys: {
-			confluence: 'platform_editor_ai_additional_editor_prompts',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
-	},
 	// Added 2024-10-01
 	comment_on_bodied_extensions: {
 		productKeys: {

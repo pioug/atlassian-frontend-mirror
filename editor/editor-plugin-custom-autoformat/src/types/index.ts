@@ -1,11 +1,5 @@
 import { type AutoformattingProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Node as ProsemirrorNode } from '@atlaskit/editor-prosemirror/model';
-export type {
-	AutoformatHandler,
-	AutoformatReplacement,
-	AutoformattingProvider,
-	AutoformatRuleset as Ruleset,
-} from '@atlaskit/editor-common/provider-factory';
 
 export type Reducer<ActionType> = (
 	state: CustomAutoformatState,

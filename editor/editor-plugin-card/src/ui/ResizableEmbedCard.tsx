@@ -33,6 +33,7 @@ import {
 	DEFAULT_EMBED_CARD_HEIGHT,
 	DEFAULT_EMBED_CARD_WIDTH,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { embedHeaderHeight } from '@atlaskit/smart-card';
 import { token } from '@atlaskit/tokens';
 
@@ -45,6 +46,7 @@ export type Props = Omit<ResizerProps, 'height' | 'width'> & {
 	width?: number;
 	height?: number;
 	aspectRatio: number;
+	isResizeDisabled?: boolean;
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -349,7 +351,8 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 	}
 
 	render() {
-		const { layout, pctWidth, containerWidth, fullWidthMode, children } = this.props;
+		const { layout, pctWidth, containerWidth, fullWidthMode, isResizeDisabled, children } =
+			this.props;
 
 		const resizerProps = {
 			width: this.calcPxWidth(),
@@ -358,6 +361,11 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 
 		const enable: EnabledHandles = {};
 		handleSides.forEach((side) => {
+			if (isResizeDisabled && fg('platform_fix_embedded_card_re-rendering')) {
+				enable[side] = false;
+				return;
+			}
+
 			const oppositeSide = side === 'left' ? 'right' : 'left';
 			enable[side] =
 				['full-width', 'wide', 'center']

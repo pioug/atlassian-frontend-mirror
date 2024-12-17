@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.15.12
+
+### Patch Changes
+
+- [#179556](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179556)
+  [`4df21a6b0db31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4df21a6b0db31) -
+  ED-25734 Add style overrides for extended hover zone debug flag is enabled and use in vr test to
+  check that nodes attached are above hover zone
+
+## 2.15.11
+
+### Patch Changes
+
+- [#178643](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178643)
+  [`598b1dc3753cc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/598b1dc3753cc) -
+  Fix instances of module level FG evaluation
+- Updated dependencies
+
+## 2.15.10
+
+### Patch Changes
+
+- [#179607](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179607)
+  [`9873ddf82bfe6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9873ddf82bfe6) -
+  Add check for tabel row, to stop nested elements in table cells from being draggable
+
 ## 2.15.9
 
 ### Patch Changes

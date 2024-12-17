@@ -16,7 +16,6 @@ import type {
 	EditorCommand,
 	EmptyStateHandler,
 	QuickInsertHandler,
-	QuickInsertPluginOptions,
 	QuickInsertPluginState,
 	QuickInsertPluginStateKeys,
 	TypeAheadHandler,
@@ -27,8 +26,6 @@ import { pluginKey } from './pm-plugins/plugin-key';
 import { type QuickInsertPlugin } from './quickInsertPluginType';
 import ModalElementBrowser from './ui/ModalElementBrowser';
 import { getQuickInsertSuggestions } from './ui/search';
-
-export type { QuickInsertPluginOptions };
 
 export const quickInsertPlugin: QuickInsertPlugin = ({ config: options, api }) => {
 	const onInsert = (item: QuickInsertItem) => {

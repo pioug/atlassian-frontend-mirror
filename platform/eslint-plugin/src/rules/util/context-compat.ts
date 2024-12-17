@@ -24,5 +24,5 @@ const getSourceCode = (context: Rule.RuleContext): SourceCode => {
  * @param node - The node to get the scope for
  */
 export const getScope = (context: Rule.RuleContext, node: Node): Scope.Scope => {
-	return getSourceCode(context)?.getScope(node) ?? context.getScope();
+	return getSourceCode(context)?.getScope?.(node) ?? context.getScope();
 };

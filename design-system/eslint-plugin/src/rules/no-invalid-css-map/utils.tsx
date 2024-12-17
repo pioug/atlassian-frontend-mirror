@@ -8,6 +8,8 @@ import {
 } from '@atlaskit/eslint-utils/allowed-function-calls';
 import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 
+import { getSourceCode } from '../utils/context-compat';
+
 type Reporter = Rule.RuleContext['report'];
 
 export const getCssMapObject = (node: CallExpression): ObjectExpression | undefined => {
@@ -47,7 +49,7 @@ export class CssMapObjectChecker {
 			// }
 			const variable = findVariable({
 				identifier: value.callee,
-				sourceCode: this.context.getSourceCode(),
+				sourceCode: getSourceCode(this.context),
 			});
 			if (
 				!variable ||
@@ -77,7 +79,7 @@ export class CssMapObjectChecker {
 		} else if (value.type === 'Identifier') {
 			const variable = findVariable({
 				identifier: value,
-				sourceCode: this.context.getSourceCode(),
+				sourceCode: getSourceCode(this.context),
 			});
 
 			// Get the variable's definition when initialised, and check the first definition that we find.

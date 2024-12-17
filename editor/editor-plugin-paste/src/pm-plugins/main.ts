@@ -85,6 +85,7 @@ import {
 	handleRichTextWithAnalytics,
 	handleSelectedTableWithAnalytics,
 	sendPasteAnalyticsEvent,
+	handleNestedTablePasteWithAnalytics,
 } from './analytics';
 import { clipboardTextSerializer } from './clipboard-text-serializer';
 import { createPluginState, pluginKey as stateKey } from './plugin-factory';
@@ -569,6 +570,20 @@ export function createPlugin(
 						sendPasteAnalyticsEvent(editorAnalyticsAPI)(view, event, slice, {
 							type: PasteTypes.richText,
 						});
+						return true;
+					}
+
+					// handle paste of nested tables to ensure nesting limits are respected
+					if (
+						handleNestedTablePasteWithAnalytics(
+							editorAnalyticsAPI,
+							fg('platform_editor_use_nested_table_pm_nodes'),
+						)(
+							view,
+							event,
+							slice,
+						)(state, dispatch)
+					) {
 						return true;
 					}
 

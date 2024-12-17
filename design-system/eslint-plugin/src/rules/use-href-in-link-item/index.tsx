@@ -7,6 +7,7 @@ import {
 	type JSXAttribute,
 } from 'eslint-codemod-utils';
 
+import { getScope } from '../utils/context-compat';
 import { createLintRule } from '../utils/create-rule';
 import { getImportName } from '../utils/get-import-name';
 import type { Fix } from '../utils/types';
@@ -71,7 +72,7 @@ const rule = createLintRule({
 				// Get the name of the LinkItem import
 				const linkItemImportName =
 					customDefaultLinkItemSpecifier ||
-					getImportName(context.getScope(), '@atlaskit/menu', 'LinkItem');
+					getImportName(getScope(context, node), '@atlaskit/menu', 'LinkItem');
 
 				if (node.openingElement.name.name === linkItemImportName) {
 					// and if href prop does not exist
@@ -81,7 +82,7 @@ const rule = createLintRule({
 
 					const href = linkProps.find((attr: JSXAttribute) => attr.name.name === 'href');
 
-					if (hrefHasInvalidValue(context.getScope(), href)) {
+					if (hrefHasInvalidValue(getScope(context, node), href)) {
 						context.report({
 							node: node,
 							messageId: 'hrefRequired',

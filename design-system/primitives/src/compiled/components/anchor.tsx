@@ -189,7 +189,7 @@ const AnchorNoRef = <RouterLinkConfig extends Record<string, any> = never>(
 		>
 			{children}
 			{target === '_blank' && ((children && !ariaLabel && !ariaLabelledBy) || ariaLabelledBy) && (
-				<VisuallyHidden id={opensNewWindowLabelId}>{newWindowLabel}</VisuallyHidden>
+				<VisuallyHidden id={opensNewWindowLabelId}>{`, ${newWindowLabel}`}</VisuallyHidden>
 			)}
 		</Focusable>
 	);

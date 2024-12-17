@@ -1,10 +1,9 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import { findCodeBlock } from '@atlaskit/editor-common/transforms';
 import { browser } from '@atlaskit/editor-common/utils';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
-
-import { findCodeBlock } from './utils';
 
 export const codeBlockAutoFullStopTransformPluginKey = new PluginKey(
 	'codeBlockAutoFullStopTransformPluginKey',

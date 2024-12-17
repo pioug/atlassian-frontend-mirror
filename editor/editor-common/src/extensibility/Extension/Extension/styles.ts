@@ -8,12 +8,11 @@ import { wrapperDefault } from '../styles';
 export const widerLayoutClassName = 'wider-layout';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const wrapperStyle = css(wrapperDefault, {
+const wrapperStyleWithoutCursor = css(wrapperDefault, {
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.without-frame': {
 		background: 'transparent',
 	},
-	cursor: 'pointer',
 	width: '100%',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'.extension-overflow-wrapper:not(.with-body)': {
@@ -32,6 +31,23 @@ export const wrapperStyle = css(wrapperDefault, {
 		margin: `0 ${token('space.negative.250', '-20px')}`,
 		padding: `0 ${token('space.250', '20px')}`,
 	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+export const wrapperStyleInheritedCursor = css(wrapperStyleWithoutCursor, {
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.extension-overflow-wrapper:has(.extension-editable-area)': {
+		cursor: 'inherit',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'.extension-overflow-wrapper:not(:has(.extension-editable-area))': {
+		cursor: 'pointer',
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+export const wrapperStyle = css(wrapperStyleWithoutCursor, {
+	cursor: 'pointer',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

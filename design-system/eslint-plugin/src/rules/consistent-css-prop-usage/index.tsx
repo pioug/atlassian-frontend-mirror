@@ -16,6 +16,7 @@ import { findVariable } from '@atlaskit/eslint-utils/find-variable';
 import { CSS_IN_JS_IMPORTS } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { Import } from '../../ast-nodes';
+import { getScope, getSourceCode } from '../utils/context-compat';
 import { createLintRule } from '../utils/create-rule';
 import { getFirstSupportedImport } from '../utils/get-first-supported-import';
 import { getModuleOfIdentifier } from '../utils/get-import-node-by-source';
@@ -112,10 +113,10 @@ class JSXExpressionLinter {
 	 * Generates the declarator string when fixing the cssAtTopOfModule/cssAtBottomOfModule cases.
 	 * When `styles` already exists, `styles_1, styles_2, ..., styles_X` are incrementally created for each unhoisted style.
 	 *
-	 * The generated `styles` varibale declaration names must be manually modified to be more informative at the discretion of owning teams.
+	 * The generated `styles` variable declaration names must be manually modified to be more informative at the discretion of owning teams.
 	 */
-	private getDeclaratorString() {
-		let scope = this.context.getScope();
+	private getDeclaratorString(node: ES.Node) {
+		let scope = getScope(this.context, node);
 
 		// Get to ModuleScope
 		while (scope && scope.upper && scope.upper.type !== 'global') {
@@ -141,7 +142,7 @@ class JSXExpressionLinter {
 	}
 
 	private analyzeIdentifier(sourceIdentifier: Scope.Reference['identifier']) {
-		const scope = this.context.getScope();
+		const scope = getScope(this.context, sourceIdentifier);
 		const [identifier] = (getIdentifierInParentScope(scope, sourceIdentifier.name)?.identifiers ??
 			[]) as IdentifierWithParent[];
 
@@ -264,7 +265,7 @@ class JSXExpressionLinter {
 	 */
 	private addCssFunctionCall(fixer: Rule.RuleFixer, node: Rule.Node) {
 		const fixes: Rule.Fix[] = [];
-		const sourceCode = this.context.getSourceCode();
+		const sourceCode = getSourceCode(this.context);
 
 		if (node.type !== 'VariableDeclarator' || !node.init || !this.cssAttributeName) {
 			return [];
@@ -308,7 +309,7 @@ class JSXExpressionLinter {
 		 * We need to check its initializer to see if it is safe to auto-fix.
 		 */
 		if (node.type === 'Identifier') {
-			const variable = findVariable({ identifier: node, sourceCode: this.context.getSourceCode() });
+			const variable = findVariable({ identifier: node, sourceCode: getSourceCode(this.context) });
 			if (!variable) {
 				// If we cannot resolve the variable then we cannot check it, so assume worst-case.
 				return true;
@@ -332,7 +333,7 @@ class JSXExpressionLinter {
 
 		let hasPotentiallyLocalVariable = false;
 		const isImportedVariable = (identifier: string) =>
-			!!getModuleOfIdentifier(this.context.getSourceCode(), identifier);
+			!!getModuleOfIdentifier(getSourceCode(this.context), identifier);
 
 		estraverse.traverse(node, {
 			fallback: 'iteration',
@@ -419,7 +420,7 @@ class JSXExpressionLinter {
 		node: HoistableNode | ES.Identifier,
 		isObjectExpression: boolean,
 	) {
-		const sourceCode = this.context.getSourceCode();
+		const sourceCode = getSourceCode(this.context);
 
 		// Get the program node in order to properly position the hoisted styles
 		const programNode = getProgramNode(node as NodeWithParent);
@@ -450,7 +451,7 @@ class JSXExpressionLinter {
 			moduleString = sourceCode.getText(declarator);
 			fixes.push(fixer.remove(declarator));
 		} else {
-			const declarator = this.getDeclaratorString();
+			const declarator = this.getDeclaratorString(node);
 			const text = sourceCode.getText(node);
 
 			// If this has been passed, then we know it's an ObjectExpression

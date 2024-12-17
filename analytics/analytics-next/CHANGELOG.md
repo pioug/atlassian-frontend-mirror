@@ -1,5 +1,15 @@
 # @atlaskit/analytics-next
 
+## 10.2.1
+
+### Patch Changes
+
+- [#179607](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179607)
+  [`ec8b221900f5c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ec8b221900f5c) -
+  Adds a package.json#overrides in hopes that it will override the peerDependencies of
+  @atlaskit/analytics-next-stable-react-context (NOTE: This may not work across all platforms and
+  was only tested in one scenario, but should have zero impact if it doesn't work)
+
 ## 10.2.0
 
 ### Minor Changes

@@ -49,38 +49,38 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
 				},
 				bold: {
 					'[default]': {
-						value: 'Red300',
+						value: 'Red400',
 					},
 					hovered: {
-						value: 'Red200',
+						value: 'Red300',
 					},
 				},
 			},
 			warning: {
 				'[default]': {
 					'[default]': {
-						value: 'Orange400',
+						value: 'Orange500',
 					},
 					hovered: {
-						value: 'Orange300',
+						value: 'Orange400',
 					},
 				},
 				bold: {
 					'[default]': {
-						value: 'Orange200',
+						value: 'Orange300',
 					},
 					hovered: {
-						value: 'Orange100',
+						value: 'Orange200',
 					},
 				},
 			},
 			information: {
 				'[default]': {
 					'[default]': {
-						value: 'Blue600',
+						value: 'Blue500',
 					},
 					hovered: {
-						value: 'Blue500',
+						value: 'Blue400',
 					},
 				},
 				bold: {
@@ -95,10 +95,10 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
 			discovery: {
 				'[default]': {
 					'[default]': {
-						value: 'Purple600',
+						value: 'Purple500',
 					},
 					hovered: {
-						value: 'Purple500',
+						value: 'Purple400',
 					},
 				},
 				bold: {
@@ -113,66 +113,66 @@ const color: ValueSchema<ChartColorTokenSchema<BaseToken>> = {
 			categorical: {
 				1: {
 					'[default]': {
-						value: 'Teal600',
+						value: 'Blue500',
 					},
 					hovered: {
-						value: 'Teal500',
+						value: 'Blue400',
 					},
 				},
 				2: {
 					'[default]': {
-						value: 'Purple300',
+						value: 'Lime400',
 					},
 					hovered: {
-						value: 'Purple200',
+						value: 'Lime300',
 					},
 				},
 				3: {
+					'[default]': {
+						value: 'Purple400',
+					},
+					hovered: {
+						value: 'Purple300',
+					},
+				},
+				4: {
+					'[default]': {
+						value: 'Orange400',
+					},
+					hovered: {
+						value: 'Orange300',
+					},
+				},
+				5: {
+					'[default]': {
+						value: 'Blue800',
+					},
+					hovered: {
+						value: 'Blue700',
+					},
+				},
+				6: {
+					'[default]': {
+						value: 'Purple700',
+					},
+					hovered: {
+						value: 'Purple600',
+					},
+				},
+				7: {
+					'[default]': {
+						value: 'Teal500',
+					},
+					hovered: {
+						value: 'Teal400',
+					},
+				},
+				8: {
 					'[default]': {
 						value: 'Orange600',
 					},
 					hovered: {
 						value: 'Orange500',
-					},
-				},
-				4: {
-					'[default]': {
-						value: 'Magenta300',
-					},
-					hovered: {
-						value: 'Magenta200',
-					},
-				},
-				5: {
-					'[default]': {
-						value: 'Blue200',
-					},
-					hovered: {
-						value: 'Blue100',
-					},
-				},
-				6: {
-					'[default]': {
-						value: 'Purple600',
-					},
-					hovered: {
-						value: 'Purple500',
-					},
-				},
-				7: {
-					'[default]': {
-						value: 'Magenta200',
-					},
-					hovered: {
-						value: 'Magenta100',
-					},
-				},
-				8: {
-					'[default]': {
-						value: 'Orange300',
-					},
-					hovered: {
-						value: 'Orange200',
 					},
 				},
 			},

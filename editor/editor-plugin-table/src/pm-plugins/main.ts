@@ -25,6 +25,7 @@ import { findParentDomRefOfType, findParentNodeOfType } from '@atlaskit/editor-p
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	lazyTableCellView,
@@ -73,7 +74,11 @@ import {
 	transformSliceToFixHardBreakProblemOnCopyFromCell,
 	transformSliceToRemoveOpenTable,
 } from './utils';
-import { isHeaderRowRequired, transformSliceTableLayoutDefaultToCenter } from './utils/paste';
+import {
+	isHeaderRowRequired,
+	transformSliceTableLayoutDefaultToCenter,
+	transformSliceToRemoveNestedTables,
+} from './utils/paste';
 
 export const createPlugin = (
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
@@ -303,6 +308,10 @@ export const createPlugin = (
 				}
 
 				slice = transformSliceToRemoveOpenNestedExpand(slice, schema);
+
+				if (fg('platform_editor_use_nested_table_pm_nodes')) {
+					slice = transformSliceToRemoveNestedTables(slice, schema, editorState.selection);
+				}
 
 				return slice;
 			},

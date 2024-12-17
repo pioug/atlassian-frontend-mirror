@@ -11,6 +11,7 @@ import {
 
 import { Object as ASTObject, ObjectEntry, Root } from '../../../ast-nodes';
 import { getValueForPropertyNode, normaliseValue } from '../../ensure-design-token-usage/utils';
+import { getSourceCode } from '../../utils/context-compat';
 import {
 	isDecendantOfGlobalToken,
 	isDecendantOfStyleBlock,
@@ -322,7 +323,7 @@ export const StyleObject = {
 		}
 
 		const tokensImportDeclaration = Root.findImportsByModule(
-			context.getSourceCode().ast.body,
+			getSourceCode(context).ast.body,
 			'@atlaskit/tokens',
 		);
 
@@ -338,7 +339,7 @@ export const StyleObject = {
 		let shouldAddFallbackImport: Refs['shouldAddFallbackImport'] = shouldAddFallback && 'full';
 
 		const themeImportDeclaration = Root.findImportsByModule(
-			context.getSourceCode().ast.body,
+			getSourceCode(context).ast.body,
 			'@atlaskit/theme/typography',
 		);
 
@@ -391,7 +392,7 @@ export const StyleObject = {
 			} = refs;
 			const fontSizeNode = nodesToReplace[0];
 
-			const root = context.getSourceCode().ast.body;
+			const root = getSourceCode(context).ast.body;
 
 			let fallbackImport;
 			if (shouldAddFallbackImport === 'full') {

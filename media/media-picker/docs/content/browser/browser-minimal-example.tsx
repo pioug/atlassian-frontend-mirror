@@ -4,7 +4,7 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { defaultMediaPickerAuthProvider } from '@atlaskit/media-test-helpers';
+import { mediaPickerAuthProvider } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button/standard-button';
 import {
 	type BrowserConfig,
@@ -17,7 +17,7 @@ import { useState } from 'react';
 import { NativeMediaViewer } from '../../../example-helpers/NativeMediaViewer';
 
 const mediaClient = new MediaClient({
-	authProvider: defaultMediaPickerAuthProvider(),
+	authProvider: mediaPickerAuthProvider(),
 });
 
 const BrowserExample = () => {

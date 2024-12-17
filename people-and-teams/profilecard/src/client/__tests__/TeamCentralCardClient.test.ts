@@ -1,10 +1,16 @@
 import fetchMock from 'fetch-mock';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { parseAndTestGraphQLQueries } from '@atlassian/ptc-test-utils/graphql-jest';
 
 import { getOrgIdForCloudIdFromAGG } from '../getOrgIdForCloudIdFromAGG';
 import { directoryGraphqlQuery } from '../graphqlUtils';
 import TeamCentralCardClient, { buildReportingLinesQuery } from '../TeamCentralCardClient';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	...jest.requireActual('@atlaskit/platform-feature-flags'),
+	fg: jest.fn(),
+}));
 
 jest.mock('../getOrgIdForCloudIdFromAGG', () => ({
 	...jest.requireActual('../getOrgIdForCloudIdFromAGG'),
@@ -20,141 +26,163 @@ jest.mock('../graphqlUtils', () => {
 });
 
 const mockDirectoryGraphqlQuery = directoryGraphqlQuery as jest.Mock;
+const mockFg = fg as jest.MockedFunction<typeof fg>;
 const mockGetOrgIdForCloudIdFromAGG = getOrgIdForCloudIdFromAGG as jest.Mock;
 
 // need a separate cloud ID because of the global const that tracks whether a cloud ID has been resolved
 describe('TeamCentralCardClient', () => {
-	const mockCloudIdFlagEnabledSuffix = 'flag-enabled';
 	const mockGatewayGraphqlUrl = 'mock-gateway-graphql-url';
 	const mockOrgId = 'mock-org-id';
 	let client: TeamCentralCardClient;
 
 	parseAndTestGraphQLQueries([buildReportingLinesQuery('').query]);
 
-	beforeEach(() => {
+	afterEach(() => {
 		jest.clearAllMocks();
 		fetchMock.reset();
 	});
 
 	describe('constructor', () => {
-		it('successfully prefetch', async () => {
-			const mockCloudId = `mock-cloud-id-successful-prefetch-${mockCloudIdFlagEnabledSuffix}`;
+		it.each([true, false])(
+			'successfully prefetch - flag %s',
+			async (enablePtcTownsquareReportingLinesUnsharded) => {
+				mockFg.mockReturnValue(enablePtcTownsquareReportingLinesUnsharded);
 
-			const expectedContainsAnyWorkspaceUrl =
-				`/gateway/api/townsquare/s/${mockCloudId}` +
-				`/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
-			const expectedExistsWithWorkspaceTypeUrl =
-				`/gateway/api/townsquare/s/${mockCloudId}` +
-				`/workspace/existsWithWorkspaceType?cloudId=${mockCloudId}`;
+				const mockCloudId = `mock-cloud-id-successful-prefetch-${enablePtcTownsquareReportingLinesUnsharded}`;
 
-			fetchMock.get(expectedContainsAnyWorkspaceUrl, {
-				status: 200,
-				body: '',
-			});
+				const expectedContainsAnyWorkspaceUrl =
+					(enablePtcTownsquareReportingLinesUnsharded
+						? '/gateway/api/watermelon'
+						: `/gateway/api/townsquare/s/${mockCloudId}`) +
+					`/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
+				const expectedExistsWithWorkspaceTypeUrl =
+					`/gateway/api/townsquare/s/${mockCloudId}` +
+					`/workspace/existsWithWorkspaceType?cloudId=${mockCloudId}`;
 
-			fetchMock.get(expectedExistsWithWorkspaceTypeUrl, {
-				status: 200,
-				body: 'GLOBAL_EXPERIENCE',
-			});
+				fetchMock.get(expectedContainsAnyWorkspaceUrl, {
+					status: 200,
+					body: '',
+				});
 
-			mockGetOrgIdForCloudIdFromAGG.mockResolvedValue(mockOrgId);
+				fetchMock.get(expectedExistsWithWorkspaceTypeUrl, {
+					status: 200,
+					body: 'GLOBAL_EXPERIENCE',
+				});
 
-			client = new TeamCentralCardClient({
-				cloudId: mockCloudId,
-				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
-			});
+				mockGetOrgIdForCloudIdFromAGG.mockResolvedValue(mockOrgId);
 
-			expect(fetchMock.calls().length).toBe(2);
+				client = new TeamCentralCardClient({
+					cloudId: mockCloudId,
+					gatewayGraphqlUrl: mockGatewayGraphqlUrl,
+				});
 
-			expect(fetchMock.calls()[0][0]).toBe(expectedContainsAnyWorkspaceUrl);
-			expect(await client.isTCReadyPromise).toBe(true);
+				expect(fetchMock.calls().length).toBe(2);
 
-			expect(fetchMock.calls()[1][0]).toBe(expectedExistsWithWorkspaceTypeUrl);
-			expect(await client.getIsGlobalExperienceWorkspace()).toBe(true);
+				expect(fetchMock.calls()[0][0]).toBe(expectedContainsAnyWorkspaceUrl);
+				expect(await client.orgContainsAnyWorkspacePromise).toBe(true);
 
-			expect(mockGetOrgIdForCloudIdFromAGG).toHaveBeenCalledTimes(1);
-			expect(mockGetOrgIdForCloudIdFromAGG).toHaveBeenCalledWith(
-				mockGatewayGraphqlUrl,
-				mockCloudId,
-			);
-			expect(await client.getOrgId()).toBe(mockOrgId);
-		});
+				expect(fetchMock.calls()[1][0]).toBe(expectedExistsWithWorkspaceTypeUrl);
+				expect(await client.getIsGlobalExperienceWorkspace()).toBe(true);
 
-		it('reuses prefetch', async () => {
-			const mockCloudId = `mock-cloud-id-reuse-prefetch-${mockCloudIdFlagEnabledSuffix}`;
+				expect(mockGetOrgIdForCloudIdFromAGG).toHaveBeenCalledTimes(1);
+				expect(mockGetOrgIdForCloudIdFromAGG).toHaveBeenCalledWith(
+					mockGatewayGraphqlUrl,
+					mockCloudId,
+				);
+				expect(await client.getOrgId()).toBe(mockOrgId);
+			},
+		);
 
-			const expectedContainsAnyWorkspaceUrl =
-				`/gateway/api/townsquare/s/${mockCloudId}` +
-				`/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
-			const expectedExistsWithWorkspaceTypeUrl =
-				`/gateway/api/townsquare/s/${mockCloudId}` +
-				`/workspace/existsWithWorkspaceType?cloudId=${mockCloudId}`;
+		it.each([true, false])(
+			'reuses prefetch - flag %s',
+			async (enablePtcTownsquareReportingLinesUnsharded) => {
+				mockFg.mockReturnValue(enablePtcTownsquareReportingLinesUnsharded);
 
-			fetchMock.get(expectedContainsAnyWorkspaceUrl, {
-				status: 200,
-				body: '',
-			});
+				const mockCloudId = `mock-cloud-id-reuse-prefetch-${enablePtcTownsquareReportingLinesUnsharded}`;
 
-			fetchMock.get(expectedExistsWithWorkspaceTypeUrl, {
-				status: 200,
-				body: 'GLOBAL_EXPERIENCE',
-			});
+				const expectedContainsAnyWorkspaceUrl =
+					(enablePtcTownsquareReportingLinesUnsharded
+						? '/gateway/api/watermelon'
+						: `/gateway/api/townsquare/s/${mockCloudId}`) +
+					`/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
+				const expectedExistsWithWorkspaceTypeUrl =
+					`/gateway/api/townsquare/s/${mockCloudId}` +
+					`/workspace/existsWithWorkspaceType?cloudId=${mockCloudId}`;
 
-			mockGetOrgIdForCloudIdFromAGG.mockResolvedValue(mockOrgId);
+				fetchMock.get(expectedContainsAnyWorkspaceUrl, {
+					status: 200,
+					body: '',
+				});
 
-			client = new TeamCentralCardClient({
-				cloudId: mockCloudId,
-				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
-			});
+				fetchMock.get(expectedExistsWithWorkspaceTypeUrl, {
+					status: 200,
+					body: 'GLOBAL_EXPERIENCE',
+				});
 
-			const clientAgain = new TeamCentralCardClient({
-				cloudId: mockCloudId,
-				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
-			});
+				mockGetOrgIdForCloudIdFromAGG.mockResolvedValue(mockOrgId);
 
-			expect(fetchMock.calls().length).toBe(2);
+				client = new TeamCentralCardClient({
+					cloudId: mockCloudId,
+					gatewayGraphqlUrl: mockGatewayGraphqlUrl,
+				});
 
-			expect(fetchMock.calls()[0][0]).toBe(expectedContainsAnyWorkspaceUrl);
-			expect(await client.isTCReadyPromise).toBe(true);
-			expect(await clientAgain.isTCReadyPromise).toBe(true);
-			expect(client.isTCReadyPromise).toBe(clientAgain.isTCReadyPromise);
+				const clientAgain = new TeamCentralCardClient({
+					cloudId: mockCloudId,
+					gatewayGraphqlUrl: mockGatewayGraphqlUrl,
+				});
 
-			expect(fetchMock.calls()[1][0]).toBe(expectedExistsWithWorkspaceTypeUrl);
-			expect(await client.getIsGlobalExperienceWorkspace()).toBe(true);
-			expect(await clientAgain.getIsGlobalExperienceWorkspace()).toBe(true);
-			expect(client.getIsGlobalExperienceWorkspace()).toBe(
-				clientAgain.getIsGlobalExperienceWorkspace(),
-			);
+				expect(fetchMock.calls().length).toBe(2);
 
-			expect(mockGetOrgIdForCloudIdFromAGG).toHaveBeenCalledTimes(1);
-			expect(await client.getOrgId()).toBe(mockOrgId);
-			expect(await clientAgain.getOrgId()).toBe(mockOrgId);
-			expect(client.getOrgId()).toBe(clientAgain.getOrgId());
-		});
+				expect(fetchMock.calls()[0][0]).toBe(expectedContainsAnyWorkspaceUrl);
+				expect(await client.orgContainsAnyWorkspacePromise).toBe(true);
+				expect(await clientAgain.orgContainsAnyWorkspacePromise).toBe(true);
+				expect(client.orgContainsAnyWorkspacePromise).toBe(
+					clientAgain.orgContainsAnyWorkspacePromise,
+				);
 
-		it('skip prefetch due to missing cloud ID', async () => {
-			client = new TeamCentralCardClient({
-				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
-			});
+				expect(fetchMock.calls()[1][0]).toBe(expectedExistsWithWorkspaceTypeUrl);
+				expect(await client.getIsGlobalExperienceWorkspace()).toBe(true);
+				expect(await clientAgain.getIsGlobalExperienceWorkspace()).toBe(true);
 
-			expect(fetchMock.calls().length).toBe(0);
+				expect(mockGetOrgIdForCloudIdFromAGG).toHaveBeenCalledTimes(1);
+				expect(await client.getOrgId()).toBe(mockOrgId);
+				expect(await clientAgain.getOrgId()).toBe(mockOrgId);
+				expect(client.getOrgId()).toBe(clientAgain.getOrgId());
+			},
+		);
 
-			expect(await client.isTCReadyPromise).toBe(true);
+		it.each([true, false])(
+			'skip prefetch due to missing cloud ID - flag %s',
+			async (enablePtcTownsquareReportingLinesUnsharded) => {
+				mockFg.mockReturnValue(enablePtcTownsquareReportingLinesUnsharded);
 
-			expect(await client.getIsGlobalExperienceWorkspace()).toBe(false);
+				client = new TeamCentralCardClient({
+					gatewayGraphqlUrl: mockGatewayGraphqlUrl,
+				});
 
-			expect(mockGetOrgIdForCloudIdFromAGG).not.toHaveBeenCalled();
-			expect(await client.getOrgId()).toBe(null);
+				expect(fetchMock.calls().length).toBe(0);
 
-			expect(await client.checkWorkspaceExists()).toBe(true);
-		});
+				expect(await client.orgContainsAnyWorkspacePromise).toBe(true);
+
+				expect(await client.getIsGlobalExperienceWorkspace()).toBe(false);
+
+				expect(mockGetOrgIdForCloudIdFromAGG).not.toHaveBeenCalled();
+				expect(await client.getOrgId()).toBe(null);
+
+				if (enablePtcTownsquareReportingLinesUnsharded) {
+					expect(await client.checkWorkspaceExists()).toBe(false);
+				} else {
+					expect(await client.checkWorkspaceExists()).toBe(true);
+				}
+			},
+		);
 
 		it('should skip prefetching org ID if provided in options', async () => {
-			const mockCloudId = `mock-cloud-id-successful-skip-prefetch-${mockCloudIdFlagEnabledSuffix}`;
+			mockFg.mockReturnValue(true);
 
-			const expectedContainsAnyWorkspaceUrl =
-				`/gateway/api/townsquare/s/${mockCloudId}` +
-				`/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
+			const mockCloudId = `mock-cloud-id-successful-skip-prefetch`;
+
+			const expectedContainsAnyWorkspaceUrl = `/gateway/api/watermelon/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
 			const expectedExistsWithWorkspaceTypeUrl =
 				`/gateway/api/townsquare/s/${mockCloudId}` +
 				`/workspace/existsWithWorkspaceType?cloudId=${mockCloudId}`;
@@ -178,7 +206,7 @@ describe('TeamCentralCardClient', () => {
 			expect(fetchMock.calls().length).toBe(2);
 
 			expect(fetchMock.calls()[0][0]).toBe(expectedContainsAnyWorkspaceUrl);
-			expect(await client.isTCReadyPromise).toBe(true);
+			expect(await client.orgContainsAnyWorkspacePromise).toBe(true);
 
 			expect(fetchMock.calls()[1][0]).toBe(expectedExistsWithWorkspaceTypeUrl);
 			expect(await client.getIsGlobalExperienceWorkspace()).toBe(true);
@@ -188,13 +216,13 @@ describe('TeamCentralCardClient', () => {
 		});
 
 		it('should not cache org ID provided in options to minimise blast radius of bad org ID being passed in', async () => {
-			const mockCloudId = `mock-cloud-id-successful-minimise-blast-radius-${mockCloudIdFlagEnabledSuffix}`;
+			mockFg.mockReturnValue(true);
+
+			const mockCloudId = `mock-cloud-id-successful-minimise-blast-radius`;
 			const mockOrgIdButDifferent = `${mockOrgId}-but-different`;
 			const mockOrgIdButCorrect = `${mockOrgId}-but-correct`;
 
-			const expectedContainsAnyWorkspaceUrl =
-				`/gateway/api/townsquare/s/${mockCloudId}` +
-				`/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
+			const expectedContainsAnyWorkspaceUrl = `/gateway/api/watermelon/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
 			const expectedExistsWithWorkspaceTypeUrl =
 				`/gateway/api/townsquare/s/${mockCloudId}` +
 				`/workspace/existsWithWorkspaceType?cloudId=${mockCloudId}`;
@@ -234,12 +262,12 @@ describe('TeamCentralCardClient', () => {
 			expect(await clientResolvesOrgIdButCorrect.getOrgId()).toBe(mockOrgIdButCorrect);
 		});
 
-		it('failed prefetch of exists with workspace type', async () => {
-			const mockCloudId = `mock-cloud-id-failed-prefetch-${mockCloudIdFlagEnabledSuffix}`;
+		it('failed prefetch of workspace exists with type', async () => {
+			mockFg.mockReturnValue(true);
 
-			const expectedContainsAnyWorkspaceUrl =
-				`/gateway/api/townsquare/s/${mockCloudId}` +
-				`/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
+			const mockCloudId = `mock-cloud-id-failed-prefetch`;
+
+			const expectedContainsAnyWorkspaceUrl = `/gateway/api/watermelon/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
 			const expectedExistsWithWorkspaceTypeUrl =
 				`/gateway/api/townsquare/s/${mockCloudId}` +
 				`/workspace/existsWithWorkspaceType?cloudId=${mockCloudId}`;
@@ -276,7 +304,7 @@ describe('TeamCentralCardClient', () => {
 				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
 			});
 
-			client.isTCReadyPromise = Promise.resolve(true);
+			client.orgContainsAnyWorkspacePromise = Promise.resolve(true);
 
 			mockDirectoryGraphqlQuery.mockResolvedValue({ reportingLines: mockResponseData });
 
@@ -295,7 +323,7 @@ describe('TeamCentralCardClient', () => {
 				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
 			});
 
-			client.isTCReadyPromise = Promise.resolve(true);
+			client.orgContainsAnyWorkspacePromise = Promise.resolve(true);
 
 			mockDirectoryGraphqlQuery.mockRejectedValue(undefined);
 
@@ -314,7 +342,7 @@ describe('TeamCentralCardClient', () => {
 				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
 			});
 
-			client.isTCReadyPromise = Promise.resolve(true);
+			client.orgContainsAnyWorkspacePromise = Promise.resolve(true);
 
 			const authError: Error & { status?: number } = new Error();
 			authError.status = 403;
@@ -340,7 +368,7 @@ describe('TeamCentralCardClient', () => {
 				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
 			});
 
-			client.isTCReadyPromise = Promise.resolve(false);
+			client.orgContainsAnyWorkspacePromise = Promise.resolve(false);
 
 			const data = await client.getReportingLines(mockUserId);
 
@@ -358,13 +386,181 @@ describe('TeamCentralCardClient', () => {
 				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
 				teamCentralDisabled: true,
 			});
-			client.isTCReadyPromise = Promise.resolve(true);
+			client.orgContainsAnyWorkspacePromise = Promise.resolve(true);
 
 			const data = await client.getReportingLines(mockUserId);
 
 			expect(data).toEqual({});
 
 			expect(mockDirectoryGraphqlQuery.mock.calls).toHaveLength(0);
+		});
+	});
+
+	describe('checkWorkspaceExists', () => {
+		it.each([true, false])(
+			'successfully checks that workspace exists - flag %s',
+			async (enablePtcTownsquareReportingLinesUnsharded) => {
+				mockFg.mockReturnValue(enablePtcTownsquareReportingLinesUnsharded);
+
+				const mockCloudId = `mock-cloud-id-successful-workspace-exists-${enablePtcTownsquareReportingLinesUnsharded}`;
+
+				const expectedContainsAnyWorkspaceUrl =
+					(enablePtcTownsquareReportingLinesUnsharded
+						? '/gateway/api/watermelon'
+						: `/gateway/api/townsquare/s/${mockCloudId}`) +
+					`/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
+				const expectedExistsWithWorkspaceTypeUrl =
+					`/gateway/api/townsquare/s/${mockCloudId}` +
+					`/workspace/existsWithWorkspaceType?cloudId=${mockCloudId}`;
+
+				fetchMock.get(expectedContainsAnyWorkspaceUrl, {
+					status: 200,
+					body: '',
+				});
+
+				fetchMock.get(expectedExistsWithWorkspaceTypeUrl, {
+					status: 200,
+					body: 'GLOBAL_EXPERIENCE',
+				});
+
+				mockGetOrgIdForCloudIdFromAGG.mockResolvedValue(mockOrgId);
+
+				client = new TeamCentralCardClient({
+					cloudId: mockCloudId,
+					gatewayGraphqlUrl: mockGatewayGraphqlUrl,
+				});
+
+				expect(client.checkWorkspaceExists()).resolves.toBe(true);
+			},
+		);
+
+		it.each([true, false])(
+			'gracefully fails check that workspace exists - flag %s',
+			async (enablePtcTownsquareReportingLinesUnsharded) => {
+				mockFg.mockReturnValue(enablePtcTownsquareReportingLinesUnsharded);
+
+				const mockCloudId = `mock-cloud-id-fail-workspace-exists-${enablePtcTownsquareReportingLinesUnsharded}`;
+
+				const expectedContainsAnyWorkspaceUrl =
+					(enablePtcTownsquareReportingLinesUnsharded
+						? '/gateway/api/watermelon'
+						: `/gateway/api/townsquare/s/${mockCloudId}`) +
+					`/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
+				const expectedExistsWithWorkspaceTypeUrl =
+					`/gateway/api/townsquare/s/${mockCloudId}` +
+					`/workspace/existsWithWorkspaceType?cloudId=${mockCloudId}`;
+
+				fetchMock.get(expectedContainsAnyWorkspaceUrl, {
+					status: 404,
+					body: '',
+				});
+
+				fetchMock.get(expectedExistsWithWorkspaceTypeUrl, {
+					status: 404,
+					body: '',
+				});
+
+				mockGetOrgIdForCloudIdFromAGG.mockResolvedValue(mockOrgId);
+
+				client = new TeamCentralCardClient({
+					cloudId: mockCloudId,
+					gatewayGraphqlUrl: mockGatewayGraphqlUrl,
+				});
+
+				expect(client.checkWorkspaceExists()).resolves.toBe(false);
+			},
+		);
+	});
+
+	describe('getIsGlobalExperienceWorkspace', () => {
+		it('successfully checks that workspace is a global experience one', async () => {
+			mockFg.mockReturnValue(true);
+
+			const mockCloudId = `mock-cloud-id-successful-workspace-is-global-experience`;
+
+			const expectedContainsAnyWorkspaceUrl = `/gateway/api/watermelon/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
+			const expectedExistsWithWorkspaceTypeUrl =
+				`/gateway/api/townsquare/s/${mockCloudId}` +
+				`/workspace/existsWithWorkspaceType?cloudId=${mockCloudId}`;
+
+			fetchMock.get(expectedContainsAnyWorkspaceUrl, {
+				status: 200,
+				body: '',
+			});
+
+			fetchMock.get(expectedExistsWithWorkspaceTypeUrl, {
+				status: 200,
+				body: 'GLOBAL_EXPERIENCE',
+			});
+
+			mockGetOrgIdForCloudIdFromAGG.mockResolvedValue(mockOrgId);
+
+			client = new TeamCentralCardClient({
+				cloudId: mockCloudId,
+				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
+			});
+
+			expect(await client.getIsGlobalExperienceWorkspace()).toBe(true);
+		});
+
+		it('successfully checks that workspace is not a global experience one', async () => {
+			mockFg.mockReturnValue(true);
+
+			const mockCloudId = `mock-cloud-id-successful-workspace-is-not-global-experience`;
+
+			const expectedContainsAnyWorkspaceUrl = `/gateway/api/watermelon/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
+			const expectedExistsWithWorkspaceTypeUrl =
+				`/gateway/api/townsquare/s/${mockCloudId}` +
+				`/workspace/existsWithWorkspaceType?cloudId=${mockCloudId}`;
+
+			fetchMock.get(expectedContainsAnyWorkspaceUrl, {
+				status: 200,
+				body: '',
+			});
+
+			fetchMock.get(expectedExistsWithWorkspaceTypeUrl, {
+				status: 200,
+				body: 'PRODUCT',
+			});
+
+			mockGetOrgIdForCloudIdFromAGG.mockResolvedValue(mockOrgId);
+
+			client = new TeamCentralCardClient({
+				cloudId: mockCloudId,
+				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
+			});
+
+			expect(await client.getIsGlobalExperienceWorkspace()).toBe(false);
+		});
+
+		it('gracefully fails check that workspace is a global experience one', async () => {
+			mockFg.mockReturnValue(true);
+
+			const mockCloudId = `mock-cloud-id-successful-workspace-is-not-global-experience`;
+
+			const expectedContainsAnyWorkspaceUrl = `/gateway/api/watermelon/organization/containsAnyWorkspace?cloudId=${mockCloudId}`;
+			const expectedExistsWithWorkspaceTypeUrl =
+				`/gateway/api/townsquare/s/${mockCloudId}` +
+				`/workspace/existsWithWorkspaceType?cloudId=${mockCloudId}`;
+
+			fetchMock.get(expectedContainsAnyWorkspaceUrl, {
+				status: 200,
+				body: '',
+			});
+
+			fetchMock.get(expectedExistsWithWorkspaceTypeUrl, {
+				status: 404,
+				body: '',
+			});
+
+			mockGetOrgIdForCloudIdFromAGG.mockResolvedValue(mockOrgId);
+
+			client = new TeamCentralCardClient({
+				cloudId: mockCloudId,
+				gatewayGraphqlUrl: mockGatewayGraphqlUrl,
+			});
+
+			expect(await client.getIsGlobalExperienceWorkspace()).toBe(false);
 		});
 	});
 });

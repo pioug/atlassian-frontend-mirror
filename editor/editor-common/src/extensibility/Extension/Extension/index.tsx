@@ -11,6 +11,7 @@ import classnames from 'classnames';
 
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ExtensionProvider, ReferenceEntity } from '../../../extensions';
 import { useSharedPluginState } from '../../../hooks';
@@ -30,6 +31,7 @@ import {
 	overflowWrapperStyles,
 	widerLayoutClassName,
 	wrapperStyle,
+	wrapperStyleInheritedCursor,
 } from './styles';
 
 export interface Props {
@@ -186,8 +188,10 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 				data-layout={node.attrs.layout}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={classNames}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				css={wrapperStyle}
+				css={
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					fg('platform_editor_legacy_content_macro') ? wrapperStyleInheritedCursor : wrapperStyle
+				}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={customContainerStyles}
 				onMouseEnter={() => handleMouseEvent(true)}

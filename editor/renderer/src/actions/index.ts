@@ -1,5 +1,5 @@
-import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
-import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import type { AnnotationId } from '@atlaskit/adf-schema';
+import { AnnotationTypes } from '@atlaskit/adf-schema';
 import type { AnnotationActionResult, AnnotationByMatches } from '@atlaskit/editor-common/types';
 import {
 	canApplyAnnotationOnRange,
@@ -7,28 +7,28 @@ import {
 	getAnnotationInlineNodeTypes,
 	isEmptyTextSelection,
 } from '@atlaskit/editor-common/utils';
-import type { AnnotationId } from '@atlaskit/adf-schema';
-import { AnnotationTypes } from '@atlaskit/adf-schema';
-import type { Node, Schema, Mark } from '@atlaskit/editor-prosemirror/model';
+import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
+import { JSONTransformer } from '@atlaskit/editor-json-transformer';
+import type { Mark, Node, Schema } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 
+import {
+	ACTION,
+	ACTION_SUBJECT,
+	ACTION_SUBJECT_ID,
+	EVENT_TYPE,
+} from '@atlaskit/editor-common/analytics';
 import {
 	AddNodeMarkStep,
 	RemoveMarkStep,
 	RemoveNodeMarkStep,
 } from '@atlaskit/editor-prosemirror/transform';
-import { createAnnotationStep, getPosFromRange } from '../steps';
-import type { AnalyticsEventPayload, AnnotationDeleteAEP } from '../analytics/events';
-import {
-	ACTION,
-	ACTION_SUBJECT,
-	EVENT_TYPE,
-	ACTION_SUBJECT_ID,
-} from '@atlaskit/editor-common/analytics';
-import { getIndexMatch } from './matches-utils';
-import { getRendererRangeInlineNodeNames } from './get-renderer-range-inline-node-names';
 import { fg } from '@atlaskit/platform-feature-flags';
+import type { AnalyticsEventPayload, AnnotationDeleteAEP } from '../analytics/events';
+import { createAnnotationStep, getPosFromRange } from '../steps';
+import { getRendererRangeInlineNodeNames } from './get-renderer-range-inline-node-names';
+import { getIndexMatch } from './matches-utils';
 
 type ActionResult = { step: Step; doc: JSONDocNode } | false;
 type Position = { from: number; to: number };
@@ -80,15 +80,18 @@ export default class RendererActions
 		doc: Node,
 		schema: Schema,
 		onAnalyticsEvent?: (event: AnalyticsEventPayload) => void,
+		skipValidation?: boolean,
 	): void {
 		if (!this.initFromContext) {
 			return;
 		} else if (!this.ref) {
 			this.ref = ref;
 		} else if (this.ref !== ref) {
-			throw new Error(
-				"Renderer has already been registered! It's not allowed to re-register with another new Renderer instance.",
-			);
+			if (!skipValidation) {
+				throw new Error(
+					"Renderer has already been registered! It's not allowed to re-register with another new Renderer instance.",
+				);
+			}
 		}
 		this.doc = doc;
 		this.schema = schema;

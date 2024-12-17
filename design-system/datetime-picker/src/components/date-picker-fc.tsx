@@ -80,12 +80,6 @@ const dropdownIndicatorStyles = xcss({
 	justifyContent: 'center',
 });
 
-// eslint-disable-next-line @atlaskit/platform/no-module-level-eval, @atlaskit/platform/ensure-feature-flag-prefix
-const CalendarIcon = fg('platform-visual-refresh-icon-ads-migration')
-	? CalendarIconNew
-	: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
-		CalendarIconOld;
-
 const iconContainerStyles = xcss({
 	display: 'flex',
 	height: '100%',
@@ -125,6 +119,11 @@ const DatePicker = forwardRef((props: DatePickerProps, forwardedRef) => {
 	const containerRef: React.MutableRefObject<HTMLElement | null> = useRef<HTMLElement>(null);
 	const calendarRef: React.RefObject<HTMLDivElement | null> = useRef<HTMLDivElement>(null);
 	const calendarButtonRef: React.RefObject<HTMLButtonElement> = useRef<HTMLButtonElement>(null);
+
+	const CalendarIcon = fg('platform-visual-refresh-icon-ads-migration')
+		? CalendarIconNew
+		: // eslint-disable-next-line @atlaskit/design-system/no-legacy-icons
+			CalendarIconOld;
 
 	const {
 		appearance = 'default' as Appearance,

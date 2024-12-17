@@ -1,5 +1,13 @@
 # @atlaskit/calendar
 
+## 16.1.0
+
+### Minor Changes
+
+- [#176231](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/176231)
+  [`f5dff1c78dbb4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5dff1c78dbb4) -
+  Migrated from primitives components to primitives/compiled components
+
 ## 16.0.0
 
 ### Major Changes

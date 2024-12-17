@@ -2,6 +2,8 @@ import type { Rule, Scope as ScopeNamespace } from 'eslint';
 
 import { type ImportSource } from '@atlaskit/eslint-utils/is-supported-import';
 
+import { getScope, getSourceCode } from '../context-compat';
+
 import { isStyledComponent } from './is-styled-component';
 
 type Node = Rule.Node;
@@ -15,7 +17,7 @@ type Stack = {
 };
 
 const getStack = (context: RuleContext, node: Node) => {
-	const { scopeManager } = context.getSourceCode();
+	const { scopeManager } = getSourceCode(context);
 	const stack: Omit<Stack, 'scope'> = {
 		nodes: [],
 		root: node,
@@ -53,7 +55,7 @@ const getStack = (context: RuleContext, node: Node) => {
 
 	return {
 		...stack,
-		scope: scope ?? context.getScope(),
+		scope: scope ?? getScope(context, node),
 	};
 };
 
@@ -114,7 +116,7 @@ export const checkIfSupportedExport = (
 	context: RuleContext,
 	node: Node,
 	importSources: ImportSource[],
-	scope: Scope = context.getScope(),
+	scope: Scope = getScope(context, node),
 ): IsSupportedExport => {
 	// Ignore any expression defined outside of the global or module scope as we have no way of statically analysing them
 	if (scope.type !== 'global' && scope.type !== 'module') {

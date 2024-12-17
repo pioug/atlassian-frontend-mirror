@@ -1,5 +1,13 @@
 # @atlaskit/portal
 
+## 4.10.0
+
+### Minor Changes
+
+- [`0e8e931171299`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e8e931171299) -
+  Testing behind a feature gate, adds a Suspense boundary to all created React 18 portals (also
+  behind a feature gate)
+
 ## 4.9.4
 
 ### Patch Changes

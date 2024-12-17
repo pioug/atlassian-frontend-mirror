@@ -523,4 +523,9 @@ export const darkViolationsVisualRefresh = [
 		foreground: 'color.background.accent.gray.bolder',
 		background: 'color.background.accent.gray.subtler',
 	},
+	// Color chart token exception
+	{
+		background: 'elevation.surface.raised',
+		foreground: 'color.chart.categorical.5',
+	},
 ];

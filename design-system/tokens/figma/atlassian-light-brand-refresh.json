@@ -2447,7 +2447,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#2898BD"
+      "value": "#357DE8"
     },
     "Light brand-refresh/color.chart.categorical.1.hovered": {
       "attributes": {
@@ -2456,7 +2456,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.1."
       },
-      "value": "#227D9B"
+      "value": "#1868DB"
     },
     "Light brand-refresh/color.chart.categorical.2": {
       "attributes": {
@@ -2465,7 +2465,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#803FA5"
+      "value": "#82B536"
     },
     "Light brand-refresh/color.chart.categorical.2.hovered": {
       "attributes": {
@@ -2474,7 +2474,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.2."
       },
-      "value": "#48245D"
+      "value": "#6A9A23"
     },
     "Light brand-refresh/color.chart.categorical.3": {
       "attributes": {
@@ -2483,7 +2483,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#E06C00"
+      "value": "#BF63F3"
     },
     "Light brand-refresh/color.chart.categorical.3.hovered": {
       "attributes": {
@@ -2492,7 +2492,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.3."
       },
-      "value": "#BD5B00"
+      "value": "#AF59E1"
     },
     "Light brand-refresh/color.chart.categorical.4": {
       "attributes": {
@@ -2501,7 +2501,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#943D73"
+      "value": "#F68909"
     },
     "Light brand-refresh/color.chart.categorical.4.hovered": {
       "attributes": {
@@ -2510,7 +2510,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.4."
       },
-      "value": "#50253F"
+      "value": "#E06C00"
     },
     "Light brand-refresh/color.chart.categorical.5": {
       "attributes": {
@@ -2519,7 +2519,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#123263"
+      "value": "#1558BC"
     },
     "Light brand-refresh/color.chart.categorical.5.hovered": {
       "attributes": {
@@ -2528,7 +2528,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.5."
       },
-      "value": "#1C2B42"
+      "value": "#123263"
     },
     "Light brand-refresh/color.chart.categorical.6": {
       "attributes": {
@@ -2537,7 +2537,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#BF63F3"
+      "value": "#964AC0"
     },
     "Light brand-refresh/color.chart.categorical.6.hovered": {
       "attributes": {
@@ -2546,7 +2546,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.6."
       },
-      "value": "#AF59E1"
+      "value": "#803FA5"
     },
     "Light brand-refresh/color.chart.categorical.7": {
       "attributes": {
@@ -2555,7 +2555,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#50253F"
+      "value": "#42B2D7"
     },
     "Light brand-refresh/color.chart.categorical.7.hovered": {
       "attributes": {
@@ -2564,7 +2564,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.7."
       },
-      "value": "#3D2232"
+      "value": "#2898BD"
     },
     "Light brand-refresh/color.chart.categorical.8": {
       "attributes": {
@@ -2573,7 +2573,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation only. Follow numbered sequence."
       },
-      "value": "#9E4C00"
+      "value": "#BD5B00"
     },
     "Light brand-refresh/color.chart.categorical.8.hovered": {
       "attributes": {
@@ -2582,7 +2582,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.categorical.8."
       },
-      "value": "#693200"
+      "value": "#9E4C00"
     },
     "Light brand-refresh/color.chart.lime.bold": {
       "attributes": {
@@ -3167,7 +3167,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation communicating negative information, such as 'off track'."
       },
-      "value": "#F15B50"
+      "value": "#E2483D"
     },
     "Light brand-refresh/color.chart.danger.hovered": {
       "attributes": {
@@ -3176,7 +3176,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.danger."
       },
-      "value": "#E2483D"
+      "value": "#C9372C"
     },
     "Light brand-refresh/color.chart.danger.bold": {
       "attributes": {
@@ -3203,7 +3203,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation communicating caution, such as 'at risk' statuses."
       },
-      "value": "#E06C00"
+      "value": "#F68909"
     },
     "Light brand-refresh/color.chart.warning.hovered": {
       "attributes": {
@@ -3212,7 +3212,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.warning."
       },
-      "value": "#BD5B00"
+      "value": "#E06C00"
     },
     "Light brand-refresh/color.chart.warning.bold": {
       "attributes": {
@@ -3221,7 +3221,7 @@
         "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.warning."
       },
-      "value": "#9E4C00"
+      "value": "#BD5B00"
     },
     "Light brand-refresh/color.chart.warning.bold.hovered": {
       "attributes": {
@@ -3230,7 +3230,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.warning.bold."
       },
-      "value": "#693200"
+      "value": "#9E4C00"
     },
     "Light brand-refresh/color.chart.success": {
       "attributes": {
@@ -3239,7 +3239,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation communicating positive information, such as 'on track'."
       },
-      "value": "#6A9A23"
+      "value": "#82B536"
     },
     "Light brand-refresh/color.chart.success.hovered": {
       "attributes": {
@@ -3248,7 +3248,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.success."
       },
-      "value": "#5B7F24"
+      "value": "#6A9A23"
     },
     "Light brand-refresh/color.chart.success.bold": {
       "attributes": {
@@ -3257,7 +3257,7 @@
         "introduced": "0.13.3",
         "description": "A stronger emphasis option of color.chart.success."
       },
-      "value": "#4C6B1F"
+      "value": "#5B7F24"
     },
     "Light brand-refresh/color.chart.success.bold.hovered": {
       "attributes": {
@@ -3266,7 +3266,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.success.bold."
       },
-      "value": "#37471F"
+      "value": "#4C6B1F"
     },
     "Light brand-refresh/color.chart.discovery": {
       "attributes": {
@@ -3311,7 +3311,7 @@
         "introduced": "0.13.3",
         "description": "For data visualisation communicating low priority or in-progress statuses."
       },
-      "value": "#4688EC"
+      "value": "#357DE8"
     },
     "Light brand-refresh/color.chart.information.hovered": {
       "attributes": {
@@ -3320,7 +3320,7 @@
         "introduced": "0.13.3",
         "description": "Hovered state of color.chart.information."
       },
-      "value": "#357DE8"
+      "value": "#1868DB"
     },
     "Light brand-refresh/color.chart.information.bold": {
       "attributes": {

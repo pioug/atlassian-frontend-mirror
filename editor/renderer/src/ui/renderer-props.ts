@@ -1,24 +1,24 @@
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { DocNode } from '@atlaskit/adf-schema';
+import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { ExtensionHandlers } from '@atlaskit/editor-common/extensions';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ADFStage } from '@atlaskit/editor-common/validator';
 import type { AnnotationProviders } from '@atlaskit/editor-common/types';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { UnsupportedContentLevelsTracking } from '@atlaskit/editor-common/utils';
+import type { ADFStage } from '@atlaskit/editor-common/validator';
+import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EmojiResourceConfig } from '@atlaskit/emoji/resource';
-import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { RendererContext } from '../';
+import type { TextHighlighter } from '../react/types';
 import type { RenderOutputStat } from '../render-document';
-import type {
-	RendererAppearance,
-	StickyHeaderProps,
-	HeadingAnchorLinksProps,
-	NodeComponentsProps,
-} from './Renderer/types';
 import type { MediaOptions } from '../types/mediaOptions';
 import type { SmartLinksOptions } from '../types/smartLinksOptions';
-import type { DocNode } from '@atlaskit/adf-schema';
-import type { TextHighlighter } from '../react/types';
+import type {
+	HeadingAnchorLinksProps,
+	NodeComponentsProps,
+	RendererAppearance,
+	StickyHeaderProps,
+} from './Renderer/types';
 
 interface RawObjectFeatureFlags {
 	['renderer-render-tracking']: string;
@@ -118,4 +118,5 @@ export interface RendererProps {
 	UNSTABLE_textHighlighter?: TextHighlighter;
 	UNSTABLE_allowTableAlignment?: boolean;
 	UNSTABLE_allowTableResizing?: boolean;
+	skipValidation?: boolean;
 }

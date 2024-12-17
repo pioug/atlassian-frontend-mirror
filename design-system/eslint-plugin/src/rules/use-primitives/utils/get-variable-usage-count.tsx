@@ -1,5 +1,7 @@
 import type { Rule } from 'eslint';
 
+import { getSourceCode } from '../../utils/context-compat';
+
 /**
  * TODO: Update this logic: https://product-fabric.atlassian.net/browse/DSP-16059
  * Using Regex here because otherwise we'd need to traverse the entire AST
@@ -13,7 +15,7 @@ export const getVariableUsagesCount = (
 		return 0;
 	}
 
-	const source = context.getSourceCode().text;
+	const source = getSourceCode(context).text;
 
 	const matches = Array.from(source.matchAll(new RegExp(`[^a-z]${variableName}[^a-z]`, 'g')));
 

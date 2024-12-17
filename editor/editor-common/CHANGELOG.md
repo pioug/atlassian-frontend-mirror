@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 96.5.5
+
+### Patch Changes
+
+- [#179495](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179495)
+  [`5df4aaaa16713`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5df4aaaa16713) -
+  [ux] Fixed resizing issue when layout is stacked on a narrow screen and resizer item gets
+  min-width bigger than max-width.
+
+## 96.5.4
+
+### Patch Changes
+
+- [#179422](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179422)
+  [`9ca38d44fc209`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ca38d44fc209) -
+  ED-26031-update-cursor-to-inherit-when-editing-lcm
+- Updated dependencies
+
+## 96.5.3
+
+### Patch Changes
+
+- [#179225](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179225)
+  [`a2dc4f719052a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2dc4f719052a) -
+  EDF-2051 Added analytics for Editor AI mention button in the command palette
+
 ## 96.5.2
 
 ### Patch Changes

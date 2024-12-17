@@ -8,6 +8,7 @@ import {
 } from 'eslint-codemod-utils';
 
 import * as ast from '../../../../ast-nodes';
+import { getScope, getSourceCode } from '../../../utils/context-compat';
 import { type RuleConfig } from '../../config';
 import {
 	getVariableDefinitionValue,
@@ -93,7 +94,7 @@ export const EmotionCSS = {
 
 		// Find where `myStyles` is defined. We're looking for `const myStyles = css({...})`
 		const cssVariableDefinition = getIdentifierInParentScope(
-			context.getScope(),
+			getScope(context, node),
 			cssAttrValue.value,
 		);
 
@@ -112,7 +113,7 @@ export const EmotionCSS = {
 		}
 
 		const importDeclaration = ast.Root.findImportsByModule(
-			context.getSourceCode().ast.body,
+			getSourceCode(context).ast.body,
 			'@atlaskit/primitives',
 		);
 

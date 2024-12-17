@@ -2,6 +2,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, type JSXAttribute } from 'eslint-codemod-utils';
 
+import { getSourceCode } from '../../utils/context-compat';
 import { getModuleOfIdentifier } from '../../utils/get-import-node-by-source';
 import { blockedJSXAttributeLookup } from '../shared/blocked';
 
@@ -53,7 +54,7 @@ function isOnBoxPrimitive(
 		return false;
 	}
 
-	const module = getModuleOfIdentifier(context.getSourceCode(), 'Box');
+	const module = getModuleOfIdentifier(getSourceCode(context), 'Box');
 
 	return module?.moduleName === '@atlaskit/primitives';
 }

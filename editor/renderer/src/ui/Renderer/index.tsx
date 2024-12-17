@@ -4,71 +4,72 @@
  */
 import React, {
 	Fragment,
-	useContext,
-	useLayoutEffect,
-	useRef,
 	PureComponent,
 	useCallback,
-	useMemo,
+	useContext,
 	useEffect,
+	useLayoutEffect,
+	useMemo,
+	useRef,
 } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { getSchemaBasedOnStage } from '@atlaskit/adf-schema/schema-default';
 import { ProviderFactory, ProviderFactoryProvider } from '@atlaskit/editor-common/provider-factory';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import {
-	UnsupportedBlock,
 	BaseTheme,
+	IntlErrorBoundary,
+	UnsupportedBlock,
 	WidthProvider,
 	WithCreateAnalyticsEvent,
-	IntlErrorBoundary,
 } from '@atlaskit/editor-common/ui';
+import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import { startMeasure, stopMeasure } from '@atlaskit/editor-common/performance-measures';
+import { getDistortedDurationMonitor } from '@atlaskit/editor-common/performance/measure-render';
+import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
 import {
 	getAnalyticsAppearance,
 	getAnalyticsEventSeverity,
 	shouldForceTracking,
 } from '@atlaskit/editor-common/utils';
-import { getDistortedDurationMonitor } from '@atlaskit/editor-common/performance/measure-render';
-import { browser } from '@atlaskit/editor-common/browser';
-import { getResponseEndTime } from '@atlaskit/editor-common/performance/navigation';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
-import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
 import { FabricChannel } from '@atlaskit/analytics-listeners/types';
 import { FabricEditorAnalyticsContext } from '@atlaskit/analytics-namespaced-context';
+import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
+import { normalizeFeatureFlags } from '@atlaskit/editor-common/normalize-feature-flags';
+import { akEditorFullPageDefaultFontSize } from '@atlaskit/editor-shared-styles';
+import memoizeOne from 'memoize-one';
 import uuid from 'uuid/v4';
 import type { MediaSSR, RendererContext } from '../../';
 import { ReactSerializer, renderDocument } from '../../';
+import AnalyticsContext from '../../analytics/analyticsContext';
+import type { AnalyticsEventPayload, FireAnalyticsCallback } from '../../analytics/events';
+import { MODE, PLATFORM } from '../../analytics/events';
+import type { ReactSerializerInit } from '../../react';
+import { EditorMediaClientProvider } from '../../react/utils/EditorMediaClientProvider';
+import { getActiveHeadingId, isNestedHeaderLinksEnabled } from '../../react/utils/links';
+import { RendererContextProvider, useRendererContext } from '../../renderer-context';
+import { findInTree } from '../../utils';
+import {
+	RendererContext as ActionsContext,
+	RendererActionsContext,
+} from '../RendererActionsContext';
+import { Provider as SmartCardStorageProvider } from '../SmartCardStorage';
+import { ActiveHeaderIdProvider } from '../active-header-id-provider';
+import { AnnotationsPositionContext, AnnotationsWrapper } from '../annotations';
+import type { RendererProps } from '../renderer-props';
+import { ErrorBoundary } from './ErrorBoundary';
+import { BreakoutSSRInlineScript } from './breakout-ssr';
+import { isInteractiveElement } from './click-to-edit';
+import { countNodes } from './count-nodes';
 import { TELEPOINTER_ID, rendererStyles } from './style';
 import { TruncatedWrapper } from './truncated-wrapper';
 import type { RendererAppearance } from './types';
-import { ACTION, ACTION_SUBJECT, EVENT_TYPE } from '@atlaskit/editor-common/analytics';
-import type { AnalyticsEventPayload, FireAnalyticsCallback } from '../../analytics/events';
-import { PLATFORM, MODE } from '../../analytics/events';
-import AnalyticsContext from '../../analytics/analyticsContext';
-import { Provider as SmartCardStorageProvider } from '../SmartCardStorage';
-import type { ReactSerializerInit } from '../../react';
-import { BreakoutSSRInlineScript } from './breakout-ssr';
-import {
-	RendererActionsContext,
-	RendererContext as ActionsContext,
-} from '../RendererActionsContext';
-import { ActiveHeaderIdProvider } from '../active-header-id-provider';
-import type { RendererProps } from '../renderer-props';
-import { AnnotationsPositionContext, AnnotationsWrapper } from '../annotations';
-import { getActiveHeadingId, isNestedHeaderLinksEnabled } from '../../react/utils/links';
-import { findInTree } from '../../utils';
-import { isInteractiveElement } from './click-to-edit';
-import { useRendererContext, RendererContextProvider } from '../../renderer-context';
-import memoizeOne from 'memoize-one';
-import { ErrorBoundary } from './ErrorBoundary';
-import { EditorMediaClientProvider } from '../../react/utils/EditorMediaClientProvider';
-import { countNodes } from './count-nodes';
 
 export const NORMAL_SEVERITY_THRESHOLD = 2000;
 export const DEGRADED_SEVERITY_THRESHOLD = 3000;
@@ -369,6 +370,7 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 			allowWrapCodeBlock,
 			allowCustomPanels,
 			media,
+			skipValidation,
 		} = this.props;
 
 		const rendererContext = this.createRendererContext(
@@ -444,6 +446,7 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 				this.props.unsupportedContentLevelsTracking,
 				this.props.appearance,
 				this.props.includeNodesCountInStats,
+				skipValidation,
 			);
 
 			if (onComplete) {
@@ -486,6 +489,7 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 											doc={pmDoc}
 											schema={schema}
 											onAnalyticsEvent={this.fireAnalyticsEvent}
+											skipValidation={skipValidation}
 										>
 											{result}
 										</RendererActionsInternalUpdater>
@@ -886,6 +890,7 @@ const RendererFunctionalComponent = (props: RendererProps & { startPos?: number 
 			props.unsupportedContentLevelsTracking,
 			props.appearance,
 			props.includeNodesCountInStats,
+			props.skipValidation,
 		);
 
 		if (props.onComplete) {
@@ -933,6 +938,7 @@ const RendererFunctionalComponent = (props: RendererProps & { startPos?: number 
 										doc={pmDoc}
 										schema={schema}
 										onAnalyticsEvent={fireAnalyticsEvent}
+										skipValidation={props.skipValidation}
 									>
 										{result}
 									</RendererActionsInternalUpdater>
@@ -1191,11 +1197,13 @@ function RendererActionsInternalUpdater({
 	doc,
 	schema,
 	onAnalyticsEvent,
+	skipValidation,
 }: {
 	doc?: PMNode;
 	schema: Schema;
 	children: JSX.Element | null;
 	onAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	skipValidation?: boolean;
 }) {
 	const rootRendererContextValue = React.useContext(RootRendererContext);
 	const actions = useContext(ActionsContext);
@@ -1220,13 +1228,13 @@ function RendererActionsInternalUpdater({
 
 	useLayoutEffect(() => {
 		if (_doc) {
-			actions._privateRegisterRenderer(rendererRef, _doc, schema, onAnalyticsEvent);
+			actions._privateRegisterRenderer(rendererRef, _doc, schema, onAnalyticsEvent, skipValidation);
 		} else {
 			actions._privateUnregisterRenderer();
 		}
 
 		return () => actions._privateUnregisterRenderer();
-	}, [actions, schema, _doc, onAnalyticsEvent]);
+	}, [actions, schema, _doc, onAnalyticsEvent, skipValidation]);
 
 	if (editorExperiment('comment_on_bodied_extensions', true)) {
 		return (

@@ -8,7 +8,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { changeColor } from './editor-commands';
+import { changeColor } from './editor-commands/change-color';
 import type { HighlightPlugin } from './highlightPluginType';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { createPlugin, highlightPluginKey } from './pm-plugins/main';

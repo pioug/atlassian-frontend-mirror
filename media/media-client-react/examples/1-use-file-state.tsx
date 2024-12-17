@@ -1,14 +1,11 @@
 import React, { type SyntheticEvent, useState } from 'react';
 
-import {
-	defaultCollectionName,
-	defaultMediaPickerAuthProvider,
-} from '@atlaskit/media-test-helpers';
+import { defaultCollectionName, mediaPickerAuthProvider } from '@atlaskit/media-test-helpers';
 
 import { MediaClientProvider, useFileState, useMediaClient } from '../src';
 
 const mediaClientConfig = {
-	authProvider: defaultMediaPickerAuthProvider(),
+	authProvider: mediaPickerAuthProvider(),
 };
 
 function App() {

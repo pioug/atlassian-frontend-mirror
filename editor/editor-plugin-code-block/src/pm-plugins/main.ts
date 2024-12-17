@@ -7,6 +7,7 @@ import { blockTypeMessages } from '@atlaskit/editor-common/messages';
 import type { getPosHandler } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
+import { findCodeBlock } from '@atlaskit/editor-common/transforms';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -31,11 +32,7 @@ import {
 } from './decorators';
 import { type CodeBlockState } from './main-state';
 import { pluginKey } from './plugin-key';
-import {
-	findCodeBlock,
-	getAllChangedCodeBlocksInTransaction,
-	getAllCodeBlockNodesInDoc,
-} from './utils';
+import { getAllChangedCodeBlocksInTransaction, getAllCodeBlockNodesInDoc } from './utils';
 
 export const createPlugin = ({
 	useLongPressSelection = false,

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon",
-	"version": "23.1.0",
+	"version": "23.1.1",
 	"description": "An icon is a symbol representing a command, device, directory, or common action.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -68,7 +68,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tokens": "^2.4.0",
+		"@atlaskit/tokens": "^2.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -94,7 +94,7 @@
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@babel/core": "7.24.9",
-		"@emotion/babel-preset-css-prop": "^10.0.7",
+		"@emotion/babel-preset-css-prop": "^11.11.0",
 		"@testing-library/react": "^12.1.5",
 		"classnames": "^2.2.5",
 		"fs-extra": "^4.0.2",

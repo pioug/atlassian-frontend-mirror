@@ -1,5 +1,11 @@
 # @atlaskit/rovo-agent-components
 
+## 1.15.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.15.0
 
 ### Minor Changes

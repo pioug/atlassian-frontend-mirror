@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.0.1
+
+### Patch Changes
+
+- [`2034d96c50c40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2034d96c50c40) -
+  fixed backwards compatibility with older versions of eslint
+
 ## 2.0.0
 
 ### Major Changes

@@ -1,5 +1,6 @@
 import { isNodeOfType, type Node } from 'eslint-codemod-utils';
 
+import { getSourceCode } from '../utils/context-compat';
 import { createLintRule } from '../utils/create-rule';
 import { getModuleOfIdentifier } from '../utils/get-import-node-by-source';
 import { getJSXElementName } from '../utils/jsx';
@@ -39,7 +40,7 @@ const rule = createLintRule({
 					return;
 				}
 
-				const moduleName = getModuleOfIdentifier(context.getSourceCode(), firstArgument.name);
+				const moduleName = getModuleOfIdentifier(getSourceCode(context), firstArgument.name);
 
 				if (!moduleName || !moduleName.moduleName.startsWith('@atlaskit')) {
 					// Ignore styled calls with non-atlaskit components.
@@ -61,7 +62,7 @@ const rule = createLintRule({
 				}
 
 				const elementName = getJSXElementName(node.parent);
-				const moduleName = getModuleOfIdentifier(context.getSourceCode(), elementName);
+				const moduleName = getModuleOfIdentifier(getSourceCode(context), elementName);
 
 				if (!moduleName || !moduleName.moduleName.startsWith('@atlaskit')) {
 					return;

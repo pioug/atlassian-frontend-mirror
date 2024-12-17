@@ -9,7 +9,6 @@ import {
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import TableNodeView from './TableNodeViewBase';
 
@@ -55,10 +54,7 @@ export default class TableCell extends TableNodeView<HTMLElement> implements Nod
 		// This is a workaround to fix those cases on the fly. Note it is super specific on purpose
 		// so that it just fixes the heading token (other tokens should be unaffected)
 		// At some point in the future
-		if (
-			cssVariablePattern.test(node.attrs.background) &&
-			fg('platform_editor_dark_mode_cell_header_color_fix')
-		) {
+		if (cssVariablePattern.test(node.attrs.background)) {
 			this.delayHandle = delayUntilIdle(() => {
 				const pos = getPos();
 				if (pos) {

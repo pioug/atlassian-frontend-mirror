@@ -17,7 +17,9 @@ jest.mock('../../utils', () => ({
 }));
 
 const dummyContext = {
-	getScope: jest.fn(),
+	sourceCode: {
+		getScope: () => ({}),
+	},
 } as any as Rule.RuleContext;
 const mockFixer = {
 	replaceText: jest.fn(),

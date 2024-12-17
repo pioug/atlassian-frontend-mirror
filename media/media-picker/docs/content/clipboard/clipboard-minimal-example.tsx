@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { defaultMediaPickerAuthProvider } from '@atlaskit/media-test-helpers';
+import { mediaPickerAuthProvider } from '@atlaskit/media-test-helpers';
 import { type ClipboardConfig } from '@atlaskit/media-picker/types';
 import { Clipboard } from '@atlaskit/media-picker';
 import { MediaClient, type FileIdentifier } from '@atlaskit/media-client';
@@ -7,7 +7,7 @@ import { type UploadEndEventPayload } from '../../../src/types';
 import { NativeMediaViewer } from '../../../example-helpers/NativeMediaViewer';
 
 const mediaClient = new MediaClient({
-	authProvider: defaultMediaPickerAuthProvider(),
+	authProvider: mediaPickerAuthProvider(),
 });
 
 const ClipBoardExample = () => {

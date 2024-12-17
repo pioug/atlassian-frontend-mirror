@@ -13,6 +13,8 @@ import { isXcss } from '@atlaskit/eslint-utils/is-supported-import';
 
 import { Root } from '../../ast-nodes';
 
+import { getSourceCode } from './context-compat';
+
 export const isDecendantOfGlobalToken = (node: EslintNode): boolean => {
 	if (
 		isNodeOfType(node, 'CallExpression') &&
@@ -87,7 +89,7 @@ export const isDecendantOfPrimitive = (node: Rule.Node, context: Rule.RuleContex
 		// @ts-ignore
 		if (primitivesToCheck.includes(node.openingElement.name.name)) {
 			const importDeclaration = Root.findImportsByModule(
-				context.getSourceCode().ast.body,
+				getSourceCode(context).ast.body,
 				'@atlaskit/primitives',
 			);
 			if (importDeclaration.length) {

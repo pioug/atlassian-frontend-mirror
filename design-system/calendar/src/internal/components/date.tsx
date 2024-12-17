@@ -7,7 +7,7 @@ import { forwardRef, memo, useCallback, useEffect, useRef } from 'react';
 import { css, jsx } from '@compiled/react';
 
 import noop from '@atlaskit/ds-lib/noop';
-import { Grid } from '@atlaskit/primitives';
+import { Grid } from '@atlaskit/primitives/compiled';
 import { B200, B400, B50, N0, N200, N30, N40, N500, N600, N900 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

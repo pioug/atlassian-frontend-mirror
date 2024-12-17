@@ -4,7 +4,7 @@ import type { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
 
-import { changeColor } from '../../editor-commands';
+import { changeColor } from '../../editor-commands/change-color';
 import type { HighlightPlugin } from '../../highlightPluginType';
 
 type UseDropdownEventArgs = {

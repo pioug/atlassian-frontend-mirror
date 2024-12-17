@@ -1,5 +1,14 @@
 # @atlaskit/icon
 
+## 23.1.1
+
+### Patch Changes
+
+- [#179351](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179351)
+  [`96a92733114df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/96a92733114df) -
+  Upgraded dev dependency '@emotion/babel-preset-css-prop' from '^10.0.7' to '^11.11.0'
+- Updated dependencies
+
 ## 23.1.0
 
 ### Minor Changes

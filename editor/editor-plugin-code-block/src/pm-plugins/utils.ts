@@ -1,8 +1,3 @@
-export {
-	findCodeBlock,
-	transformSliceToJoinAdjacentCodeBlocks,
-	transformSingleLineCodeBlockToCodeMark,
-} from '@atlaskit/editor-common/transforms';
 import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,

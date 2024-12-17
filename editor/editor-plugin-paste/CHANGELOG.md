@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.0.9
+
+### Patch Changes
+
+- [#179922](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179922)
+  [`3fac1d870e06c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fac1d870e06c) -
+  [ux] ED-25985 Table pasting logic for nested tables - prevents pasted tables from exceeding
+  nesting depth of 1 by either flattening deeply nested tables or moving the paste location to under
+  the destination table
+
 ## 2.0.8
 
 ### Patch Changes

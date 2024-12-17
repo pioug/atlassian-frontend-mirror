@@ -2,6 +2,7 @@
 import type { Rule } from 'eslint';
 import { type CallExpression, isNodeOfType } from 'eslint-codemod-utils';
 
+import { getSourceCode } from '../../utils/context-compat';
 import { getModuleOfIdentifier } from '../../utils/get-import-node-by-source';
 import { isBlockedEventBinding } from '../shared/is-blocked-event-binding';
 
@@ -16,7 +17,7 @@ export function isBlockedBind(context: Rule.RuleContext, node: CallExpression): 
 		return false;
 	}
 
-	const module = getModuleOfIdentifier(context.getSourceCode(), 'bind');
+	const module = getModuleOfIdentifier(getSourceCode(context), 'bind');
 
 	if (module?.moduleName !== 'bind-event-listener') {
 		return false;

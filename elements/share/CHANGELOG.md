@@ -1,5 +1,14 @@
 # @atlaskit/share
 
+## 4.23.6
+
+### Patch Changes
+
+- [#179922](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179922)
+  [`c0736bfffd63a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c0736bfffd63a) -
+  Internal changes to typography styles. There may be some minor visual changes to align with
+  modernized typography styles.
+
 ## 4.23.5
 
 ### Patch Changes

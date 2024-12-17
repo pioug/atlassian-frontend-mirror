@@ -5,6 +5,8 @@ import {
 	type SupportedNameChecker,
 } from '@atlaskit/eslint-utils/is-supported-import';
 
+import { getScope, getSourceCode } from '../context-compat';
+
 import { checkIfSupportedExport } from './check-if-supported-export';
 
 type RuleModule = Rule.RuleModule;
@@ -28,14 +30,14 @@ export const createNoExportedRule =
 	(context) => {
 		const importSources = getImportSources(context);
 
-		const { text } = context.getSourceCode();
+		const { text } = getSourceCode(context);
 		if (importSources.every((importSource) => !text.includes(importSource))) {
 			return {};
 		}
 
 		return {
 			CallExpression(node) {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 				if (!isUsage(node.callee, references, importSources)) {
 					return;
 				}
@@ -51,7 +53,7 @@ export const createNoExportedRule =
 				});
 			},
 			TaggedTemplateExpression(node) {
-				const { references } = context.getScope();
+				const { references } = getScope(context, node);
 				if (!isUsage(node.tag, references, importSources)) {
 					return;
 				}

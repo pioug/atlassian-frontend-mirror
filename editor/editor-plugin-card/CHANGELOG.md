@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-card
 
+## 4.5.7
+
+### Patch Changes
+
+- [#179137](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179137)
+  [`163478624d145`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/163478624d145) -
+  Update embedCard component to avoid rerenderings when editor gets disabled
+- Updated dependencies
+
 ## 4.5.6
 
 ### Patch Changes

@@ -1,6 +1,29 @@
 import type { Node as PmNode, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 export function calcTableColumnWidths(node: PmNode): number[] {
+	if (fg('platform_editor_table_row_span_fix')) {
+		const firstRow = node.firstChild;
+		let tableColumnWidths: Array<number> = [];
+
+		if (firstRow) {
+			firstRow.forEach((cell) => {
+				const { colspan, colwidth } = cell.attrs;
+				// column has been resized, colWidth will be an array, can safely take values even if cell is merged
+				if (Array.isArray(colwidth)) {
+					tableColumnWidths.push(...colwidth);
+					// table has merged cells but no colWidth, so columns haven't been resized, default to 0
+				} else if (colspan > 1) {
+					tableColumnWidths.push(...Array(colspan).fill(0));
+					// no merged cells, no column resized, default to 0
+				} else {
+					tableColumnWidths.push(0);
+				}
+			});
+		}
+		return tableColumnWidths;
+	}
+
 	let tableColumnWidths: Array<number> = [];
 	const firstRow = node.firstChild;
 

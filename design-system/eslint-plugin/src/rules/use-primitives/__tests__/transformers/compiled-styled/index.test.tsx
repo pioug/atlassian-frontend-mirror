@@ -10,8 +10,7 @@ jest.mock('eslint-codemod-utils', () => ({
 }));
 
 const dummyContext = {
-	getScope: jest.fn(),
-	getSourceCode: () => ({ ast: { body: [] } }),
+	sourceCode: { ast: { body: [] }, getScope: () => ({}) },
 } as any as Rule.RuleContext;
 const mockFixer = {
 	replaceText: jest.fn(),

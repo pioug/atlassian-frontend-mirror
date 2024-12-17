@@ -1,5 +1,12 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.6.0
+
+### Minor Changes
+
+- [`2034d96c50c40`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2034d96c50c40) -
+  support eslint v9
+
 ## 11.5.0
 
 ### Minor Changes

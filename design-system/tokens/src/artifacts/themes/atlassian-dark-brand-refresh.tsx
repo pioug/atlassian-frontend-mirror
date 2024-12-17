@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::9ce982d5755939970cf54305cd8c2c29>>
+ * @codegen <<SignedSource::79c6a5e270639e09058c67c298dbdce4>>
  * @codegenCommand yarn build tokens
  */
 export default `
@@ -278,22 +278,22 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-interaction-pressed: #ffffff5c;
   --ds-skeleton: #CECED912;
   --ds-skeleton-subtle: #BDBDBD0A;
-  --ds-chart-categorical-1: #2898BD;
-  --ds-chart-categorical-1-hovered: #42B2D7;
-  --ds-chart-categorical-2: #D8A0F7;
-  --ds-chart-categorical-2-hovered: #EED7FC;
-  --ds-chart-categorical-3: #E06C00;
-  --ds-chart-categorical-3-hovered: #F68909;
-  --ds-chart-categorical-4: #F797D2;
-  --ds-chart-categorical-4-hovered: #FDD0EC;
-  --ds-chart-categorical-5: #CFE1FD;
-  --ds-chart-categorical-5-hovered: #E9F2FE;
-  --ds-chart-categorical-6: #AF59E1;
-  --ds-chart-categorical-6-hovered: #BF63F3;
-  --ds-chart-categorical-7: #FDD0EC;
-  --ds-chart-categorical-7-hovered: #FFECF8;
-  --ds-chart-categorical-8: #FBC828;
-  --ds-chart-categorical-8-hovered: #FCE4A6;
+  --ds-chart-categorical-1: #4688EC;
+  --ds-chart-categorical-1-hovered: #669DF1;
+  --ds-chart-categorical-2: #94C748;
+  --ds-chart-categorical-2-hovered: #B3DF72;
+  --ds-chart-categorical-3: #C97CF4;
+  --ds-chart-categorical-3-hovered: #D8A0F7;
+  --ds-chart-categorical-4: #FCA700;
+  --ds-chart-categorical-4-hovered: #FBC828;
+  --ds-chart-categorical-5: #1558BC;
+  --ds-chart-categorical-5-hovered: #1868DB;
+  --ds-chart-categorical-6: #964AC0;
+  --ds-chart-categorical-6-hovered: #AF59E1;
+  --ds-chart-categorical-7: #42B2D7;
+  --ds-chart-categorical-7-hovered: #6CC3E0;
+  --ds-chart-categorical-8: #E06C00;
+  --ds-chart-categorical-8-hovered: #F68909;
   --ds-chart-lime-bold: #82B536;
   --ds-chart-lime-bold-hovered: #94C748;
   --ds-chart-lime-bolder: #94C748;
@@ -360,22 +360,22 @@ html[data-color-mode="dark"][data-theme~="dark:dark"] {
   --ds-chart-brand-hovered: #669DF1;
   --ds-chart-danger: #E2483D;
   --ds-chart-danger-hovered: #F15B50;
-  --ds-chart-danger-bold: #FD9891;
-  --ds-chart-danger-bold-hovered: #FFD5D2;
-  --ds-chart-warning: #FCA700;
-  --ds-chart-warning-hovered: #FBC828;
-  --ds-chart-warning-bold: #FCE4A6;
-  --ds-chart-warning-bold-hovered: #FFF5DB;
+  --ds-chart-danger-bold: #F87168;
+  --ds-chart-danger-bold-hovered: #FD9891;
+  --ds-chart-warning: #F68909;
+  --ds-chart-warning-hovered: #FCA700;
+  --ds-chart-warning-bold: #FBC828;
+  --ds-chart-warning-bold-hovered: #FCE4A6;
   --ds-chart-success: #82B536;
   --ds-chart-success-hovered: #94C748;
   --ds-chart-success-bold: #B3DF72;
   --ds-chart-success-bold-hovered: #D3F1A7;
-  --ds-chart-discovery: #AF59E1;
-  --ds-chart-discovery-hovered: #BF63F3;
+  --ds-chart-discovery: #BF63F3;
+  --ds-chart-discovery-hovered: #C97CF4;
   --ds-chart-discovery-bold: #D8A0F7;
   --ds-chart-discovery-bold-hovered: #EED7FC;
-  --ds-chart-information: #357DE8;
-  --ds-chart-information-hovered: #4688EC;
+  --ds-chart-information: #4688EC;
+  --ds-chart-information-hovered: #669DF1;
   --ds-chart-information-bold: #8FB8F6;
   --ds-chart-information-bold-hovered: #CFE1FD;
   --ds-surface: #1F1F21;

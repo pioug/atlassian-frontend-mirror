@@ -5,7 +5,6 @@ import styled from '@emotion/styled';
 
 import { N100A, N20 } from '@atlaskit/theme/colors';
 import { layers as akLayers } from '@atlaskit/theme/constants';
-import { h500 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 // @atlaskit/navigation has a specific z-index, so we need to layer the header
@@ -115,17 +114,8 @@ export const FakeBlanket = styled.div<{
 
 // use proper h1 and header styles but for mobile we don't want a top margin
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const PageHeading = styled.h1(
-	{
-		flexGrow: 1,
-		marginLeft: token('space.100', '8px'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	h500,
-	{
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-		'&&': {
-			marginTop: 0,
-		},
-	},
-);
+export const PageHeading = styled.h1({
+	flexGrow: 1,
+	marginLeft: token('space.100', '8px'),
+	font: token('font.heading.small'),
+});

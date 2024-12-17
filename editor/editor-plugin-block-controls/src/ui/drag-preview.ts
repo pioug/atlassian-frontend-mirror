@@ -3,18 +3,20 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { B200, N20, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-const previewStyle = {
-	// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
-	borderColor: fg('platform_editor_elements_drag_and_drop_ed_23189')
-		? token('color.border', N30)
-		: token('color.border.focused', B200),
+const previewStyleNew = {
+	borderColor: token('color.border', N30),
 	borderStyle: 'solid',
 	borderRadius: token('border.radius.100', '3px'),
 	borderWidth: token('border.width.outline', '2px'),
-	// eslint-disable-next-line @atlaskit/platform/no-module-level-eval
-	backgroundColor: fg('platform_editor_elements_drag_and_drop_ed_23189')
-		? token('color.skeleton.subtle', N20)
-		: token('color.blanket.selected', '#388BFF14'),
+	backgroundColor: token('color.skeleton.subtle', N20),
+};
+
+const previewStyleOld = {
+	borderColor: token('color.border.focused', B200),
+	borderStyle: 'solid',
+	borderRadius: token('border.radius.100', '3px'),
+	borderWidth: token('border.width.outline', '2px'),
+	backgroundColor: token('color.blanket.selected', '#388BFF14'),
 };
 
 export const dragPreview = (container: HTMLElement, dom: HTMLElement, nodeType: string) => {
@@ -41,6 +43,10 @@ export const dragPreview = (container: HTMLElement, dom: HTMLElement, nodeType: 
 	const nodeContainerRect = nodeContainer.getBoundingClientRect();
 	container.style.width = `${nodeContainerRect.width}px`;
 	container.style.height = `${nodeContainerRect.height}px`;
+
+	const previewStyle = fg('platform_editor_elements_drag_and_drop_ed_23189')
+		? previewStyleNew
+		: previewStyleOld;
 
 	if (shouldBeGenericPreview) {
 		parent.style.border = `${previewStyle.borderWidth} ${previewStyle.borderStyle} ${previewStyle.borderColor}`;

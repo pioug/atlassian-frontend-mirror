@@ -2,6 +2,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType } from 'eslint-codemod-utils';
 
+import { getScope } from '../../../utils/context-compat';
 import { getJsxElementByName } from '../../utils/get-jsx-element-by-name';
 import { isSupportedForLint } from '../supported';
 
@@ -30,7 +31,7 @@ export const StyledComponent = {
 			return;
 		}
 
-		const jsxElement = getJsxElementByName(styles.id.name, context.getScope())?.parent;
+		const jsxElement = getJsxElementByName(styles.id.name, getScope(context, node))?.parent;
 
 		if (!jsxElement) {
 			// If there's no JSX element, we can't determine if it's being used as a button or not

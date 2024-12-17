@@ -40,8 +40,6 @@ import type { LayoutState } from './pm-plugins/types';
 import { GlobalStylesWrapper } from './ui/global-styles';
 import { buildToolbar } from './ui/toolbar';
 
-export { pluginKey };
-
 export const layoutPlugin: LayoutPlugin = ({ config: options = {}, api }) => ({
 	name: 'layout',
 

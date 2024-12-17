@@ -43,10 +43,10 @@ describe('Primitives', () => {
 					);
 
 					const anchor = screen.getByTestId('anchor');
-					expect(anchor).toHaveAccessibleName(`Atlassian website ${OPENS_NEW_WINDOW_LABEL}`);
+					expect(anchor).toHaveAccessibleName(`Atlassian website , ${OPENS_NEW_WINDOW_LABEL}`);
 
 					// Check for visually hidden styles
-					const hiddenText = screen.getByText(OPENS_NEW_WINDOW_LABEL);
+					const hiddenText = screen.getByText(`, ${OPENS_NEW_WINDOW_LABEL}`);
 					expect(hiddenText).toHaveStyleDeclaration('width', '1px');
 					expect(hiddenText).toHaveStyleDeclaration('height', '1px');
 					expect(hiddenText).toHaveStyleDeclaration('position', 'absolute');
@@ -79,7 +79,7 @@ describe('Primitives', () => {
 					);
 
 					const anchor = screen.getByTestId('anchor');
-					expect(anchor).toHaveAccessibleName(`Confluence ${OPENS_NEW_WINDOW_LABEL}`);
+					expect(anchor).toHaveAccessibleName(`Confluence , ${OPENS_NEW_WINDOW_LABEL}`);
 				});
 
 				it('to `aria-label` when `children` has content', () => {
@@ -118,13 +118,13 @@ describe('Primitives', () => {
 					);
 
 					const anchor = screen.getByTestId('anchor');
-					expect(anchor).toHaveAccessibleName(`Loom ${OPENS_NEW_WINDOW_LABEL}`);
+					expect(anchor).toHaveAccessibleName(`Loom , ${OPENS_NEW_WINDOW_LABEL}`);
 
 					// The label should be added as visually hidden text, with an ID used by `aria-labelledby`
 					expect(anchor).toHaveTextContent(OPENS_NEW_WINDOW_LABEL);
 
 					// Check for visually hidden styles
-					const hiddenText = screen.getByText(OPENS_NEW_WINDOW_LABEL);
+					const hiddenText = screen.getByText(`, ${OPENS_NEW_WINDOW_LABEL}`);
 					expect(hiddenText).toHaveStyleDeclaration('width', '1px');
 					expect(hiddenText).toHaveStyleDeclaration('height', '1px');
 					expect(hiddenText).toHaveStyleDeclaration('position', 'absolute');

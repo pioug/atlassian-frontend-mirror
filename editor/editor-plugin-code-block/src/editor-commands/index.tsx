@@ -17,6 +17,7 @@ import {
 	contentAllowedInCodeBlock,
 	shouldSplitSelectedNodeOnNodeInsertion,
 } from '@atlaskit/editor-common/insert';
+import { findCodeBlock } from '@atlaskit/editor-common/transforms';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -35,7 +36,6 @@ import { copySelectionPluginKey } from '../pm-plugins/codeBlockCopySelectionPlug
 import { type CodeBlockState } from '../pm-plugins/main-state';
 import { pluginKey } from '../pm-plugins/plugin-key';
 import { transformToCodeBlockAction } from '../pm-plugins/transform-to-code-block';
-import { findCodeBlock } from '../pm-plugins/utils';
 
 export const removeCodeBlock: Command = (state, dispatch) => {
 	const {

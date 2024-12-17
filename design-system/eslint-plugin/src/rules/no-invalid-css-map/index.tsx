@@ -7,6 +7,7 @@ import {
 	isCssMap,
 } from '@atlaskit/eslint-utils/is-supported-import';
 
+import { getScope, getSourceCode } from '../utils/context-compat';
 import { checkIfSupportedExport } from '../utils/create-no-exported-rule/check-if-supported-export';
 import { createLintRule } from '../utils/create-rule';
 
@@ -49,14 +50,14 @@ const reportIfNotTopLevelScope = (node: CallExpression, context: Rule.RuleContex
 };
 
 const createCssMapRule = (context: Rule.RuleContext): Rule.RuleListener => {
-	const { text } = context.getSourceCode();
+	const { text } = getSourceCode(context);
 	if (IMPORT_SOURCES.every((importSource) => !text.includes(importSource))) {
 		return {};
 	}
 
 	return {
 		CallExpression(node) {
-			const references = context.getScope().references;
+			const references = getScope(context, node).references;
 
 			if (!isCssMap(node.callee, references, IMPORT_SOURCES)) {
 				return;

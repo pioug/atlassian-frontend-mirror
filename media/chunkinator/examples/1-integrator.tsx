@@ -3,79 +3,96 @@ import { Subject } from 'rxjs/Subject';
 import { takeUntil } from 'rxjs/operators/takeUntil';
 import { smallImage } from '@atlaskit/media-common/test-helpers';
 import { chunkinator, type Chunk, type ChunkinatorFile } from '../src';
-import config from '../example-helpers/config';
+import {
+	transformAuthHeaders,
+	createAuthSession,
+	mediaBaseUrl,
+	type AuthSessionHelper,
+} from '../example-helpers/authProvider';
 import { sha1Hasher } from '../example-helpers/Sha1Hasher';
 
-const authHeaders = {
-	Authorization: `Bearer ${config.token}`,
-	'X-Client-Id': config.clientId,
+const createUploadingFunction = (
+	deferredUploadId: Promise<string>,
+	authSession: AuthSessionHelper,
+) => {
+	return async (hashedBlob: Chunk) => {
+		const uploadId = await deferredUploadId;
+		await fetch(
+			`${mediaBaseUrl}/chunk/${hashedBlob.hash}?uploadId=${uploadId}&partNumber=${hashedBlob.partNumber}`,
+			{
+				method: 'PUT',
+				mode: 'cors',
+				headers: new Headers({
+					'Content-Type': 'binary/octet-stream',
+					...transformAuthHeaders(authSession),
+				}),
+				body: hashedBlob.blob,
+			},
+		);
+	};
 };
 
-const uploadingFunction = async (hashedBlob: Chunk) => {
-	await fetch(`${config.host}/chunk/${hashedBlob.hash}`, {
-		method: 'PUT',
-		mode: 'cors',
-		headers: new Headers({
-			'Content-Type': 'binary/octet-stream',
-			...authHeaders,
-		}),
-		body: hashedBlob.blob,
-	});
-};
-
-const createUpload = async () => {
-	const response = await fetch(`${config.host}/upload?createUpTo=1`, {
+const createUpload = async (authSession: AuthSessionHelper) => {
+	const response = await fetch(`${mediaBaseUrl}/upload?createUpTo=1`, {
 		method: 'POST',
 		mode: 'cors',
 		headers: new Headers({
 			'Content-Type': 'application/json',
-			...authHeaders,
+			...transformAuthHeaders(authSession),
 		}),
 	});
 	const json = await response.json();
 	return json.data[0].id;
 };
 
-const createProcessingFunction = (whenUploadId: Promise<string>) => {
+const createProcessingFunction = (
+	whenUploadId: Promise<string>,
+	authSession: AuthSessionHelper,
+) => {
 	let chunkOffset = 0;
 	return async (blobs: Chunk[]) => {
 		const uploadId = await whenUploadId;
-		await appendChunksToUpload(uploadId, blobs, chunkOffset);
+		await appendChunksToUpload(uploadId, blobs, chunkOffset, authSession);
 		chunkOffset += blobs.length;
 	};
 };
 
-const appendChunksToUpload = (uploadId: string, chunks: Chunk[], offset: number) => {
+const appendChunksToUpload = async (
+	uploadId: string,
+	chunks: Chunk[],
+	offset: number,
+	authSession: AuthSessionHelper,
+) => {
 	const body = JSON.stringify({
 		chunks: chunks.map((chunk) => chunk.hash),
 		offset,
 	});
 
-	return fetch(`${config.host}/upload/${uploadId}/chunks`, {
+	return fetch(`${mediaBaseUrl}/upload/${uploadId}/chunks`, {
 		method: 'PUT',
 		mode: 'cors',
 		body,
 		headers: new Headers({
 			'Content-Type': 'application/json',
-			...authHeaders,
+			...transformAuthHeaders(authSession),
 		}),
 	}).then(() => {
 		console.log(`${chunks.length} chunks has been appended`);
 	});
 };
 
-const createFile = (uploadId: string) => {
+const createFile = async (uploadId: string, authSession: AuthSessionHelper) => {
 	const body = JSON.stringify({
 		uploadId,
 	});
 
-	return fetch(`${config.host}/file/upload`, {
+	return fetch(`${mediaBaseUrl}/file/upload`, {
 		method: 'POST',
 		mode: 'cors',
 		body,
 		headers: new Headers({
 			'Content-Type': 'application/json',
-			...authHeaders,
+			...transformAuthHeaders(authSession),
 		}),
 	})
 		.then((r) => r.json())
@@ -86,13 +103,13 @@ const createFile = (uploadId: string) => {
 		});
 };
 
-const fetchFile = (id: string) => {
-	return fetch(`${config.host}/file/${id}`, {
+const fetchFile = async (id: string, authSession: AuthSessionHelper) => {
+	return fetch(`${mediaBaseUrl}/file/${id}`, {
 		method: 'GET',
 		mode: 'cors',
 		headers: new Headers({
 			'Content-Type': 'application/json',
-			...authHeaders,
+			...transformAuthHeaders(authSession),
 		}),
 	})
 		.then((r) => r.json())
@@ -101,17 +118,16 @@ const fetchFile = (id: string) => {
 			console.log('processingStatus', id, processingStatus);
 
 			if (processingStatus === 'pending') {
-				setTimeout(() => fetchFile(id), 1000);
+				setTimeout(() => fetchFile(id, authSession), 1000);
 			} else {
-				displayImage(id);
+				displayImage(id, authSession);
 			}
 		});
 };
 
-const displayImage = (id: string) => {
+const displayImage = async (id: string, authSession: AuthSessionHelper) => {
 	const img = document.createElement('img');
-
-	img.src = `${config.host}/file/${id}/image?client=${config.clientId}&token=${config.token}&width=600`;
+	img.src = `${mediaBaseUrl}/file/${id}/image?client=${authSession.clientId}&token=${authSession.token}&width=600`;
 
 	document.body.appendChild(img);
 };
@@ -121,19 +137,20 @@ const chunkinate = async (
 	cancelSubject: Subject<void>,
 	batchSizeInput: string,
 ) => {
-	const deferredUploadId = createUpload();
+	const authSession = await createAuthSession();
+	const deferredUploadId = createUpload(authSession);
 	const processingBatchSize = parseInt(batchSizeInput);
 	try {
 		const chunkinatorObservable = chunkinator(
 			blob,
 			{
 				hashingConcurrency: 5,
-				chunkSize: 10000,
+				chunkSize: 1024 * 1024 * 5,
 				uploadingConcurrency: 3,
-				uploadingFunction,
+				uploadingFunction: createUploadingFunction(deferredUploadId, authSession),
 				hashingFunction: sha1Hasher,
 				processingBatchSize,
-				processingFunction: createProcessingFunction(deferredUploadId),
+				processingFunction: createProcessingFunction(deferredUploadId, authSession),
 			},
 			{
 				onProgress(progress) {
@@ -145,8 +162,8 @@ const chunkinate = async (
 		await chunkinatorObservable.pipe(takeUntil(cancelSubject)).toPromise();
 
 		const uploadId = await deferredUploadId;
-		const fileId = await createFile(uploadId);
-		await fetchFile(fileId);
+		const fileId = await createFile(uploadId, authSession);
+		await fetchFile(fileId, authSession);
 	} catch (e) {
 		console.log('error', e);
 	}

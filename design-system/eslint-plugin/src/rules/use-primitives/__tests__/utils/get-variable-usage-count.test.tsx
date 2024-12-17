@@ -10,9 +10,9 @@ describe('getVariableUsagesCount', () => {
 
 		const result = getVariableUsagesCount('paddingStyles', {
 			// @ts-expect-error simplified object
-			getSourceCode: () => ({
+			sourceCode: {
 				text: source,
-			}),
+			},
 		});
 
 		expect(result).toEqual(1);
@@ -27,9 +27,9 @@ describe('getVariableUsagesCount', () => {
 
 		const result = getVariableUsagesCount('notUsedStyles', {
 			// @ts-expect-error simplified object
-			getSourceCode: () => ({
+			sourceCode: {
 				text: source,
-			}),
+			},
 		});
 
 		expect(result).toEqual(0);
@@ -46,17 +46,17 @@ describe('getVariableUsagesCount', () => {
 
 		const ourCount = getVariableUsagesCount('ourStyles', {
 			// @ts-expect-error simplified object
-			getSourceCode: () => ({
+			sourceCode: {
 				text: source,
-			}),
+			},
 		});
 		expect(ourCount).toEqual(1);
 
 		const yourCount = getVariableUsagesCount('yourStyles', {
 			// @ts-expect-error simplified object
-			getSourceCode: () => ({
+			sourceCode: {
 				text: source,
-			}),
+			},
 		});
 		expect(yourCount).toEqual(1);
 	});

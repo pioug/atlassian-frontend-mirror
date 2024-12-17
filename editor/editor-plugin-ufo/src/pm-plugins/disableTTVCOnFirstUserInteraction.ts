@@ -70,6 +70,9 @@ const ttvcAbort = () => {
 };
 
 export const disableTTVCOnFirstUserInteraction = () => {
+	if (typeof window.AbortController !== 'function') {
+		return;
+	}
 	const unbindCallbacks: Set<() => void> = new Set();
 	const controller = new AbortController();
 	const unbindFirstInteractionEvents = () => {

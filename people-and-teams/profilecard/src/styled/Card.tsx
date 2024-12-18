@@ -7,7 +7,7 @@ import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { B200, N50A, N60A } from '@atlaskit/theme/colors';
-import { borderRadius, fontSize, fontSizeSmall, gridSize } from '@atlaskit/theme/constants';
+import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -173,7 +173,7 @@ export const DetailsGroup = styled.div`
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DisabledInfo = styled.div`
-	font-size: ${fontSizeSmall()}px;
+	font: ${token('font.body.small')};
 	color: ${labelTextColor};
 	margin: ${token('space.150', '12px')} 0 0 0;
 	line-height: 16px;
@@ -225,10 +225,9 @@ export const JobTitleLabel = styled.span`
 	text-overflow: ellipsis;
 	white-space: nowrap;
 
-	font-size: 14px;
+	font: ${token('font.body')};
 	color: ${headerTextColor};
 	margin: 0 0 ${token('space.150', '12px')} 0;
-	line-height: ${24 / 14}em;
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -241,9 +240,8 @@ export const AppTitleLabel = styled.span`
 	font-weight: ${token('font.weight.bold')};
 	text-transform: uppercase;
 
-	font-size: 12px;
+	font: ${token('font.body.UNSAFE_small')};
 	margin: ${token('space.050', '4px')} 0 ${token('space.150', '12px')} 0;
-	line-height: ${24 / 14}em;
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -290,8 +288,7 @@ export const CardContainer = styled.div`
 export const DetailsLabel = styled.div`
 	display: flex;
 	align-items: center;
-	line-height: 24px;
-	font-size: ${gridSize() * 1.5}px;
+	font: ${token('font.body.large')};
 	margin: ${token('space.200', '16px')} 0 0 0;
 	white-space: nowrap;
 

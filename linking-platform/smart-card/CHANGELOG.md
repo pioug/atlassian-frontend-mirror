@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 32.7.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 32.7.11
+
+### Patch Changes
+
+- [#179934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179934)
+  [`be121b1cf4f54`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be121b1cf4f54) -
+  Internal changes to typography font family style definitions.
+
 ## 32.7.10
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import type { SelectionPluginState } from '../types';
+import type { SelectionPluginState } from '@atlaskit/editor-common/selection';
 
 import type { SelectionAction } from './actions';
 import { SelectionActionTypes } from './actions';

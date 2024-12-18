@@ -90,8 +90,6 @@ import {
 import { clipboardTextSerializer } from './clipboard-text-serializer';
 import { createPluginState, pluginKey as stateKey } from './plugin-factory';
 
-export { pluginKey as stateKey } from './plugin-factory';
-
 export const isInsideBlockQuote = (state: EditorState): boolean => {
 	const { blockquote } = state.schema.nodes;
 

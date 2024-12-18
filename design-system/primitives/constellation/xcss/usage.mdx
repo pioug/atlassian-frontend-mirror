@@ -5,6 +5,14 @@ order: 0
 ---
 
 import { MediaQueriesTable } from '@af/design-system-docs-ui';
+import SectionMessage from '@atlaskit/section-message';
+
+<SectionMessage title="Caution" appearance="warning">
+	<p>
+		We are planning on deprecating XCSS. We recommend using{' '}
+		<a href="/components/css">@atlaskit/css</a> instead.{' '}
+	</p>
+</SectionMessage>
 
 XCSS is an Atlassian Design System styling API that natively integrates with Atlassian's
 [design tokens](/tokens) and [primitives](/components/primitives/overview).

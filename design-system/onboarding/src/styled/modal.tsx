@@ -6,7 +6,6 @@ import { type ReactNode } from 'react';
 
 import { css, jsx } from '@emotion/react';
 
-import { h600 } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
 
 type ModalImageProps = { alt: string; src?: string };
@@ -22,14 +21,11 @@ const modalBodyStyles = css({
 });
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-array-arguments -- Ignored via go/DSP-18766
-const modalHeadingStyles = css([
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	css(h600({ theme: { mode: 'light' } })),
-	{
-		marginBottom: token('space.100', '8px'),
-		color: 'inherit',
-	},
-]);
+const modalHeadingStyles = css({
+	color: 'inherit',
+	font: token('font.heading.medium'),
+	marginBlockEnd: token('space.100', '8px'),
+});
 
 const modalImageStyles = css({
 	width: '100%',

@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 4.13.1
+
+### Patch Changes
+
+- [#179934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179934)
+  [`be121b1cf4f54`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be121b1cf4f54) -
+  Internal changes to typography font family style definitions.
+
 ## 4.13.0
 
 ### Minor Changes

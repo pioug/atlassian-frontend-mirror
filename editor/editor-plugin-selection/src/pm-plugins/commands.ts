@@ -1,14 +1,18 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { isIgnored as isIgnoredByGapCursor } from '@atlaskit/editor-common/selection';
+import {
+	isIgnored as isIgnoredByGapCursor,
+	RelativeSelectionPos,
+	GapCursorSelection,
+	Side,
+} from '@atlaskit/editor-common/selection';
 import type { Command, EditorCommandWithMetadata } from '@atlaskit/editor-common/types';
 import { isEmptyParagraph, isNodeEmpty } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode, ResolvedPos } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
-import { RelativeSelectionPos, SelectionDirection, selectionPluginKey } from '../types';
+import { SelectionDirection, selectionPluginKey } from '../types';
 
 import { SelectionActionTypes } from './actions';
-import { GapCursorSelection, Side } from './gap-cursor-selection';
 import { createCommand, getPluginState } from './plugin-factory';
 import {
 	findFirstChildNodeToSelect,

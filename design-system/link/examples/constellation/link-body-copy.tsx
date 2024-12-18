@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Link from '@atlaskit/link';
-import Text from '@atlaskit/primitives/text';
+import { Text } from '@atlaskit/primitives/compiled';
 
 export default function BodyCopy() {
 	return (

@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 1.30.2
+
+### Patch Changes
+
+- [#180699](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180699)
+  [`ba9603c950de1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba9603c950de1) -
+  Clicking outside should close all popups
+
 ## 1.30.1
 
 ### Patch Changes

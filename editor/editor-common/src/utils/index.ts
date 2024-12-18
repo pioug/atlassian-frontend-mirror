@@ -228,6 +228,7 @@ export { getExtensionRenderer } from './extension-handler';
 
 export {
 	hasMergedCell,
+	getColumnWidths,
 	calcTableColumnWidths,
 	convertProsemirrorTableNodeToArrayOfRows,
 	isPositionNearTableRow,

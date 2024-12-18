@@ -3,6 +3,7 @@ import type { ComponentType } from 'react';
 import type { ADFEntity } from '@atlaskit/adf-utils/types';
 
 import type {
+	ExtensionAPI,
 	ExtensionParams,
 	MultiBodiedExtensionActions,
 	UpdateExtension,
@@ -38,7 +39,7 @@ export type ExtensionModuleActionObject<T extends Parameters = Parameters> = {
 };
 
 export type MaybeADFEntity = MaybeESModule<ADFEntity | Array<ADFEntity> | void>;
-export type ExtensionModuleActionHandler = () => Promise<MaybeADFEntity>;
+export type ExtensionModuleActionHandler = (extensionAPI: ExtensionAPI) => Promise<MaybeADFEntity>;
 
 export type ExtensionModuleAction<T extends Parameters = Parameters> =
 	| ExtensionModuleActionObject<T>

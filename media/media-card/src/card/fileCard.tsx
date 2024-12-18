@@ -65,6 +65,7 @@ import { type CardAction, createDownloadAction } from './actions';
 import { performanceNow } from './performance';
 import { useContext } from 'react';
 import { DateOverrideContext } from '../dateOverrideContext';
+import { useIntl } from 'react-intl-next';
 
 export interface FileCardProps extends CardEventProps {
 	/** Overlay the media file. */
@@ -148,6 +149,7 @@ export const FileCard = ({
 	viewerOptions,
 	includeHashForDuplicateFiles,
 }: FileCardProps) => {
+	const { formatMessage } = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	//----------------------------------------------------------------//
 	//------------ State, Refs & Initial Values ----------------------//
@@ -321,7 +323,7 @@ export const FileCard = ({
 
 	const computedActions = useMemo(() => {
 		if (finalStatus === 'failed-processing' || shouldEnableDownloadButton) {
-			const downloadHandler = async () => {
+			const handler = async () => {
 				try {
 					await mediaClient.file.downloadBinary(
 						identifier.id,
@@ -346,7 +348,13 @@ export const FileCard = ({
 					);
 				}
 			};
-			const downloadAction = createDownloadAction(downloadHandler);
+			const downloadAction = createDownloadAction(
+				{
+					handler,
+					isDisabled: mediaClient.config.enforceDataSecurityPolicy,
+				},
+				formatMessage,
+			);
 			return [downloadAction, ...(actions ?? [])];
 		} else {
 			return actions;
@@ -356,6 +364,7 @@ export const FileCard = ({
 		identifier.collectionName,
 		identifier.id,
 		mediaClient.file,
+		mediaClient.config.enforceDataSecurityPolicy,
 		metadata.name,
 		shouldEnableDownloadButton,
 		finalStatus,
@@ -363,6 +372,7 @@ export const FileCard = ({
 		fileAttributes,
 		fileStateValue?.metadataTraceContext,
 		traceContext,
+		formatMessage,
 	]);
 
 	//----------------------------------------------------------------//

@@ -2,13 +2,13 @@ import type React from 'react';
 
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { ContextPanelHandler } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ContextPanelPlugin } from './contextPanelPluginType';
 import { applyChange } from './pm-plugins/transforms';
-import type { ContextPanelHandler } from './types';
 
 export const pluginKey = new PluginKey<ContextPanelPluginState>('contextPanelPluginKey');
 

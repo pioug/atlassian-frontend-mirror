@@ -31,14 +31,20 @@ export function PrimaryToolbarComponent({
 	shouldUseDefaultRole,
 }: PrimaryToolbarComponentProps) {
 	const { blockTypeState } = useSharedPluginState(api, ['blockType']);
-	const boundSetBlockType = (name: TextBlockTypes) =>
-		api?.core?.actions.execute(api?.blockType?.commands?.setTextLevel(name, INPUT_METHOD.TOOLBAR));
+	const boundSetBlockType = (name: TextBlockTypes, fromBlockQuote?: boolean) =>
+		api?.core?.actions.execute(
+			api?.blockType?.commands?.setTextLevel(name, INPUT_METHOD.TOOLBAR, fromBlockQuote),
+		);
+	const wrapBlockQuote = () =>
+		api?.core?.actions.execute(api?.blockType?.commands?.insertBlockQuote(INPUT_METHOD.TOOLBAR));
+
 	return (
 		<ToolbarBlockType
 			isSmall={isSmall}
 			isDisabled={disabled}
 			isReducedSpacing={isToolbarReducedSpacing}
 			setTextLevel={boundSetBlockType}
+			wrapBlockQuote={wrapBlockQuote}
 			pluginState={blockTypeState!}
 			popupsMountPoint={popupsMountPoint}
 			popupsBoundariesElement={popupsBoundariesElement}

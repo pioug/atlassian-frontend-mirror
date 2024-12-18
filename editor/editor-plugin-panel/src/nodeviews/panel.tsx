@@ -29,8 +29,8 @@ import { akEditorCustomIconSize } from '@atlaskit/editor-shared-styles/consts';
 import TipIcon from '@atlaskit/icon/glyph/editor/hint';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import type { PanelPlugin, PanelPluginOptions } from '../types';
-import { panelAttrsToDom } from '../utils';
+import type { PanelPlugin, PanelPluginOptions } from '../panelPluginType';
+import { panelAttrsToDom } from '../pm-plugins/utils/utils';
 
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Mapping export

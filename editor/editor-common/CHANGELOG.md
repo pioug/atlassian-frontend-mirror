@@ -1,5 +1,53 @@
 # @atlaskit/editor-common
 
+## 96.6.1
+
+### Patch Changes
+
+- [#181016](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181016)
+  [`fb9a503ee55c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb9a503ee55c3) -
+  Add new `getColumnWidths` function which will loop through each table row, looking for the max
+  number of table cells to use to render the table correctly when table resizing is enabled.
+
+## 96.6.0
+
+### Minor Changes
+
+- [#180750](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180750)
+  [`f019b16b9161a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f019b16b9161a) -
+  [ux] Introduces access to the ExtensionAPI from extension module quickInsert actions
+
+### Patch Changes
+
+- Updated dependencies
+
+## 96.5.8
+
+### Patch Changes
+
+- [#179714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179714)
+  [`7216b07b8cbe7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7216b07b8cbe7) -
+  [ux] ED-26058 Support dyanmic visibility of media badges based on media size
+- Updated dependencies
+
+## 96.5.7
+
+### Patch Changes
+
+- [#179069](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179069)
+  [`abcf8b3555cac`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/abcf8b3555cac) -
+  Fix issue where new Forge bodied macros don't show content in live page rendered view
+
+## 96.5.6
+
+### Patch Changes
+
+- [#180440](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180440)
+  [`054eb933bb538`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/054eb933bb538) -
+  Add platform_editor_table_row_span_fix FG, which will scan the entire table to determine how many
+  columns it has instead of relying on the first row. This fixes a bug where a table is not
+  'resized' and has merged cells in the first row, and will return the wrong number of columns.
+
 ## 96.5.5
 
 ### Patch Changes

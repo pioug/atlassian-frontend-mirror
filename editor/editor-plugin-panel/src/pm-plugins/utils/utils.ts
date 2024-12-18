@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/editor-prosemirror/utils';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import type { DomPanelAtrrs } from './types';
+import type { DomPanelAtrrs } from '../../panelPluginType';
 
 export const findPanel = (
 	state: EditorState,

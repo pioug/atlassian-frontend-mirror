@@ -11,13 +11,14 @@ import type {
 	ExtensionToolbarButton,
 } from '@atlaskit/editor-common/extensions';
 import { getContextualToolbarItemsFromModule } from '@atlaskit/editor-common/extensions';
-import { FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+import {
+	FloatingToolbarButton as Button,
+	FloatingToolbarSeparator as Separator,
+} from '@atlaskit/editor-common/ui';
 import { nodeToJSON } from '@atlaskit/editor-common/utils';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-
-import Separator from './Separator';
 
 interface Props {
 	node: PMNode;

@@ -7,7 +7,6 @@ import { axe } from '@af/accessibility-testing';
 import exampleImage from '../../../examples/img/example-image.png';
 import EmptyState from '../../empty-state';
 import Description from '../../styled/description';
-import EmptyStateHeader from '../../styled/header';
 import HeaderImage from '../../styled/image';
 import SpinnerContainer from '../../styled/spinner-container';
 
@@ -36,11 +35,6 @@ it('Basic Image should not fail aXe audit', async () => {
 
 it('Basic SpinnerContainer should not fail aXe audit', async () => {
 	const { container } = render(<SpinnerContainer />);
-	await axe(container);
-});
-
-it('Basic Header should not fail aXe audit', async () => {
-	const { container } = render(<EmptyStateHeader>{props.header}</EmptyStateHeader>);
 	await axe(container);
 });
 

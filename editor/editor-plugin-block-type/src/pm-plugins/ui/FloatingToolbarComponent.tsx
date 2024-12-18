@@ -31,6 +31,12 @@ export function FloatingToolbarComponent({ api }: FloatingToolbarComponentProps)
 		[api],
 	);
 
+	const wrapBlockQuote = useCallback(
+		() =>
+			api?.core?.actions.execute(api?.blockType?.commands?.insertBlockQuote(INPUT_METHOD.TOOLBAR)),
+		[api],
+	);
+
 	return (
 		<ToolbarBlockType
 			isSmall={FloatingToolbarSettings.isSmall}
@@ -38,6 +44,7 @@ export function FloatingToolbarComponent({ api }: FloatingToolbarComponentProps)
 			isReducedSpacing={FloatingToolbarSettings.isToolbarReducedSpacing}
 			setTextLevel={boundSetBlockType}
 			pluginState={blockTypeState!}
+			wrapBlockQuote={wrapBlockQuote}
 			shouldUseDefaultRole={FloatingToolbarSettings.shouldUseDefaultRole}
 			api={api}
 		/>

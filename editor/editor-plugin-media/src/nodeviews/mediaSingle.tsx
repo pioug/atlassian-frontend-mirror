@@ -472,17 +472,18 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 							fg('platform_editor_media_extended_resize_experience') && !isInsideTable
 						}
 					>
-						{({ badgeSize }: { badgeSize: 'small' | 'medium' }) => (
+						{({ badgeSize, visible }: { badgeSize: 'small' | 'medium'; visible: boolean }) => (
 							<>
-								{fg('platform_editor_hide_external_media_badge') ? (
-									<ExternalImageBadge
-										badgeSize={badgeSize}
-										type={attrs.type}
-										url={attrs.type === 'external' ? attrs.url : undefined}
-									/>
-								) : (
-									shouldShowExternalMediaBadge && <ExternalImageBadge badgeSize={badgeSize} />
-								)}
+								{fg('platform_editor_hide_external_media_badge')
+									? visible && (
+											<ExternalImageBadge
+												badgeSize={badgeSize}
+												type={attrs.type}
+												url={attrs.type === 'external' ? attrs.url : undefined}
+											/>
+										)
+									: shouldShowExternalMediaBadge &&
+										visible && <ExternalImageBadge badgeSize={badgeSize} />}
 								{mediaOptions.allowCommentsOnMedia && (
 									<CommentBadgeNextWrapper
 										view={view}

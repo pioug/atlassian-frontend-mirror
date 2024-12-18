@@ -5,6 +5,12 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
+import type {
+	DisplayGuideline,
+	GuidelineContainerRect,
+	GuidelinePluginOptions,
+	GuidelinePluginState,
+} from '@atlaskit/editor-common/guideline';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -13,12 +19,6 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorGridLineZIndex } from '@atlaskit/editor-shared-styles';
 
 import type { GuidelinePlugin } from './guidelinePluginType';
-import type {
-	DisplayGuideline,
-	GuidelineContainerRect,
-	GuidelinePluginOptions,
-	GuidelinePluginState,
-} from './types';
 import { GuidelineContainer } from './ui/guidelineContainer';
 
 const guidelineStyles = css({

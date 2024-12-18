@@ -44,7 +44,7 @@
 		"@atlaskit/media-client": "^28.6.0",
 		"@atlaskit/media-client-react": "^2.4.0",
 		"@atlaskit/media-common": "^11.7.0",
-		"@atlaskit/media-ui": "^27.0.0",
+		"@atlaskit/media-ui": "^27.1.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.5.0",
 		"@atlaskit/ufo": "^0.3.0",
@@ -56,7 +56,7 @@
 		"uuid-validate": "^0.0.3"
 	},
 	"peerDependencies": {
-		"@atlaskit/media-core": "^34.3.0",
+		"@atlaskit/media-core": "^34.4.0",
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
@@ -65,7 +65,7 @@
 		"@atlaskit/analytics-listeners": "^8.13.0",
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/media-core": "^34.3.0",
+		"@atlaskit/media-core": "^34.4.0",
 		"@atlaskit/media-test-helpers": "^34.7.0",
 		"@atlaskit/ssr": "*",
 		"@atlassian/ufo": "^0.4.0",

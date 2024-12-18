@@ -1,5 +1,14 @@
 # @atlaskit/onboarding
 
+## 12.2.2
+
+### Patch Changes
+
+- [#180301](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180301)
+  [`16990dd2ac6e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/16990dd2ac6e5) -
+  Internal changes to typography styles. There may be some minor visual changes to align with
+  modernized typography styles.
+
 ## 12.2.1
 
 ### Patch Changes

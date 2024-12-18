@@ -83,6 +83,14 @@
 		},
 		"platform-icon-control-migration": {
 			"type": "boolean"
+		},
+		"sibling-dropdown-close-issue": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"design-system-closed-all-when-click-outside": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"techstack": {

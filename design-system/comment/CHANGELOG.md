@@ -1,5 +1,13 @@
 # @atlaskit/comment
 
+## 12.0.2
+
+### Patch Changes
+
+- [#179934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179934)
+  [`289cac897f133`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/289cac897f133) -
+  Internal changes to typography letterspacing.
+
 ## 12.0.1
 
 ### Patch Changes

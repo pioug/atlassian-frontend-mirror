@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.24
+
+### Patch Changes
+
+- [#179859](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179859)
+  [`1a90382aae1c6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1a90382aae1c6) -
+  Optimise the insert menu dropdown by preloading it.
+
 ## 2.4.23
 
 ### Patch Changes

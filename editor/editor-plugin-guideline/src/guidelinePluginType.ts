@@ -1,7 +1,6 @@
+import type { DisplayGuideline, GuidelinePluginState } from '@atlaskit/editor-common/guideline';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
-
-import type { DisplayGuideline, GuidelinePluginState } from './types';
 
 export type GuidelinePlugin = NextEditorPlugin<
 	'guideline',

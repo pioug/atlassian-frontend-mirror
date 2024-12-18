@@ -4,7 +4,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { fontFamily, fontSize } from '@atlaskit/theme/constants';
+import { fontSize } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { N60A, Y300, Y75, N40A } from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
@@ -637,7 +637,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 		${getAnnotationStyles(wrapperProps)}
 
 		& .UnknownBlock {
-			font-family: ${fontFamily()};
+			font-family: ${token('font.family.body')};
 			font-size: ${relativeFontSizeToBase16(fontSize())};
 			font-weight: ${token('font.weight.regular')};
 			white-space: pre-wrap;

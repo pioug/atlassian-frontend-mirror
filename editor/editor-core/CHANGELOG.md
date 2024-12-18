@@ -1,5 +1,34 @@
 # @atlaskit/editor-core
 
+## 203.6.4
+
+### Patch Changes
+
+- [#180750](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180750)
+  [`f019b16b9161a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f019b16b9161a) -
+  [ux] Introduces access to the ExtensionAPI from extension module quickInsert actions
+- [#180067](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180067)
+  [`fdee6c449ca83`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fdee6c449ca83) -
+  [ux] Adding block quote as an option to the text formatting menu for full page editors
+- Updated dependencies
+
+## 203.6.3
+
+### Patch Changes
+
+- [#180080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180080)
+  [`2c21ba8914848`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c21ba8914848) -
+  [ux] ED-26013 fix expand on auto scoll for long node
+
+## 203.6.2
+
+### Patch Changes
+
+- [#179714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179714)
+  [`7216b07b8cbe7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7216b07b8cbe7) -
+  [ux] ED-26058 Support dyanmic visibility of media badges based on media size
+- Updated dependencies
+
 ## 203.6.1
 
 ### Patch Changes

@@ -1,5 +1,23 @@
 # @atlaskit/renderer
 
+## 112.7.8
+
+### Patch Changes
+
+- [#181016](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181016)
+  [`fb9a503ee55c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb9a503ee55c3) -
+  Add new `getColumnWidths` function which will loop through each table row, looking for the max
+  number of table cells to use to render the table correctly when table resizing is enabled.
+
+## 112.7.7
+
+### Patch Changes
+
+- [#179934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179934)
+  [`be121b1cf4f54`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be121b1cf4f54) -
+  Internal changes to typography font family style definitions.
+- Updated dependencies
+
 ## 112.7.6
 
 ### Patch Changes

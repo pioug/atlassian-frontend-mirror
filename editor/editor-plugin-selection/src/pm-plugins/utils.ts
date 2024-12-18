@@ -1,5 +1,4 @@
 import {
-	createSelectionClickHandler,
 	isIgnored as isIgnoredByGapCursor,
 	isSelectionAtStartOfNode,
 } from '@atlaskit/editor-common/selection';
@@ -297,5 +296,3 @@ export const isSelectionAtEndOfParentNode = ($pos: ResolvedPos, selection: Selec
 	const $after = $pos.doc.resolve($pos.after());
 	return $after.parent.content.size === $after.parentOffset;
 };
-
-export { createSelectionClickHandler };

@@ -66,6 +66,25 @@ token('color.background.blanket');
 \`\`\`
       `,
 		},
+		schema: [
+			{
+				type: 'object',
+				properties: {
+					shouldEnforceFallbacks: {
+						type: 'boolean',
+					},
+					fallbackUsage: {
+						enum: ['forced', 'optional', 'none'],
+					},
+					UNSAFE_ignoreTokens: {
+						type: 'array',
+						items: {
+							type: 'string',
+						},
+					},
+				},
+			},
+		],
 	},
 	create(context) {
 		const config: PluginConfig = { ...context.options[0] };

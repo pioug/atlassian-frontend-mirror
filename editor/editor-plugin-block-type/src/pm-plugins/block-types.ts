@@ -1,4 +1,5 @@
 import { blockTypeMessages as messages } from '@atlaskit/editor-common/messages';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BlockType } from './types';
 
@@ -54,6 +55,7 @@ export const BLOCK_QUOTE: BlockType = {
 	name: 'blockquote',
 	title: messages.blockquote,
 	nodeName: 'blockquote',
+	tagName: 'blockquote',
 };
 export const CODE_BLOCK: BlockType = {
 	name: 'codeblock',
@@ -92,6 +94,14 @@ export type TextBlockTypes =
 
 export const WRAPPER_BLOCK_TYPES = [BLOCK_QUOTE, CODE_BLOCK, PANEL];
 export const ALL_BLOCK_TYPES = TEXT_BLOCK_TYPES.concat(WRAPPER_BLOCK_TYPES);
+
+export const getBlockTypesInDropdown = (includeBlockQuoteAsTextstyleOption?: boolean) => {
+	return editorExperiment('platform_editor_blockquote_in_text_formatting_menu', true, {
+		exposure: true,
+	}) && includeBlockQuoteAsTextstyleOption
+		? [...TEXT_BLOCK_TYPES, BLOCK_QUOTE]
+		: TEXT_BLOCK_TYPES;
+};
 
 export const HEADINGS_BY_LEVEL = TEXT_BLOCK_TYPES.reduce<Record<number, BlockType>>(
 	(acc, blockType) => {

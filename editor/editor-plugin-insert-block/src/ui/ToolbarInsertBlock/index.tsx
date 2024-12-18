@@ -16,6 +16,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
 import { buttonGroupStyle, separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
 import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
@@ -39,7 +40,6 @@ import type { OnInsert } from '../ElementBrowser/types';
 import { BlockInsertMenu } from './block-insert-menu';
 import type { BlockMenuItem } from './create-items';
 import { createItems } from './create-items';
-import { messages } from './messages';
 import TableSelectorPopup from './table-selector-popup-with-listeners';
 import type { Props, State } from './types';
 

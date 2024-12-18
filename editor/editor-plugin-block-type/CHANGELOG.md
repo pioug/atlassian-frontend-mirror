@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-type
 
+## 4.0.12
+
+### Patch Changes
+
+- [#180067](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180067)
+  [`fdee6c449ca83`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fdee6c449ca83) -
+  [ux] Adding block quote as an option to the text formatting menu for full page editors
+- Updated dependencies
+
 ## 4.0.11
 
 ### Patch Changes

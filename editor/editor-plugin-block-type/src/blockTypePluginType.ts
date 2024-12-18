@@ -22,7 +22,12 @@ export type BlockTypePlugin = NextEditorPlugin<
 			insertBlockQuote: (inputMethod: InputMethod) => Command;
 		};
 		commands: {
-			setTextLevel: (level: TextBlockTypes, inputMethod: InputMethod) => EditorCommand;
+			setTextLevel: (
+				level: TextBlockTypes,
+				inputMethod: InputMethod,
+				fromBlockQuote?: boolean,
+			) => EditorCommand;
+			insertBlockQuote: (inputMethod: InputMethod) => EditorCommand;
 		};
 	}
 >;

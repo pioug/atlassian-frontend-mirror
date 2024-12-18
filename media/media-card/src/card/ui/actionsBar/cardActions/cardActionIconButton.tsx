@@ -2,7 +2,7 @@ import React from 'react';
 import { type ReactNode, type MouseEvent } from 'react';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { CardActionButton } from './cardActionButton';
-
+import Tooltip from '@atlaskit/tooltip';
 import { type CardActionIconButtonVariant } from './styles';
 import { fireMediaCardEvent } from '../../../../utils/analytics';
 
@@ -13,6 +13,8 @@ export type CardActionIconButtonProps = {
 	readonly filename?: string;
 	readonly variant?: CardActionIconButtonVariant;
 	readonly triggerColor?: string;
+	readonly isDisabled?: boolean;
+	readonly tooltip?: string;
 	readonly onClick?: (event: MouseEvent<HTMLButtonElement>) => void;
 };
 
@@ -24,6 +26,8 @@ export const CardActionIconButton = ({
 	onClick,
 	isPrimary,
 	variant,
+	isDisabled,
+	tooltip,
 }: CardActionIconButtonProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
@@ -53,7 +57,7 @@ export const CardActionIconButton = ({
 		onClick?.(e);
 	};
 
-	return (
+	const cardActionButton = (
 		<CardActionButton
 			onClick={handleClick}
 			onMouseDown={onMouseDown}
@@ -61,8 +65,19 @@ export const CardActionIconButton = ({
 			style={{ color: triggerColor }}
 			label={filename ? `${filename} — ${label}` : label}
 			variant={variant}
+			disabled={isDisabled}
 		>
 			{icon}
 		</CardActionButton>
+	);
+
+	const useTooltip = !!tooltip && false; // TODO: Tooltip breaks Button positioning
+
+	return useTooltip ? (
+		<Tooltip content={tooltip} position="bottom" tag="span">
+			{cardActionButton}
+		</Tooltip>
+	) : (
+		cardActionButton
 	);
 };

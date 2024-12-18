@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-base
 
+## 2.0.10
+
+### Patch Changes
+
+- [#180763](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180763)
+  [`db6668f7e2f8f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/db6668f7e2f8f) -
+  ED-25855 clean up feature flag for softline break on second row by using Japanese/Chinese
+
 ## 2.0.9
 
 ### Patch Changes

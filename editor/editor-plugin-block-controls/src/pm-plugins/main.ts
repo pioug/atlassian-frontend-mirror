@@ -702,9 +702,7 @@ export const createPlugin = (
 					}
 
 					// TODO: Review usage of posAtDOM here
-					const domPos = fg('platform_editor_element_drag_and_drop_ed_24304')
-						? Math.max(view.posAtDOM(nodeElement, 0) - 1, 0)
-						: view.posAtDOM(nodeElement, 0) - 1;
+					const domPos = Math.max(view.posAtDOM(nodeElement, 0) - 1, 0);
 
 					const nodeTarget = state.doc.nodeAt(domPos);
 
@@ -769,11 +767,7 @@ export const createPlugin = (
 						}
 					}
 
-					if (
-						event.shiftKey &&
-						event.ctrlKey &&
-						fg('platform_editor_element_drag_and_drop_ed_23873')
-					) {
+					if (event.shiftKey && event.ctrlKey) {
 						//prevent holding down key combo from firing repeatedly
 						if (!event.repeat && boundKeydownHandler(api, formatMessage)(view, event)) {
 							event.preventDefault();

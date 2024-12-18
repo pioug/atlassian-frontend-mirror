@@ -8,7 +8,8 @@ import React, {
 	useState,
 } from 'react';
 
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { replaceRaf } from 'raf-stub';
 
 import Button from '@atlaskit/button/new';
@@ -90,22 +91,42 @@ describe('Popup', () => {
 	};
 
 	describe('should close nested popup correctly', () => {
-		render(<PopupNested />);
+		ffTest(
+			'design-system-closed-all-when-click-outside',
+			async () => {
+				render(<PopupNested />);
 
-		const popupTrigger = screen.getByTestId('popup-trigger');
-		fireEvent.click(popupTrigger);
-		const popupTrigger0 = screen.getByTestId('popup-trigger-0');
-		fireEvent.click(popupTrigger0);
-		const popupTrigger1 = screen.getByTestId('popup-trigger-1');
-		fireEvent.click(popupTrigger1);
-		expect(screen.getByTestId('popup-trigger-2')).toBeInTheDocument();
+				const popupTrigger = screen.getByTestId('popup-trigger');
+				await userEvent.click(popupTrigger);
+				const popupTrigger0 = screen.getByTestId('popup-trigger-0');
+				await userEvent.click(popupTrigger0);
+				const popupTrigger1 = screen.getByTestId('popup-trigger-1');
+				await userEvent.click(popupTrigger1);
+				expect(screen.getByTestId('popup-trigger-2')).toBeInTheDocument();
+				await userEvent.click(document.body);
+				expect(popupTrigger0).not.toBeInTheDocument();
+			},
+			async () => {
+				render(<PopupNested />);
+
+				const popupTrigger = screen.getByTestId('popup-trigger');
+				await userEvent.click(popupTrigger);
+				const popupTrigger0 = screen.getByTestId('popup-trigger-0');
+				await userEvent.click(popupTrigger0);
+				const popupTrigger1 = screen.getByTestId('popup-trigger-1');
+				expect(popupTrigger1).toBeInTheDocument();
+				await userEvent.click(document.body);
+				expect(popupTrigger0).toBeInTheDocument();
+				expect(popupTrigger1).not.toBeInTheDocument();
+			},
+		);
 	});
 
 	describe('with iframe', () => {
 		const Iframe = ({ title = 'outerIframe' }: { title?: string }) => (
 			<iframe width="100px" height="100px" title={title} />
 		);
-		it('should call onClose on iframe click if iframe is outside popup', () => {
+		it('should call onClose on iframe click if iframe is outside popup', async () => {
 			const onClose = jest.fn();
 			render(
 				<div>
@@ -123,7 +144,7 @@ describe('Popup', () => {
 			const popupWrapper = screen.getByTestId('popup');
 			expect(popupWrapper).toBeInTheDocument();
 			expect(popupWrapper).toHaveAttribute('data-ds--level');
-			fireEvent.click(screen.getByTitle('outerIframe'));
+			await userEvent.click(screen.getByTitle('outerIframe'));
 			expect(onClose).toHaveBeenCalledTimes(1);
 		});
 	});
@@ -399,38 +420,31 @@ describe('Popup', () => {
 		expect(contentRender).toHaveBeenCalledTimes(3);
 	});
 
-	it('does not call onClose after pressing escape when the popup is not open', () => {
+	it('does not call onClose after pressing escape when the popup is not open', async () => {
 		const onClose = jest.fn();
 		render(<Popup {...defaultProps} isOpen={false} onClose={onClose} />);
-
-		fireEvent.keyDown(document, { key: 'Escape', code: 'Escape' });
-
+		await userEvent.keyboard('{Escape}');
 		expect(onClose).not.toHaveBeenCalled();
 	});
 
-	it('calls onClose after pressing escape when the popup is open', () => {
+	it('calls onClose after pressing escape when the popup is open', async () => {
 		const onClose = jest.fn();
 		render(<Popup {...defaultProps} isOpen onClose={onClose} />);
-
-		fireEvent.keyDown(document, { key: 'Escape', code: 'Escape' });
-
+		await userEvent.keyboard('{Escape}');
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
-	it('calls onClose after pressing escape when the popup is opened', () => {
+	it('calls onClose after pressing escape when the popup is opened', async () => {
 		const onClose = jest.fn();
-		const { baseElement, rerender } = render(
-			<Popup {...defaultProps} isOpen={false} onClose={onClose} />,
-		);
+		const { rerender } = render(<Popup {...defaultProps} isOpen={false} onClose={onClose} />);
 
 		rerender(<Popup {...defaultProps} isOpen onClose={onClose} />);
-
-		fireEvent.keyDown(baseElement, { key: 'Escape', code: 'Escape' });
+		await userEvent.keyboard('{Escape}');
 
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
-	it('calls onClose after clicking on the trigger when the popup is open', () => {
+	it('calls onClose after clicking on the trigger when the popup is open', async () => {
 		const onClose = jest.fn();
 		render(
 			<Popup
@@ -441,12 +455,12 @@ describe('Popup', () => {
 			/>,
 		);
 
-		fireEvent.click(screen.getByText('trigger'));
+		await userEvent.click(screen.getByText('trigger'));
 
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
-	it('calls onClose after clicking on the trigger when the popup is opened', () => {
+	it('calls onClose after clicking on the trigger when the popup is opened', async () => {
 		const onClose = jest.fn();
 		const trigger = () => <button type="button">trigger</button>;
 		const { rerender } = render(
@@ -455,33 +469,33 @@ describe('Popup', () => {
 
 		rerender(<Popup {...defaultProps} isOpen onClose={onClose} trigger={trigger} />);
 
-		fireEvent.click(screen.getByText('trigger'));
+		await userEvent.click(screen.getByText('trigger'));
 
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
-	it('calls onClose after clicking outside of the popup when the popup is open', () => {
+	it('calls onClose after clicking outside of the popup when the popup is open', async () => {
 		const onClose = jest.fn();
 		const { baseElement } = render(<Popup {...defaultProps} isOpen onClose={onClose} />);
 
-		fireEvent.click(baseElement);
+		await userEvent.click(baseElement);
 
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
-	it('calls onClose after clicking outside of the popup when the popup is opened', () => {
+	it('calls onClose after clicking outside of the popup when the popup is opened', async () => {
 		const onClose = jest.fn();
 		const { baseElement, rerender } = render(
 			<Popup {...defaultProps} isOpen={false} onClose={onClose} />,
 		);
 		rerender(<Popup {...defaultProps} isOpen onClose={onClose} />);
 
-		fireEvent.click(baseElement);
+		await userEvent.click(baseElement);
 
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
-	it('calls onClose when calling onClose within the content', () => {
+	it('calls onClose when calling onClose within the content', async () => {
 		const onClose = jest.fn();
 		render(
 			<Popup
@@ -496,7 +510,7 @@ describe('Popup', () => {
 			/>,
 		);
 
-		fireEvent.click(screen.getByText('x'));
+		await userEvent.click(screen.getByText('x'));
 
 		expect(onClose).toHaveBeenCalledTimes(1);
 	});
@@ -580,12 +594,12 @@ describe('Popup', () => {
 			</div>,
 		);
 
-		fireEvent.click((await screen.findAllByText('Popup content'))[0]);
+		await userEvent.click((await screen.findAllByText('Popup content'))[0]);
 
 		expect((await screen.findAllByText('Popup content'))[1]).toBeDefined();
 	});
 
-	it('popup stays open when clicked element (which is inside content) is removed from the DOM', () => {
+	it('popup stays open when clicked element (which is inside content) is removed from the DOM', async () => {
 		const onClose = jest.fn();
 		const Component = () => {
 			const ref = useRef<HTMLButtonElement | null>(null);
@@ -599,7 +613,7 @@ describe('Popup', () => {
 
 		render(<Popup {...defaultProps} onClose={onClose} content={() => <Component />} isOpen />);
 
-		fireEvent.click(screen.getByText('Button content'));
+		await userEvent.click(screen.getByText('Button content'));
 
 		expect(onClose).toHaveBeenCalledTimes(0);
 	});

@@ -3,7 +3,6 @@ import styled from '@emotion/styled';
 
 import * as colors from '@atlaskit/theme/colors';
 import { N40 } from '@atlaskit/theme/colors';
-import { fontFamily } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { gs as gridSize } from '../../common/utils';
@@ -115,7 +114,7 @@ const wrapperStyles = (props: WrapperProps) => `
   display: inline-flex;
   flex-direction: column;
   box-sizing: border-box;
-  font-family: ${fontFamily()};
+  font-family: ${token('font.family.body')};
   width: 100%;
   user-select: none;
   line-height: initial;

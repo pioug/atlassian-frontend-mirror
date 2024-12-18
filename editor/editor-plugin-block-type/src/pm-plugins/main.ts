@@ -31,6 +31,7 @@ import {
 	PANEL,
 	TEXT_BLOCK_TYPES,
 	WRAPPER_BLOCK_TYPES,
+	getBlockTypesInDropdown,
 } from './block-types';
 import { setHeadingWithAnalytics, setNormalTextWithAnalytics } from './commands/block-type';
 import { HEADING_KEYS } from './consts';
@@ -42,6 +43,7 @@ export type BlockTypeState = {
 	blockTypesDisabled: boolean;
 	availableBlockTypes: BlockType[];
 	availableWrapperBlockTypes: BlockType[];
+	availableBlockTypesInDropdown: BlockType[];
 };
 
 const blockTypeForNode = (node: Node, schema: Schema): BlockType => {
@@ -52,6 +54,8 @@ const blockTypeForNode = (node: Node, schema: Schema): BlockType => {
 		}
 	} else if (node.type === schema.nodes.paragraph) {
 		return NORMAL_TEXT;
+	} else if (node.type === schema.nodes.blockquote) {
+		return BLOCK_QUOTE;
 	}
 	return OTHER;
 };
@@ -94,6 +98,7 @@ const detectBlockType = (availableBlockTypes: BlockType[], state: EditorState): 
 			} else if (blockType !== OTHER && blockType !== nodeBlockType[0]) {
 				blockType = OTHER;
 			}
+			return false;
 		}
 	});
 	return blockType || OTHER;
@@ -119,6 +124,7 @@ export const createPlugin = (
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	dispatch: (eventName: string | PluginKey, data: any) => void,
 	lastNodeMustBeParagraph?: boolean,
+	includeBlockQuoteAsTextstyleOption?: boolean,
 ) => {
 	const editorAnalyticsApi = editorAPI?.analytics?.actions;
 	let altKeyLocation = 0;
@@ -149,19 +155,24 @@ export const createPlugin = (
 				const availableWrapperBlockTypes = WRAPPER_BLOCK_TYPES.filter((blockType) =>
 					isBlockTypeSchemaSupported(blockType, state),
 				);
+				const BLOCK_TYPES_IN_DROPDOWN = getBlockTypesInDropdown(includeBlockQuoteAsTextstyleOption);
+				const availableBlockTypesInDropdown = BLOCK_TYPES_IN_DROPDOWN.filter((blockType) =>
+					isBlockTypeSchemaSupported(blockType, state),
+				);
 
 				return {
-					currentBlockType: detectBlockType(availableBlockTypes, state),
+					currentBlockType: detectBlockType(availableBlockTypesInDropdown, state),
 					blockTypesDisabled: areBlockTypesDisabled(state),
 					availableBlockTypes,
 					availableWrapperBlockTypes,
+					availableBlockTypesInDropdown,
 				};
 			},
 
 			apply(_tr, oldPluginState: BlockTypeState, _oldState: EditorState, newState: EditorState) {
 				const newPluginState = {
 					...oldPluginState,
-					currentBlockType: detectBlockType(oldPluginState.availableBlockTypes, newState),
+					currentBlockType: detectBlockType(oldPluginState.availableBlockTypesInDropdown, newState),
 					blockTypesDisabled: areBlockTypesDisabled(newState),
 				};
 

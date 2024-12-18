@@ -1,8 +1,8 @@
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 
-import { registerComponent } from './actions';
-import { createPlugin, primaryToolbarPluginKey } from './pm-plugin';
-import type { PrimaryToolbarPlugin } from './types';
+import { registerComponent } from './editor-actions/actions';
+import { createPlugin, primaryToolbarPluginKey } from './pm-plugins/pm-plugin';
+import type { PrimaryToolbarPlugin } from './primaryToolbarPluginType';
 import Separator from './ui/separator';
 
 export const primaryToolbarPlugin: PrimaryToolbarPlugin = () => {

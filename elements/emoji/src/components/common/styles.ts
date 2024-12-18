@@ -4,8 +4,6 @@ import { token } from '@atlaskit/tokens';
 import { defaultEmojiHeight } from '../../util/constants';
 import { akEmojiSelectedBackgroundColor } from '../../util/shared-styles';
 import { B100, N20, N200, N20A, N300, N400, N900, R300, R400 } from '@atlaskit/theme/colors';
-import { fontFamily as getFontFamily } from '@atlaskit/theme/constants';
-import { fontFallback } from '@atlaskit/theme/typography';
 
 export const commonSelectedStyles = 'emoji-common-selected';
 export const selectOnHoverStyles = 'emoji-common-select-on-hover';
@@ -483,7 +481,7 @@ export const headingH5 = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		font: token('font.body.UNSAFE_small', fontFallback.body.UNSAFE_small),
+		font: token('font.body.UNSAFE_small'),
 		fontWeight: token('font.weight.semibold', '600'),
 	},
 });
@@ -492,7 +490,7 @@ export const headingH5 = css({
 export const requiredSymbol = css({
 	paddingLeft: token('space.025', '2px'),
 	color: token('color.text.danger', R400),
-	fontFamily: getFontFamily(),
+	fontFamily: token('font.family.body'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -507,7 +505,7 @@ export const deleteFooter = css({
 	alignItems: 'center',
 	justifyContent: 'space-between',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	font: token('font.body', fontFallback.body.medium),
+	font: token('font.body'),
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	img: {

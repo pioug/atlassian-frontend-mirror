@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 
-import { fontFamily } from '@atlaskit/theme/constants';
+import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const hiddenMixin = css({
@@ -20,5 +20,5 @@ export const hiddenMixin = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const TooltipContent = styled.div({
-	fontFamily: fontFamily(),
+	fontFamily: token('font.family.body'),
 });

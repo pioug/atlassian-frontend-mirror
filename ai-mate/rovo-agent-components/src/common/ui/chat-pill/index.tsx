@@ -70,13 +70,14 @@ const whiteSpacePreWrapStyles = xcss({
 
 export type ChatPillProps = Omit<ButtonProps, 'iconBefore'> & {
 	whiteSpacePreWrap?: boolean;
+	renderIcon?: boolean;
 };
 
 export const ChatPill = React.forwardRef<HTMLButtonElement, ChatPillProps>(
-	({ children, whiteSpacePreWrap = true, ...props }, ref) => (
+	({ children, whiteSpacePreWrap = true, renderIcon = true, ...props }, ref) => (
 		<Pressable ref={ref} {...props} xcss={buttonStyles}>
 			<Inline space="space.050" xcss={buttonInlineStyles}>
-				<ChatPillIcon />
+				{renderIcon ? <ChatPillIcon /> : null}
 				<Box xcss={[queryTextStyles, whiteSpacePreWrap && whiteSpacePreWrapStyles]}>{children}</Box>
 			</Inline>
 		</Pressable>

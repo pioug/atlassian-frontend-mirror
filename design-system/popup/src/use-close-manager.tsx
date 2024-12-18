@@ -74,19 +74,17 @@ export const useCloseManager = ({
 				if (fg('design-system-closed-all-when-click-outside')) {
 					if (target instanceof HTMLElement) {
 						const layeredElement = target.closest?.(`[data-ds--level]`);
-						if (!layeredElement) {
-							// if no layered element, we disable the click event of disabled layers.
-							return;
-						}
-						const closeType = layeredElement.getAttribute('[data-ds--close--type]');
-						if (closeType === 'single') {
-							// if the close type is single, we won't close other disabled layers when clicking outside
-							return;
-						}
-						const levelOfClickedLayer = layeredElement.getAttribute('data-ds--level');
-						if (levelOfClickedLayer && Number(levelOfClickedLayer) > currentLevel) {
-							// won't trigger onClick event when we click in a higher layer.
-							return;
+						if (layeredElement) {
+							const closeType = layeredElement.getAttribute('[data-ds--close--type]');
+							if (closeType === 'single') {
+								// if the close type is single, we won't close other disabled layers when clicking outside
+								return;
+							}
+							const levelOfClickedLayer = layeredElement.getAttribute('data-ds--level');
+							if (levelOfClickedLayer && Number(levelOfClickedLayer) > currentLevel) {
+								// won't trigger onClick event when we click in a higher layer.
+								return;
+							}
 						}
 					}
 				} else {

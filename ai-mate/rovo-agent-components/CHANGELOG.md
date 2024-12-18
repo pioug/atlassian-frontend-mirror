@@ -1,5 +1,13 @@
 # @atlaskit/rovo-agent-components
 
+## 1.16.0
+
+### Minor Changes
+
+- [#179509](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179509)
+  [`ad407da9c2fe8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad407da9c2fe8) -
+  adding a flag for rendering the chat pill component icon
+
 ## 1.15.1
 
 ### Patch Changes

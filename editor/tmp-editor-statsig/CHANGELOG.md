@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.28.0
+
+### Minor Changes
+
+- [#180067](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180067)
+  [`fdee6c449ca83`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fdee6c449ca83) -
+  [ux] Adding block quote as an option to the text formatting menu for full page editors
+
 ## 2.27.1
 
 ### Patch Changes

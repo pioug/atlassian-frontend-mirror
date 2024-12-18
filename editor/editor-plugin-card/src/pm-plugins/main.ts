@@ -32,8 +32,6 @@ import { handleProvider, resolveWithProvider } from './util/resolve';
 import { getNewRequests, getPluginState, getPluginStateWithUpdatedPos } from './util/state';
 import { isBlockSupportedAtPosition, isEmbedSupportedAtPosition } from './utils';
 
-export { pluginKey } from './plugin-key';
-
 const LOCAL_STORAGE_DISCOVERY_KEY_SMART_LINK = 'smart-link-upgrade-pulse';
 export const ALLOW_EVENTS_CLASSNAME = 'card-plugin-element-allow-events';
 

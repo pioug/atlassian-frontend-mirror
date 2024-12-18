@@ -9,12 +9,11 @@ import { N500, N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import { borderRadius, size, center } from '@atlaskit/media-ui';
 import { rgba } from '../../styles';
-import { fontFamily } from '@atlaskit/theme/constants';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const wrapperStyles = css({
 	boxSizing: 'border-box',
-	fontFamily: fontFamily(),
+	fontFamily: token('font.family.body'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'*': {
 		boxSizing: 'border-box',
@@ -35,6 +34,7 @@ export type CardActionButtonOwnProps = {
 	style?: { color: string | undefined };
 	onClick?: (event: React.MouseEvent<HTMLButtonElement>, analyticsEvent?: UIAnalyticsEvent) => void;
 	onMouseDown?: (event: MouseEvent<HTMLButtonElement>) => void;
+	disabled?: boolean;
 	children?: React.ReactNode;
 };
 export type CardActionButtonProps = CardActionButtonOwnProps & HTMLAttributes<HTMLButtonElement>;

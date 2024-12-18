@@ -1,5 +1,26 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.6.0
+
+### Minor Changes
+
+- [#180750](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180750)
+  [`a876090daed20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a876090daed20) -
+  Experimental UFO holds the third iteration
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.5.3
+
+### Patch Changes
+
+- [#179859](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179859)
+  [`3685feff446c1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3685feff446c1) -
+  Use getBoundingClientRect instead of value from intersectionObserver for the purpose of checking
+  layout shift for SSR placeholders.
+
 ## 2.5.2
 
 ### Patch Changes

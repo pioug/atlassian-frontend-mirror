@@ -44,7 +44,7 @@ export function useStateFromPromise<S>(
 
 const useDefaultQuickInsertProvider = (providers: ExtensionProvider) => {
 	const [quickInsertProvider] = useStateFromPromise<QuickInsertProvider>(
-		() => extensionProviderToQuickInsertProvider(providers, ACTIONS),
+		() => extensionProviderToQuickInsertProvider(providers, ACTIONS, { current: undefined }),
 		[providers],
 	);
 

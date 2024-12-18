@@ -83,7 +83,7 @@
 		"@atlaskit/code": "^15.6.0",
 		"@atlaskit/ds-lib": "^3.3.0",
 		"@atlaskit/heading": "^4.0.0",
-		"@atlaskit/link": "^1.2.7",
+		"@atlaskit/link": "^2.0.0",
 		"@atlaskit/logo": "^15.1.0",
 		"@atlaskit/menu": "^2.13.5",
 		"@atlaskit/primitives": "^13.3.0",

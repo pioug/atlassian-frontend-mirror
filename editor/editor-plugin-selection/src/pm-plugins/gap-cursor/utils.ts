@@ -1,12 +1,11 @@
 import { CAPTION_PLACEHOLDER_ID } from '@atlaskit/editor-common/media-single';
+import { Side } from '@atlaskit/editor-common/selection';
 import {
 	TableSharedCssClassName,
 	UnsupportedSharedCssClassName,
 } from '@atlaskit/editor-common/styles';
 import type { Node as PMNode, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-
-import { Side } from './selection';
 
 export const isLeftCursor = (side: Side): side is Side.LEFT => side === Side.LEFT;
 

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-panel
 
+## 3.2.0
+
+### Minor Changes
+
+- [#178674](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178674)
+  [`112c90f42dcbc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/112c90f42dcbc) -
+  Refactored folder structure to confirm to new editor standards
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.1.6
 
 ### Patch Changes

@@ -41,6 +41,7 @@ import type { InputMethod } from './pm-plugins/commands/block-type';
 import {
 	setBlockTypeWithAnalytics,
 	insertBlockQuoteWithAnalytics,
+	insertBlockQuoteWithAnalyticsCommand,
 } from './pm-plugins/commands/block-type';
 import inputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
@@ -203,7 +204,12 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 				{
 					name: 'blockType',
 					plugin: ({ dispatch }) =>
-						createPlugin(api, dispatch, options && options.lastNodeMustBeParagraph),
+						createPlugin(
+							api,
+							dispatch,
+							options && options.lastNodeMustBeParagraph,
+							options?.includeBlockQuoteAsTextstyleOption,
+						),
 				},
 				{
 					name: 'blockTypeInputRule',
@@ -227,8 +233,20 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 		},
 
 		commands: {
-			setTextLevel(level: TextBlockTypes, inputMethod: InputMethod) {
-				return setBlockTypeWithAnalytics(level, inputMethod, api?.analytics?.actions);
+			setTextLevel(
+				level: TextBlockTypes,
+				inputMethod: InputMethod,
+				fromBlockQuote: boolean = false,
+			) {
+				return setBlockTypeWithAnalytics(
+					level,
+					inputMethod,
+					api?.analytics?.actions,
+					fromBlockQuote,
+				);
+			},
+			insertBlockQuote(inputMethod: InputMethod) {
+				return insertBlockQuoteWithAnalyticsCommand(inputMethod, api?.analytics?.actions);
 			},
 		},
 

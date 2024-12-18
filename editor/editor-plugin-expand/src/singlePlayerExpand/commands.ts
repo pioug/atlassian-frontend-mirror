@@ -20,6 +20,7 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeOfType, safeInsert } from '@atlaskit/editor-prosemirror/utils';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { InsertMethod } from '../types';
@@ -209,7 +210,9 @@ export const toggleExpandExpanded =
 				},
 				eventType: EVENT_TYPE.TRACK,
 			};
-
+			if (fg('platform_editor_long_node_expand')) {
+				tr.setMeta('scrollIntoView', false);
+			}
 			editorAnalyticsAPI?.attachAnalyticsEvent(payload)(tr);
 			dispatch(tr);
 		}

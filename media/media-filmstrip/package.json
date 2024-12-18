@@ -41,11 +41,11 @@
 	},
 	"dependencies": {
 		"@atlaskit/icon": "^23.1.0",
-		"@atlaskit/media-card": "^78.15.0",
+		"@atlaskit/media-card": "^78.16.0",
 		"@atlaskit/media-client": "^28.6.0",
 		"@atlaskit/media-client-react": "^2.4.0",
 		"@atlaskit/media-common": "^11.7.0",
-		"@atlaskit/media-viewer": "^49.4.0",
+		"@atlaskit/media-viewer": "^49.5.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.5.0",
@@ -54,12 +54,12 @@
 		"debounce": "^1.0.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/media-core": "^34.3.0",
+		"@atlaskit/media-core": "^34.4.0",
 		"@emotion/react": "^11.7.1",
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
-		"@atlaskit/media-core": "^34.3.0",
+		"@atlaskit/media-core": "^34.4.0",
 		"@atlaskit/media-test-data": "^2.6.1",
 		"@atlaskit/media-test-helpers": "^34.7.0",
 		"@atlaskit/ssr": "*",

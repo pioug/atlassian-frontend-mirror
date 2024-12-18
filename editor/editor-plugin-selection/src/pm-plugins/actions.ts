@@ -1,7 +1,6 @@
+import type { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { DecorationSet } from '@atlaskit/editor-prosemirror/view';
-
-import type { RelativeSelectionPos } from '../types';
 
 export enum SelectionActionTypes {
 	SET_DECORATIONS = 'SET_DECORATIONS',

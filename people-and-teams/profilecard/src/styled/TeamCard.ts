@@ -2,8 +2,7 @@
 import styled from '@emotion/styled';
 
 import { N20, N200 } from '@atlaskit/theme/colors';
-import { borderRadius, gridSize } from '@atlaskit/theme/constants';
-import { h600 } from '@atlaskit/theme/typography';
+import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import { bgColor, teamHeaderBgColor } from './constants';
@@ -20,7 +19,7 @@ export const CardWrapper = styled.div({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	borderRadius: `${borderRadius()}px`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	width: `${gridSize() * 40}px`,
+	width: '320px',
 	position: 'relative',
 	WebkitFontSmoothing: 'antialiased',
 	MozOsxFontSmoothing: 'grayscale',
@@ -29,7 +28,7 @@ export const CardWrapper = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const TeamForbiddenErrorStateWrapper = styled.div({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	width: `${gridSize() * 40}px`,
+	width: '320px',
 	position: 'relative',
 });
 
@@ -46,7 +45,7 @@ export const CardHeader = styled.div<{ image?: string; isLoading?: boolean }>`
 	background-position: center;
 	background-size: cover;
 	box-sizing: content-box;
-	height: ${gridSize() * 16}px;
+	height: 128px;
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -55,11 +54,12 @@ export const CardContent = styled.div({
 	flexDirection: 'column',
 	padding: token('space.300', '24px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	minHeight: `${gridSize() * 13}px`,
+	minHeight: '104px',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const TeamName = styled.h6(h600, {
+export const TeamName = styled.h6({
+	font: token('font.heading.medium'),
 	textTransform: 'none',
 	overflow: 'hidden',
 	maxHeight: '48px',

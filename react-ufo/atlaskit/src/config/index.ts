@@ -89,6 +89,11 @@ export type Config = {
 		readonly rates?: Rates;
 		readonly kind?: Record<InteractionType, number>;
 	};
+	readonly experimentalInteractionMetrics?: {
+		readonly enabled?: boolean;
+		readonly rates?: Rates;
+		readonly kind?: Record<InteractionType, number>;
+	};
 	readonly enableSegmentHighlighting?: boolean;
 	readonly enableAdditionalPerformanceMarks?: boolean;
 	readonly shouldCalculateLighthouseMetricsFromTTAI?: boolean;
@@ -161,6 +166,39 @@ export function getInteractionRate(name: string, interactionKind: InteractionKin
 		return 0;
 	} catch (e: any) {
 		// Fallback
+		return 0;
+	}
+}
+
+export function getExperimentalInteractionRate(
+	name: string,
+	interactionType: InteractionType,
+): number {
+	try {
+		if (!config) {
+			return 0;
+		}
+		const { experimentalInteractionMetrics } = config;
+		if (!experimentalInteractionMetrics?.enabled) {
+			return 0;
+		}
+
+		if (
+			experimentalInteractionMetrics.rates &&
+			typeof experimentalInteractionMetrics.rates[name] === 'number'
+		) {
+			return experimentalInteractionMetrics.rates[name];
+		}
+
+		if (
+			experimentalInteractionMetrics.kind &&
+			typeof experimentalInteractionMetrics.kind[interactionType] === 'number'
+		) {
+			return experimentalInteractionMetrics.kind[interactionType];
+		}
+
+		return 0;
+	} catch (e: any) {
 		return 0;
 	}
 }

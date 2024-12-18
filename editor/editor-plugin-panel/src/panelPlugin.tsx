@@ -26,11 +26,11 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { T50 } from '@atlaskit/theme/colors';
 
-import { insertPanelWithAnalytics } from './actions';
+import { insertPanelWithAnalytics } from './editor-actions/actions';
+import { type PanelPlugin } from './panelPluginType';
 import keymap from './pm-plugins/keymaps';
 import { createPlugin } from './pm-plugins/main';
-import { getToolbarConfig } from './toolbar';
-import { type PanelPlugin } from './types';
+import { getToolbarConfig } from './ui/toolbar';
 
 const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 	name: 'panel',

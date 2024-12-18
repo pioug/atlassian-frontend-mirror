@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { headingsSharedStyles } from '@atlaskit/editor-common/styles';
+import { headingsSharedStyles, blockquoteSharedStyles } from '@atlaskit/editor-common/styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
 import { N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -27,7 +27,7 @@ export const blockTypeMenuItemStyle = (
 	return () =>
 		css(
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			headingsSharedStyles(typographyTheme),
+			tagName === 'blockquote' ? blockquoteSharedStyles : headingsSharedStyles(typographyTheme),
 			{
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'>': {

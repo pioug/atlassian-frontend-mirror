@@ -1,7 +1,7 @@
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import type { ComponentRegistry, ToolbarElementConfig } from './types';
+import type { ComponentRegistry, ToolbarElementConfig } from '../primaryToolbarPluginType';
 
 export const getToolbarComponents = (
 	componentRegistry: ComponentRegistry,

@@ -1,5 +1,13 @@
 # @atlaskit/media-core
 
+## 34.4.0
+
+### Minor Changes
+
+- [#179931](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179931)
+  [`9ecf438a10ba5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ecf438a10ba5) -
+  Disable Media downloads based on Product security policy. Option added to Media Client Config
+
 ## 34.3.1
 
 ### Patch Changes

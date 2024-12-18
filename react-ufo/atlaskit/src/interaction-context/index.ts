@@ -20,6 +20,7 @@ export interface UFOInteractionContextType extends InteractionContextType {
 	addCustomData(customData: CustomData): void;
 	addCustomTimings(customTimings: CustomTiming): void;
 	addApdex(apdexInfo: { key: string; startTime?: number; stopTime: number }): void;
+	holdExperimental?(name: string): void | (() => void);
 }
 
 export default InteractionContext as Context<UFOInteractionContextType | null>;

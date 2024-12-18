@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.6.1
+
+### Patch Changes
+
+- [#180521](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180521)
+  [`595c61de31458`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/595c61de31458) -
+  add missing meta.schema to no-unsafe-design-token-usage rule
+
 ## 11.6.0
 
 ### Minor Changes

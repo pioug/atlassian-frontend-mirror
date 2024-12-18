@@ -14,6 +14,8 @@ export default function Example() {
 			allowColumnSorting={true}
 			allowCopyToClipboard
 			allowWrapCodeBlock
+			UNSTABLE_allowTableAlignment
+			UNSTABLE_allowTableResizing
 			analyticsEventSeverityTracking={{
 				enabled: true,
 				severityNormalThreshold: NORMAL_SEVERITY_THRESHOLD,

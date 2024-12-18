@@ -2,8 +2,9 @@ import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
+import type { ComponentRegistry, PrimaryToolbarPluginState } from '../primaryToolbarPluginType';
+
 import { getToolbarComponents } from './toolbar-configuration';
-import type { ComponentRegistry, PrimaryToolbarPluginState } from './types';
 
 export const primaryToolbarPluginKey = new PluginKey<PrimaryToolbarPluginState>('primaryToolbar');
 

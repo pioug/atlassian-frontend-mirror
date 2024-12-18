@@ -18,6 +18,7 @@ describe('providers', () => {
 	it('should set extensionProvider quickInsert provider even when quickInsertProvider is not provided', () => {
 		const provider = prepareQuickInsertProvider(
 			new EditorActions(),
+			{ current: undefined },
 			extensionProvider,
 			undefined,
 			undefined,
@@ -29,6 +30,7 @@ describe('providers', () => {
 	it('should just set quickInsertProvider if there is no extensionProvider', () => {
 		const provider = prepareQuickInsertProvider(
 			new EditorActions(),
+			{ current: undefined },
 			undefined,
 			{ provider: quickInsertProvider },
 			undefined,
@@ -44,6 +46,7 @@ describe('providers', () => {
 		);
 		const provider = prepareQuickInsertProvider(
 			new EditorActions(),
+			{ current: undefined },
 			extensionProvider,
 			{ provider: quickInsertProvider },
 			undefined,
@@ -61,6 +64,7 @@ describe('providers', () => {
 	it('should not set quickInsertProvider if neither quickInsertProvider or extensionProvider provided', () => {
 		const provider = prepareQuickInsertProvider(
 			new EditorActions(),
+			{ current: undefined },
 			undefined,
 			undefined,
 			undefined,

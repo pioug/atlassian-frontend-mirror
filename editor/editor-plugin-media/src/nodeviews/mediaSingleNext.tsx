@@ -626,19 +626,22 @@ export const MediaSingleNodeNext = (mediaSingleNodeNextProps: MediaSingleNodeNex
 						fg('platform_editor_media_extended_resize_experience') && !isInsideTable
 					}
 				>
-					{({ badgeSize }: { badgeSize: 'small' | 'medium' }) => (
+					{({ badgeSize, visible }: { badgeSize: 'small' | 'medium'; visible: boolean }) => (
 						<>
-							{fg('platform_editor_hide_external_media_badge') ? (
-								<ExternalImageBadge
-									badgeSize={badgeSize}
-									type={childMediaNodeAttrs.type}
-									url={
-										childMediaNodeAttrs.type === 'external' ? childMediaNodeAttrs.url : undefined
-									}
-								/>
-							) : (
-								shouldShowExternalMediaBadge && <ExternalImageBadge badgeSize={badgeSize} />
-							)}
+							{fg('platform_editor_hide_external_media_badge')
+								? visible && (
+										<ExternalImageBadge
+											badgeSize={badgeSize}
+											type={childMediaNodeAttrs.type}
+											url={
+												childMediaNodeAttrs.type === 'external'
+													? childMediaNodeAttrs.url
+													: undefined
+											}
+										/>
+									)
+								: shouldShowExternalMediaBadge &&
+									visible && <ExternalImageBadge badgeSize={badgeSize} />}
 							{mediaOptions.allowCommentsOnMedia && (
 								<CommentBadgeNextWrapper
 									view={view}

@@ -1,6 +1,6 @@
 import type { ToolbarUIComponentFactory } from '@atlaskit/editor-common/types';
 
-import type { ComponentRegistry, ToolbarElementNames } from './types';
+import type { ComponentRegistry, ToolbarElementNames } from '../primaryToolbarPluginType';
 
 export const registerComponent =
 	(componentRegistry: ComponentRegistry) =>

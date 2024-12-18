@@ -1,3 +1,5 @@
+import { fg } from '@atlaskit/platform-feature-flags';
+
 const EQUALITY_THRESHOLD = 0.1;
 const ANCESTOR_LOOKUP_LIMIT = 10;
 
@@ -154,8 +156,16 @@ export class SSRPlaceholderHandlers {
 
 				const rect = this.staticPlaceholders.get(staticKey);
 
-				const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
-				resolve(hasSameSizePosition);
+				if (fg('platform_ufo_ssr_ttvc_use_target_rect')) {
+					requestAnimationFrame(() => {
+						const targetRect = target.getBoundingClientRect();
+						const hasSameSizePosition = this.hasSameSizePosition(rect, targetRect);
+						resolve(hasSameSizePosition);
+					});
+				} else {
+					const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
+					resolve(hasSameSizePosition);
+				}
 
 				this.callbacks.delete(staticKey);
 			}
@@ -168,8 +178,16 @@ export class SSRPlaceholderHandlers {
 			}
 
 			const rect = this.staticPlaceholders.get(key);
-			const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
-			resolve(hasSameSizePosition);
+			if (fg('platform_ufo_ssr_ttvc_use_target_rect')) {
+				requestAnimationFrame(() => {
+					const targetRect = target.getBoundingClientRect();
+					const hasSameSizePosition = this.hasSameSizePosition(rect, targetRect);
+					resolve(hasSameSizePosition);
+				});
+			} else {
+				const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
+				resolve(hasSameSizePosition);
+			}
 
 			this.staticPlaceholders.delete(staticKey);
 			this.reactValidateCallbacks.delete(staticKey);

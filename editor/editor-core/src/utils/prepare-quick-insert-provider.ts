@@ -2,6 +2,8 @@ import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
+import { type PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 
 import type EditorActions from '../actions';
 
@@ -19,6 +21,7 @@ import { combineQuickInsertProviders, extensionProviderToQuickInsertProvider } f
  */
 export default function prepareQuickInsertProvider(
 	editorActions: EditorActions,
+	apiRef: React.MutableRefObject<PublicPluginAPI<[ExtensionPlugin]> | undefined>,
 	extensionProvider?: ExtensionProvider,
 	quickInsert?: QuickInsertOptions,
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
@@ -28,7 +31,12 @@ export default function prepareQuickInsertProvider(
 
 	const extensionQuickInsertProvider =
 		extensionProvider &&
-		extensionProviderToQuickInsertProvider(extensionProvider, editorActions, createAnalyticsEvent);
+		extensionProviderToQuickInsertProvider(
+			extensionProvider,
+			editorActions,
+			apiRef,
+			createAnalyticsEvent,
+		);
 
 	return quickInsertProvider && extensionQuickInsertProvider
 		? combineQuickInsertProviders([quickInsertProvider, extensionQuickInsertProvider])

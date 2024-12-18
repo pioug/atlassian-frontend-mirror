@@ -4,84 +4,90 @@
  */
 import { type AnchorHTMLAttributes, forwardRef, type Ref } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css } from '@compiled/react';
 
 import type { RouterLinkComponentProps } from '@atlaskit/app-provider';
+import { cssMap, cx, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
-import Anchor, { type AnchorProps } from '@atlaskit/primitives/anchor';
+import { Anchor, type AnchorProps, Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
-const visitedLinkStyles = xcss({
-	':visited': {
-		color: 'color.link.visited',
+const styles = cssMap({
+	visitedLink: {
+		'&:visited': {
+			color: token('color.link.visited'),
+		},
+		// @ts-expect-error - chained pseudos are not supported properly
+		'&:visited:hover': {
+			color: token('color.link.visited'),
+		},
+		'&:visited:active': {
+			color: token('color.link.visited.pressed'),
+		},
 	},
-	':visited:hover': {
-		color: 'color.link.visited',
-	},
-	':visited:active': {
-		color: 'color.link.visited.pressed',
-	},
-});
 
-const defaultAppearanceStyles = xcss({
-	textDecoration: 'underline',
-	color: 'color.link',
+	defaultAppearance: {
+		textDecoration: 'underline',
+		color: token('color.link'),
 
-	':hover': {
-		color: 'color.link',
+		'&:hover': {
+			color: token('color.link'),
+			textDecoration: 'none',
+		},
+
+		'&:active': {
+			color: token('color.link.pressed'),
+		},
+
+		'&:focus': {
+			textDecoration: 'underline',
+		},
+	},
+
+	subtleAppearance: {
 		textDecoration: 'none',
+		color: token('color.text.subtle'),
+
+		'&:hover': {
+			color: token('color.text.subtle'),
+			textDecoration: 'underline',
+		},
+
+		'&:active': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			color: token('color.text') as any,
+		},
 	},
 
-	':active': {
-		color: 'color.link.pressed',
-	},
-
-	':focus': {
+	inverseAppearance: {
 		textDecoration: 'underline',
-	},
-});
+		color: token('color.text.inverse'),
 
-const subtleAppearanceStyles = xcss({
-	textDecoration: 'none',
-	color: 'color.text.subtle',
+		'&:hover': {
+			color: token('color.text.inverse'),
+			textDecoration: 'none',
+		},
 
-	':hover': {
-		color: 'color.text.subtle',
-		textDecoration: 'underline',
-	},
+		'&:active': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			color: token('color.text.inverse') as any,
+		},
 
-	':active': {
-		color: 'color.text',
-	},
-});
-
-const inverseAppearanceStyles = xcss({
-	textDecoration: 'underline',
-	color: 'color.text.inverse',
-
-	':hover': {
-		color: 'color.text.inverse',
-		textDecoration: 'none',
+		'&:focus': {
+			textDecoration: 'underline',
+		},
 	},
 
-	':active': {
-		color: 'color.text.inverse',
+	// Prevent the icon from wrapping onto a new line by itself
+	// Using this technique involving a zero-width space: https://snook.ca/archives/html_and_css/icon-wrap-after-text
+	iconWrapper: {
+		display: 'inline',
+		whiteSpace: 'nowrap',
+		verticalAlign: 'top',
+		position: 'relative',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		insetBlockStart: '0.11em' as any,
 	},
-
-	':focus': {
-		textDecoration: 'underline',
-	},
-});
-
-// Prevent the icon from wrapping onto a new line by itself
-// Using this technique involving a zero-width space: https://snook.ca/archives/html_and_css/icon-wrap-after-text
-const iconWrapperStyles = xcss({
-	display: 'inline',
-	whiteSpace: 'nowrap',
-	verticalAlign: 'top',
-	position: 'relative',
-	insetBlockStart: '0.11em',
 });
 
 const iconStyles = css({
@@ -131,20 +137,20 @@ const LinkWithoutRef = <RouterLinkConfig extends Record<string, any> = never>(
 			target={target}
 			ref={ref}
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			xcss={[
-				appearance === 'default' && defaultAppearanceStyles,
-				appearance === 'subtle' && subtleAppearanceStyles,
-				appearance === 'inverse' && inverseAppearanceStyles,
+			xcss={cx(
+				appearance === 'default' && styles.defaultAppearance,
+				appearance === 'subtle' && styles.subtleAppearance,
+				appearance === 'inverse' && styles.inverseAppearance,
 				// Visited styles are not supported for inverse links due to contrast issues
-				appearance !== 'inverse' && visitedLinkStyles,
-			]}
+				appearance !== 'inverse' && styles.visitedLink,
+			)}
 			testId={testId}
 			componentName="Link"
 			newWindowLabel={newWindowLabel}
 		>
 			{children}
 			{target === '_blank' && (
-				<Box as="span" xcss={iconWrapperStyles} testId={testId && `${testId}__icon`}>
+				<Box as="span" xcss={styles.iconWrapper} testId={testId && `${testId}__icon`}>
 					{/* Zero-width space to prevent the icon from wrapping onto new line */}
 					&#65279;
 					{/* Unfortunately Shortcut Icon had to be copied directly below to support visited styles.

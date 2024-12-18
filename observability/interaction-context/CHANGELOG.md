@@ -1,5 +1,13 @@
 # @atlaskit/interaction-context
 
+## 2.3.0
+
+### Minor Changes
+
+- [#180750](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180750)
+  [`a876090daed20`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a876090daed20) -
+  Experimental UFO holds the third iteration
+
 ## 2.2.0
 
 ### Minor Changes

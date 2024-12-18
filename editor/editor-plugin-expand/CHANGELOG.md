@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.10.9
+
+### Patch Changes
+
+- [#180080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180080)
+  [`2c21ba8914848`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c21ba8914848) -
+  [ux] ED-26013 fix expand on auto scoll for long node
+
 ## 2.10.8
 
 ### Patch Changes

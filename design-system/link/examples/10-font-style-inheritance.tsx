@@ -1,27 +1,32 @@
 import React from 'react';
 
+import { cssMap } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import Link from '@atlaskit/link';
-import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	fontFamily: {
+		fontFamily: 'var(--ds-font-family-body)',
+		margin: token('space.0'),
+	},
+
+	letterSpacing: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		letterSpacing: 2 as any,
+		margin: token('space.0'),
+	},
+});
 
 const textContent = (
-	<>
+	<React.Fragment>
 		Font styles are inherited by{' '}
 		<Link href="http://www.catipsum.com/" target="_blank">
 			the link
 		</Link>
-	</>
+	</React.Fragment>
 );
-
-const fontFamilyStyles = xcss({
-	fontFamily: 'Arial',
-	margin: 'space.0',
-});
-
-const letterSpacingStyles = xcss({
-	letterSpacing: 2,
-	margin: 'space.0',
-});
 
 export default function InlineTextExample() {
 	return (
@@ -46,10 +51,10 @@ export default function InlineTextExample() {
 			<Text weight="bold" color="color.text.accent.magenta" as="p">
 				{textContent}
 			</Text>
-			<Box as="p" xcss={fontFamilyStyles}>
+			<Box as="p" xcss={styles.fontFamily}>
 				{textContent}
 			</Box>
-			<Box as="p" xcss={letterSpacingStyles}>
+			<Box as="p" xcss={styles.letterSpacing}>
 				{textContent}
 			</Box>
 		</Stack>

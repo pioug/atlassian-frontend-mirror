@@ -16,8 +16,12 @@ import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type { Item } from '@atlaskit/editor-common/floating-toolbar';
 import { areSameItems, messages } from '@atlaskit/editor-common/floating-toolbar';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { Announcer, FloatingToolbarButton as Button } from '@atlaskit/editor-common/ui';
+import type { ExtractInjectionAPI, SelectOption } from '@atlaskit/editor-common/types';
+import {
+	Announcer,
+	FloatingToolbarButton as Button,
+	FloatingToolbarSeparator as Separator,
+} from '@atlaskit/editor-common/ui';
 import { backgroundPaletteTooltipMessages } from '@atlaskit/editor-common/ui-color';
 import type { PaletteColor } from '@atlaskit/editor-common/ui-color';
 import {
@@ -40,11 +44,7 @@ import { EmojiPickerButton } from './EmojiPickerButton';
 import { ExtensionsPlaceholder } from './ExtensionsPlaceholder';
 import { InputNew, InputOld } from './Input';
 import { ScrollButtons } from './ScrollButtons';
-import type { SelectOption } from './Select';
 import Select from './Select';
-import Separator from './Separator';
-
-export type { Item };
 
 export interface Props {
 	items: Array<Item>;

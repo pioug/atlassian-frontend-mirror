@@ -6,9 +6,12 @@ import type {
 	ExtensionModule,
 	ExtensionProvider,
 } from '@atlaskit/editor-common/extensions';
+import { type PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createFakeExtensionManifest } from '@atlaskit/editor-test-helpers/extensions';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import type EditorActions from '../../../actions';
 import { extensionProviderToQuickInsertProvider } from '../../extensions';
@@ -46,6 +49,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 		const quickInsertProvider = await extensionProviderToQuickInsertProvider(
 			dummyExtensionProvider,
 			{} as EditorActions,
+			{ current: undefined },
 		);
 
 		const items = await quickInsertProvider.getItems();
@@ -62,6 +66,7 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 		const quickInsertProvider = await extensionProviderToQuickInsertProvider(
 			dummyExtensionProvider,
 			{} as EditorActions,
+			{ current: undefined },
 			createAnalyticsEvent as unknown as CreateUIAnalyticsEvent,
 		);
 
@@ -85,12 +90,47 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 		);
 	});
 
+	ffTest.on('platform_editor_add_extension_api_to_quick_insert', '', () => {
+		it('should have access to the extensionAPI in the action', async () => {
+			const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+			const mockAction = jest.fn();
+			const mockAPI = {
+				extension: { actions: { api: () => 'fake extension API' } },
+			} as unknown as PublicPluginAPI<[ExtensionPlugin]>;
+			const dummyExtensionProvider = replaceCustomQuickInsertModules(
+				createFakeExtensionManifest({
+					title: 'Action that uses extensionAPI',
+					type: 'com.atlassian.forge',
+					extensionKey: 'action-with-extensionAPI',
+				}),
+				{
+					key: 'default-async',
+					action: mockAction,
+				},
+			);
+			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
+				setup([dummyExtensionProvider]),
+				{
+					replaceSelection: () => {},
+				} as unknown as EditorActions,
+				{ current: mockAPI },
+				createAnalyticsEvent as unknown as CreateUIAnalyticsEvent,
+			);
+			const items = await quickInsertProvider.getItems();
+
+			items[2].action(jest.fn(), {} as EditorState);
+
+			expect(mockAction).toHaveBeenCalledWith('fake extension API');
+		});
+	});
+
 	it('should create analytics with inputMethod as toolbar event when inserted', async () => {
 		const dummyExtensionProvider = setup();
 		const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
 		const quickInsertProvider = await extensionProviderToQuickInsertProvider(
 			dummyExtensionProvider,
 			{} as EditorActions,
+			{ current: undefined },
 			createAnalyticsEvent as unknown as CreateUIAnalyticsEvent,
 		);
 
@@ -137,9 +177,15 @@ describe('#extensionProviderToQuickInsertProvider', () => {
 
 		it('should create analytics event when inserted async', async () => {
 			const createAnalyticsEvent = jest.fn(() => ({ fire() {} }));
+			const mockAPI = { extension: { actions: { api: () => ({}) } } } as PublicPluginAPI<
+				[ExtensionPlugin]
+			>;
 			const quickInsertProvider = await extensionProviderToQuickInsertProvider(
 				dummyExtensionProvider,
 				{ replaceSelection: () => {} } as unknown as EditorActions,
+				{
+					current: mockAPI,
+				},
 				createAnalyticsEvent as unknown as CreateUIAnalyticsEvent,
 			);
 

@@ -1,10 +1,11 @@
 import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { SelectionPluginState } from '@atlaskit/editor-common/selection';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 
-import type { SelectionPluginOptions, SelectionPluginState } from '../types';
+import type { SelectionPluginOptions } from '../types';
 import { selectionPluginKey } from '../types';
 
 import { SelectionActionTypes } from './actions';

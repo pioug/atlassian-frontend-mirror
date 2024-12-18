@@ -43,7 +43,7 @@
 		"@atlaskit/flag": "^15.8.0",
 		"@atlaskit/form": "^10.6.0",
 		"@atlaskit/icon": "^23.1.0",
-		"@atlaskit/media-ui": "^27.0.0",
+		"@atlaskit/media-ui": "^27.1.0",
 		"@atlaskit/modal-dialog": "^12.18.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/range": "^8.0.0",
@@ -63,7 +63,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
-		"@atlaskit/media-core": "^34.3.0",
+		"@atlaskit/media-core": "^34.4.0",
 		"@atlaskit/media-test-helpers": "^34.7.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",

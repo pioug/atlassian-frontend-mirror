@@ -14,11 +14,11 @@ import { IconList, IconListNumber } from '@atlaskit/editor-common/quick-insert';
 
 import type { ListPlugin } from './listPluginType';
 import {
-	indentList,
-	outdentList,
 	toggleBulletList as toggleBulletListCommand,
 	toggleOrderedList as toggleOrderedListCommand,
 } from './pm-plugins/commands';
+import { indentList } from './pm-plugins/commands/indent-list';
+import { outdentList } from './pm-plugins/commands/outdent-list';
 import inputRulePlugin from './pm-plugins/input-rules';
 import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin, pluginKey as listPluginKey } from './pm-plugins/main';

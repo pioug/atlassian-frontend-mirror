@@ -37,13 +37,10 @@ import {
 	selectionContainsList,
 } from '../utils/selection';
 
-import { indentList } from './indent-list';
 import { isFirstChildOfParent } from './isFirstChildOfParent';
 import { joinListItemForward } from './join-list-item-forward';
 import { listBackspace } from './listBackspace';
 import { outdentList } from './outdent-list';
-
-export { outdentList, indentList };
 
 export type InputMethod = INPUT_METHOD.KEYBOARD | INPUT_METHOD.TOOLBAR | INPUT_METHOD.FLOATING_TB;
 

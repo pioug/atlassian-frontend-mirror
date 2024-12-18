@@ -1,5 +1,14 @@
 # @atlaskit/media-test-helpers
 
+## 34.7.7
+
+### Patch Changes
+
+- [#179931](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179931)
+  [`4b7971107c2ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4b7971107c2ff) -
+  Direct Media examples to Media Staging
+- Updated dependencies
+
 ## 34.7.6
 
 ### Patch Changes

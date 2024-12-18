@@ -43,7 +43,8 @@ export interface Props {
 	popupsBoundariesElement?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	editorView?: EditorView;
-	setTextLevel: (type: TextBlockTypes) => void;
+	setTextLevel: (type: TextBlockTypes, fromBlockQuote?: boolean) => void;
+	wrapBlockQuote: (type: TextBlockTypes) => void;
 	shouldUseDefaultRole?: boolean;
 	api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
 }
@@ -106,7 +107,12 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			popupsScrollableElement,
 			isSmall,
 			isReducedSpacing,
-			pluginState: { currentBlockType, blockTypesDisabled, availableBlockTypes },
+			pluginState: {
+				currentBlockType,
+				blockTypesDisabled,
+				availableBlockTypes,
+				availableBlockTypesInDropdown,
+			},
 			shouldUseDefaultRole,
 			intl: { formatMessage },
 			api,
@@ -120,11 +126,11 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			return null;
 		}
 
-		const blockTypeTitles = availableBlockTypes
+		const blockTypeTitles = availableBlockTypesInDropdown
 			.filter((blockType) => blockType.name === currentBlockType.name)
 			.map((blockType) => blockType.title);
 
-		if (!this.props.isDisabled && !blockTypesDisabled) {
+		if (!this.props.isDisabled && (!blockTypesDisabled || currentBlockType.name === 'blockquote')) {
 			const items = this.createItems();
 			return (
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -219,9 +225,9 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 		const {
 			intl: { formatMessage },
 		} = this.props;
-		const { currentBlockType, availableBlockTypes } = this.props.pluginState;
+		const { currentBlockType, availableBlockTypesInDropdown } = this.props.pluginState;
 
-		const items: MenuItem[] = availableBlockTypes.map((blockType, index) => {
+		const items: MenuItem[] = availableBlockTypesInDropdown.map((blockType, index) => {
 			const isActive = currentBlockType === blockType;
 			const tagName = blockType.tagName || 'p';
 			const Tag = tagName as keyof React.ReactHTML;
@@ -246,6 +252,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 				isActive,
 			};
 		});
+
 		return [
 			{
 				items,
@@ -261,7 +268,12 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 		shouldCloseMenu: boolean;
 	}) => {
 		const blockType = item.value;
-		this.props.setTextLevel(blockType.name as TextBlockTypes);
+		if (blockType.name === 'blockquote') {
+			this.props.wrapBlockQuote(blockType.name as TextBlockTypes);
+		} else {
+			const fromBlockQuote = this.props.pluginState.currentBlockType.name === 'blockquote';
+			this.props.setTextLevel(blockType.name as TextBlockTypes, fromBlockQuote);
+		}
 		if (shouldCloseMenu) {
 			this.setState({ ...this.state, active: false });
 		}

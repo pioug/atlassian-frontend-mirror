@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-primary-toolbar
 
+## 2.1.0
+
+### Minor Changes
+
+- [#180749](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180749)
+  [`44a0bb0405ea1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44a0bb0405ea1) -
+  Refactored folder structure to confirm to new editor standards
+
 ## 2.0.12
 
 ### Patch Changes

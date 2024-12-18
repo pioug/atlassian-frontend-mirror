@@ -20,8 +20,8 @@ import {
 	removeSelectedNode,
 } from '@atlaskit/editor-prosemirror/utils';
 
-import type { PanelOptions } from './pm-plugins/main';
-import { findPanel } from './utils';
+import type { PanelOptions } from '../pm-plugins/main';
+import { findPanel } from '../pm-plugins/utils/utils';
 
 export type DomAtPos = (pos: number) => { node: HTMLElement; offset: number };
 

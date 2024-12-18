@@ -13,7 +13,7 @@ import {
 } from '@atlaskit/media-client';
 import { MediaButton, messages } from '@atlaskit/media-ui';
 import React, { useCallback } from 'react';
-import { FormattedMessage } from 'react-intl-next';
+import { FormattedMessage, useIntl } from 'react-intl-next';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import {
 	type DownloadButtonClickedEventPayload,
@@ -30,10 +30,12 @@ import {
 } from './analytics/events/ui/failedPreviewDownloadButtonClicked';
 import { DownloadButtonWrapper } from './styleWrappers';
 import { MediaViewerError } from './errors';
+import Tooltip from '@atlaskit/tooltip';
 
 const downloadIcon = <DownloadIcon color="currentColor" spacing="spacious" label="Download" />;
 
 type DownloadButtonProps = React.ComponentProps<typeof MediaButton> & {
+	tooltip?: string;
 	analyticspayload:
 		| DownloadButtonClickedEventPayload
 		| FailedPreviewDownloadButtonClickedEventPayload;
@@ -43,6 +45,7 @@ function noop() {}
 function DownloadButton({
 	analyticspayload,
 	onClick: providedOnClick = noop,
+	tooltip,
 	...rest
 }: DownloadButtonProps) {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -54,7 +57,15 @@ function DownloadButton({
 		[analyticspayload, providedOnClick, createAnalyticsEvent],
 	);
 
-	return <MediaButton {...rest} onClick={onClick} />;
+	const downloadButton = <MediaButton {...rest} onClick={onClick} />;
+
+	return tooltip ? (
+		<Tooltip content={tooltip} position="bottom" tag="span">
+			{downloadButton}
+		</Tooltip>
+	) : (
+		downloadButton
+	);
 }
 
 const createItemDownloader =
@@ -93,6 +104,16 @@ const createItemDownloader =
 			});
 	};
 
+const useDownloadButtonDisabledProps = (mediaClient: MediaClient) => {
+	const { formatMessage } = useIntl();
+	const isDisabled = mediaClient.config.enforceDataSecurityPolicy;
+	const tooltip = isDisabled
+		? formatMessage(messages.download_disabled_security_policy)
+		: undefined;
+
+	return { isDisabled, tooltip };
+};
+
 export type ErrorViewDownloadButtonProps = {
 	fileState: FileState;
 	mediaClient: MediaClient;
@@ -110,6 +131,8 @@ export const ErrorViewDownloadButton = ({
 }: ErrorViewDownloadButtonProps) => {
 	const downloadEvent = createFailedPreviewDownloadButtonClickedEvent(fileState, error);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { isDisabled, tooltip } = useDownloadButtonDisabledProps(mediaClient);
+
 	return (
 		<DownloadButtonWrapper>
 			<DownloadButton
@@ -117,6 +140,8 @@ export const ErrorViewDownloadButton = ({
 				testId="media-viewer-error-download-button"
 				analyticspayload={downloadEvent}
 				appearance="primary"
+				isDisabled={isDisabled}
+				tooltip={tooltip}
 				onClick={createItemDownloader(fileState, mediaClient, {
 					collectionName,
 					traceContext,
@@ -144,6 +169,7 @@ export const ToolbarDownloadButton = ({
 }: ToolbarDownloadButtonProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const downloadEvent = createDownloadButtonClickedEvent(state);
+	const { isDisabled, tooltip } = useDownloadButtonDisabledProps(mediaClient);
 
 	// TODO [MS-1731]: make it work for external files as well
 	if (isExternalImageIdentifier(identifier)) {
@@ -154,6 +180,8 @@ export const ToolbarDownloadButton = ({
 		<DownloadButton
 			testId="media-viewer-download-button"
 			analyticspayload={downloadEvent}
+			isDisabled={isDisabled}
+			tooltip={tooltip}
 			onClick={createItemDownloader(state, mediaClient, {
 				collectionName: identifier.collectionName,
 				createAnalyticsEvent,

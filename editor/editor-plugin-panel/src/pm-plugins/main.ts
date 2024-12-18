@@ -7,8 +7,9 @@ import { createSelectionClickHandler } from '@atlaskit/editor-common/selection';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import { getPanelNodeView } from '../nodeviews/panel';
-import { type PanelPlugin, type PanelPluginOptions, pluginKey } from '../types';
-import { handleCut } from '../utils';
+import { type PanelPlugin, type PanelPluginOptions, pluginKey } from '../panelPluginType';
+
+import { handleCut } from './utils/utils';
 
 export type PanelOptions = {
 	color?: string;

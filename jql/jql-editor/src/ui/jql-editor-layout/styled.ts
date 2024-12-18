@@ -18,8 +18,6 @@ import {
 	R400,
 } from '@atlaskit/theme/colors';
 import {
-	codeFontFamily,
-	fontFamily,
 	fontSize,
 	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
 	gridSize,
@@ -55,7 +53,7 @@ const fadeOut = keyframes({
 // eslint-disable-next-line @atlaskit/design-system/no-styled-tagged-template-expression, @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const EditorMain = styled.div`
 	/* CSS reset */
-	font-family: ${fontFamily()};
+	font-family: ${token('font.family.body')};
 	font-size: ${fontSize()}px;
 	flex-grow: 1;
 
@@ -199,7 +197,7 @@ export const EditorView = styled.div<{
 		rowHeight * props.defaultMaxRows + getEditorInputVerticalPadding(props.isCompact) * 2}px;
 
 	line-height: ${rowHeight / fontSize()};
-	font-family: ${codeFontFamily()};
+	font-family: ${token('font.family.code')};
 	word-break: break-word;
 	overflow-wrap: anywhere;
 	white-space: pre-wrap;

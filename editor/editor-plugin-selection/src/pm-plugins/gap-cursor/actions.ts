@@ -1,4 +1,10 @@
-import { atTheBeginningOfDoc, atTheEndOfDoc } from '@atlaskit/editor-common/selection';
+import {
+	atTheBeginningOfDoc,
+	atTheEndOfDoc,
+	GapCursorSelection,
+	Side,
+	isValidTargetNode,
+} from '@atlaskit/editor-common/selection';
 import type { Command } from '@atlaskit/editor-common/types';
 import {
 	isMediaNode,
@@ -18,9 +24,7 @@ import {
 import { gapCursorPluginKey } from '../gap-cursor-plugin-key';
 
 import { Direction, isBackward, isForward } from './direction';
-import { GapCursorSelection, Side } from './selection';
 import { isTextBlockNearPos } from './utils';
-import { isValidTargetNode } from './utils/is-valid-target-node';
 
 export type DirectionString = 'up' | 'down' | 'left' | 'right' | 'forward' | 'backward';
 

@@ -13,11 +13,14 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { filterChildrenBetween, wrapSelectionIn } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { Slice, Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { CellSelection } from '@atlaskit/editor-tables';
 
 import type { TextBlockTypes } from '../block-types';
 import { HEADINGS_BY_NAME, NORMAL_TEXT } from '../block-types';
+
+import { wrapSelectionInBlockType } from './wrapSelectionIn';
 
 export type InputMethod =
 	| INPUT_METHOD.TOOLBAR
@@ -43,7 +46,10 @@ export function setBlockType(name: TextBlockTypes): EditorCommand {
 	};
 }
 
-export function setHeading(level: HeadingLevelsAndNormalText): EditorCommand {
+export function setHeading(
+	level: HeadingLevelsAndNormalText,
+	fromBlockQuote?: boolean,
+): EditorCommand {
 	return function ({ tr }) {
 		const {
 			selection,
@@ -53,9 +59,28 @@ export function setHeading(level: HeadingLevelsAndNormalText): EditorCommand {
 		} = tr;
 		const ranges = selection instanceof CellSelection ? selection.ranges : [selection];
 		ranges.forEach(({ $from, $to }) => {
-			tr.setBlockType($from.pos, $to.pos, schema.nodes.heading, {
-				level,
-			});
+			if (fromBlockQuote) {
+				const range = $from.blockRange($to);
+				if (!range) {
+					return;
+				}
+
+				const content = $from.node().content;
+
+				const headingNode = schema.nodes.heading.createChecked(
+					{
+						level,
+					},
+					content,
+				);
+
+				const slice = new Slice(Fragment.from(headingNode), 0, 0);
+				tr.replaceRange(range.start, range.end, slice);
+			} else {
+				tr.setBlockType($from.pos, $to.pos, schema.nodes.heading, {
+					level,
+				});
+			}
 		});
 
 		return tr;
@@ -66,11 +91,12 @@ export function setBlockTypeWithAnalytics(
 	name: TextBlockTypes,
 	inputMethod: InputMethod,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	fromBlockQuote?: boolean,
 ): EditorCommand {
 	return ({ tr }) => {
 		const { nodes } = tr.doc.type.schema;
 		if (name === 'normal' && nodes.paragraph) {
-			return setNormalTextWithAnalytics(inputMethod, editorAnalyticsApi)({ tr });
+			return setNormalTextWithAnalytics(inputMethod, editorAnalyticsApi, fromBlockQuote)({ tr });
 		}
 
 		const headingBlockType = HEADINGS_BY_NAME[name];
@@ -79,6 +105,7 @@ export function setBlockTypeWithAnalytics(
 				headingBlockType.level,
 				inputMethod,
 				editorAnalyticsApi,
+				fromBlockQuote,
 			)({ tr });
 		}
 
@@ -86,7 +113,7 @@ export function setBlockTypeWithAnalytics(
 	};
 }
 
-function setNormalText(): EditorCommand {
+export function setNormalText(fromBlockQuote?: boolean): EditorCommand {
 	return function ({ tr }) {
 		const {
 			selection,
@@ -96,12 +123,21 @@ function setNormalText(): EditorCommand {
 		} = tr;
 		const ranges = selection instanceof CellSelection ? selection.ranges : [selection];
 		ranges.forEach(({ $from, $to }) => {
-			tr.setBlockType($from.pos, $to.pos, schema.nodes.paragraph);
+			if (fromBlockQuote) {
+				const range = $from.blockRange($to);
+				if (!range) {
+					return;
+				}
+				tr.lift(range, 0);
+			} else {
+				tr.setBlockType($from.pos, $to.pos, schema.nodes.paragraph);
+			}
 		});
 
 		return tr;
 	};
 }
+
 function withCurrentHeadingLevel(
 	fn: (level?: HeadingLevelsAndNormalText) => EditorCommand,
 ): EditorCommand {
@@ -137,6 +173,7 @@ function withCurrentHeadingLevel(
 export function setNormalTextWithAnalytics(
 	inputMethod: InputMethod,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	fromBlockQuote?: boolean,
 ): EditorCommand {
 	return withCurrentHeadingLevel((previousHeadingLevel) => ({ tr }) => {
 		editorAnalyticsApi?.attachAnalyticsEvent({
@@ -150,7 +187,7 @@ export function setNormalTextWithAnalytics(
 				previousHeadingLevel,
 			},
 		})(tr);
-		return setNormalText()({ tr });
+		return setNormalText(fromBlockQuote)({ tr });
 	});
 }
 
@@ -158,6 +195,7 @@ export const setHeadingWithAnalytics = (
 	newHeadingLevel: HeadingLevelsAndNormalText,
 	inputMethod: InputMethod,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	fromBlockQuote?: boolean,
 ) => {
 	return withCurrentHeadingLevel((previousHeadingLevel) => ({ tr }) => {
 		editorAnalyticsApi?.attachAnalyticsEvent({
@@ -171,7 +209,7 @@ export const setHeadingWithAnalytics = (
 				previousHeadingLevel,
 			},
 		})(tr);
-		return setHeading(newHeadingLevel)({ tr });
+		return setHeading(newHeadingLevel, fromBlockQuote)({ tr });
 	});
 };
 
@@ -209,6 +247,29 @@ export const insertBlockQuoteWithAnalytics = (
 		},
 	})(insertBlockQuote());
 };
+
+export function insertBlockQuoteWithAnalyticsCommand(
+	inputMethod: InputMethod,
+	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+): EditorCommand {
+	return withCurrentHeadingLevel((previousHeadingLevel) => ({ tr }) => {
+		const { nodes } = tr.doc.type.schema;
+
+		// TODO: analytics event
+
+		// editorAnalyticsApi?.attachAnalyticsEvent({
+		// 	action: ACTION.FORMATTED,
+		// 	actionSubject: ACTION_SUBJECT.TEXT,
+		// 	eventType: EVENT_TYPE.TRACK,
+		// 	actionSubjectId: ACTION_SUBJECT_ID.FORMAT_BLOCK_QUOTE,
+		// 	attributes: {
+		// 		inputMethod: inputMethod,
+		// 	},
+		// })(tr);
+
+		return wrapSelectionInBlockType(nodes.blockquote)({ tr });
+	});
+}
 
 export const cleanUpAtTheStartOfDocument: Command = (state, dispatch) => {
 	const { $cursor } = state.selection as TextSelection;

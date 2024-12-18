@@ -18,14 +18,9 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { FeatureFlags } from '@atlaskit/editor-common/types';
 import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
-import {
-	backspaceKeyCommand,
-	deleteKeyCommand,
-	enterKeyCommand,
-	indentList as indentListCommand,
-	outdentList as outdentListCommand,
-	toggleList,
-} from './commands';
+import { backspaceKeyCommand, deleteKeyCommand, enterKeyCommand, toggleList } from './commands';
+import { indentList as indentListCommand } from './commands/indent-list';
+import { outdentList as outdentListCommand } from './commands/outdent-list';
 
 export function keymapPlugin(
 	featureFlags: FeatureFlags,

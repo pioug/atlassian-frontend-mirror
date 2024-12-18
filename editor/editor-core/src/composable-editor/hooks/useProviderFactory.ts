@@ -2,9 +2,12 @@ import { useEffect, useMemo, useRef } from 'react';
 
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
+import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
 import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
+import { type PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 
 import type EditorActions from '../../actions';
 import type { EditorNextProps, ExtensionProvidersProp } from '../../types/editor-props';
@@ -13,6 +16,19 @@ import prepareQuickInsertProvider from '../../utils/prepare-quick-insert-provide
 import getProvidersFromEditorProps from '../utils/getProvidersFromEditorProps';
 import handleProviders from '../utils/handleProviders';
 
+function useEditorRef(
+	preset: EditorPresetBuilder<any, any> | undefined,
+): React.MutableRefObject<PublicPluginAPI<[ExtensionPlugin]> | undefined | undefined> {
+	const apiRef = useRef<PublicPluginAPI<[ExtensionPlugin]> | undefined | undefined>();
+	useEffect(() => {
+		return preset?.apiResolver.on((api) => {
+			apiRef.current = api as unknown as PublicPluginAPI<[ExtensionPlugin]> | undefined;
+		});
+	}, [preset?.apiResolver]);
+
+	return apiRef;
+}
+
 type PreparedProviders = {
 	extensionProvider?: ExtensionProvider;
 	quickInsertProvider?: Promise<QuickInsertProvider>;
@@ -20,6 +36,7 @@ type PreparedProviders = {
 
 function prepareProviders(
 	editorActions: EditorActions,
+	apiRef: React.MutableRefObject<PublicPluginAPI<[ExtensionPlugin]> | undefined>,
 	quickInsert: QuickInsertOptions | undefined,
 	extensionProviders: ExtensionProvidersProp | undefined,
 	createAnalyticsEvent: CreateUIAnalyticsEvent,
@@ -27,6 +44,7 @@ function prepareProviders(
 	const extensionProvider = prepareExtensionProvider(() => editorActions)(extensionProviders);
 	const quickInsertProvider = prepareQuickInsertProvider(
 		editorActions,
+		apiRef,
 		extensionProvider,
 		quickInsert,
 		createAnalyticsEvent,
@@ -101,14 +119,21 @@ export default function useProviderFactory(
 	);
 
 	const providerFactory = useRef(new ProviderFactory());
+	const editorRef = useEditorRef(props.preset);
 
 	const preparedProviders = useMemo(
 		() =>
 			// Though this will introduce some performance regression related to quick insert
 			// loading but we can remove it soon when Forge will move to new API.
 			// quickInsert={Promise.resolve(consumerQuickInsert)} is one of the main reason behind this performance issue.
-			prepareProviders(editorActions, quickInsert, extensionProviders, createAnalyticsEvent),
-		[extensionProviders, quickInsert, editorActions, createAnalyticsEvent],
+			prepareProviders(
+				editorActions,
+				editorRef,
+				quickInsert,
+				extensionProviders,
+				createAnalyticsEvent,
+			),
+		[extensionProviders, quickInsert, editorActions, createAnalyticsEvent, editorRef],
 	);
 
 	useEffect(() => {

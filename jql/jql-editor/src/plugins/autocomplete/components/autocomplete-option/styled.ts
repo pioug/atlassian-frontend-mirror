@@ -2,12 +2,11 @@
 import styled from '@emotion/styled';
 
 import { N100, N20, N50, N800 } from '@atlaskit/theme/colors';
-import { codeFontFamily, fontFamily } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const TooltipContent = styled.div({
-	fontFamily: fontFamily(),
+	fontFamily: token('font.family.body'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -18,7 +17,7 @@ export const OptionListItem = styled.li<{
 	{
 		cursor: 'pointer',
 		padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
-		fontFamily: codeFontFamily(),
+		fontFamily: token('font.family.code'),
 		lineHeight: '24px',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766

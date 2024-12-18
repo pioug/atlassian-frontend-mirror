@@ -332,10 +332,10 @@ export class ExtensionComponentOld extends Component<Props, State> {
 
 		if (isBodiedExtension) {
 			const rendererExtensionHandler = rendererExtensionHandlers?.[extensionType];
-			if (!rendererExtensionHandler) {
-				return null;
+			// Forge bodied extensions don't get rendererExtensionHandlers passed in and use extensionHandlerFromProvider from the below logic instead
+			if (rendererExtensionHandler) {
+				return getExtensionRenderer(rendererExtensionHandler)(node, toJSON(editorView.state.doc));
 			}
-			return getExtensionRenderer(rendererExtensionHandler)(node, toJSON(editorView.state.doc));
 		}
 
 		let result;
@@ -604,10 +604,10 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 
 		if (isBodiedExtension) {
 			const rendererExtensionHandler = rendererExtensionHandlers?.[extensionType];
-			if (!rendererExtensionHandler) {
-				return null;
+			// Forge bodied extensions don't get rendererExtensionHandlers passed in and use extensionHandlerFromProvider from the below logic instead
+			if (rendererExtensionHandler) {
+				return getExtensionRenderer(rendererExtensionHandler)(node, toJSON(editorView.state.doc));
 			}
-			return getExtensionRenderer(rendererExtensionHandler)(node, toJSON(editorView.state.doc));
 		}
 
 		let result;

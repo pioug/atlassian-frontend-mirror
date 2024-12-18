@@ -2,8 +2,11 @@ import React, { type ReactNode, useEffect, useState } from 'react';
 
 import debounce from 'lodash/debounce';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
+
+const MEDIA_BADGE_VISIBILITY_BREAKPOINT = 200;
 
 const containerStyles = xcss({
 	display: 'flex',
@@ -41,12 +44,22 @@ type ExternalImageBadgeProps = {
 	mediaWidth?: number;
 	extendedResizeOffset?: boolean;
 	useMinimumZIndex?: boolean;
-	children: ReactNode | ((props: { badgeSize: 'medium' | 'small' }) => ReactNode);
+	children: ReactNode | ((props: { badgeSize: 'medium' | 'small'; visible: boolean }) => ReactNode);
 };
 
 const getBadgeSize = (width?: number, height?: number) => {
 	// width is the original width of image, not resized or currently rendered to user. Defaulting to medium for now
 	return (width && width < 70) || (height && height < 70) ? 'small' : 'medium';
+};
+
+const getBadgeVisible = (width?: number, height?: number) => {
+	if (!fg('platform_editor_support_media_badge_visibility')) {
+		return true;
+	}
+	return (width && width < MEDIA_BADGE_VISIBILITY_BREAKPOINT) ||
+		(height && height < MEDIA_BADGE_VISIBILITY_BREAKPOINT)
+		? false
+		: true;
 };
 
 export const MediaBadges = ({
@@ -60,6 +73,7 @@ export const MediaBadges = ({
 	const [badgeSize, setBadgeSize] = useState<'medium' | 'small'>(
 		getBadgeSize(mediaWidth, mediaHeight),
 	);
+	const [visible, setVisible] = useState<boolean>(getBadgeVisible(mediaWidth, mediaHeight));
 
 	useEffect(() => {
 		const observer = new ResizeObserver(
@@ -67,6 +81,9 @@ export const MediaBadges = ({
 				const [entry] = entries;
 				const { width, height } = entry.contentRect;
 				setBadgeSize(getBadgeSize(width, height));
+				if (fg('platform_editor_support_media_badge_visibility')) {
+					setVisible(getBadgeVisible(width, height));
+				}
 			}),
 		);
 
@@ -79,7 +96,7 @@ export const MediaBadges = ({
 	}, [mediaElement]);
 
 	if (typeof children === 'function') {
-		children = children({ badgeSize });
+		children = children({ badgeSize, visible });
 	}
 
 	if (!mediaElement || React.Children.count(children) === 0) {

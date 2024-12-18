@@ -120,7 +120,10 @@ export function createDefaultPreset(options: DefaultPresetPluginOptions) {
 			undoRedoPlugin,
 			Boolean(options.featureFlags?.undoRedoButtons ?? options.allowUndoRedoButtons),
 		)
-		.add([blockTypePlugin, options.blockType])
+		.add([
+			blockTypePlugin,
+			{ ...options.blockType, includeBlockQuoteAsTextstyleOption: isFullPage },
+		])
 		.add(clearMarksOnEmptyDocPlugin)
 		.add([
 			selectionToolbarPlugin,

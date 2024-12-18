@@ -916,3 +916,259 @@ export const adfNestedTableInsideTable: DocNode = {
 		},
 	],
 };
+
+export const adfTableWithUnequalTableRows: DocNode = {
+	type: 'doc',
+	version: 1,
+	content: [
+		{
+			type: 'table',
+			attrs: {
+				isNumberColumnEnabled: false,
+				layout: 'default',
+			},
+			content: [
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Lorem',
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Lorem',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Code',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Start Date',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Location',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Link',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Some text',
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Some text',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Some text',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Date',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Blah',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Some text',
+										},
+									],
+								},
+							],
+						},
+					],
+				},
+			],
+		},
+	],
+};

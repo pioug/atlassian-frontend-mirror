@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { INPUT_METHOD } from '@atlaskit/editor-common/analytics';
+import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
 	contentAllowedInCodeBlock,
@@ -137,6 +138,18 @@ export type InsertBlockPlugin = NextEditorPlugin<
 	}
 >;
 
+function delayUntilIdle(cb: Function) {
+	if (typeof window === 'undefined') {
+		return;
+	}
+	// eslint-disable-next-line compat/compat
+	if (window.requestIdleCallback !== undefined) {
+		// eslint-disable-next-line compat/compat
+		return window.requestIdleCallback(() => cb(), { timeout: 500 });
+	}
+	return window.requestAnimationFrame(() => cb());
+}
+
 export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api }) => {
 	const editorViewRef: Record<'current', EditorView | null> = { current: null };
 
@@ -218,6 +231,19 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 					? elementBrowserPluginState?.menuBrowserOpen
 					: false,
 			};
+		},
+
+		usePluginHook() {
+			useEffect(() => {
+				// This is to optimise the UI so that when the user first clicks on the insert
+				// menu it opens instantly. As we're delaying the loading this won't affect the
+				// initial editor rendering metrics.
+				delayUntilIdle(() => {
+					if (fg('platform_editor_preload_insert_menu')) {
+						ElementBrowser.preload();
+					}
+				});
+			}, []);
 		},
 
 		pmPlugins: () => {

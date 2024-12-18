@@ -61,7 +61,7 @@ import type { CardAppearance } from '@atlaskit/smart-card';
 
 import type { cardPlugin } from '../index';
 import { changeSelectedCardToText } from '../pm-plugins/doc';
-import { pluginKey } from '../pm-plugins/main';
+import { pluginKey } from '../pm-plugins/plugin-key';
 import {
 	appearanceForNodeType,
 	displayInfoForCard,

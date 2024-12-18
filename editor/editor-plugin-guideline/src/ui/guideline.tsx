@@ -6,10 +6,9 @@
 import { css, jsx } from '@emotion/react';
 
 import { isVerticalPosition } from '@atlaskit/editor-common/guideline';
+import type { GuidelineConfig } from '@atlaskit/editor-common/guideline';
 import { B200, N30A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
-
-import type { GuidelineConfig } from '../types';
 
 import { getPositionStyles } from './positionStyles';
 

@@ -46,4 +46,5 @@ export interface BlockTypePluginOptions {
 	lastNodeMustBeParagraph?: boolean;
 	allowBlockType?: { exclude?: Array<AllowedBlockTypes> };
 	isUndoRedoButtonsEnabled?: boolean;
+	includeBlockQuoteAsTextstyleOption?: boolean;
 }

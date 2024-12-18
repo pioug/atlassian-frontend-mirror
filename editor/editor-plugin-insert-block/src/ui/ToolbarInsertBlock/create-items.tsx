@@ -5,7 +5,10 @@ import memoizeOne from 'memoize-one';
 import type { WrappedComponentProps } from 'react-intl-next';
 
 import { ToolTipContent } from '@atlaskit/editor-common/keymaps';
-import { blockTypeMessages } from '@atlaskit/editor-common/messages';
+import {
+	blockTypeMessages,
+	toolbarInsertBlockMessages as messages,
+} from '@atlaskit/editor-common/messages';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { BlockType } from '@atlaskit/editor-plugin-block-type';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
@@ -33,7 +36,6 @@ import {
 	table,
 	tableSelector,
 } from './item';
-import { messages } from './messages';
 import { shallowEquals } from './shallow-equals';
 
 export interface CreateItemsConfig {

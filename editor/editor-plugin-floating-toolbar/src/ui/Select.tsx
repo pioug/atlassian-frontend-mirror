@@ -1,10 +1,8 @@
 import React, { useRef } from 'react';
 
-import type { RenderOptionsPropsT, SelectOption } from '@atlaskit/editor-common/types';
+import type { SelectOption } from '@atlaskit/editor-common/types';
 import type { ValueType } from '@atlaskit/select';
 import Select from '@atlaskit/select';
-
-export type { RenderOptionsPropsT, SelectOption };
 
 export interface Props {
 	hideExpandIcon?: boolean;

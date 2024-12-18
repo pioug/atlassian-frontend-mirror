@@ -45,7 +45,7 @@ export class CardActionsView extends Component<CardActionsViewProps> {
 
 	private renderActionIconButton(action: CardAction, isPrimary?: boolean): JSX.Element {
 		const { triggerColor, filename, variant } = this.props;
-		const { icon, handler, label } = action;
+		const { icon, handler, label, isDisabled, tooltip } = action;
 
 		return (
 			<CardActionIconButton
@@ -56,6 +56,8 @@ export class CardActionsView extends Component<CardActionsViewProps> {
 				triggerColor={triggerColor}
 				onClick={() => handler()}
 				variant={variant}
+				isDisabled={isDisabled}
+				tooltip={tooltip}
 			/>
 		);
 	}

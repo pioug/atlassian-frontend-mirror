@@ -48,6 +48,7 @@ export interface MediaClientConfig {
 	readonly getAuthFromContext?: AuthFromContextProvider;
 	readonly useSha256ForUploads?: boolean;
 	readonly authProviderTimeoutMs?: number;
+	readonly enforceDataSecurityPolicy?: boolean;
 }
 
 export interface AuthContext {

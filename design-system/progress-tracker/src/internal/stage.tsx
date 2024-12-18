@@ -8,7 +8,6 @@ import { css } from '@compiled/react';
 import { CSSTransition } from 'react-transition-group';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { B300, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -167,9 +166,7 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						onEntered={this.onEntered}
 						timeout={transitionDelay + transitionSpeed}
 						classNames="fade"
-						{...(fg('platform_design_system_team_transition_group_r18') && {
-							nodeRef: this.nodeRefMarker,
-						})}
+						nodeRef={this.nodeRefMarker}
 					>
 						<ProgressMarker testId={testId && `${testId}-marker`} />
 					</CSSTransition>
@@ -179,9 +176,7 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						onEntered={this.onEntered}
 						timeout={transitionDelay + transitionSpeed}
 						classNames="fade"
-						{...(fg('platform_design_system_team_transition_group_r18') && {
-							nodeRef: this.nodeRefBar,
-						})}
+						nodeRef={this.nodeRefBar}
 					>
 						<ProgressBar
 							testId={testId && `${testId}-bar`}
@@ -194,9 +189,7 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 						onEntered={this.onEntered}
 						timeout={transitionDelay + transitionSpeed}
 						classNames="fade"
-						{...(fg('platform_design_system_team_transition_group_r18') && {
-							nodeRef: this.nodeRefTitle,
-						})}
+						nodeRef={this.nodeRefTitle}
 					>
 						<div
 							css={[titleStyles, textColor[item.status], fontWeight[item.status]]}

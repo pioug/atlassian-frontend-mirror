@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-media
 
+## 1.43.2
+
+### Patch Changes
+
+- [#179714](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179714)
+  [`7216b07b8cbe7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7216b07b8cbe7) -
+  [ux] ED-26058 Support dyanmic visibility of media badges based on media size
+- Updated dependencies
+
 ## 1.43.1
 
 ### Patch Changes

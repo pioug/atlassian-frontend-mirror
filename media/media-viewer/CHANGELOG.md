@@ -1,5 +1,17 @@
 # @atlaskit/media-viewer
 
+## 49.5.0
+
+### Minor Changes
+
+- [#179931](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179931)
+  [`9ecf438a10ba5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ecf438a10ba5) -
+  Disable Media downloads based on Product security policy. Option added to Media Client Config
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 49.4.5
 
 ### Patch Changes

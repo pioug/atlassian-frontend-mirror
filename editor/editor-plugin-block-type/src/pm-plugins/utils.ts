@@ -3,6 +3,7 @@ import { createRule, createWrappingJoinRule } from '@atlaskit/editor-common/util
 import type { NodeType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { WRAPPER_BLOCK_TYPES } from './block-types';
 
@@ -111,7 +112,18 @@ function getSelectedWrapperNodes(state: EditorState): NodeType[] {
  */
 export function areBlockTypesDisabled(state: EditorState): boolean {
 	const nodesTypes: NodeType[] = getSelectedWrapperNodes(state);
-	const { panel } = state.schema.nodes;
+	const { panel, blockquote } = state.schema.nodes;
+
+	if (editorExperiment('platform_editor_blockquote_in_text_formatting_menu', true)) {
+		let hasQuote = false;
+		const { $from, $to } = state.selection;
+		state.doc.nodesBetween($from.pos, $to.pos, (node) => {
+			hasQuote = node.type === blockquote;
+			return !hasQuote;
+		});
+
+		return nodesTypes.filter((type) => type !== panel).length > 0 || hasQuote;
+	}
 
 	return nodesTypes.filter((type) => type !== panel).length > 0;
 }

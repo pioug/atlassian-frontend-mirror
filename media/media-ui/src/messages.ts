@@ -110,6 +110,7 @@ export type MessageKey =
 	| 'error_loading_file'
 	| 'error_generating_preview'
 	| 'download'
+	| 'download_disabled_security_policy'
 	| 'unknown'
 	| 'document'
 	| 'audio'
@@ -703,6 +704,11 @@ export const messages: Messages = defineMessages({
 	download: {
 		id: 'fabric.media.download',
 		defaultMessage: 'Download',
+		description: '',
+	},
+	download_disabled_security_policy: {
+		id: 'fabric.media.download_disabled_security_policy',
+		defaultMessage: 'Downloads have been disabled due to security policy',
 		description: '',
 	},
 	unknown: {

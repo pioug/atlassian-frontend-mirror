@@ -1,5 +1,14 @@
 # @atlaskit/progress-tracker
 
+## 9.0.1
+
+### Patch Changes
+
+- [#180713](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180713)
+  [`103e97b52f101`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/103e97b52f101) -
+  Removes feature flag removing internal use of the legacy NodeResolver package in favor of react
+  refs
+
 ## 9.0.0
 
 ### Major Changes

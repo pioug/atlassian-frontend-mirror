@@ -45,11 +45,10 @@ import LegacySuccessIcon from '@atlaskit/icon/glyph/editor/success';
 import LegacyWarningIcon from '@atlaskit/icon/glyph/editor/warning';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { changePanelType, removePanel } from './actions';
-import type { EmojiInfo, PanelPluginOptions } from './types';
-import { findPanel } from './utils';
-
-import type { PanelPlugin } from './index';
+import { changePanelType, removePanel } from '../editor-actions/actions';
+import type { PanelPlugin } from '../index';
+import type { EmojiInfo, PanelPluginOptions } from '../panelPluginType';
+import { findPanel } from '../pm-plugins/utils/utils';
 
 export const panelIconMap: {
 	[key in Exclude<PanelType, PanelType.CUSTOM>]: EmojiInfo;

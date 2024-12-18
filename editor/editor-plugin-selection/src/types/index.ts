@@ -1,3 +1,6 @@
+/* eslint-disable @atlaskit/editor/no-re-export */
+// Entry file in package.json
+
 import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 export type { SelectionPluginState } from '@atlaskit/editor-common/selection';
 import type { LongPressSelectionPluginOptions } from '@atlaskit/editor-common/types';

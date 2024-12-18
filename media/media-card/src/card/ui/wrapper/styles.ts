@@ -1,7 +1,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { fontFamily } from '@atlaskit/theme/constants';
 import { borderRadius } from '@atlaskit/media-ui';
 import { N20, B100 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -39,7 +38,7 @@ WrapperProps) => css`
 		box-sizing: border-box;
 	}
 	position: relative;
-	font-family: ${fontFamily()};
+	font-family: ${token('font.family.body')};
 	${getWrapperDimensions(dimensions, appearance)}
 	${displayBackground && `background: ${token('color.background.neutral', N20)};`}
   ${borderRadius}

@@ -382,4 +382,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2024-12-05
+	platform_editor_blockquote_in_text_formatting_menu: {
+		productKeys: {
+			confluence: 'platform_editor_blockquote_in_text_formatting_menu',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

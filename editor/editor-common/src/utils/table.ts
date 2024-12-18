@@ -1,7 +1,41 @@
+import type { CellAttributes } from '@atlaskit/adf-schema';
 import type { Node as PmNode, ResolvedPos, Schema } from '@atlaskit/editor-prosemirror/model';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+/**
+ * Looks at every table row to find the correct number of columns for table, which
+ * accounts for tables with uneven rows.
+ *
+ * Returns an array of column widths if defined otherwise 0, positions respect table order.
+ */
+export function getColumnWidths(node: PmNode): number[] {
+	let tableColumnWidths: Array<number> = [];
+	node.forEach((row) => {
+		let currentTableWidth: Array<number> = [];
+		row.forEach((cell) => {
+			const { colspan, colwidth } = cell.attrs as CellAttributes;
+			// column has been resized, colWidth will be an array, can safely take values even if cell is merged
+			if (Array.isArray(colwidth)) {
+				currentTableWidth.push(...colwidth);
+				// table has merged cells but no colWidth, so columns haven't been resized, default to 0
+			} else if (colspan !== undefined && colspan > 1) {
+				currentTableWidth.push(...Array(colspan).fill(0));
+				// no merged cells, no column resized, default to 0
+			} else {
+				currentTableWidth.push(0);
+			}
+		});
+
+		if (currentTableWidth.length > tableColumnWidths.length) {
+			tableColumnWidths = currentTableWidth;
+		}
+	});
+
+	return tableColumnWidths;
+}
+
 export function calcTableColumnWidths(node: PmNode): number[] {
+	// TODO: replaced with getColumnWidths, which correctly scans entire table for column widths
 	if (fg('platform_editor_table_row_span_fix')) {
 		const firstRow = node.firstChild;
 		let tableColumnWidths: Array<number> = [];

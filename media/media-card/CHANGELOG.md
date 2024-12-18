@@ -1,5 +1,20 @@
 # @atlaskit/media-card
 
+## 78.16.0
+
+### Minor Changes
+
+- [#179931](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179931)
+  [`9ecf438a10ba5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ecf438a10ba5) -
+  Disable Media downloads based on Product security policy. Option added to Media Client Config
+
+### Patch Changes
+
+- [#179934](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179934)
+  [`be121b1cf4f54`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/be121b1cf4f54) -
+  Internal changes to typography font family style definitions.
+- Updated dependencies
+
 ## 78.15.4
 
 ### Patch Changes

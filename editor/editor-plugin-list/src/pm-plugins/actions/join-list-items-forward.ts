@@ -6,13 +6,11 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { isPosInsideList, isPosInsideParagraph } from '../utils/selection';
 
-import {
-	joinListItemWithParagraph,
-	joinListItemWithParentNestedList,
-	joinNestedListWithParentListItem,
-	joinParagrapWithList,
-	joinSiblingListItems,
-} from './join-list-items-scenarios';
+import { joinListItemWithParagraph } from './join-list-items-scenarios/join-list-item-with-paragraph';
+import { joinListItemWithParentNestedList } from './join-list-items-scenarios/join-list-item-with-parent-nested-list';
+import { joinNestedListWithParentListItem } from './join-list-items-scenarios/join-nested-list-with-parent-list-item';
+import { joinParagrapWithList } from './join-list-items-scenarios/join-paragraph-with-list';
+import { joinSiblingListItems } from './join-list-items-scenarios/join-sibling-list-items';
 
 type ScenariosAllowed =
 	| LIST_TEXT_SCENARIOS.JOIN_PARAGRAPH_WITH_LIST

@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 112.7.9
+
+### Patch Changes
+
+- [#181096](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181096)
+  [`bb4dfee4e6379`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb4dfee4e6379) -
+  ED-26079 Fix double renderer validation
+
 ## 112.7.8
 
 ### Patch Changes

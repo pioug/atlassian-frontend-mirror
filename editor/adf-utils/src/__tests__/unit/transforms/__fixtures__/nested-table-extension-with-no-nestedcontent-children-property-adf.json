@@ -11,14 +11,10 @@
 						{
 							"type": "extension",
 							"attrs": {
-								"extensionType": "com.atlassian.nesting",
+								"extensionType": "com.atlassian.confluence.migration",
 								"extensionKey": "nested-table",
 								"parameters": {
-									"macroParams": {
-										"nestedContent": {
-											"value": "{\"type\":\"paragraph\"}"
-										}
-									}
+									"adf": "{\"type\":\"doc\",\"version\":1}"
 								}
 							}
 						}

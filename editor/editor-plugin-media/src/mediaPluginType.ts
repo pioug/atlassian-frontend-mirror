@@ -32,7 +32,7 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 			OptionalPlugin<AnalyticsPlugin>,
 			OptionalPlugin<ContextIdentifierPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,
-			GuidelinePlugin,
+			OptionalPlugin<GuidelinePlugin>,
 			GridPlugin,
 			WidthPlugin,
 			DecorationsPlugin,

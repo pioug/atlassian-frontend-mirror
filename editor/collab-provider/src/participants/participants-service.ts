@@ -10,7 +10,6 @@ import type {
 	TelepointerPayload,
 	ActivityPayload,
 } from '../types';
-import FeatureGates from '@atlaskit/feature-gate-js-client';
 import type {
 	CollabActivityData,
 	CollabEventPresenceData,
@@ -75,13 +74,7 @@ export class ParticipantsService {
 		action: 'add' | 'remove';
 		permit?: UserPermitType;
 	}) => {
-		const isFacepileExperimentEnabled = FeatureGates.getExperimentValue(
-			'platform_editor_ai_facepile',
-			'isEnabled',
-			false,
-		);
-
-		if (isFacepileExperimentEnabled && payload.providerId) {
+		if (payload.providerId) {
 			for (const propKey in payload.permit) {
 				if (payload.permit.hasOwnProperty(propKey)) {
 					payload.permit[propKey as keyof UserPermitType] = false;
@@ -176,33 +169,25 @@ export class ParticipantsService {
 	onParticipantLeft = (payload: PresencePayload): void => {
 		let sessionId = payload.sessionId;
 
-		const isFacepileExperimentEnabled = FeatureGates.getExperimentValue(
-			'platform_editor_ai_facepile',
-			'isEnabled',
-			false,
-		);
+		// When an agent leaves a session, the backend service returns the original user's
+		// session ID accompanied by a payload containing the agent's session ID.
+		// If the user session leaves, we also want to remove all agent sessions associated.
+		if (payload?.data?.sessionId && isAIProviderID(payload.data.sessionId)) {
+			sessionId = payload.data.sessionId;
+		} else {
+			const associatedAgents = this.getAIProviderParticipants().filter((ap) =>
+				ap.sessionId.endsWith(sessionId),
+			);
 
-		if (isFacepileExperimentEnabled) {
-			// When an agent leaves a session, the backend service returns the original user's
-			// session ID accompanied by a payload containing the agent's session ID.
-			// If the user session leaves, we also want to remove all agent sessions associated.
-			if (payload?.data?.sessionId && isAIProviderID(payload.data.sessionId)) {
-				sessionId = payload.data.sessionId;
-			} else {
-				const associatedAgents = this.getAIProviderParticipants().filter((ap) =>
-					ap.sessionId.endsWith(sessionId),
-				);
-
-				associatedAgents.forEach((agent) => {
-					this.onParticipantLeft({
-						sessionId,
-						timestamp: payload.timestamp,
-						data: agent,
-						userId: undefined,
-						clientId: '',
-					});
+			associatedAgents.forEach((agent) => {
+				this.onParticipantLeft({
+					sessionId,
+					timestamp: payload.timestamp,
+					data: agent,
+					userId: undefined,
+					clientId: '',
 				});
-			}
+			});
 		}
 
 		this.participantsState.removeBySessionId(sessionId);

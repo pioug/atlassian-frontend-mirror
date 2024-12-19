@@ -72,6 +72,9 @@
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../data/ufo-external/afm-jira/tsconfig.json"
 		}
 	]

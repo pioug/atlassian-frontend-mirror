@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 203.7.0
+
+### Minor Changes
+
+- [#180960](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180960)
+  [`3ee72a54bc1bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ee72a54bc1bb) -
+  ED-26040 fix editor layout padding issue
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 203.6.4
 
 ### Patch Changes

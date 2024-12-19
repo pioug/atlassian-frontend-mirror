@@ -333,7 +333,11 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 		[data-layout-section] {
 			// TODO: Migrate away from gridSize
 			// Recommendation: Replace directly with 7px
-			margin: ${token('space.100', '8px')} -${akLayoutGutterOffset}px 0;
+			margin: ${token('space.100', '8px')} -${akLayoutGutterOffset +
+				(editorExperiment('nested-dnd', true) &&
+				fg('platform_editor_advanced_layouts_post_fix_patch_2')
+					? 8
+					: 0)}px 0;
 			transition: border-color 0.3s ${akEditorSwoopCubicBezier};
 			cursor: ${viewMode === 'view' ? 'default' : 'pointer'};
 

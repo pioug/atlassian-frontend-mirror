@@ -11,11 +11,9 @@
 						{
 							"type": "extension",
 							"attrs": {
-								"extensionType": "com.atlassian.nesting",
+								"extensionType": "com.atlassian.confluence.migration",
 								"extensionKey": "nested-table",
-								"parameters": {
-									"macroParams": {}
-								}
+								"parameters": {}
 							}
 						}
 					]

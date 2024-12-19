@@ -24,6 +24,7 @@ import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags }
 import ExtensionLozenge from '../Lozenge';
 import { overlay } from '../styles';
 
+import { isEmptyBodiedMacro } from './extension-utils';
 import {
 	content,
 	contentWrapper,
@@ -51,6 +52,7 @@ export interface Props {
 	isNodeNested?: boolean;
 	setIsNodeHovered?: (isHovered: boolean) => void;
 	showLivePagesBodiedMacrosRendererView?: boolean;
+	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
 	showBodiedExtensionRendererView?: boolean;
 	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
 }
@@ -73,6 +75,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		isNodeNested,
 		setIsNodeHovered,
 		showLivePagesBodiedMacrosRendererView,
+		showUpdatedLivePages1PBodiedExtensionUI,
 		showBodiedExtensionRendererView,
 		setShowBodiedExtensionRendererView,
 	} = props;
@@ -99,10 +102,18 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		// Extension breakout state should not be respected when the editor appearance is full-width mode
 		editorAppearance !== 'full-width';
 
+	// We don't want to show border for non-empty 1p bodied extensions in live pages
+	const show1PBodiedExtensionBorder = showUpdatedLivePages1PBodiedExtensionUI
+		? isEmptyBodiedMacro(node)
+		: true;
+
 	const classNames = classnames('extension-container', 'block', shadowClassNames, {
 		'with-overlay': !hasBody && !showMacroInteractionDesignUpdates,
 		'with-bodied-border':
-			showMacroInteractionDesignUpdates && hasBody && !showBodiedExtensionRendererView,
+			showMacroInteractionDesignUpdates &&
+			hasBody &&
+			!showBodiedExtensionRendererView &&
+			show1PBodiedExtensionBorder,
 		'with-margin-styles':
 			showMacroInteractionDesignUpdates && !isNodeNested && !showBodiedExtensionRendererView,
 		'with-hover-border': showMacroInteractionDesignUpdates && isNodeHovered,
@@ -177,6 +188,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					setIsNodeHovered={setIsNodeHovered}
 					isBodiedMacro={hasBody}
 					showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+					showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 					showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 					setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
 				/>

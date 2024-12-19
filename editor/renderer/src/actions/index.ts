@@ -80,14 +80,19 @@ export default class RendererActions
 		doc: Node,
 		schema: Schema,
 		onAnalyticsEvent?: (event: AnalyticsEventPayload) => void,
-		skipValidation?: boolean,
 	): void {
 		if (!this.initFromContext) {
 			return;
 		} else if (!this.ref) {
 			this.ref = ref;
 		} else if (this.ref !== ref) {
-			if (!skipValidation) {
+			if (fg('platform_editor_legacy_content_macro')) {
+				if (this.ref.current !== ref.current) {
+					throw new Error(
+						"Renderer has already been registered! It's not allowed to re-register with another new Renderer instance.",
+					);
+				}
+			} else {
 				throw new Error(
 					"Renderer has already been registered! It's not allowed to re-register with another new Renderer instance.",
 				);

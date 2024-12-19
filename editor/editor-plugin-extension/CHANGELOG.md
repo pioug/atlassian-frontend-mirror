@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-extension
 
+## 2.1.0
+
+### Minor Changes
+
+- [#181279](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181279)
+  [`2b71646184e76`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b71646184e76) -
+  [ux] Sends in new parameter from Confluence to editor to hide default border around 1P bodied
+  extensions in live pages if the parameter is true
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.9
 
 ### Patch Changes

@@ -7,11 +7,12 @@ import { placeholderTextMessages as messages } from '@atlaskit/editor-common/mes
 import { PanelTextInput } from '@atlaskit/editor-common/ui';
 
 import type { Coordinates } from '../FloatingToolbar';
-import FloatingToolbar, {
+import FloatingToolbar from '../FloatingToolbar';
+import {
 	getNearestNonTextNode,
 	getOffsetParent,
 	handlePositionCalculatedWith,
-} from '../FloatingToolbar';
+} from '../FloatingToolbar/utils';
 
 export interface Props {
 	getNodeFromPos: (pos: number) => Node;

@@ -82,9 +82,6 @@ import PickerFacade from './picker-facade';
 import { stateKey } from './plugin-key';
 import type { MediaNodeWithPosHandler, MediaPluginState } from './types';
 
-export type { MediaState };
-export { stateKey } from './plugin-key';
-
 export const MEDIA_CONTENT_WRAP_CLASS_NAME = 'media-content-wrap';
 export const MEDIA_PLUGIN_IS_RESIZING_KEY = 'mediaSinglePlugin.isResizing';
 export const MEDIA_PLUGIN_RESIZING_WIDTH_KEY = 'mediaSinglePlugin.resizing-width';

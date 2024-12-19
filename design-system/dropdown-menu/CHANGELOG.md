@@ -1,5 +1,21 @@
 # @atlaskit/dropdown-menu
 
+## 12.23.4
+
+### Patch Changes
+
+- [#181817](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181817)
+  [`6876e5688ed14`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6876e5688ed14) -
+  Dropdown open in iframe should be closed when clicking outside of the iframe
+
+## 12.23.3
+
+### Patch Changes
+
+- [#179984](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179984)
+  [`08accf7fa1041`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/08accf7fa1041) -
+  Fix keyboard navigation not working when using dropdown menu item as the nested trigger
+
 ## 12.23.2
 
 ### Patch Changes

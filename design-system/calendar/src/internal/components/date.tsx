@@ -63,11 +63,11 @@ const dateCellDisabledStyle = css({
 });
 
 const dateCellStyles = css({
+	all: 'unset',
 	display: 'block',
 	padding: `${token('space.050', '4px')} 9px`,
 	position: 'relative',
 	flexGrow: 1,
-	all: 'unset',
 	backgroundColor: 'transparent',
 	borderColor: 'transparent',
 	borderRadius: 3,

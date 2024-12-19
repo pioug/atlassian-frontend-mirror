@@ -132,10 +132,12 @@ export const getShouldShowBodiedMacroLabel = (
 	isNodeHovered: boolean | undefined,
 	showLivePagesBodiedMacrosRendererView: boolean | undefined,
 	showBodiedExtensionRendererView: boolean | undefined,
+	showUpdatedLivePages1PBodiedExtensionUI: boolean | undefined,
 ) => {
-	if (!isBodiedMacro) {
+	// Bodied macros show the label by default except for the new live pages 1P bodied macro experience where we only show it on hover
+	if (!isBodiedMacro || showUpdatedLivePages1PBodiedExtensionUI) {
 		return isNodeHovered;
-	} // Bodied macros show the label by default
+	}
 	if (!showLivePagesBodiedMacrosRendererView) {
 		return true;
 	} // Keep showing labels as usual for default experience for bodied macros
@@ -152,6 +154,7 @@ type ExtensionLabelProps = {
 	isBodiedMacro?: boolean;
 	showMacroButtonUpdates?: boolean;
 	showLivePagesBodiedMacrosRendererView?: boolean;
+	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
 	showBodiedExtensionRendererView?: boolean;
 };
 
@@ -165,6 +168,7 @@ export const ExtensionLabel = ({
 	isBodiedMacro,
 	showMacroButtonUpdates,
 	showLivePagesBodiedMacrosRendererView,
+	showUpdatedLivePages1PBodiedExtensionUI,
 	showBodiedExtensionRendererView,
 }: ExtensionLabelProps) => {
 	const isInlineExtension = extensionName === 'inlineExtension';
@@ -174,6 +178,7 @@ export const ExtensionLabel = ({
 		isNodeHovered,
 		showLivePagesBodiedMacrosRendererView,
 		showBodiedExtensionRendererView,
+		showUpdatedLivePages1PBodiedExtensionUI,
 	);
 
 	const containerClassNames = classnames({

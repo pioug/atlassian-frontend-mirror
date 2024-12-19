@@ -56,6 +56,7 @@ export class ExtensionNode extends ReactNodeView {
 			pluginInjectionApi: ExtensionsPluginInjectionAPI;
 			macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 			showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
+			showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
 			rendererExtensionHandlers?: ExtensionHandlers;
 		},
 		forwardRef: ForwardRef,
@@ -83,6 +84,7 @@ export class ExtensionNode extends ReactNodeView {
 					pluginInjectionApi={props.pluginInjectionApi}
 					macroInteractionDesignFeatureFlags={props.macroInteractionDesignFeatureFlags}
 					showLivePagesBodiedMacrosRendererView={props.showLivePagesBodiedMacrosRendererView}
+					showUpdatedLivePages1PBodiedExtensionUI={props.showUpdatedLivePages1PBodiedExtensionUI}
 					rendererExtensionHandlers={props.rendererExtensionHandlers}
 				/>
 			</ExtensionNodeWrapper>
@@ -99,6 +101,7 @@ export default function ExtensionNodeView(
 	pluginInjectionApi: ExtensionsPluginInjectionAPI,
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags,
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean,
+	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean,
 	rendererExtensionHandlers?: ExtensionHandlers,
 ) {
 	return (node: PmNode, view: EditorView, getPos: getPosHandler): NodeView => {
@@ -109,6 +112,7 @@ export default function ExtensionNodeView(
 			pluginInjectionApi,
 			macroInteractionDesignFeatureFlags,
 			showLivePagesBodiedMacrosRendererView,
+			showUpdatedLivePages1PBodiedExtensionUI,
 			rendererExtensionHandlers,
 		}).init();
 	};

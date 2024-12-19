@@ -341,6 +341,10 @@ export interface DropdownItemProps {
 	 * An optional name used to identify events for [React UFO (Unified Frontend Observability) press interactions](https://developer.atlassian.com/platform/ufo/react-ufo/react-ufo/getting-started/#quick-start--press-interactions). For more information, see [React UFO integration into Design System components](https://go.atlassian.com/react-ufo-dst-integration).
 	 */
 	interactionName?: string;
+	/**
+	 * An optional boolean value used to indicate if the dropdown item has popup or not.
+	 */
+	'aria-haspopup'?: boolean | 'dialog';
 }
 
 export interface DropdownItemCheckboxProps {

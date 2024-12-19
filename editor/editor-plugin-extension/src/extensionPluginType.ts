@@ -67,6 +67,7 @@ export interface ExtensionPluginOptions extends LongPressSelectionPluginOptions 
 	__rendererExtensionOptions?: {
 		rendererExtensionHandlers?: ExtensionHandlers;
 		isAllowedToUseRendererView: (node: ADFEntity) => boolean;
+		showUpdated1PBodiedExtensionUI: (node: ADFEntity) => boolean;
 	};
 }
 

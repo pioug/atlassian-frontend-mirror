@@ -1,5 +1,5 @@
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '@atlaskit/editor-plugin-paste/src/handlers';
+import { doesSelectionWhichStartsOrEndsInListContainEntireList } from '@atlaskit/editor-plugin-paste/src/pm-plugins/util/handlers';
 import { analyticsPlugin } from '@atlaskit/editor-plugins/analytics';
 import { betterTypeHistoryPlugin } from '@atlaskit/editor-plugins/better-type-history';
 import { blockTypePlugin } from '@atlaskit/editor-plugins/block-type';

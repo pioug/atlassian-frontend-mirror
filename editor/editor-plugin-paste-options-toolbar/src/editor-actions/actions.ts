@@ -1,6 +1,6 @@
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 
-import type { ToolbarDropdownOption } from './types';
+import type { ToolbarDropdownOption } from '../types/types';
 
 export enum PastePluginActionTypes {
 	START_TRACKING_PASTED_MACRO_POSITIONS = 'START_TRACKING_PASTED_MACRO_POSITIONS',

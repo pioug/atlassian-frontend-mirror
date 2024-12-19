@@ -76,4 +76,9 @@ export const toolbarMessages = defineMessages({
 		defaultMessage: '{count, plural, one { Column} other {{count} Columns}}',
 		description: 'column option text for layout',
 	},
+	resizeLayout: {
+		id: 'fabric.editor.layout.resizeLayout',
+		defaultMessage: 'Resize layout',
+		description: 'resize layout',
+	},
 });

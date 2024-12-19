@@ -6,7 +6,7 @@ import { token } from '@atlaskit/tokens';
 export const Quiz = styled.div({
 	display: 'flex',
 	flexDirection: 'column',
-	fontSize: '16px',
+	font: token('font.body.large'),
 	width: '100%',
 	padding: `${token('space.250', '20px')} 30px ${token('space.250', '20px')} 0`,
 	border: '1px solid grey',
@@ -18,8 +18,7 @@ export const Quiz = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const QuizName = styled.div({
 	margin: '3px 0',
-	fontSize: '24px',
-	fontWeight: token('font.weight.medium'),
+	font: token('font.heading.large'),
 	paddingLeft: token('space.250', '20px'),
 });
 
@@ -54,7 +53,7 @@ export const Question = styled.div({
 	paddingLeft: token('space.075', '6px'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space  -- needs manual remediation
 	marginBottom: '10px',
-	fontSize: '14px',
+	font: token('font.body'),
 	color: '#707070',
 	textAlign: 'left',
 });
@@ -73,7 +72,7 @@ export const NavQuiz = styled.div({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const NavAction = styled.span({
-	fontSize: '14px',
+	font: token('font.body'),
 	fontWeight: token('font.weight.medium'),
 	display: 'flex',
 	alignItems: 'center',

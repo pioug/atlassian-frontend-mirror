@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "112.7.8",
+	"version": "112.7.9",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -29,7 +29,7 @@
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/code": "^15.6.0",
-		"@atlaskit/editor-common": "^96.6.0",
+		"@atlaskit/editor-common": "^96.8.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-palette": "1.6.3",
 		"@atlaskit/editor-prosemirror": "6.2.1",
@@ -46,11 +46,11 @@
 		"@atlaskit/media-ui": "^27.1.0",
 		"@atlaskit/media-viewer": "^49.5.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/smart-card": "^32.7.0",
+		"@atlaskit/smart-card": "^32.8.0",
 		"@atlaskit/status": "^1.8.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.28.0",
+		"@atlaskit/tmp-editor-statsig": "^2.29.0",
 		"@atlaskit/tokens": "^2.5.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@babel/runtime": "^7.0.0",
@@ -173,6 +173,9 @@
 			"referenceOnly": true
 		},
 		"platform_editor_table_col_calculation_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_legacy_content_macro": {
 			"type": "boolean"
 		}
 	},

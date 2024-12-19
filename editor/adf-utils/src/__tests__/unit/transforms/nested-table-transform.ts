@@ -3,6 +3,8 @@ import nestedTableExtensionWithNoNestedContentAdf from './__fixtures__/nested-ta
 import nestedTableExtensionWithInvalidJsonAdf from './__fixtures__/nested-table-extension-with-invalid-json-adf.json';
 import nestedTableInsideTableCellAdf from './__fixtures__/nested-table-inside-table-cell.json';
 import nestedTableInsideTableHeaderAdf from './__fixtures__/nested-table-inside-table-header.json';
+import nestedTableExtensionWithNoNestedContentChildrenAdf from './__fixtures__/nested-table-extension-with-no-nestedcontent-children-adf.json';
+import nestedTableExtensionWithNoNestedContentChildrenPropertyAdf from './__fixtures__/nested-table-extension-with-no-nestedcontent-children-property-adf.json';
 
 import {
 	transformNestedTableNodeOutgoingDocument,
@@ -87,9 +89,59 @@ describe('Nested table transformations', () => {
 		`);
 		});
 
-		it('should clear the node if nested table extension is missing nestedContent', () => {
+		it('should clear the node if nested table extension is missing adf property', () => {
 			const result = transformNestedTablesIncomingDocument(
 				nestedTableExtensionWithNoNestedContentAdf,
+			);
+
+			expect(result.isTransformed).toBe(true);
+			expect(result.transformedAdf).toMatchInlineSnapshot(`
+			{
+			  "content": [
+			    {
+			      "content": [
+			        {
+			          "content": [],
+			          "type": "tableRow",
+			        },
+			      ],
+			      "type": "table",
+			    },
+			  ],
+			  "type": "doc",
+			  "version": 1,
+			}
+		`);
+		});
+
+		it('should clear the node if nested table extension does not have any adf content children', () => {
+			const result = transformNestedTablesIncomingDocument(
+				nestedTableExtensionWithNoNestedContentChildrenAdf,
+			);
+
+			expect(result.isTransformed).toBe(true);
+			expect(result.transformedAdf).toMatchInlineSnapshot(`
+			{
+			  "content": [
+			    {
+			      "content": [
+			        {
+			          "content": [],
+			          "type": "tableRow",
+			        },
+			      ],
+			      "type": "table",
+			    },
+			  ],
+			  "type": "doc",
+			  "version": 1,
+			}
+		`);
+		});
+
+		it('should clear the node if nested table extension is missing adf content property', () => {
+			const result = transformNestedTablesIncomingDocument(
+				nestedTableExtensionWithNoNestedContentChildrenPropertyAdf,
 			);
 
 			expect(result.isTransformed).toBe(true);
@@ -131,13 +183,9 @@ describe('Nested table transformations', () => {
 			    {
 			      "attrs": {
 			        "extensionKey": "nested-table",
-			        "extensionType": "com.atlassian.nesting",
+			        "extensionType": "com.atlassian.confluence.migration",
 			        "parameters": {
-			          "macroParams": {
-			            "nestedContent": {
-			              "value": "{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default","localId":"58243e71-9906-4f0b-8a27-84973f7203f0","width":164},"content":[{"type":"tableRow","content":[{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"a","marks":[{"type":"Nested table header content"}]}]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"Nested table content"}]}]}]}]}",
-			            },
-			          },
+			          "adf": "{"type":"doc","version":1,"content":[{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default","localId":"58243e71-9906-4f0b-8a27-84973f7203f0","width":164},"content":[{"type":"tableRow","content":[{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"a","marks":[{"type":"Nested table header content"}]}]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"Nested table content"}]}]}]}]}]}",
 			        },
 			      },
 			      "type": "extension",
@@ -159,13 +207,9 @@ describe('Nested table transformations', () => {
 			    {
 			      "attrs": {
 			        "extensionKey": "nested-table",
-			        "extensionType": "com.atlassian.nesting",
+			        "extensionType": "com.atlassian.confluence.migration",
 			        "parameters": {
-			          "macroParams": {
-			            "nestedContent": {
-			              "value": "{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default","localId":"58243e71-9906-4f0b-8a27-84973f7203f0","width":164},"content":[{"type":"tableRow","content":[{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"a","marks":[{"type":"Nested table header content"}]}]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"Nested table content"}]}]}]}]}",
-			            },
-			          },
+			          "adf": "{"type":"doc","version":1,"content":[{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default","localId":"58243e71-9906-4f0b-8a27-84973f7203f0","width":164},"content":[{"type":"tableRow","content":[{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"a","marks":[{"type":"Nested table header content"}]}]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[{"type":"text","text":"Nested table content"}]}]}]}]}]}",
 			        },
 			      },
 			      "type": "extension",

@@ -36,7 +36,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { showLinkingToolbar } from '../../pm-plugins/commands/linking';
 import { getMediaLinkingState } from '../../pm-plugins/linking';
-import type { MediaLinkingState } from '../../pm-plugins/linking';
+import type { MediaLinkingState } from '../../pm-plugins/linking/types';
 import type { MediaPluginState } from '../../pm-plugins/types';
 import { currentMediaOrInlineNodeBorderMark } from '../../pm-plugins/utils/current-media-node';
 import { isImage } from '../../pm-plugins/utils/is-type';

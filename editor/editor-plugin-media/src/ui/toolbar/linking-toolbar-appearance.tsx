@@ -24,7 +24,7 @@ import {
 	currentMediaInlineNode,
 	currentMediaNode,
 } from '../../pm-plugins//utils/current-media-node';
-import type { MediaLinkingState } from '../../pm-plugins/linking';
+import type { MediaLinkingState } from '../../pm-plugins/linking/types';
 import { stateKey } from '../../pm-plugins/plugin-key';
 import { checkMediaType } from '../../pm-plugins/utils/check-media-type';
 

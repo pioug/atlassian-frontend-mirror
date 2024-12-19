@@ -121,6 +121,34 @@ test.describe('Nested keyboard navigation', () => {
 		await expect(page.getByTestId(getContentTestId(0))).toBeHidden();
 		await expect(page.getByTestId(getTriggerTestId(0))).toBeFocused();
 	});
+
+	test('Navigation should work when using multiple nested triggers with DropdownItem', async ({
+		page,
+	}) => {
+		await page.visitExample('design-system', 'dropdown-menu', 'nested-dropdown', {
+			featureFlag: 'select-avoid-duplicated-registered-ref',
+		});
+		// Should open a nested dropdown level 0
+		await page
+			.getByRole('button', {
+				name: 'Nested',
+			})
+			.focus();
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await page.keyboard.press('ArrowDown');
+		await expect(
+			page.getByRole('menuitem', {
+				name: 'first of many items',
+			}),
+		).toBeFocused();
+		await page.keyboard.press('ArrowDown');
+		await expect(
+			page.getByRole('menuitem', {
+				name: 'second of many items',
+			}),
+		).toBeFocused();
+	});
 });
 
 test.describe('Testing returnFocusRef', () => {

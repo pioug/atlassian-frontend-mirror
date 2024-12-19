@@ -1,6 +1,6 @@
-import type { PastePluginAction as Action } from './actions';
-import { PastePluginActionTypes as ActionTypes } from './actions';
-import type { PasteOtionsPluginState as State } from './types';
+import type { PastePluginAction as Action } from '../editor-actions/actions';
+import { PastePluginActionTypes as ActionTypes } from '../editor-actions/actions';
+import type { PasteOtionsPluginState as State } from '../types/types';
 
 export const reducer = (state: State, action: Action): State => {
 	switch (action.type) {

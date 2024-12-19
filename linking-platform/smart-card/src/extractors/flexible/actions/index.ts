@@ -1,7 +1,5 @@
 import { type JsonLd } from 'json-ld-types';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { type FireEventFunction } from '../../../common/analytics/types';
 import { ActionName, InternalActionName } from '../../../constants';
 import { type FlexibleUiActions } from '../../../state/flexible-ui-context/types';
@@ -67,11 +65,7 @@ export const extractFlexibleCardActions = ({
 			actionOptions,
 			aiSummaryConfig,
 		),
-		...(fg('platform-smart-card-view-related-urls-action')
-			? {
-					[InternalActionName.ViewRelatedLinksAction]: extractViewRelatedLinksAction(response),
-				}
-			: {}),
+		[InternalActionName.ViewRelatedLinksAction]: extractViewRelatedLinksAction(response),
 	};
 
 	return Object.values(action).some((value) => Boolean(value)) ? action : undefined;
@@ -102,11 +96,7 @@ const extractActions = (
 			actionOptions,
 			aiSummaryConfig,
 		),
-		...(fg('platform-smart-card-view-related-urls-action')
-			? {
-					[InternalActionName.ViewRelatedLinksAction]: extractViewRelatedLinksAction(response),
-				}
-			: {}),
+		[InternalActionName.ViewRelatedLinksAction]: extractViewRelatedLinksAction(response),
 	};
 
 	return Object.values(action).some((value) => Boolean(value)) ? action : undefined;

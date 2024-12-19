@@ -12,7 +12,7 @@ describe('paste-options-toolbar wrapper', () => {
 
 	it('check ./paste-options-toolbar/styles exports all the same variables as the original', () => {
 		const original = require('@atlaskit/editor-plugin-paste-options-toolbar/styles');
-		const wrapper = require('../paste-options-toolbar/styles');
+		const wrapper = require('../paste-options-toolbar/ui/styles');
 		const originalKeys = Object.keys(original).sort();
 		const wrapperKeys = Object.keys(wrapper).sort();
 		expect(originalKeys).toEqual(wrapperKeys);

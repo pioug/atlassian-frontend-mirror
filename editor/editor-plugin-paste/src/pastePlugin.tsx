@@ -1,7 +1,7 @@
+import type { PastePlugin } from './pastePluginType';
 import { createPlugin } from './pm-plugins/main';
 import { createPlugin as createMoveAnalyticsPlugin } from './pm-plugins/move-analytics/plugin';
 import { pluginKey } from './pm-plugins/plugin-factory';
-import type { PastePlugin } from './types';
 
 export const pastePlugin: PastePlugin = ({ config, api }) => {
 	const { cardOptions, sanitizePrivateContent, isFullPage } = config ?? {};

@@ -41,7 +41,7 @@ const ElementAfter = (props: Props) => {
 	} = props;
 
 	if (isTeam(data) && data.verified) {
-		return <VerifiedTeamIcon size="small" />;
+		return <VerifiedTeamIcon />;
 	}
 
 	return null;

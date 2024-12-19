@@ -1,5 +1,3 @@
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { ActionName, CardAction } from '../../../../index';
 import {
 	TEST_DOCUMENT,
@@ -265,22 +263,10 @@ describe('extractFlexibleCardActions', () => {
 			...TEST_RESOLVED_META_DATA,
 			supportedFeature: ['RelatedLinks'],
 		};
-		ffTest(
-			'platform-smart-card-view-related-urls-action',
-			/** Should return ViewRelatedLinksAction with url when FF is true*/
-			() => {
-				expect(
-					extractActions({ data: TEST_DOCUMENT_WITH_ARI, meta })?.ViewRelatedLinksAction,
-				).toEqual({
-					ari: TEST_DOCUMENT_WITH_ARI['atlassian:ari'],
-				});
-			},
-			() => {
-				expect(
-					extractActions({ data: TEST_DOCUMENT_WITH_ARI, meta })?.ViewRelatedLinksAction,
-				).toBeUndefined();
-			},
-		);
+
+		expect(extractActions({ data: TEST_DOCUMENT_WITH_ARI, meta })?.ViewRelatedLinksAction).toEqual({
+			ari: TEST_DOCUMENT_WITH_ARI['atlassian:ari'],
+		});
 	});
 });
 
@@ -290,21 +276,9 @@ describe('extractActions', () => {
 			...TEST_RESOLVED_META_DATA,
 			supportedFeature: ['RelatedLinks'],
 		};
-		ffTest(
-			'platform-smart-card-view-related-urls-action',
-			/** Should return ViewRelatedLinksAction with url when FF is true*/
-			() => {
-				expect(
-					extractActions({ data: TEST_DOCUMENT_WITH_ARI, meta })?.ViewRelatedLinksAction,
-				).toEqual({
-					ari: TEST_DOCUMENT_WITH_ARI['atlassian:ari'],
-				});
-			},
-			() => {
-				expect(
-					extractActions({ data: TEST_DOCUMENT_WITH_ARI, meta })?.ViewRelatedLinksAction,
-				).toBeUndefined();
-			},
-		);
+
+		expect(extractActions({ data: TEST_DOCUMENT_WITH_ARI, meta })?.ViewRelatedLinksAction).toEqual({
+			ari: TEST_DOCUMENT_WITH_ARI['atlassian:ari'],
+		});
 	});
 });

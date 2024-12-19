@@ -4,7 +4,6 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import { fontSize, fontSizeSmall } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { fontFallback } from '@atlaskit/theme/typography';
 import { token } from '@atlaskit/tokens';
@@ -33,7 +32,7 @@ export const WhatsNewTitleText = styled.span({
 	textDecoration: 'none',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N800),
-	fontSize: `${fontSize()}px`,
+	font: token('font.body'),
 	fontWeight: token('font.weight.semibold'),
 	whiteSpace: 'normal',
 	overflowX: 'hidden',
@@ -46,7 +45,7 @@ export const WhatsNewRelatedLinksTitleText = styled.span({
 	textDecoration: 'none',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N800),
-	fontSize: `${fontSizeSmall()}px`,
+	font: token('font.body.small'),
 	fontWeight: token('font.weight.semibold'),
 	whiteSpace: 'normal',
 	overflowX: 'hidden',

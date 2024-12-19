@@ -37,6 +37,7 @@ type LozengeComponentProps = {
 	setIsNodeHovered?: (isHovered: boolean) => void;
 	isBodiedMacro?: boolean;
 	showLivePagesBodiedMacrosRendererView?: boolean;
+	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
 	showBodiedExtensionRendererView?: boolean;
 	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
 };
@@ -55,6 +56,7 @@ export const LozengeComponent = ({
 	setIsNodeHovered,
 	isBodiedMacro,
 	showLivePagesBodiedMacrosRendererView,
+	showUpdatedLivePages1PBodiedExtensionUI,
 	showBodiedExtensionRendererView,
 	setShowBodiedExtensionRendererView,
 }: LozengeComponentProps) => {
@@ -72,6 +74,7 @@ export const LozengeComponent = ({
 					isBodiedMacro={isBodiedMacro}
 					showMacroButtonUpdates={showMacroButtonUpdates}
 					showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+					showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 					showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 				/>
 				{showLivePagesBodiedMacrosRendererView && isBodiedMacro && (

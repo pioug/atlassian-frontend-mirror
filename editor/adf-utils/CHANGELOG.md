@@ -1,5 +1,13 @@
 # @atlaskit/adf-utils
 
+## 19.14.1
+
+### Patch Changes
+
+- [#180854](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180854)
+  [`542a366d77dd5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/542a366d77dd5) -
+  ED-25988 Updating nested table transformers to match new backend storage structure
+
 ## 19.14.0
 
 ### Minor Changes

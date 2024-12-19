@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.7.0
+
+### Minor Changes
+
+- [#179617](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179617)
+  [`755cc79765ae8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/755cc79765ae8) -
+  Added API to support SSR whitelist
+
 ## 2.6.0
 
 ### Minor Changes

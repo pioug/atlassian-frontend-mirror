@@ -26,6 +26,7 @@ export interface Props {
 	setIsNodeHovered?: (isHovered: boolean) => void;
 	isBodiedMacro?: boolean;
 	showLivePagesBodiedMacrosRendererView?: boolean;
+	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
 	showBodiedExtensionRendererView?: boolean;
 	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
 }
@@ -67,6 +68,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
 			setIsNodeHovered,
 			isBodiedMacro,
 			showLivePagesBodiedMacrosRendererView,
+			showUpdatedLivePages1PBodiedExtensionUI,
 			showBodiedExtensionRendererView,
 			setShowBodiedExtensionRendererView,
 		} = this.props;
@@ -94,6 +96,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
 				setIsNodeHovered={setIsNodeHovered}
 				isBodiedMacro={isBodiedMacro}
 				showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+				showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 				showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 				setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
 			/>

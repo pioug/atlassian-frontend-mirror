@@ -5,8 +5,8 @@ import type { Mark, Node, NodeType, Schema } from '@atlaskit/editor-prosemirror/
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { EditorState } from '@atlaskit/editor-prosemirror/state';
 
-import { PastePluginActionTypes as ActionTypes } from './actions';
-import { createCommand } from './pm-plugins/plugin-factory';
+import { PastePluginActionTypes as ActionTypes } from '../editor-actions/actions';
+import { createCommand } from '../pm-plugins/plugin-factory';
 
 /**
  * Use this to register macro link positions during a paste operation, that you

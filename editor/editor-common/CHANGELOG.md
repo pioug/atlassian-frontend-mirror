@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 96.8.0
+
+### Minor Changes
+
+- [#180960](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180960)
+  [`3ee72a54bc1bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ee72a54bc1bb) -
+  ED-26040 fix editor layout padding issue
+
+## 96.7.1
+
+### Patch Changes
+
+- [#179965](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179965)
+  [`e3fc2cb96b727`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e3fc2cb96b727) -
+  ED-26051 add analytics for inserting layout
+
+## 96.7.0
+
+### Minor Changes
+
+- [#181279](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181279)
+  [`2b71646184e76`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b71646184e76) -
+  [ux] Sends in new parameter from Confluence to editor to hide default border around 1P bodied
+  extensions in live pages if the parameter is true
+
 ## 96.6.1
 
 ### Patch Changes

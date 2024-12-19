@@ -27,6 +27,7 @@ export interface Props {
 	eventDispatcher?: EventDispatcher;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
+	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
 	rendererExtensionHandlers?: ExtensionHandlers;
 }
 
@@ -61,6 +62,7 @@ export class Extension extends Component<Props, any> {
 			eventDispatcher,
 			macroInteractionDesignFeatureFlags,
 			showLivePagesBodiedMacrosRendererView,
+			showUpdatedLivePages1PBodiedExtensionUI,
 			rendererExtensionHandlers,
 		} = this.props;
 
@@ -78,6 +80,7 @@ export class Extension extends Component<Props, any> {
 				eventDispatcher={eventDispatcher}
 				macroInteractionDesignFeatureFlags={macroInteractionDesignFeatureFlags}
 				showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
+				showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 				rendererExtensionHandlers={rendererExtensionHandlers}
 			/>
 		);

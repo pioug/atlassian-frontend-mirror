@@ -4,9 +4,9 @@
  */
 import { type FC, type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 export interface LabelProps {
@@ -20,13 +20,15 @@ export interface LegendProps {
 	children: ReactNode;
 }
 
-const fieldsetLabelStyles = css({
-	display: 'inline-block',
-	color: token('color.text.subtle'),
-	font: token('font.body.UNSAFE_small'),
-	fontWeight: token('font.weight.bold'),
-	marginBlockEnd: token('space.050'),
-	marginBlockStart: token('space.0'),
+const fieldsetLabelStyles = cssMap({
+	root: {
+		display: 'inline-block',
+		color: token('color.text.subtle'),
+		font: token('font.body.UNSAFE_small'),
+		fontWeight: token('font.weight.bold'),
+		marginBlockEnd: token('space.050'),
+		marginBlockStart: token('space.0'),
+	},
 });
 
 /**
@@ -38,7 +40,7 @@ const fieldsetLabelStyles = css({
  * control element.
  */
 export const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => (
-	<label css={fieldsetLabelStyles} id={id} htmlFor={htmlFor} data-testid={testId}>
+	<label css={fieldsetLabelStyles.root} id={id} htmlFor={htmlFor} data-testid={testId}>
 		{children}
 	</label>
 );
@@ -49,7 +51,7 @@ export const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => (
  * A Legend represents a caption for a fieldset in a user interface.
  */
 export const Legend: FC<LegendProps> = ({ children }) => {
-	return <legend css={fieldsetLabelStyles}>{children}</legend>;
+	return <legend css={fieldsetLabelStyles.root}>{children}</legend>;
 };
 
 export default Label;

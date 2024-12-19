@@ -8,7 +8,6 @@ import { forwardRef } from 'react';
 import { css, jsx } from '@emotion/react';
 
 import { SELECTION_STYLE_CONTEXT_DO_NOT_USE } from '@atlaskit/menu';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N10, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -38,6 +37,11 @@ export interface SideNavigationProps {
 	 * Whether nav is rendered on the server.
 	 */
 	isServer?: boolean;
+
+	/**
+	 * Whether to enable SSR placeholder replacement.
+	 */
+	isSSRPlaceholderEnabled?: boolean;
 }
 
 const sidebarMinWidth = '240px';
@@ -65,7 +69,7 @@ const sideNavStyles = css({
  */
 const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
 	(props: SideNavigationProps, ref) => {
-		const { children, testId, label, isServer = false } = props;
+		const { children, testId, label, isServer = false, isSSRPlaceholderEnabled = false } = props;
 		return (
 			<nav
 				ref={ref}
@@ -74,11 +78,11 @@ const SideNavigation = forwardRef<HTMLElement, SideNavigationProps>(
 				css={sideNavStyles}
 				data-vc={`side-navigation${isServer ? '-ssr' : ''}`}
 				{...(isServer &&
-					fg('add_ssr_placeholder_replacements_to_nin_and_nav') && {
+					isSSRPlaceholderEnabled && {
 						'data-ssr-placeholder': 'side-navigation-placeholder',
 					})}
 				{...(!isServer &&
-					fg('add_ssr_placeholder_replacements_to_nin_and_nav') && {
+					isSSRPlaceholderEnabled && {
 						'data-ssr-placeholder-replace': 'side-navigation-placeholder',
 					})}
 			>

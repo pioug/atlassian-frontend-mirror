@@ -2,7 +2,6 @@ import React from 'react';
 
 import { useIntl } from 'react-intl-next';
 
-import { type Size } from '@atlaskit/icon';
 import VerifiedIcon from '@atlaskit/icon/core/status-verified';
 import { VerifiedIcon as LegacyVerifiedIcon } from '@atlaskit/legacy-custom-icons';
 import { token } from '@atlaskit/tokens';
@@ -11,11 +10,6 @@ import Tooltip from '@atlaskit/tooltip';
 import { messages } from './messages';
 
 interface VerifiedTeamIconProps {
-	/**
-	 * The size of the icon. It can be 'small', 'medium', 'large', etc.
-	 */
-	size?: Size;
-
 	/**
 	 * The accessible label for the icon.
 	 */
@@ -34,7 +28,6 @@ interface VerifiedTeamIconProps {
 }
 
 export const VerifiedTeamIcon = ({
-	size,
 	label = 'Verified Team',
 	showTooltip,
 	customTooltipContent,
@@ -50,7 +43,7 @@ export const VerifiedTeamIcon = ({
 				{' '}
 				<VerifiedIcon
 					color={token('color.icon.accent.blue')}
-					LEGACY_size={size}
+					LEGACY_size="medium"
 					label={tooltipContent}
 					spacing="spacious"
 					LEGACY_fallbackIcon={LegacyVerifiedIcon}
@@ -60,7 +53,7 @@ export const VerifiedTeamIcon = ({
 	) : (
 		<VerifiedIcon
 			color={token('color.icon.accent.blue')}
-			LEGACY_size={size}
+			LEGACY_size="medium"
 			spacing="spacious"
 			label={label}
 			LEGACY_fallbackIcon={LegacyVerifiedIcon}

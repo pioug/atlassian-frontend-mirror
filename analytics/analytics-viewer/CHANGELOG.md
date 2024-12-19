@@ -1,5 +1,13 @@
 # @atlaskit/analytics-viewer
 
+## 0.7.1
+
+### Patch Changes
+
+- [#181817](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181817)
+  [`c75a0ced77056`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c75a0ced77056) -
+  Internal changes to typography.
+
 ## 0.7.0
 
 ### Minor Changes

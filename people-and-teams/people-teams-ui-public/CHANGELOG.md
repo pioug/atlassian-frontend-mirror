@@ -1,5 +1,13 @@
 # @atlaskit/people-teams-ui-public
 
+## 2.0.0
+
+### Major Changes
+
+- [#179984](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179984)
+  [`3b8b713f5f28c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b8b713f5f28c) -
+  [ux] Remove size from icon properties
+
 ## 1.7.2
 
 ### Patch Changes

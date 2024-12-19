@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "32.7.12",
+	"version": "32.8.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -168,9 +168,6 @@
 		".": "./src/index.ts"
 	},
 	"platform-feature-flags": {
-		"platform-smart-card-view-related-urls-action": {
-			"type": "boolean"
-		},
 		"send-smart-link-rendered-ufo-event-half-time": {
 			"type": "boolean"
 		},

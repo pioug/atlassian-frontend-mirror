@@ -3,7 +3,7 @@ import { traverse } from '../traverse/traverse';
 import { extension } from '../builders';
 import { NodeNestingTransformError } from './errors';
 
-const NESTED_TABLE_EXTENSION_TYPE = 'com.atlassian.nesting',
+const NESTED_TABLE_EXTENSION_TYPE = 'com.atlassian.confluence.migration',
 	NESTED_TABLE_EXTENSION_KEY = 'nested-table';
 
 const isNestedTableExtension = (extensionNode: ADFEntity) =>
@@ -12,12 +12,16 @@ const isNestedTableExtension = (extensionNode: ADFEntity) =>
 
 const transformNestedTableExtension = (nestedTableExtension: ADFEntity): ADFEntity | false => {
 	// No content - drop the extension node
-	if (!nestedTableExtension.attrs?.parameters?.macroParams?.nestedContent) {
+	if (!nestedTableExtension.attrs?.parameters?.adf) {
 		return false;
 	}
 
 	try {
-		return JSON.parse(nestedTableExtension.attrs?.parameters?.macroParams?.nestedContent.value);
+		const adf = JSON.parse(nestedTableExtension.attrs?.parameters?.adf);
+		if (!adf.content || adf.content.length === 0) {
+			return false;
+		}
+		return adf.content[0];
 	} catch (e) {
 		throw new NodeNestingTransformError('Failed to parse nested table content');
 	}
@@ -57,11 +61,7 @@ export const transformNestedTableNodeOutgoingDocument = (tableCellNode: ADFEntit
 						extensionType: NESTED_TABLE_EXTENSION_TYPE,
 						extensionKey: NESTED_TABLE_EXTENSION_KEY,
 						parameters: {
-							macroParams: {
-								nestedContent: {
-									value: JSON.stringify(childNode),
-								},
-							},
+							adf: JSON.stringify({ type: 'doc', version: 1, content: [childNode] }),
 						},
 					});
 				}

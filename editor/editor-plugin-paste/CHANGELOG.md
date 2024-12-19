@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.0.10
+
+### Patch Changes
+
+- [#179965](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179965)
+  [`e3fc2cb96b727`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e3fc2cb96b727) -
+  ED-26051 add analytics for inserting layout
+
 ## 2.0.9
 
 ### Patch Changes

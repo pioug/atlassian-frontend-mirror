@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 8.4.11
+
+### Patch Changes
+
+- [#181547](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181547)
+  [`40f89a75c9468`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40f89a75c9468) -
+  make guideline plugin optional to media and table plugins
+
 ## 8.4.10
 
 ### Patch Changes

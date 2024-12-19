@@ -49,22 +49,27 @@ import type { CardAdf, CardAppearance, DatasourceAdf } from '@atlaskit/linking-c
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 // TODO: ED-20519 Needs Macro extraction
 
-import { startTrackingPastedMacroPositions, stopTrackingPastedMacroPositions } from './commands';
+import {
+	startTrackingPastedMacroPositions,
+	stopTrackingPastedMacroPositions,
+} from '../../editor-commands/commands';
+import { isInsideBlockQuote } from '../main';
+import { getPluginState as getPastePluginState } from '../plugin-factory';
+
 import {
 	insertSliceForLists,
 	insertSliceForTaskInsideList,
 	insertSliceInsideBlockquote,
 } from './edge-cases';
 import { insertSliceInsideOfPanelNodeSelected } from './edge-cases/lists';
-import { isInsideBlockQuote } from './pm-plugins/main';
-import { getPluginState as getPastePluginState } from './pm-plugins/plugin-factory';
+
 import {
 	addReplaceSelectedTableAnalytics,
 	applyTextMarksToSlice,
 	hasOnlyNodesOfType,
 	isEmptyNode,
 	isSelectionInsidePanel,
-} from './util';
+} from './index';
 
 const insideExpand = (state: EditorState): Boolean => {
 	const { expand, nestedExpand } = state.schema.nodes;

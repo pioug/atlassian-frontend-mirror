@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.16.0
+
+### Minor Changes
+
+- [#180960](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180960)
+  [`3ee72a54bc1bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3ee72a54bc1bb) -
+  ED-26040 fix editor layout padding issue
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.15.13
+
+### Patch Changes
+
+- [#178794](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178794)
+  [`a8c669da6eb60`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a8c669da6eb60) -
+  ED-25991 Cleaned up "platform_editor_element_drag_and_drop_ed_24304" feature gate
+
 ## 2.15.12
 
 ### Patch Changes

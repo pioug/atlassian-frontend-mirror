@@ -24,6 +24,7 @@ import type { EditorAppearance } from '../types';
 import { getExtensionRenderer, nodeToJSON, toJSON } from '../utils';
 
 import Extension from './Extension/Extension';
+import { isEmptyBodiedMacro } from './Extension/Extension/extension-utils';
 import InlineExtension from './Extension/InlineExtension';
 import MultiBodiedExtension from './MultiBodiedExtension';
 import type { ExtensionsPluginInjectionAPI, MacroInteractionDesignFeatureFlags } from './types';
@@ -41,6 +42,7 @@ export interface Props {
 	eventDispatcher?: EventDispatcher;
 	macroInteractionDesignFeatureFlags?: MacroInteractionDesignFeatureFlags;
 	showLivePagesBodiedMacrosRendererView?: (node: ADFEntity) => boolean;
+	showUpdatedLivePages1PBodiedExtensionUI?: (node: ADFEntity) => boolean;
 	rendererExtensionHandlers?: ExtensionHandlers;
 }
 
@@ -64,22 +66,6 @@ export type PropsNew = Omit<Props, 'extensionProvider'> & {
 
 /* temporary type until FG cleaned up */
 export type StateNew = Omit<State, 'extensionProvider' | 'showBodiedExtensionRendererView'>;
-
-const isEmptyBodiedMacro = (node: PMNode) => {
-	if (node.type.name !== 'bodiedExtension') {
-		return false;
-	}
-
-	const firstChildNode = node?.content?.firstChild;
-	const firstGrandChildNode = firstChildNode?.firstChild;
-
-	// If firstChildNode?.childCount > 1 means there is content along with the placeholder.
-	const isEmptyWithPlacholder =
-		firstGrandChildNode?.type?.name === 'placeholder' && firstChildNode?.childCount === 1;
-	const isEmptyWithNoContent = !firstGrandChildNode && node.childCount === 1;
-
-	return isEmptyWithPlacholder || isEmptyWithNoContent;
-};
 
 const getBodiedExtensionContent = (node: PMNode): ADFEntity[] | string | undefined => {
 	const bodiedExtensionContent: ADFEntity[] = [];
@@ -159,6 +145,7 @@ export class ExtensionComponentOld extends Component<Props, State> {
 			eventDispatcher,
 			macroInteractionDesignFeatureFlags,
 			showLivePagesBodiedMacrosRendererView,
+			showUpdatedLivePages1PBodiedExtensionUI,
 		} = this.props;
 
 		const { selection } = editorView.state;
@@ -212,6 +199,9 @@ export class ExtensionComponentOld extends Component<Props, State> {
 						setIsNodeHovered={this.setIsNodeHovered}
 						showLivePagesBodiedMacrosRendererView={
 							!!showLivePagesBodiedMacrosRendererView?.(nodeToJSON(node))
+						}
+						showUpdatedLivePages1PBodiedExtensionUI={
+							!!showUpdatedLivePages1PBodiedExtensionUI?.(nodeToJSON(node))
 						}
 						showBodiedExtensionRendererView={this.state.showBodiedExtensionRendererView}
 						setShowBodiedExtensionRendererView={this.setShowBodiedExtensionRendererView}
@@ -438,6 +428,7 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 			macroInteractionDesignFeatureFlags,
 			extensionProvider,
 			showLivePagesBodiedMacrosRendererView,
+			showUpdatedLivePages1PBodiedExtensionUI,
 			showBodiedExtensionRendererView,
 			setShowBodiedExtensionRendererView,
 		} = this.props;
@@ -493,6 +484,9 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 						setIsNodeHovered={this.setIsNodeHovered}
 						showLivePagesBodiedMacrosRendererView={
 							!!showLivePagesBodiedMacrosRendererView?.(nodeToJSON(node))
+						}
+						showUpdatedLivePages1PBodiedExtensionUI={
+							!!showUpdatedLivePages1PBodiedExtensionUI?.(nodeToJSON(node))
 						}
 						showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 						setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}

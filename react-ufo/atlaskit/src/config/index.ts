@@ -82,6 +82,7 @@ export type Config = {
 		readonly devToolsEnabled?: boolean;
 		readonly selectorConfig?: SelectorConfig;
 		readonly ssr?: boolean;
+		readonly ssrWhitelist?: string[];
 		readonly stopVCAtInteractionFinish?: boolean;
 	};
 	readonly postInteractionLog?: {

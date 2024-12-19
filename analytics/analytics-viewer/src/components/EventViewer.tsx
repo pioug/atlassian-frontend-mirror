@@ -1,7 +1,10 @@
-import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import React from 'react';
+
+import { token } from '@atlaskit/tokens';
+import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from 'styled-components';
+
 import { PropertyViewer } from './PropertyViewer';
 
 export type Event = {
@@ -11,7 +14,7 @@ export type Event = {
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 const EventViewerWrapper = styled.li({
-	fontSize: '12px',
+	font: token('font.body.UNSAFE_small'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
 	padding: '3px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766

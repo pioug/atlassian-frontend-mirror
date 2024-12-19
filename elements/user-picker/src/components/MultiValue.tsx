@@ -130,7 +130,7 @@ export class MultiValue extends React.Component<Props> {
 			data: { data },
 		} = this.props;
 		if (isTeam(data) && data.verified && fg('verified-team-in-user-picker')) {
-			return <VerifiedTeamIcon size="small" />;
+			return <VerifiedTeamIcon />;
 		}
 		return null;
 	};

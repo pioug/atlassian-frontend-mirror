@@ -1,4 +1,5 @@
 import { akEditorUnitZIndex, akRichMediaResizeZIndex } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 export const DRAG_HANDLE_HEIGHT = 24;
@@ -23,6 +24,10 @@ export const DRAG_HANDLE_PARAGRAPH_TOP_ADJUSTMENT = 2;
 const nodeTypeExcludeList = ['embedCard', 'mediaSingle', 'table'];
 
 export const dragHandleGap = (nodeType: string, parentNodeType?: string) => {
+	if (nodeType === 'layoutSection' && fg('platform_editor_advanced_layouts_post_fix_patch_2')) {
+		return DRAG_HANDLE_DEFAULT_GAP + 20;
+	}
+
 	if (parentNodeType && parentNodeType !== 'doc') {
 		return DRAG_HANDLE_NARROW_GAP;
 	}

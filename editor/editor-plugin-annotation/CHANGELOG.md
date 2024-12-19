@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.26.5
+
+### Patch Changes
+
+- [#181212](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181212)
+  [`d9fa5a1d7f832`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d9fa5a1d7f832) -
+  Removes type assertion from selectionToolbar in annotation plugin.
+- Updated dependencies
+
 ## 1.26.4
 
 ### Patch Changes

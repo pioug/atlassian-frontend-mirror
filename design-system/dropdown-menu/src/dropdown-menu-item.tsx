@@ -42,7 +42,9 @@ const DropdownMenuItem = forwardRef<HTMLElement, DropdownItemProps>(
 		}: DropdownItemProps,
 		ref,
 	) => {
-		const itemRef = useRegisterItemWithFocusManager();
+		// if the dropdown item has aria-haspopup, we won't register with focus manager
+		// since it is a nested trigger, we have registered inside dropdown-menu
+		const itemRef = useRegisterItemWithFocusManager(!!rest['aria-haspopup']);
 
 		const handleItemClick = useCallback(
 			(event: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>) => {

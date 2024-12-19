@@ -1,5 +1,12 @@
 # @atlaskit/smart-card
 
+## 32.8.0
+
+### Minor Changes
+
+- [`87170893b911d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87170893b911d) -
+  Clean up platform-smart-card-view-related-urls-action feature gate
+
 ## 32.7.12
 
 ### Patch Changes

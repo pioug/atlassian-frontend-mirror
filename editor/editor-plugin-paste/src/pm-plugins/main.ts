@@ -17,6 +17,7 @@ import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import {
 	transformSingleLineCodeBlockToCodeMark,
+	transformSingleColumnLayout,
 	transformSliceNestedExpandToExpand,
 	transformSliceToDecisionList,
 	transformSliceToJoinAdjacentCodeBlocks,
@@ -36,37 +37,16 @@ import { contains, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/util
 import { handlePaste as handlePasteTable } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
-import { PastePluginActionTypes } from '../actions';
-import { splitParagraphs, upgradeTextToLists } from '../commands';
-import {
-	handleMacroAutoConvert,
-	handleMention,
-	handleParagraphBlockMarks,
-	handleTableContentPasteInBodiedExtension,
-} from '../handlers';
+import { PastePluginActionTypes } from '../editor-actions/actions';
+import { splitParagraphs, upgradeTextToLists } from '../editor-commands/commands';
 import type { PastePlugin } from '../index';
+import type { LastContentPasted } from '../pastePluginType';
 import {
 	transformSliceForMedia,
 	transformSliceToCorrectMediaWrapper,
 	transformSliceToMediaSingleWithNewExperience,
 	unwrapNestedMediaElements,
-} from '../plugins/media';
-import type { LastContentPasted } from '../types';
-import {
-	escapeLinks,
-	getPasteSource,
-	htmlContainsSingleFile,
-	htmlHasInvalidLinkTags,
-	isPastedFromExcel,
-	isPastedFromWord,
-	removeDuplicateInvalidLinks,
-	transformUnsupportedBlockCardToInline,
-} from '../util';
-import {
-	htmlHasIncompleteTable,
-	isPastedFromTinyMCEConfluence,
-	tryRebuildCompleteTableHtml,
-} from '../util/tinyMCE';
+} from '../pm-plugins/media';
 
 import {
 	createPasteMeasurePayload,
@@ -89,6 +69,27 @@ import {
 } from './analytics';
 import { clipboardTextSerializer } from './clipboard-text-serializer';
 import { createPluginState, pluginKey as stateKey } from './plugin-factory';
+import {
+	escapeLinks,
+	getPasteSource,
+	htmlContainsSingleFile,
+	htmlHasInvalidLinkTags,
+	isPastedFromExcel,
+	isPastedFromWord,
+	removeDuplicateInvalidLinks,
+	transformUnsupportedBlockCardToInline,
+} from './util';
+import {
+	handleMacroAutoConvert,
+	handleMention,
+	handleParagraphBlockMarks,
+	handleTableContentPasteInBodiedExtension,
+} from './util/handlers';
+import {
+	htmlHasIncompleteTable,
+	isPastedFromTinyMCEConfluence,
+	tryRebuildCompleteTableHtml,
+} from './util/tinyMCE';
 
 export const isInsideBlockQuote = (state: EditorState): boolean => {
 	const { blockquote } = state.schema.nodes;
@@ -719,6 +720,11 @@ export function createPlugin(
 				if (slice.content.childCount && slice.content.lastChild!.type === schema.nodes.codeBlock) {
 					slice = new Slice(slice.content, 0, 0);
 				}
+
+				if (fg('platform_editor_advanced_layouts_post_fix_patch_2')) {
+					slice = transformSingleColumnLayout(slice, schema);
+				}
+
 				return slice;
 			},
 			transformPastedHTML(html) {

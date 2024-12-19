@@ -4,9 +4,7 @@
  */
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
-
+import { cssMap, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 import { type Align } from './types';
@@ -21,14 +19,18 @@ export interface FormFooterProps {
 	align?: Align;
 }
 
-const formFooterWrapperStyles = css({
-	display: 'flex',
-	justifyContent: 'flex-end',
-	marginBlockStart: token('space.300', '24px'),
+const formFooterWrapperStyles = cssMap({
+	root: {
+		display: 'flex',
+		justifyContent: 'flex-end',
+		marginBlockStart: token('space.300', '24px'),
+	},
 });
 
-const justifyContentStyles = css({
-	justifyContent: 'flex-start',
+const justifyContentStyles = cssMap({
+	root: {
+		justifyContent: 'flex-start',
+	},
 });
 
 /**
@@ -42,7 +44,7 @@ const justifyContentStyles = css({
  */
 export default function FormFooter({ align = 'end', children }: FormFooterProps) {
 	return (
-		<footer css={[formFooterWrapperStyles, align === 'start' && justifyContentStyles]}>
+		<footer css={[formFooterWrapperStyles.root, align === 'start' && justifyContentStyles.root]}>
 			{children}
 		</footer>
 	);

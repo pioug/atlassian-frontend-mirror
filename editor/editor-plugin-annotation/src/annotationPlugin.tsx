@@ -101,7 +101,7 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 						intl,
 						isToolbarAbove,
 						api,
-					}) as SelectionToolbarGroup;
+					});
 
 					if (!toolbarConfig) {
 						return undefined;

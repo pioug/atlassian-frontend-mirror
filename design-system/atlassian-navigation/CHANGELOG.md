@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 4.10.1
+
+### Patch Changes
+
+- [#181731](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181731)
+  [`910a3ef2381d3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/910a3ef2381d3) -
+  Add isSSRPlaceholderEnabled prop for side and top nav v3
+
 ## 4.10.0
 
 ### Minor Changes

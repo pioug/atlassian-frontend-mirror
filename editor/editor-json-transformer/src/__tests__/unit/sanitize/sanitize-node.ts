@@ -446,15 +446,10 @@ describe('@atlaskit/editor-json-transformer', () => {
 														{
 															type: 'extension',
 															attrs: {
-																extensionType: 'com.atlassian.nesting',
+																extensionType: 'com.atlassian.confluence.migration',
 																extensionKey: 'nested-table',
 																parameters: {
-																	macroParams: {
-																		nestedContent: {
-																			value:
-																				'{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default","localId":"testId","width":300},"content":[{"type":"tableRow","content":[{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[]}]},{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[]}]},{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[]}]}]}]}',
-																		},
-																	},
+																	adf: '{"type":"doc","version":1,"content":[{"type":"table","attrs":{"isNumberColumnEnabled":false,"layout":"default","localId":"testId","width":300},"content":[{"type":"tableRow","content":[{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[]}]},{"type":"tableHeader","attrs":{},"content":[{"type":"paragraph","content":[]}]}]},{"type":"tableRow","content":[{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[]}]},{"type":"tableCell","attrs":{},"content":[{"type":"paragraph","content":[]}]}]}]}]}',
 																},
 															},
 														},

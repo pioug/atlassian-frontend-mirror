@@ -34,8 +34,8 @@ const NestedDropdownMenuExample = () => {
 			<DropdownItemGroup>
 				<NestedDropdown />
 				<NestedDropdown />
-				<DropdownItem>One of many items</DropdownItem>
-				<DropdownItem>One of many items</DropdownItem>
+				<DropdownItem>first of many items</DropdownItem>
+				<DropdownItem>Second of many items</DropdownItem>
 			</DropdownItemGroup>
 		</DropdownMenu>
 	);

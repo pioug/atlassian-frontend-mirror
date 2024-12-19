@@ -7,7 +7,7 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 
-import type { PasteOtionsPluginState } from '../types';
+import type { PasteOtionsPluginState } from '../../types/types';
 
 import { escapeLinks } from './index';
 

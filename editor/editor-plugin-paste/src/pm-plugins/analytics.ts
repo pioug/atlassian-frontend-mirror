@@ -24,6 +24,9 @@ import type { Selection, Transaction } from '@atlaskit/editor-prosemirror/state'
 import { findParentNode } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
+import type { PastePlugin } from '../index';
+
+import { getPasteSource } from './util';
 import {
 	handleCodeBlock,
 	handleExpandPaste,
@@ -39,9 +42,7 @@ import {
 	handleRichText,
 	handleSelectedTable,
 	handleNestedTablePaste,
-} from '../handlers';
-import type { PastePlugin } from '../index';
-import { getPasteSource } from '../util';
+} from './util/handlers';
 
 type PasteContext = {
 	type: PasteType;

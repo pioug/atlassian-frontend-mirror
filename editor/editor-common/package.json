@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "96.6.1",
+	"version": "96.8.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -231,14 +231,14 @@
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popper": "^6.3.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/profilecard": "^21.0.0",
+		"@atlaskit/profilecard": "^21.1.0",
 		"@atlaskit/section-message": "^6.8.0",
-		"@atlaskit/smart-card": "^32.7.0",
+		"@atlaskit/smart-card": "^32.8.0",
 		"@atlaskit/smart-user-picker": "^6.11.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/textfield": "^6.7.0",
-		"@atlaskit/tmp-editor-statsig": "^2.28.0",
+		"@atlaskit/tmp-editor-statsig": "^2.29.0",
 		"@atlaskit/tokens": "^2.5.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/width-detector": "^4.3.0",
@@ -247,6 +247,7 @@
 		"@sentry/browser": "^6.18.2",
 		"@sentry/integrations": "^6.18.2",
 		"@sentry/types": "^6.18.2",
+		"bind-event-listener": "^3.0.0",
 		"chromatism": "^2.6.0",
 		"classnames": "^2.2.5",
 		"clipboard-polyfill": "4.0.1",
@@ -386,6 +387,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_selection_toolbar_scroll_fix": {
+			"type": "boolean"
+		},
+		"platform_editor_advanced_layouts_a11y": {
 			"type": "boolean"
 		},
 		"platform_editor_legacy_content_macro": {

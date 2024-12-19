@@ -7,7 +7,6 @@
 import { css } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import { fontSizeSmall } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import * as colors from '@atlaskit/theme/colors';
 
@@ -34,7 +33,7 @@ export const WhatsNewResultsListGroupWrapper = styled.div({
 export const WhatsNewResultsListGroupTitle = styled.div({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text.subtlest', colors.N200),
-	fontSize: `${fontSizeSmall()}px`,
+	font: token('font.body.small'),
 	fontWeight: token('font.weight.bold'),
 	padding: `0 ${token('space.100', '8px')} ${token('space.100', '8px')} ${token(
 		'space.100',

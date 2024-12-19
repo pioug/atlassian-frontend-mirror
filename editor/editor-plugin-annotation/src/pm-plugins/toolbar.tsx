@@ -18,7 +18,6 @@ import type {
 	Command,
 	ExtractInjectionAPI,
 	FloatingToolbarButton,
-	FloatingToolbarConfig,
 } from '@atlaskit/editor-common/types';
 import {
 	calculateToolbarPositionAboveSelection,
@@ -90,13 +89,7 @@ const createSpotlightConfig = ({
 
 export const buildToolbar =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	({
-		state,
-		intl,
-		isToolbarAbove = false,
-		_supportedNodes = [],
-		api,
-	}: BuildToolbarOptions): FloatingToolbarConfig | undefined => {
+	({ state, intl, isToolbarAbove = false, _supportedNodes = [], api }: BuildToolbarOptions) => {
 		const { schema } = state;
 		const selectionValid = isSelectionValid(state);
 		const isMediaSelected = currentMediaNodeWithPos(state);

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.6.4",
+	"version": "203.7.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^96.6.0",
+		"@atlaskit/editor-common": "^96.8.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.8.0",
 		"@atlaskit/editor-plugins": "^5.9.0",
@@ -55,7 +55,7 @@
 		"@atlaskit/mention": "^23.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
-		"@atlaskit/tmp-editor-statsig": "^2.28.0",
+		"@atlaskit/tmp-editor-statsig": "^2.29.0",
 		"@atlaskit/tokens": "^2.5.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/width-detector": "^4.3.0",
@@ -83,8 +83,8 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.14.0",
 		"@atlaskit/analytics-listeners": "^8.13.0",
-		"@atlaskit/collab-provider": "10.2.2",
-		"@atlaskit/editor-plugin-annotation": "1.26.4",
+		"@atlaskit/collab-provider": "10.3.0",
+		"@atlaskit/editor-plugin-annotation": "1.26.5",
 		"@atlaskit/editor-plugin-card": "^4.5.0",
 		"@atlaskit/editor-plugin-list": "^3.9.0",
 		"@atlaskit/editor-plugin-paste": "^2.0.0",
@@ -96,7 +96,7 @@
 		"@atlaskit/modal-dialog": "^12.18.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/renderer": "^112.7.0",
-		"@atlaskit/smart-card": "^32.7.0",
+		"@atlaskit/smart-card": "^32.8.0",
 		"@atlaskit/synchrony-test-helpers": "^3.0.0",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/util-data-test": "^17.13.0",
@@ -390,6 +390,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_support_media_badge_visibility": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_advanced_layouts_a11y": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

@@ -9,8 +9,8 @@ import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 import type { MediaNextEditorPluginType } from '../../mediaPluginType';
 import { hideLinkingToolbar, setUrlToMedia, unlink } from '../../pm-plugins/commands/linking';
-import type { MediaLinkingState } from '../../pm-plugins/linking';
 import { getMediaLinkingState } from '../../pm-plugins/linking';
+import type { MediaLinkingState } from '../../pm-plugins/linking/types';
 import type { MediaToolbarBaseConfig } from '../../types';
 import MediaLinkingToolbar from '../../ui/MediaLinkingToolbar';
 

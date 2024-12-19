@@ -12,12 +12,13 @@ import type {
 	FloatingToolbarConfig,
 	FloatingToolbarCustom,
 } from '@atlaskit/editor-common/types';
+import { RECENT_SEARCH_WIDTH_IN_PX as CONTAINER_WIDTH_IN_PX } from '@atlaskit/editor-common/ui';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { openMediaAltTextMenu } from '../../pm-plugins/alt-text/commands';
-import AltTextEdit, { CONTAINER_WIDTH_IN_PX } from '../../pm-plugins/alt-text/ui/AltTextEdit';
+import AltTextEdit from '../../pm-plugins/alt-text/ui/AltTextEdit';
 import { getMediaSingleOrInlineNodeFromSelection } from '../../pm-plugins/utils/media-common';
 import type { MediaToolbarBaseConfig } from '../../types';
 

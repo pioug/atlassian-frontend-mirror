@@ -1,12 +1,12 @@
 import { pluginFactory } from '@atlaskit/editor-common/utils';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 
-import { PastePluginActionTypes } from '../actions';
-import { reducer } from '../reducer';
-import type { PasteOtionsPluginState } from '../types';
-import { pasteOptionsPluginKey } from '../types';
+import { PastePluginActionTypes } from '../editor-actions/actions';
+import type { PasteOtionsPluginState } from '../types/types';
+import { pasteOptionsPluginKey } from '../types/types';
 
 import { PASTE_OPTIONS_META_ID } from './constants';
+import { reducer } from './reducer';
 
 export const { createPluginState, createCommand, getPluginState } = pluginFactory(
 	pasteOptionsPluginKey,

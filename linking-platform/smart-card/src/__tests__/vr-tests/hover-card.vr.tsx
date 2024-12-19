@@ -39,9 +39,6 @@ snapshot(HoverCardActions, {
 snapshot(HoverCardActions, {
 	description: 'Hover card actions with related urls',
 	drawsOutsideBounds: true,
-	featureFlags: {
-		'platform-smart-card-view-related-urls-action': [true],
-	},
 	states: [
 		{
 			state: 'hovered',

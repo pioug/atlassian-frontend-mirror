@@ -338,7 +338,7 @@ const TeamProfilecardContent = ({
 					<Inline>
 						<TeamName>{team.displayName}</TeamName>
 						{team.isVerified && fg('show_verified_team_icon_in_profile_card') && (
-							<VerifiedTeamIcon size="medium" />
+							<VerifiedTeamIcon />
 						)}
 					</Inline>
 				</Tooltip>

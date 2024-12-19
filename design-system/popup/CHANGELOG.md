@@ -1,5 +1,13 @@
 # @atlaskit/popup
 
+## 1.30.3
+
+### Patch Changes
+
+- [#181817](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181817)
+  [`6876e5688ed14`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6876e5688ed14) -
+  Dropdown open in iframe should be closed when clicking outside of the iframe
+
 ## 1.30.2
 
 ### Patch Changes

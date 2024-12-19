@@ -1,26 +1,14 @@
 import { useEffect } from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
-import type {
-	FloatingToolbarConfig,
-	NextEditorPlugin,
-	OptionalPlugin,
-} from '@atlaskit/editor-common/types';
-import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
-import type { PastePlugin } from '@atlaskit/editor-plugin-paste';
+import type { FloatingToolbarConfig } from '@atlaskit/editor-common/types';
 
-import { hideToolbar, showToolbar } from './commands';
+import { hideToolbar, showToolbar } from './editor-commands/commands';
+import type { PasteOptionsToolbarPlugin } from './pasteOptionsToolbarPluginType';
 import { createPlugin } from './pm-plugins/main';
-import { buildToolbar, isToolbarVisible } from './toolbar';
-import type { PasteOtionsPluginState } from './types';
-import { pasteOptionsPluginKey, ToolbarDropdownOption } from './types';
-
-export type PasteOptionsToolbarPlugin = NextEditorPlugin<
-	'pasteOptionsToolbarPlugin',
-	{
-		dependencies: [OptionalPlugin<AnalyticsPlugin>, PastePlugin];
-	}
->;
+import { pasteOptionsPluginKey, ToolbarDropdownOption } from './types/types';
+import type { PasteOtionsPluginState } from './types/types';
+import { buildToolbar, isToolbarVisible } from './ui/toolbar';
 
 export const pasteOptionsToolbarPlugin: PasteOptionsToolbarPlugin = ({ config, api }) => {
 	const editorAnalyticsAPI = api?.analytics?.actions;

@@ -4,7 +4,6 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
-import { fontSize, fontSizeSmall } from '@atlaskit/theme/constants';
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -63,8 +62,7 @@ export const WhatsNewResultListItemTitleContainer = styled.div({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const WhatsNewResultListItemTitleText = styled.span({
-	fontSize: `${fontSizeSmall()}px`,
-	lineHeight: `${fontSize()}px`,
+	font: token('font.body.small'),
 	display: 'inline-block',
 	verticalAlign: 'middle',
 	margin: 0,

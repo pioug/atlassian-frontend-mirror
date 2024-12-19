@@ -273,15 +273,6 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'einstein']),
 		defaultValue: 'control' as 'control' | 'einstein',
 	},
-	// Added 2024-11-06
-	platform_editor_ai_facepile: {
-		productKeys: {
-			confluence: 'platform_editor_ai_facepile',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// added 2024-11-06
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nested_tables/setup
 	'nested-tables-in-tables': {

@@ -1,5 +1,13 @@
 # @atlaskit/quiz-widget
 
+## 2.2.7
+
+### Patch Changes
+
+- [#181817](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181817)
+  [`c75a0ced77056`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c75a0ced77056) -
+  Internal changes to typography.
+
 ## 2.2.6
 
 ### Patch Changes

@@ -29,6 +29,8 @@ export const useCloseManager = ({
 		if (!isOpen || !popupRef) {
 			return noop;
 		}
+		const inIframe =
+			window && window.self !== window.top && fg('fix-dropdown-close-outside-iframe');
 
 		const closePopup = (event: Event | React.MouseEvent | React.KeyboardEvent) => {
 			if (onClose) {
@@ -66,7 +68,7 @@ export const useCloseManager = ({
 			const { target } = event;
 			const doesDomNodeExist = document.body.contains(target as Node);
 
-			if (!doesDomNodeExist) {
+			if (!doesDomNodeExist && !inIframe) {
 				return;
 			}
 
@@ -187,6 +189,17 @@ export const useCloseManager = ({
 			}
 		};
 
+		let parentUnbind: Function;
+		// if the popup is inside iframe, we want to listen to click events outside iframe,
+		// to close the popup correctly in the iframe.
+		if (inIframe && isOpen) {
+			parentUnbind = bind(window.parent.window, {
+				type: 'click',
+				listener: onClick,
+				options: { capture },
+			});
+		}
+
 		const unbind = bindAll(window, [
 			{
 				type: 'click',
@@ -214,6 +227,7 @@ export const useCloseManager = ({
 		return () => {
 			cancelAllFrames();
 			unbind();
+			parentUnbind?.();
 			unbindBlur();
 		};
 	}, [

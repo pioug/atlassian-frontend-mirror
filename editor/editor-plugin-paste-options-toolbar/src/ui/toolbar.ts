@@ -19,16 +19,22 @@ import {
 	changeToPlainTextWithAnalytics,
 	changeToRichTextWithAnalytics,
 	dropdownClickHandler,
-} from './commands';
+} from '../editor-commands/commands';
 import {
 	PASTE_OPTIONS_TEST_ID,
 	PASTE_TOOLBAR_CLASS,
 	PASTE_TOOLBAR_ITEM_CLASS,
-} from './pm-plugins/constants';
-import type { PasteOtionsPluginState, Position } from './types';
-import { pasteOptionsPluginKey, ToolbarDropdownOption } from './types';
-import EditorPasteIcon from './ui/paste-icon';
-import { hasLinkMark, hasMediaNode, hasRuleNode, isPastedFromFabricEditor } from './util';
+} from '../pm-plugins/constants';
+import {
+	hasLinkMark,
+	hasMediaNode,
+	hasRuleNode,
+	isPastedFromFabricEditor,
+} from '../pm-plugins/util';
+import type { PasteOtionsPluginState, Position } from '../types/types';
+import { pasteOptionsPluginKey, ToolbarDropdownOption } from '../types/types';
+
+import EditorPasteIcon from './paste-icon';
 
 export const isToolbarVisible = (
 	state: EditorState,

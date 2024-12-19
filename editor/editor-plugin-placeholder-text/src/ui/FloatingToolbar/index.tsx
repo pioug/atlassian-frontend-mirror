@@ -37,8 +37,6 @@ export interface Props {
 	onPositionCalculated?: (position: Coordinates) => Coordinates;
 }
 
-export { handlePositionCalculatedWith, getOffsetParent, getNearestNonTextNode } from './utils';
-
 export default function FloatingToolbar({
 	children,
 	target,

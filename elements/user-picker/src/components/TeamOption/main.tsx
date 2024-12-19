@@ -39,7 +39,7 @@ export class TeamOption extends React.PureComponent<TeamOptionProps> {
 				{fg('verified-team-in-user-picker') ? (
 					<Inline alignBlock="center">
 						<HighlightText highlights={highlight && highlight.name}>{name}</HighlightText>
-						{verified && <VerifiedTeamIcon size="small" />}
+						{verified && <VerifiedTeamIcon />}
 					</Inline>
 				) : (
 					<HighlightText highlights={highlight && highlight.name}>{name}</HighlightText>

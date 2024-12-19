@@ -1,5 +1,25 @@
 # @atlaskit/user-picker
 
+## 10.29.1
+
+### Patch Changes
+
+- [#181817](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181817)
+  [`c75a0ced77056`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c75a0ced77056) -
+  Internal changes to typography.
+
+## 10.29.0
+
+### Minor Changes
+
+- [#179984](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/179984)
+  [`e232332e5f674`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e232332e5f674) -
+  [ux] Remove verified icon size
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.28.1
 
 ### Patch Changes

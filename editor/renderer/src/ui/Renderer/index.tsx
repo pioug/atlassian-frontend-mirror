@@ -489,7 +489,6 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 											doc={pmDoc}
 											schema={schema}
 											onAnalyticsEvent={this.fireAnalyticsEvent}
-											skipValidation={skipValidation}
 										>
 											{result}
 										</RendererActionsInternalUpdater>
@@ -938,7 +937,6 @@ const RendererFunctionalComponent = (props: RendererProps & { startPos?: number 
 										doc={pmDoc}
 										schema={schema}
 										onAnalyticsEvent={fireAnalyticsEvent}
-										skipValidation={props.skipValidation}
 									>
 										{result}
 									</RendererActionsInternalUpdater>
@@ -1197,13 +1195,11 @@ function RendererActionsInternalUpdater({
 	doc,
 	schema,
 	onAnalyticsEvent,
-	skipValidation,
 }: {
 	doc?: PMNode;
 	schema: Schema;
 	children: JSX.Element | null;
 	onAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
-	skipValidation?: boolean;
 }) {
 	const rootRendererContextValue = React.useContext(RootRendererContext);
 	const actions = useContext(ActionsContext);
@@ -1228,13 +1224,13 @@ function RendererActionsInternalUpdater({
 
 	useLayoutEffect(() => {
 		if (_doc) {
-			actions._privateRegisterRenderer(rendererRef, _doc, schema, onAnalyticsEvent, skipValidation);
+			actions._privateRegisterRenderer(rendererRef, _doc, schema, onAnalyticsEvent);
 		} else {
 			actions._privateUnregisterRenderer();
 		}
 
 		return () => actions._privateUnregisterRenderer();
-	}, [actions, schema, _doc, onAnalyticsEvent, skipValidation]);
+	}, [actions, schema, _doc, onAnalyticsEvent]);
 
 	if (editorExperiment('comment_on_bodied_extensions', true)) {
 		return (

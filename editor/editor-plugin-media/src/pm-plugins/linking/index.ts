@@ -72,8 +72,6 @@ const mediaLinkingPluginFactory = pluginFactory<
 export const { createCommand: createMediaLinkingCommand, getPluginState: getMediaLinkingState } =
 	mediaLinkingPluginFactory;
 
-export type { MediaLinkingState } from './types';
-
 export default (dispatch: Dispatch) =>
 	new SafePlugin({
 		key: mediaLinkingPluginKey,

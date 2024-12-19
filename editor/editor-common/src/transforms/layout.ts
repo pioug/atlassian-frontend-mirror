@@ -24,6 +24,24 @@ export function removeLayoutFromLastChild(node: Node, i: number, fragment: Fragm
 	return i === fragment.childCount - 1 ? unwrapContentFromLayout(node) : node;
 }
 
+export const transformSingleColumnLayout = (slice: Slice, schema: Schema) => {
+	if (slice.content.childCount === 1 && slice.openStart === 0 && slice.openEnd === 0) {
+		if (slice.content.firstChild?.type === schema.nodes.layoutColumn) {
+			const newSlice = new Slice(slice.content.firstChild.content, 0, 0);
+			return newSlice;
+		} else if (
+			slice.content.firstChild?.type === schema.nodes.layoutSection &&
+			slice.content.firstChild.childCount === 1 &&
+			slice.content.firstChild.firstChild?.type === schema.nodes.layoutColumn
+		) {
+			const newSlice = new Slice(slice.content.firstChild.firstChild.content, 0, 0);
+			return newSlice;
+		}
+	}
+
+	return slice;
+};
+
 /**
  * When we have a slice that cuts across a layoutSection/layoutColumn
  * we can end up with unexpected behaviour on paste/drop where a user

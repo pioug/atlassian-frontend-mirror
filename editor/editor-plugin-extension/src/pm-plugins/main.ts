@@ -373,6 +373,7 @@ const createPlugin = (
 					pluginInjectionApi,
 					macroInteractionDesignFeatureFlags,
 					showLivePagesBodiedMacrosRendererView,
+					__rendererExtensionOptions?.showUpdated1PBodiedExtensionUI,
 					__rendererExtensionOptions?.rendererExtensionHandlers,
 				),
 				// WARNING: referentiality-plugin also creates these nodeviews

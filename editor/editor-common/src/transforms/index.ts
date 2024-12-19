@@ -6,6 +6,7 @@ export {
 	removeLayoutFromFirstChild,
 	removeLayoutFromLastChild,
 	transformSliceToRemoveOpenLayoutNodes,
+	transformSingleColumnLayout,
 } from './layout';
 export {
 	findExpand,

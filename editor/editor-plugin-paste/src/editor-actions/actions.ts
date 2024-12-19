@@ -1,4 +1,4 @@
-import type { LastContentPasted } from './types';
+import type { LastContentPasted } from '../pastePluginType';
 
 export enum PastePluginActionTypes {
 	START_TRACKING_PASTED_MACRO_POSITIONS = 'START_TRACKING_PASTED_MACRO_POSITIONS',

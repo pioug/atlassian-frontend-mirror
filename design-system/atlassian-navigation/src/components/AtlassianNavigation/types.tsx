@@ -90,6 +90,11 @@ export interface AtlassianNavigationProps {
 	 * Whether nav is rendered on the server.
 	 */
 	isServer?: boolean;
+
+	/**
+	 * Whether to enable SSR placeholder replacement.
+	 */
+	isSSRPlaceholderEnabled?: boolean;
 }
 
 export interface NavigationSkeletonProps {

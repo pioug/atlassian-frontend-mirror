@@ -4,7 +4,7 @@ import { expandPlugin as legacyExpandPlugin } from './legacyExpand/plugin';
 import { expandPlugin as singlePlayerExpandPlugin } from './singlePlayerExpand/plugin';
 import type { ExpandPlugin } from './types';
 
-export const expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
+export let expandPlugin: ExpandPlugin = ({ config: options = {}, api }) => {
 	if (options?.__livePage) {
 		return singlePlayerExpandPlugin({ config: options, api });
 	} else {

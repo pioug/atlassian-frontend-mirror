@@ -535,6 +535,7 @@ export function tryComplete(interactionId: string, endTime?: number) {
 				});
 			}
 			remove(interactionId);
+			activeSubmitted = false;
 		};
 
 		if (noMoreActiveHolds) {
@@ -713,7 +714,6 @@ export function addNewInteraction(
 		getVCObserver().start({ startTime });
 		postInteractionLog.startVCObserver({ startTime });
 		experimentalVC.start({ startTime });
-		activeSubmitted = false;
 	}
 }
 

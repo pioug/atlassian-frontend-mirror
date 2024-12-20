@@ -41,14 +41,17 @@ import {
 import { getPluginState as getDragDropPluginState } from '../pm-plugins/drag-and-drop/plugin-factory';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { getPluginState as getResizePluginState } from '../pm-plugins/table-resizing/plugin-factory';
-import { deleteColumns, deleteRows } from '../pm-plugins/transforms';
+import { deleteColumns } from '../pm-plugins/transforms/delete-columns';
+import { deleteRows } from '../pm-plugins/transforms/delete-rows';
+import { getSelectedCellInfo } from '../pm-plugins/utils/analytics';
 import {
 	convertHTMLCellIndexToColumnIndex,
 	getColumnIndexMappedToColumnIndexInFirstRow,
+} from '../pm-plugins/utils/column-controls';
+import {
 	getColumnOrRowIndex,
 	getMousePositionHorizontalRelativeByElement,
 	getMousePositionVerticalRelativeByElement,
-	getSelectedCellInfo,
 	hasResizeHandler,
 	isCell,
 	isColumnControlsDecorations,
@@ -61,7 +64,7 @@ import {
 	isRowControlsButton,
 	isTableContainerOrWrapper,
 	isTableControlsButton,
-} from '../pm-plugins/utils';
+} from '../pm-plugins/utils/dom';
 import { getAllowAddColumnCustomStep } from '../pm-plugins/utils/get-allow-add-column-custom-step';
 import { TableCssClassName as ClassName, RESIZE_HANDLE_AREA_DECORATION_GAP } from '../types';
 import type { PluginInjectionAPI } from '../types';

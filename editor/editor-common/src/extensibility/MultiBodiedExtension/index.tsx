@@ -130,8 +130,7 @@ const MultiBodiedExtensionWithWidth = ({
 	isNodeNested,
 	setIsNodeHovered,
 }: PropsWithWidth) => {
-	const { showMacroInteractionDesignUpdates, showMacroButtonUpdates } =
-		macroInteractionDesignFeatureFlags || {};
+	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 	const { parameters, extensionKey } = node.attrs;
 	const title =
 		(parameters && parameters.extensionTitle) ||
@@ -229,7 +228,6 @@ const MultiBodiedExtensionWithWidth = ({
 					isNodeSelected={isNodeSelected}
 					node={node}
 					showMacroInteractionDesignUpdates={true}
-					showMacroButtonUpdates={showMacroButtonUpdates}
 					customContainerStyles={mbeWrapperStyles}
 					isNodeHovered={isNodeHovered}
 					isNodeNested={isNodeNested}

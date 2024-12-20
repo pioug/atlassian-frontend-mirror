@@ -9,7 +9,7 @@ import type {
 	Parameters,
 } from '@atlaskit/editor-common/extensions';
 
-import ConfigPanel from '../../src/ui/ConfigPanel';
+import ConfigPanel from '../../src/ui/ConfigPanel/ConfigPanelLoader';
 
 export default function ConfigPanelWithProviders({
 	extensionType,

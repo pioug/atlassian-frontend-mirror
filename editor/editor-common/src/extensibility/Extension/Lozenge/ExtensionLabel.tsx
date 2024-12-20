@@ -2,7 +2,6 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { Fragment } from 'react';
 import type { CSSProperties } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -24,7 +23,7 @@ const containerStyles = css({
 	},
 });
 
-const sharedLabelStyles = css({
+const labelStyles = css({
 	opacity: 0,
 	lineHeight: 1,
 	display: 'inline-flex',
@@ -57,9 +56,6 @@ const sharedLabelStyles = css({
 	'&.bodied-border': {
 		boxShadow: `0 0 0 1px ${token('color.border')}`,
 	},
-});
-
-const buttonLabelStyles = css({
 	minHeight: token('space.300', '24px'),
 	alignItems: 'center',
 	borderRadius: token('border.radius', '3px'),
@@ -86,29 +82,6 @@ const buttonLabelStyles = css({
 const spacerStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 	height: '10px',
-});
-
-const textStyles = css({
-	// cannot use font.body or editor custom font.body here as line-height need to be 1 (from sharedLabelStyles)
-	// cannot use space token as there is not token for 14px
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	fontSize: '14px',
-	fontWeight: token('font.weight.regular', '400'),
-	padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
-});
-
-const originalLabelStyles = css({
-	background: token('color.background.accent.gray.subtle.pressed'),
-	borderRadius: `${token('border.radius', '3px')} ${token('border.radius', '3px')} 0 0`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.show-label': {
-		color: token('color.text.subtle'),
-	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'&.inline': {
-		// need to add margin since we don't get it for free like block ones via the padding to make it flush with editor elements
-		marginLeft: token('space.150', '12px'),
-	},
 });
 
 const iconStyles = css({
@@ -152,9 +125,8 @@ type ExtensionLabelProps = {
 	customContainerStyles?: CSSProperties;
 	setIsNodeHovered?: (isHovered: boolean) => void;
 	isBodiedMacro?: boolean;
-	showMacroButtonUpdates?: boolean;
-	showLivePagesBodiedMacrosRendererView?: boolean;
 	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
+	showLivePagesBodiedMacrosRendererView?: boolean;
 	showBodiedExtensionRendererView?: boolean;
 };
 
@@ -166,9 +138,8 @@ export const ExtensionLabel = ({
 	isNodeNested,
 	setIsNodeHovered,
 	isBodiedMacro,
-	showMacroButtonUpdates,
-	showLivePagesBodiedMacrosRendererView,
 	showUpdatedLivePages1PBodiedExtensionUI,
+	showLivePagesBodiedMacrosRendererView,
 	showBodiedExtensionRendererView,
 }: ExtensionLabelProps) => {
 	const isInlineExtension = extensionName === 'inlineExtension';
@@ -185,7 +156,7 @@ export const ExtensionLabel = ({
 		bodied: isBodiedMacro,
 	});
 
-	const sharedLabelClassNames = classnames('extension-label', {
+	const labelClassNames = classnames('extension-label', {
 		nested: isNodeNested,
 		inline: isInlineExtension,
 		bodied: isBodiedMacro,
@@ -194,10 +165,6 @@ export const ExtensionLabel = ({
 		'show-label': shouldShowBodiedMacroLabel,
 		'with-bodied-macro-live-page-styles': isBodiedMacro && showLivePagesBodiedMacrosRendererView,
 		'always-hide-label': isBodiedMacro && showBodiedExtensionRendererView, // Need this separate class since we don't ever want to show the label during view mode
-	});
-
-	const newButtonLabelClassNames = classnames({
-		// For new button design, non-bodied macros should have a flush label. Inline macros don't need this since they never had the margin-left applied.
 		'remove-left-margin': !isBodiedMacro && !isInlineExtension && !isNodeNested,
 		'remove-nested-left-margin': isNodeNested && !isBodiedMacro && !isInlineExtension,
 	});
@@ -224,41 +191,28 @@ export const ExtensionLabel = ({
 			}}
 			data-testid="new-lozenge-container"
 		>
-			{showMacroButtonUpdates ? (
-				<Fragment>
-					<Tooltip
-						content={<FormattedMessage {...i18n.configure} values={{ macroName: text }} />}
-						position="top"
+			<Tooltip
+				content={<FormattedMessage {...i18n.configure} values={{ macroName: text }} />}
+				position="top"
+			>
+				{(tooltipProps) => (
+					<span
+						data-testid="new-lozenge-button"
+						{...tooltipProps}
+						css={labelStyles}
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+						className={labelClassNames}
 					>
-						{(tooltipProps) => (
-							<span
-								data-testid="new-lozenge-button"
-								{...tooltipProps}
-								css={[sharedLabelStyles, buttonLabelStyles]}
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-								className={`${sharedLabelClassNames} ${newButtonLabelClassNames}`}
-							>
-								{text}
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-								<span css={iconStyles} className={iconClassNames} data-testid="config-icon">
-									<CustomizeIcon label="" />
-								</span>
-							</span>
-						)}
-					</Tooltip>
-					{/* This is needed since this creates the gap between the macro and button, also provides a seamless transition when mousing over the gap. */}
-					<div css={spacerStyles} />
-				</Fragment>
-			) : (
-				<span
-					data-testid="new-lozenge"
-					css={[sharedLabelStyles, originalLabelStyles]}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={sharedLabelClassNames}
-				>
-					<span css={textStyles}>{text}</span>
-				</span>
-			)}
+						{text}
+						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
+						<span css={iconStyles} className={iconClassNames} data-testid="config-icon">
+							<CustomizeIcon label="" />
+						</span>
+					</span>
+				)}
+			</Tooltip>
+			{/* This is needed since this creates the gap between the macro and button, also provides a seamless transition when mousing over the gap. */}
+			<div css={spacerStyles} />
 		</div>
 	);
 };

@@ -72,7 +72,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Fa
   border-radius: inherit;
   inset: var(--ds-space-0, 0px);
   border-style: solid;
-  border-width: var(--ds-border-width, 1px);
+  border-width: var(--ds-border-width);
   pointer-events: none;
   position: absolute;
 }
@@ -217,7 +217,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Na
   border-radius: inherit;
   inset: var(--ds-space-0, 0px);
   border-style: solid;
-  border-width: var(--ds-border-width, 1px);
+  border-width: var(--ds-border-width);
   pointer-events: none;
   position: absolute;
 }
@@ -362,7 +362,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render a Po
   border-radius: inherit;
   inset: var(--ds-space-0, 0px);
   border-style: solid;
-  border-width: var(--ds-border-width, 1px);
+  border-width: var(--ds-border-width);
   pointer-events: none;
   position: absolute;
 }
@@ -507,7 +507,7 @@ exports[`<FabricAnalyticsListeners /> FabricAnalyticsListener should render an A
   border-radius: inherit;
   inset: var(--ds-space-0, 0px);
   border-style: solid;
-  border-width: var(--ds-border-width, 1px);
+  border-width: var(--ds-border-width);
   pointer-events: none;
   position: absolute;
 }

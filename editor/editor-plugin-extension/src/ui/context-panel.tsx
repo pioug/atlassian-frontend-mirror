@@ -13,7 +13,7 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { buildExtensionNode } from '../editor-actions/actions';
 import { clearEditingContext, forceAutoSave, updateState } from '../editor-commands/commands';
 import type { ExtensionPlugin, ExtensionState } from '../extensionPluginType';
-import { getPluginState } from '../pm-plugins/main';
+import { getPluginState } from '../pm-plugins/plugin-factory';
 import { getSelectedExtension } from '../pm-plugins/utils';
 
 import ConfigPanelLoader from './ConfigPanel/ConfigPanelLoader';

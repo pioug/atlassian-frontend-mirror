@@ -1,7 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import { cssMap } from '@atlaskit/css';
 import Form, {
 	ErrorMessage,
 	Field,
@@ -12,7 +11,7 @@ import Form, {
 	RequiredAsterisk,
 	ValidMessage,
 } from '@atlaskit/form';
-import { Box, Text } from '@atlaskit/primitives/compiled';
+import { Box, Text, xcss } from '@atlaskit/primitives';
 import Select, { type ValueType } from '@atlaskit/select';
 import TextField from '@atlaskit/textfield';
 
@@ -43,14 +42,12 @@ const errorMessages = {
 	selectError: 'Please select a color',
 };
 
-const formContainerStyle = cssMap({
-	root: {
-		display: 'flex',
-		width: '400px',
-		maxWidth: '100%',
-		margin: '0 auto',
-		flexDirection: 'column',
-	},
+const FormContainerStyle = xcss({
+	display: 'flex',
+	width: '400px',
+	maxWidth: '100%',
+	margin: '0 auto',
+	flexDirection: 'column',
 });
 
 const { shortFirstname, shortUsername, validUsername, usernameInUse, selectError } = errorMessages;
@@ -121,7 +118,7 @@ export default function FieldLevelValidationExample() {
 	}, [errorMessageText]);
 
 	return (
-		<Box xcss={formContainerStyle.root}>
+		<Box xcss={FormContainerStyle}>
 			<Form onSubmit={handleSubmit}>
 				{({ formProps }) => (
 					<form {...formProps}>

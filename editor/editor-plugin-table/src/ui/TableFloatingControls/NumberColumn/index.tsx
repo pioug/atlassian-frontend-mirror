@@ -8,7 +8,7 @@ import { isRowSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
-import { getRowHeights } from '../../../pm-plugins/utils';
+import { getRowHeights } from '../../../pm-plugins/utils/row-controls';
 import { TableCssClassName as ClassName } from '../../../types';
 import { tableBorderColor } from '../../consts';
 

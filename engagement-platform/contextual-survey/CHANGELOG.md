@@ -1,5 +1,11 @@
 # @atlaskit/contextual-survey
 
+## 2.4.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.7
 
 ### Patch Changes

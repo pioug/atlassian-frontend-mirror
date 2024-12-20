@@ -17,8 +17,7 @@ import { type DateTimeProps, type DateTimeType } from './types';
 const styles = css(
 	{
 		color: token('color.text.subtlest', '#626F86'),
-		fontSize: '0.75rem',
-		lineHeight: '1rem',
+		font: token('font.body.UNSAFE_small'),
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	getTruncateStyles(1),

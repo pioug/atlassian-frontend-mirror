@@ -11,20 +11,21 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { hoverCell, hoverRows, selectRow, selectRows } from '../../pm-plugins/commands';
-import type { RowStickyState } from '../../pm-plugins/sticky-headers';
+import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
 import { isTableNested } from '../../pm-plugins/utils/nodes';
 import type { TablePlugin } from '../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../types';
 import type { CellHoverMeta } from '../../types';
 
+import { CornerControls } from './CornerControls/ClassicCornerControls';
 import {
-	CornerControls,
 	DragCornerControls,
 	DragCornerControlsWithSelection,
-} from './CornerControls';
+} from './CornerControls/DragCornerControls';
 import { FloatingControlsWithSelection } from './FloatingControlsWithSelection';
 import NumberColumn from './NumberColumn';
-import { DragControls, RowControls } from './RowControls';
+import { RowControls } from './RowControls/ClassicControls';
+import { DragControls } from './RowControls/DragControls';
 
 interface TableFloatingControlsProps {
 	editorView: EditorView;

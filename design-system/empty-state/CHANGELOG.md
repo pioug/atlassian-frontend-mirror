@@ -1,5 +1,13 @@
 # @atlaskit/empty-state
 
+## 8.1.0
+
+### Minor Changes
+
+- [#181325](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181325)
+  [`c9ff1f8d5e9ca`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c9ff1f8d5e9ca) -
+  Migrated from primitives components to primitives/compiled components
+
 ## 8.0.1
 
 ### Patch Changes

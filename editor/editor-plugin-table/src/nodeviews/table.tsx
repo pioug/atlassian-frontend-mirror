@@ -23,13 +23,13 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { pluginConfig as getPluginConfig } from '../pm-plugins/create-plugin-config';
-import { pluginKey as tableDragAndDropPluginKey } from '../pm-plugins/drag-and-drop';
+import { pluginKey as tableDragAndDropPluginKey } from '../pm-plugins/drag-and-drop/plugin-key';
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey } from '../pm-plugins/plugin-key';
-import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing';
-import { generateColgroup } from '../pm-plugins/table-resizing/utils';
+import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing/plugin-key';
+import { generateColgroup } from '../pm-plugins/table-resizing/utils/colgroup';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
-import { isTableNested } from '../pm-plugins/utils';
+import { isTableNested } from '../pm-plugins/utils/nodes';
 import type { PluginInjectionAPI } from '../types';
 
 import TableComponent from './TableComponent';

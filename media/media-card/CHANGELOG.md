@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 78.16.1
+
+### Patch Changes
+
+- [#181001](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181001)
+  [`6108eab3b6a57`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6108eab3b6a57) -
+  Fixed positioning when Action Bar items add a tooltip
+
 ## 78.16.0
 
 ### Minor Changes

@@ -5,7 +5,6 @@ import {
 	INPUT_METHOD,
 	TARGET_SELECTION_SOURCE,
 } from '@atlaskit/editor-common/analytics';
-export { transformSliceToRemoveOpenBodiedExtension } from '@atlaskit/editor-common/transforms';
 import type {
 	EditorAnalyticsAPI,
 	ExtensionType,
@@ -32,7 +31,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { InsertOrReplaceExtensionType } from '../extensionPluginType';
 import { createExtensionAPI, getEditInLegacyMacroBrowser } from '../pm-plugins/extension-api';
-import { getPluginState } from '../pm-plugins/main';
+import { getPluginState } from '../pm-plugins/plugin-factory';
 import { findExtensionWithLocalId } from '../pm-plugins/utils';
 
 export const buildExtensionNode = <S extends Schema>(

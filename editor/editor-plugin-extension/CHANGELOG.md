@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-extension
 
+## 3.0.0
+
+### Major Changes
+
+- [#182298](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/182298)
+  [`2f0dfff283d2e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f0dfff283d2e) -
+  Clean up extension button experiment which determines whether or not to show the new button label
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.1.0
 
 ### Minor Changes

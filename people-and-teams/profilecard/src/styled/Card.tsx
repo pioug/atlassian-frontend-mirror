@@ -288,7 +288,6 @@ export const CardContainer = styled.div`
 export const DetailsLabel = styled.div`
 	display: flex;
 	align-items: center;
-	font: ${token('font.body.large')};
 	margin: ${token('space.200', '16px')} 0 0 0;
 	white-space: nowrap;
 
@@ -318,6 +317,8 @@ export const DetailsLabelText = styled.dd`
 	overflow: hidden;
 	text-overflow: ellipsis;
 	color: ${labelTextColor};
+	font: ${token('font.body.UNSAFE_small')};
+	padding-block: ${token('space.050')};
 	padding-left: ${token('space.050', '4px')};
 	margin-inline-start: 0;
 	margin-top: 0;

@@ -1,11 +1,4 @@
-import React from 'react';
-
-import ReactDOM from 'react-dom';
-import waitForExpect from 'wait-for-expect';
-
-import { ssr } from '@atlaskit/ssr';
-
-import Example from '../../examples/01-giveKudosLauncher';
+import { hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
 // @ts-ignore
 jest.spyOn(global.console, 'error').mockImplementation(() => {});
@@ -13,22 +6,30 @@ jest.spyOn(global.console, 'error').mockImplementation(() => {});
 afterEach(() => {
 	jest.resetAllMocks();
 });
-// Skipped due to HOT-111922
-test.skip('should ssr then hydrate example component correctly', async () => {
-	const elem = document.createElement('div');
-	elem.innerHTML = await ssr(Example);
 
-	await waitForExpect(() => {
-		ReactDOM.hydrate(<Example />, elem);
-		// ignore warnings caused by emotion's server-side rendering approach
-		// @ts-ignore
-		// eslint-disable-next-line no-console
-		const mockCalls = console.error.mock.calls.filter(
-			([f, s]: string[]) =>
-				!(
-					f === 'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' && s === 'style'
-				),
-		);
-		expect(mockCalls.length).toBe(0);
-	});
+// A list of warnings that's safe to ignore during ssr
+type IgnoredWarningPredicate = (call: string[]) => boolean;
+
+const IgnoredWarnings: IgnoredWarningPredicate[] = [
+	([_1, _2]) =>
+		_1 === 'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' && _2 === 'style',
+	([_1]) => _1.startsWith('Warning: useLayoutEffect does nothing on the server,'),
+];
+
+test('should ssr then hydrate example component correctly', async () => {
+	const examplePath = require.resolve('../../examples/01-giveKudosLauncher');
+	const elem = document.createElement('div');
+	const { html, styles } = await ssr(examplePath);
+
+	elem.innerHTML = html;
+
+	await hydrateWithAct(examplePath, elem, styles);
+
+	// ignore warnings caused by emotion's server-side rendering approach
+	// @ts-ignore
+	// eslint-disable-next-line no-console
+	const mockCalls = console.error.mock.calls.filter((call) =>
+		IgnoredWarnings.every((p) => !p(call)),
+	);
+	expect(mockCalls.length).toBe(0);
 });

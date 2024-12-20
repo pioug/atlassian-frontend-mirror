@@ -1,5 +1,30 @@
 # @atlaskit/editor-common
 
+## 97.0.0
+
+### Major Changes
+
+- [#182298](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/182298)
+  [`2f0dfff283d2e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f0dfff283d2e) -
+  Clean up extension button experiment which determines whether or not to show the new button label
+
+## 96.8.2
+
+### Patch Changes
+
+- [#181477](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181477)
+  [`4519db236d26c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4519db236d26c) -
+  Remove outdated fix for editor SSR
+
+## 96.8.1
+
+### Patch Changes
+
+- [#181266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181266)
+  [`4b4994d4a2620`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4b4994d4a2620) -
+  ED-25613: Keyboard shortcuts to resize layout
+- Updated dependencies
+
 ## 96.8.0
 
 ### Minor Changes

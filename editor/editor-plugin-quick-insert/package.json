@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-quick-insert",
-	"version": "1.8.0",
+	"version": "1.8.1",
 	"description": "Quick insert plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^96.8.0",
+		"@atlaskit/editor-common": "^97.0.0",
 		"@atlaskit/editor-plugin-connectivity": "^1.1.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.11.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",

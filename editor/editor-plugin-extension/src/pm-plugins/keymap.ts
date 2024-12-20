@@ -5,7 +5,7 @@ import { keymap } from '@atlaskit/editor-prosemirror/keymap';
 
 import { clearEditingContext } from '../editor-commands/commands';
 
-import { getPluginState } from './main';
+import { getPluginState } from './plugin-factory';
 
 export default function keymapPlugin(applyChange: ApplyChangeHandler | undefined): SafePlugin {
 	const list = {};

@@ -30,7 +30,6 @@ type LozengeComponentProps = {
 	renderImage: (lozengeData: LozengeData) => void;
 	isNodeSelected?: boolean;
 	showMacroInteractionDesignUpdates?: boolean;
-	showMacroButtonUpdates?: boolean;
 	customContainerStyles?: CSSProperties;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
@@ -49,7 +48,6 @@ export const LozengeComponent = ({
 	params,
 	renderImage,
 	showMacroInteractionDesignUpdates,
-	showMacroButtonUpdates,
 	customContainerStyles,
 	isNodeHovered,
 	isNodeNested,
@@ -72,7 +70,6 @@ export const LozengeComponent = ({
 					customContainerStyles={customContainerStyles}
 					setIsNodeHovered={setIsNodeHovered}
 					isBodiedMacro={isBodiedMacro}
-					showMacroButtonUpdates={showMacroButtonUpdates}
 					showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
 					showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 					showBodiedExtensionRendererView={showBodiedExtensionRendererView}

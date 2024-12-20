@@ -68,7 +68,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/codemod-utils": "4.2.4",
 		"@atlaskit/docs": "*",
-		"@atlaskit/form": "^10.6.0",
+		"@atlaskit/form": "^11.0.0",
 		"@atlaskit/modal-dialog": "^12.18.0",
 		"@atlaskit/popup": "^1.30.0",
 		"@atlaskit/range": "^8.0.0",

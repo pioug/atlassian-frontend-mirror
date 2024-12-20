@@ -29,6 +29,7 @@ export {
 	akEditorMenuZIndex,
 	akEditorStickyHeaderZIndex,
 	akEditorMobileBreakoutPoint,
+	akEditorSelectedBoldBoxShadow,
 	akEditorSelectedBorderColor,
 	akEditorSelectedBorderBoldSize,
 	akEditorSelectedBorderSize,

@@ -108,7 +108,7 @@ function Toolbar({ editorApi }: ToolbarProps) {
 	const activeLinkMark = useSharedPluginStateSelector(editorApi, 'hyperlink.activeLinkMark');
 
 	// Using effect in toolbar
-	const pluginStateEffect = React.useCallback((states) => {
+	const pluginStateEffect = React.useCallback((states: any) => {
 		const { hyperlinkState, textFormattingState } = states;
 		// Use as necessary ie. analytics, network requests
 		console.log('logging', { hyperlinkState, textFormattingState });

@@ -80,8 +80,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		setShowBodiedExtensionRendererView,
 	} = props;
 
-	const { showMacroInteractionDesignUpdates, showMacroButtonUpdates } =
-		macroInteractionDesignFeatureFlags || {};
+	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 	const hasBody = ['bodiedExtension', 'multiBodiedExtension'].includes(node.type.name);
 
 	const hasChildren = !!children;
@@ -183,7 +182,6 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					isNodeNested={isNodeNested}
 					node={node}
 					showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
-					showMacroButtonUpdates={showMacroButtonUpdates}
 					customContainerStyles={customContainerStyles}
 					setIsNodeHovered={setIsNodeHovered}
 					isBodiedMacro={hasBody}

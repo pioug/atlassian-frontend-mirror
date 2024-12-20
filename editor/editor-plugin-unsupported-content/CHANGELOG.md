@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-unsupported-content
 
+## 1.9.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.9.8
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.14.5
+
+### Patch Changes
+
+- [#181001](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181001)
+  [`48d0c93c00dcf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48d0c93c00dcf) -
+  Cleanup fix for the alignment toolbar not closing on click while open.
+
+## 1.14.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.14.3
 
 ### Patch Changes

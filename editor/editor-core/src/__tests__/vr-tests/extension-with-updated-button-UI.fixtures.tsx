@@ -24,13 +24,13 @@ import {
 	inlineExtensionRightAlignedAdf,
 	inlineExtensionWithParagraphAboveAdf,
 	inlineExtensionWithSmartlinkAdf,
-} from './extension-with-updated-UI.adf';
+} from './extension-with-updated-button-UI.adf';
 
 const cardClient = new MockedSmartCardClientNoDelay('staging');
 
 const createPreset = () =>
 	createDefaultPreset({
-		featureFlags: { macroInteractionUpdates: true, macroInteractionButtonUpdates: true },
+		featureFlags: { macroInteractionUpdates: true },
 		paste: {},
 		appearance: 'full-page',
 	})

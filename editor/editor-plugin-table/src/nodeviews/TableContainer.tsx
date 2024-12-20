@@ -25,7 +25,7 @@ import { getPluginState } from '../pm-plugins/plugin-factory';
 import {
 	TABLE_MAX_WIDTH,
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
-} from '../pm-plugins/table-resizing/utils';
+} from '../pm-plugins/table-resizing/utils/consts';
 import { ALIGN_CENTER, ALIGN_START } from '../pm-plugins/utils/alignment';
 import type { PluginInjectionAPI, TableSharedState } from '../types';
 import { TableCssClassName as ClassName } from '../types';

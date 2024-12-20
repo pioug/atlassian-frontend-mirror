@@ -11,8 +11,8 @@ import { CHANGE_ALIGNMENT_REASON, INPUT_METHOD } from '@atlaskit/editor-common/a
 import { addColumnAfter, addRowAfter, backspace, tooltip } from '@atlaskit/editor-common/keymaps';
 import commonMessages, { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import { getTableContainerWidth } from '@atlaskit/editor-common/node-width';
-import type { typeOption } from '@atlaskit/editor-common/types';
 import type {
+	typeOption,
 	Command,
 	CommandDispatch,
 	ConfirmDialogOptions,
@@ -86,18 +86,15 @@ import {
 	wrapTableInExpandWithAnalytics,
 } from '../pm-plugins/commands/commands-with-analytics';
 import { getPluginState } from '../pm-plugins/plugin-factory';
-import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing';
+import { pluginKey as tableResizingPluginKey } from '../pm-plugins/table-resizing/plugin-key';
 import { getStaticTableScalingPercent } from '../pm-plugins/table-resizing/utils/misc';
 import { getNewResizeStateFromSelectedColumns } from '../pm-plugins/table-resizing/utils/resize-state';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
-import { canMergeCells } from '../pm-plugins/transforms';
-import {
-	getMergedCellsPositions,
-	getSelectedColumnIndexes,
-	getSelectedRowIndexes,
-	isTableNested,
-} from '../pm-plugins/utils';
+import { canMergeCells } from '../pm-plugins/transforms/merge';
 import { normaliseAlignment } from '../pm-plugins/utils/alignment';
+import { isTableNested } from '../pm-plugins/utils/nodes';
+import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../pm-plugins/utils/selection';
+import { getMergedCellsPositions } from '../pm-plugins/utils/table';
 import type { TablePluginOptions } from '../tablePluginType';
 import type {
 	AlignmentOptions,

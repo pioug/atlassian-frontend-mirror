@@ -110,7 +110,10 @@ describe('Block', () => {
 
 				const element = await screen.findByTestId('smart-element-link');
 
-				expect(element).toHaveStyleDeclaration('font-size', '0.75rem');
+				expect(element).toHaveStyleDeclaration(
+					'font',
+					'var(--ds-font-body-UNSAFE_small, normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif)',
+				);
 			});
 
 			it('does not override element size', async () => {
@@ -124,7 +127,10 @@ describe('Block', () => {
 
 				const element = await screen.findByTestId('smart-element-link');
 
-				expect(element).toHaveStyleDeclaration('font-size', '0.875rem');
+				expect(element).toHaveStyleDeclaration(
+					'font',
+					'var(--ds-font-body, normal 400 14px/20px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif)',
+				);
 			});
 		});
 

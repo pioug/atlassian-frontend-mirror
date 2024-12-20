@@ -12,7 +12,6 @@ import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemir
 
 import type { AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
-import { isSSR } from '../core-utils/is-ssr';
 import type { PMPluginFactoryParams } from '../types';
 import { ErrorBoundary } from '../ui/ErrorBoundary';
 import {
@@ -177,11 +176,6 @@ function createNodeView<ExtraComponentProps>({
  * @param node The Prosemirror Node from which to source the attributes
  */
 function setDomAttrs(node: PMNode, element: HTMLElement) {
-	// prevent potential XSS attacks since attributes may contain user input
-	if (isSSR()) {
-		return;
-	}
-
 	Object.keys(node.attrs || {}).forEach((attr) => {
 		element.setAttribute(attr, node.attrs[attr]);
 	});

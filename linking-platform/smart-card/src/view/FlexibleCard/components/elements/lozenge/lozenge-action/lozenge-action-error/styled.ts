@@ -34,8 +34,7 @@ export const contentStyles = css(sharedBlockStyles, {
 	alignItems: 'flex-start',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> span, > div': {
-		fontSize: '0.875rem',
-		lineHeight: '1.25rem',
+		font: token('font.body'),
 		color: token('color.text', N800),
 	},
 });
@@ -43,7 +42,7 @@ export const contentStyles = css(sharedBlockStyles, {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 export const linkStyles = css(sharedBlockStyles, {
 	cursor: 'pointer',
-	fontSize: '0.875rem',
+	font: token('font.body'),
 	marginTop: token('space.100', '8px'),
 	marginLeft: token('space.400', '32px'),
 	marginBottom: token('space.025', '2px'),

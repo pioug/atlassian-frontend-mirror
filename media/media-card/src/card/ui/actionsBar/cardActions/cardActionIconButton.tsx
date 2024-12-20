@@ -71,9 +71,7 @@ export const CardActionIconButton = ({
 		</CardActionButton>
 	);
 
-	const useTooltip = !!tooltip && false; // TODO: Tooltip breaks Button positioning
-
-	return useTooltip ? (
+	return tooltip ? (
 		<Tooltip content={tooltip} position="bottom" tag="span">
 			{cardActionButton}
 		</Tooltip>

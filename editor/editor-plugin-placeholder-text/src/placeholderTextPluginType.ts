@@ -2,7 +2,7 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 
-import type { showPlaceholderFloatingToolbar } from './actions';
+import type { showPlaceholderFloatingToolbar } from './editor-actions/actions';
 
 export interface PlaceholderTextOptions {
 	allowInserting?: boolean;

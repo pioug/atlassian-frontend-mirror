@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/contextual-survey",
-	"version": "2.4.7",
+	"version": "2.4.8",
 	"description": "A React component used to ask the user for feedback",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
 	"dependencies": {
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/checkbox": "^15.2.0",
-		"@atlaskit/form": "^10.6.0",
+		"@atlaskit/form": "^11.0.0",
 		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/primitives": "^13.3.0",

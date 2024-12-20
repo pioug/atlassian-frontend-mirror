@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-loom",
-	"version": "3.1.26",
+	"version": "3.1.27",
 	"description": "Loom plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,7 +38,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^96.8.0",
+		"@atlaskit/editor-common": "^97.0.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-hyperlink": "^3.2.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.1.0",

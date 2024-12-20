@@ -1,9 +1,14 @@
-import React, { type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ReactNode } from 'react';
 
-import { cssMap } from '@atlaskit/css';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
+
 import Heading from '@atlaskit/heading';
-import { Box } from '@atlaskit/primitives/compiled';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 export interface FormSectionProps {
 	/**
@@ -20,24 +25,20 @@ export interface FormSectionProps {
 	description?: ReactNode;
 }
 
-const formSectionDescriptionStyles = cssMap({
-	root: {
-		marginBlockStart: token('space.100'),
-	},
+const formSectionDescriptionStyles = xcss({
+	marginBlockStart: 'space.100',
 });
 
-const formSectionWrapperStyles = cssMap({
-	root: {
-		marginBlockStart: token('space.300'),
-	},
+const formSectionWrapperStyles = xcss({
+	marginBlockStart: 'space.300',
 });
 
 const FormSectionWrapper = ({ children }: { children?: ReactNode }) => {
-	return <Box xcss={formSectionWrapperStyles.root}>{children}</Box>;
+	return <Box xcss={formSectionWrapperStyles}>{children}</Box>;
 };
 
 const FormSectionDescription = ({ children }: { children: ReactNode }) => {
-	return <Box xcss={formSectionDescriptionStyles.root}>{children}</Box>;
+	return <Box xcss={formSectionDescriptionStyles}>{children}</Box>;
 };
 
 /**

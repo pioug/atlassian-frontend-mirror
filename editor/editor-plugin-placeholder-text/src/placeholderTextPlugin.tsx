@@ -25,16 +25,16 @@ import {
 	hidePlaceholderFloatingToolbar,
 	insertPlaceholderTextAtSelection,
 	showPlaceholderFloatingToolbar,
-} from './actions';
-import { drawFakeTextCursor, FakeTextCursorSelection } from './fake-text-cursor/cursor';
-import { PlaceholderTextNodeView } from './placeholder-text-nodeview';
-import { pluginKey } from './plugin-key';
-import { isSelectionAtPlaceholder } from './selection-utils';
+} from './editor-actions/actions';
 import type {
 	PlaceholderTextOptions,
 	PlaceholderTextPlugin,
 	PlaceholderTextPluginState,
-} from './types';
+} from './placeholderTextPluginType';
+import { drawFakeTextCursor, FakeTextCursorSelection } from './pm-plugins/fake-text-cursor/cursor';
+import { PlaceholderTextNodeView } from './pm-plugins/placeholder-text-nodeview';
+import { pluginKey } from './pm-plugins/plugin-key';
+import { isSelectionAtPlaceholder } from './pm-plugins/utils/selection-utils';
 import PlaceholderFloatingToolbar from './ui/PlaceholderFloatingToolbar';
 
 const getOpenTypeAhead = (

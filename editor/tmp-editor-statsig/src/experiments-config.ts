@@ -134,16 +134,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Add 2024-09-16
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_ai_button_block_elements/setup
-	platform_editor_ai_ai_button_block_elements: {
-		productKeys: {
-			confluence: 'platform_editor_ai_ai_button_block_elements',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'test']),
-		defaultValue: 'control' as 'control' | 'test',
-	},
 	// Added 2024-09-18
 	platform_renderer_table_sticky_scrollbar: {
 		productKeys: {

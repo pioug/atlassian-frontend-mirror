@@ -18,19 +18,22 @@ export const akEditorDeleteIconColor = token('color.icon.danger');
 export const akEditorCustomIconSize = 20;
 export const akEditorSelectedBorderColor = token('color.border.selected');
 export const akEditorSelectedBorderSize = 1;
+export const akEditorSelectedBorderBoldSize = 2;
 export const akEditorSelectedBorder = `${akEditorSelectedBorderSize}px solid ${token(
 	'color.border.selected',
 )}`;
 export const akEditorSelectedBoxShadow = `0 0 0 ${akEditorSelectedBorderSize}px ${token(
 	'color.border.selected',
 )}`;
-export const akEditorSelectedBorderBoldSize = 2;
+export const akEditorSelectedBoldBoxShadow = `0 0 0 ${akEditorSelectedBorderBoldSize}px ${token('color.border.selected')}`;
+
 export const akEditorSelectedBlanketOpacity = 0.3;
 export const akEditorUnitZIndex = 1;
 export const akEditorShadowZIndex = 2;
 export const akEditorStickyHeaderZIndex = 11; // filmstrip uses 10 for its shadow
 export const akEditorSmallZIndex = akEditorStickyHeaderZIndex + 1;
 export const akEditorGridLineZIndex = 2;
+
 // z-index for main menu bar -
 // this is highest as it should be above anything else in editor below.
 export const akEditorMenuZIndex = 500;

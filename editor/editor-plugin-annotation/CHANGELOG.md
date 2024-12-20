@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.26.7
+
+### Patch Changes
+
+- [#181574](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181574)
+  [`8645daab34a55`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8645daab34a55) -
+  Add missing dom attributes to annotation mark in AnnotaitonNodeView, hot-114046
+
+## 1.26.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.26.5
 
 ### Patch Changes

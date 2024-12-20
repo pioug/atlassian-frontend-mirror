@@ -26,7 +26,7 @@ import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardSty
 const contentStyles = css({
 	color: token('color.text.subtlest', '#626F86'),
 	marginTop: token('space.100', '0.5rem'),
-	fontSize: '0.75rem',
+	font: token('font.body.UNSAFE_small'),
 });
 
 /**

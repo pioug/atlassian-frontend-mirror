@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.0.2
+
+### Patch Changes
+
+- [#182128](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/182128)
+  [`c00cde6230838`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c00cde6230838) -
+  fix v9 support regression
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

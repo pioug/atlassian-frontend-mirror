@@ -258,15 +258,6 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Enables macro interaction visual button updates
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/PGXT-5513
-	 * @default false
-	 */
-	macroInteractionButtonUpdates?: boolean;
-
-	/**
-	 * @description
 	 * Enables extra analytics to be added for comments on media
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/ED-23355

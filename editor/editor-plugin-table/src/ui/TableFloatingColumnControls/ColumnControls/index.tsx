@@ -21,7 +21,8 @@ import {
 } from '../../../pm-plugins/commands';
 import { toggleDragMenu } from '../../../pm-plugins/drag-and-drop/commands';
 import type { TriggerType } from '../../../pm-plugins/drag-and-drop/types';
-import { getRowsParams, getSelectedColumnIndexes } from '../../../pm-plugins/utils';
+import { getRowsParams } from '../../../pm-plugins/utils/row-controls';
+import { getSelectedColumnIndexes } from '../../../pm-plugins/utils/selection';
 import type { TablePlugin } from '../../../tablePluginType';
 import type { CellHoverMeta, HandleTypes } from '../../../types';
 import { TableCssClassName as ClassName } from '../../../types';

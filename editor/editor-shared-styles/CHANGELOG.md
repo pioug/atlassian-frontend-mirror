@@ -1,5 +1,13 @@
 # @atlaskit/editor-shared-styles
 
+## 3.2.2
+
+### Patch Changes
+
+- [#181108](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181108)
+  [`53b2e808822aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53b2e808822aa) -
+  ED-26039 Update status lozenge styles with white bortder and greater boxshadow
+
 ## 3.2.1
 
 ### Patch Changes

@@ -13,7 +13,7 @@ import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { nativeFields } from '../example-utils/config-panel/fields';
-import ConfigPanel from '../src/ui/ConfigPanel';
+import ConfigPanel from '../src/ui/ConfigPanel/ConfigPanelLoader';
 
 const wrapperStyles = css({
 	display: 'flex',

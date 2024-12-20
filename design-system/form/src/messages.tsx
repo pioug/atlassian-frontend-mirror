@@ -5,9 +5,12 @@
 
 import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from 'react';
 
-import { cssMap, jsx } from '@atlaskit/css';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx, type SerializedStyles } from '@emotion/react';
+
 import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import SuccessIcon from '@atlaskit/icon/utility/migration/success--editor-success';
+import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field-id-context';
@@ -39,39 +42,35 @@ interface InternalMessageProps {
  */
 type MessageProps = Pick<InternalMessageProps, 'children' | 'testId'>;
 
-const messageStyles = cssMap({
-	root: {
-		display: 'flex',
-		justifyContent: 'baseline',
-		gap: token('space.075', '6px'),
-		font: token('font.body.UNSAFE_small'),
-		marginBlockStart: token('space.050', '4px'),
-	},
+const messageStyles = css({
+	display: 'flex',
+	justifyContent: 'baseline',
+	gap: token('space.075', '6px'),
+	font: token('font.body.UNSAFE_small'),
+	marginBlockStart: token('space.050', '4px'),
 });
 
-const messageAppearanceStyles = cssMap({
-	default: {
-		color: token('color.text.subtlest', '#6B778C'),
-	},
-	error: {
+const messageAppearanceStyles: Record<MessageAppearance, SerializedStyles> = {
+	default: css({
+		color: token('color.text.subtlest', N200),
+	}),
+	error: css({
 		color: token('color.text.danger', '#AE2A19'),
-	},
-	valid: {
+	}),
+	valid: css({
 		color: token('color.text.success', '#216E4E'),
-	},
+	}),
+};
+
+const iconWrapperStyles = css({
+	display: 'flex',
+	height: '16px',
+	alignItems: 'center',
 });
 
-const iconWrapperStyles = cssMap({
-	root: {
-		display: 'flex',
-		height: '16px',
-		alignItems: 'center',
-	},
-});
-
-const IconWrapper = ({ children }: { children: ReactNode }) => (
-	<span css={iconWrapperStyles.root}>{children}</span>
-);
+const IconWrapper = ({ children }: { children: ReactNode }) => {
+	return <span css={iconWrapperStyles}>{children}</span>;
+};
 
 const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
 	error: (
@@ -111,7 +110,7 @@ const Message = ({ children, appearance = 'default', fieldId, testId }: Internal
 
 	return (
 		<div
-			css={[messageStyles.root, messageAppearanceStyles[appearance]]}
+			css={[messageStyles, messageAppearanceStyles[appearance]]}
 			data-testid={testId}
 			id={fieldId}
 			ref={messageRef}

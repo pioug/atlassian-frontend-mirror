@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-placeholder-text
 
+## 1.9.0
+
+### Minor Changes
+
+- [#180725](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/180725)
+  [`70657a7f9cb2f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70657a7f9cb2f) -
+  Refactored folder structure to confirm to new editor standards
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.8.9
 
 ### Patch Changes

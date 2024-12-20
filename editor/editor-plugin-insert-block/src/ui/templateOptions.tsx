@@ -10,13 +10,13 @@ import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 
-import ActionListIcon from '../assets/action-list';
-import ApprovalsTrackerIcon from '../assets/approvals-tracker';
-import DecisionMatrixIcon from '../assets/decision-matrix';
-import DiscussionNotesIcon from '../assets/discussion-notes';
-import InstructionsOutlineIcon from '../assets/instructions-outline';
-import { type InsertBlockPlugin } from '../insertBlockPlugin';
+import { type InsertBlockPlugin } from '../insertBlockPluginType';
 
+import ActionListIcon from './assets/action-list';
+import ApprovalsTrackerIcon from './assets/approvals-tracker';
+import DecisionMatrixIcon from './assets/decision-matrix';
+import DiscussionNotesIcon from './assets/discussion-notes';
+import InstructionsOutlineIcon from './assets/instructions-outline';
 import {
 	actionList,
 	approvalsTracker,

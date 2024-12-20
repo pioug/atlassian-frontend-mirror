@@ -1,5 +1,13 @@
 # @atlaskit/eslint-utils
 
+## 1.8.0
+
+### Minor Changes
+
+- [#182142](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/182142)
+  [`214a8d94f1757`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/214a8d94f1757) -
+  add new isAtlaskitCSS function for determinning supported imports
+
 ## 1.7.1
 
 ### Patch Changes

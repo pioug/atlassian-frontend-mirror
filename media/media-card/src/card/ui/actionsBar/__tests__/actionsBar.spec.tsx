@@ -1,14 +1,13 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { screen, render } from '@testing-library/react';
 import DeleteIcon from '@atlaskit/icon/core/migration/delete--trash';
 import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import EditIcon from '@atlaskit/icon/core/migration/edit';
+import userEvent from '@testing-library/user-event';
 
 import { type CardAction } from '../../../actions';
 
 import { ActionsBar } from '../actionsBar';
-import { CardActionsView } from '../cardActions';
-import { ActionsBarWrapper } from '../actionsBarWrapper';
 
 describe('ActionsBar', () => {
 	const deleteAction: CardAction = {
@@ -28,14 +27,35 @@ describe('ActionsBar', () => {
 	};
 
 	it('will not render on empty actions', () => {
-		const component = shallow(<ActionsBar actions={[]} />);
-		expect(component.find(ActionsBarWrapper)).toHaveLength(0);
-		expect(component.find(CardActionsView)).toHaveLength(0);
+		render(<ActionsBar actions={[]} />);
+		expect(screen.queryByTestId('actionsBarWrapper')).not.toBeInTheDocument();
 	});
 
-	it('will render if there are actions', () => {
-		const component = mount(<ActionsBar actions={[deleteAction, downloadAction, replaceAction]} />);
-		expect(component.find(ActionsBarWrapper)).toHaveLength(1);
-		expect(component.find(CardActionsView)).toHaveLength(1);
+	it('will render if there are actions', async () => {
+		render(<ActionsBar actions={[deleteAction, downloadAction, replaceAction]} />);
+		expect(await screen.findByTestId('actionsBarWrapper')).toBeInTheDocument();
+	});
+
+	it('should prevent outer on click handler to be called', async () => {
+		const user = userEvent.setup();
+		const onOuterClick = jest.fn();
+
+		render(
+			<div id="outer" onClick={onOuterClick}>
+				<ActionsBar actions={[deleteAction, downloadAction, replaceAction]} />
+			</div>,
+		);
+
+		const actionsWrapper = await screen.findByTestId('actionsBarWrapper');
+		expect(await screen.findByTestId('actionsBarWrapper')).toBeInTheDocument();
+		const someAction = actionsWrapper.querySelector('button');
+
+		if (!someAction) {
+			throw new Error('Action Element not found (button)');
+		}
+
+		user.click(someAction);
+
+		expect(onOuterClick).not.toHaveBeenCalled();
 	});
 });

@@ -38,6 +38,7 @@ import {
 	backgroundColorStyles,
 	codeBlockInListSafariFix,
 	SmartCardSharedCssClassName,
+	getStatusSharedStyles,
 } from '@atlaskit/editor-common/styles';
 
 import { shadowClassNames, shadowObserverClassNames } from '@atlaskit/editor-common/ui';
@@ -635,6 +636,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 		${tasksAndDecisionsStyles};
 		${smartCardSharedStyles}
 		${getAnnotationStyles(wrapperProps)}
+		${getStatusSharedStyles()}
 
 		& .UnknownBlock {
 			font-family: ${token('font.family.body')};

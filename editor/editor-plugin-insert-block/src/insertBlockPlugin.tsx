@@ -17,7 +17,6 @@ import type {
 	DropdownOptions,
 	EditorAppearance,
 	ExtractInjectionAPI,
-	NextEditorPlugin,
 	PMPlugin,
 	ToolbarUIComponentFactory,
 	ToolbarUiComponentFactoryParams,
@@ -30,10 +29,11 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import SwitchIcon from './assets/switch';
-import type { InsertBlockPluginDependencies } from './insertBlockPluginType';
+import type { InsertBlockPlugin } from './insertBlockPluginType';
 import { elementBrowserPmKey, elementBrowserPmPlugin } from './pm-plugins/elementBrowser';
 import { toggleInsertBlockPmKey, toggleInsertBlockPmPlugin } from './pm-plugins/toggleInsertBlock';
+import type { InsertBlockOptions } from './types';
+import SwitchIcon from './ui/assets/switch';
 import { InsertMenuRail } from './ui/ElementRail';
 import { templateOptions } from './ui/templateOptions';
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
@@ -86,23 +86,6 @@ export const toolbarSizeToButtons = (toolbarSize: ToolbarSize, appearance?: Edit
 	}
 };
 
-export interface InsertBlockOptions {
-	allowTables?: boolean;
-	allowExpand?: boolean;
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	insertMenuItems?: any;
-	horizontalRuleEnabled?: boolean;
-	nativeStatusSupported?: boolean;
-	showElementBrowserLink?: boolean;
-	tableSelectorSupported?: boolean;
-	appearance?: EditorAppearance;
-}
-
-export interface InsertBlockPluginState {
-	showElementBrowser: boolean;
-	menuBrowserOpen?: boolean;
-}
-
 /**
  * Wrapper over insertBlockTypeWithAnalytics to autobind toolbar input method
  * @param name Block name
@@ -125,18 +108,6 @@ function handleInsertBlockType(
 		return () => false;
 	};
 }
-
-export type InsertBlockPlugin = NextEditorPlugin<
-	'insertBlock',
-	{
-		pluginConfiguration: InsertBlockOptions | undefined;
-		dependencies: InsertBlockPluginDependencies;
-		actions: {
-			toggleAdditionalMenu: () => void;
-		};
-		sharedState: InsertBlockPluginState | undefined;
-	}
->;
 
 function delayUntilIdle(cb: Function) {
 	if (typeof window === 'undefined') {

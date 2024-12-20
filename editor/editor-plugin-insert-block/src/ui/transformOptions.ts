@@ -8,8 +8,9 @@ import EditorCodeIcon from '@atlaskit/icon/glyph/editor/code';
 import EditorInfoIcon from '@atlaskit/icon/glyph/editor/info';
 import QuoteIcon from '@atlaskit/icon/glyph/quote';
 
-import ExpandIcon from '../assets/expand';
-import type { InsertBlockPlugin } from '../insertBlockPlugin';
+import type { InsertBlockPlugin } from '../insertBlockPluginType';
+
+import ExpandIcon from './assets/expand';
 
 export const transformationOptions = (
 	api: ExtractInjectionAPI<InsertBlockPlugin> | undefined,

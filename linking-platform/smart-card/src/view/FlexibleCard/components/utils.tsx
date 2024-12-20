@@ -110,27 +110,24 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 	switch (size) {
 		case SmartLinkSize.XLarge:
 			return css({
-				fontSize: '1.25rem',
+				font: token('font.heading.medium'),
 				fontWeight: token('font.weight.regular'),
-				letterSpacing: '-0.008em',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
 			});
 		case SmartLinkSize.Large:
 		case SmartLinkSize.Medium:
 			return css({
-				fontSize: '0.875rem',
+				font: token('font.body'),
 				fontWeight: token('font.weight.regular'),
-				letterSpacing: '-0.003em',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
 			});
 		case SmartLinkSize.Small:
 		default:
 			return css({
-				fontSize: '0.75rem',
+				font: token('font.body.UNSAFE_small'),
 				fontWeight: token('font.weight.regular'),
-				letterSpacing: '0em',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
 			});

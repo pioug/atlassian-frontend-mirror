@@ -1,5 +1,13 @@
 # @atlaskit/panel
 
+## 0.10.4
+
+### Patch Changes
+
+- [#178553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/178553)
+  [`92c2c33dc28fe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/92c2c33dc28fe) -
+  Internal change – bump `react-animate-height` to improve React 18 compatibility.
+
 ## 0.10.3
 
 ### Patch Changes

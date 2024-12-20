@@ -1,5 +1,30 @@
 # @atlaskit/editor-core
 
+## 203.7.3
+
+### Patch Changes
+
+- [#181108](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181108)
+  [`53b2e808822aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53b2e808822aa) -
+  ED-26039 Update status lozenge styles with white bortder and greater boxshadow
+
+## 203.7.2
+
+### Patch Changes
+
+- [#182298](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/182298)
+  [`2f0dfff283d2e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2f0dfff283d2e) -
+  Clean up extension button experiment which determines whether or not to show the new button label
+- Updated dependencies
+
+## 203.7.1
+
+### Patch Changes
+
+- [#181266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/181266)
+  [`4b4994d4a2620`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4b4994d4a2620) -
+  ED-25613: Keyboard shortcuts to resize layout
+
 ## 203.7.0
 
 ### Minor Changes

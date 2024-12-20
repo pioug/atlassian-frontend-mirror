@@ -31,14 +31,13 @@ import { token } from '@atlaskit/tokens';
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
 import { updateWidthToWidest } from '../pm-plugins/commands/misc';
 import { META_KEYS } from '../pm-plugins/table-analytics';
+import { getColgroupChildrenLength } from '../pm-plugins/table-resizing/utils/colgroup';
 import {
 	COLUMN_MIN_WIDTH,
-	getColgroupChildrenLength,
-	previewScaleTable,
-	scaleTable,
 	TABLE_MAX_WIDTH,
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
-} from '../pm-plugins/table-resizing/utils';
+} from '../pm-plugins/table-resizing/utils/consts';
+import { previewScaleTable, scaleTable } from '../pm-plugins/table-resizing/utils/scale-table';
 import { pluginKey as tableWidthPluginKey } from '../pm-plugins/table-width';
 import {
 	ALIGN_CENTER,

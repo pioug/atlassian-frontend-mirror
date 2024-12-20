@@ -3,12 +3,10 @@ import { css } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-const titleFontWeight = '600';
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const titleBlockStyles = css({
 	justifyContent: 'center',
-	fontWeight: titleFontWeight,
+	fontWeight: token('font.weight.semibold'),
 	marginTop: token('space.100', '8px'),
 });
 
@@ -17,7 +15,7 @@ export const mainTextStyles = css({
 	display: 'inline',
 	justifyContent: 'center',
 	marginTop: token('space.0', '0px'),
-	fontSize: '0.75rem',
+	font: token('font.body.UNSAFE_small'),
 	textAlign: 'center',
 });
 

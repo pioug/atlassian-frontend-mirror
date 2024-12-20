@@ -45,7 +45,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/eslint-plugin-design-system": "^11.6.0",
-		"@atlaskit/eslint-utils": "^1.7.0",
+		"@atlaskit/eslint-utils": "^1.8.0",
 		"@babel/runtime": "^7.0.0",
 		"@typescript-eslint/utils": "^7.1.0",
 		"ajv": "^6.12.6",

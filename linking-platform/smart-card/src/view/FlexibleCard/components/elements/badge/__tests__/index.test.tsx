@@ -64,7 +64,10 @@ describe('Element: Badge', () => {
 
 			const text = await screen.findByTestId('smart-element-badge-label');
 
-			expect(text).toHaveStyleDeclaration('font-size', '0.75rem');
+			expect(text).toHaveStyleDeclaration(
+				'font',
+				'var(--ds-font-body-UNSAFE_small, normal 400 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif)',
+			);
 		});
 	});
 

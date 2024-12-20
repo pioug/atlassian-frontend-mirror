@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-batch-attribute-updates
 
+## 1.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.8
 
 ### Patch Changes

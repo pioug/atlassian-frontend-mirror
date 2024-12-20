@@ -12,5 +12,4 @@ export type ExtensionsPluginInjectionAPI = PublicPluginAPI<[WidthPluginType]> | 
 
 export type MacroInteractionDesignFeatureFlags = {
 	showMacroInteractionDesignUpdates?: boolean;
-	showMacroButtonUpdates?: boolean;
 };

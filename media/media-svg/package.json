@@ -55,7 +55,7 @@
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/form": "^10.6.0",
+		"@atlaskit/form": "^11.0.0",
 		"@atlaskit/media-state": "^1.2.0",
 		"@atlaskit/media-test-data": "^2.7.0",
 		"@atlaskit/primitives": "^13.3.0",

@@ -33,13 +33,12 @@ const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) => {
 				: '';
 		case SmartLinkSize.Small:
 			return css({
-				fontSize: '0.75rem',
+				font: token('font.body.UNSAFE_small'),
 				fontWeight: token('font.weight.medium'),
-				lineHeight: '1rem',
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				'button, button:hover, button:focus, button:active': [
 					{
-						lineHeight: '1rem',
+						lineHeight: 'inherit',
 					},
 					iconOnly
 						? `

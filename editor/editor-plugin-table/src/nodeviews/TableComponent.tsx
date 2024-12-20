@@ -30,41 +30,38 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { autoSizeTable, clearHoverSelection } from '../pm-plugins/commands';
-import { autoScrollerFactory } from '../pm-plugins/drag-and-drop/utils';
+import { autoScrollerFactory } from '../pm-plugins/drag-and-drop/utils/autoscrollers';
 import { getPluginState } from '../pm-plugins/plugin-factory';
-import type { RowStickyState, StickyPluginState } from '../pm-plugins/sticky-headers';
-import {
-	findStickyHeaderForTable,
-	pluginKey as stickyHeadersPluginKey,
-} from '../pm-plugins/sticky-headers';
+import { pluginKey as stickyHeadersPluginKey } from '../pm-plugins/sticky-headers/plugin-key';
+import type { RowStickyState, StickyPluginState } from '../pm-plugins/sticky-headers/types';
+import { findStickyHeaderForTable } from '../pm-plugins/sticky-headers/util';
 import { META_KEYS } from '../pm-plugins/table-analytics';
 import {
-	COLUMN_MIN_WIDTH,
-	getLayoutSize,
-	getResizeState,
 	insertColgroupFromNode,
-	scaleTable,
-	updateColgroup,
-} from '../pm-plugins/table-resizing/utils';
-import { hasTableBeenResized } from '../pm-plugins/table-resizing/utils/colgroup';
+	hasTableBeenResized,
+} from '../pm-plugins/table-resizing/utils/colgroup';
 import {
+	COLUMN_MIN_WIDTH,
 	TABLE_EDITOR_MARGIN,
 	TABLE_OFFSET_IN_COMMENT_EDITOR,
 } from '../pm-plugins/table-resizing/utils/consts';
 import { updateControls } from '../pm-plugins/table-resizing/utils/dom';
 import {
+	getLayoutSize,
 	getScalingPercentForTableWithoutWidth,
 	getTableScalingPercent,
 } from '../pm-plugins/table-resizing/utils/misc';
+import { getResizeState, updateColgroup } from '../pm-plugins/table-resizing/utils/resize-state';
+import { scaleTable } from '../pm-plugins/table-resizing/utils/scale-table';
 import {
 	containsHeaderRow,
-	getAssistiveMessage,
 	isTableNested,
 	isTableNestedInMoreThanOneNode,
 	tablesHaveDifferentColumnWidths,
 	tablesHaveDifferentNoOfColumns,
 	tablesHaveDifferentNoOfRows,
-} from '../pm-plugins/utils';
+} from '../pm-plugins/utils/nodes';
+import { getAssistiveMessage } from '../pm-plugins/utils/table';
 import type { CellHoverMeta, PluginInjectionAPI } from '../types';
 import { TableCssClassName as ClassName, ShadowEvent } from '../types';
 import {

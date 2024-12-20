@@ -4,13 +4,12 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
-import { Component } from 'react';
+import { Component, Fragment } from 'react';
 
 import { type CardAction } from '../../../actions';
 import { CardActionIconButton } from './cardActionIconButton';
-import { type CardActionIconButtonVariant, wrapperStyles } from './styles';
+import { type CardActionIconButtonVariant } from './styles';
 import { CardActionsDropdownMenu } from './cardActionsDropdownMenu';
-import { PreventClickThrough } from '../../../../utils/preventClickThrough';
 
 export interface CardActionsViewProps {
 	readonly actions: CardAction[];
@@ -33,13 +32,10 @@ export class CardActionsView extends Component<CardActionsViewProps> {
 		const otherActions = actions.filter(actionNotEqualTo(primaryAction));
 
 		return (
-			<PreventClickThrough>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-				<div css={wrapperStyles}>
-					{primaryAction ? this.renderActionIconButton(primaryAction, true) : null}
-					{this.renderOtherActionButtons(otherActions)}
-				</div>
-			</PreventClickThrough>
+			<Fragment>
+				{primaryAction ? this.renderActionIconButton(primaryAction, true) : null}
+				{this.renderOtherActionButtons(otherActions)}
+			</Fragment>
 		);
 	}
 

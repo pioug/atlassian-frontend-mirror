@@ -1,9 +1,14 @@
-import React, { type ReactNode } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type ReactNode } from 'react';
 
-import { cssMap } from '@atlaskit/css';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
+
 import Heading from '@atlaskit/heading';
-import { Box } from '@atlaskit/primitives/compiled';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
 export interface FormHeaderProps {
 	/**
@@ -20,17 +25,13 @@ export interface FormHeaderProps {
 	children?: ReactNode;
 }
 
-const formHeaderContentStyles = cssMap({
-	root: {
-		minWidth: '100%',
-		marginBlockStart: token('space.100'),
-	},
+const formHeaderContentStyles = xcss({
+	minWidth: '100%',
+	marginBlockStart: 'space.100',
 });
 
-const formHeaderDescriptionStyles = cssMap({
-	root: {
-		marginBlockStart: token('space.100'),
-	},
+const formHeaderDescriptionStyles = xcss({
+	marginBlockStart: 'space.100',
 });
 
 /**
@@ -47,8 +48,8 @@ const FormHeader = ({ children, description, title }: FormHeaderProps) => {
 	return (
 		<Box>
 			{title && <Heading size="large">{title}</Heading>}
-			{description && <Box xcss={formHeaderDescriptionStyles.root}>{description}</Box>}
-			{children && <Box xcss={formHeaderContentStyles.root}>{children}</Box>}
+			{description && <Box xcss={formHeaderDescriptionStyles}>{description}</Box>}
+			{children && <Box xcss={formHeaderContentStyles}>{children}</Box>}
 		</Box>
 	);
 };

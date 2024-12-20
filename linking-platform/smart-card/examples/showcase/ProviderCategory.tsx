@@ -84,9 +84,7 @@ export const ProviderCategory = ({ category, examples, config }: ProviderCategor
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 							textTransform: 'uppercase',
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							letterSpacing: '0.2rem',
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-							fontWeight: 'bolder',
+							fontWeight: token('font.weight.bold'),
 						}}
 					>
 						{categoryTitle}

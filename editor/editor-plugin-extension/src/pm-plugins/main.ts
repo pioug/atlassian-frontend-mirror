@@ -34,7 +34,7 @@ import { clearEditingContext, updateState } from '../editor-commands/commands';
 import type { ExtensionPlugin, ExtensionPluginOptions } from '../extensionPluginType';
 import { lazyExtensionNodeView } from '../nodeviews/lazyExtension';
 
-import { createCommand, createPluginState, getPluginState } from './plugin-factory';
+import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
 import { updateEditButton } from './update-edit-button';
 import { getSelectedDomElement, getSelectedExtension } from './utils';
@@ -169,7 +169,7 @@ export const handleUpdate = ({
 	return true;
 };
 
-const createPlugin = (
+export const createPlugin = (
 	dispatch: Dispatch,
 	providerFactory: ProviderFactory,
 	extensionHandlers: ExtensionHandlers,
@@ -195,7 +195,6 @@ const createPlugin = (
 
 	const macroInteractionDesignFeatureFlags = {
 		showMacroInteractionDesignUpdates: featureFlags?.macroInteractionUpdates ?? false,
-		showMacroButtonUpdates: featureFlags?.macroInteractionButtonUpdates ?? false,
 	};
 	const showLivePagesBodiedMacrosRendererView =
 		__rendererExtensionOptions?.isAllowedToUseRendererView;
@@ -452,5 +451,3 @@ const createPlugin = (
 		},
 	});
 };
-
-export { pluginKey, createPlugin, createCommand, getPluginState };

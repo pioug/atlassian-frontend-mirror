@@ -72,8 +72,8 @@ export const CurrentTime = ({
 const timelineStyles = css({
 	width: '100%',
 	height: '2px',
-	transitionDelay: '1s',
 	transition: 'all 0.1s',
+	transitionDelay: '1s',
 	backgroundColor: '#596773',
 	borderRadius: '5px',
 	position: 'relative',

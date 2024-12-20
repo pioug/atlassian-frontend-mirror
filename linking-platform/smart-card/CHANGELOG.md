@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 32.8.2
+
+### Patch Changes
+
+- [#182128](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/182128)
+  [`15424ce7c9940`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/15424ce7c9940) -
+  Internal changes to typography.
+
+## 32.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 32.8.0
 
 ### Minor Changes

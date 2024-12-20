@@ -95,9 +95,6 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 							this.hide({ isOpen: false, event });
 						}
 					}}
-					onOpenChange={
-						fg('platform_editor_fix_toolbar_alignment_item') ? undefined : this.onOpenChange
-					}
 					handleEscapeKeydown={this.hideOnEscape}
 					arrowKeyNavigationProviderOptions={{
 						type: ArrowKeyNavigationType.MENU,
@@ -209,10 +206,6 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 	private hideOnEscape = () => {
 		this.hide();
 		this.toolbarItemRef?.current?.focus();
-	};
-
-	private onOpenChange = () => {
-		this.setState({ isOpen: false });
 	};
 }
 

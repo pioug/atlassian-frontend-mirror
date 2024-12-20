@@ -2,9 +2,9 @@
 // Entry file in package.json
 
 export { insertBlockPlugin } from './insertBlockPlugin';
+export type { InsertBlockPlugin } from './insertBlockPluginType';
 export type {
-	InsertBlockPlugin,
 	InsertBlockOptions,
+	InsertBlockPluginDependencies,
 	InsertBlockPluginState,
-} from './insertBlockPlugin';
-export type { InsertBlockPluginDependencies } from './insertBlockPluginType';
+} from './types';

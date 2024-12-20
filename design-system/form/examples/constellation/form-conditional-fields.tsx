@@ -1,17 +1,14 @@
 import React from 'react';
 
-import { cssMap } from '@atlaskit/css';
 import Form, { Field, useFormState } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, xcss } from '@atlaskit/primitives';
 import { RadioGroup } from '@atlaskit/radio';
 import { type OptionsPropType } from '@atlaskit/radio/types';
 import TextField from '@atlaskit/textfield';
 
-const formContainerStyles = cssMap({
-	root: {
-		maxWidth: '400px',
-		margin: '0 auto',
-	},
+const formContainerStyles = xcss({
+	maxWidth: '400px',
+	margin: '0 auto',
 });
 
 const radioItems: OptionsPropType = [
@@ -71,7 +68,7 @@ const AccountLoginOrSignUpConditionalFields = () => {
 
 export default function ConditionalFieldsExample() {
 	return (
-		<Box xcss={formContainerStyles.root}>
+		<Box xcss={formContainerStyles}>
 			<Form
 				onSubmit={(data) => {
 					console.log('form data', data);

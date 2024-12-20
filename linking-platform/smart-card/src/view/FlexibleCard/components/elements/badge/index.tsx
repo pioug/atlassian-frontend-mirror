@@ -40,8 +40,7 @@ const iconStyles = css`
 
 const labelStyles = css({
 	color: token('color.text.subtlest', '#626F86'),
-	fontSize: '0.75rem',
-	lineHeight: '1rem',
+	font: token('font.body.UNSAFE_small'),
 	paddingLeft: token('space.025', '0.125rem'),
 	verticalAlign: 'middle',
 });

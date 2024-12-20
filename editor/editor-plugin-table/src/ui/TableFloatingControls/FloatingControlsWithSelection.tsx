@@ -6,8 +6,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { TablePlugin } from '../../tablePluginType';
 
-import { CornerControls } from './CornerControls';
-import { RowControls } from './RowControls';
+import { CornerControls } from './CornerControls/ClassicCornerControls';
+import { RowControls } from './RowControls/ClassicControls';
 
 type FloatingControlsWithSelectionProps = {
 	editorView: EditorView;

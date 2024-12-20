@@ -6,11 +6,12 @@
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 import Markdown from 'markdown-to-jsx';
 
+import { token } from '@atlaskit/tokens';
+
 import UList from './ulist';
 
 const AISummaryCSSStyles = css({
-	fontSize: '0.75rem',
-	lineHeight: '1rem',
+	font: token('font.body.UNSAFE_small'),
 	wordWrap: 'break-word',
 	wordBreak: 'break-word',
 	whiteSpace: 'normal',

@@ -1,26 +1,22 @@
 import React from 'react';
 
 import Banner from '@atlaskit/banner';
-import { cssMap } from '@atlaskit/css';
 import Form, { Field, useFormState } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, xcss } from '@atlaskit/primitives';
 import Select, { type ValueType as Value } from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
-import { token } from '@atlaskit/tokens';
 
 interface Option {
 	label: string;
 	value: 'warning' | 'error' | 'announcement';
 }
 
-const formContainerStyles = cssMap({
-	root: {
-		maxWidth: '400px',
-		margin: '0 auto',
-	},
+const formContainerStyles = xcss({
+	maxWidth: '400px',
+	margin: '0 auto',
 });
 
-const previewStyles = cssMap({ root: { marginBlockStart: token('space.200') } });
+const previewStyles = xcss({ marginBlockStart: 'space.200' });
 
 type BannerForm = {
 	appearance: Option;

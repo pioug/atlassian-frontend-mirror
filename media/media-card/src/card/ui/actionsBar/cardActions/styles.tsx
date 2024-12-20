@@ -10,19 +10,6 @@ import { token } from '@atlaskit/tokens';
 import { borderRadius, size, center } from '@atlaskit/media-ui';
 import { rgba } from '../../styles';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const wrapperStyles = css({
-	boxSizing: 'border-box',
-	fontFamily: token('font.family.body'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'*': {
-		boxSizing: 'border-box',
-	},
-	display: 'flex',
-	position: 'relative',
-	lineHeight: 0,
-});
-
 export enum CardActionIconButtonVariant {
 	default = 'default',
 	filled = 'filled',
@@ -43,11 +30,6 @@ const getVariantStyles = (variant?: 'default' | 'filled'): string => {
 	return variant === 'filled'
 		? `
     background-color: ${token('elevation.surface.overlay', rgba(N0, 0.8))};
-    margin-right: 8px;
-
-    &:last-child {
-      margin-right: 0;
-    }
 
     &:hover {
       background-color: ${token('elevation.surface.overlay.hovered', rgba(N0, 0.6))}

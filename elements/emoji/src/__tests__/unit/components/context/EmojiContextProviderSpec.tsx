@@ -4,19 +4,23 @@ import { render } from '@testing-library/react';
 import { EmojiContextProvider } from '../../../../context/EmojiContextProvider';
 import { EmojiContext } from '../../../../context/EmojiContext';
 import EmojiResource from '../../../../api/EmojiResource';
+
 jest.mock('../../../../api/EmojiResource');
+
 class ClassContextChild extends PureComponent {
 	static contextType = EmojiContext;
 	context!: ContextType<typeof EmojiContext>;
 
 	render() {
-		return <span>{this.context?.emoji.emojiProvider.findByShortName('foo')}</span>;
+		const emoji = this.context?.emoji.emojiProvider.findByShortName('foo');
+		return <span>{JSON.stringify(emoji)}</span>;
 	}
 }
 
 const FunctionContextChild = () => {
 	const emojiContext = useContext(EmojiContext);
-	return <span>{emojiContext?.emoji.emojiProvider.findByShortName('foo')}</span>;
+	const emoji = emojiContext?.emoji.emojiProvider.findByShortName('foo');
+	return <span>{JSON.stringify(emoji)}</span>;
 };
 
 describe('the emoji context provider', () => {

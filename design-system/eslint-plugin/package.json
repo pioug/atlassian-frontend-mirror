@@ -47,7 +47,7 @@
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"dependencies": {
-		"@atlaskit/eslint-utils": "^1.7.0",
+		"@atlaskit/eslint-utils": "^1.8.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/icon-lab": "^2.0.0",
 		"@atlaskit/tokens": "*",

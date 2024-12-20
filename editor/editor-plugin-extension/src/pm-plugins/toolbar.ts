@@ -39,7 +39,7 @@ import {
 import type { ExtensionState } from '../extensionPluginType';
 
 import { pluginKey as macroPluginKey } from './macro/plugin-key';
-import { getPluginState } from './main';
+import { getPluginState } from './plugin-factory';
 import { getSelectedExtension } from './utils';
 import type { Position } from './utils';
 

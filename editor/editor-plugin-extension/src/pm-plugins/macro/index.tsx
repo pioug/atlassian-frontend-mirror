@@ -7,19 +7,6 @@ import { setMacroProvider } from './actions';
 import { pluginKey } from './plugin-key';
 import type { MacroState } from './types';
 
-export type {
-	MacroProvider,
-	MacroAttributes,
-	ExtensionType,
-} from '@atlaskit/editor-common/provider-factory';
-export {
-	insertMacroFromMacroBrowser,
-	resolveMacro,
-	runMacroAutoConvert,
-	setMacroProvider,
-} from './actions';
-export type { MacroState };
-
 export const createPlugin = (dispatch: Dispatch, providerFactory: ProviderFactory) =>
 	new SafePlugin({
 		state: {

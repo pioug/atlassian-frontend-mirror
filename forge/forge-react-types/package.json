@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/forge-react-types",
-	"version": "0.34.6",
+	"version": "0.34.7",
 	"description": "Component types for Forge UI Kit React components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -34,8 +34,8 @@
 		"@atlaskit/code": "^15.6.0",
 		"@atlaskit/datetime-picker": "^15.10.0",
 		"@atlaskit/dynamic-table": "^17.0.0",
-		"@atlaskit/empty-state": "^8.0.0",
-		"@atlaskit/form": "^10.6.0",
+		"@atlaskit/empty-state": "^8.1.0",
+		"@atlaskit/form": "^11.0.0",
 		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/inline-edit": "^14.0.0",
 		"@atlaskit/lozenge": "^11.12.0",

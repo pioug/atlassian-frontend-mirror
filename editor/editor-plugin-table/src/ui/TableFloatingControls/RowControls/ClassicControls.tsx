@@ -9,8 +9,12 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
-import type { RowParams } from '../../../pm-plugins/utils';
-import { getRowClassNames, getRowHeights, getRowsParams } from '../../../pm-plugins/utils';
+import type { RowParams } from '../../../pm-plugins/utils/row-controls';
+import {
+	getRowClassNames,
+	getRowHeights,
+	getRowsParams,
+} from '../../../pm-plugins/utils/row-controls';
 import { TableCssClassName as ClassName } from '../../../types';
 import { tableControlsSpacing, tableToolbarSize } from '../../consts';
 

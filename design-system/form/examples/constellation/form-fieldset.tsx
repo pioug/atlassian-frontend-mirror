@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Checkbox } from '@atlaskit/checkbox';
 import Form, { CheckboxField, Fieldset } from '@atlaskit/form';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives';
 
 const FormFieldsetExample = () => (
 	<Box>

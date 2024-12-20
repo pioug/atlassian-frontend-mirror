@@ -18,7 +18,6 @@ import { LozengeComponent } from './LozengeComponent';
 export interface Props {
 	node: PmNode;
 	showMacroInteractionDesignUpdates?: boolean;
-	showMacroButtonUpdates?: boolean;
 	isNodeSelected?: boolean;
 	isNodeHovered?: boolean;
 	isNodeNested?: boolean;
@@ -60,7 +59,6 @@ export default class ExtensionLozenge extends Component<Props, any> {
 	private renderFallback = (lozengeData?: LozengeData) => {
 		const {
 			showMacroInteractionDesignUpdates,
-			showMacroButtonUpdates,
 			isNodeSelected,
 			isNodeHovered,
 			isNodeNested,
@@ -86,7 +84,6 @@ export default class ExtensionLozenge extends Component<Props, any> {
 				isNodeSelected={isNodeSelected}
 				isNodeNested={isNodeNested}
 				showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
-				showMacroButtonUpdates={showMacroButtonUpdates}
 				extensionName={name}
 				lozengeData={lozengeData}
 				params={params}

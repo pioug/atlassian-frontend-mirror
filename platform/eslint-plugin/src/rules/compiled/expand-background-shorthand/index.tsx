@@ -5,13 +5,13 @@ import {
 	isCompiled,
 	isAtlasKitCSS,
 } from '@atlaskit/eslint-utils/is-supported-import';
-import { getScope } from '../../util/context-compat';
+import { getAncestors, getScope } from '../../util/context-compat';
 
 // Checks if the function that holds the border property is using an import package that this rule is targeting
 const isCompiledAPI = (context: Rule.RuleContext, node: Node): boolean => {
 	const importSources = getImportSources(context);
 	const { references } = getScope(context, node);
-	const ancestors = context.getAncestors();
+	const ancestors = getAncestors(context, node);
 	if (
 		ancestors.some(
 			(ancestor) =>

@@ -44,7 +44,7 @@
 		"@atlaskit/app-provider": "^1.4.0",
 		"@atlaskit/ds-lib": "^3.3.0",
 		"@atlaskit/focus-ring": "^2.0.0",
-		"@atlaskit/interaction-context": "^2.3.0",
+		"@atlaskit/interaction-context": "^2.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/theme": "^14.0.0",

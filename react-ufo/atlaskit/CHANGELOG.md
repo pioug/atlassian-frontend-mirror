@@ -1,5 +1,17 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.8.0
+
+### Minor Changes
+
+- [#182829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/182829)
+  [`38eb19b4da809`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/38eb19b4da809) -
+  Revert Experimental UFO holds
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.0
 
 ### Minor Changes

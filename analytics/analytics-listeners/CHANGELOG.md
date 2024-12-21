@@ -1,5 +1,13 @@
 # @atlaskit/analytics-listeners
 
+## 8.13.1
+
+### Patch Changes
+
+- [#182077](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/182077)
+  [`efe589f6d9ed0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/efe589f6d9ed0) -
+  (internal) Minor code changes; updated tests to be compatible with SWC transpilation
+
 ## 8.13.0
 
 ### Minor Changes

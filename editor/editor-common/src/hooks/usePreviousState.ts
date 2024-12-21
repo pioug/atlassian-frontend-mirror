@@ -1,7 +1,5 @@
 import { useEffect, useRef } from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 /**
  *
  * Can be used to get the previous state of a prop.
@@ -15,15 +13,12 @@ import { fg } from '@atlaskit/platform-feature-flags';
 export default function usePreviousState<T>(value: T, initialValue?: T): T | undefined {
 	const ref = useRef<T | undefined>(initialValue);
 
-	if (fg('use-effect-in-use-previous-props')) {
-		// eslint-disable-next-line react-hooks/rules-of-hooks
-		useEffect(() => {
-			ref.current = value;
-		}, [value]);
-		return ref.current;
-	}
+	useEffect(() => {
+		// Setting the value to ref.current inside an effect, or otherwise the behaviour in staging/prod doesn't match with local
+		// In local, the double rendering in react dev mode causes the previous value to be the same as next value immediately after
+		// In prod and staging, double rendering is not done since that is a react prod build
+		ref.current = value;
+	}, [value]);
 
-	const prevValue = ref.current;
-	ref.current = value;
-	return prevValue;
+	return ref.current;
 }

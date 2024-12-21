@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.10.11
+
+### Patch Changes
+
+- [#182077](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/182077)
+  [`efe589f6d9ed0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/efe589f6d9ed0) -
+  (internal) Minor code changes; updated tests to be compatible with SWC transpilation
+
 ## 2.10.10
 
 ### Patch Changes

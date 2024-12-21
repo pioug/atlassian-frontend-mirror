@@ -1,5 +1,12 @@
 # @atlaskit/editor-common
 
+## 97.1.0
+
+### Minor Changes
+
+- [`de09fa494ad65`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/de09fa494ad65) -
+  FF cleanup for the use-effect-in-use-previous hook [GRAVITYAI-1925]
+
 ## 97.0.0
 
 ### Major Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "5.9.23",
+	"version": "5.9.24",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -263,7 +263,7 @@
 		"@atlaskit/editor-plugin-editor-viewmode-effects": "1.1.17",
 		"@atlaskit/editor-plugin-emoji": "2.7.19",
 		"@atlaskit/editor-plugin-engagement-platform": "2.2.5",
-		"@atlaskit/editor-plugin-expand": "2.10.10",
+		"@atlaskit/editor-plugin-expand": "2.10.11",
 		"@atlaskit/editor-plugin-extension": "3.0.0",
 		"@atlaskit/editor-plugin-feature-flags": "1.2.14",
 		"@atlaskit/editor-plugin-feedback-dialog": "1.1.12",

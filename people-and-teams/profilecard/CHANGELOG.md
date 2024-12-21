@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 21.1.1
+
+### Patch Changes
+
+- [#182077](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/182077)
+  [`120b5f5f4ef80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/120b5f5f4ef80) -
+  [ux] Font size fix profile details label.
+
 ## 21.1.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @atlaskit/interaction-context
 
+## 2.4.0
+
+### Minor Changes
+
+- [#182829](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/182829)
+  [`38eb19b4da809`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/38eb19b4da809) -
+  Revert Experimental UFO holds
+
 ## 2.3.0
 
 ### Minor Changes

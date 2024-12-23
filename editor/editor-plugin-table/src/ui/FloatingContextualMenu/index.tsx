@@ -29,6 +29,8 @@ import {
 	tablePopupMenuFitHeight,
 } from '../consts';
 
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import ContextualMenu from './ContextualMenu';
 import { tablePopupStyles } from './styles';
 
@@ -70,7 +72,9 @@ const FloatingContextualMenu = ({
 
 	const { selection } = editorView.state;
 	const selectionRect = isSelectionType(selection, 'cell')
-		? getSelectionRect(selection)!
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			getSelectionRect(selection)!
 		: findCellRectClosestToPos(selection.$from);
 
 	if (!selectionRect) {
@@ -89,6 +93,8 @@ const FloatingContextualMenu = ({
 		<Popup
 			alignX="right"
 			alignY="top"
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			target={targetCellRef as HTMLElement}
 			mountTo={mountPoint}
 			boundariesElement={boundariesElement}
@@ -110,7 +116,11 @@ const FloatingContextualMenu = ({
 					isOpen={isOpen}
 					targetCellPosition={targetCellPosition}
 					allowColumnSorting={pluginConfig && pluginConfig.allowColumnSorting}
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					allowMergeCells={pluginConfig!.allowMergeCells}
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					allowBackgroundColor={pluginConfig!.allowBackgroundColor}
 					selectionRect={selectionRect}
 					boundariesElement={boundariesElement}

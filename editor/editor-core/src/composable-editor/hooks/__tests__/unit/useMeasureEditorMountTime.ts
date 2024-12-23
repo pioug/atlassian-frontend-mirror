@@ -86,7 +86,6 @@ describe('useMeasureEditorMountTime', () => {
 
 			expect(clearMeasureSpy).toHaveBeenCalledTimes(0);
 		});
-
 		it('should run once on unmount', async () => {
 			const { unmount } = renderHook(() =>
 				useMeasureEditorMountTime({}, createAnalyticsEvent as any),

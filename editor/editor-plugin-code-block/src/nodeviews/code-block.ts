@@ -19,6 +19,8 @@ import { resetShouldIgnoreFollowingMutations } from '../editor-commands';
 import { getPluginState } from '../pm-plugins/main-state';
 import { codeBlockClassNames } from '../ui/class-names';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const MATCH_NEWLINES = new RegExp('\n', 'g');
 
 const toDOM = (node: Node, contentEditable: boolean, formattedAriaLabel: string) =>
@@ -69,6 +71,8 @@ export class CodeBlockView {
 	formattedAriaLabel: string = '';
 	api?: ExtractInjectionAPI<CodeBlockPlugin>;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: Node,
 		view: EditorView,
@@ -88,8 +92,14 @@ export class CodeBlockView {
 		this.getPos = getPos;
 		this.view = view;
 		this.node = node;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.dom = dom as HTMLElement;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.contentDOM = contentDOM as HTMLElement;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.lineNumberGutter = this.dom.querySelector(`.${codeBlockClassNames.gutter}`) as HTMLElement;
 		this.api = api;
 
@@ -124,6 +134,8 @@ export class CodeBlockView {
 			const contentView = contentWrapper?.childNodes[1];
 
 			if (contentView?.childNodes?.length > 0) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const codeElement = contentView.firstChild as HTMLElement;
 				codeElement.innerHTML = savedInnerHTML;
 
@@ -150,12 +162,16 @@ export class CodeBlockView {
 			if (contentView?.childNodes && contentView.childNodes.length > 1) {
 				let savedInnerHTML = '';
 				while (contentView.childNodes.length > 1) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					const lastChild = contentView.lastChild as HTMLElement;
 					savedInnerHTML = lastChild.innerHTML + savedInnerHTML;
 
 					contentView.removeChild(lastChild);
 				}
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const firstChild = contentView.firstChild as HTMLElement;
 				savedInnerHTML = firstChild.innerHTML + '\n' + savedInnerHTML;
 				const newCursorPosition = firstChild.innerHTML.length + 1;
@@ -173,6 +189,8 @@ export class CodeBlockView {
 		this.node.forEach((node) => {
 			const text = node.text;
 			if (text) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				totalLineCount += (node.text!.match(MATCH_NEWLINES) || []).length;
 			}
 		});
@@ -232,4 +250,6 @@ export const codeBlockNodeView = (
 	getPos: getPosHandler,
 	formattedAriaLabel: string,
 	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => new CodeBlockView(node, view, getPos as getPosHandlerNode, formattedAriaLabel, api);

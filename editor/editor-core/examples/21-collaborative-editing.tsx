@@ -131,6 +131,8 @@ interface DropzoneEditorWrapperProps {
 	children: (container: HTMLElement) => React.ReactNode;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class DropzoneEditorWrapper extends React.Component<DropzoneEditorWrapperProps, {}> {
 	dropzoneContainer: HTMLElement | null = null;
 
@@ -231,6 +233,8 @@ const FullPageComposableEditor = (props: any) => {
 		/>
 	);
 };
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Example extends React.Component<Props, State> {
 	state = {
 		isInviteToEditButtonSelected: false,
@@ -330,6 +334,8 @@ export default class Example extends React.Component<Props, State> {
 		// Enable the debug log
 		(window as any).COLLAB_PROVIDER_LOGGER = true;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		const docAriRegex = new RegExp('^ari:cloud:confluence');
 		const incomingDocAri = docAriRegex.test(documentId)
 			? documentId
@@ -349,6 +355,8 @@ export default class Example extends React.Component<Props, State> {
 
 		// Example POST method implementation:
 		async function postData(url = '', data = {}) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			url = url.replace(/\?.*$/, '');
 			// Default options are marked with *
 			const response = await fetch(url, {

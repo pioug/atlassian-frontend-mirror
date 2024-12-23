@@ -7,12 +7,16 @@ export default abstract class TableNodeView<T extends HTMLElement> implements No
 	/**
 	 * @constructor
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		protected node: PmNode,
 		protected readonly view: EditorView,
 		protected readonly getPos: () => number | undefined,
 		protected readonly eventDispatcher: EventDispatcher,
 	) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const { dom, contentDOM } = DOMSerializer.renderSpec(document, node.type.spec.toDOM!(node));
 
 		this.dom = dom as T;

@@ -28,7 +28,11 @@ export type Props = {
 	disabled?: boolean;
 	hideTooltip?: boolean;
 	href?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	iconAfter?: React.ReactElement<any>;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	iconBefore?: React.ReactElement<any>;
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 	onItemClick?: (item: MenuItem) => void;

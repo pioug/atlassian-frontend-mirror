@@ -33,6 +33,8 @@ export type CollabEditPlugin = NextEditorPlugin<
 				sendableSteps: CollabSendableSteps | undefined | null;
 				content: JSONNode | undefined;
 			};
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			validatePMJSONDocument: (doc: any) => boolean;
 		};
 	}

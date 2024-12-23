@@ -16,6 +16,8 @@ export function sanitizeNodeForPrivacy(
 ): JSONDocNode {
 	const mentionNames = new Map<string, string>();
 	let hasCacheableMentions = false;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const sanitizedJSON = traverse(json as any, {
 		mention: (node) => {
 			if (node.attrs && node.attrs.text) {

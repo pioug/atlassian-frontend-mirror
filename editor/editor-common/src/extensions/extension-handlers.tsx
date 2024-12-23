@@ -55,8 +55,12 @@ export async function getExtensionModuleNodePrivateProps(
 	return Object.keys(moduleNode)
 		.filter((key) => key.startsWith('__'))
 		.reduce((acc, key) => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			acc[key] = (moduleNode as any)[key];
 			return acc;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		}, {} as any);
 }
 
@@ -81,6 +85,8 @@ export function getNodeRenderer<T extends Parameters>(
 			references?: ReferenceEntity[];
 			actions?: MultiBodiedExtensionActions;
 		},
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		any
 	>({
 		loader: () => {

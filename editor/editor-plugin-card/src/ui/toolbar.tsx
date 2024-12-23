@@ -175,6 +175,8 @@ export const floatingToolbar = (
 	linkPickerOptions?: LinkPickerOptions,
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
 	disableFloatingToolbar?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarHandler => {
 	return (state, intl, providerFactory) => {
 		if (disableFloatingToolbar) {
@@ -196,7 +198,7 @@ export const floatingToolbar = (
 		const isEmbedCard = appearanceForNodeType(selectedNode.type) === 'embed';
 
 		/* add an offset to embeds due to extra padding */
-		const toolbarOffset: { offset: [number, number] } | {} = isEmbedCard
+		const toolbarOffset: { offset: [number, number] } | Object = isEmbedCard
 			? {
 					offset: [0, 24],
 				}
@@ -216,6 +218,8 @@ export const floatingToolbar = (
 			preventPopupOverflow: isLinkPickerEnabled,
 			...toolbarOffset,
 			getDomRef: (view) => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const element = findDomRefAtPos(
 					view.state.selection.from,
 					view.domAtPos.bind(view),
@@ -224,6 +228,8 @@ export const floatingToolbar = (
 					return undefined;
 				}
 				if (isEmbedCard) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					return element.querySelector(`.${richMediaClassName}`) as HTMLElement;
 				}
 				return element;
@@ -266,6 +272,8 @@ const buildAlignmentOptions = (
 	widthPluginDependencyApi: PluginDependenciesAPI<WidthPlugin> | undefined,
 	analyticsApi: EditorAnalyticsAPI | undefined,
 	cardOptions?: CardOptions,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarItem<Command>[] => {
 	return buildLayoutButtons(
 		state,
@@ -318,6 +326,8 @@ const generateToolbarItems =
 		lpLinkPicker: boolean,
 		linkPicker?: LinkPickerOptions,
 		pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(node: Node): Array<FloatingToolbarItem<Command>> => {
 		const { url } = titleUrlPairFromNode(node);
@@ -575,6 +585,8 @@ const getUnlinkButtonGroup = (
 	node: Node,
 	inlineCard: NodeType,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	return node.type === inlineCard
 		? ([
@@ -619,6 +631,8 @@ const getDatasourceButtonGroup = (
 	state: EditorState,
 	cardOptions: CardOptions,
 	currentAppearance: CardAppearance | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarItem<Command>[] => {
 	const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
 
@@ -748,6 +762,8 @@ export const shouldRenderToolbarPulse = (
 	appearance: string,
 	status: string,
 	isDiscoverabilityEnabled: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean => {
 	return (
 		embedEnabled && appearance === 'inline' && status === 'resolved' && isDiscoverabilityEnabled
@@ -763,6 +779,8 @@ export const getStartingToolbarItems = (
 		link: string,
 		onEditLink: Command,
 		metadata: { url: string; title: string },
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): FloatingToolbarItem<Command>[] => {
 		const editLinkItem: FloatingToolbarItem<Command>[] = options.allowDatasource
 			? [

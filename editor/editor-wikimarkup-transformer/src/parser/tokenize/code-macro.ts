@@ -89,11 +89,15 @@ const rawContentProcessor = (
 	rawContent: string,
 	length: number,
 	schema: Schema,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Token => {
 	const output: PMNode[] = [];
 	const { codeBlock } = schema.nodes;
 
 	const parsedAttrs = parseAttrs(rawAttrs);
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const trimedContent = rawContent.replace(/^\s+|\s+$/g, '');
 	const textNode = trimedContent.length ? schema.text(trimedContent) : undefined;
 	if (parsedAttrs.title) {

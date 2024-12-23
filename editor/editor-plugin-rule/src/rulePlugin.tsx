@@ -13,7 +13,11 @@ import { IconDivider } from '@atlaskit/editor-common/quick-insert';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { insertHorizontalRule } from './pm-plugins/commands';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import inputRulePlugin from './pm-plugins/input-rule';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import keymapPlugin from './pm-plugins/keymap';
 import type { RulePlugin } from './rulePluginType';
 

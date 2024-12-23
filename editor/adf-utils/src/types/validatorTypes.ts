@@ -138,6 +138,8 @@ export type Err = <T extends ValidationErrorType>(
 
 export interface ErrorCallbackOptions {
 	isNodeAttribute?: boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	isMark?: any;
 	allowUnsupportedBlock?: boolean;
 	allowUnsupportedInline?: boolean;

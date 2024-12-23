@@ -12,6 +12,8 @@ export function isPerformanceAPIAvailable(): boolean {
 				'getEntriesByName',
 				'getEntriesByType',
 				'now',
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			].every((api) => !!(performance as any)[api]);
 	}
 

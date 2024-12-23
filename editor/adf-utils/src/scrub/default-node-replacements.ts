@@ -24,6 +24,8 @@ const card: NodeReplacer = (node, { valueReplacements }) => ({
 
 const mediaParent: NodeReplacer = (node) => ({
 	type: node.type,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs: node.attrs ? (scrubAttrs(node.type, node.attrs) as any) : undefined,
 	content: node.content?.filter((c) => c?.type === 'media'),
 });
@@ -67,6 +69,8 @@ export const defaultNodeReplacements: NodeReplacements = {
 		return {
 			type: 'media',
 			attrs: {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				...(scrubAttrs('media', node.attrs) as any),
 				type: 'external',
 				url: `https://dummyimage.com/${width}x${height}/f4f5f7/a5adba`,

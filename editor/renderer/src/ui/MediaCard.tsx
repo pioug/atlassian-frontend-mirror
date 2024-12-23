@@ -59,6 +59,8 @@ export interface MediaCardProps {
 	featureFlags?: MediaFeatureFlags;
 	shouldEnableDownloadButton?: boolean;
 	ssr?: MediaSSR;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	dataAttributes?: Record<string, any>;
 }
 
@@ -97,6 +99,8 @@ export const getListOfIdentifiersFromDoc = (doc?: ADFEntity): Identifier[] => {
 	);
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class MediaCardView extends Component<
 	MediaCardProps & {
 		mediaClient?: MediaClient;
@@ -212,10 +216,14 @@ export class MediaCardView extends Component<
 
 		if (fg('platform_editor_external_media_comment_bugfix')) {
 			return (
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				<div {...dataAttributes} data-node-type="media">
 					<Card
 						// TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
 						// context is not really used when the type is external and we want to render the component asap
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						mediaClientConfig={mediaClientConfig!}
 						alt={alt}
 						identifier={identifier}
@@ -236,6 +244,8 @@ export class MediaCardView extends Component<
 				<Card
 					// TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
 					// context is not really used when the type is external and we want to render the component asap
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					mediaClientConfig={mediaClientConfig!}
 					alt={alt}
 					identifier={identifier}
@@ -337,6 +347,8 @@ export class MediaCardView extends Component<
 
 		return (
 			<div
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...getClipboardAttrs({
 					id,
 					alt,
@@ -345,6 +357,8 @@ export class MediaCardView extends Component<
 					originalDimensions,
 					fileState,
 				})}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...dataAttributes}
 			>
 				<Card
@@ -420,6 +434,8 @@ export const getClipboardAttrs = ({
 export const MediaCardInternal = (props: MediaCardProps) => {
 	const mediaClient = useContext(MediaClientContext);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <MediaCardView {...props} mediaClient={mediaClient} />;
 };
 

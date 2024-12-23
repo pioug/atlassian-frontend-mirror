@@ -49,6 +49,8 @@ const dispatchLongTaskEvent =
 		getNodeCount: (state: EditorState) => object,
 		interactionType?: BROWSER_FREEZE_INTERACTION_TYPE,
 		severity?: SEVERITY,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const { state } = view;
 		const nodesCount = getNodeCount(state);

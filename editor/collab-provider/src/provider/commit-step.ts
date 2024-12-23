@@ -1,5 +1,5 @@
 import countBy from 'lodash/countBy';
-import { getBooleanFF } from '@atlaskit/platform-feature-flags';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { ADD_STEPS_TYPE, EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import type { AddStepAcknowledgementPayload, ChannelEvent, StepsPayload } from '../types';
 import { AcknowledgementResponseTypes } from '../types';
@@ -73,7 +73,7 @@ export const commitStepQueue = ({
 	// - doesn't impact any indexes,
 	// - is setup for last write wins,
 	// - and is just a boolean -- so no real risk of data loss.
-	if (getBooleanFF('platform.editor.live-pages-expand-divergence') && __livePage) {
+	if (__livePage && fg('platform.editor.live-pages-expand-divergence')) {
 		// @atlaskit/platform-feature-flags
 		stepsWithClientAndUserId = stepsWithClientAndUserId.map((step: StepJson) => {
 			if (isExpandChangeStep(step)) {
@@ -126,6 +126,8 @@ export const commitStepQueue = ({
 								latency,
 								stepType: countBy(
 									stepsWithClientAndUserId,
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 									(stepWithClientAndUserId) => stepWithClientAndUserId.stepType!,
 								),
 							},
@@ -170,6 +172,8 @@ export const commitStepQueue = ({
 };
 
 function isExpandChangeStep(step: StepJson): step is StepJson & { attrs: { title: string } } {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	if (step.stepType === 'setAttrs' && '__expanded' in (step as any).attrs) {
 		return true;
 	}

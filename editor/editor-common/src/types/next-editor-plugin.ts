@@ -79,6 +79,8 @@ export type CorePlugin = NextEditorPlugin<
 			 * @param onReceive Callback to handle the document. Document type based on the transformer.
 			 * @param options Pass a transformer for the document to be transformed into a different format.
 			 */
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			requestDocument<GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>>(
 				onReceive: (document: TransformerResult<GenericTransformer> | undefined) => void,
 				options?: {
@@ -102,6 +104,8 @@ export type CorePlugin = NextEditorPlugin<
 export type TransformerResult<GenericTransformer = Transformer<JSONDocNode>> =
 	GenericTransformer extends Transformer<infer Content> ? Content : JSONDocNode;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type InferTransformerResultCallback<T extends Transformer<any> | undefined> = (
 	doc: T extends Transformer<infer U> ? TransformerResult<U> : TransformerResult<JSONDocNode>,
 ) => void;
@@ -115,6 +119,10 @@ export type DefaultTransformerResultCallback = (
  *										*
  **********************/
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type MaybeAction = ((...agrs: any) => any) | ((...agrs: any) => void);
 type NextEditorPluginActions = Record<string, MaybeAction>;
 type NextEditorEditorCommands = Record<string, EditorCommandWithMetadata | EditorCommand>;
@@ -309,8 +317,12 @@ type ExtractCommandsFromMetadata<Metadata> = 'commands' extends keyof Metadata
  * @returns The inferred plugin name if possible, otherwise `never`.
  */
 type ExtractPluginName<Plugin> =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	Plugin extends NextEditorPlugin<any, any>
-		? Plugin extends (...args: any) => DefaultEditorPlugin<infer PluginName, any>
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			Plugin extends (...args: any) => DefaultEditorPlugin<infer PluginName, any>
 			? PluginName
 			: never
 		: never;
@@ -358,15 +370,21 @@ type IsAny<T> = 0 extends 1 & T ? true : false;
  * // Type: [MyPlugin2].
  * ```
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ExtractRequiredPlugins<TuplePluginList extends [...any[]]> = TuplePluginList extends [
 	infer First,
 	...infer Rest,
 ]
 	? undefined extends First
 		? ExtractRequiredPlugins<Rest>
-		: First extends OptionalPlugin<NextEditorPlugin<any, any>>
+		: // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			First extends OptionalPlugin<NextEditorPlugin<any, any>>
 			? ExtractRequiredPlugins<Rest>
-			: First extends NextEditorPlugin<any, any>
+			: // Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				First extends NextEditorPlugin<any, any>
 				? [First, ...ExtractRequiredPlugins<[...Rest]>]
 				: ExtractRequiredPlugins<Rest>
 	: [];
@@ -391,6 +409,8 @@ type ExtractRequiredPlugins<TuplePluginList extends [...any[]]> = TuplePluginLis
  * // Type: [MyPlugin].
  * ```
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ExtractOptionalPlugins<TuplePluginList extends [...any[]]> = TuplePluginList extends [
 	infer First,
 	...infer Rest,
@@ -415,10 +435,18 @@ type ExtractOptionalPlugins<TuplePluginList extends [...any[]]> = TuplePluginLis
  * @returns The type of the shared state if defined, otherwise `never`.
  */
 export type ExtractPluginSharedState<PluginOrMetadata> =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	PluginOrMetadata extends NextEditorPlugin<any, any>
 		? PluginOrMetadata extends (props: {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				config: any;
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				api: any;
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			}) => DefaultEditorPlugin<any, infer Metadata>
 			? ExtractSharedStateFromMetadata<Metadata>
 			: never
@@ -438,10 +466,18 @@ export type ExtractPluginSharedState<PluginOrMetadata> =
  * @returns The actions definition if available, otherwise `never`.
  */
 export type ExtractPluginActions<PluginOrMetadata> =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	PluginOrMetadata extends NextEditorPlugin<any, any>
 		? PluginOrMetadata extends (props: {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				config: any;
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				api: any;
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			}) => DefaultEditorPlugin<any, infer Metadata>
 			? ExtractActionsFromMetadata<Metadata>
 			: never
@@ -471,13 +507,19 @@ export type ExtractPluginActions<PluginOrMetadata> =
  * type MyEditorAPI = PublicPluginAPIFromPlugins<[PluginA, PluginB]>;
  * ```
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type PublicPluginAPIFromPlugins<PluginList extends NextEditorPlugin<any, any>[]> =
 	PluginList extends [infer Head, ...infer Tail]
 		? Head extends NextEditorPlugin<infer Name, infer Metadata>
 			? EditorOptionalInjectionAPI<Name, Metadata> &
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					PublicPluginAPIFromPlugins<Tail extends NextEditorPlugin<any, any>[] ? Tail : []>
-			: {}
-		: {};
+			: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+				{}
+		: // eslint-disable-next-line @typescript-eslint/no-empty-object-type
+			{};
 
 /**
  * 🧱 Internal Type: Editor FE Platform
@@ -490,6 +532,8 @@ type PublicPluginAPIFromPlugins<PluginList extends NextEditorPlugin<any, any>[]>
  *
  * @returns An object type with a required dependencies API for each plugin.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type RequiredPluginDependenciesAPI<PluginList extends NextEditorPlugin<any, any>[]> = {
 	[Plugin in PluginList[number] as `${ExtractPluginName<Plugin>}`]: PluginDependenciesAPI<Plugin>;
 };
@@ -505,6 +549,8 @@ type RequiredPluginDependenciesAPI<PluginList extends NextEditorPlugin<any, any>
  *
  * @returns An object type with an optional dependencies API for each plugin.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type OptionalPluginDependenciesAPI<PluginList extends NextEditorPlugin<any, any>[]> = {
 	[Plugin in PluginList[number] as `${ExtractPluginName<Plugin>}`]+?:
 		| PluginDependenciesAPI<Plugin>
@@ -584,10 +630,14 @@ export interface NextEditorPluginMetadata {
 	 * The real implementation will be infered by BasePluginDependenciesAPI and other
 	 * internal types.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	readonly sharedState?: any;
 	/**
 	 * The real implementation will be infered by Preset internal types and  @see NextEditorPluginFunctionOptionalConfigDefinition
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	readonly pluginConfiguration?: any;
 	/**
 	 * This is used only on compile time. There is no runtime implementation for the dependencies
@@ -645,6 +695,8 @@ export type NextEditorPluginFunctionOptionalConfigDefinition<
  *
  * @see ExtractInjectionAPI - Optional dependencies will need can be undefined on runtime. So, a null-check is required
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type OptionalPlugin<EditorPlugin extends NextEditorPlugin<any, any>> = EditorPlugin &
 	OptionalPrivateProperty;
 
@@ -654,7 +706,11 @@ export type OptionalPlugin<EditorPlugin extends NextEditorPlugin<any, any>> = Ed
  * @see NextEditorPluginMetadata
  */
 export type DependencyPlugin =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	| OptionalPlugin<NextEditorPlugin<any, any>>
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	| NextEditorPlugin<any, any>;
 
 /**
@@ -679,6 +735,7 @@ export type DependencyPlugin =
  */
 export type NextEditorPlugin<
 	Name extends string,
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 	Metadata extends NextEditorPluginMetadata = {},
 > = Metadata extends NextEditorPluginMetadata
 	? 'pluginConfiguration' extends keyof Metadata
@@ -718,7 +775,11 @@ export type BasePluginDependenciesAPI<Metadata extends NextEditorPluginMetadata>
  *
  * If you are not from Editor Platform FE, you shouldn't be using or changing this.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type PluginDependenciesAPI<Plugin extends NextEditorPlugin<any, any>> =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	Plugin extends NextEditorPlugin<any, infer Metadata>
 		? BasePluginDependenciesAPI<Metadata>
 		: never;
@@ -847,6 +908,8 @@ export type EditorOptionalInjectionAPI<
  *
  * P.S.: This type will implicitly inject the CorePlugin as required attribute.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExtractInjectionAPI<Plugin extends NextEditorPlugin<any, any>> =
 	Plugin extends NextEditorPlugin<infer Name, infer Metadata>
 		? EditorInjectionAPI<Name, Metadata>
@@ -889,10 +952,16 @@ export type ExtractInjectionAPI<Plugin extends NextEditorPlugin<any, any>> =
  * P.S.: This type will implicitly inject the CorePlugin as required attribute.
  */
 export type PublicPluginAPI<
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	MaybePlugin extends NextEditorPlugin<any, any>[] | NextEditorPlugin<any, any>,
 > =
 	MaybePlugin extends NextEditorPlugin<infer Name, infer Metadata>
 		? EditorOptionalInjectionAPI<Name, Metadata>
 		: PublicPluginAPIFromPlugins<
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				MaybePlugin extends NextEditorPlugin<any, any>[] ? MaybePlugin : never
 			>;

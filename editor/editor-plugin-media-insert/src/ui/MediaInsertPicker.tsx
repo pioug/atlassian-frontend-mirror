@@ -76,6 +76,8 @@ const getDomRefFromSelection = (
 const CustomTabPanel = ({ children }: { children: React.ReactNode }) => {
 	const tabPanelAttributes = useTabPanel();
 	return (
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		<Box paddingBlockEnd="space.150" {...tabPanelAttributes} tabIndex={-1}>
 			{children}
 		</Box>

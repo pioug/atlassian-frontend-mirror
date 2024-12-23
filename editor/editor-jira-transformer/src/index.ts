@@ -61,16 +61,30 @@ export class JIRATransformer implements Transformer<string> {
 		}
 
 		// Normalise to XHTML style self closing tags.
-		return html
-			.replace(/<br><\/br>/g, '<br />')
-			.replace(/<br>/g, '<br />')
-			.replace(/<hr><\/hr>/g, '<hr />')
-			.replace(/<hr>/g, '<hr />')
-			.replace(/&amp;/g, '&');
+		return (
+			html
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
+				.replace(/<br><\/br>/g, '<br />')
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
+				.replace(/<br>/g, '<br />')
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
+				.replace(/<hr><\/hr>/g, '<hr />')
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
+				.replace(/<hr>/g, '<hr />')
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
+				.replace(/&amp;/g, '&')
+		);
 	}
 
 	parse(html: string): PMNode {
 		const convertedNodes = new WeakMap<Node, Fragment | PMNode | null | undefined>();
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const dom = fixDoc(parseHtml(html)).querySelector('body')!;
 		const nodes = bfsOrder(dom);
 
@@ -85,6 +99,8 @@ export class JIRATransformer implements Transformer<string> {
 			const node = nodes[i] as Element;
 			// for tables we take tbody content, because tbody is not in schema so the whole bfs thing wouldn't work
 			const targetNode =
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				node.tagName && node.tagName.toUpperCase() === 'TABLE' ? node.firstChild! : node;
 			const content = this.getContent(targetNode, convertedNodes);
 			const candidate = convert(content, node, this.schema);
@@ -212,27 +228,37 @@ export class JIRATransformer implements Transformer<string> {
 			return this.encodeTable(node);
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		throw new Error(`Unexpected node '${(node as any).type.name}' for HTML encoding`);
 	}
 
 	private makeDocument() {
 		const doc = document.implementation.createHTMLDocument('');
 		doc.body = doc.createElement('body');
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		doc.documentElement!.appendChild(doc.body);
 		return doc;
 	}
 
 	private encodeFragment(fragment: Fragment) {
 		const documentFragment = this.doc.createDocumentFragment();
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		fragment.forEach((node) => documentFragment.appendChild(this.encodeNode(node)!));
 		return documentFragment;
 	}
 
 	private encodeHeading(node: PMNode) {
 		function anchorNameEncode(name: string) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			const noSpaces = name.replace(/ /g, '');
 			const uriEncoded = encodeURIComponent(noSpaces);
 			const specialsEncoded = uriEncoded.replace(
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				/[!'()*]/g,
 				(c) => '%' + c.charCodeAt(0).toString(16),
 			);
@@ -287,6 +313,8 @@ export class JIRATransformer implements Transformer<string> {
 						const href = mark.attrs['href'];
 
 						/** JIRA always expects external-link attribute set on links created via editor unless its #fragment */
+						// Ignored via go/ees005
+						// eslint-disable-next-line require-unicode-regexp
 						if (!href.match(/^#/)) {
 							linkElem.setAttribute('class', 'external-link');
 							linkElem.setAttribute('rel', 'nofollow');
@@ -357,6 +385,8 @@ export class JIRATransformer implements Transformer<string> {
 					childNode.type === this.schema.nodes.bulletList ||
 					childNode.type === this.schema.nodes.orderedList
 				) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					const list = this.encodeNode(childNode)!;
 
 					/**

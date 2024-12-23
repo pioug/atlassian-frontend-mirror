@@ -23,11 +23,15 @@ import WithEditorActions from '../src/ui/WithEditorActions';
 
 import { ExampleEditor, LOCALSTORAGE_defaultDocKey } from './5-full-page';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isEmptyDoc = (adf: any) => adf.content.length === 0;
 
 type TemplateDefinition = {
 	title: string;
 	desc: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adf: any;
 };
 
@@ -59,6 +63,8 @@ const templateCard = css({
 // ADF of the template.
 //
 // normalises column widths between documents by clearing them.
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const clearTableWidths = (adf: any) => {
 	if (!adf.content) {
 		// leaf node
@@ -66,6 +72,8 @@ const clearTableWidths = (adf: any) => {
 	}
 
 	// recursively fix children
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adf.content = adf.content.map((child: any) => {
 		if (child.type === 'tableCell' || child.type === 'tableHeader') {
 			child.attrs.colwidth = [];
@@ -83,9 +91,13 @@ const clearTableWidths = (adf: any) => {
 
 type TemplatePanelState = {
 	selectedTemplate: TemplateDefinition | null;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adf: any;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class TemplatePanel extends React.Component<
 	{
 		actions: EditorActions;
@@ -126,7 +138,7 @@ class TemplatePanel extends React.Component<
 			<ContextPanel visible={true} editorAPI={this.props.editorAPI}>
 				<div>
 					{templates.map((tmpl, idx) => (
-						// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+						// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, react/no-array-index-key
 						<div css={templateCard} key={idx} onClick={() => this.selectTemplate(tmpl)}>
 							<h4>{tmpl.title}</h4>
 							<p>{tmpl.desc}</p>

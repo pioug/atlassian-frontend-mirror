@@ -1,3 +1,5 @@
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as icons from './icons';
 import { IconName } from './icons';
 import { type SerializeFragmentWithAttachmentsResult, type MediaImageBase64 } from '../serializer';
@@ -6,6 +8,8 @@ import { CS_CONTENT_PREFIX } from '../styles/util';
 
 const cidPrefix = 'cid:';
 const pfcsPrefix = CS_CONTENT_PREFIX;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const cidMatcher = new RegExp(`src="${cidPrefix}${pfcsPrefix}-([\\w]*)-([\\w-]*)"`, 'gi');
 
 export const createContentId = (imageName: icons.IconString, isCidPrefixed: boolean = true) =>
@@ -14,6 +18,8 @@ export const createContentId = (imageName: icons.IconString, isCidPrefixed: bool
 const embeddedImagesMapper = (iconName: string): MediaImageBase64 => ({
 	contentId: createContentId(IconName[iconName as icons.IconString], false),
 	contentType: `image/${imageOutputType}`,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	data: (icons as any)[iconName],
 });
 
@@ -26,6 +32,8 @@ export const processImages = (
 	const imageProcessor = (match: string, ...captureGroups: icons.IconString[]): string => {
 		// Inline the image if mock is enabled
 		if (isMockEnabled) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			return `src="${base64Prefix}${(icons as any)[captureGroups[1]]}"`;
 		}
 

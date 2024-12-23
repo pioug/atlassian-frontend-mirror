@@ -53,9 +53,13 @@ const HelpDialog = ({
 	);
 
 	useEffect(() => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.addEventListener('keydown', handleEsc);
 
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('keydown', handleEsc);
 		};
 	}, [handleEsc]);

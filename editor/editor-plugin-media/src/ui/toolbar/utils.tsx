@@ -121,6 +121,8 @@ export const calcNewLayout = (
 	contentWidth: number,
 	fullWidthMode = false,
 	isNested = false,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const isWrappedLayout = wrappedLayouts.indexOf(layout) > -1;
 
@@ -145,6 +147,8 @@ export const calcNewLayout = (
 let maxToolbarFitWidth = 0;
 
 export const getMaxToolbarWidth = () => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const toolbar = document.querySelector(
 		`div[aria-label="Media floating controls"]`,
 	) as HTMLElement;

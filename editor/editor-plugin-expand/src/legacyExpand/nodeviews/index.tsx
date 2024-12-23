@@ -48,6 +48,8 @@ const toDOM = (
 	intl?: IntlShape,
 	titleReadOnly?: boolean,
 	contentEditable?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): DOMOutputSpec => [
 	'div',
 	{
@@ -125,6 +127,8 @@ export class ExpandNodeView implements NodeView {
 	decorationCleanup?: () => boolean | undefined;
 	renderKey: string;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: PmNode,
 		view: EditorView,
@@ -153,7 +157,11 @@ export class ExpandNodeView implements NodeView {
 		this.getPos = getPos;
 		this.view = view;
 		this.node = node;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.dom = dom as HTMLElement;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.contentDOM = contentDOM as HTMLElement;
 		this.isMobile = isMobile;
 		this.api = api;
@@ -298,6 +306,8 @@ export class ExpandNodeView implements NodeView {
 			return;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const target = event.target as HTMLElement;
 		const { state, dispatch } = this.view;
 
@@ -600,6 +610,8 @@ export class ExpandNodeView implements NodeView {
 	};
 
 	stopEvent(event: Event) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const target = event.target as HTMLElement;
 		return (
 			target === this.input ||

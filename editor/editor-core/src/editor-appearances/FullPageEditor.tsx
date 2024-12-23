@@ -47,6 +47,8 @@ export type FullPageEditorProps = Pick<
 export function FullPageEditor(props: FullPageEditorProps) {
 	return (
 		<CoreEditor
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 			appearance={props.appearance ?? 'full-page'}
 			AppearanceComponent={FullPage}

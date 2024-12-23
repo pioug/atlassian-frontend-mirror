@@ -2,9 +2,15 @@ import React from 'react';
 
 type ChangedData<T> = {
 	key: keyof T;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	difference?: any;
 	maxDepthReached?: boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	newValue?: any;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	oldValue?: any;
 	reactElementChanged?: boolean;
 };
@@ -68,6 +74,8 @@ export const getPropsDifference = <T>(
 	curDepth: number = 0,
 	maxDepth: number = 2,
 	keysToIgnore: Array<keyof T> = [],
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): PropsDifference<T> => {
 	const { added, common, removed } = getKeysAddedRemovedCommon(object1, object2);
 

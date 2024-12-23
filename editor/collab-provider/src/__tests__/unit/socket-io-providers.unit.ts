@@ -36,6 +36,8 @@ describe('Socket io provider', () => {
 			});
 		});
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line jest/no-identical-title
 		it('should set the product header on the socket.io client', () => {
 			const socket = createSocketIOSocket(url, undefined, {
 				product: 'confluence',

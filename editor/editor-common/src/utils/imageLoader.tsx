@@ -15,7 +15,7 @@ export interface ImageLoaderState {
 
 export type ImageStatus = 'complete' | 'loading' | 'error';
 
-export const withImageLoaderOld = <P extends {}>(
+export const withImageLoaderOld = <P extends Object>(
 	Wrapped: ComponentType<React.PropsWithChildren<P & ImageLoaderProps>>,
 ): React.ComponentClass<P & ImageLoaderProps> =>
 	class WithImageLoader extends Component<P & ImageLoaderProps, ImageLoaderState> {
@@ -29,6 +29,8 @@ export const withImageLoaderOld = <P extends {}>(
 			this.fetchImage(this.props);
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/no-unsafe
 		UNSAFE_componentWillReceiveProps(nextProps: ImageLoaderProps) {
 			if (nextProps.url !== this.props.url) {
 				this.setState({
@@ -40,7 +42,11 @@ export const withImageLoaderOld = <P extends {}>(
 
 		componentWillUnmount() {
 			if (this.img) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				this.img.removeEventListener('load', this.onLoad);
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				this.img.removeEventListener('error', this.onError);
 				this.img = null;
 			}
@@ -50,7 +56,11 @@ export const withImageLoaderOld = <P extends {}>(
 			if (url) {
 				if (!this.img) {
 					this.img = new Image();
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 					this.img.addEventListener('load', this.onLoad);
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 					this.img.addEventListener('error', this.onError);
 				}
 
@@ -80,11 +90,13 @@ export const withImageLoaderOld = <P extends {}>(
 
 		render() {
 			const { imageStatus } = this.state;
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			return <Wrapped {...this.props} imageStatus={imageStatus} />;
 		}
 	};
 
-const withImageLoaderNew = <P extends {}>(
+const withImageLoaderNew = <P extends Object>(
 	Wrapped: ComponentType<React.PropsWithChildren<P & ImageLoaderProps>>,
 ): React.ComponentClass<P & ImageLoaderProps> =>
 	class WithImageLoader extends Component<P & ImageLoaderProps, ImageLoaderState> {
@@ -109,7 +121,11 @@ const withImageLoaderNew = <P extends {}>(
 
 		componentWillUnmount() {
 			if (this.img) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				this.img.removeEventListener('load', this.onLoad);
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				this.img.removeEventListener('error', this.onError);
 				this.img = null;
 			}
@@ -119,7 +135,11 @@ const withImageLoaderNew = <P extends {}>(
 			if (url) {
 				if (!this.img) {
 					this.img = new Image();
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 					this.img.addEventListener('load', this.onLoad);
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 					this.img.addEventListener('error', this.onError);
 				}
 
@@ -149,11 +169,13 @@ const withImageLoaderNew = <P extends {}>(
 
 		render() {
 			const { imageStatus } = this.state;
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			return <Wrapped {...this.props} imageStatus={imageStatus} />;
 		}
 	};
 
-export const withImageLoader = <P extends {}>(
+export const withImageLoader = <P extends Object>(
 	Wrapped: ComponentType<React.PropsWithChildren<P & ImageLoaderProps>>,
 ): React.ComponentClass<P & ImageLoaderProps> => {
 	if (fg('platform_editor_react18_phase2_v2')) {

@@ -116,7 +116,11 @@ const getDomRefFromSelection = (
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 ) => {
 	try {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		return findDomRefAtPos(view.state.selection.from, view.domAtPos.bind(view)) as HTMLElement;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	} catch (error: any) {
 		// eslint-disable-next-line no-console
 		console.warn(error);
@@ -320,7 +324,9 @@ export function ContentComponent({
 	// Confirm dialog
 	const { confirmDialogForItem } = floatingToolbarData || {};
 	const confirmButtonItem = confirmDialogForItem
-		? (toolbarItems![confirmDialogForItem] as FloatingToolbarButton<Function>)
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			(toolbarItems![confirmDialogForItem] as FloatingToolbarButton<Function>)
 		: undefined;
 
 	const scrollable = config.scrollable;
@@ -365,6 +371,8 @@ export function ContentComponent({
 						return (
 							<ToolbarLoader
 								target={targetRef}
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								items={toolbarItems!}
 								groupLabel={groupLabel}
 								node={node}
@@ -392,9 +400,15 @@ export function ContentComponent({
 				testId="ak-floating-toolbar-confirmation-modal"
 				options={confirmDialogOptions}
 				onConfirm={(isChecked = false) => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					if (!!confirmDialogOptions!.onConfirm) {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						dispatchCommand(confirmDialogOptions!.onConfirm(isChecked));
 					} else {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						dispatchCommand(confirmButtonItem!.onClick);
 					}
 				}}

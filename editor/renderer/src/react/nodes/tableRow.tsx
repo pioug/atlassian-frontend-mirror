@@ -22,6 +22,8 @@ type State = {
 	colGroupWidths: string[];
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class TableRow extends React.Component<Props, State> {
 	state: State = {
 		colGroupWidths: [],

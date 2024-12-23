@@ -22,6 +22,8 @@ export interface Builder {
 }
 
 export interface ListItem {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	content?: any[];
 	parent: List;
 	children: List[];

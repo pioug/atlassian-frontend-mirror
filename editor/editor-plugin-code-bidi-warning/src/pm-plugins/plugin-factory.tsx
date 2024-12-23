@@ -57,6 +57,8 @@ export function createBidiWarningsDecorationSetFromDoc({
 		if (isTextWithCodeMark) {
 			codeBidiWarningDecorator(node.textContent, ({ bidiCharacter, index }) => {
 				bidiCharactersAndTheirPositions.push({
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					position: pos + index!,
 					bidiCharacter,
 				});
@@ -70,6 +72,8 @@ export function createBidiWarningsDecorationSetFromDoc({
 		if (isCodeBlock) {
 			codeBidiWarningDecorator(node.textContent, ({ bidiCharacter, index }) => {
 				bidiCharactersAndTheirPositions.push({
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					position: pos + index! + 1,
 					bidiCharacter,
 				});

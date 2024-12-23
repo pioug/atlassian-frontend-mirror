@@ -31,6 +31,8 @@ export const styles = `
 `;
 
 export default function codeBlock({ text }: NodeSerializerOpts) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const sanitizedText = (text || '').replace(/\n/g, '<br/>');
 
 	const pre = createTag('pre', { class: `${className}-pre` }, sanitizedText);

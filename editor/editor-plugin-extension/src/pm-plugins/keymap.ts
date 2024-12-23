@@ -11,6 +11,8 @@ export default function keymapPlugin(applyChange: ApplyChangeHandler | undefined
 	const list = {};
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		escape.common!,
 		(state, dispatch) => {
 			const extensionState = getPluginState(state);

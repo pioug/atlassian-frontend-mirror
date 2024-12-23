@@ -18,6 +18,8 @@ interface Props {
 	extensionKey: string;
 	path?: PMNode[];
 	text?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	parameters?: any;
 	layout?: ExtensionLayout;
 	localId?: string;
@@ -31,10 +33,14 @@ type RenderExtensionOptions = {
 } & AllOrNone<OverflowShadowProps>;
 
 export const renderExtension = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	content: any,
 	layout: string,
 	options: RenderExtensionOptions = {},
 	removeOverflow?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const overflowContainerClass = !removeOverflow
 		? RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER
@@ -72,7 +78,12 @@ const Extension = (props: React.PropsWithChildren<Props & OverflowShadowProps>) 
 	const { text, layout = 'default', handleRef, shadowClassNames, path = [] } = props;
 
 	return (
-		<ExtensionRenderer {...props} type="extension">
+		<ExtensionRenderer
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+			type="extension"
+		>
 			{({ result }) => {
 				try {
 					// Return the result directly if it's a valid JSX.Element

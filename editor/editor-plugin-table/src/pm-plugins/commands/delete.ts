@@ -13,6 +13,8 @@ export const deleteColumnsCommand =
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 		isCommentEditor = false,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch, view) => {
 		const tr = deleteColumns(

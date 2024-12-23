@@ -37,5 +37,7 @@ export type CommentEditorProps = Pick<
  * @returns Editor component
  */
 export function CommentEditor(props: CommentEditorProps) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <CoreEditor {...props} appearance="comment" AppearanceComponent={Comment} />;
 }

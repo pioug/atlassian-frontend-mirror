@@ -34,6 +34,8 @@ class BatchDecorations {
 	 * Applies the decorations needed for the current search results
 	 * It does so async, splitting them up into batches to help with performance
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	async applyAllSearchDecorations(
 		editorView: EditorView,
 		containerElement: HTMLElement | null,

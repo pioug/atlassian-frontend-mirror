@@ -138,6 +138,8 @@ export function collab(config: CollabConfig = {}): Plugin {
 /// Create a transaction that represents a set of new steps received from
 /// the authority. Applying this transaction moves the state forward to
 /// adjust to the authority's view of the document.
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function receiveTransaction(
 	state: EditorState,
 	steps: readonly ProseMirrorStep[],
@@ -159,6 +161,8 @@ export function receiveTransaction(
 	// remote steps.
 	let collabState = collabKey.getState(state);
 	let version = (collabState?.version || 0) + steps.length;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion,  @typescript-eslint/no-explicit-any
 	let ourID: string | number = (collabKey.get(state)!.spec as any).config.clientID;
 
 	// Find out which prefix of the steps originated with us
@@ -195,6 +199,8 @@ export function receiveTransaction(
 				-1,
 			),
 		);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(tr as any).updated &= ~1;
 	}
 	return tr
@@ -231,10 +237,16 @@ export function sendableSteps(state: EditorState): {
 	return {
 		version: collabState.version,
 		steps: collabState.unconfirmed.map((s) => s.step),
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @typescript-eslint/no-explicit-any
 		clientID: (collabKey.get(state)!.spec as any).config.clientID,
 		get origins() {
 			return (
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				(this as any)._origins ||
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				((this as any)._origins = collabState?.unconfirmed.map((s) => s.origin))
 			);
 		},

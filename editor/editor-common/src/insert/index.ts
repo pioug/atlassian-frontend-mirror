@@ -81,6 +81,8 @@ const insertBeforeOrAfter = (
 	$parentPos: ResolvedPos,
 	$proposedPosition: ResolvedPos,
 	content: InsertableContent,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	/**
 	 * This block caters for the first item in a parent with the cursor being at the very start
@@ -104,6 +106,8 @@ const insertBeforeOrAfter = (
 };
 
 // FIXME: A more sustainable and configurable way to choose when to split
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const shouldSplit = (nodeType: NodeType, schemaNodes: any) => {
 	return [schemaNodes.bulletList, schemaNodes.orderedList, schemaNodes.panel].includes(nodeType);
 };

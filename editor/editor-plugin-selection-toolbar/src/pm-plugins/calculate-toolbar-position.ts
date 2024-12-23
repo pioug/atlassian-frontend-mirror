@@ -8,6 +8,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 const getScrollParent = (editorView: EditorView) => {
 	// Find the nearest Editor
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const editorContentArea = editorView.dom.closest('.ak-editor-content-area') as HTMLElement;
 
 	// Check if the Editor is a child of another, the annotation editor inside
@@ -61,6 +63,8 @@ const getScrollParent = (editorView: EditorView) => {
 export const calculateToolbarPositionTrackHead =
 	(toolbarTitle: string) =>
 	(editorView: EditorView, nextPos: Position): Position => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const toolbar = document.querySelector(`div[aria-label="${toolbarTitle}"]`) as HTMLElement;
 		if (!toolbar) {
 			return nextPos;

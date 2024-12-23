@@ -35,6 +35,8 @@ export default (adf: ADFEntity, options: ScrubAdfOptions = {}) => {
 				}
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const updatedNode: { [key: string]: any } = {};
 
 			Object.entries(node).forEach(([key, value]) => {

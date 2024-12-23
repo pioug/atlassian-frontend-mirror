@@ -52,6 +52,8 @@ export const breakoutInlineScriptContext = `
   breakoutConsts.FullPagePadding = ${FullPagePadding.toString()};
 `;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableResizing: boolean) {
 	const MEDIA_NODE_TYPE = 'mediaSingle';
 	const WIDE_LAYOUT_MODES = ['full-width', 'wide', 'custom'];
@@ -84,6 +86,8 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 				return;
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			if ((item.target as HTMLElement).classList.contains('ak-renderer-document')) {
 				item.addedNodes.forEach((maybeNode) => {
 					// maybeNode may contain comments which doesn't have a dataset property
@@ -92,6 +96,8 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 					}
 
 					let width;
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					const node = maybeNode as HTMLElement;
 					const mode = node.dataset.mode || node.dataset.layout || '';
 					const resizedBreakout = node.dataset.hasWidth === 'true';
@@ -103,6 +109,8 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 					// When flag is on we are using CSS to calculate the table width thus don't need logic below to set the width and left.
 					if (!shouldFixTableResizing) {
 						if (node.classList.contains('pm-table-container') && mode === 'custom') {
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							const rendererWidth = renderer!.offsetWidth;
 							const effectiveWidth = rendererWidth - breakoutConsts.padding;
 							width = `${Math.min(parseInt(node.style.width), effectiveWidth)}px`;
@@ -110,9 +118,13 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 							width = breakoutConsts.calcBreakoutWithCustomWidth(
 								mode,
 								node.dataset.width || null,
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								renderer!.offsetWidth,
 							);
 						} else {
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							width = breakoutConsts.calcBreakoutWidth(mode, renderer!.offsetWidth);
 						}
 
@@ -126,6 +138,8 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 						// https://bitbucket.org/atlassian/atlassian-frontend/src/77938aee0c140d02ff99b98a03849be1236865b4/packages/editor/renderer/src/react/nodes/table.tsx#table.tsx-235:245
 						if (
 							node.classList.contains('pm-table-container') &&
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							!renderer!.classList.contains('is-full-width')
 						) {
 							const lineLength = breakoutConsts.calcLineLength();
@@ -146,8 +160,12 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 				 * So nested media elements which are not immediately loaded as sub children are not available in the above conditional.
 				 * Thus adding this conditional to deal with all media elements directly.
 				 */
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				(item.target as HTMLElement).dataset.nodeType === MEDIA_NODE_TYPE
 			) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				applyMediaBreakout(item.target as HTMLElement);
 			}
 		});
@@ -197,8 +215,12 @@ function applyBreakoutAfterSSR(id: string, breakoutConsts: any, shouldFixTableRe
 	 */
 	const disconnect = () => {
 		observer.disconnect();
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.removeEventListener('load', disconnect);
 	};
+	// Ignored via go/ees005
+	// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 	window.addEventListener('load', disconnect);
 }
 

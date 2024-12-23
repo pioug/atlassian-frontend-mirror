@@ -196,6 +196,8 @@ export const moveNode =
 		to: number,
 		inputMethod: MoveNodeMethod = INPUT_METHOD.DRAG_AND_DROP,
 		formatMessage?: IntlShape['formatMessage'],
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): EditorCommand =>
 	({ tr }) => {
 		const node = tr.doc.nodeAt(start);

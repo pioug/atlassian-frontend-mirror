@@ -213,10 +213,14 @@ export function getMarkdownSlice(
 	try {
 		let textInput: string = text;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		const textSplitByCodeBlock = textInput.split(/```/);
 
 		for (let i = 0; i < textSplitByCodeBlock.length; i++) {
 			if (i % 2 === 0) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				textSplitByCodeBlock[i] = textSplitByCodeBlock[i].replace(/\\/g, '\\\\');
 			}
 		}

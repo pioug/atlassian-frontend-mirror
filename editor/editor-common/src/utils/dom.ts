@@ -85,6 +85,8 @@ export function closest(node: HTMLElement | null | undefined, s: string): HTMLEl
 	do {
 		const matchfn = el.matches ? el.matches : el.msMatchesSelector;
 		if (matchfn && matchfn.call(el, s)) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			return el as HTMLElement;
 		}
 

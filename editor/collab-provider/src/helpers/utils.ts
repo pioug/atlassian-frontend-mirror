@@ -3,7 +3,11 @@ import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/trans
 
 export const createLogger =
 	(prefix: string, color: string = 'blue') =>
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	(msg: string, data: any = null) => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		if ((window as any).COLLAB_PROVIDER_LOGGER) {
 			// eslint-disable-next-line no-console
 			console.log(`%cCollab-${prefix}: ${msg}`, `color: ${color}; font-weight: bold`, data);
@@ -30,6 +34,8 @@ interface Step {
 	userId?: string;
 	from?: number;
 	to?: number;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
 	gapFrom?: number;
 	gapTo?: number;
@@ -58,6 +64,8 @@ export const getStepUGCFreeDetails = (step: ProseMirrorStep): UGCFreeStepDetails
 	let contentTypes: string = '';
 	if (stepJson.slice?.content && Array.isArray(stepJson.slice?.content)) {
 		contentTypes = stepJson.slice.content
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			.map((c: any) => {
 				return c?.type || 'unknown';
 			})

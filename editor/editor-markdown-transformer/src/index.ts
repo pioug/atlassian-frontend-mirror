@@ -5,7 +5,11 @@ import { MarkdownParser } from '@atlaskit/editor-prosemirror/markdown';
 import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { markdownItMedia } from './media';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function filterMdToPmSchemaMapping(schema: Schema, map: any) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return Object.keys(map).reduce((newMap: any, key: string) => {
 		const value = map[key];
 		const block = value.block || value.node;
@@ -50,6 +54,8 @@ const mdToPmMapping = {
 	strong: { mark: 'strong' },
 	link: {
 		mark: 'link',
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		attrs: (tok: any) => ({
 			href: tok.attrGet('href'),
 			title: tok.attrGet('title') || null,
@@ -58,6 +64,8 @@ const mdToPmMapping = {
 	hr: { node: 'rule' },
 	heading: {
 		block: 'heading',
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		attrs: (tok: any) => ({ level: +tok.tag.slice(1) }),
 	},
 	softbreak: { node: 'hardBreak' },
@@ -67,6 +75,8 @@ const mdToPmMapping = {
 	bullet_list: { block: 'bulletList' },
 	ordered_list: {
 		block: 'orderedList',
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		attrs: (tok: any) => ({
 			order: typeof tok.attrGet('start') === 'number' ? tok.attrGet('start') : 1,
 		}),
@@ -75,6 +85,8 @@ const mdToPmMapping = {
 	fence: {
 		block: 'codeBlock',
 		// we trim any whitespaces around language definition
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		attrs: (tok: any) => ({ language: (tok.info && tok.info.trim()) || null }),
 	},
 	media_single: {
@@ -83,6 +95,8 @@ const mdToPmMapping = {
 	},
 	media: {
 		node: 'media',
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		attrs: (tok: any) => {
 			return {
 				url: tok.attrGet('url'),
@@ -93,6 +107,8 @@ const mdToPmMapping = {
 	},
 	emoji: {
 		node: 'emoji',
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		attrs: (tok: any) => ({
 			shortName: `:${tok.markup}:`,
 			text: tok.content,
@@ -106,6 +122,8 @@ const mdToPmMapping = {
 	task_list: { block: 'taskList' },
 	task_item: {
 		block: 'taskItem',
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		attrs: (tok: any) => ({
 			state: tok.meta,
 		}),

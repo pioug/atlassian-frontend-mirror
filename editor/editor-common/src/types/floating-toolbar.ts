@@ -17,12 +17,12 @@ import type { PaletteColor } from '../ui-color/ColorPalette/Palettes/type';
 import type { Command, CommandDispatch } from './command';
 import type { MarkOptions, NodeOptions } from './copy-button';
 
-export interface RenderOptionsPropsT<T extends {}> {
+export interface RenderOptionsPropsT<T extends Object> {
 	hide: () => void;
 	dispatchCommand: (command: T) => void;
 }
 
-export interface DropdownOptionT<T extends {}> {
+export interface DropdownOptionT<T extends Object> {
 	id?: string;
 	title: string;
 	onClick: T;
@@ -49,15 +49,17 @@ export type typeOption =
 	 */
 	'item' | 'item-checkbox';
 
-export type DropdownOptions<T extends {}> =
+export type DropdownOptions<T extends Object> =
 	| Array<DropdownOptionT<T>>
 	| {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			render: (props: RenderOptionsPropsT<T>) => React.ReactElement<any> | null;
 			height: number;
 			width: number;
 	  };
 
-export interface SelectOption<T extends {} = {}> {
+export interface SelectOption<T extends Object = Object> {
 	value: string;
 	label: string;
 	selected?: boolean;
@@ -96,6 +98,8 @@ export interface ConfirmDialogOptions {
 	checkboxLabel?: string;
 	messagePrefix?: string;
 	getChildrenInfo?: () => ConfirmDialogChildInfo[];
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onConfirm?: (...args: any[]) => Command;
 }
 
@@ -125,7 +129,7 @@ export type FloatingToolbarCopyButton = {
 	supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
 };
 
-export type FloatingToolbarButton<T extends {}> = {
+export type FloatingToolbarButton<T extends Object> = {
 	id?: string;
 	type: 'button';
 	isRadioButton?: boolean;
@@ -162,19 +166,23 @@ export type FloatingToolbarButton<T extends {}> = {
 	spotlightConfig?: FloatingToolbarButtonSpotlightConfig;
 };
 
-export type FloatingToolbarInput<T extends {}> = {
+export type FloatingToolbarInput<T extends Object> = {
 	id: string;
 	type: 'input';
 	title?: string;
 	description?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onSubmit: (...args: any[]) => T;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onBlur: (...args: any[]) => T;
 	defaultValue?: string;
 	placeholder?: string;
 	hidden?: boolean;
 };
 
-export type FloatingToolbarCustom<T extends {}> = {
+export type FloatingToolbarCustom<T extends Object> = {
 	type: 'custom';
 	/**
 	 * By default -- the floating toolbar supports navigating between
@@ -198,7 +206,7 @@ export type FloatingToolbarCustom<T extends {}> = {
 	supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
 };
 
-type FloatingToolbarSelectBase<T extends {}, V = SelectOption> = {
+type FloatingToolbarSelectBase<T extends Object, V = SelectOption> = {
 	id: string;
 	type: 'select';
 	selectType: 'list' | 'emoji' | 'date' | 'color';
@@ -214,29 +222,29 @@ type FloatingToolbarSelectBase<T extends {}, V = SelectOption> = {
 	filterOption?: ((option: V, rawInput: string) => boolean) | null;
 };
 
-export type FloatingToolbarListPicker<T extends {}> = FloatingToolbarSelectBase<T> & {
+export type FloatingToolbarListPicker<T extends Object> = FloatingToolbarSelectBase<T> & {
 	selectType: 'list';
 };
 
-export type FloatingToolbarColorPicker<T extends {}> = FloatingToolbarSelectBase<
+export type FloatingToolbarColorPicker<T extends Object> = FloatingToolbarSelectBase<
 	T,
 	PaletteColor
 > & {
 	selectType: 'color';
 };
 
-export type FloatingToolbarEmojiPicker<T extends {}> = FloatingToolbarSelectBase<T, EmojiId> & {
+export type FloatingToolbarEmojiPicker<T extends Object> = FloatingToolbarSelectBase<T, EmojiId> & {
 	selectType: 'emoji';
 	selected?: boolean;
 	options: never[];
 };
 
-export type FloatingToolbarDatePicker<T extends {}> = FloatingToolbarSelectBase<T, number> & {
+export type FloatingToolbarDatePicker<T extends Object> = FloatingToolbarSelectBase<T, number> & {
 	selectType: 'date';
 	options: never[];
 };
 
-export type FloatingToolbarSelect<T extends {}> =
+export type FloatingToolbarSelect<T extends Object> =
 	| FloatingToolbarEmojiPicker<T>
 	| FloatingToolbarColorPicker<T>
 	| FloatingToolbarListPicker<T>
@@ -248,7 +256,7 @@ export type FloatingToolbarSeparator = {
 	supportsViewMode?: boolean; // TODO: MODES-3950 Clean up this floating toolbar view mode logic
 };
 
-export type FloatingToolbarDropdown<T extends {}> = {
+export type FloatingToolbarDropdown<T extends Object> = {
 	testId?: string;
 	id?: string;
 	type: 'dropdown';
@@ -290,7 +298,7 @@ type FloatingToolbarExtensionsPlaceholder = {
  * This type is restricted with the items that can be used for fallback.
  * Make sure that this type is not a FloatingToolbarCustom type.
  */
-export type FloatingToolbarFallbackItem<T extends {}> =
+export type FloatingToolbarFallbackItem<T extends Object> =
 	| FloatingToolbarButton<T>
 	| FloatingToolbarCopyButton
 	| FloatingToolbarDropdown<T>
@@ -298,7 +306,7 @@ export type FloatingToolbarFallbackItem<T extends {}> =
 	| FloatingToolbarInput<T>
 	| FloatingToolbarSeparator;
 
-export type FloatingToolbarItem<T extends {}> =
+export type FloatingToolbarItem<T extends Object> =
 	| FloatingToolbarButton<T>
 	| FloatingToolbarCopyButton
 	| FloatingToolbarDropdown<T>

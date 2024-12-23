@@ -88,6 +88,8 @@ export const MediaBadges = ({
 		);
 
 		if (mediaElement) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			observer.observe(mediaElement as HTMLElement);
 		}
 		return () => {

@@ -190,6 +190,8 @@ export const Mounter = React.memo((props: Props) => {
 		<Component
 			range={range}
 			isWithinRange={isWithinRange}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			wrapperDOM={wrapperDOM.current as HTMLElement}
 			isAnnotationAllowed={isAnnotationAllowed}
 			onClose={onCloseCallback}

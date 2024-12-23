@@ -79,7 +79,12 @@ export default class TaskItemWithProviders extends Component<Props, State> {
 					userContext,
 				}}
 			>
-				<ResourcedTaskItem {...otherProps} objectAri={objectId} />
+				<ResourcedTaskItem
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...otherProps}
+					objectAri={objectId}
+				/>
 			</FabricElementsAnalyticsContext>
 		);
 	}

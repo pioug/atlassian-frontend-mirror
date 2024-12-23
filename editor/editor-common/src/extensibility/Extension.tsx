@@ -31,6 +31,8 @@ export interface Props {
 	rendererExtensionHandlers?: ExtensionHandlers;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
 export class Extension extends Component<Props, any> {
 	static displayName = 'Extension';
 

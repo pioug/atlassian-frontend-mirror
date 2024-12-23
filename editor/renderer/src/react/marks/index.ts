@@ -25,6 +25,8 @@ import Border from './border';
 import ConfluenceInlineComment from './confluence-inline-comment';
 
 export const markToReact: {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: ComponentType<React.PropsWithChildren<any>>;
 } = {
 	code: Code,
@@ -50,6 +52,8 @@ export const markToReact: {
 	fragment: FragmentMark,
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const toReact = (mark: Mark): ComponentType<React.PropsWithChildren<any>> => {
 	return markToReact[mark.type.name];
 };

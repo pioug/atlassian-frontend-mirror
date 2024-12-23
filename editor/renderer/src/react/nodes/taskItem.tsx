@@ -17,7 +17,9 @@ export interface Props {
 	disabled?: boolean;
 }
 
-export default class TaskItem extends PureComponent<NodeProps<Props>, {}> {
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
+export default class TaskItem extends PureComponent<NodeProps<Props>, Object> {
 	private providerFactory: ProviderFactory;
 
 	constructor(props: NodeProps<Props>) {
@@ -33,6 +35,8 @@ export default class TaskItem extends PureComponent<NodeProps<Props>, {}> {
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private renderWithProvider = (providers: any) => {
 		const { taskDecisionProvider, contextIdentifierProvider } = providers;
 		const { children, localId, state, rendererContext, disabled, dataAttributes } = this.props;

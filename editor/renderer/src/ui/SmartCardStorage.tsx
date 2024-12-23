@@ -14,11 +14,20 @@ export const Provider = function ({ children }: React.PropsWithChildren<unknown>
 export const withSmartCardStorage = <Props extends WithSmartCardStorageProps>(
 	WrappedComponent: React.ComponentType<React.PropsWithChildren<Props>>,
 ) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/prefer-stateless-function
 	return class extends React.Component<Diff<Props, WithSmartCardStorageProps>> {
 		render() {
 			return (
 				<Context.Consumer>
-					{(storage) => <WrappedComponent {...(this.props as Props)} smartCardStorage={storage} />}
+					{(storage) => (
+						<WrappedComponent
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...(this.props as Props)}
+							smartCardStorage={storage}
+						/>
+					)}
 				</Context.Consumer>
 			);
 		}

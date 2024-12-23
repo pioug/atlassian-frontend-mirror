@@ -143,21 +143,31 @@ const DragControlsComponent = ({
 	);
 
 	const rowIndexes = useMemo(() => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		return [rowIndex!];
 	}, [rowIndex]);
 
 	const handleMouseOver = useCallback(() => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		hoverRows([rowIndex!]);
 	}, [hoverRows, rowIndex]);
 
 	const handleClick = useCallback(
 		(e: MouseEvent) => {
 			const isClickOutsideSelectedRows =
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				selectedRowIndexes.length >= 1 && !selectedRowIndexes.includes(rowIndex!);
 			if (!selectedRowIndexes || selectedRowIndexes.length === 0 || isClickOutsideSelectedRows) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				selectRow(rowIndex!, e.shiftKey);
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			if (selectedRowIndexes.length > 1 && selectedRowIndexes.includes(rowIndex!) && !e.shiftKey) {
 				selectRows(selectedRowIndexes);
 			}
@@ -170,6 +180,8 @@ const DragControlsComponent = ({
 		appearance: DragHandleAppearance,
 		gridRow: string,
 		indexes: number[],
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const isHover = type === 'hover';
 
@@ -285,6 +297,8 @@ const DragControlsComponent = ({
 			contentEditable={false}
 		>
 			{rowsParams.map(({ startIndex, endIndex }, index) => (
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/no-array-index-key
 				<Fragment key={index}>
 					<div
 						style={{
@@ -297,6 +311,8 @@ const DragControlsComponent = ({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={ClassName.DRAG_ROW_FLOATING_INSERT_DOT_WRAPPER}
 						contentEditable={false}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/no-array-index-key
 						key={`insert-dot-${index}`}
 					>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
@@ -304,6 +320,8 @@ const DragControlsComponent = ({
 					</div>
 					{isDragging && (
 						<RowDropTarget
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/no-array-index-key
 							key={`drop-target-${index}`}
 							index={index}
 							localId={currentNodeLocalId}

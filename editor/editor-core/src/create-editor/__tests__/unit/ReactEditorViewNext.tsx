@@ -82,12 +82,12 @@ import createAnalyticsEventMock from '@atlaskit/editor-test-helpers/create-analy
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { blockquote, code_block, doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { mention } from '@atlaskit/editor-test-helpers/doc-builder';
+import { blockquote, code_block, doc, p, mention } from '@atlaskit/editor-test-helpers/doc-builder';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import defaultSchema from '@atlaskit/editor-test-helpers/schema';
 import type { MentionProvider } from '@atlaskit/mention/resource';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -618,6 +618,8 @@ describe('@atlaskit/editor-core', () => {
 		'editor_load_conf_collab_docs_without_checks',
 		'calling processRawValue in createEditorState',
 		() => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line jest/no-identical-title
 			it('When setup without the collab plugin -- should call processRawValue', () => {
 				// call feature gate to avoid the ffTest failing
 				fg('editor_load_conf_collab_docs_without_checks');
@@ -663,6 +665,8 @@ describe('@atlaskit/editor-core', () => {
 			});
 
 			ffTest.on('platform_editor_nest_in_quotes_adf_change', '', () => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line jest/no-identical-title
 				it('When setup with the collab plugin -- with string document', () => {
 					const mockDocument =
 						'{"type":"doc","content":[{"type":"blockquote","content":[{"type":"codeBlock","attrs":{"language":null,"uniqueId":null}}]}]}';

@@ -21,6 +21,8 @@ const boundary = css({
 	padding: `130px 60px 10px ${token('space.500', '40px')}`,
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class CustomBoundryExample extends PureComponent<any, any> {
 	state = { boundary: undefined };
 
@@ -47,6 +49,8 @@ class CustomBoundryExample extends PureComponent<any, any> {
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class PortalExample extends PureComponent<any, any> {
 	state = {
 		portal: undefined,
@@ -79,6 +83,8 @@ class PortalExample extends PureComponent<any, any> {
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class PortalWithCustomBoundaryExample extends PureComponent<any, any> {
 	state = { portal: undefined, boundary: undefined };
 
@@ -116,6 +122,8 @@ class PortalWithCustomBoundaryExample extends PureComponent<any, any> {
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class PortalInScrollContainerExample extends PureComponent<any, any> {
 	state = { portal: undefined, boundary: undefined };
 
@@ -174,6 +182,8 @@ class PortalInScrollContainerExample extends PureComponent<any, any> {
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class JiraSidebarEditor extends PureComponent<any, any> {
 	state = { portal: undefined, boundary: undefined, scrollable: undefined };
 

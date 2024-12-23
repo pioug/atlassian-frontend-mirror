@@ -4,7 +4,7 @@ import type { InsertNodeAPI } from '../types';
 
 import { handleInsertContent } from './insert-content-handlers';
 
-export type CreateInsertNodeAPIProps = {};
+export type CreateInsertNodeAPIProps = Object;
 
 export const createInsertNodeAPI = (
 	analyticsApi: EditorAnalyticsAPI | undefined,

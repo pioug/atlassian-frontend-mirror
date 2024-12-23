@@ -31,6 +31,8 @@ export interface Props {
 	selection?: Selection;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class RowControlsComponent extends Component<Props & WrappedComponentProps> {
 	render() {
 		const {
@@ -88,7 +90,9 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
 											? `3px`
 											: undefined
 										: thisRowSticky
-											? `${this.props.stickyTop! + 3}px`
+											? // Ignored via go/ees005
+												// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+												`${this.props.stickyTop! + 3}px`
 											: undefined,
 									// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									paddingTop: thisRowSticky ? `${tableControlsSpacing}px` : undefined,

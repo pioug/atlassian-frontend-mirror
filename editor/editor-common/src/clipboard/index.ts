@@ -1,3 +1,5 @@
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as clipboard from 'clipboard-polyfill';
 
 import type { EditorState, NodeSelection } from '@atlaskit/editor-prosemirror/state';
@@ -22,6 +24,8 @@ const isClipboardApiSupported = () =>
 	!!navigator.clipboard && typeof navigator.clipboard.writeText === 'function';
 
 const isIEClipboardApiSupported = () =>
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	(window as any).clipboardData && typeof (window as any).clipboardData.setData === 'function';
 
 const isExtensionNode = (node?: string) => {
@@ -45,6 +49,8 @@ export const copyToClipboard = async (textToCopy: string) => {
 		}
 	} else if (isIEClipboardApiSupported()) {
 		try {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			await (window as any).clipboardData.setData('text', textToCopy);
 		} catch (error) {
 			throw new Error('IE clipboard api is not supported');
@@ -125,12 +131,16 @@ export const getAnalyticsPayload = (
 				}
 				break;
 			case ACTION_SUBJECT_ID.RANGE:
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				content.push(...(selectionAnalyticsPayload as SelectRangeAEP).attributes!.nodes);
 				break;
 			case ACTION_SUBJECT_ID.ALL:
 				content.push('all');
 				break;
 			case ACTION_SUBJECT_ID.CELL: {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const { selectedCells } = (selectionAnalyticsPayload as SelectCellAEP).attributes!;
 				content.push(...Array(selectedCells).fill('tableCell'));
 				break;

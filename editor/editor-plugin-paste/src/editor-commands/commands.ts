@@ -39,7 +39,11 @@ export const stopTrackingPastedMacroPositions = (pastedMacroPositionKeys: string
 	});
 
 // matchers for text lists
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const bullets = /^\s*[\*\-\u2022](\s+|\s+$)/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const numbers = /^\s*\d[\.\)](\s+|$)/;
 
 const isListItem = (node: Node | null, schema: Schema): boolean => {
@@ -67,6 +71,8 @@ const getListType = (node: Node, schema: Schema): [NodeType, number] | null => {
 			return lastMatch;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const match = node.text!.match(listType.matcher);
 		return match ? [listType.node, match[0].length] : lastMatch;
 	}, null);
@@ -112,6 +118,8 @@ export const extractListFromParagraph = (
 
 	let paragraphParts: Array<Node[]> = [];
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line no-var
 	for (var index = 0; index < linesSplitByHardbreaks.length; index = index + 1) {
 		const line = linesSplitByHardbreaks[index];
 		let listMatch: [NodeType, number] | null;
@@ -173,6 +181,10 @@ export const extractListFromParagraph = (
 		const attrs =
 			nodeType === orderedList
 				? {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						order: parseInt(firstNonHardBreakNode!.text!.split('.')[0]),
 					}
 				: undefined;
@@ -325,6 +337,8 @@ export const splitIntoParagraphs = ({
 	return Fragment.from(
 		paragraphs.length
 			? paragraphs
-			: [paragraph.createAndFill(undefined, undefined, [...blockMarks])!],
+			: // Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				[paragraph.createAndFill(undefined, undefined, [...blockMarks])!],
 	);
 };

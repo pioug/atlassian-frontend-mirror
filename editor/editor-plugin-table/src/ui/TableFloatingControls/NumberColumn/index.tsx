@@ -27,6 +27,8 @@ interface Props {
 	isDragAndDropEnabled?: boolean;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
 export default class NumberColumn extends Component<Props, any> {
 	render() {
 		const { tableRef, hasHeaderRow, isDragAndDropEnabled, tableActive, updateCellHoverLocation } =
@@ -50,6 +52,8 @@ export default class NumberColumn extends Component<Props, any> {
 					isDragAndDropEnabled ? (
 						// eslint-disable-next-line jsx-a11y/no-static-element-interactions
 						<div
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/no-array-index-key
 							key={`wrapper-${index}`}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={this.getClassNames(index, true)}
@@ -64,6 +68,8 @@ export default class NumberColumn extends Component<Props, any> {
 					) : (
 						// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 						<div
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/no-array-index-key
 							key={`wrapper-${index}`}
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={this.getClassNames(index)}

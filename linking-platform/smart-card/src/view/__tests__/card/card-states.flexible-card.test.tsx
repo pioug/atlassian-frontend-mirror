@@ -142,7 +142,6 @@ describe('smart-card: card states, flexible block withUrl', () => {
 		});
 
 		it('should not re-render when appearance changes', async () => {
-			let resolvedView = null;
 			const { rerender } = render(
 				<IntlProvider locale="en">
 					<Provider client={mockClient}>
@@ -152,7 +151,7 @@ describe('smart-card: card states, flexible block withUrl', () => {
 			);
 
 			const resolvedCard = await screen.findByTestId('smart-block-resolved-view');
-			resolvedView = await screen.findByText('I love cheese');
+			const resolvedView = await screen.findByText('I love cheese');
 			expect(resolvedCard).toBeTruthy();
 			expect(resolvedView).toBeTruthy();
 			expect(mockFetch).toHaveBeenCalled();

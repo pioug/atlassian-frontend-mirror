@@ -1,5 +1,4 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
 import { Editor, EditorContext, type EditorProps, WithEditorActions } from '@atlaskit/editor-core';
 import { ReactRenderer, type RendererProps } from '@atlaskit/renderer';
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
@@ -19,6 +18,8 @@ export interface Props extends BaseProps {
 
 const emptyDoc = '{ "type": "doc", "version": 1, "content": [] }';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Document extends Component<Props> {
 	private renderToolbar() {
 		const { mode, renderToolbar } = this.props;
@@ -52,6 +53,8 @@ export default class Document extends Component<Props> {
 					defaultValue={body}
 					primaryToolbarComponents={this.renderToolbar()}
 					contentComponents={this.renderTitle()}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...editorProps}
 				/>
 			</EditorContext>
@@ -83,7 +86,11 @@ export default class Document extends Component<Props> {
 					const { mentionProvider, emojiProvider, media } = editorProps;
 
 					dataProviders = ProviderFactory.create({
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						mentionProvider: mentionProvider!,
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						emojiProvider: emojiProvider!,
 					});
 
@@ -96,6 +103,8 @@ export default class Document extends Component<Props> {
 					<ReactRenderer
 						dataProviders={dataProviders}
 						document={JSON.parse(body)}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...rendererProps}
 					/>
 				);

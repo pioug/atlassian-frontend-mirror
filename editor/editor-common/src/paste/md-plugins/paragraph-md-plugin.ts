@@ -4,6 +4,8 @@
 // ED-15363: modified version of the original paragraph plugin
 // https://github.com/markdown-it/markdown-it/blob/master/lib/rules_block/paragraph.js
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const paragraph = (state: any, startLine: number /*, endLine*/) => {
 	let content,
 		terminate,
@@ -69,4 +71,6 @@ const paragraph = (state: any, startLine: number /*, endLine*/) => {
 	return true;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default (md: any) => md.block.ruler.at('paragraph', paragraph);

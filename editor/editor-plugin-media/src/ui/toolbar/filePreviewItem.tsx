@@ -48,6 +48,8 @@ export const FilePreviewItem = ({ mediaPluginState, intl }: FilePreviewProps) =>
 			/>
 			{shouldRenderMediaViewer && (
 				<RenderMediaViewer
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					mediaClientConfig={mediaPluginState.mediaClientConfig!}
 					onClose={onMediaViewerClose}
 					selectedNodeAttrs={selectedNodeAttrs}

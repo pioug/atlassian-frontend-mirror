@@ -41,6 +41,8 @@ export const createWrappingTextBlockRule = ({
 		match: RegExpExecArray,
 		start: number,
 		end: number,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const fixedStart = Math.max(start, 1);
 		const $start = state.doc.resolve(fixedStart);

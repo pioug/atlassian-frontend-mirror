@@ -84,9 +84,13 @@ export const expandLayoutWrapperStyle = css({
 });
 
 export const ExpandLayoutWrapperWithRef = forwardRef(
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	(props: React.HTMLAttributes<HTMLDivElement>, ref: Ref<any>) => {
 		const { children, ...rest } = props;
 		return (
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			<div css={expandLayoutWrapperStyle} {...rest} ref={ref}>
 				{children}
 			</div>

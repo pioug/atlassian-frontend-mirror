@@ -104,6 +104,8 @@ const FixedTableDiv = (props: FixedProps) => {
 
 	return (
 		<div
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...attrs}
 			data-testid="sticky-table-fixed"
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -236,6 +238,8 @@ function findHorizontalOverflowScrollParent(
 		return null;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line no-cond-assign
 	while ((parent = parent.parentElement)) {
 		// IE11 on Window 8 doesn't show styles from CSS when accessing through element.style property.
 		const style = window.getComputedStyle(parent);
@@ -284,11 +288,19 @@ export class OverflowParent {
 		return 0;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public addEventListener(type: string, cb: EventListenerOrEventListenerObject, ...args: any[]) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this.ref.addEventListener(type, cb, ...args);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	public removeEventListener(type: string, cb: EventListenerOrEventListenerObject, ...args: any[]) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this.ref.removeEventListener(type, cb, ...args);
 	}
 }

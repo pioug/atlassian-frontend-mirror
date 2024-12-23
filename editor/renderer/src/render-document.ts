@@ -59,12 +59,16 @@ const withStopwatch = <T>(cb: () => T): ResultWithTime<T> => {
 type DispatchAnalyticsEvent = (event: AnalyticsEventPayload) => void;
 
 const _validation = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	doc: any,
 	schema: Schema,
 	adfStage: ADFStage,
 	useSpecBasedValidator: boolean,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	skipValidation?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	let result;
 
@@ -151,6 +155,8 @@ const memoValidation = memoizeOne(_validation, (newArgs, lastArgs) => {
 	return result;
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const areDocsEqual = (docA: any, docB: any) => {
 	if (docA === docB) {
 		return true;
@@ -181,6 +187,8 @@ const memoSerializeFragment = memoizeOne(_serializeFragment, (newArgs, lastArgs)
 
 const _createNodeAndCheck = (
 	schema: Schema,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	doc: any,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 ): PMNode => {
@@ -211,6 +219,8 @@ const memoCreateNodeAndCheck = memoizeOne(_createNodeAndCheck, (newArgs, lastArg
 });
 
 export const renderDocument = <T>(
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	doc: any,
 	serializer: Serializer<T>,
 	schema: Schema = defaultSchema,
@@ -222,6 +232,8 @@ export const renderDocument = <T>(
 	appearance?: RendererAppearance,
 	includeNodesCountInStats?: boolean,
 	skipValidation?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): RenderOutput<T | null> => {
 	const stat: RenderOutputStat = { sanitizeTime: 0 };
 

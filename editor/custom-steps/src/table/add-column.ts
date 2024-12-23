@@ -67,6 +67,8 @@ const getTableRectAndColumnFactory = (
  * 0    1    2    x   -> Remove Column Index
  *
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class AddColumnStep<S extends Schema = any> extends Step {
 	private readonly tablePos: number;
 	private readonly isDelete: boolean;
@@ -300,6 +302,8 @@ export class AddColumnStep<S extends Schema = any> extends Step {
 	 * Deserialize a step from its JSON representation. Will call
 	 * through to the step class' own implementation of this method.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	static fromJSON<S extends Schema = any>(schema: S, json: AddColumnStepJson): Step {
 		// TODO: Add validation. Return null if it is invalid. Check in review if this is necessary
 		const cells = json.cells.map((cellsJson) => {
@@ -318,6 +322,8 @@ export class AddColumnStep<S extends Schema = any> extends Step {
 		return new AddColumnStep(json.tablePos, { cells, sideEffects }, json.isDelete);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	static create(doc: ProseMirrorNode, tablePos: number, column: number, isDelete = false) {
 		const tableRect = getTableRectFromDoc(doc, tablePos);
 
@@ -341,6 +347,8 @@ export class AddColumnStep<S extends Schema = any> extends Step {
 		return new AddColumnStep(tablePos, { cells }, isDelete);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	private applyCellSteps(tr: Transform, tableRect: TableRect, column: number, isDelete: boolean) {
 		const newColumnInfo: Map<number, CellStep> = new Map<number, CellStep>();
 		const rowsHandler = this.sideEffectsHandler.rows.start(this.isDelete);

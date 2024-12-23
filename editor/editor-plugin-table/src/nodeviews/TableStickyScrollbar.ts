@@ -36,6 +36,8 @@ export class TableStickyScrollbar {
 
 	dispose() {
 		if (this.stickyScrollbarContainerElement) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.stickyScrollbarContainerElement.removeEventListener('scroll', this.handleScroll);
 		}
 
@@ -58,6 +60,8 @@ export class TableStickyScrollbar {
 		);
 
 		if (this.stickyScrollbarContainerElement) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.stickyScrollbarContainerElement.addEventListener('scroll', this.handleScroll, {
 				passive: true,
 			});
@@ -68,6 +72,8 @@ export class TableStickyScrollbar {
 
 	private createIntersectionObserver() {
 		this.editorScrollableElement =
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			(findOverflowScrollParent(this.view.dom) as HTMLElement) || window.document;
 
 		if (!this.editorScrollableElement || !this.wrapper) {
@@ -81,6 +87,8 @@ export class TableStickyScrollbar {
 				}
 
 				entries.forEach((entry) => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					const target = entry.target as HTMLElement;
 					// if the rootBounds has 0 height, e.g. confluence preview mode, we do nothing.
 					if (entry.rootBounds?.height === 0) {
@@ -99,15 +107,21 @@ export class TableStickyScrollbar {
 			{ root: this.editorScrollableElement },
 		);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.sentinels.bottom = this.wrapper?.parentElement
 			?.getElementsByClassName(ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM)
 			?.item(0) as HTMLElement;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.sentinels.top = this.wrapper?.parentElement
 			?.getElementsByClassName(ClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP)
 			?.item(0) as HTMLElement;
 
 		[this.sentinels.bottom, this.sentinels.top].forEach((el) =>
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			this.intersectionObserver!.observe(el),
 		);
 	}

@@ -15,7 +15,11 @@ export function mergeCells(tr: Transaction): Transaction {
 		return tr;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const rect = getSelectionRect(selection)!;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const table = findTable(selection)!;
 	const map = TableMap.get(table.node);
 	const seen: number[] = [];
@@ -70,6 +74,8 @@ export function mergeCells(tr: Transaction): Transaction {
 					content === Fragment.empty
 						? cell.type.createAndFill(attrs, content, cell.marks)
 						: cell.type.createChecked(attrs, content, cell.marks);
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				rowCells.push(newCell!);
 			} else if (selectedCells.indexOf(cellPos) === -1) {
 				// if its one of the selected cells, but not the merged cell, we get rid of it

@@ -10,6 +10,8 @@ jest.mock('@atlaskit/editor-common/performance-measures', () => ({
 	),
 }));
 
+// Ignored via go/ees005
+// eslint-disable-next-line no-var
 var mockUuid = '12345abcdef';
 jest.mock('uuid/v4', () => ({
 	__esModule: true,

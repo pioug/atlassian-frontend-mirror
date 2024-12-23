@@ -24,6 +24,8 @@ export const triggerInputRule = (
 	from: number,
 	to: number,
 	text: string,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { state } = view;
 	const $from = state.doc.resolve(from);

@@ -49,6 +49,8 @@ export default function BackgroundColor(props: MarkProps<TextColorAttributes>) {
 
 	return (
 		<span
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props.dataAttributes}
 			data-background-custom-color={props.color}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

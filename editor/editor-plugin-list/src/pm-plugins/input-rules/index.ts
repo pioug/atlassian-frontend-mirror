@@ -21,6 +21,8 @@ export default function inputRulePlugin(
 				// Using UTF instead of • character
 				// because of issue where product converted the
 				// character into an escaped version.
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				expression: /^\s*([\*\-\u2022]) $/,
 				listType: bulletList,
 				editorAnalyticsApi,
@@ -28,6 +30,8 @@ export default function inputRulePlugin(
 		);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const expression = /((^[1-9]{1}[0-9]{0,2})|^(0))[\.\)] $/;
 
 	if (orderedList) {

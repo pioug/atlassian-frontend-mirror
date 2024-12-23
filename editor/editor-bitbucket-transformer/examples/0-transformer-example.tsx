@@ -51,6 +51,8 @@ type State = { source: string; output: string };
 
 const smartCardClient = new ConfluenceCardClient('staging');
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class TransformerPanels extends React.PureComponent<Props, State> {
 	state: State = { source: exampleBitbucketHTML, output: '' };
 	private cardProviderPromise = Promise.resolve(new ConfluenceCardProvider('prod'));

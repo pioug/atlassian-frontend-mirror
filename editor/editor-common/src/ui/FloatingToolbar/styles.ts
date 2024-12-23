@@ -11,6 +11,8 @@ export const iconOnlySpacing = {
 
 interface Property {
 	[key: string]: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: string]: any;
 	};
 }
@@ -56,6 +58,8 @@ const color = {
 	},
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getButtonStyles = (props: any) => ({
 	background: getStyles(background, props),
 	color: getStyles(color, props),

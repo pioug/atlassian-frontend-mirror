@@ -389,8 +389,12 @@ function EditorInternal() {
 ${(
 	<Example
 		packageName="@atlaskit/editor-core/composable-editor"
+		// Ignored via go/ees005
+		// eslint-disable-next-line import/no-commonjs
 		Component={require('../examples/1-basic-composable-editor').default}
 		title="Basic"
+		// Ignored via go/ees005
+		// eslint-disable-next-line import/no-commonjs
 		source={require('!!raw-loader!../examples/1-basic-composable-editor')}
 	/>
 )}
@@ -399,6 +403,8 @@ ${(
 		<Props
 			shouldCollapseProps
 			heading="Props"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			props={require('!!extract-react-types-loader!../src/composable-editor/composable-editor')}
 		/>
 	)}

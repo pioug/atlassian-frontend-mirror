@@ -224,4 +224,6 @@ import type { EditorPresetBuilder, ExtractPresetAPI } from '../preset';
  *
  * Please use ExtractPresetAPI from "@atlaskit/editor-common/preset" instead.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExtractPublicEditorAPI<T extends EditorPresetBuilder<any, any>> = ExtractPresetAPI<T>;

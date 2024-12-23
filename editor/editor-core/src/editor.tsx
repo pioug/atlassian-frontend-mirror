@@ -37,6 +37,8 @@ interface WrapperProps {
 
 const ComposableEditorWrapper = ({ props, initialPluginConfiguration }: WrapperProps) => {
 	const preset = useUniversalPreset({ props, initialPluginConfiguration });
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <ComposableEditor preset={preset} {...props} />;
 };
 
@@ -52,6 +54,8 @@ interface EditorPropsWithInitialPluginConfiguration extends EditorProps {
  * It allows you to create an editor with a custom set of plugins and configurations.
  * For more information, see the documentation for the `ComposableEditor` component here: https://atlaskit.atlassian.com/packages/editor/editor-core
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Editor extends React.Component<EditorPropsWithInitialPluginConfiguration> {
 	static defaultProps: EditorProps = {
 		appearance: 'comment',

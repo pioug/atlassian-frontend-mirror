@@ -24,6 +24,8 @@ export const createPlugin = (
 	pluginOptions: PanelPluginOptions,
 	api: ExtractInjectionAPI<PanelPlugin> | undefined,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { useLongPressSelection = false } = pluginOptions;
 	return new SafePlugin({

@@ -34,6 +34,8 @@ type BackspaceCommand = (
 //Cases below refer to the cases found in this document: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1146954996/List+Backspace+and+Delete+Behaviour
 
 //Case for two adjacent list items of the same indentation
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 const listBackspaceCase2: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 	/* CASE 2
 	 * Initial Structure:
@@ -94,6 +96,8 @@ const listBackspaceCase2: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 };
 
 //Case for two adjacent list items with the first being of lower indentation
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 const listBackspaceCase3: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 	/* CASE 3
 	 * Initial Structure:
@@ -185,6 +189,8 @@ const listBackspaceCase3: BackspaceCommand = (tr, dispatch, $prev, $head) => {
 };
 
 //Case for two adjacent list items with the first being of greater indentation
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 const listBackspaceCase4: BackspaceCommand = (tr, dispatch, $prev, $head, $last) => {
 	/* CASE 4
 	 * Initial Structure:

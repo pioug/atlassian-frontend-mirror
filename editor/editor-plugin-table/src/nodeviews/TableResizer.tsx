@@ -152,6 +152,8 @@ const getVisibleGuidelines = (
 	lineLength: number,
 	isTableScalingEnabled: boolean,
 	isFullWidthModeEnabled: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	let guidelineVisibleAdjustment = TABLE_GUIDELINE_VISIBLE_ADJUSTMENT;
 	if (isTableScalingEnabled) {
@@ -318,9 +320,13 @@ export const TableResizer = ({
 		(
 			pos: number,
 			node: PMNode,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			newWidth: any,
 			state: EditorState,
 			dispatch: ((tr: Transaction) => void) | undefined,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 		) => {
 			if (
 				shouldChangeAlignmentToCenterResized(isTableAlignmentEnabled, node, lineLength, newWidth) &&
@@ -423,6 +429,8 @@ export const TableResizer = ({
 	]);
 
 	const handleResize = useCallback(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(originalState: any, delta: any) => {
 			countFrames();
 			const newWidth = originalState.width + delta.width;
@@ -590,6 +598,8 @@ export const TableResizer = ({
 					});
 				}
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const newNode = tr.doc.nodeAt(pos)!;
 				tr = scaleTable(
 					tableRef,
@@ -609,6 +619,8 @@ export const TableResizer = ({
 					isCommentEditor,
 				)(tr);
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const scaledNode = tr.doc.nodeAt(pos)!;
 
 				attachAnalyticsEvent(
@@ -745,12 +757,24 @@ export const TableResizer = ({
 		};
 
 		const editorViewDom = editorView?.dom as HTMLElement | undefined;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		editorViewDom?.addEventListener('keydown', globalKeyDownHandler);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		resizeHandleThumbEl?.addEventListener('keydown', handleKeyDown);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		resizeHandleThumbEl?.addEventListener('keyup', handleKeyUp);
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			editorViewDom?.removeEventListener('keydown', globalKeyDownHandler);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			resizeHandleThumbEl?.removeEventListener('keydown', handleKeyDown);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			resizeHandleThumbEl?.removeEventListener('keyup', handleKeyUp);
 		};
 	}, [resizerRef, editorView, handleResizeStop, isTableSelected, handleKeyDown, handleKeyUp]);

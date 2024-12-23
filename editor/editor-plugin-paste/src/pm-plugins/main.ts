@@ -99,6 +99,8 @@ export const isInsideBlockQuote = (state: EditorState): boolean => {
 
 const PASTE = 'Editor Paste Plugin Paste Duration';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function createPlugin(
 	schema: Schema,
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
@@ -125,6 +127,8 @@ export function createPlugin(
 	function escapeBackslashExceptCodeblock(textInput: string): string {
 		const codeToken = '```';
 		if (!textInput.includes(codeToken)) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			return textInput.replace(/\\/g, '\\\\');
 		}
 		let isInsideCodeblock = false;
@@ -139,6 +143,8 @@ export function createPlugin(
 			}
 			if (!isInsideCodeblock) {
 				// only escape text which is not inside a codeblock
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				text = text.replace(/\\/g, '\\\\');
 			}
 			return text;
@@ -207,6 +213,8 @@ export function createPlugin(
 				}
 
 				if (text?.includes('\r')) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
 					text = text.replace(/\r/g, '');
 				}
 
@@ -717,6 +725,8 @@ export function createPlugin(
 				slice = splitParagraphs(slice, schema);
 				slice = upgradeTextToLists(slice, schema);
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				if (slice.content.childCount && slice.content.lastChild!.type === schema.nodes.codeBlock) {
 					slice = new Slice(slice.content, 0, 0);
 				}
@@ -731,7 +741,11 @@ export function createPlugin(
 				// Fix for issue ED-4438
 				// text from google docs should not be pasted as inline code
 				if (html.indexOf('id="docs-internal-guid-') >= 0) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
 					html = html.replace(/white-space:pre/g, '');
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
 					html = html.replace(/white-space:pre-wrap/g, '');
 				}
 

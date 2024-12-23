@@ -12,6 +12,5 @@
 		"__perf__",
 	],
 	"compilerOptions": {
-		"baseUrl": ""
 	}
 }

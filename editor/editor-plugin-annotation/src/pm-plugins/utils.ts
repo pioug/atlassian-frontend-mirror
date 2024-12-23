@@ -453,8 +453,12 @@ export function hasInvalidWhitespaceNode(
 				// whitespace nodes.
 				const nodeIsTrailingNewLine =
 					// it is the final node
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					node.eq(content.lastChild!) &&
 					// and there are multiple nodes
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					!node.eq(content.firstChild!) &&
 					// and it is a paragraph node
 					isParagraph(node, schema);

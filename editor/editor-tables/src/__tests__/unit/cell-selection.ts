@@ -229,6 +229,8 @@ describe('isRowSelection', () => {
 			expect((selection as CellSelection).isRowSelection()).toBe(false);
 		});
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line jest/no-identical-title
 		it('should be FALSE if select part of row', () => {
 			const selection = CellSelection.create(tbl, 20, 34);
 			expect(selection).toBeInstanceOf(CellSelection);

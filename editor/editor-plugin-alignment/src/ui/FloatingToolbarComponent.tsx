@@ -36,6 +36,8 @@ export function FloatingToolbarComponent({ api, editorView }: FloatingToolbarCom
 			pluginState={alignmentState}
 			isReducedSpacing={FloatingToolbarSettings.isToolbarReducedSpacing}
 			changeAlignment={changeAlignmentCallback}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			disabled={FloatingToolbarSettings.disabled || !alignmentState!.isEnabled}
 			toolbarType={ToolbarType.FLOATING}
 			api={api}

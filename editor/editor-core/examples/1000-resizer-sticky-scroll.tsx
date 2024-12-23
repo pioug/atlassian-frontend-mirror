@@ -77,6 +77,8 @@ export default function ExampleForResizerStickyScroll() {
 		>
 			{[200, 500, 2000].map((height, i) => (
 				<div
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/no-array-index-key
 					key={i}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={css({
@@ -101,6 +103,8 @@ export default function ExampleForResizerStickyScroll() {
 
 			{[200, 500, 2000].map((height, i) => (
 				<div
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/no-array-index-key
 					key={i}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 					css={css({

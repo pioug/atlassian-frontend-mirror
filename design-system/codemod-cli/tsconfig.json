@@ -1,7 +1,6 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./",
     "module": "commonjs",
     "target": "es6",
     "esModuleInterop": true,

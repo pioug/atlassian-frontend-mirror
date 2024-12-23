@@ -22,6 +22,8 @@ export function getPerformanceOptions(view: EditorView): {
 	const fakePluginKey = {
 		key: 'analyticsPlugin$',
 		getState: (state: EditorState) => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			return (state as any)['analyticsPlugin$'];
 		},
 	} as PluginKey;

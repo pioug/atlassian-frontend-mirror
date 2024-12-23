@@ -94,6 +94,8 @@ function handleSelectionAfterWrapRight(isEmptyNode: (node: Node) => boolean) {
 			return false;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const mediaSingle = getSibling(state.selection, -1)!; // Sibling is a media single already checked in main code
 		const mediaSinglePos = $from.pos - mediaSingle.nodeSize;
 
@@ -124,6 +126,8 @@ function handleSelectionAfterWrapRight(isEmptyNode: (node: Node) => boolean) {
 			} else {
 				// If is any other kind of block just add the paragraph after it
 				const endOfBlockPos = maybeAnyBlockPos + maybeSibling.nodeSize - 1;
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				safeInsert($from.parent!.copy($from.parent.content), endOfBlockPos)(tr);
 			}
 		}
@@ -160,6 +164,8 @@ const backspaceAfterMediaNode = (schema: Schema): Command => {
 			return false;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const media = getSibling(state.selection, previousSibling)!;
 
 		// if media single
@@ -199,6 +205,8 @@ const backspaceAfterMediaNode = (schema: Schema): Command => {
 export default function keymapPlugin(schema: Schema): SafePlugin {
 	const list = {};
 	const backspaceAfterMediaCommand = backspaceAfterMediaNode(schema);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(backspace.common!, backspaceAfterMediaCommand, list);
 
 	return keymap(list) as SafePlugin;

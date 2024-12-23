@@ -57,6 +57,8 @@ export const createControlsHoverDecoration = (
 	hoveredIndexes: number[],
 	danger?: boolean,
 	selected?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Decoration[] => {
 	const table = findTable(tr.selection);
 	if (!table) {
@@ -142,6 +144,8 @@ export const createControlsHoverDecoration = (
 
 		return Decoration.node(
 			pos,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			pos + cell!.nodeSize,
 			{
 				class: classes.join(' '),
@@ -170,6 +174,8 @@ export const createColumnSelectedDecoration = (
 
 		return Decoration.node(
 			pos + table.start,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			pos + table.start + cell!.nodeSize,
 			{
 				class: ClassName.COLUMN_SELECTED,
@@ -218,6 +224,8 @@ export const updateDecorations = (
 	decorationSet: DecorationSet,
 	decorations: Decoration[],
 	key: TableDecorations,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): DecorationSet => {
 	const filteredDecorations = filterDecorationByKey(key, decorationSet);
 	const decorationSetFiltered = decorationSet.remove(filteredDecorations);
@@ -312,6 +320,8 @@ export const createResizeHandleDecoration = (
 	includeTooltip: boolean = false,
 	getIntl: () => IntlShape,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): [Decoration[], Decoration[]] => {
 	const emptyResult: [Decoration[], Decoration[]] = [[], []];
 	const table = findTable(tr.selection);
@@ -330,6 +340,8 @@ export const createResizeHandleDecoration = (
 		rowIndex: number,
 		cellPos: number,
 		cellNode: PmNode,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): Decoration => {
 		const decorationRenderKey = uuid();
 		const position = cellPos + cellNode.nodeSize - 1;

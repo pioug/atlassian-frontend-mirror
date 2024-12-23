@@ -11,15 +11,21 @@ export interface WithEditorActionsProps {
 	render(actions: EditorActions): React.ReactElement | null;
 }
 
-export default class WithEditorActions extends React.Component<WithEditorActionsProps, {}> {
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components, react/prefer-stateless-function
+export default class WithEditorActions extends React.Component<WithEditorActionsProps, Object> {
 	constructor(props: WithEditorActionsProps) {
 		super(props);
 	}
 
 	render() {
 		if (fg('platform_editor_react18_phase2_v2')) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			return <WithEditorActionsNew {...this.props} />;
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		return <WithEditorActionsOld {...this.props} />;
 	}
 }
@@ -30,6 +36,8 @@ function WithEditorActionsNew(props: WithEditorActionsProps) {
 	return <WithEditorActionsInner render={render} editorActions={context?.editorActions} />;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class WithEditorActionsInner extends React.Component<
 	WithEditorActionsProps & { editorActions: EditorActions }
 > {
@@ -46,6 +54,8 @@ class WithEditorActionsInner extends React.Component<
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class WithEditorActionsOld extends React.Component<WithEditorActionsProps> {
 	static contextTypes = {
 		editorActions: PropTypes.object.isRequired,

@@ -13,6 +13,8 @@ const SMART_TO_ASCII = {
 	'’': "'",
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const FIND_SMART_CHAR = new RegExp(`[${Object.keys(SMART_TO_ASCII).join('')}]`, 'g');
 
 const replaceMentionOrEmojiForTextContent = (
@@ -20,6 +22,8 @@ const replaceMentionOrEmojiForTextContent = (
 	nodeSize: number,
 	textContent: string,
 	tr: Transaction,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): void => {
 	const currentPos = tr.mapping.map(position);
 	const { schema } = tr.doc.type;
@@ -31,6 +35,8 @@ const replaceSmartCharsToAscii = (position: number, textContent: string, tr: Tra
 	const { schema } = tr.doc.type;
 	let match: RegExpExecArray | null;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line no-cond-assign
 	while ((match = FIND_SMART_CHAR.exec(textContent))) {
 		const { 0: smartChar, index: offset } = match;
 		const replacePos = tr.mapping.map(position + offset);
@@ -42,6 +48,8 @@ const replaceSmartCharsToAscii = (position: number, textContent: string, tr: Tra
 const isNodeTextBlock = (schema: Schema) => {
 	const { mention, text, emoji } = schema.nodes;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return (node: Node, _: any, parent: Node | null) => {
 		if (node.type === mention || node.type === emoji || node.type === text) {
 			return parent?.isTextblock;

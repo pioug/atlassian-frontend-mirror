@@ -27,6 +27,8 @@ const serializeNode = (
 	parent?: PMNode,
 	serializedHTML?: string,
 	context?: MetaDataContext,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): string => {
 	// ignore nodes with unknown type
 	if (!nodeSerializers[node.type.name]) {
@@ -57,6 +59,8 @@ const serializeNode = (
  * @param parent {PMNode} parent node
  * @param index {number} index of current child in parent's content array
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getAttrsFromParent = (index: number, parent?: PMNode): { [key: string]: any } => {
 	if (parent && parent.attrs && parent.attrs.isNumberColumnEnabled) {
 		return {
@@ -67,6 +71,8 @@ const getAttrsFromParent = (index: number, parent?: PMNode): { [key: string]: an
 	return {};
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const traverseTree = (fragment: Fragment, parent?: PMNode, context?: MetaDataContext): any => {
 	let output = '';
 	fragment.forEach((childNode, _offset, idx) => {
@@ -88,6 +94,8 @@ export const commonStyle = {
 	'line-height': '24px',
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const wrapAdf = (content: any[]) => ({ version: 1, type: 'doc', content });
 
 const juicify = (html: string, inlineCSS: boolean): string => {
@@ -102,7 +110,11 @@ const juicify = (html: string, inlineCSS: boolean): string => {
 const stubImages = (content: SerializeFragmentWithAttachmentsResult, isMockEnabled: boolean) =>
 	isMockEnabled
 		? {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				result: content.result!.replace(
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
 					/src="cid:[\w-]*"/gi,
 					'src="data:image/gif;base64,R0lGODlhAQABAIAAAP///////yH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="',
 				),
@@ -152,6 +164,8 @@ export class EmailSerializer implements SerializerWithImages<string> {
 		)(fragment);
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	serializeFragment: (...args: any) => string = flow(
 		this.serializeFragmentWithImages,
 		property('result'),

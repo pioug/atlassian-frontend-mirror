@@ -69,6 +69,8 @@ export const GuidelineContainer = (props: ContainerProps) => {
 			{guidelines.map((guideline) => {
 				const { key, ...guidelineProps } = guideline;
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				return <Guideline key={key} {...guidelineProps} />;
 			})}
 		</div>

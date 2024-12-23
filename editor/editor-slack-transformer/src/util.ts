@@ -4,6 +4,8 @@
  *
  */
 export const escapeMarkdown = (str: string): string => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return str.replace(/[`*_~&<>]/g, (matched) => {
 		switch (matched) {
 			case '&':

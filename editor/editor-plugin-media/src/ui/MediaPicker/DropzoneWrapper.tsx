@@ -31,6 +31,8 @@ export const DropzoneWrapper = ({
 				options: { customDropzoneContainer },
 				handleDrag,
 			} = mediaState;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const editorHtmlElement = editorDomElement as HTMLElement;
 			const scrollParent =
 				appearance === 'full-page' && findOverflowScrollParent(editorHtmlElement);

@@ -42,7 +42,7 @@ function stripHeaderType(schema: Schema, cells: Fragment): Fragment {
 		const tableCell =
 			cell.type === cellNodeType
 				? cell
-				: cellNodeType.createAndFill(cell.attrs, cell.content, cell.marks) ?? cell;
+				: (cellNodeType.createAndFill(cell.attrs, cell.content, cell.marks) ?? cell);
 
 		newCells.push(tableCell);
 	});
@@ -122,6 +122,8 @@ function ensureRectangular(schema: Schema, rowsFragment: Fragment[]): CellSelect
 			rows.push(Fragment.empty);
 		}
 		if (widths[r] < width) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const empty = tableNodeTypes(schema).cell.createAndFill()!;
 			const cells: PMNode[] = [];
 			for (let i = widths[r]; i < width; i++) {
@@ -210,6 +212,8 @@ export function clipCells(
 
 // Make sure a table has at least the given width and height. Return
 // true if something was changed.
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function growTable(
 	tr: Transaction,
 	map: TableMap,
@@ -230,8 +234,12 @@ function growTable(
 			const cells: PMNode[] = [];
 			let add;
 			if (rowNode.lastChild == null || rowNode.lastChild.type === types.cell) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				add = empty || (empty = types.cell.createAndFill()!);
 			} else {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				add = emptyHead || (emptyHead = types.header_cell.createAndFill()!);
 			}
 			for (let i = map.width; i < width; i++) {
@@ -257,8 +265,12 @@ function growTable(
 			}
 			cells.push(
 				header
-					? emptyHead || (emptyHead = types.header_cell.createAndFill()!)
-					: empty || (empty = types.cell.createAndFill()!),
+					? // Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						emptyHead || (emptyHead = types.header_cell.createAndFill()!)
+					: // Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						empty || (empty = types.cell.createAndFill()!),
 			);
 		}
 
@@ -275,6 +287,8 @@ function growTable(
 // Make sure the given line (left, top) to (right, top) doesn't cross
 // any rowspan cells by splitting cells that cross it. Return true if
 // something changed.
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function isolateHorizontal(
 	tr: Transaction,
 	map: TableMap,
@@ -321,6 +335,8 @@ function isolateHorizontal(
 // Make sure the given line (left, top) to (left, bottom) doesn't
 // cross any colspan cells by splitting cells that cross it. Return
 // true if something changed.
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function isolateVertical(
 	tr: Transaction,
 	map: TableMap,
@@ -362,6 +378,8 @@ function isolateVertical(
 	return found;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function applyHeaderCells(
 	tr: Transaction,
 	tableMap: TableMap,
@@ -373,6 +391,8 @@ function applyHeaderCells(
 ) {
 	const { schema } = state;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	const setMarkup = (tr: Transaction, row: number, col: number, headerEnabled: boolean) => {
 		const cellPos = tableStart + tableMap.positionAt(row, col, table);
 		const cell = tr.doc.nodeAt(cellPos);
@@ -403,6 +423,8 @@ function applyHeaderCells(
 
 // Insert the given set of cells (as returned by `pastedCells`) into a
 // table, at the position pointed at by rect.
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function insertCells(
 	state: EditorState,
 	dispatch: Dispatch,
@@ -433,6 +455,8 @@ export function insertCells(
 	const { tr } = state;
 	let mapFrom = 0;
 	function recomp() {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		table = tableStart ? tr.doc.nodeAt(tableStart - 1)! : tr.doc;
 		map = TableMap.get(table);
 		mapFrom = tr.mapping.maps.length;

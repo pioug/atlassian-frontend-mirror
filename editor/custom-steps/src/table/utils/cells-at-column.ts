@@ -45,7 +45,9 @@ export function* cellsAtColumn(
 		let type =
 			refColumn == null
 				? tableNodeTypes(table.type.schema).cell
-				: table.nodeAt(map.map[index + refColumn])!.type;
+				: // Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					table.nodeAt(map.map[index + refColumn])!.type;
 
 		if (!hasMergedCells) {
 			pos = map.positionAt(row, col, table);
@@ -63,6 +65,8 @@ export function* cellsAtColumn(
 
 		if (cell) {
 			cellInfo.attrs = cell.attrs as CellAttributes;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			cellInfo.to = tableStart + pos + cell!.nodeSize;
 		}
 

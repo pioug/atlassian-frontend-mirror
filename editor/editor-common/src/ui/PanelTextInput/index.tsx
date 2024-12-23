@@ -20,6 +20,8 @@ export interface Props {
 	onCancel?: (e: KeyboardEvent) => void;
 	placeholder?: string;
 	onMouseDown?: Function;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onKeyDown?: (e: KeyboardEvent<any>) => void;
 	// overrides default browser undo behaviour (cmd/ctrl + z) with that function
 	onUndo?: Function;
@@ -48,6 +50,8 @@ export interface State {
 const KeyZCode = 90;
 const KeyYCode = 89;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class PanelTextInput extends PureComponent<Props, State> {
 	private input?: HTMLInputElement;
 	private focusTimeoutId: number | undefined;
@@ -79,6 +83,8 @@ export default class PanelTextInput extends PureComponent<Props, State> {
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onBlur = (e: FocusEvent<any>) => {
 		const { onBlur } = this.props;
 		if (onBlur) {
@@ -151,10 +157,14 @@ export default class PanelTextInput extends PureComponent<Props, State> {
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private handleKeydown = (e: KeyboardEvent<any>) => {
 		const { onUndo, onRedo, onSubmit, onCancel } = this.props;
 		if (e.keyCode === 13 && onSubmit) {
 			e.preventDefault(); // Prevent from submitting if an editor is inside a form.
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			onSubmit(this.input!.value);
 		} else if (e.keyCode === 27 && onCancel) {
 			onCancel(e);
@@ -171,6 +181,8 @@ export default class PanelTextInput extends PureComponent<Props, State> {
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private isUndoEvent(event: KeyboardEvent<any>) {
 		return (
 			event.keyCode === KeyZCode &&
@@ -181,6 +193,8 @@ export default class PanelTextInput extends PureComponent<Props, State> {
 		);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private isRedoEvent(event: KeyboardEvent<any>) {
 		return (
 			// ctrl + y for non-mac

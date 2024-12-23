@@ -43,6 +43,8 @@ export class ParticipantsService {
 	private participantUpdateTimeout: number | undefined;
 	private presenceUpdateTimeout: number | undefined;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		private analyticsHelper: AnalyticsHelper | undefined,
 		private participantsState: ParticipantsState = new ParticipantsState(),
@@ -200,6 +202,8 @@ export class ParticipantsService {
 		try {
 			this.emit('disconnected', {
 				reason: disconnectedReasonMapper(reason),
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				sid: sessionId!,
 			});
 		} catch (error) {
@@ -413,6 +417,8 @@ export class ParticipantsService {
 	onPresence = (payload: PresencePayload) => {
 		try {
 			logger('onPresence userId: ', payload.userId);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			this.setUserId(payload.userId!);
 			this.sendPresence();
 			this.sendPresenceJoined();

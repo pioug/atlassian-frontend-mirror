@@ -25,6 +25,8 @@ export const findTableClosestToPos = ($pos: ResolvedPos): ContentNodeWithPos | u
 // Iterates over parent nodes, returning a table cell or a table header node closest to a given `$pos`.
 export const findCellClosestToPos = ($pos: ResolvedPos): ContentNodeWithPos | undefined => {
 	const predicate = (node: PMNode) =>
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		node.type.spec.tableRole && /cell/i.test(node.type.spec.tableRole);
 
 	return findParentNodeClosestToPos($pos, predicate);

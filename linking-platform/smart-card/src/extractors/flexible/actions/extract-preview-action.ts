@@ -14,7 +14,7 @@ import {
 	extractInvokePreviewAction,
 	type ExtractInvokePreviewActionParam,
 } from '../../action/extract-invoke-preview-action';
-import { extractDownloadUrl } from '../../common/detail';
+import { extractDownloadUrl } from '../../common/download/extractDownloadUrl';
 import { extractIsSupportTheming } from '../../common/meta/extractIsSupportTheming';
 import { extractIsTrusted } from '../../common/meta/extractIsTrusted';
 import { extractLinkIcon } from '../icon';

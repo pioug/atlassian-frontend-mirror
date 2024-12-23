@@ -34,20 +34,28 @@ export function createKeymapPlugin(
 	const list = {};
 
 	bindKeymapWithEditorCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		addLink.common!,
 		showLinkToolbar(INPUT_METHOD.SHORTCUT, editorAnalyticsApi),
 		list,
 	);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(enter.common!, mayConvertLastWordToHyperlink(editorAnalyticsApi), list);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		insertNewLine.common!,
 		mayConvertLastWordToHyperlink(editorAnalyticsApi),
 		list,
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		escape.common!,
 		(state: EditorState, dispatch, view) => {
 			const hyperlinkPlugin = stateKey.getState(state) as HyperlinkState;
@@ -80,6 +88,8 @@ const mayConvertLastWordToHyperlink: (
 			return false;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const words = nodeBefore.text!.split(' ');
 		const lastWord = words[words.length - 1];
 		const match: Match | null = getLinkMatch(lastWord);

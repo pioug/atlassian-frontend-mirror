@@ -42,6 +42,8 @@ export const buildTypeAheadCancelPayload = (
 	downKeyCount: number,
 	sessionId: string,
 	query?: string,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): AnalyticsEventPayload => {
 	const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
 	return {
@@ -105,6 +107,8 @@ export const buildTypeAheadInviteItemClickedPayload = (
 	query?: string,
 	contextIdentifierProvider?: ContextIdentifierProvider,
 	userRole?: UserRole,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): AnalyticsEventPayload => {
 	const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
 	const { containerId, objectId, childObjectId } = (contextIdentifierProvider ||
@@ -144,6 +148,8 @@ export const buildTypeAheadInsertedPayload = (
 	contextIdentifierProvider?: ContextIdentifierProvider,
 	taskListId?: string,
 	taskItemId?: string,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): AnalyticsEventPayload => {
 	const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
 	let containerId;
@@ -193,6 +199,8 @@ export const buildTypeAheadRenderedPayload = (
 	userIds: Array<string> | null,
 	query: string,
 	teams: TeamInfoAttrAnalytics[] | null,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): AnalyticsEventPayload => {
 	const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
 	const actionSubject = userIds

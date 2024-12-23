@@ -62,6 +62,8 @@ function getWidthIfDefaultMode(
  * then an image in wide or full-width can not be wider than the image's
  * original width.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function calcLegacyWidth(
 	layout: MediaSingleLayout,
 	width: number,
@@ -98,6 +100,8 @@ export function calcLegacyWidth(
  * then an image in wide or full-width can not be wider than the image's
  * original width.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function calcLegacyWidthForInline(
 	layout: MediaSingleLayout,
 	width: number,
@@ -185,6 +189,8 @@ function isImageAligned(layout: MediaSingleLayout): string {
  * @param widthValue CSS width value to be rounded
  * @returns Reduced CSS width value where px value given, or otherwise the original value
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function roundToClosestEvenPxValue(widthValue: any) {
 	try {
 		if (widthValue.endsWith('px')) {

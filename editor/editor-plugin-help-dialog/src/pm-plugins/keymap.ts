@@ -16,6 +16,8 @@ import { pluginKey } from './plugin-key';
 export const keymapPlugin = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined): SafePlugin => {
 	const list = {};
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		openHelp.common!,
 		(state, dispatch) => {
 			let { tr } = state;

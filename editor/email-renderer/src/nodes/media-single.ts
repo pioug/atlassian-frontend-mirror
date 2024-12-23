@@ -44,6 +44,8 @@ export default function mediaSingle({ attrs, marks, text, context }: NodeSeriali
 	// If attrs.width comes in as falsey (when the image is inserted and not resized), fallback to auto
 	const computedWidth = attrs.width ? `${width}${widthUnitType}` : 'auto';
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const style: any = {
 		width: honorWidth ? computedWidth : '100%',
 		'max-width': '100%',

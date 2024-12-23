@@ -60,6 +60,8 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
 		() =>
 			item.icon
 				? Loadable<{ label: string }, never>({
+						// Ignored via go/ees005
+						// eslint-disable-next-line require-await
 						loader: async () => resolveExtensionIcon(item.icon),
 						loading: noop,
 					})
@@ -73,6 +75,8 @@ const ExtensionButton = (props: ExtensionButtonProps) => {
 		}
 
 		const targetNodeAdf: ADFEntity = nodeToJSON(node);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		item.action(targetNodeAdf, extensionApi!);
 	};
 
@@ -116,6 +120,8 @@ export const ExtensionsPlaceholder = (props: Props) => {
 		applyChangeToContextPanel,
 		extensionApi,
 	} = props;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [extensions, setExtensions] = useState<ExtensionManifest<any>[]>([]);
 
 	useEffect(() => {
@@ -133,6 +139,8 @@ export const ExtensionsPlaceholder = (props: Props) => {
 
 	const nodeAdf = React.useMemo(() => nodeToJSON(node), [node]);
 	const extensionItems = React.useMemo(() => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		return getContextualToolbarItemsFromModule(extensions, nodeAdf, extensionApi!);
 	}, [extensions, nodeAdf, extensionApi]);
 
@@ -146,6 +154,8 @@ export const ExtensionsPlaceholder = (props: Props) => {
 	if (separator && ['start', 'both'].includes(separator)) {
 		children.push(<Separator />);
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	extensionItems.forEach((item: any, index: number) => {
 		children.push(
 			<ExtensionButton

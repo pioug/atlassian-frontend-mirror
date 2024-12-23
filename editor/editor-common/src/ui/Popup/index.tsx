@@ -55,6 +55,8 @@ export interface State {
 	validPosition: boolean;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Popup extends React.Component<Props, State> {
 	scrollElement: undefined | false | HTMLElement;
 	scrollParentElement: undefined | false | HTMLElement;
@@ -121,6 +123,8 @@ export default class Popup extends React.Component<Props, State> {
 			popup,
 			target,
 			stick,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			offset: offset!,
 			allowOutOfBounds,
 			rect,
@@ -180,6 +184,8 @@ export default class Popup extends React.Component<Props, State> {
 			!target ||
 			(document.body.contains(target) &&
 				popup.offsetParent &&
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				!popup.offsetParent.contains(target!)) ||
 			(overflowScrollParent && !overflowScrollParent.contains(popup.offsetParent))
 		);
@@ -234,6 +240,8 @@ export default class Popup extends React.Component<Props, State> {
 
 	onResize = () => this.scheduledUpdatePosition(this.props);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillReceiveProps(newProps: Props) {
 		// We are delaying `updatePosition` otherwise it happens before the children
 		// get rendered and we end up with a wrong position
@@ -309,9 +317,13 @@ export default class Popup extends React.Component<Props, State> {
 	}
 
 	componentDidMount() {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.addEventListener('resize', this.onResize);
 		const { stick } = this.props;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		this.scrollParentElement = findOverflowScrollParent(this.props.target!);
 		if (this.scrollParentElement && this.resizeObserver) {
 			this.resizeObserver.observe(this.scrollParentElement);
@@ -323,13 +335,19 @@ export default class Popup extends React.Component<Props, State> {
 			this.scrollElement = this.props.scrollableElement;
 		}
 		if (this.scrollElement) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.scrollElement.addEventListener('scroll', this.onResize);
 		}
 	}
 
 	componentWillUnmount() {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.removeEventListener('resize', this.onResize);
 		if (this.scrollElement) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.scrollElement.removeEventListener('scroll', this.onResize);
 		}
 

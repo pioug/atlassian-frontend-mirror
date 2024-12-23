@@ -12,6 +12,8 @@ export default abstract class SchemaNodeWithValidators<T extends Indexed> extend
 		super(type);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	mergeValidationInfo(keys: Array<keyof T>, obj: any) {
 		keys.forEach((k) => {
 			if (this.validators.hasOwnProperty(k)) {

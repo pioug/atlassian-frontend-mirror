@@ -91,6 +91,8 @@ export const Mention = (props: MentionProps) => {
 
 	const actionHandlers: Record<string, MentionEventHandler> = {};
 	['onClick', 'onMouseEnter', 'onMouseLeave'].forEach((handler) => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		actionHandlers[handler] = (eventHandlers && (eventHandlers as any)[handler]) || (() => {});
 	});
 
@@ -104,6 +106,8 @@ export const Mention = (props: MentionProps) => {
 				mentionProvider={mentionProvider}
 				profilecardProvider={profilecardProvider}
 				localId={localId}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...actionHandlers}
 			/>
 		);
@@ -115,6 +119,8 @@ export const Mention = (props: MentionProps) => {
 				accessLevel={accessLevel}
 				mentionProvider={mentionProvider}
 				localId={localId}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...actionHandlers}
 			/>
 		);

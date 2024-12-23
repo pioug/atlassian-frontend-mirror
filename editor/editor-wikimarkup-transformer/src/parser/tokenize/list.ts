@@ -9,8 +9,14 @@ import { hasAnyOfMarks } from '../utils/text';
 
 export const MAX_LIST_DEPTH = 20;
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const LIST_ITEM_REGEXP = new RegExp(`^ *([*\\-#]{1,${MAX_LIST_DEPTH}}) `);
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const EMPTY_LINE_REGEXP = /^[ \t]*\r?\n/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const RULER_SYMBOL_REGEXP = /^-{4,5}/;
 
 const processState = {

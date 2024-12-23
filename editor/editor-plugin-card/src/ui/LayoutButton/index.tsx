@@ -128,6 +128,8 @@ const LayoutButtonWrapper = ({
 			mountPoint={mountPoint}
 			scrollableElement={scrollableElement}
 			boundariesElement={boundariesElement}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			targetElement={datasourceTableRef!}
 			layout={isDatasourceTableLayout(layout) ? layout : undefined}
 			onLayoutChange={onLayoutChange}

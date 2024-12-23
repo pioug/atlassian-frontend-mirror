@@ -43,6 +43,8 @@ export function FloatingToolbarComponent({ api }: FloatingToolbarComponentProps)
 			isDisabled={FloatingToolbarSettings.disabled}
 			isReducedSpacing={FloatingToolbarSettings.isToolbarReducedSpacing}
 			setTextLevel={boundSetBlockType}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			pluginState={blockTypeState!}
 			wrapBlockQuote={wrapBlockQuote}
 			shouldUseDefaultRole={FloatingToolbarSettings.shouldUseDefaultRole}

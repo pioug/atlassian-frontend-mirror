@@ -14,6 +14,8 @@ import { ACTION_SUBJECT_ID } from '@atlaskit/editor-common/analytics';
 import { AnnotationsPositionContext } from '../../ui/annotations';
 
 interface Props {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	serializer: Serializer<any>;
 	extensionHandlers?: ExtensionHandlers;
 	rendererContext: RendererContext;
@@ -21,8 +23,14 @@ interface Props {
 	extensionType: string;
 	extensionKey: string;
 	path?: PMNode[];
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	originalContent?: any;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	parameters?: any;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	content?: any;
 	layout?: ExtensionLayout;
 	localId?: string;
@@ -35,6 +43,8 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const removeOverflow = React.Children.toArray(children)
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		.map((child) => (React.isValidElement<any>(child) ? child.props.nodeType === 'table' : false))
 		.every(Boolean);
 
@@ -50,7 +60,12 @@ const BodiedExtension = (props: React.PropsWithChildren<Props>) => {
 			 * that the annotations positions can be calculated correctly.
 			 */}
 			<AnnotationsPositionContext.Provider value={{ startPos: props.startPos + 1 }}>
-				<ExtensionRenderer {...props} type="bodiedExtension">
+				<ExtensionRenderer
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...props}
+					type="bodiedExtension"
+				>
 					{({ result }) => {
 						try {
 							if (result && React.isValidElement(result)) {

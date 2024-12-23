@@ -1247,6 +1247,8 @@ describe('@atlaskit/editor-core', () => {
 		'editor_load_conf_collab_docs_without_checks',
 		'calling processRawValue in createEditorState',
 		() => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line jest/no-identical-title
 			it('When setup without the collab plugin -- should call processRawValue', () => {
 				// call feature gate to avoid the ffTest failing
 				fg('editor_load_conf_collab_docs_without_checks');
@@ -1292,6 +1294,8 @@ describe('@atlaskit/editor-core', () => {
 			});
 
 			ffTest.on('platform_editor_nest_in_quotes_adf_change', '', () => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line jest/no-identical-title
 				it('When setup with the collab plugin -- with string document', () => {
 					const mockDocument =
 						'{"type":"doc","content":[{"type":"blockquote","content":[{"type":"codeBlock","attrs":{"language":null,"uniqueId":null}}]}]}';

@@ -48,6 +48,8 @@ export interface Props {
  * This relies on the Scroll Gutter plugin which inserts additional
  * whitespace at the end of the document when it overflows the viewport.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ClickAreaMobile extends React.Component<Props> {
 	private clickElementRef = React.createRef<HTMLDivElement>();
 

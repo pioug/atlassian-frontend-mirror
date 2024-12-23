@@ -48,6 +48,8 @@ export const calcPctWidth = (
 	pctWidth?: number,
 	origWidth?: number,
 	origHeight?: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): number | undefined =>
 	pctWidth &&
 	origWidth &&
@@ -83,8 +85,12 @@ export const calcMediaPxWidth = (opts: {
 	} else if (layout === 'full-width') {
 		return width - akEditorBreakoutPadding;
 	} else if (calculatedPctWidth) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		if (wrappedLayouts.indexOf(layout!) > -1) {
 			if (calculatedResizedPctWidth) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				if (resizedPctWidth! < 50) {
 					return calculatedResizedPctWidth;
 				}
@@ -115,6 +121,8 @@ export const snapToGrid = (
 	height: number,
 	lineLength: number,
 	gridSize: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const pxWidth = calcPxFromPct(gridWidth / 100, lineLength);
 

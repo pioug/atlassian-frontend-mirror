@@ -1,5 +1,5 @@
 import type { Mark, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
-import type { AddCellArgs } from '../../interfaces';
+import type { AddCellArgs, Context } from '../../interfaces';
 import { TableBuilder } from '../builder/table-builder';
 import { parseString } from '../text';
 import { normalizePMNodes } from '../utils/normalize';
@@ -7,11 +7,9 @@ import { linkFormat } from './links/link-format';
 import { media } from './media';
 import { emoji } from './emoji';
 import type { TokenParser } from './';
-import { TokenType } from './';
-import type { Context } from '../../interfaces';
+import { TokenType, parseToken } from './';
 import { parseNewlineOnly } from './whitespace';
 import { parseMacroKeyword } from './keyword';
-import { parseToken } from './';
 import { hasAnyOfMarks } from '../utils/text';
 
 /*
@@ -20,7 +18,11 @@ import { hasAnyOfMarks } from '../utils/text';
   2. Escape |
   3. Table of table
 */
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const CELL_REGEXP = /^([ \t]*)([|]+)([ \t]*)/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const EMPTY_LINE_REGEXP = /^[ \t]*\r?\n/;
 
 const processState = {
@@ -278,6 +280,8 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
 	};
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function bufferToCells(
 	style: string,
 	buffer: string,
@@ -310,6 +314,8 @@ function createTableHeader(node: PMNode, schema: Schema): PMNode {
 	return traverseNodeAndAddMarks(node, mark, schema);
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function traverseContent(node: PMNode, mark: Mark, schema: Schema): any {
 	if (
 		node.content.childCount === 0 ||

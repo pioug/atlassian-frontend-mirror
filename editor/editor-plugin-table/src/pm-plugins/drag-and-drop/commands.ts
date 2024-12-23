@@ -29,6 +29,8 @@ export const setDropTarget = (
 	index: number,
 	hasMergedCells: boolean,
 	tr?: Transaction,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	createCommand(
 		(state) => {
@@ -86,6 +88,8 @@ export const moveSource = (
 	sourceIndexes: number[],
 	targetIndex: number,
 	tr?: Transaction,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	createCommand(
 		(state) => {
@@ -113,6 +117,8 @@ export const toggleDragMenu = (
 	direction?: TableDirection,
 	index?: number,
 	trigger: TriggerType = 'mouse',
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	createCommand(
 		(state) => {
@@ -170,6 +176,8 @@ export const cloneSource = (
 	targetIndex: number,
 	targetDirection: 'start' | 'end',
 	tr?: Transaction,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	createCommand(
 		(state) => {

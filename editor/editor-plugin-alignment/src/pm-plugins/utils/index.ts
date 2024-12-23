@@ -8,6 +8,8 @@ export const getActiveAlignment = (state: EditorState): AlignmentState | undefin
 	if (state.selection instanceof CellSelection) {
 		const marks: string[] = [];
 		state.selection.forEachCell((cell) => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const mark = cell.firstChild!.marks.filter(
 				(mark) => mark.type === state.schema.marks.alignment,
 			)[0];

@@ -8,6 +8,8 @@ export default React.forwardRef<HTMLElement, ButtonProps>((props, ref) => {
 	return (
 		<Button
 			ref={ref}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 			// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

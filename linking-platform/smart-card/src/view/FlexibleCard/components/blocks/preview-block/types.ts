@@ -1,10 +1,6 @@
 import { type MediaPlacement } from '../../../../../constants';
 import { type BlockProps } from '../types';
 
-export type OnPreviewRenderOptions = {
-	placement?: MediaPlacement;
-};
-
 export type PreviewBlockProps = {
 	/**
 	 * Indicate whether preview block should ignore the padding its parent container.

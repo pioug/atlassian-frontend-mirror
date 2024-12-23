@@ -365,15 +365,21 @@ export default function Example() {
 			});
 		};
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.addEventListener('keypress', keypressHandler);
 
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('keypress', keypressHandler);
 		};
 	});
 
 	const onEditorReady = (_: EditorActions, timeTaken?: number) => {
 		// set up focus latency
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.querySelector('.ProseMirror')?.addEventListener('focus', () => {
 			lag(focusLatency);
 		});

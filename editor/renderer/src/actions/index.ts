@@ -66,6 +66,8 @@ export default class RendererActions
 	public doc?: Node;
 	private schema?: Schema;
 	// Any kind of refence is allowed
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private ref?: any;
 	private onAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
 
@@ -75,6 +77,8 @@ export default class RendererActions
 	}
 
 	//#region private
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	_privateRegisterRenderer(
 		ref: React.MutableRefObject<null>,
 		doc: Node,
@@ -182,6 +186,8 @@ export default class RendererActions
 					inlineNodeNames:
 						step instanceof RemoveMarkStep
 							? getRendererRangeInlineNodeNames({
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 									pos: { from: from!, to: to! },
 									actions: this,
 								})

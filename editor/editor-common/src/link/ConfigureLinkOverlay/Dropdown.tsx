@@ -94,6 +94,8 @@ const Dropdown = ({
 			trigger={({ onClick, triggerRef, ...props }) => (
 				<StyledButton
 					innerRef={triggerRef}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}
 					iconBefore={<ChevronDownIcon label={configureLinkLabel} size={'small'} />}
 					onClick={(e) => {

@@ -23,11 +23,19 @@ export const useEscapeClickaway = <T extends HTMLElement>(
 			}
 		};
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.addEventListener('mousedown', handleClickAway);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.addEventListener('keydown', handleKeydown);
 
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('mousedown', handleClickAway);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('keydown', handleKeydown);
 		};
 	}, [onClickAway, onEscape]);

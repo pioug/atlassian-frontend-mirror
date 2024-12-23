@@ -62,6 +62,8 @@ describe('Renderer - ReactSerializer - Lists', () => {
 		});
 	});
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line jest/no-identical-title
 	describe('when the nested list is an ordered list', () => {
 		beforeAll(() => {
 			const reactSerializer = new ReactSerializer({

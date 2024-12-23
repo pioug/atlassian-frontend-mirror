@@ -52,7 +52,6 @@ const documentFileFormatToIcon = (opts: IconOpts): React.ReactNode | undefined =
 const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode | undefined => {
 	switch (type) {
 		case 'schema:BlogPosting':
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
 			return <BlogIcon label={opts.title || 'blog'} testId="blog-icon" />;
 		case 'schema:DigitalDocument':
 			return <FileIcon label={opts.title || 'file'} testId="file-icon" />;

@@ -46,6 +46,8 @@ export default function overflowShadow<P>(
 			}
 
 			if (this.overflowContainer) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				this.overflowContainer.removeEventListener('scroll', this.handleScroll);
 			}
 			this.updateShadows();
@@ -119,6 +121,8 @@ export default function overflowShadow<P>(
 
 			let width = 0;
 			for (let i = 0; i < this.scrollable.length; i++) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const scrollableElement = this.scrollable[i] as HTMLElement;
 				width += scrollableElement.scrollWidth;
 			}
@@ -132,6 +136,8 @@ export default function overflowShadow<P>(
 			}
 			this.container = container;
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			this.overflowContainer = container.querySelector(options.overflowSelector) as HTMLElement;
 
 			if (!this.overflowContainer) {
@@ -144,6 +150,8 @@ export default function overflowShadow<P>(
 			}
 
 			this.updateShadows();
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.overflowContainer.addEventListener('scroll', this.handleScroll);
 		};
 
@@ -175,7 +183,7 @@ export default function overflowShadow<P>(
 		render() {
 			const { showLeftShadow, showRightShadow } = this.state;
 
-			let classNames = [
+			const classNames = [
 				showRightShadow && shadowClassNames.RIGHT_SHADOW,
 				showLeftShadow && shadowClassNames.LEFT_SHADOW,
 				options.useShadowObserver && shadowObserverClassNames.SHADOW_CONTAINER,
@@ -184,6 +192,8 @@ export default function overflowShadow<P>(
 				.join(' ');
 
 			return (
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				<Component handleRef={this.handleContainer} shadowClassNames={classNames} {...this.props} />
 			);
 		}

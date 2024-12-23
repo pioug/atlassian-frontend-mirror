@@ -2,6 +2,8 @@ import { rawContentProcessor } from './quote-macro';
 import { type Token, type TokenParser } from './';
 
 // bq. foobarbaz
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const BLOCKQUOTE_REGEXP = /^bq\.(.*)/;
 
 export const blockquote: TokenParser = ({ input, position, schema, context }) => {

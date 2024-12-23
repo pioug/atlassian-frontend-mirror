@@ -11,6 +11,5 @@
 		"src/**/*.tsx"
 	],
 	"compilerOptions": {
-		"baseUrl": ""
 	}
 }

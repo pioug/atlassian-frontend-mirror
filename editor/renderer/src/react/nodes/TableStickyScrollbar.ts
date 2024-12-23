@@ -23,6 +23,8 @@ export class TableStickyScrollbar {
 
 	dispose() {
 		if (this.stickyScrollbarContainerElement) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.stickyScrollbarContainerElement.removeEventListener('scroll', this.handleScroll);
 		}
 
@@ -45,6 +47,8 @@ export class TableStickyScrollbar {
 		);
 
 		if (this.stickyScrollbarContainerElement) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.stickyScrollbarContainerElement.addEventListener('scroll', this.handleScroll, {
 				passive: true,
 			});
@@ -67,6 +71,8 @@ export class TableStickyScrollbar {
 				}
 
 				entries.forEach((entry) => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					const target = entry.target as HTMLElement;
 					if (
 						target.classList.contains(
@@ -86,15 +92,21 @@ export class TableStickyScrollbar {
 			{ root: this.rendererScrollableElement },
 		);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.sentinels.bottom = this.wrapper?.parentElement
 			?.getElementsByClassName(TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_BOTTOM)
 			?.item(0) as HTMLElement;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.sentinels.top = this.wrapper?.parentElement
 			?.getElementsByClassName(TableSharedCssClassName.TABLE_STICKY_SCROLLBAR_SENTINEL_TOP)
 			?.item(0) as HTMLElement;
 
 		[this.sentinels.bottom, this.sentinels.top].forEach((el) =>
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			this.intersectionObserver!.observe(el),
 		);
 	}

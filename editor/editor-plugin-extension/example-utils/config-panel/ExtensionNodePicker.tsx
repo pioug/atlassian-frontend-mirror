@@ -113,6 +113,8 @@ export default function ExtensionNodePicker({
 												key={item.key}
 												onClick={doSelect}
 												description={item.description}
+												// Ignored via go/ees005
+												// eslint-disable-next-line react/jsx-props-no-spreading
 												{...iconProp}
 											>
 												{item.title} ({extension.key})

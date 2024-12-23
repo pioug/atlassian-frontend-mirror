@@ -178,7 +178,6 @@ describe('smart-card: card states, embed', () => {
 			});
 
 			it('should re-render when URL changes', async () => {
-				let resolvedView = null;
 				const { rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
@@ -186,7 +185,7 @@ describe('smart-card: card states, embed', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await screen.findByText('I love cheese');
+				const resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 
@@ -197,12 +196,11 @@ describe('smart-card: card states, embed', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await screen.findByText('I love cheese');
+				await screen.findByText('I love cheese');
 				expect(mockFetch).toHaveBeenCalledTimes(2);
 			});
 
 			it('should not re-render when appearance changes', async () => {
-				let resolvedView = null;
 				const { rerender } = render(
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
@@ -210,7 +208,7 @@ describe('smart-card: card states, embed', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await screen.findByText('I love cheese');
+				const resolvedView = await screen.findByText('I love cheese');
 				expect(resolvedView).toBeInTheDocument();
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 
@@ -221,7 +219,7 @@ describe('smart-card: card states, embed', () => {
 						</Provider>
 					</IntlProvider>,
 				);
-				resolvedView = await screen.findByText('I love cheese');
+				await screen.findByText('I love cheese');
 				expect(mockFetch).toHaveBeenCalledTimes(1);
 			});
 

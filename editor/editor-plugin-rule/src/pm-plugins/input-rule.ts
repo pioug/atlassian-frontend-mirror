@@ -27,6 +27,8 @@ export const createHorizontalRule = (
 		| INPUT_METHOD.FORMATTING
 		| INPUT_METHOD.SHORTCUT,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (!state.selection.empty) {
 		return null;
@@ -67,6 +69,8 @@ const createHorizontalRuleAutoformat = (
 	start: number,
 	end: number,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { listItem } = state.schema.nodes;
 
@@ -86,6 +90,8 @@ export function inputRulePlugin(
 	if (schema.nodes.rule) {
 		// '---' and '***' for hr
 		rules.push(
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp, @typescript-eslint/max-params
 			createRule(/^(\-\-\-|\*\*\*)$/, (state, _match, start, end) =>
 				createHorizontalRuleAutoformat(state, start, end, editorAnalyticsAPI),
 			),
@@ -94,9 +100,15 @@ export function inputRulePlugin(
 		// '---' and '***' after shift+enter for hr
 		rules.push(
 			createRule(
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				new RegExp(`${leafNodeReplacementCharacter}(\\-\\-\\-|\\*\\*\\*)`),
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/max-params
 				(state, _match, start, end) => {
 					const { hardBreak } = state.schema.nodes;
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					if (state.doc.resolve(start).nodeAfter!.type !== hardBreak) {
 						return null;
 					}

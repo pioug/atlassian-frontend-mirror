@@ -76,6 +76,8 @@ export const TableFloatingControls = ({
 			const { state, dispatch } = editorView;
 			// fix for issue ED-4665
 			if (browser.ie_version === 11) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				(editorView.dom as HTMLElement).blur();
 			}
 			selectRow(row, expand)(state, dispatch);
@@ -88,6 +90,8 @@ export const TableFloatingControls = ({
 			const { state, dispatch } = editorView;
 			// fix for issue ED-4665
 			if (browser.ie_version === 11) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				(editorView.dom as HTMLElement).blur();
 			}
 			selectRows(rowIndexes)(state, dispatch);
@@ -135,6 +139,8 @@ export const TableFloatingControls = ({
 		: ClassName.ROW_CONTROLS_WRAPPER;
 
 	const tablePos = findTable(editorView.state.selection)?.pos;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const isNested = tablePos !== undefined && isTableNested(editorView.state, tablePos!);
 	const shouldShowCornerControls =
 		!featureFlagsState?.elementDragAndDrop || (isNested && !editorExperiment('nested-dnd', true));
@@ -191,6 +197,8 @@ export const TableFloatingControls = ({
 									tableActive={tableActive}
 									isInDanger={isInDanger}
 									isResizing={isResizing}
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 									tableWidth={tableWrapperWidth!}
 									hoverRows={_hoverRows}
 									selectRow={_selectRow}

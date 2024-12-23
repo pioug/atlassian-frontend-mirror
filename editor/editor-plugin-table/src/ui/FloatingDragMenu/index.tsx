@@ -88,6 +88,8 @@ const FloatingDragMenu = ({
 		<Popup
 			alignX={direction === 'row' ? 'right' : undefined}
 			alignY={direction === 'row' ? 'start' : undefined}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			target={targetHandleRef as HTMLElement}
 			mountTo={mountPoint}
 			boundariesElement={boundariesElement}

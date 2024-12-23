@@ -57,6 +57,8 @@ export const useUserSelectionRange = (props: Props): [Range | null, Range | null
 						// This workaround ensures the endContainer is set to a text node when endContainer is non-text and the parent container is the root element
 						if (
 							isTripleClick &&
+							// Ignored via go/ees005
+							// eslint-disable-next-line @atlaskit/editor/no-as-casting
 							isRoot(commonAncestorContainer as HTMLElement) &&
 							parentNode?.nodeName === 'P' // ignore if the parent node is strong, em, etc.
 						) {
@@ -73,9 +75,13 @@ export const useUserSelectionRange = (props: Props): [Range | null, Range | null
 			}, 250);
 		};
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.addEventListener('selectionchange', onSelectionChange);
 
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('selectionchange', onSelectionChange);
 			clearRange();
 		};

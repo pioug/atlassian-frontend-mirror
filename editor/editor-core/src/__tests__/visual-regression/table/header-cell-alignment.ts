@@ -4,9 +4,8 @@ import { animationFrame } from '@atlaskit/editor-test-helpers/page-objects/edito
 import {
 	clickFirstCell,
 	getSelectorForTableCell,
+	tableSelectors,
 } from '@atlaskit/editor-test-helpers/page-objects/table';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { tableSelectors } from '@atlaskit/editor-test-helpers/page-objects/table';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import {
 	clickToolbarMenu,

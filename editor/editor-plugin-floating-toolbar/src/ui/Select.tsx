@@ -22,12 +22,18 @@ export interface Props {
 }
 
 export default function Search(props: Props) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const selectRef = useRef<any>(null);
 
 	const { width = 200 } = props;
 	const style = React.useMemo(
 		() => ({
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			container: (base: any) => ({ ...base, width }),
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			menuPortal: (base: any) => {
 				// ED:16095: We add two possible getter paths for safely reaching into the underlying
 				// react-select element. We first try a getter that conforms with react-select v5 APIs,

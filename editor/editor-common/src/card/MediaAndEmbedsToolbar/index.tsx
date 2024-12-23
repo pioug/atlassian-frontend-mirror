@@ -125,6 +125,8 @@ const breakoutIcons: LayoutIcon[] = [
 	{ value: 'full-width', icon: FullWidthIcon },
 ];
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const layoutToMessages: Record<string, any> = {
 	'wrap-left': toolbarMessages.wrapLeft,
 	center: commonMessages.alignImageCenter,
@@ -148,6 +150,8 @@ const makeAlign = (
 	nodeType: NodeType,
 	widthPluginDependencyApi: WidthPluginDependencyApi,
 	analyticsApi: EditorAnalyticsAPI | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Command => {
 	return (state, dispatch) => {
 		const { node } = state.selection as NodeSelection;
@@ -233,6 +237,8 @@ const getToolbarLayout = (layout: MediaSingleLayout) => {
 };
 
 const mapIconsToToolbarItem = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	icons: Array<any>,
 	layout: MediaSingleLayout,
 	intl: IntlShape,
@@ -240,6 +246,8 @@ const mapIconsToToolbarItem = (
 	widthPluginDependencyApi: WidthPluginDependencyApi,
 	analyticsApi: EditorAnalyticsAPI | undefined,
 	isChangingLayoutDisabled?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	icons.map<FloatingToolbarItem<Command>>((toolbarItem) => {
 		const { id, value } = toolbarItem;
@@ -282,6 +290,8 @@ const buildLayoutButtons = (
 	allowWrapping = true,
 	allowAlignment = true,
 	isChangingLayoutDisabled?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { selection } = state;
 

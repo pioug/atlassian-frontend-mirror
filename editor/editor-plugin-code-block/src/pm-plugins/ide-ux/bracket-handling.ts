@@ -8,11 +8,15 @@ export type BracketMapKey = keyof typeof BRACKET_MAP;
 
 export const shouldAutoCloseBracket = (before: string, after: string) => {
 	// when directly before a closing bracket
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	if (/^[}\])]/.test(after)) {
 		return true;
 	}
 
 	// exclusion: when directly before a non-whitespace character
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	if (/^[^\s]/.test(after)) {
 		return false;
 	}

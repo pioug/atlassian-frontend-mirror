@@ -33,6 +33,8 @@ const unwrapNestedTables = (
 	schema: Schema,
 	unwrapNestDepth: number,
 	currentNestDepth = 0,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): PMNode[] => {
 	const flattenNested = (node: PMNode, tableDepth: number) => {
 		if (node.type === schema.nodes.table) {
@@ -218,6 +220,8 @@ export const transformSliceToRemoveOpenTable = (slice: Slice, schema: Schema): S
 		slice.openEnd >= 4 &&
 		// slice is a table node
 		slice.content.childCount === 1 &&
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		slice.content.firstChild!.type === schema.nodes.table
 	) {
 		// prosemirror-view has a bug that it duplicates table entry when selecting multiple paragraphs in a table cell.

@@ -38,6 +38,8 @@ const container = css({
 
 export const mediaProvider = storyMediaProviderFactory();
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Example extends React.PureComponent<{}, { output: string }> {
 	state = { output: '' };
 	transformer = new JSONTransformer();
@@ -64,12 +66,18 @@ export default class Example extends React.PureComponent<{}, { output: string }>
 						allowAltTextOnImages: true,
 						altTextValidator: (value: string) => {
 							const errors = [];
+							// Ignored via go/ees005
+							// eslint-disable-next-line require-unicode-regexp
 							if (!/^[A-Z]/g.test(value)) {
 								errors.push('Please start with capital letter.');
 							}
+							// Ignored via go/ees005
+							// eslint-disable-next-line require-unicode-regexp
 							if (!/^[^"<>&\\]*$/g.test(value)) {
 								errors.push('Please remove special characters.');
 							}
+							// Ignored via go/ees005
+							// eslint-disable-next-line require-unicode-regexp
 							if (!/(\w.+\s).+/g.test(value)) {
 								errors.push('Please use at least two words.');
 							}

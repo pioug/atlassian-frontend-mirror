@@ -96,6 +96,8 @@ export function InlineCommentView({
 	const position = findPosForDOM(selection);
 	let dom: HTMLElement | undefined;
 	try {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		dom = findDomRefAtPos(position, editorView.domAtPos.bind(editorView)) as HTMLElement;
 	} catch (error) {
 		// eslint-disable-next-line no-console

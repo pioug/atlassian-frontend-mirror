@@ -53,6 +53,8 @@ describe('Renderer - utils', () => {
 	describe('findInTree', () => {
 		it("doesn't run evaluate if top parent is reached", () => {
 			const evaluate = jest.fn();
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const elementA = { parentElement: undefined } as any as HTMLElement;
 
 			const result = findInTree(elementA, elementA, evaluate);
@@ -62,10 +64,14 @@ describe('Renderer - utils', () => {
 
 		it('matches given element if it satisfies evaluate', () => {
 			const evaluate = (element: any) => element.id === 2;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const elementA = {
 				parentElement: undefined,
 				id: 1,
 			} as any as HTMLElement;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const elementB = {
 				parentElement: elementA,
 				id: 2,
@@ -77,14 +83,20 @@ describe('Renderer - utils', () => {
 
 		it("matches an element that isn't given and isn't the top if satisfies evaluate", () => {
 			const evaluate = (element: any) => element.id === 2;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const elementA = {
 				parentElement: undefined,
 				id: 1,
 			} as any as HTMLElement;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const elementB = {
 				parentElement: elementA,
 				id: 2,
 			} as any as HTMLElement;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const elementC = {
 				parentElement: elementB,
 				id: 3,
@@ -96,14 +108,20 @@ describe('Renderer - utils', () => {
 
 		it('returns false if no elements satisfy evaluate', () => {
 			const evaluate = (element: any) => element.id === 4;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const elementA = {
 				parentElement: undefined,
 				id: 1,
 			} as any as HTMLElement;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const elementB = {
 				parentElement: elementA,
 				id: 2,
 			} as any as HTMLElement;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const elementC = {
 				parentElement: elementB,
 				id: 3,

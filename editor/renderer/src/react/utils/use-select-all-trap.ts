@@ -9,6 +9,8 @@ export const useSelectAllTrap = <T extends HTMLElement>(): React.MutableRefObjec
 	const clicked = React.useRef<boolean>(false);
 	const caught = React.useRef<ElementSelection>();
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const mac = typeof navigator !== 'undefined' ? /Mac/.test(navigator.platform) : false;
 
 	const onKeyDown = React.useCallback(
@@ -58,11 +60,19 @@ export const useSelectAllTrap = <T extends HTMLElement>(): React.MutableRefObjec
 	);
 
 	React.useEffect(() => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.addEventListener('keydown', onKeyDown);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.addEventListener('click', onClick);
 
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			window.removeEventListener('keydown', onKeyDown);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			window.removeEventListener('click', onClick);
 		};
 	}, [onKeyDown, onClick]);

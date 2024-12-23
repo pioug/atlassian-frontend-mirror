@@ -230,6 +230,8 @@ export function getAllTaskItemsDataInRootTaskList(view: EditorView) {
 		const rootTaskList = rootTaskListData.node;
 		const rootTaskListStartPos = rootTaskListData.start;
 		const allTaskItems: Array<{ node: Node; pos: number; index: number }> = [];
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 		rootTaskList.descendants((node, pos, parent, index) => {
 			if (node.type === taskItem) {
 				allTaskItems.push({

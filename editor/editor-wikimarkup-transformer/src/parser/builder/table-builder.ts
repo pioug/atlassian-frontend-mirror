@@ -12,6 +12,8 @@ import {
  * Return the cell type based on the delimeter
  */
 function getType(style: string): CellType {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return /\|\|/.test(style) ? 'tableHeader' : 'tableCell';
 }
 
@@ -56,6 +58,8 @@ export class TableBuilder implements Builder {
 			}
 
 			const newCell = { type: cellType, content };
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			this.lastRow!.cells.push(newCell);
 
 			index += 1;

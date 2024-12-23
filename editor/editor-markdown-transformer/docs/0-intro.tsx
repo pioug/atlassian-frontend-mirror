@@ -17,8 +17,12 @@ Use the component in your React app as follows:
   ${(
 		<Example
 			packageName="@atlaskit/editor-markdown-transformer"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			Component={require('../examples/0-markdown-transformer').default}
 			title="Markdown Transformer"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			source={require('!!raw-loader!../examples/0-markdown-transformer')}
 		/>
 	)}

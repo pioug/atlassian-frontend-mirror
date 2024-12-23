@@ -12,6 +12,5 @@
     "src/utils"
   ],
   "compilerOptions": {
-    "baseUrl": ""
   }
 }

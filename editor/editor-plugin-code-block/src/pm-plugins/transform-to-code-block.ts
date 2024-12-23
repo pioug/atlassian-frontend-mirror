@@ -6,9 +6,13 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function transformToCodeBlockAction(
 	state: EditorState,
 	start: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: any,
 	isNestingInQuoteSupported?: boolean,
 ): Transaction {

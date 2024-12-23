@@ -104,6 +104,8 @@ export const EmojiPickerButton: EmojiPickerButtonReturnType = (props) => {
 			// Workaround for CETI-240 - where two onClicks fire - one when the upload button is
 			// still in the document, and one once it's detached. Does not always occur, and
 			// may be a side effect of a react render optimisation
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			if (e && e.target && !isDetachedElement(e.target as HTMLElement)) {
 				togglePopup();
 			}
@@ -124,6 +126,8 @@ export const EmojiPickerButton: EmojiPickerButtonReturnType = (props) => {
 		return (
 			<Popup
 				target={buttonRef.current}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				mountTo={props.setDisableParentScroll ? props.mountPoint : buttonRef.current.parentElement!}
 				fitHeight={350}
 				fitWidth={350}

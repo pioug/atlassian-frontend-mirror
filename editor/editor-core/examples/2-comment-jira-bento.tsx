@@ -36,6 +36,8 @@ export type State = {
 
 const mediaProvider = storyMediaProviderFactory();
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class CommentEditorJiraBento extends React.Component<Props, State> {
 	state = {
 		isExpanded: false,

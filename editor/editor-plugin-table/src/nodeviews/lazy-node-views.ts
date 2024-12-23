@@ -55,6 +55,8 @@ export const lazyTableView = (options: TableViewOptions) => {
 				getPos: () => number | undefined,
 				decorations: readonly Decoration[],
 				getNodeViewOptions: () => TableViewOptions,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/max-params
 			) => {
 				const {
 					portalProviderAPI,
@@ -120,6 +122,8 @@ export const lazyTableCellView = (options: TableCellViewOptions) => {
 				getPos: () => number | undefined,
 				decorations: readonly Decoration[],
 				getNodeViewOptions: () => TableCellViewOptions,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/max-params
 			) => {
 				const { eventDispatcher, pluginInjectionApi } = getNodeViewOptions();
 
@@ -167,6 +171,8 @@ export const lazyTableHeaderView = (options: TableCellViewOptions) => {
 				getPos: () => number | undefined,
 				decorations: readonly Decoration[],
 				getNodeViewOptions: () => TableCellViewOptions,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/max-params
 			) => {
 				const { eventDispatcher, pluginInjectionApi } = getNodeViewOptions();
 
@@ -208,6 +214,8 @@ export const lazyTableRowView = (options: TableCellViewOptions) => {
 				getPos: () => number | undefined,
 				decorations: readonly Decoration[],
 				getNodeViewOptions: () => TableCellViewOptions,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/max-params
 			) => {
 				const { eventDispatcher } = getNodeViewOptions();
 

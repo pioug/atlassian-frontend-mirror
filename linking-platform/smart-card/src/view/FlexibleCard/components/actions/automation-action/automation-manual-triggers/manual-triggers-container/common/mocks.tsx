@@ -1,9 +1,4 @@
-import {
-	type GetManualRulesResponse,
-	type InvocationResponse,
-	type ManualRule,
-	UserInputType,
-} from './types';
+import { type GetManualRulesResponse, type ManualRule, UserInputType } from './types';
 
 const mockScope = { resources: [] };
 export const mockRules: GetManualRulesResponse = {
@@ -87,10 +82,6 @@ export const mockTransformedRules: ManualRule[] = [
 		userInputPrompts: mockRules.data[2].userInputs,
 	},
 ];
-
-export const mockInvocationResponse: InvocationResponse = {
-	'TEST-1': 'SUCCESS',
-};
 
 export const mockGetUrl = 'https://test-api/get/rules';
 export const mockInvokeUrl = 'https://test-api/invoke';

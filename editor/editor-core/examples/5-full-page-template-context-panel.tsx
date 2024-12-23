@@ -23,16 +23,22 @@ import WithEditorActions from '../src/ui/WithEditorActions';
 
 import { ExampleEditor, LOCALSTORAGE_defaultDocKey } from './5-full-page';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const isEmptyDoc = (adf: any) => (adf ? adf.content.length === 0 : true);
 
 let queuedIdleTask: number;
 
 const idle = () => {
 	if (queuedIdleTask) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		((window as any).cancelIdleCallback || window.cancelAnimationFrame)(queuedIdleTask);
 	}
 
 	return new Promise((resolve) => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		((window as any).requestIdleCallback || window.requestAnimationFrame)(resolve);
 	});
 };
@@ -40,6 +46,8 @@ const idle = () => {
 type TemplateDefinition = {
 	title: string;
 	desc: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adf: any;
 };
 
@@ -71,6 +79,8 @@ const templateCard = css({
 // ADF of the template.
 //
 // normalises column widths between documents by clearing them.
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const clearTableWidths = (adf: any) => {
 	if (!adf) {
 		return adf;
@@ -82,6 +92,8 @@ const clearTableWidths = (adf: any) => {
 	}
 
 	// recursively fix children
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adf.content = adf.content.map((child: any) => {
 		if (child.type === 'tableCell' || child.type === 'tableHeader') {
 			child.attrs.colwidth = [];
@@ -97,10 +109,14 @@ const clearTableWidths = (adf: any) => {
 	return adf;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const equalDocument = (a: any, b: any): boolean =>
 	JSON.stringify(clearTableWidths(a)) === JSON.stringify(clearTableWidths(b));
 
 type TemplatePanelState = {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adf: any;
 	selectedTemplate: TemplateDefinition | null;
 	panelVisible: boolean;
@@ -112,6 +128,8 @@ type TemplatePanelProps = {
 	editorAPI: PublicPluginAPI<ContextPanelPlugin> | undefined;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class TemplatePanel extends React.Component<TemplatePanelProps, TemplatePanelState> {
 	state: TemplatePanelState = {
 		adf: null,
@@ -119,6 +137,8 @@ class TemplatePanel extends React.Component<TemplatePanelProps, TemplatePanelSta
 		panelVisible: false,
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	static derivePanelVisibility(adf: any, state: TemplatePanelState): boolean {
 		if (!adf) {
 			return true;
@@ -175,7 +195,7 @@ class TemplatePanel extends React.Component<TemplatePanelProps, TemplatePanelSta
 			<ContextPanel visible={this.state.panelVisible} editorAPI={this.props.editorAPI}>
 				<div>
 					{templates.map((tmpl, idx) => (
-						// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+						// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions, react/no-array-index-key
 						<div css={templateCard} key={idx} onClick={() => this.selectTemplate(tmpl)}>
 							<h4>{tmpl.title}</h4>
 							<p>{tmpl.desc}</p>

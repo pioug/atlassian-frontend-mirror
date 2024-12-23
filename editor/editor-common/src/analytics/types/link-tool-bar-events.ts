@@ -27,6 +27,8 @@ export type OpenSettingsToolbarAEP = UIAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.BUTTON,
 	ACTION_SUBJECT_ID.GOTO_SMART_LINK_SETTINGS,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type,
 	{},
 	undefined
 >;
@@ -138,6 +140,8 @@ export type EditLinkToolbarAEP = UIAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.SMART_LINK | ACTION_SUBJECT.HYPERLINK,
 	ACTION_SUBJECT_ID.EDIT_LINK,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type,
 	{},
 	undefined
 >;
@@ -146,6 +150,8 @@ export type UnlinkToolbarAEP = UIAEP<
 	ACTION.UNLINK,
 	ACTION_SUBJECT.SMART_LINK | ACTION_SUBJECT.HYPERLINK,
 	ACTION_SUBJECT_ID.CARD_INLINE | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type,
 	{},
 	undefined
 >;

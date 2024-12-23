@@ -9,10 +9,10 @@ import { ErrorBoundary } from 'react-error-boundary';
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
+import { APIError } from '@atlaskit/linking-common';
 import { Box } from '@atlaskit/primitives';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { APIError } from '../../../index';
 import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';

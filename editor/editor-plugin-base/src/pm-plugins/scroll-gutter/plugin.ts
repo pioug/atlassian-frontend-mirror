@@ -130,6 +130,8 @@ function getCaretTopPosition(): number | undefined {
 			}
 
 			// Return container top
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const container = range.startContainer as HTMLElement;
 			if (container && container.getBoundingClientRect) {
 				return container.getBoundingClientRect().top;
@@ -231,6 +233,8 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
 		view(view: EditorView) {
 			// Store references to avoid lookups on successive checks.
 			scrollElement = getScrollElement(view);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			let editorElement: HTMLElement | null = view.dom as HTMLElement;
 			let editorParentElement = editorElement.parentElement;
 			let viewportElementHeight = 0;
@@ -238,6 +242,8 @@ export default (pluginOptions: ScrollGutterPluginOptions = {}) => {
 
 			const addAndObserveGutter = () => {
 				if (!gutter.isMounted()) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					gutter.observe(scrollElement!);
 					gutter.addGutter(editorParentElement ? new WeakRef(editorParentElement) : null);
 				}

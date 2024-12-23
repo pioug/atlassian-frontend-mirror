@@ -289,6 +289,8 @@ describe('scrubAdf', () => {
 
 		expect(() => {
 			scrubAdf(adf);
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 		}).toThrowError(/scrubAttrs: encountered unsupported attributes type/);
 	});
 

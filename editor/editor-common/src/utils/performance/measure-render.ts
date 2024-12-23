@@ -34,6 +34,8 @@ export const getDistortedDurationMonitor = (): DistortedDurationMonitor => {
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 	document.addEventListener('visibilitychange', handleVisibilityChange);
 
 	return {
@@ -42,6 +44,8 @@ export const getDistortedDurationMonitor = (): DistortedDurationMonitor => {
 		 * Cleans up the document visibility event listener
 		 */
 		cleanup() {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('visibilitychange', handleVisibilityChange);
 		},
 	};
@@ -103,7 +107,7 @@ export function measureRender(
 
 	performance.mark(startMark);
 
-	let distortedDurationMonitor = getDistortedDurationMonitor();
+	const distortedDurationMonitor = getDistortedDurationMonitor();
 
 	requestAnimationFrame(() => {
 		requestAnimationFrame(() => {

@@ -9,6 +9,8 @@ export default new SafePlugin({
 	props: {
 		handleClick(view: EditorView, clickPos, event) {
 			// Don't apply in Edge as per ED-4546
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			if (navigator && /Edge\/\d/.test(navigator.userAgent)) {
 				return false;
 			}
@@ -55,6 +57,8 @@ export default new SafePlugin({
 			) {
 				const clickWasInsideNodeDOM =
 					(event.target as Node).parentNode === view.domAtPos(clickedDOMElementPosition).node &&
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					code.isInSet(view.state.doc.resolve(clickedDOMElementPosition).nodeAfter!.marks);
 
 				const nodeNextToClick =

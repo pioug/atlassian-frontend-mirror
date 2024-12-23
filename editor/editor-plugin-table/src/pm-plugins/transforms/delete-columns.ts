@@ -35,6 +35,8 @@ const deleteColumnsCustomStep =
 		for (let i = rect.left; i < rect.right; i++) {
 			const step = AddColumnStep.create(originalDoc, table.pos, i, true);
 			deletedColumns.push(i);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			tr.step(step.map(tr.mapping.slice(mapStart))!);
 		}
 
@@ -250,6 +252,8 @@ export const deleteColumns =
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 		isCommentEditor = false,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(tr: Transaction) => {
 		let updatedTr = tr;

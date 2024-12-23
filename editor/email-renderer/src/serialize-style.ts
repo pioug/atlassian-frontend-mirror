@@ -6,6 +6,8 @@ export const serializeStyle = (style: Style): string => {
 			return memo;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		const value = String(style[key]).replace(/"/g, "'");
 		return (memo += `${key}: ${value};`);
 	}, '');

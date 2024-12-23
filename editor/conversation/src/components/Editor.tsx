@@ -30,6 +30,8 @@ import type { User } from '../model/User';
 // See https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onbeforeunload
 // https://developer.mozilla.org/en-US/docs/Web/API/Event/returnValue
 interface UnloadEvent extends Event {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	returnValue: any;
 }
 
@@ -45,13 +47,19 @@ function beforeUnloadHandler(e: UnloadEvent) {
 }
 
 export interface Props {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	defaultValue?: any;
 	isExpanded?: boolean;
 	onCancel?: () => void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onSave?: (value: any) => void;
 	onClose?: () => void;
 	onOpen?: () => void;
 	isEditing?: boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onChange?: (value: any) => void;
 	showBeforeUnloadWarning?: boolean;
 
@@ -72,7 +80,7 @@ export interface State {
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Container: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
+const Container: React.ComponentClass<React.HTMLAttributes<Object>> = styled.div`
 	/* -ms- properties are necessary until MS supports the latest version of the grid spec */
 	/* stylelint-disable value-no-vendor-prefix, declaration-block-no-duplicate-properties */
 	display: -ms-grid;
@@ -92,7 +100,7 @@ const Container: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div`
 `;
 
 const AvatarSection: React.ComponentClass<
-	React.HTMLAttributes<{}>
+	React.HTMLAttributes<Object>
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 > = styled.div`
 	/* stylelint-disable value-no-vendor-prefix */
@@ -104,7 +112,7 @@ const AvatarSection: React.ComponentClass<
 `;
 
 const EditorSection: React.ComponentClass<
-	React.HTMLAttributes<{}>
+	React.HTMLAttributes<Object>
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
 > = styled.div`
 	/* stylelint-disable value-no-vendor-prefix */
@@ -116,7 +124,11 @@ const EditorSection: React.ComponentClass<
 	min-width: 0;
 `;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Editor extends React.Component<Props, State> {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private readonly beforeUnloadHandler: any;
 
 	constructor(props: Props) {
@@ -136,6 +148,8 @@ export default class Editor extends React.Component<Props, State> {
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillUpdate(_nextProps: Props, nextState: State) {
 		if (!fg('platform_editor_react18_phase2_v2')) {
 			if (nextState.isExpanded && !this.state.isExpanded && this.props.onOpen) {
@@ -174,6 +188,8 @@ export default class Editor extends React.Component<Props, State> {
 
 	private removeBeforeUnloadListener() {
 		if (this.props.showBeforeUnloadWarning) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			window.removeEventListener('beforeunload', this.beforeUnloadHandler);
 		}
 	}
@@ -196,10 +212,14 @@ export default class Editor extends React.Component<Props, State> {
 		});
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private onSave = async (actions: any) => {
 		if (this.props.onSave) {
 			const value = await actions.getValue();
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			if (value && value.content.some((n: any) => n.content && n.content.length)) {
 				this.props.onSave(value);
 				actions.clear();
@@ -216,6 +236,8 @@ export default class Editor extends React.Component<Props, State> {
 		});
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private isEditorValueEmpty = (value: any): boolean => {
 		return (
 			value.content.length === 0 ||
@@ -230,6 +252,8 @@ export default class Editor extends React.Component<Props, State> {
 			this.removeBeforeUnloadListener();
 		} else {
 			if (this.props.showBeforeUnloadWarning) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				window.addEventListener('beforeunload', this.beforeUnloadHandler);
 			}
 		}
@@ -242,10 +266,14 @@ export default class Editor extends React.Component<Props, State> {
 	private renderEditor = (actions: EditorActions) => {
 		const { dataProviders, renderEditor, defaultValue, placeholder, allowFeedbackAndHelpButtons } =
 			this.props;
-		let providers: Record<number, any> = {};
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const providers: Record<number, any> = {};
 
 		// @TODO Remove and just pass the factory through once AkEditor is updated
 		if (dataProviders) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(dataProviders as any).providers.forEach((provider: any, key: number) => {
 				providers[key] = provider;
 			});
@@ -345,6 +373,8 @@ const ComposableEditorWrapper = ({
 	return (
 		<ComposableEditor
 			preset={preset}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 			primaryToolbarComponents={
 				allowFeedbackAndHelpButtons

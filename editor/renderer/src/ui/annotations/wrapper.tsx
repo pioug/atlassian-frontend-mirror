@@ -44,6 +44,8 @@ export const AnnotationsContextWrapper = (props: React.PropsWithChildren<Props>)
 						<HoverRangeValidator
 							createAnalyticsEvent={createAnalyticsEvent}
 							rendererRef={rendererRef}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							component={hoverComponent!}
 							applyAnnotationDraftAt={applyAnnotationDraftAt}
 							clearAnnotationDraft={clearAnnotationDraft}
@@ -53,6 +55,8 @@ export const AnnotationsContextWrapper = (props: React.PropsWithChildren<Props>)
 						<SelectionRangeValidator
 							createAnalyticsEvent={createAnalyticsEvent}
 							rendererRef={rendererRef}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							selectionComponent={selectionComponent!}
 							applyAnnotationDraftAt={applyAnnotationDraftAt}
 							clearAnnotationDraft={clearAnnotationDraft}

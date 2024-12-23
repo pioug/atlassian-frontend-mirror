@@ -2,8 +2,12 @@ import collapse from './collapse-whitespace';
 
 export default function (fragment: string): Document {
 	const html = `<!doctype html><html><body>${fragment}</body></html>`;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const parser: DOMParser = new (window as any).DOMParser();
 	const tree = parser.parseFromString(html, 'text/html');
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	collapse(tree.documentElement!, isBlock);
 	return tree;
 }

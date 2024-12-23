@@ -86,6 +86,8 @@ describe('Serializer: List inside block-quote', () => {
 				),
 			).toEqual('> 1. ![](image.jpg)\n> \n');
 		});
+		// Ignored via go/ees005
+		// eslint-disable-next-line jest/no-identical-title
 		it('should support codeblock inside an orderedlist within a quote', () => {
 			expect(
 				markdownSerializer.serialize(

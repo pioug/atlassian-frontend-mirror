@@ -15,6 +15,8 @@ import tableNodes from './tableSerializer';
  */
 export const generateOuterBacktickChain: (text: string, minLength?: number) => string = (() => {
 	function getMaxLength(text: string): number {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		const matches = text.match(/`+/g);
 		if (matches) {
 			return matches.reduce((prev, val) => (val.length > prev.length ? val : prev), '').length;
@@ -55,6 +57,8 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L241
 	 */
 	atBlank() {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		return /(^|\n)$/.test(this.out);
 	}
 
@@ -69,6 +73,8 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 			}
 			if (size > 1) {
 				let delimMin = this.delim;
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				let trim = /\s+$/.exec(delimMin);
 				if (trim) {
 					delimMin = delimMin.slice(0, delimMin.length - trim[0].length);
@@ -89,6 +95,8 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 				!child.textContent &&
 				// If child is a Codeblock we need to handle this separately as we want to preserve empty code blocks
 				!(child.type.name === 'codeBlock') &&
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				!(child.content && (child.content as any).size > 0)
 			) {
 				return nodes.empty_line(this, child);
@@ -109,7 +117,11 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 		const active: Mark[] = [];
 		let trailing = '';
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const progress = (node: PMNode | null, _?: any, index?: number) => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			let marks = node ? node.marks.filter((mark) => this.marks[mark.type.name as any]) : [];
 
 			let leading = trailing;
@@ -120,14 +132,22 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 				node &&
 				node.isText &&
 				marks.some((mark) => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					let info = this.marks[mark.type.name as any];
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					return info && (info as any).expelEnclosingWhitespace;
 				})
 			) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion, require-unicode-regexp
 				let [, lead, inner, trail] = /^(\s*)(.*?)(\s*)$/m.exec(node.text!)!;
 				leading += lead;
 				trailing = trail;
 				if (lead || trail) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					node = inner ? (node as any).withText(inner) : null;
 					if (!node) {
 						marks = active;
@@ -146,11 +166,17 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 			// eslint-disable-next-line no-labels
 			outer: for (let i = 0; i < len; i++) {
 				const mark: Mark = marks[i];
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				if (!(this.marks[mark.type.name as any] as any).mixable) {
 					break;
 				}
 				for (let j = 0; j < active.length; j++) {
 					const other = active[j];
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					if (!(this.marks[other.type.name as any] as any).mixable) {
 						break;
 					}
@@ -182,6 +208,8 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 
 			// Close the marks that need to be closed
 			while (keep < active.length) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				this.text(this.markString(active.pop()!, false, parent, index!), false);
 			}
 
@@ -194,11 +222,15 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 			while (active.length < len) {
 				const add = marks[active.length];
 				active.push(add);
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				this.text(this.markString(add, true, parent, index!), false);
 			}
 
 			if (node) {
 				if (!code || !node.isText) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					this.render(node, parent, index!);
 				} else if (node.text) {
 					// Generate valid monospace, fenced with series of backticks longer that backtick series inside it.
@@ -206,10 +238,14 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 					const backticks = generateOuterBacktickChain(node.text as string, 1);
 
 					// Make sure there is a space between fences, otherwise python-markdown renderer will get confused
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
 					if (text.match(/^`/)) {
 						text = ' ' + text;
 					}
 
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
 					if (text.match(/`$/)) {
 						text += ' ';
 					}
@@ -269,6 +305,8 @@ const editorNodes = {
 			state.render(child, node, i);
 		}
 	},
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	listItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
 		const num = Number(parent?.attrs?.order);
 		const order = Number.isNaN(num) || num < 0 ? 1 : Math.floor(num);
@@ -332,6 +370,8 @@ const editorNodes = {
 	hardBreak(state: MarkdownSerializerState) {
 		state.write('  \n');
 	},
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	text(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
 		const previousNode = index === 0 ? null : parent.child(index - 1);
 		let text = node.textContent;
@@ -339,6 +379,8 @@ const editorNodes = {
 		// BB converts 4 spaces at the beginning of the line to code block
 		// that's why we escape 4 spaces with zero-width-non-joiner
 		const fourSpaces = '    ';
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		if (!previousNode && /^\s{4}/.test(node.textContent)) {
 			text = node.textContent.replace(fourSpaces, '\u200c' + fourSpaces);
 		}
@@ -360,6 +402,8 @@ const editorNodes = {
 		state.write('\u200c'); // zero-width-non-joiner
 		state.closeBlock(node);
 	},
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	mention(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
 		const isLastNode = parent.childCount === index + 1;
 		let delimiter = '';
@@ -397,6 +441,8 @@ export const marks = {
 	},
 	link: {
 		open: '[',
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		close(_state: MarkdownSerializerState, mark: any) {
 			return '](' + mark.attrs['href'] + ')';
 		},

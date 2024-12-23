@@ -4,6 +4,8 @@ import { type Token, type TokenParser } from './';
 
 // the regex should exclude the period and exclamation mark as the last character
 export const LINK_TEXT_REGEXP =
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	/^((?:(?:https?|ftps?):\/\/)|irc:\/\/|mailto:)([\w?!~^\/\\#$%&'()*+,\-.\/:;<=@]*[\w~^\/\\#$%&'()*+,\-\/:;<=@])/i;
 
 export const linkText: TokenParser = ({ input, position, schema }) => {
@@ -64,8 +66,12 @@ function fallback(input: string, position: number): Token {
 // removes bad characters from the end of regex match
 function trimBadEndChar(input: string[]): string[] {
 	return [
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		input[0].replace(/[.,>)\];}"\'!]*$/, ''),
 		input[1],
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		input[2].replace(/[.,>)\];}"\'!]*$/, ''),
 	];
 }

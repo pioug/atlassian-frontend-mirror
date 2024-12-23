@@ -9,6 +9,8 @@ import { clearFormattingWithAnalytics } from '../editor-commands/clear-formattin
 export function keymapPlugin(editorAnalyticsAPI: EditorAnalyticsAPI | undefined): SafePlugin {
 	const list = {};
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		clearFormatting.common!,
 		clearFormattingWithAnalytics(INPUT_METHOD.SHORTCUT, editorAnalyticsAPI),
 		list,

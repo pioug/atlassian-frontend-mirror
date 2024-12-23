@@ -7,6 +7,8 @@ import type { EditorInjectionAPI } from '../../types/next-editor-plugin';
 import { usePluginStateEffect } from '../usePluginStateEffect';
 import type { NamedPluginStatesFromInjectionAPI } from '../useSharedPluginState';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ExtractPluginNames<API extends EditorInjectionAPI<any, any>> = keyof API extends string
 	? keyof API
 	: never;
@@ -24,7 +26,9 @@ type ExtractPluginNames<API extends EditorInjectionAPI<any, any>> = keyof API ex
  */
 type NestedKeys<T> = {
 	[K in keyof T]: T[K] extends object
-		? T[K] extends any[] // Array should return `K` - but also gets recognised as an "object" - so handle it separately
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			T[K] extends any[] // Array should return `K` - but also gets recognised as an "object" - so handle it separately
 			? K extends string
 				? K
 				: never
@@ -102,6 +106,8 @@ type Path<T, K extends string> = K extends `${infer Key}.${infer Rest}`
  * @returns 
  */
 export function useSharedPluginStateSelector<
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	API extends EditorInjectionAPI<any, any>,
 	PluginName extends ExtractPluginNames<API>,
 	SharedState extends ReturnType<
@@ -132,6 +138,8 @@ export function useSharedPluginStateSelector<
 }
 
 function useSharedPluginStateSelectorInternal<
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	API extends EditorInjectionAPI<any, any>,
 	PluginNames extends ExtractPluginNames<API>,
 	Result,

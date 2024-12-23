@@ -11,6 +11,8 @@ type State = {
 
 const mediaProvider = storyMediaProviderFactory();
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class DemoEditor extends React.PureComponent<any, State> {
 	state: State = {};
 

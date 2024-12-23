@@ -139,6 +139,8 @@ export const MediaInline = (props: MediaInlineProps) => {
 	const identifier: FileIdentifier = {
 		id,
 		mediaItemType: 'file',
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		collectionName: collection!,
 	};
 
@@ -287,6 +289,8 @@ export const ReactMediaInlineNode =
 		providerFactory: ProviderFactory,
 		api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
 		return new MediaInlineNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {

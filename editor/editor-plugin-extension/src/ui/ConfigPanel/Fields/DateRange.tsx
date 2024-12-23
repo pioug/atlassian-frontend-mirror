@@ -70,6 +70,8 @@ const DateField = ({
 			{({ fieldProps, error }) => (
 				<Fragment>
 					<DatePicker
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...fieldProps}
 						onChange={(date: string) => {
 							fieldProps.onChange(date);
@@ -125,7 +127,14 @@ const DateRange = function ({
 		<Fragment>
 			<div css={hiddenStyles}>
 				<Field name={`${name}.type`} defaultValue={'date-range'}>
-					{({ fieldProps }) => <TextField {...fieldProps} type="hidden" />}
+					{({ fieldProps }) => (
+						<TextField
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...fieldProps}
+							type="hidden"
+						/>
+					)}
 				</Field>
 			</div>
 			<Field
@@ -139,6 +148,8 @@ const DateRange = function ({
 				{({ fieldProps, error }) => (
 					<Fragment>
 						<RadioGroup
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...fieldProps}
 							options={items}
 							onChange={(event) => {
@@ -156,7 +167,14 @@ const DateRange = function ({
 					 *  when a option that is NOT 'custom' is selected. This is to comply with the atlaskit
 					 * form component that relies on final-form */}
 					<Field name={`${name}.from`} defaultValue={currentValue}>
-						{({ fieldProps }) => <TextField {...fieldProps} type="hidden" />}
+						{({ fieldProps }) => (
+							<TextField
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...fieldProps}
+								type="hidden"
+							/>
+						)}
 					</Field>
 				</div>
 			) : (

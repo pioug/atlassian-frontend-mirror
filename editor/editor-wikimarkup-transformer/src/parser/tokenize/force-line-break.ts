@@ -5,6 +5,8 @@ import { type Token, type TokenParser } from './';
  * private static final Pattern FORCE_NEWLINE = Pattern.compile("(?<!\\\\)\\\\{2}(?!\\S*\\\\)");
  */
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const FORCE_LINE_BREAK_REGEX = /^\\{2}(?!\S*\\)/;
 
 export const forceLineBreak: TokenParser = ({ input, position, schema }) => {

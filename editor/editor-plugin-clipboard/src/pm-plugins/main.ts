@@ -63,6 +63,8 @@ export const createClipboardSerializer = (
 
 	newSerializer.serializeFragment = (
 		content: Fragment,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		options: { [key: string]: any } = {},
 		target?: Node,
 	): DocumentFragment => {

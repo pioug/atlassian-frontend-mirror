@@ -30,7 +30,11 @@ interface Props {
 	extensionKey: string;
 	actions?: MultiBodiedExtensionActions;
 	text?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	parameters?: any;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	content?: any;
 	layout?: ExtensionLayout;
 	localId?: string;
@@ -74,6 +78,8 @@ export default function ExtensionRenderer(props: Props) {
 	const localGetNodeRenderer = React.useMemo(() => memoizeOne(getNodeRenderer), []);
 	const [extensionProvider, setExtensionProvider] = React.useState<ExtensionProvider | null>(null);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const handleProvider = React.useCallback((name: keyof State, providerPromise?: Promise<any>) => {
 		providerPromise &&
 			providerPromise.then((provider) => {

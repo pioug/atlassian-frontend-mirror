@@ -11,6 +11,8 @@ export function mergeNextListAtPosition({ tr, listPosition }: MergeNextListAtPos
 		return;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const listPositionResolved = tr.doc.resolve(listPosition + listNodeAtPosition!.nodeSize);
 
 	const { pos, nodeAfter, nodeBefore } = listPositionResolved;
@@ -19,7 +21,11 @@ export function mergeNextListAtPosition({ tr, listPosition }: MergeNextListAtPos
 	}
 
 	if (nodeAfter?.type.name !== nodeBefore?.type.name) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const previousListPosition = pos - nodeBefore!.nodeSize;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		tr.setNodeMarkup(previousListPosition, nodeAfter!.type);
 	}
 

@@ -1,4 +1,8 @@
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as fs from 'fs';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as path from 'path';
 import { promisify } from 'util';
 import makeDir from 'mkdirp';

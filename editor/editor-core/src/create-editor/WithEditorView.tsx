@@ -17,6 +17,8 @@ export const WithEditorView = <P extends WithEditorViewInternalProps>(
 		const { editorActions } = useEditorContext();
 
 		return (
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			<WrappedComponent {...(props as P)} editorView={editorActions?._privateGetEditorView()} />
 		);
 	};

@@ -28,6 +28,8 @@ const plugin = new SafePlugin({
 			selectionIsGapCursor: false,
 			displayGapCursor: true,
 		}),
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 		apply: (tr, pluginState, _oldState, newState) => {
 			const meta = tr.getMeta(gapCursorPluginKey);
 			const selectionIsGapCursor = newState.selection instanceof GapCursorSelection;
@@ -36,7 +38,7 @@ const plugin = new SafePlugin({
 				selectionIsGapCursor,
 				// only attempt to hide gap cursor if selection is gap cursor
 				displayGapCursor: selectionIsGapCursor
-					? meta?.displayGapCursor ?? pluginState.displayGapCursor
+					? (meta?.displayGapCursor ?? pluginState.displayGapCursor)
 					: true,
 			};
 		},
@@ -171,6 +173,8 @@ const plugin = new SafePlugin({
 			 * certain nodes. We can remove these when PM has better composition support.
 			 * @see https://github.com/ProseMirror/prosemirror/issues/543
 			 */
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			beforeinput: (view, event: any) => {
 				if (
 					event.inputType === 'deleteContentBackward' &&

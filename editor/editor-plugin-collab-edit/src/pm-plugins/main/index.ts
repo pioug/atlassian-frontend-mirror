@@ -1,6 +1,11 @@
 // It is important to get all steps in that package
+
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as adfCustomSteps from '@atlaskit/adf-schema/steps';
 // It is important to get all steps in that package
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as atlaskKitCustomSteps from '@atlaskit/custom-steps';
 import {
 	ACTION,
@@ -65,15 +70,21 @@ export const createPlugin = (
 	options: PrivateCollabEditOptions,
 	featureFlags: FeatureFlags,
 	pluginInjectionApi: ExtractInjectionAPI<CollabEditPlugin> | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	enforceCustomStepRegisters();
 
 	return new SafePlugin({
 		key: pluginKey,
 		state: {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			init(config: any) {
 				return PluginState.init(config);
 			},
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(
 				transaction: ReadonlyTransaction,
 				prevPluginState: PluginState,

@@ -200,6 +200,8 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 
 	private handleSubMenuRef = (ref: HTMLDivElement | null) => {
 		const parent = closestElement(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			this.props.editorView.dom as HTMLElement,
 			'.fabric-editor-popup-scroll-parent',
 		);
@@ -233,6 +235,8 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 
 			const selectedRowAndColumnFromPalette = getSelectedRowAndColumnFromPalette(
 				cellBackgroundColorPalette,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				background!,
 				colorPalletteColumns,
 			);
@@ -288,6 +292,8 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 										}
 									}}
 									isPopupPositioned={true}
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 									isOpenedByKeyboard={isCellMenuOpenByKeyboard!}
 								>
 									<ColorPalette
@@ -834,6 +840,8 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private handleItemMouseEnter = ({ item }: { item: any }) => {
 		const {
 			editorView: { state, dispatch },
@@ -862,6 +870,8 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private handleItemMouseLeave = ({ item }: { item: any }) => {
 		const { state, dispatch } = this.props.editorView;
 		if (item.value.name === 'background') {

@@ -4,7 +4,7 @@ import React from 'react';
 import { isSafeUrl } from '@atlaskit/adf-schema';
 import type { DatasourceModalType } from '@atlaskit/editor-common/types';
 import { LazyLoadedDatasourceRenderFailedAnalyticsWrapper } from '@atlaskit/link-datasource';
-import type { APIError } from '@atlaskit/smart-card';
+import type { APIError } from '@atlaskit/linking-common';
 
 import type { DatasourceProps } from '../nodeviews/datasource';
 import { setSelectedCardAppearance } from '../pm-plugins/doc';

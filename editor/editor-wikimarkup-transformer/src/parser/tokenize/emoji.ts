@@ -1,5 +1,9 @@
 import { type TokenParser } from './';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const emptyOrSpecialCharRegex = new RegExp(/^$|[^A-Za-z0-9]/);
 export const emoji: TokenParser = ({ input, position, schema }) => {
 	const substring = input.substring(position);

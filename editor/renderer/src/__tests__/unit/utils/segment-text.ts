@@ -3,6 +3,8 @@ import type { TextHighlighter } from '../../../react/types';
 
 test('segment text no text', () => {
 	const highlighter: TextHighlighter = {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		pattern: /(\b[A-Z]{2,}\b)/g,
 		component: () => null,
 	};
@@ -21,6 +23,8 @@ test('segment text no highlighter', () => {
 
 test('segment text simple regex', () => {
 	const highlighter: TextHighlighter = {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		pattern: /(\b[A-Z]{2,}\b)/g,
 		component: () => null,
 	};
@@ -35,6 +39,8 @@ test('segment text simple regex', () => {
 
 test('segment text simple regex full string match', () => {
 	const highlighter: TextHighlighter = {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		pattern: /(\b[A-Z]{2,}\b)/g,
 		component: () => null,
 	};
@@ -46,6 +52,8 @@ test('segment text simple regex full string match', () => {
 
 test('segment text simple regex no match', () => {
 	const highlighter: TextHighlighter = {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		pattern: /(\b[A-Z]{2,}\b)/g,
 		component: () => null,
 	};
@@ -58,6 +66,8 @@ test('segment text simple regex no match', () => {
 
 test('segment text simple regex no match single char string', () => {
 	const highlighter: TextHighlighter = {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		pattern: /(\b[A-Z]{2,}\b)/g,
 		component: () => null,
 	};
@@ -69,6 +79,8 @@ test('segment text simple regex no match single char string', () => {
 
 test('segment text simple regex with named groups', () => {
 	const highlighter: TextHighlighter = {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		pattern: /(?<acronym>\b[A-Z]{2,}\b)/g,
 		component: () => null,
 	};
@@ -81,6 +93,8 @@ test('segment text simple regex with named groups', () => {
 
 test('segment text simple regex with multiple matches one after another', () => {
 	const highlighter: TextHighlighter = {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		pattern: /(?<acronym>\b[A-Z]{2,}\b)/g,
 		component: () => null,
 	};
@@ -91,6 +105,8 @@ test('segment text simple regex with multiple matches one after another', () => 
 
 test('segment text with multiple non-overlaping named groups', () => {
 	const highlighter: TextHighlighter = {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		pattern: /((?<acronym>\b[A-Z]{4,}\b)|(?<adf>\bADF\b))/g,
 		component: () => null,
 	};
@@ -107,6 +123,8 @@ test('segment text with multiple non-overlaping named groups', () => {
 
 test('segment text with multiple overlaping named groups', () => {
 	const highlighter: TextHighlighter = {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		pattern: /((?<acronym>\b[A-Z]{2,}\b)|(?<adf>\bADF\b))/g,
 		component: () => null,
 	};

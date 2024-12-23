@@ -20,6 +20,8 @@ export type AnnotationAEP = TrackAEP<
 
 export type AnnotationAEPAttributes =
 	| undefined
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 	| {}
 	| AnnotationDraftAEPAttributes
 	| AnnotationResolvedAEPAttributes;

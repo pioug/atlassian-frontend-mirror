@@ -40,6 +40,8 @@ export default function Example() {
 	const [rendererDemoExampleKey, setRendererDemoExampleKey] = useState(1);
 
 	useEffect(() => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.addEventListener('load', () => {
 			setHeadings(getHeaderIdsAsRadioOptions());
 		});

@@ -33,6 +33,8 @@ import type TaskListComponent from './taskList';
 import type TaskItemComponent from './taskItem';
 import type DecisionListComponent from './decisionList';
 import type DecisionItemComponent from './decisionItem';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import type DateComponent from './date';
 import type StatusComponent from './status';
 import type EmojiComponent from './emoji';
@@ -223,6 +225,8 @@ const Expand = Loadable({
 });
 
 export const nodeToReact: {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: React.ComponentType<React.PropsWithChildren<any>>;
 } = {
 	blockquote: Blockquote,
@@ -279,6 +283,8 @@ export const toReact = (
 	node: Node,
 	flags?: ToReactFlags,
 	nodeComponents?: NodeComponentsProps,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): React.ComponentType<React.PropsWithChildren<any>> => {
 	if (node.type.name === 'doc' && flags?.allowSelectAllTrap === true) {
 		return DocWithSelectAllTrap;
@@ -312,6 +318,8 @@ interface NodeSimple {
 	type: {
 		name: string;
 	};
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: any;
 	text?: string;
 	nodeSize: number;
@@ -369,6 +377,8 @@ export const mergeTextNodes = (nodes: (Node | NodeSimple)[]) => {
 		// Append node to previous node, if it was a text wrapper
 		if (acc.length > 0 && isTextWrapper(acc[acc.length - 1])) {
 			const textWrapper = acc[acc.length - 1] as TextWrapper;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			textWrapper.content!.push(current as Node);
 			textWrapper.nodeSize += current.nodeSize;
 		} else {
@@ -397,6 +407,8 @@ export function isTextNode(node: Node | Mark): node is Node {
 	return node.type.name === 'text';
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const whitespaceRegex = /^\s*$/;
 
 /**

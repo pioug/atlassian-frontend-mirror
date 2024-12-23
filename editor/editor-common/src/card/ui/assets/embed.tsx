@@ -12,6 +12,8 @@ const IconEmbedGlyph = (props: CustomGlyphProps) => {
 			viewBox="0 0 32 32"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 		>
 			<path
@@ -25,5 +27,7 @@ const IconEmbedGlyph = (props: CustomGlyphProps) => {
 };
 
 export const IconEmbed = (props: NewIconProps) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <Icon glyph={IconEmbedGlyph} {...props} />;
 };

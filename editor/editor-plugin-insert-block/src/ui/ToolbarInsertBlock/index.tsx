@@ -30,6 +30,8 @@ import type { DropdownItem } from '@atlaskit/editor-plugin-block-type';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import type { EmojiId } from '@atlaskit/emoji/types';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as colors from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
@@ -40,6 +42,8 @@ import type { OnInsert } from '../ElementBrowser/types';
 import { BlockInsertMenu } from './block-insert-menu';
 import type { BlockMenuItem } from './create-items';
 import { createItems } from './create-items';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import TableSelectorPopup from './table-selector-popup-with-listeners';
 import type { Props, State } from './types';
 
@@ -63,6 +67,8 @@ const getHoverStyles = (selector: string) =>
 type AkEmojiPickerProps = Parameters<typeof AkEmojiPicker>[0];
 const EmojiPicker = (props: AkEmojiPickerProps) => {
 	const setOutsideClickTargetRef = React.useContext(OutsideClickTargetRefContext);
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <AkEmojiPicker onPickerRef={setOutsideClickTargetRef} {...props} />;
 };
 const EmojiPickerWithListeners = withOuterListeners(EmojiPicker);
@@ -261,6 +267,8 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		// Workaround for FS-1322 - where two onClicks fire - one when the upload button is
 		// still in the document, and one once it's detached. Does not always occur, and
 		// may be a side effect of a react render optimisation
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		if (e.target && !isDetachedElement(e.target as HTMLElement)) {
 			this.toggleEmojiPicker(INPUT_METHOD.TOOLBAR);
 		}
@@ -391,6 +399,8 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 
 	private handleTableSelectorClickOutside = (e: MouseEvent) => {
 		// Ignore click events for detached elements.
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		if (e.target && !isDetachedElement(e.target as HTMLElement)) {
 			this.toggleTableSelector(INPUT_METHOD.TOOLBAR);
 		}
@@ -761,6 +771,8 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		const { editorView, onInsertBlockType } = this.props;
 		const { state, dispatch } = editorView;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		onInsertBlockType!(itemName)(state, dispatch);
 		return true;
 	};

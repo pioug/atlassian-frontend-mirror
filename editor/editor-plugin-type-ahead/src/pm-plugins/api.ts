@@ -61,6 +61,8 @@ const close =
 		closeTypeAhead(tr);
 
 		if (options.insertCurrentQueryAsRawText && currentQuery && currentQuery.length > 0) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const handler = getTypeAheadHandler(state)!;
 			const text = handler.trigger.concat(currentQuery);
 			tr.replaceSelectionWith(state.schema.text(text));

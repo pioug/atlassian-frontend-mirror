@@ -67,6 +67,8 @@ const PrimaryToolbarHighlightColor = ({
 	const setIsDropdownOpen = (isOpen: boolean) => {
 		if (!highlightState?.disabled) {
 			const { state, dispatch } = editorView;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			setPalette(pluginInjectionApi!)({
 				isPaletteOpen: isOpen,
 				inputMethod: INPUT_METHOD.TOOLBAR,

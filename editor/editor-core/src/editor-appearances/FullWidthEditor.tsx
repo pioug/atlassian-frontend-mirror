@@ -45,5 +45,7 @@ export type FullWidthEditorProps = Pick<
  * @deprecated In favour of `FullPageEditor` with appearance "full-width"
  */
 export function FullWidthEditor(props: FullWidthEditorProps) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <CoreEditor {...props} appearance="full-width" AppearanceComponent={FullPage} />;
 }

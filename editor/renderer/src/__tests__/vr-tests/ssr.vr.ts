@@ -16,6 +16,8 @@ import { snapshot, type ErrorFilterOption } from '@af/visual-regression';
 
 const ignoredErrors: ErrorFilterOption[] = [
 	{
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		pattern: /useLayoutEffect does nothing on the server/,
 		ignoredBecause: 'This is an existing issue in the Renderer.',
 		jiraIssueId: 'TODO-1',

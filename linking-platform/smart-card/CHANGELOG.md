@@ -1,5 +1,24 @@
 # @atlaskit/smart-card
 
+## 33.0.0
+
+### Major Changes
+
+- [#98245](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98245)
+  [`82ebe932fc86a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/82ebe932fc86a) -
+  Removing the deprecated exports `ResolveResponse`, `Provider`, `SmartCardContext`,
+  `ProviderProps`, `CardType`, CardAdf, `InlineCardAdf`, `BlockCardAdf`, `EmbedCardAdf`,
+  `DatasourceAdf`, `DatasourceAdfView`, `Client`, `Context`, `CardContext`, and `APIError` from
+  smart-card package
+
+## 32.8.3
+
+### Patch Changes
+
+- [#98252](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98252)
+  [`8e131e2c56631`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e131e2c56631) -
+  Remove unused code
+
 ## 32.8.2
 
 ### Patch Changes

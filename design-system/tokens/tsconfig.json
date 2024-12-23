@@ -14,6 +14,5 @@
     "scripts",
   ],
   "compilerOptions": {
-    "baseUrl": "./"
   },
 }

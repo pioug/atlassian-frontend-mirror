@@ -20,6 +20,8 @@ interface WithHelpTriggerProps {
 	render: (openHelp: () => void) => React.ReactNode;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class WithHelpTrigger extends React.Component<WithHelpTriggerProps> {
 	static contextTypes = {
 		editorActions: PropTypes.object.isRequired,
@@ -27,6 +29,8 @@ export default class WithHelpTrigger extends React.Component<WithHelpTriggerProp
 	context!: { editorActions: EditorActions };
 
 	openHelp = () => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const { editorActions } = this.context!;
 
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

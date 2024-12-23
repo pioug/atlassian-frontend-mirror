@@ -16,5 +16,7 @@ export const SortingIconWrapper = (props: SortingIconWrapperProps) => {
 	if (editorViewModeState?.mode === 'edit') {
 		return null;
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <SortingIcon {...props} />;
 };

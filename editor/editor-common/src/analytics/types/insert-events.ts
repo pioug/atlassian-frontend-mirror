@@ -277,6 +277,8 @@ type InsertExtensionAEP = InsertAEP<
 		key: string;
 		inputMethod: INPUT_METHOD.QUICK_INSERT | INPUT_METHOD.TOOLBAR;
 	},
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	any
 >;
 

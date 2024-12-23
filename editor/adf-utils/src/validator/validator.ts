@@ -1,3 +1,5 @@
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as specs from './specs';
 import type { ADFEntity, ADFEntityMark } from '../types';
 import {
@@ -30,8 +32,12 @@ import type {
 } from '../types/validatorTypes';
 import { validatorFnMap } from './rules';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function mapMarksItems(spec: ValidatorSpec, fn = (x: any) => x) {
 	if (spec.props && spec.props.marks) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const { items, ...rest } = spec.props!.marks!;
 		return {
 			...spec,
@@ -52,6 +58,8 @@ function mapMarksItems(spec: ValidatorSpec, fn = (x: any) => x) {
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const partitionObject = <T extends { [key: string]: any }>(
 	obj: T,
 	predicate: <K extends keyof T>(key: K, value: Exclude<T[K], undefined>, obj: T) => boolean,
@@ -70,13 +78,19 @@ const partitionObject = <T extends { [key: string]: any }>(
  * We denormalised the spec to save bundle size.
  */
 function createSpec(nodes?: Array<string>, marks?: Array<string>) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return Object.keys(specs).reduce<Record<string, any>>((newSpecs, k) => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const spec = { ...(specs as any)[k] };
 		if (spec.props) {
 			spec.props = { ...spec.props };
 			if (spec.props.content) {
 				// 'tableCell_content' => { type: 'array', items: [ ... ] }
 				if (isString(spec.props.content)) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					spec.props.content = (specs as any)[spec.props.content];
 				}
 
@@ -104,8 +118,12 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
 					// ['media'] => [['media']]
 					.map((item) =>
 						isString(item)
-							? Array.isArray((specs as any)[item])
-								? (specs as any)[item]
+							? // Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								Array.isArray((specs as any)[item])
+								? // Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-explicit-any
+									(specs as any)[item]
 								: [item]
 							: item,
 					)
@@ -113,8 +131,12 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
 					.map((item: Array<string>) =>
 						item
 							.map((subItem) =>
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
 								Array.isArray((specs as any)[subItem])
-									? (specs as any)[subItem]
+									? // Ignored via go/ees005
+										// eslint-disable-next-line @typescript-eslint/no-explicit-any
+										(specs as any)[subItem]
 									: isString(subItem)
 										? subItem
 										: // Now `NoMark` produces `items: []`, should be fixed in generator
@@ -157,6 +179,8 @@ function createSpec(nodes?: Array<string>, marks?: Array<string>) {
 	}, {});
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getOptionsForType(type: string, list?: Content): false | Record<string, any> {
 	if (!list) {
 		return {};
@@ -188,6 +212,8 @@ export function validateAttrs<T>(spec: AttributesSpec, value: T): boolean {
 	if (isValidatorSpecAttrs(spec)) {
 		// If spec has ".props" it is ValidatorSpecAttrs and need to pipe back in recursively
 		const [_, invalidKeys] = partitionObject(spec.props, (key, subSpec) =>
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			validateAttrs(subSpec, (value as any)[key]),
 		);
 		return invalidKeys.length === 0;
@@ -217,8 +243,12 @@ export function validateAttrs<T>(spec: AttributesSpec, value: T): boolean {
 				typeof value === 'string' && isDefined(validatorFnMap[rule]) && validatorFnMap[rule](value);
 			return (
 				isString(value) &&
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				(isDefined(spec.minLength) ? spec.minLength! <= value.length : true) &&
 				(isDefined(spec.validatorFn) ? validatorFnPassed(spec.validatorFn) : true) &&
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				(spec.pattern ? new RegExp(spec.pattern).test(value) : true)
 			);
 		case 'object':
@@ -289,6 +319,8 @@ const unsupportedMarkContent = (
 	mark: ADFEntityMark,
 	errorCallback?: ErrorCallback,
 	errorMessage?: string,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const message = errorMessage || errorMessageFor(mark.type, 'unsupported mark');
 	if (!errorCallback) {
@@ -316,6 +348,8 @@ const unsupportedNodeAttributesContent = (
 	invalidAttributes: ADFEntity['attrs'],
 	message: string,
 	errorCallback?: ErrorCallback,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (!errorCallback) {
 		throw new Error(message);
@@ -344,6 +378,8 @@ export function validator(
 ) {
 	const validatorSpecs = createSpec(nodes, marks);
 	const { mode = 'strict', allowPrivateAttributes = false } = options || {};
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	const validate: Validate = (entity, errorCallback, allowed, parentSpec) => {
 		const validationResult = validateNode(entity, errorCallback, allowed, parentSpec);
 		return { entity: validationResult.entity, valid: validationResult.valid };
@@ -354,6 +390,8 @@ export function validator(
 		allowed?: Content,
 		parentSpec?: ValidatorSpec,
 		isMark: boolean = false,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): NodeValidationResult => {
 		const { type } = entity;
 		let newEntity: ADFEntity = { ...entity };
@@ -408,6 +446,8 @@ export function validator(
 
 	return validate;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	function marksValidationFor(
 		validator: ValidatorSpec,
 		entity: ADFEntity,
@@ -439,6 +479,8 @@ export function validator(
 		}
 		return validationResult;
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	function validatorFor(spec: ValidatorSpec, typeOptions: Record<string, any>): ValidatorSpec {
 		return {
 			...spec,
@@ -448,6 +490,8 @@ export function validator(
 		};
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	function marksAfterValidation(
 		entity: ADFEntity,
 		errorCallback: ErrorCallback | undefined,
@@ -494,11 +538,15 @@ export function validator(
 	}
 
 	function allowedMarksFor(validator: ValidatorSpec) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const { items } = validator.props!.marks!;
 		const marksSet = items.length ? (Array.isArray(items[0]) ? items[0] : items) : [];
 		return marksSet;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	function marksForEntitySpecNotSupportingMarks(
 		prevEntity: ADFEntity,
 		newEntity: ADFEntity,
@@ -544,9 +592,13 @@ export function validator(
 		err: Err,
 	) {
 		let result: NodeValidationResult = { valid: true, entity: prevEntity };
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		if (validatorSpec.props!.text) {
 			if (
 				isDefined(prevEntity.text) &&
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				!validateAttrs(validatorSpec.props!.text, prevEntity.text)
 			) {
 				result = err('INVALID_TEXT', `'text' validation failed`);
@@ -561,7 +613,11 @@ export function validator(
 		err: Err,
 	) {
 		let result: NodeValidationResult = { valid: true, entity: prevEntity };
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		if (validatorSpec.props!.content && prevEntity.content) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const { minItems, maxItems } = validatorSpec.props!.content;
 			const length = prevEntity.content.length;
 			if (isDefined(minItems) && minItems > length) {
@@ -583,6 +639,8 @@ export function validator(
 
 	function invalidAttributesFor(validatorSpec: ValidatorSpec, prevEntity: ADFEntity) {
 		let invalidAttrs: Array<string> = [];
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let validatorAttrs: Record<string, any> = {};
 		if (validatorSpec.props && validatorSpec.props.attrs) {
 			const attrOptions = makeArray(validatorSpec.props.attrs);
@@ -595,10 +653,14 @@ export function validator(
 				const attrOption = attrOptions[i];
 				if (attrOption && attrOption.props) {
 					[, invalidAttrs] = partitionObject(attrOption.props, (key, spec) => {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						const valueToValidate = (prevEntity.attrs as any)[key];
 						return validateAttrs(spec, valueToValidate);
 					});
 				}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				validatorAttrs = attrOption!;
 				if (!invalidAttrs.length) {
 					break;
@@ -609,6 +671,8 @@ export function validator(
 		return { invalidAttrs, validatorAttrs };
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	function attributesValidationFor(
 		validatorSpec: ValidatorSpec,
 		prevEntity: ADFEntity,
@@ -651,6 +715,8 @@ export function validator(
 	function validateAttributes(
 		validatorSpec: ValidatorSpec,
 		prevEntity: ADFEntity,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		attributes: { [name: string]: any },
 	) {
 		const invalidAttributesResult = invalidAttributesFor(validatorSpec, prevEntity);
@@ -662,6 +728,8 @@ export function validator(
 			(k) => !(allowPrivateAttributes && k.startsWith('__')),
 		);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const redundantAttrs = attrs.filter((a) => !validatorAttrs.props![a]);
 		const hasRedundantAttrs = redundantAttrs.length > 0;
 
@@ -674,6 +742,8 @@ export function validator(
 		};
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	function handleUnsupportedNodeAttributes(
 		prevEntity: ADFEntity,
 		newEntity: ADFEntity,
@@ -725,6 +795,8 @@ export function validator(
 
 	function handleNoAttibutesAllowedInSpecForMark(
 		prevEntity: ADFEntity,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		attributes: { [name: string]: any },
 	) {
 		const message = errorMessageFor(
@@ -744,6 +816,8 @@ export function validator(
 		};
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	function wrapUnSupportedNodeAttributes(
 		prevEntity: ADFEntity,
 		newEntity: ADFEntity,
@@ -791,6 +865,8 @@ export function validator(
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	function extraPropsValidationFor(
 		validatorSpec: ValidatorSpec,
 		prevEntity: ADFEntity,
@@ -800,6 +876,8 @@ export function validator(
 	): NodeValidationResult {
 		let result: NodeValidationResult = { valid: true, entity: prevEntity };
 		const [requiredProps, redundantProps] = partitionObject(prevEntity, (k) =>
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			isDefined((validatorSpec.props as any)[k]),
 		);
 		if (redundantProps.length) {
@@ -824,8 +902,12 @@ export function validator(
 		return result;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	function specBasedValidationFor(
 		spec: ValidatorSpec,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		typeOptions: Record<string, any>,
 		prevEntity: ADFEntity,
 		err: Err,
@@ -951,6 +1033,8 @@ export function validator(
 		if (validatorSpec.props.content) {
 			const contentValidatorSpec = validatorSpec.props.content;
 			if (prevEntity.content) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const validateChildNode = (child: ADFEntity | undefined, index: any) => {
 					if (child === undefined) {
 						return child;
@@ -961,10 +1045,14 @@ export function validator(
 						errorCallback: ErrorCallback | undefined,
 						isLastValidationSpec: boolean,
 						isParentTupleLike: boolean = false,
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/max-params
 					) => {
 						let marksAreValid = true;
 						if (childEntity && childEntity.marks && marksValidationOutput) {
 							const validMarks = marksValidationOutput.filter((mark) => mark.valid);
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							const finalMarks = marksValidationOutput!
 								.map((mr) => {
 									if (mr.valid) {
@@ -980,6 +1068,8 @@ export function validator(
 											mr.errorCode === 'INVALID_ATTRIBUTES'
 										) {
 											return unsupportedMarkContent(
+												// Ignored via go/ees005
+												// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 												mr.errorCode!,
 												mr.originalMark,
 												errorCallback,

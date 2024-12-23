@@ -25,6 +25,8 @@ export default <P>(providers: (P | Promise<P>)[]) => {
 		return (await getFulfilledProviders()).map((provider) => mapFunction(provider));
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const createCallback = (methodName: keyof P, args?: any[]) => (provider: P) => {
 		const method = provider[methodName];
 
@@ -40,6 +42,8 @@ export default <P>(providers: (P | Promise<P>)[]) => {
 	 * @param methodName
 	 * @param args
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const invokeSingle = async <T>(methodName: keyof P, args?: any[]) => {
 		const callback = createCallback(methodName, args);
 
@@ -51,6 +55,8 @@ export default <P>(providers: (P | Promise<P>)[]) => {
 	 * @param methodName
 	 * @param args
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const invokeList = async <T>(methodName: keyof P, args?: any[]) => {
 		const callback = createCallback(methodName, args);
 		const results = await waitForAllPromises<T[]>(await runInAllProviders(callback));

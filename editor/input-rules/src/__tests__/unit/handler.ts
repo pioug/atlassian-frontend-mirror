@@ -41,6 +41,8 @@ describe('input-tule/handles/createInputEventHandler', () => {
 		});
 
 		RULE_BEFORE = {
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			match: /^(before).*/,
 			handler: ruleHandlerMock,
 		};
@@ -92,6 +94,8 @@ describe('input-tule/handles/createInputEventHandler', () => {
 		let inputHandleResult: boolean;
 		beforeEach(() => {
 			const RULE_AFTER = {
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				match: /^(after).*/,
 				handler: jest.fn().mockImplementation((state) => {
 					return state.tr;

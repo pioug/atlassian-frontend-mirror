@@ -12,6 +12,8 @@ const IconDatasourceGlyph = (props: CustomGlyphProps) => {
 			height="15"
 			viewBox="0 0 15 15"
 			fill="none"
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 		>
 			<path
@@ -35,7 +37,12 @@ const wrapperStyles = xcss({
 export const DatasourceIcon = (props: GlyphProps) => {
 	return (
 		<Flex xcss={wrapperStyles}>
-			<Icon glyph={IconDatasourceGlyph} {...props} />
+			<Icon
+				glyph={IconDatasourceGlyph}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...props}
+			/>
 		</Flex>
 	);
 };

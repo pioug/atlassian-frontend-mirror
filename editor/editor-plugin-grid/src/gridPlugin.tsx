@@ -35,6 +35,8 @@ const createDisplayGrid: CreateDisplayGrid = (view) => (props) => {
 type Side = 'left' | 'right';
 const sides: Side[] = ['left', 'right'];
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 const overflowHighlight = (highlights: Highlights, side: Side, start: number, size?: number) => {
 	if (!highlights.length) {
 		return false;
@@ -66,6 +68,8 @@ const gutterGridLines = (
 	editorWidth: number,
 	highlights: Highlights,
 	shouldCalcBreakoutGridLines?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): JSX.Element[] => {
 	const gridLines: JSX.Element[] = [];
 	if (!shouldCalcBreakoutGridLines) {
@@ -128,6 +132,8 @@ const lineLengthGridLines = (highlights: Highlights) => {
 };
 
 type Props = {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	theme: any;
 	shouldCalcBreakoutGridLines?: boolean;
 	containerElement: HTMLElement;
@@ -191,6 +197,8 @@ const ContentComponent = ({ api, editorView, options }: ContentComponentProps) =
 		<ThemedGrid
 			shouldCalcBreakoutGridLines={options && options.shouldCalcBreakoutGridLines}
 			editorWidth={widthState?.width ?? akEditorFullPageMaxWidth}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			containerElement={editorView.dom as HTMLElement}
 			visible={gridState.visible}
 			gridType={gridState.gridType ?? 'full'}

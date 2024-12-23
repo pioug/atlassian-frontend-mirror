@@ -21,8 +21,7 @@ import type { MediaOptions } from '@atlaskit/editor-plugins/media/types';
 import { autoformattingProvider } from '@atlaskit/editor-test-helpers/autoformatting-provider';
 import { cardProvider } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
-import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
+import { TitleInput, MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
@@ -320,6 +319,8 @@ const dataProviders = ProviderFactory.create({
 		defaultCollectionNameProviders.editorProviders.contextIdentifierProvider,
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class ExampleEditorComponent extends React.Component<EditorProps & ExampleProps, State> {
 	state: State = {
 		disabled: true,

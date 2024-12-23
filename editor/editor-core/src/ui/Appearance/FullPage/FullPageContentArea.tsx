@@ -29,6 +29,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import type EditorActions from '../../../actions';
 import type { ContentComponents, ReactComponents } from '../../../types';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import ClickAreaBlock from '../../Addon/ClickAreaBlock';
 import { ContextPanel } from '../../ContextPanel';
 import PluginSlot from '../../PluginSlot';

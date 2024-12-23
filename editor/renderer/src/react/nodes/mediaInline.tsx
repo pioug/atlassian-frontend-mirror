@@ -132,6 +132,8 @@ const RenderMediaInline = ({
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/prefer-primitives
 		<span
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...getClipboardAttrs({
 				id,
 				collection,
@@ -175,6 +177,8 @@ const MediaInline = (props: MediaInlineProps & WrappedComponentProps & MediaInli
 	const identifier: FileIdentifier = {
 		id,
 		mediaItemType: 'file',
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		collectionName: collection!,
 	};
 

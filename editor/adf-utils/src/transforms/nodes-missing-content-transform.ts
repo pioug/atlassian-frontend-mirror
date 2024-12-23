@@ -57,6 +57,8 @@ const tryCreateValidListItemWrappedChildren = (parentListNode: ADFEntity) => {
 				case 'text':
 					return listItem([paragraph(childNode as TextDefinition)]);
 				default:
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					return listItem([childNode as any]);
 			}
 		}

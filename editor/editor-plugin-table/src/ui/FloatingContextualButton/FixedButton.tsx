@@ -113,9 +113,13 @@ export const FixedButton = ({
 			});
 
 			observer.observe(observerTargetRefCurrent);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			tableWrapper.addEventListener('scroll', handleScroll);
 
 			return () => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				tableWrapper.removeEventListener('scroll', handleScroll);
 				fixedButtonRefCurrent.style.transform = '';
 				observer.unobserve(observerTargetRefCurrent);

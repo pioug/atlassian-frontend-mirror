@@ -48,6 +48,8 @@ export const toggleHeaderColumn: Command = (state, dispatch): boolean =>
 
 export const toggleNumberColumn: Command = (state, dispatch) => {
 	const { tr } = state;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const { node, pos } = findTable(state.selection)!;
 	const isNumberedColumnEnabled = node.attrs.isNumberColumnEnabled;
 

@@ -41,8 +41,7 @@ export interface LinkToolbarAppearanceProps {
 	isDatasourceView?: boolean;
 }
 // eslint-disable-next-line @repo/internal/react/no-class-components
-
-export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearanceProps, {}> {
+export class LinkToolbarAppearance extends React.Component<LinkToolbarAppearanceProps, Object> {
 	renderDropdown = (view?: EditorView, cardContext?: CardContext) => {
 		const {
 			url,

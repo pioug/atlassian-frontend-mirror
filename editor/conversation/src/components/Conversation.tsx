@@ -24,7 +24,11 @@ export interface Props extends SharedProps {
 	// Dispatch
 	onCreateConversation?: (
 		localId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		meta: any,
 		objectId: string,
 		containerId?: string,
@@ -33,6 +37,8 @@ export interface Props extends SharedProps {
 
 	isExpanded?: boolean;
 	meta?: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: string]: any;
 	};
 	createAnalyticsEvent: createAnalyticsEvent;
@@ -45,6 +51,8 @@ export interface State {
 	openEditorCount: number;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Conversation extends React.PureComponent<Props, State> {
 	constructor(props: Props) {
 		super(props);
@@ -133,6 +141,8 @@ export default class Conversation extends React.PureComponent<Props, State> {
 				dataProviders={dataProviders}
 				renderComment={(props) => (
 					<Comment
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...props}
 						canModerateComment={canModerateComments}
 						renderAdditionalCommentActions={renderAdditionalCommentActions}
@@ -201,6 +211,8 @@ export default class Conversation extends React.PureComponent<Props, State> {
 		return;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private onRetry = (document: any) => (commentLocalId?: string) => {
 		this.sendEditorAnalyticsEvent({
 			actionSubjectId: actionSubjectIds.retryFailedRequestButton,
@@ -208,6 +220,8 @@ export default class Conversation extends React.PureComponent<Props, State> {
 		this.onSave(document, commentLocalId, true);
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await, @typescript-eslint/no-explicit-any
 	private onSave = async (value: any, commentLocalId?: string, retry?: boolean) => {
 		const {
 			objectId,
@@ -227,6 +241,8 @@ export default class Conversation extends React.PureComponent<Props, State> {
 		}
 
 		if (!id && !commentLocalId && onCreateConversation) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			onCreateConversation(localId!, value, meta, objectId, containerId, (id) => {
 				this.sendEditorAnalyticsEvent({
 					actionSubjectId: id,
@@ -239,6 +255,8 @@ export default class Conversation extends React.PureComponent<Props, State> {
 				});
 			});
 		} else if (onAddComment) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const conversationId = id || conversation!.conversationId;
 			onAddComment(conversationId, conversationId, value, commentLocalId, (id) => {
 				this.sendEditorAnalyticsEvent({
@@ -289,11 +307,15 @@ export default class Conversation extends React.PureComponent<Props, State> {
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private handleEditorChange = (value: any, commentId?: string) => {
 		const { id, localId, onEditorChange, meta, objectId, containerId } = this.props;
 
 		if (onEditorChange) {
 			const isLocal = !id;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			onEditorChange(isLocal, value, localId!, commentId, meta, objectId, containerId);
 		}
 	};

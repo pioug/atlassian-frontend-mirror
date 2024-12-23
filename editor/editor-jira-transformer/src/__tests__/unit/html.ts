@@ -150,6 +150,8 @@ describe('JIRATransformer html:', () => {
 			'<p>Text with <em><b>strong emphasised words</b></em>.</p>',
 		);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line jest/no-identical-title
 		describe('checkParseEncodeRoundTrips', () => {
 			it(`parses HTML: <del> tag`, () => {
 				const customSchema = createJIRASchema({

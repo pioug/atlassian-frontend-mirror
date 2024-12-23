@@ -33,6 +33,8 @@ export function MountPluginHooks({
 		<>
 			{pluginHooks?.map((usePluginHook, key) => (
 				<MountPluginHook
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/no-array-index-key
 					key={key}
 					usePluginHook={usePluginHook}
 					editorView={editorView}

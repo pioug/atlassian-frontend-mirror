@@ -12,6 +12,7 @@ export const buildEditLinkPayload = (type: LinkType): AnalyticsEventPayload => {
 		attributes:
 			type !== ACTION_SUBJECT_ID.HYPERLINK
 				? {
+						// @ts-ignore
 						display: type,
 					}
 				: {},
@@ -70,6 +71,7 @@ export const buildOpenedSettingsPayload = (type: LinkType): AnalyticsEventPayloa
 		actionSubject: ACTION_SUBJECT.BUTTON,
 		actionSubjectId: ACTION_SUBJECT_ID.GOTO_SMART_LINK_SETTINGS,
 		attributes: {
+			// @ts-ignore
 			inputMethod: INPUT_METHOD.TOOLBAR,
 			display: mapLinkTypeToCardAppearance(type),
 		},

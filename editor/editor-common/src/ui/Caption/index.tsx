@@ -37,6 +37,8 @@ type Props = {
 	};
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class CaptionComponent extends React.Component<Props & WrappedComponentProps> {
 	render() {
 		const {
@@ -53,6 +55,8 @@ export class CaptionComponent extends React.Component<Props & WrappedComponentPr
 			<div
 				data-media-caption
 				data-testid="media-caption"
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...dataAttributes}
 				css={captionWrapperStyle}
 			>

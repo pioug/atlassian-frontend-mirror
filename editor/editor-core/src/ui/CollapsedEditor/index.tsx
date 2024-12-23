@@ -15,8 +15,10 @@ export interface Props {
 	onExpand?: () => void;
 }
 
-export interface State {}
+export type State = Object;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class CollapsedEditor extends React.Component<Props, State> {
 	editorComponent?: Editor;
 	previouslyExpanded?: boolean;

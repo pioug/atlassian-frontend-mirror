@@ -56,7 +56,11 @@ const CompositeIcon = ({ icon }: { icon: React.ReactChild }) => (
 
 export interface Props {
 	title: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	icon?: ReactElement<any>;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	iconBefore?: ReactElement<any>;
 	hideExpandIcon?: boolean;
 	options: DropdownOptions<Function>;
@@ -261,6 +265,8 @@ export default class Dropdown extends Component<Props, State> {
 	private hideOnEsc = () => {
 		// Focus the trigger button only on Escape
 		// Focus is done before hiding to ensure onBlur is called
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		(document.querySelector(`[data-testid=${this.props.buttonTestId}]`) as HTMLElement)?.focus();
 		this.hide();
 	};

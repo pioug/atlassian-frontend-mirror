@@ -392,6 +392,8 @@ export const reducers = createReducer(initialState, {
 
 	[CREATE_CONVERSATION_REQUEST](state: State, action: Action) {
 		const { payload } = action;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const [comment] = payload.comments!;
 		const conversations = [
 			...state.conversations,

@@ -204,6 +204,8 @@ export function createPerformanceObserver(props: CreatePerformanceObserverProps)
 			} else if (entry.entryType === 'longtask') {
 				props.onLongTask({ startTime: entry.startTime, duration: entry.duration });
 			} else if (entry.entryType === 'layout-shift') {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const changedRects = ((entry as any).sources as LayoutShiftAttribution[]).reduceRight(
 					(acc, attr) => {
 						acc.push({

@@ -125,6 +125,8 @@ export class EditLinkToolbar extends React.Component<EditLinkToolbarProps> {
 				// via the floating toolbar
 				invokeMethod={INPUT_METHOD.FLOATING_TB}
 				lpLinkPicker={lpLinkPicker}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/max-params
 				onSubmit={(href, title, displayText, inputMethod, analytic) => {
 					this.hideLinkToolbar();
 					if (onSubmit) {
@@ -219,6 +221,8 @@ export const buildEditLinkToolbar = ({
 					node={node}
 					lpLinkPicker={lpLinkPicker}
 					forceFocusSelector={pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector}
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/max-params
 					onSubmit={(newHref, newText, inputMethod, analytic) => {
 						const urlChanged = newHref !== displayInfo.url;
 						const titleChanged = newText !== displayInfo.title;

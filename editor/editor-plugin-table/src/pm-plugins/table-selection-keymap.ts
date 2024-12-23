@@ -32,8 +32,12 @@ export function tableSelectionKeymapPlugin(
 	const editorSelectionAPI = pluginInjectionApi?.selection;
 	const ariaNotifyPlugin = pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(moveRight.common!, arrowRightFromTable(editorSelectionAPI)(), list);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(moveLeft.common!, arrowLeftFromTable(editorSelectionAPI)(), list);
 
 	bindKeymapArrayWithCommand(
@@ -48,8 +52,12 @@ export function tableSelectionKeymapPlugin(
 		list,
 	);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(shiftArrowUp.common!, shiftArrowUpFromTable(editorSelectionAPI)(), list);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(selectTable.common!, modASelectTable(editorSelectionAPI)(), list);
 
 	return keymap(list) as SafePlugin;

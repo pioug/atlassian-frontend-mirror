@@ -350,9 +350,13 @@ const selectFullTable =
 		let fullTableSelection: Selection;
 		let selectionRelativeToNode: RelativeSelectionPos;
 		if (dir === TableSelectionDirection.TopToBottom) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			fullTableSelection = new CellSelection($firstCell, $lastCell) as any;
 			selectionRelativeToNode = RelativeSelectionPos.End;
 		} else {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			fullTableSelection = new CellSelection($lastCell, $firstCell) as any;
 			selectionRelativeToNode = RelativeSelectionPos.Start;
 		}

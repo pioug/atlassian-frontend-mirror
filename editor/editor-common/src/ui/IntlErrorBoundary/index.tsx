@@ -15,6 +15,8 @@ export const REACT_INTL_ERROR_MESSAGE = '<IntlProvider> needs to exist in the co
 const isMissingIntlProviderInAncestryError = (err: Error) =>
 	err?.toString()?.includes('<IntlProvider> needs to exist in the component ancestry');
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class IntlErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
 	state = {
 		missingIntlProviderInAncestry: false,

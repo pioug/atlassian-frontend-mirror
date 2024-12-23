@@ -27,9 +27,9 @@ import {
 	FloatingToolbarButton as Button,
 	ErrorMessage,
 	FloatingToolbarSeparator as Separator,
+	// Common Translations will live here
+	PanelTextInput,
 } from '@atlaskit/editor-common/ui';
-// Common Translations will live here
-import { PanelTextInput } from '@atlaskit/editor-common/ui';
 import { normalizeUrl } from '@atlaskit/editor-common/utils';
 import ChevronLeftLargeIcon from '@atlaskit/icon/glyph/chevron-left-large';
 import EditorUnlinkIcon from '@atlaskit/icon/glyph/editor/unlink';
@@ -149,6 +149,8 @@ class LinkAddToolbar extends React.PureComponent<Props & WrappedComponentProps> 
 		const formatUnlinkText = formatMessage(linkToolbarMessages.unlink);
 
 		const errorsList = this.state.validationErrors.map(function (error, index) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/no-array-index-key
 			return <ErrorMessage key={index}>{error}</ErrorMessage>;
 		});
 

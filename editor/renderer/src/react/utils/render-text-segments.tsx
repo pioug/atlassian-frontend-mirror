@@ -3,6 +3,8 @@ import type { Mark } from '@atlaskit/editor-prosemirror/model';
 import type { TextSegment } from './segment-text';
 import type { TextHighlighter } from '../types';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function renderTextSegments(
 	segments: Array<TextSegment>,
 	textHighlighter: TextHighlighter | undefined,

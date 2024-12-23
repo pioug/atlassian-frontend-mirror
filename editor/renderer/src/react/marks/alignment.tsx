@@ -23,8 +23,13 @@ const MarkWrapper = (
 			`
 		: '';
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-		<div css={styles} {...props}>
+		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			css={styles}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+		>
 			{props.children}
 		</div>
 	);

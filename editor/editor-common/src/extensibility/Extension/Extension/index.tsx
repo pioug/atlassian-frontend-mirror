@@ -261,6 +261,8 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 const Extension = (props: Props & OverflowShadowProps) => {
 	const { pluginInjectionApi } = props;
 	const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <ExtensionWithPluginState widthState={widthState} {...props} />;
 };
 

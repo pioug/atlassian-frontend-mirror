@@ -111,7 +111,6 @@ const AtlaskitIcon = ({ icon, label, testId }: AtlaskitIconProps) => {
 		case IconType.Document:
 			return <DocumentIcon label={label || 'document'} testId={testId} />;
 		case IconType.Blog:
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
 			return <BlogIcon label={label || 'blog'} testId={testId} />;
 	}
 

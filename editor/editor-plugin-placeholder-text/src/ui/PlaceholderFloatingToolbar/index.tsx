@@ -63,6 +63,8 @@ class PlaceholderFloatingToolbar extends React.Component<Props & WrappedComponen
 		);
 		return (
 			<FloatingToolbar
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				target={getNearestNonTextNode(target)!}
 				onPositionCalculated={handlePositionCalculated}
 				popupsMountPoint={popupsMountPoint}

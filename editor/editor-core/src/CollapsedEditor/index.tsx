@@ -1,5 +1,7 @@
 import React from 'react';
 
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import type * as EditorImports from '../index';
 import ChromeCollapsed from '../ui/ChromeCollapsed';
 
@@ -23,6 +25,8 @@ export interface State {
 	editorModules?: EditorModules;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class CollapsedEditor extends React.Component<Props, State> {
 	static editorModules: EditorModules;
 	state = { editorModules: CollapsedEditor.editorModules } as State;

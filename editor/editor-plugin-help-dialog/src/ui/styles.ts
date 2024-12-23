@@ -2,6 +2,8 @@
 import { css } from '@emotion/react';
 
 import { akEditorUnitZIndex, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as colors from '@atlaskit/theme/colors';
 import { B300, N400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';

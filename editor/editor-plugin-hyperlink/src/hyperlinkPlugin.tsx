@@ -90,6 +90,8 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 
 		actions: {
 			hideLinkToolbar: hideLinkToolbarSetMeta,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			insertLink: (
 				inputMethod,
 				from,

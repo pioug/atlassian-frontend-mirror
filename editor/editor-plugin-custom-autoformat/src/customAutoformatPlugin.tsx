@@ -65,6 +65,8 @@ export const createPMPlugin = (
 			},
 		},
 		props: {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			handleTextInput(view: EditorView, from: number, to: number, text: string) {
 				triggerInputRule(view, rules, from, to, text);
 				return false;
@@ -94,7 +96,11 @@ export const createPMPlugin = (
 							 * On Shift + Enter, after the first word an Object Replacement Character (/ufffc) is added.
 							 * We still want to match strings that start with an Object Replacement Character.
 							 */
+							// Ignored via go/ees005
+							// eslint-disable-next-line require-unicode-regexp
 							matchTyping: new RegExp('(\\s+|^|\\ufffc)' + rule + '(\\s|,|\\.)$'),
+							// Ignored via go/ees005
+							// eslint-disable-next-line require-unicode-regexp
 							matchEnter: new RegExp('(\\s+|^)' + rule + '()$'),
 							handler: buildHandler(rule, ruleset[rule]),
 						};

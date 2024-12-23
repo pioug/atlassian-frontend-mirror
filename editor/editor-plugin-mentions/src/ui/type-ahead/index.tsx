@@ -156,7 +156,11 @@ const buildAndSendElementsTypeAheadAnalytics =
 					isTeamType(mention.userType)
 						? {
 								teamId: mention.id,
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								includesYou: mention.context!.includesYou,
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								memberCount: mention.context!.memberCount,
 							}
 						: null,
@@ -177,6 +181,8 @@ const buildNodesForTeamMention = (
 	selectedMention: MentionDescription,
 	mentionProvider: MentionProvider,
 	sanitizePrivateContent?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Fragment => {
 	const { nodes, marks } = schema;
 	const { name, id: teamId, accessLevel, context } = selectedMention;
@@ -186,7 +192,9 @@ const buildNodesForTeamMention = (
 	const teamLink = context && context.teamLink ? context.teamLink : defaultTeamLink;
 	const teamLinkNode = fg('team-mention-inline-smartlink')
 		? schema.nodes.inlineCard.create({ url: teamLink })
-		: schema.text(name!, [marks.link.create({ href: teamLink })]);
+		: // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			schema.text(name!, [marks.link.create({ href: teamLink })]);
 
 	const openBracketText = schema.text('(');
 	const closeBracketText = schema.text(')');
@@ -330,6 +338,8 @@ export const createTypeAheadConfig = ({
 		onOpen: () => {
 			firstQueryWithoutResults = null;
 		},
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 		selectItem(state, item, insert, { mode, stats, query, sourceListItem }) {
 			const { schema } = state;
 

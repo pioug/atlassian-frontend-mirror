@@ -54,6 +54,8 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaNextEditorPluginType } from '../mediaPluginType';
 import { updateMediaNodeAttrs } from '../pm-plugins/commands/helpers';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as helpers from '../pm-plugins/commands/helpers';
 import {
 	getMediaFromSupportedMediaNodesFromSelection,
@@ -91,6 +93,8 @@ const createDropPlaceholder = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	dropPlaceholderKey: string,
 	allowDropLine?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const dropPlaceholder = document.createElement('div');
 	const createElement = React.createElement;
@@ -189,6 +193,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	singletonCreatedAt: number;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		state: EditorState,
 		options: MediaPluginOptions,
@@ -416,6 +422,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	 *
 	 * called when we insert a new file via the picker (connected via pickerfacade)
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	insertFile = (
 		mediaState: MediaState,
 		onMediaStateChanged: MediaStateEventSubscriber,
@@ -568,6 +576,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	addPendingTask = (task: Promise<any>) => {
 		this.taskManager.addPendingTask(task);
 	};
@@ -803,6 +813,8 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		}
 
 		let { from } = view.state.selection;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		removeMediaNode(view, selectedNode.firstChild!, () => from + 1);
 		return true;
 	};
@@ -873,6 +885,8 @@ export const createPlugin = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	dispatch?: Dispatch,
 	mediaOptions?: MediaOptions,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const intl = getIntl();
 
@@ -1071,6 +1085,8 @@ export const createPlugin = (
 				return DecorationSet.create(state.doc, dropPlaceholders);
 			},
 			nodeViews: options.nodeViews,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			handleTextInput(view: EditorView, from, to, text): boolean {
 				const { selection } = view.state;
 				if (
@@ -1098,6 +1114,8 @@ export const createPlugin = (
 				return false;
 			},
 			handleClick: (_editorView, _pos, event: MouseEvent) => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const clickedInsideCaptionPlaceholder = (event.target as HTMLElement)?.closest(
 					`[data-id="${CAPTION_PLACEHOLDER_ID}"]`,
 				);
@@ -1112,6 +1130,8 @@ export const createPlugin = (
 				// Workaound for iOS 16 Caption selection issue
 				// @see https://product-fabric.atlassian.net/browse/MEX-2012
 				if (browser.ios) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					return !!(event.target as HTMLElement)?.closest(
 						`[class="${MEDIA_CONTENT_WRAP_CLASS_NAME}"]`,
 					);

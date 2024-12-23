@@ -40,6 +40,8 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
 				return state.tr;
 			});
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			const INLINE_CODE_REGEX = /(\S*)(`[^\s][^`]*`)$/;
 			const myCustomInputRule = new SafePlugin(
 				createInputRulePlugin(
@@ -106,6 +108,8 @@ describe('input-tule/plugin/createInputRulePlugin', () => {
 				return state.tr;
 			});
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			const CODE_BLOCK_REGEX = /(?!\s)(`{3,})/;
 			const myCustomInputRule = new SafePlugin(
 				createInputRulePlugin(

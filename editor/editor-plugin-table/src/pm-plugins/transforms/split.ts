@@ -10,6 +10,8 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
  * @param columnStart - Start of the rect included (rect.left)
  * @param columnEnd - End of the rect not included (rect.right)
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function splitCellsInColumns(
 	tr: Transaction,
 	tablePos: number,
@@ -61,6 +63,8 @@ export function splitCellsInColumns(
 						const cellPos = map.positionAt(cellRowIndex, column + i, table);
 						tr.insert(
 							mapping.map(cellPos + tableStart),
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							cellNode.type.createAndFill({
 								...baseAttrs,
 								colwidth: colwidth ? [colwidth[i]] : undefined,

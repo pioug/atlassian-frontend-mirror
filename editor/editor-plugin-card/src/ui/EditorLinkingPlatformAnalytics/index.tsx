@@ -18,8 +18,16 @@ export class EditorLinkingPlatformAnalytics extends React.PureComponent<Analytic
 			<EditorSmartCardProvider>
 				<EditorSmartCardProviderValueGuard>
 					<EditorAnalyticsContext editorView={this.props.editorView}>
-						<LinkEventsBinding {...this.props} />
-						<DatasourceEventsBinding {...this.props} />
+						<LinkEventsBinding
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...this.props}
+						/>
+						<DatasourceEventsBinding
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...this.props}
+						/>
 					</EditorAnalyticsContext>
 				</EditorSmartCardProviderValueGuard>
 			</EditorSmartCardProvider>

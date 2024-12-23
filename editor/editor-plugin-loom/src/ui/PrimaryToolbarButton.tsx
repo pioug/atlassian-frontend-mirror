@@ -49,6 +49,8 @@ const CustomisableLoomToolbarButton = (
 				api={api}
 				appearance={appearance}
 				onClick={(e) => handleOnClick(e)}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...restProps}
 			/>
 		);

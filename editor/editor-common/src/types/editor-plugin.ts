@@ -11,6 +11,8 @@ import type { TypeAheadHandler } from './type-ahead';
 import type { ReactHookFactory, UIComponentFactory } from './ui-components';
 
 export type PluginsOptions = {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[pluginName: string]: any;
 	/**
 	 * Handler returns an array of QuickInsertItem that are added to the Element Browser, Insert Menu and Quick Insert
@@ -56,6 +58,8 @@ export interface EditorPlugin {
 	/**
 	 * List of ProseMirror-plugins. This is where we define which plugins will be added to EditorView (main-plugin, keybindings, input-rules, etc.).
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	pmPlugins?: (pluginOptions?: any) => Array<PMPlugin>;
 
 	/**

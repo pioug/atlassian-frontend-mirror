@@ -61,6 +61,8 @@ const quickInsertProvider = quickInsertProviderFactory();
 const quickInsert = {
 	provider: Promise.resolve(quickInsertProvider),
 };
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class ExampleEditor extends React.Component<Props> {
 	render() {
 		return (

@@ -41,7 +41,7 @@ type TaskItemProps = TaskProps &
 	};
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class TaskItem extends PureComponent<TaskItemProps, {}> {
+export class TaskItem extends PureComponent<TaskItemProps, Object> {
 	static displayName = 'TaskItem';
 
 	private providerFactory: ProviderFactory;
@@ -71,6 +71,8 @@ export class TaskItem extends PureComponent<TaskItemProps, {}> {
 
 		return (
 			<TaskItemWithProviders
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...otherProps}
 				placeholder={
 					placeholder !== undefined && editorExperiment('issue_view_action_items', true)
@@ -102,6 +104,8 @@ export class TaskItem extends PureComponent<TaskItemProps, {}> {
 
 const TaskItemWrapper = (props: TaskProps & WrappedComponentProps) => {
 	const { taskDecisionState } = useSharedPluginState(props.api, ['taskDecision']);
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <TaskItem taskDecisionState={taskDecisionState} {...props} />;
 };
 

@@ -18,6 +18,8 @@ jest.mock('../../channel', () => {
 			},
 			on: jest.fn().mockImplementation(function (this: any, eventName, callback) {
 				events.set(eventName, callback);
+				// Ignored via go/ees005
+				// eslint-disable-next-line no-invalid-this
 				return this;
 			}),
 			connect: jest.fn(),
@@ -163,7 +165,6 @@ describe('Provider', () => {
 				value: true,
 			});
 		});
-
 		it('Should initialize provider and calls catchupv2 on connect', async () => {
 			expect.assertions(4);
 			const sid = 'expected-sid-123';
@@ -209,7 +210,6 @@ describe('Provider', () => {
 			expect(initializeChannelSpy).toHaveBeenCalledTimes(1);
 			done();
 		});
-
 		it('Should fire analytics events on initialization and buffering', async () => {
 			expect.assertions(3);
 			const sid = 'expected-sid-123';
@@ -328,7 +328,6 @@ describe('Provider', () => {
 			});
 			provider.initialize(() => editorState);
 		});
-
 		it("Should emit 'connected' when the connection is successfully established", async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('connected', ({ sid, initial }) => {
@@ -338,7 +337,6 @@ describe('Provider', () => {
 			provider.initialize(() => editorState);
 			channel.emit('connected', { sid: 'sid-123' });
 		});
-
 		it("Should emit 'init' with the initialisation data from the collab service", async () => {
 			let expectedSid: any;
 			const sid = 'expected-sid-123';
@@ -366,7 +364,6 @@ describe('Provider', () => {
 				},
 			});
 		});
-
 		it("Should emit 'init' with the initial draft data from the provider config", async () => {
 			const testProviderConfigWithDraft = {
 				initialDraft: {
@@ -518,7 +515,6 @@ describe('Provider', () => {
 				title: 'some-random-title',
 			});
 		});
-
 		it('Should emit metadata when title has changed to empty string', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('metadata:changed', (metadata) => {
@@ -531,7 +527,6 @@ describe('Provider', () => {
 				title: '',
 			});
 		});
-
 		it('Should emit metadata with editorWidth', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('metadata:changed', (metadata) => {
@@ -546,7 +541,6 @@ describe('Provider', () => {
 				version: 1,
 			});
 		});
-
 		it('Should emit metadata when editor width is changed to empty string', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			provider.on('metadata:changed', (metadata) => {
@@ -559,7 +553,6 @@ describe('Provider', () => {
 				editorWidth: '',
 			});
 		});
-
 		it('Should emit metadata during init', async () => {
 			const userId = 'user-123';
 			const provider = createSocketIOCollabProvider(testProviderConfig);
@@ -700,7 +693,6 @@ describe('Provider', () => {
 		beforeEach(() => {
 			sendActionEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendActionEvent');
 		});
-
 		it('Should be triggered when reconnecting after being disconnected for more than 3s', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			const throttledCatchupv2Spy = jest.spyOn(
@@ -723,7 +715,6 @@ describe('Provider', () => {
 			expect(throttledCatchupv2Spy).toHaveBeenCalledTimes(1);
 			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.RECONNECTED);
 		});
-
 		it('Should be triggered when initial draft is present and is reconnecting after being disconnected for more than 3s', async () => {
 			// ensure that if initial draft exists, any reconnections do not attempt to re-update document/metadata with initial draft
 			const provider = createSocketIOCollabProvider(testProviderConfigWithDraft);
@@ -758,7 +749,6 @@ describe('Provider', () => {
 			expect(throttledCatchupv2Spy).toHaveBeenCalledTimes(1);
 			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.RECONNECTED);
 		});
-
 		it('Should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
 			const throttledCatchupv2Spy = jest.spyOn(
@@ -844,7 +834,6 @@ describe('Provider', () => {
 				reason: CatchupEventReason.STEPS_REJECTED,
 			});
 		});
-
 		it('Should reset the rejected step counter when catchup throws an error', async () => {
 			const catchupv2Mock = (catchupv2 as jest.Mock).mockImplementation(() => {
 				throw new Error('catchupv2 error');

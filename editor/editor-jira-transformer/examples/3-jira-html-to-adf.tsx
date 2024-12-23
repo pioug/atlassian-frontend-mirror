@@ -45,6 +45,8 @@ export interface State {
 	source: string;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class Example extends React.PureComponent<{}, State> {
 	state: State = { source: '' };
 

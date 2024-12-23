@@ -23,6 +23,8 @@ describe('Feature flags', () => {
 		expect(result).toEqual(false);
 	});
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line jest/no-identical-title
 	it('getCollabProviderFeatureFlag with wrong ff set', () => {
 		const result = getCollabProviderFeatureFlag('testFF', undefined);
 		expect(result).toEqual(false);

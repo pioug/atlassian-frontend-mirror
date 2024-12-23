@@ -60,4 +60,6 @@ export type ToolbarUiComponentFactoryParams = UiComponentFactoryParams & {
 };
 export type ToolbarUIComponentFactory = (
 	params: ToolbarUiComponentFactoryParams,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) => React.ReactElement<any> | null;

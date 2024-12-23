@@ -9,6 +9,8 @@ export function keymapPlugin(): SafePlugin {
 	const list = {};
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		enter.common!,
 		(state, dispatch) => {
 			const datePlugin = getPluginState(state);
@@ -32,6 +34,8 @@ export function keymapPlugin(): SafePlugin {
 		list,
 	);
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		tab.common!,
 		(state, dispatch) => {
 			const datePlugin = getPluginState(state);

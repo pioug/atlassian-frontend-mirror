@@ -8,6 +8,8 @@ export type Attrs = { [key: string]: string };
 
 export interface NodeSerializerOpts {
 	node: PMNode;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs: { [key: string]: any };
 	marks: readonly Mark[];
 	text?: string | null;
@@ -18,6 +20,8 @@ export interface NodeSerializerOpts {
 export interface MarkSerializerOpts {
 	mark: Mark;
 	text: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	context?: any;
 }
 

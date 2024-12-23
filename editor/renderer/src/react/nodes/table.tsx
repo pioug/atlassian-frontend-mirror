@@ -61,6 +61,8 @@ const orderChildren = (
 	tableNode: PMNode,
 	smartCardStorage: WithSmartCardStorageProps['smartCardStorage'],
 	tableOrderStatus?: TableOrderStatus,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): React.ReactElement[] => {
 	if (!tableOrderStatus || tableOrderStatus.order === SortOrder.NO_ORDER) {
 		return children;
@@ -118,12 +120,16 @@ const shouldHeaderStick = (
 	tableTop: number,
 	tableBottom: number,
 	rowHeight: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => tableTop <= scrollTop && !(tableBottom - rowHeight <= scrollTop);
 
 const shouldHeaderPinBottom = (scrollTop: number, tableBottom: number, rowHeight: number) =>
 	tableBottom - rowHeight <= scrollTop && !(tableBottom < scrollTop);
 
 const addSortableColumn = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	rows: React.ReactElement<any>[],
 	tableOrderStatus: TableOrderStatus | undefined,
 	onSorting: (columnIndex: number, sortOrder: SortOrder) => void,
@@ -141,6 +147,10 @@ const addSortableColumn = (
 };
 
 type TableProps = SharedTableProps & {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children: React.ReactElement<any> | Array<React.ReactElement<any>>;
 	tableNode?: PMNode;
 	rendererAppearance?: RendererAppearance;
@@ -156,6 +166,8 @@ const isHeaderRowEnabled = (
 	if (!rows.length) {
 		return false;
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const { children } = (rows[0] as React.ReactElement<any>).props;
 	if (!children.length) {
 		return false;
@@ -186,6 +198,8 @@ interface TableState {
 	headerRowHeight: number;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class TableContainer extends React.Component<
 	TableProps & OverflowShadowProps & WithSmartCardStorageProps,
 	TableState
@@ -246,6 +260,8 @@ export class TableContainer extends React.Component<
 				this.tableRef.current,
 				this.props.stickyHeaders?.defaultScrollRootId_DO_NOT_USE,
 			);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.overflowParent.addEventListener('scroll', this.onScroll);
 		}
 
@@ -262,6 +278,8 @@ export class TableContainer extends React.Component<
 				this.props.stickyHeaders?.defaultScrollRootId_DO_NOT_USE,
 			);
 		} else if (!this.props.stickyHeaders && this.overflowParent) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.overflowParent.removeEventListener('scroll', this.onScroll);
 			this.overflowParent = null;
 		}
@@ -279,6 +297,8 @@ export class TableContainer extends React.Component<
 
 	componentWillUnmount = () => {
 		if (this.overflowParent) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.overflowParent.removeEventListener('scroll', this.onScroll);
 		}
 
@@ -688,6 +708,8 @@ export class TableContainer extends React.Component<
 	private grabFirstRowRef = (
 		children: (React.ReactNode | React.ReactFragment | React.ReactPortal)[],
 	): React.ReactNode[] => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return React.Children.map<React.ReactElement, any>(children || false, (child, idx) => {
 			if (idx === 0 && React.isValidElement(child)) {
 				return React.cloneElement(child, {
@@ -704,6 +726,8 @@ type TableProcessorState = {
 	tableOrderStatus?: TableOrderStatus;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class TableProcessor extends React.Component<
 	TableProps & OverflowShadowProps & WithSmartCardStorageProps,
 	TableProcessorState
@@ -718,13 +742,15 @@ export class TableProcessor extends React.Component<
 			return null;
 		}
 
-		let childrenArray = React.Children.toArray(children);
+		const childrenArray = React.Children.toArray(children);
 		const orderedChildren = compose(
 			this.addNumberColumnIndexes,
 			this.addSortableColumn,
 			// @ts-expect-error TS2345: Argument of type '(ReactChild | ReactFragment | ReactPortal)[]' is not assignable to parameter of type 'ReactElement<any, string | JSXElementConstructor<any>>[]'
 		)(childrenArray);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		return <TableContainer {...this.props}>{orderedChildren}</TableContainer>;
 	}
 
@@ -758,6 +784,8 @@ export class TableProcessor extends React.Component<
 		});
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private addNumberColumnIndexes = (rows: React.ReactElement<any>[]) => {
 		const { isNumberColumnEnabled } = this.props;
 
@@ -792,10 +820,19 @@ const TableWithWidth = (
 				const colWidthsSum = props.columnWidths?.reduce((total, val) => total + val, 0) || 0;
 
 				if (colWidthsSum || props.allowTableResizing) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					return <TableWithShadows renderWidth={renderWidth} {...props} />;
 				}
 				// there should not be a case when colWidthsSum is 0 and table is in overflow state - so no need to render shadows in this case
-				return <TableProcessor renderWidth={renderWidth} {...props} />;
+				return (
+					<TableProcessor
+						renderWidth={renderWidth}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...props}
+					/>
+				);
 			}}
 		</WidthConsumer>
 	);

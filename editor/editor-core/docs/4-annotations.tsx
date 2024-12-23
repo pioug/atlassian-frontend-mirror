@@ -174,6 +174,8 @@ const inlineCommentEditor = (adf: Object, onChange?: (editorView: EditorView) =>
 	<Editor appearance="chromeless" defaultValue={adf} onChange={onChange} />
 );
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class SplitExample extends React.Component<{ initialAdf: object }> {
 	state = {
 		adf: this.props.initialAdf,

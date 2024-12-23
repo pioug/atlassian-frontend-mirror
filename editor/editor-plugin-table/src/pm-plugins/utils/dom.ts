@@ -241,7 +241,11 @@ export const findNearestCellIndexToPoint = (
 		return undefined;
 	}
 	return {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		row: row!.rowIndex,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		col: cell!.cellIndex,
 	};
 };

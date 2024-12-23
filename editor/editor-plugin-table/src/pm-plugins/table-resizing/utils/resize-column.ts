@@ -29,6 +29,8 @@ export const resizeColumn = (
 	selectedColumns?: number[],
 	isTableScalingEnabled = false,
 	scalePercent = 1,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): ResizeState => {
 	let resizeAmount = amount;
 
@@ -94,7 +96,9 @@ export const resizeColumnAndTable = ({
 		resizeAmount =
 			amount < 0
 				? amount
-				: resizeAmount - (resizeState.maxSize + resizeAmount - tableContainerWidth!) / 2;
+				: // Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					resizeAmount - (resizeState.maxSize + resizeAmount - tableContainerWidth!) / 2;
 	} else {
 		const diff = -(resizeState.tableWidth - resizeState.maxSize);
 		const rest = amount - diff;
@@ -162,7 +166,11 @@ const updateTablePreview = (
 
 	if (resizingItem) {
 		const newWidth = `${newTableWidth}px`;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		(resizingContainer as HTMLElement).style.width = newWidth;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		(resizingItem as HTMLElement).style.width = newWidth;
 
 		if (shouldChangeAlignment && alignmentContainer) {

@@ -26,7 +26,7 @@ type ToolbarButtonClickedAEP = UIAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.TOOLBAR_BUTTON,
 	undefined,
-	{},
+	Object,
 	undefined
 >;
 

@@ -13,6 +13,8 @@ interface Props {
 	extensionType: string;
 	extensionKey: string;
 	text?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	parameters?: any;
 	localId?: string;
 	marks?: PMMark[];
@@ -22,6 +24,8 @@ const InlineExtension = (props: Props) => {
 	const { text } = props;
 
 	return (
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		<ExtensionRenderer {...props} type="inlineExtension">
 			{({ result }) => {
 				try {

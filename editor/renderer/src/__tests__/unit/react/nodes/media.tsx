@@ -25,6 +25,8 @@ import {
 import type { MediaSSR } from '../../../../types/mediaOptions';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-commonjs
 const doc = require('../../../../../examples/helper/media-layout.adf.json');
 
 import { MediaClientContext, MediaClientProvider } from '@atlaskit/media-client-react';

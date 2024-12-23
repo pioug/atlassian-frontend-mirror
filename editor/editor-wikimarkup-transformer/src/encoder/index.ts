@@ -21,6 +21,8 @@ import { embedCard } from './nodes/embed-card';
 import { caption } from './nodes/caption';
 import { type Context } from '../interfaces';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type MarkEncoder = (text: string, attrs: any) => string;
 export type NodeEncoder = (node: PMNode, opts?: NodeEncoderOpts) => string;
 export type NodeEncoderOpts = {

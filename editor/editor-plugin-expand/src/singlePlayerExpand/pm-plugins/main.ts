@@ -17,6 +17,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExpandPlugin } from '../../types';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import ExpandNodeView from '../node-views';
 
 export const pluginKey = new PluginKey('expandPlugin');
@@ -34,6 +36,8 @@ export const createPlugin = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	allowInteractiveExpand: boolean = true,
 	__livePage: boolean = false,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const isMobile = false;
 
@@ -72,6 +76,8 @@ export const createPlugin = (
 				(target) => target.classList.contains(expandClassNames.prefix),
 				{ useLongPressSelection },
 			),
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			handleDrop(view, event, slice, moved) {
 				if (fg('platform_editor_nest_nested_expand_drag_fix')) {
 					return handleExpandDrag(view, event, slice);

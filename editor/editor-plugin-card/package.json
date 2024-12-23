@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-card",
-	"version": "4.5.8",
+	"version": "4.5.9",
 	"description": "Card plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -58,7 +58,7 @@
 		"@atlaskit/menu": "2.13.7",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/smart-card": "^32.8.0",
+		"@atlaskit/smart-card": "^33.0.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tmp-editor-statsig": "^2.29.0",
 		"@atlaskit/tokens": "^2.5.0",

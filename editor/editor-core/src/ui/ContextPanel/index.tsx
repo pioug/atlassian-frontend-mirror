@@ -69,6 +69,8 @@ type State = {
 	currentPluginContent?: React.ReactNode;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class SwappableContentArea extends React.PureComponent<SwappableContentAreaProps, State> {
 	state = {
 		mounted: false,
@@ -197,6 +199,8 @@ export function ContextPanel(props: Props) {
 	const firstContent = contextPanelState && contextPanelState?.contents?.find(Boolean);
 
 	return (
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		<SwappableContentArea {...props} editorAPI={props.editorAPI} pluginContent={firstContent} />
 	);
 }

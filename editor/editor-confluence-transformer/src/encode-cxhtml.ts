@@ -26,6 +26,8 @@ export default function (node: Node): string {
 	//
 	// WARNING: This method will move `element` into a new parent element, but will put it back
 	// before returning.
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const doc = node.ownerDocument!;
 	const marker = doc.createElement('marker');
 
@@ -60,5 +62,7 @@ export default function (node: Node): string {
 		marker.parentNode.replaceChild(node, marker);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return result.replace(/\s\/>/g, '/>'); // Remove unnecessary white-space added by IE
 }

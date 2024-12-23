@@ -31,7 +31,7 @@ export type EditorSelectionAPI = {
 	getSelectionPluginState: (state: EditorState) => SelectionPluginState;
 };
 
-export interface SelectionPluginOptions extends LongPressSelectionPluginOptions {}
+export type SelectionPluginOptions = LongPressSelectionPluginOptions;
 
 export type SelectionSharedState =
 	| {

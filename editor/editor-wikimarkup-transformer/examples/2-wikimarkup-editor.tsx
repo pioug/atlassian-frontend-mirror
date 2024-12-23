@@ -38,6 +38,8 @@ const container = css({
 
 type Props = { actions: any };
 type State = { source: string; output: string };
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class TransformerPanels extends React.PureComponent<Props, State> {
 	state: State = { source: '', output: '' };
 

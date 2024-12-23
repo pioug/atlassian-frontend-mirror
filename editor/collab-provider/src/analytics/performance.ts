@@ -16,6 +16,8 @@ export const isPerformanceAPIAvailable = (): boolean => {
 		typeof window !== 'undefined' &&
 		'performance' in window &&
 		['measure', 'clearMeasures', 'clearMarks', 'getEntriesByName', 'getEntriesByType'].every(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(api) => !!(performance as any)[api],
 		)
 	);

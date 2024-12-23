@@ -22,6 +22,8 @@ test.describe('Escape Keydown: date', () => {
 	test('escape keydown event should not bubble to document when menu open', async ({ editor }) => {
 		fixTest({ jiraIssueId: 'ED-17195', reason: 'Not working' });
 		await editor.page.evaluate(() => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.addEventListener('keydown', (event) => {
 				if (event.key === 'Escape') {
 					const elem = document.createElement('div');
@@ -58,6 +60,8 @@ test.describe('Escape Keydown: insert block', () => {
 
 	test('escape keydown event should not bubble to document when menu open', async ({ editor }) => {
 		await editor.page.evaluate(() => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.addEventListener('keydown', (event) => {
 				if (event.key === 'Escape') {
 					const elem = document.createElement('div');
@@ -92,6 +96,8 @@ test.describe('Escape Keydown: text color', () => {
 
 	test('escape keydown event should not bubble to document when menu open', async ({ editor }) => {
 		await editor.page.evaluate(() => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.addEventListener('keydown', (event) => {
 				if (event.key === 'Escape') {
 					const elem = document.createElement('div');
@@ -126,6 +132,8 @@ test.describe('Escape Keydown: font style', () => {
 
 	test('escape keydown event should not bubble to document when menu open', async ({ editor }) => {
 		await editor.page.evaluate(() => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.addEventListener('keydown', (event) => {
 				if (event.key === 'Escape') {
 					const elem = document.createElement('div');
@@ -160,6 +168,8 @@ test.describe('Escape Keydown: text alignment', () => {
 
 	test('escape keydown event should not bubble to document when menu open', async ({ editor }) => {
 		await editor.page.evaluate(() => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.addEventListener('keydown', (event) => {
 				if (event.key === 'Escape') {
 					const elem = document.createElement('div');
@@ -193,6 +203,8 @@ test.describe('Escape Keydown: more formatting', () => {
 
 	test('escape keydown event should not bubble to document when menu open', async ({ editor }) => {
 		await editor.page.evaluate(() => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.addEventListener('keydown', (event) => {
 				if (event.key === 'Escape') {
 					const elem = document.createElement('div');
@@ -228,6 +240,8 @@ test.describe('Escape Keydown: Emoji', () => {
 
 	test('escape keydown event should not bubble to document when menu open', async ({ editor }) => {
 		await editor.page.evaluate(() => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.addEventListener('keydown', (event) => {
 				if (event.key === 'Escape') {
 					const elem = document.createElement('div');
@@ -258,6 +272,8 @@ test.describe('Escape Keydown: Quick Insert', () => {
 
 	test('escape keydown event should not bubble to document when menu open', async ({ editor }) => {
 		await editor.page.evaluate(() => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.addEventListener('keydown', (event) => {
 				if (event.key === 'Escape') {
 					const elem = document.createElement('div');

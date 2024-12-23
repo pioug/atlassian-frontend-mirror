@@ -32,6 +32,8 @@ export interface Props extends BaseProps {
 	containerId?: string;
 	dataProviders?: ProviderFactory;
 	meta?: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: string]: any;
 	};
 	isExpanded?: boolean;
@@ -55,10 +57,16 @@ const mapStateToProps = (state: State, ownProps: Props) => {
 	};
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: ThunkDispatch<State, any, any>, { provider }: Props) => ({
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	onAddComment(
 		conversationId: string,
 		parentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
 		localId?: string,
 		onSuccess?: SuccessHandler,
@@ -66,9 +74,13 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<State, any, any>, { provider
 		dispatch(addComment(conversationId, parentId, value, localId, provider, onSuccess));
 	},
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	onUpdateComment(
 		conversationId: string,
 		commentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
 		onSuccess?: SuccessHandler,
 	) {
@@ -91,9 +103,15 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<State, any, any>, { provider
 		dispatch(updateUser(user, provider));
 	},
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	onCreateConversation(
 		localId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		meta: any,
 		objectId: string,
 		containerId?: string,
@@ -102,11 +120,17 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<State, any, any>, { provider
 		dispatch(createConversation(localId, value, meta, provider, objectId, containerId, onSuccess));
 	},
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	onEditorChange(
 		isLocal: boolean,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
 		conversationId: string,
 		commentId: string | undefined,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		meta: any,
 		objectId: string,
 		containerId?: string,
@@ -132,6 +156,8 @@ export interface ContainerProps {
 	provider: ResourceProvider;
 	dataProviders?: ProviderFactory;
 	meta?: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: string]: any;
 	};
 	isExpanded?: boolean;
@@ -154,6 +180,8 @@ export interface ContainerProps {
 	maxCommentNesting?: number;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
 class ConversationContainer extends React.Component<ContainerProps, any> {
 	constructor(props: ContainerProps) {
 		super(props);
@@ -171,7 +199,12 @@ class ConversationContainer extends React.Component<ContainerProps, any> {
 
 		return (
 			<Provider store={store}>
-				<ResourcedConversation {...(props as any)} localId={localId} />
+				<ResourcedConversation
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any, react/jsx-props-no-spreading
+					{...(props as any)}
+					localId={localId}
+				/>
 			</Provider>
 		);
 	}

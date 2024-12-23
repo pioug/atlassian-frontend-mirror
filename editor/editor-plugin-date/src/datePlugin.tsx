@@ -81,6 +81,8 @@ function ContentComponent({
 
 	const { showDatePickerAt, isNew, focusDateInput } = dateState;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const element = findDomRefAtPos(showDatePickerAt, domAtPos) as HTMLElement;
 
 	// Resolves ED-23702 for when the date is wrapped in an inline comment

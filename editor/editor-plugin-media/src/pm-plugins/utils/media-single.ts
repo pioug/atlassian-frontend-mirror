@@ -69,6 +69,8 @@ function shouldAddParagraph(state: EditorState) {
 	);
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function insertNodesWithOptionalParagraph(
 	nodes: PMNode[],
 	analyticsAttributes: {
@@ -146,6 +148,8 @@ export const insertMediaAsMediaSingle = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	isNestingInQuoteSupported?: boolean,
 	insertMediaVia?: InsertMediaVia,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean => {
 	const { state, dispatch } = view;
 	const { mediaSingle, media } = state.schema.nodes;
@@ -207,6 +211,8 @@ export const insertMediaSingleNode = (
 	onNodeInserted?: (id: string, selectionPosition: number) => void,
 	isNestingInQuoteSupported?: boolean,
 	insertMediaVia?: InsertMediaVia,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean => {
 	if (collection === undefined) {
 		return false;
@@ -285,6 +291,8 @@ export const changeFromMediaInlineToMediaSingleNode = (
 	widthPluginState?: WidthPluginState | undefined,
 	editorAnalyticsAPI?: EditorAnalyticsAPI | undefined,
 	isNestingInQuoteSupported?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean => {
 	const { state, dispatch } = view;
 	const { mediaInline } = state.schema.nodes;
@@ -358,6 +366,8 @@ const createMediaSingleNode =
 		maxWidth?: number,
 		minWidth?: number,
 		alignLeftOnInsert?: boolean,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(mediaState: MediaSingleState) => {
 		const { id, dimensions, contextId, scaleFactor = 1, fileName } = mediaState;

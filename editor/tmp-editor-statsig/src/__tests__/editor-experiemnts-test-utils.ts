@@ -34,12 +34,16 @@ describe('eeTest describe', () => {
 			});
 		});
 		eeTest.describe('example-boolean', 'Works with a single override').variant(false, () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line jest/no-identical-title
 			it('should do the thing', () => {
 				expect(editorExperiment('example-boolean', false)).toBe(true);
 			});
 		});
 		let results: boolean[] = [];
 		eeTest.describe('example-boolean', 'Works with a single override').each(() => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line jest/no-identical-title
 			it('should do the thing', () => {
 				results.push(editorExperiment('example-boolean', true));
 				// This is being tested in the following it, and this is to prevent the test from failing
@@ -58,12 +62,16 @@ describe('eeTest describe', () => {
 			});
 		});
 		eeTest.describe('example-multivariate', 'Works with a single override').variant('three', () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line jest/no-identical-title
 			it('should do the thing', () => {
 				expect(editorExperiment('example-multivariate', 'three')).toBe(true);
 			});
 		});
 		let results: [boolean, boolean, boolean][] = [];
 		eeTest.describe('example-multivariate', 'Works with a single override').each(() => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line jest/no-identical-title
 			it('should do the thing', () => {
 				results.push([
 					editorExperiment('example-multivariate', 'one'),

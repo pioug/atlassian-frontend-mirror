@@ -28,6 +28,8 @@ export interface SharedProps {
 	onAddComment?: (
 		conversationId: string,
 		parentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
 		localId?: string,
 		onSuccess?: SuccessHandler,
@@ -35,6 +37,8 @@ export interface SharedProps {
 	onUpdateComment?: (
 		conversationId: string,
 		commentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
 		onSuccess?: SuccessHandler,
 	) => void;
@@ -47,9 +51,13 @@ export interface SharedProps {
 	onEditorClose?: () => void;
 	onEditorChange?: (
 		isLocal: boolean,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
 		conversationId: string,
 		commentId: string | undefined,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		meta: any,
 		objectId: string,
 		containerId?: string,

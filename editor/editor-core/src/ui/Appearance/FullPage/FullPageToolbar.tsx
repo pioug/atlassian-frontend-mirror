@@ -141,8 +141,12 @@ export const EditorToolbar = React.memo((props: FullPageToolbarProps & WrappedCo
 			const updateOnResize = () => {
 				setShouldSplitToolbar(window.innerWidth <= MAXIMUM_TWO_LINE_TOOLBAR_BREAKPOINT);
 			};
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			window.addEventListener('resize', updateOnResize);
 			updateOnResize();
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			return () => window.removeEventListener('resize', updateOnResize);
 		}
 	});

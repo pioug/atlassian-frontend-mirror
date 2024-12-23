@@ -12,6 +12,5 @@
     "../editor-common/src/utils/calculate-toolbar-position.ts"
   ],
   "compilerOptions": {
-    "baseUrl": ""
   }
 }

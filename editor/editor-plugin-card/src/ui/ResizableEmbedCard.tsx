@@ -408,6 +408,8 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 					})}
 				>
 					<Resizer
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...this.props}
 						enable={enable}
 						calcNewSize={this.calcNewSize}
@@ -416,6 +418,8 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 						highlights={this.highlights}
 						nodeType="embed"
 						handleStyles={nestedInTableHandleStyles(this.isNestedInTable())}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...resizerProps}
 					>
 						{children}

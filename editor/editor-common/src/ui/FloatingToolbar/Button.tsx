@@ -12,7 +12,11 @@ import { getButtonStyles, iconOnlySpacing } from './styles';
 
 export interface Props {
 	title?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	icon?: React.ReactElement<any>;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	iconAfter?: React.ReactElement<any>;
 	onClick?: React.MouseEventHandler;
 	onKeyDown?: React.KeyboardEventHandler;
@@ -32,6 +36,8 @@ export interface Props {
 	children?: React.ReactNode;
 	className?: string;
 	tooltipContent?: TooltipProps['content'];
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	tooltipStyle?: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
 	testId?: string;
 	hideTooltipOnClick?: boolean;
@@ -170,6 +176,8 @@ export default ({
 			{spotlightConfig?.isSpotlightOpen && spotlightReferenceElement && (
 				<ButtonSpotlightCard
 					referenceElement={spotlightReferenceElement}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...spotlightConfig.spotlightCardOptions}
 				/>
 			)}

@@ -269,6 +269,8 @@ const CommentBadgeWrapper = ({
 		if (updateSubscriber) {
 			updateSubscriber.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
 				annotationIds: activeParentIds,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				eventTarget: e.target as HTMLElement,
 				// use mediaSingle here to align with annotation viewed event dispatched in editor
 				eventTargetType: 'mediaSingle',
@@ -283,6 +285,8 @@ const CommentBadgeWrapper = ({
 			onMouseLeave={() => setEntered(false)}
 			status={entered ? 'entered' : status}
 			onClick={onClick}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...rest}
 		/>
 	);
@@ -352,6 +356,8 @@ const CommentBadgeNextWrapper = ({
 		if (updateSubscriber) {
 			updateSubscriber.emit(AnnotationUpdateEvent.ON_ANNOTATION_CLICK, {
 				annotationIds: activeParentIds,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				eventTarget: e.target as HTMLElement,
 				// use mediaSingle here to align with annotation viewed event dispatched in editor
 				eventTargetType: 'mediaSingle',
@@ -367,12 +373,16 @@ const CommentBadgeNextWrapper = ({
 			status={entered ? 'entered' : status}
 			onClick={onClick}
 			mediaSingleElement={mediaSingleElement}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...rest}
 		/>
 	);
 };
 
-class Media extends PureComponent<MediaProps, {}> {
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
+class Media extends PureComponent<MediaProps, Object> {
 	constructor(props: MediaProps) {
 		super(props);
 		this.handleMediaLinkClickFn = this.handleMediaLinkClick.bind(this);
@@ -466,6 +476,8 @@ class Media extends PureComponent<MediaProps, {}> {
 							)}
 							<MediaCard
 								contextIdentifierProvider={contextIdentifierProvider}
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...this.props}
 								shouldOpenMediaViewer={shouldOpenMediaViewer}
 								eventHandlers={eventHandlers}
@@ -561,6 +573,8 @@ const MediaWithDraftAnnotation = (props: PropsWithChildren<MediaProps>) => {
 
 	return (
 		<Media
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 			dataAttributes={dataAttributesWithDraftAnnotation}
 			isDrafting={shouldApplyDraftAnnotation}

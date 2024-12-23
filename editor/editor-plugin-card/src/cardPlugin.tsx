@@ -29,6 +29,8 @@ import type { CardPluginEvent } from './ui/analytics/types';
 import DatasourceModalWithState from './ui/DatasourceModal/ModalWithState';
 import { EditorLinkingPlatformAnalytics } from './ui/EditorLinkingPlatformAnalytics';
 import { EditorSmartCardEvents } from './ui/EditorSmartCardEvents';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import LayoutButton from './ui/LayoutButton';
 import { floatingToolbar, getEndingToolbarItems, getStartingToolbarItems } from './ui/toolbar';
 

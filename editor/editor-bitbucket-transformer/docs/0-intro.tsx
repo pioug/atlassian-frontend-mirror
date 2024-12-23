@@ -22,8 +22,12 @@ This transformer allows encoding ProseMirror Node to markdown or converting Bitb
   ${(
 		<Example
 			packageName="@atlaskit/editor-bitbucket-transformer"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			Component={require('../examples/2-bitbucket-markdown').default}
 			title="Bitbucket Markdown"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			source={require('!!raw-loader!../examples/2-bitbucket-markdown')}
 		/>
 	)}
@@ -31,8 +35,12 @@ This transformer allows encoding ProseMirror Node to markdown or converting Bitb
   ${(
 		<Example
 			packageName="@atlaskit/editor-bitbucket-transformer"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			Component={require('../examples/1-bitbucket-html').default}
 			title="Bitbucket HTML"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			source={require('!!raw-loader!../examples/1-bitbucket-html')}
 		/>
 	)}

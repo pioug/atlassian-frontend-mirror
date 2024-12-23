@@ -18,11 +18,15 @@ const SMART_TO_ASCII: { [char: string]: string } = {
 	'’': "'",
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const FIND_SMART_CHAR = new RegExp(`[${Object.keys(SMART_TO_ASCII).join('')}]`, 'g');
 
 const isNodeTextBlock = (schema: Schema) => {
 	const { mention, text, emoji } = schema.nodes;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return (node: PMNode, _: any, parent: PMNode | null) => {
 		if (node.type === mention || node.type === emoji || node.type === text) {
 			return parent?.isTextblock;
@@ -35,6 +39,8 @@ const replaceSmartCharsToAscii = (position: number, textContent: string, tr: Tra
 	const { schema } = tr.doc.type;
 	let match: RegExpExecArray | null;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line no-cond-assign
 	while ((match = FIND_SMART_CHAR.exec(textContent))) {
 		const { 0: smartChar, index: offset } = match;
 		const replacePos = tr.mapping.map(position + offset);
@@ -48,6 +54,8 @@ const replaceMentionOrEmojiForTextContent = (
 	nodeSize: number,
 	textContent: string,
 	tr: Transaction,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): void => {
 	const currentPos = tr.mapping.map(position);
 	const { schema } = tr.doc.type;
@@ -55,6 +63,8 @@ const replaceMentionOrEmojiForTextContent = (
 	tr.replaceWith(currentPos, currentPos + nodeSize, schema.text(textContent));
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function filterChildrenBetween(
 	doc: PMNode,
 	from: number,
@@ -155,6 +165,8 @@ export const applyMarkOnRange = (
 	removeMark: boolean,
 	mark: Mark,
 	tr: Transaction,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { schema } = tr.doc.type;
 	const { code } = schema.marks;
@@ -202,6 +214,8 @@ export const entireSelectionContainsMark = (
 	doc: PMNode,
 	fromPos: number,
 	toPos: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	let onlyContainsMark = true;
 
@@ -264,7 +278,12 @@ const toggleMarkInRange =
  * @param attrs
  */
 export const toggleMark =
-	(markType: MarkType, attrs?: { [key: string]: any }): EditorCommand =>
+	(
+		markType: MarkType,
+		attrs?: // Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		{ [key: string]: any },
+	): EditorCommand =>
 	({ tr }) => {
 		const mark = markType.create(attrs);
 

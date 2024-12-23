@@ -32,6 +32,8 @@ export function useNodeDataProviderGet<
 	| { state: 'failed'; result: undefined }
 	| { state: 'resolved'; result: _NodeDataProvider['cache'][string] } {
 	const getResult = useMemo(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		() => options.provider!.get(options.node),
 		[options.provider, options.node],
 	);

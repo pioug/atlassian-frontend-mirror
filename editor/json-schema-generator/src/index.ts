@@ -13,6 +13,8 @@ import {
 import { readFileSync, writeFileSync, existsSync } from 'fs';
 import JSON5 from 'json5';
 import { resolve, join } from 'path';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as prettier from 'prettier';
 import mkdirp from 'mkdirp';
 
@@ -51,9 +53,13 @@ import {
 
 export default (
 	files: string[],
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	flags: any,
 	root = 'doc_node',
 	description = 'Schema for Atlassian Document Format.',
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Promise<void> => {
 	// We check whether we're in the monorepo or not, and get paths if we are
 	const project = join(__dirname, '../tsconfig.json');
@@ -103,16 +109,21 @@ export default (
 					const exports = ['// DO NOT MODIFY THIS FILE, USE `yarn generate:spec`'];
 
 					let awaitAllDefinitions: Promise<null>[] = [];
-
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-await
 					jsonSchema.definitions.forEach(async (def, name) => {
 						// eslint-disable-next-line no-async-promise-executor
 						const promise = new Promise<null>(async (resolve) => {
 							const fileName = getPmName(name);
+							// Ignored via go/ees005
+							// eslint-disable-next-line import/no-commonjs
 							exports.push(`export { default as ${fileName} } from './${fileName}';`);
 							writeFileSync(
 								join(resolvedOutDir, `${fileName}.ts`),
 								await prettier.format(
 									`export default ${JSON.stringify(def.node.toSpec())}`,
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 									options!,
 								),
 							);
@@ -125,6 +136,8 @@ export default (
 					// Generate index.ts with exports
 					writeFileSync(
 						join(resolvedOutDir, 'index.ts'),
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						await prettier.format(exports.join('\n'), options!),
 					);
 				});
@@ -147,6 +160,8 @@ export default (
 		if (isSourceFile(node)) {
 			node.forEachChild(walk);
 		} else if (isInterfaceDeclaration(node) || isTypeAliasDeclaration(node)) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const symbol: Symbol = (node as any).symbol;
 			const { name, ...rest } = getTags(symbol.getJsDocTags());
 			if (name) {
@@ -158,6 +173,8 @@ export default (
 				const defNode = getSchemaNodeFromType(type, rest);
 				if (defNode) {
 					jsonSchema.addDefinition(name, defNode);
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					typeIdToDefName.set((type as any).id, name);
 				}
 			}
@@ -175,7 +192,11 @@ export default (
 		);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	function getSchemaNodeFromType(type: Type, validators: any = {}): SchemaNode | undefined {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const typeId = (type as any).id;
 		if (shouldExclude(validators['stage'])) {
 			experimentalNodes.add(typeId);
@@ -184,6 +205,8 @@ export default (
 			return;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const nodeName = typeIdToDefName.get(typeId)!;
 		if (typeIdToDefName.has(typeId)) {
 			// Found a $ref
@@ -222,6 +245,8 @@ export default (
 		} else if (isIntersectionType(type)) {
 			return new AllOfSchemaNode(
 				type.types
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					.map((t) => getSchemaNodeFromType(t, getTags(t.getSymbol()!.getJsDocTags())))
 					.filter(isDefined),
 			);
@@ -242,6 +267,8 @@ export default (
 					// Look for all indexed type
 					let i = 0;
 					let prop: Symbol;
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion, no-cond-assign
 					while ((prop = type.getProperty(`${i}`)!)) {
 						const validators = getTags(prop.getJsDocTags());
 						node.push(getSchemaNodeFromType(getTypeFromSymbol(checker, prop), validators));
@@ -290,7 +317,9 @@ export default (
 						// ts.SymbolFlags.Transient check can isolate props with type but not all Transient types are widened.
 						const propType = prop.valueDeclaration
 							? getTypeFromSymbol(checker, prop)
-							: (prop as any).nameType;
+							: // Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
+								(prop as any).nameType;
 						if (propType) {
 							const isRequired = (prop.flags & SymbolFlags.Optional) === 0;
 							const validators = getTags(prop.getJsDocTags());

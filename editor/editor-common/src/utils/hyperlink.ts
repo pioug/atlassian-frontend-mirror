@@ -14,9 +14,13 @@ import { shouldAutoLinkifyMatch } from './should-auto-linkify-tld';
 import { mapSlice } from './slice';
 
 // Regular expression for a windows filepath in the format <DRIVE LETTER>:\<folder name>\
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 export const FILEPATH_REGEXP = /([a-zA-Z]:|\\)([^\/:*?<>"|]+\\)?([^\/:*?<>"| ]+(?=\s?))?/gim;
 
 // Don't linkify if starts with $ or {
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 export const DONTLINKIFY_REGEXP = /^(\$|{)/;
 
 /**
@@ -86,6 +90,8 @@ export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
 			}
 			if (isAllowedInParent && node.isText && !link.isInSet(node.marks)) {
 				const linkified = [] as Node[];
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const text = node.text!;
 
 				const matches = findLinkMatches(text).filter(shouldAutoLinkifyMatch);
@@ -118,10 +124,16 @@ export function linkifyContent(schema: Schema): (slice: Slice) => Slice {
 
 export function getLinkDomain(url: string): string {
 	// Remove protocol and www., if either exists
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const withoutProtocol = url.toLowerCase().replace(/^(.*):\/\//, '');
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const withoutWWW = withoutProtocol.replace(/^(www\.)/, '');
 
 	// Remove port, fragment, path, query string
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return withoutWWW.replace(/[:\/?#](.*)$/, '');
 }
 
@@ -153,10 +165,14 @@ interface filepathMatch {
 
 export const findFilepaths = (text: string, offset: number = 0): Array<filepathMatch> => {
 	// Creation of a copy of the RegExp is necessary as lastIndex is stored on it when we run .exec()
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const localRegExp = new RegExp(FILEPATH_REGEXP);
 	let match;
 	const matchesList = [];
 	const maxFilepathSize = 260;
+	// Ignored via go/ees005
+	// eslint-disable-next-line no-cond-assign
 	while ((match = localRegExp.exec(text)) !== null) {
 		const start = match.index + offset;
 		let end = localRegExp.lastIndex + offset;

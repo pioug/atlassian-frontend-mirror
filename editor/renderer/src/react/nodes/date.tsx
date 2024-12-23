@@ -26,8 +26,13 @@ const Date = memo(function Date(props: Props & WrappedComponentProps) {
 			: 'date-node';
 
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		<span className={DateSharedCssClassName.DATE_WRAPPER} {...inlineAnnotationProps}>
+		<span
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			className={DateSharedCssClassName.DATE_WRAPPER}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...inlineAnnotationProps}
+		>
 			<span
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={className}
@@ -51,6 +56,8 @@ function DateWithFormatContext(props: Props) {
 		parentIsIncompleteTask = !isChecked;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <DateComponent {...props} parentIsIncompleteTask={parentIsIncompleteTask} />;
 }
 

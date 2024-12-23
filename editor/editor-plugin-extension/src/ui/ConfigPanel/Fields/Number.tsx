@@ -53,6 +53,8 @@ export default function Number({
 				return (
 					<>
 						<TextField
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...fieldProps}
 							autoFocus={autoFocus}
 							onBlur={() => {

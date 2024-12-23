@@ -4,8 +4,6 @@ import { SmartLinkActionType } from '@atlaskit/linking-types';
 export const TEST_URL = 'https://my.url.com';
 export const TEST_VISIT_URL = 'https://visit.url.com';
 export const TEST_NAME = 'my name';
-export const TEST_STRING = 'foo';
-export const TEST_PREFIX = 'some-mock-prefix';
 export const TEST_EMOJI = '"emoji-id"';
 export const TEST_EMOJI_SANITIZED = 'emoji-id';
 export const TEST_LINK: JsonLd.Primitives.Link = {
@@ -13,7 +11,6 @@ export const TEST_LINK: JsonLd.Primitives.Link = {
 	href: TEST_URL,
 	name: TEST_NAME,
 };
-export const TEST_ARRAY: JsonLd.Primitives.Link[] = [TEST_LINK];
 export const TEST_OBJECT: JsonLd.Primitives.Object = {
 	'@type': 'Object',
 	url: TEST_URL,
@@ -24,14 +21,6 @@ export const TEST_OBJECT: JsonLd.Primitives.Object = {
 export const TEST_PERSON: JsonLd.Primitives.Person = {
 	...TEST_OBJECT,
 	'@type': 'Person',
-};
-export const TEST_IMAGE: JsonLd.Primitives.Image = {
-	'@type': 'Image',
-	url: TEST_URL,
-};
-export const TEST_IMAGE_WITH_LINK: JsonLd.Primitives.Image = {
-	'@type': 'Image',
-	url: TEST_LINK,
 };
 
 export const TEST_TITLE_EMOJI: JsonLd.Data.BaseData['atlassian:titlePrefix'] = {
@@ -77,15 +66,6 @@ export const TEST_PULL_REQUEST: JsonLd.Data.SourceCodePullRequest = {
 	'atlassian:state': 'OPEN',
 	'schema:dateCreated': '2018-07-10T15:00:32Z',
 	'schema:potentialAction': undefined,
-};
-
-export const TEST_TASK: JsonLd.Data.Task = {
-	'@type': 'atlassian:Task',
-	'@context': {
-		'@vocab': 'https://www.w3.org/ns/activitystreams#',
-		atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
-		schema: 'http://schema.org/',
-	},
 };
 
 export const TEST_META_DATA: JsonLd.Meta.BaseMeta = {
@@ -194,11 +174,6 @@ export const TEST_STATUS_UPDATE_ACTION: JsonLd.Primitives.UpdateAction = {
 	},
 };
 
-export const TEST_DOCUMENT_WITH_ACTIONS: JsonLd.Data.BaseData = {
-	...TEST_DOCUMENT,
-	'schema:potentialAction': [TEST_DOWNLOAD_ACTION, TEST_ASSIGN_ACTION as any],
-};
-
 export const TEST_DOCUMENT_WITH_DOWNLOAD_ACTION: JsonLd.Data.BaseData = {
 	...TEST_DOCUMENT,
 	'atlassian:downloadUrl': TEST_URL,
@@ -208,11 +183,6 @@ export const TEST_DOCUMENT_WITH_DOWNLOAD_ACTION: JsonLd.Data.BaseData = {
 export const TEST_DOCUMENT_WITH_VIEW_ACTION: JsonLd.Data.BaseData = {
 	...TEST_DOCUMENT,
 	'schema:potentialAction': [TEST_VIEW_ACTION],
-};
-
-export const TEST_DOCUMENT_WITH_MULTIPLE_ACTIONS: JsonLd.Data.BaseData = {
-	...TEST_DOCUMENT,
-	'schema:potentialAction': [TEST_VIEW_ACTION, TEST_DOWNLOAD_ACTION],
 };
 
 export const PREVIEW: JsonLd.Data.BaseData['preview'] = {

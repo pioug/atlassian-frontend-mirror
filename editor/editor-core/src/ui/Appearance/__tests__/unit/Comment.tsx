@@ -269,6 +269,8 @@ describe('comment editor', () => {
 
 			it('focuses toolbar on alt + F9', () => {
 				const { editorView, commentComponent } = mountCommentWithToolbarButton();
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const buttonElement = commentComponent
 					.find('[data-testid="custom-button"]')
 					.last()

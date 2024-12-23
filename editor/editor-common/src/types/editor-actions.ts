@@ -11,6 +11,8 @@ export type ContextUpdateHandler = (
 ) => void;
 
 export type ReplaceRawValue = Node | object | string;
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface EditorActionsOptions<T = any> {
 	focus(): boolean;
 	blur(): boolean;
@@ -19,6 +21,8 @@ export interface EditorActionsOptions<T = any> {
 	getNodeByLocalId(id: string): Node | undefined;
 	getNodeByFragmentLocalId(id: string): Node | undefined;
 	getSelectedNode(): Node | undefined;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	replaceDocument(rawValue: any): boolean;
 	replaceSelection(rawValue: ReplaceRawValue | Array<ReplaceRawValue>): boolean;
 	appendText(text: string): boolean;

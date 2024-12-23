@@ -386,7 +386,7 @@ export const InputQuery = React.memo(
 					}
 				}
 			};
-			let onInput: (e: Event) => void = () => {};
+			const onInput: (e: Event) => void = () => {};
 
 			if (browser.safari) {
 				// On Safari, for reasons beyond my understanding,
@@ -406,21 +406,41 @@ export const InputQuery = React.memo(
 					}
 				};
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				element.addEventListener('input', onInput);
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element.addEventListener('focusout', onFocusOut);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element.addEventListener('focusin', onFocusIn);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element.addEventListener('keydown', keyDown);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element.addEventListener('beforeinput', beforeinput);
 
 			return () => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				element.removeEventListener('focusout', onFocusOut);
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				element.removeEventListener('focusin', onFocusIn);
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				element.removeEventListener('keydown', keyDown);
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				element.removeEventListener('beforeinput', beforeinput);
 
 				if (browser.safari) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 					element.removeEventListener('input', onInput);
 				}
 			};
@@ -436,6 +456,8 @@ export const InputQuery = React.memo(
 		useLayoutEffect(() => {
 			const hasReopenQuery = typeof reopenQuery === 'string' && reopenQuery.trim().length > 0;
 			if (ref.current && forceFocus) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				setQuery(hasReopenQuery ? reopenQuery! : null);
 
 				requestAnimationFrame(() => {

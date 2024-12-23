@@ -34,6 +34,8 @@ export function ContentComponent({
 
 	const target = useMemo(
 		() =>
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			showStatusPickerAt ? (findDomRefAtPos(showStatusPickerAt, domAtPos) as HTMLElement) : null,
 		[showStatusPickerAt, domAtPos],
 	);

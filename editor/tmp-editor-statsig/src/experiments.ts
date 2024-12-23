@@ -66,6 +66,8 @@ export function editorExperiment<ExperimentName extends keyof EditorExperimentsC
 	}
 
 	// Typescript is complaining here about accessing the productKeys property
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const experimentKey = (experimentConfig.productKeys as { [key: string]: string })?.[_product!];
 
 	if (!experimentKey) {

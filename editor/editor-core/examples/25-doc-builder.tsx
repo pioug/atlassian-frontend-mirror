@@ -192,6 +192,8 @@ const buildMarks = (marks: Array<any>, leaf: string): string | undefined => {
 
 const nodeToDocBuilder = (node: any): string => {
 	if (node.type === 'text') {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		const text = node.text.replace(/'/g, `\\'`);
 		const leaf = `'${text}'`;
 		if (node.marks) {
@@ -239,6 +241,8 @@ const toDocBuilder = (adf: any) => {
 	return nodeToDocBuilder(adf);
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Example extends React.Component {
 	private editorActions?: EditorActions;
 	private adfTextArea?: HTMLTextAreaElement;

@@ -1,6 +1,8 @@
 import type { MediaState } from '../types';
 
 type MediaTask = {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	task: Promise<any>;
 	cancelController: AbortController;
 };
@@ -16,6 +18,8 @@ export class MediaTaskManager {
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	waitForPendingTasks = async (
 		timeout?: number,
 		lastTask?: Promise<MediaState | null>,
@@ -58,6 +62,8 @@ export class MediaTaskManager {
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	addPendingTask = (task: Promise<any>, id?: string) => {
 		let currentTask = task;
 
@@ -70,6 +76,8 @@ export class MediaTaskManager {
 				cancelController,
 			});
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			currentTask = new Promise<any>((resolve) => {
 				task.then(resolve, resolve).finally(() => {
 					this.taskMap.delete(id);

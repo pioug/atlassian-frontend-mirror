@@ -69,6 +69,8 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	}
 
 	// This method needs to be public for EditorContext component.
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	_privateRegisterEditor(
 		editorView: EditorView,
 		eventDispatcher: EventDispatcher,
@@ -134,6 +136,8 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 			return false;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		(this.editorView.dom as HTMLElement).blur();
 		return true;
 	}
@@ -178,6 +182,8 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 			return json;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const nodeSanitized = Node.fromJSON(this.editorView!.state.schema, json);
 
 		try {

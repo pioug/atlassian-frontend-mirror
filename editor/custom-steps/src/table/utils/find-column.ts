@@ -75,6 +75,8 @@ export function findColumn(columnInfo: ColumnInfo, rect: TableRect): number | nu
 			// This is represented by the end position of the last cell in the column.
 			// In this case return, table width
 			if (col === rect.map.width - 1) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const cellNode = rect.table.nodeAt(cell)!;
 				if (cell + cellNode.nodeSize === cellInfo) {
 					return rect.map.width;

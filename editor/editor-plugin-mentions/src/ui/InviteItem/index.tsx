@@ -27,11 +27,15 @@ import {
 } from './styles';
 
 interface OnMentionEvent {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	(mention: MentionDescription, event?: SyntheticEvent<any>): void;
 }
 
 export const INVITE_ITEM_DESCRIPTION = { id: 'invite-teammate' };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const leftClick = (event: MouseEvent<any>): boolean => {
 	return event.button === 0 && !event.altKey && !event.ctrlKey && !event.metaKey && !event.shiftKey;
 };
@@ -55,6 +59,8 @@ const InviteItem = ({
 	intl,
 }: Props & WrappedComponentProps) => {
 	const onSelected = useCallback(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(event: React.MouseEvent<any>) => {
 			if (leftClick(event) && onSelection) {
 				event.preventDefault();
@@ -65,6 +71,8 @@ const InviteItem = ({
 	);
 
 	const onItemMouseEnter = useCallback(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(event: React.MouseEvent<any>) => {
 			if (onMouseEnter) {
 				onMouseEnter(INVITE_ITEM_DESCRIPTION, event);
@@ -100,6 +108,8 @@ const InviteItem = ({
 				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 				<div css={nameSectionStyle} data-testid="name-section">
 					<FormattedMessage
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...messages.inviteItemTitle}
 						values={{
 							userRole: userRole || 'basic',

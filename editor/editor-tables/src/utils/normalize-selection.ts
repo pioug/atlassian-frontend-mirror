@@ -68,6 +68,8 @@ function isCellBoundarySelection({ $from, $to }: RangePos): boolean {
 			break;
 		}
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return afterFrom === beforeTo && /row|table/.test($from.node(depth).type.spec.tableRole);
 }
 

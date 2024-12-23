@@ -41,6 +41,8 @@ export const goToNextCell =
 
 		const map = TableMap.get(table.node);
 		const { tableCell, tableHeader } = state.schema.nodes;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const cell = findParentNodeOfType([tableCell, tableHeader])(state.selection)!;
 		const firstCellPos = map.positionAt(0, 0, table.node) + table.start;
 		const lastCellPos = map.positionAt(map.height - 1, map.width - 1, table.node) + table.start;

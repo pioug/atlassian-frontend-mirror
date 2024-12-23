@@ -82,8 +82,14 @@ export default function Link(props: MarkProps<LinkProps>) {
 						handler(e, href);
 					}
 				}}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...anchorProps}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...dataAttributes}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...(fg('platform_editor_hyperlink_underline') && {
 					isLinkComponent: true,
 				})}

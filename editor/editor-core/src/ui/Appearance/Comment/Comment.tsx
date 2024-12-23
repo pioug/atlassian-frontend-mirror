@@ -25,6 +25,8 @@ import { akEditorMobileBreakoutPoint } from '@atlaskit/editor-shared-styles';
 import { token } from '@atlaskit/tokens';
 
 import type { EditorAppearanceComponentProps } from '../../../types';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import ClickAreaBlock from '../../Addon/ClickAreaBlock';
 import { createEditorContentStyle } from '../../ContentStyles';
 import PluginSlot from '../../PluginSlot';
@@ -219,9 +221,15 @@ export const CommentEditorWithIntl = (props: ComponentProps) => {
 							intl={intl}
 						>
 							<Toolbar
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								editorView={editorView!}
 								editorActions={editorActions}
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								eventDispatcher={eventDispatcher!}
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								providerFactory={providerFactory!}
 								appearance={appearance}
 								items={primaryToolbarComponents}

@@ -11,6 +11,8 @@ const provider = new ConversationResource({
 	user: MOCK_USERS[3],
 });
 type State = { conversationId?: string; likes: { [key: string]: boolean } };
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class AdditionalCommentActions extends React.Component<{}, State> {
 	state: State = {
 		conversationId: undefined,

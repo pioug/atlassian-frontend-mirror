@@ -74,6 +74,8 @@ export const CommentWithDotIcon = (props: GlyphProps) => {
 					? IconCommentConfluenceTypeWithDotGlyph
 					: IconCommentWithDotGlyph
 			}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 		/>
 	);

@@ -12,8 +12,12 @@ export const isCursorInsideCodeBlock = (state: EditorState): boolean =>
 export const getStartOfCurrentLine = (state: EditorState) => {
 	const { $from } = state.selection;
 	if ($from.nodeBefore && $from.nodeBefore.isText) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const prevNewLineIndex = $from.nodeBefore.text!.lastIndexOf('\n');
 		return {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			text: $from.nodeBefore.text!.substring(prevNewLineIndex + 1),
 			pos: $from.start() + prevNewLineIndex + 1,
 		};
@@ -24,8 +28,12 @@ export const getStartOfCurrentLine = (state: EditorState) => {
 export const getEndOfCurrentLine = (state: EditorState) => {
 	const { $to } = state.selection;
 	if ($to.nodeAfter && $to.nodeAfter.isText) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const nextNewLineIndex = $to.nodeAfter.text!.indexOf('\n');
 		return {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			text: $to.nodeAfter.text!.substring(0, nextNewLineIndex >= 0 ? nextNewLineIndex : undefined),
 			pos: nextNewLineIndex >= 0 ? $to.pos + nextNewLineIndex : $to.end(),
 		};
@@ -48,7 +56,11 @@ export const forEachLine = (text: string, callback: (line: string, offset: numbe
 	});
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const SPACE = { token: ' ', size: 2, regex: /[^ ]/ };
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const TAB = { token: '\t', size: 1, regex: /[^\t]/ };
 export const getLineInfo = (line: string) => {
 	const indentToken = line.startsWith('\t') ? TAB : SPACE;

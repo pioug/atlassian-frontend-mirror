@@ -26,14 +26,20 @@ export function isPastedFromExcel(html?: string): boolean {
 }
 
 function isPastedFromDropboxPaper(html?: string): boolean {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return !!html && !!html.match(/class=\"\s?author-d-.+"/gim);
 }
 
 function isPastedFromGoogleDocs(html?: string): boolean {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return !!html && !!html.match(/id=\"docs-internal-guid-.+"/gim);
 }
 
 function isPastedFromGoogleSpreadSheets(html?: string): boolean {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return !!html && !!html.match(/data-sheets-.+=/gim);
 }
 
@@ -50,10 +56,14 @@ export const isSingleLine = (text: string): boolean => {
 };
 
 export function htmlContainsSingleFile(html: string): boolean {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return !!html.match(/<img .*>/) && !isMediaBlobUrl(html);
 }
 
 export function getPasteSource(event: ClipboardEvent): PasteSource {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const html = event.clipboardData!.getData('text/html');
 
 	if (isPastedFromDropboxPaper(html)) {
@@ -91,7 +101,11 @@ export function getPasteSource(event: ClipboardEvent): PasteSource {
  * check behaviour of double quotes in url strings
  */
 export function escapeLinks(text: string) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return text.replace(/(\[([^\]]+)\]\()?((https?|ftp|jamfselfservice):\/\/[^\s>"]+)/g, (str) => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		return str.match(/^(https?|ftp|jamfselfservice):\/\/[^\s>"]+$/) ? `<${str}>` : str;
 	});
 }
@@ -229,6 +243,8 @@ export const htmlHasInvalidLinkTags = (html?: string): boolean => {
 // <li><a href="http://www.atlassian.com\"<a> href="http://www.atlassian.com\"http://www.atlassian.com</a></a></li>">
 export const removeDuplicateInvalidLinks = (html: string): string => {
 	if (htmlHasInvalidLinkTags(html)) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		const htmlArray = html.split(/(?=<a)/);
 		const htmlArrayWithoutInvalidLinks = htmlArray.filter((item) => {
 			return (
@@ -238,7 +254,11 @@ export const removeDuplicateInvalidLinks = (html: string): string => {
 		});
 		const fixedHtml = htmlArrayWithoutInvalidLinks
 			.join('')
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.replace(/<\/a><\/a>/gi, '</a>')
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.replace(/<a>/gi, '<a');
 		return fixedHtml;
 	}

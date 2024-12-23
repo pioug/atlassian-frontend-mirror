@@ -9,6 +9,8 @@ import { CardClient, SmartCardProvider } from '@atlaskit/link-provider';
 import { Editor } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const jiraUrlMatch = /https?\:\/\/[a-zA-Z0-9]+\.atlassian\.net\/browse\//i;
 
 /**

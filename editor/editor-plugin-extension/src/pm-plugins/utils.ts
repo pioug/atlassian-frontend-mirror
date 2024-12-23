@@ -47,6 +47,8 @@ export const getSelectedDomElement = (
 	domAtPos: DomAtPos,
 	selectedExtensionNode: NodeWithPos,
 ) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const selectedExtensionDomNode = findDomRefAtPos(
 		selectedExtensionNode.pos,
 		domAtPos,

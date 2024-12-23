@@ -18,6 +18,8 @@ import type { UnsupportedContentPayload } from './unsupportedContent/types';
 export type DispatchAnalyticsEvent = (event: UnsupportedContentPayload) => void;
 
 const errorCallbackFor = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	marks: any,
 	validate: Validate,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
@@ -34,6 +36,8 @@ export const validationErrorHandler = (
 	marks: string[],
 	validate: Validate,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (entity && entity.type === UNSUPPORTED_NODE_ATTRIBUTE) {
 		return entity;
@@ -98,6 +102,8 @@ export const validationErrorHandler = (
 	return entity;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function getEntityForInvalidContentLength(
 	error: ValidationError,
 	entity: ADFEntity,
@@ -107,6 +113,8 @@ function getEntityForInvalidContentLength(
 ): ADFEntity {
 	const meta = error.meta as ValidationErrorMap['INVALID_CONTENT_LENGTH'];
 	if (meta.type === 'maximum') {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		entity.content = entity
 			.content!.filter((x): x is ADFEntity => !!x)
 			.map((child, index) => {
@@ -116,9 +124,13 @@ function getEntityForInvalidContentLength(
 			});
 	}
 	if (meta.type === 'minimum') {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		if (entity.content!.length === 0) {
 			return wrapWithUnsupported(entity);
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		entity.content = entity
 			.content!.filter((x): x is ADFEntity => !!x)
 			.map((child) => {

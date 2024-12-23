@@ -40,6 +40,8 @@ export type OpenChangedEvent = {
 	event: MouseEvent | KeyboardEvent;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class DropList extends Component<Props> {
 	private dropContentRef?: HTMLDivElement;
 	private triggerRef?: HTMLDivElement;
@@ -82,7 +84,11 @@ class DropList extends Component<Props> {
 		// We use a captured event here to avoid a radio or checkbox dropdown item firing its
 		// click event first, which would cause a re-render of the element and prevent DropList
 		// from detecting the actual source of this original click event.
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.addEventListener('click', this.handleClickOutside, true);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.addEventListener('keydown', this.handleEsc);
 	};
 
@@ -93,7 +99,11 @@ class DropList extends Component<Props> {
 	};
 
 	componentWillUnmount = () => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.removeEventListener('click', this.handleClickOutside, true);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.removeEventListener('keydown', this.handleEsc);
 	};
 
@@ -157,7 +167,7 @@ class DropList extends Component<Props> {
 	render() {
 		const { children, isOpen, position, trigger, onPositioned, testId, id } = this.props;
 
-		let layerContent = isOpen ? (
+		const layerContent = isOpen ? (
 			<div
 				css={this.menuWrapper}
 				data-role="droplistContent"

@@ -57,6 +57,8 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 					data-inline-card
 					data-card-data={data ? JSON.stringify(data) : undefined}
 					data-card-url={url}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...inlineAnnotationProps}
 				>
 					<AnalyticsContext data={analyticsData}>
@@ -98,14 +100,23 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 				data-inline-card
 				data-card-data={data ? JSON.stringify(data) : undefined}
 				data-card-url={url}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...inlineAnnotationProps}
 			>
-				<CardErrorBoundary unsupportedComponent={UnsupportedInline} {...cardProps}>
+				<CardErrorBoundary
+					unsupportedComponent={UnsupportedInline}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...cardProps}
+				>
 					<Card
 						appearance="inline"
 						showHoverPreview={!hideHoverPreview}
 						showAuthTooltip={showAuthTooltip}
 						actionOptions={actionOptions}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...cardProps}
 						onResolve={(data) => {
 							if (!data.url || !data.title) {

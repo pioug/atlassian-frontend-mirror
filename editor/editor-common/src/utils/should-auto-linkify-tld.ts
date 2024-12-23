@@ -52,11 +52,15 @@ const tldsToNotAutoLinkify = [
  * @param url Link that hasn't been already prefixed with http://, https:// or www.
  */
 export function shouldAutoLinkifyTld(url: string): boolean {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const startsWithHttpHttps = /^https?:\/\//.test(url);
 	if (startsWithHttpHttps) {
 		return true;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const startsWithWWW = /^www\./.test(url);
 	if (startsWithWWW) {
 		return true;

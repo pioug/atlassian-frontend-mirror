@@ -25,6 +25,8 @@ import { isMediaBlobUrlFromAttrs } from '../../pm-plugins/utils/media-common';
 import type { getPosHandler, getPosHandlerNode, MediaOptions } from '../../types';
 import type { MediaNodeViewProps } from '../types';
 
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import MediaNode from './media';
 
 interface MediaNodeWithPluginStateComponentProps {
@@ -209,6 +211,8 @@ export const ReactMediaNode =
 		providerFactory: ProviderFactory,
 		mediaOptions: MediaOptions = {},
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler) => {
 		return new MediaNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {

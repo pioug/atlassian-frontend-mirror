@@ -63,6 +63,8 @@ const Component = (props: InlineCommentHoverComponentProps & { setNewDocument: C
 	}, [onClose, onCreate, removeDraftMode, setNewDocument]);
 
 	const domTarget = React.useMemo(() => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		let element = range.commonAncestorContainer as HTMLElement;
 		if (element instanceof Text) {
 			element = element.parentElement!;
@@ -97,15 +99,21 @@ const Component = (props: InlineCommentHoverComponentProps & { setNewDocument: C
 		const onClick = (event: MouseEvent) => {
 			const { target } = event;
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			if (!showCreateComponent && wrapperDOM.contains(target as HTMLElement)) {
 				onPopupClose();
 				return;
 			}
 		};
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.addEventListener('mousedown', onClick);
 
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('mousedown', onClick);
 		};
 	}, [wrapperDOM, showCreateComponent, onPopupClose]);

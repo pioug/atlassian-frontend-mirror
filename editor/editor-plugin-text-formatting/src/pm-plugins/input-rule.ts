@@ -64,6 +64,8 @@ export const ValidCombinations: Record<ValidAutoformatChars, string[]> = {
 };
 
 function addMark(markType: MarkType, schema: Schema, char: ValidAutoformatChars): InputRuleHandler {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	return (state, match, start, end) => {
 		const { doc, schema, tr } = state;
 		const textPrefix = state.doc.textBetween(start, start + char.length);
@@ -153,7 +155,11 @@ class ReverseRegexExp extends RegExp {
 }
 
 const buildRegex = (char: ValidAutoformatChars) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const escapedChar = char.replace(/(\W)/g, '\\$1');
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const combinations = ValidCombinations[char].map((c) => c.replace(/(\W)/g, '\\$1')).join('|');
 
 	// Single X - https://regex101.com/r/McT3yq/14/
@@ -163,8 +169,12 @@ const buildRegex = (char: ValidAutoformatChars) => {
 		.replace('COMBINATIONS', combinations ? `|${combinations}` : '');
 
 	const replacedRegex = String.prototype.hasOwnProperty('replaceAll')
-		? (baseRegex as any).replaceAll('X', escapedChar)
-		: baseRegex.replace(/X/g, escapedChar);
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(baseRegex as any).replaceAll('X', escapedChar)
+		: // Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
+			baseRegex.replace(/X/g, escapedChar);
 
 	return new ReverseRegexExp(replacedRegex);
 };

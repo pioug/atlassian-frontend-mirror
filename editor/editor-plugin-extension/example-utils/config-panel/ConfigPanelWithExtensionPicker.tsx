@@ -20,6 +20,8 @@ import { getExtensionKeyAndNodeKey } from '@atlaskit/editor-common/extensions';
 import Heading from '@atlaskit/heading';
 import { Box, xcss } from '@atlaskit/primitives';
 import TextArea from '@atlaskit/textarea';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

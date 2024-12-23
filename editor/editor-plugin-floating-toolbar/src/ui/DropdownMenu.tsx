@@ -78,6 +78,8 @@ export interface DropdownButtonItemProps extends ButtonItemProps {
 }
 const DropdownButtonItem: React.MemoExoticComponent<
 	React.ForwardRefExoticComponent<DropdownButtonItemProps & React.RefAttributes<HTMLElement>>
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 > = ButtonItem as any;
 
 const DropdownMenuItem = (props: {
@@ -185,6 +187,8 @@ const DropdownMenuItem = (props: {
 	/* ED-16704 - Native mouse event handler to overcome firefox issue on disabled <button> - https://github.com/whatwg/html/issues/5886 */
 	const labelRef = useRef<HTMLDivElement>(null);
 	const handleTitleWrapperMouseEvent = useCallback(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(e: any) => {
 			if (item.disabled) {
 				e.stopPropagation();
@@ -194,12 +198,16 @@ const DropdownMenuItem = (props: {
 		[item.disabled],
 	);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const isAriaChecked = (item: DropdownOptionT<any>) => {
 		const { selected, domItemOptions } = item;
 
 		return domItemOptions?.type === 'item-checkbox' ? selected : undefined;
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const hasRole = (item: DropdownOptionT<any>) => {
 		return item.domItemOptions?.type === 'item-checkbox' ? 'menuitemcheckbox' : undefined;
 	};
@@ -279,6 +287,8 @@ const Dropdown = memo((props: Props & WrappedComponentProps) => {
 				.filter((item) => !item.hidden)
 				.map((item, idx) => (
 					<DropdownMenuItem
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/no-array-index-key
 						key={idx}
 						item={item}
 						hide={hide}

@@ -56,6 +56,8 @@ export const handleMouseDown = (
 	isNewColumnResizingEnabled?: boolean,
 	isTableAlignmentEnabled?: boolean,
 	isCommentEditor?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean => {
 	const { state, dispatch } = view;
 	const editorDisabled = !view.editable;
@@ -146,6 +148,8 @@ export const handleMouseDown = (
 		return true;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const width = currentColWidth(view, localResizeHandlePos, cell!.attrs as CellAttributes);
 
 	setDragging({ startX: event.clientX, startWidth: width })(state, dispatch);
@@ -172,7 +176,11 @@ export const handleMouseDown = (
 	}
 
 	function finish(event: MouseEvent) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.removeEventListener('mouseup', finish);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.removeEventListener('mousemove', move);
 
 		const { clientX } = event;
@@ -369,6 +377,8 @@ export const handleMouseDown = (
 		// const tablePos = state.doc.resolve(start).start(-1);
 		const tableDepth = state.doc.resolve(tablePos).depth;
 		const map = TableMap.get(table);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const colIndex = map.colCount($cell.pos - $cell.start(-1)) + $cell.nodeAfter!.attrs.colspan - 1;
 
 		let shouldScale = tableDepth === 0 && isTableScalingEnabled;
@@ -415,7 +425,11 @@ export const handleMouseDown = (
 		updateControls()(state);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 	window.addEventListener('mouseup', finish);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 	window.addEventListener('mousemove', move);
 
 	return true;

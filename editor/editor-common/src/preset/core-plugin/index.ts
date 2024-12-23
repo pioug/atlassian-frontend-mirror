@@ -51,6 +51,8 @@ export const corePlugin: CorePlugin = ({ config }) => {
 					return false;
 				}
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				(editorView.dom as HTMLElement).blur();
 				return true;
 			},
@@ -82,6 +84,8 @@ export const corePlugin: CorePlugin = ({ config }) => {
 				return false;
 			},
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			requestDocument<GenericTransformer extends Transformer<any> = Transformer<JSONDocNode>>(
 				onReceive: GenericTransformer extends undefined
 					? DefaultTransformerResultCallback

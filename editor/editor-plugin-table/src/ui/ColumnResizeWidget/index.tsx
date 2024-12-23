@@ -51,6 +51,8 @@ export const ColumnResizeWidget = ({ startIndex, endIndex, includeTooltip }: Pro
 					className={TableCssClassName.RESIZE_HANDLE_DECORATION}
 					data-start-index={startIndex}
 					data-end-index={endIndex}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...tooltipProps}
 				/>
 			)}

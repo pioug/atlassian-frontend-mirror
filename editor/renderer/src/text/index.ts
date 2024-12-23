@@ -16,6 +16,8 @@ export default class TextSerializer implements Serializer<string> {
 			result.push(reduce(n, this.schema));
 		});
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		return result.join('\n').replace(/\n+/g, '\n');
 	}
 

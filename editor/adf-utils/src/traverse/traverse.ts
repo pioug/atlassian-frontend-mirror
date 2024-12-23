@@ -21,6 +21,8 @@ export function traverse(adf: ADFEntity, visitors: VisitorCollection) {
 	return traverseNode(adf, { node: undefined }, visitors, 0, 0);
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function traverseNode(
 	adfNode: ADFEntity,
 	parent: EntityParent,

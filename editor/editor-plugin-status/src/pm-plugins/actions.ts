@@ -200,6 +200,8 @@ const handleClosingByArrows = (
 	state: EditorState,
 	showStatusPickerAt: number,
 	tr: Transaction,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (closingMethod === 'arrowLeft') {
 		// put cursor right before status Lozenge

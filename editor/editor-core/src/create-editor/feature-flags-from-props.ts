@@ -80,6 +80,8 @@ export function createFeatureFlagsFromProps(
 				: false,
 		),
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		disableSpellcheckByBrowser: getSpellCheck(featureFlags!),
 	};
 }

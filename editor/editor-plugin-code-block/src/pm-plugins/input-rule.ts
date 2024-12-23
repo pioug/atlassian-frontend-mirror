@@ -57,11 +57,15 @@ function getCodeBlockRules(
 
 	const validMatchLength = (match: RegExpExecArray) => match.length > 0 && match[0].length === 3;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp, @typescript-eslint/max-params
 	const threeTildeRule = createRule(/(?!\s)(`{3,})$/, (state, match, start, end) => {
 		if (!validMatchLength(match)) {
 			return null;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const attributes: any = {};
 		if (match[4]) {
 			attributes.language = match[4];
@@ -80,12 +84,18 @@ function getCodeBlockRules(
 	});
 
 	const leftNodeReplacementThreeTildeRule = createRule(
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		new RegExp(`((${leafNodeReplacementCharacter}\`{3,})|^\\s(\`{3,}))(\\S*)$`),
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 		(state, match, start, end) => {
 			if (!validMatchLength(match)) {
 				return null;
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const attributes: any = {};
 			if (match[4]) {
 				attributes.language = match[4];

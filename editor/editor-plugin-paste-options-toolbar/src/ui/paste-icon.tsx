@@ -2,8 +2,7 @@
 
 import React from 'react';
 
-import Icon, { type IconProps } from '@atlaskit/icon';
-import { type CustomGlyphProps } from '@atlaskit/icon';
+import Icon, { type IconProps, type CustomGlyphProps } from '@atlaskit/icon';
 
 const CustomGlyph = (props: CustomGlyphProps) => (
 	<svg
@@ -12,6 +11,8 @@ const CustomGlyph = (props: CustomGlyphProps) => (
 		viewBox="0 0 24 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		{...props}
 	>
 		<path
@@ -25,6 +26,8 @@ const CustomGlyph = (props: CustomGlyphProps) => (
 	</svg>
 );
 
+// Ignored via go/ees005
+// eslint-disable-next-line react/jsx-props-no-spreading
 const EditorPasteIcon = (props: IconProps) => <Icon {...props} glyph={CustomGlyph} />;
 
 EditorPasteIcon.displayName = 'EditorPasteIcon';

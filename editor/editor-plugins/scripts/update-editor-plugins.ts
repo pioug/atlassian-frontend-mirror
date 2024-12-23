@@ -1,5 +1,9 @@
 /* eslint-disable no-console */
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as fs from 'fs';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as path from 'path';
 
 import { findRootSync } from '@manypkg/find-root';
@@ -39,6 +43,8 @@ const pluginName = 'editor-plugins';
 const editorPluginsPath = path.join(pluginsPath, pluginName);
 const editorPluginsPackageJsonPath = path.join(editorPluginsPath, 'package.json');
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function getPluginPackageJson(pluginFolder: string): Record<string, any> {
 	const packageJsonFile = path.join(pluginFolder, 'package.json');
 	if (fs.existsSync(packageJsonFile)) {
@@ -61,15 +67,21 @@ function getPluginFolderNames(): string[] {
 		(folder) =>
 			folder.startsWith('editor-plugin-') &&
 			!foldersToIgnore.includes(folder) &&
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			!/editor-plugin-.*-tests$/.test(folder),
 	);
 }
 
 function getPluginFolderNamesAndPackageJsons(): {
 	depFolderNames: string[];
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	packageJsons: Record<string, any>[];
 } {
 	const depFolderNames: string[] = [];
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const packageJsons: Record<string, any>[] = [];
 
 	getPluginFolderNames().forEach((folderName) => {
@@ -140,6 +152,8 @@ function getNewAfExports(entryPointData: EntryPointData[]): Record<string, strin
 }
 
 function getUpdatedDependenciesFromPackageJsons(
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	packageJsons: Record<string, any>[],
 ): Record<string, string> {
 	const depVersions: Record<string, string> = {};
@@ -159,8 +173,12 @@ function getUpdatedDependenciesFromPackageJsons(
 }
 
 function getFeatureFlagsFromPackageJsons(
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	packageJsons: Record<string, any>[],
 ): Record<string, string> {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const mergedFeatureFlags: Record<string, any> = {};
 	packageJsons.forEach((packageJson) => {
 		const featureFlags = packageJson['platform-feature-flags'];
@@ -273,6 +291,8 @@ function updatePluginsFiles(
 		});
 
 		// Add new files or update existing ones
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-await
 		entryPointDatas.forEach(async ({ fileData }) => {
 			createFileWithPath(fileData.newRelativeFilePath, fileData.fileContent);
 		});
@@ -378,6 +398,8 @@ function prettyDisplay(diff: DependenciesDiffResult) {
 	console.log(diffDisplay);
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-await
 async function run() {
 	const argv = yargs(process.argv.slice(2))
 		.option('dry-run', {

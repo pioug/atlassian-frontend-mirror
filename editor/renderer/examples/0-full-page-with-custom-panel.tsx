@@ -7,6 +7,8 @@ import { exampleDocument } from './helper/example-doc-with-custom-panels';
 export type Props = {};
 export type State = { locale: string; messages: { [key: string]: string } };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Example extends React.Component<Props, State> {
 	state: State = {
 		locale: 'en',

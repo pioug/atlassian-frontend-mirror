@@ -53,6 +53,8 @@ export const isClickNear = (event: MouseEvent, click: { x: number; y: number }):
 };
 
 export const getResizeCellPos = (view: EditorView, event: MouseEvent): number | null => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const target = event.target as HTMLElement;
 
 	if (!containsClassName(target, ClassName.RESIZE_HANDLE_DECORATION)) {
@@ -112,6 +114,8 @@ export const syncStickyRowToTable = (tableRef?: HTMLElement | null) => {
 };
 
 const applyTableWidthToStickyRow = (tableRef: HTMLElement, headerRow: HTMLTableRowElement) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const tbody = tableRef.querySelector('tbody')!;
 	const wrapper = tableRef.parentElement;
 

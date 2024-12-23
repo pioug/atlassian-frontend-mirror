@@ -137,6 +137,8 @@ export const insertLoom = (
 	api: ExtractInjectionAPI<LoomPlugin> | undefined,
 	video: VideoMeta,
 	positionType: PositionType,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean => {
 	if (!editorView) {
 		return false;
@@ -176,6 +178,8 @@ export const setupLoom = async (
 	 * Whether loom initialisation is evoked via `initLoom` command.
 	 */
 	initViaCommand?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Promise<{ error?: string }> => {
 	const clientResult = await loomProvider.getClient();
 

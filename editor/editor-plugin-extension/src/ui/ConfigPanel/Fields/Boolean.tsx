@@ -82,6 +82,8 @@ function Checkbox({
 				return (
 					<Fragment>
 						<AKCheckbox
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...restFieldProps}
 							label={label}
 							onChange={(event) => handleOnChange(fieldProps.onChange, onFieldChange, event)}
@@ -128,6 +130,8 @@ function Toggle({
 								) : null}
 							</label>
 							<AKToggle
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...restFieldProps}
 								onChange={(event) => handleOnChange(fieldProps.onChange, onFieldChange, event)}
 								isChecked={parseBoolean(isChecked)}

@@ -10,12 +10,6 @@ import {
 } from '@atlaskit/link-extractors';
 
 import { type LinkLocation } from '../../state/flexible-ui-context/types';
-import {
-	type LinkAttachmentType,
-	type LinkCommentType,
-	type LinkProgrammingLanguageType,
-	type LinkSubscriberType,
-} from '../common/detail';
 
 const extractLinkName = (link?: JsonLd.Primitives.Link): string | undefined => {
 	if (link && typeof link === 'object' && link['@type'] === 'Link') {
@@ -30,6 +24,12 @@ const extractValue = <TData extends JsonLd.Data.BaseData, TResult>(
 	return (data as TData)?.[key] as unknown as TResult;
 };
 
+export type LinkCommentType =
+	| JsonLd.Data.Document
+	| JsonLd.Data.Page
+	| JsonLd.Data.Project
+	| JsonLd.Data.SourceCodeCommit
+	| JsonLd.Data.TaskType;
 export const extractCommentCount = (data: JsonLd.Data.BaseData) =>
 	extractValue<LinkCommentType, number>(data, 'schema:commentCount');
 
@@ -91,15 +91,30 @@ export const extractModifiedBy = (data: JsonLd.Data.BaseData): string | undefine
 	}
 };
 
+export type LinkProgrammingLanguageType =
+	| JsonLd.Data.SourceCodeDocument
+	| JsonLd.Data.SourceCodeCommit
+	| JsonLd.Data.SourceCodePullRequest
+	| JsonLd.Data.SourceCodeReference
+	| JsonLd.Data.SourceCodeRepository;
 export const extractProgrammingLanguage = (data: JsonLd.Data.BaseData) =>
 	extractValue<LinkProgrammingLanguageType, string>(data, 'schema:programmingLanguage');
 
 export const extractSourceBranch = (data: JsonLd.Data.SourceCodePullRequest): string | undefined =>
 	extractLinkName(data['atlassian:mergeSource'] as JsonLd.Primitives.Link);
 
+export type LinkSubscriberType =
+	| JsonLd.Data.SourceCodeRepository
+	| JsonLd.Data.Task
+	| JsonLd.Data.TaskType;
 export const extractSubscriberCount = (data: JsonLd.Data.BaseData) =>
 	extractValue<LinkSubscriberType, number>(data, 'atlassian:subscriberCount');
 
+export type LinkAttachmentType =
+	| JsonLd.Data.Document
+	| JsonLd.Data.Task
+	| JsonLd.Data.TaskType
+	| JsonLd.Data.Project;
 export const extractAttachmentCount = (data: JsonLd.Data.BaseData) =>
 	extractValue<LinkAttachmentType, number>(data, 'atlassian:attachmentCount');
 

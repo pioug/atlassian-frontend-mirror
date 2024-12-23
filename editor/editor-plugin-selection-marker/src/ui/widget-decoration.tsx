@@ -53,6 +53,8 @@ const selectionMarkerCursorStyles = {
  * @returns Hyphenated CSS property name.
  */
 function hyphenate(property: string): string {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`).replace(/^ms/, '-ms');
 }
 
@@ -94,6 +96,8 @@ export const createWidgetDecoration = (
 	type: SelectionType,
 	selection: Selection,
 	isHighlight: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	// We don't want the cursor to show if it's not text selection
 	// ie. if it's on media selection

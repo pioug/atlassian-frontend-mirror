@@ -26,6 +26,8 @@ export type PerformanceOptions = {
 };
 
 export interface State {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[name: string]: any;
 }
 
@@ -98,6 +100,8 @@ export interface Props<P extends NamedPluginKeys> {
  * ```
  *
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components, react/prefer-stateless-function
 class WithPluginState<P extends NamedPluginKeys> extends React.Component<
 	WithPluginStateInnerProps<P>,
 	State
@@ -108,8 +112,12 @@ class WithPluginState<P extends NamedPluginKeys> extends React.Component<
 
 	render() {
 		if (fg('platform_editor_react18_phase2_v2')) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			return <WithPluginStateNew {...this.props} />;
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		return <WithPluginStateOld {...this.props} />;
 	}
 }
@@ -117,13 +125,22 @@ class WithPluginState<P extends NamedPluginKeys> extends React.Component<
 function WithPluginStateNew<P extends NamedPluginKeys>(props: Props<P>) {
 	const context = React.useContext(EditorContext) as Context;
 
-	return <WithPluginStateInner {...props} editorActions={context?.editorActions} />;
+	return (
+		<WithPluginStateInner
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+			editorActions={context?.editorActions}
+		/>
+	);
 }
 
 type WithPluginStateInnerProps<P extends NamedPluginKeys> = Props<P> & {
 	editorActions?: EditorActionsPrivateAccess;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class WithPluginStateInner<P extends NamedPluginKeys> extends React.Component<
 	WithPluginStateInnerProps<P>,
 	State
@@ -156,6 +173,8 @@ export class WithPluginStateInner<P extends NamedPluginKeys> extends React.Compo
 		return props.eventDispatcher || props.editorActions?._privateGetEventDispatcher();
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	private handlePluginStateChange =
 		(
 			propName: string,
@@ -163,8 +182,12 @@ export class WithPluginStateInner<P extends NamedPluginKeys> extends React.Compo
 			performanceOptions: PerformanceOptions,
 			skipEqualityCheck?: boolean,
 		) =>
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(pluginState: any) => {
 			// skipEqualityCheck is being used for old plugins since they are mutating plugin state instead of creating a new one
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			if ((this.state as any)[propName] !== pluginState || skipEqualityCheck) {
 				this.updateState({
 					stateSubset: { [propName]: pluginState },
@@ -268,6 +291,8 @@ export class WithPluginStateInner<P extends NamedPluginKeys> extends React.Compo
 		const fakePluginKey = {
 			key: 'analyticsPlugin$',
 			getState: (state: EditorState) => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				return (state as any)['analyticsPlugin$'];
 			},
 		} as PluginKey;
@@ -293,7 +318,11 @@ export class WithPluginStateInner<P extends NamedPluginKeys> extends React.Compo
 				return;
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const pluginName = (pluginKey as any).key;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const pluginState = (pluginsStates as any)[propName];
 			const isPluginWithSubscribe = pluginState && pluginState.subscribe;
 			const handler = this.handlePluginStateChange(
@@ -306,9 +335,15 @@ export class WithPluginStateInner<P extends NamedPluginKeys> extends React.Compo
 			if (isPluginWithSubscribe) {
 				pluginState.subscribe(handler);
 			} else {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				eventDispatcher.on((pluginKey as any).key, handler);
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(this.listeners as any)[(pluginKey as any).key] = { handler, pluginKey };
 		});
 	}
@@ -322,11 +357,17 @@ export class WithPluginStateInner<P extends NamedPluginKeys> extends React.Compo
 		}
 
 		Object.keys(this.listeners).forEach((key) => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const pluginState = (this.listeners as any)[key].pluginKey.getState(editorView.state);
 
 			if (pluginState && pluginState.unsubscribe) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				pluginState.unsubscribe((this.listeners as any)[key].handler);
 			} else {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				eventDispatcher.off(key, (this.listeners as any)[key].handler);
 			}
 		});
@@ -347,6 +388,8 @@ export class WithPluginStateInner<P extends NamedPluginKeys> extends React.Compo
 		this.subscribeToContextUpdates();
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillReceiveProps(nextProps: Props<P>) {
 		if (!this.isSubscribed) {
 			this.subscribe(nextProps);
@@ -367,6 +410,8 @@ export class WithPluginStateInner<P extends NamedPluginKeys> extends React.Compo
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class WithPluginStateOld<P extends NamedPluginKeys> extends React.Component<
 	Props<P>,
 	State
@@ -414,6 +459,8 @@ export class WithPluginStateOld<P extends NamedPluginKeys> extends React.Compone
 		);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	private handlePluginStateChange =
 		(
 			propName: string,
@@ -421,8 +468,12 @@ export class WithPluginStateOld<P extends NamedPluginKeys> extends React.Compone
 			performanceOptions: PerformanceOptions,
 			skipEqualityCheck?: boolean,
 		) =>
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(pluginState: any) => {
 			// skipEqualityCheck is being used for old plugins since they are mutating plugin state instead of creating a new one
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			if ((this.state as any)[propName] !== pluginState || skipEqualityCheck) {
 				this.updateState({
 					stateSubset: { [propName]: pluginState },
@@ -526,6 +577,8 @@ export class WithPluginStateOld<P extends NamedPluginKeys> extends React.Compone
 		const fakePluginKey = {
 			key: 'analyticsPlugin$',
 			getState: (state: EditorState) => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				return (state as any)['analyticsPlugin$'];
 			},
 		} as PluginKey;
@@ -551,7 +604,11 @@ export class WithPluginStateOld<P extends NamedPluginKeys> extends React.Compone
 				return;
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const pluginName = (pluginKey as any).key;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const pluginState = (pluginsStates as any)[propName];
 			const isPluginWithSubscribe = pluginState && pluginState.subscribe;
 			const handler = this.handlePluginStateChange(
@@ -564,9 +621,15 @@ export class WithPluginStateOld<P extends NamedPluginKeys> extends React.Compone
 			if (isPluginWithSubscribe) {
 				pluginState.subscribe(handler);
 			} else {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				eventDispatcher.on((pluginKey as any).key, handler);
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(this.listeners as any)[(pluginKey as any).key] = { handler, pluginKey };
 		});
 	}
@@ -580,11 +643,17 @@ export class WithPluginStateOld<P extends NamedPluginKeys> extends React.Compone
 		}
 
 		Object.keys(this.listeners).forEach((key) => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const pluginState = (this.listeners as any)[key].pluginKey.getState(editorView.state);
 
 			if (pluginState && pluginState.unsubscribe) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				pluginState.unsubscribe((this.listeners as any)[key].handler);
 			} else {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				eventDispatcher.off(key, (this.listeners as any)[key].handler);
 			}
 		});
@@ -613,6 +682,8 @@ export class WithPluginStateOld<P extends NamedPluginKeys> extends React.Compone
 		this.subscribeToContextUpdates(this.context);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillReceiveProps(nextProps: Props<P>) {
 		if (!this.isSubscribed) {
 			this.subscribe(nextProps);

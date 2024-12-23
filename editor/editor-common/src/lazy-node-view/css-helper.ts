@@ -5,6 +5,10 @@
  * @returns Hyphenated CSS property name.
  */
 function hyphenate(property: string): string {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return property.replace(/[A-Z]/g, (match) => `-${match.toLowerCase()}`).replace(/^ms/, '-ms');
 }
 

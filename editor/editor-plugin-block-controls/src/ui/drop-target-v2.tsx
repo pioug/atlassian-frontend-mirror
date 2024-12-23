@@ -323,8 +323,18 @@ export const DropTargetV2 = (
 
 			{shouldAllowInlineDropTarget(isNestedDropTarget, nextNode, isSameLayout, activeNode) && (
 				<Fragment>
-					<InlineDropTarget {...props} position="left" />
-					<InlineDropTarget {...props} position="right" />
+					<InlineDropTarget
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...props}
+						position="left"
+					/>
+					<InlineDropTarget
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...props}
+						position="right"
+					/>
 				</Fragment>
 			)}
 		</Fragment>

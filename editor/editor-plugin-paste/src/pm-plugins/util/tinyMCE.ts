@@ -13,6 +13,8 @@ export const isPastedFromTinyMCEConfluence = (
 	return (
 		isPastedFromTinyMCE(pasteEvent) &&
 		!!html &&
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		!!html.match(/class=\"\s?(confluenceTd|confluenceTh|confluenceTable).+"/gim)
 	);
 };

@@ -560,7 +560,6 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 			}
 		`);
 		});
-
 		it('should fail to set up the provider if getState is missing the collab plugin when calling initialize()', async () => {
 			const badEditorState = createEditorState(doc(p('lol'))); // missing collab plugin
 			const badGetStateMock = jest.fn().mockReturnValue(badEditorState);
@@ -584,7 +583,6 @@ describe('Collab Provider Integration Tests - Confluence', () => {
 				'Error while initialising the provider',
 			);
 		});
-
 		it('should fail to set up the provider if getState is missing the collab plugin when calling setup()', async () => {
 			const badEditorState = createEditorState(doc(p('lol'))); // missing collab plugin
 			const badGetStateMock = jest.fn().mockReturnValue(badEditorState);

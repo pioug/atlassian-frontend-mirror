@@ -21,6 +21,8 @@ export function createWrapSelectionTransaction({
 	state: EditorState;
 	type: NodeType;
 	// This should be the node attributes from the ADF schema where prosemirror attributes are specified
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	nodeAttributes?: Record<string, any>;
 }) {
 	let { tr } = state;
@@ -44,10 +46,14 @@ export function createWrapSelectionTransaction({
 export function getWrappingOptions(
 	state: EditorState,
 	type: NodeType,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	nodeAttributes?: Record<string, any>,
 ) {
 	const { $from, $to, from } = state.selection;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let range = $from.blockRange($to) as any;
 
 	const isMediaSelection =
@@ -75,6 +81,8 @@ export function getWrappingOptions(
 			return (isAllowedChild = node.type !== state.schema.nodes.codeBlock);
 		});
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const wrapping = isAllowedChild && range && (findWrapping(range, type, nodeAttributes) as any);
 	return { range, wrapping };
 }

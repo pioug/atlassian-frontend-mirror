@@ -6,7 +6,9 @@ export interface Props {
 	children?: JSX.Element | JSX.Element[];
 }
 
-export default class DecisionList extends PureComponent<Props, {}> {
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
+export default class DecisionList extends PureComponent<Props, Object> {
 	render() {
 		const { children } = this.props;
 

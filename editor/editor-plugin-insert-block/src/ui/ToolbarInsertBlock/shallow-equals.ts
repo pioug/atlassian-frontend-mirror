@@ -1,4 +1,4 @@
-export const shallowEquals = <T extends {}>(
+export const shallowEquals = <T extends Object>(
 	[aRaw]: ReadonlyArray<unknown>,
 	[bRaw]: ReadonlyArray<unknown>,
 ): boolean => {

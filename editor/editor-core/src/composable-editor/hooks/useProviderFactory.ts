@@ -17,6 +17,8 @@ import getProvidersFromEditorProps from '../utils/getProvidersFromEditorProps';
 import handleProviders from '../utils/handleProviders';
 
 function useEditorRef(
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	preset: EditorPresetBuilder<any, any> | undefined,
 ): React.MutableRefObject<PublicPluginAPI<[ExtensionPlugin]> | undefined | undefined> {
 	const apiRef = useRef<PublicPluginAPI<[ExtensionPlugin]> | undefined | undefined>();
@@ -34,6 +36,8 @@ type PreparedProviders = {
 	quickInsertProvider?: Promise<QuickInsertProvider>;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function prepareProviders(
 	editorActions: EditorActions,
 	apiRef: React.MutableRefObject<PublicPluginAPI<[ExtensionPlugin]> | undefined>,

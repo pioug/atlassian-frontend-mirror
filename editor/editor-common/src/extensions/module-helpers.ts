@@ -24,6 +24,8 @@ export const groupBy = <T>(
 ): {
 	[k: string]: T;
 } =>
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	arr.reduce<any>((acc, item) => {
 		acc[keyRenamer(item[attr])] = item;
 		return acc;
@@ -74,6 +76,8 @@ export async function getAutoConvertPatternsFromModule<T extends Parameters>(
 	extensions: ExtensionManifest<T>[],
 ): Promise<ExtensionAutoConvertHandler[]> {
 	const items = await Promise.all(
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-await
 		extensions.map(async (manifest) => {
 			if (manifest.modules.autoConvert && manifest.modules.autoConvert.url) {
 				return manifest.modules.autoConvert.url;
@@ -108,6 +112,8 @@ export async function getExtensionAutoConvertersFromProvider(
 	return createAutoConverterRunner(extensionAutoConverters);
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const logError = (msg: any, ...args: any[]) => {
 	// eslint-disable-next-line no-console
 	console.error(msg, ...args);

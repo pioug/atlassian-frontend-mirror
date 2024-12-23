@@ -4,8 +4,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { DevTools } from '@af/editor-examples-helpers/utils';
-import { getTranslations, LanguagePicker } from '@af/editor-examples-helpers/utils';
+import { DevTools, getTranslations, LanguagePicker } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -78,6 +77,8 @@ declare global {
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class CommentEditorWithFeedback extends React.Component<Props, State> {
 	state = {
 		hasJquery: false,

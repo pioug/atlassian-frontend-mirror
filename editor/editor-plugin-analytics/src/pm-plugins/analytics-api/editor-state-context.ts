@@ -19,6 +19,8 @@ export function getSelectionType(selection: Selection): {
 
 	if (selection?.constructor?.name === 'GapCursorSelection') {
 		type = SELECTION_TYPE.GAP_CURSOR;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		position = (selection as any).side;
 	} else if (selection instanceof CellSelection) {
 		type = SELECTION_TYPE.CELL;

@@ -49,6 +49,8 @@ export default function MentionWithProfileCard({
 			trigger="click"
 			position="bottom-end"
 			testId="mention-with-profilecard-trigger"
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			ariaLabel={text.replace(/^@/, '')}
 		>
 			<ResourcedMention

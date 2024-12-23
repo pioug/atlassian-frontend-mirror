@@ -7,7 +7,9 @@ export interface Props {
 	children?: ReactNode;
 }
 
-export default class TaskList extends PureComponent<Props, {}> {
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
+export default class TaskList extends PureComponent<Props, Object> {
 	render() {
 		const { children, localId } = this.props;
 

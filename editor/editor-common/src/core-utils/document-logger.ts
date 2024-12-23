@@ -76,6 +76,8 @@ function compactStringifier(node: SimplifiedNode): string {
 	const isContentArray = Array.isArray(node.content);
 	const marks = (child: string): string => {
 		if (hasMarks) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			return node.marks!.reduce(
 				(str: string, mark: string) => `${shortHash(mark, true)}(${str})`,
 				child,
@@ -89,6 +91,8 @@ function compactStringifier(node: SimplifiedNode): string {
 	} else if (isContentEmpty) {
 		content = '';
 	} else if (isContentArray) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		content = node.content!.map((node: SimplifiedNode) => compactStringifier(node)).join(',');
 	}
 	return marks(`${shortHash(node.type, false)}(${content})`);

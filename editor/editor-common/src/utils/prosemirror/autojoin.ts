@@ -27,6 +27,8 @@ export function autoJoinTr(
 		for (let j = 0; j < ranges.length; j++) {
 			ranges[j] = map.map(ranges[j]);
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 		map.forEach((_s: unknown, _e: unknown, from: number, to: number) => ranges.push(from, to));
 	}
 

@@ -56,6 +56,8 @@ import { type Command } from '../types';
  *
  */
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isFunction(x: any): x is Function {
 	return typeof x === 'function';
 }
@@ -98,6 +100,8 @@ export function pluginFactory<PluginState, Action, InitialState extends PluginSt
 			return {
 				init: (_, state) => (isFunction(initialState) ? initialState(state) : initialState),
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/max-params
 				apply: (tr, _pluginState, _oldEditorState, newEditorState) => {
 					const oldPluginState = mapping ? mapping(tr, _pluginState, newEditorState) : _pluginState;
 					let newPluginState = oldPluginState;

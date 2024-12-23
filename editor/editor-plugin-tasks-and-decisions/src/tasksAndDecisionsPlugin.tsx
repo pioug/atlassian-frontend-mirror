@@ -20,6 +20,8 @@ import { token } from '@atlaskit/tokens';
 
 import { decisionItemSpecWithFixedToDOM } from './nodeviews/toDOM-fixes/decisionItem';
 import { getCurrentIndentLevel, getTaskItemIndex, isInsideTask } from './pm-plugins/helpers';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import inputRulePlugin from './pm-plugins/input-rules';
 import {
 	getListTypes,

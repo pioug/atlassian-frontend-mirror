@@ -135,6 +135,8 @@ export const newApply = (
 	flags: FlagType,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	anchorRectCache?: AnchorRectCache,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	let {
 		activeNode,
@@ -322,6 +324,8 @@ export const oldApply = (
 	flags: FlagType,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	anchorRectCache?: AnchorRectCache,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { isNestedEnabled } = flags;
 
@@ -557,7 +561,7 @@ export const oldApply = (
 				api,
 				formatMessage,
 				nodeViewPortalProviderAPI,
-				isNestedEnabled ? meta?.activeNode ?? mappedActiveNodePos : meta?.activeNode,
+				isNestedEnabled ? (meta?.activeNode ?? mappedActiveNodePos) : meta?.activeNode,
 				anchorRectCache,
 			);
 			decorations = decorations.add(newState.doc, decs);
@@ -587,7 +591,7 @@ export const oldApply = (
 		(!meta?.activeNode &&
 			decorations.find(undefined, undefined, (spec) => spec.type === 'drag-handle').length === 0)
 			? null
-			: meta?.activeNode ?? mappedActiveNodePos;
+			: (meta?.activeNode ?? mappedActiveNodePos);
 
 	return {
 		decorations,
@@ -627,6 +631,8 @@ export const createPlugin = (
 			init() {
 				return initialState;
 			},
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(
 				tr: ReadonlyTransaction,
 				currentState: PluginState,
@@ -798,7 +804,11 @@ export const createPlugin = (
 
 						if (!isResizerResizing) {
 							const editorContentArea = entries[0].target;
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							const editorWidthRight = editorContentArea!.getBoundingClientRect().right;
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							const editorWidthLeft = editorContentArea!.getBoundingClientRect().left;
 							transaction.setMeta(key, { editorWidthLeft, editorWidthRight });
 						}

@@ -218,6 +218,8 @@ describe('Renderer - EmailSerializer', () => {
 		expect(result).toMatchSnapshot('html');
 	});
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line jest/no-identical-title
 	it('should render media inline correctly', () => {
 		const { result } = render(caption);
 		expect(result).toMatchSnapshot('html');

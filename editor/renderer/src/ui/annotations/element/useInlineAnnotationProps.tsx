@@ -25,7 +25,11 @@ export function useInlineAnnotationProps(props: MarkDataAttributes) {
 
 	const hasDraft =
 		draftPosition &&
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		draftPosition?.from <= inlineCardPosition! &&
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		draftPosition?.to >= inlineCardPosition! + 1;
 
 	if (hasDraft) {

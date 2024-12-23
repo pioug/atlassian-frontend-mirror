@@ -18,6 +18,8 @@ const rawContentProcessor = (
 	length: number,
 	_schema: Schema,
 	_context: Context,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Token => {
 	return {
 		type: 'text',

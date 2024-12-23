@@ -21,6 +21,8 @@ import { parsePx } from './dom';
  * TODO: Clean this up after: https://product-fabric.atlassian.net/browse/ED-8942
  *
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const breakoutConsts: any = {
 	padding: akEditorBreakoutPadding,
 	defaultLayoutWidth: akEditorDefaultLayoutWidth,
@@ -69,6 +71,8 @@ const breakoutConsts: any = {
 		return breakoutConsts.calcBreakoutWidth(mode, editorContainerWidth);
 	},
 	calcLineLength: () => breakoutConsts.defaultLayoutWidth,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	calcWideWidth: (
 		containerWidth: number = breakoutConsts.defaultLayoutWidth,
 		maxWidth: number = Infinity,

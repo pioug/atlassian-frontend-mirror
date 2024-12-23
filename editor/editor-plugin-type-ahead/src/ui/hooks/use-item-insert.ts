@@ -59,6 +59,8 @@ export const useItemInsert = (
 	editorView: EditorView,
 	items: Array<TypeAheadItem>,
 	api: ExtractInjectionAPI<TypeAheadPlugin> | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): [OnInsertSelectedItem, OnTextInsert, OnItemMatch] => {
 	const editorViewRef = useRef(editorView);
 	const itemsRef = useRef(items);

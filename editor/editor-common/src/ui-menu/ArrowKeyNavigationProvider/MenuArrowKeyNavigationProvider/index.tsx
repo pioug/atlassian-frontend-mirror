@@ -90,6 +90,8 @@ export const MenuArrowKeyNavigationProvider = ({
 
 			// Tab key on menu items can be handled in the parent components of dropdown menus with KeydownHandlerContext
 			if (event.key === 'Tab' && closeOnTab) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				handleClose!(event);
 				keyDownHandlerContext?.handleTab();
 				return;
@@ -134,6 +136,8 @@ export const MenuArrowKeyNavigationProvider = ({
 						return;
 					}
 					if (!disableCloseOnArrowClick) {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						handleClose!(event);
 					}
 					if (
@@ -152,6 +156,8 @@ export const MenuArrowKeyNavigationProvider = ({
 						return;
 					}
 					if (!disableCloseOnArrowClick) {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						handleClose!(event);
 					}
 					if (
@@ -163,6 +169,8 @@ export const MenuArrowKeyNavigationProvider = ({
 					break;
 
 				case 'Escape':
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					handleClose!(event);
 					break;
 
@@ -179,11 +187,15 @@ export const MenuArrowKeyNavigationProvider = ({
 
 		listenerTargetElement &&
 			listenerTargetElement.forEach(function (elem) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				elem && elem.addEventListener('keydown', handleKeyDown);
 			});
 		return () => {
 			listenerTargetElement &&
 				listenerTargetElement.forEach(function (elem) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 					elem && elem.removeEventListener('keydown', handleKeyDown);
 				});
 		};

@@ -14,8 +14,12 @@ import { redoFromKeyboard, undoFromKeyboard } from './commands';
 export function keymapPlugin(): SafePlugin {
 	const list = {};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(findKeyMapForBrowser(redo)!, redoFromKeyboard, list);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(undo.common!, undoFromKeyboard, list);
 
 	return new SafePlugin({

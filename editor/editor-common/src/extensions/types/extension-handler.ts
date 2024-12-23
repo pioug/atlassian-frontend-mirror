@@ -21,7 +21,11 @@ export type ExtensionHandler<T extends Parameters = Parameters> = (
 
 export type OnSaveCallback<T extends Parameters = Parameters> = (params: T) => void;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TransformBefore<T extends Parameters = Parameters> = (data: T) => any;
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type TransformAfter<T extends Parameters = Parameters> = (data: any) => Promise<Partial<T>>;
 
 export type ExtensionAPI<T extends Parameters = Parameters> = {
@@ -62,6 +66,8 @@ export interface Extension<T extends Parameters = Parameters> {
 	update?: UpdateExtension<T>;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export interface ExtensionHandlers<T extends Parameters = any> {
 	[key: string]: Extension<T> | ExtensionHandler<T>;
 }

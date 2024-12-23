@@ -37,5 +37,7 @@ export type ChromelessEditorProps = Pick<
  * @returns Editor component
  */
 export function ChromelessEditor(props: ChromelessEditorProps) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <CoreEditor {...props} appearance="chromeless" AppearanceComponent={Chromeless} />;
 }

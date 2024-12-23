@@ -28,6 +28,8 @@ export const StyledButton = ({
 }: ButtonProps & { innerRef?: React.Ref<HTMLElement> }) => {
 	return (
 		<Button
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 			ref={innerRef}
 			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides

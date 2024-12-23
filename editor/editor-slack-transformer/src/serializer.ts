@@ -25,6 +25,8 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 	 * @see https://github.com/ProseMirror/prosemirror-markdown/blob/master/src/to_markdown.ts#L241
 	 */
 	atBlank() {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		return /(^|\n)$/.test(this.out);
 	}
 
@@ -39,6 +41,8 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 			}
 			if (size > 1) {
 				let delimMin = this.delim;
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				let trim = /\s+$/.exec(delimMin);
 				if (trim) {
 					delimMin = delimMin.slice(0, delimMin.length - trim[0].length);
@@ -186,6 +190,8 @@ export const nodes = {
 			state.render(child, node, i);
 		}
 	},
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	listItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
 		const delimiter = parent.type.name === 'bulletList' ? '• ' : `${index + 1}. `;
 
@@ -240,6 +246,8 @@ export const nodes = {
 		state.write('\u200c'); // zero-width-non-joiner
 		state.closeBlock(node);
 	},
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	mention(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
 		const isLastNode = parent.childCount === index + 1;
 		let delimiter = '';
@@ -298,6 +306,8 @@ export const nodes = {
 			state.render(child, node, i);
 		}
 	},
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	decisionItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
 		state.write('<> ');
 		state.renderInline(node);
@@ -385,6 +395,8 @@ export const marks = {
 		expelEnclosingWhitespace: true,
 	},
 	link: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		open(_state: MarkdownSerializerState, mark: any) {
 			return '<' + mark.attrs.href + '|';
 		},

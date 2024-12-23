@@ -1,3 +1,3 @@
 import type { NextEditorPlugin } from '@atlaskit/editor-common/types';
 
-export type UfoPlugin = NextEditorPlugin<'ufo', {}>;
+export type UfoPlugin = NextEditorPlugin<'ufo', Object>;

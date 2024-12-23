@@ -22,6 +22,8 @@ export const getToolbarConfig =
 			return {
 				title: 'Expand toolbar',
 				getDomRef: (view) =>
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					findDomRefAtPos(selectedExpandNode.pos, view.domAtPos.bind(view)) as HTMLElement,
 				nodeType: [nestedExpand, expand],
 				offset: [0, 6],

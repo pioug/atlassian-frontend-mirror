@@ -30,10 +30,14 @@ import { getDraggableDataFromEvent } from './utils/monitor';
 
 const destroyFn = (
 	editorView: EditorView,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	editorAnalyticsAPI: any,
 	isTableScalingEnabled: boolean,
 	isTableFixedColumnWidthsOptionEnabled: boolean,
 	isCommentEditor: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const editorPageScrollContainer = document.querySelector('.fabric-editor-popup-scroll-parent');
 
@@ -46,6 +50,8 @@ const destroyFn = (
 					},
 					onDragStart() {
 						// auto scroller doesn't work when scroll-behavior: smooth is set, this monitor temporarily removes it via inline styles
+						// Ignored via go/ees005
+						// eslint-disable-next-line @atlaskit/editor/no-as-casting
 						(editorPageScrollContainer as HTMLElement).style.setProperty(
 							'scroll-behavior',
 							'unset',
@@ -53,10 +59,14 @@ const destroyFn = (
 					},
 					onDrop() {
 						// 'null' will remove the inline style
+						// Ignored via go/ees005
+						// eslint-disable-next-line @atlaskit/editor/no-as-casting
 						(editorPageScrollContainer as HTMLElement).style.setProperty('scroll-behavior', null);
 					},
 				}),
 				autoScrollForElements({
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					element: editorPageScrollContainer as HTMLElement,
 					canScroll: ({ source }) => {
 						const { type } = source.data as Partial<DraggableSourceData>;
@@ -254,6 +264,8 @@ export const createPlugin = (
 	isTableScalingEnabled = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	isCommentEditor = false,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	return new SafePlugin({
 		state: createPluginState(dispatch, (state) => ({
@@ -364,6 +376,8 @@ export const createPlugin = (
 				const isDragHandleFocused = [
 					'drag-handle-button-row',
 					'drag-handle-button-column',
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				].includes(((event.target as HTMLElement) || null)?.id);
 				const keysToTrap = ['Enter', ' '];
 

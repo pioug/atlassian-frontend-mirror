@@ -14,7 +14,11 @@ export function keymapPlugin({ api }: { api: ExtractInjectionAPI<HighlightPlugin
 	const list = {};
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		toggleHighlightPalette.common!,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		togglePalette(api!)({ inputMethod: INPUT_METHOD.SHORTCUT }),
 		list,
 	);

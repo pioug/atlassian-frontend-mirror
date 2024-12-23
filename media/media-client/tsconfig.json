@@ -7,6 +7,5 @@
     "./example-helpers/*.ts"
   ],
   "compilerOptions": {
-    "baseUrl": "./"
   },
 }

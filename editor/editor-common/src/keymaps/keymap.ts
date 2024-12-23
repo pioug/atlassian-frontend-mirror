@@ -11,6 +11,8 @@ import { SafePlugin } from '../safe-plugin';
  * @see https://github.com/ProseMirror/prosemirror/issues/957
  * @param bindings
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function keymap(bindings: { [key: string]: any }) {
 	return new SafePlugin({
 		props: {
@@ -24,6 +26,8 @@ export function keymap(bindings: { [key: string]: any }) {
 
 				// Check the unicode of the character to assert that it's not an ASCII character.
 				// These are characters outside latin's range.
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				const isNonLatinKey = name.length === 1 && /[^\u0000-\u007f]/.test(name);
 
 				// The `Dead` key is a key that combines with a following key to produce a combined character.

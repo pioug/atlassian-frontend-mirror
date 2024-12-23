@@ -30,6 +30,8 @@ export const hoverMergedCells = () =>
 			const mergedCells: Cell[] = mergedCellsPositions.map((pos) => ({
 				pos: pos + table.start,
 				start: pos + table.start + 1,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				node: table.node.nodeAt(pos)!,
 			}));
 
@@ -219,8 +221,8 @@ export const hoverCell = (rowIndex?: number, colIndex?: number) =>
 			// If no arguments have been passed then the intention it to reset the hover cell data
 			const clear = rowIndex === undefined && colIndex === undefined;
 
-			const nextRowIndex = clear ? undefined : rowIndex ?? prevHoveredCell.rowIndex;
-			const nextColIndex = clear ? undefined : colIndex ?? prevHoveredCell.colIndex;
+			const nextRowIndex = clear ? undefined : (rowIndex ?? prevHoveredCell.rowIndex);
+			const nextColIndex = clear ? undefined : (colIndex ?? prevHoveredCell.colIndex);
 
 			if (nextRowIndex === prevHoveredCell.rowIndex && nextColIndex === prevHoveredCell.colIndex) {
 				return false;

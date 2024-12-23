@@ -6,7 +6,11 @@ import type { StepJson } from '@atlaskit/editor-common/collab';
 const logger = createLogger('Catchupv2', 'red');
 
 export const catchupv2 = async (opt: Catchupv2Options): Promise<boolean> => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let steps: any;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let metadata: any;
 	const fromVersion = opt.getCurrentPmVersion();
 
@@ -61,6 +65,8 @@ export const isOutOfSync = (
 	currentVersion: number,
 	steps: StepJson[],
 	clientId: string | number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean =>
 	// If version number hasn't increased, and steps are not from our client, we're out of sync
 	Boolean(fromVersion >= currentVersion && steps.some((step) => step.clientId !== clientId));

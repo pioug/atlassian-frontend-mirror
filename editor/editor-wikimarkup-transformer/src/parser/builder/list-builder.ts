@@ -7,6 +7,8 @@ const supportedContentType = ['paragraph', 'orderedList', 'bulletList', 'mediaSi
  * Return the type of a list from the bullets
  */
 export function getType(bullets: string): ListType {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return /#$/.test(bullets) ? 'orderedList' : 'bulletList';
 }
 
@@ -216,6 +218,8 @@ export class ListBuilder {
 				type,
 				parent,
 			};
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			parent!.children.push(newList);
 			this.lastList = list = newList;
 		}
@@ -234,6 +238,8 @@ export class ListBuilder {
 		const { children } = this.lastList;
 		const lastItem = children[children.length - 1];
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		lastItem.content!.push(...content);
 	}
 

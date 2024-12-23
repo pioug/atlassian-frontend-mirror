@@ -59,6 +59,8 @@ export class PluginState {
 		return this.sid;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		decorations: DecorationSet,
 		participants: Participants,
@@ -171,6 +173,8 @@ export class PluginState {
 										content: { size },
 									},
 									from,
+									// Ignored via go/ees005
+									// eslint-disable-next-line @typescript-eslint/no-explicit-any
 								} = step as any;
 								const pos = getValidPos(
 									tr,
@@ -191,7 +195,11 @@ export class PluginState {
 			// Remove any selection decoration within the change range,
 			// takes care of the issue when after pasting we end up with a dead selection
 			tr.steps.filter(isReplaceStep).forEach((s: Step) => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const { from, to } = s as any;
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				this.decorationSet.find(from, to).forEach((deco: any) => {
 					// `type` is private, `from` and `to` are public in latest version
 					// `from` != `to` means it's a selection
@@ -203,6 +211,8 @@ export class PluginState {
 		}
 
 		const { selection } = tr;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		this.decorationSet.find().forEach((deco: any) => {
 			if (deco.type.toDOM) {
 				const hasTelepointerDimClass = deco.type.toDOM.classList.contains(TELEPOINTER_DIM_CLASS);
@@ -258,6 +268,8 @@ export class PluginState {
 		);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	static init(config: any) {
 		const { doc, onError } = config;
 		return new PluginState(

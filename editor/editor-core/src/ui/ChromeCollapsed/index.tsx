@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
@@ -19,7 +18,9 @@ export interface Props {
 	label?: string;
 }
 
-class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, {}> {
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
+class ChromeCollapsed extends PureComponent<Props & WrappedComponentProps, Object> {
 	private input?: HTMLElement;
 
 	private focusHandler = (evt: React.FocusEvent<HTMLInputElement>) => {

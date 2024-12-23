@@ -25,8 +25,12 @@ export const getColumnsWidths = (view: EditorView): Array<number | undefined> =>
 		widths = Array.from({ length: map.width });
 		for (let i = 0; i < map.width; i++) {
 			if (!map.isCellMergedTopLeft(0, i)) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const node = table.node.nodeAt(map.map[i])!;
 				const pos = map.map[i] + table.start;
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const cellRef = findDomRefAtPos(pos, domAtPos) as HTMLElement;
 				const rect = cellRef.getBoundingClientRect();
 				widths[i] = (rect ? rect.width : cellRef.offsetWidth) + 1;

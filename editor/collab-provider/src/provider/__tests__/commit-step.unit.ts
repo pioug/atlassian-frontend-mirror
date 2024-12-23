@@ -357,6 +357,8 @@ describe('commitStepQueue', () => {
 						);
 					});
 
+					// Ignored via go/ees005
+					// eslint-disable-next-line jest/no-identical-title
 					it('when head version update failed', () => {
 						broadcastMockErrorWithCode('VERSION_NUMBER_ALREADY_EXISTS');
 						presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');

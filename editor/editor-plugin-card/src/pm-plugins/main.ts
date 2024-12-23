@@ -224,9 +224,13 @@ export const createPlugin =
 							selection instanceof NodeSelection && selection.node?.type === schema.nodes.blockCard;
 
 						if (isBlockCardSelected) {
-							const datasourceTableRef = (
-								findDomRefAtPos(selection.from, domAtPos) as HTMLElement
-							)?.querySelector(`.${DATASOURCE_INNER_CONTAINER_CLASSNAME}`) as HTMLElement;
+							// Ignored via go/ees005
+							// eslint-disable-next-line @atlaskit/editor/no-as-casting
+							const datasourceTableRef = // Ignored via go/ees005
+								// eslint-disable-next-line @atlaskit/editor/no-as-casting
+								(findDomRefAtPos(selection.from, domAtPos) as HTMLElement)?.querySelector(
+									`.${DATASOURCE_INNER_CONTAINER_CLASSNAME}`,
+								) as HTMLElement;
 
 							const { node } = selection;
 

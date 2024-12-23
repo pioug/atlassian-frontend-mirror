@@ -22,8 +22,8 @@ export type LightPMPluginFactoryParams = {
 	eventDispatcher: EventDispatcher;
 	providerFactory: ProviderFactory;
 	// We dont use this for now
-	props: {};
-	prevProps?: {};
+	props: Object;
+	prevProps?: Object;
 	portalProviderAPI: PortalProviderAPI;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent;

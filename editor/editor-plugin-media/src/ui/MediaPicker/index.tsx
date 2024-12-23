@@ -40,6 +40,8 @@ const MediaPicker = ({
 	const { focusState, connectivityState } = useSharedPluginState(api, ['focus', 'connectivity']);
 	const featureFlags = mediaState.mediaOptions && mediaState.mediaOptions.featureFlags;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const editorDom = editorDomElement as HTMLElement;
 	const editorParent = editorDom.parentElement ?? undefined;
 

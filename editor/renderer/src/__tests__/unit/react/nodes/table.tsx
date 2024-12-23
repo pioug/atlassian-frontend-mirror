@@ -889,8 +889,12 @@ describe('Renderer - React/Nodes/Table', () => {
 				{initialTableState.map((row, rowIndex) => {
 					if (rowIndex === 0) {
 						return (
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/no-array-index-key
 							<TableRow key={rowIndex}>
 								{row.map((_, headerIndex) => (
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/no-array-index-key
 									<TableHeader key={headerIndex} />
 								))}
 							</TableRow>
@@ -898,8 +902,12 @@ describe('Renderer - React/Nodes/Table', () => {
 					}
 
 					return (
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/no-array-index-key
 						<TableRow key={rowIndex}>
 							{row.map((cellVal, cellIndex) => (
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/no-array-index-key
 								<Cell key={cellIndex} text={cellVal} />
 							))}
 						</TableRow>

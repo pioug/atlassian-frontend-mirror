@@ -26,9 +26,13 @@ export const transformSliceToRemoveOpenBodiedExtension = (slice: Slice, schema: 
 	// If the first/last child has changed - then we know we've removed a bodied extension & to decrement the open depth
 	return new Slice(
 		fragment,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		fragment.firstChild && fragment.firstChild!.type !== slice.content.firstChild!.type
 			? slice.openStart - 1
 			: slice.openStart,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		fragment.lastChild && fragment.lastChild!.type !== slice.content.lastChild!.type
 			? slice.openEnd - 1
 			: slice.openEnd,
@@ -76,9 +80,13 @@ export const transformSliceToRemoveOpenMultiBodiedExtension = (slice: Slice, sch
 	// If the first/last child has changed - then we know we've removed MBE and extensionFrame and need to decrement the open depth
 	return new Slice(
 		fragment,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		fragment.firstChild && fragment.firstChild!.type !== slice.content.firstChild!.type
 			? slice.openStart - depthToReduce
 			: slice.openStart,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		fragment.lastChild && fragment.lastChild!.type !== slice.content.lastChild!.type
 			? slice.openEnd - depthToReduce
 			: slice.openEnd,

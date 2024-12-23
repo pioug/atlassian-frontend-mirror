@@ -45,6 +45,8 @@ const toolbarButtonWrapperFullWidth = css(toolbarButtonWrapper, {
 const AvatarGroupPluginWrapper = (props: {
 	collabEdit?: CollabEditOptions;
 	editorView: EditorView;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	eventDispatcher: EventDispatcher<any>;
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent;
 	takeFullWidth: boolean;

@@ -84,6 +84,8 @@ const ModalElementBrowser = (props: Props & WrappedComponentProps) => {
 	const RenderFooter = useCallback(
 		() => (
 			<Footer
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				onInsert={() => onInsertItem(selectedItem!)}
 				beforeElement={helpUrl ? HelpLink(helpUrl, intl.formatMessage(messages.help)) : undefined}
 			/>

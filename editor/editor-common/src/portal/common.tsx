@@ -33,6 +33,8 @@ export function createPortalRendererComponent(portalManager: PortalManager) {
 			};
 		}, []);
 		const portalsElements = useMemo(
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/no-array-index-key
 			() => buckets.map((_, i) => <PortalBucket key={i} id={i} portalManager={portalManager} />),
 			[buckets],
 		);

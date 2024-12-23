@@ -147,6 +147,8 @@ export const PixelEntry = ({
 			<Form<PixelEntryFormValues> onSubmit={handleOnSubmit}>
 				{({ formProps }) => {
 					return (
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						<form {...formProps}>
 							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 							<div css={pixelSizingWrapper}>
@@ -160,6 +162,8 @@ export const PixelEntry = ({
 											position="top"
 										>
 											<Textfield
+												// Ignored via go/ees005
+												// eslint-disable-next-line react/jsx-props-no-spreading
 												{...fieldProps}
 												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 												css={[pixelSizingWidthInput, pixelSizingInput]}
@@ -184,6 +188,8 @@ export const PixelEntry = ({
 											position="top"
 										>
 											<Textfield
+												// Ignored via go/ees005
+												// eslint-disable-next-line react/jsx-props-no-spreading
 												{...fieldProps}
 												// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 												css={[pixelSizingHeightInput, pixelSizingInput]}

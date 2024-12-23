@@ -15,6 +15,8 @@ import LightWeightCodeBlock from './components/lightWeightCodeBlock';
 import CodeBlockContainer from './components/codeBlockContainer';
 
 const LazyAkCodeBlock = lazy(
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async () =>
 		import(
 			/* webpackChunkName: "@atlaskit-internal_renderer-codeBlock" */

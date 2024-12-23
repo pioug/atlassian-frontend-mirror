@@ -140,6 +140,8 @@ const onPositionCalculated = (editorView: EditorView, nextPos: Position) => {
 	const { from } = editorView.state.selection;
 	const fromCoords = editorView.coordsAtPos(from);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const toolbar = document.querySelector(
 		`div[aria-label="${messages.pasteOptions.defaultMessage}"]`,
 	) as HTMLElement;
@@ -163,8 +165,12 @@ const getCursorHeight = (editorView: EditorView, from: number): number => {
 	const nodeAtFrom = editorView.domAtPos(from).node;
 	const nearestNonTextNode =
 		nodeAtFrom?.nodeType === Node.TEXT_NODE
-			? (nodeAtFrom.parentNode as HTMLElement)
-			: (nodeAtFrom as HTMLElement);
+			? // Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				(nodeAtFrom.parentNode as HTMLElement)
+			: // Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
+				(nodeAtFrom as HTMLElement);
 
 	return parseFloat(window.getComputedStyle(nearestNonTextNode, undefined).lineHeight || '');
 };

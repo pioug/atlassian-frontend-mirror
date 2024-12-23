@@ -44,7 +44,13 @@ export function Example() {
 				<SectionMessage title="Smart Cards in Confluence Editor">
 					<p>
 						Make sure you're logged into{' '}
-						<a href="https://pug.jira-dev.com" target="_blank">
+						<a
+							href="https://pug.jira-dev.com"
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-no-target-blank
+							target="_blank"
+							rel="noreferrer"
+						>
 							Atlassian Cloud on Staging
 						</a>
 						. Try pasting URLs to Hello, Google Drive, Asana, Dropbox, Trello etc. Links pasted in

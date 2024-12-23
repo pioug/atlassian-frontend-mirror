@@ -55,6 +55,8 @@ const getInlineWidth = (
 	state: EditorState,
 	pos: number | undefined,
 	allowTableResizing?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): number | undefined => {
 	if (!node.attrs.width && options?.isCommentEditor && allowTableResizing) {
 		return;
@@ -154,6 +156,8 @@ export default class TableView extends ReactNodeView<Props> {
 		}
 		const attrs = tableAttributes(node);
 		(Object.keys(attrs) as Array<keyof typeof attrs>).forEach((attr) => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			this.table!.setAttribute(attr, attrs[attr]);
 		});
 
@@ -212,6 +216,8 @@ export default class TableView extends ReactNodeView<Props> {
 		const fakePluginKey = {
 			key: 'widthPlugin$',
 			getState: (state: EditorState) => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				return (state as any)['widthPlugin$'];
 			},
 		} as PluginKey;
@@ -222,6 +228,8 @@ export default class TableView extends ReactNodeView<Props> {
 		const fakeMediaPluginKey = {
 			key: 'mediaPlugin$',
 			getState: (state: EditorState) => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				return (state as any)['mediaPlugin$'];
 			},
 		} as PluginKey;
@@ -257,6 +265,8 @@ export default class TableView extends ReactNodeView<Props> {
 						tablePos = undefined;
 					}
 
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					const tableActive = tablePos === pluginState!.tablePos && !isTableResizing;
 
 					return (
@@ -267,17 +277,31 @@ export default class TableView extends ReactNodeView<Props> {
 							getPos={props.getPos}
 							isMediaFullscreen={mediaState?.isFullscreen}
 							options={props.options}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							allowControls={pluginState!.pluginConfig.allowControls!}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							isHeaderRowEnabled={pluginState!.isHeaderRowEnabled}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							isHeaderColumnEnabled={pluginState!.isHeaderColumnEnabled}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							isDragAndDropEnabled={pluginState!.isDragAndDropEnabled}
 							isTableScalingEnabled={props.options?.isTableScalingEnabled} // this.options?.isTableScalingEnabled same as TableOptions.isTableScalingEnabled same as pluginState.isTableScalingEnabled
 							allowTableAlignment={props.allowTableAlignment}
 							allowTableResizing={props.allowTableResizing}
 							tableActive={tableActive}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							ordering={pluginState!.ordering as TableColumnOrdering}
 							isResizing={isResizing}
 							getNode={this.getNode}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							containerWidth={containerWidth!}
 							contentDOM={forwardRef}
 							getEditorFeatureFlags={props.getEditorFeatureFlags}
@@ -375,6 +399,8 @@ export const createTableView = (
 	pluginInjectionApi?: PluginInjectionAPI,
 	isCommentEditor?: boolean,
 	isChromelessEditor?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): NodeView => {
 	const {
 		pluginConfig,

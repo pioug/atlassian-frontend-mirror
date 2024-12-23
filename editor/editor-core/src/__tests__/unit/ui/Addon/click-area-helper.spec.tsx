@@ -228,6 +228,8 @@ describe('checkForModal', () => {
 		const wrapper = mount(
 			<DummyComponent
 				handleClick={(event: React.MouseEvent<any>) => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					results = checkForModal(event.target as HTMLElement);
 				}}
 				renderInsideModal
@@ -246,6 +248,8 @@ describe('checkForModal', () => {
 			<>
 				<DummyComponent
 					handleClick={(event: React.MouseEvent<any>) => {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @atlaskit/editor/no-as-casting
 						results = checkForModal(event.target as HTMLElement);
 					}}
 				/>
@@ -266,6 +270,8 @@ describe('checkForModal', () => {
 		const wrapper = mount(
 			<DummyComponent
 				handleClick={(event: React.MouseEvent<any>) => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					results = checkForModal(event.target as HTMLElement);
 				}}
 			/>,

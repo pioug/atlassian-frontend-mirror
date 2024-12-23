@@ -40,6 +40,8 @@ export function PrimaryToolbarComponent({
 			pluginState={alignmentState}
 			isReducedSpacing={isToolbarReducedSpacing}
 			changeAlignment={changeAlignmentCallback}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			disabled={disabled || !alignmentState!.isEnabled}
 			popupsMountPoint={popupsMountPoint}
 			popupsBoundariesElement={popupsBoundariesElement}

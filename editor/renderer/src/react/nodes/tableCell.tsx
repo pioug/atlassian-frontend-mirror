@@ -61,7 +61,11 @@ const getSortOrderLabel = (intl: IntlShape, currentSortOrder?: SortOrder): strin
 	}
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getDataAttributes = (colwidth?: number[], background?: string): any => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const attrs: any = {};
 	if (colwidth) {
 		attrs['data-colwidth'] = colwidth.join(',');
@@ -87,6 +91,8 @@ const getDataAttributes = (colwidth?: number[], background?: string): any => {
 	return attrs;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const cssVariablePattern = /^var\(--.*\)$/;
 
 const getStyle = ({
@@ -194,6 +200,8 @@ const getWithCellProps = (WrapperComponent: React.ElementType) => {
 				onClick={onClick}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={className}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...getDataAttributes(colwidth, background)}
 				aria-sort={ariaSort}
 			>
@@ -212,11 +220,15 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
 			sortOrdered === SortOrder.NO_ORDER ? RendererCssClassName.SORTABLE_COLUMN_NO_ORDER : '';
 
 		if (!allowColumnSorting || !isHeaderRow) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			return <WrapperComponent {...props} />;
 		}
 
 		return (
 			<WrapperComponent
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...props}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={RendererCssClassName.SORTABLE_COLUMN_WRAPPER}
@@ -242,6 +254,8 @@ export const withSortableColumn = (WrapperComponent: React.ElementType) => {
 
 		function onKeyPress(event: React.KeyboardEvent<HTMLElement>) {
 			const keys = [' ', 'Enter', 'Spacebar'];
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const { tagName } = event.target as HTMLElement;
 			// trigger sorting if space or enter are clicked but not when in an input field (template variables)
 			if (keys.includes(event.key) && !IgnoreSorting.includes(tagName)) {

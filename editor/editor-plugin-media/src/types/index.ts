@@ -98,11 +98,17 @@ export interface MediaState {
 	contextId?: string;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Listener = (data: any) => void;
 
 export interface CustomMediaPicker {
 	on(event: string, cb: Listener): void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	removeAllListeners(event: any): void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	emit(event: string, data: any): void;
 	destroy(): void;
 	setUploadParams(uploadParams: UploadParams): void;

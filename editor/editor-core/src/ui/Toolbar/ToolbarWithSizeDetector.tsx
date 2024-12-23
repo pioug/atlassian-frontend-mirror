@@ -43,7 +43,9 @@ export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps) => 
 	const toolbarSize =
 		typeof width === 'undefined' && typeof elementWidth === 'undefined'
 			? defaultToolbarSize
-			: widthToToolbarSize((width || elementWidth)!, props.appearance);
+			: // Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				widthToToolbarSize((width || elementWidth)!, props.appearance);
 
 	const toolbarStyle = useMemo(() => {
 		const toolbarWidth =
@@ -58,6 +60,8 @@ export const ToolbarWithSizeDetector = (props: ToolbarWithSizeDetectorProps) => 
 		<div css={toolbarStyle}>
 			<WidthObserver setWidth={setWidth} />
 			{props.editorView && toolbarSize ? (
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				<Toolbar {...props} toolbarSize={toolbarSize} />
 			) : (
 				<div ref={ref} />

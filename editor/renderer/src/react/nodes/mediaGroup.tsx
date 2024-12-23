@@ -25,6 +25,8 @@ interface MediaGroupState {
 	offset: number;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGroupState> {
 	state: MediaGroupState = {
 		animate: false,
@@ -39,6 +41,8 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 
 		let content;
 		if (numChildren === 1) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const card = React.Children.toArray(this.props.children)[0] as ReactElement<any>;
 			switch (card.props.type) {
 				case 'file':
@@ -80,8 +84,12 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 			child: ReactElement<MediaProps>,
 			surroundingItems: Identifier[],
 		) =>
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(event: CardEvent, analyticsEvent?: any) => {
 			const surroundings: CardSurroundings = {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				collectionName: child.props.collection!,
 				list: surroundingItems,
 			};
@@ -155,6 +163,8 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 		switch (type) {
 			case 'file':
 				return {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					id: id!,
 					mediaItemType: type,
 					occurrenceKey,
@@ -164,6 +174,8 @@ export default class MediaGroup extends PureComponent<MediaGroupProps, MediaGrou
 				return undefined;
 			case 'external':
 				return {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					id: id!,
 					mediaItemType: 'file',
 					occurrenceKey,

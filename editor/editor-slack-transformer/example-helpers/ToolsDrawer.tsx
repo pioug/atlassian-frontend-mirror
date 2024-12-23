@@ -23,6 +23,8 @@ import { SlackTransformer } from '../src';
 import { content } from './styles';
 
 const rejectedPromise = Promise.reject(new Error('Simulated provider rejection'));
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const pendingPromise = new Promise<any>(() => {});
 
 const providers = {

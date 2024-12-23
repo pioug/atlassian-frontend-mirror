@@ -24,7 +24,11 @@ const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeade
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={header}>
 			<Heading size="large">
-				<FormattedMessage {...messages.editorHelp} />
+				<FormattedMessage
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...messages.editorHelp}
+				/>
 			</Heading>
 
 			<div>

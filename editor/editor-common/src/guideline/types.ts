@@ -55,7 +55,7 @@ export type GuidelinePluginState = {
 	rect?: GuidelineContainerRect;
 };
 
-export interface GuidelinePluginOptions {}
+export type GuidelinePluginOptions = Object;
 
 export type DisplayGrid = (props: GuidelinePluginState) => boolean;
 export type DisplayGuideline = (view: EditorView) => DisplayGrid;

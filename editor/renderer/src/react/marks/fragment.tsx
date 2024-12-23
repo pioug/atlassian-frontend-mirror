@@ -10,6 +10,8 @@ export default function FragmentMark(props: MarkProps<FragmentAttributes>) {
 			data-localId={props.localId}
 			data-name={props.name}
 			data-mark-type="fragment"
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props.dataAttributes}
 		>
 			{props.children}

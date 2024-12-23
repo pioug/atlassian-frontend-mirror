@@ -14,7 +14,11 @@ export class AnalyticsQueue {
 	private constructor() {}
 
 	private request(fn: (deadline: Deadline) => void): void {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		if ((window as any).requestIdleCallback) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(window as any).requestIdleCallback(fn);
 		} else {
 			const start = performance.now();
@@ -29,7 +33,11 @@ export class AnalyticsQueue {
 
 	private pending() {
 		// Defensive coding as navigator.scheduling.isInputPending is an experimental API
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		if (typeof (window.navigator as any)?.scheduling?.isInputPending === 'function') {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			return (window.navigator as any)?.scheduling?.isInputPending() === true;
 		}
 

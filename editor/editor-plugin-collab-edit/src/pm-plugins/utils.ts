@@ -9,8 +9,9 @@ import {
 	type EditorState,
 	type ReadonlyTransaction,
 	Transaction,
+	Selection,
+	TextSelection,
 } from '@atlaskit/editor-prosemirror/state';
-import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -21,6 +22,8 @@ import { fg } from '@atlaskit/platform-feature-flags';
 export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
 	decorations
 		.find()
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		.reduce((arr, deco: any) => (deco.spec.pointer.sessionId === id ? arr.concat(deco) : arr), []);
 
 function style(options: { color: string }) {
@@ -49,6 +52,8 @@ export const createTelepointers = (
 	sessionId: string,
 	isSelection: boolean,
 	initial: string,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	let decorations: Decoration[] = [];
 	const avatarColor = getAvatarColor(sessionId);
@@ -56,6 +61,8 @@ export const createTelepointers = (
 	if (isSelection) {
 		const className = `telepointer color-${color} telepointer-selection`;
 		decorations.push(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(Decoration as any).inline(
 				from,
 				to,
@@ -77,18 +84,24 @@ export const createTelepointers = (
 	cursor.setAttribute('data-initial', initial);
 	return decorations
 		.concat(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(Decoration as any).widget(to, spaceJoinerAfter, {
 				pointer: { sessionId },
 				key: `telepointer-${sessionId}-zero`,
 			}),
 		)
 		.concat(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(Decoration as any).widget(to, cursor, {
 				pointer: { sessionId },
 				key: `telepointer-${sessionId}`,
 			}),
 		)
 		.concat(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(Decoration as any).widget(to, spaceJoinerBefore, {
 				pointer: { sessionId },
 				key: `telepointer-${sessionId}-zero`,
@@ -97,12 +110,16 @@ export const createTelepointers = (
 };
 
 export const replaceDocument = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	doc: any,
 	state: EditorState,
 	version?: number,
 	options?: CollabEditOptions,
 	reserveCursor?: boolean,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { schema, tr } = state;
 
@@ -118,12 +135,16 @@ export const replaceDocument = (
 		hasContent = !!parsedDoc?.childCount;
 		content = parsedDoc?.content;
 	} else {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		content = (doc.content || []).map((child: any) => schema.nodeFromJSON(child));
 		hasContent = Array.isArray(content) && !!content.length;
 	}
 
 	if (hasContent) {
 		tr.setMeta('addToHistory', false);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		tr.replaceWith(0, state.doc.nodeSize - 2, content!);
 		const selection = state.selection;
 		if (reserveCursor) {
@@ -156,6 +177,8 @@ export const scrollToCollabCursor = (
 	// analytics: AnalyticsEvent | undefined,
 	index: number,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const selectedUser = participants[index];
 	if (
@@ -185,6 +208,8 @@ export const getPositionOfTelepointer = (
 	decorationSet: DecorationSet,
 ): undefined | number => {
 	let scrollPosition;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	decorationSet.find().forEach((deco: any) => {
 		if (deco.type.spec.pointer.sessionId === sessionId) {
 			scrollPosition = deco.from;

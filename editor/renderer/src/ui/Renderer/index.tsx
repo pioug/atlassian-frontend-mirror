@@ -172,6 +172,8 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 							platform: PLATFORM.WEB,
 							duration,
 							distortedDuration:
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								this.renderedMeasurementDistortedDurationMonitor!.distortedDuration,
 							ttfb: getResponseEndTime(),
 							nodes: countNodes(this.props.document),
@@ -181,6 +183,8 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 					});
 				}
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				this.renderedMeasurementDistortedDurationMonitor!.cleanup();
 				delete this.renderedMeasurementDistortedDurationMonitor;
 			});
@@ -188,6 +192,8 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 		});
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillReceiveProps(nextProps: RendererProps & { startPos: number }) {
 		const nextMedia = nextProps.media || {};
 		const media = this.props.media || {};
@@ -324,13 +330,19 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 		if (!rangeSelection) {
 			return;
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const target = event.target as HTMLElement;
 		const tableCell = target.closest('td,th');
 		const clickedInCell = Boolean(tableCell);
 		if (!clickedInCell) {
 			return;
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const anchorInCell = tableCell!.contains(anchorNode);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const focusInCell = tableCell!.contains(focusNode);
 		const selectionStartsOrEndsOutsideClickedCell = !(anchorInCell && focusInCell);
 		if (!selectionStartsOrEndsOutsideClickedCell) {
@@ -342,9 +354,13 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 		// parent block, so that a whole line of text/content is selected (rather than
 		// selecting a span that would select one specific chunk of text).
 		const elementToSelect: Element | null | undefined = anchorInCell
-			? anchorNode!.parentElement?.closest('div,p')
+			? // Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				anchorNode!.parentElement?.closest('div,p')
 			: focusInCell
-				? focusNode!.parentElement?.closest('div,p')
+				? // Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					focusNode!.parentElement?.closest('div,p')
 				: tableCell;
 		if (elementToSelect) {
 			selection.selectAllChildren(elementToSelect);
@@ -385,6 +401,8 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 		 * @param event Click event anywhere inside renderer
 		 */
 		const handleWrapperOnClick = (event: React.MouseEvent) => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const targetElement = event.target as HTMLElement;
 
 			// ED-14862: When a user triple clicks to select a line of content inside a
@@ -400,6 +418,8 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 				return;
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const rendererWrapper = event.currentTarget as HTMLElement;
 
 			// Check if the click was on an interactive element
@@ -568,13 +588,19 @@ const handleMouseTripleClickInTables = (event: MouseEvent) => {
 	if (!rangeSelection) {
 		return;
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const target = event.target as HTMLElement;
 	const tableCell = target.closest('td,th');
 	const clickedInCell = Boolean(tableCell);
 	if (!clickedInCell) {
 		return;
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const anchorInCell = tableCell!.contains(anchorNode);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const focusInCell = tableCell!.contains(focusNode);
 	const selectionStartsOrEndsOutsideClickedCell = !(anchorInCell && focusInCell);
 	if (!selectionStartsOrEndsOutsideClickedCell) {
@@ -590,9 +616,13 @@ const handleMouseTripleClickInTables = (event: MouseEvent) => {
 	// return an empty selection, which will erroneously fire onUnhandledClick.
 
 	const elementToSelect: Element | null | undefined = anchorInCell
-		? anchorNode!.parentElement?.closest('div,p')
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			anchorNode!.parentElement?.closest('div,p')
 		: focusInCell
-			? focusNode!.parentElement?.closest('div,p')
+			? // Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				focusNode!.parentElement?.closest('div,p')
 			: tableCell;
 	if (elementToSelect) {
 		selection.selectAllChildren(elementToSelect);
@@ -610,6 +640,8 @@ const handleWrapperOnClick = (
 	props: RendererProps & { startPos?: number },
 	mouseDownSelection: React.MutableRefObject<string | undefined>,
 ) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const targetElement = event.target as HTMLElement;
 
 	handleMouseTripleClickInTables(event as unknown as MouseEvent);
@@ -625,6 +657,8 @@ const handleWrapperOnClick = (
 		return;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const rendererWrapper = event.currentTarget as HTMLElement;
 
 	const isInteractiveElementInTree = findInTree(
@@ -844,6 +878,8 @@ const RendererFunctionalComponent = (props: RendererProps & { startPos?: number 
 							attributes: {
 								platform: PLATFORM.WEB,
 								duration,
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								distortedDuration: renderedMeasurementDistortedDurationMonitor!.distortedDuration,
 								ttfb: getResponseEndTime(),
 								nodes: countNodes(props.document),
@@ -853,6 +889,8 @@ const RendererFunctionalComponent = (props: RendererProps & { startPos?: number 
 						});
 					}
 
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					renderedMeasurementDistortedDurationMonitor!.cleanup();
 				});
 				anchorLinkAnalytics();
@@ -992,6 +1030,8 @@ export function Renderer(props: RendererProps) {
 
 	return fg('platform_editor_react18_renderer') ? (
 		<RendererFunctionalComponent
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 			startPos={startPos}
 			isTopLevelRenderer={isTopLevelRenderer}
@@ -999,6 +1039,8 @@ export function Renderer(props: RendererProps) {
 	) : (
 		// eslint-disable-next-line react/jsx-pascal-case
 		<__RendererClassComponent
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 			startPos={startPos}
 			isTopLevelRenderer={isTopLevelRenderer}
@@ -1030,7 +1072,12 @@ export const RendererWithAnalytics = React.memo((props: RendererProps) => (
 						createAnalyticsEvent={createAnalyticsEvent}
 					>
 						<IntlErrorBoundary>
-							<Renderer {...props} createAnalyticsEvent={createAnalyticsEvent} />
+							<Renderer
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...props}
+								createAnalyticsEvent={createAnalyticsEvent}
+							/>
 						</IntlErrorBoundary>
 					</ErrorBoundary>
 				);
@@ -1089,6 +1136,8 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 		// We must check if window is defined, if it isn't we are in a SSR environment
 		// and we don't want to add the telepointer
 		if (typeof window !== 'undefined' && addTelepointer && innerRef?.current) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const renderer = innerRef.current.querySelector<HTMLElement>('.ak-renderer-document')!;
 
 			if (initialUpdate.current) {
@@ -1116,6 +1165,8 @@ const RendererWrapper = React.memo((props: RendererWrapperProps) => {
 							if (oldTelepointer) {
 								oldTelepointer.remove();
 							}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							parentNode!.appendChild(createTelepointer());
 						}
 					}
@@ -1250,6 +1301,8 @@ const RendererWithAnnotationSelection = (props: RendererProps) => {
 	const innerRef = props.innerRef || localRef;
 
 	if (!allowAnnotations) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		return <RendererWithAnalytics innerRef={innerRef} {...props} />;
 	}
 
@@ -1261,7 +1314,13 @@ const RendererWithAnnotationSelection = (props: RendererProps) => {
 				annotationProvider={props.annotationProvider}
 				isNestedRender
 			>
-				<RendererWithAnalytics innerRef={innerRef} {...props} featureFlags={props.featureFlags} />
+				<RendererWithAnalytics
+					innerRef={innerRef}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...props}
+					featureFlags={props.featureFlags}
+				/>
 			</AnnotationsWrapper>
 		</RendererActionsContext>
 	);

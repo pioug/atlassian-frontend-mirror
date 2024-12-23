@@ -8,9 +8,15 @@ export interface Props {
 	boundariesElement?: HTMLElement;
 	scrollableElement?: HTMLElement;
 	isOpen?: boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onOpenChange?: (attrs: any) => void;
 	onItemActivated?: (attrs: { item: MenuItem; shouldCloseMenu?: boolean }) => void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onMouseEnter?: (attrs: any) => void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onMouseLeave?: (attrs: any) => void;
 	fitWidth?: number;
 	fitHeight?: number;
@@ -37,12 +43,18 @@ export interface MenuItem {
 		name: string;
 	};
 	shortcut?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	elemBefore?: React.ReactElement<any>;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	elemAfter?: React.ReactElement<any>;
 	tooltipDescription?: string;
 	tooltipPosition?: string;
 	isActive?: boolean;
 	isDisabled?: boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	handleRef?: any;
 	className?: string;
 	'aria-label'?: React.AriaAttributes['aria-label'];

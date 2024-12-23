@@ -20,8 +20,12 @@ This transformer allows encoding ProseMirror Node to Slack markdown.
   ${(
 		<Example
 			packageName="@atlaskit/editor-slack-transformer"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			Component={require('../examples/0-slack-markdown').default}
 			title="ADF to Slack markdown"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			source={require('!!raw-loader!../examples/0-slack-markdown')}
 		/>
 	)}

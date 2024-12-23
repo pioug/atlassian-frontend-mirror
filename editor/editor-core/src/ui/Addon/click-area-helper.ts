@@ -10,6 +10,8 @@ const insideContentArea = (ref: HTMLElement | null): boolean => {
 		if (ref.classList && ref.classList.contains('ak-editor-content-area')) {
 			return true;
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		ref = ref.parentNode as HTMLElement;
 	}
 	return false;
@@ -47,6 +49,8 @@ const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<HTMLEle
 		return;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const target = event.target as HTMLElement;
 	const isTargetContentArea = target?.classList.contains('ak-editor-content-area');
 
@@ -76,6 +80,8 @@ const clickAreaClickHandler = (view: EditorView, event: React.MouseEvent<HTMLEle
 	const selection = window.getSelection();
 	const isEditorPopupTextSelected =
 		selection?.type === 'Range' &&
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		closestElement(selection?.anchorNode as HTMLElement, '[data-editor-popup]');
 
 	// This is a super workaround to find when events are coming from Confluence InlineComment modal
@@ -147,6 +153,8 @@ const outsideProsemirrorEditorClickHandler = (
 	setSelectionTopLevelBlocks(
 		tr,
 		event,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		dom as HTMLElement,
 		view.posAtCoords.bind(view),
 		isEditorFocused,

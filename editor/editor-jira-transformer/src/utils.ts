@@ -97,6 +97,8 @@ export function convert(
 				if (!isSchemaWithAdvancedTextFormattingMarks(schema)) {
 					return null;
 				}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				return addMarks(content, [schema.marks.strike!.create()]);
 			case 'B':
 				return addMarks(content, [schema.marks.strong.create()]);
@@ -106,6 +108,8 @@ export function convert(
 				if (!isSchemaWithAdvancedTextFormattingMarks(schema)) {
 					return null;
 				}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				return addMarks(content, [schema.marks.code!.create()]);
 			case 'SUB':
 			case 'SUP':
@@ -125,6 +129,8 @@ export function convert(
 			// Nodes
 			case 'A':
 				if (node.className === 'user-hover' && isSchemaWithMentions(schema)) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					return schema.nodes.mention!.createChecked({
 						id: node.getAttribute('rel'),
 						text: node.textContent,
@@ -161,6 +167,8 @@ export function convert(
 					const link = node.getElementsByTagName('a')[0];
 					if (jiraKey && link) {
 						return addMarks(Fragment.from(schema.text(jiraKey)), [
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							schema.marks.link!.create({
 								href: link.getAttribute('href'),
 								title: link.getAttribute('title'),
@@ -222,7 +230,9 @@ export function convert(
 					{ level: level === 6 ? 5 : level },
 					schema.nodes.heading.validContent(content)
 						? content
-						: ensureInline(schema, content, supportedMarks as any),
+						: // Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
+							ensureInline(schema, content, supportedMarks as any),
 				);
 			case 'BR':
 				return schema.nodes.hardBreak.createChecked();
@@ -242,6 +252,8 @@ export function convert(
 						if (child.type === schema.nodes.media) {
 							mediaArray.push(child);
 							return;
+							// Ignored via go/ees005
+							// eslint-disable-next-line require-unicode-regexp
 						} else if (!(child.isText && /^\s*$/.test(child.text || ''))) {
 							hasNonMediaChildren = true;
 						}
@@ -271,13 +283,21 @@ export function convert(
 		if (isSchemaWithLists(schema)) {
 			switch (tag) {
 				case 'UL':
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					return schema.nodes.bulletList!.createChecked({}, content);
 				case 'OL':
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					return schema.nodes.orderedList!.createChecked({}, content);
 				case 'LI':
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					const compatibleContent = schema.nodes.listItem!.validContent(content)
 						? content
 						: ensureBlocks(content, schema, schema.nodes.listItem);
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					return schema.nodes.listItem!.createChecked({}, compatibleContent);
 			}
 		}
@@ -301,7 +321,11 @@ export function convert(
 						const language =
 							node.className === 'preformatted panel' ? 'plain' : pre.className.split('-')[1];
 
+						// Ignored via go/ees005
+						// eslint-disable-next-line require-unicode-regexp
 						const textContent = (pre.textContent || '').replace(/\r\n/g, '\n');
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						return schema.nodes.codeBlock!.createChecked(
 							{ language },
 							textContent ? schema.text(textContent) : undefined,
@@ -315,9 +339,13 @@ export function convert(
 
 		if (isSchemaWithBlockQuotes(schema) && tag === 'BLOCKQUOTE') {
 			let blockquoteContent =
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				content && (content as any).content.length
 					? content
 					: schema.nodes.paragraph.createChecked();
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			return schema.nodes.blockquote!.createChecked({}, blockquoteContent);
 		}
 
@@ -327,6 +355,8 @@ export function convert(
 				case 'TABLE':
 					return schema.nodes.table.createChecked({}, content);
 				case 'TR':
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					return schema.nodes.tableRow!.createChecked({}, content);
 				case 'TD':
 					const tdContent = schema.nodes.tableCell.validContent(content)
@@ -352,6 +382,8 @@ export function bfsOrder(root: Node): Node[] {
 	const outqueue = [] as Node[];
 
 	let elem;
+	// Ignored via go/ees005
+	// eslint-disable-next-line no-cond-assign
 	while ((elem = inqueue.shift())) {
 		outqueue.push(elem);
 		let childIndex;
@@ -408,10 +440,14 @@ function isMedia(node: Node): boolean {
 
 function isMediaSingle(node: Node): boolean {
 	if (isMedia(node)) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const dataNode = (node as HTMLElement).querySelector('[data-media-services-id]');
 		if (dataNode instanceof HTMLElement) {
 			const width = parseInt(dataNode.getAttribute('data-width') || '', 10);
 			const height = parseInt(dataNode.getAttribute('data-height') || '', 10);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			if ((node.parentNode as HTMLElement).classList.contains('mediaSingle') && width && height) {
 				return true;
 			}

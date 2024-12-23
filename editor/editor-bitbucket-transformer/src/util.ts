@@ -19,18 +19,28 @@ export function stringRepeat(text: string, length: number): string {
  */
 export function escapeMarkdown(str: string, startOfLine?: boolean, insideTable?: boolean): string {
 	let strToEscape = str || '';
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	strToEscape = strToEscape.replace(/[`*\\+_()\[\]{}]/g, '\\$&');
 	if (startOfLine) {
 		strToEscape = strToEscape
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.replace(/^[#-&(-*]/, '\\$&') // Don't escape ' character
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.replace(/^(\d+)\./, '$1\\.');
 	}
 	if (insideTable) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		strToEscape = strToEscape.replace(/[|]/g, '\\$&');
 	}
 	return strToEscape;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const SPECIAL_CHARACTERS = /\u200c|↵/g;
 function removeSpecialCharacters(node: Node) {
 	if (node.nodeType === 3 && node.textContent) {
@@ -71,6 +81,8 @@ export function transformHtml(
 			} else {
 				const title = a.getAttribute('title') || '';
 				if (title) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
 					const usernameMatch = title.match(/^@(.*?)$/);
 					if (usernameMatch) {
 						const username = usernameMatch[1];
@@ -86,7 +98,11 @@ export function transformHtml(
 				span.textContent = `@${a.textContent}`;
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			a.parentNode!.insertBefore(span, a);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			a.parentNode!.removeChild(a);
 		},
 	);
@@ -105,7 +121,11 @@ export function transformHtml(
 			const text = s.textContent || '';
 			span.textContent = text.indexOf('@') === 0 ? text : `@${text}`;
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			s.parentNode!.insertBefore(span, s);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			s.parentNode!.removeChild(s);
 		},
 	);
@@ -121,6 +141,8 @@ export function transformHtml(
 				// Fallback to parsing Bitbucket's src attributes to find the
 				// short name
 				const src = img.getAttribute('src');
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				const idMatch = !src ? false : src.match(/([^\/]+)\.[^\/]+$/);
 
 				if (idMatch) {
@@ -132,7 +154,11 @@ export function transformHtml(
 				span.setAttribute('data-emoji-short-name', shortName);
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			img.parentNode!.insertBefore(span, img);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			img.parentNode!.removeChild(img);
 		},
 	);
@@ -148,8 +174,12 @@ export function transformHtml(
 			)
 			.forEach((a: HTMLAnchorElement) => {
 				Array.from(a.childNodes).forEach((child) => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					a.parentNode!.insertBefore(child, a);
 				});
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				a.parentNode!.removeChild(a);
 			});
 	}
@@ -186,11 +216,17 @@ export function transformHtml(
 			media.setAttribute('data-node-type', 'media');
 			media.setAttribute('data-type', 'external');
 			media.setAttribute('data-alt', img.getAttribute('alt') || '');
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			media.setAttribute('data-url', img.getAttribute('src')!);
 
 			mediaSingle.appendChild(media);
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			img.parentNode!.insertBefore(mediaSingle, img);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			img.parentNode!.removeChild(img);
 		});
 
@@ -216,13 +252,19 @@ export function transformHtml(
 		let foundParent = false;
 		let parent = node;
 		while (!foundParent) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			foundParent = validateImageNodeParent(parent.parentNode!);
 			if (!foundParent) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				parent = parent.parentNode!;
 			}
 		}
 
 		const cloned = parent.cloneNode();
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const target = parent !== el ? parent.parentNode! : el;
 
 		while (img.nextSibling) {
@@ -248,6 +290,8 @@ export function transformHtml(
 		 * the old parent being empty, remove it
 		 */
 		if (node.childNodes.length === 0) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			node.parentNode!.removeChild(node);
 		}
 
@@ -255,6 +299,8 @@ export function transformHtml(
 		 * Remove cloned element if it's empty.
 		 */
 		if (cloned.childNodes.length === 0) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			cloned.parentNode!.removeChild(cloned);
 		}
 	}

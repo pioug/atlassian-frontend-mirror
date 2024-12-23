@@ -15,11 +15,17 @@ export const isString = (s: unknown): s is string => typeof s === 'string' || s 
 export const isPlainObject = (x: unknown) =>
 	typeof x === 'object' && x !== null && !Array.isArray(x);
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const copy = <T extends Record<string | number, any> = Record<string | number, any>>(
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	source: Record<string | number, any>,
 	dest: T,
 	key: string | number,
 ) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	(dest as Record<string | number, any>)[key] = source[key];
 	return dest;
 };

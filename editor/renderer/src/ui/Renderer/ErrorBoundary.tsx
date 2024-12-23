@@ -22,6 +22,8 @@ interface ErrorBoundaryState {
 	errorCaptured: boolean;
 	domError: boolean;
 }
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
 	state = { errorCaptured: false, domError: false };
 
@@ -58,6 +60,8 @@ export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoun
 			},
 		});
 		logException(error, { location: 'renderer' });
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		const pattern = /Failed to execute.*on 'Node'.*/;
 		const matchesPattern = pattern.test(error.message);
 

@@ -90,6 +90,8 @@ type State = {
 	documentTwo: string;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class DiffingExample extends React.Component<null, State> {
 	state = {
 		editMode: true,
@@ -126,6 +128,8 @@ export default class DiffingExample extends React.Component<null, State> {
 			} else if (diff.removed) {
 				LineComponent = RemovedLine;
 			}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/no-array-index-key
 			return <LineComponent key={idx}>{diff.value}</LineComponent>;
 		});
 

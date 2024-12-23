@@ -88,9 +88,13 @@ describe('createWrappingJoinRule()', () => {
 					state,
 				} = editorView;
 				const { handler } = createWrappingJoinRule({
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
 					match: new RegExp(''),
 					nodeType: bulletList,
 				});
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				const matchResult = /(\w)/.exec('a');
 				const tr = handler(state, matchResult!, 1, 1);
 				expect(tr!.doc).toEqualDocument(
@@ -136,9 +140,13 @@ describe('createWrappingJoinRule()', () => {
 					state,
 				} = editorView;
 				const { handler } = createWrappingJoinRule({
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
 					match: new RegExp(''),
 					nodeType: bulletList,
 				});
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				const matchResult = /(\w)/.exec('a');
 				const tr = handler(state, matchResult!, 1, 1);
 				expect(tr!.doc).toEqualDocument(
@@ -188,9 +196,13 @@ describe('createWrappingJoinRule()', () => {
 					state,
 				} = editorView;
 				const { handler } = createWrappingJoinRule({
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
 					match: new RegExp(''),
 					nodeType: bulletList,
 				});
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				const matchResult = /(\w)/.exec('a');
 				const tr = handler(state, matchResult!, 1, 1);
 				expect(tr!.doc).toEqualDocument(

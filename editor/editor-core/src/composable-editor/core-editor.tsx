@@ -29,6 +29,8 @@ import { name, version } from '../version-wrapper';
 
 import { EditorInternal } from './editor-internal';
 import useMeasureEditorMountTime from './hooks/useMeasureEditorMountTime';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import useMemoEditorProps from './hooks/useMemoEditorProps';
 import useProviderFactory from './hooks/useProviderFactory';
 import { useTrackDangerouslyAppendPlugins } from './temp_useTrackDangerousPlugins';
@@ -175,7 +177,12 @@ export function CoreEditor(props: EditorNextProps & WithAppearanceComponent) {
 			// @ts-expect-error Type 'string' is not assignable to type '"editorCore" | "renderer"'.
 			data={data}
 		>
-			<Editor {...props} featureFlags={memodEditorFeatureFlags} />
+			<Editor
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...props}
+				featureFlags={memodEditorFeatureFlags}
+			/>
 		</FabricEditorAnalyticsContext>
 	);
 }

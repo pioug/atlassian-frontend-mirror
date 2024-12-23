@@ -371,6 +371,8 @@ export const ResizableTableContainer = React.memo(
 							{children}
 						</InnerContainer>
 					) : (
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						<TableResizer {...tableResizerProps}>
 							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 							<InnerContainer className={className} node={node}>
@@ -433,7 +435,11 @@ export const TableContainer = ({
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 				className={className}
 				node={node}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				containerWidth={editorWidth!}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				lineLength={lineLength!}
 				editorView={editorView}
 				getPos={getPos}

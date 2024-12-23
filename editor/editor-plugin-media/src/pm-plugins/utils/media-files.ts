@@ -161,6 +161,8 @@ export const insertMediaInlineNode =
 		allowInlineImages: boolean,
 		inputMethod?: InputMethodInsertMedia,
 		insertMediaVia?: InsertMediaVia,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): boolean => {
 		const { state, dispatch } = view;
 		const { schema, tr } = state;
@@ -229,6 +231,8 @@ export const insertMediaGroupNode =
 		inputMethod?: InputMethodInsertMedia,
 		isNestingInQuoteSupported?: boolean,
 		insertMediaVia?: InsertMediaVia,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): void => {
 		const { state, dispatch } = view;
 		const { tr, schema } = state;

@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useState } from 'react';
+import React, { useState } from 'react';
 import type { DocNode } from '@atlaskit/adf-schema';
 import { generateUuid } from '@atlaskit/adf-schema';
 import { Y75, Y200 } from '@atlaskit/theme/colors';
@@ -18,7 +18,6 @@ import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
 import { SmartCardProvider, CardClient } from '@atlaskit/link-provider';
 import { AnnotationsWrapper } from '../src';
-import React from 'react';
 import { useAnnotationsProvider } from './21-annotations';
 
 const transformer = new JSONTransformer();
@@ -41,6 +40,8 @@ function AnnotationSelect({ doc, onDelete }: { doc?: Node; onDelete: (id: string
 	});
 
 	if (ids.length) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-key
 		options = ids.map((id) => <option value={id}>{id}</option>);
 	}
 
@@ -110,6 +111,8 @@ export default function Example() {
 										allowColumnSorting={true}
 										allowAnnotations={true}
 										actionButtons={[
+											// Ignored via go/ees005
+											// eslint-disable-next-line react/jsx-key
 											<button
 												onClick={() => {
 													const selection = window.getSelection();
@@ -132,6 +135,8 @@ export default function Example() {
 											>
 												Add annotation
 											</button>,
+											// Ignored via go/ees005
+											// eslint-disable-next-line react/jsx-key
 											<span>
 												<button
 													onClick={() => {
@@ -151,6 +156,8 @@ export default function Example() {
 												</button>{' '}
 												Selection valid: {`${selectionValid}`}{' '}
 											</span>,
+											// Ignored via go/ees005
+											// eslint-disable-next-line react/jsx-key
 											<AnnotationSelect
 												doc={transformer.parse(document)}
 												onDelete={(annotationId) => {

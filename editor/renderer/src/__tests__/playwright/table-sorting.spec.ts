@@ -144,15 +144,38 @@ test.describe('table sorting', () => {
 		]);
 	});
 
+	test.describe('without merged cells', () => {
+		test.use({
+			platformFeatureFlags: {
+				platform_renderer_table_sort_btn_aria_hidden: true,
+			},
+		});
+
+		test('should have aria-hidden set to false', async ({ renderer }) => {
+			const tableSortModel = new TableSortModel(renderer.page);
+			await expect(tableSortModel.sortButton('no-sort')).toBeVisible();
+			await expect(tableSortModel.sortButton('no-sort')).toHaveAttribute('aria-hidden', 'false');
+		});
+	});
+
 	test.describe('with merged cells', () => {
 		test.use({
 			adf: tableWithMergedCellsAdf,
+			platformFeatureFlags: {
+				platform_renderer_table_sort_btn_aria_hidden: true,
+			},
 		});
 
 		test('should display not allowed message', async ({ renderer }) => {
 			const tableSortModel = new TableSortModel(renderer.page);
 			await expect(tableSortModel.sortButton('not-allowed')).toBeVisible();
 			await expect(tableSortModel.sortButton('not-allowed')).toBeDisabled();
+		});
+
+		test('should have aria-hidden set to true', async ({ renderer }) => {
+			const tableSortModel = new TableSortModel(renderer.page);
+			await expect(tableSortModel.sortButton('not-allowed')).toBeVisible();
+			await expect(tableSortModel.sortButton('not-allowed')).toHaveAttribute('aria-hidden', 'true');
 		});
 	});
 

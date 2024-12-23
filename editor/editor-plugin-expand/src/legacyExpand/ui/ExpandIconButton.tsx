@@ -41,7 +41,11 @@ export const withTooltip = (WrapperComponent: React.ElementType) => {
 
 			return (
 				<Tooltip content={label} position="top" tag={ExpandLayoutWrapperWithRef}>
-					<WrapperComponent {...this.props} />
+					<WrapperComponent
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...this.props}
+					/>
 				</Tooltip>
 			);
 		}
@@ -51,6 +55,8 @@ export const withTooltip = (WrapperComponent: React.ElementType) => {
 export const CustomButton = (props: ExpandIconButtonWithLabelProps) => {
 	const { allowInteractiveExpand, expanded } = props;
 	const useTheme = useCallback(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(currentTheme: any, themeProps: any) => {
 			const { buttonStyles, ...rest } = currentTheme(themeProps);
 			return {
@@ -101,13 +107,20 @@ export const ExpandIconButton = (props: ExpandIconButtonProps) => {
 
 	// hoverEventCheck is to disable tooltips for mobile to prevent incorrect hover state causing issues on iOS
 	if (props.allowInteractiveExpand && hoverEventCheck) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		return <ButtonWithTooltip label={label} {...props} />;
 	}
 
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={expandLayoutWrapperStyle}>
-			<ButtonWithoutTooltip label={label} {...props} />
+			<ButtonWithoutTooltip
+				label={label}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...props}
+			/>
 		</div>
 	);
 };

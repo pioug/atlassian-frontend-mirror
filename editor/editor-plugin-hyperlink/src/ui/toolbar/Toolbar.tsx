@@ -72,6 +72,8 @@ const dispatchAnalytics = (
 	state: EditorState,
 	analyticsBuilder: (type: LinkType) => AnalyticsEventPayload<void>,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (dispatch) {
 		const { tr } = state;
@@ -121,6 +123,8 @@ export function HyperlinkAddToolbarWithState({
 	onEscapeCallback,
 	onClickAwayCallback,
 	pluginInjectionApi,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 }: HyperlinkAddToolbarProps & { pluginInjectionApi: any }) {
 	const { hyperlinkState } = useSharedPluginState(pluginInjectionApi, ['hyperlink']);
 	return (
@@ -318,6 +322,8 @@ export const getToolbarConfig =
 											onCancel={() => view.focus()}
 											onEscapeCallback={onEscapeCallback(editorCardActions)}
 											onClickAwayCallback={onClickAwayCallback}
+											// Ignored via go/ees005
+											// eslint-disable-next-line @typescript-eslint/max-params
 											onSubmit={(href, title = '', displayText, inputMethod, analytic) => {
 												const isEdit = isEditLink(activeLinkMark);
 												const action = isEdit ? ACTION.UPDATED : ACTION.INSERTED;

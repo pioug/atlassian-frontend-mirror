@@ -32,7 +32,11 @@ const quickInsert: ExtensionModule[] = exampleFields.map((field) => ({
 const nodes = exampleFields.reduce<ExtensionModuleNodes>((curr, field) => {
 	curr[field.name] = {
 		type: 'extension',
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-await
 		render: async () => () => null,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-await
 		getFieldsDefinition: async () => [field],
 	};
 
@@ -67,6 +71,8 @@ const manifest: ExtensionManifest = {
 			},
 			user: {
 				'user-jdog-provider': {
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-await
 					provider: async () => {
 						return {
 							siteId: '49d8b9d6-ee7d-4931-a0ca-7fcae7d1c3b5',

@@ -30,6 +30,8 @@ import type EditorActions from '../actions';
 import ErrorBoundary from '../create-editor/ErrorBoundary';
 import { createFeatureFlagsFromProps } from '../create-editor/feature-flags-from-props';
 import type { EditorViewProps } from '../create-editor/ReactEditorView';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import ReactEditorView from '../create-editor/ReactEditorView';
 import ReactEditorViewNext from '../create-editor/ReactEditorViewNext';
 import { type EditorAppearanceComponentProps } from '../types';
@@ -145,6 +147,8 @@ export const EditorInternal = memo(
 													<AppearanceComponent
 														innerRef={editorRef}
 														editorAPI={editorAPI}
+														// Ignored via go/ees005
+														// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 														appearance={props.appearance!}
 														disabled={props.disabled}
 														editorActions={editorActions}
@@ -206,6 +210,8 @@ export const EditorInternal = memo(
 													<AppearanceComponent
 														innerRef={editorRef}
 														editorAPI={editorAPI}
+														// Ignored via go/ees005
+														// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 														appearance={props.appearance!}
 														disabled={props.disabled}
 														editorActions={editorActions}
@@ -287,5 +293,7 @@ function ReactEditorViewContextWrapper(props: ReactEditorViewContextWrapperProps
 		taskDecisionProvider: props.editorProps.taskDecisionProvider,
 	});
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <ReactEditorView {...props} editorAPI={editorAPI} setEditorAPI={setEditorAPI} />;
 }

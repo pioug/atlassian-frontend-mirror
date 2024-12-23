@@ -10,11 +10,15 @@ export function keymapPlugin(editorAnalyticsAPI: EditorAnalyticsAPI | undefined)
 	const list = {};
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		insertRule.common!,
 		insertHorizontalRule(editorAnalyticsAPI)(INPUT_METHOD.SHORTCUT),
 		list,
 	);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(escape.common!, () => true, list);
 
 	return keymap(list) as SafePlugin;

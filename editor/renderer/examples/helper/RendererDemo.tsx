@@ -167,6 +167,8 @@ interface DemoRendererState {
 	scrubbedAdf?: ADFEntity;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class RendererDemo extends React.Component<DemoRendererProps, DemoRendererState> {
 	textSerializer = new TextSerializer(this.props.schema ? this.props.schema : defaultSchema);
 	emailRef?: HTMLIFrameElement;
@@ -394,6 +396,8 @@ export default class RendererDemo extends React.Component<DemoRendererProps, Dem
 					</div>
 					<div id="RendererOutput">
 						{Array.from({ length: copies || 1 }).map((_, index) => (
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/no-array-index-key
 							<Renderer key={index} {...props} />
 						))}
 					</div>

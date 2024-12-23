@@ -62,6 +62,8 @@ import {
 /**
  * Attempt to replace the link into the respective card.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function replaceLinksToCards(
 	tr: Transaction,
 	cardAdf: Node,
@@ -121,6 +123,8 @@ export const replaceQueuedUrlWithCard =
 		analyticsAction?: ACTION,
 		editorAnalyticsApi?: EditorAnalyticsAPI,
 		createAnalyticsEvent?: CreateUIAnalyticsEvent,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(editorState, dispatch) => {
 		const state = pluginKey.getState(editorState) as CardPluginState | undefined;
@@ -235,6 +239,8 @@ export const queueCardsFromChangedTr = (
 	normalizeLinkText: boolean = true,
 	sourceEvent: UIAnalyticsEvent | null | undefined = undefined,
 	appearance: CardAppearance = 'inline',
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Transaction => {
 	const { schema } = state;
 	const { link } = schema.marks;
@@ -284,6 +290,8 @@ export const queueCardFromChangedTr = (
 	normalizeLinkText: boolean = true,
 	sourceEvent: UIAnalyticsEvent | null | undefined = undefined,
 	previousAppearance?: CardAppearance | 'url',
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Transaction => {
 	const { schema } = state;
 	const { link } = schema.marks;
@@ -329,6 +337,8 @@ export const convertHyperlinkToSmartCard = (
 	source: CardReplacementInputMethod,
 	appearance: CardAppearance,
 	normalizeLinkText: boolean = true,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Transaction => {
 	const { schema } = state;
 	const { link } = schema.marks;
@@ -365,6 +375,8 @@ export const changeSelectedCardToLink =
 		node?: Node,
 		pos?: number,
 		editorAnalyticsApi?: EditorAnalyticsAPI,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		const selectedNode =
@@ -408,6 +420,8 @@ export const changeSelectedCardToLinkFallback =
 		node?: Node,
 		pos?: number,
 		editorAnalyticsApi?: EditorAnalyticsAPI,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		let tr;
@@ -481,6 +495,8 @@ function cardToLinkWithTransaction(
 	return tr;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function cardNodeToLinkWithTransaction(
 	state: EditorState,
 	text: string | undefined,
@@ -688,6 +704,8 @@ export const insertDatasource = (
 	adf: DatasourceAdf | InlineCardAdf,
 	view: EditorView,
 	sourceEvent?: UIAnalyticsEvent,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const {
 		tr,

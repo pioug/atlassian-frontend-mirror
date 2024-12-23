@@ -99,6 +99,8 @@ export interface EditorViewProps {
 	portalProviderAPI: PortalProviderAPI;
 	nodeViewPortalProviderAPI: PortalProviderAPI;
 	disabled?: boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	editorAPI: PublicPluginAPI<any> | undefined;
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	setEditorAPI?: (editorApi: PublicPluginAPI<any>) => void;
@@ -175,9 +177,11 @@ interface CreateEditorStateOptions {
 	selectionAtStart?: boolean;
 }
 
-export class ReactEditorView<T = {}> extends React.Component<
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
+export class ReactEditorView<T = Object> extends React.Component<
 	EditorViewProps & WrappedComponentProps & T,
-	{}
+	Object
 > {
 	view?: EditorView;
 	eventDispatcher: EventDispatcher;
@@ -290,6 +294,8 @@ export class ReactEditorView<T = {}> extends React.Component<
 	getEditorState = () => this.view?.state;
 	getEditorView = () => this.view;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillReceiveProps(nextProps: EditorViewProps) {
 		if (this.view && this.props.editorProps.disabled !== nextProps.editorProps.disabled) {
 			// Disables the contentEditable attribute of the editor if the editor is disabled
@@ -754,6 +760,8 @@ export class ReactEditorView<T = {}> extends React.Component<
 	handleEditorViewRef = (node: HTMLDivElement) => {
 		if (!this.view && node) {
 			this.createEditorView(node);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const view = this.view!;
 			this.props.onEditorCreated({
 				view,
@@ -864,7 +872,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 					/>
 				)}
 				{this.props.render
-					? this.props.render?.({
+					? (this.props.render?.({
 							editor: this.editor,
 							view: this.view,
 							config: this.config,
@@ -873,7 +881,7 @@ export class ReactEditorView<T = {}> extends React.Component<
 							dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
 							editorRef: this.editorRef,
 							editorAPI: this.props.editorAPI,
-						}) ?? this.editor
+						}) ?? this.editor)
 					: this.editor}
 			</ReactEditorViewContext.Provider>
 		);

@@ -47,6 +47,8 @@ const getKeyParts = (keymap: Keymap) => {
 	if (browser.mac) {
 		shortcut = shortcut.replace('Alt', 'Opt');
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return shortcut.replace(/\-(?=.)/g, ' + ').split(' ');
 };
 
@@ -60,12 +62,16 @@ export const getComponentFromKeymap = (keymap: Keymap) => {
 			{keyParts.map((part, index) => {
 				if (part === '+') {
 					return (
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/no-array-index-key
 						<Box as="span" key={`${keyParts}-${index}`}>
 							{' + '}
 						</Box>
 					);
 				} else if (part === 'Cmd') {
 					return (
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/no-array-index-key
 						<Box as="span" xcss={codeSm} key={`${keyParts}-${index}`}>
 							⌘
 						</Box>
@@ -73,6 +79,8 @@ export const getComponentFromKeymap = (keymap: Keymap) => {
 				} else if (['ctrl', 'alt', 'opt', 'shift'].indexOf(part.toLowerCase()) >= 0) {
 					return (
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/no-array-index-key
 						<Box as="span" xcss={codeMd} key={`${keyParts}-${index}`}>
 							{part}
 						</Box>
@@ -80,6 +88,8 @@ export const getComponentFromKeymap = (keymap: Keymap) => {
 				} else if (['f9', 'f10'].indexOf(part.toLowerCase()) >= 0) {
 					return (
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/no-array-index-key
 						<Box as="span" xcss={codeLg} key={`${keyParts}-${index}`}>
 							{part}
 						</Box>
@@ -90,6 +100,8 @@ export const getComponentFromKeymap = (keymap: Keymap) => {
 							as="span"
 							data-editor-help-dialog-enter-keymap="true"
 							xcss={codeSm}
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/no-array-index-key
 							key={`${keyParts}-${index}`}
 						>
 							{'⏎'}
@@ -98,6 +110,8 @@ export const getComponentFromKeymap = (keymap: Keymap) => {
 				}
 				return (
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/no-array-index-key
 					<Box as="span" xcss={codeSm} key={`${keyParts}-${index}`}>
 						{part.toUpperCase()}
 					</Box>

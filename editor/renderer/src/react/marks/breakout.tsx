@@ -26,6 +26,8 @@ export default function Breakout(props: MarkProps<BreakoutMarkAttrs>) {
 				<div
 					css={wrapperStyles}
 					data-mode={props.mode}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...(editorExperiment('advanced_layouts', true) && {
 						'data-has-width': !!props.width,
 						'data-width': props.width,

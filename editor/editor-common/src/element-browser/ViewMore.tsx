@@ -33,7 +33,11 @@ export const ViewMore = ({ item, focus }: { item: QuickInsertItem; focus: boolea
 	return (
 		<Section hasSeparator>
 			<ButtonItem
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				onClick={item.action as any}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				iconBefore={<div css={itemBefore}>{item.icon!()}</div>}
 				aria-describedby={item.title}
 				data-testid="view-more-elements-item"

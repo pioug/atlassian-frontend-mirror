@@ -72,6 +72,8 @@ export const getSafeParentedName = (name: string, parentName?: string): string =
 	return name;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const duplicateFieldRegex = /:[0-9]+$/;
 
 export const isDuplicateField = (key: string) => duplicateFieldRegex.test(key);

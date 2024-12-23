@@ -13,6 +13,8 @@ import type { PluginInjectionAPI, TableSharedStateInternal } from '../types';
 import TableComponent from './TableComponent';
 import type { TableOptions } from './types';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ForwardRef = (node: HTMLElement | null) => any;
 
 type TableComponentWithSharedStateProps = {
@@ -113,6 +115,8 @@ export const TableComponentWithSharedState = ({
 			ordering={ordering}
 			isResizing={isResizing}
 			getNode={getNode}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			containerWidth={widthState!}
 			contentDOM={forwardRef}
 			getEditorFeatureFlags={getEditorFeatureFlags}

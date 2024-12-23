@@ -14,9 +14,10 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { imageUploadHandler } from '@atlaskit/editor-test-helpers/example-helpers';
-// eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
-import { MockActivityResource } from '@atlaskit/editor-test-helpers/example-helpers';
+import {
+	imageUploadHandler,
+	MockActivityResource,
+} from '@atlaskit/editor-test-helpers/example-helpers';
 import { createEditorMediaMock } from '@atlaskit/editor-test-helpers/media-mock';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
@@ -166,6 +167,8 @@ export interface Props {
 
 export type ProviderState = 'resolved' | 'pending' | 'rejected' | 'undefined';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ToolsDrawer extends React.Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
@@ -253,8 +256,9 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 						<div css={content}>
 							<div style={{ padding: `${token('space.150', '4px')} 0` }}>
 								️️️⚠️ Atlassians, for Media integration to work in non-mocked state, make sure
-								you're logged into{' '}
-								<a href="https://id.stg.internal.atlassian.com" target="_blank">
+								you're logged into // Ignored via go/ees005 // eslint-disable-next-line
+								react/jsx-no-target-blank
+								<a href="https://id.stg.internal.atlassian.com" target="_blank" rel="noreferrer">
 									staging Identity server.
 								</a>
 							</div>
@@ -287,7 +291,11 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 													onClick={this.switchProvider.bind(this, providerKey, providerStateName)}
 													// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 													className={`${providerKey}-${providerStateName
+														// Ignored via go/ees005
+														// eslint-disable-next-line require-unicode-regexp
 														.replace(/[()]/g, '')
+														// Ignored via go/ees005
+														// eslint-disable-next-line require-unicode-regexp
 														.replace(/ /g, '-')}`}
 													appearance={
 														providerStateName === this.state[providerKey] ? 'primary' : 'default'

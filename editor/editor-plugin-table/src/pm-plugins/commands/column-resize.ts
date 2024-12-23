@@ -60,6 +60,8 @@ const updateResizeHandleAndStatePosition =
 		columnIndex: number,
 		nextResizeHandlePos: number,
 		nodeViewPortalProviderAPI: PortalProviderAPI,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		let customTr = state.tr;
@@ -142,7 +144,9 @@ export const initiateKeyboardColumnResizing =
 	(state, dispatch, view) => {
 		const { selection } = state;
 		const selectionRect = isSelectionType(selection, 'cell')
-			? getSelectionRect(selection)!
+			? // Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				getSelectionRect(selection)!
 			: findCellRectClosestToPos(selection.$from);
 		const cell = findCellClosestToPos(selection.$from);
 

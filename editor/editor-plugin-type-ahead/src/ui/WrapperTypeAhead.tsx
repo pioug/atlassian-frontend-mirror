@@ -101,6 +101,8 @@ export const WrapperTypeAhead = React.memo(
 			(mode: SelectItemMode = SelectItemMode.SELECTED) => {
 				const { current: view } = editorViewRef;
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const { selectedIndex } = getPluginState(view.state)!;
 				const safeSelectedIndex = skipForwardToSafeItem(selectedIndex, 1, items.length, (idx) =>
 					itemIsDisabled(items[idx], api),

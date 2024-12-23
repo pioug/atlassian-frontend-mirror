@@ -171,6 +171,8 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 				: undefined;
 			return matchedItem;
 		},
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 		selectItem(state, item, insert, { mode }) {
 			const emojiPluginState = emojiPluginKey.getState(state) as EmojiPluginState;
 
@@ -399,6 +401,8 @@ const setAsciiMap =
  * @param limitCount Number of function calls before `onRateReached` is called (per time period)
  * @returns Wrapped function
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function createRateLimitReachedFunction<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	LimitedFunction extends (...args: any[]) => any,

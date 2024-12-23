@@ -36,6 +36,8 @@ import type { InsertBlockOptions } from './types';
 import SwitchIcon from './ui/assets/switch';
 import { InsertMenuRail } from './ui/ElementRail';
 import { templateOptions } from './ui/templateOptions';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import ToolbarInsertBlock from './ui/ToolbarInsertBlock';
 import { transformationOptions } from './ui/transformOptions';
 
@@ -340,6 +342,8 @@ export const insertBlockPlugin: InsertBlockPlugin = ({ config: options = {}, api
 		['full-page', 'full-width'].includes(options.appearance ?? '') &&
 		editorExperiment('insert-menu-in-right-rail', true)
 	) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		plugin.pluginsOptions!.contextPanel = (state) => {
 			// api.getSharedState() will have an outdated reference to editorState on first mount of this component
 			// so instead just rely on plugin key as we don't need to be reactive to changes here

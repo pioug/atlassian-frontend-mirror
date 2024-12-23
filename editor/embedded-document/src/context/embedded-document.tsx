@@ -47,11 +47,17 @@ export interface Props extends ProviderProps {
 	/* The mode of the embedded document. View or edit. */
 	mode?: Mode;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	renderTitle?: (mode: Mode, doc?: any) => ReactElement<any>;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	renderToolbar?: (mode: Mode, editorActions?: any) => ReactElement<any>;
 	children?: React.ReactNode;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class EmbeddedDocument extends Component<Props, State> {
 	private actions: Actions;
 	private provider: Provider;
@@ -101,12 +107,16 @@ export default class EmbeddedDocument extends Component<Props, State> {
 		this.setDocumentState(doc);
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	private setDocumentMode = async (mode: Mode) => {
 		this.setState({
 			mode,
 		});
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private updateDocument = async (body: any) => {
 		const { documentId, objectId, language } = this.state.doc || this.props;
 
@@ -138,6 +148,8 @@ export default class EmbeddedDocument extends Component<Props, State> {
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private createDocument = async (body: any) => {
 		const { objectId, language } = this.props;
 

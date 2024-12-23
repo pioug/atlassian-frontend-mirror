@@ -119,26 +119,6 @@ export type ProjectType =
 	| typeof SERVICE_DESK_PROJECT
 	| typeof PRODUCT_DISCOVERY_PROJECT;
 
-export type ProjectId = string;
-export type ProjectKey = string;
 export type CloudId = string;
 
 export type Environment = 'prod' | 'pre-prod' | 'staging' | 'dev' | 'local';
-
-export type DevStack = {
-	name: string;
-};
-
-type EnvironmentDetails = {
-	failedStack: boolean;
-	releasedSuccessfully: boolean;
-	rolledBackStack: boolean;
-	stack: string;
-};
-
-type EnvironmentResponse = {
-	liveStack: EnvironmentDetails;
-	otherStacks: EnvironmentDetails[];
-};
-
-export type StacksResponse = Record<Environment, EnvironmentResponse>;

@@ -67,6 +67,8 @@ import {
 	insertTableWithNestingSupport,
 } from './commands/insert';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function keymapPlugin(
 	getEditorContainerWidth: GetEditorContainerWidth,
 	api: PluginInjectionAPI | undefined | null,
@@ -89,16 +91,22 @@ export function keymapPlugin(
 	const ariaNotifyPlugin = pluginInjectionApi?.accessibilityUtils?.actions.ariaNotify;
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		nextCell.common!,
 		goToNextCell(editorAnalyticsAPI, ariaNotifyPlugin, getIntl)(1),
 		list,
 	);
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		previousCell.common!,
 		goToNextCell(editorAnalyticsAPI, ariaNotifyPlugin, getIntl)(-1),
 		list,
 	);
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		toggleTable.common!,
 		fg('platform_editor_use_nested_table_pm_nodes')
 			? editorCommandToPMCommand(
@@ -133,6 +141,8 @@ export function keymapPlugin(
 		list,
 	);
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		backspace.common!,
 		chainCommands(
 			deleteTableIfSelectedWithAnalytics(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
@@ -140,22 +150,30 @@ export function keymapPlugin(
 		),
 		list,
 	);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(backspace.common!, moveCursorBackward, list);
 
 	// Add row/column shortcuts
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		addRowBefore.common!,
 		addRowAroundSelection(editorAnalyticsAPI)('TOP'),
 		list,
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		addRowAfter.common!,
 		addRowAroundSelection(editorAnalyticsAPI)('BOTTOM'),
 		list,
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		addColumnBefore.common!,
 		addColumnBeforeCommand(
 			api,
@@ -167,6 +185,8 @@ export function keymapPlugin(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		addColumnAfter.common!,
 		addColumnAfterCommand(
 			api,
@@ -178,18 +198,24 @@ export function keymapPlugin(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		addRowBeforeVO.common!,
 		addRowAroundSelection(editorAnalyticsAPI)('TOP'),
 		list,
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		addRowAfterVO.common!,
 		addRowAroundSelection(editorAnalyticsAPI)('BOTTOM'),
 		list,
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		addColumnBeforeVO.common!,
 		addColumnBeforeCommand(
 			api,
@@ -201,6 +227,8 @@ export function keymapPlugin(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		addColumnAfterVO.common!,
 		addColumnAfterCommand(
 			api,
@@ -221,6 +249,8 @@ export function keymapPlugin(
 		 */
 
 		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			moveRowDown.common!,
 			moveSourceWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
@@ -231,6 +261,8 @@ export function keymapPlugin(
 		);
 
 		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			moveRowUp.common!,
 			moveSourceWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
@@ -241,6 +273,8 @@ export function keymapPlugin(
 		);
 
 		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			moveColumnLeft.common!,
 			moveSourceWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
@@ -251,6 +285,8 @@ export function keymapPlugin(
 		);
 
 		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			moveColumnRight.common!,
 			moveSourceWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
@@ -262,6 +298,8 @@ export function keymapPlugin(
 
 		// Delete row/column shortcuts
 		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			deleteColumn.common!,
 			deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
@@ -274,6 +312,8 @@ export function keymapPlugin(
 		);
 
 		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			deleteRow.common!,
 			deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut(
 				editorAnalyticsAPI,
@@ -287,6 +327,8 @@ export function keymapPlugin(
 	}
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		startColumnResizing.common!,
 		initiateKeyboardColumnResizing({
 			ariaNotify: ariaNotifyPlugin,
@@ -297,6 +339,8 @@ export function keymapPlugin(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		moveRight.common!,
 		activateNextResizeArea({
 			direction: 1,
@@ -308,6 +352,8 @@ export function keymapPlugin(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		moveLeft.common!,
 		activateNextResizeArea({
 			direction: -1,
@@ -319,6 +365,8 @@ export function keymapPlugin(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		decreaseMediaSize.common!,
 		changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI, api)(
 			-10,
@@ -334,6 +382,8 @@ export function keymapPlugin(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		increaseMediaSize.common!,
 		changeColumnWidthByStepWithAnalytics(editorAnalyticsAPI, api)(
 			10,
@@ -349,6 +399,8 @@ export function keymapPlugin(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		escape.common!,
 		stopKeyboardColumnResizing({
 			ariaNotify: ariaNotifyPlugin,
@@ -357,6 +409,8 @@ export function keymapPlugin(
 		list,
 	);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(focusToContextMenuTrigger.common!, setFocusToCellMenu(), list);
 
 	return keymap(list) as SafePlugin;

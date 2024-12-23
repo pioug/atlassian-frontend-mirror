@@ -32,6 +32,8 @@ snapshotInformational(HeadingInsideExpand, {
 	ignoredErrors: [
 		{
 			// Gemini is complain because this component packages/editor/renderer/src/ui/Expand.tsx
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			pattern: /for a non-boolean attribute/,
 			ignoredBecause: 'Because it is not part of the migration effort to fix warnings',
 			jiraIssueId: 'TD-0000',
@@ -66,6 +68,8 @@ snapshotInformational(HeadingInsideExpand, {
 	ignoredErrors: [
 		{
 			// Gemini is complain because this component packages/editor/renderer/src/ui/Expand.tsx
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			pattern: /for a non-boolean attribute/,
 			ignoredBecause: 'Because it is not part of the migration effort to fix warnings',
 			jiraIssueId: 'TD-0000',

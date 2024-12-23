@@ -24,6 +24,8 @@ export function commonMacro(input: string, schema: Schema, opt: MacroOption): To
 	 * Forging the opening regex, the result would look something like
 	 * /^\{(quote)(?::([^\{\n\}]*))?\}/i
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const opening = new RegExp(`^\{(${opt.keyword})(?::([^\{\n\}]*))?\}`, 'i');
 	const matchOpening = input.match(opening);
 
@@ -46,6 +48,8 @@ export function commonMacro(input: string, schema: Schema, opt: MacroOption): To
 	 * Forging the closing regex, the result would look something like
 	 * /\{quote\}/
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const closing = new RegExp(`\{${name}\}`);
 	const matchClosing = closing.exec(input.substring(openingLength));
 

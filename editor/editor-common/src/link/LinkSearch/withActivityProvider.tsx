@@ -25,6 +25,8 @@ export default function withActivityProvider<Props>(
 			const { providerFactory, ...props } = this.props as ExpandedActivityProviderProps;
 			const { activityProvider } = providers;
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any, react/jsx-props-no-spreading
 			return <WrappedComponent activityProvider={activityProvider as any} {...(props as Props)} />;
 		};
 

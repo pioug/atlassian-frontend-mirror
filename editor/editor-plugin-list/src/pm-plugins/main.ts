@@ -165,6 +165,8 @@ export const createPlugin = (eventDispatch: Dispatch, featureFlags: FeatureFlags
 			},
 			handleClick: (view: EditorView, pos, event: MouseEvent) => {
 				const { state } = view;
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				if (['LI', 'UL'].includes((event?.target as HTMLElement).tagName)) {
 					const nodeAtPos = state.tr.doc.nodeAt(pos);
 					const { listItem, codeBlock } = view.state.schema.nodes;

@@ -2,7 +2,7 @@ import { utils, type ServiceConfig } from '@atlaskit/util-service-support';
 import { type Provider } from './provider';
 import { type Document, type BatchDocumentResponse } from '../model';
 
-export interface Config extends ServiceConfig {}
+export type Config = ServiceConfig;
 
 function queryBuilder(data: { [k: string]: string }): string {
 	return Object.keys(data)
@@ -53,6 +53,8 @@ export default class ServiceProvider implements Provider {
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	async updateDocument(
 		documentId: string,
 		body: string,
@@ -82,6 +84,8 @@ export default class ServiceProvider implements Provider {
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	async createDocument(
 		body: string,
 		objectId: string,

@@ -46,6 +46,8 @@ export const RenderMediaViewer = ({
 			<MediaViewer
 				collectionName={collectionName}
 				items={items}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				mediaClientConfig={mediaClientConfig!}
 				selectedItem={identifier}
 				onClose={onClose}
@@ -65,6 +67,8 @@ export const RenderMediaViewer = ({
 		<MediaViewer
 			collectionName={collection}
 			items={[]}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			mediaClientConfig={mediaClientConfig!}
 			selectedItem={identifier}
 			onClose={onClose}

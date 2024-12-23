@@ -43,6 +43,8 @@ export function clearFormattingWithAnalytics(
 	return clearFormatting(inputMethod, editorAnalyticsAPI);
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function clearNodeFormattingOnSelection(
 	state: EditorState,
 	tr: Transaction,
@@ -65,6 +67,8 @@ function clearNodeFormattingOnSelection(
 					const targetLiftDepth = liftTarget(nodeRange);
 					if (targetLiftDepth || targetLiftDepth === 0) {
 						formattingCleared.push(nodeName);
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						tr.lift(nodeRange, targetLiftDepth!);
 					}
 				}

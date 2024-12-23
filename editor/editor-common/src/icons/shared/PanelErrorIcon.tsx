@@ -11,6 +11,8 @@ const PanelErrorGlyph = (props: CustomGlyphProps) => {
 			viewBox="0 0 24 24"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 		>
 			<path
@@ -24,5 +26,7 @@ const PanelErrorGlyph = (props: CustomGlyphProps) => {
 };
 
 export const PanelErrorIcon = (props: GlyphProps) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <Icon glyph={PanelErrorGlyph} {...props} />;
 };

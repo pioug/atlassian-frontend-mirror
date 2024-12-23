@@ -31,6 +31,8 @@ export class InputOld extends Component<Props, State> {
 		};
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillReceiveProps(nextProps: Props) {
 		if (this.state.text !== nextProps.defaultValue) {
 			this.setState({
@@ -50,7 +52,7 @@ export class InputOld extends Component<Props, State> {
 		}
 	};
 
-	handleBlur = (e: React.FocusEvent<{}>) => {
+	handleBlur = (e: React.FocusEvent<Object>) => {
 		e.preventDefault();
 		if (this.props.onBlur) {
 			this.props.onBlur(this.state.text);
@@ -87,7 +89,7 @@ export const InputNew = (props: Props) => {
 		onSubmit && onSubmit(text);
 	};
 
-	const handleBlur = (e: React.FocusEvent<{}>) => {
+	const handleBlur = (e: React.FocusEvent<Object>) => {
 		e.preventDefault();
 		onBlur && onBlur(text);
 	};

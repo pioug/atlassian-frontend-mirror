@@ -34,6 +34,8 @@ export default function RadioField({
 			{({ fieldProps, error }) => (
 				<Fragment>
 					<RadioGroup
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...fieldProps}
 						options={(field.items || []).map((option) => ({
 							...option,

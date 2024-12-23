@@ -31,6 +31,8 @@ export interface CellStepJson {
 	to: number; // end of cell at column
 
 	// Used to add a cell with a specific content. Useful for reverse a delete add column
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	newCell?: { [key: string]: any }; // ToJson type of ProseMirrorNode.toJson()
 	mergeWith?: number; // Represent the cell that has to do the merge operation
 }

@@ -84,6 +84,8 @@ function Heading(
 
 	const headingIdToUse = invisible ? undefined : headingId;
 	return (
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		<HX id={headingIdToUse} {...dataAttributes}>
 			<>
 				{showAnchorLink && headingId && isRightAligned && (

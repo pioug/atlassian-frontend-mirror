@@ -391,6 +391,8 @@ describe('Channel unit tests', () => {
 		channel.on('init', (data: any) => {
 			try {
 				expect(data).toEqual({
+					// Ignored via go/ees005
+					// eslint-disable-next-line require-unicode-regexp
 					doc: expect.stringMatching(/.*/),
 					version: expect.any(Number),
 					userId: '123',
@@ -1047,6 +1049,8 @@ describe('Channel unit tests', () => {
 
 			// Go offline
 			window.dispatchEvent(new Event('offline'));
+			// Ignored via go/ees005
+			// eslint-disable-next-line no-var
 			for (var i = 0; i < 8; i++) {
 				(channel.getSocket()!.io as any).emit('reconnect_error', reconnectError);
 			}

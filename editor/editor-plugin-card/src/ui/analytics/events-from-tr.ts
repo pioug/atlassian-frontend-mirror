@@ -113,6 +113,8 @@ export const findChanged = (tr: Transaction | ReadonlyTransaction, state: Editor
 			}
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 		stepMap.forEach((oldStart, oldEnd, newStart, newEnd) => {
 			const before = tr.docs[i];
 			const after = tr.docs[i + 1] ?? tr.doc;
@@ -387,7 +389,7 @@ export function eventsFromTransaction(
 			const previousDisplay =
 				'removed' in update
 					? appearanceForLink(update.removed.node)
-					: update.previous.display ?? 'unknown';
+					: (update.previous.display ?? 'unknown');
 
 			if (subject) {
 				events.push({

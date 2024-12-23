@@ -22,7 +22,7 @@ export interface MentionState {
 	profilecardProvider: ProfilecardProvider | null;
 }
 
-export default class Mention extends PureComponent<MentionProps, {}> {
+export default class Mention extends PureComponent<MentionProps, Object> {
 	private providerFactory: ProviderFactory;
 
 	constructor(props: MentionProps) {

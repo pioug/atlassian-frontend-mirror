@@ -25,6 +25,8 @@ type ClickedElementBrowserCategory = TrackAEP<
 	ACTION.CLICKED,
 	ACTION_SUBJECT.BUTTON,
 	ACTION_SUBJECT_ID.BUTTON_CATEGORY,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	any,
 	undefined
 >;

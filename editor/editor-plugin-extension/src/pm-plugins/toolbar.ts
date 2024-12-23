@@ -78,6 +78,8 @@ const breakoutOptions = (
 	extensionState: ExtensionState,
 	breakoutEnabled: boolean,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Array<FloatingToolbarItem<Command>> => {
 	const nodeWithPos = getSelectedExtension(state, true);
 
@@ -122,6 +124,8 @@ const editButton = (
 	extensionState: ExtensionState,
 	applyChangeToContextPanel: ApplyChangeHandler | undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Array<FloatingToolbarItem<Command>> => {
 	if (!extensionState.showEditButton) {
 		return [];
@@ -219,6 +223,8 @@ export const getToolbarConfig =
 
 			return {
 				title: 'Extension floating controls',
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				getDomRef: () => extensionState.element!.parentElement || undefined,
 				nodeType,
 				onPositionCalculated: (editorView: EditorView, nextPos: Position) => {
@@ -235,6 +241,8 @@ export const getToolbarConfig =
 					}
 					const scrollWrapper =
 						editorView.dom.closest('.fabric-editor-popup-scroll-parent') || document.body;
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					const nestedBodiedExtensionDomElement = editorView.nodeDOM(
 						extensionNode.pos,
 					) as HTMLElement;

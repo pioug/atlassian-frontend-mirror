@@ -15,6 +15,8 @@ import type {
 
 import { corePlugin } from './core-plugin';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type NextEditorPluginInitializedType = ReturnType<NextEditorPlugin<any>>;
 
 type SharedStateAPIProps = {
@@ -35,20 +37,42 @@ export type EditorStateDiff = {
 type Callback = (props: { nextSharedState: unknown; prevSharedState: unknown }) => void;
 
 function hasGetSharedState(
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	plugin: ReturnType<NextEditorPlugin<any, any>>,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): plugin is DefaultEditorPlugin<any, { sharedState: unknown }> {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return typeof (plugin as any).getSharedState === 'function';
 }
 
 function hasActions(
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	plugin: ReturnType<NextEditorPlugin<any, any>>,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): plugin is DefaultEditorPlugin<any, { actions: Record<string, (...args: any) => any> }> {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return typeof (plugin as any).actions === 'object';
 }
 
 function hasCommands(
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	plugin: ReturnType<NextEditorPlugin<any, any>>,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): plugin is DefaultEditorPlugin<any, { commands: Record<string, (...args: any) => any> }> {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return typeof (plugin as any).commands === 'object';
 }
 
@@ -140,7 +164,11 @@ export class PluginsData {}
 
 class ActionsAPI {
 	createAPI(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		plugin: ReturnType<NextEditorPlugin<any, any>> | undefined,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	): PluginDependenciesAPI<NextEditorPlugin<any, any>>['actions'] {
 		if (!plugin || !hasActions(plugin)) {
 			return {};
@@ -157,7 +185,11 @@ class ActionsAPI {
 
 class EditorCommandsAPI {
 	createAPI(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		plugin: ReturnType<NextEditorPlugin<any, any>> | undefined,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	): PluginDependenciesAPI<NextEditorPlugin<any, any>>['commands'] {
 		if (!plugin || !hasCommands(plugin)) {
 			return {};
@@ -183,6 +215,8 @@ export class SharedStateAPI {
 
 	createAPI(
 		plugin: NextEditorPluginInitializedType | undefined,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	): PluginDependenciesAPI<NextEditorPlugin<any, any>>['sharedState'] {
 		if (!plugin) {
 			return {
@@ -262,6 +296,8 @@ type EditorStateDelta = {
 };
 
 interface PluginInjectionAPIDefinition {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	api: () => { [key: string]: BasePluginDependenciesAPI<any> };
 	onEditorViewUpdated: (props: EditorStateDelta) => void;
 	onEditorPluginInitialized: (plugin: NextEditorPluginInitializedType) => void;
@@ -269,6 +305,8 @@ interface PluginInjectionAPIDefinition {
 
 type GenericAPIWithCore = {
 	core: PluginDependenciesAPI<CorePlugin>;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: BasePluginDependenciesAPI<any>;
 };
 const editorAPICache = new WeakMap<EditorPluginInjectionAPI, GenericAPIWithCore>();
@@ -295,6 +333,8 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 	private createAPI() {
 		const { sharedStateAPI, actionsAPI, commandsAPI, getPluginByName } = this;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return new Proxy<GenericAPIWithCore>({} as any, {
 			get: function (target, prop: string, receiver) {
 				// If we pass this as a prop React hates us
@@ -311,6 +351,8 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 				const actions = actionsAPI.createAPI(plugin);
 				const commands = commandsAPI.createAPI(plugin);
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const proxyCoreAPI: PluginDependenciesAPI<NextEditorPlugin<any, any>> = {
 					sharedState,
 					actions,
@@ -327,6 +369,8 @@ export class EditorPluginInjectionAPI implements PluginInjectionAPIDefinition {
 			editorAPICache.set(this, this.createAPI());
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		return editorAPICache.get(this)!;
 	}
 

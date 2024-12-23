@@ -10,6 +10,10 @@ import {
 import { mapSlice } from '../utils/slice';
 
 function joinCodeBlocks(left: Node, right: Node) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const textContext = `${left.textContent!}\n${right.textContent!}`;
 	return left.type.create(left.attrs, left.type.schema.text(textContext));
 }
@@ -20,6 +24,8 @@ function mergeAdjacentCodeBlocks(fragment: Fragment): Fragment {
 		if (maybeCodeBlock.type === maybeCodeBlock.type.schema.nodes.codeBlock) {
 			const peekAtPrevious = children[children.length - 1];
 			if (peekAtPrevious && peekAtPrevious.type === maybeCodeBlock.type) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				return children.push(joinCodeBlocks(children.pop()!, maybeCodeBlock));
 			}
 		}

@@ -4,6 +4,8 @@ import { resolveLink } from './link-resolver';
 import { parseContentLink } from './link-parser';
 
 // [http://www.example.com] and [Example|http://www.example.com]
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const LINK_FORMAT_REGEXP = /^\[([^\[\]\n]+)]/;
 
 export const linkFormat: TokenParser = ({ input, position, schema, context }) => {

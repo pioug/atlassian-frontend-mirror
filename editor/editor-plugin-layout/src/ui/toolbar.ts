@@ -165,6 +165,8 @@ const buildLayoutButton = (
 	item: PresetLayoutButtonItem,
 	currentLayout: string | undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarItem<Command> => ({
 	id: item.id,
 	type: 'button',
@@ -277,6 +279,8 @@ export const buildToolbar = (
 	addSidebarLayouts: boolean,
 	allowSingleColumnLayout: boolean,
 	api: ExtractInjectionAPI<LayoutPlugin> | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarConfig | undefined => {
 	const { hoverDecoration } = api?.decorations?.actions ?? {};
 	const editorAnalyticsAPI = api?.analytics?.actions;
@@ -311,6 +315,8 @@ export const buildToolbar = (
 
 		return {
 			title: layoutToolbarTitle,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			getDomRef: (view) => findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
 			nodeType,
 			groupLabel: intl.formatMessage(toolbarMessages.floatingToolbarRadioGroupAriaLabel),

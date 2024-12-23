@@ -34,10 +34,14 @@ describe('Full width media', () => {
 
 			const mediaWidth = await page.evaluate(
 				() =>
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					(document.querySelector('.akEditor .rich-media-item') as HTMLElement)?.offsetWidth || 0,
 			);
 
 			const containerWidth = await page.evaluate(
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				() => (document.querySelector('.akEditor .ProseMirror') as HTMLElement)?.offsetWidth || 0,
 			);
 

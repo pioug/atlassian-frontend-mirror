@@ -1,39 +1,6 @@
-import { type JsonLd } from 'json-ld-types';
-
-/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15961 Internal documentation for deprecation (no external access)} */
-export type ResolveResponse = JsonLd.Response;
-
-/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15961 Internal documentation for deprecation (no external access)} */
-export { SmartCardProvider as Provider, SmartCardContext } from './state';
-
-/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15961 Internal documentation for deprecation (no external access)} */
-export type { ProviderProps, CardType } from './state';
-
-/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15961 Internal documentation for deprecation (no external access)} */
-export type {
-	CardAdf,
-	InlineCardAdf,
-	BlockCardAdf,
-	EmbedCardAdf,
-	DatasourceAdf,
-	DatasourceAdfView,
-} from '@atlaskit/linking-common';
-
-/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15961 Internal documentation for deprecation (no external access)} */
-export { APIError } from '@atlaskit/linking-common';
-
-/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15961 Internal documentation for deprecation (no external access)} */
-export { CardClient as Client } from '@atlaskit/link-provider';
-
 export { Card } from './view/Card';
 export type { CardProps, CardAppearance, CardPlatform } from './view/Card';
 export { CardAction } from './view/Card/types';
-
-/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15961 Internal documentation for deprecation (no external access)} */
-export { SmartCardContext as Context } from '@atlaskit/link-provider';
-
-/** @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-15961 Internal documentation for deprecation (no external access)} */
-export type { CardContext } from '@atlaskit/link-provider';
 
 export { EmbedResizeMessageListener } from './view/EmbedCard/EmbedResizeMessageListener';
 export { ExpandedFrame } from './view/EmbedCard/components/ExpandedFrame';

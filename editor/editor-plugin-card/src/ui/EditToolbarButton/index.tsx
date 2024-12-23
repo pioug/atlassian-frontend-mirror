@@ -109,7 +109,11 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 			return (
 				<Flex gap="space.050">
 					<Button testId="edit-link" onClick={onEditLink}>
-						<FormattedMessage {...linkToolbarMessages.editLink} />
+						<FormattedMessage
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...linkToolbarMessages.editLink}
+						/>
 					</Button>
 					<Separator />
 				</Flex>
@@ -123,7 +127,11 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 						tooltipContent={intl.formatMessage(linkToolbarMessages.editDatasourceStandaloneTooltip)}
 						onClick={onEditDatasource}
 					>
-						<FormattedMessage {...linkToolbarMessages.editDatasourceStandalone} />
+						<FormattedMessage
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...linkToolbarMessages.editDatasourceStandalone}
+						/>
 					</Button>
 					<Separator />
 				</Flex>
@@ -144,7 +152,11 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 						disabled={false}
 						ariaHasPopup
 					>
-						<FormattedMessage {...messages.editDropdownTriggerTitle} />
+						<FormattedMessage
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...messages.editDropdownTriggerTitle}
+						/>
 					</Button>
 					<Separator />
 				</Flex>
@@ -164,14 +176,22 @@ const EditToolbarButtonWithCardContext = (props: EditDatasourceToolbarButtonProp
 						}}
 					>
 						<ButtonItem key="edit.link" onClick={onEditLink} testId="edit-dropdown-edit-link-item">
-							<FormattedMessage {...messages.editDropdownEditLinkTitle} />
+							<FormattedMessage
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...messages.editDropdownEditLinkTitle}
+							/>
 						</ButtonItem>
 						<ButtonItem
 							key="edit.datasource"
 							onClick={onEditDatasource}
 							testId="edit-dropdown-edit-datasource-item"
 						>
-							<FormattedMessage {...messages.editDropdownEditDatasourceTitle} />
+							<FormattedMessage
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...messages.editDropdownEditDatasourceTitle}
+							/>
 						</ButtonItem>
 					</UiDropdown>
 				</Flex>

@@ -28,7 +28,11 @@ const toolbarScrollButtons = css({
 	alignItems: 'center',
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const LeftIcon = ChevronLeftLargeIcon as React.ComponentClass<any>;
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const RightIcon = ChevronRightLargeIcon as React.ComponentClass<any>;
 
 interface ScrollButtonsProps {
@@ -90,6 +94,8 @@ export const ScrollButtons = ({ intl, scrollContainerRef, node, disabled }: Scro
 
 	const resizeObserver = new ResizeObserver((t) => {
 		const widthNeededToShowAllItems = scrollContainerRef.current?.scrollWidth || 0;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const availableSpace = (scrollContainerRef.current?.parentNode as HTMLElement)?.offsetWidth;
 
 		if (availableSpace >= widthNeededToShowAllItems) {

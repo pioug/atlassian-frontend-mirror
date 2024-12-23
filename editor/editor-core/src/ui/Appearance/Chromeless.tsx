@@ -56,6 +56,8 @@ type AppearanceProps = EditorAppearanceComponentProps<
 	[OptionalPlugin<MaxContentSizePlugin>, OptionalPlugin<EditorViewModePlugin>]
 >;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Editor extends React.Component<AppearanceProps> {
 	static displayName = 'ChromelessEditorAppearance';
 

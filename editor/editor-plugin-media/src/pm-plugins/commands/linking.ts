@@ -104,6 +104,8 @@ export const hideLinkingToolbar = (
 	dispatch?: CommandDispatch,
 	view?: EditorView,
 	focusFloatingToolbar?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	hideLinkingToolbarCommand(state, dispatch, view);
 
@@ -134,6 +136,8 @@ function getCurrentUrl(state: EditorState): string | undefined {
 	if (!hasLink) {
 		return;
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const link = node.marks.find((mark) => mark.type === linkType)!; // Already check exist
 	const url = (link.attrs as LinkAttributes).href;
 
@@ -226,6 +230,8 @@ const fireAnalyticForMediaLink = <T extends MediaLinkAEP>(
 	action: T['action'],
 	attributes: T['attributes'] = undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	editorAnalyticsAPI?.attachAnalyticsEvent({
 		action,

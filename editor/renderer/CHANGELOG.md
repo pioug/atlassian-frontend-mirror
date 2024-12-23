@@ -1,5 +1,19 @@
 # @atlaskit/renderer
 
+## 112.7.12
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.7.11
+
+### Patch Changes
+
+- [#98023](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98023)
+  [`445cdd27f00ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/445cdd27f00ae) -
+  [ux] Adds aria-hidden to table sort button in Renderer to remove extra announcement about disabled
+
 ## 112.7.10
 
 ### Patch Changes

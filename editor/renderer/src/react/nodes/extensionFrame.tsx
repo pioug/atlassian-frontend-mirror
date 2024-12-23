@@ -18,6 +18,8 @@ const containerCSS = css({
 });
 
 type Props = React.PropsWithChildren<{
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	serializer: Serializer<any>;
 	extensionHandlers?: ExtensionHandlers;
 	rendererContext: RendererContext;
@@ -25,8 +27,14 @@ type Props = React.PropsWithChildren<{
 	extensionType: string;
 	extensionKey: string;
 	path?: PMNode[];
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	originalContent?: any;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	parameters?: any;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	content?: any;
 	layout?: ExtensionLayout;
 	localId?: string;

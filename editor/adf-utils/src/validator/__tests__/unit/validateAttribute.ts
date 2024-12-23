@@ -136,9 +136,17 @@ describe('validateAttrs', () => {
 		});
 
 		it('should check pattern', () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			expect(validateAttrs({ ...spec, pattern: /^[a-z]+$/ }, 'abc')).toBeTruthy();
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			expect(validateAttrs({ ...spec, pattern: /^[a-z]+$/ }, 'aBc')).toBeFalsy();
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			expect(validateAttrs({ ...spec, pattern: /^[\d]+$/ }, '017')).toBeTruthy();
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			expect(validateAttrs({ ...spec, pattern: /^[\d]+$/ }, '0_0')).toBeFalsy();
 		});
 

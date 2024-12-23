@@ -64,6 +64,8 @@ export function addRow(
 					attrs = { background: cell.attrs.background };
 				}
 			}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			cells.push(type.createAndFill(attrs)!);
 		}
 	}

@@ -49,6 +49,8 @@ export interface Props {
 	wrapperElement: HTMLElement | null;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class PluginSlotLegacy extends React.Component<Props> {
 	static displayName = 'PluginSlot';
 
@@ -109,6 +111,8 @@ class PluginSlotLegacy extends React.Component<Props> {
 
 	removeModeChangeListener = (contentArea?: HTMLElement) => {
 		if (contentArea && this.transitionEvent) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			contentArea.removeEventListener(this.transitionEvent, this.forceComponentUpdate);
 		}
 	};
@@ -119,6 +123,8 @@ class PluginSlotLegacy extends React.Component<Props> {
 			 * Update the plugin components once the transition
 			 * to full width / default mode completes
 			 */
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			contentArea.addEventListener(this.transitionEvent, this.forceComponentUpdate);
 		}
 	};
@@ -161,6 +167,8 @@ class PluginSlotLegacy extends React.Component<Props> {
 							eventDispatcher: eventDispatcher as EventDispatcher,
 							providerFactory,
 							dispatchAnalyticsEvent,
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							appearance: appearance!,
 							popupsMountPoint,
 							popupsBoundariesElement,
@@ -223,6 +231,8 @@ const PluginSlot = ({
 						eventDispatcher: eventDispatcher as EventDispatcher,
 						providerFactory,
 						dispatchAnalyticsEvent,
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						appearance: appearance!,
 						popupsMountPoint,
 						popupsBoundariesElement,

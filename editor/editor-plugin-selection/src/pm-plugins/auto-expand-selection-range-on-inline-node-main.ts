@@ -12,9 +12,13 @@ export const createAutoExpandSelectionRangeOnInlineNodePlugin = () => {
 		props: {
 			handleDOMEvents: {
 				mousedown: (_view, event) => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					mouseDownElement = event.target as HTMLElement;
 				},
 				mouseup: (view, event) => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					const mouseUpElement = event.target as HTMLElement;
 
 					// terminate early if mouse down and mouse up elements are the same -> e.g a click event

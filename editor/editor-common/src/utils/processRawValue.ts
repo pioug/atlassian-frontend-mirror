@@ -22,6 +22,8 @@ import { findAndTrackUnsupportedContentNodes } from './track-unsupported-content
 import { validateADFEntity } from './validate-using-spec';
 
 interface NodeType {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
 }
 
@@ -95,6 +97,8 @@ export function processRawValueWithoutValidation(
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function processRawValue(
 	schema: Schema,
 	value?: ReplaceRawValue,
@@ -295,6 +299,8 @@ export function processRawValue(
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function processRawFragmentValue(
 	schema: Schema,
 	value?: ReplaceRawValue[],
@@ -330,7 +336,11 @@ export function processRawFragmentValue(
 function isProseMirrorSchemaCheckError(error: unknown): boolean {
 	return (
 		error instanceof RangeError &&
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		(!!error.message.match(/^Invalid collection of marks for node/) ||
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			!!error.message.match(/^Invalid content for node/))
 	);
 }

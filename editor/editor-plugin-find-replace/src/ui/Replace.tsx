@@ -279,7 +279,9 @@ class Replace extends React.PureComponent<ReplaceProps & WrappedComponentProps, 
 										'\u00a0' is value for &nbsp
 									*/
 										this.state.fakeSuccessReplacementMessageUpdate
-											? resultsReplace.replace(/ /, '\u00a0')
+											? // Ignored via go/ees005
+												// eslint-disable-next-line require-unicode-regexp
+												resultsReplace.replace(/ /, '\u00a0')
 											: resultsReplace
 									}
 								</ValidMessage>

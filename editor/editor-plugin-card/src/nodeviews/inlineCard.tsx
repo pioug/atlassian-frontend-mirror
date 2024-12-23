@@ -41,6 +41,8 @@ export const InlineCard = memo(
 		const { url, data } = node.attrs;
 
 		const scrollContainer: HTMLElement | undefined = useMemo(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			() => findOverflowScrollParent(view.dom as HTMLElement) || undefined,
 			[view.dom],
 		);
@@ -221,6 +223,8 @@ export function InlineCardNodeView(
 			useAlternativePreloader={useAlternativePreloader}
 			pluginInjectionApi={pluginInjectionApi}
 			onClickCallback={onClickCallback}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...(enableInlineUpgradeFeatures &&
 				getAwarenessProps(
 					view.state,
@@ -244,6 +248,8 @@ export const inlineCardNodeView =
 		view: EditorView,
 		getPos: () => number | undefined,
 		decorations: readonly Decoration[],
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		return inlineCardViewProducer(node, view, getPos, decorations);
 	};

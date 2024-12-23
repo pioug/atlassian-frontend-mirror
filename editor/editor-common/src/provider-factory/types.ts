@@ -33,13 +33,21 @@ export interface Providers {
 	searchProvider?: Promise<SearchProvider>;
 	activityProvider?: Promise<ActivityProvider>;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	presenceProvider?: Promise<any>; // TODO: https://product-fabric.atlassian.net/browse/ED-8592
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	reactionsStore?: Promise<any>; // TODO: https://product-fabric.atlassian.net/browse/ED-8593
 }
 
 export type ProviderName = keyof Providers;
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ProviderType<T> = T extends keyof Providers ? Providers[T] : Promise<any>;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ProviderHandler<T extends string = any> = (
 	name: T,
 	provider?: ProviderType<typeof name>,

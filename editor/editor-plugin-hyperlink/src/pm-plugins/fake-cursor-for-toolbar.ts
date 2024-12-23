@@ -32,6 +32,8 @@ const fakeCursorToolbarPlugin: SafePlugin = new SafePlugin({
 		init() {
 			return DecorationSet.empty;
 		},
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 		apply(tr, pluginState: DecorationSet, oldState, newState) {
 			const oldInsertToolbarState = getInsertLinkToolbarState(oldState);
 			const insertToolbarState = getInsertLinkToolbarState(newState);

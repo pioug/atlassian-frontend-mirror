@@ -38,6 +38,8 @@ type WindowForTesting = Window & {
 };
 
 const RawEditor = (props: EditorNextProps) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const onEditorReady = React.useCallback((editorActions: any) => {
 		const view = editorActions._privateGetEditorView();
 		(window as WindowForTesting).__editorView = view;
@@ -76,6 +78,8 @@ function createEditorExampleForTests() {
 		baseDuration: number,
 		startTime: number,
 		commitTime: number,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const entry: LibraReactPerformanceEntry = {
 			id,

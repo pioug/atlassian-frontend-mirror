@@ -26,6 +26,8 @@ export function isTextNode(elem: HTMLElement | Element): boolean {
 /**
  * Decides if given fitHeight fits below or above the target taking boundaries into account.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function getVerticalPlacement(
 	target: HTMLElement,
 	boundariesElement: HTMLElement,
@@ -43,6 +45,8 @@ export function getVerticalPlacement(
 	}
 
 	if (isTextNode(target)) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		target = target.parentElement!;
 	}
 
@@ -71,6 +75,8 @@ export function getVerticalPlacement(
 /**
  * Decides if given fitWidth fits to the left or to the right of the target taking boundaries into account.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function getHorizontalPlacement(
 	target: HTMLElement,
 	boundariesElement: HTMLElement,
@@ -89,6 +95,8 @@ export function getHorizontalPlacement(
 	}
 
 	if (isTextNode(target)) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		target = target.parentElement!;
 	}
 
@@ -106,6 +114,8 @@ export function getHorizontalPlacement(
 	return 'right';
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function calculatePlacement(
 	target: HTMLElement,
 	boundariesElement: HTMLElement,
@@ -411,9 +421,13 @@ export function calculatePosition({
 	}
 
 	if (isTextNode(target)) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		target = target.parentElement!;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const popupOffsetParent = popup.offsetParent as HTMLElement;
 	const offsetParentStyle = popupOffsetParent.style;
 	let borderBottomWidth = 0;
@@ -516,6 +530,8 @@ export function findOverflowScrollParent(popup: HTMLElement | null): HTMLElement
 		return false;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line no-cond-assign
 	while ((parent = parent.parentElement)) {
 		// IE11 on Window 8 doesn't show styles from CSS when accessing through element.style property.
 		const style = window.getComputedStyle(parent);

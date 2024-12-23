@@ -36,7 +36,11 @@ export interface ResourceProvider {
 	subscribe(handler: Handler): Unsubscribe;
 	create(
 		localId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		meta: any,
 		objectId: string,
 		containerId?: string,
@@ -44,9 +48,13 @@ export interface ResourceProvider {
 	addComment(
 		conversationId: string,
 		parentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		document: any,
 		localId?: string,
 	): Promise<Comment>;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	updateComment(conversationId: string, commentId: string, document: any): Promise<Comment>;
 	deleteComment(
 		conversationId: string,
@@ -59,9 +67,13 @@ export interface ResourceProvider {
 	updateUser(user?: User): Promise<User | undefined>;
 	saveDraft(
 		isLocal: boolean,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
 		conversationId: string,
 		commentId: string | undefined,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		meta: any,
 		objectId: string,
 		containerId?: string,
@@ -124,9 +136,15 @@ export class AbstractConversationResource implements ResourceProvider {
 	/**
 	 * Creates a new Conversation and associates it with the containerId provided.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	create(
 		_localId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		_value: any,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		_meta: any,
 		_objectId: string,
 		_containerId?: string,
@@ -137,9 +155,13 @@ export class AbstractConversationResource implements ResourceProvider {
 	/**
 	 * Adds a comment to a parent, or update if existing. ParentId can be either a conversation or another comment.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await, @typescript-eslint/max-params
 	async addComment(
 		_conversationId: string,
 		_parentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		_doc: any,
 		_localId?: string,
 	): Promise<Comment> {
@@ -149,9 +171,13 @@ export class AbstractConversationResource implements ResourceProvider {
 	/**
 	 * Updates a comment based on ID. Returns updated content
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async updateComment(
 		_conversationId: string,
 		_commentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		_document: any,
 	): Promise<Comment> {
 		return Promise.reject('Not implemented');
@@ -160,6 +186,8 @@ export class AbstractConversationResource implements ResourceProvider {
 	/**
 	 * Deletes a comment based on ID. Returns updated comment.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async deleteComment(
 		_conversationId: string,
 		_commentId: string,
@@ -170,6 +198,8 @@ export class AbstractConversationResource implements ResourceProvider {
 	/**
 	 * Reverts a comment based on ID.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async revertComment(
 		_conversationId: string,
 		_commentId: string,
@@ -180,15 +210,23 @@ export class AbstractConversationResource implements ResourceProvider {
 	/**
 	 * Updates a user in the store. Returns updated user
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async updateUser(_user?: User): Promise<User | undefined> {
 		return Promise.reject('Not implemented');
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	saveDraft(
 		_isLocal: boolean,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		_value: any,
 		_conversationId: string,
 		_commentId: string | undefined,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		_meta: any,
 		_objectId: string,
 		_containerId?: string,
@@ -220,6 +258,8 @@ export class ConversationResource extends AbstractConversationResource {
 			...options,
 		};
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const response = await fetch(`${url}${path}`, fetchOptions as any);
 
 		if (!response.ok) {
@@ -257,9 +297,15 @@ export class ConversationResource extends AbstractConversationResource {
 	/**
 	 * Creates a new Conversation and associates it with the containerId provided.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	async create(
 		localId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		meta: any,
 		objectId: string,
 		containerId?: string,
@@ -300,6 +346,8 @@ export class ConversationResource extends AbstractConversationResource {
 					isMain,
 				}),
 			});
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			result = { ...tempConversation, error };
 			dispatch({ type: CREATE_CONVERSATION_ERROR, payload: result });
@@ -323,9 +371,13 @@ export class ConversationResource extends AbstractConversationResource {
 	/**
 	 * Adds a comment to a parent, or update if existing. ParentId can be either a conversation or another comment.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	async addComment(
 		conversationId: string,
 		parentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		doc: any,
 		localId?: string,
 	): Promise<Comment> {
@@ -373,6 +425,8 @@ export class ConversationResource extends AbstractConversationResource {
 	/**
 	 * Updates a comment based on ID. Returns updated content
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	async updateComment(conversationId: string, commentId: string, document: any): Promise<Comment> {
 		const { dispatch } = this;
 		const tempComment = this.getComment(conversationId, commentId);
@@ -429,7 +483,7 @@ export class ConversationResource extends AbstractConversationResource {
 		});
 
 		try {
-			await this.makeRequest<{}>(`/conversation/${conversationId}/comment/${commentId}`, {
+			await this.makeRequest<Object>(`/conversation/${conversationId}/comment/${commentId}`, {
 				method: 'DELETE',
 			});
 		} catch (error) {
@@ -452,6 +506,8 @@ export class ConversationResource extends AbstractConversationResource {
 	/**
 	 * Reverts a comment based on ID.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async revertComment(
 		conversationId: string,
 		commentId: string,
@@ -468,6 +524,8 @@ export class ConversationResource extends AbstractConversationResource {
 	/**
 	 * Updates a user in the store. Returns updated user
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async updateUser(user?: User): Promise<User | undefined> {
 		const { dispatch } = this;
 		dispatch({ type: UPDATE_USER_SUCCESS, payload: { user } });
@@ -478,9 +536,15 @@ export class ConversationResource extends AbstractConversationResource {
 	/**
 	 * Internal helper methods for optimistic updates
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	private createConversation(
 		localId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		meta: any,
 		objectId: string,
 		containerId?: string,
@@ -497,9 +561,13 @@ export class ConversationResource extends AbstractConversationResource {
 		};
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	protected createComment(
 		conversationId: string,
 		parentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		doc: any,
 		localId: string = uuid.generate(),
 	): Comment {
@@ -507,6 +575,8 @@ export class ConversationResource extends AbstractConversationResource {
 		const state = store.getState();
 
 		return {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			createdBy: state!.user || { id: 'unknown' },
 			createdAt: Date.now(),
 			commentId: uuid.generate(),

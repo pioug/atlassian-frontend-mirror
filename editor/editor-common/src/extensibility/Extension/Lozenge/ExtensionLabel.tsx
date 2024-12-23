@@ -106,6 +106,8 @@ export const getShouldShowBodiedMacroLabel = (
 	showLivePagesBodiedMacrosRendererView: boolean | undefined,
 	showBodiedExtensionRendererView: boolean | undefined,
 	showUpdatedLivePages1PBodiedExtensionUI: boolean | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	// Bodied macros show the label by default except for the new live pages 1P bodied macro experience where we only show it on hover
 	if (!isBodiedMacro || showUpdatedLivePages1PBodiedExtensionUI) {
@@ -192,12 +194,21 @@ export const ExtensionLabel = ({
 			data-testid="new-lozenge-container"
 		>
 			<Tooltip
-				content={<FormattedMessage {...i18n.configure} values={{ macroName: text }} />}
+				content={
+					<FormattedMessage
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...i18n.configure}
+						values={{ macroName: text }}
+					/>
+				}
 				position="top"
 			>
 				{(tooltipProps) => (
 					<span
 						data-testid="new-lozenge-button"
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...tooltipProps}
 						css={labelStyles}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

@@ -34,6 +34,8 @@ export const getParentNodeWidth = (
 	state: EditorState,
 	containerWidth: EditorContainerWidth,
 	isFullWidthModeEnabled?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (!pos) {
 		return;
@@ -58,6 +60,8 @@ export const getParentNodeWidth = (
 	const contextPanelPluginKey = {
 		key: 'contextPanelPluginKey$',
 		getState: (state: EditorState) => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			return (state as any)['contextPanelPluginKey$'];
 		},
 	} as PluginKey;

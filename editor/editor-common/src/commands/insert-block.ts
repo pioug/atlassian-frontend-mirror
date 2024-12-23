@@ -8,11 +8,17 @@ export const insertBlock = (
 	nodeType: NodeType,
 	start: number,
 	end: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: { [key: string]: any },
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Transaction | null => {
 	// To ensure that match is done after HardBreak.
 	const { hardBreak, codeBlock, listItem } = state.schema.nodes;
 	const $pos = state.doc.resolve(start);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	if ($pos.nodeAfter!.type !== hardBreak) {
 		return null;
 	}
@@ -57,6 +63,8 @@ export const insertBlock = (
 	// Add new node.
 	tr = tr
 		.setSelection(new NodeSelection(tr.doc.resolve(start + 1)))
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		.replaceSelectionWith(newNode!)
 		.setSelection(new TextSelection(tr.doc.resolve(start + depth)));
 	return tr;

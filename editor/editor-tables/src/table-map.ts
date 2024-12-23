@@ -28,6 +28,8 @@ if (typeof WeakMap !== 'undefined') {
 		return value;
 	};
 } else {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let cache: any[] = [];
 	let cacheSize = 10;
 	let cachePos = 0;
@@ -52,6 +54,8 @@ export class Rect {
 	top: number;
 	right: number;
 	bottom: number;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(left: number, top: number, right: number, bottom: number) {
 		this.left = left;
 		this.top = top;
@@ -130,6 +134,8 @@ export class TableMap {
 	mapByColumn: number[][] = [];
 	mapByRow: number[][] = [];
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		width: number,
 		height: number,
@@ -511,6 +517,8 @@ function findBadColWidths(map: TableMap, colWidths: number[], table: PMNode) {
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function freshColWidth(attrs: { [key: string]: any }) {
 	if (attrs.colwidth) {
 		return attrs.colwidth.slice();

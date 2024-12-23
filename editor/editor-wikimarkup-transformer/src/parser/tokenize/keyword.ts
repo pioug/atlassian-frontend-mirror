@@ -9,34 +9,50 @@ interface KeywordToken {
 export const macroKeywordTokenMap: KeywordToken[] = [
 	{
 		type: TokenType.ADF_MACRO,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^{adf/i,
 	},
 	{
 		type: TokenType.ANCHOR_MACRO,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^{anchor/i,
 	},
 	{
 		type: TokenType.CODE_MACRO,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^{code/i,
 	},
 	{
 		type: TokenType.QUOTE_MACRO,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^{quote/i,
 	},
 	{
 		type: TokenType.NOFORMAT_MACRO,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^{noformat/i,
 	},
 	{
 		type: TokenType.PANEL_MACRO,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^{panel/i,
 	},
 	{
 		type: TokenType.COLOR_MACRO,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^{color/,
 	},
 	{
 		type: TokenType.LOREM_MACRO,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^{loremipsum/i,
 	},
 ];
@@ -123,31 +139,45 @@ export function parseOtherKeyword(input: string): { type: TokenType } | null {
 const leadingKeywordTokenMap: KeywordToken[] = [
 	{
 		type: TokenType.QUOTE,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^bq\./,
 	},
 	{
 		type: TokenType.HEADING,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^h[1-6]\./,
 	},
 	{
 		type: TokenType.RULER,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^-{4,5}(\s|$)/,
 	},
 	{
 		type: TokenType.TRIPLE_DASH_SYMBOL,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^-{3}\s/,
 	},
 	{
 		type: TokenType.DOUBLE_DASH_SYMBOL,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^-{2}\s/,
 	},
 	{
 		// Lists are limited to max 20 levels of depth
 		type: TokenType.LIST,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: new RegExp(`^([*#]{1,${MAX_LIST_DEPTH}}|-) `),
 	},
 	{
 		type: TokenType.TABLE,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		regex: /^\|{1,2}/,
 	},
 ];

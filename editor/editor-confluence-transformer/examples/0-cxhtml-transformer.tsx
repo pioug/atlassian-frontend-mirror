@@ -85,6 +85,8 @@ type ExampleState = {
 	output: string;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class Example extends Component<ExampleProps, ExampleState> {
 	state = {
 		input: '',
@@ -207,6 +209,8 @@ export type ExampleWrapperState = {
 	isMediaReady?: boolean;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ExampleWrapper extends Component<ExampleWrapperProps, ExampleWrapperState> {
 	state: ExampleWrapperState = {
 		cxhtml: '',

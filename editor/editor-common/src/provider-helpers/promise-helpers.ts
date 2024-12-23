@@ -10,6 +10,8 @@ type FulfiledResult<T> = {
 
 type RejectedResult = {
 	status: ResultStatus.FAILED;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	reason: any;
 };
 
@@ -21,6 +23,8 @@ const markFullfilled = <T>(value: T): FulfiledResult<T> => ({
 	value: value,
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const markRejected = (error: any): RejectedResult => ({
 	status: ResultStatus.FAILED,
 	reason: error,

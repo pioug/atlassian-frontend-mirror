@@ -119,6 +119,8 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillReceiveProps(nextProps: MediaSingleNodeProps) {
 		if (!this.mediaNodeUpdater) {
 			this.createOrUpdateMediaNodeUpdater(nextProps);
@@ -180,6 +182,8 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 		}
 
 		if (node.attrs.type === 'external' && node.attrs.__external) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const updatingNode = this.mediaNodeUpdater!.handleExternalMedia(this.props.getPos);
 			addPendingTask(updatingNode);
 			await updatingNode;
@@ -196,6 +200,8 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 		if (hasDifferentContextId) {
 			this.setState({ isCopying: true });
 			try {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const copyNode = this.mediaNodeUpdater!.copyNode({
 					traceId: node.attrs.__mediaTraceId,
 				});
@@ -528,6 +534,8 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 				{canResize ? (
 					fg('platform_editor_media_extended_resize_experience') ? (
 						<ResizableMediaSingleNext
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...resizableMediaSingleProps}
 							showLegacyNotification={widthType !== 'pixel'}
 						>
@@ -535,6 +543,8 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 						</ResizableMediaSingleNext>
 					) : (
 						<ResizableMediaSingle
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...resizableMediaSingleProps}
 							lineLength={contentWidthForLegacyExperience}
 							pctWidth={mediaSingleWidthAttribute}
@@ -544,6 +554,8 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 					)
 				) : (
 					<MediaSingle
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...mediaSingleProps}
 						pctWidth={mediaSingleWidthAttribute}
 						size={{ width: mediaSingleWidthAttribute, widthType: widthType }}
@@ -633,7 +645,11 @@ const MediaSingleNodeWrapper = ({
 
 	return (
 		<MediaSingleNode
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			width={widthState!.width}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			lineLength={widthState!.lineLength}
 			node={node}
 			getPos={getPos}
@@ -783,6 +799,8 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		return false;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	update(
 		node: PMNode,
 		decorations: readonly Decoration[],
@@ -826,7 +844,11 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 							fullWidthMode={fullWidthMode}
 							selected={this.isNodeSelected}
 							eventDispatcher={eventDispatcher}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							dispatchAnalyticsEvent={dispatchAnalyticsEvent!}
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							forwardRef={forwardRef!}
 							editorAppearance={editorAppearance}
 						/>
@@ -839,6 +861,8 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 	ignoreMutation() {
 		// DOM has changed; recalculate if we need to re-render
 		if (this.dom) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const offsetLeft = (this.dom as HTMLElement).offsetLeft;
 
 			if (offsetLeft !== this.lastOffsetLeft) {
@@ -865,6 +889,8 @@ export const ReactMediaSingleNode =
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 		mediaOptions: MediaOptions = {},
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler) => {
 		return new MediaSingleNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {

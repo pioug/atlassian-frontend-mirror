@@ -1,14 +1,15 @@
-import React from 'react';
-import { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 import { type Actions, Context, type State } from '../context/context';
 
 export interface Props<
-	PropsFromState extends {},
-	PropsFromActions extends {},
-	RenderProps extends {},
+	PropsFromState extends Object,
+	PropsFromActions extends Object,
+	RenderProps extends Object,
 > {
 	stateMapper?: (state: State) => PropsFromState;
 	actionsMapper?: (actions: Actions) => PropsFromActions;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	renderPropsMapper?: (renderProps: any) => RenderProps;
 	children: (props: PropsFromState & PropsFromActions & RenderProps) => React.ReactNode;
 }
@@ -19,10 +20,12 @@ export interface ConsumerProps<A, V, R> {
 	renderProps: R;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class Consumer<
-	PropsFromState extends {},
-	PropsFromActions extends {},
-	RenderProps extends {},
+	PropsFromState extends Object,
+	PropsFromActions extends Object,
+	RenderProps extends Object,
 > extends PureComponent<Props<PropsFromState, PropsFromActions, RenderProps>> {
 	private previousActions: Actions | undefined;
 	private propsFromActions: PropsFromActions | undefined;

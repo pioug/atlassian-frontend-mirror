@@ -26,6 +26,8 @@ import { calcBreakoutWidth } from '@atlaskit/editor-common/utils';
 import { token } from '@atlaskit/tokens';
 
 type Props = React.PropsWithChildren<{
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	serializer: Serializer<any>;
 	extensionHandlers?: ExtensionHandlers;
 	rendererContext: RendererContext;
@@ -33,8 +35,14 @@ type Props = React.PropsWithChildren<{
 	extensionType: string;
 	extensionKey: string;
 	path?: PMNode[];
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	originalContent?: any;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	parameters?: any;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	content?: any;
 	layout?: ExtensionLayout;
 	localId?: string;
@@ -43,6 +51,8 @@ type Props = React.PropsWithChildren<{
 
 type ActionsProps = {
 	updateActiveChild: (index: number) => boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children: any;
 };
 const useMultiBodiedExtensionActions = ({ updateActiveChild, children }: ActionsProps) => {
@@ -63,6 +73,8 @@ const useMultiBodiedExtensionActions = ({ updateActiveChild, children }: Actions
 			updateParameters(parameters): boolean {
 				return false;
 			},
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			getChildren(): Array<any> {
 				return [];
 			},
@@ -88,6 +100,8 @@ const MultiBodiedExtension = (props: Props) => {
 	const [activeChildIndex, setActiveChildIndex] = useState<number>(0);
 
 	const removeOverflow = React.Children.toArray(children)
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		.map((child) => (React.isValidElement<any>(child) ? child.props.nodeType === 'table' : false))
 		.every(Boolean);
 	const overflowContainerClass = !removeOverflow
@@ -155,7 +169,13 @@ const MultiBodiedExtension = (props: Props) => {
 					css={navigationCssExtended}
 					data-testid="multiBodiedExtension-navigation"
 				>
-					<ExtensionRenderer {...props} actions={actions} type="multiBodiedExtension">
+					<ExtensionRenderer
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...props}
+						actions={actions}
+						type="multiBodiedExtension"
+					>
 						{({ result }) => {
 							try {
 								if (result && React.isValidElement(result)) {

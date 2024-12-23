@@ -5,6 +5,8 @@ import type { INPUT_METHOD } from '../analytics/types/enums';
 import type { TypeAheadItem } from '../types/type-ahead';
 
 export type QuickInsertActionInsert = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	node?: Node | Record<string, any> | string,
 	opts?: { selectInlineNode?: boolean },
 ) => Transaction;

@@ -15,8 +15,9 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { type CardContext } from '@atlaskit/link-provider';
+import type { APIError } from '@atlaskit/linking-common';
 import { fg } from '@atlaskit/platform-feature-flags';
-import type { APIError, CardProps as BaseCardProps } from '@atlaskit/smart-card';
+import type { CardProps as BaseCardProps } from '@atlaskit/smart-card';
 
 import type { CardPlugin } from '../cardPluginType';
 import type { cardPlugin } from '../index';
@@ -180,6 +181,8 @@ export function Card(
 									<SmartCardComponent
 										key={url}
 										cardContext={cardContext}
+										// Ignored via go/ees005
+										// eslint-disable-next-line react/jsx-props-no-spreading
 										{...this.props}
 										onClick={onClick}
 									/>

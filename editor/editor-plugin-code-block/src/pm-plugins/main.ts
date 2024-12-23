@@ -74,6 +74,8 @@ export const createPlugin = ({
 				eventText[eventText?.length - 1] === '\n' &&
 				findCodeBlock(view.state, view.state.selection)
 			) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const resultingText = (event.target as any).outerText + '\n';
 
 				if (resultingText.endsWith(eventText)) {
@@ -122,6 +124,8 @@ export const createPlugin = ({
 					decorations: DecorationSet.create(state.doc, initialDecorations),
 				};
 			},
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(tr, pluginState: CodeBlockState, _oldState, newState): CodeBlockState {
 				const meta = tr.getMeta(pluginKey);
 

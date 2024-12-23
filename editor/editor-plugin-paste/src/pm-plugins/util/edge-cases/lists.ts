@@ -119,6 +119,8 @@ export function insertSliceInsideOfPanelNodeSelected(panelNode: PMNode) {
 			return;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const temporaryDoc = new Transform(tr.doc.type.createAndFill()!);
 		temporaryDoc.replaceRange(0, temporaryDoc.doc.content.size, slice);
 		const sliceWithoutInvalidListSurrounding = temporaryDoc.doc.slice(0);

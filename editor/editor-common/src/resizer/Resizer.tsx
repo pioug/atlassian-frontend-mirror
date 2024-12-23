@@ -193,6 +193,8 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 			_direction: ResizeDirection,
 			_elementRef: HTMLDivElement,
 			delta: Dimensions,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 		) => {
 			if (!handleResize) {
 				return;
@@ -219,6 +221,8 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 			_direction: ResizeDirection,
 			_elementRef: HTMLElement,
 			delta: Dimensions,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 		) => {
 			const resizableCurrent = resizable.current;
 			if (!resizableCurrent || !resizableCurrent.state.original) {
@@ -380,6 +384,8 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 			snapGap={snapGapActual}
 			snap={snap}
 			handleComponent={handleComponent}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...otherProps}
 		>
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}

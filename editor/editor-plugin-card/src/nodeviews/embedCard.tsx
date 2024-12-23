@@ -115,6 +115,8 @@ const CardInner = ({
 
 		return (
 			<RichMediaWrapper
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...cardProps}
 				height={richMediaWrapperHeight}
 				width={richMediaWrapperWidth}
@@ -137,6 +139,8 @@ const CardInner = ({
 
 	return (
 		<ResizableEmbedCard
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...cardProps}
 			height={heightAlone}
 			aspectRatio={aspectRatio}
@@ -148,6 +152,8 @@ const CardInner = ({
 			displayGrid={displayGrid}
 			updateSize={updateSize}
 			dispatchAnalyticsEvent={dispatchAnalyticsEvent}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...(fg('platform_fix_embedded_card_re-rendering') && {
 				isResizeDisabled: editorDisabledState?.editorDisabled,
 			})}
@@ -170,6 +176,8 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 
 	constructor(props: SmartCardProps) {
 		super(props);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
 	}
 

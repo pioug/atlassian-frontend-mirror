@@ -8,11 +8,19 @@ import { N30 } from '@atlaskit/theme/colors';
  */
 export const getMediaAttrs = (nodeName: string, node: PMNode) => {
 	const copyPrivateAttributes: (
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		from: Record<string, any>,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		to: Record<string, any>,
 		map?: ((str: string) => string) | undefined,
 	) => void = (
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		from: Record<string, any>,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		to: Record<string, any>,
 		map?: (str: string) => string,
 	) => {
@@ -49,6 +57,8 @@ export const getMediaAttrs = (nodeName: string, node: PMNode) => {
 };
 
 export const camelCaseToKebabCase = (str: string) =>
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	str.replace(/([^A-Z]+)([A-Z])/g, (_, x, y) => `${x}-${y.toLowerCase()}`);
 
 /**

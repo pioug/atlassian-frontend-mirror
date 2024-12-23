@@ -168,6 +168,8 @@ const shouldLetTabThroughInTable = (state: EditorState) => {
 	const curIndentLevel = getCurrentIndentLevel(state.selection);
 	const curIndex = getTaskItemIndex(state);
 	const { tableCell, tableHeader } = state.schema.nodes;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const cell = findParentNodeOfType([tableCell, tableHeader])(state.selection)!;
 
 	if (((curIndentLevel === 1 && curIndex === 0) || isInsideDecision(state)) && cell) {
@@ -355,6 +357,8 @@ const splitListItemWith = (
 	content: Fragment | Node | Node[],
 	$from: ResolvedPos,
 	setSelection: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const origDoc = tr.doc;
 
@@ -535,6 +539,8 @@ const cmdOptEnter: Command = filter(isInsideTaskOrDecisionItem, (state, dispatch
 	return true;
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function keymapPlugin(
 	schema: Schema,
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
@@ -571,6 +577,8 @@ export function keymapPlugin(
 		'Ctrl-d': deleteForwards,
 
 		Enter: enter(api?.analytics?.actions, getContextIdentifier),
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		[toggleTaskItemCheckbox.common!]: cmdOptEnter,
 
 		...(allowNestedTasks ? indentHandlers : defaultHandlers),

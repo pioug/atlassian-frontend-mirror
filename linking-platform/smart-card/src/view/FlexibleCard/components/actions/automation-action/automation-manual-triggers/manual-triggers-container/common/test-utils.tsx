@@ -34,15 +34,6 @@ export const createStubInvokeManuallyTriggeredRule =
 			: Promise.resolve(response);
 	};
 
-/**
- * Default stubbed invokeManuallyTriggeredRule call. Returns 'SUCCESS' for
- * all objects the rule was called for.
- */
-export const successStubInvokeManuallyTriggeredRule = createStubInvokeManuallyTriggeredRule(
-	'SUCCESS',
-	2000,
-);
-
 const Provider = ({
 	children,
 	use,

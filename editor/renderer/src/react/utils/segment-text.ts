@@ -36,6 +36,8 @@ export function segmentText(
 				text: markTextMatch[0],
 				groups:
 					markTextMatch.groups &&
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					Object.keys(markTextMatch.groups).filter((key) => markTextMatch.groups![key]),
 			});
 			pos = markTextMatch.index + markTextMatch[0].length;

@@ -15,16 +15,22 @@ export type EditorContextProps = React.PropsWithChildren<EditorContextInternal>;
 
 export const useEditorContext = () => React.useContext<EditorContextProps>(EditorContext);
 
-export class LegacyEditorContext extends React.Component<EditorContextProps, {}> {
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components, react/prefer-stateless-function
+export class LegacyEditorContext extends React.Component<EditorContextProps, Object> {
 	constructor(props: EditorContextProps) {
 		super(props);
 	}
 
 	render() {
 		if (fg('platform_editor_react18_phase2_v2')) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			return <LegacyEditorContextNew {...this.props}>{this.props.children}</LegacyEditorContextNew>;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		return <LegacyEditorContextOld {...this.props}>{this.props.children}</LegacyEditorContextOld>;
 	}
 }
@@ -37,7 +43,9 @@ function LegacyEditorContextNew({ children, editorActions }: EditorContextProps)
 	);
 }
 
-export default class LegacyEditorContextOld extends React.Component<EditorContextProps, {}> {
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
+export default class LegacyEditorContextOld extends React.Component<EditorContextProps, Object> {
 	static childContextTypes = {
 		editorActions: PropTypes.object,
 	};

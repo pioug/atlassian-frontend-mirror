@@ -11,7 +11,7 @@ export type LinkInputType = INPUT_METHOD.MANUAL | INPUT_METHOD.TYPEAHEAD;
  * Configuration for the link picker
  * Extends `LinkPickerProps` to provide future extensibility out-of-the-box
  */
-export interface LinkPickerOptions extends Partial<LinkPickerProps> {}
+export type LinkPickerOptions = Partial<LinkPickerProps>;
 
 /**
  * Configuration for editor linking behaviours

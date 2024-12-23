@@ -90,6 +90,8 @@ export default class ActivityResource implements ActivityProvider {
 				type: node.object.type,
 				viewedTimestamp: node.timestamp,
 			}));
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			throw new ActivityError(err.reason, err.code);
 		}

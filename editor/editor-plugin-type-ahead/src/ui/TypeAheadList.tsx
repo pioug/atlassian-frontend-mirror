@@ -212,6 +212,8 @@ const TypeAheadListComponent = React.memo(
 			// Scrolling back to top for consistency
 			requestAnimationFrame(() => {
 				if (listContainerRef.current?.firstChild) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					(listContainerRef.current.firstChild as HTMLElement).scrollTo(0, 0);
 				}
 			});
@@ -277,8 +279,12 @@ const TypeAheadListComponent = React.memo(
 					focusTargetElement();
 				}
 			};
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element?.addEventListener('keydown', handleKeyDown);
 			return () => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				element?.removeEventListener('keydown', handleKeyDown);
 			};
 		}, [

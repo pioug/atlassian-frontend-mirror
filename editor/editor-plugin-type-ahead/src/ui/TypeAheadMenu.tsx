@@ -26,6 +26,8 @@ export const TypeAheadMenu = React.memo(
 			typeAheadState;
 
 		const [onItemInsert, onTextInsert, onItemMatch] = useItemInsert(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			triggerHandler!,
 			editorView,
 			items,

@@ -55,6 +55,8 @@ export interface MediaPluginState {
 		pickerType?: string,
 		insertMediaVia?: InsertMediaVia,
 	) => void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	addPendingTask: (promise: Promise<any>) => void;
 	splitMediaGroup: () => boolean;
 	onPopupPickerClose: () => void;

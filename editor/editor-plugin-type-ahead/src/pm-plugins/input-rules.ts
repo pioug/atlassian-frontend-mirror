@@ -22,6 +22,8 @@ export function inputRulePlugin(
 			return acc;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		const regex = new RegExp(`(^|[.!?\\s${leafNodeReplacementCharacter}])(${trigger})$`);
 
 		acc.push(

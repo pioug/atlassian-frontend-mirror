@@ -151,8 +151,12 @@ const moveReducer = (state: ReducerState, action: ReducerAction): ReducerState =
 	}
 
 	const newIndex = state.selectedItemIndex
-		? state.selectedItemIndex + action.payload.positions!
-		: action.payload.positions!;
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			state.selectedItemIndex + action.payload.positions!
+		: // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+			action.payload.positions!;
 
 	const safeIndex = ensureSafeIndex(newIndex, state.listSize);
 	// down arrow key is pressed or right arrow key is pressed.
@@ -232,6 +236,8 @@ const skipForwardOffsetToSafeItem = (
 	listSize: number,
 	stepSize: number,
 	itemIsDisabled: (idx: number) => boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): number | undefined => {
 	if (currentIndex === undefined) {
 		return undefined;
@@ -283,6 +289,8 @@ export type useSelectAndFocusReturnType = {
 	setFocusOnSearch: () => void;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function useSelectAndFocusOnArrowNavigation(
 	listSize: number,
 	step: number,

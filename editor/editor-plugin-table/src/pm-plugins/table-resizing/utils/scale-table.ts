@@ -42,6 +42,8 @@ const scale = (
 	isTableScalingEnabledOnCurrentTable = false,
 	shouldUseIncreasedScalingPercent = false,
 	isCommentEditor = false,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): ResizeState | undefined => {
 	const {
 		node,
@@ -107,6 +109,8 @@ const scaleWithParent = (
 	isTableScalingEnabledOnCurrentTable = false,
 	shouldUseIncreasedScalingPercent = false,
 	isCommentEditor = false,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const resizeState = getResizeState({
 		minWidth: tableCellMinWidth,
@@ -159,6 +163,8 @@ export const previewScaleTable = (
 	isTableScalingEnabled: boolean = false,
 	isTableWithFixedColumnWidthsOptionEnabled: boolean = false,
 	isCommentEditor: boolean = false,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { node, start, parentWidth } = options;
 
@@ -219,6 +225,8 @@ export const scaleTable =
 		isTableScalingEnabledOnCurrentTable = false,
 		shouldUseIncreasedScalingPercent = false,
 		isCommentEditor = false,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(tr: Transaction) => {
 		if (!tableRef) {

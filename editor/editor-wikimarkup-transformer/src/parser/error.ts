@@ -1,3 +1,5 @@
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function error(message: string, _input: string, line: number, column: number) {
 	throw createError({
 		message,
@@ -6,6 +8,8 @@ export function error(message: string, _input: string, line: number, column: num
 	});
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createError(props: any) {
 	const err = Object.create(SyntaxError.prototype);
 

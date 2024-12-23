@@ -34,9 +34,13 @@ export type ContextPanelProviderState = {
 	positionedOverEditor?: boolean;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
 export class ContextPanelWidthProvider extends React.Component<any, ContextPanelProviderState> {
 	state = { width: 0, positionedOverEditor: false };
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	constructor(props: any) {
 		super(props);
 	}

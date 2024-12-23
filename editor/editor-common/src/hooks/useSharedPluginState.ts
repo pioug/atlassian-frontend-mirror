@@ -13,10 +13,12 @@ import type {
 } from '../types/next-editor-plugin';
 
 export type NamedPluginStatesFromInjectionAPI<
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	API extends ExtractInjectionAPI<NextEditorPlugin<any, any>>,
 	PluginNames extends string | number | symbol,
 > = Readonly<{
-	[K in PluginNames as `${K extends string ? K : never}State`]: API[K] extends
+	[K in PluginNames as `${K extends string ? K : never}State`]: API[K] extends  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Ignored via go/ees005
 		| BasePluginDependenciesAPI<any>
 		| undefined
 		? Exclude<API[K], undefined> extends BasePluginDependenciesAPI<infer Metadata>
@@ -27,9 +29,13 @@ export type NamedPluginStatesFromInjectionAPI<
 		: never;
 }>;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExtractPluginNames<API extends EditorInjectionAPI<any, any>> = keyof API;
 
 type NamedPluginKeys = Readonly<{
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[stateName: string]: PluginDependenciesAPI<NextEditorPlugin<any, any>> | undefined;
 }>;
 
@@ -134,6 +140,8 @@ function useStaticPlugins<T>(plugins: T[]): T[] {
  * the values are the shared state exposed by that plugin.
  */
 export function useSharedPluginState<
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	API extends EditorInjectionAPI<any, any>,
 	PluginNames extends ExtractPluginNames<API>,
 >(

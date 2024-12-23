@@ -86,6 +86,8 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 				render(Component, container);
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			rendererDOM = document.querySelector('#renderer-container') as HTMLElement;
 		});
 
@@ -106,9 +108,13 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 			it('should return false', () => {
 				const range = document.createRange();
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const beforeContainer = document.querySelector('#before-container') as HTMLElement;
 				const startBefore = beforeContainer.querySelector('.start-selection')!;
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const afterContainer = document.querySelector('#after-container') as HTMLElement;
 				const endAfter = afterContainer.querySelector('.end-selection')!;
 
@@ -123,6 +129,8 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 			it('should return false', () => {
 				const range = document.createRange();
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const beforeContainer = document.querySelector('#before-container') as HTMLElement;
 				const startBefore = beforeContainer.querySelector('.start-selection')!;
 				const endInside = rendererDOM.querySelector('.end-selection')!;
@@ -138,6 +146,8 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 			it('should return false', () => {
 				const range = document.createRange();
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const afterContainer = document.querySelector('#after-container') as HTMLElement;
 				const startInside = rendererDOM.querySelector('.start-selection')!;
 				const endAfter = afterContainer.querySelector('.end-selection')!;
@@ -151,6 +161,8 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 
 		describe('when the range is outside of the container', () => {
 			it('should return false', () => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const beforeContainer = document.querySelector('#before-container') as HTMLElement;
 				const beforeContainerRange = document.createRange();
 				const startBefore = beforeContainer.querySelector('.start-selection')!;
@@ -159,6 +171,8 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 				beforeContainerRange.setStart(startBefore.childNodes[0], 1);
 				beforeContainerRange.setEnd(endBefore.childNodes[0], 3);
 
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const afterContainer = document.querySelector('#after-container') as HTMLElement;
 				const afterContainerRange = document.createRange();
 				const startAfter = afterContainer.querySelector('.start-selection')!;
@@ -199,6 +213,8 @@ describe('Annotations: SelectionInlineCommentMounter', () => {
 				render(<div id="renderer-container"></div>, container);
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			rendererDOM = document.querySelector('#renderer-container') as HTMLElement;
 
 			fakeRef = { current: rendererDOM } as React.RefObject<HTMLDivElement>;

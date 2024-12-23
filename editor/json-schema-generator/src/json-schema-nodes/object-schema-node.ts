@@ -27,6 +27,8 @@ export default class ObjectSchemaNode extends SchemaNodeWithValidators<ObjectVal
 
 	toJSON(): object {
 		const obj: object = { type: 'object' };
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return Object.keys(this.properties).reduce((obj: any, key: string) => {
 			const { value, required } = this.properties[key];
 			obj.properties = obj.properties || {};
@@ -41,9 +43,13 @@ export default class ObjectSchemaNode extends SchemaNodeWithValidators<ObjectVal
 	}
 
 	toSpec() {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const spec = Object.keys(this.properties).reduce((obj: any, key: string) => {
 			const { value, required } = this.properties[key];
 			obj.props = obj.props || {};
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const spec: any = (obj.props[key] = value.toSpec());
 			if (isObject(spec) && !Array.isArray(spec)) {
 				if (!required) {

@@ -74,6 +74,8 @@ export const MentionWithProviders = ({
 			accessLevel={accessLevel}
 			localId={localId}
 			mentionProvider={mentionProvider}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			profilecardProvider={profilecardProvider!}
 			onClick={eventHandlers?.onClick}
 			onMouseEnter={eventHandlers?.onMouseEnter}
@@ -86,10 +88,14 @@ export const MentionWithProviders = ({
 export class MentionWithProvidersOld extends PureComponent<Props, State> {
 	state: State = { profilecardProvider: null };
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillMount() {
 		this.updateProfilecardProvider(this.props);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillReceiveProps(nextProps: Props) {
 		if (nextProps.profilecardProvider !== this.props.profilecardProvider) {
 			this.updateProfilecardProvider(nextProps);
@@ -119,6 +125,8 @@ export class MentionWithProvidersOld extends PureComponent<Props, State> {
 
 		const { profilecardProvider } = this.state;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const actionHandlers: MentionEventHandlers = {} as any;
 		(['onClick', 'onMouseEnter', 'onMouseLeave'] as Array<keyof MentionEventHandlers>).forEach(
 			(handler) => {
@@ -138,7 +146,11 @@ export class MentionWithProvidersOld extends PureComponent<Props, State> {
 				accessLevel={accessLevel}
 				localId={localId}
 				mentionProvider={mentionProvider}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				profilecardProvider={profilecardProvider!}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...actionHandlers}
 			/>
 		);

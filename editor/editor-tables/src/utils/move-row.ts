@@ -167,6 +167,8 @@ export const moveRow =
 			direction: 0,
 			selectAfterMove: false,
 		},
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(tr: Transaction): Transaction => {
 		const table = findTable(tr.selection);
@@ -307,6 +309,8 @@ export const moveRow =
  * This ensures the row node cell type correctly reflect what they should be.
  * @returns A copy of the rowNode
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function normalizeRowNode(
 	rowNode: PMNode,
 	rowHeaderEnabled: boolean,

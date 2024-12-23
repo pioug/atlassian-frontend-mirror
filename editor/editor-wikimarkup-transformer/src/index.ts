@@ -20,6 +20,8 @@ export class WikiMarkupTransformer implements Transformer<string> {
 	// [ADFS-725] Jira breaks if there are null chars it is easier to remove them here
 	// The following has to be a regex to remove all instances of null instead of the first
 	private sanitizeWikiMarkup(wikiMarkup: string): string {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		return wikiMarkup.replace(/\0/g, '');
 	}
 

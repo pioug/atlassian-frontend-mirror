@@ -87,6 +87,8 @@ const buttonStyles = (isActive?: boolean, submenuActive?: boolean) => {
 
 const DropListWithOutsideClickTargetRef = (props: DropListProps) => {
 	const setOutsideClickTargetRef = React.useContext(OutsideClickTargetRefContext);
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <DropList onDroplistRef={setOutsideClickTargetRef} {...props} />;
 };
 const DropListWithOutsideListeners = withReactEditorViewOuterListeners(
@@ -99,6 +101,8 @@ const DropListWithOutsideListeners = withReactEditorViewOuterListeners(
  *
  * Also it controls popper's placement.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 	state: State = {
 		popupPlacement: ['bottom', 'left'],
@@ -186,6 +190,8 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 				offset={offset}
 			>
 				<ArrowKeyNavigationProvider
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...navigationProviderProps}
 					handleClose={this.handleCloseAndFocus}
 					closeOnTab={true}
@@ -212,6 +218,8 @@ export default class DropdownMenuWrapper extends PureComponent<Props, State> {
 									<Section
 										hasSeparator={section?.hasSeparator && index > 0}
 										title={section?.title}
+										// Ignored via go/ees005
+										// eslint-disable-next-line react/no-array-index-key
 										key={index}
 									>
 										{group.items.map((item) => (
@@ -283,6 +291,8 @@ const DropdownMenuItemCustomComponent = React.forwardRef<
 	return (
 		<span
 			ref={ref}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...rest}
 			style={{
 				// This forces the item container back to be `position: static`, the default value.
@@ -383,6 +393,8 @@ export function DropdownMenuItem({
 }
 
 export const DropdownMenuWithKeyboardNavigation = React.memo(
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	({ ...props }: React.PropsWithChildren<any>) => {
 		const keyDownHandlerContext = useContext(KeyDownHandlerContext);
 
@@ -394,6 +406,8 @@ export const DropdownMenuWithKeyboardNavigation = React.memo(
 					...props.arrowKeyNavigationProviderOptions,
 					keyDownHandlerContext,
 				}}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...props}
 			/>
 		);

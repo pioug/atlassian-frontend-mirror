@@ -7,9 +7,8 @@ import { eeTest } from '@atlaskit/tmp-editor-statsig/editor-experiments-test-uti
 
 import Renderer from '../../../Renderer';
 import { initialDoc } from '../../../../__tests__/__fixtures__/initial-doc';
-import { RendererActionsContext } from '../../index';
+import { RendererActionsContext, RendererContext } from '../../index';
 import { ReactRenderer } from '../../../../index';
-import { RendererContext } from '../../../../ui/RendererActionsContext/index';
 import RendererActions from '../../../../actions/index';
 
 describe('Registering renderer actions', () => {

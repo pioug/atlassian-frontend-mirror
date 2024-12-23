@@ -48,6 +48,8 @@ export function getSelectedRowAndColumnFromPalette(
 }
 
 export const getTokenCSSVariableValue = (variableExpression: string): string => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const matcher = variableExpression.match(/var\(([^,\)]+)(,.*)?\)/);
 	if (matcher) {
 		const variable = matcher[1].trim();

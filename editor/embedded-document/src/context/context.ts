@@ -4,6 +4,8 @@ import { type Document } from '../model';
 export interface ContextType {
 	value: State;
 	actions: Actions;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	renderProps: any;
 }
 
@@ -32,9 +34,13 @@ export const Context = createContext<ContextType>({
 		getDocument: noop,
 		getDocumentByObjectId: noop,
 		setDocumentMode: noop,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-await
 		updateDocument: async () => {
 			throw new Error('Not implemented.');
 		},
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-await
 		createDocument: async () => {
 			throw new Error('Not implemented.');
 		},

@@ -1,5 +1,4 @@
-import React from 'react';
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 import RendererDemo from './helper/RendererDemo';
 import Range from '@atlaskit/range';
@@ -10,6 +9,8 @@ interface State {
 	maxHeight: number;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Example extends Component<{}, State> {
 	constructor(props: object) {
 		super(props);

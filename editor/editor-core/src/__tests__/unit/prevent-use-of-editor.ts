@@ -1,6 +1,8 @@
 // This is a copy of the regex in monorepo.config/tasks/ratcheting/rules/ratcheting-rules.ts
 // We can't test there, so we just replicate and test it here
 const editorImportRegex =
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	/import\s*{[^}]*\bEditor\b[^}]*}\s*from\s*['"]@atlaskit\/editor-core['"];/;
 
 describe('Editor import regex', () => {

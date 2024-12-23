@@ -48,6 +48,8 @@ const triggerAnalyticsEvent = (
 	if (analyticsEvent.eventAction === EVENT_ACTION.ERROR) {
 		payload.nonPrivacySafeAttributes = analyticsEvent.nonPrivacySafeAttributes;
 		try {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const requestIdleCallbackFunction = (window as any).requestIdleCallback;
 			const runItLater =
 				typeof requestIdleCallbackFunction === 'function'
@@ -63,6 +65,8 @@ const triggerAnalyticsEvent = (
 		// Let the browser figure out
 		// when it should send those events
 		try {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const requestIdleCallbackFunction = (window as any).requestIdleCallback;
 			const runItLater =
 				typeof requestIdleCallbackFunction === 'function'
@@ -83,6 +87,8 @@ export default class AnalyticsHelper {
 	documentAri: string;
 	subProduct: string | undefined;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		documentAri: string,
 		subProduct?: string,
@@ -107,7 +113,11 @@ export default class AnalyticsHelper {
 				subProduct: this.subProduct,
 				errorMessage,
 				errorName: error instanceof Error ? error.name : undefined,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				errorCode: (error as any).data?.code ?? undefined,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				errorStatus: (error as any).data?.status ?? undefined,
 				errorStack:
 					error instanceof Error && loggableErrorName.includes(error.name)

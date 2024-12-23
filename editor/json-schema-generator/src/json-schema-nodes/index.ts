@@ -24,6 +24,8 @@ export default class JSONSchemaNode {
 
 	private updateUsed(name: string, value: boolean) {
 		if (this.definitions.has(name)) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const def = this.definitions.get(name)!;
 			def.used = value;
 		}
@@ -41,6 +43,8 @@ export default class JSONSchemaNode {
 		if (!this.definitions.has(this.root)) {
 			throw new Error(`${this.root} not found in the added definitions`);
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const definitions: any = {};
 		for (const [k, { node, used }] of this.definitions) {
 			if (used) {

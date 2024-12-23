@@ -23,6 +23,8 @@ const toolbarComponentsWrapper = css({
 	},
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 	shouldComponentUpdate(nextProps: ToolbarInnerProps) {
 		return !isEqual(nextProps, this.props);
@@ -63,6 +65,8 @@ export class ToolbarInner extends React.Component<ToolbarInnerProps> {
 						editorActions: editorActions as EditorActions,
 						eventDispatcher,
 						providerFactory,
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						appearance: appearance!,
 						popupsMountPoint,
 						popupsBoundariesElement,

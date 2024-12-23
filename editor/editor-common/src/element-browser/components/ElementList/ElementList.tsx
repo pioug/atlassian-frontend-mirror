@@ -200,6 +200,8 @@ function ElementListOld({
 								selected={selectedItemIndex === index}
 								focus={focusedItemIndex === index}
 								setFocusedItemIndex={setFocusedItemIndex}
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...props}
 							/>
 						</div>
@@ -266,6 +268,8 @@ function ElementListOld({
 										columnCount={columnCount}
 										columnWidth={columnWidth}
 										deferredMeasurementCache={cache}
+										// Ignored via go/ees005
+										// eslint-disable-next-line react/jsx-props-no-spreading
 										{...(selectedItemIndex !== undefined && {
 											scrollToRow: Math.floor(selectedItemIndex / columnCount),
 										})}
@@ -531,6 +535,8 @@ const ElementListSingleColumn = (props: ElementListSingleColumnProps) => {
 			overscanRowCount={3}
 			containerRole="presentation"
 			role="listbox"
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...(selectedItemIndex !== undefined && {
 				scrollToIndex: selectedItemIndex,
 			})}
@@ -676,6 +682,8 @@ const ElementListMultipleColumns = (props: ElementListMultipleColumnsProps) => {
 			columnCount={columnCount}
 			columnWidth={columnWidth}
 			deferredMeasurementCache={cache}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...(selectedItemIndex !== undefined && {
 				scrollToRow: Math.floor(selectedItemIndex / columnCount),
 			})}
@@ -990,6 +998,8 @@ function ElementList({
 				searchTerm={searchTerm}
 				setFocusedCategoryIndex={setFocusedCategoryIndex}
 				setFocusedItemIndex={setFocusedItemIndex}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...props}
 			/>
 		);
@@ -1009,6 +1019,8 @@ function ElementList({
 			searchTerm={searchTerm}
 			setFocusedCategoryIndex={setFocusedCategoryIndex}
 			setFocusedItemIndex={setFocusedItemIndex}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 		/>
 	);

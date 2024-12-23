@@ -9,6 +9,8 @@ export default function DataConsumer(props: MarkProps<DataConsumerAttributes>) {
 		<WrapperElement
 			data-source={props.sources ? JSON.stringify(props.sources) : undefined}
 			data-mark-type="dataConsumer"
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props.dataAttributes}
 		>
 			{props.children}

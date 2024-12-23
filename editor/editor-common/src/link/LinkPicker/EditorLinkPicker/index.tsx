@@ -12,7 +12,7 @@ import { useEscapeClickaway } from './useEscapeClickaway';
 /**
  * Returns a type that matches T but where keys (K) are now optional
  */
-type OptionalKeys<T extends {}, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
+type OptionalKeys<T extends Object, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;
 
 export interface EditorLinkPickerProps
 	extends OptionalKeys<React.ComponentProps<typeof LazyLinkPicker>, 'onCancel'> {
@@ -86,7 +86,12 @@ export const EditorLinkPicker = ({
 	return (
 		<div ref={ref}>
 			<AnalyticsContext data={analyticsData}>
-				<LazyLinkPicker {...restProps} onCancel={onEscape} />
+				<LazyLinkPicker
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...restProps}
+					onCancel={onEscape}
+				/>
 			</AnalyticsContext>
 		</div>
 	);

@@ -38,7 +38,11 @@ async function setup(url: string) {
 					return;
 				}
 				return new Promise((resolve, reject) => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 					img.addEventListener('load', resolve);
+					// Ignored via go/ees005
+					// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 					img.addEventListener('error', reject);
 				});
 			}),

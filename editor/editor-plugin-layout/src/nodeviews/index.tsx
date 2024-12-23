@@ -146,6 +146,8 @@ export class LayoutSectionView extends ReactNodeView<LayoutSectionViewProps> {
 			contentDOM?: HTMLElement;
 		};
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.layoutDOM = container.querySelector('[data-layout-section]') as HTMLElement;
 		this.layoutDOM.setAttribute('data-column-rule-style', this.node.attrs.columnRuleStyle);
 		if (fg('platform_editor_advanced_layouts_post_fix_patch_1')) {

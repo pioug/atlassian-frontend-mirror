@@ -249,6 +249,8 @@ class FieldsetField extends React.Component<Props, State> {
 						appearance="subtle"
 						iconBefore={(iconProps) => (
 							<AddCircleIcon
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...iconProps}
 								size="small"
 								label={intl.formatMessage(messages.addField)}

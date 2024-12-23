@@ -105,7 +105,11 @@ export const FullPageEditor = (props: ComponentProps) => {
 						dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
 						editorActions={props.editorActions}
 						editorDOMElement={props.editorDOMElement}
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						editorView={props.editorView!}
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						eventDispatcher={props.eventDispatcher!}
 						hasMinWidth={props.enableToolbarMinWidth}
 						popupsBoundariesElement={props.popupsBoundariesElement}
@@ -128,6 +132,8 @@ export const FullPageEditor = (props: ComponentProps) => {
 					dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
 					editorActions={props.editorActions}
 					editorDOMElement={props.editorDOMElement}
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					editorView={props.editorView!}
 					eventDispatcher={props.eventDispatcher}
 					popupsBoundariesElement={popupsBoundariesElement}

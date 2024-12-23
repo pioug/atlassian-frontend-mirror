@@ -280,9 +280,15 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	serializeFragment(
 		fragment: Fragment,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		props: any = {},
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		target: any = this.allowSelectAllTrap ? DocWithSelectAllTrap : Doc,
 		key: string = 'root-0',
 		parentInfo?: ParentInfo,
@@ -358,6 +364,10 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		}, serializedContent);
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private withMediaMarkProps = (node: Node, mark: Mark, defaultProps: any): any => {
 		if (mark.type.name === 'link' && node.type.name === 'media') {
 			return {
@@ -409,6 +419,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 					},
 				});
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const content = ((mark as any).content || []).map(serializeContent);
 			const markKey = `${mark.type.name}-component__${this.startPos}__${parentMark.path.length}`;
 			return this.renderMark(
@@ -444,26 +456,44 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		return renderTextSegments(segments, this.textHighlighter, mark.marks, startPos);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	private renderNode(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		NodeComponent: ComponentType<React.PropsWithChildren<any>>,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		props: any,
 		key: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		content: string | JSX.Element | any[] | null | undefined,
 	): JSX.Element {
 		return (
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			<NodeComponent key={key} {...props}>
 				{content}
 			</NodeComponent>
 		);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	private renderMark(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		MarkComponent: ComponentType<React.PropsWithChildren<any>>,
 		props: MarkMeta,
 		key: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		content: any,
 	) {
 		return (
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			<MarkComponent key={key} {...props}>
 				{content}
 			</MarkComponent>
@@ -739,10 +769,16 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 
 		// We are not use node.textContent here, because we would like to handle cases where
 		// headings only contain inline blocks like emoji, status and date.
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const nodeContent = (node as any).content
 			.toJSON()
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			.reduce((acc: string, node: any) => acc.concat(getText(node) || ''), '')
 			.trim()
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.replace(/\s/g, '-');
 
 		if (!nodeContent) {
@@ -856,6 +892,8 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 						eq,
 						content: [acc],
 					};
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				}, node as any);
 			}),
 		) as Mark[];

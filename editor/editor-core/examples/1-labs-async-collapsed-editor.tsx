@@ -7,6 +7,8 @@ import CollapsedEditor from '../src/CollapsedEditor';
 export interface State {
 	isExpanded: boolean;
 }
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Example extends React.Component<{}, State> {
 	state = { isExpanded: false };
 

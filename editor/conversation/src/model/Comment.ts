@@ -5,6 +5,8 @@ export interface Comment extends Pick<Conversation, 'comments' | 'error'> {
 	conversationId: string;
 	parentId?: string;
 	document: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		adf?: any; // ADF
 		md?: string;
 		html?: string;
@@ -16,6 +18,8 @@ export interface Comment extends Pick<Conversation, 'comments' | 'error'> {
 	localId?: string;
 	oldDocument?: {
 		// Old document - used for restoring state
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		adf?: any; // ADF
 		md?: string;
 		html?: string;

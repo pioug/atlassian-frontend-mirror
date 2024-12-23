@@ -29,7 +29,7 @@ export interface EmojiProps extends EmojiId, EmojiAttributes, MarkDataAttributes
 }
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-class EmojiNode extends PureComponent<EmojiProps, {}> {
+class EmojiNode extends PureComponent<EmojiProps, Object> {
 	static displayName = 'EmojiNode';
 	static defaultProps = {
 		showTooltip: true,
@@ -105,6 +105,8 @@ function EmojiItem(props: EmojiProps) {
 
 	if (fg('editor_inline_comments_on_inline_nodes')) {
 		return (
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			<span {...inlineAnnotationProps}>
 				<EmojiNode
 					allowTextFallback={true}

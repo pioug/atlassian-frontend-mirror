@@ -5,6 +5,8 @@
 import { css } from '@emotion/react';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { fontSize } from '@atlaskit/theme/constants';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as colors from '@atlaskit/theme/colors';
 import { N60A, Y300, Y75, N40A } from '@atlaskit/theme/colors';
 import { headingSizes as headingSizesImport } from '@atlaskit/theme/typography';
@@ -382,6 +384,8 @@ const tableSortableColumnStyle = ({
 
 const fullPageStyles = (
 	{ appearance }: RendererWrapperProps,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	{ theme }: { [index: string]: any },
 ) => {
 	if (appearance !== 'full-page') {
@@ -542,6 +546,8 @@ const stickyScrollbarStyles = `
 	 }
   `;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: any) => {
 	const { colorMode, typography } = getGlobalTheme();
 	// This is required to be compatible with styled-components prop structure.

@@ -50,6 +50,8 @@ const FadeOut = (props: FadeOutProps) => {
 	return <div css={styles}>{children}</div>;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components, react/prefer-stateless-function
 export class TruncatedWrapper extends Component<TruncatedWrapperProps, unknown> {
 	constructor(props: TruncatedWrapperProps) {
 		super(props);

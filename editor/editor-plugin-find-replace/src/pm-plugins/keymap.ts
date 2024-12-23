@@ -18,6 +18,8 @@ const activateFindReplace =
 
 const keymapPlugin = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => {
 	const list = {};
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(findKeymap.common!, activateFindReplace(editorAnalyticsAPI), list);
 	return keymap(list) as SafePlugin;
 };

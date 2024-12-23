@@ -21,8 +21,10 @@ const loadJiraCollectorDialogScript = (
 	sessionId: string,
 	contentId: string,
 	tabId: string,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Promise<() => void> => {
-	// eslint-disable-next-line no-async-promise-executor
+	// eslint-disable-next-line no-async-promise-executor, require-await
 	return new Promise(async (resolve, reject) => {
 		if (window.jQuery) {
 			window.ATL_JQ_PAGE_PROPS = {

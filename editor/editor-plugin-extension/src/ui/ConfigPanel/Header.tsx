@@ -174,7 +174,15 @@ const Header = ({
 			{(description || documentationUrl) && (
 				<Box xcss={descriptionStyles}>
 					<Text as="p" testId="config-panel-header-description">
-						{description && <Fragment>{description.replace(/([^.])$/, '$1.')} </Fragment>}
+						{description && (
+							<Fragment>
+								{
+									// Ignored via go/ees005
+									// eslint-disable-next-line require-unicode-regexp
+									description.replace(/([^.])$/, '$1.')
+								}{' '}
+							</Fragment>
+						)}
 						{documentationUrl &&
 							(enableHelpCTA ? (
 								<Box xcss={helpLinkStyles}>

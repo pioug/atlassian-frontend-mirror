@@ -56,6 +56,8 @@ const inputRuleHandler =
 		matchParts: Array<string>,
 		start: number,
 		end: number,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): Transaction | null => {
 		if (!matcher) {
 			return null;
@@ -129,6 +131,8 @@ class AsciiEmojiMatcher {
 	 *
 	 * See https://regex101.com/r/HRS9O2/4
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	static REGEX = new RegExp(
 		`((?:^|[\\s${leafNodeReplacementCharacter}])(?:\\(*?))(\\(?)([^:\\s${leafNodeReplacementCharacter}\\(]\\S{1,3}|:\\S{1,3}( ))$`,
 	);
@@ -198,6 +202,8 @@ class AsciiEmojiTransactionCreator {
 	private end: number;
 	private editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		state: EditorState,
 		match: AsciiEmojiMatch,
@@ -271,6 +277,8 @@ const plugins = (
 	featureFlags: FeatureFlags,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	pluginInjectionApi: ExtractInjectionAPI<EmojiPlugin> | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	return [inputRulePlugin(schema, editorAnalyticsAPI, pluginInjectionApi)].filter(
 		(plugin) => !!plugin,

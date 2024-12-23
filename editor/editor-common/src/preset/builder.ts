@@ -68,8 +68,14 @@ type PluginWithConfiguration<Plugin> =
  * ```
  */
 type ExtractPluginConfiguration<Plugin> =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	Plugin extends NextEditorPlugin<any, any>
-		? Plugin extends (props: { config: any; api: any }) => DefaultEditorPlugin<any, infer Metadata>
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			Plugin extends (props: { config: any; api: any }) => DefaultEditorPlugin<any, infer Metadata>
 			? ExtractPluginConfigurationFromMetadata<Metadata>
 			: never
 		: never;
@@ -159,13 +165,21 @@ type ExtractPluginConfigurationFromMetadata<Metadata> = 'pluginConfiguration' ex
  * Since the PresetPlugin is an union between a tuple and a plugin.
  */
 type ExtractPluginAllBuilderPlugins<Plugin extends PresetPlugin> =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	Plugin extends Array<any>
-		? Plugin extends [infer MPlugin, ...any]
-			? MPlugin extends NextEditorPlugin<infer Name, any>
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			Plugin extends [infer MPlugin, ...any]
+			? // Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				MPlugin extends NextEditorPlugin<infer Name, any>
 				? MPlugin
 				: never
 			: never
-		: Plugin extends NextEditorPlugin<infer Name, any>
+		: // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			Plugin extends NextEditorPlugin<infer Name, any>
 			? Plugin
 			: never;
 
@@ -198,6 +212,8 @@ type ExtractPluginAllBuilderPlugins<Plugin extends PresetPlugin> =
  * ```
  */
 type ExtractPluginDependencies<Plugin> =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	Plugin extends NextEditorPlugin<any, infer Metadata>
 		? ExtractPluginDependenciesFromMetadataWithoutOptionals<Metadata>
 		: never;
@@ -212,6 +228,8 @@ type ExtractPluginDependencies<Plugin> =
  * Since the PresetPlugin is an union between a tuple and a plugin.
  */
 type ExtractNextEditorPluginFromPluginWithConfiguration<Plugin> =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	Plugin extends PluginWithConfiguration<any> ? Plugin[0] : never;
 
 /**
@@ -233,13 +251,21 @@ type ExtractNextEditorPluginFromPluginWithConfiguration<Plugin> =
  *
  */
 type ExtractPluginNameFromAllBuilderPlugins<Plugin extends PresetPlugin> =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	Plugin extends Array<any>
-		? Plugin extends [infer MPlugin, ...any]
-			? MPlugin extends NextEditorPlugin<infer Name, any>
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			Plugin extends [infer MPlugin, ...any]
+			? // Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				MPlugin extends NextEditorPlugin<infer Name, any>
 				? Name
 				: never
 			: never
-		: Plugin extends NextEditorPlugin<infer Name, any>
+		: // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			Plugin extends NextEditorPlugin<infer Name, any>
 			? Name
 			: never;
 
@@ -263,7 +289,9 @@ type ExtractPluginNameFromAllBuilderPlugins<Plugin extends PresetPlugin> =
  */
 type FilterOptionalPlugins<T extends DependencyPlugin[]> = T extends [infer Head, ...infer Tail]
 	? Tail extends DependencyPlugin[]
-		? Head extends OptionalPlugin<NextEditorPlugin<any, any>>
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			Head extends OptionalPlugin<NextEditorPlugin<any, any>>
 			? FilterOptionalPlugins<Tail>
 			: [Head, ...FilterOptionalPlugins<Tail>]
 		: T
@@ -306,6 +334,10 @@ type FilterOptionalPlugins<T extends DependencyPlugin[]> = T extends [infer Head
 type VerifyPluginDependencies<Plugin, PluginsStack extends AllEditorPresetPluginTypes[]> =
 	ExtractPluginDependencies<Plugin> extends []
 		? // Plugin has no dependencies
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			Plugin extends PluginWithConfiguration<any> | NextEditorPlugin<any, any>
 			? Plugin
 			: never
@@ -355,6 +387,8 @@ type ExtractRequiredDependencies<Plugin, PluginsStack extends AllEditorPresetPlu
 			: Metadata['dependencies'] extends DependencyPlugin[]
 				? FilterOptionalPlugins<
 						FilterExistingPlugins<Metadata['dependencies'], PluginsStack>
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					>[number] extends NextEditorPlugin<infer Name, any>
 					? Name
 					: DependencyErrorMessage<`Invalid dependency for ${PluginName}`>
@@ -423,6 +457,8 @@ type FilterExistingPlugins<
  * If the plugin is used with other configuration this type will not complain.
  */
 type CheckDuplicatePlugin<Plugin, StackPlugins extends AllEditorPresetPluginTypes[]> =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	Plugin extends NextEditorPlugin<infer PluginName, any>
 		? Plugin extends StackPlugins[number]
 			? // It's possible that the StackPlugins are type "any" - if we don't check this
@@ -445,6 +481,8 @@ type CheckDuplicatePlugin<Plugin, StackPlugins extends AllEditorPresetPluginType
  * configurations.
  *
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type CheckBasicPlugin<Plugin> = Plugin extends (args: any, api: any) => EditorPlugin
 	? CheckTupleRequirements<
 			Plugin,
@@ -491,6 +529,8 @@ type CheckTupleRequirements<Plugin, Config, ArrayType> = unknown extends Config
  *
  * It is being used to separate plugins registred with `preset.maybeAdd` and `preset.add`.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type TupleIndices<T extends readonly any[]> =
 	Extract<keyof T, `${number}`> extends `${infer N extends number}` ? N : never;
 
@@ -597,7 +637,11 @@ export type MaybePluginName<T extends string> = [T];
  * registration that accommodates plugins with or without explicit configurations.
  */
 export type PresetPlugin =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	| PluginWithConfiguration<NextEditorPlugin<any, any>>
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	| NextEditorPlugin<any, any>;
 
 /**
@@ -628,6 +672,8 @@ export type AllPluginNames = string | MaybePluginName<string>;
  *
  * ```
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type AllEditorPresetPluginTypes = PresetPlugin | MaybePlugin<NextEditorPlugin<any, any>>;
 
 /**
@@ -643,7 +689,9 @@ export type SafePresetCheck<
 	Plugin,
 	StackPlugins extends AllEditorPresetPluginTypes[],
 > = Plugin extends Plugin & VerifyPluginDependencies<Plugin, StackPlugins>
-	? Plugin extends NextEditorPlugin<any, any>
+	? // Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		Plugin extends NextEditorPlugin<any, any>
 		? CheckDuplicatePlugin<Plugin, StackPlugins> & CheckBasicPlugin<Plugin>
 		: never
 	: GetDependencyErrorMessage<Plugin, StackPlugins>;
@@ -680,7 +728,11 @@ export type SafePresetCheck<
  * api.cat?.actions
  * ```
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ExtractPresetAPI<Preset extends EditorPresetBuilder<any, any>> =
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	Preset extends EditorPresetBuilder<any, infer Plugins>
 		? Expand<
 				{
@@ -698,7 +750,11 @@ export type ExtractPresetAPI<Preset extends EditorPresetBuilder<any, any>> =
 
 type OldAndDeprecatedAddFunction<T> = (
 	pluginToAdd: T,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	builder: EditorPresetBuilder<any, any>,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ) => EditorPresetBuilder<any, any>;
 
 type BuildProps = {

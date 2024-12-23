@@ -177,13 +177,27 @@ export function formatShortcut(keymap: Keymap): string | undefined {
 	if (browser.mac) {
 		// for reference: https://wincent.com/wiki/Unicode_representations_of_modifier_keys
 		shortcut = keymap.mac
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.replace(/Cmd/i, '\u2318')
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.replace(/Shift/i, '\u21E7')
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.replace(/Ctrl/i, '\u2303')
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.replace(/Alt/i, '\u2325')
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.replace(/Backspace/i, '\u232B')
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.replace(/Enter/i, '\u23CE');
 	} else {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		shortcut = keymap.windows.replace(/Backspace/i, '\u232B');
 	}
 	const keys = shortcut.split('-');
@@ -235,8 +249,15 @@ export const TooltipContentWithMultipleShortcuts = React.memo(
 		return (
 			<Fragment>
 				{helpDescriptors.map((descriptor, index) => (
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/no-array-index-key
 					<Fragment key={index}>
-						<ToolTipContent {...descriptor} /> {index < keymapCount - 1 && <br />}
+						<ToolTipContent
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
+							{...descriptor}
+						/>{' '}
+						{index < keymapCount - 1 && <br />}
 					</Fragment>
 				))}
 			</Fragment>
@@ -342,6 +363,8 @@ const ALL = [
 	shiftEnter,
 ];
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function makeKeymap(
 	description: string,
 	windows: string,
@@ -350,14 +373,22 @@ export function makeKeymap(
 ): Keymap {
 	return {
 		description: description,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		windows: windows.replace(/Mod/i, 'Ctrl'),
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		mac: mac.replace(/Mod/i, 'Cmd'),
 		common: common,
 	};
 }
 
 export function makeKeyMapWithCommon(description: string, common: string): Keymap {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const windows = common.replace(/Mod/i, 'Ctrl');
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const mac = common.replace(/Mod/i, 'Cmd');
 	return makeKeymap(description, windows, mac, common);
 }
@@ -399,6 +430,8 @@ export function bindKeymapArrayWithCommand(
 	keymap: { [key: string]: Command },
 ) {
 	shortcutsArray.forEach((shortcut) => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		return bindKeymapWithCommand(shortcut.common!, cmd, keymap);
 	});
 }
@@ -435,6 +468,8 @@ export function isCapsLockOnAndModifyKeyboardEvent(event: KeyboardEvent) {
 		event.getModifierState('CapsLock') &&
 		!event.getModifierState('Shift') &&
 		name.length === 1 &&
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		/^[A-Z]/.test(name)
 	) {
 		keyboardEvent = new KeyboardEvent('keydown', {

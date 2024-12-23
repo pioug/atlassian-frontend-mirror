@@ -10,6 +10,8 @@ export const addSynchronyErrorAnalytics = (
 	tr: Transaction,
 	featureFlags: FeatureFlags,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	return (error: Error) => {
 		const browserExtensions = sniffUserBrowserExtensions({
@@ -24,6 +26,8 @@ export const addSynchronyErrorAnalytics = (
 		};
 
 		if (featureFlags.synchronyErrorDocStructure) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			payload.attributes!.docStructure = getDocStructure(state.doc, {
 				compact: true,
 			});

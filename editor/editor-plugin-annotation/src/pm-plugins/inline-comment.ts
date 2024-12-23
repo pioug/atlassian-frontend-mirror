@@ -55,6 +55,8 @@ const fetchState = async (
 	annotationIds: string[],
 	editorView: EditorView,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (!annotationIds || !annotationIds.length) {
 		return;

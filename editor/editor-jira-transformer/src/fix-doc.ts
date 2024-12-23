@@ -86,6 +86,8 @@ function repairParagraph(p: HTMLParagraphElement) {
 		});
 
 		// Replace old P
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const parent = p.parentNode!;
 		parent.insertBefore(fragment, p.nextSibling);
 		// IE11 doesn't support remove

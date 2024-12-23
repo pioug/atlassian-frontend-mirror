@@ -26,5 +26,7 @@ export const createDashTokenParser =
 	};
 
 const isSpace = (char: string): boolean => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return /\s/.test(char);
 };

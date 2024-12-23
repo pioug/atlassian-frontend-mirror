@@ -44,6 +44,8 @@ export default (featureFlags: FeatureFlags) =>
 				}
 
 				const browserVersionDisableRange =
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					browserConfigFeatureFlag[userCurrentBrowserAndVersion!.browser];
 
 				if (!browserVersionDisableRange || !browserEnv[userCurrentBrowserAndVersion.browser]) {

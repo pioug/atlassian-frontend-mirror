@@ -12,12 +12,20 @@ export interface DocumentServiceInterface {
 		clientId: number | string | undefined;
 	}): this;
 	updateDocument(params: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		doc: any;
 		version: number;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		metadata: any;
 		reserveCursor?: boolean;
 	}): void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onRestore(params: { doc: any; version: number; metadata: any }): void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onStepsAdded(data: { version: number; steps: any[] }): void;
 	onStepRejectedError(): void;
 	send(

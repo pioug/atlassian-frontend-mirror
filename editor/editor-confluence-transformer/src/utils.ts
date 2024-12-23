@@ -97,10 +97,13 @@ export function findTraversalPath(roots: Node[]) {
 	const outqueue = [] as Node[];
 
 	let elem: Element | undefined;
-	// eslint-disable-next-line no-unmodified-loop-condition
+	// Ignored via go/ees005
+	// eslint-disable-next-line no-unmodified-loop-condition, no-cond-assign
 	while ((elem = inqueue.shift() as Element)) {
 		outqueue.push(elem);
 		let children;
+		// Ignored via go/ees005
+		// eslint-disable-next-line no-cond-assign
 		if (isNodeSupportedContent(elem) && (children = childrenOfNode(elem))) {
 			let childIndex;
 			for (childIndex = 0; childIndex < children.length; childIndex++) {
@@ -230,6 +233,8 @@ export function getMacroAttribute(node: Element, attribute: string): string {
 	return node.getAttribute('data-macro-' + attribute) || '';
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function getMacroParameters(node: Element): any {
 	const params: Record<string, string> = {};
 
@@ -244,6 +249,8 @@ export function getMacroParameters(node: Element): any {
 	return params;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function createCodeFragment(
 	schema: Schema,
 	codeContent: string,
@@ -307,6 +314,8 @@ export function getContent(node: Node, convertedNodes: WeakMap<Node, Fragment | 
 
 export function parseMacro(node: Element): Macro {
 	const macroName = getAcName(node) || 'Unnamed Macro';
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const macroId = node.getAttributeNS(AC_XMLNS, 'macro-id')!;
 	const properties: Record<string, string | null> = {};
 	const params: Record<string, string | null> = {};
@@ -334,7 +343,11 @@ export function parseMacro(node: Element): Macro {
 	return { macroId, macroName, properties, params };
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getExtensionMacroParams = (params: Record<string, any>) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const macroParams: Record<string, { value: any }> = {};
 	Object.keys(params).forEach((key) => {
 		/** Safe check for empty keys */

@@ -44,7 +44,9 @@ export interface Props {
 	id?: string;
 }
 
-export default class LinkSearchList extends PureComponent<Props, {}> {
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
+export default class LinkSearchList extends PureComponent<Props, Object> {
 	render() {
 		const {
 			onSelect,

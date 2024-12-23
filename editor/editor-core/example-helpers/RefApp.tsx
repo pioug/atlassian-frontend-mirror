@@ -33,9 +33,11 @@ export interface State {
 }
 
 interface Props {
-	renderEditor: (props: {}) => React.ReactNode;
+	renderEditor: (props: Object) => React.ReactNode;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ToolsDrawer extends React.Component<Props, State> {
 	private providerFactory: ProviderFactory;
 
@@ -75,7 +77,11 @@ export default class ToolsDrawer extends React.Component<Props, State> {
 					>
 						&lt;Renderer&gt;
 					</div>
-					<ReactRenderer {...props} />
+					<ReactRenderer
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...props}
+					/>
 					{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 					<div style={{ color: '#ccc', marginTop: token('space.100', '8px') }}>
 						&lt;/Renderer&gt;

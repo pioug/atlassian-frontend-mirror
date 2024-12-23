@@ -42,6 +42,8 @@ export interface Props {
 	hasFallbackContainer?: boolean;
 	handleMediaSingleRef?: React.RefObject<HTMLDivElement>;
 	isInsideOfInlineExtension?: boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	dataAttributes?: Record<string, any>;
 	editorAppearance?: EditorAppearance;
 }
@@ -148,6 +150,8 @@ export default function MediaSingle({
 					'rich-media-wrapped': layout === 'wrap-left' || layout === 'wrap-right',
 				},
 			)}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...dataAttributes}
 		>
 			<MediaWrapper

@@ -23,6 +23,8 @@ const rawContentProcessor = (
 	length: number,
 	schema: Schema,
 	context: Context,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Token => {
 	// Removed ISSUE_KEY for https://getsupport.atlassian.com/browse/MOVE-1738018
 	// Issue keys were not being migrated correctly if they were inside the color macro.

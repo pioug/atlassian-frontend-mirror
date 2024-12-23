@@ -33,6 +33,8 @@ export interface RendererProps {
 	// before main JavaScript bundle is available.
 	enableSsrInlineScripts?: boolean;
 	onComplete?: (stat: RenderOutputStat) => void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onError?: (error: any) => void;
 	portal?: HTMLElement;
 	rendererContext?: RendererContext;

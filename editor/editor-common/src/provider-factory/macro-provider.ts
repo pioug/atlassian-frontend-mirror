@@ -19,11 +19,13 @@ export interface MacroAttributes {
 		layout?: ExtensionLayout;
 		text?: string; // fallback text
 	};
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	content?: any; // only bodiedExtension and multiBodiedExtension has content
 }
 
 export interface MacroProvider {
-	config: {};
+	config: Object;
 	/**
 	 * If "macro" param is passed in, it will open macro browser for editing the macro
 	 */

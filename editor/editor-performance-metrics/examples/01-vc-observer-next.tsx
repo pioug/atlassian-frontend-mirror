@@ -299,6 +299,8 @@ export default function Example() {
 			</header>
 			<aside data-testid="app-side-nav" css={sidebarStyle}>
 				{randomNames.map((name, index) => (
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/no-array-index-key
 					<SideButton key={index} name={name} index={index} onFinished={onButtonFinished} />
 				))}
 			</aside>

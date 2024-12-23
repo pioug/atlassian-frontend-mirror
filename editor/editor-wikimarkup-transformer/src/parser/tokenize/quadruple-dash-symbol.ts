@@ -1,5 +1,7 @@
 import { type TokenParser } from './';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const MULTI_DASH_REGEX = /^-{4,}(\s|$)/;
 
 export const quadrupleDashSymbol: TokenParser = ({ input, position }) => {

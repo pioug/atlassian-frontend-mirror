@@ -55,6 +55,8 @@ export const transformSingleColumnLayout = (slice: Slice, schema: Schema) => {
 export function transformSliceToRemoveOpenLayoutNodes(slice: Slice, schema: Schema) {
 	// Case 1: A slice entirely within a single layoutSection
 	if (slice.openStart && slice.openEnd && slice.content.childCount === 1) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const maybeLayoutSection = slice.content.firstChild!;
 		if (maybeLayoutSection.type === schema.nodes.layoutSection) {
 			return new Slice(
@@ -67,6 +69,8 @@ export function transformSliceToRemoveOpenLayoutNodes(slice: Slice, schema: Sche
 	}
 
 	// Case 2: A slice starting inside a layoutSection and finishing outside
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	if (slice.openStart && slice.content.firstChild!.type === schema.nodes.layoutSection) {
 		slice = new Slice(
 			flatmap(slice.content, removeLayoutFromFirstChild),
@@ -76,6 +80,8 @@ export function transformSliceToRemoveOpenLayoutNodes(slice: Slice, schema: Sche
 	}
 
 	// Case 3: A slice starting outside a layoutSection and finishing inside
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	if (slice.openEnd && slice.content.lastChild!.type === schema.nodes.layoutSection) {
 		slice = new Slice(
 			flatmap(slice.content, removeLayoutFromLastChild),

@@ -57,8 +57,12 @@ export default class MockServiceProvider implements Provider {
 		return document;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	async updateDocument(
 		documentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		body: any,
 		objectId: string,
 		title?: string,
@@ -77,7 +81,11 @@ export default class MockServiceProvider implements Provider {
 		return document;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	async createDocument(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		body: any,
 		objectId: string,
 		title?: string,

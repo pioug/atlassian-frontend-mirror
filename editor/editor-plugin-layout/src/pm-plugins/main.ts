@@ -37,7 +37,11 @@ const moveCursorToNextColumn: Command = (state, dispatch) => {
 			nodes: { layoutColumn, layoutSection },
 		},
 	} = state;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const section = findParentNodeOfType(layoutSection)(selection)!;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const column = findParentNodeOfType(layoutColumn)(selection)!;
 
 	if (column.node !== section.node.lastChild) {
@@ -104,6 +108,8 @@ export default (options: LayoutPluginOptions) =>
 		state: {
 			init: (_, state): LayoutState => getInitialPluginState(options, state),
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			apply: (tr, pluginState, _oldState, newState) => {
 				if (tr.docChanged || tr.selectionSet) {
 					const maybeLayoutSection = getMaybeLayoutSection(newState);
@@ -113,6 +119,8 @@ export default (options: LayoutPluginOptions) =>
 						pos: maybeLayoutSection ? maybeLayoutSection.pos : null,
 						selectedLayout: getSelectedLayout(
 							maybeLayoutSection && maybeLayoutSection.node,
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							pluginState.selectedLayout!,
 						),
 					};

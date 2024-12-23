@@ -45,6 +45,8 @@ export function PrimaryToolbarComponent({
 			isReducedSpacing={isToolbarReducedSpacing}
 			setTextLevel={boundSetBlockType}
 			wrapBlockQuote={wrapBlockQuote}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			pluginState={blockTypeState!}
 			popupsMountPoint={popupsMountPoint}
 			popupsBoundariesElement={popupsBoundariesElement}

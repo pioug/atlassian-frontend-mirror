@@ -43,6 +43,8 @@ import type { MediaPluginState } from './types';
 
 type WidthPlugin = ExtractInjectionAPI<MediaNextEditorPluginType>['width'];
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function keymapPlugin(
 	options: MediaOptions | undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
@@ -52,32 +54,52 @@ function keymapPlugin(
 ): SafePlugin {
 	const list = {};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(undo.common!, ignoreLinksInSteps, list);
 
 	if (options?.allowCaptions) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		bindKeymapWithCommand(moveDown.common!, insertAndSelectCaption(editorAnalyticsAPI), list);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		bindKeymapWithCommand(tab.common!, insertAndSelectCaption(editorAnalyticsAPI), list);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		bindKeymapWithCommand(moveLeft.common!, arrowLeftFromMediaSingle(editorSelectionAPI), list);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		bindKeymapWithCommand(moveRight.common!, arrowRightFromMediaSingle(editorSelectionAPI), list);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(insertNewLine.common!, splitMediaGroup, list);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(enter.common!, splitMediaGroup, list);
 
 	if (fg('platform_editor_media_extended_resize_experience')) {
 		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			increaseMediaSize.common!,
 			handleMediaIncrease(editorAnalyticsAPI, widthPlugin, options, getIntl),
 			list,
 		);
 		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			decreaseMediaSize.common!,
 			handleMediaDecrease(editorAnalyticsAPI, widthPlugin, options, getIntl),
 			list,
 		);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(activateVideoControls.common!, focusPlayButton, list);
 
 	return keymap(list) as SafePlugin;
@@ -110,6 +132,8 @@ const validationMaxMin = (
 	maxWidth: number,
 	minWidth: number,
 	validation: PixelEntryValidation,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): { newWidthValidated: number; validation: PixelEntryValidation } => {
 	let newWidthValidated: number;
 	if (newWidth > maxWidth) {
@@ -131,6 +155,8 @@ const createAnnouncer = (
 	changeAmount: number,
 	validation: string,
 	getIntl: () => IntlShape,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	let announcerContainer: HTMLElement =
 		document.getElementById('media-announcer') || document.createElement('div');
@@ -140,6 +166,8 @@ const createAnnouncer = (
 		announcerContainer.setAttribute('role', 'status');
 		announcerContainer.setAttribute('aria-live', 'polite');
 		announcerContainer.setAttribute('aria-atomic', 'true');
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const style: any = announcerContainer.style;
 		style.position = 'absolute';
 		style.width = '1px';
@@ -173,6 +201,8 @@ const handleMediaSizeChange =
 		changeAmount: number,
 		action: 'increased' | 'decreased',
 		getIntl: () => IntlShape,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		const { selection } = state;
@@ -185,6 +215,8 @@ const handleMediaSizeChange =
 		const mediaPluginState = stateKey.getState(state) as MediaPluginState;
 		const maxWidthForNestedNode: number | undefined = mediaPluginState.currentMaxWidth;
 		const minWidth: number = MEDIA_SINGLE_DEFAULT_MIN_PIXEL_WIDTH;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let maxWidth: any = maxWidthForNestedNode;
 		const currentMaxWidth: number = widthPlugin?.sharedState.currentState()?.width || maxWidth;
 
@@ -231,12 +263,16 @@ const handleMediaIncrease = (
 	widthPlugin: WidthPlugin | undefined,
 	options: MediaOptions | undefined,
 	getIntl: () => IntlShape,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => handleMediaSizeChange(editorAnalyticsAPI, widthPlugin, options, 1, 'increased', getIntl);
 const handleMediaDecrease = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	widthPlugin: WidthPlugin | undefined,
 	options: MediaOptions | undefined,
 	getIntl: () => IntlShape,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => handleMediaSizeChange(editorAnalyticsAPI, widthPlugin, options, -1, 'decreased', getIntl);
 
 const insertAndSelectCaption =

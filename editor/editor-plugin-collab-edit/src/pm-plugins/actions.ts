@@ -1,4 +1,8 @@
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as allAdfSchemaSteps from '@atlaskit/adf-schema/steps';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as allAtlaskitCustomSteps from '@atlaskit/custom-steps';
 import { type EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type {
@@ -33,6 +37,8 @@ export const handleInit = (
 	view: EditorView,
 	options?: PrivateCollabEditOptions,
 	editorAnalyticsApi?: EditorAnalyticsAPI,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { doc, json, version, reserveCursor } = initData;
 	if (doc) {
@@ -97,10 +103,14 @@ export const applyRemoteData = (
 };
 
 export const applyRemoteSteps = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	json: any[],
 	view: EditorView,
 	userIds?: (number | string)[],
 	options?: PrivateCollabEditOptions,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (!json || !json.length) {
 		return;

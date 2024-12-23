@@ -12,7 +12,12 @@ function WrapperEditorComponent(props: EditorProps) {
 	return (
 		<EditorContext>
 			<IntlProvider locale="en">
-				<Editor key={ChildKey} {...props} />
+				<Editor
+					key={ChildKey}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...props}
+				/>
 			</IntlProvider>
 		</EditorContext>
 	);
@@ -39,6 +44,8 @@ const Template = (args: EditorProps) => (
 			groupId,
 		)}
 		allowTables={object('Table Options', {}, groupId)}
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		{...args}
 	/>
 );

@@ -27,6 +27,8 @@ export type NewCollabSyncUpErrorAttributes = {
 
 // Format of the document and its metadata returned from the collab provider
 // after editing and for draft sync
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type ResolvedEditorState<T = any> = {
 	content: JSONDocNode | T;
 	title: string | null;
@@ -267,7 +269,11 @@ export interface Metadata {
 export type CollabMetadataPayload = Metadata;
 
 export interface CollabEventInitData {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	doc?: any;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	json?: any;
 	version?: number;
 	sid?: string;
@@ -275,6 +281,8 @@ export interface CollabEventInitData {
 }
 
 export interface CollabInitPayload extends CollabEventInitData {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	doc: any;
 	version: number;
 	metadata?: Metadata;
@@ -304,6 +312,8 @@ export interface CollabDisconnectedPayload {
 }
 
 export interface CollabEventRemoteData {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	json?: any;
 	newState?: EditorState;
 	userIds?: (number | string)[];
@@ -311,11 +321,15 @@ export interface CollabEventRemoteData {
 
 type MarkJson = {
 	type: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs: { [key: string]: any };
 };
 
 type NodeJson = {
 	type: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs: { [key: string]: any };
 	content: NodeJson[];
 	marks: MarkJson[];
@@ -464,6 +478,8 @@ export interface CollabEvents {
 	presence: CollabPresencePayload;
 	'local-steps': CollabLocalStepsPayload;
 	error: ProviderError;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	entity: any;
 	connecting: CollabConnectingPayload;
 	permission: CollabPermissionEventPayload;
@@ -473,18 +489,26 @@ export interface CollabEvents {
 export type SyncUpErrorFunction = (attributes: NewCollabSyncUpErrorAttributes) => void;
 
 export interface CollabEditProvider<Events extends CollabEvents = CollabEvents> {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	initialize(getState: () => any, createStep: (json: object) => Step): this; // TO-DO: deprecate this
 
 	setup(props: {
 		getState?: () => EditorState;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		editorApi?: any;
 		onSyncUpError?: SyncUpErrorFunction;
 	}): this;
 
 	send(tr: Transaction, oldState: EditorState, newState: EditorState): void;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	on(evt: keyof Events, handler: (...args: any) => void): this;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	off(evt: keyof Events, handler: (...args: any) => void): this;
 
 	unsubscribeAll(evt: keyof Events): this;

@@ -29,6 +29,8 @@ function calculateRowsToSkip(attrs?: CellAttributes) {
  * @param isDelete
  * @param column
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function applyCellStep(
 	tr: Transform,
 	tableRect: TableRect,
@@ -39,6 +41,8 @@ export function applyCellStep(
 ): { tr: Transform; skipRows: number; cellStep: CellStep } {
 	// Apply the merge actions,
 	if (cellStep.mergeWith !== undefined) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		let cellNode: ProseMirrorNode = tr.doc.nodeAt(tr.mapping.map(cellStep.mergeWith))!;
 
 		const columns = column - tableRect.map.colCount(cellStep.mergeWith - tableRect.tableStart);
@@ -46,6 +50,8 @@ export function applyCellStep(
 			? removeColSpan(cellNode.attrs as CellAttributesWithColSpan, columns)
 			: addColSpan(cellNode.attrs as CellAttributesWithColSpan, columns);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		if (cellAttrs.colspan! > 0) {
 			// When colspan is 0 should remove the cell
 			tr.setNodeMarkup(tr.mapping.map(cellStep.mergeWith), undefined, cellAttrs);
@@ -62,6 +68,8 @@ export function applyCellStep(
 	let skipRows = 0;
 	// Modify temporary document
 	if (isDelete) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		let cellNode: ProseMirrorNode = tr.doc.nodeAt(tr.mapping.map(cellStep.from))!;
 		skipRows = calculateRowsToSkip(cellNode.attrs);
 		tr.delete(tr.mapping.map(cellStep.from), tr.mapping.map(cellStep.to));
@@ -70,6 +78,8 @@ export function applyCellStep(
 			tr.insert(tr.mapping.map(cellStep.from), cellStep.newCell);
 			skipRows = calculateRowsToSkip(cellStep.newCell.attrs);
 		} else {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			tr.insert(tr.mapping.map(cellStep.from), cell.type!.createAndFill()!);
 		}
 	}
@@ -124,6 +134,8 @@ function getOffset(map: StepMap, cellStep: CellStep, isDelete: boolean): number 
  * @param isDelete
  * @param stepMap
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function invertCellStep(
 	doc: ProseMirrorNode,
 	getTableRectAndColumn: () => { rect: TableRect; column: number },
@@ -165,6 +177,8 @@ export function invertCellStep(
 
 	if (isDelete) {
 		// Add the removed cell as the new cell of the inverted step
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const removedCell = doc.nodeAt(cellStep.from)!;
 		newCellStepInfo.newCell = removedCell.copy(removedCell.content);
 
@@ -193,6 +207,8 @@ export function invertCellStep(
  * @param isDelete
  * @param previousCellStep
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function createCellStep(
 	cell: Cell,
 	column: number,

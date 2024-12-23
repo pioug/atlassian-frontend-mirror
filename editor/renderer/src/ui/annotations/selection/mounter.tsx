@@ -239,6 +239,8 @@ export const SelectionInlineCommentMounter = React.memo((props: React.PropsWithC
 		<Component
 			range={range}
 			draftRange={draftRange}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			wrapperDOM={wrapperDOM.current as HTMLElement}
 			isAnnotationAllowed={isAnnotationAllowed}
 			onClose={onCloseCallback}

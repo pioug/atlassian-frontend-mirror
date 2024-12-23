@@ -71,7 +71,7 @@ type WidthProviderProps = {
  * @returns {number} The width of the document body or 0 if the document is undefined.
  */
 export const getBodyWidth = memoizeOne(() => {
-	return isSSR() ? 0 : document.body?.offsetWidth ?? 0;
+	return isSSR() ? 0 : (document.body?.offsetWidth ?? 0);
 });
 
 export const WidthProvider = ({

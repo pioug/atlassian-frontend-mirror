@@ -84,6 +84,8 @@ export function HyperlinkAddToolbar({
 								invokeMethod ?? inputMethod
 							}
 							editorAppearance={editorAppearance}
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...linkPickerOptions}
 							url={displayUrl}
 							displayText={displayText}

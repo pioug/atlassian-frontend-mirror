@@ -40,10 +40,14 @@ export function getOrderedListInlineStyles(
 export function getOrderedListInlineStyles(
 	itemCounterDigitsSize: number,
 	styleFormat: 'object',
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Record<string, any>;
 export function getOrderedListInlineStyles(
 	itemCounterDigitsSize: number,
 	styleFormat: 'string' | 'object',
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): string | Record<string, any> {
 	const style = {
 		[CSS_VAR_NAMES.ITEM_COUNTER_PADDING]: getItemCounterLeftPadding(itemCounterDigitsSize),

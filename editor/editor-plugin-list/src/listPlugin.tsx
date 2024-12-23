@@ -20,6 +20,8 @@ import {
 import { indentList } from './pm-plugins/commands/indent-list';
 import { outdentList } from './pm-plugins/commands/outdent-list';
 import inputRulePlugin from './pm-plugins/input-rules';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import keymapPlugin from './pm-plugins/keymap';
 import { createPlugin, pluginKey as listPluginKey } from './pm-plugins/main';
 import { findRootParentListNode } from './pm-plugins/utils/find';

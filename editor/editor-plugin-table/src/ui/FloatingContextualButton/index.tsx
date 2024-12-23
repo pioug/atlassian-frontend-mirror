@@ -26,6 +26,8 @@ import { toggleContextualMenu } from '../../pm-plugins/commands';
 import type { RowStickyState } from '../../pm-plugins/sticky-headers';
 import { TableCssClassName as ClassName } from '../../types';
 
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import FixedButton from './FixedButton';
 import { tableFloatingCellButtonSelectedStyles, tableFloatingCellButtonStyles } from './styles';
 
@@ -157,7 +159,11 @@ export default function (props: Props) {
 			dispatchAnalyticsEvent={props.dispatchAnalyticsEvent}
 			fallbackComponent={null}
 		>
-			<FloatingContextualButton {...props} />
+			<FloatingContextualButton
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...props}
+			/>
 		</ErrorBoundary>
 	);
 }

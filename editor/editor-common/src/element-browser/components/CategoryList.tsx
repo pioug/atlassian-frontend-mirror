@@ -76,6 +76,8 @@ function CategoryList({
 						index={index}
 						category={category}
 						focus={focusedCategoryIndex === index}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...props}
 						setFocusedCategoryIndex={setFocusedCategoryIndex}
 						selectPreviousCategory={selectPreviousCategory}

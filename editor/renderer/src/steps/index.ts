@@ -60,6 +60,8 @@ function isTextNode(node: ChildNode | Node): node is Text {
 }
 
 function isHighlightTextNode(node: Node | null) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	return !!(node as HTMLElement)?.dataset?.highlighted;
 }
 
@@ -247,6 +249,8 @@ export function getPosFromRange(range: Range): { from: number; to: number } | fa
 	// Video hover targets return media single, not media, thus, the extra check in condition.
 	const isMediaOrMediaSingle =
 		possibleMediaOrMediaSingleElement &&
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		/media|mediaSingle/.test(getNodeType(possibleMediaOrMediaSingleElement) || '');
 	if (isMediaOrMediaSingle) {
 		let pos;

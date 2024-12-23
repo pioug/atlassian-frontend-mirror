@@ -7,7 +7,11 @@ export function isPastedFromFabricEditor(pastedFrom: string): boolean {
 // @see https://product-fabric.atlassian.net/browse/ED-3159
 // @see https://github.com/markdown-it/markdown-it/issues/38
 export function escapeLinks(text: string) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return text.replace(/(\[([^\]]+)\]\()?((https?|ftp|jamfselfservice):\/\/[^\s"'>]+)/g, (str) => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		return str.match(/^(https?|ftp|jamfselfservice):\/\/[^\s"'>]+$/) ? `<${str}>` : str;
 	});
 }

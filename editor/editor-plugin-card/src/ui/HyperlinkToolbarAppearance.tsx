@@ -33,6 +33,8 @@ export function HyperlinkToolbarAppearance(props: HyperlinkToolbarAppearanceProp
 
 	const { url, intl, editorView, editorState, cardOptions, editorAnalyticsApi } = props;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	const getProvider = async (): Promise<CardProvider> => {
 		if (props.cardOptions?.provider) {
 			return props.cardOptions?.provider;

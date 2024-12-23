@@ -19,18 +19,24 @@ export function keymapPlugin(
 	const list = {};
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		findShortcutByKeymap(indent)!,
 		getIndentCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
 		list,
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		findShortcutByKeymap(outdent)!,
 		getOutdentCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
 		list,
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		findShortcutByKeymap(backspace)!,
 		(state, dispatch) => {
 			const { selection } = state;

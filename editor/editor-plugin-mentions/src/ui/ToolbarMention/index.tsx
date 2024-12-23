@@ -15,6 +15,8 @@ interface Props {
 	testId?: string;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class ToolbarMention extends PureComponent<Props & WrappedComponentProps> {
 	render() {
 		const mentionStringTranslated = this.props.intl.formatMessage(messages.mentionsIconLabel);

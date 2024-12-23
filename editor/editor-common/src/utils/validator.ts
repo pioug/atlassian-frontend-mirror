@@ -39,6 +39,8 @@ export interface ADDoc {
  */
 export interface ADNode {
 	type: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: any;
 	content?: ADNode[];
 	marks?: ADMark[];
@@ -47,6 +49,8 @@ export interface ADNode {
 
 export interface ADMark {
 	type: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: any;
 }
 
@@ -54,6 +58,8 @@ export interface ADMarkSimple {
 	type: {
 		name: string;
 	};
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: any;
 }
 
@@ -128,8 +134,14 @@ export const getValidContent = (
 	return content.map((node) => getValidNode(node, schema, adfStage));
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const TEXT_COLOR_PATTERN = /^#[0-9a-fA-F]{6}$/;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const RELATIVE_LINK = /^\//;
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const ANCHOR_LINK = /^#/;
 
 const flattenUnknownBlockTree = (
@@ -140,7 +152,11 @@ const flattenUnknownBlockTree = (
 	const output: ADNode[] = [];
 	let isPrevLeafNode = false;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	for (let i = 0; i < node.content!.length; i++) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const childNode = node.content![i];
 		const isLeafNode = !(childNode.content && childNode.content.length);
 
@@ -450,6 +466,8 @@ export const getValidNode = (
 				}
 
 				if (mediaType === 'external' && !!mediaUrl) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					const mediaAttrs: any = {
 						type: mediaType,
 						url: mediaUrl,
@@ -473,6 +491,8 @@ export const getValidNode = (
 								attrs: mediaAttrs,
 							};
 				} else if (mediaId && mediaType) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					const mediaAttrs: any = {
 						type: mediaType,
 						id: mediaId,
@@ -882,6 +902,8 @@ export const getValidMark = (mark: ADMark, adfStage: ADFStage = 'final'): ADMark
 						linkHref = `http://${linkHref}`;
 					}
 
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					const linkAttrs: any = {
 						href: linkHref,
 					};

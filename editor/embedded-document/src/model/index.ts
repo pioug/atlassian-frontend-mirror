@@ -8,7 +8,7 @@ export interface Document {
 	body: string;
 }
 
-export interface User {}
+export type User = Object;
 
 export interface BatchDocumentResponse {
 	documentId: string;

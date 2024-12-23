@@ -11,6 +11,8 @@ const EMPTY = {};
 
 function isObjectFlagKey(
 	key: string,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	value: any,
 	objectFlagKeys: string[] | undefined,
 ): value is string {

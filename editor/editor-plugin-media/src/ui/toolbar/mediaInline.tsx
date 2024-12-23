@@ -64,6 +64,8 @@ export const generateMediaInlineFloatingToolbar = (
 	hoverDecoration: HoverDecorationHandler | undefined,
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	options: MediaFloatingToolbarOptions = {},
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions as EditorAnalyticsAPI;
 	const forceFocusSelector = pluginInjectionApi?.floatingToolbar?.actions?.forceFocusSelector;
@@ -181,6 +183,8 @@ const getMediaInlineImageToolbar = (
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	mediaLinkingState: MediaLinkingState,
 	options: MediaFloatingToolbarOptions = {},
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarItem<Command>[] => {
 	const { mediaInline } = state.schema.nodes;
 	const mediaInlineImageTitle = intl.formatMessage(

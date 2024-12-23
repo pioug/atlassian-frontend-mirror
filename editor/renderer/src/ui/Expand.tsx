@@ -64,7 +64,8 @@ const Container = (props: StyleProps) => {
 	`;
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/design-system/consistent-css-prop-usage
 		<div css={styles} {...props}>
 			{props.children}
 		</div>
@@ -84,7 +85,8 @@ const TitleContainer = (props: StyleProps & React.ButtonHTMLAttributes<HTMLButto
 	const { expanded, ...buttonProps } = props;
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/design-system/consistent-css-prop-usage
 		<button type="button" css={styles} {...buttonProps}>
 			{props.children}
 		</button>
@@ -106,7 +108,9 @@ const ContentContainer = (props: StyleProps) => {
 	`;
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+		// eslint-disable-next-line
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/design-system/consistent-css-prop-usage
 		<div css={styles} {...props}>
 			{props.children}
 		</div>

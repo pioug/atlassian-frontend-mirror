@@ -12,6 +12,8 @@ export interface Props {
 	renderNode: (providers: Providers) => JSX.Element | null;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class WithProviders extends PureComponent<Props, { providers: any }> {
 	static displayName = 'WithProviders';
 	mounted = false;
@@ -20,6 +22,8 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 		super(props);
 		this.mounted = false;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const providers: Record<string, Promise<any> | undefined> = {};
 		this.props.providers.forEach((name) => {
 			if (fg('platform_editor_react18_phase2_v2')) {
@@ -39,6 +43,8 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 		this.mounted = true;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillMount() {
 		if (!fg('platform_editor_react18_phase2_v2')) {
 			const { providers, providerFactory } = this.props;
@@ -57,6 +63,8 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 		});
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	handleProviderIfMounted = (name: string, provider?: Promise<any>) => {
 		if (!this.mounted) {
 			return;
@@ -64,6 +72,8 @@ export class WithProviders extends PureComponent<Props, { providers: any }> {
 		this.handleProvider(name, provider);
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	handleProvider = (name: string, provider?: Promise<any>) => {
 		this.setState(({ providers }) => {
 			return {

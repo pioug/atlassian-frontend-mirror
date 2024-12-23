@@ -5,9 +5,17 @@ export const getOffsetParent = (
 	popupsMountPoint?: HTMLElement,
 ): HTMLElement =>
 	popupsMountPoint
-		? (popupsMountPoint.offsetParent as HTMLElement)
-		: (editorViewDom.offsetParent as HTMLElement);
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			(popupsMountPoint.offsetParent as HTMLElement)
+		: // Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
+			(editorViewDom.offsetParent as HTMLElement);
 export const getNearestNonTextNode = (node: Node) =>
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	node.nodeType === Node.TEXT_NODE ? (node.parentNode as HTMLElement) : (node as HTMLElement);
 
 /**
@@ -56,6 +64,8 @@ export const handlePositionCalculatedWith =
 			return position;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const target = getNearestNonTextNode(node)!;
 		const cursorHeight = getCursorHeightFrom(target);
 		const fixedCoordinates = getCurrentFixedCoordinates();

@@ -13,7 +13,7 @@ import InviteTeamIcon from '@atlaskit/icon/glyph/editor/add';
 
 import { inviteTeamWrapperStyles } from './styles';
 
-const ID = (props: PropsWithChildren<{}>) => <Fragment>{props.children}</Fragment>;
+const ID = (props: PropsWithChildren<Object>) => <Fragment>{props.children}</Fragment>;
 
 export type InviteToEditButtonProps = PropsWithChildren<{
 	onClick?: React.MouseEventHandler;

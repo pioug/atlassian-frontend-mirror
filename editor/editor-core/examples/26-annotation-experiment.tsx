@@ -65,6 +65,8 @@ type State = {
 	isDisallowOnWhiteSpaceEnabled: boolean;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
 export default class ExampleAnnotationExperiment extends React.Component<any, State> {
 	state = {
 		isInlineCommentsEnabled: true,
@@ -140,6 +142,8 @@ export default class ExampleAnnotationExperiment extends React.Component<any, St
 		);
 
 		if (firstComment) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const firstCommentID = (firstComment.closest('.annotationView-content-wrap') as HTMLElement)
 				.id;
 			emitter.emit('setselectedannotation', firstCommentID);

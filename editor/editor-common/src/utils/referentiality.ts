@@ -176,6 +176,8 @@ const getIdsToBeDeleted = (
 	const deletedIds = new Set<string>();
 
 	while (searchSet.length) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const id = searchSet.pop()!;
 		if (allNodes[id]) {
 			deletedIds.add(allNodes[id].localId);
@@ -253,6 +255,8 @@ const getChildrenNodeAmount = (
 	return childrenIds.size;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const getNodeTargetsById = (id: string | undefined, allNodes: any): string[] => {
 	if (!id || !allNodes[id]) {
 		return [];

@@ -253,6 +253,8 @@ export const IconHeading = ({ level, ...props }: HeadingProps) => {
 			>,
 		loading: () => null,
 	});
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <Icon {...props} />;
 };
 

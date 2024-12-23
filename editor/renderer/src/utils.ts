@@ -1,19 +1,22 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import type { Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Schema, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import type { ADNode } from '@atlaskit/editor-common/validator';
 import type { EventHandlers } from '@atlaskit/editor-common/ui';
 import type { Transformer } from '@atlaskit/editor-common/types';
 import { JSONTransformer } from '@atlaskit/editor-json-transformer';
-import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createEncoder<T>(parser: Transformer<T>, encoder: Transformer<any>) {
 	return (value: T) => encoder.encode(parser.parse(value));
 }
 export type TransformerProvider<T> = (schema: Schema) => Transformer<T>;
 export class ADFEncoder<T> {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	encode: (value: T) => any;
 
 	constructor(createTransformerWithSchema: TransformerProvider<T>) {
@@ -34,7 +37,11 @@ export const getEventHandler = (
 	eventHandlers?: EventHandlers,
 	type?: keyof EventHandlers,
 	eventName: string = 'onClick',
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): any => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return eventHandlers && type && eventHandlers[type] && (eventHandlers as any)[type][eventName];
 };
 

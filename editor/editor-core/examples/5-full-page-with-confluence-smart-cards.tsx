@@ -14,6 +14,8 @@ export type Props = {
 
 const RESOLVE_BEFORE_MACROS = ['jira'];
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class FullPageWithFF extends React.Component<
 	Props,
 	{
@@ -78,7 +80,13 @@ export function Example(doc?: string | Object) {
 				<SectionMessage title="Smart Cards in Confluence Editor">
 					<p>
 						Make sure you're logged into{' '}
-						<a href="https://pug.jira-dev.com" target="_blank">
+						<a
+							href="https://pug.jira-dev.com"
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-no-target-blank
+							target="_blank"
+							rel="noreferrer"
+						>
 							Atlassian Cloud on Staging
 						</a>
 						. Try pasting URLs to Hello, Google Drive, Asana, Dropbox, Trello etc. Links pasted in

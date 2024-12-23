@@ -758,7 +758,7 @@ function ReactEditorView(props: EditorViewProps) {
 				useShallow={true}
 			/>
 			{props.render
-				? props.render?.({
+				? (props.render?.({
 						editor,
 						view: viewRef.current,
 						config: config.current,
@@ -767,7 +767,7 @@ function ReactEditorView(props: EditorViewProps) {
 						dispatchAnalyticsEvent: dispatchAnalyticsEvent,
 						editorRef: editorRef,
 						editorAPI: editorAPI,
-					}) ?? editor
+					}) ?? editor)
 				: editor}
 		</ReactEditorViewContext.Provider>
 	);

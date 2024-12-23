@@ -37,6 +37,8 @@ another line`;
 		expect(transformer.parse(wiki)).toMatchSnapshot();
 	});
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line jest/no-identical-title
 	test('should detect superscript mark at in between of the line', () => {
 		const wiki = 'This is a ^superscript^superscript^ text';
 

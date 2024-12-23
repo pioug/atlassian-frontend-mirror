@@ -102,6 +102,8 @@ export function createPlugin(
 					const { $head: $oldHead } = oldState.selection;
 					// Check that cursor has moved forward in the document **and** that there is content before the cursor
 					const cursorMoved = $oldHead.pos < $newHead.pos;
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					const nodeBeforeHasContent = !isNodeEmpty($newHead.nodeBefore!);
 					const nodeBeforeIsInline = $newHead.nodeBefore?.type.isInline;
 
@@ -201,6 +203,8 @@ function ContentComponent({
 	if (placeholderTextState?.showInsertPanelAt) {
 		return (
 			<PlaceholderFloatingToolbar
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				editorViewDOM={editorView.dom as HTMLElement}
 				popupsMountPoint={popupsMountPoint}
 				popupsBoundariesElement={popupsBoundariesElement}

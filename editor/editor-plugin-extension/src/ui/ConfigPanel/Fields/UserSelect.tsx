@@ -118,6 +118,8 @@ function SafeSmartUserPicker({
 
 	return (
 		<SmartUserPicker
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...formFieldPropsRest}
 			onChange={onChangeUnsafe}
 			autoFocus={autoFocus}

@@ -40,6 +40,8 @@ export interface Props {
 	featureFlags?: MediaFeatureFlags;
 	allowCaptions?: boolean;
 	isInsideOfInlineExtension?: boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	dataAttributes?: Record<string, any>;
 	editorAppearance?: EditorAppearance;
 }
@@ -59,6 +61,8 @@ const isMediaElement = (
 		return false;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const { nodeType, type } = (media as any).props || {};
 
 	// Use this to perform a rough check
@@ -70,7 +74,11 @@ const checkForMediaElement = (
 	children: React.ReactNode,
 ): ReactElement<MediaProps & MediaADFAttrs> => {
 	const [media] = React.Children.toArray(children);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	if (media && !isMediaElement(media) && (media as any).props.children) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return checkForMediaElement((media as any).props.children);
 	}
 	return media as ReactElement<MediaProps & MediaADFAttrs>;
@@ -194,6 +202,8 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 		const handleMouseEnter = (event: MouseEvent) => {
 			cancelTimeout();
 			if (event.buttons === 0) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				setHoverTarget && setHoverTarget(event.target as HTMLElement);
 				setIsWithinRange(true);
 			}
@@ -204,12 +214,20 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 		};
 
 		if (mediaSingleElement && isFullPageRenderer) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			mediaSingleElement.addEventListener('mouseenter', handleMouseEnter);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			mediaSingleElement.addEventListener('mouseleave', handleMouseLeave);
 		}
 		return () => {
 			if (mediaSingleElement && isFullPageRenderer) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				mediaSingleElement.removeEventListener('mouseenter', handleMouseEnter);
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				mediaSingleElement.removeEventListener('mouseleave', handleMouseLeave);
 			}
 		};
@@ -274,6 +292,8 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
 	const [node, caption] = React.Children.toArray(children);
 
 	if (!isMediaElement(node)) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const mediaElement = checkForMediaElement((node as any).props.children);
 		if (!mediaElement) {
 			return node as React.ReactElement<MediaProps>;
@@ -282,6 +302,8 @@ const MediaSingle = (props: Props & WrappedComponentProps) => {
 	} else {
 		media = node;
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <MediaSingleWithChildren {...props} media={media} caption={caption} />;
 };
 

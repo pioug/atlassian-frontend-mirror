@@ -11,6 +11,8 @@ export const getGuidelinesWithHighlights = <
 	maxGap: number,
 	activeGuidelineKeys: string[],
 	guidelines: T[],
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): T[] => {
 	if (activeGuidelineKeys.length) {
 		return guidelines.map((guideline) => {

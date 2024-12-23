@@ -27,6 +27,8 @@ function keymapList(
 
 	if (api && fg('platform_editor_element_drag_and_drop_ed_23873')) {
 		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			showElementDragHandle.common!,
 			(state, dispatch, view) => {
 				showDragHandleAtSelection(api)(state, dispatch, view);
@@ -36,11 +38,15 @@ function keymapList(
 			keymapList,
 		);
 		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			dragToMoveUp.common!,
 			moveNodeViaShortcut(api, DIRECTION.UP, formatMessage),
 			keymapList,
 		);
 		bindKeymapWithCommand(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			dragToMoveDown.common!,
 			moveNodeViaShortcut(api, DIRECTION.DOWN, formatMessage),
 			keymapList,
@@ -48,11 +54,15 @@ function keymapList(
 
 		if (editorExperiment('nested-dnd', true) && fg('platform_editor_element_dnd_nested_a11y')) {
 			bindKeymapWithCommand(
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				dragToMoveLeft.common!,
 				moveNodeViaShortcut(api, DIRECTION.LEFT, formatMessage),
 				keymapList,
 			);
 			bindKeymapWithCommand(
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				dragToMoveRight.common!,
 				moveNodeViaShortcut(api, DIRECTION.RIGHT, formatMessage),
 				keymapList,

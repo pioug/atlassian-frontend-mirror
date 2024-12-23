@@ -72,11 +72,17 @@ export function createNormalizeTextParser(): NormalizeTextParser {
 		.format(1.1)
 		.replace(/\p{Number}/gu, '');
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const numericPattern = new RegExp(
 		`(\\d+(?:[${thousandSeparator}${decimalSeparator}]?\\d+)*)`,
 		'g',
 	);
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const thousandSeparatorPattern = new RegExp('\\' + thousandSeparator, 'g');
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const decimalSeparatorPattern = new RegExp('\\' + decimalSeparator);
 
 	return (text: string) => {

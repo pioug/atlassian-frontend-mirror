@@ -208,6 +208,8 @@ class FindReplaceToolbarButton extends React.PureComponent<
 							replaceText={replaceText}
 							count={{ index, total: numMatches }}
 							focusToolbarButton={this.focusToolbarButton}
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...this.props}
 						/>
 					</div>

@@ -5,14 +5,20 @@ import {
 	type ProviderType,
 } from './types';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function isUndefined(x: any): x is undefined {
 	return x === undefined;
 }
 export default class ProviderFactory {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private providers: Map<string, Promise<any>> = new Map();
 	private subscribers: Map<string, ProviderHandler[]> = new Map();
 
 	static create(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		providers: Providers & { [key: string]: Promise<any> | undefined },
 	): ProviderFactory {
 		const providerFactory = new ProviderFactory();

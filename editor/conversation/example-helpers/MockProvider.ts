@@ -79,6 +79,8 @@ export class MockProvider extends AbstractConversationResource {
 	/**
 	 * Retrieve the IDs (and meta-data) for all conversations associated with the object ID.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async getConversations(): Promise<Conversation[]> {
 		const { dispatch } = this;
 		dispatch({ type: FETCH_CONVERSATIONS_REQUEST });
@@ -92,9 +94,15 @@ export class MockProvider extends AbstractConversationResource {
 	/**
 	 * Creates a new Conversation and associates it with the objectId provided.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await, @typescript-eslint/max-params
 	async create(
 		localId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		meta: any,
 		objectId: string,
 		containerId?: string,
@@ -130,9 +138,13 @@ export class MockProvider extends AbstractConversationResource {
 	/**
 	 * Adds a comment to a parent, or update if existing. ParentId can be either a conversation or another comment.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	async addComment(
 		conversationId: string,
 		parentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		doc: any,
 		localId?: string,
 	): Promise<Comment> {
@@ -159,14 +171,20 @@ export class MockProvider extends AbstractConversationResource {
 		return result as Comment;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	private createComment(
 		conversationId: string,
 		parentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		doc: any,
 		localId: string = uuid.generate(),
 	): Comment {
 		return {
 			commentAri: `abc:cloud:platform::comment/${localId}`,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			createdBy: this.config.user!,
 			createdAt: Date.now(),
 			commentId: uuid.generate(),
@@ -183,6 +201,8 @@ export class MockProvider extends AbstractConversationResource {
 	/**
 	 * Updates a comment based on ID. Returns updated content
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await, @typescript-eslint/no-explicit-any
 	async updateComment(conversationId: string, commentId: string, document: any): Promise<Comment> {
 		const result = {
 			createdBy: this.config.user,
@@ -220,6 +240,8 @@ export class MockProvider extends AbstractConversationResource {
 	 * @param {string} commentId
 	 * @returns {Promise<Comment>}
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async deleteComment(
 		conversationId: string,
 		commentId: string,
@@ -243,6 +265,8 @@ export class MockProvider extends AbstractConversationResource {
 	/**
 	 * Reverts a comment based on ID. Returns updated comment.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async revertComment(
 		conversationId: string,
 		commentId: string,
@@ -258,6 +282,8 @@ export class MockProvider extends AbstractConversationResource {
 	/**
 	 * Updates a user in the store. Returns updated user
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async updateUser(user: User): Promise<User> {
 		const { dispatch } = this;
 		dispatch({ type: UPDATE_USER_SUCCESS, payload: { user } });

@@ -50,6 +50,8 @@ export interface Props {
 	children?: React.ReactNode;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class WithFlash extends React.Component<Props> {
 	private toggle = false;
 

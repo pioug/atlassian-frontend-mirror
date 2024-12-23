@@ -59,6 +59,8 @@ import type { MediaUploadEventPayload } from './upload-media-events';
 import type { OperationalAEP, OperationalExposureAEP, TrackAEP } from './utils';
 import type { ViewEventPayload } from './view-events';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Dispatch<T = any> = (eventName: PluginKey | string, data: T) => void;
 
 export type SimplifiedNode = {

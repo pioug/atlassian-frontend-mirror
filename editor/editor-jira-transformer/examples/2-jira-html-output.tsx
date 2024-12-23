@@ -26,6 +26,8 @@ declare global {
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class EditorWithFeedback extends React.Component<Props, State> {
 	state = {
 		hasJquery: false,

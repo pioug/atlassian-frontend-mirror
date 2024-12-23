@@ -18,19 +18,35 @@ import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 export function captionKeymap(): SafePlugin {
 	const list = {};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(moveDown.common!, createNewParagraphBelowCaption, list);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(enter.common!, createNewParagraphBelowCaption, list);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(moveDown.common!, getOutOfCaption, list);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(enter.common!, getOutOfCaption, list);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(moveUp.common!, selectParentMediaSingle, list);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(shiftTab.common!, selectParentMediaSingle, list);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(tab.common!, getOutOfCaption, list);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(moveLeft.common!, gapCursorSelectLeftParentMediaSingle, list);
 
 	return keymap(list) as SafePlugin;

@@ -218,16 +218,26 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 	const getFitHeightDebounced = rafSchedule(getFitHeight);
 
 	useLayoutEffect(() => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const scrollableElement = popupsScrollableElement || findOverflowScrollParent(anchorElement!);
 		getFitHeight();
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.addEventListener('resize', getFitHeightDebounced);
 		if (scrollableElement) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			scrollableElement.addEventListener('scroll', getFitHeightDebounced);
 		}
 
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			window.removeEventListener('resize', getFitHeightDebounced);
 			if (scrollableElement) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				scrollableElement.removeEventListener('scroll', getFitHeightDebounced);
 			}
 		};
@@ -259,8 +269,12 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 			});
 		};
 		const { current: element } = ref;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		element?.addEventListener('focusout', focusOut);
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element?.removeEventListener('focusout', focusOut);
 		};
 	}, [ref, cancel]);
@@ -279,9 +293,13 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		};
 
 		const { current: element } = ref;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		element?.addEventListener('keydown', escape);
 
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element?.removeEventListener('keydown', escape);
 		};
 	}, [ref, cancel]);

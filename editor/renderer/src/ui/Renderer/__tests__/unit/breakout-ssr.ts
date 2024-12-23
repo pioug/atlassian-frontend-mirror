@@ -48,6 +48,8 @@ describe('Breakout SSR', () => {
 		// Unregister mutation observer on page load
 		expect(mockWindow.addEventListener).toHaveBeenCalledWith('load', expect.any(Function));
 		// Set some width
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		expect((document.querySelector('.pm-table-container') as HTMLElement).style.width).toBeTruthy();
 	});
 
@@ -69,6 +71,8 @@ describe('Breakout SSR', () => {
 		</div>
 		`;
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const renderer = document.querySelector('.ak-renderer-wrapper') as HTMLElement;
 
 			expect(renderer.style.visibility).toEqual('hidden');

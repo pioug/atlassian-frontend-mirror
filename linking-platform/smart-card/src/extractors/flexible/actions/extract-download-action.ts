@@ -6,7 +6,7 @@ import { CardAction, type CardActionOptions } from '../../../view/Card/types';
 import { extractInvokeDownloadAction } from '../../action/extract-invoke-download-action';
 import { type ExtractClientActionsParam } from '../../action/types';
 import { getActionsFromJsonLd } from '../../common/actions/extractActions';
-import { extractDownloadUrl } from '../../common/detail';
+import { extractDownloadUrl } from '../../common/download/extractDownloadUrl';
 
 /**
  * TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics

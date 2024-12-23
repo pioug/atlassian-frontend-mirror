@@ -37,6 +37,10 @@ export const indentList = (tr: Transaction) => {
 		previousListItem.lastChild &&
 		['bulletList', 'orderedList'].includes(previousListItem.lastChild.type.name);
 	const inner = Fragment.from(isPreviousListNested ? listItem.create() : undefined);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const nextListNodeType = isPreviousListNested ? previousListItem!.lastChild!.type : parent.type;
 	const nextListNodeContent = Fragment.from(nextListNodeType.create(null, inner));
 	const slice = new Slice(

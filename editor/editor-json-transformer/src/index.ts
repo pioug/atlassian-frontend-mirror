@@ -122,6 +122,8 @@ const toJSON = (node: PMNode, mentionMap?: Record<string, string | undefined>): 
 	if (isMentionNode(node) && mentionMap) {
 		// If the mentionMap exists and has a name defined then we should use it and prepend @ to the begining of it.
 		const name = !!mentionMap?.[node.attrs.id] ? `@${mentionMap[node.attrs.id]}` : '';
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const text = (obj.attrs as any)?.text ?? '';
 
 		obj.attrs = {
@@ -207,6 +209,8 @@ const canOverrideMark = (mark: PMMark, existingMarks: readonly PMMark[]): boolea
 const getUnwrappedNodeAttributes = (node: PMNode, mark: PMMark, obj: JSONNode): object | null => {
 	const nodeAttributes = node.type.spec.attrs;
 	const attributes = { ...mark.attrs.unsupported, ...obj.attrs };
+	// Ignored via go/ees005
+	// eslint-disable-next-line no-var
 	for (var key in obj.attrs) {
 		if (obj.attrs.hasOwnProperty(key)) {
 			const attribute = nodeAttributes ? nodeAttributes[key] : null;

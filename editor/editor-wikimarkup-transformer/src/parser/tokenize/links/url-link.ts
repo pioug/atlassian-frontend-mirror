@@ -32,6 +32,8 @@ export function urlLinkResolver(
 		ignoreTokenTypes,
 		schema,
 		context,
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		input: textRepresentation.replace(/^mailto:/, ''),
 	});
 

@@ -1,6 +1,8 @@
 import type { FloatingToolbarItem } from '../types';
 
 export type Item = FloatingToolbarItem<Function>;
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function makeSameType<T>(_a: T, _b: any): _b is T {
 	return true;
 }
@@ -29,6 +31,8 @@ export const shallowEqual = (objA?: Object, objB?: Object) => {
 			return false;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		if ((objA as any)[key] !== (objB as any)[key]) {
 			return false;
 		}
@@ -37,6 +41,8 @@ export const shallowEqual = (objA?: Object, objB?: Object) => {
 	return true;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const compareArrays = <T extends Array<any>>(
 	left: Array<T>,
 	right: Array<T>,
@@ -55,7 +61,7 @@ export const compareArrays = <T extends Array<any>>(
 	return true;
 };
 
-const compareItemWithKeys = <T extends {}, U extends keyof T>(
+const compareItemWithKeys = <T extends Object, U extends keyof T>(
 	leftItem: T,
 	rightItem: T,
 	excludedKeys: Array<U> = [],
@@ -64,7 +70,11 @@ const compareItemWithKeys = <T extends {}, U extends keyof T>(
 		.filter((key) => excludedKeys.indexOf(key) === -1)
 		.every((key) =>
 			leftItem[key] instanceof Object
-				? shallowEqual(leftItem[key]!, rightItem[key]!)
+				? // Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					shallowEqual(leftItem[key]!, rightItem[key]!)
 				: leftItem[key] === rightItem[key],
 		);
 
@@ -96,6 +106,8 @@ export const isSameItem = (leftItem: Item, rightItem: Item): boolean => {
 				makeSameType(leftItem, rightItem) &&
 				Array.isArray(leftItem.options) &&
 				Array.isArray(rightItem.options) &&
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				!compareArrays(leftItem.options as any, rightItem.options as any, (left, right) =>
 					compareItemWithKeys(left, right),
 				)

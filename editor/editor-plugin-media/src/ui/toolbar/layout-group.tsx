@@ -30,11 +30,17 @@ export const LayoutGroup = ({ layoutButtons, dispatchCommand, hide }: Props) => 
 				{layoutButtons.map((item, idx) => {
 					switch (item.type) {
 						case 'separator':
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/no-array-index-key
 							return <FloatingToolbarSeparator key={idx} />;
 						case 'button':
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							const ButtonIcon = item.icon as React.ComponentClass<any>;
 							return (
 								<Button
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/no-array-index-key
 									key={idx}
 									icon={item.icon ? <ButtonIcon label={item.title} /> : undefined}
 									title={item.title}

@@ -140,6 +140,8 @@ function CustomSelect({
 					{resolver && (
 						<>
 							<AsyncCreatableSelect
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...fieldProps}
 								onChange={(value) => {
 									fieldProps.onChange(value);

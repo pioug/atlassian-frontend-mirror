@@ -371,6 +371,8 @@ export default function encode(node: PMNode, schema: Schema) {
 		const plainTextBody = doc.createElementNS(AC_XMLNS, 'ac:plain-text-body');
 		const fragment = doc.createDocumentFragment();
 		(node.textContent || '')
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.split(/]]>/g)
 			.map((value, index, array) => {
 				const isFirst = index === 0;
@@ -401,6 +403,8 @@ export default function encode(node: PMNode, schema: Schema) {
 				if (node.type.name === 'heading' && pos === 0) {
 					elem.appendChild(
 						encodeMacroParams(doc, {
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							title: { value: node.firstChild!.textContent },
 						}),
 					);
@@ -445,6 +449,8 @@ export default function encode(node: PMNode, schema: Schema) {
 	}
 
 	function encodeUnsupported(node: PMNode) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const domNode = parseCxhtml(node.attrs.cxhtml || '').querySelector('body')!.firstChild;
 		if (domNode) {
 			return doc.importNode(domNode, true);

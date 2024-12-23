@@ -16,10 +16,16 @@ import { MentionResource } from '@atlaskit/mention/resource';
 import { token } from '@atlaskit/tokens';
 
 const rejectedPromise = Promise.reject(new Error('Simulated provider rejection'));
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const pendingPromise = new Promise<any>(() => {});
 
 interface Providers {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	mentionProvider: any;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	activityProvider: any;
 }
 
@@ -56,12 +62,18 @@ export interface State {
 
 export interface RenderEditorProps {
 	disabled: boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onChange: (editorView: any) => void;
 	mentionProvider?: string;
 	activityProvider?: string;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
 export default class ToolsDrawer extends React.Component<any, State> {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	constructor(props: any) {
 		super(props);
 
@@ -74,6 +86,8 @@ export default class ToolsDrawer extends React.Component<any, State> {
 		};
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private onChange = (editorView: any) => {
 		const { schema, doc } = editorView.state;
 		const document = new WikiMarkupTransformer(schema).encode(doc);

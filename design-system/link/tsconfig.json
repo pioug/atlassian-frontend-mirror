@@ -15,6 +15,5 @@
     "utils/variations.tsx"
   ],
   "compilerOptions": {
-    "baseUrl": "./"
   }
 }

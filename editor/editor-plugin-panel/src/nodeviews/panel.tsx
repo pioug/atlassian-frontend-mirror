@@ -99,6 +99,8 @@ class PanelNodeView {
 	pluginOptions: PanelPluginOptions;
 	key: string;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: Node,
 		view: EditorView,
@@ -120,8 +122,14 @@ class PanelNodeView {
 			panelAttrsToDom(node.attrs as PanelAttributes, pluginOptions.allowCustomPanel || false),
 		);
 		this.getPos = getPos;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.dom = dom as HTMLElement;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.contentDOM = contentDOM as HTMLElement;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.icon = this.dom.querySelector(`.${PanelSharedCssClassName.icon}`) as HTMLElement;
 
 		if (!this.icon) {
@@ -179,6 +187,8 @@ export const getPanelNodeView =
 		api: ExtractInjectionAPI<PanelPlugin> | undefined,
 		nodeViewPortalProviderAPI: PortalProviderAPI,
 		providerFactory?: ProviderFactory,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(node: Node, view: EditorView, getPos: getPosHandler): PanelNodeView => {
 		return new PanelNodeView(

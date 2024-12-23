@@ -12,7 +12,6 @@
     "scripts"
   ],
   "compilerOptions": {
-    "baseUrl": "./",
     "lib": ["ES2021.String"]
   },
   "ts-node": {

@@ -113,7 +113,11 @@ const supportedDetectors: DetectorRegistration[] = [
 					queue = [];
 				};
 				const intervalId = setInterval(() => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					if (typeof (window as any).requestIdleCallback === 'function') {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						(window as any).requestIdleCallback(processQueue);
 					} else {
 						window.requestAnimationFrame(processQueue);

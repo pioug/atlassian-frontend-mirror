@@ -2,10 +2,16 @@ import type { PluginKey } from '@atlaskit/editor-prosemirror/state';
 export interface Listeners {
 	[name: string]: Set<Listener>;
 }
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Listener<T = any> = (data: T) => void;
 type EventName = PluginKey | string;
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type Dispatch<T = any> = (eventName: EventName, data: T) => void;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export class EventDispatcher<T = any> {
 	private listeners: Listeners = {};
 

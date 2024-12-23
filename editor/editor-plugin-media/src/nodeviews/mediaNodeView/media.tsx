@@ -137,7 +137,11 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 				);
 
 				if (focusableElements && focusableElements.length) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					firstElement = focusableElements[0] as HTMLElement;
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					lastElement = focusableElements[focusableElements.length - 1] as HTMLElement;
 					if (event.shiftKey && document.activeElement === firstElement) {
 						event.preventDefault();
@@ -225,6 +229,8 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		const identifier: Identifier =
 			type === 'external'
 				? {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						dataURI: url!,
 						name: url,
 						mediaItemType: 'external-image',
@@ -232,6 +238,8 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 				: {
 						id,
 						mediaItemType: 'file',
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						collectionName: collection!,
 					};
 
@@ -239,6 +247,8 @@ export class MediaNode extends Component<MediaNodeProps, MediaNodeState> {
 		// there is a possibility mediaClientConfig will be part of a identifier,
 		// so this might be not an issue
 		const mediaClientConfig: MediaClientConfig = viewMediaClientConfig || {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			authProvider: () => ({}) as any,
 		};
 

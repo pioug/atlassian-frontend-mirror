@@ -31,6 +31,8 @@ function getHeadingLevel(match: string[]): {
 
 function headingRule(nodeType: NodeType, maxLevel: number) {
 	return createWrappingTextBlockRule({
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		match: new RegExp('^(#{1,' + maxLevel + '})\\s$'),
 		nodeType,
 		getAttrs: getHeadingLevel,
@@ -38,6 +40,8 @@ function headingRule(nodeType: NodeType, maxLevel: number) {
 }
 
 function blockQuoteRule(nodeType: NodeType) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return createJoinNodesRule(/^\s*>\s$/, nodeType) as InputRuleWrapper;
 }
 
@@ -55,7 +59,11 @@ function getHeadingRules(
 	const hashRule = headingRule(schema.nodes.heading, MAX_HEADING_LEVEL);
 
 	const leftNodeReplacementHashRule = createRule(
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		new RegExp(`${leafNodeReplacementCharacter}(#{1,6})\\s$`),
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 		(state, match, start, end) => {
 			const level = match[1].length;
 			return insertBlock(state, schema.nodes.heading, start, end, { level });
@@ -97,7 +105,11 @@ function getBlockQuoteRules(
 	const greatherThanRule = blockQuoteRule(schema.nodes.blockquote);
 
 	const leftNodeReplacementGreatherRule = createRule(
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		new RegExp(`${leafNodeReplacementCharacter}\\s*>\\s$`),
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 		(state, _match, start, end) => {
 			return insertBlock(state, schema.nodes.blockquote, start, end);
 		},

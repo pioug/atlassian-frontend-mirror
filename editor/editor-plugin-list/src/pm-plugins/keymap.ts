@@ -29,28 +29,42 @@ export function keymapPlugin(
 	const list = {};
 
 	bindKeymapWithEditorCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		findShortcutByKeymap(toggleOrderedList)!,
 		toggleList(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD, 'orderedList'),
 		list,
 	);
 	bindKeymapWithEditorCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		findShortcutByKeymap(toggleBulletList)!,
 		toggleList(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD, 'bulletList'),
 		list,
 	);
 	bindKeymapWithEditorCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		indentList.common!,
 		indentListCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
 		list,
 	);
 	bindKeymapWithEditorCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		outdentList.common!,
 		outdentListCommand(editorAnalyticsAPI)(INPUT_METHOD.KEYBOARD),
 		list,
 	);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(enter.common!, enterKeyCommand(editorAnalyticsAPI)(), list);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(backspace.common!, backspaceKeyCommand(editorAnalyticsAPI)(), list);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(deleteKey.common!, deleteKeyCommand(editorAnalyticsAPI), list);
 
 	// This shortcut is Mac only

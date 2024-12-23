@@ -133,6 +133,8 @@ export interface DateRangeField extends BaseFieldDefinition {
 }
 export interface DateRangeResult {
 	type: 'date-range';
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	value: 'custom' | any;
 	from?: string;
 	to?: string;
@@ -203,6 +205,8 @@ export const isFieldset = (field: FieldDefinition): field is Fieldset => {
 export const isTabGroup = (field: FieldDefinition): field is TabGroupField => {
 	return field.type === 'tab-group';
 };
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isTabField = (field: any): field is TabField => {
 	return 'type' in field && field.type === 'tab';
 };
@@ -210,6 +214,8 @@ export const isExpand = (field: FieldDefinition): field is ExpandField => {
 	return field.type === 'expand';
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const isDateRange = (value: any): value is DateRangeResult => {
 	return value && value.hasOwnProperty('type') && value.type === 'date-range';
 };

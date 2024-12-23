@@ -17,6 +17,8 @@ export const editDatasource =
 		editorAnalyticsApi?: EditorAnalyticsAPI,
 		appearance?: CardType,
 		extensionKey?: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		const datasourceType = getDatasourceType(datasourceId);

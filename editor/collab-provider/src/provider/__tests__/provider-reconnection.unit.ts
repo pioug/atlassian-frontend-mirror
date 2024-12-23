@@ -25,6 +25,8 @@ jest.mock('../../channel', () => {
 			},
 			on: jest.fn().mockImplementation(function (this: any, eventName, callback) {
 				events.set(eventName, callback);
+				// Ignored via go/ees005
+				// eslint-disable-next-line no-invalid-this
 				return this;
 			}),
 			connect: jest.fn(),

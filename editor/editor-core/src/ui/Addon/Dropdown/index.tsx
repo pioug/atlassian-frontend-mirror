@@ -8,8 +8,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 
 import type EditorActions from '../../../actions';
-import type { RenderOnClickHandler } from '../../Addon/types';
-import type { AddonActions } from '../types';
+import type { RenderOnClickHandler, AddonActions } from '../../Addon/types';
 
 import { dropdown } from './styles';
 
@@ -20,6 +19,8 @@ export interface Props {
 	togglePopup: () => void;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class DropdownWrapper extends React.Component<Props> {
 	render() {
 		// adding onClick handler to each DropdownItem component

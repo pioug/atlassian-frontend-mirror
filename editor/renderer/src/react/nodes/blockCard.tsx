@@ -98,6 +98,8 @@ export default function BlockCard(props: {
 					<CardErrorBoundary
 						unsupportedComponent={UnsupportedInline}
 						datasourceId={props.datasource.id}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...cardProps}
 					>
 						<WidthConsumer>
@@ -142,8 +144,20 @@ export default function BlockCard(props: {
 				data-card-data={data ? JSON.stringify(data) : undefined}
 				data-card-url={url}
 			>
-				<CardErrorBoundary unsupportedComponent={UnsupportedBlock} {...cardProps}>
-					<Card appearance="block" platform={platform} {...cardProps} onError={onError} />
+				<CardErrorBoundary
+					unsupportedComponent={UnsupportedBlock}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...cardProps}
+				>
+					<Card
+						appearance="block"
+						platform={platform}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...cardProps}
+						onError={onError}
+					/>
 				</CardErrorBoundary>
 			</div>
 		</AnalyticsContext>

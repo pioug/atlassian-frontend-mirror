@@ -171,6 +171,8 @@ const generateMediaCardFloatingToolbar = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	forceFocusSelector: ForceFocusSelector | undefined,
 	isViewOnly: boolean | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (isViewOnly) {
 		return [];
@@ -269,6 +271,8 @@ const generateMediaSingleFloatingToolbar = (
 	pluginState: MediaPluginState,
 	mediaLinkingState: MediaLinkingState,
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { mediaSingle } = state.schema.nodes;
 	const {
@@ -353,7 +357,14 @@ const generateMediaSingleFloatingToolbar = (
 			if (selectedLayoutIcon && layoutButtons.length) {
 				const options: DropdownOptions<Command> = {
 					render: (props) => {
-						return <LayoutGroup layoutButtons={layoutButtons} {...props} />;
+						return (
+							<LayoutGroup
+								layoutButtons={layoutButtons}
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...props}
+							/>
+						);
 					},
 					width: 156,
 					height: 32,
@@ -722,6 +733,8 @@ export const floatingToolbar = (
 	intl: IntlShape,
 	options: MediaFloatingToolbarOptions = {},
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarConfig | undefined => {
 	const { media, mediaInline, mediaSingle, mediaGroup } = state.schema.nodes;
 	const {
@@ -787,6 +800,8 @@ export const floatingToolbar = (
 		const mediaOffset = state.selection.$from.parentOffset + 1;
 		baseToolbar.getDomRef = () => {
 			const selector = mediaFilmstripItemDOMSelector(mediaOffset);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			return mediaPluginState.element?.querySelector(selector) as HTMLElement;
 		};
 		items = generateMediaCardFloatingToolbar(
@@ -810,6 +825,8 @@ export const floatingToolbar = (
 		);
 	} else {
 		baseToolbar.getDomRef = () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const element = mediaPluginState.element?.querySelector(
 				`.${MediaSingleNodeSelector}`,
 			) as HTMLElement;
@@ -825,6 +842,8 @@ export const floatingToolbar = (
 		);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line no-var
 	var assistiveMessage = '';
 
 	const selectedMediaSingleNode = getSelectedMediaSingle(state);

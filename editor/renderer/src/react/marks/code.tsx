@@ -21,6 +21,8 @@ export function CodeWithIntl(
 			className="code"
 			codeBidiWarningLabel={codeBidiWarningLabel}
 			codeBidiWarningTooltipEnabled={props.codeBidiWarningTooltipEnabled}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props.dataAttributes}
 		>
 			{props.children}

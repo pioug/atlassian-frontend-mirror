@@ -2,7 +2,6 @@ import { type ReactNode } from 'react';
 
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 
-import { type RequestAccessMessageKey } from '../../messages';
 import { type InvokeHandler } from '../../model/invoke-handler';
 import { type AnalyticsFacade } from '../../state/analytics';
 import { type CardState } from '../../state/types';
@@ -12,7 +11,7 @@ import type {
 	EmbedIframeUrlType,
 	OnResolveCallback,
 } from '../Card/types';
-import { type ActionProps, type OnErrorCallback } from '../types';
+import { type OnErrorCallback } from '../types';
 
 export type EmbedCardProps = {
 	url: string;
@@ -60,12 +59,6 @@ export interface AccessContext {
 	cloudId?: string;
 	url?: string;
 	smartLinksAccessMetadataExperimentCohort?: 'experiment' | 'control' | 'not-enrolled';
-}
-
-export interface RequestAccessContextProps extends AccessContext {
-	action?: ActionProps;
-	callToActionMessageKey?: RequestAccessMessageKey;
-	descriptiveMessageKey?: RequestAccessMessageKey;
 }
 
 export type InlinePreloaderStyle = 'on-left-with-skeleton' | 'on-right-without-skeleton';

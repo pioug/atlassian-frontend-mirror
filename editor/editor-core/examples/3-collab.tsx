@@ -15,13 +15,14 @@ import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import { akEditorCodeBackground, akEditorCodeFontFamily } from '@atlaskit/editor-shared-styles';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
-import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
-import { getExampleExtensionProviders } from '@atlaskit/editor-test-helpers/example-helpers';
+import {
+	TitleInput,
+	getExampleExtensionProviders,
+} from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
 import { storyMediaProviderFactory } from '@atlaskit/editor-test-helpers/media-provider';
 import { macroProvider } from '@atlaskit/editor-test-helpers/mock-macro-provider';
-import type { ResolvingMentionProvider } from '@atlaskit/mention/resource';
-import type { MentionProvider } from '@atlaskit/mention/resource';
+import type { ResolvingMentionProvider, MentionProvider } from '@atlaskit/mention/resource';
 import type { ConfigResponse, ShareResponse } from '@atlaskit/share';
 import { ShareDialogContainer } from '@atlaskit/share';
 import type { OptionData, User } from '@atlaskit/smart-user-picker';
@@ -161,6 +162,8 @@ interface DropzoneEditorWrapperProps {
 	children: (container: HTMLElement) => React.ReactNode;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class DropzoneEditorWrapper extends React.Component<DropzoneEditorWrapperProps, {}> {
 	dropzoneContainer: HTMLElement | null = null;
 
@@ -296,6 +299,8 @@ const Comp2 = ({ parentContainer }: { parentContainer: HTMLElement }) => {
 	);
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class Example extends React.Component<Props> {
 	render() {
 		return (

@@ -1,9 +1,15 @@
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type SubscriberCallback = (node: any) => void;
 
 class ADFTraversor {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private doc: any;
 	private subscribers = new Map<string, SubscriberCallback[]>();
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	constructor(doc: any) {
 		this.doc = doc;
 	}

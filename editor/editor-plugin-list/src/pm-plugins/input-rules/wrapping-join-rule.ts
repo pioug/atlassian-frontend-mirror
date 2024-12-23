@@ -31,6 +31,8 @@ export const createWrappingJoinRule = ({
 		match: RegExpExecArray,
 		start: number,
 		end: number,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const attrs = (getAttrs instanceof Function ? getAttrs(match) : getAttrs) || {};
 

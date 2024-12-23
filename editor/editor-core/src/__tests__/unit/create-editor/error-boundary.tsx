@@ -43,6 +43,8 @@ const ExplodingFoo = () => {
 	return <div>Exploding Foo</div>;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class ProductErrorBoundary extends React.Component<React.PropsWithChildren<{}>> {
 	state = {
 		error: undefined,

@@ -38,6 +38,8 @@ export const buildColumnResizingDecorations =
 		includeTooltip: boolean,
 		getIntl: () => IntlShape,
 		nodeViewPortalProviderAPI: PortalProviderAPI,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): DecorationTransformer =>
 	({ tr, decorationSet }): DecorationSet => {
 		const [columnResizesDecorations, lastCellElementsDecorations] =

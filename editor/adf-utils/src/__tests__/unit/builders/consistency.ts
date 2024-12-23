@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 
+// Ignored via go/ees005
+// eslint-disable-next-line no-var
 declare var __dirname: string;
 
 const buildFilesList = (dirPath: string, ignored: Array<string> = []) =>

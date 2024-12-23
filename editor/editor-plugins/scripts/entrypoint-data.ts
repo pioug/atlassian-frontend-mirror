@@ -1,6 +1,10 @@
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as fs from 'fs';
 import path from 'path';
 
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as ts from 'typescript';
 
 interface ExtractedAfExportData {
@@ -81,6 +85,8 @@ function getFileTopLevelStatements(fileName: string): string[] {
 }
 
 function isTypeExport(exportName: string, statements: string[]): boolean {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const wholeExportNameRegex = new RegExp(`\\b${exportName}\\b`);
 	const statement = statements.find(
 		(statement) => wholeExportNameRegex.test(statement) && statement.startsWith('export'),
@@ -150,6 +156,8 @@ function getFileExportNames(fileName: string) {
 			const exportClause = node.exportClause;
 			if (exportClause && ts.isNamedExports(exportClause)) {
 				exportClause.elements.forEach((exportedElement) => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line import/no-commonjs
 					exports.push(exportedElement.name.text);
 				});
 			}
@@ -159,12 +167,16 @@ function getFileExportNames(fileName: string) {
 			ts.isEnumDeclaration(node)
 		) {
 			if (node.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword)) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line import/no-commonjs
 				exports.push(node.name.text);
 			}
 		} else if (ts.isVariableStatement(node)) {
 			if (node.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword)) {
 				node.declarationList.declarations.forEach((declaration) => {
 					if (ts.isIdentifier(declaration.name)) {
+						// Ignored via go/ees005
+						// eslint-disable-next-line import/no-commonjs
 						exports.push(declaration.name.text);
 					}
 				});
@@ -174,10 +186,14 @@ function getFileExportNames(fileName: string) {
 				node.modifiers?.some((modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword) &&
 				node.name
 			) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line import/no-commonjs
 				exports.push(node.name.text);
 			}
 		} else if (ts.isExportAssignment(node)) {
 			if (ts.isIdentifier(node.expression)) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line import/no-commonjs
 				exports.push(node.expression.text);
 			}
 		}

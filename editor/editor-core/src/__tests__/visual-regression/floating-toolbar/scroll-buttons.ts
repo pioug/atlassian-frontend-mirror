@@ -89,6 +89,8 @@ describe.skip('Floating toolbars:', () => {
 				await pressKey(page, ['ArrowRight', 'ArrowRight', 'ArrowRight']);
 			});
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line jest/no-identical-title
 			it('should render scroll buttons', async () => {
 				focusToolbar();
 				await pressKey(page, ['ArrowLeft', 'ArrowRight']);

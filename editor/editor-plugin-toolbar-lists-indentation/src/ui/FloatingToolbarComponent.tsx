@@ -54,12 +54,24 @@ export function FloatingToolbarComponent({
 			isReducedSpacing={FloatingToolbarSettings.isToolbarReducedSpacing}
 			disabled={FloatingToolbarSettings.disabled}
 			editorView={editorView}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			bulletListActive={listState!.bulletListActive}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			bulletListDisabled={listState!.bulletListDisabled}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			orderedListActive={listState!.orderedListActive}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			orderedListDisabled={listState!.orderedListDisabled}
 			showIndentationButtons={!!showIndentationButtons}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			indentDisabled={toolbarListsIndentationState!.indentDisabled}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			outdentDisabled={toolbarListsIndentationState!.outdentDisabled}
 			indentationStateNode={toolbarListsIndentationState?.node}
 			pluginInjectionApi={pluginInjectionApi}

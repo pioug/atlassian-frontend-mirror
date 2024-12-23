@@ -15,6 +15,8 @@ const clamp = (input: number, lower: number, upper: number) => {
 	return input;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export default function getMediaSingleNodeView(
 	schema: Schema,
 	filename: string,
@@ -33,6 +35,8 @@ export default function getMediaSingleNodeView(
 		mediaNodeAttrs.height = context?.defaults?.media?.height ?? defaultHeight;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const mediaSingleAttrs: any = { layout: 'center' };
 
 	if (attrs.width && attrs.width.endsWith('%')) {
@@ -58,12 +62,16 @@ export default function getMediaSingleNodeView(
 	}
 
 	if (attrs.href) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		const href = attrs.href.replace(/^"(.+)"$/, '$1');
 		mediaMarks.push(link.create({ href }));
 	}
 
 	if (attrs.alt) {
 		// strip wrapping quotes if they exist
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		const altText = attrs.alt.replace(/^"(.+)"$/, '$1');
 		mediaNodeAttrs.alt = altText;
 	}

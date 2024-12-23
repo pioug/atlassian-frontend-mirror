@@ -160,6 +160,8 @@ describe('@atlaskit/editore-core/utils', () => {
 		it('should return false for non-empty doc', () => {
 			expect(checkEmptyNode(doc(p('hello')))).toBeFalsy();
 		});
+		// Ignored via go/ees005
+		// eslint-disable-next-line jest/no-identical-title
 		it('should return false for non-empty doc', () => {
 			expect(checkEmptyNode(doc(p(''), h1('Hey!')))).toBeFalsy();
 		});

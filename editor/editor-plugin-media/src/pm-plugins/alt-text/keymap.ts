@@ -12,8 +12,12 @@ export default function keymapPlugin(
 ): SafePlugin {
 	const list = {};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(addAltText.common!, openMediaAltTextMenu(editorAnalyticsAPI), list);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(escape.common!, closeMediaAltTextMenu, list);
 
 	return keymap(list) as SafePlugin;

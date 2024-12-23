@@ -71,6 +71,8 @@ function setPlaceHolderState(placeholderText: string, pos?: number): PlaceHolder
 
 const emptyPlaceholder: PlaceHolderState = { hasPlaceholder: false };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function createPlaceHolderStateFrom(
 	isEditorFocused: boolean,
 	editorState: EditorState,
@@ -115,6 +117,8 @@ export function createPlugin(
 					defaultPlaceholderText,
 					bracketPlaceholderText,
 				),
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			apply: (tr, _oldPluginState, _oldEditorState, newEditorState) => {
 				const meta = tr.getMeta(pluginKey);
 				const isEditorFocused = Boolean(api?.focus?.sharedState.currentState()?.hasFocus);

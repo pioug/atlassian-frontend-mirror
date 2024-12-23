@@ -28,6 +28,8 @@ export const getCellsInRow =
 				});
 				return acc.concat(
 					cells.map((nodePos) => {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						const node = table.node.nodeAt(nodePos)!;
 						const pos = nodePos + table.start;
 						return { pos, start: pos + 1, node, depth: table.depth + 2 };

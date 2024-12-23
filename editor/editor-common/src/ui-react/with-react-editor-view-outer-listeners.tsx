@@ -12,7 +12,7 @@ type SimpleEventHandler<T> = (event: T) => void;
 // Use this context to pass in the reference of the element that should be considered as the outside click target
 // The outside click target is the element that should be clicked outside of to trigger the `handleClickOutside` event
 export const OutsideClickTargetRefContext = React.createContext<(el: HTMLElement | null) => void>(
-	() => {},
+	() => Object,
 );
 
 // This needs exporting to be used alongside `withReactEditorViewOuterListeners`
@@ -20,10 +20,14 @@ export interface WithOutsideClickProps {
 	handleClickOutside?: SimpleEventHandler<MouseEvent>;
 	handleEscapeKeydown?: SimpleEventHandler<KeyboardEvent>;
 	handleEnterKeydown?: SimpleEventHandler<KeyboardEvent>;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	targetRef?: any;
 	closeOnTab?: boolean;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class WithOutsideClick extends PureComponent<
 	WithOutsideClickProps & {
 		isActiveComponent: boolean;
@@ -33,32 +37,46 @@ class WithOutsideClick extends PureComponent<
 		children?: React.ReactNode;
 		outsideClickTargetRef: React.MutableRefObject<WeakRef<HTMLElement> | null>;
 	},
-	{}
+	Object
 > {
 	componentDidMount() {
 		if (this.props.handleClickOutside) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.addEventListener('click', this.handleClick, false);
 		}
 
 		if (this.props.handleEscapeKeydown) {
 			// Attached event to the menu so that 'ESC' events from the opened menu also will be handled.
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			(this.props.popupsMountPoint
 				? this.props.popupsMountPoint
 				: undefined || this.props.editorRef?.current || this.props.targetRef || document
-			).addEventListener('keydown', this.handleKeydown as any, false);
+			)
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				.addEventListener('keydown', this.handleKeydown as any, false);
 		}
 	}
 
 	componentWillUnmount() {
 		if (this.props.handleClickOutside) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('click', this.handleClick, false);
 		}
 
 		if (this.props.handleEscapeKeydown) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			(this.props.popupsMountPoint
 				? this.props.popupsMountPoint
 				: undefined || this.props.editorRef?.current || this.props.targetRef || document
-			).removeEventListener('keydown', this.handleKeydown as any, false);
+			)
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				.removeEventListener('keydown', this.handleKeydown as any, false);
 		}
 	}
 
@@ -109,11 +127,13 @@ type HasIsOpen = {
 	isOpen: boolean;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function hasIsOpen(props: any): props is HasIsOpen {
 	return 'isOpen' in props;
 }
 
-export default function withReactEditorViewOuterListeners<P extends {}>(
+export default function withReactEditorViewOuterListeners<P extends Object>(
 	Component: React.ComponentType<React.PropsWithChildren<P>>,
 ): React.ComponentType<React.PropsWithChildren<P & WithOutsideClickProps>> {
 	return ({
@@ -155,7 +175,11 @@ export default function withReactEditorViewOuterListeners<P extends {}>(
 							handleEscapeKeydown={handleEscapeKeydown}
 							closeOnTab={closeOnTab}
 						>
-							<Component {...(props as P)} />
+							<Component
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...(props as P)}
+							/>
 						</WithOutsideClick>
 					</OutsideClickTargetRefContext.Provider>
 				)}

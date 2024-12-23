@@ -11,6 +11,8 @@ export class LRUCache<T> {
 		}
 
 		// Move the used key to the end to mark it as most recently used
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const value = this.cache.get(key)!;
 		this.cache.delete(key);
 		this.cache.set(key, value);

@@ -43,6 +43,8 @@ export const getCellsRefsInColumn = (
 	table: PMNode,
 	tableStart: number,
 	domAtPos: (pos: number) => { node: Node; offset: number },
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): HTMLElement[] => {
 	const map = TableMap.get(table);
 	const cellsPositions = map.cellsInRect({
@@ -53,6 +55,8 @@ export const getCellsRefsInColumn = (
 	});
 	const cells: HTMLElement[] = [];
 	cellsPositions.forEach((pos) => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const col = findDomRefAtPos(pos + tableStart, domAtPos) as HTMLElement;
 		if (col) {
 			cells.push(col);

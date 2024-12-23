@@ -42,11 +42,17 @@ export const logException = async (error: Error, tags?: { [key: string]: Primiti
 			environment: process.env.CLOUD_ENV ?? 'unknown',
 			ignoreErrors: [
 				// Network issues
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				/^network error/i,
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				/^network failure/i,
 				'TypeError: Failed to fetch',
 				// A benign error, see https://stackoverflow.com/a/50387233/2645305
 				'ResizeObserver loop limit exceeded',
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				/ResizeObserver loop completed with undelivered notifications/,
 			],
 			autoSessionTracking: false,
@@ -68,10 +74,18 @@ export const logException = async (error: Error, tags?: { [key: string]: Primiti
 		hub.withScope((scope: Scope) => {
 			scope.setTags({
 				// Jira environment variables
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				'jira-bundler': (window as any).BUNDLER_VERSION,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				'jira-variant': (window as any).BUILD_VARIANT,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				'jira-release': (window as any).BUILD_KEY,
 				// Confluence environment variables
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				'confluence-frontend-version': (window as any).__buildInfo?.FRONTEND_VERSION,
 				...tags,
 			});

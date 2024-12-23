@@ -8,8 +8,9 @@ import type {
 
 import type { AEP } from './enums';
 
-import type { SEVERITY, UNSUPPORTED_CONTENT_LEVEL_SEVERITY } from '@atlaskit/editor-common/utils';
 import type {
+	SEVERITY,
+	UNSUPPORTED_CONTENT_LEVEL_SEVERITY,
 	UnsupportedContentPayload,
 	UnsupportedContentTooltipPayload,
 } from '@atlaskit/editor-common/utils';

@@ -23,10 +23,14 @@ export const generateColgroup = (
 	tableRef?: HTMLElement,
 	shouldUseIncreasedScalingPercent?: boolean,
 	isCommentEditor?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const cols: Col[] = [];
 	const map = TableMap.get(table);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	table.content.firstChild!.content.forEach((cell) => {
 		const colspan = cell.attrs.colspan || 1;
 		if (Array.isArray(cell.attrs.colwidth)) {
@@ -89,7 +93,11 @@ export const insertColgroupFromNode = (
 	shouldRemove = true,
 	shouldUseIncreasedScalingPercent = false,
 	isCommentEditor = false,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): HTMLCollection => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	let colgroup = tableRef?.querySelector('colgroup') as HTMLElement;
 	if (colgroup && shouldRemove) {
 		tableRef?.removeChild(colgroup);
@@ -97,7 +105,7 @@ export const insertColgroupFromNode = (
 
 	colgroup = renderColgroupFromNode(
 		table,
-		isTableScalingEnabled ? tableRef ?? undefined : undefined,
+		isTableScalingEnabled ? (tableRef ?? undefined) : undefined,
 		shouldUseIncreasedScalingPercent,
 		isCommentEditor,
 	);
@@ -109,6 +117,8 @@ export const insertColgroupFromNode = (
 };
 
 export const hasTableBeenResized = (table: PmNode) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	return !!getFragmentBackingArray(table.content.firstChild!.content).find(
 		(cell) => cell.attrs.colwidth,
 	);
@@ -123,6 +133,8 @@ export const hasTableColumnBeenResized = hasTableBeenResized;
  * @returns true if all column width is equal to tableCellMinWidth or null, false otherwise
  */
 export const isMinCellWidthTable = (table: PmNode) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const cellArray = getFragmentBackingArray(table.content.firstChild!.content);
 	const isTableMinCellWidth = cellArray.every((cell) => {
 		return (
@@ -134,6 +146,8 @@ export const isMinCellWidthTable = (table: PmNode) => {
 	return isTableMinCellWidth;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function renderColgroupFromNode(
 	table: PmNode,
 	maybeTableRef: HTMLElement | undefined,
@@ -146,6 +160,8 @@ function renderColgroupFromNode(
 		...generateColgroup(table, maybeTableRef, shouldUseIncreasedScalingPercent, isCommentEditor),
 	]);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	return rendered.dom as HTMLElement;
 }
 

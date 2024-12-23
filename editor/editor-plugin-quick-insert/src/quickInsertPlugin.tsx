@@ -170,6 +170,8 @@ const setProviderState =
 		return true;
 	};
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function quickInsertPluginFactory(
 	defaultItems: Array<QuickInsertHandler>,
 	providerFactory: ProviderFactory,

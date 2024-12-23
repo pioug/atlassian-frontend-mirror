@@ -2112,6 +2112,8 @@ describe('JSONTransformer:', () => {
 			type: 'doc',
 			content: [{ type: 'fakeNode', content: 'hello' }],
 		};
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		expect(() => parseJSON(badADF)).toThrowError(/Invalid input for Fragment.fromJSON/);
 	});
 });

@@ -40,6 +40,8 @@ export class GapCursorSelection extends Selection {
 			return false;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const deflt = (parent.contentMatchAt($pos.index()) as any).defaultType;
 		return deflt && deflt.isTextblock;
 	}
@@ -54,6 +56,8 @@ export class GapCursorSelection extends Selection {
 		let pos = $pos.pos;
 
 		// TODO: Fix any, potential issue. ED-5048
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let next: any = null;
 
 		// Scan up from this position
@@ -130,6 +134,8 @@ Selection.jsonID(JSON_ID, GapCursorSelection);
 export class GapBookmark {
 	constructor(private readonly pos: number) {}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	map(mapping: any) {
 		return new GapBookmark(mapping.map(this.pos));
 	}

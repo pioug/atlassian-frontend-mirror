@@ -17,6 +17,8 @@ const limit = (items: Array<ActivityItem>, max: number) => {
 	return items.slice(0, max);
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class RecentLink extends React.Component<
 	RecentSearchProps & WithActivityProviderProps & WrappedComponentProps,
 	RecentSearchState
@@ -36,6 +38,8 @@ class RecentLink extends React.Component<
 		limit: DEFAULT_ITEMS_LIMIT,
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillReceiveProps(nextProps: RecentSearchProps) {
 		if (!fg('platform_editor_react18_phase2_v2')) {
 			if (this.props.defaultUrl !== nextProps.defaultUrl) {
@@ -82,6 +86,8 @@ class RecentLink extends React.Component<
 			if (!this.state.url) {
 				this.setState({
 					isLoading: true,
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					items: limit(await activityProvider.getRecentItems(), this.props.limit!), // defaultProps assure that limit always contains a value
 				});
 			}
@@ -154,11 +160,15 @@ class RecentLink extends React.Component<
 		if (this.activityProvider) {
 			if (input.length === 0) {
 				this.setState({
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					items: limit(await this.activityProvider.getRecentItems(), this.props.limit!),
 					selectedIndex: -1,
 				});
 			} else {
 				this.setState({
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					items: limit(await this.activityProvider.searchRecent(input), this.props.limit!),
 					selectedIndex: 0,
 				});
@@ -166,6 +176,8 @@ class RecentLink extends React.Component<
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private handleKeyDown = (e: KeyboardEvent<any>) => {
 		const { items, selectedIndex } = this.state;
 

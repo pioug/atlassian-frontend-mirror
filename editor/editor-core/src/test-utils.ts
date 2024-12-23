@@ -46,6 +46,8 @@ function lightProcessPluginsList(editorPlugins: LightEditorPlugin[]): LightEdito
 					if (!acc[pluginName]) {
 						acc[pluginName] = [];
 					}
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					acc[pluginName].push(plugin.pluginsOptions![pluginName]);
 				});
 			}

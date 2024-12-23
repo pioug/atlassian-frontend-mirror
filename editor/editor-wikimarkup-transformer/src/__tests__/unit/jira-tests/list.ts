@@ -291,6 +291,8 @@ describe.skip('WikiMarkup Transformer', () => {
 		);
 	});
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line jest/no-identical-title
 	describe('split lists', () => {
 		const WIKI_NOTATION = ` first item
 * second item
@@ -434,6 +436,8 @@ and the third section
 		);
 	});
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line jest/no-identical-title
 	describe('list with long item', () => {
 		const WIKI_NOTATION = `* item1
 * item2

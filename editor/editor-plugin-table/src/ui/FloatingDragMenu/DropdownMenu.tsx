@@ -19,6 +19,8 @@ import { dragMenuDropdownWidth } from '../consts';
 
 const DropListWithOutsideClickTargetRef = (props: DropListProps) => {
 	const setOutsideClickTargetRef = React.useContext(OutsideClickTargetRefContext);
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <DropList onDroplistRef={setOutsideClickTargetRef} {...props} />;
 };
 const DropListWithOutsideListeners = withReactEditorViewOuterListeners(
@@ -100,6 +102,8 @@ export const DropdownMenu = ({
 						<Section
 							hasSeparator={section?.hasSeparator && index > 0}
 							title={section?.title}
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/no-array-index-key
 							key={index}
 						>
 							{group.items.map((item) => (
@@ -125,6 +129,8 @@ export const DropdownMenu = ({
 			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 			<div className="drag-dropdown-menu-popup-ref" ref={handleRef}></div>
 			<Popup
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				target={targetRefDiv as HTMLElement}
 				mountTo={mountPoint}
 				boundariesElement={boundariesElement}
@@ -157,6 +163,8 @@ export const DropdownMenu = ({
 							const keys = ['row_numbers', 'header_row', 'header_column'];
 							let doubleItemCount = 0;
 
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							const firstIndex = results.findIndex((value) => keys.includes(value.key!));
 
 							if (firstIndex === -1 || index <= firstIndex) {
@@ -165,6 +173,8 @@ export const DropdownMenu = ({
 							}
 
 							for (let i = firstIndex; i < results.length; i += 1) {
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								if (keys.includes(results[i].key!)) {
 									doubleItemCount += 1;
 								}

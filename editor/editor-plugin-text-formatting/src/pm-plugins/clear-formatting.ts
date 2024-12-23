@@ -17,6 +17,8 @@ export const plugin = (dispatch: Dispatch) =>
 			init(_config, state: EditorState) {
 				return { formattingIsPresent: checkFormattingIsPresent(state) };
 			},
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(_tr, pluginState: ClearFormattingState, _oldState, newState) {
 				const formattingIsPresent = checkFormattingIsPresent(newState);
 				if (formattingIsPresent !== pluginState.formattingIsPresent) {

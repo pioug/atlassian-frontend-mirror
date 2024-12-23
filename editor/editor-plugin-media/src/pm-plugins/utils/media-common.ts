@@ -81,6 +81,8 @@ const posOfMediaGroupNextToGapCursor = (state: EditorState): number | undefined 
 
 const posOfImmediatePrecedingMediaGroup = (
 	$pos: ResolvedPos,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	mediaGroupType: any,
 ): number | undefined => {
 	if ($pos.nodeBefore && $pos.nodeBefore.type === mediaGroupType) {
@@ -90,6 +92,8 @@ const posOfImmediatePrecedingMediaGroup = (
 
 const posOfImmediateFollowingMediaGroup = (
 	$pos: ResolvedPos,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	mediaGroupType: any,
 ): number | undefined => {
 	if ($pos.nodeAfter && $pos.nodeAfter.type === mediaGroupType) {

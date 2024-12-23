@@ -8,6 +8,8 @@ export function hasAnyOfMarks(node: PMNode, types: string[]): boolean {
 }
 
 export function isDigit(value: string) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return !!value.match(/^\d$/);
 }
 

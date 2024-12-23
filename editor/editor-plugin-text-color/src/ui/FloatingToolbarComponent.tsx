@@ -8,6 +8,8 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { TextColorPlugin } from '../textColorPluginType';
 import { ToolbarType } from '../types';
 
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import ToolbarTextColor from './ToolbarTextColor';
 
 interface FloatingToolbarComponentProps {
@@ -30,6 +32,8 @@ export function FloatingToolbarComponent({
 
 	return (
 		<ToolbarTextColor
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			pluginState={textColorState!}
 			isReducedSpacing={FloatingToolbarSettings.isReducedSpacing}
 			editorView={editorView}

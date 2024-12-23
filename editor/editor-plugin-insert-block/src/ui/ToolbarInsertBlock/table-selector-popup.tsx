@@ -161,6 +161,8 @@ const TableSelectorPopup = ({
 					const isActive = selectedCol >= col && selectedRow >= row ? true : false;
 					return (
 						<TableSelectorButton
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/no-array-index-key
 							key={index}
 							isActive={isActive}
 							col={col}

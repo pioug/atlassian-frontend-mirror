@@ -24,6 +24,8 @@ export const ArrowKeyNavigationProvider = (
 							isPopupPositioned={props.isPopupPositioned}
 							editorRef={editorRef}
 							popupsMountPoint={popupsMountPoint}
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...restProps}
 						>
 							{children}
@@ -40,6 +42,8 @@ export const ArrowKeyNavigationProvider = (
 					<MenuArrowKeyNavigationProvider
 						editorRef={editorRef}
 						popupsMountPoint={popupsMountPoint}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...restProps}
 					>
 						{children}

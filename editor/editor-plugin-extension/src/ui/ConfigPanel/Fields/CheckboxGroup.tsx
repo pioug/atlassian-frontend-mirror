@@ -68,7 +68,11 @@ function CheckboxGroupInner({
 
 					return (
 						<AKCheckbox
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/no-array-index-key
 							key={i}
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...restFieldProps}
 							isRequired={false}
 							label={optionLabel}
@@ -124,6 +128,8 @@ export default function CheckboxGroup({
 						description={description}
 						options={options}
 						onFieldChange={_onFieldChange}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...props}
 					/>
 				);

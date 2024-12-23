@@ -49,6 +49,8 @@ export function checkShouldForceFocusAndApply(view?: EditorView) {
 					block: 'center',
 					inline: 'nearest',
 				});
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				(focusableElement as HTMLElement).focus();
 
 				const {

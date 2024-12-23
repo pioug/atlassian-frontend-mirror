@@ -7,8 +7,12 @@ declare global {
 	interface Window {
 		appKey?: string;
 		clientID?: string;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		google: any;
 		GooglePicker: {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			token_client: any;
 			accessToken?: string;
 		};
@@ -20,6 +24,8 @@ const scopes = [
 ];
 let pickerResolve: (value: InlineCardDefinition) => void;
 // Handle user's file selection and displays as a smart link
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function pickerCallback(data: { [x: string]: any[] }) {
 	if (data[window.google.picker.Response.ACTION] !== window.google.picker.Action.PICKED) {
 		return;
@@ -48,6 +54,8 @@ function createPicker(appKey: string) {
 	window.GooglePicker.token_client.callback = async (response: {
 		error: undefined;
 		access_token: string | undefined;
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-await
 	}) => {
 		try {
 			if (response.error !== undefined) {

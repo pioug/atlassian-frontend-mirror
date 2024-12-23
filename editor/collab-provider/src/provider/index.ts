@@ -109,6 +109,8 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 	 * @param evt - Event name to emit to subscribers
 	 * @param data - Event data to emit to subscribers
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private readonly emitCallback: (evt: keyof CollabEvents, data: any) => void = (evt, data) =>
 		this.emit(evt, data);
 
@@ -273,8 +275,14 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 
 	private getPresenceData = (): PresenceData => {
 		return {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			sessionId: this.sessionId!,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			userId: this.userId!,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			clientId: this.clientId!,
 			permit: this.permit,
 			presenceId: this.presenceId,
@@ -309,17 +317,23 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 		onSyncUpError,
 	}: {
 		getState: () => EditorState;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		editorApi?: any;
 		onSyncUpError?: SyncUpErrorFunction;
 	}): this {
 		this.checkForCookies();
 		try {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const collabPlugin = getState().plugins.find((p: any) => p.key === 'collab$');
 			if (collabPlugin === undefined) {
 				throw new ProviderInitialisationError(
 					'Collab provider attempted to initialise, but Editor state is missing collab plugin',
 				);
 			}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			this.clientId = (collabPlugin.spec as any).config.clientID;
 
 			// generate a temporary id as clientId when it is undefined
@@ -479,8 +493,14 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			| CollabActivityAIProviderChangedPayload,
 	) {
 		const basePayload = {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			userId: this.userId!,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			sessionId: this.sessionId!,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			clientId: this.clientId!,
 			permit: this.permit,
 		};

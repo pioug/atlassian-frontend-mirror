@@ -3,6 +3,8 @@ import { removeAllowMoreColorsProp } from '../migrates/next-remove-allow-more-te
 import { createTransformer } from '../utils';
 
 // This stays as require() since changing to import will trigger a linter error
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-commonjs
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 const transformer = createTransformer('@atlaskit/editor-core', [removeAllowMoreColorsProp]);
 describe('remove `allowMoreTextColors` field from `allowTextColor` Editor prop.', () => {

@@ -16,7 +16,11 @@ const clickSelectWrapperStyle = css`
 export default function EmojiNode(props: EmojiProps) {
 	return (
 		<span css={clickSelectWrapperStyle}>
-			<Emoji {...props} />
+			<Emoji
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...props}
+			/>
 		</span>
 	);
 }

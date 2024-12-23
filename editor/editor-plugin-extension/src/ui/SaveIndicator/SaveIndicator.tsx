@@ -79,7 +79,11 @@ export const SaveIndicator = ({ children, duration, visible = true }: SaveIndica
 						/>
 						<Box xcss={saveIndicatorTextStyles}>
 							<Text>
-								<FormattedMessage {...messages.saveIndicator} />
+								<FormattedMessage
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/jsx-props-no-spreading
+									{...messages.saveIndicator}
+								/>
 							</Text>
 						</Box>
 					</div>

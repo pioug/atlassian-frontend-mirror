@@ -25,7 +25,11 @@ import {
 import { addSynchronyEntityAnalytics, addSynchronyErrorAnalytics } from '../analytics';
 
 export type SynchronyEntity = {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	on: (evt: 'disconnected' | 'error', handler: (...args: any) => void) => void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	off: (evt: 'disconnected' | 'error', handler: (...args: any) => void) => void;
 };
 export interface CollabHandlers {
@@ -37,14 +41,22 @@ export interface CollabHandlers {
 	activityJoinHandler: () => void;
 	telepointerHandler: (data: CollabTelepointerPayload) => void;
 	localStepsHandler: (data: CollabEventLocalStepData) => void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	errorHandler: (error: any) => void;
 	entityHandler: ({ entity }: { entity: SynchronyEntity }) => void;
 }
 
 export type Cleanup = () => void;
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Setup<T extends any[]> = (...args: T) => Cleanup;
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Eq<T extends any[]> = (a: T, b: T) => boolean;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const effect = <TArgs extends any[]>(fn: Setup<TArgs>, eq: Eq<TArgs>) => {
 	let previousDeps: TArgs;
 	let cleanup: Cleanup;
@@ -70,6 +82,8 @@ export const subscribe = effect<
 		EditorAnalyticsAPI?,
 	]
 >(
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	(view, provider, options, featureFlags, _providerFactory, editorAnalyticsApi) => {
 		let entityRef: SynchronyEntity;
 		const entityHandlers = {

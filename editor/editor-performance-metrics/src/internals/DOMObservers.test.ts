@@ -1,4 +1,5 @@
 /* eslint-disable compat/compat */
+
 import * as observerCreators from './createBrowserObservers';
 import { DOMObservers } from './DOMObservers';
 import { TimelineController } from './timeline';

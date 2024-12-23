@@ -24,6 +24,8 @@ export type TagInfo = {
 	stage?: number;
 	allowUnsupportedBlock?: boolean;
 	allowUnsupportedInline?: boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
 };
 
@@ -35,6 +37,8 @@ export function getTags(tagInfo: JSDocTagInfo[]): TagInfo {
 			return obj;
 		}
 		let val: string = text.map((text) => text.text).join('');
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		if (/^\d+$/.test(val)) {
 			// Number
 			obj[name] = +val;
@@ -60,12 +64,16 @@ export function extractLiteralValue(type: LiteralType): PrimitiveType {
 	} else if (type.isStringLiteral() || type.isNumberLiteral()) {
 		return type.value;
 	} else if (type.flags & TypeFlags.BooleanLiteral) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return (type as any).intrinsicName === 'true';
 	}
 	throw new Error(`Couldn't parse in extractLiteralValue`);
 }
 
 export function getTypeFromSymbol(checker: TypeChecker, symbol: Symbol) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	return checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!);
 }
 
@@ -139,6 +147,8 @@ export function syntaxKindToName(kind: SyntaxKind) {
 export function getPmName(name: string) {
 	return (
 		name
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			.replace(/_node|_mark$/, '')
 			// @see https://product-fabric.atlassian.net/wiki/spaces/E/pages/722076396/ADF+Change+22+Consistent+naming
 			.replace('table_row', 'tableRow')
@@ -147,6 +157,8 @@ export function getPmName(name: string) {
 	);
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function isObject(value: any) {
 	return value !== null && typeof value === 'object';
 }

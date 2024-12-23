@@ -152,6 +152,8 @@ export const moveColumn =
 			direction: 0,
 			selectAfterMove: false,
 		},
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(tr: Transaction): Transaction => {
 		const table = findTable(tr.selection);
@@ -236,6 +238,8 @@ export const moveColumn =
 			// The actual target index needs to be translated per row, this is because row/col spans can affect the amount of
 			// cells each row contains.
 			const rowTargetPosition = translateTargetPosition(y, actualTargetIndex, tableMap);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const node = table.node.nodeAt(rowTargetPosition)!;
 			const pos = table.start + rowTargetPosition;
 
@@ -281,6 +285,8 @@ export const moveColumn =
 		return newTr;
 	};
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function normalizeCellNode(
 	cellNode: PMNode,
 	rowHeaderEnabled: boolean,
@@ -296,6 +302,8 @@ function normalizeCellNode(
 
 function createContentNodeFactory(table: ContentNodeWithPos) {
 	return (nodePos: number): ContentNodeWithPos => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const node = table.node.nodeAt(nodePos)!;
 		const pos = nodePos + table.start;
 		return { pos, start: pos + 1, node, depth: table.depth + 2 };

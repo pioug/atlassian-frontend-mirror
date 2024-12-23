@@ -65,6 +65,8 @@ export class DocumentService implements DocumentServiceInterface {
 	 * @param metadataService
 	 * @param enableErrorOnFailedDocumentApply - Enable failed document update exceptions.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		private participantsService: ParticipantsService,
 		private analyticsHelper: AnalyticsHelper | undefined,
@@ -74,6 +76,8 @@ export class DocumentService implements DocumentServiceInterface {
 			catchUpOutofSync: boolean,
 		) => Promise<Catchupv2Response>,
 		private fetchReconcile: (currentStateDoc: string, reason: string) => Promise<ReconcileResponse>,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		private providerEmitCallback: (evt: keyof CollabEvents, data: any) => void,
 		private broadcast: <K extends keyof ChannelEvent>(
 			type: K,
@@ -220,9 +224,15 @@ export class DocumentService implements DocumentServiceInterface {
 		if (this.stepQueue.getQueue().length > 0) {
 			const firstItem = this.stepQueue.shift();
 			const currentVersion = this.getCurrentPmVersion();
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const expectedVersion = currentVersion + firstItem!.steps.length;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			if (firstItem!.version === expectedVersion) {
 				logger(`Applying data from queue!`);
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				this.processSteps(firstItem!);
 				// recur
 				this.processQueue();
@@ -230,6 +240,8 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	getCurrentState = async (): Promise<ResolvedEditorState> => {
 		try {
 			startMeasure(MEASURE_NAME.GET_CURRENT_STATE, this.analyticsHelper);
@@ -241,6 +253,8 @@ export class DocumentService implements DocumentServiceInterface {
 					'getCurrentState called without state',
 				);
 			}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const state = this.getState!();
 			const adfDocument = new JSONTransformer().encode(state.doc);
 			const version = this.getVersionFromCollabState(state, 'collab-provider: getCurrentState');
@@ -275,8 +289,12 @@ export class DocumentService implements DocumentServiceInterface {
 				return false;
 			}
 			const clientIds = new Set(steps.map(({ clientId }) => clientId));
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			if (!clientIds.has(this.clientId!)) {
 				const userIds = new Set(steps.map(({ userId }) => userId));
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				if (userIds.has(this.getUserId()!)) {
 					return true;
 				}
@@ -308,6 +326,8 @@ export class DocumentService implements DocumentServiceInterface {
 				this.participantsService.emitTelepointersFromSteps(steps);
 
 				// Resend local steps if none of the received steps originated with us!
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				if (clientIds.indexOf(this.clientId!) === -1) {
 					setTimeout(() => this.sendStepsFromCurrentState(), 100);
 				}
@@ -557,6 +577,8 @@ export class DocumentService implements DocumentServiceInterface {
 		this.updateDocumentAnalytics(doc, version);
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private updateDocumentAnalytics = (doc: any, version: number) => {
 		const updatedVersion = this.getCurrentPmVersion();
 		const isDocContentValid = this.validatePMJSONDocument(doc);
@@ -601,6 +623,8 @@ export class DocumentService implements DocumentServiceInterface {
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private validatePMJSONDocument = (doc: any) => {
 		try {
 			if (!this.getState?.()) {
@@ -609,7 +633,11 @@ export class DocumentService implements DocumentServiceInterface {
 					'validatePMJSONDocument called without state',
 				);
 			}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const state = this.getState!();
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const content: Array<PMNode> = (doc.content || []).map((child: any) =>
 				state.schema.nodeFromJSON(child),
 			);
@@ -666,6 +694,8 @@ export class DocumentService implements DocumentServiceInterface {
 
 					if (!isLastTrConfirmed && count++ >= ACK_MAX_TRY) {
 						if (this.onSyncUpError) {
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							const state = this.getState!();
 							const version = this.getVersionFromCollabState(
 								state,
@@ -788,6 +818,8 @@ export class DocumentService implements DocumentServiceInterface {
 	 * Send steps from transaction to other participants
 	 * It needs the superfluous arguments because we keep the interface of the send API the same as the Synchrony plugin
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	send(
 		_tr: Transaction | null,
 		_oldState: EditorState | null,
@@ -821,7 +853,11 @@ export class DocumentService implements DocumentServiceInterface {
 		// scope
 		commitStepQueue({
 			broadcast: this.broadcast,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			userId: this.getUserId()!,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			clientId: this.clientId!,
 			steps: unconfirmedSteps,
 			version,

@@ -14,6 +14,8 @@ import { TableCssClassName as ClassName } from '../../../types';
 
 import type { CornerControlProps } from './types';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
 class CornerControlComponent extends Component<CornerControlProps & WrappedComponentProps, any> {
 	render() {
 		const {

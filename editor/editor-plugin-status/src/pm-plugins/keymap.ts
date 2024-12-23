@@ -10,8 +10,12 @@ import { mayGetStatusAtSelection } from './utils';
 
 export function keymapPlugin(): SafePlugin {
 	const list = {};
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(enter.common!, consumeKeyEvent, list);
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		tab.common!,
 		(state, dispatch) => {
 			const statusPluginState = pluginKey.getState(state);

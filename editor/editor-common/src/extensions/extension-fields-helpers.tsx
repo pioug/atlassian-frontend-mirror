@@ -8,6 +8,8 @@ import {
 } from './types/extension-manifest';
 import { type FieldHandlerLink } from './types/field-definitions';
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-await
 async function getExtensionModuleField<K extends keyof ExtensionModuleFields>(
 	manifest: ExtensionManifest,
 	fieldType: K,
@@ -30,6 +32,8 @@ async function getExtensionModuleField<K extends keyof ExtensionModuleFields>(
 	}
 
 	const { type } = handlerLink;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const handler = manifest.modules.fields[fieldType]![type];
 
 	if (!handler) {

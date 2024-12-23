@@ -23,6 +23,8 @@ function AlternativePackagesMessage({
 			Consider using one of these packages instead:
 			<ul>
 				{alternatePackages.map((p) => (
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-key
 					<li>
 						<a href={p.link}>{p.name}</a>
 					</li>

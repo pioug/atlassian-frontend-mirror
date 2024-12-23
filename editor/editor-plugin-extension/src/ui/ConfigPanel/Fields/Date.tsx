@@ -40,6 +40,8 @@ function Date({
 				return (
 					<>
 						<DatePicker
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...fieldProps}
 							autoFocus={autoFocus}
 							onBlur={() => {

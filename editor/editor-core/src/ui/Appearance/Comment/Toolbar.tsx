@@ -167,6 +167,8 @@ export const MainToolbar = ({
 	if (useStickyToolbar) {
 		return (
 			<StickyToolbar
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...getStickyParameters(useStickyToolbar)}
 				twoLineEditorToolbar={twoLineEditorToolbar}
 			>

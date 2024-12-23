@@ -1,5 +1,6 @@
 // TODO: Move this file out of src if it is a build script
-// eslint-disable-next-line import/no-extraneous-dependencies
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace, import/no-extraneous-dependencies
 import * as svgexport from 'svgexport';
 import { resolve } from 'path';
 import { writeFileSync, readFileSync } from 'fs';

@@ -1,4 +1,6 @@
 // Callback after api.js is loaded
+// Ignored via go/ees005
+// eslint-disable-next-line require-await
 async function gapiLoaded() {
 	window.gapi.load('client:picker', initializePicker);
 }
@@ -60,6 +62,8 @@ export default async function ({ clientID, scopes }: { clientID: string; scopes:
 		if (document.readyState === 'complete') {
 			handleLoad();
 		} else {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			window.addEventListener('load', handleLoad);
 		}
 	});

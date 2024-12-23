@@ -332,6 +332,8 @@ export default md`
   
   ${(
 		<Example
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			Component={require('../examples/0-New-Conversation').default}
 			title="New Conversation Example"
 			source={newConversationSource}
@@ -342,6 +344,8 @@ export default md`
 
   ${(
 		<Example
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			Component={require('../examples/1-Existing-Conversation').default}
 			title="Existing Conversation Example"
 			source={existingConversationSource}
@@ -352,6 +356,8 @@ export default md`
 
   ${(
 		<Example
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			Component={require('../examples/2-Customized-Editor').default}
 			title="Customized Editor"
 			source={customEditorSource}

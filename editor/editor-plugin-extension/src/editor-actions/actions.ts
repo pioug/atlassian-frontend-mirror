@@ -40,6 +40,8 @@ export const buildExtensionNode = <S extends Schema>(
 	attrs: object,
 	content?: Fragment,
 	marks?: readonly Mark[],
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	switch (type) {
 		case 'extension':
@@ -61,6 +63,8 @@ export const performNodeUpdate =
 		content: Fragment,
 		marks: readonly Mark[],
 		shouldScrollIntoView: boolean,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(_state, _dispatch, view) => {
 		if (!view) {
@@ -202,6 +206,8 @@ export const editExtension =
 		applyChangeToContextPanel: ApplyChangeHandler | undefined,
 		editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 		updateExtension?: Promise<UpdateExtension<object> | void>,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch, view): boolean => {
 		if (!view) {

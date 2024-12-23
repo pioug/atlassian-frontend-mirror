@@ -69,6 +69,8 @@ export type Props = {
 	}) => React.ReactChild;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ToolsDrawer extends React.Component<Props, State> {
 	constructor(props: Props) {
 		super(props);

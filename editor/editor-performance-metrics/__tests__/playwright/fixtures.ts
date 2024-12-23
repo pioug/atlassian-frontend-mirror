@@ -20,7 +20,9 @@ const prepareParams = (params?: { [key: string]: string | boolean }) => {
 	// url param in string format: '&featureFlag=feature-flag-key&featureFlag=feature-flag-key'
 	const featureFlags =
 		typeof params.featureFlag === 'string'
-			? `&featureFlag=${params.featureFlag.split(/[ ,;]+/).join('&featureFlag=')}`
+			? // Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
+				`&featureFlag=${params.featureFlag.split(/[ ,;]+/).join('&featureFlag=')}`
 			: '';
 
 	return { urlParams: rest, featureFlags };

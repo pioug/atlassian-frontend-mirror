@@ -8,6 +8,8 @@ export const updateColumnWidths = (
 	layoutNode: PMNode,
 	layoutNodePos: number,
 	childCount: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const newColumnWidth = DEFAULT_COLUMN_DISTRIBUTIONS[childCount];
 

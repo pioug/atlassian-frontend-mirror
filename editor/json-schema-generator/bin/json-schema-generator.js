@@ -4,7 +4,11 @@
 /* eslint-disable no-console */
 /* eslint-disable global-require */
 // Used only for internal repo usage.
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-commonjs
 const fs = require('fs');
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-commonjs
 const path = require('path');
 
 const project = path.join(__dirname, '../tsconfig.json');

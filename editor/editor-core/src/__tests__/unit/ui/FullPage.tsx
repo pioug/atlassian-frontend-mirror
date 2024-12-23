@@ -112,6 +112,8 @@ describe('full page editor', () => {
 				featureFlags={{}}
 			/>,
 		);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		(editorView.dom as HTMLElement).click();
 		expect(editorView.state.doc).toEqualDocument(doc(p('Hello world')));
 	});
@@ -163,6 +165,8 @@ describe('full page editor', () => {
 		);
 		fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 200 });
 		expect(editorView.state.doc).toEqualDocument(doc(p('Hello world'), p('Hello world'), p('')));
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		(editorView.dom as HTMLElement).click();
 		fireEvent.mouseDown(screen.getByTestId(clickWrapperId), { clientY: 200 });
 		expect(editorView.state.doc).toEqualDocument(doc(p('Hello world'), p('Hello world'), p('')));

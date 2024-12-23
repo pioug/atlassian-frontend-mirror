@@ -22,8 +22,12 @@ This transformer allows encoding ProseMirror Node in CXHTML or converting Conflu
   ${(
 		<Example
 			packageName="@atlaskit/editor-confluence-transformer"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			Component={require('../examples/0-cxhtml-transformer').default}
 			title="Cxhtml Transformer"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			source={require('!!raw-loader!../examples/0-cxhtml-transformer')}
 		/>
 	)}

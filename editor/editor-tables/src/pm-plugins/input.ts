@@ -123,6 +123,8 @@ function deleteCellSelection(state: EditorState, dispatch?: Dispatch): boolean {
 	}
 	if (dispatch) {
 		const { tr } = state;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const baseContent = tableNodeTypes(state.schema).cell.createAndFill()!.content;
 		sel.forEachCell((cell, pos) => {
 			if (!cell.content.eq(baseContent)) {
@@ -165,6 +167,8 @@ export function handleMouseDown(
 		return false;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const startDOMCell = domInCell(view, startEvent.target as HTMLElement);
 	const $anchor = cellAround(view.state.selection.$anchor);
 	if (startEvent.shiftKey && view.state.selection instanceof CellSelection) {
@@ -189,6 +193,8 @@ export function handleMouseDown(
 		startEvent.shiftKey &&
 		startDOMCell &&
 		$anchor !== null &&
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		cellUnderMouse(view, startEvent)!.pos !== $anchor.pos
 	) {
 		// Adding to a selection that starts in another cell (causing a
@@ -225,8 +231,14 @@ export function handleMouseDown(
 
 	// Stop listening to mouse motion events.
 	function stop(): void {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		view.root.removeEventListener('mouseup', stop);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		view.root.removeEventListener('dragstart', stop);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		view.root.removeEventListener('mousemove', move);
 		if (tableEditingKey.getState(view.state) != null) {
 			view.dispatch(view.state.tr.setMeta(tableEditingKey, -1));
@@ -239,6 +251,8 @@ export function handleMouseDown(
 		if (anchor != null) {
 			// Continuing an existing cross-cell selection
 			$moveAnchor = view.state.doc.resolve(anchor);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		} else if (domInCell(view, event.target as HTMLElement) !== startDOMCell) {
 			// Moving out of the initial cell -- start a new cell selection
 			$moveAnchor = cellUnderMouse(view, startEvent);
@@ -251,9 +265,13 @@ export function handleMouseDown(
 			setCellSelection($moveAnchor, event);
 		}
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 	view.root.addEventListener('mouseup', stop);
-	// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+	// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop, @repo/internal/dom-events/no-unsafe-event-listeners
 	view.root.addEventListener('dragstart', stop);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 	view.root.addEventListener('mousemove', move);
 
 	return false;

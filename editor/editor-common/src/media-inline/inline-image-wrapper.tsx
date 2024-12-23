@@ -80,6 +80,8 @@ export const InlineImageWrapper = ({
 			]}
 			data-testid="inline-image-wrapper"
 			onClick={onClick}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...htmlAttrs}
 		>
 			<span css={sizeWrapperStyle}>{children}</span>

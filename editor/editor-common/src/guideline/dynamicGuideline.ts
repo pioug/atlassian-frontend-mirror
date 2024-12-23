@@ -101,6 +101,8 @@ const getDynamicGuides = (
 	offset: number,
 	key: string,
 	styles: GuidelineStyles,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): GuidelineConfig[] => {
 	switch (layout) {
 		case 'align-start':

@@ -38,6 +38,8 @@ export const AnnotationDraft = ({
 	children,
 }: React.PropsWithChildren<{ draftPosition: Position }>) => {
 	return (
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		<mark data-renderer-mark={true} {...dataAttributes(draftPosition)} css={markStyles}>
 			{children}
 		</mark>
@@ -87,6 +89,8 @@ export const applyAnnotationOnText = ({
 		const segments = segmentText(value, textHighlighter);
 		if (annotateIndex === index) {
 			return (
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/no-array-index-key
 				<AnnotationDraft key={index} draftPosition={draftPosition}>
 					{renderTextSegments(segments, textHighlighter, marks || [], draftPosition.from)}
 				</AnnotationDraft>
@@ -94,6 +98,8 @@ export const applyAnnotationOnText = ({
 		}
 
 		return (
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/no-array-index-key
 			<React.Fragment key={index}>
 				{renderTextSegments(segments, textHighlighter, marks || [], draftPosition.from)}
 			</React.Fragment>

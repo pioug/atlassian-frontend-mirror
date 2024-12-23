@@ -9,9 +9,8 @@
 import { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { getEmojiResource } from '@atlaskit/util-data-test/get-emoji-resource';
 import { initialize } from '@atlaskit/editor-test-helpers/ajv';
-import React from 'react';
+import React, { PureComponent } from 'react';
 import type { ChangeEvent } from 'react';
-import { PureComponent } from 'react';
 
 import Renderer from '../src/ui/Renderer';
 
@@ -46,6 +45,8 @@ const providerFactory = ProviderFactory.create({
 
 const ajv = initialize();
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Example extends PureComponent<{}, State> {
 	state: State = {
 		value: JSON.stringify(defaultDocument, null, 2),

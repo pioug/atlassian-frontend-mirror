@@ -2,8 +2,7 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { DevTools } from '@af/editor-examples-helpers/utils';
-import { KitchenSink } from '@af/editor-examples-helpers/utils';
+import { DevTools, KitchenSink } from '@af/editor-examples-helpers/utils';
 import { addGlobalEventEmitterListeners } from '@atlaskit/media-test-helpers/globalEventEmitterListeners';
 
 import enMessages from '../src/i18n/en';

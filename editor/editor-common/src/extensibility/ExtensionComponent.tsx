@@ -82,6 +82,8 @@ export class ExtensionComponentOld extends Component<Props, State> {
 	state: State = {};
 	mounted = false;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillMount() {
 		this.mounted = true;
 
@@ -110,6 +112,8 @@ export class ExtensionComponentOld extends Component<Props, State> {
 		this.mounted = false;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillReceiveProps(nextProps: Props) {
 		const { extensionProvider } = nextProps;
 		if (extensionProvider && this.props.extensionProvider !== extensionProvider) {
@@ -227,6 +231,8 @@ export class ExtensionComponentOld extends Component<Props, State> {
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private setStateFromPromise = (stateKey: keyof State, promise?: Promise<any>) => {
 		promise &&
 			promise.then((p) => {
@@ -386,6 +392,8 @@ export const ExtensionComponentNew = (props: Props) => {
 
 	return (
 		<ExtensionComponentInner
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...restProps}
 			extensionProvider={extensionProvider}
 			node={node}
@@ -632,7 +640,11 @@ class ExtensionComponentInner extends Component<PropsNew, StateNew> {
 
 export const ExtensionComponent = (props: Props) => {
 	if (fg('platform_editor_react18_extension_component_v2')) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		return <ExtensionComponentNew {...props} />;
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <ExtensionComponentOld {...props} />;
 };

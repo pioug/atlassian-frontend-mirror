@@ -274,6 +274,8 @@ function splitListItem(itemType: NodeType): Command {
 					wrap = Fragment.from($from.node(d).copy(wrap));
 				}
 				// Add a second list item with an empty default start node
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				wrap = wrap.append(Fragment.from(itemType.createAndFill()!));
 				const tr$1 = state.tr.replace(
 					$from.before(keepItem ? undefined : -1),
@@ -311,6 +313,8 @@ const deletePreviousEmptyListItem: Command = (state, dispatch) => {
 	}
 
 	const previousListItemEmpty =
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		$cut.nodeBefore.childCount === 1 && $cut.nodeBefore.firstChild!.nodeSize <= 2;
 
 	if (previousListItemEmpty) {

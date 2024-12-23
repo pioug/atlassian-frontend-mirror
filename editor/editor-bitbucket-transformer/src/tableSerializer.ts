@@ -22,8 +22,12 @@ const renderNode = (state: MarkdownSerializerState, node: PMNode, index: number)
 			if (i > 0) {
 				state.write(' ');
 			}
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(state as any).context.insideTable = true;
 			state.renderInline(child);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(state as any).context.insideTable = false;
 		} else {
 			renderNode(state, child, i);

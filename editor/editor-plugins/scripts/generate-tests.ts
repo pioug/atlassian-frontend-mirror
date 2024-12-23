@@ -1,3 +1,5 @@
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as fs from 'fs';
 import path from 'path';
 

@@ -33,6 +33,8 @@ export const createDecoration = (start: number, end: number, isSelected?: boolea
 	});
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function findMatches(
 	content: PmNode | Fragment,
 	searchText: string,
@@ -118,6 +120,8 @@ export const getSelectionForMatch = (
 	index: number,
 	matches: Match[],
 	offset = 0,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Selection => {
 	if (matches[index]) {
 		return TextSelection.create(doc, matches[index].start + offset);

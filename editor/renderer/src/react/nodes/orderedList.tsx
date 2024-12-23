@@ -9,6 +9,8 @@ import { getListIndentLevel } from '../utils/lists';
 type ExtraProps = {
 	'data-item-counter-digits'?: number;
 	start?: number;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	style?: Record<string, any>;
 };
 
@@ -38,6 +40,8 @@ export default function OrderedList(props: {
 			className={orderedListSelector.substr(1)}
 			data-indent-level={props.path ? getListIndentLevel(props.path) : 1}
 			start={props.start}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...extraProps}
 		>
 			{props.children}

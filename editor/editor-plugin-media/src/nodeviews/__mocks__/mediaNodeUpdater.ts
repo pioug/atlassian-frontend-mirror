@@ -7,6 +7,8 @@ export class MediaNodeUpdater {
 	}
 
 	constructor() {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const mockOverrides = MediaNodeUpdater.mockOverrides as any;
 		this.setProps = mockOverrides['setProps'] || jest.fn();
 		jest.fn().mockResolvedValue(undefined);
@@ -40,7 +42,11 @@ export class MediaNodeUpdater {
 			mockOverrides['updateNodeAttrs'] || jest.fn().mockReturnValue(new Promise(() => {}));
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	static setMock(thisKey: string, value: any) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(MediaNodeUpdater.mockOverrides as any)[thisKey] = value;
 	}
 

@@ -54,6 +54,8 @@ export class ExpandNodeView implements NodeView {
 	decorationCleanup?: () => boolean | undefined;
 	renderKey: string;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: PmNode,
 		view: EditorView,
@@ -82,7 +84,11 @@ export class ExpandNodeView implements NodeView {
 				api?.editorDisabled?.sharedState.currentState()?.editorDisabled,
 			),
 		);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.dom = dom as HTMLElement;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.contentDOM = contentDOM as HTMLElement;
 		this.isMobile = isMobile;
 		this.api = api;
@@ -179,6 +185,8 @@ export class ExpandNodeView implements NodeView {
 			return;
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const target = event.target as HTMLElement;
 
 		if (closestElement(target, `.${expandClassNames.icon}`)) {
@@ -478,6 +486,8 @@ export class ExpandNodeView implements NodeView {
 	};
 
 	stopEvent(event: Event) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const target = event.target as HTMLElement;
 		return (
 			target === this.input ||

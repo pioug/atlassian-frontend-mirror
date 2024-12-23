@@ -23,6 +23,8 @@ export default class ArraySchemaNode extends SchemaNodeWithValidators<ArrayValid
 
 	toJSON(): object {
 		const items = this.items.map((item) => item.toJSON());
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const obj: any = { type: 'array' };
 
 		if (items.length) {
@@ -34,6 +36,8 @@ export default class ArraySchemaNode extends SchemaNodeWithValidators<ArrayValid
 
 	toSpec() {
 		const items = this.items.map((item) => item.toSpec());
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const obj: any = { type: 'array', items };
 
 		if (this._isTupleLike) {

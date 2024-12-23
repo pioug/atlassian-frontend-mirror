@@ -25,6 +25,8 @@ export const handleMouseOver = (
 		return false;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const target = event.target as HTMLElement;
 
 	if (target?.classList?.contains('ProseMirror')) {
@@ -79,6 +81,8 @@ export const handleMouseOver = (
 			}
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const anchorName = rootElement.getAttribute('data-drag-handler-anchor-name')!;
 		// No need to update handle position if its already there
 		if (activeNode?.anchorName === anchorName) {

@@ -19,6 +19,8 @@ export default memo(function Status(props: Props) {
 
 	if (fg('editor_inline_comments_on_inline_nodes')) {
 		return (
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			<span {...inlineAnnotationProps}>
 				<FabricElementsAnalyticsContext
 					data={{

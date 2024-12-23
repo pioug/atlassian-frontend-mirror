@@ -40,10 +40,20 @@ type InsertTableAction = (analyticsPayload: AnalyticsEventPayload) => Command;
 type MediaPlugin = NextEditorPlugin<
 	'media',
 	{
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		pluginConfiguration: any;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		dependencies: any;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		sharedState: any;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		actions: any;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		commands: any;
 	}
 >;

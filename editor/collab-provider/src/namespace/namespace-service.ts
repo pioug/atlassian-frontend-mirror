@@ -16,6 +16,8 @@ export class NamespaceService {
 	/**
 	 * ESS-2916 namespace status event- lock/unlock
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	onNamespaceStatusChanged = async ({ isLocked, waitTimeInMs, timestamp }: NamespaceStatus) => {
 		const start = Date.now();
 		logger(`Received a namespace status changed event `, {

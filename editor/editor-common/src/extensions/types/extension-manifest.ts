@@ -19,6 +19,8 @@ export type ExtensionModuleKey = string;
 export type ExtensionComponentProps<T extends Parameters = Parameters> = {
 	node: ExtensionParams<T>;
 	actions?: MultiBodiedExtensionActions;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any; // many renderers pass their own context through too
 };
 

@@ -45,6 +45,8 @@ const AnnotationComponent = ({
 	}
 
 	return (
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		<span id={id} {...data}>
 			{children}
 		</span>

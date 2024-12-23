@@ -50,5 +50,7 @@ export default function TaskItemWithProviders(props: Props) {
 	const resolvedObjectId =
 		(resolvedContextProvider && resolvedContextProvider.objectId) || objectAri;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <ResourcedTaskItem {...otherProps} objectAri={resolvedObjectId} isRenderer={isRenderer} />;
 }

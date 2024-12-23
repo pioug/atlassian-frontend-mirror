@@ -98,7 +98,14 @@ const getWrapperTitleContent = (
 		return (
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			<div className="extension-title">
-				<img css={imageStyles} src={url} {...rest} alt={title} />
+				<img
+					css={imageStyles}
+					src={url}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...rest}
+					alt={title}
+				/>
 				{title}
 			</div>
 		);
@@ -288,6 +295,8 @@ const MultiBodiedExtensionWithWidth = ({
 const MultiBodiedExtension = (props: Props & OverflowShadowProps) => {
 	const { pluginInjectionApi } = props;
 	const { widthState } = useSharedPluginState(pluginInjectionApi, ['width']);
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <MultiBodiedExtensionWithWidth widthState={widthState} {...props} />;
 };
 

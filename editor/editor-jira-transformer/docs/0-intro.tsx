@@ -22,8 +22,12 @@ This package provides a transformation from ProseMirror Node → wikimarkup and 
   ${(
 		<Example
 			packageName="@atlaskit/editor-jira-transformer"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			Component={require('../examples/1-jira-html-input').default}
 			title="Jira HTML Input"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			source={require('!!raw-loader!../examples/1-jira-html-input')}
 		/>
 	)}

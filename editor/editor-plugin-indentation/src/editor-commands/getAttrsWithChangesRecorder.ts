@@ -22,6 +22,8 @@ export default function getAttrsWithChangesRecorder<T, V>(
 		const newAttrs = getAttrs(prevAttrs, node);
 
 		changes.push({
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			node: node!,
 			prevAttrs,
 			newAttrs,

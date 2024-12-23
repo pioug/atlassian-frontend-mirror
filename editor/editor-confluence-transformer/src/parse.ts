@@ -44,6 +44,8 @@ const convertedNodes = new WeakMap<Node, Fragment | PMNode>();
 const convertedNodesReverted = new WeakMap<Fragment | PMNode, Node>();
 
 export default function (cxhtml: string, schema: Schema) {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const dom = parseCxhtml(cxhtml).querySelector('body')!;
 	return schema.nodes.doc.createChecked({}, parseDomNode(schema, dom));
 }
@@ -150,6 +152,8 @@ function converter(
 								content,
 								convertedNodesReverted,
 								// TODO: Fix any, potential issue. ED-5048
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
 								supportedMarks as any,
 							),
 				);
@@ -227,19 +231,27 @@ function converter(
 					node.firstChild instanceof Element &&
 					getNodeName(node.firstChild) === 'FAB:MENTION'
 				) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					const cdata = node.firstChild.firstChild!;
 
 					return schema.nodes.mention.createChecked({
 						id: node.firstChild.getAttribute('atlassian-id'),
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						text: cdata!.nodeValue,
 					});
 				}
 				break;
 			case 'FAB:MENTION':
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const cdata = node.firstChild!;
 
 				return schema.nodes.mention.createChecked({
 					id: node.getAttribute('atlassian-id'),
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					text: cdata!.nodeValue,
 				});
 			case 'FAB:MEDIA-GROUP':
@@ -288,22 +300,32 @@ function converter(
 				};
 
 				if (node.hasAttribute('width')) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					mediaAttrs.width = parseInt(node.getAttribute('width')!, 10);
 				}
 
 				if (node.hasAttribute('height')) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					mediaAttrs.height = parseInt(node.getAttribute('height')!, 10);
 				}
 
 				if (node.hasAttribute('file-name')) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					mediaAttrs.__fileName = node.getAttribute('file-name')!;
 				}
 
 				if (node.hasAttribute('file-size')) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					mediaAttrs.__fileSize = parseInt(node.getAttribute('file-size')!, 10);
 				}
 
 				if (node.hasAttribute('file-mime-type')) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					mediaAttrs.__fileMimeType = node.getAttribute('file-mime-type')!;
 				}
 
@@ -359,6 +381,8 @@ function converter(
 							Fragment.from(codeHeader),
 							convertedNodesReverted,
 							// TODO: Fix any, potential issue. ED-5048
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-explicit-any
 							supportedMarks as any,
 						),
 					);
@@ -383,6 +407,8 @@ function convertConfluenceMacro(
 	node: Element,
 ): Fragment | PMNode | null | undefined {
 	const { macroName, macroId, params, properties } = parseMacro(node);
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const richBodyNode = getAcTagNode(node, 'ac:rich-text-body')!;
 	const richTextBody = richBodyNode ? parseDomNode(schema, richBodyNode).content : null;
 	const plainTextBody = properties['ac:plain-text-body'] || '';
@@ -412,6 +438,8 @@ function convertConfluenceMacro(
 			return schema.nodes.panel.createChecked(
 				{ panelType: mapPanelTypeToPm(macroName) },
 				// TODO: Fix any, potential issue. ED-5048
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				panelBody as any,
 			);
 
@@ -490,6 +518,8 @@ function convertWYSIWYGMacro(schema: Schema, node: Element): Fragment | PMNode |
 	switch (name) {
 		case 'CODE':
 		case 'NOFORMAT':
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const codeContent = node.querySelector('pre')!.textContent || ' ';
 			const { language, title } = getMacroParameters(node);
 			return createCodeFragment(schema, codeContent, language, title);
@@ -511,6 +541,8 @@ function convertCodeFromView(schema: Schema, node: Element): Fragment | PMNode |
 
 	let language;
 	if (node.className) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		language = (node.className.match(/\w+$/) || [''])[0];
 	}
 
@@ -521,6 +553,8 @@ function convertNoFormatFromView(
 	schema: Schema,
 	node: Element,
 ): Fragment | PMNode | null | undefined {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const codeContent = node.querySelector('pre')!.textContent || ' ';
 	return createCodeFragment(schema, codeContent);
 }
@@ -553,7 +587,11 @@ function convertTable(schema: Schema, node: HTMLTableElement) {
 		if (rows[i].parentNode !== null) {
 			let parent;
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			if (rows[i].parentNode!.nodeName === 'tbody') {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				parent = rows[i].parentNode!.parentNode;
 			} else {
 				parent = rows[i].parentNode;

@@ -47,6 +47,8 @@ const defaultState = {
 	maxHeight: null,
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Layer extends Component<Props, State> {
 	private popper: Popper | undefined;
 	private targetRef = React.createRef<HTMLDivElement>();
@@ -76,6 +78,8 @@ export default class Layer extends Component<Props, State> {
 		this.applyPopper(this.props);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillReceiveProps(nextProps: Props) {
 		if (!fg('platform_editor_react18_phase2_v2')) {
 			this.applyPopper(nextProps);
@@ -106,6 +110,8 @@ export default class Layer extends Component<Props, State> {
 	 * the bottom of the popper not being viewable.
 	 * Only works if the popper uses viewport as the boundary and has a fixed position ancestor.
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	calculateMaxHeight(
 		originalHeight: number,
 		currentHeight: number,

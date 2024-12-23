@@ -14,6 +14,8 @@ import Sidebar from './helper/NavigationNext';
 const mediaProvider = storyMediaProviderFactory();
 const providerFactory = ProviderFactory.create({ mediaProvider });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class ExampleRenderer extends React.Component {
 	constructor(props: object) {
 		super(props);

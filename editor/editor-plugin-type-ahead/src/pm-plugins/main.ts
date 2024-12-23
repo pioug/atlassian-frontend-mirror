@@ -77,6 +77,8 @@ export function createPlugin({
 				};
 			},
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(tr, currentPluginState, oldEditorState, state) {
 				const customStep = hasValidTypeAheadStep(tr);
 

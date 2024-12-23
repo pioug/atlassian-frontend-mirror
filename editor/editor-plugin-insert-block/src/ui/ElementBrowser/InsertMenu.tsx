@@ -318,6 +318,8 @@ const FlexWrapper = (props: HTMLAttributes<HTMLDivElement>) => {
 	const setOutsideClickTargetRef = useContext(OutsideClickTargetRefContext);
 	const { children, ...divProps } = props;
 	return (
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		<div ref={setOutsideClickTargetRef} css={flexWrapperStyles} {...divProps}>
 			{children}
 		</div>

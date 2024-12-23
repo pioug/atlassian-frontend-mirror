@@ -37,6 +37,8 @@ export function expandKeymap(
 	const list = {};
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		moveRight.common!,
 		(state, dispatch, editorView) => {
 			if (!editorView) {
@@ -56,6 +58,8 @@ export function expandKeymap(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		moveLeft.common!,
 		(state, dispatch, editorView) => {
 			if (!editorView) {
@@ -80,6 +84,8 @@ export function expandKeymap(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		tab.common!,
 		(state, dispatch, editorView) => {
 			if (editorView && editorView.dom instanceof HTMLElement) {
@@ -112,6 +118,8 @@ export function expandKeymap(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		moveUp.common!,
 		(state, dispatch, editorView) => {
 			if (!editorView) {
@@ -179,6 +187,8 @@ export function expandKeymap(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		moveDown.common!,
 		(state, dispatch, editorView) => {
 			if (!editorView) {
@@ -222,6 +232,8 @@ export function expandKeymap(
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		backspace.common!,
 		(state, dispatch, editorView) => {
 			const { selection } = state;

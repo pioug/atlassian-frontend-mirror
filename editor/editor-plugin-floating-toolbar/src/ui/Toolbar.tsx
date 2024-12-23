@@ -145,6 +145,8 @@ const ToolbarItems = React.memo(
 		const renderItem = (item: Item, idx: number) => {
 			switch (item.type) {
 				case 'button':
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					const ButtonIcon = item.icon as React.ComponentClass<any>;
 
 					const onClickHandler = () => {
@@ -287,6 +289,8 @@ const ToolbarItems = React.memo(
 								dispatchCommand={dispatchCommand}
 								options={item.options}
 								hideExpandIcon={item.hideExpandIcon}
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 								mountPoint={scrollable ? mountRef.current! : undefined}
 								boundariesElement={popupsBoundariesElement}
 								scrollableElement={popupsScrollableElement}
@@ -377,6 +381,8 @@ const ToolbarItems = React.memo(
 					if (isGroup) {
 						return (
 							<div
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/no-array-index-key
 								key={index}
 								css={buttonGroupStyles}
 								role="radiogroup"
@@ -667,6 +673,8 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 							css={toolbarOverflow(scrollable, this.state.scrollDisabled, firstElementIsSelect)}
 						>
 							<ToolbarItems
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...this.props}
 								setDisableScroll={this.setDisableScroll.bind(this)}
 								mountRef={this.mountRef}

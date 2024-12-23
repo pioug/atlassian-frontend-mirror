@@ -8,6 +8,8 @@ import { showLinkingToolbarWithMediaTypeCheck } from '../commands/linking';
 export default function keymapPlugin(schema: Schema): SafePlugin {
 	const list = {};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(addLink.common!, showLinkingToolbarWithMediaTypeCheck, list);
 
 	return keymap(list) as SafePlugin;

@@ -9,6 +9,8 @@ import { isValidTargetNode } from './utils/is-valid-target-node';
 // This function captures clicks outside of the ProseMirror contentEditable area
 // see also description of "handleClick" in gap-cursor pm-plugin
 const captureCursorCoords = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	event: React.MouseEvent<any>,
 	editorRef: HTMLElement,
 	posAtCoords: (coords: {
@@ -16,6 +18,8 @@ const captureCursorCoords = (
 		top: number;
 	}) => { pos: number; inside: number } | null | void,
 	tr: Transaction,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): { position?: number; side: Side } | null => {
 	const rect = editorRef.getBoundingClientRect();
 
@@ -54,6 +58,8 @@ const captureCursorCoords = (
 
 export const setSelectionTopLevelBlocks = (
 	tr: Transaction,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	event: React.MouseEvent<any>,
 	editorRef: HTMLElement,
 	posAtCoords: (coords: {
@@ -61,12 +67,16 @@ export const setSelectionTopLevelBlocks = (
 		top: number;
 	}) => { pos: number; inside: number } | null | void,
 	editorFocused: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const cursorCoords = captureCursorCoords(event, editorRef, posAtCoords, tr);
 	if (!cursorCoords) {
 		return;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const $pos = cursorCoords.position !== undefined ? tr.doc.resolve(cursorCoords.position!) : null;
 
 	if ($pos === null) {

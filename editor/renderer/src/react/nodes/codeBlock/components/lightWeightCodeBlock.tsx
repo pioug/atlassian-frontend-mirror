@@ -75,6 +75,8 @@ const LightWeightCodeBlock = forwardRef(
 							className={CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}
 						>
 							{textRows.map((_, index) => (
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/no-array-index-key
 								<span key={index} />
 							))}
 						</div>

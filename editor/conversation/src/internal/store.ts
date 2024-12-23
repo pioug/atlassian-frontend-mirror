@@ -13,6 +13,8 @@ export interface State {
 
 export interface Action {
 	type: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	payload?: any;
 }
 

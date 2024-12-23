@@ -13,16 +13,6 @@ const errorMock = {
 	},
 };
 
-const unexpectedErrorMock = {
-	type: 'ERROR',
-	message: {
-		message_template: 'RANDOM-BLAH-1234',
-		content: 'Error answering prompt',
-		status_code: 500,
-		error: 'The server has encountered trouble with some components',
-	},
-};
-
 export const aiSummaryMocks = {
 	*readStreamSuccess() {
 		yield successMock;
@@ -33,9 +23,5 @@ export const aiSummaryMocks = {
 	*readStreamErrorMulti() {
 		yield successMock;
 		yield errorMock;
-	},
-	*readStreamErrorUnexpectedMulti() {
-		yield successMock;
-		yield unexpectedErrorMock;
 	},
 };

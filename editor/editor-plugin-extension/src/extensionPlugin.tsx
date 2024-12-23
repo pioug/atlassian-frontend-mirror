@@ -133,6 +133,8 @@ export const extensionPlugin: ExtensionPlugin = ({ config: options = {}, api }) 
 		actions: {
 			api: () => {
 				return createExtensionAPI({
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					editorView: editorViewRef.current!,
 					applyChange: api?.contextPanel?.actions.applyChange,
 					editorAnalyticsAPI: api?.analytics?.actions,

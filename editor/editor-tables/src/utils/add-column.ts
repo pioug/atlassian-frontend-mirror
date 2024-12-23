@@ -67,6 +67,8 @@ export function addColumn(
 				}
 			}
 			const pos = map.positionAt(row, col, table);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			tr.insert(tr.mapping.map(tableStart + pos), type.createAndFill(attrs)!);
 		}
 	}

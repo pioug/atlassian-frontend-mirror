@@ -207,6 +207,9 @@ const SortingIcon = ({
 				tabIndex={isSortingAllowed ? 0 : -1}
 				aria-label={ariaLabel}
 				aria-disabled={!isSortingAllowed}
+				aria-hidden={
+					fg('platform_renderer_table_sort_btn_aria_hidden') ? !isSortingAllowed : undefined
+				}
 				onClick={handleClick}
 				onKeyDown={handleKeyDown}
 			>

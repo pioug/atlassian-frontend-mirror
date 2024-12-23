@@ -26,6 +26,8 @@ export type ReportFixedTable = ({
 // Helper for iterating through the nodes in a document that changed
 // compared to the given previous document. Useful for avoiding
 // duplicate work on each transaction.
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function changedDescendants(
 	old: Node,
 	cur: Node,
@@ -84,6 +86,8 @@ export function fixTables(
 // : (EditorState, Node, number, ?Transaction) → ?Transaction
 // Fix the given table, if necessary. Will append to the transaction
 // it was given, if non-null, or create a new one if necessary.
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function fixTable(
 	state: EditorState,
 	table: Node,
@@ -177,6 +181,8 @@ export function fixTable(
 			}
 			const nodes: Node[] = [];
 			for (let j = 0; j < add; j++) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				nodes.push(tableNodeTypes(state.schema)[tableNodeType].createAndFill()!);
 			}
 			const side = (i === 0 || first === i - 1) && last === i ? pos + 1 : end - 1;

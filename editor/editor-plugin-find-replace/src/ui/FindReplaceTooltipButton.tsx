@@ -56,10 +56,14 @@ export class FindReplaceTooltipButton extends React.PureComponent<Props> {
 					appearance={appearance}
 					testId={title}
 					ref={this.buttonRef}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					icon={(iconProps) => <Icon {...iconProps} size={iconSize} />}
 					isDisabled={disabled}
 					onClick={this.handleClick}
 					isSelected={isPressed}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...pressedProps}
 				/>
 			</Tooltip>

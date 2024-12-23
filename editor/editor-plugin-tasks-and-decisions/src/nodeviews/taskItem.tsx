@@ -12,8 +12,8 @@ import {
 	EVENT_TYPE,
 	MODE,
 	PLATFORMS,
+	type RequestToEditAEP,
 } from '@atlaskit/editor-common/analytics';
-import { type RequestToEditAEP } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
@@ -26,11 +26,15 @@ import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemir
 import Heading from '@atlaskit/heading';
 import EditorDoneIcon from '@atlaskit/icon/glyph/editor/done';
 import { fg } from '@atlaskit/platform-feature-flags';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import Popup from '@atlaskit/popup';
 import { Box, Pressable, Stack, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import type { TasksAndDecisionsPlugin } from '../tasksAndDecisionsPluginType';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import TaskItem from '../ui/Task';
 
 import { useShowPlaceholder } from './hooks/use-show-placeholder';
@@ -445,6 +449,8 @@ class Task extends ReactNodeView<Props> {
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function taskItemNodeViewFactory(
 	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,

@@ -13,6 +13,5 @@
     "docs/examples/basic-assets-config-modal.tsx"
   ],
   "compilerOptions": {
-    "baseUrl": ""
   }
 }

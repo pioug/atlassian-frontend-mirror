@@ -174,6 +174,8 @@ export type EventsPerTypeMap = Map<
 		[K in TimelineEventNames]: Array<ExtractEventTypes<TimelineEvent, K>>;
 	}[TimelineEventNames]
 >;
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type UnorderedEvents = Array<Readonly<BasicEventTimestamp<any, any>>>;
 
 export type TimelineIdleBuffer = {
@@ -387,6 +389,8 @@ export class TimelineController
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	private async doIdle(idleTimeEvent: IdleTimeEvent) {
 		const buffer = this.idleBuffer;
 		this.clearIdleBuffer();

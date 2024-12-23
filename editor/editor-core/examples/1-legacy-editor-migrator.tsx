@@ -19,6 +19,8 @@ type Complete<T> = {
 };
 
 function camelToKebabCase(input: string): string {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return input.replace(/([A-Z])/g, '-$1').toLowerCase();
 }
 
@@ -171,14 +173,22 @@ ${optimisedPresetAdds}
 }
 
 function stripTabs(input: string): string {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return input.replace(/\t/g, '  ').replace(/\n/g, ' ');
 }
 
 function getValidProps(propsString: string): EditorProps | null {
 	const props: EditorProps = {};
 	// Regular expression to match key-value pairs and boolean attributes
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const regex = /(\w+)(?:=(?:"([^"]*)"|{([^}]+)}))?/g;
 	let match;
+	// Ignored via go/ees005
+	// eslint-disable-next-line no-cond-assign
 	while ((match = regex.exec(propsString)) !== null) {
 		const [_, key, stringValue, objectValue] = match;
 		if (stringValue !== undefined) {
@@ -216,6 +226,8 @@ export default function Example() {
 	);
 
 	const convertedValue = useMemo(() => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-unicode-regexp
 		const propsString = legacyEditorValue.match(/<Editor\s+([^>]+)\s*\/>/)?.[1];
 		if (!propsString) {
 			return { type: 'failure' };

@@ -4,17 +4,25 @@ import { getSelectionStyles } from '../../utils';
 describe('selection plugin: utils', () => {
 	describe('getSelectionStyles', () => {
 		const selectionStyles = [
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			{ name: 'border', style: SelectionStyle.Border, regex: /border\:/ },
 			{
 				name: 'box-shadow',
 				style: SelectionStyle.BoxShadow,
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				regex: /box\-shadow\:/,
 			},
 			{
 				name: 'background',
 				style: SelectionStyle.Background,
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				regex: /background\-color\:/,
 			},
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
 			{ name: 'blanket', style: SelectionStyle.Blanket, regex: /\:\:before/ },
 		];
 

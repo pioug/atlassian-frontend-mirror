@@ -366,6 +366,8 @@ export { getTimeSince } from './performance/get-performance-timing';
 
 export { countNodes } from './count-nodes';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function shallowEqual(obj1: any = {}, obj2: any = {}) {
 	const keys1 = Object.keys(obj1);
 	const keys2 = Object.keys(obj2);
@@ -420,6 +422,8 @@ export const insideTableCell = (state: EditorState) => {
 /**
  * Traverse the document until an "ancestor" is found. Any nestable block can be an ancestor.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function findAncestorPosition(doc: PMNode, pos: ResolvedPos): any {
 	const nestableBlocks = ['blockquote', 'bulletList', 'orderedList'];
 
@@ -493,12 +497,18 @@ export const isEmptyNode = (schema: Schema) => {
 			case blockquote:
 			case panel:
 			case listItem:
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				return node.content.size === 2 && innerIsEmptyNode(node.content.firstChild!);
 			case bulletList:
 			case orderedList:
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				return node.content.size === 4 && innerIsEmptyNode(node.content.firstChild!);
 			case taskList:
 			case decisionList:
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				return node.content.size === 2 && innerIsEmptyNode(node.content.firstChild!);
 			case doc:
 				let isEmpty = true;

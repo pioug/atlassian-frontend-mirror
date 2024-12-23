@@ -267,6 +267,8 @@ describe(name, () => {
 		});
 
 		ffTest.on('platform_editor_react18_phase2_v2', 'react 18', () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line jest/no-identical-title
 			it('should clean all listeners after unmount', () => {
 				const pluginState = {};
 				const plugin = createPlugin(pluginState, pluginKey);

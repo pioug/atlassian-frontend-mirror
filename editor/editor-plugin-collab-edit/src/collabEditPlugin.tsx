@@ -133,15 +133,29 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 			isRemoteReplaceDocumentTransaction: (tr: Transaction) =>
 				tr.getMeta('isRemote') && tr.getMeta('replaceDocument'),
 			getCurrentCollabState: () => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const adfDocument = new JSONTransformer().encode(editorViewRef.current!.state!.doc);
 				return {
 					content: adfDocument,
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					version: getCollabState(editorViewRef.current!.state)?.version || 0,
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					sendableSteps: sendableSteps(editorViewRef.current!.state),
 				};
 			},
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			validatePMJSONDocument: (doc: any) => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const content: Array<PMNode> = (doc.content || []).map((child: any) =>
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					editorViewRef.current!.state!.schema.nodeFromJSON(child),
 				);
 				return content.every((node) => {

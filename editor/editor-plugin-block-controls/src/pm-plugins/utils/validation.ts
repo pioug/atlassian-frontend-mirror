@@ -86,6 +86,8 @@ export const memoizedTransformExpandToNestedExpand = memoizeOne((node: PMNode) =
 	}
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function canMoveNodeToIndex(
 	destParent: PMNode,
 	indexIntoParent: number,

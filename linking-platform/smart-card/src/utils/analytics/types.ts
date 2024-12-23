@@ -1,6 +1,6 @@
 import { type ErrorInfo } from 'react';
 
-import { type APIError, type CardType } from '@atlaskit/linking-common';
+import { type CardType } from '@atlaskit/linking-common';
 
 import { type InvokeType } from '../../model/invoke-opts';
 import { type CardInnerAppearance } from '../../view/Card/types';
@@ -18,16 +18,6 @@ export interface CommonEventProps {
 	location?: string;
 	statusDetails?: string;
 }
-
-export type ResolvedEventProps = CommonEventProps & {
-	id: string;
-};
-
-export type UnresolvedEventProps = CommonEventProps & {
-	id: string;
-	status: string;
-	error?: APIError;
-};
 
 export type InvokeSucceededEventProps = CommonEventProps & {
 	id?: string;

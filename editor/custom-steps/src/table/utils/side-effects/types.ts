@@ -15,12 +15,16 @@ export interface RowSideEffect {
 export interface TableSideEffectJSON {
 	from: number;
 	to: number;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	node: { [key: string]: any }; // ToJson type of ProseMirrorNode.toJson()
 }
 
 export interface RowSideEffectJSON {
 	from: number;
 	to: number;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	rowNode: { [key: string]: any }; // ToJson type of ProseMirrorNode.toJson()
 }
 

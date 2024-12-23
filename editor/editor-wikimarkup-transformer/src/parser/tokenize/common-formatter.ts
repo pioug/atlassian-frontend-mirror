@@ -1,11 +1,10 @@
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import type { Token } from './';
-import { TokenType } from './';
+import { TokenType, parseToken } from './';
 import type { Context } from '../../interfaces';
 import { linkFormat } from './links/link-format';
 import { parseNewlineOnly } from './whitespace';
 import { parseMacroKeyword } from './keyword';
-import { parseToken } from '.';
 import { escapeHandler } from '../utils/escape';
 
 export interface FormatterOption {
@@ -27,6 +26,8 @@ const processState = {
 	ESCAPE: 5,
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function commonFormatter(
 	input: string,
 	position: number,
@@ -56,6 +57,8 @@ export function commonFormatter(
 					const charBeforeOpening = input.charAt(position - 1);
 					if (
 						!openingWrapped &&
+						// Ignored via go/ees005
+						// eslint-disable-next-line require-unicode-regexp
 						/[a-zA-Z0-9]|[^\u0000-\u007F]/.test(charBeforeOpening) &&
 						charBeforeOpening !== '\u00A0'
 					) {
@@ -118,6 +121,8 @@ export function commonFormatter(
 
 					if (
 						!closingWrapped &&
+						// Ignored via go/ees005
+						// eslint-disable-next-line require-unicode-regexp
 						/[a-zA-Z0-9]|[^\u0000-\u007F]/.test(charAfterEnd) &&
 						charAfterEnd !== '\u00A0'
 					) {

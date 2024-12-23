@@ -80,7 +80,13 @@ export const InlineImageCard = ({
 				crop={crop}
 				stretch={stretch}
 			/>
-			{getSsrScriptProps && <script {...getSsrScriptProps()} />}
+			{getSsrScriptProps && (
+				<script
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...getSsrScriptProps()}
+				/>
+			)}
 		</Fragment>
 	);
 };

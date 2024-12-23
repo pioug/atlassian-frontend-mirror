@@ -7,6 +7,8 @@ type CardErrorBoundaryProps = {
 	unsupportedComponent: React.ComponentType<React.PropsWithChildren<unknown>>;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class CardErrorBoundary extends React.PureComponent<
 	{
 		url?: string;
@@ -57,7 +59,11 @@ export class CardErrorBoundary extends React.PureComponent<
 								datasourceId={datasourceId}
 								error={this.state.error}
 							>
-								<InlineCard {...this.props} />
+								<InlineCard
+									// Ignored via go/ees005
+									// eslint-disable-next-line react/jsx-props-no-spreading
+									{...this.props}
+								/>
 							</LazyLoadedDatasourceRenderFailedAnalyticsWrapper>
 						);
 					} else {

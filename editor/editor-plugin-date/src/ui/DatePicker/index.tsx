@@ -78,6 +78,8 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 	constructor(props: Props & WrappedComponentProps) {
 		super(props);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const timestamp = props.element!.getAttribute('timestamp');
 		if (timestamp) {
 			// Warning: The 'Date' return type of timestampToUTCDate() is not a JS date, it's more similar
@@ -109,6 +111,8 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 			autoFocus,
 			weekStartDay,
 		} = this.props;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const timestamp = element!.getAttribute('timestamp');
 		if (this.state === null) {
 			// Without this, you can blow up the page by slowing down cpu, opening date, typing after date
@@ -122,6 +126,8 @@ class DatePicker extends React.Component<Props & WrappedComponentProps, State> {
 		}
 		return (
 			<PopupWithListeners
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				target={element!}
 				offset={[0, 8]}
 				fitHeight={370}

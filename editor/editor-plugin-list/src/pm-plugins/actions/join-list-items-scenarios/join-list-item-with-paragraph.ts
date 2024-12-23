@@ -58,6 +58,8 @@ export const joinListItemWithParagraph: DeleteAction = ({ tr, $next, $head }) =>
 
 	// For first list items that have a paragraph and a list
 	if (firstListItemContainsParagraphAndNestedList) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const firstListItemNestedList = Fragment.from(lastChildOfFirstListItem!.content);
 		insertions.push([firstListItemNestedList, tr.mapping.map($next.pos)]);
 	}

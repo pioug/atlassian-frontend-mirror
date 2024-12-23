@@ -11,6 +11,8 @@ type Scheduler = {
 		options: {
 			priority: 'background';
 			delay: number;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			signal: any;
 		},
 	) => Promise<void>;

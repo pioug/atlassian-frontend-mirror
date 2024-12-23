@@ -98,6 +98,8 @@ export default (
 	}
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function getNewDraftState(
 	pluginState: InlineCommentPluginState,
 	drafting: boolean,

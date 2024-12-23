@@ -9,7 +9,6 @@
 		"./examples/**/*.tsx"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"types": ["node", "jest", "@testing-library/jest-dom", "gapi"]
 	}
 }

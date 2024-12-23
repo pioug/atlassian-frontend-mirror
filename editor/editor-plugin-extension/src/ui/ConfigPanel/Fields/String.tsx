@@ -41,7 +41,11 @@ export default function String({
 					return (
 						<Fragment>
 							<TextArea
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...restFieldProps}
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
 								{...options}
 								onChange={(e) => onChange(e.currentTarget.value)}
 								onBlur={() => {
@@ -59,6 +63,8 @@ export default function String({
 				return (
 					<Fragment>
 						<TextField
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/jsx-props-no-spreading
 							{...fieldProps}
 							type="text"
 							autoFocus={autoFocus}

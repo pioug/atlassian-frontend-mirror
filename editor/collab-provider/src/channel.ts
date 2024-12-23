@@ -132,6 +132,8 @@ export class Channel extends Emitter<ChannelEvent> {
 							code: INTERNAL_ERROR_CODE.TOKEN_PERMISSION_ERROR,
 							meta: {
 								originalError: error,
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-explicit-any
 								reason: (error as any)?.data?.meta?.reason, // Should always be 'RESOURCE_DELETED' Temporary, until Confluence Cloud removes their hack
 								// https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/browse/next/packages/native-collab/src/fetchCollabPermissionToken.ts#37
 							},
@@ -141,6 +143,8 @@ export class Channel extends Emitter<ChannelEvent> {
 				}
 			};
 		} else {
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-await
 			auth = async (cb: (data: InitAndAuthData) => void) => {
 				// Rebuild authData to ensure values are current
 				const authData: InitAndAuthData = {
@@ -213,7 +217,8 @@ export class Channel extends Emitter<ChannelEvent> {
 		this.socket.on('status', (data: NamespaceStatus) => {
 			this.emit('status', data);
 		});
-
+		// Ignored via go/ees005
+		// eslint-disable-next-line require-await
 		this.socket.on('disconnect', async (reason: string) => {
 			this.connected = false;
 			logger(`disconnect reason: ${reason}`);
@@ -260,6 +265,8 @@ export class Channel extends Emitter<ChannelEvent> {
 		this.socket.io.on('reconnect_error', this.onReconnectError);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onAnyOutgoingHandler(currentTimeMs: number, args: any[]) {
 		const rateLimitType = this.config.rateLimitType || this.RATE_LIMIT_TYPE_NONE;
 		if (rateLimitType === this.RATE_LIMIT_TYPE_NONE) {
@@ -394,6 +401,8 @@ export class Channel extends Emitter<ChannelEvent> {
 
 	private onConnect = () => {
 		this.connected = true;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		logger('Connected.', this.socket!.id);
 		const measure = stopMeasure(MEASURE_NAME.SOCKET_CONNECT, this.analyticsHelper);
 
@@ -404,14 +413,20 @@ export class Channel extends Emitter<ChannelEvent> {
 			usedCachedToken: !!this.token,
 		});
 		this.emit('connected', {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			sid: this.socket!.id!,
 			initialized: this.initialized,
 		});
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private onReceiveData = (data: any) => {
 		logger('Received data', data);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		logger('Session ID is', this.socket!.id);
 
 		if (data.type === 'initial') {
@@ -453,6 +468,8 @@ export class Channel extends Emitter<ChannelEvent> {
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	fetchCatchupv2 = async (
 		fromVersion: number,
 		clientId: number | string | undefined,
@@ -476,6 +493,8 @@ export class Channel extends Emitter<ChannelEvent> {
 				steps,
 				metadata,
 			};
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			if (error.code === 404) {
 				const errorNotFound: DocumentNotFoundError = {
@@ -509,6 +528,8 @@ export class Channel extends Emitter<ChannelEvent> {
 				productId: 'ccollab',
 				reason,
 			});
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const reconcileResponse = await utils.requestService<any>(this.config, {
 				path: `document/${encodeURIComponent(this.config.documentAri)}/reconcile`,
 				requestInit: {
@@ -521,6 +542,8 @@ export class Channel extends Emitter<ChannelEvent> {
 				},
 			});
 			return reconcileResponse;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (error: any) {
 			this.analyticsHelper?.sendErrorEvent(error, 'Error while fetching reconciled document');
 			throw error;

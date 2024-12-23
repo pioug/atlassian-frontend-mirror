@@ -6,7 +6,7 @@ export type Entity = {
 	nodeContext: string;
 };
 
-type Metadata<T = {}> = {
+type Metadata<T = Object> = {
 	node: Node;
 	isUndo?: boolean;
 	isRedo?: boolean;

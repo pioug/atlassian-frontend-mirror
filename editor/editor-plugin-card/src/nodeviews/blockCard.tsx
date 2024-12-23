@@ -27,6 +27,8 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 
 	constructor(props: SmartCardProps) {
 		super(props);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.scrollContainer = findOverflowScrollParent(props.view.dom as HTMLElement) || undefined;
 	}
 
@@ -204,6 +206,8 @@ export const blockCardNodeView =
 		view: EditorView,
 		getPos: () => number | undefined,
 		decorations: readonly Decoration[],
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
 		const reactComponentProps: BlockCardNodeViewProps = {

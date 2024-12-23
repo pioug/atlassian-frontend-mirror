@@ -99,6 +99,8 @@ export const createPlugin = (
 	shouldUseIncreasedScalingPercent?: boolean,
 	isCommentEditor?: boolean,
 	isChromelessEditor?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const state = createPluginState(dispatch, {
 		pluginConfig,
@@ -195,6 +197,8 @@ export const createPlugin = (
 						const parent = findParentDomRefOfType(state.schema.nodes.table, domAtPos)(selection);
 						if (parent) {
 							tableRef =
+								// Ignored via go/ees005
+								// eslint-disable-next-line @atlaskit/editor/no-as-casting
 								(parent as HTMLElement).querySelector<HTMLTableElement>('table') || undefined;
 						}
 						const tableNode = findTable(state.selection);
@@ -325,6 +329,8 @@ export const createPlugin = (
 				// Returning true prevents that updateSelection() is getting called in the commit below:
 				// @see https://github.com/ProseMirror/prosemirror-view/commit/33fe4a8b01584f6b4103c279033dcd33e8047b95
 				if (browser.chrome && event.target) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					const targetClassList = (event.target as HTMLElement).classList;
 
 					if (
@@ -350,6 +356,8 @@ export const createPlugin = (
 				const maybeTr = closestElement(domRef as HTMLElement | undefined, 'tr');
 				return maybeTr ? maybeTr.classList.contains('sticky') : false;
 			},
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			handleTextInput: (view, _from, _to, text) => {
 				const { state, dispatch } = view;
 				const { isKeyboardResize } = getPluginState(state);

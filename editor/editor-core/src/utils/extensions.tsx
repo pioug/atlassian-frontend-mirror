@@ -50,6 +50,8 @@ function sendExtensionQuickInsertAnalytics(
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export async function extensionProviderToQuickInsertProvider(
 	extensionProvider: ExtensionProvider,
 	editorActions: EditorActions,
@@ -63,7 +65,7 @@ export async function extensionProviderToQuickInsertProvider(
 			const quickInsertItems = getQuickInsertItemsFromModule<QuickInsertItem>(
 				extensions,
 				(item) => {
-					const Icon = Loadable<{ label: string }, {}>({
+					const Icon = Loadable<{ label: string }, Object>({
 						loader: item.icon,
 						loading: () => null,
 					});
@@ -119,6 +121,8 @@ export async function extensionProviderToQuickInsertProvider(
 	};
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-await
 export async function combineQuickInsertProviders(
 	quickInsertProviders: Array<QuickInsertProvider | Promise<QuickInsertProvider>>,
 ): Promise<QuickInsertProvider> {

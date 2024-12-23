@@ -18,6 +18,8 @@ const LayoutThreeWithRightSidebarsGlyph = (props: CustomGlyphProps) => {
 				viewBox="0 0 16 14"
 				fill="none"
 				xmlns="http://www.w3.org/2000/svg"
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...props}
 			>
 				<path
@@ -37,6 +39,8 @@ const LayoutThreeWithRightSidebarsGlyph = (props: CustomGlyphProps) => {
 			viewBox="0 0 16 14"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 		>
 			<path
@@ -56,6 +60,11 @@ const floatingToolbarPadding = css({
 
 export const LayoutThreeWithRightSidebarsIcon = (props: Omit<IconProps, 'glyph'>) => (
 	<span css={floatingToolbarPadding}>
-		<Icon glyph={LayoutThreeWithRightSidebarsGlyph} {...props} />
+		<Icon
+			glyph={LayoutThreeWithRightSidebarsGlyph}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			{...props}
+		/>
 	</span>
 );

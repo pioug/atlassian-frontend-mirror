@@ -27,15 +27,21 @@ const AnnotationSelectionComponentMock = (
 		const onClick = (event: MouseEvent) => {
 			const { target } = event;
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			if (!showCreateComponent && wrapperDOM.contains(target as HTMLElement)) {
 				onPopupClose();
 				return;
 			}
 		};
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.addEventListener('mousedown', onClick);
 
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			document.removeEventListener('mousedown', onClick);
 		};
 	}, [wrapperDOM, showCreateComponent, onPopupClose]);

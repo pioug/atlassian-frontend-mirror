@@ -15,6 +15,8 @@ export default (
 	pluginInjectionApi: ExtractInjectionAPI<LayoutPlugin>,
 	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	new SafePlugin<undefined>({
 		key: pluginKey,

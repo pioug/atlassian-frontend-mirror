@@ -22,7 +22,11 @@ export const ButtonSpotlightCard = (props: ButtonSpotlightCardProps) => {
 			{({ ref, style }) => (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 				<div ref={ref} style={style}>
-					<SpotlightCard {...spotlightCardProps} />
+					<SpotlightCard
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...spotlightCardProps}
+					/>
 				</div>
 			)}
 		</Popper>

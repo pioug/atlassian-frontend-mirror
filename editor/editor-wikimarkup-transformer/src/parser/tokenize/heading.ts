@@ -2,6 +2,8 @@ import { parseString } from '../text';
 import { type Token, TokenType, type TokenParser } from './';
 
 // h1. HEADING
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const HEADING_REGEXP = /^h([1-6])\.(.*)/;
 
 export const heading: TokenParser = ({ input, position, schema, context }) => {

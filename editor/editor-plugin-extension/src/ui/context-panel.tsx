@@ -159,6 +159,8 @@ interface Parameters {
 	macroParams?: Record<string, unknown>;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export async function onChangeAction(
 	editorView: EditorView,
 	updatedParameters: Parameters = {},

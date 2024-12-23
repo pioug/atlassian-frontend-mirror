@@ -28,6 +28,8 @@ export class TableSideEffectHandler {
 		return true;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	handleRemoveTable(
 		tr: Transform,
 		tablePos: number,
@@ -77,6 +79,8 @@ export class TableSideEffectHandler {
 		if (!this.table) {
 			return;
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const tableNode = doc.nodeAt(this.table.from)!;
 
 		return {

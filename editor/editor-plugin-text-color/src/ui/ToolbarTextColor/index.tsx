@@ -333,7 +333,9 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 		const selectedColor =
 			pluginState.color !== pluginState.defaultColor
 				? pluginState.color
-					? hexToEditorTextPaletteColor(pluginState.color)!
+					? // Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+						hexToEditorTextPaletteColor(pluginState.color)!
 					: pluginState.color
 				: null;
 		return selectedColor;

@@ -41,6 +41,8 @@ export const createExpandNode = (
 
 	const expandNode = expandType.createAndFill({});
 	if (setExpandedState) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		expandedState.set(expandNode!, true);
 	}
 	return expandNode;
@@ -59,6 +61,8 @@ export const insertExpandWithInputMethod =
 		let tr;
 		if (state.selection.empty) {
 			tr = safeInsert(expandNode)(state.tr).scrollIntoView();
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			expandedState.set(expandNode!, true);
 		} else {
 			tr = createWrapSelectionTransaction({

@@ -42,11 +42,6 @@ export const NoLinkAppearance = styled.span({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const LowercaseAppearance = styled.span({
-	textTransform: 'lowercase',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const LinkAppearance = styled.a({
 	color: token('color.link', B400),
 	'&:hover': {

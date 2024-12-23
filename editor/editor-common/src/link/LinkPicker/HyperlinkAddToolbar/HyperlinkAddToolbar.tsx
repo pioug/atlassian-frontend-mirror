@@ -206,6 +206,8 @@ const mapSearchProviderResultToLinkSearchItemData = ({
 	prefetch: false,
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 	/* To prevent double submit */
 	private submitted: boolean = false;
@@ -247,6 +249,8 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 	async componentDidMount() {
 		const { timesViewed, inputMethod, searchSessionId } = this.props;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.addEventListener('mousedown', this.handleClickOutside);
 
 		this.fireAnalytics({
@@ -274,6 +278,8 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 	componentWillUnmount() {
 		const { searchSessionId } = this.props;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		document.removeEventListener('mousedown', this.handleClickOutside);
 
 		if (!this.submitted) {
@@ -331,6 +337,8 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 				eventType: EVENT_TYPE.UI,
 			});
 			return items;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			const perfStop = performance.now();
 			const duration = perfStop - perfStart;
@@ -448,6 +456,8 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 				},
 				eventType: EVENT_TYPE.UI,
 			});
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		} catch (err: any) {
 			const perfStop = performance.now();
 			const duration = perfStop - perfStart;
@@ -715,6 +725,8 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		this.handleInsert(href, text, INPUT_METHOD.TYPEAHEAD, 'click');
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	private handleInsert = (
 		href: string,
 		title: string | undefined,
@@ -806,6 +818,8 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private handleKeyDown = (event: KeyboardEvent<any>) => {
 		const { items, selectedIndex } = this.state;
 		const { view, onEscapeCallback, searchSessionId } = this.props;
@@ -865,6 +879,8 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		});
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private handleCancel = (e: KeyboardEvent<any>) => {
 		const {
 			view: { state, dispatch },

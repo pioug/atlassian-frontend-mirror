@@ -49,11 +49,15 @@ export type TypeAheadItem = {
 	description?: string;
 	keyshortcut?: string;
 	key?: string | number;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	icon?: () => ReactElement<any>;
 	render?: (props: TypeAheadItemRenderProps) => React.ReactElement<TypeAheadItemRenderProps> | null;
 	// Offline editing work - when we move away from `PluginOptions` (to be deprecated) for editor we need to avoid this
 	// but for now this greatly simplifies our work
 	isDisabledOffline?: boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
 };
 

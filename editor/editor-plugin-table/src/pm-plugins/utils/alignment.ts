@@ -22,6 +22,8 @@ export const shouldChangeAlignmentToCenterResized = (
 	tableNode: PmNode,
 	lineLength: number | undefined,
 	updatedTableWidth: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	Boolean(
 		isTableAlignmentEnabled &&

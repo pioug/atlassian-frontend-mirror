@@ -18,10 +18,14 @@ export class FakeTextCursorBookmark {
 	}
 
 	map(mapping: Mappable): FakeTextCursorBookmark {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		return new FakeTextCursorBookmark(mapping.map(this.pos!));
 	}
 
 	resolve(doc: Node): Selection {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const $pos = doc.resolve(this.pos!);
 		return Selection.near($pos);
 	}

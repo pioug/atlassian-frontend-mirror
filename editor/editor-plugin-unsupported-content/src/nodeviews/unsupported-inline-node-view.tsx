@@ -19,5 +19,7 @@ export type Props = InlineNodeViewComponentProps & {
 };
 
 export const UnsupportedInlineNodeView = (props: Props) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <UnsupportedInline {...props} />;
 };

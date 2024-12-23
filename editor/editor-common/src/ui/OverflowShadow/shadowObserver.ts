@@ -14,14 +14,22 @@ export const shadowObserverClassNames = {
 };
 
 const requestIdleCallback = (fn: FrameRequestCallback) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return (window as any).requestIdleCallback
-		? (window as any).requestIdleCallback(fn)
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(window as any).requestIdleCallback(fn)
 		: window.requestAnimationFrame(fn);
 };
 
 const cancelIdleCallback = (id: number) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return (window as any).cancelIdleCallback
-		? (window as any).cancelIdleCallback(id)
+		? // Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			(window as any).cancelIdleCallback(id)
 		: window.cancelAnimationFrame(id);
 };
 

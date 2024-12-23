@@ -6,7 +6,7 @@ import { type InvokeClientActionProps } from '../../state/hooks/use-invoke-clien
 import { downloadUrl as download } from '../../utils';
 import { canShowAction } from '../../utils/actions/can-show-action';
 import { getActionsFromJsonLd } from '../common/actions/extractActions';
-import { extractDownloadUrl } from '../common/detail';
+import { extractDownloadUrl } from '../common/download/extractDownloadUrl';
 
 import { type ExtractClientActionsParam } from './types';
 

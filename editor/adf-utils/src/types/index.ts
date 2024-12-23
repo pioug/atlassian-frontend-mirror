@@ -1,5 +1,7 @@
 export interface ADFEntityMark {
 	type: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: { [name: string]: any };
 }
 
@@ -9,10 +11,14 @@ export interface ADFEntityMark {
  */
 export interface ADFEntity {
 	type: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: { [name: string]: any };
 	content?: Array<ADFEntity | undefined>;
 	marks?: Array<ADFEntityMark>;
 	text?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
 }
 

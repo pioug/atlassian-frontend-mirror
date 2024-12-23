@@ -69,13 +69,15 @@ export const changeImageAlignment =
 	};
 
 export const createToggleBlockMarkOnRange =
-	<T extends {} = object>(
+	<T extends Object = object>(
 		markType: MarkType,
 		getAttrs: (prevAttrs?: T, node?: PMNode) => T | undefined | false,
 		allowedBlocks?:
 			| Array<NodeType>
 			| ((schema: Schema, node: PMNode, parent: PMNode | null) => boolean),
 	) =>
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	(from: number, to: number, tr: Transaction, state: EditorState): boolean => {
 		let markApplied = false;
 		state.doc.nodesBetween(from, to, (node, pos, parent) => {
@@ -113,10 +115,12 @@ export const createToggleBlockMarkOnRange =
 	};
 
 export const createToggleInlineMarkOnRange =
-	<T extends {} = object>(
+	<T extends Object = object>(
 		markType: MarkType,
 		getAttrs: (prevAttrs?: T, node?: PMNode) => T | undefined | false,
 	) =>
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	(from: number, to: number, tr: Transaction, state: EditorState): boolean => {
 		let markApplied = false;
 		state.doc.nodesBetween(from, to, (node, pos, parent) => {
@@ -153,7 +157,7 @@ export const createToggleInlineMarkOnRange =
  * return an `object` to update the mark.
  */
 export const toggleBlockMark =
-	<T extends {} = object>(
+	<T extends Object = object>(
 		markType: MarkType,
 		getAttrs: (prevAttrs?: T, node?: PMNode) => T | undefined | false,
 		allowedBlocks?:

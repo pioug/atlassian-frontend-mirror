@@ -148,13 +148,6 @@ export type ModelUsage = {
 	duration: number;
 };
 
-export type Durations = {
-	events: {
-		[key: string]: number;
-	};
-	total: number;
-};
-
 export type Metadata = {
 	// Unified Help Only
 	bm25Variant?: string;

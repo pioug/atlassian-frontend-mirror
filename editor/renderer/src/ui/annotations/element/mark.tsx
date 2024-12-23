@@ -36,6 +36,8 @@ const markStyles = () => css`
 `;
 
 const isMobile = () => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 };
 
@@ -121,6 +123,8 @@ export const MarkComponent = ({
 				event.preventDefault();
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			onClick({ eventTarget: event.target as HTMLElement, annotationIds });
 		},
 		[annotationIds, onClick, state],

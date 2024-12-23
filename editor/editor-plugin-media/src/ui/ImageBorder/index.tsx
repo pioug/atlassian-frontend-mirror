@@ -265,8 +265,12 @@ const ImageBorder = ({
 								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 								<div css={contextualSubMenu(1)} ref={handleSubMenuRef}>
 									{borderSizeOptions.map(({ name, value, icon }, idx) => {
+										// Ignored via go/ees005
+										// eslint-disable-next-line @typescript-eslint/no-explicit-any
 										const ButtonIcon = icon as React.ComponentClass<any>;
 										return (
+											// Ignored via go/ees005
+											// eslint-disable-next-line react/no-array-index-key
 											<Tooltip key={idx} content={name}>
 												{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
 												<span css={buttonWrapperStyle}>

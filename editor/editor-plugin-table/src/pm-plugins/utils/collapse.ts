@@ -8,10 +8,9 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 interface IsTableCollapsibleResult {
 	tableIsCollapsible: boolean;
 	range?: NodeRange;
-	findWrappingRes?:
-		| Array<{ type: NodeType; attrs?: { [key: string]: any } | null }>
-		| null
-		| undefined;
+	findWrappingRes?: // Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	Array<{ type: NodeType; attrs?: { [key: string]: any } | null }> | null | undefined;
 }
 
 const bail = () => ({

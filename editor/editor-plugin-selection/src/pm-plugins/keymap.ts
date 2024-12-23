@@ -7,8 +7,12 @@ import { arrowLeft, arrowRight } from './commands';
 function keymapPlugin() {
 	const list = {};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(moveRight.common!, arrowRight, list);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(moveLeft.common!, arrowLeft, list);
 
 	return keymap(list) as SafePlugin;

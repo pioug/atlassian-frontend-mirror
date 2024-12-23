@@ -98,7 +98,11 @@ export const BlockTypeButton = (props: BlockTypeButtonProps) => {
 				<Box
 					xcss={[buttonContentStyle, props.isReducedSpacing && buttonContentReducedSpacingStyle]}
 				>
-					<FormattedMessage {...(props.title || NORMAL_TEXT.title)} />
+					<FormattedMessage
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...(props.title || NORMAL_TEXT.title)}
+					/>
 				</Box>
 			)}
 		</ToolbarButton>

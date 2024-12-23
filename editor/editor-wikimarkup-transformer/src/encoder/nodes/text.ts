@@ -61,13 +61,25 @@ function escapingWikiFormatter(text: string) {
 		MENTION_ESCAPE_PATTERN,
 		...macroKeywordTokenMap.map((macro) => `(${macro.regex.source.replace('^', '')})`),
 	].join('|');
-	return text
-		.replace(new RegExp(pattern, 'g'), '\\$&')
-		.replace(new RegExp(MEDIA_ESCAPE_PATTERN, 'g'), '\\$1\\$2') // Extra step required for media as currently both ends need to be escaped e.q. !filename.txt!
-		.replace(new RegExp(MEDIA_GROUP_ESCAPE_PATTERN, 'g'), '\\$1\\$2');
+	return (
+		text
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
+			.replace(new RegExp(pattern, 'g'), '\\$&')
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
+			.replace(new RegExp(MEDIA_ESCAPE_PATTERN, 'g'), '\\$1\\$2') // Extra step required for media as currently both ends need to be escaped e.q. !filename.txt!
+			// Ignored via go/ees005
+			// eslint-disable-next-line require-unicode-regexp
+			.replace(new RegExp(MEDIA_GROUP_ESCAPE_PATTERN, 'g'), '\\$1\\$2')
+	);
 }
 
 export const text: NodeEncoder = (node: PMNode, { parent }: NodeEncoderOpts = {}): string => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	let result = isEscapeNeeded(node, parent) ? escapingWikiFormatter(node.text!) : node.text!;
 	markEncoderMapping.forEach((encoder, markName) => {
 		const mark = node.marks.find((m) => m.type.name === markName);

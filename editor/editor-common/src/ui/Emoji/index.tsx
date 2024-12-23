@@ -66,6 +66,8 @@ const EmojiNodeFunctional = (props: EmojiProps) => {
 };
 
 const EmojiNode = (props: EmojiProps) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/jsx-props-no-spreading
 	return <EmojiNodeFunctional {...props} />;
 };
 

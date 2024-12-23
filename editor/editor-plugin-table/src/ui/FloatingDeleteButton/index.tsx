@@ -70,6 +70,8 @@ function getSelectionType(selection: Selection): TableDirection | undefined {
 	return;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class FloatingDeleteButton extends Component<Props, State> {
 	static displayName = 'FloatingDeleteButton';
 
@@ -108,6 +110,8 @@ class FloatingDeleteButton extends Component<Props, State> {
 		const tableWrapper = closestElement(this.props.tableRef, `.${ClassName.TABLE_NODE_WRAPPER}`);
 		if (tableWrapper) {
 			this.wrapper = tableWrapper;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.wrapper.addEventListener('scroll', this.onWrapperScrolled);
 
 			this.setState({
@@ -116,6 +120,8 @@ class FloatingDeleteButton extends Component<Props, State> {
 		} else {
 			if (this.wrapper) {
 				// unsubscribe if we previously had one and it just went away
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				this.wrapper.removeEventListener('scroll', this.onWrapperScrolled);
 
 				// and reset scroll position
@@ -130,11 +136,15 @@ class FloatingDeleteButton extends Component<Props, State> {
 
 	componentWillUnmount() {
 		if (this.wrapper) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.wrapper.removeEventListener('scroll', this.onWrapperScrolled);
 		}
 	}
 
 	onWrapperScrolled = (e: Event) => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const wrapper = e.target as HTMLElement;
 		this.setState({
 			scrollLeft: wrapper.scrollLeft,
@@ -177,6 +187,8 @@ class FloatingDeleteButton extends Component<Props, State> {
 					if (deleteBtnParams) {
 						return {
 							...deleteBtnParams,
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							top: inStickyMode ? nextProps.stickyHeaders!.top : 0,
 							position: inStickyMode ? 'sticky' : undefined,
 							selectionType,
@@ -229,9 +241,13 @@ class FloatingDeleteButton extends Component<Props, State> {
 		const { state, dispatch } = this.props.editorView;
 		switch (this.state.selectionType) {
 			case 'row': {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				return hoverRows(this.state.indexes!, true)(state, dispatch, this.props.editorView);
 			}
 			case 'column': {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				return hoverColumns(this.state.indexes!, true)(state, dispatch, this.props.editorView);
 			}
 		}
@@ -312,6 +328,8 @@ class FloatingDeleteButton extends Component<Props, State> {
 		if (this.state.position === 'sticky' && mountTo) {
 			const headerRow = tableRef.querySelector('tr.sticky');
 			if (headerRow) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const rect = headerRow!.getBoundingClientRect();
 
 				const calculatePosition = popupOpts.onPositionCalculated || ((pos) => pos);
@@ -353,6 +371,8 @@ class FloatingDeleteButton extends Component<Props, State> {
 				scrollableElement={this.wrapper || undefined}
 				forcePlacement={true}
 				allowOutOfBounds
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...popupOpts}
 			>
 				{button}

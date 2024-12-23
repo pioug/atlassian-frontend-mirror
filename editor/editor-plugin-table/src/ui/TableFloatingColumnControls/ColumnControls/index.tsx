@@ -98,21 +98,27 @@ export const ColumnControls = ({
 	const hasHeaderRow = firstRow ? firstRow.getAttribute('data-header-row') : false;
 
 	const rowControlStickyTop = fg('platform_editor_breakout_use_css') ? 45 : rowHeights?.[0];
-	const marginTop = hasHeaderRow && stickyTop !== undefined ? rowControlStickyTop ?? 0 : 0;
+	const marginTop = hasHeaderRow && stickyTop !== undefined ? (rowControlStickyTop ?? 0) : 0;
 
 	const handleClick = useCallback(
 		(event: MouseEvent) => {
 			const { state, dispatch } = editorView;
 
 			const isClickOutsideSelectedCols =
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				selectedColIndexes.length >= 1 && !selectedColIndexes.includes(colIndex!);
 
 			if (!selectedColIndexes || selectedColIndexes.length === 0 || isClickOutsideSelectedCols) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				selectColumn(colIndex!, event.shiftKey)(state, dispatch);
 			}
 
 			if (
 				selectedColIndexes.length > 1 &&
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				selectedColIndexes.includes(colIndex!) &&
 				!event.shiftKey
 			) {
@@ -124,6 +130,8 @@ export const ColumnControls = ({
 
 	const handleMouseOver = useCallback(() => {
 		const { state, dispatch } = editorView;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		hoverColumns([colIndex!])(state, dispatch);
 	}, [colIndex, editorView]);
 
@@ -174,6 +182,8 @@ export const ColumnControls = ({
 	);
 
 	const colIndexes = useMemo(() => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		return [colIndex!];
 	}, [colIndex]);
 
@@ -186,6 +196,8 @@ export const ColumnControls = ({
 		appearance: DragHandleAppearance,
 		gridColumn: string,
 		indexes: number[],
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const isHover = type === 'hover';
 		const isPlaceholder = appearance === 'placeholder';
@@ -283,6 +295,8 @@ export const ColumnControls = ({
 			!selectedColIndexes.includes(colIndex)
 		) {
 			handles.push(
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				generateHandleByType('hover', 'default', `${colIndex! + 1} / span 1`, colIndexes),
 			);
 		}
@@ -328,6 +342,8 @@ export const ColumnControls = ({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 						className={ClassName.DRAG_COLUMN_FLOATING_INSERT_DOT_WRAPPER}
 						contentEditable={false}
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/no-array-index-key
 						key={index}
 					>
 						<div

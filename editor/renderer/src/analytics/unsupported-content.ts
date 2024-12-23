@@ -10,6 +10,8 @@ import { PLATFORM } from './events';
 
 type DispatchAnalyticsEvent = (event: AnalyticsEventPayload) => void;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DocumentData = { rendererId: string; doc: any; appearance?: string };
 
 let rendersMap: { [appearance: string]: Set<string> } = {};
@@ -56,7 +58,11 @@ const processLevelsAndTrack: ProcessLevelsAndTrack = (item, thresholds, dispatch
 };
 
 const schedule = (fn: () => void) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	if (typeof (window as any).requestIdleCallback === 'function') {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		(window as any).requestIdleCallback(fn);
 	} else {
 		setTimeout(fn, 0);

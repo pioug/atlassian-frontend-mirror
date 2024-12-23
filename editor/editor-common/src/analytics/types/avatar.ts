@@ -5,7 +5,7 @@ type AvatarButtonViewedAEP = UIAEP<
 	ACTION.VIEWED,
 	ACTION_SUBJECT.BUTTON,
 	ACTION_SUBJECT_ID.AVATAR_GROUP_PLUGIN,
-	{},
+	Object,
 	undefined
 >;
 

@@ -23,6 +23,8 @@ interface IndentationState {
 	outdentDisabled: boolean;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function getIndentationButtonsState(
 	editorState: EditorState,
 	allowHeadingAndParagraphIndentation: boolean,

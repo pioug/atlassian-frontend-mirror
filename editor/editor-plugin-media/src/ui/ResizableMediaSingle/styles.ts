@@ -1,6 +1,8 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 

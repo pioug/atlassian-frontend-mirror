@@ -27,6 +27,8 @@ import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { stateKey } from '../pm-plugins/main';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function setLinkHrefEditorCommand(
 	href: string,
 	pos: number,
@@ -73,6 +75,8 @@ function setLinkHrefEditorCommand(
 	};
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function setLinkHref(
 	href: string,
 	pos: number,
@@ -87,6 +91,8 @@ export function setLinkHref(
 
 export type UpdateLink = (href: string, text: string, pos: number, to?: number) => Command;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function updateLinkEditorCommand(
 	href: string,
 	text: string,
@@ -125,10 +131,14 @@ export function updateLinkEditorCommand(
 	};
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function updateLink(href: string, text: string, pos: number, to?: number): Command {
 	return editorCommandToPMCommand(updateLinkEditorCommand(href, text, pos, to));
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function insertLink(
 	from: number,
 	to: number,
@@ -170,6 +180,8 @@ export function insertLink(
 					queueCardsFromChangedTr?.(
 						state,
 						tr,
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						source!,
 						ACTION.INSERTED,
 						false,
@@ -232,6 +244,8 @@ export const insertLinkWithAnalytics = (
 	cardsAvailable: boolean = false,
 	sourceEvent: UIAnalyticsEvent | null | undefined = undefined,
 	appearance?: CardAppearance,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	// If smart cards are available, we send analytics for hyperlinks when a smart link is rejected.
 	if (cardsAvailable && !title && !displayText) {

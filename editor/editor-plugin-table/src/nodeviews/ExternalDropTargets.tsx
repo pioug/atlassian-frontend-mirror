@@ -74,6 +74,8 @@ export const ExternalDropTargets = ({
 				{colWidths?.map((width, index) => {
 					return (
 						<ColumnDropTarget
+							// Ignored via go/ees005
+							// eslint-disable-next-line react/no-array-index-key
 							key={index}
 							index={index}
 							localId={currentNodeLocalId}

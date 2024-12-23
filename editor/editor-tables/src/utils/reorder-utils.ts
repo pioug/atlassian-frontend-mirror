@@ -32,7 +32,11 @@ type ArrayOfRows = Array<PMNode | null>[];
 //    ['a3', 'b3', 'c3', 'd3'],
 //  ]
 // ```
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const transpose = (array: Array<any>): Array<any> => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return array[0].map((_: any, i: number) => {
 		return array.map((column) => column[i]);
 	});
@@ -106,6 +110,8 @@ const moveRowInArrayOfRows = (
 	indexesOrigin: number[],
 	indexesTarget: number[],
 	directionOverride: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): ArrayOfRows => {
 	let direction = indexesOrigin[0] > indexesTarget[0] ? -1 : 1;
 
@@ -187,6 +193,8 @@ export const moveTableRow = (
 	indexesOrigin: number[],
 	indexesTarget: number[],
 	direction: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): PMNode => {
 	let rows = convertTableNodeToArrayOfRows(table.node);
 
@@ -200,6 +208,8 @@ export const moveTableColumn = (
 	indexesOrigin: number[],
 	indexesTarget: number[],
 	direction: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): PMNode => {
 	let rows = transpose(convertTableNodeToArrayOfRows(table.node));
 
@@ -214,6 +224,8 @@ export const isValidReorder = (
 	targetIndex: number,
 	targets: number[],
 	type: 'row' | 'column',
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean => {
 	const direction = originIndex > targetIndex ? -1 : 1;
 	const errorMessage = `Target position is invalid, you can't move the ${type} ${originIndex} to ${targetIndex}, the target can't be split. You could use tryToFit option.`;

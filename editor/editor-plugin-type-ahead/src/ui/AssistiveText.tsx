@@ -41,6 +41,8 @@ const assitiveTextStyles = css({
 	width: '1px',
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class AssistveTextOld extends React.Component<AssistiveTextProps, AssistiveTextState> {
 	static defaultProps: AssistiveTextProps = {
 		statusDebounceMillis: 1400,
@@ -173,8 +175,12 @@ export const AssistiveTextNew = ({
 
 export const AssistiveText = (props: AssistiveTextProps) => {
 	if (fg('platform_editor_react18_phase2_v2')) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		return <AssistiveTextNew {...props} />;
 	} else {
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		return <AssistveTextOld {...props} />;
 	}
 };

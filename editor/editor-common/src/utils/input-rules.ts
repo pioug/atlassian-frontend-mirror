@@ -41,6 +41,8 @@ export const inputRuleWithAnalytics = (
 type WrappingRuleProps = {
 	match: RegExp;
 	nodeType: NodeType;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	getAttrs?: Record<string, any> | ((matchResult: RegExpExecArray) => Record<string, any>);
 	joinPredicate?: (
 		matchResult: RegExpExecArray,
@@ -60,6 +62,8 @@ export const createWrappingJoinRule = ({
 		match: RegExpExecArray,
 		start: number,
 		end: number,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const attrs = (getAttrs instanceof Function ? getAttrs(match) : getAttrs) || {};
 

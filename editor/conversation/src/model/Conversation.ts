@@ -7,6 +7,8 @@ export interface Conversation {
 	localId?: string;
 	comments?: Comment[];
 	meta: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: string]: any;
 	};
 	error?: Error;

@@ -16,6 +16,8 @@ export type MentionEventHandler = (
 export type CardEventClickHandler = (
 	result: CardEvent | InlineCardEvent,
 	surroundings?: CardSurroundings,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	analyticsEvent?: any,
 ) => void;
 export type LinkEventClickHandler = (

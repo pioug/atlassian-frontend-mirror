@@ -106,6 +106,8 @@ const ContentComponent = ({
 		<div css={guidelineStyles}>
 			<GuidelineContainer
 				guidelines={guidelineState.guidelines}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				height={(editorView.dom as HTMLElement).scrollHeight}
 				width={widthState.width}
 				editorWidth={widthState.lineLength}

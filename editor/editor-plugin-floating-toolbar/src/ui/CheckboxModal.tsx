@@ -44,6 +44,8 @@ export const CheckboxModal = (props: ConfirmationDialogProps & WrappedComponentP
 		return (
 			<ul>
 				{nodes.map((node) => (
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					<ListItem {...node} key={node.id} />
 				))}
 			</ul>

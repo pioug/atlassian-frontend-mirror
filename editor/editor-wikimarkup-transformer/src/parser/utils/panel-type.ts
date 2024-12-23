@@ -1,9 +1,17 @@
 import colorNameMapping, { type RGB, type RGBColors } from './color-name-mapping';
 
 const COLOR_TYPE_REGEX = {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	hexShort: /^#?([a-f\d])([a-f\d])([a-f\d])$/i,
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	hexLong: /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i,
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	rgb: /^#?rgb\((\d+),\s*(\d+),\s*(\d+)\)$/,
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	prgb: /^#?rgb\((\d+)%,\s*(\d+)%,\s*(\d+)%\)$/,
 };
 
@@ -55,6 +63,8 @@ function generateRgb(color: string): RGB | null {
 
 function parseHex(hex: string): RGB | null {
 	// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	hex = hex.replace(COLOR_TYPE_REGEX.hexShort, (_m, r, g, b) => {
 		return r + r + g + g + b + b;
 	});

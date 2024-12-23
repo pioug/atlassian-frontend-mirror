@@ -13,6 +13,10 @@ const ConfirmationModalImpl = (props: ConfirmationDialogProps & WrappedComponent
 	const { options } = props;
 
 	const renderModel = (isReferentialityDialog: boolean = false) =>
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		isReferentialityDialog ? <CheckboxModal {...props} /> : <SimpleModal {...props} />;
 
 	return options ? (

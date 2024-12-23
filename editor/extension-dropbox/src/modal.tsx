@@ -75,6 +75,8 @@ const Modal = ({
 	TEST_ONLY_src,
 	showModal,
 }: {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	onClose: () => any;
 	TEST_ONLY_src?: string;
 	showModal?: boolean;

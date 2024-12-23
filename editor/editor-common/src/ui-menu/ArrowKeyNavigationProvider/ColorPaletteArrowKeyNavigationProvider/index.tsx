@@ -75,6 +75,8 @@ export const ColorPaletteArrowKeyNavigationProvider = ({
 		 */
 		const handleKeyDown = (event: KeyboardEvent): void => {
 			if (event.key === 'Tab' && closeOnTab) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				handleClose!(event);
 				return;
 			}
@@ -111,6 +113,8 @@ export const ColorPaletteArrowKeyNavigationProvider = ({
 
 				case 'Escape':
 					if (!ignoreEscapeKey) {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						handleClose!(event);
 					}
 					break;
@@ -120,6 +124,8 @@ export const ColorPaletteArrowKeyNavigationProvider = ({
 			}
 		};
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		listenerTargetElement && listenerTargetElement.addEventListener('keydown', handleKeyDown);
 		// set focus to current selected color swatch if only opened by keyboard
 		if (isOpenedByKeyboard && isPopupPositioned) {
@@ -131,6 +137,8 @@ export const ColorPaletteArrowKeyNavigationProvider = ({
 			});
 		}
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			listenerTargetElement && listenerTargetElement.removeEventListener('keydown', handleKeyDown);
 		};
 	}, [

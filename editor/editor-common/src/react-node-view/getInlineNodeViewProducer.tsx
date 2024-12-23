@@ -233,8 +233,12 @@ function getPortalChildren<ExtraComponentProps>({
 				<Component
 					view={nodeViewParams.view}
 					// TODO:  ED-13910 - Remove the boolean to fix the prosemirror view type
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					getPos={nodeViewParams.getPos as any}
 					node={currentNode}
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...extraComponentProps}
 				/>
 				{browser.android ? (

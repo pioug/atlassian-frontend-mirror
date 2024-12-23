@@ -12,6 +12,8 @@ describe('Connectivity', () => {
 			const reconnectHelper = new ReconnectHelper();
 			// Go offline
 			window.dispatchEvent(new Event('offline'));
+			// Ignored via go/ees005
+			// eslint-disable-next-line no-var
 			for (var i = 0; i < 7; i++) {
 				reconnectHelper.countReconnectError();
 				expect(reconnectHelper.isLikelyNetworkIssue()).toBe(false);
@@ -25,6 +27,8 @@ describe('Connectivity', () => {
 			const reconnectHelper = new ReconnectHelper();
 			// Go offline
 			window.dispatchEvent(new Event('offline'));
+			// Ignored via go/ees005
+			// eslint-disable-next-line no-var
 			for (var i = 0; i < 8; i++) {
 				reconnectHelper.countReconnectError();
 			}

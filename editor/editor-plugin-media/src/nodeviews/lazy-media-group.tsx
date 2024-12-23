@@ -18,6 +18,8 @@ export const lazyMediaGroupView = (
 	providerFactory: ProviderFactory,
 	options: MediaOptions = {},
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return ReactMediaGroupNode(portalProviderAPI, eventDispatcher, providerFactory, options, api);

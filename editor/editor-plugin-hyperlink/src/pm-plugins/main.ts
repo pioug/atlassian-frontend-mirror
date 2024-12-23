@@ -188,6 +188,8 @@ export const plugin = (
 	pluginInjectionApi?: ExtractInjectionAPI<HyperlinkPlugin> | undefined,
 	onClickCallback?: OnClickCallback,
 	__livePage?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	new SafePlugin({
 		state: {
@@ -204,6 +206,8 @@ export const plugin = (
 					editorAppearance,
 				};
 			},
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(tr, pluginState: HyperlinkState, oldState, newState): HyperlinkState {
 				let state = pluginState;
 				const action = tr.getMeta(stateKey) && (tr.getMeta(stateKey).type as LinkAction);
@@ -359,6 +363,8 @@ export const plugin = (
 				}
 			},
 			handleDOMEvents: {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				mouseup: (_, event: any) => {
 					// this prevents redundant selection transaction when clicking on link
 					// link state will be update on slection change which happens on mousedown
@@ -368,6 +374,8 @@ export const plugin = (
 					}
 					return false;
 				},
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				mousedown: (view, event: any) => {
 					// since link clicks are disallowed by browsers inside contenteditable
 					// so we need to handle shift+click selection ourselves in this case

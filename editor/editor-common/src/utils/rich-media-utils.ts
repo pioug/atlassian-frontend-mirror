@@ -35,6 +35,8 @@ export const alignAttributes = (
 	gridSize: number = 12,
 	originalWidth: number,
 	lineLength?: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): RichMediaAttributes => {
 	let width = oldAttrs.width;
 	const oldLayout: RichMediaLayout = oldAttrs.layout;

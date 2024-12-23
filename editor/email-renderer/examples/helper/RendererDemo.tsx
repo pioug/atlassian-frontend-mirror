@@ -60,6 +60,8 @@ const context: MetaDataContext = {
 		},
 	},
 };
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class RendererDemo extends React.Component<DemoRendererProps, DemoRendererState> {
 	emailSerializer = new EmailSerializer(defaultSchema, {
 		isImageStubEnabled: true,

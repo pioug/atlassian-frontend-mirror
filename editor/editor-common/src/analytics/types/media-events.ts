@@ -12,6 +12,8 @@ export type MediaBorderTrackAction = TrackAEP<
 	MediaBorderActionType,
 	ACTION_SUBJECT.MEDIA,
 	ACTION_SUBJECT_ID.BORDER,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	any,
 	undefined
 >;
@@ -27,6 +29,8 @@ export type MediaLinkAEP = TrackAEP<
 	MediaLinkActionType,
 	ACTION_SUBJECT.MEDIA,
 	ACTION_SUBJECT_ID.LINK,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	any,
 	undefined
 >;
@@ -37,6 +41,8 @@ export type CaptionTrackAction = TrackAEP<
 	MediaCaptionActionType,
 	ACTION_SUBJECT.MEDIA_SINGLE,
 	ACTION_SUBJECT_ID.CAPTION,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	any,
 	undefined
 >;
@@ -58,6 +64,8 @@ type MediaUIAction = UIAEP<
 	ACTION.EDITED,
 	ACTION_SUBJECT.MEDIA_SINGLE | ACTION_SUBJECT.EMBEDS,
 	ACTION_SUBJECT_ID.RESIZED,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	any,
 	undefined
 >;

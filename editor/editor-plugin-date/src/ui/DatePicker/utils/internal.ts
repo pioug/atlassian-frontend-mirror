@@ -22,6 +22,8 @@ function isCursorInFirstDateSegment(cursorPos: number, date: string): boolean {
 	let posCounter = cursorPos - 1;
 	let isAdjacent = true;
 	// The date without any non-digit characters on the end
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const strippedDate = date.replace(/[^0-9]+$/g, '');
 	while (posCounter >= 0 && isAdjacent) {
 		const c = strippedDate[posCounter];
@@ -43,6 +45,8 @@ function isCursorInLastDateSegment(cursorPos: number, date: string): boolean {
 	let posCounter = cursorPos;
 	let isAdjacent = true;
 	// The date without any non-digit characters on the end
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const strippedDate = date.replace(/[^0-9]+$/g, '');
 	while (posCounter < strippedDate.length && isAdjacent) {
 		const c = strippedDate[posCounter];
@@ -91,6 +95,8 @@ export function findDateSegmentByPosition(
 	}
 
 	// The placeholder without any non-digit characters on the end
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const strippedPlaceholder = placeholder.replace(/[^ymd]+$/g, '');
 
 	const keyToSegment: { [id: string]: DateSegment } = {
@@ -132,13 +138,19 @@ export function getLocaleDatePlaceholder(locale: string): string | undefined {
 
 	const localisedDateString = formatDateType(uniqueDateType, locale);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const shortDateFormat = localisedDateString.replace(/\d+/g, (str: string): string => {
 		if (!str) {
 			return '';
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line no-var
 		var num = parseInt(str);
 		switch (num % 100) {
 			case 92:
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				return str.replace(/.{1}/g, 'y');
 			case 1:
 				return str.length === 1 ? 'm' : 'mm';

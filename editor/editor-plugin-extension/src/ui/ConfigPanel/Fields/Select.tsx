@@ -40,12 +40,16 @@ export default function SelectField({
 			testId={`config-panel-select-${name}`}
 			isRequired={field.isRequired}
 			validate={(value: ValueType<Option> | null | undefined) => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				return validate<ValueType<Option>>(field, value!);
 			}}
 		>
 			{({ fieldProps, error }) => (
 				<Fragment>
 					<Select
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						{...{
 							...fieldProps,
 							// Pass `id` as `inputId` so that the input gets the correct id, and make sure there are no duplicate ids

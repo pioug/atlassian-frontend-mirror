@@ -163,6 +163,8 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 		);
 
 		const errorsList = (this.state.validationErrors || []).map(function (error, index) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/no-array-index-key
 			return <ErrorMessage key={index}>{error}</ErrorMessage>;
 		});
 		const hasErrors = !!errorsList.length;
@@ -261,6 +263,8 @@ export class AltTextEditComponent extends React.Component<Props, AltTextEditComp
 		// We need to pass down the ESCAPE keymap
 		// because when we focus on the Toolbar, Prosemirror blur,
 		// making all keyboard shortcuts not working
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		view.someProp('handleKeyDown', (fn: any) => fn(view, event));
 		onEscape?.();
 	};

@@ -20,6 +20,8 @@ export default function keymapPlugin(): SafePlugin {
 	const map = {};
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		insertNewLine.common!,
 		(state, dispatch, view) => {
 			const isInGapCursor = state.selection instanceof GapCursorSelection;
@@ -33,6 +35,8 @@ export default function keymapPlugin(): SafePlugin {
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		moveLeft.common!,
 		(state, dispatch, view) => {
 			const endOfTextblock = view ? view.endOfTextblock.bind(view) : undefined;
@@ -42,6 +46,8 @@ export default function keymapPlugin(): SafePlugin {
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		moveRight.common!,
 		(state, dispatch, view) => {
 			const endOfTextblock = view ? view.endOfTextblock.bind(view) : undefined;
@@ -51,6 +57,8 @@ export default function keymapPlugin(): SafePlugin {
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		moveUp.common!,
 		(state, dispatch, view) => {
 			const endOfTextblock = view ? view.endOfTextblock.bind(view) : undefined;
@@ -60,6 +68,8 @@ export default function keymapPlugin(): SafePlugin {
 	);
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		moveDown.common!,
 		(state, dispatch, view) => {
 			const endOfTextblock = view ? view.endOfTextblock.bind(view) : undefined;
@@ -69,9 +79,13 @@ export default function keymapPlugin(): SafePlugin {
 	);
 
 	// default PM's Backspace doesn't handle removing block nodes when cursor is after it
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(backspace.common!, deleteNode(Direction.BACKWARD), map);
 
 	// handle Delete key (remove node after the cursor)
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	bindKeymapWithCommand(deleteKey.common!, deleteNode(Direction.FORWARD), map);
 
 	return keymap(map) as SafePlugin;

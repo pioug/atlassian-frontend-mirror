@@ -11,6 +11,8 @@ import type { AnnotationId, AnnotationTypes } from '@atlaskit/adf-schema';
 export interface RendererContext {
 	objectAri?: string;
 	containerAri?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	adDoc?: any;
 	schema?: Schema;
 }
@@ -24,6 +26,8 @@ export interface NodeMeta {
 	rendererContext?: RendererContext;
 	serializer: Serializer<JSX.Element>;
 	content?: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		[key: string]: any;
 	} | null;
 	allowHeadingAnchorLinks?: HeadingAnchorLinksProps;
@@ -38,6 +42,8 @@ export interface NodeMeta {
 	dataAttributes: {
 		'data-renderer-start-pos': number;
 	};
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
 }
 
@@ -48,9 +54,13 @@ export interface MarkMeta {
 	};
 	eventHandlers?: EventHandlers;
 	fireAnalyticsEvent?: (event: AnalyticsEventPayload) => void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	markKey?: any;
 	// Whether the node this mark belongs to is an inline node, if available
 	isInline?: boolean;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[key: string]: any;
 }
 
@@ -63,8 +73,8 @@ export interface AnnotationMarkMeta extends MarkMeta {
 	isMediaInline?: boolean;
 }
 
-export type NodeProps<NodeAttrs = {}> = NodeAttrs & PropsWithChildren<NodeMeta>;
-export type MarkProps<MarkAttrs = {}> = MarkAttrs & PropsWithChildren<MarkMeta>;
+export type NodeProps<NodeAttrs = Object> = NodeAttrs & PropsWithChildren<NodeMeta>;
+export type MarkProps<MarkAttrs = Object> = MarkAttrs & PropsWithChildren<MarkMeta>;
 
 export type TextHighlighter = {
 	pattern: RegExp;

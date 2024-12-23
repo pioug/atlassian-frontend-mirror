@@ -3,6 +3,8 @@
 import { css } from '@emotion/react';
 
 import { DEFAULT_BORDER_COLOR } from '@atlaskit/editor-common/ui-color';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-namespace
 import * as colors from '@atlaskit/theme/colors';
 import { N0, N20A, N50, N60A, N800, N90 } from '@atlaskit/theme/colors';
 // eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports

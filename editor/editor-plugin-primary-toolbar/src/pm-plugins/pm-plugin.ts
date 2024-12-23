@@ -12,7 +12,7 @@ export const createPlugin = (componentRegistry: ComponentRegistry) => {
 	return new SafePlugin({
 		key: primaryToolbarPluginKey,
 		state: {
-			init: (_config: {}, editorState: EditorState): PrimaryToolbarPluginState => ({
+			init: (_config: Object, editorState: EditorState): PrimaryToolbarPluginState => ({
 				components: getToolbarComponents(componentRegistry, editorState),
 			}),
 			apply: (

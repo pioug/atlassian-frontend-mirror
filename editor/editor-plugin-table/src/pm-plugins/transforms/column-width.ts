@@ -32,6 +32,8 @@ export const updateColumnWidths =
 		table: PMNode,
 		start: number,
 		api: PluginInjectionAPI | undefined | null,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(tr: Transaction): Transaction => {
 		const map = TableMap.get(table);
@@ -49,6 +51,8 @@ export const updateColumnWidths =
 				const mapIndex = rowIndex * map.width + columnIndex;
 				const cellPos = map.map[mapIndex];
 				const attrs = updatedCellsAttrs[cellPos] || {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					...table.nodeAt(cellPos)!.attrs,
 				};
 				const colspan = attrs.colspan || 1;
@@ -134,6 +138,8 @@ export const rescaleColumns =
 		shouldUseIncreasedScalingPercent = false,
 		api: PluginInjectionAPI | undefined | null,
 		isCommentEditor = false,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(table: ContentNodeWithPos, view: EditorView | undefined) =>
 	(tr: Transaction): Transaction => {

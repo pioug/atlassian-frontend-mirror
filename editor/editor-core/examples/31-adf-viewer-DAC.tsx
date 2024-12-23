@@ -52,6 +52,8 @@ export const providers: any = {
 	mentionProvider: Promise.resolve(mentionResourceProvider),
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Example extends React.Component<{}, AdfState> {
 	private editorActions?: EditorActions;
 	private adfTextArea?: HTMLTextAreaElement;
@@ -79,6 +81,8 @@ export default class Example extends React.Component<{}, AdfState> {
 										allowPanel={true}
 										allowHelpDialog={true}
 										placeholder="We support markdown! Try **bold**, `inline code`, or ``` for code blocks."
+										// Ignored via go/ees005
+										// eslint-disable-next-line react/jsx-key
 										primaryToolbarComponents={[<ToolbarHelp editorApi={undefined} />]}
 										media={{
 											provider: storyMediaProviderFactory(),

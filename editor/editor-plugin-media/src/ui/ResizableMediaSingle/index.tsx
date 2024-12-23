@@ -191,6 +191,8 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 			return null;
 		}
 		const pos = this.props.getPos();
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		if (Number.isNaN(pos as any) || typeof pos !== 'number') {
 			return null;
 		}
@@ -383,6 +385,8 @@ export default class ResizableMediaSingle extends React.Component<Props, State> 
 				})}
 			>
 				<Resizer
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...this.props}
 					displayGrid={this.displayGrid}
 					ratio={ratio}

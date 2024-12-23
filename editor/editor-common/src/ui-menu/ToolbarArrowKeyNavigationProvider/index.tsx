@@ -75,6 +75,8 @@ export const ToolbarArrowKeyNavigationProvider = ({
 	const incrementIndex = useCallback((list: HTMLElement[]) => {
 		let index = 0;
 		if (document.activeElement) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			index = list.indexOf(document.activeElement as HTMLElement);
 			index = (index + 1) % list.length;
 		}
@@ -84,6 +86,8 @@ export const ToolbarArrowKeyNavigationProvider = ({
 	const decrementIndex = useCallback((list: HTMLElement[]) => {
 		let index = 0;
 		if (document.activeElement) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			index = list.indexOf(document.activeElement as HTMLElement);
 			index = (list.length + index - 1) % list.length;
 		}
@@ -231,6 +235,8 @@ export const ToolbarArrowKeyNavigationProvider = ({
 					handleTabLocal();
 					break;
 				case 'Escape':
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					handleEscape!(event);
 					break;
 				default:
@@ -239,6 +245,8 @@ export const ToolbarArrowKeyNavigationProvider = ({
 
 		const globalKeyDownHandler = (event: KeyboardEvent): void => {
 			// To focus the first element in the toolbar
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			if (isShortcutToFocusToolbar!(event)) {
 				const filteredFocusableElements = getFilteredFocusableElements(wrapperRef?.current);
 				filteredFocusableElements[0]?.focus();
@@ -250,14 +258,22 @@ export const ToolbarArrowKeyNavigationProvider = ({
 			}
 		};
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		element?.addEventListener('keydown', handleKeyDown);
 		const editorViewDom = editorView?.dom as HTMLElement | undefined;
 		if (isShortcutToFocusToolbar) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			editorViewDom?.addEventListener('keydown', globalKeyDownHandler);
 		}
 		return () => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			element?.removeEventListener('keydown', handleKeyDown);
 			if (isShortcutToFocusToolbar) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				editorViewDom?.removeEventListener('keydown', globalKeyDownHandler);
 			}
 		};

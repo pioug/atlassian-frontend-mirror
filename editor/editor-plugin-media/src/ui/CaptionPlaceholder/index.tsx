@@ -45,7 +45,11 @@ export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, { onClick: (
 				data-id={CAPTION_PLACEHOLDER_ID}
 				data-testid="caption-placeholder"
 			>
-				<FormattedMessage {...message} />
+				<FormattedMessage
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...message}
+				/>
 			</span>
 		);
 	},
@@ -77,7 +81,11 @@ export const CaptionPlaceholderButton = React.forwardRef<
 			xcss={placeholderButton}
 		>
 			<Text color="color.text.subtlest" size="large">
-				<FormattedMessage {...message} />
+				<FormattedMessage
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...message}
+				/>
 			</Text>
 		</Pressable>
 	);

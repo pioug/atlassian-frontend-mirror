@@ -289,6 +289,8 @@ class ConfigPanel extends React.Component<Props, State> {
 			formParams: Parameters,
 			currentParams: Parameters,
 			backfill: Parameters,
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 		) => {
 			if (field.hasGroupedValues && !(field.name in backfill)) {
 				backfill[field.name] = {};
@@ -476,6 +478,8 @@ class ConfigPanel extends React.Component<Props, State> {
 								return (
 									// eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
 									<form
+										// Ignored via go/ees005
+										// eslint-disable-next-line react/jsx-props-no-spreading
 										{...formProps}
 										noValidate
 										onKeyDown={handleKeyDown}

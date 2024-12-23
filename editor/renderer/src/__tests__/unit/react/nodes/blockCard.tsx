@@ -170,6 +170,8 @@ describe('Renderer - React/Nodes/BlockCard', () => {
 			);
 
 			expect(node.html()).toMatch(
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				/<div data-testid=\"renderer-datasource-table\" style=\"width: 100%;\".*/,
 			);
 		});
@@ -186,6 +188,8 @@ describe('Renderer - React/Nodes/BlockCard', () => {
 			);
 
 			expect(node.html()).toMatch(
+				// Ignored via go/ees005
+				// eslint-disable-next-line require-unicode-regexp
 				/<div data-testid=\"renderer-datasource-table\" style=\"width: 404px;\".*/,
 			);
 		});

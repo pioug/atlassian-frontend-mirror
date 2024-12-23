@@ -51,4 +51,6 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<Options, 'noAsTypecast'>({
 	},
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-commonjs
 module.exports = rule;

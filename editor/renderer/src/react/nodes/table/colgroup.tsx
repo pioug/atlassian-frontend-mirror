@@ -32,6 +32,8 @@ const fixColumnWidth = (
 	_layoutWidth: number,
 	zeroWidthColumnsCount: number,
 	scaleDownPercent: number,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): number => {
 	if (columnWidth === 0) {
 		return columnWidth;
@@ -290,7 +292,8 @@ export const Colgroup = (props: SharedTableProps) => {
 				/>
 			)}
 			{colStyles.map((style, idx) => (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/no-array-index-key, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				<col key={idx} style={style} />
 			))}
 		</colgroup>

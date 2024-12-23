@@ -60,6 +60,8 @@ export interface Props {
 	isCommentEditor?: boolean;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components, @typescript-eslint/no-explicit-any
 export class FloatingInsertButton extends React.Component<Props & WrappedComponentProps, any> {
 	static displayName = 'FloatingInsertButton';
 
@@ -151,6 +153,8 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 						selection: editorView.state.selection.toJSON(),
 						position: pos,
 						docSize: editorView.state.doc.nodeSize,
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						error: (error as any)?.toString(),
 					},
 				};
@@ -172,6 +176,8 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 		const tableContainerWrapper = closestElement(targetCellRef, `.${ClassName.TABLE_CONTAINER}`);
 		const tableWrapper = closestElement(targetCellRef, `.${ClassName.TABLE_NODE_WRAPPER}`);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const index: number = type === 'column' ? insertColumnButtonIndex! : insertRowButtonIndex!;
 
 		const hasNumberedColumns = checkIfNumberColumnEnabled(editorView.state.selection);
@@ -188,9 +194,13 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 				target={targetCellRef}
 				mountTo={tableContainerWrapper || mountPoint}
 				boundariesElement={tableContainerWrapper || boundariesElement}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				scrollableElement={tableWrapper!}
 				forcePlacement={true}
 				allowOutOfBounds
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...getPopupOptions(
 					type,
 					index,
@@ -222,23 +232,33 @@ export class FloatingInsertButton extends React.Component<Props & WrappedCompone
 
 	private getCellPosition(type: 'column' | 'row', tableNode: PmNode): number | null {
 		const { insertColumnButtonIndex, insertRowButtonIndex } = this.props;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const tableMap = TableMap.get(tableNode!);
 
 		if (type === 'column') {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const columnIndex = insertColumnButtonIndex === 0 ? 0 : insertColumnButtonIndex! - 1;
 
 			if (columnIndex > tableMap.width - 1) {
 				return null;
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			return tableMap.positionAt(0, columnIndex!, tableNode!);
 		} else {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const rowIndex = insertRowButtonIndex === 0 ? 0 : insertRowButtonIndex! - 1;
 
 			if (rowIndex > tableMap.height - 1) {
 				return null;
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			return tableMap.positionAt(rowIndex!, 0, tableNode!);
 		}
 	}

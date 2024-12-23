@@ -37,6 +37,8 @@ const createCommandWithAnalytics = (
 				eventType: EVENT_TYPE.TRACK,
 				attributes: {
 					type,
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					mediaType: mediaNode!.attrs.type,
 				},
 			};

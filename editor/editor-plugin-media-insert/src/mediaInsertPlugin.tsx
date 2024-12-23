@@ -114,14 +114,14 @@ export const mediaInsertPlugin: MediaInsertPlugin = ({ api }) => {
 			const insertFile: InsertFile = ({ mediaState, inputMethod, onMediaStateChanged }) => {
 				const collection = mediaState.collection;
 				return collection !== undefined
-					? api?.media.sharedState
+					? (api?.media.sharedState
 							.currentState()
 							?.insertFile(
 								mediaState,
 								onMediaStateChanged,
 								inputMethod,
 								INSERT_MEDIA_VIA.LOCAL_UPLOAD,
-							) ?? false
+							) ?? false)
 					: false;
 			};
 

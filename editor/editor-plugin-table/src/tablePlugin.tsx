@@ -78,6 +78,8 @@ import FloatingContextualButton from './ui/FloatingContextualButton';
 import FloatingContextualMenu from './ui/FloatingContextualMenu';
 import FloatingDeleteButton from './ui/FloatingDeleteButton';
 import FloatingDragMenu from './ui/FloatingDragMenu';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import FloatingInsertButton from './ui/FloatingInsertButton';
 import { FloatingToolbarLabel } from './ui/FloatingToolbarLabel/FloatingToolbarLabel';
 import { GlobalStylesWrapper } from './ui/global-styles';
@@ -559,6 +561,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 								isDragAndDropEnabled,
 								tableWrapperTarget,
 								isCellMenuOpenByKeyboard,
+								// Ignored via go/ees005
+								// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							} = tablePluginState!;
 
 							const { allowControls } = pluginConfig;

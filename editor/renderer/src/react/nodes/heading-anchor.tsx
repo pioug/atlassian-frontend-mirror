@@ -22,8 +22,14 @@ const CopyAnchorWrapperWithRef = React.forwardRef(
 	(props: React.PropsWithChildren<unknown>, ref: Ref<HTMLElement>) => {
 		const { children, ...rest } = props;
 		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			<span {...rest} className={HeadingAnchorWrapperClassName} ref={ref}>
+			<span
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
+				{...rest}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={HeadingAnchorWrapperClassName}
+				ref={ref}
+			>
 				{children}
 			</span>
 		);
@@ -46,9 +52,13 @@ type Props = {
 	level: number;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type HeadingAnchorProps = Props & React.PropsWithChildren<any> & WrappedComponentProps;
 type HeadingAnchorState = { tooltipMessage?: string; isClicked: boolean };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAnchorState> {
 	state = { tooltipMessage: '', isClicked: false };
 

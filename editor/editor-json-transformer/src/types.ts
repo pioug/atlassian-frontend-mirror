@@ -12,6 +12,8 @@ export type JSONNode = {
 	type: string;
 	attrs?: object;
 	content?: Array<JSONNode | undefined>;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	marks?: any[];
 	text?: string;
 };

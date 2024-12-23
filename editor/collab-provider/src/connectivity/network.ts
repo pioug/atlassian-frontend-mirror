@@ -21,7 +21,11 @@ export default class Network {
 		}
 
 		if (typeof window !== 'undefined') {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			window.addEventListener('offline', this.offlineHandler);
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			window.addEventListener('online', this.onlineHandler);
 		}
 	}
@@ -42,7 +46,11 @@ export default class Network {
 	}
 
 	destroy() {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.removeEventListener('offline', this.offlineHandler);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.removeEventListener('online', this.onlineHandler);
 	}
 }

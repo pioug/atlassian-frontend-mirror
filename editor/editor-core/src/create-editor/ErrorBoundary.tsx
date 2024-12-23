@@ -43,6 +43,8 @@ type AnalyticsErrorBoundaryAttributes = {
 	[key: string]: any;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class ErrorBoundaryWithEditorView extends React.Component<
 	ErrorBoundaryProps,
 	ErrorBoundaryState

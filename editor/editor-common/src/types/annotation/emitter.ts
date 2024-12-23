@@ -58,11 +58,15 @@ export class AnnotationUpdateEmitter {
 	}
 
 	on<T extends AnnotationUpdateEvent>(event: T, listener: Callback<T>): void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	on(event: string, listener: (payload?: any) => void): EventEmitter {
 		return this.emitter.on(event, listener);
 	}
 
 	off<T extends AnnotationUpdateEvent>(event: T, listener: Callback<T>): void;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	off(event: string, listener: (payload?: any) => void): EventEmitter {
 		return this.emitter.removeListener(event, listener);
 	}

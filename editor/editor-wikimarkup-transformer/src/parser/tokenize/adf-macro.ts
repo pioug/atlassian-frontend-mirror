@@ -18,6 +18,8 @@ const rawContentProcessor = (
 	length: number,
 	schema: Schema,
 	_context: Context,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Token => {
 	try {
 		const json = JSON.parse(rawContent);

@@ -26,6 +26,8 @@ type LozengeComponentProps = {
 	lozengeData?: LozengeData;
 	extensionName: string;
 	title: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	params: any;
 	renderImage: (lozengeData: LozengeData) => void;
 	isNodeSelected?: boolean;

@@ -27,6 +27,8 @@ export const blockControlsPlugin: BlockControlsPlugin = ({ api }) => ({
 	commands: {
 		moveNode: moveNode(api),
 		moveToLayout: moveToLayout(api),
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 		showDragHandleAt:
 			(pos: number, anchorName: string, nodeType: string, handleOptions?: HandleOptions) =>
 			({ tr }: { tr: Transaction }) => {

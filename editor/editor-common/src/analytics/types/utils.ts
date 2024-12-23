@@ -7,7 +7,9 @@ type AEP<
 	Attributes,
 	NonPrivacySafeAttributes,
 	EventType,
-	ImplicitAttributes extends {} = {},
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type,
+	ImplicitAttributes extends Object = {},
 > = {
 	action: Action;
 	actionSubject: ActionSubject;
@@ -32,7 +34,9 @@ export type TrackAEP<
 	ActionSubjectID,
 	Attributes,
 	NonPrivacySafeAttributes,
-	ImplicitAttributes extends {} = {},
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-empty-object-type,
+	ImplicitAttributes extends Object = {},
 > = AEP<
 	Action,
 	ActionSubject,

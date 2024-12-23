@@ -28,6 +28,8 @@ export const DropdownContainer = React.memo(function DropdownContainer(
 		//This context is to handle the tab, Arrow Right/Left key events for dropdown.
 		//Default context has the void callbacks for above key events
 		<DropdownComponent
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...props}
 			arrowKeyNavigationProviderOptions={newArrowKeyNavigationProviderOptions}
 		/>

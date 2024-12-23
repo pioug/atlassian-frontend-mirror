@@ -40,6 +40,8 @@ const createPlugin = (
 	isTableScalingEnabled: boolean,
 	isTableAlignmentEnabled: boolean,
 	isCommentEditor: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	return new SafePlugin({
 		key: pluginKey,
@@ -157,6 +159,8 @@ const createPlugin = (
 
 			if (referentialityTr) {
 				referentialityTr.steps.forEach((step) => {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/max-params
 					step.getMap().forEach((_, __, newStart, newEnd) => {
 						newState.doc.nodesBetween(newStart, newEnd, (node, pos) => {
 							if (node.type === table) {

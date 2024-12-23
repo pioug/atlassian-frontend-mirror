@@ -28,6 +28,8 @@ const initNewCollab = (
 	view: EditorView,
 	editorApi?: ExtractInjectionAPI<CollabEditPlugin> | undefined,
 	onSyncUpError?: SyncUpErrorFunction,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	collabEditProvider.setup({ getState: () => view.state, editorApi, onSyncUpError });
 };

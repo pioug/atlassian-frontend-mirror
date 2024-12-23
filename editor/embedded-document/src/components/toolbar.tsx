@@ -16,6 +16,8 @@ const Toolbar = styled.div({
 	height: token('space.1000', '80px'),
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default (props: { mode: Mode; editorActions?: any }) => {
 	const { mode, editorActions } = props;
 
@@ -30,6 +32,8 @@ export default (props: { mode: Mode; editorActions?: any }) => {
 								<Button
 									appearance="primary"
 									onClick={async () => {
+										// Ignored via go/ees005
+										// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 										const value = await editorActions!.getValue();
 										try {
 											await (mode === 'create'

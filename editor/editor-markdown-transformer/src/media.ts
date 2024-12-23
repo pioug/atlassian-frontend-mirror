@@ -5,16 +5,22 @@ export type Token = {
 	level: number;
 	tag: string;
 	attrs?: string[][];
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	children?: any[];
 };
 
 export interface MdState {
 	Token: Token;
 	tokens: Token[];
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	md: any;
 }
 
 function createRule() {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	const regx = /!\[([^\]]*)\]\(([^)]*?)\s*(?:"([^")]*)"\s*)?\)/g;
 	const validParentTokens = ['th_open', 'td_open', 'list_item_open', 'blockquote_open'];
 
@@ -80,6 +86,8 @@ function createRule() {
 
 		let processedTokens: string[] = [];
 		const newTokens = State.tokens.reduce(
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			(tokens: Token[], token: Token, i: number, arr: Token[]) => {
 				const matchAll = Array.from(token.content.matchAll(regx));
 				if (token.type === 'inline' && matchAll.length) {
@@ -149,6 +157,8 @@ function createRule() {
 	};
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const markdownItMedia = (md: any) => {
 	md.core.ruler.before('inline', 'media', createRule());
 };

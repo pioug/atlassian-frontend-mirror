@@ -17,6 +17,8 @@ interface ErrorBoundaryProps {
 interface ErrorBoundaryState {
 	errorCaptured: boolean;
 }
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
 	state = { errorCaptured: false };
 

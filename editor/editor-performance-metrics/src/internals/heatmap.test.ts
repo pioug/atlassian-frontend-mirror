@@ -395,6 +395,8 @@ describe('mapDOMRectToHeatmap', () => {
 	);
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line jest/no-identical-title
 describe('transformHeatmap', () => {
 	it('should set source to "replacement" when entry has the same dimensions and elementName', () => {
 		const heatmap: Heatmap = {

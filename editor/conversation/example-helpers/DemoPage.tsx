@@ -65,6 +65,8 @@ interface FileProps {
 
 const objectId = 'container:abc:abc/1234567';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class File extends React.Component<FileProps, { addAt?: number }> {
 	constructor(props: FileProps) {
 		super(props);
@@ -164,10 +166,16 @@ class File extends React.Component<FileProps, { addAt?: number }> {
 }
 
 type DemoProps = { provider: ResourceProvider; dataProviders: ProviderFactory };
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class Demo extends React.Component<
 	DemoProps,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	{ conversations: any[]; selectedUser: User; responseCode: number }
 > {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private unsubscribe: any;
 
 	constructor(props: DemoProps) {
@@ -192,6 +200,8 @@ export class Demo extends React.Component<
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async componentWillUnmount() {
 		if (this.unsubscribe) {
 			this.unsubscribe();

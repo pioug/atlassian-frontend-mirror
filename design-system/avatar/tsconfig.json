@@ -15,6 +15,5 @@
     "examples-util"
   ],
   "compilerOptions": {
-    "baseUrl": "./"
   }
 }

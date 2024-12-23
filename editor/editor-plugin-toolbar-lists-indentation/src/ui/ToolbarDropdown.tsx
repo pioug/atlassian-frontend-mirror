@@ -58,6 +58,8 @@ export function ToolbarDropdown(props: DropdownProps) {
 
 	const labelLists = formatMessage(listMessages.lists);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const onOpenChange = (attrs: any) => {
 		setIsDropdownOpen(attrs.isDropdownOpen);
 	};

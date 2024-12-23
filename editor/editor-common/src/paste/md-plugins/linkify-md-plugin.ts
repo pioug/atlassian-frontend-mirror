@@ -12,18 +12,28 @@ import { findFilepaths, isLinkInMatches, shouldAutoLinkifyMatch } from '../../ut
 
 // modified version of the original markdown-it Linkify plugin
 // https://github.com/markdown-it/markdown-it/blob/master/lib/rules_core/linkify.js
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const arrayReplaceAt = (src: Array<any>, pos: number, newElements: Array<any>) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	return ([] as Array<any>).concat(src.slice(0, pos), newElements, src.slice(pos + 1));
 };
 
 const isLinkOpen = (str: string) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return /^<a[>\s]/i.test(str);
 };
 
 const isLinkClose = (str: string) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return /^<\/a\s*>/i.test(str);
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const linkify = (state: any) => {
 	const blockTokens = state.tokens;
 	const linkify = new LinkifyIt();
@@ -96,8 +106,14 @@ const linkify = (state: any) => {
 					// and remove it afterwards.
 					//
 					if (!links[ln].schema) {
+						// Ignored via go/ees005
+						// eslint-disable-next-line require-unicode-regexp
 						urlText = state.md.normalizeLinkText('http://' + urlText).replace(/^http:\/\//, '');
+						// Ignored via go/ees005
+						// eslint-disable-next-line require-unicode-regexp
 					} else if (links[ln].schema === 'mailto:' && !/^mailto:/i.test(urlText)) {
+						// Ignored via go/ees005
+						// eslint-disable-next-line require-unicode-regexp
 						urlText = state.md.normalizeLinkText('mailto:' + urlText).replace(/^mailto:/, '');
 					} else {
 						urlText = state.md.normalizeLinkText(urlText);
@@ -147,4 +163,6 @@ const linkify = (state: any) => {
 	}
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default (md: any) => md.core.ruler.push('custom-linkify', linkify);

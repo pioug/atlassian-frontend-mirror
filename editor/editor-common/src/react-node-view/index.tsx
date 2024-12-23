@@ -47,6 +47,8 @@ export { getInlineNodeViewProducer, inlineNodeViewClassname } from './getInlineN
 export default class ReactNodeView<P = ReactComponentProps> implements NodeView {
 	private domRef?: HTMLElement;
 	private contentDOMWrapper?: Node;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private reactComponent?: React.ComponentType<React.PropsWithChildren<any>>;
 	private portalProviderAPI: PortalProviderAPI;
 	private _viewShouldUpdate?: shouldUpdate;
@@ -61,6 +63,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	node: PMNode;
 	key: string;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: PMNode,
 		view: EditorView,
@@ -68,6 +72,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,
 		reactComponentProps?: P,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		reactComponent?: React.ComponentType<React.PropsWithChildren<any>>,
 		viewShouldUpdate?: shouldUpdate,
 	) {
@@ -129,6 +135,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		return this;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private renderReactComponent(component: () => React.ReactElement<any> | null) {
 		if (!this.domRef || !component) {
 			return;
@@ -146,6 +154,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 			</ErrorBoundary>
 		);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		this.portalProviderAPI.render(componentWithErrorBoundary, this.domRef!, this.key);
 	}
 
@@ -167,6 +177,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	private _handleRef(node: HTMLElement | null) {
 		const contentDOM = this.contentDOMWrapper || this.contentDOM;
 		// @ts-ignore
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		let oldIgnoreMutation: any;
 
 		let selectionBookmark: SelectionBookmark;
@@ -218,6 +230,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		}
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	render(props: P, forwardRef?: ForwardRef): React.ReactElement<any> | null {
 		return this.reactComponent ? (
 			<this.reactComponent
@@ -225,11 +239,15 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 				getPos={this.getPos}
 				node={this.node}
 				forwardRef={forwardRef}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...props}
 			/>
 		) : null;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	update(
 		node: PMNode,
 		decorations: ReadonlyArray<Decoration>,
@@ -283,6 +301,8 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	}
 
 	get dom() {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		return this.domRef as HTMLElement;
 	}
 
@@ -305,7 +325,11 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	static fromComponent(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		component: React.ComponentType<React.PropsWithChildren<any>>,
 		portalProviderAPI: PortalProviderAPI,
 		eventDispatcher: EventDispatcher,

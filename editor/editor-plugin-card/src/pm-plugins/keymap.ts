@@ -73,8 +73,12 @@ export function cardKeymap(featureFlags: FeatureFlags): SafePlugin {
 
 	// https://bugs.chromium.org/p/chromium/issues/detail?id=1227468 introduced since Chrome 91
 	if (browser.chrome && browser.chrome_version > 90) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		bindKeymapWithCommand(moveUp.common!, selectAboveBelowInlineCard('up'), list);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		bindKeymapWithCommand(moveDown.common!, selectAboveBelowInlineCard('down'), list);
 	}
 

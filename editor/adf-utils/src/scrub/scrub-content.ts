@@ -25,6 +25,8 @@ const BYPASS_ATTR_LIST: { [key: string]: Array<string> } = {
 };
 
 type Entry<T> = [string, T];
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const fromEntries = <T>(iterable: Entry<T>[]): { [key: string]: any } => {
 	return [...iterable].reduce<{ [key: string]: T }>((obj, [key, val]) => {
 		obj[key] = val;
@@ -87,6 +89,8 @@ export type ScrubLinkOptions = {
 };
 
 export const scrubLink = (
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	marks: Array<{ [key: string]: any }>,
 	{ valueReplacements }: ScrubLinkOptions,
 ) => {
@@ -102,6 +106,8 @@ export const scrubLink = (
 };
 
 const scrubObj = (nodeType: string, attrsObj: Object) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const entries: Array<[string, any]> = Object.entries(attrsObj).map(([key, value]) =>
 		BYPASS_ATTR_LIST[nodeType]?.includes(key) ? [key, value] : [key, scrubAttrs(nodeType, value)],
 	);
@@ -109,6 +115,8 @@ const scrubObj = (nodeType: string, attrsObj: Object) => {
 	return fromEntries(entries);
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const scrubAttrs = (nodeType: string, attrs: unknown, offset = 0): any => {
 	if (typeof attrs === 'number') {
 		return scrubNum(attrs, offset);

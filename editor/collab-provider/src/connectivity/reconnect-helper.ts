@@ -9,6 +9,8 @@ export default class ReconnectHelper {
 	failedReconnectCount: number = 0;
 
 	constructor() {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.addEventListener('online', this.onlineHandler);
 	}
 
@@ -30,6 +32,8 @@ export default class ReconnectHelper {
 	}
 
 	destroy() {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		window.removeEventListener('online', this.onlineHandler);
 	}
 }

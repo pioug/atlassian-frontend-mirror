@@ -71,6 +71,8 @@ import {
 	withCellTracking,
 } from '../ui/event-handlers';
 import TableFloatingColumnControls from '../ui/TableFloatingColumnControls';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import TableFloatingControls from '../ui/TableFloatingControls';
 
 import { ExternalDropTargets } from './ExternalDropTargets';
@@ -141,6 +143,8 @@ interface TableState {
 	tableWrapperHeight?: number;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 class TableComponent extends React.Component<ComponentProps, TableState> {
 	static displayName = 'TableComponent';
 
@@ -194,7 +198,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		});
 
 		this.resizeObserver = new ResizeObserver((entries) => {
-			for (let entry of entries) {
+			for (const entry of entries) {
 				this.setState((prev) => {
 					return prev?.tableWrapperWidth === entry.contentRect?.width &&
 						prev?.tableWrapperHeight === entry.contentRect?.height
@@ -244,10 +248,16 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isTableScalingEnabled,
 		} = this.props;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this?.table?.addEventListener('mouseenter', this.handleMouseEnter);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this?.table?.addEventListener('mouseout', this.handleMouseOut);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this?.table?.addEventListener('mouseover', this.handleMouseOver);
 
 		const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
@@ -275,6 +285,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 
 		if (allowColumnResizing && this.wrapper && !isIE11) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.wrapper.addEventListener('scroll', this.handleScrollDebounced, {
 				passive: true,
 			});
@@ -299,6 +311,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			 * Instead we use the resize event to only trigger updates when necessary.
 			 */
 			if (!allowTableResizing) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 				window.addEventListener('resize', this.handleWindowResizeDebounced);
 			}
 			this.handleTableResizingDebounced();
@@ -310,6 +324,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			this.onStickyState(currentStickyState);
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		eventDispatcher.on((stickyHeadersPluginKey as any).key, this.onStickyState);
 
 		if (isOverflowAnalyticsEnabled) {
@@ -324,6 +340,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const { allowColumnResizing, allowTableResizing, eventDispatcher, isDragAndDropEnabled } =
 			this.props;
 		if (this.wrapper && !isIE11) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.wrapper.removeEventListener('scroll', this.handleScrollDebounced);
 		}
 
@@ -347,19 +365,29 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 
 		if (!allowTableResizing && allowColumnResizing) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			window.removeEventListener('resize', this.handleWindowResizeDebounced);
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this?.table?.removeEventListener('mouseenter', this.handleMouseEnter);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this?.table?.removeEventListener('mouseout', this.handleMouseOut);
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this?.table?.removeEventListener('mouseover', this.handleMouseOver);
 
 		if (this.overflowShadowsObserver) {
 			this.overflowShadowsObserver.dispose();
 		}
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		eventDispatcher.off((stickyHeadersPluginKey as any).key, this.onStickyState);
 
 		if (this.initialOverflowCaptureTimerId) {
@@ -517,16 +545,22 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					) {
 						scalePercent = getTableScalingPercent(
 							tableNode,
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							this.table!,
 							shouldUseIncreasedScalingPercent,
 						);
 					} else {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						scalePercent = getScalingPercentForTableWithoutWidth(tableNode, this.table!);
 					}
 
 					// Request animation frame required for Firefox
 					updateColgroup(
 						resizeState,
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						this.table!,
 						tableNode,
 						shouldScaleOnColgroupUpdate,
@@ -545,6 +579,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		this.containerWidth = containerWidth;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	componentDidUpdate(_: any, prevState: TableState) {
 		const {
 			view,
@@ -614,6 +650,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				window.requestAnimationFrame(() => {
 					this.overflowShadowsObserver = new OverflowShadowsObserver(
 						this.updateShadowState,
+						// Ignored via go/ees005
+						// eslint-disable-next-line @atlaskit/editor/no-as-casting
 						this.table as HTMLElement,
 						this.wrapper as HTMLDivElement,
 					);
@@ -748,6 +786,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	prevTableState: any = null;
 
 	render() {
@@ -868,9 +908,9 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const topShadowPadding = isDragAndDropEnabled ? 0 : shadowPadding;
 		const topOffset = fg('platform_editor_breakout_use_css')
 			? 0
-			: this.state.stickyHeader?.top ?? 0;
+			: (this.state.stickyHeader?.top ?? 0);
 
-		let topStickyShadowPosition =
+		const topStickyShadowPosition =
 			this.state.stickyHeader && topOffset + this.state.stickyHeader.padding + topShadowPadding + 2;
 
 		const { tableWithFixedColumnWidthsOption = false } = getEditorFeatureFlags();
@@ -891,6 +931,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				editorView={view}
 				getPos={getPos}
 				node={node}
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				tableRef={tableRef!}
 				containerWidth={containerWidth}
 				isNested={isNested}
@@ -1047,6 +1089,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			// sync sticky header row to table scroll
 			const headers = this.table.querySelectorAll('tr[data-header-row]');
 			for (let i = 0; i < headers.length; i++) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const header = headers[i] as HTMLElement;
 
 				header.scrollLeft = this.wrapper.scrollLeft;
@@ -1061,6 +1105,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 	private handleTableResizing = () => {
 		const { getNode, containerWidth, options, allowTableResizing } = this.props;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const prevNode = this.node!;
 		const node = getNode();
 		const prevAttrs = prevNode.attrs;
@@ -1176,6 +1222,8 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 				prevNode: this.node || node,
 				start: pos + 1,
 				containerWidth: width,
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				previousContainerWidth: this.containerWidth!.width || width,
 				...options,
 			},

@@ -31,10 +31,14 @@ export const addComment =
 	(
 		conversationId: string,
 		parentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
 		localId: string | undefined = undefined,
 		provider: ResourceProvider,
 		onSuccess?: SuccessHandler,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	async () => {
 		const { commentId } = await provider.addComment(conversationId, parentId, value, localId);
@@ -48,9 +52,13 @@ export const updateComment =
 	(
 		conversationId: string,
 		commentId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
 		provider: ResourceProvider,
 		onSuccess?: SuccessHandler,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	async () => {
 		await provider.updateComment(conversationId, commentId, value);
@@ -66,6 +74,8 @@ export const deleteComment =
 		commentId: string,
 		provider: ResourceProvider,
 		onSuccess?: SuccessHandler,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	async () => {
 		await provider.deleteComment(conversationId, commentId);
@@ -76,10 +86,14 @@ export const deleteComment =
 	};
 
 export const revertComment =
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	(conversationId: string, commentId: string, provider: ResourceProvider) => async () => {
 		provider.revertComment(conversationId, commentId);
 	};
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-await
 export const updateUser = (user: User, provider: ResourceProvider) => async () => {
 	provider.updateUser(user);
 };
@@ -87,12 +101,18 @@ export const updateUser = (user: User, provider: ResourceProvider) => async () =
 export const createConversation =
 	(
 		localId: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		meta: any,
 		provider: ResourceProvider,
 		objectId: string,
 		containerId?: string,
 		onSuccess?: SuccessHandler,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	async () => {
 		const { conversationId } = await provider.create(localId, value, meta, objectId, containerId);
@@ -105,14 +125,22 @@ export const createConversation =
 export const saveDraft =
 	(
 		isLocal: boolean,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		value: any,
 		conversationId: string,
 		commentId: string | undefined,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		meta: any,
 		provider: ResourceProvider,
 		objectId: string,
 		containerId?: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async () => {
 		provider.saveDraft(isLocal, value, conversationId, commentId, meta, objectId, containerId);
 	};

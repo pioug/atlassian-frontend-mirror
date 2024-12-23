@@ -40,6 +40,8 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<
 				const isTypeExport = node.exportKind === 'type';
 				if (!isTypeExport) {
 					node.specifiers.forEach((specifier) => {
+						// Ignored via go/ees005
+						// eslint-disable-next-line require-unicode-regexp
 						if (/Plugin$/.test(specifier.exported.name)) {
 							pluginExportCount++;
 						} else {
@@ -48,6 +50,8 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<
 					});
 				} else {
 					node.specifiers.forEach((specifier) => {
+						// Ignored via go/ees005
+						// eslint-disable-next-line require-unicode-regexp
 						if (/Plugin$/.test(specifier.exported.name)) {
 							pluginTypeExportCount++;
 						}
@@ -91,4 +95,6 @@ const rule = ESLintUtils.RuleCreator.withoutDocs<
 	},
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-commonjs
 module.exports = rule;

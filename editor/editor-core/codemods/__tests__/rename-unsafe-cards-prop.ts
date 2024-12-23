@@ -4,6 +4,8 @@ import { renameUnsafeCardProp } from '../migrates/rename-unsafe-cards-prop';
 import { createTransformer } from '../utils';
 
 // This stays as require() since changing to import will trigger a linter error
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-commonjs
 const defineInlineTest = require('jscodeshift/dist/testUtils').defineInlineTest;
 
 const transformer = createTransformer('@atlaskit/editor-core', [renameUnsafeCardProp]);

@@ -186,6 +186,8 @@ export default function EmbedCard(props: {
 					};
 
 					return (
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						<CardErrorBoundary unsupportedComponent={UnsupportedBlock} {...cardProps}>
 							<EmbedResizeMessageListener
 								embedIframeRef={embedIframeRef}
@@ -217,6 +219,8 @@ export default function EmbedCard(props: {
 										>
 											<Card
 												appearance="embed"
+												// Ignored via go/ees005
+												// eslint-disable-next-line react/jsx-props-no-spreading
 												{...cardProps}
 												onResolve={onResolve}
 												inheritDimensions={true}

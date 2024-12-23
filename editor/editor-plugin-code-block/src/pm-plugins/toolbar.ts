@@ -148,6 +148,8 @@ export const getToolbarConfig =
 
 		return {
 			title: 'CodeBlock floating controls',
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			getDomRef: (view) => findDomRefAtPos(pos, view.domAtPos.bind(view)) as HTMLElement,
 			nodeType,
 			items: [
@@ -166,6 +168,8 @@ export const getToolbarConfig =
  * Filters language list based on both name and alias properties.
  */
 export const languageListFilter = (option: SelectOption, rawInput: string) => {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const { data } = option as any;
 	const searchString = rawInput.toLowerCase();
 	return (

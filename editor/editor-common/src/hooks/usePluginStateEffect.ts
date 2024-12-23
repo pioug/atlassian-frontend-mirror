@@ -12,19 +12,24 @@ import type {
 } from '../types/next-editor-plugin';
 
 type NamedPluginStatesFromInjectionAPI<
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	API extends ExtractInjectionAPI<NextEditorPlugin<any, any>>,
 	PluginNames extends string | number | symbol,
 > = Readonly<{
-	[K in PluginNames as `${K extends string ? K : never}State`]: API[K] extends
-		| BasePluginDependenciesAPI<any>
-		| undefined
+	[K in PluginNames as `${K extends string ? K : never}State`]: API[K] extends // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Ignored via go/ees005
+	BasePluginDependenciesAPI<any> | undefined
 		? ReturnType<API[K]['sharedState']['currentState']>
 		: never;
 }>;
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type ExtractPluginNames<API extends EditorInjectionAPI<any, any>> = keyof API;
 
 type NamedPluginKeys = Readonly<{
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	[stateName: string]: PluginDependenciesAPI<NextEditorPlugin<any, any>> | undefined;
 }>;
 
@@ -111,6 +116,8 @@ type Cleanup = () => void;
  * You can return a function from your effect to call any cleanup activities which will be called on unmount and when `editorApi` changes.
  */
 export function usePluginStateEffect<
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	API extends EditorInjectionAPI<any, any>,
 	PluginNames extends ExtractPluginNames<API>,
 >(

@@ -733,6 +733,8 @@ async function getSmartLinkAdf(
 	return await provider.resolve(text, type);
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function insertAutoMacro(
 	slice: Slice,
 	macro: PMNode,
@@ -766,6 +768,8 @@ function insertAutoMacro(
 	return false;
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function handleMacroAutoConvert(
 	text: string,
 	slice: Slice,
@@ -870,12 +874,16 @@ export function handleCodeBlock(text: string): Command {
 
 function isOnlyMedia(state: EditorState, slice: Slice) {
 	const { media } = state.schema.nodes;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	return slice.content.childCount === 1 && slice.content.firstChild!.type === media;
 }
 
 function isOnlyMediaSingle(state: EditorState, slice: Slice) {
 	const { mediaSingle } = state.schema.nodes;
 	return (
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		mediaSingle && slice.content.childCount === 1 && slice.content.firstChild!.type === mediaSingle
 	);
 }
@@ -888,6 +896,8 @@ export function handleMediaSingle(
 		return (state, dispatch, view) => {
 			if (view) {
 				if (isOnlyMedia(state, slice)) {
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 					return insertMediaAsMediaSingle?.(view, slice.content.firstChild!, inputMethod) ?? false;
 				}
 
@@ -1044,6 +1054,8 @@ export function handleExpandPaste(slice: Slice, isNestingExpandsSupported?: bool
 	};
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function handleMarkdown(
 	markdownSlice: Slice,
 	queueCardsFromChangedTr: QueueCardsFromTransactionAction | undefined,
@@ -1079,6 +1091,8 @@ function removePrecedingBackTick(tr: Transaction) {
 		$from: { nodeBefore },
 		from,
 	} = tr.selection;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	if (nodeBefore && nodeBefore.isText && nodeBefore.text!.endsWith('`')) {
 		tr.delete(from - 1, from);
 	}

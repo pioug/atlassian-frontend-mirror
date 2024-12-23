@@ -286,6 +286,8 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 			<ContainerWidthMonitor />
 			{containerWidth < DEVICE_BREAKPOINT_NUMBERS.medium ? (
 				<MobileBrowser
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}
 					selectedItemIndex={selectedItemIndex}
 					focusedItemIndex={focusedItemIndex}
@@ -304,6 +306,8 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 				/>
 			) : (
 				<DesktopBrowser
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...props}
 					selectedItemIndex={selectedItemIndex}
 					focusedItemIndex={focusedItemIndex}

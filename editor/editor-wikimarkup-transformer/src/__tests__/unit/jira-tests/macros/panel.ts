@@ -49,6 +49,8 @@ describe.skip('WikiMarkup Transformer', () => {
 	});
 
 	// @TODO Styles not supported. Confirm with JIRA (convert red to 'error' panel?)
+	// Ignored via go/ees005
+	// eslint-disable-next-line jest/no-identical-title
 	describe('panel with styles and underline mark', () => {
 		const WIKI_NOTATION = `{panel:bgColor=red}this panel has only background color{panel}`;
 

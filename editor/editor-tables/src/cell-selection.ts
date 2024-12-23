@@ -111,6 +111,8 @@ export class CellSelection extends Selection {
 							attrs = removeColSpan(attrs, 0, extraLeft);
 						}
 						if (extraRight > 0) {
+							// Ignored via go/ees005
+							// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 							attrs = removeColSpan(attrs, attrs.colspan! - extraRight, extraRight);
 						}
 						if (cellRect.left < rect.left) {
@@ -193,7 +195,11 @@ export class CellSelection extends Selection {
 		if (Math.min(anchorTop, headTop) > 0) {
 			return false;
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const anchorBot = anchorTop + this.$anchorCell.nodeAfter!.attrs.rowspan;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const headBot = headTop + this.$headCell.nodeAfter!.attrs.rowspan;
 		return Math.max(anchorBot, headBot) === this.$headCell.node(-1).childCount;
 	}
@@ -272,7 +278,11 @@ export class CellSelection extends Selection {
 		if (Math.min(anchorLeft, headLeft) > 0) {
 			return false;
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const anchorRight = anchorLeft + this.$anchorCell.nodeAfter!.attrs.colspan;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const headRight = headLeft + this.$headCell.nodeAfter!.attrs.colspan;
 		return Math.max(anchorRight, headRight) === map.width;
 	}

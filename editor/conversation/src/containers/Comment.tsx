@@ -10,6 +10,8 @@ export interface Props extends SharedProps {
 	conversationId: string;
 	objectId?: string;
 	containerId?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	renderComment: (props: any) => JSX.Element;
 }
 
@@ -25,11 +27,15 @@ const mapStateToProps = (state: State, ownProps: Props) => {
 	};
 };
 
-class CommentContainer extends React.Component<Props & { comments: CommentType[] }, {}> {
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
+class CommentContainer extends React.Component<Props & { comments: CommentType[] }, Object> {
 	render() {
 		const { renderComment, ...props } = this.props;
 		return renderComment(props);
 	}
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default connect(mapStateToProps)(CommentContainer as any);

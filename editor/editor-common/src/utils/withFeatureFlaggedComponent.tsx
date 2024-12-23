@@ -13,6 +13,10 @@ export const withFeatureFlaggedComponent = <P extends object>(
 	featureFlagFn: () => boolean,
 ) => {
 	return (props: P) => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		return featureFlagFn() ? <ComponentNext {...props} /> : <ComponentOld {...props} />;
 	};
 };

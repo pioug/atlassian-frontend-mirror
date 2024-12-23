@@ -62,7 +62,6 @@ function typeToIcon(
 ): React.ReactNode | undefined {
 	switch (type) {
 		case 'atlassian:SourceCodeCommit':
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
 			return <CommitIcon label={opts.title || 'commit'} testId="commit-icon" />;
 		case 'atlassian:Project':
 			return (
@@ -74,16 +73,12 @@ function typeToIcon(
 				/>
 			);
 		case 'atlassian:SourceCodePullRequest':
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
 			return <PullRequestIcon label={opts.title || 'pullRequest'} testId="pull-request-icon" />;
 		case 'atlassian:SourceCodeReference':
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
 			return <BranchIcon label={opts.title || 'reference'} testId="branch-icon" />;
 		case 'atlassian:SourceCodeRepository':
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
 			return <RepoIcon label={opts.title || 'repository'} testId="repo-icon" />;
 		case 'atlassian:Goal':
-			// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19493
 			return <TaskIcon label={opts.title || 'goal'} testId="task-icon" />;
 		case 'atlassian:Task':
 			return extractIconFromTask(opts);

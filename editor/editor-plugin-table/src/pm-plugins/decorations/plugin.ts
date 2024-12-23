@@ -26,6 +26,8 @@ export const handleDocOrSelectionChanged = (
 	decorationSet: DecorationSet,
 	oldState: EditorState,
 	newState: EditorState,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): DecorationSet => {
 	const isResizing = tableWidthPluginKey.getState(newState)?.resizing;
 	const wasResizing = tableWidthPluginKey.getState(oldState)?.resizing;
@@ -62,6 +64,8 @@ export const createPlugin = () => {
 		state: {
 			init: () => DecorationSet.empty,
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			apply: (tr, decorationSet, oldState, newState) => {
 				let pluginState = decorationSet;
 				// main table plugin --->

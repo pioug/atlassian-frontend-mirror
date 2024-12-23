@@ -81,9 +81,6 @@ export interface HoverCardComponentProps extends HoverCardProps, HoverCardIntern
 	closeOnChildClick?: boolean;
 }
 
-export type PreviewDisplay = 'card' | 'embed';
-export type PreviewInvokeMethod = 'keyboard' | 'mouse_hover' | 'mouse_click';
-
 export type HoverCardContentProps = {
 	id?: string;
 	analytics?: AnalyticsFacade;

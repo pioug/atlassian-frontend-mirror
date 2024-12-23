@@ -262,11 +262,17 @@ const DragHandleComponent = ({
 				{appearance !== 'placeholder' ? (
 					//  cannot block pointer events in Firefox as it breaks Dragging functionality
 					browser.gecko ? (
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
 						<HandleIconComponent {...handleIconProps} />
 					) : (
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						<span style={{ pointerEvents: 'none' }}>
-							<HandleIconComponent {...handleIconProps} />
+							<HandleIconComponent
+								// Ignored via go/ees005
+								// eslint-disable-next-line react/jsx-props-no-spreading
+								{...handleIconProps}
+							/>
 						</span>
 					)
 				) : null}

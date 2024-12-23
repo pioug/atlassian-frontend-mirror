@@ -71,6 +71,8 @@ export const skipForwardToSafeItem = (
 	nextIndex: number,
 	listSize: number,
 	itemIsDisabled: (idx: number) => boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): number => {
 	// Use a loop to find the next selectable item
 	for (let idx = nextIndex; idx < listSize; idx++) {

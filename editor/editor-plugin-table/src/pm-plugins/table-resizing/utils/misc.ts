@@ -65,6 +65,8 @@ export function currentColWidth(
 		return width;
 	}
 	// Not fixed, read current width from DOM
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	let domWidth = (view.domAtPos(cellPos + 1).node as HTMLElement).offsetWidth;
 	let parts = colspan || 0;
 	if (colwidth) {

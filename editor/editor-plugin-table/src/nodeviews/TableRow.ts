@@ -42,6 +42,8 @@ const HEADER_ROW_SCROLL_THROTTLE_TIMEOUT = 200;
 const HEADER_ROW_SCROLL_RESET_DEBOUNCE_TIMEOUT = 400;
 
 export default class TableRow extends TableNodeView<HTMLTableRowElement> implements NodeView {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: PMNode,
 		view: EditorView,
@@ -104,6 +106,8 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 	/**
 	 * Methods: Nodeview Lifecycle
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	update(node: PMNode, ..._args: any[]) {
 		// do nothing if nodes were identical
 		if (node === this.node) {
@@ -196,6 +200,8 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 	}, HEADER_ROW_SCROLL_THROTTLE_TIMEOUT);
 
 	private subscribe() {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		this.editorScrollableElement = findOverflowScrollParent(this.view.dom as HTMLElement) || window;
 
 		if (this.editorScrollableElement) {
@@ -205,13 +211,19 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 
 		this.eventDispatcher.on('widthPlugin', this.updateStickyHeaderWidth.bind(this));
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		this.eventDispatcher.on((tablePluginKey as any).key, this.onTablePluginState.bind(this));
 
 		this.listening = true;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this.dom.addEventListener('wheel', this.headerRowMouseScroll.bind(this), {
 			passive: true,
 		});
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this.dom.addEventListener('touchmove', this.headerRowMouseScroll.bind(this), { passive: true });
 	}
 
@@ -235,11 +247,17 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		}
 
 		this.eventDispatcher.off('widthPlugin', this.updateStickyHeaderWidth);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		this.eventDispatcher.off((tablePluginKey as any).key, this.onTablePluginState);
 
 		this.listening = false;
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this.dom.removeEventListener('wheel', this.headerRowMouseScroll);
+		// Ignored via go/ees005
+		// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 		this.dom.removeEventListener('touchmove', this.headerRowMouseScroll);
 	}
 
@@ -258,6 +276,8 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 
 		this.resizeObserver.observe(this.dom);
 		if (this.editorScrollableElement) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			this.resizeObserver.observe(this.editorScrollableElement as HTMLElement);
 		}
 
@@ -267,9 +287,13 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 				`.${TableCssClassName.NODEVIEW_WRAPPER}`,
 			);
 			if (tableContainer) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				this.sentinels.top = tableContainer
 					.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_TOP)
 					.item(0) as HTMLElement;
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				this.sentinels.bottom = tableContainer
 					.getElementsByClassName(ClassName.TABLE_STICKY_SENTINEL_BOTTOM)
 					.item(0) as HTMLElement;
@@ -277,6 +301,8 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 					// skip if already observed for another row on this table
 					if (el && !el.dataset.isObserved) {
 						el.dataset.isObserved = 'true';
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						this.intersectionObserver!.observe(el);
 					}
 				});
@@ -296,12 +322,16 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 			entries.forEach((entry) => {
 				// On resize of the parent scroll element we need to adjust the width
 				// of the sticky header
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				if (entry.target.className === (this.editorScrollableElement as HTMLElement)?.className) {
 					this.updateStickyHeaderWidth();
 				} else {
 					const newHeight = entry.contentRect
 						? entry.contentRect.height
-						: (entry.target as HTMLElement).offsetHeight;
+						: // Ignored via go/ees005
+							// eslint-disable-next-line @atlaskit/editor/no-as-casting
+							(entry.target as HTMLElement).offsetHeight;
 
 					if (
 						this.sentinels.bottom &&
@@ -471,11 +501,15 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 			if (layoutContainer && layoutContainer.getAttribute('data-layout-content')) {
 				// move table a little out of the way
 				// to provide spacing for table controls
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				tableContentWrapper!.style.paddingLeft = '11px';
 			}
 		} else {
 			this.colControlsOffset = 0;
 			if (layoutContainer && layoutContainer.getAttribute('data-layout-content')) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				tableContentWrapper!.style.removeProperty('padding-left');
 			}
 		}
@@ -546,6 +580,8 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 			 * detaches from the table. This typically happens during a fast scroll by the user which causes
 			 * the intersection observer logic to not fire as expected.
 			 */
+			// Ignored via go/ees005
+			// eslint-disable-next-line @repo/internal/dom-events/no-unsafe-event-listeners
 			this.editorScrollableElement?.addEventListener(
 				'scrollend',
 				this.refireIntersectionObservers,
@@ -612,6 +648,8 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 
 		this.top = top;
 		this.padding = padding;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const pos = this.getPos()!;
 
 		if (Number.isFinite(pos)) {
@@ -631,6 +669,8 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 
 		this.top = 0;
 		this.padding = 0;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const pos = this.getPos()!;
 
 		if (!isEditorDestroyed && Number.isFinite(pos)) {

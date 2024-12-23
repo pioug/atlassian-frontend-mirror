@@ -76,7 +76,11 @@ const getInsertLineWidth = (
 	const LINE_OFFSET = 4;
 	const DRAG_LINE_OFFSET = isChromelessEditor ? 14 : 6;
 	const { parentElement, offsetWidth } = tableRef;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const parentOffsetWidth = parentElement!.offsetWidth;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const { scrollLeft } = parentElement!;
 	const diff = offsetWidth - parentOffsetWidth;
 	const toolbarSize = isDragAndDropEnabled ? 0 : getToolbarSize(tableRef);

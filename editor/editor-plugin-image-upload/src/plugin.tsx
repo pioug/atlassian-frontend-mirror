@@ -1,6 +1,8 @@
 import type { Command, NextEditorPlugin } from '@atlaskit/editor-common/types';
 
 import { insertActionForToolbar } from './pm-plugins/commands-toolbar';
+// Ignored via go/ees005
+// eslint-disable-next-line import/no-named-as-default
 import inputRulePlugin from './pm-plugins/input-rule';
 import { createPlugin } from './pm-plugins/main';
 import { stateKey } from './pm-plugins/plugin-key';

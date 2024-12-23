@@ -3,6 +3,8 @@ import getMediaGroupNodeView from '../nodes/mediaGroup';
 import { type Token } from './';
 
 // [^attachment.pdf]
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const FILE_LINK_REGEXP = /^\[\^([\(\)\w. -]+)\]/;
 
 export function fileLink(input: string, position: number, schema: Schema): Token {

@@ -74,7 +74,9 @@ export interface Props {
 	role?: string;
 }
 
-class LinkSearchListItem extends React.PureComponent<Props & WrappedComponentProps, {}> {
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
+class LinkSearchListItem extends React.PureComponent<Props & WrappedComponentProps, Object> {
 	handleSelect = (e: React.MouseEvent) => {
 		e.preventDefault(); // don't let editor lose focus
 		const { item, onSelect } = this.props;

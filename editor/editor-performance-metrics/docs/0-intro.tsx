@@ -11,8 +11,12 @@ export default md`
   ${(
 		<Example
 			packageName="@atlaskit/editor-performance-metrics"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			Component={require('../examples/01-vc-observer-next').default}
 			title="Basic example"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			source={require('!!raw-loader!../examples/01-vc-observer-next')}
 		/>
 	)}
@@ -20,6 +24,8 @@ export default md`
   ${(
 		<Props
 			heading="EditorPerformanceMetrics Props"
+			// Ignored via go/ees005
+			// eslint-disable-next-line import/no-commonjs
 			props={require('!!extract-react-types-loader!../src')}
 		/>
 	)}

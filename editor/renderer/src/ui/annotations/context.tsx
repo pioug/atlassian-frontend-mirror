@@ -28,6 +28,8 @@ export const InlineCommentsStateContext = createContext<
 	Record<AnnotationId, AnnotationMarkStates | null>
 >({});
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class AnnotationsDraftContextWrapper extends React.Component<Props, State> {
 	state = {
 		position: null,

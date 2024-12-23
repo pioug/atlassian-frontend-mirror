@@ -69,8 +69,12 @@ function getBreakoutNodeElement(
 	}
 
 	if (selection instanceof NodeSelection && isSupportedNodeForBreakout(selection.node)) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		return findDomRefAtPos(selection.from, editorView.domAtPos.bind(editorView)) as HTMLElement;
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	return findParentDomRefOfType(
 		pluginState.breakoutNode.node.type,
 		editorView.domAtPos.bind(editorView),
@@ -124,6 +128,8 @@ const LayoutButton = ({
 	const closestEl = element.querySelector(`.${BreakoutCssClassName.BREAKOUT_MARK_DOM}`);
 
 	if (closestEl && closestEl.firstChild) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		element = closestEl.firstChild as HTMLElement;
 	}
 

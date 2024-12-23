@@ -20,7 +20,11 @@ import { createCommand, getPluginState } from '../plugin-factory';
 
 const createGetInlineCardTextFromStore = (attrs: CardAttributes): string | null => {
 	const { data } = attrs as DataType;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	if (data && ((data as any).name || (data as any).title)) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		return (data as any).name || (data as any).title;
 	}
 
@@ -40,13 +44,17 @@ export const sortByColumn = (columnIndex: number, order: SortOrder = SortOrder.D
 			},
 		}),
 		(tr: Transaction, state: EditorState) => {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const table = findTable(tr.selection)!;
 			if (!table || !table.node) {
 				return tr;
 			}
 
 			const selectionRect = isSelectionType(tr.selection, 'cell')
-				? getSelectionRect(tr.selection)!
+				? // Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					getSelectionRect(tr.selection)!
 				: findCellRectClosestToPos(tr.selection.$from);
 
 			if (!selectionRect) {

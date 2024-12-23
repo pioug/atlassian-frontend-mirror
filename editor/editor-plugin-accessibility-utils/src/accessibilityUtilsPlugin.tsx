@@ -98,6 +98,8 @@ function ContentComponent({
 		<VisuallyHidden
 			testId={'accessibility-message-wrapper'}
 			role={role}
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
 			{...(role === 'alert' && { key })}
 		>
 			{accessibilityUtilsState?.message}

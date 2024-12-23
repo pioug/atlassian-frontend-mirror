@@ -56,6 +56,8 @@ export type ResizerProps = Omit<ResizableMediaSingleProps, 'height' | 'width'> &
 	height?: number;
 	width: number;
 	ratio?: string;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	handleComponentFunc?: (side: string) => React.ReactElement<any> | undefined;
 	handleStyles?: HandleStyles;
 };
@@ -72,6 +74,8 @@ const getWidthFromSnapPoints = (width: number, snapPoints: number[]): number => 
 	return width;
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Resizer extends React.Component<ResizerProps, ResizerState> {
 	resizable: RefObject<Resizable> = React.createRef();
 
@@ -92,6 +96,8 @@ export default class Resizer extends React.Component<ResizerProps, ResizerState>
 		});
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	private handleResize = (
 		_event: MouseEvent | TouchEvent,
 		_direction: ResizeDirection,
@@ -128,6 +134,8 @@ export default class Resizer extends React.Component<ResizerProps, ResizerState>
 		resizable.setState({ isResizing: true });
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 	private handleResizeStop = (
 		_event: MouseEvent | TouchEvent,
 		_direction: ResizeDirection,
@@ -171,7 +179,7 @@ export default class Resizer extends React.Component<ResizerProps, ResizerState>
 	};
 
 	render() {
-		const baseHandleStyles: Record<string, {}> = {};
+		const baseHandleStyles: Record<string, Object> = {};
 		const handles: Record<string, string> = {};
 		const handleComponent: HandleComponent = {};
 

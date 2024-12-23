@@ -47,11 +47,11 @@ const Color = (props: Props) => {
 
 	const colorStyle = hexToPaletteColor ? hexToPaletteColor(value) : value;
 
-	const onMouseDown = (e: React.MouseEvent<{}>) => {
+	const onMouseDown = (e: React.MouseEvent<Object>) => {
 		e.preventDefault();
 	};
 
-	const onClick = (e: React.MouseEvent<{}>) => {
+	const onClick = (e: React.MouseEvent<Object>) => {
 		const { onClick, value, label } = props;
 		e.preventDefault();
 		onClick(value, label);

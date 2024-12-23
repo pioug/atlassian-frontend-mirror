@@ -1,8 +1,10 @@
 import { isPastedFile } from '@atlaskit/editor-common/paste';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { PMPluginFactoryParams } from '@atlaskit/editor-common/types';
-import type { ImageUploadPluginReferenceEvent } from '@atlaskit/editor-common/types';
+import type {
+	PMPluginFactoryParams,
+	ImageUploadPluginReferenceEvent,
+} from '@atlaskit/editor-common/types';
 import type { EditorState, ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
@@ -138,6 +140,8 @@ export const createPlugin =
 						hidden: !state.schema.nodes.media || !state.schema.nodes.mediaSingle,
 					};
 				},
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/max-params
 				apply(tr, pluginState: ImageUploadPluginState, _oldState, newState) {
 					const newActive = isMediaSelected(newState);
 					const newEnabled = canInsertMedia(newState);

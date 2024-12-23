@@ -131,9 +131,15 @@ export const handleClick = (view: EditorView, event: Event): boolean => {
 		return false;
 	}
 	const element = event.target as HTMLElementIE9;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const table = findTable(view.state.selection)!;
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	if (event instanceof MouseEvent && isColumnControlsDecorations(element as HTMLElement)) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const [startIndex] = getColumnOrRowIndex(element as HTMLElement);
 		const { state, dispatch } = view;
 
@@ -145,6 +151,8 @@ export const handleClick = (view: EditorView, event: Event): boolean => {
 	// check if the table cell with an image is clicked and its not the image itself
 	if (
 		!table ||
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		!isElementInTableCell(element as HTMLElement) ||
 		!matchfn ||
 		matchfn.call(element, 'table .image, table p, table .image div')
@@ -154,9 +162,15 @@ export const handleClick = (view: EditorView, event: Event): boolean => {
 	const map = TableMap.get(table.node);
 
 	/** Getting the offset of current item clicked */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const colElement = (closestElement(element as HTMLElement, 'td') ||
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		closestElement(element as HTMLElement, 'th')) as HTMLTableDataCellElement;
 	const colIndex = colElement && colElement.cellIndex;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const rowElement = closestElement(element as HTMLElement, 'tr') as HTMLTableRowElement;
 	const rowIndex = rowElement && rowElement.rowIndex;
 	const cellIndex = map.width * rowIndex + colIndex;
@@ -475,6 +489,8 @@ export const handleCut = (
 	isTableScalingEnabled = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Transaction => {
 	const oldSelection = oldState.tr.selection;
 	let { tr } = newState;
@@ -566,9 +582,13 @@ export const whenTableInFocus =
 
 const trackCellLocation = (view: EditorView, mouseEvent: Event) => {
 	const target = mouseEvent.target;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const maybeTableCell = isElementInTableCell(target as HTMLElement) as HTMLTableCellElement | null;
 	const { tableNode, tableRef } = getPluginState(view.state);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const tableElement = closestElement(target as HTMLElement, 'table') as HTMLTableElement;
 
 	// hover will only trigger if target localId is the same with selected localId
@@ -584,6 +604,8 @@ const trackCellLocation = (view: EditorView, mouseEvent: Event) => {
 	}
 
 	const htmlColIndex = maybeTableCell.cellIndex;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @atlaskit/editor/no-as-casting
 	const rowElement = closestElement(target as HTMLElement, 'tr') as HTMLTableRowElement;
 	const htmlRowIndex = rowElement && rowElement.rowIndex;
 

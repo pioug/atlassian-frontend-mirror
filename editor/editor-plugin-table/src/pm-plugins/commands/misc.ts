@@ -101,7 +101,12 @@ export const setTableRef = (ref?: HTMLTableElement) =>
 	);
 
 export const setCellAttr =
-	(name: string, value: any): Command =>
+	(
+		name: string,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		value: any,
+	): Command =>
 	(state, dispatch) => {
 		const { tr, selection } = state;
 		if (selection instanceof CellSelection) {
@@ -281,6 +286,8 @@ export const isInsideFirstCellOfRowOrColumn = (selection: Selection, type?: 'row
 		return false;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const map = TableMap.get(table.node!);
 	const cell = findCellClosestToPos(selection.$anchor);
 	if (!cell) {
@@ -310,6 +317,8 @@ export const deleteTableIfSelected: Command = (state, dispatch) => {
 export const convertFirstRowToHeader =
 	(schema: Schema) =>
 	(tr: Transaction): Transaction => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const table = findTable(tr.selection)!;
 		const map = TableMap.get(table.node);
 		for (let i = 0; i < map.width; i++) {
@@ -395,13 +404,19 @@ export const setMultipleCellAttrs =
 		const { targetCellPosition } = getPluginState(state);
 
 		if (isSelectionType(tr.selection, 'cell')) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const selection = tr.selection as any as CellSelection;
 			selection.forEachCell((_cell, pos) => {
 				const $pos = tr.doc.resolve(tr.mapping.map(pos + 1));
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				tr = setCellAttrs(findCellClosestToPos($pos)!, attrs)(tr);
 			});
 			cursorPos = selection.$headCell.pos;
 		} else if (targetCellPosition) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const cell = findCellClosestToPos(tr.doc.resolve(targetCellPosition + 1))!;
 			tr = setCellAttrs(cell, attrs)(tr);
 			cursorPos = cell.pos;
@@ -563,6 +578,8 @@ export const addResizeHandleDecorations = (
 	includeTooltip: boolean,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	isKeyboardResize?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	createCommand(
 		(state) => {
@@ -604,6 +621,8 @@ export const updateResizeHandleDecorations = (
 	rowIndex?: number,
 	columnIndex?: number,
 	includeTooltip?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	createCommand(
 		(state) => {
@@ -674,6 +693,8 @@ export const autoSizeTable = (
 	table: HTMLTableElement,
 	basePos: number | undefined,
 	opts: { containerWidth: number },
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (typeof basePos !== 'number') {
 		return false;

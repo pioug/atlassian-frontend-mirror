@@ -138,6 +138,8 @@ const mediaAsyncOperations = async (props: {
 	mediaChildNode: PMNode;
 	updater: MediaNodeUpdater;
 	getPos: () => number | undefined;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	addPendingTask: (promise: Promise<any>) => void;
 }) => {
 	const updatedDimensions = await props.updater.getRemoteDimensions();
@@ -179,6 +181,8 @@ const mediaAsyncOperations = async (props: {
 type UseMediaAsyncOperationsProps = {
 	mediaNode: PMNode;
 	mediaNodeUpdater: MediaNodeUpdater | null;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	addPendingTask: (promise: Promise<any>) => void;
 	getPos: () => number | undefined;
 };

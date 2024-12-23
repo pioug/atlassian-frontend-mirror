@@ -17,6 +17,8 @@ describe('consts', () => {
 		it('relativeFontSizeToBase16 should return 0.875rem with a base font size (string) of 14px', () => {
 			expect(relativeFontSizeToBase16('14')).toBe('0.875rem');
 		});
+		// Ignored via go/ees005
+		// eslint-disable-next-line jest/no-identical-title
 		it('relativeFontSizeToBase16 should return 0.875rem with a base font size (string) of 14px', () => {
 			expect(relativeFontSizeToBase16('14px')).toBe('0.875rem');
 		});

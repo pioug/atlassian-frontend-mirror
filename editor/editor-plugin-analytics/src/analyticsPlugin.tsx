@@ -38,6 +38,8 @@ function createPlugin(options: AnalyticsPluginOptions, featureFlags: FeatureFlag
 					fireAnalytics: fireAnalyticsEvent(options.createAnalyticsEvent),
 				};
 			},
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/max-params
 			apply: (tr, pluginState, _, state) => {
 				const { createAnalyticsEvent } = tr.getMeta(analyticsPluginKey) ?? {};
 
@@ -191,8 +193,14 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 				return;
 			}
 
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			const steps = transactions.reduce<AnalyticsWithChannel<any>[]>((acc, tr) => {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const payloads: AnalyticsWithChannel<any>[] = tr.steps
+					// Ignored via go/ees005
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					.filter((step): step is AnalyticsStep<any> => step instanceof AnalyticsStep)
 					.map((x) => x.analyticsEvents)
 					.reduce((acc, val) => acc.concat(val), []);

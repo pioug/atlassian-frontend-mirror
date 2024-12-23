@@ -189,6 +189,8 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
 		this.mediaPluginState?.handleMediaGroupUpdate(this.mediaNodes, []);
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line react/no-unsafe
 	UNSAFE_componentWillReceiveProps(props: MediaGroupProps) {
 		this.updateMediaClientConfig();
 		this.setMediaItems(props, props.isCopyPasteEnabled || props.isCopyPasteEnabled === undefined);
@@ -457,6 +459,8 @@ export const ReactMediaGroupNode =
 		providerFactory: ProviderFactory,
 		mediaOptions: MediaOptions = {},
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
 		return new MediaGroupNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {

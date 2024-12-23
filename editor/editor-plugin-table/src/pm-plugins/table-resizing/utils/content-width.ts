@@ -1,6 +1,8 @@
 import { unitToNumber } from './unit-to-number';
 
 // calculates content width of a cell
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function contentWidth(
 	elem: HTMLElement,
 	container: HTMLElement,
@@ -10,6 +12,8 @@ export function contentWidth(
 	return calcContentWidth(elem, container || elem, canvas, colWidths);
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function calcContentWidth(
 	elem: HTMLElement,
 	container: HTMLElement,
@@ -20,6 +24,8 @@ function calcContentWidth(
 	let curWidth = 0;
 
 	for (let i = 0; i < elem.childNodes.length; i++) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @atlaskit/editor/no-as-casting
 		const child = elem.childNodes[i] as HTMLElement;
 
 		if (child.nodeType === Node.COMMENT_NODE) {
@@ -27,6 +33,8 @@ function calcContentWidth(
 		}
 
 		if (child.nodeType === Node.TEXT_NODE) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @atlaskit/editor/no-as-casting
 			const parent = child.parentNode as HTMLElement;
 			const parentStyle = getComputedStyle(parent);
 			let contentLength = 0;
@@ -87,6 +95,8 @@ function measureText(canvas: HTMLCanvasElement, text: string | null, font: strin
 	return Math.round(ctx.measureText(text || '').width);
 }
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 function handlePreText(
 	canvas: HTMLCanvasElement,
 	node: HTMLElement,
@@ -95,9 +105,13 @@ function handlePreText(
 ): number {
 	let parent = node;
 	if (node.nodeName === 'CODE') {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion, @atlaskit/editor/no-as-casting
 		parent = node.parentNode! as HTMLElement;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const computedStyle = getComputedStyle(parent!);
 	if (textContent && computedStyle.whiteSpace === 'pre') {
 		// If white space is pre grab the longest line in the block.

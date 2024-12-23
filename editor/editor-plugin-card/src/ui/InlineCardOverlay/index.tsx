@@ -248,6 +248,8 @@ const InlineCardOverlay = ({
 	const label: string = intl.formatMessage(messages.inlineOverlay);
 
 	return (
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading
 		<span {...props} css={containerStyles} ref={containerRef}>
 			{children}
 			{isVisible && (

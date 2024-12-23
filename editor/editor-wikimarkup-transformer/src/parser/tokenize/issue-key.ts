@@ -11,6 +11,8 @@ import { isNotBlank } from '../utils/text';
  * [XX-999] from the ones which should be blue links in the ADF to WikiMarkup
  * convertion.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 export const INLINE_CARD_FROM_TEXT_STAMP = /(#icft=)([A-Z][A-Z]+-[0-9]+)/;
 
 export interface Issue {
@@ -77,6 +79,8 @@ export const buildInlineCard = (schema: Schema, issue: Issue): PMNode[] => {
 const withInlineCardFromTextStamp = (issue: Issue): string =>
 	INLINE_CARD_FROM_TEXT_STAMP.test(issue.url) ? issue.url : `${issue.url}#icft=${issue.key}`;
 
+// Ignored via go/ees005
+// eslint-disable-next-line require-unicode-regexp
 const isNotAllowedChars = (char: string): boolean => !/\s|\(|\)|!|\.|\,|\/|\:/.test(char);
 
 export const buildIssueKeyRegex = (inlineCardConversion?: ConversionMap): RegExp | undefined => {
@@ -89,5 +93,7 @@ export const buildIssueKeyRegex = (inlineCardConversion?: ConversionMap): RegExp
 	if (!pattern) {
 		return undefined;
 	}
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-unicode-regexp
 	return new RegExp(`^(${pattern})`);
 };

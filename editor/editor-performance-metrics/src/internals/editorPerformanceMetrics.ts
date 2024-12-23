@@ -100,6 +100,8 @@ export class EditorPerformanceMetrics {
 		return result;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await
 	async calculateLastHeatmap(
 		heatmapSize: number,
 		rangeEventsFilter?: RangeEventsFilter | null,

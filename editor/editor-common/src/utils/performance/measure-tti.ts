@@ -3,6 +3,8 @@ import { SEVERITY } from '../analytics';
 import { isPerformanceObserverLongTaskAvailable } from './is-performance-api-available';
 import { getDistortedDurationMonitor } from './measure-render';
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function measureTTI(
 	onMeasureComplete: (
 		tti: number,
@@ -93,6 +95,8 @@ export const TTI_FROM_INVOCATION_SEVERITY_THRESHOLD_DEFAULTS = {
 	DEGRADED: 8000,
 };
 
+// Ignored via go/ees005
+// eslint-disable-next-line @typescript-eslint/max-params
 export function getTTISeverity(
 	tti: number,
 	ttiFromInvocation: number,

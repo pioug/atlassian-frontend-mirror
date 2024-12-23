@@ -31,14 +31,22 @@ export const showDragHandleAtSelection =
 
 			const parentElement = view?.domAtPos(parentPos, 0)?.node as HTMLElement | undefined;
 			if (parentElement) {
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				let anchorName = parentElement.getAttribute('data-drag-handler-anchor-name')!;
+				// Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				let nodeType = parentElement.getAttribute('data-drag-handler-node-type')!;
 
 				if (!anchorName || !nodeType) {
 					// for nodes like panel and mediaSingle, the drag handle decoration is not applied to the dom node at the node position but to the parent node
 					const closestParentElement = parentElement.closest('[data-drag-handler-anchor-name]');
 					if (closestParentElement) {
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						anchorName = closestParentElement.getAttribute('data-drag-handler-anchor-name')!;
+						// Ignored via go/ees005
+						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 						nodeType = closestParentElement.getAttribute('data-drag-handler-node-type')!;
 					}
 				}
@@ -66,7 +74,11 @@ export const showDragHandleAtSelection =
 				: nodeElement;
 
 		if (rootNode) {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const anchorName = rootNode.getAttribute('data-drag-handler-anchor-name')!;
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			const nodeType = rootNode.getAttribute('data-drag-handler-node-type')!;
 
 			if (api && anchorName && nodeType) {

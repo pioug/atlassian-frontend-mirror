@@ -39,9 +39,13 @@ export function createToolbarCopyCommandForMark(
 				// The "1 1" refers to the start and end depth of the slice
 				// since we're copying the text inside a paragraph, it will always be 1 1
 				// https://github.com/ProseMirror/prosemirror-view/blob/master/src/clipboard.ts#L32
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				(div.firstChild as HTMLElement).setAttribute('data-pm-slice', '1 1 []');
 
 				// If we're copying a hyperlink, we'd copy the url as the fallback plain text
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				const linkUrl = (domNode as HTMLElement).getAttribute('href');
 
 				copyHTMLToClipboard(div, markType.name === 'link' && linkUrl ? linkUrl : undefined);
@@ -143,11 +147,15 @@ export const createToolbarCopyCommandForNode =
 					// The "1 1" refers to the start and end depth of the slice
 					// since we're copying the text inside a paragraph, it will always be 1 1
 					// https://github.com/ProseMirror/prosemirror-view/blob/master/src/clipboard.ts#L32
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					(div.firstChild as HTMLElement).setAttribute('data-pm-slice', '1 1 []');
 				} else {
 					// The "0 0" refers to the start and end depth of the slice
 					// since we're copying the block node only, it will always be 0 0
 					// https://github.com/ProseMirror/prosemirror-view/blob/master/src/clipboard.ts#L32
+					// Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
 					(div.firstChild as HTMLElement).setAttribute('data-pm-slice', '0 0 []');
 				}
 				// ED-17083 safari seems have bugs for extension copy because exntension do not have a child text(innerText) and it will not recognized as html in clipboard, this could be merge into one if this extension fixed children issue or safari fix the copy bug

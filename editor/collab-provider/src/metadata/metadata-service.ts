@@ -6,6 +6,8 @@ export class MetadataService {
 	private metadata: Metadata = {};
 
 	constructor(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		private providerEmitCallback: (evt: keyof CollabEvents, data: any) => void,
 		private broadcastMetadata: (metadata: Metadata) => void,
 	) {}

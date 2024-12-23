@@ -58,8 +58,12 @@ export const dragPreview = (container: HTMLElement, dom: HTMLElement, nodeType: 
 		const resizer: HTMLElement | null = dom.querySelector('.resizer-item');
 		const clonedDom =
 			resizer && ['mediaSingle', 'table'].includes(nodeType)
-				? (resizer.cloneNode(true) as HTMLElement)
-				: (dom.cloneNode(true) as HTMLElement);
+				? // Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
+					(resizer.cloneNode(true) as HTMLElement)
+				: // Ignored via go/ees005
+					// eslint-disable-next-line @atlaskit/editor/no-as-casting
+					(dom.cloneNode(true) as HTMLElement);
 
 		// Remove any margin from the cloned element to ensure is doesn't position incorrectly
 		clonedDom.style.marginLeft = '0';

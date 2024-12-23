@@ -44,7 +44,6 @@ export function createResizeFullPageForConfig(config: TestPageConfig) {
 	describe('Snapshot Test: Media', () => {
 		describe('full page editor', () => {
 			let page: PuppeteerPage;
-
 			beforeAll(async () => {
 				page = global.page;
 			});

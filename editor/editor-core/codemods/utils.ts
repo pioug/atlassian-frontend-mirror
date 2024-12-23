@@ -52,6 +52,8 @@ export const findImportFromPackage = (
 	source: Collection<unknown>,
 	pkg: string,
 	importName: string,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): string[] => {
 	// Find regular or renamed imports
 	return (

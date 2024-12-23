@@ -16,6 +16,8 @@ export type ToolbarButton = ExtensionModuleToolbarButtonLabelOrIcon & {
 	 * This uses the Custom component feature of the Tooltip component.
 	 * How to use: https://atlassian.design/components/tooltip/examples#custom-component
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	tooltipStyle?: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
 	icon?: () => ExtensionIconModule;
 	display?: 'icon' | 'label' | 'icon-and-label';
@@ -66,6 +68,8 @@ export type ExtensionToolbarButton = {
 	 * This uses the Custom component feature of the Tooltip component.
 	 * How to use: https://atlassian.design/components/tooltip/examples#custom-component
 	 */
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	tooltipStyle?: React.ForwardRefExoticComponent<any> | React.ComponentType<any>;
 	icon?: () => ExtensionIconModule;
 	action: ToolbarButtonAction;

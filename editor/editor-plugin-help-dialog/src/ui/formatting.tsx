@@ -114,7 +114,11 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 			<span>
 				<Box as="span" xcss={codeLg}>
 					**
-					<FormattedMessage {...toolbarMessages.bold} />
+					<FormattedMessage
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...toolbarMessages.bold}
+					/>
 					**
 				</Box>
 			</span>
@@ -127,7 +131,13 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		autoFormatting: () => (
 			<span>
 				<Box as="span" xcss={codeLg}>
-					*<FormattedMessage {...toolbarMessages.italic} />*
+					*
+					<FormattedMessage
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...toolbarMessages.italic}
+					/>
+					*
 				</Box>
 			</span>
 		),
@@ -145,7 +155,11 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 			<span>
 				<Box as="span" xcss={codeLg}>
 					~~
-					<FormattedMessage {...toolbarMessages.strike} />
+					<FormattedMessage
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...toolbarMessages.strike}
+					/>
 					~~
 				</Box>
 			</span>
@@ -333,7 +347,12 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		autoFormatting: () => (
 			<span>
 				<Box as="span" xcss={codeLg}>
-					[<FormattedMessage {...toolbarInsertBlockMessages.link} />
+					[
+					<FormattedMessage
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...toolbarInsertBlockMessages.link}
+					/>
 					](http://a.com)
 				</Box>
 			</span>
@@ -346,7 +365,13 @@ export const formatting: (intl: IntlShape) => Format[] = ({ formatMessage }) => 
 		autoFormatting: () => (
 			<span>
 				<Box as="span" xcss={codeLg}>
-					`<FormattedMessage {...toolbarMessages.code} />`
+					`
+					<FormattedMessage
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...toolbarMessages.code}
+					/>
+					`
 				</Box>
 			</span>
 		),
@@ -706,7 +731,11 @@ const imageAutoFormat: Format = {
 		<span>
 			<Box as="span" xcss={codeLg}>
 				![
-				<FormattedMessage {...messages.altText} />
+				<FormattedMessage
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
+					{...messages.altText}
+				/>
 				](http://www.image.com)
 			</Box>
 		</span>
@@ -730,6 +759,8 @@ export const getSupportedFormatting = (
 	intl: IntlShape,
 	imageEnabled?: boolean,
 	quickInsertEnabled?: boolean,
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/max-params
 ): Format[] => {
 	const supportedBySchema = formatting(intl).filter(
 		(format) => schema.nodes[format.type] || schema.marks[format.type],

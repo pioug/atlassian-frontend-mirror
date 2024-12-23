@@ -291,7 +291,9 @@ const DragMenu = React.memo(
 		const { isKeyboardModeActive } = getPluginState(state);
 
 		const selectionRect = isSelectionType(selection, 'cell')
-			? getSelectionRect(selection)!
+			? // Ignored via go/ees005
+				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+				getSelectionRect(selection)!
 			: findCellRectClosestToPos(selection.$from);
 
 		const hasMergedCellsInTable = tableMap?.hasMergedCells() ?? false;
@@ -324,6 +326,8 @@ const DragMenu = React.memo(
 
 		const handleSubMenuRef = (ref: HTMLDivElement | null) => {
 			const parent = closestElement(
+				// Ignored via go/ees005
+				// eslint-disable-next-line @atlaskit/editor/no-as-casting
 				editorView.dom as HTMLElement,
 				'.fabric-editor-popup-scroll-parent',
 			);
@@ -395,6 +399,8 @@ const DragMenu = React.memo(
 											bubbles: true,
 										});
 										setIsSubmenuOpen(false);
+										// Ignored via go/ees005
+										// eslint-disable-next-line @atlaskit/editor/no-as-casting
 										(target as HTMLElement)?.focus();
 										target?.dispatchEvent(keyboardEvent);
 									}}
@@ -570,6 +576,8 @@ const DragMenu = React.memo(
 				: hoverRows(getSelectedRowIndexes(selectionRect), true))(state, dispatch);
 		};
 
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const handleItemMouseLeave = ({ item }: { item: any }) => {
 			if (item.value.name === 'background' && isSubmenuOpen) {
 				setIsSubmenuOpen(false);

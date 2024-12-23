@@ -30,7 +30,11 @@ export interface State {
 	isEditing?: boolean;
 	isReplying?: boolean;
 	lastDispatch?: {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		handler: any;
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		args: any[];
 	};
 }
@@ -56,7 +60,7 @@ const userChanged = (oldUser: User = { id: '' }, newUser: User = { id: '' }) => 
 };
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Reactions: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div({
+const Reactions: React.ComponentClass<React.HTMLAttributes<Object>> = styled.div({
 	height: '20px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > div': {
@@ -64,6 +68,8 @@ const Reactions: React.ComponentClass<React.HTMLAttributes<{}>> = styled.div({
 	},
 });
 
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export default class Comment extends React.Component<Props, State> {
 	constructor(props: Props) {
 		super(props);
@@ -146,7 +152,11 @@ export default class Comment extends React.Component<Props, State> {
 		return false;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private dispatch = (dispatch: string, ...args: any[]) => {
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const handler = (this.props as any)[dispatch];
 
 		if (handler) {
@@ -158,6 +168,8 @@ export default class Comment extends React.Component<Props, State> {
 		}
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private onReply = (_event: any, analyticsEvent?: UIAnalyticsEvent) => {
 		const { objectId, containerId } = this.props;
 
@@ -173,6 +185,8 @@ export default class Comment extends React.Component<Props, State> {
 		});
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await, @typescript-eslint/no-explicit-any
 	private onSaveReply = async (value: any) => {
 		const { conversationId, comment: parentComment, sendAnalyticsEvent } = this.props;
 
@@ -214,6 +228,8 @@ export default class Comment extends React.Component<Props, State> {
 		});
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private onDelete = (_value: any, analyticsEvent?: UIAnalyticsEvent) => {
 		const {
 			comment: { nestedDepth, commentId },
@@ -243,6 +259,8 @@ export default class Comment extends React.Component<Props, State> {
 		});
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private onEdit = (_value: any, analyticsEvent?: UIAnalyticsEvent) => {
 		const { objectId, containerId } = this.props;
 
@@ -258,12 +276,16 @@ export default class Comment extends React.Component<Props, State> {
 		});
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private handleCommentEditorChange = (value: any) => {
 		const { comment } = this.props;
 
 		this.dispatch('onEditorChange', value, comment.commentId);
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line require-await, @typescript-eslint/no-explicit-any
 	private onSaveEdit = async (value: any) => {
 		const { conversationId, comment, sendAnalyticsEvent } = this.props;
 
@@ -298,6 +320,8 @@ export default class Comment extends React.Component<Props, State> {
 		});
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private onRequestCancel = (_value: any, analyticsEvent?: UIAnalyticsEvent) => {
 		const { comment, onCancel, objectId, containerId } = this.props;
 
@@ -316,6 +340,8 @@ export default class Comment extends React.Component<Props, State> {
 		this.dispatch('onRevertComment', comment.conversationId, comment.commentId);
 	};
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private onRequestRetry = (_value: any, analyticsEvent?: UIAnalyticsEvent) => {
 		const { lastDispatch } = this.state;
 		const {
@@ -423,7 +449,11 @@ export default class Comment extends React.Component<Props, State> {
 			<CommentContainer
 				key={child.localId}
 				comment={child}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				renderComment={(props) => <Comment {...props} />}
+				// Ignored via go/ees005
+				// eslint-disable-next-line react/jsx-props-no-spreading
 				{...otherCommentProps}
 			/>
 		));
@@ -568,6 +598,8 @@ export default class Comment extends React.Component<Props, State> {
 		const { comment, isHighlighted, disableScrollTo, maxCommentNesting } = this.props;
 		const { createdBy, state: commentState, error } = comment;
 		const errorProps: {
+			// Ignored via go/ees005
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			actions?: any[];
 			message?: string;
 		} = {};

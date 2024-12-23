@@ -131,6 +131,8 @@ interface SimpleEventEmitter {
 export interface Socket extends SimpleEventEmitter {
 	id: string;
 	connect(): Socket;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	emit(event: string, ...args: any[]): Socket;
 	close(): Socket;
 	io?: Manager;
@@ -145,6 +147,8 @@ export interface Lifecycle {
 
 // Channel
 export type InitPayload = {
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	doc: any;
 	version: number;
 	userId?: string;
@@ -161,6 +165,8 @@ export type InitPayload = {
 export type BroadcastIncomingPayload = {
 	sessionId?: string;
 	timestamp?: number;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	data: PresencePayload | TelepointerPayload | StepsPayload | ActivityPayload | any; // broadcasted data from NCS, any added as a fallback
 };
 
@@ -175,6 +181,8 @@ export type PresenceData = {
 
 export type PresencePayload = PresenceData & {
 	timestamp: number;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	data?: Record<string, any>;
 };
 

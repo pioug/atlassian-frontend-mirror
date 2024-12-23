@@ -60,7 +60,9 @@ const PanelStyled = ({
 	}
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+		// eslint-disable-next-line
+		// Ignored via go/ees005
+		// eslint-disable-next-line react/jsx-props-no-spreading, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		<div css={styles} {...props}>
 			{props.children}
 		</div>

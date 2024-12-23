@@ -13,6 +13,8 @@ export interface Props {
 	mountTo?: HTMLElement;
 	boundariesElement?: HTMLElement;
 	scrollableElement?: HTMLElement;
+	// Ignored via go/ees005
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	trigger: React.ReactElement<any>;
 	isOpen?: boolean;
 	onOpenChange?: (attrs: OpenChangedEvent) => void;
@@ -35,6 +37,8 @@ export interface State {
  *
  * Also it controls popper's placement.
  */
+// Ignored via go/ees005
+// eslint-disable-next-line @repo/internal/react/no-class-components
 export class Dropdown extends PureComponent<Props, State> {
 	constructor(props: Props) {
 		super(props);
@@ -86,7 +90,9 @@ export class Dropdown extends PureComponent<Props, State> {
 			<Popup
 				target={
 					alignDropdownWithParentElement
-						? (target?.closest("[data-testid='editor-floating-toolbar']") as HTMLElement)
+						? // Ignored via go/ees005
+							// eslint-disable-next-line @atlaskit/editor/no-as-casting
+							(target?.closest("[data-testid='editor-floating-toolbar']") as HTMLElement)
 						: target
 				}
 				mountTo={mountTo}
@@ -99,6 +105,8 @@ export class Dropdown extends PureComponent<Props, State> {
 				allowOutOfBounds={alignDropdownWithParentElement}
 			>
 				<ArrowKeyNavigationProvider
+					// Ignored via go/ees005
+					// eslint-disable-next-line react/jsx-props-no-spreading
 					{...arrowKeyNavigationProviderOptions}
 					closeOnTab={true}
 					handleClose={this.handleCloseAndFocus}

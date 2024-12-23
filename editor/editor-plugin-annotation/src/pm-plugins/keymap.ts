@@ -10,6 +10,8 @@ export function keymapPlugin(editorAnalyticsAPI: EditorAnalyticsAPI | undefined)
 	const list = {};
 
 	bindKeymapWithCommand(
+		// Ignored via go/ees005
+		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		addInlineComment.common!,
 		setInlineCommentDraftState(editorAnalyticsAPI)(true, INPUT_METHOD.SHORTCUT),
 		list,

@@ -3,7 +3,6 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { EditorViewModeEffectsPlugin } from '@atlaskit/editor-plugin-editor-viewmode-effects';
-import type { EngagementPlatformPlugin } from '@atlaskit/editor-plugin-engagement-platform';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 import type { Slice } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
@@ -33,7 +32,6 @@ export type AnnotationPlugin = NextEditorPlugin<
 			OptionalPlugin<EditorViewModeEffectsPlugin>,
 			OptionalPlugin<EditorViewModePlugin>,
 			OptionalPlugin<FeatureFlagsPlugin>,
-			OptionalPlugin<EngagementPlatformPlugin>,
 			OptionalPlugin<ConnectivityPlugin>,
 		];
 		actions: {

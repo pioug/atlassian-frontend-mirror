@@ -276,7 +276,7 @@ describe('Renderer - React/Nodes/Table', () => {
 		describe('when columnWidths is set and is equal to table container minus 1', () => {
 			it('should have the correct width for numbered column', () => {
 				const table = mountWithIntl(
-					<RendererContextProvider value={{ featureFlags: { tablePreserveWidth: true } }}>
+					<RendererContextProvider value={{}}>
 						<Table
 							layout="default"
 							columnWidths={[300, 459]}
@@ -314,7 +314,7 @@ describe('Renderer - React/Nodes/Table', () => {
 		describe('when columnWidths is set and smaller than table container', () => {
 			it('should have the correct width for numbered column ', () => {
 				const table = mountWithIntl(
-					<RendererContextProvider value={{ featureFlags: { tablePreserveWidth: true } }}>
+					<RendererContextProvider value={{}}>
 						<Table
 							layout="default"
 							columnWidths={[300, 380]}
@@ -1309,7 +1309,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			const rendererWidth = 700;
 
 			const wrap = mountTableWithFF(
-				{ tablePreserveWidth: true, tableWithFixedColumnWidthsOption: true },
+				{ tableWithFixedColumnWidthsOption: true },
 				tableNode,
 				rendererWidth,
 				[420, 220, 620],
@@ -1330,7 +1330,7 @@ describe('Renderer - React/Nodes/Table', () => {
 			const expectedScaleWidths = colWidths.map((w) => w * scale);
 
 			const wrap = mountTableWithFF(
-				{ tablePreserveWidth: true, tableWithFixedColumnWidthsOption: false },
+				{ tableWithFixedColumnWidthsOption: false },
 				tableNode,
 				rendererWidth,
 				[420, 220, 620],

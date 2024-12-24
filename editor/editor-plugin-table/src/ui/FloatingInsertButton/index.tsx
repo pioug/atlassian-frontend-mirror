@@ -30,7 +30,7 @@ import {
 	insertColumnWithAnalytics,
 	insertRowWithAnalytics,
 } from '../../pm-plugins/commands/commands-with-analytics';
-import { checkIfNumberColumnEnabled } from '../../pm-plugins/utils';
+import { checkIfNumberColumnEnabled } from '../../pm-plugins/utils/nodes';
 import { TableCssClassName as ClassName } from '../../types';
 import type { PluginInjectionAPI } from '../../types';
 

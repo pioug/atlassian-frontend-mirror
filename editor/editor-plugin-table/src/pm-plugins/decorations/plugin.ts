@@ -15,7 +15,7 @@ import { pluginKey as tableWidthPluginKey } from '../table-width';
 import {
 	buildColumnControlsDecorations,
 	maybeUpdateColumnControlsSelectedDecoration,
-} from './utils';
+} from './utils/column-controls';
 
 export const pluginKey = new PluginKey('tableDecorationsPlugin');
 

@@ -55,6 +55,11 @@ import {
 	type MediaStore,
 	mediaStore,
 } from '@atlaskit/media-state';
+import {
+	type CopyIntentKey,
+	createCopyIntentRegisterationBatcher,
+} from '../../utils/createCopyIntentRegisterationBatcher';
+import { defaultShouldRetryError } from '../../utils/request/helpers';
 
 export type { FileFetcherErrorAttributes, FileFetcherErrorReason } from './error';
 export { isFileFetcherError, FileFetcherError } from './error';
@@ -132,16 +137,19 @@ export interface FileFetcher {
 		traceContext?: MediaTraceContext,
 	): Promise<MediaFile>;
 	getFileBinaryURL(id: string, collectionName?: string, maxAge?: number): Promise<string>;
+	registerCopyIntent(id: string, collectionName?: string): Promise<void>;
 }
 
 export class FileFetcherImpl implements FileFetcher {
 	private readonly dataloader: Dataloader<DataloaderKey, DataloaderResult>;
+	private readonly copyIntentRegisterationBatcher: Dataloader<CopyIntentKey, Error | undefined>;
 
 	constructor(
 		private readonly mediaApi: MediaApi,
 		private readonly store: MediaStore = mediaStore,
 	) {
 		this.dataloader = createFileDataloader(mediaApi);
+		this.copyIntentRegisterationBatcher = createCopyIntentRegisterationBatcher(mediaApi);
 	}
 
 	private getErrorFileState = (error: any, id: string, occurrenceKey?: string): ErrorFileState => {
@@ -557,6 +565,24 @@ export class FileFetcherImpl implements FileFetcher {
 		});
 		// Test the download after initiated the Browser process to catch any potential errors.
 		await this.mediaApi.testUrl(url, { traceContext });
+	}
+
+	public async registerCopyIntent(id: string, collectionName?: string) {
+		// pre-resolving auth to add it to the key
+		const auth = await this.mediaApi.resolveAuth({ collectionName });
+		const key = {
+			id,
+			collectionName,
+			resolvedAuth: auth,
+		};
+		const error = await this.copyIntentRegisterationBatcher.load(key);
+		if (error) {
+			// if the error is retryable then it should not be cached
+			if (defaultShouldRetryError(error)) {
+				this.copyIntentRegisterationBatcher.clear(key);
+			}
+			throw error;
+		}
 	}
 
 	private async copyFileWithToken(

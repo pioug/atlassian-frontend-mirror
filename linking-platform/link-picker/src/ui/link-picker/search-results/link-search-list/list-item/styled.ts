@@ -2,20 +2,7 @@
 import { css } from '@emotion/react';
 
 import { B100, B400, B50, N20, N200, N300 } from '@atlaskit/theme/colors';
-import { fontSize, fontSizeSmall } from '@atlaskit/theme/constants';
-// AFP-2532 TODO: Fix automatic suppressions below
-// eslint-disable-next-line @atlassian/tangerine/import/entry-points
 import { token } from '@atlaskit/tokens';
-
-export const relativeFontSizeToBase16 = (px: number | string) => {
-	if (typeof px === 'string') {
-		px = parseInt(px);
-	}
-	if (isNaN(px)) {
-		throw new Error(`Invalid font size: '${px}'`);
-	}
-	return `${px / 16}rem`;
-};
 
 const listItemBaseStyles = css({
 	display: 'flex',
@@ -78,9 +65,7 @@ export const itemNameStyles = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const listItemContextStyles = css({
 	color: token('color.text', N300),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: relativeFontSizeToBase16(fontSizeSmall()),
-	lineHeight: `${fontSize()}px`,
+	font: token('font.body.small'),
 	display: 'flex',
 });
 

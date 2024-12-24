@@ -13,8 +13,9 @@ import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/ad
 import type { DraggableSourceData } from '../../types';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 import { pluginKey as tablePluginKey } from '../plugin-key';
-import { insertColgroupFromNode } from '../table-resizing/utils';
-import { findNearestCellIndexToPoint, hasMergedCellsInBetween } from '../utils';
+import { insertColgroupFromNode } from '../table-resizing/utils/colgroup';
+import { findNearestCellIndexToPoint } from '../utils/dom';
+import { hasMergedCellsInBetween } from '../utils/merged-cells';
 
 import { DragAndDropActionType } from './actions';
 import { clearDropTarget, setDropTarget, toggleDragMenu } from './commands';

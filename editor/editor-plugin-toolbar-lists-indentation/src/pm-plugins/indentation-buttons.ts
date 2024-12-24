@@ -11,7 +11,7 @@ export interface IndentationButtons {
 	node: IndentationButtonNode; // used to determine which indent/outdent function to call on button click, see '../ui/onItemActivated
 }
 
-interface TaskDecisionState {
+export interface TaskDecisionState {
 	isInsideTask: boolean;
 	indentDisabled: boolean;
 	outdentDisabled: boolean;

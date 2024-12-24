@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-annotation",
-	"version": "1.26.7",
+	"version": "1.26.8",
 	"description": "Annotation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,17 +35,16 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/editor-common": "^97.1.0",
+		"@atlaskit/editor-common": "^97.2.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-connectivity": "^1.1.0",
 		"@atlaskit/editor-plugin-editor-viewmode-effects": "^1.1.0",
-		"@atlaskit/editor-plugin-engagement-platform": "^2.1.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/onboarding": "^12.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tmp-editor-statsig": "^2.29.0",
+		"@atlaskit/tmp-editor-statsig": "^2.30.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {
@@ -99,9 +98,6 @@
 	},
 	"platform-feature-flags": {
 		"editor_inline_comments_on_inline_nodes": {
-			"type": "boolean"
-		},
-		"editor_inline_comments_on_inline_nodes_spotlight": {
 			"type": "boolean"
 		},
 		"platform_inline_node_as_valid_annotation_selection": {

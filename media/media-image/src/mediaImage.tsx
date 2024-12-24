@@ -1,4 +1,10 @@
-import React, { useMemo } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ * @jsxFrag Fragment
+ */
+import { useMemo, Fragment } from 'react';
+import { jsx, css } from '@compiled/react';
 import { withMediaClient } from '@atlaskit/media-client-react';
 import { useFilePreview } from '@atlaskit/media-file-preview';
 import type {
@@ -6,12 +12,17 @@ import type {
 	MediaImageStatus,
 	MediaImageWithMediaClientConfigProps,
 } from './types';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+const copyDivStyles = css({
+	display: 'none',
+});
 
 const MediaImageBase = ({ identifier, apiConfig = {}, children, ssr }: MediaImageInternalProps) => {
 	const { width, height, mode, allowAnimated, upscale, 'max-age': maxAge } = apiConfig;
 	const dimensions = { width, height };
 
-	const { preview, error, getSsrScriptProps } = useFilePreview({
+	const { preview, error, copyNodeRef, getSsrScriptProps } = useFilePreview({
 		identifier,
 		dimensions,
 		ssr,
@@ -39,6 +50,7 @@ const MediaImageBase = ({ identifier, apiConfig = {}, children, ssr }: MediaImag
 				error: status === 'error',
 				data: status === 'succeeded' ? { status, src: preview?.dataURI } : undefined,
 			})}
+			{fg('platform_media_copy_and_paste_v2') && <div ref={copyNodeRef} css={copyDivStyles} />}
 			{getSsrScriptProps && <script {...getSsrScriptProps()} />}
 		</>
 	);

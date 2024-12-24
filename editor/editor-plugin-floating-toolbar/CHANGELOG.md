@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.14.14
+
+### Patch Changes
+
+- [#98013](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98013)
+  [`bb6c1ba86750c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb6c1ba86750c) -
+  ED-25541 update floating toolbar padding to stop content being pushed outside of boundaries
+- Updated dependencies
+
 ## 1.14.13
 
 ### Patch Changes

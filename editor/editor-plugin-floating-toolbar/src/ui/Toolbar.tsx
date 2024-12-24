@@ -477,11 +477,17 @@ const toolbarContainer = (
 	);
 
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-const toolbarOverflow = (
-	scrollable?: boolean,
-	scrollDisabled?: boolean,
-	firstElementIsSelect?: boolean,
-) =>
+const toolbarOverflow = ({
+	scrollable,
+	scrollDisabled,
+	firstElementIsSelect,
+	paddingFeatureFlag,
+}: {
+	scrollable?: boolean;
+	scrollDisabled?: boolean;
+	firstElementIsSelect?: boolean;
+	paddingFeatureFlag?: boolean;
+}) =>
 	css(
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		scrollable
@@ -500,7 +506,10 @@ const toolbarOverflow = (
 							}),
 					{
 						WebkitOverflowScrolling: 'touch',
-						padding: `${token('space.050', '4px')} 0 ${token('space.600', '48px')}`,
+						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+						padding: paddingFeatureFlag
+							? `${token('space.050', '4px')} 0 ${token('space.050', '4px')}`
+							: `${token('space.050', '4px')} 0 ${token('space.600', '48px')}`,
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						'> div': {
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -670,7 +679,13 @@ class Toolbar extends Component<Props & WrappedComponentProps, State> {
 							data-testid="floating-toolbar-items"
 							ref={this.scrollContainerRef}
 							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-							css={toolbarOverflow(scrollable, this.state.scrollDisabled, firstElementIsSelect)}
+							css={toolbarOverflow({
+								scrollable,
+								scrollDisabled: this.state.scrollDisabled,
+								firstElementIsSelect,
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+								paddingFeatureFlag: fg('platform_editor_floating_toolbar_padding_fix'),
+							})}
 						>
 							<ToolbarItems
 								// Ignored via go/ees005

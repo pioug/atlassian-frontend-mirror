@@ -40,9 +40,9 @@ import { getDecorations } from '../decorations/plugin';
 import {
 	buildColumnResizingDecorations,
 	clearColumnResizingDecorations,
-} from '../decorations/utils';
+} from '../decorations/utils/column-resizing';
 import { createCommand, getPluginState } from '../plugin-factory';
-import { fixAutoSizedTable } from '../transforms';
+import { fixAutoSizedTable } from '../transforms/fix-tables';
 import {
 	createColumnControlsDecoration,
 	createColumnSelectedDecoration,

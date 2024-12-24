@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.11.12
+
+### Patch Changes
+
+- [#98234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98234)
+  [`98766713e142d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98766713e142d) -
+  Internal changes to typography.
+
 ## 7.11.11
 
 ### Patch Changes

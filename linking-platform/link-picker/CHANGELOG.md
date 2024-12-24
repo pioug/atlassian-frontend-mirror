@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 1.47.16
+
+### Patch Changes
+
+- [#98234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98234)
+  [`98766713e142d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98766713e142d) -
+  Internal changes to typography.
+
 ## 1.47.15
 
 ### Patch Changes

@@ -224,15 +224,6 @@ export type FeatureFlags = {
 	 * @description
 	 * Enables table to scale in the same way as renderer
 	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-22364
-	 * @default false
-	 */
-	tablePreserveWidth?: boolean;
-
-	/**
-	 * @description
-	 * Enables table to scale in the same way as renderer
-	 *
 	 * @see https://product-fabric.atlassian.net/browse/ED-23471
 	 * @default false
 	 */

@@ -8,7 +8,7 @@ import ExampleContainer from './utils/example-container';
 export default () => (
 	<ExampleContainer title="InlineCard Views">
 		<Stack>
-			<CardViewExample appearance="inline" showAuthTooltip={true} showHoverPreview={true} />
+			<CardViewExample appearance="inline" showHoverPreview={true} />
 		</Stack>
 	</ExampleContainer>
 );

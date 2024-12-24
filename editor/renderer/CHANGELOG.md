@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 112.8.0
+
+### Minor Changes
+
+- [#98407](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98407)
+  [`1fcb5e982a41c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1fcb5e982a41c) -
+  [ux] Remove showAuthTooltip from smart-card
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.7.13
+
+### Patch Changes
+
+- [#98012](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98012)
+  [`fd9a8c58ce559`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fd9a8c58ce559) -
+  ED-25744 Removed superfluous curly bracket in nested table renderer styles which caused HOT-113841
+
 ## 112.7.12
 
 ### Patch Changes

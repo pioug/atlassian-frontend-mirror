@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-table
 
+## 8.4.14
+
+### Patch Changes
+
+- [#98668](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98668)
+  [`4fbd1c099af60`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4fbd1c099af60) -
+  Removed internal re-exports
+- Updated dependencies
+
+## 8.4.13
+
+### Patch Changes
+
+- [#98157](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98157)
+  [`402532942b383`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/402532942b383) -
+  [ux] [ED-25644] This change restores the left border for nested tables with numbered columns
+  enabled. Previously, we were removing it by accident while removing the left border for the parent
+  table.
+- Updated dependencies
+
 ## 8.4.12
 
 ### Patch Changes

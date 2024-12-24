@@ -23,26 +23,25 @@ import { getDecorations } from '../decorations/plugin';
 import {
 	buildColumnResizingDecorations,
 	clearColumnResizingDecorations,
-} from '../decorations/utils';
+} from '../decorations/utils/column-resizing';
 import { createCommand, getPluginState } from '../plugin-factory';
 import {
 	getPluginState as getTableResizingPluginState,
 	createCommand as tableResizingPluginCreateCommand,
 } from '../table-resizing/plugin-factory';
 import { pluginKey as tableResizingPK } from '../table-resizing/plugin-key';
+import { updateControls } from '../table-resizing/utils/dom';
 import {
 	currentColWidth,
-	getResizeState,
 	getTableMaxWidth,
-	resizeColumn,
-	updateControls,
-} from '../table-resizing/utils';
-import {
 	getScalingPercentForTableWithoutWidth,
 	getTableScalingPercent,
 } from '../table-resizing/utils/misc';
-import { updateColumnWidths } from '../transforms';
-import { createColumnLineResize, getSelectedColumnIndexes, updateDecorations } from '../utils';
+import { resizeColumn } from '../table-resizing/utils/resize-column';
+import { getResizeState } from '../table-resizing/utils/resize-state';
+import { updateColumnWidths } from '../transforms/column-width';
+import { createColumnLineResize, updateDecorations } from '../utils/decoration';
+import { getSelectedColumnIndexes } from '../utils/selection';
 
 const getTablePluginCommand = (
 	actionPayload: TablePluginAction,

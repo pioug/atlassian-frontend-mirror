@@ -20,13 +20,12 @@ import {
 	deleteRowsWithAnalytics,
 } from '../../pm-plugins/commands/commands-with-analytics';
 import { getPluginState as getTablePluginState } from '../../pm-plugins/plugin-factory';
-import type { RowStickyState } from '../../pm-plugins/sticky-headers';
+import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
 import {
 	getColumnDeleteButtonParams,
 	getColumnsWidths,
-	getRowDeleteButtonParams,
-	getRowHeights,
-} from '../../pm-plugins/utils';
+} from '../../pm-plugins/utils/column-controls';
+import { getRowDeleteButtonParams, getRowHeights } from '../../pm-plugins/utils/row-controls';
 import type { PluginInjectionAPI, TableDirection } from '../../types';
 import { TableCssClassName as ClassName } from '../../types';
 import { stickyRowZIndex } from '../consts';

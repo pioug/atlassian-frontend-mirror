@@ -20,28 +20,28 @@ import { stopKeyboardColumnResizing } from '../commands/column-resize';
 import { updateResizeHandleDecorations } from '../commands/misc';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 import { META_KEYS } from '../table-analytics';
-import { updateColumnWidths } from '../transforms';
-import { getSelectedColumnIndexes, isTableNested } from '../utils';
+import { updateColumnWidths } from '../transforms/column-width';
 import {
 	ALIGN_CENTER,
 	ALIGN_START,
 	shouldChangeAlignmentToCenterResized,
 } from '../utils/alignment';
+import { isTableNested } from '../utils/nodes';
+import { getSelectedColumnIndexes } from '../utils/selection';
 
 import { evenColumns, setDragging, stopResizing } from './commands';
 import { getPluginState } from './plugin-factory';
+import { TABLE_OFFSET_IN_COMMENT_EDITOR } from './utils/consts';
+import { updateControls } from './utils/dom';
 import {
 	currentColWidth,
-	getResizeState,
 	getTableMaxWidth,
 	pointsAtCell,
-	resizeColumn,
-	resizeColumnAndTable,
-	updateControls,
-} from './utils';
-import { TABLE_OFFSET_IN_COMMENT_EDITOR } from './utils/consts';
-import { getScalingPercentForTableWithoutWidth, getTableScalingPercent } from './utils/misc';
-import { scaleResizeState } from './utils/resize-column';
+	getScalingPercentForTableWithoutWidth,
+	getTableScalingPercent,
+} from './utils/misc';
+import { resizeColumn, resizeColumnAndTable, scaleResizeState } from './utils/resize-column';
+import { getResizeState } from './utils/resize-state';
 
 export const handleMouseDown = (
 	view: EditorView,

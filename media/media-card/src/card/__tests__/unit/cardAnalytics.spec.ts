@@ -1,5 +1,5 @@
 import { type CreateUIAnalyticsEvent } from '@atlaskit/analytics-next';
-import { fireOperationalEvent, fireCopiedEvent } from '../../cardAnalytics';
+import { fireOperationalEvent } from '../../cardAnalytics';
 import {
 	type FileAttributes,
 	ANALYTICS_MEDIA_CHANNEL,
@@ -10,7 +10,6 @@ import * as analyticsModule from '../../../utils/analytics/analytics';
 import type { SSRStatus } from '../../../utils/analytics/analytics';
 
 const getRenderErrorEventPayload = jest.spyOn(analyticsModule, 'getRenderErrorEventPayload');
-const getCopiedFilePayload = jest.spyOn(analyticsModule, 'getCopiedFilePayload');
 
 const event = { fire: jest.fn() };
 const createAnalyticsEventMock = jest.fn(() => event);
@@ -90,50 +89,5 @@ describe('fireOperationalEvent', () => {
 		});
 		expect(event.fire).toBeCalledTimes(1);
 		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
-	});
-});
-
-describe('fireCopiedEvent', () => {
-	const cardRef = document.createElement('div');
-	const fileId = 'some-file-id';
-
-	beforeEach(() => {
-		event.fire.mockClear();
-		createAnalyticsEventMock.mockClear();
-	});
-
-	it('should fire copied event if the div element is inside a selection', () => {
-		window.getSelection = jest.fn().mockReturnValue({
-			containsNode: () => true,
-		});
-
-		fireCopiedEvent(createAnalyticsEvent, fileId, cardRef);
-
-		expect(getCopiedFilePayload).toBeCalledWith(fileId);
-		expect(createAnalyticsEventMock).toBeCalledWith({
-			action: 'copied',
-			actionSubject: 'file',
-			actionSubjectId: 'some-file-id',
-			attributes: {},
-			eventType: 'ui',
-		});
-		expect(event.fire).toBeCalledTimes(1);
-		expect(event.fire).toBeCalledWith(ANALYTICS_MEDIA_CHANNEL);
-	});
-
-	it('should not fire copied event if selection api is not available', () => {
-		window.getSelection = jest.fn().mockReturnValue({});
-
-		fireCopiedEvent(createAnalyticsEvent, fileId, cardRef);
-		expect(event.fire).toBeCalledTimes(0);
-	});
-
-	it('should not fire copied event if the div element is not inside a selection', () => {
-		window.getSelection = jest.fn().mockReturnValue({
-			containsNode: () => false,
-		});
-
-		fireCopiedEvent(createAnalyticsEvent, fileId, cardRef);
-		expect(event.fire).toBeCalledTimes(0);
 	});
 });

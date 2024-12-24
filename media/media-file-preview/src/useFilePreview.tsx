@@ -6,7 +6,7 @@ import {
 	type MediaBlobUrlAttrs,
 	type MediaStoreGetFileImageParams,
 } from '@atlaskit/media-client';
-import { useFileState, useMediaClient } from '@atlaskit/media-client-react';
+import { useCopyIntent, useFileState, useMediaClient } from '@atlaskit/media-client-react';
 import {
 	isMimeTypeSupportedByBrowser,
 	type MediaTraceContext,
@@ -408,6 +408,10 @@ export const useFilePreview = ({
 					)
 			: undefined;
 
+	const { copyNodeRef } = useCopyIntent(identifier.id, {
+		collectionName: identifier.collectionName,
+	});
+
 	// CXP-2723 TODO: should consider simplifying our analytics, and how
 	// we might get rid of ssrReliabiltyRef from our hook
 	return {
@@ -419,5 +423,6 @@ export const useFilePreview = ({
 		onImageError,
 		onImageLoad,
 		getSsrScriptProps,
+		copyNodeRef,
 	};
 };

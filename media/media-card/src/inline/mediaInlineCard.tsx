@@ -27,6 +27,7 @@ import {
 	getFailedProcessingStatusPayload,
 	getSucceededStatusPayload,
 } from './mediaInlineCardAnalytics';
+import { useCopyIntent } from '@atlaskit/media-client-react';
 
 export interface MediaInlineCardProps {
 	identifier: FileIdentifier;
@@ -73,6 +74,10 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 		setIsSucceededEventSent(true);
 		fireMediaCardEvent(payload, createAnalyticsEvent);
 	};
+
+	const { copyNodeRef } = useCopyIntent(identifier.id, {
+		collectionName: identifier.collectionName,
+	});
 
 	const onMediaInlineCardClick = (event: React.MouseEvent<HTMLElement> | React.KeyboardEvent) => {
 		if (onClick) {
@@ -139,6 +144,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 
 		return (
 			<MediaInlineCardErroredView
+				innerRef={copyNodeRef}
 				message={(intl || defaultIntl).formatMessage(errorMessage)}
 				isSelected={isSelected}
 			/>
@@ -150,6 +156,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 		!isFailedEventSent && fireFailedOperationalEvent(error);
 		return (
 			<MediaInlineCardErroredView
+				innerRef={copyNodeRef}
 				message={(intl || defaultIntl).formatMessage(messages.couldnt_load_file)}
 				isSelected={isSelected}
 			/>
@@ -165,6 +172,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 		!isFailedEventSent && fireFailedOperationalEvent(error);
 		return (
 			<MediaInlineCardErroredView
+				innerRef={copyNodeRef}
 				message={(intl || defaultIntl).formatMessage(messages.couldnt_load_file)}
 				isSelected={isSelected}
 			/>
@@ -172,12 +180,19 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 	}
 
 	if (fileState?.status === 'uploading') {
-		return <MediaInlineCardLoadingView message={fileState.name} isSelected={isSelected} />;
+		return (
+			<MediaInlineCardLoadingView
+				innerRef={copyNodeRef}
+				message={fileState.name}
+				isSelected={isSelected}
+			/>
+		);
 	}
 
 	if (!fileState) {
 		return (
 			<MediaInlineCardLoadingView
+				innerRef={copyNodeRef}
 				message={(intl || defaultIntl).formatMessage(messages.loading_file)}
 				isSelected={isSelected}
 			/>
@@ -216,6 +231,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 			<>
 				<Tooltip position="bottom" content={formattedDate} tag="span">
 					<MediaInlineCardLoadedView
+						innerRef={copyNodeRef}
 						icon={linkIcon}
 						title={name}
 						onClick={onMediaInlineCardClick}
@@ -229,6 +245,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 		return renderContent(
 			<>
 				<MediaInlineCardLoadedView
+					innerRef={copyNodeRef}
 					icon={linkIcon}
 					title={name}
 					onClick={onMediaInlineCardClick}

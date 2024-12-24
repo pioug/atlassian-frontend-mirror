@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, FeatureFlags } from '@atlaskit/editor-common/types';
+import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
-import { getIndentationButtonsState } from '../pm-plugins/indentation-buttons';
+import {
+	getIndentationButtonsState,
+	type TaskDecisionState,
+} from '../pm-plugins/indentation-buttons';
 import type { ToolbarListsIndentationPlugin } from '../toolbarListsIndentationPluginType';
 import { ToolbarType } from '../types';
 
@@ -31,9 +35,27 @@ export function FloatingToolbarComponent({
 	pluginInjectionApi,
 	allowHeadingAndParagraphIndentation,
 }: FloatingToolbarComponentProps) {
-	const { listState, indentationState, taskDecisionState } = useSharedPluginState(
+	const { listState, indentationState } = useSharedPluginState(pluginInjectionApi, [
+		'list',
+		'indentation',
+	]);
+	const [taskDecisionState, setTaskDecisionState] = useState<TaskDecisionState | undefined>();
+	usePluginStateEffect(
 		pluginInjectionApi,
-		['list', 'indentation', 'taskDecision'],
+		['taskDecision'],
+		({ taskDecisionState: newTaskDecisionState }) => {
+			if (
+				newTaskDecisionState?.outdentDisabled !== taskDecisionState?.outdentDisabled ||
+				newTaskDecisionState?.indentDisabled !== taskDecisionState?.indentDisabled ||
+				newTaskDecisionState?.isInsideTask !== taskDecisionState?.isInsideTask
+			) {
+				setTaskDecisionState({
+					isInsideTask: Boolean(newTaskDecisionState?.isInsideTask),
+					indentDisabled: Boolean(newTaskDecisionState?.indentDisabled),
+					outdentDisabled: Boolean(newTaskDecisionState?.outdentDisabled),
+				});
+			}
+		},
 	);
 
 	const toolbarListsIndentationState = getIndentationButtonsState(

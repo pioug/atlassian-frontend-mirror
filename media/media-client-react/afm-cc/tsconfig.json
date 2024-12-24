@@ -21,7 +21,13 @@
             "path": "../../media-client/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../analytics/analytics-next/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../media-state/afm-cc/tsconfig.json"
+        },
+        {
+            "path": "../../../platform/feature-flags/afm-cc/tsconfig.json"
         }
     ]
 }

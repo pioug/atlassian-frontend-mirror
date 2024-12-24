@@ -54,6 +54,7 @@ import { MediaCardError } from '../errors';
 import { MockIntersectionObserver } from '../utils/mockIntersectionObserver';
 import { DateOverrideContext } from '../dateOverrideContext';
 import { ANALYTICS_MEDIA_CHANNEL } from '@atlaskit/media-common';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 const event = { fire: jest.fn() };
 const mockCreateAnalyticsEvent = jest.fn(() => event) as unknown as CreateUIAnalyticsEvent;
@@ -3576,6 +3577,61 @@ describe('Card ', () => {
 			},
 			true,
 		);
+	});
+
+	ffTest.on('platform_media_copy_and_paste_v2', 'copy intent', () => {
+		it('should call copy intent', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const user = userEvent.setup();
+
+			mediaApi.registerCopyIntents = jest.fn(async () => {});
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<div>from here</div>
+					<CardLoader
+						mediaClientConfig={dummyMediaClientConfig}
+						identifier={identifier}
+						appearance="auto"
+						isLazy={false}
+					/>
+					<div>to here</div>
+				</MockedMediaClientProvider>,
+			);
+
+			// simulate that the file has been fully loaded by the browser
+			const img = await screen.findByTestId(imgTestId);
+			await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+			await simulateImageLoadDelay();
+			fireEvent.load(img);
+
+			// card should completely process the file
+			expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+				'data-test-status',
+				'complete',
+			);
+
+			await user.pointer({
+				keys: '[MouseLeft][MouseLeft>]',
+				target: screen.getByText('from here'),
+				offset: 0,
+			});
+
+			await user.pointer({
+				target: screen.getByText('to here'),
+			});
+
+			await user.copy();
+
+			expect(mediaApi.registerCopyIntents).toHaveBeenCalledTimes(1);
+			expect(mediaApi.registerCopyIntents).toHaveBeenCalledWith(
+				[{ id: identifier.id, collection: identifier.collectionName }],
+				{ spanId: expect.any(String), traceId: expect.any(String) },
+				expect.any(Object),
+			);
+		});
 	});
 
 	describe('should manage analytics appropriately', () => {

@@ -78,12 +78,9 @@ import {
 import { getPluginState } from '../../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../../pm-plugins/plugin-key';
 import { getNewResizeStateFromSelectedColumns } from '../../pm-plugins/table-resizing/utils/resize-state';
-import { canMergeCells } from '../../pm-plugins/transforms';
-import {
-	getMergedCellsPositions,
-	getSelectedColumnIndexes,
-	getSelectedRowIndexes,
-} from '../../pm-plugins/utils';
+import { canMergeCells } from '../../pm-plugins/transforms/merge';
+import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../../pm-plugins/utils/selection';
+import { getMergedCellsPositions } from '../../pm-plugins/utils/table';
 import { TableCssClassName as ClassName } from '../../types';
 import type { PluginInjectionAPI } from '../../types';
 import {
@@ -91,7 +88,10 @@ import {
 	contextualMenuDropdownWidth,
 	contextualMenuDropdownWidthDnD,
 } from '../consts';
-import { AddColRightIcon, AddRowBelowIcon, MergeCellsIcon, SplitCellIcon } from '../icons';
+import { AddColRightIcon } from '../icons/AddColRightIcon';
+import { AddRowBelowIcon } from '../icons/AddRowBelowIcon';
+import { MergeCellsIcon } from '../icons/MergeCellsIcon';
+import { SplitCellIcon } from '../icons/SplitCellIcon';
 
 import { cellColourPreviewStyles } from './styles';
 

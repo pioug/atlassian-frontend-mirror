@@ -18,6 +18,7 @@ export interface MediaInlineCardErroredViewProps {
 	testId?: string;
 	/* Icon to be provided to show this error state */
 	icon?: React.ReactNode;
+	innerRef?: React.Ref<HTMLSpanElement>;
 }
 
 export class MediaInlineCardErroredView extends React.Component<MediaInlineCardErroredViewProps> {
@@ -28,10 +29,16 @@ export class MediaInlineCardErroredView extends React.Component<MediaInlineCardE
 	};
 
 	render() {
-		const { onClick, isSelected, testId = 'media-inline-card-errored-view', icon } = this.props;
+		const {
+			onClick,
+			isSelected,
+			innerRef,
+			testId = 'media-inline-card-errored-view',
+			icon,
+		} = this.props;
 
 		return (
-			<Frame testId={testId} onClick={onClick} isSelected={isSelected}>
+			<Frame testId={testId} innerRef={innerRef} onClick={onClick} isSelected={isSelected}>
 				<IconAndTitleLayout
 					icon={
 						icon || (

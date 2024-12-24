@@ -14,7 +14,7 @@ import { setResizeHandlePos } from './commands';
 import { handleMouseDown } from './event-handlers';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
-import { getResizeCellPos } from './utils';
+import { getResizeCellPos } from './utils/dom';
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/max-params

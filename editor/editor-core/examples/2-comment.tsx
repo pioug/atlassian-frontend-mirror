@@ -196,7 +196,6 @@ export class CommentEditorWithFeedback extends React.Component<Props, State> {
 											featureFlags={{
 												...this.props.editorProps?.featureFlags,
 												'table-drag-and-drop': true,
-												// 'table-preserve-width': true,
 											}}
 											{...this.props.editorProps}
 										/>

@@ -115,13 +115,6 @@ export type FlexibleCardProps = {
 	 * Configuration options for hover preview
 	 */
 	hoverPreviewOptions?: HoverPreviewOptions;
-
-	/**
-	 * Determines whether to show an unauthorised view of the hover card
-	 * when a user hovers over a smartlink.
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-23150 Internal documentation for deprecation (no external access)}
-	 */
-	showAuthTooltip?: boolean;
 };
 
 export type FlexibleUiOptions = {

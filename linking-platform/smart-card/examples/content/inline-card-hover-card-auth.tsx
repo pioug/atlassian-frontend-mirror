@@ -10,11 +10,6 @@ import { Card } from '../../src';
 
 export default () => (
 	<SmartCardProvider client={new ForbiddenWithObjectRequestAccessClient('stg')}>
-		<Card
-			appearance="inline"
-			showAuthTooltip={true}
-			showHoverPreview={true}
-			url={ResolvedClientUrl}
-		/>
+		<Card appearance="inline" showHoverPreview={true} url={ResolvedClientUrl} />
 	</SmartCardProvider>
 );

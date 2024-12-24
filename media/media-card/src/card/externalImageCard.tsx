@@ -18,7 +18,6 @@ import {
 	type SharedCardProps,
 } from '../types';
 import { type SSRStatus } from '../utils/analytics';
-import getDocument from '../utils/document';
 import { generateUniqueId } from '../utils/generateUniqueId';
 import { getMediaCardCursor } from '../utils/getMediaCardCursor';
 import {
@@ -29,7 +28,7 @@ import {
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { getDefaultCardDimensions } from '../utils/cardDimensions';
 import { usePrevious } from '../utils/usePrevious';
-import { fireCopiedEvent, fireOperationalEvent, fireScreenEvent } from './cardAnalytics';
+import { fireOperationalEvent, fireScreenEvent } from './cardAnalytics';
 import { CardView } from './cardView';
 import { performanceNow } from './performance';
 
@@ -86,8 +85,6 @@ export const ExternalImageCard = ({
 		}),
 		[],
 	);
-
-	const [cardElement, setCardElement] = useState<HTMLDivElement | null>(null);
 
 	const fileStateFlagsRef = useRef<FileStateFlags>({
 		wasStatusUploading: false,
@@ -186,24 +183,6 @@ export const ExternalImageCard = ({
 	useEffect(() => {
 		startUfoExperienceRef.current();
 	}, [startUfoExperienceRef]);
-
-	useEffect(() => {
-		const fireCopiedCardEvent = () => {
-			cardElement &&
-				createAnalyticsEvent &&
-				fireCopiedEvent(createAnalyticsEvent, metadata.id, cardElement);
-		};
-
-		// we add a listener for each of the cards on the page
-		// and then check if the triggered listener is from the card
-		// that contains a div in current window.getSelection()
-		// won't work in IE11
-		getDocument()?.addEventListener('copy', fireCopiedCardEvent);
-
-		return () => {
-			getDocument()?.removeEventListener('copy', fireCopiedCardEvent);
-		};
-	}, [cardElement, createAnalyticsEvent, metadata.id]);
 
 	const prevStatus = usePrevious(status);
 
@@ -323,7 +302,6 @@ export const ExternalImageCard = ({
 						...payloadPart,
 					});
 				}}
-				innerRef={setCardElement}
 				testId={testId}
 				titleBoxBgColor={titleBoxBgColor}
 				titleBoxIcon={titleBoxIcon}

@@ -12,7 +12,7 @@ import { findTable } from '@atlaskit/editor-tables/utils';
 import type { TablePluginState } from '../types';
 
 import { defaultTableSelection } from './default-table-selection';
-import { pluginKey as tableResizingPluginKey } from './table-resizing';
+import { pluginKey as tableResizingPluginKey } from './table-resizing/plugin-key';
 import { isTableCollapsible } from './utils/collapse';
 import {
 	checkIfHeaderColumnEnabled,

@@ -7,11 +7,12 @@ import { isTableSelected } from '@atlaskit/editor-tables/utils';
 
 import type { PluginInjectionAPI } from '../../types';
 import { META_KEYS } from '../table-analytics';
-import { updateColumnWidths } from '../transforms';
+import { updateColumnWidths } from '../transforms/column-width';
 
 import { createCommand, getPluginState } from './plugin-factory';
-import type { ResizeState } from './utils';
-import { evenAllColumnsWidths, isClickNear } from './utils';
+import { isClickNear } from './utils/dom';
+import { evenAllColumnsWidths } from './utils/resize-state';
+import type { ResizeState } from './utils/types';
 
 export const evenColumns =
 	({

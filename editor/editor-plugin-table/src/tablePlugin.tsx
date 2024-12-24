@@ -43,34 +43,28 @@ import { pluginKey as tableAnalyticsPluginKey } from './pm-plugins/analytics/plu
 import { insertTableWithNestingSupport, insertTableWithSize } from './pm-plugins/commands/insert';
 import { pluginConfig } from './pm-plugins/create-plugin-config';
 import { createPlugin as createDecorationsPlugin } from './pm-plugins/decorations/plugin';
-import {
-	createPlugin as createDragAndDropPlugin,
-	pluginKey as dragAndDropPluginKey,
-} from './pm-plugins/drag-and-drop';
+import { createPlugin as createDragAndDropPlugin } from './pm-plugins/drag-and-drop/plugin';
+import { pluginKey as dragAndDropPluginKey } from './pm-plugins/drag-and-drop/plugin-key';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { createPlugin } from './pm-plugins/main';
 import { getPluginState } from './pm-plugins/plugin-factory';
 import { pluginKey } from './pm-plugins/plugin-key';
 import { createPlugin as createTableSafariDeleteCompositionTextIssueWorkaroundPlugin } from './pm-plugins/safari-delete-composition-text-issue-workaround';
-import {
-	createPlugin as createStickyHeadersPlugin,
-	findStickyHeaderForTable,
-	pluginKey as stickyHeadersPluginKey,
-} from './pm-plugins/sticky-headers';
+import { createPlugin as createStickyHeadersPlugin } from './pm-plugins/sticky-headers/plugin';
+import { pluginKey as stickyHeadersPluginKey } from './pm-plugins/sticky-headers/plugin-key';
+import { findStickyHeaderForTable } from './pm-plugins/sticky-headers/util';
 import { createPlugin as createTableOverflowAnalyticsPlugin } from './pm-plugins/table-analytics';
 import { createPlugin as createTableLocalIdPlugin } from './pm-plugins/table-local-id';
-import {
-	createPlugin as createFlexiResizingPlugin,
-	getPluginState as getFlexiResizingPlugin,
-	pluginKey as tableResizingPluginKey,
-} from './pm-plugins/table-resizing';
+import { createPlugin as createFlexiResizingPlugin } from './pm-plugins/table-resizing/plugin';
+import { getPluginState as getFlexiResizingPlugin } from './pm-plugins/table-resizing/plugin-factory';
+import { pluginKey as tableResizingPluginKey } from './pm-plugins/table-resizing/plugin-key';
 import { tableSelectionKeymapPlugin } from './pm-plugins/table-selection-keymap';
 import {
 	createPlugin as createTableWidthPlugin,
 	pluginKey as tableWidthPluginKey,
 } from './pm-plugins/table-width';
 import { createPlugin as createTableWidthInCommentFixPlugin } from './pm-plugins/table-width-in-comment-fix';
-import { createTableWithWidth } from './pm-plugins/utils';
+import { createTableWithWidth } from './pm-plugins/utils/create';
 import { createPlugin as createViewModeSortPlugin } from './pm-plugins/view-mode-sort';
 import type { TablePlugin, TablePluginOptions } from './tablePluginType';
 import type { ColumnResizingPluginState } from './types';

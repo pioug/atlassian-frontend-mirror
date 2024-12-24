@@ -273,10 +273,8 @@ export default function createUniversalPresetInternal({
 						(isComment &&
 							editorExperiment('support_table_in_comment_jira', true, { exposure: true })),
 					isTableScalingEnabled:
-						(featureFlags?.tablePreserveWidth &&
-							(isFullPage ||
-								(isComment &&
-									editorExperiment('support_table_in_comment', true, { exposure: true })))) ||
+						isFullPage ||
+						(isComment && editorExperiment('support_table_in_comment', true, { exposure: true })) ||
 						(isComment &&
 							editorExperiment('support_table_in_comment_jira', true, { exposure: true })),
 					allowContextualMenu: true,

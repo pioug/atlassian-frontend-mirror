@@ -29,7 +29,7 @@ const CardExample = ({
 				Jolly Roger wench sloop Shiver me timbers rope's end chandler. Admiral of the Black cackle
 				fruit deck{' '}
 				<ErrorBoundary fallback={fallback} onError={onError}>
-					<Card appearance="inline" url={url} showAuthTooltip={true} showHoverPreview={true} />
+					<Card appearance="inline" url={url} showHoverPreview={true} />
 				</ErrorBoundary>{' '}
 				wench bounty rope's end bilge water scourge of the seven seas hardtack come about execution
 				dock Nelsons folly handsomely rigging splice the main brace.

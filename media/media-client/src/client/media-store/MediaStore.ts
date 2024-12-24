@@ -521,15 +521,10 @@ export class MediaStore implements MediaApi {
 	}
 
 	async registerCopyIntents(
-		ids: string[],
-		collectionName?: string,
+		files: Array<{ id: string; collection?: string }>,
 		traceContext?: MediaTraceContext,
+		resolvedAuth?: Auth,
 	): Promise<void> {
-		const files = ids.map((id) => ({
-			id,
-			collection: collectionName,
-		}));
-
 		const metadata: RequestMetadata = {
 			method: 'POST',
 			endpoint: '/file/copy/intents',
@@ -537,10 +532,10 @@ export class MediaStore implements MediaApi {
 
 		const options: MediaStoreRequestOptions = {
 			...metadata,
-			authContext: { collectionName },
 			headers: jsonHeaders,
 			body: JSON.stringify({ files }),
 			traceContext,
+			resolvedAuth,
 		};
 
 		await this.request('/file/copy/intents', options);
@@ -566,8 +561,9 @@ export class MediaStore implements MediaApi {
 			clientOptions,
 			traceContext,
 			addMediaClientParam,
+			resolvedAuth,
 		} = options;
-		const auth = await this.resolveAuth(authContext);
+		const auth = resolvedAuth ?? (await this.resolveAuth(authContext));
 		const clientId = isClientBasedAuth(auth) ? auth.clientId : undefined;
 		const extendedTraceContext = extendTraceContext(traceContext);
 		const extendedParams = addMediaClientParam ? { ...params, clientId } : params;

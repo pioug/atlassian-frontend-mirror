@@ -1,5 +1,13 @@
 # @atlaskit/textarea
 
+## 5.7.1
+
+### Patch Changes
+
+- [#98226](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98226)
+  [`9c961c3cbcc7f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9c961c3cbcc7f) -
+  Internal changes to typography.
+
 ## 5.7.0
 
 ### Minor Changes

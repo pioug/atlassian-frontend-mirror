@@ -321,63 +321,68 @@ const tableSortableColumnStyle = ({
 			}
 
 			${fg('platform_editor_nested_tables_renderer_styles')
-				? `
-					// New styles
-					> .${RendererCssClassName.SORTABLE_COLUMN}
-						> .${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
-						margin: 0;
-						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-							opacity: 1;
-							transition: opacity 0.2s ease-in-out;
-						}
-					}
+				? css`
+						// New styles
+						> .${RendererCssClassName.SORTABLE_COLUMN}
+							> .${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
+							margin: 0;
 
-					> .${RendererCssClassName.SORTABLE_COLUMN}
-						> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-							opacity: 0;
-							&:focus {
+							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
 								opacity: 1;
+								transition: opacity 0.2s ease-in-out;
 							}
 						}
-					}
 
-					&:hover:not(:has(.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER} .${RendererCssClassName.SORTABLE_COLUMN}:hover))
 						> .${RendererCssClassName.SORTABLE_COLUMN}
+							> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+								opacity: 0;
+								&:focus {
+									opacity: 1;
+								}
+							}
+						}
+
+						&:hover:not(
+								:has(
+										.${RendererCssClassName.SORTABLE_COLUMN_WRAPPER}
+											.${RendererCssClassName.SORTABLE_COLUMN}:hover
+									)
+							)
+							> .${RendererCssClassName.SORTABLE_COLUMN}
 							> .${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
 							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
 								opacity: 1;
 							}
 						}
-					}
-				`
-				: `
-					// old styles
-					.${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
-						margin: 0;
-						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-							opacity: 1;
-							transition: opacity 0.2s ease-in-out;
-						}
-					}
-
-					.${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
-						.${SORTABLE_COLUMN_ICON_CLASSNAME} {
-							opacity: 0;
-							&:focus {
-								opacity: 1;
-							}
-						}
-					}
-
-					&:hover {
-						.${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+					`
+				: css`
+						// old styles
+						.${RendererCssClassName.SORTABLE_COLUMN_ICON_WRAPPER} {
+							margin: 0;
 							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
 								opacity: 1;
+								transition: opacity 0.2s ease-in-out;
 							}
 						}
-					}
-				`}
+
+						.${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+							.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+								opacity: 0;
+								&:focus {
+									opacity: 1;
+								}
+							}
+						}
+
+						&:hover {
+							.${RendererCssClassName.SORTABLE_COLUMN_NO_ORDER} {
+								.${SORTABLE_COLUMN_ICON_CLASSNAME} {
+									opacity: 1;
+								}
+							}
+						}
+					`}
 		}
 	`;
 };

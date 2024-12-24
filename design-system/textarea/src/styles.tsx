@@ -78,8 +78,6 @@ const compactVerticalPadding = 2;
 const verticalPadding = 6;
 const horizontalPadding = 8;
 const transitionDuration = '0.2s';
-const fontFamily = token('font.family.body');
-const codeFontFamily = token('font.family.code');
 export const borderWidth = 2;
 
 // Safari puts on some difficult to remove styles, mainly for disabled inputs
@@ -208,7 +206,7 @@ const borderStyle = (appearance: string | undefined) =>
 const fontFamilyStyle = (isMonospaced: boolean | undefined) =>
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		fontFamily: isMonospaced ? codeFontFamily : fontFamily,
+		fontFamily: isMonospaced ? token('font.family.code') : token('font.family.body'),
 	});
 
 const borderPaddingAndHeightStyles = (minimumRows = 1, appearance: string | undefined) => {
@@ -277,10 +275,10 @@ const newFontStyles = css({
 	},
 });
 const monospacedFontFamilyStyles = css({
-	fontFamily: codeFontFamily,
+	fontFamily: token('font.family.code'),
 	[media.above.xs]: {
 		// Reapply the monospaced font family as the font declaration used in the breakpoint in newFontStyles overrides it otherwise
-		fontFamily: codeFontFamily,
+		fontFamily: token('font.family.code'),
 	},
 });
 

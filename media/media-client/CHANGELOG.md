@@ -1,5 +1,14 @@
 # @atlaskit/media-client
 
+## 29.0.0
+
+### Major Changes
+
+- [#98696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98696)
+  [`bb55fa33eaf3f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb55fa33eaf3f) -
+  Changed API of unused registerCopyIntents to enable mutli-file uploads and added bulk reigster
+  copy intent endpoint in file
+
 ## 28.6.0
 
 ### Minor Changes

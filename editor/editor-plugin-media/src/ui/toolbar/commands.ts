@@ -7,9 +7,11 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { currentMediaNodeWithPos } from '@atlaskit/editor-common/media-single';
-import type { Command } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	EditorContainerWidth as WidthPluginState,
+} from '@atlaskit/editor-common/types';
 import type { ForceFocusSelector } from '@atlaskit/editor-plugin-floating-toolbar';
-import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';

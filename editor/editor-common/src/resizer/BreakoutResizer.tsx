@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState, useLayoutEffect } from 'react';
+import React, { useCallback, useMemo, useRef, useState, useLayoutEffect } from 'react';
 
 import { bind, bindAll, type UnbindFn } from 'bind-event-listener';
 
@@ -336,13 +336,6 @@ const BreakoutResizer = ({
 		resizeHandleKeyDownHandler,
 		resizeHandleKeyUpHandler,
 	]);
-
-	useEffect(() => {
-		// clean up gap cursor if node was unmounting when resizing (e.g. during collab)
-		return () => {
-			displayGapCursor(true);
-		};
-	}, [displayGapCursor]);
 
 	if (disabled) {
 		return (

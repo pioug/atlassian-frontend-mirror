@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-picker",
-	"version": "1.47.15",
+	"version": "1.47.16",
 	"description": "Standalone link picker",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -56,7 +56,7 @@
 		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/intl-messages-provider": "^1.0.2",
-		"@atlaskit/linking-common": "^6.0.0",
+		"@atlaskit/linking-common": "^6.1.0",
 		"@atlaskit/onboarding": "^12.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.3.0",

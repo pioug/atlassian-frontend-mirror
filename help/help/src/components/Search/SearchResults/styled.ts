@@ -56,8 +56,7 @@ export const SearchResultEmptyMessageText = styled.div({
 export const SearchResultEmptyMessageHeaderText = styled.h2({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N500),
-	fontSize: '0.875rem',
-	fontStyle: 'normal',
+	font: token('font.body'),
 	fontWeight: token('font.weight.bold'),
 });
 

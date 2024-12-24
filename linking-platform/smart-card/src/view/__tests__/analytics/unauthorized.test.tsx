@@ -144,7 +144,7 @@ describe('smart-card: unauthorized analytics', () => {
 								url={mockUrl}
 								appearance="inline"
 								testId="unauthorized-inline-card"
-								showAuthTooltip={true}
+								showHoverPreview={true}
 							/>
 						</Provider>
 					</IntlProvider>
@@ -281,7 +281,7 @@ describe('smart-card: unauthorized analytics', () => {
 									url={mockUrl}
 									appearance="inline"
 									testId="unauthorized-inline-card"
-									showAuthTooltip={true}
+									showHoverPreview={true}
 								/>
 							</Provider>
 						</AnalyticsContext>

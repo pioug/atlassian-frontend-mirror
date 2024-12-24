@@ -12,7 +12,7 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 
-import type { RowStickyState } from '../../pm-plugins/sticky-headers';
+import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
 import type { PluginConfig, PluginInjectionAPI, TableDirection } from '../../types';
 import { dragMenuDropdownWidth, tablePopupMenuFitHeight } from '../consts';
 

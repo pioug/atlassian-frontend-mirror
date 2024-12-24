@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 203.7.5
+
+### Patch Changes
+
+- [#97266](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97266)
+  [`146d81a368a5c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/146d81a368a5c) -
+  Remove table-preserve-width experiment
+- [#97992](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97992)
+  [`129bc0e5c4f11`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/129bc0e5c4f11) -
+  ED-26104 fix editing captions on edge browsers
+- Updated dependencies
+
+## 203.7.4
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 203.7.3
 
 ### Patch Changes

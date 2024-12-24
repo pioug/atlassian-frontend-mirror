@@ -21,6 +21,7 @@ import {
 import { MimeTypeIcon } from '@atlaskit/media-ui/mime-type-icon';
 import SpinnerIcon from '@atlaskit/spinner';
 import Tooltip from '@atlaskit/tooltip';
+import { useMergeRefs } from 'use-callback-ref';
 import { messages } from '@atlaskit/media-ui';
 
 import {
@@ -84,10 +85,7 @@ export interface CardViewProps {
 	// FileCardProps
 	readonly cardPreview?: MediaFilePreview;
 	readonly progress?: number;
-	// CardView can't implement forwardRef as it needs to pass and at the same time
-	// handle the HTML element internally. There is no standard way to do this.
-	// Therefore, we restrict the use of refs to callbacks only, not RefObjects.
-	readonly innerRef?: (instance: HTMLDivElement | null) => void;
+	readonly innerRef?: React.Ref<HTMLDivElement>;
 	readonly onImageLoad?: (cardPreview: MediaFilePreview) => void;
 	readonly onImageError?: (cardPreview: MediaFilePreview) => void;
 	readonly onSvgError?: (error: MediaCardError) => void;
@@ -120,7 +118,7 @@ export interface RenderConfigByStatus {
 
 export const CardViewBase = ({
 	identifier,
-	innerRef,
+	innerRef = null,
 	onImageLoad,
 	onImageError,
 	dimensions,
@@ -159,10 +157,6 @@ export const CardViewBase = ({
 	const breakpoint = useBreakpoint(dimensions?.width, divRef);
 
 	useEffect(() => {
-		innerRef && !!divRef.current && innerRef(divRef.current);
-	}, [innerRef]);
-
-	useEffect(() => {
 		// We should only switch didImageRender to false when cardPreview goes undefined, not when it is changed. as this method could be triggered after onImageLoad callback, falling on a race condition
 		if (prevCardPreviewRef.current && !cardPreview) {
 			setDidImageRender(false);
@@ -199,6 +193,8 @@ export const CardViewBase = ({
 		}
 		return true;
 	};
+
+	const mergedRef = useMergeRefs([divRef, innerRef]);
 
 	const getRenderConfigByStatus = (): RenderConfigByStatus => {
 		const { name, mediaType, mimeType } = metadata || {};
@@ -434,7 +430,7 @@ export const CardViewBase = ({
 				dimensions={dimensions}
 				onClick={onClick}
 				onMouseEnter={onMouseEnter}
-				innerRef={divRef}
+				innerRef={mergedRef}
 				breakpoint={breakpoint}
 				mediaCardCursor={mediaCardCursor}
 				disableOverlay={!!disableOverlay}

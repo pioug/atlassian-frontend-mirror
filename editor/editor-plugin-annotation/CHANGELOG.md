@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.26.8
+
+### Patch Changes
+
+- [#98661](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98661)
+  [`9a4b50703ea36`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a4b50703ea36) -
+  Clean up inline comment spotlight experiment
+- Updated dependencies
+
 ## 1.26.7
 
 ### Patch Changes

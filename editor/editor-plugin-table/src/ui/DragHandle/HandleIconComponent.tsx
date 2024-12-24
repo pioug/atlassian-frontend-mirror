@@ -1,6 +1,8 @@
 import React from 'react';
 
-import { DragHandleDisabledIcon, DragHandleIcon, MinimisedHandleIcon } from '../icons';
+import { DragHandleDisabledIcon } from '../icons/DragHandleDisabledIcon';
+import { DragHandleIcon } from '../icons/DragHandleIcon';
+import { MinimisedHandleIcon } from '../icons/MinimisedHandle';
 
 type HandleIconProps = {
 	forceDefaultHandle: boolean;

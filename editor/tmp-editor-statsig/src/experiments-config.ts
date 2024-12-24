@@ -238,15 +238,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_prompt_link_picker/setup
-	platform_editor_ai_prompt_link_picker: {
-		productKeys: {
-			confluence: 'platform_editor_ai_prompt_link_picker',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	'platform_editor_ai-prompts-placeholder': {
 		productKeys: {
 			confluence: 'platform_editor_ai-prompts-placeholder',

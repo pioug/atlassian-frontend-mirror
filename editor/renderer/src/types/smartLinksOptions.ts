@@ -9,13 +9,6 @@ export interface SmartLinksOptions {
 	 */
 	ssr?: boolean;
 	/**
-	 * A flag to display unresolved state on hover preview on inline Smart Link.
-	 * Default is false.
-	 *
-	 * Component: inline
-	 */
-	showAuthTooltip?: boolean;
-	/**
 	 * A flag to disable hover preview on inline Smart Link.
 	 * Default is false.
 	 *

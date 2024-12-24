@@ -229,17 +229,31 @@ export const createPlugin = (
 			handleDOMEvents: {
 				blur: (view, event) => {
 					if (fg('platform_editor_legacy_content_macro')) {
-						// Ignored via go/ees005
-						// eslint-disable-next-line @atlaskit/editor/no-as-casting
-						const currentTarget = event.relatedTarget as HTMLElement;
-						// Ignored via go/ees005
-						// eslint-disable-next-line @atlaskit/editor/no-as-casting
-						const source = event.target as HTMLElement;
+						const currentSelection = event.relatedTarget;
+						const previousSelection = event.target;
 
-						// If the focus is going from outside to inside an area designated as an editable area of an extension, then the extension selection is reset.
 						if (
-							!!currentTarget.closest('.extension-editable-area') !==
-							!!source.closest('.extension-editable-area')
+							!(currentSelection instanceof HTMLElement) ||
+							!(previousSelection instanceof HTMLElement)
+						) {
+							return;
+						}
+						const wasPreviousSelectionInsideExtensionEditableArea = !!previousSelection.closest(
+							'.extension-editable-area',
+						);
+						const isCurrentSelectionInsideExtensionEditableArea = !!currentSelection.closest(
+							'.extension-editable-area',
+						);
+
+						const maybeFromPopup = !!currentSelection.closest('[data-editor-popup="true"]');
+
+						// We want to reset the user's selection if they are entering or exiting the extension editable area.
+						// To do so, we check if there previous selection was inside or outside, and if they are now inside or outside.
+						// We want to ignore this if a blur event is originating from an editor popup.
+						if (
+							!maybeFromPopup &&
+							wasPreviousSelectionInsideExtensionEditableArea !==
+								isCurrentSelectionInsideExtensionEditableArea
 						) {
 							const emptySelection = new TextSelection(view.state.doc.resolve(0));
 							const tr = view.state.tr.setSelection(emptySelection);

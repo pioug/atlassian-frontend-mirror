@@ -36,7 +36,7 @@ export const HeaderTitle = styled.h1({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text.subtle', colors.N500),
 	textAlign: 'center',
-	fontSize: '1rem',
+	font: token('font.body.large'),
 	fontWeight: token('font.weight.semibold'),
 	lineHeight: token('space.800', '56px'),
 	width: '100%',

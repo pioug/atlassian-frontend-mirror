@@ -37,10 +37,15 @@ import type {
 } from '../../types';
 import { getPluginState } from '../plugin-factory';
 import { distributeColumnsWidths } from '../table-resizing/commands';
-import type { ResizeStateWithAnalytics } from '../table-resizing/utils';
-import { deleteRows, mergeCells } from '../transforms';
-import { checkIfNumberColumnEnabled, getSelectedCellInfo, getSelectedTableInfo } from '../utils';
-import { withEditorAnalyticsAPI } from '../utils/analytics';
+import type { ResizeStateWithAnalytics } from '../table-resizing/utils/types';
+import { deleteRows } from '../transforms/delete-rows';
+import { mergeCells } from '../transforms/merge';
+import {
+	withEditorAnalyticsAPI,
+	getSelectedCellInfo,
+	getSelectedTableInfo,
+} from '../utils/analytics';
+import { checkIfNumberColumnEnabled } from '../utils/nodes';
 
 import { clearMultipleCells } from './clear';
 import { wrapTableInExpand } from './collapse';

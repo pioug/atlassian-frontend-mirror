@@ -13,10 +13,10 @@ export const wrapperStyles = (isFixed?: boolean) =>
 	css(isFixed ? fixedActionBarStyles : 'opacity: 0;', transition(), {
 		position: 'absolute',
 		top: 0,
+		right: 0,
 		display: 'flex',
 		flexFlow: 'row nowrap',
 		justifyContent: 'right',
-		width: '100%',
 		padding: token('space.100', '8px'),
 		gap: token('space.100', '8px'),
 	});

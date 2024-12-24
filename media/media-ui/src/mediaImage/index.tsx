@@ -1,7 +1,8 @@
-import React from 'react';
-import { Component, type CSSProperties } from 'react';
+import React, { type Ref, forwardRef, useCallback, useRef, useState } from 'react';
+import { type CSSProperties } from 'react';
 import { ImageComponent } from './styled';
 import { getCssFromImageOrientation, isRotated } from '../imageMetaData';
+import { useMergeRefs } from 'use-callback-ref';
 
 export interface MediaImageProps {
 	dataURI?: string;
@@ -15,6 +16,7 @@ export interface MediaImageProps {
 	loading?: 'lazy' | 'eager';
 	//An option to force display image with showImage rules bypassed
 	forceSyncDisplay?: boolean;
+	ref?: Ref<HTMLImageElement>;
 }
 
 export interface MediaImageState {
@@ -25,71 +27,74 @@ export interface MediaImageState {
 	parentHeight: number;
 }
 
-export class MediaImage extends Component<MediaImageProps, MediaImageState> {
-	static defaultProps: Partial<MediaImageProps> = {
-		crop: true,
-		stretch: false,
-		forceSyncDisplay: false,
-	};
-	imageRef: React.RefObject<HTMLImageElement>;
+interface Dimensions {
+	width: number;
+	height: number;
+}
 
-	constructor(props: MediaImageProps) {
-		super(props);
-		this.imageRef = React.createRef();
-
-		this.state = {
-			isImageLoaded: false,
-			imgWidth: 0,
-			imgHeight: 0,
-			parentWidth: Infinity,
-			parentHeight: Infinity,
-		};
-	}
-
-	// TODO FIL-4060 we need to check whether the dataURI changes in UNSAFE_componentWillReceiveProps()
-	// and if it does recalculate the image height and width
-
-	componentDidMount() {
-		const parent = this.imageRef.current?.parentElement;
-		if (!parent) {
-			return;
-		}
-		const { width, height } = parent.getBoundingClientRect();
-
-		this.setState({
-			parentWidth: width,
-			parentHeight: height,
-		});
-	}
-
-	onImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
-		if (!this.imageRef || !this.imageRef.current) {
-			return;
-		}
-		const { onImageLoad } = this.props;
-		this.setState({
-			isImageLoaded: true,
-			imgWidth: this.imageRef.current.naturalWidth,
-			imgHeight: this.imageRef.current.naturalHeight,
-		});
-		if (onImageLoad) {
-			onImageLoad(e.currentTarget);
-		}
-	};
-
-	render() {
-		const {
-			crop,
-			stretch,
+export const MediaImage = forwardRef(
+	(
+		{
 			dataURI,
+			alt = '',
+			crop = false,
+			stretch = false,
 			previewOrientation = 1,
 			crossOrigin,
+			onImageLoad,
 			onImageError,
-			alt = '',
 			loading,
-			forceSyncDisplay,
-		} = this.props;
-		const { parentWidth, parentHeight, imgWidth, imgHeight, isImageLoaded } = this.state;
+			forceSyncDisplay = false,
+		}: MediaImageProps,
+		ref: React.Ref<HTMLImageElement | HTMLDivElement>,
+	) => {
+		const [{ width: parentWidth, height: parentHeight }, setParentDimensions] =
+			useState<Dimensions>({
+				width: Infinity,
+				height: Infinity,
+			});
+		const [{ width: imgWidth, height: imgHeight }, setImageDimensions] = useState<Dimensions>({
+			width: 0,
+			height: 0,
+		});
+		const [isImageLoaded, setIsImageLoaded] = useState(false);
+
+		const imgRef = useRef<HTMLImageElement | null>(null);
+
+		const imageRef = useCallback((imgElem: HTMLImageElement | null) => {
+			if (!imgElem || imgRef.current) {
+				return;
+			}
+			if (imgElem.parentElement) {
+				const { width, height } = imgElem.parentElement.getBoundingClientRect();
+				setParentDimensions({
+					width,
+					height,
+				});
+			}
+
+			imgRef.current = imgElem;
+		}, []);
+
+		const mergedRef = useMergeRefs([
+			imageRef,
+			ref,
+		]) as unknown as React.MutableRefObject<HTMLImageElement>;
+
+		const imageLoadHandler = (e: React.SyntheticEvent<HTMLImageElement>) => {
+			if (!imgRef.current) {
+				return;
+			}
+
+			setImageDimensions({
+				width: imgRef.current.naturalWidth,
+				height: imgRef.current.naturalHeight,
+			});
+
+			setIsImageLoaded(true);
+
+			onImageLoad?.(e.currentTarget);
+		};
 
 		const parentRatio = parentWidth / parentHeight;
 		let imgRatio = imgWidth / imgHeight;
@@ -430,12 +435,12 @@ export class MediaImage extends Component<MediaImageProps, MediaImageState> {
 				alt={alt}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={style}
-				onLoad={this.onImageLoad}
+				onLoad={imageLoadHandler}
 				onError={onImageError}
-				imageRef={this.imageRef}
+				imageRef={mergedRef}
 				src={dataURI}
 				crossOrigin={crossOrigin}
 			/>
 		);
-	}
-}
+	},
+);

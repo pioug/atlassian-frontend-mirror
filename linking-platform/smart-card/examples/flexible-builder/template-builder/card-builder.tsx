@@ -53,14 +53,6 @@ const CardBuilder = ({
 			/>
 			<CheckboxOption
 				exclude={!(isInline || isFlexible)}
-				label="Show auth tooltip (inline, flexible)"
-				name="showAuthTooltip"
-				onChange={onChange}
-				propName="showAuthTooltip"
-				template={template}
-			/>
-			<CheckboxOption
-				exclude={!(isInline || isFlexible)}
 				label="Show hover preview (inline, flexible)"
 				name="showHoverPreview"
 				onChange={onChange}

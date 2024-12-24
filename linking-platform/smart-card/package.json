@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "33.0.0",
+	"version": "33.1.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
 		"@atlaskit/link-analytics": "^8.6.0",
 		"@atlaskit/link-client-extension": "^3.0.0",
 		"@atlaskit/link-extractors": "^1.9.0",
-		"@atlaskit/linking-common": "^6.0.0",
+		"@atlaskit/linking-common": "^6.1.0",
 		"@atlaskit/linking-types": "^9.5.0",
 		"@atlaskit/logo": "^15.1.0",
 		"@atlaskit/lozenge": "^11.12.0",
@@ -175,9 +175,6 @@
 			"type": "boolean"
 		},
 		"linking_platform_show_lozenge_atlassian_state": {
-			"type": "boolean"
-		},
-		"platform_deprecate-showauthtooltip-smart-card": {
 			"type": "boolean"
 		},
 		"smart_links_for_plans_platform": {

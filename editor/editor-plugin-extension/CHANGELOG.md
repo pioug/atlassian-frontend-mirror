@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 3.0.1
+
+### Patch Changes
+
+- [#98618](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98618)
+  [`6eccf45581ff1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6eccf45581ff1) -
+  ED-25934 fix config panel user select's onFieldChange to dirty only if there are changes
+- Updated dependencies
+
 ## 3.0.0
 
 ### Major Changes

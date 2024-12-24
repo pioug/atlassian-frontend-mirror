@@ -2,4 +2,4 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { widthPlugin } from '@atlaskit/editor-plugin-width';
-export type { WidthPlugin, WidthPluginState } from '@atlaskit/editor-plugin-width';
+export type { WidthPlugin } from '@atlaskit/editor-plugin-width';

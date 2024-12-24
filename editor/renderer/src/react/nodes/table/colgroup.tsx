@@ -213,7 +213,7 @@ const renderScaleDownColgroup = (
 		props.tableNode?.attrs.displayMode === 'fixed';
 	const maxScalingPercent =
 		isTableScalingWithFixedColumnWidthsOptionEnabled ||
-		(isTableScalingEnabled && rendererAppearance === 'comment')
+			(isTableScalingEnabled && rendererAppearance === 'comment')
 			? MAX_SCALING_PERCENT_TABLES_WITH_FIXED_COLUMN_WIDTHS_OPTION
 			: MAX_SCALING_PERCENT;
 
@@ -264,11 +264,11 @@ export const Colgroup = (props: SharedTableProps) => {
 		...props,
 		isTopLevelRenderer,
 		isTableScalingEnabled:
-			!!(flags && 'tablePreserveWidth' in flags && flags.tablePreserveWidth) ||
-			(props.rendererAppearance === 'comment' &&
-				editorExperiment('support_table_in_comment', true, { exposure: true })) ||
-			(props.rendererAppearance === 'comment' &&
-				editorExperiment('support_table_in_comment_jira', true, { exposure: true })),
+			(props.rendererAppearance === 'full-page' || props.rendererAppearance === 'full-width') || (
+				(props.rendererAppearance === 'comment' &&
+					editorExperiment('support_table_in_comment', true, { exposure: true })) ||
+				(props.rendererAppearance === 'comment' &&
+					editorExperiment('support_table_in_comment_jira', true, { exposure: true }))),
 		isTableFixedColumnWidthsOptionEnabled:
 			!!(
 				flags &&

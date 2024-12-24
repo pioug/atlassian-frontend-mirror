@@ -54,11 +54,6 @@ interface HoverPreviewProps extends ActionProps {
 	 * Configuration for hover card.
 	 */
 	hoverPreviewOptions?: HoverPreviewOptions;
-	/**
-	 * Flag to display unresolved views on hover preview.
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-23150 Internal documentation for deprecation (no external access)}
-	 */
-	showAuthTooltip?: boolean;
 }
 
 export interface BaseCardProps {

@@ -23,3 +23,5 @@ export {
 	isMediaFileStateError,
 	getFileStateErrorReason,
 } from './MediaFileStateError';
+
+export { useCopyIntent } from './copyIntent/useCopyIntent';

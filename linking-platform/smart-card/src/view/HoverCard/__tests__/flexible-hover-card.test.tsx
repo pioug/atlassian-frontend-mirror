@@ -154,7 +154,6 @@ describe('hover card over flexible smart links', () => {
 					appearance,
 					children,
 					showHoverPreview: false,
-					showAuthTooltip: true,
 				},
 				testId: 'smart-links-container',
 			});

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { ToolbarSize } from '@atlaskit/editor-common/types';
@@ -10,9 +10,13 @@ import type {
 	ToolbarUIComponentFactory,
 	ToolbarUiComponentFactoryParams,
 } from '@atlaskit/editor-common/types';
+import { usePluginStateEffect } from '@atlaskit/editor-common/use-plugin-state-effect';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { getIndentationButtonsState } from './pm-plugins/indentation-buttons';
+import {
+	getIndentationButtonsState,
+	type TaskDecisionState,
+} from './pm-plugins/indentation-buttons';
 import type { ToolbarListsIndentationPlugin } from './toolbarListsIndentationPluginType';
 import { ToolbarType } from './types';
 import ToolbarListsIndentation from './ui';
@@ -125,11 +129,28 @@ export function PrimaryToolbarComponent({
 	pluginInjectionApi,
 	allowHeadingAndParagraphIndentation,
 }: PrimaryToolbarComponentProps) {
-	const { listState, indentationState, taskDecisionState } = useSharedPluginState(
+	const { listState, indentationState } = useSharedPluginState(pluginInjectionApi, [
+		'list',
+		'indentation',
+	]);
+	const [taskDecisionState, setTaskDecisionState] = useState<TaskDecisionState | undefined>();
+	usePluginStateEffect(
 		pluginInjectionApi,
-		['list', 'indentation', 'taskDecision'],
+		['taskDecision'],
+		({ taskDecisionState: newTaskDecisionState }) => {
+			if (
+				newTaskDecisionState?.outdentDisabled !== taskDecisionState?.outdentDisabled ||
+				newTaskDecisionState?.indentDisabled !== taskDecisionState?.indentDisabled ||
+				newTaskDecisionState?.isInsideTask !== taskDecisionState?.isInsideTask
+			) {
+				setTaskDecisionState({
+					isInsideTask: Boolean(newTaskDecisionState?.isInsideTask),
+					indentDisabled: Boolean(newTaskDecisionState?.indentDisabled),
+					outdentDisabled: Boolean(newTaskDecisionState?.outdentDisabled),
+				});
+			}
+		},
 	);
-
 	const toolbarListsIndentationState = getIndentationButtonsState(
 		editorView.state,
 		allowHeadingAndParagraphIndentation,

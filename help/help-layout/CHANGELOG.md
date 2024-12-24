@@ -1,5 +1,13 @@
 # @atlaskit/help-layout
 
+## 4.4.4
+
+### Patch Changes
+
+- [#98234](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98234)
+  [`98766713e142d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98766713e142d) -
+  Internal changes to typography.
+
 ## 4.4.3
 
 ### Patch Changes

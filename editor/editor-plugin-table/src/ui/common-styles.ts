@@ -901,6 +901,13 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 				color: ${token('color.text.selected', N0)};
 			}
 		}
+
+		// nested tables should be ignored when we apply border-left: 0 to the parent table
+		.${ClassName.TABLE_CONTAINER} {
+			.${ClassName.NUMBERED_COLUMN_BUTTON} {
+				border-left: 1px solid ${tableBorderColor};
+			}
+		}
 	}
 	:not(.${ClassName.IS_RESIZING}) .${ClassName.WITH_CONTROLS} {
 		.${ClassName.NUMBERED_COLUMN_BUTTON}:not(.${ClassName.NUMBERED_COLUMN_BUTTON_DISABLED}) {

@@ -5,7 +5,6 @@ import { type JsonLd } from 'json-ld-types';
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { extractProvider } from '@atlaskit/link-extractors';
 import { useFeatureFlag } from '@atlaskit/link-provider';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkStatus } from '../../constants';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context/extractAccessContext';
@@ -45,7 +44,6 @@ export const InlineCard = ({
 	inlinePreloaderStyle,
 	showHoverPreview,
 	hoverPreviewOptions,
-	showAuthTooltip,
 	actionOptions,
 	removeTextHighlightingFromTitle,
 	resolvingPlaceholder,
@@ -134,9 +132,6 @@ export const InlineCard = ({
 					onClick={handleFrameClick}
 					onAuthorise={handleAuthorize}
 					testId={testIdWithStatus}
-					showAuthTooltip={
-						fg('platform_deprecate-showauthtooltip-smart-card') ? undefined : showAuthTooltip
-					}
 					showHoverPreview={showHoverPreview}
 					id={id}
 					analytics={analytics}

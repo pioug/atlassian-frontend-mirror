@@ -7,7 +7,7 @@ import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-s
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import type { RowStickyState } from '../../pm-plugins/sticky-headers';
+import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
 import { TableCssClassName as ClassName } from '../../types';
 import { insertColumnButtonOffset } from '../common-styles';
 

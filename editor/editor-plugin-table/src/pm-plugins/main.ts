@@ -67,17 +67,16 @@ import {
 import { defaultHoveredCell, defaultTableSelection } from './default-table-selection';
 import { createPluginState, getPluginState } from './plugin-factory';
 import { pluginKey } from './plugin-key';
-import { fixTables, replaceSelectedTable } from './transforms';
+import { fixTables } from './transforms/fix-tables';
+import { replaceSelectedTable } from './transforms/replace-table';
+import { findControlsHoverDecoration } from './utils/decoration';
 import {
-	findControlsHoverDecoration,
 	transformSliceToCorrectEmptyTableCells,
 	transformSliceToFixHardBreakProblemOnCopyFromCell,
 	transformSliceToRemoveOpenTable,
-} from './utils';
-import {
+	transformSliceToRemoveNestedTables,
 	isHeaderRowRequired,
 	transformSliceTableLayoutDefaultToCenter,
-	transformSliceToRemoveNestedTables,
 } from './utils/paste';
 
 export const createPlugin = (

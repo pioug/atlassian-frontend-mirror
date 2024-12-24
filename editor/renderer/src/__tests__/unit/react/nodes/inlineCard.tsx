@@ -100,13 +100,13 @@ describe('Renderer - React/Nodes/InlineCard', () => {
 		expect(node.find(Card).prop('onClick')).toBeUndefined();
 	});
 
-	it('should render with showAuthTooltip if defined in smartLinks options', () => {
+	it('should render with showHoverPreview if hideHoverPreview is false', () => {
 		node = mount(
 			<Provider client={new Client('staging')}>
-				<InlineCard url={url} smartLinks={{ showAuthTooltip: true }} />
+				<InlineCard url={url} smartLinks={{ hideHoverPreview: false }} />
 			</Provider>,
 		);
-		expect(node.find(Card).prop('showAuthTooltip')).toEqual(true);
+		expect(node.find(Card).prop('showHoverPreview')).toEqual(true);
 	});
 });
 
@@ -184,7 +184,7 @@ describe('Renderer - React/Nodes/InlineCard (RTL)', () => {
 					url={url}
 					smartLinks={{
 						ssr: true,
-						showAuthTooltip: true,
+						hideHoverPreview: false,
 					}}
 					eventHandlers={mockEventHandlers}
 				/>
@@ -195,7 +195,6 @@ describe('Renderer - React/Nodes/InlineCard (RTL)', () => {
 			expect.objectContaining({
 				url,
 				appearance: 'inline',
-				showAuthTooltip: true,
 				showHoverPreview: true,
 				onClick: expect.any(Function),
 			}),

@@ -494,14 +494,6 @@ export const getRenderFailedFileStatusPayload = (
 	},
 });
 
-export const getCopiedFilePayload = (fileId: string): CopiedFileEventPayload => ({
-	eventType: 'ui',
-	action: 'copied',
-	actionSubject: 'file',
-	actionSubjectId: fileId,
-	attributes: {},
-});
-
 export function fireMediaCardEvent(
 	payload: MediaCardAnalyticsEventPayload,
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,

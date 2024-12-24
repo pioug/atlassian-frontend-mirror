@@ -51,7 +51,10 @@ import HipchatChevronDoubleUpIcon from '@atlaskit/icon/glyph/hipchat/chevron-dou
 import type { NewIconProps } from '@atlaskit/icon/types';
 
 import type { DraggableData, DraggableType, PluginInjectionAPI, TableDirection } from '../../types';
-import { AddColLeftIcon, AddColRightIcon, AddRowAboveIcon, AddRowBelowIcon } from '../../ui/icons';
+import { AddColLeftIcon } from '../../ui/icons/AddColLeftIcon';
+import { AddColRightIcon } from '../../ui/icons/AddColRightIcon';
+import { AddRowAboveIcon } from '../../ui/icons/AddRowAboveIcon';
+import { AddRowBelowIcon } from '../../ui/icons/AddRowBelowIcon';
 import { getClosestSelectionRect } from '../../ui/toolbar';
 import {
 	deleteColumnsWithAnalytics,

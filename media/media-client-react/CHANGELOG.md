@@ -1,5 +1,18 @@
 # @atlaskit/media-client-react
 
+## 2.5.0
+
+### Minor Changes
+
+- [#98696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98696)
+  [`375687a7b11d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/375687a7b11d1) -
+  Exposing new useCopyIntent hook to easily enable consumers to register copy intent by adding a ref
+  to the image / file / proxy node
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.0
 
 ### Minor Changes

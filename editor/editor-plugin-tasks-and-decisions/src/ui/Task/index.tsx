@@ -4,11 +4,11 @@ import React, { PureComponent } from 'react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { ProviderFactory, WithProviders } from '@atlaskit/editor-common/provider-factory';
 import type { Providers } from '@atlaskit/editor-common/provider-factory';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { ContentRef } from '@atlaskit/task-decision';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -37,7 +37,7 @@ export interface TaskProps {
 
 type TaskItemProps = TaskProps &
 	WrappedComponentProps & {
-		taskDecisionState: TaskAndDecisionsSharedState | undefined;
+		taskDecisionProvider: TaskAndDecisionsSharedState['taskDecisionProvider'] | undefined;
 	};
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
@@ -63,6 +63,7 @@ export class TaskItem extends PureComponent<TaskItemProps, Object> {
 		const {
 			providers: _providerFactory,
 			intl: { formatMessage },
+			taskDecisionProvider,
 			api,
 			placeholder,
 			...otherProps
@@ -80,9 +81,7 @@ export class TaskItem extends PureComponent<TaskItemProps, Object> {
 						: formatMessage(tasksAndDecisionsMessages.taskPlaceholder)
 				}
 				taskDecisionProvider={
-					this.props.taskDecisionState?.taskDecisionProvider
-						? Promise.resolve(this.props.taskDecisionState.taskDecisionProvider)
-						: undefined
+					taskDecisionProvider ? Promise.resolve(taskDecisionProvider) : undefined
 				}
 				contextIdentifierProvider={contextIdentifierProvider}
 			/>
@@ -103,10 +102,10 @@ export class TaskItem extends PureComponent<TaskItemProps, Object> {
 }
 
 const TaskItemWrapper = (props: TaskProps & WrappedComponentProps) => {
-	const { taskDecisionState } = useSharedPluginState(props.api, ['taskDecision']);
+	const provider = useSharedPluginStateSelector(props.api, 'taskDecision.taskDecisionProvider');
 	// Ignored via go/ees005
 	// eslint-disable-next-line react/jsx-props-no-spreading
-	return <TaskItem taskDecisionState={taskDecisionState} {...props} />;
+	return <TaskItem taskDecisionProvider={provider} {...props} />;
 };
 
 export default injectIntl(TaskItemWrapper);

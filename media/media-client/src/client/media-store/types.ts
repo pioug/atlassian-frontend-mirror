@@ -58,6 +58,7 @@ export interface MediaStoreResponse<Data> {
 export type MediaStoreRequestOptions = RequestMetadata & {
 	readonly method?: RequestMethod;
 	readonly authContext?: AuthContext;
+	readonly resolvedAuth?: Auth;
 	readonly params?: RequestParams;
 	readonly headers?: RequestHeaders;
 	readonly body?: any;
@@ -304,7 +305,11 @@ export interface MediaApi {
 
 	copyFile: (id: string, params: CopyFileParams) => Promise<MediaStoreResponse<MediaFile>>;
 
-	registerCopyIntents: (ids: string[], collectionName: string) => Promise<void>;
+	registerCopyIntents: (
+		files: Array<{ id: string; collection: string }>,
+		traceContext?: MediaTraceContext,
+		resolvedAuth?: Auth,
+	) => Promise<void>;
 
 	request: (
 		path: string,

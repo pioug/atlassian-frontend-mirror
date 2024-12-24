@@ -50,6 +50,7 @@ export const InlineImageCard = ({
 		onImageError,
 		onImageLoad,
 		getSsrScriptProps,
+		copyNodeRef,
 	} = useFilePreview({
 		identifier,
 		ssr,
@@ -79,6 +80,7 @@ export const InlineImageCard = ({
 				forceSyncDisplay={!!ssr}
 				crop={crop}
 				stretch={stretch}
+				ref={copyNodeRef}
 			/>
 			{getSsrScriptProps && (
 				<script

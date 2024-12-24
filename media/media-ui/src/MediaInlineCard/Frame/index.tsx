@@ -10,6 +10,7 @@ export interface FrameViewProps {
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
 	testId?: string;
+	innerRef?: React.Ref<HTMLSpanElement>;
 }
 
 export class Frame extends React.Component<FrameViewProps> {
@@ -35,11 +36,12 @@ export class Frame extends React.Component<FrameViewProps> {
 	};
 
 	render() {
-		const { isSelected, children, onClick, testId } = this.props;
+		const { isSelected, children, onClick, innerRef, testId } = this.props;
 		const isInteractive = Boolean(onClick);
 
 		return (
 			<Wrapper
+				ref={innerRef}
 				isSelected={isSelected}
 				tabIndex={isInteractive ? 0 : undefined}
 				role={isInteractive ? 'button' : undefined}

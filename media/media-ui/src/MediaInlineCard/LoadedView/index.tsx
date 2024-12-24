@@ -15,6 +15,7 @@ export interface MediaInlineCardLoadedViewProps {
 	testId?: string;
 	/** The Emoji icon prefix that was added to the title text via Add emoji button */
 	titlePrefix?: React.ReactNode;
+	innerRef?: React.Ref<HTMLSpanElement>;
 }
 
 export class MediaInlineCardLoadedView extends React.Component<MediaInlineCardLoadedViewProps> {
@@ -26,9 +27,10 @@ export class MediaInlineCardLoadedView extends React.Component<MediaInlineCardLo
 			icon,
 			testId = 'media-inline-card-loaded-view',
 			titlePrefix,
+			innerRef,
 		} = this.props;
 		return (
-			<Frame testId={testId} isSelected={isSelected} onClick={onClick}>
+			<Frame innerRef={innerRef} testId={testId} isSelected={isSelected} onClick={onClick}>
 				<IconAndTitleLayout emoji={titlePrefix} icon={icon} title={title} />
 			</Frame>
 		);

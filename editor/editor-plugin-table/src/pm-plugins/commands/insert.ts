@@ -32,8 +32,10 @@ import type { PluginInjectionAPI } from '../../types';
 import { updateRowOrColumnMovedTransform } from '../analytics/commands';
 import { META_KEYS } from '../table-analytics';
 import { rescaleColumns } from '../transforms/column-width';
-import { checkIfHeaderRowEnabled, copyPreviousRow, createTableWithWidth } from '../utils';
+import { createTableWithWidth } from '../utils/create';
 import { getAllowAddColumnCustomStep } from '../utils/get-allow-add-column-custom-step';
+import { checkIfHeaderRowEnabled } from '../utils/nodes';
+import { copyPreviousRow } from '../utils/row-controls';
 
 type InsertTableWithNestingSupportCommand = (
 	options: {

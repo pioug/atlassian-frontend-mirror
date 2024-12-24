@@ -199,7 +199,7 @@ export default function UserSelect({
 			validate={(value) => validate(field, value)}
 			testId={`config-panel-user-select-${name}`}
 		>
-			{({ fieldProps, error }) => {
+			{({ fieldProps, error, meta }) => {
 				// if any of these don't exists, the provider is missing
 				if (!siteId || !principalId || !fieldId || !productKey) {
 					return (
@@ -223,7 +223,7 @@ export default function UserSelect({
 							field={field}
 							formFieldProps={fieldProps}
 							autoFocus={autoFocus || false}
-							onBlur={() => onFieldChange(name, true)}
+							onBlur={() => onFieldChange(name, meta.dirty)}
 							onChange={onChange}
 						/>
 						<FieldMessages error={error} description={description} />

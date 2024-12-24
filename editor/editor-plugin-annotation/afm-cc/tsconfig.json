@@ -30,9 +30,6 @@
             "path": "../../editor-plugin-editor-viewmode-effects/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-plugin-engagement-platform/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugin-feature-flags/afm-cc/tsconfig.json"
         },
         {

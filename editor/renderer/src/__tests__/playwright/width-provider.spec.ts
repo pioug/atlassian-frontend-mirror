@@ -78,7 +78,7 @@ test.describe('width-provider when table resizing is enabled', () => {
 		test('should not be resized on page width change', async ({ renderer }) => {
 			const table = renderer.page.getByRole('table');
 			const ADFTableWidth = 880;
-			const newViwportWidth = 600;
+			const newViwportWidth = 500;
 
 			const beforeWidth = (await table.boundingBox())?.width;
 			expect(beforeWidth).toBe(ADFTableWidth);

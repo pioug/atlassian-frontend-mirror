@@ -25,9 +25,11 @@ import {
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import type {
+	EditorContainerWidth as WidthPluginState,
+	ExtractInjectionAPI,
+} from '@atlaskit/editor-common/types';
 import { browser, ErrorReporter } from '@atlaskit/editor-common/utils';
-import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import {

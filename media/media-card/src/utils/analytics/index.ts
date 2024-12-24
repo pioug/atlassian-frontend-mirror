@@ -39,7 +39,6 @@ export {
 	getRenderErrorEventPayload,
 	getErrorEventPayload,
 	getRenderFailedFileStatusPayload,
-	getCopiedFilePayload,
 	fireMediaCardEvent,
 	createAndFireMediaCardEvent,
 	getDownloadSucceededEventPayload,

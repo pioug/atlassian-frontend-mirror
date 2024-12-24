@@ -15,12 +15,12 @@ import {
 	type RequestToEditAEP,
 } from '@atlaskit/editor-common/analytics';
 import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { tasksAndDecisionsMessages } from '@atlaskit/editor-common/messages';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import ReactNodeView from '@atlaskit/editor-common/react-node-view';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import Heading from '@atlaskit/heading';
@@ -147,18 +147,26 @@ const TaskItemWrapper = ({
 	getPos,
 	editorView,
 }: TaskItemWrapperProps) => {
-	const { taskDecisionState } = useSharedPluginState(api, ['taskDecision']);
-	const isFocused = Boolean(taskDecisionState?.focusedTaskItemLocalId === localId);
+	const hasRequestedEditPermission = useSharedPluginStateSelector(
+		api,
+		'taskDecision.hasRequestedEditPermission',
+	);
+	const focusedTaskItemLocalId = useSharedPluginStateSelector(
+		api,
+		'taskDecision.focusedTaskItemLocalId',
+	);
+
+	const isFocused = Boolean(focusedTaskItemLocalId === localId);
 	const [isOpen, setIsOpen] = useState(false);
-	const [requested, setRequested] = useState(taskDecisionState?.hasRequestedEditPermission);
+	const [requested, setRequested] = useState(hasRequestedEditPermission);
 	const [tryingRequest, setTryingRequest] = useState(false);
 	const { formatMessage } = useIntl();
 
 	useEffect(() => {
 		if (fg('editor_request_to_edit_task')) {
-			setRequested(taskDecisionState?.hasRequestedEditPermission);
+			setRequested(hasRequestedEditPermission);
 		}
-	}, [taskDecisionState?.hasRequestedEditPermission]);
+	}, [hasRequestedEditPermission]);
 
 	useEffect(() => {
 		if (!tryingRequest && fg('editor_request_to_edit_task')) {

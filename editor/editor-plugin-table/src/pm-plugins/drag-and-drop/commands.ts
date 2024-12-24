@@ -5,7 +5,7 @@ import { cloneColumn, cloneRow, moveColumn, moveRow } from '@atlaskit/editor-tab
 
 import type { DraggableType, TableDirection } from '../../types';
 import { TableDecorations } from '../../types';
-import { createColumnInsertLine, createRowInsertLine, updateDecorations } from '../utils';
+import { createColumnInsertLine , createRowInsertLine , updateDecorations } from '../utils/decoration';
 
 import { DragAndDropActionType } from './actions';
 import { DropTargetType } from './consts';

@@ -4,7 +4,6 @@ import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -33,11 +32,6 @@ export interface InlineCardUnauthorizedViewProps {
 	isSelected?: boolean;
 	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
 	testId?: string;
-	/**
-	 * A flag that determines is a tooltip should show up on hover over the unauthorised link
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-23150 Internal documentation for deprecation (no external access)}
-	 */
-	showAuthTooltip?: boolean;
 	/** Enables showing a custom preview on hover of link */
 	showHoverPreview?: boolean;
 	/** A smart link id that may be used in analytics */
@@ -65,7 +59,6 @@ export const InlineCardUnauthorizedView = ({
 	onClick,
 	isSelected,
 	testId = 'inline-card-unauthorized-view',
-	showAuthTooltip = false,
 	showHoverPreview = false,
 	truncateInline,
 	context,
@@ -113,10 +106,7 @@ export const InlineCardUnauthorizedView = ({
 		</Frame>
 	);
 
-	if (
-		onAuthorise &&
-		(fg('platform_deprecate-showauthtooltip-smart-card') ? showHoverPreview : showAuthTooltip)
-	) {
+	if (onAuthorise && showHoverPreview) {
 		return (
 			<HoverCard url={url} id={id}>
 				{inlineCardUnauthenticatedView}

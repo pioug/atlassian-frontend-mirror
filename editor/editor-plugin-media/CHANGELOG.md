@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugin-media
 
+## 1.43.9
+
+### Patch Changes
+
+- [#97992](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97992)
+  [`129bc0e5c4f11`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/129bc0e5c4f11) -
+  ED-26104 fix editing captions on edge browsers
+- Updated dependencies
+
+## 1.43.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.43.7
 
 ### Patch Changes

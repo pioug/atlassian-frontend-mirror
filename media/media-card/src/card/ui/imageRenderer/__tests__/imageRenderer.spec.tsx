@@ -134,7 +134,7 @@ describe('ImageRenderer', () => {
 		const component = mount(<ImageRenderer mediaType={'image'} cardPreview={cardPreview} />);
 		const mediaImage = component.find(MediaImage);
 		expect(mediaImage).toHaveLength(1);
-		expect(mediaImage.prop('forceSyncDisplay')).toBe(false);
+		expect(mediaImage.prop('forceSyncDisplay')).toBe(undefined);
 
 		component.setProps({ forceSyncDisplay: true });
 		expect(component.find(MediaImage).prop('forceSyncDisplay')).toBe(true);

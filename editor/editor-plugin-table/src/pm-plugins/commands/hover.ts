@@ -9,9 +9,9 @@ import {
 	createCellHoverDecoration,
 	createColumnLineResize,
 	createControlsHoverDecoration,
-	getMergedCellsPositions,
-	updatePluginStateDecorations,
-} from '../utils';
+} from '../utils/decoration';
+import { getMergedCellsPositions } from '../utils/table';
+import { updatePluginStateDecorations } from '../utils/update-plugin-state-decorations';
 
 const makeArray = (n: number) => Array.from(Array(n).keys());
 

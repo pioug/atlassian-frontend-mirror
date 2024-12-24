@@ -35,10 +35,6 @@ export type CardWithUrlContentProps = {
 	children?: React.ReactNode;
 	showHoverPreview?: boolean;
 	hoverPreviewOptions?: HoverPreviewOptions;
-	/**
-	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-23150 Internal documentation for deprecation (no external access)}
-	 */
-	showAuthTooltip?: boolean;
 	analyticsEvents?: AnalyticsFacade;
 	placeholder?: string;
 	removeTextHighlightingFromTitle?: boolean;

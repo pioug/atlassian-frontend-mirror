@@ -61,7 +61,6 @@ export function CardWithURLRenderer(props: CardProps) {
 		ui,
 		showHoverPreview,
 		hoverPreviewOptions,
-		showAuthTooltip,
 		placeholder,
 		fallbackComponent,
 		removeTextHighlightingFromTitle,
@@ -153,9 +152,6 @@ export function CardWithURLRenderer(props: CardProps) {
 		ui,
 		showHoverPreview,
 		hoverPreviewOptions,
-		showAuthTooltip: fg('platform_deprecate-showauthtooltip-smart-card')
-			? undefined
-			: showAuthTooltip,
 		placeholder,
 		removeTextHighlightingFromTitle,
 		resolvingPlaceholder,

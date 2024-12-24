@@ -2,7 +2,7 @@ import type { TableAttributes } from '@atlaskit/adf-schema';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { createTable } from '@atlaskit/editor-tables/utils';
 
-import { TABLE_MAX_WIDTH } from '../table-resizing/utils';
+import { TABLE_MAX_WIDTH } from '../table-resizing/utils/consts';
 const NESTED_TABLE_DEFAULT_ROWS = 2;
 const NESTED_TABLE_DEFAULT_COLS = 2;
 

@@ -1,5 +1,14 @@
 # @atlaskit/media-ui
 
+## 27.2.0
+
+### Minor Changes
+
+- [#98696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98696)
+  [`396ff0958321d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/396ff0958321d) -
+  Adding the ability to register copy intents to enable cross site / product copy and paste for
+  media by forwarding the ref from useCopyIntent / useFilePreview
+
 ## 27.1.0
 
 ### Minor Changes

@@ -6,8 +6,8 @@ import type { DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
 
 import type { PluginInjectionAPI } from '../../../types';
-import { updateColumnWidths } from '../../transforms';
-import { getTableWidth } from '../../utils';
+import { updateColumnWidths } from '../../transforms/column-width';
+import { getTableWidth } from '../../utils/nodes';
 import { getLayoutSize } from '../utils/misc';
 import { reduceSpace } from '../utils/resize-logic';
 import {

@@ -83,7 +83,12 @@ class Example extends Component<ComponentProps, ComponentState> {
 				<div css={cardWrapperStyles} key={id}>
 					<div>
 						<h3>{name}</h3>
-						<Card mediaClientConfig={mediaClientConfig} identifier={identifier} />
+						<Card
+							mediaClientConfig={mediaClientConfig}
+							identifier={identifier}
+							shouldEnableDownloadButton
+							shouldOpenMediaViewer
+						/>
 					</div>
 				</div>
 			);

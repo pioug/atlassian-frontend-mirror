@@ -50,14 +50,7 @@ const auth = {
 const authProvider = jest.fn();
 let mediaStore: MediaStore;
 
-describe.skip('MediaStore', () => {
-	beforeEach(() => {
-		Object.defineProperty(window, 'location', {
-			value: {
-				hostname: '',
-			},
-		});
-	});
+describe('MediaStore', () => {
 	const checkWebpSupportMock = checkWebpSupport as jest.Mock;
 
 	beforeAll(() => {
@@ -1913,8 +1906,7 @@ describe.skip('MediaStore', () => {
 				});
 
 				const response = await mediaStore.registerCopyIntents(
-					['some-id', 'some-other-id'],
-					'some-collection',
+					[{ id: 'some-id', collection: 'some-collection' }, { id: 'some-other-id', collection: 'some-collection' }],
 				);
 
 				expect(response).toEqual(undefined);
@@ -1941,9 +1933,10 @@ describe.skip('MediaStore', () => {
 					statusText: 'Created',
 				});
 
-				await mediaStore.registerCopyIntents(['some-id', 'some-other-id'], 'some-collection', {
-					traceId: 'some-trace-id',
-				});
+				await mediaStore.registerCopyIntents(
+					[{ id: 'some-id', collection: 'some-collection' }, { id: 'some-other-id', collection: 'some-collection' }],
+					{ traceId: 'some-trace-id' },
+				);
 
 				expect(requestModuleMock).toBeCalledWith(
 					`${baseUrl}/file/copy/intents`,

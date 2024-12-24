@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-width
 
+## 2.0.0
+
+### Major Changes
+
+- [#98576](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98576)
+  [`fb72f1550d5f1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb72f1550d5f1) -
+  Removed external re-export from entry file:
+
+  @atlaskit/editor-plugin-width:
+
+  - type `WidthPluginState` -> Use type `EditorContainerWidth` from `@atlaskit/editor-common/types`
+    instead
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.3.14
 
 ### Patch Changes

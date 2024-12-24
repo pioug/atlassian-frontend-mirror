@@ -16,7 +16,7 @@ import {
 	akEditorWideLayoutWidth,
 } from '@atlaskit/editor-shared-styles';
 
-import { TABLE_MAX_WIDTH } from './table-resizing/utils';
+import { TABLE_MAX_WIDTH } from './table-resizing/utils/consts';
 import { ALIGN_START } from './utils/alignment';
 
 type __ReplaceStep = ReplaceStep & {

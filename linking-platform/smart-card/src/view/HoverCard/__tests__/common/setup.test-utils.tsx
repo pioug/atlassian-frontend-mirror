@@ -70,7 +70,6 @@ export const setup = async ({
 									appearance="inline"
 									url={mockUrl}
 									showHoverPreview={true}
-									showAuthTooltip={true}
 									{...extraCardProps}
 								/>
 							)}

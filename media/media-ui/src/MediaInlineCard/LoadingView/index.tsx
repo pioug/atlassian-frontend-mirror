@@ -16,6 +16,7 @@ export interface MediaInlineCardLoadingViewProps {
 	isSelected?: boolean;
 	/** A `testId` prop is provided for specified elements, which is a unique string that appears as a data attribute `data-testid` in the rendered code, serving as a hook for automated tests */
 	testId?: string;
+	innerRef?: React.Ref<HTMLSpanElement>;
 	withoutHover?: boolean;
 }
 
@@ -26,12 +27,13 @@ export class MediaInlineCardLoadingView extends React.Component<MediaInlineCardL
 			onClick,
 			isSelected,
 			inlinePreloaderStyle,
+			innerRef,
 			testId = 'media-inline-card-loading-view',
 		} = this.props;
 
 		if (inlinePreloaderStyle === 'on-right-without-skeleton') {
 			return (
-				<Frame testId={testId} onClick={onClick} isSelected={isSelected}>
+				<Frame innerRef={innerRef} testId={testId} onClick={onClick} isSelected={isSelected}>
 					<IconTitleWrapper>
 						{message}
 						<RightIconPositionWrapper>
@@ -45,7 +47,7 @@ export class MediaInlineCardLoadingView extends React.Component<MediaInlineCardL
 			);
 		} else {
 			return (
-				<Frame testId={testId} onClick={onClick} isSelected={isSelected}>
+				<Frame innerRef={innerRef} testId={testId} onClick={onClick} isSelected={isSelected}>
 					<IconAndTitleLayout title={message}>
 						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
 						<SpinnerWrapper className="inline-loading-spinner">

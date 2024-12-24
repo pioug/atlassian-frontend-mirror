@@ -13,8 +13,10 @@ import type {
 	Providers,
 } from '@atlaskit/editor-common/provider-factory';
 import { SelectionBasedNodeView } from '@atlaskit/editor-common/selection-based-node-view';
-import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
+import type {
+	ExtractInjectionAPI,
+	EditorContainerWidth as WidthPluginState,
+} from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { getAttrsFromUrl } from '@atlaskit/media-client';

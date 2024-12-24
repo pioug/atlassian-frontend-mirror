@@ -33,9 +33,38 @@ const placeholderButton = xcss({
 // Remove this component
 export const CaptionPlaceholder = React.forwardRef<HTMLSpanElement, { onClick: () => void }>(
 	({ onClick }, ref) => {
+		const handlePointerDown = useCallback(
+			(e: React.MouseEvent) => {
+				e.preventDefault();
+				onClick();
+			},
+			[onClick],
+		);
 		const message = fg('platform_editor_media_interaction_improvements')
 			? { ...messages.placeholderWithDoubleClickPrompt }
 			: { ...messages.placeholder };
+
+		// This issue is a temporary fix for users being able to edit captions on edge browsers. This will be removed
+		// replaced with CaptionPlaceholderButton in the near future and this code can be removed.
+		if (fg('platform_editor_fix_edit_caption_on_edge')) {
+			return (
+				// eslint-disable-next-line @atlaskit/design-system/use-primitives-text, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+				<span
+					ref={ref}
+					css={placeholder}
+					onPointerDown={handlePointerDown}
+					data-id={CAPTION_PLACEHOLDER_ID}
+					data-testid="caption-placeholder"
+				>
+					<FormattedMessage
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...message}
+					/>
+				</span>
+			);
+		}
+
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
 			<span

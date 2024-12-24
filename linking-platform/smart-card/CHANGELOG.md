@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 33.1.0
+
+### Minor Changes
+
+- [#98407](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98407)
+  [`1fcb5e982a41c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1fcb5e982a41c) -
+  [ux] Remove showAuthTooltip from smart-card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 33.0.0
 
 ### Major Changes

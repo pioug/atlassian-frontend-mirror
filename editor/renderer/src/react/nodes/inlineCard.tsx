@@ -35,7 +35,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	const { url, data, eventHandlers, portal, smartLinks } = props;
 	const onClick = getCardClickHandler(eventHandlers, url);
 	const cardProps = { url, data, onClick, container: portal };
-	const { showAuthTooltip, hideHoverPreview, actionOptions, ssr } = smartLinks || {};
+	const {  hideHoverPreview, actionOptions, ssr } = smartLinks || {};
 
 	const analyticsData = {
 		attributes: {
@@ -65,7 +65,6 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 						<CardSSR
 							appearance="inline"
 							url={url}
-							showAuthTooltip={showAuthTooltip}
 							showHoverPreview={!hideHoverPreview}
 							actionOptions={actionOptions}
 							onClick={onClick}
@@ -79,7 +78,6 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 				<CardSSR
 					appearance="inline"
 					url={url}
-					showAuthTooltip={showAuthTooltip}
 					showHoverPreview={!hideHoverPreview}
 					actionOptions={actionOptions}
 					onClick={onClick}
@@ -113,7 +111,6 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 					<Card
 						appearance="inline"
 						showHoverPreview={!hideHoverPreview}
-						showAuthTooltip={showAuthTooltip}
 						actionOptions={actionOptions}
 						// Ignored via go/ees005
 						// eslint-disable-next-line react/jsx-props-no-spreading

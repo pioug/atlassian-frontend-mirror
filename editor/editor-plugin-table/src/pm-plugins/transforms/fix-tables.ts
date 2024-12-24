@@ -8,12 +8,9 @@ import {
 } from '@atlaskit/editor-shared-styles';
 
 import type { ReportInvalidNodeAttrs } from '../../types';
-import {
-	calculateColumnWidth,
-	contentWidth,
-	getCellsRefsInColumn,
-	getLayoutSize,
-} from '../table-resizing/utils';
+import { calculateColumnWidth, getCellsRefsInColumn } from '../table-resizing/utils/column-state';
+import { contentWidth } from '../table-resizing/utils/content-width';
+import { getLayoutSize } from '../table-resizing/utils/misc';
 
 const validateTableCellNodeAttrs = (
 	{ colspan, rowspan, tableLocalId }: { colspan?: number; rowspan?: number; tableLocalId: string },

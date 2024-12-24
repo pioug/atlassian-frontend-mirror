@@ -57,15 +57,14 @@ import {
 import { toggleDragMenu } from '../../pm-plugins/drag-and-drop/commands';
 import { getPluginState } from '../../pm-plugins/drag-and-drop/plugin-factory';
 import { getPluginState as getTablePluginState } from '../../pm-plugins/plugin-factory';
+import type { DragMenuConfig, DragMenuOptionIdType } from '../../pm-plugins/utils/drag-menu';
+import { getDragMenuConfig } from '../../pm-plugins/utils/drag-menu';
 import {
 	checkIfHeaderColumnEnabled,
 	checkIfHeaderRowEnabled,
 	checkIfNumberColumnEnabled,
-	getSelectedColumnIndexes,
-	getSelectedRowIndexes,
-} from '../../pm-plugins/utils';
-import type { DragMenuConfig, DragMenuOptionIdType } from '../../pm-plugins/utils/drag-menu';
-import { getDragMenuConfig } from '../../pm-plugins/utils/drag-menu';
+} from '../../pm-plugins/utils/nodes';
+import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../../pm-plugins/utils/selection';
 import { TableCssClassName as ClassName } from '../../types';
 import type { PluginConfig, PluginInjectionAPI, TableDirection } from '../../types';
 import { colorPalletteColumns } from '../consts';

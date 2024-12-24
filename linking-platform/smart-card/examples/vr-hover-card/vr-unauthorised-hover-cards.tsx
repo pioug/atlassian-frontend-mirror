@@ -20,7 +20,7 @@ export default () => (
 			<Card
 				url={'https://www.mockurl.com'}
 				appearance="inline"
-				showAuthTooltip={true}
+				showHoverPreview={true}
 				testId="test-card"
 			/>
 		</Provider>

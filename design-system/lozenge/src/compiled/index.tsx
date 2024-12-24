@@ -86,8 +86,7 @@ const stylesNew = cssMapUnbounded({
 		paddingInlineEnd: token('space.050'),
 	},
 	text: {
-		fontFamily:
-			'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+		fontFamily: token('font.family.body'),
 		fontSize: '11px',
 		fontStyle: 'normal',
 		fontWeight: token('font.weight.bold'),

@@ -37,9 +37,6 @@ import { AnnotationSelectionType, AnnotationTestIds } from '../types';
 
 import { getPluginState, isSelectionValid, resolveDraftBookmark } from './utils';
 
-const INLINE_COMMENT_ON_INLINE_NODE_SPOTLIGHT_EP_MESSAGE_ID =
-	'inline-comments-on-inline-node-spotlight';
-
 interface BuildToolbarOptions {
 	state: EditorState;
 	intl: IntlShape;
@@ -48,44 +45,6 @@ interface BuildToolbarOptions {
 	_supportedNodes?: string[];
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
 }
-
-const createSpotlightConfig = ({
-	api,
-	intl,
-}: {
-	api?: ExtractInjectionAPI<AnnotationPlugin>;
-	intl: IntlShape;
-}): FloatingToolbarButton<Command>['spotlightConfig'] => {
-	const isUserEnrolledInEpAudience =
-		!!api?.engagementPlatform?.sharedState.currentState()?.messageStates[
-			INLINE_COMMENT_ON_INLINE_NODE_SPOTLIGHT_EP_MESSAGE_ID
-		];
-	// Ensure experiment is only ran on users who are in the EP audience
-	const isSpotlightOpen =
-		isUserEnrolledInEpAudience &&
-		editorExperiment('comment_on_inline_node_spotlight', true, { exposure: true });
-	const stopSpotlight = () =>
-		api?.engagementPlatform?.actions.stopMessage(
-			INLINE_COMMENT_ON_INLINE_NODE_SPOTLIGHT_EP_MESSAGE_ID,
-		);
-
-	return {
-		isSpotlightOpen,
-		pulse: isSpotlightOpen,
-		onTargetClick: stopSpotlight,
-		spotlightCardOptions: {
-			children: intl.formatMessage(annotationMessages.createCommentOnInlineNodeSpotlightBody),
-			actions: [
-				{
-					text: intl.formatMessage(annotationMessages.createCommentOnInlineNodeSpotlightAction),
-					onClick: () => stopSpotlight(),
-				},
-			],
-			placement: 'top-start' as const,
-			width: 275,
-		},
-	};
-};
 
 export const buildToolbar =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
@@ -153,30 +112,6 @@ export const buildToolbar =
 						},
 					});
 				}
-
-				/* When a user selects a valid range of content that includes non-text inline node (e.g. media, mention, emoji, etc.)
-				 * Attempt to fire a spotlight to guide the user to create an inline comment on the inline node.
-				 * The spotlight will only be displayed if the user is a valid EP audience and the feature flag is enabled.
-				 */
-				if (
-					isNonTextInlineNodeInludedInComment &&
-					selectionValid === AnnotationSelectionType.VALID &&
-					fg('editor_inline_comments_on_inline_nodes_spotlight')
-				) {
-					api?.engagementPlatform?.actions.startMessage('inline-comments-on-inline-node-spotlight');
-				}
-			},
-			onUnmount: () => {
-				// if enagement spotlight is still active, stop it
-				if (
-					api?.engagementPlatform?.sharedState.currentState()?.messageStates[
-						INLINE_COMMENT_ON_INLINE_NODE_SPOTLIGHT_EP_MESSAGE_ID
-					]
-				) {
-					api?.engagementPlatform?.actions.stopMessage(
-						INLINE_COMMENT_ON_INLINE_NODE_SPOTLIGHT_EP_MESSAGE_ID,
-					);
-				}
 			},
 			onClick: (state, dispatch) => {
 				if (editorAnalyticsAPI) {
@@ -195,7 +130,6 @@ export const buildToolbar =
 				return setInlineCommentDraftState(editorAnalyticsAPI)(true)(state, dispatch);
 			},
 			supportsViewMode: true, // TODO: MODES-3950 Clean up this floating toolbar view mode logic,
-			spotlightConfig: createSpotlightConfig({ api, intl }),
 		};
 
 		const { annotation } = schema.marks;

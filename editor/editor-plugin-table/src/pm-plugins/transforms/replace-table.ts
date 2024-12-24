@@ -5,7 +5,7 @@ import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/stat
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 
-import { getSelectedTableInfo } from '../utils';
+import { getSelectedTableInfo } from '../utils/analytics';
 
 export const replaceSelectedTable = (
 	state: EditorState,

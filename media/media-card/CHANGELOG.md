@@ -1,5 +1,26 @@
 # @atlaskit/media-card
 
+## 78.17.1
+
+### Patch Changes
+
+- [#98553](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98553)
+  [`d3cdb7e8e6bfb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3cdb7e8e6bfb) -
+  Fixed Media Card Actions click through. Media Viewer opens correctly
+
+## 78.17.0
+
+### Minor Changes
+
+- [#98696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98696)
+  [`396ff0958321d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/396ff0958321d) -
+  Adding the ability to register copy intents to enable cross site / product copy and paste for
+  media by forwarding the ref from useCopyIntent / useFilePreview
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 78.16.1
 
 ### Patch Changes

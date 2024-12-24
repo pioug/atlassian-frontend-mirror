@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.12.28
+
+### Patch Changes
+
+- [#98511](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98511)
+  [`2b5853b737f5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b5853b737f5a) -
+  Improve performance of task and decision state subscriptions using plugin state selector.
+
 ## 2.12.27
 
 ### Patch Changes

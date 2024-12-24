@@ -26,6 +26,7 @@ import {
 import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
 import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
+import { useMergeRefs } from 'use-callback-ref';
 import { MediaCardError } from '../errors';
 import {
 	type CardAppearance,
@@ -36,7 +37,6 @@ import {
 	type TitleBoxIcon,
 	isSSRPreview,
 } from '../types';
-import getDocument from '../utils/document';
 import { generateUniqueId } from '../utils/generateUniqueId';
 import { resolveCardPreviewDimensions } from '../utils/getDataURIDimension';
 import { getMediaCardCursor } from '../utils/getMediaCardCursor';
@@ -51,7 +51,6 @@ import { usePrevious } from '../utils/usePrevious';
 import { ViewportDetector } from '../utils/viewportDetector';
 import { getDefaultCardDimensions } from '../utils/cardDimensions';
 import {
-	fireCopiedEvent,
 	fireNonCriticalErrorEvent,
 	fireOperationalEvent,
 	fireScreenEvent,
@@ -252,6 +251,7 @@ export const FileCard = ({
 		onImageError: onImageErrorBase,
 		onImageLoad: onImageLoadBase,
 		getSsrScriptProps,
+		copyNodeRef,
 	} = useFilePreview({
 		mediaBlobUrlAttrs,
 		resizeMode: imageResizeModeToFileImageMode(resizeMode),
@@ -533,28 +533,6 @@ export const FileCard = ({
 	};
 
 	//----------------------------------------------------------------//
-	//------------------------ handle fireCopiedEvent   --------------//
-	//----------------------------------------------------------------//
-
-	useEffect(() => {
-		const fireCopiedCardEvent = () => {
-			cardElement &&
-				createAnalyticsEvent &&
-				fireCopiedEvent(createAnalyticsEvent, metadata.id, cardElement);
-		};
-
-		// we add a listener for each of the cards on the page
-		// and then check if the triggered listener is from the card
-		// that contains a div in current window.getSelection()
-		// won't work in IE11
-		getDocument()?.addEventListener('copy', fireCopiedCardEvent);
-
-		return () => {
-			getDocument()?.removeEventListener('copy', fireCopiedCardEvent);
-		};
-	}, [cardElement, createAnalyticsEvent, metadata.id]);
-
-	//----------------------------------------------------------------//
 	//----------------- update status flags --------------------------//
 	//----------------------------------------------------------------//
 
@@ -712,7 +690,7 @@ export const FileCard = ({
 			}
 		}
 	});
-
+	const mergedRef = useMergeRefs<HTMLDivElement>([setCardElement, copyNodeRef]);
 	useEffect(() => {
 		updateFileStateRef.current();
 	}, [fileState, preview, previewStatus, updateFileStateRef, previewDidRender, finalStatus]);
@@ -793,7 +771,7 @@ export const FileCard = ({
 							}
 						: undefined
 				}
-				innerRef={setCardElement}
+				innerRef={mergedRef}
 				testId={testId}
 				titleBoxBgColor={titleBoxBgColor}
 				titleBoxIcon={titleBoxIcon}

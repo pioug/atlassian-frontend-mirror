@@ -52,7 +52,6 @@ function Component({
 	children,
 	showHoverPreview,
 	hoverPreviewOptions,
-	showAuthTooltip,
 	analyticsEvents,
 	removeTextHighlightingFromTitle,
 	resolvingPlaceholder,
@@ -261,9 +260,6 @@ function Component({
 				ui={ui}
 				showHoverPreview={showHoverPreview}
 				hoverPreviewOptions={hoverPreviewOptions}
-				showAuthTooltip={
-					fg('platform_deprecate-showauthtooltip-smart-card') ? undefined : showAuthTooltip
-				}
 				actionOptions={actionOptions}
 				url={url}
 				testId={testId}
@@ -300,9 +296,6 @@ function Component({
 					inlinePreloaderStyle={inlinePreloaderStyle}
 					showHoverPreview={showHoverPreview}
 					hoverPreviewOptions={hoverPreviewOptions}
-					showAuthTooltip={
-						fg('platform_deprecate-showauthtooltip-smart-card') ? undefined : showAuthTooltip
-					}
 					actionOptions={actionOptions}
 					removeTextHighlightingFromTitle={removeTextHighlightingFromTitle}
 					resolvingPlaceholder={resolvingPlaceholder}

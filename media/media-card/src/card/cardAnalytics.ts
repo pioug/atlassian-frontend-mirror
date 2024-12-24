@@ -9,7 +9,6 @@ import {
 	getRenderSucceededEventPayload,
 	getRenderErrorEventPayload,
 	getRenderFailedFileStatusPayload,
-	getCopiedFilePayload,
 	type MediaCardAnalyticsEventPayload,
 	getRenderPreviewableCardPayload,
 	type SSRStatus,
@@ -68,19 +67,6 @@ export const fireOperationalEvent = (
 				),
 			);
 			break;
-	}
-};
-
-export const fireCopiedEvent = (
-	createAnalyticsEvent: CreateUIAnalyticsEvent,
-	fileId: string,
-	cardRef: HTMLDivElement,
-) => {
-	if (typeof window.getSelection === 'function') {
-		const selection = window.getSelection();
-		if (selection?.containsNode?.(cardRef, true)) {
-			fireMediaCardEvent(getCopiedFilePayload(fileId), createAnalyticsEvent);
-		}
 	}
 };
 

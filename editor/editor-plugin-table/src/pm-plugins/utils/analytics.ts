@@ -13,9 +13,9 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { findTable, getSelectionRect } from '@atlaskit/editor-tables/utils';
 
-import { hasTableBeenResized } from '../table-resizing/utils';
+import { hasTableBeenResized } from '../table-resizing/utils/colgroup';
 
-import { getTableWidth } from './index';
+import { getTableWidth } from './nodes';
 
 export function getSelectedTableInfo(selection: Selection): {
 	table: ReturnType<typeof findTable> | undefined;

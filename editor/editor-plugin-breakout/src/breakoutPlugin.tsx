@@ -5,9 +5,12 @@ import { breakout } from '@atlaskit/adf-schema';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { BreakoutCssClassName } from '@atlaskit/editor-common/styles';
-import type { ExtractInjectionAPI, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type {
+	ExtractInjectionAPI,
+	PMPluginFactoryParams,
+	EditorContainerWidth as WidthPluginState,
+} from '@atlaskit/editor-common/types';
 import { calcBreakoutWidthPx } from '@atlaskit/editor-common/utils';
-import type { WidthPluginState } from '@atlaskit/editor-plugin-width';
 import type { Mark as PMMark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { ReadonlyTransaction } from '@atlaskit/editor-prosemirror/state';
 import type { ContentNodeWithPos } from '@atlaskit/editor-prosemirror/utils';

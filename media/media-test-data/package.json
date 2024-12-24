@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-test-data",
-	"version": "2.7.0",
+	"version": "2.7.1",
 	"description": "Sample data to be used in Media tests",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -37,7 +37,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/media-client": "^28.6.0",
+		"@atlaskit/media-client": "^29.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

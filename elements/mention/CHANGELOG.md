@@ -1,5 +1,14 @@
 # @atlaskit/mention
 
+## 23.5.0
+
+### Minor Changes
+
+- [#98070](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98070)
+  [`567bc6e27663e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/567bc6e27663e) -
+  Adding option boolean flag isEligibleXProductUserInvite on MentionResourceConfig for
+  CCEDITIONS-4746(x-product user search/invite) experiment
+
 ## 23.4.7
 
 ### Patch Changes

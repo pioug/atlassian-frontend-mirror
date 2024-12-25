@@ -225,7 +225,7 @@
 		"@atlaskit/media-picker": "^67.0.0",
 		"@atlaskit/media-ui": "^27.2.0",
 		"@atlaskit/media-viewer": "49.5.2",
-		"@atlaskit/mention": "^23.4.0",
+		"@atlaskit/mention": "^23.5.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/onboarding": "^12.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",

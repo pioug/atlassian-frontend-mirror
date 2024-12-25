@@ -78,7 +78,7 @@
 		"@atlaskit/media-core": "^34.4.0",
 		"@atlaskit/media-integration-test-helpers": "^3.1.0",
 		"@atlaskit/media-test-helpers": "^34.7.0",
-		"@atlaskit/mention": "^23.4.0",
+		"@atlaskit/mention": "^23.5.0",
 		"@atlaskit/navigation-next": "^9.0.0",
 		"@atlaskit/util-data-test": "^17.13.0",
 		"@atlaskit/visual-regression": "*",

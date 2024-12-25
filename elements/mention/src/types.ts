@@ -41,6 +41,7 @@ export interface MentionResourceConfig extends ServiceConfig {
 	userRole?: UserRole;
 	productName?: string;
 	debounceTime?: number;
+	isEligibleXProductUserInvite?: boolean;
 }
 
 export interface ResourceProvider<Result> {

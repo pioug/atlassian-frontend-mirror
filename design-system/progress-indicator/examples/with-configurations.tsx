@@ -1,11 +1,31 @@
+
 import React, { type ChangeEvent, type ReactNode, useState } from 'react';
 
+import { cssMap, cx } from "@compiled/react";
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import { Box, Inline, Stack, Text, xcss } from '@atlaskit/primitives';
+import { Box, Inline, Stack, Text } from "@atlaskit/primitives/compiled";
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
+import { token } from "@atlaskit/tokens";
+const styles = cssMap({
+    invertedFooter: {
+        backgroundColor: "var(--ds-background-neutral-bold)",
+    },
+
+    displayBlock: { display: 'block' },
+    displayNone: { display: 'none' },
+
+    heading: {
+        color: token("color.text"),
+    },
+
+    page: {
+        maxWidth: '840px',
+        marginInline: 'auto',
+    }
+});
 
 type Appearances = 'default' | 'help' | 'inverted' | 'primary';
 type Sizes = 'default' | 'large';
@@ -21,26 +41,11 @@ type FooterProps = {
 	children: ReactNode;
 };
 
-const invertedFooterStyles = xcss({
-	backgroundColor: 'color.background.neutral.bold',
-});
-const displayBlockStyles = xcss({ display: 'block' });
-const displayNoneStyles = xcss({ display: 'none' });
-
 const Footer = ({ appearance, children }: FooterProps) => (
-	<Box as="footer" xcss={appearance === 'inverted' ? invertedFooterStyles : undefined}>
+	<Box as="footer" backgroundColor={appearance === 'inverted' ? "color.background.neutral.bold": undefined }>
 		{children}
 	</Box>
 );
-
-const headingStyles = xcss({
-	color: 'color.text',
-});
-
-const pageStyles = xcss({
-	maxWidth: '840px',
-	marginInline: 'auto',
-});
 
 const SpreadInlineLayout = ({ children }: { children: ReactNode }) => {
 	return (
@@ -85,12 +90,12 @@ const ProgressIndicatorDots = () => {
 		setIsInteractive(event.target.checked);
 
 	return (
-		<Box xcss={pageStyles}>
+        <Box xcss={styles.page}>
 			<Box paddingBlock="space.400">
 				<Stack space="space.400">
 					<SpreadInlineLayout>
 						<Stack space="space.150">
-							<Box id="appearance-title" xcss={headingStyles}>
+							<Box id="appearance-title" xcss={styles.heading}>
 								Appearance
 							</Box>
 							<ButtonGroup titleId="appearance-title">
@@ -107,7 +112,7 @@ const ProgressIndicatorDots = () => {
 							</ButtonGroup>
 						</Stack>
 						<Stack space="space.150">
-							<Box id="spacing-title" xcss={headingStyles}>
+							<Box id="spacing-title" xcss={styles.heading}>
 								Spacing
 							</Box>
 							<ButtonGroup titleId="spacing-title">
@@ -124,7 +129,7 @@ const ProgressIndicatorDots = () => {
 							</ButtonGroup>
 						</Stack>
 						<Stack space="space.150">
-							<Box id="size-title" xcss={headingStyles}>
+							<Box id="size-title" xcss={styles.heading}>
 								Size
 							</Box>
 							<ButtonGroup titleId="size-title">
@@ -160,7 +165,6 @@ const ProgressIndicatorDots = () => {
 						{values.map((v, i) => {
 							const selected = i === selectedIndex;
 							const panelId = `panel${i}`;
-
 							return (
 								<Box
 									aria-hidden={!selected}
@@ -168,7 +172,7 @@ const ProgressIndicatorDots = () => {
 									key={v}
 									id={panelId}
 									role="tabpanel"
-									xcss={selected ? displayBlockStyles : displayNoneStyles}
+									xcss={cx(styles.displayBlock, !selected && styles.displayNone)}
 								>
 									<Stack space="space.100">
 										<Text as="strong">Panel {i + 1}</Text>
@@ -209,7 +213,7 @@ const ProgressIndicatorDots = () => {
 				</Stack>
 			</Box>
 		</Box>
-	);
+    );
 };
 
 export default ProgressIndicatorDots;

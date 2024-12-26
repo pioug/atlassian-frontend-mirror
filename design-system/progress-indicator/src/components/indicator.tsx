@@ -1,79 +1,62 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
-import { Box, Pressable, xcss } from '@atlaskit/primitives';
+import { cssMap, cx, jsx } from '@compiled/react';
+
+import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import { varDotsMargin, varDotsSize } from './constants';
-import { type DotsAppearance } from './types';
+type DotsAppearance = 'default' | 'help' | 'inverted' | 'primary';
 
-// TODO Token usages are not consistent for dots https://product-fabric.atlassian.net/browse/DSP-3180
-const colorMap = {
-	default: xcss({
-		backgroundColor: 'elevation.surface',
-		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
-	}),
-	help: xcss({
-		backgroundColor: 'elevation.surface',
-		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
-	}),
-	inverted: xcss({
-		// @ts-ignore
-		backgroundColor: token('color.background.neutral.subtle'),
-		border: `${token('border.width', '1px')} solid ${token('color.border.inverse')}`,
-	}),
-	primary: xcss({
-		backgroundColor: 'elevation.surface',
-		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
-	}),
-};
+const commonStyles: any = cssMap({
+	common: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		width: `var(--ds-dots-size)`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		height: `var(--ds-dots-size)`,
+		position: 'relative',
+		borderRadius: token('border.radius.circle'),
 
-const selectedColorMap = {
-	default: xcss({
-		// @ts-expect-error
-		backgroundColor: token('color.icon'),
-	}),
-	help: xcss({
-		// @ts-expect-error
-		backgroundColor: token('color.icon.discovery'),
-	}),
-	inverted: xcss({
-		// @ts-expect-error
-		backgroundColor: token('color.icon.inverse'),
-	}),
-	primary: xcss({
-		// @ts-expect-error
-		backgroundColor: token('color.icon.brand'),
-	}),
-};
-
-const commonStyles = xcss({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	width: `var(${varDotsSize})`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	height: `var(${varDotsSize})`,
-	position: 'relative',
-	borderRadius: 'border.radius.circle',
-
-	'::before': {
-		display: 'block',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		width: `calc(var(${varDotsSize}) + var(${varDotsMargin}))`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: `calc(var(${varDotsSize}) + var(${varDotsMargin}))`,
-		position: 'absolute',
-		content: '""',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		insetBlockStart: `calc(-1 * var(${varDotsMargin}) / 2)`,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		insetInlineStart: `calc(-1 * var(${varDotsMargin}) / 2)`,
+		'&::before': {
+			display: 'block',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			width: `calc(var(--ds-dots-size) + var(--ds-dots-margin))`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			height: `calc(var(--ds-dots-size) + var(--ds-dots-margin))`,
+			position: 'absolute',
+			content: '""',
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			insetBlockStart: `calc(-1 * var(--ds-dots-margin) / 2)`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			insetInlineStart: `calc(-1 * var(--ds-dots-margin) / 2)`,
+		},
 	},
 });
 
-const buttonStyles = xcss({
-	padding: 'space.0',
-	cursor: 'pointer',
-	outline: 0,
+const colorBorderMap = cssMap({
+	default: {
+		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
+	},
+	help: {
+		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
+	},
+	inverted: {
+		border: `${token('border.width', '1px')} solid ${token('color.border.inverse')}`,
+	},
+	primary: {
+		border: `${token('border.width', '1px')} solid ${token('color.border.bold')}`,
+	},
+});
+
+const buttonStyle = cssMap({
+	root: {
+		padding: token('space.0'),
+		cursor: 'pointer',
+		outline: 0,
+	},
 });
 
 type CommonProps = {
@@ -82,27 +65,38 @@ type CommonProps = {
 	testId?: string;
 };
 
+const backgroundColor = (isSelected: boolean) => {
+	if (!isSelected) {
+		return {
+			default: token('elevation.surface'),
+			help: token('elevation.surface'),
+			inverted: token('color.background.neutral.subtle'),
+			primary: token('elevation.surface'),
+		} as const;
+	}
+	return {
+		default: token('color.icon'),
+		help: token('color.icon.discovery'),
+		inverted: token('color.icon.inverse'),
+		primary: token('color.icon.brand'),
+	} as const;
+};
+
 /**
  * __Presentational indicator__
  *
  * A presentational indicator with no interactivity
  */
-export const PresentationalIndicator = ({ appearance, isSelected, testId }: CommonProps) => (
-	<Box
-		testId={testId}
-		xcss={[
-			commonStyles,
-			appearance === 'default' && !isSelected && colorMap['default'],
-			appearance === 'help' && !isSelected && colorMap['help'],
-			appearance === 'inverted' && !isSelected && colorMap['inverted'],
-			appearance === 'primary' && !isSelected && colorMap['primary'],
-			appearance === 'default' && isSelected && selectedColorMap['default'],
-			appearance === 'help' && isSelected && selectedColorMap['help'],
-			appearance === 'inverted' && isSelected && selectedColorMap['inverted'],
-			appearance === 'primary' && isSelected && selectedColorMap['primary'],
-		]}
-	/>
-);
+export const PresentationalIndicator = ({ appearance, isSelected, testId }: CommonProps) => {
+	return (
+		<Box
+			testId={testId}
+			// here we set it dynamic because that backgroundColor and xcss don't support the colors we need here eg. token('color.icon')
+			style={{backgroundColor:backgroundColor(isSelected)[appearance]}}
+			xcss={cx(commonStyles.common, colorBorderMap[appearance])}
+		/>
+	);
+};
 
 type ButtonIndicatorProps = {
 	panelId: string;
@@ -126,18 +120,8 @@ export const ButtonIndicator = ({
 	return (
 		<Pressable
 			role="tab"
-			xcss={[
-				commonStyles,
-				buttonStyles,
-				appearance === 'default' && !isSelected && colorMap['default'],
-				appearance === 'help' && !isSelected && colorMap['help'],
-				appearance === 'inverted' && !isSelected && colorMap['inverted'],
-				appearance === 'primary' && !isSelected && colorMap['primary'],
-				appearance === 'default' && isSelected && selectedColorMap['default'],
-				appearance === 'help' && isSelected && selectedColorMap['help'],
-				appearance === 'inverted' && isSelected && selectedColorMap['inverted'],
-				appearance === 'primary' && isSelected && selectedColorMap['primary'],
-			]}
+			style={{ backgroundColor: backgroundColor(isSelected)[appearance] }}
+			xcss={cx(commonStyles.common, buttonStyle.root, colorBorderMap[appearance])}
 			aria-controls={panelId}
 			aria-selected={isSelected}
 			id={tabId}

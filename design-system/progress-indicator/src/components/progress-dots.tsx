@@ -1,31 +1,49 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React, {
-	type CSSProperties,
-	type FC,
-	type MutableRefObject,
-	useCallback,
-	useEffect,
-	useRef,
+    type CSSProperties,
+    type FC,
+    type MutableRefObject,
+    useCallback,
+    useEffect,
+    useRef,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import { bind } from 'bind-event-listener';
 
 import { usePlatformLeafEventHandler } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
-import { Box, Inline } from '@atlaskit/primitives';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 
 import type { ProgressDotsProps } from '../types';
 
-import { progressIndicatorGapMap, sizes, varDotsMargin, varDotsSize } from './constants';
 import { ButtonIndicator, PresentationalIndicator } from './indicator';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
+
+
+const progressIndicatorGapMap = {
+	comfortable: {
+		default: 'space.100',
+		large: 'space.150',
+	},
+	cozy: {
+		default: 'space.075',
+		large: 'space.100',
+	},
+	compact: {
+		default: 'space.050',
+		large: 'space.075',
+	},
+} as const;
+
+const sizes = {
+	default: 8,
+	large: 12,
+};
+
+const varDotsSize = '--ds-dots-size';
+const varDotsMargin = '--ds-dots-margin';
+
 
 /**
  * __ProgressDots__
@@ -55,7 +73,7 @@ const ProgressDots: FC<ProgressDotsProps> = ({
 		packageVersion,
 	});
 
-	const [inlineGapValue, rawGapValue] = progressIndicatorGapMap[gutter][size];
+	const gap = progressIndicatorGapMap[gutter][size];
 
 	const handleKeyDown = useCallback(
 		(event: KeyboardEvent) => {
@@ -115,7 +133,7 @@ const ProgressDots: FC<ProgressDotsProps> = ({
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					[varDotsSize]: `${sizes[size]}px`,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					[varDotsMargin]: rawGapValue,
+					[varDotsMargin]: gap,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				} as CSSProperties
 			}
@@ -127,7 +145,7 @@ const ProgressDots: FC<ProgressDotsProps> = ({
 					tablistRef.current = r;
 				}}
 				alignInline="center"
-				space={inlineGapValue}
+				space={gap}
 			>
 				{values.map((_, index) => {
 					const isSelected = selectedIndex === index;

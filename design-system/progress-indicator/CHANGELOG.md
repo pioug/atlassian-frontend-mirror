@@ -1,5 +1,13 @@
 # @atlaskit/progress-indicator
 
+## 11.1.0
+
+### Minor Changes
+
+- [#98760](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98760)
+  [`4ed94e5c74659`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4ed94e5c74659) -
+  Compiled migration for progress indicator
+
 ## 11.0.7
 
 ### Patch Changes

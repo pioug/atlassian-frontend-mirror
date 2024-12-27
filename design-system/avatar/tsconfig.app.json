@@ -28,7 +28,6 @@
 		"./examples-util/**/*"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__avatar/app"
 	},

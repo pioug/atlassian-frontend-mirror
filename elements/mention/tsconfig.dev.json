@@ -29,7 +29,6 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__mention/dev"
 	},

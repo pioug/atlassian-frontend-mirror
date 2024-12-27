@@ -55,7 +55,7 @@ import { shouldShowImageBorder } from './imageBorder';
 import { LinkToolbarAppearance } from './linking-toolbar-appearance';
 import { downloadMedia } from './utils';
 
-import { generateFilePreviewItem, handleShowMediaViewer } from './index';
+import { handleShowMediaViewer } from './index';
 
 export const generateMediaInlineFloatingToolbar = (
 	state: EditorState,
@@ -117,19 +117,17 @@ export const generateMediaInlineFloatingToolbar = (
 		{
 			type: 'separator',
 		},
-		fg('platform_editor_media_previewer_bugfix')
-			? {
-					id: 'editor.media.viewer',
-					testId: 'file-preview-toolbar-button',
-					type: 'button',
-					icon: ExpandIcon,
-					iconFallback: FilePreviewIcon,
-					title: intl.formatMessage(messages.preview),
-					onClick: () => {
-						return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
-					},
-				}
-			: generateFilePreviewItem(mediaPluginState, intl),
+		{
+			id: 'editor.media.viewer',
+			testId: 'file-preview-toolbar-button',
+			type: 'button',
+			icon: ExpandIcon,
+			iconFallback: FilePreviewIcon,
+			title: intl.formatMessage(messages.preview),
+			onClick: () => {
+				return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
+			},
+		},
 		{ type: 'separator' },
 		{
 			id: 'editor.media.card.download',
@@ -316,20 +314,18 @@ const getMediaInlineImageToolbar = (
 	//Image Preview
 	if (options.allowImagePreview) {
 		inlineImageItems.push(
-			fg('platform_editor_media_previewer_bugfix')
-				? {
-						id: 'editor.media.viewer',
-						testId: 'file-preview-toolbar-button',
-						type: 'button',
-						icon: ExpandIcon,
-						iconFallback: FilePreviewIcon,
-						title: intl.formatMessage(messages.preview),
-						onClick: () => {
-							return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
-						},
-						supportsViewMode: true,
-					}
-				: generateFilePreviewItem(mediaPluginState, intl),
+			{
+				id: 'editor.media.viewer',
+				testId: 'file-preview-toolbar-button',
+				type: 'button',
+				icon: ExpandIcon,
+				iconFallback: FilePreviewIcon,
+				title: intl.formatMessage(messages.preview),
+				onClick: () => {
+					return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
+				},
+				supportsViewMode: true,
+			},
 			{
 				type: 'separator',
 				supportsViewMode: true,

@@ -31,7 +31,6 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__emoji/dev"
 	},
@@ -77,6 +76,9 @@
 		},
 		{
 			"path": "../../media/media-core/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/popup/tsconfig.app.json"

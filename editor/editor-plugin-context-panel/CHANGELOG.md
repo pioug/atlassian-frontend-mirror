@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-context-panel
 
+## 1.4.0
+
+### Minor Changes
+
+- [#98971](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98971)
+  [`1af472c6db66f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1af472c6db66f) -
+  Remove platform_editor_context_panel_support_multiple fg
+
 ## 1.3.17
 
 ### Patch Changes

@@ -28,7 +28,6 @@
 		"./test-utils/**/*"
 	],
 	"compilerOptions": {
-		"baseUrl": "",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__jql-parser/app"
 	},

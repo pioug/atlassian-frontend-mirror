@@ -157,11 +157,16 @@ export class SSRPlaceholderHandlers {
 				const rect = this.staticPlaceholders.get(staticKey);
 
 				if (fg('platform_ufo_ssr_ttvc_use_target_rect')) {
-					requestAnimationFrame(() => {
-						const targetRect = target.getBoundingClientRect();
-						const hasSameSizePosition = this.hasSameSizePosition(rect, targetRect);
+					const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
+					if (hasSameSizePosition) {
 						resolve(hasSameSizePosition);
-					});
+					} else {
+						requestAnimationFrame(() => {
+							const targetRect = target.getBoundingClientRect();
+							const hasSameSizePosition = this.hasSameSizePosition(rect, targetRect);
+							resolve(hasSameSizePosition);
+						});
+					}
 				} else {
 					const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
 					resolve(hasSameSizePosition);
@@ -179,11 +184,16 @@ export class SSRPlaceholderHandlers {
 
 			const rect = this.staticPlaceholders.get(key);
 			if (fg('platform_ufo_ssr_ttvc_use_target_rect')) {
-				requestAnimationFrame(() => {
-					const targetRect = target.getBoundingClientRect();
-					const hasSameSizePosition = this.hasSameSizePosition(rect, targetRect);
+				const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
+				if (hasSameSizePosition) {
 					resolve(hasSameSizePosition);
-				});
+				} else {
+					requestAnimationFrame(() => {
+						const targetRect = target.getBoundingClientRect();
+						const hasSameSizePosition = this.hasSameSizePosition(rect, targetRect);
+						resolve(hasSameSizePosition);
+					});
+				}
 			} else {
 				const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
 				resolve(hasSameSizePosition);

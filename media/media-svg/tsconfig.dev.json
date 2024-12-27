@@ -27,7 +27,6 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"baseUrl": "",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-svg/dev"
 	},
@@ -64,6 +63,9 @@
 		},
 		{
 			"path": "../media-test-helpers/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/primitives/tsconfig.app.json"

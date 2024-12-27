@@ -28,7 +28,6 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"lib": ["ES2021.String"],
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__eslint-plugin-ui-styling-standard/dev"

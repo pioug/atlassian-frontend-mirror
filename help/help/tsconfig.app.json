@@ -28,7 +28,6 @@
 		"./src/util/testing/**/*"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__help/app"
 	},

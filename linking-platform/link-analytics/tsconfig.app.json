@@ -28,7 +28,6 @@
 		"./src/__fixtures__/**/*"
 	],
 	"compilerOptions": {
-		"baseUrl": "",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__link-analytics/app"
 	},

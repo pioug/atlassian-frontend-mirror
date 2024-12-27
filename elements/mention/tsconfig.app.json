@@ -29,7 +29,6 @@
 		"./example-helpers/**/*"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__mention/app"
 	},

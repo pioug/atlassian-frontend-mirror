@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.8.1
+
+### Patch Changes
+
+- [#98925](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98925)
+  [`4c9eae0d55227`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c9eae0d55227) -
+  Adjust logic on when to apply getBoundingClientRect check for target rect
+
 ## 2.8.0
 
 ### Minor Changes

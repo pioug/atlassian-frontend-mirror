@@ -29,7 +29,6 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"baseUrl": "",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-client-react/dev"
 	},
@@ -48,6 +47,9 @@
 		},
 		{
 			"path": "../media-test-helpers/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		}
 	]
 }

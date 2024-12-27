@@ -93,12 +93,15 @@ type CollabConfig = {
 	/// This client's ID, used to distinguish its changes from those of
 	/// other clients. Defaults to a random 32-bit number.
 	clientID?: number | string | null;
+
+	// Allow the client to apply a transform to unconfirmed steps
+	transformUnconfirmed?: (steps: Rebaseable[]) => Rebaseable[];
 };
 
 /// Creates a plugin that enables the collaborative editing framework
 /// for the editor.
 export function collab(config: CollabConfig = {}): Plugin {
-	let conf: Required<CollabConfig> = {
+	let conf: Required<Omit<CollabConfig, 'transformUnconfirmed'>> = {
 		version: config.version || 0,
 		clientID:
 			// eslint-disable-next-line eqeqeq
@@ -106,6 +109,7 @@ export function collab(config: CollabConfig = {}): Plugin {
 			// prefix temp-pc- indicates prosemirror-collab
 			config.clientID == null || !config.clientID ? `temp-pc-${uuidv4()}` : config.clientID,
 	};
+	const transformUnconfirmed = config.transformUnconfirmed ?? ((steps) => steps);
 
 	return new Plugin<CollabState>({
 		key: collabKey,
@@ -120,7 +124,9 @@ export function collab(config: CollabConfig = {}): Plugin {
 				if (tr.docChanged) {
 					return new CollabState(
 						collab.version,
-						collab.unconfirmed.concat(unconfirmedFrom(tr as ProseMirrorTransform)),
+						transformUnconfirmed(
+							collab.unconfirmed.concat(unconfirmedFrom(tr as ProseMirrorTransform)),
+						),
 					);
 				}
 				return collab;

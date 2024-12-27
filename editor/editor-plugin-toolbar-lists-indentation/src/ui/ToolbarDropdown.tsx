@@ -170,7 +170,7 @@ function useItems(
 	const labelUnorderedList = formatMessage(listMessages.unorderedList);
 	const labelOrderedList = formatMessage(listMessages.orderedList);
 
-	let items = [
+	const items = [
 		{
 			key: 'unorderedList',
 			content: labelUnorderedList,

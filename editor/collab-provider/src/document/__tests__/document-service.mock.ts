@@ -35,8 +35,9 @@ export const createMockService = (config: Partial<Config> = {}) => {
 		onErrorHandledMock,
 		metadataService,
 		isNameSpaceLockedMock,
-		config.enableErrorOnFailedDocumentApply,
+		Boolean(config.enableErrorOnFailedDocumentApply),
 		options,
+		() => false,
 	);
 
 	// @ts-expect-error - jest mock class

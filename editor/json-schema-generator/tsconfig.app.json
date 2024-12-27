@@ -29,7 +29,6 @@
 		"./src/json-schema-nodes/number-schema-node.ts"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__json-schema-generator/app"
 	},

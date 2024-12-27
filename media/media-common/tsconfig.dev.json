@@ -26,7 +26,6 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-common/dev"
 	},
@@ -39,9 +38,6 @@
 		},
 		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/website/docs/tsconfig.app.json"
 		}
 	]
 }

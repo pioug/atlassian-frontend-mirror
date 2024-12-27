@@ -28,7 +28,6 @@
 		"./src/plugins/media/nodeviews/__mocks__/**/*"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-core/app",
 		"types": ["@emotion/react/types/css-prop"]

@@ -590,7 +590,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 	};
 
 	private createOriginalContextMenuItems = () => {
-		let items: MenuItem[] = [];
+		const items: MenuItem[] = [];
 		const sortColumnItems = this.createSortColumnItems();
 		const backgroundColorItem = this.createBackgroundColorItem();
 		const distributeColumnsItem = this.createDistributeColumnsItem();
@@ -626,7 +626,7 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		const deleteRowItem = this.createDeleteRowItem();
 
 		// Group items so when table.menu.group-items FF is enabled, a divider shows under split cell, above add column
-		let items: { items: MenuItem[] }[] = [
+		const items: { items: MenuItem[] }[] = [
 			{
 				items: [],
 			},

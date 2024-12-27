@@ -25,7 +25,6 @@
 		"**/mock.*"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__adf-utils/app"
 	},

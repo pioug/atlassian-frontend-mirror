@@ -78,7 +78,7 @@ export function groupItems(items: Item[]): GroupedItems {
 			item,
 			i,
 		) => {
-			let { finalOutput, buttonGroup } = accumulator;
+			const { finalOutput, buttonGroup } = accumulator;
 
 			if (item.type === 'button') {
 				const notLastItem = i < items.length - 1;
@@ -167,7 +167,7 @@ const ToolbarItems = React.memo(
 						if (selected) {
 							return token('color.icon.selected');
 						}
-						return 'currentColor';
+						return token('color.icon.subtle');
 					};
 
 					return (

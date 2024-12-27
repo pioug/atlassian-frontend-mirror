@@ -190,6 +190,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 				this.namespaceService.getIsNamespaceLocked.bind(this.namespaceService),
 				this.config.enableErrorOnFailedDocumentApply,
 				{ __livePage: this.config.__livePage || false },
+				this.channel.getConnected,
 			);
 			this.api = new Api(config, this.documentService as DocumentService, this.channel);
 		}

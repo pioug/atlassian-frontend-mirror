@@ -28,7 +28,6 @@
 		"./mock-data/**/*"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__color-picker/app"
 	},

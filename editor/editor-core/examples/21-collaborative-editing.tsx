@@ -10,19 +10,23 @@ import { css, jsx } from '@emotion/react';
 import { IntlProvider } from 'react-intl-next';
 import URLSearchParams from 'url-search-params';
 
+import { DevTools } from '@af/editor-examples-helpers/utils';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
 import type { Provider } from '@atlaskit/collab-provider';
 import { createSocketIOCollabProvider } from '@atlaskit/collab-provider/socket-io-provider';
 import type { NextEditorPlugin } from '@atlaskit/editor-common/src/types';
+import type { EditorProps, EditorActions } from '@atlaskit/editor-core';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import { blockControlsPlugin } from '@atlaskit/editor-plugins/block-controls';
+import { connectivityPlugin } from '@atlaskit/editor-plugins/connectivity';
 import { type Node, Slice } from '@atlaskit/editor-prosemirror/model';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { storyContextIdentifierProviderFactory } from '@atlaskit/editor-test-helpers/context-identifier-provider';
 import { TitleInput } from '@atlaskit/editor-test-helpers/example-helpers';
 import { extensionHandlers } from '@atlaskit/editor-test-helpers/extensions';
@@ -32,7 +36,6 @@ import { getEmojiProvider } from '@atlaskit/util-data-test/get-emoji-provider';
 import { mentionResourceProviderWithResolver } from '@atlaskit/util-data-test/mention-story-data';
 import { getMockTaskDecisionResource } from '@atlaskit/util-data-test/task-decision-story-data';
 
-import type { EditorActions } from '../src';
 import EditorContext from '../src/ui/EditorContext';
 import WithEditorActions from '../src/ui/WithEditorActions';
 
@@ -169,6 +172,7 @@ export type State = {
 	title?: string;
 	__livePage: boolean;
 	__liveView: boolean;
+	editorView?: EditorView;
 };
 
 const getQueryParam = (param: string) => {
@@ -185,6 +189,7 @@ function useFullPageEditorPreset(props: any) {
 			.add([editorViewModePlugin, { mode: 'view' }])
 			.add(selectionMarkerPlugin)
 			.add(collabCustomStepPlugin)
+			.add(connectivityPlugin)
 			.add(blockControlsPlugin);
 	}, [universalPreset]);
 
@@ -209,7 +214,7 @@ function useFullPageEditorPreset(props: any) {
 	return preset;
 }
 
-const FullPageComposableEditor = (props: any) => {
+const FullPageComposableEditor = (props: EditorProps & { viewMode: 'view' | 'edit' }) => {
 	const fullPagePreset = useFullPageEditorPreset(props);
 
 	return (
@@ -230,6 +235,7 @@ const FullPageComposableEditor = (props: any) => {
 			contentComponents={props.contentComponents}
 			sanitizePrivateContent={props.sanitizePrivateContent}
 			__livePage={props.__livePage}
+			onEditorReady={props.onEditorReady}
 		/>
 	);
 };
@@ -253,6 +259,7 @@ export default class Example extends React.Component<Props, State> {
 		title: localStorage.getItem(LOCALSTORAGE_defaultTitleKey) || '',
 		__livePage: getQueryParam('__livePage') === 'true' || false,
 		__liveView: getQueryParam('__liveView') === 'true' || false,
+		editorView: undefined,
 	};
 
 	componentDidCatch() {
@@ -427,6 +434,7 @@ export default class Example extends React.Component<Props, State> {
 				<DropzoneEditorWrapper>
 					{(parentContainer) => (
 						<EditorContext>
+							<DevTools editorView={this.state.editorView} />
 							<FullPageComposableEditor
 								defaultValue={this.state.draftDoc}
 								__livePage={this.state.__livePage}
@@ -454,6 +462,11 @@ export default class Example extends React.Component<Props, State> {
 									allowCaptions: true,
 									allowLinking: true,
 									allowImagePreview: true,
+								}}
+								onEditorReady={(actions) => {
+									this.setState({
+										editorView: actions._privateGetEditorView(),
+									});
 								}}
 								allowPanel={true}
 								emojiProvider={getEmojiProvider()}

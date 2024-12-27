@@ -27,7 +27,6 @@
 		"**/codemods/**/*.tsx"
 	],
 	"compilerOptions": {
-		"baseUrl": "",
 		"paths": {},
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__platform-feature-flags/app"

@@ -30,7 +30,6 @@
 		"./proxy.ts"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__emoji/app"
 	},

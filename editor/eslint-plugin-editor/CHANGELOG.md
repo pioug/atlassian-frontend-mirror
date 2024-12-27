@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-editor
 
+## 1.3.1
+
+### Patch Changes
+
+- [#99019](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99019)
+  [`40d07b40b2031`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40d07b40b2031) -
+  ED-25888: Add lint rule to enforce editor plugin structure
+
 ## 1.3.0
 
 ### Minor Changes

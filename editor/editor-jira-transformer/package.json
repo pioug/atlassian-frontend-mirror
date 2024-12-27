@@ -57,7 +57,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/activity": "^1.0.1",
-		"@atlaskit/editor-core": "^203.7.0",
+		"@atlaskit/editor-core": "^203.8.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-test-helpers": "^21.0.0",
 		"@atlaskit/mention": "^23.5.0",

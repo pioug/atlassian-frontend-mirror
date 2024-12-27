@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 2.0.2
+
+### Patch Changes
+
+- [#97210](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97210)
+  [`c1744e14e854d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1744e14e854d) -
+  Use transformUnconfirmed from collab prosemirror plugin to merge unconfirmed steps while offline
+  to reduce payload.
+- Updated dependencies
+
 ## 2.0.1
 
 ### Patch Changes

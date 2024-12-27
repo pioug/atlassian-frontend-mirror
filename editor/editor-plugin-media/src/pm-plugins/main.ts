@@ -814,7 +814,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 			return false;
 		}
 
-		let { from } = view.state.selection;
+		const { from } = view.state.selection;
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		removeMediaNode(view, selectedNode.firstChild!, () => from + 1);
@@ -1143,7 +1143,6 @@ export const createPlugin = (
 			},
 			handleDoubleClickOn: (view) => {
 				if (
-					!fg('platform_editor_media_previewer_bugfix') ||
 					!fg('platform_editor_media_interaction_improvements')
 				) {
 					return;
@@ -1204,7 +1203,7 @@ export const createPlugin = (
 
 							// only if targeting interactive elements fe. button, slider, range, dropdown
 							if (allowedTargets && allowedTargets in targetsAndButtons) {
-								let targetRelatedA11YKeys: string[] =
+								const targetRelatedA11YKeys: string[] =
 									targetsAndButtons[allowedTargets as keyof typeof targetsAndButtons];
 								const allowedKeys = new Set(targetRelatedA11YKeys);
 

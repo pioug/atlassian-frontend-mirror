@@ -28,7 +28,6 @@
 		"./example-helpers/**/*"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-jira-transformer/app"
 	},

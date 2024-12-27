@@ -30,9 +30,6 @@
 			"path": "../../editor-plugin-editor-viewmode-effects/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-engagement-platform/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-feature-flags/afm-jira/tsconfig.json"
 		},
 		{

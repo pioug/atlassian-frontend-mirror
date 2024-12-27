@@ -27,7 +27,6 @@
 		"**/codemods/**/*.tsx"
 	],
 	"compilerOptions": {
-		"baseUrl": "",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-file-preview/app"
 	},
@@ -46,6 +45,9 @@
 		},
 		{
 			"path": "../media-ui/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		}
 	],
 	"files": []

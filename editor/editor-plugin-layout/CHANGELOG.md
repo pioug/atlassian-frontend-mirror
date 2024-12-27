@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.12.19
+
+### Patch Changes
+
+- [#98381](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98381)
+  [`3e23b2a14109d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e23b2a14109d) -
+  ED-26121 fix single column layout change layout
+
 ## 1.12.18
 
 ### Patch Changes

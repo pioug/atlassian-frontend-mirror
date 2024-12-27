@@ -86,7 +86,6 @@ import {
 	updateMediaSingleWidth,
 } from './commands';
 import { commentButton } from './comments';
-import { FilePreviewItem } from './filePreviewItem';
 import { shouldShowImageBorder } from './imageBorder';
 import { LayoutGroup } from './layout-group';
 import { getLinkingToolbar, shouldShowMediaLinkToolbar } from './linking';
@@ -126,26 +125,6 @@ const handleRemoveMediaGroup: Command = (state, dispatch) => {
 		dispatch(tr);
 	}
 	return true;
-};
-
-export const generateFilePreviewItem = (
-	mediaPluginState: MediaPluginState,
-	intl: IntlShape,
-): FloatingToolbarItem<Command> => {
-	return {
-		type: 'custom',
-		fallback: [],
-		render: () => {
-			return (
-				<FilePreviewItem
-					key="editor.media.card.preview"
-					mediaPluginState={mediaPluginState}
-					intl={intl}
-				/>
-			);
-		},
-		supportsViewMode: true,
-	};
 };
 
 export const handleShowMediaViewer = ({
@@ -207,20 +186,18 @@ const generateMediaCardFloatingToolbar = (
 			className: 'thumbnail-appearance', // a11y. uses to force focus on item
 		},
 		{ type: 'separator' },
-		fg('platform_editor_media_previewer_bugfix')
-			? {
-					id: 'editor.media.viewer',
-					testId: 'file-preview-toolbar-button',
-					type: 'button',
-					icon: MaximizeIcon,
-					iconFallback: FilePreviewIcon,
-					title: intl.formatMessage(messages.preview),
-					onClick: () => {
-						return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
-					},
-					supportsViewMode: true,
-				}
-			: generateFilePreviewItem(mediaPluginState, intl),
+		{
+			id: 'editor.media.viewer',
+			testId: 'file-preview-toolbar-button',
+			type: 'button',
+			icon: MaximizeIcon,
+			iconFallback: FilePreviewIcon,
+			title: intl.formatMessage(messages.preview),
+			onClick: () => {
+				return handleShowMediaViewer({ mediaPluginState, api: pluginInjectionApi }) ?? false;
+			},
+			supportsViewMode: true,
+		},
 		{ type: 'separator' },
 		{
 			id: 'editor.media.card.download',
@@ -631,25 +608,23 @@ const generateMediaSingleFloatingToolbar = (
 			const mediaNode = selectedMediaSingleNode?.node.content.firstChild;
 			if (!isVideo(mediaNode?.attrs?.__fileMimeType)) {
 				toolbarButtons.push(
-					fg('platform_editor_media_previewer_bugfix')
-						? {
-								id: 'editor.media.viewer',
-								testId: 'file-preview-toolbar-button',
-								type: 'button',
-								icon: MaximizeIcon,
-								iconFallback: FilePreviewIcon,
-								title: intl.formatMessage(messages.preview),
-								onClick: () => {
-									return (
-										handleShowMediaViewer({
-											api: pluginInjectionApi,
-											mediaPluginState: pluginState,
-										}) ?? false
-									);
-								},
-								supportsViewMode: true,
-							}
-						: generateFilePreviewItem(pluginState, intl),
+					{
+						id: 'editor.media.viewer',
+						testId: 'file-preview-toolbar-button',
+						type: 'button',
+						icon: MaximizeIcon,
+						iconFallback: FilePreviewIcon,
+						title: intl.formatMessage(messages.preview),
+						onClick: () => {
+							return (
+								handleShowMediaViewer({
+									api: pluginInjectionApi,
+									mediaPluginState: pluginState,
+								}) ?? false
+							);
+						},
+						supportsViewMode: true,
+					},
 					{
 						type: 'separator',
 						supportsViewMode: true,

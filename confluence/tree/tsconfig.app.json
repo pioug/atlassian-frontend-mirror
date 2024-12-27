@@ -28,7 +28,6 @@
 		"./mockdata/**/*"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__tree/app"
 	},

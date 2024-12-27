@@ -27,7 +27,6 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__progress-indicator/dev"
 	},
@@ -48,6 +47,9 @@
 			"path": "../button/tsconfig.app.json"
 		},
 		{
+			"path": "../css/tsconfig.app.json"
+		},
+		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
 		},
 		{
@@ -64,6 +66,9 @@
 		},
 		{
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
+		},
+		{
+			"path": "../tokens/tsconfig.app.json"
 		}
 	]
 }

@@ -29,7 +29,6 @@
 		"./example-helpers/**/*"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-image/app"
 	},
@@ -45,6 +44,9 @@
 		},
 		{
 			"path": "../media-file-preview/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		}
 	]
 }

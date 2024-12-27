@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.43.10
+
+### Patch Changes
+
+- [#98950](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98950)
+  [`497556595c03a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/497556595c03a) -
+  ED-26125 remove fg platform_editor_media_previewer_bugfix
+
 ## 1.43.9
 
 ### Patch Changes

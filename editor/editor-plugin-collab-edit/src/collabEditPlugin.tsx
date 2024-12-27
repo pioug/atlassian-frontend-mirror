@@ -7,6 +7,7 @@ import type { Mark, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { AddMarkStep, AddNodeMarkStep } from '@atlaskit/editor-prosemirror/transform';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { collab, getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 
 import type { CollabEditPlugin } from './collabEditPluginType';
@@ -14,6 +15,7 @@ import { addSynchronyErrorAnalytics } from './pm-plugins/analytics';
 import { sendTransaction } from './pm-plugins/events/send-transaction';
 import { createPlugin } from './pm-plugins/main';
 import { pluginKey as mainPluginKey } from './pm-plugins/main/plugin-key';
+import { mergeUnconfirmedSteps } from './pm-plugins/mergeUnconfirmed';
 import { nativeCollabProviderPlugin } from './pm-plugins/native-collab-provider-plugin';
 import {
 	sanitizeFilteredStep,
@@ -177,7 +179,13 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 					? [
 							{
 								name: 'pmCollab',
-								plugin: () => collab({ clientID: userId }) as SafePlugin,
+								plugin: () =>
+									collab({
+										clientID: userId,
+										transformUnconfirmed: fg('platform_editor_merge_unconfirmed_steps')
+											? mergeUnconfirmedSteps
+											: undefined,
+									}) as SafePlugin,
 							},
 							{
 								name: 'nativeCollabProviderPlugin',

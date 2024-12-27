@@ -28,7 +28,6 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-filmstrip/dev"
 	},
@@ -62,6 +61,9 @@
 		},
 		{
 			"path": "../media-test-helpers/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/radio/tsconfig.app.json"

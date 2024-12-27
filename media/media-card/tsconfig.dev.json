@@ -28,7 +28,6 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__media-card/dev"
 	},
@@ -91,6 +90,9 @@
 			"path": "../media-ui/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
@@ -128,6 +130,9 @@
 		},
 		{
 			"path": "../../../build/test-tooling/visual-regression/tsconfig.app.json"
+		},
+		{
+			"path": "../../platform/feature-flags-test-utils/tsconfig.app.json"
 		},
 		{
 			"path": "../../data/ufo-internal/tsconfig.app.json"

@@ -165,7 +165,7 @@ const MapDragMenuOptionIdToMessage: Record<DragMenuOptionIdType, MessageType> = 
 };
 
 const getGroupedDragMenuConfig = () => {
-	let groupedDragMenuConfig: DragMenuOptionIdType[][] = [
+	const groupedDragMenuConfig: DragMenuOptionIdType[][] = [
 		[
 			'add_row_above',
 			'add_row_below',
@@ -195,8 +195,8 @@ const convertToDropdownItems = (
 	selectionRect?: Rect,
 ) => {
 	const groupedDragMenuConfig = getGroupedDragMenuConfig();
-	let menuItemsArr: MenuItem[][] = [...Array(groupedDragMenuConfig.length)].map(() => []);
-	let menuCallback: { [key: string]: Command } = {};
+	const menuItemsArr: MenuItem[][] = [...Array(groupedDragMenuConfig.length)].map(() => []);
+	const menuCallback: { [key: string]: Command } = {};
 	dragMenuConfig.forEach((item) => {
 		const menuGroupIndex = groupedDragMenuConfig.findIndex((group) => group.includes(item.id));
 
@@ -497,7 +497,7 @@ const DragMenu = React.memo(
 		 * @returns true when the menu should be closed, false otherwise
 		 */
 		const shouldCloseMenu = (state: EditorState) => {
-			let {
+			const {
 				isDragMenuOpen: previousOpenState,
 				dragMenuDirection: previousDragMenuDirection,
 				dragMenuIndex: previousDragMenuIndex,

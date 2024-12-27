@@ -64,6 +64,7 @@ export class DocumentService implements DocumentServiceInterface {
 	 * @param onErrorHandled - Callback to handle
 	 * @param metadataService
 	 * @param enableErrorOnFailedDocumentApply - Enable failed document update exceptions.
+	 * @param getConnected - if the channel is currently connected
 	 */
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/max-params
@@ -90,6 +91,7 @@ export class DocumentService implements DocumentServiceInterface {
 		private isNameSpaceLocked: () => boolean,
 		private enableErrorOnFailedDocumentApply: boolean = false,
 		private options: { __livePage: boolean } = { __livePage: false },
+		private getConnected: () => boolean,
 	) {
 		this.stepQueue = new StepQueueState();
 		this.onErrorHandled = onErrorHandled;
@@ -830,8 +832,14 @@ export class DocumentService implements DocumentServiceInterface {
 		const version = this.getVersionFromCollabState(newState, 'collab-provider: send');
 
 		// Don't send any steps before we're ready.
-		if (!unconfirmedStepsData) {
-			return;
+		if (fg('platform_editor_merge_unconfirmed_steps')) {
+			if (!unconfirmedStepsData || !this.getConnected()) {
+				return;
+			}
+		} else {
+			if (!unconfirmedStepsData) {
+				return;
+			}
 		}
 
 		const unconfirmedSteps = unconfirmedStepsData.steps;
@@ -846,6 +854,17 @@ export class DocumentService implements DocumentServiceInterface {
 
 		if (!unconfirmedSteps?.length) {
 			return;
+		}
+
+		// If we are going to commit unconfirmed steps
+		// we need to lock them to ensure they don't get
+		// mutated in: `packages/editor/editor-plugin-collab-edit/src/pm-plugins/mergeUnconfirmed.ts`
+		if (fg('platform_editor_merge_unconfirmed_steps')) {
+			unconfirmedStepsData.steps.forEach((s) => {
+				if (isLockable(s)) {
+					s.lockStep?.();
+				}
+			});
 		}
 
 		// Avoid reference issues using a
@@ -868,4 +887,13 @@ export class DocumentService implements DocumentServiceInterface {
 			__livePage: this.options.__livePage,
 		});
 	}
+}
+
+// Based on: packages/editor/editor-plugin-collab-edit/src/pm-plugins/mergeUnconfirmed.ts
+interface LockableProseMirrorStep extends ProseMirrorStep {
+	lockStep?: () => void;
+}
+
+function isLockable(step: ProseMirrorStep): step is LockableProseMirrorStep {
+	return (step as LockableProseMirrorStep)?.lockStep !== undefined;
 }

@@ -18,5 +18,8 @@ module.exports = {
 		// Ignored via go/ees005
 		// eslint-disable-next-line import/no-commonjs
 		'no-htmlElement-assignment': require('./rules/no-htmlElement-assignment').rule,
+		// Ignored via go/ees005
+		// eslint-disable-next-line import/no-commonjs
+		'enforce-plugin-structure': require('./rules/enforce-plugin-structure'),
 	},
 };

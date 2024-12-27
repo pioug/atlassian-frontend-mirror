@@ -67,7 +67,7 @@ class DropList extends Component<Props> {
 	/* eslint-disable @atlaskit/design-system/ensure-design-token-usage */
 	private menuWrapper = () => {
 		return css({
-			color: token('color.text'),
+			color: token('color.text.subtle'),
 			backgroundColor: token('elevation.surface.overlay'),
 			borderRadius: token('border.radius', '3px'),
 			boxShadow: token('elevation.shadow.overlay'),

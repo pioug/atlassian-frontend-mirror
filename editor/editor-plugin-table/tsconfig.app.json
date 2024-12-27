@@ -28,7 +28,6 @@
 		"./src/nodeviews/__mocks__/**/*"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-plugin-table/app"
 	},

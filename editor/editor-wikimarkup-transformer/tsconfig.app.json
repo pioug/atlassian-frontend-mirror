@@ -30,7 +30,6 @@
 		"./src/parser/tokenize/file-link.ts"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-wikimarkup-transformer/app"
 	},

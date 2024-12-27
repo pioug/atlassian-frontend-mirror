@@ -28,7 +28,6 @@
 		"./src/utils/test-utils.ts"
 	],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__custom-steps/app"
 	},

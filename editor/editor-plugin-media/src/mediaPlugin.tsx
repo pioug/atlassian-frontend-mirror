@@ -357,9 +357,7 @@ export const mediaPlugin: MediaNextEditorPluginType = ({ config: options = {}, a
 		contentComponent({ editorView, appearance }) {
 			return (
 				<>
-					{fg('platform_editor_media_previewer_bugfix') && (
-						<MediaViewerFunctionalComponent api={api} editorView={editorView} />
-					)}
+					<MediaViewerFunctionalComponent api={api} editorView={editorView} />
 					<MediaPickerFunctionalComponent
 						editorDomElement={editorView.dom}
 						appearance={appearance}

@@ -29,7 +29,6 @@
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
 		"types": ["@emotion/react/types/css-prop", "@types/testing-library__jest-dom"],
-		"baseUrl": "./",
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__editor-core/dev"
 	},

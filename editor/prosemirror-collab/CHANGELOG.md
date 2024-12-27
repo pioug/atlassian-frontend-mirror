@@ -1,5 +1,14 @@
 # @atlaskit/prosemirror-collab
 
+## 0.11.0
+
+### Minor Changes
+
+- [#97210](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97210)
+  [`b55d2f8aafea1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b55d2f8aafea1) -
+  Introduces new option `transformUnconfirmed` on collab prosemirror plugin which can be used to run
+  a transform on unconfirmed steps.
+
 ## 0.10.4
 
 ### Patch Changes

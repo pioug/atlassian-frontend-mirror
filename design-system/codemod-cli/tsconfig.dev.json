@@ -27,7 +27,6 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"baseUrl": "./",
 		"module": "commonjs",
 		"target": "es6",
 		"esModuleInterop": true,

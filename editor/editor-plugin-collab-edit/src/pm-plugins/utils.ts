@@ -16,7 +16,7 @@ import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { DecorationSet, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration } from '@atlaskit/editor-prosemirror/view';
-import { avatarColors } from '@atlaskit/editor-shared-styles/consts';
+import { getParticipantColor } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 export const findPointers = (id: string, decorations: DecorationSet): Decoration[] =>
@@ -32,18 +32,13 @@ function style(options: { color: string }) {
 }
 
 export function getAvatarColor(str: string) {
-	let hash = 0;
+	const participantColor = getParticipantColor(str);
 
-	for (let i = 0; i < str.length; i++) {
-		/* eslint-disable no-bitwise */
-		hash = (hash << 5) - hash + str.charCodeAt(i);
-		hash = hash & hash;
-		/* eslint-enable no-bitwise */
-	}
-
-	const index = Math.abs(hash) % avatarColors.length;
-
-	return { index, color: avatarColors[index] };
+	return {
+		index: participantColor.index,
+		backgroundColor: participantColor.color.backgroundColor,
+		textColor: participantColor.color.textColor,
+	};
 }
 
 export const createTelepointers = (
@@ -52,11 +47,12 @@ export const createTelepointers = (
 	sessionId: string,
 	isSelection: boolean,
 	initial: string,
+	presenceId: string,
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
-	let decorations: Decoration[] = [];
-	const avatarColor = getAvatarColor(sessionId);
+	const decorations: Decoration[] = [];
+	const avatarColor = getAvatarColor(presenceId);
 	const color = avatarColor.index.toString();
 	if (isSelection) {
 		const className = `telepointer color-${color} telepointer-selection`;
@@ -67,7 +63,7 @@ export const createTelepointers = (
 				from,
 				to,
 				{ class: className, 'data-initial': initial },
-				{ pointer: { sessionId } },
+				{ pointer: { sessionId, presenceId } },
 			),
 		);
 	}
@@ -80,14 +76,14 @@ export const createTelepointers = (
 	const cursor = document.createElement('span');
 	cursor.textContent = ZERO_WIDTH_JOINER;
 	cursor.className = `telepointer color-${color} telepointer-selection-badge`;
-	cursor.style.cssText = `${style({ color: avatarColor.color })};`;
+	cursor.style.cssText = `${style({ color: avatarColor.backgroundColor })};`;
 	cursor.setAttribute('data-initial', initial);
 	return decorations
 		.concat(
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(Decoration as any).widget(to, spaceJoinerAfter, {
-				pointer: { sessionId },
+				pointer: { sessionId, presenceId },
 				key: `telepointer-${sessionId}-zero`,
 			}),
 		)
@@ -95,7 +91,7 @@ export const createTelepointers = (
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(Decoration as any).widget(to, cursor, {
-				pointer: { sessionId },
+				pointer: { sessionId, presenceId },
 				key: `telepointer-${sessionId}`,
 			}),
 		)
@@ -103,7 +99,7 @@ export const createTelepointers = (
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			(Decoration as any).widget(to, spaceJoinerBefore, {
-				pointer: { sessionId },
+				pointer: { sessionId, presenceId },
 				key: `telepointer-${sessionId}-zero`,
 			}),
 		);
@@ -187,7 +183,7 @@ export const scrollToCollabCursor = (
 		selectedUser.sessionId !== sessionId
 	) {
 		const { state } = editorView;
-		let tr = state.tr;
+		const tr = state.tr;
 		const analyticsPayload: AnalyticsEventPayload = {
 			action: ACTION.MATCHED,
 			actionSubject: ACTION_SUBJECT.SELECTION,

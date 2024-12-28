@@ -80,6 +80,12 @@ export class PluginState {
 		return participant ? participant.name.substring(0, 1).toUpperCase() : 'X';
 	}
 
+	getPresenceId(sessionId: string) {
+		const participant = this.participants.get(sessionId);
+
+		return participant?.presenceId ?? sessionId;
+	}
+
 	apply(tr: ReadonlyTransaction) {
 		let { participants, sid, isReady } = this;
 
@@ -118,7 +124,7 @@ export class PluginState {
 		if (telepointerData) {
 			const { sessionId } = telepointerData;
 			if (participants.get(sessionId) && sessionId !== sid) {
-				const oldPointers = findPointers(telepointerData.sessionId, this.decorationSet);
+				const oldPointers = findPointers(sessionId, this.decorationSet);
 
 				if (oldPointers) {
 					remove = remove.concat(oldPointers);
@@ -149,7 +155,14 @@ export class PluginState {
 				}
 
 				add = add.concat(
-					createTelepointers(from, to, sessionId, isSelection, this.getInitial(sessionId)),
+					createTelepointers(
+						from,
+						to,
+						sessionId,
+						isSelection,
+						this.getInitial(sessionId),
+						this.getPresenceId(sessionId),
+					),
 				);
 			}
 		}
@@ -167,7 +180,7 @@ export class PluginState {
 						) {
 							const step = tr.steps.filter(isReplaceStep)[0];
 							if (step) {
-								const { sessionId } = spec.pointer;
+								const { sessionId, presenceId } = spec.pointer;
 								const {
 									slice: {
 										content: { size },
@@ -182,7 +195,14 @@ export class PluginState {
 								);
 
 								add = add.concat(
-									createTelepointers(pos, pos, sessionId, false, this.getInitial(sessionId)),
+									createTelepointers(
+										pos,
+										pos,
+										sessionId,
+										false,
+										this.getInitial(sessionId),
+										presenceId,
+									),
 								);
 							}
 						}

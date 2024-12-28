@@ -18,7 +18,12 @@ const toAvatar = (
 	src: participant.avatar,
 	size: 'medium',
 	presence: (
-		<ColoredAvatarItem api={api} name={participant.name} sessionId={participant.sessionId} />
+		<ColoredAvatarItem
+			api={api}
+			name={participant.name}
+			sessionId={participant.sessionId}
+			presenceId={participant.presenceId}
+		/>
 	),
 });
 

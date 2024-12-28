@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 2.1.0
+
+### Minor Changes
+
+- [#98820](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98820)
+  [`9f7dc3ba5d256`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f7dc3ba5d256) -
+  [ux] Update the potential list of colors for avatar badges and telepointers within the editor.
+  Also add support for using presenceId over sessionId, when presenceId exists, in order to make the
+  avatar badge and telepointer color selection.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.2
 
 ### Patch Changes

@@ -1,4 +1,3 @@
-import type { Color } from '@atlaskit/editor-common/collab';
 import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/types';
 import type { JSONNode } from '@atlaskit/editor-json-transformer';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
@@ -24,7 +23,11 @@ export type CollabEditPlugin = NextEditorPlugin<
 		];
 		sharedState: CollabEditPluginSharedState;
 		actions: {
-			getAvatarColor: (str: string) => { index: number; color: Color };
+			getAvatarColor: (str: string) => {
+				index: number;
+				backgroundColor: string;
+				textColor: string;
+			};
 			addInlineCommentMark: (props: { from: number; to: number; mark: Mark }) => boolean;
 			addInlineCommentNodeMark: (props: { pos: number; mark: Mark }) => boolean;
 			isRemoteReplaceDocumentTransaction: (tr: Transaction) => boolean;

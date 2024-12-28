@@ -32,7 +32,7 @@ export const avatarContainerStyles = css({
 	},
 });
 
-export const badge = (color: string) =>
+export const badge = (backgroundColor: string, textColor: string) =>
 	css({
 		display: 'block',
 		position: 'absolute',
@@ -44,8 +44,9 @@ export const badge = (color: string) =>
 		zIndex: akEditorSmallZIndex,
 		borderRadius: '3px',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		background: color,
-		color: token('color.text.inverse', '#fff'),
+		background: backgroundColor,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		color: textColor,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontSize: relativeFontSizeToBase16(9),
 		lineHeight: 0,

@@ -44,7 +44,7 @@ type CollabEditPlugin = NextEditorPlugin<
         }
       | undefined;
     actions: {
-      getAvatarColor: (str: string) => { index: number; color: Color };
+      getAvatarColor: (str: string) => { index: number; backgroundColor: string, textColor: string };
     };
   }
 >;

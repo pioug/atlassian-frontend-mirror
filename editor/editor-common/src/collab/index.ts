@@ -10,7 +10,7 @@ import type {
 	Transaction,
 } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
-import { avatarColors, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
+import { participantColors, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { getGlobalTheme, token } from '@atlaskit/tokens';
 
 import type { Providers } from '../provider-factory';
@@ -554,21 +554,21 @@ export interface CollabEventLocalStepData {
 
 export type Color = ReturnType<typeof token>;
 
-const telepointerColorStyle = (color: Color, index: number) => {
+const telepointerColorStyle = (backgroundColor: string, textColor: string, index: number) => {
 	const { colorMode } = getGlobalTheme();
 
 	const backgroundStyle =
 		colorMode === 'dark'
-			? `linear-gradient(to bottom, ${color} -800000%, transparent 200000%)`
-			: `linear-gradient(to bottom, ${color} -850000%, transparent 150000%)`;
+			? `linear-gradient(to bottom, ${backgroundColor} -800000%, transparent 200000%)`
+			: `linear-gradient(to bottom, ${backgroundColor} -850000%, transparent 150000%)`;
 
 	return `
     &.color-${index} {
       background: ${backgroundStyle};
       &::after {
-        background-color: ${color};
-        color: ${token('color.text.inverse', '#FFFFFF')};
-        border-color: ${color};
+        background-color: ${backgroundColor};
+        color: ${textColor};
+        border-color: ${backgroundColor};
       }
     }
   `;
@@ -607,7 +607,9 @@ export const telepointerStyle = css`
 			opacity: 0.2;
 		}
 
-		${avatarColors.map((color, index) => telepointerColorStyle(color, index))};
+		${participantColors.map((participantColor, index) =>
+			telepointerColorStyle(participantColor.backgroundColor, participantColor.textColor, index),
+		)};
 	}
 `;
 

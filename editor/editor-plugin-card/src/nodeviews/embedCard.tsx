@@ -362,13 +362,13 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 			onClick,
 		} = this.props;
 
-		let { url, width: pctWidth, layout, originalHeight, originalWidth } = node.attrs;
+		const { url, width: pctWidth, layout, originalHeight, originalWidth } = node.attrs;
 
 		const { hasPreview, liveHeight, initialAspectRatio } = this.state;
 
 		// We don't want to use `originalHeight` when `originalWidth` also present,
 		// since `heightAlone` is defined only when just height is available.
-		let heightAlone = liveHeight ?? ((!originalWidth && originalHeight) || undefined);
+		const heightAlone = liveHeight ?? ((!originalWidth && originalHeight) || undefined);
 
 		const aspectRatio =
 			(!heightAlone && // No need getting aspectRatio if heightAlone defined already

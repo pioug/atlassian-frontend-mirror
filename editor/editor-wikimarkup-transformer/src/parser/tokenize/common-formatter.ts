@@ -36,7 +36,7 @@ export function commonFormatter(
 ): Token {
 	let index = position;
 	let state = processState.START;
-	let buffer = [];
+	const buffer = [];
 	const openingSymbolLength = opt.opening.length;
 	const closingSymbolLength = opt.closing.length;
 	const openingWrapped = opt.opening.startsWith('{') && opt.opening.endsWith('}');

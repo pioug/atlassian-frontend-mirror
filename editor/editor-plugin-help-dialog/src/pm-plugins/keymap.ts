@@ -20,7 +20,7 @@ export const keymapPlugin = (editorAnalyticsAPI: EditorAnalyticsAPI | undefined)
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		openHelp.common!,
 		(state, dispatch) => {
-			let { tr } = state;
+			const { tr } = state;
 			const isVisible = tr.getMeta(pluginKey);
 			if (!isVisible) {
 				editorAnalyticsAPI?.attachAnalyticsEvent({

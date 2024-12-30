@@ -20,7 +20,6 @@ import {
 } from '../../../constants';
 import { PROVIDER_KEYS_WITH_THEMING } from '../../../extractors/constants';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
-import { mockAnalytics } from '../../../utils/mocks';
 import { EmbedCard } from '../index';
 import { type EmbedCardProps } from '../types';
 
@@ -56,7 +55,6 @@ const setup = (cardState: CardState, url: string, props?: Partial<EmbedCardProps
 					handleAuthorize={jest.fn()}
 					handleErrorRetry={jest.fn()}
 					handleFrameClick={handleFrameClickMock}
-					analytics={mockAnalytics}
 					handleInvoke={jest.fn()}
 					onResolve={onResolveMock}
 					ref={ref}

@@ -60,7 +60,7 @@ export function currentColWidth(
 	cellPos: number,
 	{ colspan, colwidth }: CellAttributes,
 ): number {
-	let width = colwidth && colwidth[colwidth.length - 1];
+	const width = colwidth && colwidth[colwidth.length - 1];
 	if (width) {
 		return width;
 	}
@@ -156,7 +156,7 @@ export const getScalingPercentForTableWithoutWidth = (
 	// are table columns resized
 	if (hasTableColumnBeenResized(table)) {
 		const tableWidth = calcTableColumnWidths(table).reduce((sum, width) => sum + width, 0);
-		let renderWidth = tableRef?.parentElement?.clientWidth || tableWidth;
+		const renderWidth = tableRef?.parentElement?.clientWidth || tableWidth;
 
 		// minus 1 here to avoid any 1px scroll in Firefox
 		return (renderWidth - 1) / tableWidth;

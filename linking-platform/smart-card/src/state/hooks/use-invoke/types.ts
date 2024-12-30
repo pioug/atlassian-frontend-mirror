@@ -1,6 +1,5 @@
 import { type InvokeRequest } from '@atlaskit/linking-types/smart-link-actions';
 
-import { type PreviewActionData } from '../../flexible-ui-context/types';
 import type { InvokeClientActionProps } from '../use-invoke-client-action/types';
 
 /**
@@ -19,12 +18,6 @@ export type CardDetails = {
 	 * The URL of the Smart Link
 	 */
 	url?: string;
-
-	/**
-	 * Preview Modal information. If present, will be used to render an embed modal on an error link click
-	 * TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
-	 */
-	previewData?: PreviewActionData | null;
 };
 
 /**

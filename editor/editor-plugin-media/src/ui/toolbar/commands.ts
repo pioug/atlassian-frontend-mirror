@@ -138,7 +138,7 @@ export const changeMediaCardToInline =
 			collection: selectedNode.attrs.collection,
 		});
 		const space = state.schema.text(' ');
-		let content = Fragment.from([mediaInlineNode, space]);
+		const content = Fragment.from([mediaInlineNode, space]);
 		const node = paragraph.createChecked({}, content);
 
 		const nodePos = state.tr.doc.resolve(state.selection.from).start();

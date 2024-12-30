@@ -269,8 +269,8 @@ const calculateVerticalStickBottom = ({
 	const newPos = { ...position };
 
 	if (scrollParent) {
-		let topOffsetTop = targetTop - scrollParent.getBoundingClientRect().top;
-		let targetEnd = targetHeight + topOffsetTop;
+		const topOffsetTop = targetTop - scrollParent.getBoundingClientRect().top;
+		const targetEnd = targetHeight + topOffsetTop;
 		if (
 			scrollParent.clientHeight - targetEnd <= popup.clientHeight + offset[1] * 2 &&
 			topOffsetTop < scrollParent.clientHeight
@@ -387,7 +387,7 @@ const calculateVerticalPlacement = ({
 				(isPopupParentBody ? 0 : popupOffsetParentScrollTop),
 		);
 	} else {
-		let top = Math.ceil(
+		const top = Math.ceil(
 			targetTop -
 				popupOffsetParentTop +
 				targetHeight +

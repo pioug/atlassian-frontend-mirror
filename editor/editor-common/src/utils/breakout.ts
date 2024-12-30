@@ -49,7 +49,7 @@ const breakoutConsts: any = {
 					return '100%';
 				}
 
-				let wideWidth = breakoutConsts.calcWideWidth(containerWidth, undefined, undefined, padding);
+				const wideWidth = breakoutConsts.calcWideWidth(containerWidth, undefined, undefined, padding);
 				if (wideWidth.endsWith('%')) {
 					return `${Math.min(effectiveFullWidth, breakoutConsts.fullWidthLayoutWidth)}px`;
 				}

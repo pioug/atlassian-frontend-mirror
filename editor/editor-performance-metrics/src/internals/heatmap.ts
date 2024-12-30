@@ -347,7 +347,7 @@ export function createHeatmapFromEvents(
 	events: ReadonlyArray<TimelineEvent>,
 	initialHeatmap: Heatmap,
 ) {
-	let nextHeatmap = {
+	const nextHeatmap = {
 		...initialHeatmap,
 		map: cloneArray(initialHeatmap.map),
 	};

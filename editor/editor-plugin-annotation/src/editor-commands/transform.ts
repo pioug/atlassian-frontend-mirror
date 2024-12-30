@@ -49,7 +49,7 @@ const addAnnotationMark =
 			tr.setSelection(NodeSelection.create(tr.doc, from));
 		} else {
 			// Apply the mark only to text node in the range.
-			let tr = applyMarkOnRange(from, to, false, annotationMark, transaction);
+			const tr = applyMarkOnRange(from, to, false, annotationMark, transaction);
 			// set selection back to the end of annotation once annotation mark is applied
 			tr.setSelection(TextSelection.create(tr.doc, head));
 		}

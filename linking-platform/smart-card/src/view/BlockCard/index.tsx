@@ -22,7 +22,6 @@ export const BlockCard = ({
 	onResolve,
 	onError,
 	testId,
-	analytics,
 	actionOptions,
 }: BlockCardProps) => {
 	const { status } = cardState;
@@ -37,7 +36,6 @@ export const BlockCard = ({
 		onResolve,
 		renderers,
 		actionOptions,
-		analytics,
 	};
 
 	switch (status) {

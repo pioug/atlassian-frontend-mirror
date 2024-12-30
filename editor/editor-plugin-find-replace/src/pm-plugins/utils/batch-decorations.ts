@@ -102,7 +102,7 @@ class BatchDecorations {
 
 		return await this.batchRequests(
 			(counter) => {
-				let matchesToDecorate = matchesBetween.slice(counter, counter + batchIncrement);
+				const matchesToDecorate = matchesBetween.slice(counter, counter + batchIncrement);
 				if (matchesToDecorate.length === 0) {
 					return false;
 				}

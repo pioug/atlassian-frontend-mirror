@@ -170,9 +170,8 @@ function StatelessElementBrowser(props: StatelessElementBrowserProps) {
 	const categoryBeenChosen = useRef(false);
 	const [columnCount, setColumnCount] = useState(1);
 
-	let selectedCategoryIndex: number | undefined;
 	let isFocusSearch;
-	selectedCategoryIndex = props.categories?.findIndex((category) => {
+	const selectedCategoryIndex: number | undefined = props.categories?.findIndex((category) => {
 		return category.name === selectedCategory;
 	});
 

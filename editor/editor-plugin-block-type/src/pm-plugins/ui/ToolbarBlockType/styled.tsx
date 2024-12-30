@@ -35,6 +35,12 @@ export const blockTypeMenuItemStyle = (
 					'h1, h2, h3, h4, h5, h6': {
 						marginTop: 0,
 					},
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+					blockquote: {
+						paddingTop: 0,
+						paddingBottom: 0,
+						marginTop: 0,
+					},
 				},
 			},
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -62,4 +68,12 @@ export const wrapperSmallStyle = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const expandIconWrapperStyle = css({
 	marginLeft: token('space.negative.100', '-8px'),
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const floatingToolbarWrapperStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	"[data-role='droplistContent']": {
+		maxHeight: '90vh',
+	},
 });

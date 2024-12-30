@@ -116,7 +116,7 @@ export class DOMObservers {
 				const removedNodeRects = removedNodes.map((n) => this.mapVisibleNodeRects.get(n));
 
 				addedNodes.forEach((addedNode) => {
-					for (let elem of addedNode.querySelectorAll('*')) {
+					for (const elem of addedNode.querySelectorAll('*')) {
 						this.intersection?.watchAndTag(elem, 'mutation:children-element');
 					}
 

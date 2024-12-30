@@ -15,14 +15,14 @@ import { useAnalyticsEvents } from '../../common/analytics/generated/use-analyti
 import { SmartLinkStatus } from '../../constants';
 import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke-opts';
 import { type CardInnerAppearance } from '../../view/Card/types';
-import { type AnalyticsFacade, startUfoExperience } from '../analytics';
+import { startUfoExperience } from '../analytics';
 import { getByDefinitionId, getDefinitionId, getExtensionKey, getServices } from '../helpers';
 import useInvokeClientAction from '../hooks/use-invoke-client-action';
 import useResolve from '../hooks/use-resolve';
 
-export const useSmartCardActions = (id: string, url: string, analytics: AnalyticsFacade) => {
+export const useSmartCardActions = (id: string, url: string) => {
 	const resolveUrl = useResolve();
-	const invokeClientAction = useInvokeClientAction({ analytics });
+	const invokeClientAction = useInvokeClientAction({});
 	const { fireEvent } = useAnalyticsEvents();
 
 	const { store } = useSmartLinkContext();

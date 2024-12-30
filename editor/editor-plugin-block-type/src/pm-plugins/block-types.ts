@@ -92,6 +92,18 @@ export type TextBlockTypes =
 	| 'heading5'
 	| 'heading6';
 
+export const FORMATTING_NODE_TYPES = ['heading', 'blockquote'];
+export const FORMATTING_MARK_TYPES = [
+	'em',
+	'code',
+	'strike',
+	'strong',
+	'underline',
+	'textColor',
+	'subsup',
+	'backgroundColor',
+];
+
 export const WRAPPER_BLOCK_TYPES = [BLOCK_QUOTE, CODE_BLOCK, PANEL];
 export const ALL_BLOCK_TYPES = TEXT_BLOCK_TYPES.concat(WRAPPER_BLOCK_TYPES);
 

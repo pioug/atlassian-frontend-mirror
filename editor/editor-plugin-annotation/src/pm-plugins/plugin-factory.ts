@@ -125,7 +125,7 @@ export const { createPluginState, createCommand } = pluginFactory(inlineCommentP
 	onDocChanged: handleDocChanged,
 
 	mapping: (tr, pluginState, editorState) => {
-		let { draftDecorationSet, bookmark } = pluginState;
+		const { draftDecorationSet, bookmark } = pluginState;
 		let mappedDecorationSet: DecorationSet = DecorationSet.empty,
 			mappedBookmark;
 		let hasMappedDecorations = false;

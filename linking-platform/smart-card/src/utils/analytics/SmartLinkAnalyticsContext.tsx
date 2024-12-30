@@ -6,12 +6,10 @@ import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { getResolvedAttributes } from '@atlaskit/link-analytics/resolved-attributes';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 import { getUrl } from '@atlaskit/linking-common';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type CardType, useSmartCardState as useSmartLinkState } from '../../state/store';
 
 import { context } from './analytics';
-import { LinkAnalyticsContext } from './LinkAnalyticsContext';
 
 type SmartLinkAnalyticsContextProps = {
 	url: string;
@@ -87,16 +85,14 @@ export const useSmartLinkAnalyticsContext = ({
 	const state = store ? getUrl(store, url) : undefined;
 
 	return useMemo(() => {
-		return fg('platform-smart-card-migrate-embed-modal-analytics')
-			? getSmartLinkAnalyticsContext({
-					display,
-					id,
-					response: state?.details,
-					source,
-					status: state?.status,
-					url,
-				})
-			: {};
+		return getSmartLinkAnalyticsContext({
+			display,
+			id,
+			response: state?.details,
+			source,
+			status: state?.status,
+			url,
+		});
 	}, [display, id, source, state?.details, state?.status, url]);
 };
 
@@ -104,7 +100,7 @@ export const useSmartLinkAnalyticsContext = ({
  * Provides an analytics context to supply attributes to events based on a URL
  * and the link state in the store
  */
-const ExtendedSmartLinkAnalyticsContext = ({
+export const SmartLinkAnalyticsContext = ({
 	children,
 	display,
 	id,
@@ -122,38 +118,4 @@ const ExtendedSmartLinkAnalyticsContext = ({
 	});
 
 	return <AnalyticsContext data={data}>{children}</AnalyticsContext>;
-};
-
-/**
- * Provides an analytics context to supply attributes to events based on a URL
- * and the link state in the store
- */
-const LegacySmartLinkAnalyticsContext = (props: SmartLinkAnalyticsContextProps) => {
-	const { children, url, display } = props;
-	const { details, status } = useSmartLinkState(url);
-	const attributes = getResolvedAttributes({ url }, details, status);
-
-	return (
-		<LinkAnalyticsContext {...props} display={display}>
-			<AnalyticsContext
-				data={{
-					attributes,
-				}}
-			>
-				{children}
-			</AnalyticsContext>
-		</LinkAnalyticsContext>
-	);
-};
-
-/**
- * Provides an analytics context to supply attributes to events based on a URL
- * and the link state in the store
- */
-export const SmartLinkAnalyticsContext = (props: SmartLinkAnalyticsContextProps) => {
-	return fg('platform-smart-card-migrate-embed-modal-analytics') ? (
-		<ExtendedSmartLinkAnalyticsContext {...props} />
-	) : (
-		<LegacySmartLinkAnalyticsContext {...props} />
-	);
 };

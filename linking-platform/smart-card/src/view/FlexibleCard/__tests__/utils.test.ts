@@ -56,24 +56,36 @@ describe('getContextByStatus', () => {
 				},
 			},
 		});
-
 		expect(context).toEqual({
 			actions: {
 				CopyLinkAction: {
-					url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: 'confluence-object-provider',
+						display: undefined,
+						extensionKey: 'confluence-object-provider',
+						id: undefined,
+						resourceType: 'page',
+					},
 				},
+				DownloadAction: undefined,
+				FollowAction: undefined,
+				PreviewAction: undefined,
+				AutomationAction: undefined,
+				AISummaryAction: undefined,
+				ViewRelatedLinksAction: undefined,
 			},
 			linkIcon: {
 				icon: 'FileType:Document',
 				label: 'Everything you need to know about ShipIt53!',
+				render: undefined,
 			},
-			title: 'Everything you need to know about ShipIt53!',
+			provider: { icon: 'Provider:Confluence', label: 'Confluence' },
 			snippet: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
+			title: 'Everything you need to know about ShipIt53!',
 			url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
-			provider: {
-				label: 'Confluence',
-				icon: 'Provider:Confluence',
-			},
 		});
 	});
 

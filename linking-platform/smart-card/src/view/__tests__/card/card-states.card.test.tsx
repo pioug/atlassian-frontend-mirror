@@ -9,7 +9,6 @@ import { type JsonLd } from 'json-ld-types';
 import { IntlProvider } from 'react-intl-next';
 
 import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
-import { AnalyticsListener } from '@atlaskit/analytics-next';
 import {
 	type CardClient,
 	type CardProviderStoreOpts,
@@ -18,7 +17,6 @@ import {
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
-import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
 import { fakeFactory, mockGenerator, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
 import type { CardActionOptions } from '../../Card/types';
@@ -33,6 +31,13 @@ describe('smart-card: card states, block', () => {
 	let mockClient: CardClient;
 	let mockFetch: jest.Mock;
 
+	const mockAnalyticsClient = {
+		sendUIEvent: jest.fn().mockResolvedValue(undefined),
+		sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+		sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+		sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+	} satisfies AnalyticsWebClient;
+
 	beforeEach(() => {
 		mockFetch = jest.fn(() => Promise.resolve(mocks.success));
 		mockClient = new (fakeFactory(mockFetch))();
@@ -45,45 +50,31 @@ describe('smart-card: card states, block', () => {
 	describe('link clicked', () => {
 		it('fires `link clicked` analytics event when clicked', async () => {
 			window.open = jest.fn();
-			const onEvent = jest.fn();
 			render(
-				<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={onEvent}>
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
 					<IntlProvider locale="en">
 						<Provider client={mockClient}>
 							<Card appearance="block" url={mockUrl} id="some-id" />
 						</Provider>
 					</IntlProvider>
-				</AnalyticsListener>,
+				</FabricAnalyticsListeners>,
 			);
 			await screen.findByText('I love cheese');
 
 			const link = screen.getByRole('link');
 			await userEvent.click(link);
 
-			expect(onEvent).toBeFiredWithAnalyticEventOnce(
-				{
-					payload: {
-						action: 'clicked',
-						actionSubject: 'link',
-					},
-					context: [
-						{
-							componentName: 'smart-cards',
-						},
-						{
-							attributes: {
-								display: 'block',
-								id: 'some-id',
-							},
-						},
-						{
-							attributes: {
-								status: 'resolved',
-							},
-						},
-					],
-				},
-				ANALYTICS_CHANNEL,
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'link',
+					attributes: expect.objectContaining({
+						componentName: 'smart-cards',
+						display: 'block',
+						id: 'some-id',
+						status: 'resolved',
+					}),
+				}),
 			);
 		});
 	});
@@ -189,12 +180,6 @@ describe('smart-card: card states, block', () => {
 			describe('server actions', () => {
 				const resolvedLinkText = 'I love cheese';
 				const actionElementTestId = 'smart-element-lozenge--trigger';
-				const mockAnalyticsClient = {
-					sendUIEvent: jest.fn().mockResolvedValue(undefined),
-					sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
-					sendTrackEvent: jest.fn().mockResolvedValue(undefined),
-					sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-				} satisfies AnalyticsWebClient;
 
 				const renderWithActionOptions = (actionOptions?: CardActionOptions) =>
 					render(

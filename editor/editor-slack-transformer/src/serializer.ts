@@ -43,7 +43,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 				let delimMin = this.delim;
 				// Ignored via go/ees005
 				// eslint-disable-next-line require-unicode-regexp
-				let trim = /\s+$/.exec(delimMin);
+				const trim = /\s+$/.exec(delimMin);
 				if (trim) {
 					delimMin = delimMin.slice(0, delimMin.length - trim[0].length);
 				}

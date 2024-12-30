@@ -33,7 +33,7 @@ async function pickFromDropbox(appKey: string, canMountinIframe: boolean) {
 	// to iframe in the picker - we are currently waiting for permissions.
 	// To test the picker, comment out the ReactDOM render call, and the `iframe` and `winowName` options
 	if (canMountinIframe) {
-		let Modal = await import('./modal');
+		const Modal = await import('./modal');
 
 		// The decision has been made to simply append our modal to the body
 		// Using the passed in popupMountPoint has the potential to cause
@@ -127,7 +127,7 @@ const manifestFunction = ({
 					// eslint-disable-next-line no-async-promise-executor
 					new Promise(async (resolve, reject) => {
 						try {
-							let newNode = await pickFromDropbox(appKey, canMountinIframe);
+							const newNode = await pickFromDropbox(appKey, canMountinIframe);
 							if (!newNode) {
 								reject();
 							} else {

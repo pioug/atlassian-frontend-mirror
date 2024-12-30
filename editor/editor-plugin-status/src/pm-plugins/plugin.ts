@@ -105,7 +105,7 @@ const createPlugin = (
 			newEditorState: EditorState,
 		) => {
 			let changed = false;
-			let tr = newEditorState.tr;
+			const tr = newEditorState.tr;
 
 			/**
 			 * When user start creating status, and, when users navigates away
@@ -114,8 +114,8 @@ const createPlugin = (
 			 *  we don't want to remove it.
 			 */
 			if (transactions.find((tr) => tr.selectionSet && !tr.getMeta(pmHistoryPluginKey))) {
-				let oldStatus = mayGetStatusAtSelection(oldEditorState.selection);
-				let newStatus = mayGetStatusAtSelection(newEditorState.selection);
+				const oldStatus = mayGetStatusAtSelection(oldEditorState.selection);
+				const newStatus = mayGetStatusAtSelection(newEditorState.selection);
 				if (oldStatus && ((newStatus && oldStatus.localId !== newStatus.localId) || !newStatus)) {
 					if (isEmptyStatus(oldStatus)) {
 						const pos = oldEditorState.selection.from;

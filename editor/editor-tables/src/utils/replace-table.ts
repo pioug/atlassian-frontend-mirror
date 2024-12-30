@@ -16,7 +16,7 @@ export const replaceSelectedTable = (state: EditorState, content: string | Slice
 				typeof content === 'string'
 					? new Slice(Fragment.from(state.schema.text(content)), 0, 0)
 					: content;
-			let tr = state.tr.replace(table.pos, table.pos + table.node.nodeSize, slice);
+			const tr = state.tr.replace(table.pos, table.pos + table.node.nodeSize, slice);
 			tr.setSelection(TextSelection.create(tr.doc, table.pos + slice.size + 1));
 			return tr;
 		}

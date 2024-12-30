@@ -7,7 +7,6 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import * as useInvokeClientAction from '../../../../../../state/hooks/use-invoke-client-action';
@@ -22,7 +21,6 @@ jest.mock('../../../../../../state/flexible-ui-context', () => ({
 
 describe('PreviewAction', () => {
 	const testId = 'smart-action-preview-action';
-	const modalTestId = 'smart-embed-preview-modal';
 
 	const setup = (props?: Partial<PreviewActionProps>) => {
 		const onEvent = jest.fn();
@@ -43,36 +41,18 @@ describe('PreviewAction', () => {
 		expect(element).toHaveTextContent('Open preview');
 	});
 
-	ffTest.on('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg', () => {
-		it('invokes action', async () => {
-			const invoke = jest.fn();
-			const spy = jest.spyOn(useInvokeClientAction, 'default').mockReturnValue(invoke);
+	it('invokes action', async () => {
+		const invoke = jest.fn();
+		const spy = jest.spyOn(useInvokeClientAction, 'default').mockReturnValue(invoke);
 
-			setup();
+		setup();
 
-			const element = await screen.findByTestId(testId);
-			await userEvent.click(element);
+		const element = await screen.findByTestId(testId);
+		await userEvent.click(element);
 
-			expect(invoke).toHaveBeenCalledTimes(1);
+		expect(invoke).toHaveBeenCalledTimes(1);
 
-			spy.mockRestore();
-		});
-	});
-
-	ffTest.off('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg', () => {
-		it('opens embed modal on click', async () => {
-			const user = userEvent.setup();
-			const onClick = jest.fn();
-
-			setup({ onClick });
-			const element = await screen.findByTestId(testId);
-
-			user.click(element);
-
-			const modal = await screen.findByTestId(modalTestId);
-			expect(modal).toBeInTheDocument();
-			expect(onClick).toHaveBeenCalledTimes(1);
-		});
+		spy.mockRestore();
 	});
 
 	describe('with tooltip', () => {

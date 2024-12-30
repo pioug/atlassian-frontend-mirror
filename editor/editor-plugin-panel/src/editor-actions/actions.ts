@@ -75,19 +75,19 @@ export const changePanelType =
 			return false;
 		}
 
-		let newType = panelType;
-		let previousType = panelNode.node.attrs.panelType;
+		const newType = panelType;
+		const previousType = panelNode.node.attrs.panelType;
 		let newTr;
 
 		if (allowCustomPanel) {
-			let previousColor =
+			const previousColor =
 				panelNode.node.attrs.panelType === 'custom'
 					? panelNode.node.attrs.panelColor || 'none'
 					: getPanelTypeBackgroundNoTokens(previousType);
-			let previousIcon = panelNode.node.attrs.panelIcon;
-			let previousIconId = panelNode.node.attrs.panelIconId;
-			let previousIconText = panelNode.node.attrs.panelIconText;
-			let newPanelOptions: PanelOptions = {
+			const previousIcon = panelNode.node.attrs.panelIcon;
+			const previousIconId = panelNode.node.attrs.panelIconId;
+			const previousIconText = panelNode.node.attrs.panelIconText;
+			const newPanelOptions: PanelOptions = {
 				color: previousColor,
 				emoji: previousIcon,
 				emojiId: previousIconId,

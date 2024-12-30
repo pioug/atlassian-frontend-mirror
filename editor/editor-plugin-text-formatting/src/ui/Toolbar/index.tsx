@@ -149,12 +149,12 @@ const ToolbarFormatting = ({
 		screenReaderMessage = clearFormattingStatus;
 	}
 
-	const items: Array<MenuIconItem> = useMemo(() => {
+	const items = useMemo(() => {
 		if (!clearIcon) {
-			return dropdownItems;
+			return [{ items: dropdownItems }];
 		}
 
-		return [...dropdownItems, clearIcon];
+		return [{ items: dropdownItems }, { items: [clearIcon] }];
 	}, [clearIcon, dropdownItems]);
 
 	const moreFormattingButtonLabel = intl.formatMessage(toolbarMessages.moreFormatting);

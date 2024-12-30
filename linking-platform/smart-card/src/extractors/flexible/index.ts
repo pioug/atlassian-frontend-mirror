@@ -10,13 +10,12 @@ import {
 	extractTitle,
 	type LinkTypeCreated,
 } from '@atlaskit/link-extractors';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FlexibleUiDataContext } from '../../state/flexible-ui-context/types';
 import { type ExtractFlexibleUiDataContextParams } from '../../view/FlexibleCard/types';
 import { extractSummary } from '../common/primitives';
 
-import extractActions, { extractFlexibleCardActions } from './actions';
+import { extractFlexibleCardActions } from './actions';
 import { extractPersonsUpdatedBy } from './collaboratorGroup';
 import extractPreview from './extract-preview';
 import extractPriority from './extract-priority';
@@ -68,18 +67,16 @@ const extractFlexibleUiContext = ({
 	const url = extractLink(data);
 
 	return {
-		actions: fg('platform-smart-card-migrate-embed-modal-analytics')
-			? extractFlexibleCardActions({
-					actionOptions,
-					aiSummaryConfig,
-					appearance,
-					fireEvent,
-					id,
-					origin,
-					response,
-					url: props.url, // Use the original URL in edge cases, such as short links for AI summary and copy link actions.
-				})
-			: extractActions(response, props.url, actionOptions, id, aiSummaryConfig),
+		actions: extractFlexibleCardActions({
+			actionOptions,
+			aiSummaryConfig,
+			appearance,
+			fireEvent,
+			id,
+			origin,
+			response,
+			url: props.url, // Use the original URL in edge cases, such as short links for AI summary and copy link actions.
+		}),
 		assignedToGroup: extractPersonAssignedToAsArray(
 			data as JsonLd.Data.Task | JsonLd.Data.TaskType,
 		),

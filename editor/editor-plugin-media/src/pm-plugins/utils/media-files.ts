@@ -175,7 +175,7 @@ export const insertMediaInlineNode =
 
 		const { id, dimensions, scaleFactor = 1, fileName } = mediaState;
 
-		let mediaInlineAttrs: Partial<MediaInlineAttributes> = { id, collection };
+		const mediaInlineAttrs: Partial<MediaInlineAttributes> = { id, collection };
 		if (allowInlineImages && isImage(mediaState.fileMimeType)) {
 			const { width, height } = dimensions || {
 				width: undefined,
@@ -198,7 +198,7 @@ export const insertMediaInlineNode =
 			pos = pos + 1;
 		}
 
-		let content = Fragment.from([mediaInlineNode, space]);
+		const content = Fragment.from([mediaInlineNode, space]);
 
 		// Delete the selection if a selection is made
 		const deleteRange = findDeleteRange(state);

@@ -108,7 +108,7 @@ export default (
 
 					const exports = ['// DO NOT MODIFY THIS FILE, USE `yarn generate:spec`'];
 
-					let awaitAllDefinitions: Promise<null>[] = [];
+					const awaitAllDefinitions: Promise<null>[] = [];
 					// Ignored via go/ees005
 					// eslint-disable-next-line require-await
 					jsonSchema.definitions.forEach(async (def, name) => {

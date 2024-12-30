@@ -1166,8 +1166,8 @@ export function handleParagraphBlockMarks(state: EditorState, slice: Slice) {
 	// element around the paragraph node
 	const grandparent = $from.node(Math.max(0, $from.depth - 1));
 	const markTypesInSlice = getTopLevelMarkTypesInSlice(slice);
-	let forbiddenMarkTypes: MarkType[] = [];
-	for (let markType of markTypesInSlice) {
+	const forbiddenMarkTypes: MarkType[] = [];
+	for (const markType of markTypesInSlice) {
 		if (!grandparent.type.allowsMarkType(markType)) {
 			forbiddenMarkTypes.push(markType);
 		}
@@ -1288,7 +1288,7 @@ export function handleRichText(
 			selection.$to.node().type.validContent(slice.content) ||
 			(textNodes.includes(selection.$to.node().type) &&
 				selectionParent.type.validContent(slice.content));
-		let panelParentOverCurrentSelection = findParentNodeOfType(panel)(tr.selection);
+		const panelParentOverCurrentSelection = findParentNodeOfType(panel)(tr.selection);
 		const isTargetPanelEmpty =
 			panelParentOverCurrentSelection && panelParentOverCurrentSelection.node?.content.size === 2;
 

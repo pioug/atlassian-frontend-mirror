@@ -6,9 +6,6 @@ import { useSmartLinkReload } from '../useSmartLinkReload';
 jest.mock('../../actions', () => ({
 	useSmartCardActions: jest.fn(),
 }));
-jest.mock('../../analytics', () => ({
-	useSmartLinkAnalytics: jest.fn(),
-}));
 
 const url = 'https://start.atlassian.com';
 

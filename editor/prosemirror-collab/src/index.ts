@@ -28,9 +28,9 @@ export function rebaseSteps(
 	for (let i = 0; i < over.length; i++) {
 		transform.step(over[i]);
 	}
-	let result = [];
+	const result = [];
 	for (let i = 0, mapFrom = steps.length; i < steps.length; i++) {
-		let mapped = steps[i].step.map(transform.mapping.slice(mapFrom));
+		const mapped = steps[i].step.map(transform.mapping.slice(mapFrom));
 		mapFrom--;
 		if (mapped && !transform.maybeStep(mapped).failed) {
 			// Open ticket for setMirror https://github.com/ProseMirror/prosemirror/issues/869
@@ -67,7 +67,7 @@ class CollabState {
 }
 
 function unconfirmedFrom(transform: ProseMirrorTransform) {
-	let result = [];
+	const result = [];
 	for (let i = 0; i < transform.steps.length; i++) {
 		// Filter out the analytics steps, they don't need to be sent to the collab service
 		// Commented out because it broke undo behaviour
@@ -101,7 +101,7 @@ type CollabConfig = {
 /// Creates a plugin that enables the collaborative editing framework
 /// for the editor.
 export function collab(config: CollabConfig = {}): Plugin {
-	let conf: Required<Omit<CollabConfig, 'transformUnconfirmed'>> = {
+	const conf: Required<Omit<CollabConfig, 'transformUnconfirmed'>> = {
 		version: config.version || 0,
 		clientID:
 			// eslint-disable-next-line eqeqeq
@@ -117,7 +117,7 @@ export function collab(config: CollabConfig = {}): Plugin {
 		state: {
 			init: () => new CollabState(conf.version, []),
 			apply(tr, collab) {
-				let newState = tr.getMeta(collabKey);
+				const newState = tr.getMeta(collabKey);
 				if (newState) {
 					return newState;
 				}
@@ -165,11 +165,11 @@ export function receiveTransaction(
 	// Will recognize its own changes, and confirm unconfirmed steps as
 	// appropriate. Remaining unconfirmed steps will be rebased over
 	// remote steps.
-	let collabState = collabKey.getState(state);
-	let version = (collabState?.version || 0) + steps.length;
+	const collabState = collabKey.getState(state);
+	const version = (collabState?.version || 0) + steps.length;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion,  @typescript-eslint/no-explicit-any
-	let ourID: string | number = (collabKey.get(state)!.spec as any).config.clientID;
+	const ourID: string | number = (collabKey.get(state)!.spec as any).config.clientID;
 
 	// Find out which prefix of the steps originated with us
 	let ours = 0;
@@ -185,8 +185,8 @@ export function receiveTransaction(
 		return state.tr.setMeta(collabKey, new CollabState(version, unconfirmed));
 	}
 
-	let nUnconfirmed = unconfirmed.length;
-	let tr = state.tr;
+	const nUnconfirmed = unconfirmed.length;
+	const tr = state.tr;
 	if (nUnconfirmed) {
 		unconfirmed = rebaseSteps(unconfirmed, steps, tr);
 	} else {
@@ -196,7 +196,7 @@ export function receiveTransaction(
 		unconfirmed = [];
 	}
 
-	let newCollabState = new CollabState(version, unconfirmed);
+	const newCollabState = new CollabState(version, unconfirmed);
 	if (options && options.mapSelectionBackward && state.selection instanceof TextSelection) {
 		tr.setSelection(
 			TextSelection.between(
@@ -230,7 +230,7 @@ export function sendableSteps(state: EditorState): {
 	clientID: number | string;
 	origins: readonly Transaction[];
 } | null {
-	let collabState = collabKey.getState(state);
+	const collabState = collabKey.getState(state);
 
 	if (!collabState) {
 		return null;

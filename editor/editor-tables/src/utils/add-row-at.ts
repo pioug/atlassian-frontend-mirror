@@ -17,7 +17,7 @@ type CellFilter = (cell: ContentNodeWithPos, tr: Transaction) => boolean;
 const filterCellsInRow =
 	(rowIndex: number, predicate: CellFilter) =>
 	(tr: Transaction): ContentNodeWithPos[] => {
-		let foundCells = [];
+		const foundCells = [];
 		const cells = getCellsInRow(rowIndex)(tr.selection);
 		if (cells) {
 			for (let j = cells.length - 1; j >= 0; j--) {
@@ -49,7 +49,7 @@ export const cloneRowAt =
 
 				const cloneRow = tableNode.child(rowIndex);
 				// Re-create the same nodes with same attrs, dropping the node content.
-				let cells: PMNode[] = [];
+				const cells: PMNode[] = [];
 				let rowWidth = 0;
 
 				cloneRow.forEach((cell) => {
@@ -70,9 +70,9 @@ export const cloneRowAt =
 
 				// If a higher row spans past our clone row, bump the higher row to cover this new row too.
 				if (rowWidth < map.width) {
-					let rowSpanCells = [];
+					const rowSpanCells = [];
 					for (let i = rowIndex; i >= 0; i--) {
-						let foundCells = filterCellsInRow(i, (cell: ContentNodeWithPos, tr: Transaction) => {
+						const foundCells = filterCellsInRow(i, (cell: ContentNodeWithPos, tr: Transaction) => {
 							const rowspan = cell.node.attrs.rowspan;
 							const spanRange = i + rowspan;
 							return rowspan > 1 && spanRange > rowIndex;

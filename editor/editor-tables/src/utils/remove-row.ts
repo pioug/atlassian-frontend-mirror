@@ -19,13 +19,13 @@ function removeRow(
 	for (let i = 0; i < rowIndex; i++) {
 		rowPos += table.child(i).nodeSize;
 	}
-	let nextRow = rowPos + table.child(rowIndex).nodeSize;
+	const nextRow = rowPos + table.child(rowIndex).nodeSize;
 
-	let mapFrom = tr.mapping.maps.length;
+	const mapFrom = tr.mapping.maps.length;
 	tr.delete(rowPos + tableStart, nextRow + tableStart);
 
 	for (let col = 0, index = rowIndex * map.width; col < map.width; col++, index++) {
-		let pos = map.map[index];
+		const pos = map.map[index];
 		if (rowIndex > 0 && pos === map.map[index - map.width]) {
 			// If this cell starts in the row above, simply reduce its rowspan
 			const cell = table.nodeAt(pos);

@@ -50,7 +50,7 @@ function concatAncestorHierarchy(node: PMNode, ancestoryHierarchy?: string) {
 const sanitizeMarks = (marks: { [key: string]: any }[] = []) => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	let sanitizedMarks: { [key: string]: any }[] = [];
+	const sanitizedMarks: { [key: string]: any }[] = [];
 	marks.forEach((mark) => {
 		if (mark.attrs) {
 			const attrs = sanitizeAttributes(mark.attrs);
@@ -65,7 +65,7 @@ const sanitizeMarks = (marks: { [key: string]: any }[] = []) => {
 const sanitizeAttributes = (attrs: Object = {}) => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	let sanitizedAttrs: { [key: string]: any } = Object.assign({}, attrs);
+	const sanitizedAttrs: { [key: string]: any } = Object.assign({}, attrs);
 	Object.keys(attrs)
 		.filter((key) => !whitelistedAttributes.includes(key))
 		.forEach((key) => {

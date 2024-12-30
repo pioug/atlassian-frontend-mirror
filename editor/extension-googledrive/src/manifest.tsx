@@ -32,7 +32,7 @@ function pickerCallback(data: { [x: string]: any[] }) {
 	}
 	let url = 'nothing';
 	if (data[window.google.picker.Response.ACTION] === window.google.picker.Action.PICKED) {
-		let doc = data[window.google.picker.Response.DOCUMENTS][0];
+		const doc = data[window.google.picker.Response.DOCUMENTS][0];
 		url = doc[window.google.picker.Document.URL];
 	}
 	const node = inlineCard({ url });

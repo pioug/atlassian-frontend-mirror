@@ -1,3 +1,4 @@
+/* eslint-disable @repo/internal/react/no-class-components */
 /**
  * @jsxRuntime classic
  * @jsx jsx

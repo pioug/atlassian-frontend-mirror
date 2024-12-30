@@ -1,12 +1,6 @@
-import { type AnalyticsFacade } from '../../../../../state/analytics';
 import { type FlexibleCardProps } from '../../../../FlexibleCard/types';
 
 export type HoverCardUnauthorisedProps = {
-	/**
-	 * An AnalyticsFacade object used for calling analytics.
-	 */
-	analytics: AnalyticsFacade;
-
 	/**
 	 * Provides the extensionKey of a Smart Link resolver invoked.
 	 */

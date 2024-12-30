@@ -34,7 +34,7 @@ type GetCellTypeCallback = (option: GetCellTypeArgs) => NodeType;
 // into smaller cells with the cell type (th, td) returned by getType function.
 export function splitCellWithType(getCellType: GetCellTypeCallback): Command {
 	return (state, dispatch) => {
-		let sel = state.selection;
+		const sel = state.selection;
 		let cellNode: PMNode | null | undefined, cellPos: number | null;
 		if (!(sel instanceof CellSelection)) {
 			cellNode = cellWrapping(sel.$from);
@@ -55,17 +55,17 @@ export function splitCellWithType(getCellType: GetCellTypeCallback): Command {
 			return false;
 		}
 		if (cellNode && dispatch) {
-			let cellAttrs = cellNode.attrs as CellAttributes,
-				attrs = [],
-				colwidth = cellAttrs.colwidth;
+			let cellAttrs = cellNode.attrs as CellAttributes;
+			const attrs = [];
+			const colwidth = cellAttrs.colwidth;
 			if (cellAttrs.rowspan && cellAttrs.rowspan > 1) {
 				cellAttrs = { ...cellAttrs, rowspan: 1 };
 			}
 			if (cellAttrs.colspan && cellAttrs.colspan > 1) {
 				cellAttrs = { ...cellAttrs, colspan: 1 };
 			}
-			let rect = selectedRect(state);
-			let tr = state.tr;
+			const rect = selectedRect(state);
+			const tr = state.tr;
 			for (let i = 0; i < rect.right - rect.left; i++) {
 				attrs.push(
 					colwidth

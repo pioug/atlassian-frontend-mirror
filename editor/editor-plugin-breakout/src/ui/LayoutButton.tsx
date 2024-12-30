@@ -114,7 +114,7 @@ const LayoutButton = ({
 	const nextBreakoutMode = getNextBreakoutMode(breakoutMode);
 	const belowOtherPopupsZIndex = layers.layer() - 1;
 
-	let pluginState = getPluginState(state);
+	const pluginState = getPluginState(state);
 
 	if (!pluginState) {
 		return null;

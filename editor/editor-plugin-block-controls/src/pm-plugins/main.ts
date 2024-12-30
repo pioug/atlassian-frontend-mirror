@@ -138,16 +138,14 @@ export const newApply = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
-	let {
-		activeNode,
-		decorations,
+	let { activeNode, decorations, isResizerResizing } = currentState;
+	const {
 		editorHeight,
 		editorWidthLeft,
 		editorWidthRight,
 		isDragging,
 		isMenuOpen, // NOT USED
 		isPMDragging, // NOT USED
-		isResizerResizing,
 	} = currentState;
 
 	let isActiveNodeDeleted = false;
@@ -329,17 +327,16 @@ export const oldApply = (
 ) => {
 	const { isNestedEnabled } = flags;
 
-	let {
+	const {
 		activeNode,
-		decorations,
 		isMenuOpen,
 		editorHeight,
 		editorWidthLeft,
 		editorWidthRight,
-		isResizerResizing,
 		isDragging,
 		isPMDragging,
 	} = currentState;
+	let { decorations, isResizerResizing } = currentState;
 
 	// Remap existing decorations when steps exist
 	if (tr.docChanged) {

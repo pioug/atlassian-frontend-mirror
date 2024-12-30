@@ -23,7 +23,7 @@ function keymapList(
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 	formatMessage?: IntlShape['formatMessage'],
 ) {
-	let keymapList = {};
+	const keymapList = {};
 
 	if (api && fg('platform_editor_element_drag_and_drop_ed_23873')) {
 		bindKeymapWithCommand(

@@ -9,7 +9,7 @@ const getChildrenTypeCounts: (
 	nodeContent: (ADFEntity | undefined)[],
 	allowedTypes: string[],
 ) => {
-	let childrenTypes: { [key: string]: number } = {};
+	const childrenTypes: { [key: string]: number } = {};
 	nodeContent.forEach((childNode, index) => {
 		if (!childNode?.type || !allowedTypes.includes(childNode.type)) {
 			return;

@@ -2,7 +2,6 @@ import { type FlexibleCardProps } from '../../FlexibleCard/types';
 
 export type FlexibleBlockCardProps = Pick<
 	FlexibleCardProps,
-	| 'analytics'
 	| 'cardState'
 	| 'id'
 	| 'onAuthorize'

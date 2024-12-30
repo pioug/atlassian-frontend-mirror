@@ -72,8 +72,8 @@ export const DropdownMenu = ({
 	};
 
 	// more offsets calculation as offsets depend on the direction and updated placement here
-	let offsetY = direction === 'row' ? (popupPlacement[0] === 'bottom' ? -8 : -34) : 0;
-	let offsetX = direction === 'column' ? (popupPlacement[1] === 'left' ? 0 : -7) : 0;
+	const offsetY = direction === 'row' ? (popupPlacement[0] === 'bottom' ? -8 : -34) : 0;
+	const offsetX = direction === 'column' ? (popupPlacement[1] === 'left' ? 0 : -7) : 0;
 
 	const innerMenu = () => {
 		return (

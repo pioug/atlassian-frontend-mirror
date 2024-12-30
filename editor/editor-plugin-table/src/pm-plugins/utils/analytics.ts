@@ -167,10 +167,10 @@ export const useMeasureFramerate = (config: UseMeasureFramerateConfig = {}) => {
 		timeoutMs = 200,
 	} = config;
 
-	let frameCount = useRef(0);
-	let lastTime = useRef(0);
-	let timeoutId = useRef<NodeJS.Timeout | undefined>();
-	let frameRateSamples = useRef<number[]>([]);
+	const frameCount = useRef(0);
+	const lastTime = useRef(0);
+	const timeoutId = useRef<NodeJS.Timeout | undefined>();
+	const frameRateSamples = useRef<number[]>([]);
 
 	useEffect(() => {
 		return () => {

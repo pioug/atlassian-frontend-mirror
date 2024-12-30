@@ -199,7 +199,7 @@ export default class ResizableEmbedCard extends React.Component<Props, State> {
 			this.props.gridSize,
 		);
 
-		let snapPoints = snapTargets.filter((width) => width >= minimumWidth);
+		const snapPoints = snapTargets.filter((width) => width >= minimumWidth);
 		const $pos = this.$pos;
 		if (!$pos) {
 			return snapPoints;

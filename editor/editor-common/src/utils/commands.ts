@@ -323,13 +323,13 @@ export const insertContentDeleteRange = (
 	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	insertions.forEach((contentInsert) => {
-		let [content, pos] = contentInsert;
+		const [content, pos] = contentInsert;
 
 		tr.insert(tr.mapping.map(pos), content);
 	});
 
 	deletions.forEach((deleteRange) => {
-		let [firstPos, lastPos] = deleteRange;
+		const [firstPos, lastPos] = deleteRange;
 
 		tr.delete(tr.mapping.map(firstPos), tr.mapping.map(lastPos));
 	});

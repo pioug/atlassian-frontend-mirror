@@ -1,7 +1,6 @@
 import React, { type MouseEvent, useCallback, useEffect, useMemo } from 'react';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CardDisplay } from '../../constants';
@@ -9,7 +8,6 @@ import { type InvokeClientOpts, type InvokeServerOpts } from '../../model/invoke
 import { useSmartLink } from '../../state';
 import { succeedUfoExperience } from '../../state/analytics';
 import {
-	getCanBeDatasource,
 	getClickUrl,
 	getDefinitionId,
 	getExtensionKey,
@@ -52,7 +50,6 @@ function Component({
 	children,
 	showHoverPreview,
 	hoverPreviewOptions,
-	analyticsEvents,
 	removeTextHighlightingFromTitle,
 	resolvingPlaceholder,
 	truncateInline,
@@ -61,20 +58,11 @@ function Component({
 	const { fireEvent } = useAnalyticsEvents();
 
 	// Get state, actions for this card.
-	const {
-		state,
-		actions,
-		analytics: defaultAnalytics,
-		config,
-		renderers,
-		error,
-	} = useSmartLink(id, url);
-	const analytics = analyticsEvents || defaultAnalytics;
+	const { state, actions, config, renderers, error } = useSmartLink(id, url);
 	const definitionId = getDefinitionId(state.details);
 	const extensionKey = getExtensionKey(state.details);
 	const resourceType = getResourceType(state.details);
 	const services = getServices(state.details);
-	const canBeDatasource = getCanBeDatasource(state.details);
 
 	let isFlexibleUi = useMemo(() => isFlexibleUiCard(children), [children]);
 
@@ -180,43 +168,21 @@ function Component({
 	// - the unresolved states: viz. forbidden, not_found, unauthorized, errored.
 	useEffect(() => {
 		if (isFinalState(state.status)) {
-			if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
-				succeedUfoExperience('smart-link-rendered', id || 'NULL', {
-					extensionKey,
-					display: isFlexibleUi ? 'flexible' : appearance,
-				});
+			succeedUfoExperience('smart-link-rendered', id || 'NULL', {
+				extensionKey,
+				display: isFlexibleUi ? 'flexible' : appearance,
+			});
 
-				// UFO will disregard this if authentication experience has not yet been started
-				succeedUfoExperience('smart-link-authenticated', id || 'NULL', {
-					display: isFlexibleUi ? 'flexible' : appearance,
-				});
+			// UFO will disregard this if authentication experience has not yet been started
+			succeedUfoExperience('smart-link-authenticated', id || 'NULL', {
+				display: isFlexibleUi ? 'flexible' : appearance,
+			});
 
-				fireEvent('ui.smartLink.renderSuccess', {
-					display: isFlexibleUi ? 'flexible' : appearance,
-				});
-			} else {
-				analytics.ui.renderSuccessEvent({
-					display: isFlexibleUi ? 'flexible' : appearance,
-					status: state.status,
-					id,
-					definitionId,
-					extensionKey,
-					canBeDatasource,
-				});
-			}
+			fireEvent('ui.smartLink.renderSuccess', {
+				display: isFlexibleUi ? 'flexible' : appearance,
+			});
 		}
-	}, [
-		isFlexibleUi,
-		appearance,
-		state.status,
-		url,
-		definitionId,
-		extensionKey,
-		analytics.ui,
-		id,
-		canBeDatasource,
-		fireEvent,
-	]);
+	}, [appearance, extensionKey, fireEvent, id, isFlexibleUi, state.status]);
 
 	const onIframeDwell = useCallback(
 		(dwellTime: number, dwellPercentVisible: number) => {
@@ -265,7 +231,6 @@ function Component({
 				testId={testId}
 				onResolve={onResolve}
 				onError={onError}
-				analytics={analytics}
 			>
 				{children}
 			</FlexibleCard>
@@ -281,7 +246,6 @@ function Component({
 		case 'inline':
 			return (
 				<InlineCard
-					analytics={analytics}
 					id={id}
 					url={url}
 					renderers={renderers}
@@ -312,7 +276,6 @@ function Component({
 					cardState={state}
 					handleAuthorize={(services.length && handleAuthorize) || undefined}
 					handleFrameClick={handleClickWrapper}
-					analytics={analytics}
 					isSelected={isSelected}
 					onResolve={onResolve}
 					onError={onError}
@@ -332,7 +295,6 @@ function Component({
 					handleErrorRetry={handleRetry}
 					handleFrameClick={handleClickWrapper}
 					handleInvoke={handleInvoke}
-					analytics={analytics}
 					isSelected={isSelected}
 					frameStyle={frameStyle}
 					platform={platform}

@@ -72,9 +72,9 @@ export async function buildCaches({
 	signal?: AbortSignal;
 	existingProvidersCache?: NodeDataProvidersCache;
 }): Promise<NodeDataProvidersCache> {
-	let visitors = {} as VisitorCollection;
+	const visitors = {} as VisitorCollection;
 
-	let promises: Promise<Record<string, unknown> | undefined>[] = [];
+	const promises: Promise<Record<string, unknown> | undefined>[] = [];
 	for (const _nodeDataProvider of Object.values(nodeDataProviders)) {
 		// widen type to avoid typescript errors with the specific node data provider types
 		const nodeDataProvider = _nodeDataProvider as AnyNodeDataProvider;

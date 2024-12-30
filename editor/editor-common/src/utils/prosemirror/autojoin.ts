@@ -17,7 +17,7 @@ export function autoJoinTr(
 	isJoinable: ((before: Node, after: Node) => boolean) | string[],
 ) {
 	if (Array.isArray(isJoinable)) {
-		let types = isJoinable;
+		const types = isJoinable;
 		isJoinable = (node: Node) => types.indexOf(node.type.name) > -1;
 	}
 

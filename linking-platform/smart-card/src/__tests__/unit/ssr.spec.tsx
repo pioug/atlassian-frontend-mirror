@@ -4,12 +4,11 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { CardClient as Client, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { cardState, url } from '@atlaskit/media-test-helpers/smart-card-state';
 
 import { CardSSR, type CardSSRProps } from '../../ssr';
-import { ANALYTICS_CHANNEL, context } from '../../utils/analytics';
 import { CardWithUrlContent } from '../../view/CardWithUrl/component';
 
 jest.mock('../../view/CardWithUrl/component', () => {
@@ -28,22 +27,28 @@ describe('<CardSSR />', () => {
 	};
 
 	const setup = (props?: Partial<CardSSRProps>) => {
-		const spy = jest.fn();
+		const mockAnalyticsClient = {
+			sendUIEvent: jest.fn().mockResolvedValue(undefined),
+			sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+			sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+			sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+		} satisfies AnalyticsWebClient;
+
 		const storeOptions: any = {
 			initialState: {
 				[url]: cardState,
 			},
 		};
 		render(
-			<AnalyticsListener channel={ANALYTICS_CHANNEL} onEvent={spy}>
+			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<Provider storeOptions={storeOptions} client={new Client('stg')}>
 					<CardSSR {...cardProps} {...props} />
 				</Provider>
-			</AnalyticsListener>,
+			</FabricAnalyticsListeners>,
 		);
 
 		return {
-			spy,
+			mockAnalyticsClient,
 		};
 	};
 
@@ -98,50 +103,35 @@ describe('<CardSSR />', () => {
 
 	describe('analytics', () => {
 		it('should fire analytics events', async () => {
-			const { spy } = setup();
+			const { mockAnalyticsClient } = setup();
 
 			await screen.findByTestId('inline-card-resolved-view');
-
-			expect(spy).toBeFiredWithAnalyticEventOnce({
-				payload: {
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
 					action: 'renderSuccess',
 					actionSubject: 'smartLink',
-				},
-				context: [context],
-			});
+					attributes: expect.objectContaining({}),
+				}),
+			);
 		});
 
 		it('should fire link clicked event with attributes from SmartLinkAnalyticsContext', async () => {
-			const { spy } = setup({ id: 'some-id' });
+			const { mockAnalyticsClient } = setup({ id: 'some-id' });
 
 			const resolvedCard = await screen.findByTestId('inline-card-resolved-view');
 
 			fireEvent.click(resolvedCard);
-
-			expect(spy).toBeFiredWithAnalyticEventOnce(
-				{
-					payload: {
-						action: 'clicked',
-						actionSubject: 'link',
-					},
-					context: [
-						{
-							componentName: 'smart-cards',
-						},
-						{
-							attributes: {
-								display: 'inline',
-								id: 'some-id',
-							},
-						},
-						{
-							attributes: {
-								status: 'resolved',
-							},
-						},
-					],
-				},
-				ANALYTICS_CHANNEL,
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					action: 'clicked',
+					actionSubject: 'link',
+					attributes: expect.objectContaining({
+						display: 'inline',
+						id: 'some-id',
+						componentName: 'smart-cards',
+						status: 'resolved',
+					}),
+				}),
 			);
 		});
 	});

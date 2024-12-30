@@ -249,7 +249,7 @@ export function processRawValue(
 			dispatchAnalyticsEvent,
 		);
 
-		let newEntity = maySanitizePrivateContent(
+		const newEntity = maySanitizePrivateContent(
 			entity as JSONDocNode,
 			providerFactory,
 			sanitizePrivateContent,

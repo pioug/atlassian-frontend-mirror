@@ -95,7 +95,7 @@ export const disableTTVCOnFirstUserInteraction = () => {
 
 			const { dom } = view;
 
-			for (let abortEventName of AbortEvent) {
+			for (const abortEventName of AbortEvent) {
 				unbindCallbacks.add(
 					bind(dom, abortEventName, controller, () => {
 						ttvcAbort();

@@ -56,7 +56,7 @@ export const resolveWithProvider = (
 		: true;
 
 	// When user manually changes appearance from blue link to smart link, we should respect that,
-	let shouldForceAppearance =
+	const shouldForceAppearance =
 		// This flag is set to true only in one place atm:
 		// packages/editor/editor-core/src/plugins/card/pm-plugins/doc.ts @ convertHyperlinkToSmartCard
 		// Which is used when user switching from URL to smart link appearance.

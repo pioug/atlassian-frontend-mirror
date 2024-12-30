@@ -63,7 +63,7 @@ const panelPlugin: PanelPlugin = ({ config: options = {}, api }) => ({
 
 	pluginsOptions: {
 		quickInsert: ({ formatMessage }) => {
-			let quickInsertOptions: QuickInsertItem[] = [
+			const quickInsertOptions: QuickInsertItem[] = [
 				{
 					id: 'infopanel',
 					title: formatMessage(blockTypeMessages.infoPanel),

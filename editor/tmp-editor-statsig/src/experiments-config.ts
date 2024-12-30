@@ -283,15 +283,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-11-11
-	platform_editor_ai_response_history: {
-		productKeys: {
-			confluence: 'platform_editor_ai_response_history',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-11-13
 	issue_view_action_items: {
 		productKeys: {

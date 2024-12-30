@@ -3,21 +3,14 @@ import { useMemo } from 'react';
 import { type JsonLd } from 'json-ld-types';
 import uuid from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { extractInvokeDownloadAction } from '../../extractors/action/extract-invoke-download-action';
 import { extractInvokePreviewAction } from '../../extractors/action/extract-invoke-preview-action';
 import { extractInvokeViewAction } from '../../extractors/action/extract-invoke-view-action';
-import { extractDownloadActionProps } from '../../extractors/action/extractDownloadActionProps';
-import { extractPreviewActionProps } from '../../extractors/action/extractPreviewActionProps';
-import { extractViewActionProps } from '../../extractors/action/extractViewActionProps';
 import { messages } from '../../messages';
 import { toAction } from '../../utils/actions/to-action';
 import type { AnalyticsOrigin } from '../../utils/types';
 import type { CardActionOptions, CardInnerAppearance } from '../../view/Card/types';
-import { useSmartLinkAnalytics as useLinkAnalytics } from '../analytics';
-import { getExtensionKey } from '../helpers';
 import useInvokeClientAction from '../hooks/use-invoke-client-action';
 import { useSmartCardState as useLinkState } from '../store';
 
@@ -75,43 +68,26 @@ export function useSmartLinkActions({
 	const id: string = useMemo(() => uuid(), []);
 
 	const linkState = useLinkState(url);
-	const linkAnalytics = useLinkAnalytics(url, id);
 	const { fireEvent } = useAnalyticsEvents();
-	const invokeClientAction = useInvokeClientAction({ analytics: linkAnalytics });
+	const invokeClientAction = useInvokeClientAction({ fireEvent });
 
 	if (linkState.details && !actionOptions?.hide) {
-		const opts = {
-			response: linkState.details,
-			handleInvoke: invokeClientAction,
-			analytics: linkAnalytics,
-			origin,
-			extensionKey: getExtensionKey(linkState.details),
-			source: appearance,
-			actionOptions,
-		};
-
 		const actions = [];
 
 		const invokeParam = { actionOptions, appearance, id, response: linkState.details };
-		const downloadActionProps = fg('platform-smart-card-migrate-embed-modal-analytics')
-			? extractInvokeDownloadAction(invokeParam)
-			: extractDownloadActionProps(opts);
+		const downloadActionProps = extractInvokeDownloadAction(invokeParam);
 		if (downloadActionProps) {
 			actions.push(
 				toAction(downloadActionProps, invokeClientAction, messages.download, 'download-content'),
 			);
 		}
 
-		const viewActionProps = fg('platform-smart-card-migrate-embed-modal-analytics')
-			? extractInvokeViewAction(invokeParam)
-			: extractViewActionProps(opts);
+		const viewActionProps = extractInvokeViewAction(invokeParam);
 		if (viewActionProps) {
 			actions.push(toAction(viewActionProps, invokeClientAction, messages.view, 'view-content'));
 		}
 
-		const previewActionProps = fg('platform-smart-card-migrate-embed-modal-analytics')
-			? extractInvokePreviewAction({ ...invokeParam, fireEvent, origin })
-			: extractPreviewActionProps(opts);
+		const previewActionProps = extractInvokePreviewAction({ ...invokeParam, fireEvent, origin });
 		if (previewActionProps) {
 			actions.push(
 				toAction(
@@ -122,9 +98,7 @@ export function useSmartLinkActions({
 				),
 			);
 		}
-
 		return actions;
 	}
-
 	return [];
 }

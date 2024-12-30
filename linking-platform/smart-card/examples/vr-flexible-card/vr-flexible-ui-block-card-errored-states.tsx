@@ -6,7 +6,6 @@ import styled from '@emotion/styled';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
-import { type AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
 import FlexibleErroredView from '../../src/view/BlockCard/views/ErroredView';
 import FlexibleUnauthorisedView from '../../src/view/BlockCard/views/UnauthorisedView';
 import { getCardState } from '../utils/flexible-ui';
@@ -18,7 +17,6 @@ const Container = styled.div({
 });
 
 export default () => {
-	const mockAnalytics = {} as AnalyticsFacade;
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>
@@ -33,7 +31,6 @@ export default () => {
 							})}
 							url="some.url"
 							onAuthorize={() => {}}
-							analytics={mockAnalytics}
 						/>
 						<h5> Unauthorised view</h5>
 						<FlexibleUnauthorisedView
@@ -43,7 +40,6 @@ export default () => {
 							})}
 							url="some.url"
 							onAuthorize={() => {}}
-							analytics={mockAnalytics}
 						/>
 					</div>
 				</Container>

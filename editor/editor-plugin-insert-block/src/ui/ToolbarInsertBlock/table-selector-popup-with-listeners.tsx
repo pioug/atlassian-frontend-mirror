@@ -253,7 +253,7 @@ export const TableSelectorPopup = (props: TableSelectorPopupProps) => {
 
 				setSize((prevSize) => {
 					const getRow = (prevRow: number, prevCol: number): number => {
-						let row = prevRow;
+						const row = prevRow;
 						// Move to previous row for wrap around
 						if (prevSize.col === 1 && prevSize.row > 1) {
 							return prevRow - 1;

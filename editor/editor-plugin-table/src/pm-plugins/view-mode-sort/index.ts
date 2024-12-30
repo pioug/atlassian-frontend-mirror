@@ -53,8 +53,8 @@ export const createPlugin = (
 
 				const sortMeta = tr.getMeta('tableSortMeta');
 
-				let hoverTableMeta = tr.getMeta('mouseEnterTable');
-				let removeTableMeta = tr.getMeta('removeTable');
+				const hoverTableMeta = tr.getMeta('mouseEnterTable');
+				const removeTableMeta = tr.getMeta('removeTable');
 				let tableId = '';
 
 				// Remove the table from the state

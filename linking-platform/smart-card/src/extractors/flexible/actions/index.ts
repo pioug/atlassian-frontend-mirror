@@ -9,10 +9,10 @@ import { type CardActionOptions, type CardInnerAppearance } from '../../../view/
 
 import { extractAISummaryAction } from './extract-ai-summary-action';
 import { extractAutomationAction } from './extract-automation-action';
-import { extractCopyLinkAction, extractCopyLinkClientAction } from './extract-copy-link-action';
-import { extractDownloadAction, extractDownloadClientAction } from './extract-download-action';
+import { extractCopyLinkClientAction } from './extract-copy-link-action';
+import { extractDownloadClientAction } from './extract-download-action';
 import extractFollowAction from './extract-follow-action';
-import { extractPreviewAction, extractPreviewClientAction } from './extract-preview-action';
+import { extractPreviewClientAction } from './extract-preview-action';
 import { extractViewRelatedLinksAction } from './extract-view-related-links-action';
 
 export type ExtractActionsParam = {
@@ -70,36 +70,3 @@ export const extractFlexibleCardActions = ({
 
 	return Object.values(action).some((value) => Boolean(value)) ? action : undefined;
 };
-
-/**
- * TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
- * Replaced with extractFlexibleCardActions()
- */
-const extractActions = (
-	response: JsonLd.Response,
-	url?: string,
-	actionOptions?: CardActionOptions,
-	id?: string,
-	aiSummaryConfig?: AISummaryConfig,
-): FlexibleUiActions | undefined => {
-	const data = response.data as JsonLd.Data.BaseData;
-
-	const action = {
-		[ActionName.CopyLinkAction]: extractCopyLinkAction(data, actionOptions),
-		[ActionName.DownloadAction]: extractDownloadAction(data, actionOptions),
-		[ActionName.FollowAction]: extractFollowAction(response, actionOptions, id),
-		[ActionName.PreviewAction]: extractPreviewAction(response, actionOptions),
-		[ActionName.AutomationAction]: extractAutomationAction(response),
-		[InternalActionName.AISummaryAction]: extractAISummaryAction(
-			response,
-			url,
-			actionOptions,
-			aiSummaryConfig,
-		),
-		[InternalActionName.ViewRelatedLinksAction]: extractViewRelatedLinksAction(response),
-	};
-
-	return Object.values(action).some((value) => Boolean(value)) ? action : undefined;
-};
-
-export default extractActions;

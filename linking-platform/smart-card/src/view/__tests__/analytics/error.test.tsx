@@ -7,10 +7,8 @@ import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/ana
 import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { ChunkLoadError } from '../../../utils/__tests__/index.test';
-import * as analytics from '../../../utils/analytics';
 import { mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
 import * as lazyComponent from '../../CardWithUrl/component-lazy';
@@ -345,7 +343,7 @@ describe('smart-card: error analytics', () => {
 		);
 	});
 
-	describe('should render with current data on unexpected err', () => {
+	it('should render with current data on unexpected err', async () => {
 		class MockClient extends CardClient {
 			async fetchData(url: string): Promise<JsonLd.Response> {
 				throw new APIError(
@@ -357,110 +355,56 @@ describe('smart-card: error analytics', () => {
 			}
 		}
 
-		ffTest(
-			'platform-smart-card-migrate-embed-modal-analytics',
-			async () => {
-				const client = new MockClient();
-				const onError = jest.fn();
-				render(
-					<FabricAnalyticsListeners client={mockAnalyticsClient}>
-						<Provider
-							client={client}
-							storeOptions={{
-								initialState: {
-									[mockUrl]: {
-										status: 'resolved' as const,
-										details: mocks.success,
-									},
-								},
-							}}
-						>
-							<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
-						</Provider>
-					</FabricAnalyticsListeners>,
-				);
-				const resolvedView = await screen.findByTestId('erroredLink-resolved-view');
-				const resolvedCard = screen.getByRole('button');
-				expect(resolvedView).toBeTruthy();
-				expect(resolvedCard).toBeTruthy();
-				expect(onError).not.toHaveBeenCalled();
-				expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						actionSubject: 'smartLink',
-						action: 'resolved',
-						attributes: expect.objectContaining({
-							id: expect.any(String),
-							status: 'resolved',
-							extensionKey: 'object-provider',
-							definitionId: 'd1',
-							canBeDatasource: false,
-							duration: null,
-						}),
-					}),
-				);
-				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						action: 'renderSuccess',
-						actionSubject: 'smartLink',
-						attributes: expect.objectContaining({
-							display: 'inline',
-							status: 'resolved',
-							definitionId: 'd1',
-							extensionKey: 'object-provider',
-							canBeDatasource: false,
-						}),
-					}),
-				);
-			},
-			async () => {
-				const client = new MockClient();
-				const onError = jest.fn();
-				render(
-					<FabricAnalyticsListeners client={mockAnalyticsClient}>
-						<Provider
-							client={client}
-							storeOptions={{
-								initialState: {
-									[mockUrl]: {
-										status: 'resolved' as const,
-										details: mocks.success,
-									},
-								},
-							}}
-						>
-							<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
-						</Provider>
-					</FabricAnalyticsListeners>,
-				);
-				const resolvedView = await screen.findByTestId('erroredLink-resolved-view');
-
-				const resolvedCard = screen.getByRole('button');
-				expect(resolvedView).toBeTruthy();
-				expect(resolvedCard).toBeTruthy();
-				expect(onError).not.toHaveBeenCalled();
-				expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
-					expect.objectContaining({
-						actionSubject: 'smartLink',
-						action: 'resolved',
-						attributes: expect.objectContaining({
-							id: expect.any(String),
-							status: 'resolved',
-							extensionKey: 'object-provider',
-							definitionId: 'd1',
-							canBeDatasource: false,
-							duration: null,
-						}),
-					}),
-				);
-
-				expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith({
+		const client = new MockClient();
+		const onError = jest.fn();
+		render(
+			<FabricAnalyticsListeners client={mockAnalyticsClient}>
+				<Provider
+					client={client}
+					storeOptions={{
+						initialState: {
+							[mockUrl]: {
+								status: 'resolved' as const,
+								details: mocks.success,
+							},
+						},
+					}}
+				>
+					<Card testId="erroredLink" appearance="inline" url={mockUrl} onError={onError} />
+				</Provider>
+			</FabricAnalyticsListeners>,
+		);
+		const resolvedView = await screen.findByTestId('erroredLink-resolved-view');
+		const resolvedCard = screen.getByRole('button');
+		expect(resolvedView).toBeTruthy();
+		expect(resolvedCard).toBeTruthy();
+		expect(onError).not.toHaveBeenCalled();
+		expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+			expect.objectContaining({
+				actionSubject: 'smartLink',
+				action: 'resolved',
+				attributes: expect.objectContaining({
+					id: expect.any(String),
+					status: 'resolved',
+					extensionKey: 'object-provider',
+					definitionId: 'd1',
+					canBeDatasource: false,
+					duration: null,
+				}),
+			}),
+		);
+		expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+			expect.objectContaining({
+				action: 'renderSuccess',
+				actionSubject: 'smartLink',
+				attributes: expect.objectContaining({
 					display: 'inline',
 					status: 'resolved',
 					definitionId: 'd1',
 					extensionKey: 'object-provider',
 					canBeDatasource: false,
-				});
-			},
+				}),
+			}),
 		);
 	});
 

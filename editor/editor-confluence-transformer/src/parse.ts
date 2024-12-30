@@ -366,7 +366,7 @@ function converter(
 			case 'TIME':
 				const dateStr = node.getAttribute('datetime');
 				if (dateStr) {
-					let timestamp = Date.parse(dateStr);
+					const timestamp = Date.parse(dateStr);
 					return schema.nodes.date.createChecked({ timestamp });
 				}
 				return unsupportedInline;

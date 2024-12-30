@@ -36,7 +36,7 @@ export function getTags(tagInfo: JSDocTagInfo[]): TagInfo {
 		if (!text || !text.length) {
 			return obj;
 		}
-		let val: string = text.map((text) => text.text).join('');
+		const val: string = text.map((text) => text.text).join('');
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-unicode-regexp
 		if (/^\d+$/.test(val)) {
@@ -58,8 +58,8 @@ export function getTags(tagInfo: JSDocTagInfo[]): TagInfo {
 
 export function extractLiteralValue(type: LiteralType): PrimitiveType {
 	if (type.flags & TypeFlags.EnumLiteral) {
-		let str = String(type.value);
-		let num = parseFloat(str);
+		const str = String(type.value);
+		const num = parseFloat(str);
 		return isNaN(num) ? str : num;
 	} else if (type.isStringLiteral() || type.isNumberLiteral()) {
 		return type.value;

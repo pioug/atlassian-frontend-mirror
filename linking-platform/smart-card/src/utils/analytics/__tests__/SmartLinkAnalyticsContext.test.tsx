@@ -7,7 +7,6 @@ import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/ana
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { CardState } from '@atlaskit/linking-common';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { mockByUrl, mocks } from '../../mocks';
 import { context } from '../analytics';
@@ -61,138 +60,74 @@ describe('SL analytics context', () => {
 			);
 		};
 
-		ffTest.on('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg', () => {
-			it('adds analytics context to events', () => {
-				setup(resolvedCardState);
+		it('adds analytics context to events', () => {
+			setup(resolvedCardState);
 
-				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
-					action: 'fired',
-					actionSubject: 'event',
-					attributes: {
-						...context,
-						canBeDatasource: false,
-						definitionId: 'd1',
-						destinationActivationId: null,
-						destinationCategory: null,
-						destinationContainerId: null,
-						destinationObjectId: null,
-						destinationObjectType: 'object-resource',
-						destinationProduct: 'object-product',
-						destinationSubproduct: 'object-subproduct',
-						destinationTenantId: null,
-						display,
-						displayCategory: 'smartLink',
-						extensionKey: 'object-provider',
-						id,
-						listenerVersion: expect.any(String),
-						packageName: expect.any(String),
-						packageVersion: expect.any(String),
-						resourceType: 'object-resource',
-						sourceHierarchy: 'some-source',
-						status: 'resolved',
-						statusDetails: null,
-					},
-					source: 'some-source',
-					tags: ['media'],
-				});
-			});
-
-			it('adds minimum analytics context to events when url is not in the store', () => {
-				setup();
-
-				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
-					action: 'fired',
-					actionSubject: 'event',
-					actionSubjectId: undefined,
-					attributes: {
-						...context,
-						canBeDatasource: false,
-						definitionId: null,
-						destinationActivationId: null,
-						destinationCategory: null,
-						destinationContainerId: null,
-						destinationObjectId: null,
-						destinationObjectType: null,
-						destinationProduct: null,
-						destinationSubproduct: null,
-						destinationTenantId: null,
-						display,
-						displayCategory: 'smartLink',
-						extensionKey: null,
-						id,
-						packageName: expect.any(String),
-						packageVersion: expect.any(String),
-						resourceType: null,
-						listenerVersion: expect.any(String),
-						sourceHierarchy: 'some-source',
-						status: 'pending',
-						statusDetails: null,
-					},
-					source: 'some-source',
-					tags: ['media'],
-				});
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
+				action: 'fired',
+				actionSubject: 'event',
+				attributes: {
+					...context,
+					canBeDatasource: false,
+					definitionId: 'd1',
+					destinationActivationId: null,
+					destinationCategory: null,
+					destinationContainerId: null,
+					destinationObjectId: null,
+					destinationObjectType: 'object-resource',
+					destinationProduct: 'object-product',
+					destinationSubproduct: 'object-subproduct',
+					destinationTenantId: null,
+					display,
+					displayCategory: 'smartLink',
+					extensionKey: 'object-provider',
+					id,
+					listenerVersion: expect.any(String),
+					packageName: expect.any(String),
+					packageVersion: expect.any(String),
+					resourceType: 'object-resource',
+					sourceHierarchy: 'some-source',
+					status: 'resolved',
+					statusDetails: null,
+				},
+				source: 'some-source',
+				tags: ['media'],
 			});
 		});
 
-		ffTest.off('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg', () => {
-			it('adds analytics context to events', () => {
-				setup(resolvedCardState);
+		it('adds minimum analytics context to events when url is not in the store', () => {
+			setup();
 
-				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
-					action: 'fired',
-					actionSubject: 'event',
-					attributes: {
-						canBeDatasource: false,
-						destinationActivationId: null,
-						destinationCategory: null,
-						destinationContainerId: null,
-						destinationObjectId: null,
-						destinationObjectType: 'object-resource',
-						destinationProduct: 'object-product',
-						destinationSubproduct: 'object-subproduct',
-						destinationTenantId: null,
-						display,
-						displayCategory: 'smartLink',
-						extensionKey: 'object-provider',
-						id,
-						listenerVersion: expect.any(String),
-						sourceHierarchy: 'some-source',
-						status: 'resolved',
-						statusDetails: null,
-					},
-					source: 'some-source',
-					tags: ['media'],
-				});
-			});
-
-			it('adds minimum analytics context to events when url is not in the store', () => {
-				setup();
-
-				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
-					action: 'fired',
-					actionSubject: 'event',
-					attributes: {
-						canBeDatasource: false,
-						destinationActivationId: null,
-						destinationCategory: null,
-						destinationContainerId: null,
-						destinationObjectId: null,
-						destinationObjectType: null,
-						destinationProduct: null,
-						destinationSubproduct: null,
-						destinationTenantId: null,
-						display,
-						displayCategory: 'smartLink',
-						extensionKey: null,
-						id,
-						listenerVersion: expect.any(String),
-						sourceHierarchy: 'some-source',
-						status: 'pending',
-						statusDetails: null,
-					},
-					source: 'some-source',
-					tags: ['media'],
-				});
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
+				action: 'fired',
+				actionSubject: 'event',
+				actionSubjectId: undefined,
+				attributes: {
+					...context,
+					canBeDatasource: false,
+					definitionId: null,
+					destinationActivationId: null,
+					destinationCategory: null,
+					destinationContainerId: null,
+					destinationObjectId: null,
+					destinationObjectType: null,
+					destinationProduct: null,
+					destinationSubproduct: null,
+					destinationTenantId: null,
+					display,
+					displayCategory: 'smartLink',
+					extensionKey: null,
+					id,
+					packageName: expect.any(String),
+					packageVersion: expect.any(String),
+					resourceType: null,
+					listenerVersion: expect.any(String),
+					sourceHierarchy: 'some-source',
+					status: 'pending',
+					statusDetails: null,
+				},
+				source: 'some-source',
+				tags: ['media'],
 			});
 		});
 	});
@@ -207,162 +142,153 @@ describe('SL analytics context', () => {
 			});
 		};
 
-		ffTest.on('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg', () => {
-			it('returns analytics context based on url', () => {
-				const { result } = setup(resolvedCardState);
+		it('returns analytics context based on url', () => {
+			const { result } = setup(resolvedCardState);
 
-				expect(result.current).toEqual({
-					source,
-					attributes: {
-						...context,
-						canBeDatasource: false,
-						definitionId: 'd1',
-						destinationActivationId: null,
-						destinationCategory: null,
-						destinationContainerId: null,
-						destinationObjectId: null,
-						destinationObjectType: 'object-resource',
-						destinationProduct: 'object-product',
-						destinationSubproduct: 'object-subproduct',
-						destinationTenantId: null,
-						display,
-						displayCategory: 'smartLink',
-						extensionKey: 'object-provider',
-						id,
-						packageName: expect.any(String),
-						packageVersion: expect.any(String),
-						resourceType: 'object-resource',
-						status: 'resolved',
-						statusDetails: null,
-					},
-				});
-			});
-
-			it('returns minimal analytics context if url is not in the store', () => {
-				const { result } = setup();
-
-				expect(result.current).toEqual({
-					source,
-					attributes: {
-						...context,
-						canBeDatasource: false,
-						definitionId: null,
-						destinationActivationId: null,
-						destinationCategory: null,
-						destinationContainerId: null,
-						destinationObjectId: null,
-						destinationObjectType: null,
-						destinationProduct: null,
-						destinationSubproduct: null,
-						destinationTenantId: null,
-						display,
-						displayCategory: 'smartLink',
-						extensionKey: null,
-						id,
-						packageName: expect.any(String),
-						packageVersion: expect.any(String),
-						resourceType: null,
-						status: 'pending',
-						statusDetails: null,
-					},
-				});
-			});
-
-			it('returns pending analytics context if url is not in the store', () => {
-				const { result } = setup({ status: 'pending' });
-
-				expect(result.current).toEqual({
-					source,
-					attributes: {
-						...context,
-						canBeDatasource: false,
-						definitionId: null,
-						destinationActivationId: null,
-						destinationCategory: null,
-						destinationContainerId: null,
-						destinationObjectId: null,
-						destinationObjectType: null,
-						destinationProduct: null,
-						destinationSubproduct: null,
-						destinationTenantId: null,
-						display,
-						displayCategory: 'smartLink',
-						extensionKey: null,
-						id,
-						packageName: expect.any(String),
-						packageVersion: expect.any(String),
-						resourceType: null,
-						status: 'pending',
-						statusDetails: null,
-					},
-				});
-			});
-
-			it('returns forbidden analytics context', () => {
-				const { result } = setup({ details: mocks.forbidden, status: 'pending' });
-
-				expect(result.current).toEqual({
-					source,
-					attributes: {
-						...context,
-						canBeDatasource: false,
-						definitionId: 'd1',
-						destinationActivationId: null,
-						destinationCategory: null,
-						destinationContainerId: null,
-						destinationObjectId: null,
-						destinationObjectType: null,
-						destinationProduct: null,
-						destinationSubproduct: null,
-						destinationTenantId: null,
-						display,
-						displayCategory: 'smartLink',
-						extensionKey: 'object-provider',
-						id,
-						packageName: expect.any(String),
-						packageVersion: expect.any(String),
-						resourceType: null,
-						status: 'pending',
-						statusDetails: null,
-					},
-				});
-			});
-
-			it('returns unauthorized analytics context', () => {
-				const { result } = setup({ details: mocks.unauthorized, status: 'pending' });
-
-				expect(result.current).toEqual({
-					source,
-					attributes: {
-						...context,
-						canBeDatasource: false,
-						definitionId: 'd1',
-						destinationActivationId: null,
-						destinationCategory: null,
-						destinationContainerId: null,
-						destinationObjectId: null,
-						destinationObjectType: null,
-						destinationProduct: null,
-						destinationSubproduct: null,
-						destinationTenantId: null,
-						display,
-						displayCategory: 'smartLink',
-						extensionKey: 'object-provider',
-						id,
-						packageName: expect.any(String),
-						packageVersion: expect.any(String),
-						resourceType: null,
-						status: 'pending',
-						statusDetails: null,
-					},
-				});
+			expect(result.current).toEqual({
+				source,
+				attributes: {
+					...context,
+					canBeDatasource: false,
+					definitionId: 'd1',
+					destinationActivationId: null,
+					destinationCategory: null,
+					destinationContainerId: null,
+					destinationObjectId: null,
+					destinationObjectType: 'object-resource',
+					destinationProduct: 'object-product',
+					destinationSubproduct: 'object-subproduct',
+					destinationTenantId: null,
+					display,
+					displayCategory: 'smartLink',
+					extensionKey: 'object-provider',
+					id,
+					packageName: expect.any(String),
+					packageVersion: expect.any(String),
+					resourceType: 'object-resource',
+					status: 'resolved',
+					statusDetails: null,
+				},
 			});
 		});
 
-		ffTest.off('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg', () => {
-			it('should return analytics context based on url', () => {
-				const { result } = setup(resolvedCardState);
-				expect(result.current).toEqual({});
+		it('returns minimal analytics context if url is not in the store', () => {
+			const { result } = setup();
+
+			expect(result.current).toEqual({
+				source,
+				attributes: {
+					...context,
+					canBeDatasource: false,
+					definitionId: null,
+					destinationActivationId: null,
+					destinationCategory: null,
+					destinationContainerId: null,
+					destinationObjectId: null,
+					destinationObjectType: null,
+					destinationProduct: null,
+					destinationSubproduct: null,
+					destinationTenantId: null,
+					display,
+					displayCategory: 'smartLink',
+					extensionKey: null,
+					id,
+					packageName: expect.any(String),
+					packageVersion: expect.any(String),
+					resourceType: null,
+					status: 'pending',
+					statusDetails: null,
+				},
+			});
+		});
+
+		it('returns pending analytics context if url is not in the store', () => {
+			const { result } = setup({ status: 'pending' });
+
+			expect(result.current).toEqual({
+				source,
+				attributes: {
+					...context,
+					canBeDatasource: false,
+					definitionId: null,
+					destinationActivationId: null,
+					destinationCategory: null,
+					destinationContainerId: null,
+					destinationObjectId: null,
+					destinationObjectType: null,
+					destinationProduct: null,
+					destinationSubproduct: null,
+					destinationTenantId: null,
+					display,
+					displayCategory: 'smartLink',
+					extensionKey: null,
+					id,
+					packageName: expect.any(String),
+					packageVersion: expect.any(String),
+					resourceType: null,
+					status: 'pending',
+					statusDetails: null,
+				},
+			});
+		});
+
+		it('returns forbidden analytics context', () => {
+			const { result } = setup({ details: mocks.forbidden, status: 'pending' });
+
+			expect(result.current).toEqual({
+				source,
+				attributes: {
+					...context,
+					canBeDatasource: false,
+					definitionId: 'd1',
+					destinationActivationId: null,
+					destinationCategory: null,
+					destinationContainerId: null,
+					destinationObjectId: null,
+					destinationObjectType: null,
+					destinationProduct: null,
+					destinationSubproduct: null,
+					destinationTenantId: null,
+					display,
+					displayCategory: 'smartLink',
+					extensionKey: 'object-provider',
+					id,
+					packageName: expect.any(String),
+					packageVersion: expect.any(String),
+					resourceType: null,
+					status: 'pending',
+					statusDetails: null,
+				},
+			});
+		});
+
+		it('returns unauthorized analytics context', () => {
+			const { result } = setup({ details: mocks.unauthorized, status: 'pending' });
+
+			expect(result.current).toEqual({
+				source,
+				attributes: {
+					...context,
+					canBeDatasource: false,
+					definitionId: 'd1',
+					destinationActivationId: null,
+					destinationCategory: null,
+					destinationContainerId: null,
+					destinationObjectId: null,
+					destinationObjectType: null,
+					destinationProduct: null,
+					destinationSubproduct: null,
+					destinationTenantId: null,
+					display,
+					displayCategory: 'smartLink',
+					extensionKey: 'object-provider',
+					id,
+					packageName: expect.any(String),
+					packageVersion: expect.any(String),
+					resourceType: null,
+					status: 'pending',
+					statusDetails: null,
+				},
 			});
 		});
 	});

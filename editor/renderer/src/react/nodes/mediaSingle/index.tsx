@@ -135,6 +135,8 @@ const MediaSingleWithChildren = (props: Props & ChildElements & WrappedComponent
 		[],
 	);
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line prefer-const
 	let { width = DEFAULT_WIDTH, height = DEFAULT_HEIGHT, type } = media.props;
 
 	if (type === 'external') {

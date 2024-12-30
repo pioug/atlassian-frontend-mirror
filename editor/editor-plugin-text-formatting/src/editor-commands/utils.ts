@@ -34,7 +34,7 @@ export const markActive = (state: EditorState, mark: PMMark): boolean => {
 };
 
 const blockStylingIsPresent = (state: EditorState): boolean => {
-	let { from, to } = state.selection;
+	const { from, to } = state.selection;
 	let isBlockStyling = false;
 	state.doc.nodesBetween(from, to, (node) => {
 		if (FORMATTING_NODE_TYPES.indexOf(node.type.name) !== -1) {

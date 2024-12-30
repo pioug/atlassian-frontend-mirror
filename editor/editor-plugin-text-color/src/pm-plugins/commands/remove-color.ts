@@ -7,7 +7,7 @@ export const removeColor = (): Command => (state, dispatch) => {
 	const { schema } = state;
 	const { textColor } = schema.marks;
 
-	let tr = state.tr;
+	const tr = state.tr;
 
 	removeMark(textColor)({ tr });
 

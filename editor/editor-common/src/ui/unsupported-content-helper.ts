@@ -12,9 +12,9 @@ export function getUnsupportedContent(
 	node?: PMNode,
 	intl?: IntlShape,
 ) {
-	let defaultLocale = 'en';
+	const defaultLocale = 'en';
 	let canTranslateToLocale = true;
-	let locale = intl ? intl.locale : defaultLocale;
+	const locale = intl ? intl.locale : defaultLocale;
 	let finalMessage = message.defaultMessage;
 
 	if (node && locale.startsWith(defaultLocale)) {

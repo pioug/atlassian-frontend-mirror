@@ -14,7 +14,7 @@ type DispatchAnalyticsEvent = (event: AnalyticsEventPayload) => void;
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type DocumentData = { rendererId: string; doc: any; appearance?: string };
 
-let rendersMap: { [appearance: string]: Set<string> } = {};
+const rendersMap: { [appearance: string]: Set<string> } = {};
 
 type ProcessLevelsAndTrack = (
 	item: DocumentData,

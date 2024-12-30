@@ -10,7 +10,7 @@ export const toggleColor =
 	(state, dispatch) => {
 		const { textColor } = state.schema.marks;
 
-		let tr = state.tr;
+		const tr = state.tr;
 
 		const disabledState = getDisabledState(state);
 		if (disabledState) {

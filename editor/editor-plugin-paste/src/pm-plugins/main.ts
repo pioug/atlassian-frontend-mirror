@@ -115,7 +115,7 @@ export function createPlugin(
 	const atlassianMarkDownParser = new MarkdownTransformer(schema, md);
 
 	function getMarkdownSlice(text: string, openStart: number, openEnd: number): Slice | undefined {
-		let textInput: string = escapeBackslashExceptCodeblock(text);
+		const textInput: string = escapeBackslashExceptCodeblock(text);
 
 		const doc = atlassianMarkDownParser.parse(escapeLinks(textInput));
 		if (doc && doc.content) {

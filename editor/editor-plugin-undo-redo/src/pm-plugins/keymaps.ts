@@ -25,7 +25,7 @@ export function keymapPlugin(): SafePlugin {
 	return new SafePlugin({
 		props: {
 			handleKeyDown(view: EditorView, event: KeyboardEvent) {
-				let keyboardEvent = isCapsLockOnAndModifyKeyboardEvent(event);
+				const keyboardEvent = isCapsLockOnAndModifyKeyboardEvent(event);
 				return keydownHandler(list)(view, keyboardEvent);
 			},
 		},

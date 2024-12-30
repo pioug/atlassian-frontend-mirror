@@ -11,6 +11,7 @@ import { InvokeError, SmartLinkActionType } from '@atlaskit/linking-types/smart-
 import { Text } from '@atlaskit/primitives';
 
 import extractLozengeActionItems from '../../../../../../../extractors/action/extract-lozenge-action-items';
+import { ActionName } from '../../../../../../../index';
 import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
 import { type CardDetails } from '../../../../../../../state/hooks/use-invoke/types';
 import * as useResolve from '../../../../../../../state/hooks/use-resolve';
@@ -18,6 +19,7 @@ import {
 	TrackQuickActionFailureReason,
 	TrackQuickActionType,
 } from '../../../../../../../utils/analytics/analytics';
+import { openEmbedModal } from '../../../../../../../view/EmbedModal/utils';
 import LozengeAction from '../index';
 import { LozengeActionErrorMessages } from '../lozenge-action-error/types';
 import { type LozengeActionProps } from '../types';
@@ -489,7 +491,12 @@ describe('LozengeAction', () => {
 					action: getAction({
 						url,
 						id,
-						previewData,
+						invokePreviewAction: {
+							actionFn: jest.fn().mockImplementation(() => {
+								openEmbedModal({ ...previewData });
+							}),
+							actionType: ActionName.PreviewAction,
+						},
 					}),
 				},
 				mockInvoke,
@@ -547,7 +554,12 @@ describe('LozengeAction', () => {
 					action: getAction({
 						url,
 						id,
-						previewData,
+						invokePreviewAction: {
+							actionFn: jest.fn().mockImplementation(() => {
+								openEmbedModal({ ...previewData });
+							}),
+							actionType: ActionName.PreviewAction,
+						},
 					}),
 				},
 				mockInvoke,
@@ -572,56 +584,61 @@ describe('LozengeAction', () => {
 			const previewModal = await screen.findByTestId('smart-embed-preview-modal');
 			expect(previewModal).toBeDefined();
 		});
+	});
 
-		it('reloads the link after the preview modal was closed', async () => {
-			const mockInvoke = jest
-				.fn()
-				.mockResolvedValueOnce([{ id: '1', text: 'Done' }])
-				.mockImplementationOnce(() => {
-					throw new Error();
-				});
-
-			const mockReload = jest.fn();
-
-			renderComponent(
-				{
-					action: getAction({
-						url,
-						id,
-						previewData,
-					}),
-				},
-				mockInvoke,
-				mockReload,
-			);
-
-			const element = await screen.findByTestId(triggerTestId);
-			await act(async () => {
-				await userEvent.click(element);
-			});
-			const item = await screen.findByTestId(`${testId}-item-0`);
-			await act(async () => {
-				await userEvent.click(item);
+	it('reloads the link after the preview modal was closed', async () => {
+		const mockInvoke = jest
+			.fn()
+			.mockResolvedValueOnce([{ id: '1', text: 'Done' }])
+			.mockImplementationOnce(() => {
+				throw new Error();
 			});
 
-			// making sure error link is present
-			const link = await screen.findByTestId(`${testId}-open-embed`);
-			expect(link).toBeDefined();
+		const mockReload = jest.fn();
 
-			// making sure the preview opens on click
-			link.click();
+		renderComponent(
+			{
+				action: getAction({
+					url,
+					id,
+					invokePreviewAction: {
+						actionFn: jest.fn().mockImplementation(() => {
+							openEmbedModal({ ...previewData, onClose: () => mockReload(url, true) });
+						}),
+						actionType: ActionName.PreviewAction,
+					},
+				}),
+			},
+			mockInvoke,
+			mockReload,
+		);
 
-			const previewModal = await screen.findByTestId('smart-embed-preview-modal');
-			expect(previewModal).toBeDefined();
-
-			// making sure the preview modal closes on close button click
-			const closeButton = await screen.findByTestId('smart-embed-preview-modal-close-button');
-			expect(closeButton).toBeDefined();
-			closeButton.click();
-
-			await waitForElementToBeRemoved(() => screen.queryByTestId('smart-embed-preview-modal'));
-			expect(mockReload).toHaveBeenCalledWith(url, true);
+		const element = await screen.findByTestId(triggerTestId);
+		await act(async () => {
+			await userEvent.click(element);
 		});
+		const item = await screen.findByTestId(`${testId}-item-0`);
+		await act(async () => {
+			await userEvent.click(item);
+		});
+
+		// making sure error link is present
+		const link = await screen.findByTestId(`${testId}-open-embed`);
+		expect(link).toBeDefined();
+
+		// making sure the preview opens on click
+		link.click();
+
+		const previewModal = await screen.findByTestId('smart-embed-preview-modal');
+		expect(previewModal).toBeDefined();
+
+		// making sure the preview modal closes on close button click
+		const closeButton = await screen.findByTestId('smart-embed-preview-modal-close-button');
+		expect(closeButton).toBeDefined();
+		closeButton.click();
+
+		await waitForElementToBeRemoved(() => screen.queryByTestId('smart-embed-preview-modal'));
+		expect(mockReload).toHaveBeenCalledWith(url, true);
 	});
 
 	it('does not reload the url when an update fails', async () => {
@@ -741,7 +758,10 @@ describe('LozengeAction', () => {
 					action: getAction({
 						url,
 						id,
-						previewData,
+						invokePreviewAction: {
+							actionFn: jest.fn(),
+							actionType: ActionName.PreviewAction,
+						},
 					}),
 				},
 				mockInvoke,
@@ -755,7 +775,6 @@ describe('LozengeAction', () => {
 			await act(async () => {
 				await userEvent.click(item);
 			});
-
 			// making sure error link is present
 			const link = await screen.findByTestId(`${testId}-open-embed`);
 			expect(link).toBeDefined();

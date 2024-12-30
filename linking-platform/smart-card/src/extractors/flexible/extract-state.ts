@@ -6,7 +6,6 @@ import {
 	type InvokeRequestAction,
 	type SmartLinkActionType,
 } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type FireEventFunction } from '../../common/analytics/types';
 import { getExtensionKey } from '../../state/helpers';
@@ -26,7 +25,6 @@ import { extractInvokePreviewAction } from '../action/extract-invoke-preview-act
 import { extractLozenge } from '../common/lozenge';
 import { type LinkLozenge, type LinkLozengeInvokeActions } from '../common/lozenge/types';
 
-import { extractPreviewAction } from './actions/extract-preview-action';
 import extractServerAction from './extract-server-action';
 
 const toInvokeRequest = (
@@ -82,26 +80,19 @@ const extractAction = (
 
 	const url = extractLink(data);
 
-	const previewData = !fg('platform-smart-card-migrate-embed-modal-analytics')
-		? response
-			? extractPreviewAction(response)
-			: null
+	const invokePreviewAction = response
+		? extractInvokePreviewAction({
+				actionOptions,
+				appearance,
+				fireEvent,
+				id,
+				onClose: resolve ? () => url && resolve(url, true) : undefined,
+				origin,
+				response,
+			})
 		: undefined;
 
-	const invokePreviewAction =
-		response && fg('platform-smart-card-migrate-embed-modal-analytics')
-			? extractInvokePreviewAction({
-					actionOptions,
-					appearance,
-					fireEvent,
-					id,
-					onClose: resolve ? () => url && resolve(url, true) : undefined,
-					origin,
-					response,
-				})
-			: undefined;
-
-	const details = { id, url, previewData, invokePreviewAction };
+	const details = { id, url, invokePreviewAction };
 	const update = toInvokeRequest(
 		extensionKey,
 		action.resourceIdentifiers,

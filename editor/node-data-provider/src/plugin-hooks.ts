@@ -38,7 +38,7 @@ export function useNodeDataProviderGet<
 		[options.provider, options.node],
 	);
 
-	let [resolved, setResolved] = useState<_NodeDataProvider['cache'][string] | undefined | 'error'>(
+	const [resolved, setResolved] = useState<_NodeDataProvider['cache'][string] | undefined | 'error'>(
 		getResult !== undefined && !isPromise(getResult) ? getResult : undefined,
 	);
 
@@ -51,7 +51,7 @@ export function useNodeDataProviderGet<
 
 		(async function () {
 			try {
-				let resolved = await getResult;
+				const resolved = await getResult;
 				if (!cancelled) {
 					if (resolved === undefined) {
 						setResolved('error');

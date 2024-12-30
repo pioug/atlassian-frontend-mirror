@@ -27,7 +27,7 @@ type SelectionToolbarPluginState = {
 };
 
 export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
-	let __selectionToolbarHandlers: SelectionToolbarHandler[] = [];
+	const __selectionToolbarHandlers: SelectionToolbarHandler[] = [];
 
 	return {
 		name: 'selectionToolbar',
@@ -205,7 +205,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
 };
 
 function getSelectionNodeTypes(state: EditorState) {
-	let selectionNodeTypes: NodeType[] = [];
+	const selectionNodeTypes: NodeType[] = [];
 	state.doc.nodesBetween(state.selection.from, state.selection.to, (node, _pos, parent) => {
 		if (selectionNodeTypes.indexOf(node.type) !== 0) {
 			selectionNodeTypes.push(node.type);

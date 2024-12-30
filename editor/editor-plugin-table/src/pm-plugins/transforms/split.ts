@@ -18,7 +18,7 @@ export function splitCellsInColumns(
 	columnStart: number,
 	columnEnd: number,
 ): Transaction {
-	let mapStart = tr.mapping.maps.length;
+	const mapStart = tr.mapping.maps.length;
 	const table = tr.doc.nodeAt(tablePos);
 	if (!table) {
 		return tr;
@@ -59,7 +59,7 @@ export function splitCellsInColumns(
 				// Add the new cells
 				for (let cellRowIndex = rowIndex; cellRowIndex < rowIndex + rowspan; cellRowIndex++) {
 					for (let i = 0; i < colspan; i++) {
-						let mapping = tr.mapping.slice(mapStart);
+						const mapping = tr.mapping.slice(mapStart);
 						const cellPos = map.positionAt(cellRowIndex, column + i, table);
 						tr.insert(
 							mapping.map(cellPos + tableStart),

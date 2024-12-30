@@ -5,7 +5,7 @@ export const media: NodeEncoder = (
 	node: PMNode,
 	{ context, parent }: NodeEncoderOpts = {},
 ): string => {
-	let wikiAttrs: string[] = [];
+	const wikiAttrs: string[] = [];
 
 	// Parent width takes precedence over internal dimension attributes
 	if (parent && parent.attrs.width) {

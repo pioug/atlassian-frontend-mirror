@@ -90,7 +90,7 @@ export const insertBlockNode = ({ node, tr, position }: InsertBlockNodeProps): T
 	}
 
 	if (node.isBlock) {
-		let mappedStart = start;
+		const mappedStart = start;
 		const nodeNormalized = normaliseNestedLayout(tr, node);
 
 		// Handle edge cases for hr and mediaSingle

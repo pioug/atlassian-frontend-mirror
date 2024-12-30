@@ -15,40 +15,45 @@ import YouTubeVideo from '../../../__fixtures__/youtube-video';
 import extractFlexibleUiContext from '../index';
 
 describe('extractFlexibleUiContext', () => {
-	const expectedConfluenceProvider = {
-		icon: 'Provider:Confluence',
-		label: 'Confluence',
-	};
-
-	const expectedJiraProvider = {
-		icon: 'Provider:Jira',
-		label: 'Jira',
-	};
-
 	it('returns flexible ui context for bitbucket pull request', () => {
 		const data = extractFlexibleUiContext({
 			response: BitbucketPullRequest as JsonLd.Response,
 		});
-
 		expect(data).toEqual({
 			actions: {
 				CopyLinkAction: {
-					url: 'https://link-url',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: undefined,
+						display: undefined,
+						extensionKey: 'native-bitbucket-object-provider',
+						id: undefined,
+						resourceType: 'pull',
+					},
 				},
+				DownloadAction: undefined,
+				FollowAction: undefined,
+				PreviewAction: undefined,
+				AutomationAction: undefined,
+				AISummaryAction: undefined,
+				ViewRelatedLinksAction: undefined,
 			},
 			authorGroup: [{ name: 'Angie Mccarthy', src: 'https://person-url' }],
 			collaboratorGroup: [{ name: 'Angie Mccarthy', src: 'https://person-url' }],
 			createdBy: 'Angie Mccarthy',
 			createdOn: '2022-07-04T12:04:10.182Z',
 			linkIcon: {
-				url: 'https://icon-url',
 				label: 'bitbucket-object-provider: #61 EDM-3605: Cras ut nisi vitae lectus sagittis mattis',
+				url: 'https://icon-url',
+				render: undefined,
 			},
 			modifiedBy: 'Angie Mccarthy',
 			modifiedOn: '2022-07-04T12:05:28.601Z',
 			provider: { label: 'Bitbucket', url: 'https://icon-url' },
 			sourceBranch: 'source-branch',
-			state: { appearance: 'inprogress', text: 'open' },
+			state: { text: 'open', appearance: 'inprogress', action: undefined },
 			targetBranch: 'target-branch',
 			title: 'bitbucket-object-provider: #61 EDM-3605: Cras ut nisi vitae lectus sagittis mattis',
 			url: 'https://link-url',
@@ -59,42 +64,50 @@ describe('extractFlexibleUiContext', () => {
 		const data = extractFlexibleUiContext({
 			response: ConfluencePage as JsonLd.Response,
 		});
-
 		expect(data).toEqual({
 			actions: {
 				CopyLinkAction: {
-					url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
-				},
-				PreviewAction: {
-					linkIcon: {
-						icon: 'FileType:Document',
-						label: 'Everything you need to know about ShipIt53!',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: 'confluence-object-provider',
+						display: undefined,
+						extensionKey: 'confluence-object-provider',
+						id: undefined,
+						resourceType: 'page',
 					},
-					isSupportTheming: true,
-					isTrusted: true,
-					providerName: 'Confluence',
-					src: 'https://preview-url',
-					title: 'Everything you need to know about ShipIt53!',
-					url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
 				},
+				DownloadAction: undefined,
+				FollowAction: undefined,
+				PreviewAction: {
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'invokePreviewScreen',
+						actionType: 'PreviewAction',
+						display: undefined,
+						extensionKey: 'confluence-object-provider',
+						id: undefined,
+					},
+				},
+				AutomationAction: undefined,
+				AISummaryAction: undefined,
+				ViewRelatedLinksAction: undefined,
 			},
+			authorGroup: undefined,
+			ownedByGroup: [{ name: 'Angie Mccarthy', src: 'https://person-url' }],
+			commentCount: 24,
+			ownedBy: 'Angie Mccarthy',
 			linkIcon: {
 				icon: 'FileType:Document',
 				label: 'Everything you need to know about ShipIt53!',
+				render: undefined,
 			},
-			title: 'Everything you need to know about ShipIt53!',
+			provider: { icon: 'Provider:Confluence', label: 'Confluence' },
 			snippet: 'ShipIt 53 is on 9 Dec 2021 and 10 Dec 2021!',
-			url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
-			commentCount: 24,
 			subscriberCount: 21,
-			provider: expectedConfluenceProvider,
-			ownedBy: 'Angie Mccarthy',
-			ownedByGroup: [
-				{
-					name: 'Angie Mccarthy',
-					src: 'https://person-url',
-				},
-			],
+			title: 'Everything you need to know about ShipIt53!',
+			url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
 		});
 	});
 
@@ -106,39 +119,47 @@ describe('extractFlexibleUiContext', () => {
 		expect(data).toEqual({
 			actions: {
 				CopyLinkAction: {
-					url: 'https://confluence-url/wiki/spaces/space-id/blog/blog-id',
-				},
-				PreviewAction: {
-					linkIcon: {
-						icon: 'FileType:Blog',
-						label: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: 'confluence-object-provider',
+						display: undefined,
+						extensionKey: 'confluence-object-provider',
+						id: undefined,
+						resourceType: 'blog',
 					},
-					providerName: 'Confluence',
-					isSupportTheming: true,
-					isTrusted: true,
-					src: 'https://preview-url',
-					title: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
-					url: 'https://confluence-url/wiki/spaces/space-id/blog/blog-id',
 				},
+				DownloadAction: undefined,
+				FollowAction: undefined,
+				PreviewAction: {
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'invokePreviewScreen',
+						actionType: 'PreviewAction',
+						display: undefined,
+						extensionKey: 'confluence-object-provider',
+						id: undefined,
+					},
+				},
+				AutomationAction: undefined,
+				AISummaryAction: undefined,
+				ViewRelatedLinksAction: undefined,
 			},
+			ownedByGroup: [{ name: 'Angie Mccarthy', src: 'https://person-url' }],
+			commentCount: 7,
+			ownedBy: 'Angie Mccarthy',
 			linkIcon: {
 				icon: 'FileType:Blog',
 				label: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
+				render: undefined,
 			},
+			provider: { icon: 'Provider:Confluence', label: 'Confluence' },
 			snippet:
 				'A few weeks ago, we announced a brand new award for ShipIt - the Customer Fun Award. The goal was to generate ideas to create fun experiences in our new product, Canvas.',
+			subscriberCount: 17,
 			title: 'Announcing the winners of the Customer Fun Award for ShipIt 53',
 			url: 'https://confluence-url/wiki/spaces/space-id/blog/blog-id',
-			commentCount: 7,
-			subscriberCount: 17,
-			provider: expectedConfluenceProvider,
-			ownedBy: 'Angie Mccarthy',
-			ownedByGroup: [
-				{
-					name: 'Angie Mccarthy',
-					src: 'https://person-url',
-				},
-			],
 		});
 	});
 
@@ -146,17 +167,31 @@ describe('extractFlexibleUiContext', () => {
 		const data = extractFlexibleUiContext({
 			response: ConfluenceSpace as JsonLd.Response,
 		});
-
 		expect(data).toEqual({
 			actions: {
 				CopyLinkAction: {
-					url: 'https://confluence-url/wiki/spaces/space-id',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: 'confluence-object-provider',
+						display: undefined,
+						extensionKey: 'confluence-object-provider',
+						id: undefined,
+						resourceType: 'space',
+					},
 				},
+				DownloadAction: undefined,
+				FollowAction: undefined,
+				PreviewAction: undefined,
+				AutomationAction: undefined,
+				AISummaryAction: undefined,
+				ViewRelatedLinksAction: undefined,
 			},
-			linkIcon: { label: 'ShipIt', url: 'https://icon-url' },
+			linkIcon: { label: 'ShipIt', url: 'https://icon-url', render: undefined },
+			provider: { icon: 'Provider:Confluence', label: 'Confluence' },
 			title: 'ShipIt',
 			url: 'https://confluence-url/wiki/spaces/space-id',
-			provider: expectedConfluenceProvider,
 		});
 	});
 
@@ -168,17 +203,34 @@ describe('extractFlexibleUiContext', () => {
 		expect(data).toEqual({
 			actions: {
 				CopyLinkAction: {
-					url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: 'confluence-object-provider',
+						display: undefined,
+						extensionKey: undefined,
+						id: undefined,
+						resourceType: 'template',
+					},
 				},
+				DownloadAction: undefined,
+				FollowAction: undefined,
+				PreviewAction: undefined,
+				AutomationAction: undefined,
+				AISummaryAction: undefined,
+				ViewRelatedLinksAction: undefined,
 			},
 			linkIcon: {
 				icon: 'FileType:Template',
 				label: 'templateName_4815162342',
+				render: undefined,
 			},
+			provider: { icon: 'Provider:Confluence', label: 'Confluence' },
 			snippet: 'Description for templateName_4815162342',
+
 			title: 'templateName_4815162342',
 			url: 'https://confluence-url/wiki/spaces/space-id/pages/page-id',
-			provider: expectedConfluenceProvider,
 		});
 	});
 
@@ -189,25 +241,22 @@ describe('extractFlexibleUiContext', () => {
 		});
 
 		expect(data).toEqual({
-			authorGroup: [
-				{
-					name: 'Fluffy Fluffington',
-				},
-			],
+			authorGroup: [{ name: 'Fluffy Fluffington', src: undefined }],
 			commentCount: 1,
 			createdBy: 'Fluffy Fluffington',
 			createdOn: '2021-10-19T11:35:10.027+1100',
-			linkIcon: { url: 'https://icon-url', label: 'Flexible UI Task' },
-			modifiedOn: '2021-12-16T10:47:20.054+1100',
-			priority: {
-				label: 'Major',
-				url: 'https://priority-icon-url',
+			linkIcon: {
+				label: 'Flexible UI Task',
+				url: 'https://icon-url',
+				render: undefined,
 			},
-			state: { appearance: 'success', text: '(Awaiting) Deployment' },
+			modifiedOn: '2021-12-16T10:47:20.054+1100',
+			priority: { label: 'Major', url: 'https://priority-icon-url' },
+			provider: { icon: 'Provider:Jira', label: 'Jira' },
+			state: { text: '(Awaiting) Deployment', appearance: 'success' },
 			subscriberCount: 2,
 			title: 'Flexible UI Task',
 			url: 'https://jira-url/browse/id',
-			provider: expectedJiraProvider,
 		});
 	});
 
@@ -219,26 +268,41 @@ describe('extractFlexibleUiContext', () => {
 		expect(data).toEqual({
 			actions: {
 				CopyLinkAction: {
-					url: 'https://jira-url/projects/project-id/boards/board-id/roadmap',
-				},
-				PreviewAction: {
-					download: undefined,
-					linkIcon: {
-						label: 'Linking Platform',
-						url: 'https://icon-url',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: 'jira-object-provider',
+						display: undefined,
+						extensionKey: 'jira-object-provider',
+						id: undefined,
+						resourceType: 'roadmap',
 					},
-					providerName: 'Jira',
-					isSupportTheming: true,
-					isTrusted: true,
-					src: 'https://preview-url',
-					title: 'Linking Platform',
-					url: 'https://jira-url/projects/project-id/boards/board-id/roadmap',
 				},
+				DownloadAction: undefined,
+				FollowAction: undefined,
+				PreviewAction: {
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'invokePreviewScreen',
+						actionType: 'PreviewAction',
+						display: undefined,
+						extensionKey: 'jira-object-provider',
+						id: undefined,
+					},
+				},
+				AutomationAction: undefined,
+				AISummaryAction: undefined,
+				ViewRelatedLinksAction: undefined,
 			},
-			linkIcon: { label: 'Linking Platform', url: 'https://icon-url' },
+			linkIcon: {
+				label: 'Linking Platform',
+				url: 'https://icon-url',
+				render: undefined,
+			},
+			provider: { icon: 'Provider:Jira', label: 'Jira' },
 			title: 'Linking Platform',
 			url: 'https://jira-url/projects/project-id/boards/board-id/roadmap',
-			provider: expectedJiraProvider,
 		});
 	});
 
@@ -250,26 +314,41 @@ describe('extractFlexibleUiContext', () => {
 		expect(data).toEqual({
 			actions: {
 				CopyLinkAction: {
-					url: 'https://jira-url/projects/project-id/boards/board-id/timeline',
-				},
-				PreviewAction: {
-					download: undefined,
-					linkIcon: {
-						label: 'Linking Platform',
-						url: 'https://icon-url',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: 'jira-object-provider',
+						display: undefined,
+						extensionKey: 'jira-object-provider',
+						id: undefined,
+						resourceType: 'roadmap',
 					},
-					providerName: 'Jira',
-					isSupportTheming: true,
-					isTrusted: true,
-					src: 'https://preview-url',
-					title: 'Linking Platform',
-					url: 'https://jira-url/projects/project-id/boards/board-id/timeline',
 				},
+				DownloadAction: undefined,
+				FollowAction: undefined,
+				PreviewAction: {
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'invokePreviewScreen',
+						actionType: 'PreviewAction',
+						display: undefined,
+						extensionKey: 'jira-object-provider',
+						id: undefined,
+					},
+				},
+				AutomationAction: undefined,
+				AISummaryAction: undefined,
+				ViewRelatedLinksAction: undefined,
 			},
-			linkIcon: { label: 'Linking Platform', url: 'https://icon-url' },
+			linkIcon: {
+				label: 'Linking Platform',
+				url: 'https://icon-url',
+				render: undefined,
+			},
+			provider: { icon: 'Provider:Jira', label: 'Jira' },
 			title: 'Linking Platform',
 			url: 'https://jira-url/projects/project-id/boards/board-id/timeline',
-			provider: expectedJiraProvider,
 		});
 	});
 
@@ -281,59 +360,61 @@ describe('extractFlexibleUiContext', () => {
 		expect(data).toEqual({
 			actions: {
 				CopyLinkAction: {
-					url: 'https://link-url',
-				},
-				PreviewAction: {
-					isSupportTheming: true,
-					isTrusted: true,
-					linkIcon: {
-						label: 'The Superman Project',
-						url: 'https://icon-url',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: 'watermelon-object-provider',
+						display: undefined,
+						extensionKey: 'watermelon-object-provider',
+						id: undefined,
+						resourceType: undefined,
 					},
-					providerName: 'Atlas',
-					src: 'https://preview-url',
-					title: 'The Superman Project',
-					url: 'https://link-url',
 				},
+				DownloadAction: undefined,
 				FollowAction: {
 					action: {
 						action: {
 							actionType: 'FollowEntityAction',
-							resourceIdentifiers: {
-								ari: 'some-id',
-							},
+							resourceIdentifiers: { ari: 'some-id' },
 						},
 						providerKey: 'watermelon-object-provider',
-						reload: {
-							url: 'https://link-url',
-						},
+						reload: { id: undefined, url: 'https://link-url' },
 					},
 					value: true,
 					isProject: true,
 				},
-			},
-			authorGroup: [
-				{
-					name: 'Lois Lane',
-					src: 'https://person-url',
+				PreviewAction: {
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'invokePreviewScreen',
+						actionType: 'PreviewAction',
+						display: undefined,
+						extensionKey: 'watermelon-object-provider',
+						id: undefined,
+					},
 				},
-			],
+				AutomationAction: undefined,
+				AISummaryAction: undefined,
+				ViewRelatedLinksAction: undefined,
+			},
+			authorGroup: [{ name: 'Lois Lane', src: 'https://person-url' }],
 			commentCount: 1,
 			createdBy: 'Lois Lane',
 			dueOn: '2030-12-31',
 			linkIcon: {
 				label: 'The Superman Project',
 				url: 'https://icon-url',
+				render: undefined,
 			},
 			modifiedOn: '2023-03-05T08:00:00.861423',
-			provider: {
-				label: 'Atlas',
-				url: 'https://icon-url',
-			},
+			provider: { label: 'Atlas', url: 'https://icon-url' },
 			snippet: 'The journey to discover the real identity of Superman?',
 			state: {
-				appearance: 'success',
 				text: 'On track',
+				appearance: 'success',
+				style: undefined,
+				action: undefined,
 			},
 			subscriberCount: 109,
 			title: 'The Superman Project',
@@ -349,36 +430,39 @@ describe('extractFlexibleUiContext', () => {
 		expect(data).toEqual({
 			actions: {
 				CopyLinkAction: {
-					url: 'https://figma-url/Flexible-Links?node-id=node-id',
-				},
-				PreviewAction: {
-					linkIcon: {
-						label: 'Figma',
-						url: 'https://icon-url',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: '19ec1155-f5d8-45d3-ab2a-3f4a3d9d060e',
+						display: undefined,
+						extensionKey: 'figma-object-provider',
+						id: undefined,
+						resourceType: 'file',
 					},
-					isSupportTheming: false,
-					isTrusted: true,
-					providerName: 'Figma',
-					src: 'https://preview-url',
-					title: 'Flexible Links',
-					url: 'https://figma-url/Flexible-Links?node-id=node-id',
 				},
+				DownloadAction: undefined,
+				FollowAction: undefined,
+				PreviewAction: {
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'invokePreviewScreen',
+						actionType: 'PreviewAction',
+						display: undefined,
+						extensionKey: 'figma-object-provider',
+						id: undefined,
+					},
+				},
+				AutomationAction: undefined,
+				AISummaryAction: undefined,
+				ViewRelatedLinksAction: undefined,
 			},
-			linkIcon: {
-				label: 'Figma',
-				url: 'https://icon-url',
-			},
+			linkIcon: { label: 'Figma', url: 'https://icon-url', render: undefined },
 			modifiedOn: '2021-12-14T05:07:13Z',
-			preview: {
-				type: 'image',
-				url: 'https://image-url',
-			},
+			preview: { type: 'image', url: 'https://image-url' },
+			provider: { label: 'Figma', url: 'https://icon-url' },
 			title: 'Flexible Links',
 			url: 'https://figma-url/Flexible-Links?node-id=node-id',
-			provider: {
-				url: 'https://icon-url',
-				label: 'Figma',
-			},
 		});
 	});
 
@@ -390,38 +474,45 @@ describe('extractFlexibleUiContext', () => {
 		expect(data).toEqual({
 			actions: {
 				CopyLinkAction: {
-					url: 'https://youtube-url/watch?v=video-id',
-				},
-				PreviewAction: {
-					linkIcon: {
-						label: 'The Atlassian Business Model',
-						url: 'https://icon-url',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: 'dc00272f-0cdd-43e1-92a9-c0ab00807c1a',
+						display: undefined,
+						extensionKey: 'iframely-object-provider',
+						id: undefined,
+						resourceType: 'youtube',
 					},
-					isSupportTheming: false,
-					isTrusted: false,
-					providerName: 'YouTube',
-					src: 'https://preview-url',
-					title: 'The Atlassian Business Model',
-					url: 'https://youtube-url/watch?v=video-id',
 				},
+				DownloadAction: undefined,
+				FollowAction: undefined,
+				PreviewAction: {
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'invokePreviewScreen',
+						actionType: 'PreviewAction',
+						display: undefined,
+						extensionKey: 'iframely-object-provider',
+						id: undefined,
+					},
+				},
+				AutomationAction: undefined,
+				AISummaryAction: undefined,
+				ViewRelatedLinksAction: undefined,
 			},
 			linkIcon: {
 				label: 'The Atlassian Business Model',
 				url: 'https://icon-url',
+				render: undefined,
 			},
 			modifiedOn: '2015-12-10T14:30:00.000Z',
-			preview: {
-				type: 'image',
-				url: 'https://image-url',
-			},
+			preview: { type: 'image', url: 'https://image-url' },
+			provider: { label: 'YouTube', url: 'https://icon-url' },
 			snippet:
 				"Atlassian's product strategy, distribution model, and company culture work in concert to create unique value for its customers and a competitive advantage for the company.",
 			title: 'The Atlassian Business Model',
 			url: 'https://youtube-url/watch?v=video-id',
-			provider: {
-				url: 'https://icon-url',
-				label: 'YouTube',
-			},
 		});
 	});
 
@@ -433,43 +524,51 @@ describe('extractFlexibleUiContext', () => {
 		expect(data).toEqual({
 			actions: {
 				CopyLinkAction: {
-					url: 'https://link-url',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'copyLink',
+						actionType: 'CopyLinkAction',
+						definitionId: '9c3e33e4-be06-437f-80fb-26c38acd215d',
+						display: undefined,
+						extensionKey: 'dropbox-object-provider',
+						id: undefined,
+						resourceType: 'sharedFile',
+					},
 				},
 				DownloadAction: {
-					downloadUrl: 'https://download-url',
-				},
-				PreviewAction: {
-					downloadUrl: 'https://download-url',
-					linkIcon: {
-						label: 'Happy Guy.gif',
-						render: undefined,
-						url: 'https://icon-url',
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'downloadDocument',
+						actionType: 'DownloadAction',
+						definitionId: '9c3e33e4-be06-437f-80fb-26c38acd215d',
+						display: undefined,
+						extensionKey: 'dropbox-object-provider',
+						id: undefined,
+						resourceType: 'sharedFile',
 					},
-					isSupportTheming: false,
-					isTrusted: true,
-					providerName: 'Dropbox',
-					src: 'https://preview-url',
-					title: 'Happy Guy.gif',
-					url: 'https://link-url',
+				},
+				FollowAction: undefined,
+				PreviewAction: {
+					invokeAction: {
+						actionFn: expect.any(Function),
+						actionSubjectId: 'invokePreviewScreen',
+						actionType: 'PreviewAction',
+						display: undefined,
+						extensionKey: 'dropbox-object-provider',
+						id: undefined,
+					},
 				},
 			},
 			linkIcon: {
 				label: 'Happy Guy.gif',
-				render: undefined,
 				url: 'https://icon-url',
+				render: undefined,
 			},
 			modifiedOn: '2022-06-30T00:06:16Z',
-			preview: {
-				type: 'image',
-				url: 'https://image-url',
-			},
-			snippet: undefined,
+			preview: { type: 'image', url: 'https://image-url' },
+			provider: { label: 'Dropbox', url: 'https://icon-url' },
 			title: 'Happy Guy.gif',
 			url: 'https://link-url',
-			provider: {
-				url: 'https://icon-url',
-				label: 'Dropbox',
-			},
 		});
 	});
 

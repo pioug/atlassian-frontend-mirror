@@ -1,12 +1,11 @@
 import React, { useCallback, useRef, useState } from 'react';
 
 import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { useThemeObserver } from '@atlaskit/tokens';
 
-import { ActionName, CardDisplay, SmartLinkSize } from '../../constants';
+import { SmartLinkSize } from '../../constants';
 import useInvokeClientAction from '../../state/hooks/use-invoke-client-action';
-import { downloadUrl, getPreviewUrlWithTheme, openUrl } from '../../utils';
+import { getPreviewUrlWithTheme } from '../../utils';
 import Icon from '../FlexibleCard/components/elements/icon';
 
 import withAnalytics from './components/analytics';
@@ -23,12 +22,8 @@ const toWidth = (size: EmbedModalSize) =>
 	size === EmbedModalSize.Large ? MAX_MODAL_SIZE : MIN_MODAL_SIZE;
 
 const EmbedModal = ({
-	analytics,
-	download,
 	invokeDownloadAction,
-	extensionKey,
 	fireEvent,
-	icon,
 	iframeName,
 	isSupportTheming,
 	isTrusted = false,
@@ -42,7 +37,6 @@ const EmbedModal = ({
 	src,
 	testId = 'smart-embed-preview-modal',
 	title,
-	url,
 	invokeViewAction,
 }: EmbedModalProps) => {
 	const defaultWidth = toWidth(size);
@@ -50,7 +44,7 @@ const EmbedModal = ({
 	const [width, setWidth] = useState(defaultWidth);
 	const openAt = useRef<number>();
 
-	const invoke = useInvokeClientAction({ analytics, fireEvent });
+	const invoke = useInvokeClientAction({ fireEvent });
 
 	const handleOnOpenComplete = useCallback(() => {
 		openAt.current = Date.now();
@@ -81,30 +75,12 @@ const EmbedModal = ({
 	let previewUrl = src;
 
 	const handleOnViewActionClick = useCallback(() => {
-		if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
-			invokeViewAction && invoke(invokeViewAction);
-		} else {
-			invoke({
-				actionType: 'ViewAction',
-				actionFn: async () => openUrl(url),
-				display: CardDisplay.EmbedPreview,
-				extensionKey,
-			});
-		}
-	}, [extensionKey, invoke, url, invokeViewAction]);
+		invokeViewAction && invoke(invokeViewAction);
+	}, [invoke, invokeViewAction]);
 
 	const handleOnDownloadActionClick = useCallback(() => {
-		if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
-			invokeDownloadAction && invoke(invokeDownloadAction);
-		} else {
-			invoke({
-				actionType: ActionName.DownloadAction,
-				actionFn: async () => downloadUrl(download),
-				display: CardDisplay.EmbedPreview,
-				extensionKey,
-			});
-		}
-	}, [download, invokeDownloadAction, extensionKey, invoke]);
+		invokeDownloadAction && invoke(invokeDownloadAction);
+	}, [invokeDownloadAction, invoke]);
 
 	if (previewUrl && isSupportTheming) {
 		previewUrl = getPreviewUrlWithTheme(previewUrl, themeState);
@@ -123,34 +99,14 @@ const EmbedModal = ({
 				>
 					<LinkInfo
 						icon={
-							fg('platform-smart-card-migrate-embed-modal-analytics')
-								? linkIcon
-									? {
-											icon: <Icon {...linkIcon} size={SmartLinkSize.Large} />,
-											isFlexibleUi: true,
-										}
-									: undefined
-								: icon
+							linkIcon && {
+								icon: <Icon {...linkIcon} size={SmartLinkSize.Large} />,
+								isFlexibleUi: true,
+							}
 						}
 						providerName={providerName}
-						onViewButtonClick={
-							fg('platform-smart-card-migrate-embed-modal-analytics')
-								? invokeViewAction
-									? handleOnViewActionClick
-									: undefined
-								: url
-									? handleOnViewActionClick
-									: undefined
-						}
-						onDownloadButtonClick={
-							fg('platform-smart-card-migrate-embed-modal-analytics')
-								? invokeDownloadAction
-									? handleOnDownloadActionClick
-									: undefined
-								: download
-									? handleOnDownloadActionClick
-									: undefined
-						}
+						onViewButtonClick={invokeViewAction ? handleOnViewActionClick : undefined}
+						onDownloadButtonClick={invokeDownloadAction ? handleOnDownloadActionClick : undefined}
 						onResizeButtonClick={handleOnResizeClick}
 						size={width}
 						title={title}

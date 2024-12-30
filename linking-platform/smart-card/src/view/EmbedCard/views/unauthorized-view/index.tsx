@@ -13,7 +13,6 @@ import { type UnauthorizedViewProps } from './types';
 import { UnauthorizedSVG } from './unauthorized-svg';
 
 const UnauthorizedView = ({
-	analytics,
 	context,
 	extensionKey,
 	isProductIntegrationSupported,
@@ -43,7 +42,6 @@ const UnauthorizedView = ({
 					title: <FormattedMessage {...messages.connect_link_account_card_name} values={values} />,
 					description: (
 						<UnauthorisedViewContent
-							analytics={analytics}
 							providerName={context?.text}
 							isProductIntegrationSupported={isProductIntegrationSupported}
 							testId={testId}
@@ -76,14 +74,7 @@ const UnauthorizedView = ({
 			title: <FormattedMessage {...messages.unauthorised_account_name_no_provider} />,
 			description: <FormattedMessage {...messages.unauthorised_account_description_no_provider} />,
 		};
-	}, [
-		analytics,
-		context?.text,
-		handleOnAuthorizeClick,
-		isProductIntegrationSupported,
-		onAuthorize,
-		testId,
-	]);
+	}, [context?.text, handleOnAuthorizeClick, isProductIntegrationSupported, onAuthorize, testId]);
 
 	return (
 		<UnresolvedView

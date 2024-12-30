@@ -9,7 +9,6 @@ import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../messages';
-import { type AnalyticsFacade } from '../../../state/analytics';
 import { HoverCard } from '../../HoverCard';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
@@ -36,8 +35,6 @@ export interface InlineCardUnauthorizedViewProps {
 	showHoverPreview?: boolean;
 	/** A smart link id that may be used in analytics */
 	id?: string;
-	/** An AnalyticsFacade object used for calling analytics. */
-	analytics: AnalyticsFacade;
 	/** An identifier of the provider which will be executing the action. */
 	extensionKey?: string;
 	/** Truncates the card to one line */

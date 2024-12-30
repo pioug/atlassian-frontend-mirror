@@ -3,7 +3,6 @@ import { type ReactNode } from 'react';
 import { type CardProviderRenderers } from '@atlaskit/link-provider';
 
 import { type InvokeHandler } from '../../model/invoke-handler';
-import { type AnalyticsFacade } from '../../state/analytics';
 import { type CardState } from '../../state/types';
 import type {
 	CardActionOptions,
@@ -19,7 +18,6 @@ export type EmbedCardProps = {
 	handleAuthorize: (() => void) | undefined;
 	handleErrorRetry: () => void;
 	handleFrameClick: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
-	analytics: AnalyticsFacade;
 	handleInvoke: InvokeHandler;
 	id?: string;
 	isSelected?: boolean;

@@ -10,7 +10,6 @@ import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,
 	CONTENT_URL_SECURITY_AND_PERMISSIONS,
 } from '../../../../../../constants';
-import { useSmartLinkAnalytics } from '../../../../../../state';
 import { mockGetContext } from '../../../../../../state/actions/__tests__/index.test.mock';
 import { mocks } from '../../../../../../utils/mocks';
 import { mockUnauthorisedResponse } from '../../../../__tests__/__mocks__/mocks';
@@ -42,22 +41,18 @@ describe('Unauthorised Hover Card', () => {
 	let mockUrl: string;
 
 	const id = 'unauthorized-test-id';
-	const location = 'unauthorized-test-location';
 
 	const TestComponent = ({
 		propOverrides,
 	}: {
 		propOverrides?: Partial<HoverCardUnauthorisedProps>;
 	}): JSX.Element => {
-		const analyticsEvents = useSmartLinkAnalytics('test-url', id, location);
-
 		return (
 			<IntlProvider locale="en">
 				<HoverCardUnauthorisedView
-					analytics={analyticsEvents}
 					url={mockUrl}
 					extensionKey={'google-object-provider'}
-					id={'123'}
+					id={id}
 					flexibleCardProps={{
 						cardState: getCardState({
 							data: { ...mockUnauthorisedResponse.data, url: mockUrl },

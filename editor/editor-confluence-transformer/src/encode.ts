@@ -245,7 +245,7 @@ export default function encode(node: PMNode, schema: Schema) {
 			}, {});
 
 			for (const type of Object.keys(groupedMarks)) {
-				let marks = groupedMarks[type];
+				const marks = groupedMarks[type];
 				switch (type) {
 					case 'strong':
 						elem = elem.appendChild(doc.createElement('strong'));
@@ -280,7 +280,7 @@ export default function encode(node: PMNode, schema: Schema) {
 						// Because this function encodes marks into dom nodes inwards, multiple inline comment
 						// marks on the same PM node will be applied in reverse order. The code below compensates
 						// for that while retaining current behaviour.
-						for (let mark of [...marks].reverse()) {
+						for (const mark of [...marks].reverse()) {
 							elem = elem.appendChild(encodeConfluenceInlineComment(mark));
 						}
 						break;
@@ -481,7 +481,7 @@ export default function encode(node: PMNode, schema: Schema) {
 	}
 
 	function encodeConfluenceInlineComment(mark: Mark) {
-		let marker = doc.createElementNS(AC_XMLNS, 'ac:inline-comment-marker');
+		const marker = doc.createElementNS(AC_XMLNS, 'ac:inline-comment-marker');
 		const reference = mark ? mark.attrs.reference : '';
 		marker.setAttributeNS(AC_XMLNS, 'ac:ref', reference);
 
@@ -529,7 +529,7 @@ export default function encode(node: PMNode, schema: Schema) {
 	}
 
 	function encodePlaceholder(node: PMNode): Element {
-		let elem = doc.createElementNS(AC_XMLNS, 'ac:placeholder');
+		const elem = doc.createElementNS(AC_XMLNS, 'ac:placeholder');
 		const { text } = node.attrs;
 		elem.textContent = text;
 		return elem;

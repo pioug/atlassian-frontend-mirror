@@ -29,7 +29,7 @@ import type { SideEffects } from './utils/side-effects/types';
 const ADD_COLUMN_STEP = 'ak-add-column';
 
 function printColumnInfo(columnInfo: ColumnInfo) {
-	let cellsFrom = [];
+	const cellsFrom = [];
 	for (const cellInfo of columnInfo.values()) {
 		cellsFrom.push(cellInfo.from);
 	}

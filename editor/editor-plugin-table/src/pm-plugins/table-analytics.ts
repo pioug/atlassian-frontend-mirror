@@ -55,7 +55,7 @@ const createPlugin = (
 		appendTransaction: (transactions, oldState, newState) => {
 			const newPluginState = pluginKey.getState(newState);
 			let hasAnalyticsBeenDispatched = false;
-			let lastTriggerName =
+			const lastTriggerName =
 				newPluginState?.lastTrigger?.name ||
 				// NOTE: We assume that we know and can correctly differentiate
 				// between all triggers of table overflow state change.

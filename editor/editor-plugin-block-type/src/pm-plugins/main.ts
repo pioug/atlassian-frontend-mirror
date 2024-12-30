@@ -36,7 +36,7 @@ import {
 import { setHeadingWithAnalytics, setNormalTextWithAnalytics } from './commands/block-type';
 import { HEADING_KEYS } from './consts';
 import type { BlockType } from './types';
-import { areBlockTypesDisabled } from './utils';
+import { areBlockTypesDisabled, checkFormattingIsPresent, hasBlockQuoteInOptions } from './utils';
 
 export type BlockTypeState = {
 	currentBlockType: BlockType;
@@ -44,6 +44,7 @@ export type BlockTypeState = {
 	availableBlockTypes: BlockType[];
 	availableWrapperBlockTypes: BlockType[];
 	availableBlockTypesInDropdown: BlockType[];
+	formattingIsPresent?: boolean;
 };
 
 const blockTypeForNode = (node: Node, schema: Schema): BlockType => {
@@ -162,12 +163,17 @@ export const createPlugin = (
 					isBlockTypeSchemaSupported(blockType, state),
 				);
 
+				const formattingIsPresent = hasBlockQuoteInOptions(availableBlockTypesInDropdown)
+					? checkFormattingIsPresent(state)
+					: undefined;
+
 				return {
 					currentBlockType: detectBlockType(availableBlockTypesInDropdown, state),
 					blockTypesDisabled: areBlockTypesDisabled(state),
 					availableBlockTypes,
 					availableWrapperBlockTypes,
 					availableBlockTypesInDropdown,
+					formattingIsPresent,
 				};
 			},
 
@@ -178,11 +184,15 @@ export const createPlugin = (
 					...oldPluginState,
 					currentBlockType: detectBlockType(oldPluginState.availableBlockTypesInDropdown, newState),
 					blockTypesDisabled: areBlockTypesDisabled(newState),
+					formattingIsPresent: hasBlockQuoteInOptions(oldPluginState.availableBlockTypesInDropdown)
+						? checkFormattingIsPresent(newState)
+						: undefined,
 				};
 
 				if (
 					newPluginState.currentBlockType !== oldPluginState.currentBlockType ||
-					newPluginState.blockTypesDisabled !== oldPluginState.blockTypesDisabled
+					newPluginState.blockTypesDisabled !== oldPluginState.blockTypesDisabled ||
+					newPluginState.formattingIsPresent !== oldPluginState.formattingIsPresent
 				) {
 					dispatch(pluginKey, newPluginState);
 				}

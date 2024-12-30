@@ -7,7 +7,7 @@ import { liftTarget, ReplaceAroundStep } from '@atlaskit/editor-prosemirror/tran
 import { getListLiftTarget } from './utils/indentation';
 
 function liftListItem(selection: Selection, tr: Transaction): Transaction {
-	let { $from, $to } = selection;
+	const { $from, $to } = selection;
 	const nodeType = tr.doc.type.schema.nodes.listItem;
 	let range = $from.blockRange(
 		$to,
@@ -16,8 +16,8 @@ function liftListItem(selection: Selection, tr: Transaction): Transaction {
 	if (!range || range.depth < 2 || $from.node(range.depth - 1).type !== nodeType) {
 		return tr;
 	}
-	let end = range.end;
-	let endOfList = $to.end(range.depth);
+	const end = range.end;
+	const endOfList = $to.end(range.depth);
 	if (end < endOfList) {
 		tr.step(
 			new ReplaceAroundStep(

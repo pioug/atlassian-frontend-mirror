@@ -12,7 +12,7 @@ import { createWrapSelectionTransaction } from './create-wrap-selection-transact
  */
 export function wrapSelectionIn(type: NodeType): Command {
 	return function (state: EditorState, dispatch) {
-		let tr = createWrapSelectionTransaction({ state, type });
+		const tr = createWrapSelectionTransaction({ state, type });
 		if (dispatch) {
 			dispatch(tr);
 		}

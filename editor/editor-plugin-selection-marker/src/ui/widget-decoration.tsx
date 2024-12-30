@@ -65,7 +65,7 @@ const Widget = ({ type, isHighlight }: WidgetProps) => {
 
 	const styles = isHighlight ? selectionMarkerHighlightStyles : selectionMarkerCursorStyles;
 
-	for (let [rule, value] of Object.entries(styles)) {
+	for (const [rule, value] of Object.entries(styles)) {
 		span.style.setProperty(hyphenate(rule), value);
 	}
 
@@ -76,7 +76,7 @@ const Widget = ({ type, isHighlight }: WidgetProps) => {
 };
 
 const toDOM = (type: SelectionType, isHighlight: boolean) => {
-	let element = document.createElement('span');
+	const element = document.createElement('span');
 	element.contentEditable = 'false';
 
 	element.setAttribute('style', `position: relative;`);

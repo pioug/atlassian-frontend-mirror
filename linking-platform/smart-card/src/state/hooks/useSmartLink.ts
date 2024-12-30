@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 import { useSmartCardActions as useSmartLinkActions } from '../actions';
-import { useSmartLinkAnalytics } from '../analytics';
 import { useSmartLinkConfig } from '../config';
 import { useSmartLinkRenderers } from '../renderers';
 import { useSmartCardState as useSmartLinkState } from '../store';
@@ -11,8 +10,7 @@ import { useSmartCardState as useSmartLinkState } from '../store';
 export function useSmartLink(id: string, url: string) {
 	const state = useSmartLinkState(url);
 	const { store } = useSmartLinkContext();
-	const analytics = useSmartLinkAnalytics(url, id);
-	const actions = useSmartLinkActions(id, url, analytics);
+	const actions = useSmartLinkActions(id, url);
 	const config = useSmartLinkConfig();
 	const renderers = useSmartLinkRenderers();
 
@@ -31,7 +29,6 @@ export function useSmartLink(id: string, url: string) {
 		state,
 		actions,
 		config,
-		analytics,
 		renderers,
 		error,
 	};

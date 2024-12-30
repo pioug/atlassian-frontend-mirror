@@ -69,7 +69,7 @@ export const getAnnotationIdsFromRange = (
 	schema: Schema,
 ): string[] => {
 	const { from, to } = rangeSelection;
-	let annotations = new Set<string>();
+	const annotations = new Set<string>();
 
 	doc.nodesBetween(from, to, (node) => {
 		if (!node.marks) {
@@ -138,7 +138,7 @@ export function getRangeInlineNodeNames({
 		return undefined;
 	}
 
-	let nodeNames = new Set<string>();
+	const nodeNames = new Set<string>();
 
 	try {
 		doc.nodesBetween(pos.from, pos.to, (node) => {

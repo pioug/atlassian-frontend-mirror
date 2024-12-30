@@ -17,7 +17,7 @@ export const getSelectionRangeInRow =
 			const cells = getCellsInRow(i)(tr.selection);
 			if (cells) {
 				cells.forEach((cell) => {
-					let maybeEndIndex = cell.node.attrs.rowspan + i - 1;
+					const maybeEndIndex = cell.node.attrs.rowspan + i - 1;
 					if (maybeEndIndex >= startIndex) {
 						startIndex = i;
 					}
@@ -32,7 +32,7 @@ export const getSelectionRangeInRow =
 			const cells = getCellsInRow(i)(tr.selection);
 			if (cells) {
 				cells.forEach((cell) => {
-					let maybeEndIndex = cell.node.attrs.rowspan + i - 1;
+					const maybeEndIndex = cell.node.attrs.rowspan + i - 1;
 					if (cell.node.attrs.rowspan > 1 && maybeEndIndex > endIndex) {
 						endIndex = maybeEndIndex;
 					}

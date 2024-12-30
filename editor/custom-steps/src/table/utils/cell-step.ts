@@ -43,7 +43,7 @@ export function applyCellStep(
 	if (cellStep.mergeWith !== undefined) {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		let cellNode: ProseMirrorNode = tr.doc.nodeAt(tr.mapping.map(cellStep.mergeWith))!;
+		const cellNode: ProseMirrorNode = tr.doc.nodeAt(tr.mapping.map(cellStep.mergeWith))!;
 
 		const columns = column - tableRect.map.colCount(cellStep.mergeWith - tableRect.tableStart);
 		const cellAttrs = isDelete
@@ -70,7 +70,7 @@ export function applyCellStep(
 	if (isDelete) {
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		let cellNode: ProseMirrorNode = tr.doc.nodeAt(tr.mapping.map(cellStep.from))!;
+		const cellNode: ProseMirrorNode = tr.doc.nodeAt(tr.mapping.map(cellStep.from))!;
 		skipRows = calculateRowsToSkip(cellNode.attrs);
 		tr.delete(tr.mapping.map(cellStep.from), tr.mapping.map(cellStep.to));
 	} else {

@@ -35,7 +35,6 @@ const ResolvedView = ({
 	actionOptions,
 	testId = 'smart-block-resolved-view',
 	url,
-	analytics,
 }: FlexibleBlockCardProps) => {
 	const [isPreviewBlockErrored, setIsPreviewBlockErrored] = useState<boolean>(false);
 
@@ -58,7 +57,6 @@ const ResolvedView = ({
 
 	return (
 		<FlexibleCard
-			analytics={analytics}
 			appearance="block"
 			cardState={cardState}
 			onClick={onClick}

@@ -6,9 +6,7 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
-import { AtlassianIcon } from '@atlaskit/logo';
-
-import { mockAnalytics } from '../../src/utils/mocks';
+import { ActionName, IconType } from '../../src/constants';
 import EmbedModal from '../../src/view/EmbedModal';
 import { overrideEmbedContent } from '../utils/common';
 import VRTestWrapper from '../utils/vr-test-wrapper';
@@ -20,9 +18,15 @@ export default () => (
 		})}
 	>
 		<EmbedModal
-			analytics={mockAnalytics}
-			download="https://download-url"
-			icon={{ icon: <AtlassianIcon appearance="brand" /> }}
+			invokeDownloadAction={{
+				actionFn: async () => {},
+				actionType: ActionName.DownloadAction,
+			}}
+			invokeViewAction={{
+				actionFn: async () => {},
+				actionType: ActionName.PreviewAction,
+			}}
+			linkIcon={{ icon: IconType.Jira }}
 			iframeName="iframe-name"
 			onClose={() => {}}
 			providerName="Nowhere"

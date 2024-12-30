@@ -57,7 +57,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/editor-plugin-block-type": "^4.0.0",
+		"@atlaskit/editor-plugin-block-type": "^4.1.0",
 		"@atlaskit/editor-plugin-text-formatting": "^1.16.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",

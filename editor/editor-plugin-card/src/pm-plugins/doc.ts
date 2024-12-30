@@ -139,7 +139,7 @@ export const replaceQueuedUrlWithCard =
 		const schema: Schema = editorState.schema;
 		const cardAdf = processRawValue(schema, cardData);
 
-		let tr = editorState.tr;
+		const tr = editorState.tr;
 
 		if (cardAdf) {
 			// Should prevent any other node than cards? [inlineCard, blockCard].includes(cardAdf.type)
@@ -296,7 +296,7 @@ export const queueCardFromChangedTr = (
 	const { schema } = state;
 	const { link } = schema.marks;
 
-	let requests: Request[] = [];
+	const requests: Request[] = [];
 
 	nodesBetweenChanged(tr, (node, pos) => {
 		if (!node.isText) {

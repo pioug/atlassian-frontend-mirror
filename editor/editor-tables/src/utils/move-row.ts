@@ -317,7 +317,7 @@ function normalizeRowNode(
 	columnHeaderEnabled: boolean,
 	types: TableNodeCache,
 ): PMNode {
-	let content: PMNode[] = [];
+	const content: PMNode[] = [];
 	rowNode.forEach((node: PMNode, offset: number, index: number) => {
 		const newTargetType: NodeType =
 			rowHeaderEnabled || (columnHeaderEnabled && index === 0) ? types.header_cell : types.cell;

@@ -10,11 +10,7 @@ import type { Space } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../../constants';
-import { type PreviewActionData } from '../../../state/flexible-ui-context/types';
-import { type EmbedModalProps } from '../../EmbedModal/types';
-import { openEmbedModal } from '../../EmbedModal/utils';
 
-import Icon from './elements/icon';
 import { type MessageProps } from './types';
 
 export const sizeToButtonSpacing: Record<SmartLinkSize, Spacing> = {
@@ -218,25 +214,4 @@ export const getTruncateStyles = (
 
 export const hasWhiteSpace = (str: string): boolean => {
 	return str.search(/\s/) >= 0;
-};
-
-/**
- * TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
- */
-export const openEmbedModalWithFlexibleUiIcon = ({
-	linkIcon,
-	...props
-}: Partial<EmbedModalProps> & Pick<PreviewActionData, 'linkIcon'>) => {
-	const icon = {
-		icon: <Icon {...linkIcon} size={SmartLinkSize.Large} />,
-		isFlexibleUi: true,
-	};
-	return openEmbedModal({
-		...props,
-		icon,
-		// Flex should not send origin as block card. It should be able to support
-		// its internal parent components like hover card, block card and
-		// itself as a standalone. To be investigated and fix in EDM-7520.
-		origin: 'smartLinkCard',
-	});
 };

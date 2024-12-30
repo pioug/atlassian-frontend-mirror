@@ -19,7 +19,7 @@ export const rule: TSESLint.RuleModule<string> = {
 	},
 	create(context) {
 		const declaredScopes = new Map();
-		let functionStack: Set<string>[] = [new Set()];
+		const functionStack: Set<string>[] = [new Set()];
 
 		function isExpressionReturningHTMLElement(node: TSESTree.Expression) {
 			if (!node) {

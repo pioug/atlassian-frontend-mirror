@@ -116,7 +116,7 @@ export const createToolbarCopyCommandForNode =
 
 		// This command should only be triggered by the Copy button in the floating toolbar
 		// which is only visible when selection is inside the target node
-		let contentNodeWithPos = getSelectedNodeOrNodeParentByNodeType({
+		const contentNodeWithPos = getSelectedNodeOrNodeParentByNodeType({
 			nodeType,
 			selection: tr.selection,
 		});

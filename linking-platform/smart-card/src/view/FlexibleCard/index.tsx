@@ -2,11 +2,7 @@ import React, { useEffect, useMemo } from 'react';
 
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { SmartLinkStatus } from '../../constants';
-import {
-	FlexibleUiAnalyticsContext,
-	FlexibleUiContext,
-	FlexibleUiOptionContext,
-} from '../../state/flexible-ui-context';
+import { FlexibleUiContext, FlexibleUiOptionContext } from '../../state/flexible-ui-context';
 import { useAISummaryConfig } from '../../state/hooks/use-ai-summary-config';
 import useResolve from '../../state/hooks/use-resolve';
 
@@ -21,7 +17,6 @@ import { getContextByStatus, getRetryOptions } from './utils';
  * @see Container
  */
 const FlexibleCard = ({
-	analytics,
 	appearance = 'flexible',
 	cardState,
 	children,
@@ -79,18 +74,6 @@ const FlexibleCard = ({
 	const retry = getRetryOptions(url, status, details, onAuthorize);
 	const { title } = context || {};
 
-	const analyticsContext = useMemo(
-		() =>
-			analytics
-				? {
-						...analytics,
-						display: appearance,
-						extensionKey: details?.meta?.key,
-					}
-				: undefined,
-		[analytics, appearance, details?.meta?.key],
-	);
-
 	useEffect(() => {
 		switch (status) {
 			case SmartLinkStatus.Resolved:
@@ -111,24 +94,22 @@ const FlexibleCard = ({
 	}, [onError, onResolve, status, title, url]);
 
 	return (
-		<FlexibleUiAnalyticsContext.Provider value={analyticsContext}>
-			<FlexibleUiOptionContext.Provider value={ui}>
-				<FlexibleUiContext.Provider value={context}>
-					<Container
-						testId={testId}
-						{...ui}
-						onClick={onClick}
-						retry={retry}
-						showHoverPreview={showHoverPreview}
-						hoverPreviewOptions={hoverPreviewOptions}
-						actionOptions={actionOptions}
-						status={status}
-					>
-						{children}
-					</Container>
-				</FlexibleUiContext.Provider>
-			</FlexibleUiOptionContext.Provider>
-		</FlexibleUiAnalyticsContext.Provider>
+		<FlexibleUiOptionContext.Provider value={ui}>
+			<FlexibleUiContext.Provider value={context}>
+				<Container
+					testId={testId}
+					{...ui}
+					onClick={onClick}
+					retry={retry}
+					showHoverPreview={showHoverPreview}
+					hoverPreviewOptions={hoverPreviewOptions}
+					actionOptions={actionOptions}
+					status={status}
+				>
+					{children}
+				</Container>
+			</FlexibleUiContext.Provider>
+		</FlexibleUiOptionContext.Provider>
 	);
 };
 

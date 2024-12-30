@@ -74,8 +74,7 @@ const FloatingContextualButtonInner = React.memo((props: Props & WrappedComponen
 	};
 
 	const domAtPos = editorView.domAtPos.bind(editorView);
-	let targetCellRef: Node | undefined;
-	targetCellRef = findDomRefAtPos(targetCellPosition, domAtPos);
+	const targetCellRef: Node | undefined = findDomRefAtPos(targetCellPosition, domAtPos);
 
 	useEffect(() => {
 		if (isCellMenuOpenByKeyboard && !isContextualMenuOpen) {

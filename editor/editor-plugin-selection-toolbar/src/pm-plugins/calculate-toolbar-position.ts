@@ -79,8 +79,8 @@ export const calculateToolbarPositionTrackHead =
 		}
 		const toolbarRect = toolbar.getBoundingClientRect();
 		const { head, anchor } = editorView.state.selection;
-		let topCoords = editorView.coordsAtPos(Math.min(head, anchor));
-		let bottomCoords = editorView.coordsAtPos(
+		const topCoords = editorView.coordsAtPos(Math.min(head, anchor));
+		const bottomCoords = editorView.coordsAtPos(
 			Math.max(head, anchor) - Math.min(range.endOffset, 1),
 		);
 		let top;

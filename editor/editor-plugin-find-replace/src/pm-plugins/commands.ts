@@ -154,8 +154,8 @@ export const replace = (replaceText: string) =>
 		createCommand(
 			(state: EditorState) => {
 				const pluginState = getPluginState(state);
-				const { findText } = pluginState;
-				let { decorationSet, matches, index } = pluginState;
+				const { findText, matches } = pluginState;
+				let { decorationSet, index } = pluginState;
 
 				decorationSet = updateSelectedHighlight(state, nextIndex(index, matches.length));
 				if (replaceText.toLowerCase().indexOf(findText.toLowerCase()) === -1) {
@@ -250,7 +250,8 @@ export const toggleMatchCase = () =>
 	createCommand({ type: FindReplaceActionTypes.TOGGLE_MATCH_CASE });
 
 const updateSelectedHighlight = (state: EditorState, nextSelectedIndex: number): DecorationSet => {
-	let { decorationSet, index, matches } = getPluginState(state);
+	const { index, matches } = getPluginState(state);
+	let { decorationSet } = getPluginState(state);
 	const currentSelectedMatch = matches[index];
 	const nextSelectedMatch = matches[nextSelectedIndex];
 	if (index === nextSelectedIndex) {

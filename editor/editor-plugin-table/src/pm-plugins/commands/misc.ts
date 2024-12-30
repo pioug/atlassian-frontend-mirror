@@ -737,7 +737,7 @@ export const addBoldInEmptyHeaderCells =
 
 export const updateWidthToWidest = (widthToWidest: WidthToWidest) =>
 	createCommand((state) => {
-		let { widthToWidest: prevWidthToWidest } = getPluginState(state);
+		const { widthToWidest: prevWidthToWidest } = getPluginState(state);
 
 		if (isEqual(widthToWidest, prevWidthToWidest)) {
 			return false;

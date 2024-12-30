@@ -37,7 +37,8 @@ export function PrimaryToolbarComponent({
 		);
 	const wrapBlockQuote = () =>
 		api?.core?.actions.execute(api?.blockType?.commands?.insertBlockQuote(INPUT_METHOD.TOOLBAR));
-
+	const clearFormatting = () =>
+		api?.core?.actions.execute(api?.blockType?.commands?.clearFormatting());
 	return (
 		<ToolbarBlockType
 			isSmall={isSmall}
@@ -45,6 +46,7 @@ export function PrimaryToolbarComponent({
 			isReducedSpacing={isToolbarReducedSpacing}
 			setTextLevel={boundSetBlockType}
 			wrapBlockQuote={wrapBlockQuote}
+			clearFormatting={clearFormatting}
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			pluginState={blockTypeState!}

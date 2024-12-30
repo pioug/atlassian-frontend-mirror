@@ -16,8 +16,8 @@ export const formatMarkdown = (
 	pluginState: PasteOtionsPluginState,
 ): Transaction => {
 	let pasteStartPos = pluginState.pasteStartPos;
-	let pasteEndPos = pluginState.pasteEndPos;
-	let plaintext = pluginState.plaintext;
+	const pasteEndPos = pluginState.pasteEndPos;
+	const plaintext = pluginState.plaintext;
 
 	if (pasteStartPos < 0) {
 		return tr;
@@ -54,7 +54,7 @@ export const formatRichText = (
 	pluginState: PasteOtionsPluginState,
 ): Transaction => {
 	let pasteStartPos = pluginState.pasteStartPos;
-	let pasteEndPos = pluginState.pasteEndPos;
+	const pasteEndPos = pluginState.pasteEndPos;
 	const richTextSlice = pluginState.richTextSlice;
 
 	if (pasteStartPos < 0) {
@@ -86,8 +86,8 @@ export const formatPlainText = (
 	pluginState: PasteOtionsPluginState,
 ): Transaction => {
 	let pasteStartPos = pluginState.pasteStartPos;
-	let pasteEndPos = pluginState.pasteEndPos;
-	let plaintext = pluginState.plaintext;
+	const pasteEndPos = pluginState.pasteEndPos;
+	const plaintext = pluginState.plaintext;
 
 	//not possible to create plain text slice with empty string
 	if (pasteStartPos < 0 || plaintext === '') {

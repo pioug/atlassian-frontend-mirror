@@ -12,9 +12,7 @@ import {
 	SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mocks, waitFor } from '../../../utils/mocks';
 import { Card } from '../../Card';
 import { InlineCardResolvingView } from '../../InlineCard';
@@ -139,53 +137,28 @@ describe('smart-card: card states, inline', () => {
 		});
 
 		describe('> state: resolved', () => {
-			describe('inline: should render with metadata when resolved', () => {
-				ffTest(
-					'platform-smart-card-migrate-embed-modal-analytics',
-					async () => {
-						render(
-							<FabricAnalyticsListeners client={mockAnalyticsClient}>
-								<IntlProvider locale="en">
-									<Provider client={mockClient}>
-										<Card appearance="inline" url={mockUrl} />
-									</Provider>
-								</IntlProvider>
-							</FabricAnalyticsListeners>,
-						);
-						const resolvedView = await screen.findByText('I love cheese');
-						expect(resolvedView).toBeInTheDocument();
-						expect(mockFetch).toHaveBeenCalledTimes(1);
-						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								action: 'renderSuccess',
-								actionSubject: 'smartLink',
-								attributes: expect.objectContaining({
-									display: 'inline',
-									status: 'resolved',
-								}),
-							}),
-						);
-					},
-					async () => {
-						render(
-							<IntlProvider locale="en">
-								<Provider client={mockClient}>
-									<Card appearance="inline" url={mockUrl} />
-								</Provider>
-							</IntlProvider>,
-						);
-						const resolvedView = await screen.findByText('I love cheese');
-						expect(resolvedView).toBeInTheDocument();
-						expect(mockFetch).toHaveBeenCalledTimes(1);
-
-						expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledTimes(1);
-						expect(analytics.uiRenderSuccessEvent).toHaveBeenCalledWith(
-							expect.objectContaining({
-								display: 'inline',
-								status: 'resolved',
-							}),
-						);
-					},
+			it('inline: should render with metadata when resolved', async () => {
+				render(
+					<FabricAnalyticsListeners client={mockAnalyticsClient}>
+						<IntlProvider locale="en">
+							<Provider client={mockClient}>
+								<Card appearance="inline" url={mockUrl} />
+							</Provider>
+						</IntlProvider>
+					</FabricAnalyticsListeners>,
+				);
+				const resolvedView = await screen.findByText('I love cheese');
+				expect(resolvedView).toBeInTheDocument();
+				expect(mockFetch).toHaveBeenCalledTimes(1);
+				expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+					expect.objectContaining({
+						action: 'renderSuccess',
+						actionSubject: 'smartLink',
+						attributes: expect.objectContaining({
+							display: 'inline',
+							status: 'resolved',
+						}),
+					}),
 				);
 			});
 

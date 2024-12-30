@@ -7,7 +7,6 @@ import { type CardState } from '@atlaskit/linking-common';
 import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
 
 import MockAtlasProject from '../../../../__fixtures__/atlas-project';
-import { mockAnalytics } from '../../../../utils/mocks';
 import ResolvedView from '../ResolvedView';
 
 import { mockConfluenceResponse } from './__mocks__/blockCardMocks';
@@ -19,7 +18,6 @@ describe('ResolvedView', () => {
 		renderWithIntl(
 			<SmartCardProvider>
 				<ResolvedView
-					analytics={mockAnalytics}
 					cardState={
 						{
 							status: 'resolved',

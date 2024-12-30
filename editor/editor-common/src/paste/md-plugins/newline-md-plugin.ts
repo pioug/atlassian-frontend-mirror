@@ -6,17 +6,16 @@
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const newline = (state: any, silent: boolean) => {
-	let pmax,
-		// ED-15363: unread variables
-		// max,
-		// ws,
-		pos = state.pos;
+	let pos = state.pos;
+	// ED-15363: unread variables
+	// max,
+	// ws,
 
 	if (state.src.charCodeAt(pos) !== 0x0a /* \n */) {
 		return false;
 	}
 
-	pmax = state.pending.length - 1;
+	const pmax = state.pending.length - 1;
 	// ED-15363: unread variable
 	// max = state.posMax;
 

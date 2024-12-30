@@ -303,7 +303,7 @@ export const ResizableTableContainer = React.memo(
 				? containerWidth - akEditorGutterPaddingDynamic() * 2
 				: containerWidth - akEditorGutterPaddingDynamic() * 2 - resizeHandleSpacing;
 		}
-		let width =
+		const width =
 			!node.attrs.width && isCommentEditor
 				? responsiveContainerWidth
 				: Math.min(tableWidth, responsiveContainerWidth);

@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 33.3.0
+
+### Minor Changes
+
+- [#99194](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99194)
+  [`b41887bf73e9a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b41887bf73e9a) -
+  Remove unused analytics code
+
+## 33.2.0
+
+### Minor Changes
+
+- [#99014](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99014)
+  [`7364c61b521a2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7364c61b521a2) -
+  Clean up FF platform-smart-card-migrate-embed-modal-analytics
+
 ## 33.1.0
 
 ### Minor Changes

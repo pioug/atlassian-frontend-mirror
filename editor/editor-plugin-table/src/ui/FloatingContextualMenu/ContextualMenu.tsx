@@ -230,8 +230,6 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 		if (allowBackgroundColor) {
 			const node = isOpen && targetCellPosition ? state.doc.nodeAt(targetCellPosition) : null;
 			const background = hexToEditorBackgroundPaletteColor(node?.attrs?.background || '#ffffff');
-			let selectedRowIndex;
-			let selectedColumnIndex;
 
 			const selectedRowAndColumnFromPalette = getSelectedRowAndColumnFromPalette(
 				cellBackgroundColorPalette,
@@ -240,8 +238,8 @@ export class ContextualMenu extends Component<Props & WrappedComponentProps, Sta
 				background!,
 				colorPalletteColumns,
 			);
-			selectedRowIndex = selectedRowAndColumnFromPalette.selectedRowIndex;
-			selectedColumnIndex = selectedRowAndColumnFromPalette.selectedColumnIndex;
+			const selectedRowIndex = selectedRowAndColumnFromPalette.selectedRowIndex;
+			const selectedColumnIndex = selectedRowAndColumnFromPalette.selectedColumnIndex;
 			return {
 				content: isDragAndDropEnabled
 					? formatMessage(messages.backgroundColor)

@@ -1,10 +1,1 @@
-export {
-	ANALYTICS_CHANNEL,
-	context,
-	fireSmartLinkEvent,
-	invokeSucceededEvent,
-	invokeFailedEvent,
-	uiActionClickedEvent,
-	uiRenderSuccessEvent,
-	uiRenderFailedEvent,
-} from './analytics';
+export { ANALYTICS_CHANNEL, context, fireSmartLinkEvent } from './analytics';

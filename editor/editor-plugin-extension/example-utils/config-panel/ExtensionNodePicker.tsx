@@ -96,7 +96,7 @@ export default function ExtensionNodePicker({
 											setHasSelection(isSelected);
 										}
 
-										let iconProp: { elemBefore?: ReactNode } = {};
+										const iconProp: { elemBefore?: ReactNode } = {};
 
 										if (item.icon) {
 											const ExtensionIcon = Loadable<{ label: string }, never>({

@@ -3,7 +3,6 @@ import { useMemo } from 'react';
 import uuid from 'uuid';
 
 import { useSmartCardActions as useLinkActions } from '../actions';
-import { useSmartLinkAnalytics as useLinkAnalytics } from '../analytics';
 
 export interface UseSmartLinkReloadOpts {
 	/**
@@ -20,9 +19,6 @@ export interface UseSmartLinkReloadOpts {
  */
 export function useSmartLinkReload({ url }: UseSmartLinkReloadOpts) {
 	const id: string = useMemo(() => uuid(), []);
-
-	const linkAnalytics = useLinkAnalytics(url, id);
-	const linkActions = useLinkActions(id, url, linkAnalytics);
-
+	const linkActions = useLinkActions(id, url);
 	return linkActions.reload;
 }

@@ -29,7 +29,7 @@ const deleteColumnsCustomStep =
 		splitCellsInColumns(tr, table.pos, rect.left, rect.right);
 
 		// Delete the columns
-		let mapStart = tr.mapping.maps.length;
+		const mapStart = tr.mapping.maps.length;
 		const originalDoc = tr.doc;
 		const deletedColumns: number[] = [];
 		for (let i = rect.left; i < rect.right; i++) {

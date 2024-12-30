@@ -57,7 +57,7 @@ export const InsertMenuRail = ({
 	const onInsert = ({ item }: { item: MenuItem }) => {
 		const { state, dispatch } = editorView;
 
-		let inputMethod = INPUT_METHOD.INSERT_MENU_RIGHT_RAIL;
+		const inputMethod = INPUT_METHOD.INSERT_MENU_RIGHT_RAIL;
 
 		if (!api) {
 			return;

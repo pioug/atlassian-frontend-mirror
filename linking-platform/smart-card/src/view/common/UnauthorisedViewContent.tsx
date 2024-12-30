@@ -5,7 +5,6 @@ import { FormattedMessage } from 'react-intl-next';
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
 import { CONTENT_URL_3P_ACCOUNT_AUTH, CONTENT_URL_SECURITY_AND_PERMISSIONS } from '../../constants';
 import { messages } from '../../messages';
-import { type AnalyticsFacade } from '../../state/analytics';
 
 type UnauthorisedViewContentProps = {
 	/**
@@ -26,12 +25,6 @@ type UnauthorisedViewContentProps = {
 	 * serving as a hook for automated tests
 	 */
 	testId?: string;
-
-	/**
-	 * An analytics facade object which will be used to send analytics.
-	 * @internal
-	 */
-	analytics?: AnalyticsFacade;
 };
 
 /**

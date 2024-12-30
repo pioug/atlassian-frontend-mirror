@@ -55,7 +55,7 @@ export function wrapInList(listType: NodeType, attrs?: Attrs) {
 			if ($from.index(range.depth - 1) === 0) {
 				return false;
 			}
-			let $insert = tr.doc.resolve(range.start - 2);
+			const $insert = tr.doc.resolve(range.start - 2);
 			outerRange = new NodeRange($insert, $insert, range.depth);
 			if (range.endIndex < range.parent.childCount) {
 				range = new NodeRange($from, tr.doc.resolve($to.end(range.depth)), range.depth);
@@ -64,7 +64,7 @@ export function wrapInList(listType: NodeType, attrs?: Attrs) {
 		}
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		let wrap = findWrapping(outerRange!, listType, attrs, range);
+		const wrap = findWrapping(outerRange!, listType, attrs, range);
 		if (!wrap) {
 			return false;
 		}

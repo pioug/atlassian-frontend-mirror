@@ -10,7 +10,7 @@ import {
 	CONTENT_URL_3P_ACCOUNT_AUTH,
 	CONTENT_URL_SECURITY_AND_PERMISSIONS,
 } from '../../../../constants';
-import { mockAnalytics, mocks } from '../../../../utils/mocks';
+import { mocks } from '../../../../utils/mocks';
 import UnauthorisedView from '../UnauthorisedView';
 
 describe('UnauthorisedView', () => {
@@ -23,7 +23,6 @@ describe('UnauthorisedView', () => {
 		renderWithIntl(
 			<SmartCardProvider>
 				<UnauthorisedView
-					analytics={mockAnalytics}
 					cardState={
 						{
 							status: 'unauthorized',

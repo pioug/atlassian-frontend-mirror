@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { CardErrorBoundary } from '../../../../react/nodes/fallback';
 import { isSafeUrl } from '@atlaskit/adf-schema';
-import { render, screen, waitFor, act } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Loadable from 'react-loadable';
 
@@ -82,13 +82,9 @@ describe('Renderer - React/Nodes/Fallback', () => {
 
 		expect(isSafeUrl(url)).toBe(true);
 
-		await waitFor(() =>
-			expect(
-				screen.getByRole('link', {
-					name: url,
-				}),
-			).toBeInTheDocument(),
-		);
+		await screen.findByRole('link', {
+			name: url,
+		});
 	});
 
 	it('should render blue link if error occurs, when url is present and isDatasource is true and isSafeUrl is false', async () => {
@@ -106,13 +102,9 @@ describe('Renderer - React/Nodes/Fallback', () => {
 
 		expect(isSafeUrl(unsafeUrl)).toBe(false);
 
-		await waitFor(() =>
-			expect(
-				screen.getByRole('link', {
-					name: unsafeUrl,
-				}),
-			).toBeInTheDocument(),
-		);
+		await screen.findByRole('link', {
+			name: unsafeUrl,
+		});
 		expect(screen.queryByText('Rendered Children')).not.toBeInTheDocument();
 	});
 

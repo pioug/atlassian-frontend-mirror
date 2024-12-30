@@ -1,55 +1,5 @@
-import { type ErrorInfo } from 'react';
-
-import { type CardType } from '@atlaskit/linking-common';
-
-import { type InvokeType } from '../../model/invoke-opts';
-import { type CardInnerAppearance } from '../../view/Card/types';
-
 export type DestinationProduct = 'jira' | 'confluence' | 'bitbucket' | 'trello';
 export type DestinationSubproduct = 'core' | 'software' | 'servicedesk';
-export interface CommonEventProps {
-	id?: string;
-	definitionId?: string;
-	extensionKey?: string;
-	resourceType?: string;
-	destinatinoObjectType?: string;
-	destinationSubproduct?: DestinationSubproduct | string;
-	destinationProduct?: DestinationProduct | string;
-	location?: string;
-	statusDetails?: string;
-}
-
-export type InvokeSucceededEventProps = CommonEventProps & {
-	id?: string;
-	actionType: string;
-	display?: CardInnerAppearance;
-};
-
-export type InvokeFailedEventProps = CommonEventProps & {
-	id?: string;
-	actionType: string;
-	display?: CardInnerAppearance;
-	reason: string;
-};
-
-export type UiActionClickedEventProps = CommonEventProps & {
-	id?: string;
-	display?: CardInnerAppearance;
-	actionType: string;
-	invokeType?: InvokeType;
-};
-
-export type UiRenderSuccessEventProps = CommonEventProps & {
-	display: CardInnerAppearance;
-	status: CardType;
-	canBeDatasource?: boolean;
-};
-
-export type UiRenderFailedEventProps = CommonEventProps & {
-	display: CardInnerAppearance;
-	error: Error;
-	errorInfo: ErrorInfo;
-};
 
 export type ClickType = 'left' | 'middle' | 'right' | 'keyboard' | 'none';
 

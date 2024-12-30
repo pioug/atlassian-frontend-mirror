@@ -28,7 +28,7 @@ function replaceTextUsingCaptureGroup(text: string): InputRuleHandler {
 		const [, prefix, , suffix] = match;
 		const replacement = text + (suffix || '');
 
-		let {
+		const {
 			tr,
 			selection: { $to },
 		} = state;

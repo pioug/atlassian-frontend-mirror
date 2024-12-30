@@ -15,7 +15,7 @@ export function shouldShowImageBorder(editorState: EditorState): boolean {
 		return false;
 	}
 
-	let { parent } = editorState.doc.resolve(nodeWithPos.pos);
+	const { parent } = editorState.doc.resolve(nodeWithPos.pos);
 
 	return parent && parent.type.allowsMarkType(border);
 }

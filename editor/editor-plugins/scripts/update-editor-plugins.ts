@@ -318,7 +318,7 @@ function preferOlderVersions(
 ): Dependencies {
 	const deps: Dependencies = {};
 
-	for (let key in newDeps) {
+	for (const key in newDeps) {
 		if (currentDeps.hasOwnProperty(key) && !forceUpdate) {
 			// If the current dependency version exists, use it
 			deps[key] = currentDeps[key];

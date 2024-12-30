@@ -7,7 +7,6 @@ import { type CardProviderRenderers } from '@atlaskit/link-provider';
 import { type CardState } from '@atlaskit/linking-common';
 
 import type { ActionName } from '../../constants';
-import { type AnalyticsFacade } from '../../state/analytics';
 import { type AnalyticsHandler } from '../../utils/types';
 import type { CardActionOptions } from '../Card/types';
 
@@ -76,14 +75,12 @@ export interface HoverCardInternalProps {
 
 export interface HoverCardComponentProps extends HoverCardProps, HoverCardInternalProps {
 	analyticsHandler?: AnalyticsHandler;
-	analytics?: AnalyticsFacade;
 	canOpen?: boolean;
 	closeOnChildClick?: boolean;
 }
 
 export type HoverCardContentProps = {
 	id?: string;
-	analytics?: AnalyticsFacade;
 	cardState: CardState;
 	renderers?: CardProviderRenderers;
 	onActionClick: (actionId: string | ActionName) => void;

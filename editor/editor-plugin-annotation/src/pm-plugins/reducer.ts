@@ -115,7 +115,7 @@ function getNewDraftState(
 		draftDecorationSet = DecorationSet.empty;
 	}
 
-	let newState = {
+	const newState = {
 		...pluginState,
 		draftDecorationSet,
 		isDrafting: drafting,

@@ -29,7 +29,6 @@ export {
 };
 
 export const InlineCard = ({
-	analytics,
 	id,
 	url,
 	cardState,
@@ -134,7 +133,6 @@ export const InlineCard = ({
 					testId={testIdWithStatus}
 					showHoverPreview={showHoverPreview}
 					id={id}
-					analytics={analytics}
 					extensionKey={extensionKey}
 					truncateInline={truncateInline}
 				/>

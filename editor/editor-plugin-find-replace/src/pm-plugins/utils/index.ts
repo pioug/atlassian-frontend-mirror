@@ -41,7 +41,7 @@ export function findMatches(
 	shouldMatchCase: boolean,
 	contentIndex = 0,
 ): Match[] {
-	let matches: Match[] = [];
+	const matches: Match[] = [];
 	const searchTextLength = searchText.length;
 
 	let textGrouping: TextGrouping = null;
@@ -50,6 +50,8 @@ export function findMatches(
 		if (!textGrouping) {
 			return;
 		}
+		// Ignored via go/ees005
+		// eslint-disable-next-line prefer-const
 		let { text, pos: relativePos } = textGrouping;
 		const pos = contentIndex + relativePos;
 		if (!shouldMatchCase) {

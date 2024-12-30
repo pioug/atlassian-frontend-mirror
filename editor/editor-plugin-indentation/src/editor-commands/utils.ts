@@ -80,7 +80,7 @@ export function createAnalyticsDispatch({
 	dispatch?: (tr: Transaction) => void;
 }): (tr: Transaction) => void {
 	return (tr: Transaction) => {
-		let currentTr = tr;
+		const currentTr = tr;
 		const changes = getAttrsChanges(); // Get all attributes changes
 
 		// Add analytics event for each change stored.

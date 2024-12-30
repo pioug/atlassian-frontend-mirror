@@ -418,12 +418,12 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 			return null;
 		}
 
-		let toolbarButtons: BlockMenuItem[] = [];
+		const toolbarButtons: BlockMenuItem[] = [];
 		let tableSelectorButton: BlockMenuItem | undefined;
 		let tableButton: BlockMenuItem | undefined;
 
 		// Seperate table buttons from toolbar buttons
-		for (let btn of buttons) {
+		for (const btn of buttons) {
 			if (btn.value.name === TABLE_SELECTOR_STRING) {
 				tableSelectorButton = btn;
 			} else if (btn.value.name === 'table' && this.props.tableSelectorSupported) {

@@ -7,7 +7,6 @@ import userEvent from '@testing-library/user-event';
 import { IntlProvider } from 'react-intl-next';
 
 import { AnalyticsListener } from '@atlaskit/analytics-next';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import mockContext from '../../../../../../__fixtures__/flexible-ui-data-context';
 import * as useInvokeClientAction from '../../../../../../state/hooks/use-invoke-client-action';
@@ -49,20 +48,18 @@ describe('DownloadAction', () => {
 		expect(element).toHaveTextContent('Download file');
 	});
 
-	ffTest.both('platform-smart-card-migrate-embed-modal-analytics', 'with analytics fg', () => {
-		it('invokes action', async () => {
-			const invoke = jest.fn();
-			const spy = jest.spyOn(useInvokeClientAction, 'default').mockReturnValue(invoke);
+	it('invokes action', async () => {
+		const invoke = jest.fn();
+		const spy = jest.spyOn(useInvokeClientAction, 'default').mockReturnValue(invoke);
 
-			setup();
+		setup();
 
-			const element = await screen.findByTestId(testId);
-			await userEvent.click(element);
+		const element = await screen.findByTestId(testId);
+		await userEvent.click(element);
 
-			expect(invoke).toHaveBeenCalledTimes(1);
+		expect(invoke).toHaveBeenCalledTimes(1);
 
-			spy.mockRestore();
-		});
+		spy.mockRestore();
 	});
 
 	describe('with tooltip', () => {

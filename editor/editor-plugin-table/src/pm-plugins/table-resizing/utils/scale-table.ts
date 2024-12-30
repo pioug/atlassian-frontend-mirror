@@ -148,7 +148,7 @@ export function scaleTableTo(state: ResizeState, maxSize: number): ResizeState {
 		}),
 	};
 
-	let newTotalWidth = getTotalWidth(newState);
+	const newTotalWidth = getTotalWidth(newState);
 	if (newTotalWidth > maxSize) {
 		newState = reduceSpace(newState, newTotalWidth - maxSize);
 	}

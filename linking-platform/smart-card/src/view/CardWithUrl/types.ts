@@ -1,6 +1,5 @@
 import { type EventHandler, type KeyboardEvent, type MouseEvent } from 'react';
 
-import { type AnalyticsFacade } from '../../state/analytics';
 import type {
 	CardActionOptions,
 	CardAppearance,
@@ -35,7 +34,6 @@ export type CardWithUrlContentProps = {
 	children?: React.ReactNode;
 	showHoverPreview?: boolean;
 	hoverPreviewOptions?: HoverPreviewOptions;
-	analyticsEvents?: AnalyticsFacade;
 	placeholder?: string;
 	removeTextHighlightingFromTitle?: boolean;
 	resolvingPlaceholder?: string;

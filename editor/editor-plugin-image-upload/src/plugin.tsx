@@ -31,7 +31,7 @@ export type ImageUploadPlugin = NextEditorPlugin<
  * from `@atlaskit/editor-core`.
  */
 export const imageUploadPlugin: ImageUploadPlugin = () => {
-	let uploadHandlerReference: UploadHandlerReference = {
+	const uploadHandlerReference: UploadHandlerReference = {
 		current: null,
 	};
 

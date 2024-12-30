@@ -335,7 +335,7 @@ export class DocumentService implements DocumentServiceInterface {
 				}
 			} catch (error) {
 				// ESS-6421: log if error processing steps when there are steps from the same userId but not the same clientId
-				let userIdMatch = this.isStepsFromNewClientIdForSameUserId(steps);
+				const userIdMatch = this.isStepsFromNewClientIdForSameUserId(steps);
 				logger(`Processing steps failed with error: ${error}. Triggering catch up call.`);
 				this.analyticsHelper?.sendErrorEvent(
 					error,
@@ -793,7 +793,7 @@ export class DocumentService implements DocumentServiceInterface {
 		this.analyticsHelper?.sendActionEvent(EVENT_ACTION.SEND_STEPS_RETRY, EVENT_STATUS.INFO, {
 			count: this.stepRejectCounter,
 		});
-		let maxRetries = this.aggressiveCatchup
+		const maxRetries = this.aggressiveCatchup
 			? MAX_STEP_REJECTED_ERROR_AGGRESSIVE
 			: MAX_STEP_REJECTED_ERROR;
 

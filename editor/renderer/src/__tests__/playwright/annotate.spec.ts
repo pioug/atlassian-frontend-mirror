@@ -33,7 +33,7 @@ test.describe('annotations', () => {
 
 			const result = await renderer.annotation.simulateAnnotationAtSelection('fake-id-1');
 
-			await expect(result).toBe(false);
+			expect(result).toBe(false);
 		});
 	});
 
@@ -53,7 +53,7 @@ test.describe('annotations', () => {
 
 			const result = await renderer.annotation.simulateAnnotationAtSelection('fake-id-1');
 
-			await expect(result).toBe(false);
+			expect(result).toBe(false);
 		});
 	});
 

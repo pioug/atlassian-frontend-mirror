@@ -334,7 +334,7 @@ const joinToPreviousListItem: Command = (state, dispatch) => {
 	const { paragraph, listItem, codeBlock, bulletList, orderedList } = state.schema.nodes;
 	const isGapCursorShown = state.selection instanceof GapCursorSelection;
 	const $cutPos = isGapCursorShown ? state.doc.resolve($from.pos + 1) : $from;
-	let $cut = findCutBefore($cutPos);
+	const $cut = findCutBefore($cutPos);
 	if (!$cut) {
 		return false;
 	}
@@ -384,7 +384,7 @@ const joinToPreviousListItem: Command = (state, dispatch) => {
 
 			// find out if there's now another list following and join them
 			// as in, [list, p, list] => [list with p, list], and we want [joined list]
-			let $postCut = tr.doc.resolve(tr.mapping.map($cut.pos + $cut.nodeAfter.nodeSize));
+			const $postCut = tr.doc.resolve(tr.mapping.map($cut.pos + $cut.nodeAfter.nodeSize));
 			if (
 				$postCut.nodeBefore &&
 				$postCut.nodeAfter &&

@@ -148,7 +148,7 @@ export const colWidthsForRow = (tr: HTMLTableRowElement) => {
 		}));
 
 		// reverse engineer cell widths from table widths
-		let domBasedCellWidths: number[] = [];
+		const domBasedCellWidths: number[] = [];
 		cellInfos.map((cell) => {
 			domBasedCellWidths.push(...getRelativeDomCellWidths(cell));
 		});

@@ -4,10 +4,7 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { di } from 'react-magnetic-di';
 import uuid from 'uuid';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 import { useAnalyticsEvents } from '../../common/analytics/generated/use-analytics-events';
-import { useSmartLinkAnalytics } from '../../state';
 import { failUfoExperience, startUfoExperience } from '../../state/analytics';
 import { importWithRetry } from '../../utils';
 import { useSmartLinkAnalyticsContext } from '../../utils/analytics/SmartLinkAnalyticsContext';
@@ -68,8 +65,6 @@ export function CardWithURLRenderer(props: CardProps) {
 		truncateInline,
 	} = props;
 
-	const analytics = useSmartLinkAnalytics(url ?? '', id);
-
 	const isFlexibleUi = isFlexibleUiCard(children);
 
 	const analyticsContext = useSmartLinkAnalyticsContext({
@@ -98,29 +93,20 @@ export function CardWithURLRenderer(props: CardProps) {
 					definitionId: null,
 				});
 			} else if (error.name !== 'APIError') {
-				if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
-					startUfoExperience('smart-link-rendered', id || 'NULL');
-					failUfoExperience('smart-link-rendered', id || 'NULL');
-					failUfoExperience('smart-link-authenticated', id || 'NULL');
-					fireEvent('ui.smartLink.renderFailed', {
-						...analyticsContext?.attributes,
-						display: isFlexibleUi ? 'flexible' : appearance,
-						id: id ?? null,
-						error: error as any,
-						errorInfo: errorInfo as any,
-					});
-				} else {
-					analytics.ui.renderFailedEvent({
-						display: isFlexibleUi ? 'flexible' : appearance,
-						id,
-						error,
-						errorInfo,
-					});
-				}
+				startUfoExperience('smart-link-rendered', id || 'NULL');
+				failUfoExperience('smart-link-rendered', id || 'NULL');
+				failUfoExperience('smart-link-authenticated', id || 'NULL');
+				fireEvent('ui.smartLink.renderFailed', {
+					...analyticsContext?.attributes,
+					display: isFlexibleUi ? 'flexible' : appearance,
+					id: id ?? null,
+					error: error as any,
+					errorInfo: errorInfo as any,
+				});
 			}
 			onError && onError({ status: 'errored', url: url ?? '', err: error });
 		},
-		[analytics.ui, analyticsContext, appearance, id, onError, url, isFlexibleUi, fireEvent],
+		[analyticsContext?.attributes, appearance, fireEvent, id, isFlexibleUi, onError, url],
 	);
 
 	if (!url) {

@@ -122,7 +122,7 @@ export const toggleDragMenu = (
 ) =>
 	createCommand(
 		(state) => {
-			let {
+			const {
 				isDragMenuOpen: previousOpenState,
 				dragMenuDirection: previousDragMenuDirection,
 				dragMenuIndex: previousDragMenuIndex,

@@ -520,7 +520,7 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 				</RendererContextProvider>
 			);
 
-			let rendererResult = truncated ? (
+			const rendererResult = truncated ? (
 				<TruncatedWrapper height={maxHeight} fadeHeight={fadeOutHeight}>
 					{rendererOutput}
 				</TruncatedWrapper>
@@ -692,7 +692,7 @@ const handleWrapperOnClick = (
 };
 
 const RendererFunctionalComponent = (props: RendererProps & { startPos?: number }) => {
-	let mouseDownSelection = useRef<string | undefined>(undefined);
+	const mouseDownSelection = useRef<string | undefined>(undefined);
 	const providerFactory = useMemo(
 		() => props.dataProviders || new ProviderFactory(),
 		[props.dataProviders],
@@ -986,7 +986,7 @@ const RendererFunctionalComponent = (props: RendererProps & { startPos?: number 
 			</RendererContextProvider>
 		);
 
-		let rendererResult = props.truncated ? (
+		const rendererResult = props.truncated ? (
 			<TruncatedWrapper height={props.maxHeight} fadeHeight={props.fadeOutHeight}>
 				{rendererOutput}
 			</TruncatedWrapper>

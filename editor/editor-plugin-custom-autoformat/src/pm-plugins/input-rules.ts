@@ -34,7 +34,7 @@ export const triggerInputRule = (
 		return false;
 	}
 
-	let textBefore =
+	const textBefore =
 		$from.parent.textBetween(
 			Math.max(0, $from.parentOffset - MAX_MATCH),
 			$from.parentOffset,

@@ -73,7 +73,7 @@ export function getVCPercentileTargets(
 	function findClosestLowerOrExact(target: number) {
 		let closest = -1;
 		for (let i = 0; i < descSortedPercentiles.length; i++) {
-			let percentile = descSortedPercentiles[i];
+			const percentile = descSortedPercentiles[i];
 
 			if (percentile >= target) {
 				closest = percentile;

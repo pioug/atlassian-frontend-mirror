@@ -1,6 +1,5 @@
 import { type CardAuthFlowOpts, type CardProviderRenderers } from '@atlaskit/link-provider';
 
-import { type AnalyticsFacade } from '../../state/analytics';
 import { type CardState } from '../../state/types';
 import { type CardActionOptions, type OnResolveCallback } from '../Card/types';
 import { type OnErrorCallback } from '../types';
@@ -18,5 +17,4 @@ export type BlockCardProps = {
 	testId?: string;
 	actionOptions?: CardActionOptions;
 	renderers?: CardProviderRenderers;
-	analytics: AnalyticsFacade;
 };

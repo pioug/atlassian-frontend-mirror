@@ -104,7 +104,7 @@ export default function keymapPlugin(
 	return new SafePlugin({
 		props: {
 			handleKeyDown(view, event) {
-				let keyboardEvent = isCapsLockOnAndModifyKeyboardEvent(event);
+				const keyboardEvent = isCapsLockOnAndModifyKeyboardEvent(event);
 				return keydownHandler(list)(view, keyboardEvent);
 			},
 		},

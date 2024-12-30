@@ -57,7 +57,7 @@ export const rulePlugin: RulePlugin = ({ api }) => {
 					keyshortcut: '---',
 					icon: () => <IconDivider />,
 					action(insert, state) {
-						let tr: Transaction | null = insert(state.schema.nodes.rule.createChecked());
+						const tr: Transaction | null = insert(state.schema.nodes.rule.createChecked());
 
 						api?.analytics?.actions.attachAnalyticsEvent({
 							action: ACTION.INSERTED,

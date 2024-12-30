@@ -141,7 +141,7 @@ export const getToolbarItems = (
 				if (panelNode === undefined) {
 					return false;
 				}
-				let previousColor =
+				const previousColor =
 					panelNode.node.attrs.panelType === 'custom'
 						? panelNode.node.attrs.panelColor || 'none'
 						: getPanelTypeBackgroundNoTokens(panelNode.node.attrs.panelType);
@@ -187,7 +187,7 @@ export const getToolbarItems = (
 				if (panelNode === undefined) {
 					return false;
 				}
-				let previousIcon = panelNode.node.attrs.panelIcon || '';
+				const previousIcon = panelNode.node.attrs.panelIcon || '';
 				if (previousIcon === emoji.shortName) {
 					changePanelType(editorAnalyticsAPI)(
 						PanelType.CUSTOM,

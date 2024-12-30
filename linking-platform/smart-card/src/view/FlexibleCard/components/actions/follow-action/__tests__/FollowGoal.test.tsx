@@ -12,7 +12,6 @@ import type { FollowActionProps } from '../types';
 
 jest.mock('../../../../../../state/flexible-ui-context', () => ({
 	...jest.requireActual('../../../../../../state/flexible-ui-context'),
-	useFlexibleUiAnalyticsContext: jest.fn(),
 	useFlexibleUiContext: jest.fn().mockReturnValue({
 		actions: {
 			FollowAction: {

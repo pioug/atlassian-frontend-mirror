@@ -2,8 +2,6 @@ import { type JsonLd } from 'json-ld-types';
 
 import { type BatchResponse, CardClient } from '@atlaskit/link-provider';
 
-import { type AnalyticsFacade } from '../state/analytics';
-
 export const mockContext = {
 	'@vocab': 'https://www.w3.org/ns/activitystreams#',
 	atlassian: 'https://schema.atlassian.com/ns/vocabulary#',
@@ -229,26 +227,3 @@ export const fakeFactory: any = (
 	};
 
 export const waitFor = (time = 1) => new Promise((res) => setTimeout(res, time));
-
-export const mockAnalytics = {
-	ui: {
-		actionClickedEvent: () => {},
-		buttonClickedEvent: () => {},
-		modalClosedEvent: () => {},
-		renderSuccessEvent: () => {},
-		renderFailedEvent: () => {},
-		smartLinkServerActionClickedEvent: () => {},
-	},
-	operational: {
-		invokeSucceededEvent: () => {},
-		invokeFailedEvent: () => {},
-	},
-	track: {
-		smartLinkQuickActionFailed: () => {},
-		smartLinkQuickActionStarted: () => {},
-		smartLinkQuickActionSuccess: () => {},
-	},
-	screen: {
-		modalViewedEvent: () => {},
-	},
-} as unknown as AnalyticsFacade;

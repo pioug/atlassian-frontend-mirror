@@ -230,9 +230,7 @@ export const reducers = createReducer(initialState, {
 	[ADD_COMMENT_SUCCESS](state: State, action: Action) {
 		const { payload } = action;
 
-		let conversations: Conversation[];
-
-		conversations = addOrUpdateCommentInConversation(state.conversations, {
+		const conversations: Conversation[] = addOrUpdateCommentInConversation(state.conversations, {
 			...payload,
 			state: undefined,
 			oldDocument: undefined,

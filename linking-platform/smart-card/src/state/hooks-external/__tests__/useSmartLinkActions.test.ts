@@ -1,8 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 import { type JsonLd } from 'json-ld-types';
 
-import { ffTest } from '@atlassian/feature-flags-test-utils';
-
 import { mocks } from '../../../utils/mocks';
 import useInvokeClientAction from '../../hooks/use-invoke-client-action';
 import { useSmartCardState } from '../../store';
@@ -10,7 +8,6 @@ import { type CardState } from '../../types';
 import { useSmartLinkActions } from '../useSmartLinkActions';
 
 jest.mock('../../analytics', () => ({
-	useSmartLinkAnalytics: jest.fn(),
 	failUfoExperience: jest.fn(),
 	startUfoExperience: jest.fn(),
 	succeedUfoExperience: jest.fn(),
@@ -68,57 +65,47 @@ describe(useSmartLinkActions.name, () => {
 		jest.clearAllMocks();
 	});
 
-	describe('returns list of actions when data available', () => {
-		ffTest('platform-smart-card-migrate-embed-modal-analytics', () => {
-			mockWithActions();
+	it('returns list of actions when data available', () => {
+		mockWithActions();
 
-			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
-			expect(result.current).toHaveLength(2);
-		});
+		expect(result.current).toHaveLength(2);
 	});
 
-	describe('returns server-based action', () => {
-		ffTest('platform-smart-card-migrate-embed-modal-analytics', () => {
-			mockWithActions();
+	it('returns server-based action', () => {
+		mockWithActions();
 
-			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
-			expect(result.current?.[0]).toMatchObject({ id: 'download-content' });
-		});
+		expect(result.current?.[0]).toMatchObject({ id: 'download-content' });
 	});
 
-	describe('returns client-based action', () => {
-		ffTest('platform-smart-card-migrate-embed-modal-analytics', () => {
-			mockWithActions();
+	it('returns client-based action', () => {
+		mockWithActions();
 
-			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
-			expect(result.current?.[1]).toMatchObject({ id: 'preview-content' });
-		});
+		expect(result.current?.[1]).toMatchObject({ id: 'preview-content' });
 	});
 
-	describe('invokes correct promise on trigger of action (first)', () => {
-		ffTest('platform-smart-card-migrate-embed-modal-analytics', async () => {
-			const actionHandler = mockWithActions();
+	it('invokes correct promise on trigger of action (first)', async () => {
+		const actionHandler = mockWithActions();
 
-			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
-			await result.current?.[0].invoke();
+		await result.current?.[0].invoke();
 
-			expect(actionHandler).toHaveBeenCalledTimes(1);
-		});
+		expect(actionHandler).toHaveBeenCalledTimes(1);
 	});
 
-	describe('invokes correct promise on trigger of action (second)', () => {
-		ffTest('platform-smart-card-migrate-embed-modal-analytics', async () => {
-			const actionHandler = mockWithActions();
+	it('invokes correct promise on trigger of action (second)', async () => {
+		const actionHandler = mockWithActions();
 
-			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
-			await result.current?.[1].invoke();
-			expect(actionHandler).toHaveBeenCalledTimes(1);
-		});
+		await result.current?.[1].invoke();
+		expect(actionHandler).toHaveBeenCalledTimes(1);
 	});
 
 	it('returns no actions when actionOptions.hide is true', () => {
@@ -135,32 +122,28 @@ describe(useSmartLinkActions.name, () => {
 		expect(result.current).toEqual([]);
 	});
 
-	describe('returns actions as expected when useSmartCardState changes', () => {
-		ffTest('platform-smart-card-migrate-embed-modal-analytics', () => {
-			mockLifecycle();
+	it('returns actions as expected when useSmartCardState changes', () => {
+		mockLifecycle();
 
-			const { result, rerender } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const { result, rerender } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
-			// pending state
-			expect(result.current).toEqual([]);
-			rerender();
+		// pending state
+		expect(result.current).toEqual([]);
+		rerender();
 
-			// resolving state
-			expect(result.current).toEqual([]);
-			rerender();
+		// resolving state
+		expect(result.current).toEqual([]);
+		rerender();
 
-			// resolved state
-			expect(result.current).toHaveLength(2);
-		});
+		// resolved state
+		expect(result.current).toHaveLength(2);
 	});
 
-	describe('returns empty list when no data available', () => {
-		ffTest('platform-smart-card-migrate-embed-modal-analytics', () => {
-			mockNoActions();
+	it('returns empty list when no data available', () => {
+		mockNoActions();
 
-			const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
+		const { result } = renderHook(() => useSmartLinkActions({ url, appearance }));
 
-			expect(result.current).toEqual([]);
-		});
+		expect(result.current).toEqual([]);
 	});
 });

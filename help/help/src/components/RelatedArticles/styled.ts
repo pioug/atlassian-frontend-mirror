@@ -8,14 +8,7 @@ import { css } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 import * as colors from '@atlaskit/theme/colors';
-import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-
-const baseHeading = (size: number, lineHeight: number) => `
-  font-size: ${size / fontSize()}em;
-  font-style: inherit;
-  line-height: ${lineHeight / size};
-`;
 
 export const truncate = (width: string = '100%') =>
 	css({
@@ -27,11 +20,10 @@ export const truncate = (width: string = '100%') =>
 	});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-export const RelatedArticlesTitle = styled.div(baseHeading(16, 20), {
+export const RelatedArticlesTitle = styled.div({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 	color: token('color.text', colors.N800),
-	fontWeight: token('font.weight.semibold'),
-	letterSpacing: '-0.006em',
+	font: token('font.heading.small'),
 	padding: `${token('space.200', '16px')} 0`,
 });
 

@@ -256,7 +256,7 @@ export const insertTaskDecisionWithAnalytics =
 		itemLocalId = itemLocalId || (uuid.generate() as string);
 
 		if (insertTrCreator) {
-			let insertTr = insertTrCreator({
+			const insertTr = insertTrCreator({
 				state,
 				tr,
 				list,

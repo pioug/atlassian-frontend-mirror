@@ -27,7 +27,7 @@ const escapedChar = [
 ];
 
 export function escapeHandler(input: string, position: number): TextToken {
-	let buffer = [];
+	const buffer = [];
 	const char = input.charAt(position);
 	const prevChar = input.charAt(position - 1);
 	const nextChar = input.charAt(position + 1);

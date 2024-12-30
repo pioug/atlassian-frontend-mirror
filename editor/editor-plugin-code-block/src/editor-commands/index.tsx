@@ -99,7 +99,7 @@ export const copyContentToClipboard: Command = (state, dispatch) => {
 
 	if (textContent) {
 		copyToClipboard(textContent);
-		let copyToClipboardTr = tr;
+		const copyToClipboardTr = tr;
 
 		copyToClipboardTr.setMeta(pluginKey, {
 			type: ACTIONS.SET_COPIED_TO_CLIPBOARD,
@@ -118,7 +118,7 @@ export const copyContentToClipboard: Command = (state, dispatch) => {
 export const resetCopiedState: Command = (state, dispatch) => {
 	const { tr } = state;
 	const codeBlockState: CodeBlockState | undefined = pluginKey.getState(state);
-	let resetCopiedStateTr = tr;
+	const resetCopiedStateTr = tr;
 
 	if (codeBlockState && codeBlockState.contentCopied) {
 		resetCopiedStateTr.setMeta(pluginKey, {
@@ -233,7 +233,7 @@ export function insertCodeBlockWithAnalytics(
 		attributes: { inputMethod: inputMethod as INPUT_METHOD.TOOLBAR },
 		eventType: EVENT_TYPE.TRACK,
 	})(function (state: EditorState, dispatch) {
-		let tr = createInsertCodeBlockTransaction({ state, isNestingInQuoteSupported });
+		const tr = createInsertCodeBlockTransaction({ state, isNestingInQuoteSupported });
 		if (dispatch) {
 			dispatch(tr);
 		}

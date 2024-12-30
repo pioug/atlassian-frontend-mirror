@@ -107,7 +107,7 @@ const extractSharedStateFromPlugins = ({
 	const isInitialization = !oldEditorState && newEditorState;
 	const result = new Map();
 
-	for (let plugin of plugins) {
+	for (const plugin of plugins) {
 		if (!plugin || !hasGetSharedState(plugin)) {
 			continue;
 		}
@@ -137,7 +137,7 @@ const notifyListenersThrottled = throttle(
 	({ listeners, updatesToNotifyQueue }: NotifyListenersThrottledThrottledProps) => {
 		const callbacks: Function[] = [];
 
-		for (let [pluginName, diffs] of updatesToNotifyQueue.entries()) {
+		for (const [pluginName, diffs] of updatesToNotifyQueue.entries()) {
 			const pluginListeners = listeners.get(pluginName) || [];
 
 			pluginListeners.forEach((callback) => {
@@ -272,7 +272,7 @@ export class SharedStateAPI {
 			return;
 		}
 
-		for (let [pluginName, nextDiff] of sharedStateDiffs) {
+		for (const [pluginName, nextDiff] of sharedStateDiffs) {
 			const currentDiffQueue = updatesToNotifyQueue.get(pluginName) || [];
 
 			updatesToNotifyQueue.set(pluginName, [...currentDiffQueue, nextDiff]);

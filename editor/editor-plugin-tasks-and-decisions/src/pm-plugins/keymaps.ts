@@ -441,7 +441,7 @@ const creatParentListItemFragement = (state: EditorState) => {
 };
 
 const splitListItem = (state: EditorState, dispatch?: (tr: Transaction) => void) => {
-	let {
+	const {
 		tr,
 		selection: { $from },
 	} = state;

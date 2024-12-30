@@ -60,8 +60,8 @@ function clearNodeFormattingOnSelection(
 				return false;
 			} else {
 				// In case of panel or blockquote
-				let fromPos = tr.doc.resolve(pos + 1);
-				let toPos = tr.doc.resolve(pos + node.nodeSize - 1);
+				const fromPos = tr.doc.resolve(pos + 1);
+				const toPos = tr.doc.resolve(pos + node.nodeSize - 1);
 				const nodeRange = fromPos.blockRange(toPos);
 				if (nodeRange) {
 					const targetLiftDepth = liftTarget(nodeRange);

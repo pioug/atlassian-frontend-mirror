@@ -194,7 +194,7 @@ export const getToolbarConfig =
 					// TODO: ED-14403 investigate why these are not translating?
 					const labelUnlink = formatMessage(linkToolbarCommonMessages.unlink);
 					const editLink = formatMessage(linkToolbarCommonMessages.editLink);
-					let metadata = {
+					const metadata = {
 						url: link,
 						title: '',
 					};

@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 4.23.9
+
+### Patch Changes
+
+- [#98961](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98961)
+  [`6db91cd06376b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6db91cd06376b) -
+  Clean up share popup content width override FG
+
 ## 4.23.8
 
 ### Patch Changes

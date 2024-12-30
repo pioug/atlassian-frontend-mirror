@@ -67,7 +67,7 @@ export const ScrollButtons = ({ intl, scrollContainerRef, node, disabled }: Scro
 		const scrollLeft = scrollContainerRef.current?.scrollLeft || 0;
 
 		// scroll to current position - scroll container width
-		let scrollTo = scrollLeft - scrollContainerWidth;
+		const scrollTo = scrollLeft - scrollContainerWidth;
 
 		scrollContainerRef.current?.scrollTo({
 			top: 0,
@@ -83,7 +83,7 @@ export const ScrollButtons = ({ intl, scrollContainerRef, node, disabled }: Scro
 		const scrollLeft = scrollContainerRef.current?.scrollLeft || 0;
 
 		// scroll to current position + scroll container width
-		let scrollTo = scrollLeft + scrollContainerWidth;
+		const scrollTo = scrollLeft + scrollContainerWidth;
 
 		scrollContainerRef.current?.scrollTo({
 			top: 0,

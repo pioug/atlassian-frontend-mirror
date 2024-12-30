@@ -193,7 +193,7 @@ function parseDOMColumnWidths(
 		return [];
 	}
 
-	let cols: Array<number> = [];
+	const cols: Array<number> = [];
 
 	for (let col = 0; col < row.childElementCount; col++) {
 		const currentCol = row.children[col];

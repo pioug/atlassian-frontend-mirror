@@ -14,7 +14,7 @@ export const canInsertMedia = (state: EditorState): boolean => {
 
 	if (mediaSingle) {
 		for (let d = $to.depth; d >= 0; d--) {
-			let index = $to.index(d);
+			const index = $to.index(d);
 			if ($to.node(d).canReplaceWith(index, index, mediaSingle)) {
 				return true;
 			}

@@ -56,7 +56,7 @@ export const transformSliceToRemoveOpenMultiBodiedExtension = (slice: Slice, sch
 		depthToReduce = 1;
 	}
 
-	let fragment = mapFragment(slice.content, (node, parent, index) => {
+	const fragment = mapFragment(slice.content, (node, parent, index) => {
 		if ((node.type === multiBodiedExtension && !parent) || node.type === extensionFrame) {
 			const currentNodeIsAtStartAndIsOpen = slice.openStart >= depthToReduce && index === 0;
 			const currentNodeIsAtEndAndIsOpen =

@@ -40,7 +40,7 @@ const UnauthorisedView = ({
 	testId = 'smart-block-unauthorized-view',
 	...props
 }: FlexibleBlockCardProps) => {
-	const { analytics, cardState, onAuthorize } = props;
+	const { cardState, onAuthorize } = props;
 	const data = cardState.details?.data as JsonLd.Data.BaseData;
 	const providerName = extractProvider(data)?.text;
 	const isProductIntegrationSupported = hasAuthScopeOverrides(cardState?.details);
@@ -59,7 +59,6 @@ const UnauthorisedView = ({
 				<UnauthorisedViewContent
 					providerName={providerName}
 					isProductIntegrationSupported={isProductIntegrationSupported}
-					analytics={analytics}
 					testId={testId}
 				/>
 			) : (
@@ -72,7 +71,7 @@ const UnauthorisedView = ({
 					values={{ context: providerName }}
 				/>
 			),
-		[analytics, isProductIntegrationSupported, onAuthorize, providerName, testId],
+		[isProductIntegrationSupported, onAuthorize, providerName, testId],
 	);
 
 	const actions = useMemo<ActionItem[]>(

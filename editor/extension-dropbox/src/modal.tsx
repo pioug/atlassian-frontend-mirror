@@ -81,7 +81,7 @@ const Modal = ({
 	TEST_ONLY_src?: string;
 	showModal?: boolean;
 }) => {
-	let [isOpen, setIsOpen] = useState(true);
+	const [isOpen, setIsOpen] = useState(true);
 
 	if (typeof showModal === 'boolean' && isOpen !== showModal) {
 		setIsOpen(showModal);

@@ -11,7 +11,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 export function getColumnWidths(node: PmNode): number[] {
 	let tableColumnWidths: Array<number> = [];
 	node.forEach((row) => {
-		let currentTableWidth: Array<number> = [];
+		const currentTableWidth: Array<number> = [];
 		row.forEach((cell) => {
 			const { colspan, colwidth } = cell.attrs as CellAttributes;
 			// column has been resized, colWidth will be an array, can safely take values even if cell is merged
@@ -38,7 +38,7 @@ export function calcTableColumnWidths(node: PmNode): number[] {
 	// TODO: replaced with getColumnWidths, which correctly scans entire table for column widths
 	if (fg('platform_editor_table_row_span_fix')) {
 		const firstRow = node.firstChild;
-		let tableColumnWidths: Array<number> = [];
+		const tableColumnWidths: Array<number> = [];
 
 		if (firstRow) {
 			firstRow.forEach((cell) => {
@@ -65,7 +65,7 @@ export function calcTableColumnWidths(node: PmNode): number[] {
 		// Sanity validation, but it should always have a first row
 		// Iterate for the cells in the first row
 		firstRow.forEach((colNode) => {
-			let colwidth = colNode.attrs.colwidth || [0];
+			const colwidth = colNode.attrs.colwidth || [0];
 
 			// If we have colwidth, we added it
 			if (colwidth) {
@@ -126,7 +126,7 @@ export function isPositionNearTableRow(
 	if (!schema.nodes.tableRow) {
 		return false;
 	}
-	let doc = pos.doc;
+	const doc = pos.doc;
 	let resolved = pos;
 	const sibling = direction === 'before' ? 'nodeBefore' : 'nodeAfter';
 	while (resolved.depth > 0) {

@@ -52,7 +52,7 @@ const ideUX = (pluginInjectionApi: ExtractInjectionAPI<CodeBlockPlugin> | undefi
 						const { left, right } = getAutoClosingBracketInfo(beforeText + text, afterText);
 						if (left && right) {
 							const bracketPair = state.schema.text(text + right);
-							let tr = state.tr.replaceWith(from, to, bracketPair);
+							const tr = state.tr.replaceWith(from, to, bracketPair);
 							dispatch(setTextSelection(from + text.length)(tr));
 							return true;
 						}
@@ -66,7 +66,7 @@ const ideUX = (pluginInjectionApi: ExtractInjectionAPI<CodeBlockPlugin> | undefi
 						);
 						if (leftQuote && rightQuote) {
 							const quotePair = state.schema.text(text + rightQuote);
-							let tr = state.tr.replaceWith(from, to, quotePair);
+							const tr = state.tr.replaceWith(from, to, quotePair);
 							dispatch(setTextSelection(from + text.length)(tr));
 							return true;
 						}

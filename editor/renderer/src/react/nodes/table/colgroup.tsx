@@ -87,7 +87,7 @@ const renderScaleDownColgroup = (
 		isTopLevelRenderer?: boolean;
 	},
 ): CSSProperties[] | null => {
-	let {
+	const {
 		columnWidths,
 		isNumberColumnEnabled,
 		renderWidth,
@@ -253,7 +253,7 @@ const renderScaleDownColgroup = (
 
 export const Colgroup = (props: SharedTableProps) => {
 	const { isTopLevelRenderer } = useRendererContext();
-	let { columnWidths, isNumberColumnEnabled } = props;
+	const { columnWidths, isNumberColumnEnabled } = props;
 	const flags = useFeatureFlags() as RendererContextProps['featureFlags'] | undefined;
 
 	if (!columnWidths) {

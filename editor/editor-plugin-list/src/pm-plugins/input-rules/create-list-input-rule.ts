@@ -64,7 +64,7 @@ export function createRuleForListType({ listType, expression, editorAnalyticsApi
 	};
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	let getAttrs = (matchResult: RegExpExecArray): Record<string, any> => {
+	const getAttrs = (matchResult: RegExpExecArray): Record<string, any> => {
 		return {
 			order: getOrder(matchResult),
 		};

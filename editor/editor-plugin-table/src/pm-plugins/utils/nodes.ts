@@ -60,8 +60,8 @@ export const tablesHaveDifferentColumnWidths = (
 	currentTable: PmNode,
 	previousTable: PmNode,
 ): boolean => {
-	let currentTableWidths = getTableWidths(currentTable);
-	let previousTableWidths = getTableWidths(previousTable);
+	const currentTableWidths = getTableWidths(currentTable);
+	const previousTableWidths = getTableWidths(previousTable);
 
 	if (currentTableWidths.length !== previousTableWidths.length) {
 		return true;
@@ -115,7 +115,7 @@ function getTableWidths(node: PmNode): number[] {
 		return [];
 	}
 
-	let tableWidths: Array<number> = [];
+	const tableWidths: Array<number> = [];
 	node.content.firstChild.content.forEach((cell) => {
 		if (Array.isArray(cell.attrs.colwidth)) {
 			const colspan = cell.attrs.colspan || 1;

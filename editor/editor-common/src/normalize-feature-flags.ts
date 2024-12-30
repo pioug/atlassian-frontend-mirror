@@ -21,7 +21,7 @@ function isObjectFlagKey(
 
 function isValidJSONObject(value: string) {
 	try {
-		let result = JSON.parse(value);
+		const result = JSON.parse(value);
 		if (typeof result === 'object' && result !== null) {
 			return true;
 		}

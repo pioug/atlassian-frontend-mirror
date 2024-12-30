@@ -75,7 +75,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 				let delimMin = this.delim;
 				// Ignored via go/ees005
 				// eslint-disable-next-line require-unicode-regexp
-				let trim = /\s+$/.exec(delimMin);
+				const trim = /\s+$/.exec(delimMin);
 				if (trim) {
 					delimMin = delimMin.slice(0, delimMin.length - trim[0].length);
 				}
@@ -134,7 +134,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 				marks.some((mark) => {
 					// Ignored via go/ees005
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					let info = this.marks[mark.type.name as any];
+					const info = this.marks[mark.type.name as any];
 					// Ignored via go/ees005
 					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					return info && (info as any).expelEnclosingWhitespace;
@@ -142,7 +142,7 @@ export class MarkdownSerializerState extends PMMarkdownSerializerState {
 			) {
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion, require-unicode-regexp
-				let [, lead, inner, trail] = /^(\s*)(.*?)(\s*)$/m.exec(node.text!)!;
+				const [, lead, inner, trail] = /^(\s*)(.*?)(\s*)$/m.exec(node.text!)!;
 				leading += lead;
 				trailing = trail;
 				if (lead || trail) {

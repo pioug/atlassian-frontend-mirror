@@ -11,7 +11,7 @@ import type { AlignmentState } from '../pm-plugins/types';
  */
 function cascadeCommands(cmds: Command[]): Command {
 	return (state: EditorState, dispatch?: CommandDispatch) => {
-		let { tr: baseTr } = state;
+		const { tr: baseTr } = state;
 		let shouldDispatch = false;
 
 		const onDispatchAction = (tr: Transaction) => {

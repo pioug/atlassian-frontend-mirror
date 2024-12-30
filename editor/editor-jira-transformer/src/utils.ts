@@ -211,7 +211,7 @@ export function convert(
 				if (node.parentElement && node.parentElement.className.match('jira-issue-macro-key')) {
 					return null;
 				} else if (node.className === 'emoticon') {
-					let emojiResult = mapImageToEmoji(node as HTMLImageElement);
+					const emojiResult = mapImageToEmoji(node as HTMLImageElement);
 					if (emojiResult) {
 						return schema.text(emojiResult);
 					}
@@ -338,7 +338,7 @@ export function convert(
 		}
 
 		if (isSchemaWithBlockQuotes(schema) && tag === 'BLOCKQUOTE') {
-			let blockquoteContent =
+			const blockquoteContent =
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				content && (content as any).content.length

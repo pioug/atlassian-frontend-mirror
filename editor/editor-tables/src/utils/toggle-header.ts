@@ -39,17 +39,17 @@ export function toggleHeader(type: ToggleType): Command {
 			return false;
 		}
 		if (dispatch) {
-			let types = tableNodeTypes(state.schema);
-			let rect = selectedRect(state),
+			const types = tableNodeTypes(state.schema);
+			const rect = selectedRect(state),
 				tr = state.tr;
 
-			let isHeaderRowEnabled = isHeaderEnabledByType('row', rect, types);
-			let isHeaderColumnEnabled = isHeaderEnabledByType('column', rect, types);
+			const isHeaderRowEnabled = isHeaderEnabledByType('row', rect, types);
+			const isHeaderColumnEnabled = isHeaderEnabledByType('column', rect, types);
 
-			let isHeaderEnabled =
+			const isHeaderEnabled =
 				type === 'column' ? isHeaderRowEnabled : type === 'row' ? isHeaderColumnEnabled : false;
 
-			let selectionStartsAt = isHeaderEnabled ? 1 : 0;
+			const selectionStartsAt = isHeaderEnabled ? 1 : 0;
 
 			const cellsRect: Rect =
 				type === 'column'

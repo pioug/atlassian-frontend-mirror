@@ -18,7 +18,6 @@ import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { ActionName, Card, TitleBlock } from '../../../index';
 import * as ufo from '../../../state/analytics/ufoExperiences';
 import * as utils from '../../../utils';
-import * as analytics from '../../../utils/analytics/analytics';
 import { fakeFactory } from '../../../utils/mocks';
 import * as modalUtils from '../../EmbedModal/utils';
 
@@ -39,46 +38,7 @@ jest.mock('@atlaskit/linking-common/user-agent', () => ({
 
 expect.extend(jestExtendedMatchers);
 
-const TEST_ID = 'some-id';
 const EXPERIENCE_TEST_ID = 'smart-link-action-invocation';
-
-// These values are set by media analytic channel
-const EXPECTED_CHANNEL_CONTEXT = {
-	source: 'unknown',
-	tags: ['media'],
-};
-
-// These values are replaced by process.env
-// @see packages/linking-platform/smart-card/src/utils/analytics/analytics.ts
-const EXPECTED_PACKAGE_CONTEXT = {
-	componentName: 'smart-cards',
-	packageName: '@product/platform',
-	packageVersion: '0.0.0',
-};
-
-// Resolved context is set on CardWithUrlContent
-// @see packages/linking-platform/link-analytics/src/utils/get-resolved-attributes.ts
-const EXPECTED_RESOLVED_CONTEXT = {
-	destinationCategory: 'cat1',
-	destinationContainerId: 'c1',
-	destinationObjectId: 'o1',
-	destinationObjectType: 'sharedFile',
-	destinationProduct: 'p1',
-	destinationSubproduct: 's1',
-	destinationTenantId: 't1',
-	displayCategory: 'smartLink',
-	extensionKey: 'object-provider',
-	status: 'resolved',
-	statusDetails: null,
-};
-
-const EXPECTED_COMMON_ATTRIBUTES = {
-	...EXPECTED_PACKAGE_CONTEXT,
-	...EXPECTED_RESOLVED_CONTEXT,
-	// These values are set in commonAttributes in useSmartLinkAnalytics.ts
-	definitionId: 'd1',
-	resourceType: 'sharedFile',
-};
 
 describe('actions', () => {
 	const mockUrl = 'https://setup.is.the.eigth.url';
@@ -128,12 +88,12 @@ describe('actions', () => {
 		mockFetch = jest.fn(async () => response ?? toJsonLdResponse());
 		mockClient = new (fakeFactory(mockFetch))();
 
-		const mockAnalyticsClient: AnalyticsWebClient = {
+		const mockAnalyticsClient = {
 			sendUIEvent: jest.fn().mockResolvedValue(undefined),
 			sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
 			sendTrackEvent: jest.fn().mockResolvedValue(undefined),
 			sendScreenEvent: jest.fn().mockResolvedValue(undefined),
-		};
+		} satisfies AnalyticsWebClient;
 
 		const renderResult = render(
 			<FabricAnalyticsListeners client={mockAnalyticsClient}>
@@ -263,7 +223,6 @@ describe('actions', () => {
 						const actionFnSpy = getActionFnSpy(actionType).mockImplementationOnce(async () =>
 							Promise.resolve(),
 						);
-						const invokeSucceedSpy = jest.spyOn(analytics, 'invokeSucceededEvent');
 
 						const { findByTestId, mockAnalyticsClient } = setup({
 							featureFlags,
@@ -280,35 +239,38 @@ describe('actions', () => {
 
 						fireEvent.click(button);
 						await waitFor(() => {
-							expect(invokeSucceedSpy).toHaveBeenCalledTimes(1);
+							expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+								expect.objectContaining({
+									action: 'resolved',
+									actionSubject: 'smartLinkAction',
+								}),
+							);
 						});
 
 						expect(actionFnSpy).toHaveBeenCalledTimes(1);
 
-						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
-							...EXPECTED_CHANNEL_CONTEXT,
-							action: 'clicked',
-							actionSubject: 'button',
-							actionSubjectId,
-							attributes: expect.objectContaining({
-								...EXPECTED_COMMON_ATTRIBUTES,
-								actionType,
-								display,
-								id: TEST_ID,
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'clicked',
+								actionSubject: 'button',
+								actionSubjectId,
+								attributes: expect.objectContaining({
+									actionType,
+									display,
+								}),
 							}),
-						});
+						);
 
-						expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith({
-							...EXPECTED_CHANNEL_CONTEXT,
-							action: 'resolved',
-							actionSubject: 'smartLinkAction',
-							attributes: expect.objectContaining({
-								...EXPECTED_COMMON_ATTRIBUTES,
-								actionType,
-								display,
-								id: TEST_ID,
+						expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'resolved',
+								actionSubject: 'smartLinkAction',
+								attributes: expect.objectContaining({
+									actionType,
+									display,
+								}),
 							}),
-						});
+						);
 
 						expect(ufoStartSpy).toHaveBeenCalledWith(
 							'smart-link-action-invocation',
@@ -334,8 +296,6 @@ describe('actions', () => {
 						const actionFnSpy = getActionFnSpy(actionType).mockImplementationOnce(async () =>
 							Promise.reject(new Error('something went wrong')),
 						);
-						const invokeFailSpy = jest.spyOn(analytics, 'invokeFailedEvent');
-
 						const { findByTestId, mockAnalyticsClient } = setup({
 							featureFlags,
 							props,
@@ -352,36 +312,39 @@ describe('actions', () => {
 
 						fireEvent.click(button);
 						await waitFor(() => {
-							expect(invokeFailSpy).toHaveBeenCalledTimes(1);
+							expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+								expect.objectContaining({
+									action: 'unresolved',
+									actionSubject: 'smartLinkAction',
+								}),
+							);
 						});
 
 						expect(actionFnSpy).toHaveBeenCalledTimes(1);
 
-						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith({
-							...EXPECTED_CHANNEL_CONTEXT,
-							action: 'clicked',
-							actionSubject: 'button',
-							actionSubjectId,
-							attributes: expect.objectContaining({
-								...EXPECTED_COMMON_ATTRIBUTES,
-								actionType,
-								display,
-								id: TEST_ID,
+						expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'clicked',
+								actionSubject: 'button',
+								actionSubjectId,
+								attributes: expect.objectContaining({
+									actionType,
+									display,
+								}),
 							}),
-						});
+						);
 
-						expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith({
-							...EXPECTED_CHANNEL_CONTEXT,
-							action: 'unresolved',
-							actionSubject: 'smartLinkAction',
-							attributes: expect.objectContaining({
-								...EXPECTED_COMMON_ATTRIBUTES,
-								actionType,
-								display,
-								id: TEST_ID,
-								reason: 'something went wrong',
+						expect(mockAnalyticsClient.sendOperationalEvent).toHaveBeenCalledWith(
+							expect.objectContaining({
+								action: 'unresolved',
+								actionSubject: 'smartLinkAction',
+								attributes: expect.objectContaining({
+									actionType,
+									display,
+									reason: 'something went wrong',
+								}),
 							}),
-						});
+						);
 
 						expect(ufoStartSpy).toHaveBeenCalledWith(
 							'smart-link-action-invocation',

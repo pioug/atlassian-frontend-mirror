@@ -1,12 +1,7 @@
 import { type FireEventFunction } from '../../../common/analytics/types';
 import { type CardInnerAppearance } from '../../../view/Card/types';
-import { type AnalyticsFacade } from '../../analytics';
 
 export type UseInvokeClientActionProps = {
-	/**
-	 * Analytics object
-	 */
-	analytics?: AnalyticsFacade;
 	/**
 	 * A function to dispatch analytics events.
 	 */
@@ -50,7 +45,6 @@ export type InvokeClientActionProps = {
 	/**
 	 * Link provider extension key
 	 * This value should have already been set in analytics object through
-	 * useSmartLinkAnalytics() and/or into the analytic context.
 	 */
 	extensionKey?: string;
 

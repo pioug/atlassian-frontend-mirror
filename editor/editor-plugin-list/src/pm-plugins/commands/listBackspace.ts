@@ -341,7 +341,7 @@ export const calcJoinListScenario = (
 	let lastFoundNode: boolean;
 
 	do {
-		let walkNode = walkPrevNode($last);
+		const walkNode = walkPrevNode($last);
 
 		$last = walkNode.$pos;
 		lastFoundNode = walkNode.foundNode;

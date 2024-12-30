@@ -56,7 +56,7 @@ const maybeRemoveDisallowedDuplicateMarks = (
 		return { discardedMarks };
 	}
 
-	let dedupedMarks = node.marks.filter((mark) => {
+	const dedupedMarks = node.marks.filter((mark) => {
 		const markType = mark.type;
 
 		if (markType === 'annotation') {
@@ -99,7 +99,7 @@ interface TransformDedupeMarksResult {
 
 export const transformDedupeMarks = (adf: ADFEntity): TransformDedupeMarksResult => {
 	let isTransformed: boolean = false;
-	let discardedMarks: ADFEntityMark[] = [];
+	const discardedMarks: ADFEntityMark[] = [];
 
 	const transformedAdf = traverse(adf, {
 		text: (node) => {

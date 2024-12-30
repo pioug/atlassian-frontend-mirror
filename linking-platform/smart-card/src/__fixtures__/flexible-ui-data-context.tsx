@@ -1,6 +1,6 @@
 import { SmartLinkActionType } from '@atlaskit/linking-types';
 
-import { ActionName, type IconType, MediaType } from '../constants';
+import { ActionName, IconType, MediaType } from '../constants';
 import { type FlexibleUiDataContext } from '../state/flexible-ui-context/types';
 
 const context: FlexibleUiDataContext = {
@@ -10,21 +10,12 @@ const context: FlexibleUiDataContext = {
 				actionFn: jest.fn(),
 				actionType: ActionName.PreviewAction,
 			},
-			// TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
-			downloadUrl: 'https://www.link-url.com',
-			linkIcon: { url: 'Provider:Confluence' },
-			providerName: 'dropbox-object-provider',
-			src: 'https://www.link-url.com',
-			title: 'embed title',
-			url: 'https://www.link-url.com',
 		},
 		DownloadAction: {
 			invokeAction: {
 				actionFn: jest.fn(),
 				actionType: ActionName.DownloadAction,
 			},
-			// TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
-			downloadUrl: 'https://www.link-url.com',
 		},
 		FollowAction: {
 			action: {
@@ -42,8 +33,6 @@ const context: FlexibleUiDataContext = {
 				actionFn: jest.fn(),
 				actionType: ActionName.CopyLinkAction,
 			},
-			// TODO: Remove on cleanup of platform-smart-card-migrate-embed-modal-analytics
-			url: 'https://www.link-url.com',
 		},
 		AISummaryAction: {
 			url: 'https://www.link-url.com',
@@ -119,7 +108,10 @@ const context: FlexibleUiDataContext = {
 	title: 'Link title',
 	url: 'https://www.link-url.com',
 	viewAction: {
-		viewUrl: 'https://www.link-url.com',
+		invokeAction: {
+			actionFn: jest.fn(),
+			actionType: ActionName.PreviewAction,
+		},
 	},
 	sentOn: '2023-08-10T03:45:14.797Z',
 	viewCount: 21,

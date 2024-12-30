@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "33.1.0",
+	"version": "33.3.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -178,9 +178,6 @@
 			"type": "boolean"
 		},
 		"smart_links_for_plans_platform": {
-			"type": "boolean"
-		},
-		"platform-smart-card-migrate-embed-modal-analytics": {
 			"type": "boolean"
 		},
 		"platform_editor_hyperlink_underline": {

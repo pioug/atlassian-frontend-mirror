@@ -3,7 +3,6 @@ import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { IntlProvider } from 'react-intl-next';
 
-import { mockAnalytics } from '../../../../utils/mocks';
 import { InlineCardUnauthorizedView } from '../index';
 
 describe('Unauthorised View', () => {
@@ -15,7 +14,7 @@ describe('Unauthorised View', () => {
 		const testUrl = 'http://unauthorised-test/';
 		const { container } = render(
 			<IntlProvider locale="en">
-				<InlineCardUnauthorizedView url={testUrl} analytics={mockAnalytics} />
+				<InlineCardUnauthorizedView url={testUrl} />
 			</IntlProvider>,
 		);
 
@@ -26,7 +25,7 @@ describe('Unauthorised View', () => {
 		const testUrl = 'http://unauthorised-test/';
 		render(
 			<IntlProvider locale="en">
-				<InlineCardUnauthorizedView url={testUrl} analytics={mockAnalytics} />
+				<InlineCardUnauthorizedView url={testUrl} />
 			</IntlProvider>,
 		);
 		const link = screen.getByText(testUrl, { exact: false }).closest('a');
@@ -40,12 +39,7 @@ describe('Unauthorised View', () => {
 
 		const { container } = render(
 			<IntlProvider locale="en">
-				<InlineCardUnauthorizedView
-					context="3P"
-					url={testUrl}
-					onAuthorise={jest.fn()}
-					analytics={mockAnalytics}
-				/>
+				<InlineCardUnauthorizedView context="3P" url={testUrl} onAuthorise={jest.fn()} />
 			</IntlProvider>,
 		);
 
@@ -58,12 +52,7 @@ describe('Unauthorised View', () => {
 		const testUrl = 'http://unauthorised-test/';
 		render(
 			<IntlProvider locale="en">
-				<InlineCardUnauthorizedView
-					url={testUrl}
-					onClick={onClick}
-					onAuthorise={onAuthorise}
-					analytics={mockAnalytics}
-				/>
+				<InlineCardUnauthorizedView url={testUrl} onClick={onClick} onAuthorise={onAuthorise} />
 			</IntlProvider>,
 		);
 

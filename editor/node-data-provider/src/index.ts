@@ -175,7 +175,7 @@ export class NodeDataProvider<INode extends ReceivableNode, Result extends unkno
 		// When a get is cancelled -- we only want to cancel the shared resolve if all signals are aborted
 		// so we keep track of all signals that are not aborted.
 
-		let originalSignal = _?.signal || new AbortController().signal;
+		const originalSignal = _?.signal || new AbortController().signal;
 		if (!this.pending[key]) {
 			const abortController = new AbortController();
 			this.pending[key] = {

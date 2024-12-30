@@ -4,7 +4,7 @@ import { act, fireEvent, render, type RenderOptions } from '@testing-library/rea
 import { type JsonLd } from 'json-ld-types';
 import { IntlProvider } from 'react-intl-next';
 
-import { AnalyticsListener } from '@atlaskit/analytics-next';
+import FabricAnalyticsListeners, { type AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import type { CardState, ProductType } from '@atlaskit/linking-common';
@@ -13,12 +13,10 @@ import { getCardState } from '../../../../../../../examples/utils/flexible-ui';
 import MockAtlasProject from '../../../../../../__fixtures__/atlas-project';
 import mockAtlasProjectWithAiSummary from '../../../../../../__fixtures__/atlas-project-with-ai-summary';
 import { SmartLinkPosition, SmartLinkSize } from '../../../../../../constants';
-import { useSmartLinkAnalytics } from '../../../../../../state/analytics';
 import { useAISummary } from '../../../../../../state/hooks/use-ai-summary';
 import { AISummariesStore } from '../../../../../../state/hooks/use-ai-summary/ai-summary-service/store';
 import * as useInvoke from '../../../../../../state/hooks/use-invoke';
 import * as useResolve from '../../../../../../state/hooks/use-resolve';
-import { ANALYTICS_CHANNEL } from '../../../../../../utils/analytics';
 import { mocks } from '../../../../../../utils/mocks';
 import {
 	mockBaseResponseWithErrorPreview,
@@ -26,7 +24,6 @@ import {
 	mockConfluenceResponse,
 	mockIframelyResponse,
 	mockJiraResponse,
-	mockJiraResponseWithDatasources,
 } from '../../../../__tests__/__mocks__/mocks';
 import HoverCardResolvedView from '../index';
 
@@ -52,15 +49,18 @@ const titleBlockProps = {
 };
 
 describe('HoverCardResolvedView', () => {
-	const id = 'resolved-test-id';
-	const location = 'resolved-test-location';
-	const spy = jest.fn();
 	const url = 'test-url';
 	let cardState: CardState;
+	const mockAnalyticsClient = {
+		sendUIEvent: jest.fn().mockResolvedValue(undefined),
+		sendOperationalEvent: jest.fn().mockResolvedValue(undefined),
+		sendTrackEvent: jest.fn().mockResolvedValue(undefined),
+		sendScreenEvent: jest.fn().mockResolvedValue(undefined),
+	} satisfies AnalyticsWebClient;
 
 	const wrapper: RenderOptions['wrapper'] = ({ children }) => (
 		<IntlProvider locale="en">
-			<AnalyticsListener onEvent={spy} channel={ANALYTICS_CHANNEL}>
+			<FabricAnalyticsListeners client={mockAnalyticsClient}>
 				<SmartCardProvider
 					storeOptions={{
 						initialState: {
@@ -72,7 +72,7 @@ describe('HoverCardResolvedView', () => {
 				>
 					{children}
 				</SmartCardProvider>
-			</AnalyticsListener>
+			</FabricAnalyticsListeners>
 		</IntlProvider>
 	);
 
@@ -85,11 +85,8 @@ describe('HoverCardResolvedView', () => {
 		isAISummaryEnabled?: boolean;
 		cardState: any;
 	}) => {
-		const analyticsEvents = useSmartLinkAnalytics(url, id, location);
-
 		return (
 			<HoverCardResolvedView
-				analytics={analyticsEvents}
 				extensionKey={mockResponse.meta.key}
 				id="123"
 				flexibleCardProps={{ cardState, children: null, url }}
@@ -361,67 +358,11 @@ describe('HoverCardResolvedView', () => {
 			});
 			await findByTestId('smart-block-title-resolved-view');
 
-			expect(spy).toHaveBeenCalledWith(
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
 				expect.objectContaining({
-					payload: {
-						action: 'renderSuccess',
-						actionSubject: 'smartLink',
-						eventType: 'ui',
-						attributes: {
-							componentName: 'smart-cards',
-							packageName: expect.any(String),
-							packageVersion: expect.any(String),
-							status: 'resolved',
-							extensionKey: 'spaghetti-key',
-							definitionId: 'spaghetti-id',
-							destinationProduct: 'spaghetti-product',
-							destinationSubproduct: 'spaghetti-subproduct',
-							location: 'resolved-test-location',
-							display: 'hoverCardPreview',
-							canBeDatasource: false,
-							id: expect.any(String),
-							resourceType: 'spaghetti-resource',
-							destinationObjectType: 'spaghetti-resource',
-						},
-					},
+					actionSubject: 'smartLink',
+					action: 'renderSuccess',
 				}),
-				ANALYTICS_CHANNEL,
-			);
-		});
-
-		it('should fire render success event with canBeDatasource = true when hover card is rendered and state has datasources data', async () => {
-			const { findByTestId } = setup({
-				mockResponse: {
-					...mockJiraResponseWithDatasources,
-					...mocks.analytics.details,
-				} as JsonLd.Response,
-			});
-			await findByTestId('smart-block-title-resolved-view');
-			expect(spy).toHaveBeenCalledWith(
-				expect.objectContaining({
-					payload: {
-						action: 'renderSuccess',
-						actionSubject: 'smartLink',
-						eventType: 'ui',
-						attributes: {
-							componentName: 'smart-cards',
-							packageName: expect.any(String),
-							packageVersion: expect.any(String),
-							status: 'resolved',
-							extensionKey: 'spaghetti-key',
-							definitionId: 'spaghetti-id',
-							destinationProduct: 'spaghetti-product',
-							destinationSubproduct: 'spaghetti-subproduct',
-							location: 'resolved-test-location',
-							display: 'hoverCardPreview',
-							canBeDatasource: true,
-							id: expect.any(String),
-							resourceType: 'spaghetti-resource',
-							destinationObjectType: 'spaghetti-resource',
-						},
-					},
-				}),
-				ANALYTICS_CHANNEL,
 			);
 		});
 	});

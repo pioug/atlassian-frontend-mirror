@@ -486,7 +486,7 @@ export const createTypeAheadConfig = ({
 			if (pluginState?.mentionProvider) {
 				const mentionProvider = pluginState.mentionProvider;
 
-				for (let key of subscriptionKeys) {
+				for (const key of subscriptionKeys) {
 					mentionProvider.unsubscribe(key);
 				}
 			}

@@ -117,7 +117,7 @@ export const getAnalyticsPayload = (
 		const { actionSubjectId: selectionActionSubjectId } = selectionAnalyticsPayload;
 
 		const node = (selectionAnalyticsPayload as SelectNodeAEP).attributes?.node;
-		let content: string[] = [];
+		const content: string[] = [];
 		let extensionType: string | undefined;
 		let extensionKey: string | undefined;
 		switch (selectionActionSubjectId) {

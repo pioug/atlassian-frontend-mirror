@@ -39,7 +39,7 @@ const fetchProviderStates = async (
 	annotationIds: string[],
 ): Promise<InlineCommentMap> => {
 	const data = await provider.getState(annotationIds);
-	let result: { [key: string]: boolean } = {};
+	const result: { [key: string]: boolean } = {};
 	data.forEach((annotation) => {
 		if (annotation.annotationType === AnnotationTypes.INLINE_COMMENT) {
 			result[annotation.id] = annotation.state.resolved;

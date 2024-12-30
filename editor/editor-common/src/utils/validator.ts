@@ -588,7 +588,7 @@ export const getValidNode = (
 			}
 			case 'paragraph': {
 				if (adfStage === 'stage0') {
-					let paragraphNode: ADNode = { type, content: content || [] };
+					const paragraphNode: ADNode = { type, content: content || [] };
 					if (attrs && attrs.localId) {
 						paragraphNode.attrs = { localId: attrs.localId };
 					}
@@ -611,7 +611,7 @@ export const getValidNode = (
 				};
 			}
 			case 'text': {
-				let { marks } = node;
+				const { marks } = node;
 				if (text) {
 					return marks ? { type, text, marks: getValidMarks(marks, adfStage) } : { type, text };
 				}
@@ -623,7 +623,7 @@ export const getValidNode = (
 					const between = (x: number, a: number, b: number) => x >= a && x <= b;
 					if (level && between(level, 1, 6)) {
 						if (adfStage === 'stage0') {
-							let headingNode: ADNode = {
+							const headingNode: ADNode = {
 								type,
 								content: content,
 								attrs: { level },

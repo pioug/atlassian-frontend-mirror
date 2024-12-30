@@ -1,15 +1,8 @@
-import React, { useEffect } from 'react';
-
-import { screen } from '@testing-library/react';
-
-import { renderWithIntl } from '@atlaskit/media-test-helpers/renderWithIntl';
-
-import { IconType, SmartLinkSize } from '../../../../constants';
+import { SmartLinkSize } from '../../../../constants';
 import {
 	getPrimitivesInlineSpaceBySize,
 	getPrimitivesPaddingSpaceBySize,
 	hasWhiteSpace,
-	openEmbedModalWithFlexibleUiIcon,
 } from '../utils';
 
 describe('getPrimitivesInlineSpaceBySize', () => {
@@ -107,26 +100,5 @@ describe('hasWhiteSpace', () => {
 
 	it('returns false when string is empty', () => {
 		expect(hasWhiteSpace('')).toBeFalsy();
-	});
-});
-
-describe('openEmbedModalWithFlexibleUiIcon', () => {
-	it('opens embed modal with icon element', async () => {
-		const Wrapper = () => {
-			useEffect(() => {
-				openEmbedModalWithFlexibleUiIcon({
-					linkIcon: { icon: IconType.File },
-				});
-			}, []);
-
-			return <div>Open</div>;
-		};
-
-		renderWithIntl(<Wrapper />);
-		const modal = await screen.findByTestId('smart-embed-preview-modal');
-		const icon = await screen.findByTestId('smart-element-icon');
-
-		expect(modal).toBeInTheDocument();
-		expect(icon).toBeInTheDocument();
 	});
 });

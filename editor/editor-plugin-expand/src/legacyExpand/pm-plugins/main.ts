@@ -148,7 +148,7 @@ export function handleExpandDrag(view: EditorView, event: DragEvent, slice: Slic
 		return false;
 	}
 
-	let dropPos = view.posAtCoords({ left: event.clientX, top: event.clientY });
+	const dropPos = view.posAtCoords({ left: event.clientX, top: event.clientY });
 
 	if (!dropPos) {
 		return false;

@@ -35,14 +35,14 @@ export function* cellsAtColumn(
 	}
 
 	for (let row = 0; row < map.height; row++) {
-		let index = getCellIndex(rect.map, row, col);
+		const index = getCellIndex(rect.map, row, col);
 		let pos = map.map[index];
 
 		// We only consider to has merged cell to the first cell in a rowspan.
 		const hasMergedCells = hasMergedColumns(rect.map, row, col) && isRootRow(rect.map, row, col);
 
 		// If this position falls inside a col-spanning cell
-		let type =
+		const type =
 			refColumn == null
 				? tableNodeTypes(table.type.schema).cell
 				: // Ignored via go/ees005
@@ -52,7 +52,7 @@ export function* cellsAtColumn(
 		if (!hasMergedCells) {
 			pos = map.positionAt(row, col, table);
 		}
-		let cell = table.nodeAt(pos) as PMNode;
+		const cell = table.nodeAt(pos) as PMNode;
 
 		const cellInfo: Cell = {
 			from: tableStart + pos,

@@ -29,7 +29,7 @@ export const findClosestSnap = (
 	const gap = Math.abs(snapArray[closestGapIndex] - mediaSingleWidth);
 	if (gap < snapGap) {
 		const snappingWidth = snapArray[closestGapIndex];
-		let guidelineKeys: string[] = [];
+		const guidelineKeys: string[] = [];
 		// find wich guideline have the matching snap width
 		guidelineSnaps.forEach((gs) => {
 			if (gs.width === snappingWidth) {

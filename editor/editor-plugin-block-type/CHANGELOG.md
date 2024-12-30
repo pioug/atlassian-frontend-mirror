@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-type
 
+## 4.1.0
+
+### Minor Changes
+
+- [#96424](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96424)
+  [`e14834ad65277`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e14834ad65277) -
+  [ux] Add clear formatting option to text styling menu
+
+## 4.0.14
+
+### Patch Changes
+
+- [#99053](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99053)
+  [`a850374dfb10a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a850374dfb10a) -
+  [ux] ED-26049 Disable text styles menu button if lists are nested inside blockquot
+
 ## 4.0.13
 
 ### Patch Changes

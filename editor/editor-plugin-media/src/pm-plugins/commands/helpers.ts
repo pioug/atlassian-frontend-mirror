@@ -61,8 +61,7 @@ export const updateAllMediaNodesAttrs =
 			return false;
 		}
 
-		let mediaNodes: MediaNodeWithPosHandler[];
-		mediaNodes = findAllMediaNodes(mediaPluginState, id);
+		const mediaNodes: MediaNodeWithPosHandler[] = findAllMediaNodes(mediaPluginState, id);
 
 		const validMediaNodePositions: number[] = mediaNodes.reduce<number[]>((acc, { getPos }) => {
 			const pos = getPos();

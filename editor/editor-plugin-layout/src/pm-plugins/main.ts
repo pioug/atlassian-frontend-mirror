@@ -158,7 +158,7 @@ export default (options: LayoutPluginOptions) =>
 			),
 		},
 		appendTransaction: (transactions, _oldState, newState) => {
-			let changes: Change[] = [];
+			const changes: Change[] = [];
 			transactions.forEach((prevTr) => {
 				// remap change segments across the transaction set
 				changes.forEach((change) => {

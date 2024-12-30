@@ -100,7 +100,7 @@ export class RenderCountProfiler {
 		const component = this.store?.[PROFILER_KEY]?.components?.[componentId] ?? {};
 		const counters = [];
 		// eslint-disable-next-line guard-for-in
-		for (let instanceId in component) {
+		for (const instanceId in component) {
 			const counter = { instanceId, count: component[instanceId].count };
 			counters.push(counter);
 		}
@@ -111,7 +111,7 @@ export class RenderCountProfiler {
 		const component = this.store?.[PROFILER_KEY]?.components?.[componentId] ?? {};
 		let total = 0;
 		// eslint-disable-next-line guard-for-in
-		for (let instanceId in component) {
+		for (const instanceId in component) {
 			total += component[instanceId].count;
 		}
 		return total;

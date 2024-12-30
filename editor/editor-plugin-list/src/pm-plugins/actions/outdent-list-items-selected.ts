@@ -250,7 +250,7 @@ const extractListItemsRangeFromList = ({ tr, range }: OutdentListRangeProps) => 
 		}
 	}
 
-	let nextList = list.copy(Fragment.empty);
+	const nextList = list.copy(Fragment.empty);
 
 	let nextListStartNumber: number;
 	// if splitting a numbered list, keep the splitted item
@@ -326,7 +326,7 @@ const extractListItemsRangeFromList = ({ tr, range }: OutdentListRangeProps) => 
 const findPreviousListItemSibling = ($pos: ResolvedPos) => {
 	const doc = $pos.doc;
 	const isPositionListItem = isListNode($pos.node());
-	let listItemPosition = $pos;
+	const listItemPosition = $pos;
 
 	if (!isPositionListItem) {
 		const listItem = findFirstParentListItemNode($pos);

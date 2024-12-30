@@ -266,7 +266,8 @@ export function ContentComponent({
 	}
 
 	const { config, node } = configWithNodeInfo;
-	let { items, groupLabel } = config;
+	let { items } = config;
+	const { groupLabel } = config;
 	const {
 		title,
 		getDomRef = getDomRefFromSelection,
@@ -459,7 +460,7 @@ export function floatingToolbarPluginFactory(options: {
 	const { floatingToolbarHandlers, providerFactory, getIntl } = options;
 	const intl = getIntl();
 	const getConfigWithNodeInfo = (editorState: EditorState) => {
-		let activeConfigs: Array<FloatingToolbarConfig> = [];
+		const activeConfigs: Array<FloatingToolbarConfig> = [];
 		for (let index = 0; index < floatingToolbarHandlers.length; index++) {
 			const handler = floatingToolbarHandlers[index];
 			const config = handler(editorState, intl, providerFactory, activeConfigs);

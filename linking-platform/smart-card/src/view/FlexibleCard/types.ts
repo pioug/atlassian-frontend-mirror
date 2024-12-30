@@ -6,7 +6,6 @@ import { type CardState, type LinkingPlatformFeatureFlags } from '@atlaskit/link
 
 import { type FireEventFunction } from '../../common/analytics/types';
 import { type SmartLinkSize, type SmartLinkStatus, type SmartLinkTheme } from '../../constants';
-import { type AnalyticsFacade } from '../../state/analytics';
 import { type AISummaryConfig } from '../../state/hooks/use-ai-summary-config/types';
 import { type ResolveFunction } from '../../state/hooks/use-resolve';
 import { type AnalyticsOrigin } from '../../utils/types';
@@ -23,12 +22,6 @@ export type FlexibleCardProps = {
 	 * @internal A unique ID for a Smart Link.
 	 */
 	id?: string;
-
-	/**
-	 * An analytics facade object which will be used to send analytics.
-	 * @internal
-	 */
-	analytics?: AnalyticsFacade;
 
 	/**
 	 * Determines the appearance of the Smart Link.

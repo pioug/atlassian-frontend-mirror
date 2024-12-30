@@ -36,7 +36,7 @@ import { PluginState } from './plugin-state';
 
 const enforceCustomStepRegisters = () => {
 	const tryToRegisterStep = (obj: Record<string, Step>) => {
-		for (let customStep of Object.values(obj)) {
+		for (const customStep of Object.values(obj)) {
 			// I know this seems awful
 			// But unfortunate ProseMirror does not expose the jsonID property p
 			// @ts-expect-error

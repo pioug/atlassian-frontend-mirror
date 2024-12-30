@@ -46,7 +46,7 @@ export function createPlugin(dispatch: Dispatch) {
 			},
 			decorations: (state: EditorState) => {
 				const { highlightContent, pasteStartPos } = pasteOptionsPluginKey.getState(state) || {};
-				let decorationSet =
+				const decorationSet =
 					pasteOptionsPluginKey.getState(state)?.highlightDecorationSet ?? DecorationSet.empty;
 
 				if (!highlightContent) {

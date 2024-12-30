@@ -87,6 +87,8 @@ export class PluginState {
 	}
 
 	apply(tr: ReadonlyTransaction) {
+		// Ignored via go/ees005
+		// eslint-disable-next-line prefer-const
 		let { participants, sid, isReady } = this;
 
 		const presenceData = tr.getMeta('presence') as CollabEventPresenceData;

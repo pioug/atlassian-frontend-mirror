@@ -78,7 +78,7 @@ function shouldHandleMediaGapCursor(dir: Direction, state: EditorState) {
 // Should check this case by using shouldHandleMediaGapCursor first
 function handleMediaGapCursor(dir: Direction, state: EditorState): Transaction {
 	const { selection, tr } = state;
-	let $pos = isBackward(dir) ? selection.$from : selection.$to;
+	const $pos = isBackward(dir) ? selection.$from : selection.$to;
 
 	if (
 		dir === Direction.UP &&

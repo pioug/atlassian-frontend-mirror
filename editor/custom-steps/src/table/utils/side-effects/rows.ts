@@ -36,12 +36,12 @@ function mergedRanges(first: number[], second: number[]) {
 function increaseRowSpan(tr: Transform, rect: TableRect, row: number): void {
 	const { map, tableStart } = rect;
 	for (let col = 0; col < map.width; col++) {
-		let index = row * map.width + col;
-		let pos = map.map[index];
+		const index = row * map.width + col;
+		const pos = map.map[index];
 		const mappedPos = tr.mapping.map(pos + tableStart);
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-		let attrs = tr.doc.nodeAt(mappedPos)!.attrs;
+		const attrs = tr.doc.nodeAt(mappedPos)!.attrs;
 		tr.setNodeMarkup(mappedPos, undefined, {
 			...attrs,
 			rowspan: attrs.rowspan + 1,
@@ -56,14 +56,14 @@ function decreaseRowspan(tr: Transform, rect: TableRect, row: number, colToRemov
 	let skipRows = 0;
 	const { map, table, tableStart } = rect;
 	for (let col = 0; col < map.width; col++) {
-		let index = row * map.width + col;
-		let pos = map.map[index];
+		const index = row * map.width + col;
+		const pos = map.map[index];
 		if (row > 0 && pos === map.map[index - map.width]) {
 			// If this cell starts in the row above, simply reduce its rowspan
 			const mappedPos = tr.mapping.map(pos + tableStart);
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-			let attrs = tr.doc.nodeAt(mappedPos)!.attrs;
+			const attrs = tr.doc.nodeAt(mappedPos)!.attrs;
 			tr.setNodeMarkup(mappedPos, undefined, {
 				...attrs,
 				rowspan: attrs.rowspan - 1,
@@ -118,7 +118,7 @@ function removeRowWithLastCell(
 		from += rect.table.child(i).nodeSize;
 	}
 	const rowNode = rect.table.child(row);
-	let to = from + rowNode.nodeSize;
+	const to = from + rowNode.nodeSize;
 
 	// Create sideEffect and delete the row
 	// We store original row position before modifications
@@ -285,7 +285,7 @@ export class RowsSideEffectHandler {
 		for (const row of this.rows) {
 			if (isDelete) {
 				// Moving from delete to add keep the inverted rows + offset
-				let offset = map.map(row.from) - row.from;
+				const offset = map.map(row.from) - row.from;
 				invertedRows.push({
 					...row,
 					from: row.from + offset,

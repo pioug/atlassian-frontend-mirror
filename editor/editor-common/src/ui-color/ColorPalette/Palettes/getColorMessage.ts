@@ -4,7 +4,7 @@ export default function getColorMessage(
 	messages: Record<string | number, MessageDescriptor>,
 	color: string,
 ): MessageDescriptor | undefined {
-	let message = messages[color as keyof typeof messages];
+	const message = messages[color as keyof typeof messages];
 
 	if (!message) {
 		// eslint-disable-next-line no-console

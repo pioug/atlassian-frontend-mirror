@@ -183,7 +183,7 @@ function stackSpace(
 
 	while (candidates.length && amount) {
 		// search for most (or least) free space in candidates
-		let candidateIdx = findNextFreeColumn(candidates, amount);
+		const candidateIdx = findNextFreeColumn(candidates, amount);
 		if (candidateIdx === -1) {
 			// stack to the right -> growing the dragging column and go overflow
 			if (amount > 0) {

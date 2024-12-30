@@ -41,7 +41,7 @@ if (typeof navigator !== 'undefined') {
 		// eslint-disable-next-line require-unicode-regexp
 		/Windows|Win\d+/i.test(navigator.userAgent);
 
-	let ie = (result.ie = !!(ieUpTo10 || ie11up || ieEdge));
+	const ie = (result.ie = !!(ieUpTo10 || ie11up || ieEdge));
 	result.ie_version = ieUpTo10
 		? // Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

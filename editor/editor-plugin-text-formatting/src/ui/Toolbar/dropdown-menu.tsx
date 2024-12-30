@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import type { WrappedComponentProps } from 'react-intl-next';
 
@@ -15,7 +15,9 @@ import { type MenuIconItem, ToolbarType } from './types';
 type DropdownMenuProps = {
 	editorView: EditorView;
 	isReducedSpacing: boolean;
-	items: Array<MenuIconItem>;
+	items: {
+		items: MenuIconItem[];
+	}[];
 	moreButtonLabel: string;
 	hasFormattingActive: boolean;
 	popupsBoundariesElement?: HTMLElement;
@@ -41,14 +43,6 @@ export const FormattingTextDropdownMenu = React.memo(
 	}: DropdownMenuProps) => {
 		const [isMenuOpen, toggleMenu, closeMenu] = useMenuState();
 		const [isOpenedByKeyboard, setIsOpenedByKeyboard] = useState(false);
-		const group = useMemo(
-			() => [
-				{
-					items,
-				},
-			],
-			[items],
-		);
 		const onItemActivated = useCallback(
 			({ item, shouldCloseMenu = true }: { item: MenuIconItem; shouldCloseMenu: boolean }) => {
 				if (item) {
@@ -69,11 +63,12 @@ export const FormattingTextDropdownMenu = React.memo(
 				scrollableElement={popupsScrollableElement}
 				onItemActivated={onItemActivated}
 				isOpen={isMenuOpen}
-				items={group}
+				items={items}
 				zIndex={akEditorMenuZIndex}
 				fitHeight={188}
 				fitWidth={136}
 				shouldUseDefaultRole
+				section={{ hasSeparator: true }}
 				shouldFocusFirstItem={() => {
 					if (isOpenedByKeyboard) {
 						setIsOpenedByKeyboard(false);

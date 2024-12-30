@@ -66,7 +66,7 @@ export const toggleSort = (view: EditorView, event: Event, pluginState: TableSor
 	if (widget?.classList.contains(IS_DISABLED_CLASS_NAME) || !widget) {
 		return;
 	}
-	let dataSortIndex = target
+	const dataSortIndex = target
 		?.closest('.ProseMirror-widget')
 		?.getAttribute(SORT_INDEX_DATA_ATTRIBUTE);
 	const tr = view.state.tr;
@@ -82,6 +82,8 @@ export const toggleSort = (view: EditorView, event: Event, pluginState: TableSor
 		return;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line prefer-const
 	let { index, direction, order: oldOrder } = pluginState?.[tableId] || {};
 
 	// Unsort if there was already a sort

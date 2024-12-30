@@ -148,8 +148,8 @@ export const copyPreviousRow =
 			offsetNextLineIndexPosition + map.width,
 		);
 
-		let cells = [] as PMNode[];
-		let fixRowspans: { pos: number; node: PMNode }[] = [];
+		const cells = [] as PMNode[];
+		const fixRowspans: { pos: number; node: PMNode }[] = [];
 		for (let i = 0; i < cellsPositionsInOriginalRow.length; ) {
 			const pos = cellsPositionsInOriginalRow[i];
 			const documentCellPos = pos + table.start;

@@ -27,7 +27,6 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 			handleAuthorize,
 			handleErrorRetry,
 			handleFrameClick,
-			analytics,
 			isSelected,
 			frameStyle,
 			platform,
@@ -64,7 +63,6 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 						onResolve={onResolve}
 						renderers={renderers}
 						actionOptions={actionOptions}
-						analytics={analytics}
 						testId={testId ? `${testId}-resolving-view` : 'embed-card-resolving-view'}
 					/>
 				);
@@ -113,7 +111,6 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 							onResolve={onResolve}
 							renderers={renderers}
 							actionOptions={actionOptions}
-							analytics={analytics}
 							testId={testId}
 						/>
 					);
@@ -125,7 +122,6 @@ export const EmbedCard = React.forwardRef<HTMLIFrameElement, EmbedCardProps>(
 				const unauthorisedViewProps = extractEmbedProps(data, meta, platform);
 				return (
 					<UnauthorizedView
-						analytics={analytics}
 						context={unauthorisedViewProps.context}
 						extensionKey={extensionKey}
 						frameStyle={frameStyle}

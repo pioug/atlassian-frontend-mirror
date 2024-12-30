@@ -37,6 +37,11 @@ export function FloatingToolbarComponent({ api }: FloatingToolbarComponentProps)
 		[api],
 	);
 
+	const clearFormatting = useCallback(
+		() => api?.core?.actions.execute(api?.blockType?.commands?.clearFormatting()),
+		[api],
+	);
+
 	return (
 		<ToolbarBlockType
 			isSmall={FloatingToolbarSettings.isSmall}
@@ -47,6 +52,7 @@ export function FloatingToolbarComponent({ api }: FloatingToolbarComponentProps)
 			// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 			pluginState={blockTypeState!}
 			wrapBlockQuote={wrapBlockQuote}
+			clearFormatting={clearFormatting}
 			shouldUseDefaultRole={FloatingToolbarSettings.shouldUseDefaultRole}
 			api={api}
 		/>

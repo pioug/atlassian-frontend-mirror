@@ -155,7 +155,7 @@ const Grid = ({
 }: Props) => {
 	const editorMaxWidth = theme.layoutMaxWidth;
 
-	let gridLines = [
+	const gridLines = [
 		...lineLengthGridLines(highlight),
 		...gutterGridLines(editorMaxWidth, editorWidth, highlight, shouldCalcBreakoutGridLines),
 	];

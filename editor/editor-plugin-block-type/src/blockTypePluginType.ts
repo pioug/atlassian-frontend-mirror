@@ -28,6 +28,7 @@ export type BlockTypePlugin = NextEditorPlugin<
 				fromBlockQuote?: boolean,
 			) => EditorCommand;
 			insertBlockQuote: (inputMethod: InputMethod) => EditorCommand;
+			clearFormatting: () => EditorCommand;
 		};
 	}
 >;

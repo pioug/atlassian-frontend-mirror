@@ -399,7 +399,7 @@ export class TimelineController
 		this.lastIdleTime = idleTimeEvent;
 		this.idleCycleCount = 0; // Reset cycle count
 
-		for (let cb of this.onIdleBufferFlushCallbacks) {
+		for (const cb of this.onIdleBufferFlushCallbacks) {
 			backgroundTask(() =>
 				cb({
 					idleAt,
@@ -418,7 +418,7 @@ export class TimelineController
 
 	serialise() {
 		const result: EventsGroupedSerialized = [];
-		for (let [key, value] of this.eventsPerType.entries()) {
+		for (const [key, value] of this.eventsPerType.entries()) {
 			// TODO: maybe implement a proper clone?
 			const entry = [key, [...value]];
 

@@ -421,7 +421,7 @@ export const getDragMenuConfig = (
 		),
 	];
 
-	let allConfigs = [...restConfigs];
+	const allConfigs = [...restConfigs];
 	allConfigs.unshift(...sortConfigs);
 
 	return allConfigs.filter(Boolean) as DragMenuConfig[];

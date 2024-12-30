@@ -165,7 +165,7 @@ const getInlineNodes = (
 	nodes: PMNode[],
 	pos: number,
 ): { inlineNodes: SimplifiedNode[]; pos: number } => {
-	let inlineNodes: SimplifiedNode[] = nodes.map((node) => {
+	const inlineNodes: SimplifiedNode[] = nodes.map((node) => {
 		const { nodeSize } = node;
 		const inlineNode: SimplifiedNode = {
 			type: node.type.name,

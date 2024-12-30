@@ -35,7 +35,7 @@ export function convertListType({
 		return convertSelectedList({ tr, nextListNodeType });
 	}
 
-	let nodeRangeAroundList = $from.blockRange($to);
+	const nodeRangeAroundList = $from.blockRange($to);
 	if (!nodeRangeAroundList) {
 		return;
 	}

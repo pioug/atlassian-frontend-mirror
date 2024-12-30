@@ -257,7 +257,7 @@ export class CellSelection extends Selection {
 
 		// if anchor and head in the same line, counting how many cells
 		// should be in the row except merged cell
-		let maxColumnInSelectedRow = map.getMaxColInRow(this.$anchorCell);
+		const maxColumnInSelectedRow = map.getMaxColInRow(this.$anchorCell);
 
 		// if selected cells less than table max column amount, and
 		// the anchor/head not in a merged cell

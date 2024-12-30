@@ -8,7 +8,6 @@ import { type CardContext, useSmartLinkContext } from '@atlaskit/link-provider';
 import { APIError, type APIErrorKind } from '@atlaskit/linking-common';
 import { asMockFunction } from '@atlaskit/media-test-helpers/jestHelpers';
 
-import { useSmartLinkAnalytics } from '../../../state';
 import { mocks } from '../../../utils/mocks';
 import { type CardState } from '../../types';
 import { useSmartCardActions } from '../index';
@@ -33,7 +32,7 @@ describe('Smart Card: Actions', () => {
 		};
 	};
 	const mockState = (state: CardState) => {
-		(mockContext.store.getState as jest.Mock).mockImplementationOnce(() => ({
+		(mockContext.store.getState as jest.Mock).mockImplementation(() => ({
 			[url]: state,
 		}));
 	};
@@ -53,8 +52,7 @@ describe('Smart Card: Actions', () => {
 		it('dispatches pending action if card not in store', async () => {
 			mockFetchData(Promise.resolve(mocks.success));
 			const { result } = renderHook(() => {
-				const analytics = useSmartLinkAnalytics(url, id);
-				return useSmartCardActions(id, url, analytics);
+				return useSmartCardActions(id, url);
 			});
 			await result.current.register();
 
@@ -72,8 +70,7 @@ describe('Smart Card: Actions', () => {
 			});
 
 			const { result } = renderHook(() => {
-				const analytics = useSmartLinkAnalytics(url, id);
-				return useSmartCardActions(id, url, analytics);
+				return useSmartCardActions(id, url);
 			});
 			const promise = result.current.register();
 			await expect(promise).rejects.toThrow(Error);
@@ -103,8 +100,7 @@ describe('Smart Card: Actions', () => {
 			});
 
 			const { result } = renderHook(() => {
-				const analytics = useSmartLinkAnalytics(url, id);
-				return useSmartCardActions(id, url, analytics);
+				return useSmartCardActions(id, url);
 			});
 			await result.current.register();
 
@@ -126,8 +122,7 @@ describe('Smart Card: Actions', () => {
 			});
 
 			const { result } = renderHook(() => {
-				const analytics = useSmartLinkAnalytics(url, id);
-				return useSmartCardActions(id, url, analytics);
+				return useSmartCardActions(id, url);
 			});
 
 			result.current.reload();
@@ -145,8 +140,7 @@ describe('Smart Card: Actions', () => {
 			});
 
 			const { result } = renderHook(() => {
-				const analytics = useSmartLinkAnalytics(url, id);
-				return useSmartCardActions(id, url, analytics);
+				return useSmartCardActions(id, url);
 			});
 
 			result.current.reload();
@@ -173,8 +167,7 @@ describe('Smart Card: Actions', () => {
 			});
 
 			const { result } = renderHook(() => {
-				const analytics = useSmartLinkAnalytics(url, id);
-				return useSmartCardActions(id, url, analytics);
+				return useSmartCardActions(id, url);
 			});
 			const promise = result.current.register();
 			await expect(promise).resolves.toBeUndefined();
@@ -218,8 +211,7 @@ describe('Smart Card: Actions', () => {
 			});
 
 			const { result } = renderHook(() => {
-				const analytics = useSmartLinkAnalytics(url, id);
-				return useSmartCardActions(id, url, analytics);
+				return useSmartCardActions(id, url);
 			});
 
 			const promise = result.current.register();
@@ -250,8 +242,7 @@ describe('Smart Card: Actions', () => {
 			});
 
 			const { result } = renderHook(() => {
-				const analytics = useSmartLinkAnalytics(url, id);
-				return useSmartCardActions(id, url, analytics);
+				return useSmartCardActions(id, url);
 			});
 
 			const promise = result.current.register();
@@ -275,8 +266,7 @@ describe('Smart Card: Actions', () => {
 			});
 
 			const { result } = renderHook(() => {
-				const analytics = useSmartLinkAnalytics(url, id);
-				return useSmartCardActions(id, url, analytics);
+				return useSmartCardActions(id, url);
 			});
 
 			const promise = result.current.register();
@@ -305,8 +295,7 @@ describe('Smart Card: Actions', () => {
 			mockFetchData(Promise.resolve(mocks.success));
 
 			const { result } = renderHook(() => {
-				const analytics = useSmartLinkAnalytics(url, id);
-				return useSmartCardActions(id, url, analytics);
+				return useSmartCardActions(id, url);
 			});
 
 			const promise = result.current.loadMetadata();
@@ -346,8 +335,7 @@ describe('Smart Card: Actions', () => {
 				mockFetchData(Promise.reject(mockError));
 
 				const { result } = renderHook(() => {
-					const analytics = useSmartLinkAnalytics(url, id);
-					return useSmartCardActions(id, url, analytics);
+					return useSmartCardActions(id, url);
 				});
 
 				const promise = result.current.loadMetadata();
@@ -383,8 +371,7 @@ describe('Smart Card: Actions', () => {
 				mockFetchData(Promise.resolve(responseKind));
 
 				const { result } = renderHook(() => {
-					const analytics = useSmartLinkAnalytics(url, id);
-					return useSmartCardActions(id, url, analytics);
+					return useSmartCardActions(id, url);
 				});
 
 				const promise = result.current.loadMetadata();
@@ -413,8 +400,7 @@ describe('Smart Card: Actions', () => {
 			mockFetchData(Promise.resolve(undefined));
 
 			const { result } = renderHook(() => {
-				const analytics = useSmartLinkAnalytics(url, id);
-				return useSmartCardActions(id, url, analytics);
+				return useSmartCardActions(id, url);
 			});
 
 			const promise = result.current.loadMetadata();

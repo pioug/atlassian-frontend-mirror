@@ -7,7 +7,6 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { token } from '@atlaskit/tokens';
 
 import JiraPreviewImage from '../../examples/images/forbidden-jira.svg';
-import { type AnalyticsFacade } from '../../src/state/analytics/useSmartLinkAnalytics';
 import { BlockCard } from '../../src/view/BlockCard';
 import { getCardState, type GetCardStateProps } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
@@ -24,7 +23,6 @@ const getMetadata = (accessType?: string) => {
 };
 
 export const BlockCardForbiddenViews = () => {
-	const mockAnalytics = {} as AnalyticsFacade;
 	const mockUrl = 'https://some-url.com';
 	const commonState: GetCardStateProps = {
 		data: { url: mockUrl, image: JiraPreviewImage },
@@ -42,7 +40,6 @@ export const BlockCardForbiddenViews = () => {
 							cardState={getCardState(commonState)}
 							url={mockUrl}
 							handleAuthorize={() => {}}
-							analytics={mockAnalytics}
 							handleFrameClick={() => {}}
 							id={'12344'}
 							testId={'default-forbidden-view'}
@@ -55,7 +52,6 @@ export const BlockCardForbiddenViews = () => {
 							})}
 							url={mockUrl}
 							handleAuthorize={() => {}}
-							analytics={mockAnalytics}
 							handleFrameClick={() => {}}
 							id={'12344'}
 							testId={'direct-access-forbidden-view'}
@@ -68,7 +64,6 @@ export const BlockCardForbiddenViews = () => {
 							})}
 							url={mockUrl}
 							handleAuthorize={() => {}}
-							analytics={mockAnalytics}
 							handleFrameClick={() => {}}
 							id={'12344'}
 							testId={'request-access-forbidden-view'}
@@ -81,7 +76,6 @@ export const BlockCardForbiddenViews = () => {
 							})}
 							url={mockUrl}
 							handleAuthorize={() => {}}
-							analytics={mockAnalytics}
 							handleFrameClick={() => {}}
 							id={'12344'}
 							testId={'pending-request-forbidden-view'}
@@ -94,7 +88,6 @@ export const BlockCardForbiddenViews = () => {
 							})}
 							url={mockUrl}
 							handleAuthorize={() => {}}
-							analytics={mockAnalytics}
 							handleFrameClick={() => {}}
 							id={'12344'}
 							testId={'forbidden-forbidden-view'}
@@ -107,7 +100,6 @@ export const BlockCardForbiddenViews = () => {
 							})}
 							url={mockUrl}
 							handleAuthorize={() => {}}
-							analytics={mockAnalytics}
 							handleFrameClick={() => {}}
 							id={'12344'}
 							testId={'denied-request-forbidden-view'}

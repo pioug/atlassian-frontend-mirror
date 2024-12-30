@@ -35,7 +35,6 @@ export function createLinkInputRule(
 			return null;
 		}
 		const link = match as unknown as Match;
-		let url: string;
 
 		// Property 'url' does not exist on type 'RegExpExecArray', the type of `match`.
 		// This check is in case the match is not a Linkify match, which has a url property.
@@ -47,7 +46,7 @@ export function createLinkInputRule(
 			return null;
 		}
 
-		url = normalizeUrl(link.url);
+		const url: string = normalizeUrl(link.url);
 
 		// Not previously handled; don't create a link if the URL is empty.
 		// This will only happen if the `regexp` matches more links than the normalizeUrl validation;

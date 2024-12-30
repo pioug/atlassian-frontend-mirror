@@ -266,7 +266,7 @@ export class ExpandNodeView implements NodeView {
 			return;
 		}
 
-		let { __expanded } = (node && node.attrs) || this.node.attrs;
+		const { __expanded } = (node && node.attrs) || this.node.attrs;
 
 		if (fg('platform_editor_react18_plugin_portalprovider')) {
 			this.nodeViewPortalProviderAPI.render(

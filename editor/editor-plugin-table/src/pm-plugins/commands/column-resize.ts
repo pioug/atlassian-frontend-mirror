@@ -382,7 +382,7 @@ export const changeColumnWidthByStep =
 			isTableScalingEnabled && isCommentEditor && !originalTable.attrs?.width
 				? getScalingPercentForTableWithoutWidth(originalTable, dom)
 				: getTableScalingPercent(originalTable, dom, shouldUseIncreasedScalingPercent);
-		let newResizeState = resizeColumn(
+		const newResizeState = resizeColumn(
 			initialResizeState,
 			colIndex,
 			stepSize,

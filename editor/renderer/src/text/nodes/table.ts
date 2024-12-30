@@ -12,7 +12,7 @@ const table: NodeReducer = (node: PMNode, schema: Schema) => {
 
 const tableRow: NodeReducer = (node: PMNode, schema: Schema): string => {
 	const result: string[] = [];
-	let separator: string = '|';
+	const separator: string = '|';
 	node.forEach((n) => {
 		result.push(tableCell(n, schema));
 	});

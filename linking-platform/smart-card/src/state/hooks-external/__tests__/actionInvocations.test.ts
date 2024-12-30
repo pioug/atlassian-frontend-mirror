@@ -1,7 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 
 import {
-	TEST_NAME,
 	TEST_RESPONSE_WITH_DOWNLOAD,
 	TEST_RESPONSE_WITH_PREVIEW,
 	TEST_RESPONSE_WITH_VIEW,
@@ -19,10 +18,6 @@ const origin = 'smartLinkCard';
 
 jest.mock('../../store', () => ({
 	useSmartCardState: jest.fn(),
-}));
-
-jest.mock('../../analytics', () => ({
-	useSmartLinkAnalytics: jest.fn(),
 }));
 
 // used directly by refactored hook
@@ -93,27 +88,36 @@ describe('actions', () => {
 
 		jest.mocked(useSmartCardState).mockReturnValueOnce(state);
 		const { result } = renderHook(() => useSmartLinkActions({ url, appearance, origin }));
-
 		const previewAction = result.current?.[0];
 		await previewAction?.invoke();
 
-		expect(openEmbedModal).toHaveBeenCalledWith({
-			analytics: undefined,
-			download: undefined,
-			extensionKey: 'object-provider',
-			linkIcon: expect.objectContaining({
+		expect(openEmbedModal).toHaveBeenCalledWith(
+			expect.objectContaining({
+				extensionKey: 'object-provider',
+				invokeDownloadAction: undefined,
+				invokeViewAction: expect.objectContaining({
+					actionFn: expect.any(Function),
+					actionSubjectId: 'shortcutGoToLink',
+					actionType: 'ViewAction',
+					definitionId: undefined,
+					display: 'block',
+					extensionKey: 'object-provider',
+					resourceType: undefined,
+				}),
+				isSupportTheming: false,
+				isTrusted: true,
+				linkIcon: {
+					label: 'my name',
+					url: TEST_URL,
+					render: undefined,
+				},
+				providerName: undefined,
+				onClose: undefined,
+				origin: 'smartLinkCard',
+				src: TEST_URL,
+				title: 'my name',
 				url: TEST_URL,
 			}),
-			isSupportTheming: false,
-			isTrusted: true,
-			onClose: expect.any(Function),
-			origin,
-			providerName: undefined,
-			showModal: true,
-			src: TEST_URL,
-			testId: undefined,
-			title: TEST_NAME,
-			url: TEST_URL,
-		});
+		);
 	});
 });

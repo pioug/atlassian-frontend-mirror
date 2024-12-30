@@ -20,7 +20,7 @@ export const shouldKeepInviteItem = (query: string, firstQueryWithoutResults: st
 	if (!firstQueryWithoutResults) {
 		return true;
 	}
-	let lastIndexWithResults = firstQueryWithoutResults.length - 1;
+	const lastIndexWithResults = firstQueryWithoutResults.length - 1;
 	let suffix = query.slice(lastIndexWithResults);
 	if (query[lastIndexWithResults - 1] === ' ') {
 		suffix = ' ' + suffix;

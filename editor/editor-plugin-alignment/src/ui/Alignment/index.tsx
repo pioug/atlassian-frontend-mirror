@@ -23,11 +23,8 @@ export interface Props {
 	className?: string;
 }
 
-let alignCenterKeyboardShortcut;
-let alignRightKeyboardShortcut;
-
-alignCenterKeyboardShortcut = alignCenter;
-alignRightKeyboardShortcut = alignRight;
+const alignCenterKeyboardShortcut = alignCenter;
+const alignRightKeyboardShortcut = alignRight;
 
 const alignmentOptions: Array<{
 	title: MessageDescriptor;

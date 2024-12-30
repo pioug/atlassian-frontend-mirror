@@ -21,7 +21,7 @@ export default function cellSizeAndPositionGetter(
 	 * Save the currently rendered columnY positions.
 	 * Have to be within the current render scope.
 	 */
-	let columnYMap: number[] = [];
+	const columnYMap: number[] = [];
 	return ({ index }): CollectionCellSizeAndPosition => {
 		const { columnCount, availableWidth } = generateVirtualizedContainerDatum(containerWidth, {
 			gutterSize: GUTTER_SIZE,

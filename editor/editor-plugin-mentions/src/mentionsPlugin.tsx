@@ -18,7 +18,7 @@ import { SecondaryToolbarComponent } from './ui/SecondaryToolbarComponent';
 import { createTypeAheadConfig } from './ui/type-ahead';
 
 const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
-	let sessionId = uuid();
+	const sessionId = uuid();
 	const fireEvent: FireElementsChannelEvent = (
 		payload: AnalyticsEventPayload,
 		channel?: string,

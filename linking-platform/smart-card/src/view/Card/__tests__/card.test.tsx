@@ -11,9 +11,7 @@ import { CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provid
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import { APIError } from '@atlaskit/linking-common';
 import { Box } from '@atlaskit/primitives';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import * as analytics from '../../../utils/analytics';
 import { fakeFactory, mocks } from '../../../utils/mocks';
 import { Card } from '../../Card';
 
@@ -44,100 +42,66 @@ describe('smart-card: card', () => {
 	});
 
 	describe('unhandled errors', () => {
-		describe('are not thrown and onError method is called', () => {
-			ffTest(
-				'platform-smart-card-migrate-embed-modal-analytics',
-				async () => {
-					const mockErrorHandler = jest.fn();
-					render(
-						<FabricAnalyticsListeners client={mockAnalyticsClient}>
-							<Provider client={mockClient}>
-								<Box>
-									Hello I am parent of card
-									<Card
-										appearance="block"
-										url={mockUrl}
-										onResolve={() => {
-											throw new Error('unexpected error');
-										}}
-										onError={mockErrorHandler}
-									/>
-								</Box>
-							</Provider>
-						</FabricAnalyticsListeners>,
-					);
-					await waitFor(() => expect(mockErrorHandler).toHaveBeenCalledTimes(1));
-					const parent = await screen.findByText('Hello I am parent of card');
-					expect(parent).toBeTruthy();
-					expect(mockErrorHandler).toHaveBeenCalledWith({
-						status: 'errored',
-						url: mockUrl,
-						err: expect.objectContaining({
-							message: 'unexpected error',
-						}),
-					});
+		it('are not thrown and onError method is called', async () => {
+			const mockErrorHandler = jest.fn();
+			render(
+				<FabricAnalyticsListeners client={mockAnalyticsClient}>
+					<Provider client={mockClient}>
+						<Box>
+							Hello I am parent of card
+							<Card
+								appearance="block"
+								url={mockUrl}
+								onResolve={() => {
+									throw new Error('unexpected error');
+								}}
+								onError={mockErrorHandler}
+							/>
+						</Box>
+					</Provider>
+				</FabricAnalyticsListeners>,
+			);
+			await waitFor(() => expect(mockErrorHandler).toHaveBeenCalledTimes(1));
+			const parent = await screen.findByText('Hello I am parent of card');
+			expect(parent).toBeTruthy();
+			expect(mockErrorHandler).toHaveBeenCalledWith({
+				status: 'errored',
+				url: mockUrl,
+				err: expect.objectContaining({
+					message: 'unexpected error',
+				}),
+			});
 
-					expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
-						expect.objectContaining({
-							actionSubject: 'smartLink',
-							action: 'renderFailed',
-							attributes: expect.objectContaining({
-								error: new Error('unexpected error'),
-								errorInfo: expect.any(Object),
-								canBeDatasource: false,
-								componentName: 'smart-cards',
-								definitionId: null,
-								destinationActivationId: null,
-								destinationCategory: null,
-								destinationContainerId: null,
-								destinationObjectId: null,
-								destinationObjectType: null,
-								destinationProduct: null,
-								destinationSubproduct: null,
-								destinationTenantId: null,
-								display: 'block',
-								displayCategory: 'smartLink',
-								extensionKey: null,
-								id: expect.any(String),
-								listenerVersion: expect.any(String),
-								packageName: expect.any(String),
-								packageVersion: expect.any(String),
-								resourceType: null,
-								status: 'pending',
-								statusDetails: null,
-							}),
-						}),
-					);
-				},
-				async () => {
-					const mockErrorHandler = jest.fn();
-					render(
-						<Provider client={mockClient}>
-							<div>
-								Hello I am parent of card
-								<Card
-									appearance="block"
-									url={mockUrl}
-									onResolve={() => {
-										throw new Error('unexpected error');
-									}}
-									onError={mockErrorHandler}
-								/>
-							</div>
-						</Provider>,
-					);
-					await waitFor(() => expect(mockErrorHandler).toHaveBeenCalledTimes(1));
-					const parent = await screen.findByText('Hello I am parent of card');
-					expect(parent).toBeTruthy();
-					expect(mockErrorHandler).toHaveBeenCalledWith({
-						status: 'errored',
-						url: mockUrl,
-						err: expect.objectContaining({
-							message: 'unexpected error',
-						}),
-					});
-					expect(analytics.uiRenderFailedEvent).toHaveBeenCalledTimes(1);
-				},
+			expect(mockAnalyticsClient.sendUIEvent).toHaveBeenCalledWith(
+				expect.objectContaining({
+					actionSubject: 'smartLink',
+					action: 'renderFailed',
+					attributes: expect.objectContaining({
+						error: new Error('unexpected error'),
+						errorInfo: expect.any(Object),
+						canBeDatasource: false,
+						componentName: 'smart-cards',
+						definitionId: null,
+						destinationActivationId: null,
+						destinationCategory: null,
+						destinationContainerId: null,
+						destinationObjectId: null,
+						destinationObjectType: null,
+						destinationProduct: null,
+						destinationSubproduct: null,
+						destinationTenantId: null,
+						display: 'block',
+						displayCategory: 'smartLink',
+						extensionKey: null,
+						id: expect.any(String),
+						listenerVersion: expect.any(String),
+						packageName: expect.any(String),
+						packageVersion: expect.any(String),
+						resourceType: null,
+						status: 'pending',
+						statusDetails: null,
+					}),
+				}),
 			);
 		});
 

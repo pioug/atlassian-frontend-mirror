@@ -21,7 +21,7 @@ export default function OrderedList(props: {
 	content?: Node[];
 	children: React.ReactNode;
 }) {
-	let extraProps: ExtraProps = {};
+	const extraProps: ExtraProps = {};
 
 	const itemCounterDigitsSize = getItemCounterDigitsSize({
 		order: props.order,

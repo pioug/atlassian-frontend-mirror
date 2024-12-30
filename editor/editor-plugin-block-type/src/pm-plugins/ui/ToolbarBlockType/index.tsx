@@ -9,26 +9,30 @@ import { jsx } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
-import {
-	findKeymapByDescription,
-	getAriaKeyshortcuts,
-	tooltip,
-} from '@atlaskit/editor-common/keymaps';
+import { findKeymapByDescription, tooltip, clearFormatting } from '@atlaskit/editor-common/keymaps';
+import { toolbarMessages } from '@atlaskit/editor-common/messages';
 import { separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import { DropdownMenuWithKeyboardNavigation as DropdownMenu } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { ThemeMutationObserver } from '@atlaskit/tokens';
 
 import type { BlockTypePlugin } from '../../../blockTypePluginType';
 import type { TextBlockTypes } from '../../block-types';
+import { NORMAL_TEXT } from '../../block-types';
 import type { BlockTypeState } from '../../main';
 import type { BlockType } from '../../types';
 
 import { BlockTypeButton } from './blocktype-button';
-import { blockTypeMenuItemStyle, keyboardShortcut, keyboardShortcutSelect } from './styled';
+import {
+	blockTypeMenuItemStyle,
+	keyboardShortcut,
+	keyboardShortcutSelect,
+	floatingToolbarWrapperStyle,
+} from './styled';
 
 export type DropdownItem = MenuItem & {
 	value: BlockType;
@@ -45,6 +49,7 @@ export interface Props {
 	editorView?: EditorView;
 	setTextLevel: (type: TextBlockTypes, fromBlockQuote?: boolean) => void;
 	wrapBlockQuote: (type: TextBlockTypes) => void;
+	clearFormatting: () => void;
 	shouldUseDefaultRole?: boolean;
 	api: ExtractInjectionAPI<BlockTypePlugin> | undefined;
 }
@@ -130,11 +135,18 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			.filter((blockType) => blockType.name === currentBlockType.name)
 			.map((blockType) => blockType.title);
 
-		if (!this.props.isDisabled && (!blockTypesDisabled || currentBlockType.name === 'blockquote')) {
+		if (!this.props.isDisabled && !blockTypesDisabled) {
 			const items = this.createItems();
 			return (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				<span css={wrapperStyle}>
+				<span
+					css={
+						editorExperiment('platform_editor_blockquote_in_text_formatting_menu', true)
+							? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								[wrapperStyle, floatingToolbarWrapperStyle]
+							: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+								wrapperStyle
+					}
+				>
 					<DropdownMenu
 						items={items}
 						onOpenChange={this.onOpenChange}
@@ -146,7 +158,9 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 						zIndex={akEditorMenuZIndex}
 						fitHeight={360}
 						fitWidth={106}
+						section={{ hasSeparator: true }}
 						shouldUseDefaultRole={shouldUseDefaultRole}
+						// hasSeparator={true}
 						shouldFocusFirstItem={() => {
 							if (isOpenedByKeyboard) {
 								// eslint-disable-next-line @repo/internal/react/no-set-state-inside-render
@@ -225,7 +239,8 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 		const {
 			intl: { formatMessage },
 		} = this.props;
-		const { currentBlockType, availableBlockTypesInDropdown } = this.props.pluginState;
+		const { currentBlockType, availableBlockTypesInDropdown, formattingIsPresent } =
+			this.props.pluginState;
 
 		const items: MenuItem[] = availableBlockTypesInDropdown.map((blockType, index) => {
 			const isActive = currentBlockType === blockType;
@@ -233,7 +248,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			const Tag = tagName as keyof React.ReactHTML;
 			const keyMap = findKeymapByDescription(blockType.title.defaultMessage as string);
 
-			return {
+			const item: MenuItem = {
 				content: (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<div css={blockTypeMenuItemStyle(tagName, isActive, this.state.typographyTheme)}>
@@ -241,9 +256,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 					</div>
 				),
 				value: blockType,
-				label: formatMessage(blockType.title),
 				'aria-label': tooltip(keyMap, formatMessage(blockType.title)),
-				keyShortcuts: getAriaKeyshortcuts(keyMap),
 				key: `${blockType.name}-${index}`,
 				elemAfter: (
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
@@ -251,7 +264,38 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 				),
 				isActive,
 			};
+
+			return item;
 		});
+
+		if (availableBlockTypesInDropdown.map((blockType) => blockType.name).includes('blockquote')) {
+			const clearFormattingItem: MenuItem = {
+				content: (
+					<div>
+						<p>{toolbarMessages.clearFormatting.defaultMessage}</p>
+					</div>
+				),
+				value: {
+					name: 'clearFormatting',
+				},
+				'aria-label': tooltip(clearFormatting, toolbarMessages.clearFormatting.defaultMessage),
+				key: 'clear-formatting',
+				elemAfter: (
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					<div css={[keyboardShortcut]}>{tooltip(clearFormatting)}</div>
+				),
+				isActive: false,
+				isDisabled: currentBlockType === NORMAL_TEXT && !formattingIsPresent,
+			};
+			return [
+				{
+					items,
+				},
+				{
+					items: [clearFormattingItem],
+				},
+			];
+		}
 
 		return [
 			{
@@ -271,8 +315,12 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 		if (blockType.name === 'blockquote') {
 			this.props.wrapBlockQuote(blockType.name as TextBlockTypes);
 		} else {
-			const fromBlockQuote = this.props.pluginState.currentBlockType.name === 'blockquote';
-			this.props.setTextLevel(blockType.name as TextBlockTypes, fromBlockQuote);
+			if (blockType.name === 'clearFormatting') {
+				this.props.clearFormatting();
+			} else {
+				const fromBlockQuote = this.props.pluginState.currentBlockType.name === 'blockquote';
+				this.props.setTextLevel(blockType.name as TextBlockTypes, fromBlockQuote);
+			}
 		}
 		if (shouldCloseMenu) {
 			this.setState({ ...this.state, active: false });

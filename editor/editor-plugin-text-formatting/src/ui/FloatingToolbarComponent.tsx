@@ -62,18 +62,22 @@ const FloatingToolbarTextFormat = ({
 		toolbarType: FloatingToolbarSettings.toolbarType,
 	});
 
-	const items: Array<MenuIconItem | null> = useMemo(() => {
+	const items = useMemo(() => {
 		if (!clearIcon) {
-			return defaultIcons;
+			return [{ items: defaultIcons }];
 		}
 
-		return [...defaultIcons, clearIcon];
+		return [{ items: defaultIcons }, { items: [clearIcon] }];
 	}, [clearIcon, defaultIcons]);
 
 	return (
 		<FormattingTextDropdownMenu
 			editorView={editorView}
-			items={items as MenuIconItem[]}
+			items={
+				items as {
+					items: MenuIconItem[];
+				}[]
+			}
 			isReducedSpacing={FloatingToolbarSettings.isReducedSpacing}
 			moreButtonLabel={FloatingToolbarSettings.moreButtonLabel}
 			hasFormattingActive={FloatingToolbarSettings.hasMoreButton}

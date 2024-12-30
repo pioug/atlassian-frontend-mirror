@@ -33,6 +33,8 @@ const handleDocChanged = (
 		return pluginState;
 	}
 
+	// Ignored via go/ees005
+	// eslint-disable-next-line prefer-const
 	let { index, decorationSet, matches, shouldMatchCase } = pluginState;
 	const newMatches = findMatches(tr.doc, findText, shouldMatchCase);
 	decorationSet = decorationSet.map(tr.mapping, tr.doc);

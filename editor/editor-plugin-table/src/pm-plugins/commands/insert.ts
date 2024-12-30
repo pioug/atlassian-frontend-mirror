@@ -134,7 +134,7 @@ export const addColumnBefore =
 			return false;
 		}
 		if (dispatch) {
-			let rect = selectedRect(state);
+			const rect = selectedRect(state);
 			dispatch(
 				addColumnAt(
 					api,
@@ -171,7 +171,7 @@ export const addColumnAfter =
 		}
 
 		if (dispatch) {
-			let rect = selectedRect(state);
+			const rect = selectedRect(state);
 			dispatch(
 				addColumnAt(
 					api,
@@ -201,7 +201,7 @@ export const insertColumn =
 	) =>
 	(column: number): Command =>
 	(state, dispatch, view) => {
-		let tr = addColumnAt(
+		const tr = addColumnAt(
 			api,
 			isTableScalingEnabled,
 			isTableFixedColumnWidthsOptionEnabled,

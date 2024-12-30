@@ -13,7 +13,6 @@ import { useSmartLinkContext } from '@atlaskit/link-provider';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
-import { useSmartLinkAnalytics } from '../../../state/analytics';
 import { getDefinitionId, getExtensionKey, getServices } from '../../../state/helpers';
 import { useSmartCardState } from '../../../state/store';
 import { type CardState } from '../../../state/types';
@@ -36,7 +35,6 @@ export const hoverCardClassName = 'smart-links-hover-preview';
 
 const HoverCardContent = ({
 	id = '',
-	analytics: _analytics,
 	cardState,
 	onActionClick,
 	onResolve,
@@ -48,8 +46,6 @@ const HoverCardContent = ({
 }: HoverCardContentProps) => {
 	const { createAnalyticsEvent } = useAnalyticsEventsNext();
 	const { fireEvent } = useAnalyticsEvents();
-	const defaultAnalytics = useSmartLinkAnalytics(url, id);
-	const analytics = _analytics ?? defaultAnalytics;
 	const extensionKey = useMemo(() => getExtensionKey(cardState.details), [cardState.details]);
 	const linkState = useSmartCardState(url);
 	const linkStatus = linkState.status ?? 'pending';
@@ -141,7 +137,6 @@ const HoverCardContent = ({
 		ui: flexibleUiOptions,
 		url: url,
 		children: null,
-		analytics,
 	};
 
 	const onClickStopPropagation = useCallback((e: any) => e.stopPropagation(), []);
@@ -159,7 +154,6 @@ const HoverCardContent = ({
 		if (cardState.status === 'unauthorized' && services?.length) {
 			return (
 				<HoverCardUnauthorisedView
-					analytics={analytics}
 					extensionKey={extensionKey}
 					id={id}
 					flexibleCardProps={flexibleCardProps}
@@ -175,7 +169,6 @@ const HoverCardContent = ({
 		if (cardState.status === 'resolved') {
 			return (
 				<HoverCardResolvedView
-					analytics={analytics}
 					cardState={cardState}
 					extensionKey={extensionKey}
 					flexibleCardProps={flexibleCardProps}

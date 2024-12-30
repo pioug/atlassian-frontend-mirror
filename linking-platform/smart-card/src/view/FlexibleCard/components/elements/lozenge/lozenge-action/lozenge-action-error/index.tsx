@@ -10,16 +10,13 @@ import { FormattedMessage } from 'react-intl-next';
 
 import { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { R50, R500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../../../../../messages';
-import { useFlexibleUiAnalyticsContext } from '../../../../../../../state/flexible-ui-context';
 import useInvokeClientAction from '../../../../../../../state/hooks/use-invoke-client-action';
-import useResolve from '../../../../../../../state/hooks/use-resolve';
-import { getFormattedMessage, openEmbedModalWithFlexibleUiIcon } from '../../../../utils';
+import { getFormattedMessage } from '../../../../utils';
 
 import { contentStyles, dropdownItemGroupStyles, linkStyles, textStyles } from './styled';
 import type { LozengeActionErrorProps } from './types';
@@ -31,47 +28,20 @@ const LozengeActionError = ({
 	testId,
 	maxLineNumber = MAX_LINE_NUMBER,
 	invokePreviewAction,
-	url,
-	previewData,
 }: LozengeActionErrorProps) => {
 	const { fireEvent } = useAnalyticsEvents();
-	const reload = useResolve();
-	const analytics = useFlexibleUiAnalyticsContext();
 	const invoke = useInvokeClientAction({});
 
-	const isPreviewAvailable = fg('platform-smart-card-migrate-embed-modal-analytics')
-		? invokePreviewAction !== undefined
-		: previewData && previewData.src !== undefined;
-
-	const handlePreviewClose = useCallback(() => {
-		if (url) {
-			reload(url, true);
-		}
-	}, [reload, url]);
+	const isPreviewAvailable = invokePreviewAction !== undefined;
 
 	const handlePreviewOpen = useCallback(() => {
 		if (isPreviewAvailable) {
 			fireEvent('ui.button.clicked.smartLinkStatusOpenPreview', {});
-
-			if (fg('platform-smart-card-migrate-embed-modal-analytics')) {
-				invokePreviewAction && invoke(invokePreviewAction);
-			} else {
-				return openEmbedModalWithFlexibleUiIcon({
-					...previewData,
-					analytics,
-					onClose: handlePreviewClose,
-				});
+			if (invokePreviewAction) {
+				invoke(invokePreviewAction);
 			}
 		}
-	}, [
-		analytics,
-		handlePreviewClose,
-		isPreviewAvailable,
-		invoke,
-		invokePreviewAction,
-		previewData,
-		fireEvent,
-	]);
+	}, [isPreviewAvailable, invoke, invokePreviewAction, fireEvent]);
 
 	const content = useMemo(() => {
 		return (

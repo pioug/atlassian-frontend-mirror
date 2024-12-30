@@ -3,6 +3,8 @@ order: 0
 ---
 
 import SectionMessage from '@atlaskit/section-message';
+import CssMapExample from '../../examples/constellation/css-map';
+import UnboundedExample from '../../examples/constellation/unbounded';
 
 <SectionMessage title="Migration from Emotion to Compiled" appearance="discovery">
 	<p>
@@ -40,38 +42,18 @@ set of numeric values.
 ### cssMap
 
 We recommend using `cssMap` to create style maps. These maps can be applied and reused on both
-native elements and React components using `props.css` and `props.xcss`.
+native elements and React components using `props.css` and `props.xcss` respectively.
 
-```tsx
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { cssMap } from '@atlaskit/css';
-const styles = cssMap({
-	root: { display: 'inline-block' },
-	primary: {
-		backgroundColor: token('color.background.brand.bold'),
-		color: token('color.text.inverse'),
-	},
-	discovery: {
-		backgroundColor: token('color.background.discovery.bold'),
-		color: token('color.text.inverse'),
-	},
-	success: {
-		backgroundColor: token('color.background.success.bold'),
-		color: token('color.text.inverse'),
-	},
-	disabled: { opacity: 0.7, cursor: 'not-allowed' },
-});
-export default ({
-	appearance = 'primary',
-	isDisabled,
-}: {
-	appearance?: 'primary' | 'discovery' | 'success';
-	isDisabled?: boolean;
-}) => <div css={(styles.root, styles[appearance], isDisabled && styles.disabled)} />;
-```
+Make sure to define the styles before using them in your components, i.e. at the top of the file.
+
+<Example Component={CssMapExample} packageName="@atlaskit/css" />
+
+### Primitives
+
+When using `@atlaskit/css`, it's important to note that it's not compatible with the Emotion variant
+of Primitives. Instead, use the Compiled variant of Primitives, available at
+`@atlaskit/primitives/compiled`. The Compiled variant is a drop-in replacement that provides the
+same components and APIs you're familiar with.
 
 ### cx
 
@@ -102,28 +84,14 @@ const styles = cssMap({
 	root: {
 		padding: token('space.100'),
 		color: token('color.text'),
-		backgroundColor: token('elevation.surface'),
 	},
-	compact: { padding: token('space.50') },
-	transparent: { backgroundColor: 'transparent' },
+	compact: { padding: token('space.050') },
 });
 
-export default ({
-	spacing = 'default',
-	noBackground,
-}: {
-	spacing: 'compact' | 'default';
-	noBackground?: boolean;
-}) => {
+export default ({ spacing = 'default' }: { spacing: 'compact' | 'default' }) => {
 	return (
-		<Box
-			xcss={cx(
-				styles.root,
-				spacing === 'compact' && styles.compact,
-				noBackground && styles.transparent,
-			)}
-		>
-			<p css={[styles.compact, styles.transparent]}>Hello world!</p>
+		<Box xcss={cx(styles.root, spacing === 'compact' && styles.compact)}>
+			<p css={[styles.compact]}>Hello world!</p>
 		</Box>
 	);
 };
@@ -144,7 +112,7 @@ you can do so:
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { cssMap, cx, jsx, type StrictXCSSProp } from '@atlaskit/css';
+import { cssMap, jsx, type StrictXCSSProp } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
@@ -165,7 +133,7 @@ export function Card({
 	>;
 }) {
 	return (
-		<div css={cx(styles.button, isDense && styles.dense)} className={xcss}>
+		<div css={[styles.button, isDense && styles.dense]} className={xcss}>
 			{children}
 		</div>
 	);
@@ -210,22 +178,29 @@ Primitive, the first `Card` component would look a bit different, brief example:
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { cssMap, cx, jsx, type StrictXCSSProp } from '@atlaskit/css';
-import { Box } from '@atlaskit/primitives/compiled';
+import { cssMap, jsx, type StrictXCSSProp } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	button: { padding: token('space.100'), borderRadius: token('border.radius.100') },
+	dense: { padding: token('space.050'), borderRadius: token('border.radius.050') },
 });
 
 export function Card({
 	children,
 	xcss,
+	isDense,
 }: {
 	children: React.ReactNode;
-	xcss?: StrictXCSSProp<'padding' | 'borderRadius'>;
+	isDense?: boolean;
+	xcss?: StrictXCSSProp<'padding' | 'borderRadius', never>;
 }) {
-	return <Box xcss={cx(styles.button, xcss)}>{children}</Box>;
+	return (
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- required with `xcss`
+		<div css={[styles.button, isDense && styles.dense]} className={xcss}>
+			{children}
+		</div>
+	);
 }
 ```
 
@@ -237,37 +212,7 @@ Note that this won't work on primitive components. While it's best to stick to t
 guidelines, this option can be useful for handling specific edge cases. Please note this isn't
 recommended for general use.
 
-```tsx
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { cssMap } from '@compiled/react';
-
-import { jsx } from '@atlaskit/css';
-import { token } from '@atlaskit/tokens';
-
-const unboundedStyles = cssMap({
-	container: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-		'&:first-child': {
-			paddingBlockEnd: token('space.150'),
-		},
-		'@media (min-width: 48rem)': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
-			'&:first-child': {
-				paddingBlockStart: token('space.400'),
-			},
-		},
-	},
-});
-
-const Container = ({ children, testId }: ContainerProps) => (
-	<div css={unboundedStyles.container} data-testid={testId}>
-		{children}
-	</div>
-);
-```
+<Example Component={UnboundedExample} packageName="@atlaskit/css" />
 
 ## Configuration required
 

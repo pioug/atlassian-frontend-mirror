@@ -113,7 +113,7 @@ const moveRowInArrayOfRows = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/max-params
 ): ArrayOfRows => {
-	let direction = indexesOrigin[0] > indexesTarget[0] ? -1 : 1;
+	const direction = indexesOrigin[0] > indexesTarget[0] ? -1 : 1;
 
 	const rowsExtracted = arrayOfNodes.splice(indexesOrigin[0], indexesOrigin.length);
 	const positionOffset = rowsExtracted.length % 2 === 0 ? 1 : 0;

@@ -20,6 +20,13 @@ import { CellSelection } from '@atlaskit/editor-tables';
 import type { TextBlockTypes } from '../block-types';
 import { HEADINGS_BY_NAME, NORMAL_TEXT } from '../block-types';
 
+import {
+	FORMATTING_NODE_TYPES,
+	FORMATTING_MARK_TYPES,
+	cellSelectionNodesBetween,
+	formatTypes,
+	clearNodeFormattingOnSelection,
+} from './clear-formatting';
 import { wrapSelectionInBlockType } from './wrapSelectionIn';
 
 export type InputMethod =
@@ -140,6 +147,77 @@ export function setNormalText(fromBlockQuote?: boolean): EditorCommand {
 	};
 }
 
+export function clearFormatting(): EditorCommand {
+	return function ({ tr }) {
+		const formattingCleared: string[] = [];
+		const schema = tr.doc.type.schema;
+
+		FORMATTING_MARK_TYPES.forEach((mark) => {
+			const { from, to } = tr.selection;
+			const markType = schema.marks[mark];
+
+			if (!markType) {
+				return;
+			}
+
+			if (tr.selection instanceof CellSelection) {
+				cellSelectionNodesBetween(tr.selection, tr.doc, (node, pos): boolean => {
+					const isTableCell =
+						node.type === schema.nodes.tableCell || node.type === schema.nodes.tableHeader;
+
+					if (!isTableCell) {
+						return true;
+					}
+
+					if (tr.doc.rangeHasMark(pos, pos + node.nodeSize, markType)) {
+						formattingCleared.push(formatTypes[mark]);
+						tr.removeMark(pos, pos + node.nodeSize, markType);
+					}
+
+					return false;
+				});
+			} else if (tr.doc.rangeHasMark(from, to, markType)) {
+				formattingCleared.push(formatTypes[mark]);
+				tr.removeMark(from, to, markType);
+			}
+		});
+
+		FORMATTING_NODE_TYPES.forEach((nodeName) => {
+			const formattedNodeType = schema.nodes[nodeName];
+			const { $from, $to } = tr.selection;
+			if (tr.selection instanceof CellSelection) {
+				cellSelectionNodesBetween(
+					tr.selection,
+					tr.doc,
+					clearNodeFormattingOnSelection(
+						schema,
+						tr,
+						formattedNodeType,
+						nodeName,
+						formattingCleared,
+					),
+				);
+			} else {
+				tr.doc.nodesBetween(
+					$from.pos,
+					$to.pos,
+					clearNodeFormattingOnSelection(
+						schema,
+						tr,
+						formattedNodeType,
+						nodeName,
+						formattingCleared,
+					),
+				);
+			}
+		});
+
+		tr.setStoredMarks([]);
+
+		return tr;
+	};
+}
+
 function withCurrentHeadingLevel(
 	fn: (level?: HeadingLevelsAndNormalText) => EditorCommand,
 ): EditorCommand {
@@ -157,7 +235,7 @@ function withCurrentHeadingLevel(
 
 		// Check each paragraph and/or heading and check for consistent level
 		let level: undefined | HeadingLevelsAndNormalText;
-		for (let node of nodes) {
+		for (const node of nodes) {
 			const nodeLevel = node.node.type === heading ? node.node.attrs.level : 0;
 			if (!level) {
 				level = nodeLevel;

@@ -11,7 +11,6 @@ import Popup from '@atlaskit/popup';
 
 import { ActionName, CardDisplay } from '../../../constants';
 import { useSmartCardActions } from '../../../state/actions';
-import { useSmartLinkAnalytics } from '../../../state/analytics';
 import { useSmartLinkRenderers } from '../../../state/renderers';
 import { useSmartCardState as useLinkState } from '../../../state/store';
 import { SmartLinkAnalyticsContext } from '../../../utils/analytics/SmartLinkAnalyticsContext';
@@ -49,8 +48,7 @@ export const HoverCardComponent = ({
 	const renderers = useSmartLinkRenderers();
 	const linkState = useLinkState(url);
 
-	const analytics = useSmartLinkAnalytics(url, id);
-	const { loadMetadata } = useSmartCardActions(id, url, analytics);
+	const { loadMetadata } = useSmartCardActions(id, url);
 
 	const setMousePosition = useCallback(
 		(event: any) => {

@@ -55,6 +55,7 @@ export const initialize =
 		pluginInjectionApi,
 	}: Props) =>
 	(provider: CollabEditProvider) => {
+		// eslint-disable-next-line prefer-const
 		let cleanup: Cleanup | undefined;
 		const pluginState = pluginKey.getState(view.state);
 

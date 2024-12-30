@@ -152,7 +152,7 @@ eeTest.describe = function eeTestDescribe<ExperimentName extends keyof EditorExp
 	}
 
 	function each(describeBody: DescribeBody) {
-		let possibleValues: EditorExperimentsConfig[ExperimentName]['defaultValue'][] =
+		const possibleValues: EditorExperimentsConfig[ExperimentName]['defaultValue'][] =
 			// @ts-ignore
 			editorExperimentsConfig[experimentName].typeGuard.values;
 		if (possibleValues) {

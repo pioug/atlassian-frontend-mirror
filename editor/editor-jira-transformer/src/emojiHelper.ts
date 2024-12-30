@@ -25,7 +25,7 @@ const emojiMap: { [key: string]: string } = {
 
 export function mapImageToEmoji(imageElement: HTMLImageElement) {
 	let src = imageElement.src;
-	let slashIndex = src.lastIndexOf('/');
+	const slashIndex = src.lastIndexOf('/');
 	src = src.substr(slashIndex + 1);
 	return emojiMap[src] || null;
 }

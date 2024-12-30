@@ -62,7 +62,7 @@ const LozengeAction = ({
 		setSelected({ text, appearance });
 	}, [text, appearance]);
 
-	const { url, id: linkId, previewData } = action?.update?.details || {};
+	const { url, id: linkId, invokePreviewAction } = action?.update?.details || {};
 
 	const handleOpenChange = useCallback(
 		async (args: { isOpen: boolean }) => {
@@ -166,7 +166,7 @@ const LozengeAction = ({
 					errorMessage={errorMessage}
 					testId={testId}
 					url={url}
-					previewData={previewData}
+					invokePreviewAction={invokePreviewAction}
 				/>
 			);
 		}
@@ -174,7 +174,7 @@ const LozengeAction = ({
 		if (items && items.length > 0) {
 			return <LozengeActionItemsGroup testId={testId} items={items} onClick={handleItemClick} />;
 		}
-	}, [errorMessage, handleItemClick, items, previewData, testId, url]);
+	}, [errorMessage, handleItemClick, items, invokePreviewAction, testId, url]);
 
 	return (
 		<DropdownMenu

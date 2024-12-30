@@ -211,7 +211,7 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 
 	getNodeByFragmentLocalId(id: string): Node | undefined {
 		if (this.editorView?.state) {
-			let nodes = findNodePosByFragmentLocalIds(this.editorView?.state, [id]);
+			const nodes = findNodePosByFragmentLocalIds(this.editorView?.state, [id]);
 
 			return nodes.length > 0 ? nodes[0].node : undefined;
 		}

@@ -11,13 +11,8 @@ import { SmartLinkActionType } from '@atlaskit/linking-types/smart-link-actions'
 
 import * as useInvoke from '../../../../../../../state/hooks/use-invoke';
 import * as useResolve from '../../../../../../../state/hooks/use-resolve';
-import { mockAnalytics } from '../../../../../../../utils/mocks';
 import ServerAction from '../index';
 import { type ServerActionProps } from '../types';
-
-jest.mock('../../../../../../../state/flexible-ui-context', () => ({
-	useFlexibleUiAnalyticsContext: jest.fn().mockReturnValue(mockAnalytics),
-}));
 
 describe('ServerAction', () => {
 	const testId = 'server-action-test-id';

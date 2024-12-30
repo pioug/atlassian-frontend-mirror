@@ -73,7 +73,7 @@ export function useContentNodeDataProvidersSetup(
 		contentKeyRef.current = currentContentKey;
 		const cachedContentNdps = contentTypeNdpCaches?.get(content.contentId);
 
-		let nodeDataProviders = cachedContentNdps || setupOptions.getNodeDataProviders();
+		const nodeDataProviders = cachedContentNdps || setupOptions.getNodeDataProviders();
 
 		/**
 		 * Note: while this will remove old NodeDataProviders from the cache -- these are passed directly to consumers,

@@ -44,7 +44,7 @@ export const outdentList =
 				? ACTION_SUBJECT_ID.FORMAT_LIST_BULLET
 				: ACTION_SUBJECT_ID.FORMAT_LIST_NUMBER;
 
-			let customTr: Transaction = tr;
+			const customTr: Transaction = tr;
 			outdentListAction(customTr);
 			if (!customTr || !customTr.docChanged) {
 				// Even though this is a non-operation, we don't want to send this event to the browser. Because if we return false, the browser will move the focus to another place

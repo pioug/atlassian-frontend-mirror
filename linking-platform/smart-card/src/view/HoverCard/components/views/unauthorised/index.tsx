@@ -24,7 +24,6 @@ import { connectButtonStyles, mainTextStyles, titleBlockStyles } from './styled'
 import { type HoverCardUnauthorisedProps } from './types';
 
 const HoverCardUnauthorisedView = ({
-	analytics,
 	id = '',
 	flexibleCardProps,
 	testId = 'hover-card-unauthorised-view',
@@ -34,7 +33,7 @@ const HoverCardUnauthorisedView = ({
 	const data = cardState.details?.data as JsonLd.Data.BaseData;
 	const providerName = extractProvider(data)?.text;
 	const isProductIntegrationSupported = hasAuthScopeOverrides(cardState.details);
-	const { authorize } = useSmartCardActions(id, url, analytics);
+	const { authorize } = useSmartCardActions(id, url);
 	const { fireEvent } = useAnalyticsEvents();
 
 	const handleAuthorize = useCallback(() => {
@@ -74,7 +73,6 @@ const HoverCardUnauthorisedView = ({
 					<UnauthorisedViewContent
 						providerName={providerName}
 						isProductIntegrationSupported={isProductIntegrationSupported}
-						analytics={analytics}
 					/>
 				</div>
 			</CustomBlock>

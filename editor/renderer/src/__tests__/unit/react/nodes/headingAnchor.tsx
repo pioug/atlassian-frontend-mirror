@@ -33,10 +33,10 @@ describe('Heading Anchor', () => {
 			}),
 		);
 
-		const copiedButton = await waitFor(() => screen.getByRole('button', { name: 'Copied!' }));
+		const copiedButton = await screen.findByRole('button', { name: 'Copied!' });
 		await waitFor(() => expect(copiedButton).toBeVisible());
 
-		userEvent.hover(copiedButton);
+		await userEvent.hover(copiedButton);
 		await waitFor(() => expect(screen.getByRole('tooltip', { name: 'Copied!' })).toBeVisible());
 	});
 });

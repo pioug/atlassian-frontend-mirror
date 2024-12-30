@@ -6,7 +6,7 @@ const getDeviceInfo = (nAgt: string, nVersion: string) => {
 	let os = '';
 	let osVersion: string | null = '';
 
-	let clientStrings = [
+	const clientStrings = [
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-unicode-regexp
 		{ s: 'Windows 3.11', r: /Win16/ },
@@ -87,7 +87,7 @@ const getDeviceInfo = (nAgt: string, nVersion: string) => {
 		},
 	];
 	// eslint-disable-next-line guard-for-in
-	for (let client in clientStrings) {
+	for (const client in clientStrings) {
 		const clientObj = clientStrings[client];
 		if (clientObj.r.test(nAgt)) {
 			os = clientObj.s;

@@ -123,7 +123,7 @@ export const task = (
 ) => {
 	const stepsMetadata: StepMetadataAnalytics[] = [];
 
-	for (let entry of cache.values()) {
+	for (const entry of cache.values()) {
 		const { startedAt, endedAt, steps } = entry;
 
 		const stepTypesAmount = groupSteps(steps.map(sanitizeStep));

@@ -42,6 +42,7 @@ import {
 	setBlockTypeWithAnalytics,
 	insertBlockQuoteWithAnalytics,
 	insertBlockQuoteWithAnalyticsCommand,
+	clearFormatting,
 } from './pm-plugins/commands/block-type';
 import inputRulePlugin from './pm-plugins/input-rule';
 import keymapPlugin from './pm-plugins/keymap';
@@ -247,6 +248,9 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 			},
 			insertBlockQuote(inputMethod: InputMethod) {
 				return insertBlockQuoteWithAnalyticsCommand(inputMethod, api?.analytics?.actions);
+			},
+			clearFormatting() {
+				return clearFormatting();
 			},
 		},
 

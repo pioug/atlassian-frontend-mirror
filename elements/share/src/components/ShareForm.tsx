@@ -371,45 +371,21 @@ class InternalForm extends React.PureComponent<InternalFormProps> {
 					</TabList>
 					<TabPanel key={`share-tabPanel-default`}>
 						<div css={formWrapperStyles}>
-							{fg('share_popup_tab_content_width_override') ? (
-								<div style={{ width: `${builtInTabContentWidth || DEFAULT_TAB_CONTENT_WIDTH}px` }}>
-									{this.renderShareForm()}
-								</div>
-							) : fg('smart_links_for_plans_platform') ? (
-								<Box xcss={platformTabWrapper}>{this.renderShareForm()}</Box>
-							) : (
-								this.renderShareForm()
-							)}
+							<div style={{ width: `${builtInTabContentWidth || DEFAULT_TAB_CONTENT_WIDTH}px` }}>
+								{this.renderShareForm()}
+							</div>
 						</div>
 					</TabPanel>
 					<TabPanel key={`share-tabPanel-integration`}>
 						<AnalyticsContext data={{ source: INTEGRATION_MODAL_SOURCE }}>
 							<div css={formWrapperStyles}>
-								{fg('share_popup_tab_content_width_override') ? (
-									<div
-										style={{ width: `${builtInTabContentWidth || DEFAULT_TAB_CONTENT_WIDTH}px` }}
-									>
-										<IntegrationForm
-											Content={firstIntegration.Content}
-											onIntegrationClose={() => handleCloseDialog?.()}
-											changeTab={this.changeTab}
-										/>
-									</div>
-								) : fg('smart_links_for_plans_platform') ? (
-									<Box xcss={platformTabWrapper}>
-										<IntegrationForm
-											Content={firstIntegration.Content}
-											onIntegrationClose={() => handleCloseDialog?.()}
-											changeTab={this.changeTab}
-										/>
-									</Box>
-								) : (
+								<div style={{ width: `${builtInTabContentWidth || DEFAULT_TAB_CONTENT_WIDTH}px` }}>
 									<IntegrationForm
 										Content={firstIntegration.Content}
 										onIntegrationClose={() => handleCloseDialog?.()}
 										changeTab={this.changeTab}
 									/>
-								)}
+								</div>
 							</div>
 						</AnalyticsContext>
 					</TabPanel>
@@ -442,10 +418,6 @@ export const ShareForm: React.FC<ShareFormProps> = (props) => (
 		)}
 	</Form>
 );
-
-const platformTabWrapper = xcss({
-	width: '304px',
-});
 
 ShareForm.defaultProps = {
 	isSharing: false,

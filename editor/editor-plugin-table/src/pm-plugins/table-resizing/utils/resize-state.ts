@@ -367,8 +367,6 @@ export const getNewResizeStateFromSelectedColumns = (
 		getEditorContainerWidth,
 	});
 
-	let resizeState;
-
 	let isTableScalingEnabledOnCurrentTable = isTableScalingEnabled;
 	const isTableScalingWithFixedColumnWidthsOptionEnabled =
 		isTableScalingEnabled && isTableFixedColumnWidthsOptionEnabled;
@@ -383,7 +381,7 @@ export const getNewResizeStateFromSelectedColumns = (
 		shouldUseIncreasedScalingPercent = true;
 	}
 
-	resizeState = getResizeState({
+	const resizeState = getResizeState({
 		minWidth: tableCellMinWidth,
 		maxSize,
 		table: table.node,

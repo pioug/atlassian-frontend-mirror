@@ -84,7 +84,7 @@ export class EditorPerformanceMetrics {
 
 		let isEmpty = true;
 		let result: LatencyPercentileTargets = {} as LatencyPercentileTargets;
-		for (let maybePercentils of allPercentilesProcessed) {
+		for (const maybePercentils of allPercentilesProcessed) {
 			if (isTaskAborted(maybePercentils) || !maybePercentils) {
 				continue;
 			}

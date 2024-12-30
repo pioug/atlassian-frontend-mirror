@@ -158,7 +158,7 @@ const createAnnouncer = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
-	let announcerContainer: HTMLElement =
+	const announcerContainer: HTMLElement =
 		document.getElementById('media-announcer') || document.createElement('div');
 	const intl = getIntl();
 	if (!announcerContainer.id) {
@@ -226,8 +226,8 @@ const handleMediaSizeChange =
 				: calcMediaSingleMaxWidth(currentMaxWidth, options?.editorAppearance);
 		}
 
-		let validation: PixelEntryValidation = 'valid';
-		let newWidth: number = mediaWidth + changeAmount;
+		const validation: PixelEntryValidation = 'valid';
+		const newWidth: number = mediaWidth + changeAmount;
 
 		if (options?.fullWidthEnabled) {
 			maxWidth = widthPlugin?.sharedState.currentState()?.lineLength;

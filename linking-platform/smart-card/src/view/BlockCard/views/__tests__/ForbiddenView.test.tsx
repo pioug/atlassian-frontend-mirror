@@ -9,7 +9,7 @@ import { SmartCardProvider } from '@atlaskit/link-provider';
 import { type CardState } from '@atlaskit/linking-common';
 
 import { ANALYTICS_CHANNEL } from '../../../../utils/analytics';
-import { mockAnalytics, mocks } from '../../../../utils/mocks';
+import { mocks } from '../../../../utils/mocks';
 import ForbiddenView from '../ForbiddenView';
 import '@atlaskit/link-test-helpers/jest';
 
@@ -40,12 +40,7 @@ describe('ForbiddenView', () => {
 			<AnalyticsListener onEvent={onEventMock} channel={ANALYTICS_CHANNEL}>
 				<IntlProvider locale="en">
 					<SmartCardProvider>
-						<ForbiddenView
-							analytics={mockAnalytics}
-							cardState={props?.cardState ?? baseCardState}
-							url={url}
-							{...props}
-						/>
+						<ForbiddenView cardState={props?.cardState ?? baseCardState} url={url} {...props} />
 					</SmartCardProvider>
 				</IntlProvider>
 			</AnalyticsListener>,

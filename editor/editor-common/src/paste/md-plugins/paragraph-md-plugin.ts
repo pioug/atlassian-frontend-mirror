@@ -7,17 +7,16 @@
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const paragraph = (state: any, startLine: number /*, endLine*/) => {
-	let content,
-		terminate,
+	let terminate,
 		i,
 		l,
 		token,
-		oldParentType,
-		nextLine = startLine + 1,
-		terminatorRules = state.md.block.ruler.getRules('paragraph'),
-		endLine = state.lineMax;
+		nextLine = startLine + 1;
 
-	oldParentType = state.parentType;
+	const terminatorRules = state.md.block.ruler.getRules('paragraph');
+	const endLine = state.lineMax;
+
+	const oldParentType = state.parentType;
 	state.parentType = 'paragraph';
 
 	// jump line-by-line until empty one or EOF
@@ -52,7 +51,7 @@ const paragraph = (state: any, startLine: number /*, endLine*/) => {
 	// beginning and end of paragraphs).
 
 	// content = state.getLines(startLine, nextLine, state.blkIndent, false) .trim()
-	content = state.getLines(startLine, nextLine, state.blkIndent, false);
+	const content = state.getLines(startLine, nextLine, state.blkIndent, false);
 
 	state.line = nextLine;
 

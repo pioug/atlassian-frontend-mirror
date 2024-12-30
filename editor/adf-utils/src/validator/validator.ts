@@ -394,7 +394,7 @@ export function validator(
 		// eslint-disable-next-line @typescript-eslint/max-params
 	): NodeValidationResult => {
 		const { type } = entity;
-		let newEntity: ADFEntity = { ...entity };
+		const newEntity: ADFEntity = { ...entity };
 
 		const err = <T extends ValidationErrorType>(
 			code: T,
@@ -826,9 +826,9 @@ export function validator(
 		message: string,
 		errorCallback: ErrorCallback | undefined,
 	) {
-		let invalidValues: ADFEntity['attrs'] = {};
+		const invalidValues: ADFEntity['attrs'] = {};
 		// eslint-disable-next-line guard-for-in
-		for (let invalidAttr in invalidAttrs) {
+		for (const invalidAttr in invalidAttrs) {
 			invalidValues[invalidAttrs[invalidAttr]] =
 				prevEntity.attrs && prevEntity.attrs[invalidAttrs[invalidAttr]];
 			if (newEntity.attrs) {
@@ -874,7 +874,7 @@ export function validator(
 		newEntity: ADFEntity,
 		type: string,
 	): NodeValidationResult {
-		let result: NodeValidationResult = { valid: true, entity: prevEntity };
+		const result: NodeValidationResult = { valid: true, entity: prevEntity };
 		const [requiredProps, redundantProps] = partitionObject(prevEntity, (k) =>
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -916,7 +916,7 @@ export function validator(
 		errorCallback: ErrorCallback | undefined,
 		isMark: boolean,
 	): SpecValidatorResult {
-		let specBasedValidationResult: SpecValidatorResult = {
+		const specBasedValidationResult: SpecValidatorResult = {
 			hasValidated: false,
 		};
 		const validatorSpec: ValidatorSpec = validatorFor(spec, typeOptions);

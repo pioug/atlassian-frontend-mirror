@@ -22,9 +22,9 @@ export const DragPreview = ({
 	width: number;
 	height: number;
 }) => {
-	let marginLeft = direction === 'row' ? -14 : width / 2 - 14;
-	let marginTop = direction === 'row' ? height / 2 - 14 : -10;
-	let transform = direction === 'row' ? 'rotate(90deg)' : 'none';
+	const marginLeft = direction === 'row' ? -14 : width / 2 - 14;
+	const marginTop = direction === 'row' ? height / 2 - 14 : -10;
+	const transform = direction === 'row' ? 'rotate(90deg)' : 'none';
 	return (
 		<Box
 			xcss={boxStyles}
@@ -41,6 +41,7 @@ export const DragPreview = ({
 					marginLeft: `${marginLeft}px`,
 					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 					marginTop: `${marginTop}px`,
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 					transform: transform,
 				}}
 			/>

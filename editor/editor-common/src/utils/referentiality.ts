@@ -238,7 +238,7 @@ const getChildrenNodeAmount = (
 
 	while (searchTerms.size > 0) {
 		const [currTerm] = searchTerms;
-		let targets = getNodeTargetsById(currTerm, allNodes);
+		const targets = getNodeTargetsById(currTerm, allNodes);
 
 		targets.forEach((target: string) => {
 			const isTargetCounted = traverseHistory.get(target);

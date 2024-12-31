@@ -100,6 +100,7 @@ type FormatClearAEP = FormatAEP<
 	{
 		inputMethod: INPUT_METHOD.TOOLBAR | INPUT_METHOD.SHORTCUT | INPUT_METHOD.FLOATING_TB;
 		formattingCleared: string[];
+		dropdownMenu?: 'textFormatting' | 'textStyle';
 	}
 >;
 

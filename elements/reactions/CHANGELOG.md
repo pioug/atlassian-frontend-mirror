@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 22.16.13
+
+### Patch Changes
+
+- [#99467](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99467)
+  [`118e81bbb4659`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/118e81bbb4659) -
+  Internal changes to typography.
+
 ## 22.16.12
 
 ### Patch Changes

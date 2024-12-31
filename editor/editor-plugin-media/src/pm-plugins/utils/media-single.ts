@@ -22,7 +22,10 @@ import {
 	MEDIA_SINGLE_VIDEO_MIN_PIXEL_WIDTH,
 } from '@atlaskit/editor-common/media-single';
 import { atTheBeginningOfBlock } from '@atlaskit/editor-common/selection';
-import type { Command , EditorContainerWidth as WidthPluginState } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	EditorContainerWidth as WidthPluginState,
+} from '@atlaskit/editor-common/types';
 import { checkNodeDown, isEmptyParagraph } from '@atlaskit/editor-common/utils';
 import type { Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
 import { Fragment, Slice } from '@atlaskit/editor-prosemirror/model';

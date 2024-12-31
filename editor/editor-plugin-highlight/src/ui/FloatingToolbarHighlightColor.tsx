@@ -22,6 +22,7 @@ import { DynamicStrokeIconDecoration } from '@atlaskit/editor-common/icons';
 import { toggleHighlightPalette, tooltip } from '@atlaskit/editor-common/keymaps';
 import { highlightMessages as messages } from '@atlaskit/editor-common/messages';
 import {
+	disableBlueBorderStyles,
 	expandIconContainerStyle,
 	triggerWrapperStylesWithPadding,
 } from '@atlaskit/editor-common/styles';
@@ -114,6 +115,8 @@ const FloatingToolbarHighlightColor = ({
 			activeColor={highlightState.activeColor}
 			trigger={
 				<ToolbarButton
+					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-imported-style-values
+					css={disableBlueBorderStyles}
 					buttonId={TOOLBAR_BUTTON.BACKGROUND_COLOR}
 					spacing={'compact'}
 					disabled={highlightState.disabled}
@@ -126,7 +129,7 @@ const FloatingToolbarHighlightColor = ({
 					onKeyDown={handleKeyDown}
 					ref={toolbarItemRef}
 					iconBefore={
-						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/platform/ensure-feature-flag-prefix
+						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 						fg('platform-visual-refresh-icons') ? (
 							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 							<div css={triggerWrapperStylesWithPadding}>

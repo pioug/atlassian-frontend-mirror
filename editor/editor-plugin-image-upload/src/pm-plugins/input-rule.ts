@@ -4,7 +4,7 @@ import { createRule } from '@atlaskit/editor-common/utils';
 import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { createPlugin } from '@atlaskit/prosemirror-input-rules';
 
-import { createExternalMediaNode } from '../utils';
+import { createExternalMediaNode } from '../ui/hooks/utils';
 
 export function inputRulePlugin(
 	schema: Schema,

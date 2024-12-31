@@ -105,7 +105,7 @@ export const insertColgroupFromNode = (
 
 	colgroup = renderColgroupFromNode(
 		table,
-		isTableScalingEnabled ? (tableRef ?? undefined) : undefined,
+		isTableScalingEnabled ? tableRef ?? undefined : undefined,
 		shouldUseIncreasedScalingPercent,
 		isCommentEditor,
 	);

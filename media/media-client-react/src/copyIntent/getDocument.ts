@@ -1,4 +1,4 @@
-export const getDocument =  (): Document | undefined => {
+export const getDocument = (): Document | undefined => {
 	if (typeof window === 'undefined') {
 		return;
 	}

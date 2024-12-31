@@ -558,7 +558,7 @@ export const oldApply = (
 				api,
 				formatMessage,
 				nodeViewPortalProviderAPI,
-				isNestedEnabled ? (meta?.activeNode ?? mappedActiveNodePos) : meta?.activeNode,
+				isNestedEnabled ? meta?.activeNode ?? mappedActiveNodePos : meta?.activeNode,
 				anchorRectCache,
 			);
 			decorations = decorations.add(newState.doc, decs);
@@ -588,7 +588,7 @@ export const oldApply = (
 		(!meta?.activeNode &&
 			decorations.find(undefined, undefined, (spec) => spec.type === 'drag-handle').length === 0)
 			? null
-			: (meta?.activeNode ?? mappedActiveNodePos);
+			: meta?.activeNode ?? mappedActiveNodePos;
 
 	return {
 		decorations,

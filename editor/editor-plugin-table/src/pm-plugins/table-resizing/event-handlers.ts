@@ -1,7 +1,6 @@
 import type { CellAttributes } from '@atlaskit/adf-schema';
 import {
 	ACTION_SUBJECT,
-	CHANGE_ALIGNMENT_REASON,
 	EVENT_TYPE,
 	INPUT_METHOD,
 	TABLE_ACTION,
@@ -21,12 +20,6 @@ import { updateResizeHandleDecorations } from '../commands/misc';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 import { META_KEYS } from '../table-analytics';
 import { updateColumnWidths } from '../transforms/column-width';
-import {
-	ALIGN_CENTER,
-	ALIGN_START,
-	shouldChangeAlignmentToCenterResized,
-} from '../utils/alignment';
-import { isTableNested } from '../utils/nodes';
 import { getSelectedColumnIndexes } from '../utils/selection';
 
 import { evenColumns, setDragging, stopResizing } from './commands';
@@ -40,7 +33,7 @@ import {
 	getScalingPercentForTableWithoutWidth,
 	getTableScalingPercent,
 } from './utils/misc';
-import { resizeColumn, resizeColumnAndTable, scaleResizeState } from './utils/resize-column';
+import { resizeColumn } from './utils/resize-column';
 import { getResizeState } from './utils/resize-state';
 
 export const handleMouseDown = (
@@ -53,8 +46,6 @@ export const handleMouseDown = (
 	api: PluginInjectionAPI | undefined | null,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
-	isNewColumnResizingEnabled?: boolean,
-	isTableAlignmentEnabled?: boolean,
 	isCommentEditor?: boolean,
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/max-params
@@ -62,7 +53,7 @@ export const handleMouseDown = (
 	const { state, dispatch } = view;
 	const editorDisabled = !view.editable;
 	const domAtPos = view.domAtPos.bind(view);
-	const { lineLength, width: editorWidth } = getEditorContainerWidth();
+	const { width: editorWidth } = getEditorContainerWidth();
 
 	if (
 		editorDisabled ||
@@ -123,7 +114,7 @@ export const handleMouseDown = (
 		shouldUseIncreasedScalingPercent = true;
 	}
 
-	let resizeState = getResizeState({
+	const resizeState = getResizeState({
 		minWidth: tableCellMinWidth,
 		maxSize,
 		table: originalTable,
@@ -162,18 +153,6 @@ export const handleMouseDown = (
 		undefined,
 		false,
 	)(state, dispatch);
-
-	// for new column resizing, take the current scaled version of table widths and use those as the basis for resizing
-	// implication: the scaled version of the table becomes the source of truth
-	if (isNewColumnResizingEnabled && shouldScale) {
-		resizeState = scaleResizeState({
-			resizeState,
-			tableRef: dom,
-			tableNode: originalTable,
-			editorWidth,
-			shouldUseIncreasedScalingPercent,
-		});
-	}
 
 	function finish(event: MouseEvent) {
 		// Ignored via go/ees005
@@ -223,8 +202,6 @@ export const handleMouseDown = (
 			// There may be a more elegant solution to this, to avoid a jarring experience.
 			if (table.eq(originalTable)) {
 				const map = TableMap.get(table);
-				const totalRowCount = map.height;
-				const totalColumnCount = map.width;
 				const colIndex =
 					map.colCount($cell.pos - start) +
 					($cell.nodeAfter ? $cell.nodeAfter.attrs.colspan : 1) -
@@ -246,71 +223,22 @@ export const handleMouseDown = (
 					isTableScalingWithFixedColumnWidthsOptionEnabled ||
 					(isTableScalingEnabled && !!isCommentEditor);
 
-				if (isNewColumnResizingEnabled && !isTableNested(state, tablePos)) {
-					const newResizeState = resizeColumnAndTable({
-						resizeState,
-						colIndex,
-						amount: resizedDelta,
-						tableRef: dom,
-						tableNode: originalTable,
-						width: editorWidth,
-						lineLength,
-						isTableAlignmentEnabled,
-					});
+				const scalePercent =
+					isTableScalingEnabled && isCommentEditor && !table.attrs?.width
+						? getScalingPercentForTableWithoutWidth(originalTable, dom)
+						: getTableScalingPercent(originalTable, dom, shouldUseIncreasedScalingPercent);
 
-					tr = updateColumnWidths(newResizeState, table, start, api)(tr);
-
-					// If the table is aligned to the start and the table width is greater than the line length, we should change the alignment to center
-					const shouldChangeAlignment = shouldChangeAlignmentToCenterResized(
-						isTableAlignmentEnabled,
-						originalTable,
-						lineLength,
-						newResizeState.maxSize,
-					);
-
-					if (shouldChangeAlignment) {
-						tr = tr.setNodeMarkup(start - 1, state.schema.nodes.table, {
-							...table.attrs,
-							width: newResizeState.maxSize,
-							layout: ALIGN_CENTER,
-						});
-
-						editorAnalyticsAPI?.attachAnalyticsEvent({
-							action: TABLE_ACTION.CHANGED_ALIGNMENT,
-							actionSubject: ACTION_SUBJECT.TABLE,
-							actionSubjectId: null,
-							attributes: {
-								tableWidth: newResizeState.maxSize,
-								newAlignment: ALIGN_CENTER,
-								previousAlignment: ALIGN_START,
-								totalRowCount: totalRowCount,
-								totalColumnCount: totalColumnCount,
-								inputMethod: INPUT_METHOD.AUTO,
-								reason: CHANGE_ALIGNMENT_REASON.TABLE_COLUMN_RESIZED,
-							},
-							eventType: EVENT_TYPE.TRACK,
-						})(tr);
-					} else {
-						tr.setNodeAttribute(start - 1, 'width', newResizeState.maxSize);
-					}
-				} else {
-					const scalePercent =
-						isTableScalingEnabled && isCommentEditor && !table.attrs?.width
-							? getScalingPercentForTableWithoutWidth(originalTable, dom)
-							: getTableScalingPercent(originalTable, dom, shouldUseIncreasedScalingPercent);
-
-					const newResizeState = resizeColumn(
-						resizeState,
-						colIndex,
-						resizedDelta,
-						dom,
-						originalTable,
-						resizingSelectedColumns ? selectedColumns : undefined,
-						shouldScale,
-						scalePercent,
-					);
-					tr = updateColumnWidths(newResizeState, table, start, api)(tr);
-				}
+				const newResizeState = resizeColumn(
+					resizeState,
+					colIndex,
+					resizedDelta,
+					dom,
+					originalTable,
+					resizingSelectedColumns ? selectedColumns : undefined,
+					shouldScale,
+					scalePercent,
+				);
+				tr = updateColumnWidths(newResizeState, table, start, api)(tr);
 
 				if (colIndex === map.width - 1) {
 					const mouseUpTime = event.timeStamp;
@@ -367,14 +295,13 @@ export const handleMouseDown = (
 			!dragging ||
 			resizeHandlePos === null ||
 			!pointsAtCell(state.doc.resolve(resizeHandlePos)) ||
-			((!isNewColumnResizingEnabled || isTableNested(state, tablePos)) && !isTableHovered)
+			!isTableHovered
 		) {
 			return finish(event);
 		}
 
 		const $cell = state.doc.resolve(resizeHandlePos);
 		const table = $cell.node(-1);
-		// const tablePos = state.doc.resolve(start).start(-1);
 		const tableDepth = state.doc.resolve(tablePos).depth;
 		const map = TableMap.get(table);
 		// Ignored via go/ees005
@@ -393,34 +320,21 @@ export const handleMouseDown = (
 
 		const resizedDelta = clientX - dragging.startX;
 
-		if (isNewColumnResizingEnabled && !isTableNested(state, tablePos) && !isCommentEditor) {
-			resizeColumnAndTable({
-				resizeState,
-				colIndex,
-				amount: resizedDelta,
-				tableRef: dom,
-				tableNode: originalTable,
-				width: editorWidth,
-				lineLength,
-				isTableAlignmentEnabled,
-			});
-		} else {
-			const scalePercent =
-				isTableScalingEnabled && isCommentEditor && !table.attrs?.width
-					? getScalingPercentForTableWithoutWidth(table, dom)
-					: getTableScalingPercent(originalTable, dom, shouldUseIncreasedScalingPercent);
+		const scalePercent =
+			isTableScalingEnabled && isCommentEditor && !table.attrs?.width
+				? getScalingPercentForTableWithoutWidth(table, dom)
+				: getTableScalingPercent(originalTable, dom, shouldUseIncreasedScalingPercent);
 
-			resizeColumn(
-				resizeState,
-				colIndex,
-				resizedDelta,
-				dom,
-				table,
-				undefined,
-				shouldScale,
-				scalePercent,
-			);
-		}
+		resizeColumn(
+			resizeState,
+			colIndex,
+			resizedDelta,
+			dom,
+			table,
+			undefined,
+			shouldScale,
+			scalePercent,
+		);
 
 		updateControls()(state);
 	}

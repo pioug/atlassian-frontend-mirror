@@ -48,6 +48,7 @@ describe('catchupv2 trigged in document service', () => {
 			analyticsHelper: analyticsHelperMock,
 			onStepsAdded: service.onStepsAdded,
 			catchUpOutofSync: false,
+			onCatchupComplete: expect.any(Function),
 		});
 
 		expect(analyticsHelperMock.sendActionEvent).toBeCalledWith('catchup', 'SUCCESS', {

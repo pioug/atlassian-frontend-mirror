@@ -1,5 +1,14 @@
 # @atlaskit/collab-provider
 
+## 10.3.3
+
+### Patch Changes
+
+- [#99251](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99251)
+  [`df1d982fa96ba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df1d982fa96ba) -
+  Add additional metadata for reconnection analytics to include step length.
+- Updated dependencies
+
 ## 10.3.2
 
 ### Patch Changes

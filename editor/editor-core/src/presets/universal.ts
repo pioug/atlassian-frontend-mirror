@@ -281,7 +281,6 @@ export default function createUniversalPresetInternal({
 					fullWidthEnabled: appearance === 'full-width',
 					wasFullWidthEnabled: prevAppearance && prevAppearance === 'full-width',
 					getEditorFeatureFlags,
-					isNewColumnResizingEnabled: featureFlags?.tableNewColumnResizing && isFullPage,
 					isCommentEditor: isComment,
 					isChromelessEditor: isChromeless,
 				},

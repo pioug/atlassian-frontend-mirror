@@ -35,6 +35,9 @@ export const HoverCardComponent = ({
 	zIndex = HOVER_CARD_Z_INDEX,
 	noFadeDelay = false,
 	hoverPreviewOptions,
+	role,
+	label,
+	titleId,
 }: HoverCardComponentProps) => {
 	const fadeInDelay = hoverPreviewOptions?.fadeInDelay ?? FADE_IN_DELAY;
 	const [isOpen, setIsOpen] = React.useState(false);
@@ -251,6 +254,9 @@ export const HoverCardComponent = ({
 			content={content}
 			trigger={trigger}
 			zIndex={zIndex}
+			role={role}
+			titleId={titleId}
+			label={label}
 			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			popupComponent={CustomPopupContainer}
 		/>

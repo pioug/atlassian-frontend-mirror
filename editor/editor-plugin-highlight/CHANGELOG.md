@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-highlight
 
+## 1.19.7
+
+### Patch Changes
+
+- [#99080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99080)
+  [`8b2f0af25c400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2f0af25c400) -
+  [ux] ED-26062: Removed icon blue borders when selected
+
+## 1.19.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.19.5
 
 ### Patch Changes

@@ -10,7 +10,13 @@ import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/trans
 import type AnalyticsHelper from '../analytics/analytics-helper';
 import { ACK_MAX_TRY, EVENT_ACTION, EVENT_STATUS, CatchupEventReason } from '../helpers/const';
 import type { MetadataService } from '../metadata/metadata-service';
-import type { Catchupv2Response, ChannelEvent, ReconcileResponse, StepsPayload } from '../types';
+import type {
+	Catchupv2Response,
+	ChannelEvent,
+	ReconcileResponse,
+	ReconnectionMetadata,
+	StepsPayload,
+} from '../types';
 
 import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 
@@ -102,7 +108,8 @@ export class DocumentService implements DocumentServiceInterface {
 	 * @param reason - optional reason to attach.
 	 */
 	throttledCatchupv2 = throttle(
-		(reason?: CatchupEventReason) => this.catchupv2(reason),
+		(reason?: CatchupEventReason, reconnectionMetadata?: ReconnectionMetadata) =>
+			this.catchupv2(reason, reconnectionMetadata),
 		CATCHUP_THROTTLE,
 		{
 			leading: false, // TODO: why shouldn't this be leading?
@@ -116,7 +123,10 @@ export class DocumentService implements DocumentServiceInterface {
 	 *   * try to accept steps but version is behind.
 	 * @param reason - optional reason to attach.
 	 */
-	private catchupv2 = async (reason?: CatchupEventReason) => {
+	private catchupv2 = async (
+		reason?: CatchupEventReason,
+		reconnectionMetadata?: ReconnectionMetadata,
+	) => {
 		const start = new Date().getTime();
 		// if the queue is already paused, we are busy with something else, so don't proceed.
 		if (this.stepQueue.isPaused()) {
@@ -162,6 +172,15 @@ export class DocumentService implements DocumentServiceInterface {
 				onStepsAdded: this.onStepsAdded,
 				catchUpOutofSync: this.catchUpOutofSync,
 				reason,
+				onCatchupComplete: (steps) => {
+					// We want to capture the number of steps made while offline vs. online
+					if (reason === CatchupEventReason.RECONNECTED) {
+						this.analyticsHelper?.sendActionEvent(EVENT_ACTION.RECONNECTION, EVENT_STATUS.INFO, {
+							...reconnectionMetadata,
+							remoteStepsLength: steps?.length ?? 0,
+						});
+					}
+				},
 			});
 			const latency = new Date().getTime() - start;
 			this.analyticsHelper?.sendActionEvent(EVENT_ACTION.CATCHUP, EVENT_STATUS.SUCCESS, {

@@ -35,7 +35,7 @@ const InlineCard = (props: InlineCardProps & WithSmartCardStorageProps) => {
 	const { url, data, eventHandlers, portal, smartLinks } = props;
 	const onClick = getCardClickHandler(eventHandlers, url);
 	const cardProps = { url, data, onClick, container: portal };
-	const {  hideHoverPreview, actionOptions, ssr } = smartLinks || {};
+	const { hideHoverPreview, actionOptions, ssr } = smartLinks || {};
 
 	const analyticsData = {
 		attributes: {

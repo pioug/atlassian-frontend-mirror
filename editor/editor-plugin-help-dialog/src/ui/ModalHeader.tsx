@@ -44,7 +44,7 @@ const ModalHeader = injectIntl(({ intl: { formatMessage }, onClose }: ModalHeade
 							spacing="spacious"
 						/>
 					}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 					css={toolbarButton}
 				/>
 			</div>

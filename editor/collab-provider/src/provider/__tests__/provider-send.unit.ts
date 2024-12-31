@@ -119,7 +119,7 @@ describe('#sendData', () => {
 			tags: ['editor'],
 		});
 		expect(catchupv2Spy).toHaveBeenCalledTimes(1);
-		expect(catchupv2Spy).toBeCalledWith(CatchupEventReason.PROCESS_STEPS);
+		expect(catchupv2Spy).toBeCalledWith(CatchupEventReason.PROCESS_STEPS, undefined);
 	});
 
 	it('broadcasts message to steps:commit when there are sendable steps', () => {

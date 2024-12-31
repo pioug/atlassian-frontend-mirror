@@ -7,7 +7,7 @@ import React, { useCallback, useContext } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/standard-button';
+import { IconButton } from '@atlaskit/button/new';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ProviderFactory } from '@atlaskit/editor-common/provider-factory';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -20,16 +20,45 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import type { EmojiId } from '@atlaskit/emoji';
 import { EmojiPicker } from '@atlaskit/emoji';
 import EmojiAddIcon from '@atlaskit/icon/core/emoji-add';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 
 import { type FloatingToolbarPlugin } from '../floatingToolbarPluginType';
 
 import EditorEmojiAddIcon from './EditorEmojiAddIcon';
 
-// helps adjusts position of popup
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
 const emojiPickerButtonWrapper = css({
+	position: 'relative', // helps adjusts position of popup
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	button: {
+		top: '-1px', // adjust position of emoji icon when using the IconButtom component
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:not([disabled])::after': {
+			border: 'none', // remove blue border when picker has been selected
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	svg: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		path: {
+			// adjust size of emoji icon when using the IconButtom component, otherwise it's too small
+			transformOrigin: '50% 50%',
+			transform: 'scale(1.14)',
+		},
+	},
+});
+
+// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+const emojiPickerButtonWrapperVisualRefresh = css({
 	position: 'relative',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	button: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:not([disabled])::after': {
+			border: 'none', // remove blue border when picker has been selected
+		},
+	},
 });
 
 type EmojiPickerWithProviderProps = {
@@ -151,36 +180,34 @@ export const EmojiPickerButton: EmojiPickerButtonReturnType = (props) => {
 	const title = props.title || '';
 
 	return (
-		<div css={emojiPickerButtonWrapper}>
+		<div
+			css={
+				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+				fg('platform-visual-refresh-icons')
+					? emojiPickerButtonWrapperVisualRefresh
+					: emojiPickerButtonWrapper
+			}
+		>
 			<Tooltip content={title} position="top">
-				<Button
-					appearance={'subtle'}
-					key={props.idx}
-					// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
-					style={{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						padding: 0,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						margin: 0,
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						display: 'flex',
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						height: '24px',
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						width: '24px',
-					}}
-					onClick={togglePopup}
-					ref={buttonRef}
-					isSelected={props.isSelected}
-					aria-label={title}
-					iconBefore={
-						<EmojiAddIcon
-							color="currentColor"
-							LEGACY_fallbackIcon={EditorEmojiAddIcon}
-							label="emoji-picker-button"
-						/>
-					}
-				/>
+				{
+					<IconButton
+						appearance="subtle"
+						key={props.idx}
+						onClick={togglePopup}
+						ref={buttonRef}
+						isSelected={props.isSelected}
+						label={title}
+						spacing="compact"
+						icon={() => (
+							<EmojiAddIcon
+								color="currentColor"
+								LEGACY_fallbackIcon={EditorEmojiAddIcon}
+								label="emoji-picker-button"
+								spacing="spacious"
+							/>
+						)}
+					/>
+				}
 			</Tooltip>
 			{renderPopup()}
 		</div>

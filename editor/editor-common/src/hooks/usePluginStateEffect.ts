@@ -17,8 +17,9 @@ type NamedPluginStatesFromInjectionAPI<
 	API extends ExtractInjectionAPI<NextEditorPlugin<any, any>>,
 	PluginNames extends string | number | symbol,
 > = Readonly<{
-	[K in PluginNames as `${K extends string ? K : never}State`]: API[K] extends // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Ignored via go/ees005
-	BasePluginDependenciesAPI<any> | undefined
+	[K in PluginNames as `${K extends string ? K : never}State`]: API[K] extends  // eslint-disable-next-line @typescript-eslint/no-explicit-any -- Ignored via go/ees005
+		| BasePluginDependenciesAPI<any>
+		| undefined
 		? ReturnType<API[K]['sharedState']['currentState']>
 		: never;
 }>;

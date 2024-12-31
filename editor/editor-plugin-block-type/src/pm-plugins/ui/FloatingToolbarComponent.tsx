@@ -33,12 +33,17 @@ export function FloatingToolbarComponent({ api }: FloatingToolbarComponentProps)
 
 	const wrapBlockQuote = useCallback(
 		() =>
-			api?.core?.actions.execute(api?.blockType?.commands?.insertBlockQuote(INPUT_METHOD.TOOLBAR)),
+			api?.core?.actions.execute(
+				api?.blockType?.commands?.insertBlockQuote(INPUT_METHOD.FLOATING_TB),
+			),
 		[api],
 	);
 
 	const clearFormatting = useCallback(
-		() => api?.core?.actions.execute(api?.blockType?.commands?.clearFormatting()),
+		() =>
+			api?.core?.actions.execute(
+				api?.blockType?.commands?.clearFormatting(INPUT_METHOD.FLOATING_TB),
+			),
 		[api],
 	);
 

@@ -21,4 +21,16 @@ describe('NoResults', () => {
 			'We couldn’t find anything matching your search.',
 		);
 	});
+
+	it('should capture and report a11y violations', async () => {
+		const { container } = renderWithIntl(
+			<HeadingContextProvider>
+				<HeadingContextProvider>
+					<NoResults />
+				</HeadingContextProvider>
+			</HeadingContextProvider>,
+		);
+
+		await expect(container).toBeAccessible();
+	});
 });

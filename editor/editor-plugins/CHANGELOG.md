@@ -1,5 +1,32 @@
 # @atlaskit/editor-plugins
 
+## 6.1.9
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.8
+
+### Patch Changes
+
+- [#96689](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/96689)
+  [`8645e341567ea`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8645e341567ea) -
+  updated image upload plugin to EES003
+- Updated dependencies
+
+## 6.1.7
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.1.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.5
 
 ### Patch Changes

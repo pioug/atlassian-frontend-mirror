@@ -27,8 +27,6 @@ export function createPlugin(
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isTableScalingEnabled?: boolean,
-	isNewColumnResizingEnabled?: boolean,
-	isTableAlignmentEnabled?: boolean,
 	isCommentEditor?: boolean,
 ) {
 	return new SafePlugin({
@@ -82,8 +80,6 @@ export function createPlugin(
 								api,
 								nodeViewPortalProviderAPI,
 								editorAnalyticsAPI,
-								isNewColumnResizingEnabled,
-								isTableAlignmentEnabled,
 								isCommentEditor,
 							)
 						) {

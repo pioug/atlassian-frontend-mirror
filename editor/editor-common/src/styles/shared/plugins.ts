@@ -11,6 +11,13 @@ export const buttonGroupStyle = css({
 	'& > div': {
 		display: 'flex',
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	button: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:not([disabled])::after': {
+			border: 'none', // remove blue border when an item has been selected
+		},
+	},
 });
 
 // If you make change here, change in above file as well.
@@ -39,15 +46,44 @@ export const wrapperStyle = css({
 	},
 	marginLeft: 0,
 	minWidth: 'auto',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	button: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:not([disabled])::after': {
+			border: 'none', // remove blue border when an item has been selected
+		},
+	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const triggerWrapperStyles = css({
 	display: 'flex',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	button: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:not([disabled])::after': {
+			border: 'none', // remove blue border when an item has been selected
+		},
+	},
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
 export const triggerWrapperStylesWithPadding = css({
 	display: 'flex',
 	paddingRight: token('space.025', '2px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	button: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'&:not([disabled])::after': {
+			border: 'none', //  remove blue border when an item has been selected
+		},
+	},
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
+export const disableBlueBorderStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'&:not([disabled])::after': {
+		border: 'none', //  remove blue border when an item has been selected
+	},
 });

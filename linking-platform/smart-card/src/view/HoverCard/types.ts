@@ -53,6 +53,24 @@ export interface HoverCardProps extends WithAnalyticsEventsProps {
 	 * Additional configurations for hover card.
 	 */
 	hoverPreviewOptions?: HoverPreviewOptions;
+
+	/**
+	 * Use this to set the accessibility role for the hover card.
+	 * Should be used along with `label` or `titleId` for supported roles.
+	 */
+	role?: string;
+
+	/**
+	 * Refers to an `aria-label` attribute. Sets an accessible name for the hover card to announce it to users of assistive technology.
+	 * Usage of either this, or the `titleId` attribute is strongly recommended.
+	 */
+	label?: string;
+
+	/**
+	 * Id referenced by the hover card `aria-labelledby` attribute.
+	 * Usage of either this, or the `label` attribute is strongly recommended.
+	 */
+	titleId?: string;
 }
 
 /**

@@ -38,9 +38,9 @@ export function useNodeDataProviderGet<
 		[options.provider, options.node],
 	);
 
-	const [resolved, setResolved] = useState<_NodeDataProvider['cache'][string] | undefined | 'error'>(
-		getResult !== undefined && !isPromise(getResult) ? getResult : undefined,
-	);
+	const [resolved, setResolved] = useState<
+		_NodeDataProvider['cache'][string] | undefined | 'error'
+	>(getResult !== undefined && !isPromise(getResult) ? getResult : undefined);
 
 	useEffect(() => {
 		if (!isPromise(getResult)) {

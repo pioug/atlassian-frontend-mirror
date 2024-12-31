@@ -1,5 +1,13 @@
 # @atlaskit/link-picker
 
+## 1.47.17
+
+### Patch Changes
+
+- [#99456](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99456)
+  [`9301bc6f44edf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9301bc6f44edf) -
+  [ux] Fix the incorrect heading structure on the link picker with no results
+
 ## 1.47.16
 
 ### Patch Changes

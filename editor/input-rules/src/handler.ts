@@ -111,7 +111,7 @@ function findMatchOnRules({
 		// Here is a workaround: if we inside a gap cursor, match the input rule only against the last typed character
 		// (which may be a typeahead trigger) and ignore the rest.
 		const matchString: string = isGapCursorSelection(state.selection)
-			? (textBefore.at(-1) ?? '')
+			? textBefore.at(-1) ?? ''
 			: textBefore;
 
 		const match = rule.match.exec(matchString);

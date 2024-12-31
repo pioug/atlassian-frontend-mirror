@@ -285,7 +285,13 @@ export interface Catchupv2Options {
 	onStepsAdded: (data: StepsPayload) => void;
 	catchUpOutofSync: boolean;
 	reason?: CatchupEventReason;
+	onCatchupComplete?: (steps: StepJson[]) => void;
 }
+
+export type ReconnectionMetadata = {
+	unconfirmedStepsLength: number | undefined;
+	disconnectionPeriodSeconds: number | undefined;
+};
 
 export type ProductInformation = {
 	product: string;

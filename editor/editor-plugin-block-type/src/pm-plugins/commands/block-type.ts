@@ -37,6 +37,11 @@ export type InputMethod =
 	| INPUT_METHOD.KEYBOARD
 	| INPUT_METHOD.FLOATING_TB;
 
+export type ClearFormattingInputMethod =
+	| INPUT_METHOD.TOOLBAR
+	| INPUT_METHOD.SHORTCUT
+	| INPUT_METHOD.FLOATING_TB;
+
 export function setBlockType(name: TextBlockTypes): EditorCommand {
 	return ({ tr }) => {
 		const { nodes } = tr.doc.type.schema;
@@ -147,7 +152,10 @@ export function setNormalText(fromBlockQuote?: boolean): EditorCommand {
 	};
 }
 
-export function clearFormatting(): EditorCommand {
+export function clearFormatting(
+	inputMethod: ClearFormattingInputMethod,
+	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+): EditorCommand {
 	return function ({ tr }) {
 		const formattingCleared: string[] = [];
 		const schema = tr.doc.type.schema;
@@ -213,6 +221,20 @@ export function clearFormatting(): EditorCommand {
 		});
 
 		tr.setStoredMarks([]);
+
+		if (formattingCleared.length) {
+			editorAnalyticsApi?.attachAnalyticsEvent({
+				action: ACTION.FORMATTED,
+				eventType: EVENT_TYPE.TRACK,
+				actionSubject: ACTION_SUBJECT.TEXT,
+				actionSubjectId: ACTION_SUBJECT_ID.FORMAT_CLEAR,
+				attributes: {
+					inputMethod,
+					formattingCleared,
+					dropdownMenu: 'textStyle',
+				},
+			})(tr);
+		}
 
 		return tr;
 	};
@@ -336,18 +358,15 @@ export function insertBlockQuoteWithAnalyticsCommand(
 ): EditorCommand {
 	return withCurrentHeadingLevel((previousHeadingLevel) => ({ tr }) => {
 		const { nodes } = tr.doc.type.schema;
-
-		// TODO: analytics event
-
-		// editorAnalyticsApi?.attachAnalyticsEvent({
-		// 	action: ACTION.FORMATTED,
-		// 	actionSubject: ACTION_SUBJECT.TEXT,
-		// 	eventType: EVENT_TYPE.TRACK,
-		// 	actionSubjectId: ACTION_SUBJECT_ID.FORMAT_BLOCK_QUOTE,
-		// 	attributes: {
-		// 		inputMethod: inputMethod,
-		// 	},
-		// })(tr);
+		editorAnalyticsApi?.attachAnalyticsEvent({
+			action: ACTION.FORMATTED,
+			actionSubject: ACTION_SUBJECT.TEXT,
+			eventType: EVENT_TYPE.TRACK,
+			actionSubjectId: ACTION_SUBJECT_ID.FORMAT_BLOCK_QUOTE,
+			attributes: {
+				inputMethod: inputMethod,
+			},
+		})(tr);
 
 		return wrapSelectionInBlockType(nodes.blockquote)({ tr });
 	});

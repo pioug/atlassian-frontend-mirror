@@ -1,10 +1,11 @@
-import type { EditorAnalyticsAPI, INPUT_METHOD } from '@atlaskit/editor-common/analytics';
 import {
+	INPUT_METHOD,
 	ACTION,
 	ACTION_SUBJECT,
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import type { Command } from '@atlaskit/editor-common/types';
 import type { Node, NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -146,6 +147,10 @@ export function clearFormatting(
 				attributes: {
 					inputMethod,
 					formattingCleared,
+					dropdownMenu:
+						inputMethod === INPUT_METHOD.TOOLBAR || inputMethod === INPUT_METHOD.FLOATING_TB
+							? 'textFormatting'
+							: undefined,
 				},
 			})(tr);
 		}

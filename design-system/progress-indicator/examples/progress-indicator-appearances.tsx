@@ -1,11 +1,14 @@
 import React from 'react';
 
-import { Box } from "@atlaskit/primitives/compiled";
+import { Box } from '@atlaskit/primitives/compiled';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 
 const Wrapper = ({ children, isInverted }: { children: React.ReactNode; isInverted?: boolean }) => {
 	return (
-		<Box padding="space.200" backgroundColor={isInverted ? "color.background.neutral.bold" : undefined}>
+		<Box
+			padding="space.200"
+			backgroundColor={isInverted ? 'color.background.neutral.bold' : undefined}
+		>
 			{children}
 		</Box>
 	);

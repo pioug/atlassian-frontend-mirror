@@ -1,5 +1,31 @@
 # @atlaskit/editor-common
 
+## 98.0.2
+
+### Patch Changes
+
+- [#99274](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99274)
+  [`b4dd134e0caaa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b4dd134e0caaa) -
+  ED-25961 Add analytics for clear formatting and adding blockquote from text styles menu
+
+## 98.0.1
+
+### Patch Changes
+
+- [#99080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99080)
+  [`8b2f0af25c400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2f0af25c400) -
+  [ux] ED-26062: Removed icon blue borders when selected
+- Updated dependencies
+
+## 98.0.0
+
+### Major Changes
+
+- [#98966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98966)
+  [`5c8e4c2ce26bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c8e4c2ce26bf) -
+  Remove platform_editor_table_new_column_resizing experiment, remove options and all logic inside
+  editor-plugin-table and remove it from feature flag plugin config.
+
 ## 97.3.0
 
 ### Minor Changes

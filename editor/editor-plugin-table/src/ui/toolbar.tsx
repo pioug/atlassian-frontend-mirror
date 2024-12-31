@@ -501,17 +501,7 @@ export const getToolbarConfig =
 		// We don't want to show floating toolbar while resizing the table
 		const isWidthResizing = tableWidthState?.resizing;
 
-		// Hide floating toolbar when resizing column and internal column width is on
-		const shouldHideToolbarForInternalColumnWidth = Boolean(
-			options?.isNewColumnResizingEnabled && resizeState && resizeState.dragging,
-		);
-
-		if (
-			tableObject &&
-			pluginState.editorHasFocus &&
-			!isWidthResizing &&
-			!shouldHideToolbarForInternalColumnWidth
-		) {
+		if (tableObject && pluginState.editorHasFocus && !isWidthResizing) {
 			const nodeType = state.schema.nodes.table;
 			const isNested = pluginState.tablePos && isTableNested(state, pluginState.tablePos);
 			const isTableScalingWithFixedColumnWidthsOptionShown =

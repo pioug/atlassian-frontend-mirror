@@ -1,17 +1,16 @@
-
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
-import { cssMap } from "@atlaskit/css";
-import { Inline } from "@atlaskit/primitives/compiled";
+import { cssMap } from '@atlaskit/css';
+import { Inline } from '@atlaskit/primitives/compiled';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
-import { token } from "@atlaskit/tokens";
+import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
-    container: {
-        padding: token("space.200"),
-        backgroundColor: token("color.background.neutral.bold"),
-    }
+	container: {
+		padding: token('space.200'),
+		backgroundColor: token('color.background.neutral.bold'),
+	},
 });
 
 const InvertedExample = () => {
@@ -27,7 +26,7 @@ const InvertedExample = () => {
 	};
 
 	return (
-        <Inline alignBlock="center" spread="space-between" xcss={styles.container}>
+		<Inline alignBlock="center" spread="space-between" xcss={styles.container}>
 			<Button isDisabled={selectedIndex === 0} onClick={handlePrev} appearance="primary">
 				Previous
 			</Button>
@@ -40,7 +39,7 @@ const InvertedExample = () => {
 				Next
 			</Button>
 		</Inline>
-    );
+	);
 };
 
 export default InvertedExample;

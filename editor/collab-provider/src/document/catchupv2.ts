@@ -28,6 +28,7 @@ export const catchupv2 = async (opt: Catchupv2Options): Promise<boolean> => {
 	}
 
 	try {
+		opt.onCatchupComplete?.(steps);
 		// skip onStepsAdded if steps are undefined or empty
 		if (!steps || steps.length === 0) {
 			opt.updateMetadata(metadata);

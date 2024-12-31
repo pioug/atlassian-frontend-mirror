@@ -1,30 +1,29 @@
-
 import React, { type ChangeEvent, type ReactNode, useState } from 'react';
 
-import { cssMap, cx } from "@compiled/react";
+import { cssMap, cx } from '@compiled/react';
 import Lorem from 'react-lorem-component';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import { Box, Inline, Stack, Text } from "@atlaskit/primitives/compiled";
+import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
-import { token } from "@atlaskit/tokens";
+import { token } from '@atlaskit/tokens';
 const styles = cssMap({
-    invertedFooter: {
-        backgroundColor: "var(--ds-background-neutral-bold)",
-    },
+	invertedFooter: {
+		backgroundColor: 'var(--ds-background-neutral-bold)',
+	},
 
-    displayBlock: { display: 'block' },
-    displayNone: { display: 'none' },
+	displayBlock: { display: 'block' },
+	displayNone: { display: 'none' },
 
-    heading: {
-        color: token("color.text"),
-    },
+	heading: {
+		color: token('color.text'),
+	},
 
-    page: {
-        maxWidth: '840px',
-        marginInline: 'auto',
-    }
+	page: {
+		maxWidth: '840px',
+		marginInline: 'auto',
+	},
 });
 
 type Appearances = 'default' | 'help' | 'inverted' | 'primary';
@@ -42,7 +41,10 @@ type FooterProps = {
 };
 
 const Footer = ({ appearance, children }: FooterProps) => (
-	<Box as="footer" backgroundColor={appearance === 'inverted' ? "color.background.neutral.bold": undefined }>
+	<Box
+		as="footer"
+		backgroundColor={appearance === 'inverted' ? 'color.background.neutral.bold' : undefined}
+	>
 		{children}
 	</Box>
 );
@@ -90,7 +92,7 @@ const ProgressIndicatorDots = () => {
 		setIsInteractive(event.target.checked);
 
 	return (
-        <Box xcss={styles.page}>
+		<Box xcss={styles.page}>
 			<Box paddingBlock="space.400">
 				<Stack space="space.400">
 					<SpreadInlineLayout>
@@ -213,7 +215,7 @@ const ProgressIndicatorDots = () => {
 				</Stack>
 			</Box>
 		</Box>
-    );
+	);
 };
 
 export default ProgressIndicatorDots;

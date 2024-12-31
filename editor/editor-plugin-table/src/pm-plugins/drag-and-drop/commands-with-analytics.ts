@@ -16,7 +16,7 @@ import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { findCellRectClosestToPos, getSelectionRect } from '@atlaskit/editor-tables/utils';
 
 import type { DraggableData, DraggableType } from '../../types';
-import { getSelectedTableInfo , withEditorAnalyticsAPI } from '../utils/analytics';
+import { getSelectedTableInfo, withEditorAnalyticsAPI } from '../utils/analytics';
 import { canMove, getTargetIndex } from '../utils/drag-menu';
 import { getSelectedColumnIndexes, getSelectedRowIndexes } from '../utils/selection';
 

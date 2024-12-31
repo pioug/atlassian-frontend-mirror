@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-engagement-platform
 
+## 2.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.5
 
 ### Patch Changes

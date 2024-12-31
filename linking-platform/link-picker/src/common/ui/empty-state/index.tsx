@@ -27,7 +27,9 @@ export const EmptyState = ({ testId, header, description, renderImage }: EmptySt
 		>
 			{renderImage?.()}
 			<Flex direction="column" alignItems="center" gap="space.200">
-				<Heading size="medium">{header}</Heading>
+				<Heading size="medium" as="h2">
+					{header}
+				</Heading>
 				{description && (
 					<Text as="p" color="color.text">
 						{description}

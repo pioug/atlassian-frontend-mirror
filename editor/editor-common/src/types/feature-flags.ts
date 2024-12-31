@@ -231,15 +231,6 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Enables new column resizing experience
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-17798
-	 * @default false
-	 */
-	tableNewColumnResizing?: boolean;
-
-	/**
-	 * @description
 	 * Enables macro interaction visual updates
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/PGXT-4910

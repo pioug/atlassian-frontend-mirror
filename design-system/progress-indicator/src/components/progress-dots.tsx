@@ -1,10 +1,10 @@
 import React, {
-    type CSSProperties,
-    type FC,
-    type MutableRefObject,
-    useCallback,
-    useEffect,
-    useRef,
+	type CSSProperties,
+	type FC,
+	type MutableRefObject,
+	useCallback,
+	useEffect,
+	useRef,
 } from 'react';
 
 import { bind } from 'bind-event-listener';
@@ -19,7 +19,6 @@ import { ButtonIndicator, PresentationalIndicator } from './indicator';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
-
 
 const progressIndicatorGapMap = {
 	comfortable: {
@@ -43,7 +42,6 @@ const sizes = {
 
 const varDotsSize = '--ds-dots-size';
 const varDotsMargin = '--ds-dots-margin';
-
 
 /**
  * __ProgressDots__

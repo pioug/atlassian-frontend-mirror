@@ -105,7 +105,7 @@ function handleInsertBlockType(
 			return insertPanel(INPUT_METHOD.TOOLBAR);
 		}
 		if (name === BLOCK_QUOTE.name && insertBlockQuote) {
-			return insertBlockQuote(INPUT_METHOD.TOOLBAR);
+			return insertBlockQuote(INPUT_METHOD.INSERT_MENU);
 		}
 		return () => false;
 	};

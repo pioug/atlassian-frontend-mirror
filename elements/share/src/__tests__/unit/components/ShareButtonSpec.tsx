@@ -12,7 +12,9 @@ describe('ShareButton', () => {
 	describe('default', () => {
 		it('should render a Button with a ShareIcon', () => {
 			const wrapper: ShallowWrapper<Props> = shallow(<ShareButton onClick={noop} />);
+
 			expect(wrapper.find(Button).length).toBe(1);
+			expect(wrapper.find(Button).prop('id')).toEqual('share-trigger-btn');
 		});
 
 		it('should proxy appearance, isSelected and isDisable props into Button component', () => {

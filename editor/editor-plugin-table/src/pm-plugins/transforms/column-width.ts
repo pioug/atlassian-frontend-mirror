@@ -9,7 +9,7 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PluginInjectionAPI } from '../../types';
-import { isMinCellWidthTable , hasTableBeenResized } from '../table-resizing/utils/colgroup';
+import { isMinCellWidthTable, hasTableBeenResized } from '../table-resizing/utils/colgroup';
 import { getTableContainerElementWidth, getTableElementWidth } from '../table-resizing/utils/misc';
 import { getResizeState } from '../table-resizing/utils/resize-state';
 import { scaleTableTo } from '../table-resizing/utils/scale-table';

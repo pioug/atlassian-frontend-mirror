@@ -212,6 +212,7 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					sid,
 					initial: !initialized,
 				});
+				const unconfirmedStepsLength = this.documentService.getUnconfirmedSteps()?.length;
 
 				// if buffering is enabled and the provider is initialized before connection,
 				// send any unconfirmed steps
@@ -236,10 +237,10 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 					// Offline longer than `OUT_OF_SYNC_PERIOD`
 					Date.now() - this.disconnectedAt >= OUT_OF_SYNC_PERIOD
 				) {
-					this.analyticsHelper?.sendActionEvent(EVENT_ACTION.RECONNECTION, EVENT_STATUS.INFO, {
+					this.documentService.throttledCatchupv2(CatchupEventReason.RECONNECTED, {
 						disconnectionPeriodSeconds: Math.floor((Date.now() - this.disconnectedAt) / 1000),
+						unconfirmedStepsLength: unconfirmedStepsLength,
 					});
-					this.documentService.throttledCatchupv2(CatchupEventReason.RECONNECTED);
 				}
 				this.participantsService.startInactiveRemover(this.sessionId);
 				this.disconnectedAt = undefined;

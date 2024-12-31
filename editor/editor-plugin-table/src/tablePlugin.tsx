@@ -315,14 +315,9 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				{
 					name: 'tablePMColResizing',
 					plugin: ({ dispatch, nodeViewPortalProviderAPI }) => {
-						const {
-							fullWidthEnabled,
-							tableOptions,
-							getEditorFeatureFlags,
-							isTableScalingEnabled,
-							isNewColumnResizingEnabled,
-						} = options || ({} as TablePluginOptions);
-						const { allowColumnResizing, allowTableAlignment } = pluginConfig(tableOptions);
+						const { fullWidthEnabled, tableOptions, getEditorFeatureFlags, isTableScalingEnabled } =
+							options || ({} as TablePluginOptions);
+						const { allowColumnResizing } = pluginConfig(tableOptions);
 						return allowColumnResizing
 							? createFlexiResizingPlugin(
 									dispatch,
@@ -335,8 +330,6 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 									nodeViewPortalProviderAPI,
 									editorAnalyticsAPI,
 									isTableScalingEnabled || false,
-									isNewColumnResizingEnabled,
-									allowTableAlignment,
 									!!options?.isCommentEditor,
 								)
 							: undefined;

@@ -11,6 +11,7 @@ import {
 	expandIconContainerStyle,
 	triggerWrapperStyles,
 	triggerWrapperStylesWithPadding,
+	disableBlueBorderStyles,
 } from '@atlaskit/editor-common/styles';
 import { ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import BoldIcon from '@atlaskit/icon/core/migration/text-bold--editor-bold';
@@ -43,6 +44,8 @@ export const BoldToolbarButton = ({
 	const reducedSpacing = toolbarType === ToolbarType.FLOATING ? 'compact' : 'none';
 	return (
 		<ToolbarButton
+			// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides, @atlaskit/ui-styling-standard/no-imported-style-values
+			css={disableBlueBorderStyles}
 			testId={'ak-editor-selection-toolbar-format-text-button'}
 			spacing={isReducedSpacing ? reducedSpacing : 'default'}
 			disabled={isDisabled}
@@ -56,7 +59,7 @@ export const BoldToolbarButton = ({
 			iconBefore={
 				<div
 					css={
-						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
+						// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 						fg('platform-visual-refresh-icons')
 							? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 								triggerWrapperStylesWithPadding

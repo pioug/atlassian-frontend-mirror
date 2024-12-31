@@ -1,5 +1,13 @@
 # @atlaskit/primitives
 
+## 13.3.6
+
+### Patch Changes
+
+- [#99467](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99467)
+  [`118e81bbb4659`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/118e81bbb4659) -
+  Internal changes to typography.
+
 ## 13.3.5
 
 ### Patch Changes

@@ -38,7 +38,7 @@ export function PrimaryToolbarComponent({
 	const wrapBlockQuote = () =>
 		api?.core?.actions.execute(api?.blockType?.commands?.insertBlockQuote(INPUT_METHOD.TOOLBAR));
 	const clearFormatting = () =>
-		api?.core?.actions.execute(api?.blockType?.commands?.clearFormatting());
+		api?.core?.actions.execute(api?.blockType?.commands?.clearFormatting(INPUT_METHOD.TOOLBAR));
 	return (
 		<ToolbarBlockType
 			isSmall={isSmall}

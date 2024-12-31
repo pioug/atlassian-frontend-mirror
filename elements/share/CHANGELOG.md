@@ -1,5 +1,13 @@
 # @atlaskit/share
 
+## 4.23.10
+
+### Patch Changes
+
+- [#98532](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98532)
+  [`2c9bdfdef47cc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c9bdfdef47cc) -
+  Add an id to the ShareButton in order to improve targeting/triggering
+
 ## 4.23.9
 
 ### Patch Changes

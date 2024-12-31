@@ -713,7 +713,10 @@ describe('Provider', () => {
 			});
 
 			expect(throttledCatchupv2Spy).toHaveBeenCalledTimes(1);
-			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.RECONNECTED);
+			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.RECONNECTED, {
+				disconnectionPeriodSeconds: 3,
+				unconfirmedStepsLength: 0,
+			});
 		});
 		it('Should be triggered when initial draft is present and is reconnecting after being disconnected for more than 3s', async () => {
 			// ensure that if initial draft exists, any reconnections do not attempt to re-update document/metadata with initial draft
@@ -747,7 +750,10 @@ describe('Provider', () => {
 				version: 1,
 			});
 			expect(throttledCatchupv2Spy).toHaveBeenCalledTimes(1);
-			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.RECONNECTED);
+			expect(throttledCatchupv2Spy).toHaveBeenCalledWith(CatchupEventReason.RECONNECTED, {
+				disconnectionPeriodSeconds: 3,
+				unconfirmedStepsLength: 0,
+			});
 		});
 		it('Should be triggered when confirmed steps from other participants were received from NCS that are further in the future than the local steps (aka some changes got lost before reaching us)', async () => {
 			const provider = createSocketIOCollabProvider(testProviderConfig);
@@ -806,6 +812,7 @@ describe('Provider', () => {
 				getCurrentPmVersion: expect.any(Function),
 				fetchCatchupv2: expect.any(Function),
 				updateMetadata: expect.any(Function),
+				onCatchupComplete: expect.any(Function),
 				analyticsHelper: expect.any(Object),
 				clientId: 'some-random-prosemirror-client-Id',
 				onStepsAdded: expect.any(Function),
@@ -828,6 +835,7 @@ describe('Provider', () => {
 				getCurrentPmVersion: expect.any(Function),
 				fetchCatchupv2: expect.any(Function),
 				updateMetadata: expect.any(Function),
+				onCatchupComplete: expect.any(Function),
 				analyticsHelper: expect.any(Object),
 				clientId: 'some-random-prosemirror-client-Id',
 				onStepsAdded: expect.any(Function),
@@ -1260,7 +1268,7 @@ describe('Provider', () => {
 
 		it('getUnconfirmedSteps: Should return current unconfirmed steps', () => {
 			provider.initialize(() => editorState);
-			let documentServiceGetUnconfirmedStepsSpy = jest.spyOn(
+			const documentServiceGetUnconfirmedStepsSpy = jest.spyOn(
 				(provider as any).documentService,
 				'getUnconfirmedSteps',
 			);
@@ -1277,7 +1285,7 @@ describe('Provider', () => {
 					version: 8,
 				},
 			}));
-			let getCurrentPmVersionSpy = jest.spyOn(
+			const getCurrentPmVersionSpy = jest.spyOn(
 				(provider as any).documentService,
 				'getCurrentPmVersion',
 			);

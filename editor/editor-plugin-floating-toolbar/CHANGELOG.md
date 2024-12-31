@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.14.16
+
+### Patch Changes
+
+- [#99080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99080)
+  [`8b2f0af25c400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2f0af25c400) -
+  [ux] ED-26062: Removed icon blue borders when selected
+
+## 1.14.15
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.14.14
 
 ### Patch Changes

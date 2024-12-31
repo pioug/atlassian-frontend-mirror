@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 33.4.0
+
+### Minor Changes
+
+- [#99264](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99264)
+  [`a5f4221df30a0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a5f4221df30a0) -
+  Introduce role, label and titleId props to the Hover Card component
+
 ## 33.3.0
 
 ### Minor Changes

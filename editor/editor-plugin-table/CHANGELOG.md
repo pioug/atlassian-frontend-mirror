@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 9.0.0
+
+### Major Changes
+
+- [#98966](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98966)
+  [`5c8e4c2ce26bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5c8e4c2ce26bf) -
+  Remove platform_editor_table_new_column_resizing experiment, remove options and all logic inside
+  editor-plugin-table and remove it from feature flag plugin config.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.4.14
 
 ### Patch Changes

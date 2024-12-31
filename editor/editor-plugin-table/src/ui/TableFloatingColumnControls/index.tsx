@@ -102,7 +102,7 @@ const TableFloatingColumnControls = ({
 
 	if (stickyTop) {
 		const columnControlTopOffsetFromParent = '-12px';
-		const headerRowHeight = hasHeaderRow && stickyTop !== undefined ? (rowHeights?.[0] ?? 0) : 0;
+		const headerRowHeight = hasHeaderRow && stickyTop !== undefined ? rowHeights?.[0] ?? 0 : 0;
 		containerRef?.current?.style.setProperty(
 			'top',
 			fg('platform_editor_breakout_use_css')

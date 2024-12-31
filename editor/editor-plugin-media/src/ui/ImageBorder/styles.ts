@@ -134,6 +134,9 @@ export const toolbarButtonWrapper = ({
 		& > span {
 			margin: 0;
 		}
+		&:not([disabled])::after {
+			border: none;
+		}
 	}
 	.image-border-toolbar-dropdown {
 		padding: 0;
@@ -144,6 +147,9 @@ export const toolbarButtonWrapper = ({
 		border-top-left-radius: 0 !important;
 		border-bottom-left-radius: 0 !important;
 		margin-left: ${token('space.025', '2px')};
+		&:not([disabled])::after {
+			border: none;
+		}
 	}
 
 	${!enabled && getHoverStyles('.image-border-toolbar-btn')}

@@ -13,9 +13,9 @@ import type {
 	ImageUploadPluginState,
 	UploadHandlerReference,
 } from '../types';
-import { canInsertMedia, isMediaSelected } from '../utils';
-import { isClipboardEvent } from '../utils/clipboard';
-import { isDragEvent, isDroppedFile } from '../utils/drag-drop';
+import { isClipboardEvent } from '../ui/hooks/clipboard';
+import { isDragEvent, isDroppedFile } from '../ui/hooks/drag-drop';
+import { canInsertMedia, isMediaSelected } from '../ui/hooks/utils';
 
 import { insertExternalImage, startImageUpload } from './commands';
 import { stateKey } from './plugin-key';

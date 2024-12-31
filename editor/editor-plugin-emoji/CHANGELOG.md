@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-emoji
 
+## 2.7.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.7.20
 
 ### Patch Changes

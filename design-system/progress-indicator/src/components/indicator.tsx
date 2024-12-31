@@ -92,7 +92,7 @@ export const PresentationalIndicator = ({ appearance, isSelected, testId }: Comm
 		<Box
 			testId={testId}
 			// here we set it dynamic because that backgroundColor and xcss don't support the colors we need here eg. token('color.icon')
-			style={{backgroundColor:backgroundColor(isSelected)[appearance]}}
+			style={{ backgroundColor: backgroundColor(isSelected)[appearance] }}
 			xcss={cx(commonStyles.common, colorBorderMap[appearance])}
 		/>
 	);

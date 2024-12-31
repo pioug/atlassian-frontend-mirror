@@ -19,7 +19,7 @@ export const ShareButton = React.forwardRef<HTMLElement, Props>(
 	// Discard aria-haspopup
 	function ShareButton({ text, 'aria-haspopup': _ariaHasPopup, ...props }: Props, ref) {
 		return (
-			<Button ref={ref} aria-haspopup="dialog" {...props}>
+			<Button id="share-trigger-btn" ref={ref} aria-haspopup="dialog" {...props}>
 				{text}
 			</Button>
 		);

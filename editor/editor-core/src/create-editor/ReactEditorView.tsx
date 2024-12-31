@@ -872,7 +872,7 @@ export class ReactEditorView<T = Object> extends React.Component<
 					/>
 				)}
 				{this.props.render
-					? (this.props.render?.({
+					? this.props.render?.({
 							editor: this.editor,
 							view: this.view,
 							config: this.config,
@@ -881,7 +881,7 @@ export class ReactEditorView<T = Object> extends React.Component<
 							dispatchAnalyticsEvent: this.dispatchAnalyticsEvent,
 							editorRef: this.editorRef,
 							editorAPI: this.props.editorAPI,
-						}) ?? this.editor)
+						}) ?? this.editor
 					: this.editor}
 			</ReactEditorViewContext.Provider>
 		);

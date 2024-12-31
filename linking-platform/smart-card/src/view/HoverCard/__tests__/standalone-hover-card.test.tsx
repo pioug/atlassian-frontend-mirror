@@ -108,6 +108,20 @@ describe('standalone hover card', () => {
 		});
 	});
 
+	it('should apply accessibility props to the hover card', async () => {
+		await standaloneSetUp(undefined, {
+			role: 'dialog',
+			label: 'test-label',
+			titleId: 'test-titleId',
+		});
+
+		const hoverCard = await screen.findByTestId('hover-card');
+
+		expect(hoverCard).toHaveAttribute('role', 'dialog');
+		expect(hoverCard).toHaveAttribute('aria-label', 'test-label');
+		expect(hoverCard).toHaveAttribute('aria-labelledby', 'test-titleId');
+	});
+
 	it('should render a correct view of a hover card over a div', async () => {
 		await standaloneSetUp();
 		const titleBlock = await screen.findByTestId('smart-block-title-resolved-view');

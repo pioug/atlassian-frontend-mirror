@@ -5,12 +5,11 @@ import AnalyticsHelper from '../../analytics/analytics-helper';
 import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 import { Node } from '@atlaskit/editor-prosemirror/model';
 
+import { catchupv2 } from '../../document/catchupv2';
+
 replaceRaf();
 
-// jest.mock('@atlaskit/prosemirror-collab', () => ({
-// 	sendableSteps: (state: any) => state.collab,
-// 	getCollabState: (state: any) => state.collab,
-// }));
+jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 
 jest.mock('../../channel', () => {
 	const events = new Map<string, (...args: any) => {}>();
@@ -44,7 +43,10 @@ jest.mock('../../channel', () => {
 
 jest.mock('../../document/catchupv2', () => {
 	return {
-		catchupv2: jest.fn().mockImplementation(() => Promise.resolve()),
+		catchupv2: jest.fn().mockImplementation(({ onCatchupComplete }) => {
+			onCatchupComplete();
+			return Promise.resolve();
+		}),
 	};
 });
 
@@ -163,6 +165,8 @@ describe('reconnection analytics', () => {
 			attributes: {
 				collabService: 'ncs',
 				disconnectionPeriodSeconds: 3,
+				remoteStepsLength: 0,
+				unconfirmedStepsLength: undefined,
 				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
 				eventStatus: 'INFO',
 				network: {
@@ -209,6 +213,115 @@ describe('reconnection analytics', () => {
 			attributes: {
 				collabService: 'ncs',
 				disconnectionPeriodSeconds: 5,
+				remoteStepsLength: 0,
+				unconfirmedStepsLength: undefined,
+				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+				eventStatus: 'INFO',
+				network: {
+					status: 'ONLINE',
+				},
+				packageName: '@product/platform',
+				packageVersion: '0.0.0',
+				subProduct: undefined,
+			},
+			source: 'unknown',
+			tags: ['editor'],
+		});
+		provider.destroy();
+	});
+
+	it('Should trigger reconnecting analytics with unconfirmed steps after being disconnected', async () => {
+		const fakeAnalyticsWebClient = {
+			sendOperationalEvent: jest.fn(),
+			sendScreenEvent: jest.fn(),
+			sendTrackEvent: jest.fn(),
+			sendUIEvent: jest.fn(),
+		};
+		const provider = createSocketIOCollabProvider({
+			...testProviderConfig,
+			analyticsClient: fakeAnalyticsWebClient,
+		});
+		provider.initialize(() => editorState);
+
+		const mockedSteps = [{ type: 'fakeStep' }, { type: 'fakeStep' }];
+		jest
+			// @ts-ignore
+			.spyOn(provider.documentService as any, 'getUnconfirmedSteps')
+			.mockImplementationOnce(() => mockedSteps);
+
+		jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
+		channel.emit('disconnect', {
+			reason: 'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
+		});
+
+		channel.emit('connected', {
+			sid: 'pweq3Q7NOPY4y88QAGyr',
+			initialized: true,
+		});
+
+		(requestAnimationFrame as any).step();
+		expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(1);
+		expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledWith({
+			action: 'providerReconnection',
+			actionSubject: 'collab',
+			attributes: {
+				collabService: 'ncs',
+				disconnectionPeriodSeconds: 3,
+				remoteStepsLength: 0,
+				unconfirmedStepsLength: 2,
+				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
+				eventStatus: 'INFO',
+				network: {
+					status: 'ONLINE',
+				},
+				packageName: '@product/platform',
+				packageVersion: '0.0.0',
+				subProduct: undefined,
+			},
+			source: 'unknown',
+			tags: ['editor'],
+		});
+		provider.destroy();
+	});
+
+	it('Should trigger reconnecting analytics with remote steps after being disconnected', async () => {
+		const fakeAnalyticsWebClient = {
+			sendOperationalEvent: jest.fn(),
+			sendScreenEvent: jest.fn(),
+			sendTrackEvent: jest.fn(),
+			sendUIEvent: jest.fn(),
+		};
+		const provider = createSocketIOCollabProvider({
+			...testProviderConfig,
+			analyticsClient: fakeAnalyticsWebClient,
+		});
+
+		(catchupv2 as jest.Mock).mockImplementation(({ onCatchupComplete }) => {
+			onCatchupComplete([{ step: 'remoteStep' }, { step: 'remoteStep' }, { step: 'remoteStep' }]);
+			return Promise.resolve();
+		});
+		provider.initialize(() => editorState);
+
+		jest.spyOn(Date, 'now').mockReturnValueOnce(Date.now() - 3 * 1000); // Time travel 3s to the past
+		channel.emit('disconnect', {
+			reason: 'Testing - Faking that we got disconnected 3s ago, HAHAHA, take that code',
+		});
+
+		channel.emit('connected', {
+			sid: 'pweq3Q7NOPY4y88QAGyr',
+			initialized: true,
+		});
+
+		(requestAnimationFrame as any).step();
+		expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledTimes(1);
+		expect(fakeAnalyticsWebClient.sendOperationalEvent).toHaveBeenCalledWith({
+			action: 'providerReconnection',
+			actionSubject: 'collab',
+			attributes: {
+				collabService: 'ncs',
+				disconnectionPeriodSeconds: 3,
+				remoteStepsLength: 3,
+				unconfirmedStepsLength: undefined,
 				documentAri: 'ari:cloud:confluence:ABC:page/testpage',
 				eventStatus: 'INFO',
 				network: {

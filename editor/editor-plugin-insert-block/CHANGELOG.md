@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.28
+
+### Patch Changes
+
+- [#99274](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99274)
+  [`b4dd134e0caaa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b4dd134e0caaa) -
+  ED-25961 Add analytics for clear formatting and adding blockquote from text styles menu
+
+## 2.4.27
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.4.26
 
 ### Patch Changes

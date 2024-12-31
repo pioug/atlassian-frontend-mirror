@@ -42,7 +42,6 @@ export const emojiNameStyle = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const footerStyle = css({
 	color: token('color.text.inverse', N90),
-	fontWeight: 300,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

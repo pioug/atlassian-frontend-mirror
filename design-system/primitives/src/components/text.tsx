@@ -15,6 +15,7 @@ import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { HasTextAncestorProvider, useHasTextAncestor } from '../utils/has-text-ancestor-context';
 import { useSurface } from '../utils/surface-provider';
@@ -88,7 +89,7 @@ const resetStyles = css({
 });
 
 const strongStyles = css({
-	fontWeight: 'bold',
+	fontWeight: token('font.weight.bold'),
 });
 
 const emStyles = css({

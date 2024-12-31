@@ -3,7 +3,7 @@ import type { Command, ImageUploadPluginReferenceEvent } from '@atlaskit/editor-
 import { safeInsert } from '@atlaskit/editor-prosemirror/utils';
 
 import type { ImageUploadPluginState } from '../types';
-import { createExternalMediaNode } from '../utils';
+import { createExternalMediaNode } from '../ui/hooks/utils';
 
 import { startUpload } from './actions';
 import { stateKey } from './plugin-key';

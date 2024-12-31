@@ -1,5 +1,27 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 1.16.8
+
+### Patch Changes
+
+- [#99274](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99274)
+  [`b4dd134e0caaa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b4dd134e0caaa) -
+  ED-25961 Add analytics for clear formatting and adding blockquote from text styles menu
+
+## 1.16.7
+
+### Patch Changes
+
+- [#99080](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99080)
+  [`8b2f0af25c400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8b2f0af25c400) -
+  [ux] ED-26062: Removed icon blue borders when selected
+
+## 1.16.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.16.5
 
 ### Patch Changes

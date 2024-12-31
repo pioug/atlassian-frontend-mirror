@@ -1142,9 +1142,7 @@ export const createPlugin = (
 				return false;
 			},
 			handleDoubleClickOn: (view) => {
-				if (
-					!fg('platform_editor_media_interaction_improvements')
-				) {
+				if (!fg('platform_editor_media_interaction_improvements')) {
 					return;
 				}
 

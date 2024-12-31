@@ -1905,9 +1905,10 @@ describe('MediaStore', () => {
 					statusText: 'Created',
 				});
 
-				const response = await mediaStore.registerCopyIntents(
-					[{ id: 'some-id', collection: 'some-collection' }, { id: 'some-other-id', collection: 'some-collection' }],
-				);
+				const response = await mediaStore.registerCopyIntents([
+					{ id: 'some-id', collection: 'some-collection' },
+					{ id: 'some-other-id', collection: 'some-collection' },
+				]);
 
 				expect(response).toEqual(undefined);
 				expect(fetchMock).toHaveBeenCalledWith(`${baseUrl}/file/copy/intents`, {
@@ -1934,7 +1935,10 @@ describe('MediaStore', () => {
 				});
 
 				await mediaStore.registerCopyIntents(
-					[{ id: 'some-id', collection: 'some-collection' }, { id: 'some-other-id', collection: 'some-collection' }],
+					[
+						{ id: 'some-id', collection: 'some-collection' },
+						{ id: 'some-other-id', collection: 'some-collection' },
+					],
 					{ traceId: 'some-trace-id' },
 				);
 

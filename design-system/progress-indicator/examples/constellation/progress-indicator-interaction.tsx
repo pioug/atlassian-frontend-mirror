@@ -1,21 +1,20 @@
-
 import React, { type ReactNode, useState } from 'react';
 
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
-import { cssMap, cx } from "@atlaskit/css";
-import { Box, Inline, Stack, Text } from "@atlaskit/primitives/compiled";
+import { cssMap, cx } from '@atlaskit/css';
+import { Box, Inline, Stack, Text } from '@atlaskit/primitives/compiled';
 import { ProgressIndicator } from '@atlaskit/progress-indicator';
 
 const styles = cssMap({
-    displayBlock: { display: 'block' },
-    displayNone: { display: 'none' },
+	displayBlock: { display: 'block' },
+	displayNone: { display: 'none' },
 
-    page: {
-        maxWidth: '840px',
-        marginInline: 'auto',
-    }
+	page: {
+		maxWidth: '840px',
+		marginInline: 'auto',
+	},
 });
 
 const SpreadInlineLayout = ({ children }: { children: ReactNode }) => {
@@ -49,7 +48,7 @@ const Example = () => {
 	};
 
 	return (
-        <Box xcss={styles.page}>
+		<Box xcss={styles.page}>
 			<Box paddingBlock="space.400">
 				{values.map((v, i) => {
 					const selected = i === selectedIndex;
@@ -63,7 +62,10 @@ const Example = () => {
 							id={panelId}
 							role="tabpanel"
 						>
-							<Stack space="space.100" xcss={ cx(styles.displayBlock, !selected && styles.displayNone)}>
+							<Stack
+								space="space.100"
+								xcss={cx(styles.displayBlock, !selected && styles.displayNone)}
+							>
 								<Text as="strong">Panel {i + 1}</Text>
 								<Lorem count={1} />
 							</Stack>
@@ -86,7 +88,7 @@ const Example = () => {
 				</Button>
 			</SpreadInlineLayout>
 		</Box>
-    );
+	);
 };
 
 export default Example;

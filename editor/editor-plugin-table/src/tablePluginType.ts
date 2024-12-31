@@ -29,7 +29,6 @@ export interface TablePluginOptions {
 	fullWidthEnabled?: boolean;
 	wasFullWidthEnabled?: boolean;
 	getEditorFeatureFlags?: GetEditorFeatureFlags;
-	isNewColumnResizingEnabled?: boolean;
 	isCommentEditor?: boolean;
 	isChromelessEditor?: boolean;
 }

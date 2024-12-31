@@ -37,7 +37,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { type BlockTypePlugin } from './blockTypePluginType';
 import type { TextBlockTypes } from './pm-plugins/block-types';
-import type { InputMethod } from './pm-plugins/commands/block-type';
+import type { ClearFormattingInputMethod, InputMethod } from './pm-plugins/commands/block-type';
 import {
 	setBlockTypeWithAnalytics,
 	insertBlockQuoteWithAnalytics,
@@ -249,8 +249,8 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 			insertBlockQuote(inputMethod: InputMethod) {
 				return insertBlockQuoteWithAnalyticsCommand(inputMethod, api?.analytics?.actions);
 			},
-			clearFormatting() {
-				return clearFormatting();
+			clearFormatting(inputMethod: ClearFormattingInputMethod) {
+				return clearFormatting(inputMethod, api?.analytics?.actions);
 			},
 		},
 

@@ -38,6 +38,9 @@ const fetchProviderStates = async (
 	provider: InlineCommentAnnotationProvider,
 	annotationIds: string[],
 ): Promise<InlineCommentMap> => {
+	if ((!provider || !provider.getState) && fg('use_comments_data_annotation_updater')) {
+		return {};
+	}
 	const data = await provider.getState(annotationIds);
 	const result: { [key: string]: boolean } = {};
 	data.forEach((annotation) => {
@@ -58,11 +61,15 @@ const fetchState = async (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
-	if (!annotationIds || !annotationIds.length) {
+	if ((!annotationIds || !annotationIds.length) && !fg('use_comments_data_annotation_updater')) {
 		return;
 	}
 
 	const inlineCommentStates = await fetchProviderStates(provider, annotationIds);
+
+	if (Object.keys(inlineCommentStates).length === 0 && fg('use_comments_data_annotation_updater')) {
+		return;
+	}
 
 	if (editorView.dispatch) {
 		updateInlineCommentResolvedState(editorAnalyticsAPI)(inlineCommentStates)(

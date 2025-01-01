@@ -9,6 +9,12 @@ describe('NotificationDrawerContents', () => {
 		expect(iframe).toHaveAttribute('src', src);
 	};
 
+	it('should have no accessibility violations', async () => {
+		const { container } = render(<Notifications testId="navigation-notifications" />);
+
+		await expect(container).toBeAccessible();
+	});
+
 	it('should add the correct url to the iframe by default', async () => {
 		render(<Notifications testId="navigation-notifications" />);
 		await testIframeUrl('/home/notificationsDrawer/iframe.html');

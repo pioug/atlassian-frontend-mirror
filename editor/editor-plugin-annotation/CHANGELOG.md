@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.26.10
+
+### Patch Changes
+
+- [#99608](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99608)
+  [`18ad3efa3ef3a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/18ad3efa3ef3a) -
+  [ux] Updating the annotation ID list to empty when the page has no annotations
+
 ## 1.26.9
 
 ### Patch Changes

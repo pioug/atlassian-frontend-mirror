@@ -84,7 +84,7 @@
 		"@atlaskit/adf-utils": "^19.14.0",
 		"@atlaskit/analytics-listeners": "^8.13.0",
 		"@atlaskit/collab-provider": "10.3.3",
-		"@atlaskit/editor-plugin-annotation": "1.26.9",
+		"@atlaskit/editor-plugin-annotation": "1.26.10",
 		"@atlaskit/editor-plugin-card": "^4.5.0",
 		"@atlaskit/editor-plugin-list": "^3.9.0",
 		"@atlaskit/editor-plugin-paste": "^2.0.0",

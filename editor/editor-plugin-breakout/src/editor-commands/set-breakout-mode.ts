@@ -1,7 +1,6 @@
 import { transferCodeBlockWrappedValue } from '@atlaskit/editor-common/code-block';
 import type { BreakoutMode, Command } from '@atlaskit/editor-common/types';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { findSupportedNodeForBreakout } from '../pm-plugins/utils/find-breakout-node';
 import { updateExpandedState } from '../pm-plugins/utils/single-player-expand';
@@ -19,10 +18,7 @@ export function setBreakoutMode(mode: BreakoutMode, isLivePage?: boolean): Comma
 
 		if (node.node.type === state.schema.nodes.expand) {
 			updateExpandedState(tr, node, isLivePage);
-		} else if (
-			!fg('editor_code_block_wrapping_language_change_bug') &&
-			node.node.type === state.schema.nodes.codeBlock
-		) {
+		} else if (node.node.type === state.schema.nodes.codeBlock) {
 			const newNode = tr.doc.nodeAt(node.pos);
 			const oldNode = node.node;
 			if (newNode) {

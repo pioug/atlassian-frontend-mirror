@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.29
+
+### Patch Changes
+
+- [#99549](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99549)
+  [`df909788e15e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df909788e15e8) -
+  [ux] Cleanup feature flag for consistent insert menu behaviour.
+
 ## 2.4.28
 
 ### Patch Changes

@@ -123,6 +123,17 @@ export const handleMouseOver = (
 			pos = view.posAtDOM(rootElement, 0);
 		}
 
+		if (
+			parentRootElement &&
+			parentRootElement.getAttribute('data-layout-section') === 'true' &&
+			parentRootElement.querySelectorAll('[data-layout-column]').length === 1 &&
+			editorExperiment('advanced_layouts', true) &&
+			fg('platform_editor_advanced_layouts_post_fix_patch_3')
+		) {
+			// Don't show drag handle for layout column in a single column layout
+			return false;
+		}
+
 		let rootPos: number;
 		if (editorExperiment('nested-dnd', true)) {
 			rootPos = view.state.doc.resolve(pos).pos;

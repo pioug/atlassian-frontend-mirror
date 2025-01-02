@@ -134,9 +134,17 @@ export function useSharedPluginStateSelector<
 		return [pluginName as PluginName];
 	}, [plugin]);
 
-	return useSharedPluginStateSelectorInternal(api, pluginNameArray, transformer);
+	const initialState = useMemo(() => {
+		const [pluginName] = plugin.split('.');
+		return transformer({
+			[`${pluginName}State`]: api?.[pluginName]?.sharedState.currentState(),
+		} as NamedPluginStatesFromInjectionAPI<API, PluginName>);
+	}, [plugin, api, transformer]);
+
+	return useSharedPluginStateSelectorInternal(api, pluginNameArray, transformer, initialState);
 }
 
+// eslint-disable-next-line @typescript-eslint/max-params
 function useSharedPluginStateSelectorInternal<
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -147,8 +155,10 @@ function useSharedPluginStateSelectorInternal<
 	api: API | undefined | null,
 	plugins: PluginNames[],
 	transformer: (inputStates: NamedPluginStatesFromInjectionAPI<API, PluginNames>) => Result,
+	initialState: Result | undefined,
 ): Result | undefined {
-	const [selectedPluginState, setSelectedPluginState] = useState<Result | undefined>();
+	const [selectedPluginState, setSelectedPluginState] = useState<Result | undefined>(initialState);
+
 	usePluginStateEffect(api, plugins, (pluginStates) => {
 		// `pluginStates`: This is the same type through inference - but typescript doesn't recognise them as they are computed slightly differently
 		const transformedValue = transformer(

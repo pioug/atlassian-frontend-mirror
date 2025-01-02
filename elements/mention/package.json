@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/mention",
-	"version": "23.5.0",
+	"version": "23.6.0",
 	"description": "A React component used to display user profiles in a list for 'Mention' functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,6 +47,7 @@
 		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/lozenge": "^11.12.0",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.5.0",
@@ -67,6 +68,7 @@
 	"devDependencies": {
 		"@atlaskit/elements-test-helpers": "^0.7.0",
 		"@atlaskit/visual-regression": "*",
+		"@atlassian/feature-flags-test-utils": "*",
 		"@testing-library/react": "^12.1.5",
 		"@types/query-string": "^4.3.1",
 		"@types/serialize-javascript": "^5.0.0",
@@ -119,5 +121,10 @@
 		"./team-resource": "./src/team-resource.ts",
 		"./typeahead": "./src/typeahead.ts",
 		"./types": "./src/types.ts"
+	},
+	"platform-feature-flags": {
+		"platform_editor_ai_remove_mentions_record": {
+			"type": "boolean"
+		}
 	}
 }

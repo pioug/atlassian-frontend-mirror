@@ -10,7 +10,12 @@ import type {
 } from '@atlaskit/editor-common/provider-factory';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import type { FileState } from '@atlaskit/media-client';
+import type {
+	FileState,
+	CopySourceFile,
+	CopyDestination,
+	MediaClient,
+} from '@atlaskit/media-client';
 import {
 	getAttrsFromUrl,
 	isImageRepresentationReady,
@@ -374,6 +379,30 @@ export class MediaNodeUpdater {
 		}
 	}
 
+	private handleCopyFileSwitcher = async (attrs: {
+		mediaClient: MediaClient;
+		source: CopySourceFile;
+		destination: CopyDestination;
+		traceContext?: MediaTraceContext;
+	}): Promise<string> => {
+		const { mediaClient, source, destination, traceContext } = attrs;
+		if (fg('platform_media_copy_and_paste_v2')) {
+			// don't need authProviders for v2 copy
+			const { authProvider: _sourceAP, ...copyV2Source } = source;
+			const { authProvider: _destAP, ...copyV2Destination } = destination;
+			const { id } = await mediaClient.file.copyFile(
+				copyV2Source,
+				copyV2Destination,
+				undefined,
+				traceContext,
+			);
+			return id;
+		} else {
+			const { id } = await mediaClient.file.copyFile(source, destination, undefined, traceContext);
+			return id;
+		}
+	};
+
 	copyNodeFromBlobUrl = async (getPos: ProsemirrorGetPosHandler) => {
 		const attrs = this.getAttrs();
 
@@ -396,18 +425,21 @@ export class MediaNodeUpdater {
 			return;
 		}
 		const mediaClient = getMediaClient(uploadMediaClientConfig);
-		const auth = await uploadMediaClientConfig.getAuthFromContext(contextId);
-		const source = {
-			id,
-			collection,
-			authProvider: () => Promise.resolve(auth),
-		};
-		const destination = {
-			collection: currentCollectionName,
-			authProvider: uploadMediaClientConfig.authProvider,
-			occurrenceKey: uuidV4(),
-		};
-		const mediaFile = await mediaClient.file.copyFile(source, destination);
+		const getAuthFromContext = uploadMediaClientConfig.getAuthFromContext;
+
+		const mediaFileId = await this.handleCopyFileSwitcher({
+			mediaClient,
+			source: {
+				id,
+				collection,
+				authProvider: () => getAuthFromContext(contextId),
+			},
+			destination: {
+				collection: currentCollectionName,
+				authProvider: uploadMediaClientConfig.authProvider,
+				occurrenceKey: uuidV4(),
+			},
+		});
 
 		const pos = getPos();
 		if (typeof pos !== 'number') {
@@ -415,7 +447,7 @@ export class MediaNodeUpdater {
 		}
 
 		replaceExternalMedia(pos + 1, {
-			id: mediaFile.id,
+			id: mediaFileId,
 			collection: currentCollectionName,
 			height,
 			width,
@@ -477,23 +509,29 @@ export class MediaNodeUpdater {
 		}
 
 		const mediaClient = getMediaClient(uploadMediaClientConfig);
-		const auth = await uploadMediaClientConfig.getAuthFromContext(nodeContextId);
-		const objectId = await this.getObjectId();
-		const source = {
-			id,
-			collection,
-			authProvider: () => Promise.resolve(auth),
-		};
+
 		const currentCollectionName = mediaProvider.uploadParams.collection;
-		const destination = {
-			collection: currentCollectionName,
-			authProvider: uploadMediaClientConfig.authProvider,
-			occurrenceKey: uuidV4(),
-		};
-		const mediaFile = await mediaClient.file.copyFile(source, destination, undefined, traceContext);
+		const objectId = await this.getObjectId();
+
+		const getAuthFromContext = uploadMediaClientConfig.getAuthFromContext;
+
+		const mediaFileId = await this.handleCopyFileSwitcher({
+			mediaClient,
+			source: {
+				id,
+				collection,
+				authProvider: () => getAuthFromContext(nodeContextId),
+			},
+			destination: {
+				collection: currentCollectionName,
+				authProvider: uploadMediaClientConfig.authProvider,
+				occurrenceKey: uuidV4(),
+			},
+			traceContext,
+		});
 
 		return {
-			id: mediaFile.id,
+			id: mediaFileId,
 			collection: currentCollectionName,
 			__contextId: objectId,
 		};

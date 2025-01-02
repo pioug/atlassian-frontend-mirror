@@ -1,5 +1,14 @@
 # @atlaskit/mention
 
+## 23.6.0
+
+### Minor Changes
+
+- [#99487](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99487)
+  [`8c482c8d11e99`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c482c8d11e99) -
+  [https://product-fabric.atlassian.net/browse/EDF-67](EDF-67) - remove
+  /api/mentions/CLOUD_ID/record endpoint call
+
 ## 23.5.0
 
 ### Minor Changes

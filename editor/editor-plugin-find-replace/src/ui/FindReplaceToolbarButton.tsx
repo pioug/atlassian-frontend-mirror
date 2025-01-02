@@ -29,7 +29,7 @@ import {
 	akEditorFloatingPanelZIndex,
 	akEditorMobileMaxWidth,
 } from '@atlaskit/editor-shared-styles';
-import EditorSearchIcon from '@atlaskit/icon/glyph/editor/search';
+import SearchIcon from '@atlaskit/icon/core/migration/search';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
@@ -175,7 +175,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 									spacing={isReducedSpacing ? 'none' : 'default'}
 									selected={isActive}
 									title={<ToolTipContent description={title} keymap={keymap} />}
-									iconBefore={<EditorSearchIcon label={title} />}
+									iconBefore={<SearchIcon label={title} spacing="spacious" />}
 									onClick={this.toggleOpen}
 									aria-expanded={isActive}
 									aria-haspopup
@@ -191,7 +191,7 @@ class FindReplaceToolbarButton extends React.PureComponent<
 								spacing={isReducedSpacing ? 'none' : 'default'}
 								selected={isActive}
 								title={<ToolTipContent description={title} keymap={keymap} />}
-								iconBefore={<EditorSearchIcon label={title} />}
+								iconBefore={<SearchIcon label={title} spacing="spacious" />}
 								onClick={this.toggleOpen}
 								aria-expanded={isActive}
 								aria-haspopup

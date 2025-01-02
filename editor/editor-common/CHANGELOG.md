@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 98.1.0
+
+### Minor Changes
+
+- [#99709](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99709)
+  [`f920f8775ebe9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f920f8775ebe9) -
+  [ux] [https://product-fabric.atlassian.net/browse/EDF-396](EDF-396) - fix a list item with code
+  block marker vertical alignment
+
+## 98.0.3
+
+### Patch Changes
+
+- [#98963](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98963)
+  [`3638dcf79b6c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3638dcf79b6c7) -
+  ED-26126 Cleanup code wrapping language bug fg
+
 ## 98.0.2
 
 ### Patch Changes

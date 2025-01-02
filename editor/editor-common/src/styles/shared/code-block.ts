@@ -122,10 +122,22 @@ export const codeBlockSharedStyles = () => css`
 			background-color: ${token('color.background.neutral')};
 			position: relative;
 			width: var(--lineNumberGutterWidth, 2rem);
-			padding: 0px ${token('space.100', '8px')};
+			padding: ${token('space.100', '8px')};
 			flex-shrink: 0;
 			font-size: ${relativeFontSizeToBase16(14)};
 			box-sizing: content-box;
+		}
+
+		// This is a fix of marker of list item with code block.
+		// The list item marker in Chrome is aligned by the baseline of the text,
+		// that's why we need to add a text (content: "1") to the line number gutter to align
+		// the list item marker with the text.
+		// Without it, the list item marker will be aligned by the bottom of the code block.
+		.${CodeBlockSharedCssClassName.CODEBLOCK_LINE_NUMBER_GUTTER}::before {
+			content: '1';
+			visibility: hidden;
+			font-size: ${relativeFontSizeToBase16(14)};
+			line-height: 1.5rem;
 		}
 
 		.${CodeBlockSharedCssClassName.CODEBLOCK_CONTENT} {

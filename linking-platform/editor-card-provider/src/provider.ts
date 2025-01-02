@@ -98,6 +98,11 @@ const isJiraVersion = (url: string) => {
 		/https:\/\/.*?\/projects\/[^\/]+?\/versions\/\d+\/tab\/release-report-all-issues/,
 	);
 };
+
+const isJiraForm = (url: string) => {
+	return url.match(/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/form\/\d\??.*/);
+};
+
 const isRovoAgentProfilePage = (url: string) => {
 	if (fg('rovo_agent_profile_page_default_embed')) {
 		return url.match(/^https:\/\/.*?\/people\/agent\/.+$/);
@@ -252,6 +257,11 @@ export class EditorCardProvider implements CardProvider {
 			isJiraVersionEvaluated = isJiraVersion(url);
 		}
 
+		let isJiraFormEvaluated;
+		if (fg('smartlink_jira_software_form')) {
+			isJiraFormEvaluated = isJiraForm(url);
+		}
+
 		if (
 			isJiraRoadmapOrTimeline(url) ||
 			isPolarisView(url) ||
@@ -268,7 +278,8 @@ export class EditorCardProvider implements CardProvider {
 			isJiraBoard(url) ||
 			isRovoAgentProfilePage(url) ||
 			isJiraPlanEvaluated ||
-			isJiraVersionEvaluated
+			isJiraVersionEvaluated ||
+			isJiraFormEvaluated
 		) {
 			return 'embed';
 		}

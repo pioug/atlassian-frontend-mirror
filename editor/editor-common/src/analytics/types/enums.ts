@@ -156,6 +156,7 @@ export enum ACTION {
 	UPLOAD_FAILED = 'uploadFailed',
 	TOGGLE_CODE_BLOCK_WRAP = 'toggleCodeBlockWrap',
 	RESIZED = 'resized',
+	BLOCKS_DRAG_INIT = 'blocksDragInit',
 }
 
 export enum INPUT_METHOD {

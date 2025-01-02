@@ -1,3 +1,4 @@
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 export const iconOnlySpacing = {
@@ -41,6 +42,20 @@ const background: Property = {
 	},
 };
 
+const backgroundVisualRefresh: Property = {
+	danger: {
+		default: { light: 'inherit', dark: 'inherit' },
+		hover: {
+			light: token('color.background.danger.hovered'),
+			dark: token('color.background.danger.hovered'),
+		},
+		active: {
+			light: token('color.background.danger.pressed'),
+			dark: token('color.background.danger.pressed'),
+		},
+	},
+};
+
 const color = {
 	danger: {
 		default: {
@@ -57,10 +72,31 @@ const color = {
 		},
 	},
 };
+const colorVisualRefresh = {
+	danger: {
+		default: {
+			light: token('color.icon.subtle'),
+			dark: token('color.icon.subtle'),
+		},
+		hover: {
+			light: token('color.icon.danger'),
+			dark: token('color.icon.danger'),
+		},
+		active: {
+			light: token('color.icon.danger'),
+			dark: token('color.icon.danger'),
+		},
+	},
+};
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const getButtonStyles = (props: any) => ({
-	background: getStyles(background, props),
-	color: getStyles(color, props),
+	background: getStyles(
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+		fg('platform-visual-refresh-icons') ? backgroundVisualRefresh : background,
+		props,
+	),
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+	color: getStyles(fg('platform-visual-refresh-icons') ? colorVisualRefresh : color, props),
 });

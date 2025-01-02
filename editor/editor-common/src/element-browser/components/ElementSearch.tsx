@@ -12,7 +12,7 @@ import { injectIntl } from 'react-intl-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { shortcutStyle } from '@atlaskit/editor-shared-styles/shortcut';
-import SearchIcon from '@atlaskit/icon/glyph/search';
+import SearchIcon from '@atlaskit/icon/core/migration/search';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -114,7 +114,11 @@ function ElementSearch({
 						data-testid="element_search__element_before_input"
 						aria-hidden="true"
 					>
-						<SearchIcon size="medium" label="Advanced search" primaryColor="inherit" />
+						<SearchIcon
+							spacing="spacious"
+							label="Advanced search"
+							color={token('color.icon.subtle')}
+						/>
 					</div>
 				}
 				elemAfterInput={
@@ -185,8 +189,7 @@ const wrapperInline = css({
 });
 
 const elementBeforeInput = css({
-	margin: `1px ${token('space.075', '6px')} 0 ${token('space.100', '8px')}`,
-	color: token('color.icon'),
+	margin: `${token('space.025', '2px')} ${token('space.075', '6px')} 0 ${token('space.100', '8px')}`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'span, svg': {
 		height: '20px',

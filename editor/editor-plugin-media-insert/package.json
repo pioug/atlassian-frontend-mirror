@@ -28,7 +28,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^98.0.0",
+		"@atlaskit/editor-common": "^98.1.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
 		"@atlaskit/editor-plugin-media": "^1.43.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
@@ -46,11 +46,12 @@
 		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/tmp-editor-statsig": "^2.31.0",
 		"@babel/runtime": "^7.0.0",
-		"react": "^16.8.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"@atlaskit/tokens": "^2.5.0"
+		"@atlaskit/tokens": "^2.5.0",
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
 		"typescript": "~5.4.2"

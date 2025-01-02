@@ -45,3 +45,11 @@ export function clearMeasure(measureName: string) {
 	performance.clearMarks(`${measureName}::end`);
 	performance.clearMeasures(measureName);
 }
+
+export function isMeasuring(measureName: string) {
+	if (!isPerformanceAPIAvailable()) {
+		return false;
+	}
+
+	return measureMap.get(measureName) !== undefined;
+}

@@ -164,7 +164,8 @@ describe('providers > editor', () => {
 			(flag) =>
 				flag === 'smart_links_for_plans_platform' ||
 				flag === 'smartlink_jira_releases' ||
-				flag === 'rovo_agent_profile_page_default_embed',
+				flag === 'rovo_agent_profile_page_default_embed' ||
+				flag === 'smartlink_jira_software_form',
 		);
 	});
 
@@ -570,6 +571,11 @@ describe('providers > editor', () => {
 		[
 			'Rovo agent embed',
 			'https://hello.atlassian.net/people/agent/b7e4b64f-25fd-4a5f-b45f-2e607d31571b',
+		],
+		['Jira Form embed', 'https://hello.jira.atlassian.cloud/jira/software/projects/RAYM/form/4431'],
+		[
+			'Jira CMP Form embed',
+			'https://hello.jira.atlassian.cloud/jira/software/c/projects/TNK/form/4056',
 		],
 	])(
 		'returns embedCard when %s public link is inserted, calling /providers and /resolve/batch endpoint',

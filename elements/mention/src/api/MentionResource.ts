@@ -1,4 +1,5 @@
 import { type KeyValues, utils as serviceUtils } from '@atlaskit/util-service-support';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	type AnalyticsCallback,
@@ -448,6 +449,10 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		mention: MentionDescription,
 		contextIdentifier?: MentionContextIdentifier,
 	): Promise<void> {
+		if (fg('platform_editor_ai_remove_mentions_record')) {
+			return;
+		}
+
 		const options = {
 			path: 'record',
 			queryParams: {

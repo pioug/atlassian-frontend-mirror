@@ -153,9 +153,7 @@ export const createPlugin = ({
 						: getAllCodeBlockNodesInDoc(newState);
 
 					if (codeBlockNodes) {
-						if (fg('editor_code_block_wrapping_language_change_bug')) {
-							updateCodeBlockWrappedStateNodeKeys(codeBlockNodes, _oldState);
-						}
+						updateCodeBlockWrappedStateNodeKeys(codeBlockNodes, _oldState);
 
 						updatedDecorationSet = updateCodeBlockDecorations(
 							tr,

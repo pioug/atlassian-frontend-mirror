@@ -1,9 +1,5 @@
 import { browser } from '@atlaskit/editor-common/browser';
-import {
-	codeBlockWrappedStates,
-	defaultWordWrapState,
-	transferCodeBlockWrappedValue,
-} from '@atlaskit/editor-common/code-block';
+import { codeBlockWrappedStates, defaultWordWrapState } from '@atlaskit/editor-common/code-block';
 import type {
 	ExtractInjectionAPI,
 	getPosHandler,
@@ -12,7 +8,6 @@ import type {
 import type { DOMOutputSpec, Node } from '@atlaskit/editor-prosemirror/model';
 import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { CodeBlockPlugin } from '../codeBlockPluginType';
 import { resetShouldIgnoreFollowingMutations } from '../editor-commands';
@@ -205,10 +200,6 @@ export class CodeBlockView {
 			return false;
 		}
 		if (node !== this.node) {
-			if (!fg('editor_code_block_wrapping_language_change_bug')) {
-				transferCodeBlockWrappedValue(this.node, node);
-			}
-
 			if (node.attrs.language !== this.node.attrs.language) {
 				this.contentDOM.setAttribute('data-language', node.attrs.language || '');
 			}

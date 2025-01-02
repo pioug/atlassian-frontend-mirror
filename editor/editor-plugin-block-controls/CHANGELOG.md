@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.16.4
+
+### Patch Changes
+
+- [#97978](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97978)
+  [`ea88bd7273c73`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ea88bd7273c73) -
+  Added Blocks Drag Init measurement analytics event
+- [#99482](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99482)
+  [`5fdd98e19255d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5fdd98e19255d) -
+  ED-26122 disable drag layout column for single column layout
+
 ## 2.16.3
 
 ### Patch Changes

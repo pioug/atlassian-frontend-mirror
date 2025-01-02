@@ -451,6 +451,17 @@ type CollabStepsTrackerPayloadAEP = OperationalAEP<
 	}
 >;
 
+type BlocksDragInitAEP = OperationalAEP<
+	ACTION.BLOCKS_DRAG_INIT,
+	ACTION_SUBJECT.EDITOR,
+	undefined,
+	{
+		duration: number;
+		startTime: number;
+		nodesCount: number;
+	}
+>;
+
 type HeadingAnchorLinkButtonAEP = ButtonAEP<ACTION_SUBJECT_ID.HEADING_ANCHOR_LINK, undefined>;
 
 type CodeBlockWordWrapToggleAEP = TrackAEP<
@@ -531,6 +542,7 @@ export type GeneralEventPayload<T = void> =
 	| InvalidMediaContentTransformedAEP
 	| HeadingAnchorLinkButtonAEP
 	| CollabStepsTrackerPayloadAEP
+	| BlocksDragInitAEP
 	| CodeBlockWordWrapToggleAEP
 	| RequestToEditAEP
 	| CopyLinkToAnchorButtonAEP;

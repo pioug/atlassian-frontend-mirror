@@ -3,7 +3,6 @@ import React from 'react';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { InsertBlockPlugin } from '../../index';
 import InsertMenu, { DEFAULT_HEIGHT } from '../ElementBrowser/InsertMenu';
@@ -47,9 +46,7 @@ export const BlockInsertElementBrowser = (props: BlockInsertElementBrowserProps)
 			{props.open && (
 				<Popup
 					target={props.plusButtonRef}
-					fitHeight={
-						fg('platform_editor_consistent_insert_menu') ? DEFAULT_HEIGHT + FIT_HEIGHT_BUFFER : 500
-					}
+					fitHeight={DEFAULT_HEIGHT + FIT_HEIGHT_BUFFER}
 					fitWidth={350}
 					offset={[0, 3]}
 					mountTo={props.popupsMountPoint}

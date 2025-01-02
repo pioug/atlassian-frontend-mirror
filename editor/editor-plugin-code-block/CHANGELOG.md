@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.5.14
+
+### Patch Changes
+
+- [#98963](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98963)
+  [`3638dcf79b6c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3638dcf79b6c7) -
+  ED-26126 Cleanup code wrapping language bug fg
+
 ## 3.5.13
 
 ### Patch Changes

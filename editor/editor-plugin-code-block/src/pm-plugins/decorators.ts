@@ -179,14 +179,8 @@ export const validateWordWrappedDecorators = (
 		const isCodeBlockWrappedByDecorator =
 			getWordWrapDecoratorsFromNodePos(node.pos, decorationSet).length !== 0;
 
-		if (fg('editor_code_block_wrapping_language_change_bug')) {
-			if (isCodeBlockWrappedInState !== isCodeBlockWrappedByDecorator) {
-				updatedDecorationSet = updateDecorationSetWithWordWrappedDecorator(decorationSet, tr, node);
-			}
-		} else {
-			if (isCodeBlockWrappedInState && !isCodeBlockWrappedByDecorator) {
-				updatedDecorationSet = updateDecorationSetWithWordWrappedDecorator(decorationSet, tr, node);
-			}
+		if (isCodeBlockWrappedInState !== isCodeBlockWrappedByDecorator) {
+			updatedDecorationSet = updateDecorationSetWithWordWrappedDecorator(decorationSet, tr, node);
 		}
 	});
 

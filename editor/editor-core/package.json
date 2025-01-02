@@ -43,7 +43,7 @@
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^98.0.0",
+		"@atlaskit/editor-common": "^98.1.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.8.2",
 		"@atlaskit/editor-plugins": "^6.1.0",
@@ -52,7 +52,7 @@
 		"@atlaskit/emoji": "^67.11.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/media-card": "^78.17.0",
-		"@atlaskit/mention": "^23.5.0",
+		"@atlaskit/mention": "^23.6.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/tmp-editor-statsig": "^2.31.0",
@@ -187,10 +187,6 @@
 		},
 		"platform_editor_react_18_plugin_slot": {
 			"type": "boolean"
-		},
-		"editor_code_block_wrapping_language_change_bug": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform_editor_disable_instrumented_plugin": {
 			"type": "boolean"

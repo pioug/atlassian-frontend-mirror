@@ -38,9 +38,6 @@
 		},
 		{
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
-		},
-		{
-			"path": "../../../build/website/docs/tsconfig.app.json"
 		}
 	]
 }

@@ -9,6 +9,11 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { browser } from '@atlaskit/editor-common/browser';
+import {
+	isMeasuring,
+	startMeasure,
+	stopMeasure,
+} from '@atlaskit/editor-common/performance-measures';
 import type { PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
@@ -42,6 +47,8 @@ import { getTrMetadata } from './utils/transactions';
 
 export const key = new PluginKey<PluginState>('blockControls');
 
+const EDITOR_BLOCKS_DRAG_INIT = 'Editor Blocks Drag Initialization Time';
+
 type ElementDragSource = {
 	start: number;
 	// drag and drop exists for other nodes (e.g. tables), use type === 'element' to
@@ -53,7 +60,10 @@ const isHTMLElement = (element: Element | EventTarget | null): element is HTMLEl
 	return element instanceof HTMLElement;
 };
 
-const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) => {
+const destroyFn = (
+	api: ExtractInjectionAPI<BlockControlsPlugin> | undefined,
+	editorView: EditorView,
+) => {
 	const scrollable = document.querySelector('.fabric-editor-popup-scroll-parent');
 
 	const cleanupFn: CleanupFn[] = [];
@@ -69,6 +79,26 @@ const destroyFn = (api: ExtractInjectionAPI<BlockControlsPlugin> | undefined) =>
 	cleanupFn.push(
 		monitorForElements({
 			canMonitor: ({ source }) => source.data.type === 'element',
+			onDrag: () => {
+				if (
+					isMeasuring(EDITOR_BLOCKS_DRAG_INIT) &&
+					fg('platform_editor_advanced_layouts_post_fix_patch_3')
+				) {
+					stopMeasure(EDITOR_BLOCKS_DRAG_INIT, (duration: number, startTime: number) => {
+						const { state } = editorView;
+						api?.analytics?.actions.fireAnalyticsEvent({
+							action: ACTION.BLOCKS_DRAG_INIT,
+							actionSubject: ACTION_SUBJECT.EDITOR,
+							eventType: EVENT_TYPE.OPERATIONAL,
+							attributes: {
+								duration,
+								startTime,
+								nodesCount: state.doc.nodeSize,
+							},
+						});
+					});
+				}
+			},
 			onDragStart: () => {
 				if (isHTMLElement(scrollable)) {
 					scrollable.style.setProperty('scroll-behavior', 'unset');
@@ -739,6 +769,10 @@ export const createPlugin = (
 					}
 				},
 				dragstart(view: EditorView) {
+					if (fg('platform_editor_advanced_layouts_post_fix_patch_3')) {
+						startMeasure(EDITOR_BLOCKS_DRAG_INIT);
+					}
+
 					if (isAdvancedLayoutEnabled) {
 						defaultActiveAnchorTracker.reset();
 					}
@@ -819,7 +853,7 @@ export const createPlugin = (
 			}
 
 			// Start pragmatic monitors
-			const pragmaticCleanup = destroyFn(api);
+			const pragmaticCleanup = destroyFn(api, editorView);
 
 			return {
 				destroy() {

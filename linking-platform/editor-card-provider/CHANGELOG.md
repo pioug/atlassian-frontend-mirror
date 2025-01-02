@@ -1,5 +1,13 @@
 # @atlaskit/editor-card-provider
 
+## 3.12.0
+
+### Minor Changes
+
+- [#98469](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98469)
+  [`d10ed921cc597`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d10ed921cc597) -
+  [ux] Jira software form view links will be converted into smart link embed by default
+
 ## 3.11.9
 
 ### Patch Changes

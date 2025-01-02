@@ -2,7 +2,6 @@
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
 import { type NodeWithPos } from '@atlaskit/editor-prosemirror/utils';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export const defaultWordWrapState = false;
 
@@ -16,7 +15,6 @@ export const isCodeBlockWordWrapEnabled = (codeBlockNode: PmNode): boolean => {
 
 /**
  * Swap the old node key with the new node key in the wrapped states WeakMap.
- * Replaced with updateCodeBlockWrappedStateNodeKeys() under 'editor_code_block_wrapping_language_change_bug' feature gate.
  */
 export const transferCodeBlockWrappedValue = (
 	oldCodeBlockNode: PmNode,
@@ -44,10 +42,6 @@ export const updateCodeBlockWrappedStateNodeKeys = (
 	newCodeBlockNodes: NodeWithPos[],
 	oldState: EditorState,
 ): void => {
-	if (!fg('editor_code_block_wrapping_language_change_bug')) {
-		return;
-	}
-
 	newCodeBlockNodes.forEach((newCodeBlockNode) => {
 		// Don't overwrite the value for the new node if it already exists.
 		// This can happen when a drag&drop is swapping nodes.
@@ -56,7 +50,7 @@ export const updateCodeBlockWrappedStateNodeKeys = (
 		}
 
 		// Do not go out of range on the oldState doc. Happens on initial load.
-		if (oldState.doc.nodeSize <= newCodeBlockNode.pos) {
+		if (oldState.doc.content.size <= newCodeBlockNode.pos) {
 			return;
 		}
 
@@ -64,9 +58,7 @@ export const updateCodeBlockWrappedStateNodeKeys = (
 		if (!oldCodeBlockNode || oldCodeBlockNode.type !== oldState.schema.nodes.codeBlock) {
 			return;
 		}
-
 		const previousValue = isCodeBlockWordWrapEnabled(oldCodeBlockNode);
-
 		codeBlockWrappedStates.set(newCodeBlockNode.node, previousValue);
 	});
 };

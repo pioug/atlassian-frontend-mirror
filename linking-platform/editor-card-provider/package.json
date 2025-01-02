@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-card-provider",
-	"version": "3.11.9",
+	"version": "3.12.0",
 	"description": "Contains the EditorCardProvider, for determining smart card behaviour in the editor.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -60,6 +60,9 @@
 			"type": "boolean"
 		},
 		"rovo_agent_profile_page_default_embed": {
+			"type": "boolean"
+		},
+		"smartlink_jira_software_form": {
 			"type": "boolean"
 		}
 	}

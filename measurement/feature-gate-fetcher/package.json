@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feature-gate-fetcher",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"description": "Provides fetch logic to get feature gate values from the feature-flag-service. To be used in providers for @atlaskit/feature-gate-js-client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -34,7 +34,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/feature-gate-js-client": "4.23.2",
+		"@atlaskit/feature-gate-js-client": "4.23.3",
 		"@babel/runtime": "^7.0.0",
 		"statsig-js-lite": "^1.6.0"
 	},

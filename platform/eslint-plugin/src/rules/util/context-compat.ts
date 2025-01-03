@@ -12,7 +12,7 @@ import type { Node } from 'estree';
  * `context.getSourceCode()` is deprecated in v8 and removed in v9.
  * @param context - The ESLint rule context
  */
-const getSourceCode = (context: Rule.RuleContext): SourceCode => {
+export const getSourceCode = (context: Rule.RuleContext): SourceCode => {
 	return context.sourceCode ?? context.getSourceCode();
 };
 

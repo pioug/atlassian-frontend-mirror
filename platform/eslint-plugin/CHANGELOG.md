@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.1.0
+
+### Minor Changes
+
+- [#98759](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98759)
+  [`e6f89962ceaba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e6f89962ceaba) -
+  ESLint rule for expand-spacing-shorthand (i.e. padding and margin)
+
 ## 2.0.2
 
 ### Patch Changes

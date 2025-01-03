@@ -3,13 +3,13 @@ import type StatsigType from 'statsig-js-lite';
 
 import { isFedRamp } from '@atlaskit/atlassian-context';
 
-import type FeatureGates from '../client';
+import type FeatureGates from '../client/FeatureGates';
 // eslint-disable-next-line no-duplicate-imports
 import type {
 	FeatureGateEnvironment as FeatureGateEnvironmentType,
 	Identifiers,
 	PerimeterType as PerimeterTypeType,
-} from '../client';
+} from '../client/FeatureGates';
 import {
 	DEV_BASE_URL,
 	FEDM_PROD_BASE_URL,

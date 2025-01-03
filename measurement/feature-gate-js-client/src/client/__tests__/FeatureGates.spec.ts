@@ -2,14 +2,14 @@ import AnalyticsWebClient from '@atlassiansox/analytics-web-client';
 import fetchMock, { type MockResponseInit } from 'jest-fetch-mock';
 import Statsig, { type DynamicConfig, type Layer } from 'statsig-js-lite';
 
-import type FeatureGates from '../index';
+import type FeatureGates from '../FeatureGates';
 // eslint-disable-next-line no-duplicate-imports
 import {
 	FeatureGateEnvironment as FeatureGateEnvironmentType,
 	PerimeterType,
 	type Provider,
 	type UpdateUserCompletionCallback,
-} from '../index';
+} from '../FeatureGates';
 import { CLIENT_VERSION } from '../version';
 
 jest.mock('statsig-js-lite', () => {
@@ -120,7 +120,7 @@ describe('FeatureGate client', () => {
 		window.__FEATUREGATES_JS__ = undefined;
 		jest.isolateModules(() => {
 			// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-			const API = jest.requireActual('../index');
+			const API = jest.requireActual('../FeatureGates');
 			FeatureGatesClass = API.default;
 			FeatureGateEnvironment = API.FeatureGateEnvironment;
 		});
@@ -2359,66 +2359,6 @@ describe('FeatureGate client', () => {
 				configs: {},
 				layers: {},
 			});
-		});
-	});
-
-	describe('applyUpdateCallback', () => {
-		const experimentValues = {
-			feature: 'value',
-		};
-
-		beforeEach(() => {
-			console.warn = jest.fn();
-		});
-
-		test.each`
-			variation                  | initCompleted | initWithDefaults
-			${'both true'}             | ${true}       | ${true}
-			${'initCompleted true'}    | ${true}       | ${false}
-			${'initWithDefaults true'} | ${false}      | ${true}
-		`('should apply update when - $variation', ({ initCompleted, initWithDefaults }) => {
-			FeatureGatesClass['initCompleted'] = initCompleted;
-			FeatureGatesClass['initWithDefaults'] = initWithDefaults;
-
-			FeatureGatesClass['applyUpdateCallback']({
-				experimentValues,
-				customAttributesFromFetch: {},
-			});
-			expect(StatsigMocked.setInitializeValues).toHaveBeenCalledWith(experimentValues);
-
-			expect(console.warn).toHaveBeenCalledTimes(0);
-		});
-
-		test('do not apply update if init was not completed and not with defaults', () => {
-			FeatureGatesClass['initCompleted'] = false;
-			FeatureGatesClass['initWithDefaults'] = false;
-
-			FeatureGatesClass['applyUpdateCallback']({
-				experimentValues,
-				customAttributesFromFetch: {},
-			});
-			expect(StatsigMocked.setInitializeValues).toHaveBeenCalledTimes(0);
-
-			expect(console.warn).toHaveBeenCalledTimes(0);
-		});
-
-		test('console warn when apply update fails', () => {
-			FeatureGatesClass['initCompleted'] = true;
-			FeatureGatesClass['initWithDefaults'] = false;
-
-			const error = new Error('Error when setting values');
-
-			StatsigMocked.setInitializeValues.mockImplementation(() => {
-				throw error;
-			});
-
-			FeatureGatesClass['applyUpdateCallback']({
-				experimentValues,
-				customAttributesFromFetch: {},
-			});
-			expect(StatsigMocked.setInitializeValues).toHaveBeenCalledTimes(1);
-
-			expect(console.warn).toHaveBeenCalledWith('Error when attempting to apply update', error);
 		});
 	});
 });

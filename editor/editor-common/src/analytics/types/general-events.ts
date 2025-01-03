@@ -435,6 +435,13 @@ type NodesMissingContentTransformedAEP = OperationalAEP<
 	undefined
 >;
 
+type SingleColumLayoutDetectedAEP = OperationalAEP<
+	ACTION.SINGLE_COL_LAYOUT_DETECTED,
+	ACTION_SUBJECT.EDITOR,
+	undefined,
+	undefined
+>;
+
 type InvalidMediaContentTransformedAEP = OperationalAEP<
 	ACTION.INVALID_MEDIA_CONTENT_TRANSFORMED,
 	ACTION_SUBJECT.EDITOR,
@@ -545,4 +552,5 @@ export type GeneralEventPayload<T = void> =
 	| BlocksDragInitAEP
 	| CodeBlockWordWrapToggleAEP
 	| RequestToEditAEP
+	| SingleColumLayoutDetectedAEP
 	| CopyLinkToAnchorButtonAEP;

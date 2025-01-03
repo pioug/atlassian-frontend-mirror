@@ -104,30 +104,57 @@ export enum PerimeterType {
 	FEDRAMP_MODERATE = 'fedramp-moderate',
 }
 
-export type CheckGateOptions = {
+export interface CheckGateOptions {
+	/**
+	 * Whether or not to fire the exposure event for the gate. Defaults to true.
+	 * To log an exposure event manually at a later time, use {@link FeatureGates.manuallyLogGateExposure}
+	 * (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-)).
+	 */
 	fireGateExposure?: boolean;
-};
+}
 
-export type GetExperimentOptions = {
+export interface GetExperimentOptions {
+	/**
+	 * Whether or not to fire the exposure event for the experiment. Defaults to true. To log an
+	 * exposure event manually at a later time, use {@link FeatureGates.manuallyLogExperimentExposure}
+	 * (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-)).
+	 */
 	fireExperimentExposure?: boolean;
-};
+}
 
 export type GetExperimentValueOptions<T> = GetExperimentOptions & {
+	/**
+	 * A function that asserts that the return value has the expected type. If this function returns
+	 * false, then the default value will be returned instead. This can be set to protect your code
+	 * from unexpected values being set remotely. By default, this will be done by asserting that the
+	 * default value and value are the same primitive type.
+	 */
 	typeGuard?: (value: unknown) => value is T;
 };
 
-export type GetLayerOptions = {
+export interface GetLayerOptions {
+	/**
+	 * Whether or not to fire the exposure event for the layer. Defaults to true. To log an exposure
+	 * event manually at a later time, use {@link FeatureGates.manuallyLogLayerExposure}
+	 * (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-)).
+	 */
 	fireLayerExposure?: boolean;
-};
+}
 
 export type GetLayerValueOptions<T> = GetLayerOptions & {
+	/**
+	 * A function that asserts that the return value has the expected type. If this function returns
+	 * false, then the default value will be returned instead. This can be set to protect your code
+	 * from unexpected values being set remotely. By default, this will be done by asserting that the
+	 * default value and value are the same primitive type.
+	 */
 	typeGuard?: (value: unknown) => value is T;
 };
 
-export type InitializeValues = {
+export interface InitializeValues {
 	experimentValues: Record<string, unknown>;
 	customAttributesFromFetch: CustomAttributes | undefined;
-};
+}
 
 export interface FrontendExperimentsResult extends InitializeValues {
 	clientSdkKey?: string;
@@ -156,3 +183,16 @@ export type FeatureFlagValue =
 	| number
 	| Record<any, any>
 	| typeof NON_BOOLEAN_VALUE;
+
+// Type magic to get the JSDoc comments from the Client class methods to appear on the static
+// methods in FeatureGates where the property name and function type are identical
+export type WithDocComments<Target, TypeWithDocComments> = PickFrom<
+	Target,
+	TypeWithDocComments,
+	OverlappingProperties<TypeWithDocComments, Target>
+>;
+type PickFrom<A, B, K extends keyof A & keyof B> = Omit<A, K> & Pick<B, K>;
+type OverlappingProperties<A, B> = {
+	[K in keyof A]: K extends keyof B ? (IsSame<A[K], B[K]> extends true ? K : never) : never;
+}[keyof A];
+type IsSame<A, B> = A extends B ? (B extends A ? true : false) : false;

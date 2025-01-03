@@ -142,8 +142,20 @@ const PDFRendererBase = ({
 	const updatePasswordRef = useRef<((password: string) => void) | undefined>(undefined);
 	const onErrorRef = useRef<((error: MediaViewerError) => void) | undefined>(onError);
 	onErrorRef.current = onError;
+	const existingGlobalWorkerRef = useRef<any>(undefined);
 
 	useEffect(() => {
+		/**
+		 * CXP-4622: Fixes issue of PDF.js reusing the global worker registered by embeded PDF macro in confluence
+		 * The global worker will likely be a different version and thus throw an error.
+		 * This will remove the worker on mount and will re-register it on unmount
+		 */
+		const { pdfjsWorker } = window as any;
+		if (pdfjsWorker) {
+			existingGlobalWorkerRef.current = pdfjsWorker;
+			(window as any).pdfjsWorker = undefined;
+		}
+
 		let isSubscribed = true;
 		const fetchDoc = async () => {
 			try {
@@ -187,6 +199,7 @@ const PDFRendererBase = ({
 			if (docRef.current) {
 				docRef.current.destroy();
 			}
+			(window as any).pdfjsWorker = existingGlobalWorkerRef.current;
 		};
 	}, [src, workerUrl]);
 

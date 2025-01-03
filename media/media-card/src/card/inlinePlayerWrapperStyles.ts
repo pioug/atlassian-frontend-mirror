@@ -14,7 +14,7 @@ import {
  * shrinking the image OR growing the card size
  */
 const getSelectedBorderStyle = ({ selected }: { selected?: boolean }) => `
-    ${hideNativeBrowserTextSelectionStyles}
+    ${selected ? hideNativeBrowserTextSelectionStyles : ''}
 
     &::after {
       content: '';

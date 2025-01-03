@@ -37,53 +37,57 @@ This will initialize the client by calling out to feature-flag-service
 client fails to initialize for any reason, including taking longer than 2 seconds to fetch the
 values, default values will be used.
 
-```javascript
-import FeatureGates, { FeatureGateEnvironment, FeatureGateProducts } from '@atlaskit/feature-gate-js-client';
+```typescript
+import FeatureGates, {
+	FeatureGateEnvironment,
+	FeatureGateProducts,
+	PerimeterType,
+} from '@atlaskit/feature-gate-js-client';
 
 try {
-  await FeatureGates.initialize(
-    {
-      // This is an fx3 api key used to fetch the feature flag values.
-      // Supported keys found at go/fx3/resources/api-keys
-      apiKey: 'client-test',
-      // This is the environment that you are operating in, targeting rules can target specific environments
-      environment: FeatureGateEnvironment.Production,
-      // This will be used to filter data from Statsig to only one target app.
-      // View [doc](https://hello.atlassian.net/wiki/spaces/MEASURE/pages/2955970231/How-to+Use+TargetApps+in+Statsig)
-      // for details on using targetApp.
-      targetApp: 'jira_web',
-      // [Optional] Default is 2000ms
-      // This is the fetch timeout used for requests to feature-flag-service to get values to bootstrap the client.
-      // The higher this value the longer your application will need to wait to render if you block on client initialization
-      // Too low and your application will be more likely to fallback on default values
-      fetchTimeoutMs: 1000,
-      // [Optional] Default is false
-      // This is a boolean to indicate whether to use the `gateway/api` url for the request to feature flag service.
-      // Note that this option takes precendence over the environment and perimeter options in building the url.
-      // To be used for applications with strict cross-origin policies, as it will keep all requests to the same origin.
-      useGatewayUrl: true,
-      // [Optional] Must be one of the strings from the exported enum PerimeterType.
-      // If provided, will build base url for the `feature-flag-service` based on environment and perimeter type, and
-      // will disable all logging to Statsig in perimeters where it is prohibited..
-      perimeter: 'fedramp-moderate'
-    },
-    {
-      // These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
-      analyticsAnonymousId: '<analyticsAnonymousId>',
-      atlassianAccountId: '<aaid>',
-      atlassianOrgId: '<orgid>',
-      tenantId: '<tenantid>',
-      transactionAccountId: '<transactionAccountId'>,
-      trelloUserId: '<trelloUserId'>,
-      trelloWorkspaceId: '<trelloWorkspaceId>'
-    },
-    {
-      // These are additional custom attributes that can be used for targeting and will be added to exposure events
-      exampleCustomAttribute: '<attributeValue>',
-    }
-  );
+	await FeatureGates.initialize(
+		{
+			// This is an fx3 api key used to fetch the feature flag values.
+			// Supported keys found at go/fx3/resources/api-keys
+			apiKey: 'client-test',
+			// This is the environment that you are operating in, targeting rules can target specific environments
+			environment: FeatureGateEnvironment.Production,
+			// This will be used to filter data from Statsig to only one target app.
+			// View [doc](https://hello.atlassian.net/wiki/spaces/MEASURE/pages/2955970231/How-to+Use+TargetApps+in+Statsig)
+			// for details on using targetApp.
+			targetApp: 'jira_web',
+			// [Optional] Default is 2000ms
+			// This is the fetch timeout used for requests to feature-flag-service to get values to bootstrap the client.
+			// The higher this value the longer your application will need to wait to render if you block on client initialization
+			// Too low and your application will be more likely to fallback on default values
+			fetchTimeoutMs: 1000,
+			// [Optional] Default is false
+			// This is a boolean to indicate whether to use the `gateway/api` url for the request to feature flag service.
+			// Note that this option takes precendence over the environment and perimeter options in building the url.
+			// To be used for applications with strict cross-origin policies, as it will keep all requests to the same origin.
+			useGatewayUrl: true,
+			// [Optional] Must be one of the strings from the exported enum PerimeterType.
+			// If provided, will build base url for the `feature-flag-service` based on environment and perimeter type, and
+			// will disable all logging to Statsig in perimeters where it is prohibited..
+			perimeter: PerimeterType.FEDRAMP_MODERATE,
+		},
+		{
+			// These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
+			analyticsAnonymousId: '<analyticsAnonymousId>',
+			atlassianAccountId: '<aaid>',
+			atlassianOrgId: '<orgid>',
+			tenantId: '<tenantid>',
+			transactionAccountId: '<transactionAccountId>',
+			trelloUserId: '<trelloUserId>',
+			trelloWorkspaceId: '<trelloWorkspaceId>',
+		},
+		{
+			// These are additional custom attributes that can be used for targeting and will be added to exposure events
+			exampleCustomAttribute: '<attributeValue>',
+		},
+	);
 } catch (err) {
-  console.error("Failed to initialize FeatureGates client.", err);
+	console.error('Failed to initialize FeatureGates client.', err);
 }
 ```
 
@@ -97,49 +101,52 @@ You will need to re-render the entire page after this completes to ensure everyt
 new flag values. You should avoid using this frequently as it has implications on the user
 experience.
 
-```javascript
-import FeatureGates, { FeatureGateEnvironment, FeatureGateProducts } from '@atlaskit/feature-gate-js-client';
+```typescript
+import FeatureGates, {
+	FeatureGateEnvironment,
+	FeatureGateProducts,
+	PerimeterType,
+} from '@atlaskit/feature-gate-js-client';
 
 try {
-  await FeatureGates.updateUser(
-    {
-      // This is an fx3 api key used to fetch the feature flag values.
-      // Supported keys found at go/fx3/resources/api-keys
-      apiKey: 'client-test',
-      // This is the environment that you are operating in, targeting rules can target specific environments
-      environment: FeatureGateEnvironment.Production,
-      // [Optional] Default is 2000ms
-      // This is the fetch timeout used for requests to feature-flag-service to get values to bootstrap the client.
-      fetchTimeoutMs: 1000,
-      // [Optional] Default is false
-      // This is a boolean to indicate whether to use the `gateway/api` url for the request to feature flag service.
-      // Note that this option takes precendence over the environment and perimeter options in building the url.
-      // To be used for applications with strict cross-origin policies, as it will keep all requests to the same origin.
-      useGatewayUrl: true,
-      // [Optional] Default is COMMERCIAL. Must be one of the values from the exported enum PerimeterType.
-      // If provided, will build base url for the `feature-flag-service` based on environment and perimeter type, and
-      // will disable all logging to Statsig in perimeters where it is prohibited.
-      perimeter: PerimeterType.FEDRAMP_MODERATE
-    },
-    {
-      // These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
-      analyticsAnonymousId: '<analyticsAnonymousId>',
-      atlassianAccountId: '<aaid>',
-      atlassianOrgId: '<orgid>',
-      tenantId: '<tenantid>',
-      transactionAccountId: '<transactionAccountId'>,
-      trelloUserId: '<trelloUserId'>,
-      trelloWorkspaceId: '<trelloWorkspaceId>'
-    },
-    {
-      // These are additional custom attributes that can be used for targeting and will be added to exposure events
-      exampleCustomAttribute: '<attributeValue>',
-    }
-  );
+	await FeatureGates.updateUser(
+		{
+			// This is an fx3 api key used to fetch the feature flag values.
+			// Supported keys found at go/fx3/resources/api-keys
+			apiKey: 'client-test',
+			// This is the environment that you are operating in, targeting rules can target specific environments
+			environment: FeatureGateEnvironment.Production,
+			// [Optional] Default is 2000ms
+			// This is the fetch timeout used for requests to feature-flag-service to get values to bootstrap the client.
+			fetchTimeoutMs: 1000,
+			// [Optional] Default is false
+			// This is a boolean to indicate whether to use the `gateway/api` url for the request to feature flag service.
+			// Note that this option takes precendence over the environment and perimeter options in building the url.
+			// To be used for applications with strict cross-origin policies, as it will keep all requests to the same origin.
+			useGatewayUrl: true,
+			// [Optional] Default is COMMERCIAL. Must be one of the values from the exported enum PerimeterType.
+			// If provided, will build base url for the `feature-flag-service` based on environment and perimeter type, and
+			// will disable all logging to Statsig in perimeters where it is prohibited.
+			perimeter: PerimeterType.FEDRAMP_MODERATE,
+		},
+		{
+			// These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
+			analyticsAnonymousId: '<analyticsAnonymousId>',
+			atlassianAccountId: '<aaid>',
+			atlassianOrgId: '<orgid>',
+			tenantId: '<tenantid>',
+			transactionAccountId: '<transactionAccountId>',
+			trelloUserId: '<trelloUserId>',
+			trelloWorkspaceId: '<trelloWorkspaceId>',
+		},
+		{
+			// These are additional custom attributes that can be used for targeting and will be added to exposure events
+			exampleCustomAttribute: '<attributeValue>',
+		},
+	);
 } catch (err) {
-  console.error("Failed to update the FeatureGates user.", err);
+	console.error('Failed to update the FeatureGates user.', err);
 }
-
 ```
 
 #### 2. Initializing from values
@@ -147,41 +154,44 @@ try {
 You must fetch the values yourself using one of our wrapper backend clients (Also found in this
 repo) and providing them to this frontend client
 
-```javascript
-import FeatureGates, { FeatureGateEnvironment, FeatureGateProducts } from '@atlaskit/feature-gate-js-client';
+```typescript
+import FeatureGates, {
+	FeatureGateEnvironment,
+	FeatureGateProducts,
+} from '@atlaskit/feature-gate-js-client';
 
 try {
-  await FeatureGates.initializeFromValues(
-    {
-      // [Optional] This should come directly from a backend or service from the Statsig.getClientInitializeResponse(user) call
-      // Or supplied from the statsig UI
-      // Should be provided if it is available. It is optional so initialisation can still occur if the request to fetch the key fails
-      // If not provided, a default string will be used but exposure event data will not be sent back to Statsig
-      sdkKey: 'client-test',
-      // This is the environment that you are operating in, targeting rules can target specific environments
-      environment: FeatureGateEnvironment.Production,
-      // This will be used to filter config data relevant to the listed products
-      products: [FeatureGateProducts.Jira]
-    },
-    {
-      // These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
-      analyticsAnonymousId: '<analyticsAnonymousId>',
-      atlassianAccountId: '<aaid>',
-      atlassianOrgId: '<orgid>',
-      tenantId: '<tenantid>',
-      transactionAccountId: '<transactionAccountId'>,
-      trelloUserId: '<trelloUserId'>,
-      trelloWorkspaceId: '<trelloWorkspaceId>'
-    },
-    {
-      // These are additional custom attributes that will be added to exposure events
-      exampleCustomAttribute: '<attributeValue>',
-    },
-    // This should come directly from a backend or service from the Statsig.getClientInitializeResponse(user) call
-    initializeValues
-  );
+	await FeatureGates.initializeFromValues(
+		{
+			// [Optional] This should come directly from a backend or service from the Statsig.getClientInitializeResponse(user) call
+			// Or supplied from the statsig UI
+			// Should be provided if it is available. It is optional so initialisation can still occur if the request to fetch the key fails
+			// If not provided, a default string will be used but exposure event data will not be sent back to Statsig
+			sdkKey: 'client-test',
+			// This is the environment that you are operating in, targeting rules can target specific environments
+			environment: FeatureGateEnvironment.Production,
+			// This will be used to filter config data relevant to the listed products
+			products: [FeatureGateProducts.Jira],
+		},
+		{
+			// These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
+			analyticsAnonymousId: '<analyticsAnonymousId>',
+			atlassianAccountId: '<aaid>',
+			atlassianOrgId: '<orgid>',
+			tenantId: '<tenantid>',
+			transactionAccountId: '<transactionAccountId>',
+			trelloUserId: '<trelloUserId>',
+			trelloWorkspaceId: '<trelloWorkspaceId>',
+		},
+		{
+			// These are additional custom attributes that will be added to exposure events
+			exampleCustomAttribute: '<attributeValue>',
+		},
+		// This should come directly from a backend or service from the Statsig.getClientInitializeResponse(user) call
+		initializeValues,
+	);
 } catch (err) {
-  console.error("Failed to initialize FeatureGates client.", err);
+	console.error('Failed to initialize FeatureGates client.', err);
 }
 ```
 
@@ -195,30 +205,33 @@ You will need to re-render the entire page after this completes to ensure everyt
 new flag values. You should avoid using this frequently as it has implications on the user
 experience.
 
-```javascript
-import FeatureGates, { FeatureGateEnvironment, FeatureGateProducts } from '@atlaskit/feature-gate-js-client';
+```typescript
+import FeatureGates, {
+	FeatureGateEnvironment,
+	FeatureGateProducts,
+} from '@atlaskit/feature-gate-js-client';
 
 try {
-  await FeatureGates.updateWithValues(
-    {
-      // These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
-      analyticsAnonymousId: '<analyticsAnonymousId>',
-      atlassianAccountId: '<aaid>',
-      atlassianOrgId: '<orgid>',
-      tenantId: '<tenantid>',
-      transactionAccountId: '<transactionAccountId'>,
-      trelloUserId: '<trelloUserId'>,
-      trelloWorkspaceId: '<trelloWorkspaceId>'
-    },
-    {
-      // These are additional custom attributes that will be added to exposure events
-      exampleCustomAttribute: '<attributeValue>',
-    },
-    // This should come directly from a backend or service from the Statsig.getClientInitializeResponse(user) call
-    initializeValues
-  );
+	await FeatureGates.updateWithValues(
+		{
+			// These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
+			analyticsAnonymousId: '<analyticsAnonymousId>',
+			atlassianAccountId: '<aaid>',
+			atlassianOrgId: '<orgid>',
+			tenantId: '<tenantid>',
+			transactionAccountId: '<transactionAccountId>',
+			trelloUserId: '<trelloUserId>',
+			trelloWorkspaceId: '<trelloWorkspaceId>',
+		},
+		{
+			// These are additional custom attributes that will be added to exposure events
+			exampleCustomAttribute: '<attributeValue>',
+		},
+		// This should come directly from a backend or service from the Statsig.getClientInitializeResponse(user) call
+		initializeValues,
+	);
 } catch (err) {
-  console.error("Failed to update FeatureGates user.", err);
+	console.error('Failed to update FeatureGates user.', err);
 }
 ```
 
@@ -232,98 +245,107 @@ loading with the defaults.
 There is only once instance of the FeatureGates client, so only the first initialize call will start
 the initialization. Any subsequent calls will return the existing Promise for the first
 initialization, and the argument values will be ignored. In order to confirm whether the client has
-started to initialize already you can call `FeatureGates.initializeCalled()`
+started to initialize already you can call `FeatureGates.initializeCalled()`.
 
 #### 3. Initializing using a Provider
 
-This initialization is done using an implementation of the Provider in order to fetch the client sdk key and experiment values needed.
+This initialization is done using an implementation of the Provider in order to fetch the client sdk
+key and experiment values needed.
 
 Supported providers are:
-* `@atlaskit/feature-gate-single-fetch-provider`
-* `@atlaskit/feature-gate-polling-provider`
 
+- `@atlaskit/feature-gate-single-fetch-provider`
+- `@atlaskit/feature-gate-polling-provider`
 
-```javascript
-import FeatureGates, { FeatureGateEnvironment, FeatureGateProducts } from '@atlaskit/feature-gate-js-client';
+```typescript
+import FeatureGates, {
+	FeatureGateEnvironment,
+	FeatureGateProducts,
+	PerimeterType,
+} from '@atlaskit/feature-gate-js-client';
 
 try {
-  await FeatureGates.initializeWithProvider(
-    {
-      // This is an fx3 api key used to fetch the feature flag values.
-      // Supported keys found at go/fx3/resources/api-keys
-      apiKey: 'client-test',
-      // This is the environment that you are operating in, targeting rules can target specific environments
-      environment: FeatureGateEnvironment.Production,
-      // This will be used to filter data from Statsig to only one target app.
-      // View [doc](https://hello.atlassian.net/wiki/spaces/MEASURE/pages/2955970231/How-to+Use+TargetApps+in+Statsig)
-      // for details on using targetApp.
-      targetApp: 'jira_web',
-      // [Optional] Must be one of the strings from the exported enum PerimeterType.
-      // If provided, will build base url for the `feature-flag-service` based on environment and perimeter type, and
-      // will disable all logging to Statsig in perimeters where it is prohibited..
-      perimeter: 'fedramp-moderate'
-    },
-	new Provider(...),
-    {
-      // These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
-      analyticsAnonymousId: '<analyticsAnonymousId>',
-      atlassianAccountId: '<aaid>',
-      atlassianOrgId: '<orgid>',
-      tenantId: '<tenantid>',
-      transactionAccountId: '<transactionAccountId'>,
-      trelloUserId: '<trelloUserId'>,
-      trelloWorkspaceId: '<trelloWorkspaceId>'
-    },
-    {
-      // These are additional custom attributes that can be used for targeting and will be added to exposure events
-      exampleCustomAttribute: '<attributeValue>',
-    }
-  );
+	await FeatureGates.initializeWithProvider(
+		{
+			// This is an fx3 api key used to fetch the feature flag values.
+			// Supported keys found at go/fx3/resources/api-keys
+			apiKey: 'client-test',
+			// This is the environment that you are operating in, targeting rules can target specific environments
+			environment: FeatureGateEnvironment.Production,
+			// This will be used to filter data from Statsig to only one target app.
+			// View [doc](https://hello.atlassian.net/wiki/spaces/MEASURE/pages/2955970231/How-to+Use+TargetApps+in+Statsig)
+			// for details on using targetApp.
+			targetApp: 'jira_web',
+			// [Optional] Must be one of the strings from the exported enum PerimeterType.
+			// If provided, will build base url for the `feature-flag-service` based on environment and perimeter type, and
+			// will disable all logging to Statsig in perimeters where it is prohibited..
+			perimeter: PerimeterType.FEDRAMP_MODERATE,
+		},
+		new Provider(/* ... */),
+		{
+			// These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
+			analyticsAnonymousId: '<analyticsAnonymousId>',
+			atlassianAccountId: '<aaid>',
+			atlassianOrgId: '<orgid>',
+			tenantId: '<tenantid>',
+			transactionAccountId: '<transactionAccountId>',
+			trelloUserId: '<trelloUserId>',
+			trelloWorkspaceId: '<trelloWorkspaceId>',
+		},
+		{
+			// These are additional custom attributes that can be used for targeting and will be added to exposure events
+			exampleCustomAttribute: '<attributeValue>',
+		},
+	);
 } catch (err) {
-  console.error("Failed to initialize FeatureGates client.", err);
+	console.error('Failed to initialize FeatureGates client.', err);
 }
 ```
 
 If your application has a log-in flow or other mechanism that makes it possible for the user to
-change during a session, then you can use the `updateUserWithProvider` method to apply this change. This method will use the same provider and options provided in `initializeWithProvider`. It takes the identifiers and custom attributes of the new user.
-that relate to the network call it will perform to fetch the new set of values.
+change during a session, then you can use the `updateUserWithProvider` method to apply this change.
+This method will use the same provider and options provided in `initializeWithProvider`. It takes
+the identifiers and custom attributes of the new user. that relate to the network call it will
+perform to fetch the new set of values.
 
 **IMPORTANT**: Calling this method will completely re-initialize the client with a new set of flags.
 You will need to re-render the entire page after this completes to ensure everything picks up the
 new flag values. You should avoid using this frequently as it has implications on the user
 experience.
 
-```javascript
-import FeatureGates, { FeatureGateEnvironment, FeatureGateProducts } from '@atlaskit/feature-gate-js-client';
+```typescript
+import FeatureGates, {
+	FeatureGateEnvironment,
+	FeatureGateProducts,
+} from '@atlaskit/feature-gate-js-client';
 
 try {
-  await FeatureGates.updateUserWithProvider(
-    {
-      // These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
-      analyticsAnonymousId: '<analyticsAnonymousId>',
-      atlassianAccountId: '<aaid>',
-      atlassianOrgId: '<orgid>',
-      tenantId: '<tenantid>',
-      transactionAccountId: '<transactionAccountId'>,
-      trelloUserId: '<trelloUserId'>,
-      trelloWorkspaceId: '<trelloWorkspaceId>'
-    },
-    {
-      // These are additional custom attributes that can be used for targeting and will be added to exposure events
-      exampleCustomAttribute: '<attributeValue>',
-    }
-  );
+	await FeatureGates.updateUserWithProvider(
+		{
+			// These are expected identifiers, you must provide them if they are relevant to your product and will be added to exposures events
+			analyticsAnonymousId: '<analyticsAnonymousId>',
+			atlassianAccountId: '<aaid>',
+			atlassianOrgId: '<orgid>',
+			tenantId: '<tenantid>',
+			transactionAccountId: '<transactionAccountId>',
+			trelloUserId: '<trelloUserId>',
+			trelloWorkspaceId: '<trelloWorkspaceId>',
+		},
+		{
+			// These are additional custom attributes that can be used for targeting and will be added to exposure events
+			exampleCustomAttribute: '<attributeValue>',
+		},
+	);
 } catch (err) {
-  console.error("Failed to update the FeatureGates user.", err);
+	console.error('Failed to update the FeatureGates user.', err);
 }
-
 ```
 
 ### Evaluation
 
-In order to evaluate a gate
+In order to evaluate a gate:
 
-```javascript
+```typescript
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 // Note: this checkGate call will automatically fire an exposure event
@@ -332,9 +354,9 @@ if (FeatureGates.checkGate('gateName')) {
 }
 ```
 
-In order to evaluate an experiment
+In order to evaluate an experiment:
 
-```javascript
+```typescript
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 // Note: this call will automatically fire an exposure event
@@ -343,7 +365,7 @@ if (FeatureGates.getExperimentValue('myExperiment', 'myBooleanParameter', false)
 }
 ```
 
-In order to use more complex experiment configuration
+In order to use more complex experiment configuration:
 
 ```typescript
 import FeatureGates from '@atlaskit/feature-gate-js-client';
@@ -377,17 +399,14 @@ To subscribe to changes to gates. The callback will be called when the check gat
 ```typescript
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 
-const unsubscribe = FeatureGates.onGateUpdated(
-	'gateName',
-	() => {}
-);
-
+const unsubscribe = FeatureGates.onGateUpdated('gateName', () => {});
 
 // To unsubscribe
 unsubscribe();
 ```
 
-To subscribe to changes to experiment values. The callback will be called when the experiment value changes.
+To subscribe to changes to experiment values. The callback will be called when the experiment value
+changes.
 
 ```typescript
 import FeatureGates from '@atlaskit/feature-gate-js-client';
@@ -396,7 +415,7 @@ const unsubscribe = FeatureGates.onExperimentValueUpdated(
 	'myExperiment',
 	'myButtonColorStringParameter',
 	'#000000',
-	() => {}
+	() => {},
 	{
 		typeGuard: isHexCode,
 	},
@@ -406,20 +425,18 @@ const unsubscribe = FeatureGates.onExperimentValueUpdated(
 unsubscribe();
 ```
 
-To subscribe to whenever a new set of values is updated on the client, no matter if the underlying values have changed. 
+To subscribe to whenever a new set of values is updated on the client, no matter if the underlying
+values have changed.
 
 ```typescript
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 // Note: The callback will be called whenever a new set of values is set even if none of the values in the set have changed.
-const unsubscribe = FeatureGates.onAnyUpdated(
-	() => {}
-);
+const unsubscribe = FeatureGates.onAnyUpdated(() => {});
 
 // To unsubscribe
 unsubscribe();
 ```
-
 
 ## Testing
 

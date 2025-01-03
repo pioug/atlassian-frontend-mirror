@@ -537,6 +537,7 @@ function ReactEditorView(props: EditorViewProps) {
 		editorApi: editorAPI,
 		contextIdentifierProvider: props.editorProps.contextIdentifierProvider,
 		mediaProvider: (props.editorProps as EditorProps).media?.provider,
+		mentionProvider: props.editorProps.mentionProvider,
 		cardProvider:
 			(props.editorProps as EditorProps).linking?.smartLinks?.provider ||
 			(smartLinks && smartLinks.provider) ||

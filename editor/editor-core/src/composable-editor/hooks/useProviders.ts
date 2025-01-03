@@ -9,11 +9,13 @@ import type {
 import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { CardPlugin } from '@atlaskit/editor-plugins/card';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugins/context-identifier';
-import { type CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';
-import { type EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
+import type { CustomAutoformatPlugin } from '@atlaskit/editor-plugins/custom-autoformat';
+import type { EmojiPlugin } from '@atlaskit/editor-plugins/emoji';
 import type { MediaPlugin } from '@atlaskit/editor-plugins/media';
-import { type TasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
-import { type EmojiProvider } from '@atlaskit/emoji';
+import type { MentionsPlugin } from '@atlaskit/editor-plugins/mentions';
+import type { TasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
+import type { EmojiProvider } from '@atlaskit/emoji';
+import type { MentionProvider } from '@atlaskit/mention/resource';
 import type { TaskDecisionProvider } from '@atlaskit/task-decision/types';
 
 interface UseProvidersProps {
@@ -22,6 +24,7 @@ interface UseProvidersProps {
 				[
 					OptionalPlugin<ContextIdentifierPlugin>,
 					OptionalPlugin<MediaPlugin>,
+					OptionalPlugin<MentionsPlugin>,
 					OptionalPlugin<CardPlugin>,
 					OptionalPlugin<EmojiPlugin>,
 					OptionalPlugin<CustomAutoformatPlugin>,
@@ -31,6 +34,7 @@ interface UseProvidersProps {
 		| undefined;
 	contextIdentifierProvider: Promise<ContextIdentifierProvider> | undefined;
 	mediaProvider: Promise<MediaProvider> | undefined;
+	mentionProvider: Promise<MentionProvider> | undefined;
 	cardProvider: Promise<CardProvider> | undefined;
 	emojiProvider: Promise<EmojiProvider> | undefined;
 	autoformattingProvider: Promise<AutoformattingProvider> | undefined;
@@ -49,6 +53,7 @@ export const useProviders = ({
 	editorApi,
 	contextIdentifierProvider,
 	mediaProvider,
+	mentionProvider,
 	cardProvider,
 	emojiProvider,
 	autoformattingProvider,
@@ -74,6 +79,12 @@ export const useProviders = ({
 			editorApi?.media?.actions.setProvider(mediaProvider);
 		}
 	}, [mediaProvider, editorApi]);
+
+	useEffect(() => {
+		if (mentionProvider) {
+			editorApi?.mention?.actions.setProvider(mentionProvider);
+		}
+	}, [mentionProvider, editorApi]);
 
 	useEffect(() => {
 		if (cardProvider) {

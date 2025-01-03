@@ -244,6 +244,7 @@ export default function createUniversalPresetInternal({
 					allowZeroWidthSpaceAfter: true,
 					HighlightComponent: props.mention?.HighlightComponent,
 					profilecardProvider: props.mention?.profilecardProvider,
+					mentionProvider: props.mentionProvider,
 					...initialPluginConfiguration?.mentionsPlugin,
 				},
 			],

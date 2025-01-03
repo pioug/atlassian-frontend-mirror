@@ -24,7 +24,7 @@ describe('FeatureGate client Statsig module import integration test', () => {
 			getPackageVersion: () => 'test-version',
 		};
 
-		const FeatureGates = require('../client').default;
+		const FeatureGates = require('../client/FeatureGates').default;
 
 		expect(FeatureGates.getPackageVersion()).toEqual('test-version');
 		expect(console.warn).not.toHaveBeenCalled();
@@ -38,7 +38,7 @@ describe('FeatureGate client Statsig module import integration test', () => {
 		// @ts-ignore Remove globally saved reference to FeatureGates client between tests
 		window.__FEATUREGATES_JS__ = fakeLegacyClient;
 
-		const FeatureGates = require('../client').default;
+		const FeatureGates = require('../client/FeatureGates').default;
 
 		expect(FeatureGates).toEqual(fakeLegacyClient);
 		expect(console.warn).toHaveBeenCalledWith(
@@ -54,7 +54,7 @@ describe('FeatureGate client Statsig module import integration test', () => {
 			getPackageVersion: () => '4.11.0',
 		};
 
-		require('../client').default;
+		require('../client/FeatureGates').default;
 
 		expect(console.warn).toHaveBeenCalledWith(
 			'Multiple versions of FeatureGateClients found on the current page.\n      ' +

@@ -1,6 +1,6 @@
 import fetchMock from 'jest-fetch-mock';
 
-import { FeatureGateEnvironment, PerimeterType } from '../../index';
+import { FeatureGateEnvironment, PerimeterType } from '../../FeatureGates';
 import { ResponseError } from '../errors';
 import { type FetcherOptions } from '../Fetcher';
 import Fetcher from '../index';

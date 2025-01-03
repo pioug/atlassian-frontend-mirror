@@ -9,16 +9,19 @@ import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/
 import { IconMention } from '@atlaskit/editor-common/quick-insert';
 import type { TypeAheadInputMethod } from '@atlaskit/editor-plugin-type-ahead';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { MentionProvider } from '@atlaskit/mention/resource';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { MentionsPlugin } from './mentionsPluginType';
 import { mentionPluginKey } from './pm-plugins/key';
-import { createMentionPlugin } from './pm-plugins/main';
+import { ACTIONS, createMentionPlugin } from './pm-plugins/main';
 import type { FireElementsChannelEvent, MentionSharedState } from './types';
 import { SecondaryToolbarComponent } from './ui/SecondaryToolbarComponent';
 import { createTypeAheadConfig } from './ui/type-ahead';
 
 const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 	const sessionId = uuid();
+	let previousMediaProvider: MentionProvider;
 	const fireEvent: FireElementsChannelEvent = (
 		payload: AnalyticsEventPayload,
 		channel?: string,
@@ -57,7 +60,7 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 				{
 					name: 'mention',
 					plugin: (pmPluginFactoryParams) =>
-						createMentionPlugin(pmPluginFactoryParams, fireEvent, options),
+						createMentionPlugin({ pmPluginFactoryParams, fireEvent, options, api }),
 				},
 			];
 		},
@@ -93,6 +96,26 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 				if (options?.handleMentionsChanged) {
 					options.handleMentionsChanged(mentionChanges);
 				}
+			},
+			setProvider: async (providerPromise) => {
+				if (!fg('platform_editor_mention_provider_via_plugin_config')) {
+					return false;
+				}
+
+				const provider = await providerPromise;
+				// Prevent someone trying to set the exact same provider twice for performance reasons
+				if (previousMediaProvider === provider) {
+					return false;
+				}
+				previousMediaProvider = provider;
+				return (
+					api?.core.actions.execute(({ tr }) =>
+						tr.setMeta(mentionPluginKey, {
+							action: ACTIONS.SET_PROVIDER,
+							params: { provider },
+						}),
+					) ?? false
+				);
 			},
 		},
 

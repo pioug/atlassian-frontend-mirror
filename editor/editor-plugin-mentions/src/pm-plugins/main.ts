@@ -7,7 +7,11 @@ import {
 import type { ContextIdentifierProvider } from '@atlaskit/editor-common/provider-factory';
 import { getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { Command, PMPluginFactoryParams } from '@atlaskit/editor-common/types';
+import type {
+	Command,
+	ExtractInjectionAPI,
+	PMPluginFactoryParams,
+} from '@atlaskit/editor-common/types';
 import type { EditorState, SafeStateField } from '@atlaskit/editor-prosemirror/state';
 import { findChildrenByType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
@@ -20,6 +24,7 @@ import {
 } from '@atlaskit/mention/types';
 import { fg } from '@atlaskit/platform-feature-flags';
 
+import type { MentionsPlugin } from '../mentionsPluginType';
 import { MentionNodeView } from '../nodeviews/mention';
 import {
 	type FireElementsChannelEvent,
@@ -32,7 +37,7 @@ import {
 import { mentionPluginKey } from './key';
 import { canMentionBeCreatedInRange } from './utils';
 
-const ACTIONS = {
+export const ACTIONS = {
 	SET_PROVIDER: 'SET_PROVIDER',
 };
 
@@ -53,11 +58,19 @@ const setProvider =
 		return true;
 	};
 
-export function createMentionPlugin(
-	pmPluginFactoryParams: PMPluginFactoryParams,
-	fireEvent: FireElementsChannelEvent,
-	options?: MentionPluginOptions,
-) {
+interface CreateMentionPlugin {
+	pmPluginFactoryParams: PMPluginFactoryParams;
+	fireEvent: FireElementsChannelEvent;
+	options?: MentionPluginOptions;
+	api?: ExtractInjectionAPI<MentionsPlugin>;
+}
+
+export function createMentionPlugin({
+	pmPluginFactoryParams,
+	fireEvent,
+	options,
+	api,
+}: CreateMentionPlugin) {
 	let mentionProvider: MentionProvider;
 
 	const sendAnalytics = (
@@ -148,6 +161,7 @@ export function createMentionPlugin(
 					Component: MentionNodeView,
 					extraComponentProps: {
 						providerFactory: pmPluginFactoryParams.providerFactory,
+						pluginInjectionApi: api,
 						options,
 					},
 				}),
@@ -208,7 +222,12 @@ export function createMentionPlugin(
 				return;
 			};
 
-			pmPluginFactoryParams.providerFactory.subscribe('mentionProvider', providerHandler);
+			const providerViaConfig = fg('platform_editor_mention_provider_via_plugin_config');
+			if (providerViaConfig && options?.mentionProvider) {
+				providerHandler('mentionProvider', options?.mentionProvider);
+			} else {
+				pmPluginFactoryParams.providerFactory.subscribe('mentionProvider', providerHandler);
+			}
 
 			return {
 				destroy() {

@@ -13,7 +13,7 @@ const exempt_packages_calls_and_imports = [
 	['css', 'styled-components'],
 	['xcss', '@atlaskit/primitives'],
 ];
-tester.run('expand-border-shorthand', expandBackgroundShorthand, {
+tester.run('expand-background-shorthand', expandBackgroundShorthand, {
 	valid: [
 		...exempt_packages_calls_and_imports.map(([pkg, imp]) => ({
 			name: `do not have to handle non-Compiled packages (${pkg}, ${imp})`,

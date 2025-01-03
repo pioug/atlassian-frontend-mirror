@@ -1,5 +1,13 @@
 # @atlaskit/feature-gate-js-client
 
+## 4.23.3
+
+### Patch Changes
+
+- [#99483](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99483)
+  [`851e510c3036c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/851e510c3036c) -
+  Refactored internals to prepare for non-static client usage.
+
 ## 4.23.2
 
 ### Patch Changes

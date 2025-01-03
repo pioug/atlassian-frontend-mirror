@@ -243,6 +243,20 @@ export function processRawValue(
 			));
 		}
 
+		if (dispatchAnalyticsEvent && fg('platform_editor_advanced_layouts_post_fix_patch_3')) {
+			const hasSingleColumnLayout = transformedAdf.content?.some(
+				(node) => node && node.type === 'layoutSection' && node.content?.length === 1,
+			);
+
+			if (hasSingleColumnLayout) {
+				dispatchAnalyticsEvent({
+					action: ACTION.SINGLE_COL_LAYOUT_DETECTED,
+					actionSubject: ACTION_SUBJECT.EDITOR,
+					eventType: EVENT_TYPE.OPERATIONAL,
+				});
+			}
+		}
+
 		const entity: ADFEntity = validateADFEntity(
 			schema,
 			transformedAdf || (node as ADFEntity),

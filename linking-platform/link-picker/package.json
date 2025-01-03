@@ -52,7 +52,7 @@
 		"@atlaskit/atlassian-context": "^0.0.2",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/form": "^11.0.0",
-		"@atlaskit/frontend-utilities": "^2.7.0",
+		"@atlaskit/frontend-utilities": "^2.8.0",
 		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/intl-messages-provider": "^1.0.2",

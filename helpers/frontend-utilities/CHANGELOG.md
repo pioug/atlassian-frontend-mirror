@@ -1,5 +1,13 @@
 # @af/frontend-utilities
 
+## 2.8.0
+
+### Minor Changes
+
+- [#99678](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99678)
+  [`56cd18aa9d844`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/56cd18aa9d844) -
+  Added background refresh to FPN and replaced use-it/interval dependency
+
 ## 2.7.3
 
 ### Patch Changes

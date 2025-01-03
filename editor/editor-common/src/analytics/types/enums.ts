@@ -157,6 +157,7 @@ export enum ACTION {
 	TOGGLE_CODE_BLOCK_WRAP = 'toggleCodeBlockWrap',
 	RESIZED = 'resized',
 	BLOCKS_DRAG_INIT = 'blocksDragInit',
+	SINGLE_COL_LAYOUT_DETECTED = 'singleColumLayoutDetected',
 }
 
 export enum INPUT_METHOD {

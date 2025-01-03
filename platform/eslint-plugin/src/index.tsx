@@ -25,6 +25,7 @@ import noAlias from './rules/feature-gating/no-alias';
 import useEntrypointsInExamples from './rules/use-entrypoints-in-examples';
 import useRecommendedUtils from './rules/feature-gating/use-recommended-utils';
 import expandBackgroundShorthand from './rules/compiled/expand-background-shorthand';
+import expandSpacingShorthand from './rules/compiled/expand-spacing-shorthand';
 
 export const rules = {
 	'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
@@ -37,6 +38,7 @@ export const rules = {
 	'ensure-valid-bin-values': ensureValidBinValues,
 	'expand-border-shorthand': expandBorderShorthand,
 	'expand-background-shorthand': expandBackgroundShorthand,
+	'expand-spacing-shorthand': expandSpacingShorthand,
 	'no-duplicate-dependencies': noDuplicateDependencies,
 	'no-invalid-feature-flag-usage': noInvalidFeatureFlagUsage,
 	'no-pre-post-install-scripts': noPreAndPostInstallScripts,
@@ -64,6 +66,7 @@ const commonConfig = {
 	// Compiled: rules that are not included via `@compiled/recommended
 	'@atlaskit/platform/expand-border-shorthand': 'error',
 	'@atlaskit/platform/expand-background-shorthand': 'error',
+	'@atlaskit/platform/expand-spacing-shorthand': 'warn',
 	'@compiled/jsx-pragma': [
 		'error',
 		{

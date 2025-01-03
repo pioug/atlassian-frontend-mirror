@@ -1,5 +1,19 @@
 # @atlaskit/editor-common
 
+## 98.2.0
+
+### Minor Changes
+
+- [#97900](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97900)
+  [`d8aae6bd3d5da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8aae6bd3d5da) -
+  ED-26019 add single column layout detection analytics
+
+## 98.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 98.1.0
 
 ### Minor Changes

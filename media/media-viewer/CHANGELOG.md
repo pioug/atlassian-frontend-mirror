@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 49.5.3
+
+### Patch Changes
+
+- [#99959](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99959)
+  [`a5149539088c9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a5149539088c9) -
+  Fixed media viewer failing to load PDF when embeded PDF macro is used due to re-use of pdf workers
+
 ## 49.5.2
 
 ### Patch Changes

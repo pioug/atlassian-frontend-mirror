@@ -17,7 +17,7 @@ export type {
 	// Statsig
 	EvaluationDetails,
 	LocalOverrides,
-} from './client';
+} from './client/FeatureGates';
 
 export {
 	default,
@@ -28,4 +28,4 @@ export {
 	// Statsig
 	DynamicConfig,
 	EvaluationReason,
-} from './client';
+} from './client/FeatureGates';

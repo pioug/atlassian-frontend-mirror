@@ -43,7 +43,7 @@
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^98.1.0",
+		"@atlaskit/editor-common": "^98.2.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.8.2",
 		"@atlaskit/editor-plugins": "^6.1.0",
@@ -103,7 +103,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "3.0.19",
+		"@atlassian/search-provider": "3.0.20",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^6.4.0",
 		"@testing-library/react": "^12.1.5",
@@ -398,6 +398,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_fix_edit_caption_on_edge": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_mention_provider_via_plugin_config": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

@@ -341,6 +341,9 @@ export interface EditorProviderProps {
 	taskDecisionProvider?: Promise<TaskDecisionProvider>;
 
 	legacyImageUploadProvider?: Providers['imageUploadProvider'];
+
+	// eslint-disable-next-line @repo/internal/deprecations/deprecation-ticket-required -- Ignored via go/ED-25883
+	// @deprecated - pass mentionProvider directly to mentionPlugin via the preset
 	mentionProvider?: Promise<MentionProvider>;
 
 	// Allows you to define custom autoformatting rules.

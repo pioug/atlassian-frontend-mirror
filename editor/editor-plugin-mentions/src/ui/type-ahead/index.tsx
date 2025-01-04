@@ -345,7 +345,7 @@ export const createTypeAheadConfig = ({
 
 			const pluginState = getMentionPluginState(state);
 			const { mentionProvider } = pluginState;
-			const { id, name, nickname, accessLevel, userType } = item.mention;
+			const { id, name, nickname, accessLevel, userType, isXProductUser } = item.mention;
 			const trimmedNickname = nickname && nickname.startsWith('@') ? nickname.slice(1) : nickname;
 			const renderName = mentionInsertDisplayName || !trimmedNickname ? name : trimmedNickname;
 			const { contextIdentifierProvider } =
@@ -430,6 +430,10 @@ export const createTypeAheadConfig = ({
 				return insert(
 					buildNodesForTeamMention(schema, item.mention, mentionProvider, sanitizePrivateContent),
 				);
+			}
+
+			if (isXProductUser && mentionProvider && mentionProvider.inviteXProductUser) {
+				mentionProvider.inviteXProductUser(id);
 			}
 
 			// Don't insert into document if document data is sanitized.

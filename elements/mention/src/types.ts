@@ -42,6 +42,7 @@ export interface MentionResourceConfig extends ServiceConfig {
 	productName?: string;
 	debounceTime?: number;
 	isEligibleXProductUserInvite?: boolean;
+	inviteXProductUser?: (userId: string) => Promise<void>;
 }
 
 export interface ResourceProvider<Result> {
@@ -79,7 +80,8 @@ export type MentionContextIdentifier = {
 
 export interface MentionProvider
 	extends ResourceProvider<MentionDescription[]>,
-		InviteFromMentionProvider {
+		InviteFromMentionProvider,
+		XProductInviteMentionProvider {
 	filter(query?: string, contextIdentifier?: MentionContextIdentifier): void;
 	recordMentionSelection(
 		mention: MentionDescription,
@@ -127,6 +129,7 @@ export interface MentionDescription {
 	// Team mention can use context to store members data
 	context?: MentionDescContext;
 	source?: string; //e.g. 'smarts'
+	isXProductUser?: boolean;
 }
 
 export interface MentionDescContext {
@@ -252,4 +255,9 @@ export interface InviteFromMentionProvider {
 	shouldEnableInvite?: boolean;
 	onInviteItemClick?(flow: InviteFlow): void;
 	userRole?: UserRole;
+}
+
+export interface XProductInviteMentionProvider {
+	isEligibleXProductUserInvite?: boolean;
+	inviteXProductUser?(userId: string): Promise<void>;
 }

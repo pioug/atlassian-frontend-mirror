@@ -6,11 +6,12 @@ import {
 	type UIAnalyticsEvent,
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
+import Heading from '@atlaskit/heading';
 
 import { messages } from '../../../messages';
 import SomethingWrongImage from '../../../assets/SomethingWrongImage';
 
-import { LoadingErrorMessage, LoadingErrorButtonContainer } from './styled';
+import { LoadingErrorMessage, LoadingErrorButtonContainer, LoadingErrorHeading } from './styled';
 
 const ANALYTICS_CONTEXT_DATA = {
 	componentName: 'ArticleLoadingFail',
@@ -20,21 +21,16 @@ const ANALYTICS_CONTEXT_DATA = {
 
 interface Props {
 	// Function executed when the user click "try again"
-	onTryAgainButtonClick?(
-		event: React.MouseEvent<HTMLElement, MouseEvent>,
-		analyticsEvent: UIAnalyticsEvent,
-	): void;
+	onTryAgainButtonClick?(event: React.MouseEvent, analyticsEvent: UIAnalyticsEvent): void;
+	intl: WrappedComponentProps['intl'];
 }
 
-export const ArticleLoadingFail: React.FC<WrappedComponentProps & Props> = ({
-	onTryAgainButtonClick,
-	intl: { formatMessage },
-}) => {
+export const ArticleLoadingFail = ({ onTryAgainButtonClick, intl: { formatMessage } }: Props) => {
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 
 	const handleOnTryAgainButtonClick =
 		onTryAgainButtonClick &&
-		((event: React.MouseEvent<HTMLElement, MouseEvent>): void => {
+		((event: React.MouseEvent): void => {
 			const analyticsEvent: UIAnalyticsEvent = createAnalyticsEvent({
 				action: 'clicked',
 			});
@@ -45,7 +41,9 @@ export const ArticleLoadingFail: React.FC<WrappedComponentProps & Props> = ({
 	return (
 		<LoadingErrorMessage>
 			<SomethingWrongImage />
-			<h2>{formatMessage(messages.help_article_error_title)}</h2>
+			<LoadingErrorHeading>
+				<Heading size="large">{formatMessage(messages.help_article_error_title)}</Heading>
+			</LoadingErrorHeading>
 			<p>{formatMessage(messages.help_article_error_text)}</p>
 			<LoadingErrorButtonContainer>
 				{handleOnTryAgainButtonClick && (
@@ -58,7 +56,7 @@ export const ArticleLoadingFail: React.FC<WrappedComponentProps & Props> = ({
 	);
 };
 
-const ArticleLoadingFailWithContext: React.FC<Props & WrappedComponentProps> = (props) => {
+const ArticleLoadingFailWithContext: React.FC<Props> = (props) => {
 	return (
 		<AnalyticsContext data={ANALYTICS_CONTEXT_DATA}>
 			<ArticleLoadingFail {...props} />

@@ -45,6 +45,9 @@
 			"path": "../../design-system/form/tsconfig.app.json"
 		},
 		{
+			"path": "../../design-system/heading/tsconfig.app.json"
+		},
+		{
 			"path": "../help-article/tsconfig.app.json"
 		},
 		{

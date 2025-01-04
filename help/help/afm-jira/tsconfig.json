@@ -30,6 +30,9 @@
 			"path": "../../../design-system/form/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/heading/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../help-article/afm-jira/tsconfig.json"
 		},
 		{

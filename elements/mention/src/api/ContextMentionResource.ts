@@ -9,7 +9,11 @@ import {
 	ResultCallback,
 } from './MentionResource';
 import { padArray } from '../util';
-import { type MentionDescription, type InviteFromMentionProvider } from '../types';
+import {
+	type MentionDescription,
+	type InviteFromMentionProvider,
+	type XProductInviteMentionProvider,
+} from '../types';
 export type { MentionDescription };
 
 export type MentionProviderFunctions = Omit<
@@ -18,7 +22,7 @@ export type MentionProviderFunctions = Omit<
 			? MentionProvider[Key]
 			: never;
 	},
-	keyof InviteFromMentionProvider
+	keyof InviteFromMentionProvider | keyof XProductInviteMentionProvider
 >;
 
 /**

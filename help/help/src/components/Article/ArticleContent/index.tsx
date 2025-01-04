@@ -13,11 +13,11 @@ import WhatsNewArticle from '../WhatsNewArticle';
 interface Props {
 	currentArticle: HistoryItem | undefined;
 	onHelpArticleLoadingFailTryAgainButtonClick?(
-		event: React.MouseEvent<HTMLElement, MouseEvent>,
+		event: React.MouseEvent,
 		analyticsEvent: UIAnalyticsEvent,
 	): void;
 	onWhatsNewArticleLoadingFailTryAgainButtonClick?(
-		event: React.MouseEvent<HTMLElement, MouseEvent>,
+		event: React.MouseEvent,
 		analyticsEvent: UIAnalyticsEvent,
 	): void;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
-
+import Heading from '@atlaskit/heading';
 import { BODY_FORMAT_TYPES } from '../model/HelpArticle';
 import type { HelpArticle as HelpArticleType } from '../model/HelpArticle';
 
@@ -23,14 +23,14 @@ const HelpArticle = (props: HelpArticleType) => {
 				<ArticleContentTitle>
 					{titleLinkUrl ? (
 						<ArticleContentTitleLink href={titleLinkUrl} target="_blank">
-							<h2>
+							<Heading size="large">
 								{title}
 								<span> </span>
 								<ShortcutIcon color="currentColor" label="link icon" LEGACY_size="small" />
-							</h2>
+							</Heading>
 						</ArticleContentTitleLink>
 					) : (
-						<h2>{title}</h2>
+						<Heading size="large">{title}</Heading>
 					)}
 				</ArticleContentTitle>
 			)}

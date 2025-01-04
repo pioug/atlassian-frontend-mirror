@@ -6,6 +6,7 @@ import HelpArticle from '../../components/HelpArticle';
 import { ArticleContentTitleLink } from '../../components/styled';
 import ArticleBody from '../../components/ArticleBody';
 import { BODY_FORMAT_TYPES } from '../../model/HelpArticle';
+import Heading from '@atlaskit/heading';
 
 const adfPhrase = 'test adf document';
 
@@ -32,8 +33,8 @@ describe('HelpArticle', () => {
 
 	describe('with defined Title', () => {
 		it('should render title', () => {
-			const helpArticle = shallow(<HelpArticle title={TITLE} />);
-			const title = helpArticle.find('h2').first();
+			const helpArticle = mount(<HelpArticle title={TITLE} />);
+			const title = helpArticle.find(Heading).first();
 			expect(title.text()).toEqual(TITLE);
 		});
 
@@ -53,12 +54,12 @@ describe('HelpArticle', () => {
 		});
 
 		it('should render title with link', () => {
-			const helpArticle = shallow(<HelpArticle title={TITLE} titleLinkUrl={TITLE_LINK_URL} />);
+			const helpArticle = mount(<HelpArticle title={TITLE} titleLinkUrl={TITLE_LINK_URL} />);
 
 			const titleLink = helpArticle.find(ArticleContentTitleLink).first();
 			expect(titleLink.find(ShortcutIcon).length).toEqual(1);
 			expect(titleLink.prop('href')).toEqual(TITLE_LINK_URL);
-			expect(titleLink.text()).toContain(TITLE);
+			expect(titleLink.text()).toEqual(`${TITLE} `);
 		});
 	});
 });

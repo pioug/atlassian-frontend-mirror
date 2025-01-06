@@ -14,6 +14,7 @@ const containerStyles = xcss({
 	borderRadius: 'border.radius',
 	margin: 'space.100',
 	marginBottom: 'space.0',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '20px',
 	padding: 'space.075',
 	paddingInline: 'space.100',

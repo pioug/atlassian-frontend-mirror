@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import ErrorIcon from '@atlaskit/icon/utility/migration/error';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -11,8 +12,10 @@ import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
+import { AKIconWrapper as AKIconWrapperOld } from '../Icon-emotion';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { IconStyledButton } from '../styled';
+import { IconStyledButton as IconStyledButtonOld } from '../styled-emotion';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
 
 export interface InlineCardErroredViewProps {
@@ -57,7 +60,9 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
 			onRetry && (
 				<ActionButton
 					spacing="none"
-					component={IconStyledButton}
+					component={
+						fg('bandicoots-compiled-migration-smartcard') ? IconStyledButton : IconStyledButtonOld
+					}
 					onClick={this.handleRetry}
 					role="button"
 				>
@@ -78,6 +83,10 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
 			truncateInline,
 		} = this.props;
 
+		const Wrapper = fg('bandicoots-compiled-migration-smartcard')
+			? AKIconWrapper
+			: AKIconWrapperOld;
+
 		const content = (
 			<Frame
 				testId={testId}
@@ -88,14 +97,14 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
 				<IconAndTitleLayout
 					icon={
 						icon || (
-							<AKIconWrapper>
+							<Wrapper>
 								<ErrorIcon
 									label="error"
 									LEGACY_size="small"
 									color={token('color.icon.danger', R300)}
 									testId="errored-view-default-icon"
 								/>
-							</AKIconWrapper>
+							</Wrapper>
 						)
 					}
 					link={url}

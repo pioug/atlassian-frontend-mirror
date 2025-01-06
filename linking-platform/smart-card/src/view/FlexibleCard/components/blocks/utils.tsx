@@ -96,6 +96,7 @@ export const getBaseStyles = (
 			display: 'flex',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			gap: `${getGapSize(size)}rem`,
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			lineHeight: '1rem',
 			minWidth: 0,
 			overflow: 'hidden',

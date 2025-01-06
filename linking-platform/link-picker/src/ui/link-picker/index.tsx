@@ -59,6 +59,7 @@ const rootContainerStyles = css({
 	paddingTop: 'var(--link-picker-padding-top)',
 	paddingBottom: 'var(--link-picker-padding-bottom)',
 	boxSizing: 'border-box',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 'initial',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 	display: 'block !important',

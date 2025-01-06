@@ -305,6 +305,7 @@ export const EditorControls = styled.div<{
 			? getEditorInputVerticalPadding(props.isCompact) - 1 // the search button needs the same vertical & horizontal spacing
 			: editorInputHorizontalPadding - 3
 	}px`,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 'normal',
 	position: 'sticky',
 	top: 0,

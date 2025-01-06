@@ -418,6 +418,7 @@ export class ImageNavigator extends Component<Props & WrappedComponentProps, Sta
 				{this.renderDragZone()}
 				{isLoading ? null : (
 					<div>
+						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 						<p id="padded-break" css={paddedBreakStyles}>
 							<FormattedMessage {...(errorMessage ? messages.try_again : messages.or)} />
 						</p>

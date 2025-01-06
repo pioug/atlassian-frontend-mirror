@@ -23,6 +23,7 @@ const baseProps = {
 		height: 10,
 	},
 	children: ({ error, loading, data }: MediaImageChildrenProps) => {
+		// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 		return error ? <p>error</p> : loading ? <p>loading</p> : <p>{`${data?.src}`}</p>;
 	},
 };

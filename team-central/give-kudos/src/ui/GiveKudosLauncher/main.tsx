@@ -58,6 +58,7 @@ const sidebarButtonStyles = css({
 	alignItems: 'center',
 	background: 0,
 	borderRadius: '50%',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,
 });
 

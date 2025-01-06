@@ -1,5 +1,13 @@
 # @atlaskit/profilecard
 
+## 21.1.2
+
+### Patch Changes
+
+- [#99088](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99088)
+  [`698ba7a9d68bc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/698ba7a9d68bc) -
+  PTC-10360 Clean up feature gate platform_profile_card_css_refactor
+
 ## 21.1.1
 
 ### Patch Changes

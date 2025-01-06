@@ -1,8 +1,11 @@
 import React, { forwardRef, type MouseEvent, useCallback } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 
 import { WrapperAnchor, WrapperSpan } from './styled';
+import { WrapperAnchor as WrapperAnchorOld, WrapperSpan as WrapperSpanOld } from './styled-emotion';
 
 export interface FrameViewProps {
 	/** A flag that determines whether the card is selected in edit mode. */
@@ -66,7 +69,13 @@ export const Frame = forwardRef<HTMLSpanElement & null, FrameViewProps>((props, 
 	const isAnchor = Boolean(link || onClick);
 
 	// Depending on whenever Frame was given onClick or link itself we display span or anchor elements
-	const Wrapper = isAnchor ? WrapperAnchor : WrapperSpan;
+	const Wrapper = fg('bandicoots-compiled-migration-smartcard')
+		? isAnchor
+			? WrapperAnchor
+			: WrapperSpan
+		: isAnchor
+			? WrapperAnchorOld
+			: WrapperSpanOld;
 
 	return (
 		<Wrapper

@@ -17,20 +17,9 @@ import {
 	headerBgColor,
 	headerBgColorDisabledUser,
 	headerTextColor,
-	headerTextColorInactive,
 	labelIconColor,
 	labelTextColor,
 } from './constants';
-
-interface FullNameLabelProps {
-	noMeta?: boolean;
-	isDisabledAccount?: boolean;
-}
-
-const getFullNameMargin = (props: FullNameLabelProps) =>
-	props.noMeta
-		? `${token('space.400', '32px')} 0 ${token('space.150', '12px')} 0`
-		: `${token('space.150', '12px')} 0 0 0`;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CardWrapper = styled.div`
@@ -177,24 +166,6 @@ export const DisabledInfo = styled.div`
 	color: ${labelTextColor};
 	margin: ${token('space.150', '12px')} 0 0 0;
 	line-height: 16px;
-`;
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const FullNameLabel = styled.h2`
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-
-	font-size: 18px;
-	font-weight: ${token('font.weight.regular')};
-	letter-spacing: normal;
-	color: ${(props: FullNameLabelProps) =>
-		props.isDisabledAccount ? headerTextColorInactive : headerTextColor};
-	margin: ${(props: FullNameLabelProps) => getFullNameMargin(props)};
-	line-height: ${24 / 18}em;
-	:first-child {
-		margin: ${(props: FullNameLabelProps) => getFullNameMargin(props)};
-	}
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

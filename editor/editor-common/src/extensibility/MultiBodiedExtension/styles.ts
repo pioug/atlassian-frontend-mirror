@@ -21,7 +21,7 @@ export const mbeExtensionWrapperCSSStyles = css(wrapperDefault, {
 	'.extension-title': {
 		display: 'flex',
 		alignItems: 'center',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 		lineHeight: '16px !important',
 		marginBottom: token('space.100', '8px'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766

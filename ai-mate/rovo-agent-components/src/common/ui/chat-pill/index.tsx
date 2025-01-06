@@ -19,6 +19,7 @@ const conversationStarterPillStyles = xcss({
 	borderBottomRightRadius: token('border.radius.050', '2px'),
 	font: token('font.body'),
 	fontWeight: token('font.weight.medium', '500'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '16px',
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
@@ -42,6 +43,7 @@ const buttonStyles = xcss({
 	borderBottomRightRadius: token('border.radius.050', '2px'),
 	font: token('font.body'),
 	fontWeight: token('font.weight.medium', '500'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '16px',
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',

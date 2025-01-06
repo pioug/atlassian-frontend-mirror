@@ -1,11 +1,18 @@
 import React from 'react';
 
+import { styled } from '@compiled/react';
 import ImageLoader from 'react-render-image';
 
 import LinkIcon from '@atlaskit/icon/core/migration/link';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { B400, N200 } from '@atlaskit/theme/colors';
+import { token } from '@atlaskit/tokens';
 
 import { Icon, Shimmer } from '../Icon';
-import { LinkAppearance, NoLinkAppearance } from '../styled';
+import {
+	LinkAppearance as LinkAppearanceOld,
+	NoLinkAppearance as NoLinkAppearanceOld,
+} from '../styled-emotion';
 
 import {
 	EmojiWrapper,
@@ -16,6 +23,14 @@ import {
 	TitleWrapper,
 	TitleWrapperClassName,
 } from './styled';
+import {
+	EmojiWrapper as EmojiWrapperOld,
+	IconEmptyWrapper as IconEmptyWrapperOld,
+	IconPositionWrapper as IconPositionWrapperOld,
+	IconTitleWrapper as IconTitleWrapperOld,
+	IconWrapper as IconWrapperOld,
+	TitleWrapper as TitleWrapperOld,
+} from './styled-emotion';
 
 export interface IconAndTitleLayoutProps {
 	emoji?: React.ReactNode;
@@ -33,6 +48,20 @@ export interface IconAndTitleLayoutProps {
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>;
 }
 
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- Ignored via go/DSP-18766
+const NoLinkAppearance = styled.span({
+	color: token('color.text.subtlest', N200),
+	marginLeft: token('space.050', '4px'),
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- Ignored via go/DSP-18766
+const LinkAppearance = styled.a({
+	color: token('color.link', B400),
+	'&:hover': {
+		textDecoration: 'none',
+	},
+});
+
 export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps> {
 	public static defaultProps = {
 		rightSideSpacer: true,
@@ -42,14 +71,22 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 		const { icon, emoji } = this.props;
 
 		if (emoji) {
-			return <EmojiWrapper>{emoji}</EmojiWrapper>;
+			return fg('bandicoots-compiled-migration-smartcard') ? (
+				<EmojiWrapper>{emoji}</EmojiWrapper>
+			) : (
+				<EmojiWrapperOld>{emoji}</EmojiWrapperOld>
+			);
 		}
 
 		if (!icon || typeof icon === 'string') {
 			return null;
 		}
 
-		return <IconWrapper>{icon}</IconWrapper>;
+		return fg('bandicoots-compiled-migration-smartcard') ? (
+			<IconWrapper>{icon}</IconWrapper>
+		) : (
+			<IconWrapperOld>{icon}</IconWrapperOld>
+		);
 	}
 
 	private renderImageIcon(errored: React.ReactNode, testId: string) {
@@ -143,7 +180,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 			testId = 'inline-card-icon-and-title',
 		} = this.props;
 
-		const titlePart = (
+		const titlePart = fg('bandicoots-compiled-migration-smartcard') ? (
 			<>
 				<IconPositionWrapper data-testid="icon-position-wrapper">
 					{children || (
@@ -163,20 +200,60 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 					{title}
 				</TitleWrapper>
 			</>
+		) : (
+			<>
+				<IconPositionWrapperOld data-testid="icon-position-wrapper">
+					{children || (
+						<>
+							<IconEmptyWrapperOld data-testid="icon-empty-wrapper" />
+							{this.renderIcon(testId)}
+						</>
+					)}
+				</IconPositionWrapperOld>
+
+				<TitleWrapperOld
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					style={{ color: titleTextColor }}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={TitleWrapperClassName}
+				>
+					{title}
+				</TitleWrapperOld>
+			</>
 		);
 
-		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-			<IconTitleWrapper style={{ color: titleColor }} data-testid={testId}>
-				{link ? (
-					<LinkAppearance href={link} onClick={this.handleClick} onKeyPress={this.handleKeyPress}>
-						{titlePart}
-					</LinkAppearance>
-				) : (
-					titlePart
-				)}
-				{rightSide ? <NoLinkAppearance>{rightSide}</NoLinkAppearance> : null}
-			</IconTitleWrapper>
-		);
+		if (fg('bandicoots-compiled-migration-smartcard')) {
+			return (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				<IconTitleWrapper style={{ color: titleColor }} data-testid={testId}>
+					{link ? (
+						<LinkAppearance href={link} onClick={this.handleClick} onKeyPress={this.handleKeyPress}>
+							{titlePart}
+						</LinkAppearance>
+					) : (
+						titlePart
+					)}
+					{rightSide ? <NoLinkAppearance>{rightSide}</NoLinkAppearance> : null}
+				</IconTitleWrapper>
+			);
+		} else {
+			return (
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+				<IconTitleWrapperOld style={{ color: titleColor }} data-testid={testId}>
+					{link ? (
+						<LinkAppearanceOld
+							href={link}
+							onClick={this.handleClick}
+							onKeyPress={this.handleKeyPress}
+						>
+							{titlePart}
+						</LinkAppearanceOld>
+					) : (
+						titlePart
+					)}
+					{rightSide ? <NoLinkAppearanceOld>{rightSide}</NoLinkAppearanceOld> : null}
+				</IconTitleWrapperOld>
+			);
+		}
 	}
 }

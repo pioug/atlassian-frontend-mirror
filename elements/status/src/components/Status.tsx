@@ -45,6 +45,7 @@ const inlineBlockStyles = css({
 	'& > *': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 		display: 'inline-block !important',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '16px',
 		verticalAlign: 'middle',
 	},

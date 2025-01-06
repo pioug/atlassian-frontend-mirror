@@ -16,6 +16,7 @@ const styles = cssMapUnbound({
 		position: 'relative',
 		color: `var(${CSS_VAR_COLOR})`,
 		fill: `var(${CSS_VAR_FILL})`,
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 1,
 		userSelect: 'none',
 		whiteSpace: 'normal',

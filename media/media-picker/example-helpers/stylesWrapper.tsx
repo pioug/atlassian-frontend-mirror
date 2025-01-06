@@ -60,7 +60,7 @@ export const PreviewsWrapper = ({ children }: { children: ReactNode }) => {
 };
 
 export const PreviewsTitle = ({ children }: { children: ReactNode }) => {
-	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/use-heading -- Ignored via go/DSP-18766
 	return <h1 css={previewsTitleStyles}>{children}</h1>;
 };
 

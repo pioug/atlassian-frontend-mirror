@@ -26,6 +26,7 @@ export const containerStyle = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const emojiStyle = css({
 	transformOrigin: 'center center 0',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '12px',
 	padding: `${token('space.050', '4px')} ${token('space.050', '4px')} ${token(
 		'space.050',

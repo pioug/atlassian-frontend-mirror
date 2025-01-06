@@ -70,6 +70,7 @@ export const ModalBody = ({ children }: { children: ReactNode }) => (
  */
 export const ModalHeading = ({ children, id }: { children: ReactNode; id: string }) => {
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/use-heading
 		<h1 css={modalHeadingStyles} id={id}>
 			{children}
 		</h1>

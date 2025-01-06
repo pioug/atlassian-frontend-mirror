@@ -40,6 +40,7 @@ export interface State {
 }
 
 export const DeletedMessage = ({ isAuthor }: { isAuthor?: boolean }) => {
+	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 	return isAuthor ? <em>Comment deleted by the author</em> : <em>Comment deleted by admin</em>;
 };
 

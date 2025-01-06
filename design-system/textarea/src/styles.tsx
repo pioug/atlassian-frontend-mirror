@@ -205,7 +205,7 @@ const borderStyle = (appearance: string | undefined) =>
 
 const fontFamilyStyle = (isMonospaced: boolean | undefined) =>
 	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 		fontFamily: isMonospaced ? token('font.family.code') : token('font.family.body'),
 	});
 
@@ -220,7 +220,7 @@ const borderPaddingAndHeightStyles = (minimumRows = 1, appearance: string | unde
 			minHeight: borderBoxMinHeightCompact(minimumRows, borderHeight),
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			padding: `${compactVerticalPadding}px ${horizontalPaddingWithoutBorderWidth}px`,
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography
 			lineHeight: lineHeightCompact / 14,
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -229,7 +229,7 @@ const borderPaddingAndHeightStyles = (minimumRows = 1, appearance: string | unde
 			minHeight: borderBoxMinHeight(minimumRows, borderHeight),
 			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 			padding: `${verticalPadding}px ${horizontalPaddingWithoutBorderWidth}px`,
-			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values
+			// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography
 			lineHeight: lineHeightBase / 14,
 		},
 	});

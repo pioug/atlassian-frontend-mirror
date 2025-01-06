@@ -272,6 +272,7 @@ class ToolbarBlockType extends React.PureComponent<Props & WrappedComponentProps
 			const clearFormattingItem: MenuItem = {
 				content: (
 					<div>
+						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 						<p>{toolbarMessages.clearFormatting.defaultMessage}</p>
 					</div>
 				),

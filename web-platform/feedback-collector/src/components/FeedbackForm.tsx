@@ -172,7 +172,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 								{feedbackTitle || <FormattedMessage {...messages.feedbackTitle} />}
 							</ModalTitle>
 							<Button
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 								style={{ lineHeight: 'normal' }}
 								spacing={'none'}
 								onClick={onClose}
@@ -186,6 +186,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 							</Button>
 						</ModalHeader>
 						<ModalBody>
+							{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 							<p
 								style={{
 									// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
@@ -314,6 +315,7 @@ const FeedbackForm: React.FunctionComponent<Props> = ({
 														title={formatMessage(messages.feedbackIsAnonymousTitle)}
 														appearance={'information'}
 													>
+														{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 														<p>{formatMessage(messages.feedbackIsAnonymous)}</p>
 													</SectionMessage>
 												)}

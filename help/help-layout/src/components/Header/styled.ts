@@ -38,6 +38,7 @@ export const HeaderTitle = styled.h1({
 	textAlign: 'center',
 	font: token('font.body.large'),
 	fontWeight: token('font.weight.semibold'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: token('space.800', '56px'),
 	width: '100%',
 	whiteSpace: 'nowrap',

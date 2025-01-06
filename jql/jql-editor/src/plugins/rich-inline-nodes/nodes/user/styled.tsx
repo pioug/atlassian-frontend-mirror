@@ -69,6 +69,7 @@ export const UserContainer = styled.span<{ selected: boolean; error: boolean }>(
 export const NameContainer = styled.span({
 	marginLeft: token('space.075', '6px'),
 	marginRight: token('space.100', '8px'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: token('space.250', '20px'),
 });
 

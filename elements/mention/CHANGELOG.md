@@ -1,5 +1,15 @@
 # @atlaskit/mention
 
+## 23.7.0
+
+### Minor Changes
+
+- [#99344](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99344)
+  [`fbeb84f180cd2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fbeb84f180cd2) -
+  Added optional `isEligibleXProductUserInvite` and `inviteXProductUser` props which will be used in
+  CCEDITIONS-4746 (x-product-user-invite experiment). Project poster link -
+  https://hello.atlassian.net/wiki/spaces/CV1/pages/3685626022/Project+poster+-+Cross+Product+User+Search+Invites
+
 ## 23.6.0
 
 ### Minor Changes

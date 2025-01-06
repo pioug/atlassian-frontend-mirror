@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 34.0.0
+
+### Major Changes
+
+- [#99301](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99301)
+  [`a537e69b1a3ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a537e69b1a3ce) -
+  [ux] Migration from @emotion/react to @compiled/react for styling.
+
 ## 33.4.0
 
 ### Minor Changes

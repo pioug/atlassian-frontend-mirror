@@ -13,6 +13,7 @@ const containerStyles = xcss({
 	position: 'absolute',
 	top: 'space.0',
 	right: 'space.0',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: token('space.200'),
 	gap: 'space.025',
 	zIndex: 'card',

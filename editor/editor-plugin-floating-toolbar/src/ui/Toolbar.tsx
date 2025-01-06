@@ -437,6 +437,7 @@ const toolbarContainer = (
 				`0 0 1px rgba(9, 30, 66, 0.31), 0 4px 8px -2px rgba(9, 30, 66, 0.25)`,
 			),
 			display: 'flex',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			lineHeight: 1,
 			boxSizing: 'border-box',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

@@ -74,6 +74,7 @@ const triggerStyles = xcss({
 	display: 'flex',
 	justifyContent: 'center',
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '16px',
 });
 

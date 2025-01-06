@@ -3,6 +3,7 @@ import type { CardPluginActions } from '@atlaskit/editor-common/card';
 import type { NextEditorPlugin, OptionalPlugin, Command } from '@atlaskit/editor-common/types';
 import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { InlineCommentPluginState } from '@atlaskit/editor-plugin-annotation';
+import type { ConnectivityPlugin } from '@atlaskit/editor-plugin-connectivity';
 import type { DecorationsPlugin } from '@atlaskit/editor-plugin-decorations';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
@@ -42,6 +43,7 @@ export type CardPlugin = NextEditorPlugin<
 			OptionalPlugin<EditorDisabledPlugin>,
 			OptionalPlugin<SelectionPlugin>,
 			OptionalPlugin<DummyAnnotationPlugin>,
+			OptionalPlugin<ConnectivityPlugin>,
 		];
 		sharedState: CardPluginState | null;
 		actions: CardPluginActions;

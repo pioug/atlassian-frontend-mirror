@@ -47,6 +47,7 @@ const supportTextStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	fontSize: relativeFontSizeToBase16(12),
 	padding: `${token('space.150', '12px')} ${token('space.500', '40px')}`,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '20px',
 	borderTop: `1px solid ${token('color.border', N30)}`,
 	margin: 0,
@@ -58,11 +59,13 @@ const containerStyles = css({
 	display: 'flex',
 	flexDirection: 'column',
 	overflow: 'auto',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 2,
 });
 
 const inputWrapperStyles = css({
 	display: 'flex',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 0,
 	padding: `${token('space.075', '6px')} 0`,
 	alignItems: 'center',
@@ -70,6 +73,7 @@ const inputWrapperStyles = css({
 
 const validationWrapperStyles = css({
 	display: 'flex',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 0,
 	padding: `${token('space.150', '12px')} ${token('space.300', '24px')} ${token(
 		'space.150',

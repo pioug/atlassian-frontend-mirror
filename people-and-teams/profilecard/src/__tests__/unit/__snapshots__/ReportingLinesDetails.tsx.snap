@@ -5,11 +5,24 @@ exports[`ReportingLinesDetails should match snapshot when manager and reports ar
 exports[`ReportingLinesDetails should match snapshot when manager and reports are specified 1`] = `
 <Fragment>
   <Styled(div)>
-    <Styled(h3)
-      style={
-        {
-          "marginBottom": 0,
-        }
+    <ForwardRef
+      xcss={
+        [
+          {
+            Symbol(UNSAFE_INTERNAL_styles): {
+              "name": "1b6655x",
+              "next": undefined,
+              "styles": "color:var(--ds-text, #172B4D);font:var(--ds-font-heading-xxsmall, normal 600 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif);font-weight:var(--ds-font-weight-semibold, 600);margin-bottom:var(--ds-space-100, 8px);",
+            },
+          },
+          {
+            Symbol(UNSAFE_INTERNAL_styles): {
+              "name": "gx0lhm",
+              "next": undefined,
+              "styles": "margin-bottom:0;",
+            },
+          },
+        ]
       }
     >
       <MemoizedFormattedMessage
@@ -17,7 +30,7 @@ exports[`ReportingLinesDetails should match snapshot when manager and reports ar
         description="Title for a section on the profile card that show the user's direct manager"
         id="pt.team-profile-card.manager.heading"
       />
-    </Styled(h3)>
+    </ForwardRef>
     <Styled(div)>
       <Button
         appearance="subtle"
@@ -39,13 +52,23 @@ exports[`ReportingLinesDetails should match snapshot when manager and reports ar
     </Styled(div)>
   </Styled(div)>
   <Styled(div)>
-    <Styled(h3)>
+    <ForwardRef
+      xcss={
+        {
+          Symbol(UNSAFE_INTERNAL_styles): {
+            "name": "1b6655x",
+            "next": undefined,
+            "styles": "color:var(--ds-text, #172B4D);font:var(--ds-font-heading-xxsmall, normal 600 12px/16px ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif);font-weight:var(--ds-font-weight-semibold, 600);margin-bottom:var(--ds-space-100, 8px);",
+          },
+        }
+      }
+    >
       <MemoizedFormattedMessage
         defaultMessage="Direct reports"
         description="Title for a section on the profile card that show the user's direct reports"
         id="pt.team-profile-card.directReports.heading"
       />
-    </Styled(h3)>
+    </ForwardRef>
     <AvatarGroup
       appearance="stack"
       data={

@@ -39,6 +39,7 @@ export const SearchExternalSite: React.FC<Props & WrappedComponentProps> = ({
 	};
 	return searchExternalUrl ? (
 		<SearchResultSearchExternalSiteContainer>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 			<p>
 				{formatMessage(messages.help_search_results_search_external_site)}
 				<br />

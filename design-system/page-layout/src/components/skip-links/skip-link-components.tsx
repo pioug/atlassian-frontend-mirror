@@ -135,6 +135,7 @@ export const SkipLinkWrapper = ({ skipLinksLabel }: SkipLinkWrapperProps) => {
 			css={[skipLinkStyles, prefersReducedMotionStyles]}
 			data-skip-link-wrapper
 		>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 			{emptyLabelOverride ? null : <p css={skipLinkHeadingStyles}>{label}</p>}
 			<ol css={skipLinkListStyles}>
 				{sortSkipLinks(skipLinksData).map(({ id, skipLinkTitle }: SkipLinkData) => (

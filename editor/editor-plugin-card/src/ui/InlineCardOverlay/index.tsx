@@ -45,6 +45,7 @@ const getGradientWithColor = (color: string) => {
 
 const containerStyles = css({
 	position: 'relative',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 'normal',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':active': {

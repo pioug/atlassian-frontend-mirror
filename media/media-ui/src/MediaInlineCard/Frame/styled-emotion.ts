@@ -38,6 +38,7 @@ const isSelected = ({ isSelected }: WrapperProps) => {
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const Wrapper = styled.span<WrapperProps>(
 	{
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '16px',
 		padding: `${token('space.025', '2px')} ${token('space.050', '4px')} ${token(
 			'space.025',

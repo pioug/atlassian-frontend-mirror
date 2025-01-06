@@ -37,10 +37,12 @@ export const WhatsNewResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 			</WhatsNewResultsEmptyMessageImage>
 
 			<WhatsNewResultsEmptyMessageText>
+				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 				<strong>{formatMessage(messages.help_whats_new_no_results)}</strong>
 			</WhatsNewResultsEmptyMessageText>
 
 			<WhatsNewResultsEmptyMessageText>
+				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 				<p>
 					{formatMessage(messages.help_whats_new_no_results_info)}
 					<br />
@@ -53,6 +55,7 @@ export const WhatsNewResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 						<a href="#" onClick={handleClearFilterLinkClick}>
 							{formatMessage(messages.help_whats_new_no_results_clear_filter_button_label)}
 						</a>
+						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 						<span>{formatMessage(messages.help_whats_new_no_results_clear_filter_info)}</span>
 					</AnalyticsContext>
 				</p>

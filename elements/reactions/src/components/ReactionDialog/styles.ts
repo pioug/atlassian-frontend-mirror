@@ -70,6 +70,7 @@ export const counterStyle = (isSelected: boolean) =>
 	css({
 		display: 'flex',
 		alignSelf: 'center',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '14px',
 		font: token('font.body.small'),
 		paddingRight: '0px',
@@ -83,7 +84,7 @@ export const counterStyle = (isSelected: boolean) =>
 			color: isSelected
 				? `${token('color.text', B400)}!important`
 				: `2px solid ${token('color.text', N500)}!important`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 			fontWeight: isSelected ? 700 : 400,
 		},
 	});
@@ -183,6 +184,7 @@ export const reactionViewStyle = css({
 		textTransform: 'capitalize',
 		font: token('font.body.large'),
 		fontWeight: token('font.weight.semibold'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '20px',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {

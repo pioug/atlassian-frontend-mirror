@@ -47,6 +47,7 @@ const ErrorBoundaryComponent: React.FC<ErrorBoundaryProps> = ({ message, isSelec
   */
 
 	const style: React.CSSProperties = {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '16px',
 		padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
 		marginRight: token('space.negative.025', '-2px'),

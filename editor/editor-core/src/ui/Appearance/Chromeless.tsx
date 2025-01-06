@@ -24,6 +24,7 @@ import WithFlash from '../WithFlash';
 
 const chromelessEditorStyles = css(
 	{
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '20px',
 		height: 'auto',
 		overflowX: 'hidden',

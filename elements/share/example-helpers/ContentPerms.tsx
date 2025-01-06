@@ -17,6 +17,7 @@ export default () => (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 		css={{
 			maxWidth: '100%',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			lineHeight: `${token('space.500', '40px')}`,
 			color: `${token('color.text.subtle', N300)}`,
 		}}

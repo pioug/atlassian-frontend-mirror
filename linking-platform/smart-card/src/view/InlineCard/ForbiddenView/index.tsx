@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -13,9 +14,11 @@ import { HoverCard } from '../../HoverCard';
 import { type RequestAccessContextProps } from '../../types';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
+import { AKIconWrapper as AKIconWrapperOld } from '../Icon-emotion';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { LozengeWrapper } from '../IconAndTitleLayout/styled';
 import { IconStyledButton } from '../styled';
+import { IconStyledButton as IconStyledButtonOld } from '../styled-emotion';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
 
 export interface InlineCardForbiddenViewProps {
@@ -41,17 +44,33 @@ export interface InlineCardForbiddenViewProps {
 	truncateInline?: boolean;
 }
 
-const FallbackForbiddenIcon = (
-	<AKIconWrapper>
-		{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
-		<LockIcon
-			label="error"
-			size="small"
-			primaryColor={token('color.icon.danger', R400)}
-			testId="forbidden-view-fallback-icon"
-		/>
-	</AKIconWrapper>
-);
+const fallbackForbiddenIcon = () => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return (
+			<AKIconWrapper>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
+				<LockIcon
+					label="error"
+					size="small"
+					primaryColor={token('color.icon.danger', R400)}
+					testId="forbidden-view-fallback-icon"
+				/>
+			</AKIconWrapper>
+		);
+	} else {
+		return (
+			<AKIconWrapperOld>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
+				<LockIcon
+					label="error"
+					size="small"
+					primaryColor={token('color.icon.danger', R400)}
+					testId="forbidden-view-fallback-icon"
+				/>
+			</AKIconWrapperOld>
+		);
+	}
+};
 
 export class InlineCardForbiddenView extends React.Component<InlineCardForbiddenViewProps> {
 	private frameRef = React.createRef<HTMLSpanElement & null>();
@@ -99,18 +118,33 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
 		const accessType = this.props.requestAccessContext?.accessType;
 
 		if (this.state.hasRequestAccessContextMessage) {
-			return (
-				<ActionButton
-					spacing="none"
-					onClick={this.handleRetry}
-					component={IconStyledButton}
-					testId="button-connect-other-account"
-					role="button"
-					isDisabled={accessType === 'PENDING_REQUEST_EXISTS'}
-				>
-					{this.renderForbiddenAccessMessage()}
-				</ActionButton>
-			);
+			if (fg('bandicoots-compiled-migration-smartcard')) {
+				return (
+					<ActionButton
+						spacing="none"
+						onClick={this.handleRetry}
+						component={IconStyledButton}
+						testId="button-connect-other-account"
+						role="button"
+						isDisabled={accessType === 'PENDING_REQUEST_EXISTS'}
+					>
+						{this.renderForbiddenAccessMessage()}
+					</ActionButton>
+				);
+			} else {
+				return (
+					<ActionButton
+						spacing="none"
+						onClick={this.handleRetry}
+						component={IconStyledButtonOld}
+						testId="button-connect-other-account"
+						role="button"
+						isDisabled={accessType === 'PENDING_REQUEST_EXISTS'}
+					>
+						{this.renderForbiddenAccessMessage()}
+					</ActionButton>
+				);
+			}
 		}
 
 		if (onAuthorise) {
@@ -149,7 +183,7 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
 				truncateInline={truncateInline}
 			>
 				<IconAndTitleLayout
-					icon={icon ? icon : FallbackForbiddenIcon}
+					icon={icon ? icon : fallbackForbiddenIcon()}
 					link={url}
 					title={url}
 					onClick={onClick}

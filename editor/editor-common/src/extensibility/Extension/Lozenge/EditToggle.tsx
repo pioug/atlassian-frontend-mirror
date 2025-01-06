@@ -16,6 +16,7 @@ import { token } from '@atlaskit/tokens';
 
 const buttonContainerStyles = css({
 	opacity: 0,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,
 	position: 'absolute',
 	width: 'max-content',

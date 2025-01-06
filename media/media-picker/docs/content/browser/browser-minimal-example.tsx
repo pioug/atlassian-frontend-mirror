@@ -81,6 +81,7 @@ const BrowserExample = () => {
 				onUploadsStart={onUploadsStart}
 				onEnd={onEnd}
 			/>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 			{uploadStart && <p>Upload started. Wait for it to finish !! </p>}
 			{uploadEnd && (
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

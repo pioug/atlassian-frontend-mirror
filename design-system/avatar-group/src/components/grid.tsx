@@ -17,6 +17,7 @@ const listStyles = css({
 	justifyContent: 'flex-start',
 	flexWrap: 'wrap',
 	isolation: 'isolate',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 	listStyleType: 'none !important',

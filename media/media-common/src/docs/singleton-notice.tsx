@@ -5,10 +5,12 @@ export function createSingletonNotice(componentName: string) {
 	const title = `${componentName} is a singleton package`;
 	return (
 		<SectionMessage title={title} appearance="error">
+			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 			<p>
 				Having multiple versions of {componentName} installed can result in potential issues, such
 				as media preview failures.
 			</p>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 			<p>
 				You must ensure that your application dependencies only resolve to a unique package version,
 				if you are:
@@ -24,6 +26,7 @@ export function createSingletonNotice(componentName: string) {
 					</li>
 				</ul>
 			</p>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 			<p>
 				If you have any questions or need assistance in consuming this package correctly, please
 				reach out to the{' '}

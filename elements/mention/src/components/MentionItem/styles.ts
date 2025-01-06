@@ -91,6 +91,7 @@ export const MentionItemStyle = styled.div<MentionItemStyleProps>((props) => ({
 	overflow: 'hidden',
 	listStyleType: 'none',
 	height: `${MENTION_ITEM_HEIGHT}px`,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1.2,
 	cursor: 'pointer',
 }));

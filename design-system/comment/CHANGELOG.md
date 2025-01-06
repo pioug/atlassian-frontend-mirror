@@ -1,5 +1,13 @@
 # @atlaskit/comment
 
+## 12.0.3
+
+### Patch Changes
+
+- [#100019](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100019)
+  [`2bacf5973e142`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2bacf5973e142) -
+  Fix missing comment text styles on @atlaskit/comment from incorrect Compiled style exraction.
+
 ## 12.0.2
 
 ### Patch Changes

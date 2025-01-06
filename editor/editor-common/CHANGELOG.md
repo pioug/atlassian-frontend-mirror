@@ -1,5 +1,11 @@
 # @atlaskit/editor-common
 
+## 98.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 98.2.0
 
 ### Minor Changes

@@ -54,6 +54,7 @@ export const SearchResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 			</SearchResultEmptyMessageText>
 			{searchExternalUrl && (
 				<SearchResultEmptyMessageText>
+					{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 					<p>
 						{formatMessage(messages.help_search_results_no_results_line_two)}
 						<br />

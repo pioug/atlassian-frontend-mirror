@@ -53,7 +53,7 @@
 		"@atlaskit/editor-common": "^98.2.0",
 		"@atlaskit/heading": "4.0.0",
 		"@atlaskit/icon": "^23.1.0",
-		"@atlaskit/modal-dialog": "^12.18.0",
+		"@atlaskit/modal-dialog": "^12.19.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/tokens": "^2.5.0",
 		"@babel/runtime": "^7.0.0",

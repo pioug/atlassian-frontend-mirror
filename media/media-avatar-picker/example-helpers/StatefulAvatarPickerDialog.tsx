@@ -179,15 +179,19 @@ export default class StatefulAvatarPickerDialog extends React.Component<
 				{this.renderPicker()}
 				{imagePreviewSourceViaDataURIAPI !== '' ? (
 					<React.Fragment>
+						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 						<p>onImagePickedDataURI(dataUri: string)</p>
 						<img src={imagePreviewSourceViaDataURIAPI} alt={altText || undefined} />
+						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 						{requireAltText && <p>Alt text: {altText}</p>}
 					</React.Fragment>
 				) : null}
 				{imagePreviewSourceViaFileAPI !== '' ? (
 					<React.Fragment>
+						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 						<p>onImagePicked(selectedImage: File, crop: CropProperties)</p>
 						<img src={imagePreviewSourceViaFileAPI} alt={altText || undefined} />
+						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 						{requireAltText && <p>Alt text: {altText}</p>}
 					</React.Fragment>
 				) : null}

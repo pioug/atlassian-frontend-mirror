@@ -10,15 +10,12 @@ import Footer from './footer';
 import Header from './header';
 import CommentLayout from './layout';
 
-const disabledTextStyles = cssMap({
-	root: {
-		color: token('color.text.disabled'),
-	},
-});
-
-const commentTextStyles = cssMap({
+const textStyles = cssMap({
 	root: {
 		color: token('color.text'),
+	},
+	disabled: {
+		color: token('color.text.disabled'),
 	},
 });
 
@@ -80,7 +77,7 @@ const Comment: FC<CommentProps> = ({
 						<Header testId={testId && `${testId}-header`} {...headerProps} />
 						<Box
 							testId={testId && `${testId}-content`}
-							xcss={cx(isSaving || isError ? disabledTextStyles.root : commentTextStyles.root)}
+							xcss={cx(textStyles.root, (isSaving || isError) && textStyles.disabled)}
 						>
 							{content}
 						</Box>

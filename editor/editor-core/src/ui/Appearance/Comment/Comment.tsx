@@ -63,6 +63,7 @@ const ContentArea = createEditorContentStyle(
 		{
 			flexGrow: 1,
 			overflowX: 'clip',
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			lineHeight: '24px',
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 			'.ProseMirror': {

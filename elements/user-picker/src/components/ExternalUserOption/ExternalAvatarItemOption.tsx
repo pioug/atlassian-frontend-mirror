@@ -13,6 +13,7 @@ const outerWrapper = (isDisabled?: boolean) =>
 		alignItems: 'center',
 		boxSizing: 'border-box',
 		display: 'flex',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 1,
 		outline: 'none',
 		margin: 0,
@@ -28,6 +29,7 @@ const detailsWrapper = css({
 	maxWidth: '100%',
 	minWidth: 0,
 	flex: '1 1 100%',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1.4,
 	paddingLeft: token('space.100', '8px'),
 	alignItems: 'center',

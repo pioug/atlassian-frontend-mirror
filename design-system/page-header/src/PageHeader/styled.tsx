@@ -36,6 +36,7 @@ const outerStyles = css({
 const titleStyles = css({
 	color: token('color.text'),
 	font: token('font.heading.large'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	letterSpacing: 'normal',
 	marginBlockStart: 0,
 	outline: 'none',
@@ -98,6 +99,7 @@ interface StyledTitleWrapperProps {
 export const StyledTitleWrapper = React.forwardRef<HTMLHeadingElement, StyledTitleWrapperProps>(
 	({ children, id, truncateTitle, testId }, ref) => {
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/use-heading
 			<h1
 				css={[titleStyles, truncateTitle && truncateStyles]}
 				ref={ref}

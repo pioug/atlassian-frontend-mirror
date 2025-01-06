@@ -9,6 +9,7 @@ export default md`
 
 ${(
 	<SectionMessage title={'WORK IN PROGRESS'} appearance="warning">
+		{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 		<p>
 			This package is under development. If you intend to use it, please reach out to Core
 			Experiences Team in{' '}

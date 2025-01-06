@@ -112,6 +112,7 @@ export const rowStyles = css({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const responseStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontFamily: 'monospace',
 	whiteSpace: 'pre',
 });

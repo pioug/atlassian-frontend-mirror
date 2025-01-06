@@ -21,6 +21,7 @@ export const FailedTitleBox: React.FC<FailedTitleBoxProps> = ({
 					LEGACY_margin={`0 ${token('space.negative.025')}`}
 					color={token('color.text.danger', R300)}
 				/>
+				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 				<span>
 					<FormattedMessage {...customMessage} />
 				</span>

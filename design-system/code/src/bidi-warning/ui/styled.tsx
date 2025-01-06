@@ -32,6 +32,7 @@ const decoration = css({
 		font: token('font.body'),
 		fontFamily: token('font.family.code'),
 		fontStyle: 'normal',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '18px',
 		/**
 		 * Ensures the decoration receives pointer events when it occurs with

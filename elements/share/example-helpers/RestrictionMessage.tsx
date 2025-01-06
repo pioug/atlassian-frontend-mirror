@@ -20,6 +20,7 @@ export default () => (
 			display: 'flex',
 			'& > div': {
 				flexGrow: 1,
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				lineHeight: 24,
 			},
 		}}

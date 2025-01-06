@@ -40,9 +40,9 @@ const ICON_WIDTH_ESTIMATE = 24;
 
 const staticItemStyles = css({
 	// TODO: Replace fontWeight and lineHeight with "font: token('font.body')" and remove all the !important once Button is migrated to compiled
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/use-tokens-typography
 	fontWeight: `${token('font.weight.regular')} !important`,
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles, @atlaskit/design-system/use-tokens-typography
 	lineHeight: `20px !important`,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 	paddingBlock: `${token('space.025')} !important`,

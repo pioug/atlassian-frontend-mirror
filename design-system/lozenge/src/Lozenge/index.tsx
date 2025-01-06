@@ -65,9 +65,11 @@ const styles = {
 
 const textStyles = css({
 	fontFamily: token('font.family.body'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: '11px',
 	fontStyle: 'normal',
 	fontWeight: token('font.weight.bold'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '16px',
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',

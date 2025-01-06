@@ -3,7 +3,6 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -14,7 +13,6 @@ import {
 	CustomLozengeContainer,
 	DetailsGroup,
 	DisabledInfo,
-	FullNameLabel,
 	JobTitleLabel,
 	LozengeWrapper,
 } from '../../styled/Card';
@@ -71,26 +69,14 @@ const renderName = (nickname?: string, fullName?: string, meta?: string) => {
 
 	const displayName = isNicknameRedundant ? fullName : `${fullName}${shownNickname}`;
 
-	if (fg('platform_profile_card_css_refactor')) {
-		return (
-			<Box
-				xcss={[
-					fullNameLabelStyles,
-					activeAccountStyles,
-					meta ? metaLabelStyles : noMetaLabelStyles,
-				]}
-				testId="profilecard-name"
-				id="profilecard-name-label"
-			>
-				{displayName}
-			</Box>
-		);
-	}
-
 	return (
-		<FullNameLabel noMeta={!meta} data-testid="profilecard-name" id="profilecard-name-label">
+		<Box
+			xcss={[fullNameLabelStyles, activeAccountStyles, meta ? metaLabelStyles : noMetaLabelStyles]}
+			testId="profilecard-name"
+			id="profilecard-name-label"
+		>
 			{displayName}
-		</FullNameLabel>
+		</Box>
 	);
 };
 
@@ -169,24 +155,13 @@ const DisabledProfileCardDetails = (
 
 	return (
 		<DetailsGroup>
-			{fg('platform_profile_card_css_refactor') ? (
-				<Box
-					xcss={[fullNameLabelStyles, noMetaLabelStyles, disabledAccountStyles]}
-					testId="profilecard-name"
-					id="profilecard-name-label"
-				>
-					{name}
-				</Box>
-			) : (
-				<FullNameLabel
-					noMeta
-					isDisabledAccount
-					data-testid="profilecard-name"
-					id="profilecard-name-label"
-				>
-					{name}
-				</FullNameLabel>
-			)}
+			<Box
+				xcss={[fullNameLabelStyles, noMetaLabelStyles, disabledAccountStyles]}
+				testId="profilecard-name"
+				id="profilecard-name-label"
+			>
+				{name}
+			</Box>
 
 			{hasDisabledAccountLozenge && (
 				<LozengeWrapper>

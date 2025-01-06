@@ -1,5 +1,13 @@
 # @atlaskit/range
 
+## 8.0.1
+
+### Patch Changes
+
+- [#100413](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100413)
+  [`e4d6f320b1650`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e4d6f320b1650) -
+  Fix styling of our @atlaskit/range component lost in v8.0.0 rendering the component invisible.
+
 ## 8.0.0
 
 ### Major Changes

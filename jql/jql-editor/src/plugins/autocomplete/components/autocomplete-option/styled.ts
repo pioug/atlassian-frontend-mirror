@@ -18,6 +18,7 @@ export const OptionListItem = styled.li<{
 		cursor: 'pointer',
 		padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
 		fontFamily: token('font.family.code'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '24px',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766

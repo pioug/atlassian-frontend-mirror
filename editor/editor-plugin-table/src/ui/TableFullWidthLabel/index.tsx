@@ -12,6 +12,7 @@ const tableFullWidthLabelWrapperStyles = xcss({
 	backgroundColor: 'elevation.surface.overlay',
 	borderRadius: 'border.radius',
 	boxShadow: 'elevation.shadow.overlay',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,
 	boxSizing: 'border-box',
 	alignItems: 'center',

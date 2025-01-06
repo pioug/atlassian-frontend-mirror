@@ -47,12 +47,14 @@ const iconStyles = css({
 	display: 'inline-block',
 	boxSizing: 'border-box',
 	flexShrink: 0,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,
 	paddingInlineEnd: 'var(--ds--button--new-icon-padding-end, 0)',
 	paddingInlineStart: 'var(--ds--button--new-icon-padding-start, 0)',
 });
 
 const utilityIconStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: token('space.150'),
 });
 

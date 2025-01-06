@@ -41,6 +41,7 @@ interface InternalIconProps extends IconProps {
 const iconStyles = css({
 	display: 'inline-block',
 	flexShrink: 0,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> svg': {

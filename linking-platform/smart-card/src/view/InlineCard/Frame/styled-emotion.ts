@@ -81,6 +81,7 @@ const hoveredWihBorderStyles = (props: WrapperProps) =>
 // NB: `box-decoration-break` required for retaining properties (border-radius) on wrap.
 const baseWrapperStyles = (props: WrapperProps) =>
 	({
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: `${lineHeight}px`,
 		padding: `${token('space.025', '2px')} 0px`,
 		...(props.withoutBackground
@@ -117,6 +118,7 @@ const truncateStyles = {
 	wordBreak: 'break-all',
 
 	// The height of a truncated card is 1px higher than that of a non-truncated card, so we subtract 1px from the line height.
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: `${lineHeight - 1}px`,
 
 	display: '-webkit-inline-box',

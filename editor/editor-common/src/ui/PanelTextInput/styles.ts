@@ -17,6 +17,7 @@ export const panelTextInput = css({
 		flexGrow: 1,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontSize: relativeFontSizeToBase16(13),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '20px',
 		padding: `${token('space.075', '6px')} ${token(
 			'space.400',

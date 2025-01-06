@@ -32,6 +32,7 @@ import { type ActionGroupProps } from './types';
 
 const styles = css({
 	display: 'inline-flex',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '1rem',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {

@@ -29,6 +29,7 @@ const avatarItemStyles = css({
 	minWidth: 0,
 	maxWidth: '100%',
 	flex: '1 1 100%',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '1.4',
 	paddingInlineStart: token('space.100', '8px'),
 });

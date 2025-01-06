@@ -25,6 +25,7 @@ const containerStyles = css({
 
 const labelStyles = css({
 	opacity: 0,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,
 	display: 'inline-flex',
 	justifyContent: 'left',

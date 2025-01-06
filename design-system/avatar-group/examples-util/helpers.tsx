@@ -39,6 +39,7 @@ export const Code = styled.code({
 	color: R400,
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: '0.85em',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1.1,
 	padding: '0.1em 0.4em',
 });

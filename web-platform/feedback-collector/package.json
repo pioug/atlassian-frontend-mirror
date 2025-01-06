@@ -50,7 +50,7 @@
 		"@atlaskit/form": "^11.0.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/link": "^2.0.0",
-		"@atlaskit/modal-dialog": "^12.18.0",
+		"@atlaskit/modal-dialog": "^12.19.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/section-message": "^6.8.0",
 		"@atlaskit/select": "^18.9.0",

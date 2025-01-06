@@ -25,6 +25,7 @@ const HelpArticle = (props: HelpArticleType) => {
 						<ArticleContentTitleLink href={titleLinkUrl} target="_blank">
 							<Heading size="large">
 								{title}
+								{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 								<span> </span>
 								<ShortcutIcon color="currentColor" label="link icon" LEGACY_size="small" />
 							</Heading>

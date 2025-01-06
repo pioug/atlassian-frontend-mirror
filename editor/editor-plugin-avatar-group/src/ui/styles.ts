@@ -49,6 +49,7 @@ export const badge = (backgroundColor: string, textColor: string) =>
 		color: textColor,
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontSize: relativeFontSizeToBase16(9),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 0,
 		paddingTop: token('space.075', '6px'),
 		textAlign: 'center',

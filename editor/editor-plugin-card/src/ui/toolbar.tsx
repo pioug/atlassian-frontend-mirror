@@ -458,6 +458,8 @@ const generateToolbarItems =
 							iconFallback: LegacyCommentIcon,
 							title: intl.formatMessage(annotationMessages.createComment),
 							onClick: onCommentButtonClick,
+							disabled:
+								pluginInjectionApi?.connectivity?.sharedState?.currentState()?.mode === 'offline',
 						},
 						{ type: 'separator' },
 					]

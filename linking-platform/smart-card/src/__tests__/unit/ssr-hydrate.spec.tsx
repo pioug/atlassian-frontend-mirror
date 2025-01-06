@@ -8,6 +8,7 @@ import {
 	SmartCardProvider as Provider,
 } from '@atlaskit/link-provider';
 import { ssr } from '@atlaskit/ssr';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { cardState, url } from '../../../examples/utils/smart-card-ssr-state';
 import { TitleBlock } from '../../index';
@@ -35,12 +36,14 @@ afterEach(() => {
 	jest.resetAllMocks();
 });
 
-test('should ssr then hydrate example component correctly', async () => {
-	const elem = document.createElement('div');
-	elem.innerHTML = await ssr(Example);
+ffTest.both('bandicoots-compiled-migration-smartcard', '', async () => {
+	test('should ssr then hydrate example component correctly', async () => {
+		const elem = document.createElement('div');
+		elem.innerHTML = await ssr(Example);
 
-	ReactDOM.hydrate(<Example />, elem);
+		ReactDOM.hydrate(<Example />, elem);
 
-	expect(elem.innerHTML).toContain('inline-card-resolved-view');
-	expect(elem.innerHTML).toContain('smart-block-title-resolved-view');
+		expect(elem.innerHTML).toContain('inline-card-resolved-view');
+		expect(elem.innerHTML).toContain('smart-block-title-resolved-view');
+	});
 });

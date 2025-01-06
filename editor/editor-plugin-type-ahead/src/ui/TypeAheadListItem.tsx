@@ -77,6 +77,7 @@ const itemText = css({
 	color: `${token('color.text', N800)}`,
 });
 const itemTitle = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '1.4',
 });
 const itemTitleOverride = css({

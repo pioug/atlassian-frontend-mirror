@@ -13,7 +13,7 @@ import { type InlineEditableTextfieldProps } from './types';
 
 const errorIconContainerStyles = cssMap({
 	root: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography
 		lineHeight: '100%' as any,
 		paddingInlineEnd: token('space.075'),
 	},

@@ -88,6 +88,7 @@ export class UnhandledErrorCard extends Component<UnhandledErrorCardProps, {}> {
 					LEGACY_size="medium"
 					spacing="spacious"
 				/>
+				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 				<p>We couldn't load this content</p>
 			</div>
 		);

@@ -63,9 +63,11 @@ export const actionCss = css({
 	display: 'flex',
 	flex: '0 0 auto',
 	gap: token('space.050', '4px'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: height,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	span: {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: height,
 	},
 	'@media only screen and (max-width: 980px)': {

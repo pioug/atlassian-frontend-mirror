@@ -92,6 +92,7 @@ export const optionCSS = <Option, IsMulti extends boolean, Group extends GroupBa
 	return {
 		label: 'option',
 		display: 'block',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: 'inherit',
 		width: '100%',
 		userSelect: 'none',

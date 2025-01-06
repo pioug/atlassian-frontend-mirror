@@ -109,7 +109,9 @@ const baseStyles = css({
 		border: 'none',
 		color: 'inherit',
 		cursor: 'inherit',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: 'inherit',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontWeight: 'inherit',
 		'&::before, &::after': {
 			display: 'block',

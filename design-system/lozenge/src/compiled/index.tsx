@@ -38,11 +38,14 @@ const stylesOld = cssMap({
 // NOTE: This is isolated to avoid breaking the bounded `stylesOld` interface as they do not fall within the Design System.
 const stylesOldUnbounded = cssMapUnbounded({
 	text: {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontFamily:
 			'ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: '11px',
 		fontStyle: 'normal',
 		fontWeight: token('font.weight.bold'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '16px',
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',
@@ -87,9 +90,11 @@ const stylesNew = cssMapUnbounded({
 	},
 	text: {
 		fontFamily: token('font.family.body'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: '11px',
 		fontStyle: 'normal',
 		fontWeight: token('font.weight.bold'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '16px',
 		overflow: 'hidden',
 		textOverflow: 'ellipsis',

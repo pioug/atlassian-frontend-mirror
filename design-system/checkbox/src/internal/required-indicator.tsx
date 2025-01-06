@@ -15,6 +15,7 @@ const requiredIndicatorStyles = css({
 
 export default function RequiredIndicator() {
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 		<span css={requiredIndicatorStyles} aria-hidden>
 			*
 		</span>

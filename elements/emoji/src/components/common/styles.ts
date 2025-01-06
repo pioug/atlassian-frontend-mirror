@@ -25,6 +25,7 @@ export const deleteButton = css({
 	zIndex: 1,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'& span': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 0,
 	},
 });
@@ -254,6 +255,7 @@ export const emojiShortName = css({
 	display: 'block',
 	color: token('color.text.subtle', N200),
 	font: token('font.body.UNSAFE_small'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,
 	marginBottom: token('space.negative.025', '-2px'),
 	overflow: 'hidden',
@@ -472,6 +474,7 @@ export const deleteText = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&:first-of-type': {
 		color: token('color.text.subtle', N300),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '16px',
 	},
 });

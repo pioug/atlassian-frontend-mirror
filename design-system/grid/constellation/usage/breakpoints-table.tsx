@@ -20,6 +20,7 @@ export const BreakpointsTable = () => (
 			{Object.entries(UNSAFE_BREAKPOINTS_CONFIG).map(([breakpoint, config]) => (
 				<TR key={breakpoint}>
 					<TD>
+						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 						<strong>{breakpoint}</strong>
 					</TD>
 					<TD align="number">{config.min}</TD>

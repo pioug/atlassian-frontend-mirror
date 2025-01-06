@@ -45,7 +45,7 @@ WrapperProps) => css`
   ${getCursorStyle(mediaCardCursor)}
   ${getWrapperShadow(disableOverlay, selected)}
   ${generateResponsiveStyles(breakpoint)};
-	${hideNativeBrowserTextSelectionStyles}
+	${selected ? hideNativeBrowserTextSelectionStyles : ''}
 
 	/* We use classnames from here exceptionally to be able to handle styles when the Card is on hover */
   ${getClickablePlayButtonStyles(isPlayButtonClickable)}

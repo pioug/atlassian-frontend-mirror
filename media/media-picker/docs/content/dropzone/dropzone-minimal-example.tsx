@@ -55,6 +55,7 @@ const DropzoneExample = () => {
 			id="dropZone"
 		>
 			Drag and drop your file, and you can see preview after it is uploaded !!
+			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 			{isDropped && !uploadEnd && <p>Upload in Progress !!</p>}
 			<Dropzone
 				mediaClientConfig={dropzoneMediaClient.config}

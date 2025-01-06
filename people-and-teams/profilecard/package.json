@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/profilecard",
-	"version": "21.1.1",
+	"version": "21.1.2",
 	"description": "A React component to display a card with user information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -74,7 +74,7 @@
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/lozenge": "^11.12.0",
 		"@atlaskit/menu": "^2.13.0",
-		"@atlaskit/modal-dialog": "^12.18.0",
+		"@atlaskit/modal-dialog": "^12.19.0",
 		"@atlaskit/people-teams-ui-public": "^2.0.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popup": "^1.30.0",
@@ -141,9 +141,6 @@
 			"type": "boolean"
 		},
 		"rovo_use_agent_permissions": {
-			"type": "boolean"
-		},
-		"platform_profile_card_css_refactor": {
 			"type": "boolean"
 		},
 		"rovo_profile_card_open_chat_sidebar": {

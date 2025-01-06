@@ -77,6 +77,7 @@ const avatarPickerViewWrapperStyles = css({
 const HeaderContent = ({ title }: { title?: string }) => {
 	const modal = useModal();
 	return (
+		// eslint-disable-next-line @atlaskit/design-system/use-heading
 		<h1 data-testid="modal-header" css={modalHeaderStyles} id={modal.titleId}>
 			{title || <FormattedMessage {...messages.upload_an_avatar} />}
 		</h1>

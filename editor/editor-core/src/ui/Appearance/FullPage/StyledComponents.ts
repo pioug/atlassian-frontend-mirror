@@ -158,6 +158,7 @@ const editorContentAreaWithLayoutWith = (layoutMaxWidth: number) =>
 
 const editorContentArea = css(
 	{
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '24px',
 		paddingTop: token('space.600', '48px'),
 		paddingBottom: token('space.600', '48px'),

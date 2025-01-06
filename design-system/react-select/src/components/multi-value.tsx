@@ -101,6 +101,7 @@ export const multiValueLabelCSS = <
 	textOverflow: cropWithEllipsis || cropWithEllipsis === undefined ? 'ellipsis' : undefined,
 	whiteSpace: 'nowrap',
 	borderRadius: token('border.radius.050', '2px'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: '85%',
 	font: token('font.body.UNSAFE_small'),
 	padding: token('space.025', '2px'),

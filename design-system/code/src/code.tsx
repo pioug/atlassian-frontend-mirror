@@ -25,6 +25,7 @@ const styles = css({
 	boxDecorationBreak: 'clone',
 	color: token('color.text'),
 	font: token('font.code'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 'inherit',
 	overflow: 'auto',
 	overflowWrap: 'break-word',

@@ -10,6 +10,7 @@ export const IconMessage: React.FC<InternalIconMessageProps> = ({
 }) => {
 	return (
 		<IconMessageWrapper animated={animated}>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 			<span>
 				<FormattedMessage {...messageDescriptor} />
 			</span>

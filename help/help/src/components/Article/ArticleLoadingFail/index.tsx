@@ -44,6 +44,7 @@ export const ArticleLoadingFail = ({ onTryAgainButtonClick, intl: { formatMessag
 			<LoadingErrorHeading>
 				<Heading size="large">{formatMessage(messages.help_article_error_title)}</Heading>
 			</LoadingErrorHeading>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 			<p>{formatMessage(messages.help_article_error_text)}</p>
 			<LoadingErrorButtonContainer>
 				{handleOnTryAgainButtonClick && (

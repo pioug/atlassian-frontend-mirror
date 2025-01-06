@@ -894,6 +894,7 @@ const itemBody = css({
 	flexDirection: 'row',
 	flexWrap: 'nowrap',
 	justifyContent: 'space-between',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1.4,
 	width: '100%',
 	marginTop: token('space.negative.025', '-2px'),

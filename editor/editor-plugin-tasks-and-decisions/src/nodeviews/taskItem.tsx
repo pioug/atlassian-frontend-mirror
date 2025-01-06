@@ -97,6 +97,7 @@ const pressableStyles = xcss({
 		color: 'color.text.information',
 	},
 	padding: 'space.0',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: '14px',
 });
 

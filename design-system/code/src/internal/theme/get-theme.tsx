@@ -12,6 +12,7 @@ const Y1100 = '#7A5D1A';
 
 export const getBaseTheme = (): CodeTheme => ({
 	fontFamily: token('font.family.code'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontFamilyItalic: `SFMono-MediumItalic, ${getTokenValue('font.family.code')}`,
 	backgroundColor: token('color.background.neutral', colors.N20),
 	textColor: token('color.text', colors.N800),

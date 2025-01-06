@@ -158,6 +158,7 @@ export const PredefinedAvatarView = ({
 					onClick={onGoBack}
 					css={backButtonStyles}
 				/>
+				{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
 				<h2 css={descriptionStyles}>
 					{predefinedAvatarsText || <FormattedMessage {...messages.default_avatars} />}
 				</h2>

@@ -132,6 +132,7 @@ const QuizWidget = (props: Props) => {
 				) : (
 					<Score>
 						<span>{`${props.score} / ${questionsNumber} Correct`}</span>
+						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 						{props.score >= questionsNumber / 2 ? <span>Great job!</span> : <span>Not bad!</span>}
 					</Score>
 				)}

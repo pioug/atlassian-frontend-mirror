@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
 import LockIcon from '@atlaskit/icon/glyph/lock-filled';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -12,8 +13,10 @@ import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
+import { AKIconWrapper as AKIconWrapperOld } from '../Icon-emotion';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
 import { IconStyledButton } from '../styled';
+import { IconStyledButton as IconStyledButtonOld } from '../styled-emotion';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
 
 export interface InlineCardUnauthorizedViewProps {
@@ -41,12 +44,23 @@ export interface InlineCardUnauthorizedViewProps {
 	truncateInline?: boolean;
 }
 
-const FallbackUnauthorizedIcon = (
-	<AKIconWrapper>
-		{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
-		<LockIcon label="error" size="small" primaryColor={token('color.icon.danger', R400)} />
-	</AKIconWrapper>
-);
+const fallbackUnauthorizedIcon = () => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return (
+			<AKIconWrapper>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
+				<LockIcon label="error" size="small" primaryColor={token('color.icon.danger', R400)} />
+			</AKIconWrapper>
+		);
+	} else {
+		return (
+			<AKIconWrapperOld>
+				{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
+				<LockIcon label="error" size="small" primaryColor={token('color.icon.danger', R400)} />
+			</AKIconWrapperOld>
+		);
+	}
+};
 
 export const InlineCardUnauthorizedView = ({
 	url,
@@ -78,22 +92,35 @@ export const InlineCardUnauthorizedView = ({
 	const renderActionButton = React.useCallback(() => {
 		const ActionButton = withFrameStyleControl(Button, frameRef);
 
-		return onAuthorise ? (
-			<ActionButton
-				spacing="none"
-				component={IconStyledButton}
-				onClick={handleConnectAccount}
-				testId="button-connect-account"
-			>
-				<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
-			</ActionButton>
-		) : undefined;
+		if (fg('bandicoots-compiled-migration-smartcard')) {
+			return onAuthorise ? (
+				<ActionButton
+					spacing="none"
+					component={IconStyledButton}
+					onClick={handleConnectAccount}
+					testId="button-connect-account"
+				>
+					<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
+				</ActionButton>
+			) : undefined;
+		} else {
+			return onAuthorise ? (
+				<ActionButton
+					spacing="none"
+					component={IconStyledButtonOld}
+					onClick={handleConnectAccount}
+					testId="button-connect-account"
+				>
+					<FormattedMessage {...messages.connect_link_account_card_name} values={{ context }} />
+				</ActionButton>
+			) : undefined;
+		}
 	}, [handleConnectAccount, onAuthorise, context]);
 
 	const inlineCardUnauthenticatedView = (
 		<Frame testId={testId} isSelected={isSelected} ref={frameRef} truncateInline={truncateInline}>
 			<IconAndTitleLayout
-				icon={icon ? icon : FallbackUnauthorizedIcon}
+				icon={icon ? icon : fallbackUnauthorizedIcon()}
 				title={url}
 				link={url}
 				onClick={onClick}

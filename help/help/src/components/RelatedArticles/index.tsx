@@ -114,10 +114,14 @@ export const RelatedArticles: React.FC<Props & WrappedComponentProps> = ({
 	if (hasError) {
 		return (
 			<SectionMessage appearance="warning">
+				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 				<p>
+					{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 					<strong>{formatMessage(messages.help_related_article_endpoint_error_title)}</strong>
 				</p>
+				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 				<p>{formatMessage(messages.help_related_article_endpoint_error_description)}</p>
+				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 				<p>
 					<Button
 						appearance="link"

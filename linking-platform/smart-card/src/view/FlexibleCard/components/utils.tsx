@@ -108,7 +108,7 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 			return css({
 				font: token('font.heading.medium'),
 				fontWeight: token('font.weight.regular'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
 			});
 		case SmartLinkSize.Large:
@@ -116,7 +116,7 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 			return css({
 				font: token('font.body'),
 				fontWeight: token('font.weight.regular'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
 			});
 		case SmartLinkSize.Small:
@@ -124,7 +124,7 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 			return css({
 				font: token('font.body.UNSAFE_small'),
 				fontWeight: token('font.weight.regular'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
 			});
 	}

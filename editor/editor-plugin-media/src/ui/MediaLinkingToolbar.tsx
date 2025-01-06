@@ -49,6 +49,7 @@ type Props = {
 };
 
 const validationWrapper = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 0,
 	padding: `${token('space.150', '12px')} ${token('space.300', '24px')} ${token(
 		'space.150',

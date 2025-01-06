@@ -9,6 +9,8 @@ import { css, jsx } from '@emotion/react';
 
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Flex } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
@@ -43,10 +45,14 @@ const iconStyles = css({
 	// https://stash.atlassian.com/projects/JIRACLOUD/repos/jira/browse/jira-components/jira-legacy-frontend/jira-atlaskit-module/src/main/resources/jira-atlaskit-module/css/adg3-general-overrides.less?at=master#24
 	// When the override is removed, these can be removed.
 	color: 'inherit',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 'inherit',
 	fontStyle: 'inherit',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontWeight: 'inherit',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	letterSpacing: 'inherit',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 'inherit',
 });
 
@@ -106,7 +112,22 @@ const ModalTitle = (props: ModalTitleProps) => {
 
 	const testId = userDefinedTestId || (modalTestId && `${modalTestId}--title`);
 
-	return (
+	return fg('platform_modal-dialog-heading-icon-a11y-fix') ? (
+		<Flex gap="space.100">
+			{appearance && <TitleIcon appearance={appearance} />}
+			{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
+			<h1 css={titleStyles} data-testid={testId}>
+				<span
+					id={titleId}
+					css={[textStyles, !isMultiline && truncatedTextStyles]}
+					data-testid={testId && `${testId}-text`}
+				>
+					{children}
+				</span>
+			</h1>
+		</Flex>
+	) : (
+		// eslint-disable-next-line @atlaskit/design-system/use-heading
 		<h1 css={titleStyles} data-testid={testId}>
 			{appearance && <TitleIcon appearance={appearance} />}
 			<span

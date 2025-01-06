@@ -89,6 +89,7 @@ export const PDFPasswordInput = ({
 						<LockIcon label="" LEGACY_size="xlarge" color={COLOR_SHADE as any} />
 					</Flex>
 					<Box xcss={headerStyles}>
+						{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
 						<h1 css={headingStyle}>
 							<FormattedMessage {...messages.password_protected_pdf} />
 						</h1>
@@ -111,6 +112,7 @@ export const PDFPasswordInput = ({
 								{formError && (
 									<div css={errorMessageWrapperStyle} id={`${fieldProps.id}-error`}>
 										<ErrorIcon color="currentColor" LEGACY_size="small" label="" />
+										{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 										<p css={errorMessageStyle}>
 											<FormattedMessage {...messages.incorrect_password} />
 										</p>

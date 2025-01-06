@@ -1,5 +1,13 @@
 # @atlaskit/help-article
 
+## 4.3.0
+
+### Minor Changes
+
+- [#100272](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100272)
+  [`f605240d5de34`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f605240d5de34) -
+  changed h2 elements to Headings from atlaskit
+
 ## 4.2.5
 
 ### Patch Changes

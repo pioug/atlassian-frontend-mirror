@@ -122,6 +122,7 @@ const sidebarHeaderEntryStyles = css({
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1.14286,
 	color: token('color.text', DN500),
 });

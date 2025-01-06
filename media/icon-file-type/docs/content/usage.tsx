@@ -5,10 +5,13 @@ import IconExplorer from '../../examples/icon-explorer';
 export default md`
 ##
 ## Icon Explorer
-  ${(
-		<p>
-			<IconExplorer />
-		</p>
-	)}
+  ${
+		(
+			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
+			<p>
+				<IconExplorer />
+			</p>
+		)
+	}
 
 `;

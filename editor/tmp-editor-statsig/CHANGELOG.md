@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.32.0
+
+### Minor Changes
+
+- [#100022](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100022)
+  [`0010534ce6037`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0010534ce6037) -
+  [https://product-fabric.atlassian.net/browse/EDF-2058](EDF-2058) - cleanup
+  platform_editor_ai_knowledge_from_current_page Statsig experiment
+
 ## 2.31.0
 
 ### Minor Changes

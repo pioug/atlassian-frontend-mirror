@@ -14,6 +14,7 @@ import type { LozengeProps } from './types';
 
 const styles = css({
 	display: 'inline-flex',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 'inherit',
 });
 

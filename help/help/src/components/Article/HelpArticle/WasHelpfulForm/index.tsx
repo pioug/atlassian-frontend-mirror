@@ -342,7 +342,9 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 				{wasHelpfulFormSubmited && wasHelpfulFormSubmitedFailed && (
 					<ArticleFeedbackContainer>
 						<SectionMessage appearance="warning">
+							{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 							<p>{formatMessage(messages.help_article_rating_form_failed)}</p>
+							{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 							<p>
 								<Button
 									appearance="link"

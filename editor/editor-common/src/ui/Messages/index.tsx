@@ -26,6 +26,7 @@ const messageStyle = () =>
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: `${12 / 14}em`,
 		fontStyle: 'inherit',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 16 / 12,
 		fontWeight: token('font.weight.regular'),
 		color: token('color.text.subtlest'),

@@ -88,6 +88,7 @@ const traverseTree = (fragment: Fragment, parent?: PMNode, context?: MetaDataCon
 };
 
 export const commonStyle = {
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	'font-family': fontFamily,
 	'font-size': fontSize,
 	'font-weight': 400,

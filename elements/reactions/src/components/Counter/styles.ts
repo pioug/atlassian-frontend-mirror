@@ -17,6 +17,7 @@ export const countStyle = css({
 		'space.050',
 		'4px',
 	)} 0`,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '14px',
 });
 

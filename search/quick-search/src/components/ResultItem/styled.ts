@@ -13,6 +13,7 @@ export const ResultItemGroupHeader = styled.div({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ResultItemGroupTitle = styled.div({
 	font: token('font.body.small'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '16px',
 	fontWeight: token('font.weight.semibold'),
 });

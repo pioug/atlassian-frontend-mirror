@@ -16,6 +16,7 @@ const dummyInputStyles = css({
 	border: 0,
 	caretColor: 'transparent',
 	color: 'transparent',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 'inherit',
 	gridArea: '1 / 1 / 2 / 3',
 	insetInlineStart: -100,

@@ -8,6 +8,7 @@ import { Block, Code, Note } from './helpers';
 
 const FullAvatarExample = ({ appearance, src }: { appearance: AppearanceType; src: string }) => (
 	<div>
+		{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
 		<h2>Default appearance</h2>
 		<Note>
 			<Code>medium</Code> size - no <Code>presence</Code>, or
@@ -18,7 +19,9 @@ const FullAvatarExample = ({ appearance, src }: { appearance: AppearanceType; sr
 			<Avatar appearance={appearance} />
 		</div>
 
+		{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
 		<h2>Presence</h2>
+		{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
 		<h4>Presence Types</h4>
 		<Note>
 			Supports <Code>busy</Code>, <Code>focus</Code>, <Code>offline</Code>, and
@@ -31,6 +34,7 @@ const FullAvatarExample = ({ appearance, src }: { appearance: AppearanceType; sr
 			<Avatar appearance={appearance} src={src} size="large" presence="online" />
 		</Block>
 
+		{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
 		<h4>All Sizes with Presence</h4>
 		<Note>
 			Sizes <Code>xsmall</Code> and <Code>xxlarge</Code> do NOT support Presence
@@ -44,7 +48,9 @@ const FullAvatarExample = ({ appearance, src }: { appearance: AppearanceType; sr
 			<Avatar appearance={appearance} src={src} size="xsmall" />
 		</Block>
 
+		{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
 		<h2>Status</h2>
+		{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
 		<h4>Status Types</h4>
 		<Note>
 			Supports <Code>approved</Code>, <Code>declined</Code>, and
@@ -56,6 +62,7 @@ const FullAvatarExample = ({ appearance, src }: { appearance: AppearanceType; sr
 			<Avatar appearance={appearance} src={src} size="large" status="locked" />
 		</Block>
 
+		{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
 		<h4>All Sizes with Status</h4>
 		<Note>
 			Sizes <Code>xsmall</Code> and <Code>xxlarge</Code> do NOT support Status

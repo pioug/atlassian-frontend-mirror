@@ -52,6 +52,7 @@ const itemBodyStyles = css({
 	flexDirection: 'row',
 	flexWrap: 'nowrap',
 	justifyContent: 'space-between',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1.4,
 	margin: `0 ${token('space.200', '16px')}`,
 	flexGrow: 3,

@@ -17,6 +17,7 @@ const headerWrapperStyles = xcss({
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	whiteSpace: 'nowrap',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 'space.400',
 });
 

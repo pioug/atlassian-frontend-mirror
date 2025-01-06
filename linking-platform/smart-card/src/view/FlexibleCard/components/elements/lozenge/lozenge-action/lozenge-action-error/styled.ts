@@ -21,6 +21,7 @@ export const dropdownItemGroupStyles = css({
 const sharedBlockStyles = css({
 	display: 'flex',
 	gap: token('space.100', '0.5rem'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '1rem',
 	minWidth: 0,
 	overflow: 'hidden',
@@ -51,6 +52,7 @@ export const linkStyles = css(sharedBlockStyles, {
 export const textStyles = (maxLines: number) =>
 	css(
 		{
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			lineHeight: '1rem',
 			whiteSpace: 'normal',
 		},

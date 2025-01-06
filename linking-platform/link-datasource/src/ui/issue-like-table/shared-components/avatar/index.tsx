@@ -12,7 +12,7 @@ import { userTypeMessages } from '../../render-type/user/messages';
 const userWrapperStyles = xcss({
 	display: 'flex',
 	alignItems: 'center',
-	fontSize: 'font.body',
+	font: 'font.body',
 });
 
 const avatarWrapperStyles = xcss({

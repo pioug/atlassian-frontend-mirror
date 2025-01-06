@@ -12,6 +12,7 @@ import { EmptyState } from '../../../common/ui/empty-state';
 import { MinHeightContainer } from '../../../common/ui/min-height-container';
 
 const errorBoundaryFallbackStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 'initial',
 });
 

@@ -38,6 +38,7 @@ const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 				'button, button:hover, button:focus, button:active': [
 					{
+						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 						lineHeight: 'inherit',
 					},
 					iconOnly

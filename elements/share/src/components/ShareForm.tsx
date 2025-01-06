@@ -50,6 +50,7 @@ const centerAlignedIconWrapperStyles = css({
 	paddingInline: token('space.150'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> div': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 1,
 	},
 });

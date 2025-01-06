@@ -22,6 +22,7 @@ const itemWrapperStyles = css({
 });
 
 const iconWrapperStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1,
 });
 

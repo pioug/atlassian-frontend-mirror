@@ -137,6 +137,7 @@ export class ErrorMessage extends React.Component<
 				<div>
 					{errorInfo.icon}
 					{errorInfo.messages.map((formatMessage, i) => (
+						// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 						<p key={`p${i}`}>
 							<FormattedMessage {...formatMessage} />
 						</p>

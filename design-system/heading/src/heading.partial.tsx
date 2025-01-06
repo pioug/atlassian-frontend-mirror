@@ -58,6 +58,7 @@ const sizeTagMap = {
 } as const;
 
 const headingResetStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	letterSpacing: 'normal',
 	marginBlock: 0,
 	textTransform: 'none',

@@ -137,6 +137,7 @@ export const inputStyles = () =>
 			fontFamily: token('font.family.code'),
 			[media.above.xs]: {
 				// Reapply the monospaced font family as the font declaration in a breakpoint on the root will override it otherwise
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				fontFamily: fg('platform_design_system_team_safari_input_fix')
 					? token('font.family.code')
 					: undefined,

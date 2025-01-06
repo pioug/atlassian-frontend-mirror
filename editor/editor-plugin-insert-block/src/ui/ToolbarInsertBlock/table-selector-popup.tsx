@@ -55,6 +55,7 @@ const buttonStyles = css({
 });
 
 const selectionSizeTextStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '14px',
 	display: 'flex',
 	justifyContent: 'center',

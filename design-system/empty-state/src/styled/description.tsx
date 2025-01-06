@@ -23,6 +23,7 @@ const descriptionStyles = css({
  * @internal
  */
 const Description: FC<{ children: ReactNode }> = ({ children }) => (
+	// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 	<p css={descriptionStyles}>{children}</p>
 );
 

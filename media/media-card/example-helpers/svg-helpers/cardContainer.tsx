@@ -10,7 +10,7 @@ import { jsx } from '@emotion/react';
 export const CardBox = ({ title, children }: { title: string; children: React.ReactNode }) => (
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 	<div style={{ marginBottom: '10px' }}>
-		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
+		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-heading -- Ignored via go/DSP-18766 */}
 		<h3 style={{ textAlign: 'center' }}>{title}</h3>
 		{children}
 	</div>

@@ -14,6 +14,7 @@ import { externalMediaMessages } from '../media';
 const baseStyles = xcss({
 	borderRadius: 'border.radius',
 	backgroundColor: 'elevation.surface',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: token('space.200'),
 	cursor: 'pointer',
 });

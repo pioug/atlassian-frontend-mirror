@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 4.5.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 4.5.12
+
+### Patch Changes
+
+- [#100134](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100134)
+  [`d79324a9356bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d79324a9356bb) -
+  ED-26133: disables smart link comments when browser offline
+
 ## 4.5.11
 
 ### Patch Changes

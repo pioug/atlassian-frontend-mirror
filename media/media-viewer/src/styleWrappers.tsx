@@ -115,6 +115,7 @@ const zoomRightControlsStyles = css({
 
 const zoomLevelIndicatorStyles = css({
 	height: '32px',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '32px',
 	verticalAlign: 'middle',
 });
@@ -137,6 +138,7 @@ const errorMessageWrapperStyles = css({
 	color: '#c7d1db',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	p: {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '100%',
 	},
 });

@@ -48,7 +48,7 @@
 		"@atlaskit/drawer": "^9.2.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/intl-messages-provider": "^1.0.2",
-		"@atlaskit/modal-dialog": "^12.18.0",
+		"@atlaskit/modal-dialog": "^12.19.0",
 		"@atlaskit/portal": "^4.10.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.5.0",

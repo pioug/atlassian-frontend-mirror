@@ -9,6 +9,7 @@ export default md`
 
   ${(
 		<SectionMessage title={'DO NOT USE'} appearance="error">
+			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 			<p>
 				This package is on an initial development stage and needs further testing before it can be
 				used by Media consumers

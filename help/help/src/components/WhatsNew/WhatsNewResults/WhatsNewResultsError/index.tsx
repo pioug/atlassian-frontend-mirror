@@ -26,9 +26,11 @@ export const WhatsNewResultsError: React.FC<Props & WrappedComponentProps> = ({
 		</SearchResultEmptyMessageImage>
 
 		<SearchResultEmptyMessageText>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 			<strong>{formatMessage(messages.help_search_error)}</strong>
 		</SearchResultEmptyMessageText>
 		<SearchResultEmptyMessageText>
+			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 			<p>{formatMessage(messages.help_search_error_line_two)}</p>
 		</SearchResultEmptyMessageText>
 		<SearchResultEmptyMessageText>

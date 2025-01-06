@@ -15,6 +15,7 @@ const iconObjectOverrideStyles = css({
 		position: 'absolute',
 		top: 0,
 		left: 0,
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '14px',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 		'& > svg': {

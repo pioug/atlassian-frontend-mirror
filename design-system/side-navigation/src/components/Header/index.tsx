@@ -138,6 +138,7 @@ const Header = forwardRef<HTMLElement, HeaderProps>((props: HeaderProps, ref) =>
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 			overrides={{
 				Title: {
+					// eslint-disable-next-line @atlaskit/design-system/use-heading
 					render: (_, { children, ...props }) => <h2 {...props}>{children}</h2>,
 				},
 			}}

@@ -27,7 +27,7 @@ const bodyStyles = css({
  * keyline height from header and footer using negative margins.
  */
 const bodyScrollStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 	paddingBlock: keylineHeight,
 	paddingInline: token('space.300'),
 });

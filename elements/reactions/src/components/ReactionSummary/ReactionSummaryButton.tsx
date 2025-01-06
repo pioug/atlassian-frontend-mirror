@@ -10,6 +10,7 @@ import { type ReactionsProps } from '../Reactions/Reactions';
 
 const emojiStyle = xcss({
 	transformOrigin: 'center center 0',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '12px',
 });
 

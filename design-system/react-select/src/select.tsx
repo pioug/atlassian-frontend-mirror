@@ -2368,6 +2368,7 @@ export default class Select<
 
 	renderMultiselectMessage() {
 		return (
+			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 			<span id={this.getElementId('multi-message')} hidden>
 				, multiple selections available,
 			</span>

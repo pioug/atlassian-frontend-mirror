@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 78.17.3
+
+### Patch Changes
+
+- [#100086](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100086)
+  [`3eb4ae69a3687`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3eb4ae69a3687) -
+  Fixed media card hiding selection / highlighting styles
+
 ## 78.17.2
 
 ### Patch Changes

@@ -21,6 +21,9 @@ import InlineCardUnauthorisedTruncate from '../../../examples/vr-inline-card/vr-
 
 snapshot(InlineCardDefault, {
 	description: 'inline card with default icon',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 	ignoredErrors: [
 		{
 			pattern: /Failed to load resource/,
@@ -31,6 +34,9 @@ snapshot(InlineCardDefault, {
 });
 snapshot(InlineCardDefault, {
 	description: 'inline card renders correctly when hovering over url',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 	ignoredErrors: [
 		{
 			pattern: /Failed to load resource/,
@@ -42,6 +48,9 @@ snapshot(InlineCardDefault, {
 });
 snapshot(InlineCardDefaultTruncate, {
 	description: 'inline card with default icon and truncation',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 	ignoredErrors: [
 		{
 			pattern: /Failed to load resource/,
@@ -53,6 +62,9 @@ snapshot(InlineCardDefaultTruncate, {
 
 snapshot(InlineCardTextWrap, {
 	description: 'inline card with wrapped text renders correctly',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 	ignoredErrors: [
 		{
 			pattern: /Failed to load resource/,
@@ -63,66 +75,117 @@ snapshot(InlineCardTextWrap, {
 });
 snapshot(InlineCardError, {
 	description: 'inline card error view',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(InlineCardError, {
 	description: 'inline card error view renders correctly when hovering over url in errored view',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-errored-view' } }],
 });
 snapshot(InlineCardErrorTruncate, {
 	description: 'inline card error view with truncation',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(InlineCardForbidden, {
 	description: 'inline card forbidden view',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(InlineCardForbidden, {
 	description:
 		'inline card forbidden view renders correctly when hovering over url in forbidden view',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-forbidden-view' } }],
 });
 
 snapshot(InlineCardForbiddenTruncate, {
 	description: 'inline card forbidden view with truncation',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(InlineCardForbiddenRequestAccess, {
 	description: 'inline card forbidden view with request access to object',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(InlineCardForbiddenSiteRequestAccess, {
 	description: 'inline card forbidden view with request access to site',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(InlineCardForbiddenSiteRequestAccessTruncate, {
 	description: 'inline card forbidden view with request access to site and truncation',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(InlineCardForbiddenDirectAccess, {
 	description: 'inline card forbidden view with direct access',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(InlineCardForbiddenPendingSiteAccess, {
 	description: 'inline card forbidden view with pending site access',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(InlineCardForbiddenDeniedSiteAccess, {
 	description: 'inline card forbidden view with denied site access',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(InlineCardNotFound, {
 	description: `inline card can't find link view`,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(InlineCardNotFound, {
 	description:
 		'inline card not found view renders correctly when hovering over url in not-found view',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-not-found-view' } }],
 });
 
 snapshot(InlineCardNotFoundTruncate, {
 	description: `inline card can't find link view with truncation`,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(InlineCardUnauthorised, {
 	description: `inline card unauthorised view`,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(InlineCardUnauthorised, {
 	description:
 		'inline card unauthorised view renders correctly when hovering over url in unauthorized view',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 	states: [
 		{
 			state: 'hovered',
@@ -133,12 +196,21 @@ snapshot(InlineCardUnauthorised, {
 
 snapshot(InlineCardUnauthorisedTruncate, {
 	description: `inline card unauthorised view with truncation`,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(InlineCardUnauthorised, {
 	description: 'inline card unauthorised view renders correctly when hovering over connect account',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 	states: [{ state: 'hovered', selector: { byTestId: 'button-connect-account' } }],
 });
 snapshot(InlineCardUnauthorisedNoAuth, {
 	description: `inline card unauthorised view with no auth`,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });

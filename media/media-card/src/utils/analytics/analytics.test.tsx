@@ -62,6 +62,7 @@ describe('Media Analytics', () => {
 	});
 
 	it('Should provide an analytics event creator for Media Card', () => {
+		// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 		const SomeComponent = ({ onClick }: any) => <span onClick={onClick}>Hi!</span>;
 		const SomeWrappedComponent = withAnalyticsEvents({
 			onClick: createAndFireMediaCardEvent(somePayload),
@@ -89,6 +90,7 @@ describe('Media Analytics', () => {
 				fireMediaCardEvent(somePayload, props.createAnalyticsEvent);
 			};
 			onCustomEvent();
+			// eslint-disable-next-line @atlaskit/design-system/use-primitives-text
 			return <span>'Hi!'</span>;
 		};
 		const SomeWrappedComponent = withAnalyticsEvents()(SomeComponent);

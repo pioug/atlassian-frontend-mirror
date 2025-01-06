@@ -24,6 +24,7 @@ type Country = (typeof groupedCountries)[number]['options'][number];
 const labelStyles = css({
 	display: 'flex',
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1.2,
 });
 

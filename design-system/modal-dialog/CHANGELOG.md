@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 12.19.0
+
+### Minor Changes
+
+- [#100038](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100038)
+  [`f4fe1a42a5809`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f4fe1a42a5809) -
+  Move the icon in a modal title (when present) out of the H1 tag
+
 ## 12.18.5
 
 ### Patch Changes

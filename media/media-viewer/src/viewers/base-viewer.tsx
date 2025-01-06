@@ -76,6 +76,7 @@ export abstract class BaseViewer<
 						error={error}
 						supressAnalytics={true} // item-viewer.tsx will send
 					>
+						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
 						<p>
 							<FormattedMessage {...messages.try_downloading_file} />
 						</p>

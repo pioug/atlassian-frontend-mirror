@@ -200,6 +200,7 @@ const syntaxKeywordColors = (theme: CodeBlockTheme): CSSObject => ({
  */
 export const getBaseCodeStyles = (theme: CodeTheme) => ({
 	fontSize: CODE_FONT_SIZE,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontFamily: theme.fontFamily,
 	fontWeight: token('font.weight.regular'),
 	backgroundColor: `var(${VAR_CODE_BG_COLOR},${theme.backgroundColor})`,
@@ -229,6 +230,7 @@ export const getCodeBlockStyles =
 			tabSize: 4,
 		},
 		display: 'flex',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: CODE_LINE_HEIGHT,
 		overflowX: 'auto',
 		whiteSpace: 'pre',
@@ -321,6 +323,7 @@ export const getCodeStyles = (): CSSObject => {
 		display: 'inline',
 		padding: '2px 0.5ch',
 		boxDecorationBreak: 'clone',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: '0.875em',
 		overflow: 'auto',
 		overflowWrap: 'break-word',

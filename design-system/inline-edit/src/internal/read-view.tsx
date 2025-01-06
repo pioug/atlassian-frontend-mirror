@@ -10,7 +10,7 @@ import { N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 const readViewContainerStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography
 	lineHeight: 1 as any,
 });
 
@@ -25,7 +25,7 @@ const editButtonStyles = cssMap({
 		borderWidth: token('border.width.0') as 'var(--ds-border-width)',
 		borderStyle: 'none',
 		borderColor: 'transparent',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography
 		lineHeight: 1 as any,
 		outline: 0,
 

@@ -22,7 +22,9 @@ export const inputStyle = css({
 		fontSize: relativeFontSizeToBase16(14),
 		width: '100%',
 		fontWeight: token('font.weight.regular'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 1.42857142857143,
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		letterSpacing: '-0.005em',
 		color: token('color.text.subtlest'),
 		'&:hover': {

@@ -19,6 +19,7 @@ import { type EditorState, type Transaction } from '@atlaskit/editor-prosemirror
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { computeJqlInsights, isListOperator, type JQLParseError } from '@atlaskit/jql-ast';
 import { JQLAutocomplete, type JQLRuleSuggestion } from '@atlaskit/jql-autocomplete';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	ActionSubject,
@@ -67,6 +68,7 @@ import {
 	type CustomErrorComponent,
 	type ExternalError,
 	type ExternalErrorAttributes,
+	type ExternalMessage,
 	type ExternalMessagesNormalized,
 	type OptionsKey,
 	type Props,
@@ -842,16 +844,54 @@ export const useEditorStateHasJqlError = createHook<State, Actions, boolean>(Sto
 	selector: (state) => getJastFromState(state.editorState).errors.length > 0,
 });
 
-export const useExternalMessages = createHook<State, Actions, ExternalMessagesNormalized>(Store, {
-	selector: (state) => {
-		const byType = groupBy(state.externalMessages, 'type');
+const memoizedExternalMessagesSelector = createSelector<
+	State,
+	void,
+	ExternalMessagesNormalized,
+	ExternalMessage[]
+>(
+	(state) => state.externalMessages,
+	(externalMessages) => {
+		const byType = groupBy(externalMessages, 'type');
+
 		return {
 			errors: byType.error || [],
 			warnings: byType.warning || [],
 			infos: byType.info || [],
 		} as ExternalMessagesNormalized;
 	},
-});
+);
+
+// remove when cleanup fix_errormessage_viewed_jqlresult_analytics fg
+export const useExternalMessagesOld = createHook<State, Actions, ExternalMessagesNormalized>(
+	Store,
+	{
+		selector: (state) => {
+			const byType = groupBy(state.externalMessages, 'type');
+
+			return {
+				errors: byType.error || [],
+				warnings: byType.warning || [],
+				infos: byType.info || [],
+			} as ExternalMessagesNormalized;
+		},
+	},
+);
+
+export const useExternalMessagesNew = createHook<State, Actions, ExternalMessagesNormalized>(
+	Store,
+	{
+		selector: memoizedExternalMessagesSelector,
+	},
+);
+
+// replace with useExternalMessagesNew when cleanup fix_errormessage_viewed_jqlresult_analytics fg
+export const useExternalMessages = () =>
+	fg('fix_errormessage_viewed_jqlresult_analytics')
+		? // eslint-disable-next-line react-hooks/rules-of-hooks
+			useExternalMessagesNew()
+		: // eslint-disable-next-line react-hooks/rules-of-hooks
+			useExternalMessagesOld();
 
 export const useCustomErrorComponent = createHook<State, Actions, CustomErrorComponent | undefined>(
 	Store,

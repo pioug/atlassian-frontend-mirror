@@ -201,6 +201,11 @@ export const messages = defineMessages({
 		defaultMessage: 'Upload failed',
 		description: 'Failed to upload emoji image',
 	},
+	emojiUploadTimeout: {
+		id: 'fabric.emoji.error.upload.timeout',
+		defaultMessage: 'Upload timed out',
+		description: 'Failed to upload emoji image',
+	},
 	emojiImageTooBig: {
 		id: 'fabric.emoji.error.image.too.big',
 		defaultMessage: 'Selected image is more than 1 MB',

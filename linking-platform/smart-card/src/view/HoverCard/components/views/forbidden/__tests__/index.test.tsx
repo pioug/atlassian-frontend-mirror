@@ -37,7 +37,7 @@ describe('Forbidden Hover Card', () => {
 									status: 'forbidden',
 									details: customResponse,
 								},
-								children: {},
+								children: null,
 								url: mockUrl,
 							}}
 						/>

@@ -37,7 +37,7 @@
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/avatar": "^21.17.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/emoji": "^67.11.0",
+		"@atlaskit/emoji": "^67.12.0",
 		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/modal-dialog": "^12.19.0",
@@ -117,9 +117,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
-		"platform_reaction_success_callback": {
 			"type": "boolean"
 		},
 		"platform_editor_breakout_use_css": {

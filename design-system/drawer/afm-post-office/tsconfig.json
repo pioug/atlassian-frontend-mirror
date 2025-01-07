@@ -27,6 +27,9 @@
 			"path": "../../button/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../css/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../icon/afm-post-office/tsconfig.json"
 		},
 		{

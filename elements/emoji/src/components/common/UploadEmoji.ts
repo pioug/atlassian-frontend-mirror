@@ -34,13 +34,16 @@ export const uploadEmoji = (
 				ufoExperiences['emoji-uploaded'].success();
 			})
 			.catch((err) => {
-				errorSetter(messages.emojiUploadFailed);
+				const isTimeout = err instanceof Error && err.message === 'uploadCustomEmoji timed out';
+				const errMsg = isTimeout ? messages.emojiUploadTimeout : messages.emojiUploadFailed;
+				errorSetter(errMsg);
+
 				// eslint-disable-next-line no-console
 				console.error('Unable to upload emoji', err);
 				fireAnalytics(
 					uploadFailedEvent({
 						duration: Date.now() - startTime,
-						reason: messages.emojiUploadFailed.defaultMessage,
+						reason: errMsg.defaultMessage,
 					}),
 				);
 				ufoExperiences['emoji-uploaded'].failure({

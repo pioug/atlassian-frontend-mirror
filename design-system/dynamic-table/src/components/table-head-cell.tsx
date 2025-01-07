@@ -59,6 +59,9 @@ export interface TableHeadCellProps {
 	isRanking?: boolean;
 	headCellId: string;
 	activeSortButtonId?: string | null;
+	ascendingSortTooltip?: string;
+	descendingSortTooltip?: string;
+	buttonAriaRoleDescription?: string;
 }
 
 const TableHeadCell: FC<TableHeadCellProps> = ({
@@ -72,6 +75,9 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
 	onClick,
 	headCellId,
 	activeSortButtonId,
+	ascendingSortTooltip = 'Sort ascending',
+	descendingSortTooltip = 'Sort descending',
+	buttonAriaRoleDescription = 'Sort button',
 	...rest
 }) => {
 	const [isHovered, setIsHovered] = fg('platform-component-visual-refresh')
@@ -108,11 +114,11 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
 			</Text>
 
 			<Flex xcss={styles.buttonWrapper}>
-				<Tooltip content={sortOrder === ASC ? 'Sort ascending' : 'Sort descending'}>
+				<Tooltip content={sortOrder === ASC ? ascendingSortTooltip : descendingSortTooltip}>
 					<Pressable
 						onClick={onClick}
 						xcss={isSortButtonVisible ? styles.buttonVisibleWrapper : styles.buttonHiddenWrapper}
-						aria-roledescription="Sort button"
+						aria-roledescription={buttonAriaRoleDescription}
 					>
 						{sortOrder === ASC ? (
 							<ArrowUpIcon label="" color={token('color.text.subtle')} />

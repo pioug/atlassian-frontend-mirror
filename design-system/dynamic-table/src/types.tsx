@@ -401,6 +401,21 @@ export interface HeadCellType extends RowCellType {
 	 * Whether the text in the cell will truncate or not if constrained. Avoid truncating content wherever possible.
 	 */
 	shouldTruncate?: boolean;
+	/**
+	 * Accessible tooltip applied to the ascending sort button.
+	 * Defaults to "Sort ascending".
+	 */
+	ascendingSortTooltip?: string;
+	/**
+	 * Accessible tooltip applied to the descending sort button.
+	 * Defaults to "Sort descending".
+	 */
+	descendingSortTooltip?: string;
+	/**
+	 * Accessible aria role description applied to the sort button.
+	 * Defaults to "Sort button".
+	 */
+	buttonAriaRoleDescription?: string;
 }
 
 export interface RankEndLocation {

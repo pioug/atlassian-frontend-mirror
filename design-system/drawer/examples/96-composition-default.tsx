@@ -1,0 +1,46 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
+import { useState } from 'react';
+
+import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
+import { Box } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
+
+const styles = cssMap({
+	root: {
+		padding: token('space.200'),
+	},
+});
+
+export default function DrawerExample() {
+	const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+	return (
+		<Box xcss={styles.root}>
+			<Drawer
+				isOpen={isDrawerOpen}
+				label="Basic drawer"
+				onClose={() => setIsDrawerOpen(false)}
+				testId="drawer-default"
+			>
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>Drawer content</DrawerContent>
+			</Drawer>
+			<Button
+				id="open-drawer"
+				testId="drawer-trigger"
+				type="button"
+				onClick={() => setIsDrawerOpen(true)}
+			>
+				Open drawer
+			</Button>
+		</Box>
+	);
+}

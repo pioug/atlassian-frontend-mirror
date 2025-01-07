@@ -16,7 +16,6 @@ import {
 	type StorePropInput,
 	type OnChangeCallback,
 } from '../../types';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { type ReactionUpdateSuccess } from '../../types/reaction';
 
 export interface ConnectedReactionsViewProps
@@ -120,8 +119,7 @@ export const mapDispatchToPropsHelper = (
 			actions.getReactions(containerAri, ari);
 		},
 		onReactionClick: (emojiId: string) => {
-			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-			if (fg('platform_reaction_success_callback') && successCallBack) {
+			if (successCallBack) {
 				actions.toggleReaction(containerAri, ari, emojiId, successCallBack);
 				return;
 			}
@@ -131,8 +129,7 @@ export const mapDispatchToPropsHelper = (
 			actions.getDetailedReaction(containerAri, ari, emojiId);
 		},
 		onSelection: (emojiId: string) => {
-			// eslint-disable-next-line @atlaskit/platform/no-preconditioning
-			if (fg('platform_reaction_success_callback') && successCallBack) {
+			if (successCallBack) {
 				actions.addReaction(containerAri, ari, emojiId, successCallBack);
 				return;
 			}

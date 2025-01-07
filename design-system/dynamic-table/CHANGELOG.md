@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 17.0.1
+
+### Patch Changes
+
+- [#99494](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99494)
+  [`71da0c3911d56`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/71da0c3911d56) -
+  [ux] Added customisable sort button labels
+
 ## 17.0.0
 
 ### Major Changes

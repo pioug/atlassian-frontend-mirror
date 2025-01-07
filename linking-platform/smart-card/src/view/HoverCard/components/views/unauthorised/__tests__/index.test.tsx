@@ -59,7 +59,7 @@ describe('Unauthorised Hover Card', () => {
 							meta: mockUnauthorisedResponse.meta,
 							status: 'unauthorized',
 						}),
-						children: {},
+						children: null,
 						url: mockUrl,
 					}}
 					{...propOverrides}
@@ -106,7 +106,7 @@ describe('Unauthorised Hover Card', () => {
 					meta: { hasScopeOverrides: true, ...mockUnauthorisedResponse.meta },
 					status: 'unauthorized',
 				}),
-				children: {},
+				children: null,
 				url: mockUrl,
 			},
 		});
@@ -131,7 +131,7 @@ describe('Unauthorised Hover Card', () => {
 					meta: { hasScopeOverrides: true, ...mockUnauthorisedResponse.meta },
 					status: 'unauthorized',
 				}),
-				children: {},
+				children: null,
 				url: mockUrl,
 			},
 		});

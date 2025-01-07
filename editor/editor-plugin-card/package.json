@@ -115,9 +115,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform-datasources-enable-two-way-sync": {
-			"type": "boolean"
-		},
 		"linking-platform-contenteditable-false-live-view": {
 			"type": "boolean"
 		},

@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import Button from '@atlaskit/button/new';
 import { Code } from '@atlaskit/code';
 import Drawer from '@atlaskit/drawer';
-import { directions } from '@atlaskit/drawer/constants';
 import { Label } from '@atlaskit/form';
 import { type Direction } from '@atlaskit/motion';
 import { Box, Inline } from '@atlaskit/primitives';
@@ -34,7 +33,7 @@ const DrawersExample = () => {
 						onChange={handleOnEnterFromChange}
 						value={enterFrom}
 					>
-						{directions.map((d) => (
+						{['top', 'right', 'bottom', 'left'].map((d) => (
 							<option key={d} value={d}>
 								{d}
 							</option>

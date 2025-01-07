@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 67.12.0
+
+### Minor Changes
+
+- [#98607](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98607)
+  [`45c19397d609f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/45c19397d609f) -
+  add timeout for emoji uploads
+
 ## 67.11.7
 
 ### Patch Changes

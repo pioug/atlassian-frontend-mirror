@@ -228,16 +228,6 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'skip_grammar']),
 		defaultValue: 'control' as 'control' | 'skip_grammar',
 	},
-	// Added 2024-10-31
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_refine_response_button/setup
-	platform_editor_ai_refine_response_button: {
-		productKeys: {
-			confluence: 'platform_editor_ai_refine_response_button',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	'platform_editor_ai-prompts-placeholder': {
 		productKeys: {
 			confluence: 'platform_editor_ai-prompts-placeholder',

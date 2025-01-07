@@ -207,6 +207,62 @@ describe('UploadingEmojiResource', () => {
 					expect(true).toEqual(true);
 				});
 		});
+
+		describe('timeout', () => {
+			it('times out request taking over timeout limit', () => {
+				const siteEmojiResource = sinon.createStubInstance(SiteEmojiResource) as any;
+				const hasUploadTokenStub = siteEmojiResource.hasUploadToken;
+				hasUploadTokenStub.returns(Promise.resolve(true));
+				const uploadEmojiStub = siteEmojiResource.uploadEmoji;
+
+				const timeout = 100;
+				uploadEmojiStub.returns(
+					new Promise((resolve) => {
+						setTimeout(() => {
+							resolve(mediaEmoji);
+						}, timeout * 2);
+					}),
+				);
+
+				const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
+				emojiResource.fetchEmojiProvider();
+				return emojiResource
+					.uploadCustomEmoji(upload, false, timeout, true)
+					.then(() => {
+						expect('Should not succeed').toEqual('but it did');
+					})
+					.catch((err) => {
+						expect(err.message).toEqual('uploadCustomEmoji timed out');
+					});
+			});
+
+			it('does not time out if under limit', () => {
+				const siteEmojiResource = sinon.createStubInstance(SiteEmojiResource) as any;
+				const hasUploadTokenStub = siteEmojiResource.hasUploadToken;
+				hasUploadTokenStub.returns(Promise.resolve(true));
+				const uploadEmojiStub = siteEmojiResource.uploadEmoji;
+
+				const timeout = 100;
+				uploadEmojiStub.returns(
+					new Promise((resolve) => {
+						setTimeout(() => {
+							resolve(mediaEmoji);
+						}, timeout / 2);
+					}),
+				);
+
+				const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
+				emojiResource.fetchEmojiProvider();
+				return emojiResource
+					.uploadCustomEmoji(upload, false, timeout, true)
+					.then((emoji) => {
+						expect(emoji).toEqual(mediaEmoji);
+					})
+					.catch(() => {
+						expect('Should not error').toEqual('but it did');
+					});
+			});
+		});
 	});
 
 	describe('#prepareForUpload', () => {

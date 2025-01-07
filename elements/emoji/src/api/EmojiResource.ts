@@ -39,6 +39,8 @@ import type {
 	SingleEmojiApiLoaderConfig,
 } from './EmojiUtils';
 import { sampledUfoEmojiResourceFetched, ufoExperiences } from '../util/analytics/ufoExperiences';
+import { promiseWithTimeout } from '../util/timed-promise';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 interface GetEmojiProviderOptions {
 	/**
@@ -673,12 +675,17 @@ export default class UploadingEmojiResource
 		return this.retryIfLoading(() => this.isUploadSupported(), false);
 	}
 
-	uploadCustomEmoji(upload: EmojiUpload, retry = false): Promise<EmojiDescription> {
+	uploadCustomEmoji(
+		upload: EmojiUpload,
+		retry = false,
+		timeout = 12_000,
+		useTimeout = fg('emoji_upload_timeout'), // https://switcheroo.atlassian.com/ui/gates/39629f01-2302-4841-b041-f02ad6134a36/key/emoji_upload_timeout
+	): Promise<EmojiDescription> {
 		return this.isUploadSupported().then((supported) => {
 			if (!supported || !this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource)) {
 				return Promise.reject('No media api support is configured');
 			}
-			return this.siteEmojiResource.uploadEmoji(upload, retry).then((emoji) => {
+			const uploadPromise = this.siteEmojiResource.uploadEmoji(upload, retry).then((emoji) => {
 				// Use file preview blob URL to temporarily fix the graybox issue after uploading,
 				// Because the media service takes time to process the image.
 				// Ideally should improve CachingMediaImage by using mediaClient or mediaImage,
@@ -689,6 +696,10 @@ export default class UploadingEmojiResource
 				this.refreshLastFilter();
 				return emoji;
 			});
+			if (useTimeout) {
+				return promiseWithTimeout(uploadPromise, timeout, 'uploadCustomEmoji timed out');
+			}
+			return uploadPromise;
 		});
 	}
 

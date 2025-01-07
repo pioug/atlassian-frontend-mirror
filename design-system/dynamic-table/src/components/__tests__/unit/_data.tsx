@@ -26,6 +26,28 @@ export const head: HeadType = {
 	],
 };
 
+export const visuallyRefreshedHead: HeadType = {
+	cells: [
+		{
+			key: sortKey,
+			content: 'First name',
+			isSortable: true,
+			ascendingSortTooltip: 'Sort A to Z',
+			descendingSortTooltip: 'Sort Z to A',
+			buttonAriaRoleDescription: 'Sort by first name',
+		},
+		{
+			key: secondSortKey,
+			content: 'Last name',
+		},
+		{
+			key: thirdSortKey,
+			content: 'Party',
+			isSortable: true,
+		},
+	],
+};
+
 export const rows = testData;
 
 export const row = rows[0];

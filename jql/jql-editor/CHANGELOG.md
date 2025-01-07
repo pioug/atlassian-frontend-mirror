@@ -1,5 +1,13 @@
 # @atlaskit/jql-editor
 
+## 4.13.3
+
+### Patch Changes
+
+- [#100720](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100720)
+  [`a2e1a2e89f721`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2e1a2e89f721) -
+  Fix useExternalMessages memoization
+
 ## 4.13.2
 
 ### Patch Changes

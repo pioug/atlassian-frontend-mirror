@@ -1,5 +1,43 @@
 # @atlaskit/drawer
 
+## 9.3.0
+
+### Minor Changes
+
+- [#100414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100414)
+  [`ead90a795d15b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ead90a795d15b) -
+  Adds the `@atlaskit/drawer/compiled` entry point. This entry point is a fork of the Drawer
+  component which uses `@compiled/react` instead of `@emotion/react`. It also features a new
+  compositional API. The `overrides` prop is not included in this API, instead safe style overrides
+  are now supported via the `xcss` prop.
+
+  Migrated from `@emotion/react` to `@compiled/react` in order to improve performance, align with
+  the rest of the Atlaskit techstack, and support React 18 Streaming SSR. Please note, in order to
+  use this version of `@atlaskit/drawer`, you will need to ensure that your bundler is configured to
+  handle `.css` imports correctly. Most bundlers come with built-in support for `.css` imports, so
+  you may not need to do anything. If you are using a different bundler, please refer to the
+  documentation for that bundler to understand how to handle `.css` imports.
+
+  Example of new compositional API:
+
+  ```ts
+  import {
+  	Drawer,
+  	DrawerCloseButton,
+  	DrawerContent,
+  	DrawerSidebar,
+  } from '@atlaskit/drawer/compiled';
+  ```
+
+  ```jsx
+  <Drawer>
+  	<DrawerSidebar xcss={styles.sidebar}>
+  		<DrawerCloseButton />
+  	</DrawerSidebar>
+  	<DrawerContent xcss={styles.content}>Drawer content</DrawerContent>
+  </Drawer>
+  ```
+
 ## 9.2.7
 
 ### Patch Changes

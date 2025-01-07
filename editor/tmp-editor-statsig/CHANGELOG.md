@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.32.1
+
+### Patch Changes
+
+- [#100459](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100459)
+  [`105137587329b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/105137587329b) -
+  EDF-1803 Cleaned up platform_editor_ai_refine_response_button
+
 ## 2.32.0
 
 ### Minor Changes

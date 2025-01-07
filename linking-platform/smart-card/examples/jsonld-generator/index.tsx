@@ -14,9 +14,14 @@ import CollapsibleSection from './collapsible-section';
 import CustomFieldset from './custom-fieldset';
 import { transform } from './transform';
 
+interface FormLinkData {
+	url: string;
+	[key: string]: unknown;
+}
+
 const JsonLdGenerator = ({ onSubmit }: { onSubmit: (response: JsonLd.Response) => void }) => {
 	const handleSubmit = useCallback(
-		(formState) => {
+		(formState: FormLinkData) => {
 			const jsonLd = transform(formState);
 			onSubmit(jsonLd);
 		},

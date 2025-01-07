@@ -28,7 +28,7 @@ const styles = css({
 
 const customMd = md.customize({
 	renderers: {
-		link: (props: { href?: string; title?: string; children?: object }) => {
+		link: (props: { href?: string; title?: string; children?: React.ReactNode }) => {
 			const { href, title, children } = props;
 			const target = isRelativePath(href) ? '_self' : '_blank';
 			const url = toAbsolutePath(href);

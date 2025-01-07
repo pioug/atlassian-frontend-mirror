@@ -5,22 +5,37 @@ import userEvent from '@testing-library/user-event';
 
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
-import { type StatelessProps } from '../../../types';
+import { HeadType, type SortOrderType, type StatelessProps } from '../../../types';
 import DynamicTable from '../../stateless';
 
-import { head, rowsWithKeys, secondSortKey, sortKey, thirdSortKey } from './_data';
+import {
+	head,
+	rowsWithKeys,
+	secondSortKey,
+	sortKey,
+	thirdSortKey,
+	visuallyRefreshedHead,
+} from './_data';
 
 const testId = 'dynamic--table--test--id';
 
-const createProps: () => StatelessProps = () => ({
-	head,
-	rows: rowsWithKeys,
-	sortKey,
-	sortOrder: 'ASC',
-	onSort: jest.fn(),
-	onPageRowsUpdate: jest.fn(),
-	testId,
-});
+type OverrideProps = {
+	sortOrder?: SortOrderType;
+	head?: HeadType;
+};
+
+const createProps = (overrides?: OverrideProps): StatelessProps => {
+	return {
+		head,
+		rows: rowsWithKeys,
+		sortKey,
+		sortOrder: 'ASC',
+		onSort: jest.fn(),
+		onPageRowsUpdate: jest.fn(),
+		testId,
+		...overrides,
+	};
+};
 
 ffTest.both('platform-component-visual-refresh', '', () => {
 	test('onSort should change to ASC from DESC if table is not rankable', async () => {
@@ -224,6 +239,85 @@ ffTest.on('platform-component-visual-refresh', 'visual refresh FG is enabled', (
 
 			expect(firstNameColumnSortButton).toBeVisible();
 			expect(partyColumnSortButton).toBeVisible();
+		});
+
+		test('sort button tooltips should be default ascending sort values if not customised', async () => {
+			const props = createProps();
+			render(<DynamicTable {...props} sortKey={thirdSortKey} />);
+			const sortButtons = screen.getAllByRole('button');
+			const partyColumnSortButton = sortButtons[1];
+			await userEvent.hover(partyColumnSortButton);
+			await waitFor(() => {
+				expect(screen.getByRole('tooltip', { name: 'Sort ascending' })).toBeVisible();
+			});
+		});
+
+		test('sort button tooltips should be default descending sort values if not customised', async () => {
+			const props = createProps({ sortOrder: 'DESC' });
+			render(<DynamicTable {...props} sortKey={thirdSortKey} />);
+			const sortButtons = screen.getAllByRole('button');
+			const partyColumnSortButton = sortButtons[1];
+			await userEvent.hover(partyColumnSortButton);
+			await waitFor(() => {
+				expect(screen.getByRole('tooltip', { name: 'Sort descending' })).toBeVisible();
+			});
+		});
+
+		test('sort button ascending sort tooltip should be customisable otherwise use default value', async () => {
+			const props = createProps({ head: visuallyRefreshedHead });
+			render(<DynamicTable {...props} />);
+			const sortButtons = screen.getAllByRole('button');
+			const firstNameColumnSortButton = sortButtons[0];
+			const partyColumnSortButton = sortButtons[1];
+
+			await userEvent.hover(firstNameColumnSortButton);
+			await waitFor(() => {
+				expect(screen.getByRole('tooltip', { name: 'Sort A to Z' })).toBeVisible();
+			});
+
+			await userEvent.hover(partyColumnSortButton);
+			await waitFor(() => {
+				expect(screen.getByRole('tooltip', { name: 'Sort descending' })).toBeVisible();
+			});
+		});
+
+		test('sort button descending sort tooltip should be customisable otherwise use default value', async () => {
+			const props = createProps({ sortOrder: 'DESC', head: visuallyRefreshedHead });
+			render(<DynamicTable {...props} />);
+			const sortButtons = screen.getAllByRole('button');
+			const firstNameColumnSortButton = sortButtons[0];
+			const partyColumnSortButton = sortButtons[1];
+
+			await userEvent.hover(firstNameColumnSortButton);
+			await waitFor(() => {
+				expect(screen.getByRole('tooltip', { name: 'Sort Z to A' })).toBeVisible();
+			});
+
+			await userEvent.hover(partyColumnSortButton);
+			await waitFor(() => {
+				expect(screen.getByRole('tooltip', { name: 'Sort descending' })).toBeVisible();
+			});
+		});
+
+		test('sort button aria role description should be default if not customised', async () => {
+			const props = createProps();
+			render(<DynamicTable {...props} sortKey={thirdSortKey} />);
+			const sortButtons = screen.getAllByRole('button');
+			const partyColumnSortButton = sortButtons[1];
+			await userEvent.hover(partyColumnSortButton);
+			expect(partyColumnSortButton).toHaveAttribute('aria-roledescription', 'Sort button');
+		});
+
+		test('sort button aria role description should be customisable', async () => {
+			const props = createProps({ head: visuallyRefreshedHead });
+			render(<DynamicTable {...props} />);
+			const sortButtons = screen.getAllByRole('button');
+			const firstNameColumnSortButton = sortButtons[0];
+			await userEvent.hover(firstNameColumnSortButton);
+			expect(firstNameColumnSortButton).toHaveAttribute(
+				'aria-roledescription',
+				'Sort by first name',
+			);
 		});
 	});
 });

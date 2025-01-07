@@ -212,7 +212,7 @@
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/editor-tables": "^2.8.0",
-		"@atlaskit/emoji": "^67.11.0",
+		"@atlaskit/emoji": "^67.12.0",
 		"@atlaskit/icon": "^23.1.0",
 		"@atlaskit/icon-object": "^6.9.0",
 		"@atlaskit/link-datasource": "^3.15.0",
@@ -342,9 +342,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_is_disabled_state_element_browser": {
-			"type": "boolean"
-		},
-		"platform-datasources-enable-two-way-sync": {
 			"type": "boolean"
 		},
 		"platform_editor_allow_annotation_triple_click": {

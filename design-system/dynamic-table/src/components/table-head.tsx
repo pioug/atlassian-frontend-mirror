@@ -60,8 +60,11 @@ class TableHead extends React.Component<TableHeadProps, { activeSortButtonId: st
 				<tr>
 					{cells.map((cell, index) => {
 						const {
+							ascendingSortTooltip,
+							buttonAriaRoleDescription,
 							colSpan,
 							content,
+							descendingSortTooltip,
 							isSortable,
 							key,
 							shouldTruncate,
@@ -103,6 +106,9 @@ class TableHead extends React.Component<TableHeadProps, { activeSortButtonId: st
 								shouldTruncate={shouldTruncate}
 								sortOrder={key === sortKey ? sortOrder : undefined}
 								width={width}
+								ascendingSortTooltip={ascendingSortTooltip}
+								descendingSortTooltip={descendingSortTooltip}
+								buttonAriaRoleDescription={buttonAriaRoleDescription}
 								{...restCellProps}
 							/>
 						);

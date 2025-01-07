@@ -11,9 +11,8 @@ import { useMergeRefs } from 'use-callback-ref';
 import { N0 } from '@atlaskit/theme/colors';
 import { CURRENT_SURFACE_CSS_VAR, token } from '@atlaskit/tokens';
 
+import usePreventProgrammaticScroll from '../../hooks/use-prevent-programmatic-scroll';
 import { type DrawerPrimitiveProps, type Widths } from '../types';
-
-import usePreventProgrammaticScroll from './hooks/use-prevent-programmatic-scroll';
 
 export const wrapperWidth: Widths = {
 	full: { width: '100vw' },

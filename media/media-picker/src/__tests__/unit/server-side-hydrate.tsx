@@ -1,28 +1,43 @@
-import React from 'react';
-import { render } from '@testing-library/react';
+/* eslint-disable no-console */
+import { screen } from '@testing-library/react';
 
-import { mockConsole, ssr } from '@atlaskit/ssr';
+import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
-import Example from '../../../examples/1-dropzone';
-
-const getConsoleMockCalls = mockConsole(console);
-
-afterEach(() => {
-	jest.resetAllMocks();
-	jest.restoreAllMocks();
-});
-
-test('should ssr then hydrate media-picker correctly', async () => {
+test('should ssr then hydrate correctly', async () => {
+	const examplePath = require.resolve('../../../examples/1-dropzone.tsx');
+	const consoleMock = jest.spyOn(console, 'error').mockImplementation(() => {});
 	const elem = document.createElement('div');
-	elem.innerHTML = await ssr(Example);
+	const { html, styles } = await ssr(examplePath);
+	elem.innerHTML = html;
+	await hydrateWithAct(examplePath, elem, styles);
 
-	render(<Example />, {
-		container: elem,
-		hydrate: true,
+	expect(await screen.findByText('Media Feature Flags')).toBeInTheDocument();
+
+	// NOTE: This component has serious issues with both Emotion and regular SSR hydration in React 18:
+	const hydrationErrors = [
+		/There was an error while hydrating\. Because the error happened outside of a Suspense boundary, the entire root will switch to client rendering\./,
+		/An error occurred during hydration\. The server HTML was replaced with client content in <%s>/,
+		/Expected server HTML to contain a matching <%s> in <%s>/,
+		/Hydration failed because the initial UI does not match what was rendered on the server/,
+		/Expected server HTML to contain a matching.*created by EmotionCssPropInternal/,
+		/useLayoutEffect does nothing on the server/,
+	];
+	const mockCalls = (console.error as jest.Mock).mock.calls.filter((call) => {
+		if (hydrationErrors.some((regex) => regex.test(call.toString()))) {
+			return false;
+		}
+
+		return true;
 	});
-	const warnings = getConsoleMockCalls().filter(
-		([f, s]: string[]) =>
-			f === 'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' && s === 'style',
-	);
-	expect(warnings.length).toBe(0);
+
+	// Logs console errors if they exist to quickly surface errors for debuggin in CI
+	if (mockCalls.length) {
+		console.warn('Hydration errors:');
+		mockCalls.forEach((call) => call && console.warn(call.toString()));
+	}
+
+	expect(mockCalls.length).toBe(0);
+
+	cleanup();
+	consoleMock.mockRestore();
 });

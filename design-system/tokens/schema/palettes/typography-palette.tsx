@@ -37,6 +37,7 @@ export type FontWeightScaleValues =
 	| 'FontWeight400'
 	| 'FontWeight500'
 	| 'FontWeight600'
+	| 'FontWeight653'
 	| 'FontWeight700';
 
 export type FontFamilyPaletteValues =
@@ -193,6 +194,12 @@ const fontWeightScale: FontWeightScaleTokenSchema<FontWeightScaleValues> = {
 		},
 		FontWeight600: {
 			value: '600',
+			attributes: {
+				group: 'fontWeight',
+			},
+		},
+		FontWeight653: {
+			value: '653',
 			attributes: {
 				group: 'fontWeight',
 			},

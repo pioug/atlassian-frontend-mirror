@@ -2,6 +2,7 @@ import rafSchedule from 'raf-schd';
 
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { ACTION_SUBJECT, EVENT_TYPE, TABLE_ACTION } from '@atlaskit/editor-common/analytics';
+import { getParentOfTypeCount } from '@atlaskit/editor-common/nesting';
 import { type PortalProviderAPI } from '@atlaskit/editor-common/portal';
 import {
 	browser,
@@ -13,6 +14,7 @@ import {
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import { Selection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { findParentNodeOfTypeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
@@ -224,7 +226,23 @@ export const handleMouseOver = (view: EditorView, mouseEvent: Event): boolean =>
 		return hoverColumns([startIndex], false)(state, dispatch);
 	}
 
-	if (
+	const isNestedTable = getParentOfTypeCount(state.schema.nodes.table)(state.selection.$from) > 1;
+
+	if (isNestedTable) {
+		// if the table is nested inside a table, we only call hideInsertColumnOrRowButton if the table nearest to the mouse target is NOT the parent table
+		const nearestTable = closestElement(target, 'table');
+		const nestedTable = findParentNodeOfTypeClosestToPos(state.doc.resolve(state.selection.from), [
+			state.schema.nodes.table,
+		]);
+
+		const parentTable = findParentNodeOfTypeClosestToPos(state.doc.resolve(nestedTable?.pos || 0), [
+			state.schema.nodes.table,
+		]);
+
+		if (nearestTable?.dataset.tableLocalId !== parentTable?.node.attrs.localId) {
+			return hideInsertColumnOrRowButton()(state, dispatch);
+		}
+	} else if (
 		(isCell(target) || isCornerButton(target)) &&
 		(typeof insertColumnButtonIndex === 'number' || typeof insertRowButtonIndex === 'number')
 	) {

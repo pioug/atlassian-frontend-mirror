@@ -912,7 +912,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'published',
+		status: 'ready-to-publish',
 		usage: 'Single purpose - Reserved for user mentions.',
 	},
 	menu: {
@@ -1583,7 +1583,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'published',
+		status: 'ready-to-publish',
 		usage: 'Single purpose - Reserved for stories in Jira.',
 	},
 	subtasks: {
@@ -3010,7 +3010,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Design System Team',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Known uses: TBC',
 	},
 	shield: {
@@ -3038,7 +3038,7 @@ const metadata: IconMetadata = {
 		location: '@atlaskit/icon',
 		team: 'Enterprise Trust',
 		type: 'core',
-		status: 'ready-to-publish',
+		status: 'published',
 		usage: 'Known uses: No classification in Enterprise Trust',
 	},
 	stopwatch: {

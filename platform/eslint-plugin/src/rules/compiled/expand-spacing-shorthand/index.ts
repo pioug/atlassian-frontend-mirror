@@ -32,7 +32,7 @@ const parseTemplateLiteral = (templateLiteral: TemplateLiteral, context: Rule.Ru
 		if (i < quasis.length) {
 			const cookedQuasi = quasis[i].value.cooked;
 			if (cookedQuasi) {
-				const splitQuasi = cookedQuasi.split(' ').filter((str) => str.length > 0);
+				const splitQuasi = cookedQuasi.split(' ').filter((str) => str.trim().length > 0);
 				splitQuasi.forEach((str) => {
 					propertyValues.push(isNaN(Number(str)) ? `'${str}'` : str);
 				});
@@ -57,6 +57,14 @@ const checkValidPropertyValues = (propertyValues: string[]) => {
 		return false;
 	}
 	return true;
+};
+
+// Check that all expressions in TemplateLiteral are token expressions
+// If true: create an autofix
+// If false: report violation without autofix
+const checkTemplateLiteralTokens = (templateLiteral: TemplateLiteral) => {
+	const expressions = templateLiteral.expressions;
+	return expressions.every((expr) => expr.type === 'CallExpression' && isTokenCallExpression(expr));
 };
 
 // To fix spacing shorthands, given a list of spacing property values, expands the spacing property and adds autofix fixes
@@ -118,8 +126,18 @@ const executeExpandSpacingRule = (
 	if (!isCompiledAPI(context, node)) {
 		return;
 	}
+	// Value of spacing property is a TemplateLiteral type that contains a token, e.g. padding: `0 token('a')`
 	if (node.value.type === 'TemplateLiteral') {
-		// Value of spacing property is a TemplateLiteral type that contains a token, e.g. padding: `0 token('a')`
+		if (!checkTemplateLiteralTokens(node.value)) {
+			context.report({
+				node,
+				messageId: 'expandSpacingShorthand',
+				data: {
+					property: propertyShorthand,
+				},
+			});
+			return;
+		}
 		const propertyValues = parseTemplateLiteral(node.value, context);
 		if (!checkValidPropertyValues(propertyValues)) {
 			return;
@@ -134,8 +152,8 @@ const executeExpandSpacingRule = (
 				return expandSpacingProperties({ context, node, propertyValues, fixer, propertyShorthand });
 			},
 		});
-	} else if (node.value.type === 'CallExpression' && isTokenCallExpression(node.value)) {
 		// Value of spacing property is a token CallExpression type, e.g. margin: token('space.100', '8px')
+	} else if (node.value.type === 'CallExpression' && isTokenCallExpression(node.value)) {
 		const propertyValues = [getSourceCode(context).getText(node.value)];
 		context.report({
 			node,

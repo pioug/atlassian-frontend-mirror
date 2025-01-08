@@ -92,10 +92,7 @@ export const handleMouseOver = (
 		// We want to exlude handles from showing for wrapped nodes
 		// TODO We should be able remove these check if we decided to
 		// go we not decoration for wrapped image solution.
-		if (
-			['wrap-right', 'wrap-left'].includes(rootElement.getAttribute('layout') || '') &&
-			fg('platform_editor_element_drag_and_drop_ed_24227')
-		) {
+		if (['wrap-right', 'wrap-left'].includes(rootElement.getAttribute('layout') || '')) {
 			return false;
 		}
 
@@ -112,9 +109,7 @@ export const handleMouseOver = (
 			if (
 				parentElement &&
 				parentElementType === 'panel' &&
-				(fg('platform_editor_element_dnd_nested_fix_patch_1')
-					? !parentElement.classList.contains('ak-editor-panel__no-icon')
-					: true) &&
+				!parentElement.classList.contains('ak-editor-panel__no-icon') &&
 				(index === 0 || (firstChildIsWidget && index === 1))
 			) {
 				return false;

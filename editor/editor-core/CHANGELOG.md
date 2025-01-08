@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 203.10.0
+
+### Minor Changes
+
+- [#100935](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100935)
+  [`44dcbb7e1884c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44dcbb7e1884c) -
+  clean up platform_editor_element_dnd_nested_fix_patch_1 feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 203.9.0
 
 ### Minor Changes

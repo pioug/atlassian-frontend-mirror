@@ -142,25 +142,9 @@ const paragraphWithPlaceholder = '+ p > .placeholder-decoration';
 const dragHandleContainer = '.ProseMirror-widget[data-blocks-drag-handle-container="true"]';
 const dragHandleSelector = 'button[data-testid="block-ctrl-drag-handle"]';
 const dropTargetContainer = '.ProseMirror-widget[data-blocks-drop-target-container="true"]';
-
-const withInlineNodeStyleSelectors = [
-	`.ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${paragraphWithTrailingBreakAsOnlyChild})`,
-	`.ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${indentatedParagraphWithTrailingBreakAsOnlyChild})`,
-	`.ProseMirror-widget[data-blocks-drag-handle-container="true"]:has(${paragraphWithPlaceholder})`,
-].join(', ');
-
 const dividerBodiedInCustomPanelWithNoIconSelector =
 	'[data-panel-type].ak-editor-panel__no-icon .ProseMirror-widget:first-child + .ProseMirror-widget:nth-child(2) + hr, [data-panel-type] hr:first-child';
-
-const withInlineNodeStyle = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-	[withInlineNodeStyleSelectors]: {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
-		display: 'none !important',
-	},
-});
-
-const withInlineNodeStyleWithChromeFixSelectors = [
+const withInlineNodeStyleSelectors = [
 	`${dragHandleContainer}:has(${paragraphWithTrailingBreakAsOnlyChild}) ${dragHandleSelector}`,
 	`${dragHandleContainer}:has(${indentatedParagraphWithTrailingBreakAsOnlyChild}) ${dragHandleSelector}`,
 	`${dragHandleContainer}:has(${paragraphWithPlaceholder}) ${dragHandleSelector}`,
@@ -181,9 +165,9 @@ const withFormatInLayoutStyleFixSelectors = [
  * Otherwise it might break composition input for Chrome
  * https://product-fabric.atlassian.net/browse/ED-24136
  */
-const withInlineNodeStyleWithChromeFix = css({
+const withInlineNodeStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
-	[withInlineNodeStyleWithChromeFixSelectors]: {
+	[withInlineNodeStyleSelectors]: {
 		transform: 'scale(0)',
 	},
 });
@@ -286,12 +270,6 @@ const headingWithIndentationInLayoutStyleFix = css({
 		},
 });
 
-const getTextNodeStyle = () => {
-	return fg('platform_editor_element_controls_chrome_input_fix')
-		? withInlineNodeStyleWithChromeFix
-		: withInlineNodeStyle;
-};
-
 const withRelativePosStyle = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'.ProseMirror': {
@@ -348,15 +326,13 @@ export const GlobalStylesWrapper = () => {
 				globalStyles(),
 				fg('platform_editor_advanced_layouts_post_fix_patch_1') && globalDnDStyle,
 				editorExperiment('nested-dnd', true) ? extendedHoverZoneNested() : extendedHoverZone(),
-				getTextNodeStyle(),
+				withInlineNodeStyle,
 				withDeleteLinesStyleFix,
 				withMediaSingleStyleFix,
 				legacyBreakoutWideLayoutStyle,
 				headingWithIndentationInLayoutStyleFix,
 				editorExperiment('advanced_layouts', true) ? blockCardWithoutLayout : undefined,
-				fg('platform_editor_element_dnd_nested_fix_patch_1')
-					? withDividerInPanelStyleFix
-					: undefined,
+				withDividerInPanelStyleFix,
 				fg('platform_editor_element_dnd_nested_fix_patch_2')
 					? withFormatInLayoutStyleFix
 					: undefined,

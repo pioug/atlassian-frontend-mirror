@@ -3,7 +3,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { disableTTVCOnFirstUserInteraction } from './pm-plugins/disableTTVCOnFirstUserInteraction';
 import type { UfoPlugin } from './ufoPluginType';
 
-const isSSR = Boolean(process?.env?.REACT_SSR);
+const isSSR = Boolean(process.env.REACT_SSR);
 
 export const ufoPlugin: UfoPlugin = () => ({
 	name: 'ufo',

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::e4e9ea6d283fd02d4b56206ad5eaabdc>>
+ * @codegen <<SignedSource::e159597b9fc66518a84a3aeaf2f08709>>
  * @codegenCommand yarn build tokens
  */
 var tokens = [{
@@ -414,6 +414,21 @@ var tokens = [{
   },
   "name": "typography.fontWeight.FontWeight600",
   "path": ["typography", "fontWeight", "FontWeight600"]
+}, {
+  "value": "653",
+  "attributes": {
+    "group": "fontWeight"
+  },
+  "filePath": "schema/palettes/typography-palette.tsx",
+  "isSource": true,
+  "original": {
+    "value": "653",
+    "attributes": {
+      "group": "fontWeight"
+    }
+  },
+  "name": "typography.fontWeight.FontWeight653",
+  "path": ["typography", "fontWeight", "FontWeight653"]
 }, {
   "value": "700",
   "attributes": {

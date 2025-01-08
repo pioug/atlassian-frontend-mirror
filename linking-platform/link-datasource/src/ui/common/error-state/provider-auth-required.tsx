@@ -12,6 +12,8 @@ import Button from '@atlaskit/button';
 import EmptyState from '@atlaskit/empty-state';
 import { type DatasourceMeta } from '@atlaskit/linking-types';
 import { AuthError, auth as outboundAuth } from '@atlaskit/outbound-auth-flow-client';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Anchor } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
@@ -74,14 +76,16 @@ export const ProviderAuthRequired = ({
 		}
 	};
 
+	const AnchorFFed = fg('fix_a11y_violations_in_link_datasource') ? Anchor : 'a';
+
 	const renderAuthDescription = () => (
 		<React.Fragment>
 			{formatMessage(loadingErrorMessages.authScreenDescriptionText, {
 				providerName,
 			})}{' '}
-			<a href={learnMoreAboutSmartLinksUrl} target="_blank" rel="noreferrer noopener">
+			<AnchorFFed href={learnMoreAboutSmartLinksUrl} target="_blank" rel="noreferrer noopener">
 				{formatMessage(loadingErrorMessages.learnMoreAboutSmartLinks)}
-			</a>
+			</AnchorFFed>
 		</React.Fragment>
 	);
 

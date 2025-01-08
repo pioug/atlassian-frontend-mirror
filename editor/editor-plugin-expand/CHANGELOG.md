@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-expand
 
+## 2.10.13
+
+### Patch Changes
+
+- [#100788](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100788)
+  [`661d3aefc2866`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/661d3aefc2866) -
+  ED-26070 remove feature flag for platform_editor_nest_nested_expand_drag_fix
+
 ## 2.10.12
 
 ### Patch Changes

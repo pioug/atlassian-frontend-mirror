@@ -1,5 +1,28 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.8.0
+
+### Minor Changes
+
+- [#101370](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101370)
+  [`d962c1dfecac6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d962c1dfecac6) -
+  `use-tokens-typography` rule now reports on untokenized composite `font` styles. This new pattern
+  is disabled by default but can be enabled under the name `untokenized-properties`.
+
+## 11.7.0
+
+### Minor Changes
+
+- [#101162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101162)
+  [`e553a7506de2d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e553a7506de2d) -
+  `use-tokens-typography` rule can now restrict capitalisation by banning the use of
+  `textTransform: 'uppercase'`. This new pattern is disabled by default but can be enabled under the
+  name `restricted-capitalisation`.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 11.6.1
 
 ### Patch Changes

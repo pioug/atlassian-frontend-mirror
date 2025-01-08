@@ -13,7 +13,7 @@ import { FormattedMessage, useIntl } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import RefreshIcon from '@atlaskit/icon/core/migration/refresh';
 import { Flex } from '@atlaskit/primitives';
-import { N0, N40, N90 } from '@atlaskit/theme/colors';
+import { N0, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { ASSETS_LIST_OF_LINKS_DATASOURCE_ID } from '../assets-modal';
@@ -54,7 +54,7 @@ const TopBorderWrapper = styled.div({
 const SyncWrapper = styled.div({
 	display: 'flex',
 	alignItems: 'center',
-	color: token('color.text.accent.gray', N90),
+	color: token('color.text.accent.gray'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard

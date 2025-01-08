@@ -1,41 +1,28 @@
-import React from 'react';
+/* eslint-disable no-console */
+import { screen } from '@testing-library/react';
 
-import { ssr } from '@atlaskit/ssr';
+import { cleanup, hydrateWithAct, ssr } from '@atlaskit/ssr/emotion';
 
-import Example from '../../../examples/10-basic-create-and-fire';
-
-jest.spyOn(global.console, 'error').mockImplementation(() => {});
-
-afterEach(() => {
-	jest.resetAllMocks();
-});
-
-// TODO: This is a temporary workaround before complete migration to react-dom v18
-// 	See conversation https://hello.atlassian.net/wiki/x/HtE48
-let hydrateRoot: unknown;
-try {
-	// eslint-disable-next-line @repo/internal/import/no-unresolved
-	hydrateRoot = require('react-dom/client').hydrateRoot;
-} catch (e) {
-	/* Skipping error */
-}
-
-test('should ssr then hydrate analytics-next correctly', async () => {
+test('should ssr then hydrate correctly', async () => {
+	const examplePath = require.resolve('../../../examples/10-basic-create-and-fire.tsx');
+	const consoleMock = jest.spyOn(console, 'error').mockImplementation(() => {});
 	const elem = document.createElement('div');
-	elem.innerHTML = await ssr(Example);
+	const { html, styles } = await ssr(examplePath);
+	elem.innerHTML = html;
+	await hydrateWithAct(examplePath, elem, styles);
 
-	if (typeof hydrateRoot === 'function') {
-		hydrateRoot(elem, <Example />);
-	} else {
-		const { hydrate } = require('react-dom');
-		hydrate(<Example />, elem);
+	await screen.findByText('Click me (withAnalyticsEvents)');
+
+	const mockCalls = (console.error as jest.Mock).mock.calls;
+
+	// Logs console errors if they exist to quickly surface errors for debuggin in CI
+	if (mockCalls.length) {
+		console.warn('Hydration errors:');
+		mockCalls.forEach((call) => console.warn(call));
 	}
 
-	// ignore warnings caused by emotion's server-side rendering approach
-	// eslint-disable-next-line no-console
-	const mockCalls = (console.error as jest.Mock).mock.calls.filter(
-		([f, s]) =>
-			!(f === 'Warning: Did not expect server HTML to contain a <%s> in <%s>.%s' && s === 'style'),
-	);
 	expect(mockCalls.length).toBe(0);
+
+	cleanup();
+	consoleMock.mockRestore();
 });

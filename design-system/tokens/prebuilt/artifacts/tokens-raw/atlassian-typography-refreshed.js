@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::6058c6751a5967271869a82517102e49>>
+ * @codegen <<SignedSource::b1d242fb2f26030ea08f3b961c82aa20>>
  * @codegenCommand yarn build tokens
  */
 var tokens = [{
@@ -158,7 +158,7 @@ var tokens = [{
     "introduced": "1.14.0",
     "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H900 to Heading XXL."
   },
-  "value": "normal 700 32px/36px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+  "value": "normal 653 32px/36px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-refreshed/theme.tsx",
   "isSource": true,
   "original": {
@@ -169,7 +169,7 @@ var tokens = [{
       "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H900 to Heading XXL."
     },
     "value": {
-      "fontWeight": "FontWeight700",
+      "fontWeight": "FontWeight653",
       "fontSize": "FontSize32",
       "lineHeight": "LineHeight36",
       "fontFamily": "FontFamilyWebSansRefreshed",
@@ -187,7 +187,7 @@ var tokens = [{
     "introduced": "1.14.0",
     "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H800 to Heading XL."
   },
-  "value": "normal 700 28px/32px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+  "value": "normal 653 28px/32px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-refreshed/theme.tsx",
   "isSource": true,
   "original": {
@@ -198,7 +198,7 @@ var tokens = [{
       "description": "For overlapping brand with product promotions, such as marketplace content. Migrate instances of H800 to Heading XL."
     },
     "value": {
-      "fontWeight": "FontWeight700",
+      "fontWeight": "FontWeight653",
       "fontSize": "FontSize28",
       "lineHeight": "LineHeight32",
       "fontFamily": "FontFamilyWebSansRefreshed",
@@ -216,7 +216,7 @@ var tokens = [{
     "introduced": "1.14.0",
     "description": "Product page titles, such as forms. Migrate instances of H700 to Heading L."
   },
-  "value": "normal 700 24px/28px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+  "value": "normal 653 24px/28px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-refreshed/theme.tsx",
   "isSource": true,
   "original": {
@@ -227,7 +227,7 @@ var tokens = [{
       "description": "Product page titles, such as forms. Migrate instances of H700 to Heading L."
     },
     "value": {
-      "fontWeight": "FontWeight700",
+      "fontWeight": "FontWeight653",
       "fontSize": "FontSize24",
       "lineHeight": "LineHeight28",
       "fontFamily": "FontFamilyWebSansRefreshed",
@@ -245,7 +245,7 @@ var tokens = [{
     "introduced": "1.14.0",
     "description": "Headers in large components, such as modal dialogs. Migrate instances of H600 to Heading M."
   },
-  "value": "normal 700 20px/24px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+  "value": "normal 653 20px/24px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-refreshed/theme.tsx",
   "isSource": true,
   "original": {
@@ -256,7 +256,7 @@ var tokens = [{
       "description": "Headers in large components, such as modal dialogs. Migrate instances of H600 to Heading M."
     },
     "value": {
-      "fontWeight": "FontWeight700",
+      "fontWeight": "FontWeight653",
       "fontSize": "FontSize20",
       "lineHeight": "LineHeight24",
       "fontFamily": "FontFamilyWebSansRefreshed",
@@ -274,7 +274,7 @@ var tokens = [{
     "introduced": "1.14.0",
     "description": "For headers in small components where space is limited. Migrate instances of H500 to Heading S."
   },
-  "value": "normal 700 16px/20px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+  "value": "normal 653 16px/20px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-refreshed/theme.tsx",
   "isSource": true,
   "original": {
@@ -285,7 +285,7 @@ var tokens = [{
       "description": "For headers in small components where space is limited. Migrate instances of H500 to Heading S."
     },
     "value": {
-      "fontWeight": "FontWeight700",
+      "fontWeight": "FontWeight653",
       "fontSize": "FontSize16",
       "lineHeight": "LineHeight20",
       "fontFamily": "FontFamilyWebSansRefreshed",
@@ -303,7 +303,7 @@ var tokens = [{
     "introduced": "1.14.0",
     "description": "For headers in small components where space is limited. Migrate instances of H400 to Heading XS."
   },
-  "value": "normal 700 14px/20px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+  "value": "normal 653 14px/20px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-refreshed/theme.tsx",
   "isSource": true,
   "original": {
@@ -314,7 +314,7 @@ var tokens = [{
       "description": "For headers in small components where space is limited. Migrate instances of H400 to Heading XS."
     },
     "value": {
-      "fontWeight": "FontWeight700",
+      "fontWeight": "FontWeight653",
       "fontSize": "FontSize14",
       "lineHeight": "LineHeight20",
       "fontFamily": "FontFamilyWebSansRefreshed",
@@ -332,7 +332,7 @@ var tokens = [{
     "introduced": "1.14.0",
     "description": "For headers in fine print or tight spaces. Use sparingly. Migrate instances of H100, H200 and H300 to Heading XXS."
   },
-  "value": "normal 700 12px/16px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
+  "value": "normal 653 12px/16px \"Atlassian Sans\", ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
   "filePath": "schema/themes/atlassian-typography-refreshed/theme.tsx",
   "isSource": true,
   "original": {
@@ -343,7 +343,7 @@ var tokens = [{
       "description": "For headers in fine print or tight spaces. Use sparingly. Migrate instances of H100, H200 and H300 to Heading XXS."
     },
     "value": {
-      "fontWeight": "FontWeight700",
+      "fontWeight": "FontWeight653",
       "fontSize": "FontSize12",
       "lineHeight": "LineHeight16",
       "fontFamily": "FontFamilyWebSansRefreshed",
@@ -572,7 +572,7 @@ var tokens = [{
     "introduced": "0.10.33",
     "description": "Use sparingly for emphasising text, such as in a lozenge."
   },
-  "value": "700",
+  "value": "653",
   "filePath": "schema/themes/atlassian-typography-refreshed/font-weight.tsx",
   "isSource": true,
   "original": {
@@ -582,7 +582,7 @@ var tokens = [{
       "introduced": "0.10.33",
       "description": "Use sparingly for emphasising text, such as in a lozenge."
     },
-    "value": "FontWeight700"
+    "value": "FontWeight653"
   },
   "name": "font.weight.bold",
   "path": ["font", "weight", "bold"],

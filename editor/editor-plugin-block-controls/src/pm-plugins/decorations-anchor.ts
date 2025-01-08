@@ -50,9 +50,7 @@ const shouldIgnoreNode = (
 	const isEmbedCard =
 		'embedCard' === node.type.name && fg('platform_editor_element_dnd_nested_fix_patch_3');
 
-	// TODO use isWrappedMedia when clean up the feature flag
-	const isMediaSingle =
-		'mediaSingle' === node.type.name && fg('platform_editor_element_dnd_nested_fix_patch_1');
+	const isMediaSingle = node.type.name === 'mediaSingle';
 
 	const isFirstTableRow =
 		parent?.type.name === 'table' &&

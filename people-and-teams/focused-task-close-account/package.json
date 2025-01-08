@@ -39,7 +39,7 @@
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/drawer": "^9.3.0",
 		"@atlaskit/heading": "^4.0.0",
-		"@atlaskit/icon": "^23.1.0",
+		"@atlaskit/icon": "^23.2.0",
 		"@atlaskit/inline-dialog": "^16.0.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/section-message": "^6.8.0",

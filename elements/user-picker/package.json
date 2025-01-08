@@ -55,7 +55,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/avatar": "^21.17.0",
-		"@atlaskit/icon": "^23.1.0",
+		"@atlaskit/icon": "^23.2.0",
 		"@atlaskit/logo": "^15.1.0",
 		"@atlaskit/lozenge": "^11.12.0",
 		"@atlaskit/people-teams-ui-public": "^2.0.0",

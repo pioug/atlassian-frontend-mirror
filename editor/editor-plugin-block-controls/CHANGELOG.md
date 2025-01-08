@@ -1,5 +1,31 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.17.1
+
+### Patch Changes
+
+- [#100897](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100897)
+  [`afd84cc21d588`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/afd84cc21d588) -
+  Remove FG
+- [#100902](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100902)
+  [`40de6a66cb5e7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/40de6a66cb5e7) -
+  Remove old FG
+
+## 2.17.0
+
+### Minor Changes
+
+- [#100498](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100498)
+  [`b913a28923b5d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b913a28923b5d) -
+  ED-25931 Remove a 2 column layout via drag and drop
+- [#100935](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100935)
+  [`44dcbb7e1884c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44dcbb7e1884c) -
+  clean up platform_editor_element_dnd_nested_fix_patch_1 feature gate
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.16.4
 
 ### Patch Changes

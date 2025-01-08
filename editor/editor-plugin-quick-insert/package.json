@@ -39,7 +39,7 @@
 		"@atlaskit/editor-plugin-connectivity": "^1.1.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.11.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
-		"@atlaskit/icon": "^23.1.0",
+		"@atlaskit/icon": "^23.2.0",
 		"@atlaskit/modal-dialog": "^12.19.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.5.0",

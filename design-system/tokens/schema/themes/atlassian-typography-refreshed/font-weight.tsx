@@ -7,7 +7,7 @@ const font: ValueSchema<FontWeightTokenSchema<BaseToken>> = {
 			regular: { value: 'FontWeight400' },
 			medium: { value: 'FontWeight500' },
 			semibold: { value: 'FontWeight600' },
-			bold: { value: 'FontWeight700' },
+			bold: { value: 'FontWeight653' },
 		},
 	},
 };

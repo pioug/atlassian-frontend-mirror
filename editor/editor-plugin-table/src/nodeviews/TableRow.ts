@@ -493,24 +493,44 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 		const tableContainer = wrapper.parentElement;
 		const tableContentWrapper = tableContainer?.parentElement;
 
-		const layoutContainer = tableContentWrapper && tableContentWrapper.parentElement;
+		const parentContainer = tableContentWrapper && tableContentWrapper.parentElement;
 
-		if (isCurrentTableSelected) {
-			this.colControlsOffset = tableControlsSpacing;
+		const isTableInsideLayout =
+			parentContainer && parentContainer.getAttribute('data-layout-content');
 
-			if (layoutContainer && layoutContainer.getAttribute('data-layout-content')) {
+		const isNestedTable =
+			parentContainer &&
+			(parentContainer.className === 'pm-table-header-content-wrap' ||
+				parentContainer.className === 'pm-table-cell-content-wrap');
+
+		const isNestedDataTable =
+			parentContainer &&
+			parentContainer.getAttribute('data-mark-type') === 'fragment' &&
+			(parentContainer.parentElement?.className === 'pm-table-header-content-wrap' ||
+				parentContainer.parentElement?.className === 'pm-table-cell-content-wrap');
+
+		const isTableInsideTable = isNestedTable || isNestedDataTable;
+
+		if (tableContentWrapper) {
+			if (isCurrentTableSelected) {
+				this.colControlsOffset = tableControlsSpacing;
+
 				// move table a little out of the way
 				// to provide spacing for table controls
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				tableContentWrapper!.style.paddingLeft = '11px';
-			}
-		} else {
-			this.colControlsOffset = 0;
-			if (layoutContainer && layoutContainer.getAttribute('data-layout-content')) {
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				tableContentWrapper!.style.removeProperty('padding-left');
+				if (isTableInsideLayout) {
+					tableContentWrapper.style.paddingLeft = '11px';
+				} else if (isTableInsideTable) {
+					tableContentWrapper.style.paddingLeft = '15px';
+					tableContentWrapper.style.paddingRight = '4px';
+				}
+			} else {
+				this.colControlsOffset = 0;
+				if (isTableInsideLayout) {
+					tableContentWrapper.style.removeProperty('padding-left');
+				} else if (isTableInsideTable) {
+					tableContentWrapper.style.removeProperty('padding-left');
+					tableContentWrapper.style.removeProperty('padding-right');
+				}
 			}
 		}
 

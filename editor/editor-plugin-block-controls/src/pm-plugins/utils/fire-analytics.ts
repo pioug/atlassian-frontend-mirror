@@ -10,7 +10,7 @@ import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { type BlockControlsPlugin } from '../../blockControlsPluginType';
 
-export const fireMoveNodeAnalytics = (
+export const attachMoveNodeAnalytics = (
 	tr: Transaction,
 	inputMethod: string,
 	fromDepth: number,

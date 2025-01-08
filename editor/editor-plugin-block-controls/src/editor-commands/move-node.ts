@@ -27,7 +27,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import type { BlockControlsPlugin, MoveNodeMethod } from '../blockControlsPluginType';
 import { key } from '../pm-plugins/main';
 import { DIRECTION } from '../pm-plugins/utils/consts';
-import { fireMoveNodeAnalytics } from '../pm-plugins/utils/fire-analytics';
+import { attachMoveNodeAnalytics } from '../pm-plugins/utils/fire-analytics';
 import { getNestedNodePosition } from '../pm-plugins/utils/getNestedNodePosition';
 import { selectNode, setCursorPositionAtMovedNode } from '../pm-plugins/utils/getSelection';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
@@ -274,7 +274,7 @@ export const moveNode =
 		const $mappedTo = tr.doc.resolve(mappedTo);
 
 		if (editorExperiment('advanced_layouts', true)) {
-			fireMoveNodeAnalytics(
+			attachMoveNodeAnalytics(
 				tr,
 				inputMethod,
 				resolvedNode.depth,

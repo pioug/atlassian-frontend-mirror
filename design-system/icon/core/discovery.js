@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::5e5522e588bcd3d80b7ab6c0708953ed>>
+ * @codegen <<SignedSource::0bbfe81f147120090325e09b8113563c>>
  * @codegenCommand yarn build:icon-glyphs
  */
 "use strict";
@@ -24,7 +24,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
  * - [Code](https://atlaskit.atlassian.com/packages/design-system/icon/docs/custom-icons)
  */
 const DiscoveryIcon = props => /*#__PURE__*/_react.default.createElement(_baseNew.default, Object.assign({
-  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3 1h10a2 2 0 0 1 2 2v6h-4.75C9.56 9 9 9.56 9 10.25V15H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2m7.5 10.25a.75.75 0 0 1 .75-.75h3.81l-4.56 4.56z" clip-rule="evenodd"/><path fill="#fff" fill-rule="evenodd" d="M11 5.5H4V4h7zM7 9H4V7.5h3z" clip-rule="evenodd"/>`
+  dangerouslySetGlyph: `<path fill="currentcolor" fill-rule="evenodd" d="M3 1h10a2 2 0 0 1 2 2v6h-4.75C9.56 9 9 9.56 9 10.25V15H3a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2m7.5 10.25a.75.75 0 0 1 .75-.75h3.81l-4.56 4.56zM4 9h3V7.5H4zm7-3.5H4V4h7z" clip-rule="evenodd"/>`
   // eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 }, props));
 DiscoveryIcon.displayName = 'DiscoveryIcon';

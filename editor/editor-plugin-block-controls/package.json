@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "2.16.4",
+	"version": "2.17.1",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -44,7 +44,7 @@
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/editor-tables": "^2.8.0",
-		"@atlaskit/icon": "^23.1.0",
+		"@atlaskit/icon": "^23.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/pragmatic-drag-and-drop": "^1.4.0",
 		"@atlaskit/pragmatic-drag-and-drop-auto-scroll": "^2.1.0",
@@ -118,22 +118,13 @@
 		"platform_editor_element_drag_and_drop_ed_23873": {
 			"type": "boolean"
 		},
-		"platform_editor_element_controls_chrome_input_fix": {
-			"type": "boolean"
-		},
 		"platform_editor_element_drag_and_drop_ed_24321": {
-			"type": "boolean"
-		},
-		"platform_editor_element_drag_and_drop_ed_24227": {
 			"type": "boolean"
 		},
 		"platform_editor_element_drag_and_drop_debug": {
 			"type": "boolean"
 		},
 		"platform_editor_element_drag_and_drop_ed_24885": {
-			"type": "boolean"
-		},
-		"platform_editor_element_dnd_nested_fix_patch_1": {
 			"type": "boolean"
 		},
 		"platform_editor_element_dnd_nested_fix_patch_2": {
@@ -173,6 +164,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_advanced_layouts_post_fix_patch_3": {
+			"type": "boolean"
+		},
+		"platform_editor_advanced_layouts_DnD_remove_layout": {
 			"type": "boolean"
 		}
 	}

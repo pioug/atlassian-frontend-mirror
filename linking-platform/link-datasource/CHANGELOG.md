@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 3.15.9
+
+### Patch Changes
+
+- [#100700](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100700)
+  [`388b148ce267b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/388b148ce267b) -
+  Add underline to link when link datasource is not authenticated
+
 ## 3.15.8
 
 ### Patch Changes

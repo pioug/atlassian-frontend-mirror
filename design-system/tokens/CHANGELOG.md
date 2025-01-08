@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 2.5.1
+
+### Patch Changes
+
+- [#98010](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98010)
+  [`3f5da8c4a3240`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f5da8c4a3240) -
+  Adjusted bold weights for typography refreshed theme
+
 ## 2.5.0
 
 ### Minor Changes

@@ -13,7 +13,6 @@ import type { EditorAppearance, ExtractInjectionAPI } from '@atlaskit/editor-com
 import { type Slice } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExpandPlugin } from '../../types';
@@ -79,10 +78,7 @@ export const createPlugin = (
 			// Ignored via go/ees005
 			// eslint-disable-next-line @typescript-eslint/max-params
 			handleDrop(view, event, slice, moved) {
-				if (fg('platform_editor_nest_nested_expand_drag_fix')) {
-					return handleExpandDrag(view, event, slice);
-				}
-				return false;
+				return handleExpandDrag(view, event, slice);
 			},
 		},
 		// @see ED-8027 to follow up on this work-around

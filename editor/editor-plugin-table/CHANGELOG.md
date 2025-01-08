@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 9.0.1
+
+### Patch Changes
+
+- [#98104](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98104)
+  [`7c7c2dc094742`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7c7c2dc094742) -
+  [ux] [ED-25529] This change adds padding to nested tables when active, to allow space for the row
+  and column controls. It also prevents the Insert Row/ Insert Column buttons from being hidden too
+  early.
+
 ## 9.0.0
 
 ### Major Changes

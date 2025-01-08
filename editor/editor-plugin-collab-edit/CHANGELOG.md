@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 2.1.2
+
+### Patch Changes
+
+- [#100928](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100928)
+  [`eba68aa8d7074`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eba68aa8d7074) -
+  Added more attributes to `blockedAttrsList`
+
 ## 2.1.1
 
 ### Patch Changes

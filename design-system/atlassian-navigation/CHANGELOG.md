@@ -1,5 +1,15 @@
 # @atlaskit/atlassian-navigation
 
+## 4.10.2
+
+### Patch Changes
+
+- [#98559](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98559)
+  [`863b3f6a0adba`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/863b3f6a0adba) - -
+  Remove `Appearance` from app switcher prop
+  - Update a few example usages
+- Updated dependencies
+
 ## 4.10.1
 
 ### Patch Changes

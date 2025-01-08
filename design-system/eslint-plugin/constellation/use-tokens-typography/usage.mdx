@@ -56,3 +56,7 @@ css({ font: token('font.body') });
 
 `enableUnsafeAutofix`: Rule creates errors with autofixes instead of suggestions. Defaults to
 `false`.
+
+`patterns`: Array of patterns to enable, new patterns will gradually be rolled out behind this
+config option. Available patterns `style-object`, `font-weight`, `font-family`, `banned-properties`,
+`restricted-capitalisation`. Defaults to `['style-object']`.

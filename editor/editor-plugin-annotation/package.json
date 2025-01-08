@@ -41,7 +41,7 @@
 		"@atlaskit/editor-plugin-editor-viewmode-effects": "^1.1.0",
 		"@atlaskit/editor-plugin-feature-flags": "^1.2.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
-		"@atlaskit/icon": "^23.1.0",
+		"@atlaskit/icon": "^23.2.0",
 		"@atlaskit/onboarding": "^12.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/tmp-editor-statsig": "^2.32.0",

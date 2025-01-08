@@ -42,7 +42,7 @@
 		"@atlaskit/editor-plugin-paste": "^2.0.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
-		"@atlaskit/icon": "^23.1.0",
+		"@atlaskit/icon": "^23.2.0",
 		"@atlaskit/tokens": "^2.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",

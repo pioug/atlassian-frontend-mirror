@@ -247,6 +247,26 @@ const invalidTestCases = (property: string) => {
 			`,
 			errors: [{ messageId: 'expandSpacingShorthand' }],
 		},
+		// Template literal containing expressions that is not token should only throw error with no autofix
+		{
+			name: `${property}: property value template string where it contains an expression that is not a token`,
+			code: outdent`
+			import {css} from '@compiled/react';
+			const styles = css({
+				${property}: \`\${token('space.100', '8px')} \${gridSize * 2}px\`,
+			});
+			const styles2 = css({
+				padding: \`\${DROPDOWN_HEADER_VERTICAL_PADDING} \${token('space.075','6px')} 
+					\${DROPDOWN_HEADER_VERTICAL_PADDING} \${token('space.200', '16px')}\`,
+			});
+			const styles3 = css({
+				${property}: \`\${token('space.050', '4px')} \${token('space.150', '12px')} \${token('space.150', '12px')} 
+					\${({ isSummaryView }: EditFormContentWrapperProps) =>
+					isSummaryView ? token('space.0', '0') : token('space.150', '12px')}\`,
+			});
+			`,
+			errors: Array.from(Array(3), () => ({ messageId: 'expandSpacingShorthand' })),
+		},
 		// Miscellaneous
 		{
 			name: `${property}: new property should not be created if existing property already exists`,
@@ -322,6 +342,50 @@ const invalidTestCases = (property: string) => {
 			`,
 			errors: Array.from(Array(3), () => ({ messageId: 'expandSpacingShorthand' })),
 		},
+		{
+			name: `${property}: property value includes newline and tab`,
+			code: outdent`
+			import {css} from '@compiled/react';
+			const styles = css({
+				${property}: \`\${token('space.100')} \${token('space.200')}
+					\${token('space.300')} \${token('space.400')}\`,
+			});
+			`,
+			output: outdent`
+			import {css} from '@compiled/react';
+			const styles = css({
+				${property}Top: token('space.100'),
+				${property}Right: token('space.200'),
+				${property}Bottom: token('space.300'),
+				${property}Left: token('space.400'),
+			});
+			`,
+			errors: [{ messageId: 'expandSpacingShorthand' }],
+		},
+		// TODO (AFB-1022): Resolve this failing test
+		// {
+		//  name: `${property}: styled components with prop input`,
+		//  code: outdent`
+		//  import { styled } from '@compiled/react';
+		//  const MenuOptionWrapper = styled.div<{ isDisabled: boolean }>({
+		//      '& button': ({ isDisabled }) => ({
+		//          ${property}: \`\${token('space.075', '6px')} \${token('space.200', '16px')}\`,
+		//      }),
+		//  });
+		//  `,
+		//  output: outdent`
+		//  import { styled } from '@compiled/react';
+		//  const MenuOptionWrapper = styled.div<{ isDisabled: boolean }>({
+		//      '& button': ({ isDisabled }) => ({
+		//          ${property}Top: token('space.075', '6px'),
+		//      ${property}Right: token('space.200', '16px'),
+		//      ${property}Bottom: token('space.075', '6px'),
+		//      ${property}Left: token('space.200', '16px'),
+		//      }),
+		//  });
+		//  `,
+		//  errors: [{ messageId: 'expandSpacingShorthand' }],
+		// },
 	];
 };
 

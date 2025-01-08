@@ -67,7 +67,7 @@ const SwitcherData = ({ update }: SwitcherDataProps) => {
 				Switch to
 			</h3>
 			<div style={{ padding: `0 ${token('space.200', '16px')}` }}>
-				<AtlassianSwitcher product="jira" cloudId="some-cloud-id" appearance="standalone" />
+				<AtlassianSwitcher product="jira" cloudId="some-cloud-id" />
 			</div>
 		</div>
 	) : (

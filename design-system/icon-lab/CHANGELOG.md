@@ -1,5 +1,22 @@
 # @atlaskit/icon-lab
 
+## 2.1.0
+
+### Minor Changes
+
+- [#100878](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100878)
+  [`46c4545aa5d77`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/46c4545aa5d77) -
+  This release updates icons in `@atlaskit/icon-lab`.
+
+  **`@atlaskit/icon-lab/core`**
+
+  - 'initiative'
+  - 'qr-code'
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.0
 
 ### Major Changes

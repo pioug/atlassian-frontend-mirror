@@ -1,5 +1,24 @@
 # @atlaskit/icon
 
+## 23.2.0
+
+### Minor Changes
+
+- [#100878](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100878)
+  [`435ae22dc9289`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/435ae22dc9289) -
+  This release updates icons in `@atlaskit/icon`.
+
+  **`@atlaskit/icon/core`**
+
+  - 'discovery'
+  - 'field-radio-group'
+  - 'mention'
+  - 'story'
+  - 'video-skip-backward-fifteen'
+  - 'video-skip-backward-ten'
+  - 'video-skip-forward-fifteen'
+  - 'video-skip-forward-ten'
+
 ## 23.1.1
 
 ### Patch Changes

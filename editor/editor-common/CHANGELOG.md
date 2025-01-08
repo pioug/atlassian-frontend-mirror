@@ -1,5 +1,13 @@
 # @atlaskit/editor-common
 
+## 98.2.2
+
+### Patch Changes
+
+- [#101320](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101320)
+  [`ad1da3dec7ebe`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad1da3dec7ebe) -
+  [ED-25272] Replace optional chain when checking the SSR variable
+
 ## 98.2.1
 
 ### Patch Changes

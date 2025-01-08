@@ -13,7 +13,7 @@ import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { maxLayoutColumnSupported } from '../pm-plugins/utils/consts';
 import {
 	fireInsertLayoutAnalytics,
-	fireMoveNodeAnalytics,
+	attachMoveNodeAnalytics,
 } from '../pm-plugins/utils/fire-analytics';
 import { removeFromSource } from '../pm-plugins/utils/remove-from-source';
 import { updateColumnWidths } from '../pm-plugins/utils/update-column-widths';
@@ -81,7 +81,7 @@ const moveToExistingLayout = (
 			tr.setSelection(new NodeSelection(tr.doc.resolve(mappedTo))).scrollIntoView();
 		}
 
-		fireMoveNodeAnalytics(
+		attachMoveNodeAnalytics(
 			tr,
 			INPUT_METHOD.DRAG_AND_DROP,
 			$originalFrom.depth,
@@ -101,7 +101,7 @@ const moveToExistingLayout = (
 			removeFromSource(tr, tr.doc.resolve(mappedFrom));
 		}
 
-		fireMoveNodeAnalytics(
+		attachMoveNodeAnalytics(
 			tr,
 			INPUT_METHOD.DRAG_AND_DROP,
 			$originalFrom.depth,

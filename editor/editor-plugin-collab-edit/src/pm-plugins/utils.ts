@@ -241,7 +241,14 @@ export const originalTransactionHasMeta = (
  *
  * Steps analycs dashboard: https://atlassian-discover.cloud.databricks.com/dashboardsv3/01ef4d3c8aa916c8b0cb5332a9f37caf/published?o=4482001201517624
  */
-const blockedAttrsList = ['__contextId', 'localId', '__autoSize', 'attr_colwidth'];
+const blockedAttrsList = [
+	'__contextId',
+	'localId',
+	'__autoSize',
+	'attr_colwidth',
+	'originalHeight',
+	'originalWidth',
+];
 
 /**
  * Takes the transaction and editor state and checks if the transaction is considered organic change

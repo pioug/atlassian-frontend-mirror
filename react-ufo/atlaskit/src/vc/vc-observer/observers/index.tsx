@@ -45,6 +45,20 @@ type ConstructorOptions = {
 	selectorConfig: SelectorConfig;
 };
 
+function isElementVisible(target: Element): boolean {
+	if (!target || typeof target.checkVisibility !== 'function') {
+		return true;
+	}
+
+	const isVisible = target.checkVisibility({
+		contentVisibilityAuto: true,
+		opacityProperty: true,
+		visibilityProperty: true,
+	} as CheckVisibilityOptions);
+
+	return isVisible;
+}
+
 function isInsideEditorContainer(target: Element): boolean {
 	if (!target || typeof target.closest !== 'function') {
 		return false;
@@ -331,13 +345,7 @@ export class Observers implements BrowserObservers {
 							}
 
 							if (fg('platform-ufo-invisible-element-vc-calculations')) {
-								const isVisible = target.checkVisibility({
-									contentVisibilityAuto: true,
-									opacityProperty: true,
-									visibilityProperty: true,
-								} as CheckVisibilityOptions);
-
-								if (!isVisible) {
+								if (!isElementVisible(target)) {
 									data.ignoreReason = 'not-visible';
 								}
 							}

@@ -43,6 +43,34 @@ const workingImgWithRemotePreview = createGenerator({
 	},
 });
 
+const abuseImage = createGenerator({
+	type: 'file',
+	id: '020c195b-a2ad-49b7-9b18-f13ef014bf75',
+	collection: 'MediaServicesSample',
+	details: {
+		mediaType: 'image',
+		mimeType: 'image/png',
+		name: 'abuse-img.png',
+		size: 104567,
+		processingStatus: 'succeeded',
+		artifacts: {
+			'image.jpg': {
+				url: '/file/020c195b-a2ad-49b7-9b18-f13ef014bf75/artifact/image.jpg/binary',
+				processingStatus: 'succeeded',
+			},
+			'image.png': {
+				url: '/file/020c195b-a2ad-49b7-9b18-f13ef014bf75/artifact/image.png/binary',
+				processingStatus: 'succeeded',
+			},
+		},
+		representations: {
+			image: {},
+		},
+		createdAt: 1693368330362,
+		abuseClassification: { classification: 'ABHORRENT', confidence: 'HIGH' },
+	},
+});
+
 const workingImgWithRemotePreviewInRecentsCollection = createGenerator({
 	type: 'file',
 	id: '89a0d87e-bb0d-4d86-871a-9ae1ee434ae8',
@@ -411,6 +439,23 @@ const failedVideo = createGenerator({
 	},
 });
 
+const abuseFailedVideo = createGenerator({
+	type: 'file',
+	id: 'e558199f-f982-4d23-93eb-313be5998d1b',
+	collection: 'MediaServicesSample',
+	details: {
+		mediaType: 'video',
+		mimeType: 'video/mp4',
+		name: 'fail_vid.mp4',
+		size: 471770085,
+		processingStatus: 'failed',
+		artifacts: {},
+		representations: {},
+		createdAt: 1527753388321,
+		abuseClassification: { classification: 'ILLICIT', confidence: 'MEDIUM' },
+	},
+});
+
 const workingAudioWithoutRemotePreview = createGenerator({
 	type: 'file',
 	id: 'a965c8df-1d64-4db8-9de5-16dfa8fd2e12',
@@ -621,6 +666,36 @@ const svg = createGenerator({
 	},
 });
 
+const abuseSvg = createGenerator({
+	type: 'file',
+	id: 'd4fb1cef-d845-42d4-beca-7b185966f4d6',
+	collection: 'MediaServicesSample',
+	details: {
+		mediaType: 'image',
+		mimeType: 'image/svg+xml',
+		name: 'car.svg',
+		size: 527014,
+		processingStatus: 'succeeded',
+		artifacts: {
+			'image.jpg': {
+				url: '/file/d4fb1cef-d845-42d4-beca-7b185966f4d6/artifact/image.jpg/binary',
+				processingStatus: 'succeeded',
+			},
+			'image.webp': {
+				url: '/file/d4fb1cef-d845-42d4-beca-7b185966f4d6/artifact/image.webp/binary',
+
+				processingStatus: 'succeeded',
+			},
+		},
+		representations: {
+			image: {},
+		},
+
+		createdAt: 1708310473485,
+		abuseClassification: { classification: 'MALICIOUS', confidence: 'MEDIUM' },
+	},
+});
+
 const svgWithoutPreview = createGenerator({
 	type: 'file',
 	id: 'd4fb1cef-d845-42d4-beca-7b185966f4d6',
@@ -687,4 +762,7 @@ export const generateSampleFileItem = {
 	svg,
 	svgWithoutPreview,
 	svgFailedProcessing,
+	abuseImage,
+	abuseSvg,
+	abuseFailedVideo,
 };

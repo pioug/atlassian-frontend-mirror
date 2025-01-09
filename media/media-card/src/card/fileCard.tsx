@@ -23,8 +23,20 @@ import {
 	type SSR,
 	isVideoMimeTypeSupportedByBrowser,
 } from '@atlaskit/media-common';
-import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
-import React, { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import {
+	MediaViewer,
+	type ViewerOptionsProps,
+	MediaViewerWithPortal,
+} from '@atlaskit/media-viewer';
+import React, {
+	Suspense,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+	createRef,
+	useCallback,
+} from 'react';
 import ReactDOM from 'react-dom';
 import { useMergeRefs } from 'use-callback-ref';
 import { MediaCardError } from '../errors';
@@ -65,6 +77,16 @@ import { performanceNow } from './performance';
 import { useContext } from 'react';
 import { DateOverrideContext } from '../dateOverrideContext';
 import { useIntl } from 'react-intl-next';
+import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+const MediaViewerComponent = (props: React.ComponentProps<typeof MediaViewer>) => {
+	if (fg('media_card_replace_react_portal_for_ds_portal')) {
+		return <MediaViewerWithPortal {...props} />;
+	} else {
+		return ReactDOM.createPortal(<MediaViewer {...props} />, document.body);
+	}
+};
 
 export interface FileCardProps extends CardEventProps {
 	/** Overlay the media file. */
@@ -149,6 +171,7 @@ export const FileCard = ({
 	includeHashForDuplicateFiles,
 }: FileCardProps) => {
 	const { formatMessage } = useIntl();
+	const openModalRef = createRef<() => void>();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	//----------------------------------------------------------------//
 	//------------ State, Refs & Initial Values ----------------------//
@@ -321,31 +344,48 @@ export const FileCard = ({
 		};
 	}, [fileStateValue?.status, metadata.id, metadata.mediaType, metadata.mimeType, metadata.size]);
 
+	const downloadFn = useCallback(async () => {
+		try {
+			await mediaClient.file.downloadBinary(
+				identifier.id,
+				metadata.name,
+				identifier.collectionName,
+				traceContext,
+			);
+			fireDownloadSucceededEvent(
+				createAnalyticsEvent,
+				fileAttributes,
+				traceContext,
+				fileStateValue?.metadataTraceContext,
+			);
+		} catch (e) {
+			const error = new MediaCardError('download', e as Error);
+			fireDownloadFailedEvent(
+				createAnalyticsEvent,
+				fileAttributes,
+				error,
+				traceContext,
+				fileStateValue?.metadataTraceContext,
+			);
+		}
+	}, [
+		createAnalyticsEvent,
+		fileAttributes,
+		fileStateValue?.metadataTraceContext,
+		identifier.collectionName,
+		identifier.id,
+		mediaClient.file,
+		metadata.name,
+		traceContext,
+	]);
+
 	const computedActions = useMemo(() => {
 		if (finalStatus === 'failed-processing' || shouldEnableDownloadButton) {
 			const handler = async () => {
-				try {
-					await mediaClient.file.downloadBinary(
-						identifier.id,
-						metadata.name,
-						identifier.collectionName,
-						traceContext,
-					);
-					fireDownloadSucceededEvent(
-						createAnalyticsEvent,
-						fileAttributes,
-						traceContext,
-						fileStateValue?.metadataTraceContext,
-					);
-				} catch (e) {
-					const error = new MediaCardError('download', e as Error);
-					fireDownloadFailedEvent(
-						createAnalyticsEvent,
-						fileAttributes,
-						error,
-						traceContext,
-						fileStateValue?.metadataTraceContext,
-					);
+				if (!!fileStateValue?.abuseClassification) {
+					openModalRef.current?.();
+				} else {
+					await downloadFn();
 				}
 			};
 			const downloadAction = createDownloadAction(
@@ -361,18 +401,13 @@ export const FileCard = ({
 		}
 	}, [
 		actions,
-		identifier.collectionName,
-		identifier.id,
-		mediaClient.file,
 		mediaClient.config.enforceDataSecurityPolicy,
-		metadata.name,
 		shouldEnableDownloadButton,
 		finalStatus,
-		createAnalyticsEvent,
-		fileAttributes,
-		fileStateValue?.metadataTraceContext,
-		traceContext,
 		formatMessage,
+		fileStateValue?.abuseClassification,
+		openModalRef,
+		downloadFn,
 	]);
 
 	//----------------------------------------------------------------//
@@ -810,6 +845,11 @@ export const FileCard = ({
 
 	return (
 		<>
+			<AbuseModal
+				ref={openModalRef}
+				onConfirm={downloadFn}
+				shouldMount={!!fileStateValue?.abuseClassification}
+			/>
 			{isPlayingFile ? (
 				<Suspense fallback={inlinePlayerFallback}>
 					<InlinePlayerLazy
@@ -834,23 +874,20 @@ export const FileCard = ({
 			) : (
 				renderCard()
 			)}
-			{mediaViewerSelectedItem
-				? ReactDOM.createPortal(
-						<MediaViewer
-							collectionName={collectionName}
-							items={mediaViewerItems || []}
-							mediaClientConfig={mediaClient.config}
-							selectedItem={mediaViewerSelectedItem}
-							onClose={() => {
-								setMediaViewerSelectedItem(null);
-							}}
-							contextId={contextId}
-							featureFlags={featureFlags}
-							viewerOptions={viewerOptions}
-						/>,
-						document.body,
-					)
-				: null}
+			{mediaViewerSelectedItem ? (
+				<MediaViewerComponent
+					collectionName={collectionName}
+					items={mediaViewerItems || []}
+					mediaClientConfig={mediaClient.config}
+					selectedItem={mediaViewerSelectedItem}
+					onClose={() => {
+						setMediaViewerSelectedItem(null);
+					}}
+					contextId={contextId}
+					featureFlags={featureFlags}
+					viewerOptions={viewerOptions}
+				/>
+			) : null}
 			{/* Print the SSR result to be used during hydration */}
 			{getSsrScriptProps && <script {...getSsrScriptProps()} />}
 		</>

@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 29.0.1
+
+### Patch Changes
+
+- [#97492](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97492)
+  [`5195c4fd974a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5195c4fd974a3) -
+  Extended internal types with AbuseClassification attribute
+
 ## 29.0.0
 
 ### Major Changes

@@ -16,7 +16,6 @@ import { gridSize as gridSizeFn, layers } from '@atlaskit/theme/constants';
 
 import FocusManager from './internal/components/focus-manager';
 import MenuWrapper from './internal/components/menu-wrapper';
-import { DropdownMenuProvider } from './internal/context/dropdown-menu-context';
 import SelectionStore from './internal/context/selection-store';
 import useRegisterItemWithFocusManager from './internal/hooks/use-register-item-with-focus-manager';
 import useGeneratedId, { PREFIX } from './internal/utils/use-generated-id';
@@ -249,83 +248,86 @@ const DropdownMenu = <T extends HTMLElement = any>({
 
 	return (
 		<SelectionStore>
-			<DropdownMenuProvider value={{ returnFocusRef: triggerRef }}>
-				<Popup
-					id={isLocalOpen ? id : undefined}
-					shouldFlip={shouldFlip}
-					isOpen={isLocalOpen}
-					onClose={handleOnClose}
-					zIndex={zIndex}
-					placement={placement}
-					fallbackPlacements={fallbackPlacements}
-					testId={testId && `${testId}--content`}
-					shouldUseCaptureOnOutsideClick
-					{...conditionalProps}
-					shouldDisableFocusLock
-					trigger={({
-						ref,
-						'aria-controls': ariaControls,
-						'aria-expanded': ariaExpanded,
-						'aria-haspopup': ariaHasPopup,
-						// DSP-13312 TODO: remove spread props in future major release
-						...rest
-					}: TriggerProps) => {
-						if (typeof trigger === 'function') {
-							return trigger({
-								'aria-controls': ariaControls,
-								'aria-expanded': ariaExpanded,
-								'aria-haspopup': ariaHasPopup,
-								...rest,
-								...bindFocus,
-								triggerRef: mergeRefs([ref, triggerRef, itemRef]),
-								isSelected: isLocalOpen,
-								onClick: handleTriggerClicked,
-								testId: testId && `${testId}--trigger`,
-							});
-						}
+			<Popup
+				id={isLocalOpen ? id : undefined}
+				shouldFlip={shouldFlip}
+				isOpen={isLocalOpen}
+				shouldReturnFocus={
+					// If returnFocusRef is provided, we **don't** want to return focus to the trigger.
+					// Otherwise, Popup will focus on the dropdown trigger after the `returnFocusRef` element is focused.
+					fg('platform_dst_dropdown_return_focus_fix') ? returnFocusRef === undefined : undefined
+				}
+				onClose={handleOnClose}
+				zIndex={zIndex}
+				placement={placement}
+				fallbackPlacements={fallbackPlacements}
+				testId={testId && `${testId}--content`}
+				shouldUseCaptureOnOutsideClick
+				{...conditionalProps}
+				shouldDisableFocusLock
+				trigger={({
+					ref,
+					'aria-controls': ariaControls,
+					'aria-expanded': ariaExpanded,
+					'aria-haspopup': ariaHasPopup,
+					// DSP-13312 TODO: remove spread props in future major release
+					...rest
+				}: TriggerProps) => {
+					if (typeof trigger === 'function') {
+						return trigger({
+							'aria-controls': ariaControls,
+							'aria-expanded': ariaExpanded,
+							'aria-haspopup': ariaHasPopup,
+							...rest,
+							...bindFocus,
+							triggerRef: mergeRefs([ref, triggerRef, itemRef]),
+							isSelected: isLocalOpen,
+							onClick: handleTriggerClicked,
+							testId: testId && `${testId}--trigger`,
+						});
+					}
 
-						return (
-							<Button
-								{...bindFocus}
-								ref={mergeRefs([ref, triggerRef, itemRef])}
-								aria-controls={ariaControls}
-								aria-expanded={ariaExpanded}
-								aria-haspopup={ariaHasPopup}
-								isSelected={isLocalOpen}
-								iconAfter={ExpandIcon}
-								onClick={handleTriggerClicked}
-								testId={testId && `${testId}--trigger`}
-								aria-label={label}
-								{...(fg('platform_button_item-add-ufo-metrics') && { interactionName })}
-							>
-								{trigger}
-							</Button>
-						);
-					}}
-					content={({ setInitialFocusRef, update }) => (
-						<FocusManager onClose={handleOnClose}>
-							<MenuWrapper
-								spacing={spacing}
-								maxHeight={MAX_HEIGHT}
-								maxWidth={shouldFitContainer ? undefined : 800}
-								onClose={handleOnClose}
-								onUpdate={update}
-								isLoading={isLoading}
-								statusLabel={statusLabel}
-								setInitialFocusRef={
-									isTriggeredUsingKeyboard || autoFocus ? setInitialFocusRef : undefined
-								}
-								shouldRenderToParent={shouldRenderToParent || shouldFitContainer}
-								isTriggeredUsingKeyboard={isTriggeredUsingKeyboard}
-								autoFocus={autoFocus}
-								testId={testId && `${testId}--menu-wrapper`}
-							>
-								{children}
-							</MenuWrapper>
-						</FocusManager>
-					)}
-				/>
-			</DropdownMenuProvider>
+					return (
+						<Button
+							{...bindFocus}
+							ref={mergeRefs([ref, triggerRef, itemRef])}
+							aria-controls={ariaControls}
+							aria-expanded={ariaExpanded}
+							aria-haspopup={ariaHasPopup}
+							isSelected={isLocalOpen}
+							iconAfter={ExpandIcon}
+							onClick={handleTriggerClicked}
+							testId={testId && `${testId}--trigger`}
+							aria-label={label}
+							{...(fg('platform_button_item-add-ufo-metrics') && { interactionName })}
+						>
+							{trigger}
+						</Button>
+					);
+				}}
+				content={({ setInitialFocusRef, update }) => (
+					<FocusManager onClose={handleOnClose}>
+						<MenuWrapper
+							spacing={spacing}
+							maxHeight={MAX_HEIGHT}
+							maxWidth={shouldFitContainer ? undefined : 800}
+							onClose={handleOnClose}
+							onUpdate={update}
+							isLoading={isLoading}
+							statusLabel={statusLabel}
+							setInitialFocusRef={
+								isTriggeredUsingKeyboard || autoFocus ? setInitialFocusRef : undefined
+							}
+							shouldRenderToParent={shouldRenderToParent || shouldFitContainer}
+							isTriggeredUsingKeyboard={isTriggeredUsingKeyboard}
+							autoFocus={autoFocus}
+							testId={testId && `${testId}--menu-wrapper`}
+						>
+							{children}
+						</MenuWrapper>
+					</FocusManager>
+				)}
+			/>
 		</SelectionStore>
 	);
 };

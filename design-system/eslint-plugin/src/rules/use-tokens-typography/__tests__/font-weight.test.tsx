@@ -17,6 +17,14 @@ export const typographyTests: Tests = {
 					fontWeight: token('font.weight.medium'),
 				})`,
 		},
+		// Should not error on inherit
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = css({
+					fontWeight: 'inherit',
+				})`,
+		},
 		// Should not error on non style object
 		{
 			options: [{ patterns: ['font-weight'] }],

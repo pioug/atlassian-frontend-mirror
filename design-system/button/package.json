@@ -118,7 +118,7 @@
 		"@atlaskit/app-provider": "^1.4.0",
 		"@atlaskit/calendar": "^16.1.0",
 		"@atlaskit/checkbox": "^15.2.0",
-		"@atlaskit/dropdown-menu": "^12.23.0",
+		"@atlaskit/dropdown-menu": "^12.24.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/visual-regression": "*",

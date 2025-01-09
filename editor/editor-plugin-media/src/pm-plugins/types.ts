@@ -4,6 +4,7 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import type { Identifier } from '@atlaskit/media-client';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 
 import type {
@@ -76,6 +77,7 @@ export interface MediaPluginState {
 	removeSelectedMediaContainer: () => boolean;
 	selectedMediaContainerNode: () => PMNode | undefined;
 	handleDrag: (dragState: 'enter' | 'leave') => void;
+	isIdentifierInEditorScope: (identifier: Identifier) => boolean;
 
 	updateElement(): void;
 	setIsResizing(isResizing: boolean): void;

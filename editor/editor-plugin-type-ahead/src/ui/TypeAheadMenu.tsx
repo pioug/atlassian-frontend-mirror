@@ -22,8 +22,15 @@ type TypeAheadMenuType = {
 export const TypeAheadMenu = React.memo(
 	({ editorView, popupMountRef, typeAheadState, api }: TypeAheadMenuType) => {
 		const isOpen = typeAheadState.decorationSet.find().length > 0;
-		const { triggerHandler, items, selectedIndex, decorationElement, decorationSet, query } =
-			typeAheadState;
+		const {
+			triggerHandler,
+			items,
+			errorInfo,
+			selectedIndex,
+			decorationElement,
+			decorationSet,
+			query,
+		} = typeAheadState;
 
 		const [onItemInsert, onTextInsert, onItemMatch] = useItemInsert(
 			// Ignored via go/ees005
@@ -90,7 +97,7 @@ export const TypeAheadMenu = React.memo(
 			!isOpen ||
 			!triggerHandler ||
 			!(decorationElement instanceof HTMLElement) ||
-			items.length === 0
+			(items.length === 0 && !errorInfo)
 		) {
 			return null;
 		}
@@ -104,6 +111,7 @@ export const TypeAheadMenu = React.memo(
 				anchorElement={decorationElement}
 				triggerHandler={triggerHandler}
 				items={items}
+				errorInfo={errorInfo}
 				selectedIndex={selectedIndex}
 				setSelectedItem={setSelectedItem}
 				onItemInsert={insertItem}

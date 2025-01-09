@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.43.14
+
+### Patch Changes
+
+- [#99761](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99761)
+  [`5198e1423c62c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5198e1423c62c) -
+  ED-25404 remove extra paragraphs added to media single nodes
+
 ## 1.43.13
 
 ### Patch Changes

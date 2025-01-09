@@ -1,5 +1,14 @@
 # @atlaskit/adf-utils
 
+## 19.15.0
+
+### Minor Changes
+
+- [#100845](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100845)
+  [`bd4c63b5f9688`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd4c63b5f9688) -
+  [ED-26055] Export a function from adf-utils used to detect the use of the nested-tables extension,
+  and add calculation of unexpectedly nested tables to editor-common utils
+
 ## 19.14.1
 
 ### Patch Changes

@@ -232,12 +232,28 @@ export const getToolbarConfig =
 						state: { schema, selection },
 					} = editorView;
 					const extensionNode = getSelectedExtension(state, true);
+
 					const possibleMbeParent = findParentNodeOfType(schema.nodes.extensionFrame)(selection);
 					// We only want to use calculated position in case of a bodiedExtension present inside an MBE node
 					const isBodiedExtensionInsideMBE =
 						possibleMbeParent && extensionNode?.node.type.name === 'bodiedExtension';
-					if (!isBodiedExtensionInsideMBE) {
-						return nextPos;
+
+					if (fg('platform_editor_legacy_content_macro')) {
+						if (!extensionNode) {
+							return nextPos;
+						}
+
+						const isInsideEditableExtensionArea = !!editorView.dom.closest(
+							'.extension-editable-area',
+						);
+
+						if (!isBodiedExtensionInsideMBE && !isInsideEditableExtensionArea) {
+							return nextPos;
+						}
+					} else {
+						if (!isBodiedExtensionInsideMBE) {
+							return nextPos;
+						}
 					}
 					const scrollWrapper =
 						editorView.dom.closest('.fabric-editor-popup-scroll-parent') || document.body;

@@ -3,11 +3,11 @@ import {
 	type ImageResizeMode,
 	type FileIdentifier,
 	type MediaClientConfig,
+	isErrorFileState,
 } from '@atlaskit/media-client';
 import { Card } from '../src';
-import { usePrepareMediaState } from '../src/__tests__/utils/mockedMediaClientProvider/_usePrepareMediaState';
 import { generateItemWithBinaries } from '@atlaskit/media-test-data';
-import { MediaClientProvider } from '@atlaskit/media-client-react';
+import { MediaClientProvider, useFileState } from '@atlaskit/media-client-react';
 import { svgFileIds } from '@atlaskit/media-client/test-helpers';
 import { createStorybookMediaClientConfig } from '@atlaskit/media-test-helpers';
 import Button from '@atlaskit/button';
@@ -20,6 +20,7 @@ import {
 	delayApiResponses,
 	errorApiResponses,
 } from '../example-helpers/svg-helpers';
+import { useCreateMockedMediaClientProviderWithBinaries } from '../src/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 
@@ -34,22 +35,28 @@ const RenderCardBlock = ({
 	identifiers: FileIdentifier[];
 	disableOverlay: boolean;
 }) => {
+	const { fileState } = useFileState(identifier.id, { collectionName: identifier.collectionName });
+	const fileName = fileState && !isErrorFileState(fileState) ? fileState.name : 'Loading...';
+
 	return (
-		<CardRow>
-			{resizeModes.map((resizeMode) => (
-				<CardBox key={`${identifier.id}-${resizeMode}`} title={resizeMode}>
-					<Card
-						mediaClientConfig={dummyMediaClientConfig}
-						identifier={identifier}
-						isLazy={false}
-						shouldOpenMediaViewer
-						mediaViewerItems={identifiers}
-						disableOverlay={disableOverlay}
-						resizeMode={resizeMode}
-					/>
-				</CardBox>
-			))}
-		</CardRow>
+		<>
+			<h3>{fileName}</h3>
+			<CardRow>
+				{resizeModes.map((resizeMode) => (
+					<CardBox key={`${identifier.id}-${resizeMode}`} title={resizeMode}>
+						<Card
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+							shouldOpenMediaViewer
+							mediaViewerItems={identifiers}
+							disableOverlay={disableOverlay}
+							resizeMode={resizeMode}
+						/>
+					</CardBox>
+				))}
+			</CardRow>
+		</>
 	);
 };
 
@@ -76,13 +83,13 @@ const Example = ({
 
 const { svgAjDigitalCamera, svgCar, svgAtom, svgOpenWeb, failedProcessing, binaryCorrupted } =
 	generateItemWithBinaries.svg;
-const generators = [
-	svgAjDigitalCamera,
-	svgCar,
-	svgAtom,
-	svgOpenWeb,
-	failedProcessing,
-	binaryCorrupted,
+const initialItems = [
+	svgAjDigitalCamera(),
+	svgCar(),
+	svgAtom(),
+	svgOpenWeb(),
+	failedProcessing(),
+	binaryCorrupted(),
 ];
 
 const MockedProvider = ({
@@ -98,15 +105,15 @@ const MockedProvider = ({
 	imageFetchError: boolean;
 	disableOverlay: boolean;
 }) => {
-	const [{ MockedMediaClientProvider, mediaApi, uploadItem }, identifiers, itemsWithBinaries] =
-		usePrepareMediaState(generators);
+	const { MockedMediaClientProvider, mediaApi, uploadItem, identifiers, items } =
+		useCreateMockedMediaClientProviderWithBinaries({ initialItems });
 
 	if (identifiers.length === 0) {
 		return <div>Preparing Media State</div>;
 	}
 
 	if (uploadingFile) {
-		itemsWithBinaries.forEach((item) => {
+		items.forEach((item) => {
 			uploadItem(item, 0.5);
 		});
 	}

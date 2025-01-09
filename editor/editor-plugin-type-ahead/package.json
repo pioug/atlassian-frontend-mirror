@@ -40,8 +40,10 @@
 		"@atlaskit/editor-plugin-connectivity": "^1.1.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
+		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
+		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^2.5.0",
@@ -94,6 +96,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_react18_plugin_portalprovider": {
+			"type": "boolean"
+		},
+		"platform_editor_offline_editing_ga": {
 			"type": "boolean"
 		}
 	}

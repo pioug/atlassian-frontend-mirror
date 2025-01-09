@@ -30,10 +30,16 @@
 			"path": "../../editor-shared-styles/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/heading/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/menu/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../platform/feature-flags/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../input-rules/afm-jira/tsconfig.json"

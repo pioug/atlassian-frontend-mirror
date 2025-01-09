@@ -112,6 +112,9 @@
 		},
 		"platform_editor_mention_provider_via_plugin_config": {
 			"type": "boolean"
+		},
+		"platform_editor_offline_editing_ga": {
+			"type": "boolean"
 		}
 	}
 }

@@ -85,9 +85,9 @@ const updateMediaNodeAttributes = async (
 		await mediaNodeUpdater.updateContextId();
 	}
 
-	const hasDifferentContextId = await mediaNodeUpdater.hasDifferentContextId();
+	const shouldNodeBeDeepCopied = await mediaNodeUpdater.shouldNodeBeDeepCopied();
 
-	if (hasDifferentContextId) {
+	if (shouldNodeBeDeepCopied) {
 		// Copy paste flow (different pages)
 		try {
 			const copyNode = mediaNodeUpdater.copyNode({
@@ -111,11 +111,11 @@ export const MediaInline = (props: MediaInlineProps) => {
 	const [viewMediaClientConfig, setViewMediaClientConfig] = useState<
 		MediaClientConfig | undefined
 	>();
-	const [isContextIdUnsync, setIsContextIdUnsync] = useState<boolean>(true);
+	const [isNodeScopeUnsync, setIsNodeScopeUnsync] = useState<boolean>(true);
 
 	useEffect(() => {
 		const mediaNodeUpdater = createMediaNodeUpdater(props);
-		mediaNodeUpdater.hasDifferentContextId().then(setIsContextIdUnsync);
+		mediaNodeUpdater.shouldNodeBeDeepCopied().then(setIsNodeScopeUnsync);
 
 		handleNewNode(props);
 		updateMediaNodeAttributes(props, mediaNodeUpdater);
@@ -151,7 +151,7 @@ export const MediaInline = (props: MediaInlineProps) => {
 	 * to prevent calling the media API (in mounting of `MediaInlineCard`)
 	 * before the prerequisites meet
 	 */
-	if (!viewMediaClientConfig || isContextIdUnsync) {
+	if (!viewMediaClientConfig || isNodeScopeUnsync) {
 		return <MediaInlineCardLoadingView message="" isSelected={false} />;
 	}
 

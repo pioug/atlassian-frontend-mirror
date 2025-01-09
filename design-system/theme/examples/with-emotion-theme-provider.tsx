@@ -18,6 +18,12 @@ const Description = styled.p`
 	color: ${token('color.text', colors.N900)};
 `;
 
+declare module '@emotion/react' {
+	export interface Theme {
+		mode: 'light' | 'dark' | {};
+	}
+}
+
 export default () => (
 	<div id="emotion-theming">
 		<h2>Components wrapped in emotion theme provider</h2>

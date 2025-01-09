@@ -4,7 +4,7 @@ import { Checkbox } from '@atlaskit/checkbox';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import { Inline } from '@atlaskit/primitives';
 
-export default () => {
+export default function TestExample() {
 	const ref = useRef<HTMLInputElement>(null);
 
 	return (
@@ -22,4 +22,4 @@ export default () => {
 			<Checkbox id="checkbox3" label="Three" value="3" name="checkbox3" />
 		</Inline>
 	);
-};
+}

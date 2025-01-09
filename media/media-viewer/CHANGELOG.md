@@ -1,5 +1,20 @@
 # @atlaskit/media-viewer
 
+## 49.6.0
+
+### Minor Changes
+
+- [#97492](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97492)
+  [`5195c4fd974a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5195c4fd974a3) -
+  Integrated warning modal dialog to prevent against abuse-classified file downloads.
+
+  Exported MediaViewerWithPortal implementing internal DS Portal, for correct integration with DS
+  Modal.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 49.5.3
 
 ### Patch Changes

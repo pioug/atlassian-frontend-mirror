@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import { type FileIdentifier, type MediaClientConfig } from '@atlaskit/media-client';
 import { MediaViewer } from '../src';
-import { usePrepareMediaState } from '../src/__tests__/unit/newgen/utils/mockedMediaClientProvider/_usePrepareMediaState';
-import {
-	generateItemWithBinaries,
-	type ItemWithBinariesGenerator,
-} from '@atlaskit/media-test-data';
+import { useCreateMockedMediaClientProviderWithBinaries } from '../src/__tests__/unit/newgen/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
+import { generateItemWithBinaries } from '@atlaskit/media-test-data';
 import Select from '@atlaskit/select';
 import Button from '@atlaskit/button';
 import { CenteredForm } from '../example-helpers/centeredForm';
@@ -58,16 +55,13 @@ const Example = ({
 	);
 };
 
+const { svgCar, svgOpenWeb, svgAjDigitalCamera, svgAtom } = generateItemWithBinaries.svg;
+const generators = [svgAjDigitalCamera(), svgCar(), svgAtom(), svgOpenWeb()];
+
 const MockedProvider = () => {
-	const { svgCar, svgOpenWeb, svgAjDigitalCamera, svgAtom } = generateItemWithBinaries.svg;
 	const fileKeys = ['AjDigitalCamera', 'car', 'Atom', 'OpenWeb'];
-	const generators: Array<ItemWithBinariesGenerator> = [
-		svgAjDigitalCamera,
-		svgCar,
-		svgAtom,
-		svgOpenWeb,
-	];
-	const [{ MockedMediaClientProvider, mediaApi }, identifiers] = usePrepareMediaState(generators);
+	const { MockedMediaClientProvider, mediaApi, identifiers } =
+		useCreateMockedMediaClientProviderWithBinaries({ initialItems: generators });
 
 	if (identifiers.length === 0) {
 		return <div>Preparing Media State</div>;

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -17,7 +18,12 @@ import {
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
 import { toolbarInsertBlockMessages as messages } from '@atlaskit/editor-common/messages';
-import { buttonGroupStyle, separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
+import {
+	buttonGroupStyle,
+	buttonGroupStyleBeforeVisualRefresh,
+	separatorStyles,
+	wrapperStyle,
+} from '@atlaskit/editor-common/styles';
 import type { TOOLBAR_MENU_TYPE } from '@atlaskit/editor-common/types';
 import { Popup } from '@atlaskit/editor-common/ui';
 import type { MenuItem, ToolbarButtonRef } from '@atlaskit/editor-common/ui-menu';
@@ -32,7 +38,8 @@ import { EmojiPicker as AkEmojiPicker } from '@atlaskit/emoji/picker';
 import type { EmojiId } from '@atlaskit/emoji/types';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
-import * as colors from '@atlaskit/theme/colors';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { N20A, N30A } from '@atlaskit/theme/colors';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -57,10 +64,10 @@ const TABLE_SELECTOR_STRING = 'table selector';
 // TODO: Jenga team will create a component for a split button using this css
 const getHoverStyles = (selector: string) =>
 	`&:hover ${selector} {
-    background: ${token('color.background.neutral.subtle.hovered', colors.N20A)};
+    background: ${token('color.background.neutral.subtle.hovered', N20A)};
 
     &:hover {
-      background: ${token('color.background.neutral.hovered', colors.N30A)};
+      background: ${token('color.background.neutral.hovered', N30A)};
     }
   }`;
 
@@ -436,8 +443,16 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 		const isFullPageAppearance = ['full-page', 'full-width'].includes(editorAppearance ?? '');
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			<span css={buttonGroupStyle}>
+			<span
+				css={
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/platform/ensure-feature-flag-prefix
+					fg('platform-visual-refresh-icons')
+						? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+							buttonGroupStyle
+						: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+							buttonGroupStyleBeforeVisualRefresh
+				}
+			>
 				{toolbarButtons.map((btn) => {
 					return (
 						<ToolbarButton
@@ -467,7 +482,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 					>
 						{isTableButtonVisible && (
 							<ToolbarButton
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 								className="table-toolbar-btn"
 								item={tableButton}
 								ref={this.tableButtonRef}
@@ -486,7 +501,7 @@ export class ToolbarInsertBlock extends React.PureComponent<Props & WrappedCompo
 						)}
 						{isTableButtonVisible && (
 							<ToolbarButton
-								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+								// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop, @atlaskit/design-system/no-unsafe-style-overrides -- Ignored via go/DSP-18766
 								className="table-selector-toolbar-btn"
 								item={tableSelectorButton}
 								testId={String(tableSelectorButton?.content)}

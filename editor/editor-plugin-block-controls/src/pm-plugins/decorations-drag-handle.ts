@@ -60,11 +60,8 @@ export const dragHandleDecoration = (
 		pos,
 		(view, getPosUnsafe) => {
 			const element = document.createElement('span');
-			// Need to set it to inline to avoid text being split when merging two paragraphs
-			// platform_editor_element_dnd_nested_fix_patch_2 -> inline decoration causes focus issues when refocusing Editor into first line
-			element.style.display = fg('platform_editor_element_dnd_nested_fix_patch_2')
-				? 'block'
-				: 'inline';
+			// inline decoration causes focus issues when refocusing Editor into first line
+			element.style.display = 'block';
 			element.setAttribute('data-testid', 'block-ctrl-decorator-widget');
 			element.setAttribute('data-blocks-drag-handle-container', 'true');
 			element.setAttribute('data-blocks-drag-handle-key', key);

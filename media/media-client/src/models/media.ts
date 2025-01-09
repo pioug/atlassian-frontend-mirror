@@ -12,6 +12,11 @@ export const isPreviewableType = (type: MediaType): boolean => {
 	return defaultPreviewableTypes.indexOf(type) > -1;
 };
 
+export type AbuseClassification = {
+	classification: 'ABHORRENT' | 'MALICIOUS' | 'ILLICIT' | 'COPYRIGHT';
+	confidence: 'HIGH' | 'MEDIUM' | 'LOW';
+};
+
 export type MediaFile = {
 	readonly id: string;
 	readonly mediaType: MediaType;
@@ -24,6 +29,7 @@ export type MediaFile = {
 	readonly createdAt?: number;
 	readonly hash?: string;
 	readonly metadataTraceContext?: MediaTraceContext;
+	readonly abuseClassification?: AbuseClassification;
 };
 
 export type MediaItemDetails = {
@@ -37,6 +43,7 @@ export type MediaItemDetails = {
 	readonly createdAt?: number;
 	readonly hash?: string;
 	readonly metadataTraceContext?: MediaTraceContext;
+	readonly abuseClassification?: AbuseClassification;
 };
 
 export type NotFoundMediaItemDetails = {
@@ -53,7 +60,7 @@ export const isNotFoundMediaItemDetails = (
 };
 
 export type MediaRepresentations = {
-	image?: Object;
+	image?: object;
 };
 
 export type MediaUpload = {

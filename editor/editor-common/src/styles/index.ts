@@ -79,6 +79,7 @@ export {
 export { embedCardStyles, embedSpacingStyles } from './shared/embedCard';
 export {
 	buttonGroupStyle,
+	buttonGroupStyleBeforeVisualRefresh,
 	disableBlueBorderStyles,
 	separatorStyles,
 	wrapperStyle,

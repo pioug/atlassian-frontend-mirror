@@ -91,6 +91,7 @@ export interface PluginConfig {
 	allowColumnSorting?: boolean;
 	allowAddColumnWithCustomStep?: boolean;
 	allowCollapse?: boolean;
+	allowNestedTables?: boolean;
 	isHeaderRowRequired?: boolean;
 	/**
 	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-6877 Internal documentation for deprecation (no external access)}

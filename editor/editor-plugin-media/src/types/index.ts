@@ -28,6 +28,9 @@ export type MediaStateStatus =
 	| 'mobile-upload-end';
 
 export type MediaSingleWithType = 'pixel' | 'percentage';
+
+export type MediaCopyScope = 'editor' | 'context';
+
 export interface MediaOptions {
 	provider?: Providers['mediaProvider'];
 	/**
@@ -71,6 +74,9 @@ export interface MediaOptions {
 	// Allows consumer products to always force the positioning of resize handles when resizing media.
 	// eg: inline comment editor (chromeless) can force a smaller gap between content and resize handles
 	forceHandlePositioning?: HandlePositioning;
+	// Allows consumer products to choose if they want referential copies to occur at a context or editor level.
+	// default is context
+	mediaShallowCopyScope?: MediaCopyScope;
 }
 
 export interface MediaSingleOptions {

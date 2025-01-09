@@ -1,5 +1,13 @@
 # @atlaskit/media-client-react
 
+## 2.5.1
+
+### Patch Changes
+
+- [#97492](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97492)
+  [`5195c4fd974a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5195c4fd974a3) -
+  Updated MockedMediaClientProvider mediaStore handling
+
 ## 2.5.0
 
 ### Minor Changes

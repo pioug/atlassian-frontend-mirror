@@ -4,6 +4,7 @@
 export type {
 	MediaStateStatus,
 	MediaSingleWithType,
+	MediaCopyScope,
 	MediaOptions,
 	MediaSingleOptions,
 	MediaState,

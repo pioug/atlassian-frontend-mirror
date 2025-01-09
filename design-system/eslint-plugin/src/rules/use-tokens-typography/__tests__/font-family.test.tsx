@@ -24,6 +24,14 @@ export const typographyTests: Tests = {
 					fontFamily: token('font.family.brand.body')
 				})`,
 		},
+		// Should not error on inherit
+		{
+			options: [{ patterns: ['font-family'] }],
+			code: outdent`
+				const styles = css({
+					fontFamily: 'inherit',
+				})`,
+		},
 	],
 	invalid: [
 		// Font family uses raw value that matches with a token

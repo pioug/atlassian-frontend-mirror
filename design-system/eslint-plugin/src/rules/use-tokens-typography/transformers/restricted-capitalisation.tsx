@@ -36,6 +36,6 @@ export const RestrictedCapitalisation = {
 			return node.value.value === 'uppercase';
 		}
 
-		return true;
+		return false;
 	},
 };

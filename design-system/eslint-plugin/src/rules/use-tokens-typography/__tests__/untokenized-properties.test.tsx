@@ -25,6 +25,14 @@ export const typographyTests: Tests = {
 					font: token('font.heading.large'),
 				})`,
 		},
+		// Inherit font style properties
+		{
+			options: [{ patterns: ['untokenized-properties'] }],
+			code: outdent`
+				const styles = css({
+					font: 'inherit',
+				})`,
+		},
 	],
 	invalid: [
 		// Token value properties

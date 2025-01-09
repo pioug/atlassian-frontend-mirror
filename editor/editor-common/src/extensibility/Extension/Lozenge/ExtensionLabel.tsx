@@ -10,6 +10,7 @@ import classnames from 'classnames';
 import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import CustomizeIcon from '@atlaskit/icon/core/customize';
+import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -32,7 +33,7 @@ const labelStyles = css({
 	position: 'absolute',
 	width: 'max-content',
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-	top: '-19px',
+	top: '-28px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.show-label': {
 		cursor: 'pointer',
@@ -47,7 +48,7 @@ const labelStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.inline': {
 		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-		top: '-18px',
+		top: '-27px',
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.bodied-background': {
@@ -80,9 +81,10 @@ const labelStyles = css({
 	},
 });
 
-const spacerStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-	height: '10px',
+const spacerStyles = xcss({
+	height: 'space.200',
+	position: 'absolute',
+	width: '100%',
 });
 
 const iconStyles = css({
@@ -224,7 +226,7 @@ export const ExtensionLabel = ({
 				)}
 			</Tooltip>
 			{/* This is needed since this creates the gap between the macro and button, also provides a seamless transition when mousing over the gap. */}
-			<div css={spacerStyles} />
+			<Box xcss={spacerStyles} />
 		</div>
 	);
 };

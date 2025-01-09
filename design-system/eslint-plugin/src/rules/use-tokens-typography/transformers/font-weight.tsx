@@ -43,7 +43,10 @@ export const FontWeight = {
 		}
 
 		const fontWeightValue = getValueForPropertyNode(node, context);
-		if (typeof fontWeightValue === 'string' && fontWeightValue.includes('font.weight.')) {
+		if (
+			typeof fontWeightValue === 'string' &&
+			(fontWeightValue.includes('font.weight.') || fontWeightValue.includes('inherit'))
+		) {
 			return false;
 		}
 

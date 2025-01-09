@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.10.0",
+	"version": "203.10.2",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -51,11 +51,11 @@
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/emoji": "^67.12.0",
 		"@atlaskit/icon": "^23.2.0",
-		"@atlaskit/media-card": "^78.17.0",
+		"@atlaskit/media-card": "^78.18.0",
 		"@atlaskit/mention": "^23.7.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
-		"@atlaskit/tmp-editor-statsig": "^2.32.0",
+		"@atlaskit/tmp-editor-statsig": "^2.33.0",
 		"@atlaskit/tokens": "^2.5.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/width-detector": "^4.3.0",
@@ -81,7 +81,7 @@
 	"devDependencies": {
 		"@af/editor-libra": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/adf-utils": "^19.14.0",
+		"@atlaskit/adf-utils": "^19.15.0",
 		"@atlaskit/analytics-listeners": "^8.13.0",
 		"@atlaskit/collab-provider": "10.3.3",
 		"@atlaskit/editor-plugin-annotation": "1.26.10",
@@ -254,15 +254,7 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_element_dnd_nested_fix_patch_2": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_element_dnd_nested_fix_patch_3": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_element_dnd_nested_fix_patch_4": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -318,10 +310,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_react18_phase2__media_single": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_elements_dnd_ed_23674": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -398,6 +386,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_mention_provider_via_plugin_config": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_axe_leading_paragraph_from_media": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

@@ -26,7 +26,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-utils": "^19.14.0",
+		"@atlaskit/adf-utils": "^19.15.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/checkbox": "^15.2.0",
 		"@atlaskit/editor-common": "^98.2.0",
@@ -39,7 +39,7 @@
 		"@atlaskit/editor-plugin-editor-viewmode": "^2.1.0",
 		"@atlaskit/editor-plugin-emoji": "^2.7.0",
 		"@atlaskit/editor-plugin-extension": "^3.0.0",
-		"@atlaskit/editor-plugin-table": "^9.0.0",
+		"@atlaskit/editor-plugin-table": "^9.1.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/emoji": "^67.12.0",
 		"@atlaskit/icon": "^23.2.0",
@@ -49,7 +49,7 @@
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/select": "^18.9.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.32.0",
+		"@atlaskit/tmp-editor-statsig": "^2.33.0",
 		"@atlaskit/tokens": "^2.5.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@babel/runtime": "^7.0.0",

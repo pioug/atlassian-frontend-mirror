@@ -139,6 +139,10 @@ export class SSRPlaceholderHandlers {
 		);
 	}
 
+	isDummyRect(rect: Rect | undefined) {
+		return (rect && rect.width < 0 && rect.height < 0) || false;
+	}
+
 	intersectionObserverCallback = ({ target, boundingClientRect }: IntersectionObserverEntry) => {
 		this.intersectionObserver.unobserve(target);
 		if (!(target instanceof HTMLElement)) {
@@ -158,7 +162,7 @@ export class SSRPlaceholderHandlers {
 
 				if (fg('platform_ufo_ssr_ttvc_use_target_rect')) {
 					const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
-					if (hasSameSizePosition) {
+					if (hasSameSizePosition || this.isDummyRect(rect)) {
 						resolve(hasSameSizePosition);
 					} else {
 						requestAnimationFrame(() => {
@@ -185,7 +189,7 @@ export class SSRPlaceholderHandlers {
 			const rect = this.staticPlaceholders.get(key);
 			if (fg('platform_ufo_ssr_ttvc_use_target_rect')) {
 				const hasSameSizePosition = this.hasSameSizePosition(rect, boundingClientRect);
-				if (hasSameSizePosition) {
+				if (hasSameSizePosition || this.isDummyRect(rect)) {
 					resolve(hasSameSizePosition);
 				} else {
 					requestAnimationFrame(() => {

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 9.1.0
+
+### Minor Changes
+
+- [#101452](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101452)
+  [`e9f0bba750826`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9f0bba750826) -
+  [ED-25901] Update the editor-plugin-table plugin type to have allowNestedTables as a prop
+
 ## 9.0.1
 
 ### Patch Changes

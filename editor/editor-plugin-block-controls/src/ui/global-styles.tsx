@@ -333,9 +333,7 @@ export const GlobalStylesWrapper = () => {
 				headingWithIndentationInLayoutStyleFix,
 				editorExperiment('advanced_layouts', true) ? blockCardWithoutLayout : undefined,
 				withDividerInPanelStyleFix,
-				fg('platform_editor_element_dnd_nested_fix_patch_2')
-					? withFormatInLayoutStyleFix
-					: undefined,
+				withFormatInLayoutStyleFix,
 				fg('platform_editor_element_dnd_nested_fix_patch_3')
 					? [
 							withRelativePosStyle,

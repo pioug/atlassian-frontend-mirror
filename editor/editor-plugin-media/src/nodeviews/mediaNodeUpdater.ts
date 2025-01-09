@@ -31,9 +31,12 @@ import {
 	updateCurrentMediaNodeAttrs,
 	updateMediaNodeAttrs,
 } from '../pm-plugins/commands/helpers';
+import { stateKey as mediaStateKey } from '../pm-plugins/plugin-key';
 import { batchMediaNodeAttrsUpdate } from '../pm-plugins/utils/batchMediaNodeAttrs';
+import { getIdentifier } from '../pm-plugins/utils/media-common';
 import type {
 	MediaOptions,
+	MediaPluginState,
 	getPosHandler as ProsemirrorGetPosHandler,
 	SupportedMediaAttributes,
 } from '../types';
@@ -59,9 +62,11 @@ const isMediaTypeSupported = (type: SupportedMediaAttributes['type']) => {
 
 export class MediaNodeUpdater {
 	props: MediaNodeUpdaterProps;
+	mediaPluginState: MediaPluginState | undefined;
 
 	constructor(props: MediaNodeUpdaterProps) {
 		this.props = props;
+		this.mediaPluginState = mediaStateKey.getState(props.view.state);
 	}
 
 	setProps(newComponentProps: Partial<MediaNodeUpdaterProps>) {
@@ -333,6 +338,26 @@ export class MediaNodeUpdater {
 			width: imageMetadata.original.width || DEFAULT_IMAGE_WIDTH,
 		};
 	}
+
+	shouldNodeBeDeepCopied = async () => {
+		const scope =
+			this.props.mediaOptions?.mediaShallowCopyScope ??
+			this.mediaPluginState?.mediaOptions?.mediaShallowCopyScope ??
+			'context';
+		if (scope === 'context') {
+			return await this.hasDifferentContextId();
+		} else {
+			const attrs = this.getAttrs();
+			if (!attrs || !this.mediaPluginState) {
+				return false;
+			}
+
+			const id = getIdentifier(attrs as MediaAttributes);
+			const isIdentifierOutsideEditorScope =
+				!(await this.mediaPluginState.isIdentifierInEditorScope(id));
+			return isIdentifierOutsideEditorScope;
+		}
+	};
 
 	hasDifferentContextId = async (): Promise<boolean> => {
 		const nodeContextId = this.getNodeContextId();

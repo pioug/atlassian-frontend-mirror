@@ -1,5 +1,14 @@
 # @atlaskit/css-reset
 
+## 6.11.3
+
+### Patch Changes
+
+- [#101383](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101383)
+  [`c733052840ce2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c733052840ce2) -
+  Remove deprecated constants from css-reset. Apply correct default code font family based on
+  typography modern theme.
+
 ## 6.11.2
 
 ### Patch Changes

@@ -3,7 +3,7 @@ import { type MediaTraceContext, type MediaType } from '@atlaskit/media-common';
 export type MediaFileProcessingStatus = 'pending' | 'succeeded' | 'failed';
 
 export type MediaRepresentations = {
-	image?: Object;
+	image?: object;
 };
 
 export type MediaFileArtifact = {
@@ -41,6 +41,11 @@ type BaseFileState = {
 	hash?: string;
 };
 
+type AbuseClassification = {
+	classification: 'ABHORRENT' | 'MALICIOUS' | 'ILLICIT' | 'COPYRIGHT';
+	confidence: 'HIGH' | 'MEDIUM' | 'LOW';
+};
+
 type NonErrorBaseFileState = {
 	name: string;
 	size: number;
@@ -48,6 +53,7 @@ type NonErrorBaseFileState = {
 	mimeType: string;
 	preview?: FilePreview | Promise<FilePreview>;
 	createdAt?: number;
+	abuseClassification?: AbuseClassification;
 } & BaseFileState;
 
 export interface FilePreview {
@@ -76,7 +82,7 @@ export interface ProcessedFileState extends NonErrorBaseFileState {
 }
 export interface ProcessingFailedState extends NonErrorBaseFileState {
 	status: 'failed-processing';
-	artifacts: Object;
+	artifacts: object;
 	representations?: MediaRepresentations;
 }
 export interface ErrorFileState extends BaseFileState {

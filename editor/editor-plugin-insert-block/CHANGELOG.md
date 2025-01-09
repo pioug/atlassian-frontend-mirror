@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.30
+
+### Patch Changes
+
+- [#100162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100162)
+  [`e80e57fc37719`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e80e57fc37719) -
+  [ux] ED-26089: Add 4px gap to main nav bar items
+
 ## 2.4.29
 
 ### Patch Changes

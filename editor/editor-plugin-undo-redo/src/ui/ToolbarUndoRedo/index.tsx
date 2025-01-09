@@ -16,12 +16,17 @@ import {
 	undo as undoKeymap,
 } from '@atlaskit/editor-common/keymaps';
 import { undoRedoMessages } from '@atlaskit/editor-common/messages';
-import { buttonGroupStyle, separatorStyles } from '@atlaskit/editor-common/styles';
+import {
+	buttonGroupStyle,
+	buttonGroupStyleBeforeVisualRefresh,
+	separatorStyles,
+} from '@atlaskit/editor-common/styles';
 import type { Command, ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import RedoIcon from '@atlaskit/icon/core/migration/redo';
 import UndoIcon from '@atlaskit/icon/core/migration/undo';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { redoFromToolbar, undoFromToolbar } from '../../pm-plugins/commands';
 import type { UndoRedoPlugin } from '../../undoRedoPluginType';
@@ -83,7 +88,16 @@ export const ToolbarUndoRedo = ({
 
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<span css={buttonGroupStyle}>
+		<span
+			css={
+				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/platform/ensure-feature-flag-prefix
+				fg('platform-visual-refresh-icons')
+					? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+						buttonGroupStyle
+					: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+						buttonGroupStyleBeforeVisualRefresh
+			}
+		>
 			<ToolbarButton
 				buttonId={TOOLBAR_BUTTON.UNDO}
 				spacing={isReducedSpacing ? 'none' : 'default'}

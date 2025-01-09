@@ -3058,6 +3058,106 @@ describe('Card ', () => {
 		});
 	});
 
+	it('should attach download action when shouldEnableDownloadButton is passed', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
+		const binaryUrl = 'binary-url';
+		const getFileBinaryURL = jest.spyOn(mediaApi, 'getFileBinaryURL').mockResolvedValue(binaryUrl);
+		const testUrl = jest.spyOn(mediaApi, 'testUrl');
+
+		const user = userEvent.setup();
+
+		render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<CardLoader
+					mediaClientConfig={dummyMediaClientConfig}
+					identifier={identifier}
+					isLazy={false}
+					shouldEnableDownloadButton
+				/>
+			</MockedMediaClientProvider>,
+		);
+
+		const btn = await screen.findByLabelText('Download');
+		await user.click(btn);
+
+		expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+			traceContext: { traceId: expect.any(String) },
+		});
+
+		expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
+		expect(globalMediaEventEmitter.emit).toHaveBeenCalledWith('media-viewed', {
+			fileId: fileItem.id,
+			isUserCollection: false,
+			viewingLevel: 'download',
+		});
+
+		expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+			eventType: 'operational',
+			action: 'succeeded',
+			actionSubject: 'mediaCardDownload',
+			attributes: {
+				fileMimetype: fileItem.details.mimeType,
+				status: 'success',
+				fileAttributes: {
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileId: fileItem.id,
+					fileSize: fileItem.details.size,
+					fileStatus: 'processed',
+				},
+				metadataTraceContext: {
+					spanId: expect.any(String),
+					traceId: expect.any(String),
+				},
+				traceContext: {
+					traceId: expect.any(String),
+				},
+			},
+		});
+	});
+
+	it('should block downloads when DSP is enabled', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+		const { MockedMediaClientProvider, mediaApi } = createMockedMediaClientProvider({
+			initialItems: fileItem,
+			mediaClientConfig: { enforceDataSecurityPolicy: true },
+		});
+
+		const binaryUrl = 'binary-url';
+		const getFileBinaryURL = jest.spyOn(mediaApi, 'getFileBinaryURL').mockResolvedValue(binaryUrl);
+		const testUrl = jest.spyOn(mediaApi, 'testUrl');
+
+		const user = userEvent.setup();
+
+		render(
+			<MockedMediaClientProvider>
+				<CardLoader
+					mediaClientConfig={dummyMediaClientConfig}
+					identifier={identifier}
+					isLazy={false}
+					shouldEnableDownloadButton
+				/>
+			</MockedMediaClientProvider>,
+		);
+
+		const btn = await screen.findByLabelText('Download');
+		await user.click(btn);
+
+		expect(getFileBinaryURL).not.toHaveBeenCalled();
+		expect(testUrl).not.toHaveBeenCalled();
+		expect(globalMediaEventEmitter.emit).not.toHaveBeenCalled();
+
+		expect(mockCreateAnalyticsEvent).not.toHaveBeenCalledWith(
+			expect.objectContaining({
+				actionSubject: 'mediaCardDownload',
+				attributes: expect.objectContaining({ status: 'success' }),
+			}),
+		);
+	});
+
 	it('should log failed download action', async () => {
 		const [fileItem, identifier] = generateSampleFileItem.failedPdf();
 		const { mediaApi } = createMockedMediaApi(fileItem);
@@ -3133,6 +3233,125 @@ describe('Card ', () => {
 				},
 			},
 		});
+	});
+
+	it('should display a warning message when the downloading file is marked as abusive', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.abuseImage();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
+		const binaryUrl = 'binary-url';
+		const getFileBinaryURL = jest.spyOn(mediaApi, 'getFileBinaryURL').mockResolvedValue(binaryUrl);
+		const testUrl = jest.spyOn(mediaApi, 'testUrl');
+
+		const user = userEvent.setup();
+
+		render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<CardLoader
+					mediaClientConfig={dummyMediaClientConfig}
+					identifier={identifier}
+					isLazy={false}
+					shouldEnableDownloadButton
+				/>
+			</MockedMediaClientProvider>,
+		);
+
+		const btn = await screen.findByLabelText('Download');
+		await user.click(btn);
+
+		const warningMsg = await screen.findByTestId('mediaAbuseModal');
+		expect(warningMsg).toBeInTheDocument();
+
+		const proceed = await screen.findByText('Proceed with download');
+		await user.click(proceed);
+
+		expect(getFileBinaryURL).toHaveBeenCalledWith(fileItem.id, fileItem.collection);
+		expect(testUrl).toHaveBeenCalledWith(binaryUrl, {
+			traceContext: { traceId: expect.any(String) },
+		});
+
+		expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(2);
+		expect(globalMediaEventEmitter.emit).toHaveBeenCalledWith('media-viewed', {
+			fileId: fileItem.id,
+			isUserCollection: false,
+			viewingLevel: 'minimal',
+		});
+		expect(globalMediaEventEmitter.emit).toHaveBeenCalledWith('media-viewed', {
+			fileId: fileItem.id,
+			isUserCollection: false,
+			viewingLevel: 'download',
+		});
+
+		expect(mockCreateAnalyticsEvent).toHaveBeenCalledWith({
+			eventType: 'operational',
+			action: 'succeeded',
+			actionSubject: 'mediaCardDownload',
+			attributes: {
+				fileMimetype: fileItem.details.mimeType,
+				status: 'success',
+				fileAttributes: {
+					fileMediatype: fileItem.details.mediaType,
+					fileMimetype: fileItem.details.mimeType,
+					fileId: fileItem.id,
+					fileSize: fileItem.details.size,
+					fileStatus: 'processed',
+				},
+				metadataTraceContext: {
+					spanId: expect.any(String),
+					traceId: expect.any(String),
+				},
+				traceContext: {
+					traceId: expect.any(String),
+				},
+			},
+		});
+	});
+
+	it('should not download when cancelling from the abuse warning message', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.abuseSvg();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
+		const binaryUrl = 'binary-url';
+		const getFileBinaryURL = jest.spyOn(mediaApi, 'getFileBinaryURL').mockResolvedValue(binaryUrl);
+		const testUrl = jest.spyOn(mediaApi, 'testUrl');
+
+		const user = userEvent.setup();
+
+		render(
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<CardLoader
+					mediaClientConfig={dummyMediaClientConfig}
+					identifier={identifier}
+					isLazy={false}
+					shouldEnableDownloadButton
+				/>
+			</MockedMediaClientProvider>,
+		);
+
+		const btn = await screen.findByLabelText('Download');
+		await user.click(btn);
+
+		const warningMsg = await screen.findByTestId('mediaAbuseModal');
+		expect(warningMsg).toBeInTheDocument();
+
+		const cancel = await screen.findByText('Cancel');
+		await user.click(cancel);
+
+		expect(getFileBinaryURL).not.toHaveBeenCalled();
+		expect(testUrl).not.toHaveBeenCalled();
+		expect(globalMediaEventEmitter.emit).toHaveBeenCalledTimes(1);
+		expect(globalMediaEventEmitter.emit).toHaveBeenCalledWith('media-viewed', {
+			fileId: fileItem.id,
+			isUserCollection: false,
+			viewingLevel: 'minimal',
+		});
+
+		expect(mockCreateAnalyticsEvent).not.toHaveBeenCalledWith(
+			expect.objectContaining({
+				actionSubject: 'mediaCardDownload',
+				attributes: expect.objectContaining({ status: 'success' }),
+			}),
+		);
 	});
 
 	describe('should manage MediaViewer integration', () => {
@@ -3216,12 +3435,6 @@ describe('Card ', () => {
 			await expect(screen.findByTestId(mediaViewerTestId)).rejects.toThrow();
 		});
 
-		/**
-		 * TODO - Media Viewer (MV) won't work at the moment because it isn't using the media-state state.
-		 * As such, this test cases doesn't really check that MV renders with all items.
-		 * Instead, it checks that at the very least, the first and only item is the card that was clicked upon.
-		 * Need to update these this test case in the future
-		 */
 		it('should render Media Viewer with an item', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);
@@ -3260,7 +3473,7 @@ describe('Card ', () => {
 			const mediaViewer = await screen.findByTestId(mediaViewerTestId);
 			expect(mediaViewer).toBeInTheDocument();
 
-			expect(within(mediaViewer).getByText(fileItem.details.name)).toBeInTheDocument();
+			expect(await within(mediaViewer).findByText(fileItem.details.name)).toBeInTheDocument();
 		});
 
 		it('should open the media viewer when button is clicked and focus button when closed', async () => {

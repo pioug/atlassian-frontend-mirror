@@ -11,7 +11,6 @@ import { type IntlShape } from 'react-intl-next';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { layers } from '@atlaskit/theme/constants';
@@ -252,7 +251,7 @@ export const DropTarget = ({
 				dropTargetOffsetStyle,
 				isNestedDropTarget && nestedDropIndicatorStyle,
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-				fg('platform_editor_element_dnd_nested_fix_patch_2') && dropTargetMarginTopStyles,
+				dropTargetMarginTopStyles,
 			]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={dynamicStyle}

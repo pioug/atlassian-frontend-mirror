@@ -18,12 +18,17 @@ import {
 	ToolTipContent,
 } from '@atlaskit/editor-common/keymaps';
 import { indentationMessages, listMessages as messages } from '@atlaskit/editor-common/messages';
-import { buttonGroupStyle, separatorStyles } from '@atlaskit/editor-common/styles';
+import {
+	buttonGroupStyle,
+	buttonGroupStyleBeforeVisualRefresh,
+	separatorStyles,
+} from '@atlaskit/editor-common/styles';
 import { TOOLBAR_BUTTON, ToolbarButton } from '@atlaskit/editor-common/ui-menu';
 import BulletedListIcon from '@atlaskit/icon/core/migration/list-bulleted--editor-bullet-list';
 import NumberListIcon from '@atlaskit/icon/core/migration/list-numbered--editor-number-list';
 import OutdentIcon from '@atlaskit/icon/core/migration/text-indent-left--editor-outdent';
 import IndentIcon from '@atlaskit/icon/core/migration/text-indent-right--editor-indent';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ButtonName, ToolbarProps } from '../types';
 
@@ -75,7 +80,16 @@ export function Toolbar(props: ToolbarProps) {
 
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<span css={buttonGroupStyle}>
+		<span
+			css={
+				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/platform/ensure-feature-flag-prefix
+				fg('platform-visual-refresh-icons')
+					? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+						buttonGroupStyle
+					: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+						buttonGroupStyleBeforeVisualRefresh
+			}
+		>
 			<div role="group" aria-label={labelListsFormat}>
 				<ToolbarButton
 					buttonId={TOOLBAR_BUTTON.BULLET_LIST}

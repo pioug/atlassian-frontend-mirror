@@ -227,40 +227,6 @@ export const createPlugin = (
 		key: pluginKey,
 		props: {
 			handleDOMEvents: {
-				blur: (view, event) => {
-					if (fg('platform_editor_legacy_content_macro')) {
-						const currentSelection = event.relatedTarget;
-						const previousSelection = event.target;
-
-						if (
-							!(currentSelection instanceof HTMLElement) ||
-							!(previousSelection instanceof HTMLElement)
-						) {
-							return;
-						}
-						const wasPreviousSelectionInsideExtensionEditableArea = !!previousSelection.closest(
-							'.extension-editable-area',
-						);
-						const isCurrentSelectionInsideExtensionEditableArea = !!currentSelection.closest(
-							'.extension-editable-area',
-						);
-
-						const maybeFromPopup = !!currentSelection.closest('[data-editor-popup="true"]');
-
-						// We want to reset the user's selection if they are entering or exiting the extension editable area.
-						// To do so, we check if there previous selection was inside or outside, and if they are now inside or outside.
-						// We want to ignore this if a blur event is originating from an editor popup.
-						if (
-							!maybeFromPopup &&
-							wasPreviousSelectionInsideExtensionEditableArea !==
-								isCurrentSelectionInsideExtensionEditableArea
-						) {
-							const emptySelection = new TextSelection(view.state.doc.resolve(0));
-							const tr = view.state.tr.setSelection(emptySelection);
-							view.dispatch(tr);
-						}
-					}
-				},
 				/**
 				 * ED-18072 - Cannot shift + arrow past bodied extension if it is not empty.
 				 * This code is to handle the case where the selection starts inside or on the node and the user is trying to shift + arrow.
@@ -450,7 +416,8 @@ export const createPlugin = (
 				['extension', 'bodiedExtension', 'multiBodiedExtension'],
 				(target) =>
 					fg('platform_editor_legacy_content_macro')
-						? !target.closest('.extension-content') || !!target.closest('.extension-container')
+						? !target.closest('.extension-non-editable-area') &&
+							(!target.closest('.extension-content') || !!target.closest('.extension-container'))
 						: !target.closest('.extension-content'), // It's to enable nested extensions selection
 				{ useLongPressSelection },
 			),

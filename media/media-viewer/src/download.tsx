@@ -12,7 +12,7 @@ import {
 	type MediaClient,
 } from '@atlaskit/media-client';
 import { MediaButton, messages } from '@atlaskit/media-ui';
-import React, { useCallback } from 'react';
+import React, { type ReactNode, createRef, useCallback } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import {
@@ -31,6 +31,7 @@ import {
 import { DownloadButtonWrapper } from './styleWrappers';
 import { MediaViewerError } from './errors';
 import Tooltip from '@atlaskit/tooltip';
+import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
 
 const downloadIcon = <DownloadIcon color="currentColor" spacing="spacious" label="Download" />;
 
@@ -114,6 +115,69 @@ const useDownloadButtonDisabledProps = (mediaClient: MediaClient) => {
 	return { isDisabled, tooltip };
 };
 
+type DownloadItemProps = {
+	testId: string;
+	fileState: FileState;
+	mediaClient: MediaClient;
+	collectionName?: string;
+	appearance?: DownloadButtonProps['appearance'];
+	analyticspayload: DownloadButtonProps['analyticspayload'];
+	children?: ReactNode;
+	iconBefore?: DownloadButtonProps['iconBefore'];
+	traceContext: MediaTraceContext;
+};
+
+const DownloadItem = ({
+	testId,
+	fileState,
+	mediaClient,
+	collectionName,
+	appearance,
+	analyticspayload,
+	traceContext,
+	iconBefore,
+	children,
+}: DownloadItemProps) => {
+	const openModalRef = createRef<() => void>();
+	const { createAnalyticsEvent } = useAnalyticsEvents();
+	const { isDisabled, tooltip } = useDownloadButtonDisabledProps(mediaClient);
+
+	const shouldRenderAbuseModal = !isErrorFileState(fileState) && !!fileState.abuseClassification;
+
+	const itemDownloader = createItemDownloader(fileState, mediaClient, {
+		collectionName: collectionName,
+		createAnalyticsEvent,
+		traceContext,
+	});
+
+	return (
+		<>
+			<AbuseModal
+				ref={openModalRef}
+				shouldMount={shouldRenderAbuseModal}
+				onConfirm={itemDownloader}
+			/>
+			<DownloadButton
+				testId={testId}
+				appearance={appearance}
+				analyticspayload={analyticspayload}
+				isDisabled={isDisabled}
+				tooltip={tooltip}
+				onClick={() => {
+					if (shouldRenderAbuseModal) {
+						openModalRef.current?.();
+					} else {
+						itemDownloader();
+					}
+				}}
+				iconBefore={iconBefore}
+			>
+				{children}
+			</DownloadButton>
+		</>
+	);
+};
+
 export type ErrorViewDownloadButtonProps = {
 	fileState: FileState;
 	mediaClient: MediaClient;
@@ -130,26 +194,21 @@ export const ErrorViewDownloadButton = ({
 	collectionName,
 }: ErrorViewDownloadButtonProps) => {
 	const downloadEvent = createFailedPreviewDownloadButtonClickedEvent(fileState, error);
-	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const { isDisabled, tooltip } = useDownloadButtonDisabledProps(mediaClient);
+	const testId = 'media-viewer-error-download-button';
 
 	return (
 		<DownloadButtonWrapper>
-			<DownloadButton
-				// testId="media-viewer-failed-preview-download-button"
-				testId="media-viewer-error-download-button"
+			<DownloadItem
+				testId={testId}
 				analyticspayload={downloadEvent}
 				appearance="primary"
-				isDisabled={isDisabled}
-				tooltip={tooltip}
-				onClick={createItemDownloader(fileState, mediaClient, {
-					collectionName,
-					traceContext,
-					createAnalyticsEvent,
-				})}
+				fileState={fileState}
+				mediaClient={mediaClient}
+				collectionName={collectionName}
+				traceContext={traceContext}
 			>
 				<FormattedMessage {...messages.download} />
-			</DownloadButton>
+			</DownloadItem>
 		</DownloadButtonWrapper>
 	);
 };
@@ -167,26 +226,21 @@ export const ToolbarDownloadButton = ({
 	identifier,
 	traceContext,
 }: ToolbarDownloadButtonProps) => {
-	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const downloadEvent = createDownloadButtonClickedEvent(state);
-	const { isDisabled, tooltip } = useDownloadButtonDisabledProps(mediaClient);
-
 	// TODO [MS-1731]: make it work for external files as well
 	if (isExternalImageIdentifier(identifier)) {
 		return null;
 	}
+	const downloadEvent = createDownloadButtonClickedEvent(state);
+	const testId = 'media-viewer-download-button';
 
 	return (
-		<DownloadButton
-			testId="media-viewer-download-button"
+		<DownloadItem
+			testId={testId}
 			analyticspayload={downloadEvent}
-			isDisabled={isDisabled}
-			tooltip={tooltip}
-			onClick={createItemDownloader(state, mediaClient, {
-				collectionName: identifier.collectionName,
-				createAnalyticsEvent,
-				traceContext,
-			})}
+			fileState={state}
+			mediaClient={mediaClient}
+			collectionName={identifier.collectionName}
+			traceContext={traceContext}
 			iconBefore={downloadIcon}
 		/>
 	);

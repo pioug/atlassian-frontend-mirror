@@ -1,4 +1,4 @@
-export { default as MediaViewer } from './components/media-viewer-loader';
+export { default as MediaViewer, MediaViewerWithPortal } from './components/media-viewer-loader';
 export type {
 	MediaViewerExtensions,
 	MediaViewerExtensionsActions,

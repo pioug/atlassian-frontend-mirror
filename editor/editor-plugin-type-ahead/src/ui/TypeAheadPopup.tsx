@@ -30,8 +30,9 @@ import {
 	TYPE_AHEAD_POPUP_CONTENT_CLASS,
 } from '../pm-plugins/constants';
 import type { TypeAheadPlugin } from '../typeAheadPluginType';
-import type { OnSelectItem } from '../types';
+import type { OnSelectItem, TypeAheadErrorInfo } from '../types';
 
+import { TypeAheadErrorFallback } from './TypeAheadErrorFallback';
 import { TypeAheadList } from './TypeAheadList';
 
 const DEFAULT_TYPEAHEAD_MENU_HEIGHT = 380;
@@ -62,6 +63,7 @@ type TypeAheadPopupProps = {
 	popupsBoundariesElement?: HTMLElement;
 	popupsScrollableElement?: HTMLElement;
 	items: Array<TypeAheadItem>;
+	errorInfo: TypeAheadErrorInfo; // TODO: shared type
 	selectedIndex: number;
 	setSelectedItem: OnSelectItem;
 	decorationSet: DecorationSet;
@@ -97,6 +99,7 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 		popupsBoundariesElement,
 		popupsScrollableElement,
 		items,
+		errorInfo,
 		selectedIndex,
 		onItemInsert,
 		isEmptyQuery,
@@ -325,18 +328,24 @@ export const TypeAheadPopup = React.memo((props: TypeAheadPopupProps) => {
 				className={TYPE_AHEAD_POPUP_CONTENT_CLASS}
 				ref={ref}
 			>
-				<Highlight state={editorView.state} triggerHandler={triggerHandler} />
-				<TypeAheadList
-					items={items}
-					selectedIndex={selectedIndex}
-					onItemClick={onItemInsert}
-					fitHeight={fitHeight}
-					editorView={editorView}
-					decorationElement={anchorElement}
-					triggerHandler={triggerHandler}
-					moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
-					api={api}
-				/>
+				{errorInfo ? (
+					<TypeAheadErrorFallback />
+				) : (
+					<React.Fragment>
+						<Highlight state={editorView.state} triggerHandler={triggerHandler} />
+						<TypeAheadList
+							items={items}
+							selectedIndex={selectedIndex}
+							onItemClick={onItemInsert}
+							fitHeight={fitHeight}
+							editorView={editorView}
+							decorationElement={anchorElement}
+							triggerHandler={triggerHandler}
+							moreElementsInQuickInsertViewEnabled={moreElementsInQuickInsertViewEnabled}
+							api={api}
+						/>
+					</React.Fragment>
+				)}
 			</div>
 		</Popup>
 	);

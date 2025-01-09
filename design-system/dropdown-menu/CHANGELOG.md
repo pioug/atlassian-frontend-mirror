@@ -1,5 +1,14 @@
 # @atlaskit/dropdown-menu
 
+## 12.24.0
+
+### Minor Changes
+
+- [#101351](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101351)
+  [`53e2c361fad77`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/53e2c361fad77) -
+  Fixes a bug with the Dropdown Menu not returning focus to the returnFocusRef element, when
+  rendered in a portal. This fix is behind a feature flag.
+
 ## 12.23.4
 
 ### Patch Changes

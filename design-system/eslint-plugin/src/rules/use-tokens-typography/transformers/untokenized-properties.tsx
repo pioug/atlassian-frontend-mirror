@@ -43,7 +43,10 @@ export const UntokenizedProperties = {
 		}
 
 		const propertyValue = getValueForPropertyNode(node, context);
-		if (typeof propertyValue === 'string' && propertyValue.includes('font.')) {
+		if (
+			typeof propertyValue === 'string' &&
+			(propertyValue.includes('font.') || propertyValue.includes('inherit'))
+		) {
 			return false;
 		}
 

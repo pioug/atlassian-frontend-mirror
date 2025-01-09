@@ -1,5 +1,13 @@
 # @atlaskit/media-test-data
 
+## 2.8.0
+
+### Minor Changes
+
+- [#97492](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97492)
+  [`5195c4fd974a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5195c4fd974a3) -
+  Added test data for abuse files
+
 ## 2.7.1
 
 ### Patch Changes

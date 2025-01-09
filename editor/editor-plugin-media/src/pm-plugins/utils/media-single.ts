@@ -71,20 +71,24 @@ function shouldAddParagraph(state: EditorState) {
 	);
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
-function insertNodesWithOptionalParagraph(
-	nodes: PMNode[],
+function insertNodesWithOptionalParagraph({
+	nodes,
+	analyticsAttributes = {},
+	editorAnalyticsAPI,
+	isNestingInQuoteSupported,
+	insertMediaVia,
+}: {
+	nodes: PMNode[];
 	analyticsAttributes: {
 		inputMethod?: InputMethodInsertMedia;
 		fileExtension?: string;
 		newType?: MediaSwitchType;
 		previousType?: MediaSwitchType;
-	} = {},
-	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-	isNestingInQuoteSupported?: boolean,
-	insertMediaVia?: InsertMediaVia,
-): Command {
+	};
+	editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
+	isNestingInQuoteSupported?: boolean;
+	insertMediaVia?: InsertMediaVia;
+}): Command {
 	return function (state, dispatch) {
 		const { tr, schema } = state;
 
@@ -92,7 +96,7 @@ function insertNodesWithOptionalParagraph(
 		const { inputMethod, fileExtension, newType, previousType } = analyticsAttributes;
 
 		let openEnd = 0;
-		if (shouldAddParagraph(state)) {
+		if (shouldAddParagraph(state) && !fg('platform_editor_axe_leading_paragraph_from_media')) {
 			nodes.push(paragraph.create());
 			openEnd = 1;
 		}
@@ -105,12 +109,18 @@ function insertNodesWithOptionalParagraph(
 			const grandparentEndPos = state.selection.$from.start(-1) + grandParentNode.nodeSize - 1;
 			pmSafeInsert(nodes[0], grandparentEndPos)(tr).scrollIntoView();
 		} else if (state.selection.empty) {
-			tr.insert(state.selection.from, nodes);
-			// Set the cursor position at the end of the insertion
+			const insertFrom =
+				atTheBeginningOfBlock(state) && fg('platform_editor_axe_leading_paragraph_from_media')
+					? state.selection.$from.before()
+					: state.selection.from;
+
+			tr.insert(insertFrom, nodes);
 			const endPos =
 				state.selection.from +
 				nodes.reduce((totalSize, currNode) => totalSize + currNode.nodeSize, 0);
-			tr.setSelection(new TextSelection(tr.doc.resolve(endPos), tr.doc.resolve(endPos)));
+			if (!fg('platform_editor_axe_leading_paragraph_from_media')) {
+				tr.setSelection(new TextSelection(tr.doc.resolve(endPos), tr.doc.resolve(endPos)));
+			}
 		} else {
 			tr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));
 		}
@@ -185,13 +195,13 @@ export const insertMediaAsMediaSingle = (
 		inputMethod,
 		fileExtension: node.attrs.__fileMimeType,
 	};
-	return insertNodesWithOptionalParagraph(
+	return insertNodesWithOptionalParagraph({
 		nodes,
 		analyticsAttributes,
 		editorAnalyticsAPI,
 		isNestingInQuoteSupported,
 		insertMediaVia,
-	)(state, dispatch);
+	})(state, dispatch);
 };
 
 const getFileExtension = (fileName: string | undefined | null) => {
@@ -256,13 +266,13 @@ export const insertMediaSingleNode = (
 			content: node,
 		})
 	) {
-		insertNodesWithOptionalParagraph(
-			[node],
-			{ fileExtension, inputMethod },
+		insertNodesWithOptionalParagraph({
+			nodes: [node],
+			analyticsAttributes: { fileExtension, inputMethod },
 			editorAnalyticsAPI,
 			isNestingInQuoteSupported,
 			insertMediaVia,
-		)(state, dispatch);
+		})(state, dispatch);
 	} else {
 		let tr: Transaction | null = null;
 		tr = safeInsert(node, state.selection.from)(state.tr);
@@ -328,16 +338,16 @@ export const changeFromMediaInlineToMediaSingleNode = (
 			content: node,
 		})
 	) {
-		return insertNodesWithOptionalParagraph(
-			[node],
-			{
+		return insertNodesWithOptionalParagraph({
+			nodes: [node],
+			analyticsAttributes: {
 				fileExtension,
 				newType: ACTION_SUBJECT_ID.MEDIA_SINGLE,
 				previousType: ACTION_SUBJECT_ID.MEDIA_INLINE,
 			},
 			editorAnalyticsAPI,
 			isNestingInQuoteSupported,
-		)(state, dispatch);
+		})(state, dispatch);
 	} else {
 		const nodePos = state.tr.doc.resolve(state.selection.from).end();
 		let tr: Transaction | null = null;

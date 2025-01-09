@@ -74,4 +74,14 @@ export const typeAheadListMessages = defineMessages({
 		defaultMessage: 'Text shortcut',
 		description: 'Text shortcut',
 	},
+	offlineErrorFallbackHeading: {
+		id: 'fabric.editor.offlineErrorFallbackHeading',
+		defaultMessage: 'Something went wrong!',
+		description: 'heading for offline error fallback when mentions are not available',
+	},
+	offlineErrorFallbackDesc: {
+		id: 'fabric.editor.offlineErrorFallbackDescription',
+		defaultMessage: 'Try reloading the page.',
+		description: 'description for offline error fallback when mentions are not available',
+	},
 });

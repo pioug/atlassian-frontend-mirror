@@ -219,15 +219,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 28-10-2024
-	'editor_ai_-_proactive_ai_model_variations': {
-		productKeys: {
-			confluence: 'editor_ai_-_proactive_ai_model_variations',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'skip_grammar']),
-		defaultValue: 'control' as 'control' | 'skip_grammar',
-	},
 	'platform_editor_ai-prompts-placeholder': {
 		productKeys: {
 			confluence: 'platform_editor_ai-prompts-placeholder',
@@ -235,14 +226,6 @@ export const editorExperimentsConfig = {
 		param: 'cohort',
 		typeGuard: oneOf(['control', 'test']),
 		defaultValue: 'control' as 'control' | 'test',
-	},
-	'editor_ai_-_gpt4_experiment': {
-		productKeys: {
-			confluence: 'editor_ai_-_gpt4_experiment',
-		},
-		param: 'cohort',
-		typeGuard: oneOf(['control', 'einstein']),
-		defaultValue: 'control' as 'control' | 'einstein',
 	},
 	// added 2024-11-06
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_nested_tables/setup

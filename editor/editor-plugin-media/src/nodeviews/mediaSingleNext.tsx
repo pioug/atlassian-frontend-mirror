@@ -165,9 +165,9 @@ const mediaAsyncOperations = async (props: {
 		await props.updater.updateContextId();
 	}
 
-	const hasDifferentContextId = await props.updater.hasDifferentContextId();
+	const shouldNodeBeDeepCopied = await props.updater.shouldNodeBeDeepCopied();
 
-	if (hasDifferentContextId) {
+	if (shouldNodeBeDeepCopied) {
 		try {
 			const copyNode = props.updater.copyNode({
 				traceId: props.mediaNode.attrs.__mediaTraceId,

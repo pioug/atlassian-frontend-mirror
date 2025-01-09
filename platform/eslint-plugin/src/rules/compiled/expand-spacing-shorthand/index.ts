@@ -62,7 +62,7 @@ const checkValidPropertyValues = (propertyValues: string[]) => {
 // Check that all expressions in TemplateLiteral are token expressions
 // If true: create an autofix
 // If false: report violation without autofix
-const checkTemplateLiteralTokens = (templateLiteral: TemplateLiteral) => {
+const hasOnlyTokens = (templateLiteral: TemplateLiteral) => {
 	const expressions = templateLiteral.expressions;
 	return expressions.every((expr) => expr.type === 'CallExpression' && isTokenCallExpression(expr));
 };
@@ -126,9 +126,9 @@ const executeExpandSpacingRule = (
 	if (!isCompiledAPI(context, node)) {
 		return;
 	}
-	// Value of spacing property is a TemplateLiteral type that contains a token, e.g. padding: `0 token('a')`
 	if (node.value.type === 'TemplateLiteral') {
-		if (!checkTemplateLiteralTokens(node.value)) {
+		// Value of spacing property is a TemplateLiteral type that contains a token, e.g. padding: `0 token('a')`
+		if (!hasOnlyTokens(node.value)) {
 			context.report({
 				node,
 				messageId: 'expandSpacingShorthand',
@@ -152,8 +152,8 @@ const executeExpandSpacingRule = (
 				return expandSpacingProperties({ context, node, propertyValues, fixer, propertyShorthand });
 			},
 		});
-		// Value of spacing property is a token CallExpression type, e.g. margin: token('space.100', '8px')
 	} else if (node.value.type === 'CallExpression' && isTokenCallExpression(node.value)) {
+		// Value of spacing property is a token CallExpression type, e.g. margin: token('space.100', '8px')
 		const propertyValues = [getSourceCode(context).getText(node.value)];
 		context.report({
 			node,

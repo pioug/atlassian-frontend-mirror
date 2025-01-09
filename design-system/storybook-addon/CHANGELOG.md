@@ -1,5 +1,14 @@
 # @atlaskit/storybook-addon-design-system
 
+## 1.3.0
+
+### Minor Changes
+
+- [#101255](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101255)
+  [`deac0272bf9e6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/deac0272bf9e6) -
+  Upgraded dependencies '@storybook/components', '@storybook/manager-api' and
+  '@storybook/preview-api' from '^8.1.10' to '^8.1.10' and added new dependency 'storybook'
+
 ## 1.2.2
 
 ### Patch Changes

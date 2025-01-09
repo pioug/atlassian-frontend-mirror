@@ -10,10 +10,12 @@ import { css, jsx } from '@emotion/react';
 import type { WithAnalyticsEventsProps } from '@atlaskit/analytics-next';
 import withAnalyticsContext from '@atlaskit/analytics-next/withAnalyticsContext';
 import withAnalyticsEvents from '@atlaskit/analytics-next/withAnalyticsEvents';
-import Button from '@atlaskit/button/standard-button';
+import Button from '@atlaskit/button/new';
+import LegacyButton from '@atlaskit/button/standard-button';
 import LegacyExpandIcon from '@atlaskit/icon/glyph/chevron-down';
 import ChevronDownIcon from '@atlaskit/icon/utility/chevron-down';
-import { Box, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss, Inline } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -47,6 +49,22 @@ const colorPickerExpandContainer = xcss({
 	marginBottom: 'space.0',
 	marginLeft: 'space.negative.050',
 	marginRight: 'space.negative.050',
+});
+
+const colorPickerExpandContainerVisualRefresh = xcss({
+	marginTop: 'space.negative.025',
+	marginRight: 'space.negative.050',
+});
+const colorPickerButtonStyle = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	button: {
+		'&::after': {
+			border: 'none',
+		},
+		'&:hover': {
+			backgroundColor: `${token('color.background.selected')}`,
+		},
+	},
 });
 
 // Control the size of color picker buttons and preview
@@ -254,38 +272,100 @@ const ColorPickerButton = (props: Props) => {
 				background: token('color.background.neutral.subtle.hovered'),
 			},
 		});
+	const buttonStyleVisualRefresh = () =>
+		css({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			height: `${!!props.size?.height ? 'inherit' : ''}`,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+			'&:before': {
+				display: 'flex',
+				justifyContent: 'center',
+				alignItems: 'center',
+				alignSelf: 'center',
+				content: "''",
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				border: `1px solid ${DEFAULT_BORDER_COLOR}`,
+				borderRadius: token('border.radius', '3px'),
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				backgroundColor: currentColor || 'transparent',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				width: props.size?.width || '14px',
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+				height: props.size?.height || '14px',
+				marginTop: `${token('space.025', '2px')}`,
+			},
+		});
 	return (
 		<div css={colorPickerButtonWrapper}>
 			<Tooltip content={title} position="top">
-				<Button
-					appearance={'subtle'}
-					ref={buttonRef}
-					aria-label={title}
-					aria-expanded={props.isAriaExpanded ? isPopupOpen : undefined}
-					spacing="compact"
-					onClick={togglePopup}
-					onKeyDown={(event: React.KeyboardEvent) => {
-						if (event.key === 'Enter' || event.key === ' ') {
-							event.preventDefault();
-							togglePopup();
-							setIsOpenedByKeyboard(true);
-						}
-					}}
-					// TODO: (from codemod) Buttons with "component", "css" or "style" prop can't be automatically migrated with codemods. Please migrate it manually.
-					// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
-					css={buttonStyle}
-					iconAfter={
-						<Box xcss={colorPickerExpandContainer}>
-							<ChevronDownIcon
-								color="currentColor"
-								spacing="spacious"
-								LEGACY_fallbackIcon={LegacyExpandIcon}
-								label="color-picker-chevron-down"
-							/>
-						</Box>
-					}
-					data-selected-color={props.currentColor}
-				/>
+				{
+					// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+					fg('platform-visual-refresh-icons') ? (
+						<div css={colorPickerButtonStyle}>
+							<Button
+								appearance={'subtle'}
+								ref={buttonRef}
+								aria-label={title}
+								aria-expanded={props.isAriaExpanded ? isPopupOpen : undefined}
+								spacing="compact"
+								onClick={togglePopup}
+								onKeyDown={(event: React.KeyboardEvent) => {
+									if (event.key === 'Enter' || event.key === ' ') {
+										event.preventDefault();
+										togglePopup();
+										setIsOpenedByKeyboard(true);
+									}
+								}}
+								data-selected-color={props.currentColor}
+								isSelected={isPopupOpen}
+							>
+								<Inline alignBlock="start">
+									<span
+										// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+										css={buttonStyleVisualRefresh}
+									/>
+									<Box xcss={colorPickerExpandContainerVisualRefresh}>
+										<ChevronDownIcon
+											color="currentColor"
+											spacing="spacious"
+											LEGACY_fallbackIcon={LegacyExpandIcon}
+											label="color-picker-chevron-down"
+										/>
+									</Box>
+								</Inline>
+							</Button>
+						</div>
+					) : (
+						<LegacyButton
+							appearance={'subtle'}
+							ref={buttonRef}
+							aria-label={title}
+							aria-expanded={props.isAriaExpanded ? isPopupOpen : undefined}
+							spacing="compact"
+							onClick={togglePopup}
+							onKeyDown={(event: React.KeyboardEvent) => {
+								if (event.key === 'Enter' || event.key === ' ') {
+									event.preventDefault();
+									togglePopup();
+									setIsOpenedByKeyboard(true);
+								}
+							}}
+							// eslint-disable-next-line @atlaskit/design-system/no-unsafe-style-overrides
+							css={buttonStyle}
+							iconAfter={
+								<Box xcss={colorPickerExpandContainer}>
+									<ChevronDownIcon
+										color="currentColor"
+										spacing="spacious"
+										LEGACY_fallbackIcon={LegacyExpandIcon}
+										label="color-picker-chevron-down"
+									/>
+								</Box>
+							}
+							data-selected-color={props.currentColor}
+						/>
+					)
+				}
 			</Tooltip>
 			{renderPopup()}
 		</div>

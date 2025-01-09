@@ -1,5 +1,19 @@
 # @atlaskit/media-card
 
+## 78.18.0
+
+### Minor Changes
+
+- [#97492](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97492)
+  [`5195c4fd974a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5195c4fd974a3) -
+  Integrated warning modal dialog to prevent against abuse-classified file downloads.
+
+  Integrated with MediaViewerWithPortal replacing React Potal (behind feature flag)
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 78.17.3
 
 ### Patch Changes

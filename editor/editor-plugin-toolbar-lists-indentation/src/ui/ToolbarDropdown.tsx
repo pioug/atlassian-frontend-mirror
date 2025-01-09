@@ -117,7 +117,7 @@ export function ToolbarDropdown(props: DropdownProps) {
 			>
 				<ToolbarButton
 					spacing={isReducedSpacing ? reducedSpacing : 'default'}
-					selected={bulletListActive || orderedListActive}
+					selected={bulletListActive || orderedListActive || isDropdownOpen}
 					aria-expanded={isDropdownOpen}
 					aria-haspopup
 					aria-label={labelLists}

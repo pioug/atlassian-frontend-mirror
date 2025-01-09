@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { TypeAheadHandler, TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import { updateListError } from '../../pm-plugins/commands/update-list-error';
 import { updateListItem } from '../../pm-plugins/commands/update-list-items';
 
 const EMPTY_LIST_ITEM: Array<TypeAheadItem> = [];
@@ -28,16 +30,29 @@ export const useLoadItems = (
 		};
 
 		const { current: view } = editorViewRef;
-		getItems(options).then((result) => {
-			const list = result.length > 0 ? result : EMPTY_LIST_ITEM;
-			if (componentIsMounted.current) {
-				setItems(list);
-			}
+		getItems(options)
+			.then((result) => {
+				const list = result.length > 0 ? result : EMPTY_LIST_ITEM;
+				if (componentIsMounted.current) {
+					setItems(list);
+				}
 
-			queueMicrotask(() => {
-				updateListItem(list)(view.state, view.dispatch);
+				queueMicrotask(() => {
+					updateListItem(list)(view.state, view.dispatch);
+				});
+			})
+			.catch((e) => {
+				if (fg('platform_editor_offline_editing_ga')) {
+					if (e) {
+						if (componentIsMounted.current) {
+							setItems(EMPTY_LIST_ITEM);
+						}
+						queueMicrotask(() => {
+							updateListError(e)(view.state, view.dispatch);
+						});
+					}
+				}
 			});
-		});
 
 		// ignore because EditorView is mutable but we don't want to
 		// call loadItems when it changes, only when the query changes

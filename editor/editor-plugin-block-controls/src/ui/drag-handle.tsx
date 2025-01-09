@@ -363,11 +363,7 @@ export const DragHandle = ({
 				top:
 					editorExperiment('advanced_layouts', true) && isLayoutColumn
 						? `calc(anchor(${anchorName} top) - ${DRAG_HANDLE_WIDTH}px)`
-						: fg('platform_editor_elements_dnd_ed_23674')
-							? `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`
-							: anchorName.includes('table')
-								? `calc(anchor(${anchorName} start) + ${DRAG_HANDLE_HEIGHT}px)`
-								: `anchor(${anchorName} start)`,
+						: `calc(anchor(${anchorName} start) + ${topPositionAdjustment(nodeType)}px)`,
 			};
 		}
 
@@ -375,9 +371,7 @@ export const DragHandle = ({
 			left: isEdgeCase
 				? `calc(${dom?.offsetLeft || 0}px + ${getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType)})`
 				: getLeftPosition(dom, nodeType, innerContainer, isMacroInteractionUpdates, parentNodeType),
-			top: fg('platform_editor_elements_dnd_ed_23674')
-				? getTopPosition(dom, nodeType)
-				: getTopPosition(dom),
+			top: getTopPosition(dom, nodeType),
 		};
 	}, [anchorName, nodeType, view, blockCardWidth, macroInteractionUpdates, getPos, isLayoutColumn]);
 

@@ -1,5 +1,13 @@
 # @atlaskit/media-ui
 
+## 27.3.0
+
+### Minor Changes
+
+- [#97492](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97492)
+  [`5195c4fd974a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5195c4fd974a3) -
+  Exported common modal dialog for for abuse-classified file downloads
+
 ## 27.2.0
 
 ### Minor Changes

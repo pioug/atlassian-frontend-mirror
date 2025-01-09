@@ -1,5 +1,5 @@
 import React from 'react';
-import type { MediaApi } from '@atlaskit/media-client';
+import type { MediaApi, MediaClientConfig } from '@atlaskit/media-client';
 import {
 	isUploadingFileState,
 	type MediaStore as MediaApiImpl,
@@ -17,7 +17,7 @@ import {
 	type SetItems,
 	createMockedMediaApi,
 } from '@atlaskit/media-client/test-helpers';
-import { type MediaStore, type Store, createMediaStore } from '@atlaskit/media-state';
+import { type MediaStore, createMediaStore } from '@atlaskit/media-state';
 
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 
@@ -122,13 +122,21 @@ const createProcessHelper: CreateProcessHelper =
 	};
 
 interface CreateMockedMediaClientProviderWithApi {
-	(params: { mediaApi: Partial<MediaApi>; mediaStore?: MediaStore }): ComponentWithChildren;
+	(params: {
+		mediaApi: Partial<MediaApi>;
+		mediaStore?: MediaStore;
+		mediaClientConfig?: Partial<MediaClientConfig>;
+	}): ComponentWithChildren;
 }
 
 const createMockedMediaClientProviderWithApi: CreateMockedMediaClientProviderWithApi =
-	({ mediaApi, mediaStore }) =>
+	({ mediaApi, mediaStore, mediaClientConfig }) =>
 	({ children }: { children: React.ReactNode }) => (
-		<MockedMediaClientProvider mediaStore={mediaStore} mockedMediaApi={mediaApi}>
+		<MockedMediaClientProvider
+			mediaStore={mediaStore}
+			mockedMediaApi={mediaApi}
+			mediaClientConfig={mediaClientConfig}
+		>
 			{children}
 		</MockedMediaClientProvider>
 	);
@@ -143,16 +151,25 @@ export interface CreateMockedMediaClientProviderResult extends CreateMockedMedia
 
 export interface CreateMockedMediaClientProvider {
 	(params: {
-		initialStore?: Store;
+		mediaStore?: MediaStore;
 		initialItems?: ResponseFileItem | ResponseFileItem[];
+		mediaClientConfig?: Partial<MediaClientConfig>;
 	}): CreateMockedMediaClientProviderResult;
 }
 
+/**
+ * Creates a MockedMediaClientProvider with the given optional parameters mediaStore, initialItems and mediaClientConfig.
+ * NOTE:
+ * If mediaStore is skipped, this function will create a new default one.
+ * This is useful to keep stores in isolation when running unit tests.
+ * Skipping mediaStore is not recommended when using this method in React components,
+ * since it will recreate a default store on every rerender.
+ */
 export const createMockedMediaClientProvider: CreateMockedMediaClientProvider = ({
-	initialStore,
+	mediaStore = createMediaStore(),
 	initialItems,
+	mediaClientConfig,
 }) => {
-	const mediaStore = createMediaStore(initialStore);
 	const { mediaApi, setItems, getItem } = createMockedMediaApi(initialItems);
 	const subscribeToFileState = createSubscribeFileItem({
 		mediaStore,
@@ -172,6 +189,7 @@ export const createMockedMediaClientProvider: CreateMockedMediaClientProvider = 
 	const MockedMediaClientProvider = createMockedMediaClientProviderWithApi({
 		mediaStore,
 		mediaApi,
+		mediaClientConfig,
 	});
 
 	return {

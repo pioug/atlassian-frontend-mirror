@@ -44,7 +44,7 @@
 		"@atlaskit/icon": "^23.2.0",
 		"@atlaskit/onboarding": "^12.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tmp-editor-statsig": "^2.32.0",
+		"@atlaskit/tmp-editor-statsig": "^2.33.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

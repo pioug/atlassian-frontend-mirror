@@ -1,5 +1,39 @@
 # @atlaskit/editor-common
 
+## 98.2.6
+
+### Patch Changes
+
+- [#100162](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100162)
+  [`e80e57fc37719`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e80e57fc37719) -
+  [ux] ED-26089: Add 4px gap to main nav bar items
+
+## 98.2.5
+
+### Patch Changes
+
+- [#100845](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100845)
+  [`bd4c63b5f9688`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd4c63b5f9688) -
+  [ED-26055] Export a function from adf-utils used to detect the use of the nested-tables extension,
+  and add calculation of unexpectedly nested tables to editor-common utils
+- Updated dependencies
+
+## 98.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 98.2.3
+
+### Patch Changes
+
+- [#101149](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101149)
+  [`ab4c33f1ecd77`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab4c33f1ecd77) -
+  [ux] Fixes issue where the extension label is causing inline macros to have a large line gap &
+  updates tests accordingly
+- Updated dependencies
+
 ## 98.2.2
 
 ### Patch Changes

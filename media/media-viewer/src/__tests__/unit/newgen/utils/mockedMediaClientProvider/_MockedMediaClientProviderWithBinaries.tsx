@@ -1,8 +1,12 @@
-import { type MediaApi } from '@atlaskit/media-client';
+import { type MediaClientConfig, type MediaApi, FileIdentifier } from '@atlaskit/media-client';
 import { type GetItem as GetItemBase } from '@atlaskit/media-client/test-helpers';
-import { type MediaStore, type Store } from '@atlaskit/media-state';
+import { type MediaStore, createMediaStore } from '@atlaskit/media-state';
 // TODO: these types should be exported from here (the public package), and imported in test-data
-import { type Binaries, type ItemWithBinaries } from '@atlaskit/media-test-data';
+import {
+	type Binaries,
+	type ItemWithBinaries,
+	type GeneratedItemWithBinaries,
+} from '@atlaskit/media-test-data';
 
 import { dataURItoBlob, normaliseInput } from './_helpers';
 import {
@@ -11,6 +15,7 @@ import {
 	type ProcessHelper as ProcessHelperBase,
 	type UploadHelper as UploadHelperBase,
 } from './_MockedMediaClientProvider';
+import { useEffect, useMemo, useState } from 'react';
 
 interface SetItems {
 	(itemsWithBinaries?: ItemWithBinaries | ItemWithBinaries[]): void;
@@ -66,11 +71,16 @@ export interface CreateMockedMediaClientProviderWithBinariesResult {
 	getLocalPreview: GetLocalPreviewHelper;
 }
 
+export type CreateMockedMediaClientProviderWithBinariesParams = {
+	mediaStore?: MediaStore;
+	initialItemsWithBinaries?: ItemWithBinaries | ItemWithBinaries[];
+	mediaClientConfig?: Partial<MediaClientConfig>;
+};
+
 export interface CreateMockedMediaClientProviderWithBinaries {
-	(params: {
-		initialStore?: Store;
-		initialItemsWithBinaries?: ItemWithBinaries | ItemWithBinaries[];
-	}): CreateMockedMediaClientProviderWithBinariesResult;
+	(
+		params: CreateMockedMediaClientProviderWithBinariesParams,
+	): CreateMockedMediaClientProviderWithBinariesResult;
 }
 
 const extendMediaApiWithBinaries = (
@@ -119,8 +129,17 @@ const extendMediaApiWithBinaries = (
 	};
 };
 
+/**
+ * Creates a MockedMediaClientProvider that handles Binaries to be used in examples.
+ * NOTE:
+ * Uses createMockedMediaClientProvider internally.
+ * If mediaStore is skipped, that function will create a new default one.
+ * This is useful to keep stores in isolation when running unit tests.
+ * Skipping mediaStore is not recommended when using this method in React components,
+ * since it will recreate a default store on every rerender.
+ */
 export const createMockedMediaClientProviderWithBinaries: CreateMockedMediaClientProviderWithBinaries =
-	({ initialStore, initialItemsWithBinaries }) => {
+	({ mediaStore: initialStore, initialItemsWithBinaries, mediaClientConfig }) => {
 		// Binaries store for each item
 		const itemBinaries = new Map<string, Binaries>();
 
@@ -138,7 +157,7 @@ export const createMockedMediaClientProviderWithBinaries: CreateMockedMediaClien
 			processItem: processHelperBase,
 			getLocalPreview,
 			MockedMediaClientProvider,
-		} = createMockedMediaClientProvider({ initialStore });
+		} = createMockedMediaClientProvider({ mediaStore: initialStore, mediaClientConfig });
 
 		// Wrappers for set, get, upload, process
 
@@ -183,3 +202,52 @@ export const createMockedMediaClientProviderWithBinaries: CreateMockedMediaClien
 			MockedMediaClientProvider,
 		};
 	};
+
+export type UseCreateMockedMediaClientProviderWithBinariesParams = Omit<
+	CreateMockedMediaClientProviderWithBinariesParams,
+	'initialItemsWithBinaries'
+> & { initialItems: Promise<GeneratedItemWithBinaries> | Promise<GeneratedItemWithBinaries>[] };
+
+export type UseCreateMockedMediaClientProviderWithBinariesResult =
+	CreateMockedMediaClientProviderWithBinariesResult & {
+		items: ItemWithBinaries[];
+		identifiers: FileIdentifier[];
+	};
+
+export const useCreateMockedMediaClientProviderWithBinaries = ({
+	initialItems,
+	mediaStore: initialStore,
+	mediaClientConfig,
+}: UseCreateMockedMediaClientProviderWithBinariesParams): UseCreateMockedMediaClientProviderWithBinariesResult => {
+	const [initialItemsWithBinaries, setInitialItemsWithBinaries] = useState<ItemWithBinaries[]>([]);
+	const [identifiers, setIdentifiers] = useState<FileIdentifier[]>([]);
+
+	// Ensure a single store for the Hook's life cycle
+	const mediaStore = useMemo(() => initialStore || createMediaStore(), [initialStore]);
+
+	useEffect(() => {
+		const initialGeneratedItems: ItemWithBinaries[] = [];
+		const initialGeneratedIdentifiers: FileIdentifier[] = [];
+
+		Promise.all(normaliseInput(initialItems)).then((generatedItems) => {
+			generatedItems.forEach(([itemWithBinaries, identifier]) => {
+				initialGeneratedItems.push(itemWithBinaries);
+				initialGeneratedIdentifiers.push(identifier);
+			});
+			setInitialItemsWithBinaries(initialGeneratedItems);
+			setIdentifiers(initialGeneratedIdentifiers);
+		});
+	}, [initialItems]);
+
+	const mockedMediaClientProviderResult = useMemo(
+		() =>
+			createMockedMediaClientProviderWithBinaries({
+				initialItemsWithBinaries,
+				mediaStore,
+				mediaClientConfig,
+			}),
+		[initialItemsWithBinaries, mediaStore, mediaClientConfig],
+	);
+
+	return { identifiers, items: initialItemsWithBinaries, ...mockedMediaClientProviderResult };
+};

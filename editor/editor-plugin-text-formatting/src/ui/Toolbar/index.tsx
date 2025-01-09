@@ -12,7 +12,12 @@ import { injectIntl } from 'react-intl-next';
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { usePreviousState } from '@atlaskit/editor-common/hooks';
 import { toolbarMessages } from '@atlaskit/editor-common/messages';
-import { buttonGroupStyle, separatorStyles, wrapperStyle } from '@atlaskit/editor-common/styles';
+import {
+	buttonGroupStyle,
+	buttonGroupStyleBeforeVisualRefresh,
+	separatorStyles,
+	wrapperStyle,
+} from '@atlaskit/editor-common/styles';
 import type {
 	ExtractInjectionAPI,
 	TextFormattingState,
@@ -20,6 +25,7 @@ import type {
 } from '@atlaskit/editor-common/types';
 import { Announcer } from '@atlaskit/editor-common/ui';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { compareItemsArrays, isArrayContainsContent } from '../../editor-commands/utils';
 import type { TextFormattingPlugin } from '../../textFormattingPluginType';
@@ -49,6 +55,7 @@ export type ToolbarFormattingProps = {
 	api: ExtractInjectionAPI<TextFormattingPlugin> | undefined;
 	toolbarType: ToolbarType;
 };
+
 const ToolbarFormatting = ({
 	shouldUseResponsiveToolbar,
 	popupsMountPoint,
@@ -169,7 +176,16 @@ const ToolbarFormatting = ({
 
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		<span css={buttonGroupStyle}>
+		<span
+			css={
+				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/platform/ensure-feature-flag-prefix
+				fg('platform-visual-refresh-icons')
+					? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+						buttonGroupStyle
+					: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
+						buttonGroupStyleBeforeVisualRefresh
+			}
+		>
 			<div
 				role="group"
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -184,8 +200,11 @@ const ToolbarFormatting = ({
 					editorView={editorView}
 					isReducedSpacing={isReducedSpacing}
 				/>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-				<span css={wrapperStyle}>
+
+				<span
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage
+					css={wrapperStyle}
+				>
 					{isToolbarDisabled ? (
 						<div>
 							<MoreButton

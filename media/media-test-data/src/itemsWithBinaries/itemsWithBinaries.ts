@@ -110,6 +110,15 @@ const svg = {
 	),
 };
 
+const abuse = {
+	image: createItemWithBinariesGenerator(generateSampleFileItem.abuseImage, artifactSets.jpgCat),
+	svg: createItemWithBinariesGenerator(
+		generateSampleFileItem.abuseSvg,
+		artifactSets.svgAjDigitalCameraCorrupted,
+		{ details: { name: 'corrupted-binary.svg' } },
+	),
+};
+
 /* type GenerateItemWithBinaries = {
   [key in keyof typeof generateSampleFileItem]: Record<
     string,
@@ -129,6 +138,7 @@ export const generateItemWithBinaries = {
 	workingAudioWithoutRemotePreview,
 	passwordPdf,
 	svg,
+	abuse,
 	// workingArchive,
 	// workingUnknown,
 	// workingGif,

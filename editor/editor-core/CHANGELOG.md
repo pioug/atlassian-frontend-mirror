@@ -1,5 +1,26 @@
 # @atlaskit/editor-core
 
+## 203.10.2
+
+### Patch Changes
+
+- [#100925](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100925)
+  [`9fcb0cd204385`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9fcb0cd204385) -
+  [ED-26170] Remove feature gate platform_editor_element_dnd_nested_fix_patch_2
+- [#101222](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101222)
+  [`361cf34435b08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/361cf34435b08) -
+  [ED-26172] clean up FG platform_editor_element_dnd_nested_fix_patch_4
+- Updated dependencies
+
+## 203.10.1
+
+### Patch Changes
+
+- [#101149](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101149)
+  [`ab4c33f1ecd77`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab4c33f1ecd77) -
+  [ux] Fixes issue where the extension label is causing inline macros to have a large line gap &
+  updates tests accordingly
+
 ## 203.10.0
 
 ### Minor Changes

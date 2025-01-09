@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-ui",
-	"version": "27.2.0",
+	"version": "27.3.0",
 	"description": "Includes common components and utilities used by other media packages",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,6 +33,7 @@
 		"@atlaskit/legacy-custom-icons": "^0.20.0",
 		"@atlaskit/locale": "^2.8.0",
 		"@atlaskit/media-common": "^11.7.0",
+		"@atlaskit/modal-dialog": "^12.18.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/range": "^8.0.0",
@@ -127,6 +128,7 @@
 		"./types": "./src/types.ts",
 		"./formatDate": "./src/formatDate.ts",
 		"./locales": "./src/locales.ts",
+		"./abuseModal": "./src/abuseModal/index.ts",
 		".": "./src/index.ts"
 	},
 	"exports": {
@@ -143,6 +145,7 @@
 		"./types": "./src/types.ts",
 		"./formatDate": "./src/formatDate.ts",
 		"./locales": "./src/locales.ts",
+		"./abuseModal": "./src/abuseModal/index.ts",
 		"./i18n/*": "./src/i18n/*.ts",
 		".": "./src/index.ts"
 	}

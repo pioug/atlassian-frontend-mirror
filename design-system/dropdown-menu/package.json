@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dropdown-menu",
-	"version": "12.23.4",
+	"version": "12.24.0",
 	"description": "A dropdown menu displays a list of actions or options to a user.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -98,6 +98,9 @@
 		"fix-dropdown-close-outside-iframe": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_dst_dropdown_return_focus_fix": {
+			"type": "boolean"
 		}
 	},
 	"techstack": {

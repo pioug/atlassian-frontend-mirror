@@ -42,7 +42,7 @@
 		"@atlaskit/badge": "^16.4.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/datetime-picker": "^15.10.0",
-		"@atlaskit/dropdown-menu": "^12.23.0",
+		"@atlaskit/dropdown-menu": "^12.24.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/empty-state": "^8.1.0",
 		"@atlaskit/flag": "^15.8.0",

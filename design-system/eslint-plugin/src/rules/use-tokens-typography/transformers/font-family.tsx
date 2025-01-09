@@ -43,7 +43,10 @@ export const FontFamily = {
 		}
 
 		const fontFamilyValue = getValueForPropertyNode(node, context);
-		if (typeof fontFamilyValue === 'string' && fontFamilyValue.includes('font.family.')) {
+		if (
+			typeof fontFamilyValue === 'string' &&
+			(fontFamilyValue.includes('font.family.') || fontFamilyValue.includes('inherit'))
+		) {
 			return false;
 		}
 

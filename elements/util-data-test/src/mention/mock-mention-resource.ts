@@ -33,6 +33,7 @@ export class MockMentionResource
 	private config: MockMentionConfig;
 	private lastReturnedSearch: number;
 	private search: Search = new Search('id');
+	private isBrowserOnline: boolean;
 
 	productName?: string;
 	shouldEnableInvite: boolean;
@@ -53,6 +54,14 @@ export class MockMentionResource
 		this.shouldEnableInvite = !!config.shouldEnableInvite;
 		this.onInviteItemClick = config.onInviteItemClick;
 		this.userRole = config.userRole || 'basic';
+		this.isBrowserOnline = true;
+
+		window?.addEventListener('offline', () => {
+			this.isBrowserOnline = false;
+		});
+		window?.addEventListener('online', () => {
+			this.isBrowserOnline = true;
+		});
 	}
 
 	filter(query: string): Promise<void> {
@@ -87,7 +96,10 @@ export class MockMentionResource
 		const waitTime = Math.random() * randomTime + minWait;
 		setTimeout(() => {
 			let mentions;
-			if (query === 'error') {
+			if (!this.isBrowserOnline) {
+				notifyErrors(new Error('mock-offline-error'));
+				return;
+			} else if (query === 'error') {
 				notifyErrors(new Error('mock-error'));
 				notifyAnalytics(SLI_EVENT_TYPE, 'searchUser', 'failed');
 				return;

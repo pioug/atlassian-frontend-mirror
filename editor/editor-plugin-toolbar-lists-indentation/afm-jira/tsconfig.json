@@ -52,6 +52,9 @@
 		},
 		{
 			"path": "../../tmp-editor-statsig/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"
 		}
 	]
 }

@@ -74,6 +74,7 @@ export const mapMediaFileToFileState = (mediaFile: MediaStoreResponse<MediaFile>
 		createdAt,
 		metadataTraceContext,
 		hash,
+		abuseClassification,
 	} = mediaFile.data;
 	const baseState = {
 		id,
@@ -86,6 +87,7 @@ export const mapMediaFileToFileState = (mediaFile: MediaStoreResponse<MediaFile>
 		createdAt,
 		hash,
 		metadataTraceContext,
+		abuseClassification,
 	};
 
 	switch (processingStatus) {

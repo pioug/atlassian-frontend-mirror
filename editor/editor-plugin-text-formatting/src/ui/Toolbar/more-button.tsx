@@ -48,7 +48,7 @@ export const MoreButton = React.memo(
 				spacing={isReducedSpacing ? 'none' : 'default'}
 				title={label}
 				iconBefore={
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/platform/ensure-feature-flag-prefix -- Ignored via go/DSP-18766
 					<div css={fg('platform-visual-refresh-icons') ? MoreIconStyle : triggerWrapperStyles}>
 						{<ShowMoreHorizontalIcon label="" color="currentColor" spacing="spacious" />}
 					</div>

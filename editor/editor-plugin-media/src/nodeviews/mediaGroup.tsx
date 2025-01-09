@@ -158,9 +158,9 @@ class MediaGroup extends React.Component<MediaGroupProps, MediaGroupState> {
 				await mediaNodeUpdater.updateNodeContextId(getPos);
 			}
 
-			const hasDifferentContextId = await mediaNodeUpdater.hasDifferentContextId();
+			const shouldNodeBeDeepCopied = await mediaNodeUpdater.shouldNodeBeDeepCopied();
 
-			if (hasDifferentContextId) {
+			if (shouldNodeBeDeepCopied) {
 				await mediaNodeUpdater.copyNodeFromPos(getPos, {
 					traceId: node.attrs.__mediaTraceId,
 				});

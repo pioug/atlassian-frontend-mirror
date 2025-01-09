@@ -66,7 +66,7 @@ const commonConfig = {
 	// Compiled: rules that are not included via `@compiled/recommended
 	'@atlaskit/platform/expand-border-shorthand': 'error',
 	'@atlaskit/platform/expand-background-shorthand': 'error',
-	'@atlaskit/platform/expand-spacing-shorthand': 'warn',
+	'@atlaskit/platform/expand-spacing-shorthand': 'off',
 	'@compiled/jsx-pragma': [
 		'error',
 		{

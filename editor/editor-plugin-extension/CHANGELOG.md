@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-extension
 
+## 3.0.3
+
+### Patch Changes
+
+- [#101406](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101406)
+  [`4748404f1aa3d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4748404f1aa3d) -
+  ED-26111 Add condition that properly positions the floating toolbar for extensions inside the
+  legacy content macro
+- [#100525](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100525)
+  [`c37f69a90637b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c37f69a90637b) -
+  ED-26114: Remove logic for legacy content macro that handled selection changes when entering and
+  exiting the extension. Now handled in the extension code in conlfuence.
+
 ## 3.0.2
 
 ### Patch Changes

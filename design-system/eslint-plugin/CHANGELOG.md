@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.8.1
+
+### Patch Changes
+
+- [#101736](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101736)
+  [`e2351dd4c21c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e2351dd4c21c2) -
+  `use-tokens-typography` allow `inherit` for `font`, `fontFamily` and `fontWeight` style
+  properties.
+
 ## 11.8.0
 
 ### Minor Changes

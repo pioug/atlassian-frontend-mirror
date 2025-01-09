@@ -1,5 +1,13 @@
 # @atlaskit/media-state
 
+## 1.3.0
+
+### Minor Changes
+
+- [#97492](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97492)
+  [`5195c4fd974a3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5195c4fd974a3) -
+  Extended FileState type def with optional AbuseClassification attribute
+
 ## 1.2.0
 
 ### Minor Changes

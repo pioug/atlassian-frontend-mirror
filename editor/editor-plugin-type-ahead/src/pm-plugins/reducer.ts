@@ -143,6 +143,7 @@ export const createReducer = ({
 
 		const shouldUpdateQuery = action === ACTIONS.CHANGE_QUERY;
 		const shouldUpdateListItems = action === ACTIONS.UPDATE_LIST_ITEMS;
+		const shouldUpdateListError = action === ACTIONS.UPDATE_LIST_ERROR;
 		const shouldUpdateSelectedIndex = action === ACTIONS.UPDATE_SELECTED_INDEX;
 
 		if (shouldOpenMenu) {
@@ -158,6 +159,15 @@ export const createReducer = ({
 			return {
 				...currentPluginState,
 				query: params.query,
+			};
+		} else if (shouldUpdateListError) {
+			const { errorInfo } = params;
+
+			return {
+				...currentPluginState,
+				errorInfo,
+				items: [],
+				selectedIndex: -1,
 			};
 		} else if (shouldUpdateListItems) {
 			const { items } = params;

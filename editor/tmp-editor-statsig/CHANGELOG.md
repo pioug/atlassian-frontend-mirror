@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.33.0
+
+### Minor Changes
+
+- [#101369](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101369)
+  [`afb7fc78b78c0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/afb7fc78b78c0) -
+  Cleaning all related proactive ai spelling and grammar fetaure gates and experiments
+
 ## 2.32.1
 
 ### Patch Changes

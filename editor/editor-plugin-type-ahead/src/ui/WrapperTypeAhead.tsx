@@ -150,9 +150,14 @@ export const WrapperTypeAhead = React.memo(
 		if (closed) {
 			return null;
 		}
+
+		if (!triggerHandler) {
+			return null;
+		}
+
 		return (
 			<InputQuery
-				triggerQueryPrefix={triggerHandler.trigger}
+				triggerQueryPrefix={triggerHandler?.trigger}
 				onQueryChange={setQuery}
 				onItemSelect={insertSelectedItem}
 				selectNextItem={selectNextItem}

@@ -3,7 +3,7 @@ import { tester } from '../../../../__tests__/utils/_tester';
 import { expandSpacingShorthand } from '../index';
 
 const included_compiled_libraries = ['@compiled/react', '@atlaskit/css'];
-const exempt_libraries = ['@atlaskit/primitives', '@emotion', 'styled-components'];
+const exempt_libraries = ['@emotion/react', 'styled-components'];
 
 const validTestCases = (property: string) => {
 	return [
@@ -11,7 +11,12 @@ const validTestCases = (property: string) => {
 			name: `${property}: do not have to handle non-compiled packages (${imp})`,
 			code: outdent`
 			import {css} from '${imp}';
+			import {xcss} from '@atlaskit/primitives';
+
 			const styles = css({
+				${property}: token('space.200'),
+			});
+			const styles2 = xcss({
 				${property}: token('space.200'),
 			});
 		`,

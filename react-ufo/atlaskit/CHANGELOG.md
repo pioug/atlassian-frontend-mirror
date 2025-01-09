@@ -1,5 +1,21 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.9.0
+
+### Minor Changes
+
+- [#101686](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101686)
+  [`e26a94f833e02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e26a94f833e02) -
+  Add fallback error handling for check element visibility VC calculation logic
+
+## 2.8.2
+
+### Patch Changes
+
+- [#101605](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101605)
+  [`26580d858329c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/26580d858329c) -
+  Adjust logic on when to apply getBoundingClientRect check for target rect - handle dummy rect
+
 ## 2.8.1
 
 ### Patch Changes

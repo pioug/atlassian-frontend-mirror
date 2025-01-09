@@ -48,6 +48,7 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
+import type { Identifier } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
@@ -60,6 +61,7 @@ import { updateMediaNodeAttrs } from '../pm-plugins/commands/helpers';
 // eslint-disable-next-line import/no-namespace
 import * as helpers from '../pm-plugins/commands/helpers';
 import {
+	getIdentifier,
 	getMediaFromSupportedMediaNodesFromSelection,
 	isNodeDoubleClickSupportedInLivePagesViewMode,
 	removeMediaNode,
@@ -182,7 +184,7 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	private openMediaPickerBrowser?: () => void;
 	private onPopupToggleCallback: (isOpen: boolean) => void = () => {};
 
-	private nodeCount = new Map<string, number>();
+	private identifierCount = new Map<string, { identifier: Identifier; count: number }>();
 	private taskManager = new MediaTaskManager();
 
 	pickers: PickerFacade[] = [];
@@ -637,23 +639,42 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 		removeMediaNode(this.view, getNode, getPos);
 	};
 
-	trackMediaNodeAddition = (node: PMNode) => {
-		const id = node.attrs.id;
-		const count = this.nodeCount.get(id) ?? 0;
-		if (count === 0) {
-			this.taskManager.resumePendingTask(id);
+	private getIdentifierKey = (identifier: Identifier) => {
+		if (identifier.mediaItemType === 'file') {
+			return identifier.id;
+		} else {
+			return identifier.dataURI;
 		}
-		this.nodeCount.set(id, count + 1);
+	};
+
+	trackMediaNodeAddition = (node: PMNode) => {
+		const identifier = getIdentifier(node.attrs as MediaADFAttrs);
+		const key = this.getIdentifierKey(identifier);
+		const { count } = this.identifierCount.get(key) ?? { count: 0 };
+		if (count === 0) {
+			this.taskManager.resumePendingTask(key);
+		}
+		this.identifierCount.set(key, { identifier, count: count + 1 });
 	};
 
 	trackMediaNodeRemoval = (node: PMNode) => {
-		const id = node.attrs.id;
-		const count = this.nodeCount.get(id) ?? 0;
+		const identifier = getIdentifier(node.attrs as MediaADFAttrs);
+		const key = this.getIdentifierKey(identifier);
+		const { count } = this.identifierCount.get(key) ?? { count: 0 };
 		if (count === 1) {
-			this.taskManager.cancelPendingTask(id);
+			this.taskManager.cancelPendingTask(key);
 		}
-		this.nodeCount.set(id, count - 1);
+		this.identifierCount.set(key, { identifier, count: count - 1 });
 	};
+
+	isIdentifierInEditorScope = (identifier: Identifier) => {
+		const key = this.getIdentifierKey(identifier);
+
+		// rely on has instead of count > 0 because if the user cuts and pastes the same media
+		// the count will temporarily be 0 but the media is still in the scope of editor.
+		return this.identifierCount.has(key);
+	};
+
 	/**
 	 * Called from React UI Component on componentDidMount
 	 */

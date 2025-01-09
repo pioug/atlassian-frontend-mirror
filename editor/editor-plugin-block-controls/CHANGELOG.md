@@ -1,5 +1,24 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.17.3
+
+### Patch Changes
+
+- [#101344](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101344)
+  [`8e96b4a88757b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e96b4a88757b) -
+  [ED-26175] clean up FG platform_editor_elements_dnd_ed_23674
+
+## 2.17.2
+
+### Patch Changes
+
+- [#100925](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100925)
+  [`9fcb0cd204385`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9fcb0cd204385) -
+  [ED-26170] Remove feature gate platform_editor_element_dnd_nested_fix_patch_2
+- [#101222](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101222)
+  [`361cf34435b08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/361cf34435b08) -
+  [ED-26172] clean up FG platform_editor_element_dnd_nested_fix_patch_4
+
 ## 2.17.1
 
 ### Patch Changes

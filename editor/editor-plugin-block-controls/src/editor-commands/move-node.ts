@@ -264,8 +264,7 @@ export const moveNode =
 		}
 
 		tr =
-			inputMethod === INPUT_METHOD.DRAG_AND_DROP &&
-			fg('platform_editor_element_dnd_nested_fix_patch_2')
+			inputMethod === INPUT_METHOD.DRAG_AND_DROP
 				? setCursorPositionAtMovedNode(tr, mappedTo)
 				: selectNode(tr, mappedTo, node.type.name);
 

@@ -6,7 +6,7 @@ import { NodeNestingTransformError } from './errors';
 const NESTED_TABLE_EXTENSION_TYPE = 'com.atlassian.confluence.migration',
 	NESTED_TABLE_EXTENSION_KEY = 'nested-table';
 
-const isNestedTableExtension = (extensionNode: ADFEntity) =>
+export const isNestedTableExtension = (extensionNode: ADFEntity) =>
 	extensionNode.attrs?.extensionType === NESTED_TABLE_EXTENSION_TYPE &&
 	extensionNode.attrs?.extensionKey === NESTED_TABLE_EXTENSION_KEY;
 

@@ -195,9 +195,9 @@ export default class MediaSingleNode extends Component<MediaSingleNodeProps, Med
 			await this.mediaNodeUpdater?.updateContextId();
 		}
 
-		const hasDifferentContextId = await this.mediaNodeUpdater?.hasDifferentContextId();
+		const shouldNodeBeDeepCopied = await this.mediaNodeUpdater?.shouldNodeBeDeepCopied();
 
-		if (hasDifferentContextId) {
+		if (shouldNodeBeDeepCopied) {
 			this.setState({ isCopying: true });
 			try {
 				// Ignored via go/ees005

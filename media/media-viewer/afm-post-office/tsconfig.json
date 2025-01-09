@@ -54,6 +54,9 @@
 			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/portal/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
 		},
 		{

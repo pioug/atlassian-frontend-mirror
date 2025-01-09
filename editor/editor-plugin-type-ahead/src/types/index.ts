@@ -21,6 +21,12 @@ export type { TypeAheadHandler } from '@atlaskit/editor-common/types';
 
 import type { CloseSelectionOptions } from '../pm-plugins/constants';
 
+export type TypeAheadError = 'FETCH_ERROR';
+
+export type TypeAheadErrorInfo = {
+	error: TypeAheadError;
+} | null;
+
 export type OnSelectItem = (props: { index: number; item: TypeAheadItem }) => void;
 
 export interface TypeAheadStatsSerializable extends TypeAheadStats {
@@ -43,6 +49,7 @@ export type TypeAheadPluginState = {
 	typeAheadHandlers: Array<TypeAheadHandler>;
 	query: string;
 	items: Array<TypeAheadItem>;
+	errorInfo: TypeAheadErrorInfo;
 	triggerHandler?: TypeAheadHandler;
 	selectedIndex: number;
 	stats: TypeAheadStatsSerializable | null;
@@ -116,5 +123,6 @@ export interface TypeAheadPluginSharedState {
 	decorationElement: HTMLElement | null;
 	triggerHandler?: TypeAheadHandler;
 	items: Array<TypeAheadItem>;
+	errorInfo: TypeAheadErrorInfo;
 	selectedIndex: number;
 }

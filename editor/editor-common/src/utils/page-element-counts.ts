@@ -1,3 +1,4 @@
+import { isNestedTableExtension } from '@atlaskit/adf-utils/transforms';
 import { reduce } from '@atlaskit/adf-utils/traverse';
 import type { JSONDocNode, JSONNode } from '@atlaskit/editor-json-transformer';
 
@@ -11,6 +12,9 @@ export type PageElementCounts = {
 	macros: {
 		[key: string]: number;
 	};
+	unexpectedElements: {
+		[key: string]: number;
+	};
 };
 
 /**
@@ -22,6 +26,7 @@ export const getPageElementCounts = (doc: JSONDocNode): PageElementCounts => {
 		elements: {},
 		textFormats: {},
 		macros: {},
+		unexpectedElements: {},
 	};
 
 	reduce(
@@ -51,11 +56,32 @@ export const getPageElementCounts = (doc: JSONDocNode): PageElementCounts => {
 					node.attrs.extensionKey
 				) {
 					let extensionKey = node.attrs.extensionKey as string;
+
+					// If there is a nested table extension
+					if (isNestedTableExtension(node)) {
+						if (
+							'parameters' in node.attrs &&
+							node.attrs.parameters &&
+							'adf' in node.attrs.parameters
+						) {
+							// Check to see if the ADF contains a nested table
+							const adfString = node.attrs.parameters.adf as string;
+							const adf = JSON.parse(adfString);
+							if (adfString.includes('{"type":"table"')) {
+								if (getHasNestedTable(adf)) {
+									acc.unexpectedElements['tablesNestedMoreThanOnce'] =
+										(acc.unexpectedElements['tablesNestedMoreThanOnce'] ?? 0) + 1;
+								}
+							}
+						}
+					}
+
 					// If macros extensionKey has <UUID>/<UUID>/static/ prepended to it, remove the prefix
 					if (extensionKey.includes('/static/')) {
 						const extensionKeyParts = extensionKey.split('/');
 						extensionKey = extensionKeyParts[extensionKeyParts.length - 1];
 					}
+
 					acc.macros[extensionKey] = (acc.macros[extensionKey] ?? 0) + 1;
 				}
 			} else {
@@ -67,4 +93,32 @@ export const getPageElementCounts = (doc: JSONDocNode): PageElementCounts => {
 	);
 
 	return pageElementCounts;
+};
+
+/**
+ * Return true is the JSON document contains a table nested within a table
+ */
+const getHasNestedTable = (node: JSONDocNode): boolean => {
+	return reduce(
+		node,
+		(hasNestedTable, node) => {
+			if (hasNestedTable) {
+				return hasNestedTable;
+			}
+			if (node.type === 'table') {
+				return reduce(
+					node,
+					(acc, node) => {
+						if (node.type === 'table') {
+							return true;
+						}
+						return acc;
+					},
+					false,
+				);
+			}
+			return hasNestedTable;
+		},
+		false,
+	);
 };

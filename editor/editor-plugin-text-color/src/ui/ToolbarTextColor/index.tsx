@@ -5,7 +5,7 @@
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx, css } from '@emotion/react';
 import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
@@ -54,6 +54,7 @@ import { akEditorMenuZIndex } from '@atlaskit/editor-shared-styles';
 import TextStyleIcon from '@atlaskit/icon/core/text-style';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { changeColor as changeColorWithAnalytics } from '../../pm-plugins/commands/change-color';
 import type { TextColorPluginState } from '../../pm-plugins/main';
@@ -88,6 +89,10 @@ interface HandleOpenChangeData {
 	isOpen: boolean;
 	logCloseEvent: boolean;
 }
+
+const addMarginToWrapper = css({
+	marginRight: token('space.050', '4px'),
+});
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
 export class ToolbarTextColor extends React.Component<Props & WrappedComponentProps, State> {
@@ -149,8 +154,12 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 		const reducedSpacing = this.props.toolbarType === ToolbarType.FLOATING ? 'compact' : 'none';
 
 		return (
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			<span css={wrapperStyle}>
+			<span
+				css={
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/platform/ensure-feature-flag-prefix
+					fg('platform-visual-refresh-icons') ? [wrapperStyle, addMarginToWrapper] : wrapperStyle
+				}
+			>
 				<Dropdown
 					mountTo={popupsMountPoint}
 					boundariesElement={popupsBoundariesElement}
@@ -184,7 +193,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 							iconBefore={
 								<div
 									css={
-										// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration
+										// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/platform/ensure-feature-flag-prefix
 										fg('platform-visual-refresh-icons')
 											? // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
 												triggerWrapperStylesWithPadding
@@ -192,7 +201,7 @@ export class ToolbarTextColor extends React.Component<Props & WrappedComponentPr
 												triggerWrapperStyles
 									}
 								>
-									{/* eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration */}
+									{/* eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-registration, @atlaskit/platform/ensure-feature-flag-prefix */}
 									{fg('platform-visual-refresh-icons') ? (
 										<DynamicStrokeIconDecoration
 											selectedColor={selectedColor}

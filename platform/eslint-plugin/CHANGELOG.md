@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.1.1
+
+### Patch Changes
+
+- [#101753](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101753)
+  [`ab8a4d93399e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab8a4d93399e8) -
+  AFB-822 Turn of expand-spacing-shorthand rule until all of Jira and Platform rollout is complete
+
 ## 2.1.0
 
 ### Minor Changes

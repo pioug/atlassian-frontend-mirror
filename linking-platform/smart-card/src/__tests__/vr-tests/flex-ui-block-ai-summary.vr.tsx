@@ -16,6 +16,9 @@ snapshot(FlexUiBlockAiSummaryReady, {
 			state: 'hovered',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(FlexUiBlockAiSummaryLoading, {
@@ -28,6 +31,9 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 			state: 'hovered',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(FlexUiBlockAiSummaryDone, {
@@ -40,6 +46,9 @@ snapshot(FlexUiBlockAiSummaryDone, {
 			state: 'hovered',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(FlexUiBlockAiSummaryDoneOnMount, {
@@ -52,6 +61,9 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 			state: 'hovered',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(FlexUiBlockAiSummaryError, {
@@ -64,4 +76,7 @@ snapshot(FlexUiBlockAiSummaryError, {
 			state: 'hovered',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });

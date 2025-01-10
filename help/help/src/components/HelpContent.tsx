@@ -7,6 +7,7 @@ import { useNavigationContext } from './contexts/navigationContext';
 import { useHomeContext } from './contexts/homeContext';
 import { useHeaderContext } from './contexts/headerContext';
 import { useSearchContext } from './contexts/searchContext';
+// import { useAiContext } from './contexts/aiAgentContext';
 import { useWhatsNewArticleContext } from './contexts/whatsNewArticleContext';
 import SearchInput from './Search/SearchInput';
 import SearchResults from './Search/SearchResults';
@@ -15,7 +16,6 @@ import WhatsNewButton from './WhatsNew/WhatsNewButton';
 import WhatsNewResults from './WhatsNew/WhatsNewResults';
 import HelpContentButton from './HelpContentButton';
 import type { Props as HelpContentButtonProps } from './HelpContentButton';
-
 import { HelpBodyContainer, HelpBody, Home } from './styled';
 
 interface HelpContentInterface {
@@ -23,6 +23,8 @@ interface HelpContentInterface {
 }
 
 export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
+	// TODO: this will enable all the features and refactors related to AI
+	// const { isAiEnabled } = useAiContext();
 	const { homeContent, homeOptions } = useHomeContext();
 	const { onSearchWhatsNewArticles, onGetWhatsNewArticle, productName } =
 		useWhatsNewArticleContext();

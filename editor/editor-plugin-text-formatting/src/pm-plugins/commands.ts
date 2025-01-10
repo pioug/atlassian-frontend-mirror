@@ -6,10 +6,18 @@ import {
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
 import { toggleMark } from '@atlaskit/editor-common/mark';
-import type { EditorCommand, InputMethodBasic } from '@atlaskit/editor-common/types';
+import type {
+	EditorCommand,
+	ExtractInjectionAPI,
+	InputMethodBasic,
+} from '@atlaskit/editor-common/types';
+
+import { nextToggleMark } from '../editor-commands/utils/marks';
+import type { TextFormattingPlugin } from '../textFormattingPluginType';
 
 type ToggleMarkWithAnalyticsEditorCommand = (
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
+	api?: ExtractInjectionAPI<TextFormattingPlugin>,
 ) => ToggleMarkEditorCommand;
 
 export type ToggleMarkEditorCommand = (inputMethod: InputMethodBasic) => EditorCommand;
@@ -206,20 +214,22 @@ export const toggleSubscriptWithAnalytics: ToggleMarkWithAnalyticsEditorCommand 
 		return newTr;
 	};
 
-export const toggleCode: EditorCommand = ({ tr }) => {
-	const { code } = tr.doc.type.schema.marks;
-	if (!code) {
-		// No transaction to apply
-		return null;
-	}
-	return toggleMark(code)({ tr });
-};
+export const toggleCode =
+	({ api }: { api: ExtractInjectionAPI<TextFormattingPlugin> | undefined }): EditorCommand =>
+	({ tr }) => {
+		const { code } = tr.doc.type.schema.marks;
+		if (!code) {
+			// No transaction to apply
+			return null;
+		}
+		return nextToggleMark(code, api)({ tr });
+	};
 
 export const toggleCodeWithAnalytics: ToggleMarkWithAnalyticsEditorCommand =
-	(editorAnalyticsApi) =>
+	(editorAnalyticsApi, api) =>
 	(inputMethod) =>
 	({ tr }) => {
-		const newTr = toggleCode({ tr });
+		const newTr = toggleCode({ api })({ tr });
 		if (!newTr) {
 			// No transaction to apply
 			return null;

@@ -1184,25 +1184,6 @@ export interface ShapeTokenSchema<BaseToken> {
 
 /**
  * @private
- * @deprecated Probably
- */
-export interface FontSizeTokenSchema<BaseToken> {
-	font: {
-		size: {
-			'050': DeprecatedTypographyToken<BaseToken>;
-			'075': DeprecatedTypographyToken<BaseToken>;
-			'100': DeprecatedTypographyToken<BaseToken>;
-			'200': DeprecatedTypographyToken<BaseToken>;
-			'300': DeprecatedTypographyToken<BaseToken>;
-			'400': DeprecatedTypographyToken<BaseToken>;
-			'500': DeprecatedTypographyToken<BaseToken>;
-			'600': DeprecatedTypographyToken<BaseToken>;
-		};
-	};
-}
-
-/**
- * @private
  */
 export interface FontWeightTokenSchema<BaseToken> {
 	font: {
@@ -1218,16 +1199,6 @@ export interface FontWeightTokenSchema<BaseToken> {
 export interface FontFamilyTokenSchema<BaseToken> {
 	font: {
 		family: {
-			/**
-			 * @private
-			 * @deprecated
-			 */
-			sans: DeprecatedTypographyToken<BaseToken>;
-			/**
-			 * @private
-			 * @deprecated
-			 */
-			monospace: DeprecatedTypographyToken<BaseToken>;
 			body: FontFamilyToken<BaseToken>;
 			heading: FontFamilyToken<BaseToken>;
 			brand: {
@@ -1235,36 +1206,6 @@ export interface FontFamilyTokenSchema<BaseToken> {
 				body: FontFamilyToken<BaseToken>;
 			};
 			code: FontFamilyToken<BaseToken>;
-		};
-	};
-}
-
-/**
- * @private
- * @deprecated Probably
- */
-export interface LineHeightTokenSchema<BaseToken> {
-	font: {
-		lineHeight: {
-			'1': DeprecatedTypographyToken<BaseToken>;
-			'100': DeprecatedTypographyToken<BaseToken>;
-			'200': DeprecatedTypographyToken<BaseToken>;
-			'300': DeprecatedTypographyToken<BaseToken>;
-			'400': DeprecatedTypographyToken<BaseToken>;
-			'500': DeprecatedTypographyToken<BaseToken>;
-			'600': DeprecatedTypographyToken<BaseToken>;
-		};
-	};
-}
-
-export interface LetterSpacingTokenSchema<BaseToken> {
-	font: {
-		letterSpacing: {
-			'0': DeprecatedTypographyToken<BaseToken>;
-			'100': DeprecatedTypographyToken<BaseToken>;
-			'200': DeprecatedTypographyToken<BaseToken>;
-			'300': DeprecatedTypographyToken<BaseToken>;
-			'400': DeprecatedTypographyToken<BaseToken>;
 		};
 	};
 }

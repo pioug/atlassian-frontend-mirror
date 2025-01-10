@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-text-formatting
 
+## 1.16.10
+
+### Patch Changes
+
+- [#97984](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97984)
+  [`8ffeab9aaf1ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ffeab9aaf1ab) -
+  [ux] [ED-23573] Added new actions (resolveMarks and registerMarks) to basePlugin. Callbacks added
+  to mentions, card, emoji and base plugins to handle conversion to inline code. Deprecated code
+  removed from editor-common.
+- Updated dependencies
+
 ## 1.16.9
 
 ### Patch Changes

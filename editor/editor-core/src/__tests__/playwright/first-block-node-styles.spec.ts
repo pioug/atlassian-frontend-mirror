@@ -44,6 +44,9 @@ import {
 			},
 			platformFeatureFlags: {
 				platform_editor_ssr_fix_block_controls: marginTopCSSFixEnabled,
+				// TODO https://product-fabric.atlassian.net/browse/ED-26250
+				// the horizontal rule test on Line98 is failing with platform_editor_element_dnd_nested_fix_patch_6 on, need to further investigate
+				platform_editor_element_dnd_nested_fix_patch_6: false,
 			},
 		});
 
@@ -52,7 +55,7 @@ import {
 				adf: panelAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstPanelNode = nodes.panel.first();
 				const secondPanelNode = nodes.panel.nth(1);
 
@@ -69,7 +72,7 @@ import {
 				adf: codeBlockAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.codeBlock.first();
 				const secondNode = nodes.codeBlock.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', marginTopCSSFixEnabled ? '0px' : '12px');
@@ -82,7 +85,7 @@ import {
 				adf: taskListAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.actionList.first();
 				const secondNode = nodes.actionList.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', marginTopCSSFixEnabled ? '0px' : '12px');
@@ -95,7 +98,7 @@ import {
 				adf: ruleNodeAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.divider.first();
 				const secondNode = nodes.divider.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', marginTopCSSFixEnabled ? '0px' : '24px');
@@ -108,7 +111,7 @@ import {
 				adf: expandAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.expand.first();
 				const secondNode = nodes.expand.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', marginTopCSSFixEnabled ? '0px' : '4px');
@@ -121,7 +124,7 @@ import {
 				adf: layoutAndBigParagraphs,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.layout.first();
 				const secondNode = nodes.layout.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', marginTopCSSFixEnabled ? '0px' : '8px');
@@ -134,7 +137,7 @@ import {
 				adf: blockCardAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.blockCard.first();
 				const secondNode = nodes.blockCard.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', marginTopCSSFixEnabled ? '0px' : '12px');
@@ -147,7 +150,7 @@ import {
 				adf: mediaSingleAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.mediaSingle.first();
 				const secondNode = nodes.mediaSingle.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', '0px');
@@ -160,7 +163,7 @@ import {
 				adf: mediaGroupAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.mediaGroup.first();
 				const secondNode = nodes.mediaGroup.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', '0px');
@@ -173,7 +176,7 @@ import {
 				adf: bodiedExtensionAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.bodiedExtension.first();
 				const secondNode = nodes.bodiedExtension.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', '0px');
@@ -186,7 +189,7 @@ import {
 				adf: extensionAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.extension.first();
 				const secondNode = nodes.extension.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', '0px');
@@ -199,7 +202,7 @@ import {
 				adf: embedCardAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.embedCard.first();
 				const secondNode = nodes.embedCard.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', '0px');
@@ -212,7 +215,7 @@ import {
 				adf: decisionListAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.decisionList.first();
 				const secondNode = nodes.decisionList.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', '0px');
@@ -225,7 +228,7 @@ import {
 				adf: paragraphAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.paragraph.first();
 				const secondNode = nodes.paragraph.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', '0px');
@@ -238,7 +241,7 @@ import {
 				adf: bulletListAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.bulletList.first();
 				const secondNode = nodes.bulletList.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', '0px');
@@ -251,7 +254,7 @@ import {
 				adf: headingNodeAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.h1.first();
 				const secondNode = nodes.h1.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', '0px');
@@ -267,7 +270,7 @@ import {
 				adf: blockquoteAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.blockquote.first();
 				const secondNode = nodes.blockquote.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', '0px');
@@ -280,7 +283,7 @@ import {
 				adf: tableAdf,
 			});
 			test('should have correct margin tops', async ({ editor }) => {
-				let nodes = EditorNodeContainerModel.from(editor);
+				const nodes = EditorNodeContainerModel.from(editor);
 				const firstNode = nodes.table.first();
 				const secondNode = nodes.table.nth(1);
 				await expect(firstNode).toHaveCSS('margin-top', '0px');

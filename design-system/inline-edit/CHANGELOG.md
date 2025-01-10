@@ -1,5 +1,11 @@
 # @atlaskit/inline-edit
 
+## 14.0.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 14.0.1
 
 ### Patch Changes

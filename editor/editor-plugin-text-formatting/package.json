@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-text-formatting",
-	"version": "1.16.9",
+	"version": "1.16.10",
 	"description": "Text-formatting plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,17 +35,18 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/editor-common": "^98.2.0",
+		"@atlaskit/editor-common": "^99.1.0",
 		"@atlaskit/editor-plugin-analytics": "^1.10.0",
+		"@atlaskit/editor-plugin-base": "^2.1.0",
 		"@atlaskit/editor-plugin-primary-toolbar": "^2.1.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/editor-tables": "^2.8.0",
-		"@atlaskit/icon": "^23.2.0",
+		"@atlaskit/icon": "^23.3.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
 		"@atlaskit/tmp-editor-statsig": "^2.33.0",
-		"@atlaskit/tokens": "^2.5.0",
+		"@atlaskit/tokens": "^3.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"react-intl-next": "npm:react-intl@^5.18.1"
@@ -101,6 +102,12 @@
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons": {
+			"type": "boolean"
+		},
+		"platform_editor_resolve_marks": {
+			"type": "boolean"
+		},
+		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean"
 		}
 	}

@@ -1,5 +1,23 @@
 # @atlaskit/help
 
+## 7.13.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 7.13.0
+
+### Minor Changes
+
+- [#101977](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101977)
+  [`f110c80ba8764`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f110c80ba8764) -
+  adding ai agent props
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.12.0
 
 ### Minor Changes

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-connectivity
 
+## 1.1.4
+
+### Patch Changes
+
+- [#100007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100007)
+  [`df71270061d0f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df71270061d0f) -
+  updated example to enable more buttons on media floating toolbar
+
+## 1.1.3
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.1.2
 
 ### Patch Changes

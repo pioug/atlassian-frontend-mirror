@@ -2,10 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import ChildIssuesIcon from '@atlaskit/icon/core/migration/child-issues';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import RelatedLinksActionIconOld from './RelatedLinksActionIconOld';
 
 const rotateSvg = css({
 	transform: 'rotate(180deg)',
@@ -15,10 +17,17 @@ const rotateSvg = css({
 /**
  * ChildIssuesIcon but 180 degrees rotated
  */
-const RelatedLinksActionIcon = () => (
+const RelatedLinksActionIconNew = () => (
 	<span css={rotateSvg}>
 		<ChildIssuesIcon color="currentColor" spacing="spacious" label="View recent links..." />
 	</span>
 );
+
+const RelatedLinksActionIcon = (): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <RelatedLinksActionIconNew />;
+	}
+	return <RelatedLinksActionIconOld />;
+};
 
 export default RelatedLinksActionIcon;

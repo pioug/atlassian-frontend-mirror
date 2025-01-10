@@ -25,6 +25,20 @@ export const typographyTests: Tests = {
 					font: token('font.heading.large'),
 				})`,
 		},
+		{
+			options: [{ patterns: ['untokenized-properties'] }],
+			code: outdent`
+				const styles = styled.span({
+					font: \`\${token('font.body.small')} !important\`,
+				})`,
+		},
+		{
+			options: [{ patterns: ['untokenized-properties'] }],
+			code: outdent`
+				const styles = xcss({
+					font: 'font.code',
+				})`,
+		},
 		// Inherit font style properties
 		{
 			options: [{ patterns: ['untokenized-properties'] }],

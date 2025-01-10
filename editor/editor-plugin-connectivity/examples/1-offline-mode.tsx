@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
+import { DevTools } from '@af/editor-examples-helpers/utils';
 import Button from '@atlaskit/button/new';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { PublicPluginAPI } from '@atlaskit/editor-common/types';
@@ -38,6 +39,7 @@ import { selectionToolbarPlugin } from '@atlaskit/editor-plugins/selection-toolb
 import { tablesPlugin } from '@atlaskit/editor-plugins/table';
 import { tasksAndDecisionsPlugin } from '@atlaskit/editor-plugins/tasks-and-decisions';
 import { widthPlugin } from '@atlaskit/editor-plugins/width';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
 import {
@@ -117,7 +119,17 @@ function Editor() {
 			.add(guidelinePlugin)
 			.add(gridPlugin)
 			.add(focusPlugin)
-			.add([mediaPlugin, { provider: storyMediaProviderFactory() }])
+			.add([
+				mediaPlugin,
+				{
+					provider: storyMediaProviderFactory(),
+					allowMediaSingle: true,
+					allowMediaSingleEditable: true,
+					allowLinking: true,
+					allowCommentsOnMedia: true,
+					allowAdvancedToolBarOptions: true,
+				},
+			])
 			.add([analyticsPlugin, {}])
 			.add(contentInsertionPlugin)
 			.add(mentionsPlugin)
@@ -156,13 +168,20 @@ function Editor() {
 			.add(extensionPlugin),
 	);
 
+	const [editorView, setEditorView] = React.useState<EditorView>();
+	const onReady = React.useCallback((editorActions: EditorActions<any>) => {
+		setEditorView(editorActions._privateGetEditorView());
+	}, []);
+
 	return (
 		<Box xcss={styles}>
 			<SimulateMode />
+			<DevTools editorView={editorView} />
 			<OfflineIndicator editorApi={editorApi} />
 			<ComposableEditor
 				appearance="full-page"
 				preset={preset}
+				onEditorReady={onReady}
 				mentionProvider={Promise.resolve(mentionResourceProvider)}
 				extensionProviders={(editorActions?: EditorActions) => [
 					getExampleExtensionProviders(editorApi, editorActions),

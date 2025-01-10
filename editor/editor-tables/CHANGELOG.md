@@ -1,5 +1,14 @@
 # @atlaskit/editor-tables
 
+## 2.8.3
+
+### Patch Changes
+
+- [#101371](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101371)
+  [`3cce4a292ef1e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3cce4a292ef1e) -
+  Add fix for move column logic when moving a column before a column with merged rows behind FG
+  platform_editor_table_fix_move_column
+
 ## 2.8.2
 
 ### Patch Changes

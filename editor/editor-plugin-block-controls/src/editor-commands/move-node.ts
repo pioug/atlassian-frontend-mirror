@@ -7,6 +7,7 @@ import {
 	EVENT_TYPE,
 	INPUT_METHOD,
 } from '@atlaskit/editor-common/analytics';
+import { expandedState } from '@atlaskit/editor-common/expand';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import { GapCursorSelection } from '@atlaskit/editor-common/selection';
 import { transformSliceNestedExpandToExpand } from '@atlaskit/editor-common/transforms';
@@ -19,7 +20,10 @@ import {
 	type Slice,
 } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
-import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import {
+	findParentNodeOfType,
+	findParentNodeOfTypeClosestToPos,
+} from '@atlaskit/editor-prosemirror/utils';
 import { findTable, isInTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
@@ -206,17 +210,19 @@ export const moveNode =
 		if (!node) {
 			return tr;
 		}
+
+		const { expand, nestedExpand } = tr.doc.type.schema.nodes;
 		const size = node?.nodeSize ?? 1;
 		const end = start + size;
 
 		const $from = tr.doc.resolve(start);
+		const $to = tr.doc.resolve(to);
+
 		let mappedTo;
 		if (editorExperiment('nested-dnd', true)) {
 			const nodeCopy = tr.doc.slice(start, end, false); // cut the content
-			const $to = tr.doc.resolve(to);
 			const destType = $to.node().type;
 			const destParent = $to.node($to.depth);
-
 			const sourceNode = $from.nodeAfter;
 
 			// Move a layout column to top level
@@ -271,6 +277,23 @@ export const moveNode =
 		tr.setMeta(key, { nodeMoved: true });
 		api?.core.actions.focus();
 		const $mappedTo = tr.doc.resolve(mappedTo);
+
+		const expandAncestor = findParentNodeOfTypeClosestToPos($to, [expand, nestedExpand]);
+
+		if (
+			expandAncestor &&
+			editorExperiment('nested-dnd', true) &&
+			fg('platform_editor_element_dnd_nested_fix_patch_6')
+		) {
+			const wasExpandExpanded = expandedState.get(expandAncestor.node);
+			const updatedExpandAncestor = findParentNodeOfTypeClosestToPos($mappedTo, [
+				expand,
+				nestedExpand,
+			]);
+			if (wasExpandExpanded !== undefined && updatedExpandAncestor) {
+				expandedState.set(updatedExpandAncestor.node, wasExpandExpanded);
+			}
+		}
 
 		if (editorExperiment('advanced_layouts', true)) {
 			attachMoveNodeAnalytics(

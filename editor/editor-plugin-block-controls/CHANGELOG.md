@@ -1,5 +1,48 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.19.0
+
+### Minor Changes
+
+- [#101334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101334)
+  [`70742828916ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70742828916ee) -
+  Clean up FG platform_editor_element_dnd_nested_fix_patch_3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.18.1
+
+### Patch Changes
+
+- [#100915](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100915)
+  [`8c10232e0f242`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8c10232e0f242) -
+  ED-24615 Fixed expand not remembering expand state when a node is moved into it
+
+## 2.18.0
+
+### Minor Changes
+
+- [#102069](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102069)
+  [`3d4c9e1a85d9c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d4c9e1a85d9c) -
+  Clean up platform_editor_dnd_input_performance_optimisation experiment
+
+### Patch Changes
+
+- [#101814](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101814)
+  [`d8fc81718b517`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d8fc81718b517) -
+  [ED-26177] Remove code reference for FG platform_editor_element_dnd_nested_type_error_fix
+- Updated dependencies
+
+## 2.17.4
+
+### Patch Changes
+
+- [#101861](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101861)
+  [`c936775aa003c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c936775aa003c) -
+  [ED-26173] clean up FG platform_editor_element_dnd_nested_fix_patch_5
+
 ## 2.17.3
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/legacy-custom-icons",
-	"version": "0.20.1",
+	"version": "0.20.2",
 	"description": "A centralised place to store legacy custom icons.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -312,9 +312,9 @@
 		"./slack-search-result-icon": "./src/ui/slack-search-result-icon/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^23.2.0",
+		"@atlaskit/icon": "^23.3.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^2.5.0",
+		"@atlaskit/tokens": "^3.0.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

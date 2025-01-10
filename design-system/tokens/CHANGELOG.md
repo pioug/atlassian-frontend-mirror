@@ -1,5 +1,23 @@
 # @atlaskit/tokens
 
+## 3.0.0
+
+### Major Changes
+
+- [#102047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102047)
+  [`3cc4b295175a6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3cc4b295175a6) -
+  Removed deprecated tokens:
+
+  - `font.size.X`
+  - `font.lineHeight.X`
+  - `font.letterSpacing.X`
+  - `font.family.sans`
+  - `font.family.monospace`
+
+  Typography should be applied via composite tokens, i.e. `font.heading.X` and `font.body.X`
+  instead. Use `font.family.heading` or `font.family.body` instead of `font.family.sans`. Use
+  `font.family.code` instead of `font.family.monospace`.
+
 ## 2.5.1
 
 ### Patch Changes

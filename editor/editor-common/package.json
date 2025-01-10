@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "98.2.6",
+	"version": "99.1.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -197,7 +197,7 @@
 	"dependencies": {
 		"@atlaskit/activity-provider": "^2.5.0",
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/adf-utils": "^19.15.0",
+		"@atlaskit/adf-utils": "^19.16.0",
 		"@atlaskit/analytics-listeners": "^8.13.0",
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/analytics-next": "^10.2.0",
@@ -208,12 +208,12 @@
 		"@atlaskit/custom-steps": "^0.9.0",
 		"@atlaskit/dropdown-menu": "^12.24.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
-		"@atlaskit/editor-palette": "1.6.3",
+		"@atlaskit/editor-palette": "1.6.4",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/editor-tables": "^2.8.0",
 		"@atlaskit/emoji": "^67.12.0",
-		"@atlaskit/icon": "^23.2.0",
+		"@atlaskit/icon": "^23.3.0",
 		"@atlaskit/icon-object": "^6.9.0",
 		"@atlaskit/link-datasource": "^3.15.0",
 		"@atlaskit/link-picker": "^1.47.0",
@@ -224,7 +224,7 @@
 		"@atlaskit/media-file-preview": "^0.9.0",
 		"@atlaskit/media-picker": "^67.0.0",
 		"@atlaskit/media-ui": "^27.3.0",
-		"@atlaskit/media-viewer": "49.6.0",
+		"@atlaskit/media-viewer": "49.6.1",
 		"@atlaskit/mention": "^23.7.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/onboarding": "^12.2.0",
@@ -233,13 +233,13 @@
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/profilecard": "^21.1.0",
 		"@atlaskit/section-message": "^6.8.0",
-		"@atlaskit/smart-card": "^34.0.0",
+		"@atlaskit/smart-card": "^34.1.0",
 		"@atlaskit/smart-user-picker": "^6.11.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/tmp-editor-statsig": "^2.33.0",
-		"@atlaskit/tokens": "^2.5.0",
+		"@atlaskit/tokens": "^3.0.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/width-detector": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
@@ -360,9 +360,6 @@
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons": {
-			"type": "boolean"
-		},
-		"platform_editor_element_dnd_nested_fix_patch_3": {
 			"type": "boolean"
 		},
 		"platform_editor_reduce_element_browser_padding": {

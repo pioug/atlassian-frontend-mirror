@@ -196,23 +196,14 @@ const globalDnDStyle = css({
 });
 
 const globalStyles = () =>
-	fg('platform_editor_element_dnd_nested_fix_patch_3')
-		? css({
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				'.ProseMirror-widget:first-child + *:not([data-panel-type], .code-block, [data-node-type="nestedExpand"], [data-layout-section="true"])':
-					{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-						marginTop: '0 !important',
-					},
-			})
-		: css({
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				'.ProseMirror-widget:first-child + *:not([data-panel-type], .code-block, [data-node-type="nestedExpand"])':
-					{
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-						marginTop: '0 !important',
-					},
-			});
+	css({
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'.ProseMirror-widget:first-child + *:not([data-panel-type], .code-block, [data-node-type="nestedExpand"], [data-layout-section="true"])':
+			{
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
+				marginTop: '0 !important',
+			},
+	});
 
 const topLevelNodeMarginStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -334,15 +325,12 @@ export const GlobalStylesWrapper = () => {
 				editorExperiment('advanced_layouts', true) ? blockCardWithoutLayout : undefined,
 				withDividerInPanelStyleFix,
 				withFormatInLayoutStyleFix,
-				fg('platform_editor_element_dnd_nested_fix_patch_3')
-					? [
-							withRelativePosStyle,
-							topLevelNodeMarginStyles,
-							editorExperiment('nested-dnd', true)
-								? withAnchorNameZindexNestedStyle
-								: withAnchorNameZindexStyle,
-						]
-					: undefined,
+				withRelativePosStyle,
+				topLevelNodeMarginStyles,
+				editorExperiment('nested-dnd', true)
+					? withAnchorNameZindexNestedStyle
+					: withAnchorNameZindexStyle,
+				,
 			]}
 		/>
 	);

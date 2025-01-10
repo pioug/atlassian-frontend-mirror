@@ -1,5 +1,16 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.0.14
+
+### Patch Changes
+
+- [#102083](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102083)
+  [`7dfb89f8b8a19`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7dfb89f8b8a19) -
+  [ux] ED-26221 Changed order of paste handlers so that nested tables are handled before panels and
+  decisions. This prevents incorrect handling of nested tables when pasting a table into a panel
+  inside a table
+- Updated dependencies
+
 ## 2.0.13
 
 ### Patch Changes

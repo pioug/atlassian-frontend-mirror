@@ -24,6 +24,20 @@ export const typographyTests: Tests = {
 					fontFamily: token('font.family.brand.body')
 				})`,
 		},
+		{
+			options: [{ patterns: ['font-family'] }],
+			code: outdent`
+				const styles = styled.span({
+					fontFamily: \`\${token('font.family.code')} !important\`,
+				})`,
+		},
+		{
+			options: [{ patterns: ['font-family'] }],
+			code: outdent`
+				const styles = xcss({
+					fontFamily: 'font.family.code',
+				})`,
+		},
 		// Should not error on inherit
 		{
 			options: [{ patterns: ['font-family'] }],

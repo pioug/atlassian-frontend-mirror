@@ -17,6 +17,20 @@ export const typographyTests: Tests = {
 					fontWeight: token('font.weight.medium'),
 				})`,
 		},
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = styled.span({
+					fontWeight: \`\${token('font.weight.regular')} !important\`,
+				})`,
+		},
+		{
+			options: [{ patterns: ['font-weight'] }],
+			code: outdent`
+				const styles = xcss({
+					fontWeight: 'font.weight.bold',
+				})`,
+		},
 		// Should not error on inherit
 		{
 			options: [{ patterns: ['font-weight'] }],

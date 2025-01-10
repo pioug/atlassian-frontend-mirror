@@ -226,6 +226,19 @@ export const emojiPlugin: EmojiPlugin = ({ config: options, api }) => {
 			return tr;
 		},
 	};
+
+	api?.base?.actions.registerMarks(({ tr, node, pos }) => {
+		const { doc } = tr;
+		const { schema } = doc.type;
+		const { emoji: emojiNodeType } = schema.nodes;
+
+		if (node.type === emojiNodeType) {
+			const newText = node.attrs.text;
+			const currentPos = tr.mapping.map(pos);
+			tr.replaceWith(currentPos, currentPos + node.nodeSize, schema.text(newText, node.marks));
+		}
+	});
+
 	return {
 		name: 'emoji',
 

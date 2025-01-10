@@ -1,5 +1,11 @@
 # @atlaskit/button
 
+## 20.3.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 20.3.7
 
 ### Patch Changes

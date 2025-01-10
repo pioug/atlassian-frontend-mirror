@@ -2,8 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkSize } from '../../../../../constants';
 
@@ -11,6 +12,7 @@ import ActionButton from './action-button';
 import ActionDropdownItem from './action-dropdown-item';
 import ActionIcon from './action-icon';
 import ActionStackItem from './action-stack-item';
+import ActionOld from './ActionOld';
 import { type ActionProps } from './types';
 
 /**
@@ -18,7 +20,7 @@ import { type ActionProps } from './types';
  * @internal
  * @param {ActionProps} ActionProps - The props necessary for the Action.
  */
-const Action = ({
+const ActionNew = ({
 	as,
 	appearance = 'subtle',
 	content,
@@ -35,7 +37,7 @@ const Action = ({
 	hideTooltipOnMouseDown,
 	xcss,
 	asDropDownItem,
-	overrideCss,
+	className,
 	isDisabled,
 	href,
 	ariaLabel,
@@ -102,7 +104,8 @@ const Action = ({
 			iconBefore={iconBefore}
 			isLoading={isLoading}
 			onClick={onClick}
-			overrideCss={overrideCss}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 			size={size}
 			testId={testId}
 			tooltipMessage={tooltipMessage || content}
@@ -112,6 +115,13 @@ const Action = ({
 		/>
 	);
 	return Wrapper !== undefined ? <Wrapper>{button}</Wrapper> : button;
+};
+
+const Action = (props: ActionProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <ActionNew {...props} />;
+	}
+	return <ActionOld {...props} />;
 };
 
 export default Action;

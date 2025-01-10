@@ -6,6 +6,8 @@ import type {
 } from '@atlaskit/editor-common/types';
 import type { ContextIdentifierPlugin } from '@atlaskit/editor-plugin-context-identifier';
 import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 
 import { type setKeyboardHeight } from './editor-commands/set-keyboard-height';
 import type { ScrollGutterPluginOptions } from './pm-plugins/scroll-gutter/plugin';
@@ -38,6 +40,22 @@ export type BasePlugin = NextEditorPlugin<
 		sharedState: BasePluginState;
 		actions: {
 			setKeyboardHeight: typeof setKeyboardHeight;
+			registerMarks: (callback: Callback) => void;
+			resolveMarks: (from: number, to: number, tr: Transaction) => void;
 		};
 	}
 >;
+
+export type Callback = ({
+	node,
+	tr,
+	pos,
+	from,
+	to,
+}: {
+	node: PMNode;
+	tr: Transaction;
+	pos: number;
+	from: number;
+	to: number;
+}) => void;

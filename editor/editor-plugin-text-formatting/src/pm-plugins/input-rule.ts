@@ -8,10 +8,17 @@ import {
 import type { EditorAnalyticsAPI } from '@atlaskit/editor-common/analytics';
 import { transformNonTextNodesToText } from '@atlaskit/editor-common/mark';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import type { InputRuleHandler, InputRuleWrapper } from '@atlaskit/editor-common/types';
+import type {
+	ExtractInjectionAPI,
+	InputRuleHandler,
+	InputRuleWrapper,
+} from '@atlaskit/editor-common/types';
 import { createRule, inputRuleWithAnalytics } from '@atlaskit/editor-common/utils';
 import type { MarkType, Schema } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { createPlugin, leafNodeReplacementCharacter } from '@atlaskit/prosemirror-input-rules';
+
+import type { TextFormattingPlugin } from '../textFormattingPluginType';
 
 enum ValidAutoformatChars {
 	STRONG = '__',
@@ -63,10 +70,16 @@ export const ValidCombinations: Record<ValidAutoformatChars, string[]> = {
 	],
 };
 
-function addMark(markType: MarkType, schema: Schema, char: ValidAutoformatChars): InputRuleHandler {
+// eslint-disable-next-line @typescript-eslint/max-params
+function addMark(
+	markType: MarkType,
+	_schema: Schema,
+	char: ValidAutoformatChars,
+	api?: ExtractInjectionAPI<TextFormattingPlugin>,
+): InputRuleHandler {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/max-params
-	return (state, match, start, end) => {
+	return (state, _match, start, end) => {
 		const { doc, schema, tr } = state;
 		const textPrefix = state.doc.textBetween(start, start + char.length);
 
@@ -101,7 +114,11 @@ function addMark(markType: MarkType, schema: Schema, char: ValidAutoformatChars)
 		}
 
 		if (markType.name === 'code') {
-			transformNonTextNodesToText(tr.mapping.map(start), tr.mapping.map(end), tr);
+			if (fg('platform_editor_resolve_marks')) {
+				api?.base?.actions?.resolveMarks(tr.mapping.map(start), tr.mapping.map(end), tr);
+			} else {
+				transformNonTextNodesToText(tr.mapping.map(start), tr.mapping.map(end), tr);
+			}
 		}
 
 		const mappedStart = tr.mapping.map(start);
@@ -301,6 +318,7 @@ function getStrikeInputRules(
 function getCodeInputRules(
 	schema: Schema,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	api: ExtractInjectionAPI<TextFormattingPlugin> | undefined,
 ): InputRuleWrapper[] {
 	const ruleWithCodeAnalytics = inputRuleWithAnalytics(
 		{
@@ -317,7 +335,7 @@ function getCodeInputRules(
 
 	const backTickRule = createRule(
 		codeRegex,
-		addMark(schema.marks.code, schema, ValidAutoformatChars.CODE),
+		addMark(schema.marks.code, schema, ValidAutoformatChars.CODE, api),
 	);
 
 	return [ruleWithCodeAnalytics(backTickRule)];
@@ -326,6 +344,7 @@ function getCodeInputRules(
 export function inputRulePlugin(
 	schema: Schema,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
+	api: ExtractInjectionAPI<TextFormattingPlugin> | undefined,
 ): SafePlugin | undefined {
 	const rules: Array<InputRuleWrapper> = [];
 
@@ -342,7 +361,7 @@ export function inputRulePlugin(
 	}
 
 	if (schema.marks.code) {
-		rules.push(...getCodeInputRules(schema, editorAnalyticsAPI));
+		rules.push(...getCodeInputRules(schema, editorAnalyticsAPI, api));
 	}
 
 	if (rules.length !== 0) {

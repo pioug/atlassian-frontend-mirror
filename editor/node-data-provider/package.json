@@ -37,7 +37,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/adf-utils": "^19.15.0",
+		"@atlaskit/adf-utils": "^19.16.0",
 		"@atlaskit/emoji": "^67.12.0",
 		"@babel/runtime": "^7.0.0"
 	},

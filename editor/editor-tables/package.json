@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-tables",
-	"version": "2.8.2",
+	"version": "2.8.3",
 	"description": "A package that contains common classes and utility functions for editor tables",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,6 +28,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "6.2.1",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"techstack": {
@@ -45,6 +46,11 @@
 			"styling": [
 				"emotion"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_table_fix_move_column": {
+			"type": "boolean"
 		}
 	},
 	"af:exports": {

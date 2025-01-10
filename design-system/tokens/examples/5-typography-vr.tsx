@@ -43,96 +43,47 @@ const headings = [
 	},
 ];
 
-const fontSizes = [
-	{
-		name: 'font.size.050',
-		token: token('font.size.050', '35px'),
-	},
-	{
-		name: 'font.size.075',
-		token: token('font.size.075', '29px'),
-	},
-	{
-		name: 'font.size.100',
-		token: token('font.size.100', '24px'),
-	},
-	{
-		name: 'font.size.200',
-		token: token('font.size.200', '20px'),
-	},
-	{
-		name: 'font.size.300',
-		token: token('font.size.300', '16px'),
-	},
-	{
-		name: 'font.size.400',
-		token: token('font.size.400', '14px'),
-	},
-	{
-		name: 'font.size.500',
-		token: token('font.size.500', '12px'),
-	},
-	{
-		name: 'font.size.600',
-		token: token('font.size.600', '11px'),
-	},
-];
-
 const fontWeights = [
 	{
 		name: 'font.weight.regular',
-		token: token('font.weight.regular', '700'),
+		token: token('font.weight.regular', '400'),
 	},
 	{
 		name: 'font.weight.medium',
-		token: token('font.weight.medium', '600'),
+		token: token('font.weight.medium', '500'),
 	},
 	{
 		name: 'font.weight.semibold',
-		token: token('font.weight.semibold', '500'),
+		token: token('font.weight.semibold', '600'),
 	},
 	{
 		name: 'font.weight.bold',
-		token: token('font.weight.bold', '400'),
+		token: token('font.weight.bold', '700'),
 	},
 ];
 
 const fontFamilies = [
 	{
-		name: 'font.family.sans',
-		token: token('font.family.sans', 'sans-serif'),
+		name: 'font.family.heading',
+		token: token('font.family.heading', 'sans-serif'),
 	},
 	{
-		name: 'font.family.monospace',
-		token: token('font.family.monospace', 'monospace'),
-	},
-];
-
-const lineHeights = [
-	{
-		name: 'font.lineHeight.100',
-		token: token('font.lineHeight.100', '16px'),
+		name: 'font.family.body',
+		token: token('font.family.body', 'sans-serif'),
 	},
 	{
-		name: 'font.lineHeight.200',
-		token: token('font.lineHeight.200', '20px'),
+		name: 'font.family.brand.heading',
+		token: token('font.family.brand.heading', 'sans-serif'),
 	},
 	{
-		name: 'font.lineHeight.300',
-		token: token('font.lineHeight.300', '24px'),
+		name: 'font.family.brand.body',
+		token: token('font.family.brand.body', 'sans-serif'),
 	},
-	{
-		name: 'font.lineHeight.400',
-		token: token('font.lineHeight.400', '28px'),
-	},
-	{
-		name: 'font.lineHeight.500',
-		token: token('font.lineHeight.500', '32px'),
-	},
-	{
-		name: 'font.lineHeight.600',
-		token: token('font.lineHeight.600', '40px'),
-	},
+	// Renders differently between local and CI in VR test causing flake.
+	// {
+	// 	name: 'font.family.code',
+	// 	token: token('font.family.code', 'monospace'),
+	// },
 ];
 
 export default () => {
@@ -145,17 +96,6 @@ export default () => {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<span key={heading.name} style={{ font: heading.token }}>
 						{heading.name}
-					</span>
-				))}
-				{/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
-			</Stack>
-
-			<h1>Font size</h1>
-			<Stack space="space.100">
-				{fontSizes.map((fontSize) => (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					<span key={fontSize.name} style={{ fontSize: fontSize.token }}>
-						{fontSize.name}
 					</span>
 				))}
 				{/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
@@ -178,17 +118,6 @@ export default () => {
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					<span key={fontFamily.name} style={{ fontFamily: fontFamily.token }}>
 						{fontFamily.name}
-					</span>
-				))}
-				{/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}
-			</Stack>
-
-			<h1>Line height</h1>
-			<Stack space="space.100">
-				{lineHeights.map((lineHeight) => (
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					<span key={lineHeight.name} style={{ lineHeight: lineHeight.token }}>
-						{lineHeight.name}
 					</span>
 				))}
 				{/* fallbacks specifically chosen to validate tokens are applied correctly when present and not applied when not */}

@@ -1,5 +1,11 @@
 # @atlaskit/textarea
 
+## 5.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 5.7.1
 
 ### Patch Changes

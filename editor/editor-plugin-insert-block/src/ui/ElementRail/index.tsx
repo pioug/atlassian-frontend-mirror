@@ -16,7 +16,7 @@ import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { MenuItem } from '@atlaskit/editor-common/ui-menu';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import Heading from '@atlaskit/heading';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CloseIcon from '@atlaskit/icon/core/migration/close--cross';
 import { Box, xcss } from '@atlaskit/primitives';
 
 import { type InsertBlockPlugin } from '../../insertBlockPluginType';
@@ -218,7 +218,7 @@ export const InsertMenuRail = ({
 					appearance="subtle"
 					testId="right-rail-insert-menu-close-button"
 					label={formatMessage(toolbarInsertBlockMessages.closeInsertRightRail)}
-					icon={CrossIcon}
+					icon={CloseIcon}
 					onClick={() => {
 						if (!api) {
 							return;

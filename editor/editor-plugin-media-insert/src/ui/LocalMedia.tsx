@@ -177,6 +177,7 @@ export const LocalMedia = React.forwardRef<HTMLButtonElement, Props>(
 					</SectionMessage>
 				)}
 				<Button
+					id="local-media-upload-button"
 					iconBefore={() => <UploadIcon label="" LEGACY_fallbackIcon={UploadIconLegacy} />}
 					ref={ref}
 					shouldFitContainer

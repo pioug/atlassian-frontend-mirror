@@ -15,6 +15,7 @@ import { NavigationContextProvider } from './contexts/navigationContext';
 import { RelatedArticlesContextProvider } from './contexts/relatedArticlesContext';
 import { SearchContextProvider } from './contexts/searchContext';
 import { WhatsNewArticleProvider } from './contexts/whatsNewArticleContext';
+import { AiContextProvider } from './contexts/aiAgentContext';
 
 import HelpContent from './HelpContent';
 
@@ -44,7 +45,9 @@ export class Help extends React.PureComponent<Props> {
 								<SearchContextProvider {...rest.search}>
 									<WhatsNewArticleProvider {...rest.whatsNew}>
 										<NavigationContextProvider {...rest.navigation}>
-											<HelpContent footer={footer} />
+											<AiContextProvider {...rest.ai}>
+												<HelpContent footer={footer} />
+											</AiContextProvider>
 										</NavigationContextProvider>
 									</WhatsNewArticleProvider>
 								</SearchContextProvider>

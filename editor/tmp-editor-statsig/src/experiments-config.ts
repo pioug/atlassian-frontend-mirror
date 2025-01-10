@@ -62,15 +62,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Added 2024-08-27
-	'dnd-input-performance-optimisation': {
-		productKeys: {
-			confluence: 'platform_editor_dnd_input_performance_optimisation',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-08-28
 	'element-level-templates': {
 		productKeys: {

@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::20ebb8ddb0be6095662c7520a06da9a5>>
+ * @codegen <<SignedSource::d604eb54f7c4dbe01b0cc929a7910d27>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -169,6 +169,44 @@ const metadata: Record<string, metadata> = {
 		categorization: 'utility',
 		usage: '📦 @atlaskit/icon/utility/check-mark',
 		team: 'Design System Team',
+	},
+	'chevron-double-left': {
+		keywords: [
+			'chevron-double-left',
+			'chevrondoubleleft',
+			'icon',
+			'utility',
+			'calendar year',
+			'<<',
+			'less than',
+			'previous',
+		],
+		componentName: 'ChevronDoubleLeftIcon',
+		package: '@atlaskit/icon/utility/chevron-double-left',
+		type: 'utility',
+		categorization: 'utility',
+		usage: 'Reserved for calendar year button.',
+		team: 'Design System Team',
+		slackChannel: '#help-design-system',
+	},
+	'chevron-double-right': {
+		keywords: [
+			'chevron-double-right',
+			'chevrondoubleright',
+			'icon',
+			'utility',
+			'calendar year',
+			'>>',
+			'greater than',
+			'next',
+		],
+		componentName: 'ChevronDoubleRightIcon',
+		package: '@atlaskit/icon/utility/chevron-double-right',
+		type: 'utility',
+		categorization: 'utility',
+		usage: 'Reserved for calendar year button.',
+		team: 'Design System Team',
+		slackChannel: '#help-design-system',
 	},
 	'chevron-down': {
 		keywords: [

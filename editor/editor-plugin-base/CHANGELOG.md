@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-base
 
+## 2.1.0
+
+### Minor Changes
+
+- [#97984](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97984)
+  [`8ffeab9aaf1ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ffeab9aaf1ab) -
+  [ux] [ED-23573] Added new actions (resolveMarks and registerMarks) to basePlugin. Callbacks added
+  to mentions, card, emoji and base plugins to handle conversion to inline code. Deprecated code
+  removed from editor-common.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.0.12
 
 ### Patch Changes

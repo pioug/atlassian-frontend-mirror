@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
+import { userEvent } from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -66,12 +67,13 @@ describe('Calendar analytics', () => {
 	};
 
 	describe('send change event to atlaskit/analytics', () => {
-		it('when switched to previous month', () => {
+		it('when switched to previous month', async () => {
+			const user = userEvent.setup();
 			const { onChange, onAnalyticsEvent, changeEventResult } = setup();
 
 			const previousMonthButton = screen.getByTestId('calendar--previous-month');
 
-			fireEvent.click(previousMonthButton);
+			await user.click(previousMonthButton);
 
 			expect(onChange).toHaveBeenCalledTimes(1);
 
@@ -84,12 +86,13 @@ describe('Calendar analytics', () => {
 			);
 		});
 
-		it('when switched to next month', () => {
+		it('when switched to next month', async () => {
+			const user = userEvent.setup();
 			const { onChange, onAnalyticsEvent, changeEventResult } = setup();
 
 			const nextMonthButton = screen.getByTestId('calendar--next-month');
 
-			fireEvent.click(nextMonthButton);
+			await user.click(nextMonthButton);
 
 			expect(onChange).toHaveBeenCalledTimes(1);
 
@@ -108,6 +111,8 @@ describe('Calendar analytics', () => {
 				const { onChange, onAnalyticsEvent, changeEventResult } = setup();
 
 				const calendarGrid = screen.getByTestId(testIdMonth);
+				// Not sure why, but this doesn't like userEvent
+				// eslint-disable-next-line testing-library/prefer-user-event
 				fireEvent.keyDown(calendarGrid as HTMLDivElement, {
 					key,
 					code,
@@ -149,13 +154,14 @@ describe('Calendar analytics', () => {
 	});
 
 	describe('send select event to atlaskit/analytics', () => {
-		it('when day is clicked', () => {
+		it('when day is clicked', async () => {
+			const user = userEvent.setup();
 			const { onSelect, onAnalyticsEvent, selectEventResult, selectedDay } = setup();
 
 			const stringifiedSelectedDay = selectedDay.toString();
 			const selectedDayElementInnerElement = screen.getByText(stringifiedSelectedDay);
 
-			fireEvent.click(selectedDayElementInnerElement);
+			await user.click(selectedDayElementInnerElement);
 
 			expect(onSelect).toHaveBeenCalledTimes(1);
 
@@ -174,6 +180,8 @@ describe('Calendar analytics', () => {
 				const { onSelect, onAnalyticsEvent, selectEventResult } = setup();
 
 				const calendarGrid = screen.getByTestId(testIdMonth);
+				// Doesn't like userEvent
+				// eslint-disable-next-line testing-library/prefer-user-event
 				fireEvent.keyDown(calendarGrid as HTMLDivElement, {
 					key,
 					code,
@@ -207,13 +215,14 @@ describe('Calendar analytics', () => {
 			error.mockRestore();
 		});
 
-		it('should allow the addition of additional context', () => {
+		it('should allow the addition of additional context', async () => {
+			const user = userEvent.setup();
 			const analyticsContext = { key: 'value' };
 			const { onChange, changeEventResult } = setup(analyticsContext);
 
 			const nextMonthButton = screen.getByTestId('calendar--next-month');
 
-			fireEvent.click(nextMonthButton);
+			await user.click(nextMonthButton);
 
 			const expected: UIAnalyticsEvent = new UIAnalyticsEvent({
 				...changeEventResult,

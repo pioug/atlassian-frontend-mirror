@@ -104,9 +104,12 @@ export const WrapperTypeAhead = React.memo(
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				const { selectedIndex } = getPluginState(view.state)!;
-				const safeSelectedIndex = skipForwardToSafeItem(selectedIndex, 1, items.length, (idx) =>
-					itemIsDisabled(items[idx], api),
-				);
+				const safeSelectedIndex = skipForwardToSafeItem({
+					currentIndex: selectedIndex,
+					nextIndex: 1,
+					listSize: items.length,
+					itemIsDisabled: (idx) => itemIsDisabled(items[idx], api),
+				});
 				// If the only safe index is -1 then none are safe - do not insert item
 				if (safeSelectedIndex === -1) {
 					return;

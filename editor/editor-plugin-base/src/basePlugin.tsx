@@ -4,10 +4,11 @@ import type { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { PMPluginFactory } from '@atlaskit/editor-common/types';
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import { history } from '@atlaskit/editor-prosemirror/history';
+import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
-import { type BasePlugin } from './basePluginType';
+import type { BasePlugin, Callback } from './basePluginType';
 import { setKeyboardHeight } from './editor-commands/set-keyboard-height';
 import disableSpellcheckingPlugin from './pm-plugins/disable-spell-checking';
 import filterStepsPlugin from './pm-plugins/filter-steps';
@@ -20,8 +21,55 @@ import scrollGutterNext from './pm-plugins/scroll-gutter/plugin-next';
 import { getKeyboardHeight } from './pm-plugins/scroll-gutter/util/get-keyboard-height';
 import { inputTracking } from './pm-plugins/utils/inputTrackingConfig';
 
+// eslint-disable-next-line @typescript-eslint/max-params
+export function resolveCallbacks(from: number, to: number, tr: Transaction, callbacks: Callback[]) {
+	const { doc } = tr;
+	doc.nodesBetween(from, to, (node, pos) => {
+		callbacks.forEach((cb) => cb({ tr, node, pos, from, to }));
+	});
+}
+
+const SMART_TO_ASCII: { [char: string]: string } = {
+	'…': '...',
+	'→': '->',
+	'←': '<-',
+	'–': '--',
+	'“': '"',
+	'”': '"',
+	'‘': "'",
+	'’': "'",
+};
+
+// eslint-disable-next-line require-unicode-regexp
+const FIND_SMART_CHAR = new RegExp(`[${Object.keys(SMART_TO_ASCII).join('')}]`, 'g');
+
 const basePlugin: BasePlugin = ({ config: options, api }) => {
 	const featureFlags = api?.featureFlags?.sharedState.currentState() || {};
+	const callbacks: Callback[] = [];
+
+	api?.base?.actions.registerMarks(({ tr, node, pos, from, to }) => {
+		const { doc } = tr;
+		const { schema } = doc.type;
+		const { text: textNodeType } = schema.nodes;
+
+		if (node.type === textNodeType && node.text) {
+			// Find a valid start and end position because the text may be partially selected.
+			const startPositionInSelection = Math.max(pos, from);
+			const endPositionInSelection = Math.min(pos + node.nodeSize, to);
+
+			const textForReplacing = doc.textBetween(startPositionInSelection, endPositionInSelection);
+
+			const newText = textForReplacing.replace(
+				FIND_SMART_CHAR,
+				(match) => SMART_TO_ASCII[match] ?? match,
+			);
+
+			const currentStartPos = tr.mapping.map(startPositionInSelection);
+			const currentEndPos = tr.mapping.map(endPositionInSelection);
+
+			tr.replaceWith(currentStartPos, currentEndPos, schema.text(newText, node.marks));
+		}
+	});
 
 	return {
 		name: 'base',
@@ -34,8 +82,12 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 
 		actions: {
 			setKeyboardHeight,
+			resolveMarks: (from: number, to: number, tr: Transaction) =>
+				resolveCallbacks(from, to, tr, callbacks),
+			registerMarks: (callback: Callback) => {
+				callbacks.push(callback);
+			},
 		},
-
 		pmPlugins() {
 			const plugins: { name: string; plugin: PMPluginFactory }[] = [
 				{

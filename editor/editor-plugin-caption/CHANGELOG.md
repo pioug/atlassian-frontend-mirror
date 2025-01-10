@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-caption
 
+## 1.11.10
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.11.9
 
 ### Patch Changes

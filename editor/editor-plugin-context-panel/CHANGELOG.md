@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-context-panel
 
+## 1.4.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.4.1
 
 ### Patch Changes

@@ -228,11 +228,38 @@ const firstBlockNodeStyles = css`
 	}
 `;
 
+const firstBlockNodeStylesNew = css`
+	.ProseMirror {
+		> .${PanelSharedCssClassName.prefix},
+			> .${CodeBlockSharedCssClassName.CODEBLOCK_CONTAINER},
+			> .${SmartCardSharedCssClassName.BLOCK_CARD_CONTAINER},
+			> div[data-task-list-local-id],
+		> div[data-layout-section],
+		> .${expandClassNames.prefix} {
+			&:first-child {
+				margin-top: 0;
+			}
+		}
+
+		> hr:first-child {
+			margin-top: 0;
+		}
+	}
+`;
+
 /**
  * fix layout issue of first block node
  */
 export const fixBlockControlStylesSSR = () => {
-	return fg('platform_editor_ssr_fix_block_controls') ? firstBlockNodeStyles : null;
+	if (!fg('platform_editor_ssr_fix_block_controls')) {
+		return null;
+	}
+
+	if (fg('platform_editor_element_dnd_nested_fix_patch_6')) {
+		return firstBlockNodeStylesNew;
+	}
+
+	return firstBlockNodeStyles;
 };
 
 // The breakpoint for small devices is 1266px, copied from getBreakpoint in platform/packages/editor/editor-common/src/ui/WidthProvider/index.tsx

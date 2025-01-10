@@ -23,4 +23,9 @@ export const mentionMessages = defineMessages({
 		description:
 			'Label to indicate mention node to Screen reader users, that preceeds with user name ex: "Tagged user @XXX',
 	},
+	unknownLabel: {
+		id: 'fabric.editor.unknown.label',
+		defaultMessage: 'Unknown',
+		description: 'Label to indicate unknown mention node',
+	},
 });

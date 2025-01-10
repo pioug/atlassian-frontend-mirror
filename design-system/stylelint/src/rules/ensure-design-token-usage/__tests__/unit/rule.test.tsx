@@ -318,10 +318,6 @@ testRule({
 		//   code: 'gap: revert-layer;',
 		//   description: 'How should we handle global CSS values?',
 		// },
-		// {
-		//   code: 'gap: calc(var(--ds-space-300) + var(--ds-space-300));',
-		//   description: 'How should we handle calculations on tokens?',
-		// },
 	],
 });
 
@@ -331,8 +327,8 @@ testRule({
 	config: { typography: true },
 	accept: [
 		{
-			code: 'font-size: var(--ds-font-size-100, 12px);',
-			description: 'should accept typography token values with px values as fallbacks',
+			code: 'font-size: var(--ds-font-body, normal 400 0.875rem/1.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif);',
+			description: 'should accept typography token values with full values as fallbacks',
 		},
 		{
 			code: 'font-weight: var(--ds-font-weight-regular, 400);',

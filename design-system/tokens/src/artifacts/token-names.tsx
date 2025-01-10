@@ -1,6 +1,6 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::db26fca19e3969bcba2e77bc6fe6eb89>>
+ * @codegen <<SignedSource::02412877f3dbfda4dbaee7a917f24b6c>>
  * @codegenCommand yarn build tokens
  */
 const tokens = {
@@ -439,11 +439,6 @@ const tokens = {
 	'space.negative.250': '--ds-space-negative-250',
 	'space.negative.300': '--ds-space-negative-300',
 	'space.negative.400': '--ds-space-negative-400',
-	'font.letterSpacing.0': '--ds-font-letterSpacing-0',
-	'font.letterSpacing.100': '--ds-font-letterSpacing-100',
-	'font.letterSpacing.200': '--ds-font-letterSpacing-200',
-	'font.letterSpacing.300': '--ds-font-letterSpacing-300',
-	'font.letterSpacing.400': '--ds-font-letterSpacing-400',
 	'font.heading.xxlarge': '--ds-font-heading-xxlarge',
 	'font.heading.xlarge': '--ds-font-heading-xlarge',
 	'font.heading.large': '--ds-font-heading-large',
@@ -463,25 +458,8 @@ const tokens = {
 	'font.family.heading': '--ds-font-family-heading',
 	'font.family.body': '--ds-font-family-body',
 	'font.family.code': '--ds-font-family-code',
-	'font.family.monospace': '--ds-font-family-monospace',
-	'font.family.sans': '--ds-font-family-sans',
 	'font.family.brand.heading': '--ds-font-family-brand-heading',
 	'font.family.brand.body': '--ds-font-family-brand-body',
-	'font.size.050': '--ds-font-size-050',
-	'font.size.075': '--ds-font-size-075',
-	'font.size.100': '--ds-font-size-100',
-	'font.size.200': '--ds-font-size-200',
-	'font.size.300': '--ds-font-size-300',
-	'font.size.400': '--ds-font-size-400',
-	'font.size.500': '--ds-font-size-500',
-	'font.size.600': '--ds-font-size-600',
-	'font.lineHeight.1': '--ds-font-lineHeight-1',
-	'font.lineHeight.100': '--ds-font-lineHeight-100',
-	'font.lineHeight.200': '--ds-font-lineHeight-200',
-	'font.lineHeight.300': '--ds-font-lineHeight-300',
-	'font.lineHeight.400': '--ds-font-lineHeight-400',
-	'font.lineHeight.500': '--ds-font-lineHeight-500',
-	'font.lineHeight.600': '--ds-font-lineHeight-600',
 } as const;
 
 export type CSSTokenMap = {
@@ -910,11 +888,6 @@ export type CSSTokenMap = {
 	'space.negative.250': 'var(--ds-space-negative-250)';
 	'space.negative.300': 'var(--ds-space-negative-300)';
 	'space.negative.400': 'var(--ds-space-negative-400)';
-	'font.letterSpacing.0': 'var(--ds-font-letterSpacing-0)';
-	'font.letterSpacing.100': 'var(--ds-font-letterSpacing-100)';
-	'font.letterSpacing.200': 'var(--ds-font-letterSpacing-200)';
-	'font.letterSpacing.300': 'var(--ds-font-letterSpacing-300)';
-	'font.letterSpacing.400': 'var(--ds-font-letterSpacing-400)';
 	'font.heading.xxlarge': 'var(--ds-font-heading-xxlarge)';
 	'font.heading.xlarge': 'var(--ds-font-heading-xlarge)';
 	'font.heading.large': 'var(--ds-font-heading-large)';
@@ -934,25 +907,8 @@ export type CSSTokenMap = {
 	'font.family.heading': 'var(--ds-font-family-heading)';
 	'font.family.body': 'var(--ds-font-family-body)';
 	'font.family.code': 'var(--ds-font-family-code)';
-	'font.family.monospace': 'var(--ds-font-family-monospace)';
-	'font.family.sans': 'var(--ds-font-family-sans)';
 	'font.family.brand.heading': 'var(--ds-font-family-brand-heading)';
 	'font.family.brand.body': 'var(--ds-font-family-brand-body)';
-	'font.size.050': 'var(--ds-font-size-050)';
-	'font.size.075': 'var(--ds-font-size-075)';
-	'font.size.100': 'var(--ds-font-size-100)';
-	'font.size.200': 'var(--ds-font-size-200)';
-	'font.size.300': 'var(--ds-font-size-300)';
-	'font.size.400': 'var(--ds-font-size-400)';
-	'font.size.500': 'var(--ds-font-size-500)';
-	'font.size.600': 'var(--ds-font-size-600)';
-	'font.lineHeight.1': 'var(--ds-font-lineHeight-1)';
-	'font.lineHeight.100': 'var(--ds-font-lineHeight-100)';
-	'font.lineHeight.200': 'var(--ds-font-lineHeight-200)';
-	'font.lineHeight.300': 'var(--ds-font-lineHeight-300)';
-	'font.lineHeight.400': 'var(--ds-font-lineHeight-400)';
-	'font.lineHeight.500': 'var(--ds-font-lineHeight-500)';
-	'font.lineHeight.600': 'var(--ds-font-lineHeight-600)';
 };
 
 export type CSSToken = CSSTokenMap[keyof CSSTokenMap];

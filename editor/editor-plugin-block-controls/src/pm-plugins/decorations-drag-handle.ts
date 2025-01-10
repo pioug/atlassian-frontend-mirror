@@ -76,7 +76,7 @@ export const dragHandleDecoration = (
 			};
 
 			if (editorExperiment('nested-dnd', true)) {
-				const newPos = fg('platform_editor_element_dnd_nested_fix_patch_3') ? getPos() : pos;
+				const newPos = getPos();
 				if (typeof newPos === 'number') {
 					const $pos = view.state.doc.resolve(newPos);
 					isTopLevelNode = $pos?.parent.type.name === 'doc';

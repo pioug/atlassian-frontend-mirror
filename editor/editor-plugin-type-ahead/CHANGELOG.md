@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-type-ahead
 
+## 1.11.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.11.4
+
+### Patch Changes
+
+- [#101866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101866)
+  [`f22dfbe75b007`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f22dfbe75b007) -
+  [ux] Fix first typeahead item inserting in an inconsistent manner while offline
+
 ## 1.11.3
 
 ### Patch Changes

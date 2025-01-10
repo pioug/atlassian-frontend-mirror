@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent } from '@testing-library/dom';
+import { userEvent } from '@testing-library/user-event';
 import { type InteractionTaskArgs, type PublicInteractionTask } from 'storybook-addon-performance';
 
 import Calendar from '../src';
@@ -47,16 +48,18 @@ const interactionTasks: PublicInteractionTask[] = [
 		name: 'onChange',
 		description: 'Render calendar and change month',
 		run: async ({ container }: InteractionTaskArgs): Promise<void> => {
+			const user = userEvent.setup();
 			const nextMonthButton = getLastElement(container, `${testId}--next-month`);
-			fireEvent.click(nextMonthButton);
+			await user.click(nextMonthButton);
 		},
 	},
 	{
 		name: 'onSelect',
 		description: 'Render calendar and click on day(date) cell',
 		run: async ({ container }: InteractionTaskArgs): Promise<void> => {
+			const user = userEvent.setup();
 			const dateCell = getLastElement(container, `${testId}--selected-day`);
-			fireEvent.click(dateCell);
+			await user.click(dateCell);
 		},
 	},
 ];

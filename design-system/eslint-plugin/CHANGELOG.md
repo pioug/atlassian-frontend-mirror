@@ -1,5 +1,15 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.8.2
+
+### Patch Changes
+
+- [#102117](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102117)
+  [`c52f9296040c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c52f9296040c2) -
+  Fix for false positives in XCSS styles for `untokenized-properties` pattern for
+  `use-tokens-typography` rule.
+- Updated dependencies
+
 ## 11.8.1
 
 ### Patch Changes

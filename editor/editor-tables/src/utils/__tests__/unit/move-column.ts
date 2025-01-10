@@ -5,6 +5,8 @@ import type { CellSelection } from '@atlaskit/editor-tables/cell-selection';
 import type { MoveOptions } from '@atlaskit/editor-tables/types';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { p, tr as row, td, th } from '@atlaskit/editor-test-helpers/doc-builder';
+// eslint-disable-next-line @atlaskit/platform/no-alias
+import * as ffPackage from '@atlaskit/platform-feature-flags';
 
 import {
 	c,
@@ -23,11 +25,23 @@ function move(
 	targetIndex: number,
 	options?: MoveOptions,
 ): Transaction {
-	let state = EditorState.create({ doc: table });
+	const state = EditorState.create({ doc: table });
 	return moveColumn(state, originIndex, targetIndex, options)(state.tr);
 }
 
 describe('table__moveColumn', () => {
+	let fgSpy: jest.SpyInstance;
+	beforeEach(() => {
+		// Need to manually mock this as I can't import fg test helpers as its a private package
+		fgSpy = jest.spyOn(ffPackage, 'fg').mockImplementation((flag) => {
+			return flag === 'platform_editor_table_fix_move_column';
+		});
+	});
+
+	afterEach(() => {
+		fgSpy.mockRestore();
+	});
+
 	describe('on a simple table', () => {
 		it('should move column right-to-left', () => {
 			const original = createTableWithDoc(
@@ -301,6 +315,97 @@ describe('table__moveColumn', () => {
 				),
 			);
 		});
+
+		it('should move column between column with merged row and regular columns', () => {
+			//
+			//        0      1      2
+			//     ______________________
+			//     |      |      |      |
+			//  0  |  A1  |  A2  |  A3  |
+			//     |______|______|______|
+			//     |      |      |      |
+			//  1  |  B1  |  B2  |  B3  |
+			//     |______|      |______|
+			//     |      |      |      |
+			//  2  |  C1  |      |  C2  |
+			//     |______|______|______|
+			const original = createTableWithDoc(
+				row(td()(p('a1')), td()(p('a2')), td()(p('a3'))),
+				row(td()(p('b1')), c(1, 2, p('b2')), td()(p('b3'))),
+				row(td()(p('c1')), td()(p('c2'))),
+			);
+
+			const newTr = move(original, [2], 1);
+
+			//
+			//        0      1      2
+			//     ______________________
+			//     |      |      |      |
+			//  0  |  A1  |  A3  |  A2  |
+			//     |______|______|______|
+			//     |      |      |      |
+			//  1  |  B1  |  B3  |  B2  |
+			//     |______|______|      |
+			//     |      |      |      |
+			//  2  |  C1  |  C2  |      |
+			//     |______|______|______|
+			expect(newTr.doc).toEqualDocument(
+				createTableWithDoc(
+					row(td()(p('a1')), td()(p('a3')), td()(p('a2'))),
+					row(td()(p('b1')), td()(p('b3')), c(1, 2, p('b2'))),
+					row(td()(p('c1')), td()(p('c2'))),
+				),
+			);
+		});
+
+		// Test covering bug
+		describe('platform_editor_table_fix_move_column disabled', () => {
+			beforeEach(() => {
+				jest.spyOn(ffPackage, 'fg').mockImplementation(() => false);
+			});
+
+			it('should move column between column with merged row and regular columns bug', () => {
+				//
+				//        0      1      2
+				//     ______________________
+				//     |      |      |      |
+				//  0  |  A1  |  A2  |  A3  |
+				//     |______|______|______|
+				//     |      |      |      |
+				//  1  |  B1  |  B2  |  B3  |
+				//     |______|      |______|
+				//     |      |      |      |
+				//  2  |  C1  |      |  C2  |
+				//     |______|______|______|
+				const original = createTableWithDoc(
+					row(td()(p('a1')), td()(p('a2')), td()(p('a3'))),
+					row(td()(p('b1')), c(1, 2, p('b2')), td()(p('b3'))),
+					row(td()(p('c1')), td()(p('c2'))),
+				);
+
+				const newTr = move(original, [2], 1);
+
+				//
+				//        0      1      2
+				//     ______________________
+				//     |      |      |      |
+				//  0  |  A1  |  A3  |  A2  |
+				//     |______|______|______|
+				//     |      |      |      |
+				//  1  |  B1  |  B3  |  B2  |
+				//     |______|______|      |
+				//     |      |      |      |
+				//  2  |  C2  |  C1  |      |
+				//     |______|______|______|
+				expect(newTr.doc).toEqualDocument(
+					createTableWithDoc(
+						row(td()(p('a1')), td()(p('a3')), td()(p('a2'))),
+						row(td()(p('b1')), td()(p('b3')), c(1, 2, p('b2'))),
+						row(td()(p('c2')), td()(p('c1'))),
+					),
+				);
+			});
+		});
 	});
 
 	describe('on a complex table with merged cells and rows', () => {
@@ -412,49 +517,49 @@ describe('table__moveColumn', () => {
 				});
 
 				it('should move column 3 to 1', () => {
-					let newTr = move(original, 3, 1);
+					const newTr = move(original, 3, 1);
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 
 				it('should move column 4 to 1', () => {
-					let newTr = move(original, 4, 1);
+					const newTr = move(original, 4, 1);
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 			});
 
 			describe('with tryToFit true', () => {
 				it('should move column 1 to 3', () => {
-					let newTr = move(original, 1, 3, { tryToFit: true, direction: 0 });
+					const newTr = move(original, 1, 3, { tryToFit: true, direction: 0 });
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 
 				it('should move column 2 to 3', () => {
-					let newTr = move(original, 2, 3, { tryToFit: true, direction: 0 });
+					const newTr = move(original, 2, 3, { tryToFit: true, direction: 0 });
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 
 				it('should move column 2 to 4', () => {
-					let newTr = move(original, 2, 4, { tryToFit: true, direction: 0 });
+					const newTr = move(original, 2, 4, { tryToFit: true, direction: 0 });
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 
 				it('should move column 3 to 1', () => {
-					let newTr = move(original, 3, 1, { tryToFit: true, direction: 0 });
+					const newTr = move(original, 3, 1, { tryToFit: true, direction: 0 });
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 
 				it('should move column 3 to 2', () => {
-					let newTr = move(original, 3, 2, { tryToFit: true, direction: 0 });
+					const newTr = move(original, 3, 2, { tryToFit: true, direction: 0 });
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 
 				it('should move column 4 to 1', () => {
-					let newTr = move(original, 4, 1, { tryToFit: true, direction: 0 });
+					const newTr = move(original, 4, 1, { tryToFit: true, direction: 0 });
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 
 				it('should move column 4 to 2', () => {
-					let newTr = move(original, 4, 2, { tryToFit: true, direction: 0 });
+					const newTr = move(original, 4, 2, { tryToFit: true, direction: 0 });
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 			});
@@ -503,39 +608,39 @@ describe('table__moveColumn', () => {
 				});
 
 				it('should move column 0 to 2', () => {
-					let newTr = move(original, 0, 2);
+					const newTr = move(original, 0, 2);
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 
 				it('should move column 2 to 0', () => {
-					let newTr = move(original, 2, 0);
+					const newTr = move(original, 2, 0);
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 
 				it('should move column 1 to 0', () => {
-					let newTr = move(original, 1, 0);
+					const newTr = move(original, 1, 0);
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 			});
 
 			describe('with tryToFit true', () => {
 				it('should move column 0 to 2', () => {
-					let newTr = move(original, 0, 2, { tryToFit: true, direction: 0 });
+					const newTr = move(original, 0, 2, { tryToFit: true, direction: 0 });
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 
 				it('should move column 0 to 1', () => {
-					let newTr = move(original, 0, 1, { tryToFit: true, direction: 0 });
+					const newTr = move(original, 0, 1, { tryToFit: true, direction: 0 });
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 
 				it('should move column 2 to 0', () => {
-					let newTr = move(original, 2, 0, { tryToFit: true, direction: 0 });
+					const newTr = move(original, 2, 0, { tryToFit: true, direction: 0 });
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 
 				it('should move column 1 to 0', () => {
-					let newTr = move(original, 1, 0, { tryToFit: true, direction: 0 });
+					const newTr = move(original, 1, 0, { tryToFit: true, direction: 0 });
 					expect(newTr.doc).toEqualDocument(expectedResult);
 				});
 			});
@@ -567,12 +672,12 @@ describe('table__moveColumn', () => {
 		);
 
 		it('should move column 2 to 0', () => {
-			let newTr = move(original, 2, 0);
+			const newTr = move(original, 2, 0);
 			expect(newTr.doc).toEqualDocument(expectedResult);
 		});
 
 		it('should move column 0 to 2', () => {
-			let newTr = move(original, 0, 2);
+			const newTr = move(original, 0, 2);
 			expect(newTr.doc).toEqualDocument(expectedResult);
 		});
 	});
@@ -635,7 +740,7 @@ describe('table__moveColumn', () => {
 			);
 
 			it('should move row 6 to position 2 with direction 1', () => {
-				let newTr = move(original, 6, 2, { tryToFit: true, direction: 1 });
+				const newTr = move(original, 6, 2, { tryToFit: true, direction: 1 });
 				expect(newTr.doc).toEqualDocument(expectedResultMinusOneDirection);
 			});
 		});

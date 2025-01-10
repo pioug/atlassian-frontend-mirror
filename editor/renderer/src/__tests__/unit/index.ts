@@ -312,7 +312,9 @@ describe('Renderer', () => {
 							mockDispatchAnalyticsEvent,
 						);
 
-						expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document);
+						expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
+							environment: 'renderer',
+						});
 						expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
 							action: 'nestedTableTransformed',
 							actionSubject: 'renderer',
@@ -343,7 +345,9 @@ describe('Renderer', () => {
 							undefined,
 							mockDispatchAnalyticsEvent,
 						);
-						expect(transformNestedTablesIncomingDocument).not.toHaveBeenCalledWith(document);
+						expect(transformNestedTablesIncomingDocument).not.toHaveBeenCalledWith(document, {
+							environment: 'renderer',
+						});
 						expect(mockDispatchAnalyticsEvent).not.toHaveBeenCalledWith({
 							action: 'nestedTableTransformed',
 							actionSubject: 'renderer',
@@ -391,7 +395,9 @@ describe('Renderer', () => {
 							undefined,
 							mockDispatchAnalyticsEvent,
 						);
-						expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document);
+						expect(transformNestedTablesIncomingDocument).toHaveBeenCalledWith(document, {
+							environment: 'renderer',
+						});
 						expect(mockDispatchAnalyticsEvent).toHaveBeenCalledWith({
 							action: 'invalidProsemirrorDocument',
 							actionSubject: 'renderer',
@@ -426,7 +432,9 @@ describe('Renderer', () => {
 							undefined,
 							mockDispatchAnalyticsEvent,
 						);
-						expect(transformNestedTablesIncomingDocument).not.toHaveBeenCalledWith(document);
+						expect(transformNestedTablesIncomingDocument).not.toHaveBeenCalledWith(document, {
+							environment: 'renderer',
+						});
 						expect(mockDispatchAnalyticsEvent).not.toHaveBeenCalledWith({
 							action: 'invalidProsemirrorDocument',
 							actionSubject: 'renderer',

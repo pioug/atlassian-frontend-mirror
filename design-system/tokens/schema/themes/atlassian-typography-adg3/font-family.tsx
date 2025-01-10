@@ -4,8 +4,6 @@ import { type FontFamilyBaseToken as BaseToken } from '../../palettes/typography
 const font: ValueSchema<FontFamilyTokenSchema<BaseToken>> = {
 	font: {
 		family: {
-			sans: { value: 'LegacyFontFamilyWebSans' },
-			monospace: { value: 'FontFamilyWebMono' },
 			body: { value: 'FontFamilyWebSans' },
 			heading: { value: 'FontFamilyWebSans' },
 			brand: {

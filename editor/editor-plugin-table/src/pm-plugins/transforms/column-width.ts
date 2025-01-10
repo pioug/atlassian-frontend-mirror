@@ -94,7 +94,7 @@ export const updateColumnWidths =
 							new AttrStep(
 								pos + start,
 								'colwidth',
-								updatedCellsAttrs[pos].colwidth === undefined && fg('platform_editor_ed_25642')
+								updatedCellsAttrs[pos].colwidth === undefined
 									? null
 									: updatedCellsAttrs[pos].colwidth,
 							),

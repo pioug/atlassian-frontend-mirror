@@ -4,6 +4,7 @@ import { TypeAheadAvailableNodes, typeAheadListMessages } from '@atlaskit/editor
 import { type ExtractInjectionAPI, type TypeAheadItem } from '@atlaskit/editor-common/types';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type TypeAheadPlugin } from '../typeAheadPluginType';
 import type { TypeAheadHandler } from '../types';
@@ -66,33 +67,61 @@ export const findHandler = (id: string, state: EditorState): TypeAheadHandler | 
 	return typeAheadHandlers.find((h: TypeAheadHandler) => h.id === id) || null;
 };
 
-export const skipForwardToSafeItem = (
-	currentIndex: number,
-	nextIndex: number,
-	listSize: number,
-	itemIsDisabled: (idx: number) => boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
-): number => {
+export const skipForwardToSafeItem = ({
+	currentIndex,
+	nextIndex,
+	listSize,
+	itemIsDisabled,
+}: {
+	currentIndex: number;
+	nextIndex: number;
+	listSize: number;
+	itemIsDisabled: (idx: number) => boolean;
+}): number => {
 	// Use a loop to find the next selectable item
 	for (let idx = nextIndex; idx < listSize; idx++) {
 		if (!itemIsDisabled(idx)) {
 			return idx;
 		}
 	}
+
+	// We got to the end of the list ^, now try from the start
+	if (fg('platform_editor_offline_editing_ga')) {
+		for (let idx = 0; idx < nextIndex; idx++) {
+			if (!itemIsDisabled(idx)) {
+				return idx;
+			}
+		}
+	}
+
 	// If no selectable items are found, return currentIndex
 	return currentIndex;
 };
 
-export const skipBackwardToSafeItem = (
-	currentIndex: number,
-	nextIndex: number,
-	itemIsDisabled: (idx: number) => boolean,
-): number => {
+export const skipBackwardToSafeItem = ({
+	currentIndex,
+	nextIndex,
+	listSize,
+	itemIsDisabled,
+}: {
+	currentIndex: number;
+	nextIndex: number;
+	listSize: number;
+	itemIsDisabled: (idx: number) => boolean;
+}): number => {
 	// Use a loop to find the next non-selectable item when going backwards
 	for (let idx = nextIndex; idx >= 0; idx--) {
 		if (!itemIsDisabled(idx)) {
 			return idx;
+		}
+	}
+
+	// We got to the start of the list ^, now try from the end
+	if (fg('platform_editor_offline_editing_ga')) {
+		for (let idx = listSize; idx > nextIndex; idx--) {
+			if (!itemIsDisabled(idx)) {
+				return idx;
+			}
 		}
 	}
 	// If no non-selectable items are found, return currentIndex
@@ -161,11 +190,21 @@ export const moveSelectedIndex =
 			} else {
 				nextIndex = selectedIndex >= items.length - 1 ? 0 : selectedIndex + 1;
 			}
-			nextIndex = skipForwardToSafeItem(selectedIndex, nextIndex, items.length, isDisabled);
+			nextIndex = skipForwardToSafeItem({
+				currentIndex: selectedIndex,
+				nextIndex,
+				listSize: items.length,
+				itemIsDisabled: isDisabled,
+			});
 		} else {
 			stats.increaseArrowUp();
 			nextIndex = selectedIndex <= 0 ? items.length - 1 : selectedIndex - 1;
-			nextIndex = skipBackwardToSafeItem(selectedIndex, nextIndex, isDisabled);
+			nextIndex = skipBackwardToSafeItem({
+				currentIndex: selectedIndex,
+				nextIndex,
+				listSize: items.length,
+				itemIsDisabled: isDisabled,
+			});
 		}
 
 		updateSelectedIndex(nextIndex, api)(editorView.state, editorView.dispatch);

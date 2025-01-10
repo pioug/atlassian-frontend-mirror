@@ -5,6 +5,7 @@ import nestedTableInsideTableCellAdf from './__fixtures__/nested-table-inside-ta
 import nestedTableInsideTableHeaderAdf from './__fixtures__/nested-table-inside-table-header.json';
 import nestedTableExtensionWithNoNestedContentChildrenAdf from './__fixtures__/nested-table-extension-with-no-nestedcontent-children-adf.json';
 import nestedTableExtensionWithNoNestedContentChildrenPropertyAdf from './__fixtures__/nested-table-extension-with-no-nestedcontent-children-property-adf.json';
+import nestedTableExtensionInsideBodiedExtensionAdf from './__fixtures__/nested-table-extension-inside-bodied-extension-adf.json';
 
 import {
 	transformNestedTableNodeOutgoingDocument,
@@ -168,6 +169,168 @@ describe('Nested table transformations', () => {
 			expect(() => {
 				transformNestedTablesIncomingDocument(nestedTableExtensionWithInvalidJsonAdf);
 			}).toThrow('Failed to parse nested table content');
+		});
+
+		it('should not transform nested table extension if inside bodied extension if invoked from renderer', () => {
+			const result = transformNestedTablesIncomingDocument(
+				nestedTableExtensionInsideBodiedExtensionAdf,
+				{ environment: 'renderer' },
+			);
+
+			expect(result.isTransformed).toBe(false);
+			expect(result.transformedAdf).toMatchInlineSnapshot(`
+			{
+			  "content": [
+			    {
+			      "attrs": {
+			        "extensionKey": "bodied-eh",
+			        "extensionType": "com.atlassian.confluence.macro.core",
+			        "layout": "default",
+			        "localId": "testId",
+			        "parameters": {
+			          "macroMetadata": {
+			            "placeholder": [
+			              {
+			                "data": {
+			                  "url": "",
+			                },
+			                "type": "icon",
+			              },
+			            ],
+			          },
+			          "macroParams": {},
+			        },
+			      },
+			      "content": [
+			        {
+			          "content": [
+			            {
+			              "content": [
+			                {
+			                  "attrs": {
+			                    "extensionKey": "nested-table",
+			                    "extensionType": "com.atlassian.confluence.migration",
+			                    "parameters": {
+			                      "adf": "{"type":"doc","version":1,"content":[{"type":"table","content":[{"type":"tableRow","content":[{"type":"tableHeader","content":[{"type":"text","text":"Header 1"}]},{"type":"tableHeader","content":[{"type":"text","text":"Header 2"}]}]},{"type":"tableRow","content":[{"type":"tableCell","content":[{"type":"text","text":"Cell 1"}]},{"type":"tableCell","content":[{"type":"text","text":"Cell 2"}]}]}]}]}",
+			                    },
+			                  },
+			                  "type": "extension",
+			                },
+			              ],
+			              "type": "tableRow",
+			            },
+			          ],
+			          "type": "table",
+			        },
+			      ],
+			      "type": "bodiedExtension",
+			    },
+			  ],
+			  "type": "doc",
+			  "version": 1,
+			}
+		`);
+		});
+
+		it('should not transform nested table extension if inside bodied if not invoked from renderer', () => {
+			const result = transformNestedTablesIncomingDocument(
+				nestedTableExtensionInsideBodiedExtensionAdf,
+			);
+
+			expect(result.isTransformed).toBe(true);
+			expect(result.transformedAdf).toMatchInlineSnapshot(`
+			{
+			  "content": [
+			    {
+			      "attrs": {
+			        "extensionKey": "bodied-eh",
+			        "extensionType": "com.atlassian.confluence.macro.core",
+			        "layout": "default",
+			        "localId": "testId",
+			        "parameters": {
+			          "macroMetadata": {
+			            "placeholder": [
+			              {
+			                "data": {
+			                  "url": "",
+			                },
+			                "type": "icon",
+			              },
+			            ],
+			          },
+			          "macroParams": {},
+			        },
+			      },
+			      "content": [
+			        {
+			          "content": [
+			            {
+			              "content": [
+			                {
+			                  "content": [
+			                    {
+			                      "content": [
+			                        {
+			                          "content": [
+			                            {
+			                              "text": "Header 1",
+			                              "type": "text",
+			                            },
+			                          ],
+			                          "type": "tableHeader",
+			                        },
+			                        {
+			                          "content": [
+			                            {
+			                              "text": "Header 2",
+			                              "type": "text",
+			                            },
+			                          ],
+			                          "type": "tableHeader",
+			                        },
+			                      ],
+			                      "type": "tableRow",
+			                    },
+			                    {
+			                      "content": [
+			                        {
+			                          "content": [
+			                            {
+			                              "text": "Cell 1",
+			                              "type": "text",
+			                            },
+			                          ],
+			                          "type": "tableCell",
+			                        },
+			                        {
+			                          "content": [
+			                            {
+			                              "text": "Cell 2",
+			                              "type": "text",
+			                            },
+			                          ],
+			                          "type": "tableCell",
+			                        },
+			                      ],
+			                      "type": "tableRow",
+			                    },
+			                  ],
+			                  "type": "table",
+			                },
+			              ],
+			              "type": "tableRow",
+			            },
+			          ],
+			          "type": "table",
+			        },
+			      ],
+			      "type": "bodiedExtension",
+			    },
+			  ],
+			  "type": "doc",
+			  "version": 1,
+			}
+		`);
 		});
 	});
 

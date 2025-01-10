@@ -374,12 +374,6 @@ export const oldApply = (
 	}
 
 	const meta = tr.getMeta(key);
-	const isPerformanceFix =
-		isNestedEnabled ||
-		editorExperiment('dnd-input-performance-optimisation', true, {
-			exposure: true,
-		});
-	let activeNodeWithNewNodeType = null;
 
 	// If tables or media are being resized, we want to hide the drag handle
 	const resizerMeta = tr.getMeta('is-resizer-resizing');
@@ -473,45 +467,25 @@ export const oldApply = (
 			}
 			const newActiveNode = tr.doc.nodeAt(mappedPosisiton);
 
-			let draghandleDec;
-			if (isPerformanceFix) {
-				if (newActiveNode && newActiveNode?.type.name !== activeNode.nodeType) {
-					const oldHandle = decorations.find(
-						undefined,
-						undefined,
-						(spec) => spec.type === 'drag-handle',
-					);
-					decorations = decorations.remove(oldHandle);
-				}
-				const decAtPos = newNodeDecs.find((dec) => dec.from === mappedPosisiton);
-				draghandleDec = dragHandleDecoration(
-					api,
-					formatMessage,
-					meta?.activeNode?.pos ?? mappedPosisiton,
-					meta?.activeNode?.anchorName ?? decAtPos?.spec?.anchorName ?? activeNode?.anchorName,
-					meta?.activeNode?.nodeType ?? decAtPos?.spec?.nodeType ?? activeNode?.nodeType,
-					nodeViewPortalProviderAPI,
-					meta?.activeNode?.handleOptions,
+			if (newActiveNode && newActiveNode?.type.name !== activeNode.nodeType) {
+				const oldHandle = decorations.find(
+					undefined,
+					undefined,
+					(spec) => spec.type === 'drag-handle',
 				);
-			} else {
-				let nodeType = activeNode.nodeType;
-				let anchorName = activeNode.anchorName;
-
-				if (newActiveNode && newActiveNode?.type.name !== activeNode.nodeType) {
-					nodeType = newActiveNode.type.name;
-					anchorName = activeNode.anchorName.replace(activeNode.nodeType, nodeType);
-
-					activeNodeWithNewNodeType = { pos: prevMappedPos, nodeType, anchorName };
-				}
-				draghandleDec = dragHandleDecoration(
-					api,
-					formatMessage,
-					activeNode.pos,
-					anchorName,
-					nodeType,
-					nodeViewPortalProviderAPI,
-				);
+				decorations = decorations.remove(oldHandle);
 			}
+			const decAtPos = newNodeDecs.find((dec) => dec.from === mappedPosisiton);
+			const draghandleDec = dragHandleDecoration(
+				api,
+				formatMessage,
+				meta?.activeNode?.pos ?? mappedPosisiton,
+				meta?.activeNode?.anchorName ?? decAtPos?.spec?.anchorName ?? activeNode?.anchorName,
+				meta?.activeNode?.nodeType ?? decAtPos?.spec?.nodeType ?? activeNode?.nodeType,
+				nodeViewPortalProviderAPI,
+				meta?.activeNode?.handleOptions,
+			);
+
 			decorations = decorations.add(newState.doc, [draghandleDec]);
 		}
 	}
@@ -538,26 +512,6 @@ export const oldApply = (
 		decorations = decorations.add(newState.doc, [decs]);
 	}
 
-	// Remove previous drag handle widget and draw new drag handle widget when node type changes
-	if (
-		!isPerformanceFix &&
-		activeNodeWithNewNodeType &&
-		activeNodeWithNewNodeType?.nodeType !== activeNode?.nodeType &&
-		api
-	) {
-		const oldHandle = decorations.find(undefined, undefined, (spec) => spec.type === 'drag-handle');
-		decorations = decorations.remove(oldHandle);
-		const decs = dragHandleDecoration(
-			api,
-			formatMessage,
-			activeNodeWithNewNodeType.pos,
-			activeNodeWithNewNodeType.anchorName,
-			activeNodeWithNewNodeType.nodeType,
-			nodeViewPortalProviderAPI,
-		);
-		decorations = decorations.add(newState.doc, [decs]);
-	}
-
 	if (meta?.isDragging === false || isDropTargetsMissing || isBlocksDragTargetDebug()) {
 		// Remove drop target decoration when dragging stops
 		const dropTargetDecs = decorations.find(
@@ -571,7 +525,7 @@ export const oldApply = (
 	// Map active node position when the document changes
 	const mappedActiveNodePos =
 		tr.docChanged && activeNode
-			? (!isPerformanceFix && activeNodeWithNewNodeType) || {
+			? {
 					pos: tr.mapping.map(activeNode.pos),
 					anchorName: activeNode.anchorName,
 					nodeType: activeNode.nodeType,

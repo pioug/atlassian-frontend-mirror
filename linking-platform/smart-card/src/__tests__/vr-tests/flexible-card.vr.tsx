@@ -23,7 +23,11 @@ import FlexibleUiHoverCardNoPreviewButton from '../../../examples/vr-flexible-ca
 import FlexibleUiOptions from '../../../examples/vr-flexible-card/vr-flexible-ui-options';
 
 // Variants
-snapshot(FlexibleUiOptions);
+snapshot(FlexibleUiOptions, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
 snapshot(FlexibleUiComposition, {
 	states: [
 		{
@@ -33,6 +37,9 @@ snapshot(FlexibleUiComposition, {
 			state: 'hovered',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 // Blocks
@@ -44,6 +51,9 @@ snapshot(FlexibleUiBlock, {
 			jiraIssueId: 'EDM-10562',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(FlexibleUiBlockTitle, {
 	ignoredErrors: [
@@ -53,6 +63,9 @@ snapshot(FlexibleUiBlockTitle, {
 			jiraIssueId: 'EDM-10562',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(FlexibleUiBlockTitle, {
 	description: 'flexible-ui-block-title--title hovered',
@@ -71,6 +84,9 @@ snapshot(FlexibleUiBlockTitle, {
 			jiraIssueId: 'EDM-10562',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(FlexibleUiBlockTitle, {
 	description: 'flexible-ui-block-title--more actions hovered',
@@ -89,6 +105,9 @@ snapshot(FlexibleUiBlockTitle, {
 			jiraIssueId: 'EDM-10562',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(FlexibleUiBlockMetadata, {
 	ignoredErrors: [
@@ -98,27 +117,69 @@ snapshot(FlexibleUiBlockMetadata, {
 			jiraIssueId: 'EDM-10562',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
-snapshot(FlexibleUiBlockSnippet);
-snapshot(FlexibleUiBlockFooter);
-snapshot(FlexibleUiBlockPreview);
-snapshot(FlexibleUiBlockActionList);
-snapshot(FlexibleUiBlockAction);
-snapshot(FlexibleUiBlockActionGroup, { drawsOutsideBounds: true });
+snapshot(FlexibleUiBlockSnippet, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(FlexibleUiBlockFooter, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(FlexibleUiBlockPreview, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(FlexibleUiBlockActionList, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(FlexibleUiBlockAction, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(FlexibleUiBlockActionGroup, {
+	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
 snapshot(FlexibleUiBlockActionGroup, {
 	description: 'flexible-ui-block-action-group--item hovered',
 	drawsOutsideBounds: true,
 	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'hovered' }],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(FlexibleUiBlockActionGroup, {
 	description: 'flexible-ui-block-action-group--item focused',
 	drawsOutsideBounds: true,
 	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'focused' }],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 // Elements
-snapshot(FlexibleUiElementLink);
-snapshot(FlexibleUiElementLozenge);
+snapshot(FlexibleUiElementLink, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(FlexibleUiElementLozenge, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
 snapshot(FlexibleUiElementBadge, {
 	ignoredErrors: [
 		{
@@ -127,9 +188,20 @@ snapshot(FlexibleUiElementBadge, {
 			jiraIssueId: 'EDM-10562',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
-snapshot(FlexibleUiElementAvatarGroup);
-snapshot(FlexibleUiElementMedia);
+snapshot(FlexibleUiElementAvatarGroup, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(FlexibleUiElementMedia, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
 
 // Hovercard
 snapshot(FlexibleUiHoverCard, {
@@ -142,6 +214,9 @@ snapshot(FlexibleUiHoverCard, {
 			state: 'hovered',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(FlexibleUiHoverCardNoPreviewButton, {
 	drawsOutsideBounds: true,
@@ -153,6 +228,9 @@ snapshot(FlexibleUiHoverCardNoPreviewButton, {
 			state: 'hovered',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 // Accessibility
@@ -166,6 +244,9 @@ snapshot(FlexibleUiAccessibility, {
 			state: 'focused',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(FlexibleUiAccessibility, {
 	description: 'flexible=ui-accessibility--hidden action button focused',
@@ -178,6 +259,9 @@ snapshot(FlexibleUiAccessibility, {
 		},
 	],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
 	description: 'flexible=ui-accessibility--forbidden title focused',
@@ -189,6 +273,9 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 			state: 'focused',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
 	description: 'flexible=ui-accessibility--error message focused',
@@ -200,6 +287,9 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 			state: 'focused',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
 	description: 'flexible=ui-accessibility--custom action item focused',
@@ -211,9 +301,16 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 			state: 'focused',
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 // Error states
-snapshot(FlexibleUiBlockCardErroredStates);
+snapshot(FlexibleUiBlockCardErroredStates, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
 // Flex block card forbidden snapshot already taken in
 // platform/packages/linking-platform/smart-card/src/__tests__/vr-tests/block-card.vr.tsx (BlockCardForbiddenViews)

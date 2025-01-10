@@ -1,5 +1,26 @@
 # @atlaskit/icon
 
+## 23.3.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.3.0
+
+### Minor Changes
+
+- [#101112](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101112)
+  [`13f29ccf9c9db`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/13f29ccf9c9db) -
+  This release adds icons in `@atlaskit/icon`.
+
+  ### Added:
+
+  **`@atlaskit/icon/utility`**
+
+  - `chevron-double-left`
+  - `chevron-double-right`
+
 ## 23.2.0
 
 ### Minor Changes

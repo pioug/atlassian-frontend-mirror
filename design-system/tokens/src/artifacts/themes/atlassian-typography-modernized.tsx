@@ -1,16 +1,11 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::af605e1d1296e40e5834bb2707cb59ee>>
+ * @codegen <<SignedSource::38b6ba79bdb23bd72bf5db3990d1bfb2>>
  * @codegenCommand yarn build tokens
  */
 export default `
 html[data-theme~="typography:typography-modernized"] {
   --ds-UNSAFE-textTransformUppercase: uppercase;
-  --ds-font-letterSpacing-0: 0;
-  --ds-font-letterSpacing-100: 0;
-  --ds-font-letterSpacing-200: 0;
-  --ds-font-letterSpacing-300: 0;
-  --ds-font-letterSpacing-400: 0;
   --ds-font-heading-xxlarge: normal 700 2rem/2.25rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-heading-xlarge: normal 700 1.75rem/2rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-heading-large: normal 700 1.5rem/1.75rem ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
@@ -30,8 +25,6 @@ html[data-theme~="typography:typography-modernized"] {
   --ds-font-family-heading: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-body: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-code: ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
-  --ds-font-family-monospace: ui-monospace, Menlo, "Segoe UI Mono", "Ubuntu Mono", monospace;
-  --ds-font-family-sans: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-brand-heading: "Charlie Display", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
   --ds-font-family-brand-body: "Charlie Text", ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Ubuntu, system-ui, "Helvetica Neue", sans-serif;
 }

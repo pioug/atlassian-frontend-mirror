@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-viewer",
-	"version": "49.6.0",
+	"version": "49.6.1",
 	"description": "MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,7 +42,7 @@
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/code": "^15.6.0",
 		"@atlaskit/form": "^11.0.0",
-		"@atlaskit/icon": "^23.2.0",
+		"@atlaskit/icon": "^23.3.0",
 		"@atlaskit/icon-file-type": "^6.8.0",
 		"@atlaskit/media-client": "^29.0.0",
 		"@atlaskit/media-client-react": "^2.5.0",
@@ -56,7 +56,7 @@
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^2.5.0",
+		"@atlaskit/tokens": "^3.0.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/ufo": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
@@ -87,7 +87,7 @@
 		"@atlaskit/media-test-data": "^2.8.0",
 		"@atlaskit/media-test-helpers": "^34.7.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "14.0.1",
+		"@atlaskit/toggle": "14.0.2",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@atlassian/ufo": "^0.4.0",

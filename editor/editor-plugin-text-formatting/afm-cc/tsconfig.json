@@ -24,6 +24,9 @@
             "path": "../../editor-plugin-analytics/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../editor-plugin-base/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../editor-plugin-primary-toolbar/afm-cc/tsconfig.json"
         },
         {

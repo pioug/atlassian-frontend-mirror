@@ -35,6 +35,9 @@
 			"path": "./tsconfig.app.json"
 		},
 		{
+			"path": "../editor-examples-helpers/tsconfig.app.json"
+		},
+		{
 			"path": "../../design-system/button/tsconfig.app.json"
 		},
 		{

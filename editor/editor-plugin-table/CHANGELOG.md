@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-table
 
+## 9.1.2
+
+### Patch Changes
+
+- [#102168](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102168)
+  [`d3ab19c1849b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3ab19c1849b7) -
+  [ED-26179] clean up platform_editor_ed_25642
+
+## 9.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.0
 
 ### Minor Changes

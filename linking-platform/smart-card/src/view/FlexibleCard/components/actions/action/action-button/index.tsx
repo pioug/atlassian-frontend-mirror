@@ -4,74 +4,68 @@
  */
 import React, { useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { LoadingButton } from '@atlaskit/button';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
 import { SmartLinkSize } from '../../../../../../constants';
 import { sizeToButtonSpacing } from '../../../utils';
 
+import ActionButtonOld from './ActionButtonOld';
 import { type ActionButtonProps } from './types';
 
-const getButtonStyle = (size?: SmartLinkSize, iconOnly?: boolean) => {
-	switch (size) {
-		case SmartLinkSize.Large:
-			return iconOnly
-				? css({
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-						'button, button:hover, button:focus, button:active': {
-							padding: 0,
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-							'> span': {
-								margin: 0,
-							},
-						},
-					})
-				: '';
-		case SmartLinkSize.Small:
-			return css({
-				font: token('font.body.UNSAFE_small'),
-				fontWeight: token('font.weight.medium'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				'button, button:hover, button:focus, button:active': [
-					{
-						// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-						lineHeight: 'inherit',
-					},
-					iconOnly
-						? `
-            padding: 0.125rem;
-          `
-						: `
-            padding-left: 0.25rem;
-            padding-right: 0.25rem;
-          `,
-				],
-			});
-		case SmartLinkSize.XLarge:
-		case SmartLinkSize.Medium:
-		default:
-			return '';
-	}
-};
+const IconOnlyLarge = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'button, button:hover, button:focus, button:active': {
+		padding: 0,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'> span': {
+			margin: 0,
+		},
+	},
+});
 
-const ActionButton = ({
+const SizeSmall = css({
+	font: token('font.body.UNSAFE_small'),
+	fontWeight: token('font.weight.medium'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+});
+
+const SizeSmallIconOnly = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'button, button:hover, button:focus, button:active': {
+		paddingTop: token('space.025', '0.125rem'),
+		paddingRight: token('space.025', '0.125rem'),
+		paddingBottom: token('space.025', '0.125rem'),
+		paddingLeft: token('space.025', '0.125rem'),
+	},
+});
+
+const SizeSmallNotIconOnly = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values,@atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'button, button:hover, button:focus, button:active': {
+		paddingLeft: token('space.050', '0.25rem'),
+		paddingRight: token('space.050', '0.25rem'),
+	},
+});
+
+const ActionButtonNew = ({
 	appearance,
 	content,
 	iconAfter,
 	iconBefore,
 	isLoading,
 	onClick,
-	overrideCss,
 	size,
 	testId,
 	tooltipMessage,
 	isDisabled,
 	href,
 	ariaLabel,
+	className,
 }: ActionButtonProps) => {
 	const iconOnly = !content;
 
@@ -85,8 +79,14 @@ const ActionButton = ({
 
 	return (
 		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[getButtonStyle(size, iconOnly), overrideCss]}
+			css={[
+				size === SmartLinkSize.Large && iconOnly && IconOnlyLarge,
+				size === SmartLinkSize.Small && SizeSmall,
+				size === SmartLinkSize.Small && iconOnly && SizeSmallIconOnly,
+				size === SmartLinkSize.Small && !iconOnly && SizeSmallNotIconOnly,
+			]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 			data-testid={`${testId}-button-wrapper`}
 		>
 			<Tooltip content={tooltipMessage} hideTooltipOnClick={true} testId={`${testId}-tooltip`}>
@@ -106,6 +106,14 @@ const ActionButton = ({
 				</LoadingButton>
 			</Tooltip>
 		</div>
+	);
+};
+
+const ActionButton = (props: ActionButtonProps): JSX.Element => {
+	return fg('bandicoots-compiled-migration-smartcard') ? (
+		<ActionButtonNew {...props} />
+	) : (
+		<ActionButtonOld {...props} />
 	);
 };
 

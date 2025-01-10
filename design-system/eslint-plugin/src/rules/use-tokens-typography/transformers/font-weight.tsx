@@ -3,7 +3,7 @@ import type { Rule } from 'eslint';
 import { isNodeOfType, Property } from 'eslint-codemod-utils';
 
 import { Root } from '../../../ast-nodes';
-import { getValueForPropertyNode } from '../../ensure-design-token-usage/utils';
+import { getNodeSource } from '../../utils/get-node-source';
 import { isDecendantOfStyleBlock, isDecendantOfType } from '../../utils/is-node';
 import { type RuleConfig } from '../config';
 import { findFontWeightTokenForValue, insertTokensImport } from '../utils';
@@ -42,11 +42,10 @@ export const FontWeight = {
 			return false;
 		}
 
-		const fontWeightValue = getValueForPropertyNode(node, context);
-		if (
-			typeof fontWeightValue === 'string' &&
-			(fontWeightValue.includes('font.weight.') || fontWeightValue.includes('inherit'))
-		) {
+		const isFontWeightProperty =
+			isNodeOfType(node.key, 'Identifier') && node.key.name === 'fontWeight';
+		const valueNodeSource = getNodeSource(context.sourceCode, node.value);
+		if (isFontWeightProperty && valueNodeSource.match(/(font\.weight.|inherit)/)) {
 			return false;
 		}
 

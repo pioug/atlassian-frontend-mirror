@@ -1,13 +1,16 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import '@testing-library/jest-dom';
-import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import TestIcon from '@atlaskit/icon/core/migration/dashboard--activity';
 import { token } from '@atlaskit/tokens';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { SmartLinkSize } from '../../../../../../constants';
 import Action from '../index';
@@ -61,32 +64,36 @@ describe('Action', () => {
 		});
 
 		describe('size', () => {
-			it.each([
-				[SmartLinkSize.XLarge, '1.5rem'],
-				[SmartLinkSize.Large, '1.5rem'],
-				[SmartLinkSize.Medium, '1rem'],
-				[SmartLinkSize.Small, '1rem'],
-			])('renders action in %s size', async (size: SmartLinkSize, expectedSize: string) => {
-				const testIcon = <TestIcon label="test" color={token('color.icon', '#44546F')} />;
-				render(<Action onClick={() => {}} size={size} testId={testId} icon={testIcon} />);
+			ffTest.both('bandicoots-compiled-migration-smartcard', '', () => {
+				it.each([
+					[SmartLinkSize.XLarge, '1.5rem'],
+					[SmartLinkSize.Large, '1.5rem'],
+					[SmartLinkSize.Medium, '1rem'],
+					[SmartLinkSize.Small, '1rem'],
+				])('renders action in %s size', async (size: SmartLinkSize, expectedSize: string) => {
+					const testIcon = <TestIcon label="test" color={token('color.icon', '#44546F')} />;
+					render(<Action onClick={() => {}} size={size} testId={testId} icon={testIcon} />);
 
-				const element = await screen.findByTestId(`${testId}-icon`);
+					const element = await screen.findByTestId(`${testId}-icon`);
 
-				expect(element).toHaveStyleDeclaration('height', expectedSize);
-				expect(element).toHaveStyleDeclaration('width', expectedSize);
+					expect(element).toHaveStyle(`height: ${expectedSize}`);
+					expect(element).toHaveStyle(`width: ${expectedSize}`);
+				});
 			});
 		});
 
-		it('renders with override css', async () => {
-			const overrideCss = css({
-				fontStyle: 'italic',
+		ffTest.on('bandicoots-compiled-migration-smartcard', '', () => {
+			it('renders with override css', async () => {
+				const overrideCss = css({
+					fontStyle: 'italic',
+				});
+				const testId = 'css';
+				await render(
+					<Action content="spaghetti" onClick={() => {}} css={overrideCss} testId={testId} />,
+				);
+				const action = await screen.findByTestId(`${testId}-button-wrapper`);
+				expect(action).toHaveStyle('font-style: italic');
 			});
-			const testId = 'css';
-			await render(
-				<Action content="spaghetti" onClick={() => {}} overrideCss={overrideCss} testId={testId} />,
-			);
-			const action = await screen.findByTestId(`${testId}-button-wrapper`);
-			expect(action).toHaveStyleDeclaration('font-style', 'italic');
 		});
 
 		it('does not call onClick on loading', async () => {

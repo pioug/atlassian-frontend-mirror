@@ -2,7 +2,6 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 
 export {
-	transformSmartCharsMentionsAndEmojis,
 	transformNonTextNodesToText,
 	applyMarkOnRange,
 	filterChildrenBetween,

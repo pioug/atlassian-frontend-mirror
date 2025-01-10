@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::35d3625b04d052c37199113601e6c7ba>>
+ * @codegen <<SignedSource::2e613448665c48489ceb1abb4eefd550>>
  * @codegenCommand yarn build tokens
  */
 var tokens = [{
@@ -31,126 +31,6 @@ var tokens = [{
   "name": "utility.UNSAFE.textTransformUppercase",
   "path": ["utility", "UNSAFE", "textTransformUppercase"],
   "cleanName": "utility.UNSAFE.textTransformUppercase"
-}, {
-  "attributes": {
-    "group": "letterSpacing",
-    "state": "deprecated",
-    "introduced": "0.10.33",
-    "description": "Helpful guidance goes here",
-    "deprecated": "1.29.0"
-  },
-  "value": "0",
-  "filePath": "schema/themes/atlassian-typography-modernized/letter-spacing.tsx",
-  "isSource": true,
-  "original": {
-    "attributes": {
-      "group": "letterSpacing",
-      "state": "deprecated",
-      "introduced": "0.10.33",
-      "description": "Helpful guidance goes here",
-      "deprecated": "1.29.0"
-    },
-    "value": "LetterSpacing0"
-  },
-  "name": "font.letterSpacing.0",
-  "path": ["font", "letterSpacing", "0"],
-  "cleanName": "font.letterSpacing.0"
-}, {
-  "attributes": {
-    "group": "letterSpacing",
-    "state": "deprecated",
-    "introduced": "0.10.33",
-    "description": "Helpful guidance goes here",
-    "deprecated": "1.29.0"
-  },
-  "value": "0",
-  "filePath": "schema/themes/atlassian-typography-modernized/letter-spacing.tsx",
-  "isSource": true,
-  "original": {
-    "attributes": {
-      "group": "letterSpacing",
-      "state": "deprecated",
-      "introduced": "0.10.33",
-      "description": "Helpful guidance goes here",
-      "deprecated": "1.29.0"
-    },
-    "value": "LetterSpacing0"
-  },
-  "name": "font.letterSpacing.100",
-  "path": ["font", "letterSpacing", "100"],
-  "cleanName": "font.letterSpacing.100"
-}, {
-  "attributes": {
-    "group": "letterSpacing",
-    "state": "deprecated",
-    "introduced": "0.10.33",
-    "description": "Helpful guidance goes here",
-    "deprecated": "1.29.0"
-  },
-  "value": "0",
-  "filePath": "schema/themes/atlassian-typography-modernized/letter-spacing.tsx",
-  "isSource": true,
-  "original": {
-    "attributes": {
-      "group": "letterSpacing",
-      "state": "deprecated",
-      "introduced": "0.10.33",
-      "description": "Helpful guidance goes here",
-      "deprecated": "1.29.0"
-    },
-    "value": "LetterSpacing0"
-  },
-  "name": "font.letterSpacing.200",
-  "path": ["font", "letterSpacing", "200"],
-  "cleanName": "font.letterSpacing.200"
-}, {
-  "attributes": {
-    "group": "letterSpacing",
-    "state": "deprecated",
-    "introduced": "0.10.33",
-    "description": "Helpful guidance goes here",
-    "deprecated": "1.29.0"
-  },
-  "value": "0",
-  "filePath": "schema/themes/atlassian-typography-modernized/letter-spacing.tsx",
-  "isSource": true,
-  "original": {
-    "attributes": {
-      "group": "letterSpacing",
-      "state": "deprecated",
-      "introduced": "0.10.33",
-      "description": "Helpful guidance goes here",
-      "deprecated": "1.29.0"
-    },
-    "value": "LetterSpacing0"
-  },
-  "name": "font.letterSpacing.300",
-  "path": ["font", "letterSpacing", "300"],
-  "cleanName": "font.letterSpacing.300"
-}, {
-  "attributes": {
-    "group": "letterSpacing",
-    "state": "deprecated",
-    "introduced": "0.10.33",
-    "description": "Helpful guidance goes here",
-    "deprecated": "1.29.0"
-  },
-  "value": "0",
-  "filePath": "schema/themes/atlassian-typography-modernized/letter-spacing.tsx",
-  "isSource": true,
-  "original": {
-    "attributes": {
-      "group": "letterSpacing",
-      "state": "deprecated",
-      "introduced": "0.10.33",
-      "description": "Helpful guidance goes here",
-      "deprecated": "1.29.0"
-    },
-    "value": "LetterSpacing0"
-  },
-  "name": "font.letterSpacing.400",
-  "path": ["font", "letterSpacing", "400"],
-  "cleanName": "font.letterSpacing.400"
 }, {
   "attributes": {
     "group": "typography",
@@ -653,54 +533,6 @@ var tokens = [{
   "name": "font.family.code",
   "path": ["font", "family", "code"],
   "cleanName": "font.family.code"
-}, {
-  "attributes": {
-    "group": "fontFamily",
-    "state": "deprecated",
-    "introduced": "0.10.33",
-    "description": "For representing code only.",
-    "deprecated": "1.29.0"
-  },
-  "value": "ui-monospace, Menlo, \"Segoe UI Mono\", \"Ubuntu Mono\", monospace",
-  "filePath": "schema/themes/atlassian-typography-modernized/font-family.tsx",
-  "isSource": true,
-  "original": {
-    "attributes": {
-      "group": "fontFamily",
-      "state": "deprecated",
-      "introduced": "0.10.33",
-      "description": "For representing code only.",
-      "deprecated": "1.29.0"
-    },
-    "value": "FontFamilyWebMono"
-  },
-  "name": "font.family.monospace",
-  "path": ["font", "family", "monospace"],
-  "cleanName": "font.family.monospace"
-}, {
-  "attributes": {
-    "group": "fontFamily",
-    "state": "deprecated",
-    "introduced": "0.10.33",
-    "description": "Helpful guidance goes here",
-    "deprecated": "1.29.0"
-  },
-  "value": "ui-sans-serif, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Ubuntu, system-ui, \"Helvetica Neue\", sans-serif",
-  "filePath": "schema/themes/atlassian-typography-modernized/font-family.tsx",
-  "isSource": true,
-  "original": {
-    "attributes": {
-      "group": "fontFamily",
-      "state": "deprecated",
-      "introduced": "0.10.33",
-      "description": "Helpful guidance goes here",
-      "deprecated": "1.29.0"
-    },
-    "value": "FontFamilyWebSans"
-  },
-  "name": "font.family.sans",
-  "path": ["font", "family", "sans"],
-  "cleanName": "font.family.sans"
 }, {
   "attributes": {
     "group": "fontFamily",

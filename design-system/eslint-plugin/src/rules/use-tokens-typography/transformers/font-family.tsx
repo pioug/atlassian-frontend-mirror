@@ -3,7 +3,7 @@ import type { Rule } from 'eslint';
 import { isNodeOfType, Property } from 'eslint-codemod-utils';
 
 import { Root } from '../../../ast-nodes';
-import { getValueForPropertyNode } from '../../ensure-design-token-usage/utils';
+import { getNodeSource } from '../../utils/get-node-source';
 import { isDecendantOfStyleBlock, isDecendantOfType } from '../../utils/is-node';
 import { type RuleConfig } from '../config';
 import { findFontFamilyTokenForValue, insertTokensImport } from '../utils';
@@ -42,11 +42,10 @@ export const FontFamily = {
 			return false;
 		}
 
-		const fontFamilyValue = getValueForPropertyNode(node, context);
-		if (
-			typeof fontFamilyValue === 'string' &&
-			(fontFamilyValue.includes('font.family.') || fontFamilyValue.includes('inherit'))
-		) {
+		const isFontFamilyProperty =
+			isNodeOfType(node.key, 'Identifier') && node.key.name === 'fontFamily';
+		const valueNodeSource = getNodeSource(context.sourceCode, node.value);
+		if (isFontFamilyProperty && valueNodeSource.match(/(font\.family.|inherit)/)) {
 			return false;
 		}
 

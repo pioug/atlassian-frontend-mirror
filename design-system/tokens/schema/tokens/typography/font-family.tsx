@@ -4,24 +4,6 @@ import type { FontFamilyBaseToken as BaseToken } from '../../palettes/typography
 const font: AttributeSchema<FontFamilyTokenSchema<BaseToken>> = {
 	font: {
 		family: {
-			sans: {
-				attributes: {
-					group: 'fontFamily',
-					state: 'deprecated',
-					introduced: '0.10.33',
-					description: 'Helpful guidance goes here',
-					deprecated: '1.29.0',
-				},
-			},
-			monospace: {
-				attributes: {
-					group: 'fontFamily',
-					state: 'deprecated',
-					introduced: '0.10.33',
-					description: 'For representing code only.',
-					deprecated: '1.29.0',
-				},
-			},
 			code: {
 				attributes: {
 					group: 'fontFamily',

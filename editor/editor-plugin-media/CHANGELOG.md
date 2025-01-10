@@ -1,5 +1,28 @@
 # @atlaskit/editor-plugin-media
 
+## 1.44.2
+
+### Patch Changes
+
+- [#100007](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100007)
+  [`afe0edcf9ef4a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/afe0edcf9ef4a) -
+  added toggle so comments on media are disabled when offline :)
+
+## 1.44.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.44.0
+
+### Minor Changes
+
+- [#101768](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101768)
+  [`071c13f4f064f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/071c13f4f064f) -
+  Added mediaShallowCopyScope to editor to enable the deep copying of media from different editor
+  even within the same Context
+
 ## 1.43.14
 
 ### Patch Changes

@@ -11,6 +11,7 @@ import type {
 	InlineCommentInputMethod,
 	InlineCommentMap,
 } from '@atlaskit/editor-plugin-annotation';
+import type { BasePlugin } from '@atlaskit/editor-plugin-base';
 import { type EditorViewModePluginState } from '@atlaskit/editor-plugin-editor-viewmode';
 import type { TypeAheadInputMethod, TypeAheadPlugin } from '@atlaskit/editor-plugin-type-ahead';
 import type { SelectionBookmark } from '@atlaskit/editor-prosemirror/state';
@@ -71,6 +72,7 @@ export type EmojiPlugin = NextEditorPlugin<
 			TypeAheadPlugin,
 			OptionalPlugin<AnnotationPluginType>,
 			OptionalPlugin<EditorViewModePluginType>,
+			OptionalPlugin<BasePlugin>,
 		];
 		sharedState: EmojiPluginSharedState | undefined;
 		commands: {

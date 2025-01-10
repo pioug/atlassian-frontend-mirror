@@ -2,6 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
 // eslint-disable-next-line no-restricted-imports
+import userEvent from '@testing-library/user-event';
 import { parseISO } from 'date-fns';
 import cases from 'jest-in-case';
 
@@ -110,7 +111,8 @@ describe('Calendar', () => {
 			expect(heading).toHaveTextContent(`${defaultMonthName} ${defaultYear}`);
 		});
 
-		it('should render month/year section as a live region only after user has interacted with either previous/next month buttons', () => {
+		it('should render month/year section as a live region only after user has interacted with either previous/next month buttons', async () => {
+			const user = userEvent.setup();
 			setup();
 
 			const headingContainer = screen.getByTestId(`${testId}--current-month-year--container`);
@@ -118,7 +120,7 @@ describe('Calendar', () => {
 			expect(headingContainer).not.toHaveAttribute('aria-live');
 
 			const previousMonthButton = screen.getByTestId(`${testId}--previous-month`);
-			fireEvent.click(previousMonthButton);
+			await user.click(previousMonthButton);
 
 			expect(headingContainer).toHaveAttribute('aria-live');
 		});
@@ -150,10 +152,11 @@ describe('Calendar', () => {
 			expect(lastMonthNextDescriptiveText).toBeInTheDocument();
 		});
 
-		it('should switch to previous month when clicked on left arrow button', () => {
+		it('should switch to previous month when clicked on left arrow button', async () => {
+			const user = userEvent.setup();
 			const { props } = setup();
 
-			fireEvent.click(screen.getByTestId(`${testId}--previous-month`));
+			await user.click(screen.getByTestId(`${testId}--previous-month`));
 
 			expect(screen.getByTestId(`${testId}--current-month-year`)).toHaveTextContent(
 				`November ${defaultYear}`,
@@ -170,10 +173,11 @@ describe('Calendar', () => {
 			);
 		});
 
-		it('should switch to next month when clicked on right arrow button', () => {
+		it('should switch to next month when clicked on right arrow button', async () => {
+			const user = userEvent.setup();
 			const { props } = setup();
 
-			fireEvent.click(screen.getByTestId(`${testId}--next-month`));
+			await user.click(screen.getByTestId(`${testId}--next-month`));
 
 			expect(screen.getByTestId(`${testId}--current-month-year`)).toHaveTextContent(
 				`January ${defaultYear + 1}`,
@@ -255,7 +259,8 @@ describe('Calendar', () => {
 			});
 		});
 
-		it('should handle day selection behavior', () => {
+		it('should handle day selection behavior', async () => {
+			const user = userEvent.setup();
 			const dayAfterSelectedDay = defaultSelectedDay + 1;
 			const { props } = setup();
 
@@ -267,7 +272,7 @@ describe('Calendar', () => {
 
 			expect(unselectedDay).toHaveAttribute('aria-pressed', 'false');
 
-			fireEvent.click(unselectedDay);
+			await user.click(unselectedDay);
 
 			expect(unselectedDay).toHaveAttribute('aria-pressed', 'true');
 			expect(props.onSelect).toHaveBeenCalledWith(
@@ -333,10 +338,11 @@ describe('Calendar', () => {
 			expect(disabledDayElement).toHaveAttribute('data-disabled', 'true');
 		});
 
-		it('should not select day if disabled', () => {
+		it('should not select day if disabled', async () => {
+			const user = userEvent.setup();
 			const { props } = setup();
 			const disabledDayElement = getDayElement(defaultDisabledDay);
-			fireEvent.click(disabledDayElement);
+			await user.click(disabledDayElement);
 			expect(props.onSelect).not.toHaveBeenCalled();
 		});
 	});

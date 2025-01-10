@@ -1,7 +1,8 @@
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react';
 
 import { bind } from 'bind-event-listener';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { setGlobalTheme, type ThemeState } from '@atlaskit/tokens';
 
 export type Theme = Omit<ThemeState, 'colorMode' | 'contrastMode'>;
@@ -153,10 +154,62 @@ export function ThemeProvider({
 	}, []);
 
 	useEffect(() => {
+		if (fg('platform_dst_fix_set_theme_race')) {
+			return;
+		}
+
 		setGlobalTheme({
 			...theme,
 			colorMode: reconciledColorMode,
 		});
+	}, [theme, reconciledColorMode]);
+
+	const lastSetGlobalThemePromiseRef = useRef<ReturnType<typeof setGlobalTheme> | null>(null);
+
+	useEffect(() => {
+		if (!fg('platform_dst_fix_set_theme_race')) {
+			return;
+		}
+
+		/**
+		 * We need to wait for any previous `setGlobalTheme` calls to finish before calling it again.
+		 * This is to prevent race conditions as `setGlobalTheme` is async and mutates the DOM (e.g. sets the
+		 * `data-color-mode` attribute on the root element).
+		 *
+		 * Since we can't safely abort the `setGlobalTheme` execution, we need to wait for it to properly finish before
+		 * applying the new theme.
+		 *
+		 * Without this, we can end up in the following scenario:
+		 * 1. app loads with the default 'light' theme, kicking off `setGlobalTheme`
+		 * 2. app switches to 'dark' theme after retrieving value persisted in local storage, calling `setGlobalTheme` again
+		 * 3. `setGlobalTheme` function execution for `dark` finishes before the initial `light` execution
+		 * 4. `setGlobalTheme` function execution for `light` then finishes, resulting in the 'light' theme being applied.
+		 */
+		const cleanupLastFnCall = async () => {
+			if (lastSetGlobalThemePromiseRef.current) {
+				const unbindFn = await lastSetGlobalThemePromiseRef.current;
+				unbindFn();
+
+				lastSetGlobalThemePromiseRef.current = null;
+			}
+		};
+
+		const safelySetGlobalTheme = async () => {
+			await cleanupLastFnCall();
+
+			const promise = setGlobalTheme({
+				...theme,
+				colorMode: reconciledColorMode,
+			});
+
+			lastSetGlobalThemePromiseRef.current = promise;
+		};
+
+		safelySetGlobalTheme();
+
+		return function cleanup() {
+			cleanupLastFnCall();
+		};
 	}, [theme, reconciledColorMode]);
 
 	useEffect(() => {

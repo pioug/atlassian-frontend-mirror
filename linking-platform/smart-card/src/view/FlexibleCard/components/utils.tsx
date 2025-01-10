@@ -36,6 +36,9 @@ export const getFormattedMessageAsString = (
 	return message ? formatMessage(message, { context }) : '';
 };
 
+/**
+ * @deprecated remove on FF bandicoots-compiled-migration-smartcard clean up
+ */
 const getIconDimensionStyles = (value: string): SerializedStyles =>
 	css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -52,6 +55,9 @@ const getIconDimensionStyles = (value: string): SerializedStyles =>
 		maxWidth: value,
 	});
 
+/**
+ * @deprecated remove on FF bandicoots-compiled-migration-smartcard clean up
+ */
 export const getIconSizeStyles = (width: string): SerializedStyles => {
 	const sizeStyles = getIconDimensionStyles(width);
 	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation

@@ -90,6 +90,16 @@ const extensionHandlers: ExtensionHandlers = {
 				return null;
 		}
 	},
+	// Simulates confluence bodied extensions
+	'com.atlassian.confluence.macro.core': (ext, doc, actions) => {
+		return (
+			<Renderer
+				document={{ type: 'doc', version: 1, content: ext.content as any }}
+				useSpecBasedValidator={true}
+				adfStage="stage0"
+			/>
+		);
+	},
 };
 
 const eventHandlers: EventHandlers = {

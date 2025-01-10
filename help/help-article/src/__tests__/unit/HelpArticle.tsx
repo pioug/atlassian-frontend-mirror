@@ -1,12 +1,8 @@
 /* eslint-disable no-undef, import/no-extraneous-dependencies */
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
+import { render, screen, waitFor } from '@testing-library/react';
 import HelpArticle from '../../components/HelpArticle';
-import { ArticleContentTitleLink } from '../../components/styled';
-import ArticleBody from '../../components/ArticleBody';
 import { BODY_FORMAT_TYPES } from '../../model/HelpArticle';
-import Heading from '@atlaskit/heading';
 
 const adfPhrase = 'test adf document';
 
@@ -33,33 +29,42 @@ describe('HelpArticle', () => {
 
 	describe('with defined Title', () => {
 		it('should render title', () => {
-			const helpArticle = mount(<HelpArticle title={TITLE} />);
-			const title = helpArticle.find(Heading).first();
-			expect(title.text()).toEqual(TITLE);
+			render(<HelpArticle title={TITLE} />);
+			const title = screen.getByRole('heading', { name: TITLE });
+			expect(title).toBeInTheDocument();
 		});
 
-		it('should render html body inside iframe', () => {
-			const helpArticle = shallow(<HelpArticle body={BODY} bodyFormat={BODY_FORMAT_TYPES.html} />);
-			const articleBodyElm = helpArticle.find(ArticleBody);
+		it('should render html body inside iframe', async () => {
+			render(<HelpArticle body={BODY} bodyFormat={BODY_FORMAT_TYPES.html} />);
 
-			expect(articleBodyElm.length).toEqual(1);
-			expect(articleBodyElm.prop('body')).toEqual(BODY);
+			// Wait for the iframe to be rendered
+			await waitFor(() => {
+				const iframe = document.getElementById('help-iframe');
+				expect(iframe).toBeInTheDocument();
+			});
+
+			// Get the iframe and check its content
+			const iframe = document.getElementById('help-iframe') as HTMLIFrameElement;
+			const iframeDocument = iframe.contentWindow?.document;
+
+			expect(iframeDocument?.body.innerHTML).toContain(BODY);
 		});
 
 		it('should render ADF document inside', () => {
-			const helpArticle = mount(
-				<HelpArticle body={AdfDocument} bodyFormat={BODY_FORMAT_TYPES.adf} />,
-			);
-			expect(helpArticle.text()).toEqual(adfPhrase);
+			render(<HelpArticle body={AdfDocument} bodyFormat={BODY_FORMAT_TYPES.adf} />);
+
+			expect(screen.getByText(adfPhrase)).toBeInTheDocument();
 		});
 
 		it('should render title with link', () => {
-			const helpArticle = mount(<HelpArticle title={TITLE} titleLinkUrl={TITLE_LINK_URL} />);
+			render(<HelpArticle title={TITLE} titleLinkUrl={TITLE_LINK_URL} />);
 
-			const titleLink = helpArticle.find(ArticleContentTitleLink).first();
-			expect(titleLink.find(ShortcutIcon).length).toEqual(1);
-			expect(titleLink.prop('href')).toEqual(TITLE_LINK_URL);
-			expect(titleLink.text()).toEqual(`${TITLE} `);
+			const titleLink = screen.getByRole('link', { name: new RegExp(TITLE) });
+			const shortcutIcon = screen.getByLabelText('link icon');
+
+			expect(titleLink).toHaveAttribute('href', TITLE_LINK_URL);
+			expect(titleLink).toHaveAttribute('target', '_blank');
+			expect(shortcutIcon).toBeInTheDocument();
 		});
 	});
 });

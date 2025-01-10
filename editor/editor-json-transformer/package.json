@@ -43,14 +43,14 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/adf-utils": "^19.15.0",
+		"@atlaskit/adf-utils": "^19.16.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-plugin-highlight": "1.19.7",
+		"@atlaskit/editor-plugin-highlight": "1.19.8",
 		"react": "^16.8.0",
 		"typescript": "~5.4.2"
 	},

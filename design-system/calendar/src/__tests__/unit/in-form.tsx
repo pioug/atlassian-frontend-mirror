@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 import Calendar from '../../index';
 
@@ -16,7 +17,8 @@ describe('Calendar should not submit form', () => {
 		jest.resetAllMocks();
 	});
 
-	it('Day selection does not trigger form (click)', () => {
+	it('Day selection does not trigger form (click)', async () => {
+		const user = userEvent.setup();
 		render(
 			<form onSubmit={onSubmit}>
 				<Calendar testId={testId} />
@@ -31,7 +33,7 @@ describe('Calendar should not submit form', () => {
 		const weekContainer = weekContainers[0];
 		const gridcell = within(weekContainer).getAllByRole('gridcell')[0];
 		const dayButton = within(gridcell).getAllByRole('button')[0];
-		fireEvent.click(dayButton);
+		await user.click(dayButton);
 
 		expect(onSubmit).toHaveBeenCalledTimes(0);
 

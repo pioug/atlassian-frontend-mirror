@@ -2,7 +2,7 @@
 import type { Rule } from 'eslint';
 import { isNodeOfType, Property } from 'eslint-codemod-utils';
 
-import { getValueForPropertyNode } from '../../ensure-design-token-usage/utils';
+import { getNodeSource } from '../../utils/get-node-source';
 import { isDecendantOfStyleBlock, isDecendantOfType } from '../../utils/is-node';
 import { type RuleConfig } from '../config';
 
@@ -42,11 +42,9 @@ export const UntokenizedProperties = {
 			return false;
 		}
 
-		const propertyValue = getValueForPropertyNode(node, context);
-		if (
-			typeof propertyValue === 'string' &&
-			(propertyValue.includes('font.') || propertyValue.includes('inherit'))
-		) {
+		const isFontProperty = isNodeOfType(node.key, 'Identifier') && node.key.name === 'font';
+		const valueNodeSource = getNodeSource(context.sourceCode, node.value);
+		if (isFontProperty && valueNodeSource.match(/(font\.(body|heading|code)|inherit)/)) {
 			return false;
 		}
 

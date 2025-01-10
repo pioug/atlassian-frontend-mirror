@@ -89,7 +89,8 @@ export const textFormattingPlugin: TextFormattingPlugin = ({ config: options, ap
 				},
 				{
 					name: 'textFormattingInputRule',
-					plugin: ({ schema }) => textFormattingInputRulePlugin(schema, api?.analytics?.actions),
+					plugin: ({ schema }) =>
+						textFormattingInputRulePlugin(schema, api?.analytics?.actions, api),
 				},
 				{
 					name: 'textFormattingSmartRule',

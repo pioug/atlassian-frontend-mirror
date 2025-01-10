@@ -2,18 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../../../../../constants';
-import { getIconSizeStyles } from '../../../utils';
 
+import ActionIconOld from './ActionIconOld';
 import { type ActionIconProps } from './types';
 
-const getIconWidth = (size?: SmartLinkSize): string => {
+const getIconWidth = (size?: SmartLinkSize) => {
 	switch (size) {
 		case SmartLinkSize.XLarge:
 		case SmartLinkSize.Large:
@@ -25,48 +24,129 @@ const getIconWidth = (size?: SmartLinkSize): string => {
 	}
 };
 
-const getIconStyles = (isDisabled?: boolean) =>
-	css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		color: isDisabled ? token('color.text.disabled', '#6B778C') : token('color.icon', '#44546F'),
-	});
-
-const stackItemIconSizeStyles = getIconSizeStyles('20px');
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-const stackItemIconStyles = css(stackItemIconSizeStyles, {
-	display: 'inline-block',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: 0,
-	padding: token('space.025'),
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'span,svg,img': {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: 0,
+const iconSizeStyleMap = cssMap({
+	'1.5rem': {
+		flex: '0 0 auto',
+		height: '1.5rem',
+		minHeight: '1.5rem',
+		maxHeight: '1.5rem',
+		width: '1.5rem',
+		minWidth: '1.5rem',
+		maxWidth: '1.5rem',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'span, svg, img': {
+			height: '1.5rem',
+			minHeight: '1.5rem',
+			maxHeight: '1.5rem',
+			width: '1.5rem',
+			minWidth: '1.5rem',
+			maxWidth: '1.5rem',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		svg: {
+			padding: 0,
+		},
 	},
+	'1rem': {
+		flex: '0 0 auto',
+		height: '1rem',
+		minHeight: '1rem',
+		maxHeight: '1rem',
+		width: '1rem',
+		minWidth: '1rem',
+		maxWidth: '1rem',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'span, svg, img': {
+			height: '1rem',
+			minHeight: '1rem',
+			maxHeight: '1rem',
+			width: '1rem',
+			minWidth: '1rem',
+			maxWidth: '1rem',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		svg: {
+			padding: 0,
+		},
+	},
+	'20px': {
+		flex: '0 0 auto',
+		height: '20px',
+		minHeight: '20px',
+		maxHeight: '20px',
+		width: '20px',
+		minWidth: '20px',
+		maxWidth: '20px',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'span, svg, img': {
+			height: '20px',
+			minHeight: '20px',
+			maxHeight: '20px',
+			width: '20px',
+			minWidth: '20px',
+			maxWidth: '20px',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		svg: {
+			padding: 0,
+		},
+	},
+});
+
+const stackItemIconStyles = css({
+	display: 'inline-block',
+	paddingTop: token('space.025'),
+	paddingRight: token('space.025'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.025'),
 });
 
 const newStackItemIconStyles = css({
 	display: 'inline-block',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: 0,
 });
 
-const ActionIcon = ({ size, testId, icon, isDisabled, asStackItemIcon }: ActionIconProps) => (
-	<span
-		css={[
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			getIconStyles(isDisabled),
-			!fg('platform-visual-refresh-icons')
-				? asStackItemIcon
-					? stackItemIconStyles
-					: // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						getIconSizeStyles(getIconWidth(size))
-				: newStackItemIconStyles,
-		]}
-		data-testid={`${testId}-icon`}
-	>
-		{icon}
-	</span>
-);
+const iconStyleMap = cssMap({
+	true: {
+		color: token('color.text.disabled', '#6B778C'),
+	},
+	false: {
+		color: token('color.icon', '#44546F'),
+	},
+});
+
+const ActionIconNew = ({ size, testId, icon, isDisabled, asStackItemIcon }: ActionIconProps) => {
+	if (!fg('platform-visual-refresh-icons')) {
+		return (
+			<span
+				css={[
+					iconStyleMap[isDisabled ? 'true' : 'false'],
+					asStackItemIcon && stackItemIconStyles,
+					asStackItemIcon && iconSizeStyleMap['20px'],
+					!asStackItemIcon && iconSizeStyleMap[getIconWidth(size)],
+				]}
+				data-testid={`${testId}-icon`}
+			>
+				{icon}
+			</span>
+		);
+	}
+
+	return (
+		<span
+			css={[iconStyleMap[isDisabled ? 'true' : 'false'], newStackItemIconStyles]}
+			data-testid={`${testId}-icon`}
+		>
+			{icon}
+		</span>
+	);
+};
+
+const ActionIcon = (props: ActionIconProps): JSX.Element => {
+	return fg('bandicoots-compiled-migration-smartcard') ? (
+		<ActionIconNew {...props} />
+	) : (
+		<ActionIconOld {...props} />
+	);
+};
 
 export default ActionIcon;

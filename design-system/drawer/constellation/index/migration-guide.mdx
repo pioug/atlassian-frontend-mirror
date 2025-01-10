@@ -1,0 +1,82 @@
+---
+order: 3
+---
+
+import DrawerDefaultExample from '../../examples/constellation/drawer-composition-default';
+import DrawerXcssExample from '../../examples/constellation/drawer-composition-xcss';
+import DrawerCustomCompositionExample from '../../examples/constellation/drawer-composition-custom';
+
+## Migration guide
+
+The latest version of `@atlaskit/drawer` has been migrated from Emotion to Compiled CSS-in-JS. As
+part of this migration, we have moved to a compositional API. This new compositional API will
+replace `@atlaskit/drawer` in a future major version, but for now it's opt-in.
+
+### Using the new compositional API
+
+The new components are available via the `@atlaskit/drawer/compiled` entry point. There are three
+new sub-components available:
+
+- `DrawerContent`: Place the main content of the drawer inside this component.
+- `DrawerSidebar`: The sidebar sits next to the main content and is designed to contain the close
+  button.
+- `DrawerCloseButton`: An icon button that closes the drawer.
+
+#### Example migration diff
+
+```diff
+-import Drawer from '@atlaskit/drawer';
++import { Drawer, DrawerContent, DrawerCloseButton } from '@atlaskit/drawer/compiled';
+
+export default MyDrawer = () => (
+   <Drawer>
+-    Hello world
++    <DrawerSidebar>
++      <DrawerCloseButton />
++    </DrawerSidebar>
++    <DrawerContent>Hello world</DrawerContent>
+   </Drawer>
+);
+```
+
+#### Basic usage
+
+The default form of a drawer using the new compositional API.
+
+<Example Component={DrawerDefaultExample} packageName="@atlaskit/drawer" />
+
+### Customization
+
+Previously, customizing the drawer UI was handled via the overrides prop, which has now been
+removed. Customization is now achieved via composition and the xcss prop.
+
+#### Migrating `overrides.[sidebar|content].cssFn` prop
+
+The legacy API allowed you to specify style overrides for the drawer sidebar and drawer content via
+`cssFn` props. Safe style overrides can now be applied via `xcss` props on the `DrawerContent` and
+`DrawerSidebar` components.
+
+<Example Component={DrawerXcssExample} packageName="@atlaskit/drawer" />
+
+#### Migrating `overrides.[sidebar|content].component` prop
+
+The legacy API allowed you to override the sidebar and content components, although it wasn’t
+recommended. Utilizing composition is the recommended migration path.
+
+Below is an example of this; the Drawer components are composed with other elements/components to
+produce a centered layout without a sidebar.
+
+<Example Component={DrawerCustomCompositionExample} packageName="@atlaskit/drawer" />
+
+### List of prop changes
+
+With the compositional API, some props that were previously available on the Drawer component have
+now been relocated to the sub-component that utilizes the value. Making it clearer which underlying
+element the prop relates to.
+
+| Legacy Drawer Prop   | Change in new API                                                               |
+| -------------------- | ------------------------------------------------------------------------------- |
+| `icon`               | Moved to: `icon` prop on `DrawerCloseButton`                                    |
+| `closeLabel`         | Moved to: `label` prop on `DrawerCloseButton`                                   |
+| `scrollContentLabel` | Moved to: `scrollContentLabel` prop on `DrawerContent`                          |
+| `overrides`          | Removed: Use `xcss` prop on `DrawerContent`/`DrawerSidebar` and/or composition. |

@@ -1,5 +1,31 @@
 # @atlaskit/editor-core
 
+## 203.11.0
+
+### Minor Changes
+
+- [#101334](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101334)
+  [`70742828916ee`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/70742828916ee) -
+  Clean up FG platform_editor_element_dnd_nested_fix_patch_3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 203.10.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 203.10.3
+
+### Patch Changes
+
+- [#100130](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100130)
+  [`c1a6143dbec27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1a6143dbec27) -
+  ED-25262 Fix drop target position above divider
+
 ## 203.10.2
 
 ### Patch Changes

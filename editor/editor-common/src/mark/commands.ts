@@ -1,4 +1,4 @@
-import type { Mark, MarkType, Node as PMNode, Schema } from '@atlaskit/editor-prosemirror/model';
+import type { Mark, MarkType, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 // eslint-disable-next-line no-duplicate-imports
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
@@ -21,47 +21,6 @@ const SMART_TO_ASCII: { [char: string]: string } = {
 // Ignored via go/ees005
 // eslint-disable-next-line require-unicode-regexp
 const FIND_SMART_CHAR = new RegExp(`[${Object.keys(SMART_TO_ASCII).join('')}]`, 'g');
-
-const isNodeTextBlock = (schema: Schema) => {
-	const { mention, text, emoji } = schema.nodes;
-
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	return (node: PMNode, _: any, parent: PMNode | null) => {
-		if (node.type === mention || node.type === emoji || node.type === text) {
-			return parent?.isTextblock;
-		}
-		return;
-	};
-};
-
-const replaceSmartCharsToAscii = (position: number, textContent: string, tr: Transaction): void => {
-	const { schema } = tr.doc.type;
-	let match: RegExpExecArray | null;
-
-	// Ignored via go/ees005
-	// eslint-disable-next-line no-cond-assign
-	while ((match = FIND_SMART_CHAR.exec(textContent))) {
-		const { 0: smartChar, index: offset } = match;
-		const replacePos = tr.mapping.map(position + offset);
-		const replacementText = schema.text(SMART_TO_ASCII[smartChar as keyof typeof SMART_TO_ASCII]);
-		tr.replaceWith(replacePos, replacePos + smartChar.length, replacementText);
-	}
-};
-
-const replaceMentionOrEmojiForTextContent = (
-	position: number,
-	nodeSize: number,
-	textContent: string,
-	tr: Transaction,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
-): void => {
-	const currentPos = tr.mapping.map(position);
-	const { schema } = tr.doc.type;
-
-	tr.replaceWith(currentPos, currentPos + nodeSize, schema.text(textContent));
-};
 
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/max-params
@@ -126,38 +85,6 @@ export function transformNonTextNodesToText(from: number, to: number, tr: Transa
 		}
 	});
 }
-
-/**
- * @private
- * @deprecated Use {@link transformNonTextNodesToText} instead.
- */
-export const transformSmartCharsMentionsAndEmojis = (
-	from: number,
-	to: number,
-	tr: Transaction,
-): void => {
-	const { schema } = tr.doc.type;
-	const { mention, text, emoji } = schema.nodes;
-	// Traverse through all the nodes within the range and replace them with their plaintext counterpart
-	const children = filterChildrenBetween(tr.doc, from, to, isNodeTextBlock(schema));
-
-	children.forEach(({ node, pos }) => {
-		if (node.type === mention || node.type === emoji) {
-			// Convert gracefully when no text found, ProseMirror will blow up if you try to create a node with an empty string or undefined
-			let replacementText = node.attrs.text;
-			if (typeof replacementText === 'undefined' || replacementText === '') {
-				replacementText = `${node.type.name} text missing`;
-			}
-
-			replaceMentionOrEmojiForTextContent(pos, node.nodeSize, replacementText, tr);
-		} else if (node.type === text && node.text) {
-			const replacePosition = pos > from ? pos : from;
-			const textToReplace = pos > from ? node.text : node.text.substr(from - pos);
-
-			replaceSmartCharsToAscii(replacePosition, textToReplace, tr);
-		}
-	});
-};
 
 export const applyMarkOnRange = (
 	from: number,

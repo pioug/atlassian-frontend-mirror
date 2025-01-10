@@ -38,6 +38,18 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 	let previousCardProvider: CardProvider | undefined;
 	const cardPluginEvents = createEventsQueue<CardPluginEvent>();
 
+	api?.base?.actions.registerMarks(({ tr, node, pos }) => {
+		const { doc } = tr;
+		const { schema } = doc.type;
+		const { inlineCard: inlineCardNodeType } = schema.nodes;
+
+		if (node.type === inlineCardNodeType) {
+			const newText = node.attrs.url;
+			const currentPos = tr.mapping.map(pos);
+			tr.replaceWith(currentPos, currentPos + node.nodeSize, schema.text(newText, node.marks));
+		}
+	});
+
 	return {
 		name: 'card',
 
@@ -165,6 +177,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 					id: 'datasource',
 					title: formatMessage(messages.datasourceJiraIssue),
 					description: formatMessage(messages.datasourceJiraIssueDescription),
+					isDisabledOffline: true,
 					categories: ['external-content', 'development'],
 					keywords: ['jira'],
 					featured: true,
@@ -181,6 +194,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 						id: 'datasource',
 						title: formatMessage(messages.datasourceAssetsObjectsGeneralAvailability),
 						description: formatMessage(messages.datasourceAssetsObjectsDescription),
+						isDisabledOffline: true,
 						categories: ['external-content', 'development'],
 						keywords: ['assets'],
 						icon: () => <IconDatasourceAssetsObjects />,
@@ -197,6 +211,7 @@ export const cardPlugin: CardPlugin = ({ config: options = {} as CardPluginOptio
 						id: 'datasource',
 						title: formatMessage(messages.datasourceConfluenceSearch),
 						description: formatMessage(messages.datasourceConfluenceSearchDescription),
+						isDisabledOffline: true,
 						categories: ['external-content', 'development'],
 						keywords: ['confluence'],
 						featured: true,

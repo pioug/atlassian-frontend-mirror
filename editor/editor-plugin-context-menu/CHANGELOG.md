@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-context-menu
 
+## 1.2.17
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.2.16
 
 ### Patch Changes

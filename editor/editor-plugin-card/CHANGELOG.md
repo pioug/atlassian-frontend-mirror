@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-card
 
+## 4.5.14
+
+### Patch Changes
+
+- [#102068](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102068)
+  [`d90fc9b7d48bf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d90fc9b7d48bf) -
+  [ux] Disable datasource items while offline
+- [#97984](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/97984)
+  [`8ffeab9aaf1ab`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ffeab9aaf1ab) -
+  [ux] [ED-23573] Added new actions (resolveMarks and registerMarks) to basePlugin. Callbacks added
+  to mentions, card, emoji and base plugins to handle conversion to inline code. Deprecated code
+  removed from editor-common.
+- Updated dependencies
+
 ## 4.5.13
 
 ### Patch Changes

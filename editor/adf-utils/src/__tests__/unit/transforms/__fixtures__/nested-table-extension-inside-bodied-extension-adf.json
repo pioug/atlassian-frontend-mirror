@@ -1,0 +1,50 @@
+{
+	"version": 1,
+	"type": "doc",
+	"content": [
+		{
+			"type": "bodiedExtension",
+			"attrs": {
+				"extensionKey": "bodied-eh",
+				"extensionType": "com.atlassian.confluence.macro.core",
+				"parameters": {
+					"macroParams": {},
+					"macroMetadata": {
+						"placeholder": [
+							{
+								"data": {
+									"url": ""
+								},
+								"type": "icon"
+							}
+						]
+					}
+				},
+				"layout": "default",
+				"localId": "testId"
+			},
+			"content": [
+				{
+					"type": "table",
+					"content": [
+						{
+							"type": "tableRow",
+							"content": [
+								{
+									"type": "extension",
+									"attrs": {
+										"extensionType": "com.atlassian.confluence.migration",
+										"extensionKey": "nested-table",
+										"parameters": {
+											"adf": "{\"type\":\"doc\",\"version\":1,\"content\":[{\"type\":\"table\",\"content\":[{\"type\":\"tableRow\",\"content\":[{\"type\":\"tableHeader\",\"content\":[{\"type\":\"text\",\"text\":\"Header 1\"}]},{\"type\":\"tableHeader\",\"content\":[{\"type\":\"text\",\"text\":\"Header 2\"}]}]},{\"type\":\"tableRow\",\"content\":[{\"type\":\"tableCell\",\"content\":[{\"type\":\"text\",\"text\":\"Cell 1\"}]},{\"type\":\"tableCell\",\"content\":[{\"type\":\"text\",\"text\":\"Cell 2\"}]}]}]}]}"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

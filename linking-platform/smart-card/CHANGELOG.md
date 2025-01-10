@@ -1,5 +1,27 @@
 # @atlaskit/smart-card
 
+## 34.1.1
+
+### Patch Changes
+
+- [#102242](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102242)
+  [`2e082c5162f9a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e082c5162f9a) -
+  Migrate FlexibleCard/common components to compiled
+
+## 34.1.0
+
+### Minor Changes
+
+- [#102113](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102113)
+  [`73750905491ce`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/73750905491ce) -
+  [ux] Migrate FlexibleCard actions to use compiled
+
+## 34.0.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.0.0
 
 ### Major Changes

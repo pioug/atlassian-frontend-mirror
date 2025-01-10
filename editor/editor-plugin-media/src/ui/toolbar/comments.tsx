@@ -75,5 +75,6 @@ export const commentButton = (
 		onClick: onClickHandler,
 		tooltipContent: <ToolTipContent description={title} />,
 		supportsViewMode: true,
+		disabled: api?.connectivity?.sharedState?.currentState()?.mode === 'offline',
 	};
 };

@@ -14,7 +14,7 @@ import { ElementBrowser } from '@atlaskit/editor-common/element-browser';
 import type { QuickInsertItem } from '@atlaskit/editor-common/provider-factory';
 import { messages } from '@atlaskit/editor-common/quick-insert';
 import type { EmptyStateHandler } from '@atlaskit/editor-common/types';
-import QuestionCircleIcon from '@atlaskit/icon/glyph/question-circle';
+import QuestionCircleIcon from '@atlaskit/icon/core/migration/question-circle';
 import Modal, { ModalTransition, useModal } from '@atlaskit/modal-dialog';
 import { N0 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -187,7 +187,7 @@ const Footer = ({
 
 const HelpLink = (url: string, helpText: string) => (
 	<Button
-		iconBefore={<QuestionCircleIcon label="" size="medium" />}
+		iconBefore={<QuestionCircleIcon label="" />}
 		appearance="subtle-link"
 		href={url}
 		target="_blank"

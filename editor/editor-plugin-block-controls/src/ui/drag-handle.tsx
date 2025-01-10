@@ -2,14 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import {
-	type CSSProperties,
-	useCallback,
-	useEffect,
-	useLayoutEffect,
-	useRef,
-	useState,
-} from 'react';
+import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -332,9 +325,7 @@ export const DragHandle = ({
 		const isBlockCard = nodeType === 'blockCard' && !!blockCardWidth;
 		const isEmbedCard = nodeType === 'embedCard';
 
-		const isMacroInteractionUpdates = fg('platform_editor_element_dnd_nested_fix_patch_5')
-			? macroInteractionUpdates && isExtension
-			: macroInteractionUpdates;
+		const isMacroInteractionUpdates = macroInteractionUpdates && isExtension;
 
 		let innerContainer: HTMLElement | null = null;
 		if (dom) {
@@ -378,42 +369,6 @@ export const DragHandle = ({
 	const [positionStyles, setPositionStyles] = useState<CSSProperties>({ display: 'none' });
 
 	useEffect(() => {
-		if (fg('platform_editor_element_dnd_nested_type_error_fix')) {
-			return;
-		}
-
-		let cleanUpTransitionListener: () => void;
-
-		if (nodeType === 'extension' || nodeType === 'embedCard') {
-			const dom: HTMLElement | null = view.dom.querySelector(
-				`[data-drag-handler-anchor-name="${anchorName}"]`,
-			);
-			if (!dom) {
-				return;
-			}
-			cleanUpTransitionListener = bind(dom, {
-				type: 'transitionend',
-				listener: () => {
-					setPositionStyles(calculatePosition());
-				},
-			});
-		}
-
-		const calcPos = requestAnimationFrame(() => {
-			setPositionStyles(calculatePosition());
-		});
-
-		return () => {
-			cancelAnimationFrame(calcPos);
-			cleanUpTransitionListener?.();
-		};
-	}, [calculatePosition, view.dom, anchorName, nodeType]);
-
-	useLayoutEffect(() => {
-		if (!fg('platform_editor_element_dnd_nested_type_error_fix')) {
-			return;
-		}
-
 		let cleanUpTransitionListener: () => void;
 
 		if (nodeType === 'extension' || nodeType === 'embedCard') {

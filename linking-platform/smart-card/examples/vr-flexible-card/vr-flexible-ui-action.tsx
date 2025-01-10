@@ -1,24 +1,30 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-imported-style-values */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import TrashIcon from '@atlaskit/icon/core/migration/delete--trash';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../src';
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { DeleteAction } from '../../src/view/FlexibleCard/components/actions';
-import { exampleTokens, getContext } from '../utils/flexible-ui';
+import { getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
+
+import ComponentOld from './vr-flexible-ui-action-old';
 
 const containerStyles = css({
 	display: 'flex',
 	flexWrap: 'wrap',
 	gap: token('space.050', '4px'),
-	padding: token('space.050', '4px'),
+	paddingTop: token('space.050', '4px'),
+	paddingRight: token('space.050', '4px'),
+	paddingBottom: token('space.050', '4px'),
+	paddingLeft: token('space.050', '4px'),
 });
 
 const context = getContext();
@@ -26,7 +32,7 @@ let onClick = () => {
 	console.log('Testing Delete Action...');
 };
 
-export default () => (
+const ComponentNew = () => (
 	<VRTestWrapper>
 		<FlexibleUiContext.Provider value={context}>
 			<table>
@@ -167,7 +173,7 @@ export default () => (
 					appearance="default"
 					content="Bold"
 					onClick={onClick}
-					overrideCss={css({
+					css={css({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						span: {
 							fontWeight: token('font.weight.bold'),
@@ -178,7 +184,7 @@ export default () => (
 					appearance="default"
 					content="Italic"
 					onClick={onClick}
-					overrideCss={css({
+					css={css({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						span: {
 							fontStyle: 'italic',
@@ -189,16 +195,14 @@ export default () => (
 					appearance="default"
 					content="Color"
 					onClick={onClick}
-					overrideCss={css({
+					css={css({
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						button: {
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-							backgroundColor: exampleTokens.iconBackgroundColor,
+							backgroundColor: token('color.icon.brand', '#0C66E4'),
 						},
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 						span: {
-							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-							color: exampleTokens.iconColor,
+							color: token('color.text.inverse', '#FFFFFF'),
 						},
 					})}
 				/>
@@ -206,3 +210,11 @@ export default () => (
 		</FlexibleUiContext.Provider>
 	</VRTestWrapper>
 );
+
+const Component = (): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <ComponentNew />;
+	}
+	return <ComponentOld />;
+};
+export default Component;

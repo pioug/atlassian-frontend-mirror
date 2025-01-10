@@ -1,5 +1,20 @@
 # @atlaskit/renderer
 
+## 112.8.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.8.3
+
+### Patch Changes
+
+- [#101826](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101826)
+  [`efd5cf5ab0eb2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/efd5cf5ab0eb2) -
+  ED-26205 Prevent transform of nested tables inside bodied macros for renderer only
+- Updated dependencies
+
 ## 112.8.2
 
 ### Patch Changes

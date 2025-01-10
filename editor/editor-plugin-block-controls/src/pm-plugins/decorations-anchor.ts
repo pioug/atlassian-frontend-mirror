@@ -1,7 +1,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getNestedDepth, getNodeAnchor, TYPE_NODE_DEC } from './decorations-common';
@@ -24,8 +23,7 @@ export const shouldDescendIntoNode = (node: PMNode) => {
 	// Optimisation to avoid drawing node decorations for empty table cells
 	if (
 		['tableCell', 'tableHeader'].includes(node.type.name) &&
-		!editorExperiment('table-nested-dnd', true) &&
-		fg('platform_editor_element_dnd_nested_fix_patch_3')
+		!editorExperiment('table-nested-dnd', true)
 	) {
 		if (node.childCount === 1 && node.firstChild?.type.name === 'paragraph') {
 			return false;
@@ -47,8 +45,7 @@ const shouldIgnoreNode = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
-	const isEmbedCard =
-		'embedCard' === node.type.name && fg('platform_editor_element_dnd_nested_fix_patch_3');
+	const isEmbedCard = node.type.name === 'embedCard';
 
 	const isMediaSingle = node.type.name === 'mediaSingle';
 
@@ -129,9 +126,7 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 			anchorName = anchorName ?? `--node-anchor-${node.type.name}-${index}`;
 		}
 
-		const anchorStyles = ['tableRow', 'media'].includes(node.type.name)
-			? `anchor-name: ${anchorName};`
-			: `anchor-name: ${anchorName}; ${pos === 0 && !fg('platform_editor_element_dnd_nested_fix_patch_3') ? 'margin-top: 0px;' : ''} ${fg('platform_editor_element_dnd_nested_fix_patch_3') ? '' : 'position: relative; z-index: 1;'}`;
+		const anchorStyles = `anchor-name: ${anchorName};`;
 
 		const subType = node.attrs.level ? `-${node.attrs.level}` : '';
 

@@ -1,5 +1,54 @@
 # @atlaskit/editor-plugins
 
+## 6.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.4
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.3
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 6.2.0
+
+### Minor Changes
+
+- [#101768](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101768)
+  [`071c13f4f064f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/071c13f4f064f) -
+  Added mediaShallowCopyScope to editor to enable the deep copying of media from different editor
+  even within the same Context
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.1.28
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/people-teams-ui-public",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "UI components for public packages",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,10 +39,10 @@
 		"./verified-team-icon": "./src/ui/verified-team-icon/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^23.2.0",
+		"@atlaskit/icon": "^23.3.0",
 		"@atlaskit/legacy-custom-icons": "^0.20.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/tokens": "^2.5.0",
+		"@atlaskit/tokens": "^3.0.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1",

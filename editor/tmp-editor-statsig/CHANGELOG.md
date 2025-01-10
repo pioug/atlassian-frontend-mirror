@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.33.1
+
+### Patch Changes
+
+- [#102069](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102069)
+  [`3d4c9e1a85d9c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d4c9e1a85d9c) -
+  Clean up platform_editor_dnd_input_performance_optimisation experiment
+
 ## 2.33.0
 
 ### Minor Changes

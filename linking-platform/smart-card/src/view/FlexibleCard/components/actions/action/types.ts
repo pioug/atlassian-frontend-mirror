@@ -91,10 +91,18 @@ export type ActionProps = {
 	asDropDownItem?: boolean;
 
 	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-24430 Internal documentation for deprecation (no external access)}
 	 * Additional CSS properties on the Action.
 	 * Note: This should be replaced with xcss once component has migrate to use DS Primitives
+	 *
+	 * use compiled css instead
 	 */
 	overrideCss?: SerializedStyles;
+
+	/**
+	 * For compiled css
+	 */
+	className?: string;
 
 	/**
 	 * Used to add space along the inline axis in ActionStackItem.

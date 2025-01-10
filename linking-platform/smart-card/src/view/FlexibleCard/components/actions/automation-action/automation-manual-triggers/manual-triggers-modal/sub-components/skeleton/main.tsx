@@ -2,11 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, keyframes } from '@emotion/react';
+import { css, jsx, keyframes } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { N20, N30 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
+
+import { SkeletonOld } from './SkeletonOld';
 
 type SkeletonProps = {
 	lineCount?: number;
@@ -83,10 +85,18 @@ const getSkeletonLines = (lineCount: number) => {
 	return skeletonLines;
 };
 
-export const Skeleton = (props: SkeletonProps) => {
+export const SkeletonNew = (props: SkeletonProps) => {
 	const { lineCount = 5 } = props;
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/use-primitives
 		<div css={AutomationSkeletonContainer}>{getSkeletonLines(lineCount)}</div>
+	);
+};
+
+export const Skeleton = (props: SkeletonProps): JSX.Element => {
+	return fg('bandicoots-compiled-migration-smartcard') ? (
+		<SkeletonNew {...props} />
+	) : (
+		<SkeletonOld {...props} />
 	);
 };

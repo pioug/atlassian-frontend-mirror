@@ -1,5 +1,11 @@
 # @atlaskit/quiz-widget
 
+## 2.2.8
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.2.7
 
 ### Patch Changes

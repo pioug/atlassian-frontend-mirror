@@ -35,21 +35,23 @@ export type PastePluginOptions = {
 	isFullPage?: boolean;
 };
 
+export type PastePluginDependencies = [
+	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<ListPlugin>,
+	BetterTypeHistoryPlugin,
+	OptionalPlugin<CardPlugin>,
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<MediaPlugin>,
+	OptionalPlugin<ExtensionPlugin>,
+	OptionalPlugin<AnnotationPlugin>,
+	OptionalPlugin<MentionsPlugin>,
+];
+
 export type PastePlugin = NextEditorPlugin<
 	'paste',
 	{
 		pluginConfiguration: PastePluginOptions;
-		dependencies: [
-			OptionalPlugin<FeatureFlagsPlugin>,
-			OptionalPlugin<ListPlugin>,
-			BetterTypeHistoryPlugin,
-			OptionalPlugin<CardPlugin>,
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<MediaPlugin>,
-			OptionalPlugin<ExtensionPlugin>,
-			OptionalPlugin<AnnotationPlugin>,
-			OptionalPlugin<MentionsPlugin>,
-		];
+		dependencies: PastePluginDependencies;
 		sharedState: {
 			lastContentPasted: LastContentPasted | null;
 		};

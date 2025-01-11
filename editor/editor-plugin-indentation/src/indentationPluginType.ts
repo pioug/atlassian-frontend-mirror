@@ -10,14 +10,18 @@ type IndentationPluginSharedState = {
 	outdentDisabled: boolean;
 };
 
+export type IndentationPluginDependencies = [OptionalPlugin<AnalyticsPlugin>];
+
+export type IndentationPluginActions = {
+	indentParagraphOrHeading: (inputMethod: IndentationInputMethod) => Command;
+	outdentParagraphOrHeading: (inputMethod: IndentationInputMethod) => Command;
+};
+
 export type IndentationPlugin = NextEditorPlugin<
 	'indentation',
 	{
-		dependencies: [OptionalPlugin<AnalyticsPlugin>];
-		actions: {
-			indentParagraphOrHeading: (inputMethod: IndentationInputMethod) => Command;
-			outdentParagraphOrHeading: (inputMethod: IndentationInputMethod) => Command;
-		};
+		dependencies: IndentationPluginDependencies;
+		actions: IndentationPluginActions;
 		sharedState: IndentationPluginSharedState | undefined;
 	}
 >;

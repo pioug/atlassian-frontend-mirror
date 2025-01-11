@@ -12,15 +12,17 @@ import type {
 	PrivateCollabEditOptions,
 } from './types';
 
+export type CollabEditPluginDependencies = [
+	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
+];
+
 export type CollabEditPlugin = NextEditorPlugin<
 	'collabEdit',
 	{
 		pluginConfiguration: PrivateCollabEditOptions;
-		dependencies: [
-			OptionalPlugin<FeatureFlagsPlugin>,
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<EditorViewModePlugin>,
-		];
+		dependencies: CollabEditPluginDependencies;
 		sharedState: CollabEditPluginSharedState;
 		actions: {
 			getAvatarColor: (str: string) => {

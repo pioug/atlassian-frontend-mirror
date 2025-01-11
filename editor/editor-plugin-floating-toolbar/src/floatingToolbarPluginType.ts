@@ -35,20 +35,22 @@ export type ForceFocusSelector = (selector: string | null) => (tr: Transaction) 
  * Floating toolbar plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
  * from `@atlaskit/editor-core`.
  */
+export type FloatingToolbarPluginDependencies = [
+	DecorationsPlugin,
+	OptionalPlugin<ContextPanelPlugin>,
+	OptionalPlugin<ExtensionPlugin>,
+	CopyButtonPlugin,
+	EditorDisabledPlugin,
+	OptionalPlugin<EditorViewModePlugin>,
+	OptionalPlugin<BlockControlsPlugin>,
+	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<EmojiPlugin>,
+];
+
 export type FloatingToolbarPlugin = NextEditorPlugin<
 	'floatingToolbar',
 	{
-		dependencies: [
-			DecorationsPlugin,
-			OptionalPlugin<ContextPanelPlugin>,
-			OptionalPlugin<ExtensionPlugin>,
-			CopyButtonPlugin,
-			EditorDisabledPlugin,
-			OptionalPlugin<EditorViewModePlugin>,
-			OptionalPlugin<BlockControlsPlugin>,
-			OptionalPlugin<FeatureFlagsPlugin>,
-			OptionalPlugin<EmojiPlugin>,
-		];
+		dependencies: FloatingToolbarPluginDependencies;
 		actions: { forceFocusSelector: ForceFocusSelector };
 		sharedState:
 			| {

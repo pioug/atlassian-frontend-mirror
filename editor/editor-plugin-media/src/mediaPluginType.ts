@@ -24,26 +24,28 @@ import type { MediaPluginState } from './pm-plugins/types';
 import type { InsertMediaAsMediaSingle } from './pm-plugins/utils/media-single';
 import type { MediaOptions } from './types';
 
+export type MediaPluginDependencies = [
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<ContextIdentifierPlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
+	OptionalPlugin<GuidelinePlugin>,
+	GridPlugin,
+	WidthPlugin,
+	DecorationsPlugin,
+	FloatingToolbarPlugin,
+	EditorDisabledPlugin,
+	FocusPlugin,
+	SelectionPlugin,
+	OptionalPlugin<AnnotationPlugin>,
+	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<ConnectivityPlugin>,
+];
+
 export type MediaNextEditorPluginType = NextEditorPlugin<
 	'media',
 	{
 		pluginConfiguration: MediaOptions | undefined;
-		dependencies: [
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<ContextIdentifierPlugin>,
-			OptionalPlugin<EditorViewModePlugin>,
-			OptionalPlugin<GuidelinePlugin>,
-			GridPlugin,
-			WidthPlugin,
-			DecorationsPlugin,
-			FloatingToolbarPlugin,
-			EditorDisabledPlugin,
-			FocusPlugin,
-			SelectionPlugin,
-			OptionalPlugin<AnnotationPlugin>,
-			OptionalPlugin<FeatureFlagsPlugin>,
-			OptionalPlugin<ConnectivityPlugin>,
-		];
+		dependencies: MediaPluginDependencies;
 		sharedState: MediaPluginState | null;
 		actions: {
 			insertMediaAsMediaSingle: InsertMediaAsMediaSingle;

@@ -9,12 +9,17 @@ type Config = {
 	twoLineEditorToolbar: boolean;
 };
 
+export type FindReplacePluginDependencies = [
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<PrimaryToolbarPlugin>,
+];
+
 export type FindReplacePlugin = NextEditorPlugin<
 	'findReplace',
 	{
 		pluginConfiguration: Config;
 		sharedState: FindReplacePluginState | undefined;
-		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<PrimaryToolbarPlugin>];
+		dependencies: FindReplacePluginDependencies;
 		actions: {
 			getToolbarButton: (params: FindReplaceToolbarButtonActionProps) => React.ReactNode;
 		};

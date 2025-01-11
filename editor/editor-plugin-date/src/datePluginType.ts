@@ -6,16 +6,18 @@ import type { EditorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmo
 
 import type { DatePluginConfig, DatePluginSharedState, DeleteDate, InsertDate } from './types';
 
+export type DatePluginDependencies = [
+	typeof analyticsPlugin,
+	EditorDisabledPlugin,
+	OptionalPlugin<AnnotationPlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
+];
+
 export type DatePlugin = NextEditorPlugin<
 	'date',
 	{
 		pluginConfiguration: DatePluginConfig | undefined;
-		dependencies: [
-			typeof analyticsPlugin,
-			EditorDisabledPlugin,
-			OptionalPlugin<AnnotationPlugin>,
-			OptionalPlugin<EditorViewModePlugin>,
-		];
+		dependencies: DatePluginDependencies;
 		sharedState: DatePluginSharedState;
 		commands: {
 			insertDate: InsertDate;

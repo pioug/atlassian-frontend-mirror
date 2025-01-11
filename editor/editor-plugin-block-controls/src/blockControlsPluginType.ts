@@ -54,21 +54,30 @@ export type BlockControlsSharedState =
 
 export type HandleOptions = { isFocused: boolean } | undefined;
 
+export type MoveNode = (
+	start: number,
+	to: number,
+	inputMethod?: MoveNodeMethod,
+	formatMessage?: IntlShape['formatMessage'],
+) => EditorCommand;
+
+export type BlockControlsPluginDependencies = [
+	OptionalPlugin<EditorDisabledPlugin>,
+	OptionalPlugin<WidthPlugin>,
+	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<AccessibilityUtilsPlugin>,
+	/**
+	 * For Typeahead - Empty line prompt experiment
+	 * Clean up ticket ED-24824
+	 */
+	OptionalPlugin<QuickInsertPlugin>,
+];
+
 export type BlockControlsPlugin = NextEditorPlugin<
 	'blockControls',
 	{
-		dependencies: [
-			OptionalPlugin<EditorDisabledPlugin>,
-			OptionalPlugin<WidthPlugin>,
-			OptionalPlugin<FeatureFlagsPlugin>,
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<AccessibilityUtilsPlugin>,
-			/**
-			 * For Typeahead - Empty line prompt experiment
-			 * Clean up ticket ED-24824
-			 */
-			OptionalPlugin<QuickInsertPlugin>,
-		];
+		dependencies: BlockControlsPluginDependencies;
 		sharedState: BlockControlsSharedState;
 		commands: {
 			/**
@@ -78,12 +87,7 @@ export type BlockControlsPlugin = NextEditorPlugin<
 			 * @param options moveToEnd: move the node to after the layout/layout column/another node
 			 */
 			moveToLayout: (start: number, to: number, options?: { moveToEnd?: boolean }) => EditorCommand;
-			moveNode: (
-				start: number,
-				to: number,
-				inputMethod?: MoveNodeMethod,
-				formatMessage?: IntlShape['formatMessage'],
-			) => EditorCommand;
+			moveNode: MoveNode;
 			showDragHandleAt: (
 				pos: number,
 				anchorName: string,

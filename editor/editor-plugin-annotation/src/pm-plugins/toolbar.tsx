@@ -19,6 +19,7 @@ import type {
 	ExtractInjectionAPI,
 	FloatingToolbarButton,
 } from '@atlaskit/editor-common/types';
+import type { PopupPosition } from '@atlaskit/editor-common/ui';
 import {
 	calculateToolbarPositionAboveSelection,
 	calculateToolbarPositionTrackHead,
@@ -26,6 +27,7 @@ import {
 } from '@atlaskit/editor-common/utils';
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import { type EditorState } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import CommentIcon from '@atlaskit/icon/core/comment';
 import LegacyCommentIcon from '@atlaskit/icon/glyph/comment';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -46,7 +48,20 @@ interface BuildToolbarOptions {
 	api?: ExtractInjectionAPI<AnnotationPlugin>;
 }
 
-export const buildToolbar =
+export const buildToolbar: (editorAnalyticsAPI: EditorAnalyticsAPI | undefined) => ({
+	state,
+	intl,
+	isToolbarAbove,
+	_supportedNodes,
+	api,
+}: BuildToolbarOptions) =>
+	| {
+			title: string;
+			nodeType: NodeType[];
+			items: FloatingToolbarButton<Command>[];
+			onPositionCalculated: (editorView: EditorView, nextPos: PopupPosition) => PopupPosition;
+	  }
+	| undefined =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
 	({ state, intl, isToolbarAbove = false, _supportedNodes = [], api }: BuildToolbarOptions) => {
 		const { schema } = state;

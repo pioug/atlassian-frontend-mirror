@@ -8,17 +8,19 @@ import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 import type { insertLayoutColumnsWithAnalytics } from './pm-plugins/actions';
 import type { LayoutPluginOptions } from './types';
 
+export type LayoutPluginDependencies = [
+	DecorationsPlugin,
+	SelectionPlugin,
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<WidthPlugin>,
+	OptionalPlugin<EditorDisabledPlugin>,
+];
+
 export type LayoutPlugin = NextEditorPlugin<
 	'layout',
 	{
 		pluginConfiguration: LayoutPluginOptions | undefined;
-		dependencies: [
-			DecorationsPlugin,
-			SelectionPlugin,
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<WidthPlugin>,
-			OptionalPlugin<EditorDisabledPlugin>,
-		];
+		dependencies: LayoutPluginDependencies;
 		actions: {
 			insertLayoutColumns: ReturnType<typeof insertLayoutColumnsWithAnalytics>;
 		};

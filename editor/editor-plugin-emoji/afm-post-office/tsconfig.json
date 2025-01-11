@@ -1,0 +1,54 @@
+{
+	"extends": "../../../../tsconfig.entry-points.post-office.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../post-office/tsDist/@atlaskit__editor-plugin-emoji/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-annotation/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-base/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-type-ahead/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../elements/emoji/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../node-data-provider/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../input-rules/afm-post-office/tsconfig.json"
+		}
+	]
+}

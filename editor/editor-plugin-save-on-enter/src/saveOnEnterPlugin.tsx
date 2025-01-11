@@ -17,10 +17,12 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import type { SaveOnEnterPlugin } from './saveOnEnterPluginType';
 
-export function createPlugin(
+export type CreatePlugin = (
 	eventDispatch: Dispatch,
 	onSave?: (editorView: EditorView) => void,
-): SafePlugin | undefined {
+) => SafePlugin | undefined;
+
+export const createPlugin: CreatePlugin = (eventDispatch, onSave) => {
 	if (!onSave) {
 		return;
 	}
@@ -35,7 +37,7 @@ export function createPlugin(
 			return false;
 		},
 	}) as SafePlugin;
-}
+};
 
 function canSaveOnEnter(editorView: EditorView) {
 	const { $cursor } = editorView.state.selection as TextSelection;

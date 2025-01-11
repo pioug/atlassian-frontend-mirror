@@ -8,17 +8,19 @@ import type { FeatureFlagsPlugin } from '@atlaskit/editor-plugin-feature-flags';
 
 import type { CodeBlockOptions } from './types';
 
+type CodeBlockDependencies = [
+	DecorationsPlugin,
+	CompositionPlugin,
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<EditorDisabledPlugin>,
+	OptionalPlugin<FeatureFlagsPlugin>,
+];
+
 export type CodeBlockPlugin = NextEditorPlugin<
 	'codeBlock',
 	{
 		pluginConfiguration: CodeBlockOptions | undefined;
-		dependencies: [
-			DecorationsPlugin,
-			CompositionPlugin,
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<EditorDisabledPlugin>,
-			OptionalPlugin<FeatureFlagsPlugin>,
-		];
+		dependencies: CodeBlockDependencies;
 		actions: {
 			insertCodeBlock: (inputMethod: INPUT_METHOD) => Command;
 		};

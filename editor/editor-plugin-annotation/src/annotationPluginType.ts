@@ -22,18 +22,20 @@ type SetInlineCommentDraftState = (
 	isOpeningMediaCommentFromToolbar?: boolean,
 ) => Command;
 
+export type AnnotationPluginDependencies = [
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<EditorViewModeEffectsPlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
+	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<ConnectivityPlugin>,
+];
+
 export type AnnotationPlugin = NextEditorPlugin<
 	'annotation',
 	{
 		pluginConfiguration: AnnotationProviders | undefined;
 		sharedState: InlineCommentPluginState | undefined;
-		dependencies: [
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<EditorViewModeEffectsPlugin>,
-			OptionalPlugin<EditorViewModePlugin>,
-			OptionalPlugin<FeatureFlagsPlugin>,
-			OptionalPlugin<ConnectivityPlugin>,
-		];
+		dependencies: AnnotationPluginDependencies;
 		actions: {
 			stripNonExistingAnnotations: StripNonExistingAnnotations;
 			setInlineCommentDraftState: SetInlineCommentDraftState;

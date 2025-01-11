@@ -7,11 +7,13 @@ import type { TextColorInputMethod } from './types';
 
 type Config = TextColorPluginConfig | boolean;
 
+export type Dependencies = [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<PrimaryToolbarPlugin>];
+
 export type TextColorPlugin = NextEditorPlugin<
 	'textColor',
 	{
 		pluginConfiguration: Config | undefined;
-		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<PrimaryToolbarPlugin>];
+		dependencies: Dependencies;
 		actions: {
 			changeColor: (color: string, inputMethod?: TextColorInputMethod) => Command;
 		};

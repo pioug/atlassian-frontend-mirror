@@ -40,23 +40,29 @@ type DummyEditorViewModePlugin = NextEditorPlugin<
 	}
 >;
 
+export type StatusPluginDependencies = [
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<DummyAnnotationPlugin>,
+	OptionalPlugin<DummyEditorViewModePlugin>,
+];
+
+export type StatusPluginActions = {
+	commitStatusPicker: typeof commitStatusPicker;
+	updateStatus: UpdateStatus;
+};
+
+export type StatusPluginCommands = {
+	removeStatus: typeof removeStatus;
+	insertStatus: ReturnType<typeof insertStatus>;
+};
+
 export type StatusPlugin = NextEditorPlugin<
 	'status',
 	{
-		dependencies: [
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<DummyAnnotationPlugin>,
-			OptionalPlugin<DummyEditorViewModePlugin>,
-		];
+		dependencies: StatusPluginDependencies;
 		pluginConfiguration: StatusPluginOptions | undefined;
-		actions: {
-			commitStatusPicker: typeof commitStatusPicker;
-			updateStatus: UpdateStatus;
-		};
-		commands: {
-			removeStatus: typeof removeStatus;
-			insertStatus: ReturnType<typeof insertStatus>;
-		};
+		actions: StatusPluginActions;
+		commands: StatusPluginCommands;
 		sharedState: StatusState | undefined;
 	}
 >;

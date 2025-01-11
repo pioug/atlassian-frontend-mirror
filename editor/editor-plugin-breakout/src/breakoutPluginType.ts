@@ -13,16 +13,18 @@ export interface BreakoutPluginOptions {
 	allowBreakoutButton?: boolean;
 }
 
+export type BreakoutPluginDependencies = [
+	WidthPlugin,
+	OptionalPlugin<EditorViewModePlugin>,
+	OptionalPlugin<EditorDisabledPlugin>,
+	OptionalPlugin<BlockControlsPlugin>,
+];
+
 export type BreakoutPlugin = NextEditorPlugin<
 	'breakout',
 	{
 		pluginConfiguration: BreakoutPluginOptions | undefined;
-		dependencies: [
-			WidthPlugin,
-			OptionalPlugin<EditorViewModePlugin>,
-			OptionalPlugin<EditorDisabledPlugin>,
-			OptionalPlugin<BlockControlsPlugin>,
-		];
+		dependencies: BreakoutPluginDependencies;
 		sharedState: Partial<BreakoutPluginState>;
 	}
 >;

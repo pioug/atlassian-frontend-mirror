@@ -63,28 +63,33 @@ export type EmojiPluginSharedState = EmojiPluginState & {
 	typeAheadHandler: TypeAheadHandler;
 };
 
+export type EmojiPluginCommands = {
+	insertEmoji: (
+		emojiId: EmojiId,
+		inputMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.ASCII | INPUT_METHOD.TYPEAHEAD,
+	) => EditorCommand;
+};
+
+export type EmojiPluginActions = {
+	openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
+	setProvider: (provider: Promise<EmojiProvider>) => Promise<boolean>;
+};
+
+export type EmojiPluginDependencies = [
+	OptionalPlugin<AnalyticsPlugin>,
+	TypeAheadPlugin,
+	OptionalPlugin<AnnotationPluginType>,
+	OptionalPlugin<EditorViewModePluginType>,
+	OptionalPlugin<BasePlugin>,
+];
+
 export type EmojiPlugin = NextEditorPlugin<
 	'emoji',
 	{
 		pluginConfiguration: EmojiPluginOptions | undefined;
-		dependencies: [
-			OptionalPlugin<AnalyticsPlugin>,
-			TypeAheadPlugin,
-			OptionalPlugin<AnnotationPluginType>,
-			OptionalPlugin<EditorViewModePluginType>,
-			OptionalPlugin<BasePlugin>,
-		];
+		dependencies: EmojiPluginDependencies;
 		sharedState: EmojiPluginSharedState | undefined;
-		commands: {
-			insertEmoji: (
-				emojiId: EmojiId,
-				inputMethod?: INPUT_METHOD.PICKER | INPUT_METHOD.ASCII | INPUT_METHOD.TYPEAHEAD,
-			) => EditorCommand;
-		};
-
-		actions: {
-			openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
-			setProvider: (provider: Promise<EmojiProvider>) => Promise<boolean>;
-		};
+		commands: EmojiPluginCommands;
+		actions: EmojiPluginActions;
 	}
 >;

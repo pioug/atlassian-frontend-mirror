@@ -7,10 +7,12 @@ type Config = {
 	beforePrimaryToolbarComponents?: ReactComponents;
 };
 
+export type BeforePrimaryToolbarPluginDependencies = [OptionalPlugin<PrimaryToolbarPlugin>];
+
 export type BeforePrimaryToolbarPlugin = NextEditorPlugin<
 	'beforePrimaryToolbar',
 	{
 		pluginConfiguration: Config;
-		dependencies: [OptionalPlugin<PrimaryToolbarPlugin>];
+		dependencies: BeforePrimaryToolbarPluginDependencies;
 	}
 >;

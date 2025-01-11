@@ -11,17 +11,19 @@ type Config = {
 	allowHeadingAndParagraphIndentation: boolean;
 };
 
+export type ToolbarListsIndentationPluginDependencies = [
+	OptionalPlugin<FeatureFlagsPlugin>,
+	ListPlugin,
+	OptionalPlugin<IndentationPlugin>,
+	OptionalPlugin<TasksAndDecisionsPlugin>,
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<PrimaryToolbarPlugin>,
+];
+
 export type ToolbarListsIndentationPlugin = NextEditorPlugin<
 	'toolbarListsIndentation',
 	{
 		pluginConfiguration: Config;
-		dependencies: [
-			OptionalPlugin<FeatureFlagsPlugin>,
-			ListPlugin,
-			OptionalPlugin<IndentationPlugin>,
-			OptionalPlugin<TasksAndDecisionsPlugin>,
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<PrimaryToolbarPlugin>,
-		];
+		dependencies: ToolbarListsIndentationPluginDependencies;
 	}
 >;

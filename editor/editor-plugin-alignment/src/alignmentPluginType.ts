@@ -3,10 +3,12 @@ import type { PrimaryToolbarPlugin } from '@atlaskit/editor-plugin-primary-toolb
 
 import type { AlignmentPluginState } from './pm-plugins/types';
 
+export type AlignmentPluginDependencies = [OptionalPlugin<PrimaryToolbarPlugin>];
+
 export type AlignmentPlugin = NextEditorPlugin<
 	'alignment',
 	{
 		sharedState: AlignmentPluginState | undefined;
-		dependencies: [OptionalPlugin<PrimaryToolbarPlugin>];
+		dependencies: AlignmentPluginDependencies;
 	}
 >;

@@ -1,0 +1,66 @@
+{
+	"extends": "../../../../tsconfig.entry-points.post-office.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../post-office/tsDist/@atlaskit__editor-plugin-paste/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-markdown-transformer/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-annotation/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-better-type-history/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-card/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-list/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-media/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-mentions/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-tables/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-client/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../media/media-common/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-post-office/tsconfig.json"
+		}
+	]
+}

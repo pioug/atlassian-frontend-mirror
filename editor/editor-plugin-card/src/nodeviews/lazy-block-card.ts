@@ -1,9 +1,11 @@
-import { withLazyLoading } from '@atlaskit/editor-common/lazy-node-view';
+import { withLazyLoading, type NodeViewConstructor } from '@atlaskit/editor-common/lazy-node-view';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { blockCardNodeView, type BlockCardNodeViewProperties } from './blockCard';
 
-export const lazyBlockCardView = (props: BlockCardNodeViewProperties) => {
+export const lazyBlockCardView: (props: BlockCardNodeViewProperties) => NodeViewConstructor = (
+	props: BlockCardNodeViewProperties,
+) => {
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return blockCardNodeView(props);
 	}

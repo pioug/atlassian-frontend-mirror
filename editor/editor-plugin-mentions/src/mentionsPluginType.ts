@@ -7,34 +7,38 @@ import type { MentionProvider } from '@atlaskit/mention/resource';
 
 import type { MentionPluginOptions, MentionSharedState } from './types';
 
+export type MentionActionOpenTypeAhead = (inputMethod: TypeAheadInputMethod) => boolean;
+
+export type MentionActionAnnounceMentionsInsertion = (
+	mentionIds: {
+		type: 'added' | 'deleted';
+		localId: string;
+		id: string;
+		taskLocalId?: string;
+	}[],
+) => void;
+
+export type MentionActionSetProvider = (provider: Promise<MentionProvider>) => Promise<boolean>;
+
+export type MentionActions = {
+	openTypeAhead: MentionActionOpenTypeAhead;
+	announceMentionsInsertion: MentionActionAnnounceMentionsInsertion;
+	setProvider: MentionActionSetProvider;
+};
+
+export type MentionPluginDependencies = [
+	OptionalPlugin<AnalyticsPlugin>,
+	TypeAheadPlugin,
+	OptionalPlugin<ContextIdentifierPlugin>,
+	OptionalPlugin<BasePlugin>,
+];
+
 export type MentionsPlugin = NextEditorPlugin<
 	'mention',
 	{
 		pluginConfiguration: MentionPluginOptions | undefined;
-		dependencies: [
-			OptionalPlugin<AnalyticsPlugin>,
-			TypeAheadPlugin,
-			OptionalPlugin<ContextIdentifierPlugin>,
-			OptionalPlugin<BasePlugin>,
-		];
+		dependencies: MentionPluginDependencies;
 		sharedState: MentionSharedState | undefined;
-		actions: {
-			openTypeAhead: (inputMethod: TypeAheadInputMethod) => boolean;
-			announceMentionsInsertion: (
-				mentionIds: {
-					type: 'added' | 'deleted';
-					localId: string;
-					id: string;
-					taskLocalId?: string;
-				}[],
-			) => void;
-			/**
-			 * Used to update the initial provider passed to the mention plugin.
-			 *
-			 * @param provider Promise<MentionProvider>
-			 * @returns {boolean} if setting the provider was successful or not
-			 */
-			setProvider: (provider: Promise<MentionProvider>) => Promise<boolean>;
-		};
+		actions: MentionActions;
 	}
 >;

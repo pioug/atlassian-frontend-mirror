@@ -3,9 +3,11 @@ import type { AnalyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 
 import type { InsertNodeAPI } from './types';
 
+export type ContentInsertionDependencies = [AnalyticsPlugin];
+
 export type ContentInsertionPlugin = NextEditorPlugin<
 	'contentInsertion',
 	{
-		dependencies: [AnalyticsPlugin];
+		dependencies: ContentInsertionDependencies;
 	} & InsertNodeAPI
 >;

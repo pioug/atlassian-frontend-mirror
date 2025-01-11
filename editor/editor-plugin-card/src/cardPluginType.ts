@@ -29,24 +29,26 @@ type DummyAnnotationPlugin = NextEditorPlugin<
 	}
 >;
 
+export type CardPluginDependencies = [
+	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
+	WidthPlugin,
+	DecorationsPlugin,
+	GridPlugin,
+	FloatingToolbarPlugin,
+	OptionalPlugin<EditorDisabledPlugin>,
+	OptionalPlugin<SelectionPlugin>,
+	OptionalPlugin<DummyAnnotationPlugin>,
+	OptionalPlugin<ConnectivityPlugin>,
+	OptionalPlugin<BasePlugin>,
+];
+
 export type CardPlugin = NextEditorPlugin<
 	'card',
 	{
 		pluginConfiguration: CardPluginOptions | undefined;
-		dependencies: [
-			OptionalPlugin<FeatureFlagsPlugin>,
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<EditorViewModePlugin>,
-			WidthPlugin,
-			DecorationsPlugin,
-			GridPlugin,
-			FloatingToolbarPlugin,
-			OptionalPlugin<EditorDisabledPlugin>,
-			OptionalPlugin<SelectionPlugin>,
-			OptionalPlugin<DummyAnnotationPlugin>,
-			OptionalPlugin<ConnectivityPlugin>,
-			OptionalPlugin<BasePlugin>,
-		];
+		dependencies: CardPluginDependencies;
 		sharedState: CardPluginState | null;
 		actions: CardPluginActions;
 	}

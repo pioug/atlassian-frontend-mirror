@@ -99,31 +99,35 @@ type InsertOrReplaceExtensionAction = ({
 	tr,
 }: InsertOrReplaceExtensionType) => Transaction;
 
+export type ExtensionPluginDependencies = [
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<FeatureFlagsPlugin>,
+	WidthPlugin,
+	DecorationsPlugin,
+	OptionalPlugin<ContextPanelPlugin>,
+	OptionalPlugin<ContextIdentifierPlugin>,
+];
+
+export type ExtensionPluginActions = {
+	editSelectedExtension: () => boolean;
+	api: () => ExtensionAPI;
+	insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
+	insertOrReplaceExtension: InsertOrReplaceExtensionAction;
+	insertOrReplaceBodiedExtension: InsertOrReplaceExtensionAction;
+	runMacroAutoConvert: RunMacroAutoConvert;
+	forceAutoSave: typeof forceAutoSave;
+};
+
 export type ExtensionPlugin = NextEditorPlugin<
 	'extension',
 	{
 		pluginConfiguration: ExtensionPluginOptions | undefined;
-		dependencies: [
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<FeatureFlagsPlugin>,
-			WidthPlugin,
-			DecorationsPlugin,
-			OptionalPlugin<ContextPanelPlugin>,
-			OptionalPlugin<ContextIdentifierPlugin>,
-		];
+		dependencies: ExtensionPluginDependencies;
 		sharedState:
 			| {
 					showContextPanel: boolean | undefined;
 			  }
 			| undefined;
-		actions: {
-			editSelectedExtension: () => boolean;
-			api: () => ExtensionAPI;
-			insertMacroFromMacroBrowser: InsertMacroFromMacroBrowser;
-			insertOrReplaceExtension: InsertOrReplaceExtensionAction;
-			insertOrReplaceBodiedExtension: InsertOrReplaceExtensionAction;
-			runMacroAutoConvert: RunMacroAutoConvert;
-			forceAutoSave: typeof forceAutoSave;
-		};
+		actions: ExtensionPluginActions;
 	}
 >;

@@ -2,9 +2,14 @@ import type { NextEditorPlugin, OptionalPlugin } from '@atlaskit/editor-common/t
 import type { analyticsPlugin } from '@atlaskit/editor-plugin-analytics';
 import type { EditorDisabledPlugin } from '@atlaskit/editor-plugin-editor-disabled';
 
+export type CaptionPluginDependencies = [
+	typeof analyticsPlugin,
+	OptionalPlugin<EditorDisabledPlugin>,
+];
+
 export type CaptionPlugin = NextEditorPlugin<
 	'caption',
 	{
-		dependencies: [typeof analyticsPlugin, OptionalPlugin<EditorDisabledPlugin>];
+		dependencies: CaptionPluginDependencies;
 	}
 >;

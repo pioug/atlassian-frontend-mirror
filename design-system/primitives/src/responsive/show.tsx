@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type ReactNode } from 'react';
+import { type ReactElement, type ReactNode } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -76,7 +76,7 @@ export const Show = ({
 	children,
 	as: AsElement = 'div',
 	xcss,
-}: ResponsiveShowProps) => {
+}: ResponsiveShowProps): ReactElement<ResponsiveShowProps> => {
 	const resolvedStyles = parseXcss(xcss);
 
 	return (

@@ -1,0 +1,108 @@
+{
+	"extends": "../../../../tsconfig.entry-points.post-office.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../post-office/tsDist/@atlaskit__editor-plugin-card/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../custom-steps/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-base/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-connectivity/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-decorations/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-disabled/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-editor-viewmode/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-floating-toolbar/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-grid/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../helpers/frontend-utilities/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-analytics/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-client-extension/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-datasource/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/linking-common/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/linking-types/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/menu/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/smart-card/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../linking-platform/link-provider/afm-post-office/tsconfig.json"
+		}
+	]
+}

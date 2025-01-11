@@ -57,32 +57,38 @@ type MediaPlugin = NextEditorPlugin<
 	}
 >;
 
+export type TablePluginActions = {
+	insertTable: InsertTableAction;
+};
+
+export type TablePluginCommands = {
+	insertTableWithSize: (
+		rowsCount: number,
+		colsCount: number,
+		inputMethod?: INPUT_METHOD.PICKER,
+	) => EditorCommand;
+};
+
+export type TablePluginDependencies = [
+	AnalyticsPlugin,
+	ContentInsertionPlugin,
+	WidthPlugin,
+	SelectionPlugin,
+	OptionalPlugin<GuidelinePlugin>,
+	OptionalPlugin<BatchAttributeUpdatesPlugin>,
+	OptionalPlugin<AccessibilityUtilsPlugin>,
+	OptionalPlugin<MediaPlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
+	OptionalPlugin<FeatureFlagsPlugin>,
+];
+
 export type TablePlugin = NextEditorPlugin<
 	'table',
 	{
 		pluginConfiguration: TablePluginOptions | undefined;
-		actions: {
-			insertTable: InsertTableAction;
-		};
+		actions: TablePluginActions;
 		sharedState?: TableSharedState;
-		commands: {
-			insertTableWithSize: (
-				rowsCount: number,
-				colsCount: number,
-				inputMethod?: INPUT_METHOD.PICKER,
-			) => EditorCommand;
-		};
-		dependencies: [
-			AnalyticsPlugin,
-			ContentInsertionPlugin,
-			WidthPlugin,
-			SelectionPlugin,
-			OptionalPlugin<GuidelinePlugin>,
-			OptionalPlugin<BatchAttributeUpdatesPlugin>,
-			OptionalPlugin<AccessibilityUtilsPlugin>,
-			OptionalPlugin<MediaPlugin>,
-			OptionalPlugin<EditorViewModePlugin>,
-			OptionalPlugin<FeatureFlagsPlugin>,
-		];
+		commands: TablePluginCommands;
+		dependencies: TablePluginDependencies;
 	}
 >;

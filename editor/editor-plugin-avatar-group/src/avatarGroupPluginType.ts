@@ -11,16 +11,18 @@ type Config = {
 	showAvatarGroup?: boolean;
 };
 
+export type AvatarGroupPluginDependencies = [
+	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<CollabEditPlugin>,
+	OptionalPlugin<PrimaryToolbarPlugin>,
+];
+
 export type AvatarGroupPlugin = NextEditorPlugin<
 	'avatarGroup',
 	{
 		pluginConfiguration: Config;
-		dependencies: [
-			OptionalPlugin<FeatureFlagsPlugin>,
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<CollabEditPlugin>,
-			OptionalPlugin<PrimaryToolbarPlugin>,
-		];
+		dependencies: AvatarGroupPluginDependencies;
 		actions: {
 			getToolbarItem: ({
 				inviteToEditHandler,

@@ -12,20 +12,31 @@ import type {
 	ToggleOrderedList,
 } from './types';
 
+export type ListPluginDependencies = [
+	OptionalPlugin<FeatureFlagsPlugin>,
+	OptionalPlugin<AnalyticsPlugin>,
+];
+
+export type ListPluginActions = {
+	isInsideListItem: IsInsideListItem;
+	findRootParentListNode: FindRootParentListNode;
+};
+
+export type ListPluginCommands = {
+	indentList: IndentList;
+	outdentList: OutdentList;
+	toggleOrderedList: ToggleOrderedList;
+	toggleBulletList: ToggleBulletList;
+};
+
+export type ListPluginSharedState = ListState | undefined;
+
 export type ListPlugin = NextEditorPlugin<
 	'list',
 	{
-		dependencies: [OptionalPlugin<FeatureFlagsPlugin>, OptionalPlugin<AnalyticsPlugin>];
-		actions: {
-			isInsideListItem: IsInsideListItem;
-			findRootParentListNode: FindRootParentListNode;
-		};
-		commands: {
-			indentList: IndentList;
-			outdentList: OutdentList;
-			toggleOrderedList: ToggleOrderedList;
-			toggleBulletList: ToggleBulletList;
-		};
-		sharedState: ListState | undefined;
+		dependencies: ListPluginDependencies;
+		actions: ListPluginActions;
+		commands: ListPluginCommands;
+		sharedState: ListPluginSharedState;
 	}
 >;

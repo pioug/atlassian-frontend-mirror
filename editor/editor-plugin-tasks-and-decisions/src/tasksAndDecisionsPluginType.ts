@@ -13,17 +13,19 @@ import type { insertTaskDecisionCommand } from './pm-plugins/insert-commands';
 import type { getIndentCommand, getUnindentCommand } from './pm-plugins/keymaps';
 import type { TaskAndDecisionsSharedState, TaskDecisionPluginOptions } from './types';
 
+export type TasksAndDecisionsPluginDependencies = [
+	OptionalPlugin<TypeAheadPlugin>,
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<ContextIdentifierPlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
+];
+
 export type TasksAndDecisionsPlugin = NextEditorPlugin<
 	'taskDecision',
 	{
 		pluginConfiguration: TaskDecisionPluginOptions | undefined;
 		sharedState: TaskAndDecisionsSharedState | undefined;
-		dependencies: [
-			OptionalPlugin<TypeAheadPlugin>,
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<ContextIdentifierPlugin>,
-			OptionalPlugin<EditorViewModePlugin>,
-		];
+		dependencies: TasksAndDecisionsPluginDependencies;
 		actions: {
 			insertTaskDecision: ReturnType<typeof insertTaskDecisionCommand>;
 			indentTaskList: ReturnType<typeof getIndentCommand>;

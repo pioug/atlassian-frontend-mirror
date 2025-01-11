@@ -12,20 +12,24 @@ export type MediaInsertPluginState = {
 	mountInfo?: { ref: HTMLElement; mountPoint: HTMLElement };
 };
 
+export type MediaInsertPluginDependencies = [
+	OptionalPlugin<AnalyticsPlugin>,
+	MediaPlugin,
+	OptionalPlugin<FeatureFlagsPlugin>,
+];
+
+export type MediaInsertPluginCommands = {
+	showMediaInsertPopup: (mountInfo?: {
+		ref: HTMLElement;
+		mountPoint: HTMLElement;
+	}) => EditorCommand;
+};
+
 export type MediaInsertPlugin = NextEditorPlugin<
 	'mediaInsert',
 	{
-		dependencies: [
-			OptionalPlugin<AnalyticsPlugin>,
-			MediaPlugin,
-			OptionalPlugin<FeatureFlagsPlugin>,
-		];
+		dependencies: MediaInsertPluginDependencies;
 		sharedState: MediaInsertPluginState;
-		commands: {
-			showMediaInsertPopup: (mountInfo?: {
-				ref: HTMLElement;
-				mountPoint: HTMLElement;
-			}) => EditorCommand;
-		};
+		commands: MediaInsertPluginCommands;
 	}
 >;

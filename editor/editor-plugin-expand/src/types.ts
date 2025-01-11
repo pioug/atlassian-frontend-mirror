@@ -51,18 +51,20 @@ export interface ExpandPluginOptions extends LongPressSelectionPluginOptions {
 	__livePage?: boolean;
 }
 
+export type ExpandPluginDependencies = [
+	DecorationsPlugin,
+	SelectionPlugin,
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<SelectionMarkerPlugin>,
+	OptionalPlugin<EditorDisabledPlugin>,
+	OptionalPlugin<FeatureFlagsPlugin>,
+];
+
 export type ExpandPlugin = NextEditorPlugin<
 	'expand',
 	{
 		pluginConfiguration: ExpandPluginOptions | undefined;
-		dependencies: [
-			DecorationsPlugin,
-			SelectionPlugin,
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<SelectionMarkerPlugin>,
-			OptionalPlugin<EditorDisabledPlugin>,
-			OptionalPlugin<FeatureFlagsPlugin>,
-		];
+		dependencies: ExpandPluginDependencies;
 		actions: {
 			/**
 			 * Insert an expand node and dispatch event with `insertMenu` inputMethod

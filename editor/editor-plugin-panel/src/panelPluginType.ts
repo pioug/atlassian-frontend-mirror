@@ -34,11 +34,17 @@ export type EmojiInfo = {
 	id: string;
 };
 
+export type PanelPluginDependencies = [
+	typeof decorationsPlugin,
+	OptionalPlugin<typeof analyticsPlugin>,
+	EmojiPlugin,
+];
+
 export type PanelPlugin = NextEditorPlugin<
 	'panel',
 	{
 		pluginConfiguration: PanelPluginOptions | undefined;
-		dependencies: [typeof decorationsPlugin, OptionalPlugin<typeof analyticsPlugin>, EmojiPlugin];
+		dependencies: PanelPluginDependencies;
 		actions: {
 			insertPanel: (inputMethod: INPUT_METHOD) => Command;
 		};

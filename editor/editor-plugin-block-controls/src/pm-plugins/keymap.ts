@@ -10,6 +10,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { keydownHandler } from '@atlaskit/editor-prosemirror/keymap';
+import { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
@@ -72,7 +73,10 @@ function keymapList(
 	return keymapList;
 }
 
-export const boundKeydownHandler = (
+export const boundKeydownHandler: (
+	api?: ExtractInjectionAPI<BlockControlsPlugin>,
+	formatMessage?: IntlShape['formatMessage'],
+) => (view: EditorView, event: KeyboardEvent) => boolean = (
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
 	formatMessage?: IntlShape['formatMessage'],
 ) => keydownHandler(keymapList(api, formatMessage));

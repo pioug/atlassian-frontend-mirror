@@ -33,6 +33,7 @@ interface ExpandIconButtonWithLabelProps extends ExpandIconButtonProps {
 function withTooltip(Component: React.ElementType) {
 	return function WithTooltip(props: ExpandIconButtonWithLabelProps) {
 		return (
+			// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 			<Tooltip content={props.label} position="top" tag={ExpandLayoutWrapperWithRef}>
 				<Component
 					// Ignored via go/ees005

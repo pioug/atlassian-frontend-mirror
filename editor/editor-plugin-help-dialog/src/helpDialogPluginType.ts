@@ -7,10 +7,15 @@ export interface HelpDialogSharedState {
 	imageEnabled: boolean;
 }
 
+export type HelpDialogDependencies = [
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<QuickInsertPlugin>,
+];
+
 export type HelpDialogPlugin = NextEditorPlugin<
 	'helpDialog',
 	{
-		dependencies: [OptionalPlugin<AnalyticsPlugin>, OptionalPlugin<QuickInsertPlugin>];
+		dependencies: HelpDialogDependencies;
 		pluginConfiguration: boolean;
 		sharedState: HelpDialogSharedState | null;
 		actions: {

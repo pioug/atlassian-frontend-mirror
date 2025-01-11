@@ -3,14 +3,19 @@ import type { WidthPlugin } from '@atlaskit/editor-plugin-width';
 
 import type { CreateDisplayGrid, GridPluginOptions, GridPluginState } from './types';
 
+export type GridPluginConfiguration = GridPluginOptions | undefined;
+export type GridPluginDependencies = [WidthPlugin];
+export type GridPluginSharedState = GridPluginState | null;
+export type GridPluginActions = {
+	displayGrid: CreateDisplayGrid;
+};
+
 export type GridPlugin = NextEditorPlugin<
 	'grid',
 	{
-		pluginConfiguration: GridPluginOptions | undefined;
-		dependencies: [WidthPlugin];
-		sharedState: GridPluginState | null;
-		actions: {
-			displayGrid: CreateDisplayGrid;
-		};
+		pluginConfiguration: GridPluginConfiguration;
+		dependencies: GridPluginDependencies;
+		sharedState: GridPluginSharedState;
+		actions: GridPluginActions;
 	}
 >;

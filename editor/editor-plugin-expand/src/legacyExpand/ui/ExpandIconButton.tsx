@@ -40,6 +40,7 @@ export const withTooltip = (WrapperComponent: React.ElementType) => {
 			const { label } = this.props;
 
 			return (
+				// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
 				<Tooltip content={label} position="top" tag={ExpandLayoutWrapperWithRef}>
 					<WrapperComponent
 						// Ignored via go/ees005

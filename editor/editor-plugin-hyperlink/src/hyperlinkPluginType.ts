@@ -16,60 +16,68 @@ import type {
 	UpdateLink,
 } from './editor-commands/commands';
 
+type HyperlinkPluginCommands = {
+	/**
+	 * EditorCommand to show link toolbar.
+	 *
+	 * Example:
+	 *
+	 * ```
+	 * const newTr = pluginInjectionApi?.hyperlink.commands.showLinkToolbar(
+	 *   inputMethod
+	 * )({ tr })
+	 * ```
+	 */
+	showLinkToolbar: ShowLinkToolbar;
+
+	/**
+	 * EditorCommand to edit the current active link.
+	 *
+	 * Example:
+	 *
+	 * ```
+	 * api.core.actions.execute(
+	 *   api.hyperlink.commands.updateLink(href, text)
+	 * )
+	 * ```
+	 */
+	updateLink: (href: string, text: string) => EditorCommand;
+
+	/**
+	 * EditorCommand to remove the current active link.
+	 *
+	 * Example:
+	 *
+	 * ```
+	 * api.core.actions.execute(
+	 *   api.hyperlink.commands.removeLink()
+	 * )
+	 * ```
+	 */
+	removeLink: () => EditorCommand;
+};
+
+export type HyperlinkPluginDependencies = [
+	OptionalPlugin<AnalyticsPlugin>,
+	OptionalPlugin<CardPlugin>,
+	OptionalPlugin<EditorViewModePlugin>,
+];
+
+export type HyperlinkPluginActions = {
+	hideLinkToolbar: HideLinkToolbar;
+	insertLink: InsertLink;
+	updateLink: UpdateLink;
+};
+
+export type HyperlinkPluginSharedState = HyperlinkState | undefined;
+
 export type HyperlinkPlugin = NextEditorPlugin<
 	'hyperlink',
 	{
 		pluginConfiguration: HyperlinkPluginOptions | undefined;
-		dependencies: [
-			OptionalPlugin<AnalyticsPlugin>,
-			OptionalPlugin<CardPlugin>,
-			OptionalPlugin<EditorViewModePlugin>,
-		];
-		actions: {
-			hideLinkToolbar: HideLinkToolbar;
-			insertLink: InsertLink;
-			updateLink: UpdateLink;
-		};
-		commands: {
-			/**
-			 * EditorCommand to show link toolbar.
-			 *
-			 * Example:
-			 *
-			 * ```
-			 * const newTr = pluginInjectionApi?.hyperlink.commands.showLinkToolbar(
-			 *   inputMethod
-			 * )({ tr })
-			 * ```
-			 */
-			showLinkToolbar: ShowLinkToolbar;
-
-			/**
-			 * EditorCommand to edit the current active link.
-			 *
-			 * Example:
-			 *
-			 * ```
-			 * api.core.actions.execute(
-			 *   api.hyperlink.commands.updateLink(href, text)
-			 * )
-			 * ```
-			 */
-			updateLink: (href: string, text: string) => EditorCommand;
-
-			/**
-			 * EditorCommand to remove the current active link.
-			 *
-			 * Example:
-			 *
-			 * ```
-			 * api.core.actions.execute(
-			 *   api.hyperlink.commands.removeLink()
-			 * )
-			 * ```
-			 */
-			removeLink: () => EditorCommand;
-		};
-		sharedState: HyperlinkState | undefined;
+		dependencies: HyperlinkPluginDependencies;
+		actions: HyperlinkPluginActions;
+		commands: HyperlinkPluginCommands;
+		sharedState: HyperlinkPluginSharedState;
 	}
 >;

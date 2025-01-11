@@ -1,0 +1,126 @@
+{
+	"extends": "../../../../tsconfig.entry-points.post-office.json",
+	"compilerOptions": {
+		"target": "es5",
+		"outDir": "../../../../../post-office/tsDist/@atlaskit__editor-plugin-extension/app",
+		"rootDir": "../",
+		"composite": true
+	},
+	"include": [
+		"../src/**/*.ts",
+		"../src/**/*.tsx"
+	],
+	"exclude": [
+		"../src/**/__tests__/*",
+		"../src/**/*.test.*",
+		"../src/**/test.*",
+		"../src/**/examples.*"
+	],
+	"references": [
+		{
+			"path": "../../adf-utils/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../analytics/analytics-next/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/avatar/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/button/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/checkbox/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/datetime-picker/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-common/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-json-transformer/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-analytics/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-context-identifier/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-context-panel/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-decorations/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-width/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-shared-styles/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-tables/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/empty-state/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/form/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/heading/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/icon/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/primitives/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/radio/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/section-message/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/select/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../smart-experiences/smart-user-picker/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/spinner/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tabs/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textarea/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/textfield/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/theme/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../tmp-editor-statsig/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/toggle/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tokens/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../design-system/tooltip/afm-post-office/tsconfig.json"
+		}
+	]
+}

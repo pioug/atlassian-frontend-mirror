@@ -14,10 +14,15 @@ export interface PlaceholderTextPluginState {
 	allowInserting: boolean;
 }
 
+export type PlaceholderTextPluginDependencies = [
+	OptionalPlugin<typeof analyticsPlugin>,
+	OptionalPlugin<TypeAheadPlugin>,
+];
+
 export type PlaceholderTextPlugin = NextEditorPlugin<
 	'placeholderText',
 	{
-		dependencies: [OptionalPlugin<typeof analyticsPlugin>, OptionalPlugin<TypeAheadPlugin>];
+		dependencies: PlaceholderTextPluginDependencies;
 		pluginConfiguration: PlaceholderTextOptions;
 		sharedState: PlaceholderTextPluginState | undefined;
 		actions: {

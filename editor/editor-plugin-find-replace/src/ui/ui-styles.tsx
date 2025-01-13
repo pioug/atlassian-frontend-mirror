@@ -9,15 +9,9 @@ import { css } from '@emotion/react';
 
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { N30A } from '@atlaskit/theme/colors';
-import {
-	fontSize as getFontSize,
-	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-	gridSize as getGridSize,
-} from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
-const fontSize = getFontSize();
-const gridSize = getGridSize();
+const fontSize = 14;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const ruleStyles = css({
@@ -85,14 +79,14 @@ export const textFieldWrapper = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'#find-text-field, #replace-text-field': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: `${(gridSize * 4.5) / fontSize}em`,
+		height: `${36 / fontSize}em`,
 	},
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	label: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		fontSize: relativeFontSizeToBase16(14),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
-		lineHeight: `${gridSize * 2}px`,
+		lineHeight: '16px',
 	},
 });
 

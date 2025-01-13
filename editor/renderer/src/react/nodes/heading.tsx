@@ -1,5 +1,7 @@
 import React from 'react';
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import VisuallyHidden from '@atlaskit/visually-hidden';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import HeadingAnchor from './heading-anchor';
 import {
@@ -36,10 +38,12 @@ function WrappedHeadingAnchor({
 	enableNestedHeaderLinks,
 	level,
 	headingId,
+	hideFromScreenReader,
 }: {
 	enableNestedHeaderLinks: boolean | undefined;
 	level: number;
 	headingId: string;
+	hideFromScreenReader?: boolean;
 }) {
 	return (
 		<AnalyticsContext.Consumer>
@@ -57,6 +61,7 @@ function WrappedHeadingAnchor({
 
 						return copyTextToClipboard(getCurrentUrlWithHash(headingId));
 					}}
+					hideFromScreenReader={hideFromScreenReader}
 				/>
 			)}
 		</AnalyticsContext.Consumer>
@@ -84,27 +89,40 @@ function Heading(
 
 	const headingIdToUse = invisible ? undefined : headingId;
 	return (
-		// Ignored via go/ees005
-		// eslint-disable-next-line react/jsx-props-no-spreading
-		<HX id={headingIdToUse} {...dataAttributes}>
-			<>
-				{showAnchorLink && headingId && isRightAligned && (
-					<WrappedHeadingAnchor
-						level={props.level}
-						enableNestedHeaderLinks={enableNestedHeaderLinks}
-						headingId={headingId}
-					/>
-				)}
-				{props.children}
-				{showAnchorLink && headingId && !isRightAligned && (
-					<WrappedHeadingAnchor
-						level={props.level}
-						enableNestedHeaderLinks={enableNestedHeaderLinks}
-						headingId={headingId}
-					/>
-				)}
-			</>
-		</HX>
+		<>
+			<HX id={headingIdToUse} data-renderer-start-pos={dataAttributes['data-renderer-start-pos']}>
+				<>
+					{showAnchorLink && headingId && isRightAligned && (
+						<WrappedHeadingAnchor
+							level={props.level}
+							enableNestedHeaderLinks={enableNestedHeaderLinks}
+							headingId={headingId}
+							hideFromScreenReader={fg('platform_editor_accessible_heading_copy_link')}
+						/>
+					)}
+					{props.children}
+					{showAnchorLink && headingId && !isRightAligned && (
+						<WrappedHeadingAnchor
+							level={props.level}
+							enableNestedHeaderLinks={enableNestedHeaderLinks}
+							headingId={headingId}
+							hideFromScreenReader={fg('platform_editor_accessible_heading_copy_link')}
+						/>
+					)}
+				</>
+			</HX>
+			{fg('platform_editor_accessible_heading_copy_link') && (
+				<VisuallyHidden testId="visually-hidden-heading-anchor">
+					{showAnchorLink && headingId && (
+						<WrappedHeadingAnchor
+							level={props.level}
+							enableNestedHeaderLinks={enableNestedHeaderLinks}
+							headingId={headingId}
+						/>
+					)}
+				</VisuallyHidden>
+			)}
+		</>
 	);
 }
 

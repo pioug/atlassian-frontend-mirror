@@ -1,5 +1,31 @@
 # @atlaskit/renderer
 
+## 112.8.7
+
+### Patch Changes
+
+- [#102547](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102547)
+  [`b76cc60ba170b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b76cc60ba170b) -
+  Internal changes to remove deprecated typography imports.
+
+## 112.8.6
+
+### Patch Changes
+
+- [#102045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102045)
+  [`44f96aff22dd9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44f96aff22dd9) -
+  [ED-26179] clean up platform_editor_elements_dnd_nested_table
+- Updated dependencies
+
+## 112.8.5
+
+### Patch Changes
+
+- [#99556](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99556)
+  [`861401744086f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/861401744086f) -
+  [ux] Create VisuallyHidden heading copy button for screen reader & use aria-hidden to hide nested
+  heading copy from screen reader
+
 ## 112.8.4
 
 ### Patch Changes

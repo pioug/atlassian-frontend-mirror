@@ -1,5 +1,20 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.34.0
+
+### Minor Changes
+
+- [#100411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100411)
+  [`14499ab145534`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14499ab145534) -
+  [ux] Introduces advanced code block as per:
+  https://hello.atlassian.net/wiki/spaces/EDITOR/pages/4632293323/Editor+RFC+063+Advanced+code+blocks.
+  This can be added to an existing editor preset to enrich the code block experience with syntax
+  highlighting and can be extended for other features via CodeMirror extensions (ie. autocompletion,
+  code folding etc.).
+- [#102045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102045)
+  [`44f96aff22dd9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44f96aff22dd9) -
+  [ED-26179] clean up platform_editor_elements_dnd_nested_table
+
 ## 2.33.1
 
 ### Patch Changes

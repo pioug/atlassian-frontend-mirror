@@ -1,0 +1,99 @@
+{
+	"name": "@atlaskit/editor-plugin-code-block-advanced",
+	"version": "1.0.0",
+	"description": "CodeBlockAdvanced plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Lego",
+		"releaseModel": "continuous",
+		"singleton": true,
+		"runReact18": true
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend-mirror",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"typesVersions": {
+		">=4.5 <4.9": {
+			"*": [
+				"dist/types-ts4.5/*",
+				"dist/types-ts4.5/index.d.ts"
+			]
+		}
+	},
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^46.1.0",
+		"@atlaskit/editor-common": "^99.1.0",
+		"@atlaskit/editor-plugin-code-block": "^3.5.0",
+		"@atlaskit/editor-plugin-editor-disabled": "^1.3.0",
+		"@atlaskit/editor-plugin-selection": "^1.6.0",
+		"@atlaskit/editor-prosemirror": "6.2.1",
+		"@atlaskit/tokens": "^3.0.0",
+		"@babel/runtime": "^7.0.0",
+		"@codemirror/autocomplete": "6.18.4",
+		"@codemirror/commands": "6.7.1",
+		"@codemirror/language": "6.10.8",
+		"@codemirror/language-data": "6.5.1",
+		"@codemirror/state": "6.5.1",
+		"@codemirror/view": "6.36.2",
+		"@lezer/highlight": "1.2.1",
+		"cm6-graphql": "0.2.0",
+		"codemirror-lang-elixir": "4.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
+	},
+	"devDependencies": {
+		"@atlaskit/code": "^15.6.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"code-structure": [
+				"editor-plugin"
+			],
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": "no-deprecated-imports",
+			"styling": [
+				"emotion",
+				"emotion"
+			],
+			"imports": [
+				"import-no-extraneous-disable-for-examples-and-docs"
+			]
+		}
+	}
+}

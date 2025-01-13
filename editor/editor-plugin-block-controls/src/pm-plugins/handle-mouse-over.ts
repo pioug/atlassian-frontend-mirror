@@ -64,19 +64,13 @@ export const handleMouseOver = (
 			if (
 				parentElement &&
 				(parentElementType === 'table' || parentElementType === 'tableRow') &&
-				editorExperiment('nested-dnd', true) &&
-				editorExperiment('table-nested-dnd', false, { exposure: true })
+				editorExperiment('nested-dnd', true)
 			) {
 				rootElement = parentElement;
 			}
 		} else {
 			// We want to exclude handles from showing for direct descendant of table nodes (i.e. nodes in cells)
-			if (
-				parentElement &&
-				parentElementType === 'table' &&
-				editorExperiment('nested-dnd', true) &&
-				editorExperiment('table-nested-dnd', false, { exposure: true })
-			) {
+			if (parentElement && parentElementType === 'table' && editorExperiment('nested-dnd', true)) {
 				rootElement = parentElement;
 			}
 		}

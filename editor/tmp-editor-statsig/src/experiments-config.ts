@@ -89,15 +89,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// Add 2024-08-27
-	'table-nested-dnd': {
-		productKeys: {
-			confluence: 'platform_editor_elements_dnd_nested_table',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-08-29
 	'insert-menu-in-right-rail': {
 		productKeys: {
@@ -304,6 +295,15 @@ export const editorExperimentsConfig = {
 	platform_editor_blockquote_in_text_formatting_menu: {
 		productKeys: {
 			confluence: 'platform_editor_blockquote_in_text_formatting_menu',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2025-01-09
+	platform_editor_advanced_code_blocks: {
+		productKeys: {
+			confluence: 'platform_editor_advanced_code_blocks',
 		},
 		param: 'isEnabled',
 		typeGuard: isBoolean,

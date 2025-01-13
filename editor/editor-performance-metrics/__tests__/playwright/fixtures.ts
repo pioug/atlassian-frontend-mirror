@@ -194,22 +194,47 @@ export const test = base.extend<{
 		await use(reset);
 	},
 	getTimeline: async ({ page }, use) => {
-		const waitIdle = await page.evaluate(() => {
-			let resolve = () => {};
-			const promise = new Promise<void>((_resolve) => {
-				resolve = _resolve;
-			});
-			const later = window.requestIdleCallback || window.requestAnimationFrame;
+		const waitBrowserIdle = () => {
+			return page.evaluate(() => {
+				let resolve = () => {};
+				const promise = new Promise<void>((_resolve) => {
+					resolve = _resolve;
+				});
+				const later = window.requestIdleCallback || window.requestAnimationFrame;
 
-			later(() => {
-				resolve();
-			});
+				later(() => {
+					resolve();
+				});
 
-			return promise;
-		});
+				return promise;
+			});
+		};
+
+		const waitTimelineIdle = () => {
+			return page.evaluate(() => {
+				let resolve = () => {};
+				const promise = new Promise<void>((_resolve) => {
+					resolve = _resolve;
+				});
+
+				const timeline = (window as WindowWithEditorPerformanceGlobals)
+					.__editor_performance_metrics_timeline;
+
+				if (!timeline) {
+					resolve();
+				} else {
+					timeline.onNextIdle(() => {
+						resolve();
+					});
+				}
+
+				return promise;
+			});
+		};
 
 		const timeline = async () => {
-			await waitIdle;
+			await waitBrowserIdle();
+			await waitTimelineIdle();
 			const timelineSerialized = await page.evaluate(() => {
 				const timeline = (window as WindowWithEditorPerformanceGlobals)
 					.__editor_performance_metrics_timeline;

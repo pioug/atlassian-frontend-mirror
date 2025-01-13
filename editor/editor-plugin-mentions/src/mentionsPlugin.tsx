@@ -219,7 +219,6 @@ const mentionsPlugin: MentionsPlugin = ({ config: options, api }) => {
 					keywords: ['team', 'user'],
 					priority: 400,
 					keyshortcut: '@',
-					isDisabledOffline: true,
 					icon: () => <IconMention />,
 					action(insert, state) {
 						const tr = insert(undefined);

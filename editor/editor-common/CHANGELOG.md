@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 99.1.2
+
+### Patch Changes
+
+- [#102045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102045)
+  [`44f96aff22dd9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44f96aff22dd9) -
+  [ED-26179] clean up platform_editor_elements_dnd_nested_table
+- Updated dependencies
+
+## 99.1.1
+
+### Patch Changes
+
+- [#100802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100802)
+  [`1506550eef60f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1506550eef60f) -
+  [ux] [ED-25647] this PR is disabling the confluence referentiality and charts extension from the
+  floating toolbar for tables nested in tables
+
 ## 99.1.0
 
 ### Minor Changes

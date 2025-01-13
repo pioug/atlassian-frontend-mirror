@@ -105,6 +105,9 @@
 			"path": "../../../design-system/tooltip/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/visually-hidden/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../linking-platform/link-provider/afm-jira/tsconfig.json"
 		},
 		{

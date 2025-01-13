@@ -92,19 +92,30 @@ export type TimelineOptions = {
 	cleanup: {
 		eventsThreshold: 100 | 1000 | 10000;
 	};
+	/*
+	 * Control how often the Idle Buffer is flushed to the subscribers.
+	 *
+	 * When one of the thresholds is hit then the buffer is flushed.
+	 */
 	buffer: {
+		/**
+		 * Based in the amount of events added on Timeline
+		 */
 		eventsThreshold: 1 | 200;
-		cyclesThreshold: 1 | 10 | 100;
+		/**
+		 * Based in the amount of idle cycles
+		 */
+		cyclesThreshold: 1 | 5 | 10 | 100;
 	} | null;
 };
 
 const defaultOptions: TimelineOptions = {
 	cleanup: {
-		eventsThreshold: 10000,
+		eventsThreshold: 1000,
 	},
 	buffer: {
 		eventsThreshold: 200,
-		cyclesThreshold: 10,
+		cyclesThreshold: 5,
 	},
 };
 
@@ -162,10 +173,12 @@ export interface Timeline {
  * - `markEvent(event)`: Adds a new event to the timeline and manages the idle detection logic.
  * - `onIdleBufferFlush(cb)`: Registers a callback to be triggered when the idle buffer is flushed.
  *   Returns a function to unsubscribe the callback.
+ * - `onNextIdle(cb)`: Registers a callback to be triggered when the next idle event happens. The callback will be called only once.
  */
 export interface TimelineClock extends Timeline {
 	markEvent(event: TimelineEvent): void;
 	onIdleBufferFlush(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe;
+	onNextIdle(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe;
 }
 
 export type EventsPerTypeMap = Map<
@@ -248,6 +261,7 @@ export class TimelineController
 	unorderedEvents: UnorderedEvents;
 	eventsPerType: EventsPerTypeMap;
 	onIdleBufferFlushCallbacks: Set<OnIdleBufferFlushCallback>;
+	onNextIdleCallbacks: Set<OnIdleBufferFlushCallback>;
 	idleCycleCount: number = 0;
 	lastIdleTime: IdleTimeEvent | null = null;
 	lastIdleTask: AbortableTask<void> | null = null;
@@ -260,6 +274,7 @@ export class TimelineController
 		this.unorderedEvents = [];
 		this.idleCycleCount = 0;
 		this.onIdleBufferFlushCallbacks = new Set();
+		this.onNextIdleCallbacks = new Set();
 		this.eventsPerType = new Map();
 		this.idleBuffer = {
 			unorderedEvents: [],
@@ -351,15 +366,30 @@ export class TimelineController
 		};
 	}
 
+	public onNextIdle(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe {
+		this.onNextIdleCallbacks.add(cb);
+
+		return () => {
+			this.onNextIdleCallbacks.delete(cb);
+		};
+	}
+
 	private scheduleNextIdle() {
 		if (this.lastIdleTask) {
 			this.lastIdleTask.abort();
 		}
 
 		const startAt = performance.now();
-		this.lastIdleTask = backgroundTask(() => {
-			this.handleIdle(startAt);
-		});
+
+		this.lastIdleTask = backgroundTask(
+			() => {
+				this.handleIdle(startAt);
+			},
+			{
+				// For Timeline idles, we required at least 200ms of non-busy thread
+				delay: 200,
+			},
+		);
 	}
 
 	private handleIdle(startAt: DOMHighResTimeStamp) {
@@ -372,12 +402,34 @@ export class TimelineController
 		};
 
 		this.addEventInternal(idleTimeEvent);
+		this.idleCycleCount++;
+		this.lastIdleTime = idleTimeEvent;
 
+		this.attemptFlushIdleBuffer();
+		this.callOnNextIdleCallbacks();
+	}
+
+	private callOnNextIdleCallbacks() {
+		const buffer = this.idleBuffer;
+		const idleAt = performance.now();
+
+		for (const cb of this.onNextIdleCallbacks) {
+			backgroundTask(() =>
+				cb({
+					idleAt,
+					timelineBuffer: createTimelineFromIdleBuffer(buffer),
+				}),
+			);
+		}
+
+		this.onNextIdleCallbacks.clear();
+	}
+
+	private attemptFlushIdleBuffer() {
 		if (!this.options.buffer) {
-			this.doIdle(idleTimeEvent);
+			this.flushIdleBuffer();
 			return;
 		}
-		this.idleCycleCount++;
 
 		const { eventsThreshold, cyclesThreshold } = this.options.buffer;
 
@@ -385,18 +437,15 @@ export class TimelineController
 		const hasCrossedCycleCountThreshold = this.idleCycleCount > cyclesThreshold;
 
 		if (hasCrossedEventBufferThreshold || hasCrossedCycleCountThreshold) {
-			this.doIdle(idleTimeEvent);
+			this.flushIdleBuffer();
 		}
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-await
-	private async doIdle(idleTimeEvent: IdleTimeEvent) {
+	private flushIdleBuffer() {
 		const buffer = this.idleBuffer;
 		this.clearIdleBuffer();
 
 		const idleAt = performance.now();
-		this.lastIdleTime = idleTimeEvent;
 		this.idleCycleCount = 0; // Reset cycle count
 
 		for (const cb of this.onIdleBufferFlushCallbacks) {

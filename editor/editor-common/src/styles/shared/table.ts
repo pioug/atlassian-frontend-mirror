@@ -164,9 +164,7 @@ const tableSharedStyle = () => css`
 				border-right-width: 0;
 				border-bottom-width: 0;
 
-				padding: ${editorExperiment('table-nested-dnd', true)
-					? `${token('space.100', '8px')} ${token('space.250', '20px')}`
-					: token('space.100', '8px')};
+				padding: ${token('space.100', '8px')};
 				/* https://stackoverflow.com/questions/7517127/borders-not-shown-in-firefox-with-border-collapse-on-table-position-relative-o */
 				${browser.gecko || browser.ie || (browser.mac && browser.chrome)
 					? 'background-clip: padding-box;'

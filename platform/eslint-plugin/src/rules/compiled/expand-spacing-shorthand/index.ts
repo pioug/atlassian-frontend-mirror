@@ -32,9 +32,12 @@ const parseTemplateLiteral = (templateLiteral: TemplateLiteral, context: Rule.Ru
 		if (i < quasis.length) {
 			const cookedQuasi = quasis[i].value.cooked;
 			if (cookedQuasi) {
-				const splitQuasi = cookedQuasi.split(' ').filter((str) => str.trim().length > 0);
-				splitQuasi.forEach((str) => {
-					propertyValues.push(isNaN(Number(str)) ? `'${str}'` : str);
+				const splitQuasis = cookedQuasi.split(' ');
+				splitQuasis.forEach((str) => {
+					str = str.trim().replace("'", '');
+					if (str.length > 0) {
+						propertyValues.push(isNaN(Number(str)) ? `'${str}'` : str);
+					}
 				});
 			}
 		}

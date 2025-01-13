@@ -1,6 +1,7 @@
 // AFP-2532 TODO: Fix automatic suppressions below
 // eslint-disable-next-line @atlassian/tangerine/import/entry-points
-import { colors, gridSize, fontSize } from '@atlaskit/theme';
+import { colors } from '@atlaskit/theme';
+
 import dataUri from './utils/data-uri';
 import evaluateInner from './utils/evaluate-inner';
 
@@ -16,7 +17,7 @@ module.exports = evaluateInner`
     border: 0;
     margin: 0;
     min-width: 0;
-    padding: ${gridSize() * 2}px 0 0 0;
+    padding: 16px 0 0 0;
   }
   .ak-field-group > label,
   .ak-field-group > legend {
@@ -26,7 +27,7 @@ module.exports = evaluateInner`
     font-weight: 600;
     line-height: 1;
     padding: 0;
-    margin-bottom: ${gridSize() / 2}px;
+    margin-bottom: 4px;
   }
   .ak-field-group > legend {
     float: left;
@@ -53,7 +54,7 @@ module.exports = evaluateInner`
     box-sizing: border-box;
     color: ${colors.N800};
     font-family: inherit;
-    font-size: ${fontSize}px;
+    font-size: 14px;
     line-height: 20px;
     max-width: 100%;
     outline: none;
@@ -249,7 +250,7 @@ module.exports = evaluateInner`
     border-radius: ${baseBorderRadius};
     border: 2px solid ${colors.N40};
     box-sizing: border-box;
-    height: ${gridSize() * 5}px;
+    height: 40px;
     padding: 6px 4px; /* special sizes just for color inputs */
     transition: border-color ${baseTransitionDuration} ease-in-out;
   }
@@ -268,7 +269,7 @@ module.exports = evaluateInner`
   }
   .ak-field-select > optgroup[label] {
     color: ${colors.N300};
-    font-size: ${fontSize}px;
+    font-size: 14px;
     font-weight: normal;
     line-height: 1.42857143;
   }
@@ -291,7 +292,7 @@ module.exports = evaluateInner`
   }
   .ak-field-select[multiple] > option {
     box-sizing: border-box;
-    height: ${gridSize() * 3}px;
+    height: 24px;
     line-height: 1.42857143;
     padding: 2px 6px;
   }
@@ -316,7 +317,7 @@ module.exports = evaluateInner`
   }
   .ak-field-checkbox > input[type='checkbox'] {
     left: 0;
-    margin: 0 ${gridSize()}px;
+    margin: 0 8px;
     opacity: 0;
     outline: none;
     position: absolute;

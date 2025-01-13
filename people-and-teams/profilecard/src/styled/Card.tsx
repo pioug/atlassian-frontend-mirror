@@ -7,7 +7,7 @@ import { keyframes } from '@emotion/react';
 import styled from '@emotion/styled';
 
 import { B200, N50A, N60A } from '@atlaskit/theme/colors';
-import { borderRadius, fontSize, gridSize } from '@atlaskit/theme/constants';
+import { borderRadius } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -25,7 +25,7 @@ import {
 export const CardWrapper = styled.div`
 	background-color: ${bgColor};
 	border-radius: ${token('border.radius', '3px')};
-	width: ${gridSize() * 45}px;
+	width: 360px;
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -53,7 +53,7 @@ export const KudosBlobAnimationStyle = styled.div`
 	width: 150px;
 	z-index: -1;
 	position: absolute;
-	top: ${(gridSize() * 4) / fontSize()}em;
+	top: ${32 / 14}em;
 	animation-name: ${kudosButtonAnimationTransformation};
 	animation-iteration-count: 1;
 	animation-duration: 3s;
@@ -149,15 +149,15 @@ export const OverflowActionButtonsWrapper = styled.div`
 export const CardContent = styled.div`
 	display: flex;
 	flex-direction: column;
-	min-height: ${gridSize() * 17}px;
+	min-height: 136px;
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const DetailsGroup = styled.div`
 	display: flex;
 	flex-direction: column;
-	margin-left: ${gridSize() * 14.5}px;
-	width: ${gridSize() * 24.5}px;
+	margin-left: 116px;
+	width: 196px;
 `;
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -219,7 +219,7 @@ export const AppTitleLabel = styled.span`
 export const SpinnerContainer = styled.div`
 	align-items: center;
 	display: flex;
-	height: ${gridSize() * 12}px;
+	height: 96px;
 	justify-content: center;
 	position: relative;
 `;
@@ -242,7 +242,7 @@ export const CardContainer = styled.div`
 		${(props) => (props.isDisabledUser ? headerBgColorDisabledUser : headerBgColor)} 100%
 	);
 	background-repeat: no-repeat;
-	background-size: 100% ${gridSize() * 12}px;
+	background-size: 100% 96px;
 	box-sizing: content-box;
 	padding: ${token('space.300', '24px')};
 	box-shadow: ${(props: CardContainerProps) =>

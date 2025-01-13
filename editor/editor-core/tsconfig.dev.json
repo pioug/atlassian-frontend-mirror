@@ -100,6 +100,9 @@
 			"path": "../editor-plugin-card/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-code-block-advanced/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-content-insertion/tsconfig.app.json"
 		},
 		{

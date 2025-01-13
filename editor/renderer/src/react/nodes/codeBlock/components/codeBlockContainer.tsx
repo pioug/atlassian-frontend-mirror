@@ -9,7 +9,6 @@ import type { CodeBlockButtonContainerProps } from './codeBlockButtonContainer';
 
 import { overflowShadow, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { N20 } from '@atlaskit/theme/colors';
-import { fontSize } from '@atlaskit/theme/constants';
 import { CodeBlockSharedCssClassName } from '@atlaskit/editor-common/styles';
 
 import { token } from '@atlaskit/tokens';
@@ -33,7 +32,7 @@ const codeBlockStyleOverrides = css`
 	}
 
 	${CodeBlockSharedCssClassName.DS_CODEBLOCK} {
-		font-size: ${relativeFontSizeToBase16(fontSize())};
+		font-size: ${relativeFontSizeToBase16(14)};
 		line-height: 1.5rem;
 		background-image: ${overflowShadow({
 			leftCoverWidth: token('space.300', '24px'),

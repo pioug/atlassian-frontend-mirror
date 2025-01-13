@@ -4,6 +4,7 @@ import {
 	type PerformanceFirstPaintEvent,
 	TimelineController,
 	type TimelineEvent,
+	OnIdleBufferFlushCallback,
 } from './timeline';
 
 const addFakeEvents = (timeline: TimelineController, amount: number) => {
@@ -676,5 +677,129 @@ describe('TimelineController serialise Method', () => {
 		// Verify that internal state hasn't changed
 		const eventsAfterSerialization = timeline.getEvents();
 		expect(eventsAfterSerialization).toEqual(initialEvents);
+	});
+});
+
+describe('TimelineController - onNextIdle', () => {
+	let timeline: TimelineController;
+	let mockCallback: jest.Mock<
+		ReturnType<OnIdleBufferFlushCallback>,
+		Parameters<OnIdleBufferFlushCallback>
+	>;
+
+	beforeEach(() => {
+		timeline = new TimelineController();
+		mockCallback = jest.fn();
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.clearAllMocks();
+		jest.useRealTimers();
+	});
+
+	it('should register a callback for the next idle event', () => {
+		timeline.onNextIdle(mockCallback);
+		expect(timeline.onNextIdleCallbacks.size).toBe(1);
+	});
+
+	it('should call the registered callback on the next idle event', () => {
+		timeline.onNextIdle(mockCallback);
+
+		// Simulate an event
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'section',
+				elementName: 'element',
+				rect: new DOMRect(0, 0, 100, 100),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		jest.runAllTimers();
+
+		expect(mockCallback).toHaveBeenCalledTimes(1);
+		expect(mockCallback).toHaveBeenCalledWith(
+			expect.objectContaining({
+				idleAt: expect.any(Number),
+				timelineBuffer: expect.any(Object),
+			}),
+		);
+	});
+
+	it('should remove the callback after it has been called', () => {
+		timeline.onNextIdle(mockCallback);
+
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'section',
+				elementName: 'element',
+				rect: new DOMRect(0, 0, 100, 100),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		jest.runAllTimers();
+
+		expect(timeline.onNextIdleCallbacks.size).toBe(0);
+	});
+
+	it('should handle multiple callbacks', () => {
+		const mockCallback2 = jest.fn();
+		timeline.onNextIdle(mockCallback);
+		timeline.onNextIdle(mockCallback2);
+
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'section',
+				elementName: 'element',
+				rect: new DOMRect(0, 0, 100, 100),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		jest.runAllTimers();
+
+		expect(mockCallback).toHaveBeenCalledTimes(1);
+		expect(mockCallback2).toHaveBeenCalledTimes(1);
+		expect(timeline.onNextIdleCallbacks.size).toBe(0);
+	});
+
+	it('should return an unsubscribe function', () => {
+		const unsubscribe = timeline.onNextIdle(mockCallback);
+		expect(typeof unsubscribe).toBe('function');
+
+		unsubscribe();
+		expect(timeline.onNextIdleCallbacks.size).toBe(0);
+	});
+
+	it('should not call the callback if unsubscribed before idle', () => {
+		const unsubscribe = timeline.onNextIdle(mockCallback);
+		unsubscribe();
+
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'section',
+				elementName: 'element',
+				rect: new DOMRect(0, 0, 100, 100),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		jest.runAllTimers();
+
+		expect(mockCallback).not.toHaveBeenCalled();
 	});
 });

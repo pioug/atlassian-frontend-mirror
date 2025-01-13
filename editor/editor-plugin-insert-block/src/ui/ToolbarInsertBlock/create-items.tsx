@@ -173,7 +173,7 @@ const createInsertBlockItems = (
 			mention({
 				content: formatMessage(messages.mention),
 				tooltipDescription: formatMessage(messages.mentionDescription),
-				disabled: !isTypeAheadAllowed || !!mentionsDisabled || isOffline,
+				disabled: !isTypeAheadAllowed || !!mentionsDisabled,
 				'aria-haspopup': 'listbox',
 			}),
 		);

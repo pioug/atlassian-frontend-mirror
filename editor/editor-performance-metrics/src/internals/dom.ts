@@ -30,22 +30,8 @@ export function searchAncestors(
 }
 
 const UserEventsCategoryMap: Map<Exclude<UserEventCategory, 'other'>, string[]> = new Map([
-	[
-		'mouse',
-		[
-			'click',
-			'dblclick',
-			'mousedown',
-			'mouseup',
-			'mouseenter',
-			'mouseleave',
-			'mousemove',
-			'mouseover',
-			'mouseout',
-			'contextmenu',
-		],
-	],
-
+	['mouse-movement', ['mouseenter', 'mouseleave', 'mousemove', 'mouseover', 'mouseout']],
+	['mouse-action', ['click', 'dblclick', 'mousedown', 'mouseup', 'contextmenu']],
 	['keyboard', ['keydown', 'keypress', 'keyup', 'input', 'beforeinput']],
 	['form', ['focus', 'blur', 'change', 'input', 'submit', 'reset', 'select']],
 	['clipboard', ['copy', 'cut', 'paste']],

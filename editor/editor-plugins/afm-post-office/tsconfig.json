@@ -75,6 +75,9 @@
 			"path": "../../editor-plugin-code-block/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-code-block-advanced/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-collab-edit/afm-post-office/tsconfig.json"
 		},
 		{
@@ -196,6 +199,9 @@
 		},
 		{
 			"path": "../../editor-plugin-mentions/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-metrics/afm-post-office/tsconfig.json"
 		},
 		{
 			"path": "../../editor-plugin-panel/afm-post-office/tsconfig.json"

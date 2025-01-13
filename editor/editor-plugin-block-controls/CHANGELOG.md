@@ -1,5 +1,22 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.19.2
+
+### Patch Changes
+
+- [#102237](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102237)
+  [`ff4d14b55fec9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff4d14b55fec9) -
+  [ED-26244] clean up platform_editor_element_drag_and_drop_ed_24885
+
+## 2.19.1
+
+### Patch Changes
+
+- [#102045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102045)
+  [`44f96aff22dd9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44f96aff22dd9) -
+  [ED-26179] clean up platform_editor_elements_dnd_nested_table
+- Updated dependencies
+
 ## 2.19.0
 
 ### Minor Changes

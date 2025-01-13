@@ -1,5 +1,23 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.0.16
+
+### Patch Changes
+
+- [#102083](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102083)
+  [`0b462924a7c7a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0b462924a7c7a) -
+  [ux] ED-26221 Reverting changes to nested table paste behaviour for panels in tables as it caused
+  some unexpected issues with cell copy/paste
+
+## 2.0.15
+
+### Patch Changes
+
+- [#102045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102045)
+  [`44f96aff22dd9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/44f96aff22dd9) -
+  [ED-26179] clean up platform_editor_elements_dnd_nested_table
+- Updated dependencies
+
 ## 2.0.14
 
 ### Patch Changes

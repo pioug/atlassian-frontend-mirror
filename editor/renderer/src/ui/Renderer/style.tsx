@@ -4,7 +4,6 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { fontSize } from '@atlaskit/theme/constants';
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-namespace
 import * as colors from '@atlaskit/theme/colors';
@@ -287,9 +286,7 @@ const tableSortableColumnStyle = ({
 			.${RendererCssClassName.SORTABLE_COLUMN} {
 				width: 100%;
 				height: 100%;
-				padding: ${editorExperiment('table-nested-dnd', true)
-					? `${tableCellPadding}px ${token('space.250', '20px')}`
-					: `${tableCellPadding}px`};
+				padding: ${tableCellPadding}px;
 				border-width: 1.5px;
 				border-style: solid;
 				border-color: transparent;
@@ -651,7 +648,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 
 		& .UnknownBlock {
 			font-family: ${token('font.family.body')};
-			font-size: ${relativeFontSizeToBase16(fontSize())};
+			font-size: ${relativeFontSizeToBase16(14)};
 			font-weight: ${token('font.weight.regular')};
 			white-space: pre-wrap;
 			word-wrap: break-word;
@@ -799,7 +796,7 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
 					width: ${akEditorTableNumberColumnWidth}px;
 					text-align: center;
 					color: ${token('color.text.subtlest', colors.N200)};
-					font-size: ${relativeFontSizeToBase16(fontSize())};
+					font-size: ${relativeFontSizeToBase16(14)};
 				}
 
 				.fixed .${RendererCssClassName.NUMBER_COLUMN} {

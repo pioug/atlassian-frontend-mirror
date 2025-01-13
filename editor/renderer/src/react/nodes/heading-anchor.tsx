@@ -50,11 +50,10 @@ type Props = {
 	onCopyText: () => Promise<void>;
 	enableNestedHeaderLinks?: boolean;
 	level: number;
+	hideFromScreenReader?: boolean;
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type HeadingAnchorProps = Props & React.PropsWithChildren<any> & WrappedComponentProps;
+type HeadingAnchorProps = Props & React.PropsWithChildren<unknown> & WrappedComponentProps;
 type HeadingAnchorState = { tooltipMessage?: string; isClicked: boolean };
 
 // Ignored via go/ees005
@@ -95,12 +94,16 @@ class HeadingAnchor extends React.PureComponent<HeadingAnchorProps, HeadingAncho
 	};
 
 	renderAnchorButton = () => {
+		const { hideFromScreenReader = false } = this.props;
 		return (
 			<button
+				data-testid="anchor-button"
 				css={copyAnchorButtonStyles}
 				onMouseLeave={this.resetMessage}
 				onClick={this.copyToClipboard}
-				aria-label={this.state.tooltipMessage}
+				aria-hidden={hideFromScreenReader}
+				tabIndex={hideFromScreenReader ? undefined : -1}
+				aria-label={hideFromScreenReader ? undefined : this.state.tooltipMessage}
 				type="button"
 			>
 				<LinkIcon

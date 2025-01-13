@@ -28,11 +28,14 @@ export const isTaskAborted = (
 ): maybeTaskAbortedResult is TaskAbortedSymbol => {
 	return maybeTaskAbortedResult === TaskAborted;
 };
-const taskYield = async () => {
+
+// See https://developer.mozilla.org/en-US/docs/Web/API/Prioritized_Task_Scheduling_API
+export const taskYield = async () => {
+	// This is using globalThis to allow the yield task to be used outside of a browser env
 	if (
-		'scheduler' in window &&
+		'scheduler' in globalThis &&
 		// @ts-ignore
-		'yield' in window.scheduler
+		'yield' in globalThis.scheduler
 	) {
 		// @ts-ignore
 		await scheduler.yield();
@@ -44,16 +47,28 @@ const taskYield = async () => {
 		resolve = a;
 	});
 
-	const later = window.requestIdleCallback || window.requestAnimationFrame;
-
-	later(() => {
-		resolve();
-	});
+	if ('requestIdleCallback' in globalThis || 'requestAnimationFrame' in globalThis) {
+		const later = globalThis.requestIdleCallback || globalThis.requestAnimationFrame;
+		later(() => {
+			resolve();
+		});
+	} else {
+		setTimeout(resolve, 0);
+	}
 
 	await p;
 };
 
-export const backgroundTask = <T>(originalTask: BackgroundTask<T>): AbortableTask<T> => {
+const defaultOptions = {
+	delay: 60,
+};
+export const backgroundTask = <T>(
+	originalTask: BackgroundTask<T>,
+	givenOptions?: {
+		delay: number;
+	},
+): AbortableTask<T> => {
+	const options = Object.assign(defaultOptions, givenOptions || {});
 	const taskRef = new WeakRef(originalTask);
 	let resolvePromiseResultTask = (arg: T | TaskAbortedSymbol) => {};
 	let rejectPromiseResultTask = (e: unknown) => {};
@@ -84,7 +99,7 @@ export const backgroundTask = <T>(originalTask: BackgroundTask<T>): AbortableTas
 		(window.scheduler as unknown as Scheduler)
 			.postTask(executeTask, {
 				priority: 'background',
-				delay: 60,
+				delay: options.delay,
 				signal: controller.signal,
 			})
 			.catch((e) => {

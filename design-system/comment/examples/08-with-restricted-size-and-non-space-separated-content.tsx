@@ -15,5 +15,23 @@ export default () => (
 			avatar={<img src={avatarImg} alt="" height="40" width="40" />}
 			content={<p>{getNonSpacedSampleText()}</p>}
 		/>
+		<Comment
+			author={<CommentAuthor>Bruce Doe</CommentAuthor>}
+			avatar={<img src={avatarImg} alt="" height="40" width="40" />}
+			content={
+				<>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique nam, labore,
+						nesciunt voluptates voluptas aliquam suscipit quaerat autem facere commodi impedit! Hic,
+						labore neque ea perspiciatis aliquam voluptas repellat laboriosam!
+					</p>
+					<p>
+						Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique nam, labore,
+						nesciunt voluptates voluptas aliquam suscipit quaerat autem facere commodi impedit! Hic,
+						labore neque ea perspiciatis aliquam voluptas repellat laboriosam!
+					</p>
+				</>
+			}
+		/>
 	</div>
 );

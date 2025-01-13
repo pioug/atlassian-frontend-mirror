@@ -97,9 +97,9 @@ const extendedHoverZoneNested = () =>
 					position: 'absolute',
 					top: 0,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-					left: `-${editorExperiment('table-nested-dnd', true) ? DRAG_HANDLE_MAX_WIDTH_PLUS_GAP : 0}px`,
+					left: 0,
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-					width: `${editorExperiment('table-nested-dnd', true) ? DRAG_HANDLE_MAX_WIDTH_PLUS_GAP : 0}px`,
+					width: 0,
 					height: '100%',
 					cursor: 'default',
 					zIndex: 1,

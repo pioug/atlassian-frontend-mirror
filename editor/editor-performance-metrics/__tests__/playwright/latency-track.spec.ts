@@ -30,7 +30,7 @@ test.describe('Editor Metrics - Latency: mouse events', () => {
 			await waitForTicks(3);
 
 			const timeline = await getTimeline();
-			const mouseEvents = await (timeline?.getEventsPerType('user-event:mouse') || [])
+			const mouseEvents = await (timeline?.getEventsPerType('user-event:mouse-action') || [])
 				// Sometimes, when there is a delay between the mousedown and mouseup
 				// the browser may record this a "mousedown" event as well
 				// there is no good way to tell playwright to avoid this delay
@@ -83,7 +83,7 @@ test.describe('Editor Metrics - Latency: mouse events', () => {
 			await waitForTicks(12);
 
 			const timeline = await getTimeline();
-			const mouseClickEvents = await (timeline?.getEventsPerType('user-event:mouse') || [])
+			const mouseClickEvents = await (timeline?.getEventsPerType('user-event:mouse-action') || [])
 				// Sometimes, when there is a delay between the mousedown and mouseup
 				// the browser may record this a "mousedown" event as well
 				// there is no good way to tell playwright to avoid this delay

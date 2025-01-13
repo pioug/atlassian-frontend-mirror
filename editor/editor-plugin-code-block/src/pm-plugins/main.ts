@@ -154,12 +154,15 @@ export const createPlugin = ({
 
 					if (codeBlockNodes) {
 						updateCodeBlockWrappedStateNodeKeys(codeBlockNodes, _oldState);
-
-						updatedDecorationSet = updateCodeBlockDecorations(
-							tr,
-							codeBlockNodes,
-							updatedDecorationSet,
-						);
+						// Disabled when using advanced code block for performance reasons
+						// @ts-expect-error Code block advanced cannot depend on code block
+						if (api?.codeBlockAdvanced === undefined) {
+							updatedDecorationSet = updateCodeBlockDecorations(
+								tr,
+								codeBlockNodes,
+								updatedDecorationSet,
+							);
+						}
 					}
 
 					const newPluginState: CodeBlockState = {

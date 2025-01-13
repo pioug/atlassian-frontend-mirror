@@ -39,4 +39,27 @@ describe('Heading Anchor', () => {
 		await userEvent.hover(copiedButton);
 		await waitFor(() => expect(screen.getByRole('tooltip', { name: 'Copied!' })).toBeVisible());
 	});
+
+	test('when hideFromScreenReader is true, it should hide the button from screen readers, and be tabbable', () => {
+		act(() => {
+			renderWithIntl(
+				<HeadingAnchor level={1} hideFromScreenReader={true} onCopyText={jest.fn()} />,
+			);
+		});
+		const anchorButton = screen.getByTestId('anchor-button');
+		expect(anchorButton).toHaveAttribute('aria-hidden', 'true');
+		expect(anchorButton).not.toHaveAttribute('tabindex');
+		expect(anchorButton).not.toHaveAttribute('aria-label');
+	});
+
+	it('when hideFromScreenReader is not provided, it should be accessible, have the correct aria-label, but not be tabbable', () => {
+		act(() => {
+			renderWithIntl(<HeadingAnchor level={1} onCopyText={jest.fn()} />);
+		});
+
+		const anchorButton = screen.getByTestId('anchor-button');
+		expect(anchorButton).toHaveAttribute('aria-hidden', 'false');
+		expect(anchorButton).toHaveAttribute('tabindex', '-1');
+		expect(anchorButton).toHaveAttribute('aria-label', 'Copy link to heading');
+	});
 });

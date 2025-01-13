@@ -355,6 +355,13 @@ const invalidTestCases = (property: string) => {
 				${property}: \`\${token('space.100')} \${token('space.200')}
 					\${token('space.300')} \${token('space.400')}\`,
 			});
+			const styles2 = css({
+				paddingBottom: token('space.050', '4px'),
+				'&& > span': {
+					padding: \`\${token('space.100', '8px')} \${token('space.150', '12px')} 7px
+					\${token('space.150', '12px')}\`,
+				},
+			});
 			`,
 			output: outdent`
 			import {css} from '@compiled/react';
@@ -364,8 +371,17 @@ const invalidTestCases = (property: string) => {
 				${property}Bottom: token('space.300'),
 				${property}Left: token('space.400'),
 			});
+			const styles2 = css({
+				paddingBottom: token('space.050', '4px'),
+				'&& > span': {
+					paddingTop: token('space.100', '8px'),
+				paddingRight: token('space.150', '12px'),
+				paddingBottom: '7px',
+				paddingLeft: token('space.150', '12px'),
+				},
+			});
 			`,
-			errors: [{ messageId: 'expandSpacingShorthand' }],
+			errors: Array.from(Array(2), () => ({ messageId: 'expandSpacingShorthand' })),
 		},
 		// TODO (AFB-1022): Resolve this failing test
 		// {

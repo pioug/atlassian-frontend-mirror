@@ -92,6 +92,9 @@
 			"path": "../editor-plugin-code-block/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-code-block-advanced/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-collab-edit/tsconfig.app.json"
 		},
 		{
@@ -213,6 +216,9 @@
 		},
 		{
 			"path": "../editor-plugin-mentions/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-metrics/tsconfig.app.json"
 		},
 		{
 			"path": "../editor-plugin-panel/tsconfig.app.json"

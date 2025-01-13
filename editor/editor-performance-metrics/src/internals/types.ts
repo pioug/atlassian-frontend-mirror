@@ -16,7 +16,8 @@ export type ViewportDimension = {
 };
 
 export type UserEventCategory =
-	| 'mouse'
+	| 'mouse-movement'
+	| 'mouse-action'
 	| 'keyboard'
 	| 'form'
 	| 'clipboard'

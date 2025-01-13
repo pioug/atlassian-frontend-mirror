@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-find-replace
 
+## 1.7.23
+
+### Patch Changes
+
+- [#102547](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102547)
+  [`b76cc60ba170b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b76cc60ba170b) -
+  Internal changes to remove deprecated typography imports.
+
 ## 1.7.22
 
 ### Patch Changes

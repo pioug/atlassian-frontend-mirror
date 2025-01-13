@@ -27,7 +27,7 @@ import {
 } from '@atlaskit/editor-common/keymaps';
 import { blockControlsMessages } from '@atlaskit/editor-common/messages';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
-import { NodeSelection, TextSelection } from '@atlaskit/editor-prosemirror/state';
+import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -188,33 +188,7 @@ export const DragHandle = ({
 				return undefined;
 			}
 		}
-
-		if (fg('platform_editor_element_drag_and_drop_ed_24885')) {
-			return undefined;
-		}
-
-		api?.core?.actions.execute(({ tr }) => {
-			const startPos = getPos();
-			if (startPos === undefined) {
-				return tr;
-			}
-
-			const node = tr.doc.nodeAt(startPos);
-			if (!node) {
-				return tr;
-			}
-			let selection;
-			if (isLayoutColumn && editorExperiment('advanced_layouts', true)) {
-				selection = new NodeSelection(tr.doc.resolve(startPos));
-			} else {
-				const $startPos = tr.doc.resolve(startPos + node.nodeSize);
-				selection = new TextSelection($startPos);
-			}
-			tr.setSelection(selection);
-
-			return tr;
-		});
-	}, [api?.core?.actions, getPos, isLayoutColumn]);
+	}, [isLayoutColumn]);
 
 	const handleKeyDown = useCallback(
 		(e: KeyboardEvent<HTMLButtonElement>) => {

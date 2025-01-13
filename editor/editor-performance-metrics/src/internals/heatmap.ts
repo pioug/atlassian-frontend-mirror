@@ -1,3 +1,4 @@
+import { taskYield } from './backgroundTasks';
 import type { Timeline, TimelineEvent } from './timeline';
 import type { HeatmapEntrySource } from './types';
 
@@ -343,18 +344,20 @@ export function createHeatmapWithAspectRatio({
 	};
 }
 
-export function createHeatmapFromEvents(
+export async function createHeatmapFromEvents(
 	events: ReadonlyArray<TimelineEvent>,
 	initialHeatmap: Heatmap,
-) {
+): Promise<Heatmap> {
 	const nextHeatmap = {
 		...initialHeatmap,
 		map: cloneArray(initialHeatmap.map),
 	};
 
-	events.forEach(({ type, startTime, data }, index) => {
+	for (let i = 0; i < events.length; i++) {
+		const { type, startTime, data } = events[i];
+
 		if (type !== 'element:changed') {
-			return;
+			continue;
 		}
 
 		const { elementName, wrapperSectionName, source } = data;
@@ -386,7 +389,14 @@ export function createHeatmapFromEvents(
 			transformSource: source,
 			onEmptyRow: ({ entry, row }) => {},
 		});
-	});
+
+		// Every 10 events processed
+		// we give the browser the power
+		// to process any other high priority task
+		if (i % 10 === 0) {
+			await taskYield();
+		}
+	}
 
 	return nextHeatmap;
 }

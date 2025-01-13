@@ -409,10 +409,10 @@ export const createTypeAheadConfig = ({
 			if (handleMentionsChanged) {
 				if (taskItemId) {
 					handleMentionsChanged([
-						{ type: 'added', localId: mentionLocalId, id: id, taskLocalId: taskItemId },
+						{ type: 'added', localId: mentionLocalId, id, taskLocalId: taskItemId },
 					]);
 				} else {
-					handleMentionsChanged([{ type: 'added', localId: mentionLocalId, id: id }]);
+					handleMentionsChanged([{ type: 'added', localId: mentionLocalId, id }]);
 				}
 			}
 

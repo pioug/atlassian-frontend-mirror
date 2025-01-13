@@ -48,9 +48,9 @@ describe('EditorPerformanceMetrics', () => {
 
 			const mockEvents: UserEvent[] = [
 				{
-					type: 'user-event:mouse',
+					type: 'user-event:mouse-movement',
 					startTime: 0,
-					data: { category: 'mouse', eventName: 'click', duration: 1800, elementName: '' },
+					data: { category: 'mouse-movement', eventName: 'click', duration: 1800, elementName: '' },
 				},
 				{
 					type: 'user-event:keyboard',
@@ -67,11 +67,11 @@ describe('EditorPerformanceMetrics', () => {
 
 			const result = await metrics.calculateLatencyPercents();
 
-			expect(mockGetEventsPerType).toHaveBeenCalledTimes(9); // One for each category
-			expect(getLatencyPercentiles).toHaveBeenCalledTimes(9);
+			expect(mockGetEventsPerType).toHaveBeenCalledTimes(10); // One for each category
+			expect(getLatencyPercentiles).toHaveBeenCalledTimes(10);
 
 			expect(result).not.toBeNull();
-			expect(result!['mouse']).toEqual(mockPercentiles);
+			expect(result!['mouse-movement']).toEqual(mockPercentiles);
 			expect(result!['keyboard']).toEqual(mockPercentiles);
 			expect(result!['form']).toEqual(mockPercentiles);
 			expect(result!['clipboard']).toEqual(mockPercentiles);

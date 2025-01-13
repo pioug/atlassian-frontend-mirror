@@ -439,20 +439,6 @@ export function createPlugin(
 					slice.openStart = 1;
 				}
 
-				// handle paste of nested tables to ensure nesting limits are respected
-				if (
-					handleNestedTablePasteWithAnalytics(
-						editorAnalyticsAPI,
-						fg('platform_editor_use_nested_table_pm_nodes'),
-					)(
-						view,
-						event,
-						slice,
-					)(state, dispatch)
-				) {
-					return true;
-				}
-
 				if (
 					handlePasteIntoTaskAndDecisionWithAnalytics(
 						view,
@@ -591,6 +577,20 @@ export function createPlugin(
 						sendPasteAnalyticsEvent(editorAnalyticsAPI)(view, event, slice, {
 							type: PasteTypes.richText,
 						});
+						return true;
+					}
+
+					// handle paste of nested tables to ensure nesting limits are respected
+					if (
+						handleNestedTablePasteWithAnalytics(
+							editorAnalyticsAPI,
+							fg('platform_editor_use_nested_table_pm_nodes'),
+						)(
+							view,
+							event,
+							slice,
+						)(state, dispatch)
+					) {
 						return true;
 					}
 

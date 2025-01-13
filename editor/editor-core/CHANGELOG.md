@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 203.11.2
+
+### Patch Changes
+
+- [#100173](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100173)
+  [`ab687f83ea47e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab687f83ea47e) -
+  ED-26142 Set up metrics plugin for measuring efficiency and effectiveness in editor
+- Updated dependencies
+
+## 203.11.1
+
+### Patch Changes
+
+- [#100411](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100411)
+  [`14499ab145534`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14499ab145534) -
+  [ux] Introduces advanced code block as per:
+  https://hello.atlassian.net/wiki/spaces/EDITOR/pages/4632293323/Editor+RFC+063+Advanced+code+blocks.
+  This can be added to an existing editor preset to enrich the code block experience with syntax
+  highlighting and can be extended for other features via CodeMirror extensions (ie. autocompletion,
+  code folding etc.).
+- Updated dependencies
+
 ## 203.11.0
 
 ### Minor Changes

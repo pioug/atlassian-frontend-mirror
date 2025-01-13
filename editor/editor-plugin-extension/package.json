@@ -59,7 +59,7 @@
 		"@atlaskit/textarea": "^5.7.0",
 		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.33.0",
+		"@atlaskit/tmp-editor-statsig": "^2.34.0",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/tokens": "^3.0.0",
 		"@atlaskit/tooltip": "^19.0.0",

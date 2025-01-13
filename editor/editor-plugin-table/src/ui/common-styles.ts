@@ -25,7 +25,6 @@ import {
 } from '@atlaskit/editor-shared-styles';
 import { scrollbarStyles } from '@atlaskit/editor-shared-styles/scrollbar';
 import { N0, N40A, R500 } from '@atlaskit/theme/colors';
-import { fontSize } from '@atlaskit/theme/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -850,7 +849,7 @@ export const baseTableStyles = (props: { featureFlags?: FeatureFlags }) => css`
 		padding-bottom: 2px;
 		padding: 10px 2px;
 		text-align: center;
-		font-size: ${relativeFontSizeToBase16(fontSize())};
+		font-size: ${relativeFontSizeToBase16(14)};
 		background-color: ${tableHeaderCellBackgroundColor};
 		color: ${tableTextColor};
 		border-color: ${tableBorderColor};

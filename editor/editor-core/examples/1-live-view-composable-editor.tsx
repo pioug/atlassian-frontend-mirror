@@ -6,6 +6,7 @@ import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
 import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
 import { usePreset } from '@atlaskit/editor-core/use-preset';
+import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-card-client';
@@ -119,7 +120,8 @@ function ComposableEditorPage() {
 	const { preset, editorApi } = usePreset(() => {
 		return universalPreset
 			.add([editorViewModePlugin, { mode: isViewMode ? 'view' : 'edit' }])
-			.add(selectionMarkerPlugin);
+			.add(selectionMarkerPlugin)
+			.add(codeBlockAdvancedPlugin);
 		// The only things that cause a re-creation of the preset is something in the
 		// universal preset to be consistent with current behaviour (ie. this could
 		// be a page width change via the `appearance` prop).

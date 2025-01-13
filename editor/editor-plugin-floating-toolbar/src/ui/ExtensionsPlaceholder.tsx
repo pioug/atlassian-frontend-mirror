@@ -11,6 +11,7 @@ import type {
 	ExtensionToolbarButton,
 } from '@atlaskit/editor-common/extensions';
 import { getContextualToolbarItemsFromModule } from '@atlaskit/editor-common/extensions';
+import { isSelectionTableNestedInTable } from '@atlaskit/editor-common/nesting';
 import {
 	FloatingToolbarButton as Button,
 	FloatingToolbarSeparator as Separator,
@@ -19,6 +20,7 @@ import { nodeToJSON } from '@atlaskit/editor-common/utils';
 import type { ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 interface Props {
 	node: PMNode;
@@ -154,9 +156,19 @@ export const ExtensionsPlaceholder = (props: Props) => {
 	if (separator && ['start', 'both'].includes(separator)) {
 		children.push(<Separator />);
 	}
+
+	const isNestedTable =
+		fg('platform_editor_use_nested_table_pm_nodes') &&
+		isSelectionTableNestedInTable(editorView.state);
+
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	extensionItems.forEach((item: any, index: number) => {
+		// disable the referentiality and charts extensions for nested tables
+		if (isNestedTable && ['referentiality:connections', 'chart:insert-chart'].includes(item.key)) {
+			item.disabled = true;
+		}
+
 		children.push(
 			<ExtensionButton
 				node={node}

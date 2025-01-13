@@ -21,10 +21,7 @@ const IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT = ['listItem', 'taskList', 'decisi
 
 export const shouldDescendIntoNode = (node: PMNode) => {
 	// Optimisation to avoid drawing node decorations for empty table cells
-	if (
-		['tableCell', 'tableHeader'].includes(node.type.name) &&
-		!editorExperiment('table-nested-dnd', true)
-	) {
+	if (['tableCell', 'tableHeader'].includes(node.type.name)) {
 		if (node.childCount === 1 && node.firstChild?.type.name === 'paragraph') {
 			return false;
 		}

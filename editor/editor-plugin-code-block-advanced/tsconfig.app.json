@@ -1,0 +1,53 @@
+{
+	"extends": "../../../tsconfig.base.json",
+	"include": ["./src/**/*.ts", "./src/**/*.tsx"],
+	"exclude": [
+		"**/docs/**/*",
+		"**/__tests__/**/*",
+		"**/vr-tests/**/*",
+		"**/__perf__/**/*",
+		"**/*.test.*",
+		"**/test.*",
+		"**/test-*",
+		"**/examples.ts",
+		"**/examples.tsx",
+		"**/examples/*.ts",
+		"**/examples/*.tsx",
+		"**/examples/**/*.ts",
+		"**/examples/**/*.tsx",
+		"**/storybook/**/*",
+		"**/constellation/**/*",
+		".storybook/*",
+		"./__fixtures__/**/*",
+		"./__generated__/**/*",
+		"./mocks/**/*",
+		"./__mocks__/**/*",
+		"**/mock.*",
+		"**/codemods/**/*.ts",
+		"**/codemods/**/*.tsx"
+	],
+	"compilerOptions": {
+		"composite": true,
+		"outDir": "../../../tsDist/@atlaskit__editor-plugin-code-block-advanced/app"
+	},
+	"references": [
+		{
+			"path": "../../design-system/code/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-common/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-code-block/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-editor-disabled/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-selection/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/tokens/tsconfig.app.json"
+		}
+	]
+}

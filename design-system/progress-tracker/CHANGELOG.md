@@ -1,5 +1,13 @@
 # @atlaskit/progress-tracker
 
+## 9.0.3
+
+### Patch Changes
+
+- [#102501](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102501)
+  [`02cb9c9836baf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/02cb9c9836baf) -
+  Internal change only. Cleaning up orphaned code.
+
 ## 9.0.2
 
 ### Patch Changes

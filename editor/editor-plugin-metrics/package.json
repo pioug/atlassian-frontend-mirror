@@ -1,0 +1,78 @@
+{
+	"name": "@atlaskit/editor-plugin-metrics",
+	"version": "1.1.0",
+	"description": "Metrics plugin for @atlaskit/editor-core",
+	"author": "Atlassian Pty Ltd",
+	"license": "Apache-2.0",
+	"publishConfig": {
+		"registry": "https://registry.npmjs.org/"
+	},
+	"atlassian": {
+		"team": "Editor: Jenga",
+		"singleton": true,
+		"releaseModel": "continuous",
+		"runReact18": true
+	},
+	"repository": "https://bitbucket.org/atlassian/atlassian-frontend",
+	"main": "dist/cjs/index.js",
+	"module": "dist/esm/index.js",
+	"module:es2019": "dist/es2019/index.js",
+	"types": "dist/types/index.d.ts",
+	"sideEffects": false,
+	"atlaskit:src": "src/index.ts",
+	"af:exports": {
+		".": "./src/index.ts"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	},
+	"dependencies": {
+		"@atlaskit/adf-schema": "^46.1.0",
+		"@atlaskit/editor-common": "^99.1.1",
+		"@atlaskit/editor-prosemirror": "6.2.1",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
+		"@babel/runtime": "^7.0.0"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
+	},
+	"devDependencies": {
+		"@testing-library/react": "^12.1.5",
+		"react-dom": "^16.8.0",
+		"typescript": "~5.4.2"
+	},
+	"techstack": {
+		"@atlassian/frontend": {
+			"import-structure": [
+				"atlassian-conventions"
+			],
+			"circular-dependencies": [
+				"file-and-folder-level"
+			],
+			"code-structure": [
+				"editor-plugin"
+			]
+		},
+		"@repo/internal": {
+			"dom-events": "use-bind-event-listener",
+			"analytics": [
+				"analytics-next"
+			],
+			"design-tokens": [
+				"color"
+			],
+			"theming": [
+				"react-context"
+			],
+			"ui-components": [
+				"lite-mode"
+			],
+			"deprecation": [
+				"no-deprecated-imports"
+			],
+			"styling": [
+				"static"
+			]
+		}
+	}
+}

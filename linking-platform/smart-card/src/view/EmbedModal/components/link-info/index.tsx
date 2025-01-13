@@ -4,8 +4,7 @@
  */
 import React, { useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
@@ -17,14 +16,85 @@ import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut'
 import DownloadIconLegacy from '@atlaskit/icon/glyph/download';
 import VidFullScreenOffIcon from '@atlaskit/icon/glyph/vid-full-screen-off';
 import { useModal } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../messages';
 import { Icon } from '../../../common/Icon';
 import { MAX_MODAL_SIZE } from '../../constants';
 
+import LinkInfoOld from './indexOld';
 import LinkInfoButton from './link-info-button';
-import { actionCss, containerStyles, iconCss, titleCss } from './styled';
 import { type LinkInfoProps } from './types';
+
+const containerStyles = css({
+	alignItems: 'center',
+	display: 'flex',
+	gap: token('space.100', '8px'),
+	justifyContent: 'space-between',
+	// AK ModalBody has 2px padding top and bottom.
+	// Using 14px here to create 16px gap between
+	// link info and iframe
+	paddingTop: token('space.300', '24px'),
+	paddingRight: token('space.300', '24px'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingBottom: '14px',
+	paddingLeft: token('space.300', '24px'),
+});
+
+const iconSize = '24px';
+
+// EDM-7328: CSS Specificity
+// An embed modal icon css for img, span, svg has specificity weight of 0-1-1.
+// Specify flex ui icon selector to increase specificity weight to 0-2-1.
+const iconCss = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+	'&, [data-smart-element-icon] img, [data-smart-element-icon] span, [data-smart-element-icon] svg, img, span, svg':
+		{
+			height: iconSize,
+			minHeight: iconSize,
+			maxHeight: iconSize,
+			width: iconSize,
+			minWidth: iconSize,
+			maxWidth: iconSize,
+		},
+});
+
+const height = '20px';
+
+const titleCss = css({
+	flex: '1 1 auto',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	h3: {
+		flex: '1 1 auto',
+		font: token('font.heading.small'),
+		fontWeight: token('font.weight.regular'),
+		display: '-webkit-box',
+		marginBottom: 0,
+		overflow: 'hidden',
+		textOverflow: 'ellipsis',
+		wordBreak: 'break-word',
+		WebkitLineClamp: 1,
+		WebkitBoxOrient: 'vertical',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: height,
+		},
+	},
+});
+
+const actionCss = css({
+	display: 'flex',
+	flex: '0 0 auto',
+	gap: token('space.050', '4px'),
+	'@media only screen and (max-width: 980px)': {
+		// Hide resize button if the screen is smaller than the min width
+		// or too small to have enough impact to matter.
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'.smart-link-resize-button': {
+			display: 'none',
+		},
+	},
+});
 
 const LinkInfo = ({
 	icon,
@@ -154,4 +224,12 @@ const LinkInfo = ({
 	);
 };
 
-export default LinkInfo;
+const Exported = (props: LinkInfoProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <LinkInfo {...props} />;
+	} else {
+		return <LinkInfoOld {...props} />;
+	}
+};
+
+export default Exported;

@@ -151,6 +151,10 @@ export class EditorPerformanceObserver implements ObserverInterface {
 		return this.timeline.onIdleBufferFlush(cb);
 	}
 
+	onceNextIdle(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe {
+		return this.timeline.onNextIdle(cb);
+	}
+
 	stop() {
 		this.domObservers.disconnect();
 		this.firstInteraction.disconnect();

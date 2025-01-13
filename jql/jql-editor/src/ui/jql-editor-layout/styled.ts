@@ -17,12 +17,7 @@ import {
 	P400,
 	R400,
 } from '@atlaskit/theme/colors';
-import {
-	fontSize,
-	// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-	gridSize,
-	layers,
-} from '@atlaskit/theme/constants';
+import { layers } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -54,7 +49,7 @@ const fadeOut = keyframes({
 export const EditorMain = styled.div`
 	/* CSS reset */
 	font-family: ${token('font.family.body')};
-	font-size: ${fontSize()}px;
+	font-size: 14px;
 	flex-grow: 1;
 
 	/* These styles and animations are derived from @atlaskit/tooltip */
@@ -97,7 +92,7 @@ export const EditorFooter = styled.div({
 });
 
 // Height (in px) for a single row in the editor
-const rowHeight = gridSize() * 2.75;
+const rowHeight = 8 * 2.75;
 // Vertical padding for the editor input
 const getEditorInputVerticalPadding = (isCompact: boolean) => (isCompact ? 3 : 7);
 const editorInputHorizontalPadding = 6;
@@ -196,7 +191,7 @@ export const EditorView = styled.div<{
 	max-height: ${(props) =>
 		rowHeight * props.defaultMaxRows + getEditorInputVerticalPadding(props.isCompact) * 2}px;
 
-	line-height: ${rowHeight / fontSize()};
+	line-height: ${rowHeight / 14};
 	font-family: ${token('font.family.code')};
 	word-break: break-word;
 	overflow-wrap: anywhere;

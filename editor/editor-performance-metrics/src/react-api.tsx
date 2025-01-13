@@ -5,95 +5,131 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { memo, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
 
 import {
 	createCalculator,
 	type LatencyPercentileTargets,
 	type TTVCTargets,
-	type TTVCTargetsPromise,
 } from './internals/editorPerformanceMetrics';
+import type { EditorPerformanceObserver } from './internals/editorPerformanceObserver';
 import { getGlobalEditorMetricsObserver } from './internals/global';
 
-type MetricsProps = {
-	onTTVC?: (result: { ttvc: TTVCTargets; relativeTTVC: TTVCTargets }) => void;
-	onUserLatency?: (result: { latency: LatencyPercentileTargets }) => void;
+type OnTTVC = (result: {
+	ttvc: TTVCTargets;
+	// Relative to when the component was mounted
+	relativeTTVC: TTVCTargets;
+}) => void;
+type OnUserLatency = (result: { latency: LatencyPercentileTargets }) => void;
+
+/**
+ *    onTTVC: (optional) Callback function that receives TTVC metrics.
+ *       Type: (result: { ttvc: TTVCTargets; relativeTTVC: TTVCTargets }) => void
+ *       ttvc: Object containing TTVC values for different percentiles.
+ *       relativeTTVC: TTVC values relative to when the component was mounted.
+ *
+ *    onUserLatency: (optional) Callback function that receives user latency metrics.
+ *        Type: (result: { latency: LatencyPercentileTargets }) => void
+ *        latency: Object containing latency percentiles for different user event categories.
+ */
+type PerformanceMetricsProps = {
+	onTTVC?: OnTTVC;
+	onUserLatency?: OnUserLatency;
 };
 
-export type { TTVCTargets, LatencyPercentileTargets };
-export const PerformanceMetrics = memo(({ onTTVC, onUserLatency }: MetricsProps) => {
-	const observerRef = useRef(getGlobalEditorMetricsObserver());
-	const [ttvcPromise, setTTVCPromise] = useState<TTVCTargetsPromise | null>(null);
-	const ttvcPromiseRef = useRef(ttvcPromise);
+export type {
+	TTVCTargets,
+	LatencyPercentileTargets,
+	OnUserLatency,
+	OnTTVC,
+	PerformanceMetricsProps,
+};
+
+type UseTTVCProps = {
+	observer: EditorPerformanceObserver;
+	onTTVC: PerformanceMetricsProps['onTTVC'];
+};
+const useTTVC = ({ observer, onTTVC }: UseTTVCProps) => {
 	const mountedAtRef = useRef(performance.now());
 
-	useLayoutEffect(() => {
-		ttvcPromiseRef.current = ttvcPromise;
-	}, [ttvcPromise]);
-
 	useEffect(() => {
-		if (!observerRef.current) {
+		if (!observer || !onTTVC) {
 			return;
 		}
 
-		const unsub = observerRef.current.onIdleBuffer(async ({ idleAt, timelineBuffer }) => {
+		const unsub = observer.onceNextIdle(async ({ idleAt, timelineBuffer }) => {
 			const metrics = createCalculator(timelineBuffer);
 
-			if (!ttvcPromiseRef.current) {
-				setTTVCPromise(
-					metrics.calculateVCTargets({
-						rangeEventsFilter: {
-							from: mountedAtRef.current,
-							to: 'abort:user-interaction',
-						},
-					}),
-				);
+			const ttvc = await metrics.calculateVCTargets({
+				// Only events that started after the component was created are valid for TTVC calculation
+				rangeEventsFilter: {
+					from: mountedAtRef.current,
+					to: 'abort:user-interaction',
+				},
+			});
+			if (!ttvc) {
+				return;
 			}
 
-			if (onUserLatency) {
-				const result = await metrics.calculateLatencyPercents();
-				if (!result) {
-					return;
-				}
-				onUserLatency({
-					latency: result,
-				});
-			}
+			const startedTime = mountedAtRef.current;
+			const relativeTTVC: TTVCTargets = Object.entries(ttvc).reduce((acc, [percentile, value]) => {
+				// @ts-ignore
+				acc[percentile] = value - startedTime;
+
+				return acc;
+			}, {} as TTVCTargets);
+
+			onTTVC({ ttvc, relativeTTVC });
 		});
 
 		return () => {
 			unsub();
 		};
-	}, [setTTVCPromise, onUserLatency]);
+	}, [observer, onTTVC]);
+};
 
+type UseLatencyProps = {
+	observer: EditorPerformanceObserver;
+	onUserLatency: PerformanceMetricsProps['onUserLatency'];
+};
+const useLatency = ({ observer, onUserLatency }: UseLatencyProps) => {
 	useEffect(() => {
-		if (!ttvcPromise || !onTTVC) {
+		if (!observer || !onUserLatency) {
 			return;
 		}
 
-		ttvcPromise
-			.then((ttvc) => {
-				if (!ttvc) {
-					return;
-				}
-				const startedTime = mountedAtRef.current;
-				const relativeTTVC: TTVCTargets = Object.entries(ttvc).reduce(
-					(acc, [percentile, value]) => {
-						// @ts-ignore
-						acc[percentile] = value - startedTime;
+		const unsub = observer.onIdleBuffer(({ idleAt, timelineBuffer }) => {
+			createCalculator(timelineBuffer)
+				.calculateLatencyPercents()
+				.then((result) => {
+					if (!result) {
+						return;
+					}
 
-						return acc;
-					},
-					{} as TTVCTargets,
-				);
+					onUserLatency({
+						latency: result,
+					});
+				});
+		});
 
-				onTTVC({ ttvc, relativeTTVC });
-			})
-			.catch((e) => {
-				// eslint-disable-next-line no-console
-				console.error(e);
-			});
-	}, [ttvcPromise, onTTVC]);
+		return () => {
+			unsub();
+		};
+	}, [observer, onUserLatency]);
+};
+
+export const PerformanceMetrics = memo(({ onTTVC, onUserLatency }: PerformanceMetricsProps) => {
+	const observer = useMemo(() => getGlobalEditorMetricsObserver(), []);
+
+	useTTVC({
+		observer,
+		onTTVC,
+	});
+
+	useLatency({
+		observer,
+		onUserLatency,
+	});
 
 	return null;
 });

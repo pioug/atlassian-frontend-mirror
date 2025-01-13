@@ -50,7 +50,7 @@
 		"@atlaskit/primitives": "13.3.7",
 		"@atlaskit/prosemirror-input-rules": "^3.2.0",
 		"@atlaskit/task-decision": "^17.11.0",
-		"@atlaskit/tmp-editor-statsig": "^2.33.0",
+		"@atlaskit/tmp-editor-statsig": "^2.34.0",
 		"@atlaskit/tokens": "3.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

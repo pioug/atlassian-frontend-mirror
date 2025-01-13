@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.14.18
+
+### Patch Changes
+
+- [#100802](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100802)
+  [`1506550eef60f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1506550eef60f) -
+  [ux] [ED-25647] this PR is disabling the confluence referentiality and charts extension from the
+  floating toolbar for tables nested in tables
+
 ## 1.14.17
 
 ### Patch Changes

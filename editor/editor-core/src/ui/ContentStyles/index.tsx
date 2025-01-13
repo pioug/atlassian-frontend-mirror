@@ -67,6 +67,7 @@ import {
 	SelectionStyle,
 } from '@atlaskit/editor-shared-styles';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import { InlineNodeViewSharedStyles } from '../../nodeviews/getInlineNodeViewProducer.styles';
@@ -330,6 +331,15 @@ const contentStyles = (props: ContentStylesProps) => css`
 	.ProseMirror-hideselection *::-moz-selection {
 		background: transparent;
 	}
+
+	/* This prosemirror css style: https://github.com/ProseMirror/prosemirror-view/blob/f37ebb29befdbde3cd194fe13fe17b78e743d2f2/style/prosemirror.css#L24 */
+	${editorExperiment('platform_editor_advanced_code_blocks', true)
+		? css`
+				.ProseMirror-hideselection {
+					caret-color: transparent;
+				}
+			`
+		: null}
 
 	.ProseMirror-selectednode {
 		outline: none;

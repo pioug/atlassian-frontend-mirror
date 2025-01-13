@@ -23,6 +23,7 @@ import { usePreset } from '@atlaskit/editor-core/use-preset';
 import { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 import { selectionMarkerPlugin } from '@atlaskit/editor-plugin-selection-marker';
 import { blockControlsPlugin } from '@atlaskit/editor-plugins/block-controls';
+import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugins/code-block-advanced';
 import { connectivityPlugin } from '@atlaskit/editor-plugins/connectivity';
 import { type Node, Slice } from '@atlaskit/editor-prosemirror/model';
 import { ReplaceStep } from '@atlaskit/editor-prosemirror/transform';
@@ -190,7 +191,8 @@ function useFullPageEditorPreset(props: any) {
 			.add(selectionMarkerPlugin)
 			.add(collabCustomStepPlugin)
 			.add(connectivityPlugin)
-			.add(blockControlsPlugin);
+			.add(blockControlsPlugin)
+			.add(codeBlockAdvancedPlugin);
 	}, [universalPreset]);
 
 	const { setEditorAPI } = props;

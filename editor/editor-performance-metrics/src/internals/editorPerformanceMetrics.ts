@@ -24,7 +24,8 @@ export type CalculateVCOptions = {
 };
 
 const latencyCategories: UserEventCategory[] = [
-	'mouse',
+	'mouse-movement',
+	'mouse-action',
 	'keyboard',
 	'form',
 	'clipboard',
@@ -100,8 +101,6 @@ export class EditorPerformanceMetrics {
 		return result;
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-await
 	async calculateLastHeatmap(
 		heatmapSize: number,
 		rangeEventsFilter?: RangeEventsFilter | null,
@@ -145,7 +144,7 @@ export class EditorPerformanceMetrics {
 				? timelineEvents.slice(startIndex)
 				: timelineEvents.slice(startIndex, startIndex + endIndex + 1);
 		const filteredEvents = Array.from(filteredEventsShallowCopy);
-		const heatmap = createHeatmapFromEvents(filteredEvents, baseheatmap);
+		const heatmap = await createHeatmapFromEvents(filteredEvents, baseheatmap);
 
 		return heatmap;
 	}

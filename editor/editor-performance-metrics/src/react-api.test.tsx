@@ -17,6 +17,7 @@ jest.mock('./internals/editorPerformanceMetrics', () => ({
 describe('PerformanceMetrics Component', () => {
 	let mockObserver: {
 		onIdleBuffer: jest.Mock;
+		onceNextIdle: jest.Mock;
 	};
 	let unsubscribe: jest.Mock;
 
@@ -25,6 +26,7 @@ describe('PerformanceMetrics Component', () => {
 		unsubscribe = jest.fn();
 		mockObserver = {
 			onIdleBuffer: jest.fn(),
+			onceNextIdle: jest.fn(),
 		};
 		(createCalculator as jest.Mock).mockReturnValue({
 			calculateLatencyPercents: jest.fn().mockResolvedValue({}),
@@ -38,19 +40,33 @@ describe('PerformanceMetrics Component', () => {
 			cb({ idleAt: 1, timelineBuffer: null });
 			return unsubscribe;
 		});
+
+		mockObserver.onceNextIdle.mockImplementation((cb) => {
+			cb({ idleAt: 1, timelineBuffer: null });
+			return unsubscribe;
+		});
 	});
 
 	afterEach(() => {
 		jest.clearAllMocks();
 	});
 
-	it('should set up the observer on mount', () => {
-		render(<PerformanceMetrics />);
-		expect(mockObserver.onIdleBuffer).toHaveBeenCalled();
+	describe('when using onTTVC', () => {
+		it('should set up the observer on mount', () => {
+			render(<PerformanceMetrics onTTVC={jest.fn()} />);
+			expect(mockObserver.onceNextIdle).toHaveBeenCalled();
+		});
+	});
+
+	describe('when using onUserLatency', () => {
+		it('should set up the observer on mount', () => {
+			render(<PerformanceMetrics onUserLatency={jest.fn()} />);
+			expect(mockObserver.onIdleBuffer).toHaveBeenCalled();
+		});
 	});
 
 	it('should clean up the observer on unmount', async () => {
-		const { unmount } = render(<PerformanceMetrics />);
+		const { unmount } = render(<PerformanceMetrics onTTVC={jest.fn()} />);
 
 		await act(async () => {
 			jest.runAllTimers();
@@ -109,5 +125,6 @@ describe('PerformanceMetrics Component', () => {
 		(getGlobalEditorMetricsObserver as jest.Mock).mockReturnValue(null);
 		render(<PerformanceMetrics />);
 		expect(mockObserver.onIdleBuffer).not.toHaveBeenCalled();
+		expect(mockObserver.onceNextIdle).not.toHaveBeenCalled();
 	});
 });

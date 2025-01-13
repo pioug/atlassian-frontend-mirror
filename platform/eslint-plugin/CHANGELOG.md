@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.1.2
+
+### Patch Changes
+
+- [#102248](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102248)
+  [`05acb13c43541`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/05acb13c43541) -
+  AFB-825 Fixing edge case of expand-spacing-shorthand rule
+
 ## 2.1.1
 
 ### Patch Changes

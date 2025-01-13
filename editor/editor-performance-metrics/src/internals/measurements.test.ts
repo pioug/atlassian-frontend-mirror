@@ -431,14 +431,14 @@ describe('measurements: getLatencyPercentiles', () => {
 	it('should calculate percentiles for all events and categories', () => {
 		const events: UserEvent[] = [
 			{
-				type: 'user-event:mouse',
+				type: 'user-event:mouse-action',
 				startTime: 0,
-				data: { category: 'mouse', eventName: 'click', duration: 1800, elementName: '' },
+				data: { category: 'mouse-action', eventName: 'click', duration: 1800, elementName: '' },
 			},
 			{
-				type: 'user-event:mouse',
+				type: 'user-event:mouse-movement',
 				startTime: 0,
-				data: { category: 'mouse', eventName: 'move', duration: 1500, elementName: '' },
+				data: { category: 'mouse-movement', eventName: 'move', duration: 1500, elementName: '' },
 			},
 			{
 				type: 'user-event:keyboard',

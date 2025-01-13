@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-insert-block
 
+## 2.4.32
+
+### Patch Changes
+
+- [#102447](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102447)
+  [`17f3bf711d55c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/17f3bf711d55c) -
+  Re-enable mentions while offline.
+
 ## 2.4.31
 
 ### Patch Changes

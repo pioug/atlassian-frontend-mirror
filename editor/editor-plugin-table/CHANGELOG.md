@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 9.1.3
+
+### Patch Changes
+
+- [#102547](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102547)
+  [`b76cc60ba170b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b76cc60ba170b) -
+  Internal changes to remove deprecated typography imports.
+
 ## 9.1.2
 
 ### Patch Changes

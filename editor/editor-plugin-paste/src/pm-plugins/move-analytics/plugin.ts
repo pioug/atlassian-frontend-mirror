@@ -7,7 +7,6 @@ import {
 } from '@atlaskit/editor-common/analytics';
 import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { resetContentMoved, resetContentMovedTransform, updateContentMoved } from './commands';
 import { createPluginState, getPluginState } from './plugin-factory';
@@ -119,7 +118,7 @@ export const createPlugin = (
 					resetState = true;
 				}
 
-				if (!resetState && isNestedInTable(state) && editorExperiment('table-nested-dnd', false)) {
+				if (!resetState && isNestedInTable(state)) {
 					resetState = true;
 				}
 

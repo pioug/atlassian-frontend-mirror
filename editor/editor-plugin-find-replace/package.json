@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-find-replace",
-	"version": "1.7.22",
+	"version": "1.7.23",
 	"description": "find replace plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

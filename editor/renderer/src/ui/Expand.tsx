@@ -18,7 +18,6 @@ import {
 import { akEditorLineHeight, relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
 import { default as ChevronRightIconLegacy } from '@atlaskit/icon/glyph/chevron-right';
 import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
-import { fontSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 import _uniqueId from 'lodash/uniqueId';
@@ -41,7 +40,7 @@ const titleStyles = css({
 	outline: 'none',
 	border: 'none',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	fontSize: relativeFontSizeToBase16(fontSize()),
+	fontSize: relativeFontSizeToBase16(14),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 	lineHeight: akEditorLineHeight,
 	fontWeight: token('font.weight.regular'),

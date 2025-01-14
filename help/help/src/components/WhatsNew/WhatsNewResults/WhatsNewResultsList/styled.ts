@@ -39,6 +39,7 @@ export const WhatsNewResultsListGroupTitle = styled.div({
 		'space.100',
 		'8px',
 	)}`,
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	textTransform: 'uppercase',
 });
 

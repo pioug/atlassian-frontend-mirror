@@ -77,7 +77,6 @@ import { getUAPrefix } from './ReactEditorView/getUAPrefix';
 import { handleEditorFocus } from './ReactEditorView/handleEditorFocus';
 import { useDispatchTransaction } from './ReactEditorView/useDispatchTransaction';
 import { useFireFullWidthEvent } from './ReactEditorView/useFireFullWidthEvent';
-import { usePluginPerformanceObserver } from './ReactEditorView/usePluginPerformanceObserver';
 
 const EDIT_AREA_ID = 'ak-editor-textarea';
 
@@ -732,8 +731,6 @@ function ReactEditorView(props: EditorViewProps) {
 	}, [disabled, shouldFocus, previousDisabledState]);
 
 	useFireFullWidthEvent(nextAppearance, dispatchAnalyticsEvent);
-
-	usePluginPerformanceObserver(getCurrentEditorState, pluginInjectionAPI, dispatchAnalyticsEvent);
 
 	const editor = useMemo(
 		() => createEditor(props.editorProps.assistiveLabel, props.editorProps.assistiveDescribedBy),

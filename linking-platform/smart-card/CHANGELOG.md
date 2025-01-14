@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 34.2.2
+
+### Patch Changes
+
+- [#102176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102176)
+  [`efb0c67fbb1f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/efb0c67fbb1f6) -
+  [ux] Update inline card lazy icons
+- Updated dependencies
+
+## 34.2.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.2.0
 
 ### Minor Changes

@@ -5,6 +5,7 @@ import { userEvent } from '@testing-library/user-event';
 import cases from 'jest-in-case';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import Calendar from '../../index';
 
@@ -67,6 +68,34 @@ describe('Calendar analytics', () => {
 	};
 
 	describe('send change event to atlaskit/analytics', () => {
+		describe('when switched to previous year', () => {
+			ffTest(
+				'dst-a11y-add-year-buttons-to-calendar',
+				async () => {
+					const user = userEvent.setup();
+					const { onChange, onAnalyticsEvent, changeEventResult } = setup();
+
+					const previousYearButton = screen.getByTestId('calendar--previous-year');
+
+					await user.click(previousYearButton);
+
+					expect(onChange).toHaveBeenCalledTimes(1);
+
+					// calendar and button analytics
+					expect(onAnalyticsEvent).toHaveBeenCalledTimes(2);
+
+					expect(onAnalyticsEvent).toHaveBeenCalledWith(
+						expect.objectContaining(changeEventResult),
+						'atlaskit',
+					);
+				},
+				() => {
+					// This should not be tested since no year buttons exist when false
+					expect(true).toBe(true);
+				},
+			);
+		});
+
 		it('when switched to previous month', async () => {
 			const user = userEvent.setup();
 			const { onChange, onAnalyticsEvent, changeEventResult } = setup();
@@ -102,6 +131,34 @@ describe('Calendar analytics', () => {
 			expect(onAnalyticsEvent).toHaveBeenCalledWith(
 				expect.objectContaining(changeEventResult),
 				'atlaskit',
+			);
+		});
+
+		describe('when switched to next year', () => {
+			ffTest(
+				'dst-a11y-add-year-buttons-to-calendar',
+				async () => {
+					const user = userEvent.setup();
+					const { onChange, onAnalyticsEvent, changeEventResult } = setup();
+
+					const nextYearButton = screen.getByTestId('calendar--next-year');
+
+					await user.click(nextYearButton);
+
+					expect(onChange).toHaveBeenCalledTimes(1);
+
+					// calendar and button analytics
+					expect(onAnalyticsEvent).toHaveBeenCalledTimes(2);
+
+					expect(onAnalyticsEvent).toHaveBeenCalledWith(
+						expect.objectContaining(changeEventResult),
+						'atlaskit',
+					);
+				},
+				() => {
+					// This should not be tested since no year buttons exist when false
+					expect(true).toBe(true);
+				},
 			);
 		});
 

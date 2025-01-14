@@ -24,3 +24,10 @@ export const insideMultiBodiedExtension = (path: Node[], schema: Schema) => {
 	} = schema;
 	return path.some((n) => n.type === multiBodiedExtension);
 };
+
+export const insideTable = (path: Node[], schema: Schema) => {
+	const {
+		nodes: { table },
+	} = schema;
+	return path.some((n) => n.type === table);
+};

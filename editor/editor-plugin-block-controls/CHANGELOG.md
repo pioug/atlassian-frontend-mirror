@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.20.0
+
+### Minor Changes
+
+- [#102564](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102564)
+  [`078168e470e88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/078168e470e88) -
+  [ux] Add initial multi-select
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.19.2
 
 ### Patch Changes

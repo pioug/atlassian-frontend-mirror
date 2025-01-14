@@ -134,6 +134,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 						aria-haspopup={ariaHaspopup}
 						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 						style={{
+							// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 							font: buttonSizes[size],
 						}}
 						css={[buttonStyles, isActive && buttonActiveStyles]}

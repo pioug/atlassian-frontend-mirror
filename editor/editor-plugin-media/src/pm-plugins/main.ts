@@ -48,7 +48,7 @@ import {
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { Decoration, DecorationSet } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables/cell-selection';
-import type { Identifier } from '@atlaskit/media-client';
+import { isFileIdentifier, type Identifier } from '@atlaskit/media-client';
 import { getMediaFeatureFlag } from '@atlaskit/media-common';
 import type { MediaClientConfig } from '@atlaskit/media-core';
 import type { UploadParams } from '@atlaskit/media-picker/types';
@@ -185,6 +185,10 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	private onPopupToggleCallback: (isOpen: boolean) => void = () => {};
 
 	private identifierCount = new Map<string, { identifier: Identifier; count: number }>();
+
+	// This is to enable mediaShallowCopySope to enable only shallow copying media referenced within the edtior
+	// see: trackOutOfScopeIdentifier
+	private outOfEditorScopeIdentifierMap = new Map<string, { identifier: Identifier }>();
 	private taskManager = new MediaTaskManager();
 
 	pickers: PickerFacade[] = [];
@@ -672,7 +676,18 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 
 		// rely on has instead of count > 0 because if the user cuts and pastes the same media
 		// the count will temporarily be 0 but the media is still in the scope of editor.
-		return this.identifierCount.has(key);
+		return !this.outOfEditorScopeIdentifierMap.has(key) && this.identifierCount.has(key);
+	};
+
+	/**
+	 * This is used in on Paste of media, this tracks which if the pasted media originated from a outside the editor
+	 * i.e. the pasted media was not uplaoded to the current editor.
+	 * This is to enable mediaShallowCopySope to enable only shallow copying media referenced within the edtior
+	 */
+	trackOutOfScopeIdentifier = (identifier: Identifier) => {
+		const key = this.getIdentifierKey(identifier);
+
+		this.outOfEditorScopeIdentifierMap.set(key, { identifier });
 	};
 
 	/**
@@ -975,6 +990,14 @@ export const createPlugin = (
 						pluginState.mediaViewerSelectedMedia = undefined;
 						pluginState.isMediaViewerVisible = meta.isMediaViewerVisible;
 						nextPluginState = nextPluginState.clone();
+						break;
+					case ACTIONS.TRACK_MEDIA_PASTE:
+						const { identifier } = meta;
+						const isIdentifierInEditorScope = pluginState.isIdentifierInEditorScope(identifier);
+						if (!isIdentifierInEditorScope && isFileIdentifier(identifier)) {
+							pluginState.trackOutOfScopeIdentifier(identifier);
+							nextPluginState = pluginState.clone();
+						}
 						break;
 				}
 

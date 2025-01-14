@@ -1,5 +1,14 @@
 # @atlaskit/calendar
 
+## 16.2.0
+
+### Minor Changes
+
+- [#102000](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102000)
+  [`3e1546043c1c3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3e1546043c1c3) -
+  We are testing adding year buttons to the calendar behind a feature flag. If this fix is
+  successful it will be available in a later release.
+
 ## 16.1.1
 
 ### Patch Changes

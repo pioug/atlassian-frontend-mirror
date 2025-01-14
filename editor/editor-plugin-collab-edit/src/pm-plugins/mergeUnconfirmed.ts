@@ -1,5 +1,8 @@
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import type { Transform as ProseMirrorTransform } from '@atlaskit/editor-prosemirror/transform';
+
+import type { CollabEditPlugin } from '../collabEditPluginType';
 
 function isLockable(
 	step: ProseMirrorStep | LockableProseMirrorStep,
@@ -54,11 +57,19 @@ abstract class LockableProseMirrorStep extends ProseMirrorStep {
  * @param steps Rebaseable steps
  * @returns Rebaseable steps
  */
-export function mergeUnconfirmedSteps(steps: LockableRebaseable[]): LockableRebaseable[] {
+export function mergeUnconfirmedSteps(
+	steps: LockableRebaseable[],
+	api: ExtractInjectionAPI<CollabEditPlugin> | undefined,
+): LockableRebaseable[] {
 	const mergedSteps = steps.reduce((acc, rebaseable) => {
 		const lastStep = acc[acc.length - 1];
 
-		if (lastStep && lastStep.step.isLocked?.() !== true && rebaseable.step.isLocked?.() !== true) {
+		if (
+			api?.connectivity?.sharedState.currentState()?.mode === 'offline' &&
+			lastStep &&
+			lastStep.step.isLocked?.() !== true &&
+			rebaseable.step.isLocked?.() !== true
+		) {
 			const mergedStep = lastStep.step.merge(rebaseable.step);
 			const inverted = rebaseable.inverted.merge(lastStep.inverted);
 			// Always take the origin of the new step.

@@ -309,4 +309,13 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2025-01-13
+	platform_editor_element_drag_and_drop_multiselect: {
+		productKeys: {
+			confluence: 'platform_editor_element_drag_and_drop_multiselect',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

@@ -18,6 +18,9 @@
 	],
 	"references": [
 		{
+			"path": "../../adf-utils/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../analytics/analytics-gas-types/afm-jira/tsconfig.json"
 		},
 		{

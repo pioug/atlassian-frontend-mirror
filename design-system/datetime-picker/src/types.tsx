@@ -204,11 +204,16 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	openCalendarLabel?: string;
 	/**
 	 * A function for parsing input characters and transforming them into a Date object.
-	 * By default parses the date string based off the locale.
+	 * By default parses the date string based off the locale. Note that this does
+	 * not affect how the resulting value is displayed in the input. Use the
+	 * `dateFormat` or `formatDisplayLabel` prop to handle how the value is
+	 * displayed.
 	 */
 	parseInputValue?: (date: string, dateFormat: string) => Date;
 	/**
 	 * A function for formatting the date displayed in the input. By default composes together [`date-fns`'s parse method](https://date-fns.org/v1.29.0/docs/parse) and [`date-fns`'s format method](https://date-fns.org/v1.29.0/docs/format) to return a correctly formatted date string.
+	 *
+	 * Note that this does not affect how the input is parsed. This must be done using the `parseInputValue` prop.
 	 */
 	formatDisplayLabel?: (value: string, dateFormat: string) => string;
 	/**
@@ -248,9 +253,14 @@ export interface DatePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	hideIcon?: boolean;
 	/**
-	 * Format the date with a string that is accepted by [date-fn's format function](https://date-fns.org/v1.29.0/docs/format).
+	 * Format the date with a string that is accepted by [date-fns's format
+	 * function](https://date-fns.org/v1.29.0/docs/format). **This does not affect
+	 * how the input is parsed.** This must be done using the `parseInputValue`
+	 * prop.
 	 *
-	 * Note that though we are using `date-fns` version 2, we use [the tokens from `date-fns` version 1](https://date-fns.org/v1.30.1/docs/format) under the hood.
+	 * Note that though we are using `date-fns` version 2, we use [the tokens from
+	 * `date-fns` version 1](https://date-fns.org/v1.30.1/docs/format) under the
+	 * hood.
 	 */
 	dateFormat?: string;
 	/**
@@ -316,7 +326,12 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 */
 	defaultValue?: string;
 	/**
-	 * A function for formatting the displayed time value in the input. By default parses with an internal time parser, and formats using the [date-fns format function]((https://date-fns.org/v1.29.0/docs/format))
+	 * A function for formatting the displayed time value in the input. By default
+	 * parses with an internal time parser, and formats using the [date-fns format
+	 * function]((https://date-fns.org/v1.29.0/docs/format)).
+	 *
+	 * Note that this does not affect how the input is parsed. This must be done
+	 * using the `parseInputValue` prop.
 	 */
 	formatDisplayLabel?: (time: string, timeFormat: string) => string;
 	/**
@@ -364,8 +379,11 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	 */
 	onFocus?: React.FocusEventHandler<HTMLElement>;
 	/**
-	 * A function for parsing input characters and transforming them into either a string or a Date object.
-	 * By default parses the string based off the locale.
+	 * A function for parsing input characters and transforming them into either a
+	 * string or a Date object. By default parses the string based off the locale.
+	 * Note that this does not affect how the resulting value is displayed in the
+	 * input. To handle this, use either the `timeFormat` or `formatDisplayLabel`
+	 * prop.
 	 */
 	parseInputValue?: (time: string, timeFormat: string) => string | Date;
 
@@ -398,7 +416,14 @@ export interface TimePickerBaseProps extends WithAnalyticsEventsProps, PickerSel
 	// eslint-disable-next-line @repo/internal/react/boolean-prop-naming-convention
 	hideIcon?: boolean;
 	/**
-	 * Time format that is accepted by [date-fns's format function](https://date-fns.org/v1.29.0/docs/format).
+	 * Format the time with a string that is accepted by [date-fns's format
+	 * function](https://date-fns.org/v1.29.0/docs/format). **This does not affect
+	 * how the input is parsed.** This must be done using the `parseInputValue`
+	 * prop.
+	 *
+	 * Note that though we are using `date-fns` version 2, we use [the tokens from
+	 * `date-fns` version 1](https://date-fns.org/v1.30.1/docs/format) under the
+	 * hood.
 	 */
 	timeFormat?: string;
 	/**

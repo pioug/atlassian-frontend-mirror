@@ -51,6 +51,9 @@
 			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../prosemirror-collab/tsconfig.app.json"
 		},
 		{

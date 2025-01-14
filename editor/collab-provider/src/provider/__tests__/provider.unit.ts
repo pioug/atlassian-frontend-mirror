@@ -818,6 +818,7 @@ describe('Provider', () => {
 				onStepsAdded: expect.any(Function),
 				catchUpOutofSync: false,
 				reason: CatchupEventReason.STEPS_REJECTED,
+				getState: expect.any(Function),
 			});
 
 			// Use a resolved promise to wait for all asynchronous tasks to complete
@@ -840,6 +841,7 @@ describe('Provider', () => {
 				clientId: 'some-random-prosemirror-client-Id',
 				onStepsAdded: expect.any(Function),
 				reason: CatchupEventReason.STEPS_REJECTED,
+				getState: expect.any(Function),
 			});
 		});
 		it('Should reset the rejected step counter when catchup throws an error', async () => {

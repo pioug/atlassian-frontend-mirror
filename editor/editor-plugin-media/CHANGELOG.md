@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-media
 
+## 1.44.3
+
+### Patch Changes
+
+- [#102478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102478)
+  [`da114a3262eae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/da114a3262eae) -
+  Fixed deep copying of media single and group when provided with "editor" in copy scope
+- [#102671](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102671)
+  [`6bad93b42f720`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6bad93b42f720) -
+  File copy v2 endpoint will only be used when copyWithToken fails as the intents are not registered
+  using copy button
+- Updated dependencies
+
 ## 1.44.2
 
 ### Patch Changes

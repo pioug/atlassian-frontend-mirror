@@ -1,8 +1,16 @@
 import type { Metadata, StepJson } from '@atlaskit/editor-common/collab';
+import { Node } from '@atlaskit/editor-prosemirror/model';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { catchupv2, isOutOfSync } from '../catchupv2';
 import type { Catchupv2Options, Catchupv2Response } from '../../types';
 import AnalyticsHelper from '../../analytics/analytics-helper';
 import { CatchupEventReason } from '../../helpers/const';
+
+jest.mock('@atlaskit/platform-feature-flags', () => ({
+	fg: jest.fn(),
+}));
+const fgMock = fg as jest.Mock;
 
 const step1 = {
 	userId: 'ari:cloud:identity::user/123',
@@ -11,7 +19,7 @@ const step1 = {
 	to: 4,
 	stepType: 'replace',
 	slice: {
-		content: { type: 'paragraph', content: [{ type: 'text', text: 'abc' }] },
+		content: [{ type: 'paragraph', content: [{ type: 'text', text: 'abc' }] }],
 	},
 };
 
@@ -52,6 +60,7 @@ describe('Catchupv2 ', () => {
 			onStepsAdded: jest.fn(),
 			catchUpOutofSync: false,
 			reason: CatchupEventReason.STEPS_ADDED,
+			getState: jest.fn(),
 		};
 
 		const sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
@@ -80,6 +89,7 @@ describe('Catchupv2 ', () => {
 			onStepsAdded: jest.fn(),
 			catchUpOutofSync: false,
 			reason: CatchupEventReason.STEPS_ADDED,
+			getState: jest.fn(),
 		};
 
 		const sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
@@ -107,6 +117,7 @@ describe('Catchupv2 ', () => {
 			clientId,
 			onStepsAdded: jest.fn(),
 			catchUpOutofSync: false,
+			getState: jest.fn(),
 		};
 
 		await catchupv2(options);
@@ -129,6 +140,7 @@ describe('Catchupv2 ', () => {
 			clientId,
 			onStepsAdded: jest.fn(),
 			catchUpOutofSync: false,
+			getState: jest.fn(),
 		};
 
 		const sendErrorEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendErrorEvent');
@@ -143,6 +155,101 @@ describe('Catchupv2 ', () => {
 			);
 		}
 	});
+
+	it('Should send analytics event with obfuscated steps if out of sync detected', async () => {
+		fgMock.mockReturnValue(true);
+		const editorState: any = {
+			doc: Node.fromJSON(defaultSchema, {
+				type: 'doc',
+				content: [
+					{
+						type: 'paragraph',
+						content: [
+							{ type: 'text', text: 'Hello, World!' },
+							{
+								// Add a node that looks different in ADF
+								type: 'text',
+								marks: [
+									{
+										type: 'typeAheadQuery',
+										attrs: {
+											trigger: '/',
+										},
+									},
+								],
+								text: '/',
+							},
+						],
+					},
+				],
+			}),
+		};
+		const options: Catchupv2Options = {
+			getCurrentPmVersion: jest.fn().mockReturnValue(2),
+			fetchCatchupv2: jest.fn().mockResolvedValue({
+				steps: [step1, step2],
+				metadata: { prop: 'value' },
+			}),
+			updateMetadata: jest.fn(),
+			analyticsHelper: new AnalyticsHelper('fake-document-ari'),
+			clientId,
+			onStepsAdded: jest.fn(),
+			catchUpOutofSync: false,
+			getState: jest.fn().mockReturnValue(editorState),
+			reason: CatchupEventReason.STEPS_ADDED,
+		};
+
+		const sendActionEventSpy = jest.spyOn(AnalyticsHelper.prototype, 'sendActionEvent');
+
+		await catchupv2(options);
+
+		expect(options.fetchCatchupv2).toHaveBeenCalledWith(2, clientId, false, 'onStepsAdded');
+		expect(sendActionEventSpy).toHaveBeenCalledTimes(1);
+		expect(sendActionEventSpy).toHaveBeenCalledWith('outOfSync', 'FAILURE', {
+			catchupReason: CatchupEventReason.STEPS_ADDED,
+			obfuscatedDoc: {
+				content: [
+					{
+						attrs: { localId: null },
+						content: [
+							{ text: 'Lorem, Ipsum!', type: 'text' },
+							{
+								marks: [{ attrs: { trigger: '/' }, type: 'typeAheadQuery' }],
+								text: '/',
+								type: 'text',
+							},
+						],
+						type: 'paragraph',
+					},
+				],
+				type: 'doc',
+			},
+			obfuscatedSteps: [
+				{
+					stepContent: [
+						{
+							content: [{ content: [{ text: 'lor', type: 'text' }], type: 'paragraph' }],
+							type: 'doc',
+						},
+					],
+					stepMetadata: undefined,
+					stepPositions: { from: 1, to: 4 },
+					stepType: { contentTypes: 'paragraph', type: 'replace' },
+				},
+				{
+					stepContent: [
+						{
+							content: [{ content: [{ text: 'lo', type: 'text' }], type: 'paragraph' }],
+							type: 'doc',
+						},
+					],
+					stepMetadata: undefined,
+					stepPositions: { from: 1, to: 3 },
+					stepType: { contentTypes: 'paragraph', type: 'replace' },
+				},
+			],
+		});
+	});
 });
 
 describe('isOutOfSync', () => {
@@ -151,12 +258,12 @@ describe('isOutOfSync', () => {
 	const lowerVersion = 9;
 	const clientId = 'noot';
 	const emptySteps: StepJson[] = [];
-	const foreignSteps: StepJson[] = [
+	const foreignSteps = [
 		{
 			userId: 'yeet',
 			clientId: 'yoot',
 		},
-	];
+	] as StepJson[];
 
 	it('should detect out of sync when version number doesnt increase', () => {
 		expect(isOutOfSync(fromVersion, fromVersion, foreignSteps, clientId)).toEqual(true);

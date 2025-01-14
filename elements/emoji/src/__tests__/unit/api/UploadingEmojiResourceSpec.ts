@@ -227,7 +227,7 @@ describe('UploadingEmojiResource', () => {
 				const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
 				emojiResource.fetchEmojiProvider();
 				return emojiResource
-					.uploadCustomEmoji(upload, false, timeout, true)
+					.uploadCustomEmoji(upload, false, timeout)
 					.then(() => {
 						expect('Should not succeed').toEqual('but it did');
 					})
@@ -254,7 +254,7 @@ describe('UploadingEmojiResource', () => {
 				const emojiResource = new TestUploadingEmojiResource(siteEmojiResource);
 				emojiResource.fetchEmojiProvider();
 				return emojiResource
-					.uploadCustomEmoji(upload, false, timeout, true)
+					.uploadCustomEmoji(upload, false, timeout)
 					.then((emoji) => {
 						expect(emoji).toEqual(mediaEmoji);
 					})

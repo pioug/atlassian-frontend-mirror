@@ -21,6 +21,7 @@ export enum EVENT_ACTION {
 	RECONNECTION = 'providerReconnection', // https://data-portal.internal.atlassian.com/analytics/registry/73992
 	PROVIDER_SETUP = 'providerSetup', // https://data-portal.internal.atlassian.com/analytics/registry/54715
 	HAS_UNCONFIRMED_STEPS = 'hasUnconfirmedSteps', // https://data-portal.internal.atlassian.com/analytics/registry/56141
+	OUT_OF_SYNC = 'outOfSync', // https://data-portal.internal.atlassian.com/analytics/registry/74993
 }
 export enum EVENT_STATUS {
 	SUCCESS = 'SUCCESS',
@@ -293,6 +294,20 @@ type ReconnectionAnalyticsEvent = {
 	} & BaseActionAnalyticsEventAttributes;
 };
 
+type OutOfSyncAnalyticsEvent = {
+	eventAction: EVENT_ACTION.OUT_OF_SYNC;
+	attributes: {
+		eventStatus: EVENT_STATUS.FAILURE;
+		obfuscatedSteps: {
+			[key: string]: number;
+		}[];
+		obfuscatedDoc: {
+			[key: string]: number;
+		};
+		catchupReason: CatchupEventReason | undefined;
+	} & BaseActionAnalyticsEventAttributes;
+};
+
 export type ActionAnalyticsEvent =
 	| AddStepsSuccessAnalyticsEvent
 	| AddStepsFailureAnalyticsEvent
@@ -319,7 +334,8 @@ export type ActionAnalyticsEvent =
 	| ProviderSetupAnalyticsEvent
 	| ProviderHasUnconfirmedStepsAnalyticsEvent
 	| UpdateDocumentAnalyticsEvent
-	| ReconnectionAnalyticsEvent;
+	| ReconnectionAnalyticsEvent
+	| OutOfSyncAnalyticsEvent;
 
 export const ACK_MAX_TRY = 60;
 

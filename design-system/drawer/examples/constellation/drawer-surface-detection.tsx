@@ -4,47 +4,55 @@
  */
 import { Fragment, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import Lorem from 'react-lorem-component';
 
 import Button from '@atlaskit/button/new';
-import Drawer from '@atlaskit/drawer';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
 import { token } from '@atlaskit/tokens';
 
-const wrapperStyles = css({
-	position: 'relative',
-});
-
-const contentStyles = css({
-	padding: token('space.100', '8px'),
-});
-
-const headerStyles = css({
-	padding: token('space.100', '8px'),
-	position: 'sticky',
-	backgroundColor: token('utility.elevation.surface.current', '#FFFFFF'),
-	borderBlockEnd: `1px solid ${token('color.border', '#CCCCCC')}`,
-	boxShadow: token('elevation.shadow.overflow', '0px 0px 8px rgba(9, 30, 66, 0.16)'),
-	insetBlockStart: 0,
-	insetInlineEnd: 0,
-	insetInlineStart: 0,
+const styles = cssMap({
+	content: {
+		position: 'relative',
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
+	},
+	header: {
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
+		position: 'absolute',
+		backgroundColor: token('utility.elevation.surface.current'),
+		borderBlockEndColor: token('color.border'),
+		borderBlockEndStyle: 'solid',
+		borderBlockEndWidth: token('border.width'),
+		boxShadow: token('elevation.shadow.overflow'),
+		insetBlockStart: token('space.0'),
+		insetInlineEnd: token('space.0'),
+		insetInlineStart: token('space.0'),
+	},
 });
 
 const DrawerSurfaceDetectionExample = () => {
-	const [open, setOpen] = useState<boolean>(false);
+	const [open, setOpen] = useState(false);
 
 	return (
 		<Fragment>
-			<Drawer onClose={() => setOpen(false)} isOpen={open} titleId="drawerTitle">
-				<div css={wrapperStyles}>
-					<div css={headerStyles}>
-						<h1 id="drawerTitle">Header overlay</h1>
+			<Drawer onClose={() => setOpen(false)} isOpen={open} label="Surface detection">
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>
+					<div css={styles.content}>
+						<div css={styles.header}>
+							<h2>Header overlay</h2>
+						</div>
+						<Lorem count={2} />
 					</div>
-					<div css={contentStyles}>
-						<Lorem count={10} />
-					</div>
-				</div>
+				</DrawerContent>
 			</Drawer>
 			<Button appearance="primary" onClick={() => setOpen(true)}>
 				Open drawer

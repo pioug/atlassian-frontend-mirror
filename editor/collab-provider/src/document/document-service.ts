@@ -181,6 +181,7 @@ export class DocumentService implements DocumentServiceInterface {
 						});
 					}
 				},
+				getState: this.getState,
 			});
 			const latency = new Date().getTime() - start;
 			this.analyticsHelper?.sendActionEvent(EVENT_ACTION.CATCHUP, EVENT_STATUS.SUCCESS, {

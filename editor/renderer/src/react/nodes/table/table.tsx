@@ -21,6 +21,7 @@ export const Table = React.memo(
 		tableNode,
 		rendererAppearance,
 		isInsideOfBlockNode,
+		isInsideOfTable,
 		isinsideMultiBodiedExtension,
 		allowTableResizing,
 	}: TableProps) => {
@@ -60,6 +61,7 @@ export const Table = React.memo(
 					tableNode={tableNode}
 					rendererAppearance={rendererAppearance}
 					isInsideOfBlockNode={isInsideOfBlockNode}
+					isInsideOfTable={isInsideOfTable}
 					isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
 					allowTableResizing={allowTableResizing}
 				/>

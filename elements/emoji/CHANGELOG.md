@@ -1,5 +1,13 @@
 # @atlaskit/emoji
 
+## 67.12.2
+
+### Patch Changes
+
+- [#102668](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102668)
+  [`a48adfb4daa31`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a48adfb4daa31) -
+  Removed feature gate for emoji puload timeout
+
 ## 67.12.1
 
 ### Patch Changes

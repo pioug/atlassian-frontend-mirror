@@ -1,4 +1,3 @@
-import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { AnalyticsWebClient } from '@atlaskit/analytics-listeners';
 import type { Manager, Socket as SocketIOSocket } from 'socket.io-client';
 import type { InternalError } from './errors/internal-errors';
@@ -14,6 +13,7 @@ import type {
 	PresenceActivity,
 } from '@atlaskit/editor-common/collab';
 import { type CatchupEventReason } from './helpers/const';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 
 export interface CollabEventDisconnectedData {
 	sid: string;
@@ -259,7 +259,7 @@ export type ChannelEvent = {
 };
 
 export interface Catchupv2Response {
-	steps?: Step[];
+	steps?: StepJson[];
 	metadata?: Metadata;
 }
 
@@ -286,6 +286,7 @@ export interface Catchupv2Options {
 	catchUpOutofSync: boolean;
 	reason?: CatchupEventReason;
 	onCatchupComplete?: (steps: StepJson[]) => void;
+	getState: (() => EditorState) | undefined;
 }
 
 export type ReconnectionMetadata = {

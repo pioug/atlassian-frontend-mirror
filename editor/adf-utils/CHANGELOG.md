@@ -1,5 +1,13 @@
 # @atlaskit/adf-utils
 
+## 19.17.0
+
+### Minor Changes
+
+- [#102696](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102696)
+  [`68e5aef5beb02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/68e5aef5beb02) -
+  Validate Forge macro paramters to the rules of Confluence parameter processing
+
 ## 19.16.0
 
 ### Minor Changes

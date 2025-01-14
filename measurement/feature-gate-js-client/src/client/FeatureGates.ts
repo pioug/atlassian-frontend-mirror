@@ -81,6 +81,12 @@ class FeatureGates {
 		return this.client.checkGate(gateName, options);
 	};
 
+	static isGateExists(gateName: string): boolean {
+		return this.client.isGateExist(gateName);
+	}
+	static isExperimentExists(experimentName: string): boolean {
+		return this.client.isExperimentExist(experimentName);
+	}
 	static getExperimentValue: Client['getExperimentValue'] = (
 		experimentName,
 		parameterName,

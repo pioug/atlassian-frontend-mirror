@@ -34,6 +34,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/editor-prosemirror": "6.2.1",
+		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"uuid": "^3.1.0"
 	},
@@ -54,6 +55,11 @@
 			"styling": [
 				"emotion"
 			]
+		}
+	},
+	"platform-feature-flags": {
+		"platform_editor_merge_unconfirmed_steps": {
+			"type": "boolean"
 		}
 	}
 }

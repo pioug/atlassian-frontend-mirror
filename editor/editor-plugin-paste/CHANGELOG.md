@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.0.17
+
+### Patch Changes
+
+- [#102478](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102478)
+  [`e14c5f9596217`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e14c5f9596217) -
+  Calling media trackMediaPaste command to enable the tracking of out of editor media paste to
+  enable deep copy when media copy scope is set to "editor"
+- Updated dependencies
+
 ## 2.0.16
 
 ### Patch Changes

@@ -73,6 +73,7 @@ const textStyles = css({
 	lineHeight: '16px',
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	textTransform: 'uppercase',
 	whiteSpace: 'nowrap',
 });

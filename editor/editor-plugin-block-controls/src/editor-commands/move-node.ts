@@ -204,32 +204,54 @@ export const moveNode =
 		// eslint-disable-next-line @typescript-eslint/max-params
 	): EditorCommand =>
 	({ tr }) => {
-		const node = tr.doc.nodeAt(start);
-		const resolvedNode = tr.doc.resolve(start);
+		const isMultiSelect = editorExperiment(
+			'platform_editor_element_drag_and_drop_multiselect',
+			true,
+			{
+				exposure: true,
+			},
+		);
 
-		if (!node) {
+		const selection = tr.selection;
+		const selectionFrom = selection.$from.pos;
+		const selectionTo = selection.$to.pos;
+		const handleNode = tr.doc.nodeAt(start);
+
+		if (!handleNode) {
 			return tr;
 		}
 
+		let sliceFrom = start;
+		let sliceTo;
+		if (isMultiSelect) {
+			// //If the handle position sits within the Editor selection, we will move all nodes that sit in that selection
+			const useSelection = sliceFrom >= selectionFrom - 1 && sliceFrom <= selectionTo;
+			sliceFrom = useSelection ? selectionFrom : start;
+			const handleSize = handleNode?.nodeSize ?? 1;
+			const handleEnd = sliceFrom + handleSize;
+			sliceTo = useSelection ? selectionTo : handleEnd;
+		} else {
+			const size = handleNode?.nodeSize ?? 1;
+			sliceTo = sliceFrom + size;
+		}
+
 		const { expand, nestedExpand } = tr.doc.type.schema.nodes;
-		const size = node?.nodeSize ?? 1;
-		const end = start + size;
-
-		const $from = tr.doc.resolve(start);
 		const $to = tr.doc.resolve(to);
-
+		const $handlePos = tr.doc.resolve(start);
 		let mappedTo;
 		if (editorExperiment('nested-dnd', true)) {
-			const nodeCopy = tr.doc.slice(start, end, false); // cut the content
+			const nodeCopy = tr.doc.slice(sliceFrom, sliceTo, false); // cut the content
 			const destType = $to.node().type;
 			const destParent = $to.node($to.depth);
-			const sourceNode = $from.nodeAfter;
 
+			const sourceNode = $handlePos.nodeAfter;
+
+			//TODO: Does this need to be updated with new selection logic above? ^
 			// Move a layout column to top level
-			if (sourceNode && isDragLayoutColumnToTopLevel($from, $to)) {
+			if (sourceNode && isDragLayoutColumnToTopLevel($handlePos, $to)) {
 				// need update after we support single column layout.
 				const fragment = Fragment.from(sourceNode.content);
-				removeFromSource(tr, $from);
+				removeFromSource(tr, $handlePos);
 				const mappedTo = tr.mapping.map(to);
 				tr.insert(mappedTo, fragment)
 					.setSelection(Selection.near(tr.doc.resolve(mappedTo)))
@@ -238,7 +260,14 @@ export const moveNode =
 				return tr;
 			}
 
-			if (!canMoveNodeToIndex(destParent, $to.index(), $from.node().child($from.index()), $to)) {
+			if (
+				!canMoveNodeToIndex(
+					destParent,
+					$to.index(),
+					$handlePos.node().child($handlePos.index()),
+					$to,
+				)
+			) {
 				return tr;
 			}
 
@@ -247,7 +276,7 @@ export const moveNode =
 			if (!convertedNode) {
 				return tr;
 			}
-			tr.delete(start, end); // delete the content from the original position
+			tr.delete(sliceFrom, sliceTo); // delete the content from the original position
 			mappedTo = tr.mapping.map(to);
 
 			const isDestNestedLoneEmptyParagraph =
@@ -263,8 +292,8 @@ export const moveNode =
 				tr.insert(mappedTo, convertedNode);
 			}
 		} else {
-			const nodeCopy = tr.doc.content.cut(start, end); // cut the content
-			tr.delete(start, end); // delete the content from the original position
+			const nodeCopy = tr.doc.content.cut(sliceFrom, sliceTo); // cut the content
+			tr.delete(sliceFrom, sliceTo); // delete the content from the original position
 			mappedTo = tr.mapping.map(to);
 			tr.insert(mappedTo, nodeCopy); // insert the content at the new position
 		}
@@ -272,7 +301,7 @@ export const moveNode =
 		tr =
 			inputMethod === INPUT_METHOD.DRAG_AND_DROP
 				? setCursorPositionAtMovedNode(tr, mappedTo)
-				: selectNode(tr, mappedTo, node.type.name);
+				: selectNode(tr, mappedTo, handleNode.type.name);
 
 		tr.setMeta(key, { nodeMoved: true });
 		api?.core.actions.focus();
@@ -299,11 +328,11 @@ export const moveNode =
 			attachMoveNodeAnalytics(
 				tr,
 				inputMethod,
-				resolvedNode.depth,
-				node.type.name,
+				$handlePos.depth,
+				handleNode.type.name,
 				$mappedTo?.depth,
 				$mappedTo?.parent.type.name,
-				$from.sameParent($mappedTo),
+				$handlePos.sameParent($mappedTo),
 				api,
 			);
 		} else {
@@ -313,8 +342,8 @@ export const moveNode =
 				actionSubject: ACTION_SUBJECT.ELEMENT,
 				actionSubjectId: ACTION_SUBJECT_ID.ELEMENT_DRAG_HANDLE,
 				attributes: {
-					nodeDepth: resolvedNode.depth,
-					nodeType: node.type.name,
+					nodeDepth: $handlePos.depth,
+					nodeType: handleNode.type.name,
 					destinationNodeDepth: $mappedTo?.depth,
 					destinationNodeType: $mappedTo?.parent.type.name,
 					...(fg('platform_editor_element_drag_and_drop_ed_23873') && { inputMethod }),
@@ -324,7 +353,7 @@ export const moveNode =
 
 		if (fg('platform_editor_element_drag_and_drop_ed_23873')) {
 			const movedMessage =
-				to > start ? blockControlsMessages.movedDown : blockControlsMessages.movedup;
+				to > sliceFrom ? blockControlsMessages.movedDown : blockControlsMessages.movedup;
 
 			api?.accessibilityUtils?.actions.ariaNotify(
 				formatMessage ? formatMessage(movedMessage) : movedMessage.defaultMessage,

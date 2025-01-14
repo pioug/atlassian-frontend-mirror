@@ -94,6 +94,7 @@ const mountTable = (
 	isInsideOfBlockNode = false,
 	allowTableAlignment = false,
 	allowTableResizing = false,
+	isInsideOfTable = false,
 ) => {
 	return mountWithIntl(
 		<Table
@@ -104,6 +105,7 @@ const mountTable = (
 			tableNode={node}
 			columnWidths={columnWidths}
 			isInsideOfBlockNode={isInsideOfBlockNode}
+			isInsideOfTable={isInsideOfTable}
 			allowTableAlignment={allowTableAlignment}
 			allowTableResizing={allowTableResizing}
 		>
@@ -129,6 +131,7 @@ const mountTableWithFF = (
 	appearance: RendererAppearance = 'full-page',
 	isInsideOfBlockNode = false,
 	isTopLevelRenderer: RendererContextProps['isTopLevelRenderer'] = true,
+	isInsideOfTable = false,
 ) => {
 	return mountWithIntl(
 		<RendererContextProvider value={{ featureFlags, isTopLevelRenderer }}>
@@ -140,6 +143,7 @@ const mountTableWithFF = (
 				tableNode={node}
 				columnWidths={columnWidths}
 				isInsideOfBlockNode={isInsideOfBlockNode}
+				isInsideOfTable={isInsideOfTable}
 			>
 				<TableRow>
 					<TableHeader />
@@ -1224,6 +1228,58 @@ describe('Renderer - React/Nodes/Table', () => {
 
 				expect(tableContainer.find('colgroup')).toHaveLength(0);
 				wrap.unmount();
+			});
+
+			describe('should NOT render a colgroup when isInsideOfTable and columns have not been resized', () => {
+				ffTest(
+					'platform_editor_nested_tables_renderer_colgroup',
+					() => {
+						const tableWidth = 500;
+						const scale = 0.6;
+						const tableNode = createTable(tableWidth, 'default');
+						const rendererWidth = tableWidth * scale;
+						// column widths 0 as they're undefined
+						const colWidths = [0, 0, 0];
+
+						const wrap = mountTable(
+							tableNode,
+							rendererWidth,
+							colWidths,
+							undefined,
+							false,
+							false,
+							true,
+							true,
+						);
+						const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+						expect(tableContainer.find('colgroup')).toHaveLength(0);
+						wrap.unmount();
+					},
+					() => {
+						const tableWidth = 500;
+						const scale = 0.6;
+						const tableNode = createTable(tableWidth, 'default');
+						const rendererWidth = tableWidth * scale;
+						// column widths 0 as they're undefined
+						const colWidths = [0, 0, 0];
+
+						const wrap = mountTable(
+							tableNode,
+							rendererWidth,
+							colWidths,
+							undefined,
+							false,
+							false,
+							true,
+							true,
+						);
+						const tableContainer = wrap.find(`.${TableSharedCssClassName.TABLE_CONTAINER}`);
+
+						expect(tableContainer.find('colgroup')).toHaveLength(1);
+						wrap.unmount();
+					},
+				);
 			});
 
 			// When Renderer is nested (eg: Renderer is used to render contents inside an extension

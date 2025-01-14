@@ -30,6 +30,10 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__prosemirror-collab/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

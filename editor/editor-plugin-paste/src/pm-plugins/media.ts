@@ -1,4 +1,6 @@
+import type { MediaADFAttrs } from '@atlaskit/adf-schema';
 import { DEFAULT_IMAGE_WIDTH } from '@atlaskit/editor-common/media-single';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import {
 	mapSlice,
 	removeNestedEmptyEls,
@@ -10,6 +12,8 @@ import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import { hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import { getRandomHex } from '@atlaskit/media-common';
 import { fg } from '@atlaskit/platform-feature-flags';
+
+import type { PastePlugin } from '../pastePluginType';
 
 /**
  * Ensure correct layout in nested mode
@@ -80,7 +84,11 @@ export const transformSliceToCorrectMediaWrapper = (slice: Slice, schema: Schema
  * Because width may not be available when transform, DEFAULT_IMAGE_WIDTH is used as a fallback
  *
  */
-export const transformSliceToMediaSingleWithNewExperience = (slice: Slice, schema: Schema) => {
+export const transformSliceToMediaSingleWithNewExperience = (
+	slice: Slice,
+	schema: Schema,
+	api: ExtractInjectionAPI<PastePlugin> | undefined,
+) => {
 	const { mediaInline, mediaSingle, media } = schema.nodes;
 	const newSlice = mapSlice(slice, (node) => {
 		// This logic is duplicated in editor-plugin-ai where external images can be inserted
@@ -108,6 +116,8 @@ export const transformSliceToMediaSingleWithNewExperience = (slice: Slice, schem
 	return mapSlice(newSlice, (node) => {
 		const __mediaTraceId = getRandomHex(8);
 		if (node.type === media) {
+			api?.core.actions.execute(api?.media?.commands.trackMediaPaste(node.attrs as MediaADFAttrs));
+
 			return media.createChecked(
 				{
 					...node.attrs,
@@ -119,6 +129,8 @@ export const transformSliceToMediaSingleWithNewExperience = (slice: Slice, schem
 			);
 		}
 		if (node.type.name === 'mediaInline') {
+			api?.core.actions.execute(api?.media?.commands.trackMediaPaste(node.attrs as MediaADFAttrs));
+
 			return mediaInline.createChecked(
 				{
 					...node.attrs,
@@ -128,6 +140,7 @@ export const transformSliceToMediaSingleWithNewExperience = (slice: Slice, schem
 				node.marks,
 			);
 		}
+
 		return node;
 	});
 };

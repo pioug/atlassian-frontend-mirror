@@ -1,5 +1,15 @@
 # @atlaskit/renderer
 
+## 112.8.8
+
+### Patch Changes
+
+- [#103047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103047)
+  [`2e9d79eb2d217`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2e9d79eb2d217) -
+  [ux] ED-26201 Prevent generation of table colgroup in renderer if table is nested in a table and
+  columns haven't been resized
+- Updated dependencies
+
 ## 112.8.7
 
 ### Patch Changes

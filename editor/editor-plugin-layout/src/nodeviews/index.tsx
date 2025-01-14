@@ -8,6 +8,7 @@ import { BreakoutResizer, ignoreResizerMutations } from '@atlaskit/editor-common
 import { type ExtractInjectionAPI, type getPosHandlerNode } from '@atlaskit/editor-common/types';
 import {
 	DOMSerializer,
+	Schema,
 	type DOMOutputSpec,
 	type Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
@@ -29,6 +30,10 @@ type LayoutSectionViewProps = {
 
 const isEmptyParagraph = (node?: PMNode | null): boolean => {
 	return !!node && node.type.name === 'paragraph' && !node.childCount;
+};
+
+const isBreakoutAvailable = (schema: Schema) => {
+	return Boolean(schema.marks.breakout);
 };
 
 const isEmptyLayout = (node?: PMNode) => {
@@ -94,7 +99,9 @@ const LayoutBreakoutResizer = ({
 			editorView={view}
 			nodeType="layoutSection"
 			getEditorWidth={getEditorWidth}
-			disabled={editorDisabledState?.editorDisabled === true}
+			disabled={
+				editorDisabledState?.editorDisabled === true || !isBreakoutAvailable(view.state.schema)
+			}
 			parentRef={parentRef}
 			editorAnalyticsApi={pluginInjectionApi?.analytics?.actions}
 			displayGapCursor={displayGapCursor}

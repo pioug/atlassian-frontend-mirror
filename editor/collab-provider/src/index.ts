@@ -33,5 +33,6 @@ export type {
 	ProviderParticipant,
 	CollabEventLocalStepData,
 	UserPermitType,
+	CollabNamespaceLockCheckPayload,
 } from '@atlaskit/editor-common/collab';
 export { PROVIDER_ERROR_CODE } from '@atlaskit/editor-common/collab';

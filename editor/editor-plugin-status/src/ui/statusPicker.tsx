@@ -82,6 +82,7 @@ const pickerContainerStyles = css({
 	},
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	input: {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		textTransform: 'uppercase',
 	},
 });

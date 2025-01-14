@@ -267,7 +267,11 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 			.on('participant:updated', this.participantsService.onParticipantUpdated)
 			.on('disconnect', this.onDisconnected.bind(this))
 			.on('error', this.onErrorHandled)
-			.on('status', this.namespaceService.onNamespaceStatusChanged)
+			.on('status', async (status) => {
+				await this.namespaceService.onNamespaceStatusChanged(status);
+				const isLocked = this.namespaceService.getIsNamespaceLocked();
+				this.emit('namespace-lock:check', { isLocked });
+			})
 			.connect(shouldSkipDocumentInit);
 	};
 

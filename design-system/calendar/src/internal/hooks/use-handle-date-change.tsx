@@ -165,27 +165,41 @@ export default function useHandleDateChange({
 		[triggerOnChange],
 	);
 
-	const handleClickNext = useCallback(() => {
+	const handleClickNextMonth = useCallback(() => {
 		const { day, month, year } = {
 			...dateRef.current,
 			...getNextMonth(dateRef.current.month, dateRef.current.year),
 		};
 
-		triggerOnChange({ day, month, year, type: 'next' });
+		triggerOnChange({ day, month, year, type: 'nextMonth' });
 	}, [triggerOnChange]);
 
-	const handleClickPrev = useCallback(() => {
+	const handleClickNextYear = useCallback(() => {
+		const { day, month, year } = dateRef.current;
+
+		triggerOnChange({ day, month, year: year + 1, type: 'nextYear' });
+	}, [triggerOnChange]);
+
+	const handleClickPrevMonth = useCallback(() => {
 		const { day, month, year } = {
 			...dateRef.current,
 			...getPrevMonth(dateRef.current.month, dateRef.current.year),
 		};
 
-		triggerOnChange({ day, month, year, type: 'prev' });
+		triggerOnChange({ day, month, year, type: 'prevMonth' });
+	}, [triggerOnChange]);
+
+	const handleClickPrevYear = useCallback(() => {
+		const { day, month, year } = dateRef.current;
+
+		triggerOnChange({ day, month, year: year - 1, type: 'prevYear' });
 	}, [triggerOnChange]);
 
 	return {
 		navigate,
-		handleClickNext,
-		handleClickPrev,
+		handleClickNextMonth,
+		handleClickNextYear,
+		handleClickPrevMonth,
+		handleClickPrevYear,
 	};
 }

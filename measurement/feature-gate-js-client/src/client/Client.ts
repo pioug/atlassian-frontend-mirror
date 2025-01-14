@@ -369,6 +369,33 @@ export class Client {
 		}
 	}
 
+	isGateExist(gateName: string): boolean {
+		try {
+			// @ts-expect-error TS2341: Property _getClientX is private and only accessible within class Statsi
+			const gate = Statsig._getClientX()._getGateFromStore(gateName);
+
+			return gate.evaluationDetails.reason !== EvaluationReason.Unrecognized;
+		} catch (error: unknown) {
+			// eslint-disable-next-line no-console
+			console.error(`Error occurred when trying to check FeatureGate: ${error}`);
+			// in case of error report true to avoid false positives.
+			return true;
+		}
+	}
+
+	isExperimentExist(experimentName: string): boolean {
+		try {
+			const config = Statsig.getExperimentWithExposureLoggingDisabled(experimentName);
+
+			return config._evaluationDetails.reason !== EvaluationReason.Unrecognized;
+		} catch (error: unknown) {
+			// eslint-disable-next-line no-console
+			console.error(`Error occurred when trying to check Experiment: ${error}`);
+			// in case of error report true to avoid false positives.
+			return true;
+		}
+	}
+
 	/**
 	 * Manually log a gate exposure (see [Statsig docs about manually logging exposures](https://docs.statsig.com/client/jsClientSDK#manual-exposures-)).
 	 * This is useful if you have evaluated a gate earlier via {@link Client.checkGate} where

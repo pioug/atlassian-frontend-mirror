@@ -59,6 +59,7 @@ const modeSwitcherLabelStyles = css({
 	color: token('color.text.subtlest', N700),
 	font: token('font.body.UNSAFE_small'),
 	fontWeight: token('font.weight.semibold'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	textTransform: 'uppercase',
 
 	padding: `${token('space.050', '4px')}`,

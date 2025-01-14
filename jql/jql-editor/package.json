@@ -46,7 +46,7 @@
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/form": "^11.0.0",
-		"@atlaskit/icon": "^23.3.0",
+		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/jql-ast": "^3.3.0",
 		"@atlaskit/jql-autocomplete": "^2.0.0",
 		"@atlaskit/jql-editor-common": "^2.1.0",

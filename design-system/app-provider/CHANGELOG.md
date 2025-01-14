@@ -1,5 +1,15 @@
 # @atlaskit/app-provider
 
+## 1.6.0
+
+### Minor Changes
+
+- [#98648](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98648)
+  [`940af9dafa883`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/940af9dafa883) -
+  [ux] Default typography theme changed to modernized behind feature flag
+  `platform-default-typography-modernized`. If testing is successful the change will be available in
+  a later release.
+
 ## 1.5.0
 
 ### Minor Changes

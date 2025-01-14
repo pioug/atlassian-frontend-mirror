@@ -94,6 +94,7 @@ const renderScaleDownColgroup = (
 		tableNode,
 		rendererAppearance,
 		isInsideOfBlockNode,
+		isInsideOfTable,
 		isinsideMultiBodiedExtension,
 		isTableScalingEnabled,
 		isTableFixedColumnWidthsOptionEnabled,
@@ -126,6 +127,7 @@ const renderScaleDownColgroup = (
 	if (
 		allowTableResizing &&
 		!isInsideOfBlockNode &&
+		!(fg('platform_editor_nested_tables_renderer_colgroup') && isInsideOfTable) &&
 		!isinsideMultiBodiedExtension &&
 		!tableColumnResized
 	) {

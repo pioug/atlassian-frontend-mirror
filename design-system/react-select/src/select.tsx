@@ -1801,7 +1801,6 @@ export default class Select<
 						prevInputValue: inputValue,
 					});
 					this.onMenuClose();
-					fg('design_system_select-a11y-improvement') && event.stopPropagation(); // keep ESC on select from dismissing parent layers
 				} else if (isClearable && escapeClearsValue) {
 					this.clearValue();
 				}

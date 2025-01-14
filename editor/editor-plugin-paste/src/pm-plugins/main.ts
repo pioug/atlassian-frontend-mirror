@@ -717,7 +717,7 @@ export function createPlugin(
 
 				slice = transformSliceToCorrectMediaWrapper(slice, schema);
 
-				slice = transformSliceToMediaSingleWithNewExperience(slice, schema);
+				slice = transformSliceToMediaSingleWithNewExperience(slice, schema, pluginInjectionApi);
 
 				slice = transformSliceToDecisionList(slice, schema);
 

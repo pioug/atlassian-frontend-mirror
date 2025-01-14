@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-mentions
 
+## 2.12.0
+
+### Minor Changes
+
+- [#101931](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101931)
+  [`8a09e2cba1485`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8a09e2cba1485) -
+  Changed signature of optional prop (inviteXProductUser) with 1 more param. This is regarding
+  CCEDITIONS-4746 (x-product-user-invite experiment). Project poster link -
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.11.3
 
 ### Patch Changes

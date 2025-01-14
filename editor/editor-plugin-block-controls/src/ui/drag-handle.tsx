@@ -253,9 +253,46 @@ export const DragHandle = ({
 					return;
 				}
 				api?.core?.actions.execute(({ tr }) => {
+					const isMultiSelect = editorExperiment(
+						'platform_editor_element_drag_and_drop_multiselect',
+						true,
+						{
+							exposure: true,
+						},
+					);
+
+					let selectionStart = start;
+
+					if (isMultiSelect) {
+						const selection = tr.selection;
+						const selectionFrom = selection.$from.pos;
+						const selectionTo = selection.$to.pos;
+						const $selectionFrom = tr.doc.resolve(selectionFrom);
+						const $selectionTo = tr.doc.resolve(selectionTo);
+						selectionStart = $selectionFrom.start();
+						const selectionEnd = $selectionTo.end();
+						const handlePos = getPos();
+						if (typeof handlePos !== 'number') {
+							return tr;
+						}
+
+						const posBeforeNode = $selectionFrom.pos
+							? $selectionFrom.start() - 1
+							: $selectionFrom.pos;
+						const shouldExpandSelection = handlePos >= posBeforeNode && handlePos <= selectionEnd;
+
+						if (shouldExpandSelection) {
+							//TODO: What happens if not a text selection?
+							const newSelection = TextSelection.create(tr.doc, selectionStart, selectionEnd);
+							tr.setSelection(newSelection);
+						} else {
+							const $selectionFrom = tr.doc.resolve(handlePos + 1);
+							selectNode(tr, handlePos, $selectionFrom.node().type.name);
+						}
+					}
 					api?.blockControls?.commands.setNodeDragged(getPos, anchorName, nodeType)({ tr });
 
-					const resolvedMovingNode = tr.doc.resolve(start);
+					const resolvedMovingNode = tr.doc.resolve(selectionStart);
 					const maybeNode = resolvedMovingNode.nodeAfter;
 					tr.setMeta('scrollIntoView', false);
 					api?.analytics?.actions.attachAnalyticsEvent({

@@ -115,6 +115,7 @@ export const ArticlesListItemSource = styled.div({
 	color: token('color.text.subtlest', colors.N400A),
 	padding: `${token('space.050', '4px')} 0`,
 	fontWeight: token('font.weight.bold', 'bold'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	textTransform: 'uppercase',
 });
 

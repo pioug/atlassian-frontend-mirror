@@ -74,7 +74,7 @@ const partitionObject = <T extends { [key: string]: any }>(
 	);
 
 /**
- * Normalizes the structure of files imported form './specs'.
+ * Normalizes the structure of files imported from './specs'.
  * We denormalised the spec to save bundle size.
  */
 function createSpec(nodes?: Array<string>, marks?: Array<string>) {

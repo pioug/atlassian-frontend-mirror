@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 10.4.0
+
+### Minor Changes
+
+- [#102499](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102499)
+  [`c1bfe8b68a35e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1bfe8b68a35e) -
+  log obfuscated steps in collab provider when catchup out of sync
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.3.4
 
 ### Patch Changes

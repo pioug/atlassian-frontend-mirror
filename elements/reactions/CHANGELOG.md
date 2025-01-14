@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 23.0.0
+
+### Major Changes
+
+- [#101694](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101694)
+  [`948ffe9fc5518`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/948ffe9fc5518) -
+  Update and add i18n translations for Reactions Dialog
+
 ## 22.16.14
 
 ### Patch Changes

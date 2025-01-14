@@ -10,7 +10,7 @@ export type TabIndex = -1 | 0;
 
 export type ChangeEvent = {
 	iso: ISODate;
-	type: 'left' | 'up' | 'right' | 'down' | 'prev' | 'next';
+	type: 'left' | 'up' | 'right' | 'down' | 'prevMonth' | 'prevYear' | 'nextMonth' | 'nextYear';
 } & DateObj;
 
 export type SelectEvent = {

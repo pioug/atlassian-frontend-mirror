@@ -1,7 +1,9 @@
+import { EVENT_ACTION, EVENT_STATUS } from '../helpers/const';
 import type { InternalError } from '../errors/internal-errors';
-import { createLogger } from '../helpers/utils';
+import { createLogger, getObfuscatedSteps, getDocAdfWithObfuscation } from '../helpers/utils';
 import type { Catchupv2Options, StepsPayload } from '../types';
 import type { StepJson } from '@atlaskit/editor-common/collab';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 const logger = createLogger('Catchupv2', 'red');
 
@@ -43,13 +45,28 @@ export const catchupv2 = async (opt: Catchupv2Options): Promise<boolean> => {
 		};
 		opt.onStepsAdded(stepsPayload);
 		opt.updateMetadata(metadata);
-		return Boolean(
+		const clientOutOfSync = Boolean(
 			opt.clientId && isOutOfSync(fromVersion, opt.getCurrentPmVersion(), steps, opt.clientId),
 		);
+		if (clientOutOfSync) {
+			logObfuscatedSteps(steps, opt);
+		}
+		return clientOutOfSync;
 	} catch (error) {
 		opt.analyticsHelper?.sendErrorEvent(error, 'Failed to apply catchupv2 result in the editor');
 		logger(`Apply catchupv2 steps failed:`, (error as InternalError).message);
 		throw error;
+	}
+};
+
+const logObfuscatedSteps = (steps: StepJson[], opt: Catchupv2Options) => {
+	if (fg('platform_editor_log_obfuscated_steps')) {
+		const state = opt.getState?.();
+		opt.analyticsHelper?.sendActionEvent(EVENT_ACTION.OUT_OF_SYNC, EVENT_STATUS.FAILURE, {
+			obfuscatedSteps: getObfuscatedSteps(steps),
+			obfuscatedDoc: state ? getDocAdfWithObfuscation(state.doc) : null,
+			catchupReason: opt.reason,
+		});
 	}
 };
 

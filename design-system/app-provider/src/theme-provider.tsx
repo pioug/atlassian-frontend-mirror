@@ -9,11 +9,12 @@ export type Theme = Omit<ThemeState, 'colorMode' | 'contrastMode'>;
 export type ColorMode = 'light' | 'dark' | 'auto';
 export type ReconciledColorMode = Exclude<ColorMode, 'auto'>;
 
-const defaultThemeSettings: Theme = {
+const defaultThemeSettings = (): Theme => ({
 	dark: 'dark',
 	light: 'light',
 	spacing: 'spacing',
-};
+	typography: fg('platform-default-typography-modernized') ? 'typography-modernized' : undefined,
+});
 
 const ColorModeContext = createContext<ReconciledColorMode | undefined>(undefined);
 
@@ -120,29 +121,16 @@ interface ThemeProviderProps {
  *
  * @internal
  */
-export function ThemeProvider({
-	children,
-	defaultColorMode,
-	defaultTheme: {
-		dark = 'dark',
-		light = 'light',
-		spacing = 'spacing',
-		typography,
-		shape,
-	} = defaultThemeSettings,
-}: ThemeProviderProps) {
+export function ThemeProvider({ children, defaultColorMode, defaultTheme }: ThemeProviderProps) {
 	const [chosenColorMode, setChosenColorMode] = useState<ColorMode>(defaultColorMode);
 	const [reconciledColorMode, setReconciledColorMode] = useState<ReconciledColorMode>(
 		getReconciledColorMode(defaultColorMode),
 	);
 
-	const [theme, setTheme] = useState<Theme>({
-		dark,
-		light,
-		spacing,
-		typography,
-		shape,
-	});
+	const [theme, setTheme] = useState<Theme>(() => ({
+		...defaultThemeSettings(),
+		...defaultTheme,
+	}));
 
 	const setColorMode = useCallback((colorMode: ColorMode) => {
 		setChosenColorMode(colorMode);

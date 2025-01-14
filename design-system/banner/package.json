@@ -53,7 +53,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/ds-lib": "^3.3.0",
-		"@atlaskit/icon": "^23.3.0",
+		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^12.1.5",
 		"jscodeshift": "^0.13.0",

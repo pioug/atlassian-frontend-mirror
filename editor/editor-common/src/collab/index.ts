@@ -3,6 +3,10 @@ import type { ReactElement } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
+import {
+	type BatchAttrsStep,
+	type OverrideDocumentStepJSON as OverrideDocumentStep,
+} from '@atlaskit/adf-schema/steps';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type {
 	EditorState,
@@ -311,6 +315,10 @@ export interface CollabDisconnectedPayload {
 	sid: string;
 }
 
+export interface CollabNamespaceLockCheckPayload {
+	isLocked: boolean;
+}
+
 export interface CollabEventRemoteData {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -326,7 +334,7 @@ type MarkJson = {
 	attrs: { [key: string]: any };
 };
 
-type NodeJson = {
+export type NodeJson = {
 	type: string;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -342,16 +350,91 @@ type SliceJson = {
 	openEnd: number;
 };
 
-export type StepJson = {
-	stepType?: string; // Likely required
-	from?: number;
-	to?: number;
-	slice?: SliceJson;
+export interface StepMetadata {
+	metadata?: {
+		source?: string;
+		stepId?: string;
+		prevStepId?: string;
+		rebased?: boolean;
+		traceId?: string;
+		reqId?: string;
+		schemaVersion?: string;
+	};
+}
+
+export interface BaseStepPM extends StepMetadata {
 	clientId: number | string;
 	userId: string;
-	createdAt?: number; // Potentially required?
+	stepType: string;
+	to?: number;
+	from?: number;
+	slice?: SliceJson;
+}
+
+// Match with ProseMirror: https://prosemirror.net/docs/ref/#transform.ReplaceStep
+export interface ReplaceStepPM extends BaseStepPM {
+	from: number;
+	to: number;
+	slice: SliceJson;
 	structure?: boolean;
-};
+}
+
+// Match with ProseMirror: https://prosemirror.net/docs/ref/#transform.ReplaceAroundStep
+export interface ReplaceAroundStepPM extends BaseStepPM {
+	from: number;
+	to: number;
+	gapFrom: number;
+	gapTo: number;
+	slice: SliceJson;
+	insert: number;
+	structure?: boolean;
+}
+
+export type InlineCommentStepPM = InlineCommentAddMarkStepPM | InlineCommentAddNodeMarkStepPM;
+
+interface InlineCommentAddMarkStepPM extends BaseStepPM {
+	stepType: 'addMark';
+	from: number;
+	to: number;
+	mark?: {
+		type?: 'annotation';
+		attrs?: {
+			id?: string;
+			annotationType?: 'inlineComment';
+		};
+	};
+}
+
+export interface InlineCommentAddNodeMarkStepPM extends BaseStepPM {
+	stepType: 'addNodeMark';
+	pos: number;
+	mark?: {
+		type?: 'annotation';
+		attrs?: {
+			id?: string;
+			annotationType?: 'inlineComment';
+		};
+	};
+}
+
+// Match with ProseMirror: https://prosemirror.net/docs/ref/#transform.AttrStep
+export interface SetAttrsStepPM extends BaseStepPM {
+	stepType: 'setAttrs';
+	pos: number;
+	attrs: Record<string, unknown>;
+}
+
+//Intersection: NCS custom step type config in adf-schema
+export type BatchAttrsStepPM = BaseStepPM & BatchAttrsStep;
+export type OverrideDocumentStepPM = BaseStepPM & OverrideDocumentStep;
+
+//Unions
+export type StepJson =
+	| OverrideDocumentStepPM
+	| ReplaceAroundStepPM
+	| ReplaceStepPM
+	| InlineCommentStepPM
+	| SetAttrsStepPM;
 
 export interface CollabDataPayload extends CollabEventRemoteData {
 	version: number;
@@ -484,6 +567,7 @@ export interface CollabEvents {
 	connecting: CollabConnectingPayload;
 	permission: CollabPermissionEventPayload;
 	'commit-status': CollabCommitStatusEventPayload;
+	'namespace-lock:check': CollabNamespaceLockCheckPayload;
 }
 
 export type SyncUpErrorFunction = (attributes: NewCollabSyncUpErrorAttributes) => void;

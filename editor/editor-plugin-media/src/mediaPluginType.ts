@@ -63,6 +63,7 @@ export type MediaNextEditorPluginType = NextEditorPlugin<
 		commands: {
 			showMediaViewer: (media: MediaADFAttrs) => EditorCommand;
 			hideMediaViewer: EditorCommand;
+			trackMediaPaste: (attrs: MediaADFAttrs) => EditorCommand;
 		};
 	}
 >;

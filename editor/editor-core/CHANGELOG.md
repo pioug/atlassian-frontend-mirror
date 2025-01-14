@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 203.11.3
+
+### Patch Changes
+
+- [#103029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103029)
+  [`bd4e16fcf521d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bd4e16fcf521d) -
+  Remove analytics for time in each lifecycle.
+- [#102929](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102929)
+  [`29b9b5aa91e94`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/29b9b5aa91e94) -
+  Cleanup feature flag to fix editor API via usePreset in Strict Mode.
+- Updated dependencies
+
 ## 203.11.2
 
 ### Patch Changes

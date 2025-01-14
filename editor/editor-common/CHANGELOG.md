@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 99.3.0
+
+### Minor Changes
+
+- [#100830](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100830)
+  [`c46ec6d414867`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c46ec6d414867) -
+  New collab event namespace-lock:check
+
+## 99.2.0
+
+### Minor Changes
+
+- [#102499](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102499)
+  [`c1bfe8b68a35e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c1bfe8b68a35e) -
+  log obfuscated steps in collab provider when catchup out of sync
+
 ## 99.1.2
 
 ### Patch Changes

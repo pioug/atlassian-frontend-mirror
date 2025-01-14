@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-layout
 
+## 1.13.0
+
+### Minor Changes
+
+- [#102136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102136)
+  [`0d56e554b5633`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0d56e554b5633) -
+  ED-26000 add support for layout without breakout
+
 ## 1.12.21
 
 ### Patch Changes

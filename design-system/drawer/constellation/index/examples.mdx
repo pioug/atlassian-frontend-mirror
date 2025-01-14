@@ -3,11 +3,10 @@ order: 0
 ---
 
 import DrawerDefaultExample from '../../examples/constellation/drawer-default';
-import DrawerWidths from '../../examples/constellation/drawer-widths/index';
-import DrawerWidthsDescription from '../../examples/constellation/drawer-widths/description';
+import DrawerWidths from '../../examples/constellation/drawer-widths';
 import DrawerSurfaceDetection from '../../examples/constellation/drawer-surface-detection';
-
-import { widths } from '../../src/constants';
+import DrawerXcss from '../../examples/constellation/drawer-xcss';
+import DrawerComposition from '../../examples/constellation/drawer-custom-composition';
 
 ## Default
 
@@ -18,12 +17,29 @@ name of the drawer to users of assistive technology.
 
 ## Width
 
-<DrawerWidthsDescription />
-
-Use `medium` or `wide` for most applications. Use `extended` and `full` with caution, because there
-isn’t enough visual affordance that this is a drawer and not a new page.
+You can set the drawer's width to one of the predefined sizes. Use `medium` or `wide` for most
+applications. Use `extended` and `full` with caution, because there isn’t enough visual affordance
+that this is a drawer and not a new page.
 
 <Example Component={DrawerWidths} packageName="@atlaskit/drawer" />
+
+## Customization
+
+### XCSS
+
+You can customize the `DrawerContent` and `DrawerSidebar` components using the `xcss` prop. This
+prop allows you to apply a subset of styles that are consistent with the Design System.
+
+<Example Component={DrawerXcss} packageName="@atlaskit/drawer" />
+
+### Composition
+
+You can compose the `DrawerContent`, `DrawerSidebar`, and `DrawerCloseButton` components together as
+needed to create a custom drawer. Refer to the
+[composing code guide](/get-started/develop/composition) for more information on effective
+composition with the Atlassian Design System.
+
+<Example Component={DrawerComposition} packageName="@atlaskit/drawer" />
 
 ## Surface detection
 

@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.35.0
+
+### Minor Changes
+
+- [#102564](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102564)
+  [`ddd5f55e9bef4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ddd5f55e9bef4) -
+  Add multi-select experiment
+
 ## 2.34.0
 
 ### Minor Changes

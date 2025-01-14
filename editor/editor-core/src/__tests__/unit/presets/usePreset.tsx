@@ -2,7 +2,6 @@ import { act, renderHook } from '@testing-library/react-hooks';
 
 import { EditorPresetBuilder } from '@atlaskit/editor-common/preset';
 import { basePlugin } from '@atlaskit/editor-plugins/base';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { usePreset } from '../../../use-preset';
 
@@ -53,27 +52,25 @@ describe('usePreset', () => {
 		expect(result.current.editorApi).toBe('tada');
 	});
 
-	ffTest.on('platform_editor_fix_api_strict_mode', 'with strict mode fix on', () => {
-		it('updates to the latest editor API when resolved multiple times', async () => {
-			const createPreset = jest.fn(() => new EditorPresetBuilder());
-			const { result } = renderHook((dep) => usePreset(createPreset, [dep]), {
-				initialProps: 'initial',
-			});
-
-			await act(async () => {
-				result.current.preset.build({
-					pluginInjectionAPI: { api: () => 'tada' } as any,
-				});
-			});
-
-			await act(async () => {
-				result.current.preset.build({
-					pluginInjectionAPI: { api: () => 'newer' } as any,
-				});
-			});
-
-			expect(result.current.editorApi).toBe('newer');
+	it('updates to the latest editor API when resolved multiple times', async () => {
+		const createPreset = jest.fn(() => new EditorPresetBuilder());
+		const { result } = renderHook((dep) => usePreset(createPreset, [dep]), {
+			initialProps: 'initial',
 		});
+
+		await act(async () => {
+			result.current.preset.build({
+				pluginInjectionAPI: { api: () => 'tada' } as any,
+			});
+		});
+
+		await act(async () => {
+			result.current.preset.build({
+				pluginInjectionAPI: { api: () => 'newer' } as any,
+			});
+		});
+
+		expect(result.current.editorApi).toBe('newer');
 	});
 
 	it('does not update the API if the hook unmounts', async () => {

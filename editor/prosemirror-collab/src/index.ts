@@ -6,6 +6,7 @@ import type {
 	Step as ProseMirrorStep,
 	Transform as ProseMirrorTransform,
 } from '@atlaskit/editor-prosemirror/transform';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 class Rebaseable {
 	constructor(
@@ -119,7 +120,11 @@ export function collab(config: CollabConfig = {}): Plugin {
 			apply(tr, collab) {
 				const newState = tr.getMeta(collabKey);
 				if (newState) {
-					return newState;
+					if (fg('platform_editor_merge_unconfirmed_steps')) {
+						return new CollabState(newState.version, transformUnconfirmed(newState.unconfirmed));
+					} else {
+						return newState;
+					}
 				}
 				if (tr.docChanged) {
 					return new CollabState(

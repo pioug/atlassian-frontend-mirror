@@ -4,21 +4,29 @@
  */
 import { memo } from 'react';
 
-// Compiled isn't ready to be used in components used by Ecosystem
-import { css, jsx } from '@emotion/react';
+import { cssMap as cssMapUnbound, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { type BackgroundColor, Box, Text, type TextColor, xcss } from '@atlaskit/primitives';
+import { Text, type TextColor } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { formatValue } from './internal/utils';
 import type { BadgeProps, ThemeAppearance } from './types';
 
-const boxStyles = xcss({
-	borderRadius: 'border.radius.200',
-	display: 'inline-flex',
-	blockSize: 'min-content',
-	flexShrink: 0, // Text component can wrap text, this ensures it doesn't wrap in flex containers.
+const boxStyles = cssMapUnbound({
+	root: {
+		display: 'inline-flex',
+		flexShrink: 0,
+		blockSize: 'min-content',
+		borderRadius: token('border.radius.200'),
+		paddingInline: token('space.075'),
+	},
+	added: { backgroundColor: token('color.background.success', '#E3FCEF') },
+	default: { backgroundColor: token('color.background.neutral', '#DFE1E6') },
+	important: { backgroundColor: token('color.background.danger.bold', '#DE350B') },
+	primary: { backgroundColor: token('color.background.brand.bold', '#0052CC') },
+	primaryInverted: { backgroundColor: token('elevation.surface') },
+	removed: { backgroundColor: token('color.background.danger', '#FFEBE6') },
 });
 
 /**
@@ -33,8 +41,8 @@ const red300 = '#FD9891';
 const blue300 = '#8FB8F6';
 const neutral1000 = '#292A2E';
 
-const styles = {
-	root: css({
+const styles = cssMapUnbound({
+	root: {
 		display: 'inline-flex',
 		boxSizing: 'border-box',
 		minWidth: token('space.300'),
@@ -43,32 +51,32 @@ const styles = {
 		blockSize: 'min-content',
 		borderRadius: token('border.radius.050'),
 		paddingInline: token('space.050'),
-	}),
-	added: css({
+	},
+	added: {
 		backgroundColor: token('color.background.success'),
 		color: token('color.text'),
-	}),
-	default: css({
+	},
+	default: {
 		backgroundColor: neutral300,
 		color: neutral1000,
-	}),
-	important: css({
+	},
+	important: {
 		backgroundColor: red300,
 		color: neutral1000,
-	}),
-	primary: css({
+	},
+	primary: {
 		backgroundColor: blue300,
 		color: neutral1000,
-	}),
-	primaryInverted: css({
+	},
+	primaryInverted: {
 		backgroundColor: token('elevation.surface'),
 		color: token('color.text.brand'),
-	}),
-	removed: css({
+	},
+	removed: {
 		backgroundColor: token('color.background.danger'),
 		color: token('color.text'),
-	}),
-};
+	},
+});
 
 /**
  * __Badge__
@@ -102,13 +110,10 @@ const Badge = memo(function Badge({
 	}
 
 	return (
-		<Box
-			testId={testId}
-			as="span"
-			backgroundColor={backgroundColors[appearance]}
-			xcss={boxStyles}
-			style={{ background: style?.backgroundColor, color: style?.color }}
-			paddingInline="space.075"
+		<span
+			data-testId={testId}
+			css={[boxStyles.root, boxStyles[appearance]]}
+			style={{ backgroundColor: style?.backgroundColor, color: style?.color }}
 		>
 			<Text
 				size="UNSAFE_small"
@@ -117,22 +122,13 @@ const Badge = memo(function Badge({
 			>
 				{typeof children === 'number' && max ? formatValue(children, max) : children}
 			</Text>
-		</Box>
+		</span>
 	);
 });
 
 Badge.displayName = 'Badge';
 
 export default Badge;
-
-const backgroundColors: Record<ThemeAppearance, BackgroundColor> = {
-	added: 'color.background.success',
-	default: 'color.background.neutral',
-	important: 'color.background.danger.bold',
-	primary: 'color.background.brand.bold',
-	primaryInverted: 'elevation.surface',
-	removed: 'color.background.danger',
-};
 
 const textColors: Record<ThemeAppearance, TextColor> = {
 	added: 'color.text.success',

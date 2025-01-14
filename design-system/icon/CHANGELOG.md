@@ -1,5 +1,19 @@
 # @atlaskit/icon
 
+## 23.4.0
+
+### Minor Changes
+
+- [#102935](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102935)
+  [`cce3e57461cd7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cce3e57461cd7) -
+  This release updates icons in `@atlaskit/icon`.
+
+  ### Updated:
+
+  **`@atlaskit/icon/core`**
+
+  - `field-radio-group`
+
 ## 23.3.1
 
 ### Patch Changes

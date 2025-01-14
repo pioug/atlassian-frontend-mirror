@@ -98,7 +98,13 @@ const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(function Calenda
 		...analyticsAttributes,
 	});
 
-	const { navigate, handleClickNext, handleClickPrev } = useHandleDateChange({
+	const {
+		navigate,
+		handleClickNextMonth,
+		handleClickNextYear,
+		handleClickPrevMonth,
+		handleClickPrevYear,
+	} = useHandleDateChange({
 		day: [dayValue, setDayValue],
 		month: [monthValue, setMonthValue],
 		year: [yearValue, setYearValue],
@@ -148,7 +154,7 @@ const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(function Calenda
 		weekStartDay,
 	});
 
-	const getNextHeading = () => {
+	const getNextMonthHeading = () => {
 		// Next month is (currentMonth - 1) + 1, or just currentMonth in this
 		// instance.
 		const nextMonth = monthValue % 12;
@@ -156,12 +162,26 @@ const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(function Calenda
 		return `${monthsLong[nextMonth]} ${showNextYear ? yearValue + 1 : yearValue}`;
 	};
 
-	const getPreviousHeading = () => {
+	const getNextYearHeading = () => {
+		// Months are held in Date object as zero-indexed
+		const thisMonth = (monthValue - 1) % 12;
+		const nextYear = yearValue + 1;
+		return `${monthsLong[thisMonth]} ${nextYear}`;
+	};
+
+	const getPreviousMonthHeading = () => {
 		// Previous month is (monthValue - 1) - 1. Need to add 12 so the modulo
 		// works as expected and stays positive.
 		const previousMonth = (monthValue + 12 - 2) % 12;
 		const showPreviousYear = monthValue === 1;
 		return `${monthsLong[previousMonth]} ${showPreviousYear ? yearValue - 1 : yearValue}`;
+	};
+
+	const getPreviousYearHeading = () => {
+		// Months are held in Date object as zero-indexed
+		const thisMonth = (monthValue - 1) % 12;
+		const previousYear = yearValue - 1;
+		return `${monthsLong[thisMonth]} ${previousYear}`;
 	};
 
 	const headerId = useId();
@@ -192,10 +212,14 @@ const InnerCalendar = forwardRef<HTMLDivElement, CalendarProps>(function Calenda
 						year={yearValue}
 						nextMonthLabel={nextMonthLabel}
 						previousMonthLabel={previousMonthLabel}
-						nextHeading={getNextHeading()}
-						previousHeading={getPreviousHeading()}
-						handleClickNext={handleClickNext}
-						handleClickPrev={handleClickPrev}
+						nextMonthHeading={getNextMonthHeading()}
+						nextYearHeading={getNextYearHeading()}
+						previousMonthHeading={getPreviousMonthHeading()}
+						previousYearHeading={getPreviousYearHeading()}
+						handleClickNextMonth={handleClickNextMonth}
+						handleClickNextYear={handleClickNextYear}
+						handleClickPrevMonth={handleClickPrevMonth}
+						handleClickPrevYear={handleClickPrevYear}
 						headerId={headerId}
 						tabIndex={tabIndex}
 						testId={testId}

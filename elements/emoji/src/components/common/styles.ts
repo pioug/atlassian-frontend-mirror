@@ -246,6 +246,7 @@ export const emojiName = css({
 	whiteSpace: 'nowrap',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	['&:first-letter']: {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		textTransform: 'uppercase',
 	},
 });

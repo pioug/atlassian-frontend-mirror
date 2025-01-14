@@ -353,8 +353,7 @@ export class MediaNodeUpdater {
 			}
 
 			const id = getIdentifier(attrs as MediaAttributes);
-			const isIdentifierOutsideEditorScope =
-				!(await this.mediaPluginState.isIdentifierInEditorScope(id));
+			const isIdentifierOutsideEditorScope = !this.mediaPluginState.isIdentifierInEditorScope(id);
 			return isIdentifierOutsideEditorScope;
 		}
 	};
@@ -411,20 +410,25 @@ export class MediaNodeUpdater {
 		traceContext?: MediaTraceContext;
 	}): Promise<string> => {
 		const { mediaClient, source, destination, traceContext } = attrs;
-		if (fg('platform_media_copy_and_paste_v2')) {
-			// don't need authProviders for v2 copy
-			const { authProvider: _sourceAP, ...copyV2Source } = source;
-			const { authProvider: _destAP, ...copyV2Destination } = destination;
-			const { id } = await mediaClient.file.copyFile(
-				copyV2Source,
-				copyV2Destination,
-				undefined,
-				traceContext,
-			);
-			return id;
-		} else {
+		try {
+			// calling copyWithToken by passing the auth providers
 			const { id } = await mediaClient.file.copyFile(source, destination, undefined, traceContext);
 			return id;
+		} catch (err) {
+			if (fg('platform_media_copy_and_paste_v2')) {
+				// calling /v2/file/copy by removing the auth tokens to make cross product copy and pastes
+				const { authProvider: _sourceAP, ...copyV2Source } = source;
+				const { authProvider: _destAP, ...copyV2Destination } = destination;
+				const { id } = await mediaClient.file.copyFile(
+					copyV2Source,
+					copyV2Destination,
+					undefined,
+					traceContext,
+				);
+				return id;
+			} else {
+				throw err;
+			}
 		}
 	};
 

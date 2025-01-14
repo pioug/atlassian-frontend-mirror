@@ -421,6 +421,7 @@ export class TableContainer extends React.Component<
 			tableNode,
 			rendererAppearance,
 			isInsideOfBlockNode,
+			isInsideOfTable,
 			isinsideMultiBodiedExtension,
 			allowTableAlignment,
 			allowTableResizing,
@@ -503,6 +504,7 @@ export class TableContainer extends React.Component<
 		const tableWidthNew = fixTableSSRResizing ? getTableContainerWidth(tableNode) : tableWidth;
 		const shouldCalculateLeftForAlignment =
 			!isInsideOfBlockNode &&
+			!isInsideOfTable &&
 			isTableAlignStart &&
 			((isFullPageAppearance(rendererAppearance) && tableWidthNew <= lineLengthFixedWidth) ||
 				isFullWidthAppearance(rendererAppearance) ||
@@ -661,6 +663,7 @@ export class TableContainer extends React.Component<
 							tableNode={tableNode}
 							rendererAppearance={rendererAppearance}
 							isInsideOfBlockNode={isInsideOfBlockNode}
+							isInsideOfTable={isInsideOfTable}
 							isinsideMultiBodiedExtension={isinsideMultiBodiedExtension}
 							allowTableResizing={allowTableResizing}
 						>

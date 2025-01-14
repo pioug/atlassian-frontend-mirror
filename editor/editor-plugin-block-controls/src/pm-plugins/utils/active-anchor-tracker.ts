@@ -2,6 +2,7 @@ import { EventEmitter } from 'events';
 
 import { useCallback, useEffect, useState } from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export class ActiveAnchorTracker {
@@ -10,6 +11,10 @@ export class ActiveAnchorTracker {
 
 	constructor() {
 		this.emitter = new EventEmitter();
+	}
+
+	public getActiveAnchor() {
+		return this.lastActiveAnchor;
 	}
 
 	public subscribe(anchorName: string, callback: (isActive: boolean) => void) {
@@ -60,6 +65,13 @@ export const useActiveAnchorTracker = (
 	useEffect(() => {
 		if (activeAnchorTracker && anchorName && editorExperiment('advanced_layouts', true)) {
 			activeAnchorTracker.subscribe(anchorName, onActive);
+
+			if (
+				activeAnchorTracker.getActiveAnchor() === anchorName &&
+				fg('platform_editor_advanced_layouts_post_fix_patch_3')
+			) {
+				setIsActive(true);
+			}
 
 			const unsubscribe = () => {
 				activeAnchorTracker.unsubscribe(anchorName, onActive);

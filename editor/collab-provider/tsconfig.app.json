@@ -33,6 +33,9 @@
 	},
 	"references": [
 		{
+			"path": "../adf-utils/tsconfig.app.json"
+		},
+		{
 			"path": "../../analytics/analytics-gas-types/tsconfig.app.json"
 		},
 		{

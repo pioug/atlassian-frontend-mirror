@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "112.8.7",
+	"version": "112.8.8",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -23,20 +23,20 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/adf-utils": "^19.16.0",
+		"@atlaskit/adf-utils": "^19.17.0",
 		"@atlaskit/analytics-listeners": "^8.13.0",
 		"@atlaskit/analytics-namespaced-context": "^6.12.0",
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/code": "^15.6.0",
-		"@atlaskit/editor-common": "^99.1.0",
+		"@atlaskit/editor-common": "^99.3.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-palette": "1.6.4",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/emoji": "^67.12.0",
 		"@atlaskit/feature-gate-js-client": "^4.23.0",
-		"@atlaskit/icon": "^23.3.0",
+		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/link-datasource": "^3.15.0",
 		"@atlaskit/media-card": "^78.18.0",
 		"@atlaskit/media-client": "^29.0.0",
@@ -50,7 +50,7 @@
 		"@atlaskit/status": "^1.8.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.34.0",
+		"@atlaskit/tmp-editor-statsig": "^2.35.0",
 		"@atlaskit/tokens": "^3.0.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/visually-hidden": "^1.5.0",
@@ -79,7 +79,7 @@
 		"@atlaskit/media-core": "^34.4.0",
 		"@atlaskit/media-integration-test-helpers": "^3.1.0",
 		"@atlaskit/media-test-helpers": "^34.7.0",
-		"@atlaskit/mention": "^23.7.0",
+		"@atlaskit/mention": "^23.8.0",
 		"@atlaskit/navigation-next": "^9.0.0",
 		"@atlaskit/util-data-test": "^17.13.0",
 		"@atlaskit/visual-regression": "*",
@@ -177,6 +177,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_accessible_heading_copy_link": {
+			"type": "boolean"
+		},
+		"platform_editor_nested_tables_renderer_colgroup": {
 			"type": "boolean"
 		}
 	},

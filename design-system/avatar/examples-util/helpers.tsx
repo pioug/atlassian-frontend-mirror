@@ -62,6 +62,7 @@ export const Heading = styled.div({
 	fontSize: '0.8rem',
 	fontWeight: token('font.weight.medium'),
 	marginBottom: token('space.100', '0.5em'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	textTransform: 'uppercase',
 });
 

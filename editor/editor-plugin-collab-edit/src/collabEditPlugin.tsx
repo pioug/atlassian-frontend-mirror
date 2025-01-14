@@ -183,7 +183,7 @@ export const collabEditPlugin: CollabEditPlugin = ({ config: options, api }) => 
 									collab({
 										clientID: userId,
 										transformUnconfirmed: fg('platform_editor_merge_unconfirmed_steps')
-											? mergeUnconfirmedSteps
+											? (steps) => mergeUnconfirmedSteps(steps, api)
 											: undefined,
 									}) as SafePlugin,
 							},

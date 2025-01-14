@@ -40,7 +40,6 @@ import type {
 } from './EmojiUtils';
 import { sampledUfoEmojiResourceFetched, ufoExperiences } from '../util/analytics/ufoExperiences';
 import { promiseWithTimeout } from '../util/timed-promise';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 interface GetEmojiProviderOptions {
 	/**
@@ -679,7 +678,6 @@ export default class UploadingEmojiResource
 		upload: EmojiUpload,
 		retry = false,
 		timeout = 12_000,
-		useTimeout = fg('emoji_upload_timeout'), // https://switcheroo.atlassian.com/ui/gates/39629f01-2302-4841-b041-f02ad6134a36/key/emoji_upload_timeout
 	): Promise<EmojiDescription> {
 		return this.isUploadSupported().then((supported) => {
 			if (!supported || !this.isRepositoryAvailable<SiteEmojiResource>(this.siteEmojiResource)) {
@@ -696,10 +694,7 @@ export default class UploadingEmojiResource
 				this.refreshLastFilter();
 				return emoji;
 			});
-			if (useTimeout) {
-				return promiseWithTimeout(uploadPromise, timeout, 'uploadCustomEmoji timed out');
-			}
-			return uploadPromise;
+			return promiseWithTimeout(uploadPromise, timeout, 'uploadCustomEmoji timed out');
 		});
 	}
 

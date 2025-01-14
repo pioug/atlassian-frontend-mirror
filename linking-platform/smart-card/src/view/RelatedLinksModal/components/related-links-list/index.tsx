@@ -22,6 +22,7 @@ const RelatedLinksList = ({ urls, title, testId }: RelatedLinksListProp) => {
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				xcss={xcss({
 					font: token('font.heading.xxsmall'),
+					// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 					textTransform: 'uppercase',
 				})}
 			>

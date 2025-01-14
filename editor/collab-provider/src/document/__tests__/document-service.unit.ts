@@ -474,7 +474,7 @@ describe('document-service', () => {
 				service.processSteps({
 					steps: [{ clientId: THIS_CLIENT, userId: 'test' }],
 					version: 1,
-				});
+				} as StepsPayload);
 				expect(providerEmitCallbackMock).toBeCalledTimes(1);
 				expect(providerEmitCallbackMock).toBeCalledWith('data', {
 					json: [{ clientId: THIS_CLIENT, userId: 'test' }],
@@ -491,7 +491,7 @@ describe('document-service', () => {
 				service.processSteps({
 					steps,
 					version: 1,
-				});
+				} as StepsPayload);
 				expect(participantsServiceMock.emitTelepointersFromSteps).toBeCalledWith(steps);
 			});
 
@@ -506,7 +506,7 @@ describe('document-service', () => {
 				service.processSteps({
 					steps: [{ clientId: 'Other Client', userId: 'test' }],
 					version: 1,
-				});
+				} as StepsPayload);
 				expect(setTimeout).toBeCalledTimes(1);
 				expect(setTimeout).toBeCalledWith(expect.any(Function), 100);
 				expect(service.sendStepsFromCurrentState).not.toBeCalled(); // Make sure the function is called in the timeout
@@ -528,7 +528,7 @@ describe('document-service', () => {
 				service.processSteps({
 					steps: [{ clientId: 'clientId2', userId: 'testUser' }],
 					version: 1,
-				});
+				} as StepsPayload);
 				expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledWith(
 					mockError,
 					'Error while processing steps with new clientId',
@@ -550,7 +550,7 @@ describe('document-service', () => {
 				service.processSteps({
 					steps: [{ clientId: 'Other Client', userId: 'test' }],
 					version: 1,
-				});
+				} as StepsPayload);
 				expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
 				expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
 					mockError,
@@ -738,7 +738,7 @@ describe('document-service', () => {
 				const step1: StepsPayload = {
 					steps: [{ userId: '1', clientId: '2' }],
 					version: 2,
-				};
+				} as StepsPayload;
 
 				// Load some steps that will be added to the queue (missing step 1)
 				service.onStepsAdded(step1);

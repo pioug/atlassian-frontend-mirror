@@ -43,7 +43,7 @@
 		"@atlaskit/dropdown-menu": "^12.24.0",
 		"@atlaskit/form": "^11.0.0",
 		"@atlaskit/heading": "^4.0.0",
-		"@atlaskit/icon": "^23.3.0",
+		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/link": "^2.0.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",

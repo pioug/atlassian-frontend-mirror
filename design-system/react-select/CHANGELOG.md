@@ -1,5 +1,13 @@
 # @atlaskit/react-select
 
+## 1.6.2
+
+### Patch Changes
+
+- [#102821](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102821)
+  [`911b2ffd1013f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/911b2ffd1013f) -
+  Remove stopPropagation call in Escape key press events
+
 ## 1.6.1
 
 ### Patch Changes

@@ -78,6 +78,7 @@ export interface MediaPluginState {
 	selectedMediaContainerNode: () => PMNode | undefined;
 	handleDrag: (dragState: 'enter' | 'leave') => void;
 	isIdentifierInEditorScope: (identifier: Identifier) => boolean;
+	trackOutOfScopeIdentifier: (identifier: Identifier) => void;
 
 	updateElement(): void;
 	setIsResizing(isResizing: boolean): void;

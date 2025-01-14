@@ -53,6 +53,9 @@
 			"path": "../locale/tsconfig.app.json"
 		},
 		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
 			"path": "../primitives/tsconfig.app.json"
 		},
 		{

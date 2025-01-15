@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 99.3.1
+
+### Patch Changes
+
+- [#103315](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103315)
+  [`3b0f9317f5803`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3b0f9317f5803) -
+  [ux] Fix bodied macro edit button positioning after a previous bug fix
+- Updated dependencies
+
 ## 99.3.0
 
 ### Minor Changes

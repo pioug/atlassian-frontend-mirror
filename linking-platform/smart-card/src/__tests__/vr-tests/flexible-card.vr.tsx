@@ -25,7 +25,7 @@ import FlexibleUiOptions from '../../../examples/vr-flexible-card/vr-flexible-ui
 // Variants
 snapshot(FlexibleUiOptions, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiComposition, {
@@ -38,7 +38,7 @@ snapshot(FlexibleUiComposition, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 
@@ -52,7 +52,7 @@ snapshot(FlexibleUiBlock, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiBlockTitle, {
@@ -64,7 +64,7 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiBlockTitle, {
@@ -85,7 +85,7 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiBlockTitle, {
@@ -106,7 +106,7 @@ snapshot(FlexibleUiBlockTitle, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiBlockMetadata, {
@@ -118,38 +118,38 @@ snapshot(FlexibleUiBlockMetadata, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiBlockSnippet, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiBlockFooter, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiBlockPreview, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiBlockActionList, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiBlockAction, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiBlockActionGroup, {
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiBlockActionGroup, {
@@ -157,7 +157,7 @@ snapshot(FlexibleUiBlockActionGroup, {
 	drawsOutsideBounds: true,
 	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'hovered' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiBlockActionGroup, {
@@ -165,19 +165,19 @@ snapshot(FlexibleUiBlockActionGroup, {
 	drawsOutsideBounds: true,
 	states: [{ selector: { byTestId: 'smart-action-delete-action' }, state: 'focused' }],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 
 // Elements
 snapshot(FlexibleUiElementLink, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiElementLozenge, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiElementBadge, {
@@ -189,17 +189,17 @@ snapshot(FlexibleUiElementBadge, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiElementAvatarGroup, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiElementMedia, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 
@@ -215,7 +215,7 @@ snapshot(FlexibleUiHoverCard, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiHoverCardNoPreviewButton, {
@@ -229,7 +229,7 @@ snapshot(FlexibleUiHoverCardNoPreviewButton, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 
@@ -245,7 +245,7 @@ snapshot(FlexibleUiAccessibility, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiAccessibility, {
@@ -260,7 +260,7 @@ snapshot(FlexibleUiAccessibility, {
 	],
 	drawsOutsideBounds: true,
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
@@ -274,7 +274,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
@@ -288,7 +288,7 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 snapshot(FlexibleUiAccessibilityForbidden, {
@@ -302,14 +302,14 @@ snapshot(FlexibleUiAccessibilityForbidden, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 
 // Error states
 snapshot(FlexibleUiBlockCardErroredStates, {
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [true, false],
+		'bandicoots-compiled-migration-smartcard': [false],
 	},
 });
 // Flex block card forbidden snapshot already taken in

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-toolbar-lists-indentation",
-	"version": "1.14.10",
+	"version": "1.14.11",
 	"description": "Toolbar lists and indentation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -46,8 +46,8 @@
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tmp-editor-statsig": "^2.35.0",
-		"@atlaskit/tokens": "3.0.0",
+		"@atlaskit/tmp-editor-statsig": "^2.37.0",
+		"@atlaskit/tokens": "3.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

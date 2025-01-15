@@ -1,5 +1,14 @@
 # @atlaskit/focused-task-close-account
 
+## 2.3.10
+
+### Patch Changes
+
+- [#103093](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103093)
+  [`df2dccef84609`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/df2dccef84609) -
+  Migrated `@atlaskit/drawer` usage to the new API which has been migrated from `@emotion/react`
+  to`@compiled/react`.
+
 ## 2.3.9
 
 ### Patch Changes

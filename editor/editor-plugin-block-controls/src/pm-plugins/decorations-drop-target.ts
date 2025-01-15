@@ -15,7 +15,7 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
 import { nodeMargins } from '../ui/consts';
-import { DropTarget, type DropTargetProps } from '../ui/drop-target';
+import { type DropTargetProps } from '../ui/drop-target';
 import { DropTargetLayout, type DropTargetLayoutProps } from '../ui/drop-target-layout';
 import {
 	DropTargetV2,
@@ -50,10 +50,7 @@ const PARENT_WITH_END_DROP_TARGET = [
 const DISABLE_CHILD_DROP_TARGET = ['orderedList', 'bulletList'];
 
 const shouldDescend = (node: PMNode) => {
-	if (fg('platform_editor_drag_and_drop_target_v2')) {
-		return !['mediaSingle', 'paragraph', 'heading'].includes(node.type.name);
-	}
-	return true;
+	return !['mediaSingle', 'paragraph', 'heading'].includes(node.type.name);
 };
 
 const getNodeMargins = (node?: PMNode) => {
@@ -139,34 +136,22 @@ export const createDropTargetDecoration = (
 			element.setAttribute('data-blocks-drop-target-container', 'true');
 			element.setAttribute('data-blocks-drop-target-key', key);
 			element.style.clear = 'unset';
-			if (fg('platform_editor_drag_and_drop_target_v2')) {
-				const { gap, offset } = getGapAndOffset(props.prevNode, props.nextNode, props.parentNode);
-				element.style.setProperty(EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET, `${offset}px`);
-				element.style.setProperty(EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_GAP, `${gap}px`);
-				element.style.setProperty('display', 'block');
+			const { gap, offset } = getGapAndOffset(props.prevNode, props.nextNode, props.parentNode);
+			element.style.setProperty(EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET, `${offset}px`);
+			element.style.setProperty(EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_GAP, `${gap}px`);
+			element.style.setProperty('display', 'block');
 
-				if (fg('platform_editor_react18_plugin_portalprovider')) {
-					nodeViewPortalProviderAPI.render(
-						() => createElement(DropTargetV2, { ...props, getPos, anchorRectCache, isSameLayout }),
-						element,
-						key,
-					);
-				} else {
-					ReactDOM.render(
-						createElement(DropTargetV2, { ...props, getPos, anchorRectCache, isSameLayout }),
-						element,
-					);
-				}
+			if (fg('platform_editor_react18_plugin_portalprovider')) {
+				nodeViewPortalProviderAPI.render(
+					() => createElement(DropTargetV2, { ...props, getPos, anchorRectCache, isSameLayout }),
+					element,
+					key,
+				);
 			} else {
-				if (fg('platform_editor_react18_plugin_portalprovider')) {
-					nodeViewPortalProviderAPI.render(
-						() => createElement(DropTarget, { ...props, getPos }),
-						element,
-						key,
-					);
-				} else {
-					ReactDOM.render(createElement(DropTarget, { ...props, getPos }), element);
-				}
+				ReactDOM.render(
+					createElement(DropTargetV2, { ...props, getPos, anchorRectCache, isSameLayout }),
+					element,
+				);
 			}
 
 			return element;
@@ -244,7 +229,6 @@ export const dropTargetDecorations = (
 	const POS_END_OF_DOC = newState.doc.nodeSize - 2;
 	const docFrom = from === undefined || from < 0 ? 0 : from;
 	const docTo = to === undefined || to > POS_END_OF_DOC ? POS_END_OF_DOC : to;
-	let prevNode: PMNode | undefined;
 	const activeNodePos = activeNode?.pos;
 	const $activeNodePos = typeof activeNodePos === 'number' && newState.doc.resolve(activeNodePos);
 	const activePMNode = $activeNodePos && $activeNodePos.nodeAfter;
@@ -308,31 +292,18 @@ export const dropTargetDecorations = (
 			}
 
 			if (node.isInline || !parent || DISABLE_CHILD_DROP_TARGET.includes(parent.type.name)) {
-				if (fg('platform_editor_drag_and_drop_target_v2')) {
-					pushNodeStack(node, depth);
-				} else {
-					prevNode = node;
-				}
-
+				pushNodeStack(node, depth);
 				return false;
 			}
 			if (IGNORE_NODES.includes(node.type.name)) {
-				if (fg('platform_editor_drag_and_drop_target_v2')) {
-					pushNodeStack(node, depth);
-				} else {
-					prevNode = node;
-				}
+				pushNodeStack(node, depth);
 				return shouldDescend(node); //skip over, don't consider it a valid depth
 			}
 			const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node);
 
 			//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
 			if (!canDrop && !isBlocksDragTargetDebug()) {
-				if (fg('platform_editor_drag_and_drop_target_v2')) {
-					pushNodeStack(node, depth);
-				} else {
-					prevNode = node;
-				}
+				pushNodeStack(node, depth);
 				return false; //not valid pos, so nested not valid either
 			}
 
@@ -345,14 +316,12 @@ export const dropTargetDecorations = (
 			}
 		}
 
-		const previousNode = fg('platform_editor_drag_and_drop_target_v2')
-			? popNodeStack(depth)
-			: prevNode; // created scoped variable
+		const previousNode = popNodeStack(depth); // created scoped variable
 
 		// only table and layout need to render full height drop target
-		const isInSupportedContainer =
-			fg('platform_editor_drag_and_drop_target_v2') &&
-			['tableCell', 'tableHeader', 'layoutColumn'].includes(parent?.type.name || '');
+		const isInSupportedContainer = ['tableCell', 'tableHeader', 'layoutColumn'].includes(
+			parent?.type.name || '',
+		);
 
 		const shouldShowFullHeight =
 			isInSupportedContainer && parent?.lastChild === node && isEmptyParagraph(node);
@@ -381,7 +350,7 @@ export const dropTargetDecorations = (
 					endPos,
 					{
 						api,
-						prevNode: fg('platform_editor_drag_and_drop_target_v2') ? node : undefined,
+						prevNode: node,
 						parentNode: parent || undefined,
 						formatMessage,
 						dropTargetStyle: 'remainingHeight',
@@ -393,11 +362,7 @@ export const dropTargetDecorations = (
 			);
 		}
 
-		if (fg('platform_editor_drag_and_drop_target_v2')) {
-			pushNodeStack(node, depth);
-		} else {
-			prevNode = node;
-		}
+		pushNodeStack(node, depth);
 		return depth < getNestedDepth() && shouldDescend(node);
 	});
 

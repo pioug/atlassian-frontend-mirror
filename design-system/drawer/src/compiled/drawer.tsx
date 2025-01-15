@@ -9,7 +9,7 @@ import Portal from '@atlaskit/portal';
 
 import Blanket from './blanket';
 import { DrawerPanel } from './drawer-panel/drawer-panel';
-import { DrawerProps } from './types';
+import type { DrawerProps } from './types';
 
 // escape close manager for layering
 const EscapeCloseManager = ({ onClose }: { onClose?: (event: SyntheticEvent<any>) => void }) => {

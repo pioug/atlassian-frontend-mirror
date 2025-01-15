@@ -15,7 +15,7 @@ import {
 	Search,
 	Settings,
 } from '@atlaskit/atlassian-navigation';
-import Drawer from '@atlaskit/drawer';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 
 import { DefaultCreate } from './create';
@@ -55,7 +55,12 @@ const SearchDrawer = () => {
 				label="Search"
 			/>
 			<Drawer label={search} isOpen={isOpen} onClose={onClose}>
-				<div>{search}</div>
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>
+					<div>{search}</div>
+				</DrawerContent>
 			</Drawer>
 		</Fragment>
 	);

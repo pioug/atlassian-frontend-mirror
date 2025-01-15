@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-html-button */
 import type { MouseEventHandler } from 'react';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -7,7 +8,9 @@ import type { WrappedComponentProps } from 'react-intl-next';
 import { injectIntl } from 'react-intl-next';
 
 import { browser } from '@atlaskit/editor-common/browser';
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable, TableMap } from '@atlaskit/editor-tables';
@@ -22,8 +25,9 @@ import {
 	findDuplicatePosition,
 	hasMergedCellsInSelection,
 } from '../../pm-plugins/utils/merged-cells';
+import type { TablePlugin } from '../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../types';
-import type { CellHoverMeta, TableDirection } from '../../types';
+import type { CellHoverMeta, TableDirection, TableSharedStateInternal } from '../../types';
 import { dragTableInsertColumnButtonSize } from '../consts';
 import { DragPreview } from '../DragPreview';
 
@@ -49,6 +53,12 @@ type DragHandleProps = {
 	) => void;
 	editorView: EditorView;
 	isDragMenuTarget: boolean; // this is identify which current handle component is
+	hoveredColumns?: number[];
+	hoveredRows?: number[];
+};
+
+type DragHandleWithSharedStateProps = Exclude<DragHandleProps, 'hoveredColumns' | 'hoveredRows'> & {
+	api?: ExtractInjectionAPI<TablePlugin>;
 };
 
 const DragHandleComponent = ({
@@ -67,6 +77,8 @@ const DragHandleComponent = ({
 	onClick,
 	editorView,
 	intl: { formatMessage },
+	hoveredColumns,
+	hoveredRows,
 }: DragHandleProps & WrappedComponentProps) => {
 	const dragHandleDivRef = useRef<HTMLButtonElement>(null);
 	const [previewContainer, setPreviewContainer] = useState<HTMLElement | null>(null);
@@ -74,7 +86,13 @@ const DragHandleComponent = ({
 		state,
 		state: { selection },
 	} = editorView;
-	const { hoveredColumns, hoveredRows } = getPluginState(state);
+
+	if (hoveredColumns === undefined || hoveredRows === undefined) {
+		const { hoveredColumns: hoveredColumnsState, hoveredRows: hoveredRowsState } =
+			getPluginState(state);
+		hoveredColumns = hoveredColumnsState;
+		hoveredRows = hoveredRowsState;
+	}
 	const { isDragMenuOpen = false } = getDnDPluginState(state);
 
 	const isRow = direction === 'row';
@@ -291,4 +309,51 @@ const DragHandleComponent = ({
 	);
 };
 
+const DragHandleComponentWithSharedState = ({
+	isDragMenuTarget,
+	tableLocalId,
+	direction,
+	appearance,
+	indexes,
+	forceDefaultHandle,
+	previewHeight,
+	previewWidth,
+	onMouseOver,
+	onMouseOut,
+	toggleDragMenu,
+	hoveredCell,
+	onClick,
+	editorView,
+	intl,
+	api,
+}: DragHandleWithSharedStateProps & WrappedComponentProps) => {
+	const { tableState } = useSharedPluginState(api, ['table']) as {
+		tableState?: TableSharedStateInternal;
+	};
+
+	return (
+		<DragHandleComponent
+			isDragMenuTarget={isDragMenuTarget}
+			tableLocalId={tableLocalId}
+			direction={direction}
+			appearance={appearance}
+			indexes={indexes}
+			forceDefaultHandle={forceDefaultHandle}
+			previewWidth={previewWidth}
+			previewHeight={previewHeight}
+			onMouseOver={onMouseOver}
+			onMouseOut={onMouseOut}
+			toggleDragMenu={toggleDragMenu}
+			hoveredCell={hoveredCell}
+			onClick={onClick}
+			editorView={editorView}
+			intl={intl}
+			hoveredColumns={tableState?.hoveredColumns}
+			hoveredRows={tableState?.hoveredRows}
+		/>
+	);
+};
+
 export const DragHandle = injectIntl(DragHandleComponent);
+
+export const DragHandleWithSharedState = injectIntl(DragHandleComponentWithSharedState);

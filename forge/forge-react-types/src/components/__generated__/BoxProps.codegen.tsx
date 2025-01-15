@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::56b2319e454532f63dda1391dca0f985>>
+ * @codegen <<SignedSource::5953057bca93305790983ebf1513e471>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::d7d66f07c0c79c170b02c923cdeb8551>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::1b547198cbfceadd8838222c33bbda26>>
  */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
@@ -181,18 +181,90 @@ type XCSSProp = ReturnType<typeof xcssValidator>;
 
 export type BoxProps = Pick<
 	PlatformBoxProps,
-	| 'padding'
-	| 'paddingBlock'
-	| 'paddingBlockStart'
-	| 'paddingBlockEnd'
-	| 'paddingInline'
-	| 'paddingInlineStart'
-	| 'paddingInlineEnd'
-	| 'backgroundColor'
 	| 'children'
 	| 'ref'
 	| 'testId'
-	| 'role'
 > & {
+	/**
+	 * A shorthand for `paddingBlock` and `paddingInline` together.
+	 *
+	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
+	 */
+	padding?: PlatformBoxProps['padding'];
+
+	/**
+	 * The logical block start and end padding of an element.
+	 *
+	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
+	 */
+	paddingBlock?: PlatformBoxProps['paddingBlock'];
+
+	/**
+	 * The logical block start padding of an element.
+	 *
+	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
+	 */
+	paddingBlockStart?: PlatformBoxProps['paddingBlockStart'];
+
+	/**
+	 * The logical block end padding of an element.
+	 *
+	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
+	 */
+	paddingBlockEnd?: PlatformBoxProps['paddingBlockEnd'];
+
+	/**
+	 * The logical inline start and end padding of an element.
+	 *
+	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
+	 */
+	paddingInline?: PlatformBoxProps['paddingInline'];
+
+	/**
+	 * The logical inline end padding of an element.
+	 *
+	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
+	 */
+	paddingInlineEnd?: PlatformBoxProps['paddingInlineEnd'];
+
+	/**
+	 * The logical inline start padding of an element.
+	 *
+	 * @type [Space tokens](https://atlassian.design/components/tokens/all-tokens#space)
+	 */
+	paddingInlineStart?: PlatformBoxProps['paddingInlineStart'];
+
+	/**
+	 * A token alias for background color. See: [Design tokens](https://atlassian.design/components/tokens/all-tokens)
+	 * for a list of available colors.
+	 *
+	 * When the background color is set to a surface token, the current surface CSS variable
+	 * will also be set to this value in the `Box` styles.
+	 *
+	 * @type [Background color tokens](https://atlassian.design/components/tokens/all-tokens#color-background)
+	 */
+	backgroundColor?: PlatformBoxProps['backgroundColor'];
+
+	/**
+	 * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
+	 * For a list of supported style properties on this component, see [here](/platform/forge/ui-kit/components/xcss).
+	 *
+	 * @type XCSSProp
+	 */
 	xcss?: XCSSProp;
+
+	/**
+	 * @type string
+	 */
+	role?: PlatformBoxProps['role'];
+
+	/**
+	 * @type ForgeComponent
+	 */
+	children?: PlatformBoxProps['children'];
 };
+
+/**
+ * A box is a generic container that provides managed access to design tokens.
+ */
+export type TBox<T> = (props: BoxProps) => T;

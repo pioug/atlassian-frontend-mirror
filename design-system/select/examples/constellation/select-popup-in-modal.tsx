@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
-import Drawer from '@atlaskit/drawer';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
 import ChevronDownIcon from '@atlaskit/icon/glyph/chevron-down';
 import ModalDialog, { ModalBody, ModalTransition } from '@atlaskit/modal-dialog';
 import { PopupSelect } from '@atlaskit/select';
@@ -55,7 +55,10 @@ const SelectPopupModalExample = () => {
 				onClose={() => setType(undefined)}
 				isOpen={type === 'drawer'}
 			>
-				{popupSelectElement}
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>{popupSelectElement}</DrawerContent>
 			</Drawer>
 
 			<ModalTransition>

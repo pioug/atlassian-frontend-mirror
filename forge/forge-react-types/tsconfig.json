@@ -1,4 +1,7 @@
 {
-  "extends": "../../../tsconfig.json",
-  "include": ["./src/**/*", "./scripts/*"]
+	"extends": "../../../tsconfig.json",
+	"include": ["./src/**/*", "./scripts/*"],
+	"compilerOptions": {
+		"removeComments": false
+	}
 }

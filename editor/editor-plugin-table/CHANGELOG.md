@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-table
 
+## 9.2.0
+
+### Minor Changes
+
+- [#103042](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103042)
+  [`a3bcf71666e0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3bcf71666e0d) -
+  Replace platform_editor_table_use_shared_state_hook with FG and fix remaining selection bugs
+  caused by lack of re-renders
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 9.1.3
 
 ### Patch Changes

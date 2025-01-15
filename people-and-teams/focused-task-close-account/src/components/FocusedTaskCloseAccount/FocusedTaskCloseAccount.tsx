@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 import Button from '@atlaskit/button';
-import Drawer from '@atlaskit/drawer';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
 import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 
 import * as Styled from './styled';
@@ -48,40 +48,42 @@ export class FocusedTaskCloseAccount extends React.Component<Props, State> {
 	render() {
 		const { isOpen, onClose, screens, submitButton, learnMoreLink } = this.props;
 		const { currentScreenIdx } = this.state;
+
 		return (
 			<MessagesIntlProvider>
-				<Drawer
-					icon={(props: any) => (
-						<CrossIcon color="currentColor" label="" {...props} LEGACY_size="medium" />
-					)}
-					isOpen={isOpen}
-					onClose={onClose}
-					width="full"
-				>
-					<Styled.DrawerInner>
-						{this.renderCurrentScreen()}
-
-						<Footer
-							numScreens={screens.length}
-							currentScreenIdx={currentScreenIdx}
-							onCancel={onClose}
-							onNext={this.nextScreen}
-							onPrevious={this.previousScreen}
-							secondaryActions={
-								learnMoreLink && (
-									<Button
-										appearance="subtle-link"
-										spacing="none"
-										href={learnMoreLink}
-										target="_blank"
-									>
-										<FormattedMessage {...commonMessages.learnMore} />{' '}
-									</Button>
-								)
-							}
-							submitButton={submitButton}
+				<Drawer isOpen={isOpen} onClose={onClose} width="full">
+					<DrawerSidebar>
+						<DrawerCloseButton
+							icon={(props: any) => (
+								<CrossIcon color="currentColor" label="" {...props} LEGACY_size="medium" />
+							)}
 						/>
-					</Styled.DrawerInner>
+					</DrawerSidebar>
+					<DrawerContent>
+						<Styled.DrawerInner>
+							{this.renderCurrentScreen()}
+							<Footer
+								numScreens={screens.length}
+								currentScreenIdx={currentScreenIdx}
+								onCancel={onClose}
+								onNext={this.nextScreen}
+								onPrevious={this.previousScreen}
+								secondaryActions={
+									learnMoreLink && (
+										<Button
+											appearance="subtle-link"
+											spacing="none"
+											href={learnMoreLink}
+											target="_blank"
+										>
+											<FormattedMessage {...commonMessages.learnMore} />{' '}
+										</Button>
+									)
+								}
+								submitButton={submitButton}
+							/>
+						</Styled.DrawerInner>
+					</DrawerContent>
 				</Drawer>
 			</MessagesIntlProvider>
 		);

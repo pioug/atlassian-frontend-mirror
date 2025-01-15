@@ -51,10 +51,11 @@ export const TableComponentWithSharedState = ({
 	allowTableAlignment,
 	allowTableResizing,
 }: TableComponentWithSharedStateProps) => {
-	const { widthState, tableState, mediaState } = useSharedPluginState(api, [
+	const { widthState, tableState, mediaState, selectionState } = useSharedPluginState(api, [
 		'width',
 		'table',
 		'media',
+		'selection',
 	]);
 
 	if (!tableState) {
@@ -104,7 +105,7 @@ export const TableComponentWithSharedState = ({
 			getPos={getPos}
 			isMediaFullscreen={mediaState?.isFullscreen}
 			options={options}
-			allowControls={!!allowControls}
+			allowControls={allowControls}
 			isHeaderRowEnabled={isHeaderRowEnabled}
 			isHeaderColumnEnabled={isHeaderColumnEnabled}
 			isDragAndDropEnabled={options?.isDragAndDropEnabled}
@@ -127,6 +128,7 @@ export const TableComponentWithSharedState = ({
 			hoveredCell={hoveredCell}
 			isTableHovered={isTableHovered}
 			isWholeTableInDanger={isWholeTableInDanger}
+			selection={selectionState?.selection}
 		/>
 	);
 };

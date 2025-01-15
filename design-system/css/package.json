@@ -52,7 +52,7 @@
 		"./test-utils": "./src/test-utils/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^3.0.0",
+		"@atlaskit/tokens": "^3.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/jest": "^0.10.5",
 		"@compiled/react": "^0.18.1"

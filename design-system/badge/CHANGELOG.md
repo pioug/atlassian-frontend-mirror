@@ -1,5 +1,14 @@
 # @atlaskit/badge
 
+## 17.0.1
+
+### Patch Changes
+
+- [#103261](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103261)
+  [`313a78293b12a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/313a78293b12a) -
+  Internal patch for testId. Fixes data-testId warning. No functionality change.
+- Updated dependencies
+
 ## 17.0.0
 
 ### Major Changes

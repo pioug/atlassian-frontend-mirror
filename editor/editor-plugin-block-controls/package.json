@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "2.20.0",
+	"version": "2.21.1",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -51,8 +51,8 @@
 		"@atlaskit/pragmatic-drag-and-drop-react-drop-indicator": "^1.1.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.35.0",
-		"@atlaskit/tokens": "^3.0.0",
+		"@atlaskit/tmp-editor-statsig": "^2.37.0",
+		"@atlaskit/tokens": "^3.1.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -125,9 +125,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_element_dnd_nested_a11y": {
-			"type": "boolean"
-		},
-		"platform_editor_drag_and_drop_target_v2": {
 			"type": "boolean"
 		},
 		"platform_editor_advanced_layouts_redraw_on_drag": {

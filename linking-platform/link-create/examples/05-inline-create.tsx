@@ -3,7 +3,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import fetchMock from 'fetch-mock/cjs/client';
 
 import Button from '@atlaskit/button/new';
-import Drawer from '@atlaskit/drawer';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
 import { Box } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
@@ -192,18 +192,23 @@ const Example = () => {
 				isOpen={drawerOpen}
 				width="medium"
 			>
-				<Box paddingInlineEnd="space.250">
-					<InlineCreate
-						plugins={[exampleCustomPlugin]}
-						testId="inline-create"
-						triggeredFrom="example"
-						entityKey={ENTITY_KEY}
-						onCreate={handleCreate}
-						onComplete={handleComplete}
-						onFailure={handleFailure}
-						onCancel={handleCancel}
-					/>
-				</Box>
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>
+					<Box paddingInlineEnd="space.250">
+						<InlineCreate
+							plugins={[exampleCustomPlugin]}
+							testId="inline-create"
+							triggeredFrom="example"
+							entityKey={ENTITY_KEY}
+							onCreate={handleCreate}
+							onComplete={handleComplete}
+							onFailure={handleFailure}
+							onCancel={handleCancel}
+						/>
+					</Box>
+				</DrawerContent>
 			</Drawer>
 
 			<Button appearance="primary" onClick={() => setDrawerOpen(true)}>

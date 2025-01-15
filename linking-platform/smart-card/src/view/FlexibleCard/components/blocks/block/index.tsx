@@ -4,36 +4,101 @@
  */
 import { useEffect } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
-import { ElementName, SmartLinkDirection, SmartLinkSize } from '../../../../../constants';
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { SmartLinkDirection, SmartLinkSize } from '../../../../../constants';
 import { type BlockProps } from '../types';
-import { getBaseStyles, getGapSize, highlightRemoveStyles, renderChildren } from '../utils';
+import { renderChildren } from '../utils';
 
-const getBlockStyles = (
-	direction: SmartLinkDirection,
-	size: SmartLinkSize,
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-): SerializedStyles => css`
-	${getBaseStyles(direction, size)}
-	${highlightRemoveStyles}
-  justify-content: flex-start;
-	[data-separator] + [data-separator]:before {
-		content: '•';
-		margin-right: ${getGapSize(size)}rem;
-	}
-	// Pull request elements: source branch → target branch
-	[data-smart-element='${ElementName.SourceBranch}']
-		+ [data-smart-element='${ElementName.TargetBranch}']:before {
-		content: '→';
-	}
-	// Pull request elements: target branch ← source branch
-	[data-smart-element='${ElementName.TargetBranch}']
-		+ [data-smart-element='${ElementName.SourceBranch}']:before {
-		content: '←';
-	}
-`;
+import BlockOld from './indexOld';
+
+const BaseBlockStyles = css({
+	alignItems: 'center',
+	display: 'flex',
+	minWidth: 0,
+	overflow: 'hidden',
+	'&:empty': {
+		display: 'none',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& > *': {
+		minWidth: 0,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& > [data-fit-to-content]': {
+		minWidth: 'fit-content',
+	},
+	justifyContent: 'flex-start',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-separator] + [data-separator]::before': {
+		content: "'•'",
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	"[data-smart-element='SourceBranch'] + [data-smart-element='TargetBranch']::before": {
+		content: "'→'",
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	"[data-smart-element='TargetBranch'] + [data-smart-element='SourceBranch']::before": {
+		content: "'←'",
+	},
+});
+
+const highlightRemoveStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
+	outline: 'none !important',
+	outlineColor: 'inherit',
+	color: 'inherit',
+	'-webkit-tap-highlight-color': 'transparent',
+	'-webkit-touch-callout': 'none',
+	'-webkit-user-select': 'none',
+	'-moz-user-select': 'none',
+	'-ms-user-select': 'none',
+	userSelect: 'none',
+});
+
+const gapsStyles = cssMap({
+	xlarge: {
+		gap: `1.25rem`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-separator] + [data-separator]::before': {
+			marginRight: `1.25rem`,
+		},
+	},
+	large: {
+		gap: `1rem`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-separator] + [data-separator]::before': {
+			marginRight: `1rem`,
+		},
+	},
+	medium: {
+		gap: `0.5rem`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-separator] + [data-separator]::before': {
+			marginRight: `0.5rem`,
+		},
+	},
+	small: {
+		gap: `0.25rem`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-separator] + [data-separator]::before': {
+			marginRight: `0.25rem`,
+		},
+	},
+});
+
+const directionStyles = cssMap({
+	vertical: {
+		flexDirection: 'column',
+		alignItems: 'flex-start',
+	},
+	horizontal: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+});
 
 /**
  * A block represents a collection of elements and actions that are arranged
@@ -47,7 +112,7 @@ const Block = ({
 	direction = SmartLinkDirection.Horizontal,
 	size = SmartLinkSize.Medium,
 	testId = 'smart-block',
-	overrideCss,
+	className,
 	blockRef,
 	onRender,
 	onTransitionEnd,
@@ -58,8 +123,9 @@ const Block = ({
 
 	return (
 		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[getBlockStyles(direction, size), overrideCss]}
+			css={[BaseBlockStyles, highlightRemoveStyles, directionStyles[direction], gapsStyles[size]]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 			data-smart-block
 			data-testid={testId}
 			onTransitionEnd={onTransitionEnd}
@@ -70,4 +136,12 @@ const Block = ({
 	);
 };
 
-export default Block;
+const Exported = (props: BlockProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <Block {...props} />;
+	} else {
+		return <BlockOld {...props} />;
+	}
+};
+
+export default Exported;

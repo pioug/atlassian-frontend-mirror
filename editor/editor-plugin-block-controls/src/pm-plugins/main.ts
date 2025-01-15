@@ -602,7 +602,7 @@ export const createPlugin = (
 
 	let anchorRectCache: AnchorRectCache | undefined;
 
-	if (!isAnchorSupported() && fg('platform_editor_drag_and_drop_target_v2')) {
+	if (!isAnchorSupported()) {
 		anchorRectCache = new AnchorRectCache();
 	}
 

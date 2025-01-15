@@ -1,5 +1,13 @@
 # @atlaskit/progress-tracker
 
+## 9.1.0
+
+### Minor Changes
+
+- [#103302](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103302)
+  [`057afb45671d1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/057afb45671d1) -
+  [ux] The step marker for disabled steps has been updated to use the disabled icon color token.
+
 ## 9.0.3
 
 ### Patch Changes

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
+import Flag, { FlagGroup, FlagsProvider, useFlags } from '@atlaskit/flag';
 import Info from '@atlaskit/icon/glyph/info';
-import Drawer from '@atlaskit/drawer';
-import Flag, { FlagsProvider, useFlags, FlagGroup } from '@atlaskit/flag';
 import { Box } from '@atlaskit/primitives';
 
 const FlagsInDrawerExample = () => {
@@ -32,20 +32,25 @@ const FlagsInDrawerExample = () => {
 				}}
 				isOpen={open}
 			>
-				<Button onClick={addFlag}>Add flag</Button>
-				<FlagGroup onDismissed={handleDismiss} shouldRenderToParent>
-					{flags.map((flagId) => {
-						return (
-							<Flag
-								id={flagId}
-								icon={<Info label="Info" />}
-								key={flagId}
-								title={`Flag #${flagId}`}
-								description="Example flag description"
-							/>
-						);
-					})}
-				</FlagGroup>
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>
+					<Button onClick={addFlag}>Add flag</Button>
+					<FlagGroup onDismissed={handleDismiss} shouldRenderToParent>
+						{flags.map((flagId) => {
+							return (
+								<Flag
+									id={flagId}
+									icon={<Info label="Info" />}
+									key={flagId}
+									title={`Flag #${flagId}`}
+									description="Example flag description"
+								/>
+							);
+						})}
+					</FlagGroup>
+				</DrawerContent>
 			</Drawer>
 			<Button appearance="primary" onClick={() => setOpen(true)}>
 				Open drawer

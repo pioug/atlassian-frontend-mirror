@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.11.3",
+	"version": "203.11.4",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -55,8 +55,8 @@
 		"@atlaskit/mention": "^23.8.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
-		"@atlaskit/tmp-editor-statsig": "^2.35.0",
-		"@atlaskit/tokens": "^3.0.0",
+		"@atlaskit/tmp-editor-statsig": "^2.37.0",
+		"@atlaskit/tokens": "^3.1.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/width-detector": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
@@ -250,10 +250,6 @@
 			"type:": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_drag_and_drop_target_v2": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"platform_editor_element_dnd_nested_fix_patch_5": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -402,6 +398,10 @@
 			"type": "boolean"
 		},
 		"platform_editor_nested_tables_renderer_colgroup": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_table_use_shared_state_hook_fg": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

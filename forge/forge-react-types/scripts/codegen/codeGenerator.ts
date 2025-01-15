@@ -55,11 +55,15 @@ const getBaseComponentSymbol = (componentSymbol: Symbol, sourceFile: SourceFile)
 const getDependentTypeDeclarations = (baseComponentPropSymbol: Symbol, sourceFile: SourceFile) => {
 	return sourceFile.getTypeAliases().reduce((declarations, typeAlias) => {
 		const typeAliasName = typeAlias.getName();
-		if (
-			typeAliasName !== baseComponentPropSymbol.getName() &&
-			getDeclaration(baseComponentPropSymbol).getText().includes(typeAliasName)
-		) {
-			declarations.push(typeAlias);
+		if (typeAliasName !== baseComponentPropSymbol.getName()) {
+			const baseComponentPropSymbolDeclaration = getDeclaration(baseComponentPropSymbol).getText();
+			let targetTypeName = typeAliasName;
+			if (targetTypeName.startsWith('_Platform')) {
+				targetTypeName = targetTypeName.slice(1);
+			}
+			if (baseComponentPropSymbolDeclaration.includes(targetTypeName)) {
+				declarations.push(typeAlias);
+			}
 		}
 		return declarations;
 	}, [] as Array<TypeAliasDeclaration>);
@@ -295,12 +299,40 @@ const resolveExternalTypesCode = (
 	return !!declarationCode ? declarationCode : null;
 };
 
+const makeJSDocComment = (comment: string) => {
+	return `/**
+ * ${comment.split('\n').join('\n * ')}
+ */`;
+};
+
+const getComponentTypeCode = (componentPropSymbol: Symbol, sourceFile: SourceFile) => {
+	const propName = componentPropSymbol.getName();
+	const componentName = propName.replace('Props', '');
+	const targetComponent = sourceFile.getVariableDeclaration(componentName);
+
+	const statements = [];
+	if (targetComponent) {
+		const comment = targetComponent
+			.getVariableStatement()
+			?.getJsDocs()
+			.map((jsDoc) => jsDoc.getInnerText())
+			.join('\n');
+
+		if (comment && comment.length > 0) {
+			statements.push(updateDACUrlInJSDocComment(makeJSDocComment(comment)));
+		}
+	}
+	statements.push(`export type T${componentName}<T> = (props: ${propName}) => T;`);
+	return statements.join('\n');
+};
+
 type CodeConsolidator = (context: {
 	sourceFile: SourceFile;
 	importCode?: string | null;
 	externalTypesCode?: string | null;
 	dependentTypeCode?: string | null;
 	componentPropCode?: string | null;
+	componentTypeCode?: string | null;
 }) => string;
 
 const consolidateCodeSections: CodeConsolidator = ({
@@ -308,6 +340,7 @@ const consolidateCodeSections: CodeConsolidator = ({
 	externalTypesCode,
 	dependentTypeCode,
 	componentPropCode,
+	componentTypeCode,
 }) => {
 	return [
 		'/* eslint @repo/internal/codegen/signed-source-integrity: "warn" */',
@@ -315,9 +348,29 @@ const consolidateCodeSections: CodeConsolidator = ({
 		externalTypesCode,
 		dependentTypeCode,
 		componentPropCode,
+		componentTypeCode,
 	]
 		.filter((code) => !!code)
 		.join('\n\n');
+};
+
+const toAbsoluteDACUrl = (path: string) => `https://developer.atlassian.com${path}`;
+
+const updateDACUrlInJSDocComment = (code: string) => {
+	// regex to match markdown links in the JS doc comments
+	const markdownLinkRegex = /([ \t]+\*.+\[.+\])\(([^)]+)\)/g;
+	return code.replace(markdownLinkRegex, (match, p1, url) => {
+		if (url.startsWith('/')) {
+			return `${p1}(${toAbsoluteDACUrl(url)})`;
+		}
+		return match;
+	});
+};
+
+const getComponentPropsTypeCode = (componentPropSymbol: Symbol) => {
+	const sourceCode = getDeclaration(componentPropSymbol).getText(true);
+
+	return updateDACUrlInJSDocComment(sourceCode);
 };
 
 const baseGenerateComponentPropTypeSourceCode = (
@@ -353,7 +406,10 @@ const baseGenerateComponentPropTypeSourceCode = (
 	const dependentTypeCode = dependentTypeDeclarations
 		.map((typeAlias) => typeAlias.getText())
 		.join('\n');
-	const componentPropCode = getDeclaration(baseComponentPropSymbol).getText();
+	const componentPropCode = getComponentPropsTypeCode(baseComponentPropSymbol);
+
+	// 6) get component type code
+	const componentTypeCode = getComponentTypeCode(baseComponentPropSymbol, sourceFile);
 
 	return (customConsolidator ?? consolidateCodeSections)({
 		sourceFile,
@@ -361,6 +417,7 @@ const baseGenerateComponentPropTypeSourceCode = (
 		externalTypesCode,
 		dependentTypeCode,
 		componentPropCode,
+		componentTypeCode,
 	});
 };
 
@@ -370,6 +427,7 @@ const boxPropsCodeConsolidator: CodeConsolidator = ({
 	externalTypesCode,
 	dependentTypeCode,
 	componentPropCode,
+	componentTypeCode,
 }) => {
 	const xcssValidator = sourceFile.getVariableDeclarationOrThrow('xcssValidator').getText();
 
@@ -392,6 +450,7 @@ const boxPropsCodeConsolidator: CodeConsolidator = ({
 			externalTypesCode,
 			dependentTypeCode,
 			componentPropCode,
+			componentTypeCode,
 		]
 			.filter((code) => !!code)
 			.join('\n\n');

@@ -86,7 +86,7 @@ describe('InlineEdit', () => {
 		return (
 			<StoreContainer>
 				<div data-testid={testIds.readView}>
-					{store.storeState.getState().items[ari].data.summary.data}
+					{String(store.storeState.getState().items[ari].data.summary.data)}
 				</div>
 			</StoreContainer>
 		);

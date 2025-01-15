@@ -33,7 +33,7 @@ const labelStyles = css({
 	position: 'absolute',
 	width: 'max-content',
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-	top: '-28px',
+	top: '-28px', // When updating this value, make sure to also update the value in EditToggle.tsx, buttonContainerStyles
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.show-label': {
 		cursor: 'pointer',

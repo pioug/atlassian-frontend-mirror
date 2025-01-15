@@ -44,12 +44,12 @@
 		"@atlaskit/section-message": "^6.8.0",
 		"@atlaskit/tabs": "^17.0.0",
 		"@atlaskit/textfield": "^6.7.0",
-		"@atlaskit/tmp-editor-statsig": "^2.35.0",
+		"@atlaskit/tmp-editor-statsig": "^2.37.0",
 		"@babel/runtime": "^7.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"@atlaskit/tokens": "^3.0.0",
+		"@atlaskit/tokens": "^3.1.0",
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",
 		"react-dom": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},

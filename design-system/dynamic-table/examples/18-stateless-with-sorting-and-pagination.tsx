@@ -13,9 +13,9 @@ import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { type SortOrderType } from '@atlaskit/dynamic-table/types';
 import { withPlatformFeatureFlags } from '@atlassian/feature-flags-storybook-utils';
 
-import { caption, head, rows } from './content/sample-data';
+import { caption, visuallyRefreshedHead, visuallyRefreshedRows } from './content/sample-data';
 
-type HeadCell = (typeof head)['cells'][number];
+type HeadCell = (typeof visuallyRefreshedHead)['cells'][number];
 
 const ControlledSorting = () => {
 	const [pageNumber, setPageNumber] = useState<number>(2);
@@ -41,8 +41,8 @@ const ControlledSorting = () => {
 			</ButtonGroup>
 			<DynamicTableStateless
 				caption={caption}
-				head={head}
-				rows={rows}
+				head={visuallyRefreshedHead}
+				rows={visuallyRefreshedRows}
 				rowsPerPage={10}
 				page={pageNumber}
 				isFixedSize

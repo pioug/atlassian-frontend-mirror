@@ -177,6 +177,8 @@ export interface StatelessProps extends WithAnalyticsEventsProps {
 	 *  - `{testId}--table` - Table.
 	 *  - `{testId}--head` - Table header.
 	 *  - `{testId}--head--{content of the cell}` - Table header cell can be identified by their content.
+	 *  - `{testId}--head--up--icon` - Table header cell sort button arrow up icon.
+	 *  - `{testId}--head--down--icon` - Table header cell sort button arrow down icon.
 	 *  - `{testId}--row--{index - content of the first cell}` - Table row.
 	 *  - `{testId}--body` - Table body.
 	 *  - `{testId}--body--{content of the cell}` - Table body cell can be identified by their content.
@@ -416,6 +418,11 @@ export interface HeadCellType extends RowCellType {
 	 * Defaults to "Sort button".
 	 */
 	buttonAriaRoleDescription?: string;
+	/**
+	 * Whether the sortable column header is only an icon.
+	 * If true, the sort button on hover or when active will be shown instead of the icon.
+	 */
+	isIconOnlyHeader?: boolean;
 }
 
 export interface RankEndLocation {

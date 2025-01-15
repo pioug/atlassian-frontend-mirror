@@ -1,5 +1,17 @@
 # @atlaskit/editor-core
 
+## 203.11.4
+
+### Patch Changes
+
+- [#103354](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103354)
+  [`129cb98043b09`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/129cb98043b09) -
+  TypeError coming from handleEditorFocus has been increasing significantly. We've added a null
+  check to stop this TypeError.
+- [#102744](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102744)
+  [`289c0169e410a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/289c0169e410a) -
+  ED-26243 Cleaned up platform_editor_drag_and_drop_target_v2 FG
+
 ## 203.11.3
 
 ### Patch Changes

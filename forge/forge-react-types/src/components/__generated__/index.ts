@@ -1,6 +1,6 @@
-export type { BadgeProps } from './BadgeProps.codegen';
+export type { BadgeProps, TBadge } from './BadgeProps.codegen';
 export type { BleedProps } from './BleedProps.codegen';
-export type { BoxProps } from './BoxProps.codegen';
+export type { BoxProps, TBox } from './BoxProps.codegen';
 export type { ButtonGroupProps } from './ButtonGroupProps.codegen';
 export type { ButtonProps } from './ButtonProps.codegen';
 export type { CheckboxProps } from './CheckboxProps.codegen';
@@ -58,4 +58,4 @@ export type { ToggleProps } from './ToggleProps.codegen';
 export type { TooltipProps } from './TooltipProps.codegen';
 export type { ValidMessageProps } from './ValidMessageProps.codegen';
 export type { PopupProps } from './PopupProps.codegen';
-export type { AdfRendererProps } from './AdfRendererProps.codegen';
+export type { AdfRendererProps, TAdfRenderer } from './AdfRendererProps.codegen';

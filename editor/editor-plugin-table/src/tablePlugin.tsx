@@ -133,6 +133,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 				isTableResizing: tableWidthResizingPluginState?.resizing,
 				isInDanger: tablePluginState.isInDanger,
 				hoveredRows: tablePluginState.hoveredRows,
+				hoveredColumns: tablePluginState.hoveredColumns,
 				hoveredCell: tablePluginState.hoveredCell,
 				isTableHovered: tablePluginState.isTableHovered,
 				isWholeTableInDanger: tablePluginState.isWholeTableInDanger,

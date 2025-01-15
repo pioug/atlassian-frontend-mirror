@@ -10,7 +10,7 @@ import React from 'react';
 import { css, jsx } from '@emotion/react';
 
 import Button from '@atlaskit/button/new';
-import Drawer from '@atlaskit/drawer';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
 import { token } from '@atlaskit/tokens';
 
 import type EditorActions from '../src/actions';
@@ -399,18 +399,23 @@ export default function Example() {
 			</div>
 
 			<Drawer isOpen={showPanel} onClose={onClosePanel}>
-				<LatencyPanel
-					latencyMode={latencyMode}
-					onLatencyModeChanged={setLatencyMode}
-					fixedLatency={fixedLatency}
-					variableLatencyFrom={variableLatencyFrom}
-					variableLatencyTo={variableLatencyTo}
-					onFixedLatencyChange={setFixedLatency}
-					onVariableLatencyFromChange={setVariableLatencyFrom}
-					onVariableLatencyToChange={setVariableLatencyTo}
-					onInitLatencyChange={setInitLatency}
-					onFocusLatencyChange={setFocusLatency}
-				/>
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>
+					<LatencyPanel
+						latencyMode={latencyMode}
+						onLatencyModeChanged={setLatencyMode}
+						fixedLatency={fixedLatency}
+						variableLatencyFrom={variableLatencyFrom}
+						variableLatencyTo={variableLatencyTo}
+						onFixedLatencyChange={setFixedLatency}
+						onVariableLatencyFromChange={setVariableLatencyFrom}
+						onVariableLatencyToChange={setVariableLatencyTo}
+						onInitLatencyChange={setInitLatency}
+						onFocusLatencyChange={setFocusLatency}
+					/>
+				</DrawerContent>
 			</Drawer>
 		</div>
 	);

@@ -1,44 +1,48 @@
-import { LanguageSupport } from '@codemirror/language';
-
-import { mapLanguageToCodeMirror } from './languageMap';
-
 /**
- * Manages loading the languages (for syntax highlighting, etc.)
- * from CodeMirror and updating the language in the CodeMirror view
+ * Commented out for hot-114295
  */
-export class LanguageLoader {
-	private languageName: string = '';
+export const noop = () => {};
+// import { LanguageSupport } from '@codemirror/language';
 
-	constructor(private updateLanguageCompartment: (value: LanguageSupport | []) => void) {}
+// import { mapLanguageToCodeMirror } from './languageMap';
 
-	updateLanguage(languageName: string) {
-		if (languageName === this.languageName) {
-			return;
-		}
-		const language = mapLanguageToCodeMirror(languageName);
+// /**
+//  * Manages loading the languages (for syntax highlighting, etc.)
+//  * from CodeMirror and updating the language in the CodeMirror view
+//  */
+// export class LanguageLoader {
+// 	private languageName: string = '';
 
-		const configureEmpty = () => {
-			this.updateLanguageCompartment([]);
-			this.languageName = '';
-		};
+// 	constructor(private updateLanguageCompartment: (value: LanguageSupport | []) => void) {}
 
-		if (!language) {
-			configureEmpty();
-			return;
-		}
+// 	updateLanguage(languageName: string) {
+// 		if (languageName === this.languageName) {
+// 			return;
+// 		}
+// 		const language = mapLanguageToCodeMirror(languageName);
 
-		language
-			.load()
-			.then((lang) => {
-				if (lang) {
-					this.updateLanguageCompartment(lang);
-					this.languageName = languageName;
-				} else {
-					configureEmpty();
-				}
-			})
-			.catch(() => {
-				configureEmpty();
-			});
-	}
-}
+// 		const configureEmpty = () => {
+// 			this.updateLanguageCompartment([]);
+// 			this.languageName = '';
+// 		};
+
+// 		if (!language) {
+// 			configureEmpty();
+// 			return;
+// 		}
+
+// 		language
+// 			.load()
+// 			.then((lang) => {
+// 				if (lang) {
+// 					this.updateLanguageCompartment(lang);
+// 					this.languageName = languageName;
+// 				} else {
+// 					configureEmpty();
+// 				}
+// 			})
+// 			.catch(() => {
+// 				configureEmpty();
+// 			});
+// 	}
+// }

@@ -7,7 +7,7 @@ import { Fragment, type KeyboardEvent, useState } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import Drawer from '@atlaskit/drawer';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
 import { JiraIcon, JiraLogo } from '@atlaskit/logo';
 import { ButtonItem, MenuGroup, Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
@@ -55,7 +55,10 @@ const SearchDrawer = () => {
 		<Fragment>
 			<Search onClick={onClick} placeholder="Search..." tooltip="Search" label="Search" />
 			<Drawer label={search} isOpen={isOpen} onClose={onClose}>
-				{search}
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>{search}</DrawerContent>
 			</Drawer>
 		</Fragment>
 	);
@@ -76,7 +79,10 @@ const SettingsDrawer = () => {
 		<Fragment>
 			<Settings isSelected={isOpen} onClick={onClick} tooltip="Settings" />
 			<Drawer label={settings} isOpen={isOpen} onClose={onClose}>
-				{settings}
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>{settings}</DrawerContent>
 			</Drawer>
 		</Fragment>
 	);

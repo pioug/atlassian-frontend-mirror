@@ -111,7 +111,7 @@ const Badge = memo(function Badge({
 
 	return (
 		<span
-			data-testId={testId}
+			data-testid={testId}
 			css={[boxStyles.root, boxStyles[appearance]]}
 			style={{ backgroundColor: style?.backgroundColor, color: style?.color }}
 		>

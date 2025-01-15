@@ -51,7 +51,7 @@
 		"@atlaskit/focus-ring": "^2.0.0",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/tokens": "^3.0.0",
+		"@atlaskit/tokens": "^3.1.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/visually-hidden": "^1.5.0",
 		"@babel/runtime": "^7.0.0",

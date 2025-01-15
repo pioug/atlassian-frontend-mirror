@@ -2,12 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
-import { MediaPlacement } from '../../../../../../constants';
 import { Preview } from '../../../elements';
 import Block from '../../block';
 import { type PreviewBlockProps } from '../types';
@@ -27,47 +25,50 @@ import { type PreviewBlockProps } from '../types';
  * @param placement
  * @param ignoreContainerPadding
  */
-const getPreviewBlockStyles = (
-	placement?: MediaPlacement,
-	ignoreContainerPadding?: boolean,
-): SerializedStyles | undefined => {
-	if (placement === MediaPlacement.Left || placement === MediaPlacement.Right) {
-		const containerPadding = ignoreContainerPadding ? '0rem' : 'var(--container-padding)';
-		// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-		return css`
-			position: absolute;
-			top: ${containerPadding};
-			bottom: ${containerPadding};
-			width: calc(var(--preview-block-width) - ${containerPadding});
-
-			${placement === MediaPlacement.Left ? `left: ${containerPadding};` : ''}
-			${placement === MediaPlacement.Right ? `right: ${containerPadding};` : ''}
-
-      [data-smart-element-media='image'] {
-				aspect-ratio: unset;
-				padding-top: unset;
-				width: 100%;
-				height: 100%;
-				object-fit: cover;
-			}
-		`;
-	}
-
-	if (ignoreContainerPadding) {
-		return css({
-			marginLeft: 'calc(var(--container-gap-left) * -1)',
-			marginRight: 'calc(var(--container-gap-right) * -1)',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-			'&:first-of-type': {
-				marginTop: 'calc(var(--container-padding) * -1)',
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-			'&:last-of-type': {
-				marginBottom: 'calc(var(--container-padding) * -1)',
-			},
-		});
-	}
-};
+const previewBlockStyles = cssMap({
+	left: {
+		position: 'absolute',
+		top: '0rem',
+		bottom: '0rem',
+		width: 'calc(var(--preview-block-width))',
+		left: '0rem',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		"[data-smart-element-media='image']": {
+			aspectRatio: 'unset',
+			paddingTop: 'unset',
+			width: '100%',
+			height: '100%',
+			objectFit: 'cover',
+		},
+	},
+	right: {
+		position: 'absolute',
+		top: '0rem',
+		bottom: '0rem',
+		width: 'calc(var(--preview-block-width))',
+		right: '0rem',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		"[data-smart-element-media='image']": {
+			aspectRatio: 'unset',
+			paddingTop: 'unset',
+			width: '100%',
+			height: '100%',
+			objectFit: 'cover',
+		},
+	},
+	ignoreContainerPadding: {
+		marginLeft: 'calc(var(--container-gap-left) * -1)',
+		marginRight: 'calc(var(--container-gap-right) * -1)',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'&:first-of-type': {
+			marginTop: 'calc(var(--container-padding) * -1)',
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'&:last-of-type': {
+			marginBottom: 'calc(var(--container-padding) * -1)',
+		},
+	},
+});
 
 /**
  * Represents a resolved PreviewBlock, which typically contains media or other large format content.
@@ -78,27 +79,12 @@ const getPreviewBlockStyles = (
 const PreviewBlockResolvedView = ({
 	ignoreContainerPadding = false,
 	onError,
-	overrideCss,
+	className,
 	placement,
 	testId,
 	overrideUrl,
 	...blockProps
 }: PreviewBlockProps) => {
-	const [styles, setStyles] = useState<SerializedStyles | undefined>(overrideCss);
-
-	const updateStyles = useCallback(() => {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		setStyles(css(getPreviewBlockStyles(placement, ignoreContainerPadding), overrideCss));
-	}, [ignoreContainerPadding, overrideCss, placement]);
-
-	useEffect(() => {
-		updateStyles();
-	}, [ignoreContainerPadding, overrideCss, placement, updateStyles]);
-
-	const handleOnLoad = useCallback(() => {
-		updateStyles();
-	}, [updateStyles]);
-
 	const handleOnError = useCallback(() => {
 		if (onError) {
 			onError();
@@ -106,8 +92,16 @@ const PreviewBlockResolvedView = ({
 	}, [onError]);
 
 	return (
-		<Block {...blockProps} overrideCss={styles} testId={`${testId}-resolved-view`}>
-			<Preview onError={handleOnError} onLoad={handleOnLoad} overrideUrl={overrideUrl} />
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+		<Block
+			{...blockProps}
+			css={[
+				placement && previewBlockStyles[placement],
+				!placement && ignoreContainerPadding && previewBlockStyles.ignoreContainerPadding,
+			]}
+			testId={`${testId}-resolved-view`}
+		>
+			<Preview onError={handleOnError} overrideUrl={overrideUrl} />
 		</Block>
 	);
 };

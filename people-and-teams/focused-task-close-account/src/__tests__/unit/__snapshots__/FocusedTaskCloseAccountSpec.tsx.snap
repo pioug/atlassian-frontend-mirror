@@ -3,41 +3,47 @@
 exports[`isOpen snapshot 1`] = `
 <injectIntl(MessagesIntlProvider)>
   <Drawer
-    icon={[Function]}
     isOpen={false}
     onClose={[MockFunction]}
     width="full"
   >
-    <Styled(div)>
-      a
-      <Footer
-        currentScreenIdx={0}
-        numScreens={3}
-        onCancel={[MockFunction]}
-        onNext={[Function]}
-        onPrevious={[Function]}
-        secondaryActions={
-          <Memo(Button)
-            appearance="subtle-link"
-            href="https://hello.atlassian.net"
-            spacing="none"
-            target="_blank"
-          >
-            <Memo(MemoizedFormattedMessage)
-              defaultMessage="Learn more"
-              description="Text for a link to a page where a user can learn more about a particular topic"
-              id="focused-task-close-account.learnMore"
-            />
-             
-          </Memo(Button)>
-        }
-        submitButton={
-          <div
-            id="submit"
-          />
-        }
+    <DrawerSidebar>
+      <DrawerCloseButton
+        icon={[Function]}
       />
-    </Styled(div)>
+    </DrawerSidebar>
+    <DrawerContent>
+      <Styled(div)>
+        a
+        <Footer
+          currentScreenIdx={0}
+          numScreens={3}
+          onCancel={[MockFunction]}
+          onNext={[Function]}
+          onPrevious={[Function]}
+          secondaryActions={
+            <Memo(Button)
+              appearance="subtle-link"
+              href="https://hello.atlassian.net"
+              spacing="none"
+              target="_blank"
+            >
+              <Memo(MemoizedFormattedMessage)
+                defaultMessage="Learn more"
+                description="Text for a link to a page where a user can learn more about a particular topic"
+                id="focused-task-close-account.learnMore"
+              />
+               
+            </Memo(Button)>
+          }
+          submitButton={
+            <div
+              id="submit"
+            />
+          }
+        />
+      </Styled(div)>
+    </DrawerContent>
   </Drawer>
 </injectIntl(MessagesIntlProvider)>
 `;

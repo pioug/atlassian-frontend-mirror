@@ -9,8 +9,10 @@ import { css, jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
+import StarUnstarredIcon from '@atlaskit/icon/core/star-unstarred';
 import Link from '@atlaskit/link';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Flex, xcss } from '@atlaskit/primitives';
 
 import { lorem } from './lorem';
 import { presidents } from './presidents';
@@ -54,82 +56,132 @@ const AvatarWrapper: FC<{ children: ReactNode }> = ({ children }) => (
 	<Box xcss={avatarWrapperStyles}>{children}</Box>
 );
 
+const starWrapperStyles = xcss({
+	padding: 'space.050',
+});
+
+const StarWrapper: FC<{ children: ReactNode }> = ({ children }) => (
+	<Flex xcss={starWrapperStyles} alignItems="center">
+		{children}
+	</Flex>
+);
+
 export const caption = 'List of US Presidents';
+
+const getCommonCells = (withWidth: boolean) => [
+	{
+		key: 'name',
+		content: 'Name',
+		isSortable: true,
+		width: withWidth ? 25 : undefined,
+	},
+	{
+		key: 'party',
+		content: 'Party',
+		shouldTruncate: true,
+		isSortable: true,
+		width: withWidth ? 15 : undefined,
+	},
+	{
+		key: 'term',
+		content: 'Term',
+		shouldTruncate: true,
+		isSortable: true,
+		width: withWidth ? 10 : undefined,
+	},
+	{
+		key: 'content',
+		content: 'Comment',
+		shouldTruncate: true,
+	},
+	{
+		key: 'more',
+		content: 'Actions',
+		shouldTruncate: true,
+	},
+];
 
 export const createHead = (withWidth: boolean) => {
 	return {
-		cells: [
-			{
-				key: 'name',
-				content: 'Name',
-				isSortable: true,
-				width: withWidth ? 25 : undefined,
-			},
-			{
-				key: 'party',
-				content: 'Party',
-				shouldTruncate: true,
-				isSortable: true,
-				width: withWidth ? 15 : undefined,
-			},
-			{
-				key: 'term',
-				content: 'Term',
-				shouldTruncate: true,
-				isSortable: true,
-				width: withWidth ? 10 : undefined,
-			},
-			{
-				key: 'content',
-				content: 'Comment',
-				shouldTruncate: true,
-			},
-			{
-				key: 'more',
-				content: 'Actions',
-				shouldTruncate: true,
-			},
-		],
+		cells: getCommonCells(withWidth),
 	};
 };
 
 export const head = createHead(true);
 
+export const visuallyRefreshedCreateHead = (withWidth: boolean) => {
+	return {
+		cells: [
+			...getCommonCells(withWidth),
+			{
+				key: 'star',
+				content: (
+					<StarWrapper>
+						<StarStarredIcon label="Starred" />
+					</StarWrapper>
+				),
+				isSortable: true,
+				isIconOnlyHeader: true,
+			},
+		],
+	};
+};
+
+export const visuallyRefreshedHead = visuallyRefreshedCreateHead(true);
+
+const createBaseCells = (president: President, index: number) => [
+	{
+		key: createKey(president.name),
+		content: (
+			<NameWrapper>
+				<AvatarWrapper>
+					<Avatar name={president.name} size="medium" />
+				</AvatarWrapper>
+				<Link href="https://atlassian.design">{president.name}</Link>
+			</NameWrapper>
+		),
+	},
+	{
+		key: createKey(president.party),
+		content: president.party,
+	},
+	{
+		key: president.id,
+		content: president.term,
+	},
+	{
+		key: 'Lorem',
+		content: iterateThroughLorem(index),
+	},
+	{
+		key: 'MoreDropdown',
+		content: (
+			<DropdownMenu trigger="More" label={`More about ${president.name}`}>
+				<DropdownItemGroup>
+					<DropdownItem>{president.name}</DropdownItem>
+				</DropdownItemGroup>
+			</DropdownMenu>
+		),
+	},
+];
+
 export const rows = presidents.map((president: President, index: number) => ({
 	key: kebabCase(president.name),
 	isHighlighted: false,
+	cells: createBaseCells(president, index),
+}));
+
+export const visuallyRefreshedRows = presidents.map((president: President, index: number) => ({
+	key: kebabCase(president.name),
+	isHighlighted: false,
 	cells: [
+		...createBaseCells(president, index),
 		{
-			key: createKey(president.name),
+			key: 'Star',
 			content: (
-				<NameWrapper>
-					<AvatarWrapper>
-						<Avatar name={president.name} size="medium" />
-					</AvatarWrapper>
-					<Link href="https://atlassian.design">{president.name}</Link>
-				</NameWrapper>
-			),
-		},
-		{
-			key: createKey(president.party),
-			content: president.party,
-		},
-		{
-			key: president.id,
-			content: president.term,
-		},
-		{
-			key: 'Lorem',
-			content: iterateThroughLorem(index),
-		},
-		{
-			key: 'MoreDropdown',
-			content: (
-				<DropdownMenu trigger="More" label={`More about ${president.name}`}>
-					<DropdownItemGroup>
-						<DropdownItem>{president.name}</DropdownItem>
-					</DropdownItemGroup>
-				</DropdownMenu>
+				<StarWrapper>
+					<StarUnstarredIcon label="Unstarred" />
+				</StarWrapper>
 			),
 		},
 	],

@@ -1,5 +1,14 @@
 # @atlaskit/dynamic-table
 
+## 17.0.3
+
+### Patch Changes
+
+- [#100858](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100858)
+  [`bc47a0d12cb7a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc47a0d12cb7a) -
+  [ux] Updates visually refreshed sort button in DynamicTableStateless for an icon only column
+  header
+
 ## 17.0.2
 
 ### Patch Changes

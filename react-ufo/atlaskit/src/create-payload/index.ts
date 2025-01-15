@@ -187,8 +187,10 @@ const getVCMetrics = (interaction: InteractionMetrics) => {
 		return {};
 	}
 
+	const isSSREnabled = config?.ssr || config?.vc.ssrWhitelist?.includes(interaction.ufoName);
+
 	const ssr =
-		interaction.type === 'page_load' && config?.ssr ? { ssr: getSSRDoneTimeValue(config) } : null;
+		interaction.type === 'page_load' && isSSREnabled ? { ssr: getSSRDoneTimeValue(config) } : null;
 
 	postInteractionLog.setVCObserverSSRConfig(ssr);
 

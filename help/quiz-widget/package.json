@@ -40,7 +40,7 @@
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/radio": "^7.0.0",
 		"@atlaskit/spinner": "^16.3.0",
-		"@atlaskit/tokens": "^3.0.0",
+		"@atlaskit/tokens": "^3.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0"
 	},

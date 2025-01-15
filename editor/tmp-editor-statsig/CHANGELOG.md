@@ -1,5 +1,22 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.37.0
+
+### Minor Changes
+
+- [#103091](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103091)
+  [`eeb701b917e68`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eeb701b917e68) -
+  EDF-1645: Clean up Draft with AI prefill prompts
+
+## 2.36.0
+
+### Minor Changes
+
+- [#103042](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103042)
+  [`a3bcf71666e0d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a3bcf71666e0d) -
+  Replace platform_editor_table_use_shared_state_hook with FG and fix remaining selection bugs
+  caused by lack of re-renders
+
 ## 2.35.0
 
 ### Minor Changes

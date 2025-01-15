@@ -74,7 +74,7 @@ const LoomToolbarButtonInternal = React.forwardRef<HTMLElement, Props & WrappedC
 				iconBefore={
 					<VideoIcon
 						label={label}
-						color={disabled ? token('color.text.disabled') : token('color.text')}
+						color={disabled ? token('color.icon.disabled') : token('color.icon.subtle')}
 						spacing="spacious"
 					/>
 				}

@@ -3,7 +3,6 @@ import React, { type FC, type Ref, useCallback, useState } from 'react';
 import { cssMap } from '@atlaskit/css';
 import ArrowDownIcon from '@atlaskit/icon/core/arrow-down';
 import ArrowUpIcon from '@atlaskit/icon/core/arrow-up';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, Flex, Pressable, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -14,25 +13,36 @@ import { type SortOrderType } from '../types';
 
 const styles = cssMap({
 	buttonWrapper: {
-		paddingLeft: token('space.100', '8px'),
+		display: 'flex',
+		backgroundColor: 'transparent',
+		alignItems: 'center',
+		padding: token('space.0'),
 		'&:hover': {
 			cursor: 'pointer',
 		},
 	},
-	buttonHiddenWrapper: {
+	sortIconHiddenWrapper: {
 		display: 'flex',
 		opacity: 0,
 		backgroundColor: 'transparent',
-		padding: token('space.050', '4px'),
+		padding: token('space.050'),
 		'&:focus': {
 			opacity: 1,
 		},
 	},
-	buttonVisibleWrapper: {
+	sortIconVisibleWrapper: {
 		display: 'flex',
 		opacity: 1,
 		backgroundColor: 'transparent',
-		padding: token('space.050', '4px'),
+		padding: token('space.050'),
+	},
+	hideIconHeaderWrapper: {
+		opacity: 0,
+		marginLeft: token('space.negative.300', '-24px'),
+	},
+	visibleHeaderWrapper: {
+		opacity: 1,
+		paddingRight: token('space.050', '4px'),
 	},
 });
 
@@ -62,6 +72,7 @@ export interface TableHeadCellProps {
 	ascendingSortTooltip?: string;
 	descendingSortTooltip?: string;
 	buttonAriaRoleDescription?: string;
+	isIconOnlyHeader?: boolean;
 }
 
 const TableHeadCell: FC<TableHeadCellProps> = ({
@@ -78,61 +89,81 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
 	ascendingSortTooltip = 'Sort ascending',
 	descendingSortTooltip = 'Sort descending',
 	buttonAriaRoleDescription = 'Sort button',
+	isIconOnlyHeader,
 	...rest
 }) => {
-	const [isHovered, setIsHovered] = fg('platform-component-visual-refresh')
-		? // eslint-disable-next-line react-hooks/rules-of-hooks
-			useState(false)
-		: [undefined, undefined];
+	const [isHovered, setIsHovered] = useState(false);
+	const [isFocused, setIsFocused] = useState(false);
 
-	const isSortButtonVisible = fg('platform-component-visual-refresh')
-		? isHovered || headCellId === activeSortButtonId || sortOrder !== undefined
-		: undefined;
+	const isActive = headCellId === activeSortButtonId || sortOrder !== undefined;
+	const isSortIconVisible = isHovered || isActive || isFocused;
+	const isVisibleIconOnlyHeader = isSortIconVisible && isIconOnlyHeader;
+	const shouldRenderSortIcon =
+		!isIconOnlyHeader || isSortIconVisible || (isIconOnlyHeader && !isFocused);
+
+	const handleFocus = useCallback(() => {
+		setIsFocused?.(true);
+	}, [setIsFocused]);
+
+	const handleBlur = useCallback(() => {
+		setIsFocused?.(false);
+	}, [setIsFocused]);
 
 	const handleMouseEnter = useCallback(() => {
-		// Remove check for isHovered when cleaning up platform-component-visual-refresh
-		if (isHovered !== undefined && fg('platform-component-visual-refresh')) {
-			setIsHovered(true);
-		}
-	}, [isHovered, setIsHovered]);
+		setIsHovered(true);
+	}, [setIsHovered]);
 
 	const handleMouseLeave = useCallback(() => {
-		// Remove check for isHovered when cleaning up platform-component-visual-refresh
-		if (isHovered !== undefined && fg('platform-component-visual-refresh')) {
-			setIsHovered(false);
-		}
-	}, [isHovered, setIsHovered]);
+		setIsHovered(false);
+	}, [setIsHovered]);
 
-	const visuallyRefreshedButton = fg('platform-component-visual-refresh') ? (
+	const visuallyRefreshedButton = (
 		<Box
 			xcss={headCellStyles.headCellContainer}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
+			onFocus={handleFocus}
+			onBlur={handleBlur}
 		>
-			<Text size="small" color="color.text.subtle" weight="bold" maxLines={1}>
-				{content}
-			</Text>
-
-			<Flex xcss={styles.buttonWrapper}>
-				<Tooltip content={sortOrder === ASC ? ascendingSortTooltip : descendingSortTooltip}>
-					<Pressable
-						onClick={onClick}
-						xcss={isSortButtonVisible ? styles.buttonVisibleWrapper : styles.buttonHiddenWrapper}
-						aria-roledescription={buttonAriaRoleDescription}
+			<Tooltip content={sortOrder === ASC ? ascendingSortTooltip : descendingSortTooltip}>
+				<Pressable
+					onClick={onClick}
+					xcss={styles.buttonWrapper}
+					aria-roledescription={buttonAriaRoleDescription}
+				>
+					<Flex
+						xcss={
+							isVisibleIconOnlyHeader ? styles.hideIconHeaderWrapper : styles.visibleHeaderWrapper
+						}
 					>
-						{sortOrder === ASC ? (
-							<ArrowUpIcon label="" color={token('color.text.subtle')} />
-						) : (
-							<ArrowDownIcon label="" color={token('color.text.subtle')} />
-						)}
-					</Pressable>
-				</Tooltip>
-			</Flex>
+						<Text size="small" color="color.text.subtle" weight="bold" maxLines={1}>
+							{content}
+						</Text>
+					</Flex>
+					{shouldRenderSortIcon && (
+						<Flex
+							xcss={
+								isSortIconVisible ? styles.sortIconVisibleWrapper : styles.sortIconHiddenWrapper
+							}
+						>
+							{sortOrder === ASC ? (
+								<ArrowUpIcon
+									label=""
+									color={token('color.text.subtle')}
+									testId={testId && `${testId}--up--icon`}
+								/>
+							) : (
+								<ArrowDownIcon
+									label=""
+									color={token('color.text.subtle')}
+									testId={testId && `${testId}--down--icon`}
+								/>
+							)}
+						</Flex>
+					)}
+				</Pressable>
+			</Tooltip>
 		</Box>
-	) : (
-		<button type="button" aria-roledescription="Sort button">
-			{content}
-		</button>
 	);
 
 	return (
@@ -143,7 +174,6 @@ const TableHeadCell: FC<TableHeadCellProps> = ({
 			ref={typeof innerRef !== 'string' ? innerRef : null} // string refs must be discarded as LegacyRefs are not compatible with FC forwardRefs
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...rest}
-			onClick={fg('platform-component-visual-refresh') ? undefined : onClick}
 			isSortable={isSortable}
 			sortOrder={sortOrder}
 		>

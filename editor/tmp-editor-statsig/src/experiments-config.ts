@@ -145,14 +145,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	platform_editor_table_use_shared_state_hook: {
-		productKeys: {
-			confluence: 'platform_editor_table_use_shared_state_hook',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-09-23
 	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/editor_ai_-_multi_prompts/setup
 	'editor_ai_-_multi_prompts': {
@@ -260,15 +252,6 @@ export const editorExperimentsConfig = {
 	platform_editor_ai_1p_smart_link_unfurl_in_prompt: {
 		productKeys: {
 			confluence: 'platform_editor_ai_1p_smart_link_unfurl_in_prompt',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
-	// Added 2024-11-21
-	platform_editor_ai_draft_with_ai: {
-		productKeys: {
-			confluence: 'platform_editor_ai_draft_with_ai',
 		},
 		param: 'isEnabled',
 		typeGuard: isBoolean,

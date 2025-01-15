@@ -344,7 +344,7 @@ export const layoutStyles = (viewMode?: 'edit' | 'view') => css`
 			/* Inner cursor located 26px from left */
 			[data-layout-column] {
 				flex: 1;
-				${fg('platform_editor_drag_and_drop_target_v2') ? 'position: relative;' : ''}
+				position: relative;
 
 				min-width: 0;
 				/* disable 4 borders when in view mode and advanced layouts is on */

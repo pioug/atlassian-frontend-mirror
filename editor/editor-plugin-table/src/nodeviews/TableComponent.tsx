@@ -17,6 +17,7 @@ import { tableMarginSides } from '@atlaskit/editor-common/styles';
 import type { EditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/editor-common/types';
 import { browser, isValidPosition } from '@atlaskit/editor-common/utils';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
+import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	akEditorTableNumberColumnWidth,
@@ -26,7 +27,6 @@ import { findTable, isTableSelected } from '@atlaskit/editor-tables/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { combine } from '@atlaskit/pragmatic-drag-and-drop/combine';
 import type { CleanupFn } from '@atlaskit/pragmatic-drag-and-drop/types';
-import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
 import { autoSizeTable, clearHoverSelection } from '../pm-plugins/commands';
@@ -107,7 +107,7 @@ interface ComponentProps {
 
 	contentDOM: (node: HTMLElement | null) => void;
 	containerWidth: EditorContainerWidth;
-	allowControls: boolean;
+	allowControls?: boolean;
 
 	allowTableResizing?: boolean;
 	allowTableAlignment?: boolean;
@@ -125,12 +125,13 @@ interface ComponentProps {
 	pluginInjectionApi?: PluginInjectionAPI;
 	intl: IntlShape;
 
-	// marking props as option to ensure backward compatibility when platform_editor_table_use_shared_state_hook disabled
+	// marking props as optional to ensure backward compatibility when platform_editor_table_use_shared_state_hook_fg disabled
 	isInDanger?: boolean;
 	hoveredRows?: number[];
 	hoveredCell?: CellHoverMeta;
 	isTableHovered?: boolean;
 	isWholeTableInDanger?: boolean;
+	selection?: Selection;
 }
 
 interface TableState {
@@ -598,7 +599,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 
 		const table = findTable(view.state.selection);
 
-		if (editorExperiment('platform_editor_table_use_shared_state_hook', false)) {
+		if (!fg('platform_editor_table_use_shared_state_hook_fg')) {
 			const pluginState = getPluginState(view.state);
 			isInDanger = pluginState.isInDanger;
 		}
@@ -809,6 +810,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 			isTableScalingEnabled, // here we can use options.isTableScalingEnabled
 			allowTableResizing,
 			allowTableAlignment,
+			selection,
 		} = this.props;
 
 		let { isInDanger, hoveredRows, hoveredCell, isTableHovered, isWholeTableInDanger } = this.props;
@@ -816,7 +818,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 		const { showBeforeShadow, showAfterShadow } = this.state;
 		const node = getNode();
 
-		if (editorExperiment('platform_editor_table_use_shared_state_hook', false)) {
+		if (!fg('platform_editor_table_use_shared_state_hook_fg')) {
 			const pluginState = getPluginState(view.state);
 			isInDanger = pluginState.isInDanger;
 			hoveredRows = pluginState.hoveredRows;
@@ -926,7 +928,7 @@ class TableComponent extends React.Component<ComponentProps, TableState> {
 					[ClassName.WITH_CONTROLS]: allowControls && tableActive,
 					[ClassName.TABLE_STICKY]: this.state.stickyHeader && hasHeaderRow,
 					[ClassName.HOVERED_DELETE_BUTTON]: isInDanger,
-					[ClassName.TABLE_SELECTED]: isTableSelected(view.state.selection),
+					[ClassName.TABLE_SELECTED]: isTableSelected(selection ?? view.state.selection),
 				})}
 				editorView={view}
 				getPos={getPos}

@@ -1,5 +1,13 @@
 # @atlaskit/tokens
 
+## 3.1.0
+
+### Minor Changes
+
+- [#103074](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103074)
+  [`62863ade36e82`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/62863ade36e82) -
+  Updates the box-shadow type to support the global "initial" CSS value.
+
 ## 3.0.0
 
 ### Major Changes

@@ -21,7 +21,7 @@ const buttonContainerStyles = css({
 	position: 'absolute',
 	width: 'max-content',
 	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-	top: '-19px',
+	top: '-28px',
 	display: 'inline-flex',
 	justifyContent: 'flex-end',
 	color: token('color.text.subtle'),
@@ -124,6 +124,7 @@ export const EditToggle = ({
 			onMouseLeave={() => setIsNodeHovered?.(false)}
 			tabIndex={-1}
 		>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-html-button */}
 			<button
 				type="button"
 				data-testid="edit-toggle"

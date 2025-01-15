@@ -28,7 +28,7 @@
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/ds-lib": "^3.3.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/tokens": "^3.0.0",
+		"@atlaskit/tokens": "^3.1.0",
 		"@atlaskit/visually-hidden": "^1.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1",

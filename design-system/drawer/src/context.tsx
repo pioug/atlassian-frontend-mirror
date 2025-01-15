@@ -2,7 +2,7 @@ import { createContext, useContext } from 'react';
 
 import invariant from 'tiny-invariant';
 
-import { DrawerProps } from './compiled/types';
+import type { DrawerProps } from './compiled/types';
 
 /**
  * Context used to share the `onClose` prop value with sub-components.

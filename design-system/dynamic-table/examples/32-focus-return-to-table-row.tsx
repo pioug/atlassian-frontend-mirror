@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Drawer from '@atlaskit/drawer';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
 import { DynamicTableStateless } from '@atlaskit/dynamic-table';
 import { type RowType } from '@atlaskit/dynamic-table/types';
 import { token } from '@atlaskit/tokens';
@@ -47,7 +47,10 @@ const FocusReturnToTableRowExample = () => {
 				isOpen={isDrawerOpen}
 				width="full"
 			>
-				Drawer content
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>Drawer content</DrawerContent>
 			</Drawer>
 		</>
 	);

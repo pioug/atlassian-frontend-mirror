@@ -32,6 +32,8 @@ export type BlockProps = {
 	 */
 	overrideCss?: SerializedStyles;
 
+	className?: string;
+
 	/**
 	 * The size of the block and the size that the underlying elements should
 	 * default to.

@@ -27,7 +27,7 @@ import type { TablePlugin } from '../../../tablePluginType';
 import type { CellHoverMeta, HandleTypes } from '../../../types';
 import { TableCssClassName as ClassName } from '../../../types';
 import type { DragHandleAppearance } from '../../DragHandle';
-import { DragHandle } from '../../DragHandle';
+import { DragHandle, DragHandleWithSharedState } from '../../DragHandle';
 
 interface ColumnControlsProps {
 	editorView: EditorView;
@@ -68,7 +68,6 @@ export const ColumnControls = ({
 	isInDanger,
 	rowHeights,
 	colWidths,
-	hasHeaderColumn,
 	isTableHovered,
 	tableContainerWidth,
 	isNumberColumnEnabled,
@@ -238,22 +237,42 @@ export const ColumnControls = ({
 					isHover ? colIndex : isPlaceholder ? appearance : selectedColIndexes[0]
 				}-drag-handle`}
 			>
-				<DragHandle
-					isDragMenuTarget={!isHover}
-					direction="column"
-					tableLocalId={localId || ''}
-					indexes={indexes}
-					hoveredCell={hoveredCell}
-					previewWidth={previewWidth}
-					forceDefaultHandle={!isHover}
-					previewHeight={previewHeight}
-					appearance={appearance}
-					onClick={handleClick}
-					onMouseOver={handleMouseOver}
-					onMouseOut={handleMouseOut}
-					toggleDragMenu={toggleDragMenuHandler}
-					editorView={editorView}
-				/>
+				{fg('platform_editor_table_use_shared_state_hook_fg') ? (
+					<DragHandleWithSharedState
+						isDragMenuTarget={!isHover}
+						direction="column"
+						tableLocalId={localId || ''}
+						indexes={indexes}
+						hoveredCell={hoveredCell}
+						previewWidth={previewWidth}
+						forceDefaultHandle={!isHover}
+						previewHeight={previewHeight}
+						appearance={appearance}
+						onClick={handleClick}
+						onMouseOver={handleMouseOver}
+						onMouseOut={handleMouseOut}
+						toggleDragMenu={toggleDragMenuHandler}
+						editorView={editorView}
+						api={api}
+					/>
+				) : (
+					<DragHandle
+						isDragMenuTarget={!isHover}
+						direction="column"
+						tableLocalId={localId || ''}
+						indexes={indexes}
+						hoveredCell={hoveredCell}
+						previewWidth={previewWidth}
+						forceDefaultHandle={!isHover}
+						previewHeight={previewHeight}
+						appearance={appearance}
+						onClick={handleClick}
+						onMouseOver={handleMouseOver}
+						onMouseOut={handleMouseOut}
+						toggleDragMenu={toggleDragMenuHandler}
+						editorView={editorView}
+					/>
+				)}
 			</div>
 		);
 	};

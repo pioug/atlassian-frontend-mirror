@@ -2,11 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkStatus } from '../../../../../constants';
 
+import PreviewBlockOld from './indexOld';
 import PreviewBlockResolvedView from './resolved';
 import { type PreviewBlockProps } from './types';
 
@@ -26,4 +28,12 @@ const PreviewBlock = ({
 	return <PreviewBlockResolvedView {...blockProps} testId={testId} overrideUrl={overrideUrl} />;
 };
 
-export default PreviewBlock;
+const Exported = (props: PreviewBlockProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <PreviewBlock {...props} />;
+	} else {
+		return <PreviewBlockOld {...props} />;
+	}
+};
+
+export default Exported;

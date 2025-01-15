@@ -60,6 +60,9 @@ export type {
 	ValidMessageProps,
 	PopupProps,
 	InlineEditProps,
+	TBadge,
+	TBox,
+	TAdfRenderer,
 } from './components/__generated__';
 
 export type {

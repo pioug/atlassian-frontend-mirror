@@ -1,5 +1,13 @@
 # @atlaskit/link-datasource
 
+## 3.15.12
+
+### Patch Changes
+
+- [#101047](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101047)
+  [`60387fc18636a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/60387fc18636a) -
+  Almost exclusively internal changes to fix typing compatability with React 18
+
 ## 3.15.11
 
 ### Patch Changes

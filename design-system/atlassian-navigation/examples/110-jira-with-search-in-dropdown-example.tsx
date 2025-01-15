@@ -8,7 +8,7 @@ import { Fragment, type KeyboardEvent, useState } from 'react';
 import { jsx } from '@emotion/react';
 
 import Avatar from '@atlaskit/avatar';
-import Drawer from '@atlaskit/drawer';
+import { Drawer, DrawerCloseButton, DrawerContent, DrawerSidebar } from '@atlaskit/drawer/compiled';
 import { DropdownItem } from '@atlaskit/dropdown-menu';
 import { Label } from '@atlaskit/form';
 import EditorAddIcon from '@atlaskit/icon/glyph/add';
@@ -73,7 +73,10 @@ const SearchDrawer = () => {
 		<Fragment>
 			<Search onClick={onClick} placeholder="Search..." tooltip="Search" label="Search" />
 			<Drawer label={search} isOpen={isOpen} onClose={onClose}>
-				{search}
+				<DrawerSidebar>
+					<DrawerCloseButton />
+				</DrawerSidebar>
+				<DrawerContent>{search}</DrawerContent>
 			</Drawer>
 		</Fragment>
 	);

@@ -50,7 +50,7 @@
 		"@atlaskit/media-client": "^29.0.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tmp-editor-statsig": "^2.35.0",
+		"@atlaskit/tmp-editor-statsig": "^2.37.0",
 		"@babel/runtime": "^7.0.0",
 		"lodash": "^4.17.21",
 		"uuid": "^3.1.0"

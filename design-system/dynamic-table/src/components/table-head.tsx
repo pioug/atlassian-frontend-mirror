@@ -7,7 +7,9 @@ import { Head } from '../styled/table-head';
 import { type HeadType, type RowCellType, type SortOrderType } from '../types';
 
 import RankableHeadCell from './rankable/table-head-cell';
+import RankableHeadCellOld from './rankable/table-head-cell-old';
 import HeadCell from './table-head-cell';
+import HeadCellOld from './table-head-cell-old';
 
 interface TableHeadProps {
 	head: HeadType;
@@ -47,6 +49,7 @@ class TableHead extends React.Component<TableHeadProps, { activeSortButtonId: st
 			return null;
 		}
 
+		const HeadCellComponentOld = isRankable ? RankableHeadCellOld : HeadCellOld;
 		const HeadCellComponent = isRankable ? RankableHeadCell : HeadCell;
 
 		// TODO: Remove `rest` props and use only what is explicitly in the API.
@@ -65,6 +68,7 @@ class TableHead extends React.Component<TableHeadProps, { activeSortButtonId: st
 							colSpan,
 							content,
 							descendingSortTooltip,
+							isIconOnlyHeader,
 							isSortable,
 							key,
 							shouldTruncate,
@@ -77,25 +81,20 @@ class TableHead extends React.Component<TableHeadProps, { activeSortButtonId: st
 
 						const headCellId = `head-cell-${index}`;
 
-						const handleClick = fg('platform-component-visual-refresh')
-							? () => {
-									this.setState({ activeSortButtonId: headCellId });
+						const handleClick = () => {
+							this.setState({ activeSortButtonId: headCellId });
 
-									if (isSortable) {
-										onSort(cell)();
-									}
-								}
-							: () => {
-									if (isSortable) {
-										onSort(cell)();
-									}
-								};
+							if (isSortable) {
+								onSort(cell)();
+							}
+						};
 
-						return (
+						return fg('platform-component-visual-refresh') ? (
 							<HeadCellComponent
 								colSpan={colSpan}
 								content={content}
 								isFixedSize={isFixedSize}
+								isIconOnlyHeader={isIconOnlyHeader}
 								isSortable={!!isSortable}
 								isRanking={isRanking}
 								key={key || index}
@@ -109,6 +108,21 @@ class TableHead extends React.Component<TableHeadProps, { activeSortButtonId: st
 								ascendingSortTooltip={ascendingSortTooltip}
 								descendingSortTooltip={descendingSortTooltip}
 								buttonAriaRoleDescription={buttonAriaRoleDescription}
+								{...restCellProps}
+							/>
+						) : (
+							<HeadCellComponentOld
+								colSpan={colSpan}
+								content={content}
+								isFixedSize={isFixedSize}
+								isSortable={!!isSortable}
+								isRanking={isRanking}
+								key={key || index}
+								onClick={isSortable ? onSort(cell) : undefined}
+								testId={cellTestId || testId}
+								shouldTruncate={shouldTruncate}
+								sortOrder={key === sortKey ? sortOrder : undefined}
+								width={width}
 								{...restCellProps}
 							/>
 						);

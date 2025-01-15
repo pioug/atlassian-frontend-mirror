@@ -8,6 +8,7 @@ import { css } from '@compiled/react';
 import { CSSTransition } from 'react-transition-group';
 
 import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { B300, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -58,13 +59,25 @@ const fontWeight = cssMap({
 	},
 });
 
-const getMarkerColor = (status: Status) => {
+const getMarkerColor = ({
+	status,
+	percentageCompleted,
+}: {
+	status: Status;
+	percentageCompleted: number;
+}) => {
 	switch (status) {
 		case 'unvisited':
 			return token('color.icon.subtle', N70);
 		case 'current':
 		case 'visited':
+			return token('color.icon.brand', B300);
 		case 'disabled':
+			if (percentageCompleted === 0 && fg('platform_progress_tracker_disabled_marker_color')) {
+				return token('color.icon.disabled', N70);
+			}
+			// If the percentage completed is greater than 0, we show the brand colour, so that the marker (circle) blends in with the progress bar.
+			// Otherwise, the grey marker would be visible within the progress bar.
 			return token('color.icon.brand', B300);
 		default:
 			return;
@@ -102,7 +115,10 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 		super(props);
 		this.state = {
 			transitioning: false,
-			oldMarkerColor: getMarkerColor(this.props.item.status),
+			oldMarkerColor: getMarkerColor({
+				status: this.props.item.status,
+				percentageCompleted: this.props.item.percentageComplete,
+			}),
 			oldPercentageComplete: 0,
 		};
 	}
@@ -132,7 +148,10 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 	onEntered = () => {
 		this.setState({
 			transitioning: false,
-			oldMarkerColor: getMarkerColor(this.props.item.status),
+			oldMarkerColor: getMarkerColor({
+				status: this.props.item.status,
+				percentageCompleted: this.props.item.percentageComplete,
+			}),
 			oldPercentageComplete: this.props.item.percentageComplete,
 		});
 	};
@@ -147,7 +166,10 @@ export default class ProgressTrackerStage extends PureComponent<ProgressTrackerS
 			['--ds--pt--td']: `${transitionDelay}ms`,
 			['--ds--pt--te']: transitionEasing,
 			['--ds--pt--mc']: this.state.oldMarkerColor,
-			['--ds--pt--bg']: getMarkerColor(item.status),
+			['--ds--pt--bg']: getMarkerColor({
+				status: item.status,
+				percentageCompleted: item.percentageComplete,
+			}),
 			listStyleType: 'none',
 		} as CSSProperties;
 

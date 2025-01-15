@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.21.1
+
+### Patch Changes
+
+- [#102744](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102744)
+  [`289c0169e410a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/289c0169e410a) -
+  ED-26243 Cleaned up platform_editor_drag_and_drop_target_v2 FG
+
+## 2.21.0
+
+### Minor Changes
+
+- [#102469](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102469)
+  [`bb834fe685b5a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bb834fe685b5a) -
+  ED-25924 makes drop hints appear more consistent
+
 ## 2.20.0
 
 ### Minor Changes

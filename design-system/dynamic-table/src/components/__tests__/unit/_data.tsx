@@ -1,3 +1,7 @@
+import React from 'react';
+
+import StarStarredIcon from '@atlaskit/icon/core/star-starred';
+
 import { type HeadType, type RowType } from '../../../types';
 
 import testData from './_data-json.json';
@@ -5,6 +9,7 @@ import testData from './_data-json.json';
 export const sortKey = 'first_name';
 export const secondSortKey = 'last_name';
 export const thirdSortKey = 'party';
+export const fourthSortKey = 'star';
 
 // Presidents data
 export const head: HeadType = {
@@ -22,6 +27,12 @@ export const head: HeadType = {
 			key: thirdSortKey,
 			content: 'Party',
 			isSortable: true,
+		},
+		{
+			key: fourthSortKey,
+			content: <StarStarredIcon label="starred" />,
+			isSortable: true,
+			isIconOnlyHeader: true,
 		},
 	],
 };

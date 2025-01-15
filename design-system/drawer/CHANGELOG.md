@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 9.3.2
+
+### Patch Changes
+
+- [#103093](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103093)
+  [`f67a0dd4f3f8d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f67a0dd4f3f8d) -
+  Internal change to use type-imports.
+
 ## 9.3.1
 
 ### Patch Changes

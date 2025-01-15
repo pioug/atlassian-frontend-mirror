@@ -53,6 +53,7 @@ export type TableSharedStateInternal = Pick<
 	| 'ordering'
 	| 'isInDanger'
 	| 'hoveredRows'
+	| 'hoveredColumns'
 	| 'hoveredCell'
 	| 'isTableHovered'
 	| 'tableNode'

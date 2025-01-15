@@ -8,6 +8,7 @@ import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { findTable } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { hoverCell, hoverRows, selectRow, selectRows } from '../../pm-plugins/commands';
@@ -25,7 +26,7 @@ import {
 import { FloatingControlsWithSelection } from './FloatingControlsWithSelection';
 import NumberColumn from './NumberColumn';
 import { RowControls } from './RowControls/ClassicControls';
-import { DragControls } from './RowControls/DragControls';
+import { DragControls, DragControlsWithSelection } from './RowControls/DragControls';
 
 interface TableFloatingControlsProps {
 	editorView: EditorView;
@@ -51,6 +52,7 @@ interface TableFloatingControlsProps {
 	isChromelessEditor?: boolean;
 }
 
+// Row controls
 export const TableFloatingControls = ({
 	editorView,
 	tableRef,
@@ -171,42 +173,67 @@ export const TableFloatingControls = ({
 					<>
 						{isDragAndDropEnabled ? (
 							<>
-								{shouldShowCornerControls &&
-									(editorExperiment('platform_editor_table_use_shared_state_hook', true) ? (
-										<DragCornerControlsWithSelection
-											editorView={editorView}
+								{fg('platform_editor_table_use_shared_state_hook_fg') ? (
+									<>
+										{shouldShowCornerControls && (
+											<DragCornerControlsWithSelection
+												editorView={editorView}
+												tableRef={tableRef}
+												isInDanger={isInDanger}
+												isResizing={isResizing}
+												api={api}
+											/>
+										)}
+										<DragControlsWithSelection
 											tableRef={tableRef}
+											tableNode={tableNode}
+											hoveredCell={hoveredCell}
+											isTableHovered={isTableHovered}
+											editorView={editorView}
+											tableActive={tableActive}
 											isInDanger={isInDanger}
 											isResizing={isResizing}
+											// Ignored via go/ees005
+											// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+											tableWidth={tableWrapperWidth!}
+											hoverRows={_hoverRows}
+											selectRow={_selectRow}
+											selectRows={_selectRows}
+											updateCellHoverLocation={updateCellHoverLocation}
 											api={api}
 										/>
-									) : (
-										<DragCornerControls
-											editorView={editorView}
+									</>
+								) : (
+									<>
+										{shouldShowCornerControls && (
+											<DragCornerControls
+												editorView={editorView}
+												tableRef={tableRef}
+												isInDanger={isInDanger}
+												isResizing={isResizing}
+											/>
+										)}
+										<DragControls
 											tableRef={tableRef}
+											tableNode={tableNode}
+											hoveredCell={hoveredCell}
+											isTableHovered={isTableHovered}
+											editorView={editorView}
+											tableActive={tableActive}
 											isInDanger={isInDanger}
 											isResizing={isResizing}
+											// Ignored via go/ees005
+											// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+											tableWidth={tableWrapperWidth!}
+											hoverRows={_hoverRows}
+											selectRow={_selectRow}
+											selectRows={_selectRows}
+											updateCellHoverLocation={updateCellHoverLocation}
 										/>
-									))}
-								<DragControls
-									tableRef={tableRef}
-									tableNode={tableNode}
-									hoveredCell={hoveredCell}
-									isTableHovered={isTableHovered}
-									editorView={editorView}
-									tableActive={tableActive}
-									isInDanger={isInDanger}
-									isResizing={isResizing}
-									// Ignored via go/ees005
-									// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-									tableWidth={tableWrapperWidth!}
-									hoverRows={_hoverRows}
-									selectRow={_selectRow}
-									selectRows={_selectRows}
-									updateCellHoverLocation={updateCellHoverLocation}
-								/>
+									</>
+								)}
 							</>
-						) : editorExperiment('platform_editor_table_use_shared_state_hook', true) ? (
+						) : fg('platform_editor_table_use_shared_state_hook_fg') ? (
 							<FloatingControlsWithSelection
 								editorView={editorView}
 								tableRef={tableRef}

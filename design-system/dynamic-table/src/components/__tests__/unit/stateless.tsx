@@ -9,6 +9,7 @@ import { HeadType, type SortOrderType, type StatelessProps } from '../../../type
 import DynamicTable from '../../stateless';
 
 import {
+	fourthSortKey,
 	head,
 	rowsWithKeys,
 	secondSortKey,
@@ -191,61 +192,127 @@ ffTest.both('platform-component-visual-refresh', '', () => {
 
 ffTest.on('platform-component-visual-refresh', 'visual refresh FG is enabled', () => {
 	describe('Sort button', () => {
-		test('sort button for a currently unsorted column should be visible on hover', async () => {
+		test('sort button for a currently unsorted column should show sort icon on hover', async () => {
 			const props = createProps();
 			render(<DynamicTable {...props} />);
 
-			const sortButtons = screen.getAllByRole('button');
-			const partyColumnSortButton = sortButtons[1];
+			const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
 
-			expect(partyColumnSortButton).not.toBeVisible();
+			const sortButtonIcons = screen.getAllByTestId(/--(up|down)--icon/);
+			const partyColumnSortButtonIcon = sortButtonIcons[1];
+
+			expect(partyColumnSortButtonIcon).not.toBeVisible();
 
 			await userEvent.hover(partyColumnSortButton);
 
-			expect(partyColumnSortButton).toBeVisible();
+			await waitFor(() => {
+				expect(partyColumnSortButtonIcon).toBeVisible();
+			});
 		});
 
-		test('sort button for a currently unsorted column should be visible on focus with keyboard navigations', async () => {
+		test('sort button for a currently unsorted column should show sort icon on focus with keyboard navigations', async () => {
 			const props = createProps();
 			render(<DynamicTable {...props} />);
 
-			const sortButtons = screen.getAllByRole('button');
-			const firstNameColumnSortButton = sortButtons[0];
-			const partyColumnSortButton = sortButtons[1];
+			const firstNameColumnSortButton = screen.getByRole('button', { name: 'First name' });
+			const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
 
-			expect(partyColumnSortButton).not.toBeVisible();
+			const sortButtonIcons = screen.getAllByTestId(/--(up|down)--icon/);
+			const partyColumnSortButtonIcon = sortButtonIcons[1];
+
+			expect(partyColumnSortButtonIcon).not.toBeVisible();
 
 			await userEvent.click(firstNameColumnSortButton);
 			await userEvent.tab();
 
 			expect(partyColumnSortButton).toHaveFocus();
 			await waitFor(() => {
-				expect(partyColumnSortButton).toBeVisible();
+				expect(partyColumnSortButtonIcon).toBeVisible();
 			});
 		});
 
-		test('sort button should persist for the current sorted column', async () => {
+		test('sort button icon should persist for the current sorted column', async () => {
 			const props = createProps();
 			render(<DynamicTable {...props} sortKey={thirdSortKey} />);
 
-			const sortButtons = screen.getAllByRole('button');
-			const firstNameColumnSortButton = sortButtons[0];
-			const partyColumnSortButton = sortButtons[1];
+			const firstNameColumnSortButton = screen.getByRole('button', { name: 'First name' });
 
-			expect(firstNameColumnSortButton).not.toBeVisible();
-			expect(partyColumnSortButton).toBeVisible();
+			const sortButtonIcons = screen.getAllByTestId(/--(up|down)--icon/);
+			const firstNameColumnSortButtonIcon = sortButtonIcons[0];
+			const partyColumnSortButtonIcon = sortButtonIcons[1];
+
+			expect(firstNameColumnSortButtonIcon).not.toBeVisible();
+			expect(partyColumnSortButtonIcon).toBeVisible();
 
 			await userEvent.hover(firstNameColumnSortButton);
 
-			expect(firstNameColumnSortButton).toBeVisible();
-			expect(partyColumnSortButton).toBeVisible();
+			expect(firstNameColumnSortButtonIcon).toBeVisible();
+			expect(partyColumnSortButtonIcon).toBeVisible();
+		});
+
+		test('sort button icon should appear over icon on hover for a currently unsorted icon column', async () => {
+			const props = createProps();
+			render(<DynamicTable {...props} />);
+
+			const iconColumnSortButton = screen.getByRole('button', { name: 'starred' });
+			const starIcon = screen.getByLabelText('starred');
+
+			const sortButtonIcons = screen.getAllByTestId(/--(up|down)--icon/);
+			const iconColumnSortButtonIcon = sortButtonIcons[2];
+
+			expect(iconColumnSortButtonIcon).not.toBeVisible();
+			expect(starIcon).toBeVisible();
+
+			await userEvent.hover(iconColumnSortButton);
+
+			expect(iconColumnSortButtonIcon).toBeVisible();
+			expect(starIcon).not.toBeVisible();
+		});
+
+		test('sort button icon should persist over icon for the current sorted icon column', async () => {
+			const props = createProps();
+			render(<DynamicTable {...props} sortKey={fourthSortKey} />);
+
+			const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
+			const starIcon = screen.queryByLabelText('starred');
+
+			const sortButtonIcons = screen.getAllByTestId(/--(up|down)--icon/);
+			const iconColumnSortButtonIcon = sortButtonIcons[2];
+
+			expect(iconColumnSortButtonIcon).toBeVisible();
+			expect(starIcon).not.toBeVisible();
+
+			await userEvent.hover(partyColumnSortButton);
+
+			expect(iconColumnSortButtonIcon).toBeVisible();
+			expect(starIcon).not.toBeVisible();
+		});
+
+		test('sort button icon should appear over icon on focus for a currently unsorted icon column', async () => {
+			const props = createProps();
+			render(<DynamicTable {...props} />);
+
+			const iconColumnSortButton = screen.getByRole('button', { name: 'starred' });
+			const starIcon = screen.getByLabelText('starred');
+
+			const sortButtonIcons = screen.getAllByTestId(/--(up|down)--icon/);
+			const iconColumnSortButtonIcon = sortButtonIcons[2];
+
+			expect(iconColumnSortButtonIcon).not.toBeVisible();
+			expect(starIcon).toBeVisible();
+
+			await userEvent.click(iconColumnSortButton);
+
+			expect(iconColumnSortButtonIcon).toBeVisible();
+			expect(starIcon).not.toBeVisible();
 		});
 
 		test('sort button tooltips should be default ascending sort values if not customised', async () => {
 			const props = createProps();
 			render(<DynamicTable {...props} sortKey={thirdSortKey} />);
-			const sortButtons = screen.getAllByRole('button');
-			const partyColumnSortButton = sortButtons[1];
+
+			const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
+
 			await userEvent.hover(partyColumnSortButton);
 			await waitFor(() => {
 				expect(screen.getByRole('tooltip', { name: 'Sort ascending' })).toBeVisible();
@@ -255,8 +322,9 @@ ffTest.on('platform-component-visual-refresh', 'visual refresh FG is enabled', (
 		test('sort button tooltips should be default descending sort values if not customised', async () => {
 			const props = createProps({ sortOrder: 'DESC' });
 			render(<DynamicTable {...props} sortKey={thirdSortKey} />);
-			const sortButtons = screen.getAllByRole('button');
-			const partyColumnSortButton = sortButtons[1];
+
+			const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
+
 			await userEvent.hover(partyColumnSortButton);
 			await waitFor(() => {
 				expect(screen.getByRole('tooltip', { name: 'Sort descending' })).toBeVisible();
@@ -266,9 +334,9 @@ ffTest.on('platform-component-visual-refresh', 'visual refresh FG is enabled', (
 		test('sort button ascending sort tooltip should be customisable otherwise use default value', async () => {
 			const props = createProps({ head: visuallyRefreshedHead });
 			render(<DynamicTable {...props} />);
-			const sortButtons = screen.getAllByRole('button');
-			const firstNameColumnSortButton = sortButtons[0];
-			const partyColumnSortButton = sortButtons[1];
+
+			const firstNameColumnSortButton = screen.getByRole('button', { name: 'First name' });
+			const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
 
 			await userEvent.hover(firstNameColumnSortButton);
 			await waitFor(() => {
@@ -284,9 +352,9 @@ ffTest.on('platform-component-visual-refresh', 'visual refresh FG is enabled', (
 		test('sort button descending sort tooltip should be customisable otherwise use default value', async () => {
 			const props = createProps({ sortOrder: 'DESC', head: visuallyRefreshedHead });
 			render(<DynamicTable {...props} />);
-			const sortButtons = screen.getAllByRole('button');
-			const firstNameColumnSortButton = sortButtons[0];
-			const partyColumnSortButton = sortButtons[1];
+
+			const firstNameColumnSortButton = screen.getByRole('button', { name: 'First name' });
+			const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
 
 			await userEvent.hover(firstNameColumnSortButton);
 			await waitFor(() => {
@@ -302,18 +370,22 @@ ffTest.on('platform-component-visual-refresh', 'visual refresh FG is enabled', (
 		test('sort button aria role description should be default if not customised', async () => {
 			const props = createProps();
 			render(<DynamicTable {...props} sortKey={thirdSortKey} />);
-			const sortButtons = screen.getAllByRole('button');
-			const partyColumnSortButton = sortButtons[1];
+
+			const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
+
 			await userEvent.hover(partyColumnSortButton);
+
 			expect(partyColumnSortButton).toHaveAttribute('aria-roledescription', 'Sort button');
 		});
 
 		test('sort button aria role description should be customisable', async () => {
 			const props = createProps({ head: visuallyRefreshedHead });
 			render(<DynamicTable {...props} />);
-			const sortButtons = screen.getAllByRole('button');
-			const firstNameColumnSortButton = sortButtons[0];
+
+			const firstNameColumnSortButton = screen.getByRole('button', { name: 'First name' });
+
 			await userEvent.hover(firstNameColumnSortButton);
+
 			expect(firstNameColumnSortButton).toHaveAttribute(
 				'aria-roledescription',
 				'Sort by first name',
@@ -328,9 +400,7 @@ ffTest.off('platform-component-visual-refresh', 'visual refresh FG is disabled',
 			const props = createProps();
 			render(<DynamicTable {...props} />);
 
-			const sortButtons = screen.getAllByRole('button');
-
-			const partyColumnSortButton = sortButtons[1];
+			const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
 
 			expect(partyColumnSortButton).toBeVisible();
 
@@ -343,9 +413,8 @@ ffTest.off('platform-component-visual-refresh', 'visual refresh FG is disabled',
 			const props = createProps();
 			render(<DynamicTable {...props} />);
 
-			const sortButtons = screen.getAllByRole('button');
-			const firstNameColumnSortButton = sortButtons[0];
-			const partyColumnSortButton = sortButtons[1];
+			const firstNameColumnSortButton = screen.getByRole('button', { name: 'First name' });
+			const partyColumnSortButton = screen.getByRole('button', { name: 'Party' });
 
 			expect(partyColumnSortButton).toBeVisible();
 

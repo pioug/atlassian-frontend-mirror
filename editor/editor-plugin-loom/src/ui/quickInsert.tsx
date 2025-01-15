@@ -20,7 +20,7 @@ export const getQuickInsertItem =
 			keywords: ['loom', 'record', 'video'],
 			priority: 800,
 			isDisabledOffline: true,
-			icon: () => <VideoIcon label="" color={token('color.text')} spacing="spacious" />,
+			icon: () => <VideoIcon label="" color={token('color.icon.subtle')} spacing="spacious" />,
 			action(insert, editorState) {
 				const tr = insert(undefined);
 

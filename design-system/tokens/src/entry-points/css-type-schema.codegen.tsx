@@ -3,7 +3,7 @@
  *
  * Strict design token based typedef representing a subset of safe CSS properties.
  *
- * @codegen <<SignedSource::b8a1e3a4dc69229b043006b0ff788db9>>
+ * @codegen <<SignedSource::0a3564b3665f8db07d3ceb592dfb4de9>>
  * @codegenCommand yarn build tokens
  */
 export type BackgroundColorHovered =
@@ -324,7 +324,8 @@ export type Shadow =
 	| 'var(--ds-shadow-overflow-perimeter)'
 	| 'var(--ds-shadow-overflow-spread)'
 	| 'var(--ds-shadow-overlay)'
-	| 'var(--ds-shadow-raised)';
+	| 'var(--ds-shadow-raised)'
+	| 'initial';
 export type TextColorPressed = 'var(--ds-link-pressed)' | 'var(--ds-link-visited-pressed)';
 export type TextColor =
 	| 'transparent'

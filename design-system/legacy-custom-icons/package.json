@@ -314,7 +314,7 @@
 	"dependencies": {
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.0.0",
+		"@atlaskit/tokens": "^3.1.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

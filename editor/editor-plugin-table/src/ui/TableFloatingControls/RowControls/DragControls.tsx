@@ -2,14 +2,14 @@
 import type { MouseEvent } from 'react';
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react';
 
-import { injectIntl } from 'react-intl-next';
-import type { WrappedComponentProps } from 'react-intl-next';
-
+import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
+import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { CellSelection } from '@atlaskit/editor-tables';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { monitorForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { token } from '@atlaskit/tokens';
 
@@ -19,11 +19,12 @@ import type { TriggerType } from '../../../pm-plugins/drag-and-drop/types';
 import { getPluginState as getTablePluginState } from '../../../pm-plugins/plugin-factory';
 import { getRowHeights, getRowsParams } from '../../../pm-plugins/utils/row-controls';
 import { getSelectedRowIndexes } from '../../../pm-plugins/utils/selection';
+import type { TablePlugin } from '../../../tablePluginType';
 import { TableCssClassName as ClassName } from '../../../types';
 import type { CellHoverMeta, DraggableSourceData, HandleTypes } from '../../../types';
 import { dropTargetExtendedWidth } from '../../consts';
 import type { DragHandleAppearance } from '../../DragHandle';
-import { DragHandle } from '../../DragHandle';
+import { DragHandle, DragHandleWithSharedState } from '../../DragHandle';
 import RowDropTarget from '../RowDropTarget';
 
 type DragControlsProps = {
@@ -40,6 +41,8 @@ type DragControlsProps = {
 	selectRow: (row: number, expand: boolean) => void;
 	selectRows: (rowIndexes: number[]) => void;
 	updateCellHoverLocation: (rowIndex: number) => void;
+	api?: ExtractInjectionAPI<TablePlugin>;
+	selection?: Selection;
 };
 
 const getSelectedRows = (selection: Selection) => {
@@ -53,7 +56,7 @@ const getSelectedRows = (selection: Selection) => {
 	return [];
 };
 
-const DragControlsComponent = ({
+export const DragControls = ({
 	tableRef,
 	tableNode,
 	tableWidth,
@@ -67,13 +70,14 @@ const DragControlsComponent = ({
 	selectRow,
 	selectRows,
 	updateCellHoverLocation,
-}: DragControlsProps & WrappedComponentProps) => {
+	api,
+	selection,
+}: DragControlsProps) => {
 	const [isDragging, setIsDragging] = useState(false);
-
 	const rowHeights = getRowHeights(tableRef);
 	const rowsParams = getRowsParams(rowHeights);
 	const heights = rowHeights.map((height) => `${height - 1}px`).join(' ');
-	const selectedRowIndexes = getSelectedRows(editorView.state.selection);
+	const selectedRowIndexes = getSelectedRows(selection ?? editorView.state.selection);
 	const currentNodeLocalId = tableNode?.attrs?.localId ?? '';
 
 	useEffect(() => {
@@ -213,22 +217,42 @@ const DragControlsComponent = ({
 				}}
 				data-testid={`table-floating-row-${isHover ? rowIndex : selectedRowIndexes[0]}-drag-handle`}
 			>
-				<DragHandle
-					isDragMenuTarget={!isHover}
-					direction="row"
-					tableLocalId={currentNodeLocalId}
-					indexes={indexes}
-					forceDefaultHandle={!isHover}
-					previewWidth={tableWidth}
-					previewHeight={previewHeight}
-					appearance={appearance}
-					hoveredCell={hoveredCell}
-					onClick={handleClick}
-					onMouseOver={handleMouseOver}
-					onMouseOut={handleMouseOut}
-					toggleDragMenu={toggleDragMenuHandler}
-					editorView={editorView}
-				/>
+				{fg('platform_editor_table_use_shared_state_hook_fg') ? (
+					<DragHandleWithSharedState
+						isDragMenuTarget={!isHover}
+						direction="row"
+						tableLocalId={currentNodeLocalId}
+						indexes={indexes}
+						forceDefaultHandle={!isHover}
+						previewWidth={tableWidth}
+						previewHeight={previewHeight}
+						appearance={appearance}
+						hoveredCell={hoveredCell}
+						onClick={handleClick}
+						onMouseOver={handleMouseOver}
+						onMouseOut={handleMouseOut}
+						toggleDragMenu={toggleDragMenuHandler}
+						editorView={editorView}
+						api={api}
+					/>
+				) : (
+					<DragHandle
+						isDragMenuTarget={!isHover}
+						direction="row"
+						tableLocalId={currentNodeLocalId}
+						indexes={indexes}
+						forceDefaultHandle={!isHover}
+						previewWidth={tableWidth}
+						previewHeight={previewHeight}
+						appearance={appearance}
+						hoveredCell={hoveredCell}
+						onClick={handleClick}
+						onMouseOver={handleMouseOver}
+						onMouseOut={handleMouseOut}
+						toggleDragMenu={toggleDragMenuHandler}
+						editorView={editorView}
+					/>
+				)}
 			</div>
 		);
 	};
@@ -347,4 +371,41 @@ const DragControlsComponent = ({
 	);
 };
 
-export const DragControls = injectIntl(DragControlsComponent);
+export const DragControlsWithSelection = ({
+	editorView,
+	tableRef,
+	tableNode,
+	tableWidth,
+	tableActive,
+	hoveredCell,
+	isInDanger,
+	isTableHovered,
+	isResizing,
+	hoverRows,
+	selectRow,
+	selectRows,
+	updateCellHoverLocation,
+	api,
+}: Exclude<DragControlsProps, 'selection'>) => {
+	const { selectionState } = useSharedPluginState(api, ['selection']);
+
+	return (
+		<DragControls
+			editorView={editorView}
+			tableRef={tableRef}
+			tableNode={tableNode}
+			tableWidth={tableWidth}
+			tableActive={tableActive}
+			hoveredCell={hoveredCell}
+			isInDanger={isInDanger}
+			isTableHovered={isTableHovered}
+			isResizing={isResizing}
+			hoverRows={hoverRows}
+			selectRow={selectRow}
+			selectRows={selectRows}
+			updateCellHoverLocation={updateCellHoverLocation}
+			api={api}
+			selection={selectionState?.selection}
+		/>
+	);
+};

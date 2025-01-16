@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.26.12
+
+### Patch Changes
+
+- [#103388](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103388)
+  [`ff250d75803dd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ff250d75803dd) -
+  Fix memory leak on react 18 concurrent mode with annotation node view.
+
 ## 1.26.11
 
 ### Patch Changes

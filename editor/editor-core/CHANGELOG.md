@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 203.11.5
+
+### Patch Changes
+
+- [#103674](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103674)
+  [`5cd5e35c2e27c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5cd5e35c2e27c) -
+  Cleanup flag that gated change to PluginSlot using a React18 compatible component
+
 ## 203.11.4
 
 ### Patch Changes

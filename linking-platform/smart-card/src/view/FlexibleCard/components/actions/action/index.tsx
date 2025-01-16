@@ -1,8 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { jsx } from '@compiled/react';
+import React from 'react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
 

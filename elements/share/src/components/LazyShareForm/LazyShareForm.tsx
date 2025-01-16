@@ -58,6 +58,7 @@ export type LazyShareFormProps = Pick<
 	| 'isBrowseUsersDisabled'
 	| 'userPickerOptions'
 	| 'isMenuItemSelected'
+	| 'isSubmitShareDisabled'
 > &
 	Pick<
 		ShareDialogWithTriggerStates,
@@ -141,6 +142,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 		orgId,
 		isBrowseUsersDisabled,
 		userPickerOptions,
+		isSubmitShareDisabled,
 	} = props;
 
 	const footer = (
@@ -212,6 +214,7 @@ function LazyShareForm(props: LazyShareFormProps) {
 							onMenuItemChange={onMenuItemChange}
 							isBrowseUsersDisabled={isBrowseUsersDisabled}
 							userPickerOptions={userPickerOptions}
+							isSubmitShareDisabled={isSubmitShareDisabled}
 						/>
 					) : (
 						<Text as="p">

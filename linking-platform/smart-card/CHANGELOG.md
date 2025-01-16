@@ -1,5 +1,28 @@
 # @atlaskit/smart-card
 
+## 34.4.0
+
+### Minor Changes
+
+- [#101678](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101678)
+  [`b92bb44488ce7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b92bb44488ce7) -
+  [ux] Migrating smart-card `RelatedLinksModal` and `FlexibleCard/TitleBlock` to use
+  `@compiled/react` instead of `@emotion/react`
+
+### Patch Changes
+
+- [#103129](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103129)
+  [`32b48493c0387`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/32b48493c0387) -
+  [ux] Update lazy loaded icons for block cards
+
+## 34.3.0
+
+### Minor Changes
+
+- [#103331](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103331)
+  [`a05153325ac07`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a05153325ac07) -
+  Remove unnecessary compiled JSX from related links
+
 ## 34.2.2
 
 ### Patch Changes

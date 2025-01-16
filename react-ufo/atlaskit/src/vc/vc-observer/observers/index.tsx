@@ -1,6 +1,7 @@
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type VCIgnoreReason } from '../../../common/vc/types';
+import { shouldHandleEditorLnv } from '../../../config';
 import { isContainedWithinMediaWrapper } from '../media-wrapper/vc-utils';
 
 import { EditorLnvHandler } from './editor-lnv';
@@ -180,6 +181,7 @@ export class Observers implements BrowserObservers {
 	};
 
 	private getMutationObserver() {
+		const shouldHandleEditorLnvLocal = shouldHandleEditorLnv();
 		return this.isBrowserSupported()
 			? new MutationObserver((mutations) => {
 					this.measureStart();
@@ -255,7 +257,7 @@ export class Observers implements BrowserObservers {
 										return;
 									}
 
-									if (fg('platform_editor_ed-25557_lnv_add_ssr_placeholder')) {
+									if (shouldHandleEditorLnvLocal) {
 										if (this.editorLnvHandler.shouldHandleAddedNode(node)) {
 											this.editorLnvHandler.handleAddedNode(node).then(({ shouldIgnore }) => {
 												this.observeElement(

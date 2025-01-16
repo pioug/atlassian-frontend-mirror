@@ -442,7 +442,7 @@ export const createTypeAheadConfig = ({
 			}
 
 			if (isXProductUser && mentionProvider && mentionProvider.inviteXProductUser) {
-				mentionProvider.inviteXProductUser(id);
+				mentionProvider.inviteXProductUser(id, name);
 			}
 
 			// Don't insert into document if document data is sanitized.

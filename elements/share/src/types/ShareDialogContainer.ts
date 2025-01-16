@@ -180,4 +180,6 @@ export type ShareDialogContainerProps = {
 	isBrowseUsersDisabled?: boolean;
 	/* Atlassian resource identifier of the workspace initiating the share */
 	workspaceAri?: string;
+	/* Indicates if share submit button is disabled */
+	isSubmitShareDisabled?: boolean;
 };

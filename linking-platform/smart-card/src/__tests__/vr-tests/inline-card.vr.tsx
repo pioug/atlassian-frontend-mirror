@@ -12,7 +12,7 @@ import InlineCardForbiddenPendingSiteAccess from '../../../examples/vr-inline-ca
 import InlineCardForbiddenSiteRequestAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-request-access';
 import InlineCardForbiddenSiteRequestAccessTruncate from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-request-access-truncate';
 import InlineCardForbiddenTruncate from '../../../examples/vr-inline-card/vr-inline-card-forbidden-truncate';
-import VRInlineCardLazyIcons from '../../../examples/vr-inline-card/vr-inline-card-lazy-icons';
+import InlineCardLazyIcons from '../../../examples/vr-inline-card/vr-inline-card-lazy-icons';
 import InlineCardNotFound from '../../../examples/vr-inline-card/vr-inline-card-not-found';
 import InlineCardNotFoundTruncate from '../../../examples/vr-inline-card/vr-inline-card-not-found-truncate';
 import InlineCardTextWrap from '../../../examples/vr-inline-card/vr-inline-card-text-wrap';
@@ -216,7 +216,7 @@ snapshot(InlineCardUnauthorisedNoAuth, {
 	},
 });
 
-snapshot(VRInlineCardLazyIcons, {
+snapshot(InlineCardLazyIcons, {
 	description: `inline card with lazy load icons`,
 	featureFlags: {
 		'platform-visual-refresh-icons': true,

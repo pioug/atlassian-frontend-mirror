@@ -1,13 +1,25 @@
 export type GenerateContextProp = {
 	type?: string[] | string;
 	fileFormat?: string;
+	jiraTaskType?: string;
+	generatorId?: string;
+	metaAccess?: string;
+	metaVisibility?: string;
+	forceError?: boolean;
 };
-export const generateContext = ({ type = 'Document', fileFormat }: GenerateContextProp) => ({
+export const generateContext = ({
+	type,
+	generatorId,
+	fileFormat,
+	jiraTaskType,
+	metaAccess = 'granted',
+	metaVisibility = 'restricted',
+}: GenerateContextProp) => ({
 	meta: {
 		auth: [],
 		definitionId: 'watermelon-object-provider',
-		visibility: 'restricted',
-		access: 'granted',
+		visibility: metaVisibility,
+		access: metaAccess,
 		key: 'watermelon-object-provider',
 	},
 	data: {
@@ -17,10 +29,12 @@ export const generateContext = ({ type = 'Document', fileFormat }: GenerateConte
 			schema: 'http://schema.org/',
 		},
 		generator: {
+			'@id': generatorId,
 			'@type': 'Application',
 			name: 'Atlas',
 			icon: { '@type': 'Image', url: null },
 		},
+		'atlassian:taskType': jiraTaskType,
 		'@type': type,
 		url: 'https://project-url',
 		name: 'Lorem ipsum dolor sit amet',

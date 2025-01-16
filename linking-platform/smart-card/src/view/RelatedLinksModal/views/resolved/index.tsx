@@ -1,17 +1,13 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React from 'react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Stack } from '@atlaskit/primitives';
 
 import { messages } from '../../../../messages';
 import RelatedLinksList from '../../components/related-links-list';
 
+import RelatedLinksResolvedViewOld from './ResolvedOld';
 import { type RelatedLinksProps } from './types';
 
 const RelatedLinksResolvedView = ({
@@ -38,4 +34,12 @@ const RelatedLinksResolvedView = ({
 	);
 };
 
-export default RelatedLinksResolvedView;
+const RelatedLinksResolvedExported = (props: RelatedLinksProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <RelatedLinksResolvedView {...props} />;
+	} else {
+		return <RelatedLinksResolvedViewOld {...props} />;
+	}
+};
+
+export default RelatedLinksResolvedExported;

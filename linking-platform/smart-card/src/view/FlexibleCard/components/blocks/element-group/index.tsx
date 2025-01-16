@@ -2,8 +2,9 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
+
+import { token } from '@atlaskit/tokens';
 
 import {
 	SmartLinkAlignment,
@@ -12,104 +13,233 @@ import {
 	SmartLinkSize,
 	SmartLinkWidth,
 } from '../../../../../constants';
-import { getMaxLineHeight, getTruncateStyles } from '../../utils';
-import { getBaseStyles, getGapSize, renderChildren } from '../utils';
+import { renderChildren } from '../utils';
 
+import ElementGroupOld from './ElementGroupOld';
 import { type ElementGroupProps } from './types';
 
-const getAlignmentStyles = (align?: SmartLinkAlignment) => {
-	switch (align) {
-		case SmartLinkAlignment.Right:
-			return css({
-				WebkitBoxAlign: 'end',
-				MsFlexAlign: 'end',
-				justifyContent: 'flex-end',
-				textAlign: 'right',
-			});
-		case SmartLinkAlignment.Left:
-		default:
-			return css({
-				WebkitBoxAlign: 'start',
-				MsFlexAlign: 'start',
-				justifyContent: 'flex-start',
-				textAlign: 'left',
-			});
-	}
-};
+const alignmentStyleMap = cssMap({
+	right: {
+		WebkitBoxAlign: 'end',
+		MsFlexAlign: 'end',
+		justifyContent: 'flex-end',
+		textAlign: 'right',
+	},
+	left: {
+		WebkitBoxAlign: 'start',
+		MsFlexAlign: 'start',
+		justifyContent: 'flex-start',
+		textAlign: 'left',
+	},
+});
 
-const getGapStyles = (size: SmartLinkSize, align: SmartLinkAlignment): SerializedStyles => {
-	const gap = getGapSize(size);
-	if (align === SmartLinkAlignment.Right) {
-		return css({
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-			'> span': {
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				marginLeft: `${gap}rem`,
-			},
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-			'> span:first-child': {
-				marginLeft: 'initial',
-			},
-		});
-	}
+const baseStyleBySize = cssMap({
+	xlarge: {
+		alignItems: 'center',
+		display: 'flex',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		gap: token('space.250', '1.25rem'),
+		minWidth: 0,
+		overflow: 'hidden',
+	},
+	large: {
+		alignItems: 'center',
+		display: 'flex',
+		gap: token('space.200', '1rem'),
+		minWidth: 0,
+		overflow: 'hidden',
+	},
+	medium: {
+		alignItems: 'center',
+		display: 'flex',
+		gap: token('space.100', '0.5rem'),
+		minWidth: 0,
+		overflow: 'hidden',
+	},
+	small: {
+		alignItems: 'center',
+		display: 'flex',
+		gap: token('space.050', '0.25rem'),
+		minWidth: 0,
+		overflow: 'hidden',
+	},
+});
 
-	return css({
+const baseStyleByDirection = cssMap({
+	horizontal: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	vertical: {
+		flexDirection: 'column',
+		alignItems: 'flex-start',
+	},
+});
+
+const baseStyle = css({
+	'&:empty': {
+		display: 'none',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& > *': {
+		minWidth: 0,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'& > [data-fit-to-content]': {
+		minWidth: 'fit-content',
+	},
+});
+
+const widthStyle = cssMap({
+	flexible: {
+		flex: '1 3',
+	},
+	'fit-to-content': {},
+});
+
+const positionStyle = cssMap({
+	top: {
+		alignSelf: 'flex-start',
+	},
+	center: {},
+});
+
+const horizontalStyleBase = css({
+	display: 'block',
+	verticalAlign: 'middle',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'> span, > div': {
+		verticalAlign: 'middle',
+
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'&[data-smart-element-date-time], &[data-smart-element-text]': {
+			// Show all/wrapped/truncated
+			display: 'inline',
+		},
+	},
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	wordBreak: 'break-word',
+	WebkitLineClamp: 1,
+	WebkitBoxOrient: 'vertical',
+});
+
+const horizontalStyleByHeight = cssMap({
+	xlarge: {
+		display: '-webkit-box',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(1 * 1.75rem)`,
+		},
+	},
+	large: {
+		display: '-webkit-box',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(1 * 1.75rem)`,
+		},
+	},
+	medium: {
+		display: '-webkit-box',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(1 * 1.5rem)`,
+		},
+	},
+	small: {
+		display: '-webkit-box',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(1 * 1.5rem)`,
+		},
+	},
+});
+
+const gapStylesLeft = cssMap({
+	xlarge: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'> span': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			marginRight: `${gap}rem`,
+			marginRight: token('space.250', '1.25rem'),
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 			'&:last-child': {
 				marginRight: 'initial',
 			},
 		},
-	});
-};
-
-const getHorizontalDirectionStyles = (size: SmartLinkSize, align: SmartLinkAlignment) => {
-	const lineHeight = getMaxLineHeight(size);
-	// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-	return css`
-		display: block;
-		vertical-align: middle;
-		${getTruncateStyles(1, lineHeight + 'rem')}
-
-		> span, > div {
-			vertical-align: middle;
-
-			&[data-smart-element-date-time],
-			&[data-smart-element-text] {
-				// Show all/wrapped/truncated
-				display: inline;
-			}
-		}
-
-		${getGapStyles(size, align)}
-	`;
-};
-
-export const getElementGroupStyles = (
-	direction: SmartLinkDirection,
-	size: SmartLinkSize,
-	align: SmartLinkAlignment,
-	width: SmartLinkWidth,
-	position: SmartLinkPosition,
-): SerializedStyles =>
-	css(
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		getBaseStyles(direction, size),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		getAlignmentStyles(align),
-		{
-			minWidth: '10%',
+	},
+	large: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'> span': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			marginRight: token('space.200', '1rem'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+			'&:last-child': {
+				marginRight: 'initial',
+			},
 		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		width === SmartLinkWidth.Flexible ? `flex: 1 3;` : '',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		direction === SmartLinkDirection.Horizontal ? getHorizontalDirectionStyles(size, align) : '',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-		position === SmartLinkPosition.Top ? 'align-self: flex-start;' : '',
-	);
+	},
+	medium: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'> span': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			marginRight: token('space.100', '0.5rem'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+			'&:last-child': {
+				marginRight: 'initial',
+			},
+		},
+	},
+	small: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'> span': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			marginRight: token('space.050', '0.25rem'),
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+			'&:last-child': {
+				marginRight: 'initial',
+			},
+		},
+	},
+});
+
+const gapStylesRight = cssMap({
+	xlarge: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'> span': {
+			marginLeft: token('space.250', '1.25rem'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'> span:first-of-type': {
+			marginLeft: 'initial',
+		},
+	},
+	large: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'> span': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+			marginLeft: token('space.200', '1rem'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'> span:first-of-type': {
+			marginLeft: 'initial',
+		},
+	},
+	medium: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'> span': {
+			marginLeft: token('space.100', '0.5rem'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'> span:first-of-type': {
+			marginLeft: 'initial',
+		},
+	},
+	small: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'> span': {
+			marginLeft: token('space.050', '0.25rem'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'> span:first-of-type': {
+			marginLeft: 'initial',
+		},
+	},
+});
 
 /**
  * Creates a group of Action components. Accepts an array of Actions, in addition to some styling
@@ -118,24 +248,46 @@ export const getElementGroupStyles = (
  * @param {ActionGroupProps} ActionGroupProps
  * @see Action
  */
-const ElementGroup = ({
+const ElementGroupNew = ({
 	align = SmartLinkAlignment.Left,
 	children,
-	overrideCss,
 	direction = SmartLinkDirection.Horizontal,
 	size = SmartLinkSize.Medium,
 	testId = 'smart-element-group',
 	width = SmartLinkWidth.FitToContent,
 	position = SmartLinkPosition.Center,
-}: ElementGroupProps) => (
-	<div
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-		css={[getElementGroupStyles(direction, size, align, width, position), overrideCss]}
-		data-smart-element-group
-		data-testid={testId}
-	>
-		{renderChildren(children, size)}
-	</div>
-);
+	className,
+}: ElementGroupProps) => {
+	const totalCss = [
+		baseStyleBySize[size],
+		baseStyleByDirection[direction],
+		baseStyle,
+		alignmentStyleMap[align],
+		css({ minWidth: '10%' }),
+		widthStyle[width],
+		direction === SmartLinkDirection.Horizontal ? horizontalStyleBase : {},
+		direction === SmartLinkDirection.Horizontal ? horizontalStyleByHeight[size] : {},
+		direction === SmartLinkDirection.Horizontal
+			? SmartLinkAlignment.Left
+				? gapStylesLeft[size]
+				: gapStylesRight[size]
+			: {},
+		positionStyle[position],
+	];
 
-export default ElementGroup;
+	return (
+		<div
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			css={totalCss}
+			data-smart-element-group
+			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
+		>
+			{renderChildren(children, size)}
+		</div>
+	);
+};
+
+export default ElementGroupOld;
+export { ElementGroupNew };

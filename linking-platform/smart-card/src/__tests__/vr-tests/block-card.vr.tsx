@@ -2,6 +2,7 @@ import { snapshot } from '@af/visual-regression';
 
 import { BlockCardErrorView } from '../../../examples/vr-block-card/vr-block-card-error';
 import { BlockCardForbiddenView } from '../../../examples/vr-block-card/vr-block-card-forbidden';
+import { BlockCardLazyIcons } from '../../../examples/vr-block-card/vr-block-card-lazy-icons';
 import { BlockCardNotFoundView } from '../../../examples/vr-block-card/vr-block-card-not-found';
 import { BlockCardNotFoundSiteAccessExists } from '../../../examples/vr-block-card/vr-block-card-not-found-site-access-exists';
 import { BlockCardAtlas } from '../../../examples/vr-block-card/vr-block-card-resolved-atlas';
@@ -25,3 +26,10 @@ snapshot(BlockCardTrello);
 snapshot(BlockCardAtlas);
 snapshot(BlockCardBitbucket);
 snapshot(BlockCardForbiddenViews);
+snapshot(BlockCardLazyIcons, {
+	description: `block card with lazy load icons`,
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+		'platform-smart-card-icon-migration': true,
+	},
+});

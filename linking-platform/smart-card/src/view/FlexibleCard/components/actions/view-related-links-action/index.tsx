@@ -1,10 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { lazy, useCallback } from 'react';
+import React, { lazy, useCallback } from 'react';
 
-import { jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';

@@ -71,6 +71,7 @@ export type ShareDialogWithTriggerProps = Pick<
 	| 'orgId'
 	| 'isBrowseUsersDisabled'
 	| 'userPickerOptions'
+	| 'isSubmitShareDisabled'
 > & {
 	config?: ConfigResponse;
 	isFetchingConfig?: boolean;

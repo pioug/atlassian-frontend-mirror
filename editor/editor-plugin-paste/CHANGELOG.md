@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.0.18
+
+### Patch Changes
+
+- [#102971](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102971)
+  [`a87c6952a44b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a87c6952a44b1) -
+  ED-25451 Support copy of media caption and fix range error when pasting a caption into another
+  caption
+- Updated dependencies
+
 ## 2.0.17
 
 ### Patch Changes

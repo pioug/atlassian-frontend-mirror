@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/share",
-	"version": "4.23.11",
+	"version": "4.24.0",
 	"description": "Fabric Share Element",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -128,6 +128,9 @@
 			"type": "boolean"
 		},
 		"smart_links_for_plans_platform": {
+			"type": "boolean"
+		},
+		"plans_outgoing_mail_fix": {
 			"type": "boolean"
 		}
 	}

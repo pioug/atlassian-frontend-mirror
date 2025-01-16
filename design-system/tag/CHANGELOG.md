@@ -1,5 +1,13 @@
 # @atlaskit/tag
 
+## 12.6.9
+
+### Patch Changes
+
+- [#103692](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103692)
+  [`ad627ccbb12b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ad627ccbb12b8) -
+  Refactor internals and flesh out dev dependencies to match internal usage.
+
 ## 12.6.8
 
 ### Patch Changes

@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 99.3.3
+
+### Patch Changes
+
+- [#103440](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103440)
+  [`2a34d82d95e38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a34d82d95e38) -
+  Cleaned up feature flag that cleans up findDOMNode usages
+
+## 99.3.2
+
+### Patch Changes
+
+- [#103452](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103452)
+  [`0bdb0bcb26d5f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0bdb0bcb26d5f) -
+  Removed feature gate for lazy node view analytics
+- Updated dependencies
+
 ## 99.3.1
 
 ### Patch Changes

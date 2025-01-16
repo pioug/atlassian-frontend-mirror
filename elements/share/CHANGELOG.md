@@ -1,5 +1,14 @@
 # @atlaskit/share
 
+## 4.24.0
+
+### Minor Changes
+
+- [#103086](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103086)
+  [`3d37cc0ea36c7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3d37cc0ea36c7) -
+  add ability to disable the submit button on the share tab and allow additional tabs to be rendered
+  when the slack integration is not provided
+
 ## 4.23.11
 
 ### Patch Changes

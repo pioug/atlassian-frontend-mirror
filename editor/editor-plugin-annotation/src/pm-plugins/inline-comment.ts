@@ -239,17 +239,19 @@ export const inlineCommentPlugin = (options: InlineCommentPluginOptions) => {
 		},
 
 		props: {
-			nodeViews: {
-				annotation: (node: PMNode, view: EditorView, getPos: getPosHandler) =>
-					new AnnotationNodeView(
-						node,
-						view,
-						getPos,
-						portalProviderAPI,
-						eventDispatcher,
-						// resolved
-					).init(),
-			},
+			...(!fg('platform_editor_annotation_react_18_mem_leak') && {
+				nodeViews: {
+					annotation: (node: PMNode, view: EditorView, getPos: getPosHandler) =>
+						new AnnotationNodeView(
+							node,
+							view,
+							getPos,
+							portalProviderAPI,
+							eventDispatcher,
+							// resolved
+						).init(),
+				},
+			}),
 			handleDOMEvents: {
 				mousedown: (view: EditorView) => {
 					const pluginState = getPluginState(view.state);

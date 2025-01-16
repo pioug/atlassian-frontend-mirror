@@ -25,6 +25,9 @@ snapshot(RelatedLinksModal, {
 			},
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(RelatedLinksResolvedView, {
@@ -45,6 +48,9 @@ snapshot(RelatedLinksResolvedView, {
 			},
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(RelatedLinksResolvedViewWithEmptyList, {
@@ -65,6 +71,9 @@ snapshot(RelatedLinksResolvedViewWithEmptyList, {
 			},
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(RelatedLinksModalErroredView, {
@@ -85,6 +94,9 @@ snapshot(RelatedLinksModalErroredView, {
 			},
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(RelatedLinksModalUnavailableView, {
@@ -105,6 +117,9 @@ snapshot(RelatedLinksModalUnavailableView, {
 			},
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(RelatedLinksModalResolvingView, {
@@ -125,4 +140,7 @@ snapshot(RelatedLinksModalResolvingView, {
 			},
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });

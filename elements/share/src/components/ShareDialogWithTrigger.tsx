@@ -582,6 +582,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 			builtInTabContentWidth,
 			isBrowseUsersDisabled,
 			userPickerOptions,
+			isSubmitShareDisabled,
 		} = this.props;
 
 		const style =
@@ -637,6 +638,7 @@ export class ShareDialogWithTriggerInternal extends React.PureComponent<
 								additionalTabs={additionalTabs}
 								builtInTabContentWidth={builtInTabContentWidth}
 								isMenuItemSelected={isMenuItemSelected}
+								isSubmitShareDisabled={isSubmitShareDisabled}
 								// actions
 								onLinkCopy={this.handleCopyLink}
 								onSubmit={this.handleShareSubmit}

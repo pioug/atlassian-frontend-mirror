@@ -43,7 +43,7 @@ type BaseFileState = {
 
 type AbuseClassification = {
 	classification: 'ABHORRENT' | 'MALICIOUS' | 'ILLICIT' | 'COPYRIGHT';
-	confidence: 'HIGH' | 'MEDIUM' | 'LOW';
+	confidence: 'HIGH' | 'MEDIUM' | 'LOW' | 'SYNTHETIC';
 };
 
 type NonErrorBaseFileState = {

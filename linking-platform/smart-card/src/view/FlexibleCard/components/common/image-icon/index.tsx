@@ -1,8 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { jsx } from '@compiled/react';
+import React from 'react';
+
 import ImageLoader from 'react-render-image';
 
 import LoadingSkeleton from '../loading-skeleton';

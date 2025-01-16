@@ -5,10 +5,12 @@ import type { DispatchAnalyticsEvent } from '@atlaskit/editor-common/analytics';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI, SelectionToolbarGroup } from '@atlaskit/editor-common/types';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { AnnotationPlugin } from './annotationPluginType';
 import { setInlineCommentDraftState, showInlineCommentForBlockNode } from './editor-commands';
+import { annotationWithToDOMFix } from './nodeviews/annotationMark';
 import { inlineCommentPlugin } from './pm-plugins/inline-comment';
 import { keymapPlugin } from './pm-plugins/keymap';
 import { buildToolbar } from './pm-plugins/toolbar';
@@ -26,7 +28,9 @@ export const annotationPlugin: AnnotationPlugin = ({ config: annotationProviders
 			return [
 				{
 					name: 'annotation',
-					mark: annotation,
+					mark: fg('platform_editor_annotation_react_18_mem_leak')
+						? annotationWithToDOMFix
+						: annotation,
 				},
 			];
 		},

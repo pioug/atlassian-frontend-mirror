@@ -1,7 +1,9 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 
@@ -13,16 +15,22 @@ import {
 } from '../../../../../../constants';
 import { LinkIcon } from '../../../elements';
 import Block from '../../block';
-import ElementGroup from '../../element-group';
+import { ElementGroupNew as ElementGroup } from '../../element-group';
 import { renderElementItems } from '../../utils';
 import { type TitleBlockViewProps } from '../types';
+
+import TitleBlockResolvedViewOld from './TitleBlockResolvedViewOld';
+
+const style = css({
+	gap: token('space.050', '0.25rem'),
+});
 
 /**
  * This renders a fully resolved TitleBlock.
  * This should render when a Smart Link returns a valid response.
  * @see TitleBlock
  */
-const TitleBlockResolvedView = ({
+const TitleBlockResolvedViewNew = ({
 	actionGroup,
 	metadata = [],
 	position,
@@ -37,15 +45,15 @@ const TitleBlockResolvedView = ({
 }: TitleBlockViewProps) => {
 	const metadataElements = renderElementItems(metadata);
 	const subtitleElements = renderElementItems(subtitle);
+
 	return (
 		<Block {...blockProps} testId={`${testId}-resolved-view`}>
 			{!hideIcon && <LinkIcon overrideIcon={icon} position={position} />}
 			<ElementGroup
 				direction={SmartLinkDirection.Vertical}
 				width={SmartLinkWidth.Flexible}
-				overrideCss={css({
-					gap: token('space.050', '0.25rem'),
-				})}
+				css={style}
+				size={blockProps.size}
 			>
 				{title}
 				{subtitleElements && (
@@ -57,6 +65,7 @@ const TitleBlockResolvedView = ({
 					direction={SmartLinkDirection.Horizontal}
 					align={SmartLinkAlignment.Right}
 					position={metadataPosition ?? SmartLinkPosition.Center}
+					size={blockProps.size}
 				>
 					{metadataElements}
 				</ElementGroup>
@@ -66,4 +75,5 @@ const TitleBlockResolvedView = ({
 	);
 };
 
-export default TitleBlockResolvedView;
+export default TitleBlockResolvedViewOld;
+export { TitleBlockResolvedViewNew };

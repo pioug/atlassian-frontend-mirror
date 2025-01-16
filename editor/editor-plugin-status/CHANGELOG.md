@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-status
 
+## 2.6.7
+
+### Patch Changes
+
+- [#103440](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103440)
+  [`2a34d82d95e38`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2a34d82d95e38) -
+  Cleaned up feature flag that cleans up findDOMNode usages
+
 ## 2.6.6
 
 ### Patch Changes

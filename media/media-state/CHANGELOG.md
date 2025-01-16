@@ -1,5 +1,13 @@
 # @atlaskit/media-state
 
+## 1.4.0
+
+### Minor Changes
+
+- [#103451](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103451)
+  [`c45fe9fe50a79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c45fe9fe50a79) -
+  Extended Abuse Classification Confidence values
+
 ## 1.3.0
 
 ### Minor Changes

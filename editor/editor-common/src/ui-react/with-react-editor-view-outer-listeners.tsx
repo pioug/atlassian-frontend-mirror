@@ -1,9 +1,6 @@
 import React, { PureComponent, useCallback, useEffect, useRef, useState } from 'react';
 
-import ReactDOM from 'react-dom';
-
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import ReactEditorViewContext from './ReactEditorViewContext';
 
@@ -85,10 +82,7 @@ class WithOutsideClick extends PureComponent<
 			return;
 		}
 
-		const domNode = fg('platform_editor_replace_finddomnode_in_common')
-			? this.props.outsideClickTargetRef.current?.deref()
-			: // eslint-disable-next-line react/no-find-dom-node -- Ignored via go/ED-25883
-				ReactDOM.findDOMNode(this);
+		const domNode = this.props.outsideClickTargetRef.current?.deref();
 
 		if (!domNode || (evt.target instanceof Node && !domNode.contains(evt.target))) {
 			this.props.handleClickOutside(evt);

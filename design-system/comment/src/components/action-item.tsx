@@ -1,4 +1,4 @@
-import React, { type FC, forwardRef, type ReactNode } from 'react';
+import React, { forwardRef, type ReactNode } from 'react';
 
 import {
 	type UIAnalyticsEvent,
@@ -33,7 +33,7 @@ export interface CommentActionItemProps extends WithAnalyticsEventsProps {
 	onMouseOver?: (event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-const ActionItem: FC<CommentActionItemProps> = forwardRef(
+const ActionItem = forwardRef<HTMLSpanElement, CommentActionItemProps>(
 	({ children, onClick: providedOnClick, onFocus, onMouseOver, isDisabled }, ref) => {
 		const onClick = usePlatformLeafEventHandler<React.MouseEvent<HTMLAnchorElement, MouseEvent>>({
 			fn: (event, analyticsEvent) => providedOnClick && providedOnClick(event, analyticsEvent),

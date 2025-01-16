@@ -1,12 +1,7 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import React from 'react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import {
 	Card,
@@ -20,6 +15,8 @@ import {
 import { type FlexibleUiOptions } from '../../../FlexibleCard/types';
 import { type RelatedLinkItemProp } from '../types';
 
+import RelatedLinkItemOld from './RelatedLinkItemOld';
+
 const hoverStyles = xcss({
 	':hover': {
 		backgroundColor: 'color.background.input.hovered',
@@ -27,13 +24,10 @@ const hoverStyles = xcss({
 		marginInline: 'space.negative.100',
 		paddingInline: 'space.100',
 	},
-});
-
-const relatedLinkItemStyles = css({
-	paddingTop: token('space.100', '8px'),
-	paddingBottom: token('space.100', '8px'),
-	gap: token('space.150', '12px'),
-	font: token('font.body.small'),
+	paddingTop: 'space.100',
+	paddingBottom: 'space.100',
+	gap: 'space.150',
+	font: 'font.body.small',
 });
 
 const RelatedLinkItem = ({ url, testId }: RelatedLinkItemProp) => {
@@ -56,7 +50,6 @@ const RelatedLinkItem = ({ url, testId }: RelatedLinkItemProp) => {
 					hideTitleTooltip={true}
 					position={SmartLinkPosition.Center}
 					subtitle={subtitle}
-					overrideCss={relatedLinkItemStyles}
 					anchorTarget="_blank"
 				/>
 			</Card>
@@ -64,4 +57,12 @@ const RelatedLinkItem = ({ url, testId }: RelatedLinkItemProp) => {
 	);
 };
 
-export default RelatedLinkItem;
+const RelatedLinkItemExported = (props: RelatedLinkItemProp) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <RelatedLinkItem {...props} />;
+	} else {
+		return <RelatedLinkItemOld {...props} />;
+	}
+};
+
+export default RelatedLinkItemExported;

@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-clipboard
 
+## 1.3.16
+
+### Patch Changes
+
+- [#102971](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102971)
+  [`a87c6952a44b1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a87c6952a44b1) -
+  ED-25451 Support copy of media caption and fix range error when pasting a caption into another
+  caption
+- [#102971](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102971)
+  [`d5851f824b396`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d5851f824b396) -
+  ED-25451 support copy of media caption in editor
+
 ## 1.3.15
 
 ### Patch Changes

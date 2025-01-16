@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-block-controls",
-	"version": "2.21.1",
+	"version": "2.21.2",
 	"description": "Block controls plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -146,6 +146,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_advanced_layouts_DnD_remove_layout": {
+			"type": "boolean"
+		},
+		"platform_editor_dnd_update_drag_start_target": {
 			"type": "boolean"
 		}
 	}

@@ -1,5 +1,13 @@
 # @atlaskit/media-client
 
+## 29.1.0
+
+### Minor Changes
+
+- [#103451](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103451)
+  [`c45fe9fe50a79`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c45fe9fe50a79) -
+  Extended Abuse Classification Confidence values
+
 ## 29.0.1
 
 ### Patch Changes

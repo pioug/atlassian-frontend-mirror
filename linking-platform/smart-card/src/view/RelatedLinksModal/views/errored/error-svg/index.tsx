@@ -2,18 +2,23 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
+
+import { ErrorSVGOld } from './ErrorSvgOld';
 
 const errorStyles = css({
 	width: '80px',
-	margin: `0 auto ${token('space.300', '24px')}`,
+	marginTop: 0,
+	marginRight: 'auto',
+	marginBottom: token('space.300', '24px'),
+	marginLeft: 'auto',
 	display: 'block',
 });
 
-export const ErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
+const ErrorSVGNew = (props: React.SVGProps<SVGSVGElement>) => {
 	const id = 'related-links-error-svg';
 
 	return (
@@ -57,4 +62,12 @@ export const ErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
 			</defs>
 		</svg>
 	);
+};
+
+export const ErrorSVG = (props: React.SVGProps<SVGSVGElement>) => {
+	if (!fg('bandicoots-compiled-migration-smartcard')) {
+		return <ErrorSVGNew {...props} />;
+	} else {
+		return <ErrorSVGOld {...props} />;
+	}
 };

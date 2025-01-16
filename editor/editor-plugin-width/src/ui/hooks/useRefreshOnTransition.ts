@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 
 import { bindAll } from 'bind-event-listener';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-
 // List of names for transition end events across browsers
 const transitionEventNames = [
 	'transitionend',
@@ -18,7 +16,7 @@ export const useRefreshWidthOnTransition = (containerElement: HTMLElement | null
 	const [_, setLastWidthEvent] = useState<TransitionEvent | undefined>();
 
 	useEffect(() => {
-		if (!containerElement || !fg('platform_editor_react_18_plugin_slot')) {
+		if (!containerElement) {
 			return;
 		}
 		/**

@@ -198,7 +198,11 @@ interface BaseProps {
 	 * The result of the `content` prop will be placed as children here.
 	 * The default is an element with an elevation of `e200` with _no padding_.
 	 */
-	popupComponent?: ComponentType<PopupComponentProps>;
+	popupComponent?:
+		| ComponentType<PopupComponentProps>
+		| React.ForwardRefExoticComponent<
+				React.PropsWithoutRef<PopupComponentProps> & React.RefAttributes<HTMLDivElement>
+		  >;
 
 	/**
 	 * This controls whether the popup takes focus when opening.

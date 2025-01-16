@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.11.4",
+	"version": "203.11.5",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -52,7 +52,7 @@
 		"@atlaskit/emoji": "^67.12.0",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/media-card": "^78.18.0",
-		"@atlaskit/mention": "^23.8.0",
+		"@atlaskit/mention": "^23.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/tmp-editor-statsig": "^2.37.0",
@@ -84,7 +84,7 @@
 		"@atlaskit/adf-utils": "^19.17.0",
 		"@atlaskit/analytics-listeners": "^8.13.0",
 		"@atlaskit/collab-provider": "10.4.0",
-		"@atlaskit/editor-plugin-annotation": "1.26.11",
+		"@atlaskit/editor-plugin-annotation": "1.26.12",
 		"@atlaskit/editor-plugin-card": "^4.5.0",
 		"@atlaskit/editor-plugin-list": "^3.9.0",
 		"@atlaskit/editor-plugin-paste": "^2.0.0",
@@ -96,7 +96,7 @@
 		"@atlaskit/modal-dialog": "^12.19.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/renderer": "^112.8.0",
-		"@atlaskit/smart-card": "^34.2.0",
+		"@atlaskit/smart-card": "^34.4.0",
 		"@atlaskit/synchrony-test-helpers": "^3.0.0",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/util-data-test": "^17.13.0",
@@ -185,9 +185,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_react_18_plugin_slot": {
-			"type": "boolean"
-		},
 		"platform_editor_disable_instrumented_plugin": {
 			"type": "boolean"
 		},
@@ -222,6 +219,10 @@
 			"type": "boolean"
 		},
 		"platform_editor_action_decisions_ssr_fix": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_annotation_react_18_mem_leak": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -285,14 +286,6 @@
 		},
 		"platform_editor_add_extension_api_to_quick_insert": {
 			"type": "boolean"
-		},
-		"platform_editor_ed-25557_lnv_add_ssr_placeholder": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
-		"platform_editor_replace_finddomnode_in_common": {
-			"type": "boolean",
-			"referenceOnly": true
 		},
 		"platform-component-visual-refresh": {
 			"type": "boolean",
@@ -402,6 +395,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_table_use_shared_state_hook_fg": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_dnd_update_drag_start_target": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

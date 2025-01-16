@@ -225,7 +225,7 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 	userRole: UserRole;
 	onInviteItemClick?: (flow: InviteFlow) => void;
 	isEligibleXProductUserInvite?: boolean;
-	inviteXProductUser?: (userId: string) => Promise<void>;
+	inviteXProductUser?: (userId: string, mentionName: string) => Promise<void>;
 
 	constructor(config: MentionResourceConfig) {
 		super();

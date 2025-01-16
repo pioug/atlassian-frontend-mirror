@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "99.3.1",
+	"version": "99.3.3",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -218,14 +218,14 @@
 		"@atlaskit/link-datasource": "^3.15.0",
 		"@atlaskit/link-picker": "^1.47.0",
 		"@atlaskit/media-card": "^78.18.0",
-		"@atlaskit/media-client": "^29.0.0",
+		"@atlaskit/media-client": "^29.1.0",
 		"@atlaskit/media-client-react": "^2.5.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-file-preview": "^0.9.0",
 		"@atlaskit/media-picker": "^67.0.0",
 		"@atlaskit/media-ui": "^27.3.0",
 		"@atlaskit/media-viewer": "49.6.1",
-		"@atlaskit/mention": "^23.8.0",
+		"@atlaskit/mention": "^23.9.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/onboarding": "^12.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -233,7 +233,7 @@
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/profilecard": "^21.1.0",
 		"@atlaskit/section-message": "^6.8.0",
-		"@atlaskit/smart-card": "^34.2.0",
+		"@atlaskit/smart-card": "^34.4.0",
 		"@atlaskit/smart-user-picker": "^6.11.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
@@ -351,12 +351,6 @@
 			"type": "boolean"
 		},
 		"platform_editor_heading_margin_fix": {
-			"type": "boolean"
-		},
-		"platform_editor_replace_finddomnode_in_common": {
-			"type": "boolean"
-		},
-		"platform_editor_ed-25557_lnv_add_ssr_placeholder": {
 			"type": "boolean"
 		},
 		"platform-visual-refresh-icons": {

@@ -49,4 +49,5 @@ export type ShareFormProps = Pick<
 	selectedMenuItem?: number;
 	Content?: React.ReactNode;
 	handleCloseDialog?: () => void;
+	isSubmitShareDisabled?: boolean;
 };

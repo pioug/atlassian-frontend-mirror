@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.21.2
+
+### Patch Changes
+
+- [#103365](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103365)
+  [`fb69e4b7a2f59`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb69e4b7a2f59) -
+  ED-26243 Removed unused drop-target v1
+
 ## 2.21.1
 
 ### Patch Changes

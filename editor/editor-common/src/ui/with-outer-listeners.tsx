@@ -1,10 +1,6 @@
 import type { ComponentClass, MutableRefObject } from 'react';
 import React, { PureComponent } from 'react';
 
-import ReactDOM from 'react-dom';
-
-import { fg } from '@atlaskit/platform-feature-flags';
-
 type SimpleEventHandler<T> = (event: T) => void;
 
 export interface WithOutsideClickProps {
@@ -54,9 +50,7 @@ export default function withOuterListeners<P>(
 		}
 
 		handleClick = (evt: MouseEvent) => {
-			const domNode = fg('platform_editor_replace_finddomnode_in_common')
-				? this.outsideClickTargetRef.current?.deref()
-				: ReactDOM.findDOMNode(this); // eslint-disable-line react/no-find-dom-node
+			const domNode = this.outsideClickTargetRef.current?.deref();
 
 			if (!domNode || (evt.target instanceof Node && !domNode.contains(evt.target))) {
 				this.props.handleClickOutside?.(evt);

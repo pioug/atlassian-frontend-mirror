@@ -16,7 +16,10 @@ export type ElementGroupProps = PropsWithChildren<{
 	align?: SmartLinkAlignment;
 	/* Determines the direction that the Elements are rendered. Can be Vertical or Horizontal. */
 	direction?: SmartLinkDirection;
-	/* Additional CSS properties on the Element Group. */
+	/*
+	 *  Additional CSS properties on the Element Group.
+	 *  @deprecated
+	 */
 	overrideCss?: SerializedStyles;
 	/* Determines the default size of the Elements in the group. */
 	size?: SmartLinkSize;
@@ -26,4 +29,5 @@ export type ElementGroupProps = PropsWithChildren<{
 	testId?: string;
 	/* Determines the position of the elements within. Can be top or center position. */
 	position?: SmartLinkPosition;
+	className?: string;
 }>;

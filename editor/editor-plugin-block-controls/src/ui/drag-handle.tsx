@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { type CSSProperties, useCallback, useEffect, useRef, useState } from 'react';
-import type { KeyboardEvent } from 'react';
+import type { DragEvent, KeyboardEvent } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -16,6 +16,7 @@ import {
 	ACTION_SUBJECT_ID,
 	EVENT_TYPE,
 } from '@atlaskit/editor-common/analytics';
+import { browser } from '@atlaskit/editor-common/browser';
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import {
 	dragToMoveDown,
@@ -33,6 +34,7 @@ import DragHandlerIcon from '@atlaskit/icon/glyph/drag-handler';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { draggable } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { setCustomNativeDragPreview } from '@atlaskit/pragmatic-drag-and-drop/element/set-custom-native-drag-preview';
+import { Box, xcss } from '@atlaskit/primitives';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
@@ -52,6 +54,12 @@ import {
 	topPositionAdjustment,
 } from './consts';
 import { dragPreview } from './drag-preview';
+
+const iconWrapperStyles = xcss({
+	display: 'flex',
+	justifyContent: 'center',
+	alignItems: 'center',
+});
 
 const dragHandleButtonStyles = css({
 	position: 'absolute',
@@ -96,6 +104,28 @@ const selectedStyles = css({
 	backgroundColor: token('color.background.selected', '#E9F2FF'),
 	color: token('color.icon.selected', '#0C66E4'),
 });
+
+// [Chrome only] When selection contains multiple nodes and then drag a drag handle that is within the selection range,
+// icon span receives dragStart event, instead of button, and since it is not registered as a draggable element
+// with pragmatic DnD and pragmatic DnD is not triggered
+const handleIconDragStart = (e: DragEvent<HTMLSpanElement>) => {
+	if (!browser.chrome || !fg('platform_editor_dnd_update_drag_start_target')) {
+		return;
+	}
+	// prevent dragStart handler triggered by icon
+	e.stopPropagation();
+
+	const dragEvent = new DragEvent('dragstart', {
+		bubbles: true,
+		cancelable: true,
+		dataTransfer: e.dataTransfer,
+	});
+
+	if (e.target instanceof HTMLElement) {
+		// re-dispatch drag event on button so that pragmatic DnD can be triggered properly
+		e.target.closest('button')?.dispatchEvent(dragEvent);
+	}
+};
 
 export const DragHandle = ({
 	view,
@@ -513,7 +543,16 @@ export const DragHandle = ({
 			onKeyDown={handleKeyDown}
 			data-testid="block-ctrl-drag-handle"
 		>
-			<DragHandlerIcon label="" size="medium" />
+			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop */}
+			<Box
+				as="span"
+				xcss={iconWrapperStyles}
+				// eslint-disable-next-line @atlaskit/design-system/no-direct-use-of-web-platform-drag-and-drop
+				onDragStart={handleIconDragStart}
+			>
+				{' '}
+				<DragHandlerIcon label="" size="medium" />
+			</Box>
 		</button>
 	);
 

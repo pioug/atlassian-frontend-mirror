@@ -14,7 +14,7 @@ export const isPreviewableType = (type: MediaType): boolean => {
 
 export type AbuseClassification = {
 	classification: 'ABHORRENT' | 'MALICIOUS' | 'ILLICIT' | 'COPYRIGHT';
-	confidence: 'HIGH' | 'MEDIUM' | 'LOW';
+	confidence: 'HIGH' | 'MEDIUM' | 'LOW' | 'SYNTHETIC';
 };
 
 export type MediaFile = {

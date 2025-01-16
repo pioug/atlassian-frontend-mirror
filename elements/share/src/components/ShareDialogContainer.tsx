@@ -386,6 +386,7 @@ export class ShareDialogContainerInternal extends React.Component<
 			onDialogClose,
 			isBrowseUsersDisabled,
 			userPickerOptions,
+			isSubmitShareDisabled,
 		} = this.props;
 		const { config, isFetchingConfig } = this.state;
 
@@ -443,6 +444,7 @@ export class ShareDialogContainerInternal extends React.Component<
 						userPickerOptions={userPickerOptions}
 						additionalTabs={additionalTabs}
 						builtInTabContentWidth={builtInTabContentWidth}
+						isSubmitShareDisabled={isSubmitShareDisabled}
 					/>
 				</MessagesIntlProvider>
 			</ErrorBoundary>

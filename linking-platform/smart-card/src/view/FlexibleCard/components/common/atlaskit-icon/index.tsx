@@ -5,15 +5,17 @@ import Loadable from 'react-loadable';
 import DocumentIcon from '@atlaskit/icon-file-type/glyph/document/16';
 import BlogIcon from '@atlaskit/icon-object/glyph/blog/16';
 import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { IconType } from '../../../../../constants';
+import { getLazyIcons } from '../../../../../utils';
 
 import { type AtlaskitIconProps } from './types';
 
 // prettier-ignore
-const importIconMapper: {
+const importIconMapperOld: {
   [key: string]: (() => Promise<any>) | undefined;
 } = {
   [IconType.Archive]: () => import(/* webpackChunkName: "glyphArchive" */ '@atlaskit/icon-file-type/glyph/archive/16'),
@@ -95,8 +97,13 @@ const importIconMapper: {
   [IconType.SubTasksProgress]: () => import(/* webpackChunkName: "glyphSubtaskProgress" */ '@atlaskit/icon/glyph/subtask'),
 };
 
-const getIconImportFn = (icon: IconType): (() => Promise<any>) | undefined =>
-	importIconMapper[icon];
+const getIconImportFn = (icon: IconType): (() => Promise<any>) | undefined => {
+	if (fg('platform-smart-card-icon-migration')) {
+		return getLazyIcons()[icon];
+	}
+
+	return importIconMapperOld[icon];
+};
 
 const importIcon = (importFn: () => Promise<any>): any => {
 	return Loadable({

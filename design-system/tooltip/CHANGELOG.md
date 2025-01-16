@@ -1,5 +1,13 @@
 # @atlaskit/tooltip
 
+## 19.0.2
+
+### Patch Changes
+
+- [#103594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103594)
+  [`7b1a8574e9c29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7b1a8574e9c29) -
+  Fix or temporarily ignore TypeScript errors that occur in internal React 18 suites.
+
 ## 19.0.1
 
 ### Patch Changes

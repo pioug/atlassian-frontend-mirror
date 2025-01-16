@@ -29,6 +29,7 @@ export type BlockProps = {
 	 * Any additional CSS properties to apply to the block.
 	 * The use of this prop is **strongly** discouraged.
 	 * `@emotion/react` will be replaced with compiled.
+	 * @deprecated
 	 */
 	overrideCss?: SerializedStyles;
 

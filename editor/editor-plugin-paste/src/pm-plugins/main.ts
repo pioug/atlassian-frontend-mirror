@@ -366,6 +366,26 @@ export function createPlugin(
 					return true;
 				}
 
+				if (fg('platform_editor_fix_captions_on_copy')) {
+					if (
+						handlePasteIntoCaptionWithAnalytics(editorAnalyticsAPI)(
+							view,
+							event,
+							slice,
+							PasteTypes.richText,
+						)(state, dispatch)
+					) {
+						// Create a custom handler to avoid handling with handleRichText method
+						// As SafeInsert is used inside handleRichText which caused some bad UX like this:
+						// https://product-fabric.atlassian.net/browse/MEX-1520
+
+						// Converting caption to plain text needs to be handled before transformSliceForMedia
+						// as createChecked will fail when trying to create a mediaSingle node with a caption
+						// that is not plain text.
+						return true;
+					}
+				}
+
 				// transform slices based on destination
 				slice = transformSliceForMedia(slice, schema)(state.selection);
 
@@ -652,18 +672,20 @@ export function createPlugin(
 						slice = transformSliceNestedExpandToExpand(slice, state.schema);
 					}
 
-					// Create a custom handler to avoid handling with handleRichText method
-					// As SafeInsert is used inside handleRichText which caused some bad UX like this:
-					// https://product-fabric.atlassian.net/browse/MEX-1520
-					if (
-						handlePasteIntoCaptionWithAnalytics(editorAnalyticsAPI)(
-							view,
-							event,
-							slice,
-							PasteTypes.richText,
-						)(state, dispatch)
-					) {
-						return true;
+					if (!fg('platform_editor_fix_captions_on_copy')) {
+						if (
+							handlePasteIntoCaptionWithAnalytics(editorAnalyticsAPI)(
+								view,
+								event,
+								slice,
+								PasteTypes.richText,
+							)(state, dispatch)
+						) {
+							// Create a custom handler to avoid handling with handleRichText method
+							// As SafeInsert is used inside handleRichText which caused some bad UX like this:
+							// https://product-fabric.atlassian.net/browse/MEX-1520
+							return true;
+						}
 					}
 
 					if (

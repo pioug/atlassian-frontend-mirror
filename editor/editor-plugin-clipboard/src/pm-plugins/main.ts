@@ -7,6 +7,7 @@ import { DOMSerializer, Fragment } from '@atlaskit/editor-prosemirror/model';
 import type { NodeType, Schema } from '@atlaskit/editor-prosemirror/model';
 import { findParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clipboardPluginKey } from './plugin-key';
 
@@ -66,7 +67,7 @@ export const createClipboardSerializer = (
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		options: { [key: string]: any } = {},
-		target?: Node,
+		target?: HTMLElement | DocumentFragment,
 	): DocumentFragment => {
 		const editorView = getEditorView();
 		const selection = editorView.state.selection;
@@ -108,6 +109,8 @@ export const createClipboardSerializer = (
 		}
 
 		// Remove annotations from media nodes when copying to clipboard, only do this for copy operations
+		// and keep existing content nodes from the parent.
+
 		if (lastEventType === ClipboardEventType.COPY && content.firstChild?.type.name === 'media') {
 			const mediaNode = content.firstChild;
 			const strippedMediaNode = schema.nodes.media.createChecked(
@@ -115,10 +118,26 @@ export const createClipboardSerializer = (
 				mediaNode.content,
 				mediaNode.marks?.filter((mark) => mark.type.name !== 'annotation'),
 			);
-			const newContent = Fragment.from(strippedMediaNode);
-			// Currently incorrectly typed, see comment above
-			//@ts-ignore
-			return originalSerializeFragment(newContent, options, target);
+
+			if (fg('platform_editor_fix_captions_on_copy')) {
+				// Content for media parents can include multiple content nodes (media and captions). We now take that
+				// into consideration when we are stripping annotations
+				let contentArray = [strippedMediaNode];
+				content.forEach((node) => {
+					if (node.type.name !== 'media') {
+						contentArray = [...contentArray, node];
+					}
+				});
+				const newContent = Fragment.fromArray(contentArray);
+				// Currently incorrectly typed, see comment above
+				//@ts-ignore
+				return originalSerializeFragment(newContent, options, target);
+			} else {
+				const newContent = Fragment.from(strippedMediaNode);
+				// Currently incorrectly typed, see comment above
+				//@ts-ignore
+				return originalSerializeFragment(newContent, options, target);
+			}
 		}
 
 		// If we're not copying any rows or media nodes, just run default serializeFragment function.

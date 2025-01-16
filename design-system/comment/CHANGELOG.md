@@ -1,5 +1,13 @@
 # @atlaskit/comment
 
+## 12.0.5
+
+### Patch Changes
+
+- [#103594](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103594)
+  [`7b1a8574e9c29`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7b1a8574e9c29) -
+  Fix or temporarily ignore TypeScript errors that occur in internal React 18 suites.
+
 ## 12.0.4
 
 ### Patch Changes

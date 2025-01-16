@@ -15,13 +15,13 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ActiveNode, BlockControlsPlugin } from '../blockControlsPluginType';
 import { nodeMargins } from '../ui/consts';
-import { type DropTargetProps } from '../ui/drop-target';
-import { DropTargetLayout, type DropTargetLayoutProps } from '../ui/drop-target-layout';
 import {
-	DropTargetV2,
+	type DropTargetProps,
+	DropTarget,
 	EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_GAP,
 	EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET,
-} from '../ui/drop-target-v2';
+} from '../ui/drop-target';
+import { DropTargetLayout, type DropTargetLayoutProps } from '../ui/drop-target-layout';
 
 import { getNestedDepth, TYPE_DROP_TARGET_DEC, unmountDecorations } from './decorations-common';
 import { type AnchorRectCache } from './utils/anchor-utils';
@@ -143,13 +143,13 @@ export const createDropTargetDecoration = (
 
 			if (fg('platform_editor_react18_plugin_portalprovider')) {
 				nodeViewPortalProviderAPI.render(
-					() => createElement(DropTargetV2, { ...props, getPos, anchorRectCache, isSameLayout }),
+					() => createElement(DropTarget, { ...props, getPos, anchorRectCache, isSameLayout }),
 					element,
 					key,
 				);
 			} else {
 				ReactDOM.render(
-					createElement(DropTargetV2, { ...props, getPos, anchorRectCache, isSameLayout }),
+					createElement(DropTarget, { ...props, getPos, anchorRectCache, isSameLayout }),
 					element,
 				);
 			}

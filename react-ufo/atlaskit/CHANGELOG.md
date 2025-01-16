@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.11.0
+
+### Minor Changes
+
+- [#103452](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103452)
+  [`4bd40c1e5fb42`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4bd40c1e5fb42) -
+  Replaced feature gate for editor lazy node view with config option
+
 ## 2.10.0
 
 ### Minor Changes

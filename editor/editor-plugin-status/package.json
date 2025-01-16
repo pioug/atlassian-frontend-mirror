@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-status",
-	"version": "2.6.6",
+	"version": "2.6.7",
 	"description": "Status plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -102,9 +102,6 @@
 			"type": "boolean"
 		},
 		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
-		"platform_editor_replace_finddomnode_in_common": {
 			"type": "boolean"
 		},
 		"platform_inline_node_as_valid_annotation_selection": {

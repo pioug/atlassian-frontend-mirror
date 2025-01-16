@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-width",
-	"version": "2.0.2",
+	"version": "2.0.3",
 	"description": "Width plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -74,11 +74,6 @@
 	"stricter": {
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
-		}
-	},
-	"platform-feature-flags": {
-		"platform_editor_react_18_plugin_slot": {
-			"type": "boolean"
 		}
 	}
 }

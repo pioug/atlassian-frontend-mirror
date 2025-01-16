@@ -40,7 +40,11 @@ export interface TooltipProps {
 	/**
 	 * Extend `TooltipPrimitive` to create your own tooltip and pass it as component.
 	 */
-	component?: ComponentType<TooltipPrimitiveProps>;
+	component?:
+		| ComponentType<TooltipPrimitiveProps>
+		| React.ForwardRefExoticComponent<
+				React.PropsWithoutRef<TooltipPrimitiveProps> & React.RefAttributes<HTMLElement>
+		  >;
 
 	/**
 	 * Time in milliseconds to wait before showing and hiding the tooltip. Defaults to 300.
@@ -119,7 +123,11 @@ export interface TooltipProps {
 	 */
 	tag?:
 		| keyof JSX.IntrinsicElements
-		| React.ComponentType<React.AllHTMLAttributes<HTMLElement> & { ref: React.Ref<HTMLElement> }>;
+		| React.ComponentType<React.AllHTMLAttributes<HTMLElement> & { ref: React.Ref<HTMLElement> }>
+		| React.ForwardRefExoticComponent<
+				React.PropsWithoutRef<React.AllHTMLAttributes<HTMLElement>> &
+					React.RefAttributes<HTMLElement>
+		  >;
 
 	/**
 	 * Use this to show only one line of text, and truncate the text when it's too long. We no longer support truncating text in the tooltip as it's inaccessible, and this will be removed in a future release.

@@ -4,7 +4,6 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { DispatchAnalyticsEvent } from '../analytics';
 
@@ -187,14 +186,12 @@ export const withLazyLoading = <Options>({
 				const dom = nodeView.dom as HTMLElement;
 				dom.setAttribute('data-vc', `editor-lnv-loaded--${node.type.name}`);
 
-				if (fg('platform_editor_ed-25557_lnv_add_ssr_placeholder')) {
-					const pos = getPos();
-					if (pos !== undefined) {
-						dom.setAttribute(
-							'data-editor-lnv-placeholder-replace',
-							makeNodePlaceholderId(node.type.name, pos),
-						);
-					}
+				const pos = getPos();
+				if (pos !== undefined) {
+					dom.setAttribute(
+						'data-editor-lnv-placeholder-replace',
+						makeNodePlaceholderId(node.type.name, pos),
+					);
 				}
 
 				return nodeView;

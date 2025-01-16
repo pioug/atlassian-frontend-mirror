@@ -5,12 +5,10 @@ import { token } from '@atlaskit/tokens';
 const gridSizeValue = gridSize();
 const borderRadiusValue = borderRadius();
 
-export const tagHeightUnitless = 2.5 * gridSizeValue;
+const tagHeightUnitless = 2.5 * gridSizeValue;
 export const tagHeight = token('space.250', `${tagHeightUnitless}px`);
 export const buttonWidthUnitless = tagHeightUnitless; // button should be square
-export const buttonWidth = tagHeight; // button should be square
-export const maxWidthUnitless = 25 * gridSizeValue;
-export const maxWidth = `${maxWidthUnitless}px`;
+const maxWidthUnitless = 25 * gridSizeValue;
 export const maxTextWidthUnitless = maxWidthUnitless - tagHeightUnitless;
 export const maxTextWidth = `${maxTextWidthUnitless}px`;
 

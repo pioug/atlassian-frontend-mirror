@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "34.2.2",
+	"version": "34.4.0",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -97,7 +97,7 @@
 		"@atlaskit/css-reset": "^6.11.0",
 		"@atlaskit/link-test-helpers": "^7.5.0",
 		"@atlaskit/media-test-helpers": "^34.7.0",
-		"@atlaskit/react-ufo": "^2.10.0",
+		"@atlaskit/react-ufo": "^2.11.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/analytics-tooling": "*",

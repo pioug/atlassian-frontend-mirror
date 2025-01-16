@@ -40,487 +40,489 @@ jest.mock('react-intl-next', () => {
 });
 
 describe('ShareForm', () => {
-	it.each`
-		allowComment | submitButtonLabel
-		${true}      | ${undefined}
-		${true}      | ${'Invite'}
-	`(
-		'should render From with fields (allowComment $allowComment, submitButton $submitButtonLabel)',
-		({ allowComment, submitButtonLabel }) => {
+	ffTest.both('plans_outgoing_mail_fix', 'plans_outgoing_mail_fix independent tests', () => {
+		it.each`
+			allowComment | submitButtonLabel
+			${true}      | ${undefined}
+			${true}      | ${'Invite'}
+		`(
+			'should render From with fields (allowComment $allowComment, submitButton $submitButtonLabel)',
+			({ allowComment, submitButtonLabel }) => {
+				const mockLink = 'link';
+				const loadOptions = jest.fn();
+				const onSubmit = jest.fn();
+				const component = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink={mockLink}
+						loadOptions={loadOptions}
+						onSubmit={onSubmit}
+						title="some title"
+						submitButtonLabel={submitButtonLabel}
+						product="confluence"
+					/>,
+				);
+
+				const akForm = component.find<FormProps<{}>>(Form);
+				expect(akForm).toHaveLength(1);
+				expect(akForm.prop('onSubmit')).toBe(onSubmit);
+
+				const formProps = {};
+				const form = renderProp(akForm, 'children', { formProps }).dive().dive().find('form');
+				expect(form).toHaveLength(1);
+				expect(form.find(ShareHeader).prop('title')).toEqual('some title');
+
+				const userPickerField = form.find(UserPickerField);
+				expect(userPickerField).toHaveLength(1);
+				expect(userPickerField.props()).toMatchObject({
+					loadOptions,
+				});
+				expect(form.find(CommentField)).toHaveLength(allowComment ? 1 : 0);
+
+				const footer = form.find('[data-testid="form-footer"]');
+				expect(footer).toHaveLength(1);
+				const button = footer.find(Button);
+				expect(button).toHaveLength(1);
+				expect(button.props()).toMatchObject({
+					appearance: 'primary',
+					type: 'submit',
+					isLoading: false,
+					isDisabled: undefined,
+					children: <>{submitButtonLabel || <FormattedMessage {...messages.formShare} />}</>,
+				});
+				const copyLinkButton = footer.find(CopyLinkButton);
+				expect(copyLinkButton.length).toBe(1);
+				expect(copyLinkButton.prop('link')).toEqual(mockLink);
+
+				const helperMessage = form.find(HelperMessage);
+				expect(helperMessage).toHaveLength(0);
+			},
+		);
+
+		describe('isSharing prop', () => {
+			it('should set isLoading prop to true to the Send button', () => {
+				const mockLink = 'link';
+				const loadOptions = jest.fn();
+				const wrapper = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink={mockLink}
+						loadOptions={loadOptions}
+						isSharing
+						product="confluence"
+					/>,
+				);
+
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
+				const footer = form.find('[data-testid="form-footer"]');
+				expect(footer.find(Button).prop('isLoading')).toBeTruthy();
+			});
+
+			it('should set appearance prop to "primary" and isLoading prop to true to the Send button, and hide the tooltip', () => {
+				const mockLink = 'link';
+				const mockShareError: ShareError = { message: 'error', retryable: true };
+				const loadOptions = jest.fn();
+				const wrapper = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink={mockLink}
+						loadOptions={loadOptions}
+						shareError={mockShareError}
+						isSharing
+						product="confluence"
+					/>,
+				);
+
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
+				const footer = form.find('[data-testid="form-footer"]');
+				expect(footer.find(Tooltip)).toHaveLength(0);
+				expect(footer.find(Button).prop('isLoading')).toBeTruthy();
+				expect(footer.find(Button).prop('appearance')).toEqual('primary');
+			});
+		});
+
+		describe('isFetchingConfig prop', () => {
+			it('should set isLoading prop to true to the UserPickerField', () => {
+				const mockLink = 'link';
+				const loadOptions = jest.fn();
+				const wrapper = (shallowWithIntl as typeof shallow)(
+					<ShareForm
+						{...defaultProps}
+						copyLink={mockLink}
+						loadOptions={loadOptions}
+						isFetchingConfig
+						product="confluence"
+					/>,
+				);
+
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
+				const userPickerField = form.find(UserPickerField);
+				expect(userPickerField.prop('isLoading')).toBeTruthy();
+			});
+		});
+
+		describe('shareError prop', () => {
+			it('should render Retry button with an ErrorIcon and Tooltip', () => {
+				const mockShareError: ShareError = {
+					message: 'error',
+					retryable: true,
+				};
+				const wrapper = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						loadOptions={jest.fn()}
+						shareError={mockShareError}
+						product="confluence"
+					/>,
+				);
+
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
+				const footer = form.find('[data-testid="form-footer"]');
+				const button = footer.find(Button);
+				expect(button).toHaveLength(1);
+				expect(button.prop('appearance')).toEqual('warning');
+
+				const buttonLabel = button.find('strong').find(FormattedMessage);
+				expect(buttonLabel).toHaveLength(1);
+				expect(buttonLabel.props()).toMatchObject(messages.formRetry);
+
+				const tooltip = form.find(Tooltip);
+				expect(tooltip).toHaveLength(1);
+				expect(tooltip.prop('content')).toEqual(
+					<FormattedMessage {...messages.shareFailureMessage} />,
+				);
+
+				const errorIcon = tooltip.find(ErrorIcon);
+				expect(errorIcon).toHaveLength(1);
+			});
+
+			it('should render disabeld Share button with no ErrorIcon when client error', () => {
+				const mockShareError: ShareError = {
+					message: 'error',
+					errorCode: 'blah',
+					retryable: false,
+				};
+				const wrapper = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						loadOptions={jest.fn()}
+						shareError={mockShareError}
+						product="confluence"
+					/>,
+				);
+
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
+				const footer = form.find('[data-testid="form-footer"]');
+				const button = footer.find(Button);
+				expect(button).toHaveLength(1);
+				expect(button.prop('appearance')).toEqual('primary');
+				expect(button.prop('isDisabled')).toEqual(true);
+
+				expect(form.find(ErrorIcon).exists()).toBe(false);
+			});
+		});
+
+		describe('shareFieldsFooter prop', () => {
+			it('should render the shareForm with the fields footer content', () => {
+				const wrapper = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						loadOptions={jest.fn()}
+						product="confluence"
+						fieldsFooter={'Some message'}
+					/>,
+				);
+
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
+				expect(form.contains('Some message')).toBeTruthy();
+			});
+		});
+
+		it('should set defaultValue', () => {
 			const mockLink = 'link';
 			const loadOptions = jest.fn();
-			const onSubmit = jest.fn();
+			const defaultValue: DialogContentState = {
+				users: [],
+				comment: {
+					format: 'plain_text',
+					value: 'some comment',
+				},
+			};
 			const component = shallow(
 				<ShareForm
 					{...defaultProps}
 					copyLink={mockLink}
 					loadOptions={loadOptions}
-					onSubmit={onSubmit}
 					title="some title"
-					submitButtonLabel={submitButtonLabel}
+					defaultValue={defaultValue}
 					product="confluence"
 				/>,
 			);
-
-			const akForm = component.find<FormProps<{}>>(Form);
-			expect(akForm).toHaveLength(1);
-			expect(akForm.prop('onSubmit')).toBe(onSubmit);
-
 			const formProps = {};
-			const form = renderProp(akForm, 'children', { formProps }).dive().dive().find('form');
-			expect(form).toHaveLength(1);
-			expect(form.find(ShareHeader).prop('title')).toEqual('some title');
+			const akForm = component.find<FormProps<{}>>(Form);
+			const form = renderProp(akForm, 'children', { formProps }).dive().dive();
 
-			const userPickerField = form.find(UserPickerField);
-			expect(userPickerField).toHaveLength(1);
-			expect(userPickerField.props()).toMatchObject({
-				loadOptions,
+			expect(form.find(UserPickerField).prop('defaultValue')).toBe(defaultValue.users);
+			expect(form.find(CommentField).prop('defaultValue')).toBe(defaultValue.comment);
+		});
+
+		describe('isPublicLink prop', () => {
+			it('should render Share button with the correct text', () => {
+				const wrapper = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						loadOptions={jest.fn()}
+						isPublicLink={true}
+						product="confluence"
+					/>,
+				);
+
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
+				const footer = form.find('[data-testid="form-footer"]');
+				const button = footer.find(Button);
+				expect(button).toHaveLength(1);
+
+				const buttonLabel = button.find(FormattedMessage);
+				expect(buttonLabel).toHaveLength(1);
+				expect(buttonLabel.props()).toMatchObject(messages.formSendPublic);
 			});
-			expect(form.find(CommentField)).toHaveLength(allowComment ? 1 : 0);
 
-			const footer = form.find('[data-testid="form-footer"]');
-			expect(footer).toHaveLength(1);
-			const button = footer.find(Button);
-			expect(button).toHaveLength(1);
-			expect(button.props()).toMatchObject({
-				appearance: 'primary',
-				type: 'submit',
-				isLoading: false,
-				isDisabled: undefined,
-				children: <>{submitButtonLabel || <FormattedMessage {...messages.formShare} />}</>,
+			it('should render Share button with the share text for integration mode "tabs"', () => {
+				const wrapper = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						loadOptions={jest.fn()}
+						isPublicLink={true}
+						product="confluence"
+						integrationMode="tabs"
+					/>,
+				);
+
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
+				const footer = form.find('[data-testid="form-footer"]');
+				const button = footer.find(Button);
+				expect(button).toHaveLength(1);
+
+				const buttonLabel = button.find(FormattedMessage);
+				expect(buttonLabel).toHaveLength(1);
+				expect(buttonLabel.props()).toMatchObject(messages.formSharePublic);
 			});
-			const copyLinkButton = footer.find(CopyLinkButton);
-			expect(copyLinkButton.length).toBe(1);
-			expect(copyLinkButton.prop('link')).toEqual(mockLink);
 
-			const helperMessage = form.find(HelperMessage);
-			expect(helperMessage).toHaveLength(0);
-		},
-	);
+			it('should pass value to CopyLinkButton', () => {
+				const wrapper = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						loadOptions={jest.fn()}
+						isDisabled={true}
+						product="confluence"
+					/>,
+				);
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
 
-	describe('isSharing prop', () => {
-		it('should set isLoading prop to true to the Send button', () => {
-			const mockLink = 'link';
-			const loadOptions = jest.fn();
-			const wrapper = shallow(
-				<ShareForm
-					{...defaultProps}
-					copyLink={mockLink}
-					loadOptions={loadOptions}
-					isSharing
-					product="confluence"
-				/>,
-			);
-
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
-			const footer = form.find('[data-testid="form-footer"]');
-			expect(footer.find(Button).prop('isLoading')).toBeTruthy();
+				const footer = form.find('[data-testid="form-footer"]');
+				expect(footer).toHaveLength(1);
+				const copyLinkButton = footer.find(CopyLinkButton);
+				expect(copyLinkButton.length).toBe(1);
+				expect(copyLinkButton.prop('isDisabled')).toEqual(true);
+			});
 		});
 
-		it('should set appearance prop to "primary" and isLoading prop to true to the Send button, and hide the tooltip', () => {
-			const mockLink = 'link';
-			const mockShareError: ShareError = { message: 'error', retryable: true };
-			const loadOptions = jest.fn();
-			const wrapper = shallow(
-				<ShareForm
-					{...defaultProps}
-					copyLink={mockLink}
-					loadOptions={loadOptions}
-					shareError={mockShareError}
-					isSharing
-					product="confluence"
-				/>,
-			);
+		describe('showTitle prop', () => {
+			it('should not render the share form header if showTitle is false', () => {
+				const wrapper = (shallowWithIntl as typeof shallow)(
+					<ShareForm
+						{...defaultProps}
+						title="Share"
+						showTitle={false}
+						copyLink="link"
+						product="confluence"
+					/>,
+				);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
-			const footer = form.find('[data-testid="form-footer"]');
-			expect(footer.find(Tooltip)).toHaveLength(0);
-			expect(footer.find(Button).prop('isLoading')).toBeTruthy();
-			expect(footer.find(Button).prop('appearance')).toEqual('primary');
-		});
-	});
-
-	describe('isFetchingConfig prop', () => {
-		it('should set isLoading prop to true to the UserPickerField', () => {
-			const mockLink = 'link';
-			const loadOptions = jest.fn();
-			const wrapper = (shallowWithIntl as typeof shallow)(
-				<ShareForm
-					{...defaultProps}
-					copyLink={mockLink}
-					loadOptions={loadOptions}
-					isFetchingConfig
-					product="confluence"
-				/>,
-			);
-
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
-			const userPickerField = form.find(UserPickerField);
-			expect(userPickerField.prop('isLoading')).toBeTruthy();
-		});
-	});
-
-	describe('shareError prop', () => {
-		it('should render Retry button with an ErrorIcon and Tooltip', () => {
-			const mockShareError: ShareError = {
-				message: 'error',
-				retryable: true,
-			};
-			const wrapper = shallow(
-				<ShareForm
-					{...defaultProps}
-					copyLink="link"
-					loadOptions={jest.fn()}
-					shareError={mockShareError}
-					product="confluence"
-				/>,
-			);
-
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
-			const footer = form.find('[data-testid="form-footer"]');
-			const button = footer.find(Button);
-			expect(button).toHaveLength(1);
-			expect(button.prop('appearance')).toEqual('warning');
-
-			const buttonLabel = button.find('strong').find(FormattedMessage);
-			expect(buttonLabel).toHaveLength(1);
-			expect(buttonLabel.props()).toMatchObject(messages.formRetry);
-
-			const tooltip = form.find(Tooltip);
-			expect(tooltip).toHaveLength(1);
-			expect(tooltip.prop('content')).toEqual(
-				<FormattedMessage {...messages.shareFailureMessage} />,
-			);
-
-			const errorIcon = tooltip.find(ErrorIcon);
-			expect(errorIcon).toHaveLength(1);
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
+				const shareHeader = form.find(ShareHeader);
+				expect(shareHeader).toHaveLength(0);
+			});
 		});
 
-		it('should render disabeld Share button with no ErrorIcon when client error', () => {
-			const mockShareError: ShareError = {
-				message: 'error',
-				errorCode: 'blah',
-				retryable: false,
-			};
-			const wrapper = shallow(
-				<ShareForm
-					{...defaultProps}
-					copyLink="link"
-					loadOptions={jest.fn()}
-					shareError={mockShareError}
-					product="confluence"
-				/>,
-			);
+		describe('integrationMode prop', () => {
+			it('should not render Tabs when integrationMode is "off" and shareIntegrations has content', () => {
+				const wrapper = (shallowWithIntl as typeof shallow)(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						product="confluence"
+						integrationMode="off"
+						shareIntegrations={[
+							{
+								type: 'Slack',
+								Icon: () => <div />,
+								Content: () => <div />,
+							},
+						]}
+					/>,
+				);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
-			const footer = form.find('[data-testid="form-footer"]');
-			const button = footer.find(Button);
-			expect(button).toHaveLength(1);
-			expect(button.prop('appearance')).toEqual('primary');
-			expect(button.prop('isDisabled')).toEqual(true);
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tabs);
 
-			expect(form.find(ErrorIcon).exists()).toBe(false);
-		});
-	});
+				const tabs = form.find(Tabs);
+				expect(tabs).toHaveLength(0);
+			});
 
-	describe('shareFieldsFooter prop', () => {
-		it('should render the shareForm with the fields footer content', () => {
-			const wrapper = shallow(
-				<ShareForm
-					{...defaultProps}
-					copyLink="link"
-					loadOptions={jest.fn()}
-					product="confluence"
-					fieldsFooter={'Some message'}
-				/>,
-			);
+			it('should not render Tabs when integrationMode is "menu" and shareIntegrations has content', () => {
+				const wrapper = (shallowWithIntl as typeof shallow)(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						product="confluence"
+						integrationMode="menu"
+						shareIntegrations={[
+							{
+								type: 'Slack',
+								Icon: () => <div />,
+								Content: () => <div />,
+							},
+						]}
+					/>,
+				);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
-			expect(form.contains('Some message')).toBeTruthy();
-		});
-	});
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tabs);
 
-	it('should set defaultValue', () => {
-		const mockLink = 'link';
-		const loadOptions = jest.fn();
-		const defaultValue: DialogContentState = {
-			users: [],
-			comment: {
-				format: 'plain_text',
-				value: 'some comment',
-			},
-		};
-		const component = shallow(
-			<ShareForm
-				{...defaultProps}
-				copyLink={mockLink}
-				loadOptions={loadOptions}
-				title="some title"
-				defaultValue={defaultValue}
-				product="confluence"
-			/>,
-		);
-		const formProps = {};
-		const akForm = component.find<FormProps<{}>>(Form);
-		const form = renderProp(akForm, 'children', { formProps }).dive().dive();
+				const tabs = form.find(Tabs);
+				expect(tabs).toHaveLength(0);
+			});
 
-		expect(form.find(UserPickerField).prop('defaultValue')).toBe(defaultValue.users);
-		expect(form.find(CommentField).prop('defaultValue')).toBe(defaultValue.comment);
-	});
+			it('should render the share button text as "share" when integrationMode is "tabs"', () => {
+				const wrapper = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						loadOptions={jest.fn()}
+						product="confluence"
+						integrationMode="tabs"
+					/>,
+				);
 
-	describe('isPublicLink prop', () => {
-		it('should render Share button with the correct text', () => {
-			const wrapper = shallow(
-				<ShareForm
-					{...defaultProps}
-					copyLink="link"
-					loadOptions={jest.fn()}
-					isPublicLink={true}
-					product="confluence"
-				/>,
-			);
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
+				const footer = form.find('[data-testid="form-footer"]');
+				const button = footer.find(Button);
+				expect(button).toHaveLength(1);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
-			const footer = form.find('[data-testid="form-footer"]');
-			const button = footer.find(Button);
-			expect(button).toHaveLength(1);
+				const buttonLabel = button.find(FormattedMessage);
+				expect(buttonLabel).toHaveLength(1);
+				expect(buttonLabel.props()).toMatchObject(messages.formShare);
+			});
 
-			const buttonLabel = button.find(FormattedMessage);
-			expect(buttonLabel).toHaveLength(1);
-			expect(buttonLabel.props()).toMatchObject(messages.formSendPublic);
-		});
+			it('should render menu items with the share text for integration mode "menu"', () => {
+				const wrapper = shallow(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						loadOptions={jest.fn()}
+						isPublicLink={true}
+						product="confluence"
+						integrationMode="menu"
+						shareIntegrations={[
+							{
+								type: 'Slack',
+								Icon: () => <div />,
+								Content: () => <div />,
+							},
+						]}
+					/>,
+				);
 
-		it('should render Share button with the share text for integration mode "tabs"', () => {
-			const wrapper = shallow(
-				<ShareForm
-					{...defaultProps}
-					copyLink="link"
-					loadOptions={jest.fn()}
-					isPublicLink={true}
-					product="confluence"
-					integrationMode="tabs"
-				/>,
-			);
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const box = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Box);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
-			const footer = form.find('[data-testid="form-footer"]');
-			const button = footer.find(Button);
-			expect(button).toHaveLength(1);
-
-			const buttonLabel = button.find(FormattedMessage);
-			expect(buttonLabel).toHaveLength(1);
-			expect(buttonLabel.props()).toMatchObject(messages.formSharePublic);
+				expect(box).toHaveLength(1);
+				const menuGroup = box.find(MenuGroup);
+				expect(menuGroup).toHaveLength(1);
+				const menuItems = menuGroup.find(ShareMenuItem);
+				expect(menuItems).toHaveLength(2);
+			});
 		});
 
-		it('should pass value to CopyLinkButton', () => {
-			const wrapper = shallow(
-				<ShareForm
-					{...defaultProps}
-					copyLink="link"
-					loadOptions={jest.fn()}
-					isDisabled={true}
-					product="confluence"
-				/>,
-			);
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
+		describe('shareIntegrations prop', () => {
+			it('should not render Tabs when shareIntegrations array is empty', () => {
+				const wrapper = (shallowWithIntl as typeof shallow)(
+					<ShareForm
+						{...defaultProps}
+						copyLink="link"
+						product="confluence"
+						integrationMode="tabs"
+						shareIntegrations={[]}
+					/>,
+				);
 
-			const footer = form.find('[data-testid="form-footer"]');
-			expect(footer).toHaveLength(1);
-			const copyLinkButton = footer.find(CopyLinkButton);
-			expect(copyLinkButton.length).toBe(1);
-			expect(copyLinkButton.prop('isDisabled')).toEqual(true);
-		});
-	});
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tabs);
 
-	describe('showTitle prop', () => {
-		it('should not render the share form header if showTitle is false', () => {
-			const wrapper = (shallowWithIntl as typeof shallow)(
-				<ShareForm
-					{...defaultProps}
-					title="Share"
-					showTitle={false}
-					copyLink="link"
-					product="confluence"
-				/>,
-			);
+				const tabs = form.find(Tabs);
+				expect(tabs).toHaveLength(0);
+			});
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
-			const shareHeader = form.find(ShareHeader);
-			expect(shareHeader).toHaveLength(0);
-		});
-	});
+			it('should render Integration Tab when shareIntegrations array is filled in', () => {
+				const wrapper = (shallowWithIntl as typeof shallow)(
+					<ShareForm
+						{...defaultProps}
+						title="Share"
+						showTitle={false}
+						copyLink="link"
+						product="confluence"
+						integrationMode="tabs"
+						shareIntegrations={[
+							{
+								type: 'Slack',
+								Icon: () => <div />,
+								Content: () => <div />,
+							},
+						]}
+					/>,
+				);
 
-	describe('integrationMode prop', () => {
-		it('should not render Tabs when integrationMode is "off" and shareIntegrations has content', () => {
-			const wrapper = (shallowWithIntl as typeof shallow)(
-				<ShareForm
-					{...defaultProps}
-					copyLink="link"
-					product="confluence"
-					integrationMode="off"
-					shareIntegrations={[
-						{
-							type: 'Slack',
-							Icon: () => <div />,
-							Content: () => <div />,
-						},
-					]}
-				/>,
-			);
+				const akForm = wrapper.find<FormProps<{}>>(Form);
+				const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tabs);
 
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tabs);
-
-			const tabs = form.find(Tabs);
-			expect(tabs).toHaveLength(0);
+				const tabList = tabs.find(TabList);
+				const childTabs = tabList.find(Tab);
+				expect(childTabs).toHaveLength(2);
+			});
 		});
 
-		it('should not render Tabs when integrationMode is "menu" and shareIntegrations has content', () => {
-			const wrapper = (shallowWithIntl as typeof shallow)(
-				<ShareForm
-					{...defaultProps}
-					copyLink="link"
-					product="confluence"
-					integrationMode="menu"
-					shareIntegrations={[
-						{
-							type: 'Slack',
-							Icon: () => <div />,
-							Content: () => <div />,
-						},
-					]}
-				/>,
+		it('should render helper text on top to explain asterisk', () => {
+			const { getByText } = render(
+				<IntlProvider locale="en">
+					<ShareForm
+						{...defaultProps}
+						title="Share"
+						showTitle={false}
+						copyLink="link"
+						product="confluence"
+					/>
+				</IntlProvider>,
 			);
-
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tabs);
-
-			const tabs = form.find(Tabs);
-			expect(tabs).toHaveLength(0);
+			expect(getByText('Required fields are marked with an asterisk')).toBeInTheDocument();
 		});
-
-		it('should render the share button text as "share" when integrationMode is "tabs"', () => {
-			const wrapper = shallow(
-				<ShareForm
-					{...defaultProps}
-					copyLink="link"
-					loadOptions={jest.fn()}
-					product="confluence"
-					integrationMode="tabs"
-				/>,
-			);
-
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find('form');
-			const footer = form.find('[data-testid="form-footer"]');
-			const button = footer.find(Button);
-			expect(button).toHaveLength(1);
-
-			const buttonLabel = button.find(FormattedMessage);
-			expect(buttonLabel).toHaveLength(1);
-			expect(buttonLabel.props()).toMatchObject(messages.formShare);
-		});
-
-		it('should render menu items with the share text for integration mode "menu"', () => {
-			const wrapper = shallow(
-				<ShareForm
-					{...defaultProps}
-					copyLink="link"
-					loadOptions={jest.fn()}
-					isPublicLink={true}
-					product="confluence"
-					integrationMode="menu"
-					shareIntegrations={[
-						{
-							type: 'Slack',
-							Icon: () => <div />,
-							Content: () => <div />,
-						},
-					]}
-				/>,
-			);
-
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const box = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Box);
-
-			expect(box).toHaveLength(1);
-			const menuGroup = box.find(MenuGroup);
-			expect(menuGroup).toHaveLength(1);
-			const menuItems = menuGroup.find(ShareMenuItem);
-			expect(menuItems).toHaveLength(2);
-		});
-	});
-
-	describe('shareIntegrations prop', () => {
-		it('should not render Tabs when shareIntegrations array is empty', () => {
-			const wrapper = (shallowWithIntl as typeof shallow)(
-				<ShareForm
-					{...defaultProps}
-					copyLink="link"
-					product="confluence"
-					integrationMode="tabs"
-					shareIntegrations={[]}
-				/>,
-			);
-
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const form = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tabs);
-
-			const tabs = form.find(Tabs);
-			expect(tabs).toHaveLength(0);
-		});
-
-		it('should render Integration Tab when shareIntegrations array is filled in', () => {
-			const wrapper = (shallowWithIntl as typeof shallow)(
-				<ShareForm
-					{...defaultProps}
-					title="Share"
-					showTitle={false}
-					copyLink="link"
-					product="confluence"
-					integrationMode="tabs"
-					shareIntegrations={[
-						{
-							type: 'Slack',
-							Icon: () => <div />,
-							Content: () => <div />,
-						},
-					]}
-				/>,
-			);
-
-			const akForm = wrapper.find<FormProps<{}>>(Form);
-			const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tabs);
-
-			const tabList = tabs.find(TabList);
-			const childTabs = tabList.find(Tab);
-			expect(childTabs).toHaveLength(2);
-		});
-	});
-
-	it('should render helper text on top to explain asterisk', () => {
-		const { getByText } = render(
-			<IntlProvider locale="en">
-				<ShareForm
-					{...defaultProps}
-					title="Share"
-					showTitle={false}
-					copyLink="link"
-					product="confluence"
-				/>
-			</IntlProvider>,
-		);
-		expect(getByText('Required fields are marked with an asterisk')).toBeInTheDocument();
 	});
 
 	describe('additionalTabs', () => {
@@ -530,74 +532,98 @@ describe('ShareForm', () => {
 				Content: () => <div>Custom Tab Content</div>,
 			},
 		];
+		ffTest.both('plans_outgoing_mail_fix', 'outgoing mail fix independent tests', () => {
+			ffTest.on(
+				'smart_links_for_plans_platform',
+				'with smart_links_for_plans_platform FG ON',
+				() => {
+					it('should render additional tabs when provided', () => {
+						const wrapper = shallow(
+							<ShareForm
+								{...defaultProps}
+								copyLink="link"
+								integrationMode="tabs"
+								additionalTabs={mockAdditionalTabs}
+								shareIntegrations={[
+									{
+										type: 'Slack',
+										Icon: () => <div>Icon</div>,
+										Content: () => <div>Content</div>,
+									},
+								]}
+							/>,
+						);
 
-		ffTest.on('smart_links_for_plans_platform', 'with smart_links_for_plans_platform FG ON', () => {
-			it('should render additional tabs when provided', () => {
-				const wrapper = shallow(
-					<ShareForm
-						{...defaultProps}
-						copyLink="link"
-						integrationMode="tabs"
-						additionalTabs={mockAdditionalTabs}
-						shareIntegrations={[
-							{
-								type: 'Slack',
-								Icon: () => <div>Icon</div>,
-								Content: () => <div>Content</div>,
-							},
-						]}
-					/>,
-				);
+						const akForm = wrapper.find<FormProps<{}>>(Form);
+						const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
+						expect(tabs).toHaveLength(3); // Default tab + Slack tab + Custom tab
+						expect(tabs.at(2).prop('children')).toBe('Custom Tab');
+					});
 
-				const akForm = wrapper.find<FormProps<{}>>(Form);
-				const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
-				expect(tabs).toHaveLength(3); // Default tab + Slack tab + Custom tab
-				expect(tabs.at(2).prop('children')).toBe('Custom Tab');
-			});
+					it('should not render additional tabs when not in tabs mode', () => {
+						const wrapper = shallow(
+							<ShareForm
+								{...defaultProps}
+								copyLink="link"
+								integrationMode="off"
+								additionalTabs={mockAdditionalTabs}
+							/>,
+						);
 
-			it('should not render additional tabs when not in tabs mode', () => {
-				const wrapper = shallow(
-					<ShareForm
-						{...defaultProps}
-						copyLink="link"
-						integrationMode="off"
-						additionalTabs={mockAdditionalTabs}
-					/>,
-				);
+						const akForm = wrapper.find<FormProps<{}>>(Form);
+						const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
+						expect(tabs).toHaveLength(0);
+					});
+				},
+			);
 
-				const akForm = wrapper.find<FormProps<{}>>(Form);
-				const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
-				expect(tabs).toHaveLength(0);
-			});
+			ffTest.off(
+				'smart_links_for_plans_platform',
+				'with smart_links_for_plans_platform FG OFF',
+				() => {
+					it('should not render additional tabs even when provided', () => {
+						const wrapper = shallow(
+							<ShareForm
+								{...defaultProps}
+								copyLink="link"
+								integrationMode="tabs"
+								additionalTabs={mockAdditionalTabs}
+								shareIntegrations={[
+									{
+										type: 'Slack',
+										Icon: () => <div>Icon</div>,
+										Content: () => <div>Content</div>,
+									},
+								]}
+							/>,
+						);
+
+						const akForm = wrapper.find<FormProps<{}>>(Form);
+						const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
+						expect(tabs).toHaveLength(2); // Only Default tab + Slack tab
+					});
+				},
+			);
 		});
-
-		ffTest.off(
-			'smart_links_for_plans_platform',
-			'with smart_links_for_plans_platform FG OFF',
-			() => {
-				it('should not render additional tabs even when provided', () => {
+		ffTest.on('smart_links_for_plans_platform', 'with smart_links_for_plans_platform FG ON', () => {
+			ffTest.on('plans_outgoing_mail_fix', 'with plans_outgoing_mail_fix fg on', () => {
+				it('should render additional tabs when slack integration is not present', () => {
 					const wrapper = shallow(
 						<ShareForm
 							{...defaultProps}
 							copyLink="link"
 							integrationMode="tabs"
 							additionalTabs={mockAdditionalTabs}
-							shareIntegrations={[
-								{
-									type: 'Slack',
-									Icon: () => <div>Icon</div>,
-									Content: () => <div>Content</div>,
-								},
-							]}
 						/>,
 					);
 
 					const akForm = wrapper.find<FormProps<{}>>(Form);
 					const tabs = renderProp(akForm, 'children', { formProps: {} }).dive().dive().find(Tab);
-					expect(tabs).toHaveLength(2); // Only Default tab + Slack tab
+					expect(tabs).toHaveLength(2); // Default tab + Custom tab
+					expect(tabs.at(1).prop('children')).toBe('Custom Tab');
 				});
-			},
-		);
+			});
+		});
 	});
 });
 

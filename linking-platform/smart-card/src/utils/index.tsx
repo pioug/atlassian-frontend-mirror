@@ -5,6 +5,9 @@ import Loadable from 'react-loadable';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { type ActiveThemeState, themeObjectToString } from '@atlaskit/tokens';
 
+import { IconType } from '../constants';
+import extractFileFormatIcon from '../extractors/flexible/icon/extract-file-formatIcon';
+
 export const isSpecialEvent = (evt: React.MouseEvent | React.KeyboardEvent) =>
 	evt.isDefaultPrevented() &&
 	(isIframe() || isSpecialKey(evt) || isSpecialClick(evt as React.MouseEvent));
@@ -30,7 +33,7 @@ export const getIconForFileType = (fileMimeType: string): React.ReactNode | unde
 		return;
 	}
 	let icon = fg('platform-smart-card-icon-migration')
-		? getTypeToIconMap()[fileMimeType.toLowerCase()]
+		? getTypeToIconMap(fileMimeType.toLowerCase())
 		: typeToIcon[fileMimeType.toLowerCase()];
 	if (!icon) {
 		return;
@@ -52,7 +55,7 @@ export const getIconForFileType = (fileMimeType: string): React.ReactNode | unde
 
 export const getLabelForFileType = (fileMimeType: string): React.ReactNode | undefined => {
 	let icon = fg('platform-smart-card-icon-migration')
-		? getTypeToIconMap()[fileMimeType.toLowerCase()]
+		? getTypeToIconMap(fileMimeType.toLowerCase())
 		: typeToIcon[fileMimeType.toLowerCase()];
 	if (!icon) {
 		return;
@@ -63,9 +66,9 @@ export const getLabelForFileType = (fileMimeType: string): React.ReactNode | und
 	return label;
 };
 
-type iconDescriptor = [string, (() => Promise<any>) | undefined];
+type IconLabelMap = [string, (() => Promise<any>) | undefined];
 
-const typeToIcon: { [key: string]: iconDescriptor } = {
+const typeToIcon: { [key: string]: IconLabelMap } = {
 	'text/plain': ['Document', () => import('@atlaskit/icon-file-type/glyph/document/16')],
 	'application/vnd.oasis.opendocument.text': [
 		'Document',
@@ -187,270 +190,161 @@ const typeToIcon: { [key: string]: iconDescriptor } = {
 	folder: ['Folder', () => import('@atlaskit/icon-file-type/glyph/folder/16')],
 };
 
-const getTypeToIconMap = (): { [key: string]: iconDescriptor } => ({
-	'text/plain': [
-		'Document',
-		() =>
+export const getLazyIcons = (): Partial<Record<IconType, () => Promise<unknown>>> => {
+	return {
+		[IconType.Document]: () =>
 			import(/* webpackChunkName: "@atlaskit-internal_page-icon" */ '../common/ui/icons/page-icon'),
-	],
-	'application/vnd.oasis.opendocument.text': [
-		'Document',
-		() =>
-			import(/* webpackChunkName: "@atlaskit-internal_page-icon" */ '../common/ui/icons/page-icon'),
-	],
-	'application/vnd.apple.pages': [
-		'Document',
-		() =>
-			import(/* webpackChunkName: "@atlaskit-internal_page-icon" */ '../common/ui/icons/page-icon'),
-	],
-	'application/vnd.google-apps.document': [
-		'Google Doc',
-		() => import('@atlaskit/icon-file-type/glyph/google-doc/16'),
-	],
-	'application/msword': [
-		'Word document',
-		() => import('@atlaskit/icon-file-type/glyph/word-document/16'),
-	],
-	'application/vnd.openxmlformats-officedocument.wordprocessingml.document': [
-		'Word document',
-		() => import('@atlaskit/icon-file-type/glyph/word-document/16'),
-	],
-	'application/pdf': [
-		'PDF document',
-		() => import('@atlaskit/icon-file-type/glyph/pdf-document/16'),
-	],
-	'application/vnd.oasis.opendocument.spreadsheet': [
-		'Spreadsheet',
-		() =>
+		[IconType.Blog]: () =>
 			import(
-				/* webpackChunkName: "@atlaskit-internal_list-bullet-icon" */ '../common/ui/icons/list-bullet-icon'
+				/* webpackChunkName: "@atlaskit-internal_glyphBlock" */ '@atlaskit/icon-object/glyph/blog/16'
 			),
-	],
-	'application/vnd.apple.numbers': [
-		'Spreadsheet',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_list-bullet-icon" */ '../common/ui/icons/list-bullet-icon'
-			),
-	],
-	'application/vnd.google-apps.spreadsheet': [
-		'Google Sheet',
-		() => import('@atlaskit/icon-file-type/glyph/google-sheet/16'),
-	],
-	'application/vnd.ms-excel': [
-		'Excel spreadsheet',
-		() => import('@atlaskit/icon-file-type/glyph/excel-spreadsheet/16'),
-	],
-	'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet': [
-		'Excel spreadsheet',
-		() => import('@atlaskit/icon-file-type/glyph/excel-spreadsheet/16'),
-	],
-	'application/vnd.oasis.opendocument.presentation': [
-		'Presentation',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_chart-bar-icon" */ '../common/ui/icons/chart-bar-icon'
-			),
-	],
-	'application/vnd.apple.keynote': [
-		'Presentation',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_chart-bar-icon" */ '../common/ui/icons/chart-bar-icon'
-			),
-	],
-	'application/vnd.google-apps.presentation': [
-		'Google Slide',
-		() => import('@atlaskit/icon-file-type/glyph/google-slide/16'),
-	],
-	'application/vnd.ms-powerpoint': [
-		'PowerPoint presentation',
-		() => import('@atlaskit/icon-file-type/glyph/powerpoint-presentation/16'),
-	],
-	'application/vnd.openxmlformats-officedocument.presentationml.presentation': [
-		'PowerPoint presentation',
-		() => import('@atlaskit/icon-file-type/glyph/powerpoint-presentation/16'),
-	],
-	'application/vnd.google-apps.form': [
-		'Google Form',
-		() => import('@atlaskit/icon-file-type/glyph/google-form/16'),
-	],
-	'image/png': [
-		'Image',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_image-icon" */ '../common/ui/icons/image-icon'
-			),
-	],
-	'image/jpeg': [
-		'Image',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_image-icon" */ '../common/ui/icons/image-icon'
-			),
-	],
-	'image/bmp': [
-		'Image',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_image-icon" */ '../common/ui/icons/image-icon'
-			),
-	],
-	'image/webp': [
-		'Image',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_image-icon" */ '../common/ui/icons/image-icon'
-			),
-	],
-	'image/svg+xml': [
-		'Image',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_image-icon" */ '../common/ui/icons/image-icon'
-			),
-	],
-	'image/gif': ['GIF', () => import('@atlaskit/icon-file-type/glyph/gif/16')],
-	'audio/midi': [
-		'Audio',
-		() =>
+		[IconType.Audio]: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_audio-icon" */ '../common/ui/icons/audio-icon'
 			),
-	],
-	'audio/mpeg': [
-		'Audio',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_audio-icon" */ '../common/ui/icons/audio-icon'
-			),
-	],
-	'audio/webm': [
-		'Audio',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_audio-icon" */ '../common/ui/icons/audio-icon'
-			),
-	],
-	'audio/ogg': [
-		'Audio',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_audio-icon" */ '../common/ui/icons/audio-icon'
-			),
-	],
-	'audio/wav': [
-		'Audio',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_audio-icon" */ '../common/ui/icons/audio-icon'
-			),
-	],
-	'video/mp4': [
-		'Video',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_video-icon" */ '../common/ui/icons/video-icon'
-			),
-	],
-	'video/quicktime': [
-		'Video',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_video-icon" */ '../common/ui/icons/video-icon'
-			),
-	],
-	'video/mov': [
-		'Video',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_video-icon" */ '../common/ui/icons/video-icon'
-			),
-	],
-	'video/webm': [
-		'Video',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_video-icon" */ '../common/ui/icons/video-icon'
-			),
-	],
-	'video/ogg': [
-		'Video',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_video-icon" */ '../common/ui/icons/video-icon'
-			),
-	],
-	'video/x-ms-wmv': [
-		'Video',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_video-icon" */ '../common/ui/icons/video-icon'
-			),
-	],
-	'video/x-msvideo': [
-		'Video',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_video-icon" */ '../common/ui/icons/video-icon'
-			),
-	],
-	'application/zip': ['Archive', () => import('@atlaskit/icon-file-type/glyph/archive/16')],
-	'application/x-tar': ['Archive', () => import('@atlaskit/icon-file-type/glyph/archive/16')],
-	'application/x-gtar': ['Archive', () => import('@atlaskit/icon-file-type/glyph/archive/16')],
-	'application/x-7z-compressed': [
-		'Archive',
-		() => import('@atlaskit/icon-file-type/glyph/archive/16'),
-	],
-	'application/x-apple-diskimage': [
-		'Archive',
-		() => import('@atlaskit/icon-file-type/glyph/archive/16'),
-	],
-	'application/vnd.rar': ['Archive', () => import('@atlaskit/icon-file-type/glyph/archive/16')],
-	'application/dmg': ['Executable', () => import('@atlaskit/icon-file-type/glyph/executable/16')],
-	'text/css': [
-		'Source Code',
-		() =>
+		[IconType.Code]: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_angle-brackets-icon" */ '../common/ui/icons/angle-brackets-icon'
 			),
-	],
-	'text/html': [
-		'Source Code',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_angle-brackets-icon" */ '../common/ui/icons/angle-brackets-icon'
-			),
-	],
-	'application/javascript': [
-		'Source Code',
-		() =>
-			import(
-				/* webpackChunkName: "@atlaskit-internal_angle-brackets-icon" */ '../common/ui/icons/angle-brackets-icon'
-			),
-	],
-	'application/octet-stream': [
-		'Binary file',
-		() =>
+		[IconType.File]: () =>
 			import(/* webpackChunkName: "@atlaskit-internal_file-icon" */ '../common/ui/icons/file-icon'),
-	],
-	'application/invision.prototype': [
-		'Prototype',
-		() =>
-			import(/* webpackChunkName: "@atlaskit-internal_file-icon" */ '../common/ui/icons/file-icon'),
-	],
-
-	// TODO: Figure a way to detect those
-	'application/sketch': ['Sketch', () => import('@atlaskit/icon-file-type/glyph/sketch/16')],
-
-	folder: [
-		'Folder',
-		() =>
+		[IconType.Folder]: () =>
 			import(
 				/* webpackChunkName: "@atlaskit-internal_folder-icon" */ '../common/ui/icons/folder-icon'
 			),
-	],
-});
+		[IconType.Generic]: () =>
+			import(/* webpackChunkName: "@atlaskit-internal_file-icon" */ '../common/ui/icons/file-icon'),
+		[IconType.Image]: () =>
+			import(
+				/* webpackChunkName: "@atlaskit-internal_image-icon" */ '../common/ui/icons/image-icon'
+			),
+		[IconType.Presentation]: () =>
+			import(
+				/* webpackChunkName: "@atlaskit-internal_chart-bar-icon" */ '../common/ui/icons/chart-bar-icon'
+			),
+		[IconType.Spreadsheet]: () =>
+			import(
+				/* webpackChunkName: "@atlaskit-internal_list-bullet-icon" */ '../common/ui/icons/list-bullet-icon'
+			),
+		[IconType.Video]: () =>
+			import(
+				/* webpackChunkName: "@atlaskit-internal_video-icon" */ '../common/ui/icons/video-icon'
+			),
+		[IconType.Project]: () =>
+			import(
+				/* webpackChunkName: "@atlaskit-internal_glyphProject" */ '@atlaskit/icon/core/migration/people-group'
+			),
+		[IconType.Template]: () =>
+			import(
+				/* webpackChunkName: "@atlaskit-internal_glyphTemplate" */ '@atlaskit/icon/core/migration/file--document-filled'
+			),
+
+		[IconType.Forbidden]: () =>
+			import(
+				/* webpackChunkName: "@atlaskit-internal_glyphForbidden" */ '@atlaskit/icon/core/migration/lock-locked--lock-filled'
+			),
+		[IconType.Default]: () =>
+			import(
+				/* webpackChunkName: "@atlaskit-internal_glyphDefault" */ '@atlaskit/icon/core/migration/link'
+			),
+
+		[IconType.Archive]: () =>
+			import(/* webpackChunkName: "glyphArchive" */ '@atlaskit/icon-file-type/glyph/archive/16'),
+		[IconType.Executable]: () =>
+			import(
+				/* webpackChunkName: "glyphExecutable" */ '@atlaskit/icon-file-type/glyph/executable/16'
+			),
+		[IconType.GIF]: () =>
+			import(/* webpackChunkName: "glyphGIF" */ '@atlaskit/icon-file-type/glyph/gif/16'),
+		[IconType.GoogleDocs]: () =>
+			import(
+				/* webpackChunkName: "glyphGoogleDocs" */ '@atlaskit/icon-file-type/glyph/google-doc/16'
+			),
+		[IconType.GoogleForms]: () =>
+			import(
+				/* webpackChunkName: "glyphGoogleForms" */ '@atlaskit/icon-file-type/glyph/google-form/16'
+			),
+		[IconType.GoogleSheets]: () =>
+			import(
+				/* webpackChunkName: "glyphGoogleSheets" */ '@atlaskit/icon-file-type/glyph/google-sheet/16'
+			),
+		[IconType.GoogleSlides]: () =>
+			import(
+				/* webpackChunkName: "glyphGoogleSlides" */ '@atlaskit/icon-file-type/glyph/google-slide/16'
+			),
+		[IconType.MSExcel]: () =>
+			import(
+				/* webpackChunkName: "glyphMSExcel" */ '@atlaskit/icon-file-type/glyph/excel-spreadsheet/16'
+			),
+		[IconType.MSPowerpoint]: () =>
+			import(
+				/* webpackChunkName: "glyphMSPowerpoint" */ '@atlaskit/icon-file-type/glyph/powerpoint-presentation/16'
+			),
+		[IconType.MSWord]: () =>
+			import(
+				/* webpackChunkName: "glyphMSWord" */ '@atlaskit/icon-file-type/glyph/word-document/16'
+			),
+		[IconType.PDF]: () =>
+			import(/* webpackChunkName: "glyphPDF" */ '@atlaskit/icon-file-type/glyph/pdf-document/16'),
+		[IconType.Sketch]: () =>
+			import(/* webpackChunkName: "glyphSketch" */ '@atlaskit/icon-file-type/glyph/sketch/16'),
+		// Bitbucket icons
+		[IconType.Branch]: () =>
+			import(/* webpackChunkName: "glyphBranch" */ '@atlaskit/icon-object/glyph/branch/16'),
+		[IconType.Commit]: () =>
+			import(/* webpackChunkName: "glyphCommit" */ '@atlaskit/icon-object/glyph/commit/16'),
+		[IconType.PullRequest]: () =>
+			import(
+				/* webpackChunkName: "glyphPullRequest" */ '@atlaskit/icon-object/glyph/pull-request/16'
+			),
+		[IconType.Repo]: () =>
+			import(/* webpackChunkName: "glyphRepo" */ '@atlaskit/icon-object/glyph/code/16'),
+		// Jira icons
+		[IconType.Bug]: () =>
+			import(/* webpackChunkName: "glyphBug" */ '@atlaskit/icon-object/glyph/bug/16'),
+		[IconType.Change]: () =>
+			import(/* webpackChunkName: "glyphChange" */ '@atlaskit/icon-object/glyph/changes/16'),
+		[IconType.Epic]: () =>
+			import(/* webpackChunkName: "glyphEpic" */ '@atlaskit/icon-object/glyph/epic/16'),
+		[IconType.Incident]: () =>
+			import(/* webpackChunkName: "glyphIncident" */ '@atlaskit/icon-object/glyph/incident/16'),
+		[IconType.Problem]: () =>
+			import(/* webpackChunkName: "glyphProblem" */ '@atlaskit/icon-object/glyph/problem/16'),
+		[IconType.ServiceRequest]: () =>
+			import(/* webpackChunkName: "glyphServiceRequest" */ '@atlaskit/icon-object/glyph/issue/16'),
+		[IconType.Story]: () =>
+			import(/* webpackChunkName: "glyphStory" */ '@atlaskit/icon-object/glyph/story/16'),
+		[IconType.SubTask]: () =>
+			import(/* webpackChunkName: "glyphSubTask" */ '@atlaskit/icon-object/glyph/subtask/16'),
+		[IconType.Task]: () =>
+			import(/* webpackChunkName: "glyphTask" */ '@atlaskit/icon-object/glyph/task/16'),
+
+		// Provider icons
+		[IconType.Confluence]: () =>
+			import(/* webpackChunkName: "glyphConfluence" */ '@atlaskit/logo/confluence-icon').then(
+				({ ConfluenceIcon }) => ({
+					default: ConfluenceIcon,
+				}),
+			),
+		[IconType.Jira]: () =>
+			import(/* webpackChunkName: "glyphJira" */ '@atlaskit/logo/jira-icon').then(
+				({ JiraIcon }) => ({
+					default: JiraIcon,
+				}),
+			),
+	};
+};
+
+const getTypeToIconMap = (fileFormat: string): IconLabelMap | null => {
+	const iconDescriptor = extractFileFormatIcon(fileFormat);
+	if (!iconDescriptor?.icon || !iconDescriptor.label) {
+		return null;
+	}
+
+	const lazyIcons = getLazyIcons();
+
+	return [iconDescriptor.label, lazyIcons[iconDescriptor.icon]];
+};
 
 export const getIframeSandboxAttribute = (isTrusted: boolean) => {
 	if (isTrusted) {

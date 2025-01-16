@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { type CSSProperties, useEffect, useMemo, useRef, useState } from 'react';
+import { type CSSProperties, Fragment, useEffect, useMemo, useRef, useState } from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -15,33 +15,35 @@ import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indi
 import { dropTargetForElements } from '@atlaskit/pragmatic-drag-and-drop/element/adapter';
 import { layers } from '@atlaskit/theme/constants';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
-import { token } from '@atlaskit/tokens';
 
 import type { BlockControlsPlugin } from '../blockControlsPluginType';
+import { getNodeAnchor } from '../pm-plugins/decorations-common';
+import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracker';
+import { type AnchorRectCache, isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
 import { isBlocksDragTargetDebug } from '../pm-plugins/utils/drag-target-debug';
+import { shouldAllowInlineDropTarget } from '../pm-plugins/utils/inline-drop-target';
 
-import {
-	dropTargetMarginMap,
-	getNestedNodeLeftPaddingMargin,
-	nodeMargins,
-	spaceLookupMap,
-} from './consts';
+import { getNestedNodeLeftPaddingMargin } from './consts';
+import { InlineDropTarget } from './inline-drop-target';
 
 const DEFAULT_DROP_INDICATOR_WIDTH = 760;
 const EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH = '--editor-block-controls-drop-indicator-width';
 const EDITOR_BLOCK_CONTROLS_DROP_TARGET_LEFT_MARGIN =
 	'--editor-block-controls-drop-target-leftMargin';
 const EDITOR_BLOCK_CONTROLS_DROP_TARGET_ZINDEX = '--editor-block-controls-drop-target-zindex';
+export const EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET =
+	'--editor-block-controls-drop-indicator-offset';
+export const EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_GAP =
+	'--editor-block-controls-drop-indicator-gap';
 
 const styleDropTarget = css({
-	height: token('space.100', '8px'),
-	marginTop: token('space.negative.100', '-8px'),
 	marginLeft: `calc(-1 * var(${EDITOR_BLOCK_CONTROLS_DROP_TARGET_LEFT_MARGIN}, 0))`,
 	paddingLeft: `var(${EDITOR_BLOCK_CONTROLS_DROP_TARGET_LEFT_MARGIN}, 0)`,
 	position: 'absolute',
 	left: '0',
 	display: 'block',
 	zIndex: `var(${EDITOR_BLOCK_CONTROLS_DROP_TARGET_ZINDEX}, 110)`,
+	transform: `translateY(var(${EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET}, 0))`,
 });
 
 const styleDropIndicator = css({
@@ -55,70 +57,37 @@ const nestedDropIndicatorStyle = css({
 	position: 'relative',
 });
 
-const marginLookupMap = Object.fromEntries(
-	Object.entries(spaceLookupMap).map(([key, value], i) => [
-		key,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		css({ transform: `translateY(${value})` }),
-	]),
-);
+const dropZoneStyles = css({
+	margin: 0,
+	position: 'absolute',
+	width: '100%',
+	zIndex: 110,
+	minHeight: '4px',
+});
 
-const getNodeMargins = (node?: PMNode) => {
-	if (!node) {
-		return nodeMargins['default'];
-	}
-	const nodeTypeName = node.type.name;
-	if (nodeTypeName === 'heading') {
-		return nodeMargins[`heading${node.attrs.level}`] || nodeMargins['default'];
-	}
+const nestedDropZoneStyle = css({
+	left: '4px',
+	right: '4px',
+	width: 'unset',
+});
 
-	return nodeMargins[nodeTypeName] || nodeMargins['default'];
-};
+const enableDropZone = [
+	'paragraph',
+	'mediaSingle',
+	'heading',
+	'codeBlock',
+	'decisionList',
+	'bulletList',
+	'orderedList',
+	'taskList',
+	'extension',
+	'blockCard',
+];
 
-const getNestedDropTargetMarginTop = (
-	prevNode?: PMNode,
-	nextNode?: PMNode,
-	isNestedDropTarget?: boolean,
-) => {
-	if (!prevNode || !nextNode) {
-		return css({ marginTop: token('space.negative.100', '-8px') });
-	}
-	const top = getNodeMargins(nextNode).top;
-	const bottom = getNodeMargins(prevNode).bottom;
-
-	if (
-		['rule', 'media', 'mediaSingle'].includes(prevNode.type.name) &&
-		isNestedDropTarget &&
-		top > 0 &&
-		bottom > 0
-	) {
-		const collapsedMarginOffset = top === bottom ? top : Math.abs(top - bottom);
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
-		const marginTop =
-			dropTargetMarginMap[-collapsedMarginOffset - 8] || `-${collapsedMarginOffset + 8}px`;
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values
-		return css({ marginTop });
-	}
-};
-
-const getDropTargetOffsetStyle = (prevNode?: PMNode, nextNode?: PMNode) => {
-	if (!prevNode || !nextNode) {
-		return null;
-	}
-
-	const top = getNodeMargins(nextNode).top;
-	const bottom = getNodeMargins(prevNode).bottom;
-
-	const marginDiff = Math.round((top - bottom) / 2);
-
-	if (marginDiff === 0) {
-		return null;
-	}
-
-	const offset = Math.max(Math.min(marginDiff, 24), -24);
-
-	return marginLookupMap[offset];
-};
+// This z index is used in container like layout
+const fullHeightStyleAdjustZIndexStyle = css({
+	zIndex: 0,
+});
 
 export type DropTargetStyle = 'default' | 'remainingHeight';
 
@@ -132,102 +101,183 @@ export type DropTargetProps = {
 	formatMessage?: IntlShape['formatMessage'];
 };
 
-export const DropTarget = ({
-	api,
-	getPos,
-	prevNode,
-	nextNode,
-	parentNode,
-	formatMessage,
-}: DropTargetProps) => {
-	const ref = useRef(null);
+const HoverZone = ({
+	onDragEnter,
+	onDragLeave,
+	onDrop,
+	node,
+	parent,
+	editorWidth,
+	anchorRectCache,
+	position,
+	isNestedDropTarget,
+	dropTargetStyle,
+}: {
+	onDragEnter: () => void;
+	onDragLeave: () => void;
+	onDrop: () => void;
+	anchorRectCache?: AnchorRectCache;
+	position: 'upper' | 'lower';
+	node?: PMNode;
+	parent?: PMNode;
+	editorWidth?: number;
+	isNestedDropTarget?: boolean;
+	dropTargetStyle?: DropTargetStyle;
+}) => {
+	const ref = useRef<HTMLDivElement | null>(null);
+
+	const isRemainingheight = dropTargetStyle === 'remainingHeight';
+
+	const anchorName = useMemo(() => {
+		return node ? getNodeAnchor(node) : '';
+	}, [node]);
+	const [_isActive, setActiveAnchor] = useActiveAnchorTracker(anchorName);
+
+	useEffect(() => {
+		if (ref.current) {
+			return dropTargetForElements({
+				element: ref.current,
+				onDragEnter: () => {
+					if (!isNestedDropTarget && editorExperiment('advanced_layouts', true)) {
+						setActiveAnchor();
+					}
+					onDragEnter();
+				},
+				onDragLeave,
+				onDrop,
+			});
+		}
+	}, [isNestedDropTarget, onDragEnter, onDragLeave, onDrop, setActiveAnchor]);
+
+	const hoverZoneUpperStyle = useMemo(() => {
+		const heightStyleOffset = `var(--editor-block-controls-drop-indicator-gap, 0)/2`;
+		const transformOffset = `var(${EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_OFFSET}, 0)`;
+
+		const heightStyle =
+			anchorName && enableDropZone.includes(node?.type.name || '')
+				? isAnchorSupported()
+					? `calc(anchor-size(${anchorName} height)/2 + ${heightStyleOffset})`
+					: `calc(${(anchorRectCache?.getHeight(anchorName) || 0) / 2}px + ${heightStyleOffset})`
+				: '4px';
+
+		const transform =
+			position === 'upper'
+				? `translateY(calc(-100% + ${transformOffset}))`
+				: `translateY(${transformOffset})`;
+
+		return css({
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			height: heightStyle,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			transform: transform,
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+			maxWidth: `${editorWidth || 0}px`,
+		});
+	}, [anchorName, anchorRectCache, editorWidth, node?.type.name, position]);
+
+	/**
+	 * 1. Above the last empty line
+	 * 2. Below the last element
+	 *
+	 * Both cases will take the remaining height of the the container
+	 */
+	const heightStyle = useMemo(() => {
+		// only apply upper drop zone
+		if (isRemainingheight && position === 'upper') {
+			// previous node
+			const anchorName = node ? getNodeAnchor(node) : '';
+
+			let top = 'unset';
+			if (anchorName) {
+				const enabledDropZone = enableDropZone.includes(node?.type.name || '');
+				if (isAnchorSupported()) {
+					top = enabledDropZone
+						? `calc(anchor(${anchorName} 50%))`
+						: `calc(anchor(${anchorName} bottom) - 4px)`;
+				} else if (anchorRectCache) {
+					const preNodeTopPos = anchorRectCache.getTop(anchorName) || 0;
+					const prevNodeHeight = anchorRectCache.getHeight(anchorName) || 0;
+
+					top = enabledDropZone
+						? `calc(${preNodeTopPos}px + ${prevNodeHeight / 2}px)`
+						: `calc(${preNodeTopPos}px + ${prevNodeHeight}px - 4px)`;
+				} else {
+					// Should not happen
+					return null;
+				}
+			} else {
+				// first empty paragraph
+				top = '4px';
+			}
+
+			return css({
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
+				top: top,
+				bottom: '4px',
+				height: 'unset',
+				zIndex: 10,
+				transform: 'none',
+			});
+		}
+		return null;
+	}, [anchorRectCache, isRemainingheight, node, position]);
+
+	const isFullHeightInLayout = isRemainingheight && parent?.type.name === 'layoutColumn';
+
+	return (
+		<div
+			ref={ref}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={`drop-target-hover-zone-${position}`}
+			data-testid={`drop-target-zone-${position}`}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+			css={[
+				dropZoneStyles,
+				isNestedDropTarget && nestedDropZoneStyle,
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				hoverZoneUpperStyle,
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+				heightStyle,
+				isFullHeightInLayout && fullHeightStyleAdjustZIndexStyle,
+			]}
+		/>
+	);
+};
+
+export const DropTarget = (
+	props: DropTargetProps & { anchorRectCache?: AnchorRectCache; isSameLayout?: boolean },
+) => {
+	const {
+		api,
+		getPos,
+		prevNode,
+		nextNode,
+		parentNode,
+		formatMessage,
+		anchorRectCache,
+		dropTargetStyle = 'default',
+		isSameLayout,
+	} = props;
 	const [isDraggedOver, setIsDraggedOver] = useState(false);
 
 	const { widthState } = useSharedPluginState(api, ['width']);
 
 	const isNestedDropTarget = parentNode?.type.name !== 'doc';
 
-	useEffect(() => {
-		const element = ref.current;
-
-		if (!element) {
+	const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
+	const onDrop = () => {
+		if (!activeNode) {
 			return;
 		}
 
-		// This should be moved to platform/packages/editor/editor-plugin-block-controls/src/pm-plugins/utils/validation.ts
-		// Since we are moved to drop-target-v2
-		// Place experiments here instead of just inside move-node.ts as it stops the drag marker from appearing.
-		if (editorExperiment('nest-media-and-codeblock-in-quote', false)) {
-			const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
-			const parentNodeType = parentNode?.type.name;
-			const activeNodeType = activeNode?.nodeType;
-
-			if (
-				parentNodeType === 'blockquote' &&
-				(activeNodeType === 'mediaGroup' ||
-					activeNodeType === 'mediaSingle' ||
-					activeNodeType === 'codeBlock')
-			) {
-				return;
-			}
+		const pos = getPos();
+		if (activeNode && pos !== undefined) {
+			const { pos: start } = activeNode;
+			api?.core?.actions.execute(
+				api?.blockControls?.commands?.moveNode(start, pos, undefined, formatMessage),
+			);
 		}
-
-		if (editorExperiment('nested-expand-in-expand', false)) {
-			const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
-			const parentNodeType = parentNode?.type.name;
-			const activeNodeType = activeNode?.nodeType;
-
-			if (
-				parentNodeType === 'expand' &&
-				(activeNodeType === 'expand' || activeNodeType === 'nestedExpand')
-			) {
-				return;
-			}
-		}
-
-		return dropTargetForElements({
-			element,
-			getIsSticky: () => true,
-			onDragEnter: () => {
-				setIsDraggedOver(true);
-			},
-			onDragLeave: () => {
-				setIsDraggedOver(false);
-			},
-			onDrop: () => {
-				const { activeNode } = api?.blockControls?.sharedState.currentState() || {};
-				if (!activeNode) {
-					return;
-				}
-
-				const pos = getPos();
-				if (activeNode && pos !== undefined) {
-					const { pos: start } = activeNode;
-					api?.core?.actions.execute(
-						api?.blockControls?.commands?.moveNode(start, pos, undefined, formatMessage),
-					);
-				}
-			},
-		});
-	}, [api, formatMessage, getPos, parentNode]);
-
-	const dropTargetOffsetStyle = useMemo(() => {
-		/**
-		 * First child of a nested node.
-		 * Disable the position adjustment temporarily
-		 */
-		if (parentNode === prevNode) {
-			return null;
-		}
-		return getDropTargetOffsetStyle(prevNode, nextNode);
-	}, [prevNode, nextNode, parentNode]);
-
-	const dropTargetMarginTopStyles = useMemo(() => {
-		if (parentNode === prevNode) {
-			return null;
-		}
-		return getNestedDropTargetMarginTop(prevNode, nextNode, isNestedDropTarget);
-	}, [prevNode, nextNode, parentNode, isNestedDropTarget]);
+	};
 
 	const dynamicStyle = {
 		width: isNestedDropTarget ? 'unset' : '100%',
@@ -243,29 +293,64 @@ export const DropTarget = ({
 	} as CSSProperties;
 
 	return (
-		// Note: Firefox has trouble with using a button element as the handle for drag and drop
-		<div
-			css={[
-				styleDropTarget,
+		<Fragment>
+			<HoverZone
+				onDragEnter={() => setIsDraggedOver(true)}
+				onDragLeave={() => setIsDraggedOver(false)}
+				onDrop={onDrop}
+				node={prevNode}
+				editorWidth={widthState?.lineLength}
+				anchorRectCache={anchorRectCache}
+				position="upper"
+				isNestedDropTarget={isNestedDropTarget}
+				dropTargetStyle={dropTargetStyle}
+			/>
+			<div
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-				dropTargetOffsetStyle,
-				isNestedDropTarget && nestedDropIndicatorStyle,
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-				dropTargetMarginTopStyles,
-			]}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-			style={dynamicStyle}
-			ref={ref}
-			data-testid="block-ctrl-drop-target"
-		>
-			{
-				// 4px gap to clear expand node border
-				(isDraggedOver || isBlocksDragTargetDebug()) && (
-					<div css={styleDropIndicator} data-testid="block-ctrl-drop-indicator">
-						<DropIndicator edge="bottom" gap="4px" />
-					</div>
-				)
-			}
-		</div>
+				css={[styleDropTarget, isNestedDropTarget && nestedDropIndicatorStyle]}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				style={dynamicStyle}
+				data-testid="block-ctrl-drop-target"
+			>
+				{
+					// 4px gap to clear expand node border
+					(isDraggedOver || isBlocksDragTargetDebug()) && (
+						<div css={styleDropIndicator} data-testid="block-ctrl-drop-indicator">
+							<DropIndicator edge="bottom" />
+						</div>
+					)
+				}
+			</div>
+			{dropTargetStyle !== 'remainingHeight' && (
+				<HoverZone
+					onDragEnter={() => setIsDraggedOver(true)}
+					onDragLeave={() => setIsDraggedOver(false)}
+					onDrop={onDrop}
+					node={nextNode}
+					parent={parentNode}
+					editorWidth={widthState?.lineLength}
+					anchorRectCache={anchorRectCache}
+					position="lower"
+					isNestedDropTarget={isNestedDropTarget}
+				/>
+			)}
+
+			{shouldAllowInlineDropTarget(isNestedDropTarget, nextNode, isSameLayout, activeNode) && (
+				<Fragment>
+					<InlineDropTarget
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...props}
+						position="left"
+					/>
+					<InlineDropTarget
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						{...props}
+						position="right"
+					/>
+				</Fragment>
+			)}
+		</Fragment>
 	);
 };

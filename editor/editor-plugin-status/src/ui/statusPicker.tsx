@@ -17,7 +17,6 @@ import {
 } from '@atlaskit/editor-common/ui-react';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { akEditorFloatingDialogZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import type { ColorType as Color } from '@atlaskit/status/picker';
 import { StatusPicker as AkStatusPicker } from '@atlaskit/status/picker';
 import { N0 } from '@atlaskit/theme/colors';
@@ -270,16 +269,7 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
 	}
 
 	render() {
-		const {
-			isNew,
-			target,
-			mountTo,
-			boundariesElement,
-			scrollableElement,
-			focusStatusInput,
-			editorView,
-		} = this.props;
-		const { color, text } = this.state;
+		const { target, mountTo, boundariesElement, scrollableElement, editorView } = this.props;
 
 		if (!editorView?.editable) {
 			return null;
@@ -299,29 +289,9 @@ export class StatusPickerWithoutAnalytcs extends React.Component<Props, State> {
 					scrollableElement={scrollableElement}
 					closeOnTab={false}
 				>
-					{fg('platform_editor_replace_finddomnode_in_common') ? (
-						<OutsideClickTargetRefContext.Consumer>
-							{this.renderWithSetOutsideClickTargetRef.bind(this)}
-						</OutsideClickTargetRefContext.Consumer>
-					) : (
-						// eslint-disable-next-line jsx-a11y/no-static-element-interactions
-						<div
-							css={pickerContainerStyles}
-							tabIndex={-1}
-							onClick={this.handlePopupClick}
-							onKeyDown={this.onKeyDown}
-						>
-							<AkStatusPicker
-								autoFocus={isNew || focusStatusInput}
-								selectedColor={color}
-								text={text}
-								onColorClick={this.onColorClick}
-								onColorHover={this.onColorHover}
-								onTextChanged={this.onTextChanged}
-								onEnter={this.onEnter}
-							/>
-						</div>
-					)}
+					<OutsideClickTargetRefContext.Consumer>
+						{this.renderWithSetOutsideClickTargetRef.bind(this)}
+					</OutsideClickTargetRefContext.Consumer>
 				</PopupWithListeners>
 			)
 		);

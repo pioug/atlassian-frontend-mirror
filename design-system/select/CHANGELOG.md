@@ -1,5 +1,21 @@
 # @atlaskit/select
 
+## 18.9.3
+
+### Patch Changes
+
+- [#103999](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103999)
+  [`9f62ecec4d422`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f62ecec4d422) -
+  Update dependencies.
+
+## 18.9.2
+
+### Patch Changes
+
+- [#103332](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103332)
+  [`87b2300ef656e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/87b2300ef656e) -
+  Remove stop propogation in popup select
+
 ## 18.9.1
 
 ### Patch Changes

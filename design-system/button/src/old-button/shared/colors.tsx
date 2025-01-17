@@ -18,7 +18,7 @@ export type ColorGroup = {
 	focusSelected?: ColorRule;
 };
 
-export type ColorPreset = {
+type ColorPreset = {
 	[key in Appearance]: ColorGroup;
 };
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "23.0.1",
+	"version": "23.0.2",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,7 +44,7 @@
 		"@atlaskit/motion": "^1.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popper": "^6.3.0",
-		"@atlaskit/popup": "1.30.5",
+		"@atlaskit/popup": "1.30.6",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/tabs": "^17.0.0",

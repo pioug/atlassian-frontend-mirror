@@ -43,7 +43,7 @@ interface AppProviderProps {
  *
  * Place it at the root of your application.
  */
-export function AppProvider({
+function AppProvider({
 	children,
 	defaultColorMode = 'light',
 	defaultTheme,

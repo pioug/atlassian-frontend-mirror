@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-image",
-	"version": "19.2.0",
+	"version": "19.2.1",
 	"description": "Media image element - provides single display of image",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,7 +47,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/media-client": "^29.1.0",
-		"@atlaskit/media-client-react": "^2.5.0",
+		"@atlaskit/media-client-react": "^2.6.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-file-preview": "^0.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -71,7 +71,7 @@
 		"typescript": "~5.4.2"
 	},
 	"platform-feature-flags": {
-		"platform_media_copy_and_paste_v2": {
+		"platform_media_cross_client_copy": {
 			"type": "boolean"
 		}
 	}

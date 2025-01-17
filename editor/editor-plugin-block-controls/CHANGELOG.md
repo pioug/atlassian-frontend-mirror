@@ -1,5 +1,25 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.21.4
+
+### Patch Changes
+
+- [#102952](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102952)
+  [`6d865148eda80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6d865148eda80) -
+  Fix incorrect drop zone on table cell
+- [#103494](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103494)
+  [`955dbd85f329f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/955dbd85f329f) -
+  [ux] ED-26266: Fixed the drag handle highlight when selecting multiple line in Firefox
+
+## 2.21.3
+
+### Patch Changes
+
+- [#103498](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103498)
+  [`a2fd134b068cd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2fd134b068cd) -
+  [ED-26267] Fix a bug where when selection is across multiple nodes, dragging a drag handle within
+  the selection range does not trigger pragmatic DnD
+
 ## 2.21.2
 
 ### Patch Changes

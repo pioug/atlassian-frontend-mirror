@@ -50,7 +50,7 @@ const MediaImageBase = ({ identifier, apiConfig = {}, children, ssr }: MediaImag
 				error: status === 'error',
 				data: status === 'succeeded' ? { status, src: preview?.dataURI } : undefined,
 			})}
-			{fg('platform_media_copy_and_paste_v2') && <div ref={copyNodeRef} css={copyDivStyles} />}
+			{fg('platform_media_cross_client_copy') && <div ref={copyNodeRef} css={copyDivStyles} />}
 			{getSsrScriptProps && <script {...getSsrScriptProps()} />}
 		</>
 	);

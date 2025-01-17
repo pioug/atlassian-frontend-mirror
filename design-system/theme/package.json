@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/theme",
-	"version": "14.0.4",
+	"version": "14.0.5",
 	"description": "Theme contains solutions for global theming, colors, typography and other useful mixins.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,8 +46,7 @@
 		"jscodeshift": "^0.13.0",
 		"react-dom": "^16.8.0",
 		"styled-components": "^3.2.6",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"keywords": [
 		"atlaskit",

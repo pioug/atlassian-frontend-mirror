@@ -8,9 +8,8 @@ import * as tokens from '@atlaskit/tokens';
 // Mock must be imported before ThemeProvider
 import { setMatchMediaPrefersDark } from '../mocks/matchMedia.mock';
 // eslint-disable-next-line import/order
-import {
+import ThemeProvider, {
 	type Theme,
-	ThemeProvider,
 	useColorMode,
 	useSetColorMode,
 	useSetTheme,

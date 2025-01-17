@@ -80,13 +80,11 @@ export type CommonButtonProps<TagName extends HTMLElement> = {
 	interactionName?: string;
 };
 
-export type SupportedElements = HTMLButtonElement | HTMLAnchorElement;
-
 type SupportedElementAttributes =
 	| React.ButtonHTMLAttributes<HTMLButtonElement>
 	| React.AnchorHTMLAttributes<HTMLAnchorElement>;
 
-export type AdditionalHTMLElementPropsExtender<Props extends SupportedElementAttributes> = Combine<
+type AdditionalHTMLElementPropsExtender<Props extends SupportedElementAttributes> = Combine<
 	Omit<
 		Props,
 		| 'className'
@@ -120,7 +118,7 @@ export type AdditionalButtonVariantProps = {
 /**
  * Combines common button props with additional HTML attributes
  */
-export type CombinedButtonProps<
+type CombinedButtonProps<
 	TagName extends HTMLElement,
 	HTMLAttributes extends SupportedElementAttributes,
 > = Combine<HTMLAttributes, CommonButtonProps<TagName>>;
@@ -139,13 +137,12 @@ export type CommonButtonVariantProps = AdditionalButtonVariantProps &
 /**
  * Common additional props for Link `<a>` Button variants, including icon and default buttons
  */
-export type AdditionalCommonLinkVariantProps<RouterLinkConfig extends Record<string, any> = never> =
-	{
-		/**
-		 * Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](/components/button/examples#routing) for more details.
-		 */
-		href: string | RouterLinkConfig;
-	};
+type AdditionalCommonLinkVariantProps<RouterLinkConfig extends Record<string, any> = never> = {
+	/**
+	 * Provides a URL for link buttons. When using an AppProvider with a configured router link component, a `RouterLinkConfig` object type can be provided for advanced usage. See the [Link Button routing example](/components/button/examples#routing) for more details.
+	 */
+	href: string | RouterLinkConfig;
+};
 
 /**
  * Additional props for default Link `<a>` Button variants

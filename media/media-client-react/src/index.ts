@@ -24,4 +24,6 @@ export {
 	getFileStateErrorReason,
 } from './MediaFileStateError';
 
+export { useFileHashes } from './useFileHashes';
+
 export { useCopyIntent } from './copyIntent/useCopyIntent';

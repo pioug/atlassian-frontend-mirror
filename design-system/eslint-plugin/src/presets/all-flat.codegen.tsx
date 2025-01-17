@@ -1,8 +1,10 @@
 /**
  * THIS FILE WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::72c978e91d268fe1463898bd263385bc>>
+ * @codegen <<SignedSource::7fdb05980fdb097dac9851477f1907e4>>
  * @codegenCommand yarn workspace @atlaskit/eslint-plugin-design-system codegen
  */
+import type { Linter } from 'eslint';
+
 export default {
 	// NOTE: The reference to this plugin is inserted dynamically while creating the plugin in `index.codegen.tsx`
 	plugins: {},
@@ -57,4 +59,4 @@ export default {
 		'@atlaskit/design-system/use-tokens-typography': 'warn',
 		'@atlaskit/design-system/use-visually-hidden': 'error',
 	},
-} as const;
+} satisfies Linter.FlatConfig;

@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugin-media
 
+## 1.44.6
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.44.5
+
+### Patch Changes
+
+- [#103673](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103673)
+  [`41cc17bdee600`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/41cc17bdee600) -
+  Replaced feature gate "platform_media_copy_and_paste_v2" with "platform_media_cross_client_copy"
+  to avoid releasing to users with broken versions in cache
+- Updated dependencies
+
 ## 1.44.4
 
 ### Patch Changes

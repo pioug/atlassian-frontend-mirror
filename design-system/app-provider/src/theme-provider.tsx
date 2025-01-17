@@ -7,7 +7,7 @@ import { setGlobalTheme, type ThemeState } from '@atlaskit/tokens';
 
 export type Theme = Omit<ThemeState, 'colorMode' | 'contrastMode'>;
 export type ColorMode = 'light' | 'dark' | 'auto';
-export type ReconciledColorMode = Exclude<ColorMode, 'auto'>;
+type ReconciledColorMode = Exclude<ColorMode, 'auto'>;
 
 const defaultThemeSettings = (): Theme => ({
 	dark: 'dark',
@@ -121,7 +121,7 @@ interface ThemeProviderProps {
  *
  * @internal
  */
-export function ThemeProvider({ children, defaultColorMode, defaultTheme }: ThemeProviderProps) {
+function ThemeProvider({ children, defaultColorMode, defaultTheme }: ThemeProviderProps) {
 	const [chosenColorMode, setChosenColorMode] = useState<ColorMode>(defaultColorMode);
 	const [reconciledColorMode, setReconciledColorMode] = useState<ReconciledColorMode>(
 		getReconciledColorMode(defaultColorMode),

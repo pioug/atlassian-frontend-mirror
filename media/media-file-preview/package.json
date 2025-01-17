@@ -38,7 +38,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/media-client": "^29.1.0",
-		"@atlaskit/media-client-react": "^2.5.0",
+		"@atlaskit/media-client-react": "^2.6.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-ui": "^27.3.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",

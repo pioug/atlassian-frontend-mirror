@@ -10,6 +10,7 @@ export type LeftSidebarState = {
 	lastLeftSidebarWidth: number;
 	flyoutLockCount: number;
 	isFixed: boolean;
+	hasInit: boolean;
 };
 
 export type SidebarResizeContextValue = {
@@ -41,6 +42,7 @@ const leftSidebarState: LeftSidebarState = {
 	lastLeftSidebarWidth: 0,
 	flyoutLockCount: 0,
 	isFixed: true,
+	hasInit: false,
 };
 
 // eslint-disable-next-line @repo/internal/react/require-jsdoc

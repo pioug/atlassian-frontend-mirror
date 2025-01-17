@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/primitives",
-	"version": "13.3.7",
+	"version": "13.3.8",
 	"description": "Primitives are token-backed low-level building blocks.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -157,8 +157,7 @@
 		"csstype": "^3.1.0",
 		"react-dom": "^16.8.0",
 		"ts-node": "^10.9.1",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

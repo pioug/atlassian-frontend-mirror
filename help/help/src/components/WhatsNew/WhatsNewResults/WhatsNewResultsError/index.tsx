@@ -5,6 +5,7 @@ import { type WHATS_NEW_ITEM_TYPES } from '../../../../model/WhatsNew';
 
 import ErrorImage from '../../../../assets/ErrorImage';
 import { messages } from '../../../../messages';
+import { Text } from '@atlaskit/primitives';
 
 import { SearchResultEmptyMessageImage, SearchResultEmptyMessageText } from './styled';
 
@@ -26,12 +27,10 @@ export const WhatsNewResultsError: React.FC<Props & WrappedComponentProps> = ({
 		</SearchResultEmptyMessageImage>
 
 		<SearchResultEmptyMessageText>
-			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-			<strong>{formatMessage(messages.help_search_error)}</strong>
+			<Text as="strong">{formatMessage(messages.help_search_error)}</Text>
 		</SearchResultEmptyMessageText>
 		<SearchResultEmptyMessageText>
-			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-			<p>{formatMessage(messages.help_search_error_line_two)}</p>
+			<Text as="p">{formatMessage(messages.help_search_error_line_two)}</Text>
 		</SearchResultEmptyMessageText>
 		<SearchResultEmptyMessageText>
 			{onSearch && (

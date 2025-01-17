@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/icon-lab",
-	"version": "2.1.0",
+	"version": "2.1.1",
 	"description": "An icon package for public icon contributions",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,8 +49,7 @@
 		"pkg-dir": "^4.2.0",
 		"react-dom": "^16.8.0",
 		"ts-node": "^10.9.1",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"keywords": [
 		"atlaskit",

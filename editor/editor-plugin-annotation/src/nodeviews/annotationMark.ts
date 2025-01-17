@@ -1,21 +1,5 @@
-import {
-	type AnnotationTypes,
-	annotation,
-	type AnnotationDataAttributes,
-	type AnnotationMarkAttributes,
-} from '@atlaskit/adf-schema';
+import { annotation } from '@atlaskit/adf-schema';
 import type { MarkSpec } from '@atlaskit/editor-prosemirror/model';
-
-function buildDataAttributes({
-	id,
-	annotationType,
-}: AnnotationMarkAttributes): AnnotationDataAttributes {
-	return {
-		'data-mark-type': 'annotation',
-		'data-mark-annotation-type': annotationType,
-		'data-id': id,
-	};
-}
 
 /**
  * Annotation mark lifted from adf-schema with modified `toDOM` to work with
@@ -29,10 +13,12 @@ export const annotationWithToDOMFix: MarkSpec = {
 			{
 				// Needs id as a reference point
 				id: node.attrs.id,
-				...buildDataAttributes({
-					id: node.attrs.id,
-					annotationType: node.attrs.annotationType as AnnotationTypes,
-				}),
+				// Used to determine if the annotation is active
+				annotationType: node.attrs.annotationType,
+				// Below are used for prosemirror (ie. copy/paste behaviour)
+				'data-mark-type': 'annotation',
+				'data-mark-annotation-type': node.attrs.annotationType,
+				'data-id': node.attrs.id,
 			},
 			0,
 		];

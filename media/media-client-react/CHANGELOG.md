@@ -1,5 +1,14 @@
 # @atlaskit/media-client-react
 
+## 2.6.0
+
+### Minor Changes
+
+- [#103673](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103673)
+  [`cb79b0a6edd96`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb79b0a6edd96) -
+  Now exporting new "useFileHashes" function to enable users to get all the file hashes. Also fixed
+  cross client copy when users copy via context menu
+
 ## 2.5.1
 
 ### Patch Changes

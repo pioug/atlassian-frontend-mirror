@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/skeleton",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "A skeleton acts as a placeholder for content, usually while the content loads.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -42,8 +42,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
 		"react-dom": "^16.8.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

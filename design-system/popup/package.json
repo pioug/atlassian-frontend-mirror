@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/popup",
-	"version": "1.30.5",
+	"version": "1.30.6",
 	"description": "A popup displays brief content in an overlay.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -85,8 +85,7 @@
 		"raf-stub": "^2.0.1",
 		"react-dom": "^16.8.0",
 		"storybook-addon-performance": "^0.17.3",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"keywords": [
 		"atlaskit",

@@ -9,6 +9,7 @@ import Button from '@atlaskit/button';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { token } from '@atlaskit/tokens';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { Text } from '@atlaskit/primitives';
 
 import NotFoundImage from '../../../assets/NotFoundImage';
 import { messages } from '../../../messages';
@@ -54,8 +55,7 @@ export const SearchResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 			</SearchResultEmptyMessageText>
 			{searchExternalUrl && (
 				<SearchResultEmptyMessageText>
-					{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-					<p>
+					<Text as="p">
 						{formatMessage(messages.help_search_results_no_results_line_two)}
 						<br />
 						<AnalyticsContext
@@ -81,7 +81,7 @@ export const SearchResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 								{formatMessage(messages.help_search_results_external_site_link)}
 							</Button>
 						</AnalyticsContext>
-					</p>
+					</Text>
 				</SearchResultEmptyMessageText>
 			)}
 		</>

@@ -3,7 +3,7 @@ import React, { useMemo, useState, useEffect } from 'react';
 import {
 	MediaClientContext,
 	MediaClientProvider,
-	useMediaStore,
+	useFileHashes,
 } from '@atlaskit/media-client-react';
 import { Card, defaultImageCardDimensions, CardLoading } from '@atlaskit/media-card';
 import { FilmstripView, type SizeEvent, type ScrollEvent } from './filmstripView';
@@ -16,13 +16,6 @@ export function usePrevious<T>(value: T | undefined): T | undefined {
 		ref.current = value;
 	}, [value]);
 	return ref.current;
-}
-
-export function useFileHashes() {
-	const fileHashes = useMediaStore((state) =>
-		Object.fromEntries(Object.entries(state.files).map(([key, val]) => [key, val.hash])),
-	);
-	return fileHashes;
 }
 
 const DeduplicatedFilmStripInternal = ({

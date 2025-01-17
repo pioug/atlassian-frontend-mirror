@@ -37,9 +37,10 @@ export type RouterLinkProviderContextProps<RouterLinkConfig extends Record<strin
 	routerLinkComponent?: RouterLinkComponent<RouterLinkConfig>;
 };
 
+// eslint-disable-next-line @repo/internal/react/require-jsdoc
 export const RouterLinkProviderContext = createContext<RouterLinkProviderContextProps>({});
 
-export type RouterLinkProviderProps = {
+type RouterLinkProviderProps = {
 	/**
 	 * The rendering mechanism of router links within Design System components.
 	 */

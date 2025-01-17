@@ -309,8 +309,6 @@ export default class PopupSelect<
 			case 'Escape':
 			case 'Esc':
 				this.close();
-				// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-				fg('design_system_select-a11y-improvement') && event.stopPropagation(); // keep ESC on select from dismissing parent layers
 				break;
 			default:
 		}

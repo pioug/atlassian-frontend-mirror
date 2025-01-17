@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.8.3
+
+### Patch Changes
+
+- [#103619](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103619)
+  [`ce8239e9cef45`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce8239e9cef45) -
+  make config type definitions compatible with typed flat configs
+
 ## 11.8.2
 
 ### Patch Changes

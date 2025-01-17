@@ -1,5 +1,13 @@
 # @atlaskit/toggle
 
+## 14.0.3
+
+### Patch Changes
+
+- [#103999](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103999)
+  [`9f62ecec4d422`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f62ecec4d422) -
+  Update dependencies.
+
 ## 14.0.2
 
 ### Patch Changes

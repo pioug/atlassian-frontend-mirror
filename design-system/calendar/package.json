@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/calendar",
-	"version": "16.2.0",
+	"version": "16.2.1",
 	"description": "An interactive calendar for date selection experiences.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -57,8 +57,7 @@
 		"jscodeshift": "^0.13.0",
 		"react-dom": "^16.8.0",
 		"storybook-addon-performance": "^0.17.3",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

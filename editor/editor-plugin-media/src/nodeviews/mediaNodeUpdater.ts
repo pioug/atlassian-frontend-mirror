@@ -415,7 +415,7 @@ export class MediaNodeUpdater {
 			const { id } = await mediaClient.file.copyFile(source, destination, undefined, traceContext);
 			return id;
 		} catch (err) {
-			if (fg('platform_media_copy_and_paste_v2')) {
+			if (fg('platform_media_cross_client_copy')) {
 				// calling /v2/file/copy by removing the auth tokens to make cross product copy and pastes
 				const { authProvider: _sourceAP, ...copyV2Source } = source;
 				const { authProvider: _destAP, ...copyV2Destination } = destination;

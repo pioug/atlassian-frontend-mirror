@@ -19,30 +19,43 @@ function useCurrentValueRef<T>(value: T): React.MutableRefObject<T> {
 }
 export const useCopyIntent = (id: string, options: UseCopyIntentOptions = {}) => {
 	const mediaClient = useMediaClient();
-	const copyNodeRef = useRef<HTMLDivElement | HTMLImageElement>(null);
+	const innerRef = useRef<HTMLDivElement | HTMLImageElement | null>(null);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
-	const currentIdRef = useCurrentValueRef(id);
-	const currentOptionsRef = useCurrentValueRef(options);
+
+	const registerCopyIntentRef = useCurrentValueRef(async () => {
+		try {
+			await mediaClient.file.registerCopyIntent(id, options.collectionName);
+			createAnalyticsEvent(getCopyIntentSuccessPayload(id));
+		} catch (err) {
+			createAnalyticsEvent(getCopyIntentErrorPayload(err, id));
+		}
+	});
+
+	const copyNodeRef: React.Ref<HTMLDivElement | HTMLImageElement> = useCallback(
+		(elem: HTMLDivElement | HTMLImageElement | null) => {
+			innerRef.current = elem;
+
+			if (fg('platform_media_cross_client_copy')) {
+				elem?.addEventListener('contextmenu', () => {
+					registerCopyIntentRef.current();
+				});
+			}
+		},
+		[registerCopyIntentRef],
+	);
 
 	const onGlobalCopy = useCallback(async () => {
-		const currentCopyTarget = copyNodeRef.current;
-		const id = currentIdRef.current;
-		const options = currentOptionsRef.current;
+		const currentCopyTarget = innerRef.current;
 
 		const currentSelectionContainsNode =
 			currentCopyTarget && getSelection()?.containsNode(currentCopyTarget, true);
 		if (currentSelectionContainsNode) {
-			try {
-				await mediaClient.file.registerCopyIntent(id, options.collectionName);
-				createAnalyticsEvent(getCopyIntentSuccessPayload(id));
-			} catch (err) {
-				createAnalyticsEvent(getCopyIntentErrorPayload(err, id));
-			}
+			registerCopyIntentRef.current();
 		}
-	}, [createAnalyticsEvent, currentIdRef, currentOptionsRef, mediaClient]);
+	}, [registerCopyIntentRef]);
 
 	useEffect(() => {
-		if (fg('platform_media_copy_and_paste_v2')) {
+		if (fg('platform_media_cross_client_copy')) {
 			getDocument()?.addEventListener('copy', onGlobalCopy);
 		}
 		return () => getDocument()?.removeEventListener('copy', onGlobalCopy);

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client-react",
-	"version": "2.5.1",
+	"version": "2.6.0",
 	"description": "🖼️ Media Client for React",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -63,7 +63,7 @@
 		"typescript": "~5.4.2"
 	},
 	"platform-feature-flags": {
-		"platform_media_copy_and_paste_v2": {
+		"platform_media_cross_client_copy": {
 			"type": "boolean"
 		}
 	},

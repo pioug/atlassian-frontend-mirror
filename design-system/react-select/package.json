@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-select",
-	"version": "1.6.2",
+	"version": "1.6.3",
 	"description": "A forked version of react-select to only be used in atlaskit/select",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -62,8 +62,7 @@
 		"@testing-library/user-event": "^14.4.3",
 		"jest-in-case": "^1.0.2",
 		"react-intl-next": "npm:react-intl@^5.18.1",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"platform-feature-flags": {
 		"design_system_select-a11y-improvement": {

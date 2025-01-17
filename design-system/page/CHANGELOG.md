@@ -1,5 +1,13 @@
 # @atlaskit/page
 
+## 12.6.2
+
+### Patch Changes
+
+- [#103999](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103999)
+  [`9f62ecec4d422`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f62ecec4d422) -
+  Update dependencies.
+
 ## 12.6.1
 
 ### Patch Changes

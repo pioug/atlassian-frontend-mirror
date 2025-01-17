@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "A link takes people to a new location in the product or another website.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -59,8 +59,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",
 		"react-dom": "^16.8.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

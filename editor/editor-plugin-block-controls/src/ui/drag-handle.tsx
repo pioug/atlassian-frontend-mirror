@@ -96,6 +96,12 @@ const dragHandleButtonStyles = css({
 	},
 });
 
+const dragHandleMultiLineSelectionFixFirefox = css({
+	'&::selection': {
+		backgroundColor: 'transparent',
+	},
+});
+
 const layoutColumnDragHandleStyles = css({
 	transform: 'rotate(90deg)',
 });
@@ -530,6 +536,11 @@ export const DragHandle = ({
 			type="button"
 			css={[
 				dragHandleButtonStyles,
+				// ED-26266: Fixed the drag handle highlight when selecting multiple line in Firefox
+				// See https://product-fabric.atlassian.net/browse/ED-26266
+				browser.gecko &&
+					fg('platform_editor_dnd_handle_highlight_fix_firefox') &&
+					dragHandleMultiLineSelectionFixFirefox,
 				editorExperiment('advanced_layouts', true) &&
 					isLayoutColumn &&
 					layoutColumnDragHandleStyles,

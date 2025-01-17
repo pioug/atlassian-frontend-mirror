@@ -1,5 +1,14 @@
 # @atlaskit/media-filmstrip
 
+## 48.1.5
+
+### Patch Changes
+
+- [#103673](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103673)
+  [`29bd90ea68b50`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/29bd90ea68b50) -
+  Now importing `useFileHashes` instead of implementing it internally
+- Updated dependencies
+
 ## 48.1.4
 
 ### Patch Changes

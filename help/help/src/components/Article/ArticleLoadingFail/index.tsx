@@ -7,6 +7,7 @@ import {
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import Heading from '@atlaskit/heading';
+import { Text } from '@atlaskit/primitives';
 
 import { messages } from '../../../messages';
 import SomethingWrongImage from '../../../assets/SomethingWrongImage';
@@ -44,8 +45,7 @@ export const ArticleLoadingFail = ({ onTryAgainButtonClick, intl: { formatMessag
 			<LoadingErrorHeading>
 				<Heading size="large">{formatMessage(messages.help_article_error_title)}</Heading>
 			</LoadingErrorHeading>
-			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-			<p>{formatMessage(messages.help_article_error_text)}</p>
+			<Text as="p">{formatMessage(messages.help_article_error_text)}</Text>
 			<LoadingErrorButtonContainer>
 				{handleOnTryAgainButtonClick && (
 					<Button onClick={handleOnTryAgainButtonClick}>

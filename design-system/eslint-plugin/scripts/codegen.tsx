@@ -1,5 +1,6 @@
 import fs from 'fs/promises';
 import { extname, join, relative } from 'path';
+import process from 'process';
 
 // @ts-expect-error - this isn't declared in the types
 import { Legacy } from '@eslint/eslintrc';
@@ -88,18 +89,22 @@ async function generatePresetConfig(name: 'all' | 'recommended', rules: FoundRul
 	}, {});
 
 	const legacyCode = outdent`
+	import type { Linter } from 'eslint';
+
     export default {
       plugins: [ '${pluginName}' ],
       rules: ${JSON.stringify(ruleConfig, null, 2)}
-    } as const;
+    } satisfies Linter.Config;
   `;
 
 	const flatCode = outdent`
+	import type { Linter } from 'eslint';
+
 	export default {
 		// NOTE: The reference to this plugin is inserted dynamically while creating the plugin in \`index.codegen.tsx\`
 		plugins: {},
 		rules: ${JSON.stringify(ruleConfig, null, 2)}
-	} as const;
+	} satisfies Linter.FlatConfig;
 	`;
 
 	await writeFile(join(presetsDir, `${name}.codegen.tsx`), format(legacyCode, 'typescript'));
@@ -147,6 +152,8 @@ async function generateRuleIndex(rules: FoundRule[]) {
  */
 async function generatePluginIndex() {
 	const code = outdent`
+	import type { ESLint } from 'eslint';
+
 	${generatedConfigs
 		.flatMap((config) => [
 			`import ${config.name}Flat from '${config.flatPath}';`,
@@ -161,35 +168,33 @@ async function generatePluginIndex() {
 
 		const { version, name }: { name: string; version: string; } = pkgJson;
 
-		export const plugin = {
-			meta: {
-				name,
-				version,
-			},
+		const meta = {
+			name,
+			version,
+		};
+
+		const plugin = {
+			meta,
 			rules,
-			// flat configs need to be done like this so they can get a reference to the plugin.
-			// see here: https://eslint.org/docs/latest/extend/plugins#configs-in-plugins
-			// they cannot use \`Object.assign\` because it will not work with the getter
 			configs: {
 				${generatedConfigs
-					.flatMap(
+					.map(
 						(config) => `${config.name}, '${config.name}/flat': {
 							...${config.name}Flat,
 							plugins: {
 								...${config.name}Flat.plugins,
-								get '${pluginName}'() {
+								get '${pluginName}'(): ESLint.Plugin {
 									return plugin;
-								}
+								},
 							}
 						}`,
 					)
 					.join(',')}
-			},
-		} as const;
+			}
+		} satisfies ESLint.Plugin;
+		const configs = plugin.configs;
 
-		export { rules } from './rules/index.codegen';
-		export const { configs, meta } = plugin;
-
+		export { configs, meta, plugin, rules };
 		export default plugin;
   `;
 

@@ -60,6 +60,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 		lastLeftSidebarWidth: 0,
 		flyoutLockCount: 0,
 		isFixed: true,
+		hasInit: false,
 	});
 
 	const {
@@ -70,6 +71,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 		isFixed,
 		isLeftSidebarCollapsed,
 		isFlyoutOpen,
+		hasInit,
 	} = leftSidebarState;
 
 	// We put the latest callbacks into a ref so we can always have the latest
@@ -100,6 +102,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 				isFlyoutOpen: true,
 				flyoutLockCount: 0,
 				isFixed,
+				hasInit,
 			};
 
 			setLeftSidebarState(flyoutOpenSidebarState);
@@ -133,6 +136,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 			isResizing,
 			flyoutLockCount,
 			isFixed,
+			hasInit,
 		};
 
 		setLeftSidebarState(updatedLeftSidebarState);
@@ -177,6 +181,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 		flyoutLockCount,
 		isFixed,
 		leftSidebarWidth,
+		hasInit,
 	]);
 
 	const collapseLeftSidebar = useCallback(
@@ -196,6 +201,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 					isFlyoutOpen: false,
 					flyoutLockCount: 0,
 					isFixed,
+					hasInit,
 				};
 
 				setLeftSidebarState(flyoutCloseSidebarState);
@@ -230,6 +236,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 				isResizing,
 				flyoutLockCount,
 				isFixed,
+				hasInit,
 			};
 
 			setLeftSidebarState(updatedLeftSidebarState);
@@ -278,6 +285,7 @@ export const SidebarResizeController: FC<SidebarResizeControllerProps> = ({
 			flyoutLockCount,
 			isFixed,
 			lastLeftSidebarWidth,
+			hasInit,
 		],
 	);
 

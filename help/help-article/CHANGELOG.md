@@ -1,5 +1,13 @@
 # @atlaskit/help-article
 
+## 4.3.2
+
+### Patch Changes
+
+- [#103685](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103685)
+  [`eaf3b0b6f8112`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eaf3b0b6f8112) -
+  Typography uplift for help packages
+
 ## 4.3.1
 
 ### Patch Changes

@@ -40,7 +40,7 @@
 		"@atlaskit/link-datasource": "^3.15.0",
 		"@atlaskit/media-card": "^78.18.0",
 		"@atlaskit/media-client": "^29.1.0",
-		"@atlaskit/media-client-react": "^2.5.0",
+		"@atlaskit/media-client-react": "^2.6.0",
 		"@atlaskit/media-common": "^11.7.0",
 		"@atlaskit/media-filmstrip": "^48.1.0",
 		"@atlaskit/media-ui": "^27.3.0",

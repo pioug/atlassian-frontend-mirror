@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/select",
-	"version": "18.9.1",
+	"version": "18.9.3",
 	"description": "Select allows users to make a single selection or multiple selections from a list of options.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -90,8 +90,7 @@
 		"react-dom": "^16.8.0",
 		"react-select-event": "^5.5.0",
 		"react-value": "^0.2.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"techstack": {
 		"@repo/internal": {

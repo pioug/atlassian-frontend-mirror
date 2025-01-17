@@ -5,6 +5,7 @@ import {
 	AnalyticsContext,
 } from '@atlaskit/analytics-next';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { Text } from '@atlaskit/primitives';
 
 import NotFoundImage from '../../../../assets/NotFoundImage';
 import { messages } from '../../../../messages';
@@ -37,13 +38,11 @@ export const WhatsNewResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 			</WhatsNewResultsEmptyMessageImage>
 
 			<WhatsNewResultsEmptyMessageText>
-				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-				<strong>{formatMessage(messages.help_whats_new_no_results)}</strong>
+				<Text as="strong">{formatMessage(messages.help_whats_new_no_results)}</Text>
 			</WhatsNewResultsEmptyMessageText>
 
 			<WhatsNewResultsEmptyMessageText>
-				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-				<p>
+				<Text as="p">
 					{formatMessage(messages.help_whats_new_no_results_info)}
 					<br />
 					<AnalyticsContext
@@ -55,10 +54,9 @@ export const WhatsNewResultsEmpty: React.FC<Props & WrappedComponentProps> = ({
 						<a href="#" onClick={handleClearFilterLinkClick}>
 							{formatMessage(messages.help_whats_new_no_results_clear_filter_button_label)}
 						</a>
-						{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-						<span>{formatMessage(messages.help_whats_new_no_results_clear_filter_info)}</span>
+						<Text>{formatMessage(messages.help_whats_new_no_results_clear_filter_info)}</Text>
 					</AnalyticsContext>
-				</p>
+				</Text>
 			</WhatsNewResultsEmptyMessageText>
 		</>
 	);

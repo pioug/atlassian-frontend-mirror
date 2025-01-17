@@ -1,5 +1,13 @@
 # @atlaskit/tag
 
+## 12.6.10
+
+### Patch Changes
+
+- [#103656](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103656)
+  [`2935e63775a71`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2935e63775a71) -
+  Remove old `extract-react-types` typing files.
+
 ## 12.6.9
 
 ### Patch Changes

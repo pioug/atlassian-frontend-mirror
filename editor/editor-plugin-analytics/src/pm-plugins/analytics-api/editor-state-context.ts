@@ -99,7 +99,11 @@ export function getStateContext(
 		payload.attributes.selectionPosition = position;
 	}
 	const insertLocation = findInsertLocation(selection);
-	if (payload.action === ACTION.INSERTED && payload.actionSubject !== ACTION_SUBJECT.ANNOTATION) {
+	if (
+		payload.action === ACTION.INSERTED &&
+		payload.actionSubject !== ACTION_SUBJECT.ANNOTATION &&
+		payload.actionSubject !== ACTION_SUBJECT.EDITOR_PLUGIN_AI
+	) {
 		payload.attributes.insertedLocation = findInsertedLocation(selection, tr.selection);
 	}
 	if (

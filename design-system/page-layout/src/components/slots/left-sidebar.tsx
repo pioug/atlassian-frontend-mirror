@@ -17,6 +17,7 @@ import { css, jsx } from '@emotion/react';
 
 import useCloseOnEscapePress from '@atlaskit/ds-lib/use-close-on-escape-press';
 import { easeOut } from '@atlaskit/motion';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { UNSAFE_useMediaQuery as useMediaQuery } from '@atlaskit/primitives/responsive';
 import { N100A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -103,6 +104,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 		isLeftSidebarCollapsed,
 		leftSidebarWidth,
 		lastLeftSidebarWidth,
+		hasInit,
 	} = leftSidebarState;
 
 	const isLocked = flyoutLockCount > 0;
@@ -192,6 +194,7 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 			lastLeftSidebarWidth,
 			flyoutLockCount: 0,
 			isFixed,
+			hasInit: true,
 		});
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -367,6 +370,11 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 		isDisabled: !isFlyoutOpen,
 	});
 
+	// We use both the state and our effect-based ref to protect animation until initialized fully
+	const isReady = fg('platform_dst_concurrent_left_sidebar_width')
+		? hasInit && notFirstRun.current
+		: notFirstRun.current;
+
 	return (
 		<Fragment>
 			{mobileMediaQuery?.matches && (
@@ -396,14 +404,14 @@ const LeftSidebar = (props: LeftSidebarProps) => {
 			>
 				<SlotDimensions
 					variableName={VAR_LEFT_SIDEBAR_WIDTH}
-					value={notFirstRun.current ? leftSidebarWidth : leftSidebarWidthOnMount}
+					value={isReady ? leftSidebarWidth : leftSidebarWidthOnMount}
 					mobileValue={MOBILE_COLLAPSED_LEFT_SIDEBAR_WIDTH}
 				/>
 				<LeftSidebarInner isFixed={isFixed} isFlyoutOpen={isFlyoutOpen}>
 					<ResizableChildrenWrapper
 						isFlyoutOpen={isFlyoutOpen}
 						isLeftSidebarCollapsed={isLeftSidebarCollapsed}
-						hasCollapsedState={!notFirstRun.current && collapsedState === 'collapsed'}
+						hasCollapsedState={!isReady && collapsedState === 'collapsed'}
 						testId={testId && `${testId}-resize-children-wrapper`}
 					>
 						{children}

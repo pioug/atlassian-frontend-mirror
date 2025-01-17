@@ -1,5 +1,13 @@
 # @atlaskit/app-provider
 
+## 1.6.1
+
+### Patch Changes
+
+- [#103996](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103996)
+  [`e97a60e120280`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e97a60e120280) -
+  Update dependencies and remove unused internal exports.
+
 ## 1.6.0
 
 ### Minor Changes

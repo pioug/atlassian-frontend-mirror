@@ -147,7 +147,7 @@ describe('<MediaInlineCard />', () => {
 		expect(erroredView).toBeTruthy();
 	});
 
-	ffTest.on('platform_media_copy_and_paste_v2', 'Copy', () => {
+	ffTest.on('platform_media_cross_client_copy', 'Copy', () => {
 		it('should call copy intent', async () => {
 			const user = userEvent.setup();
 

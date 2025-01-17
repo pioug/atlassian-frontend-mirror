@@ -3792,7 +3792,7 @@ describe('Card ', () => {
 		);
 	});
 
-	ffTest.on('platform_media_copy_and_paste_v2', 'copy intent', () => {
+	ffTest.on('platform_media_cross_client_copy', 'copy intent', () => {
 		it('should call copy intent', async () => {
 			const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
 			const { mediaApi } = createMockedMediaApi(fileItem);

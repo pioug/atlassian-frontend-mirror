@@ -1,5 +1,14 @@
 # @atlaskit/page-layout
 
+## 3.11.7
+
+### Patch Changes
+
+- [#103752](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103752)
+  [`4b581a9ac4abd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4b581a9ac4abd) -
+  Testing behind an internal feature gate, a React 18 concurrent safe way to initialize the
+  LeftSidebar to avoid animation on hydration or initial client-side rendering.
+
 ## 3.11.6
 
 ### Patch Changes

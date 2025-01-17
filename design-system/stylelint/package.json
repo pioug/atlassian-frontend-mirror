@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/stylelint-design-system",
-	"version": "2.1.7",
+	"version": "2.1.8",
 	"description": "Stylelint plugin for use with the Atlassian Design System.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -54,8 +54,7 @@
 	},
 	"devDependencies": {
 		"jest-preset-stylelint": "^5.0.1",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

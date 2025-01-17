@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-annotation
 
+## 1.26.13
+
+### Patch Changes
+
+- [#104018](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104018)
+  [`80879ff079752`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/80879ff079752) -
+  Fix annotation state for new todom node view
+
 ## 1.26.12
 
 ### Patch Changes

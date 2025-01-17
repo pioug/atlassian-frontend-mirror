@@ -44,7 +44,7 @@ describe('useCopyIntent', () => {
 		};
 	});
 
-	ffTest.on('platform_media_copy_and_paste_v2', 'Copy intent', () => {
+	ffTest.on('platform_media_cross_client_copy', 'Copy intent', () => {
 		it('should call registerCopyIntent when the component is copied', async () => {
 			const user = userEvent.setup();
 			render(
@@ -239,6 +239,29 @@ describe('useCopyIntent', () => {
 				[{ id: 'some-other-id', collection: 'some-other-collection' }],
 				{ spanId: expect.any(String), traceId: expect.any(String) },
 				auth2,
+			);
+		});
+
+		it('should call registerCopyIntent when the context menu is opened for an image', async () => {
+			const user = userEvent.setup();
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mockedMediaApi}>
+					<div>from here</div>
+					<DummyComponent id="some-id" />
+					<div>to here</div>
+					<div>other text</div>
+				</MockedMediaClientProvider>,
+			);
+
+			const target = screen.getByTestId('target');
+
+			await user.pointer({ target, keys: '[MouseRight]' });
+
+			expect(mockedMediaApi.registerCopyIntents).toHaveBeenCalledTimes(1);
+			expect(mockedMediaApi.registerCopyIntents).toHaveBeenCalledWith(
+				[{ id: 'some-id' }],
+				{ spanId: expect.any(String), traceId: expect.any(String) },
+				auth,
 			);
 		});
 	});

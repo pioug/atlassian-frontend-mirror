@@ -25,7 +25,7 @@ import CheckCircleIcon from '@atlaskit/icon/core/migration/success--check-circle
 import { colors } from '@atlaskit/theme';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
-
+import { Text } from '@atlaskit/primitives';
 import { messages } from '../../../../messages';
 import { type ArticleFeedback } from '../../../../model/Article';
 
@@ -342,10 +342,8 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 				{wasHelpfulFormSubmited && wasHelpfulFormSubmitedFailed && (
 					<ArticleFeedbackContainer>
 						<SectionMessage appearance="warning">
-							{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-							<p>{formatMessage(messages.help_article_rating_form_failed)}</p>
-							{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-							<p>
+							<Text as="p">{formatMessage(messages.help_article_rating_form_failed)}</Text>
+							<Text as="p">
 								<Button
 									appearance="link"
 									spacing="compact"
@@ -354,7 +352,7 @@ export const ArticleWasHelpfulForm: React.FC<Props & WrappedComponentProps> = ({
 								>
 									{formatMessage(messages.help_article_rating_form_failed_try_again)}
 								</Button>
-							</p>
+							</Text>
 						</SectionMessage>
 					</ArticleFeedbackContainer>
 				)}

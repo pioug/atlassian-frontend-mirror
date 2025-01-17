@@ -533,6 +533,7 @@ describe('SidebarResizeController', () => {
 				leftSidebarWidth: 240,
 				flyoutLockCount: 0,
 				isFixed: true,
+				hasInit: true,
 			});
 		});
 
@@ -563,6 +564,7 @@ describe('SidebarResizeController', () => {
 				leftSidebarWidth: 20,
 				flyoutLockCount: 0,
 				isFixed: true,
+				hasInit: true,
 			});
 		});
 	});

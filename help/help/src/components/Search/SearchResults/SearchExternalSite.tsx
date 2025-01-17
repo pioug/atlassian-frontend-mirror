@@ -8,6 +8,7 @@ import * as colors from '@atlaskit/theme/colors';
 import Button from '@atlaskit/button';
 import ShortcutIcon from '@atlaskit/icon/core/migration/link-external--shortcut';
 import { injectIntl, type WrappedComponentProps } from 'react-intl-next';
+import { Text } from '@atlaskit/primitives';
 
 import { messages } from '../../../messages';
 
@@ -39,8 +40,7 @@ export const SearchExternalSite: React.FC<Props & WrappedComponentProps> = ({
 	};
 	return searchExternalUrl ? (
 		<SearchResultSearchExternalSiteContainer>
-			{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-			<p>
+			<Text as="p">
 				{formatMessage(messages.help_search_results_search_external_site)}
 				<br />
 				<AnalyticsContext
@@ -66,7 +66,7 @@ export const SearchExternalSite: React.FC<Props & WrappedComponentProps> = ({
 						{formatMessage(messages.help_search_results_external_site_link)}
 					</Button>
 				</AnalyticsContext>
-			</p>
+			</Text>
 		</SearchResultSearchExternalSiteContainer>
 	) : null;
 };

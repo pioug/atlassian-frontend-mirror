@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/width-detector",
-	"version": "4.3.1",
+	"version": "4.3.2",
 	"description": "Wrapper for components that need to respond to width changes",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,8 +49,7 @@
 		"@types/raf-schd": "^4.0.1",
 		"lodash": "^4.17.21",
 		"react-dom": "^16.8.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"keywords": [
 		"atlaskit",

@@ -6,8 +6,12 @@ export enum EVENT_TYPE {
 }
 
 export enum ACTION {
+	ACTIONED = 'actioned',
 	ACTIVATED = 'activated',
 	ADDED = 'added',
+	API_ERROR = 'apiError',
+	API_RECEIVED = 'apiReceived',
+	API_PURGED = 'apiPurged',
 	BROWSER_FREEZE = 'browserFreeze',
 	CANCELLED = 'cancelled',
 	CAUGHT_DOM_ERROR = 'caughtDomError',
@@ -19,6 +23,7 @@ export enum ACTION {
 	CHANGED_TYPE = 'changedType',
 	CHANGED_URL = 'changedUrl',
 	CLEARED = 'cleared',
+	CLICK = 'click',
 	CLICKED = 'clicked',
 	CLOSED = 'closed',
 	COMMITTED = 'committed',
@@ -48,6 +53,7 @@ export enum ACTION {
 	EDITOR_CONTENT_RETRIEVAL_PERFORMED = 'contentRetrievalPerformed',
 	RE_RENDERED = 'reRendered',
 	ENTERED = 'entered',
+	ERROR = 'error',
 	ERRORED = 'errored',
 	EXPOSED = 'exposed',
 	FAILED_TO_UNMOUNT = 'failedToUnmount',
@@ -60,6 +66,7 @@ export enum ACTION {
 	INCREMENTED = 'incremented',
 	INDENTED = 'indented',
 	INITIALISED = 'initialised',
+	INITIATED = 'initiated',
 	/** used in @atlassian/editor-referentiality */
 	INITIALISED_FRAGMENT_MARK = 'initialisedFragmentMark',
 	INPUT_PERF_SAMPLING = 'inputPerfSampling',
@@ -100,6 +107,7 @@ export enum ACTION {
 	SYNCHRONY_ENTITY_ERROR = 'synchronyEntityError',
 	SYNCHRONY_ERROR = 'synchronyError',
 	TEXT_LINK_MARK_TRANSFORMED = 'textLinkMarkTransformed',
+	TOGGLED = 'toggled',
 	DEDUPE_MARKS_TRANSFORMED_V2 = 'dedupeMarksTransformedV2',
 	NODES_MISSING_CONTENT_TRANSFORMED = 'nodesMissingContentTransformed',
 	INDENTATION_MARKS_TRANSFORMED = 'indentationMarksTransformed',
@@ -210,6 +218,9 @@ export enum TRIGGER_METHOD {
 }
 
 export enum ACTION_SUBJECT {
+	AI_INTERACTION = 'aiInteraction',
+	AI_RESULT = 'aiResult',
+	AI_FEEDBACK = 'aiFeedback',
 	COLLAB = 'collab',
 	TOOLBAR_BUTTON = 'toolbarButton',
 	BUTTON = 'button',
@@ -273,6 +284,7 @@ export enum ACTION_SUBJECT {
 	ENGAGEMENT_PLATFORM = 'engagementPlatform',
 	MEDIA_VIEWER = 'mediaViewer',
 	DECORATION = 'decoration',
+	EDITOR_PLUGIN_AI = 'editorPluginAI',
 	AI_DEFINITIONS = 'aiDefinitions',
 }
 
@@ -300,6 +312,7 @@ export enum ACTION_SUBJECT_ID {
 	CODE_BLOCK = 'codeBlock',
 	CODEBLOCK_COPY = 'codeBlockCopy',
 	CODEBLOCK_WRAP = 'codeBlockWrap',
+	COPY_BUTTON = 'copyButton',
 	COPY_LINK_TO_ANCHOR = 'copyLinkToAnchor',
 	CREATE_INLINE_COMMENT_FROM_HIGHLIGHT_ACTIONS_MENU = 'createInlineCommentFromHighlightActionsMenu',
 	DATE = 'date',
@@ -310,6 +323,7 @@ export enum ACTION_SUBJECT_ID {
 	DIVIDER = 'divider',
 	EDIT_LINK = 'editLink',
 	EDIT_DATASOURCE = 'editDatasource',
+	EDITOR_PLUGIN_AI = 'editorPluginAI',
 	ELEMENT_DRAG_HANDLE = 'elementDragHandle',
 	ELEMENT_DROP_TARGET = 'elementDropTarget',
 	EMBEDS = 'embeds',
@@ -385,6 +399,7 @@ export enum ACTION_SUBJECT_ID {
 	PLACEHOLDER_TEXT = 'placeholderText',
 	POST_QUERY_SEARCH_RESULTS = 'postQuerySearchResults',
 	PRE_QUERY_SEARCH_RESULTS = 'preQuerySearchResults',
+	PROACTIVE_SUGGESTION = 'proactiveSuggestion',
 	PRODUCT_NAME = 'productName',
 	PUNC = 'punctuation',
 	QUICK_SEARCH = 'quickSearch',
@@ -392,6 +407,7 @@ export enum ACTION_SUBJECT_ID {
 	REACT_NODE_VIEW = 'reactNodeView',
 	RECENT_ACTIVITIES = 'recentActivities',
 	RESIZED = 'resized',
+	RESPONSE_FEEDBACK_BUTTON = 'responseFeedbackButton',
 	RICH_MEDIA_LAYOUT = 'richMediaLayout',
 	SAVE = 'save',
 	SECTION = 'section',

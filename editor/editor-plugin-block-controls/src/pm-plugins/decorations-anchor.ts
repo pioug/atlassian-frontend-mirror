@@ -1,6 +1,7 @@
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { Decoration, type DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getNestedDepth, getNodeAnchor, TYPE_NODE_DEC } from './decorations-common';
@@ -22,7 +23,13 @@ const IGNORE_NODE_DESCENDANTS_ADVANCED_LAYOUT = ['listItem', 'taskList', 'decisi
 export const shouldDescendIntoNode = (node: PMNode) => {
 	// Optimisation to avoid drawing node decorations for empty table cells
 	if (['tableCell', 'tableHeader'].includes(node.type.name)) {
-		if (node.childCount === 1 && node.firstChild?.type.name === 'paragraph') {
+		if (
+			node.childCount === 1 &&
+			node.firstChild?.type.name === 'paragraph' &&
+			(fg('platform_editor_element_dnd_nested_fix_patch_6')
+				? node.firstChild.childCount === 0
+				: true)
+		) {
 			return false;
 		}
 	}

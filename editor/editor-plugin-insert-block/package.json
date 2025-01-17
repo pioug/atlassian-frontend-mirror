@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-insert-block",
-	"version": "2.4.33",
+	"version": "2.4.34",
 	"description": "Insert block plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -71,7 +71,7 @@
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tmp-editor-statsig": "^2.37.0",
 		"@atlaskit/tokens": "^3.1.0",
-		"@atlaskit/tooltip": "19.0.2",
+		"@atlaskit/tooltip": "19.0.3",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0",

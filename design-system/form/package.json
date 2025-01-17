@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "11.0.1",
+	"version": "11.0.2",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -65,8 +65,7 @@
 		"react-dom": "^16.8.0",
 		"react-router-dom": "^6.28.0",
 		"typescript": "~5.4.2",
-		"validator": "^9.4.1",
-		"wait-for-expect": "^1.2.0"
+		"validator": "^9.4.1"
 	},
 	"keywords": [
 		"atlaskit",

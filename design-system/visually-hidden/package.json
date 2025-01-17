@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/visually-hidden",
-	"version": "1.5.1",
+	"version": "1.5.2",
 	"description": "A utility that hides content from the screen while retaining readability by screen readers for accessibility.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,8 +40,7 @@
 		"@atlaskit/visual-regression": "^0.10.0",
 		"@testing-library/react": "^12.1.5",
 		"react-dom": "^16.8.0",
-		"typescript": "~5.4.2",
-		"wait-for-expect": "^1.2.0"
+		"typescript": "~5.4.2"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

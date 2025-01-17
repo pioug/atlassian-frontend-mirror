@@ -249,7 +249,7 @@ function getColors({
 	};
 }
 
-export type GetCssArgs = {
+type GetCssArgs = {
 	appearance: Appearance;
 	spacing: Spacing;
 	mode: ThemeModes;

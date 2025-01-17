@@ -1,5 +1,21 @@
 # @atlaskit/button
 
+## 20.3.10
+
+### Patch Changes
+
+- [#103999](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103999)
+  [`9f62ecec4d422`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f62ecec4d422) -
+  Update dependencies.
+
+## 20.3.9
+
+### Patch Changes
+
+- [#103751](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103751)
+  [`868078aed0479`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/868078aed0479) -
+  Remove unused exports and update dev dependencies.
+
 ## 20.3.8
 
 ### Patch Changes

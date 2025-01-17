@@ -1,11 +1,7 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { cssMap, jsx } from '@compiled/react';
+import React from 'react';
 
-import { fg } from '@atlaskit/platform-feature-flags';
-import { token } from '@atlaskit/tokens';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, type SerializedStyles } from '@emotion/react';
 
 import {
 	SmartLinkAlignment,
@@ -14,64 +10,34 @@ import {
 	SmartLinkStatus,
 	SmartLinkWidth,
 } from '../../../../../constants';
+import { getMaxLineHeight, getTruncateStyles } from '../../utils';
 import Block from '../block';
-import { ElementGroupNew as ElementGroup } from '../element-group';
+import ElementGroup from '../element-group';
 import { renderElementItems } from '../utils';
 
-import MetadataBlockOld from './MetadataBlockOld';
 import { type MetadataBlockProps } from './types';
 
 const DEFAULT_MAX_LINES = 2;
 const MAXIMUM_MAX_LINES = 2;
 const MINIMUM_MAX_LINES = 1;
 
-const truncateStyles = cssMap({
-	'1': {
-		display: '-webkit-box',
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		wordBreak: 'break-word',
-		WebkitLineClamp: '1',
-		WebkitBoxOrient: 'vertical',
-	},
-	'2': {
-		display: '-webkit-box',
-		overflow: 'hidden',
-		textOverflow: 'ellipsis',
-		wordBreak: 'break-word',
-		WebkitLineClamp: '2',
-		WebkitBoxOrient: 'vertical',
-	},
-});
+const getElementGroupStyles = (size: SmartLinkSize, maxLines: number): SerializedStyles => {
+	// MetadataBlock allows metadata elements to be displayed in
+	// multiple lines, with maximum of 2 lines.
+	// We need the height of the line to be equal on both left and right
+	// sides so they line up nicely.
+	const lineHeight = getMaxLineHeight(size);
+	return css(
+		{
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
+			lineHeight: `${lineHeight}rem`,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
+		getTruncateStyles(maxLines, lineHeight + 'rem'),
+	);
+};
 
-const sizeStyles = cssMap({
-	xlarge: {
-		font: token('font.body'),
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: `3.5rem`,
-		},
-	},
-	large: {
-		font: token('font.body'),
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: `3.5rem`,
-		},
-	},
-	medium: {
-		font: token('font.body'),
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: '3rem',
-		},
-	},
-	small: {
-		font: token('font.body'),
-		'@supports not (-webkit-line-clamp: 1)': {
-			maxHeight: '3rem',
-		},
-	},
-});
-
-const getMaxLines = (maxLines: number): 2 | 1 => {
+const getMaxLines = (maxLines: number) => {
 	if (maxLines > MAXIMUM_MAX_LINES) {
 		return DEFAULT_MAX_LINES;
 	}
@@ -80,7 +46,7 @@ const getMaxLines = (maxLines: number): 2 | 1 => {
 		return MINIMUM_MAX_LINES;
 	}
 
-	return maxLines as 2 | 1;
+	return maxLines;
 };
 
 /**
@@ -90,7 +56,7 @@ const getMaxLines = (maxLines: number): 2 | 1 => {
  * @param {MetadataBlockProps} MetadataBlockProps
  * @see Block
  */
-const MetadataBlock = ({
+const MetadataBlockOld = ({
 	maxLines = DEFAULT_MAX_LINES,
 	status = SmartLinkStatus.Fallback,
 	testId = 'smart-block-metadata',
@@ -106,16 +72,16 @@ const MetadataBlock = ({
 	const secondaryElements = renderElementItems(secondary);
 
 	const { size = SmartLinkSize.Medium } = blockProps;
-	const maxLinesTotal = getMaxLines(maxLines);
+	const elementGroupStyles = getElementGroupStyles(size, getMaxLines(maxLines));
 
 	return (
 		<Block {...blockProps} testId={`${testId}-resolved-view`}>
 			{primaryElements && (
 				<ElementGroup
 					align={SmartLinkAlignment.Left}
+					overrideCss={elementGroupStyles}
 					direction={SmartLinkDirection.Horizontal}
 					width={SmartLinkWidth.Flexible}
-					css={[truncateStyles[maxLinesTotal], sizeStyles[size]]}
 				>
 					{primaryElements}
 				</ElementGroup>
@@ -123,9 +89,9 @@ const MetadataBlock = ({
 			{secondaryElements && (
 				<ElementGroup
 					align={SmartLinkAlignment.Right}
+					overrideCss={elementGroupStyles}
 					direction={SmartLinkDirection.Horizontal}
 					width={SmartLinkWidth.Flexible}
-					css={[truncateStyles[maxLinesTotal], sizeStyles[size]]}
 				>
 					{secondaryElements}
 				</ElementGroup>
@@ -134,12 +100,4 @@ const MetadataBlock = ({
 	);
 };
 
-const MetadataBlockExported = (props: MetadataBlockProps) => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <MetadataBlock {...props} />;
-	} else {
-		return <MetadataBlockOld {...props} />;
-	}
-};
-
-export default MetadataBlockExported;
+export default MetadataBlockOld;

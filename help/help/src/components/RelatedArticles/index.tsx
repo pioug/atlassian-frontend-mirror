@@ -20,6 +20,7 @@ import { DividerLine } from '../../util/styled';
 import { RelatedArticlesTitle } from './styled';
 import useCancellablePromise from '../../util/hooks/cancellablePromise';
 import { usePrevious } from '../../util/hooks/previous';
+import { Text } from '@atlaskit/primitives';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
@@ -114,15 +115,15 @@ export const RelatedArticles: React.FC<Props & WrappedComponentProps> = ({
 	if (hasError) {
 		return (
 			<SectionMessage appearance="warning">
-				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-				<p>
-					{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-					<strong>{formatMessage(messages.help_related_article_endpoint_error_title)}</strong>
-				</p>
-				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-				<p>{formatMessage(messages.help_related_article_endpoint_error_description)}</p>
-				{/* eslint-disable-next-line @atlaskit/design-system/use-primitives-text */}
-				<p>
+				<Text as="p">
+					<Text as="strong">
+						{formatMessage(messages.help_related_article_endpoint_error_title)}
+					</Text>
+				</Text>
+				<Text as="p">
+					{formatMessage(messages.help_related_article_endpoint_error_description)}
+				</Text>
+				<Text as="p">
 					<Button
 						appearance="link"
 						spacing="compact"
@@ -131,7 +132,7 @@ export const RelatedArticles: React.FC<Props & WrappedComponentProps> = ({
 					>
 						{formatMessage(messages.help_related_article_endpoint_error_button_label)}
 					</Button>
-				</p>
+				</Text>
 			</SectionMessage>
 		);
 	} else {

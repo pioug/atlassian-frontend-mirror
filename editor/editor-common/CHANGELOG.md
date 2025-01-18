@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 99.3.5
+
+### Patch Changes
+
+- [#104294](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104294)
+  [`6a7cda98a030e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a7cda98a030e) -
+  [ux] Tokenizing the colors being used for the panel quick insert illustrations
+
+## 99.3.4
+
+### Patch Changes
+
+- [#103031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103031)
+  [`1501b8ff757bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1501b8ff757bb) -
+  EDF-2195 - Updated commands and components to use analytics via the injection API
+
 ## 99.3.3
 
 ### Patch Changes

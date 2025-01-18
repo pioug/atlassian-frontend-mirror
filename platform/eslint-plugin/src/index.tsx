@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import type { Linter } from 'eslint';
+import compiledPlugin from '@compiled/eslint-plugin';
+import type { ESLint, Linter } from 'eslint';
 import ensureFeatureFlagRegistration from './rules/ensure-feature-flag-registration';
 import noPreAndPostInstallScripts from './rules/no-pre-post-installs';
 import ensureTestRunnerArguments from './rules/ensure-test-runner-arguments';
@@ -27,7 +28,13 @@ import useRecommendedUtils from './rules/feature-gating/use-recommended-utils';
 import expandBackgroundShorthand from './rules/compiled/expand-background-shorthand';
 import expandSpacingShorthand from './rules/compiled/expand-spacing-shorthand';
 
-export const rules = {
+const packageJson: {
+	name: string;
+	version: string;
+	// eslint-disable-next-line import/no-extraneous-dependencies
+} = require('@atlaskit/eslint-plugin-platform/package.json');
+
+const rules = {
 	'ensure-feature-flag-registration': ensureFeatureFlagRegistration,
 	'ensure-feature-flag-prefix': ensureFeatureFlagPrefix,
 	'ensure-test-runner-arguments': ensureTestRunnerArguments,
@@ -75,36 +82,27 @@ const commonConfig = {
 			runtime: 'classic',
 		},
 	],
-};
+} satisfies Linter.RulesRecord;
 
-export const configs = {
-	recommended: {
-		plugins: ['@atlaskit/platform', '@compiled'],
-		rules: {
-			...commonConfig,
-			// See platform/packages/platform/eslint-plugin/src/rules/feature-gating/README.md
-			// These rules are specific to `platform` and seem a WIP; jira and confluence currently have their own rules
-			'@atlaskit/platform/no-module-level-eval': 'error',
-			'@atlaskit/platform/static-feature-flags': 'error',
-			'@atlaskit/platform/no-preconditioning': 'error',
-			'@atlaskit/platform/inline-usage': 'error',
-			'@atlaskit/platform/prefer-fg': 'error',
-			'@atlaskit/platform/no-alias': 'error',
-			// end: feature-gating rules
-			'@atlaskit/platform/ensure-feature-flag-registration': 'error',
-			'@atlaskit/platform/ensure-feature-flag-prefix': [
-				'warn',
-				{ allowedPrefixes: ['platform.', 'platform_'] },
-			],
-		},
-	},
-	jira: {
-		plugins: ['@atlaskit/platform', '@compiled'],
-		rules: {
-			...commonConfig,
-		},
-	},
-};
+const recommendedRules = {
+	...commonConfig,
+	// See platform/packages/platform/eslint-plugin/src/rules/feature-gating/README.md
+	// These rules are specific to `platform` and seem a WIP; jira and confluence currently have their own rules
+	'@atlaskit/platform/no-module-level-eval': 'error',
+	'@atlaskit/platform/static-feature-flags': 'error',
+	'@atlaskit/platform/no-preconditioning': 'error',
+	'@atlaskit/platform/inline-usage': 'error',
+	'@atlaskit/platform/prefer-fg': 'error',
+	'@atlaskit/platform/no-alias': 'error',
+	// end: feature-gating rules
+	'@atlaskit/platform/ensure-feature-flag-registration': 'error',
+	'@atlaskit/platform/ensure-feature-flag-prefix': [
+		'warn',
+		{ allowedPrefixes: ['platform.', 'platform_'] },
+	],
+} satisfies Linter.RulesRecord;
+
+const jiraRules = commonConfig;
 
 const jsonPrefix =
 	'/* eslint-disable quote-props, comma-dangle, quotes, semi, eol-last, @typescript-eslint/semi, no-template-curly-in-string */ module.exports = ';
@@ -112,55 +110,98 @@ const jsonPrefix =
 const jsonPrefixForFlatConfig =
 	'/* eslint-disable quote-props, comma-dangle, quotes, semi, eol-last, no-template-curly-in-string */ module.exports = ';
 
-export const processors = {
-	'package-json-processor': {
-		preprocess: (source: string) => {
-			// augment the json into a js file
-			return [jsonPrefix + source.trim()];
+const { name, version } = packageJson;
+const plugin = {
+	meta: {
+		name,
+		version,
+	},
+	rules,
+	configs: {
+		recommended: {
+			plugins: ['@atlaskit/platform', '@compiled'],
+			rules: recommendedRules,
 		},
-		postprocess: (messages) => {
-			return messages[0].map((message) => {
-				const { fix } = message;
-				if (!fix) {
-					return message;
-				}
+		'recommended/flat': {
+			plugins: {
+				get '@atlaskit/platform'(): ESLint.Plugin {
+					return plugin;
+				},
+				// @ts-expect-error there's an issue with the types for @compiled/eslint-plugin ('no-css-prop-without-css-function' specifically)
+				'@compiled': { meta: compiledPlugin.meta, rules: compiledPlugin.rules } as ESLint.Plugin,
+			},
+			rules: recommendedRules,
+		},
+		jira: {
+			plugins: ['@atlaskit/platform', '@compiled'],
+			rules: jiraRules,
+		},
+		'jira/flat': {
+			plugins: {
+				get '@atlaskit/platform'(): ESLint.Plugin {
+					return plugin;
+				},
+				// @ts-expect-error there's an issue with the types for @compiled/eslint-plugin ('no-css-prop-without-css-function' specifically)
+				'@compiled': { meta: compiledPlugin.meta, rules: compiledPlugin.rules } as ESLint.Plugin,
+			},
+			rules: jiraRules,
+		},
+	},
+	processors: {
+		'package-json-processor': {
+			preprocess: (source: string) => {
+				// augment the json into a js file
+				return [jsonPrefix + source.trim()];
+			},
+			postprocess: (messages) => {
+				return messages[0].map((message) => {
+					const { fix } = message;
+					if (!fix) {
+						return message;
+					}
 
-				const offset = jsonPrefix.length;
-				return {
-					...message,
-					fix: {
-						...fix,
-						range: [fix.range[0] - offset, fix.range[1] - offset],
-					},
-				};
-			});
-		},
-		supportsAutofix: true,
-	} as Linter.Processor,
-	// This processor is used for ESLint FlatConfig,
-	// once we roll out FlatConfig, we can remove the above processor
-	'package-json-processor-for-flat-config': {
-		preprocess: (source: string) => {
-			// augment the json into a js file
-			return [jsonPrefixForFlatConfig + source.trim()];
-		},
-		postprocess: (messages) => {
-			return messages[0].map((message) => {
-				const { fix } = message;
-				if (!fix) {
-					return message;
-				}
+					const offset = jsonPrefix.length;
+					return {
+						...message,
+						fix: {
+							...fix,
+							range: [fix.range[0] - offset, fix.range[1] - offset],
+						},
+					};
+				});
+			},
+			supportsAutofix: true,
+		} as Linter.Processor,
+		// This processor is used for ESLint FlatConfig,
+		// once we roll out FlatConfig, we can remove the above processor
+		'package-json-processor-for-flat-config': {
+			preprocess: (source: string) => {
+				// augment the json into a js file
+				return [jsonPrefixForFlatConfig + source.trim()];
+			},
+			postprocess: (messages) => {
+				return messages[0].map((message) => {
+					const { fix } = message;
+					if (!fix) {
+						return message;
+					}
 
-				const offset = jsonPrefixForFlatConfig.length;
-				return {
-					...message,
-					fix: {
-						...fix,
-						range: [fix.range[0] - offset, fix.range[1] - offset],
-					},
-				};
-			});
-		},
-		supportsAutofix: true,
-	} as Linter.Processor,
-};
+					const offset = jsonPrefixForFlatConfig.length;
+					return {
+						...message,
+						fix: {
+							...fix,
+							range: [fix.range[0] - offset, fix.range[1] - offset],
+						},
+					};
+				});
+			},
+			supportsAutofix: true,
+		} as Linter.Processor,
+	},
+} satisfies ESLint.Plugin;
+const configs = plugin.configs;
+const processors = plugin.processors;
+
+export { configs, plugin, processors, rules };
+export default plugin;

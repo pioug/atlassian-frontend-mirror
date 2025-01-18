@@ -59,4 +59,9 @@ export const messages = defineMessages({
 		description:
 			'Byline to show the number of members in the team when the number exceeds 50 and also includes the current user',
 	},
+	xProductMentionDescription: {
+		id: 'fabric.elements.mentions.xproduct.mention.description',
+		defaultMessage: 'Needs access to Confluence',
+		description: 'Description for a x-product mention item in the mention list in Confluence',
+	},
 });

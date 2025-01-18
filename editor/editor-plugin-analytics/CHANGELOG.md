@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-analytics
 
+## 1.10.12
+
+### Patch Changes
+
+- [#103031](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103031)
+  [`1501b8ff757bb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1501b8ff757bb) -
+  EDF-2195 - Updated commands and components to use analytics via the injection API
+
 ## 1.10.11
 
 ### Patch Changes

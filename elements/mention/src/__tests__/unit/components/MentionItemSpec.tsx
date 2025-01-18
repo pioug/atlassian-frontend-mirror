@@ -46,6 +46,14 @@ const mentionWithoutNickname = {
 	avatarUrl: '',
 };
 
+const xProductUserMention = {
+	id: '2',
+	name: 'Sam Cooper',
+	mentionName: 'Sam Cooper',
+	avatarUrl: '',
+	isXProductUser: true,
+};
+
 const lozengeExamples: LozengeProps[] = [
 	{
 		text: 'GUEST',
@@ -127,5 +135,10 @@ describe('MentionItem', () => {
 			expect(component.find(Lozenge).text()).toContain('GUEST');
 			expect(component.find(Lozenge).prop('appearance')).toEqual('new');
 		});
+	});
+
+	it('should display mention description if the mentioned user is x-product user in confluence', () => {
+		const component = setupMentionItem(xProductUserMention);
+		expect(component.html()).toContain('Needs access to Confluence');
 	});
 });

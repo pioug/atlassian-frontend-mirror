@@ -3,6 +3,7 @@ import Lozenge from '@atlaskit/lozenge';
 import { N30 } from '@atlaskit/theme/colors';
 import React from 'react';
 import { token } from '@atlaskit/tokens';
+import EditorPanelIcon from '@atlaskit/icon/core/migration/information--editor-panel';
 import {
 	isRestricted,
 	type MentionDescription,
@@ -80,13 +81,26 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 
 	render() {
 		const { mention, selected } = this.props;
-		const { id, highlight, avatarUrl, presence, name, mentionName, lozenge, accessLevel } = mention;
+		const {
+			id,
+			highlight,
+			avatarUrl,
+			presence,
+			name,
+			mentionName,
+			lozenge,
+			accessLevel,
+			isXProductUser,
+		} = mention;
 		const { status, time } = presence || ({} as Presence);
 		const restricted = isRestricted(accessLevel);
 
 		const nameHighlights = highlight && highlight.name;
 
 		const borderColor = selected ? token('color.border', N30) : undefined;
+		const xProductUserInfoIconColor = selected
+			? token('color.icon.selected', '#0C66E4')
+			: token('color.icon', '#44546F');
 
 		return (
 			<MessagesIntlProvider>
@@ -125,6 +139,7 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 								</AsyncNoAccessTooltip>
 							</React.Suspense>
 						) : null}
+						{isXProductUser && <EditorPanelIcon color={xProductUserInfoIconColor} label={''} />}
 					</RowStyle>
 				</MentionItemStyle>
 			</MessagesIntlProvider>

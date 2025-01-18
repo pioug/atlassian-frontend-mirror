@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { token } from '@atlaskit/tokens';
+
 import { useIconThemed } from '../use-icon-themed';
 
 export default function IconPanel() {
@@ -9,7 +11,10 @@ export default function IconPanel() {
 			<g fill="none" fillRule="evenodd">
 				<path fill={iconThemed({ light: '#FFF', dark: '#161A1D' })} d="M0 0h40v40H0z" />
 				<rect
-					fill={iconThemed({ light: '#DEEBFF', dark: '#09326C' })}
+					fill={iconThemed({
+						light: token('color.background.accent.blue.subtlest'),
+						dark: token('color.background.accent.blue.subtlest'),
+					})}
 					x={8}
 					y={12}
 					width={32}
@@ -18,7 +23,10 @@ export default function IconPanel() {
 				/>
 				<path
 					d="M12 20a4 4 0 108 0 4 4 0 00-8 0z"
-					fill={iconThemed({ light: '#0052CC', dark: '#388BFF' })}
+					fill={iconThemed({
+						light: token('color.icon.information'),
+						dark: token('color.icon.information'),
+					})}
 					fillRule="nonzero"
 				/>
 				<rect

@@ -1,5 +1,13 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.2.0
+
+### Minor Changes
+
+- [#103661](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103661)
+  [`976a915b13fc2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/976a915b13fc2) -
+  add flat config support
+
 ## 2.1.2
 
 ### Patch Changes

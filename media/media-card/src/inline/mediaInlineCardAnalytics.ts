@@ -29,6 +29,7 @@ export const getSucceededStatusPayload = (
 };
 
 export const getErrorStatusPayload = (
+	fileId: string,
 	error: MediaCardError,
 	fileState?: FileState,
 ): RenderInlineCardFailedEventPayload => {
@@ -39,7 +40,7 @@ export const getErrorStatusPayload = (
 		attributes: {
 			status: 'fail',
 			fileAttributes: {
-				fileId: fileState?.id || '',
+				fileId,
 				fileStatus: fileState?.status,
 			},
 			...extractErrorInfo(error),
@@ -48,6 +49,7 @@ export const getErrorStatusPayload = (
 };
 
 export const getFailedProcessingStatusPayload = (
+	fileId: string,
 	fileState?: FileState,
 ): RenderInlineCardFailedEventPayload => {
 	return {
@@ -57,7 +59,7 @@ export const getFailedProcessingStatusPayload = (
 		attributes: {
 			status: 'fail',
 			fileAttributes: {
-				fileId: fileState?.id || '',
+				fileId,
 				fileStatus: fileState?.status,
 			},
 			failReason: 'failed-processing',
@@ -72,8 +74,8 @@ export const fireFailedOperationalEvent = (
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
 ) => {
 	const payload = failReason
-		? getFailedProcessingStatusPayload(fileState)
-		: getErrorStatusPayload(error, fileState);
+		? getFailedProcessingStatusPayload(fileState?.id || 'unknown-id', fileState)
+		: getErrorStatusPayload(fileState?.id || 'unknown-id', error, fileState);
 
 	fireMediaCardEvent(payload, createAnalyticsEvent);
 };

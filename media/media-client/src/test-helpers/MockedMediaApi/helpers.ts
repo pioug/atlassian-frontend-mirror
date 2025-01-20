@@ -12,6 +12,8 @@ import { type ResponseFileItem } from '../../client/media-store/types';
 import type { FileIdentifier } from '../../identifier';
 
 import { type PartialResponseFileItem } from './types';
+import { CommonMediaClientError, fromCommonMediaClientError } from '../../models/errors';
+import { createServerUnauthorizedError } from '../mediaClientErrors';
 
 // --------------------------------------------------------
 // Factory Utils
@@ -216,10 +218,9 @@ export const createUploadingFileState = (
 	preview: { value: binary || new Blob(['some-content'], { type: mimeType }) },
 });
 
-export const createErrorFileState = ({ id }: ResponseFileItem): ErrorFileState => ({
-	status: 'error',
-	id,
-	reason: 'a random error',
-	message: 'a random error message',
-	details: { some: 'mocked error detail' },
-});
+const defaultErrorFileStateError = createServerUnauthorizedError();
+
+export const createErrorFileState = (
+	{ id }: ResponseFileItem,
+	error: CommonMediaClientError = defaultErrorFileStateError,
+): ErrorFileState => fromCommonMediaClientError(id, undefined, error);

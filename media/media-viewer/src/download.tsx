@@ -12,7 +12,7 @@ import {
 	type MediaClient,
 } from '@atlaskit/media-client';
 import { MediaButton, messages } from '@atlaskit/media-ui';
-import React, { type ReactNode, createRef, useCallback } from 'react';
+import React, { type ReactNode, useCallback, useState } from 'react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 import { type MediaTraceContext } from '@atlaskit/media-common';
 import {
@@ -138,7 +138,7 @@ const DownloadItem = ({
 	iconBefore,
 	children,
 }: DownloadItemProps) => {
-	const openModalRef = createRef<() => void>();
+	const [isAbuseModalOpen, setIsAbuseModalOpen] = useState(false);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const { isDisabled, tooltip } = useDownloadButtonDisabledProps(mediaClient);
 
@@ -152,11 +152,13 @@ const DownloadItem = ({
 
 	return (
 		<>
-			<AbuseModal
-				ref={openModalRef}
-				shouldMount={shouldRenderAbuseModal}
-				onConfirm={itemDownloader}
-			/>
+			{shouldRenderAbuseModal && (
+				<AbuseModal
+					isOpen={isAbuseModalOpen}
+					onConfirm={itemDownloader}
+					onClose={() => setIsAbuseModalOpen(false)}
+				/>
+			)}
 			<DownloadButton
 				testId={testId}
 				appearance={appearance}
@@ -165,7 +167,7 @@ const DownloadItem = ({
 				tooltip={tooltip}
 				onClick={() => {
 					if (shouldRenderAbuseModal) {
-						openModalRef.current?.();
+						setIsAbuseModalOpen(true);
 					} else {
 						itemDownloader();
 					}

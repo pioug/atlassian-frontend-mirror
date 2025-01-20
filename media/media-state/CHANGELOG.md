@@ -1,5 +1,13 @@
 # @atlaskit/media-state
 
+## 1.5.0
+
+### Minor Changes
+
+- [#102527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102527)
+  [`a90d34cd14faf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a90d34cd14faf) -
+  Updated MediaFileArtifact type definition
+
 ## 1.4.0
 
 ### Minor Changes

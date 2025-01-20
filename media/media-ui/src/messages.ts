@@ -148,6 +148,9 @@ export type MessageKey =
 	| 'open_file_in_viewer'
 	| 'video_seeker_assistive_text_time_value'
 	| 'video_seeker_label_assistive_text'
+	| 'abuse_modal_body'
+	| 'abuse_modal_title'
+	| 'abuse_modal_submit'
 	| RequestAccessMessageKey;
 
 type Messages = {
@@ -907,5 +910,21 @@ export const messages: Messages = defineMessages({
 		id: 'fabric.media.video_seeker_label_assistive_text',
 		defaultMessage: 'Seek slider',
 		description: 'Video time seek slider aria-label',
+	},
+	abuse_modal_body: {
+		id: 'fabric.media.abuse_modal_body',
+		defaultMessage:
+			'For your security, our system automatically scans all uploaded files. The file you are about to download potentially contains malicious content',
+		description: 'Abuse Modal Body Message',
+	},
+	abuse_modal_title: {
+		id: 'fabric.media.abuse_modal_title',
+		defaultMessage: 'Warning',
+		description: 'Abuse Modal Title',
+	},
+	abuse_modal_submit: {
+		id: 'fabric.media.abuse_modal_submit',
+		defaultMessage: 'Proceed with download',
+		description: 'Abuse Modal Submit button caption',
 	},
 });

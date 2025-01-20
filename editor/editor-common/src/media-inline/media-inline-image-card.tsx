@@ -133,7 +133,10 @@ export const MediaInlineImageCardInternal = ({
 				return <InlineImageCardErrorView message={formatMessage(messages.unableToLoadContent)} />;
 			} else if (!fileState.name) {
 				fireFailedOperationalEvent(
-					new MediaCardError('metadata-fetch', new FileFetcherError('emptyFileName', fileState.id)),
+					new MediaCardError(
+						'metadata-fetch',
+						new FileFetcherError('emptyFileName', { id: fileState.id }),
+					),
 				);
 				return <InlineImageCardErrorView message={formatMessage(messages.unableToLoadContent)} />;
 			}

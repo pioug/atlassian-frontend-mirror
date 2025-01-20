@@ -9,7 +9,9 @@ export type MediaRepresentations = {
 export type MediaFileArtifact = {
 	readonly url: string;
 	readonly processingStatus: MediaFileProcessingStatus;
+	readonly mimeType?: string;
 	readonly cdnUrl?: string;
+	readonly size?: number;
 };
 
 export interface MediaFileArtifacts {
@@ -23,6 +25,7 @@ export interface MediaFileArtifacts {
 	'thumb_large.jpg'?: MediaFileArtifact;
 	'document.pdf'?: MediaFileArtifact;
 	'document.txt'?: MediaFileArtifact;
+	'document.html'?: MediaFileArtifact;
 	'audio.mp3'?: MediaFileArtifact;
 	'video.mp4'?: MediaFileArtifact;
 	'video_640.mp4'?: MediaFileArtifact;

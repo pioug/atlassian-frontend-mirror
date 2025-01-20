@@ -6,7 +6,7 @@ import { getVCObserver } from '@atlaskit/react-ufo/vc';
 import { type FileIdentifier } from '@atlaskit/media-client';
 
 import { MainWrapper } from '../example-helpers';
-import { createMockedMediaClientProviderWithBinaries } from '../src/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
+import { createMockedMediaClientProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 import { closeAction, deleteAction } from '../example-helpers';
 
 const setup = async () => {

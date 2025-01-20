@@ -1,47 +1,34 @@
 import React from 'react';
-import { MediaInlineCardInternal as MediaInlineCard } from '../../mediaInlineCard';
+import MediaInlineCard from '../../loader';
+import { type MediaClientConfig } from '@atlaskit/media-client';
+import { generateSampleFileItem } from '@atlaskit/media-test-data/src';
 import {
-	type FileIdentifier,
-	type FileState,
-	createMediaSubject,
-	type ErrorFileState,
-	fromObservable,
-} from '@atlaskit/media-client';
-import { fakeMediaClient, fakeIntl, asMock } from '@atlaskit/media-test-helpers';
-import { act, render, screen, waitFor } from '@testing-library/react';
+	createMockedMediaApi,
+	createServerUnauthorizedError,
+} from '@atlaskit/media-client/test-helpers';
+import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
+import { render, screen, waitFor } from '@testing-library/react';
 import * as analyticsModule from '../../../utils/analytics/analytics';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
 import userEvent from '@testing-library/user-event';
 import { ffTest } from '@atlassian/feature-flags-test-utils';
 
+const dummyMediaClientConfig = {} as MediaClientConfig;
+
 describe('<MediaInlineCard />', () => {
-	const identifier: FileIdentifier = {
-		id: '1234',
-		mediaItemType: 'file',
-	};
-	const mediaClient = fakeMediaClient();
-	const mockFileState: FileState = {
-		status: 'processing',
-		id: '1234',
-		name: 'file_name',
-		size: 1024,
-		mediaType: 'image',
-		mimeType: 'image/png',
-	};
-	let observable = createMediaSubject();
 	const fireOperationalEvent = jest.spyOn(analyticsModule, 'fireMediaCardEvent');
 
 	beforeEach(() => {
 		jest.clearAllMocks();
-		observable = createMediaSubject();
-		asMock(mediaClient.file.getFileState).mockReturnValue(fromObservable(observable));
-		observable.next(mockFileState);
 	});
 
 	it('should render loading view while loading media file', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
 		render(
-			<MockedMediaClientProvider mockedMediaApi={{}}>
-				<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={fakeMediaClient()} />,
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<MediaInlineCard identifier={identifier} mediaClientConfig={dummyMediaClientConfig} />,
 			</MockedMediaClientProvider>,
 		);
 		const element = await screen.findByTestId('media-inline-card-loading-view');
@@ -49,25 +36,30 @@ describe('<MediaInlineCard />', () => {
 	});
 
 	it('should render loaded view when media loads successfully', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
 		render(
-			<MockedMediaClientProvider mockedMediaApi={{}}>
-				<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<MediaInlineCard identifier={identifier} mediaClientConfig={dummyMediaClientConfig} />,
 			</MockedMediaClientProvider>,
 		);
 		const loadedView = await screen.findByTestId('media-inline-card-loaded-view');
-		const title = await screen.findByText('file_name');
+		const title = await screen.findByText(fileItem.details.name);
 
 		expect(loadedView).toBeTruthy();
 		expect(title).toBeTruthy();
 	});
 
 	it('should render MediaViewer when shouldOpenMediaViewer=true and clicked', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
 		render(
-			<MockedMediaClientProvider mockedMediaApi={{}}>
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 				<MediaInlineCard
-					intl={fakeIntl}
 					identifier={identifier}
-					mediaClient={mediaClient}
+					mediaClientConfig={dummyMediaClientConfig}
 					shouldOpenMediaViewer
 				/>
 			</MockedMediaClientProvider>,
@@ -83,12 +75,14 @@ describe('<MediaInlineCard />', () => {
 
 	it('should call onClick callback when provided', async () => {
 		const onClick = jest.fn();
+		const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
 		render(
-			<MockedMediaClientProvider mockedMediaApi={{}}>
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 				<MediaInlineCard
-					intl={fakeIntl}
 					identifier={identifier}
-					mediaClient={mediaClient}
+					mediaClientConfig={dummyMediaClientConfig}
 					onClick={onClick}
 				/>
 			</MockedMediaClientProvider>,
@@ -97,14 +91,17 @@ describe('<MediaInlineCard />', () => {
 
 		loadedView.click();
 
-		expect(onClick).toBeCalledTimes(1);
-		expect(onClick).toBeCalledWith(expect.objectContaining({ mediaItemDetails: identifier }));
+		expect(onClick).toHaveBeenCalledTimes(1);
+		expect(onClick).toHaveBeenCalledWith(expect.objectContaining({ mediaItemDetails: identifier }));
 	});
 
 	it('should render right media file type icon', async () => {
+		const [fileItem, identifier] = generateSampleFileItem.workingJpegWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
 		render(
-			<MockedMediaClientProvider mockedMediaApi={{}}>
-				<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<MediaInlineCard identifier={identifier} mediaClientConfig={dummyMediaClientConfig} />
 			</MockedMediaClientProvider>,
 		);
 		const fileTypeIcon = await screen.findByTestId('media-inline-card-file-type-icon');
@@ -112,34 +109,43 @@ describe('<MediaInlineCard />', () => {
 		expect(fileTypeIcon).toBeTruthy();
 	});
 
-	it('should render right icon when mimeType is more specific than media type', async () => {
-		const mockFileState: FileState = {
-			status: 'processing',
-			id: '1234',
-			name: 'file_name',
-			size: 1024,
-			mediaType: 'doc',
-			mimeType: 'text/csv',
-		};
+	describe('should render right icon when mimeType is more specific than media type', () => {
+		it('for csv', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.csv();
+			const { mediaApi } = createMockedMediaApi(fileItem);
 
-		asMock(mediaClient.file.getFileState).mockReturnValue(createMediaSubject(mockFileState));
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaInlineCard identifier={identifier} mediaClientConfig={dummyMediaClientConfig} />
+				</MockedMediaClientProvider>,
+			);
+			const fileTypeIcon = await screen.findByTestId('media-inline-card-file-type-icon');
+			expect(fileTypeIcon.getAttribute('data-type')).toEqual('source-code');
+		});
 
-		render(
-			<MockedMediaClientProvider mockedMediaApi={{}}>
-				<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />
-			</MockedMediaClientProvider>,
-		);
-		const fileTypeIcon = await screen.findByTestId('media-inline-card-file-type-icon');
-		expect(fileTypeIcon.getAttribute('data-type')).toEqual('spreadsheet');
+		it('for spreadshet', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.spreadsheet();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			render(
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaInlineCard identifier={identifier} mediaClientConfig={dummyMediaClientConfig} />
+				</MockedMediaClientProvider>,
+			);
+			const fileTypeIcon = await screen.findByTestId('media-inline-card-file-type-icon');
+			expect(fileTypeIcon.getAttribute('data-type')).toEqual('excel-spreadsheet');
+		});
 	});
 
 	it('should render error view', async () => {
-		asMock(mediaClient.file.getFileState).mockReturnValueOnce(
-			createMediaSubject({ status: 'error' } as ErrorFileState),
-		);
+		const [fileItem, identifier] = generateSampleFileItem.workingJpegWithRemotePreview();
+		const { mediaApi } = createMockedMediaApi(fileItem);
+
+		jest.spyOn(mediaApi, 'getItems').mockRejectedValue(new Error('some-error'));
+
 		render(
-			<MockedMediaClientProvider mockedMediaApi={{}}>
-				<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />
+			<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+				<MediaInlineCard identifier={identifier} mediaClientConfig={dummyMediaClientConfig} />
 			</MockedMediaClientProvider>,
 		);
 		const erroredView = await screen.findByTestId('media-inline-card-errored-view');
@@ -151,23 +157,21 @@ describe('<MediaInlineCard />', () => {
 		it('should call copy intent', async () => {
 			const user = userEvent.setup();
 
-			const registerCopyIntents = jest.fn(async () => {});
-			const resolveAuth = async () => ({
-				token: 'some-token',
-				clientId: 'some-client',
-				baseUrl: 'some-url',
-			});
+			const [fileItem, identifier] = generateSampleFileItem.workingJpegWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			const registerCopyIntents = jest.spyOn(mediaApi, 'registerCopyIntents');
 
 			render(
-				<MockedMediaClientProvider mockedMediaApi={{ registerCopyIntents, resolveAuth }}>
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
 					<div>from here</div>
-					<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />
+					<MediaInlineCard identifier={identifier} mediaClientConfig={dummyMediaClientConfig} />
 					<div>to here</div>
 				</MockedMediaClientProvider>,
 			);
 
 			await screen.findByTestId('media-inline-card-loaded-view');
-			await screen.findByText('file_name');
+			await screen.findByText(fileItem.details.name);
 
 			await user.pointer({
 				keys: '[MouseLeft][MouseLeft>]',
@@ -192,22 +196,35 @@ describe('<MediaInlineCard />', () => {
 
 	describe('Analytics', () => {
 		it('should send succeeded event once if file is processed and rendered', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingJpegWithRemotePreview();
+
+			const { MockedMediaClientProvider, processItem } = createMockedMediaClientProvider({
+				initialItems: fileItem,
+			});
+
+			// Sets the item to 'processing' status
+			processItem(fileItem, 0);
+
 			render(
-				<MockedMediaClientProvider mockedMediaApi={{}}>
-					<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />
+				<MockedMediaClientProvider>
+					<MediaInlineCard identifier={identifier} mediaClientConfig={dummyMediaClientConfig} />
 				</MockedMediaClientProvider>,
 			);
-			expect(fireOperationalEvent).toBeCalledTimes(0);
+			expect(fireOperationalEvent).toHaveBeenCalledTimes(0);
+
+			processItem(fileItem, 1);
 
 			await screen.findByTestId('media-inline-card-loaded-view');
-			await screen.findByText('file_name');
-			act(() => {
-				observable.next({ ...mockFileState, status: 'processed', artifacts: {} });
-			});
+			await screen.findByText(fileItem.details.name);
 
 			await waitFor(() => {
 				expect(fireOperationalEvent).toBeCalledTimes(1);
 			});
+
+			const {
+				id,
+				details: { size, mediaType, mimeType },
+			} = fileItem;
 
 			expect(fireOperationalEvent).toBeCalledWith(
 				{
@@ -217,10 +234,10 @@ describe('<MediaInlineCard />', () => {
 					attributes: {
 						status: 'success',
 						fileAttributes: {
-							fileId: mockFileState.id,
-							fileSize: mockFileState.size,
-							fileMediatype: mockFileState.mediaType,
-							fileMimetype: mockFileState.mimeType,
+							fileId: id,
+							fileSize: size,
+							fileMediatype: mediaType,
+							fileMimetype: mimeType,
 							fileStatus: 'processed',
 						},
 					},
@@ -230,31 +247,37 @@ describe('<MediaInlineCard />', () => {
 		});
 
 		it('should send failed event once if file processing is failed', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.failedVideo();
+			const { MockedMediaClientProvider, processItem } = createMockedMediaClientProvider({
+				initialItems: fileItem,
+			});
+
+			// Sets the item to 'processing' status
+			processItem(fileItem, 0);
+
 			render(
-				<MockedMediaClientProvider mockedMediaApi={{}}>
-					<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />
+				<MockedMediaClientProvider>
+					<MediaInlineCard identifier={identifier} mediaClientConfig={dummyMediaClientConfig} />
 				</MockedMediaClientProvider>,
 			);
 
 			// Should display loaded card
 			const loadedView = await screen.findByTestId('media-inline-card-loaded-view');
-			const title = await screen.findByText('file_name');
+			const title = await screen.findByText(fileItem.details.name);
 			expect(loadedView).toBeTruthy();
 			expect(title).toBeTruthy();
 
-			expect(fireOperationalEvent).toBeCalledTimes(0);
+			expect(fireOperationalEvent).toHaveBeenCalledTimes(0);
 
-			act(() => {
-				observable.next({
-					...mockFileState,
-					status: 'failed-processing',
-					artifacts: {},
-				});
-			});
+			processItem(fileItem, 1);
 
-			await waitFor(() => {
-				expect(fireOperationalEvent).toBeCalledTimes(1);
-			});
+			await waitFor(
+				() => {
+					expect(fireOperationalEvent).toHaveBeenCalledTimes(1);
+				},
+				// Needs to wait for the polling function to kick next fetch
+				{ timeout: 5000 },
+			);
 
 			expect(fireOperationalEvent).toBeCalledWith(
 				{
@@ -264,7 +287,7 @@ describe('<MediaInlineCard />', () => {
 					attributes: {
 						status: 'fail',
 						fileAttributes: {
-							fileId: mockFileState.id,
+							fileId: fileItem.id,
 							fileStatus: 'failed-processing',
 						},
 						failReason: 'failed-processing',
@@ -275,19 +298,22 @@ describe('<MediaInlineCard />', () => {
 		});
 
 		it('should send failed event once if file subscription errored', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingJpegWithRemotePreview();
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
+			jest.spyOn(mediaApi, 'getItems').mockRejectedValue(createServerUnauthorizedError());
+
 			render(
-				<MockedMediaClientProvider mockedMediaApi={{}}>
-					<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaInlineCard identifier={identifier} mediaClientConfig={dummyMediaClientConfig} />
 				</MockedMediaClientProvider>,
 			);
-			expect(fireOperationalEvent).toBeCalledTimes(0);
-			observable.error(new Error('test'));
 
 			await waitFor(() => {
-				expect(fireOperationalEvent).toBeCalledTimes(1);
+				expect(fireOperationalEvent).toHaveBeenCalledTimes(1);
 			});
 
-			expect(fireOperationalEvent).toBeCalledWith(
+			expect(fireOperationalEvent).toHaveBeenCalledWith(
 				{
 					eventType: 'operational',
 					action: 'failed',
@@ -295,19 +321,25 @@ describe('<MediaInlineCard />', () => {
 					attributes: {
 						status: 'fail',
 						fileAttributes: {
-							fileId: mockFileState.id,
-							fileStatus: 'processing',
+							fileId: fileItem.id,
+							fileStatus: undefined,
 						},
-						error: 'nativeError',
-						errorDetail: 'test',
+						error: 'serverUnauthorized',
+						errorDetail: 'serverUnauthorized',
 						failReason: 'metadata-fetch',
+						metadataTraceContext: {
+							spanId: 'some-span',
+							traceId: 'some-trace',
+						},
 					},
 				},
 				expect.any(Function),
 			);
 		});
 
-		it('should send failed event once if file state is error', async () => {
+		// Unreachable case
+		// Unskip and convert to createMockedMediaApi once the component has migrated to Media Client Hook
+		/* it('should send failed event once if file state is error', async () => {
 			render(
 				<MockedMediaClientProvider mockedMediaApi={{}}>
 					<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />
@@ -345,26 +377,23 @@ describe('<MediaInlineCard />', () => {
 				},
 				expect.any(Function),
 			);
-		});
+		}); */
 
 		it('should send failed event once if file state has no filename', async () => {
+			const [fileItem, identifier] = generateSampleFileItem.workingJpegWithRemotePreview();
+			// @ts-ignore
+			delete fileItem.details.name;
+			const { mediaApi } = createMockedMediaApi(fileItem);
+
 			render(
-				<MockedMediaClientProvider mockedMediaApi={{}}>
-					<MediaInlineCard intl={fakeIntl} identifier={identifier} mediaClient={mediaClient} />
+				<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+					<MediaInlineCard identifier={identifier} mediaClientConfig={dummyMediaClientConfig} />
 				</MockedMediaClientProvider>,
 			);
-			await screen.findByTestId('media-inline-card-loaded-view');
-			await screen.findByText('file_name');
-			expect(fireOperationalEvent).toBeCalledTimes(0);
+			await screen.findByTestId('media-inline-card-errored-view');
 
-			act(() => {
-				observable.next({
-					status: 'processing',
-					id: '1234',
-				} as any);
-			});
-			expect(fireOperationalEvent).toBeCalledTimes(1);
-			expect(fireOperationalEvent).toBeCalledWith(
+			expect(fireOperationalEvent).toHaveBeenCalledTimes(1);
+			expect(fireOperationalEvent).toHaveBeenCalledWith(
 				{
 					eventType: 'operational',
 					action: 'failed',
@@ -372,8 +401,8 @@ describe('<MediaInlineCard />', () => {
 					attributes: {
 						status: 'fail',
 						fileAttributes: {
-							fileId: mockFileState.id,
-							fileStatus: 'processing',
+							fileId: fileItem.id,
+							fileStatus: 'processed',
 						},
 						error: 'emptyFileName',
 						errorDetail: 'emptyFileName',

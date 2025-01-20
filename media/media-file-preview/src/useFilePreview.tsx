@@ -5,6 +5,7 @@ import {
 	isImageRepresentationReady,
 	type MediaBlobUrlAttrs,
 	type MediaStoreGetFileImageParams,
+	toCommonMediaClientError,
 } from '@atlaskit/media-client';
 import { useCopyIntent, useFileState, useMediaClient } from '@atlaskit/media-client-react';
 import {
@@ -148,7 +149,6 @@ export const useFilePreview = ({
 	});
 
 	// Derived from File State
-	const fileStatus = fileState?.status;
 	const isBackendPreviewReady = !!fileState && isImageRepresentationReady(fileState);
 	const fileStateErrorMessage = fileState?.status === 'error' ? fileState.message : undefined;
 
@@ -169,14 +169,14 @@ export const useFilePreview = ({
 
 	useEffect(() => {
 		if (status !== 'error') {
-			if (preview || (fileStatus === 'processed' && !isBackendPreviewReady)) {
+			if (preview || (fileState?.status === 'processed' && !isBackendPreviewReady)) {
 				setStatus('complete');
-			} else if (!preview && fileStatus === 'failed-processing' && !isBackendPreviewReady) {
+			} else if (!preview && fileState?.status === 'failed-processing' && !isBackendPreviewReady) {
 				setStatus('error');
 				setError(new MediaFilePreviewError('failed-processing'));
-			} else if (!preview && fileStatus === 'error' && upfrontPreviewStatus === 'resolved') {
+			} else if (!preview && fileState?.status === 'error' && upfrontPreviewStatus === 'resolved') {
 				setStatus('error');
-				setError(new MediaFilePreviewError('metadata-fetch', new Error(fileStateErrorMessage)));
+				setError(new MediaFilePreviewError('metadata-fetch', toCommonMediaClientError(fileState)));
 			} else {
 				setStatus('loading');
 			}
@@ -184,7 +184,7 @@ export const useFilePreview = ({
 	}, [
 		preview,
 		status,
-		fileStatus,
+		fileState,
 		isBackendPreviewReady,
 		fileStateErrorMessage,
 		upfrontPreviewStatus,

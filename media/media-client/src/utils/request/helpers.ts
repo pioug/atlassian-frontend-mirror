@@ -12,6 +12,9 @@ import {
 	type RetryOptions,
 } from './types';
 
+const getStatusCode = (error: Error) =>
+	isRequestError(error) && error.metadata?.statusCode && error.metadata.statusCode;
+
 export function waitPromise(timeout: number) {
 	return new Promise<void>((resolve) => setTimeout(resolve, timeout));
 }
@@ -29,10 +32,8 @@ export function isFetchNetworkError(err: any): err is TypeError {
 }
 
 export function isRateLimitedError(error: Error | undefined) {
-	return (
-		(!!error && isRequestError(error) && error.attributes.statusCode === 429) ||
-		(!!error && !!error.message && error.message.includes('429'))
-	);
+	const statusCode = error && getStatusCode(error);
+	return statusCode === 429 || (!!error && !!error.message && error.message.includes('429'));
 }
 
 export const extendTraceContext = (
@@ -151,9 +152,10 @@ export function createMapResponseToBlob(
 	};
 }
 
-export const defaultShouldRetryError = (err: any) =>
-	isFetchNetworkError(err) ||
-	(isRequestError(err) && !!err?.metadata?.statusCode && err.metadata.statusCode >= 500);
+export const defaultShouldRetryError = (err: any) => {
+	const statusCode = getStatusCode(err);
+	return isFetchNetworkError(err) || (statusCode ? statusCode >= 500 : false);
+};
 
 export const DEFAULT_RETRY_OPTIONS: RetryOptions = {
 	startTimeoutInMs: 1000, // 1 second is generally a good timeout to start

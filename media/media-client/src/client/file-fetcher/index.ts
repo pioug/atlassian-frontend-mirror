@@ -60,6 +60,12 @@ import {
 	createCopyIntentRegisterationBatcher,
 } from '../../utils/createCopyIntentRegisterationBatcher';
 import { defaultShouldRetryError } from '../../utils/request/helpers';
+import {
+	isCommonMediaClientError,
+	CommonMediaClientError,
+	fromCommonMediaClientError,
+	type MediaClientErrorReason,
+} from '../../models/errors';
 
 export type { FileFetcherErrorAttributes, FileFetcherErrorReason } from './error';
 export { isFileFetcherError, FileFetcherError } from './error';
@@ -153,27 +159,24 @@ export class FileFetcherImpl implements FileFetcher {
 	}
 
 	private getErrorFileState = (error: any, id: string, occurrenceKey?: string): ErrorFileState => {
-		const { metadata, ...attributes } = error?.attributes ?? {};
-
-		return typeof error === 'string'
-			? {
-					status: 'error',
-					id,
-					reason: error,
-					occurrenceKey,
-					message: error,
-				}
-			: {
-					status: 'error',
-					id,
-					reason: error?.reason,
-					details: {
-						...attributes,
-						...(metadata?.traceContext && { metadata }),
-					},
-					occurrenceKey,
-					message: error?.message,
-				};
+		if (isCommonMediaClientError(error)) {
+			return fromCommonMediaClientError(id, occurrenceKey, error);
+		}
+		// ________________________________________________
+		// Legacy serializers
+		// We need to revisit all the incoming error types and ensure all the "reason" values are known
+		// We need to change the input error: any for a known type.
+		if (typeof error === 'string') {
+			const err = new CommonMediaClientError(error as MediaClientErrorReason);
+			return fromCommonMediaClientError(id, occurrenceKey, err);
+		} else {
+			const err = new CommonMediaClientError(
+				error?.reason || 'unknown',
+				error?.metadata,
+				error?.innerError,
+			);
+			return fromCommonMediaClientError(id, occurrenceKey, err);
+		}
 	};
 
 	private setFileState = (id: string, fileState: FileState) => {
@@ -186,24 +189,9 @@ export class FileFetcherImpl implements FileFetcher {
 		const { collectionName, occurrenceKey, includeHashForDuplicateFiles } = options;
 		if (!isValidId(id)) {
 			const subject = createMediaSubject<FileState>();
-			const err = new FileFetcherError('invalidFileId', id, {
-				collectionName,
-				occurrenceKey,
-			});
+			const err = new FileFetcherError('invalidFileId', { id, collectionName, occurrenceKey });
 
-			const { metadata, ...attributes } = err?.attributes ?? {};
-
-			const errorFileState: ErrorFileState = {
-				status: 'error',
-				id,
-				reason: err?.reason,
-				message: err?.message,
-				occurrenceKey,
-				details: {
-					...attributes,
-					...(metadata?.traceContext && { metadata }),
-				},
-			};
+			const errorFileState = this.getErrorFileState(err, id, occurrenceKey);
 
 			subject.error(err);
 
@@ -270,7 +258,8 @@ export class FileFetcherImpl implements FileFetcher {
 			});
 
 			if (isNotFoundMediaItemDetails(response)) {
-				throw new FileFetcherError('emptyItems', id, {
+				throw new FileFetcherError('emptyItems', {
+					id,
 					collectionName,
 					occurrenceKey,
 					traceContext: response.metadataTraceContext,
@@ -278,7 +267,8 @@ export class FileFetcherImpl implements FileFetcher {
 			}
 
 			if (isEmptyFile(response)) {
-				throw new FileFetcherError('zeroVersionFile', id, {
+				throw new FileFetcherError('zeroVersionFile', {
+					id,
 					collectionName,
 					occurrenceKey,
 					traceContext: response.metadataTraceContext,

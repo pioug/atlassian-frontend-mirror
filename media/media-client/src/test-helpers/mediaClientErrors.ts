@@ -28,6 +28,6 @@ export const createRateLimitedError = (metadataAndHeaders = defaultMetadata) =>
 	});
 
 export const createPollingMaxAttemptsError = (attempts = 1) =>
-	new PollingError('pollingMaxAttemptsExceeded', attempts);
+	new PollingError('pollingMaxAttemptsExceeded', { attempts });
 
 export const createMediaStoreError = () => new MediaStoreError('missingInitialAuth');

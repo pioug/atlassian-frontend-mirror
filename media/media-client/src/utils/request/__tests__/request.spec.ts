@@ -59,9 +59,17 @@ describe('request', () => {
 					endpoint: '/uri',
 					innerError: fetchError,
 				});
+				expect(err.reason).toBe('serverUnexpectedError');
+				expect(err.metadata).toMatchObject({
+					attempts: 3,
+					clientExhaustedRetries: true,
+					method: 'GET',
+					endpoint: '/uri',
+				});
+				expect(err.innerError).toMatchObject(expect.any(Error));
 			}
 
-			expect.assertions(2);
+			expect.assertions(5);
 
 			jest.useRealTimers();
 		});
@@ -119,9 +127,18 @@ describe('request', () => {
 					statusCode: 502,
 					innerError: fetchError,
 				});
+				expect(err.reason).toBe('serverBadGateway');
+				expect(err.metadata).toMatchObject({
+					attempts: 3,
+					clientExhaustedRetries: true,
+					method: 'GET',
+					endpoint: '/uri',
+					statusCode: 502,
+				});
+				expect(err.innerError).toMatchObject(expect.any(Error));
 			}
 
-			expect.assertions(2);
+			expect.assertions(5);
 
 			jest.useRealTimers();
 		});
@@ -142,9 +159,10 @@ describe('request', () => {
 				expect(err.attributes).toMatchObject({
 					reason: 'clientAbortedRequest',
 				});
+				expect(err.reason).toBe('clientAbortedRequest');
 			}
 
-			expect.assertions(2);
+			expect.assertions(3);
 
 			functionToRetry.mockImplementation(() => {
 				const abortError2 = new Error('');
@@ -162,9 +180,10 @@ describe('request', () => {
 				expect(err.attributes).toMatchObject({
 					reason: 'clientAbortedRequest',
 				});
+				expect(err.reason).toBe('clientAbortedRequest');
 			}
 
-			expect.assertions(4);
+			expect.assertions(6);
 		});
 
 		it('should not retry functionToRetry if client-side error', async () => {
@@ -183,9 +202,10 @@ describe('request', () => {
 				expect(err.attributes).toMatchObject({
 					reason: 'clientTimeoutRequest',
 				});
+				expect(err.reason).toBe('clientTimeoutRequest');
 			}
 
-			expect.assertions(2);
+			expect.assertions(3);
 		});
 
 		it('should not retry functionToRetry if backend error < 500', async () => {
@@ -215,9 +235,15 @@ describe('request', () => {
 					endpoint: '/uri',
 					statusCode: 429,
 				});
+				expect(err.reason).toBe('serverRateLimited');
+				expect(err.metadata).toMatchObject({
+					method: 'GET',
+					endpoint: '/uri',
+					statusCode: 429,
+				});
 			}
 
-			expect.assertions(2);
+			expect.assertions(4);
 		});
 
 		it('should retry functionToRetry if condition meets custom shouldRetryError', async () => {
@@ -250,9 +276,15 @@ describe('request', () => {
 					endpoint: '/uri',
 					statusCode: 401,
 				});
+				expect(err.reason).toBe('serverUnauthorized');
+				expect(err.metadata).toMatchObject({
+					method: 'GET',
+					endpoint: '/uri',
+					statusCode: 401,
+				});
 			}
 
-			expect.assertions(2);
+			expect.assertions(4);
 		});
 	});
 
@@ -405,6 +437,12 @@ describe('request', () => {
 				endpoint: '/uri',
 				statusCode: 403,
 			});
+			expect(error.reason).toBe('serverForbidden');
+			expect(error.metadata).toMatchObject({
+				method: 'GET',
+				endpoint: '/uri',
+				statusCode: 403,
+			});
 
 			expect(fetchMock.mock.calls.length).toEqual(1); // meaning it didn't retry because it shouldn't retry on 4xx
 		});
@@ -488,6 +526,12 @@ describe('request', () => {
 				endpoint: '/uri',
 				statusCode: 400,
 			});
+			expect(error.reason).toBe('serverBadRequest');
+			expect(error.metadata).toMatchObject({
+				method: 'GET',
+				endpoint: '/uri',
+				statusCode: 400,
+			});
 
 			expect(fetchMock.mock.calls.length).toEqual(3); // should have retried twice and hit non-retryable error
 		});
@@ -525,6 +569,14 @@ describe('request', () => {
 				endpoint: '/uri',
 				statusCode: 500,
 			});
+			expect(error.reason).toBe('serverInternalError');
+			expect(error.metadata).toMatchObject({
+				attempts: 3,
+				clientExhaustedRetries: true,
+				method: 'GET',
+				endpoint: '/uri',
+				statusCode: 500,
+			});
 
 			expect(fetchMock.mock.calls.length).toEqual(3); // shoud have exhausted retries and failed
 		});
@@ -550,6 +602,7 @@ describe('request', () => {
 			}
 
 			expect(error.attributes.reason).toEqual('clientAbortedRequest');
+			expect(error.reason).toEqual('clientAbortedRequest');
 			expect(fetchMock.mock.calls.length).toEqual(1); // should not have retried on aborted requests
 		});
 
@@ -574,6 +627,7 @@ describe('request', () => {
 			}
 
 			expect(error.attributes.reason).toEqual('clientAbortedRequest');
+			expect(error.reason).toEqual('clientAbortedRequest');
 			expect(fetchMock.mock.calls.length).toEqual(1); // should not have retried on aborted requests
 		});
 
@@ -614,6 +668,14 @@ describe('request', () => {
 				mediaEnv: 'adev',
 				statusCode: 400,
 			});
+			expect(error.reason).toBe('serverBadRequest');
+			expect(error.metadata).toMatchObject({
+				method: 'GET',
+				endpoint: '/uri',
+				mediaRegion: 'ap-southeast-2',
+				mediaEnv: 'adev',
+				statusCode: 400,
+			});
 		});
 
 		it('should have unknown media region and environment in error metadata if response header returns nothing', async () => {
@@ -644,6 +706,14 @@ describe('request', () => {
 
 			expect(error.attributes).toMatchObject({
 				reason: 'serverBadRequest',
+				method: 'GET',
+				endpoint: '/uri',
+				mediaRegion: 'unknown',
+				mediaEnv: 'unknown',
+				statusCode: 400,
+			});
+			expect(error.reason).toBe('serverBadRequest');
+			expect(error.metadata).toMatchObject({
 				method: 'GET',
 				endpoint: '/uri',
 				mediaRegion: 'unknown',

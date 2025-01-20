@@ -50,7 +50,7 @@ export class PollingFunction {
 
 		if (poll_maxAttempts === 0) {
 			// hard kill, polling disabled
-			return this.fail(new PollingError('pollingMaxAttemptsExceeded', this.attempt));
+			return this.fail(new PollingError('pollingMaxAttemptsExceeded', { attempts: this.attempt }));
 		}
 
 		try {
@@ -64,7 +64,9 @@ export class PollingFunction {
 
 			if (this.attempt >= poll_maxAttempts) {
 				// max iterations exceeded, let the consumer know
-				return this.fail(new PollingError('pollingMaxAttemptsExceeded', this.attempt));
+				return this.fail(
+					new PollingError('pollingMaxAttemptsExceeded', { attempts: this.attempt }),
+				);
 			}
 
 			this.poll_intervalMs = this.getIntervalMsForIteration(this.attempt);

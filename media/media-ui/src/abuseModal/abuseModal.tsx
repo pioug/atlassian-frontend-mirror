@@ -1,4 +1,5 @@
-import React, { useCallback, useState, useImperativeHandle, forwardRef } from 'react';
+import React from 'react';
+import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 import Button, { IconButton } from '@atlaskit/button/new';
 import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
@@ -10,6 +11,7 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { Flex, Grid, xcss } from '@atlaskit/primitives';
+import { messages } from '../messages';
 
 const gridStyles = xcss({
 	width: '100%',
@@ -24,29 +26,17 @@ const titleContainerStyles = xcss({
 });
 
 export type AbuseModalProps = {
-	onConfirm?: () => void;
-	onClose?: () => void;
-	shouldMount: boolean;
+	isOpen: boolean;
+	onConfirm: () => void;
+	onClose: () => void;
 };
 
-export const AbuseModal = forwardRef<() => void, AbuseModalProps>(
-	({ onConfirm, shouldMount }, ref) => {
-		const [isOpen, setIsOpen] = useState(false);
-		const closeModal = useCallback(() => setIsOpen(false), []);
-
-		const confirm = useCallback(() => {
-			onConfirm?.();
-			closeModal();
-		}, [onConfirm, closeModal]);
-
-		useImperativeHandle(ref, () => {
-			return () => setIsOpen(true);
-		}, []);
-
-		return !shouldMount ? null : (
+export const AbuseModal = injectIntl<'intl', AbuseModalProps & WrappedComponentProps>(
+	({ isOpen, onConfirm, onClose, intl: { formatMessage } }) => {
+		return (
 			<ModalTransition>
 				{isOpen && (
-					<Modal onClose={closeModal} testId="mediaAbuseModal">
+					<Modal onClose={onClose} testId="mediaAbuseModal">
 						<ModalHeader>
 							<Grid gap="space.200" templateAreas={['title close']} xcss={gridStyles}>
 								<Flex xcss={closeContainerStyles} justifyContent="end">
@@ -54,23 +44,23 @@ export const AbuseModal = forwardRef<() => void, AbuseModalProps>(
 										appearance="subtle"
 										icon={CrossIcon}
 										label="Close Modal"
-										onClick={closeModal}
+										onClick={onClose}
 									/>
 								</Flex>
 								<Flex xcss={titleContainerStyles} justifyContent="start">
-									<ModalTitle appearance="warning">Warning</ModalTitle>
+									<ModalTitle appearance="warning">
+										{formatMessage(messages.abuse_modal_title)}
+									</ModalTitle>
 								</Flex>
 							</Grid>
 						</ModalHeader>
-						<ModalBody>
-							This file has been labelled as abusive. Please proceed with caution.
-						</ModalBody>
+						<ModalBody>{formatMessage(messages.abuse_modal_body)}</ModalBody>
 						<ModalFooter>
-							<Button appearance="subtle" onClick={closeModal}>
-								Cancel
+							<Button appearance="subtle" onClick={onClose}>
+								{formatMessage(messages.cancel)}
 							</Button>
-							<Button appearance="warning" onClick={confirm}>
-								Proceed with download
+							<Button appearance="warning" onClick={onConfirm}>
+								{formatMessage(messages.abuse_modal_submit)}
 							</Button>
 						</ModalFooter>
 					</Modal>

@@ -1,5 +1,17 @@
 # @atlaskit/media-test-data
 
+## 2.9.0
+
+### Minor Changes
+
+- [#102527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102527)
+  [`a90d34cd14faf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a90d34cd14faf) -
+  Added spreadsheet and csv sample items
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.8.0
 
 ### Minor Changes

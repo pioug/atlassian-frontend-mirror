@@ -9,6 +9,7 @@ import {
 	type MediaStoreGetFileImageParams,
 	type ResponseFileItem,
 } from '@atlaskit/media-client';
+import { createMediaStoreError } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem, sampleBinaries } from '@atlaskit/media-test-data';
 
 import { createMockedMediaClientProvider } from './__tests__/helpers/_MockedMediaClientProvider';
@@ -351,7 +352,7 @@ describe('useFilePreview', () => {
 				const getFileImageURLSync = jest
 					.spyOn(mediaApi, 'getFileImageURLSync')
 					.mockImplementation(() => {
-						throw new Error('some-error');
+						throw createMediaStoreError();
 					});
 
 				const { result } = renderHook(useFilePreview, {
@@ -372,8 +373,8 @@ describe('useFilePreview', () => {
 				expect(result?.current.ssrReliability).toMatchObject({
 					server: {
 						status: 'fail',
-						error: 'nativeError',
-						errorDetail: 'some-error',
+						error: 'missingInitialAuth',
+						errorDetail: 'missingInitialAuth',
 						failReason: 'ssr-server-uri',
 						metadataTraceContext: { traceId: 'some-trace' },
 					},
@@ -500,7 +501,7 @@ describe('useFilePreview', () => {
 				const getFileImageURLSync = jest
 					.spyOn(mediaApi, 'getFileImageURLSync')
 					.mockImplementation(() => {
-						throw new Error('some-error');
+						throw createMediaStoreError();
 					});
 
 				const { result } = renderHook(useFilePreview, {
@@ -521,8 +522,8 @@ describe('useFilePreview', () => {
 				expect(result?.current.ssrReliability).toMatchObject({
 					client: {
 						status: 'fail',
-						error: 'nativeError',
-						errorDetail: 'some-error',
+						error: 'missingInitialAuth',
+						errorDetail: 'missingInitialAuth',
 						failReason: 'ssr-client-uri',
 						metadataTraceContext: { traceId: 'some-trace' },
 					},

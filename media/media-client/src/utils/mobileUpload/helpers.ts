@@ -49,7 +49,8 @@ export const createMobileDownloadFileStream = (
 		});
 
 		if (isNotFoundMediaItemDetails(response)) {
-			throw new MobileUploadError('emptyItems', id, {
+			throw new MobileUploadError('emptyItems', {
+				id,
 				collectionName,
 				occurrenceKey,
 				traceContext: response.metadataTraceContext,
@@ -57,7 +58,8 @@ export const createMobileDownloadFileStream = (
 		}
 
 		if (isEmptyFile(response)) {
-			throw new MobileUploadError('zeroVersionFile', id, {
+			throw new MobileUploadError('zeroVersionFile', {
+				id,
 				collectionName,
 				occurrenceKey,
 				traceContext: response.metadataTraceContext,

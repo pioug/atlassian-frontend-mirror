@@ -8,9 +8,9 @@ import { css, jsx, keyframes } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
-import { type LoadingSkeletonProps } from './types';
+import { type LoadingSkeletonPropsOld } from './types';
 
-const LoadingSkeletonOld = ({ testId, width, height }: LoadingSkeletonProps) => {
+const LoadingSkeletonOld = ({ testId, width, height }: LoadingSkeletonPropsOld) => {
 	const animationNameStyles = keyframes({
 		'0%': {
 			backgroundPosition: '50% 0',

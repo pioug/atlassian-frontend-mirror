@@ -20,7 +20,7 @@ import {
 	delayApiResponses,
 	errorApiResponses,
 } from '../example-helpers/svg-helpers';
-import { useCreateMockedMediaClientProviderWithBinaries } from '../src/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
+import { useCreateMockedMediaClientProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 

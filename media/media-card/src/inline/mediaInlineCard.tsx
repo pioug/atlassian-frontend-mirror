@@ -1,6 +1,7 @@
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
 	FileFetcherError,
+	toCommonMediaClientError,
 	type FileIdentifier,
 	type FileState,
 	type Identifier,
@@ -64,8 +65,8 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 		failReason?: 'failed-processing',
 	) => {
 		const payload = failReason
-			? getFailedProcessingStatusPayload(fileState)
-			: getErrorStatusPayload(error, fileState);
+			? getFailedProcessingStatusPayload(identifier.id, fileState)
+			: getErrorStatusPayload(identifier.id, error, fileState);
 		setIsFailedEventSent(true);
 		fireMediaCardEvent(payload, createAnalyticsEvent);
 	};
@@ -152,7 +153,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 	}
 
 	if (fileState?.status === 'error') {
-		const error = new MediaCardError('error-file-state', new Error(fileState.message));
+		const error = new MediaCardError('error-file-state', toCommonMediaClientError(fileState));
 		!isFailedEventSent && fireFailedOperationalEvent(error);
 		return (
 			<MediaInlineCardErroredView
@@ -167,7 +168,7 @@ export const MediaInlineCardInternal: FC<MediaInlineCardProps & WrappedComponent
 	if (fileState && !fileState.name) {
 		const error = new MediaCardError(
 			'metadata-fetch',
-			new FileFetcherError('emptyFileName', fileState.id),
+			new FileFetcherError('emptyFileName', { id: fileState.id }),
 		);
 		!isFailedEventSent && fireFailedOperationalEvent(error);
 		return (

@@ -30,7 +30,9 @@ class DynamicIconCard extends CardClient {
 	}
 }
 
-const possibleIcons: [string, GenerateContextProp][] = [
+type IconOptions = [string, GenerateContextProp][];
+
+const possibleIcons: IconOptions = [
 	['Default', {}],
 	['Goal', { type: 'atlassian:Goal' }],
 	['Project', { type: 'atlassian:Project' }],
@@ -125,9 +127,33 @@ const possibleIcons: [string, GenerateContextProp][] = [
 	['Errored', { forceError: true }],
 ];
 
-export const BlockCardLazyIcons = () => (
+const possibleIconsPerType: IconOptions = [
+	['Document', { fileFormat: 'text/plain' }],
+	['Google Doc', { fileFormat: 'application/vnd.google-apps.document' }],
+	['Word document', { fileFormat: 'application/msword' }],
+	['PDF document', { fileFormat: 'application/pdf' }],
+	['Spreadsheet', { fileFormat: 'application/vnd.oasis.opendocument.spreadsheet' }],
+	['Google Sheet', { fileFormat: 'application/vnd.google-apps.spreadsheet' }],
+	['Excel spreadsheet', { fileFormat: 'application/vnd.ms-excel' }],
+	['Presentation', { fileFormat: 'application/vnd.oasis.opendocument.presentation' }],
+	['Google Slide', { fileFormat: 'application/vnd.google-apps.presentation' }],
+	['PowerPoint presentation', { fileFormat: 'application/vnd.ms-powerpoint' }],
+	['Google Form', { fileFormat: 'application/vnd.google-apps.form' }],
+	['Image', { fileFormat: 'image/png' }],
+	['GIF', { fileFormat: 'image/gif' }],
+	['Audio', { fileFormat: 'audio/midi' }],
+	['Video', { fileFormat: 'video/mp4' }],
+	['Archive', { fileFormat: 'application/zip' }],
+	['Executable', { fileFormat: 'application/dmg' }],
+	['Source Code', { fileFormat: 'text/css' }],
+	['Binary file', { fileFormat: 'application/octet-stream' }],
+	['Sketch', { fileFormat: 'application/sketch' }],
+	['Folder', { fileFormat: 'folder' }],
+];
+
+const generateBlockCards = (options: IconOptions) => () => (
 	<>
-		{possibleIcons.map((icons, index) => (
+		{options.map((icons, index) => (
 			<CardViewSection
 				key={index}
 				appearance="block"
@@ -137,3 +163,6 @@ export const BlockCardLazyIcons = () => (
 		))}
 	</>
 );
+
+export const BlockCardLazyIcons = generateBlockCards(possibleIcons);
+export const BlockCardLazyIconsFileType = generateBlockCards(possibleIconsPerType);

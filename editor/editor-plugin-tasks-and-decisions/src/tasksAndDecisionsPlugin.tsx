@@ -102,6 +102,7 @@ export const taskItemSpecWithFixedToDOM = () => {
 							'input',
 							{
 								...inputAttrs,
+								'data-input-type': 'lazy-task-item',
 								style: convertToInlineCss({
 									width: '13px',
 									height: '13px',

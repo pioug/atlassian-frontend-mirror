@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "34.4.0",
+	"version": "34.5.1",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -102,7 +102,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/analytics-tooling": "*",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
-		"@atlassian/gemini": "1.15.2",
+		"@atlassian/gemini": "1.15.3",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/jest-dom": "^6.4.5",
 		"@testing-library/react": "^12.1.5",
@@ -198,8 +198,15 @@
 		"bandicoots-compiled-migration-smartcard": {
 			"type": "boolean"
 		},
+		"platform-smart-card-shift-key": {
+			"type": "boolean"
+		},
 		"platform-smart-card-icon-migration": {
 			"type": "boolean"
+		},
+		"icon-object-migration": {
+			"type": "boolean",
+			"showOnWebsiteForTransitiveDependencies": true
 		}
 	}
 }

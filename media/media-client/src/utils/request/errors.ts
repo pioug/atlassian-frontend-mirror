@@ -6,15 +6,18 @@ import {
 	type RequestErrorAttributes,
 } from './types';
 
-export class RequestError extends BaseMediaClientError<RequestErrorAttributes> {
-	constructor(
-		readonly reason: RequestErrorReason,
-		readonly metadata?: RequestErrorMetadata,
-		readonly innerError?: Error,
-	) {
-		super(reason);
+export class RequestError extends BaseMediaClientError<
+	RequestErrorReason,
+	RequestErrorMetadata | undefined,
+	Error | undefined,
+	RequestErrorAttributes
+> {
+	constructor(reason: RequestErrorReason, metadata?: RequestErrorMetadata, innerError?: Error) {
+		super(reason, metadata, innerError);
 	}
 
+	// TODO: Deprecate this getter https://product-fabric.atlassian.net/browse/CXP-4665
+	/** Will be deprecated. Use the properties `reason` and `metadata` instead */
 	get attributes() {
 		const {
 			reason,

@@ -10,6 +10,7 @@ import { AnalyticsListener } from '@atlaskit/analytics-next';
 import { type CardClient, SmartCardProvider as Provider } from '@atlaskit/link-provider';
 import { mockSimpleIntersectionObserver } from '@atlaskit/link-test-helpers';
 import * as userAgent from '@atlaskit/linking-common/user-agent';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { TitleBlock } from '../../../index';
 import { ANALYTICS_CHANNEL } from '../../../utils/analytics';
@@ -243,54 +244,112 @@ describe('`link clicked`', () => {
 			/**
 			 * This is not the default behaviour but hijacked behaviour
 			 */
-			it('should fire with `clickOutcome` = `clickThrough` if the shift key is held', async () => {
-				const { spy, user, link } = await setup();
+			ffTest.off(
+				'platform-smart-card-shift-key',
+				'shift key is not considered a special key',
+				() => {
+					it('should fire with `clickOutcome` = `clickThrough` if the shift key is held', async () => {
+						const { spy, user, link } = await setup();
 
-				await user.keyboard('{Shift>}');
-				await user.click(link);
+						await user.keyboard('{Shift>}');
+						await user.click(link);
 
-				expect(spy).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'clicked',
-							actionSubject: 'link',
-							eventType: 'ui',
-							attributes: {
-								clickType: 'left',
-								clickOutcome: 'clickThrough',
-								defaultPrevented: true,
-								keysHeld: ['shift'],
+						expect(spy).toBeFiredWithAnalyticEventOnce(
+							{
+								payload: {
+									action: 'clicked',
+									actionSubject: 'link',
+									eventType: 'ui',
+									attributes: {
+										clickType: 'left',
+										clickOutcome: 'clickThrough',
+										defaultPrevented: true,
+										keysHeld: ['shift'],
+									},
+								},
+							},
+							ANALYTICS_CHANNEL,
+						);
+					});
+
+					it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held and `onClick` is provided', async () => {
+						const { spy, user, link } = await setup({
+							onClick: jest.fn(),
+						});
+
+						await user.keyboard('{Shift>}');
+						await user.click(link);
+
+						expect(spy).toBeFiredWithAnalyticEventOnce(
+							{
+								payload: {
+									action: 'clicked',
+									actionSubject: 'link',
+									eventType: 'ui',
+									attributes: {
+										clickType: 'left',
+										clickOutcome: 'clickThroughNewTabOrWindow',
+										defaultPrevented: true,
+										keysHeld: ['shift'],
+									},
+								},
+							},
+							ANALYTICS_CHANNEL,
+						);
+					});
+				},
+			);
+
+			ffTest.on('platform-smart-card-shift-key', 'shift key is considered a special key', () => {
+				it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held', async () => {
+					const { spy, user, link } = await setup();
+
+					await user.keyboard('{Shift>}');
+					await user.click(link);
+
+					expect(spy).toBeFiredWithAnalyticEventOnce(
+						{
+							payload: {
+								action: 'clicked',
+								actionSubject: 'link',
+								eventType: 'ui',
+								attributes: {
+									clickType: 'left',
+									clickOutcome: 'clickThroughNewTabOrWindow',
+									defaultPrevented: true,
+									keysHeld: ['shift'],
+								},
 							},
 						},
-					},
-					ANALYTICS_CHANNEL,
-				);
-			});
-
-			it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held and `onClick` is provided', async () => {
-				const { spy, user, link } = await setup({
-					onClick: jest.fn(),
+						ANALYTICS_CHANNEL,
+					);
 				});
 
-				await user.keyboard('{Shift>}');
-				await user.click(link);
+				it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held and `onClick` is provided', async () => {
+					const { spy, user, link } = await setup({
+						onClick: jest.fn(),
+					});
 
-				expect(spy).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'clicked',
-							actionSubject: 'link',
-							eventType: 'ui',
-							attributes: {
-								clickType: 'left',
-								clickOutcome: 'clickThroughNewTabOrWindow',
-								defaultPrevented: true,
-								keysHeld: ['shift'],
+					await user.keyboard('{Shift>}');
+					await user.click(link);
+
+					expect(spy).toBeFiredWithAnalyticEventOnce(
+						{
+							payload: {
+								action: 'clicked',
+								actionSubject: 'link',
+								eventType: 'ui',
+								attributes: {
+									clickType: 'left',
+									clickOutcome: 'clickThroughNewTabOrWindow',
+									defaultPrevented: true,
+									keysHeld: ['shift'],
+								},
 							},
 						},
-					},
-					ANALYTICS_CHANNEL,
-				);
+						ANALYTICS_CHANNEL,
+					);
+				});
 			});
 
 			it('should fire with `clickOutcome` = `clickThrough` if the meta key is held (NOT macOS) and an `onClick` is supplied', async () => {
@@ -538,28 +597,60 @@ describe('`link clicked`', () => {
 			/**
 			 * This is not the default behaviour but hijacked behaviour
 			 */
-			it('should fire with `clickOutcome` = `clickThrough` if the shift key is held when triggered with keyboard', async () => {
-				const { spy, user, link } = await setup();
+			ffTest.off(
+				'platform-smart-card-shift-key',
+				'shift key is not considered a special key',
+				() => {
+					it('should fire with `clickOutcome` = `clickThrough` if the shift key is held when triggered with keyboard', async () => {
+						const { spy, user, link } = await setup();
 
-				link.focus();
-				await user.keyboard('{Shift>}{Enter}');
+						link.focus();
+						await user.keyboard('{Shift>}{Enter}');
 
-				expect(spy).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'clicked',
-							actionSubject: 'link',
-							eventType: 'ui',
-							attributes: {
-								clickType: 'keyboard',
-								clickOutcome: 'clickThrough',
-								defaultPrevented: true,
-								keysHeld: ['shift'],
+						expect(spy).toBeFiredWithAnalyticEventOnce(
+							{
+								payload: {
+									action: 'clicked',
+									actionSubject: 'link',
+									eventType: 'ui',
+									attributes: {
+										clickType: 'keyboard',
+										clickOutcome: 'clickThrough',
+										defaultPrevented: true,
+										keysHeld: ['shift'],
+									},
+								},
+							},
+							ANALYTICS_CHANNEL,
+						);
+					});
+				},
+			);
+
+			ffTest.on('platform-smart-card-shift-key', 'shift key is considered a special key', () => {
+				it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held when triggered with keyboard', async () => {
+					const { spy, user, link } = await setup();
+
+					link.focus();
+					await user.keyboard('{Shift>}{Enter}');
+
+					expect(spy).toBeFiredWithAnalyticEventOnce(
+						{
+							payload: {
+								action: 'clicked',
+								actionSubject: 'link',
+								eventType: 'ui',
+								attributes: {
+									clickType: 'keyboard',
+									clickOutcome: 'clickThroughNewTabOrWindow',
+									defaultPrevented: true,
+									keysHeld: ['shift'],
+								},
 							},
 						},
-					},
-					ANALYTICS_CHANNEL,
-				);
+						ANALYTICS_CHANNEL,
+					);
+				});
 			});
 
 			it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the meta key is held when triggered with keyboard', async () => {
@@ -1067,7 +1158,7 @@ describe('`link clicked`', () => {
 				);
 			});
 
-			it('should fire with `clickOutcome` = `clickThrough` if the shift key is held', async () => {
+			it('should fire with `clickOutcome` = `clickThroughNewTabOrWindow` if the shift key is held', async () => {
 				const { spy, user, link } = await setup();
 
 				link.focus();

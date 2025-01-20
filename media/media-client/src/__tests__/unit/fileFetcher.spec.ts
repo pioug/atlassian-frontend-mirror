@@ -345,6 +345,19 @@ describe('FileFetcher', () => {
 				occurrenceKey: 'occurrence-key',
 			};
 
+			const expectedFileStateDetails = {
+				...expectedErrorAttributes,
+				error: {
+					innerError: undefined,
+					metadata: {
+						collectionName: 'collection',
+						id: 'invalid-id',
+						occurrenceKey: 'occurrence-key',
+					},
+					reason: 'invalidFileId',
+				},
+			};
+
 			fileFetcher
 				.getFileState('invalid-id', {
 					collectionName: 'collection',
@@ -358,7 +371,7 @@ describe('FileFetcher', () => {
 					},
 				});
 			const storedFileState: any = fileStateStore.getState().files['invalid-id'];
-			expect(storedFileState.details).toEqual(expectedErrorAttributes);
+			expect(storedFileState.details).toEqual(expectedFileStateDetails);
 		});
 
 		it('should split calls to /items by collection name', (done) => {
@@ -558,6 +571,19 @@ describe('FileFetcher', () => {
 								traceId: expect.any(String),
 								spanId: expect.any(String),
 							},
+						},
+						error: {
+							innerError: undefined,
+							metadata: {
+								collectionName: 'collection-1',
+								id: items[0].id,
+								occurrenceKey: undefined,
+								traceContext: {
+									spanId: expect.any(String),
+									traceId: expect.any(String),
+								},
+							},
+							reason: 'emptyItems',
 						},
 					};
 
@@ -1617,17 +1643,18 @@ describe('FileFetcher', () => {
 		it('should be identifiable', () => {
 			const unknownError = new Error('unknown error');
 			expect(isFileFetcherError(unknownError)).toBeFalsy();
-			const fileFetcherError = new FileFetcherError('invalidFileId', 'some-id');
+			const fileFetcherError = new FileFetcherError('invalidFileId', { id: 'some-id' });
 			expect(isFileFetcherError(fileFetcherError)).toBeTruthy();
 		});
 
 		it('should return the right arguments', () => {
-			const fileFetcherError = new FileFetcherError('invalidFileId', 'id', {
+			const fileFetcherError = new FileFetcherError('invalidFileId', {
+				id: 'id',
 				collectionName: 'collectionName',
 				occurrenceKey: 'occurrenceKey',
 			});
-			expect(fileFetcherError.attributes).toMatchObject({
-				reason: 'invalidFileId',
+			expect(fileFetcherError.reason).toBe('invalidFileId');
+			expect(fileFetcherError.metadata).toMatchObject({
 				id: 'id',
 				collectionName: 'collectionName',
 				occurrenceKey: 'occurrenceKey',

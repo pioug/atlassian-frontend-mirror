@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.38.0
+
+### Minor Changes
+
+- [#103433](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103433)
+  [`2ea2995145fa4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2ea2995145fa4) -
+  [ux] [https://product-fabric.atlassian.net/browse/EDF-2219] - add Advanced Prompt option into the
+  Editor AI Command Palette
+
 ## 2.37.0
 
 ### Minor Changes

@@ -242,7 +242,8 @@ const firstBlockNodeStylesNew = css`
 			}
 		}
 
-		> hr:first-child {
+		> hr:first-child,
+		> .ProseMirror-widget:first-child + hr {
 			margin-top: 0;
 		}
 	}

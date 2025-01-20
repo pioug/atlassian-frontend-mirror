@@ -1,5 +1,7 @@
 import { type MediaClientErrorReason } from '@atlaskit/media-client';
 
+// TODO: deprecate https://product-fabric.atlassian.net/browse/CXP-4669
+/** Will be deprecated. Use Media Client `toCommonMediaClientError` instead  */
 export class MediaFileStateError extends Error {
 	constructor(
 		readonly id: string,

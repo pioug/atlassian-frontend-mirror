@@ -3,12 +3,9 @@ import {
 	type FileDetails,
 	type FileStatus,
 	type MediaClientErrorReason,
-	getMediaClientErrorReason,
 	type RequestMetadata,
-	isRequestError,
-	isMediaClientError,
+	isCommonMediaClientError,
 } from '@atlaskit/media-client';
-import { isMediaFileStateError, getFileStateErrorReason } from '@atlaskit/media-client-react';
 import {
 	ANALYTICS_MEDIA_CHANNEL,
 	type FileAttributes,
@@ -27,11 +24,7 @@ import {
 } from '@atlaskit/media-common/analytics';
 
 import { type CreateUIAnalyticsEvent, createAndFireEvent } from '@atlaskit/analytics-next';
-import {
-	isKnownErrorType,
-	type MediaCardError,
-	type MediaCardErrorPrimaryReason,
-} from '../../errors';
+import { type MediaCardError, type MediaCardErrorPrimaryReason } from '../../errors';
 import { type CardPreviewSource, type CardDimensions, type CardStatus } from '../../types';
 import { type SSR } from '@atlaskit/media-common';
 
@@ -345,54 +338,40 @@ export const getRenderFailedExternalUriPayload = (
 });
 
 export const getRenderErrorFailReason = (error: MediaCardError): FailedErrorFailReason => {
-	if (isKnownErrorType(error)) {
-		return error.primaryReason;
-	} else {
-		return 'nativeError';
-	}
+	return error.primaryReason || 'nativeError';
 };
 
 export const getRenderErrorErrorReason = (
 	error: MediaCardError,
 ): MediaClientErrorReason | 'nativeError' => {
-	if (isKnownErrorType(error) && error.secondaryError) {
-		const mediaClientReason = isMediaClientError(error.secondaryError)
-			? getMediaClientErrorReason(error.secondaryError)
-			: getFileStateErrorReason(error.secondaryError);
-		if (mediaClientReason !== 'unknown') {
-			return mediaClientReason;
-		}
+	const { secondaryError } = error;
+	if (isCommonMediaClientError(secondaryError)) {
+		return secondaryError.reason;
 	}
 	return 'nativeError';
 };
 
 export const getRenderErrorErrorDetail = (error: MediaCardError): string => {
-	if (isKnownErrorType(error) && error.secondaryError) {
-		return error.secondaryError.message;
-	} else {
-		return error.message;
+	const { secondaryError } = error;
+	if (secondaryError instanceof Error) {
+		return secondaryError.message;
 	}
+	return error.message;
 };
 
 export const getErrorTraceContext = (error: MediaCardError): MediaTraceContext | undefined => {
-	if (isKnownErrorType(error) && !!error.secondaryError) {
-		if (isRequestError(error.secondaryError)) {
-			return error.secondaryError.metadata?.traceContext;
-		} else if (isMediaFileStateError(error.secondaryError)) {
-			return error.secondaryError.details?.metadata?.traceContext;
-		}
+	const { secondaryError } = error;
+	if (isCommonMediaClientError(secondaryError)) {
+		return secondaryError.metadata?.traceContext;
 	}
 };
 
 export const getRenderErrorRequestMetadata = (
 	error: MediaCardError,
 ): RequestMetadata | undefined => {
-	if (isKnownErrorType(error) && !!error.secondaryError) {
-		if (isRequestError(error.secondaryError)) {
-			return error.secondaryError.metadata;
-		} else if (isMediaFileStateError(error.secondaryError)) {
-			return error.secondaryError.details?.metadata;
-		}
+	const { secondaryError } = error;
+	if (isCommonMediaClientError(secondaryError)) {
+		return secondaryError.metadata;
 	}
 };
 

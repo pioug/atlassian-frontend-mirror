@@ -8,7 +8,7 @@ import { generateItemWithBinaries } from '@atlaskit/media-test-data';
 
 import { MainWrapper } from '../example-helpers';
 import { SimulateSsr } from '../example-helpers/ssrHelpers';
-import { createMockedMediaClientProviderWithBinaries } from '../src/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
+import { createMockedMediaClientProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 
 const rowStyle = {
 	display: 'flex',

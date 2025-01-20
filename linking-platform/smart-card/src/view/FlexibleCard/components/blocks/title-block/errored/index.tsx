@@ -1,8 +1,12 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { Box } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { SmartLinkAlignment, SmartLinkDirection } from '../../../../../../constants';
 import { LinkIcon } from '../../../elements';
@@ -33,7 +37,7 @@ const TitleBlockErroredViewNew = ({
 	const hasAction = onClick !== undefined;
 
 	return (
-		<Block {...blockProps} testId={`${testId}-errored-view`}>
+		<Block {...blockProps} css={titleBlockGapStyle} testId={`${testId}-errored-view`}>
 			{!hideIcon && <LinkIcon overrideIcon={icon} position={position} />}
 			{title}
 			{descriptor && (
@@ -54,3 +58,7 @@ const TitleBlockErroredViewNew = ({
 
 export default TitleBlockErroredViewOld;
 export { TitleBlockErroredViewNew };
+
+const titleBlockGapStyle = css({
+	gap: token('space.100'),
+});

@@ -1,15 +1,8 @@
-import {
-	getMediaClientErrorReason,
-	isMediaClientError,
-	isRequestError,
-	type MediaClientErrorReason,
-} from '@atlaskit/media-client';
-import { getFileStateErrorReason, isMediaFileStateError } from '@atlaskit/media-client-react';
+import { isCommonMediaClientError, type MediaClientErrorReason } from '@atlaskit/media-client';
 import { type MediaTraceContext, type SuccessAttributes } from '@atlaskit/media-common';
 
 import {
 	ImageLoadError,
-	isMediaFilePreviewError,
 	type MediaFilePreviewError,
 	type MediaFilePreviewErrorPrimaryReason,
 } from './errors';
@@ -42,43 +35,32 @@ export type SSRStatus = {
 export const getErrorTraceContext = (
 	error: MediaFilePreviewError,
 ): MediaTraceContext | undefined => {
-	if (isMediaFilePreviewError(error) && !!error.secondaryError) {
-		if (isRequestError(error.secondaryError)) {
-			return error.secondaryError.metadata?.traceContext;
-		} else if (isMediaFileStateError(error.secondaryError)) {
-			return error.secondaryError.details?.metadata?.traceContext;
-		}
+	const { secondaryError } = error;
+	if (isCommonMediaClientError(secondaryError)) {
+		return secondaryError.metadata?.traceContext;
 	}
 };
 
 export const getRenderErrorFailReason = (error: MediaFilePreviewError): FailedErrorFailReason => {
-	if (isMediaFilePreviewError(error)) {
-		return error.primaryReason;
-	} else {
-		return 'nativeError';
-	}
+	return error.primaryReason || 'nativeError';
 };
 
 export const getRenderErrorErrorReason = (
 	error: MediaFilePreviewError,
 ): MediaClientErrorReason | 'nativeError' => {
-	if (isMediaFilePreviewError(error) && error.secondaryError) {
-		const mediaClientReason = isMediaClientError(error.secondaryError)
-			? getMediaClientErrorReason(error.secondaryError)
-			: getFileStateErrorReason(error.secondaryError);
-		if (mediaClientReason !== 'unknown') {
-			return mediaClientReason;
-		}
+	const { secondaryError } = error;
+	if (isCommonMediaClientError(secondaryError)) {
+		return secondaryError.reason;
 	}
 	return 'nativeError';
 };
 
 export const getRenderErrorErrorDetail = (error: MediaFilePreviewError): string => {
-	if (isMediaFilePreviewError(error) && error.secondaryError) {
-		return error.secondaryError.message;
-	} else {
-		return error.message;
+	const { secondaryError } = error;
+	if (isCommonMediaClientError(secondaryError)) {
+		return secondaryError.message;
 	}
+	return error.message;
 };
 
 export const extractErrorInfo = (

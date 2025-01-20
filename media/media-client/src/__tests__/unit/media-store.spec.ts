@@ -225,9 +225,18 @@ describe('MediaStore', () => {
 						statusCode: 201,
 						innerError: expect.any(Error),
 					});
+					expect(err.reason).toBe('serverInvalidBody');
+					expect(err.metadata).toMatchObject({
+						method: 'POST',
+						endpoint: '/upload',
+						mediaRegion: 'ap-southeast-2',
+						mediaEnv: 'unknown',
+						statusCode: 201,
+					});
+					expect(err.innerError).toMatchObject(expect.any(Error));
 				}
 
-				expect.assertions(1);
+				expect.assertions(4);
 			});
 
 			it('calls request with traceContext', async () => {
@@ -415,9 +424,16 @@ describe('MediaStore', () => {
 						statusCode: 201,
 						innerError: expect.any(Error),
 					});
+					expect(err.reason).toBe('serverInvalidBody');
+					expect(err.metadata).toMatchObject({
+						method: 'POST',
+						endpoint: '/file/upload',
+						statusCode: 201,
+					});
+					expect(err.innerError).toMatchObject(expect.any(Error));
 				}
 
-				expect.assertions(1);
+				expect.assertions(4);
 			});
 
 			it('calls request with traceContext', async () => {
@@ -548,9 +564,16 @@ describe('MediaStore', () => {
 						statusCode: 200,
 						innerError: expect.any(Error),
 					});
+					expect(err.reason).toBe('serverInvalidBody');
+					expect(err.metadata).toMatchObject({
+						method: 'GET',
+						endpoint: '/file/{fileId}',
+						statusCode: 200,
+					});
+					expect(err.innerError).toMatchObject(expect.any(Error));
 				}
 
-				expect.assertions(1);
+				expect.assertions(4);
 			});
 
 			it('calls request with traceContext', async () => {
@@ -756,9 +779,15 @@ describe('MediaStore', () => {
 						endpoint: '/upload/createWithFiles',
 						statusCode: 403,
 					});
+					expect(err.reason).toBe('serverForbidden');
+					expect(err.metadata).toMatchObject({
+						method: 'POST',
+						endpoint: '/upload/createWithFiles',
+						statusCode: 403,
+					});
 				}
 
-				expect.assertions(1);
+				expect.assertions(3);
 			});
 
 			it('should fail if response is malformed JSON', async () => {
@@ -787,9 +816,16 @@ describe('MediaStore', () => {
 						statusCode: 201,
 						innerError: expect.any(Error),
 					});
+					expect(err.reason).toBe('serverInvalidBody');
+					expect(err.metadata).toMatchObject({
+						method: 'POST',
+						endpoint: '/upload/createWithFiles',
+						statusCode: 201,
+					});
+					expect(err.innerError).toMatchObject(expect.any(Error));
 				}
 
-				expect.assertions(1);
+				expect.assertions(4);
 			});
 
 			it('calls request with traceContext', async () => {
@@ -1309,9 +1345,16 @@ describe('MediaStore', () => {
 						statusCode: 200,
 						innerError: expect.any(Error),
 					});
+					expect(err.reason).toBe('serverInvalidBody');
+					expect(err.metadata).toMatchObject({
+						method: 'POST',
+						endpoint: '/items',
+						statusCode: 200,
+					});
+					expect(err.innerError).toMatchObject(expect.any(Error));
 				}
 
-				expect.assertions(1);
+				expect.assertions(4);
 			});
 		});
 
@@ -1431,9 +1474,16 @@ describe('MediaStore', () => {
 						statusCode: 200,
 						innerError: expect.any(Error),
 					});
+					expect(err.reason).toBe('serverInvalidBody');
+					expect(err.metadata).toMatchObject({
+						method: 'GET',
+						endpoint: '/file/{fileId}/image/metadata',
+						statusCode: 200,
+					});
+					expect(err.innerError).toMatchObject(expect.any(Error));
 				}
 
-				expect.assertions(1);
+				expect.assertions(4);
 			});
 		});
 
@@ -1789,9 +1839,16 @@ describe('MediaStore', () => {
 						statusCode: 201,
 						innerError: expect.any(Error),
 					});
+					expect(err.reason).toBe('serverInvalidBody');
+					expect(err.metadata).toMatchObject({
+						method: 'POST',
+						endpoint: '/file/copy/withToken',
+						statusCode: 201,
+					});
+					expect(err.innerError).toMatchObject(expect.any(Error));
 				}
 
-				expect.assertions(1);
+				expect.assertions(4);
 			});
 		});
 
@@ -2040,10 +2097,8 @@ describe('MediaStore', () => {
 		it('should return the right arguments', () => {
 			const error = new Error('error');
 			const mediaStoreError = new MediaStoreError('failedAuthProvider', error);
-			expect(mediaStoreError.attributes).toMatchObject({
-				reason: 'failedAuthProvider',
-				innerError: error,
-			});
+			expect(mediaStoreError.reason).toBe('failedAuthProvider');
+			expect(mediaStoreError.innerError).toBe(error);
 		});
 	});
 });

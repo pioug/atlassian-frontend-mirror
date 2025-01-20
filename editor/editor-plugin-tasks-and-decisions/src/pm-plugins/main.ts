@@ -26,6 +26,7 @@ import {
 	removeCheckboxFocus,
 } from './helpers';
 import { stateKey } from './plugin-key';
+import { taskItemOnChange } from './taskItemOnChange';
 import { ACTIONS, type TaskDecisionPluginAction, type TaskDecisionPluginCommand } from './types';
 
 type ChangedFn = (
@@ -106,6 +107,11 @@ export function createPlugin(
 					target.getAttribute('aria-label') === 'Decision',
 				{ useLongPressSelection },
 			),
+			handleDOMEvents: {
+				// When the page is lazy loaded and task item is not yet available this allows
+				// our toDOM implementation to toggle the node state
+				change: taskItemOnChange,
+			},
 			handleKeyDown: (view: EditorView, event: KeyboardEvent) => {
 				const { state, dispatch } = view;
 				const { selection, schema } = state;

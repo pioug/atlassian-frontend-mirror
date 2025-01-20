@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 99.4.1
+
+### Patch Changes
+
+- [#102527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102527)
+  [`a36b902aac28b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a36b902aac28b) -
+  Updated Inline Image error handling
+- Updated dependencies
+
+## 99.4.0
+
+### Minor Changes
+
+- [#103786](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103786)
+  [`0fa650275b900`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fa650275b900) -
+  EDF-2197: Add common utils from editor-plugin-ai to relevant packages.
+
 ## 99.3.5
 
 ### Patch Changes

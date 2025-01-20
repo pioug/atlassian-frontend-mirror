@@ -8,6 +8,9 @@ import React, { useMemo } from 'react';
 import { css, jsx, type SerializedStyles } from '@emotion/react';
 
 import LinkIcon from '@atlaskit/icon/core/migration/link';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { type IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../constants';
 import AtlaskitIcon from '../../common/atlaskit-icon';
@@ -53,9 +56,21 @@ const getCustomRenderStyles = (value: string): SerializedStyles =>
 		},
 	});
 
-const renderAtlaskitIcon = (icon?: IconType, testId?: string): React.ReactNode | undefined => {
+const renderAtlaskitIcon = (
+	icon?: IconType,
+	testId?: string,
+	size: SmartLinkSize = SmartLinkSize.Medium,
+): React.ReactNode | undefined => {
 	if (icon) {
-		return <AtlaskitIcon icon={icon} testId={`${testId}-icon`} />;
+		return (
+			<AtlaskitIcon
+				icon={icon}
+				testId={`${testId}-icon`}
+				{...(fg('platform-smart-card-icon-migration') && {
+					size,
+				})}
+			/>
+		);
 	}
 };
 
@@ -67,9 +82,22 @@ const renderImageIcon = (
 	defaultIcon: React.ReactNode,
 	url?: string,
 	testId?: string,
+	size = SmartLinkSize.Medium,
 ): React.ReactNode | undefined => {
+	const width = size === SmartLinkSize.Large ? token('space.300') : token('space.200');
+
 	if (url) {
-		return <ImageIcon defaultIcon={defaultIcon} testId={testId} url={url} />;
+		return (
+			<ImageIcon
+				defaultIcon={defaultIcon}
+				testId={testId}
+				url={url}
+				{...(fg('platform-smart-card-icon-migration') && {
+					width,
+					height: width,
+				})}
+			/>
+		);
 	}
 };
 
@@ -96,11 +124,20 @@ const Icon = ({
 		return (
 			overrideIcon ||
 			render?.() ||
-			renderImageIcon(defaultIcon, url, testId) ||
-			renderAtlaskitIcon(icon, testId) ||
+			renderImageIcon(
+				defaultIcon,
+				url,
+				testId,
+				fg('platform-smart-card-icon-migration') ? size : undefined,
+			) ||
+			renderAtlaskitIcon(
+				icon,
+				testId,
+				fg('platform-smart-card-icon-migration') ? size : undefined,
+			) ||
 			defaultIcon
 		);
-	}, [overrideIcon, icon, label, render, testId, url]);
+	}, [overrideIcon, icon, label, render, testId, url, size]);
 
 	const width = getIconWidth(size);
 	const styles = getIconStyles(position, width);
@@ -108,16 +145,40 @@ const Icon = ({
 
 	return (
 		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- needs dynamic css
-			css={[styles, renderStyles, overrideCss]}
+			css={[
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- needs dynamic css
+				!fg('platform-smart-card-icon-migration') && styles,
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- needs dynamic css
+				renderStyles,
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- needs dynamic css
+				overrideCss,
+			]}
 			data-fit-to-content
 			data-smart-element={name}
 			data-smart-element-icon
 			data-testid={testId}
 		>
-			{element}
+			{fg('platform-smart-card-icon-migration') ? (
+				<Box
+					xcss={iconWrapperStyle}
+					style={{
+						width,
+						height: width,
+					}}
+				>
+					{element}
+				</Box>
+			) : (
+				element
+			)}
 		</div>
 	);
 };
+
+const iconWrapperStyle = xcss({
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+});
 
 export default Icon;

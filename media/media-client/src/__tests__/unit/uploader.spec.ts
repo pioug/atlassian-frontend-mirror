@@ -352,9 +352,9 @@ describe('Uploader', () => {
 					onProgress: jest.fn(),
 					onUploadFinish: (error) => {
 						expect(error).toBeInstanceOf(UploaderError);
-						expect(error.id).toStrictEqual('some-file-id');
 						expect(error.reason).toStrictEqual('fileSizeExceedsLimit');
 						expect(error.metadata).toStrictEqual({
+							id: 'some-file-id',
 							collectionName: 'file-collection',
 							occurrenceKey: 'some-occurrence-key',
 						});

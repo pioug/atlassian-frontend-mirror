@@ -6,7 +6,6 @@ import {
 import { type CardPreview } from './types';
 
 import { isMediaFileStateError } from '@atlaskit/media-client-react';
-import { isMediaFilePreviewError } from '@atlaskit/media-file-preview';
 /**
  * Primary reason is logged through Data Portal.
  * Make sure all the values are whitelisted in Measure -> Event Regitry -> "mediaCardRender failed" event
@@ -151,10 +150,6 @@ export class ImageLoadError extends MediaCardError {
 
 export function isMediaCardError(err: Error): err is MediaCardError {
 	return err instanceof MediaCardError;
-}
-
-export function isKnownErrorType(err: Error) {
-	return isMediaCardError(err) || isMediaFilePreviewError(err);
 }
 
 export const isLocalPreviewError = (err: Error): err is LocalPreviewError =>

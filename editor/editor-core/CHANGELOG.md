@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 203.11.6
+
+### Patch Changes
+
+- [#104400](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104400)
+  [`9cacdf6ccec76`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9cacdf6ccec76) -
+  ED-26250 Fixed divider style when gap cursor present as first child
+- Updated dependencies
+
 ## 203.11.5
 
 ### Patch Changes

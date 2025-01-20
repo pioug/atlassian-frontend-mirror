@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-tasks-and-decisions
 
+## 2.12.39
+
+### Patch Changes
+
+- [#104325](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104325)
+  [`a29af260680fd`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a29af260680fd) -
+  Allow changing of task item state while using pre-loaded version of task item.
+- Updated dependencies
+
 ## 2.12.38
 
 ### Patch Changes

@@ -59,7 +59,12 @@ export type {
 
 export { getArtifactUrl } from './models/artifacts';
 
-export { isMediaClientError, getMediaClientErrorReason } from './models/errors';
+export {
+	isMediaClientError,
+	getMediaClientErrorReason,
+	isCommonMediaClientError,
+	toCommonMediaClientError,
+} from './models/errors';
 export type {
 	MediaClientError,
 	MediaClientErrorReason,

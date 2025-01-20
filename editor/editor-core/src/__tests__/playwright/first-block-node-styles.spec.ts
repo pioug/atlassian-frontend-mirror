@@ -44,9 +44,6 @@ import {
 			},
 			platformFeatureFlags: {
 				platform_editor_ssr_fix_block_controls: marginTopCSSFixEnabled,
-				// TODO https://product-fabric.atlassian.net/browse/ED-26250
-				// the horizontal rule test on Line98 is failing with platform_editor_element_dnd_nested_fix_patch_6 on, need to further investigate
-				platform_editor_element_dnd_nested_fix_patch_6: false,
 			},
 		});
 
@@ -58,7 +55,6 @@ import {
 				const nodes = EditorNodeContainerModel.from(editor);
 				const firstPanelNode = nodes.panel.first();
 				const secondPanelNode = nodes.panel.nth(1);
-
 				await expect(firstPanelNode).toHaveCSS(
 					'margin-top',
 					marginTopCSSFixEnabled ? '0px' : '12px',

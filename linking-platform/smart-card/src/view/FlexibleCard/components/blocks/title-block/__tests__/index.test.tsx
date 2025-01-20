@@ -8,6 +8,9 @@ import { IntlProvider } from 'react-intl-next';
 
 import type { GlyphProps } from '@atlaskit/icon/types';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	makeCustomActionItem,
@@ -23,6 +26,7 @@ import {
 } from '../../../../../../constants';
 import { messages } from '../../../../../../messages';
 import { FlexibleUiContext } from '../../../../../../state/flexible-ui-context';
+import * as LoadingSkeletonBundle from '../../../common/loading-skeleton';
 import { type NamedActionItem } from '../../types';
 import TitleBlock from '../index';
 import { type TitleBlockProps } from '../types';
@@ -544,24 +548,78 @@ describe('TitleBlock', () => {
 		);
 	});
 
-	describe('with loading skeleton', () => {
-		it.each<[SmartLinkSize, string]>([
-			[SmartLinkSize.XLarge, '2rem'],
-			[SmartLinkSize.Large, '1.5rem'],
-			[SmartLinkSize.Medium, '1rem'],
-			[SmartLinkSize.Small, '.75rem'],
-		])('renders by size %s', async (size: SmartLinkSize, dimension: string) => {
-			renderTitleBlock({
-				size,
-				status: SmartLinkStatus.Resolving,
-			});
+	ffTest.both('platform-smart-card-icon-migration', 'platform-smart-card-icon-migration', () => {
+		ffTest.both(
+			'bandicoots-compiled-migration-smartcard',
+			'bandicoots-compiled-migration-smartcard',
+			() => {
+				describe('with loading skeleton', () => {
+					it.each<[SmartLinkSize, string, string]>([
+						[SmartLinkSize.XLarge, '2rem', token('space.300')],
+						[SmartLinkSize.Large, '1.5rem', token('space.300')],
+						[SmartLinkSize.Medium, '1rem', token('space.200')],
+						[SmartLinkSize.Small, '.75rem', token('space.200')],
+					])(
+						'renders by size %s',
+						async (size: SmartLinkSize, dimensionOld: string, dimensionNew: string) => {
+							const LoadingSkeletonNewMock = jest.spyOn(
+								LoadingSkeletonBundle,
+								'LoadingSkeletonNew',
+							);
 
-			const icon = await screen.findByTestId('smart-block-title-icon');
-			const loadingSkeleton = await screen.findByTestId('smart-block-title-icon-loading');
+							LoadingSkeletonNewMock.mockClear();
 
-			expect(icon).toHaveStyleDeclaration('width', dimension);
-			expect(icon).toHaveStyleDeclaration('height', dimension);
-			expect(loadingSkeleton).toBeDefined();
-		});
+							const LoadingSkeletonOldMock = jest.spyOn(
+								LoadingSkeletonBundle,
+								'LoadingSkeletonOld',
+							);
+
+							LoadingSkeletonOldMock.mockClear();
+
+							renderTitleBlock({
+								size,
+								status: SmartLinkStatus.Resolving,
+							});
+
+							const dimension = fg('platform-smart-card-icon-migration')
+								? dimensionNew
+								: dimensionOld;
+
+							const icon = await screen.findByTestId('smart-block-title-icon');
+							const loadingSkeleton = await screen.findByTestId('smart-block-title-icon-loading');
+
+							if (
+								// eslint-disable-next-line @atlaskit/platform/no-preconditioning
+								fg('platform-smart-card-icon-migration') &&
+								fg('bandicoots-compiled-migration-smartcard')
+							) {
+								expect(LoadingSkeletonNewMock).toHaveBeenCalledWith(
+									{
+										width: dimension,
+										height: dimension,
+										testId: 'smart-block-title-icon-loading',
+									},
+									{},
+								);
+							} else if (
+								!fg('platform-smart-card-icon-migration') &&
+								fg('bandicoots-compiled-migration-smartcard')
+							) {
+								expect(LoadingSkeletonOldMock).toHaveBeenCalledWith(
+									{
+										testId: 'smart-block-title-icon-loading',
+									},
+									{},
+								);
+							} else {
+								expect(icon).toHaveStyleDeclaration('width', dimension);
+								expect(icon).toHaveStyleDeclaration('height', dimension);
+								expect(loadingSkeleton).toBeDefined();
+							}
+						},
+					);
+				});
+			},
+		);
 	});
 });

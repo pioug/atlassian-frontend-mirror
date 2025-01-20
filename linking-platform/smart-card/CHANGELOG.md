@@ -1,5 +1,22 @@
 # @atlaskit/smart-card
 
+## 34.5.1
+
+### Patch Changes
+
+- [#103879](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103879)
+  [`240f31e69928a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/240f31e69928a) -
+  [ux] Update size and color props of block card icons
+
+## 34.5.0
+
+### Minor Changes
+
+- [#99391](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/99391)
+  [`0ef7aea2187eb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0ef7aea2187eb) -
+  [ux] Allow shift key to be considered a special key to allow Chromium-based browsers behave
+  natively when users click on smart links while holding the shift key.
+
 ## 34.4.0
 
 ### Minor Changes

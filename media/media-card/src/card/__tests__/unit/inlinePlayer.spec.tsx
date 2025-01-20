@@ -17,7 +17,7 @@ import {
 } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem } from '@atlaskit/media-test-data';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
-import { createMockedMediaClientProvider } from '../../../__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
+import { createMockedMediaClientProvider } from '../../../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 
 describe('<InlinePlayer />', () => {
 	// Media Client Mock

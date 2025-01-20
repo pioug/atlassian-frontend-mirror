@@ -120,7 +120,8 @@ export const uploadFile = (
 	} catch (err) {
 		if (err instanceof Error && err.message === fileSizeError) {
 			callbacks?.onUploadFinish(
-				new UploaderError(err.message, id, {
+				new UploaderError(err.message, {
+					id,
 					collectionName: collection,
 					occurrenceKey: occurrenceKey,
 				}),

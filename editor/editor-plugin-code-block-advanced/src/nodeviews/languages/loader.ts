@@ -1,48 +1,44 @@
+import { LanguageSupport } from '@codemirror/language';
+
+import { mapLanguageToCodeMirror } from './languageMap';
+
 /**
- * Commented out for hot-114295
+ * Manages loading the languages (for syntax highlighting, etc.)
+ * from CodeMirror and updating the language in the CodeMirror view
  */
-export const noop = () => {};
-// import { LanguageSupport } from '@codemirror/language';
+export class LanguageLoader {
+	private languageName: string = '';
 
-// import { mapLanguageToCodeMirror } from './languageMap';
+	constructor(private updateLanguageCompartment: (value: LanguageSupport | []) => void) {}
 
-// /**
-//  * Manages loading the languages (for syntax highlighting, etc.)
-//  * from CodeMirror and updating the language in the CodeMirror view
-//  */
-// export class LanguageLoader {
-// 	private languageName: string = '';
+	updateLanguage(languageName: string) {
+		if (languageName === this.languageName) {
+			return;
+		}
+		const language = mapLanguageToCodeMirror(languageName);
 
-// 	constructor(private updateLanguageCompartment: (value: LanguageSupport | []) => void) {}
+		const configureEmpty = () => {
+			this.updateLanguageCompartment([]);
+			this.languageName = '';
+		};
 
-// 	updateLanguage(languageName: string) {
-// 		if (languageName === this.languageName) {
-// 			return;
-// 		}
-// 		const language = mapLanguageToCodeMirror(languageName);
+		if (!language) {
+			configureEmpty();
+			return;
+		}
 
-// 		const configureEmpty = () => {
-// 			this.updateLanguageCompartment([]);
-// 			this.languageName = '';
-// 		};
-
-// 		if (!language) {
-// 			configureEmpty();
-// 			return;
-// 		}
-
-// 		language
-// 			.load()
-// 			.then((lang) => {
-// 				if (lang) {
-// 					this.updateLanguageCompartment(lang);
-// 					this.languageName = languageName;
-// 				} else {
-// 					configureEmpty();
-// 				}
-// 			})
-// 			.catch(() => {
-// 				configureEmpty();
-// 			});
-// 	}
-// }
+		language
+			.load()
+			.then((lang) => {
+				if (lang) {
+					this.updateLanguageCompartment(lang);
+					this.languageName = languageName;
+				} else {
+					configureEmpty();
+				}
+			})
+			.catch(() => {
+				configureEmpty();
+			});
+	}
+}

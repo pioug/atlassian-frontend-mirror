@@ -266,6 +266,15 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2025-01-15
+	platform_editor_ai_advanced_prompts: {
+		productKeys: {
+			confluence: 'platform_editor_ai_advanced_prompts',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 	expand_selection_range_to_include_inline_node: {
 		productKeys: {
 			confluence: 'expand_selection_range_to_include_inline_node',

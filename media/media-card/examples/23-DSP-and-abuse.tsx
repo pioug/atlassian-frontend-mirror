@@ -7,7 +7,7 @@ import { generateItemWithBinaries } from '@atlaskit/media-test-data';
 import { ToggleBox } from '../example-helpers/svg-helpers';
 
 import { MainWrapper } from '../example-helpers';
-import { useCreateMockedMediaClientProviderWithBinaries } from '../src/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
+import { useCreateMockedMediaClientProviderWithBinaries } from '../src/utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProviderWithBinaries';
 
 const dummyMediaClientConfig = {} as MediaClientConfig;
 

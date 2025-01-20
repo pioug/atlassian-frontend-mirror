@@ -109,6 +109,8 @@ describe('Polling Function', () => {
 
 		expect(errorThrown.attributes.reason).toEqual('pollingMaxAttemptsExceeded');
 		expect(errorThrown.attributes.attempts).toBe(1);
+		expect(errorThrown.reason).toEqual('pollingMaxAttemptsExceeded');
+		expect(errorThrown.metadata.attempts).toBe(1);
 	});
 
 	it('should call onError if executor has exception', async () => {
@@ -162,7 +164,7 @@ describe('Polling Function', () => {
 	});
 
 	it('should detect a polling error', () => {
-		const error2 = new PollingError('pollingMaxAttemptsExceeded', 1);
+		const error2 = new PollingError('pollingMaxAttemptsExceeded', { attempts: 1 });
 		const error4 = new Error();
 		expect(isPollingError(error2)).toBeTruthy();
 		expect(isPollingError(error4)).toBeFalsy();

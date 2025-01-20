@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.11.5",
+	"version": "203.11.6",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^99.3.0",
+		"@atlaskit/editor-common": "^99.4.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.8.3",
 		"@atlaskit/editor-plugins": "^6.4.0",
@@ -55,7 +55,7 @@
 		"@atlaskit/mention": "^23.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
-		"@atlaskit/tmp-editor-statsig": "^2.37.0",
+		"@atlaskit/tmp-editor-statsig": "^2.38.0",
 		"@atlaskit/tokens": "^3.1.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/width-detector": "^4.3.0",
@@ -96,7 +96,7 @@
 		"@atlaskit/modal-dialog": "^12.19.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/renderer": "^112.8.0",
-		"@atlaskit/smart-card": "^34.4.0",
+		"@atlaskit/smart-card": "^34.5.0",
 		"@atlaskit/synchrony-test-helpers": "^3.0.0",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/util-data-test": "^17.13.0",

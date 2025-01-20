@@ -12,21 +12,34 @@ export type MobileUploadErrorAttributes = {
 		readonly traceContext?: MediaTraceContext;
 	};
 };
-export class MobileUploadError extends BaseMediaClientError<MobileUploadErrorAttributes> {
-	constructor(
-		readonly reason: MobileUploadErrorReason,
-		readonly id: string,
-		readonly metadata?: {
-			readonly collectionName?: string;
-			readonly occurrenceKey?: string;
-			readonly traceContext?: MediaTraceContext;
-		},
-	) {
-		super(reason);
+export type MobileUploadErrorMetadata = {
+	readonly id: string;
+	readonly collectionName?: string;
+	readonly occurrenceKey?: string;
+	readonly traceContext?: MediaTraceContext;
+};
+
+export class MobileUploadError extends BaseMediaClientError<
+	MobileUploadErrorReason,
+	MobileUploadErrorMetadata,
+	undefined,
+	MobileUploadErrorAttributes
+> {
+	// Legacy Attribute. Should be removed
+	public readonly id: string;
+
+	constructor(reason: MobileUploadErrorReason, metadata: MobileUploadErrorMetadata) {
+		super(reason, metadata, undefined);
+		this.id = metadata.id;
 	}
 
+	// TODO: Deprecate this getter https://product-fabric.atlassian.net/browse/CXP-4665
+	/** Will be deprecated. Use the properties `reason` and `metadata` instead */
 	get attributes() {
-		const { reason, id, metadata: { collectionName, occurrenceKey, traceContext } = {} } = this;
+		const {
+			reason,
+			metadata: { id, collectionName, occurrenceKey, traceContext },
+		} = this;
 		return {
 			reason,
 			id,

@@ -739,6 +739,130 @@ const svgFailedProcessing = createGenerator({
 	},
 });
 
+const spreadsheet = createGenerator({
+	type: 'file',
+	id: '51eef4b2-5368-4338-8ac5-159df2ebdb4b',
+	collection: 'contentId-4663819632',
+	details: {
+		mediaType: 'doc',
+		mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+		name: 'Financial Sample.xlsx',
+		size: 83418,
+		processingStatus: 'succeeded',
+		artifacts: {
+			'document.pdf': {
+				url: '/file/51eef4b2-5368-4338-8ac5-159df2ebdb4b/artifact/document.pdf/binary',
+				processingStatus: 'succeeded',
+				size: 414145,
+				mimeType: 'application/pdf',
+				cdnUrl:
+					'https://media-cdn.atlassian.com/us-west-1/v1/cdn/file/51eef4b2-5368-4338-8ac5-159df2ebdb4b/artifact/document.pdf/binary?token=some-test-token',
+			},
+			'document.txt': {
+				url: '/file/51eef4b2-5368-4338-8ac5-159df2ebdb4b/artifact/document.txt/binary',
+				processingStatus: 'succeeded',
+				size: 97517,
+				mimeType: 'text/plain',
+			},
+			'document.html': {
+				url: '/file/51eef4b2-5368-4338-8ac5-159df2ebdb4b/artifact/document.html/binary',
+				processingStatus: 'succeeded',
+				size: 3794642,
+				mimeType: 'text/html',
+			},
+			'thumb_320.jpg': {
+				url: '/file/51eef4b2-5368-4338-8ac5-159df2ebdb4b/artifact/thumb_320.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 31162,
+				mimeType: 'image/jpeg',
+			},
+			'thumb_large.jpg': {
+				url: '/file/51eef4b2-5368-4338-8ac5-159df2ebdb4b/artifact/thumb_320.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 31162,
+				mimeType: 'image/jpeg',
+			},
+			'thumb_120.jpg': {
+				url: '/file/51eef4b2-5368-4338-8ac5-159df2ebdb4b/artifact/thumb_120.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 4229,
+				mimeType: 'image/jpeg',
+				cdnUrl:
+					'https://media-cdn.atlassian.com/us-west-1/v1/cdn/file/51eef4b2-5368-4338-8ac5-159df2ebdb4b/artifact/thumb_120.jpg/binary?token=some-test-token',
+			},
+			'thumb.jpg': {
+				url: '/file/51eef4b2-5368-4338-8ac5-159df2ebdb4b/artifact/thumb_120.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 4229,
+				mimeType: 'image/jpeg',
+			},
+		},
+		representations: {
+			image: {},
+		},
+		createdAt: 1736498327114,
+	},
+});
+
+const csv = createGenerator({
+	type: 'file',
+	id: '4e2459a5-a444-4752-a401-2f1187750d43',
+	collection: 'contentId-4663819632',
+	details: {
+		mediaType: 'doc',
+		mimeType: 'text/plain',
+		name: 'industry.csv',
+		size: 749,
+		processingStatus: 'succeeded',
+		artifacts: {
+			'document.pdf': {
+				url: '/file/4e2459a5-a444-4752-a401-2f1187750d43/artifact/document.pdf/binary',
+				processingStatus: 'succeeded',
+				size: 14631,
+				mimeType: 'application/pdf',
+				cdnUrl:
+					'https://media-cdn.atlassian.com/us-west-1/v1/cdn/file/4e2459a5-a444-4752-a401-2f1187750d43/artifact/document.pdf/binary?token=some-test-token',
+			},
+			'document.txt': {
+				url: '/file/4e2459a5-a444-4752-a401-2f1187750d43/artifact/document.txt/binary',
+				processingStatus: 'succeeded',
+				size: 750,
+				mimeType: 'text/plain',
+			},
+			'thumb_320.jpg': {
+				url: '/file/4e2459a5-a444-4752-a401-2f1187750d43/artifact/thumb_320.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 10606,
+				mimeType: 'image/jpeg',
+			},
+			'thumb_large.jpg': {
+				url: '/file/4e2459a5-a444-4752-a401-2f1187750d43/artifact/thumb_320.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 10606,
+				mimeType: 'image/jpeg',
+			},
+			'thumb_120.jpg': {
+				url: '/file/4e2459a5-a444-4752-a401-2f1187750d43/artifact/thumb_120.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 1558,
+				mimeType: 'image/jpeg',
+				cdnUrl:
+					'https://media-cdn.atlassian.com/us-west-1/v1/cdn/file/4e2459a5-a444-4752-a401-2f1187750d43/artifact/thumb_120.jpg/binary?token=some-test-token',
+			},
+			'thumb.jpg': {
+				url: '/file/4e2459a5-a444-4752-a401-2f1187750d43/artifact/thumb_120.jpg/binary',
+				processingStatus: 'succeeded',
+				size: 1558,
+				mimeType: 'image/jpeg',
+			},
+		},
+		representations: {
+			image: {},
+		},
+		createdAt: 1736497369867,
+	},
+});
+
 export const generateSampleFileItem = {
 	workingImgWithRemotePreview,
 	workingImgWithRemotePreviewInRecentsCollection,
@@ -765,4 +889,6 @@ export const generateSampleFileItem = {
 	abuseImage,
 	abuseSvg,
 	abuseFailedVideo,
+	csv,
+	spreadsheet,
 };

@@ -143,6 +143,9 @@ const createMockedMediaClientProviderWithApi: CreateMockedMediaClientProviderWit
 
 export interface CreateMockedMediaClientProviderResult extends CreateMockedMediaApiResult {
 	mediaStore: MediaStore;
+	/** Moves the fileItem to upload status with the progress provided.
+	 * - If 'error' is passed, the FileState will be ErrorFileState with a ServerUnauthorizedError within it
+	 * */
 	uploadItem: UploadHelper;
 	processItem: ProcessHelper;
 	getLocalPreview: GetLocalPreviewHelper;

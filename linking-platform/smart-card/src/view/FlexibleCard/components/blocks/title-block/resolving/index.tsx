@@ -4,10 +4,14 @@
  * @jsx jsx
  */
 
-import { cssMap, jsx } from '@compiled/react';
+import { css, cssMap, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../../../../../constants';
-import LoadingSkeleton from '../../../common/loading-skeleton';
+import { LoadingSkeletonNew, LoadingSkeletonOld } from '../../../common/loading-skeleton';
+import { getIconWidthNew } from '../../../utils';
 import Block from '../../block';
 import { type TitleBlockViewProps } from '../types';
 
@@ -103,6 +107,11 @@ const iconStyle = cssMap({
 		},
 	},
 });
+
+const titleBlockGapStyle = css({
+	gap: token('space.100'),
+});
+
 /**
  * This represents a TitleBlock for a Smart Link that is currently waiting
  * for a request to finish.
@@ -118,12 +127,31 @@ const TitleBlockResolvingViewNew = ({
 }: TitleBlockViewProps) => {
 	const { size = SmartLinkSize.Medium } = blockProps;
 
+	if (fg('platform-smart-card-icon-migration')) {
+		const iconWidth = getIconWidthNew(size);
+
+		return (
+			<Block {...blockProps} css={titleBlockGapStyle} testId={`${testId}-resolving-view`}>
+				{!hideIcon && (
+					<span style={{ width: iconWidth, height: iconWidth }} data-testid={`${testId}-icon`}>
+						<LoadingSkeletonNew
+							width={iconWidth}
+							height={iconWidth}
+							testId={`${testId}-icon-loading`}
+						/>
+					</span>
+				)}
+				{title}
+				{actionGroup}
+			</Block>
+		);
+	}
+
 	return (
 		<Block {...blockProps} testId={`${testId}-resolving-view`}>
 			{!hideIcon && (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<span css={[iconStyle[size]]} data-testid={`${testId}-icon`}>
-					<LoadingSkeleton testId={`${testId}-icon-loading`} />
+					<LoadingSkeletonOld testId={`${testId}-icon-loading`} />
 				</span>
 			)}
 			{title}

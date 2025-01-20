@@ -2,12 +2,19 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+import React from 'react';
+
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { CustomBlock } from '../../../../FlexibleCard/components/blocks';
 import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
-import LoadingSkeleton from '../../../../FlexibleCard/components/common/loading-skeleton';
+import {
+	LoadingSkeletonNew,
+	LoadingSkeletonOld,
+} from '../../../../FlexibleCard/components/common/loading-skeleton';
 import Icon from '../../../../FlexibleCard/components/elements/icon';
 import { CARD_WIDTH_REM } from '../../../styled';
 
@@ -29,6 +36,10 @@ const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps) =>
 		<ActionGroup items={actions} visibleButtonsNum={2} />
 	);
 
+	const LoadingSkeleton = fg('platform-smart-card-icon-migration')
+		? LoadingSkeletonNew
+		: LoadingSkeletonOld;
+
 	return (
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={loadingViewContainer} data-testid={testId}>
@@ -42,13 +53,27 @@ const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps) =>
 					<Icon render={() => <LoadingSkeleton />} size={size} />
 					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 					<span css={getTitleStyles(lineHeightRem)} data-testid={`${testId}-title`}>
-						<LoadingSkeleton height={lineHeightRem} />
+						{fg('platform-smart-card-icon-migration') ? (
+							<LoadingSkeletonNew height={`${lineHeightRem}rem`} />
+						) : (
+							<LoadingSkeletonOld height={lineHeightRem} />
+						)}
 					</span>
 					{actionGroup}
 				</CustomBlock>
-				<LoadingSkeleton width={skeletonWidth} height={lineHeightRem} />
-				<LoadingSkeleton width={skeletonWidth} height={lineHeightRem * 3} />
-				<LoadingSkeleton width={skeletonWidth} height={lineHeightRem} />
+				{fg('platform-smart-card-icon-migration') ? (
+					<React.Fragment>
+						<LoadingSkeletonNew width={`${skeletonWidth}rem`} height={`${lineHeightRem}rem`} />
+						<LoadingSkeletonNew width={`${skeletonWidth}rem`} height={`${lineHeightRem * 3}rem`} />
+						<LoadingSkeletonNew width={`${skeletonWidth}rem`} height={`${lineHeightRem}rem`} />
+					</React.Fragment>
+				) : (
+					<React.Fragment>
+						<LoadingSkeletonOld width={skeletonWidth} height={lineHeightRem} />
+						<LoadingSkeletonOld width={skeletonWidth} height={lineHeightRem * 3} />
+						<LoadingSkeletonOld width={skeletonWidth} height={lineHeightRem} />
+					</React.Fragment>
+				)}
 			</div>
 		</div>
 	);

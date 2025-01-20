@@ -1,5 +1,28 @@
 # @atlaskit/media-client
 
+## 30.0.0
+
+### Major Changes
+
+- [#102527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102527)
+  [`a90d34cd14faf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a90d34cd14faf) -
+  Updated the constructor of the following classes. Consult the type definitions for details.
+
+  - `RequestError`
+
+  - `PollingError`
+
+  - `FileFetcherError`
+
+### Minor Changes
+
+- [#102527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102527)
+  [`a90d34cd14faf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a90d34cd14faf) - -
+  New error verification helper `isCommonMediaClientError`
+
+  - `ErrorFileState` is now deserializable into a `CommonMediaClientError` using new export
+    `toCommonMediaClientError`
+
 ## 29.1.0
 
 ### Minor Changes

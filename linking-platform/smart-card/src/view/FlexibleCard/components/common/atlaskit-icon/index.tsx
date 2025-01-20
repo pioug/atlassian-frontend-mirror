@@ -2,15 +2,17 @@ import React from 'react';
 
 import Loadable from 'react-loadable';
 
-import DocumentIcon from '@atlaskit/icon-file-type/glyph/document/16';
-import BlogIcon from '@atlaskit/icon-object/glyph/blog/16';
+import DocumentIconOld from '@atlaskit/icon-file-type/glyph/document/16';
+import BlogIconOld from '@atlaskit/icon-object/glyph/blog/16';
 import { ConfluenceIcon, JiraIcon } from '@atlaskit/logo';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { IconType } from '../../../../../constants';
-import { getLazyIcons } from '../../../../../utils';
+import BlogIconNew from '../../../../../common/ui/icons/blog-icon';
+import DocumentIconNew from '../../../../../common/ui/icons/page-icon';
+import { IconType, SmartLinkSize } from '../../../../../constants';
+import { getLazyIcons, isIconSizeLarge } from '../../../../../utils';
 
 import { type AtlaskitIconProps } from './types';
 
@@ -97,9 +99,13 @@ const importIconMapperOld: {
   [IconType.SubTasksProgress]: () => import(/* webpackChunkName: "glyphSubtaskProgress" */ '@atlaskit/icon/glyph/subtask'),
 };
 
-const getIconImportFn = (icon: IconType): (() => Promise<any>) | undefined => {
+const getIconImportFn = (icon: IconType, size: SmartLinkSize): (() => Promise<any>) | undefined => {
 	if (fg('platform-smart-card-icon-migration')) {
-		return getLazyIcons()[icon];
+		const item = getLazyIcons()[icon];
+		if (isIconSizeLarge(size) && item?.large) {
+			return item.large;
+		}
+		return item?.default;
 	}
 
 	return importIconMapperOld[icon];
@@ -112,16 +118,35 @@ const importIcon = (importFn: () => Promise<any>): any => {
 	}) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
 };
 
-const AtlaskitIcon = ({ icon, label, testId }: AtlaskitIconProps) => {
+const AtlaskitIcon = ({ icon, label, testId, size = SmartLinkSize.Medium }: AtlaskitIconProps) => {
+	const DocumentIcon = fg('platform-smart-card-icon-migration') ? DocumentIconNew : DocumentIconOld;
+	const BlogIcon = fg('platform-smart-card-icon-migration') ? BlogIconNew : BlogIconOld;
+
 	// Check for synchonously loaded icons first for SSR purposes
 	switch (icon) {
 		case IconType.Document:
-			return <DocumentIcon label={label || 'document'} testId={testId} />;
+			return (
+				<DocumentIcon
+					label={label || 'document'}
+					testId={testId}
+					{...(fg('platform-smart-card-icon-migration') && {
+						size,
+					})}
+				/>
+			);
 		case IconType.Blog:
-			return <BlogIcon label={label || 'blog'} testId={testId} />;
+			return (
+				<BlogIcon
+					label={label || 'blog'}
+					testId={testId}
+					{...(fg('platform-smart-card-icon-migration') && {
+						size,
+					})}
+				/>
+			);
 	}
 
-	const importFn = getIconImportFn(icon);
+	const importFn = getIconImportFn(icon, size);
 	if (!importFn) {
 		return null;
 	}
@@ -130,20 +155,51 @@ const AtlaskitIcon = ({ icon, label, testId }: AtlaskitIconProps) => {
 
 	switch (icon) {
 		case IconType.Confluence:
-			return <ConfluenceIcon appearance="brand" testId={testId} />;
+			return (
+				<ConfluenceIcon
+					appearance="brand"
+					testId={testId}
+					{...(fg('platform-smart-card-icon-migration') && {
+						size: size === SmartLinkSize.Large ? 'small' : 'xsmall',
+					})}
+				/>
+			);
 		case IconType.Jira:
-			return <JiraIcon appearance="brand" testId={testId} />;
+			return (
+				<JiraIcon
+					appearance="brand"
+					testId={testId}
+					{...(fg('platform-smart-card-icon-migration') && {
+						size: size === SmartLinkSize.Large ? 'small' : 'xsmall',
+					})}
+				/>
+			);
 		case IconType.Error:
 		case IconType.Forbidden:
 			return (
 				<ImportedIcon
 					label={label}
 					testId={testId}
-					primaryColor={token('color.icon.danger', R400)}
+					{...(fg('platform-smart-card-icon-migration')
+						? {
+								size,
+								color: token('color.icon.danger'),
+							}
+						: {
+								primaryColor: token('color.icon.danger', R400),
+							})}
 				/>
 			);
 		default:
-			return <ImportedIcon label={label} testId={testId} />;
+			return (
+				<ImportedIcon
+					label={label}
+					testId={testId}
+					{...(fg('platform-smart-card-icon-migration') && {
+						size,
+					})}
+				/>
+			);
 	}
 };
 

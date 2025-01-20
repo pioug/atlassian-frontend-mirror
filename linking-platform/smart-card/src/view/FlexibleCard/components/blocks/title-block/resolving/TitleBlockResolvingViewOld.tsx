@@ -7,7 +7,7 @@
 import { jsx } from '@emotion/react';
 
 import { SmartLinkSize } from '../../../../../../constants';
-import LoadingSkeleton from '../../../common/loading-skeleton';
+import { LoadingSkeletonOld } from '../../../common/loading-skeleton';
 import { getIconSizeStyles, getIconWidth } from '../../../utils';
 import Block from '../../block';
 import { type TitleBlockViewProps } from '../types';
@@ -34,7 +34,7 @@ const TitleBlockResolvingView = ({
 			{!hideIcon && (
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				<span css={iconStyles} data-testid={`${testId}-icon`}>
-					<LoadingSkeleton testId={`${testId}-icon-loading`} />
+					<LoadingSkeletonOld testId={`${testId}-icon-loading`} />
 				</span>
 			)}
 			{title}

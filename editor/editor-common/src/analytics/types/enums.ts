@@ -102,6 +102,7 @@ export enum ACTION {
 	SLOW_INPUT = 'slowInput',
 	STARTED = 'started',
 	STOPPED = 'stopped',
+	SUBMITTED = 'submitted',
 	SUBSTITUTED = 'autoSubstituted',
 	SYNCHRONY_DISCONNECTED = 'synchronyDisconnected',
 	SYNCHRONY_ENTITY_ERROR = 'synchronyEntityError',

@@ -1,3 +1,9 @@
+import { type MediaTraceContext } from '@atlaskit/media-common';
+
+export interface SerializableObject {
+	[key: string]: string | number | boolean | null | undefined | SerializableObject;
+}
+
 export type MediaClientErrorReason =
 	// RequestErrorReason ----------------------------
 	| 'clientOffline'
@@ -29,6 +35,11 @@ export type MediaClientErrorReason =
 	| 'fileSizeExceedsLimit'
 	// DeprecatedErrorReason ----------------------------
 	| 'deprecatedEndpoint';
+
+export type MediaClientErrorMetadata = SerializableObject & {
+	// Common attributes (must be serializable)
+	traceContext?: MediaTraceContext;
+};
 
 export interface MediaClientErrorAttributes {
 	reason: MediaClientErrorReason;

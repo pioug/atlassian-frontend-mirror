@@ -23,9 +23,8 @@ import { act, fireEvent, render, screen, waitFor, within } from '@testing-librar
 import userEvent from '@testing-library/user-event';
 import CardLoader from './cardLoader';
 import React from 'react';
-import { MediaFileStateError } from '@atlaskit/media-client-react';
 import { MockedMediaClientProvider } from '@atlaskit/media-client-react/test-helpers';
-import { createMockedMediaClientProvider } from '../__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
+import { createMockedMediaClientProvider } from '../utils/__tests__/utils/mockedMediaClientProvider/_MockedMediaClientProvider';
 import { createMockedMediaApi } from '@atlaskit/media-client/test-helpers';
 import { generateSampleFileItem, sampleBinaries } from '@atlaskit/media-test-data';
 import { tallImage, asMockFunction, sleep } from '@atlaskit/media-test-helpers';
@@ -4021,7 +4020,7 @@ describe('Card ', () => {
 					{ timeout: 5_000 },
 				);
 
-				expect(completeUfoExperience).toBeCalledTimes(3);
+				expect(completeUfoExperience).toHaveBeenCalledTimes(3);
 				expect(completeUfoExperience).toHaveBeenLastCalledWith(
 					expect.any(String),
 					expect.any(String),
@@ -4060,7 +4059,7 @@ describe('Card ', () => {
 						'complete',
 					),
 				);
-				expect(completeUfoExperience).toBeCalledTimes(2);
+				expect(completeUfoExperience).toHaveBeenCalledTimes(2);
 				expect(completeUfoExperience).toHaveBeenLastCalledWith(
 					expect.any(String),
 					expect.any(String),
@@ -4102,7 +4101,7 @@ describe('Card ', () => {
 						'complete',
 					),
 				);
-				expect(completeUfoExperience).toBeCalledTimes(1);
+				expect(completeUfoExperience).toHaveBeenCalledTimes(1);
 				expect(completeUfoExperience).toHaveBeenLastCalledWith(
 					expect.any(String),
 					expect.any(String),
@@ -4142,7 +4141,7 @@ describe('Card ', () => {
 				);
 
 				await waitFor(() => {
-					expect(completeUfoExperience).toBeCalledTimes(1);
+					expect(completeUfoExperience).toHaveBeenCalledTimes(1);
 				});
 
 				expect(completeUfoExperience).toHaveBeenLastCalledWith(
@@ -4157,17 +4156,11 @@ describe('Card ', () => {
 					},
 					{ wasStatusUploading: false, wasStatusProcessing: false },
 					expect.any(Object),
-					new MediaCardError(
-						'metadata-fetch',
-						new MediaFileStateError(fileItem.id, 'serverRateLimited', undefined, {
-							statusCode: 429,
-						}),
-					),
+					new MediaCardError('metadata-fetch', new Error()),
 				);
 				expect((completeUfoExperience as jest.Mock).mock.calls[0][5].secondaryError).toMatchObject({
-					id: fileItem.id,
 					reason: 'serverRateLimited',
-					details: { statusCode: 429 },
+					metadata: { statusCode: 429 },
 				});
 			});
 
@@ -4198,7 +4191,7 @@ describe('Card ', () => {
 				);
 
 				await waitFor(() => {
-					expect(completeUfoExperience).toBeCalledTimes(1);
+					expect(completeUfoExperience).toHaveBeenCalledTimes(1);
 				});
 
 				expect(completeUfoExperience).toHaveBeenLastCalledWith(
@@ -4213,17 +4206,11 @@ describe('Card ', () => {
 					},
 					{ wasStatusUploading: false, wasStatusProcessing: false },
 					expect.any(Object),
-					new MediaCardError(
-						'metadata-fetch',
-						new MediaFileStateError(fileItem.id, 'pollingMaxAttemptsExceeded', undefined, {
-							attempts: 2,
-						}),
-					),
+					new MediaCardError('metadata-fetch', new Error()),
 				);
 				expect((completeUfoExperience as jest.Mock).mock.calls[0][5].secondaryError).toMatchObject({
-					id: fileItem.id,
 					reason: 'pollingMaxAttemptsExceeded',
-					details: { attempts: 2 },
+					metadata: { attempts: 2 },
 				});
 			});
 		});
@@ -4517,6 +4504,11 @@ describe('Card ', () => {
 							errorDetail: 'serverRateLimited',
 							request: {
 								traceContext: { traceId: expect.any(String), spanId: expect.any(String) },
+								statusCode: 429,
+								attempts: 5,
+								clientExhaustedRetries: true,
+								mediaEnv: 'test-media-env',
+								mediaRegion: 'test-media-region',
 							},
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
 							traceContext: { traceId: expect.any(String) },
@@ -4579,7 +4571,7 @@ describe('Card ', () => {
 							failReason: 'metadata-fetch',
 							error: 'pollingMaxAttemptsExceeded',
 							errorDetail: 'pollingMaxAttemptsExceeded',
-							request: undefined,
+							request: { attempts: 2 },
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
 							traceContext: { traceId: expect.any(String) },
 							metadataTraceContext: undefined,
@@ -4766,6 +4758,11 @@ describe('Card ', () => {
 							error: 'serverUnauthorized',
 							errorDetail: 'serverUnauthorized',
 							request: {
+								attempts: 5,
+								clientExhaustedRetries: true,
+								mediaEnv: 'test-media-env',
+								mediaRegion: 'test-media-region',
+								statusCode: 403,
 								traceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 							},
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
@@ -4826,6 +4823,9 @@ describe('Card ', () => {
 							error: 'emptyItems',
 							errorDetail: 'emptyItems',
 							request: {
+								id: fileItem.id,
+								collectionName: 'MediaServicesSample',
+								occurrenceKey: undefined,
 								traceContext: { traceId: expect.any(String), spanId: expect.any(String) },
 							},
 							ssrReliability: { server: { status: 'unknown' }, client: { status: 'unknown' } },
@@ -4940,7 +4940,7 @@ describe('Card ', () => {
 				);
 
 				unmount();
-				expect(abortUfoExperience).toBeCalledTimes(1);
+				expect(abortUfoExperience).toHaveBeenCalledTimes(1);
 				expect(abortUfoExperience).toHaveBeenCalledWith(expect.any(String), {
 					fileAttributes: {
 						fileId: fileItem.id,
@@ -4997,7 +4997,7 @@ describe('Card ', () => {
 				);
 
 				unmount();
-				expect(abortUfoExperience).toBeCalledTimes(1);
+				expect(abortUfoExperience).toHaveBeenCalledTimes(1);
 				expect(abortUfoExperience).toHaveBeenCalledWith(expect.any(String), {
 					fileAttributes: {
 						fileMediatype: 'image',

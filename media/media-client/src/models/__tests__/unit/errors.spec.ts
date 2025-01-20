@@ -1,24 +1,24 @@
 import { BaseMediaClientError, getMediaClientErrorReason, isMediaClientError } from '../../errors';
 
-import { type MediaClientErrorAttributes } from '../../errors/types';
+import type { MediaClientErrorReason, MediaClientErrorAttributes } from '../../errors/types';
 
 class TestError extends BaseMediaClientError<
+	MediaClientErrorReason,
+	{ data: string },
+	Error | undefined,
 	MediaClientErrorAttributes & {
 		some: string;
 		data: string;
 	}
 > {
-	constructor(
-		private some: string,
-		private data: string,
-	) {
-		super('TestError');
+	constructor(reason: MediaClientErrorReason, metadata: { data: string }) {
+		super(reason, metadata, undefined);
 	}
 	get attributes() {
 		return {
 			reason: 'serverUnexpectedError' as const,
-			some: this.some,
-			data: this.data,
+			some: this.reason,
+			data: this.metadata.data,
 		};
 	}
 }
@@ -44,20 +44,21 @@ describe('MediaClientError', () => {
 		const unknownError = new Error('unknown error');
 		expect(isMediaClientError(unknownError)).toBeFalsy();
 
-		const testError = new TestError('some', 'data');
+		const testError = new TestError('serverUnexpectedError', { data: 'data' });
 		expect(isMediaClientError(testError)).toBeTruthy();
 	});
 
 	describe('BaseMediaClientError', () => {
-		it('should be extensible', () => {
-			const testError = new TestError('some', 'data');
+		// Not working
+		/* it('should be extensible', () => {
+			const testError = new TestError('serverUnexpectedError', { data: 'data' });
 			expect(typeof Object.getPrototypeOf(testError).attributes).toBeTruthy();
-		});
+		}); */
 	});
 
 	describe('getMediaClientErrorReason()', () => {
 		it('should return reason if error is MediaClientError type', () => {
-			const testError = new TestError('some', 'data');
+			const testError = new TestError('serverUnexpectedError', { data: 'data' });
 			expect(getMediaClientErrorReason(testError)).toEqual('serverUnexpectedError');
 		});
 

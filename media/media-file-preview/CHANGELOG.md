@@ -1,5 +1,14 @@
 # @atlaskit/media-file-preview
 
+## 0.9.6
+
+### Patch Changes
+
+- [#102527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102527)
+  [`a90d34cd14faf`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a90d34cd14faf) -
+  Updated ErrorFileState deserialisation and error logging
+- Updated dependencies
+
 ## 0.9.5
 
 ### Patch Changes

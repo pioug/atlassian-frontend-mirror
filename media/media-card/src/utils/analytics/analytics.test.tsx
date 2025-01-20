@@ -144,7 +144,7 @@ describe('Media Analytics', () => {
 					fileAttributes,
 					performanceAttributes,
 					status: 'fail',
-					failReason: getRenderErrorFailReason(error),
+					failReason: 'metadata-fetch',
 					error: getRenderErrorErrorReason(error),
 					errorDetail: getRenderErrorErrorDetail(error),
 					request: getRenderErrorRequestMetadata(error),

@@ -12,8 +12,9 @@ import {
 	isProcessedFileState,
 	type NonErrorFileState,
 	isErrorFileState,
+	toCommonMediaClientError,
 } from '@atlaskit/media-client';
-import { MediaFileStateError, useFileState, useMediaClient } from '@atlaskit/media-client-react';
+import { useFileState, useMediaClient } from '@atlaskit/media-client-react';
 import {
 	getRandomHex,
 	isMimeTypeSupportedByBrowser,
@@ -28,15 +29,7 @@ import {
 	type ViewerOptionsProps,
 	MediaViewerWithPortal,
 } from '@atlaskit/media-viewer';
-import React, {
-	Suspense,
-	useEffect,
-	useMemo,
-	useRef,
-	useState,
-	createRef,
-	useCallback,
-} from 'react';
+import React, { Suspense, useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { useMergeRefs } from 'use-callback-ref';
 import { MediaCardError } from '../errors';
@@ -171,7 +164,7 @@ export const FileCard = ({
 	includeHashForDuplicateFiles,
 }: FileCardProps) => {
 	const { formatMessage } = useIntl();
-	const openModalRef = createRef<() => void>();
+	const [isAbuseModalOpen, setIsAbuseModalOpen] = useState(false);
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	//----------------------------------------------------------------//
 	//------------ State, Refs & Initial Values ----------------------//
@@ -383,7 +376,7 @@ export const FileCard = ({
 		if (finalStatus === 'failed-processing' || shouldEnableDownloadButton) {
 			const handler = async () => {
 				if (!!fileStateValue?.abuseClassification) {
-					openModalRef.current?.();
+					setIsAbuseModalOpen(true);
 				} else {
 					await downloadFn();
 				}
@@ -406,7 +399,6 @@ export const FileCard = ({
 		finalStatus,
 		formatMessage,
 		fileStateValue?.abuseClassification,
-		openModalRef,
 		downloadFn,
 	]);
 
@@ -712,12 +704,7 @@ export const FileCard = ({
 				setStatus(newStatus);
 				uploadProgressRef.current = newProgress;
 			} else {
-				const e = new MediaFileStateError(
-					fileState.id,
-					fileState.reason,
-					fileState.message,
-					fileState.details,
-				);
+				const e = toCommonMediaClientError(fileState);
 
 				const errorReason = finalStatus === 'uploading' ? 'upload' : 'metadata-fetch';
 				setError(new MediaCardError(errorReason, e));
@@ -845,11 +832,13 @@ export const FileCard = ({
 
 	return (
 		<>
-			<AbuseModal
-				ref={openModalRef}
-				onConfirm={downloadFn}
-				shouldMount={!!fileStateValue?.abuseClassification}
-			/>
+			{!!fileStateValue?.abuseClassification && (
+				<AbuseModal
+					isOpen={isAbuseModalOpen}
+					onConfirm={downloadFn}
+					onClose={() => setIsAbuseModalOpen(false)}
+				/>
+			)}
 			{isPlayingFile ? (
 				<Suspense fallback={inlinePlayerFallback}>
 					<InlinePlayerLazy

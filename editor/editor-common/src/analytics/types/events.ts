@@ -11,6 +11,7 @@ import type {
 import { type AICommandPaletteEventPayload } from './ai-command-palette-events';
 import { type AIDefinitionsEventPayload } from './ai-definitions-events';
 import { type AIProactiveEventPayload } from './ai-proactive-events';
+import type { AIUnifiedEventPayload } from './ai-unified-events';
 import type { AvatarEventPayload } from './avatar';
 import { type BreakoutEventPayload } from './breakout-events';
 import type { ConfigPanelEventPayload } from './config-panel-events';
@@ -121,6 +122,7 @@ export type AnalyticsEventPayload<T = void> =
 	| AICommandPaletteEventPayload
 	| AIDefinitionsEventPayload
 	| AIProactiveEventPayload
+	| AIUnifiedEventPayload
 	| BreakoutEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<

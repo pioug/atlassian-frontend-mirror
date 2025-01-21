@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.2.1
+
+### Patch Changes
+
+- [#103444](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103444)
+  [`5d5006fe81146`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5d5006fe81146) -
+  AFB-822 Refactor ESLint rule and added an extra case for when ESLint rule should throw error but
+  not provide a fix
+
 ## 2.2.0
 
 ### Minor Changes

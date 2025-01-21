@@ -39,7 +39,7 @@
 	"devDependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
-		"@atlaskit/editor-test-helpers": "^21.0.0",
+		"@atlaskit/editor-test-helpers": "^21.1.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

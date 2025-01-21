@@ -32,14 +32,33 @@ const spaceItems = [
 ] as const;
 
 const styles = cssMap({
-	block: { borderRadius: token('border.radius.050'), padding: token('space.200') },
-	blockSmall: { padding: token('space.050') },
+	block: {
+		borderRadius: token('border.radius.050'),
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
+	},
+	blockSmall: {
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+	},
 	container: {
 		display: 'flex',
 		borderRadius: token('border.radius.050'),
-		padding: token('space.050'),
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
 	},
-	exampleWrapper: { padding: token('space.200') },
+	exampleWrapper: {
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
+	},
 	setWidth: { width: '200px' },
 	setHeight: { width: '200px' },
 });

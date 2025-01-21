@@ -68,6 +68,19 @@ describe('DocumentService onRestore', () => {
 			});
 		});
 
+		it('sets hasRecovered flag to true if triggered by page recovery', async () => {
+			getUnconfirmedStepsSpy.mockReturnValue([]);
+			getCurrentStateSpy.mockReturnValue({ content: 'something' });
+			provider.on('init', (data: any) => {
+				expect(data).toEqual({
+					...dummyPayload,
+					reserveCursor: true,
+				});
+			});
+			await provider.documentService.onRestore(dummyPayload);
+			expect(provider.documentService.hasRecovered).toBe(true);
+		});
+
 		describe('without unconfirmed steps', () => {
 			beforeEach(async () => {
 				getUnconfirmedStepsSpy.mockReturnValue([]);
@@ -265,6 +278,13 @@ describe('DocumentService onRestore', () => {
 			await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '999999' });
 			expect(getCurrentStateSpy).not.toHaveBeenCalled();
 			expect(fetchReconcileSpy).not.toHaveBeenCalled();
+		});
+
+		it('does not set hasRecovered flag to true if triggered for targetClientId', async () => {
+			getUnconfirmedStepsSpy.mockReturnValue([]);
+			getCurrentStateSpy.mockReturnValue({ content: 'something' });
+			await provider.documentService.onRestore({ ...dummyPayload, targetClientId: '123456' });
+			expect(provider.documentService.hasRecovered).toBe(false);
 		});
 	});
 

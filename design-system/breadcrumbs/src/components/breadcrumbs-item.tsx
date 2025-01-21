@@ -21,7 +21,11 @@ const itemWrapperStyles = css({
 	boxSizing: 'border-box',
 	maxWidth: '100%',
 	height: `${24 / 14}em`,
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	margin: token('space.0', '0px'),
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.0', '0px'),
 	flexDirection: 'row',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766

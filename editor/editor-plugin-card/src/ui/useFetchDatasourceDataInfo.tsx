@@ -9,8 +9,7 @@ import {
 	useDatasourceClientExtension,
 } from '@atlaskit/link-client-extension';
 import type { JiraIssueDatasourceParameters } from '@atlaskit/link-datasource';
-import type { DatasourceParameters } from '@atlaskit/linking-types';
-import { type DatasourceDataRequest } from '@atlaskit/linking-types';
+import type { DatasourceParameters, DatasourceDataRequest } from '@atlaskit/linking-types';
 
 export interface useFetchDatasourceDataInfoProps {
 	datasourceId: string;

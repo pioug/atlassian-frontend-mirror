@@ -9,6 +9,7 @@ import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 import { type MetricsPlugin } from '../metricsPluginType';
 
 import { ActiveSessionTimer } from './utils/active-session-timer';
+import { isNonTextUndo } from './utils/isNonTextUndo';
 
 export const metricsKey = new PluginKey('metricsPlugin');
 
@@ -18,7 +19,7 @@ export type MetricsState = {
 	activeSessionTime: number;
 	totalActionCount: number;
 	lastSelection?: Selection;
-	actionTypeCount?: ActionByType;
+	actionTypeCount: ActionByType;
 	timeOfLastTextInput?: number;
 };
 
@@ -28,6 +29,7 @@ export type ActionByType = {
 	nodeAttributeChangeCount: number;
 	contentMovedCount: number;
 	nodeDeletionCount: number;
+	undoCount: number;
 };
 
 export const initialPluginState: MetricsState = {
@@ -43,6 +45,7 @@ export const initialPluginState: MetricsState = {
 		nodeAttributeChangeCount: 0,
 		contentMovedCount: 0,
 		nodeDeletionCount: 0,
+		undoCount: 0,
 	},
 };
 
@@ -58,17 +61,33 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 
 			apply(tr: ReadonlyTransaction, pluginState: MetricsState): MetricsState {
 				const meta = tr.getMeta(metricsKey);
-				const intentToStartEditTime =
+
+				let intentToStartEditTime =
 					meta?.intentToStartEditTime || pluginState.intentToStartEditTime;
 
 				if (meta && meta.stopActiveSession) {
-					// console.log('stopActiveSession');
 					return { ...pluginState, intentToStartEditTime: undefined, lastSelection: undefined };
 				}
 
 				if (!intentToStartEditTime) {
-					return pluginState;
+					if (tr.docChanged && !tr.getMeta('replaceDocument')) {
+						intentToStartEditTime = performance.now();
+					} else {
+						return pluginState;
+					}
 				}
+
+				const undoCount = isNonTextUndo(tr) ? 1 : 0;
+
+				const newActionTypeCount: ActionByType = pluginState.actionTypeCount
+					? {
+							...pluginState.actionTypeCount,
+							undoCount: pluginState.actionTypeCount.undoCount + undoCount,
+						}
+					: {
+							...initialPluginState.actionTypeCount,
+							undoCount,
+						};
 
 				const canIgnoreTr = () => !tr.steps.every((e: Step) => e instanceof AnalyticsStep);
 				if (tr.docChanged && canIgnoreTr()) {
@@ -88,19 +107,20 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 						};
 					}
 
-					// TODO: Add actionTypeCount
 					return {
 						...pluginState,
 						activeSessionTime: pluginState.activeSessionTime + (now - intentToStartEditTime),
 						totalActionCount: pluginState.totalActionCount + 1,
 						timeOfLastTextInput: isActionTextInput ? now : undefined,
+						actionTypeCount: newActionTypeCount,
 					};
 				}
 
 				return {
 					...pluginState,
 					lastSelection: meta?.newSelection || pluginState.lastSelection,
-					intentToStartEditTime: meta?.intentToStartEditTime || pluginState.intentToStartEditTime,
+					intentToStartEditTime,
+					actionTypeCount: newActionTypeCount,
 				};
 			},
 		},

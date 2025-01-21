@@ -23,7 +23,13 @@ export class UserPickerWithoutAnalytics extends React.Component<UserPickerProps>
 		super(props);
 		this.ufoId = uuidv4();
 		const experienceForId = experience.getInstance(this.ufoId);
-		experienceForId.start();
+		if (
+			![UFOExperienceState.IN_PROGRESS.id, UFOExperienceState.STARTED.id].includes(
+				experienceForId.state.id,
+			)
+		) {
+			experienceForId.start();
+		}
 	}
 
 	static defaultProps = {

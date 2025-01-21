@@ -61,7 +61,7 @@
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/spinner": "^16.3.0",
-		"@atlaskit/tabs": "^17.0.0",
+		"@atlaskit/tabs": "^17.1.0",
 		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^3.1.0",

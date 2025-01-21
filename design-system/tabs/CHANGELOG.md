@@ -1,5 +1,13 @@
 # @atlaskit/tabs
 
+## 17.1.0
+
+### Minor Changes
+
+- [#104842](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104842)
+  [`72f5b10de1847`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/72f5b10de1847) -
+  Migrated from primitives components to primitives/compiled components
+
 ## 17.0.2
 
 ### Patch Changes

@@ -2,6 +2,9 @@ import type { Config } from '../types';
 import { getProduct, getSubProduct, createLogger } from '../helpers/utils';
 import type { Channel } from '../channel';
 import type { DocumentService } from '../document/document-service';
+import { getActiveTraceHttpRequestHeaders } from '@atlaskit/react-ufo/experience-trace-id-context';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { addFeatureFlagAccessed } from '@atlaskit/react-ufo/feature-flags-accessed';
 
 const logger = createLogger('Api', 'blue');
 
@@ -84,6 +87,18 @@ export class Api {
 			this.config.documentAri,
 		)}/comment`;
 		logger(`Request url: `, url);
+
+		//Get tracing headers from UFO
+		const tracingHeaderEnabled = fg('platform_collab_provider_tracingheaders');
+		addFeatureFlagAccessed('platform_collab_provider_tracingheaders', tracingHeaderEnabled);
+		let tracingHeaders: {
+			'X-B3-TraceId'?: string;
+			'X-B3-SpanId'?: string;
+		} | null = {};
+		if (tracingHeaderEnabled) {
+			tracingHeaders = getActiveTraceHttpRequestHeaders(url);
+		}
+
 		const fetchOptions: RequestInit = {
 			credentials: 'include',
 			headers: {
@@ -95,6 +110,7 @@ export class Api {
 				'x-product': getProduct(this.config.productInfo),
 				'x-subproduct': getSubProduct(this.config.productInfo),
 				'Content-Type': 'application/json',
+				...tracingHeaders,
 			},
 			method: 'POST',
 			body: reqBody,

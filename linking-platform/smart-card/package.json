@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "34.5.1",
+	"version": "34.5.2",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -182,6 +182,14 @@
 		},
 		"platform-visual-refresh-icons": {
 			"type": "boolean"
+		},
+		"platform-visual-refresh-icons-legacy-facade": {
+			"type": "boolean",
+			"showOnWebsiteForTransitiveDependencies": true
+		},
+		"platform-component-visual-refresh": {
+			"type": "boolean",
+			"showOnWebsiteForTransitiveDependencies": true
 		},
 		"linking_platform_show_lozenge_atlassian_state": {
 			"type": "boolean"

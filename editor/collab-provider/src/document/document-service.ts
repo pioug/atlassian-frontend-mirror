@@ -52,6 +52,7 @@ export class DocumentService implements DocumentServiceInterface {
 	private stepRejectCounter: number = 0;
 	private aggressiveCatchup: boolean = false;
 	private catchUpOutofSync: boolean = false;
+	private hasRecovered: boolean = false;
 
 	// ClientID is the unique ID for a prosemirror client. Used for step-rebasing.
 	private clientId?: number | string;
@@ -442,6 +443,9 @@ export class DocumentService implements DocumentServiceInterface {
 
 	// Triggered when page recovery has emitted an 'init' event on a page client is currently connected to.
 	onRestore = async ({ doc, version, metadata, targetClientId }: CollabInitPayload) => {
+		if (!targetClientId) {
+			this.hasRecovered = true;
+		}
 		if (targetClientId && this.clientId !== targetClientId) {
 			return;
 		}
@@ -905,6 +909,7 @@ export class DocumentService implements DocumentServiceInterface {
 			analyticsHelper: this.analyticsHelper,
 			emit: this.providerEmitCallback,
 			__livePage: this.options.__livePage,
+			hasRecovered: this.hasRecovered,
 		});
 	}
 }

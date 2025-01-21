@@ -13,7 +13,10 @@ import { token } from '@atlaskit/tokens';
 
 const filmStripViewStyles = css({
 	position: 'relative',
-	padding: `${token('space.025', '3px')} 0`,
+	paddingTop: token('space.025', '3px'),
+	paddingRight: 0,
+	paddingBottom: token('space.025', '3px'),
+	paddingLeft: 0,
 	borderRadius: '3px',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&:hover .arrow': {
@@ -28,7 +31,10 @@ const filmStripViewStyles = css({
 const filmStripListWrapperStyles = css({
 	width: 'inherit',
 	overflow: 'hidden',
-	padding: `${token('space.025', '2px')} ${token('space.025', '3px')}`,
+	paddingTop: token('space.025', '2px'),
+	paddingRight: token('space.025', '3px'),
+	paddingBottom: token('space.025', '2px'),
+	paddingLeft: token('space.025', '3px'),
 });
 
 const filmStripListStyles = css({
@@ -43,7 +49,10 @@ const filmStripListStyles = css({
 const filmStripListItemStyles = css({
 	listStyleType: 'none',
 	margin: 0,
-	padding: `0 ${token('space.050', '4px')}`,
+	paddingTop: 0,
+	paddingRight: token('space.050', '4px'),
+	paddingBottom: 0,
+	paddingLeft: token('space.050', '4px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	':first-of-type': {
 		paddingLeft: 0,

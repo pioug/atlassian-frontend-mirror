@@ -22,6 +22,9 @@ import { type DrawerPanelProps } from '../types';
 
 import FocusLock from './focus-lock';
 
+const LOCAL_CURRENT_SURFACE_CSS_VAR: typeof CURRENT_SURFACE_CSS_VAR =
+	'--ds-elevation-surface-current';
+
 const styles = cssMap({
 	root: {
 		display: 'flex',
@@ -29,7 +32,7 @@ const styles = cssMap({
 		position: 'fixed',
 		zIndex: 500,
 		backgroundColor: token('elevation.surface.overlay'),
-		[CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay'),
+		[LOCAL_CURRENT_SURFACE_CSS_VAR]: token('elevation.surface.overlay'),
 		insetBlockStart: token('space.0'),
 		insetInlineStart: token('space.0'),
 		overflow: 'hidden',

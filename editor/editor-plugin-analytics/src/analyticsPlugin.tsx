@@ -130,7 +130,7 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 					const { createAnalyticsEvent, attachAnalyticsEvent } =
 						api?.analytics?.sharedState.currentState() ?? {};
 					if (!tr || !createAnalyticsEvent || !attachAnalyticsEvent) {
-						analyticsEventPropQueue.add({ payload, channel: channel });
+						analyticsEventPropQueue.add({ payload, channel });
 						return false;
 					}
 
@@ -148,7 +148,7 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 			) => {
 				const { createAnalyticsEvent } = api?.analytics?.sharedState.currentState() ?? {};
 				if (!createAnalyticsEvent) {
-					analyticsEventPropQueue.add({ payload });
+					analyticsEventPropQueue.add({ payload, channel });
 					return;
 				}
 

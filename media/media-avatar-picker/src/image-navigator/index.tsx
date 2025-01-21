@@ -66,10 +66,10 @@ const imageUploaderStyles = css({
 	flexDirection: 'column',
 	justifyContent: 'center',
 	alignItems: 'center',
-	margin: `0 ${token('space.150', '10px')} ${token(
-		'space.250',
-		'20px',
-	)} ${token('space.150', '10px')}`,
+	marginTop: 0,
+	marginRight: token('space.150', '10px'),
+	marginBottom: token('space.250', '20px'),
+	marginLeft: token('space.150', '10px'),
 });
 
 const dragZoneImageStyles = css({

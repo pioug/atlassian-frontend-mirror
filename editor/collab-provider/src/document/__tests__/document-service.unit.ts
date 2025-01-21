@@ -903,6 +903,7 @@ describe('document-service', () => {
 					onErrorHandled: onErrorHandledMock,
 					analyticsHelper: analyticsHelperMock,
 					__livePage: false,
+					hasRecovered: false,
 				});
 				if (shouldLogError) {
 					expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);

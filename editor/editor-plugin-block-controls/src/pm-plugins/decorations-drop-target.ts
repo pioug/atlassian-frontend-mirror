@@ -26,7 +26,6 @@ import { DropTargetLayout, type DropTargetLayoutProps } from '../ui/drop-target-
 import { getNestedDepth, TYPE_DROP_TARGET_DEC, unmountDecorations } from './decorations-common';
 import { type AnchorRectCache } from './utils/anchor-utils';
 import { maxLayoutColumnSupported } from './utils/consts';
-import { isBlocksDragTargetDebug } from './utils/drag-target-debug';
 import { canMoveNodeToIndex, isInSameLayout } from './utils/validation';
 
 const IGNORE_NODES = [
@@ -302,7 +301,7 @@ export const dropTargetDecorations = (
 			const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node);
 
 			//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
-			if (!canDrop && !isBlocksDragTargetDebug()) {
+			if (!canDrop) {
 				pushNodeStack(node, depth);
 				return false; //not valid pos, so nested not valid either
 			}

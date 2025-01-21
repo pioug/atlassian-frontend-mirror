@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection
 
+## 1.6.20
+
+### Patch Changes
+
+- [#104540](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104540)
+  [`ce84e9acae216`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce84e9acae216) -
+  Cleanup platform_editor_mark_boundary_cursor
+
 ## 1.6.19
 
 ### Patch Changes

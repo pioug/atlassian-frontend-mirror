@@ -47,6 +47,7 @@
 		"@atlaskit/feature-gate-js-client": "^4.22.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/prosemirror-collab": "^0.11.0",
+		"@atlaskit/react-ufo": "^2.10.0",
 		"@atlaskit/ufo": "^0.3.0",
 		"@atlaskit/util-service-support": "^6.2.0",
 		"@babel/runtime": "^7.0.0",
@@ -85,6 +86,12 @@
 			"type": "boolean"
 		},
 		"restore_localstep_fallback_reconcile": {
+			"type": "boolean"
+		},
+		"tag_unconfirmed_steps_after_recovery": {
+			"type": "boolean"
+		},
+		"platform_collab_provider_tracingheaders": {
 			"type": "boolean"
 		}
 	}

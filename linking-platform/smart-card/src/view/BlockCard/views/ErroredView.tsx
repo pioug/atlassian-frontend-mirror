@@ -1,6 +1,8 @@
 import React, { useMemo } from 'react';
 
-import WarningIcon from '@atlaskit/icon/glyph/warning';
+import WarningIcon from '@atlaskit/icon/core/migration/warning';
+import LegacyWarningIcon from '@atlaskit/icon/glyph/warning';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -27,13 +29,23 @@ const ErroredView = ({ testId = 'smart-block-errored-view', ...props }: Flexible
 
 	return (
 		<UnresolvedView {...props} actions={actions} testId={testId}>
-			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19513 */}
-			<WarningIcon
-				label="errored-warning-icon"
-				size="small"
-				primaryColor={token('color.icon.warning', R300)}
-				testId={`${testId}-warning-icon`}
-			/>
+			{fg('platform-smart-card-icon-migration') ? (
+				<WarningIcon
+					label="errored-warning-icon"
+					color={token('color.icon.warning')}
+					LEGACY_size="small"
+					testId={`${testId}-warning-icon`}
+				/>
+			) : (
+				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497
+				<LegacyWarningIcon
+					label="errored-warning-icon"
+					size="small"
+					primaryColor={token('color.icon.warning', R300)}
+					testId={`${testId}-warning-icon`}
+				/>
+			)}
+
 			<Text
 				maxLines={3}
 				message={{

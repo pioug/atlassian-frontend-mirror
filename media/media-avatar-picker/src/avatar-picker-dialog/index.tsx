@@ -57,7 +57,10 @@ const modalHeaderStyles = css({
 	// Using `&` twice to increase specificity
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
-		margin: token('space.200', '16px'),
+		marginTop: token('space.200', '16px'),
+		marginRight: token('space.200', '16px'),
+		marginBottom: token('space.200', '16px'),
+		marginLeft: token('space.200', '16px'),
 		font: token('font.heading.medium'),
 	},
 });

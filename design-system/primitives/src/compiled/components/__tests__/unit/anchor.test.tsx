@@ -18,6 +18,8 @@ const testId = 'test-anchor';
 const styles = cssMap({
 	root: {
 		backgroundColor: token('color.background.brand.bold'),
+		// TODO (AFB-874): Disabling due to overriding of @compiled/property-shorthand-sorting
+		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 		padding: token('space.100'),
 		paddingBlock: token('space.100'),
 		paddingBlockStart: token('space.100'),

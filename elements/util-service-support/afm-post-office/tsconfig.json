@@ -16,5 +16,12 @@
 		"../src/**/*.test.*",
 		"../src/**/test.*"
 	],
-	"references": []
+	"references": [
+		{
+			"path": "../../../platform/feature-flags/afm-post-office/tsconfig.json"
+		},
+		{
+			"path": "../../../react-ufo/atlaskit/afm-post-office/tsconfig.json"
+		}
+	]
 }

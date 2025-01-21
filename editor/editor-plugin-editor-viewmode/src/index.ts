@@ -3,6 +3,7 @@
 
 export { editorViewModePlugin } from './editorViewmodePlugin';
 export type {
+	EditorViewModePluginConfig,
 	EditorViewModePluginState,
 	EditorViewModePlugin,
 	ViewMode,

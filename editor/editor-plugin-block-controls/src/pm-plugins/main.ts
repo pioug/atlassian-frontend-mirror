@@ -42,7 +42,6 @@ import { handleMouseOver } from './handle-mouse-over';
 import { boundKeydownHandler } from './keymap';
 import { defaultActiveAnchorTracker } from './utils/active-anchor-tracker';
 import { AnchorRectCache, isAnchorSupported } from './utils/anchor-utils';
-import { isBlocksDragTargetDebug } from './utils/drag-target-debug';
 import { getTrMetadata } from './utils/transactions';
 
 export const key = new PluginKey<PluginState>('blockControls');
@@ -293,14 +292,14 @@ export const newApply = (
 		(meta?.isDragging ?? isDragging) && maybeNodeCountChanged && !meta?.nodeMoved;
 
 	// Remove drop target decorations when dragging stops or they need to be redrawn
-	if (meta?.isDragging === false || isDropTargetsMissing || isBlocksDragTargetDebug()) {
+	if (meta?.isDragging === false || isDropTargetsMissing) {
 		const dropTargetDecs = findDropTargetDecs(decorations);
 		decorations = decorations.remove(dropTargetDecs);
 	}
 
 	// Add drop targets when dragging starts or some are missing
 	if (api) {
-		if (meta?.isDragging || isDropTargetsMissing || isBlocksDragTargetDebug()) {
+		if (meta?.isDragging || isDropTargetsMissing) {
 			const decs = dropTargetDecorations(
 				newState,
 				api,
@@ -512,7 +511,7 @@ export const oldApply = (
 		decorations = decorations.add(newState.doc, [decs]);
 	}
 
-	if (meta?.isDragging === false || isDropTargetsMissing || isBlocksDragTargetDebug()) {
+	if (meta?.isDragging === false || isDropTargetsMissing) {
 		// Remove drop target decoration when dragging stops
 		const dropTargetDecs = decorations.find(
 			undefined,
@@ -536,7 +535,7 @@ export const oldApply = (
 	if (api) {
 		// Add drop targets when node is being dragged
 		// if the transaction is only for analytics and user is dragging, continue to draw drop targets
-		if (shouldCreateDropTargets || isBlocksDragTargetDebug()) {
+		if (shouldCreateDropTargets) {
 			const decs = dropTargetDecorations(
 				newState,
 				api,

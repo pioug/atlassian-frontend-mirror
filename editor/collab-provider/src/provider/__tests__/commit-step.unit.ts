@@ -40,7 +40,10 @@ const createTestHelpers = () => {
 		version = 1,
 		userId = 'user1',
 		clientId = 'client1',
-		options: { __livePage: boolean } = { __livePage: false },
+		options: { __livePage: boolean; hasRecovered: boolean } = {
+			__livePage: false,
+			hasRecovered: false,
+		},
 	) => {
 		commitStepQueue({
 			broadcast: provider['channel'].broadcast,
@@ -53,6 +56,7 @@ const createTestHelpers = () => {
 			analyticsHelper: provider['analyticsHelper'],
 			emit: emitMock,
 			__livePage: options.__livePage,
+			hasRecovered: options.hasRecovered,
 		});
 	};
 
@@ -104,6 +108,7 @@ describe('commitStepQueue', () => {
 			() => {
 				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
 					__livePage: true,
+					hasRecovered: false,
 				});
 				expect(broadcastSpy).toBeCalledTimes(1);
 				// When feature flag on and __livePages on -- we strip out the __expanded attribute from the step.
@@ -114,6 +119,7 @@ describe('commitStepQueue', () => {
 			() => {
 				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
 					__livePage: true,
+					hasRecovered: false,
 				});
 				expect(broadcastSpy).toBeCalledTimes(1);
 				// When feature flag is off and __livePages on -- we don't change the __expanded attribute on the step.
@@ -143,6 +149,62 @@ describe('commitStepQueue', () => {
 				userId: 'user1',
 			},
 			expect.any(Function),
+		);
+	});
+
+	describe('Tags unconfirmed steps after recovery to steps before broadcast', () => {
+		const fakeStep = new SetAttrsStep(1, { __expanded: true, title: 'any' });
+		ffTest(
+			'tag_unconfirmed_steps_after_recovery',
+			() => {
+				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+					__livePage: false,
+					hasRecovered: true,
+				});
+
+				expect(broadcastSpy).toBeCalledTimes(1);
+				// when FF is on, we expect to see the metadata tag on the step
+				expect(broadcastSpy).toBeCalledWith(
+					'steps:commit',
+					{
+						steps: [
+							{
+								...fakeStep.toJSON(),
+								clientId: 'client1',
+								userId: 'user1',
+								metadata: { unconfirmedStepAfterRecovery: true },
+							},
+						],
+						version: 1,
+						userId: 'user1',
+					},
+					expect.any(Function),
+				);
+			},
+			() => {
+				presetCommitStepQueue([fakeStep], 1, 'user1', 'client1', {
+					__livePage: false,
+					hasRecovered: true,
+				});
+
+				expect(broadcastSpy).toBeCalledTimes(1);
+				// when FF is off, we don't expect to see the metadata tag on the step
+				expect(broadcastSpy).toBeCalledWith(
+					'steps:commit',
+					{
+						steps: [
+							{
+								...fakeStep.toJSON(),
+								clientId: 'client1',
+								userId: 'user1',
+							},
+						],
+						version: 1,
+						userId: 'user1',
+					},
+					expect.any(Function),
+				);
+			},
 		);
 	});
 

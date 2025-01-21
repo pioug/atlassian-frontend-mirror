@@ -1,6 +1,6 @@
 import { AnalyticsListener } from '@atlaskit/analytics-next';
 import Select from '@atlaskit/select';
-import { render, fireEvent, waitFor, screen } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen, act } from '@testing-library/react';
 import { userEvent } from '@testing-library/user-event';
 
 import selectEvent from 'react-select-event';
@@ -37,7 +37,8 @@ const mockIntl = { formatMessage: mockFormatMessage };
 jest.mock('react-intl-next', () => {
 	return {
 		...(jest.requireActual('react-intl-next') as any),
-		FormattedMessage: (descriptor: any) => <span>{descriptor.defaultMessage}</span>,
+		FormattedMessage: ({ defaultMessage, children }: { defaultMessage: string; children?: any }) =>
+			children ? children(defaultMessage) : <span>{defaultMessage}</span>,
 		injectIntl: (Node: any) => (props: any) => <Node {...props} intl={mockIntl} />,
 	};
 });
@@ -199,8 +200,6 @@ describe('BaseUserPicker', () => {
 
 	const userOptions: Option[] = optionToSelectableOptions(options);
 
-	const labelText = 'Enter people or teams...';
-
 	beforeEach(() => {
 		mockSessionId('random-session-id');
 	});
@@ -328,18 +327,20 @@ describe('BaseUserPicker', () => {
 
 	it('should trigger onChange with User', async () => {
 		const onChange = jest.fn();
-		const { getByLabelText } = render(getBasePickerWithForm({ onChange, options }));
+		render(getBasePickerWithForm({ onChange, options }));
 
-		await selectEvent.select(getByLabelText(labelText), options[0].name);
+		act(() => screen.getByRole('combobox').focus());
+		act(() => screen.getByText(options[0].name).click());
 
 		expect(onChange).toHaveBeenCalledWith(options[0], 'select-option');
 	});
 
 	it('should trigger props.onSelection if onChange with select-option action', async () => {
 		const onSelection = jest.fn();
-		const { getByLabelText } = render(getBasePickerWithForm({ onSelection, options }));
+		render(getBasePickerWithForm({ onSelection, options }));
 
-		await selectEvent.select(getByLabelText(labelText), options[0].name);
+		act(() => screen.getByRole('combobox').focus());
+		act(() => screen.getByText(options[0].name).click());
 
 		expect(onSelection).toHaveBeenCalledWith(
 			options[0],
@@ -395,10 +396,9 @@ describe('BaseUserPicker', () => {
 	it('should call onOpen handler', () => {
 		const onOpen = jest.fn();
 
-		const { getByRole } = render(getBasePickerWithoutAnalytics({ onOpen }));
+		render(getBasePickerWithoutAnalytics({ onOpen }));
 
-		const input = getByRole('combobox');
-		input.focus();
+		act(() => screen.getByRole('combobox').focus());
 		expect(onOpen).toHaveBeenCalledWith('random-session-id');
 	});
 
@@ -1409,13 +1409,10 @@ describe('BaseUserPicker', () => {
 				);
 			});
 
-			it('should trigger deleted event', () => {
-				component = mount(<AnalyticsTestComponent value={[emailValue]} isMulti />);
-				component.find(Select).prop('onFocus')();
-				component.find(Select).prop('onChange')([], {
-					action: 'remove-value',
-					removedValue: optionToSelectableOption(options[0]),
-				});
+			it('should trigger deleted event', async () => {
+				render(<AnalyticsTestComponent value={[options[0]]} isMulti />);
+				act(() => screen.getByRole('combobox').focus());
+				act(() => screen.getByLabelText('Clear').click());
 				expect(onEvent).toHaveBeenCalledWith(
 					expect.objectContaining({
 						payload: expect.objectContaining({
@@ -1705,9 +1702,10 @@ describe('BaseUserPicker', () => {
 						const secondMockSessionId = 'session-second';
 						mockSessionId(firstMockSessionId, 'mockReturnValueOnce');
 						mockSessionId(secondMockSessionId, 'mockReturnValueOnce');
-						component.find(Select).prop('onFocus')();
-						component.find(Select).prop('onBlur')();
-						component.find(Select).prop('onFocus')();
+						render(<AnalyticsTestComponent />);
+						act(() => screen.getByRole('combobox').focus());
+						act(() => screen.getByRole('combobox').blur());
+						act(() => screen.getByRole('combobox').focus());
 
 						await Promise.resolve();
 						expect(onEvent).toHaveBeenCalledTimes(3);
@@ -1971,19 +1969,18 @@ describe('BaseUserPicker', () => {
 		});
 
 		it('should send a UFO success metric when list shown after focus, with the options being loaded async', async () => {
-			const { usersPromise, loadOptions } = getLoadOptions();
-			const wrapper = mount(getBasePickerWithoutAnalytics({ loadOptions }));
+			const { loadOptions } = getLoadOptions();
+			render(getBasePickerWithoutAnalytics({ loadOptions }));
 
 			// Focus in the user picker to trigger the users list being shown
-			wrapper.find('input').simulate('focus');
+			act(() => screen.getByRole('combobox').focus());
 			expect(mockOptionsShown.startSpy).toHaveBeenCalled();
 			expect(mockOptionsShown.successSpy).not.toHaveBeenCalled();
 
 			// Wait for the async options to have loaded
 			expect(loadOptions).toHaveBeenCalled();
-			jest.runAllTimers();
-			await usersPromise;
-			jest.runAllTimers();
+
+			await screen.findByText(options[0].name);
 
 			expect(mockOptionsShown.successSpy).toHaveBeenCalled();
 			expect(mockOptionsShown.transitions).toStrictEqual([
@@ -1995,22 +1992,22 @@ describe('BaseUserPicker', () => {
 		});
 
 		it('should send a UFO success metric when list shown after focus AND typing, with the options being loaded async', async () => {
-			const { waitForAsyncOptionsToLoad, loadOptions } = getLoadOptions();
-			const wrapper = mount(getBasePickerWithoutAnalytics({ loadOptions }));
+			const { loadOptions } = getLoadOptions();
+			render(getBasePickerWithoutAnalytics({ loadOptions }));
 
 			// Focus in the user picker to trigger the users list being shown
-			wrapper.find('input').simulate('focus');
+			act(() => screen.getByRole('combobox').focus());
 			expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(1);
 			expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(0);
 			expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
 
 			// While the async option load from the "focus" is still loading, enter a text search as well
-			wrapper.find(Select).props().onInputChange('text', { action: 'input-change' });
+			fireEvent.change(screen.getByRole('combobox'), { target: { value: 'a' } });
 			expect(mockOptionsShown.startSpy).toHaveBeenCalledTimes(2);
 			expect(mockOptionsShown.abortSpy).toHaveBeenCalledTimes(1);
 			expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(0);
 
-			await waitForAsyncOptionsToLoad();
+			await screen.findByText(options[0].name);
 
 			expect(mockOptionsShown.successSpy).toHaveBeenCalledTimes(1);
 			expect(mockOptionsShown.transitions).toStrictEqual([

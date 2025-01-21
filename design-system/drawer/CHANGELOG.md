@@ -1,5 +1,13 @@
 # @atlaskit/drawer
 
+## 9.3.4
+
+### Patch Changes
+
+- [#104895](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104895)
+  [`fb9f1f1a65547`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/fb9f1f1a65547) -
+  Change how the current surface CSS variable is set to support Compiled.
+
 ## 9.3.3
 
 ### Patch Changes

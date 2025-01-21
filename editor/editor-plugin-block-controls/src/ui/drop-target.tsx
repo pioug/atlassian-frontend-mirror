@@ -20,7 +20,6 @@ import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
 import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracker';
 import { type AnchorRectCache, isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
-import { isBlocksDragTargetDebug } from '../pm-plugins/utils/drag-target-debug';
 import { shouldAllowInlineDropTarget } from '../pm-plugins/utils/inline-drop-target';
 
 import { getNestedNodeLeftPaddingMargin } from './consts';
@@ -51,6 +50,11 @@ const styleDropIndicator = css({
 	margin: '0 auto',
 	position: 'relative',
 	width: `var(${EDITOR_BLOCK_CONTROLS_DROP_INDICATOR_WIDTH}, 100%)`,
+	display: 'none',
+});
+
+const styleDropIndicatorVisible = css({
+	display: 'block',
 });
 
 const nestedDropIndicatorStyle = css({
@@ -312,14 +316,12 @@ export const DropTarget = (
 				style={dynamicStyle}
 				data-testid="block-ctrl-drop-target"
 			>
-				{
-					// 4px gap to clear expand node border
-					(isDraggedOver || isBlocksDragTargetDebug()) && (
-						<div css={styleDropIndicator} data-testid="block-ctrl-drop-indicator">
-							<DropIndicator edge="bottom" />
-						</div>
-					)
-				}
+				<div
+					css={[styleDropIndicator, isDraggedOver && styleDropIndicatorVisible]}
+					data-testid="block-ctrl-drop-indicator"
+				>
+					<DropIndicator edge="bottom" />
+				</div>
 			</div>
 			{dropTargetStyle !== 'remainingHeight' && (
 				<HoverZone

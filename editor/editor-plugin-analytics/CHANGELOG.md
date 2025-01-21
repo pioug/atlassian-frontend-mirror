@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-analytics
 
+## 1.10.13
+
+### Patch Changes
+
+- [#103591](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103591)
+  [`8ef82b4195e85`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8ef82b4195e85) -
+  ED-23460 - Fix to make sure fireAnalyticsEvent action stores channel in queue
+
 ## 1.10.12
 
 ### Patch Changes

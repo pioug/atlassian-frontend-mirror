@@ -1,5 +1,13 @@
 # @atlaskit/user-picker
 
+## 10.30.0
+
+### Minor Changes
+
+- [#101739](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101739)
+  [`b9f6cdeb8cfcb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b9f6cdeb8cfcb) -
+  Add support for React 18
+
 ## 10.29.2
 
 ### Patch Changes

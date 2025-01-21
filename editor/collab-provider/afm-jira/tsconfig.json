@@ -42,6 +42,9 @@
 			"path": "../../prosemirror-collab/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../react-ufo/atlaskit/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../data/ufo-external/afm-jira/tsconfig.json"
 		},
 		{

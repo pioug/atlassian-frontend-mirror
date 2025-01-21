@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-mentions
 
+## 2.13.1
+
+### Patch Changes
+
+- [#104847](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104847)
+  [`b55fc11242d17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b55fc11242d17) -
+  Consolidate duplicate import statements
+
 ## 2.13.0
 
 ### Minor Changes

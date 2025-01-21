@@ -6,10 +6,11 @@ import WithSurfaceDetection from '../../../../examples/100-composition-surface-d
 snapshot(WithSurfaceDetection, {
 	drawsOutsideBounds: true,
 	variants: [
+		// eslint-disable-next-line @atlaskit/design-system/no-dark-theme-vr-tests -- test is only relevant for dark theme
 		{
-			name: 'Light',
+			name: 'Dark',
 			environment: {
-				colorScheme: 'light',
+				colorScheme: 'dark',
 			},
 		},
 	],

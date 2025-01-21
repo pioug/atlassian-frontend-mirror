@@ -29,6 +29,10 @@ const styles = {
 		overflow: 'hidden',
 		paddingInline: token('space.050'),
 	}),
+	containerSubtle: css({
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		outlineOffset: -1,
+	}),
 	background: {
 		bold: {
 			default: css({ backgroundColor: '#DDDEE1' }),
@@ -55,6 +59,16 @@ const styles = {
 			new: css({ border: `1px solid #C97CF4` }),
 			removed: css({ border: `1px solid #F87168` }),
 			success: css({ border: `1px solid #94C748` }),
+		},
+	},
+	outline: {
+		subtle: {
+			default: css({ outline: `1px solid #B7B9BE` }),
+			inprogress: css({ outline: `1px solid #669DF1` }),
+			moved: css({ outline: `1px solid #FCA700` }),
+			new: css({ outline: `1px solid #C97CF4` }),
+			removed: css({ outline: `1px solid #F87168` }),
+			success: css({ outline: `1px solid #94C748` }),
 		},
 	},
 	text: {
@@ -149,7 +163,13 @@ const Lozenge = memo(
 					css={[
 						styles.container,
 						styles.background[appearanceStyle][appearanceType],
-						appearanceStyle === 'subtle' && styles.border.subtle[appearanceType],
+						appearanceStyle === 'subtle' &&
+							!fg('visual-refresh_drop_5') &&
+							styles.border.subtle[appearanceType],
+						appearanceStyle === 'subtle' &&
+							fg('visual-refresh_drop_5') &&
+							styles.outline.subtle[appearanceType],
+						appearanceStyle === 'subtle' && fg('visual-refresh_drop_5') && styles.containerSubtle,
 					]}
 					data-testid={testId}
 				>

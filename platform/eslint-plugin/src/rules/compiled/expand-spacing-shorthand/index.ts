@@ -49,25 +49,59 @@ const parseTemplateLiteral = (templateLiteral: TemplateLiteral, context: Rule.Ru
 	return propertyValues;
 };
 
-const checkValidPropertyValues = (propertyValues: string[]) => {
+/**
+ * Checks if the parsed property values are valid (i.e. no rule violation will be thrown). Cases are, the property values:
+ * 1. Do not contain a token
+ * 2. Have length that are not in the range [1, 4]
+ * 3. Includes `calc(...)`
+ * Then, the rule will return with no error
+ * @param propertyValues property values parsed as list of strings
+ * @returns boolean
+ */
+const isPropertyValueExempted = (propertyValues: string[]) => {
 	if (!propertyValues.some((str) => str.includes('token('))) {
-		return false;
+		return true;
 	}
 	if (propertyValues.length < 1 || propertyValues.length > 4) {
-		return false;
+		return true;
 	}
 	if (propertyValues.some((str) => str.includes('calc('))) {
+		return true;
+	}
+	return false;
+};
+
+/**
+ * Checks if the parsed property values are invalid (i.e. rule violation thrown) and autofix required. Cases are when:
+ *  1. All expressions in TemplateLiteral are token expressions
+ *  2. Property values must have a format which includes -> e.g. 2, '2(rem|em|px)', auto, initial, inherit, token(...)
+ *  The rule will return with error and provide a fix
+ * @param templateLiteral TemplateLiteral AST Node
+ * @param propertyValues property values parsed as list of strings
+ * @returns boolean
+ */
+const isPropertyValuesInvalidFix = (templateLiteral: TemplateLiteral, propertyValues: string[]) => {
+	const expressions = templateLiteral.expressions;
+	if (!expressions.every((expr) => expr.type === 'CallExpression' && isTokenCallExpression(expr))) {
+		return false;
+	}
+
+	for (const propValue of propertyValues) {
+		if (propValue === '0') {
+			continue;
+		}
+		if (['auto', 'initial', 'inherit'].includes(propValue.slice(1, -1))) {
+			continue;
+		}
+		if (/^token\(.*\)$/.test(propValue)) {
+			continue;
+		}
+		if (/^['"]\d+(\.\d+)?((rem)|(em)|(px))['"]$/.test(propValue)) {
+			continue;
+		}
 		return false;
 	}
 	return true;
-};
-
-// Check that all expressions in TemplateLiteral are token expressions
-// If true: create an autofix
-// If false: report violation without autofix
-const hasOnlyTokens = (templateLiteral: TemplateLiteral) => {
-	const expressions = templateLiteral.expressions;
-	return expressions.every((expr) => expr.type === 'CallExpression' && isTokenCallExpression(expr));
 };
 
 // To fix spacing shorthands, given a list of spacing property values, expands the spacing property and adds autofix fixes
@@ -130,8 +164,30 @@ const executeExpandSpacingRule = (
 		return;
 	}
 	if (node.value.type === 'TemplateLiteral') {
-		// Value of spacing property is a TemplateLiteral type that contains a token, e.g. padding: `0 token('a')`
-		if (!hasOnlyTokens(node.value)) {
+		const propertyValues = parseTemplateLiteral(node.value, context);
+		if (isPropertyValueExempted(propertyValues)) {
+			// Valid, so no error should be thrown
+			return;
+		}
+		if (isPropertyValuesInvalidFix(node.value, propertyValues)) {
+			// Invalid, so error should be thrown and fix provided
+			context.report({
+				node,
+				messageId: 'expandSpacingShorthand',
+				data: {
+					property: propertyShorthand,
+				},
+				fix(fixer) {
+					return expandSpacingProperties({
+						context,
+						node,
+						propertyValues,
+						fixer,
+						propertyShorthand,
+					});
+				},
+			});
+		} else {
 			context.report({
 				node,
 				messageId: 'expandSpacingShorthand',
@@ -141,20 +197,6 @@ const executeExpandSpacingRule = (
 			});
 			return;
 		}
-		const propertyValues = parseTemplateLiteral(node.value, context);
-		if (!checkValidPropertyValues(propertyValues)) {
-			return;
-		}
-		context.report({
-			node,
-			messageId: 'expandSpacingShorthand',
-			data: {
-				property: propertyShorthand,
-			},
-			fix(fixer) {
-				return expandSpacingProperties({ context, node, propertyValues, fixer, propertyShorthand });
-			},
-		});
 	} else if (node.value.type === 'CallExpression' && isTokenCallExpression(node.value)) {
 		// Value of spacing property is a token CallExpression type, e.g. margin: token('space.100', '8px')
 		const propertyValues = [getSourceCode(context).getText(node.value)];

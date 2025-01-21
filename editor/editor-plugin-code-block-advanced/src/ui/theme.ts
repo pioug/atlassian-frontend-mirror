@@ -8,7 +8,6 @@ export const cmTheme = CodeMirror.theme({
 		padding: '0',
 		marginTop: token('space.100'),
 		marginBottom: token('space.100'),
-		borderRadius: token('border.radius'),
 		fontSize: '0.875rem',
 		// Custom syntax styling to match existing styling
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -35,6 +34,7 @@ export const cmTheme = CodeMirror.theme({
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 'unset',
 		fontFamily: token('font.family.code'),
+		borderRadius: token('border.radius'),
 	},
 	'&.cm-focused .cm-cursor': {
 		borderLeftColor: token('color.text'),
@@ -43,6 +43,7 @@ export const cmTheme = CodeMirror.theme({
 		backgroundColor: token('color.background.neutral'),
 		border: 'none',
 		padding: token('space.100'),
+		color: token('color.text.subtlest'),
 	},
 	'.cm-lineNumbers .cm-gutterElement': {
 		paddingLeft: token('space.0'),

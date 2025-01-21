@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 1.0.1
+
+### Patch Changes
+
+- [#102828](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102828)
+  [`e9e0bd7d3c706`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e9e0bd7d3c706) -
+  [ux] Ensure lazy node view matches code block advanced snippet so there is no layout shift.
+
 ## 1.0.0
 
 ### Major Changes

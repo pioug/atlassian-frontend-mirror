@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react';
+import { screen, act, fireEvent, render } from '@testing-library/react';
 import React from 'react';
 import { BaseUserPicker } from '../BaseUserPicker';
 import Select from '@atlaskit/select';
@@ -61,17 +61,15 @@ describe('BaseUserPicker', () => {
 		expect(getByTestId('test-select')).toHaveAttribute('aria-required');
 	});
 
-	it('should open menu when we focus on the input', () => {
-		const { getByRole } = renderUserPickerWithSelect();
-		const input = getByRole('combobox');
-		input.focus();
+	it('should open menu when we focus on the input', async () => {
+		renderUserPickerWithSelect();
+		act(() => screen.getByRole('combobox').focus());
 		expect(onMenuOpenMock).toBeCalled();
 	});
 
 	it('should not open menu when we focus on the input where openMenuOnClick is enabled', () => {
-		const { getByRole } = renderUserPickerWithSelect({ openMenuOnClick: true });
-		const input = getByRole('combobox');
-		input.focus();
+		renderUserPickerWithSelect({ openMenuOnClick: true });
+		act(() => screen.getByRole('combobox').focus());
 		expect(onMenuOpenMock).not.toBeCalled();
 	});
 

@@ -16,6 +16,8 @@ import { type TabListProps } from '../types';
 
 const baseStyles = css({
 	display: 'flex',
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.0', '0px'),
 	position: 'relative',
 });
@@ -26,6 +28,8 @@ const tabListStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 	'& [role="tab"]': {
 		margin: 0,
+		// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 		padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
 		position: 'relative',
 		color: token('color.text.subtle', N500),
@@ -100,6 +104,8 @@ const tabListStylesOld = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 	'& [role="tab"]': {
 		margin: 0,
+		// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 		padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
 		position: 'relative',
 		color: token('color.text.subtle', N500),

@@ -1,6 +1,5 @@
 import type { AnalyticsEventPayload } from '@atlaskit/editor-common/analytics';
-import { type ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
-import type { Providers } from '@atlaskit/editor-common/provider-factory';
+import type { Providers, ProfilecardProvider } from '@atlaskit/editor-common/provider-factory';
 import type { TypeAheadHandler } from '@atlaskit/editor-common/types';
 import type { MentionDescription, MentionProvider } from '@atlaskit/mention';
 

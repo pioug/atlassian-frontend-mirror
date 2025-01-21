@@ -42,6 +42,9 @@
             "path": "../../prosemirror-collab/afm-cc/tsconfig.json"
         },
         {
+            "path": "../../../react-ufo/atlaskit/afm-cc/tsconfig.json"
+        },
+        {
             "path": "../../../data/ufo-external/afm-cc/tsconfig.json"
         },
         {

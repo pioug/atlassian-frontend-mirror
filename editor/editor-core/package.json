@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.11.6",
+	"version": "203.11.9",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -215,9 +215,6 @@
 		"platform_editor_toolbar_responsive_fixes": {
 			"type": "boolean"
 		},
-		"platform_editor_mark_boundary_cursor": {
-			"type": "boolean"
-		},
 		"platform_editor_action_decisions_ssr_fix": {
 			"type": "boolean",
 			"referenceOnly": true
@@ -272,9 +269,6 @@
 			"referenceOnly": true
 		},
 		"platform_editor_catch_missing_injection_states": {
-			"type": "boolean"
-		},
-		"platform_editor_react_editor_view_react_18": {
 			"type": "boolean"
 		},
 		"platform_editor_typography_ugc": {
@@ -401,6 +395,9 @@
 		"platform_editor_dnd_update_drag_start_target": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_hide_cursor_when_pm_hideselection": {
+			"type": "boolean"
 		}
 	},
 	"stricter": {

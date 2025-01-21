@@ -21,7 +21,6 @@ import { token } from '@atlaskit/tokens';
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
 import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracker';
 import { type AnchorRectCache, isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
-import { isBlocksDragTargetDebug } from '../pm-plugins/utils/drag-target-debug';
 import { getInsertLayoutStep, updateSelection } from '../pm-plugins/utils/update-selection';
 
 import { type DropTargetProps } from './drop-target';
@@ -303,7 +302,7 @@ export const InlineDropTarget = ({
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
 			style={hoverZoneRectStyle}
 		>
-			{isDraggedOver || isBlocksDragTargetDebug() ? (
+			{isDraggedOver ? (
 				<DropIndicator edge={dropIndicatorPos} />
 			) : (
 				isActiveAnchor && (

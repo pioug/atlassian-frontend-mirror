@@ -359,6 +359,7 @@ export interface StepMetadata {
 		traceId?: string;
 		reqId?: string;
 		schemaVersion?: string;
+		unconfirmedStepAfterRecovery?: boolean;
 	};
 }
 

@@ -280,21 +280,9 @@ const LayoutButtonWrapper = ({
 
 	const isViewMode = editorViewModeState?.mode === 'view';
 	const isEditMode = editorViewModeState?.mode === 'edit';
-	if (fg('platform_editor_react_editor_view_react_18')) {
-		return !isViewMode &&
-			editorDisabledState !== undefined &&
-			!editorDisabledState?.editorDisabled ? (
-			<LayoutButton
-				editorView={editorView}
-				mountPoint={mountPoint}
-				boundariesElement={boundariesElement}
-				scrollableElement={scrollableElement}
-				node={breakoutState?.breakoutNode?.node ?? null}
-				isLivePage={isEditMode}
-			/>
-		) : null;
-	}
-	return !isViewMode ? (
+	return !isViewMode &&
+		editorDisabledState !== undefined &&
+		!editorDisabledState?.editorDisabled ? (
 		<LayoutButton
 			editorView={editorView}
 			mountPoint={mountPoint}
@@ -346,10 +334,7 @@ export const breakoutPlugin: BreakoutPlugin = ({ config: options, api }) => ({
 		popupsScrollableElement,
 	}) {
 		// This is a bit crappy, but should be resolved once we move to a static schema.
-		if (
-			(options && !options.allowBreakoutButton) ||
-			(!editorView.editable && !fg('platform_editor_react_editor_view_react_18'))
-		) {
+		if (options && !options.allowBreakoutButton) {
 			return null;
 		}
 

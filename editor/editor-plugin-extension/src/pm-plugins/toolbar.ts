@@ -242,12 +242,9 @@ export const getToolbarConfig =
 						if (!extensionNode) {
 							return nextPos;
 						}
+						const isExtensionNodeNested = extensionNode.node.attrs.nested;
 
-						const isInsideEditableExtensionArea = !!editorView.dom.closest(
-							'.extension-editable-area',
-						);
-
-						if (!isBodiedExtensionInsideMBE && !isInsideEditableExtensionArea) {
+						if (!isBodiedExtensionInsideMBE && !isExtensionNodeNested) {
 							return nextPos;
 						}
 					} else {

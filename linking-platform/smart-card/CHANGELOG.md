@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 34.5.2
+
+### Patch Changes
+
+- [#104833](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104833)
+  [`0b0aae2a7e26e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0b0aae2a7e26e) -
+  [ux] Migrate block card unresolved view icons
+
 ## 34.5.1
 
 ### Patch Changes

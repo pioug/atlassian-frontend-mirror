@@ -1,7 +1,7 @@
 import { closeBrackets } from '@codemirror/autocomplete';
 import { syntaxHighlighting } from '@codemirror/language';
 import { Compartment, Extension, EditorSelection } from '@codemirror/state';
-import { EditorView as CodeMirror, lineNumbers, ViewUpdate } from '@codemirror/view';
+import { EditorView as CodeMirror, lineNumbers, ViewUpdate, gutters } from '@codemirror/view';
 
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
 import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
@@ -81,6 +81,9 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				cmTheme,
 				syntaxHighlighting(highlightStyle),
 				lineNumbers(),
+				// Explicitly disable "sticky" positioning on line numbers to match
+				// Renderer behaviour
+				gutters({ fixed: false }),
 				CodeMirror.updateListener.of((update) => this.forwardUpdate(update)),
 				this.readOnlyCompartment.of(CodeMirror.editable.of(this.view.editable)),
 				closeBrackets(),

@@ -6,7 +6,7 @@ import * as FeatureFlagsPlugin from '@atlaskit/editor-plugins/feature-flags';
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
 import { createUniversalPreset } from '../../create-universal-preset';
-import ReactEditorView from '../../ReactEditorView';
+import ReactEditorView from '../../ReactEditorViewNext';
 
 jest.mock('@atlaskit/editor-plugins/feature-flags', () => ({
 	...jest.requireActual('@atlaskit/editor-plugins/feature-flags'),
@@ -39,7 +39,6 @@ describe('ReactEditorView/reconfigureState', () => {
 					{...defaultProps}
 					editorProps={editorProps}
 					preset={createUniversalPreset({ props: editorProps })}
-					editorAPI={{}}
 				/>,
 			);
 

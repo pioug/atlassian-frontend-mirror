@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.21.5
+
+### Patch Changes
+
+- [#104365](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104365)
+  [`b23e9a45b03a1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b23e9a45b03a1) -
+  Remove use of platform_editor_element_drag_and_drop_debug for drop target VR test
+
 ## 2.21.4
 
 ### Patch Changes

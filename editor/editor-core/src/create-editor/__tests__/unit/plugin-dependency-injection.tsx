@@ -15,7 +15,7 @@ import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { renderWithIntl } from '@atlaskit/editor-test-helpers/rtl';
 
-import { ReactEditorView } from '../../ReactEditorView';
+import { ReactEditorView } from '../../ReactEditorViewNext';
 
 const portalProviderAPI: any = {
 	render() {},

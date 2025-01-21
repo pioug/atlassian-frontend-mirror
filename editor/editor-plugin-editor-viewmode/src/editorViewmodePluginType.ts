@@ -5,14 +5,16 @@ export type EditorViewModePluginState = {
 };
 export type ViewMode = 'view' | 'edit';
 
+export type EditorViewModePluginConfig = {
+	mode?: ViewMode;
+};
+
 export type EditorViewModePlugin = NextEditorPlugin<
 	'editorViewMode',
 	{
 		sharedState: EditorViewModePluginState | null;
 		dependencies: [];
-		pluginConfiguration?: {
-			mode?: ViewMode;
-		};
+		pluginConfiguration?: EditorViewModePluginConfig;
 		commands: {
 			updateViewMode: (mode: ViewMode) => EditorCommand;
 		};

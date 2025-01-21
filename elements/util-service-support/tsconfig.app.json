@@ -30,6 +30,13 @@
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__util-service-support/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../platform/feature-flags/tsconfig.app.json"
+		},
+		{
+			"path": "../../react-ufo/atlaskit/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

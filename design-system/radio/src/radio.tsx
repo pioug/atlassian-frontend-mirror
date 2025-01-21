@@ -32,6 +32,8 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 const noop = __noop;
 
 const labelPaddingStyles = css({
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
 });
 
@@ -61,6 +63,8 @@ const radioStyles = css({
   */
 	width: '24px',
 	height: '24px',
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	margin: token('space.0', '0px'),
 	position: 'relative',
 	alignItems: 'center',

@@ -15,18 +15,11 @@ const styles = cssMap({
 	content: {
 		padding: token('space.100', '8px'),
 		position: 'relative',
+		backgroundColor: token('color.background.accent.blue.subtlest'),
 	},
 	header: {
 		padding: token('space.100'),
-		position: 'absolute',
 		backgroundColor: token('utility.elevation.surface.current'),
-		borderBlockEndColor: token('color.border'),
-		borderBlockEndStyle: 'solid',
-		borderBlockEndWidth: token('border.width'),
-		boxShadow: token('elevation.shadow.overflow'),
-		insetBlockStart: token('space.0'),
-		insetInlineEnd: token('space.0'),
-		insetInlineStart: token('space.0'),
 	},
 });
 
@@ -42,7 +35,7 @@ const DrawerSurfaceDetectionExample = () => {
 				<DrawerContent>
 					<div css={styles.content}>
 						<div css={styles.header}>
-							<h2>Header overlay</h2>
+							<h2>Current surface</h2>
 						</div>
 						<Lorem count={2} />
 					</div>

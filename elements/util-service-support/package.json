@@ -40,6 +40,8 @@
 		"access": "public"
 	},
 	"dependencies": {
+		"@atlaskit/platform-feature-flags": "^0.3.0",
+		"@atlaskit/react-ufo": "^2.10.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {
@@ -56,6 +58,11 @@
 	"techstack": {
 		"@atlassian/frontend": {
 			"tree-shaking": []
+		}
+	},
+	"platform-feature-flags": {
+		"platform_collab_provider_tracingheaders": {
+			"type": "boolean"
 		}
 	}
 }

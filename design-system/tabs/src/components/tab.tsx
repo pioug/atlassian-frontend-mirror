@@ -1,11 +1,7 @@
 import React, { forwardRef } from 'react';
 
 import FocusRing from '@atlaskit/focus-ring';
-/**
- * TODO - https://product-fabric.atlassian.net/browse/DSP-21564
- * Will be moved to @atlaskit/primitives/compiled, VRs will be updated.
- */
-import { Text } from '@atlaskit/primitives';
+import { Text } from '@atlaskit/primitives/compiled';
 
 import { useTab } from '../hooks';
 import { type TabAttributesType, type TabProps } from '../types';

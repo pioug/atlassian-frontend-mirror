@@ -47,7 +47,7 @@
 		"@atlaskit/popup": "1.30.6",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/spinner": "^16.3.0",
-		"@atlaskit/tabs": "^17.0.0",
+		"@atlaskit/tabs": "^17.1.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^3.1.0",
 		"@atlaskit/tooltip": "^19.0.0",

@@ -17,9 +17,24 @@ import { BlockCardUnauthorisedView } from '../../../examples/vr-block-card/vr-bl
 import { BlockCardUnauthorisedViewWithNoAuth } from '../../../examples/vr-block-card/vr-block-card-unauthorised-no-auth';
 import { BlockCardForbiddenViews } from '../../../examples/vr-block-card/vr-flexible-block-card-variants-of-forbidden-views';
 
-snapshot(BlockCardErrorView);
-snapshot(BlockCardForbiddenView);
-snapshot(BlockCardNotFoundView);
+snapshot(BlockCardErrorView, {
+	featureFlags: {
+		'platform-visual-refresh-icons': [true, false],
+		'platform-smart-card-icon-migration': [true, false],
+	},
+});
+snapshot(BlockCardForbiddenView, {
+	featureFlags: {
+		'platform-visual-refresh-icons': [true, false],
+		'platform-smart-card-icon-migration': [true, false],
+	},
+});
+snapshot(BlockCardNotFoundView, {
+	featureFlags: {
+		'platform-visual-refresh-icons': [true, false],
+		'platform-smart-card-icon-migration': [true, false],
+	},
+});
 snapshot(BlockCardNotFoundSiteAccessExists);
 snapshot(BlockCardUnauthorisedView);
 snapshot(BlockCardUnauthorisedViewWithNoAuth);

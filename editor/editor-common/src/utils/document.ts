@@ -1,5 +1,4 @@
-import type { ResolvedPos } from '@atlaskit/editor-prosemirror/model';
-import { type Node } from '@atlaskit/editor-prosemirror/model';
+import type { ResolvedPos, Node } from '@atlaskit/editor-prosemirror/model';
 import type {
 	EditorState,
 	ReadonlyTransaction,

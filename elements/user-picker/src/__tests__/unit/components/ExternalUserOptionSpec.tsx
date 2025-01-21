@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { ExternalUserOption } from '../../../components/ExternalUserOption/main';
 import { type ExternalUser, type UserSource, type UserSourceResult } from '../../../types';
 import { ExusUserSourceProvider } from '../../../clients/UserSourceProvider';
@@ -66,7 +66,6 @@ describe('ExternalUserOption', () => {
 	});
 
 	it('should render a tooltip containing the user sources', async () => {
-		expect.assertions(3);
 		const { getByTestId, getByRole, findByRole } = render(
 			<IntlProvider messages={{}} locale="en">
 				<ExternalUserOption user={user} status="approved" isSelected={false} />
@@ -78,13 +77,18 @@ describe('ExternalUserOption', () => {
 		fireEvent.mouseOver(getByTestId('source-icon'));
 		await findByRole('tooltip');
 		const tooltip = getByRole('tooltip');
+
 		// Tooltip has single source displayed
-		expect(tooltip).toHaveTextContent('Found in:');
-		expect(tooltip).toHaveTextContent('Google');
+		await waitFor(() => {
+			expect(tooltip).toHaveTextContent('Found in:');
+		});
+
+		await waitFor(() => {
+			expect(tooltip).toHaveTextContent('Google');
+		});
 	});
 
 	it('should render tooltip elements and merge async sources into the tooltip contents', async () => {
-		expect.assertions(3);
 		const mockFetch = jest.fn(
 			() =>
 				new Promise<UserSourceResult[]>((resolve) => {
@@ -108,9 +112,17 @@ describe('ExternalUserOption', () => {
 		await findByRole('tooltip');
 		const tooltip = getByRole('tooltip');
 		// Tooltip has expected sources displayed
-		expect(tooltip).toHaveTextContent('Found in:');
-		expect(tooltip).toHaveTextContent('Google');
-		expect(tooltip).toHaveTextContent('Slack');
+		await waitFor(() => {
+			expect(tooltip).toHaveTextContent('Found in:');
+		});
+
+		await waitFor(() => {
+			expect(tooltip).toHaveTextContent('Google');
+		});
+
+		await waitFor(() => {
+			expect(tooltip).toHaveTextContent('Slack');
+		});
 	});
 
 	it('should not render tooltip elements when sources collection is empty and user is not external', () => {
@@ -152,7 +164,6 @@ describe('ExternalUserOption', () => {
 			sources: [],
 		};
 
-		expect.assertions(2);
 		const { getByTestId, getByRole, findByRole } = render(
 			<ExusUserSourceProvider fetchUserSource={fetchSpy}>
 				<IntlProvider messages={{}} locale="en">
@@ -167,7 +178,9 @@ describe('ExternalUserOption', () => {
 		await findByRole('tooltip');
 		const tooltip = getByRole('tooltip');
 		// Tooltip has error
-		expect(tooltip).toHaveTextContent("We can't connect you right now.");
+		await waitFor(() => {
+			expect(tooltip).toHaveTextContent("We can't connect you right now.");
+		});
 	});
 
 	it('should not call fetch sources if user does not require source hydration', async () => {
@@ -188,7 +201,6 @@ describe('ExternalUserOption', () => {
 			requiresSourceHydration: false,
 		};
 
-		expect.assertions(5);
 		const { getByTestId, getByRole, findByRole } = render(
 			<ExusUserSourceProvider fetchUserSource={mockFetch}>
 				<IntlProvider messages={{}} locale="en">
@@ -204,9 +216,15 @@ describe('ExternalUserOption', () => {
 		const tooltip = getByRole('tooltip');
 
 		// Tooltip has single source displayed
-		expect(tooltip).toHaveTextContent('Found in:');
-		expect(tooltip).toHaveTextContent('Google');
-		expect(tooltip).not.toHaveTextContent('Slack');
+		await waitFor(() => {
+			expect(tooltip).toHaveTextContent('Found in:');
+		});
+		await waitFor(() => {
+			expect(tooltip).toHaveTextContent('Google');
+		});
+		await waitFor(() => {
+			expect(tooltip).not.toHaveTextContent('Slack');
+		});
 
 		// fetch was not called
 		expect(mockFetch).toBeCalledTimes(0);

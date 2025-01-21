@@ -89,6 +89,9 @@ const stylesNew = cssMapUnbounded({
 		paddingInlineStart: token('space.050'),
 		paddingInlineEnd: token('space.050'),
 	},
+	containerSubtle: {
+		outlineOffset: -1,
+	},
 	text: {
 		fontFamily: token('font.family.body'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -115,12 +118,19 @@ const stylesNew = cssMapUnbounded({
 	'bg.subtle.new': { backgroundColor: token('color.background.neutral.subtle') },
 	'bg.subtle.removed': { backgroundColor: token('color.background.neutral.subtle') },
 	'bg.subtle.success': { backgroundColor: token('color.background.neutral.subtle') },
+	// Remove `border.subtle` when cleaning up visual-refresh_drop_5
 	'border.subtle.default': { border: `1px solid #B7B9BE` },
 	'border.subtle.inprogress': { border: `1px solid #669DF1` },
 	'border.subtle.moved': { border: `1px solid #FCA700` },
 	'border.subtle.new': { border: `1px solid #C97CF4` },
 	'border.subtle.removed': { border: `1px solid #F87168` },
 	'border.subtle.success': { border: `1px solid #94C748` },
+	'outline.subtle.default': { outline: `1px solid #B7B9BE` },
+	'outline.subtle.inprogress': { outline: `1px solid #669DF1` },
+	'outline.subtle.moved': { outline: `1px solid #FCA700` },
+	'outline.subtle.new': { outline: `1px solid #C97CF4` },
+	'outline.subtle.removed': { outline: `1px solid #F87168` },
+	'outline.subtle.success': { outline: `1px solid #94C748` },
 	'text.subtle': { color: token('color.text') },
 	'text.bold': { color: '#292A2E' },
 });
@@ -206,7 +216,15 @@ const Lozenge = memo(
 					css={[
 						stylesNew.container,
 						stylesNew[`bg.${appearanceStyle}.${appearanceType}`],
-						appearanceStyle === 'subtle' && stylesNew[`border.subtle.${appearanceType}`],
+						appearanceStyle === 'subtle' &&
+							!fg('visual-refresh_drop_5') &&
+							stylesNew[`border.subtle.${appearanceType}`],
+						appearanceStyle === 'subtle' &&
+							fg('visual-refresh_drop_5') &&
+							stylesNew[`outline.subtle.${appearanceType}`],
+						appearanceStyle === 'subtle' &&
+							fg('visual-refresh_drop_5') &&
+							stylesNew.containerSubtle,
 					]}
 					data-testid={testId}
 				>

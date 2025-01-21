@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 3.0.5
+
+### Patch Changes
+
+- [#104767](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104767)
+  [`c90f6b5560f3f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c90f6b5560f3f) -
+  ED-25971 LCM - Alter logic inside floating toolbar position calculation to use attribute from
+  extension node rather than traversing up the ancestors to find a CSS class.
+
 ## 3.0.4
 
 ### Patch Changes

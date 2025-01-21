@@ -18,8 +18,14 @@ import { type PaginationPropTypes } from './types';
 
 const styles = cssMap({
 	paginationMenu: {
-		padding: token('space.0'),
-		margin: token('space.0'),
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
+		marginTop: token('space.0'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
 	},
 
 	paginationMenuItem: {

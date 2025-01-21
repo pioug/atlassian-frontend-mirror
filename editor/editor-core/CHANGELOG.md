@@ -1,5 +1,29 @@
 # @atlaskit/editor-core
 
+## 203.11.9
+
+### Patch Changes
+
+- [#104847](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104847)
+  [`b55fc11242d17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b55fc11242d17) -
+  Consolidate duplicate import statements
+
+## 203.11.8
+
+### Patch Changes
+
+- [#104540](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104540)
+  [`ce84e9acae216`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ce84e9acae216) -
+  Cleanup platform_editor_mark_boundary_cursor
+
+## 203.11.7
+
+### Patch Changes
+
+- [#104526](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104526)
+  [`4467b31befcb9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4467b31befcb9) -
+  [ux] ED-23633 add prosemirror css style for hideselection
+
 ## 203.11.6
 
 ### Patch Changes

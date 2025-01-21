@@ -1,4 +1,7 @@
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
+// eslint-disable-next-line @atlaskit/platform/no-alias
+import * as ff from '@atlaskit/platform-feature-flags';
+import * as traceInfo from '@atlaskit/react-ufo/experience-trace-id-context';
 
 jest.mock('../../channel', () => {
 	class MockChannel {
@@ -91,5 +94,26 @@ describe('addComment', () => {
 			expect(err.message).toEqual('Failed to add comment - Server error');
 			expect(err.meta).toBeUndefined();
 		}
+	});
+	it('tracing headers shall be populated when the feature gate is enabled', async () => {
+		expect.assertions(2);
+		// given
+		const givenActiveTraceHttpRequestHeaders = {
+			'X-B3-TraceId': 'f34ab6dfca3b864f77372a38c78b28f5',
+			'X-B3-SpanId': '1cfcba17ff41722a',
+		};
+		jest.spyOn(ff, 'fg').mockReturnValue(true);
+		jest
+			.spyOn(traceInfo, 'getActiveTraceHttpRequestHeaders')
+			.mockReturnValue(givenActiveTraceHttpRequestHeaders);
+		mockFetchResponse(201, { message: 'Success' });
+
+		// when
+		const result = await provider.api.addComment(mockSteps);
+
+		// then
+		const reqOpts = (global.fetch as jest.Mock).mock.calls[0][1];
+		expect(result).toEqual({ message: 'Success' });
+		expect(reqOpts.headers).toMatchObject(givenActiveTraceHttpRequestHeaders);
 	});
 });

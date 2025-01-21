@@ -245,31 +245,29 @@ export class BaseUserPickerWithoutAnalytics extends React.Component<
 	private debouncedLoadOptions = debounce((search?: string) => {
 		const { loadOptions } = this.props;
 		if (loadOptions) {
-			this.setState(({ inflightRequest: previousRequest }) => {
-				const inflightRequest = previousRequest + 1;
-				const result =
-					this.session && this.session.id
-						? loadOptions(search, this.session.id)
-						: loadOptions(search);
-				const addOptions = this.addOptions.bind(this, inflightRequest.toString()) as (
-					value: OptionData | OptionData[],
-				) => void | PromiseLike<void>;
-				let count = 0;
-				if (isIterable(result)) {
-					for (const value of result) {
-						Promise.resolve(value).then(addOptions).catch(this.handleLoadOptionsError);
-						count++;
-					}
-				} else {
-					Promise.resolve(result).then(addOptions).catch(this.handleLoadOptionsError);
+			const inflightRequest = this.state.inflightRequest + 1;
+			const result =
+				this.session && this.session.id
+					? loadOptions(search, this.session.id)
+					: loadOptions(search);
+			const addOptions = this.addOptions.bind(this, inflightRequest.toString()) as (
+				value: OptionData | OptionData[],
+			) => void | PromiseLike<void>;
+			let count = 0;
+			if (isIterable(result)) {
+				for (const value of result) {
+					Promise.resolve(value).then(addOptions).catch(this.handleLoadOptionsError);
 					count++;
 				}
-				return {
-					inflightRequest,
-					count,
-					resolving: count !== 0,
-					options: [],
-				};
+			} else {
+				Promise.resolve(result).then(addOptions).catch(this.handleLoadOptionsError);
+				count++;
+			}
+			this.setState({
+				inflightRequest,
+				count,
+				resolving: count !== 0,
+				options: [],
 			});
 		}
 	}, 200);

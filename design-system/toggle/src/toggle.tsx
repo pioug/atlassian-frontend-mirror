@@ -31,7 +31,11 @@ import { type Size, type ToggleProps } from './types';
 const basicStyles = css({
 	display: 'inline-block',
 	boxSizing: 'content-box',
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	margin: token('space.025'),
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.025'),
 	position: 'relative',
 	backgroundClip: 'content-box',

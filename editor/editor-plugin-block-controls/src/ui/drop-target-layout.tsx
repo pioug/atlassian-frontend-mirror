@@ -22,7 +22,6 @@ import type { BlockControlsPlugin } from '../blockControlsPluginType';
 import { getNodeAnchor } from '../pm-plugins/decorations-common';
 import { useActiveAnchorTracker } from '../pm-plugins/utils/active-anchor-tracker';
 import { type AnchorRectCache, isAnchorSupported } from '../pm-plugins/utils/anchor-utils';
-import { isBlocksDragTargetDebug } from '../pm-plugins/utils/drag-target-debug';
 import { getInsertLayoutStep, updateSelection } from '../pm-plugins/utils/update-selection';
 
 // 8px gap + 16px on left and right
@@ -142,7 +141,7 @@ export const DropTargetLayout = (
 			css={[dropTargetLayoutStyle, dropTargetStackLayoutHintStyle]}
 			data-testid="block-ctrl-drop-indicator"
 		>
-			{isDraggedOver || isBlocksDragTargetDebug() ? (
+			{isDraggedOver ? (
 				<DropIndicator edge="right" gap={`-${DROP_TARGET_LAYOUT_DROP_ZONE_WIDTH}px`} />
 			) : (
 				isActiveAnchor && (

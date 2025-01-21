@@ -131,7 +131,7 @@ type ReactEditorViewPlugins = [
 	OptionalPlugin<CustomAutoformatPlugin>,
 ];
 
-function ReactEditorView(props: EditorViewProps) {
+export function ReactEditorView(props: EditorViewProps) {
 	const {
 		preset,
 		editorProps: {

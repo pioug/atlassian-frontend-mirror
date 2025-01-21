@@ -1,5 +1,13 @@
 # @atlaskit/lozenge
 
+## 11.12.7
+
+### Patch Changes
+
+- [#101729](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101729)
+  [`0935b5dc9db22`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0935b5dc9db22) -
+  [ux] updated visually refresh styles for subtle styled lozenge
+
 ## 11.12.6
 
 ### Patch Changes

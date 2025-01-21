@@ -4,8 +4,10 @@ import { type JsonLd } from 'json-ld-types';
 import { useIntl } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
-import LockIcon from '@atlaskit/icon/glyph/lock';
+import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
+import LegacyLockIcon from '@atlaskit/icon/glyph/lock';
 import { extractProvider } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -93,13 +95,23 @@ const ForbiddenView = ({
 
 	return (
 		<UnresolvedView {...props} actions={actions} showPreview={true} testId={testId} title={title}>
-			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
-			<LockIcon
-				label="forbidden-lock-icon"
-				size="small"
-				primaryColor={token('color.icon.danger', R300)}
-				testId={`${testId}-lock-icon`}
-			/>
+			{fg('platform-smart-card-icon-migration') ? (
+				<LockLockedIcon
+					label="forbidden-lock-icon"
+					color={token('color.icon.danger')}
+					LEGACY_fallbackIcon={LegacyLockIcon}
+					LEGACY_size="small"
+					testId={`${testId}-lock-icon`}
+				/>
+			) : (
+				// eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497
+				<LegacyLockIcon
+					label="forbidden-lock-icon"
+					size="small"
+					primaryColor={token('color.icon.danger', R300)}
+					testId={`${testId}-lock-icon`}
+				/>
+			)}
 			<Text
 				maxLines={3}
 				message={{

@@ -104,7 +104,10 @@ const lozengeWrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > span': {
 		marginLeft: token('space.050', '4px'),
-		padding: `${token('space.025', '2px')} 0 ${token('space.025', '2px')} 0`,
+		paddingTop: token('space.025', '2px'),
+		paddingRight: 0,
+		paddingBottom: token('space.025', '2px'),
+		paddingLeft: 0,
 	},
 });
 
@@ -122,7 +125,10 @@ const lozengeBlockWrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'& > span': {
 		marginLeft: token('space.050', '4px'),
-		padding: `${token('space.025', '2px')} 0 ${token('space.025', '2px')} 0`,
+		paddingTop: token('space.025', '2px'),
+		paddingRight: 0,
+		paddingBottom: token('space.025', '2px'),
+		paddingLeft: 0,
 	},
 });
 

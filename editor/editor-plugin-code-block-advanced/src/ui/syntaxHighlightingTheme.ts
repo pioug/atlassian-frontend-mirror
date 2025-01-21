@@ -38,7 +38,14 @@ export const highlightStyle = HighlightStyle.define([
 		color: token('color.text.accent.blue'),
 	},
 	{ tag: [tags.string, tags.deleted], color: token('color.text.accent.green') },
-	{ tag: [tags.regexp, tags.escape, tags.special(tags.string)], color: token('color.text') },
+	{
+		tag: [tags.special(tags.string)],
+		color: token('color.text.accent.green'),
+	},
+	{
+		tag: [tags.regexp, tags.escape],
+		color: token('color.text.accent.teal'),
+	},
 	{ tag: tags.definition(tags.variableName), color: token('color.text') },
 	{ tag: tags.local(tags.variableName), color: token('color.text') },
 	{ tag: [tags.typeName, tags.namespace], color: token('color.text.accent.blue') },

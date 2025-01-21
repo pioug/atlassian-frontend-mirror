@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-card
 
+## 4.5.15
+
+### Patch Changes
+
+- [#104847](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104847)
+  [`b55fc11242d17`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b55fc11242d17) -
+  Consolidate duplicate import statements
+
 ## 4.5.14
 
 ### Patch Changes

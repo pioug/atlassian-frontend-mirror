@@ -30,6 +30,7 @@ export const commitStepQueue = ({
 	analyticsHelper,
 	emit,
 	__livePage,
+	hasRecovered,
 }: {
 	broadcast: <K extends keyof ChannelEvent>(
 		type: K,
@@ -45,6 +46,7 @@ export const commitStepQueue = ({
 	analyticsHelper?: AnalyticsHelper;
 	emit: (evt: keyof CollabEvents, data: CollabCommitStatusEventPayload) => void;
 	__livePage: boolean;
+	hasRecovered: boolean;
 }) => {
 	if (!readyToCommit) {
 		logger('Not ready to commit, skip');
@@ -81,6 +83,14 @@ export const commitStepQueue = ({
 				// so we strip out the __expanded attribute from the step.
 				return { ...step, attrs: { title: step.attrs.title } };
 			}
+			return step;
+		});
+	}
+
+	// tag unconfirmed steps sent after page has been recovered during client's editing session
+	if (hasRecovered && fg('tag_unconfirmed_steps_after_recovery')) {
+		stepsWithClientAndUserId = stepsWithClientAndUserId.map((step: StepJson) => {
+			step.metadata = { ...step.metadata, unconfirmedStepAfterRecovery: true };
 			return step;
 		});
 	}

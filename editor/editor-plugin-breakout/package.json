@@ -110,9 +110,6 @@
 		"platform_editor_core_increase_full_page_guttering": {
 			"type": "boolean"
 		},
-		"platform_editor_react_editor_view_react_18": {
-			"type": "boolean"
-		},
 		"platform_editor_breakout_use_css": {
 			"type": "boolean"
 		}

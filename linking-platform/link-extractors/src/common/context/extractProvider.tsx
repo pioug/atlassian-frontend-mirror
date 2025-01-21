@@ -44,21 +44,9 @@ export const extractProviderIcon = (
 ): React.ReactNode | undefined => {
 	if (id) {
 		if (id === CONFLUENCE_GENERATOR_ID) {
-			return (
-				<ConfluenceIcon
-					appearance="brand"
-					/* eslint-enable @atlaskit/design-system/ensure-design-token-usage, @atlaskit/design-system/no-deprecated-apis */
-					size="xsmall"
-				/>
-			);
+			return <ConfluenceIcon appearance="brand" size="xsmall" />;
 		} else if (id === JIRA_GENERATOR_ID) {
-			return (
-				<JiraIcon
-					appearance="brand"
-					/* eslint-enable @atlaskit/design-system/ensure-design-token-usage */
-					size="xsmall"
-				/>
-			);
+			return <JiraIcon appearance="brand" size="xsmall" />;
 		}
 	}
 	if (icon) {

@@ -61,6 +61,10 @@ export const codeBlockSharedStyles = () => css`
 
 		--ds--code--bg-color: transparent;
 
+		.code-block-gutter-pseudo-element::before {
+			content: attr(data-label);
+		}
+
 		/* This is necessary to allow for arrow key navigation in/out of code blocks in Firefox. */
 		white-space: normal;
 

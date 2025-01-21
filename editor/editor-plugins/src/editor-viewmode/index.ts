@@ -3,6 +3,7 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { editorViewModePlugin } from '@atlaskit/editor-plugin-editor-viewmode';
 export type {
+	EditorViewModePluginConfig,
 	EditorViewModePluginState,
 	EditorViewModePlugin,
 	ViewMode,

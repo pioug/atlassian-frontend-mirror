@@ -1,8 +1,7 @@
 import type { CreateUIAnalyticsEvent } from '@atlaskit/analytics-next/types';
 import type { ExtensionProvider } from '@atlaskit/editor-common/extensions';
 import type { QuickInsertProvider } from '@atlaskit/editor-common/provider-factory';
-import type { QuickInsertOptions } from '@atlaskit/editor-common/types';
-import { type PublicPluginAPI } from '@atlaskit/editor-common/types';
+import type { QuickInsertOptions, PublicPluginAPI } from '@atlaskit/editor-common/types';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 
 import type EditorActions from '../actions';

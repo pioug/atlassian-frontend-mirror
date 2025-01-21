@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-hyperlink
 
+## 3.2.32
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.2.31
 
 ### Patch Changes

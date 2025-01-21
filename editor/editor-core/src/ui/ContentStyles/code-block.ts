@@ -62,7 +62,8 @@ export const codeBlockStyles = () => css`
 			margin-top: 0;
 		}
 
-		> div:last-of-type.code-block {
+		> div:last-of-type.code-block,
+		> pre:last-of-type.code-block {
 			margin-bottom: ${blockNodesVerticalMargin};
 		}
 	}

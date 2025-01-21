@@ -4,8 +4,10 @@ import rafSchedule from 'raf-schd';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { handleNavigation } from '@atlaskit/editor-common/link';
-import type { InlineNodeViewComponentProps } from '@atlaskit/editor-common/react-node-view';
-import { type getInlineNodeViewProducer } from '@atlaskit/editor-common/react-node-view';
+import type {
+	InlineNodeViewComponentProps,
+	getInlineNodeViewProducer,
+} from '@atlaskit/editor-common/react-node-view';
 import { findOverflowScrollParent, UnsupportedInline } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';

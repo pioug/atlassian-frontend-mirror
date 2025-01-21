@@ -10,7 +10,7 @@ import React, { useMemo } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import type { SerializedStyles } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type Theme, useTheme } from '@emotion/react';
+import { css, jsx, useTheme, type Theme } from '@emotion/react';
 
 import { browser } from '@atlaskit/editor-common/browser';
 import { telepointerStyle } from '@atlaskit/editor-common/collab';
@@ -333,6 +333,21 @@ const contentStyles = (props: ContentStylesProps) => css`
 		background: transparent;
 	}
 
+	/**
+	 * This prosemirror css style: https://github.com/ProseMirror/prosemirror-view/blob/f37ebb29befdbde3cd194fe13fe17b78e743d2f2/style/prosemirror.css#L24
+	 *
+	 * 1. Merge and Release platform_editor_hide_cursor_when_pm_hideselection
+	 * 2. Cleanup duplicated style from platform_editor_advanced_code_blocks
+	 *    https://product-fabric.atlassian.net/browse/ED-26331
+	 */
+	${fg('platform_editor_hide_cursor_when_pm_hideselection')
+		? css`
+				.ProseMirror-hideselection {
+					caret-color: transparent;
+				}
+			`
+		: null}
+
 	/* This prosemirror css style: https://github.com/ProseMirror/prosemirror-view/blob/f37ebb29befdbde3cd194fe13fe17b78e743d2f2/style/prosemirror.css#L24 */
 	${editorExperiment('platform_editor_advanced_code_blocks', true)
 		? css`
@@ -350,16 +365,12 @@ const contentStyles = (props: ContentStylesProps) => css`
 		outline: 2px solid ${token('color.border.focused', '#8cf')};
 	}
 
-	${fg('platform_editor_mark_boundary_cursor')
-		? css`
-				.ProseMirror.ProseMirror-focused:has(.ProseMirror-mark-boundary-cursor) {
-					caret-color: transparent;
-				}
-				.ProseMirror:not(.ProseMirror-focused) .ProseMirror-mark-boundary-cursor {
-					display: none;
-				}
-			`
-		: null}
+	.ProseMirror.ProseMirror-focused:has(.ProseMirror-mark-boundary-cursor) {
+		caret-color: transparent;
+	}
+	.ProseMirror:not(.ProseMirror-focused) .ProseMirror-mark-boundary-cursor {
+		display: none;
+	}
 
 	${placeholderTextStyles}
 	${placeholderStyles}

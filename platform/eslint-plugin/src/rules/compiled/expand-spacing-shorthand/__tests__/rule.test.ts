@@ -272,6 +272,36 @@ const invalidTestCases = (property: string) => {
 			`,
 			errors: Array.from(Array(3), () => ({ messageId: 'expandSpacingShorthand' })),
 		},
+		// Strings that are not valid property values should not be autofixed (e.g. !important)
+		{
+			name: `${property}: Don't autofix if not able to handle all the string values, e.g !important`,
+			code: outdent`
+			import {css} from '@compiled/react';
+			const styles = css({
+				${property}: \`0 \${token('space.200', '16px')} !important\`,
+			});
+			`,
+			errors: [{ messageId: 'expandSpacingShorthand' }],
+		},
+		{
+			name: `${property}: Autofix if able to handle all string values`,
+			code: outdent`
+			import {css} from '@compiled/react';
+			const styles = css({
+				${property}: \`0 auto \${token('space.300', '24px')}\`,
+			});
+			`,
+			output: outdent`
+			import {css} from '@compiled/react';
+			const styles = css({
+				${property}Top: 0,
+				${property}Right: 'auto',
+				${property}Bottom: token('space.300', '24px'),
+				${property}Left: 'auto',
+			});
+			`,
+			errors: [{ messageId: 'expandSpacingShorthand' }],
+		},
 		// Miscellaneous
 		{
 			name: `${property}: new property should not be created if existing property already exists`,
@@ -383,7 +413,7 @@ const invalidTestCases = (property: string) => {
 			`,
 			errors: Array.from(Array(2), () => ({ messageId: 'expandSpacingShorthand' })),
 		},
-		// TODO (AFB-1022): Resolve this failing test
+		// // TODO (AFB-1022): Resolve this failing test
 		// {
 		//  name: `${property}: styled components with prop input`,
 		//  code: outdent`

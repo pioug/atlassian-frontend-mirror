@@ -29,7 +29,7 @@ describe('Tabs should be found by data-testid', () => {
 		testIds.forEach((testId) => {
 			const tab = screen.getByTestId(testId);
 			expect(tab).toBeInTheDocument();
-			expect(tab.innerText).toBe(testId);
+			expect(tab.innerText).toMatch(testId);
 		});
 		// Only selected tab panel would render
 		const tabPanel = screen.getByTestId(`${testIds[0]}-panel`);

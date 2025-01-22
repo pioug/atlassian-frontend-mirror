@@ -25,6 +25,7 @@ import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection, Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { ExpandPlugin } from '../../types';
 import {
@@ -121,6 +122,9 @@ export class ExpandNodeView implements NodeView {
 		// If the user interacts in our title bar (either toggle or input)
 		// Prevent ProseMirror from getting a focus event (causes weird selection issues).
 		this.titleContainer.addEventListener('focus', this.handleFocus);
+		if (!editorExperiment('live_pages_graceful_edit', 'control')) {
+			this.input.addEventListener('click', this.handleInputClick);
+		}
 		this.icon.addEventListener('keydown', this.handleIconKeyDown);
 
 		if (this.api?.editorDisabled) {
@@ -238,6 +242,14 @@ export class ExpandNodeView implements NodeView {
 
 	private handleFocus = (event: FocusEvent) => {
 		event.stopImmediatePropagation();
+	};
+
+	private handleInputClick = () => {
+		if (!editorExperiment('live_pages_graceful_edit', 'control')) {
+			this.api?.core?.actions?.execute(
+				this.api?.editorViewMode?.commands.updateContentMode({ type: 'intent-to-edit' }),
+			);
+		}
 	};
 
 	private handleInputFocus = () => {
@@ -601,6 +613,9 @@ export class ExpandNodeView implements NodeView {
 		this.input.removeEventListener('blur', this.handleBlur);
 		this.input.removeEventListener('focus', this.handleInputFocus);
 		this.titleContainer.removeEventListener('focus', this.handleFocus);
+		if (!editorExperiment('live_pages_graceful_edit', 'control')) {
+			this.input.removeEventListener('click', this.handleInputClick);
+		}
 		this.icon.removeEventListener('keydown', this.handleIconKeyDown);
 		this.decorationCleanup?.();
 		if (this.cleanUpEditorDisabledOnChange) {

@@ -4,9 +4,16 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getLighthouseMetrics } from '../additional-payload';
 import * as bundleEvalTiming from '../bundle-eval-timing';
+import coinflip from '../coinflip';
 import type { ApdexType, BM3Event, InteractionMetrics, InteractionType } from '../common';
 import { REACT_UFO_VERSION } from '../common/constants';
-import { type Config, getConfig, getUfoNameOverrides } from '../config';
+import {
+	type Config,
+	getConfig,
+	getExperimentalInteractionRate,
+	getUfoNameOverrides,
+} from '../config';
+import { getExperimentalVCMetrics } from '../create-experimental-interaction-metrics-payload';
 import { getBm3Timings } from '../custom-timings';
 import { getGlobalErrorCount } from '../global-error-handler';
 import { getPageVisibilityState } from '../hidden-timing';
@@ -41,8 +48,7 @@ function getUfoNameOverride(interaction: InteractionMetrics): string {
 			}
 		}
 		return ufoName;
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	} catch (e: any) {
+	} catch (e: unknown) {
 		return ufoName;
 	}
 }
@@ -178,6 +184,14 @@ const getPaintMetrics = (type: InteractionType) => {
 	return metrics;
 };
 
+const getTTAI = (interaction: InteractionMetrics) => {
+	const { start, end } = interaction;
+	const pageVisibilityUpToTTAI = getPageVisibilityUpToTTAI(interaction);
+	return !interaction.abortReason && pageVisibilityUpToTTAI === 'visible'
+		? Math.round(end - start)
+		: undefined;
+};
+
 const getVCMetrics = (interaction: InteractionMetrics) => {
 	const config = getConfig();
 	if (!config?.vc?.enabled) {
@@ -204,6 +218,10 @@ const getVCMetrics = (interaction: InteractionMetrics) => {
 		vc: interaction.vc,
 		...ssr,
 	});
+
+	if (config.experimentalInteractionMetrics?.enabled) {
+		getVCObserver().stop();
+	}
 
 	postInteractionLog.setLastInteractionFinishVCResult(result);
 
@@ -690,7 +708,7 @@ function getSSRDoneTimeValue(config: Config | undefined): number | undefined {
 	return config?.ssr?.getSSRDoneTime ? config?.ssr?.getSSRDoneTime() : ssr.getSSRDoneTime();
 }
 
-function getPayloadSize(payload: Object): number {
+function getPayloadSize(payload: object): number {
 	return Math.round(new TextEncoder().encode(JSON.stringify(payload)).length / 1024);
 }
 
@@ -739,6 +757,9 @@ function getStylesheetMetrics() {
 	}
 }
 
+let regularTTAI: number | undefined;
+let expTTAI: number | undefined;
+
 function getErrorCounts(interaction: InteractionMetrics) {
 	return {
 		'ufo:errors:globalCount': getGlobalErrorCount(),
@@ -746,7 +767,11 @@ function getErrorCounts(interaction: InteractionMetrics) {
 	};
 }
 
-function createInteractionMetricsPayload(interaction: InteractionMetrics, interactionId: string) {
+function createInteractionMetricsPayload(
+	interaction: InteractionMetrics,
+	interactionId: string,
+	experimental?: boolean,
+) {
 	const interactionPayloadStart = performance.now();
 	const config = getConfig();
 	if (!config) {
@@ -808,7 +833,7 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 	};
 	// Detailed payload. Page visibility = visible
 	const getDetailedInteractionMetrics = () => {
-		if (window.__UFO_COMPACT_PAYLOAD__ || !isDetailedPayload) {
+		if (experimental || window.__UFO_COMPACT_PAYLOAD__ || !isDetailedPayload) {
 			return {};
 		}
 
@@ -822,7 +847,10 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 			})),
 			holdActive: [...interaction.holdActive.values()],
 			redirects: optimizeRedirects(interaction.redirects, start),
-			holdInfo: optimizeHoldInfo(interaction.holdInfo, start),
+			holdInfo: optimizeHoldInfo(
+				experimental ? interaction.holdExpInfo : interaction.holdInfo,
+				start,
+			),
 			spans: optimizeSpans(spans, start),
 			requestInfo: optimizeRequestInfo(interaction.requestInfo, start),
 			customTimings: optimizeCustomTimings(interaction.customTimings, start),
@@ -844,6 +872,12 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 		};
 	};
 
+	if (experimental) {
+		expTTAI = getTTAI(interaction);
+	} else {
+		regularTTAI = getTTAI(interaction);
+	}
+
 	const newUFOName = sanitizeUfoName(ufoName);
 	const payload = {
 		actionSubject: 'experience',
@@ -864,7 +898,9 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 					payloadSource: 'platform',
 				},
 				'event:region': config.region || 'unknown',
-				'experience:key': 'custom.interaction-metrics',
+				'experience:key': experimental
+					? 'custom.experimental-interaction-metrics'
+					: 'custom.interaction-metrics',
 				'experience:name': newUFOName,
 
 				// root
@@ -874,6 +910,7 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 				...getPaintMetrics(type),
 				...getNavigationMetrics(type),
 				...getVCMetrics(interaction),
+				...(experimental ? getExperimentalVCMetrics(interaction) : undefined),
 				...config.additionalPayloadData?.(interaction),
 				...getTracingContextData(interaction),
 				...getStylesheetMetrics(),
@@ -920,14 +957,20 @@ function createInteractionMetricsPayload(interaction: InteractionMetrics, intera
 					...getDetailedInteractionMetrics(),
 					...getPageLoadDetailedInteractionMetrics(),
 					...getBm3TrackerTimings(interaction),
+					'metric:ttai': experimental ? regularTTAI || expTTAI : undefined,
+					'metric:experimental:ttai': expTTAI,
 				},
 				'ufo:payloadTime': roundEpsilon(performance.now() - interactionPayloadStart),
 			},
 		},
 	};
 
-	payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
+	if (experimental) {
+		regularTTAI = undefined;
+		expTTAI = undefined;
+	}
 
+	payload.attributes.properties['event:sizeInKb'] = getPayloadSize(payload.attributes.properties);
 	return payload;
 }
 
@@ -940,4 +983,30 @@ export function createPayloads(interactionId: string, interaction: InteractionMe
 	);
 
 	return [interactionMetricsPayload];
+}
+
+export function createExperimentalMetricsPayload(
+	interactionId: string,
+	interaction: InteractionMetrics,
+) {
+	const config = getConfig();
+
+	if (!config) {
+		throw Error('UFO Configuration not provided');
+	}
+
+	const ufoName = sanitizeUfoName(interaction.ufoName);
+	const rate = getExperimentalInteractionRate(ufoName, interaction.type);
+
+	if (!coinflip(rate)) {
+		return null;
+	}
+
+	const pageVisibilityState = getPageVisibilityState(interaction.start, interaction.end);
+
+	if (pageVisibilityState !== 'visible') {
+		return null;
+	}
+
+	return createInteractionMetricsPayload(interaction, interactionId, true);
 }

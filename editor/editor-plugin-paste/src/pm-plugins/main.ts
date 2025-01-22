@@ -459,18 +459,6 @@ export function createPlugin(
 					slice.openStart = 1;
 				}
 
-				if (
-					handlePasteIntoTaskAndDecisionWithAnalytics(
-						view,
-						event,
-						slice,
-						isPlainText ? PasteTypes.plain : PasteTypes.richText,
-						pluginInjectionApi,
-					)(state, dispatch)
-				) {
-					return true;
-				}
-
 				// If we're in a code block, append the text contents of clipboard inside it
 				if (
 					handleCodeBlockWithAnalytics(editorAnalyticsAPI)(view, event, slice, text)(
@@ -514,6 +502,41 @@ export function createPlugin(
 				);
 
 				slice = isNestedMarkdownTable ? (markdownSlice as Slice) : slice;
+
+				// get editor-tables to handle pasting tables if it can
+				// otherwise, just the replace the selection with the content
+				if (handlePasteTable(view, null, slice)) {
+					sendPasteAnalyticsEvent(editorAnalyticsAPI)(view, event, slice, {
+						type: PasteTypes.richText,
+					});
+					return true;
+				}
+
+				// handle paste of nested tables to ensure nesting limits are respected
+				if (
+					handleNestedTablePasteWithAnalytics(
+						editorAnalyticsAPI,
+						fg('platform_editor_use_nested_table_pm_nodes'),
+					)(
+						view,
+						event,
+						slice,
+					)(state, dispatch)
+				) {
+					return true;
+				}
+
+				if (
+					handlePasteIntoTaskAndDecisionWithAnalytics(
+						view,
+						event,
+						slice,
+						isPlainText ? PasteTypes.plain : PasteTypes.richText,
+						pluginInjectionApi,
+					)(state, dispatch)
+				) {
+					return true;
+				}
 
 				// If the clipboard only contains plain text, attempt to parse it as Markdown
 				if (isPlainText && markdownSlice && !isNestedMarkdownTable) {
@@ -588,29 +611,6 @@ export function createPlugin(
 						sendPasteAnalyticsEvent(editorAnalyticsAPI)(view, event, slice, {
 							type: PasteTypes.richText,
 						});
-						return true;
-					}
-
-					// get editor-tables to handle pasting tables if it can
-					// otherwise, just the replace the selection with the content
-					if (handlePasteTable(view, null, slice)) {
-						sendPasteAnalyticsEvent(editorAnalyticsAPI)(view, event, slice, {
-							type: PasteTypes.richText,
-						});
-						return true;
-					}
-
-					// handle paste of nested tables to ensure nesting limits are respected
-					if (
-						handleNestedTablePasteWithAnalytics(
-							editorAnalyticsAPI,
-							fg('platform_editor_use_nested_table_pm_nodes'),
-						)(
-							view,
-							event,
-							slice,
-						)(state, dispatch)
-					) {
 						return true;
 					}
 

@@ -1,22 +1,26 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
 import Banner from '@atlaskit/banner';
+import { css, jsx } from '@atlaskit/css';
 import Form, { Field, useFormState } from '@atlaskit/form';
-import { Box, xcss } from '@atlaskit/primitives';
 import Select, { type ValueType as Value } from '@atlaskit/select';
 import TextArea from '@atlaskit/textarea';
+import { token } from '@atlaskit/tokens';
 
 interface Option {
 	label: string;
 	value: 'warning' | 'error' | 'announcement';
 }
 
-const formContainerStyles = xcss({
+const formContainerStyles = css({
 	maxWidth: '400px',
 	margin: '0 auto',
 });
 
-const previewStyles = xcss({ marginBlockStart: 'space.200' });
+const previewStyles = css({ marginBlockStart: token('space.200') });
 
 type BannerForm = {
 	appearance: Option;
@@ -31,10 +35,11 @@ const FormPreview = () => {
 	});
 
 	return (
-		<Box xcss={previewStyles}>
+		// eslint-disable-next-line @atlaskit/design-system/use-primitives
+		<div css={previewStyles}>
 			<Banner appearance={formState?.values.appearance.value}>{formState?.values.content}</Banner>
 			<pre>{JSON.stringify(formState, null, 2)}</pre>;
-		</Box>
+		</div>
 	);
 };
 
@@ -47,7 +52,7 @@ export default function StateSubscriptionExample() {
 		>
 			{({ formProps }) => (
 				<form {...formProps}>
-					<Box xcss={formContainerStyles}>
+					<div css={formContainerStyles}>
 						<Field<string, HTMLTextAreaElement>
 							name="content"
 							defaultValue=" "
@@ -74,7 +79,7 @@ export default function StateSubscriptionExample() {
 								/>
 							)}
 						</Field>
-					</Box>
+					</div>
 					<FormPreview />
 				</form>
 			)}

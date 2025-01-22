@@ -1,5 +1,5 @@
 import { closeBrackets } from '@codemirror/autocomplete';
-import { syntaxHighlighting } from '@codemirror/language';
+import { syntaxHighlighting, bracketMatching } from '@codemirror/language';
 import { Compartment, Extension, EditorSelection } from '@codemirror/state';
 import { EditorView as CodeMirror, lineNumbers, ViewUpdate, gutters } from '@codemirror/view';
 
@@ -22,6 +22,7 @@ import { cmTheme } from '../ui/theme';
 import { syncCMWithPM } from './codemirrorSync/syncCMWithPM';
 import { updateCMSelection } from './codemirrorSync/updateCMSelection';
 import { bidiCharWarningExtension } from './extensions/bidiCharWarning';
+import { copyButtonDecorations } from './extensions/copyButtonDecorations';
 import { keymapExtension } from './extensions/keymap';
 import { LanguageLoader } from './languages/loader';
 
@@ -38,12 +39,14 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private lineWrappingCompartment = new Compartment();
 	private languageCompartment = new Compartment();
 	private readOnlyCompartment = new Compartment();
+	private copyDecoCompartment = new Compartment();
 	private node: PMNode;
 	private getPos: getPosHandlerNode;
 	private cm: CodeMirror;
 	private selectionAPI: EditorSelectionAPI | undefined;
 	private maybeTryingToReachNodeSelection = false;
 	private cleanupDisabledState: (() => void) | undefined;
+	private cleanupCopyButtonDecoration: (() => void) | undefined;
 	private languageLoader: LanguageLoader;
 
 	// eslint-disable-next-line @typescript-eslint/max-params
@@ -57,6 +60,13 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.cleanupDisabledState = config.api?.editorDisabled?.sharedState.onChange(() => {
 			this.updateReadonlyState();
 		});
+		this.cleanupCopyButtonDecoration = config.api?.codeBlock?.sharedState.onChange(
+			({ nextSharedState, prevSharedState }) => {
+				if (nextSharedState?.copyButtonHoverNode !== prevSharedState?.copyButtonHoverNode) {
+					this.addCopyButtonDecoration(nextSharedState?.copyButtonHoverNode);
+				}
+			},
+		);
 		this.languageLoader = new LanguageLoader((lang) => {
 			this.updating = true;
 			this.cm.dispatch({
@@ -71,6 +81,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				...config.extensions,
 				this.lineWrappingCompartment.of([]),
 				this.languageCompartment.of([]),
+				this.copyDecoCompartment.of([]),
 				keymapExtension({
 					view,
 					getPos,
@@ -80,6 +91,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				}),
 				cmTheme,
 				syntaxHighlighting(highlightStyle),
+				bracketMatching(),
 				lineNumbers(),
 				// Explicitly disable "sticky" positioning on line numbers to match
 				// Renderer behaviour
@@ -103,6 +115,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 
 	destroy() {
 		this.cleanupDisabledState?.();
+		this.cleanupCopyButtonDecoration?.();
 	}
 
 	forwardUpdate(update: ViewUpdate) {
@@ -147,6 +160,18 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		if (tr) {
 			this.view.dispatch(tr);
 		}
+	}
+
+	private addCopyButtonDecoration(node: PMNode | undefined) {
+		this.updating = true;
+		this.cm.dispatch({
+			effects: [
+				this.copyDecoCompartment.reconfigure(
+					node && node === this.node ? copyButtonDecorations : [],
+				),
+			],
+		});
+		this.updating = false;
 	}
 
 	private wordWrappingEnabled = false;

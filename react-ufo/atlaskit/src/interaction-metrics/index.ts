@@ -22,6 +22,11 @@ import type {
 	SpanType,
 } from '../common';
 import { getAwaitBM3TTIList, getCapabilityRate, getConfig } from '../config';
+import {
+	experimentalVC,
+	getExperimentalVCMetrics,
+	onExperimentalInteractionComplete,
+} from '../create-experimental-interaction-metrics-payload';
 import { clearActiveTrace, type TraceIdContext } from '../experience-trace-id-context';
 import {
 	allFeatureFlagsAccessed,
@@ -32,7 +37,7 @@ import type { LabelStack, SegmentLabel } from '../interaction-context';
 import { getInteractionId } from '../interaction-id-context';
 import { getVCObserver } from '../vc';
 
-import interactions from './common/constants';
+import { interactions } from './common/constants';
 import PostInteractionLog from './post-interaction-log';
 
 export type {
@@ -290,12 +295,24 @@ function removeHoldCriterion(id: string) {
 	window.__CRITERION__.removeUFOHold(id);
 }
 
-export function addHold(interactionId: string, labelStack: LabelStack, name: string) {
+export function addHold(
+	interactionId: string,
+	labelStack: LabelStack,
+	name: string,
+	experimental: boolean,
+) {
 	const interaction = interactions.get(interactionId);
 	const id = createUUID();
 	if (interaction != null) {
 		const start = performance.now();
-		interaction.holdActive.set(id, { labelStack, name, start });
+		const holdActive = { labelStack, name, start };
+		if (getConfig()?.experimentalInteractionMetrics?.enabled && experimental) {
+			interaction.holdExpActive.set(id, { ...holdActive, start });
+		}
+		if (!experimental) {
+			interaction.holdActive.set(id, { ...holdActive, start });
+		}
+
 		addHoldCriterion(id, labelStack, name, start);
 		return () => {
 			const end = performance.now();
@@ -313,9 +330,17 @@ export function addHold(interactionId: string, labelStack: LabelStack, name: str
 			removeHoldCriterion(id);
 			const currentInteraction = interactions.get(interactionId);
 			const currentHold = interaction.holdActive.get(id);
-			if (currentInteraction != null && currentHold != null) {
-				currentInteraction.holdInfo.push({ ...currentHold, end });
-				interaction.holdActive.delete(id);
+			const expHold = interaction.holdExpActive.get(id);
+			if (currentInteraction != null) {
+				if (currentHold != null) {
+					currentInteraction.holdInfo.push({ ...currentHold, end });
+					interaction.holdActive.delete(id);
+				}
+
+				if (expHold != null) {
+					currentInteraction.holdExpInfo.push({ ...expHold, end });
+					interaction.holdExpActive.delete(id);
+				}
 			}
 		};
 	}
@@ -496,7 +521,6 @@ const finishInteraction = (
 	data: InteractionMetrics,
 	endTime: number = performance.now(),
 ) => {
-	// eslint-disable-next-line no-param-reassign
 	data.end = endTime;
 	try {
 		// for Firefox 102 and older
@@ -508,7 +532,6 @@ const finishInteraction = (
 		// do nothing
 	}
 	if (data.featureFlags) {
-		// eslint-disable-next-line no-param-reassign
 		data.featureFlags.during = Object.fromEntries(currentFeatureFlagsAccessed);
 	}
 	clearActiveTrace();
@@ -516,7 +539,11 @@ const finishInteraction = (
 	if (getConfig()?.vc?.stopVCAtInteractionFinish) {
 		data.vc = getVCObserver().getVCRawData();
 	}
-	remove(id);
+
+	if (!getConfig()?.experimentalInteractionMetrics?.enabled) {
+		remove(id);
+	}
+
 	PreviousInteractionLog.name = data.ufoName || 'unknown';
 	PreviousInteractionLog.isAborted = data.abortReason != null;
 	if (data.ufoName) {
@@ -584,15 +611,50 @@ export const sinkPostInteractionLogHandler = (
 	postInteractionLog.sinkHandler(sinkFn);
 };
 
+// a flag to prevent multiple submitting
+let activeSubmitted = false;
+
 export function tryComplete(interactionId: string, endTime?: number) {
 	const interaction = interactions.get(interactionId);
 	if (interaction != null) {
-		const noMoreHolds = interaction.holdActive.size === 0;
-		if (noMoreHolds) {
-			finishInteraction(interactionId, interaction, endTime);
+		const noMoreActiveHolds = interaction.holdActive.size === 0;
+		const noMoreExpHolds = interaction.holdExpActive.size === 0;
 
+		const postInteraction = () => {
 			if (getConfig()?.postInteractionLog?.enabled) {
-				postInteractionLog.onInteractionComplete(interaction);
+				let experimentalVC90;
+				let experimentalTTAI;
+				if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+					experimentalVC90 = getExperimentalVCMetrics(interaction)?.[
+						'metric:experimental:vc90'
+					] as number;
+					const { start, end } = interaction;
+					experimentalTTAI = !interaction.abortReason ? Math.round(end - start) : undefined;
+				}
+				postInteractionLog.onInteractionComplete({
+					...interaction,
+					experimentalTTAI,
+					experimentalVC90,
+				});
+			}
+
+			if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+				remove(interactionId);
+			}
+			activeSubmitted = false;
+		};
+
+		if (noMoreActiveHolds) {
+			if (!activeSubmitted) {
+				finishInteraction(interactionId, interaction, endTime);
+				activeSubmitted = true;
+			}
+
+			if (noMoreExpHolds) {
+				if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+					onExperimentalInteractionComplete(interactionId, interaction, endTime);
+				}
+				postInteraction();
 			}
 		}
 	}
@@ -610,6 +672,10 @@ export function abort(interactionId: string, abortReason: AbortReasonType) {
 		callCancelCallbacks(interaction);
 		interaction.abortReason = abortReason;
 		finishInteraction(interactionId, interaction);
+		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+			onExperimentalInteractionComplete(interactionId, interaction);
+			remove(interactionId);
+		}
 	}
 }
 
@@ -620,6 +686,10 @@ export function abortByNewInteraction(interactionId: string, interactionName: st
 		interaction.abortReason = 'new_interaction';
 		interaction.abortedByInteractionName = interactionName;
 		finishInteraction(interactionId, interaction);
+		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+			onExperimentalInteractionComplete(interactionId, interaction);
+			remove(interactionId);
+		}
 	}
 }
 
@@ -628,15 +698,17 @@ export function abortAll(abortReason: AbortReasonType, abortedByInteractionName?
 		const noMoreHolds = interaction.holdActive.size === 0;
 		if (!noMoreHolds) {
 			callCancelCallbacks(interaction);
-			// eslint-disable-next-line no-param-reassign
 			interaction.abortReason = abortReason;
 			if (abortedByInteractionName != null) {
-				// eslint-disable-next-line no-param-reassign
 				interaction.abortedByInteractionName = abortedByInteractionName;
 			}
 		}
 
 		finishInteraction(interactionId, interaction);
+		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+			onExperimentalInteractionComplete(interactionId, interaction);
+			remove(interactionId);
+		}
 	});
 }
 
@@ -700,9 +772,11 @@ export function addNewInteraction(
 		requestInfo: [],
 		reactProfilerTimings: [],
 		holdInfo: [],
+		holdExpInfo: [],
 		holdActive: new Map(),
+		holdExpActive: new Map(),
 		// measure when we execute this code
-		// from this we can measure the input delay -
+		// from this, we can measure the input delay -
 		// how long the browser took to hand execution back to JS)
 		measureStart: performance.now(),
 		rate,
@@ -751,6 +825,9 @@ export function addNewInteraction(
 	if (type === 'transition') {
 		getVCObserver().start({ startTime });
 		postInteractionLog.startVCObserver({ startTime });
+		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+			experimentalVC.start({ startTime });
+		}
 	}
 }
 
@@ -898,6 +975,7 @@ export function addRedirect(
 		}
 	}
 }
+
 declare global {
 	interface Window {
 		__REACT_UFO_ENABLE_PERF_TRACING?: boolean;

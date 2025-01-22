@@ -6,8 +6,14 @@ import { editorExperimentsConfig } from './experiments-config';
 export type EditorExperimentOverrides = Partial<{
 	[ExperimentName in keyof typeof editorExperimentsConfig]: (typeof editorExperimentsConfig)[ExperimentName]['defaultValue'];
 }>;
+export type EditorExperimentParamOverrides = {
+	// Once the param setup moves to config -- this type can be more specific
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	[experimentName: string]: { [paramName: string]: any };
+};
 
 export let _overrides = {} as EditorExperimentOverrides;
+export let _paramOverrides = {} as EditorExperimentParamOverrides;
 export let _product: 'confluence' | 'jira' | 'test' | undefined;
 
 /**
@@ -24,18 +30,23 @@ export let _product: 'confluence' | 'jira' | 'test' | undefined;
 export function setupEditorExperiments(
 	product: 'confluence' | 'jira' | 'test',
 	/**
-	 * Overrides are used to set the value of an experiment for testing purposes.
-	 * This is useful when you want to test a specific value of an experiment.
+	 * Overrides are used to set the group of an experiment for testing purposes.
+	 * This is useful when you want to test a specific experiment group.
 	 */
-	overrides?: EditorExperimentOverrides,
+	groupOverrides?: EditorExperimentOverrides,
+	/**
+	 * Param overrides are used to set the experiment parameters for testing purposes.
+	 * This is useful when you want to tweak the experiment parameters for testing.
+	 */
+	paramOverrides?: EditorExperimentParamOverrides,
 ) {
-	if (overrides) {
+	if (groupOverrides) {
 		// When setting up overrides, we want to ensure that experiments don't end up with invalid
 		// values.
 		// For production usage -- this is done via the feature flag client which takes the type
 		// and performs equivalent logic.
 		// @ts-ignore
-		overrides = Object.entries(overrides).reduce((acc, [key, value]) => {
+		groupOverrides = Object.entries(groupOverrides).reduce((acc, [key, value]) => {
 			const config = editorExperimentsConfig[key as keyof typeof editorExperimentsConfig];
 
 			if (config) {
@@ -44,7 +55,11 @@ export function setupEditorExperiments(
 			return acc;
 		}, {});
 
-		_overrides = overrides;
+		_overrides = groupOverrides;
 	}
 	_product = product;
+
+	if (paramOverrides) {
+		_paramOverrides = paramOverrides;
+	}
 }

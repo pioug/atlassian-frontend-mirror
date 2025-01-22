@@ -13,8 +13,7 @@ import {
 	useState,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { type FieldState } from 'final-form';
 import invariant from 'tiny-invariant';
 
@@ -210,7 +209,7 @@ export default function Field<
 			 * cause the component re-mounting) to not override the actual value with the default value.
 			 */
 			// @ts-ignore
-			value: isDefaultValueChanged ? defaultValue : getCurrentValue(props.name) ?? defaultValue,
+			value: isDefaultValueChanged ? defaultValue : (getCurrentValue(props.name) ?? defaultValue),
 		},
 		error: undefined,
 		valid: false,

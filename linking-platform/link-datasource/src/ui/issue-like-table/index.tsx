@@ -9,7 +9,6 @@ import { css, jsx } from '@emotion/react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 import debounce from 'lodash/debounce';
-import { useIntl } from 'react-intl-next';
 import invariant from 'tiny-invariant';
 
 import { FlagsProvider } from '@atlaskit/flag';
@@ -18,7 +17,6 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceType,
 } from '@atlaskit/linking-types/datasource';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { extractClosestEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/closest-edge';
 import { reorderWithEdge } from '@atlaskit/pragmatic-drag-and-drop-hitbox/util/reorder-with-edge';
 import { autoScroller } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-autoscroll';
@@ -39,18 +37,15 @@ import { ColumnPicker } from './column-picker';
 import { DragColumnPreview } from './drag-column-preview';
 import { DraggableTableHeading } from './draggable-table-heading';
 import TableEmptyState from './empty-state';
-import { renderType, stringifyType } from './render-type';
+import { renderType } from './render-type';
 import {
 	InlineEditableTableCell,
 	Table,
-	TableCell,
 	TableHeading,
 	withTablePluginHeaderPrefix,
 } from './styled';
 import { TableCellContent } from './table-cell-content';
-import { TruncateTextTag } from './truncate-text-tag';
 import {
-	type DatasourceTypeWithOnlyValues,
 	type HeaderRowCellType,
 	type IssueLikeDataTableViewProps,
 	type RowCellType,
@@ -369,7 +364,6 @@ export const IssueLikeDataTableView = ({
 	extensionKey,
 }: IssueLikeDataTableViewProps) => {
 	const tableId = useMemo(() => Symbol('unique-id'), []);
-	const intl = useIntl();
 
 	const experienceId = useDatasourceExperienceId();
 	const tableHeaderRowRef = useRef<HTMLTableRowElement>(null);
@@ -423,9 +417,6 @@ export const IssueLikeDataTableView = ({
 	// TODO seems like this component can't handle some combination of incremental data retrieval.
 	// If data comes first, then columns and then visibleColumnKeys it blows up,
 	// or some other combination.
-
-	const identityColumnKey = 'id';
-
 	const columnsWidthsSum = useMemo(
 		() =>
 			visibleSortedColumns
@@ -566,92 +557,31 @@ export const IssueLikeDataTableView = ({
 
 	const tableRows: Array<RowType> = useMemo(
 		() =>
-			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-			fg('enable_datasource_react_sweet_state')
-				? itemIds.map<RowType>((id, rowIndex) => {
+			itemIds.map<RowType>((id, rowIndex) => {
+				return {
+					key: id,
+					cells: visibleSortedColumns.map<RowCellType>(({ key, type, title }, cellIndex) => {
 						return {
-							key: id,
-							cells: visibleSortedColumns.map<RowCellType>(({ key, type, title }, cellIndex) => {
-								return {
-									key,
-									columnKey: key,
-									// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-									content: (
-										<TableCellContent
-											id={id}
-											columnKey={key}
-											columnType={type}
-											columnTitle={title}
-											wrappedColumnKeys={wrappedColumnKeys}
-											renderItem={renderItem}
-										/>
-									),
-									width: getColumnWidth(key, type, cellIndex === visibleSortedColumns.length - 1),
-								};
-							}),
-							ref: rowIndex === items.length - 1 ? (el) => setLastRowElement(el) : undefined,
+							key,
+							columnKey: key,
+							// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+							content: (
+								<TableCellContent
+									id={id}
+									columnKey={key}
+									columnType={type}
+									columnTitle={title}
+									wrappedColumnKeys={wrappedColumnKeys}
+									renderItem={renderItem}
+								/>
+							),
+							width: getColumnWidth(key, type, cellIndex === visibleSortedColumns.length - 1),
 						};
-					})
-				: items.map<RowType>((newRowData, rowIndex) => ({
-						key: `${
-							(identityColumnKey &&
-								newRowData[identityColumnKey] &&
-								newRowData[identityColumnKey].data) ||
-							rowIndex
-						}`,
-						cells: visibleSortedColumns.map<RowCellType>(({ key, type }, cellIndex) => {
-							// Need to make sure we keep falsy values like 0 and '', as well as the boolean false.
-							const value = newRowData[key]?.data;
-							const values = Array.isArray(value) ? value : [value];
-
-							const renderedValues = renderItem({
-								type,
-								values,
-							} as DatasourceTypeWithOnlyValues);
-
-							const stringifiedContent = values
-								.map((value) =>
-									stringifyType(
-										{ type, value } as DatasourceType,
-										intl.formatMessage,
-										intl.formatDate,
-									),
-								)
-								.filter((value) => value !== '')
-								.join(', ');
-
-							const contentComponent =
-								stringifiedContent && !wrappedColumnKeys?.includes(key) ? (
-									<Tooltip
-										// @ts-ignore: [PIT-1685] Fails in post-office due to backwards incompatibility issue with React 18
-										tag={TruncateTextTag}
-										content={stringifiedContent}
-										testId="issues-table-cell-tooltip"
-									>
-										{renderedValues}
-									</Tooltip>
-								) : (
-									renderedValues
-								);
-
-							return {
-								key,
-								content: contentComponent,
-								width: getColumnWidth(key, type, cellIndex === visibleSortedColumns.length - 1),
-							};
-						}),
-						ref: rowIndex === items.length - 1 ? (el) => setLastRowElement(el) : undefined,
-					})),
-		[
-			items,
-			itemIds,
-			renderItem,
-			wrappedColumnKeys,
-			visibleSortedColumns,
-			getColumnWidth,
-			intl.formatMessage,
-			intl.formatDate,
-		],
+					}),
+					ref: rowIndex === items.length - 1 ? (el) => setLastRowElement(el) : undefined,
+				};
+			}),
+		[items, itemIds, renderItem, wrappedColumnKeys, visibleSortedColumns, getColumnWidth],
 	);
 
 	const rows = useMemo(() => {
@@ -822,32 +752,8 @@ export const IssueLikeDataTableView = ({
 									shouldUseWidth,
 									width,
 								});
-								// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-								if (fg('enable_datasource_react_sweet_state')) {
-									return (
-										<InlineEditableTableCell
-											key={cellKey}
-											data-testid={testId && `${testId}--cell-${cellIndex}`}
-											colSpan={isEditable && isLastCell ? 2 : undefined}
-											// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-											style={loadingRowStyle}
-											css={[wrappedColumnKeys?.includes(cellKey) ? null : truncateStyles]}
-										>
-											{content}
-										</InlineEditableTableCell>
-									);
-								}
-
-								// extra padding is required around skeleton loader to avoid vertical jumps when data loads
-								if (key?.includes('loading')) {
-									loadingRowStyle = {
-										...loadingRowStyle,
-										paddingBlock: token('space.100', '8px'),
-									};
-								}
-
 								return (
-									<TableCell
+									<InlineEditableTableCell
 										key={cellKey}
 										data-testid={testId && `${testId}--cell-${cellIndex}`}
 										colSpan={isEditable && isLastCell ? 2 : undefined}
@@ -856,7 +762,7 @@ export const IssueLikeDataTableView = ({
 										css={[wrappedColumnKeys?.includes(cellKey) ? null : truncateStyles]}
 									>
 										{content}
-									</TableCell>
+									</InlineEditableTableCell>
 								);
 							})}
 						</tr>

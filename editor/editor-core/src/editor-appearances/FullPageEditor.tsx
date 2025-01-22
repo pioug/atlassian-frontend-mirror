@@ -28,6 +28,7 @@ export type FullPageEditorProps = Pick<
 	| 'contentComponents'
 	| 'primaryToolbarIconBefore'
 	| 'sanitizePrivateContent'
+	| '__livePage'
 > & {
 	onChange?: () => void;
 	onEditorReady?: () => void;
@@ -52,6 +53,7 @@ export function FullPageEditor(props: FullPageEditorProps) {
 			{...props}
 			appearance={props.appearance ?? 'full-page'}
 			AppearanceComponent={FullPage}
+			__livePage={props.__livePage}
 		/>
 	);
 }

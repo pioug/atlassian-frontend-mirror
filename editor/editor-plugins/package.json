@@ -371,10 +371,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"enable_datasource_react_sweet_state": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"editor_inline_comments_on_inline_nodes": {
 			"type": "boolean",
 			"referenceOnly": true

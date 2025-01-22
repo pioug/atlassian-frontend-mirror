@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { IntlProvider } from 'react-intl-next';
+
 import { EditorExampleControls, getExamplesProviders } from '@af/editor-examples-helpers/utils';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
@@ -13,14 +15,18 @@ import { ConfluenceCardClient } from '@atlaskit/editor-test-helpers/confluence-c
 import { ConfluenceCardProvider } from '@atlaskit/editor-test-helpers/confluence-card-provider';
 import { SmartCardProvider } from '@atlaskit/link-provider';
 import { exampleMediaFeatureFlags } from '@atlaskit/media-test-helpers/exampleMediaFeatureFlags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { simpleMockProfilecardClient } from '@atlaskit/util-data-test/get-mock-profilecard-client';
 import { mentionResourceProvider } from '@atlaskit/util-data-test/mention-story-data';
+
+import enMessages from '../src/i18n/en';
 
 const smartLinksProvider = new ConfluenceCardProvider('staging');
 const smartCardClient = new ConfluenceCardClient('staging');
 
 const EXAMPLE_NAME = 'live-view-composable-editor';
 
+// @ts-ignore @typescript-eslint/no-explicit-any
 const MockProfileClient: any = simpleMockProfilecardClient();
 
 function getDefaultValue() {
@@ -30,7 +36,6 @@ function getDefaultValue() {
 
 function ComposableEditorPage() {
 	const [appearance, setAppearance] = React.useState<EditorAppearance>('full-page');
-	const [isViewMode, setIsViewMode] = React.useState(false);
 	const providers = getExamplesProviders({});
 
 	const universalPreset = useUniversalPreset({
@@ -119,25 +124,25 @@ function ComposableEditorPage() {
 	// Memoise the preset otherwise we will re-render the editor too often
 	const { preset, editorApi } = usePreset(() => {
 		return universalPreset
-			.add([editorViewModePlugin, { mode: isViewMode ? 'view' : 'edit' }])
+			.add([
+				editorViewModePlugin,
+				editorExperiment('live_pages_graceful_edit', 'control')
+					? { mode: 'edit' }
+					: { initialContentMode: 'live-edit' },
+			])
 			.add(selectionMarkerPlugin)
 			.add(codeBlockAdvancedPlugin);
 		// The only things that cause a re-creation of the preset is something in the
 		// universal preset to be consistent with current behaviour (ie. this could
 		// be a page width change via the `appearance` prop).
-	}, [universalPreset, isViewMode]);
+	}, [universalPreset]);
 
+	// @typescript-eslint/no-explicit-any
 	const onDocumentChanged = (adf: any) => {
 		if (adf?.state?.doc) {
 			localStorage.setItem(`${EXAMPLE_NAME}-doc`, JSON.stringify(adf?.state?.doc));
 		}
 	};
-
-	React.useEffect(() => {
-		editorApi?.core?.actions.execute(
-			editorApi?.editorViewMode?.commands.updateViewMode(isViewMode ? 'view' : 'edit'),
-		);
-	}, [editorApi?.core?.actions, editorApi?.editorViewMode?.commands, isViewMode]);
 
 	return (
 		<SmartCardProvider client={smartCardClient}>
@@ -151,16 +156,28 @@ function ComposableEditorPage() {
 					}
 				}}
 				onViewMode={() => {
-					setIsViewMode(!isViewMode);
+					editorApi?.core?.actions.execute(
+						editorApi?.editorViewMode?.commands.updateContentMode({
+							type: 'switch-content-mode',
+							contentMode:
+								editorApi?.editorViewMode.sharedState.currentState()?.contentMode === 'live-edit'
+									? 'live-view'
+									: 'live-edit',
+						}),
+					);
 				}}
 			/>
-			<ComposableEditor
-				appearance={appearance}
-				preset={preset}
-				defaultValue={getDefaultValue()}
-				onChange={(adf) => onDocumentChanged(adf)}
-				mentionProvider={Promise.resolve(mentionResourceProvider)}
-			/>
+			<StateMonitor getState={editorApi?.editorViewMode.sharedState.currentState} />
+			<IntlProvider locale={'en'} messages={enMessages}>
+				<ComposableEditor
+					appearance={appearance}
+					preset={preset}
+					defaultValue={getDefaultValue()}
+					onChange={(adf) => onDocumentChanged(adf)}
+					mentionProvider={Promise.resolve(mentionResourceProvider)}
+					__livePage={true}
+				/>
+			</IntlProvider>
 		</SmartCardProvider>
 	);
 }
@@ -173,4 +190,25 @@ export default function ComposableEditorPageWrapper() {
 			</EditorContext>
 		</>
 	);
+}
+
+/**
+ * React component that re renders to monitor non React state changes
+ */
+// @typescript-eslint/no-explicit-any
+function StateMonitor({ getState, delay = 500 }: { getState?: () => any; delay?: number }) {
+	const [state, setState] = React.useState<string>();
+
+	React.useEffect(() => {
+		if (getState === undefined) {
+			return;
+		}
+		const interval = setInterval(() => {
+			setState(JSON.stringify(getState()));
+		}, delay);
+
+		return () => clearInterval(interval);
+	}, [getState, delay]);
+
+	return <>non react state: {state}</>;
 }

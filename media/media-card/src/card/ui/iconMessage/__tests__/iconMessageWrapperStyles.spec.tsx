@@ -20,6 +20,6 @@ describe('Icon message wrapper styles', () => {
 		const wrapper = component.find(iconMessageWrapperId);
 		const styles = getComputedStyle(wrapper.getDOMNode());
 
-		expect(styles.getPropertyValue('font-weight')).toBe('450');
+		expect(styles.getPropertyValue('font-weight')).toBe('var(--ds-font-weight-medium, 500)');
 	});
 });

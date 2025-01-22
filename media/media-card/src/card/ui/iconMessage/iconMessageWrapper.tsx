@@ -32,8 +32,7 @@ const animatedStyles = css({
 const baseStyles = css({
 	overflow: 'hidden',
 	opacity: 1,
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	fontWeight: 450,
+	fontWeight: token('font.weight.medium'),
 	color: token('color.text.subtlest', '#7A869A'),
 	textAlign: 'center',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space

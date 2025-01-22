@@ -16,7 +16,10 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import type { CodeBlockPlugin } from './codeBlockPluginType';
 import { createInsertCodeBlockTransaction, insertCodeBlockWithAnalytics } from './editor-commands';
 import { codeBlockAutoFullStopTransformPlugin } from './pm-plugins/codeBlockAutoFullStopTransformPlugin';
-import { codeBlockCopySelectionPlugin } from './pm-plugins/codeBlockCopySelectionPlugin';
+import {
+	codeBlockCopySelectionPlugin,
+	copySelectionPluginKey,
+} from './pm-plugins/codeBlockCopySelectionPlugin';
 import ideUX from './pm-plugins/ide-ux';
 import { createCodeBlockInputRule } from './pm-plugins/input-rule';
 import keymap from './pm-plugins/keymaps';
@@ -34,6 +37,15 @@ const codeBlockPlugin: CodeBlockPlugin = ({ config: options, api }) => {
 
 		nodes() {
 			return [{ name: 'codeBlock', node: codeBlock }];
+		},
+
+		getSharedState(state) {
+			if (!state) {
+				return undefined;
+			}
+			return {
+				copyButtonHoverNode: copySelectionPluginKey.getState(state).codeBlockNode,
+			};
 		},
 
 		pmPlugins() {

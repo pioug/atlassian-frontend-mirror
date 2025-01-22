@@ -10,7 +10,6 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 
 import type { DatasourceDataResponseItem } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 type Actions = typeof actions;
 
@@ -113,8 +112,5 @@ export const useDatasourceActions = createActionsHook(Store);
 const Container = createContainer(Store);
 
 export const StoreContainer = ({ children }: { children: JSX.Element }) => {
-	if (fg('enable_datasource_react_sweet_state')) {
-		return <Container scope="datasource">{children}</Container>;
-	}
-	return children;
+	return <Container scope="datasource">{children}</Container>;
 };

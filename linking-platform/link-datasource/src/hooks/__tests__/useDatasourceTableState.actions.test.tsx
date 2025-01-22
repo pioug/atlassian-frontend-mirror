@@ -107,138 +107,136 @@ describe('useDatasourceTableState', () => {
 	});
 
 	describe('with useDiscoverActions', () => {
-		ffTest.on('enable_datasource_react_sweet_state', 'flag on', () => {
-			it('should not call discovery when determined to be in FedRamp environment', async () => {
-				asMock(getDatasourceData).mockResolvedValueOnce({
-					...mockDatasourceDataResponseWithSchema,
-				});
-				mockIsFedRamp.mockReturnValueOnce(true);
+		it('should not call discovery when determined to be in FedRamp environment', async () => {
+			asMock(getDatasourceData).mockResolvedValueOnce({
+				...mockDatasourceDataResponseWithSchema,
+			});
+			mockIsFedRamp.mockReturnValueOnce(true);
 
-				const { waitForNextUpdate } = setup();
-				await waitForNextUpdate();
+			const { waitForNextUpdate } = setup();
+			await waitForNextUpdate();
 
-				expect(getDatasourceActionsAndPermissions).not.toHaveBeenCalled();
+			expect(getDatasourceActionsAndPermissions).not.toHaveBeenCalled();
+		});
+
+		it('should call discovery when determined to be non FedRamp environment', async () => {
+			asMock(getDatasourceData).mockResolvedValueOnce({
+				...mockDatasourceDataResponseWithSchema,
+			});
+			asMock(getDatasourceActionsAndPermissions).mockResolvedValueOnce({
+				...mockActionsDiscoveryResponse,
+			});
+			mockIsFedRamp.mockReturnValueOnce(false);
+
+			const { waitForNextUpdate } = setup();
+			await waitForNextUpdate();
+
+			expect(getDatasourceActionsAndPermissions).toHaveBeenCalled();
+		});
+
+		it('should not call discovery when objectTypesEntity is not in the datasource response', async () => {
+			asMock(getDatasourceData).mockResolvedValueOnce({
+				...mockDatasourceDataNoActionsResponse,
+			});
+			const { waitForNextUpdate } = setup();
+			await waitForNextUpdate();
+
+			expect(getDatasourceActionsAndPermissions).not.toHaveBeenCalled();
+		});
+
+		it('should fire analytic event when `discoverActions` is successful', async () => {
+			asMock(getDatasourceData).mockResolvedValueOnce({
+				...mockDatasourceDataResponseWithSchema,
 			});
 
-			it('should call discovery when determined to be non FedRamp environment', async () => {
+			asMock(getDatasourceActionsAndPermissions).mockResolvedValueOnce({
+				...mockActionsDiscoveryResponse,
+			});
+
+			const { waitForNextUpdate } = setup();
+			await waitForNextUpdate();
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'success',
+						actionSubject: 'actionDiscovery',
+						eventType: 'operational',
+						attributes: {
+							datasourceId: null,
+							entityType: 'work-item',
+							experience: 'datasource',
+							integrationKey: 'jira',
+						},
+					},
+				},
+				EVENT_CHANNEL,
+			);
+		});
+
+		it('when `discoverActions` fails with an `Error`, it should log to Splunk and log to Sentry conditionally based on FF', async () => {
+			const mockError = new Error('Mock error');
+			asMock(getDatasourceData).mockResolvedValueOnce({
+				...mockDatasourceDataResponseWithSchema,
+			});
+			asMock(getDatasourceActionsAndPermissions).mockRejectedValueOnce(mockError);
+
+			const { waitForNextUpdate } = setup();
+			await waitForNextUpdate();
+
+			expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
+				{
+					payload: {
+						action: 'operationFailed',
+						actionSubject: 'datasource',
+						eventType: 'operational',
+						attributes: {
+							errorLocation: 'actionDiscovery',
+							status: null,
+							traceId: null,
+							reason: 'internal',
+						},
+					},
+				},
+				EVENT_CHANNEL,
+			);
+			expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
+				datasourceId: mockDatasourceId,
+			});
+		});
+
+		ffTest.on('enable_datasource_supporting_actions', 'flag on', () => {
+			it('should include fetchAction in the state when they are available', async () => {
 				asMock(getDatasourceData).mockResolvedValueOnce({
 					...mockDatasourceDataResponseWithSchema,
 				});
+
 				asMock(getDatasourceActionsAndPermissions).mockResolvedValueOnce({
 					...mockActionsDiscoveryResponse,
 				});
-				mockIsFedRamp.mockReturnValueOnce(false);
 
 				const { waitForNextUpdate } = setup();
 				await waitForNextUpdate();
 
-				expect(getDatasourceActionsAndPermissions).toHaveBeenCalled();
-			});
+				const actions = actionsStore.storeState.getState();
 
-			it('should not call discovery when objectTypesEntity is not in the datasource response', async () => {
-				asMock(getDatasourceData).mockResolvedValueOnce({
-					...mockDatasourceDataNoActionsResponse,
-				});
-				const { waitForNextUpdate } = setup();
-				await waitForNextUpdate();
-
-				expect(getDatasourceActionsAndPermissions).not.toHaveBeenCalled();
-			});
-
-			it('should fire analytic event when `discoverActions` is successful', async () => {
-				asMock(getDatasourceData).mockResolvedValueOnce({
-					...mockDatasourceDataResponseWithSchema,
-				});
-
-				asMock(getDatasourceActionsAndPermissions).mockResolvedValueOnce({
-					...mockActionsDiscoveryResponse,
-				});
-
-				const { waitForNextUpdate } = setup();
-				await waitForNextUpdate();
-
-				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'success',
-							actionSubject: 'actionDiscovery',
-							eventType: 'operational',
-							attributes: {
-								datasourceId: null,
-								entityType: 'work-item',
-								experience: 'datasource',
-								integrationKey: 'jira',
-							},
-						},
-					},
-					EVENT_CHANNEL,
-				);
-			});
-
-			it('when `discoverActions` fails with an `Error`, it should log to Splunk and log to Sentry conditionally based on FF', async () => {
-				const mockError = new Error('Mock error');
-				asMock(getDatasourceData).mockResolvedValueOnce({
-					...mockDatasourceDataResponseWithSchema,
-				});
-				asMock(getDatasourceActionsAndPermissions).mockRejectedValueOnce(mockError);
-
-				const { waitForNextUpdate } = setup();
-				await waitForNextUpdate();
-
-				expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(
-					{
-						payload: {
-							action: 'operationFailed',
-							actionSubject: 'datasource',
-							eventType: 'operational',
-							attributes: {
-								errorLocation: 'actionDiscovery',
-								status: null,
-								traceId: null,
-								reason: 'internal',
-							},
-						},
-					},
-					EVENT_CHANNEL,
-				);
-				expect(captureException).toHaveBeenCalledWith(mockError, 'link-datasource', {
-					datasourceId: mockDatasourceId,
-				});
-			});
-
-			ffTest.on('enable_datasource_supporting_actions', 'flag on', () => {
-				it('should include fetchAction in the state when they are available', async () => {
-					asMock(getDatasourceData).mockResolvedValueOnce({
-						...mockDatasourceDataResponseWithSchema,
-					});
-
-					asMock(getDatasourceActionsAndPermissions).mockResolvedValueOnce({
-						...mockActionsDiscoveryResponse,
-					});
-
-					const { waitForNextUpdate } = setup();
-					await waitForNextUpdate();
-
-					const actions = actionsStore.storeState.getState();
-
-					expect(actions['actionsByIntegration']['jira']).toEqual(
-						expect.objectContaining({
-							status: {
-								actionKey: 'atlassian:work-item:update:status',
-								fetchAction: {
-									actionKey: 'atlassian:work-item:get:statuses',
-									inputs: {
-										issueId: {
-											type: 'string',
-										},
+				expect(actions['actionsByIntegration']['jira']).toEqual(
+					expect.objectContaining({
+						status: {
+							actionKey: 'atlassian:work-item:update:status',
+							fetchAction: {
+								actionKey: 'atlassian:work-item:get:statuses',
+								inputs: {
+									issueId: {
+										type: 'string',
 									},
-									type: 'string',
 								},
 								type: 'string',
 							},
-						}),
-					);
-				});
+							type: 'string',
+						},
+					}),
+				);
 			});
 		});
 	});

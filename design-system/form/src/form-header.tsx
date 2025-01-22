@@ -1,14 +1,13 @@
+/* eslint-disable @atlaskit/design-system/use-primitives */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import { type ReactNode } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
+import { css, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 export interface FormHeaderProps {
 	/**
@@ -25,13 +24,13 @@ export interface FormHeaderProps {
 	children?: ReactNode;
 }
 
-const formHeaderContentStyles = xcss({
+const formHeaderContentStyles = css({
 	minWidth: '100%',
-	marginBlockStart: 'space.100',
+	marginBlockStart: token('space.100'),
 });
 
-const formHeaderDescriptionStyles = xcss({
-	marginBlockStart: 'space.100',
+const formHeaderDescriptionStyles = css({
+	marginBlockStart: token('space.100'),
 });
 
 /**
@@ -46,11 +45,11 @@ const formHeaderDescriptionStyles = xcss({
  */
 const FormHeader = ({ children, description, title }: FormHeaderProps) => {
 	return (
-		<Box>
+		<div>
 			{title && <Heading size="large">{title}</Heading>}
-			{description && <Box xcss={formHeaderDescriptionStyles}>{description}</Box>}
-			{children && <Box xcss={formHeaderContentStyles}>{children}</Box>}
-		</Box>
+			{description && <div css={formHeaderDescriptionStyles}>{description}</div>}
+			{children && <div css={formHeaderContentStyles}>{children}</div>}
+		</div>
 	);
 };
 

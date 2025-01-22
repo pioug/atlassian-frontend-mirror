@@ -16,7 +16,6 @@ import {
 	type DatasourceResponseSchemaProperty,
 	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../analytics';
 import { useDatasourceActions } from '../state';
@@ -275,39 +274,37 @@ export const useDatasourceTableState = ({
 					return [...currentResponseItems, ...items];
 				});
 
-				if (fg('enable_datasource_react_sweet_state')) {
-					/**
-					 * Product is typed as any.
-					 */
-					const integrationKey: unknown = product;
+				/**
+				 * Product is typed as any.
+				 */
+				const integrationKey: unknown = product;
 
-					/**
-					 * When `entityType` is undefined, we should not discover actions it prevents unnecessary requests to Actions service
-					 */
-					const entityType = objectTypesEntity;
+				/**
+				 * When `entityType` is undefined, we should not discover actions it prevents unnecessary requests to Actions service
+				 */
+				const entityType = objectTypesEntity;
 
-					const newIds = onAddItems(
-						items,
-						typeof integrationKey === 'string' ? integrationKey : undefined,
-						entityType,
-					);
-					setResponseItemIds((currentIds) => [...currentIds, ...newIds]);
+				const newIds = onAddItems(
+					items,
+					typeof integrationKey === 'string' ? integrationKey : undefined,
+					entityType,
+				);
+				setResponseItemIds((currentIds) => [...currentIds, ...newIds]);
 
-					if (!isFedRamp()) {
-						if (typeof integrationKey === 'string') {
-							const aris = items.reduce<string[]>(
-								(acc, item) => (typeof item.ari?.data === 'string' ? [...acc, item.ari.data] : acc),
-								[],
-							);
+				if (!isFedRamp()) {
+					if (typeof integrationKey === 'string') {
+						const aris = items.reduce<string[]>(
+							(acc, item) => (typeof item.ari?.data === 'string' ? [...acc, item.ari.data] : acc),
+							[],
+						);
 
-							if (aris.length && entityType) {
-								discoverActions({
-									aris,
-									integrationKey,
-									fieldKeys,
-									entityType,
-								});
-							}
+						if (aris.length && entityType) {
+							discoverActions({
+								aris,
+								integrationKey,
+								fieldKeys,
+								entityType,
+							});
 						}
 					}
 				}

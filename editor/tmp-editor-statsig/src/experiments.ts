@@ -4,7 +4,7 @@
 import FeatureGates from '@atlaskit/feature-gate-js-client';
 
 import { type EditorExperimentsConfig, editorExperimentsConfig } from './experiments-config';
-import { _overrides, _product } from './setup';
+import { _overrides, _paramOverrides, _product } from './setup';
 
 /**
  * Check the value of an editor experiment.
@@ -85,4 +85,53 @@ export function editorExperiment<ExperimentName extends keyof EditorExperimentsC
 	);
 
 	return expectedExperimentValue === experimentValue;
+}
+
+type Unstable_EditorExperimentParams = {
+	live_pages_graceful_edit: {
+		params: 'view-mode-intent-to-edit' | 'delay';
+	};
+};
+
+// type Unstable_EditorExperimentParams = {};
+/**
+ * @warning This currently lacks type safety on the param names and return values
+ * and has limited associated test tooling.
+ *
+ * It also only works for experiments where the key matches the productKey used.
+ *
+ * The typeguard and default value is also expected to move to the experiment config
+ */
+export function unstable_editorExperimentParam<
+	ExperimentName extends keyof Unstable_EditorExperimentParams,
+	// @ts-ignore
+	ParamKey extends Unstable_EditorExperimentParams[ExperimentName]['params'],
+	ParamValue = unknown,
+>(
+	experimentName: ExperimentName,
+	paramName: ParamKey,
+	options: {
+		exposure?: boolean;
+		typeGuard: (value: unknown) => value is ParamValue;
+		defaultValue: ParamValue;
+	},
+): ParamValue {
+	if (_paramOverrides[experimentName]?.[paramName] !== undefined) {
+		// This will be hit in the case of a test setting an override
+
+		return _paramOverrides[experimentName][paramName];
+	}
+
+	// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+	const experimentValue = FeatureGates.getExperimentValue(
+		experimentName,
+		paramName,
+		options.defaultValue,
+		{
+			typeGuard: options.typeGuard,
+			fireExperimentExposure: options.exposure ?? false,
+		},
+	);
+
+	return experimentValue;
 }

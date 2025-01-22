@@ -30,7 +30,7 @@ const typography: ValueSchema<
 		heading: {
 			xxlarge: {
 				value: {
-					fontWeight: 'FontWeight700',
+					fontWeight: 'FontWeight653',
 					fontSize: 'FontSize32',
 					lineHeight: 'LineHeight36',
 					fontFamily: 'FontFamilyWebSans',
@@ -40,7 +40,7 @@ const typography: ValueSchema<
 			},
 			xlarge: {
 				value: {
-					fontWeight: 'FontWeight700',
+					fontWeight: 'FontWeight653',
 					fontSize: 'FontSize28',
 					lineHeight: 'LineHeight32',
 					fontFamily: 'FontFamilyWebSans',
@@ -50,7 +50,7 @@ const typography: ValueSchema<
 			},
 			large: {
 				value: {
-					fontWeight: 'FontWeight700',
+					fontWeight: 'FontWeight653',
 					fontSize: 'FontSize24',
 					lineHeight: 'LineHeight28',
 					fontFamily: 'FontFamilyWebSans',
@@ -60,7 +60,7 @@ const typography: ValueSchema<
 			},
 			medium: {
 				value: {
-					fontWeight: 'FontWeight700',
+					fontWeight: 'FontWeight653',
 					fontSize: 'FontSize20',
 					lineHeight: 'LineHeight24',
 					fontFamily: 'FontFamilyWebSans',
@@ -70,7 +70,7 @@ const typography: ValueSchema<
 			},
 			small: {
 				value: {
-					fontWeight: 'FontWeight700',
+					fontWeight: 'FontWeight653',
 					fontSize: 'FontSize16',
 					lineHeight: 'LineHeight20',
 					fontFamily: 'FontFamilyWebSans',
@@ -80,7 +80,7 @@ const typography: ValueSchema<
 			},
 			xsmall: {
 				value: {
-					fontWeight: 'FontWeight700',
+					fontWeight: 'FontWeight653',
 					fontSize: 'FontSize14',
 					lineHeight: 'LineHeight20',
 					fontFamily: 'FontFamilyWebSans',
@@ -90,7 +90,7 @@ const typography: ValueSchema<
 			},
 			xxsmall: {
 				value: {
-					fontWeight: 'FontWeight700',
+					fontWeight: 'FontWeight653',
 					fontSize: 'FontSize12',
 					lineHeight: 'LineHeight16',
 					fontFamily: 'FontFamilyWebSans',

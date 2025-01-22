@@ -19,6 +19,7 @@ import {
 	akEditorGutterPaddingDynamic,
 	akEditorMobileBreakoutPoint,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { setTableAlignmentWithTableContentWithPosWithAnalytics } from '../pm-plugins/commands/commands-with-analytics';
 import { getPluginState } from '../pm-plugins/plugin-factory';
@@ -360,7 +361,7 @@ export const ResizableTableContainer = React.memo(
 					className={ClassName.TABLE_RESIZER_CONTAINER}
 					ref={containerRef}
 				>
-					{isLivePageViewMode ? (
+					{fg('platform_editor_live_page_prevent_table_recreation') ? null : isLivePageViewMode ? (
 						<InnerContainer
 							// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 							className={className}
@@ -380,6 +381,16 @@ export const ResizableTableContainer = React.memo(
 							</InnerContainer>
 						</TableResizer>
 					)}
+					{fg('platform_editor_live_page_prevent_table_recreation') ? (
+						// Ignored via go/ees005
+						// eslint-disable-next-line react/jsx-props-no-spreading
+						<TableResizer {...tableResizerProps} disabled={isLivePageViewMode}>
+							{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
+							<InnerContainer className={className} node={node}>
+								{children}
+							</InnerContainer>
+						</TableResizer>
+					) : null}
 				</div>
 			</AlignmentTableContainerWrapper>
 		);

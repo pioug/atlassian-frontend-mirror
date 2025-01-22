@@ -5,12 +5,9 @@
 
 import { createContext, type ReactNode, useContext, useEffect, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
-
+import { css, cssMap, jsx } from '@atlaskit/css';
 import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import SuccessIcon from '@atlaskit/icon/utility/migration/success--editor-success';
-import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { FieldId } from './field-id-context';
@@ -50,27 +47,29 @@ const messageStyles = css({
 	marginBlockStart: token('space.050', '4px'),
 });
 
-const messageAppearanceStyles: Record<MessageAppearance, SerializedStyles> = {
-	default: css({
-		color: token('color.text.subtlest', N200),
-	}),
-	error: css({
+const messageAppearanceStyles = cssMap({
+	default: {
+		color: token('color.text.subtlest', '#6B778C'),
+	},
+	error: {
 		color: token('color.text.danger', '#AE2A19'),
-	}),
-	valid: css({
+	},
+	valid: {
 		color: token('color.text.success', '#216E4E'),
-	}),
-};
-
-const iconWrapperStyles = css({
-	display: 'flex',
-	height: '16px',
-	alignItems: 'center',
+	},
 });
 
-const IconWrapper = ({ children }: { children: ReactNode }) => {
-	return <span css={iconWrapperStyles}>{children}</span>;
-};
+const iconWrapperStyles = cssMap({
+	root: {
+		display: 'flex',
+		height: '16px',
+		alignItems: 'center',
+	},
+});
+
+const IconWrapper = ({ children }: { children: ReactNode }) => (
+	<span css={iconWrapperStyles.root}>{children}</span>
+);
 
 const messageIcons: Partial<Record<MessageAppearance, JSX.Element>> = {
 	error: (

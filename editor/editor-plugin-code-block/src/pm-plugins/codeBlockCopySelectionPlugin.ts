@@ -1,5 +1,6 @@
 import { getSelectedNodeOrNodeParentByNodeType } from '@atlaskit/editor-common/copy-button';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
+import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
 import type {
 	EditorState,
@@ -12,6 +13,7 @@ export const copySelectionPluginKey = new PluginKey('codeBlockCopySelectionPlugi
 
 type CodeBlockCopySelectionPluginState = {
 	decorationStartAndEnd?: [start: number, end: number];
+	codeBlockNode?: PMNode;
 };
 
 function getSelectionDecorationStartAndEnd({
@@ -27,7 +29,7 @@ function getSelectionDecorationStartAndEnd({
 	});
 
 	if (!codeBlockNode) {
-		return { decorationStartAndEnd: undefined };
+		return { decorationStartAndEnd: undefined, codeBlockNode: undefined };
 	}
 
 	const decorationStartAndEnd: CodeBlockCopySelectionPluginState['decorationStartAndEnd'] = [
@@ -35,7 +37,7 @@ function getSelectionDecorationStartAndEnd({
 		codeBlockNode.start + codeBlockNode.node.nodeSize,
 	];
 
-	return { decorationStartAndEnd };
+	return { decorationStartAndEnd, codeBlockNode: codeBlockNode.node };
 }
 
 export function codeBlockCopySelectionPlugin() {

@@ -161,9 +161,6 @@
 		"./i18n/*": "./src/i18n/*.ts"
 	},
 	"platform-feature-flags": {
-		"enable_datasource_react_sweet_state": {
-			"type": "boolean"
-		},
 		"enable_datasource_supporting_actions": {
 			"type": "boolean"
 		},

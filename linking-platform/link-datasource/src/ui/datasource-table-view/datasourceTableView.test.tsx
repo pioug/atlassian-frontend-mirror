@@ -12,7 +12,6 @@ import {
 	type DatasourceTableStatusType,
 } from '@atlaskit/linking-types';
 import { type ConcurrentExperience } from '@atlaskit/ufo';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { EVENT_CHANNEL } from '../../analytics';
 import { type DatasourceRenderSuccessAttributesType } from '../../analytics/generated/analytics.types';
@@ -228,6 +227,49 @@ describe('DatasourceTableView', () => {
 		jest.clearAllMocks();
 	});
 
+	it('should call IssueLikeDataTableView with right props', () => {
+		store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
+
+		// Not exactly "correct" way of testing with React Testing Library,
+		// But in this case 4 props we want to check are just passed through and
+		// the only way to test them would be to test how they affect UI
+		// which is already tested in IssueLikeDataTableView unit tests
+		const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
+			issueLikeModule,
+			'IssueLikeDataTableView',
+		);
+		const mockOnColumnResize = jest.fn();
+		const mockOnWrappedColumnChange = jest.fn();
+		const { getByTestId } = setup(
+			{
+				visibleColumnKeys: ['myColumn'],
+				responseItems: defaultMockResponseItems,
+			},
+			{
+				columnCustomSizes: { myColumn: 67 },
+				wrappedColumnKeys: ['myColumn'],
+				onColumnResize: mockOnColumnResize,
+				onWrappedColumnChange: mockOnWrappedColumnChange,
+			},
+		);
+
+		expect(getByTestId('myColumn-column-heading')).toHaveTextContent('My Column');
+		expect(getByTestId('datasource-table-view--row-some-id1')).toHaveTextContent('some-value');
+
+		expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
+		const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
+			.calls[0][0] as IssueLikeDataTableViewProps;
+
+		expect(issueLikeDataTableViewProps).toEqual(
+			expect.objectContaining({
+				columnCustomSizes: { myColumn: 67 },
+				wrappedColumnKeys: ['myColumn'],
+				onColumnResize: mockOnColumnResize,
+				onWrappedColumnChange: mockOnWrappedColumnChange,
+			}),
+		);
+	});
+
 	it('should call useDatasourceTableState with the correct arguments', () => {
 		setup();
 
@@ -238,93 +280,6 @@ describe('DatasourceTableView', () => {
 				jql: 'some-jql-query',
 			},
 			fieldKeys: ['visible-column-1', 'visible-column-2'],
-		});
-	});
-
-	ffTest.on('enable_datasource_react_sweet_state', '', () => {
-		it('should call IssueLikeDataTableView with right props', () => {
-			store.actions.onAddItems(defaultMockResponseItems, 'jira', 'work-item');
-
-			// Not exactly "correct" way of testing with React Testing Library,
-			// But in this case 4 props we want to check are just passed through and
-			// the only way to test them would be to test how they affect UI
-			// which is already tested in IssueLikeDataTableView unit tests
-			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
-				issueLikeModule,
-				'IssueLikeDataTableView',
-			);
-			const mockOnColumnResize = jest.fn();
-			const mockOnWrappedColumnChange = jest.fn();
-			const { getByTestId } = setup(
-				{
-					visibleColumnKeys: ['myColumn'],
-					responseItems: defaultMockResponseItems,
-				},
-				{
-					columnCustomSizes: { myColumn: 67 },
-					wrappedColumnKeys: ['myColumn'],
-					onColumnResize: mockOnColumnResize,
-					onWrappedColumnChange: mockOnWrappedColumnChange,
-				},
-			);
-
-			expect(getByTestId('myColumn-column-heading')).toHaveTextContent('My Column');
-			expect(getByTestId('datasource-table-view--row-some-id1')).toHaveTextContent('some-value');
-
-			expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
-			const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
-				.calls[0][0] as IssueLikeDataTableViewProps;
-
-			expect(issueLikeDataTableViewProps).toEqual(
-				expect.objectContaining({
-					columnCustomSizes: { myColumn: 67 },
-					wrappedColumnKeys: ['myColumn'],
-					onColumnResize: mockOnColumnResize,
-					onWrappedColumnChange: mockOnWrappedColumnChange,
-				}),
-			);
-		});
-	});
-
-	ffTest.off('enable_datasource_react_sweet_state', '', () => {
-		it('should call IssueLikeDataTableView with right props', () => {
-			// Not exactly "correct" way of testing with React Testing Library,
-			// But in this case 4 props we want to check are just passed through and
-			// the only way to test them would be to test how they affect UI
-			// which is already tested in IssueLikeDataTableView unit tests
-			const IssueLikeDataTableViewConstructorSpy = jest.spyOn(
-				issueLikeModule,
-				'IssueLikeDataTableView',
-			);
-			const mockOnColumnResize = jest.fn();
-			const mockOnWrappedColumnChange = jest.fn();
-			const { getByTestId } = setup(
-				{
-					visibleColumnKeys: ['myColumn'],
-				},
-				{
-					columnCustomSizes: { myColumn: 67 },
-					wrappedColumnKeys: ['myColumn'],
-					onColumnResize: mockOnColumnResize,
-					onWrappedColumnChange: mockOnWrappedColumnChange,
-				},
-			);
-
-			expect(getByTestId('myColumn-column-heading')).toHaveTextContent('My Column');
-			expect(getByTestId('datasource-table-view--row-some-id1')).toHaveTextContent('some-value');
-
-			expect(IssueLikeDataTableViewConstructorSpy).toHaveBeenCalled();
-			const issueLikeDataTableViewProps = IssueLikeDataTableViewConstructorSpy.mock
-				.calls[0][0] as IssueLikeDataTableViewProps;
-
-			expect(issueLikeDataTableViewProps).toEqual(
-				expect.objectContaining({
-					columnCustomSizes: { myColumn: 67 },
-					wrappedColumnKeys: ['myColumn'],
-					onColumnResize: mockOnColumnResize,
-					onWrappedColumnChange: mockOnWrappedColumnChange,
-				}),
-			);
 		});
 	});
 

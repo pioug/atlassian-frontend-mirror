@@ -7,4 +7,5 @@ export type {
 	EditorViewModePluginState,
 	EditorViewModePlugin,
 	ViewMode,
+	ContentMode,
 } from './editorViewmodePluginType';

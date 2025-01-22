@@ -2,7 +2,7 @@ import { createContext } from 'react';
 
 export interface InteractionContextType {
 	/**
-	 * Hold a in-progress interaction
+	 * Hold an in-progress interaction
 	 *
 	 * Usage:
 	 * ```
@@ -20,11 +20,11 @@ export interface InteractionContextType {
 	 *
 	 * ```
 	 */
-	hold(name: string | undefined): void | (() => void);
+	hold(name?: string): void | (() => void);
 
 	/**
 	 * Trace a press event
-	 * Measures from your trigger (e.g. a button click)
+	 * Measures from your trigger (e.g., a button click)
 	 *
 	 * Usage:
 	 * ```

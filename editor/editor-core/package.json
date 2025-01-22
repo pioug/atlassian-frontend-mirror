@@ -140,10 +140,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"enable_datasource_react_sweet_state": {
-			"type": "boolean",
-			"referenceOnly": "true"
-		},
 		"annotations_defensive_node_name_calculations": {
 			"type": "boolean",
 			"referenceOnly": "true"
@@ -398,6 +394,10 @@
 		},
 		"platform_editor_hide_cursor_when_pm_hideselection": {
 			"type": "boolean"
+		},
+		"platform_editor_live_page_prevent_table_recreation": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"stricter": {

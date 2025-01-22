@@ -1,7 +1,7 @@
 ### Notes
 
 - feature-gating/\* rules are copied from
-  [eslint-plugin-jira/rules/ff](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/jira/build-tools/eslint-plugin-jira/rules/ff)
+  [eslint-plugin-jira/rules/ff](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/browse/jira/dev-tooling/packages/eslint-plugin-jira/rules/ff)
   with small variations as mentioned in this
   [PR](https://stash.atlassian.com/projects/ATLASSIAN/repos/atlassian-frontend-monorepo/pull-requests/115546/overview)
 - these rules could be a WIP since they are still targeting JFE libraries- see

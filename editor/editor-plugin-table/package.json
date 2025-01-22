@@ -145,6 +145,9 @@
 		},
 		"platform_editor_table_use_shared_state_hook_fg": {
 			"type": "boolean"
+		},
+		"platform_editor_live_page_prevent_table_recreation": {
+			"type": "boolean"
 		}
 	}
 }

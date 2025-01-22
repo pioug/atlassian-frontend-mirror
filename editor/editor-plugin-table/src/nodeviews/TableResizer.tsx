@@ -92,6 +92,7 @@ interface TableResizerProps {
 	isCommentEditor?: boolean;
 	onResizeStop?: () => void;
 	onResizeStart?: () => void;
+	disabled?: boolean;
 }
 
 type ResizerNextHandler = React.ElementRef<typeof ResizerNext>;
@@ -205,6 +206,7 @@ export const TableResizer = ({
 	pluginInjectionApi,
 	isFullWidthModeEnabled,
 	isCommentEditor,
+	disabled,
 }: PropsWithChildren<TableResizerProps>) => {
 	const currentGap = useRef(0);
 	// track resizing state - use ref over state to avoid re-render
@@ -793,7 +795,13 @@ export const TableResizer = ({
 		<>
 			<ResizerNext
 				ref={resizerRef}
-				enable={handles}
+				enable={
+					fg('platform_editor_live_page_prevent_table_recreation')
+						? disabled
+							? {}
+							: handles
+						: handles
+				}
 				width={width}
 				handleAlignmentMethod="sticky"
 				handleSize={handleSize}

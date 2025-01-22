@@ -9,7 +9,6 @@ import type {
 	DatasourceDataResponseItem,
 	DatasourceDataSchema,
 } from '@atlaskit/linking-types';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import { DatasourceExperienceIdProvider } from '../../contexts/datasource-experience-id';
 
@@ -20,7 +19,7 @@ import {
 } from './__tests__/_utils';
 import { DatasourceTableView } from './datasourceTableView';
 
-ffTest.on('enable_datasource_react_sweet_state', 'requires sweet state', () => {
+describe('inline edit with sweet state', () => {
 	const integrationKey = 'acme';
 	const ari = 'ari:cloud:platform::site/123';
 

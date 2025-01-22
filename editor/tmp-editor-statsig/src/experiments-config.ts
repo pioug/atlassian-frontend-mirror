@@ -310,4 +310,22 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
+	// Added 2025-01-16
+	live_pages_graceful_edit: {
+		productKeys: {
+			confluence: 'live_pages_graceful_edit',
+		},
+		param: 'cohort',
+		typeGuard: oneOf([
+			'control',
+			'text-click-delayed',
+			'text-click-no-delay',
+			'initially-hide-toolbar',
+		]),
+		defaultValue: 'control' as
+			| 'control'
+			| 'text-click-delayed'
+			| 'text-click-no-delay'
+			| 'initially-hide-toolbar',
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

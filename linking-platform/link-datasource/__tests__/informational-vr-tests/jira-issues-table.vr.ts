@@ -9,7 +9,9 @@ import JiraIssuesTable from '../../examples/vr/jira-issues-table-vr';
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page
-			.getByTestId('datasource-table-view--row-DONUT-11720')
+			.getByTestId(
+				'datasource-table-view--row-ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/10',
+			)
 			.getByTestId('datasource-table-view--cell-6')
 			.first()
 			.hover();
@@ -27,7 +29,9 @@ snapshotInformational(JiraIssuesTable, {
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page
-			.getByTestId('datasource-table-view--row-DONUT-11740')
+			.getByTestId(
+				'datasource-table-view--row-ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/30',
+			)
 			.getByTestId('datasource-table-view--cell-0')
 			.getByRole('img')
 			.hover();
@@ -45,7 +49,9 @@ snapshotInformational(JiraIssuesTable, {
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page
-			.getByTestId('datasource-table-view--row-DONUT-11740')
+			.getByTestId(
+				'datasource-table-view--row-ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/30',
+			)
 			.getByTestId('datasource-table-view--cell-4')
 			.hover();
 	},
@@ -62,7 +68,9 @@ snapshotInformational(JiraIssuesTable, {
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page
-			.getByTestId('datasource-table-view--row-DONUT-11770')
+			.getByTestId(
+				'datasource-table-view--row-ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/60',
+			)
 			.getByTestId('datasource-table-view--cell-5')
 			.hover();
 	},
@@ -79,7 +87,9 @@ snapshotInformational(JiraIssuesTable, {
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page
-			.getByTestId('datasource-table-view--row-DONUT-11720')
+			.getByTestId(
+				'datasource-table-view--row-ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/10',
+			)
 			.getByTestId('datasource-table-view--cell-7')
 			.getByTestId('link-datasource-render-type--status')
 			.hover();
@@ -97,7 +107,9 @@ snapshotInformational(JiraIssuesTable, {
 snapshotInformational(JiraIssuesTable, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page
-			.getByTestId('datasource-table-view--row-DONUT-11740')
+			.getByTestId(
+				'datasource-table-view--row-ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/30',
+			)
 			.getByTestId('datasource-table-view--cell-8')
 			.hover();
 	},
@@ -115,7 +127,9 @@ snapshotInformational(JiraIssuesTable, {
 snapshotInformational(JiraIssuesTableSingleRow, {
 	prepare: async (page: Page, _component: Locator) => {
 		await page
-			.getByTestId('datasource-table-view--row-DONUT-11720')
+			.getByTestId(
+				'datasource-table-view--row-ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/10',
+			)
 			.getByTestId('datasource-table-view--cell-2')
 			.hover();
 	},

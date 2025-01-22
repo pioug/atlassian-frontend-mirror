@@ -104,20 +104,29 @@ export default class PostInteractionLog {
 	sendPostInteractionLog() {
 		if (!this.hasData() || !this.lastInteractionFinish || !this.sinkHandlerFn) {
 			this.reset();
+			if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+				this.vcObserver?.stop();
+			}
 			return;
+		}
+
+		const postInteractionFinishVCResult = this.vcObserver?.getVCResult({
+			start: this.lastInteractionFinish.start,
+			stop: performance.now(),
+			tti: -1, // no need for TTI value here
+			prefix: 'ufo',
+			...this.vcObserverSSRConfig,
+		});
+
+		if (getConfig()?.experimentalInteractionMetrics?.enabled) {
+			this.vcObserver?.stop();
 		}
 
 		this.sinkHandlerFn({
 			lastInteractionFinish: this.lastInteractionFinish,
 			reactProfilerTimings: this.reactProfilerTimings,
 			// NOTE: invoking `getVCResult` at latest possible point in time here (not earlier) to get the most accurate result (from performance.now())
-			postInteractionFinishVCResult: this.vcObserver?.getVCResult({
-				start: this.lastInteractionFinish.start,
-				stop: performance.now(),
-				tti: -1, // no need for TTI value here
-				prefix: 'ufo',
-				...this.vcObserverSSRConfig,
-			}),
+			postInteractionFinishVCResult,
 			lastInteractionFinishVCResult: this.lastInteractionFinishVCResult,
 		});
 

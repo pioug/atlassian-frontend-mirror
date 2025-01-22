@@ -171,6 +171,7 @@ export const EditorInternal = memo(
 													useStickyToolbar={props.useStickyToolbar}
 													featureFlags={featureFlags}
 													pluginHooks={config.pluginHooks}
+													__livePage={props.__livePage}
 												/>
 											</BaseThemeWrapper>
 										)}

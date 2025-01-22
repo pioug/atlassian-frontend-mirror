@@ -19,9 +19,9 @@ test.describe('DatasourceTableView', () => {
 		await page.getByTestId('column-picker-trigger-button').click();
 		page.keyboard.type('Due');
 
-		await expect(page.locator('#react-select-2-option-10')).toContainText('Due');
 		await expect(page.locator('#react-select-2-option-11')).toContainText('Due');
 		await expect(page.locator('#react-select-2-option-12')).toContainText('Due');
+		await expect(page.locator('#react-select-2-option-13')).toContainText('Due');
 	});
 
 	test('persists column order after loading next page', async ({ page }) => {
@@ -41,7 +41,11 @@ test.describe('DatasourceTableView', () => {
 		lastRow.scrollIntoViewIfNeeded();
 
 		// waiting for loading to be complete
-		const tableLastRow = await page.getByTestId('link-datasource--row-DONUT-11921').elementHandle();
+		const tableLastRow = await page
+			.getByTestId(
+				'link-datasource--row-ari:cloud:jira:DUMMY-158c8204-ff3b-47c2-adbb-a0906ccc722b:issue/211',
+			)
+			.elementHandle();
 		await tableLastRow?.waitForElementState('stable');
 
 		// confirming second page has loaded
@@ -75,7 +79,6 @@ test.describe('DatasourceTableView', () => {
 
 	test('toggles edit mode on string column', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
-		await withFeatureFlags(page, ['enable_datasource_react_sweet_state']);
 
 		await expect(page.getByTestId('inline-edit-text')).toBeHidden();
 		await page.getByText('FIRST! This level contains five Dragon coins').click();
@@ -85,7 +88,6 @@ test.describe('DatasourceTableView', () => {
 	// eslint-disable-next-line playwright/no-skipped-test
 	test.skip('shows flag after edit fail', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
-		await withFeatureFlags(page, ['enable_datasource_react_sweet_state']);
 
 		await page.getByText('FIRST! This level contains five Dragon coins').click();
 		await page.getByTestId('inline-edit-text').fill('new value');
@@ -96,7 +98,6 @@ test.describe('DatasourceTableView', () => {
 
 	test('Load actions and permissions when scrolling new pages into view', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
-		await withFeatureFlags(page, ['enable_datasource_react_sweet_state']);
 
 		await page.getByText('FIRST! This level contains five Dragon coins').click();
 		await expect(page.getByTestId('inline-edit-text')).toBeVisible();
@@ -119,7 +120,6 @@ test.describe('DatasourceTableView', () => {
 	test('can update statuses column', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
 		await withFeatureFlags(page, [
-			'enable_datasource_react_sweet_state',
 			'platform-datasources-enable-two-way-sync-statuses',
 			'enable_datasource_supporting_actions',
 		]);
@@ -137,7 +137,6 @@ test.describe('DatasourceTableView', () => {
 		page.setViewportSize({ width: 1920, height: 1080 });
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
 		await withFeatureFlags(page, [
-			'enable_datasource_react_sweet_state',
 			'platform-datasources-enable-two-way-sync-priority',
 			'enable_datasource_supporting_actions',
 		]);
@@ -162,7 +161,6 @@ test.describe('DatasourceTableView', () => {
 	test('can filter options with type-ahead in statuses column', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
 		await withFeatureFlags(page, [
-			'enable_datasource_react_sweet_state',
 			'platform-datasources-enable-two-way-sync-statuses',
 			'enable_datasource_supporting_actions',
 		]);
@@ -179,7 +177,6 @@ test.describe('DatasourceTableView', () => {
 	test('can filter options with type-ahead in assignee column', async ({ page }) => {
 		await page.visitExample('linking-platform', 'link-datasource', 'basic-jira-issues-table');
 		await withFeatureFlags(page, [
-			'enable_datasource_react_sweet_state',
 			'platform-datasources-enable-two-way-sync-assignee',
 			'enable_datasource_supporting_actions',
 		]);

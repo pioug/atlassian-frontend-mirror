@@ -796,7 +796,7 @@ describe('Field', () => {
 			<Form onSubmit={__noop}>
 				{({ formProps }) => (
 					<form {...formProps}>
-						<Field name="password" label={labelText} isRequired {...addedProps}>
+						<Field name="password" label={labelText} isRequired testId="form-field" {...addedProps}>
 							{({ fieldProps, error, valid, meta }) => (
 								<TextField type="password" {...fieldProps} />
 							)}
@@ -824,15 +824,9 @@ describe('Field', () => {
 
 		it('should set elementAfterLabel with field when field is required', () => {
 			const afterLabelText = 'After label';
-			render(
-				jsx({
-					elementAfterLabel: afterLabelText,
-				}),
-			);
-
-			const label = screen.getByLabelText(`${labelText}*${afterLabelText}`);
-
-			expect(label).toBeInTheDocument();
+			render(jsx({ elementAfterLabel: afterLabelText }));
+			const label = screen.getByTestId('form-field--label');
+			expect(label).toHaveTextContent(new RegExp(`${labelText}.*${afterLabelText}`));
 		});
 	});
 

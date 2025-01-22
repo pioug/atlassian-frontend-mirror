@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
 import Form, {
 	ErrorMessage,
 	Field,
@@ -11,7 +12,7 @@ import Form, {
 	RequiredAsterisk,
 	ValidMessage,
 } from '@atlaskit/form';
-import { Box, Text, xcss } from '@atlaskit/primitives';
+import { Box, Text } from '@atlaskit/primitives/compiled';
 import TextField from '@atlaskit/textfield';
 
 interface FormData {
@@ -35,12 +36,14 @@ const createUser = async (data: FormData) => {
 	return errors;
 };
 
-const FormContainerStyle = xcss({
-	display: 'flex',
-	width: '400px',
-	maxWidth: '100%',
-	margin: '0 auto',
-	flexDirection: 'column',
+const formContainerStyle = cssMap({
+	root: {
+		display: 'flex',
+		width: '400px',
+		maxWidth: '100%',
+		margin: '0 auto',
+		flexDirection: 'column',
+	},
 });
 
 // eslint-disable-next-line import/no-anonymous-default-export, @repo/internal/react/no-class-components
@@ -65,7 +68,7 @@ export default class extends Component<{}> {
 
 	render() {
 		return (
-			<Box xcss={FormContainerStyle}>
+			<Box xcss={formContainerStyle.root}>
 				<Form<FormData> onSubmit={this.handleSubmit}>
 					{({ formProps, submitting }) => (
 						<form {...formProps}>

@@ -121,11 +121,11 @@ describe('integration test', () => {
 
 		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(eventPayload, EVENT_CHANNEL);
 
-		expect(onAnalyticFireEvent).toHaveBeenCalledTimes(3);
+		expect(onAnalyticFireEvent).toHaveBeenCalledTimes(4);
 		fireEvent.click(columnPicker);
 
 		await findByTestId('column-picker-popup--menu');
-		expect(onAnalyticFireEvent).toHaveBeenCalledTimes(3);
+		expect(onAnalyticFireEvent).toHaveBeenCalledTimes(4);
 		expect(onAnalyticFireEvent).toBeFiredWithAnalyticEventOnce(eventPayload, EVENT_CHANNEL);
 	});
 });

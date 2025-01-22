@@ -29,6 +29,7 @@ import type {
 export interface EditorAppearanceComponentProps<Plugins extends NextEditorPlugin<any, any>[]> {
 	editorAPI: PublicPluginAPI<Plugins> | undefined;
 	appearance?: EditorAppearance;
+	__livePage?: boolean;
 	onSave?: (editorView: EditorView) => void;
 	onCancel?: (editorView: EditorView) => void;
 

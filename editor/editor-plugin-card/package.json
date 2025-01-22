@@ -112,10 +112,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"enable_datasource_react_sweet_state": {
-			"type": "boolean",
-			"referenceOnly": true
-		},
 		"linking-platform-contenteditable-false-live-view": {
 			"type": "boolean"
 		},

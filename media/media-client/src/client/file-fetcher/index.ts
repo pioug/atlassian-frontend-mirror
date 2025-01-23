@@ -186,7 +186,7 @@ export class FileFetcherImpl implements FileFetcher {
 	};
 
 	public getFileState(id: string, options: GetFileOptions = {}): MediaSubscribable {
-		const { collectionName, occurrenceKey, includeHashForDuplicateFiles } = options;
+		const { collectionName, occurrenceKey, includeHashForDuplicateFiles, forceRefresh } = options;
 		if (!isValidId(id)) {
 			const subject = createMediaSubject<FileState>();
 			const err = new FileFetcherError('invalidFileId', { id, collectionName, occurrenceKey });
@@ -199,6 +199,11 @@ export class FileFetcherImpl implements FileFetcher {
 
 			return fromObservable(subject);
 		}
+
+		if (forceRefresh) {
+			getFileStreamsCache().remove(id);
+		}
+
 		return fromObservable(
 			getFileStreamsCache().getOrInsert(id, () => {
 				const subject = this.createDownloadFileStream(
@@ -206,6 +211,7 @@ export class FileFetcherImpl implements FileFetcher {
 					collectionName,
 					undefined,
 					includeHashForDuplicateFiles,
+					forceRefresh,
 				);
 				subject.subscribe({
 					next: (fileState) => {
@@ -243,6 +249,7 @@ export class FileFetcherImpl implements FileFetcher {
 		collectionName?: string,
 		occurrenceKey?: string,
 		includeHashForDuplicateFiles?: boolean,
+		forceRefresh?: boolean,
 	): ReplaySubject<FileState> => {
 		const subject = createMediaSubject<FileState>();
 		const poll = new PollingFunction();
@@ -251,6 +258,13 @@ export class FileFetcherImpl implements FileFetcher {
 		poll.onError = (error: Error) => subject.error(error);
 
 		poll.execute(async () => {
+			if (forceRefresh) {
+				this.dataloader.clear({
+					id,
+					collectionName,
+					includeHashForDuplicateFiles,
+				});
+			}
 			const response = await this.dataloader.load({
 				id,
 				collectionName,

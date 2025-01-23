@@ -79,6 +79,7 @@ export {
 	isPreviewableFileState,
 	isFinalFileState,
 	isImageRepresentationReady,
+	isNonErrorFinalFileState,
 	mapMediaFileToFileState,
 	mapMediaItemToFileState,
 } from './models/file-state';

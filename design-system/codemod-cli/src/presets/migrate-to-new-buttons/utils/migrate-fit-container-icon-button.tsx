@@ -1,13 +1,15 @@
 import type { API, ASTPath } from 'jscodeshift';
+import { type JSXElement } from 'jscodeshift';
+
 import { addCommentBefore } from '@atlaskit/codemod-utils';
 
 import { getIconAttributes, getIconElement } from '../utils/generate-new-button-element';
+
 import {
-	NEW_BUTTON_VARIANTS,
 	migrateFitContainerButtonToDefaultButtonComment,
 	migrateFitContainerButtonToIconButtonComment,
+	NEW_BUTTON_VARIANTS,
 } from './constants';
-import { type JSXElement } from 'jscodeshift';
 
 export const migrateFitContainerIconButton = (
 	element: ASTPath<JSXElement>,

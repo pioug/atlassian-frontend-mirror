@@ -12,9 +12,16 @@ export type ElementProps = {
 	name?: ElementName;
 
 	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-24430 Internal documentation for deprecation (no external access)}
+	 * use css with compiled instead
 	 * Any additional CSS properties to apply to the element.
 	 */
 	overrideCss?: SerializedStyles;
+
+	/**
+	 * For compiled css
+	 */
+	className?: string;
 
 	/**
 	 * The size of the element to display.

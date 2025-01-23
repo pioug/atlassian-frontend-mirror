@@ -1,5 +1,6 @@
 import { type MetricsPlugin } from './metricsPluginType';
 import { createPlugin, initialPluginState, metricsKey } from './pm-plugins/main';
+import { getAnalyticsPayload } from './pm-plugins/utils/analytics';
 /**
  * Metrics plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
  * from `@atlaskit/editor-core`.
@@ -19,40 +20,17 @@ export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 				}
 
 				const newTr = tr;
+				const pluginState = api?.metrics.sharedState.currentState();
+				if (pluginState && pluginState.totalActionCount > 0 && pluginState.activeSessionTime > 0) {
+					const payloadToSend = getAnalyticsPayload({
+						pluginState,
+					});
+					api?.analytics.actions.attachAnalyticsEvent(payloadToSend)(newTr);
+				}
+
 				newTr.setMeta(metricsKey, { stopActiveSession: true });
+
 				return newTr;
-			},
-		fireSessionAnalytics:
-			() =>
-			({ tr }) => {
-				if (!api) {
-					return tr;
-				}
-
-				const state = api.metrics.sharedState.currentState();
-				if (!state) {
-					return tr;
-				}
-
-				// const eventAttributes = {
-				// 	efficiency: {
-				// 		totalActiveTime: state.activeSessionTime || 0,
-				// 		totalActionCount: state.totalActionCount || 0,
-				// 		actionTypeCount: state.actionTypeCount,
-				// 		totalInactiveTime:
-				// 			Date.now() - (state.editSessionStartTime || 0) - (state.activeSessionTime || 0),
-				// 	},
-				// TODO: Add effectiveness attributes
-				// effectiveness: {
-				// 	undoCount: 0,
-				// 	repeatedActionCount: 0,
-				// 	safeInsertCount: 0,
-				// },
-				// };
-
-				// fire analytics event
-				// api.analytics.actions.attachAnalyticsEvent({});
-				return tr;
 			},
 	},
 

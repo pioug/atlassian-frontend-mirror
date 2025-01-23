@@ -2629,6 +2629,148 @@ describe('IssueLikeDataTableView', () => {
 							expect(findByText('We’re having trouble fetching options')).resolves.toBeDefined();
 						});
 					});
+
+					ffTest.off(
+						'platform-datasources-inline-edit-id-checks',
+						'with inline edit id checks off',
+						() => {
+							const itemsWithoutId: DatasourceDataResponseItem[] = [
+								{
+									priority: {
+										data: item1,
+									},
+									ari: { data: 'ari/id' },
+								},
+								{
+									priority: {
+										data: { label: 'Major', text: 'Major', source: 'source' },
+									},
+									ari: { data: 'ari/id2' },
+								},
+							];
+
+							it('allows selecting option even if it does not have an id', async () => {
+								const itemIds = store.actions.onAddItems(itemsWithoutId, 'jira', 'work-item');
+								actionStore.storeState.setState({
+									actionsByIntegration: {
+										jira: {
+											priority: {
+												actionKey: 'atlassian:work-item:update:priority',
+												type: 'string',
+											},
+										},
+									},
+									permissions: {
+										'ari/id': {
+											priority: { isEditable: true },
+										},
+									},
+								});
+
+								const executeFetch = jest.fn().mockResolvedValue({
+									operationStatus: ActionOperationStatus.SUCCESS,
+									errors: [],
+									entities: [
+										{
+											source:
+												'https://jcoppinger-jwm.jira-dev.com/images/icons/priorities/highest_new.svg',
+											label: 'PriorityWithoutId',
+											text: 'PriorityWithoutId',
+										},
+										{
+											source:
+												'https://jcoppinger-jwm.jira-dev.com/images/icons/priorities/highest_new.svg',
+											label: 'PriorityWithId',
+											text: 'PriorityWithId',
+											id: '1',
+										},
+									],
+								});
+								mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+								const { openInlineEdit, findByText } = setup({
+									items: itemsWithoutId,
+									columns,
+									itemIds,
+								});
+
+								await openInlineEdit({
+									currentCellText: 'Blocker',
+									dropdownOptionText: 'Major',
+								});
+								const priorityCell = await findByText('Blocker');
+
+								// open dropdown
+								act(() => {
+									fireEvent.click(priorityCell);
+								});
+
+								expect(findByText('PriorityWithoutId')).resolves.toBeTruthy();
+								expect(findByText('PriorityWithId')).resolves.toBeTruthy();
+							});
+						},
+					);
+					ffTest.on(
+						'platform-datasources-inline-edit-id-checks',
+						'with inline edit id checks on',
+						() => {
+							it('does not allow allows selecting option if it does not have an id', async () => {
+								const itemIds = store.actions.onAddItems(items, 'jira', 'work-item');
+								actionStore.storeState.setState({
+									actionsByIntegration: {
+										jira: {
+											priority: {
+												actionKey: 'atlassian:work-item:update:priority',
+												type: 'string',
+											},
+										},
+									},
+									permissions: {
+										'ari/id': {
+											priority: { isEditable: true },
+										},
+									},
+								});
+
+								const executeFetch = jest.fn().mockResolvedValue({
+									operationStatus: ActionOperationStatus.SUCCESS,
+									errors: [],
+									entities: [
+										{
+											source:
+												'https://jcoppinger-jwm.jira-dev.com/images/icons/priorities/highest_new.svg',
+											label: 'PriorityWithoutId',
+											text: 'PriorityWithoutId',
+										},
+										{
+											source:
+												'https://jcoppinger-jwm.jira-dev.com/images/icons/priorities/highest_new.svg',
+											label: 'PriorityWithId',
+											text: 'PriorityWithId',
+											id: '1',
+										},
+									],
+								});
+								mockUseExecuteAtomicAction.mockReturnValue({ execute, executeFetch });
+
+								const { findByText } = setup({
+									items,
+									columns,
+									itemIds,
+								});
+
+								const priorityCell = await findByText('Blocker');
+
+								// open dropdown
+								act(() => {
+									fireEvent.click(priorityCell);
+								});
+
+								expect(findByText('PriorityWithoutId')).rejects.toThrow();
+								expect(findByText('PriorityWithId')).resolves.toBeTruthy();
+							});
+						},
+					);
 				},
 			);
 

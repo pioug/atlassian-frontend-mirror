@@ -1,4 +1,4 @@
-import { type JSXOpeningElement, type JSXSpreadAttribute, type JSXAttribute } from 'jscodeshift';
+import { type JSXAttribute, type JSXOpeningElement, type JSXSpreadAttribute } from 'jscodeshift';
 
 export const findJSXAttributeWithValue = (
 	path: JSXOpeningElement | JSXSpreadAttribute | undefined,

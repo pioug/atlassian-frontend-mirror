@@ -1,5 +1,14 @@
 # @atlaskit/media-filmstrip
 
+## 48.1.7
+
+### Patch Changes
+
+- [#104917](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104917)
+  [`5cc364b95e5fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5cc364b95e5fa) -
+  changed deduplicatedFilmStrip to add list of identifiers to useFileHashes to align with new api
+- Updated dependencies
+
 ## 48.1.6
 
 ### Patch Changes

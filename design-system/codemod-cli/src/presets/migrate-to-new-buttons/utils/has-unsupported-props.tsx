@@ -1,4 +1,5 @@
 import type { JSXAttribute, JSXSpreadAttribute } from 'jscodeshift';
+
 import { unsupportedProps } from './constants';
 
 export const ifHasUnsupportedProps = (

@@ -26,10 +26,10 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/editor-common": "^99.4.0",
+		"@atlaskit/editor-common": "^99.5.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tmp-editor-statsig": "^2.38.0",
+		"@atlaskit/tmp-editor-statsig": "^2.39.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

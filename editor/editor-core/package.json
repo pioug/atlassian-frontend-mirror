@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.11.9",
+	"version": "203.11.10",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,10 +43,10 @@
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/editor-common": "^99.4.0",
+		"@atlaskit/editor-common": "^99.5.0",
 		"@atlaskit/editor-json-transformer": "^8.21.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.8.3",
-		"@atlaskit/editor-plugins": "^6.4.0",
+		"@atlaskit/editor-plugins": "^7.0.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/emoji": "^67.12.0",
@@ -55,8 +55,8 @@
 		"@atlaskit/mention": "^23.9.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
-		"@atlaskit/tmp-editor-statsig": "^2.38.0",
-		"@atlaskit/tokens": "^3.1.0",
+		"@atlaskit/tmp-editor-statsig": "^2.39.0",
+		"@atlaskit/tokens": "^3.2.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/width-detector": "^4.3.0",
 		"@babel/runtime": "^7.0.0",
@@ -84,7 +84,7 @@
 		"@atlaskit/adf-utils": "^19.17.0",
 		"@atlaskit/analytics-listeners": "^8.13.0",
 		"@atlaskit/collab-provider": "10.4.0",
-		"@atlaskit/editor-plugin-annotation": "1.26.13",
+		"@atlaskit/editor-plugin-annotation": "1.26.14",
 		"@atlaskit/editor-plugin-card": "^4.5.0",
 		"@atlaskit/editor-plugin-list": "^3.9.0",
 		"@atlaskit/editor-plugin-paste": "^2.0.0",
@@ -96,14 +96,14 @@
 		"@atlaskit/modal-dialog": "^12.19.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/renderer": "^112.8.0",
-		"@atlaskit/smart-card": "^34.5.0",
+		"@atlaskit/smart-card": "^34.6.0",
 		"@atlaskit/synchrony-test-helpers": "^3.0.0",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/util-data-test": "^17.13.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "3.0.25",
+		"@atlassian/search-provider": "3.0.26",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^6.4.0",
 		"@testing-library/react": "^12.1.5",
@@ -396,6 +396,10 @@
 			"type": "boolean"
 		},
 		"platform_editor_live_page_prevent_table_recreation": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_safari_media_clipboard_fix": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

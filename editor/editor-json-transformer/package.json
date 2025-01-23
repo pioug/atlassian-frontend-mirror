@@ -50,7 +50,7 @@
 		"lodash": "^4.17.21"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-plugin-highlight": "1.19.8",
+		"@atlaskit/editor-plugin-highlight": "1.19.9",
 		"react": "^16.8.0",
 		"typescript": "~5.4.2"
 	},

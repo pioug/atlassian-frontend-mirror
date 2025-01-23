@@ -1,22 +1,23 @@
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const triggerButtonStyles = css({
 	all: 'unset',
 	backgroundColor: 'transparent',
 	color: 'unset',
 	cursor: 'pointer',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontFamily: 'unset',
 	fontSize: 'unset',
 	fontStyle: 'unset',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontWeight: 'unset',
 	fontVariant: 'unset',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 0,
 	padding: 0,
 	textTransform: 'unset',
@@ -30,12 +31,18 @@ export const triggerButtonStyles = css({
 	},
 });
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const triggerLozengeStyles = css({
 	alignItems: 'center',
 	display: 'flex',
 });
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const dropdownItemGroupStyles = css({
 	maxHeight: '300px',

@@ -1,5 +1,35 @@
 # @atlaskit/editor-common
 
+## 99.5.0
+
+### Minor Changes
+
+- [#104835](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104835)
+  [`c9125a4a01da7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c9125a4a01da7) -
+  [ux] Added the aiProactive primary toolbar placeholder. Also added the existing the suggested
+  edits toolbar button to the proactive ai plugin.
+
+  Also added a new configuration option to the ai plugin to hide the primary toolbar button.
+
+- [#105175](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105175)
+  [`6e108c69a21f1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6e108c69a21f1) -
+  EDF-2257: Clean up unused analytic event types and export common unified attributes types.
+- [#104129](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104129)
+  [`75414d4282d9a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/75414d4282d9a) -
+  [ux] EDF-2131: Trigger Proactive Feedback Dialog more frequently (on modal dismiss or thumbs down
+  click, and every 3rd dismissal from context panel buttons) behind fg
+  platform_editor_ai_aggressive_feedback_proactive
+- [#105399](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105399)
+  [`ed98e34b5912b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed98e34b5912b) -
+  ED-26234 Fire analytics at end of editor session
+
+### Patch Changes
+
+- [#105400](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105400)
+  [`cb3c65a390b04`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb3c65a390b04) -
+  Removing onChangeCalled event as it is spamming GASV3.
+- Updated dependencies
+
 ## 99.4.2
 
 ### Patch Changes

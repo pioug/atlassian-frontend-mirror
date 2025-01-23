@@ -1,21 +1,23 @@
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { type MessageDescriptor } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { IconType } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import AtlaskitIcon from '../../common/atlaskit-icon';
 import ImageIcon from '../../common/image-icon';
-import { getFormattedMessage, getIconSizeStyles } from '../../utils';
+import { getFormattedMessage } from '../../utils';
 
+import BadgeOld from './BadgeOld';
 import { type BadgeProps } from './types';
 
 const badgeStyles = css({
@@ -24,19 +26,37 @@ const badgeStyles = css({
 	minWidth: 'fit-content',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-const iconStyles = css`
-	color: ${token('color.icon.subtle', '#626F86')};
-	line-height: 0;
-	vertical-align: middle;
-	${getIconSizeStyles('1rem')}
-	img,
-  span,
-  svg {
-		line-height: 0;
-		vertical-align: middle;
-	}
-`;
+const iconStyles = css({
+	color: token('color.icon.subtle', '#626F86'),
+	lineHeight: 0,
+	verticalAlign: 'middle',
+	flex: '0 0 auto',
+	height: '1rem',
+	minHeight: '1rem',
+	maxHeight: '1rem',
+	width: '1rem',
+	minWidth: '1rem',
+	maxWidth: '1rem',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'span, svg, img': {
+		height: '1rem',
+		minHeight: '1rem',
+		maxHeight: '1rem',
+		width: '1rem',
+		minWidth: '1rem',
+		maxWidth: '1rem',
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	svg: {
+		padding: 0,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'img, span, svg': {
+		lineHeight: 0,
+		verticalAlign: 'middle',
+	},
+});
+// ${getIconSizeStyles('1rem')}
 
 const labelStyles = css({
 	color: token('color.text.subtlest', '#626F86'),
@@ -97,12 +117,12 @@ const renderImageIcon = (url?: string, testId?: string): React.ReactNode | undef
  * @see ProgrammingLanguage
  * @see Provider
  */
-const Badge = ({
+const BadgeNew = ({
 	hideIcon = false,
 	icon,
 	label,
 	name,
-	overrideCss,
+	className,
 	testId = 'smart-element-badge',
 	url,
 }: BadgeProps) => {
@@ -114,12 +134,13 @@ const Badge = ({
 
 	return (
 		<span
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[badgeStyles, overrideCss]}
+			css={[badgeStyles]}
 			data-fit-to-content
 			data-smart-element={name}
 			data-smart-element-badge
 			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 		>
 			{!hideIcon && <span css={iconStyles}>{badgeIcon}</span>}
 			<span css={labelStyles} data-testid={`${testId}-label`}>
@@ -127,6 +148,14 @@ const Badge = ({
 			</span>
 		</span>
 	);
+};
+
+const Badge = (props: BadgeProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <BadgeNew {...props} />;
+	} else {
+		return <BadgeOld {...props} />;
+	}
 };
 
 export default Badge;

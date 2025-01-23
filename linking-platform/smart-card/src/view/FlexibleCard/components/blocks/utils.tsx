@@ -86,6 +86,9 @@ export const getGapSize = (size: SmartLinkSize): number => {
 	}
 };
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 export const getBaseStyles = (
 	direction: SmartLinkDirection,
 	size: SmartLinkSize,

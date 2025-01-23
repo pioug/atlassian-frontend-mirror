@@ -43,7 +43,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tokens": "^3.1.0",
+		"@atlaskit/tokens": "^3.2.0",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0"
 	},
@@ -52,7 +52,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/dropdown-menu": "^12.24.1",
+		"@atlaskit/dropdown-menu": "^12.25.0",
 		"@atlaskit/ds-lib": "^3.3.0",
 		"@atlaskit/primitives": "^13.3.7",
 		"@atlaskit/ssr": "*",

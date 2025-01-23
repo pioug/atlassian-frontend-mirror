@@ -2,14 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import { StoryPoints } from '../../src/view/FlexibleCard/components/elements';
-import { exampleTokens, getContext } from '../utils/flexible-ui';
+import { getContext } from '../utils/flexible-ui';
 import { HorizontalWrapper } from '../utils/vr-test';
 import VRTestWrapper from '../utils/vr-test-wrapper';
+
+import Old from './vr-flexible-ui-element-atlaskit-badgeOld';
 
 const context = getContext({
 	storyPoints: 3,
@@ -18,12 +22,11 @@ const context = getContext({
 const overrideCss = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> span': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		backgroundColor: exampleTokens.overrideColor,
+		backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
 	},
 });
 
-export default () => (
+const New = () => (
 	<VRTestWrapper>
 		<FlexibleUiContext.Provider value={context}>
 			<h5>Default View</h5>
@@ -32,8 +35,15 @@ export default () => (
 			</HorizontalWrapper>
 			<h5>Override CSS</h5>
 			<HorizontalWrapper>
-				<StoryPoints overrideCss={overrideCss} />
+				<StoryPoints css={overrideCss} />
 			</HorizontalWrapper>
 		</FlexibleUiContext.Provider>
 	</VRTestWrapper>
 );
+
+export default () => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <New />;
+	}
+	return <Old />;
+};

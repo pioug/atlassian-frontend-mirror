@@ -1,11 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type ErrorInfo, useCallback } from 'react';
+import React, { type ErrorInfo, useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import { ErrorBoundary } from 'react-error-boundary';
 import { di } from 'react-magnetic-di';
 

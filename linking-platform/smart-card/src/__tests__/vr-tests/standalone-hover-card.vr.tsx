@@ -13,42 +13,63 @@ snapshot(HoverCard, {
 	description: 'standalone hover card deafult',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardWithPreview, {
 	description: 'standalone hover card with image Preview',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardForSlackMessage, {
 	description: 'standalone hover card for Slack message',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardConfluence, {
 	description: 'standalone hover card for Confluence',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardAssignedJiraIssue, {
 	description: 'standalone hover card for Assigned Jira Issie',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardUnassignedJiraIssue, {
 	description: 'standalone hover card for Unassigned Jira Issie',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardJiraProject, {
 	description: 'standalone hover card for Jira Project',
 	states: [{ state: 'hovered', selector: { byRole: 'button' } }],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -60,6 +81,9 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -71,6 +95,9 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -82,6 +109,9 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -93,6 +123,9 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -105,6 +138,9 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardForbiddenJira, {
@@ -117,10 +153,16 @@ snapshot(HoverCardForbiddenJira, {
 		},
 	],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardForbiddenJira, {
 	description: 'standalone hover card forbidden view with forbidden context for Jira',
 	states: [{ state: 'hovered', selector: { byTestId: 'FORBIDDEN' } }],
 	drawsOutsideBounds: true,
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });

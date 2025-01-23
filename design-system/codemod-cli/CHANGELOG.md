@@ -1,5 +1,14 @@
 # @atlaskit/codemod-cli
 
+## 0.27.2
+
+### Patch Changes
+
+- [#105698](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105698)
+  [`e2455bc212b5c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e2455bc212b5c) -
+  Resolve small ESLint issues.
+- Updated dependencies
+
 ## 0.27.1
 
 ### Patch Changes

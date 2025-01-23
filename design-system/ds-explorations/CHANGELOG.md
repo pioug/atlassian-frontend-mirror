@@ -1,5 +1,14 @@
 # @atlaskit/ds-explorations
 
+## 4.3.5
+
+### Patch Changes
+
+- [#105744](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105744)
+  [`bc9ed5e4ee94d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc9ed5e4ee94d) -
+  Updated 'ak-postbuild' script to also build '@atlaskit/platform-feature-flags'
+- Updated dependencies
+
 ## 4.3.4
 
 ### Patch Changes

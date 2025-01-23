@@ -27,14 +27,14 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/editor-common": "^99.4.0",
-		"@atlaskit/editor-plugin-analytics": "^1.10.0",
+		"@atlaskit/editor-common": "^99.5.0",
+		"@atlaskit/editor-plugin-analytics": "^1.11.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.11.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.1.0",
+		"@atlaskit/tokens": "^3.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

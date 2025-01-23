@@ -14,7 +14,7 @@ import { DatasourceExperienceIdProvider } from '../../../../contexts/datasource-
 import { Store, StoreContainer } from '../../../../state';
 import { type DatasourceTypeWithOnlyValues } from '../../types';
 import { getFieldLabelById } from '../../utils';
-import { InlineEdit } from '../inline-edit';
+import { InlineEdit, newGetBackendUpdateValue } from '../inline-edit';
 import '@atlaskit/link-test-helpers/jest';
 import { tableCellMessages } from '../messages';
 
@@ -645,6 +645,133 @@ describe('InlineEdit', () => {
 					},
 				},
 				EVENT_CHANNEL,
+			);
+		});
+	});
+});
+
+describe('newGetBackendUpdateValue', () => {
+	describe('icon', () => {
+		it('should return the id for type "icon"', () => {
+			const iconTypeInput: DatasourceTypeWithOnlyValues = {
+				type: 'icon',
+				values: [
+					{
+						source: 'icon-source',
+						label: 'icon-label',
+						text: 'icon-text',
+						id: 'icon-id',
+					},
+				],
+			};
+			expect(newGetBackendUpdateValue(iconTypeInput)).toBe('icon-id');
+		});
+
+		it('should throw an error if id is not supplied for type "icon"', () => {
+			const iconTypeInput: DatasourceTypeWithOnlyValues = {
+				type: 'icon',
+				values: [
+					{
+						source: 'icon-source',
+						label: 'icon-label',
+						text: 'icon-text',
+					},
+				],
+			};
+			expect(() => newGetBackendUpdateValue(iconTypeInput)).toThrow(
+				'Datasource 2 way sync: Backend update ID not supplied for type icon',
+			);
+		});
+		it('should throw an error if id is an empty string for type "icon"', () => {
+			const iconTypeInput: DatasourceTypeWithOnlyValues = {
+				type: 'icon',
+				values: [
+					{
+						source: 'icon-source',
+						label: 'icon-label',
+						text: 'icon-text',
+						id: '',
+					},
+				],
+			};
+			expect(() => newGetBackendUpdateValue(iconTypeInput)).toThrow(
+				'Datasource 2 way sync: Backend update ID not supplied for type icon',
+			);
+		});
+	});
+
+	describe('string', () => {
+		it('should return the string value for type "string"', () => {
+			const stringTypeInput: DatasourceTypeWithOnlyValues = {
+				type: 'string',
+				values: ['test-value'],
+			};
+			expect(newGetBackendUpdateValue(stringTypeInput)).toBe('test-value');
+		});
+
+		it('should throw an error if no values are supplied for type "string"', () => {
+			const stringTypeInput: DatasourceTypeWithOnlyValues = {
+				type: 'string',
+				values: [],
+			};
+			expect(() => newGetBackendUpdateValue(stringTypeInput)).toThrow(
+				'Datasource 2 way sync: Backend update value or value ID not supplied for type string',
+			);
+		});
+		it('should not throw an error if the value is an empty string for type "string"', () => {
+			const stringTypeInput: DatasourceTypeWithOnlyValues = {
+				type: 'string',
+				values: [''],
+			};
+			expect(newGetBackendUpdateValue(stringTypeInput)).toBe('');
+		});
+	});
+
+	describe('status', () => {
+		it('should return the transitionId for type "status"', () => {
+			const statusTypeInput: DatasourceTypeWithOnlyValues = {
+				type: 'status',
+				values: [{ transitionId: 'status-id', text: 'text' }],
+			};
+			expect(newGetBackendUpdateValue(statusTypeInput)).toBe('status-id');
+		});
+
+		it('should throw an error if transitionId is not supplied for type "status"', () => {
+			const statusTypeInput: DatasourceTypeWithOnlyValues = {
+				type: 'status',
+				values: [{ text: 'text' }],
+			};
+			expect(() => newGetBackendUpdateValue(statusTypeInput)).toThrow(
+				'Datasource 2 way sync: Backend status transition ID not supplied for type transition',
+			);
+		});
+		it('should throw an error if transitionId is an emtpy string for type "status"', () => {
+			const statusTypeInput: DatasourceTypeWithOnlyValues = {
+				type: 'status',
+				values: [{ transitionId: '', text: 'text' }],
+			};
+			expect(() => newGetBackendUpdateValue(statusTypeInput)).toThrow(
+				'Datasource 2 way sync: Backend status transition ID not supplied for type transition',
+			);
+		});
+	});
+
+	describe('user', () => {
+		it('should return the atlassianUserId for type "user"', () => {
+			const userTypeInput: DatasourceTypeWithOnlyValues = {
+				type: 'user',
+				values: [{ atlassianUserId: 'user-id' }],
+			};
+			expect(newGetBackendUpdateValue(userTypeInput)).toBe('user-id');
+		});
+
+		it('should throw an error if atlassianUserId is not supplied for type "user"', () => {
+			const userTypeInput: DatasourceTypeWithOnlyValues = {
+				type: 'user',
+				values: [{}],
+			};
+			expect(() => newGetBackendUpdateValue(userTypeInput)).toThrow(
+				'Datasource 2 way sync: Backend atlasian user ID not supplied for type user',
 			);
 		});
 	});

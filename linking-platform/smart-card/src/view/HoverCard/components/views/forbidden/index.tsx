@@ -1,23 +1,53 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 import { type JsonLd } from 'json-ld-types';
 import { FormattedMessage } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
 import { extractProvider } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
+import { SmartLinkStatus } from '../../../../../constants';
 import { extractRequestAccessContextImproved } from '../../../../../extractors/common/context/extractAccessContext';
 import extractHostname from '../../../../../extractors/common/hostname/extractHostname';
 import { messages } from '../../../../../messages';
 import FlexibleCard from '../../../../FlexibleCard';
 import { CustomBlock, PreviewBlock } from '../../../../FlexibleCard/components/blocks';
-import { getPreviewBlockStyles } from '../../../styled';
 
-import { connectButtonStyles, mainTextStyles, titleBlockStyles } from './styled';
+import HoverCardForbiddenViewOld from './HoverCardForbiddenViewOld';
 import { type HoverCardForbiddenProps } from './types';
 
-const HoverCardForbiddenView = ({
+const titleBlockStyles = css({
+	justifyContent: 'center',
+	fontWeight: token('font.weight.semibold'),
+	marginTop: token('space.100', '8px'),
+});
+
+const mainTextStyles = css({
+	display: 'inline',
+	justifyContent: 'center',
+	marginTop: token('space.0', '0px'),
+	font: token('font.body.UNSAFE_small'),
+	textAlign: 'center',
+});
+
+const connectButtonStyles = css({
+	justifyContent: 'center',
+	marginTop: token('space.100', '8px'),
+});
+
+const basePreviewStyles = css({
+	borderTopLeftRadius: token('border.radius.200', '8px'),
+	borderTopRightRadius: token('border.radius.200', '8px'),
+	marginBottom: token('space.100', '0.5rem'),
+});
+
+const HoverCardForbiddenViewNew = ({
 	flexibleCardProps,
 	testId = 'hover-card-forbidden-view',
 }: HoverCardForbiddenProps) => {
@@ -44,18 +74,27 @@ const HoverCardForbiddenView = ({
 		<FlexibleCard {...flexibleCardProps} testId={testId}>
 			<PreviewBlock
 				ignoreContainerPadding={true}
-				overrideCss={getPreviewBlockStyles()}
+				css={[basePreviewStyles]}
 				testId={testId}
+				status={SmartLinkStatus.Forbidden}
 			/>
-			<CustomBlock overrideCss={titleBlockStyles} testId={`${testId}-title`}>
+			<CustomBlock
+				css={titleBlockStyles}
+				testId={`${testId}-title`}
+				status={SmartLinkStatus.Forbidden}
+			>
 				<FormattedMessage {...messages[titleMessageKey]} values={{ product }} />
 			</CustomBlock>
-			<CustomBlock overrideCss={mainTextStyles} testId={`${testId}-content`}>
+			<CustomBlock
+				css={mainTextStyles}
+				testId={`${testId}-content`}
+				status={SmartLinkStatus.Forbidden}
+			>
 				<FormattedMessage {...messages[descriptiveMessageKey]} values={{ product, hostname }} />
 			</CustomBlock>
 
 			{action && (
-				<CustomBlock overrideCss={connectButtonStyles}>
+				<CustomBlock css={connectButtonStyles} status={SmartLinkStatus.Forbidden}>
 					<Button
 						testId={`${testId}-button`}
 						onClick={action?.promise}
@@ -68,6 +107,14 @@ const HoverCardForbiddenView = ({
 			)}
 		</FlexibleCard>
 	);
+};
+
+const HoverCardForbiddenView = (props: HoverCardForbiddenProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <HoverCardForbiddenViewNew {...props} />;
+	} else {
+		return <HoverCardForbiddenViewOld {...props} />;
+	}
 };
 
 export default HoverCardForbiddenView;

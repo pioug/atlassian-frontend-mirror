@@ -76,17 +76,7 @@ export const useDispatchTransaction = ({
 
 					startMeasure(EVENT_NAME_ON_CHANGE);
 					onChangeRef.current(view, { source });
-					stopMeasure(EVENT_NAME_ON_CHANGE, (duration: number, startTime: number) => {
-						dispatchAnalyticsEvent({
-							action: ACTION.ON_CHANGE_CALLBACK,
-							actionSubject: ACTION_SUBJECT.EDITOR,
-							eventType: EVENT_TYPE.OPERATIONAL,
-							attributes: {
-								duration,
-								startTime,
-							},
-						});
-					});
+					stopMeasure(EVENT_NAME_ON_CHANGE);
 				}
 			} else {
 				const invalidNodes = nodes

@@ -1,12 +1,9 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { css, jsx } from '@compiled/react';
+import React from 'react';
+
 import { FormattedMessage } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives';
-import { token } from '@atlaskit/tokens';
 
 import { SmartLinkAlignment, SmartLinkDirection } from '../../../../../../constants';
 import { LinkIcon } from '../../../elements';
@@ -37,7 +34,7 @@ const TitleBlockErroredViewNew = ({
 	const hasAction = onClick !== undefined;
 
 	return (
-		<Block {...blockProps} css={titleBlockGapStyle} testId={`${testId}-errored-view`}>
+		<Block {...blockProps} testId={`${testId}-errored-view`}>
 			{!hideIcon && <LinkIcon overrideIcon={icon} position={position} />}
 			{title}
 			{descriptor && (
@@ -56,9 +53,12 @@ const TitleBlockErroredViewNew = ({
 	);
 };
 
-export default TitleBlockErroredViewOld;
-export { TitleBlockErroredViewNew };
+const TitleBlockErroredView = (props: TitleBlockViewProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <TitleBlockErroredViewNew {...props} />;
+	} else {
+		return <TitleBlockErroredViewOld {...props} />;
+	}
+};
 
-const titleBlockGapStyle = css({
-	gap: token('space.100'),
-});
+export default TitleBlockErroredView;

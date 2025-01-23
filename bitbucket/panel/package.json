@@ -39,7 +39,7 @@
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.1.0",
+		"@atlaskit/tokens": "^3.2.0",
 		"@babel/runtime": "^7.0.0",
 		"react-animate-height": "^2.1.0",
 		"react-focus-within": "^2.0.1",

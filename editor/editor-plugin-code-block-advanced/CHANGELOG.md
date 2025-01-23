@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 1.0.2
+
+### Patch Changes
+
+- [#105726](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105726)
+  [`2eb0f22c4b065`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2eb0f22c4b065) -
+  [ux] Fix toDOM implementation whitespace with 100+ lines of code
+- [#103918](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103918)
+  [`29844093c6ab4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/29844093c6ab4) -
+  Expose new shared state for code block plugin which indicates the current node that the copy text
+  button is hovered for. Display highlight decorations for the copy text button in the advanced code
+  block plugin.
+- Updated dependencies
+
 ## 1.0.1
 
 ### Patch Changes

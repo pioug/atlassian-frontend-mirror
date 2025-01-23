@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -35,19 +36,16 @@ const stackItemIconSizeStyles = getIconSizeStyles('20px');
 // eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 const stackItemIconStyles = css(stackItemIconSizeStyles, {
 	display: 'inline-block',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 0,
 	padding: token('space.025'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'span,svg,img': {
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 0,
 	},
 });
 
 const newStackItemIconStyles = css({
 	display: 'inline-block',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: 0,
 });
 

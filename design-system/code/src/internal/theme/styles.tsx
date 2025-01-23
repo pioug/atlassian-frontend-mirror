@@ -198,7 +198,7 @@ const syntaxKeywordColors = (theme: CodeBlockTheme): CSSObject => ({
 /**
  * Styles applied at the root element level, common across code/codeblock
  */
-export const getBaseCodeStyles = (theme: CodeTheme) => ({
+const getBaseCodeStyles = (theme: CodeTheme) => ({
 	fontSize: CODE_FONT_SIZE,
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontFamily: theme.fontFamily,

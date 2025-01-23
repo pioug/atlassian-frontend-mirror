@@ -26,4 +26,6 @@ export type MetadataBlockProps = {
 	 * @see ElementItem
 	 */
 	secondary?: ElementItem[];
+
+	className?: string;
 } & BlockProps;

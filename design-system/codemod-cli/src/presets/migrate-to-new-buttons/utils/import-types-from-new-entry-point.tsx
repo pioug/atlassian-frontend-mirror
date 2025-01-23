@@ -1,9 +1,9 @@
 import type {
+	Collection,
+	ImportDeclaration,
 	ImportDefaultSpecifier,
 	ImportSpecifier,
 	JSCodeshift,
-	Collection,
-	ImportDeclaration,
 } from 'jscodeshift';
 
 import { NEW_BUTTON_VARIANTS } from './constants';

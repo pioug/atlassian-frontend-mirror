@@ -15,7 +15,7 @@ import {
 	SmartLinkWidth,
 } from '../../../../../constants';
 import Block from '../block';
-import { ElementGroupNew as ElementGroup } from '../element-group';
+import ElementGroup from '../element-group';
 import { renderElementItems } from '../utils';
 
 import MetadataBlockOld from './MetadataBlockOld';
@@ -107,7 +107,6 @@ const MetadataBlock = ({
 
 	const { size = SmartLinkSize.Medium } = blockProps;
 	const maxLinesTotal = getMaxLines(maxLines);
-
 	return (
 		<Block {...blockProps} testId={`${testId}-resolved-view`}>
 			{primaryElements && (

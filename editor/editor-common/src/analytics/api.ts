@@ -20,6 +20,11 @@ export type EditorAnalyticsAPI = {
 	 *
 	 * @param {AnalyticsEventPayload} payload - analytics payload
 	 * @param {string} [channel="editor"] - optional channel identifier
+	 * @param {object} [options] - optional options where immediate is true will fire event immediately
 	 */
-	fireAnalyticsEvent: (payload: AnalyticsEventPayload, channel?: string) => void | undefined;
+	fireAnalyticsEvent: (
+		payload: AnalyticsEventPayload,
+		channel?: string,
+		options?: { immediate?: boolean },
+	) => void | undefined;
 };

@@ -2,26 +2,31 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { selectUnit } from '@formatjs/intl-utils';
 import { FormattedMessage, type MessageDescriptor, useIntl } from 'react-intl-next';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../../messages';
-import { getTruncateStyles } from '../../utils';
 
+import DateTimeOld from './DateTimeOld';
 import { type DateTimeProps, type DateTimeType } from './types';
 
-const styles = css(
-	{
-		color: token('color.text.subtlest', '#626F86'),
-		font: token('font.body.UNSAFE_small'),
+const styles = css({
+	color: token('color.text.subtlest', '#626F86'),
+	font: token('font.body.UNSAFE_small'),
+	display: '-webkit-box',
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	wordBreak: 'break-word',
+	WebkitLineClamp: 1,
+	WebkitBoxOrient: 'vertical',
+	'@supports not (-webkit-line-clamp: 1)': {
+		maxHeight: 'calc(1 * 1rem)',
 	},
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	getTruncateStyles(1),
-);
+});
 
 type DateTypeVariation = 'relative' | 'absolute';
 
@@ -48,10 +53,10 @@ const typeToDescriptorMap: Record<DateTimeType, Record<DateTypeVariation, Messag
  * @see ModifiedOn
  * @see SentOn
  */
-const DateTime = ({
+const DateTimeNew = ({
 	date,
 	name,
-	overrideCss,
+	className,
 	type,
 	testId = 'smart-element-date-time',
 	text,
@@ -80,12 +85,13 @@ const DateTime = ({
 
 	return (
 		<span
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[styles, overrideCss]}
+			css={[styles]}
 			data-separator
 			data-smart-element={name}
 			data-smart-element-date-time
 			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 		>
 			{text ? (
 				`${text} ${context}`
@@ -94,6 +100,14 @@ const DateTime = ({
 			)}
 		</span>
 	);
+};
+
+const DateTime = (props: DateTimeProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <DateTimeNew {...props} />;
+	} else {
+		return <DateTimeOld {...props} />;
+	}
 };
 
 export default DateTime;

@@ -197,7 +197,12 @@ export const hyperlinkPlugin: HyperlinkPlugin = ({ config: options = {}, api }) 
 			floatingToolbar: getToolbarConfig(options, api),
 
 			selectionToolbar: (state, { formatMessage }) => {
-				if (editorExperiment('contextual_formatting_toolbar', true, { exposure: true })) {
+				if (
+					editorExperiment('contextual_formatting_toolbar', true, { exposure: true }) ||
+					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2', {
+						exposure: true,
+					})
+				) {
 					const toolbarButton = () => {
 						const { from, to } = state.selection;
 						const isEnabled = canLinkBeCreatedInRange(from, to)(state);

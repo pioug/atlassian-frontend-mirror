@@ -35,33 +35,9 @@ describe('Result Base', () => {
 		expect(resultItem).toHaveLength(1);
 		const onClick = resultItem.prop('onClick');
 		expect(onClick).toBeInstanceOf(Function);
-		const mockedEvent = { preventDefault() {} } as MouseEvent;
+		const mockedEvent = { preventDefault() {} } as any;
 		if (onClick) {
 			onClick(mockedEvent);
-		}
-		expect(spy).toBeCalledWith({
-			resultId: 'testResult',
-			type: 'base',
-			event: mockedEvent,
-		});
-	});
-
-	it('should pass { `resultId`,  `type` } to onMouseEnter handler', () => {
-		const spy = jest.fn();
-		resultWrapper.setProps({
-			context: {
-				onMouseEnter: spy,
-				registerResult: () => {},
-			},
-		});
-
-		const resultItem = resultWrapper.find(ResultItem);
-		expect(resultItem).toHaveLength(1);
-		const onMouseEnter = resultItem.prop('onMouseEnter');
-		expect(onMouseEnter).toBeInstanceOf(Function);
-		const mockedEvent = { preventDefault() {} } as MouseEvent;
-		if (onMouseEnter) {
-			onMouseEnter(mockedEvent);
 		}
 		expect(spy).toBeCalledWith({
 			resultId: 'testResult',

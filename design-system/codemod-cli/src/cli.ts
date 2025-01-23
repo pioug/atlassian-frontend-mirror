@@ -1,7 +1,8 @@
-import meow from 'meow';
-import { type CliFlags, ValidationError, NoTransformsExistError } from './types';
-import main from './main';
 import chalk from 'chalk';
+import meow from 'meow';
+
+import main from './main';
+import { type CliFlags, NoTransformsExistError, ValidationError } from './types';
 
 export async function run() {
 	const cli = meow(
@@ -19,7 +20,7 @@ Options
   --ignore-pattern, ignore files that match a provided glob expression
   --fail-on-error, return a 1 exit code when errors were found during execution of codemods
   --version, -v version number
-  --no-filter-paths disables dependant package file path filtering logic   
+  --no-filter-paths disables dependant package file path filtering logic
   --help Help me 😱
 
 Examples

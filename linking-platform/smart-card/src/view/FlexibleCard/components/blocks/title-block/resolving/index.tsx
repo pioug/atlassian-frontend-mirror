@@ -4,10 +4,9 @@
  * @jsx jsx
  */
 
-import { css, cssMap, jsx } from '@compiled/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../../../../../constants';
 import { LoadingSkeletonNew, LoadingSkeletonOld } from '../../../common/loading-skeleton';
@@ -108,10 +107,6 @@ const iconStyle = cssMap({
 	},
 });
 
-const titleBlockGapStyle = css({
-	gap: token('space.100'),
-});
-
 /**
  * This represents a TitleBlock for a Smart Link that is currently waiting
  * for a request to finish.
@@ -131,7 +126,7 @@ const TitleBlockResolvingViewNew = ({
 		const iconWidth = getIconWidthNew(size);
 
 		return (
-			<Block {...blockProps} css={titleBlockGapStyle} testId={`${testId}-resolving-view`}>
+			<Block {...blockProps} testId={`${testId}-resolving-view`}>
 				{!hideIcon && (
 					<span style={{ width: iconWidth, height: iconWidth }} data-testid={`${testId}-icon`}>
 						<LoadingSkeletonNew
@@ -160,5 +155,12 @@ const TitleBlockResolvingViewNew = ({
 	);
 };
 
-export default TitleBlockResolvingViewOld;
-export { TitleBlockResolvingViewNew };
+const TitleBlockResolvingView = (props: TitleBlockViewProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <TitleBlockResolvingViewNew {...props} />;
+	} else {
+		return <TitleBlockResolvingViewOld {...props} />;
+	}
+};
+
+export default TitleBlockResolvingView;

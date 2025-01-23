@@ -69,6 +69,7 @@ const toDOM = (node: Node, formattedAriaLabel: string): DOMOutputSpec => {
 							textAlign: 'right',
 							color: token('color.text.subtlest'),
 							fontFamily: token('font.family.code'),
+							whiteSpace: 'pre-wrap',
 						}),
 						'data-label': content,
 					},

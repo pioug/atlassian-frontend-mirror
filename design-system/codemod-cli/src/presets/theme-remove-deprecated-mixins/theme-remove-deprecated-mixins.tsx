@@ -1,9 +1,9 @@
-import type { default as core, API, Collection, FileInfo } from 'jscodeshift';
 import {
-	hasImportDeclaration,
 	getImportDeclaration,
+	hasImportDeclaration,
 	insertImportSpecifier,
 } from '@codeshift/utils';
+import type { API, Collection, default as core, FileInfo } from 'jscodeshift';
 
 import { colorReplacements } from './utils/replacements';
 

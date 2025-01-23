@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-card
 
+## 4.5.16
+
+### Patch Changes
+
+- [#103370](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103370)
+  [`c121c95a0cf37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c121c95a0cf37) -
+  Cleanup feature flag enable_datasource_react_sweet_state to always use react sweet state for
+  powering datasources
+- Updated dependencies
+
 ## 4.5.15
 
 ### Patch Changes

@@ -36,6 +36,11 @@ export type BlockProps = {
 	className?: string;
 
 	/**
+	 * For dynamic styles
+	 */
+	style?: React.CSSProperties;
+
+	/**
 	 * The size of the block and the size that the underlying elements should
 	 * default to.
 	 */

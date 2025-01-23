@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 
@@ -6,6 +7,9 @@ import { token } from '@atlaskit/tokens';
 
 import { getTruncateStyles } from '../../../../utils';
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const dropdownItemGroupStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -21,7 +25,6 @@ export const dropdownItemGroupStyles = css({
 const sharedBlockStyles = css({
 	display: 'flex',
 	gap: token('space.100', '0.5rem'),
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '1rem',
 	minWidth: 0,
 	overflow: 'hidden',
@@ -29,6 +32,9 @@ const sharedBlockStyles = css({
 	alignItems: 'center',
 });
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 export const contentStyles = css(sharedBlockStyles, {
 	marginTop: token('space.025', '2px'),
@@ -40,6 +46,9 @@ export const contentStyles = css(sharedBlockStyles, {
 	},
 });
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 export const linkStyles = css(sharedBlockStyles, {
 	cursor: 'pointer',
@@ -49,10 +58,12 @@ export const linkStyles = css(sharedBlockStyles, {
 	marginBottom: token('space.025', '2px'),
 });
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 export const textStyles = (maxLines: number) =>
 	css(
 		{
-			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			lineHeight: '1rem',
 			whiteSpace: 'normal',
 		},

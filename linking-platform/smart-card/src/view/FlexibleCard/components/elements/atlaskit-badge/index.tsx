@@ -2,11 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import AKBadge from '@atlaskit/badge';
+import { fg } from '@atlaskit/platform-feature-flags';
 
+import AtlaskitBadgeOld from './AtlaskitBadgeOld';
 import { type AtlaskitBadgeProps } from './types';
 
 const badgeStyles = css({
@@ -20,10 +21,10 @@ const badgeStyles = css({
  * @see StoryPoints
  * */
 
-const AtlaskitBadge = ({
+const AtlaskitBadgeNew = ({
 	value,
 	name,
-	overrideCss,
+	className,
 	testId = 'smart-element-atlaskit-badge',
 }: AtlaskitBadgeProps) => {
 	if (!value) {
@@ -32,16 +33,25 @@ const AtlaskitBadge = ({
 
 	return (
 		<span
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[badgeStyles, overrideCss]}
+			css={[badgeStyles]}
 			data-fit-to-content
 			data-smart-element={name}
 			data-smart-element-atlaskit-badge
 			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 		>
 			<AKBadge>{value}</AKBadge>
 		</span>
 	);
+};
+
+const AtlaskitBadge = (props: AtlaskitBadgeProps): JSX.Element | null => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <AtlaskitBadgeNew {...props} />;
+	} else {
+		return <AtlaskitBadgeOld {...props} />;
+	}
 };
 
 export default AtlaskitBadge;

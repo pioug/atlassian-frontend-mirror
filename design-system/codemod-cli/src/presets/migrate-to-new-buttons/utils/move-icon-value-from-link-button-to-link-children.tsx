@@ -1,4 +1,4 @@
-import { type JSXElement, type API, type JSXExpressionContainer, type ASTPath } from 'jscodeshift';
+import { type API, type ASTPath, type JSXElement, type JSXExpressionContainer } from 'jscodeshift';
 const moveIcon = (
 	j: API['jscodeshift'],
 	path: ASTPath<JSXElement>,

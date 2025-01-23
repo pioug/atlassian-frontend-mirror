@@ -6,7 +6,7 @@
 import type { ACTION, ACTION_SUBJECT, ACTION_SUBJECT_ID } from './enums';
 import type { TrackAEP } from './utils';
 
-type CommonAttributes = {
+export type AIUnifiedCommonAttributes = {
 	singleInstrumentationID: string;
 	aiInteractionID: string;
 	aiFeatureName: string;
@@ -16,35 +16,35 @@ type CommonAttributes = {
 	aiExperienceName?: string;
 };
 
-export type AIInteractionInitiatedAEP = TrackAEP<
+type AIInteractionInitiatedAEP = TrackAEP<
 	ACTION.INITIATED,
 	ACTION_SUBJECT.AI_INTERACTION,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	CommonAttributes,
+	AIUnifiedCommonAttributes,
 	undefined
 >;
 
-export type AIInteractionDismissedAEP = TrackAEP<
+type AIInteractionDismissedAEP = TrackAEP<
 	ACTION.DISMISSED,
 	ACTION_SUBJECT.AI_INTERACTION,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	CommonAttributes,
+	AIUnifiedCommonAttributes,
 	undefined
 >;
 
-export type AIResultViewedAEP = TrackAEP<
+type AIResultViewedAEP = TrackAEP<
 	ACTION.VIEWED,
 	ACTION_SUBJECT.AI_RESULT,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	CommonAttributes,
+	AIUnifiedCommonAttributes,
 	undefined
 >;
 
-export type AIResultActionedAEP = TrackAEP<
+type AIResultActionedAEP = TrackAEP<
 	ACTION.ACTIONED,
 	ACTION_SUBJECT.AI_RESULT,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	CommonAttributes & {
+	AIUnifiedCommonAttributes & {
 		promptType?: string;
 		refinementCount?: number;
 		aiResultAction: string;
@@ -52,24 +52,22 @@ export type AIResultActionedAEP = TrackAEP<
 	undefined
 >;
 
-export type AIResultErrorAEP = TrackAEP<
+type AIResultErrorAEP = TrackAEP<
 	ACTION.ERROR,
 	ACTION_SUBJECT.AI_RESULT,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	CommonAttributes & {
+	AIUnifiedCommonAttributes & {
 		aiErrorMessage?: string;
 		aiErrorCode?: number;
-		aiExperienceName?: string;
 	},
 	undefined
 >;
 
-export type AIFeedbackSubmittedAEP = TrackAEP<
+type AIFeedbackSubmittedAEP = TrackAEP<
 	ACTION.SUBMITTED,
 	ACTION_SUBJECT.AI_FEEDBACK,
 	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
-	CommonAttributes & {
-		aiExperienceName?: string;
+	AIUnifiedCommonAttributes & {
 		aiFeedbackResult: 'up' | 'down';
 	},
 	undefined

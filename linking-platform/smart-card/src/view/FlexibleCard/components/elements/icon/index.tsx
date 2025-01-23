@@ -1,11 +1,13 @@
+/* eslint-disable @compiled/shorthand-property-sorting */
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
+/* eslint-disable @atlaskit/ui-styling-standard/no-nested-selectors */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import React, { useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import LinkIcon from '@atlaskit/icon/core/migration/link';
 import { fg } from '@atlaskit/platform-feature-flags';
@@ -15,46 +17,265 @@ import { token } from '@atlaskit/tokens';
 import { type IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../constants';
 import AtlaskitIcon from '../../common/atlaskit-icon';
 import ImageIcon from '../../common/image-icon';
-import { getIconSizeStyles, getIconWidth, getTruncateStyles } from '../../utils';
+import { getIconWidth } from '../../utils';
 
+import IconOld from './IconOld';
 import { type IconProps } from './types';
 
-const getPositionStyles = (position: SmartLinkPosition): SerializedStyles => {
-	switch (position) {
-		case SmartLinkPosition.Center:
-			return css({
-				alignSelf: 'center',
-			});
-		case SmartLinkPosition.Top:
-		default:
-			return css({
-				alignSelf: 'flex-start',
-				margin: 0,
-			});
-	}
-};
+const positionStyleMap = cssMap({
+	center: {
+		alignSelf: 'center',
+	},
+	top: {
+		alignSelf: 'flex-start',
+		margin: 0,
+	},
+});
 
-const getIconStyles = (position: SmartLinkPosition, width: string): SerializedStyles =>
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-	css(getPositionStyles(position), getIconSizeStyles(width));
+const iconStylesMapOld = cssMap({
+	xlarge: {
+		flex: '0 0 auto',
+		height: '2rem',
+		minHeight: '2rem',
+		maxHeight: '2rem',
+		width: '2rem',
+		minWidth: '2rem',
+		maxWidth: '2rem',
+		'span, svg, img': {
+			height: '2rem',
+			minHeight: '2rem',
+			maxHeight: '2rem',
+			width: '2rem',
+			minWidth: '2rem',
+			maxWidth: '2rem',
+		},
+		svg: {
+			padding: 0,
+		},
+	},
+	large: {
+		flex: '0 0 auto',
+		height: '1.5rem',
+		minHeight: '1.5rem',
+		maxHeight: '1.5rem',
+		width: '1.5rem',
+		minWidth: '1.5rem',
+		maxWidth: '1.5rem',
+		'span, svg, img': {
+			height: '1.5rem',
+			minHeight: '1.5rem',
+			maxHeight: '1.5rem',
+			width: '1.5rem',
+			minWidth: '1.5rem',
+			maxWidth: '1.5rem',
+		},
+		svg: {
+			padding: 0,
+		},
+	},
+	medium: {
+		flex: '0 0 auto',
+		height: '1rem',
+		minHeight: '1rem',
+		maxHeight: '1rem',
+		width: '1rem',
+		minWidth: '1rem',
+		maxWidth: '1rem',
+		'span, svg, img': {
+			height: '1rem',
+			minHeight: '1rem',
+			maxHeight: '1rem',
+			width: '1rem',
+			minWidth: '1rem',
+			maxWidth: '1rem',
+		},
+		svg: {
+			padding: 0,
+		},
+	},
+	small: {
+		flex: '0 0 auto',
+		height: '.75rem',
+		minHeight: '.75rem',
+		maxHeight: '.75rem',
+		width: '.75rem',
+		minWidth: '.75rem',
+		maxWidth: '.75rem',
+		'span, svg, img': {
+			height: '.75rem',
+			minHeight: '.75rem',
+			maxHeight: '.75rem',
+			width: '.75rem',
+			minWidth: '.75rem',
+			maxWidth: '.75rem',
+		},
+		svg: {
+			padding: 0,
+		},
+	},
+});
 
-const getCustomRenderStyles = (value: string): SerializedStyles =>
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	css(getTruncateStyles(1, value), {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
-		lineHeight: value,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		fontSize: value,
+const customRenderStyleMapOld = cssMap({
+	xlarge: {
+		display: '-webkit-box',
+		overflow: 'hidden',
+		wordBreak: 'break-word',
+		WebkitLineClamp: 1,
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: 'calc(1 * 2rem)',
+		},
+		lineHeight: '2rem',
+		fontSize: '2rem',
 		textAlign: 'center',
 		textOverflow: 'clip',
 		WebkitBoxOrient: 'unset',
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		span: {
 			margin: 0,
 			padding: 0,
 			verticalAlign: 'baseline',
 		},
-	});
+	},
+	large: {
+		display: '-webkit-box',
+		overflow: 'hidden',
+		wordBreak: 'break-word',
+		WebkitLineClamp: 1,
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: 'calc(1 * 1.5rem)',
+		},
+		lineHeight: '1.5rem',
+		fontSize: '1.5rem',
+		textAlign: 'center',
+		textOverflow: 'clip',
+		WebkitBoxOrient: 'unset',
+		span: {
+			margin: 0,
+			padding: 0,
+			verticalAlign: 'baseline',
+		},
+	},
+	medium: {
+		display: '-webkit-box',
+		overflow: 'hidden',
+		wordBreak: 'break-word',
+		WebkitLineClamp: 1,
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: 'calc(1 * 1rem)',
+		},
+		lineHeight: '1rem',
+		fontSize: '1rem',
+		textAlign: 'center',
+		textOverflow: 'clip',
+		WebkitBoxOrient: 'unset',
+		span: {
+			margin: 0,
+			padding: 0,
+			verticalAlign: 'baseline',
+		},
+	},
+	small: {
+		display: '-webkit-box',
+		overflow: 'hidden',
+		wordBreak: 'break-word',
+		WebkitLineClamp: 1,
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: 'calc(1 * .75rem)',
+		},
+		lineHeight: '.75rem',
+		fontSize: '.75rem',
+		textAlign: 'center',
+		textOverflow: 'clip',
+		WebkitBoxOrient: 'unset',
+		span: {
+			margin: 0,
+			padding: 0,
+			verticalAlign: 'baseline',
+		},
+	},
+});
+
+const customRenderStyleMapNew = cssMap({
+	xlarge: {
+		display: '-webkit-box',
+		overflow: 'hidden',
+		// textOverflow: 'ellipsis',
+		wordBreak: 'break-word',
+		WebkitLineClamp: 1,
+		// WebkitBoxOrient: 'vertical',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(1 * ${token('space.300')})`,
+		},
+		font: token('font.heading.large'),
+		textAlign: 'center',
+		textOverflow: 'clip',
+		WebkitBoxOrient: 'unset',
+		span: {
+			margin: 0,
+			padding: 0,
+			verticalAlign: 'baseline',
+		},
+	},
+	large: {
+		display: '-webkit-box',
+		overflow: 'hidden',
+		// textOverflow: 'ellipsis',
+		wordBreak: 'break-word',
+		WebkitLineClamp: 1,
+		// WebkitBoxOrient: 'vertical',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(1 * ${token('space.300')})`,
+		},
+		font: token('font.heading.large'),
+		textAlign: 'center',
+		textOverflow: 'clip',
+		WebkitBoxOrient: 'unset',
+		span: {
+			margin: 0,
+			padding: 0,
+			verticalAlign: 'baseline',
+		},
+	},
+	medium: {
+		display: '-webkit-box',
+		overflow: 'hidden',
+		// textOverflow: 'ellipsis',
+		wordBreak: 'break-word',
+		WebkitLineClamp: 1,
+		// WebkitBoxOrient: 'vertical',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(1 * ${token('space.200')})`,
+		},
+		font: token('font.heading.small'),
+		textAlign: 'center',
+		textOverflow: 'clip',
+		WebkitBoxOrient: 'unset',
+		span: {
+			margin: 0,
+			padding: 0,
+			verticalAlign: 'baseline',
+		},
+	},
+	small: {
+		display: '-webkit-box',
+		overflow: 'hidden',
+		// textOverflow: 'ellipsis',
+		wordBreak: 'break-word',
+		WebkitLineClamp: 1,
+		// WebkitBoxOrient: 'vertical',
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: `calc(1 * ${token('space.200')})`,
+		},
+		font: token('font.heading.small'),
+		textAlign: 'center',
+		textOverflow: 'clip',
+		WebkitBoxOrient: 'unset',
+		span: {
+			margin: 0,
+			padding: 0,
+			verticalAlign: 'baseline',
+		},
+	},
+});
 
 const renderAtlaskitIcon = (
 	icon?: IconType,
@@ -107,13 +328,13 @@ const renderImageIcon = (
  * @param {IconProps} IconProps - The props necessary for the Icon element.
  * @see LinkIcon
  */
-const Icon = ({
+const IconNew = ({
 	icon,
 	overrideIcon,
 	label = 'Link',
 	name,
 	position = SmartLinkPosition.Top,
-	overrideCss,
+	className,
 	render,
 	size = SmartLinkSize.Medium,
 	testId = 'smart-element-icon',
@@ -140,23 +361,24 @@ const Icon = ({
 	}, [overrideIcon, icon, label, render, testId, url, size]);
 
 	const width = getIconWidth(size);
-	const styles = getIconStyles(position, width);
-	const renderStyles = render ? getCustomRenderStyles(width) : undefined;
+
+	// const styles = getIconStyles(position, width);
+	// const renderStyles = render ? getCustomRenderStyles(width) : undefined;
 
 	return (
 		<div
 			css={[
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- needs dynamic css
-				!fg('platform-smart-card-icon-migration') && styles,
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- needs dynamic css
-				renderStyles,
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- needs dynamic css
-				overrideCss,
+				!fg('platform-smart-card-icon-migration') && iconStylesMapOld[size],
+				!fg('platform-smart-card-icon-migration') && positionStyleMap[position],
+				render && !fg('platform-smart-card-icon-migration') && customRenderStyleMapOld[size],
+				render && fg('platform-smart-card-icon-migration') && customRenderStyleMapNew[size],
 			]}
 			data-fit-to-content
 			data-smart-element={name}
 			data-smart-element-icon
 			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 		>
 			{fg('platform-smart-card-icon-migration') ? (
 				<Box
@@ -173,6 +395,14 @@ const Icon = ({
 			)}
 		</div>
 	);
+};
+
+const Icon = (props: IconProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <IconNew {...props} />;
+	} else {
+		return <IconOld {...props} />;
+	}
 };
 
 const iconWrapperStyle = xcss({

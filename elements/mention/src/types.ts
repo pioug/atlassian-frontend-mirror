@@ -41,7 +41,6 @@ export interface MentionResourceConfig extends ServiceConfig {
 	userRole?: UserRole;
 	productName?: string;
 	debounceTime?: number;
-	isEligibleXProductUserInvite?: boolean;
 	inviteXProductUser?: (userId: string, mentionName: string) => Promise<void>;
 }
 
@@ -258,6 +257,5 @@ export interface InviteFromMentionProvider {
 }
 
 export interface XProductInviteMentionProvider {
-	isEligibleXProductUserInvite?: boolean;
 	inviteXProductUser?: (userId: string, mentionName: string) => Promise<void>;
 }

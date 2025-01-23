@@ -101,19 +101,8 @@ export class ResultBase extends React.PureComponent<DefaultProps & Props> {
 	};
 
 	render() {
-		const {
-			caption,
-			elemAfter,
-			selectedIcon,
-			href,
-			target,
-			icon,
-			isCompact,
-			subText,
-			text,
-			resultId,
-			context,
-		} = this.props;
+		const { caption, elemAfter, selectedIcon, href, target, icon, subText, text, resultId } =
+			this.props;
 
 		const { isMouseSelected } = this.state;
 
@@ -125,17 +114,13 @@ export class ResultBase extends React.PureComponent<DefaultProps & Props> {
 						href={href}
 						target={target}
 						icon={icon}
-						isCompact={isCompact}
 						isSelected={resultId === selectedResultId}
-						onClick={this.handleClick}
-						onMouseEnter={this.handleMouseEnter}
-						onMouseLeave={this.handleMouseLeave}
+						onClick={this.handleClick as any}
 						isMouseSelected={isMouseSelected}
 						subText={subText}
 						text={text}
 						textAfter={elemAfter}
 						selectedIcon={selectedIcon}
-						linkComponent={context.linkComponent}
 					/>
 				)}
 			</SelectedResultIdContext.Consumer>

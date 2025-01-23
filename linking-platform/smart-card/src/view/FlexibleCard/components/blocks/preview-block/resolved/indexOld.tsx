@@ -75,7 +75,7 @@ const getPreviewBlockStyles = (
  * @param {PreviewBlock} PreviewBlock
  * @see Block
  */
-const PreviewBlockResolvedView = ({
+const PreviewBlockResolvedViewOld = ({
 	ignoreContainerPadding = false,
 	onError,
 	overrideCss,
@@ -112,4 +112,4 @@ const PreviewBlockResolvedView = ({
 	);
 };
 
-export default PreviewBlockResolvedView;
+export default PreviewBlockResolvedViewOld;

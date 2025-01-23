@@ -4,51 +4,72 @@
  */
 import { useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 import { type IntlShape, useIntl } from 'react-intl-next';
 
 import AtlaskitAvatarGroup from '@atlaskit/avatar-group';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { ElementName, SmartLinkSize } from '../../../../../constants';
 import { messages } from '../../../../../messages';
 import { getFormattedMessageAsString } from '../../utils';
 
+import AvatarGroupOld from './AvatarGroupOld';
 import { type AvatarGroupProps } from './types';
 
 const MAX_COUNT = 4;
 
-const getStyles = (size: SmartLinkSize) => {
-	const styles = css({
+const stylesMap = cssMap({
+	xlarge: {
 		display: 'inline-flex',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		ul: {
 			marginRight: token('space.100', '0.5rem'),
 			marginTop: 0,
 		},
-	});
-	switch (size) {
-		case SmartLinkSize.XLarge:
-		case SmartLinkSize.Large:
-			// Default AK small size
-			return styles;
-		case SmartLinkSize.Medium:
-		case SmartLinkSize.Small:
-		default:
-			// eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression -- needs manual remediation
-			return css`
-				${styles}
-				li {
-					span,
-					svg {
-						max-height: 1.25rem;
-						max-width: 1.25rem;
-					}
-				}
-			`;
-	}
-};
+	},
+	large: {
+		display: 'inline-flex',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		ul: {
+			marginRight: token('space.100', '0.5rem'),
+			marginTop: 0,
+		},
+	},
+	medium: {
+		display: 'inline-flex',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		ul: {
+			marginRight: token('space.100', '0.5rem'),
+			marginTop: 0,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		li: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'span, svg': {
+				maxHeight: '1.25rem',
+				maxWidth: '1.25rem',
+			},
+		},
+	},
+	small: {
+		display: 'inline-flex',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		ul: {
+			marginRight: token('space.100', '0.5rem'),
+			marginTop: 0,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		li: {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'span, svg': {
+				maxHeight: '1.25rem',
+				maxWidth: '1.25rem',
+			},
+		},
+	},
+});
 
 const getPersonNameWithPrefix = (
 	elementName: ElementName,
@@ -74,11 +95,11 @@ const getPersonNameWithPrefix = (
  * @see AuthorGroup
  * @see CollaboratorGroup
  */
-const AvatarGroup = ({
+const AvatarGroupNew = ({
 	items = [],
 	maxCount = MAX_COUNT,
 	name,
-	overrideCss,
+	className,
 	size = SmartLinkSize.Medium,
 	testId = 'smart-element-avatar-group',
 	showNamePrefix = false,
@@ -120,11 +141,13 @@ const AvatarGroup = ({
 	return (
 		<span
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[getStyles(size), overrideCss]}
+			css={[stylesMap[size]]}
 			data-fit-to-content
 			data-smart-element={name}
 			data-smart-element-avatar-group
 			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 		>
 			<AtlaskitAvatarGroup
 				maxCount={maxCount}
@@ -135,6 +158,14 @@ const AvatarGroup = ({
 			/>
 		</span>
 	);
+};
+
+const AvatarGroup = (props: AvatarGroupProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <AvatarGroupNew {...props} />;
+	} else {
+		return <AvatarGroupOld {...props} />;
+	}
 };
 
 export default AvatarGroup;

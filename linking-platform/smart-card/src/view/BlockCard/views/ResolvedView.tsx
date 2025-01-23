@@ -1,6 +1,16 @@
-import React, { useEffect, useMemo, useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 
-import { ActionName, ElementName, SmartLinkPosition } from '../../../constants';
+import { useEffect, useMemo, useState } from 'react';
+
+import { css, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
+
+import { ActionName, ElementName, SmartLinkPosition, SmartLinkStatus } from '../../../constants';
 import FlexibleCard from '../../FlexibleCard';
 import {
 	FooterBlock,
@@ -11,16 +21,45 @@ import {
 } from '../../FlexibleCard/components/blocks';
 import type { ActionItem } from '../../FlexibleCard/components/blocks/types';
 
-import { metadataBlockCss } from './styled';
+import ResolvedViewOld from './ResolvedViewOld';
 import { type FlexibleBlockCardProps } from './types';
 import {
 	FlexibleCardUiOptions,
-	FooterBlockOptions,
 	getSimulatedBetterMetadata,
 	PreviewBlockOptions,
 	titleBlockOptions,
 } from './utils';
 import { withFlexibleUIBlockCardStyle } from './utils/withFlexibleUIBlockCardStyle';
+
+const titleBlockCss = css({
+	gap: token('space.100', '0.5rem'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	"[data-smart-element='Title']": {
+		fontWeight: token('font.weight.semibold'),
+	},
+});
+
+const footerBlockCss = css({
+	height: '1.5rem',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'.actions-button-group': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'button, button:hover, button:focus, button:active': {
+			fontSize: '0.875rem',
+		},
+	},
+});
+
+const metadataBlockCss = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'span[data-smart-element-avatar-group]': {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+		'> ul': {
+			paddingLeft: '0px',
+			marginRight: token('space.100', '0.5rem'),
+		},
+	},
+});
 
 /**
  * This view represents a Block card that has an 'Resolved' status.
@@ -73,21 +112,42 @@ const ResolvedView = ({
 				metadata={titleMetadata}
 				subtitle={[{ name: ElementName.Location }]}
 				metadataPosition={SmartLinkPosition.Top}
+				css={titleBlockCss}
+				status={SmartLinkStatus.Resolved}
 			/>
-			<MetadataBlock primary={topMetadata} maxLines={1} overrideCss={metadataBlockCss} />
+			<MetadataBlock
+				primary={topMetadata}
+				maxLines={1}
+				css={metadataBlockCss}
+				status={SmartLinkStatus.Resolved}
+			/>
 			<SnippetBlock />
-			<MetadataBlock primary={bottomMetadata} maxLines={1} overrideCss={metadataBlockCss} />
+			<MetadataBlock
+				primary={bottomMetadata}
+				maxLines={1}
+				css={metadataBlockCss}
+				status={SmartLinkStatus.Resolved}
+			/>
 			{!isPreviewBlockErrored ? (
 				<PreviewBlock
 					{...PreviewBlockOptions}
 					onError={() => {
 						setIsPreviewBlockErrored(true);
 					}}
+					status={SmartLinkStatus.Resolved}
 				/>
 			) : null}
-			<FooterBlock {...FooterBlockOptions} actions={footerActions} />
+			<FooterBlock css={footerBlockCss} actions={footerActions} status={SmartLinkStatus.Resolved} />
 		</FlexibleCard>
 	);
 };
 
-export default withFlexibleUIBlockCardStyle(ResolvedView);
+const ResolvedViewExported = (props: FlexibleBlockCardProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <ResolvedView {...props} />;
+	} else {
+		return <ResolvedViewOld {...props} />;
+	}
+};
+
+export default withFlexibleUIBlockCardStyle(ResolvedViewExported);

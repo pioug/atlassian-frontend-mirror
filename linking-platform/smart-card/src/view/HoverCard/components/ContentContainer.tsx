@@ -4,16 +4,41 @@
  */
 import { useEffect, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import useAISummaryAction from '../../../state/hooks/use-ai-summary-action';
 import AIPrism from '../../common/ai-prism';
-import { HoverCardContainer, popupContainerStyles } from '../styled';
 import type { ContentContainerProps } from '../types';
 
+import ContentContainerOld from './ContentContainerOld';
 import { hoverCardClassName } from './HoverCardContent';
+
+const NEW_CARD_WIDTH_REM = 25;
+
+const HoverCardContainerStyle = css({
+	background: 'none',
+	borderWidth: '0',
+	boxSizing: 'border-box',
+	width: `${NEW_CARD_WIDTH_REM}rem`,
+
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'.smart-link-loading-placeholder': {
+		display: 'none',
+	},
+});
+
+const popupContainerStyles = css({
+	borderRadius: token('border.radius.200', '8px'),
+	backgroundColor: token('elevation.surface.overlay', 'white'),
+	boxShadow: token(
+		'elevation.shadow.overlay',
+		'0px 8px 12px rgba(9, 30, 66, 0.15),0px 0px 1px rgba(9, 30, 66, 0.31)',
+	),
+});
 
 const ConnectedAIPrismContainer = ({
 	children,
@@ -38,8 +63,7 @@ const ConnectedAIPrismContainer = ({
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={hoverCardClassName}
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-			css={[HoverCardContainer, !isAIEnabled ? popupContainerStyles : undefined]}
+			css={[HoverCardContainerStyle, !isAIEnabled ? popupContainerStyles : undefined]}
 			data-testid={testId}
 			{...props}
 		>
@@ -68,4 +92,12 @@ const ContentContainer = ({
 	</ConnectedAIPrismContainer>
 );
 
-export default ContentContainer;
+const Exported = (props: ContentContainerProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <ContentContainer {...props} />;
+	} else {
+		return <ContentContainerOld {...props} />;
+	}
+};
+
+export default Exported;

@@ -72,7 +72,6 @@ const renderChildren = (
 	onClick?: React.EventHandler<React.MouseEvent | React.KeyboardEvent>,
 ): React.ReactNode =>
 	React.Children.map(children, (child) => {
-		// TODO: EDM-6468: Use useFlexibleUiOptionContext for rendering options inside block/element instead
 		if (React.isValidElement(child) && isFlexibleUiBlock(child)) {
 			const { size: blockSize } = child.props;
 			const size = blockSize || containerSize;
@@ -135,10 +134,7 @@ const backgroundStyle = css({
 const elevationStyles = css({
 	border: `1px solid ${token('color.border', N40)}`,
 	borderRadius: token('border.radius.200', '8px'),
-	marginTop: token('space.025', '2px'),
-	marginRight: token('space.025', '2px'),
-	marginBottom: token('space.025', '2px'),
-	marginLeft: token('space.025', '2px'),
+	margin: token('space.025', '2px'),
 });
 
 const clickableContainerStyles = css({

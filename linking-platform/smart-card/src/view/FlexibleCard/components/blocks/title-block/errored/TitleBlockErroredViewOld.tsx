@@ -69,7 +69,7 @@ const getMessageStyles = (size: SmartLinkSize, hasAction: boolean): SerializedSt
  * or the backend response was errored or malformed.
  * @see TitleBlock
  */
-const TitleBlockErroredView = ({
+const TitleBlockErroredViewOld = ({
 	actionGroup,
 	retry,
 	position,
@@ -104,4 +104,4 @@ const TitleBlockErroredView = ({
 	);
 };
 
-export default TitleBlockErroredView;
+export default TitleBlockErroredViewOld;

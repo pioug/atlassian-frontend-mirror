@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-media
 
+## 1.44.8
+
+### Patch Changes
+
+- [#105278](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105278)
+  [`3fb1e0a806ca3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fb1e0a806ca3) -
+  [ux] ED-25716 fixes issue with copying media nodes on safari when
+  platform_editor_exp_lazy_node_views is enabled
+- Updated dependencies
+
 ## 1.44.7
 
 ### Patch Changes

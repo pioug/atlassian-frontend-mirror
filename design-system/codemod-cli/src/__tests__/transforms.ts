@@ -2,17 +2,19 @@ jest.mock('glob', () => ({
 	globSync: jest.fn(),
 }));
 
-import { globSync } from 'glob';
 import path from 'path';
-import {
-	hasTransform,
-	getTransforms,
-	parseTransformPath,
-	getTransformPath,
-	getTransformModule,
-	getTransformVersion,
-} from '../transforms';
+
+import { globSync } from 'glob';
+
 import presets from '../presets';
+import {
+	getTransformModule,
+	getTransformPath,
+	getTransforms,
+	getTransformVersion,
+	hasTransform,
+	parseTransformPath,
+} from '../transforms';
 
 const codemodPaths = [
 	'node_modules/@atlaskit/button/codemods/5.0.0-foo.ts',

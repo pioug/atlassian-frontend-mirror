@@ -2,11 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import ImageIcon from '../../common/image-icon';
 
+import MediaOld from './MediaOld';
 import { type MediaProps } from './types';
 
 /**
@@ -56,9 +58,9 @@ const styles = css({
  * @param {MediaProps} MediaProps - The props necessary for the Media element.
  * @see Preview
  */
-const Media = ({
+const MediaNew = ({
 	name,
-	overrideCss,
+	className,
 	testId = 'smart-element-media',
 	type,
 	url,
@@ -70,11 +72,12 @@ const Media = ({
 	}
 	return (
 		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[styles, overrideCss]}
+			css={[styles]}
 			data-smart-element={name}
 			data-smart-element-media={type}
 			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 		>
 			<ImageIcon
 				testId={`${testId}-image`}
@@ -85,6 +88,14 @@ const Media = ({
 			/>
 		</div>
 	);
+};
+
+const Media = (props: MediaProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <MediaNew {...props} />;
+	} else {
+		return <MediaOld {...props} />;
+	}
 };
 
 export default Media;

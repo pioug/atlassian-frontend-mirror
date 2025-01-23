@@ -1,29 +1,40 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { type SerializedStyles } from '@emotion/react';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import extractPreview from '../../../extractors/flexible/extract-preview';
 import { PreviewBlock } from '../../FlexibleCard/components/blocks';
-import { getPreviewBlockStyles, getTransitionStyles } from '../styled';
 import { type ImagePreviewProps } from '../types';
 
-const ImagePreview = ({ data, fallbackElementHeight }: ImagePreviewProps) => {
+import ImagePreviewOld from './ImagePreviewOld';
+
+const ImagePreviewNew = ({ data, fallbackElementHeight }: ImagePreviewProps) => {
 	const transitionStarted = useRef<boolean>(false);
 	const previewBlockRef = useRef<HTMLDivElement>(null);
 	const [showPreview, setShowPreview] = useState<boolean>(true);
-	const [previewCss, setPreviewCss] = useState<SerializedStyles>();
+	const [dynamicStyles, setDynamicStyles] = useState<React.CSSProperties>({});
 
 	// Set Preview to a fixed height to enable transitions
 	const onPreviewRender = useCallback(() => {
-		previewBlockRef.current &&
-			setPreviewCss(getPreviewBlockStyles(previewBlockRef.current?.getBoundingClientRect().height));
+		if (previewBlockRef.current) {
+			const previewHeight = previewBlockRef.current?.getBoundingClientRect().height;
+			setDynamicStyles({
+				borderTopLeftRadius: token('border.radius.200', '8px'),
+				borderTopRightRadius: token('border.radius.200', '8px'),
+				marginBottom: '0.5rem',
+				...(previewHeight ? { height: `${previewHeight}px` } : {}),
+			});
+		}
 	}, []);
 
 	// On error set Preview to Fallback height with transition
 	const onPreviewError = useCallback(() => {
 		if (transitionStarted.current === false) {
-			setPreviewCss(getTransitionStyles(fallbackElementHeight));
+			setDynamicStyles({
+				transition: 'height 300ms ease-in-out',
+				height: `${fallbackElementHeight}px`,
+			});
 			transitionStarted.current = true;
 		}
 	}, [fallbackElementHeight]);
@@ -36,12 +47,21 @@ const ImagePreview = ({ data, fallbackElementHeight }: ImagePreviewProps) => {
 		<PreviewBlock
 			onError={onPreviewError}
 			ignoreContainerPadding={true}
-			overrideCss={previewCss}
 			onTransitionEnd={onPreviewTransitionEnd}
 			blockRef={previewBlockRef}
 			onRender={onPreviewRender}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={dynamicStyles}
 		/>
 	) : null;
+};
+
+const ImagePreview = (props: ImagePreviewProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return ImagePreviewNew(props);
+	} else {
+		return ImagePreviewOld(props);
+	}
 };
 
 export default ImagePreview;

@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-code-block
 
+## 3.6.0
+
+### Minor Changes
+
+- [#103918](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103918)
+  [`29844093c6ab4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/29844093c6ab4) -
+  Expose new shared state for code block plugin which indicates the current node that the copy text
+  button is hovered for. Display highlight decorations for the copy text button in the advanced code
+  block plugin.
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 3.5.16
 
 ### Patch Changes

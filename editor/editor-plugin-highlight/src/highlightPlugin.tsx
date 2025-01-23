@@ -77,7 +77,10 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 			selectionToolbar() {
 				if (
 					!options?.textHighlightingFloatingToolbarExperiment &&
-					editorExperiment('contextual_formatting_toolbar', false, { exposure: true })
+					editorExperiment('contextual_formatting_toolbar', false, { exposure: true }) &&
+					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'control', {
+						exposure: true,
+					})
 				) {
 					return;
 				}
@@ -93,7 +96,11 @@ export const highlightPlugin: HighlightPlugin = ({ api, config: options }) => {
 					fallback: [],
 				};
 
-				const rank = editorExperiment('contextual_formatting_toolbar', true) ? 5 : -9;
+				const rank =
+					editorExperiment('contextual_formatting_toolbar', true) ||
+					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2')
+						? 5
+						: -9;
 
 				return {
 					rank,

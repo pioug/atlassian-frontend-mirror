@@ -52,6 +52,7 @@ export enum ACTION {
 	EDITOR_TTI = 'tti',
 	EDITOR_CONTENT_RETRIEVAL_PERFORMED = 'contentRetrievalPerformed',
 	RE_RENDERED = 'reRendered',
+	ENDED = 'ended',
 	ENTERED = 'entered',
 	ERROR = 'error',
 	ERRORED = 'errored',
@@ -133,6 +134,12 @@ export enum ACTION {
 	WITH_PLUGIN_STATE_CALLED = 'withPluginStateCalled',
 	RENDERED = 'rendered',
 	ON_EDITOR_READY_CALLBACK = 'onEditorReadyCallback',
+	/**
+	 * @private
+	 * @deprecated
+	 *
+	 * This is no longer used and can be removed at a later date
+	 */
 	ON_CHANGE_CALLBACK = 'onChangeCalled',
 	NESTED_TABLE_TRANSFORMED = 'nestedTableTransformed',
 	NEW_COLLAB_SYNC_UP_ERROR_NO_STEPS = 'newCollabSyncUpErrorNoSteps',
@@ -231,6 +238,7 @@ export enum ACTION_SUBJECT {
 	DATE_SEGMENT = 'dateSegment',
 	DOCUMENT = 'document',
 	EDITOR = 'editor',
+	ACTIVITY_SESSION = 'activitySession',
 	ELEMENT_BROWSER = 'elementBrowser',
 	EMBEDS = 'embeds',
 	EXPAND = 'expand',
@@ -291,11 +299,13 @@ export enum ACTION_SUBJECT {
 
 export enum ACTION_SUBJECT_ID {
 	ACTION = 'action',
+	ACTIVITY = 'activity',
 	AI_DEFINITIONS_DEFINE_BUTTON = 'aiDefinitionsDefineButton',
 	AI_DEFINITIONS_AUTO_HIGHLIGHT = 'aiDefinitionsAutoHighlight',
 	AI_PANELS_BODIED_EXTENSION = 'aiPanelsBodiedExtension',
 	AI_PROMPT_LINK_PICKER_BUTTON = 'aiPromptLinkPickerButton',
 	AI_PROMPT_MENTION_BUTTON = 'aiPromptMentionButton',
+	AI_PROACTIVE_FEEDBACK_DIALOG = 'aiProactiveFeedbackDialog',
 	ALL = 'all',
 	ALT_TEXT = 'altText',
 	ANNOTATE_BUTTON = 'annotateButton',

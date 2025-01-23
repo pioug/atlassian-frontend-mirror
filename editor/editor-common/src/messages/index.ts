@@ -4,6 +4,7 @@
 import { defineMessages } from 'react-intl-next';
 
 export { aiDefinitionsMessages } from './ai-definitions';
+export { aiProactiveMessages } from './ai-proactive';
 export { alignmentMessages } from './alignment';
 export { annotationMessages } from './annotation';
 export { messages as blockTypeMessages } from './block-type';

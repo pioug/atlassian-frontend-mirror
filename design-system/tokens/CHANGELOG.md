@@ -1,5 +1,20 @@
 # @atlaskit/tokens
 
+## 3.2.0
+
+### Minor Changes
+
+- [#102495](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/102495)
+  [`cf97e4ada8d52`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cf97e4ada8d52) -
+  Modernized typography theme now applies a font weight of 653 for bold instead of 700. This
+  includes heading tokens and the individual `font.weight.bold` token.
+
+### Patch Changes
+
+- [#105744](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105744)
+  [`bc9ed5e4ee94d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/bc9ed5e4ee94d) -
+  Updated 'ak-postbuild' script to also build '@atlaskit/platform-feature-flags'
+
 ## 3.1.0
 
 ### Minor Changes

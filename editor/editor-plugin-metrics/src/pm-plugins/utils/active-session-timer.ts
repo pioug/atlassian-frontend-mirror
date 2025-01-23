@@ -2,6 +2,8 @@ import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 
 import { type MetricsPlugin } from '../../metricsPluginType';
 
+const ACTIVE_SESSION_IDLE_TIME = 5000;
+
 export class ActiveSessionTimer {
 	private timerId: number | null;
 	private api: ExtractInjectionAPI<MetricsPlugin> | undefined;
@@ -17,15 +19,14 @@ export class ActiveSessionTimer {
 		}
 
 		this.timerId = window.setTimeout(() => {
+			if (this.api) {
+				this.api.core.actions.execute(this.api.metrics?.commands.stopActiveSession());
+			}
 			this.cleanupTimer();
-		}, 3000);
+		}, ACTIVE_SESSION_IDLE_TIME);
 	};
 
 	public cleanupTimer = () => {
-		if (this.api) {
-			this.api.core.actions.execute(this.api.metrics?.commands.stopActiveSession());
-		}
-
 		if (this.timerId) {
 			clearTimeout(this.timerId);
 			this.timerId = null;

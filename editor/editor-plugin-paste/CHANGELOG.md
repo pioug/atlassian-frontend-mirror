@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.0.20
+
+### Patch Changes
+
+- [#104508](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104508)
+  [`8fb009b2b619c`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8fb009b2b619c) -
+  [ux] [ED-26221] Fix pasting order for tables, nested tables and tasks and decisions (panels). This
+  ensures when pasting a table inside a panel inside a table replaces the panel with the table.
+- Updated dependencies
+
 ## 2.0.19
 
 ### Patch Changes

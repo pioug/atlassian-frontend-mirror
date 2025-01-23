@@ -46,6 +46,9 @@
 			"path": "../media-state/tsconfig.app.json"
 		},
 		{
+			"path": "../media-test-data/tsconfig.app.json"
+		},
+		{
 			"path": "../media-test-helpers/tsconfig.app.json"
 		},
 		{

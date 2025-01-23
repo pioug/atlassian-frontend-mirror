@@ -209,7 +209,7 @@ export default function Field<
 			 * cause the component re-mounting) to not override the actual value with the default value.
 			 */
 			// @ts-ignore
-			value: isDefaultValueChanged ? defaultValue : (getCurrentValue(props.name) ?? defaultValue),
+			value: isDefaultValueChanged ? defaultValue : getCurrentValue(props.name) ?? defaultValue,
 		},
 		error: undefined,
 		valid: false,

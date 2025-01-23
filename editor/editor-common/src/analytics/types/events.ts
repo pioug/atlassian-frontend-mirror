@@ -8,6 +8,7 @@ import type {
 	UserBrowserExtensionResults,
 } from '../../utils';
 
+import type { ActiveSessionEventPayload } from './activity-session-events';
 import { type AICommandPaletteEventPayload } from './ai-command-palette-events';
 import { type AIDefinitionsEventPayload } from './ai-definitions-events';
 import { type AIProactiveEventPayload } from './ai-proactive-events';
@@ -123,7 +124,8 @@ export type AnalyticsEventPayload<T = void> =
 	| AIDefinitionsEventPayload
 	| AIProactiveEventPayload
 	| AIUnifiedEventPayload
-	| BreakoutEventPayload;
+	| BreakoutEventPayload
+	| ActiveSessionEventPayload;
 
 type CustomPanelEventPayload = TrackAEP<
 	ACTION.CHANGED_BACKGROUND_COLOR | ACTION.CHANGED_ICON | ACTION.REMOVE_ICON,
@@ -340,6 +342,7 @@ export type FireAnalyticsCallback = <T>(payload: FireAnalyticsEventPayload<T>) =
 
 export type FireAnalyticsEvent = (
 	createAnalyticsEvent?: CreateUIAnalyticsEvent,
+	options?: { immediate?: boolean },
 ) => FireAnalyticsCallback;
 
 export type FireAnalyticsEventPayload<T = void> = {

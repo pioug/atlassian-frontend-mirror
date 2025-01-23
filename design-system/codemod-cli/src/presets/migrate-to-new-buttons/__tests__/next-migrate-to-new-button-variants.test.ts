@@ -312,7 +312,10 @@ describe('Migrate to loading buttons', () => {
         import Button from '@atlaskit/button/new';
         const App = () => (
           <>
-            /* TODO: (from codemod) ${loadingButtonComment({ hasHref: true, hasLinkAppearance: false })} */
+            /* TODO: (from codemod) ${loadingButtonComment({
+							hasHref: true,
+							hasLinkAppearance: false,
+						})} */
             <Button isLoading href="/#">A loading button</Button>
           </>
         );
@@ -332,7 +335,10 @@ describe('Migrate to loading buttons', () => {
           import Button from '@atlaskit/button/new';
           const App = () => (
             <>
-              /* TODO: (from codemod) ${loadingButtonComment({ hasHref: false, hasLinkAppearance: true })} */
+              /* TODO: (from codemod) ${loadingButtonComment({
+								hasHref: false,
+								hasLinkAppearance: true,
+							})} */
               <Button isLoading appearance="subtle-link">A loading button</Button>
             </>
           );
@@ -352,7 +358,10 @@ describe('Migrate to loading buttons', () => {
           import Button from '@atlaskit/button/new';
           const App = () => (
             <>
-              /* TODO: (from codemod) ${loadingButtonComment({ hasHref: true, hasLinkAppearance: true })} */
+              /* TODO: (from codemod) ${loadingButtonComment({
+								hasHref: true,
+								hasLinkAppearance: true,
+							})} */
               <Button isLoading href="/#" appearance="link">A loading button</Button>
             </>
           );
@@ -373,7 +382,10 @@ describe('Migrate to loading buttons', () => {
             import { IconButton } from '@atlaskit/button/new';
             const App = () => (
               <>
-                /* TODO: (from codemod) ${loadingButtonComment({ hasHref: true, hasLinkAppearance: false })} */
+                /* TODO: (from codemod) ${loadingButtonComment({
+									hasHref: true,
+									hasLinkAppearance: false,
+								})} */
                 <IconButton label="Hello" isLoading href="/#" icon={Icon} />
               </>
             );
@@ -393,7 +405,10 @@ describe('Migrate to loading buttons', () => {
             import { IconButton } from '@atlaskit/button/new';
             const App = () => (
               <>
-                /* TODO: (from codemod) ${loadingButtonComment({ hasHref: false, hasLinkAppearance: true })} */
+                /* TODO: (from codemod) ${loadingButtonComment({
+									hasHref: false,
+									hasLinkAppearance: true,
+								})} */
                 <IconButton label="Hello" isLoading appearance="subtle-link" icon={Icon} />
               </>
             );
@@ -413,7 +428,10 @@ describe('Migrate to loading buttons', () => {
             import { IconButton } from '@atlaskit/button/new';
             const App = () => (
               <>
-                /* TODO: (from codemod) ${loadingButtonComment({ hasHref: true, hasLinkAppearance: true })} */
+                /* TODO: (from codemod) ${loadingButtonComment({
+									hasHref: true,
+									hasLinkAppearance: true,
+								})} */
                 <IconButton label="Hello" isLoading href="/#" appearance="link" icon={Icon} />
               </>
             );

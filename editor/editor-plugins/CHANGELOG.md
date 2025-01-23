@@ -1,5 +1,21 @@
 # @atlaskit/editor-plugins
 
+## 7.0.0
+
+### Major Changes
+
+- [#105005](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105005)
+  [`9f78969695182`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9f78969695182) -
+  Removing advanced code block plugin entry point as it is still experimental
+
+### Patch Changes
+
+- [#103370](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103370)
+  [`c121c95a0cf37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c121c95a0cf37) -
+  Cleanup feature flag enable_datasource_react_sweet_state to always use react sweet state for
+  powering datasources
+- Updated dependencies
+
 ## 6.4.22
 
 ### Patch Changes

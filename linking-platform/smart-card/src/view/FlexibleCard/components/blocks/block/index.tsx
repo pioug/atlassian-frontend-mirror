@@ -16,6 +16,8 @@ import BlockOld from './indexOld';
 
 const BaseBlockStyles = css({
 	alignItems: 'center',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+	lineHeight: '1rem',
 	display: 'flex',
 	minWidth: 0,
 	overflow: 'hidden',
@@ -107,7 +109,7 @@ const directionStyles = cssMap({
  * @param {ActionGroupProps} ActionGroupProps
  * @see Action
  */
-const Block = ({
+const BlockNew = ({
 	children,
 	direction = SmartLinkDirection.Horizontal,
 	size = SmartLinkSize.Medium,
@@ -116,6 +118,7 @@ const Block = ({
 	blockRef,
 	onRender,
 	onTransitionEnd,
+	style,
 }: BlockProps) => {
 	useEffect(() => {
 		onRender && onRender();
@@ -123,25 +126,27 @@ const Block = ({
 
 	return (
 		<div
-			css={[BaseBlockStyles, highlightRemoveStyles, directionStyles[direction], gapsStyles[size]]}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
 			className={className}
+			css={[BaseBlockStyles, highlightRemoveStyles, directionStyles[direction], gapsStyles[size]]}
 			data-smart-block
 			data-testid={testId}
 			onTransitionEnd={onTransitionEnd}
 			ref={blockRef}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={style}
 		>
 			{renderChildren(children, size)}
 		</div>
 	);
 };
 
-const Exported = (props: BlockProps): JSX.Element => {
+const Block = (props: BlockProps): JSX.Element => {
 	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return <Block {...props} />;
+		return <BlockNew {...props} />;
 	} else {
 		return <BlockOld {...props} />;
 	}
 };
 
-export default Exported;
+export default Block;

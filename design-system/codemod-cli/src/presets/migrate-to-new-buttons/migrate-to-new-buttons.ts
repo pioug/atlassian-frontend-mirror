@@ -1,9 +1,9 @@
 import type { API, FileInfo } from 'jscodeshift';
 
-import splitImportsTransformer from './codemods/next-split-imports';
+import migrateLinkButtonToLinkTransformer from './codemods/next-migrate-link-button-to-link';
 import migrateToNewButtonVariantsTransformer from './codemods/next-migrate-to-new-button-variants';
 import removeUnsafeSizeTransformer from './codemods/next-remove-unsafe-size';
-import migrateLinkButtonToLinkTransformer from './codemods/next-migrate-link-button-to-link';
+import splitImportsTransformer from './codemods/next-split-imports';
 
 export default async function transformer(file: FileInfo, api: API): Promise<string> {
 	const transformers = [

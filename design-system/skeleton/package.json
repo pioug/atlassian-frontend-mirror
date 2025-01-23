@@ -28,7 +28,7 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^3.1.0",
+		"@atlaskit/tokens": "^3.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1"
 	},

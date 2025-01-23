@@ -18,32 +18,116 @@ import { BlockCardUnauthorisedViewWithNoAuth } from '../../../examples/vr-block-
 import { BlockCardForbiddenViews } from '../../../examples/vr-block-card/vr-flexible-block-card-variants-of-forbidden-views';
 
 snapshot(BlockCardErrorView, {
+	description: 'block card error view with design refresh FF and compiled FF on',
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+		'platform-smart-card-icon-migration': true,
+		'bandicoots-compiled-migration-smartcard': true,
+	},
+});
+snapshot(BlockCardErrorView, {
+	description: 'block card error view with design refresh FF only',
+	featureFlags: {
+		'platform-visual-refresh-icons': [true, false],
+		'platform-smart-card-icon-migration': [true, false],
+	},
+});
+snapshot(BlockCardErrorView, {
+	description: 'block card error view with compiled FF only',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(BlockCardErrorView);
+snapshot(BlockCardForbiddenView, {
+	description: 'block card forbidden view with design refresh FF and compiled FF on',
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+		'platform-smart-card-icon-migration': true,
+		'bandicoots-compiled-migration-smartcard': true,
+	},
+});
+snapshot(BlockCardForbiddenView, {
+	description: 'block card forbidden view with design refresh FF only',
 	featureFlags: {
 		'platform-visual-refresh-icons': [true, false],
 		'platform-smart-card-icon-migration': [true, false],
 	},
 });
 snapshot(BlockCardForbiddenView, {
+	description: 'block card forbidden view with compiled FF only',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(BlockCardForbiddenView);
+snapshot(BlockCardNotFoundView, {
+	description: 'block card not found view with design refresh FF and compiled FF on',
+	featureFlags: {
+		'platform-visual-refresh-icons': true,
+		'platform-smart-card-icon-migration': true,
+		'bandicoots-compiled-migration-smartcard': true,
+	},
+});
+snapshot(BlockCardNotFoundView, {
+	description: 'block card not found view with design refresh FF only',
 	featureFlags: {
 		'platform-visual-refresh-icons': [true, false],
 		'platform-smart-card-icon-migration': [true, false],
 	},
 });
 snapshot(BlockCardNotFoundView, {
+	description: 'block card not found view with compiled FF only',
 	featureFlags: {
-		'platform-visual-refresh-icons': [true, false],
-		'platform-smart-card-icon-migration': [true, false],
+		'bandicoots-compiled-migration-smartcard': [true, false],
 	},
 });
-snapshot(BlockCardNotFoundSiteAccessExists);
-snapshot(BlockCardUnauthorisedView);
-snapshot(BlockCardUnauthorisedViewWithNoAuth);
-snapshot(BlockCardJira);
-snapshot(BlockCardConfluence);
-snapshot(BlockCardTrello);
-snapshot(BlockCardAtlas);
-snapshot(BlockCardBitbucket);
-snapshot(BlockCardForbiddenViews);
+snapshot(BlockCardNotFoundView);
+snapshot(BlockCardNotFoundSiteAccessExists, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(BlockCardUnauthorisedView, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(BlockCardUnauthorisedViewWithNoAuth, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(BlockCardJira, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(BlockCardConfluence, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(BlockCardTrello, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(BlockCardAtlas, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(BlockCardBitbucket, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(BlockCardForbiddenViews, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
 snapshot(BlockCardLazyIcons, {
 	description: `block card with lazy load icons`,
 	featureFlags: {

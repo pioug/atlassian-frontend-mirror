@@ -1,8 +1,8 @@
 import type {
-	default as core,
-	FileInfo,
 	API,
 	ASTPath,
+	default as core,
+	FileInfo,
 	ImportDeclaration,
 	ImportSpecifier,
 	Options,

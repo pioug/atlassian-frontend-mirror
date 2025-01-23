@@ -224,7 +224,6 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 	shouldEnableInvite: boolean;
 	userRole: UserRole;
 	onInviteItemClick?: (flow: InviteFlow) => void;
-	isEligibleXProductUserInvite?: boolean;
 	inviteXProductUser?: (userId: string, mentionName: string) => Promise<void>;
 
 	constructor(config: MentionResourceConfig) {
@@ -238,7 +237,6 @@ export class MentionResource extends AbstractMentionResource implements Resolvin
 		this.productName = config.productName;
 		this.shouldEnableInvite = !!config.shouldEnableInvite;
 		this.onInviteItemClick = config.onInviteItemClick;
-		this.isEligibleXProductUserInvite = config.isEligibleXProductUserInvite;
 		this.inviteXProductUser = config.inviteXProductUser;
 		this.userRole = config.userRole || 'basic';
 		if (this.config.debounceTime) {

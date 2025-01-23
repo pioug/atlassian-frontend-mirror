@@ -1,7 +1,7 @@
-import { type API, type FileInfo } from 'jscodeshift';
 import { getImportDeclaration, hasJSXAttributes } from '@hypermod/utils';
+import { type API, type FileInfo } from 'jscodeshift';
 
-import { PRINT_SETTINGS, NEW_BUTTON_ENTRY_POINT, UNSAFE_SIZE_PROPS_MAP } from '../utils/constants';
+import { NEW_BUTTON_ENTRY_POINT, PRINT_SETTINGS, UNSAFE_SIZE_PROPS_MAP } from '../utils/constants';
 
 function transformer(file: FileInfo, api: API) {
 	const j = api.jscodeshift;

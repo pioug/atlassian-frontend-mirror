@@ -14,7 +14,6 @@ import {
 import type { NodeType } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState } from '@atlaskit/editor-prosemirror/state';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { toggleToolbar } from './pm-plugins/commands';
@@ -32,16 +31,14 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
 	return {
 		name: 'selectionToolbar',
 
-		...(fg('platform_editor_ai_definitions_live_page_view_mode') && {
-			actions: {
-				suppressToolbar: () => {
-					return options.api?.core.actions.execute(toggleToolbar({ hide: true })) ?? false;
-				},
-				unsuppressToolbar: () => {
-					return options.api?.core.actions.execute(toggleToolbar({ hide: false })) ?? false;
-				},
+		actions: {
+			suppressToolbar: () => {
+				return options.api?.core.actions.execute(toggleToolbar({ hide: true })) ?? false;
 			},
-		}),
+			unsuppressToolbar: () => {
+				return options.api?.core.actions.execute(toggleToolbar({ hide: false })) ?? false;
+			},
+		},
 
 		pmPlugins(selectionToolbarHandlers: Array<SelectionToolbarHandler>) {
 			if (selectionToolbarHandlers) {
@@ -167,7 +164,10 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
 						items.push(...resolved[i].items);
 					}
 
-					if (editorExperiment('contextual_formatting_toolbar', true)) {
+					if (
+						editorExperiment('contextual_formatting_toolbar', true) ||
+						editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2')
+					) {
 						let shouldNotAddSeparator = false;
 						if (resolved[i] && resolved[i + 1]) {
 							shouldNotAddSeparator =

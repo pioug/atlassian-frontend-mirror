@@ -6,9 +6,14 @@ import type { FireAnalyticsEvent } from './types/events';
 export const editorAnalyticsChannel = FabricChannel.editor;
 
 export const fireAnalyticsEvent: FireAnalyticsEvent =
-	(createAnalyticsEvent) =>
+	(createAnalyticsEvent, options) =>
 	({ payload, channel = editorAnalyticsChannel }) => {
 		if (!createAnalyticsEvent) {
+			return;
+		}
+
+		if (options?.immediate) {
+			createAnalyticsEvent(payload)?.fire(channel);
 			return;
 		}
 

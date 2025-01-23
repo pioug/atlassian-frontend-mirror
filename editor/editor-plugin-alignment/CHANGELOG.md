@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-alignment
 
+## 1.14.9
+
+### Patch Changes
+
+- [#105009](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105009)
+  [`a4039ebf7ed11`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4039ebf7ed11) -
+  [ux] Implement variant 2 cohorts experience for platform_editor_contextual_formatting_toolbar_v2
+  experiment
+- Updated dependencies
+
 ## 1.14.8
 
 ### Patch Changes

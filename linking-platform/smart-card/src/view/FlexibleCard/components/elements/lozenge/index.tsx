@@ -2,14 +2,15 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import AtlaskitLozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useFlexibleUiOptionContext } from '../../../../../state/flexible-ui-context';
 
 import LozengeAction from './lozenge-action';
+import LozengeOld from './LozengeOld';
 import type { LozengeProps } from './types';
 
 const styles = css({
@@ -24,11 +25,11 @@ const styles = css({
  * @param {LozengeProps} LozengeProps - The props necessary for the Lozenge element.
  * @see State
  */
-const Lozenge = ({
+const LozengeNew = ({
 	action,
 	appearance = 'default',
 	name,
-	overrideCss,
+	className,
 	style,
 	text,
 	testId = 'smart-element-lozenge',
@@ -59,16 +60,25 @@ const Lozenge = ({
 
 	return (
 		<span
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[styles, overrideCss]}
+			css={[styles]}
 			data-fit-to-content
 			data-smart-element={name}
 			data-smart-element-lozenge
 			data-testid={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 		>
 			{lozenge}
 		</span>
 	);
+};
+
+const Lozenge = (props: LozengeProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <LozengeNew {...props} />;
+	} else {
+		return <LozengeOld {...props} />;
+	}
 };
 
 export default Lozenge;

@@ -1,11 +1,12 @@
-import { type FileInfo, type API } from 'jscodeshift';
-import { updateSafeImports } from './transformers/update-safe-imports';
+import { type API, type FileInfo } from 'jscodeshift';
+
+import { updateAutoScroll } from './transformers/auto-scroll';
+import { shiftCanMonitorArgType } from './transformers/element-adapter-types';
 import { moveFromFileAdapterToExternalAdapter } from './transformers/external-adapter';
 import { moveToReactDropIndicator } from './transformers/move-to-react-drop-indicator';
-import { updateAutoScroll } from './transformers/auto-scroll';
 import { shiftToPointerOutsideOfPreview } from './transformers/pointer-outside-of-preview';
 import { shiftToPreventUnhandled } from './transformers/prevent-unhandled';
-import { shiftCanMonitorArgType } from './transformers/element-adapter-types';
+import { updateSafeImports } from './transformers/update-safe-imports';
 
 const transformers = [
 	updateSafeImports,

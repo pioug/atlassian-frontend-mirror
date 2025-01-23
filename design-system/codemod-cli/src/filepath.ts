@@ -1,8 +1,11 @@
-import { globSync } from 'glob';
 import { promises } from 'fs';
+
+import { globSync } from 'glob';
 const { readFile } = promises;
 
-/** Return products packages filePaths for running codemods from specified dependent package */
+/**
+ * Return products packages filePaths for running codemods from specified dependent package
+ */
 export async function findDependentPackagePaths(crawlPaths: string[], dependencyPackage: string) {
 	// Get file paths leading to package.jsons
 	const searchStrings = crawlPaths.map((crawlPath) => {

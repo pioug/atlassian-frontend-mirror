@@ -249,15 +249,6 @@ export type FeatureFlags = {
 
 	/**
 	 * @description
-	 * Enables block elements drag and drop
-	 *
-	 * @see https://product-fabric.atlassian.net/browse/ED-22939
-	 * @default false
-	 */
-	elementDragAndDrop?: boolean;
-
-	/**
-	 * @description
 	 * Enables fix for comment sidebar is not scrolled into view when adding/viewing a comment on media
 	 *
 	 * @see https://product-fabric.atlassian.net/browse/ED-23281

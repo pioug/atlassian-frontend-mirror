@@ -1,4 +1,5 @@
 import simpleGit from 'simple-git';
+
 import { getPackagesSinceRef } from '../sinceRef';
 
 jest.mock('simple-git');

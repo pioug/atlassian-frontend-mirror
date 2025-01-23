@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-client-react",
-	"version": "2.6.1",
+	"version": "2.6.2",
 	"description": "🖼️ Media Client for React",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,7 @@
 		"./test-helpers": "./src/test-helpers/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/media-client": "^30.0.0",
+		"@atlaskit/media-client": "^31.0.0",
 		"@babel/runtime": "^7.0.0",
 		"zustand": "^4.3.9"
 	},
@@ -53,6 +53,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/media-state": "^1.5.0",
+		"@atlaskit/media-test-data": "^2.9.0",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/react-hooks": "^8.0.1",

@@ -1,15 +1,10 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import { type JsonLd } from 'json-ld-types';
 
 import { useAnalyticsEvents as useAnalyticsEventsNext } from '@atlaskit/analytics-next';
 import { useSmartLinkContext } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { CardDisplay, SmartLinkPosition, SmartLinkSize } from '../../../constants';
@@ -21,11 +16,12 @@ import { getIsAISummaryEnabled } from '../../../utils/ai-summary';
 import { fireLinkClickedEvent } from '../../../utils/analytics/click';
 import { type TitleBlockProps } from '../../FlexibleCard/components/blocks/title-block/types';
 import { type FlexibleCardProps } from '../../FlexibleCard/types';
-import { flexibleUiOptions, titleBlockCss } from '../styled';
+import { flexibleUiOptions } from '../styled';
 import { type HoverCardContentProps } from '../types';
 import { getMetadata } from '../utils';
 
 import ContentContainer from './ContentContainer';
+import HoverCardContentOld from './HoverCardContentOld';
 import HoverCardForbiddenView from './views/forbidden';
 import HoverCardResolvedView from './views/resolved';
 import HoverCardLoadingView from './views/resolving';
@@ -33,7 +29,7 @@ import HoverCardUnauthorisedView from './views/unauthorised';
 
 export const hoverCardClassName = 'smart-links-hover-preview';
 
-const HoverCardContent = ({
+const HoverCardContentNew = ({
 	id = '',
 	cardState,
 	onActionClick,
@@ -120,7 +116,6 @@ const HoverCardContent = ({
 
 	const titleBlockProps: TitleBlockProps = {
 		maxLines: titleMaxLines,
-		overrideCss: titleBlockCss,
 		size: SmartLinkSize.Large,
 		position: SmartLinkPosition.Center,
 		subtitle: subtitle,
@@ -140,7 +135,6 @@ const HoverCardContent = ({
 	};
 
 	const onClickStopPropagation = useCallback((e: any) => e.stopPropagation(), []);
-
 	const getCardView = (cardState: CardState) => {
 		if (cardState.metadataStatus === 'pending') {
 			return (
@@ -194,4 +188,13 @@ const HoverCardContent = ({
 		</ContentContainer>
 	) : null;
 };
+
+const HoverCardContent = (props: HoverCardContentProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <HoverCardContentNew {...props} />;
+	} else {
+		return <HoverCardContentOld {...props} />;
+	}
+};
+
 export default HoverCardContent;

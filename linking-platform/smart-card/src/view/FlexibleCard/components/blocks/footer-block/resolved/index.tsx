@@ -1,4 +1,12 @@
-import React, { useCallback, useMemo } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useCallback, useMemo } from 'react';
+
+import { css, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import {
 	SmartLinkAlignment,
@@ -11,8 +19,14 @@ import { Provider } from '../../../elements';
 import ActionGroup from '../../action-group';
 import Block from '../../block';
 import ElementGroup from '../../element-group';
-import { filterActionItems, getActionGroupStyles } from '../../utils';
+import { filterActionItems } from '../../utils';
 import type { FooterBlockProps } from '../types';
+
+import FooterBlockResolvedViewOld from './FooterBlockResolvedViewOld';
+
+const actionGroupStyles = css({
+	maxHeight: '2rem',
+});
 
 const FooterBlockResolvedView = (props: FooterBlockProps) => {
 	const {
@@ -46,7 +60,7 @@ const FooterBlockResolvedView = (props: FooterBlockProps) => {
 					testId="smart-element-group-actions"
 					align={SmartLinkAlignment.Right}
 					direction={SmartLinkDirection.Horizontal}
-					overrideCss={getActionGroupStyles(size)}
+					css={size === SmartLinkSize.XLarge && actionGroupStyles}
 					width={SmartLinkWidth.Flexible}
 				>
 					<ActionGroup
@@ -60,4 +74,11 @@ const FooterBlockResolvedView = (props: FooterBlockProps) => {
 	);
 };
 
-export default FooterBlockResolvedView;
+const FooterBlockResolvedViewExported = (props: FooterBlockProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <FooterBlockResolvedView {...props} />;
+	} else {
+		return <FooterBlockResolvedViewOld {...props} />;
+	}
+};
+export default FooterBlockResolvedViewExported;

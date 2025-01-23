@@ -1,5 +1,30 @@
 # @atlaskit/quick-search
 
+## 9.0.0
+
+### Major Changes
+
+- [#105355](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105355)
+  [`ca71694e29a27`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ca71694e29a27) -
+  Removed dependency on `@atlaskit/item` and replaced its usage with `@atlaskit/menu`. The following
+  ResultItem props have been **removed** as a result of this change:
+
+  - onMouseEnter
+  - onMouseLeave
+  - isCompact
+  - linkComponent
+
+  Additionally the following types have changed:
+
+  - ResultItemGroup's `title` prop has been restricted to `string`
+  - ResultItem's `onClick` prop has been changed to
+    `(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>): void` to match that of
+    `@atlaskit/menu`'s LinkItem types
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 8.2.4
 
 ### Patch Changes

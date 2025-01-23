@@ -78,9 +78,11 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 
 		const title = intl.formatMessage(messages.alignment);
 
-		const reducedSpacing = editorExperiment('contextual_formatting_toolbar', true)
-			? 'compact'
-			: 'none';
+		const reducedSpacing =
+			editorExperiment('contextual_formatting_toolbar', true) ||
+			editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2')
+				? 'compact'
+				: 'none';
 
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

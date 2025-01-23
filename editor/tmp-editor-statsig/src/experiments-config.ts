@@ -328,4 +328,13 @@ export const editorExperimentsConfig = {
 			| 'text-click-no-delay'
 			| 'initially-hide-toolbar',
 	},
+	// Added 2025-01-20
+	platform_editor_contextual_formatting_toolbar_v2: {
+		productKeys: {
+			confluence: 'platform_editor_contextual_formatting_toolbar_v2',
+		},
+		param: 'cohort',
+		typeGuard: oneOf(['control', 'variant1', 'variant2']),
+		defaultValue: 'control' as 'control' | 'variant1' | 'variant2',
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

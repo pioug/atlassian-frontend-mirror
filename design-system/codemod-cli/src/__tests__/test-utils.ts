@@ -1,9 +1,8 @@
-import { type API, type FileInfo, type Options } from 'jscodeshift';
-
 import { applyTransform } from '@hypermod/utils';
+import { type API, type FileInfo, type Options } from 'jscodeshift';
 import * as prettier from 'prettier';
-import * as parserTypeScript from 'prettier/plugins/typescript';
 import * as prettierPluginEstree from 'prettier/plugins/estree';
+import * as parserTypeScript from 'prettier/plugins/typescript';
 
 type Transformer = (file: FileInfo, jscodeshift: API, options: Options) => void;
 

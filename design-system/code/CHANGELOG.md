@@ -1,5 +1,14 @@
 # @atlaskit/code
 
+## 15.6.10
+
+### Patch Changes
+
+- [#105601](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105601)
+  [`948a599bf836d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/948a599bf836d) -
+  Update dependencies and remove unused internal exports.
+- Updated dependencies
+
 ## 15.6.9
 
 ### Patch Changes

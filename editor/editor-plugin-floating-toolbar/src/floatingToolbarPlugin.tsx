@@ -236,19 +236,13 @@ export function ContentComponent({
 > & {
 	pluginInjectionApi: ExtractInjectionAPI<FloatingToolbarPlugin> | undefined;
 }) {
-	const {
-		floatingToolbarState,
-		editorDisabledState,
-		editorViewModeState,
-		featureFlagsState,
-		blockControlsState,
-	} = useSharedPluginState(pluginInjectionApi, [
-		'floatingToolbar',
-		'editorDisabled',
-		'editorViewMode',
-		'featureFlags',
-		'blockControls',
-	]);
+	const { floatingToolbarState, editorDisabledState, editorViewModeState, blockControlsState } =
+		useSharedPluginState(pluginInjectionApi, [
+			'floatingToolbar',
+			'editorDisabled',
+			'editorViewMode',
+			'blockControls',
+		]);
 
 	const { configWithNodeInfo, floatingToolbarData } = floatingToolbarState ?? {};
 
@@ -261,7 +255,7 @@ export function ContentComponent({
 		return null;
 	}
 
-	if (featureFlagsState?.elementDragAndDrop && blockControlsState?.isDragging) {
+	if (blockControlsState?.isDragging) {
 		return null;
 	}
 

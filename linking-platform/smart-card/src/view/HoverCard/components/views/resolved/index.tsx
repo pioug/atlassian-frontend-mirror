@@ -1,6 +1,14 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
+import { css, jsx } from '@compiled/react';
 import { type JsonLd } from 'json-ld-types';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { useAnalyticsEvents } from '../../../../../common/analytics/generated/use-analytics-events';
 import {
@@ -22,10 +30,71 @@ import {
 import { getMetadata } from '../../../utils';
 import ImagePreview from '../../ImagePreview';
 
-import { hiddenSnippetStyles, metadataBlockCss } from './styled';
+import HoverCardResolvedViewOld from './HoverCardResolvedViewOld';
 import { type HoverCardResolvedProps } from './types';
 
-const HoverCardResolvedView = ({
+const hiddenSnippetStyles = css({
+	visibility: 'hidden',
+	position: 'absolute',
+});
+
+const metadataBlockCss = css({
+	gap: '0px',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-smart-element-group]:nth-of-type(1)': {
+		flexGrow: 7,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'[data-separator] + [data-separator]::before': {
+			marginRight: token('space.100', '0.5rem'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> span': {
+			marginRight: token('space.100', '0.5rem'),
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+	'[data-smart-element-group]:nth-of-type(2)': {
+		flexGrow: 3,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> span': {
+			marginLeft: token('space.100', '0.5rem'),
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-smart-element-group]': {
+		font: token('font.body.small'),
+	},
+});
+
+/**
+ * Moved from HoverCardContent.tsx due to CompiledCSS migration.
+ */
+const titleBlockStyle = css({
+	gap: token('space.100'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-separator] + [data-separator]::before': {
+		marginRight: token('space.100'),
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	'[data-smart-element-group]': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+		gap: '0.06rem',
+		display: 'flex',
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'> [data-smart-element-group]': {
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+			'> span': {
+				marginRight: token('space.100'),
+			},
+		},
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+	"[data-smart-element='Title']": {
+		fontWeight: token('font.weight.semibold'),
+	},
+});
+
+const HoverCardResolvedViewNew = ({
 	cardState,
 	extensionKey,
 	flexibleCardProps,
@@ -76,13 +145,19 @@ const HoverCardResolvedView = ({
 	return (
 		<FlexibleCard {...flexibleCardProps}>
 			{imagePreview}
-			<TitleBlock {...titleBlockProps} metadataPosition={SmartLinkPosition.Top} />
+			<TitleBlock
+				{...titleBlockProps}
+				metadataPosition={SmartLinkPosition.Top}
+				status={SmartLinkStatus.Resolved}
+				css={titleBlockStyle}
+			/>
 			<MetadataBlock
 				primary={primary}
 				secondary={secondary}
-				overrideCss={metadataBlockCss}
+				css={metadataBlockCss}
 				maxLines={1}
 				size={SmartLinkSize.Medium}
+				status={SmartLinkStatus.Resolved}
 			/>
 			{isAISummaryEnabled ? (
 				<AISummaryBlock
@@ -97,12 +172,21 @@ const HoverCardResolvedView = ({
 				testId="hidden-snippet"
 				onRender={onSnippetRender}
 				blockRef={snippetBlockRef}
-				overrideCss={hiddenSnippetStyles}
+				css={hiddenSnippetStyles}
+				status={SmartLinkStatus.Resolved}
 			/>
 			<ActionBlock onClick={onActionClick} spaceInline="space.100" />
 			<AIFooterBlock />
 		</FlexibleCard>
 	);
+};
+
+const HoverCardResolvedView = (props: HoverCardResolvedProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <HoverCardResolvedViewNew {...props} />;
+	} else {
+		return <HoverCardResolvedViewOld {...props} />;
+	}
 };
 
 export default HoverCardResolvedView;

@@ -23,6 +23,9 @@ snapshot(HoverCard, {
 			},
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardActions, {
@@ -34,6 +37,9 @@ snapshot(HoverCardActions, {
 		},
 	],
 	variants: [{ name: 'light mode', environment: { colorScheme: 'light' } }],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardActions, {
@@ -45,6 +51,9 @@ snapshot(HoverCardActions, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardUnauthorised, {
@@ -55,6 +64,9 @@ snapshot(HoverCardUnauthorised, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardSSRLoading, {
@@ -65,6 +77,9 @@ snapshot(HoverCardSSRLoading, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardSSRError, {
@@ -75,6 +90,9 @@ snapshot(HoverCardSSRError, {
 			selector: { byTestId: 'hover-card-trigger-wrapper' },
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
 snapshot(HoverCardPositioning, {
@@ -86,7 +104,11 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-can-open-left' },
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
+
 snapshot(HoverCardPositioning, {
 	description: 'hover-card: can not open when disabled',
 	drawsOutsideBounds: true,
@@ -96,7 +118,11 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-cannot-open' },
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
+
 snapshot(HoverCardPositioning, {
 	description: 'hover-card: can open in right position',
 	drawsOutsideBounds: true,
@@ -106,4 +132,7 @@ snapshot(HoverCardPositioning, {
 			selector: { byTestId: 'hover-test-can-open-right' },
 		},
 	],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });

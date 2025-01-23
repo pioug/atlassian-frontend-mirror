@@ -85,7 +85,12 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 
 		pluginsOptions: {
 			selectionToolbar: () => {
-				if (editorExperiment('contextual_formatting_toolbar', true, { exposure: true })) {
+				if (
+					editorExperiment('contextual_formatting_toolbar', true, { exposure: true }) ||
+					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2', {
+						exposure: true,
+					})
+				) {
 					const toolbarCustom: FloatingToolbarCustom<Command> = {
 						type: 'custom',
 						render: (view, _idx, dispatchAnalyticsEvent) => {

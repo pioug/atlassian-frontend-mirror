@@ -1,6 +1,7 @@
 import { media } from '@atlaskit/adf-schema';
 import { convertToInlineCss } from '@atlaskit/editor-common/lazy-node-view';
 import type { DOMOutputSpec, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 
@@ -31,7 +32,6 @@ export const mediaSpecWithFixedToDOM = () => {
 		...media,
 		toDOM: (node: PMNode): DOMOutputSpec => {
 			const attrs = getMediaAttrs('media', node);
-
 			if (node.attrs.type === 'external') {
 				return [
 					'img',
@@ -54,30 +54,33 @@ export const mediaSpecWithFixedToDOM = () => {
 					'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 				const width = defaultImageCardDimensions.width;
 				const height = defaultImageCardDimensions.height;
-				return [
-					'div',
-					{
-						width,
-						height,
-						...attrs,
-						// Manually kept in sync with the style of media cards. The goal is to render a plain gray
-						// rectangle that provides an affordance for media.
+				const sharedAttrs = {
+					width,
+					height,
+					...attrs,
+					// Manually kept in sync with the style of media cards. The goal is to render a plain gray
+					// rectangle that provides an affordance for media.
+					style: convertToInlineCss({
+						display: 'var(--ak-editor-media-card-display, inline-block)',
+						backgroundImage: `url("${dataUrl}")`,
+						marginLeft: '0',
+						marginRight: 'var(--ak-editor-media-margin-right, 4px)',
+						borderRadius: '3px',
+						outline: 'none',
+						flexBasis: `${defaultImageCardDimensions.width}px`,
+						backgroundColor: 'var(--ak-editor-media-card-background-color)',
+						width: `var(--ak-editor-media-card-width, 100%)`,
+						height: `var(--ak-editor-media-card-height, 0)`,
+						paddingBottom: `var(--ak-editor-media-padding-bottom, 0)`,
+					}),
+				};
 
-						style: convertToInlineCss({
-							display: 'var(--ak-editor-media-card-display, inline-block)',
-							backgroundImage: `url("${dataUrl}")`,
-							marginLeft: '0',
-							marginRight: 'var(--ak-editor-media-margin-right, 4px)',
-							borderRadius: '3px',
-							outline: 'none',
-							flexBasis: `${defaultImageCardDimensions.width}px`,
-							backgroundColor: 'var(--ak-editor-media-card-background-color)',
-							width: `var(--ak-editor-media-card-width, 100%)`,
-							height: `var(--ak-editor-media-card-height, 0)`,
-							paddingBottom: `var(--ak-editor-media-padding-bottom, 0)`,
-						}),
-					},
-				];
+				// Safari is stripping the dom if a child does not exist for the media nodes on safari.
+				// Creating an empty child allows safari to pick up the media node within the clipboard.
+				// https://product-fabric.atlassian.net/browse/ED-25841
+				return fg('platform_editor_safari_media_clipboard_fix')
+					? ['div', sharedAttrs, ['div', {}]]
+					: ['div', sharedAttrs];
 			}
 
 			return [

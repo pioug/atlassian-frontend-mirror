@@ -97,22 +97,13 @@ type AIProactiveApiErrorAEP = OperationalAEP<
 	}
 >;
 
-type AIProactiveAIResultErrorAEP = TrackAEP<
-	ACTION.ERROR,
-	ACTION_SUBJECT.AI_RESULT,
-	ACTION_SUBJECT_ID.EDITOR_PLUGIN_AI,
+type AIProactiveFeedbackFailedAEP = OperationalAEP<
+	ACTION.ERRORED,
+	ACTION_SUBJECT.EDITOR,
+	ACTION_SUBJECT_ID.AI_PROACTIVE_FEEDBACK_DIALOG,
 	{
-		singleInstrumentationID: string;
-		aiInteractionID: string;
-		aiFeatureName: string;
-		aiExperienceName: string;
-		proactiveAIGenerated: number;
-		userGeneratedAI: number;
-		isAIFeature: number;
-		aiErrorMessage: string;
-		aiErrorCode: number;
-	},
-	undefined
+		errorMessage?: string;
+	}
 >;
 
 export type AIProactiveEventPayload =
@@ -124,4 +115,5 @@ export type AIProactiveEventPayload =
 	| AIProactiveSuggestionCopiedAEP
 	| AIProactiveApiPurgedAEP
 	| AIProactiveApiErrorAEP
-	| AIProactiveAIResultErrorAEP;
+	| AIProactiveApiErrorAEP
+	| AIProactiveFeedbackFailedAEP;

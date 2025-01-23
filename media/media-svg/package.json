@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-svg",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "For fetching and rendering SVGs secure and responsively",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -40,7 +40,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/css": "^0.7.0",
-		"@atlaskit/media-client": "^30.0.0",
+		"@atlaskit/media-client": "^31.0.0",
 		"@atlaskit/media-client-react": "^2.6.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/spinner": "^16.3.0",

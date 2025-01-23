@@ -1,5 +1,5 @@
 import React from 'react';
-import baseItem, { withItemClick, withItemFocus } from '@atlaskit/item';
+import { LinkItem } from '@atlaskit/menu';
 
 import {
 	ResultItemAfter,
@@ -10,8 +10,6 @@ import {
 	ResultItemSubText,
 } from './styled';
 
-const Item = withItemClick(withItemFocus(baseItem));
-
 type Props = {
 	/** Text to appear to the right of the text. It has a lower font-weight. */
 	caption?: string;
@@ -21,18 +19,12 @@ type Props = {
 	target?: string;
 	/** React element to appear to the left of the text. This should be an @atlaskit/icon component. */
 	icon?: React.ReactNode;
-	/** Makes the navigation item appear with reduced padding and font size. */
-	isCompact?: boolean;
 	/** Set whether the item should be highlighted as selected. Selected items have a different background color. */
 	isSelected?: boolean;
 	/** Set whether the item has been highlighted using mouse navigation. Mouse selected items will not display the selectedIcon. */
 	isMouseSelected?: boolean;
 	/** Function to be called on click. This is passed down to a custom link component, if one is provided.  */
-	onClick?(e: MouseEvent): void;
-	/** Standard onmouseenter event */
-	onMouseEnter?: (e: MouseEvent) => void;
-	/** Standard onmouseleave event */
-	onMouseLeave?: (e: MouseEvent) => void;
+	onClick?(e: React.MouseEvent<HTMLElement> | React.KeyboardEvent<HTMLElement>): void;
 	/** Text to be shown alongside the main `text`. */
 	subText?: React.ReactNode;
 	/** Main text to be displayed as the item. Accepts a react component but in most cases this should just be a string. */
@@ -41,8 +33,6 @@ type Props = {
 	textAfter?: React.ReactNode;
 	/** React component to be placed to the right of the main text when the item is selected with keyboard navigation. */
 	selectedIcon?: React.ReactNode;
-	/** React component to be used for rendering links */
-	linkComponent?: React.ComponentType;
 };
 
 class ResultItem extends React.PureComponent<Props> {
@@ -77,25 +67,21 @@ class ResultItem extends React.PureComponent<Props> {
 
 		const interactiveWrapperProps = {
 			onClick: this.props.onClick,
-			onMouseEnter: this.props.onMouseEnter,
-			onMouseLeave: this.props.onMouseLeave,
 			href: this.props.href,
 		};
 
 		return (
-			<Item
-				elemBefore={icon}
-				elemAfter={after}
-				description={wrappedSubText}
+			<LinkItem
+				iconBefore={icon}
+				iconAfter={after}
+				description={wrappedSubText || undefined}
 				isSelected={this.props.isSelected}
-				isCompact={this.props.isCompact}
 				target={this.props.target}
-				linkComponent={this.props.linkComponent}
 				{...interactiveWrapperProps}
 			>
 				{this.props.text}
 				{wrappedCaption}
-			</Item>
+			</LinkItem>
 		);
 	}
 }

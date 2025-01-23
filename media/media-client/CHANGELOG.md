@@ -1,5 +1,21 @@
 # @atlaskit/media-client
 
+## 31.0.0
+
+### Major Changes
+
+- [#104917](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104917)
+  [`f5b9e90ce5043`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f5b9e90ce5043) -
+  changed useFileHashes to take an array of identifiers which it will then pre-emptively fetch
+  metadata when it detects duplicates with missing hashes
+
+### Minor Changes
+
+- [#104917](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104917)
+  [`4c1c65faff476`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4c1c65faff476) -
+  Adding forceRefresh to fileState request to enable removing cache and forcing the refetching of
+  meta-data
+
 ## 30.0.0
 
 ### Major Changes

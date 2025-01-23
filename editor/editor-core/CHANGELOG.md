@@ -1,5 +1,22 @@
 # @atlaskit/editor-core
 
+## 203.11.10
+
+### Patch Changes
+
+- [#103370](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103370)
+  [`c121c95a0cf37`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c121c95a0cf37) -
+  Cleanup feature flag enable_datasource_react_sweet_state to always use react sweet state for
+  powering datasources
+- [#105400](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105400)
+  [`cb3c65a390b04`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb3c65a390b04) -
+  Removing onChangeCalled event as it is spamming GASV3.
+- [#105278](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105278)
+  [`3fb1e0a806ca3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3fb1e0a806ca3) -
+  [ux] ED-25716 fixes issue with copying media nodes on safari when
+  platform_editor_exp_lazy_node_views is enabled
+- Updated dependencies
+
 ## 203.11.9
 
 ### Patch Changes

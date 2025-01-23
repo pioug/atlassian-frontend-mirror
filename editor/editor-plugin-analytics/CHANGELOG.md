@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-analytics
 
+## 1.11.0
+
+### Minor Changes
+
+- [#105399](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105399)
+  [`ed98e34b5912b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed98e34b5912b) -
+  ED-26234 Add prop to fireAnalyticsEvent action so it will fire immediately instead of being added
+  to queue
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.10.13
 
 ### Patch Changes

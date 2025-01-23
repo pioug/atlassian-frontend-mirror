@@ -31,7 +31,7 @@
 	"dependencies": {
 		"@atlaskit/css": "^0.7.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/tokens": "^3.1.0",
+		"@atlaskit/tokens": "^3.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1",
 		"tiny-invariant": "^1.2.0"

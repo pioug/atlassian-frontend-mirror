@@ -208,4 +208,9 @@ export type { AIProactiveEventPayload } from './types/ai-proactive-events';
 
 export type { AIDefinitionsEventPayload } from './types/ai-definitions-events';
 
-export type { AIUnifiedEventPayload } from './types/ai-unified-events';
+export type { AIUnifiedEventPayload, AIUnifiedCommonAttributes } from './types/ai-unified-events';
+
+export type {
+	ActiveSessionEventPayload,
+	ActiveSessionEventAttributes,
+} from './types/activity-session-events';

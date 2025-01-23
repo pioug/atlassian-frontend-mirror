@@ -1,5 +1,14 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.39.0
+
+### Minor Changes
+
+- [#105009](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105009)
+  [`a4039ebf7ed11`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4039ebf7ed11) -
+  [ux] Implement variant 2 cohorts experience for platform_editor_contextual_formatting_toolbar_v2
+  experiment
+
 ## 2.38.0
 
 ### Minor Changes

@@ -1,23 +1,31 @@
+import { bind } from 'bind-event-listener';
+
 import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isTextInput } from '@atlaskit/editor-common/utils';
-import { PluginKey, type ReadonlyTransaction, Selection } from '@atlaskit/editor-prosemirror/state';
+import {
+	PluginKey,
+	type ReadonlyTransaction,
+	Selection,
+	EditorState,
+} from '@atlaskit/editor-prosemirror/state';
 import { type Step } from '@atlaskit/editor-prosemirror/transform';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
 
 import { type MetricsPlugin } from '../metricsPluginType';
 
 import { ActiveSessionTimer } from './utils/active-session-timer';
+import { getAnalyticsPayload } from './utils/analytics';
 import { isNonTextUndo } from './utils/isNonTextUndo';
 
 export const metricsKey = new PluginKey('metricsPlugin');
 
 export type MetricsState = {
-	editSessionStartTime?: number;
 	intentToStartEditTime?: number;
 	activeSessionTime: number;
 	totalActionCount: number;
+	contentSizeChanged: number;
 	lastSelection?: Selection;
 	actionTypeCount: ActionByType;
 	timeOfLastTextInput?: number;
@@ -33,11 +41,11 @@ export type ActionByType = {
 };
 
 export const initialPluginState: MetricsState = {
-	editSessionStartTime: undefined,
 	intentToStartEditTime: undefined,
 	lastSelection: undefined,
 	activeSessionTime: 0,
 	totalActionCount: 0,
+	contentSizeChanged: 0,
 	timeOfLastTextInput: undefined,
 	actionTypeCount: {
 		textInputCount: 0,
@@ -56,17 +64,22 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 		key: metricsKey,
 		state: {
 			init: (): MetricsState => {
-				return { ...initialPluginState, editSessionStartTime: performance.now() };
+				return initialPluginState;
 			},
-
-			apply(tr: ReadonlyTransaction, pluginState: MetricsState): MetricsState {
+			// eslint-disable-next-line @typescript-eslint/max-params
+			apply(
+				tr: ReadonlyTransaction,
+				pluginState: MetricsState,
+				oldState: EditorState,
+				newState: EditorState,
+			): MetricsState {
 				const meta = tr.getMeta(metricsKey);
 
 				let intentToStartEditTime =
 					meta?.intentToStartEditTime || pluginState.intentToStartEditTime;
 
 				if (meta && meta.stopActiveSession) {
-					return { ...pluginState, intentToStartEditTime: undefined, lastSelection: undefined };
+					return initialPluginState;
 				}
 
 				if (!intentToStartEditTime) {
@@ -94,26 +107,36 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 					const now = performance.now();
 					timer.startTimer();
 
+					const { actionTypeCount, timeOfLastTextInput, totalActionCount, activeSessionTime } =
+						pluginState;
 					// If previous and current action is text insertion, then don't increase total action count
 					const isActionTextInput = isTextInput(tr);
+					let newActiveSessionTime = activeSessionTime + (now - intentToStartEditTime);
+					let newTextInputCount = isActionTextInput
+						? actionTypeCount.textInputCount + 1
+						: actionTypeCount.textInputCount;
+					let newTotalActionCount = pluginState.totalActionCount + 1;
 
 					if (pluginState.timeOfLastTextInput && isActionTextInput) {
-						return {
-							...pluginState,
-							activeSessionTime:
-								pluginState.activeSessionTime + (now - pluginState.timeOfLastTextInput),
-							totalActionCount: pluginState.totalActionCount,
-							timeOfLastTextInput: now,
-						};
+						newActiveSessionTime = activeSessionTime + (now - (timeOfLastTextInput || 0));
+						newTextInputCount = actionTypeCount.textInputCount;
+						newTotalActionCount = totalActionCount;
 					}
 
-					return {
+					const newPluginState = {
 						...pluginState,
-						activeSessionTime: pluginState.activeSessionTime + (now - intentToStartEditTime),
-						totalActionCount: pluginState.totalActionCount + 1,
+						activeSessionTime: newActiveSessionTime,
+						totalActionCount: newTotalActionCount,
 						timeOfLastTextInput: isActionTextInput ? now : undefined,
-						actionTypeCount: newActionTypeCount,
+						contentSizeChanged:
+							pluginState.contentSizeChanged +
+							(newState.doc.content.size - oldState.doc.content.size),
+						actionTypeCount: {
+							...newActionTypeCount,
+							textInputCount: newTextInputCount,
+						},
 					};
+					return newPluginState;
 				}
 
 				return {
@@ -124,11 +147,33 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 				};
 			},
 		},
-		view() {
+		view(view: EditorView) {
+			const fireAnalyticsEvent = () => {
+				const pluginState = metricsKey.getState(view.state);
+				if (!pluginState) {
+					return;
+				}
+				const payloadToSend = getAnalyticsPayload({
+					pluginState,
+				});
+
+				if (pluginState && pluginState.totalActionCount > 0 && pluginState.activeSessionTime > 0) {
+					api?.analytics.actions.fireAnalyticsEvent(payloadToSend, undefined, { immediate: true });
+				}
+			};
+
+			const unbindBeforeUnload = bind(window, {
+				type: 'beforeunload',
+				listener: () => {
+					fireAnalyticsEvent();
+				},
+			});
+
 			return {
 				destroy() {
-					api?.core.actions.execute(api?.metrics?.commands.fireSessionAnalytics());
+					fireAnalyticsEvent();
 					timer.cleanupTimer();
+					unbindBeforeUnload();
 				},
 			};
 		},

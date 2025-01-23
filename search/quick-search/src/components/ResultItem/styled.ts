@@ -3,21 +3,6 @@ import styled from 'styled-components';
 import { N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const ResultItemGroupHeader = styled.div({
-	display: 'flex',
-	marginLeft: token('space.negative.150', '-12px'),
-	marginTop: token('space.150', '12px'),
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const ResultItemGroupTitle = styled.div({
-	font: token('font.body.small'),
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: '16px',
-	fontWeight: token('font.weight.semibold'),
-});
-
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-dynamic-styles -- Ignored via go/DSP-18766
 export const ResultItemAfter = styled.div<{ shouldTakeSpace: boolean }>((props) => ({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

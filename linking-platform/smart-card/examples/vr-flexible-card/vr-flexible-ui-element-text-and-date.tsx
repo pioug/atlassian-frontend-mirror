@@ -2,8 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
 import {
@@ -19,12 +21,13 @@ import {
 	SourceBranch,
 	TargetBranch,
 } from '../../src/view/FlexibleCard/components/elements';
-import { exampleTokens, getContext } from '../utils/flexible-ui';
+import { getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
+import Old from './vr-flexible-ui-element-text-and-dateOld';
+
 const overrideCss = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	color: exampleTokens.overrideColor,
+	color: token('color.background.accent.blue.subtle', '#579DFF'),
 	fontStyle: 'italic',
 });
 
@@ -43,7 +46,7 @@ const context = getContext({
 	targetBranch: 'master',
 });
 
-export default () => (
+const New = () => (
 	<VRTestWrapper>
 		<FlexibleUiContext.Provider value={context}>
 			<CreatedBy testId="vr-test-text" />
@@ -58,12 +61,19 @@ export default () => (
 			<TargetBranch />
 			<ReadTime />
 			<h5>Override CSS</h5>
-			<CreatedBy overrideCss={overrideCss} />
-			<OwnedBy overrideCss={overrideCss} />
-			<CreatedOn overrideCss={overrideCss} />
+			<CreatedBy css={overrideCss} />
+			<OwnedBy css={overrideCss} />
+			<CreatedOn css={overrideCss} />
 			<h5>Override 'Created On/Modified On' text</h5>
 			<CreatedOn text="First commit on" />
 			<ModifiedOn text="Last commit on" />
 		</FlexibleUiContext.Provider>
 	</VRTestWrapper>
 );
+
+export default () => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <New />;
+	}
+	return <Old />;
+};

@@ -1,18 +1,19 @@
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import { useCallback, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import Lozenge from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
-import { triggerButtonStyles, triggerLozengeStyles } from '../styled';
-
+import LozengeActionTriggerOld from './LozengeActionTriggerOld';
 import { type LozengeActionTriggerProps } from './type';
 
 const chevronDownStyles = xcss({
@@ -20,7 +21,37 @@ const chevronDownStyles = xcss({
 	display: 'flex',
 });
 
-const LozengeActionTrigger = ({
+const triggerLozengeStyles = css({
+	alignItems: 'center',
+	display: 'flex',
+});
+
+const triggerButtonStyles = css({
+	all: 'unset',
+	backgroundColor: 'transparent',
+	color: 'unset',
+	cursor: 'pointer',
+	fontFamily: 'unset',
+	fontSize: 'unset',
+	fontStyle: 'unset',
+	fontWeight: 'unset',
+	fontVariant: 'unset',
+	lineHeight: 0,
+	padding: 0,
+	textTransform: 'unset',
+	borderStyle: 'solid',
+	borderWidth: '2px',
+	borderColor: 'transparent',
+	margin: token('space.025', '2px'),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	"&:focus-visible, &:focus-within, &[aria-expanded='true']": {
+		outline: 'none',
+		boxShadow: `0 0 0 2px ${token('color.border.focused', '#388BFF')}`,
+		borderRadius: '5px',
+	},
+});
+
+const LozengeActionTriggerNew = ({
 	appearance,
 	isOpen,
 	testId,
@@ -35,7 +66,6 @@ const LozengeActionTrigger = ({
 	const lozenge = useMemo(
 		() => (
 			<Lozenge appearance={appearance} isBold={isBold}>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<span css={triggerLozengeStyles}>
 					<span>{text}</span>
 					<Box as="span" xcss={chevronDownStyles}>
@@ -66,6 +96,14 @@ const LozengeActionTrigger = ({
 			{lozenge}
 		</button>
 	);
+};
+
+const LozengeActionTrigger = (props: LozengeActionTriggerProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <LozengeActionTriggerNew {...props} />;
+	} else {
+		return <LozengeActionTriggerOld {...props} />;
+	}
 };
 
 export default LozengeActionTrigger;

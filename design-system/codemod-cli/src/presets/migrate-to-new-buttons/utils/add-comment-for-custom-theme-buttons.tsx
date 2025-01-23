@@ -1,8 +1,9 @@
 import type { API, Collection } from 'jscodeshift';
+
 import { addCommentBefore } from '@atlaskit/codemod-utils';
 
-import { entryPointsMapping, customThemeButtonComment } from './constants';
 import { addCommentForOverlayProp } from './add-comment-for-overlay-prop';
+import { customThemeButtonComment, entryPointsMapping } from './constants';
 
 export const addCommentForCustomThemeButtons = (
 	fileSource: Collection<any>,

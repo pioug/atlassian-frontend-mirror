@@ -425,6 +425,6 @@ export { CODE_BLOCK_SELECTOR } from './internal/theme/constants';
 export type Language = (typeof SUPPORTED_LANGUAGES)[number];
 
 export type LanguageAlias = (typeof SUPPORTED_LANGUAGES)[number]['alias'][number];
-export type LanguageName = (typeof SUPPORTED_LANGUAGES)[number]['name'];
+type LanguageName = (typeof SUPPORTED_LANGUAGES)[number]['name'];
 
 export type SupportedLanguages = LanguageName | LanguageAlias;

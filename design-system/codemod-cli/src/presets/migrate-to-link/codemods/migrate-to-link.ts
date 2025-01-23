@@ -1,27 +1,27 @@
 /* eslint-disable @repo/internal/fs/filename-pattern-match */
+import { getImportDeclaration } from '@hypermod/utils';
 import {
 	type API,
-	type FileInfo,
-	type JSXSpreadAttribute,
-	type JSXAttribute,
 	type ASTPath,
+	type FileInfo,
+	type JSXAttribute,
 	type JSXElement,
+	type JSXSpreadAttribute,
 } from 'jscodeshift';
 
 import { addCommentBefore } from '@atlaskit/codemod-utils';
-import { getImportDeclaration } from '@hypermod/utils';
 
+import {
+	genericUnsupportedMigrationComment,
+	spreadPropsComment,
+	stylePropComment,
+} from '../utils/comments';
 import {
 	LINK_ENTRY_POINT,
 	LINK_EXPORT_NAME,
 	PRINT_SETTINGS,
 	UNSUPPORTED_STYLE_PROPS,
 } from '../utils/constants';
-import {
-	genericUnsupportedMigrationComment,
-	spreadPropsComment,
-	stylePropComment,
-} from '../utils/comments';
 import { findJSXAttributeWithValue } from '../utils/find-attribute-with-value';
 
 type UnsupportedMigration = { name: string; reason: 'spreadProps' | 'styleProp' };

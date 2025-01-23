@@ -9,6 +9,7 @@ import { Card, defaultImageCardDimensions, CardLoading } from '@atlaskit/media-c
 import { FilmstripView, type SizeEvent, type ScrollEvent } from './filmstripView';
 import { generateIdentifierKey } from './utils/generateIdentifierKey';
 import { type FilmstripProps } from './types';
+import { isFileIdentifier } from '@atlaskit/media-client';
 
 export function usePrevious<T>(value: T | undefined): T | undefined {
 	const ref = useRef<T | undefined>();
@@ -38,7 +39,12 @@ const DeduplicatedFilmStripInternal = ({
 		setAnimate(animate);
 		setOffset(offset);
 	};
-	const fileHashes = useFileHashes();
+
+	const ids = useMemo(
+		() => items.map(({ identifier }) => identifier).filter(isFileIdentifier),
+		[items],
+	);
+	const fileHashes = useFileHashes(ids);
 
 	const cards = useMemo(() => {
 		// filters only the first item when encountering duplicated hashes

@@ -20,6 +20,7 @@ export interface GetFileOptions {
 	collectionName?: string;
 	occurrenceKey?: string;
 	includeHashForDuplicateFiles?: boolean;
+	forceRefresh?: boolean;
 }
 
 export interface PreviewableFileState {
@@ -49,6 +50,11 @@ export const isFinalFileState = (
 	fileState: FileState,
 ): fileState is ProcessedFileState | ErrorFileState | ProcessingFailedState =>
 	['processed', 'failed-processing', 'error'].includes(fileState.status);
+
+export const isNonErrorFinalFileState = (
+	fileState: FileState,
+): fileState is ProcessedFileState | ProcessingFailedState =>
+	['processed', 'failed-processing'].includes(fileState.status);
 
 export const isImageRepresentationReady = (fileState: FileState): boolean => {
 	switch (fileState.status) {

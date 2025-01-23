@@ -26,6 +26,9 @@ export const CARD_GAP_PX = 10;
 const blockGap = '0.5rem';
 const elementGap = '0.5rem';
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const separatorCss = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
@@ -34,6 +37,9 @@ export const separatorCss = css({
 	},
 });
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const HoverCardContainer = css`
 	background: none;
@@ -46,6 +52,9 @@ export const HoverCardContainer = css`
 	}
 `;
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/design-system/no-css-tagged-template-expression, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const titleBlockCss = css`
 	gap: ${blockGap};
@@ -70,6 +79,9 @@ export const titleBlockCss = css`
 	}
 `;
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 export const getTransitionStyles = (snippetHeight: number) =>
 	css({
 		transition: 'height 300ms ease-in-out',
@@ -77,6 +89,9 @@ export const getTransitionStyles = (snippetHeight: number) =>
 		height: `${snippetHeight}px`,
 	});
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const popupContainerStyles = css({
 	borderRadius: token('border.radius.200', '8px'),
@@ -87,6 +102,9 @@ export const popupContainerStyles = css({
 	),
 });
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 export const getPreviewBlockStyles = (previewHeight?: number) =>
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	css(previewHeight ? `height: ${previewHeight}px;` : '', {

@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 
 import type { TableColumnOrdering } from '@atlaskit/custom-steps';
 import { browser } from '@atlaskit/editor-common/browser';
-import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
@@ -125,8 +124,6 @@ export const TableFloatingControls = ({
 		[editorView, tableActive],
 	);
 
-	const { featureFlagsState } = useSharedPluginState(api, ['featureFlags']);
-
 	if (!tableRef) {
 		return null;
 	}
@@ -144,8 +141,7 @@ export const TableFloatingControls = ({
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 	const isNested = tablePos !== undefined && isTableNested(editorView.state, tablePos!);
-	const shouldShowCornerControls =
-		!featureFlagsState?.elementDragAndDrop || (isNested && !editorExperiment('nested-dnd', true));
+	const shouldShowCornerControls = isNested && !editorExperiment('nested-dnd', true);
 
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766

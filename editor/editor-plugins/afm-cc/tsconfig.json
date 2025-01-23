@@ -75,9 +75,6 @@
             "path": "../../editor-plugin-code-block/afm-cc/tsconfig.json"
         },
         {
-            "path": "../../editor-plugin-code-block-advanced/afm-cc/tsconfig.json"
-        },
-        {
             "path": "../../editor-plugin-collab-edit/afm-cc/tsconfig.json"
         },
         {

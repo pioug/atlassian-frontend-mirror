@@ -3,6 +3,9 @@ import { css } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const titleBlockStyles = css({
 	justifyContent: 'center',
@@ -10,6 +13,9 @@ export const titleBlockStyles = css({
 	marginTop: token('space.100', '8px'),
 });
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const mainTextStyles = css({
 	display: 'inline',
@@ -19,6 +25,9 @@ export const mainTextStyles = css({
 	textAlign: 'center',
 });
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const connectButtonStyles = css({
 	justifyContent: 'center',

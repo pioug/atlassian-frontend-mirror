@@ -1,3 +1,5 @@
+/* eslint-disable @atlaskit/ui-styling-standard/no-unsafe-values */
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
@@ -116,6 +118,9 @@ export const importIcon = (importFn: () => Promise<any>): any => {
 	}) as any; // Because we're using dynamic loading here, TS will not be able to infer the type.
 };
 
+/**
+ * @deprecated remove FF bandicoots-compiled-migration-smartcard clean up
+ */
 export const getLinkLineHeight = (size: SmartLinkSize): string => {
 	switch (size) {
 		case SmartLinkSize.XLarge:
@@ -128,13 +133,15 @@ export const getLinkLineHeight = (size: SmartLinkSize): string => {
 	}
 };
 
+/**
+ * @deprecated remove FF bandicoots-compiled-migration-smartcard clean up
+ */
 export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 	switch (size) {
 		case SmartLinkSize.XLarge:
 			return css({
 				font: token('font.heading.medium'),
 				fontWeight: token('font.weight.regular'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
 			});
 		case SmartLinkSize.Large:
@@ -142,7 +149,6 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 			return css({
 				font: token('font.body'),
 				fontWeight: token('font.weight.regular'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
 			});
 		case SmartLinkSize.Small:
@@ -150,7 +156,6 @@ export const getLinkSizeStyles = (size: SmartLinkSize): SerializedStyles => {
 			return css({
 				font: token('font.body.UNSAFE_small'),
 				fontWeight: token('font.weight.regular'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 				lineHeight: getLinkLineHeight(size),
 			});
 	}
@@ -218,6 +223,9 @@ export const getPrimitivesPaddingSpaceBySize = (size: SmartLinkSize): Space => {
 	}
 };
 
+/**
+ * @deprecated remove FF bandicoots-compiled-migration-smartcard clean up
+ */
 export const getTruncateStyles = (
 	maxLines: number,
 	lineHeight: string = '1rem',

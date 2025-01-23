@@ -1,5 +1,11 @@
 # @atlaskit/media-client-react
 
+## 2.6.2
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 2.6.1
 
 ### Patch Changes

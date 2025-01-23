@@ -6,12 +6,18 @@ import { token } from '@atlaskit/tokens';
 const blockGap = '0.5rem';
 const iconGap = '0.5rem';
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const connectButtonStyles = css({
 	justifyContent: 'flex-end',
 	marginTop: blockGap,
 });
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const titleBlockStyles = css({
 	gap: `${blockGap} ${iconGap}`,
@@ -21,6 +27,9 @@ export const titleBlockStyles = css({
 	},
 });
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const mainTextStyles = css({
 	marginTop: blockGap,

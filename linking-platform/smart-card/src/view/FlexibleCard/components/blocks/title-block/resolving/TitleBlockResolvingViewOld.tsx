@@ -18,7 +18,7 @@ import { type TitleBlockViewProps } from '../types';
  * This should render when a Smart Link has sent a request.
  * @see TitleBlock
  */
-const TitleBlockResolvingView = ({
+const TitleBlockResolvingViewOld = ({
 	actionGroup,
 	testId,
 	title,
@@ -43,4 +43,4 @@ const TitleBlockResolvingView = ({
 	);
 };
 
-export default TitleBlockResolvingView;
+export default TitleBlockResolvingViewOld;

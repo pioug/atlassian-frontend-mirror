@@ -1,29 +1,29 @@
-import chalk from 'chalk';
 import fs from 'fs';
 import { type ParsedPath } from 'path';
-import spawn from 'projector-spawn';
+
+import chalk from 'chalk';
 import { AutoComplete } from 'enquirer';
+import spawn from 'projector-spawn';
 import semver from 'semver';
 const jscodeshift = require.resolve('.bin/jscodeshift');
 
-import { fixLineEnding } from './utils';
-
+import { findDependentPackagePaths } from './filepath';
+import { getPackagesSinceRef } from './sinceRef';
 import {
-	getTransforms,
+	getTransformModule,
 	getTransformPath,
+	getTransforms,
 	hasTransform,
 	parseTransformPath,
-	getTransformModule,
 } from './transforms';
 import {
-	type Flags,
 	type Default,
-	ValidationError,
+	type Flags,
 	NoTransformsExistError,
 	type ParsedPkg,
+	ValidationError,
 } from './types';
-import { getPackagesSinceRef } from './sinceRef';
-import { findDependentPackagePaths } from './filepath';
+import { fixLineEnding } from './utils';
 
 interface TransformMeta extends ParsedPath {
 	id?: string;
@@ -130,9 +130,9 @@ const runTransform = async (
 		} else {
 			logger.log(
 				chalk.green(
-					`Running transform '${chalk.bold(
-						transform.name,
-					)}' over filtered dirs ${chalk.bold(codemodDirs.join(', '))}...`,
+					`Running transform '${chalk.bold(transform.name)}' over filtered dirs ${chalk.bold(
+						codemodDirs.join(', '),
+					)}...`,
 				),
 			);
 		}

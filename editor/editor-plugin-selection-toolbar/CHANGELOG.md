@@ -1,5 +1,18 @@
 # @atlaskit/editor-plugin-selection-toolbar
 
+## 1.5.5
+
+### Patch Changes
+
+- [#105009](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105009)
+  [`a4039ebf7ed11`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a4039ebf7ed11) -
+  [ux] Implement variant 2 cohorts experience for platform_editor_contextual_formatting_toolbar_v2
+  experiment
+- [#104136](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104136)
+  [`4eb4cb77cc4f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4eb4cb77cc4f4) -
+  EDF-1999 Cleaned up platform_editor_ai_definitions_live_page_view_mode to default to true.
+- Updated dependencies
+
 ## 1.5.4
 
 ### Patch Changes

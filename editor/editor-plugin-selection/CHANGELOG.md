@@ -1,5 +1,11 @@
 # @atlaskit/editor-plugin-selection
 
+## 1.6.21
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.6.20
 
 ### Patch Changes

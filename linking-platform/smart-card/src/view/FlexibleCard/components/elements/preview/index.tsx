@@ -1,11 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useContext } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { useContext } from 'react';
 
 import { MediaType } from '../../../../../constants';
 import { FlexibleUiContext } from '../../../../../state/flexible-ui-context';

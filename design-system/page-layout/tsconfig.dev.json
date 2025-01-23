@@ -44,16 +44,10 @@
 			"path": "../atlassian-navigation/tsconfig.app.json"
 		},
 		{
-			"path": "../../navigation/atlassian-notifications/tsconfig.app.json"
-		},
-		{
 			"path": "../button/tsconfig.app.json"
 		},
 		{
 			"path": "../../../build/website/docs/tsconfig.app.json"
-		},
-		{
-			"path": "../drawer/tsconfig.app.json"
 		},
 		{
 			"path": "../ds-lib/tsconfig.app.json"
@@ -71,12 +65,6 @@
 			"path": "../menu/tsconfig.app.json"
 		},
 		{
-			"path": "../../notifications/notification-indicator/tsconfig.app.json"
-		},
-		{
-			"path": "../../notifications/notification-log-client/tsconfig.app.json"
-		},
-		{
 			"path": "../popup/tsconfig.app.json"
 		},
 		{
@@ -87,9 +75,6 @@
 		},
 		{
 			"path": "../../../build/test-tooling/ssr/tsconfig.app.json"
-		},
-		{
-			"path": "../theme/tsconfig.app.json"
 		},
 		{
 			"path": "../tokens/tsconfig.app.json"

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/code",
-	"version": "15.6.9",
+	"version": "15.6.10",
 	"description": "Code highlights short strings of code snippets inline with body text.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
 	"dependencies": {
 		"@atlaskit/codemod-utils": "^4.2.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.1.0",
+		"@atlaskit/tokens": "^3.2.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/visually-hidden": "^1.5.0",
 		"@babel/runtime": "^7.0.0",
@@ -45,17 +45,25 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
+		"@atlaskit/button": "^20.3.10",
+		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/form": "^11.0.2",
+		"@atlaskit/link": "*",
+		"@atlaskit/primitives": "^13.3.8",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^14.0.0",
-		"@atlaskit/visual-regression": "*",
+		"@compiled/react": "^0.18.1",
 		"@testing-library/react": "^12.1.5",
 		"@types/jscodeshift": "^0.11.0",
 		"@types/refractor": "^3.0.2",
 		"color-contrast-checker": "^1.5.0",
+		"css-loader": "^2.0.0",
 		"jscodeshift": "^0.13.0",
 		"prismjs": "^1.25.0",
 		"react-dom": "^16.8.0",
+		"style-loader": "^0.16.1",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

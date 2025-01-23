@@ -145,6 +145,7 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 			fireAnalyticsEvent: (
 				payload: AnalyticsEventPayload,
 				channel: string = editorAnalyticsChannel,
+				options?: { immediate?: boolean },
 			) => {
 				const { createAnalyticsEvent } = api?.analytics?.sharedState.currentState() ?? {};
 				if (!createAnalyticsEvent) {
@@ -152,7 +153,7 @@ const analyticsPlugin: AnalyticsPlugin = ({ config: options = {}, api }) => {
 					return;
 				}
 
-				fireAnalyticsEvent(createAnalyticsEvent)({ payload, channel });
+				fireAnalyticsEvent(createAnalyticsEvent, options)({ payload, channel });
 			},
 		},
 

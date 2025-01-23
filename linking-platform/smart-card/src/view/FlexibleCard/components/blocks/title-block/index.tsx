@@ -13,13 +13,12 @@ import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked
 import { Title } from '../../elements';
 import ActionGroup from '../action-group';
 
-import { TitleBlockErroredViewNew } from './errored';
-import { TitleBlockResolvedViewNew } from './resolved';
-import { TitleBlockResolvingViewNew } from './resolving';
+import TitleBlockErroredView from './errored';
+import TitleBlockResolvedView from './resolved';
+import TitleBlockResolvingView from './resolving';
 import TitleBlockOld from './TitleBlockOld';
 import { type TitleBlockProps } from './types';
 
-const styles = css({});
 const actionStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'.actions-button-group': {
@@ -35,16 +34,16 @@ const getTitleBlockViewComponent = (status: SmartLinkStatus) => {
 	switch (status) {
 		case SmartLinkStatus.Pending:
 		case SmartLinkStatus.Resolving:
-			return TitleBlockResolvingViewNew;
+			return TitleBlockResolvingView;
 		case SmartLinkStatus.Resolved:
-			return TitleBlockResolvedViewNew;
+			return TitleBlockResolvedView;
 		case SmartLinkStatus.Unauthorized:
 		case SmartLinkStatus.Forbidden:
 		case SmartLinkStatus.NotFound:
 		case SmartLinkStatus.Errored:
 		case SmartLinkStatus.Fallback:
 		default:
-			return TitleBlockErroredViewNew;
+			return TitleBlockErroredView;
 	}
 };
 
@@ -115,20 +114,20 @@ const TitleBlockNew = ({
 	);
 
 	const Component = getTitleBlockViewComponent(status);
+
 	return (
-		<div css={[showActionOnHover && !actionDropdownOpen ? actionStyles : styles]}>
-			<Component
-				{...props}
-				actionGroup={actionGroup}
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
-				className={className}
-				testId={testId}
-				title={title}
-				metadataPosition={metadataPosition}
-				hideIcon={hideIcon}
-				icon={icon}
-			/>
-		</div>
+		<Component
+			{...props}
+			css={[showActionOnHover && !actionDropdownOpen && actionStyles]}
+			actionGroup={actionGroup}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
+			testId={testId}
+			title={title}
+			metadataPosition={metadataPosition}
+			hideIcon={hideIcon}
+			icon={icon}
+		/>
 	);
 };
 

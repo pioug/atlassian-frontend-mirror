@@ -1,5 +1,6 @@
 import simpleGit from 'simple-git';
-import { ValidationError, type ParsedPkg } from './types';
+
+import { type ParsedPkg, ValidationError } from './types';
 
 const packageRegex = /"(@(?:atlaskit|atlassian|atlassiansox)\/.*)": "(.*)"/;
 
@@ -25,7 +26,8 @@ const parseDiffLine = (line: string): DiffEntry | null => {
 	};
 };
 
-/** Returns packages that have been upgraded in package.json since ref. The version refers to their previous
+/**
+ * Returns packages that have been upgraded in package.json since ref. The version refers to their previous
  * version
  */
 export const getPackagesSinceRef = async (ref: string): Promise<ParsedPkg[]> => {

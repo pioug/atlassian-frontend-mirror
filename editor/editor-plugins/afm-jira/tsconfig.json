@@ -75,9 +75,6 @@
 			"path": "../../editor-plugin-code-block/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-code-block-advanced/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-collab-edit/afm-jira/tsconfig.json"
 		},
 		{

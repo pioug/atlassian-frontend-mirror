@@ -1,4 +1,4 @@
-import { type FileInfo, type API, type Options } from 'jscodeshift';
+import { type API, type FileInfo, type Options } from 'jscodeshift';
 
 export type Transform = (fileInfo: FileInfo, { jscodeshift }: API, options: Options) => string;
 
@@ -53,7 +53,8 @@ export type ParsedPkg = {
 	version: string | null;
 };
 
-/** Converts required args to optional if they have a default
+/**
+ * Converts required args to optional if they have a default
  * Example: export type UserFlags = Default<Flags, keyof typeof defaultFlags>;
  */
 export type Default<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>;

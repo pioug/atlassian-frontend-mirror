@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ds-explorations",
-	"version": "4.3.4",
+	"version": "4.3.5",
 	"description": "DEPRECATED. Use @atlaskit/primitives. An experimental package for exploration and validation of spacing / typography foundations.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -21,12 +21,12 @@
 		"runReact18": true
 	},
 	"scripts": {
-		"ak-postbuild": "cd ../../../ && yarn build @atlassian/codegen -d cjs,esm,es2019 && yarn build @atlaskit/tokens && cd packages/design-system/ds-explorations && yarn codegen-styles",
+		"ak-postbuild": "cd ../../../ && yarn build @atlassian/codegen -d cjs,esm,es2019 && yarn build @atlaskit/platform-feature-flags && yarn build @atlaskit/tokens && cd packages/design-system/ds-explorations && yarn codegen-styles",
 		"codegen-styles": "ts-node --project ../../../tsconfig.node.json ./scripts/codegen-styles",
 		"prepare": "yarn ak-postbuild"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^3.1.0",
+		"@atlaskit/tokens": "^3.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},

@@ -1,4 +1,5 @@
 import type { API, FileInfo } from 'jscodeshift';
+
 import { addCommentToStartOfFile } from '@atlaskit/codemod-utils';
 
 export const pleaseMigrateMessage = `

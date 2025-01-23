@@ -2,18 +2,38 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { DropdownItemGroup } from '@atlaskit/dropdown-menu';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import LozengeActionItem from '../lozenge-action-item';
-import { dropdownItemGroupStyles } from '../styled';
 
+import LozengeActionItemsGroupOld from './LozengeActionItemsGroupOld';
 import type { LozengeActionItemsGroupProps } from './types';
 
-const LozengeActionItemsGroup = ({ items, testId, onClick }: LozengeActionItemsGroupProps) => (
-	// eslint-disable-next-line @atlaskit/design-system/prefer-primitives, @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+const dropdownItemGroupStyles = css({
+	maxHeight: '300px',
+	overflowY: 'auto',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	button: {
+		padding: `${token('space.075', '6px')} ${token('space.150', '12px')}`,
+		minHeight: '28px',
+		width: '220px',
+		'&:hover': {
+			backgroundColor: 'inherit',
+		},
+		'&:focus, &:focus-visible': {
+			backgroundColor: token('color.background.neutral.subtle.hovered', '#091E420F'),
+			boxSizing: 'border-box',
+			boxShadow: `inset 2px 0 0 ${token('color.border.selected', '#0C66E4')}`,
+			outline: 'none',
+		},
+	},
+});
+
+const LozengeActionItemsGroupNew = ({ items, testId, onClick }: LozengeActionItemsGroupProps) => (
 	<span css={dropdownItemGroupStyles} data-testid={`${testId}-item-group`}>
 		<DropdownItemGroup>
 			{items.map((item, idx) => (
@@ -22,5 +42,13 @@ const LozengeActionItemsGroup = ({ items, testId, onClick }: LozengeActionItemsG
 		</DropdownItemGroup>
 	</span>
 );
+
+const LozengeActionItemsGroup = (props: LozengeActionItemsGroupProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <LozengeActionItemsGroupNew {...props} />;
+	} else {
+		return <LozengeActionItemsGroupOld {...props} />;
+	}
+};
 
 export default LozengeActionItemsGroup;

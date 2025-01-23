@@ -1,5 +1,23 @@
 # @atlaskit/smart-card
 
+## 34.6.0
+
+### Minor Changes
+
+- [#104468](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104468)
+  [`c9ce86c536bd6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c9ce86c536bd6) -
+  [ux] Migrate HoverCard and parts of FlexibleCard to use compiled css under FF
+- [#101634](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101634)
+  [`20e24b9e9c047`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/20e24b9e9c047) -
+  [ux] Migrating `BlockCard` to use `@compiled/react` instead of `@emotion/react`
+
+### Patch Changes
+
+- [#105725](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105725)
+  [`48cd87aaa29fc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/48cd87aaa29fc) -
+  Remove unused AI loading icon
+- Updated dependencies
+
 ## 34.5.2
 
 ### Patch Changes

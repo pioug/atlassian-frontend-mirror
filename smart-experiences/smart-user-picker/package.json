@@ -33,6 +33,7 @@
 	},
 	"atlassian": {
 		"team": "Search Platform: Search Experience",
+		"runReact18": false,
 		"slack": {
 			"channel": "#search-plex-prs",
 			"notifications": {

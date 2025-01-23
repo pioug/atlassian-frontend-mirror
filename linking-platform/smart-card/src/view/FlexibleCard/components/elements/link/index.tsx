@@ -1,24 +1,22 @@
+/* eslint-disable @compiled/shorthand-property-sorting */
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 /**
  * @jsxRuntime classic
  * @jsx jsx
  */
 import React, { useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
-import { SmartLinkInternalTheme, SmartLinkSize, SmartLinkTheme } from '../../../../../constants';
+import { SmartLinkSize, SmartLinkTheme } from '../../../../../constants';
 import { useMouseDownEvent } from '../../../../../state/analytics/useLinkClicked';
-import {
-	getLinkLineHeight,
-	getLinkSizeStyles,
-	getTruncateStyles,
-	hasWhiteSpace,
-} from '../../utils';
+import { hasWhiteSpace } from '../../utils';
 
+import LinkOld from './LinkOld';
 import { type LinkProps } from './types';
 
 const DEFAULT_MAX_LINES = 2;
@@ -29,74 +27,7 @@ const containerStyles = css({
 	flex: '1 1 auto',
 });
 
-const getThemeStyles = (theme: SmartLinkTheme | SmartLinkInternalTheme): SerializedStyles => {
-	switch (theme) {
-		case SmartLinkInternalTheme.Grey:
-			// We are being specifc with the CSS selectors to ensure that Confluence overrides
-			// do not affect our internal Smart Card styles
-			return css({
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				'a&': {
-					color: token('color.text.subtlest', '#626F86'),
-					'&:active, &:visited, &:focus, &:hover': {
-						color: token('color.text.subtlest', '#626F86'),
-						textDecoration: 'underline',
-					},
-					font: token('font.body.UNSAFE_small'),
-				},
-			});
-		// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
-		case SmartLinkTheme.Black:
-			return css({
-				color: token('color.text.subtle', '#44546F'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				':active': {
-					color: token('color.text', '#172B4D'),
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				':hover': {
-					color: token('color.text.subtle', '#44546F'),
-					textDecoration: 'underline',
-				},
-			});
-		case SmartLinkTheme.Link:
-		default:
-			return css({
-				color: token('color.link', '#0C66E4'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				':active': {
-					color: token('color.link.pressed', '#0055CC'),
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-				':hover': {
-					color: token('color.link', '#0C66E4'),
-					textDecoration: 'underline',
-				},
-			});
-	}
-};
-
-const getAnchorStyles = (
-	size: SmartLinkSize,
-	theme: SmartLinkTheme | SmartLinkInternalTheme,
-	maxLines: number,
-	hasSpace: boolean,
-): SerializedStyles => {
-	const sizeStyles = getLinkSizeStyles(size);
-	return css(
-		{
-			flex: '1 1 auto',
-		},
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		sizeStyles,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		getTruncateStyles(maxLines, getLinkLineHeight(size), hasSpace ? 'break-word' : 'break-all'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		getThemeStyles(theme),
-	);
-};
-
-const getMaxLines = (maxLines: number) => {
+const getMaxLines = (maxLines: number): 1 | 2 => {
 	if (maxLines > MAXIMUM_MAX_LINES) {
 		return DEFAULT_MAX_LINES;
 	}
@@ -105,7 +36,7 @@ const getMaxLines = (maxLines: number) => {
 		return MINIMUM_MAX_LINES;
 	}
 
-	return maxLines;
+	return maxLines as 1 | 2;
 };
 
 const withTooltip = (trigger: React.ReactNode, content: string, testId: string) => (
@@ -114,17 +45,153 @@ const withTooltip = (trigger: React.ReactNode, content: string, testId: string) 
 	</Tooltip>
 );
 
+const linkStyleSizeMap = cssMap({
+	xlarge: {
+		font: token('font.heading.medium'),
+		fontWeight: token('font.weight.regular'),
+		lineHeight: '1.5rem',
+	},
+	large: {
+		font: token('font.body'),
+		fontWeight: token('font.weight.regular'),
+		lineHeight: '1rem',
+	},
+	medium: {
+		font: token('font.body'),
+		fontWeight: token('font.weight.regular'),
+		lineHeight: '1rem',
+	},
+	small: {
+		font: token('font.body.UNSAFE_small'),
+		fontWeight: token('font.weight.regular'),
+		lineHeight: '1rem',
+	},
+});
+
+const baseAnchorStyle = css({
+	flex: '1 1 auto',
+});
+
+const workBreakStyleMap = cssMap({
+	true: {
+		wordBreak: 'break-word',
+	},
+	false: {
+		wordBreak: 'break-all',
+	},
+});
+
+const anchorConstantsStyles = css({
+	display: '-webkit-box',
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	WebkitBoxOrient: 'vertical',
+});
+
+const anchorLineClampMap = cssMap({
+	1: {
+		WebkitLineClamp: 1,
+	},
+	2: {
+		WebkitLineClamp: 2,
+	},
+});
+
+const anchorLinkLineHeight1Map = cssMap({
+	xlarge: {
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: 'calc(1 * 1.5rem)',
+		},
+	},
+	large: {
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: 'calc(1 * 1rem)',
+		},
+	},
+	medium: {
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: 'calc(1 * 1rem)',
+		},
+	},
+	small: {
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: 'calc(1 * 1rem)',
+		},
+	},
+});
+
+const anchorLinkLineHeight2Map = cssMap({
+	xlarge: {
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: 'calc(2 * 1.5rem)',
+		},
+	},
+	large: {
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: 'calc(2 * 1rem)',
+		},
+	},
+	medium: {
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: 'calc(2 * 1rem)',
+		},
+	},
+	small: {
+		'@supports not (-webkit-line-clamp: 1)': {
+			maxHeight: 'calc(2 * 1rem)',
+		},
+	},
+});
+
+const themeStyleMap = cssMap({
+	grey: {
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'a&': {
+			color: token('color.text.subtlest', '#626F86'),
+			'&:active, &:visited, &:focus, &:hover': {
+				color: token('color.text.subtlest', '#626F86'),
+				textDecoration: 'underline',
+			},
+			font: token('font.body.UNSAFE_small'),
+		},
+	},
+	black: {
+		color: token('color.text.subtle', '#44546F'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'&:active': {
+			color: token('color.text', '#172B4D'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'&:hover': {
+			color: token('color.text.subtle', '#44546F'),
+			textDecoration: 'underline',
+		},
+	},
+	link: {
+		color: token('color.link', '#0C66E4'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'&:active': {
+			color: token('color.link.pressed', '#0055CC'),
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
+		'&:hover': {
+			color: token('color.link', '#0C66E4'),
+			textDecoration: 'underline',
+		},
+	},
+});
+
 /**
  * A base element that represent an anchor.
  * @internal
  * @param {LinkProps} LinkProps - The props necessary for the Link element.
  * @see LinkIcon
  */
-const Link = ({
+const LinkNew = ({
 	hideTooltip,
 	maxLines = DEFAULT_MAX_LINES,
 	name,
-	overrideCss,
+	className,
 	size = SmartLinkSize.Medium,
 	testId = 'smart-element-link',
 	text,
@@ -138,15 +205,26 @@ const Link = ({
 	const hasSpace = useMemo(() => (text ? hasWhiteSpace(text) : false), [text]);
 
 	const anchor = (
+		// eslint-disable-next-line @atlaskit/design-system/no-html-anchor
 		<a
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[getAnchorStyles(size, theme, getMaxLines(maxLines), hasSpace), overrideCss]}
+			css={[
+				baseAnchorStyle,
+				linkStyleSizeMap[size],
+				anchorLineClampMap[getMaxLines(maxLines)],
+				anchorConstantsStyles,
+				workBreakStyleMap[hasSpace ? 'true' : 'false'],
+				getMaxLines(maxLines) === 1 && anchorLinkLineHeight1Map[size],
+				getMaxLines(maxLines) === 2 && anchorLinkLineHeight2Map[size],
+				themeStyleMap[theme],
+			]}
 			data-smart-element={name}
 			data-smart-element-link
 			data-testid={testId}
 			onClick={onClick}
 			onMouseDown={onMouseDown}
 			href={url}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 			// We do not want set the target if it is the default value of '_self'. This prevents link
 			// click issues in Confluence and Trello which rely on it not being set unless necessary.
 			{...(target !== '_self' && { target })}
@@ -160,6 +238,14 @@ const Link = ({
 			{hideTooltip || text === undefined ? anchor : withTooltip(anchor, text, testId)}
 		</span>
 	);
+};
+
+const Link = (props: LinkProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <LinkNew {...props} />;
+	} else {
+		return <LinkOld {...props} />;
+	}
 };
 
 export default Link;

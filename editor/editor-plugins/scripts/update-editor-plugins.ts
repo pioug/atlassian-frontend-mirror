@@ -32,7 +32,7 @@ interface DependenciesDiffResult {
 	updated: DependencyDiff[];
 }
 
-const foldersToIgnore: string[] = [];
+const foldersToIgnore: string[] = ['editor-plugin-code-block-advanced'];
 
 // Locate the root directory of the project
 const rootPath = findRootSync(process.cwd());

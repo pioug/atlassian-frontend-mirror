@@ -255,7 +255,7 @@ const DropdownMenu = <T extends HTMLElement = any>({
 				shouldReturnFocus={
 					// If returnFocusRef is provided, we **don't** want to return focus to the trigger.
 					// Otherwise, Popup will focus on the dropdown trigger after the `returnFocusRef` element is focused.
-					fg('platform_dst_dropdown_return_focus_fix') ? returnFocusRef === undefined : undefined
+					returnFocusRef === undefined
 				}
 				onClose={handleOnClose}
 				zIndex={zIndex}

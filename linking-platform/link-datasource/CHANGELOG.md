@@ -1,5 +1,21 @@
 # @atlaskit/link-datasource
 
+## 3.16.0
+
+### Minor Changes
+
+- [#103370](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103370)
+  [`8e2f83c636875`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e2f83c636875) -
+  Cleans up feature flag enable_datasource_react_sweet_state to release react sweet state which now
+  handles the state and creation of IssueLikeTable in datasources
+
+### Patch Changes
+
+- [#104950](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104950)
+  [`39e7768169d56`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/39e7768169d56) -
+  EDM-11475 Validate datasources inline-edit update ID
+- Updated dependencies
+
 ## 3.15.13
 
 ### Patch Changes

@@ -15,7 +15,7 @@ import type { PreviewBlockProps } from '../../../FlexibleCard/components/blocks/
 import type { TitleBlockProps } from '../../../FlexibleCard/components/blocks/title-block/types';
 import type { ElementItem } from '../../../FlexibleCard/components/blocks/types';
 import type { FlexibleUiOptions } from '../../../FlexibleCard/types';
-import { footerBlockCss, titleBlockCss } from '../styled';
+import { footerBlockCss, titleBlockCss } from '../styledOld';
 
 const baseTopMetadata: ElementItem[] = [
 	{ name: ElementName.ModifiedOn },
@@ -132,6 +132,13 @@ export const FlexibleCardUiOptions: FlexibleUiOptions = { hideElevation: true };
 export const titleBlockOptions: Partial<TitleBlockProps> = {
 	anchorTarget: '_self',
 	position: SmartLinkPosition.Center,
+	hideRetry: true,
+	size: SmartLinkSize.Large,
+};
+
+export const titleBlockOptionsOld: Partial<TitleBlockProps> = {
+	anchorTarget: '_self',
+	position: SmartLinkPosition.Center,
 	overrideCss: titleBlockCss,
 	hideRetry: true,
 	size: SmartLinkSize.Large,
@@ -142,6 +149,6 @@ export const PreviewBlockOptions: Partial<PreviewBlockProps> = {
 	ignoreContainerPadding: true,
 };
 
-export const FooterBlockOptions: Partial<FooterBlockProps> = {
+export const FooterBlockOptionsOld: Partial<FooterBlockProps> = {
 	overrideCss: footerBlockCss,
 };

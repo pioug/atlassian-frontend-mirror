@@ -1,11 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useCallback, useEffect, useMemo, useState } from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import DropdownMenu, { type CustomTriggerProps } from '@atlaskit/dropdown-menu';
 import type { ThemeAppearance } from '@atlaskit/lozenge';

@@ -4,10 +4,10 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { CustomBlock } from '../../../../FlexibleCard/components/blocks';
 import ActionGroup from '../../../../FlexibleCard/components/blocks/action-group';
@@ -18,15 +18,38 @@ import {
 import Icon from '../../../../FlexibleCard/components/elements/icon';
 import { CARD_WIDTH_REM } from '../../../styled';
 
-import {
-	getTitleStyles,
-	loadingViewContainer,
-	skeletonContainer,
-	titleBlockStyles,
-} from './styled';
+import HoverCardLoadingViewOld from './HoverCardLoadingViewOld';
 import { type HoverCardLoadingViewProps } from './types';
 
-const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps) => {
+const loadingViewContainer = css({
+	display: 'flex',
+	flexDirection: 'column',
+	padding: token('space.200', '1rem'),
+});
+
+const skeletonContainer = css({
+	display: 'flex',
+	flexDirection: 'column',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- needs manual remediation
+	gap: '0.625rem',
+	alignItems: 'center',
+});
+
+const titleStyle = css({
+	flex: '1 0 auto',
+	height: '1.25rem',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	span: {
+		width: '100%',
+	},
+});
+
+const titleBlockStyles = css({
+	width: '100%',
+	gap: token('space.100', '0.5rem'),
+});
+
+const HoverCardLoadingViewNew = ({ titleBlockProps }: HoverCardLoadingViewProps) => {
 	const testId = 'hover-card-loading-view';
 	const lineHeightRem = 1.25;
 	const skeletonWidth = CARD_WIDTH_REM - 2;
@@ -41,18 +64,11 @@ const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps) =>
 		: LoadingSkeletonOld;
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={loadingViewContainer} data-testid={testId}>
-			{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 			<div css={skeletonContainer}>
-				<CustomBlock
-					{...titleBlockProps}
-					overrideCss={titleBlockStyles}
-					testId={`${testId}-title-block`}
-				>
+				<CustomBlock {...titleBlockProps} css={titleBlockStyles} testId={`${testId}-title-block`}>
 					<Icon render={() => <LoadingSkeleton />} size={size} />
-					{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-					<span css={getTitleStyles(lineHeightRem)} data-testid={`${testId}-title`}>
+					<span css={titleStyle} data-testid={`${testId}-title`}>
 						{fg('platform-smart-card-icon-migration') ? (
 							<LoadingSkeletonNew height={`${lineHeightRem}rem`} />
 						) : (
@@ -77,6 +93,14 @@ const HoverCardLoadingView = ({ titleBlockProps }: HoverCardLoadingViewProps) =>
 			</div>
 		</div>
 	);
+};
+
+const HoverCardLoadingView = (props: HoverCardLoadingViewProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <HoverCardLoadingViewNew {...props} />;
+	} else {
+		return <HoverCardLoadingViewOld {...props} />;
+	}
 };
 
 export default HoverCardLoadingView;

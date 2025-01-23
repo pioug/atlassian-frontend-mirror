@@ -441,17 +441,25 @@ class Media extends PureComponent<MediaProps, Object> {
 									mediaHeight={height}
 									useMinimumZIndex
 								>
-									{({ badgeSize }: { badgeSize: 'small' | 'medium' }) => (
+									{({
+										badgeSize,
+										visible,
+									}: {
+										badgeSize: 'small' | 'medium';
+										visible: boolean;
+									}) => (
 										<>
-											{fg('platform_editor_hide_external_media_badge') ? (
-												<ExternalImageBadge
-													badgeSize={badgeSize}
-													type={this.props.type}
-													url={this.props.type === 'external' ? this.props.url : undefined}
-												/>
-											) : (
-												shouldShowExternalMediaBadge && <ExternalImageBadge badgeSize={badgeSize} />
-											)}
+											{fg('platform_editor_hide_external_media_badge')
+												? visible && (
+														<ExternalImageBadge
+															badgeSize={badgeSize}
+															type={this.props.type}
+															url={this.props.type === 'external' ? this.props.url : undefined}
+														/>
+													)
+												: shouldShowExternalMediaBadge && (
+														<ExternalImageBadge badgeSize={badgeSize} />
+													)}
 											{showCommentBadge && (
 												<CommentBadgeNextWrapper
 													marks={annotationMarks}

@@ -4,6 +4,7 @@
  */
 import { css, cssMap, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import {
@@ -289,5 +290,12 @@ const ElementGroupNew = ({
 	);
 };
 
-export default ElementGroupOld;
-export { ElementGroupNew };
+const ElementGroup = (props: ElementGroupProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <ElementGroupNew {...props} />;
+	} else {
+		return <ElementGroupOld {...props} />;
+	}
+};
+
+export default ElementGroup;

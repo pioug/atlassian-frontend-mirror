@@ -183,8 +183,6 @@ export const createPlugin = (
 	featureFlags?: FeatureFlags,
 	allowDragAndDrop: boolean = true,
 	__rendererExtensionOptions?: ExtensionPluginOptions['__rendererExtensionOptions'],
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const state = createPluginState(dispatch, {
 		showEditButton: false,
@@ -421,8 +419,6 @@ export const createPlugin = (
 						: !target.closest('.extension-content'), // It's to enable nested extensions selection
 				{ useLongPressSelection },
 			),
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			handleDrop(view, event, slice, moved) {
 				if (fg('platform_editor_legacy_content_macro')) {
 					if (!allowDragAndDrop) {

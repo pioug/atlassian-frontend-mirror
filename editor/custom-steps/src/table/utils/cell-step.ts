@@ -29,8 +29,6 @@ function calculateRowsToSkip(attrs?: CellAttributes) {
  * @param isDelete
  * @param column
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function applyCellStep(
 	tr: Transform,
 	tableRect: TableRect,
@@ -134,8 +132,6 @@ function getOffset(map: StepMap, cellStep: CellStep, isDelete: boolean): number 
  * @param isDelete
  * @param stepMap
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function invertCellStep(
 	doc: ProseMirrorNode,
 	getTableRectAndColumn: () => { rect: TableRect; column: number },
@@ -207,8 +203,6 @@ export function invertCellStep(
  * @param isDelete
  * @param previousCellStep
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function createCellStep(
 	cell: Cell,
 	column: number,

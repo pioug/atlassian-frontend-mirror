@@ -34,8 +34,6 @@ import {
  * @param gutterOffset - resize handle bar offset, determines whether align with resize handle bar
  * @returns pixel number for media single node
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function getMediaSinglePixelWidth(
 	width: number,
 	editorWidth: number,
@@ -156,8 +154,6 @@ export const getMediaSingleInitialWidth = (
 	return Math.max(Math.min(origWidth, maxWidth), minWidth);
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function calculateOffsetLeft(
 	insideInlineLike: boolean,
 	insideLayout: boolean,

@@ -799,8 +799,6 @@ class MediaSingleNodeView extends ReactNodeView<MediaSingleNodeViewProps> {
 		return false;
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	update(
 		node: PMNode,
 		decorations: readonly Decoration[],
@@ -889,8 +887,6 @@ export const ReactMediaSingleNode =
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 		mediaOptions: MediaOptions = {},
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler) => {
 		return new MediaSingleNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {

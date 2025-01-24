@@ -206,8 +206,6 @@ export const blockCardNodeView =
 		view: EditorView,
 		getPos: () => number | undefined,
 		decorations: readonly Decoration[],
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const { portalProviderAPI, eventDispatcher } = pmPluginFactoryParams;
 		const reactComponentProps: BlockCardNodeViewProps = {

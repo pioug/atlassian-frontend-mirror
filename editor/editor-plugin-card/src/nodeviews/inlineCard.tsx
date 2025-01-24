@@ -250,8 +250,6 @@ export const inlineCardNodeView =
 		view: EditorView,
 		getPos: () => number | undefined,
 		decorations: readonly Decoration[],
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		return inlineCardViewProducer(node, view, getPos, decorations);
 	};

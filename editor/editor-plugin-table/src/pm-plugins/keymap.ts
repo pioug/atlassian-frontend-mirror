@@ -67,8 +67,6 @@ import {
 	insertTableWithNestingSupport,
 } from './commands/insert';
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function keymapPlugin(
 	getEditorContainerWidth: GetEditorContainerWidth,
 	api: PluginInjectionAPI | undefined | null,

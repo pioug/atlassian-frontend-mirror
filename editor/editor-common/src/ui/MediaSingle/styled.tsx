@@ -62,8 +62,6 @@ function getWidthIfDefaultMode(
  * then an image in wide or full-width can not be wider than the image's
  * original width.
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function calcLegacyWidth(
 	layout: MediaSingleLayout,
 	width: number,
@@ -100,8 +98,6 @@ export function calcLegacyWidth(
  * then an image in wide or full-width can not be wider than the image's
  * original width.
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function calcLegacyWidthForInline(
 	layout: MediaSingleLayout,
 	width: number,

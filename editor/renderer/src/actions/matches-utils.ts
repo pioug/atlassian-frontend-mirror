@@ -3,8 +3,6 @@ import type { Node, Schema } from '@atlaskit/editor-prosemirror/model';
 // getIndexMatch finds the position of a given string within a given document, in accordance to the Confluence Annotation backend
 // The document is serialised into one large string, excluding any nodes that can not have annotations (eg: emojis, media).
 // Finds where the given query string is relative to the serialised partial document
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function getIndexMatch(
 	doc: Node,
 	schema: Schema,

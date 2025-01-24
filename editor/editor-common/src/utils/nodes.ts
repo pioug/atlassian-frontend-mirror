@@ -29,8 +29,6 @@ export const findChangedNodesFromTransaction = (tr: Transaction): PMNode[] => {
 	})[];
 
 	steps.forEach((step) => {
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 		step.getMap().forEach((oldStart, oldEnd, newStart, newEnd) => {
 			tr.doc.nodesBetween(newStart, Math.min(newEnd, tr.doc.content.size), (node) => {
 				if (!nodes.find((n) => n === node)) {
@@ -84,8 +82,6 @@ export const isNodeSelectedOrInRange = (
 	headPosition: number,
 	nodePosition: number | undefined,
 	nodeSize: number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): SelectedState | null => {
 	if (typeof nodePosition !== 'number') {
 		return null;

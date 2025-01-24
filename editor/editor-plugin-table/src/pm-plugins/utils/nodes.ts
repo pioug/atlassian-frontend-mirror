@@ -94,8 +94,6 @@ export const tablesHaveDifferentNoOfRows = (
 	return prevMap.height !== currentMap.height;
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function filterNearSelection<T, U>(
 	selection: Selection,
 	findNode: (selection: Selection) => { pos: number; node: PmNode } | undefined,

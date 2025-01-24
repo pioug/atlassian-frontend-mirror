@@ -37,8 +37,6 @@ export default (
 	providerFactory: ProviderFactory,
 	dispatch: Dispatch,
 	pluginInjectionApi: ExtractInjectionAPI<CaptionPlugin> | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const analyticsApi = pluginInjectionApi?.analytics?.actions;
 	return new SafePlugin({

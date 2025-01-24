@@ -1,9 +1,9 @@
-import { render } from 'enzyme';
 import React from 'react';
 import { IntlProvider } from 'react-intl-next';
 import TeamMentionDescriptionByline from '../../../../components/MentionDescriptionByline';
 import { type MentionDescription } from '../../../..//types';
 import { teamMention } from './_commonData';
+import { screen, render } from '@testing-library/react';
 
 const renderByline = (teamData: MentionDescription) => {
 	return render(
@@ -31,30 +31,36 @@ const buildTeamData = (memberCount: number, includesYou: boolean) => ({
 
 describe('Team mention description', () => {
 	it('should render Team Mention description component with less than 50 members, includes you', () => {
-		const component = renderByline(buildTeamData(5, true));
-		expect(component).toMatchSnapshot();
+		renderByline(buildTeamData(5, true));
+
+		expect(screen.getByText('Team • 5 members, including you')).toBeInTheDocument();
 	});
 
 	it('should render Team Mention description component with more than 50 members, includes you', () => {
-		const component = renderByline(buildTeamData(55, true));
-		expect(component).toMatchSnapshot();
+		renderByline(buildTeamData(55, true));
+
+		expect(screen.getByText('Team • 50+ members, including you')).toBeInTheDocument();
 	});
 
 	it('should render Team Mention description component with less than 50 members, not including you', () => {
-		const component = renderByline(buildTeamData(4, false));
-		expect(component).toMatchSnapshot();
+		renderByline(buildTeamData(4, false));
+
+		expect(screen.getByText('Team • 4 members')).toBeInTheDocument();
 	});
 
 	it('should render Team Mention description component with more than 50 members, not including you', () => {
-		const component = renderByline(buildTeamData(100, false));
-		expect(component).toMatchSnapshot();
+		renderByline(buildTeamData(100, false));
+
+		expect(screen.getByText('Team • 50+ members')).toBeInTheDocument();
 	});
 
 	it('should not render Team Mention description component if context is not given', () => {
 		const newMention = { ...teamMention };
 		delete newMention.context;
 
-		const component = renderByline(newMention);
-		expect(component).toMatchSnapshot();
+		renderByline(newMention);
+
+		const team = screen.queryByText('Team');
+		expect(team).toBeNull();
 	});
 });

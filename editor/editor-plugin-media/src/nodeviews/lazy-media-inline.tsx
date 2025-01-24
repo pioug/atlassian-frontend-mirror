@@ -18,8 +18,6 @@ export const lazyMediaInlineView = (
 	providerFactory: ProviderFactory,
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return ReactMediaInlineNode(

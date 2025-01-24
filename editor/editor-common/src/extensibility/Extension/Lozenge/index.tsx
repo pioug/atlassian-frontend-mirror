@@ -11,6 +11,7 @@ import { jsx } from '@emotion/react';
 import type { Node as PmNode } from '@atlaskit/editor-prosemirror/model';
 
 import { getExtensionLozengeData } from '../../../utils';
+import { type ExtensionsPluginInjectionAPI } from '../../types';
 import { styledImage } from '../styles';
 
 import { LozengeComponent } from './LozengeComponent';
@@ -28,6 +29,7 @@ export interface Props {
 	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
 	showBodiedExtensionRendererView?: boolean;
 	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
+	pluginInjectionApi?: ExtensionsPluginInjectionAPI;
 }
 
 export interface LozengeData {
@@ -71,6 +73,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
 			showUpdatedLivePages1PBodiedExtensionUI,
 			showBodiedExtensionRendererView,
 			setShowBodiedExtensionRendererView,
+			pluginInjectionApi,
 		} = this.props;
 		const { parameters, extensionKey } = this.props.node.attrs;
 		const { name } = this.props.node.type;
@@ -98,6 +101,7 @@ export default class ExtensionLozenge extends Component<Props, any> {
 				showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 				showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 				setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
+				pluginInjectionApi={pluginInjectionApi}
 			/>
 		);
 	};

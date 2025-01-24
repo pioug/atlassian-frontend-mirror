@@ -252,8 +252,6 @@ export const deleteColumns =
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 		isCommentEditor = false,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(tr: Transaction) => {
 		let updatedTr = tr;

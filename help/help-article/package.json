@@ -40,7 +40,7 @@
 		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/primitives": "^13.3.7",
-		"@atlaskit/renderer": "^112.8.0",
+		"@atlaskit/renderer": "^112.9.0",
 		"@atlaskit/tokens": "^3.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/styled": "^11.0.0",

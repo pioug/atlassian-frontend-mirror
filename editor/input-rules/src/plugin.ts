@@ -77,8 +77,6 @@ export function createInputRulePlugin(
 		},
 
 		props: {
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			handleTextInput(view, from, to, text) {
 				return inputEvent({
 					view,

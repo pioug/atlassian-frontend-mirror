@@ -28,8 +28,6 @@ const ideUX = (pluginInjectionApi: ExtractInjectionAPI<CodeBlockPlugin> | undefi
 	const editorAnalyticsAPI = pluginInjectionApi?.analytics?.actions;
 	return new SafePlugin({
 		props: {
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			handleTextInput(view, from, to, text) {
 				const { state, dispatch } = view;
 				const compositionPluginState = pluginInjectionApi?.composition?.sharedState.currentState();

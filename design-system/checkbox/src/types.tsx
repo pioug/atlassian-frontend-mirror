@@ -11,7 +11,7 @@ import { type StrictXCSSProp } from '@atlaskit/css';
  *
  */
 
-export type OwnProps = {
+type OwnProps = {
 	/**
 	 * Sets whether the checkbox begins as checked or unchecked.
 	 */

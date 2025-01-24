@@ -165,8 +165,6 @@ const buildLayoutButton = (
 	item: PresetLayoutButtonItem,
 	currentLayout: string | undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarItem<Command> => ({
 	id: item.id,
 	type: 'button',
@@ -279,8 +277,6 @@ export const buildToolbar = (
 	addSidebarLayouts: boolean,
 	allowSingleColumnLayout: boolean,
 	api: ExtractInjectionAPI<LayoutPlugin> | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarConfig | undefined => {
 	const { hoverDecoration } = api?.decorations?.actions ?? {};
 	const editorAnalyticsAPI = api?.analytics?.actions;

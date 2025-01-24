@@ -91,8 +91,6 @@ export const findClosestSnap = (
 	guidelines: GuidelineConfig[],
 	snapGap: number = 0,
 	tolerance: number = 0,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const closestGapIndex = snapWidths.reduce(
 		(prev, curr, index) =>

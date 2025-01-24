@@ -153,8 +153,6 @@ export const moveColumn =
 			direction: 0,
 			selectAfterMove: false,
 		},
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(tr: Transaction): Transaction => {
 		const table = findTable(tr.selection);
@@ -288,8 +286,6 @@ export const moveColumn =
 		return newTr;
 	};
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function normalizeCellNode(
 	cellNode: PMNode,
 	rowHeaderEnabled: boolean,

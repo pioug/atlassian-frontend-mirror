@@ -15,8 +15,6 @@ export const shouldAllowInlineDropTarget = (
 	 */
 	isSameLayout: boolean = false,
 	activeNode?: ActiveNode,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (editorExperiment('advanced_layouts', false) || isNested) {
 		return false;

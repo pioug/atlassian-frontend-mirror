@@ -305,8 +305,6 @@ const editorNodes = {
 			state.render(child, node, i);
 		}
 	},
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	listItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
 		const num = Number(parent?.attrs?.order);
 		const order = Number.isNaN(num) || num < 0 ? 1 : Math.floor(num);
@@ -370,8 +368,6 @@ const editorNodes = {
 	hardBreak(state: MarkdownSerializerState) {
 		state.write('  \n');
 	},
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	text(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
 		const previousNode = index === 0 ? null : parent.child(index - 1);
 		let text = node.textContent;
@@ -402,8 +398,6 @@ const editorNodes = {
 		state.write('\u200c'); // zero-width-non-joiner
 		state.closeBlock(node);
 	},
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	mention(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
 		const isLastNode = parent.childCount === index + 1;
 		let delimiter = '';

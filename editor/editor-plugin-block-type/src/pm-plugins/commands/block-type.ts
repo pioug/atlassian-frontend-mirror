@@ -99,8 +99,6 @@ export function setHeading(
 	};
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function setBlockTypeWithAnalytics(
 	name: TextBlockTypes,
 	inputMethod: InputMethod,
@@ -298,8 +296,6 @@ export const setHeadingWithAnalytics = (
 	inputMethod: InputMethod,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 	fromBlockQuote?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	return withCurrentHeadingLevel((previousHeadingLevel) => ({ tr }) => {
 		editorAnalyticsApi?.attachAnalyticsEvent({

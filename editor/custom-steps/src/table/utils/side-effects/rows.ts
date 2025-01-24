@@ -50,8 +50,6 @@ function increaseRowSpan(tr: Transform, rect: TableRect, row: number): void {
 	}
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function decreaseRowspan(tr: Transform, rect: TableRect, row: number, colToRemove: number): number {
 	let skipRows = 0;
 	const { map, table, tableStart } = rect;
@@ -101,8 +99,6 @@ interface RowsHandler {
 	end: (tr: Transform, rect: TableRect, col: number) => void;
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function removeRowWithLastCell(
 	tr: Transform,
 	rect: TableRect,
@@ -137,8 +133,6 @@ function removeRowWithLastCell(
 	};
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function addRow(
 	tr: Transform,
 	rect: TableRect,
@@ -163,8 +157,6 @@ export class RowsSideEffectHandler {
 	private deleteHandler = (): RowsHandler => {
 		const newRows: RowSideEffect[] = [];
 		return {
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			handle: (tr, rect, row, col, cell) => {
 				if (!isLastCellInRow(rect, row, col)) {
 					return {
@@ -192,8 +184,6 @@ export class RowsSideEffectHandler {
 		let i = 0;
 
 		return {
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			handle: (tr, rect, row, col, cell) => {
 				// // If not sideEffects stored return;
 				if (!this.rows || i >= this.rows.length) {

@@ -76,8 +76,6 @@ export const getToolbarItems = (
 	activePanelColor?: string,
 	activePanelIcon?: string,
 	state?: EditorState,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarItem<Command>[] => {
 	// TODO: ED-14403 investigate why these titles are not getting translated for the tooltips
 	const items: FloatingToolbarItem<Command>[] = [
@@ -349,8 +347,6 @@ export const getToolbarConfig = (
 	options: PanelPluginOptions = {},
 	providerFactory: ProviderFactory,
 	api: ExtractInjectionAPI<PanelPlugin> | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarConfig | undefined => {
 	const { formatMessage } = intl;
 	const panelObject = findPanel(state);

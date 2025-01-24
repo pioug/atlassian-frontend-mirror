@@ -29,8 +29,6 @@ function contextPanelPluginFactory(
 				};
 			},
 
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(tr, pluginState, _oldState, newState) {
 				let newPluginState = pluginState;
 				const meta = tr.getMeta(pluginKey);

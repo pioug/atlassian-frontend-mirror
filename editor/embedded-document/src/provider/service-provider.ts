@@ -53,8 +53,6 @@ export default class ServiceProvider implements Provider {
 		}
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	async updateDocument(
 		documentId: string,
 		body: string,
@@ -84,8 +82,6 @@ export default class ServiceProvider implements Provider {
 		}
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	async createDocument(
 		body: string,
 		objectId: string,

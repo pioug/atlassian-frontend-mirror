@@ -117,8 +117,6 @@ export const updateColgroup = (
 	tableNode?: PMNode,
 	isTableScalingEnabled?: boolean,
 	scalePercent?: number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): void => {
 	const cols = tableRef?.querySelectorAll('col');
 	const columnsCount = cols?.length;
@@ -328,8 +326,6 @@ export const getNewResizeStateFromSelectedColumns = (
 	isTableScalingEnabled = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	isCommentEditor = false,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): ResizeStateWithAnalytics | undefined => {
 	// Fail early so that we don't do complex calculations for no reason
 	const numColumnsSelected = rect.right - rect.left;

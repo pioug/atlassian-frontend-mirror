@@ -11,6 +11,7 @@ import { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { Step } from '@atlaskit/editor-prosemirror/transform';
 import type { Decoration } from '@atlaskit/editor-prosemirror/view';
 import { DecorationSet } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ReadOnlyParticipants } from '../../types';
 import { Participants } from '../participants';
@@ -59,8 +60,6 @@ export class PluginState {
 		return this.sid;
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		decorations: DecorationSet,
 		participants: Participants,
@@ -150,7 +149,12 @@ export class PluginState {
 				let to = 1;
 
 				try {
-					from = getValidPos(tr, isSelection ? Math.max(rawFrom - 1, 0) : rawFrom);
+					if (fg('platform_editor_selection_without_left_shift')) {
+						from = getValidPos(tr, isSelection ? Math.max(rawFrom, 0) : rawFrom);
+					} else {
+						from = getValidPos(tr, isSelection ? Math.max(rawFrom - 1, 0) : rawFrom);
+					}
+
 					to = isSelection ? getValidPos(tr, rawTo) : from;
 				} catch (err) {
 					this.onError(err as Error);

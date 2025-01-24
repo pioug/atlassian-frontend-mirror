@@ -40,8 +40,6 @@ export const scrollToCollabCursor = (
 	// analytics: AnalyticsEvent | undefined,
 	index: number,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const selectedUser = participants[index];
 	const cursorPos = selectedUser.cursorPos;

@@ -27,8 +27,6 @@ export function createLinkInputRule(
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 ): InputRuleWrapper {
 	// Plain typed text (eg, typing 'www.google.com') should convert to a hyperlink
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	return createRule(regexp, (state: EditorState, match, start: number, end: number) => {
 		const { schema } = state;
 		if (state.doc.rangeHasMark(start, end, schema.marks.link)) {
@@ -107,8 +105,7 @@ export function createInputRulePlugin(
 	const urlWithASpaceRule = createLinkInputRule(LinkMatcher.create(), editorAnalyticsApi);
 
 	// [something](link) should convert to a hyperlink
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp, @typescript-eslint/max-params
+	// eslint-disable-next-line require-unicode-regexp
 	const markdownLinkRule = createRule(/(^|[^!])\[(.*?)\]\((\S+)\)$/, (state, match, start, end) => {
 		const { schema } = state;
 		const [, prefix, linkText, linkUrl] = match;

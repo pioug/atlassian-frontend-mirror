@@ -1,0 +1,6 @@
+import React from 'react';
+
+import { ForbiddenClientWithNoIcon } from '../utils/custom-client';
+import VRCardView from '../utils/vr-card-view';
+
+export default () => <VRCardView appearance="inline" client={new ForbiddenClientWithNoIcon()} />;

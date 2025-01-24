@@ -3,9 +3,11 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button';
-import LockIcon from '@atlaskit/icon/glyph/lock-filled';
+import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
+import LegacyLockIcon from '@atlaskit/icon/glyph/lock-filled';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -44,12 +46,24 @@ export interface InlineCardForbiddenViewProps {
 	truncateInline?: boolean;
 }
 
+const iconWrapperStyles = xcss({ marginRight: 'space.negative.025' });
+
 const fallbackForbiddenIcon = () => {
 	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return (
+		return fg('platform-smart-card-icon-migration') ? (
+			<Box as="span" xcss={iconWrapperStyles}>
+				<LockLockedIcon
+					label="error"
+					color={token('color.icon.danger')}
+					LEGACY_fallbackIcon={LegacyLockIcon}
+					LEGACY_size="small"
+					testId="forbidden-view-fallback-icon"
+				/>
+			</Box>
+		) : (
 			<AKIconWrapper>
-				{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
-				<LockIcon
+				{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497*/}
+				<LegacyLockIcon
 					label="error"
 					size="small"
 					primaryColor={token('color.icon.danger', R400)}
@@ -58,10 +72,20 @@ const fallbackForbiddenIcon = () => {
 			</AKIconWrapper>
 		);
 	} else {
-		return (
+		return fg('platform-smart-card-icon-migration') ? (
+			<Box as="span" xcss={iconWrapperStyles}>
+				<LockLockedIcon
+					label="error"
+					color={token('color.icon.danger')}
+					LEGACY_fallbackIcon={LegacyLockIcon}
+					LEGACY_size="small"
+					testId="forbidden-view-fallback-icon"
+				/>
+			</Box>
+		) : (
 			<AKIconWrapperOld>
-				{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497 */}
-				<LockIcon
+				{/*eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497*/}
+				<LegacyLockIcon
 					label="error"
 					size="small"
 					primaryColor={token('color.icon.danger', R400)}

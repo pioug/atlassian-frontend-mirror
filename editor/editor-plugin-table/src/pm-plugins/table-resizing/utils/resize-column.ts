@@ -14,8 +14,6 @@ export const resizeColumn = (
 	selectedColumns?: number[],
 	isTableScalingEnabled = false,
 	scalePercent = 1,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): ResizeState => {
 	let resizeAmount = amount;
 

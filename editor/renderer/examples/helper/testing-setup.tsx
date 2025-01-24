@@ -131,8 +131,6 @@ export function createRendererWindowBindings(win: Window, enableClickToEdit?: bo
 		adf: any = defaultDoc,
 		platformFeatureFlags?: Record<string, boolean>,
 		editorExperiments?: EditorExperimentOverrides,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const target = document.getElementById('renderer-container');
 
@@ -173,7 +171,7 @@ export function createRendererWindowBindings(win: Window, enableClickToEdit?: bo
 				}
 			: undefined;
 
-		let render = renderRenderer({ adf, props, setMode });
+		const render = renderRenderer({ adf, props, setMode });
 		let content;
 		if (props.withRendererActions) {
 			content = (

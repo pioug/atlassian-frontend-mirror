@@ -33,6 +33,10 @@ import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state'
 import { AllSelection, PluginKey } from '@atlaskit/editor-prosemirror/state';
 import { findDomRefAtPos, findSelectedNodeOfType } from '@atlaskit/editor-prosemirror/utils';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
+import {
+	editorExperiment,
+	unstable_editorExperimentParam,
+} from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type {
 	ConfigWithNodeInfo,
@@ -45,6 +49,7 @@ import { createPlugin as floatingToolbarDataPluginFactory } from './pm-plugins/t
 import { pluginKey as dataPluginKey } from './pm-plugins/toolbar-data/plugin-key';
 import { findNode } from './pm-plugins/utils';
 import { ConfirmationModal } from './ui/ConfirmationModal';
+import { ExpandButton } from './ui/ExpandButton';
 import { ToolbarLoader } from './ui/ToolbarLoader';
 
 // AFP-2532 TODO: Fix automatic suppressions below
@@ -306,6 +311,44 @@ export function ContentComponent({
 		Array.isArray(items) ? items : items(node),
 		pluginInjectionApi?.decorations?.actions.hoverDecoration,
 	);
+
+	const viewModeToolbarEntry = unstable_editorExperimentParam(
+		'live_pages_graceful_edit',
+		'toolbar-entry',
+		{
+			defaultValue: 'none',
+			typeGuard: (value: unknown): value is 'none' | 'expand' | 'expand-existing-only' =>
+				typeof value === 'string' && ['text', 'nodes'].includes(value),
+		},
+	);
+
+	if (!editorExperiment('live_pages_graceful_edit', 'control') && viewModeToolbarEntry !== 'none') {
+		if (editorViewModeState?.contentMode === 'live-edit' && editorViewModeState?.isConsumption) {
+			const hasOtherToolbarItems = toolbarItems && toolbarItems.length !== 0;
+			const shouldAddToolbarItems =
+				viewModeToolbarEntry === 'expand-existing-only' ? hasOtherToolbarItems : true;
+
+			if (shouldAddToolbarItems) {
+				if (toolbarItems && toolbarItems.length > 0) {
+					toolbarItems.unshift({ type: 'separator' });
+				}
+
+				toolbarItems?.unshift({
+					type: 'button',
+					title: 'Edit',
+					onClick: () => {
+						pluginInjectionApi?.core?.actions?.execute(
+							pluginInjectionApi?.editorViewMode?.commands.updateContentMode({
+								type: 'intent-to-edit',
+							}),
+						);
+						return false;
+					},
+					icon: () => <ExpandButton />,
+				});
+			}
+		}
+	}
 
 	if (onPositionCalculated) {
 		customPositionCalculation = (nextPos: Position): Position => {

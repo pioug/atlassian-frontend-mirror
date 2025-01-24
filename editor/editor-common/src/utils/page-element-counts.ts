@@ -106,13 +106,20 @@ const getHasNestedTable = (node: JSONDocNode): boolean => {
 				return hasNestedTable;
 			}
 			if (node.type === 'table') {
+				// The first node that we pass into the reduce function is a table node, and we need to ignore it
+				let foundFirstTable = false;
 				return reduce(
 					node,
-					(acc, node) => {
-						if (node.type === 'table') {
-							return true;
+					(hasNestedTable, node) => {
+						if (hasNestedTable) {
+							return hasNestedTable;
 						}
-						return acc;
+						if (node.type === 'table' && foundFirstTable) {
+							return true;
+						} else if (node.type === 'table') {
+							foundFirstTable = true;
+						}
+						return hasNestedTable;
 					},
 					false,
 				);

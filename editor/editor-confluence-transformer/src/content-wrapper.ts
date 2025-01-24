@@ -152,8 +152,6 @@ export const ensureInline = (
 	content: Fragment,
 	convertedNodesReverted: WeakMap<Fragment | PMNode, Node>,
 	supportedMarks?: Mark[],
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const result: PMNode[] = [];
 	content.forEach((node: PMNode) => {
@@ -180,8 +178,6 @@ export const ensureInline = (
  * validContent to skip some of the content type
  * Optionaly, you can decide to how to convert invalid node
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function ensureBlock(
 	schema: Schema,
 	content: Fragment,

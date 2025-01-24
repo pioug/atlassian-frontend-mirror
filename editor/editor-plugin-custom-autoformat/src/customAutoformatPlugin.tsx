@@ -65,8 +65,6 @@ export const createPMPlugin = (
 			},
 		},
 		props: {
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			handleTextInput(view: EditorView, from: number, to: number, text: string) {
 				triggerInputRule(view, rules, from, to, text);
 				return false;

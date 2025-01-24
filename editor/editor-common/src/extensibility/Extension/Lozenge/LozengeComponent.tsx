@@ -10,6 +10,7 @@ import { jsx } from '@emotion/react';
 
 import EditorFileIcon from '@atlaskit/icon/glyph/editor/file';
 
+import { type ExtensionsPluginInjectionAPI } from '../../types';
 import { placeholderFallback, placeholderFallbackParams } from '../styles';
 
 import { EditToggle } from './EditToggle';
@@ -41,6 +42,7 @@ type LozengeComponentProps = {
 	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
 	showBodiedExtensionRendererView?: boolean;
 	setShowBodiedExtensionRendererView?: (showBodiedExtensionRendererView: boolean) => void;
+	pluginInjectionApi?: ExtensionsPluginInjectionAPI;
 };
 
 export const LozengeComponent = ({
@@ -59,6 +61,7 @@ export const LozengeComponent = ({
 	showUpdatedLivePages1PBodiedExtensionUI,
 	showBodiedExtensionRendererView,
 	setShowBodiedExtensionRendererView,
+	pluginInjectionApi,
 }: LozengeComponentProps) => {
 	const capitalizedTitle = capitalizeFirstLetter(title);
 	if (showMacroInteractionDesignUpdates) {
@@ -75,6 +78,7 @@ export const LozengeComponent = ({
 					showLivePagesBodiedMacrosRendererView={showLivePagesBodiedMacrosRendererView}
 					showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 					showBodiedExtensionRendererView={showBodiedExtensionRendererView}
+					pluginInjectionApi={pluginInjectionApi}
 				/>
 				{showLivePagesBodiedMacrosRendererView && isBodiedMacro && (
 					<EditToggle

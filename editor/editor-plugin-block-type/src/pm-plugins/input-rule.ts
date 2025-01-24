@@ -62,8 +62,6 @@ function getHeadingRules(
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-unicode-regexp
 		new RegExp(`${leafNodeReplacementCharacter}(#{1,6})\\s$`),
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 		(state, match, start, end) => {
 			const level = match[1].length;
 			return insertBlock(state, schema.nodes.heading, start, end, { level });
@@ -108,8 +106,6 @@ function getBlockQuoteRules(
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-unicode-regexp
 		new RegExp(`${leafNodeReplacementCharacter}\\s*>\\s$`),
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 		(state, _match, start, end) => {
 			return insertBlock(state, schema.nodes.blockquote, start, end);
 		},

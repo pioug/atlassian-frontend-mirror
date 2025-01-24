@@ -59,8 +59,6 @@ const updateResizeHandleAndStatePosition =
 		columnIndex: number,
 		nextResizeHandlePos: number,
 		nodeViewPortalProviderAPI: PortalProviderAPI,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		let customTr = state.tr;

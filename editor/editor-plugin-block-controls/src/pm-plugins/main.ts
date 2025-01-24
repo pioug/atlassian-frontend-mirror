@@ -164,8 +164,6 @@ export const newApply = (
 	flags: FlagType,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	anchorRectCache?: AnchorRectCache,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	let { activeNode, decorations, isResizerResizing } = currentState;
 	const {
@@ -351,8 +349,6 @@ export const oldApply = (
 	flags: FlagType,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	anchorRectCache?: AnchorRectCache,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { isNestedEnabled } = flags;
 
@@ -611,8 +607,6 @@ export const createPlugin = (
 			init() {
 				return initialState;
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(
 				tr: ReadonlyTransaction,
 				currentState: PluginState,

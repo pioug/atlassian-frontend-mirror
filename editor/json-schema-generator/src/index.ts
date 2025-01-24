@@ -58,8 +58,6 @@ export default (
 	flags: any,
 	root = 'doc_node',
 	description = 'Schema for Atlassian Document Format.',
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Promise<void> => {
 	// We check whether we're in the monorepo or not, and get paths if we are
 	const project = join(__dirname, '../tsconfig.json');

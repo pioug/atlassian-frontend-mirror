@@ -18,8 +18,6 @@ import { combineQuickInsertProviders, extensionProviderToQuickInsertProvider } f
  * @param createAnalyticsEvent
  * @returns Quick insert provider if available
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export default function prepareQuickInsertProvider(
 	editorActions: EditorActions,
 	apiRef: React.MutableRefObject<PublicPluginAPI<[ExtensionPlugin]> | undefined>,

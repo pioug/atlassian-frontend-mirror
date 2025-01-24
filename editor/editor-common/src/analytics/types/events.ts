@@ -9,9 +9,10 @@ import type {
 } from '../../utils';
 
 import type { ActiveSessionEventPayload } from './activity-session-events';
-import { type AICommandPaletteEventPayload } from './ai-command-palette-events';
-import { type AIDefinitionsEventPayload } from './ai-definitions-events';
-import { type AIProactiveEventPayload } from './ai-proactive-events';
+import type { AICommandPaletteEventPayload } from './ai-command-palette-events';
+import type { AIDefinitionsEventPayload } from './ai-definitions-events';
+import type { AIEventPayload } from './ai-events';
+import type { AIProactiveEventPayload } from './ai-proactive-events';
 import type { AIUnifiedEventPayload } from './ai-unified-events';
 import type { AvatarEventPayload } from './avatar';
 import { type BreakoutEventPayload } from './breakout-events';
@@ -122,6 +123,7 @@ export type AnalyticsEventPayload<T = void> =
 	| NestedTableActionsEventPayload
 	| AICommandPaletteEventPayload
 	| AIDefinitionsEventPayload
+	| AIEventPayload
 	| AIProactiveEventPayload
 	| AIUnifiedEventPayload
 	| BreakoutEventPayload

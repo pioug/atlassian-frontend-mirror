@@ -174,8 +174,6 @@ export function transformHeatmap({
 	}
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function createDOMRect(x: number, y: number, width: number, height: number): DOMRectReadOnly {
 	if (typeof DOMRect !== 'undefined') {
 		// DOMRect well supported supported

@@ -85,8 +85,6 @@ export const canMove = (
 	totalItemsOfSourceTypeCount: number,
 	selection: Selection,
 	selectionRect?: Rect,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (!selectionRect) {
 		return false;
@@ -174,8 +172,6 @@ export const getDragMenuConfig = (
 		ariaLiveElementAttributes?: AriaLiveElementAttributes,
 	) => void,
 	isCommentEditor = false,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): DragMenuConfig[] => {
 	const { selection } = editorView.state;
 	const { getIntl } = getTablePluginState(editorView.state);

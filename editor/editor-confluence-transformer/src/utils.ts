@@ -249,8 +249,6 @@ export function getMacroParameters(node: Element): any {
 	return params;
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function createCodeFragment(
 	schema: Schema,
 	codeContent: string,

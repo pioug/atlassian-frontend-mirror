@@ -30,8 +30,6 @@ export const countListItemsInSelection = (tr: Transaction) => {
 	}
 	let count = 0;
 	const listSlice = tr.doc.cut(from, to);
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	listSlice.content.nodesBetween(0, listSlice.content.size, (node, pos, parent, index) => {
 		if (parent && isListItemNode(parent) && !isListNode(node) && index === 0) {
 			count++;

@@ -60,8 +60,6 @@ const mapStateToProps = (state: State, ownProps: Props) => {
 // Ignored via go/ees005
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const mapDispatchToProps = (dispatch: ThunkDispatch<State, any, any>, { provider }: Props) => ({
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	onAddComment(
 		conversationId: string,
 		parentId: string,
@@ -74,8 +72,6 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<State, any, any>, { provider
 		dispatch(addComment(conversationId, parentId, value, localId, provider, onSuccess));
 	},
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	onUpdateComment(
 		conversationId: string,
 		commentId: string,
@@ -103,8 +99,6 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<State, any, any>, { provider
 		dispatch(updateUser(user, provider));
 	},
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	onCreateConversation(
 		localId: string,
 		// Ignored via go/ees005
@@ -120,8 +114,6 @@ const mapDispatchToProps = (dispatch: ThunkDispatch<State, any, any>, { provider
 		dispatch(createConversation(localId, value, meta, provider, objectId, containerId, onSuccess));
 	},
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	onEditorChange(
 		isLocal: boolean,
 		// Ignored via go/ees005

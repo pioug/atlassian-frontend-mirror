@@ -1,5 +1,25 @@
 # @atlaskit/renderer
 
+## 112.9.0
+
+### Minor Changes
+
+- [#104091](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104091)
+  [`633ced5621b07`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/633ced5621b07) -
+  [ux] Calling callback even for pages without comments in order to clear comment data
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.8.11
+
+### Patch Changes
+
+- [#105386](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105386)
+  [`d03cf19cf4251`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d03cf19cf4251) -
+  [ux] ED-26349 hide external media badge when images w or h is less then 200px
+
 ## 112.8.10
 
 ### Patch Changes

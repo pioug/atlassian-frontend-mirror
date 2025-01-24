@@ -89,8 +89,6 @@ const rawContentProcessor = (
 	rawContent: string,
 	length: number,
 	schema: Schema,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Token => {
 	const output: PMNode[] = [];
 	const { codeBlock } = schema.nodes;

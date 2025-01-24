@@ -94,8 +94,7 @@ export class MockProvider extends AbstractConversationResource {
 	/**
 	 * Creates a new Conversation and associates it with the objectId provided.
 	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-await, @typescript-eslint/max-params
+	// eslint-disable-next-line require-await
 	async create(
 		localId: string,
 		// Ignored via go/ees005
@@ -138,8 +137,6 @@ export class MockProvider extends AbstractConversationResource {
 	/**
 	 * Adds a comment to a parent, or update if existing. ParentId can be either a conversation or another comment.
 	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	async addComment(
 		conversationId: string,
 		parentId: string,
@@ -171,8 +168,6 @@ export class MockProvider extends AbstractConversationResource {
 		return result as Comment;
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	private createComment(
 		conversationId: string,
 		parentId: string,

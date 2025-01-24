@@ -12,6 +12,7 @@ jest.mock('../utils/ufoExperiences', () => {
 	return {
 		__esModule: true,
 		...actualModule,
+		shouldPerformanceBeSampled: jest.fn(actualModule.shouldPerformanceBeSampled),
 		startUfoExperience: jest.fn(actualModule.startUfoExperience),
 		completeUfoExperience: jest.fn(actualModule.completeUfoExperience),
 		abortUfoExperience: jest.fn(actualModule.abortUfoExperience),
@@ -48,7 +49,11 @@ import {
 import * as performanceModule from './performance';
 import { getFileStreamsCache } from '@atlaskit/media-client';
 import { IntlProvider } from 'react-intl-next';
-import { completeUfoExperience, abortUfoExperience } from '../utils/ufoExperiences';
+import {
+	completeUfoExperience,
+	abortUfoExperience,
+	shouldPerformanceBeSampled,
+} from '../utils/ufoExperiences';
 import { MediaCardError } from '../errors';
 import { MockIntersectionObserver } from '../utils/mockIntersectionObserver';
 import { DateOverrideContext } from '../dateOverrideContext';
@@ -102,6 +107,8 @@ describe('Card ', () => {
       NOTE: This test case's speed can be improved by implementing jest.useFakeTimers({doNotFake: ['performance']}) after adopting jest version 28.x and above, see https://jest-archive-august-2023.netlify.app/docs/28.x/jest-object#jestusefaketimersfaketimersconfig for more detail.
     */
 		jest.spyOn(performanceModule, 'performanceNow').mockReturnValue(PERFORMANCE_NOW);
+
+		(shouldPerformanceBeSampled as jest.Mock).mockReturnValue(true);
 
 		intersectionObserver.setup({
 			observe: (elem?: any) => {
@@ -4212,6 +4219,145 @@ describe('Card ', () => {
 					reason: 'pollingMaxAttemptsExceeded',
 					metadata: { attempts: 2 },
 				});
+			});
+		});
+
+		describe('should not fire UFO events', () => {
+			beforeEach(() => {
+				(shouldPerformanceBeSampled as jest.Mock).mockReturnValue(false);
+			});
+
+			it('when the event should have been completed but has not been sampled', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				// simulate that the file has been fully loaded by the browser
+				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+
+				await simulateImageLoadDelay();
+				fireEvent.load(img);
+
+				// card should completely process the file
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
+				);
+				expect(completeUfoExperience).not.toHaveBeenCalled();
+			});
+
+			it('when the event should have been aborted but has not been sampled', async () => {
+				const [fileItem, identifier] = generateSampleFileItem.workingPdfWithRemotePreview();
+				const { mediaApi } = createMockedMediaApi(fileItem);
+
+				const { unmount } = render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={identifier}
+							isLazy={false}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				// simulate that the file has been fully loaded by the browser
+				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+				await simulateImageLoadDelay();
+				fireEvent.load(img);
+
+				// card should completely process the file
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
+				);
+
+				unmount();
+				expect(abortUfoExperience).not.toHaveBeenCalled();
+			});
+
+			it('when an external image is loaded but the event has not been sampled', async () => {
+				const { mediaApi } = createMockedMediaApi();
+				const extIdentifier = {
+					mediaItemType: 'external-image',
+					dataURI: 'ext-uri',
+					name: 'ext',
+				} as const;
+				render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={extIdentifier}
+							isLazy={false}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				// simulate that the file has been fully loaded by the browser
+				const img = await screen.findByTestId(imgTestId);
+				await waitFor(async () => expect(img.getAttribute('src')).toBeTruthy());
+
+				await simulateImageLoadDelay();
+				fireEvent.load(img);
+
+				// card should completely process the file
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
+				);
+				expect(completeUfoExperience).not.toHaveBeenCalled();
+			});
+
+			it('when the component is unmounted (external image identifier) but event has not been sampled', async () => {
+				const { mediaApi } = createMockedMediaApi();
+				const extIdentifier = {
+					mediaItemType: 'external-image',
+					dataURI: 'ext-uri',
+					name: 'ext',
+				} as const;
+
+				const { unmount } = render(
+					<MockedMediaClientProvider mockedMediaApi={mediaApi}>
+						<CardLoader
+							mediaClientConfig={dummyMediaClientConfig}
+							identifier={extIdentifier}
+							isLazy={false}
+						/>
+					</MockedMediaClientProvider>,
+				);
+
+				// simulate that the file has been fully loaded by the browser
+				const img = await screen.findByTestId(imgTestId);
+				await waitFor(() => expect(img.getAttribute('src')).toBeTruthy());
+				await simulateImageLoadDelay();
+				fireEvent.load(img);
+
+				// card should completely process the file
+				await waitFor(async () =>
+					expect(await screen.findByTestId('media-file-card-view')).toHaveAttribute(
+						'data-test-status',
+						'complete',
+					),
+				);
+
+				unmount();
+				expect(abortUfoExperience).not.toHaveBeenCalled();
 			});
 		});
 

@@ -63,8 +63,6 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 	node: PMNode;
 	key: string;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: PMNode,
 		view: EditorView,
@@ -246,8 +244,6 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		) : null;
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	update(
 		node: PMNode,
 		decorations: ReadonlyArray<Decoration>,
@@ -325,8 +321,6 @@ export default class ReactNodeView<P = ReactComponentProps> implements NodeView 
 		}
 	};
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	static fromComponent(
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

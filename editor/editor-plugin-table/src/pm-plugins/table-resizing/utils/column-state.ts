@@ -43,8 +43,6 @@ export const getCellsRefsInColumn = (
 	table: PMNode,
 	tableStart: number,
 	domAtPos: (pos: number) => { node: Node; offset: number },
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): HTMLElement[] => {
 	const map = TableMap.get(table);
 	const cellsPositions = map.cellsInRect({

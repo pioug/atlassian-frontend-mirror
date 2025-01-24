@@ -46,8 +46,6 @@ export class LazyNodeView implements NodeView {
 	private node: PMNode;
 	private outerDeco: readonly Decoration[];
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: PMNode,
 		view: EditorView,

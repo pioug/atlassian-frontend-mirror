@@ -70,8 +70,6 @@ export const createPlugin = (
 	options: PrivateCollabEditOptions,
 	featureFlags: FeatureFlags,
 	pluginInjectionApi: ExtractInjectionAPI<CollabEditPlugin> | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	enforceCustomStepRegisters();
 
@@ -83,8 +81,6 @@ export const createPlugin = (
 			init(config: any) {
 				return PluginState.init(config);
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(
 				transaction: ReadonlyTransaction,
 				prevPluginState: PluginState,

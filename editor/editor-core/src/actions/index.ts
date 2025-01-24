@@ -69,8 +69,6 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	}
 
 	// This method needs to be public for EditorContext component.
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	_privateRegisterEditor(
 		editorView: EditorView,
 		eventDispatcher: EventDispatcher,

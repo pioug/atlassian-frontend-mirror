@@ -66,8 +66,6 @@ export class CodeBlockView {
 	formattedAriaLabel: string = '';
 	api?: ExtractInjectionAPI<CodeBlockPlugin>;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: Node,
 		view: EditorView,
@@ -241,6 +239,4 @@ export const codeBlockNodeView = (
 	getPos: getPosHandler,
 	formattedAriaLabel: string,
 	api: ExtractInjectionAPI<CodeBlockPlugin> | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => new CodeBlockView(node, view, getPos as getPosHandlerNode, formattedAriaLabel, api);

@@ -33,8 +33,6 @@ export function getAllChangedCodeBlocksInTransaction(
 	tr.steps.forEach((step) => {
 		const mapResult = step.getMap();
 
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 		mapResult.forEach((oldStart, oldEnd, newStart, newEnd) => {
 			tr.doc.nodesBetween(newStart, Math.min(newEnd, tr.doc.content.size), (node, pos) => {
 				if (node.type.name === 'codeBlock') {

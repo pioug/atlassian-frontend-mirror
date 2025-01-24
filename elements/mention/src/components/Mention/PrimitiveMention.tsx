@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/no-html-button */
 /**
  * @jsxRuntime classic
  * @jsx jsx

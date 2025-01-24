@@ -15,8 +15,7 @@ export function inputRulePlugin(
 	}
 
 	// ![something](link) should convert to an image
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp, @typescript-eslint/max-params
+	// eslint-disable-next-line require-unicode-regexp
 	const imageRule = createRule(/!\[(.*)\]\((\S+)\)$/, (state, match, start, end) => {
 		const { schema } = state;
 		const attrs = {

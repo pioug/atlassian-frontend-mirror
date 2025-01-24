@@ -42,8 +42,6 @@ export const getLinkingToolbar = (
 	intl: IntlShape,
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 	providerFactory?: ProviderFactory,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarConfig | undefined => {
 	const { link, visible, editable: editing, mediaPos } = mediaLinkingState;
 

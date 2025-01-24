@@ -48,8 +48,6 @@ export const createTelepointers = (
 	isSelection: boolean,
 	initial: string,
 	presenceId: string,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const decorations: Decoration[] = [];
 	const avatarColor = getAvatarColor(presenceId);
@@ -114,8 +112,6 @@ export const replaceDocument = (
 	options?: CollabEditOptions,
 	reserveCursor?: boolean,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { schema, tr } = state;
 
@@ -173,8 +169,6 @@ export const scrollToCollabCursor = (
 	// analytics: AnalyticsEvent | undefined,
 	index: number,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const selectedUser = participants[index];
 	if (

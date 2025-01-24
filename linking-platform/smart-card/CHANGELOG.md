@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 34.6.1
+
+### Patch Changes
+
+- [#105947](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105947)
+  [`ccae19cf89be9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ccae19cf89be9) -
+  [ux] Migrate inline card unresolved view default icon
+
 ## 34.6.0
 
 ### Minor Changes

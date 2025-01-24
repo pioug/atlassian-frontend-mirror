@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "112.8.10",
+	"version": "112.9.0",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,7 +50,7 @@
 		"@atlaskit/status": "^1.8.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.39.0",
+		"@atlaskit/tmp-editor-statsig": "^2.40.0",
 		"@atlaskit/tokens": "^3.2.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/visually-hidden": "^1.5.0",
@@ -79,7 +79,7 @@
 		"@atlaskit/media-core": "^34.4.0",
 		"@atlaskit/media-integration-test-helpers": "^3.1.0",
 		"@atlaskit/media-test-helpers": "^34.7.0",
-		"@atlaskit/mention": "^23.9.0",
+		"@atlaskit/mention": "^23.10.0",
 		"@atlaskit/navigation-next": "^9.0.0",
 		"@atlaskit/util-data-test": "^17.13.0",
 		"@atlaskit/visual-regression": "*",
@@ -180,6 +180,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_nested_tables_renderer_colgroup": {
+			"type": "boolean"
+		},
+		"use_comments_data_annotation_updater": {
 			"type": "boolean"
 		}
 	},

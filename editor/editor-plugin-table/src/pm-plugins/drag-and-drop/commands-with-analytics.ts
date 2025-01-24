@@ -30,8 +30,6 @@ export const clearDropTargetWithAnalytics =
 		sourceIndexes: number[] | undefined,
 		status: TABLE_STATUS.CANCELLED | TABLE_STATUS.INVALID,
 		tr?: Transaction,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		return withEditorAnalyticsAPI(({ selection }: EditorState) => {
 			const { totalRowCount, totalColumnCount } = getSelectedTableInfo(selection);
@@ -72,8 +70,6 @@ export const moveSourceWithAnalytics =
 		sourceIndexes: number[],
 		targetIndex: number,
 		tr?: Transaction,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		return withEditorAnalyticsAPI(({ selection }: EditorState) => {
 			const direction = sourceIndexes[0] > targetIndex ? -1 : 1;
@@ -194,8 +190,6 @@ export const cloneSourceWithAnalytics =
 		targetIndex: number,
 		targetDirection: 'start' | 'end',
 		tr?: Transaction,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		return withEditorAnalyticsAPI(({ selection }: EditorState) => {
 			const direction = sourceIndexes[0] > targetIndex ? -1 : 1;

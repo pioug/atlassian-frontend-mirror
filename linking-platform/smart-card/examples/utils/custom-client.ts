@@ -132,6 +132,17 @@ export class ForbiddenWithSiteRequestAccessClient extends CardClient {
 	}
 }
 
+// "visibility": "restricted",
+// "access": "forbidden",
+export class ForbiddenClientWithNoIcon extends CardClient {
+	fetchData(): Promise<JsonLd.Response> {
+		return Promise.resolve({
+			...mocks.forbidden,
+			data: { ...mocks.forbidden.data, generator: { name: 'Provider' } },
+		} as JsonLd.Response);
+	}
+}
+
 // visibility: 'not_found',
 // access: 'forbidden',
 export class NotFoundClient extends CardClient {
@@ -183,6 +194,15 @@ export class UnAuthClientWithNoAuthFlow extends CardClient {
 				...mocks.unauthorized.meta,
 				auth: [],
 			},
+		} as JsonLd.Response);
+	}
+}
+
+export class UnAuthClientWithNoIcon extends CardClient {
+	fetchData(): Promise<JsonLd.Response> {
+		return Promise.resolve({
+			meta: { ...mocks.unauthorized.meta },
+			data: { ...mocks.unauthorized.data, generator: { name: 'Provider' } },
 		} as JsonLd.Response);
 	}
 }

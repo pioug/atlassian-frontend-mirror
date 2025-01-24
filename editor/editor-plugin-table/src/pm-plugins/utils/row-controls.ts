@@ -92,8 +92,6 @@ export const getRowClassNames = (
 	hoveredRows: number[] = [],
 	isInDanger?: boolean,
 	isResizing?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): string => {
 	const classNames: string[] = [];
 	if (isRowSelected(index)(selection) || (hoveredRows.indexOf(index) > -1 && !isResizing)) {

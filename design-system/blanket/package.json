@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/blanket",
-	"version": "14.0.2",
+	"version": "14.0.3",
 	"description": "A blanket covers the underlying UI for a layered component, such as a modal dialog or a tooltip.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -57,13 +57,21 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
+		"@atlaskit/badge": "^17.0.1",
+		"@atlaskit/button": "^20.3.10",
+		"@atlaskit/docs": "*",
+		"@atlaskit/heading": "^4.0.1",
 		"@atlaskit/layering": "^1.0.0",
+		"@atlaskit/link": "*",
+		"@atlaskit/primitives": "^13.3.8",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/react": "^12.1.5",
 		"@testing-library/user-event": "^14.4.3",
+		"bind-event-listener": "^3.0.0",
 		"jscodeshift": "^0.13.0",
 		"react-dom": "^16.8.0",
 		"react-lorem-component": "^0.13.0",

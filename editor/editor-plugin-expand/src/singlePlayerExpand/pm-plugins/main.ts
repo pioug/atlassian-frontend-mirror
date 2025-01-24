@@ -35,8 +35,6 @@ export const createPlugin = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	allowInteractiveExpand: boolean = true,
 	__livePage: boolean = false,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const isMobile = false;
 
@@ -75,8 +73,6 @@ export const createPlugin = (
 				(target) => target.classList.contains(expandClassNames.prefix),
 				{ useLongPressSelection },
 			),
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			handleDrop(view, event, slice, moved) {
 				return handleExpandDrag(view, event, slice);
 			},

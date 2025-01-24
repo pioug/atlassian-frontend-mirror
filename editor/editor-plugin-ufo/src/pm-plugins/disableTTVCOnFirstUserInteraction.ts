@@ -2,8 +2,6 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { getVCObserver } from '@atlaskit/react-ufo/vc';
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function bind(
 	target: HTMLElement,
 	event: FirstUserInteractionEvents,

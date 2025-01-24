@@ -44,7 +44,7 @@
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tmp-editor-statsig": "^2.39.0",
+		"@atlaskit/tmp-editor-statsig": "^2.40.0",
 		"@atlaskit/tokens": "^3.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"

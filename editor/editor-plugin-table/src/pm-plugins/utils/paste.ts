@@ -33,8 +33,6 @@ const unwrapNestedTables = (
 	schema: Schema,
 	unwrapNestDepth: number,
 	currentNestDepth = 0,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): PMNode[] => {
 	const flattenNested = (node: PMNode, tableDepth: number) => {
 		if (node.type === schema.nodes.table) {

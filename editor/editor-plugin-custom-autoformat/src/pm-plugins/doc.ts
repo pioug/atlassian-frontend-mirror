@@ -10,8 +10,6 @@ import type { InputRuleHander } from './input-rules';
 import { autoformatAction } from './utils';
 
 export const buildHandler = (_regex: string, handler: AutoformatHandler): InputRuleHander => {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	return async (view, match, start, end) => {
 		const replacementPromise = handler(match.slice(1, match.length - 1));
 

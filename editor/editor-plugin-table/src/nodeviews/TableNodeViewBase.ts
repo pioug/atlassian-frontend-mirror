@@ -7,8 +7,6 @@ export default abstract class TableNodeView<T extends HTMLElement> implements No
 	/**
 	 * @constructor
 	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		protected node: PmNode,
 		protected readonly view: EditorView,

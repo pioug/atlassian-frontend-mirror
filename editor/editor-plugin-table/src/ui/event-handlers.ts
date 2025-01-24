@@ -507,8 +507,6 @@ export const handleCut = (
 	isTableScalingEnabled = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Transaction => {
 	const oldSelection = oldState.tr.selection;
 	let { tr } = newState;

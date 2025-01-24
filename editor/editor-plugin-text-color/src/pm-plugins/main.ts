@@ -66,8 +66,6 @@ export function createPlugin(dispatch: Dispatch, pluginConfig?: TextColorPluginC
 			init(_config, editorState) {
 				return createInitialPluginState(editorState, pluginConfig);
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(tr, pluginState, _, newState) {
 				const meta = tr.getMeta(pluginKey) || {};
 

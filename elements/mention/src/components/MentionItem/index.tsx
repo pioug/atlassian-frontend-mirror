@@ -109,8 +109,11 @@ export default class MentionItem extends React.PureComponent<Props, {}> {
 					onMouseDown={this.onMentionSelected}
 					onMouseMove={this.onMentionMenuItemMouseMove}
 					onMouseEnter={this.onMentionMenuItemMouseEnter}
+					data-mention-item
+					data-testid={`mention-item-${id}`}
 					data-mention-id={id}
 					data-mention-name={mentionName}
+					data-selected={selected}
 				>
 					<RowStyle>
 						<AvatarStyle restricted={restricted}>

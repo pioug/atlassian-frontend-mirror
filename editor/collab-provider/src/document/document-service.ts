@@ -73,8 +73,6 @@ export class DocumentService implements DocumentServiceInterface {
 	 * @param enableErrorOnFailedDocumentApply - Enable failed document update exceptions.
 	 * @param getConnected - if the channel is currently connected
 	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		private participantsService: ParticipantsService,
 		private analyticsHelper: AnalyticsHelper | undefined,
@@ -844,8 +842,6 @@ export class DocumentService implements DocumentServiceInterface {
 	 * Send steps from transaction to other participants
 	 * It needs the superfluous arguments because we keep the interface of the send API the same as the Synchrony plugin
 	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	send(
 		_tr: Transaction | null,
 		_oldState: EditorState | null,

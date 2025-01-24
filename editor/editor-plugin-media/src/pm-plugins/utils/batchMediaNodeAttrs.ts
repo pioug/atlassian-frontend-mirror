@@ -31,8 +31,6 @@ import { batchStepsUpdate } from './batchSteps';
  * const debouncedFunction = memoizeDebounce(myFunction, 300, { leading: true }, myResolver);
  * debouncedFunction(arg1, arg2);
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function memoizeDebounce<T extends (...args: Parameters<T>) => ReturnType<T>>(
 	func: T,
 	wait = 0,

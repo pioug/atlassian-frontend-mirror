@@ -50,8 +50,6 @@ export const removeExtraneousColumnWidths = (
 	basePos: number,
 	tr: Transaction,
 	reportInvalidTableCellSpanAttrs?: ReportInvalidNodeAttrs,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean => {
 	let hasProblems = false;
 
@@ -126,8 +124,6 @@ export const fixAutoSizedTable = (
 	tableRef: HTMLTableElement,
 	tablePos: number,
 	opts: { containerWidth: number },
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Transaction => {
 	let { tr } = view.state;
 	const domAtPos = view.domAtPos.bind(view);
@@ -179,8 +175,6 @@ const getLayoutBasedOnWidth = (totalWidth: number) => {
 	}
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function parseDOMColumnWidths(
 	domAtPos: (pos: number) => { node: Node; offset: number },
 	tableNode: PMNode,
@@ -220,8 +214,6 @@ const replaceCells = (
 	table: PMNode,
 	tablePos: number,
 	modifyCell: (cell: PMNode, rowIndex: number, colIndex: number) => PMNode,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Transaction => {
 	const rows: PMNode[] = [];
 	let modifiedCells = 0;

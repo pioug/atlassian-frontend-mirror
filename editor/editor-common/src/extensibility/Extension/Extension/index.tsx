@@ -78,6 +78,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 		showUpdatedLivePages1PBodiedExtensionUI,
 		showBodiedExtensionRendererView,
 		setShowBodiedExtensionRendererView,
+		pluginInjectionApi,
 	} = props;
 
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
@@ -189,6 +190,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 					showUpdatedLivePages1PBodiedExtensionUI={showUpdatedLivePages1PBodiedExtensionUI}
 					showBodiedExtensionRendererView={showBodiedExtensionRendererView}
 					setShowBodiedExtensionRendererView={setShowBodiedExtensionRendererView}
+					pluginInjectionApi={pluginInjectionApi}
 				/>
 			)}
 			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
@@ -229,6 +231,7 @@ function ExtensionWithPluginState(props: ExtensionWithPluginStateProps) {
 								isNodeSelected={isNodeSelected}
 								node={node}
 								showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+								pluginInjectionApi={pluginInjectionApi}
 							/>
 						)}
 						{children}

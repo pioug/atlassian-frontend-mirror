@@ -9,8 +9,6 @@ import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 export const isLeftCursor = (side: Side): side is Side.LEFT => side === Side.LEFT;
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function getMediaNearPos(
 	doc: PMNode,
 	$pos: ResolvedPos,
@@ -47,8 +45,6 @@ export function getMediaNearPos(
 	return null;
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export const isTextBlockNearPos = (doc: PMNode, schema: Schema, $pos: ResolvedPos, dir: number) => {
 	let $currentPos = $pos;
 	let currentNode: PMNode | null | undefined =

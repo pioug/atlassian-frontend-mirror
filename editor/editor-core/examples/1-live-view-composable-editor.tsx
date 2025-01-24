@@ -2,7 +2,11 @@ import React from 'react';
 
 import { IntlProvider } from 'react-intl-next';
 
-import { EditorExampleControls, getExamplesProviders } from '@af/editor-examples-helpers/utils';
+import {
+	EditorExampleControls,
+	getExamplesProviders,
+	useEditorAndRendererAnnotationProviders,
+} from '@af/editor-examples-helpers/utils';
 import type { EditorAppearance } from '@atlaskit/editor-common/types';
 import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
 import { EditorContext } from '@atlaskit/editor-core/editor-context';
@@ -38,6 +42,7 @@ function ComposableEditorPage() {
 	const [appearance, setAppearance] = React.useState<EditorAppearance>('full-page');
 	const providers = getExamplesProviders({});
 
+	const editorAndRendererAnnotationProviders = useEditorAndRendererAnnotationProviders();
 	const universalPreset = useUniversalPreset({
 		props: {
 			appearance,
@@ -85,6 +90,9 @@ function ComposableEditorPage() {
 			allowRule: true,
 			allowPanel: { allowCustomPanel: true, allowCustomPanelEdit: true },
 			allowFindReplace: true,
+			annotationProviders: {
+				inlineComment: editorAndRendererAnnotationProviders.editorAnnotationProviders.inlineComment,
+			},
 			media: {
 				provider: providers.mediaProvider,
 				allowMediaSingle: true,

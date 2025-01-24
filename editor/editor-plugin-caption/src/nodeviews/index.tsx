@@ -24,8 +24,6 @@ export class CaptionNodeView extends SelectionBasedNodeView {
 	private cleanupEditorDisabledListener?: () => void;
 	pluginInjectionApi?: ExtractInjectionAPI<CaptionPlugin>;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: PMNode,
 		view: EditorView,

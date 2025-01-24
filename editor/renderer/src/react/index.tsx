@@ -285,8 +285,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		}
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	serializeFragment(
 		fragment: Fragment,
 		// Ignored via go/ees005
@@ -461,8 +459,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		return renderTextSegments(segments, this.textHighlighter, mark.marks, startPos);
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	private renderNode(
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -484,8 +480,6 @@ export default class ReactSerializer implements Serializer<JSX.Element> {
 		);
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	private renderMark(
 		// Ignored via go/ees005
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

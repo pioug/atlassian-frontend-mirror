@@ -85,8 +85,6 @@ function createEditorExampleForTests() {
 		baseDuration: number,
 		startTime: number,
 		commitTime: number,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const entry: LibraReactPerformanceEntry = {
 			id,

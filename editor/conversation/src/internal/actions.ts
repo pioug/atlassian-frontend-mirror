@@ -37,8 +37,6 @@ export const addComment =
 		localId: string | undefined = undefined,
 		provider: ResourceProvider,
 		onSuccess?: SuccessHandler,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	async () => {
 		const { commentId } = await provider.addComment(conversationId, parentId, value, localId);
@@ -57,8 +55,6 @@ export const updateComment =
 		value: any,
 		provider: ResourceProvider,
 		onSuccess?: SuccessHandler,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	async () => {
 		await provider.updateComment(conversationId, commentId, value);
@@ -74,8 +70,6 @@ export const deleteComment =
 		commentId: string,
 		provider: ResourceProvider,
 		onSuccess?: SuccessHandler,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	async () => {
 		await provider.deleteComment(conversationId, commentId);
@@ -111,8 +105,6 @@ export const createConversation =
 		objectId: string,
 		containerId?: string,
 		onSuccess?: SuccessHandler,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	async () => {
 		const { conversationId } = await provider.create(localId, value, meta, objectId, containerId);
@@ -136,8 +128,6 @@ export const saveDraft =
 		provider: ResourceProvider,
 		objectId: string,
 		containerId?: string,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	// Ignored via go/ees005
 	// eslint-disable-next-line require-await

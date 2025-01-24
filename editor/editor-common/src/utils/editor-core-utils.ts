@@ -119,8 +119,6 @@ export const isInLayoutColumn = (state: EditorState): boolean => {
 	return hasParentNodeOfType(state.schema.nodes.layoutSection)(state.selection);
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function filterChildrenBetween(
 	doc: Node,
 	from: number,

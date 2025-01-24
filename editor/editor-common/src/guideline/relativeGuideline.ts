@@ -15,8 +15,6 @@ const getWidthRelativeGuideline = (
 	editorWidth: number,
 	topOffset: number,
 	size?: { width: number; height: number },
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): GuidelineConfig | null => {
 	const { node, pos } = nodeWithPos;
 
@@ -78,8 +76,6 @@ const getHeightRelativeGuideline = (
 	editorWidth: number,
 	topOffset: number,
 	size?: { width: number; height: number },
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): GuidelineConfig | null => {
 	const { node, pos } = nodeWithPos;
 	const { height: viewHeight } = view.dom.getBoundingClientRect();
@@ -158,8 +154,6 @@ export const getRelativeGuidelines = (
 	editorWidth: number,
 	topOffset: number,
 	size: { width: number; height: number },
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const matchWidth = relativeGuides.width ? relativeGuides.width[Math.round(size.width)] : [];
 	const matchHeight = relativeGuides.height ? relativeGuides.height[Math.round(size.height)] : [];

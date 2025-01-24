@@ -83,8 +83,6 @@ export const isOutOfSync = (
 	currentVersion: number,
 	steps: StepJson[],
 	clientId: string | number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean =>
 	// If version number hasn't increased, and steps are not from our client, we're out of sync
 	Boolean(fromVersion >= currentVersion && steps.some((step) => step.clientId !== clientId));

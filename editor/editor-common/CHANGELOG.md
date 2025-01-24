@@ -1,5 +1,21 @@
 # @atlaskit/editor-common
 
+## 99.5.2
+
+### Patch Changes
+
+- [#104604](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104604)
+  [`a2def4bdb8513`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a2def4bdb8513) -
+  [ED-26055] Patch getPageElementCounts to not return false positives for unexpectedlyNestedTables
+
+## 99.5.1
+
+### Patch Changes
+
+- [#104870](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104870)
+  [`79e0bedfbaf1f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/79e0bedfbaf1f) -
+  EDF-2202 copy ai-proactive from editor-plugin-ai to editor-plugin-ai-proactive
+
 ## 99.5.0
 
 ### Minor Changes

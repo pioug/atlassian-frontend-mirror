@@ -193,8 +193,6 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 			_direction: ResizeDirection,
 			_elementRef: HTMLDivElement,
 			delta: Dimensions,
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 		) => {
 			if (!handleResize) {
 				return;
@@ -221,8 +219,6 @@ const ResizerNext: ForwardRefRenderFunction<forwardRefType, PropsWithChildren<Re
 			_direction: ResizeDirection,
 			_elementRef: HTMLElement,
 			delta: Dimensions,
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 		) => {
 			const resizableCurrent = resizable.current;
 			if (!resizableCurrent || !resizableCurrent.state.original) {

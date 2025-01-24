@@ -1,7 +1,5 @@
 /* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function bind(
 	target: typeof window,
 	event: AbortEvent,

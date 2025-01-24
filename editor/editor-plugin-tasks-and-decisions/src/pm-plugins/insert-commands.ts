@@ -59,8 +59,6 @@ const generateAnalyticsPayload = (
 	listLocalId: string,
 	itemIdx: number,
 	listSize: number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): AnalyticsEventPayload => {
 	let containerId;
 	let objectId;
@@ -122,8 +120,6 @@ export const insertTaskDecisionAction =
 		listLocalId?: string,
 		itemLocalId?: string,
 		itemAttrs?: AddItemAttrs,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Transaction => {
 		const { schema } = state;
 		const addAndCreateList = ({
@@ -193,8 +189,6 @@ export const insertTaskDecisionCommand =
 		addItem?: AddItemTransactionCreator,
 		listLocalId?: string,
 		itemLocalId?: string,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		const tr = insertTaskDecisionAction(editorAnalyticsAPI, getContextIdentifierProvider)(
@@ -225,8 +219,6 @@ export const insertTaskDecisionWithAnalytics =
 		listLocalId?: string,
 		itemLocalId?: string,
 		itemAttrs?: AddItemAttrs,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Transaction | null => {
 		const { schema } = state;
 		const { list, item } = getListTypes(listType, schema);
@@ -305,8 +297,6 @@ export const createListAtSelection = (
 	listLocalId = uuid.generate(),
 	itemLocalId = uuid.generate(),
 	itemAttrs?: AddItemAttrs,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Transaction | null => {
 	const { selection } = state;
 	const { $from, $to } = selection;

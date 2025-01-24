@@ -98,8 +98,6 @@ export const createPlugin = (
 	shouldUseIncreasedScalingPercent?: boolean,
 	isCommentEditor?: boolean,
 	isChromelessEditor?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const state = createPluginState(dispatch, {
 		pluginConfig,
@@ -355,8 +353,6 @@ export const createPlugin = (
 				const maybeTr = closestElement(domRef as HTMLElement | undefined, 'tr');
 				return maybeTr ? maybeTr.classList.contains('sticky') : false;
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			handleTextInput: (view, _from, _to, text) => {
 				const { state, dispatch } = view;
 				const { isKeyboardResize } = getPluginState(state);

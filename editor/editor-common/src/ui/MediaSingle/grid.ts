@@ -48,8 +48,6 @@ export const calcPctWidth = (
 	pctWidth?: number,
 	origWidth?: number,
 	origHeight?: number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): number | undefined =>
 	pctWidth &&
 	origWidth &&
@@ -121,8 +119,6 @@ export const snapToGrid = (
 	height: number,
 	lineLength: number,
 	gridSize: number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const pxWidth = calcPxFromPct(gridWidth / 100, lineLength);
 

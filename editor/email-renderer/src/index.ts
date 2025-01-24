@@ -27,8 +27,6 @@ const serializeNode = (
 	parent?: PMNode,
 	serializedHTML?: string,
 	context?: MetaDataContext,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): string => {
 	// ignore nodes with unknown type
 	if (!nodeSerializers[node.type.name]) {

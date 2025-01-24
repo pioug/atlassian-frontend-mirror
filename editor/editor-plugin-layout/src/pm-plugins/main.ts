@@ -108,8 +108,6 @@ export default (options: LayoutPluginOptions) =>
 		state: {
 			init: (_, state): LayoutState => getInitialPluginState(options, state),
 
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply: (tr, pluginState, _oldState, newState) => {
 				if (tr.docChanged || tr.selectionSet) {
 					const maybeLayoutSection = getMaybeLayoutSection(newState);

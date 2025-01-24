@@ -25,8 +25,6 @@ const rawContentProcessor = (
 	length: number,
 	schema: Schema,
 	context: Context,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Token => {
 	const output: PMNode[] = [];
 	const parsedAttrs = parseAttrs(rawAttrs);

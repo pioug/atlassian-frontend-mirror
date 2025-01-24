@@ -363,8 +363,6 @@ const ALL = [
 	shiftEnter,
 ];
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function makeKeymap(
 	description: string,
 	windows: string,

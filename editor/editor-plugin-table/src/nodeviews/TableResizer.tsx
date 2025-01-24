@@ -153,8 +153,6 @@ const getVisibleGuidelines = (
 	lineLength: number,
 	isTableScalingEnabled: boolean,
 	isFullWidthModeEnabled: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	let guidelineVisibleAdjustment = TABLE_GUIDELINE_VISIBLE_ADJUSTMENT;
 	if (isTableScalingEnabled) {
@@ -327,8 +325,6 @@ export const TableResizer = ({
 			newWidth: any,
 			state: EditorState,
 			dispatch: ((tr: Transaction) => void) | undefined,
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 		) => {
 			if (
 				shouldChangeAlignmentToCenterResized(isTableAlignmentEnabled, node, lineLength, newWidth) &&

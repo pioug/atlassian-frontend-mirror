@@ -88,7 +88,6 @@ export const nextApplyMarkOnRange = (
 	mark: Mark,
 	tr: Transaction,
 	api: ExtractInjectionAPI<TextFormattingPlugin> | undefined,
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { schema } = tr.doc.type;
 	const { code } = schema.marks;

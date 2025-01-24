@@ -18,8 +18,6 @@ export const lazyMediaView = (
 	providerFactory: ProviderFactory,
 	options: MediaOptions = {},
 	api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): NodeViewConstructor => {
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return ReactMediaNode(portalProviderAPI, eventDispatcher, providerFactory, options, api);

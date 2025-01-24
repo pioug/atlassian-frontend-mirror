@@ -48,8 +48,6 @@ function nodesBetweenChanged(
 	tr.doc.nodesBetween(stepRange.from, stepRange.to, f, startPos);
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function createPlugin(
 	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,
@@ -74,8 +72,6 @@ export function createPlugin(
 				),
 				decisionItem: lazyDecisionView(portalProviderAPI, eventDispatcher, api),
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			handleTextInput(view: EditorView, from: number, to: number, text: string) {
 				// When a decision item is selected and the user starts typing, the entire node
 				// should be replaced with what was just typed. This custom text input handler

@@ -26,8 +26,6 @@ export type ReportFixedTable = ({
 // Helper for iterating through the nodes in a document that changed
 // compared to the given previous document. Useful for avoiding
 // duplicate work on each transaction.
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function changedDescendants(
 	old: Node,
 	cur: Node,
@@ -86,8 +84,6 @@ export function fixTables(
 // : (EditorState, Node, number, ?Transaction) → ?Transaction
 // Fix the given table, if necessary. Will append to the transaction
 // it was given, if non-null, or create a new one if necessary.
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function fixTable(
 	state: EditorState,
 	table: Node,

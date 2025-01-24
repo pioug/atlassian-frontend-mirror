@@ -50,8 +50,6 @@ function sendExtensionQuickInsertAnalytics(
 	}
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export async function extensionProviderToQuickInsertProvider(
 	extensionProvider: ExtensionProvider,
 	editorActions: EditorActions,

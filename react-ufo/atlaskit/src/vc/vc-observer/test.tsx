@@ -135,6 +135,7 @@ describe('vc-observer', () => {
 				98: 5,
 				99: 5,
 			},
+			'vc:next:updates': [{ time: 5, vc: 100, elements: ['body > div'] }],
 			'vc:ignored': [],
 		});
 	});
@@ -246,6 +247,12 @@ describe('vc-observer', () => {
 				98: 20,
 				99: 20,
 			},
+			'vc:next:updates': [
+				{ time: 5, vc: 50, elements: ['div#a'] },
+				{ time: 10, vc: 75, elements: ['div#b'] },
+				{ time: 15, vc: 93.8, elements: ['div#c'] },
+				{ time: 20, vc: 100, elements: ['div#d'] },
+			],
 			'vc:ignored': [],
 		});
 	});
@@ -357,6 +364,11 @@ describe('vc-observer', () => {
 				98: 20,
 				99: 20,
 			},
+			'vc:next:updates': [
+				{ time: 5, vc: 75, elements: ['div#a'] },
+				{ time: 15, vc: 93.8, elements: ['div#c'] },
+				{ time: 20, vc: 100, elements: ['div#d'] },
+			],
 			'vc:ignored': [
 				{
 					targetName: 'div#b',
@@ -473,6 +485,12 @@ describe('vc-observer', () => {
 				98: 20,
 				99: 20,
 			},
+			'vc:next:updates': [
+				{ time: 5, vc: 50, elements: ['div#a'] },
+				{ time: 10, vc: 75, elements: ['div#b'] },
+				{ time: 15, vc: 93.8, elements: ['div#c'] },
+				{ time: 20, vc: 100, elements: ['div#d'] },
+			],
 			'vc:ignored': [],
 		});
 	});
@@ -540,6 +558,7 @@ describe('vc-observer', () => {
 				98: 5,
 				99: 5,
 			},
+			'vc:next:updates': [{ time: 5, vc: 100, elements: ['div#a'] }],
 			'vc:ignored': [],
 		});
 
@@ -605,6 +624,7 @@ describe('vc-observer', () => {
 				98: 10,
 				99: 10,
 			},
+			'vc:next:updates': [{ time: 10, vc: 100, elements: ['div#b'] }],
 			'vc:ignored': [],
 		});
 	});
@@ -675,6 +695,10 @@ describe('vc-observer', () => {
 				98: 10,
 				99: 10,
 			},
+			'vc:next:updates': [
+				{ time: 3, vc: 50, elements: ['SSR'] },
+				{ time: 10, vc: 100, elements: ['div#b'] },
+			],
 			'vc:ignored': [],
 		});
 	});

@@ -1,5 +1,13 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.40.0
+
+### Minor Changes
+
+- [#104916](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104916)
+  [`372f52e24283d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/372f52e24283d) -
+  [ux] EDF-2238 Implemented basic edit response capability in Preview screen.
+
 ## 2.39.0
 
 ### Minor Changes

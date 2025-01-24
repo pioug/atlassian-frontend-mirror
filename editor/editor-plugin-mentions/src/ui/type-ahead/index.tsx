@@ -181,8 +181,6 @@ const buildNodesForTeamMention = (
 	selectedMention: MentionDescription,
 	mentionProvider: MentionProvider,
 	sanitizePrivateContent?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Fragment => {
 	const { nodes, marks } = schema;
 	const { name, id: teamId, accessLevel, context } = selectedMention;
@@ -347,8 +345,6 @@ export const createTypeAheadConfig = ({
 		onOpen: () => {
 			firstQueryWithoutResults = null;
 		},
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 		selectItem(state, item, insert, { mode, stats, query, sourceListItem }) {
 			const { schema } = state;
 

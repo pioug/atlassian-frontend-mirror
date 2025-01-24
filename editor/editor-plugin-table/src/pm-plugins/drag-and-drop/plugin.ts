@@ -37,8 +37,6 @@ const destroyFn = (
 	isTableScalingEnabled: boolean,
 	isTableFixedColumnWidthsOptionEnabled: boolean,
 	isCommentEditor: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const editorPageScrollContainer = document.querySelector('.fabric-editor-popup-scroll-parent');
 
@@ -265,8 +263,6 @@ export const createPlugin = (
 	isTableScalingEnabled = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	isCommentEditor = false,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	return new SafePlugin({
 		state: createPluginState(dispatch, (state) => ({

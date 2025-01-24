@@ -28,8 +28,6 @@ const plugin = new SafePlugin({
 			selectionIsGapCursor: false,
 			displayGapCursor: true,
 		}),
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 		apply: (tr, pluginState, _oldState, newState) => {
 			const meta = tr.getMeta(gapCursorPluginKey);
 			const selectionIsGapCursor = newState.selection instanceof GapCursorSelection;

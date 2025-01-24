@@ -57,8 +57,7 @@ function getCodeBlockRules(
 
 	const validMatchLength = (match: RegExpExecArray) => match.length > 0 && match[0].length === 3;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-unicode-regexp, @typescript-eslint/max-params
+	// eslint-disable-next-line require-unicode-regexp
 	const threeTildeRule = createRule(/(?!\s)(`{3,})$/, (state, match, start, end) => {
 		if (!validMatchLength(match)) {
 			return null;
@@ -87,8 +86,6 @@ function getCodeBlockRules(
 		// Ignored via go/ees005
 		// eslint-disable-next-line require-unicode-regexp
 		new RegExp(`((${leafNodeReplacementCharacter}\`{3,})|^\\s(\`{3,}))(\\S*)$`),
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 		(state, match, start, end) => {
 			if (!validMatchLength(match)) {
 				return null;

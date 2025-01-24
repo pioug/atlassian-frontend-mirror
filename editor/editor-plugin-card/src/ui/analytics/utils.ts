@@ -107,8 +107,6 @@ export const findInNodeRange = (
 	from: number,
 	to: number,
 	predicate: (node: Node) => boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const entities: Entity[] = [];
 

@@ -74,8 +74,6 @@ export const getPropsDifference = <T>(
 	curDepth: number = 0,
 	maxDepth: number = 2,
 	keysToIgnore: Array<keyof T> = [],
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): PropsDifference<T> => {
 	const { added, common, removed } = getKeysAddedRemovedCommon(object1, object2);
 

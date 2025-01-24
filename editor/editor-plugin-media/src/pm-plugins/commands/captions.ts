@@ -71,8 +71,6 @@ const setSelectionAtEndOfCaption = (
 	mediaSingleNodePos: number,
 	mediaNodeSize: number,
 	captionNodeSize: number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Transaction => {
 	return setTextSelection(mediaSingleNodePos + mediaNodeSize + captionNodeSize)(tr);
 };

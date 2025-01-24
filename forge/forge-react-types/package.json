@@ -46,7 +46,7 @@
 		"@atlaskit/progress-tracker": "9.1.0",
 		"@atlaskit/radio": "^7.0.0",
 		"@atlaskit/range": "^8.0.0",
-		"@atlaskit/renderer": "^112.8.0",
+		"@atlaskit/renderer": "^112.9.0",
 		"@atlaskit/section-message": "^6.8.0",
 		"@atlaskit/select": "^18.9.0",
 		"@atlaskit/spinner": "^16.3.0",

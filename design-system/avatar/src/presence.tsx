@@ -100,7 +100,7 @@ const AvatarPresence: FC<PresenceProps> = ({ borderColor, children, presence }: 
 
 export default AvatarPresence;
 
-export interface PresenceWrapperProps extends PresenceProps {
+interface PresenceWrapperProps extends PresenceProps {
 	appearance: AppearanceType;
 	size: IndicatorSizeType;
 	testId?: string;

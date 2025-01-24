@@ -362,8 +362,6 @@ export const setSelectionInsideAtNodeEnd =
 		node: PmNode,
 		from: number,
 		to: number,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		if (isNodeEmpty(node)) {

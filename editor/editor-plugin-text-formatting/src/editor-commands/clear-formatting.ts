@@ -44,8 +44,6 @@ export function clearFormattingWithAnalytics(
 	return clearFormatting(inputMethod, editorAnalyticsAPI);
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function clearNodeFormattingOnSelection(
 	state: EditorState,
 	tr: Transaction,

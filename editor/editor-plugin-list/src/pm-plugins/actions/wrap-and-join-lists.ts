@@ -78,8 +78,6 @@ export function wrapInList(listType: NodeType, attrs?: Attrs) {
  *
  * Adapted from https://github.com/ProseMirror/prosemirror-schema-list/blob/master/src/schema-list.js#L91-L112
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function doWrapInList(
 	tr: Transaction,
 	range: NodeRange,

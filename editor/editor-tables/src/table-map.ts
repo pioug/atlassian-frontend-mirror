@@ -54,8 +54,6 @@ export class Rect {
 	top: number;
 	right: number;
 	bottom: number;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(left: number, top: number, right: number, bottom: number) {
 		this.left = left;
 		this.top = top;
@@ -134,8 +132,6 @@ export class TableMap {
 	mapByColumn: number[][] = [];
 	mapByRow: number[][] = [];
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		width: number,
 		height: number,

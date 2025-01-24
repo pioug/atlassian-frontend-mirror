@@ -1,5 +1,13 @@
 # @atlaskit/help
 
+## 7.13.3
+
+### Patch Changes
+
+- [#105756](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105756)
+  [`1151bcad0025a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1151bcad0025a) -
+  [ux] refactoring placement of footer in IPH
+
 ## 7.13.2
 
 ### Patch Changes

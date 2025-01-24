@@ -319,8 +319,6 @@ const unsupportedMarkContent = (
 	mark: ADFEntityMark,
 	errorCallback?: ErrorCallback,
 	errorMessage?: string,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const message = errorMessage || errorMessageFor(mark.type, 'unsupported mark');
 	if (!errorCallback) {
@@ -348,8 +346,6 @@ const unsupportedNodeAttributesContent = (
 	invalidAttributes: ADFEntity['attrs'],
 	message: string,
 	errorCallback?: ErrorCallback,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (!errorCallback) {
 		throw new Error(message);
@@ -378,8 +374,6 @@ export function validator(
 ) {
 	const validatorSpecs = createSpec(nodes, marks);
 	const { mode = 'strict', allowPrivateAttributes = false } = options || {};
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	const validate: Validate = (entity, errorCallback, allowed, parentSpec) => {
 		const validationResult = validateNode(entity, errorCallback, allowed, parentSpec);
 		return { entity: validationResult.entity, valid: validationResult.valid };
@@ -390,8 +384,6 @@ export function validator(
 		allowed?: Content,
 		parentSpec?: ValidatorSpec,
 		isMark: boolean = false,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): NodeValidationResult => {
 		const { type } = entity;
 		const newEntity: ADFEntity = { ...entity };
@@ -446,8 +438,6 @@ export function validator(
 
 	return validate;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	function marksValidationFor(
 		validator: ValidatorSpec,
 		entity: ADFEntity,
@@ -490,8 +480,6 @@ export function validator(
 		};
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	function marksAfterValidation(
 		entity: ADFEntity,
 		errorCallback: ErrorCallback | undefined,
@@ -545,8 +533,6 @@ export function validator(
 		return marksSet;
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	function marksForEntitySpecNotSupportingMarks(
 		prevEntity: ADFEntity,
 		newEntity: ADFEntity,
@@ -671,8 +657,6 @@ export function validator(
 		return { invalidAttrs, validatorAttrs };
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	function attributesValidationFor(
 		validatorSpec: ValidatorSpec,
 		prevEntity: ADFEntity,
@@ -742,8 +726,6 @@ export function validator(
 		};
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	function handleUnsupportedNodeAttributes(
 		prevEntity: ADFEntity,
 		newEntity: ADFEntity,
@@ -816,8 +798,6 @@ export function validator(
 		};
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	function wrapUnSupportedNodeAttributes(
 		prevEntity: ADFEntity,
 		newEntity: ADFEntity,
@@ -865,8 +845,6 @@ export function validator(
 		}
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	function extraPropsValidationFor(
 		validatorSpec: ValidatorSpec,
 		prevEntity: ADFEntity,
@@ -902,8 +880,6 @@ export function validator(
 		return result;
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	function specBasedValidationFor(
 		spec: ValidatorSpec,
 		// Ignored via go/ees005
@@ -1045,8 +1021,6 @@ export function validator(
 						errorCallback: ErrorCallback | undefined,
 						isLastValidationSpec: boolean,
 						isParentTupleLike: boolean = false,
-						// Ignored via go/ees005
-						// eslint-disable-next-line @typescript-eslint/max-params
 					) => {
 						let marksAreValid = true;
 						if (childEntity && childEntity.marks && marksValidationOutput) {

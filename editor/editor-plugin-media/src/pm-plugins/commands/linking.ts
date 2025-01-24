@@ -104,8 +104,6 @@ export const hideLinkingToolbar = (
 	dispatch?: CommandDispatch,
 	view?: EditorView,
 	focusFloatingToolbar?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	hideLinkingToolbarCommand(state, dispatch, view);
 
@@ -230,8 +228,6 @@ const fireAnalyticForMediaLink = <T extends MediaLinkAEP>(
 	action: T['action'],
 	attributes: T['attributes'] = undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	editorAnalyticsAPI?.attachAnalyticsEvent({
 		action,

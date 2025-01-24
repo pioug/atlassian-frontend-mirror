@@ -6,6 +6,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import styled from '@emotion/styled';
 import { token } from '@atlaskit/tokens';
+import * as colors from '@atlaskit/theme/colors';
 
 type HelpBodyProps = {
 	isOverlayVisible?: boolean;
@@ -21,7 +22,7 @@ export const HelpBodyContainer = styled.div<HelpBodyProps>({
 	display: 'flex',
 	flexDirection: 'column',
 	flexWrap: 'nowrap',
-	justifyContent: 'flex-start',
+	justifyContent: 'space-between',
 	alignContent: 'stretch',
 	alignItems: 'flex-start',
 });
@@ -53,3 +54,15 @@ export const Home = styled.div<HomeProps>((props) => ({
 	padding: token('space.200', '16px'),
 	boxSizing: 'border-box',
 }));
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const HelpFooter = styled.div({
+	padding: `${token('space.100', '8px')} 0`,
+	boxSizing: 'border-box',
+	width: '100%',
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	backgroundColor: token('color.background.neutral', colors.N10),
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	borderTop: `${token('space.025', '2px')} solid ${token('color.border', colors.N30)}`,
+	justifyContent: 'space-between',
+});

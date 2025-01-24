@@ -13,8 +13,6 @@ const hasUnsupportedMarks = (
 	start: number,
 	end: number,
 	marksNameUnsupported: string[],
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const isUnsupportedMark = (node: PMMark) => (marksNameUnsupported || []).includes(node.type.name);
 

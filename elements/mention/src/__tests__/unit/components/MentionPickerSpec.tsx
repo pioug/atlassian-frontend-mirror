@@ -1,90 +1,102 @@
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
-// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { MockMentionResource } from '@atlaskit/util-data-test/mock-mention-resource';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { mentionTestResult as mentions } from '@atlaskit/util-data-test/mention-test-data';
-import { type ReactWrapper } from 'enzyme';
 import React from 'react';
-import { type HttpError } from '../../../api/MentionResource';
-import MentionItem from '../../../components/MentionItem';
-import MentionList from '../../../components/MentionList';
-import MentionListError from '../../../components/MentionListError';
 import MentionPicker, {
 	type OnClose,
 	type OnOpen,
 	type Props,
-	type State,
 } from '../../../components/MentionPicker';
-import { type MentionDescription } from '../../../types';
-import { getMentionItemById, isMentionItemSelected } from '../_test-helpers';
 import * as Analytics from '../../../util/analytics';
+import { screen, render, act, waitFor } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
+import userEvent from '@testing-library/user-event';
 
 const MAX_NOTIFIED_ITEMS = 20;
 
-function setupPicker(props?: Props): ReactWrapper<Props, State> {
+type RenderHelperProps = {
+	props?: Props;
+	renderInternal: ReturnType<typeof render>;
+	resourceProvider: MockMentionResource;
+};
+
+type PropsWithoutResource = Omit<Props, 'resourceProvider'>;
+const setupPicker = (
+	props?: PropsWithoutResource,
+	ref?: React.RefObject<MentionPicker>,
+): RenderHelperProps => {
 	const resourceProvider = new MockMentionResource({
 		minWait: 0,
 		maxWait: 0,
 	});
-	return mountWithIntl(
-		<MentionPicker resourceProvider={resourceProvider} query="" {...props} />,
-	) as ReactWrapper<Props, State>;
-}
-
-function getMentionPicker(component: ReactWrapper<Props, State>): MentionPicker {
-	const mentionPicker = component.find('MentionPicker');
-	return mentionPicker.instance() as MentionPicker;
-}
-
-const leftClick = {
-	button: 0,
+	return {
+		renderInternal: render(
+			<IntlProvider locale="en">
+				<MentionPicker resourceProvider={resourceProvider} query="" {...props} ref={ref} />
+			</IntlProvider>,
+		),
+		resourceProvider,
+	};
 };
 
-function createDefaultMentionItemsShowTest(mentionsComponent: ReactWrapper<Props, State>) {
-	return () =>
-		mentionsComponent.update() && mentionsComponent.find(MentionItem).length === MAX_NOTIFIED_ITEMS;
-}
+const reRenderPicker = (renderHelper: RenderHelperProps, props?: PropsWithoutResource): void => {
+	renderHelper.renderInternal.rerender(
+		<IntlProvider locale="en">
+			<MentionPicker resourceProvider={renderHelper.resourceProvider} query="" {...props} />
+		</IntlProvider>,
+	);
+};
 
-function createNoMentionItemsShownTest(mentionsComponent: ReactWrapper<Props, State>) {
-	return () => mentionsComponent.update() && mentionsComponent.find(MentionItem).length === 0;
-}
+const hasNoItems = async (renderHelper: RenderHelperProps) => {
+	return await waitFor(async () => {
+		expect(
+			renderHelper.renderInternal.container.querySelectorAll(`[data-mention-item]`),
+		).toHaveLength(0);
+	});
+};
 
-function createMentionErrorShownTest(mentionsComponent: ReactWrapper<Props, State>) {
-	return () => mentionsComponent.update() && mentionsComponent.find(MentionListError).length > 0;
-}
+const hasSomeItems = async (renderHelper: RenderHelperProps) => {
+	return await waitFor(async () => {
+		expect(
+			renderHelper.renderInternal.container.querySelectorAll(`[data-mention-item]`),
+		).not.toHaveLength(0);
+	});
+};
 
-function hasExpectedItems(mentionsComponent: ReactWrapper<Props, State>, numItems: number) {
-	return () =>
-		mentionsComponent.update() && mentionsComponent.find(MentionItem).length === numItems;
-}
+const hasExpectedItems = async (renderHelper: RenderHelperProps, numItems: number) => {
+	return await waitFor(async () => {
+		expect(
+			renderHelper.renderInternal.container.querySelectorAll(`[data-mention-item]`),
+		).toHaveLength(numItems);
+	});
+};
+
+const hasSelectedMentionById = async (renderHelper: RenderHelperProps, mentionId: string) => {
+	return await waitFor(async () => {
+		const mentionById = renderHelper.renderInternal.container.querySelector(
+			`[data-mention-id="${mentionId}"]`,
+		);
+		expect(mentionById?.getAttribute('data-selected')).toEqual('true');
+	});
+};
+
 // TODO: After updating to expect.hasAssertions(), it identified some tests that are not correctly written.
 // Please refer to: https://product-fabric.atlassian.net/browse/FS-4183
 describe('MentionPicker', () => {
-	it('should provide the ref back', () => {
-		const refHandler = jest.fn();
-		// @ts-expect-error ref is not in component's props list as React supports it out of the box
-		const component = setupPicker({ ref: refHandler });
-		expect(component).toBeDefined();
-		expect(refHandler).toHaveBeenCalledTimes(1);
-		expect(refHandler).not.toHaveBeenCalledWith(undefined);
-	});
-
-	it('should accept all mention names by default', () => {
+	it('should accept all mention names by default', async () => {
 		const component = setupPicker();
 		expect(component).toBeDefined();
-		return waitUntil(hasExpectedItems(component, MAX_NOTIFIED_ITEMS));
+		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
 	});
 
-	it('should accept limit result to starting with s', () => {
+	it('should accept limit result to starting with s', async () => {
 		const component = setupPicker({
 			query: 's',
 		} as Props);
 		expect(component).toBeDefined();
-		return waitUntil(hasExpectedItems(component, 6));
+		await hasExpectedItems(component, 6);
 	});
 
 	it('should fire SLI analytcs after search', async () => {
@@ -94,245 +106,215 @@ describe('MentionPicker', () => {
 		} as Props);
 		expect(component).toBeDefined();
 
-		await waitUntil(hasExpectedItems(component, 6));
+		await hasExpectedItems(component, 6);
 		expect(analytics).toHaveBeenCalledTimes(1);
 	});
 
-	it('should accept limit result to starting with shae', () => {
+	it('should accept limit result to starting with shae', async () => {
 		const component = setupPicker({
 			query: 'shae',
 		} as Props);
 		expect(component).toBeDefined();
-		return waitUntil(hasExpectedItems(component, 1));
+		await hasExpectedItems(component, 1);
 	});
 
-	it('should report error when service fails', () => {
+	it('should report error when service fails', async () => {
 		const component = setupPicker();
 		expect(component).toBeDefined();
-		return waitUntil(createDefaultMentionItemsShowTest(component))
-			.then(() => {
-				component.setProps({ query: 'nothing' });
-				return waitUntil(createNoMentionItemsShownTest(component));
-			})
-			.then(() => {
-				component.setProps({ query: 'error' });
-				return waitUntil(createMentionErrorShownTest(component));
-			});
+
+		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
+		reRenderPicker(component, { query: 'nothing' });
+		await hasSomeItems(component);
+		reRenderPicker(component, { query: 'error' });
+		await hasNoItems(component);
 	});
 
-	it('should display particular message for 401 HTTP response', () => {
+	it('should display particular message for 401 HTTP response', async () => {
 		const component = setupPicker();
 
-		return waitUntil(createDefaultMentionItemsShowTest(component))
-			.then(() => {
-				component.setProps({ query: 'nothing' });
-				return waitUntil(createNoMentionItemsShownTest(component));
-			})
-			.then(() => {
-				component.setProps({ query: '401' });
-				return waitUntil(createMentionErrorShownTest(component)).then(() => {
-					let errorMention = component.find(MentionListError);
-					let err = errorMention.prop('error') as HttpError;
-					expect(err.statusCode).toEqual(401);
-					expect(errorMention.text()).toContain('logging out');
-				});
-			});
+		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
+		reRenderPicker(component, { query: 'nothing' });
+		await hasSomeItems(component);
+		reRenderPicker(component, { query: '401' });
+		await hasNoItems(component);
+
+		expect(await screen.findByText('Try logging out then in again')).toBeInTheDocument();
 	});
 
-	it('should display particular message for 403 HTTP response', () => {
+	it('should display particular message for 403 HTTP response', async () => {
 		const component = setupPicker();
-		expect(component).toBeDefined();
-		return waitUntil(createDefaultMentionItemsShowTest(component))
-			.then(() => {
-				component.setProps({ query: 'nothing' });
-				return waitUntil(createNoMentionItemsShownTest(component));
-			})
-			.then(() => {
-				component.setProps({ query: '403' });
-				return waitUntil(createMentionErrorShownTest(component)).then(() => {
-					let errorMention = component.find(MentionListError);
-					let err = errorMention.prop('error') as HttpError;
-					expect(err.statusCode).toEqual(403);
-					expect(errorMention.text()).toContain('different text');
-				});
-			});
+
+		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
+		reRenderPicker(component, { query: 'nothing' });
+		await hasSomeItems(component);
+		reRenderPicker(component, { query: '403' });
+		await hasNoItems(component);
+
+		expect(await screen.findByText('Try entering different text')).toBeInTheDocument();
 	});
 
-	it('should display previous mention if error straight after', () => {
+	it('should display previous mention if error straight after', async () => {
 		const component = setupPicker();
-		expect(component).toBeDefined();
-		const defaultMentionItemsShowTest = () => createDefaultMentionItemsShowTest(component);
-		const mentionErrorProcessed = () => {
-			component.update();
-			const mentionList = component.find(MentionList);
-			return mentionList.prop('resourceError');
-		};
-
-		return waitUntil(defaultMentionItemsShowTest)
-			.then(() => {
-				component.setProps({ query: 'error' });
-				return waitUntil(() => mentionErrorProcessed());
-			})
-			.then(() => waitUntil(defaultMentionItemsShowTest));
+		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
+		reRenderPicker(component, { query: 'shae' });
+		await hasExpectedItems(component, 1);
+		reRenderPicker(component, { query: 'error' });
+		await hasExpectedItems(component, 1);
 	});
 
-	it('should change selection when navigating next', () => {
-		const component = setupPicker();
-		expect(component).toBeDefined();
-		const secondItemSelected = () => isMentionItemSelected(component, mentions[1].id);
+	it('should change selection when navigating next', async () => {
+		const ref = React.createRef<MentionPicker>();
+		const component = setupPicker(undefined, ref);
 
-		return waitUntil(createDefaultMentionItemsShowTest(component)).then(() => {
-			const mentionPicker = getMentionPicker(component);
-			mentionPicker.selectNext();
-			component.update();
-			return waitUntil(secondItemSelected);
-		});
+		await hasSelectedMentionById(component, mentions[0].id);
+
+		act(() => ref.current?.selectNext());
+		await hasSelectedMentionById(component, mentions[1].id);
 	});
 
-	it('should change selection when selectIndex called', () => {
-		const component = setupPicker();
-		expect(component).toBeDefined();
-		const thirdItemSelected = () => isMentionItemSelected(component, mentions[2].id);
+	it('should change selection when selectIndex called', async () => {
+		const ref = React.createRef<MentionPicker>();
+		const component = setupPicker(undefined, ref);
 
-		return waitUntil(createDefaultMentionItemsShowTest(component)).then(() => {
-			const mentionPicker = getMentionPicker(component);
-			mentionPicker.selectIndex(2);
-			component.update();
-			return waitUntil(thirdItemSelected);
-		});
+		await hasSelectedMentionById(component, mentions[0].id);
+
+		act(() => ref.current?.selectIndex(2));
+		await hasSelectedMentionById(component, mentions[2].id);
 	});
 
-	it('should change selection when selectId called', () => {
-		const component = setupPicker();
-		expect(component).toBeDefined();
-		const thirdItemSelected = () => isMentionItemSelected(component, mentions[2].id);
+	it('should change selection when selectId called', async () => {
+		const ref = React.createRef<MentionPicker>();
+		const component = setupPicker(undefined, ref);
 
-		return waitUntil(createDefaultMentionItemsShowTest(component)).then(() => {
-			const mentionPicker = getMentionPicker(component);
-			mentionPicker.selectId(mentions[2].id);
-			component.update();
-			return waitUntil(thirdItemSelected);
-		});
+		await hasSelectedMentionById(component, mentions[0].id);
+
+		act(() => ref.current?.selectId(mentions[2].id));
+		await hasSelectedMentionById(component, mentions[2].id);
 	});
 
-	it('should change selection when navigating previous', () => {
-		const component = setupPicker();
-		expect(component).toBeDefined();
-		const lastItemSelected = () =>
-			isMentionItemSelected(component, mentions[MAX_NOTIFIED_ITEMS - 1].id);
+	it('should change selection when navigating previous', async () => {
+		const ref = React.createRef<MentionPicker>();
+		const component = setupPicker(undefined, ref);
 
-		return waitUntil(createDefaultMentionItemsShowTest(component)).then(() => {
-			const mentionPicker = getMentionPicker(component);
-			mentionPicker.selectPrevious();
-			component.update();
-			return waitUntil(lastItemSelected);
-		});
+		await hasSelectedMentionById(component, mentions[0].id);
+
+		act(() => ref.current?.selectNext());
+		await hasSelectedMentionById(component, mentions[1].id);
+
+		act(() => ref.current?.selectPrevious());
+		await hasSelectedMentionById(component, mentions[0].id);
 	});
 
-	it('should choose current selection when chooseCurrentSelection called', () => {
-		let chosenMention: MentionDescription;
+	it('should choose current selection when chooseCurrentSelection called', async () => {
+		const spy = jest.fn();
 
-		const component = setupPicker({
-			onSelection: (mention) => {
-				chosenMention = mention;
+		const ref = React.createRef<MentionPicker>();
+		const component = setupPicker(
+			{
+				onSelection: spy,
 			},
-		} as Props);
-		expect(component).toBeDefined();
-		const secondItemSelected = () => isMentionItemSelected(component, mentions[1].id);
-		const chooseSecondItem = () => chosenMention && chosenMention.id === mentions[1].id;
+			ref,
+		);
 
-		return waitUntil(createDefaultMentionItemsShowTest(component))
-			.then(() => {
-				const mentionPicker = getMentionPicker(component);
-				mentionPicker.selectNext();
-				component.update();
-				return waitUntil(secondItemSelected);
-			})
-			.then(() => {
-				const mentionPicker = getMentionPicker(component);
-				mentionPicker.chooseCurrentSelection();
-				component.update();
-				return waitUntil(chooseSecondItem);
-			});
+		await hasSelectedMentionById(component, mentions[0].id);
+
+		act(() => ref.current?.selectIndex(2));
+		await hasSelectedMentionById(component, mentions[2].id);
+
+		act(() => ref.current?.chooseCurrentSelection());
+		expect(spy).toHaveBeenCalled();
+		expect(spy).toHaveBeenLastCalledWith(mentions[2]);
 	});
 
-	it('should choose clicked selection when item clicked', () => {
-		let chosenMention: MentionDescription;
+	it('should choose clicked selection when item clicked', async () => {
+		const user = userEvent.setup();
+		const spy = jest.fn();
 
-		const component = setupPicker({
-			onSelection: (mention) => {
-				chosenMention = mention;
+		const ref = React.createRef<MentionPicker>();
+		const component = setupPicker(
+			{
+				onSelection: spy,
 			},
-		} as Props);
-		expect(component).toBeDefined();
-		const chooseThirdItem = () => chosenMention && chosenMention.id === mentions[2].id;
+			ref,
+		);
+		await hasSelectedMentionById(component, mentions[0].id);
 
-		return waitUntil(createDefaultMentionItemsShowTest(component)).then(() => {
-			const item = getMentionItemById(component, mentions[2].id);
-			item.simulate('mousedown', leftClick);
-			return waitUntil(chooseThirdItem);
+		act(() => ref.current?.selectIndex(2));
+		await hasSelectedMentionById(component, mentions[2].id);
+
+		await waitFor(async () => {
+			const trigger = screen.getByTestId(`mention-item-${mentions[1].id}`);
+			await user.click(trigger);
 		});
+
+		expect(spy).toHaveBeenCalled();
+		expect(spy).toHaveBeenLastCalledWith(mentions[1]);
 	});
 
-	it('should fire onOpen when first result shown', () => {
+	it('should fire onOpen when first result shown', async () => {
 		const onOpen = jest.fn();
 		const onClose = jest.fn();
 
 		const component = setupPicker({
 			onOpen: onOpen as OnOpen,
 			onClose: onClose as OnClose,
-		} as Props);
-
-		return waitUntil(createDefaultMentionItemsShowTest(component)).then(() => {
-			expect(onOpen).toHaveBeenCalledTimes(1);
-			expect(onClose).toHaveBeenCalledTimes(0);
 		});
+
+		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
+		expect(onOpen).toHaveBeenCalledTimes(1);
+		expect(onClose).toHaveBeenCalledTimes(0);
 	});
 
-	it('should fire onClose when no matches', () => {
+	it('should fire onClose when no matches', async () => {
 		const onOpen = jest.fn();
 		const onClose = jest.fn();
 
 		const component = setupPicker({
-			onOpen: onOpen as OnOpen,
-			onClose: onClose as OnClose,
-		} as Props);
+			onOpen: onOpen,
+			onClose: onClose,
+		});
+		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
+		expect(onOpen).toHaveBeenCalledTimes(1);
+		expect(onClose).toHaveBeenCalledTimes(0);
 
-		return waitUntil(createDefaultMentionItemsShowTest(component))
-			.then(() => {
-				expect(onOpen).toHaveBeenCalledTimes(1);
-				expect(onClose).toHaveBeenCalledTimes(0);
-				component.setProps({ query: 'nothing' });
-				return waitUntil(hasExpectedItems(component, 0));
-			})
-			.then(() => {
-				expect(onOpen).toHaveBeenCalledTimes(1);
-				expect(onClose).toHaveBeenCalledTimes(1);
-			});
+		reRenderPicker(component, {
+			onOpen: onOpen,
+			onClose: onClose,
+			query: 'nothing',
+		});
+		await hasNoItems(component);
+
+		expect(onOpen).toHaveBeenCalledTimes(1);
+		expect(onClose).toHaveBeenCalledTimes(1);
 	});
 
-	it('should fire onOpen when error to display', () => {
+	it('should fire onOpen when error to display', async () => {
 		const onOpen = jest.fn();
 		const onClose = jest.fn();
 
 		const component = setupPicker({
+			onOpen: onOpen,
+			onClose: onClose,
+		});
+		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
+
+		reRenderPicker(component, {
+			onOpen: onOpen,
+			onClose: onClose,
 			query: 'error',
-			onOpen: onOpen as OnOpen,
-			onClose: onClose as OnClose,
-		} as Props);
-
-		return waitUntil(createMentionErrorShownTest(component)).then(() => {
-			expect(onOpen).toHaveBeenCalledTimes(1);
-			expect(onClose).toHaveBeenCalledTimes(0);
 		});
+		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
+
+		expect(onOpen).toHaveBeenCalledTimes(1);
+		expect(onClose).toHaveBeenCalledTimes(0);
 	});
 
-	it('mentionsCount returns the number of mentions in the list', () => {
-		const component = setupPicker();
+	it('mentionsCount returns the number of mentions in the list', async () => {
+		const ref = React.createRef<MentionPicker>();
+		const component = setupPicker({}, ref);
 
-		return waitUntil(createDefaultMentionItemsShowTest(component)).then(() => {
-			const mentionPicker = getMentionPicker(component);
-			expect(mentionPicker.mentionsCount()).toEqual(MAX_NOTIFIED_ITEMS);
-		});
+		await hasExpectedItems(component, MAX_NOTIFIED_ITEMS);
+
+		await waitFor(async () => expect(ref.current?.mentionsCount()).toEqual(MAX_NOTIFIED_ITEMS));
 	});
 });

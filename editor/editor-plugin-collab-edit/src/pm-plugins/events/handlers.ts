@@ -82,8 +82,6 @@ export const subscribe = effect<
 		EditorAnalyticsAPI?,
 	]
 >(
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	(view, provider, options, featureFlags, _providerFactory, editorAnalyticsApi) => {
 		let entityRef: SynchronyEntity;
 		const entityHandlers = {

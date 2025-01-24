@@ -22,8 +22,6 @@ import { createPlugin } from '@atlaskit/prosemirror-input-rules';
  * @param text text to replace with
  */
 function replaceTextUsingCaptureGroup(text: string): InputRuleHandler {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	return (state, match, start, end): Transaction => {
 		const [, prefix, , suffix] = match;
 		const replacement = text + (suffix || '');
@@ -80,8 +78,7 @@ function createReplacementRules(
 function createSingleQuotesRules(): Array<InputRuleWrapper> {
 	return [
 		// wrapped text
-		// Ignored via go/ees005
-		// eslint-disable-next-line require-unicode-regexp, @typescript-eslint/max-params
+		// eslint-disable-next-line require-unicode-regexp
 		createRule(/(\s|^)'(\S+.*\S+)'$/, (state, match, start, end): Transaction => {
 			const OPEN_SMART_QUOTE_CHAR = '‘';
 			const CLOSED_SMART_QUOTE_CHAR = '’';

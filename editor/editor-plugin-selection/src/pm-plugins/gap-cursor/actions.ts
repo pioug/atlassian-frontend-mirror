@@ -272,8 +272,6 @@ const captureCursorCoords = (
 		top: number;
 	}) => { pos: number; inside: number } | null | void,
 	tr: Transaction,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): { position?: number; side: Side } | null => {
 	const rect = editorRef.getBoundingClientRect();
 
@@ -321,8 +319,6 @@ export const setSelectionTopLevelBlocks = (
 		top: number;
 	}) => { pos: number; inside: number } | null | void,
 	editorFocused: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const cursorCoords = captureCursorCoords(event, editorRef, posAtCoords, tr);
 	if (!cursorCoords) {
@@ -371,8 +367,6 @@ export const setCursorForTopLevelBlocks =
 			top: number;
 		}) => { pos: number; inside: number } | null | void,
 		editorFocused: boolean,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		const { tr } = state;

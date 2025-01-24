@@ -136,6 +136,7 @@ const MultiBodiedExtensionWithWidth = ({
 	isNodeHovered,
 	isNodeNested,
 	setIsNodeHovered,
+	pluginInjectionApi,
 }: PropsWithWidth) => {
 	const { showMacroInteractionDesignUpdates } = macroInteractionDesignFeatureFlags || {};
 	const { parameters, extensionKey } = node.attrs;
@@ -240,6 +241,7 @@ const MultiBodiedExtensionWithWidth = ({
 					isNodeNested={isNodeNested}
 					setIsNodeHovered={setIsNodeHovered}
 					isBodiedMacro={true}
+					pluginInjectionApi={pluginInjectionApi}
 				/>
 			)}
 			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}

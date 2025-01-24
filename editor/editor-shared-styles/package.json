@@ -28,6 +28,9 @@
 	"platform-feature-flags": {
 		"platform_editor_core_increase_full_page_guttering": {
 			"type": "boolean"
+		},
+		"live_pages_content_jump_mitigation": {
+			"type": "boolean"
 		}
 	},
 	"af:exports": {

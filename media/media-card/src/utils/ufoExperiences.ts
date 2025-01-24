@@ -37,6 +37,8 @@ type ErrorUfoPayload = {
 const packageName = process.env._PACKAGE_NAME_ as string;
 const packageVersion = process.env._PACKAGE_VERSION_ as string;
 
+const SAMPLE_RATE = 0.05;
+
 let concurrentExperience: ConcurrentExperience | undefined;
 
 const getExperience = (id: string) => {
@@ -51,6 +53,12 @@ const getExperience = (id: string) => {
 	}
 	return concurrentExperience.getInstance(id);
 };
+
+export const shouldPerformanceBeSampled = () =>
+	// We generate about 100M events UFOv1 events, we want to reduce this to about 5M as we can get the same info from there
+	// Math.random() generates a random floating-point number between 0 (inclusive) and 1 (exclusive).
+	// The condition Math.random() < SAMPLE_RATE (0.05) will be true approximately 5% of the time.
+	Math.random() < SAMPLE_RATE;
 
 export const startUfoExperience = (id: string) => {
 	getExperience(id).start();

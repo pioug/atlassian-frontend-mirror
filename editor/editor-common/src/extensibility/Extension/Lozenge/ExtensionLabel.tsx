@@ -11,8 +11,11 @@ import { defineMessages, FormattedMessage } from 'react-intl-next';
 
 import CustomizeIcon from '@atlaskit/icon/core/customize';
 import { Box, xcss } from '@atlaskit/primitives';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
+
+import { type ExtensionsPluginInjectionAPI } from '../../types';
 
 const containerStyles = css({
 	textAlign: 'left',
@@ -109,8 +112,6 @@ export const getShouldShowBodiedMacroLabel = (
 	showLivePagesBodiedMacrosRendererView: boolean | undefined,
 	showBodiedExtensionRendererView: boolean | undefined,
 	showUpdatedLivePages1PBodiedExtensionUI: boolean | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	// Bodied macros show the label by default except for the new live pages 1P bodied macro experience where we only show it on hover
 	if (!isBodiedMacro || showUpdatedLivePages1PBodiedExtensionUI) {
@@ -133,6 +134,7 @@ type ExtensionLabelProps = {
 	showUpdatedLivePages1PBodiedExtensionUI?: boolean;
 	showLivePagesBodiedMacrosRendererView?: boolean;
 	showBodiedExtensionRendererView?: boolean;
+	pluginInjectionApi?: ExtensionsPluginInjectionAPI;
 };
 
 export const ExtensionLabel = ({
@@ -146,6 +148,7 @@ export const ExtensionLabel = ({
 	showUpdatedLivePages1PBodiedExtensionUI,
 	showLivePagesBodiedMacrosRendererView,
 	showBodiedExtensionRendererView,
+	pluginInjectionApi,
 }: ExtensionLabelProps) => {
 	const isInlineExtension = extensionName === 'inlineExtension';
 	const showDefaultBodiedStyles = isBodiedMacro && !isNodeHovered;
@@ -179,7 +182,7 @@ export const ExtensionLabel = ({
 	});
 
 	return (
-		// eslint-disable-next-line jsx-a11y/no-static-element-interactions
+		// eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
 		<div
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			css={containerStyles}
@@ -193,6 +196,21 @@ export const ExtensionLabel = ({
 			}}
 			onMouseLeave={() => {
 				setIsNodeHovered?.(false);
+			}}
+			onClick={() => {
+				if (
+					editorExperiment('live_pages_graceful_edit', 'text-click-delayed') ||
+					editorExperiment('live_pages_graceful_edit', 'text-click-no-delay')
+				) {
+					pluginInjectionApi?.core?.actions?.execute(
+						// Extensions are not yet using the new plugin architecture, and the use of the pluginInjectionApi
+						// is not type safe in editor-common.
+						// @ts-ignore
+						pluginInjectionApi?.editorViewMode?.commands.updateContentMode({
+							type: 'intent-to-edit',
+						}),
+					);
+				}
 			}}
 			data-testid="new-lozenge-container"
 		>

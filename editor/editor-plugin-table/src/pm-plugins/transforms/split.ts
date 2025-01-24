@@ -10,8 +10,6 @@ import { TableMap } from '@atlaskit/editor-tables/table-map';
  * @param columnStart - Start of the rect included (rect.left)
  * @param columnEnd - End of the rect not included (rect.right)
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function splitCellsInColumns(
 	tr: Transaction,
 	tablePos: number,

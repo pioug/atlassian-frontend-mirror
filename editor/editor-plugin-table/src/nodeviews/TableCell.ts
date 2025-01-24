@@ -37,8 +37,6 @@ const cssVariablePattern = /^VAR\(--.*\)$/;
 export default class TableCell extends TableNodeView<HTMLElement> implements NodeView {
 	private delayHandle: number | undefined;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: PMNode,
 		view: EditorView,

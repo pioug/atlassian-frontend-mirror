@@ -36,7 +36,7 @@ export const HelpContent: React.FC<HelpLayout & WrappedComponentProps> = (props)
 				) : (
 					<>{children}</>
 				)}
-				{footer ? <HelpFooter>{footer}</HelpFooter> : null}
+				{footer ? <HelpFooter data-testid="footer">{footer}</HelpFooter> : null}
 			</Section>
 		</Container>
 	);

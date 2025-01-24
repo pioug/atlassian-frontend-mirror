@@ -11,8 +11,6 @@ export const insertBlock = (
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	attrs?: { [key: string]: any },
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Transaction | null => {
 	// To ensure that match is done after HardBreak.
 	const { hardBreak, codeBlock, listItem } = state.schema.nodes;

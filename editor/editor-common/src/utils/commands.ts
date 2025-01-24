@@ -319,8 +319,6 @@ export const insertContentDeleteRange = (
 	getSelectionResolvedPos: (tr: Transaction) => ResolvedPos,
 	insertions: [Fragment, number][],
 	deletions: [number, number][],
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	insertions.forEach((contentInsert) => {
 		const [content, pos] = contentInsert;

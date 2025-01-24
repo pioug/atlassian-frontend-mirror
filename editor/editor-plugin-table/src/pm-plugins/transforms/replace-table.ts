@@ -12,8 +12,6 @@ export const replaceSelectedTable = (
 	content: string | Slice,
 	inputMethod: INPUT_METHOD.KEYBOARD | INPUT_METHOD.CLIPBOARD,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Transaction => {
 	if (isTableSelected(state.selection)) {
 		const table = findTable(state.selection);

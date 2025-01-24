@@ -195,8 +195,6 @@ export const ColumnControls = ({
 		appearance: DragHandleAppearance,
 		gridColumn: string,
 		indexes: number[],
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const isHover = type === 'hover';
 		const isPlaceholder = appearance === 'placeholder';

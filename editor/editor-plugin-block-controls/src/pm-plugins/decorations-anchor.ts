@@ -46,8 +46,6 @@ const shouldIgnoreNode = (
 	ignore_nodes: string[],
 	depth: number,
 	parent?: PMNode | null,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const isEmbedCard = node.type.name === 'embedCard';
 
@@ -106,8 +104,6 @@ export const nodeDecorations = (newState: EditorState, from?: number, to?: numbe
 	const ignore_nodes = editorExperiment('advanced_layouts', true)
 		? IGNORE_NODES_NEXT
 		: IGNORE_NODES;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, index) => {
 		let depth = 0;
 		let anchorName;

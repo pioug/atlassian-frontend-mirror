@@ -47,8 +47,6 @@ export const handleMouseDown = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	editorAnalyticsAPI?: EditorAnalyticsAPI,
 	isCommentEditor?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean => {
 	const { state, dispatch } = view;
 	const editorDisabled = !view.editable;

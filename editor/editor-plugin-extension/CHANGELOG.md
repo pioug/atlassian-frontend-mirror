@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-extension
 
+## 3.0.6
+
+### Patch Changes
+
+- [#105671](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105671)
+  [`9b856dd6141f4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9b856dd6141f4) -
+  Update file path to fix issue on notification storybook
+- Updated dependencies
+
 ## 3.0.5
 
 ### Patch Changes

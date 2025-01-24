@@ -188,8 +188,6 @@ export const plugin = (
 	pluginInjectionApi?: ExtractInjectionAPI<HyperlinkPlugin> | undefined,
 	onClickCallback?: OnClickCallback,
 	__livePage?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	new SafePlugin({
 		state: {
@@ -206,8 +204,6 @@ export const plugin = (
 					editorAppearance,
 				};
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(tr, pluginState: HyperlinkState, oldState, newState): HyperlinkState {
 				let state = pluginState;
 				const action = tr.getMeta(stateKey) && (tr.getMeta(stateKey).type as LinkAction);

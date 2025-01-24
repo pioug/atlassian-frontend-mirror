@@ -126,8 +126,6 @@ export const createPlugin = (
 	dispatch: (eventName: string | PluginKey, data: any) => void,
 	lastNodeMustBeParagraph?: boolean,
 	includeBlockQuoteAsTextstyleOption?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const editorAnalyticsApi = editorAPI?.analytics?.actions;
 	let altKeyLocation = 0;
@@ -177,8 +175,6 @@ export const createPlugin = (
 				};
 			},
 
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(_tr, oldPluginState: BlockTypeState, _oldState: EditorState, newState: EditorState) {
 				const newPluginState = {
 					...oldPluginState,
@@ -241,8 +237,6 @@ export const createPlugin = (
 
 				return false;
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			handleDrop(view, event, slice, moved) {
 				return handleBlockQuoteDND(view, event, slice);
 			},

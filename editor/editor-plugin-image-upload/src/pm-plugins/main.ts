@@ -140,8 +140,6 @@ export const createPlugin =
 						hidden: !state.schema.nodes.media || !state.schema.nodes.mediaSingle,
 					};
 				},
-				// Ignored via go/ees005
-				// eslint-disable-next-line @typescript-eslint/max-params
 				apply(tr, pluginState: ImageUploadPluginState, _oldState, newState) {
 					const newActive = isMediaSelected(newState);
 					const newEnabled = canInsertMedia(newState);

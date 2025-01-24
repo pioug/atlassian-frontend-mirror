@@ -69,16 +69,12 @@ export const ValidCombinations: Record<ValidAutoformatChars, string[]> = {
 		'( ',
 	],
 };
-
-// eslint-disable-next-line @typescript-eslint/max-params
 function addMark(
 	markType: MarkType,
 	_schema: Schema,
 	char: ValidAutoformatChars,
 	api?: ExtractInjectionAPI<TextFormattingPlugin>,
 ): InputRuleHandler {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	return (state, _match, start, end) => {
 		const { doc, schema, tr } = state;
 		const textPrefix = state.doc.textBetween(start, start + char.length);

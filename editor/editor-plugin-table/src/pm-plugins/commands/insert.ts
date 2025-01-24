@@ -64,8 +64,6 @@ function addColumnAtCustomStep(column: number) {
 	};
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function addColumnAt(
 	api: PluginInjectionAPI | undefined | null,
 	isTableScalingEnabled = false,
@@ -125,8 +123,6 @@ export const addColumnBefore =
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 		isCommentEditor = false,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch, view) => {
 		const table = findTable(state.selection);
@@ -161,8 +157,6 @@ export const addColumnAfter =
 		isTableFixedColumnWidthsOptionEnabled?: boolean,
 		shouldUseIncreasedScalingPercent?: boolean,
 		isCommentEditor?: boolean,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch, view) => {
 		const table = findTable(state.selection);
@@ -196,8 +190,6 @@ export const insertColumn =
 		isTableFixedColumnWidthsOptionEnabled?: boolean,
 		shouldUseIncreasedScalingPercent?: boolean,
 		isCommentEditor?: boolean,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(column: number): Command =>
 	(state, dispatch, view) => {
@@ -282,8 +274,6 @@ export const createTable =
 		isCommentEditor?: boolean,
 		isChromelessEditor?: boolean,
 		isTableResizingEnabled?: boolean,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		const table = createTableWithWidth({
@@ -325,8 +315,6 @@ export const insertTableWithSize =
 		editorAnalyticsAPI?: EditorAnalyticsAPI,
 		isCommentEditor?: boolean,
 		isChromelessEditor?: boolean,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(rowsCount: number, colsCount: number, inputMethod?: INPUT_METHOD.PICKER): EditorCommand => {
 		return ({ tr }) => {

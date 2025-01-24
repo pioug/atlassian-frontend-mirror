@@ -468,8 +468,6 @@ export class Channel extends Emitter<ChannelEvent> {
 		}
 	};
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	fetchCatchupv2 = async (
 		fromVersion: number,
 		clientId: number | string | undefined,

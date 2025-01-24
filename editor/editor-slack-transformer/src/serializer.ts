@@ -190,8 +190,6 @@ export const nodes = {
 			state.render(child, node, i);
 		}
 	},
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	listItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
 		const delimiter = parent.type.name === 'bulletList' ? '• ' : `${index + 1}. `;
 
@@ -246,8 +244,6 @@ export const nodes = {
 		state.write('\u200c'); // zero-width-non-joiner
 		state.closeBlock(node);
 	},
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	mention(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
 		const isLastNode = parent.childCount === index + 1;
 		let delimiter = '';
@@ -306,8 +302,6 @@ export const nodes = {
 			state.render(child, node, i);
 		}
 	},
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	decisionItem(state: MarkdownSerializerState, node: PMNode, parent: PMNode, index: number) {
 		state.write('<> ');
 		state.renderInline(node);

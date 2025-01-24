@@ -32,8 +32,6 @@ const fixColumnWidth = (
 	_layoutWidth: number,
 	zeroWidthColumnsCount: number,
 	scaleDownPercent: number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): number => {
 	if (columnWidth === 0) {
 		return columnWidth;

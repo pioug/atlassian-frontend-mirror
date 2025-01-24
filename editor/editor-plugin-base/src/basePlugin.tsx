@@ -21,7 +21,6 @@ import scrollGutterNext from './pm-plugins/scroll-gutter/plugin-next';
 import { getKeyboardHeight } from './pm-plugins/scroll-gutter/util/get-keyboard-height';
 import { inputTracking } from './pm-plugins/utils/inputTrackingConfig';
 
-// eslint-disable-next-line @typescript-eslint/max-params
 export function resolveCallbacks(from: number, to: number, tr: Transaction, callbacks: Callback[]) {
 	const { doc } = tr;
 	doc.nodesBetween(from, to, (node, pos) => {

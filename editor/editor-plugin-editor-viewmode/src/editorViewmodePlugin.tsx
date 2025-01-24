@@ -1,6 +1,7 @@
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import {
 	editorExperiment,
 	unstable_editorExperimentParam,
@@ -210,7 +211,7 @@ const gracefulEditCreatePMPlugin = ({
 					}
 				},
 			},
-			handleClick: (view, pos, event) => {
+			handleClick: (view: EditorView, pos, event) => {
 				const viewModeState = viewModePluginKey.getState(view.state);
 
 				// If this is not available -- there are runtime issues expected -- and there is no safe way to handle this
@@ -229,15 +230,9 @@ const gracefulEditCreatePMPlugin = ({
 					return;
 				}
 
-				const clickTarget = view.state.doc.nodeAt(pos);
+				const intentToEdit = checkIntentToEdit(view, pos, event);
 
-				if (!clickTarget || !clickTarget.type.isText) {
-					// We only treat clicking on inline nodes as an intent to edit
-					return;
-				}
-				if (event.target instanceof HTMLElement && event.target.closest('.inlineNodeView')) {
-					// Clicks on the edges of inline nodes result in unexpected positions being detected
-					// by prosemirror (where prosemirror calls handleClick with the position following the inline node).
+				if (!intentToEdit) {
 					return;
 				}
 
@@ -285,6 +280,62 @@ const gracefulEditCreatePMPlugin = ({
 		},
 	});
 };
+
+function checkIntentToEdit(view: EditorView, pos: number, event: MouseEvent) {
+	const viewModeIntentMode = unstable_editorExperimentParam(
+		'live_pages_graceful_edit',
+		'intent-mode',
+		{
+			defaultValue: 'text',
+			typeGuard: (value: unknown): value is 'text' | 'nodes' =>
+				typeof value === 'string' && ['text', 'nodes'].includes(value),
+		},
+	);
+
+	if (!(event.target instanceof HTMLElement)) {
+		// if the target is not an HTMLElement, we can't determine the intent to edit
+		return false;
+	}
+
+	const hasPointerCursor = window.getComputedStyle(event.target).cursor === 'pointer';
+
+	if (hasPointerCursor) {
+		return false;
+	}
+
+	const clickTargetBasedOnPos = view.state.doc.nodeAt(pos);
+
+	if (clickTargetBasedOnPos && clickTargetBasedOnPos.type.isText) {
+		// clicks on text nodes are always an intent to edit
+
+		if (event.target instanceof HTMLElement && event.target.closest('.inlineNodeView')) {
+			// Clicks on the edges of inline nodes result in unexpected positions being detected
+			// by prosemirror (where prosemirror calls handleClick with the position following the inline node).
+			return false;
+		}
+
+		return true;
+	}
+
+	if (viewModeIntentMode === 'text') {
+		return false;
+	}
+
+	const clickPosition = view.posAtDOM(event.target, 0, -1);
+	const resolvedPos = view.state.doc.resolve(clickPosition);
+	const clickTargetBasedOnTarget = resolvedPos.node(resolvedPos.depth);
+
+	if (!clickTargetBasedOnTarget) {
+		return false;
+	}
+
+	if (!clickTargetBasedOnTarget.isAtom) {
+		// clicks on non atom nodes are considered as an intent to edit
+		return true;
+	}
+
+	return false;
+}
 
 const gracefulEditTopToolbarCreatePMPlugin = (config: EditorViewModePluginConfig) => {
 	return new SafePlugin({

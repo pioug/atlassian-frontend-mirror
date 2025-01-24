@@ -96,8 +96,6 @@ export default class Resizer extends React.Component<ResizerProps, ResizerState>
 		});
 	};
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	private handleResize = (
 		_event: MouseEvent | TouchEvent,
 		_direction: ResizeDirection,
@@ -134,8 +132,6 @@ export default class Resizer extends React.Component<ResizerProps, ResizerState>
 		resizable.setState({ isResizing: true });
 	};
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	private handleResizeStop = (
 		_event: MouseEvent | TouchEvent,
 		_direction: ResizeDirection,

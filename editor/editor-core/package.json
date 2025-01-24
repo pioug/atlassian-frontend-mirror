@@ -52,10 +52,10 @@
 		"@atlaskit/emoji": "^67.12.0",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/media-card": "^78.18.0",
-		"@atlaskit/mention": "^23.9.0",
+		"@atlaskit/mention": "^23.10.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
-		"@atlaskit/tmp-editor-statsig": "^2.39.0",
+		"@atlaskit/tmp-editor-statsig": "^2.40.0",
 		"@atlaskit/tokens": "^3.2.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/width-detector": "^4.3.0",
@@ -95,7 +95,7 @@
 		"@atlaskit/media-test-helpers": "^34.7.0",
 		"@atlaskit/modal-dialog": "^12.19.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/renderer": "^112.8.0",
+		"@atlaskit/renderer": "^112.9.0",
 		"@atlaskit/smart-card": "^34.6.0",
 		"@atlaskit/synchrony-test-helpers": "^3.0.0",
 		"@atlaskit/toggle": "^14.0.0",
@@ -400,6 +400,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_safari_media_clipboard_fix": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"live_pages_content_jump_mitigation": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

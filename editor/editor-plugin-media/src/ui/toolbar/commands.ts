@@ -327,8 +327,6 @@ export const updateMediaSingleWidth =
 		validation: PixelEntryValidation,
 		inputMethod: EventInput,
 		layout: RichMediaLayout,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		const selectedMediaSingleNode = getSelectedMediaSingle(state);

@@ -5,6 +5,7 @@ import InlineCardDefaultTruncate from '../../../examples/vr-inline-card/vr-inlin
 import InlineCardError from '../../../examples/vr-inline-card/vr-inline-card-error';
 import InlineCardErrorTruncate from '../../../examples/vr-inline-card/vr-inline-card-error-truncate';
 import InlineCardForbidden from '../../../examples/vr-inline-card/vr-inline-card-forbidden';
+import InlineCardForbiddenDefaultIcon from '../../../examples/vr-inline-card/vr-inline-card-forbidden-default-icon';
 import InlineCardForbiddenRequestAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-request-access';
 import InlineCardForbiddenDeniedSiteAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-denied-access';
 import InlineCardForbiddenDirectAccess from '../../../examples/vr-inline-card/vr-inline-card-forbidden-site-direct-access';
@@ -17,6 +18,7 @@ import InlineCardNotFound from '../../../examples/vr-inline-card/vr-inline-card-
 import InlineCardNotFoundTruncate from '../../../examples/vr-inline-card/vr-inline-card-not-found-truncate';
 import InlineCardTextWrap from '../../../examples/vr-inline-card/vr-inline-card-text-wrap';
 import InlineCardUnauthorised from '../../../examples/vr-inline-card/vr-inline-card-unauthorised';
+import InlineCardUnauthorisedDefaultIcon from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-default-icon';
 import InlineCardUnauthorisedNoAuth from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-no-auth';
 import InlineCardUnauthorisedTruncate from '../../../examples/vr-inline-card/vr-inline-card-unauthorised-truncate';
 
@@ -153,6 +155,47 @@ snapshot(InlineCardForbiddenDeniedSiteAccess, {
 		'bandicoots-compiled-migration-smartcard': [true, false],
 	},
 });
+
+// Design refresh: emotion + legacy icon
+snapshot(InlineCardForbiddenDefaultIcon, {
+	description: 'inline card forbidden view with default legacy icon',
+});
+
+// Design refresh: compiled + DS visual refresh
+snapshot(InlineCardForbiddenDefaultIcon, {
+	description: 'inline card forbidden view with default icon',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': true,
+		'platform-smart-card-icon-migration': true,
+		'platform-visual-refresh-icons': true,
+		'platform-component-visual-refresh': true,
+	},
+});
+
+// TODO: Remove on bandicoots-compiled-migration-smartcard cleanup
+// Design refresh: compiled + legacy icon
+snapshot(InlineCardForbiddenDefaultIcon, {
+	description: 'inline card forbidden view with default legacy icon with compiled',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': true,
+		'platform-smart-card-icon-migration': false,
+		'platform-visual-refresh-icons': true,
+		'platform-component-visual-refresh': true,
+	},
+});
+
+// TODO: Remove on bandicoots-compiled-migration-smartcard cleanup
+// Design refresh: emotion + DS visual refresh
+snapshot(InlineCardForbiddenDefaultIcon, {
+	description: 'inline card forbidden view with default icon with emotion',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': false,
+		'platform-smart-card-icon-migration': true,
+		'platform-visual-refresh-icons': true,
+		'platform-component-visual-refresh': true,
+	},
+});
+
 snapshot(InlineCardNotFound, {
 	description: `inline card can't find link view`,
 	featureFlags: {
@@ -164,6 +207,7 @@ snapshot(InlineCardNotFound, {
 		'inline card not found view renders correctly when hovering over url in not-found view',
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+		'platform-smart-card-icon-migration': [true, false],
 	},
 	states: [{ state: 'hovered', selector: { byTestId: 'inline-card-not-found-view' } }],
 });
@@ -213,6 +257,46 @@ snapshot(InlineCardUnauthorisedNoAuth, {
 	description: `inline card unauthorised view with no auth`,
 	featureFlags: {
 		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+
+// Design refresh: emotion + legacy icon
+snapshot(InlineCardUnauthorisedDefaultIcon, {
+	description: 'inline card unauthorised view with default legacy icon',
+});
+
+// Design refresh: compiled + DS visual refresh
+snapshot(InlineCardUnauthorisedDefaultIcon, {
+	description: 'inline card unauthorised view with default icon',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': true,
+		'platform-smart-card-icon-migration': true,
+		'platform-visual-refresh-icons': true,
+		'platform-component-visual-refresh': true,
+	},
+});
+
+// TODO: Remove on bandicoots-compiled-migration-smartcard cleanup
+// Design refresh: compiled + legacy icon
+snapshot(InlineCardUnauthorisedDefaultIcon, {
+	description: 'inline card unauthorised view with default legacy icon with compiled',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': true,
+		'platform-smart-card-icon-migration': false,
+		'platform-visual-refresh-icons': true,
+		'platform-component-visual-refresh': true,
+	},
+});
+
+// TODO: Remove on bandicoots-compiled-migration-smartcard cleanup
+// Design refresh: emotion + DS visual refresh
+snapshot(InlineCardUnauthorisedDefaultIcon, {
+	description: 'inline card unauthorised view with default icon with emotion',
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': false,
+		'platform-smart-card-icon-migration': true,
+		'platform-visual-refresh-icons': true,
+		'platform-component-visual-refresh': true,
 	},
 });
 

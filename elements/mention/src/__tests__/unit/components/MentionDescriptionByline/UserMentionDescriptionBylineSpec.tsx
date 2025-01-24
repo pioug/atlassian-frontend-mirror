@@ -1,55 +1,60 @@
-import { render } from 'enzyme';
 import React from 'react';
 import UserMentionDescriptionByline from '../../../../components/MentionDescriptionByline';
 import { userMention } from './_commonData';
-import { type MentionDescription } from '../../../..';
-
-const shallowRender = (mention: MentionDescription) =>
-	render(<UserMentionDescriptionByline mention={mention} />);
+import { screen, render } from '@testing-library/react';
 
 describe('User mention description', () => {
 	it('should render User Mention description component', () => {
-		const component = shallowRender(userMention);
-		expect(component).toMatchSnapshot();
+		render(<UserMentionDescriptionByline mention={userMention} />);
+		expect(screen.getByText('@Test User')).toBeInTheDocument();
 	});
 
 	it('should not show anything if name and nickname match', () => {
-		const component = shallowRender({
+		const mention = {
 			id: '12345',
 			avatarUrl: 'www.example.com/image.png',
 			name: 'Nickname',
 			nickname: 'Nickname',
-		});
-		expect(component.text()).not.toContain('Nickname');
+		};
+		render(<UserMentionDescriptionByline mention={mention} />);
+
+		const nickname = screen.queryByText('Nickname');
+		expect(nickname).toBeNull();
 	});
 
 	it('should show if name and nickname are different', () => {
-		const component = shallowRender({
+		const mention = {
 			id: '12345',
 			avatarUrl: 'www.example.com/image.png',
 			name: 'Different full name',
 			nickname: 'Nickname',
-		});
-		expect(component.text()).toContain('Nickname');
+		};
+		render(<UserMentionDescriptionByline mention={mention} />);
+		// The regex allows us to ignore the newlines, but preserve case
+		expect(screen.getByText(/Nickname/)).toBeInTheDocument();
 	});
 
 	it('should show if name and nickname have non-matching case', () => {
-		const component = shallowRender({
+		const mention = {
 			id: '12345',
 			avatarUrl: 'www.example.com/image.png',
 			name: 'Nickname',
 			nickname: 'nickname',
-		});
-		expect(component.text()).toContain('nickname');
+		};
+		render(<UserMentionDescriptionByline mention={mention} />);
+		// The regex allows us to ignore the newlines, but preserve case
+		expect(screen.getByText(/nickname/)).toBeInTheDocument();
 	});
 
 	it('should show if name and nickname vary in whitespace', () => {
-		const component = shallowRender({
+		const mention = {
 			id: '12345',
 			avatarUrl: 'www.example.com/image.png',
 			name: 'Nick name',
 			nickname: 'Nickname',
-		});
-		expect(component.text()).toContain('Nickname');
+		};
+		render(<UserMentionDescriptionByline mention={mention} />);
+		// The regex allows us to ignore the newlines, but preserve case
+		expect(screen.getByText(/Nickname/)).toBeInTheDocument();
 	});
 });

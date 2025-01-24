@@ -1,4 +1,4 @@
-import React, { Fragment, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import useAutoFocus from '@atlaskit/ds-lib/use-auto-focus';
@@ -9,7 +9,10 @@ import * as colors from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
-import { useSplitButtonContext } from '../../containers/split-button/split-button-context';
+import {
+	SplitButtonContext,
+	useSplitButtonContext,
+} from '../../containers/split-button/split-button-context';
 import { type Appearance, type CommonButtonProps, type Spacing } from '../types';
 
 import blockEvents from './block-events';
@@ -577,7 +580,7 @@ const useButtonBase = <TagName extends HTMLElement>({
 		],
 		isDisabled: isEffectivelyDisabled,
 		children: (
-			<Fragment>
+			<SplitButtonContext.Provider value={undefined}>
 				{children}
 				{isLoading ? (
 					<Box as="span" xcss={loadingOverlayStyles}>
@@ -593,7 +596,7 @@ const useButtonBase = <TagName extends HTMLElement>({
 				{isLoading && ((children && !ariaLabel && !ariaLabelledBy) || ariaLabelledBy) && (
 					<VisuallyHidden id={loadingLabelId}>{LOADING_LABEL}</VisuallyHidden>
 				)}
-			</Fragment>
+			</SplitButtonContext.Provider>
 		),
 		'aria-label':
 			isLoading && ariaLabel && !ariaLabelledBy ? `${ariaLabel} ${LOADING_LABEL}` : ariaLabel,

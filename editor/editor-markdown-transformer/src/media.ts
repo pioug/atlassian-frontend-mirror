@@ -86,8 +86,6 @@ function createRule() {
 
 		let processedTokens: string[] = [];
 		const newTokens = State.tokens.reduce(
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			(tokens: Token[], token: Token, i: number, arr: Token[]) => {
 				const matchAll = Array.from(token.content.matchAll(regx));
 				if (token.type === 'inline' && matchAll.length) {

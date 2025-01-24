@@ -113,6 +113,8 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 
 		const failedMention = text === `@${UNKNOWN_USER_ID}`;
 
+		const showTooltip = mentionType === MentionType.RESTRICTED;
+
 		const mentionComponent = (
 			<FocusRing>
 				<PrimitiveMention
@@ -121,6 +123,9 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 					onMouseEnter={handleOnMouseEnter}
 					onMouseLeave={handleOnMouseLeave}
 					spellCheck={false}
+					data-testid={`mention-${id}`}
+					data-mention-type={mentionType}
+					data-mention-tooltip={showTooltip}
 				>
 					{failedMention ? this.renderUnknownUserError(id) : text || '@...'}
 				</PrimitiveMention>
@@ -137,7 +142,7 @@ export class MentionInternal extends React.PureComponent<Props, {}> {
 					spellCheck={false}
 				>
 					<MessagesIntlProvider>
-						{mentionType === MentionType.RESTRICTED ? (
+						{showTooltip ? (
 							<React.Suspense fallback={mentionComponent}>
 								<AsyncNoAccessTooltip name={text}>{mentionComponent}</AsyncNoAccessTooltip>
 							</React.Suspense>

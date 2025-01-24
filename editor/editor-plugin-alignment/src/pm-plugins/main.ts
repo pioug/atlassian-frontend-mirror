@@ -27,8 +27,6 @@ export function createPlugin(dispatch: Dispatch, pluginConfig: AlignmentPluginSt
 			init(_: unknown, editorState: EditorState) {
 				return createInitialPluginState(editorState, pluginConfig);
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(
 				_tr: ReadonlyTransaction,
 				state: AlignmentPluginState,

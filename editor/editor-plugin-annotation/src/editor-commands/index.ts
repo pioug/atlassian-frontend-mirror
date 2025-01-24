@@ -74,8 +74,6 @@ const removeInlineCommentFromNode = (
 	supportedBlockNodes: string[] = [],
 	state: EditorState,
 	dispatch?: CommandDispatch,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { tr, selection } = state;
 
@@ -167,8 +165,6 @@ const getDraftCommandAction: (
 	targetNodeId?: string,
 	supportedBlockNodes?: string[],
 	isOpeningMediaCommentFromToolbar?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	return (editorState: EditorState) => {
 		// validate selection only when entering draft mode
@@ -245,8 +241,6 @@ export const setInlineCommentDraftState =
 		targetType: TargetType = 'inline',
 		targetNodeId: string | undefined = undefined,
 		isOpeningMediaCommentFromToolbar?: boolean,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command => {
 		const commandAction = getDraftCommandAction(
 			drafting,

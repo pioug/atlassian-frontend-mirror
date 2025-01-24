@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 2.2.0
+
+### Minor Changes
+
+- [#104960](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104960)
+  [`9ef5570fb870f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9ef5570fb870f) -
+  Adding fg platform_editor_selection_without_left_shift to fix the editor selection issue
+
+### Patch Changes
+
+- [#104870](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104870)
+  [`79e0bedfbaf1f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/79e0bedfbaf1f) -
+  EDF-2202 copy ai-proactive from editor-plugin-ai to editor-plugin-ai-proactive
+
 ## 2.1.6
 
 ### Patch Changes

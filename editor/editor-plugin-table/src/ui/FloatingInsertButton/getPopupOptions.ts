@@ -54,8 +54,6 @@ function getRowOptions(index: number, isDragAndDropEnabled: boolean): Partial<Po
 	};
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function getColumnOptions(
 	index: number,
 	tableContainer: HTMLElement | null,
@@ -113,8 +111,6 @@ function getColumnOptions(
 	return options;
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function getPopupOptions(
 	direction: TableDirection,
 	index: number,

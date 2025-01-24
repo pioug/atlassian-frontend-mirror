@@ -76,8 +76,6 @@ export const createToggleBlockMarkOnRange =
 			| Array<NodeType>
 			| ((schema: Schema, node: PMNode, parent: PMNode | null) => boolean),
 	) =>
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	(from: number, to: number, tr: Transaction, state: EditorState): boolean => {
 		let markApplied = false;
 		state.doc.nodesBetween(from, to, (node, pos, parent) => {
@@ -119,8 +117,6 @@ export const createToggleInlineMarkOnRange =
 		markType: MarkType,
 		getAttrs: (prevAttrs?: T, node?: PMNode) => T | undefined | false,
 	) =>
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	(from: number, to: number, tr: Transaction, state: EditorState): boolean => {
 		let markApplied = false;
 		state.doc.nodesBetween(from, to, (node, pos, parent) => {

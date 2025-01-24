@@ -42,8 +42,6 @@ const HEADER_ROW_SCROLL_THROTTLE_TIMEOUT = 200;
 const HEADER_ROW_SCROLL_RESET_DEBOUNCE_TIMEOUT = 400;
 
 export default class TableRow extends TableNodeView<HTMLTableRowElement> implements NodeView {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: PMNode,
 		view: EditorView,

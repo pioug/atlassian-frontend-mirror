@@ -74,8 +74,6 @@ const isAppearanceSupportedInParent = (
 	editorState: EditorState,
 	fragment: Fragment,
 	currentAppearance?: CardAppearance,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean => {
 	const resolvedPosition = editorState.doc.resolve(currentNodePosition);
 	const parent =
@@ -194,8 +192,6 @@ export const getAwarenessProps = (
 	allowEmbeds?: boolean,
 	allowBlockCards?: boolean,
 	disableOverlay = false,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const getPosFunction = typeof getPos !== 'boolean' ? getPos : undefined;
 	const linkPosition = getPosFunction?.();

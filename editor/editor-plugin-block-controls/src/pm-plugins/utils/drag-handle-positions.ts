@@ -58,8 +58,6 @@ export const getLeftPosition = (
 	innerContainer?: HTMLElement | null,
 	macroInteractionUpdates?: boolean,
 	parentType?: string,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (!dom) {
 		return 'auto';

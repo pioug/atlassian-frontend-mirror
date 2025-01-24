@@ -1,5 +1,13 @@
 # @atlaskit/breadcrumbs
 
+## 14.0.5
+
+### Patch Changes
+
+- [#105142](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105142)
+  [`950c94b74cac3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/950c94b74cac3) -
+  Update dev dependencies.
+
 ## 14.0.4
 
 ### Patch Changes

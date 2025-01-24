@@ -71,6 +71,7 @@ const InlineExtension = (props: Props) => {
 					isNodeHovered={isNodeHovered}
 					showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
 					setIsNodeHovered={setIsNodeHovered}
+					pluginInjectionApi={pluginInjectionApi}
 				/>
 			)}
 			{/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
@@ -92,6 +93,7 @@ const InlineExtension = (props: Props) => {
 						node={node}
 						isNodeSelected={isNodeSelected}
 						showMacroInteractionDesignUpdates={showMacroInteractionDesignUpdates}
+						pluginInjectionApi={pluginInjectionApi}
 					/>
 				)}
 			</div>

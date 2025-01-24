@@ -34,14 +34,12 @@ export const cellSelectionNodesBetween = (
 	doc: Node,
 	f: (node: Node, pos: number, parent: Node | null, index: number) => void | boolean,
 	startPos?: number,
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	selection.forEachCell((cell, cellPos) => {
 		doc.nodesBetween(cellPos, cellPos + cell.nodeSize, f, startPos);
 	});
 };
 
-// eslint-disable-next-line @typescript-eslint/max-params
 export function clearNodeFormattingOnSelection(
 	schema: Schema,
 	tr: Transaction,

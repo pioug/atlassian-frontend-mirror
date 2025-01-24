@@ -37,8 +37,6 @@ export const handleInit = (
 	view: EditorView,
 	options?: PrivateCollabEditOptions,
 	editorAnalyticsApi?: EditorAnalyticsAPI,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { doc, json, version, reserveCursor } = initData;
 	if (doc) {
@@ -109,8 +107,6 @@ export const applyRemoteSteps = (
 	view: EditorView,
 	userIds?: (number | string)[],
 	options?: PrivateCollabEditOptions,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (!json || !json.length) {
 		return;

@@ -48,8 +48,6 @@ const toDOM = (
 	intl?: IntlShape,
 	titleReadOnly?: boolean,
 	contentEditable?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): DOMOutputSpec => [
 	'div',
 	{
@@ -127,8 +125,6 @@ export class ExpandNodeView implements NodeView {
 	decorationCleanup?: () => boolean | undefined;
 	renderKey: string;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: PmNode,
 		view: EditorView,

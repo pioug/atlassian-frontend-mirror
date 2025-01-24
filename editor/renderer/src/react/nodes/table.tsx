@@ -61,8 +61,6 @@ const orderChildren = (
 	tableNode: PMNode,
 	smartCardStorage: WithSmartCardStorageProps['smartCardStorage'],
 	tableOrderStatus?: TableOrderStatus,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): React.ReactElement[] => {
 	if (!tableOrderStatus || tableOrderStatus.order === SortOrder.NO_ORDER) {
 		return children;
@@ -120,8 +118,6 @@ const shouldHeaderStick = (
 	tableTop: number,
 	tableBottom: number,
 	rowHeight: number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => tableTop <= scrollTop && !(tableBottom - rowHeight <= scrollTop);
 
 const shouldHeaderPinBottom = (scrollTop: number, tableBottom: number, rowHeight: number) =>

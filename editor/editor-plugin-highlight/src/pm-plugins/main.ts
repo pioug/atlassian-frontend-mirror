@@ -33,8 +33,6 @@ export const createPlugin = ({
 				disabled: getDisabledState(editorState),
 				isPaletteOpen: false,
 			}),
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply: (
 				tr: ReadonlyTransaction,
 				pluginState: HighlightPluginState,

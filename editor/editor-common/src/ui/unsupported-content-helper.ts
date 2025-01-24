@@ -2,8 +2,6 @@ import { type IntlShape } from 'react-intl-next';
 
 import { type Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function getUnsupportedContent(
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

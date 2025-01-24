@@ -26,8 +26,6 @@ export function isTextNode(elem: HTMLElement | Element): boolean {
 /**
  * Decides if given fitHeight fits below or above the target taking boundaries into account.
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function getVerticalPlacement(
 	target: HTMLElement,
 	boundariesElement: HTMLElement,
@@ -75,8 +73,6 @@ export function getVerticalPlacement(
 /**
  * Decides if given fitWidth fits to the left or to the right of the target taking boundaries into account.
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function getHorizontalPlacement(
 	target: HTMLElement,
 	boundariesElement: HTMLElement,
@@ -114,8 +110,6 @@ export function getHorizontalPlacement(
 	return 'right';
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function calculatePlacement(
 	target: HTMLElement,
 	boundariesElement: HTMLElement,

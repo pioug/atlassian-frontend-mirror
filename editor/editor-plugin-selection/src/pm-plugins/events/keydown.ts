@@ -64,8 +64,6 @@ const findFixedProblematicNodePosition = (
 	$head: ResolvedPos,
 	direction: 'down' | 'up',
 	{ __livePage }: { __livePage: boolean },
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): ResolvedPos | null => {
 	if ($head.pos === 0 || $head.depth === 0) {
 		return null;

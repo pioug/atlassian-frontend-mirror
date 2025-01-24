@@ -8,7 +8,7 @@ export type DateObj = {
 	year: number;
 };
 
-export interface WeekDayState {
+interface WeekDayState {
 	isDisabled: boolean;
 	isFocused: boolean;
 	isToday: boolean;

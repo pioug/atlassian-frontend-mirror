@@ -212,8 +212,6 @@ export function clipCells(
 
 // Make sure a table has at least the given width and height. Return
 // true if something was changed.
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function growTable(
 	tr: Transaction,
 	map: TableMap,
@@ -287,8 +285,6 @@ function growTable(
 // Make sure the given line (left, top) to (right, top) doesn't cross
 // any rowspan cells by splitting cells that cross it. Return true if
 // something changed.
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function isolateHorizontal(
 	tr: Transaction,
 	map: TableMap,
@@ -335,8 +331,6 @@ function isolateHorizontal(
 // Make sure the given line (left, top) to (left, bottom) doesn't
 // cross any colspan cells by splitting cells that cross it. Return
 // true if something changed.
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function isolateVertical(
 	tr: Transaction,
 	map: TableMap,
@@ -378,8 +372,6 @@ function isolateVertical(
 	return found;
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function applyHeaderCells(
 	tr: Transaction,
 	tableMap: TableMap,
@@ -391,8 +383,6 @@ function applyHeaderCells(
 ) {
 	const { schema } = state;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	const setMarkup = (tr: Transaction, row: number, col: number, headerEnabled: boolean) => {
 		const cellPos = tableStart + tableMap.positionAt(row, col, table);
 		const cell = tr.doc.nodeAt(cellPos);
@@ -423,8 +413,6 @@ function applyHeaderCells(
 
 // Insert the given set of cells (as returned by `pastedCells`) into a
 // table, at the position pointed at by rect.
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function insertCells(
 	state: EditorState,
 	dispatch: Dispatch,

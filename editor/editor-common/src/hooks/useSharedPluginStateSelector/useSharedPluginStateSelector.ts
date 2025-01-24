@@ -66,13 +66,13 @@ type Path<T, K extends string> = K extends `${infer Key}.${infer Rest}`
  * ⚠️⚠️⚠️ This is a debounced hook ⚠️⚠️⚠️
  * If the plugins you are listening to generate multiple shared states while the user is typing,
  * your React Component will get only the last one.
- * 
+ *
  * Used to return the current plugin state of input dependencies.
  * It will recursively retrieve a slice of the state using a "." to separate
  * parts of the state.
- * 
+ *
  * Example:
- * 
+ *
  * ```typescript
  * 	const pluginA: NextEditorPlugin<
 		'pluginA',
@@ -82,7 +82,7 @@ type Path<T, K extends string> = K extends `${infer Key}.${infer Rest}`
 	>
  * ```
  * You can use `const value = useSharedPluginStateSelector(api, 'pluginA.deepObj.value')` to retrieve the value
- * 
+ *
  * Example in plugin:
  *
  * ```typescript
@@ -98,12 +98,12 @@ type Path<T, K extends string> = K extends `${infer Key}.${infer Rest}`
  *   }
  * }
  * ```
- * 
+ *
  * NOTE: If you pass an invalid path, `undefined` will be returned
- * 
- * @param api 
- * @param plugin 
- * @returns 
+ *
+ * @param api
+ * @param plugin
+ * @returns
  */
 export function useSharedPluginStateSelector<
 	// Ignored via go/ees005
@@ -144,7 +144,6 @@ export function useSharedPluginStateSelector<
 	return useSharedPluginStateSelectorInternal(api, pluginNameArray, transformer, initialState);
 }
 
-// eslint-disable-next-line @typescript-eslint/max-params
 function useSharedPluginStateSelectorInternal<
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

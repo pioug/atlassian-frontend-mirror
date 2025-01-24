@@ -81,8 +81,6 @@ const trackUnsupportedContentTooltipActionFor = (
 	dispatchAnalyticsEvent: DispatchAnalyticsEventTooltip,
 	unsupportedContentType: UnsupportedContentTooltipPayload['actionSubjectId'],
 	originalNodeType?: string,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	dispatchAnalyticsEvent({
 		action: action,
@@ -100,8 +98,6 @@ export const findAndTrackUnsupportedContentNodes = (
 	schema: Schema,
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,
 	ancestorHierarchy = '',
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): void => {
 	const { type: nodeType, marks: nodeMarks } = node;
 	const { unsupportedMark, unsupportedNodeAttribute } = schema.marks;
@@ -192,8 +188,6 @@ export const fireUnsupportedEvent = (
 	actionSubjectId: ACTION_SUBJECT_ID,
 	unsupportedNode: UnsupportedNode,
 	errorCode?: string,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const sanitizedAttrs = sanitizeAttributes(unsupportedNode.attrs);
 	const sanitizedMarks = sanitizeMarks(unsupportedNode.marks);

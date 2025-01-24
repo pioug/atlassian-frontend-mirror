@@ -99,8 +99,6 @@ class PanelNodeView {
 	pluginOptions: PanelPluginOptions;
 	key: string;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: Node,
 		view: EditorView,
@@ -187,8 +185,6 @@ export const getPanelNodeView =
 		api: ExtractInjectionAPI<PanelPlugin> | undefined,
 		nodeViewPortalProviderAPI: PortalProviderAPI,
 		providerFactory?: ProviderFactory,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(node: Node, view: EditorView, getPos: getPosHandler): PanelNodeView => {
 		return new PanelNodeView(

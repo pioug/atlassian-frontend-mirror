@@ -1,5 +1,14 @@
 # @atlaskit/button
 
+## 20.3.11
+
+### Patch Changes
+
+- [#105924](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105924)
+  [`b5716d4ae35de`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b5716d4ae35de) -
+  Unsets internal `SplitButton` context to fix an edge-case where appearances of deeply nested
+  Button components were being overridden.
+
 ## 20.3.10
 
 ### Patch Changes

@@ -129,8 +129,6 @@ const tokenToTokenParserMapping: {
 	[TokenType.ISSUE_KEY]: issueKey,
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function parseToken(
 	input: string,
 	type: TokenType,

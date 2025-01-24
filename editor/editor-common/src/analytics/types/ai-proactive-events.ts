@@ -115,5 +115,4 @@ export type AIProactiveEventPayload =
 	| AIProactiveSuggestionCopiedAEP
 	| AIProactiveApiPurgedAEP
 	| AIProactiveApiErrorAEP
-	| AIProactiveApiErrorAEP
 	| AIProactiveFeedbackFailedAEP;

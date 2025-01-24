@@ -5,6 +5,7 @@ import { FormattedMessage } from 'react-intl-next';
 import Button from '@atlaskit/button';
 import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
 import { R300 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -38,6 +39,8 @@ export interface InlineCardErroredViewProps {
 	/** Truncates the card to one line */
 	truncateInline?: boolean;
 }
+
+const iconWrapperStyles = xcss({ marginRight: 'space.negative.025' });
 
 export class InlineCardErroredView extends React.Component<InlineCardErroredViewProps> {
 	private frameRef = React.createRef<HTMLSpanElement & null>();
@@ -96,7 +99,17 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
 			>
 				<IconAndTitleLayout
 					icon={
-						icon || (
+						icon ||
+						(fg('platform-smart-card-icon-migration') ? (
+							<Box as="span" xcss={iconWrapperStyles}>
+								<ErrorIcon
+									color={token('color.icon.danger')}
+									label="error"
+									LEGACY_size="small"
+									testId="errored-view-default-icon"
+								/>
+							</Box>
+						) : (
 							<Wrapper>
 								<ErrorIcon
 									label="error"
@@ -105,7 +118,7 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
 									testId="errored-view-default-icon"
 								/>
 							</Wrapper>
-						)
+						))
 					}
 					link={url}
 					title={url}

@@ -322,8 +322,6 @@ export class AddColumnStep<S extends Schema = any> extends Step {
 		return new AddColumnStep(json.tablePos, { cells, sideEffects }, json.isDelete);
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	static create(doc: ProseMirrorNode, tablePos: number, column: number, isDelete = false) {
 		const tableRect = getTableRectFromDoc(doc, tablePos);
 
@@ -347,8 +345,6 @@ export class AddColumnStep<S extends Schema = any> extends Step {
 		return new AddColumnStep(tablePos, { cells }, isDelete);
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	private applyCellSteps(tr: Transform, tableRect: TableRect, column: number, isDelete: boolean) {
 		const newColumnInfo: Map<number, CellStep> = new Map<number, CellStep>();
 		const rowsHandler = this.sideEffectsHandler.rows.start(this.isDelete);

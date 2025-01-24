@@ -1,5 +1,13 @@
 # @atlaskit/mention
 
+## 23.10.0
+
+### Minor Changes
+
+- [#105029](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105029)
+  [`d32ea9117bf88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d32ea9117bf88) -
+  Add support for React 18
+
 ## 23.9.0
 
 ### Minor Changes

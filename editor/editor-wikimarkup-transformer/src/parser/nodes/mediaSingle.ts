@@ -15,8 +15,6 @@ const clamp = (input: number, lower: number, upper: number) => {
 	return input;
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export default function getMediaSingleNodeView(
 	schema: Schema,
 	filename: string,

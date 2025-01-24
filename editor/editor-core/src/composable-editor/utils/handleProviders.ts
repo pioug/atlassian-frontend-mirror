@@ -14,8 +14,6 @@ import type {
  * @param extensionProvider
  * @param quickInsertProvider
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export default function handleProviders(
 	providerFactory: ProviderFactory,
 	{

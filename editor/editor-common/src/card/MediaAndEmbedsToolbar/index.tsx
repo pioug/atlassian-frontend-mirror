@@ -150,8 +150,6 @@ const makeAlign = (
 	nodeType: NodeType,
 	widthPluginDependencyApi: WidthPluginDependencyApi,
 	analyticsApi: EditorAnalyticsAPI | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Command => {
 	return (state, dispatch) => {
 		const { node } = state.selection as NodeSelection;
@@ -246,8 +244,6 @@ const mapIconsToToolbarItem = (
 	widthPluginDependencyApi: WidthPluginDependencyApi,
 	analyticsApi: EditorAnalyticsAPI | undefined,
 	isChangingLayoutDisabled?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	icons.map<FloatingToolbarItem<Command>>((toolbarItem) => {
 		const { id, value } = toolbarItem;
@@ -290,8 +286,6 @@ const buildLayoutButtons = (
 	allowWrapping = true,
 	allowAlignment = true,
 	isChangingLayoutDisabled?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { selection } = state;
 

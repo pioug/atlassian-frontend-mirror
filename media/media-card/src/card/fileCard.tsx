@@ -49,6 +49,7 @@ import { getFileDetails } from '../utils/metadata';
 import {
 	abortUfoExperience,
 	completeUfoExperience,
+	shouldPerformanceBeSampled,
 	startUfoExperience,
 } from '../utils/ufoExperiences';
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
@@ -279,6 +280,8 @@ export const FileCard = ({
 		source: 'mediaCard',
 	});
 
+	const shouldSendPerformanceEventRef = useRef(shouldPerformanceBeSampled());
+
 	const [error, setError] = useState<MediaCardError | undefined>();
 
 	// CXP-2723 TODO: TEMPORARY VARIABLES
@@ -427,14 +430,16 @@ export const FileCard = ({
 				traceContext,
 				fileStateValue?.metadataTraceContext,
 			);
-		completeUfoExperience(
-			internalOccurrenceKey,
-			finalStatus,
-			fileAttributes,
-			fileStateFlagsRef.current,
-			ssrReliability,
-			finalError,
-		);
+
+		shouldSendPerformanceEventRef.current &&
+			completeUfoExperience(
+				internalOccurrenceKey,
+				finalStatus,
+				fileAttributes,
+				fileStateFlagsRef.current,
+				ssrReliability,
+				finalError,
+			);
 	});
 
 	const fireNonCriticalErrorEventRef = useCurrentValueRef((error: MediaCardError) => {
@@ -461,16 +466,20 @@ export const FileCard = ({
 	});
 
 	const startUfoExperienceRef = useCurrentValueRef(() => {
-		startUfoExperience(internalOccurrenceKey);
+		if (shouldSendPerformanceEventRef.current) {
+			startUfoExperience(internalOccurrenceKey);
+		}
 	});
 
 	const fireAbortedEventRef = useCurrentValueRef(() => {
 		// UFO won't abort if it's already in a final state (succeeded, failed, aborted, etc)
-		abortUfoExperience(internalOccurrenceKey, {
-			fileAttributes,
-			fileStateFlags: fileStateFlagsRef?.current,
-			ssrReliability: ssrReliability,
-		});
+		if (shouldSendPerformanceEventRef.current) {
+			abortUfoExperience(internalOccurrenceKey, {
+				fileAttributes,
+				fileStateFlags: fileStateFlagsRef?.current,
+				ssrReliability: ssrReliability,
+			});
+		}
 	});
 
 	//----------------------------------------------------------------//

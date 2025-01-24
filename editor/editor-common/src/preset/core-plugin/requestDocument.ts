@@ -51,8 +51,7 @@ function createThrottleSchedule<
 
 export const scheduleDocumentRequest = createThrottleSchedule(returnDocumentRequest);
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/max-params
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function returnDocumentRequest<GenericTransformer extends Transformer<any> | undefined>(
 	editorView: EditorView | null,
 	callback: GenericTransformer extends undefined

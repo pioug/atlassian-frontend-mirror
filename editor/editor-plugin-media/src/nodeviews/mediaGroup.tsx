@@ -459,8 +459,6 @@ export const ReactMediaGroupNode =
 		providerFactory: ProviderFactory,
 		mediaOptions: MediaOptions = {},
 		pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
 		return new MediaGroupNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {

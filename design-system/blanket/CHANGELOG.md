@@ -1,5 +1,13 @@
 # @atlaskit/blanket
 
+## 14.0.3
+
+### Patch Changes
+
+- [#105141](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105141)
+  [`8adc915d624f9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8adc915d624f9) -
+  Update dev dependencies.
+
 ## 14.0.2
 
 ### Patch Changes

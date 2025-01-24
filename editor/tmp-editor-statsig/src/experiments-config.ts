@@ -337,4 +337,13 @@ export const editorExperimentsConfig = {
 		typeGuard: oneOf(['control', 'variant1', 'variant2']),
 		defaultValue: 'control' as 'control' | 'variant1' | 'variant2',
 	},
+	// Added 2025-01-19
+	platform_editor_ai_edit_response_in_preview: {
+		productKeys: {
+			confluence: 'platform_editor_ai_edit_response_in_preview',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
 } satisfies Record<string, EditorExperimentConfigValue>;

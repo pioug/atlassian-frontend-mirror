@@ -24,6 +24,7 @@ import {
 	abortUfoExperience,
 	completeUfoExperience,
 	startUfoExperience,
+	shouldPerformanceBeSampled,
 } from '../utils/ufoExperiences';
 import { useCurrentValueRef } from '../utils/useCurrentValueRef';
 import { getDefaultCardDimensions } from '../utils/cardDimensions';
@@ -92,7 +93,9 @@ export const ExternalImageCard = ({
 	});
 
 	const startUfoExperienceRef = useCurrentValueRef(() => {
-		startUfoExperience(internalOccurrenceKey);
+		if (shouldSendPerformanceEventRef.current) {
+			startUfoExperience(internalOccurrenceKey);
+		}
 	});
 
 	const [status, setStatus] = useState<ExternalImageCardStatus>('loading-preview');
@@ -128,6 +131,8 @@ export const ExternalImageCard = ({
 
 	const [mediaViewerSelectedItem, setMediaViewerSelectedItem] = useState<Identifier | null>(null);
 
+	const shouldSendPerformanceEventRef = useRef(shouldPerformanceBeSampled());
+
 	//----------------------------------------------------------------//
 	//---------------------- Analytics  ------------------------------//
 	//----------------------------------------------------------------//
@@ -153,14 +158,15 @@ export const ExternalImageCard = ({
 				traceContext,
 				undefined,
 			);
-		completeUfoExperience(
-			internalOccurrenceKey,
-			status,
-			fileAttributes,
-			fileStateFlagsRef.current,
-			ssrReliability,
-			error,
-		);
+		shouldSendPerformanceEventRef.current &&
+			completeUfoExperience(
+				internalOccurrenceKey,
+				status,
+				fileAttributes,
+				fileStateFlagsRef.current,
+				ssrReliability,
+				error,
+			);
 	});
 
 	const fireScreenEventRef = useCurrentValueRef(() => {
@@ -169,11 +175,13 @@ export const ExternalImageCard = ({
 
 	const fireAbortedEventRef = useCurrentValueRef(() => {
 		// UFO won't abort if it's already in a final state (succeeded, failed, aborted, etc)
-		abortUfoExperience(internalOccurrenceKey, {
-			fileAttributes,
-			fileStateFlags: fileStateFlagsRef?.current,
-			ssrReliability: ssrReliability,
-		});
+		if (shouldSendPerformanceEventRef.current) {
+			abortUfoExperience(internalOccurrenceKey, {
+				fileAttributes,
+				fileStateFlags: fileStateFlagsRef?.current,
+				ssrReliability: ssrReliability,
+			});
+		}
 	});
 
 	//----------------------------------------------------------------//

@@ -17,8 +17,6 @@ export const lazyTaskView = (
 	providerFactory: ProviderFactory,
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,
 	placeholder?: string,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (editorExperiment('platform_editor_exp_lazy_node_views', false)) {
 		return taskItemNodeViewFactory(

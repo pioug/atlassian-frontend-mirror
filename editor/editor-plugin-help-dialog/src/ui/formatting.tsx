@@ -759,8 +759,6 @@ export const getSupportedFormatting = (
 	intl: IntlShape,
 	imageEnabled?: boolean,
 	quickInsertEnabled?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Format[] => {
 	const supportedBySchema = formatting(intl).filter(
 		(format) => schema.nodes[format.type] || schema.marks[format.type],

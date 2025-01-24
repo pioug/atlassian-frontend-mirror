@@ -733,8 +733,6 @@ async function getSmartLinkAdf(
 	return await provider.resolve(text, type);
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function insertAutoMacro(
 	slice: Slice,
 	macro: PMNode,
@@ -768,8 +766,6 @@ function insertAutoMacro(
 	return false;
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function handleMacroAutoConvert(
 	text: string,
 	slice: Slice,
@@ -1054,8 +1050,6 @@ export function handleExpandPaste(slice: Slice, isNestingExpandsSupported?: bool
 	};
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function handleMarkdown(
 	markdownSlice: Slice,
 	queueCardsFromChangedTr: QueueCardsFromTransactionAction | undefined,

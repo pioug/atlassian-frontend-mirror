@@ -37,8 +37,6 @@ function liftListItem(selection: Selection, tr: Transaction): Transaction {
 }
 
 // Function will lift list item following selection to level-1.
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function liftFollowingList(
 	from: number,
 	to: number,

@@ -8,8 +8,6 @@ export const growColumn = (
 	colIndex: number,
 	amount: number,
 	selectedColumns?: number[],
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): ResizeState => {
 	// can't grow if columns don't exist or it's the last column
 	if (!state.cols[colIndex] || !state.cols[colIndex + 1]) {
@@ -34,8 +32,6 @@ export const shrinkColumn = (
 	colIndex: number,
 	amount: number,
 	selectedColumns?: number[],
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): ResizeState => {
 	// can't shrink if columns don't exist
 	if (!state.cols[colIndex]) {
@@ -119,8 +115,6 @@ enum ColType {
 
 // TODO: should handle when destIdx:
 // - is beyond the range, and then not give it back
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function moveSpaceFrom(
 	state: ResizeState,
 	srcIdx: number,

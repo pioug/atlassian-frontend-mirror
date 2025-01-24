@@ -247,8 +247,6 @@ function createPastePayload(
 	};
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function createPasteAnalyticsPayloadBySelection(
 	event: ClipboardEvent,
 	slice: Slice,
@@ -362,8 +360,6 @@ function createPasteAnalyticsPayloadBySelection(
 	};
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function createPasteAnalyticsPayload(
 	view: EditorView,
 	event: ClipboardEvent,
@@ -378,8 +374,6 @@ export function createPasteAnalyticsPayload(
 // so pasteCommandWithAnalytics is useless in this case.
 export const sendPasteAnalyticsEvent =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	(view: EditorView, event: ClipboardEvent, slice: Slice, pasteContext: PasteContext) => {
 		const tr = view.state.tr;
 		const payload = createPasteAnalyticsPayload(view, event, slice, pasteContext);
@@ -405,8 +399,6 @@ export const handlePasteIntoTaskAndDecisionWithAnalytics = (
 	slice: Slice,
 	type: PasteType,
 	pluginInjectionApi: ExtractInjectionAPI<PastePlugin> | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Command =>
 	injectAnalyticsPayloadBeforeCommand(pluginInjectionApi?.analytics?.actions)(
 		createPasteAnalyticsPayloadBySelection(event, slice, {
@@ -421,8 +413,6 @@ export const handlePasteIntoTaskAndDecisionWithAnalytics = (
 
 export const handlePasteIntoCaptionWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	(view: EditorView, event: ClipboardEvent, slice: Slice, type: PasteType): Command =>
 		injectAnalyticsPayloadBeforeCommand(editorAnalyticsAPI)(
 			createPasteAnalyticsPayloadBySelection(event, slice, {
@@ -432,8 +422,6 @@ export const handlePasteIntoCaptionWithAnalytics =
 
 export const handleCodeBlockWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	(view: EditorView, event: ClipboardEvent, slice: Slice, text: string): Command =>
 		injectAnalyticsPayloadBeforeCommand(editorAnalyticsAPI)(
 			createPasteAnalyticsPayloadBySelection(event, slice, {
@@ -449,8 +437,6 @@ export const handleMediaSingleWithAnalytics =
 		slice: Slice,
 		type: PasteType,
 		insertMediaAsMediaSingle: InsertMediaAsMediaSingle | undefined,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 		injectAnalyticsPayloadBeforeCommand(editorAnalyticsAPI)(
 			createPasteAnalyticsPayloadBySelection(event, slice, {
@@ -464,8 +450,6 @@ export const handlePastePreservingMarksWithAnalytics = (
 	slice: Slice,
 	type: PasteType,
 	pluginInjectionApi: ExtractInjectionAPI<PastePlugin> | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Command =>
 	injectAnalyticsPayloadBeforeCommand(pluginInjectionApi?.analytics?.actions)(
 		createPasteAnalyticsPayloadBySelection(event, slice, {
@@ -478,8 +462,6 @@ export const handleMarkdownWithAnalytics = (
 	event: ClipboardEvent,
 	slice: Slice,
 	pluginInjectionApi: ExtractInjectionAPI<PastePlugin> | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Command =>
 	injectAnalyticsPayloadBeforeCommand(pluginInjectionApi?.analytics?.actions)(
 		createPasteAnalyticsPayloadBySelection(event, slice, {
@@ -493,8 +475,6 @@ export const handleRichTextWithAnalytics = (
 	slice: Slice,
 	pluginInjectionApi: ExtractInjectionAPI<PastePlugin> | undefined,
 	isNestingMediaOrCodeblockSupported: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Command =>
 	injectAnalyticsPayloadBeforeCommand(pluginInjectionApi?.analytics?.actions)(
 		createPasteAnalyticsPayloadBySelection(
@@ -548,8 +528,6 @@ export const handlePastePanelOrDecisionIntoListWithAnalytics =
 		event: ClipboardEvent,
 		slice: Slice,
 		findRootParentListNode: FindRootParentListNode | undefined,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 		injectAnalyticsPayloadBeforeCommand(editorAnalyticsAPI)(
 			createPasteAnalyticsPayloadBySelection(event, slice, {
@@ -598,8 +576,6 @@ export const handleSelectedTableWithAnalytics =
 
 export const handlePasteLinkOnSelectedTextWithAnalytics =
 	(editorAnalyticsAPI: EditorAnalyticsAPI | undefined) =>
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	(view: EditorView, event: ClipboardEvent, slice: Slice, type: PasteType): Command =>
 		injectAnalyticsPayloadBeforeCommand(editorAnalyticsAPI)(
 			createPasteAnalyticsPayloadBySelection(event, slice, {

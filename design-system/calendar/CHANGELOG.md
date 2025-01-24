@@ -1,5 +1,13 @@
 # @atlaskit/calendar
 
+## 16.2.2
+
+### Patch Changes
+
+- [#105146](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105146)
+  [`c5f6c2695a300`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c5f6c2695a300) -
+  Update dev dependencies and clean up unused internal exports.
+
 ## 16.2.1
 
 ### Patch Changes

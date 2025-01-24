@@ -149,8 +149,6 @@ export function collab(config: CollabConfig = {}): Plugin {
 /// Create a transaction that represents a set of new steps received from
 /// the authority. Applying this transaction moves the state forward to
 /// adjust to the authority's view of the document.
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function receiveTransaction(
 	state: EditorState,
 	steps: readonly ProseMirrorStep[],

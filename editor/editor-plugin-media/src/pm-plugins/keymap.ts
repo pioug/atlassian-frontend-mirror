@@ -43,8 +43,6 @@ import type { MediaPluginState } from './types';
 
 type WidthPlugin = ExtractInjectionAPI<MediaNextEditorPluginType>['width'];
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function keymapPlugin(
 	options: MediaOptions | undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
@@ -132,8 +130,6 @@ const validationMaxMin = (
 	maxWidth: number,
 	minWidth: number,
 	validation: PixelEntryValidation,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): { newWidthValidated: number; validation: PixelEntryValidation } => {
 	let newWidthValidated: number;
 	if (newWidth > maxWidth) {
@@ -155,8 +151,6 @@ const createAnnouncer = (
 	changeAmount: number,
 	validation: string,
 	getIntl: () => IntlShape,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const announcerContainer: HTMLElement =
 		document.getElementById('media-announcer') || document.createElement('div');
@@ -201,8 +195,6 @@ const handleMediaSizeChange =
 		changeAmount: number,
 		action: 'increased' | 'decreased',
 		getIntl: () => IntlShape,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		const { selection } = state;
@@ -263,16 +255,12 @@ const handleMediaIncrease = (
 	widthPlugin: WidthPlugin | undefined,
 	options: MediaOptions | undefined,
 	getIntl: () => IntlShape,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => handleMediaSizeChange(editorAnalyticsAPI, widthPlugin, options, 1, 'increased', getIntl);
 const handleMediaDecrease = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	widthPlugin: WidthPlugin | undefined,
 	options: MediaOptions | undefined,
 	getIntl: () => IntlShape,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => handleMediaSizeChange(editorAnalyticsAPI, widthPlugin, options, -1, 'decreased', getIntl);
 
 const insertAndSelectCaption =

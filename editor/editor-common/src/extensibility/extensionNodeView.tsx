@@ -92,8 +92,6 @@ export class ExtensionNode extends ReactNodeView {
 	}
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export default function ExtensionNodeView(
 	portalProviderAPI: PortalProviderAPI,
 	eventDispatcher: EventDispatcher,

@@ -97,8 +97,6 @@ const createDropPlaceholder = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	dropPlaceholderKey: string,
 	allowDropLine?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const dropPlaceholder = document.createElement('div');
 	const createElement = React.createElement;
@@ -201,8 +199,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined;
 	singletonCreatedAt: number;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		state: EditorState,
 		options: MediaPluginOptions,
@@ -430,8 +426,6 @@ export class MediaPluginStateImplementation implements MediaPluginState {
 	 *
 	 * called when we insert a new file via the picker (connected via pickerfacade)
 	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	insertFile = (
 		mediaState: MediaState,
 		onMediaStateChanged: MediaStateEventSubscriber,
@@ -923,8 +917,6 @@ export const createPlugin = (
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	dispatch?: Dispatch,
 	mediaOptions?: MediaOptions,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const intl = getIntl();
 
@@ -1131,8 +1123,6 @@ export const createPlugin = (
 				return DecorationSet.create(state.doc, dropPlaceholders);
 			},
 			nodeViews: options.nodeViews,
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			handleTextInput(view: EditorView, from, to, text): boolean {
 				const { selection } = view.state;
 				if (

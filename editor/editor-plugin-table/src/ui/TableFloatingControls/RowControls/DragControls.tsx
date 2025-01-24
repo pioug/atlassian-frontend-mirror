@@ -184,8 +184,6 @@ export const DragControls = ({
 		appearance: DragHandleAppearance,
 		gridRow: string,
 		indexes: number[],
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const isHover = type === 'hover';
 

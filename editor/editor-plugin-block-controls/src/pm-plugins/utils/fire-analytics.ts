@@ -19,8 +19,6 @@ export const attachMoveNodeAnalytics = (
 	toNodeType?: string,
 	isSameParent?: boolean,
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	return api?.analytics?.actions?.attachAnalyticsEvent({
 		eventType: EVENT_TYPE.TRACK,

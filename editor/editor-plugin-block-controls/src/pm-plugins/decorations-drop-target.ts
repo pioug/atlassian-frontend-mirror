@@ -117,8 +117,6 @@ export const createDropTargetDecoration = (
 	side?: number,
 	anchorRectCache?: AnchorRectCache,
 	isSameLayout?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const key = uuid();
 	return Decoration.widget(
@@ -167,8 +165,6 @@ export const createLayoutDropTargetDecoration = (
 	props: Omit<DropTargetLayoutProps, 'getPos'>,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	anchorRectCache?: AnchorRectCache,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const key = uuid();
 	return Decoration.widget(
@@ -215,8 +211,6 @@ export const dropTargetDecorations = (
 	anchorRectCache?: AnchorRectCache,
 	from?: number,
 	to?: number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	unmountDecorations(
 		nodeViewPortalProviderAPI,
@@ -252,8 +246,6 @@ export const dropTargetDecorations = (
 
 	const isAdvancedLayoutsPreRelease2 = editorExperiment('advanced_layouts', true);
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	newState.doc.nodesBetween(docFrom, docTo, (node, pos, parent, index) => {
 		let depth = 0;
 		// drop target deco at the end position

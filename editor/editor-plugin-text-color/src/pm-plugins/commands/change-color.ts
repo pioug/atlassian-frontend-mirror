@@ -23,8 +23,6 @@ import { toggleColor } from './toggle-color';
  * @param palette - Current palette of colors
  * @return Higher order command with analytics logic inside.
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function createWithColorAnalytics(
 	newColor: string,
 	previousColor: string | null,

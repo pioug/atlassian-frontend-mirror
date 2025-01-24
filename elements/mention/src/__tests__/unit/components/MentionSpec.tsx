@@ -1,24 +1,22 @@
 import { AnalyticsListener as AnalyticsListenerNext } from '@atlaskit/analytics-next';
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies, no-restricted-imports
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import Tooltip from '@atlaskit/tooltip';
 // Commented due to HOT-111922
 // import { type ConcurrentExperience } from '@atlaskit/ufo';
 import FocusRing from '@atlaskit/focus-ring';
 import React from 'react';
 import Mention, { ANALYTICS_HOVER_DELAY } from '../../../components/Mention';
 import ResourcedMention from '../../../components/Mention/ResourcedMention';
-import PrimitiveMention from '../../../components/Mention/PrimitiveMention';
 import { ELEMENTS_CHANNEL } from '../../../_constants';
+import { IntlProvider } from 'react-intl-next';
 import { MentionType, MentionNameStatus } from '../../../types';
 import MentionResource, { type MentionProvider } from '../../../api/MentionResource';
 import { type MentionNameResolver } from '../../../api/MentionNameResolver';
 import {
-	flushPromises,
 	mockMentionData as mentionData,
 	mockMentionProvider as mentionProvider,
 } from '../_test-helpers';
+import { screen, render, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 
 const packageName = process.env._PACKAGE_NAME_ as string;
 
@@ -68,14 +66,28 @@ jest.mock('@atlaskit/ufo', () => {
 
 jest.mock('@atlaskit/focus-ring', () => ({
 	__esModule: true,
-	default: jest
-		.fn()
-		.mockImplementation((props: { children: React.ReactElement }) => props.children),
+	default: jest.fn(),
 }));
+
+// QS-5280 - Upgrade @atlaskit/mention to React 18
+// Without this wrapper we get a "change to react wasn't wrapped in act" as soon as we render <Mention /> with no other action
+// This is an old component doing some funky things internally with MessagesIntlProvider and the ufoExperience wrapper via getInstance
+// This helper makes these tests much easier to work with due to the waitFor
+const renderWait = async (children: React.ReactNode) => {
+	const renderReturn = render(<IntlProvider locale="en">{children}</IntlProvider>);
+	await waitFor(async () => {
+		expect(renderReturn.container.querySelector(`[data-mention-type]`)).toBeInTheDocument();
+	});
+	return renderReturn;
+};
 
 describe('<Mention />', () => {
 	beforeEach(() => {
 		jest.useFakeTimers();
+
+		(FocusRing as jest.Mock).mockImplementation(
+			(props: { children: React.ReactElement }) => props.children,
+		);
 	});
 
 	afterEach(() => {
@@ -84,79 +96,83 @@ describe('<Mention />', () => {
 	});
 
 	describe('Mention', () => {
-		it('should render based on mention data', () => {
-			const mention = mountWithIntl(<Mention {...mentionData} />);
-			expect(mention.html()).toContain(mentionData.text);
+		it('should render based on mention data', async () => {
+			await renderWait(<Mention {...mentionData} />);
+
+			expect(screen.getByText(mentionData.text)).toBeInTheDocument();
 		});
 
-		it('should render a default lozenge if no accessLevel data and is not being mentioned', () => {
-			const mention = mountWithIntl(<Mention {...mentionData} />);
-			expect(
-				mention.findWhere((component) => component.prop('mentionType')).prop('mentionType'),
-			).toEqual(MentionType.DEFAULT);
+		it('should render a default lozenge if no accessLevel data and is not being mentioned', async () => {
+			const { container } = await renderWait(<Mention {...mentionData} />);
+			const item = container.querySelector(`[data-mention-type="${MentionType.DEFAULT}"]`);
+			expect(item).toBeInTheDocument();
 		});
 
-		it('should render a default lozenge if the user has CONTAINER permissions but is not being mentioned', () => {
-			const mention = mountWithIntl(<Mention {...mentionData} accessLevel={'CONTAINER'} />);
-			expect(
-				mention.findWhere((component) => component.prop('mentionType')).prop('mentionType'),
-			).toEqual(MentionType.DEFAULT);
+		it('should render a default lozenge if the user has CONTAINER permissions but is not being mentioned', async () => {
+			const { container } = await renderWait(
+				<Mention {...mentionData} accessLevel={'CONTAINER'} />,
+			);
+			const item = container.querySelector(`[data-mention-type="${MentionType.DEFAULT}"]`);
+			expect(item).toBeInTheDocument();
 		});
 
-		it('should add a highlighted lozenge if `isHighlighted` is set to true', () => {
-			const mention = mountWithIntl(<Mention {...mentionData} isHighlighted={true} />);
-			expect(
-				mention
-					.findWhere((component) => component.prop('mentionType') !== undefined)
-					.prop('mentionType'),
-			).toEqual(MentionType.SELF);
+		it('should add a highlighted lozenge if `isHighlighted` is set to true', async () => {
+			const { container } = await renderWait(<Mention {...mentionData} isHighlighted={true} />);
+			const item = container.querySelector(`[data-mention-type="${MentionType.SELF}"]`);
+			expect(item).toBeInTheDocument();
 		});
 
-		it('should render a restricted style lozenge if the user has NONE permissions', () => {
-			const mention = mountWithIntl(<Mention {...mentionData} accessLevel={'NONE'} />);
-			expect(
-				mention.findWhere((component) => component.prop('mentionType')).prop('mentionType'),
-			).toEqual(MentionType.RESTRICTED);
+		it('should render a restricted style lozenge if the user has NONE permissions', async () => {
+			const { container } = await renderWait(<Mention {...mentionData} accessLevel={'NONE'} />);
+			const item = container.querySelector(`[data-mention-type="${MentionType.RESTRICTED}"]`);
+			expect(item).toBeInTheDocument();
 		});
 
-		it('should render a unrestricted style lozenge if the user has CONTAINER permissions', () => {
-			const mention = mountWithIntl(<Mention {...mentionData} accessLevel={'CONTAINER'} />);
-
-			expect(
-				mention.findWhere((component) => component.prop('mentionType')).prop('mentionType'),
-			).toEqual(MentionType.DEFAULT);
+		it('should render a unrestricted style lozenge if the user has CONTAINER permissions', async () => {
+			const { container } = await renderWait(
+				<Mention {...mentionData} accessLevel={'CONTAINER'} />,
+			);
+			const item = container.querySelector(`[data-mention-type="${MentionType.DEFAULT}"]`);
+			expect(item).toBeInTheDocument();
 		});
 
-		it('should render a unrestricted style lozenge if the user has CONTAINER permissions', () => {
-			const mention = mountWithIntl(<Mention {...mentionData} accessLevel={'APPLICATION'} />);
-
-			expect(
-				mention.findWhere((component) => component.prop('mentionType')).prop('mentionType'),
-			).toEqual(MentionType.DEFAULT);
+		it('should render a unrestricted style lozenge if the user has CONTAINER permissions', async () => {
+			const { container } = await renderWait(
+				<Mention {...mentionData} accessLevel={'APPLICATION'} />,
+			);
+			const item = container.querySelector(`[data-mention-type="${MentionType.DEFAULT}"]`);
+			expect(item).toBeInTheDocument();
 		});
 
-		it('should not display a tooltip if no accessLevel data', () => {
-			const mention = mountWithIntl(<Mention {...mentionData} />);
-			expect(mention.find(Tooltip)).toHaveLength(0);
+		it('should not display a tooltip if no accessLevel data', async () => {
+			const { container } = await renderWait(<Mention {...mentionData} />);
+			const item = container.querySelector(`[data-mention-tooltip="false"`);
+			expect(item).toBeInTheDocument();
 		});
 
-		it('should display tooltip if mentioned user does not have container permission', () => {
-			const mention = mountWithIntl(<Mention {...mentionData} accessLevel="NONE" />);
-			expect(mention.find(Tooltip)).toHaveLength(1);
+		it('should display tooltip if mentioned user does not have container permission', async () => {
+			const { container } = await renderWait(<Mention {...mentionData} accessLevel="NONE" />);
+			const item = container.querySelector(`[data-mention-tooltip="true"`);
+			expect(item).toBeInTheDocument();
 		});
 
-		it('should not display tooltip if mention is highlighted', () => {
-			const mention = mountWithIntl(<Mention {...mentionData} isHighlighted={true} />);
-			expect(mention.find(Tooltip)).toHaveLength(0);
+		it('should not display tooltip if mention is highlighted', async () => {
+			const { container } = await renderWait(<Mention {...mentionData} isHighlighted={true} />);
+			const item = container.querySelector(`[data-mention-tooltip="false"`);
+			expect(item).toBeInTheDocument();
 		});
 
-		it('should dispatch onClick-event', () => {
+		it('should dispatch onClick-event', async () => {
+			const user = userEvent.setup();
 			const spy = jest.fn();
-			const mention = mountWithIntl(<Mention {...mentionData} onClick={spy} />);
-			mention
-				.findWhere((component) => component.prop('mentionType'))
-				.find('span')
-				.simulate('click');
+
+			await renderWait(<Mention {...mentionData} isHighlighted={true} onClick={spy} />);
+
+			await waitFor(async () => {
+				const trigger = await screen.findByText(mentionData.text);
+				await user.click(trigger);
+			});
+
 			expect(spy).toHaveBeenCalled();
 			expect(spy).toHaveBeenLastCalledWith(
 				mentionData.id,
@@ -166,17 +182,20 @@ describe('<Mention />', () => {
 			);
 		});
 
-		it('should dispatch lozenge.select analytics onClick-event', () => {
+		it('should dispatch lozenge.select analytics onClick-event', async () => {
+			const user = userEvent.setup();
 			const analyticsNextHandlerSpy = jest.fn();
-			const mention = mountWithIntl(
+
+			await renderWait(
 				<AnalyticsListenerNext onEvent={analyticsNextHandlerSpy} channel={ELEMENTS_CHANNEL}>
 					<Mention {...mentionData} accessLevel={'CONTAINER'} />
 				</AnalyticsListenerNext>,
 			);
-			mention
-				.findWhere((component) => component.prop('mentionType'))
-				.find('span')
-				.simulate('click');
+
+			await waitFor(async () => {
+				const trigger = await screen.findByText(mentionData.text);
+				await user.click(trigger);
+			});
 
 			expect(analyticsNextHandlerSpy).toHaveBeenCalled();
 			expect(analyticsNextHandlerSpy).toHaveBeenCalledWith(
@@ -185,39 +204,50 @@ describe('<Mention />', () => {
 			);
 		});
 
-		it('should dispatch onMouseEnter-event', () => {
+		it('should dispatch onMouseEnter-event', async () => {
+			const user = userEvent.setup();
 			const spy = jest.fn();
-			const mention = mountWithIntl(<Mention {...mentionData} onMouseEnter={spy} />);
-			mention
-				.findWhere((component) => component.prop('mentionType'))
-				.find('span')
-				.simulate('mouseenter');
-			expect(spy).toBeCalled();
+
+			await renderWait(<Mention {...mentionData} isHighlighted={true} onMouseEnter={spy} />);
+
+			await waitFor(async () => {
+				const trigger = await screen.findByText(mentionData.text);
+				await user.hover(trigger);
+			});
+
 			expect(spy).toHaveBeenCalledWith(mentionData.id, mentionData.text, expect.anything());
 		});
 
-		it('should dispatch onMouseLeave-event', () => {
+		it('should dispatch onMouseLeave-event', async () => {
+			const user = userEvent.setup();
 			const spy = jest.fn();
-			const mention = mountWithIntl(<Mention {...mentionData} onMouseLeave={spy} />);
-			mention
-				.findWhere((component) => component.prop('mentionType'))
-				.find('span')
-				.simulate('mouseleave');
-			expect(spy).toBeCalled();
+
+			await renderWait(<Mention {...mentionData} isHighlighted={true} onMouseLeave={spy} />);
+
+			await waitFor(async () => {
+				const trigger = await screen.findByText(mentionData.text);
+				await user.hover(trigger);
+				await user.unhover(trigger);
+			});
+
 			expect(spy).toHaveBeenCalledWith(mentionData.id, mentionData.text, expect.anything());
 		});
 
-		it('should dispatch lozenge.hover analytics event if hover delay is greater than the threshold', () => {
+		it('should dispatch lozenge.hover analytics event if hover delay is greater than the threshold', async () => {
+			const user = userEvent.setup();
 			const analyticsNextHandlerSpy = jest.fn();
-			const mention = mountWithIntl(
+
+			await renderWait(
 				<AnalyticsListenerNext onEvent={analyticsNextHandlerSpy} channel={ELEMENTS_CHANNEL}>
 					<Mention {...mentionData} accessLevel={'CONTAINER'} />
 				</AnalyticsListenerNext>,
 			);
-			mention
-				.findWhere((component) => component.prop('mentionType'))
-				.find('span')
-				.simulate('mouseenter');
+
+			await waitFor(async () => {
+				const trigger = await screen.findByText(mentionData.text);
+				await user.hover(trigger);
+			});
+
 			jest.advanceTimersByTime(ANALYTICS_HOVER_DELAY);
 
 			expect(analyticsNextHandlerSpy).toHaveBeenCalledWith(
@@ -226,52 +256,59 @@ describe('<Mention />', () => {
 			);
 		});
 
-		it('should not dispatch lozenge.hover analytics event for a hover delay bellow the threshold', () => {
+		it('should not dispatch lozenge.hover analytics event for a hover delay bellow the threshold', async () => {
+			const user = userEvent.setup();
 			const analyticsNextHandlerSpy = jest.fn();
-			const mention = mountWithIntl(
+
+			await renderWait(
 				<AnalyticsListenerNext onEvent={analyticsNextHandlerSpy} channel={ELEMENTS_CHANNEL}>
 					<Mention {...mentionData} accessLevel={'CONTAINER'} />
 				</AnalyticsListenerNext>,
 			);
-			mention
-				.findWhere((component) => component.prop('mentionType'))
-				.find('span')
-				.simulate('mouseenter');
+
+			await waitFor(async () => {
+				const trigger = await screen.findByText(mentionData.text);
+				await user.hover(trigger);
+			});
+
 			jest.advanceTimersByTime(ANALYTICS_HOVER_DELAY / 5);
-			mention
-				.findWhere((component) => component.prop('mentionType'))
-				.find('span')
-				.simulate('mouseleave');
+
+			await waitFor(async () => {
+				const trigger = screen.getByText(mentionData.text);
+				await user.unhover(trigger);
+			});
 
 			// to make sure the clearTimeout removed the scheduled task
 			jest.advanceTimersByTime(ANALYTICS_HOVER_DELAY);
 
-			expect(analyticsNextHandlerSpy).not.toBeCalled();
+			expect(analyticsNextHandlerSpy).not.toHaveBeenCalled();
 		});
 
 		it('should render a stateless mention component with correct data attributes', async () => {
-			const mention = mountWithIntl(<Mention {...mentionData} accessLevel="NONE" />);
+			const { container } = await renderWait(<Mention {...mentionData} accessLevel="NONE" />);
 
 			// flush promises to load async components
 			await new Promise(setImmediate);
-			mention.update();
+			// mention.update();
 
-			expect(mention.getDOMNode().attributes.getNamedItem('data-mention-id')!.value).toEqual(
-				mentionData.id,
-			);
-			expect(mention.getDOMNode().attributes.getNamedItem('data-access-level')!.value).toEqual(
-				'NONE',
-			);
+			const mentionById = container.querySelector(`[data-mention-id="${mentionData.id}"]`);
+			expect(mentionById).toBeInTheDocument();
+
+			const mentionByAccessLevel = container.querySelector(`[data-access-level="NONE"]`);
+			expect(mentionByAccessLevel).toBeInTheDocument();
 		});
 
-		it('should have spell check disabled', () => {
-			const mention = mountWithIntl(<Mention {...mentionData} />);
-			expect(mention.getDOMNode().attributes.getNamedItem('spellcheck')!.value).toEqual('false');
+		it('should have spell check disabled', async () => {
+			await renderWait(<Mention {...mentionData} />);
+
+			const mention = screen.getByTestId(`mention-${mentionData.id}`);
+			expect(mention.getAttribute('spellcheck')).toEqual('false');
 		});
 
-		it('should render @... if no text attribute is supplied', () => {
-			const mention = mountWithIntl(<Mention {...mentionData} text="" />);
-			expect(mention.text()).toEqual('@...');
+		it('should render @... if no text attribute is supplied', async () => {
+			await renderWait(<Mention {...mentionData} text="" />);
+
+			expect(screen.getByText('@...')).toBeInTheDocument();
 		});
 
 		describe('UFO metrics', () => {
@@ -282,18 +319,24 @@ describe('<Mention />', () => {
 			});
 
 			it('should send a UFO success metric when mounted successfully', async () => {
-				mountWithIntl(<Mention {...mentionData} text="" />);
+				await renderWait(<Mention {...mentionData} text="" />);
+
 				expect(mockUfoStart).toHaveBeenCalled();
 				expect(mockUfoSuccess).toHaveBeenCalled();
 			});
 
 			it('should send a UFO failure metric when mount fails', async () => {
 				// Mock one the things rendered by @atlaskit/mention, so we can simulate a mount error
-				(FocusRing as jest.Mock).mockImplementationOnce(() => {
-					throw new Error('Erron in FocusRing');
+				(FocusRing as jest.Mock).mockImplementation(() => {
+					throw new Error('FocusRing Exception');
 				});
 
-				mountWithIntl(<Mention {...mentionData} text="" />);
+				render(
+					<IntlProvider locale="en">
+						<Mention {...mentionData} text="" />
+					</IntlProvider>,
+				);
+
 				expect(mockUfoStart).toHaveBeenCalled();
 				expect(mockUfoFailure).toHaveBeenCalled();
 			});
@@ -316,23 +359,26 @@ describe('<Mention />', () => {
 			);
 		});
 
-		it('should render a stateless mention component based on mention data', () => {
-			const mention = mountWithIntl(
-				<ResourcedMention {...mentionData} mentionProvider={mentionProvider()} />,
-			);
-			expect(mention.find(Mention).first().text()).toEqual(mentionData.text);
+		afterEach(() => {
+			jest.clearAllMocks();
 		});
 
-		it('should render a mention and use supplied mention name even if resolving provider', () => {
-			const mention = mountWithIntl(
+		it('should render a stateless mention component based on mention data', async () => {
+			await renderWait(<ResourcedMention {...mentionData} mentionProvider={mentionProvider()} />);
+
+			expect(screen.getByText(mentionData.text)).toBeInTheDocument();
+		});
+
+		it('should render a mention and use supplied mention name even if resolving provider', async () => {
+			await renderWait(
 				<ResourcedMention {...mentionData} mentionProvider={resolvingMentionProvider} />,
 			);
-			expect(mention.find(Mention).first().text()).toEqual(mentionData.text);
+
+			expect(screen.getByText(mentionData.text)).toBeInTheDocument();
 			expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(0);
 		});
 
-		// FIXME: flaky test - failed on https://bitbucket.org/atlassian/atlassian-frontend/pipelines/results/2020200
-		it.skip('prefers text from prop over mention resolver', async () => {
+		it('prefers text from prop over mention resolver', async () => {
 			const resolvedProps = {
 				id: '1',
 				name: 'resolved name',
@@ -343,48 +389,63 @@ describe('<Mention />', () => {
 				id: '1',
 				text: '',
 			};
-			const mention = mountWithIntl(
+			const { container, rerender } = await renderWait(
 				<ResourcedMention {...mentionProps} mentionProvider={resolvingMentionProvider} />,
 			);
-			await flushPromises();
-			expect(mention.find(Mention).first().text()).toEqual(`@${resolvedProps.name}`);
+
 			expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
+			const firstMention = container.querySelector(`[data-mention-type]`);
+			expect(firstMention).toHaveTextContent(`@${resolvedProps.name}`);
+
 			(mentionNameResolver.lookupName as any as jest.SpyInstance).mockClear();
-			mention.setProps({ ...mentionData });
-			expect(mention.find(Mention).first().text()).toEqual(mentionData.text);
+			rerender(
+				<IntlProvider locale="en">
+					<ResourcedMention {...mentionData} mentionProvider={resolvingMentionProvider} />
+				</IntlProvider>,
+			);
+
 			expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(0);
+			const reRenderFirstMention = container.querySelector(`[data-mention-type]`);
+			expect(reRenderFirstMention).toHaveTextContent(mentionData.text);
 		});
 
 		it('should render a highlighted stateless mention component if mentionProvider.shouldHighlightMention returns true', async () => {
-			const mention = mountWithIntl(
+			const { container } = await renderWait(
 				<ResourcedMention id="oscar" text="@Oscar Wallhult" mentionProvider={mentionProvider()} />,
 			);
 
-			await mentionProvider;
-			mention.update();
-			expect(mention.find(Mention).first().find(PrimitiveMention).prop('mentionType')).toEqual(
-				MentionType.SELF,
-			);
+			await waitFor(async () => {
+				const item = container.querySelector(`[data-mention-type="${MentionType.SELF}"]`);
+				expect(item).toBeInTheDocument();
+			});
 		});
 
-		it('should not render highlighted mention component if there is no mentionProvider', () => {
-			const mention = mountWithIntl(<ResourcedMention id="oscar" text="@Oscar Wallhult" />);
-			expect(mention.find(Mention).first().find(PrimitiveMention).prop('mentionType')).toEqual(
-				MentionType.DEFAULT,
+		it('should not render highlighted mention component if there is no mentionProvider', async () => {
+			const { container } = await renderWait(
+				<ResourcedMention id="oscar" text="@Oscar Wallhult" />,
 			);
+
+			await waitFor(async () => {
+				const item = container.querySelector(`[data-mention-type="${MentionType.DEFAULT}"]`);
+				expect(item).toBeInTheDocument();
+			});
 		});
 
-		it('should dispatch onClick-event', () => {
+		it('should dispatch onClick-event', async () => {
+			const user = userEvent.setup();
 			const spy = jest.fn();
-			const mention = mountWithIntl(
+
+			await renderWait(
 				<ResourcedMention {...mentionData} mentionProvider={mentionProvider()} onClick={spy} />,
 			);
-			mention
-				.findWhere((component) => component.prop('mentionType'))
-				.find('span')
-				.simulate('click');
-			expect(spy).toBeCalled();
-			expect(spy).toHaveBeenCalledWith(
+
+			await waitFor(async () => {
+				const trigger = await screen.findByText(mentionData.text);
+				await user.click(trigger);
+			});
+
+			expect(spy).toHaveBeenCalled();
+			expect(spy).toHaveBeenLastCalledWith(
 				mentionData.id,
 				mentionData.text,
 				expect.anything(),
@@ -392,96 +453,95 @@ describe('<Mention />', () => {
 			);
 		});
 
-		it('should dispatch onMouseEnter-event', () => {
+		it('should dispatch onMouseEnter-event', async () => {
+			const user = userEvent.setup();
 			const spy = jest.fn();
-			const mention = mountWithIntl(
+
+			await renderWait(
 				<ResourcedMention
 					{...mentionData}
 					mentionProvider={mentionProvider()}
 					onMouseEnter={spy}
 				/>,
 			);
-			mention
-				.findWhere((component) => component.prop('mentionType'))
-				.find('span')
-				.simulate('mouseenter');
-			expect(spy).toBeCalled();
-			expect(spy).toHaveBeenCalledWith(mentionData.id, mentionData.text, expect.anything());
+
+			await waitFor(async () => {
+				const trigger = await screen.findByText(mentionData.text);
+				await user.hover(trigger);
+			});
+
+			expect(spy).toHaveBeenCalled();
+			expect(spy).toHaveBeenLastCalledWith(mentionData.id, mentionData.text, expect.anything());
 		});
 
-		it('should dispatch onMouseLeave-event', () => {
+		it('should dispatch onMouseLeave-event', async () => {
+			const user = userEvent.setup();
 			const spy = jest.fn();
-			const mention = mountWithIntl(
+
+			await renderWait(
 				<ResourcedMention
 					{...mentionData}
 					mentionProvider={mentionProvider()}
 					onMouseLeave={spy}
 				/>,
 			);
-			mention
-				.findWhere((component) => component.prop('mentionType'))
-				.find('span')
-				.simulate('mouseleave');
-			expect(spy).toBeCalled();
-			expect(spy).toHaveBeenCalledWith(mentionData.id, mentionData.text, expect.anything());
+
+			await waitFor(async () => {
+				const trigger = await screen.findByText(mentionData.text);
+				await user.hover(trigger);
+				await user.unhover(trigger);
+			});
+
+			expect(spy).toHaveBeenCalled();
+			expect(spy).toHaveBeenLastCalledWith(mentionData.id, mentionData.text, expect.anything());
 		});
 
 		describe('resolving mention name', () => {
-			// FIXME: flaky test - failed on https://bitbucket.org/atlassian/atlassian-frontend/addon/pipelines/home#!/results/2020820
-			it.skip('should render a mention and use the resolving provider to lookup the name (string result)', (done) => {
-				const mention = mountWithIntl(
-					<ResourcedMention {...mentionData} text="" mentionProvider={resolvingMentionProvider} />,
-				);
+			it('should render a mention and use the resolving provider to lookup the name (string result)', async () => {
 				(mentionNameResolver.lookupName as any as jest.SpyInstance).mockReturnValue({
 					id: '123',
 					name: 'cheese',
 					status: MentionNameStatus.OK,
 				});
-				setImmediate(() => {
-					expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
-					expect(mention.find(Mention).first().text()).toEqual('@cheese');
-					done();
-				});
+				const { container } = await renderWait(
+					<ResourcedMention {...mentionData} text="" mentionProvider={resolvingMentionProvider} />,
+				);
+				expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
+				const firstMention = container.querySelector(`[data-mention-type]`);
+				expect(firstMention).toHaveTextContent('@cheese');
 			});
 
-			it.skip('should render a mention and use the resolving provider to lookup the name (string result, unknown)', (done) => {
-				const mention = mountWithIntl(
+			it('should render a mention and use the resolving provider to lookup the name (string result, unknown)', async () => {
+				(mentionNameResolver.lookupName as any as jest.SpyInstance).mockReturnValue({
+					id: mentionData.id,
+					status: MentionNameStatus.UNKNOWN,
+				});
+				const { container } = await renderWait(
 					<ResourcedMention
 						id={mentionData.id}
 						text=""
 						mentionProvider={resolvingMentionProvider}
 					/>,
 				);
-				(mentionNameResolver.lookupName as any as jest.SpyInstance).mockReturnValue({
-					id: mentionData.id,
-					status: MentionNameStatus.UNKNOWN,
-				});
-				setImmediate(() => {
-					expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
-					expect(mention.find(Mention).first().text()).toEqual('@Unknown user -ABCD');
-					done();
-				});
+				expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
+				const firstMention = container.querySelector(`[data-mention-type]`);
+				expect(firstMention).toHaveTextContent('@Unknown user -ABCD');
 			});
 
-			it.skip('should render a mention and use the resolving provider to lookup the name (string result, service error)', (done) => {
-				const mention = mountWithIntl(
-					<ResourcedMention id="123" text="" mentionProvider={resolvingMentionProvider} />,
-				);
+			it('should render a mention and use the resolving provider to lookup the name (string result, service error)', async () => {
 				(mentionNameResolver.lookupName as any as jest.SpyInstance).mockReturnValue({
 					id: mentionData.id,
 					status: MentionNameStatus.SERVICE_ERROR,
 				});
-				setImmediate(() => {
-					expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
-					expect(mention.find(Mention).first().text()).toEqual('@Unknown user 123');
-					done();
-				});
+				const { container } = await renderWait(
+					<ResourcedMention id="123" text="" mentionProvider={resolvingMentionProvider} />,
+				);
+				expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
+				const firstMention = container.querySelector(`[data-mention-type]`);
+				expect(firstMention).toHaveTextContent('@Unknown user 123');
 			});
 
-			it.skip('should render a mention and use the resolving provider to lookup the name (Promise result)', (done) => {
-				const mention = mountWithIntl(
-					<ResourcedMention {...mentionData} text="" mentionProvider={resolvingMentionProvider} />,
-				);
+			it('should render a mention and use the resolving provider to lookup the name (Promise result)', async () => {
 				(mentionNameResolver.lookupName as any as jest.SpyInstance).mockReturnValue(
 					Promise.resolve({
 						id: mentionData.id,
@@ -489,45 +549,42 @@ describe('<Mention />', () => {
 						status: MentionNameStatus.OK,
 					}),
 				);
-				setImmediate(() => {
-					expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
-					expect(mention.find(Mention).first().text()).toEqual('@bacon');
-					done();
-				});
-			});
-
-			it.skip('should render a mention and use the resolving provider to lookup the name (Promise result, unknown)', (done) => {
-				const mention = mountWithIntl(
+				const { container } = await renderWait(
 					<ResourcedMention {...mentionData} text="" mentionProvider={resolvingMentionProvider} />,
 				);
+				expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
+				const firstMention = container.querySelector(`[data-mention-type]`);
+				expect(firstMention).toHaveTextContent('@bacon');
+			});
+
+			it('should render a mention and use the resolving provider to lookup the name (Promise result, unknown)', async () => {
 				(mentionNameResolver.lookupName as any as jest.SpyInstance).mockReturnValue(
 					Promise.resolve({
 						id: mentionData.id,
 						status: MentionNameStatus.UNKNOWN,
 					}),
 				);
-				setImmediate(() => {
-					expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
-					expect(mention.find(Mention).first().text()).toEqual('@Unknown user -ABCD');
-					done();
-				});
+				const { container } = await renderWait(
+					<ResourcedMention {...mentionData} text="" mentionProvider={resolvingMentionProvider} />,
+				);
+				expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
+				const firstMention = container.querySelector(`[data-mention-type]`);
+				expect(firstMention).toHaveTextContent('@Unknown user -ABCD');
 			});
 
-			it.skip('should render a mention and use the resolving provider to lookup the name (Promise result, service error)', (done) => {
-				const mention = mountWithIntl(
-					<ResourcedMention id="" text="" mentionProvider={resolvingMentionProvider} />,
-				);
+			it('should render a mention and use the resolving provider to lookup the name (Promise result, service error)', async () => {
 				(mentionNameResolver.lookupName as any as jest.SpyInstance).mockReturnValue(
 					Promise.resolve({
 						id: mentionData.id,
 						status: MentionNameStatus.SERVICE_ERROR,
 					}),
 				);
-				setImmediate(() => {
-					expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
-					expect(mention.find(Mention).first().text()).toEqual('@Unknown user ');
-					done();
-				});
+				const { container } = await renderWait(
+					<ResourcedMention id="" text="" mentionProvider={resolvingMentionProvider} />,
+				);
+				expect(mentionNameResolver.lookupName).toHaveBeenCalledTimes(1);
+				const firstMention = container.querySelector(`[data-mention-type]`);
+				expect(firstMention).toHaveTextContent('@Unknown user');
 			});
 		});
 	});

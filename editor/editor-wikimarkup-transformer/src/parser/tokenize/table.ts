@@ -280,8 +280,6 @@ export const table: TokenParser = ({ input, position, schema, context }) => {
 	};
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function bufferToCells(
 	style: string,
 	buffer: string,

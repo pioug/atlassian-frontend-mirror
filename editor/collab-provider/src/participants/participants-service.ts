@@ -43,8 +43,6 @@ export class ParticipantsService {
 	private participantUpdateTimeout: number | undefined;
 	private presenceUpdateTimeout: number | undefined;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		private analyticsHelper: AnalyticsHelper | undefined,
 		private participantsState: ParticipantsState = new ParticipantsState(),

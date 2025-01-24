@@ -1,5 +1,13 @@
 # @atlaskit/avatar-group
 
+## 10.1.5
+
+### Patch Changes
+
+- [#104081](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104081)
+  [`9e80fcb611337`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9e80fcb611337) -
+  Update dev dependencies.
+
 ## 10.1.4
 
 ### Patch Changes

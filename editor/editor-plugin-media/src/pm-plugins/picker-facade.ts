@@ -45,8 +45,6 @@ export default class PickerFacade {
 	private eventListeners: Record<string, Array<MediaStateEventListener> | undefined> = {};
 	private analyticsName: string | undefined;
 	erroredFiles: Set<string>;
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		pickerType: PickerType,
 		readonly config: PickerFacadeConfig,

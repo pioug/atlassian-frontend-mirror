@@ -289,8 +289,6 @@ export const ReactMediaInlineNode =
 		providerFactory: ProviderFactory,
 		api: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
 		dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(node: PMNode, view: EditorView, getPos: getPosHandler): NodeView => {
 		return new MediaInlineNodeView(node, view, getPos, portalProviderAPI, eventDispatcher, {

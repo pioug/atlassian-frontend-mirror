@@ -78,8 +78,6 @@ const breakoutOptions = (
 	extensionState: ExtensionState,
 	breakoutEnabled: boolean,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Array<FloatingToolbarItem<Command>> => {
 	const nodeWithPos = getSelectedExtension(state, true);
 
@@ -124,8 +122,6 @@ const editButton = (
 	extensionState: ExtensionState,
 	applyChangeToContextPanel: ApplyChangeHandler | undefined,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Array<FloatingToolbarItem<Command>> => {
 	if (!extensionState.showEditButton) {
 		return [];
@@ -242,9 +238,11 @@ export const getToolbarConfig =
 						if (!extensionNode) {
 							return nextPos;
 						}
-						const isExtensionNodeNested = extensionNode.node.attrs.nested;
+						const isInsideEditableExtensionArea = !!editorView.dom.closest(
+							'.extension-editable-area',
+						);
 
-						if (!isBodiedExtensionInsideMBE && !isExtensionNodeNested) {
+						if (!isBodiedExtensionInsideMBE && !isInsideEditableExtensionArea) {
 							return nextPos;
 						}
 					} else {

@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 78.18.5
+
+### Patch Changes
+
+- [#105231](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105231)
+  [`832aac2f4725a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/832aac2f4725a) -
+  Sample 5% of media card UFOv1 events
+
 ## 78.18.4
 
 ### Patch Changes

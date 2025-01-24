@@ -48,8 +48,6 @@ export const resolveWithProvider = (
 	options: CardOptions,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 	createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const isEmbedFriendlyLocation = fg('hardcoded-embeds-only-on-new-line')
 		? isFreshlyPastedOnNewLine(view)
@@ -103,8 +101,6 @@ const handleResolved =
 		editorAnalyticsApi: EditorAnalyticsAPI | undefined,
 		createAnalyticsEvent: CreateUIAnalyticsEvent | undefined,
 		options: CardOptions,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(resolvedCard: CardAdf | DatasourceAdf) => {
 		updateCardType(resolvedCard, options);

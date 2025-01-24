@@ -115,8 +115,6 @@ export const getToolbarMenuConfig = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined | null,
 	isTableScalingWithFixedColumnWidthsOptionShown = false,
 	areTableColumnWidthsFixed = false,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarItem<Command> => {
 	const optionItem: typeOption = 'item-checkbox';
 
@@ -209,8 +207,6 @@ export const getToolbarCellOptionsConfig = (
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
 	isCommentEditor = false,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarDropdown<Command> => {
 	const { top, bottom, right, left } = initialSelectionRect;
 	const numberOfColumns = right - left;
@@ -487,8 +483,6 @@ export const getToolbarConfig =
 		options?: TablePluginOptions,
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(config: PluginConfig): FloatingToolbarHandler =>
 	(state, intl) => {
@@ -678,8 +672,6 @@ const getCellItems = (
 	isTableFixedColumnWidthsOptionEnabled = false,
 	shouldUseIncreasedScalingPercent = false,
 	isCommentEditor = false,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Array<FloatingToolbarItem<Command>> => {
 	const initialSelectionRect = getClosestSelectionRect(state);
 	if (initialSelectionRect) {
@@ -711,8 +703,6 @@ const getDistributeConfig =
 		isTableScalingEnabled = false,
 		isTableFixedColumnWidthsOptionEnabled = false,
 		isCommentEditor = false,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch, editorView) => {
 		const selectionOrTableRect = getClosestSelectionOrTableRect(state);
@@ -752,8 +742,6 @@ const getColumnSettingItems = (
 	isTableScalingEnabled = false,
 	isTableFixedColumnWidthsOptionEnabled = false,
 	isCommentEditor = false,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Array<FloatingToolbarItem<Command>> => {
 	const pluginState = getPluginState(editorState);
 	const selectionOrTableRect = getClosestSelectionOrTableRect(editorState);
@@ -809,8 +797,6 @@ const getColorPicker = (
 	{ formatMessage }: ToolbarMenuContext,
 	editorAnalyticsAPI: EditorAnalyticsAPI | null | undefined,
 	getEditorView: () => EditorView | null,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Array<FloatingToolbarItem<Command>> => {
 	const { targetCellPosition, pluginConfig } = getPluginState(state);
 	if (!pluginConfig.allowBackgroundColor) {
@@ -902,8 +888,6 @@ const getAlignmentOptionsConfig = (
 	shouldUseIncreasedScalingPercent: boolean,
 	isFullWidthEditor?: boolean,
 	isCommentEditor?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Array<FloatingToolbarDropdown<Command>> => {
 	const tableObject = findTable(editorState.selection);
 
@@ -1017,8 +1001,6 @@ const isLayoutOptionDisabled = (
 	editorView: EditorView | null,
 	shouldUseIncreasedScalingPercent: boolean,
 	isFullWidthEditor: boolean | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { lineLength } = getEditorContainerWidth();
 	let tableContainerWidth = getTableContainerWidth(selectedNode);

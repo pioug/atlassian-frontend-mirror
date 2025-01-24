@@ -285,8 +285,6 @@ class ResizableMediaSingleNext extends React.Component<ResizableMediaSingleNextP
 		);
 	};
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	calcUnwrappedLayout = (
 		width: number,
 		containerWidth: number,
@@ -707,8 +705,6 @@ const calcUnwrappedLayout = (
 	contentWidth: number,
 	fullWidthMode?: boolean,
 	isNestedNode?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): 'center' | 'wide' | 'full-width' => {
 	if (isNestedNode) {
 		return 'center';
@@ -767,8 +763,6 @@ const calculateSizeState =
 		delta: Dimensions,
 		onResizeStop: boolean = false,
 		aspectRatio: number,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) => {
 		const calculatedWidth = Math.round(size.width + delta.width);
 		const calculatedWidthWithLayout = calcNewLayout(props)(calculatedWidth, onResizeStop);

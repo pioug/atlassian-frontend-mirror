@@ -67,8 +67,6 @@ const moveToExistingLayout = (
 	$originalFrom: ResolvedPos,
 	$originalTo: ResolvedPos,
 	api?: ExtractInjectionAPI<BlockControlsPlugin>,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const isSameLayout = isInSameLayout($originalFrom, $originalTo);
 	if (isSameLayout) {
@@ -141,8 +139,6 @@ const insertToDestination = (
 	sourceNode: PMNode,
 	toLayout: PMNode,
 	toLayoutPos: number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { newColumnWidth } =
 		updateColumnWidths(tr, toLayout, toLayoutPos, toLayout.childCount + 1) || {};

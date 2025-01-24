@@ -56,8 +56,6 @@ const inputRuleHandler =
 		matchParts: Array<string>,
 		start: number,
 		end: number,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Transaction | null => {
 		if (!matcher) {
 			return null;
@@ -202,8 +200,6 @@ class AsciiEmojiTransactionCreator {
 	private end: number;
 	private editorAnalyticsAPI: EditorAnalyticsAPI | undefined;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		state: EditorState,
 		match: AsciiEmojiMatch,
@@ -277,8 +273,6 @@ const plugins = (
 	featureFlags: FeatureFlags,
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	pluginInjectionApi: ExtractInjectionAPI<EmojiPlugin> | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	return [inputRulePlugin(schema, editorAnalyticsAPI, pluginInjectionApi)].filter(
 		(plugin) => !!plugin,

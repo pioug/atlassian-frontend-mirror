@@ -49,7 +49,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private cleanupCopyButtonDecoration: (() => void) | undefined;
 	private languageLoader: LanguageLoader;
 
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(node: PMNode, view: EditorView, getPos: getPosHandlerNode, config: ConfigProps) {
 		this.node = node;
 		this.view = view;

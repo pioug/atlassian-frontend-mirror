@@ -1,8 +1,6 @@
 import { unitToNumber } from './unit-to-number';
 
 // calculates content width of a cell
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function contentWidth(
 	elem: HTMLElement,
 	container: HTMLElement,
@@ -12,8 +10,6 @@ export function contentWidth(
 	return calcContentWidth(elem, container || elem, canvas, colWidths);
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function calcContentWidth(
 	elem: HTMLElement,
 	container: HTMLElement,
@@ -95,8 +91,6 @@ function measureText(canvas: HTMLCanvasElement, text: string | null, font: strin
 	return Math.round(ctx.measureText(text || '').width);
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function handlePreText(
 	canvas: HTMLCanvasElement,
 	node: HTMLElement,

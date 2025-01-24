@@ -281,4 +281,65 @@ describe('Help', () => {
 
 		jest.clearAllTimers();
 	});
+
+	describe('Help with AI', () => {
+		const mockFooter = <div>Mock Footer</div>;
+
+		const renderHelpComponent = (isAiEnabled: boolean) => {
+			return render(
+				<IntlProvider locale="en">
+					<Help
+						header={{
+							onCloseButtonClick: mockOnCloseButtonClick,
+							onBackButtonClick: mockOnBackButtonClick,
+						}}
+						navigation={{
+							navigationData: {
+								articleId: { id: '', type: ARTICLE_TYPE.HELP_ARTICLE },
+								history: [],
+							},
+							setNavigationData: MockNavigationDataSetter,
+						}}
+						helpArticle={{
+							onGetHelpArticle: mockOnGetHelpArticle,
+							onHelpArticleLoadingFailTryAgainButtonClick:
+								mockOnHelpArticleLoadingFailTryAgainButtonClick,
+							onWasHelpfulYesButtonClick: mockOnWasHelpfulYesButtonClick,
+							onWasHelpfulNoButtonClick: mockOnWasHelpfulNoButtonClick,
+						}}
+						relatedArticles={{
+							onGetRelatedArticles: mockOnGetRelatedArticles,
+							onRelatedArticlesListItemClick: mockOnRelatedArticlesListItemClick,
+						}}
+						search={{
+							onSearch: mockOnSearch,
+							onSearchInputChanged: mockOnSearchInputChanged,
+							onSearchInputCleared: mockOnSearchInputCleared,
+							onSearchResultItemClick: mockOnSearchResultItemClick,
+							searchExternalUrl: mockSearchExternalUrl,
+							onSearchExternalUrlClick: mockOnSearchExternalUrlClick,
+						}}
+						ai={{
+							isAiEnabled,
+						}}
+						footer={mockFooter}
+					>
+						<div>{defaultContentText}</div>
+					</Help>
+				</IntlProvider>,
+			);
+		};
+
+		it('Should render footer within HelpLayout when isAiEnabled is false', () => {
+			const { queryByTestId, getByTestId } = renderHelpComponent(false);
+			expect(getByTestId('footer')).toBeInTheDocument();
+			expect(queryByTestId('inside-footer')).toBeNull();
+		});
+
+		it('Should render footer within HelpContent when isAiEnabled is true', () => {
+			const { queryByTestId, getByTestId } = renderHelpComponent(true);
+			expect(getByTestId('inside-footer')).toBeInTheDocument();
+			expect(queryByTestId('footer')).toBeNull();
+		});
+	});
 });

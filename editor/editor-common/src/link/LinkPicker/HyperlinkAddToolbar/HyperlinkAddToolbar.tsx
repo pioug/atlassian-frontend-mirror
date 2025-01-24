@@ -725,8 +725,6 @@ export class HyperlinkLinkAddToolbar extends PureComponent<Props, State> {
 		this.handleInsert(href, text, INPUT_METHOD.TYPEAHEAD, 'click');
 	};
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	private handleInsert = (
 		href: string,
 		title: string | undefined,

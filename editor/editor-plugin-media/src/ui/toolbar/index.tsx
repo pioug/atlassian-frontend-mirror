@@ -150,8 +150,6 @@ const generateMediaCardFloatingToolbar = (
 	editorAnalyticsAPI: EditorAnalyticsAPI | undefined,
 	forceFocusSelector: ForceFocusSelector | undefined,
 	isViewOnly: boolean | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (isViewOnly) {
 		return [];
@@ -248,8 +246,6 @@ const generateMediaSingleFloatingToolbar = (
 	pluginState: MediaPluginState,
 	mediaLinkingState: MediaLinkingState,
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { mediaSingle } = state.schema.nodes;
 	const {
@@ -708,8 +704,6 @@ export const floatingToolbar = (
 	intl: IntlShape,
 	options: MediaFloatingToolbarOptions = {},
 	pluginInjectionApi: ExtractInjectionAPI<MediaNextEditorPluginType> | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarConfig | undefined => {
 	const { media, mediaInline, mediaSingle, mediaGroup } = state.schema.nodes;
 	const {

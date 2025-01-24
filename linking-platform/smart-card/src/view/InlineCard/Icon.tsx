@@ -23,9 +23,9 @@ export const Icon = styled.img({
 	transform: 'translate(-50%, -50%)',
 });
 
+// TODO: Remove on platform-smart-card-icon-migration cleanup
 // Used for 'untrue' icons which claim to be 16x16 but
 // are less than that in height/width.
-// TODO: Replace this override with proper AtlasKit solution.
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const AKIconWrapper = styled.span({
 	marginRight: token('space.negative.025', '-2px'),

@@ -41,8 +41,6 @@ export class SelectionBasedNodeView<P = ReactComponentProps> extends ReactNodeVi
 	pos: number | undefined;
 	posEnd: number | undefined;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		node: PMNode,
 		view: EditorView,
@@ -94,8 +92,6 @@ export class SelectionBasedNodeView<P = ReactComponentProps> extends ReactNodeVi
 		};
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	private isNodeInsideSelection = (from: number, to: number, pos?: number, posEnd?: number) => {
 		({ pos, posEnd } = this.getPositionsWithDefault(pos, posEnd));
 
@@ -106,8 +102,6 @@ export class SelectionBasedNodeView<P = ReactComponentProps> extends ReactNodeVi
 		return from <= pos && to >= posEnd;
 	};
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	private isSelectionInsideNode = (from: number, to: number, pos?: number, posEnd?: number) => {
 		({ pos, posEnd } = this.getPositionsWithDefault(pos, posEnd));
 

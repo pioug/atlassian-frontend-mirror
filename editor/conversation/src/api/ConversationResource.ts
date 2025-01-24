@@ -136,8 +136,6 @@ export class AbstractConversationResource implements ResourceProvider {
 	/**
 	 * Creates a new Conversation and associates it with the containerId provided.
 	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	create(
 		_localId: string,
 		// Ignored via go/ees005
@@ -155,8 +153,7 @@ export class AbstractConversationResource implements ResourceProvider {
 	/**
 	 * Adds a comment to a parent, or update if existing. ParentId can be either a conversation or another comment.
 	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line require-await, @typescript-eslint/max-params
+	// eslint-disable-next-line require-await
 	async addComment(
 		_conversationId: string,
 		_parentId: string,
@@ -216,8 +213,6 @@ export class AbstractConversationResource implements ResourceProvider {
 		return Promise.reject('Not implemented');
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	saveDraft(
 		_isLocal: boolean,
 		// Ignored via go/ees005
@@ -297,8 +292,6 @@ export class ConversationResource extends AbstractConversationResource {
 	/**
 	 * Creates a new Conversation and associates it with the containerId provided.
 	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	async create(
 		localId: string,
 		// Ignored via go/ees005
@@ -371,8 +364,6 @@ export class ConversationResource extends AbstractConversationResource {
 	/**
 	 * Adds a comment to a parent, or update if existing. ParentId can be either a conversation or another comment.
 	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	async addComment(
 		conversationId: string,
 		parentId: string,
@@ -536,8 +527,6 @@ export class ConversationResource extends AbstractConversationResource {
 	/**
 	 * Internal helper methods for optimistic updates
 	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	private createConversation(
 		localId: string,
 		// Ignored via go/ees005
@@ -561,8 +550,6 @@ export class ConversationResource extends AbstractConversationResource {
 		};
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	protected createComment(
 		conversationId: string,
 		parentId: string,

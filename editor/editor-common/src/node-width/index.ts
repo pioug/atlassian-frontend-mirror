@@ -34,8 +34,6 @@ export const getParentNodeWidth = (
 	state: EditorState,
 	containerWidth: EditorContainerWidth,
 	isFullWidthModeEnabled?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (!pos) {
 		return;

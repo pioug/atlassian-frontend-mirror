@@ -1,5 +1,13 @@
 # @atlaskit/checkbox
 
+## 15.2.5
+
+### Patch Changes
+
+- [#105597](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105597)
+  [`8713842724537`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8713842724537) -
+  Update dependencies and remove unused internal exports.
+
 ## 15.2.4
 
 ### Patch Changes

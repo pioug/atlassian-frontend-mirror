@@ -32,8 +32,6 @@ const createListRule =
 	(regex: RegExp, listType: TaskDecisionListType, itemAttrs?: AddItemAttrs) => {
 		return createRule(
 			regex,
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			(state: EditorState, _match: Object | undefined, start: number, end: number) => {
 				const { paragraph } = state.schema.nodes;
 				const { list } = getListTypes(listType, state.schema);
@@ -76,8 +74,6 @@ const processShortcutForNestedTask = (
 	listLocalId: string,
 	itemLocalId: string,
 	itemAttrs?: AddItemAttrs,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): void => {
 	//Extracting the content into the 'contentWithoutShortcut' from 'content' after removing the keyboard shortcut text, i.e., '[] '.
 	const contentWithoutShortcut = content.cut($from.pos - $from.start(), content.size);

@@ -77,8 +77,6 @@ export default class RendererActions
 	}
 
 	//#region private
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	_privateRegisterRenderer(
 		ref: React.MutableRefObject<null>,
 		doc: Node,

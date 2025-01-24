@@ -10,8 +10,6 @@ export const addSynchronyErrorAnalytics = (
 	tr: Transaction,
 	featureFlags: FeatureFlags,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	return (error: Error) => {
 		const browserExtensions = sniffUserBrowserExtensions({

@@ -289,8 +289,6 @@ class ConfigPanel extends React.Component<Props, State> {
 			formParams: Parameters,
 			currentParams: Parameters,
 			backfill: Parameters,
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 		) => {
 			if (field.hasGroupedValues && !(field.name in backfill)) {
 				backfill[field.name] = {};

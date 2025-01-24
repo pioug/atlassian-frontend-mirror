@@ -4,6 +4,7 @@ import type { AnnotationProviders, AnnotationState } from '@atlaskit/editor-comm
 import { AnnotationUpdateEmitter, AnnotationUpdateEvent } from '@atlaskit/editor-common/types';
 import type { JSONDocNode } from '@atlaskit/editor-json-transformer';
 import type { Mark } from '@atlaskit/editor-prosemirror/model';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 import React from 'react';
 import { render } from 'react-dom';
 import { act } from 'react-dom/test-utils';
@@ -278,36 +279,42 @@ describe('Annotations: Hooks/useLoadAnnotations', () => {
 			expect(providers.inlineComment.getState).toHaveBeenCalledWith(fakeMarksIds, true);
 		});
 
-		it('should not call getState when there is no annotations', () => {
-			jest.spyOn(RendererActions.prototype, 'getAnnotationMarks').mockReturnValue([]);
+		ffTest.on(
+			'use_comments_data_annotation_updater',
+			'should call getState when there are no annotations',
+			() => {
+				it('should call getState when there are no annotations', () => {
+					jest.spyOn(RendererActions.prototype, 'getAnnotationMarks').mockReturnValue([]);
 
-			expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
+					expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
 
-			if (process.env.IS_REACT_18 === 'true') {
-				act(() => {
-					root.render(
-						<RendererContext.Provider value={actionsFake}>
-							<ProvidersContext.Provider value={providers}>
-								<CustomComp />
-							</ProvidersContext.Provider>
-						</RendererContext.Provider>,
-					);
+					if (process.env.IS_REACT_18 === 'true') {
+						act(() => {
+							root.render(
+								<RendererContext.Provider value={actionsFake}>
+									<ProvidersContext.Provider value={providers}>
+										<CustomComp />
+									</ProvidersContext.Provider>
+								</RendererContext.Provider>,
+							);
+						});
+					} else {
+						act(() => {
+							render(
+								<RendererContext.Provider value={actionsFake}>
+									<ProvidersContext.Provider value={providers}>
+										<CustomComp />
+									</ProvidersContext.Provider>
+								</RendererContext.Provider>,
+								container,
+							);
+						});
+					}
+
+					expect(providers.inlineComment.getState).toHaveBeenCalledTimes(1);
 				});
-			} else {
-				act(() => {
-					render(
-						<RendererContext.Provider value={actionsFake}>
-							<ProvidersContext.Provider value={providers}>
-								<CustomComp />
-							</ProvidersContext.Provider>
-						</RendererContext.Provider>,
-						container,
-					);
-				});
-			}
-
-			expect(providers.inlineComment.getState).toHaveBeenCalledTimes(0);
-		});
+			},
+		);
 
 		describe('when the getState is resolved', () => {
 			it('should emit SET_ANNOTATION_STATE event on updateSubscriber', (done) => {

@@ -23,8 +23,6 @@ export const generateColgroup = (
 	tableRef?: HTMLElement,
 	shouldUseIncreasedScalingPercent?: boolean,
 	isCommentEditor?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const cols: Col[] = [];
 	const map = TableMap.get(table);
@@ -93,8 +91,6 @@ export const insertColgroupFromNode = (
 	shouldRemove = true,
 	shouldUseIncreasedScalingPercent = false,
 	isCommentEditor = false,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): HTMLCollection => {
 	// Ignored via go/ees005
 	// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -146,8 +142,6 @@ export const isMinCellWidthTable = (table: PmNode) => {
 	return isTableMinCellWidth;
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function renderColgroupFromNode(
 	table: PmNode,
 	maybeTableRef: HTMLElement | undefined,

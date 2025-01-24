@@ -173,8 +173,6 @@ export class WithPluginStateInner<P extends NamedPluginKeys> extends React.Compo
 		return props.eventDispatcher || props.editorActions?._privateGetEventDispatcher();
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	private handlePluginStateChange =
 		(
 			propName: string,
@@ -459,8 +457,6 @@ export class WithPluginStateOld<P extends NamedPluginKeys> extends React.Compone
 		);
 	}
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	private handlePluginStateChange =
 		(
 			propName: string,

@@ -64,12 +64,6 @@
 			"path": "../../design-system/heading/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/icon/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/lozenge/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/primitives/tsconfig.app.json"
 		},
 		{
@@ -77,9 +71,6 @@
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"
-		},
-		{
-			"path": "../../design-system/tooltip/tsconfig.app.json"
 		},
 		{
 			"path": "../../data/ufo-external/tsconfig.app.json"

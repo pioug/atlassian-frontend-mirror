@@ -25,7 +25,6 @@ export const syncCMWithPM = ({ view, update, offset }: Props): void => {
 	const pmSel = view.state.selection;
 	if (update.docChanged || pmSel.from !== selFrom || pmSel.to !== selTo) {
 		const tr = view.state.tr;
-		// eslint-disable-next-line @typescript-eslint/max-params
 		update.changes.iterChanges((fromA, toA, fromB, toB, text) => {
 			if (text.length) {
 				tr.replaceWith(offset + fromA, offset + toA, view.state.schema.text(text.toString()));

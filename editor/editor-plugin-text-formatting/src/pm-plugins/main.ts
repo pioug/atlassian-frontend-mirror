@@ -95,8 +95,6 @@ export const plugin = (dispatch: Dispatch, editorAnalyticsAPI: EditorAnalyticsAP
 			init(_config, state: EditorState): TextFormattingState {
 				return getTextFormattingState(state, editorAnalyticsAPI);
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(_tr, pluginState: TextFormattingState, _oldState, newState): TextFormattingState {
 				const state = getTextFormattingState(newState, editorAnalyticsAPI);
 				if (!shallowEqual(pluginState, state)) {
@@ -117,8 +115,6 @@ export const plugin = (dispatch: Dispatch, editorAnalyticsAPI: EditorAnalyticsAP
 				}
 				return false;
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			handleTextInput(view: EditorView, from: number, to: number, text: string) {
 				const { state, dispatch } = view;
 				const {

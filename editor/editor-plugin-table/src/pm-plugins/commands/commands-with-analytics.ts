@@ -240,8 +240,6 @@ export const changeColumnWidthByStepWithAnalytics =
 		inputMethod: INPUT_METHOD.SHORTCUT,
 		ariaNotify?: (message: string) => void,
 		getIntl?: () => IntlShape,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 		withEditorAnalyticsAPI((state) => {
 			const { table, totalRowCount, totalColumnCount } = getSelectedTableInfo(state.selection);
@@ -284,8 +282,6 @@ export const insertColumnWithAnalytics =
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 		isCommentEditor = false,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(
 		inputMethod:
@@ -363,8 +359,6 @@ export const deleteColumnsWithAnalytics =
 		isTableFixedColumnWidthsOptionEnabled = false,
 		shouldUseIncreasedScalingPercent = false,
 		isCommentEditor = false,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(
 		inputMethod:
@@ -409,8 +403,6 @@ export const deleteSelectedRowsOrColumnsWithAnalyticsViaShortcut =
 		isTableScalingEnabled?: boolean,
 		isTableFixedColumnWidthsOptionEnabled?: boolean,
 		shouldUseIncreasedScalingPercent?: boolean,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): Command =>
 	(state, dispatch) => {
 		const { selection } = state;
@@ -659,8 +651,6 @@ export const setTableAlignmentWithAnalytics =
 		previousAlignment: TableLayout,
 		inputMethod: INPUT_METHOD.FLOATING_TB,
 		reason: CHANGE_ALIGNMENT_REASON,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 		withEditorAnalyticsAPI((state) => {
 			const { table, totalRowCount, totalColumnCount } = getSelectedTableInfo(state.selection);
@@ -695,8 +685,6 @@ export const setTableAlignmentWithTableContentWithPosWithAnalytics =
 		tableNodeWithPos: NodeWithPos,
 		inputMethod: INPUT_METHOD.AUTO,
 		reason: CHANGE_ALIGNMENT_REASON,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 		withEditorAnalyticsAPI(() => {
 			const map = TableMap.get(tableNodeWithPos.node);

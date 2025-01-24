@@ -121,8 +121,6 @@ export const calcNewLayout = (
 	contentWidth: number,
 	fullWidthMode = false,
 	isNested = false,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const isWrappedLayout = wrappedLayouts.indexOf(layout) > -1;
 

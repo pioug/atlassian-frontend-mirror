@@ -99,8 +99,6 @@ export const isInsideBlockQuote = (state: EditorState): boolean => {
 
 const PASTE = 'Editor Paste Plugin Paste Duration';
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function createPlugin(
 	schema: Schema,
 	dispatchAnalyticsEvent: DispatchAnalyticsEvent,

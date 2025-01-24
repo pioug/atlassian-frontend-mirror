@@ -87,8 +87,6 @@ export default class AnalyticsHelper {
 	documentAri: string;
 	subProduct: string | undefined;
 
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	constructor(
 		documentAri: string,
 		subProduct?: string,

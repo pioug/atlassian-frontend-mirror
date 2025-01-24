@@ -63,8 +63,6 @@ function generateRgb(color: string): RGB | null {
 
 function parseHex(hex: string): RGB | null {
 	// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	hex = hex.replace(COLOR_TYPE_REGEX.hexShort, (_m, r, g, b) => {
 		return r + r + g + g + b + b;
 	});

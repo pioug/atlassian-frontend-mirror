@@ -175,8 +175,6 @@ export const floatingToolbar = (
 	linkPickerOptions?: LinkPickerOptions,
 	pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
 	disableFloatingToolbar?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarHandler => {
 	return (state, intl, providerFactory) => {
 		if (disableFloatingToolbar) {
@@ -272,8 +270,6 @@ const buildAlignmentOptions = (
 	widthPluginDependencyApi: PluginDependenciesAPI<WidthPlugin> | undefined,
 	analyticsApi: EditorAnalyticsAPI | undefined,
 	cardOptions?: CardOptions,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarItem<Command>[] => {
 	return buildLayoutButtons(
 		state,
@@ -326,8 +322,6 @@ const generateToolbarItems =
 		lpLinkPicker: boolean,
 		linkPicker?: LinkPickerOptions,
 		pluginInjectionApi?: ExtractInjectionAPI<typeof cardPlugin>,
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(node: Node): Array<FloatingToolbarItem<Command>> => {
 		const { url } = titleUrlPairFromNode(node);
@@ -587,8 +581,6 @@ const getUnlinkButtonGroup = (
 	node: Node,
 	inlineCard: NodeType,
 	editorAnalyticsApi: EditorAnalyticsAPI | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	return node.type === inlineCard
 		? ([
@@ -633,8 +625,6 @@ const getDatasourceButtonGroup = (
 	state: EditorState,
 	cardOptions: CardOptions,
 	currentAppearance: CardAppearance | undefined,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): FloatingToolbarItem<Command>[] => {
 	const toolbarItems: Array<FloatingToolbarItem<Command>> = [];
 
@@ -764,8 +754,6 @@ export const shouldRenderToolbarPulse = (
 	appearance: string,
 	status: string,
 	isDiscoverabilityEnabled: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): boolean => {
 	return (
 		embedEnabled && appearance === 'inline' && status === 'resolved' && isDiscoverabilityEnabled
@@ -781,8 +769,6 @@ export const getStartingToolbarItems = (
 		link: string,
 		onEditLink: Command,
 		metadata: { url: string; title: string },
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): FloatingToolbarItem<Command>[] => {
 		const editLinkItem: FloatingToolbarItem<Command>[] = options.allowDatasource
 			? [

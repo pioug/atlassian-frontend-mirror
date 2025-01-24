@@ -36,8 +36,6 @@ export const validationErrorHandler = (
 	marks: string[],
 	validate: Validate,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (entity && entity.type === UNSUPPORTED_NODE_ATTRIBUTE) {
 		return entity;
@@ -102,8 +100,6 @@ export const validationErrorHandler = (
 	return entity;
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function getEntityForInvalidContentLength(
 	error: ValidationError,
 	entity: ADFEntity,

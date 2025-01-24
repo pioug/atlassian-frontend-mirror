@@ -1,5 +1,13 @@
 # @atlaskit/css-reset
 
+## 6.11.5
+
+### Patch Changes
+
+- [#105672](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105672)
+  [`cb6ee69d77f15`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cb6ee69d77f15) -
+  Update dependencies.
+
 ## 6.11.4
 
 ### Patch Changes

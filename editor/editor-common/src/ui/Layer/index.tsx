@@ -110,8 +110,6 @@ export default class Layer extends Component<Props, State> {
 	 * the bottom of the popper not being viewable.
 	 * Only works if the popper uses viewport as the boundary and has a fixed position ancestor.
 	 */
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	calculateMaxHeight(
 		originalHeight: number,
 		currentHeight: number,

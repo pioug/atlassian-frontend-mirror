@@ -54,8 +54,6 @@ const getInlineWidth = (
 	state: EditorState,
 	pos: number | undefined,
 	allowTableResizing?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): number | undefined => {
 	if (!node.attrs.width && options?.isCommentEditor && allowTableResizing) {
 		return;
@@ -398,8 +396,6 @@ export const createTableView = (
 	pluginInjectionApi?: PluginInjectionAPI,
 	isCommentEditor?: boolean,
 	isChromelessEditor?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): NodeView => {
 	const {
 		pluginConfig,

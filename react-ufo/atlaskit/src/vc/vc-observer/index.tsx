@@ -319,6 +319,7 @@ export class VCObserver {
 			[`${fullPrefix}vc:ratios`]: ratios,
 			...outOfBoundary,
 			[`${fullPrefix}vc:next`]: vcNext.VC,
+			[`${fullPrefix}vc:next:updates`]: vcNext.VCEntries.rel.slice(0, 50),
 			//...oldDomUpdates,
 			[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
 		};

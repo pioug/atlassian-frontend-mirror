@@ -97,8 +97,6 @@ export function processRawValueWithoutValidation(
 	}
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function processRawValue(
 	schema: Schema,
 	value?: ReplaceRawValue,
@@ -313,8 +311,6 @@ export function processRawValue(
 	}
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function processRawFragmentValue(
 	schema: Schema,
 	value?: ReplaceRawValue[],

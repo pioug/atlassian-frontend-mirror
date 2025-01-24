@@ -67,8 +67,6 @@ const _validation = (
 	useSpecBasedValidator: boolean,
 	dispatchAnalyticsEvent?: DispatchAnalyticsEvent,
 	skipValidation?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	let result;
 
@@ -234,8 +232,6 @@ export const renderDocument = <T>(
 	appearance?: RendererAppearance,
 	includeNodesCountInStats?: boolean,
 	skipValidation?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): RenderOutput<T | null> => {
 	const stat: RenderOutputStat = { sanitizeTime: 0 };
 

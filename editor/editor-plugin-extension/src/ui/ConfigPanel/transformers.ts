@@ -85,8 +85,6 @@ export const serialize = async (
 	data: Parameters,
 	fields: FieldDefinition[],
 	options: SerializeOptions = {},
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Promise<Parameters> => {
 	const result: ParametersWithDuplicateFields = [];
 	const { depth = 0, parentType } = options;
@@ -148,8 +146,6 @@ const serializeFieldset = async (
 	field: Fieldset,
 	data: Parameters,
 	depth: number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Promise<Parameters | undefined> => {
 	let fieldSerializer;
 
@@ -393,8 +389,6 @@ export const deserialize = async (
 	data: Parameters | ParametersWithDuplicateFields,
 	fields: FieldDefinition[],
 	depth: number = 0,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): Promise<Parameters> => {
 	const dataArray = convertToParametersArray(data);
 	let result: Parameters | ParametersWithDuplicateFields = [];

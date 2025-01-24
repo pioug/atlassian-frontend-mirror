@@ -15,7 +15,7 @@ import {
 	type ProviderPattern,
 	type ProvidersData,
 } from './types';
-
+import FeatureGates from '@atlaskit/feature-gate-js-client';
 import { type JsonLdDatasourceResponse } from '@atlaskit/link-client-extension';
 import { CardClient } from '@atlaskit/link-provider';
 import { type EnvironmentsKeys, getBaseUrl, getResolverUrl } from '@atlaskit/linking-common';
@@ -101,6 +101,10 @@ const isJiraVersion = (url: string) => {
 
 const isJiraForm = (url: string) => {
 	return url.match(/https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/form\/\d\??.*/);
+};
+
+const isJiraSummary = (url: string) => {
+	return url.match(/^https:\/\/.*?\/jira\/software\/(c\/)?projects\/[^\/]+?\/summary/);
 };
 
 const isRovoAgentProfilePage = (url: string) => {
@@ -262,6 +266,13 @@ export class EditorCardProvider implements CardProvider {
 			isJiraFormEvaluated = isJiraForm(url);
 		}
 
+		let isJiraSummaryEvaluated;
+		if (
+			this.getExperimentValue('jsw-summary-page-embed-smart-link-experiment', 'isEnabled', false)
+		) {
+			isJiraSummaryEvaluated = isJiraSummary(url);
+		}
+
 		if (
 			isJiraRoadmapOrTimeline(url) ||
 			isPolarisView(url) ||
@@ -279,11 +290,24 @@ export class EditorCardProvider implements CardProvider {
 			isRovoAgentProfilePage(url) ||
 			isJiraPlanEvaluated ||
 			isJiraVersionEvaluated ||
-			isJiraFormEvaluated
+			isJiraFormEvaluated ||
+			isJiraSummaryEvaluated
 		) {
 			return 'embed';
 		}
 	}
+
+	private getExperimentValue = <T>(
+		experimentName: string,
+		parameterName: string,
+		defaultValue: T,
+	) => {
+		try {
+			return FeatureGates.getExperimentValue(experimentName, parameterName, defaultValue);
+		} catch {
+			return defaultValue;
+		}
+	};
 
 	/**
 	 * Make a /resolve call and find out if result has embed capability

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/avatar-group",
-	"version": "10.1.4",
+	"version": "10.1.5",
 	"description": "An avatar group displays a number of avatars grouped together in a stack or grid.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,6 +45,14 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/analytics-next": "^10.2.0",
+		"@atlaskit/button": "^20.3.9",
+		"@atlaskit/docs": "*",
+		"@atlaskit/form": "^11.0.1",
+		"@atlaskit/icon": "^23.4.0",
+		"@atlaskit/link": "*",
+		"@atlaskit/modal-dialog": "^12.19.1",
+		"@atlaskit/primitives": "^13.3.7",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/visual-regression": "*",

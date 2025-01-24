@@ -22,8 +22,6 @@ const SMART_TO_ASCII: { [char: string]: string } = {
 // eslint-disable-next-line require-unicode-regexp
 const FIND_SMART_CHAR = new RegExp(`[${Object.keys(SMART_TO_ASCII).join('')}]`, 'g');
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function filterChildrenBetween(
 	doc: PMNode,
 	from: number,
@@ -92,8 +90,6 @@ export const applyMarkOnRange = (
 	removeMark: boolean,
 	mark: Mark,
 	tr: Transaction,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const { schema } = tr.doc.type;
 	const { code } = schema.marks;
@@ -141,8 +137,6 @@ export const entireSelectionContainsMark = (
 	doc: PMNode,
 	fromPos: number,
 	toPos: number,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	let onlyContainsMark = true;
 

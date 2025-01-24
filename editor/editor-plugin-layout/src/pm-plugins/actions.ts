@@ -304,8 +304,6 @@ const decreaseColumns = (node: Node, insideRightEdgePos: number, columnsNumberTo
  * Switching from 3 -> 2 moves all the content of the third col inside the second before
  * removing it
  */
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function forceColumnStructure(
 	state: EditorState,
 	node: Node,
@@ -346,8 +344,6 @@ function forceColumnStructure(
 	return tr;
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function forceColumnStructureNew(
 	state: EditorState,
 	node: Node,
@@ -387,8 +383,6 @@ function columnWidth(node: Node, schema: Schema, widths: number[]): Fragment {
 	});
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function forceColumnWidths(
 	state: EditorState,
 	tr: Transaction,
@@ -407,8 +401,6 @@ function forceColumnWidths(
 	);
 }
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function forceSectionToPresetLayout(
 	state: EditorState,
 	node: Node,

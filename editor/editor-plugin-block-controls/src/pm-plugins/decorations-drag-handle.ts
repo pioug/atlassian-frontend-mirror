@@ -44,8 +44,6 @@ export const dragHandleDecoration = (
 	nodeType: string,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	handleOptions?: HandleOptions,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	unmountDecorations(
 		nodeViewPortalProviderAPI,

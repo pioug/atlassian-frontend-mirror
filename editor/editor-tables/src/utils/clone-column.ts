@@ -33,8 +33,6 @@ export const cloneColumn =
 			direction: 0,
 			selectAfterClone: false,
 		},
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	) =>
 	(tr: Transaction): Transaction => {
 		const table = findTable(tr.selection);
@@ -153,8 +151,6 @@ export const cloneColumn =
 		return newTr;
 	};
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function normalizeCellNode(
 	cellNode: PMNode,
 	rowHeaderEnabled: boolean,

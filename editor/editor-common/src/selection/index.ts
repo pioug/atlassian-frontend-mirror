@@ -145,8 +145,6 @@ export function createSelectionClickHandler(
 		getNodeSelectionPos?: (state: EditorState, nodePos: number) => number;
 	},
 ) {
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 	return function handleClickOn(
 		view: EditorView,
 		pos: number,

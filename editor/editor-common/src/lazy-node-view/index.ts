@@ -152,8 +152,6 @@ export const withLazyLoading = <Options>({
 		view: EditorView,
 		getPos: () => number | undefined,
 		decorations: readonly Decoration[],
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): NodeView => {
 		let requestedNodes: Map<string, Promise<NodeViewFactoryFn>> | undefined =
 			requestedNodesPerEditorView.get(view);
@@ -178,8 +176,6 @@ export const withLazyLoading = <Options>({
 		}
 
 		const loaderPromise = loader().then((nodeViewFuncModule) => {
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			const nodeViewFunc: NodeViewFactoryFn = (node, view, getPos, decorations) => {
 				const nodeView = nodeViewFuncModule(node, view, getPos, decorations, getNodeViewOptions);
 				// eslint-disable-next-line @atlaskit/editor/no-as-casting

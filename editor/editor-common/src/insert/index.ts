@@ -81,8 +81,6 @@ const insertBeforeOrAfter = (
 	$parentPos: ResolvedPos,
 	$proposedPosition: ResolvedPos,
 	content: InsertableContent,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	/**
 	 * This block caters for the first item in a parent with the cursor being at the very start

@@ -1,174 +1,154 @@
 // These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import { waitUntil } from '@atlaskit/elements-test-helpers';
-// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { mentionTestResult } from '@atlaskit/util-data-test/mention-test-data';
-import { type ReactWrapper } from 'enzyme';
 import React from 'react';
-import MentionItem from '../../../components/MentionItem';
-import MentionList, { type Props, type State } from '../../../components/MentionList';
-import { isMentionItemSelected } from '../_test-helpers';
+import MentionList from '../../../components/MentionList';
+import { IntlProvider } from 'react-intl-next';
+import { screen, render, act } from '@testing-library/react';
 
-// TODO: After updating to expect.hasAssertions(), it identified some tests that are not correctly written.
+// TODO: After updating to expect.hasAssertions() and RTL, it identified some tests that are not correctly written.
 // Please refer to: https://product-fabric.atlassian.net/browse/FS-4183
 describe('MentionList', () => {
 	describe('MentionList without initial element', () => {
-		let component: ReactWrapper<Props, State>;
-		let defaultMentionItemsShow: () => boolean;
-		const setupList = (props?: Props) =>
-			mountWithIntl<Props, State>(<MentionList mentions={mentionTestResult} {...props} />);
-
-		beforeEach(() => {
-			component = setupList();
-			defaultMentionItemsShow = () =>
-				component.find(MentionItem).length === mentionTestResult.length;
-		});
-
-		afterEach(() => {
-			component.unmount();
-		});
-
 		it('should have first item selected by default', () => {
-			expect(component).toBeDefined();
+			const { container } = render(
+				<IntlProvider locale="en">
+					<MentionList mentions={mentionTestResult} />
+				</IntlProvider>,
+			);
 
-			const firstItemSelected = () => isMentionItemSelected(component, mentionTestResult[0].id);
-
-			return waitUntil(defaultMentionItemsShow).then(() => waitUntil(firstItemSelected));
+			const item = container.querySelector(`[data-mention-id="${mentionTestResult[0].id}"]`);
+			expect(item?.getAttribute('data-selected')).toEqual('true');
 		});
 
 		it('selectIndex selects correct item', () => {
-			expect(component).toBeDefined();
-			const thirdItemSelected = () => {
-				return isMentionItemSelected(component, mentionTestResult[2].id);
-			};
+			const ref = React.createRef<MentionList>();
+			const { container } = render(
+				<IntlProvider locale="en">
+					<MentionList mentions={mentionTestResult} ref={ref} />
+				</IntlProvider>,
+			);
 
-			return waitUntil(defaultMentionItemsShow).then(() => {
-				const mentionList = component.instance() as MentionList;
-				mentionList.selectIndex(2);
-				component.update();
-				return waitUntil(thirdItemSelected);
-			});
+			act(() => ref.current?.selectIndex(2));
+			const item = container.querySelector(`[data-mention-id="${mentionTestResult[2].id}"]`);
+			expect(item?.getAttribute('data-selected')).toEqual('true');
 		});
 
 		it('selectId selects correct item', () => {
-			expect(component).toBeDefined();
-			const thirdItemSelected = () => isMentionItemSelected(component, mentionTestResult[2].id);
+			const ref = React.createRef<MentionList>();
+			const { container } = render(
+				<IntlProvider locale="en">
+					<MentionList mentions={mentionTestResult} ref={ref} />
+				</IntlProvider>,
+			);
 
-			return waitUntil(defaultMentionItemsShow).then(() => {
-				const mentionList = component.instance() as MentionList;
-				mentionList.selectId(mentionTestResult[2].id);
-				component.update();
-				return waitUntil(thirdItemSelected);
-			});
+			act(() => ref.current?.selectId(mentionTestResult[2].id));
+			const firstItem = container.querySelector(`[data-mention-id="${mentionTestResult[2].id}"]`);
+			expect(firstItem?.getAttribute('data-selected')).toEqual('true');
 		});
 
 		it('mentionsCount returns the number of mentions in the list', () => {
-			expect(component).toBeDefined();
-			return waitUntil(defaultMentionItemsShow).then(() => {
-				const mentionList = component.instance() as MentionList;
-				expect(mentionList.mentionsCount()).toEqual(mentionTestResult.length);
-			});
+			const ref = React.createRef<MentionList>();
+			render(
+				<IntlProvider locale="en">
+					<MentionList mentions={mentionTestResult} ref={ref} />
+				</IntlProvider>,
+			);
+
+			expect(ref.current?.mentionsCount()).toEqual(mentionTestResult.length);
 		});
 
 		it('should retain a deliberate selection across changing list of mentions', () => {
-			expect(component).toBeDefined();
-			return waitUntil(defaultMentionItemsShow).then(() => {
-				const mentionList = component.instance() as MentionList;
+			const ref = React.createRef<MentionList>();
+			const { rerender, container } = render(
+				<IntlProvider locale="en">
+					<MentionList mentions={mentionTestResult} ref={ref} />
+				</IntlProvider>,
+			);
 
-				// select item 3 in the mention list
-				mentionList.selectIndex(2);
-				component.update();
-				const thirdItemSelected = () => isMentionItemSelected(component, mentionTestResult[2].id);
+			// select item 3 in the mention list
+			act(() => ref.current?.selectIndex(2));
+			const thirdItem = container.querySelector(`[data-mention-id="${mentionTestResult[2].id}"]`);
+			expect(thirdItem?.getAttribute('data-selected')).toEqual('true');
 
-				return waitUntil(thirdItemSelected).then(() => {
-					// remove the first item from the mentions array and set the new mentions
-					const reducedMentionsList = mentionTestResult.slice(1);
-					component.setProps({
-						mentions: reducedMentionsList,
-					});
+			// remove the first item from the mentions array and set the new mentions
+			const reducedMentionsList = mentionTestResult.slice(1);
+			rerender(
+				<IntlProvider locale="en">
+					<MentionList mentions={reducedMentionsList} ref={ref} />
+				</IntlProvider>,
+			);
 
-					const reducedListOfItemsShow = () => {
-						return component.find(MentionItem).length === reducedMentionsList.length;
-					};
-
-					return waitUntil(reducedListOfItemsShow).then(() => {
-						// ensure item 2 is now selected
-						const secondItemSelected = () =>
-							isMentionItemSelected(component, reducedMentionsList[1].id);
-						component.update();
-						return waitUntil(secondItemSelected);
-					});
-				});
-			});
+			// ensure item 2 is now selected
+			const secondItem = container.querySelector(
+				`[data-mention-id="${reducedMentionsList[1].id}"]`,
+			);
+			expect(secondItem?.getAttribute('data-selected')).toEqual('true');
 		});
 
 		it('should select first item for each changing set of mentions if no deliberate selection is made', () => {
-			expect(component).toBeDefined();
-			return waitUntil(defaultMentionItemsShow).then(() => {
-				const firstItemSelected = () => isMentionItemSelected(component, mentionTestResult[0].id);
-				return waitUntil(firstItemSelected).then(() => {
-					// move the first item to the third position in a new list.
-					// Note that I've also removed a single item from the list so I can differentiate when the new mentions are shown using length
-					const reducedMentionsList = [
-						...mentionTestResult.slice(1, 3),
-						mentionTestResult[0],
-						...mentionTestResult.slice(4),
-					];
+			const ref = React.createRef<MentionList>();
+			const { rerender, container } = render(
+				<IntlProvider locale="en">
+					<MentionList mentions={mentionTestResult} ref={ref} />
+				</IntlProvider>,
+			);
 
-					component.setProps({
-						mentions: reducedMentionsList,
-					});
+			const item = container.querySelector(`[data-mention-id="${mentionTestResult[0].id}"]`);
+			expect(item?.getAttribute('data-selected')).toEqual('true');
 
-					const reducedListOfItemsShow = () => {
-						return component.find(MentionItem).length === reducedMentionsList.length;
-					};
+			// move the first item to the third position in a new list.
+			// Note that I've also removed a single item from the list so I can differentiate when the new mentions are shown using length
+			const reducedMentionsList = [
+				...mentionTestResult.slice(1, 3),
+				mentionTestResult[0],
+				...mentionTestResult.slice(4),
+			];
+			rerender(
+				<IntlProvider locale="en">
+					<MentionList mentions={reducedMentionsList} ref={ref} />
+				</IntlProvider>,
+			);
 
-					return waitUntil(reducedListOfItemsShow).then(() => {
-						// ensure item 0 is still selected
-						const newfirstItemSelected = () =>
-							isMentionItemSelected(component, reducedMentionsList[0].id);
-						return waitUntil(newfirstItemSelected);
-					});
-				});
-			});
+			const reducedItem = container.querySelector(
+				`[data-mention-id="${reducedMentionsList[0].id}"]`,
+			);
+			expect(reducedItem?.getAttribute('data-selected')).toEqual('true');
 		});
 	});
-
 	describe('MentionList with initial highlight', () => {
-		let component: ReactWrapper<Props, State>;
-		let defaultMentionItemsShow: () => boolean;
-		const HighlightItem = <div id="highlight">Initial highlight information</div>;
-		const setupList = (props?: Partial<Props>) =>
-			mountWithIntl<Props, State>(<MentionList mentions={mentionTestResult} {...props} />);
-
-		beforeEach(() => {
-			const props = {
-				initialHighlightElement: HighlightItem,
-			};
-			component = setupList(props);
-			defaultMentionItemsShow = () =>
-				component.find(MentionItem).length === mentionTestResult.length;
-		});
-
-		afterEach(() => {
-			component.unmount();
-		});
-
 		it('should have first item selected by default', () => {
-			expect(component).toBeDefined();
-			const firstItemSelected = () => isMentionItemSelected(component, mentionTestResult[0].id);
+			const ref = React.createRef<MentionList>();
+			const HighlightItem = <div id="highlight">Initial highlight information</div>;
+			const { container } = render(
+				<IntlProvider locale="en">
+					<MentionList
+						mentions={mentionTestResult}
+						initialHighlightElement={HighlightItem}
+						ref={ref}
+					/>
+				</IntlProvider>,
+			);
 
-			return waitUntil(defaultMentionItemsShow).then(() => waitUntil(firstItemSelected));
+			const item = container.querySelector(`[data-mention-id="${mentionTestResult[0].id}"]`);
+			expect(item?.getAttribute('data-selected')).toEqual('true');
 		});
 
 		it('should render intitialHighlight', () => {
-			expect(component).toBeDefined();
-			const elementAppears = () => {
-				return component.find('#highlight').length === 1;
-			};
-			return waitUntil(defaultMentionItemsShow).then(() => waitUntil(elementAppears));
+			const ref = React.createRef<MentionList>();
+			const HighlightItem = <div data-testid="highlight">Initial highlight information</div>;
+			render(
+				<IntlProvider locale="en">
+					<MentionList
+						mentions={mentionTestResult}
+						initialHighlightElement={HighlightItem}
+						ref={ref}
+					/>
+				</IntlProvider>,
+			);
+
+			const highlight = screen.getByTestId('highlight');
+			expect(highlight).toBeInTheDocument();
 		});
 	});
 });

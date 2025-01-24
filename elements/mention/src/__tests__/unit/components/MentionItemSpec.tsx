@@ -1,14 +1,9 @@
-// These imports are not included in the manifest file to avoid circular package dependencies blocking our Typescript and bundling tooling
-// eslint-disable-next-line import/no-extraneous-dependencies
-import { mountWithIntl } from '@atlaskit/editor-test-helpers/enzyme';
-import LockCircleIcon from '@atlaskit/icon/core/migration/lock-locked--lock-circle';
-import { type ReactWrapper } from 'enzyme';
 import React, { type ReactChildren } from 'react';
 import MentionItem from '../../../components/MentionItem';
-import { type Props, type State } from '../../../components/MentionList';
+import { type Props } from '../../../components/MentionList';
 import { type MentionDescription, type LozengeProps } from '../../../types';
-import Lozenge from '@atlaskit/lozenge';
-import { act } from '@testing-library/react';
+import { screen, render } from '@testing-library/react';
+import { IntlProvider } from 'react-intl-next';
 
 // Helper to make <React.Suspense> and React.lazy() work with Enzyme
 jest.mock('react', () => {
@@ -65,23 +60,30 @@ const lozengeExamples: LozengeProps[] = [
 	},
 ];
 
-function setupMentionItem(mention: MentionDescription, props?: Props): ReactWrapper<Props, State> {
-	return mountWithIntl(<MentionItem mention={mention} onSelection={props && props.onSelection} />);
+function setupMentionItem(mention: MentionDescription, props?: Props): ReturnType<typeof render> {
+	return render(
+		<IntlProvider locale="en">
+			<MentionItem mention={mention} onSelection={props && props.onSelection} />
+		</IntlProvider>,
+	);
 }
 
 describe('MentionItem', () => {
 	it('should display @-nickname if nickname is present', () => {
-		const component = setupMentionItem(mentionWithNickname);
-		expect(component.html()).toContain(`@${mentionWithNickname.nickname}`);
+		setupMentionItem(mentionWithNickname);
+
+		expect(screen.getByText(`@${mentionWithNickname.nickname}`)).toBeInTheDocument();
 	});
 
 	it('should not display @-name if nickname is not present', () => {
-		const component = setupMentionItem(mentionWithoutNickname);
-		expect(component.html()).not.toContain('@');
+		setupMentionItem(mentionWithoutNickname);
+
+		const nicknameAt = screen.queryByText('@');
+		expect(nicknameAt).toBeNull();
 	});
 
 	it('should display access restriction if accessLevel is NONE', async () => {
-		const component = setupMentionItem({
+		setupMentionItem({
 			id: '1',
 			name: 'Kaitlyn Prouty',
 			mentionName: 'Fidela',
@@ -89,42 +91,37 @@ describe('MentionItem', () => {
 			accessLevel: 'NONE',
 		});
 
-		// await for LockCircle async import
-		await act(async () => {
-			await new Promise((resolve) => setTimeout(resolve, 0));
-		});
-		component.update();
-
-		var icon = component.find(LockCircleIcon);
-		expect(icon).toHaveLength(1);
-
-		expect(component.find(LockCircleIcon)).toHaveLength(1);
+		expect(await screen.findByLabelText('No access')).toBeInTheDocument();
 	});
 
-	it('should not display access restriction if accessLevel is CONTAINER', () => {
-		const component = setupMentionItem({
+	it('should not display access restriction if accessLevel is CONTAINER', async () => {
+		setupMentionItem({
 			id: '1',
 			name: 'Kaitlyn Prouty',
 			mentionName: 'Fidela',
 			avatarUrl: '',
 			accessLevel: 'CONTAINER',
 		});
-		expect(component.find(LockCircleIcon)).toHaveLength(0);
+
+		const lockIcon = screen.queryByLabelText('No access');
+		expect(lockIcon).toBeNull();
 	});
 
 	it('should not display access restriction if no accessLevel data', () => {
-		const component = setupMentionItem({
+		setupMentionItem({
 			id: '1',
 			name: 'Kaitlyn Prouty',
 			mentionName: 'Fidela',
 			avatarUrl: '',
 		});
-		expect(component.find(LockCircleIcon)).toHaveLength(0);
+
+		const lockIcon = screen.queryByLabelText('No access');
+		expect(lockIcon).toBeNull();
 	});
 
 	lozengeExamples.forEach((example) => {
 		it(`should render lozenge when passing in text of type ${typeof example} within LozengeProps`, () => {
-			const component = setupMentionItem({
+			setupMentionItem({
 				id: '1',
 				name: 'Pranay Marella',
 				mentionName: 'Pmarella',
@@ -132,13 +129,12 @@ describe('MentionItem', () => {
 				lozenge: example,
 			});
 
-			expect(component.find(Lozenge).text()).toContain('GUEST');
-			expect(component.find(Lozenge).prop('appearance')).toEqual('new');
+			expect(screen.getByText(`GUEST`)).toBeInTheDocument();
 		});
 	});
 
 	it('should display mention description if the mentioned user is x-product user in confluence', () => {
-		const component = setupMentionItem(xProductUserMention);
-		expect(component.html()).toContain('Needs access to Confluence');
+		setupMentionItem(xProductUserMention);
+		expect(screen.getByText(`Needs access to Confluence`)).toBeInTheDocument();
 	});
 });

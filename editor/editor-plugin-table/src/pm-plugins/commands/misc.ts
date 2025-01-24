@@ -578,8 +578,6 @@ export const addResizeHandleDecorations = (
 	includeTooltip: boolean,
 	nodeViewPortalProviderAPI: PortalProviderAPI,
 	isKeyboardResize?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	createCommand(
 		(state) => {
@@ -621,8 +619,6 @@ export const updateResizeHandleDecorations = (
 	rowIndex?: number,
 	columnIndex?: number,
 	includeTooltip?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) =>
 	createCommand(
 		(state) => {
@@ -693,8 +689,6 @@ export const autoSizeTable = (
 	table: HTMLTableElement,
 	basePos: number | undefined,
 	opts: { containerWidth: number },
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	if (typeof basePos !== 'number') {
 		return false;

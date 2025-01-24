@@ -39,8 +39,6 @@ export const renderExtension = (
 	layout: string,
 	options: RenderExtensionOptions = {},
 	removeOverflow?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const overflowContainerClass = !removeOverflow
 		? RendererCssClassName.EXTENSION_OVERFLOW_CONTAINER

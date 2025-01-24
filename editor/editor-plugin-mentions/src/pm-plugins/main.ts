@@ -80,8 +80,6 @@ export function createMentionPlugin({
 		attributes?: {
 			[key: string]: string | number;
 		},
-		// Ignored via go/ees005
-		// eslint-disable-next-line @typescript-eslint/max-params
 	): void => {
 		if (event === SLI_EVENT_TYPE || event === SMART_EVENT_TYPE) {
 			fireEvent(
@@ -113,8 +111,6 @@ export function createMentionPlugin({
 					canInsertMention,
 				};
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(tr, pluginState: MentionPluginState, oldState, newState): MentionPluginState {
 				const { action, params } = tr.getMeta(mentionPluginKey) || {
 					action: null,

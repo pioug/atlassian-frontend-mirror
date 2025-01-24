@@ -35,8 +35,6 @@ const createDisplayGrid: CreateDisplayGrid = (view) => (props) => {
 type Side = 'left' | 'right';
 const sides: Side[] = ['left', 'right'];
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 const overflowHighlight = (highlights: Highlights, side: Side, start: number, size?: number) => {
 	if (!highlights.length) {
 		return false;
@@ -68,8 +66,6 @@ const gutterGridLines = (
 	editorWidth: number,
 	highlights: Highlights,
 	shouldCalcBreakoutGridLines?: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ): JSX.Element[] => {
 	const gridLines: JSX.Element[] = [];
 	if (!shouldCalcBreakoutGridLines) {

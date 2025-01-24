@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "99.5.0",
+	"version": "99.5.2",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -227,7 +227,7 @@
 		"@atlaskit/media-picker": "^67.0.0",
 		"@atlaskit/media-ui": "^27.3.0",
 		"@atlaskit/media-viewer": "49.6.3",
-		"@atlaskit/mention": "^23.9.0",
+		"@atlaskit/mention": "^23.10.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/onboarding": "^12.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
@@ -240,7 +240,7 @@
 		"@atlaskit/spinner": "^16.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/textfield": "^6.7.0",
-		"@atlaskit/tmp-editor-statsig": "^2.39.0",
+		"@atlaskit/tmp-editor-statsig": "^2.40.0",
 		"@atlaskit/tokens": "^3.2.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/width-detector": "^4.3.0",

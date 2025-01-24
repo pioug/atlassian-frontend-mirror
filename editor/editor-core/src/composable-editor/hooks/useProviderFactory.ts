@@ -35,8 +35,6 @@ type PreparedProviders = {
 	quickInsertProvider?: Promise<QuickInsertProvider>;
 };
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 function prepareProviders(
 	editorActions: EditorActions,
 	apiRef: React.MutableRefObject<PublicPluginAPI<[ExtensionPlugin]> | undefined>,

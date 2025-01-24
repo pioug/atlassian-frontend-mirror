@@ -47,8 +47,6 @@ export function codeBlockCopySelectionPlugin() {
 			init(): CodeBlockCopySelectionPluginState {
 				return { decorationStartAndEnd: undefined };
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(
 				transaction,
 				currentCodeBlockCopySelectionPluginState: CodeBlockCopySelectionPluginState,

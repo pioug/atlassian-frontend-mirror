@@ -38,8 +38,6 @@ function createPlugin(options: AnalyticsPluginOptions, featureFlags: FeatureFlag
 					fireAnalytics: fireAnalyticsEvent(options.createAnalyticsEvent),
 				};
 			},
-			// Ignored via go/ees005
-			// eslint-disable-next-line @typescript-eslint/max-params
 			apply: (tr, pluginState, _, state) => {
 				const { createAnalyticsEvent } = tr.getMeta(analyticsPluginKey) ?? {};
 

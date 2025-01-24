@@ -357,8 +357,6 @@ const splitListItemWith = (
 	content: Fragment | Node | Node[],
 	$from: ResolvedPos,
 	setSelection: boolean,
-	// Ignored via go/ees005
-	// eslint-disable-next-line @typescript-eslint/max-params
 ) => {
 	const origDoc = tr.doc;
 
@@ -539,8 +537,6 @@ const cmdOptEnter: Command = filter(isInsideTaskOrDecisionItem, (state, dispatch
 	return true;
 });
 
-// Ignored via go/ees005
-// eslint-disable-next-line @typescript-eslint/max-params
 export function keymapPlugin(
 	schema: Schema,
 	api: ExtractInjectionAPI<TasksAndDecisionsPlugin> | undefined,

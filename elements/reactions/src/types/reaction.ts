@@ -13,7 +13,7 @@ export type Reactions = Record<string, ReactionSummary[]>;
  */
 export type onDialogSelectReactionChange = (
 	emojiId: string,
-	analyticsEvent: UIAnalyticsEvent,
+	analyticsEvent?: UIAnalyticsEvent,
 ) => void;
 
 /**

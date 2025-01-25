@@ -1,5 +1,13 @@
 # @atlaskit/reactions
 
+## 24.0.0
+
+### Major Changes
+
+- [#105233](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105233)
+  [`e66f08655d260`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e66f08655d260) -
+  [ux] Update Reactions Dialog to use pagination instead of horizontal scroll
+
 ## 23.0.2
 
 ### Patch Changes

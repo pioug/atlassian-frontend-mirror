@@ -4,22 +4,11 @@
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
-import { B400, N500, N800 } from '@atlaskit/theme/colors';
+import { N500, N800 } from '@atlaskit/theme/colors';
 import { type ThemeColorModes, token } from '@atlaskit/tokens';
 
-import { NUMBER_OF_REACTIONS_TO_DISPLAY } from '../../shared/constants';
-
 const REACTIONS_CONTAINER_WIDTH = 48;
-
-// These margin values must match
-const REACTION_RIGHT_MARGIN = 8;
-const REACTION_RIGHT_MARGIN_TOKEN = token('space.100', '8px');
-/* we want to display around 9 reactions and show 10th one as faded so removing 2px from REACTIONS_CONTAINER_WIDTH*/
-const CONTAINER_WIDTH =
-	NUMBER_OF_REACTIONS_TO_DISPLAY * (REACTIONS_CONTAINER_WIDTH + REACTION_RIGHT_MARGIN) +
-	REACTIONS_CONTAINER_WIDTH -
-	2;
-const REACTION_CONTAINER_HEIGHT = 48;
+const REACTION_CONTAINER_HEIGHT = 40;
 
 /*Reactions Container. Using pseudo Element :after to set border since with onClick of Reaction to higlight the
 border blue below the reaction. Setting Border Width based on number of reactions to make sure it shows up
@@ -28,7 +17,6 @@ export const containerStyle = (reactionsBorderWidth: number) =>
 	css({
 		overflow: 'hidden',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		maxWidth: `${CONTAINER_WIDTH}px`,
 		height: '100%',
 		display: 'flex',
 		justifyContent: 'start',
@@ -46,16 +34,6 @@ export const containerStyle = (reactionsBorderWidth: number) =>
 		},
 	});
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const titleStyle = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-	'& > h1': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-		fontSize: '24px!important',
-		color: `${token('color.text', N800)}`,
-	},
-});
-
 type containerEdgeAngleType = {
 	rightEdge: number;
 	leftEdge: number;
@@ -65,29 +43,6 @@ const containerEdgeAngle: containerEdgeAngleType = {
 	rightEdge: 270,
 	leftEdge: 90,
 };
-
-export const counterStyle = (isSelected: boolean) =>
-	css({
-		display: 'flex',
-		alignSelf: 'center',
-		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-		lineHeight: '14px',
-		font: token('font.body.small'),
-		paddingRight: '0px',
-		marginTop: token('space.075', '6px'),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-		'> div': {
-			width: '100%',
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
-			padding: `${token('space.0', '0px')}!important`, //Counter component has its own styles overriding them to match designs
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			color: isSelected
-				? `${token('color.text', B400)}!important`
-				: `2px solid ${token('color.text', N500)}!important`,
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
-			fontWeight: isSelected ? 700 : 400,
-		},
-	});
 
 const fadedCss = (edge: keyof containerEdgeAngleType, theme?: ThemeColorModes) =>
 	css({
@@ -118,8 +73,6 @@ export const customTabWrapper = (
 		alignItems: 'center',
 		justifyContent: 'center',
 		minWidth: `${REACTIONS_CONTAINER_WIDTH}px`,
-		minHeight: `${REACTION_CONTAINER_HEIGHT}px`,
-		marginRight: REACTION_RIGHT_MARGIN_TOKEN,
 		boxSizing: 'border-box',
 		position: 'relative',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
@@ -140,26 +93,6 @@ export const customTabWrapper = (
 		'&.disabled:after': fadedCss('rightEdge', theme),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		'&.disabled + &.disabled:after': fadedCss('leftEdge', theme),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		'&:after': isSelected
-			? {
-					content: '""',
-					borderBottom: `2px solid ${token('color.text', B400)}`,
-					width: `${REACTIONS_CONTAINER_WIDTH}px`,
-					bottom: '0px',
-					display: 'block',
-					position: 'absolute',
-					zIndex: 2,
-				}
-			: {
-					content: '""',
-					borderBottom: `2px solid transparent`,
-					width: `${REACTIONS_CONTAINER_WIDTH}px`,
-					bottom: '0px',
-					display: 'block',
-					position: 'absolute',
-					zIndex: 1,
-				},
 	});
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -220,7 +153,6 @@ export const userStyle = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const customTabListStyles = css({
 	overflow: 'auto',
-	scrollBehavior: 'smooth',
 	display: 'flex',
 	paddingBottom: token('space.050', '4px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766

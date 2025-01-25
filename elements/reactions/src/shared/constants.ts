@@ -53,10 +53,10 @@ export const ExtendedReactionsByShortName = new Map<string, EmojiId>(
 export const TOOLTIP_USERS_LIMIT = 5;
 
 /**
- * Maximum number of reactions that will fit in the horizontal scroll of
+ * Maximum number of reactions that will fit in the horizontal pagination of
  * reactions dialog
  */
-export const NUMBER_OF_REACTIONS_TO_DISPLAY = 9;
+export const NUMBER_OF_REACTIONS_TO_DISPLAY = 8;
 
 // This rate is used in fetching emoji resource
 export const SAMPLING_RATE_REACTIONS_RENDERED_EXP = 50;

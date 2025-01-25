@@ -2,7 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { useCallback, useState } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
@@ -11,12 +11,17 @@ import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Tabs, { Tab, TabList } from '@atlaskit/tabs';
 import { useThemeObserver } from '@atlaskit/tokens';
 import { type SelectedType } from '@atlaskit/tabs/types';
+import { Box, Flex, xcss } from '@atlaskit/primitives';
 
 import { type onDialogSelectReactionChange, type ReactionSummary } from '../../types';
 import { Counter } from '../Counter';
 
-import { counterStyle, customTabWrapper, customTabListStyles } from './styles';
+import { customTabWrapper, customTabListStyles } from './styles';
 import { ReactionView } from './ReactionView';
+
+const emojiStyles = xcss({
+	minWidth: '36px',
+});
 
 export interface ReactionsListProps {
 	/**
@@ -52,6 +57,18 @@ export const ReactionsList = ({
 	});
 	const { colorMode } = useThemeObserver();
 
+	useEffect(() => {
+		// select first emoji when navigating to a new page
+		const currentPageEmojis = reactions.map((reaction) => reaction.emojiId);
+		if (!currentPageEmojis.includes(selectedEmoji.id)) {
+			setSelectedEmoji({
+				index: 0,
+				id: initialEmojiId,
+			});
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [reactions, initialEmojiId]);
+
 	const onTabChange = useCallback(
 		(index: SelectedType, analyticsEvent: UIAnalyticsEvent) => {
 			if (index === selectedEmoji.index) {
@@ -86,16 +103,17 @@ export const ReactionsList = ({
 								data-testid={emojiId?.id}
 							>
 								<Tab>
-									<ResourcedEmoji
-										emojiProvider={emojiProvider}
-										emojiId={emojiId}
-										fitToHeight={16}
-										showTooltip
-									/>
-									{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-									<div css={counterStyle(emojiId?.id === selectedEmoji.id)}>
+									<Flex justifyContent="center" alignItems="center" direction="row">
+										<Box xcss={emojiStyles}>
+											<ResourcedEmoji
+												emojiProvider={emojiProvider}
+												emojiId={emojiId}
+												fitToHeight={16}
+												showTooltip
+											/>
+										</Box>
 										<Counter value={reaction.count} />
-									</div>
+									</Flex>
 								</Tab>
 							</div>
 						);

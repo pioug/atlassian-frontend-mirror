@@ -3,7 +3,7 @@
  * @jsx jsx
  */
 import { useEffect, useState, useMemo } from 'react';
-import { useIntl } from 'react-intl-next';
+import { FormattedMessage } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
@@ -35,8 +35,7 @@ export interface ReactionViewProps {
 }
 
 export const ReactionView = ({ selectedEmojiId, emojiProvider, reaction }: ReactionViewProps) => {
-	const intl = useIntl();
-	const [emojiName, setEmojiName] = useState<string>('');
+	const [emojiShortName, setEmojiShortName] = useState<string>('');
 
 	useEffect(() => {
 		(async () => {
@@ -45,11 +44,11 @@ export const ReactionView = ({ selectedEmojiId, emojiProvider, reaction }: React
 				shortName: '',
 				id: selectedEmojiId,
 			});
-			if (emoji && emoji.name) {
-				setEmojiName(emoji.name);
+			if (emoji?.shortName) {
+				setEmojiShortName(emoji.shortName);
 			}
 		})();
-	}, [emojiProvider, selectedEmojiId]);
+	}, [emojiProvider, selectedEmojiId, reaction]);
 
 	const alphabeticalNames = useMemo(() => {
 		const reactionObj = reaction;
@@ -63,12 +62,17 @@ export const ReactionView = ({ selectedEmojiId, emojiProvider, reaction }: React
 		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 		<div css={reactionViewStyle} {...tabPanelAttributes}>
 			<Text as="p">
+				<FormattedMessage
+					{...messages.peopleWhoReactedSubheading}
+					values={{
+						emojiShortName,
+					}}
+				/>
 				<ResourcedEmoji
 					emojiProvider={emojiProvider}
 					emojiId={{ id: selectedEmojiId, shortName: '' }}
-					fitToHeight={24}
+					fitToHeight={16}
 				/>
-				{intl.formatMessage(messages.emojiName, { emojiName })}
 			</Text>
 			{alphabeticalNames.length === 0 ? (
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766

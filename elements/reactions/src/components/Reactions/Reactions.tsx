@@ -40,14 +40,13 @@ import {
 	ReactionDialogOpened,
 	ReactionDialogSelectedReactionChanged,
 } from '../../ufo';
-
 import { Reaction, type ReactionProps } from '../Reaction';
 import { ReactionsDialog } from '../ReactionDialog';
 import { ReactionPicker, type ReactionPickerProps } from '../ReactionPicker';
 import { type SelectorProps } from '../Selector';
+import { ReactionSummaryView } from '../ReactionSummary/';
 
 import { reactionPickerStyle, seeWhoReactedStyle, wrapperStyle } from './styles';
-import { ReactionSummaryView } from '../ReactionSummary/';
 
 /**
  * Set of all available UFO experiences relating to reactions dialog
@@ -313,7 +312,7 @@ export const Reactions = React.memo(
 			// ufo opening reaction dialog success
 			ufoExperiences.openDialog.success({
 				metadata: {
-					emojiId: emojiId,
+					emojiId,
 					source: 'Reactions',
 					reason: 'Opening dialog from emoji tooltip link successfully',
 				},
@@ -335,7 +334,7 @@ export const Reactions = React.memo(
 			// ufo opening reaction dialog success
 			ufoExperiences.openDialog.success({
 				metadata: {
-					emojiId: emojiId,
+					emojiId,
 					source: 'Reactions',
 					reason: 'Opening all reactions dialog link successfully',
 				},
@@ -361,22 +360,34 @@ export const Reactions = React.memo(
 			});
 		};
 
-		const handleSelectReactionInDialog = (emojiId: string, analyticsEvent: UIAnalyticsEvent) => {
+		const handleSelectReactionInDialog = (emojiId: string, analyticsEvent?: UIAnalyticsEvent) => {
 			// ufo selected reaction inside the modal dialog
 			ufoExperiences.selectedReactionChangeInsideDialog.start();
 
 			handleReactionMouseEnter(emojiId);
-			onDialogSelectReactionCallback(emojiId, analyticsEvent);
+			if (analyticsEvent) {
+				onDialogSelectReactionCallback(emojiId, analyticsEvent);
+			}
 
 			// ufo selected reaction inside the modal dialog success
 			ufoExperiences.selectedReactionChangeInsideDialog.success({
 				metadata: {
-					emojiId: emojiId,
+					emojiId,
 					source: 'Reactions',
 					reason: 'Selected Emoji changed',
 				},
 			});
 		};
+
+		const handlePaginationChange = useCallback(
+			(emojiId: string) => {
+				getReactionDetails(emojiId);
+				setSelectedEmojiId(emojiId);
+			},
+			// Exclude unstable getReactionDetails to avoid extra re-renders
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+			[setSelectedEmojiId],
+		);
 
 		/**
 		 * Get the reactions that we want to render are any reactions with a count greater than zero as well as any default emoji not already shown
@@ -499,6 +510,7 @@ export const Reactions = React.memo(
 							emojiProvider={emojiProvider}
 							handleCloseReactionsDialog={handleCloseReactionsDialog}
 							handleSelectReaction={handleSelectReactionInDialog}
+							handlePaginationChange={handlePaginationChange}
 						/>
 					)}
 				</ModalTransition>

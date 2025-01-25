@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "23.0.2",
+	"version": "24.0.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -63,6 +63,7 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"devDependencies": {
+		"@atlaskit/editor-test-helpers": "*",
 		"@atlaskit/elements-test-helpers": "^0.7.0",
 		"@atlaskit/util-data-test": "^17.13.0",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",

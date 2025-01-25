@@ -7,7 +7,8 @@ import { useIntl } from 'react-intl-next';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
-import Button from '@atlaskit/button/new';
+import { Flex, xcss } from '@atlaskit/primitives';
+import Button, { IconButton } from '@atlaskit/button/new';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Modal, {
 	ModalBody,
@@ -16,13 +17,19 @@ import Modal, {
 	ModalTitle,
 	type OnCloseHandler,
 } from '@atlaskit/modal-dialog';
+import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
+import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 
 import { NUMBER_OF_REACTIONS_TO_DISPLAY } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
 import { type onDialogSelectReactionChange, type ReactionSummary } from '../../types';
 
 import { ReactionsList } from './ReactionsList';
-import { containerStyle, titleStyle } from './styles';
+import { containerStyle } from './styles';
+
+const fullWidthStyle = xcss({
+	width: '100%',
+});
 
 /**
  * Test id for the Reactions modal dialog
@@ -50,6 +57,7 @@ export interface ReactionsDialogProps {
 	 * Optional callback function called when user selects a reaction in reactions dialog
 	 */
 	handleSelectReaction?: onDialogSelectReactionChange;
+	handlePaginationChange?: (emojiId: string) => void;
 }
 
 const getDimensions = (container: HTMLDivElement) => {
@@ -66,6 +74,7 @@ export const ReactionsDialog = ({
 	emojiProvider,
 	selectedEmojiId,
 	handleSelectReaction = () => {},
+	handlePaginationChange = () => {},
 }: ReactionsDialogProps) => {
 	const [elementToScroll, setElementToScroll] = useState<Element>();
 
@@ -86,7 +95,31 @@ export const ReactionsDialog = ({
 		return reactions.sort((a, b) => b?.count - a?.count);
 	}, [reactions]);
 
-	/* set Reactions Border Width , 9 Number of reactions to display*/
+	const maxPages = Math.max(1, Math.ceil(reactions.length / NUMBER_OF_REACTIONS_TO_DISPLAY));
+	const [currentPage, setCurrentPage] = useState(1);
+
+	const currentReactions = useMemo(() => {
+		const start = (currentPage - 1) * NUMBER_OF_REACTIONS_TO_DISPLAY;
+		const end = start + NUMBER_OF_REACTIONS_TO_DISPLAY;
+		return sortedReactions.slice(start, end);
+	}, [sortedReactions, currentPage]);
+
+	const handleNextPage = () => {
+		setCurrentPage((prevPage) => Math.min(prevPage + 1, maxPages));
+	};
+	const handlePreviousPage = () => {
+		setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+	};
+
+	const firstEmojiOnPage = currentReactions[0]?.emojiId;
+	useEffect(() => {
+		// trigger the handler with the first emoji when the page changes
+		if (firstEmojiOnPage) {
+			handlePaginationChange(firstEmojiOnPage);
+		}
+	}, [currentPage, firstEmojiOnPage, handlePaginationChange]);
+
+	/* set Reactions Border Width , 8 Number of reactions to display*/
 	const reactionsBorderWidth = useMemo(() => {
 		return (Math.ceil(reactions.length / NUMBER_OF_REACTIONS_TO_DISPLAY) * 100) as number;
 	}, [reactions]);
@@ -94,7 +127,7 @@ export const ReactionsDialog = ({
 	/* Callback from IntersectionObserver to set/unset classNames based on visibility to toggle styles*/
 	const handleNavigation = useCallback(
 		(entries: IntersectionObserverEntry[]) => {
-			entries.forEach((entry: IntersectionObserverEntry, index: number) => {
+			entries.forEach((entry: IntersectionObserverEntry) => {
 				const element = entry.target;
 				const emojiElement = element?.querySelector('[data-emoji-id]');
 				const emojiId = (emojiElement as HTMLElement)?.dataset?.emojiId;
@@ -170,21 +203,41 @@ export const ReactionsDialog = ({
 	return (
 		<Modal onClose={handleCloseReactionsDialog} height={600} testId={RENDER_MODAL_TESTID}>
 			<ModalHeader>
-				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-				<div css={titleStyle}>
-					<ModalTitle>
-						{intl.formatMessage(messages.reactionsCount, {
-							count: totalReactionsCount,
-						})}
-					</ModalTitle>
-				</div>
+				<Flex
+					direction="row"
+					justifyContent="space-between"
+					alignItems="center"
+					xcss={fullWidthStyle}
+				>
+					<div>
+						<ModalTitle>
+							{intl.formatMessage(messages.reactionsCount, {
+								count: totalReactionsCount,
+							})}
+						</ModalTitle>
+					</div>
+					<Flex alignItems="center" gap="space.100">
+						<IconButton
+							isDisabled={currentPage === 1}
+							onClick={handlePreviousPage}
+							icon={ChevronLeftIcon}
+							label={intl.formatMessage(messages.leftNavigateLabel)}
+						/>
+						<IconButton
+							onClick={handleNextPage}
+							isDisabled={currentPage === maxPages}
+							icon={ChevronRightIcon}
+							label={intl.formatMessage(messages.rightNavigateLabel)}
+						/>
+					</Flex>
+				</Flex>
 			</ModalHeader>
 			<ModalBody>
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={containerStyle(reactionsBorderWidth)} ref={setRef}>
 					<ReactionsList
 						initialEmojiId={selectedEmojiId}
-						reactions={sortedReactions}
+						reactions={currentReactions}
 						emojiProvider={emojiProvider}
 						onReactionChanged={handleSelectReaction}
 					/>

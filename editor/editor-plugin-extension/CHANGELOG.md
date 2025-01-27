@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-extension
 
+## 3.1.0
+
+### Minor Changes
+
+- [#105571](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105571)
+  [`1b70990bb34c2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1b70990bb34c2) -
+  migrate config panel's close button icon
+
 ## 3.0.6
 
 ### Patch Changes

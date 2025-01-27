@@ -13,7 +13,7 @@ const DivPresence = styled.div({
 	backgroundColor: token('color.background.discovery.bold'),
 	color: token('elevation.surface'),
 	display: 'flex',
-	fontSize: '0.75em',
+	font: token('font.body.small'),
 	fontWeight: token('font.weight.medium'),
 	height: '100%',
 	justifyContent: 'center',

@@ -3,6 +3,9 @@ import React from 'react';
 import styled from '@emotion/styled';
 
 import { Presence } from '@atlaskit/avatar';
+import { Code } from '@atlaskit/code';
+import Heading from '@atlaskit/heading';
+import { Stack, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
@@ -18,16 +21,20 @@ const PresenceWrapper = styled.div({
 });
 
 export default () => (
-	<div>
-		<h3>Custom background color</h3>
-		<p>
-			By default presences will display a white border. This can be overridden with the
-			<code>borderColor</code> property.
-		</p>
-		<p>
-			The <code>borderColor</code> property will accept any string that CSS border-color can e.g.
-			hex, rgba, transparent, etc.
-		</p>
+	<Stack space="space.200">
+		<Heading as="h2" size="large">
+			Custom background color
+		</Heading>
+		<Stack>
+			<Text as="p">
+				By default presences will display a white border. This can be overridden with the
+				<Code>borderColor</Code> property.
+			</Text>
+			<Text as="p">
+				The <Code>borderColor</Code> property will accept any string that CSS border-color can e.g.
+				hex, rgba, transparent, etc.
+			</Text>
+		</Stack>
 		<Container>
 			<PresenceWrapper>
 				<Presence presence="online" />
@@ -45,5 +52,5 @@ export default () => (
 				<Presence presence="focus" borderColor="transparent" />
 			</PresenceWrapper>
 		</Container>
-	</div>
+	</Stack>
 );

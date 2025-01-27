@@ -1,18 +1,19 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react';
 
-import styled from '@emotion/styled';
-
 import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
 import Button from '@atlaskit/button/new';
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { getFreeToUseAvatarImage, RANDOM_USERS } from '../../examples-util/data';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const ButtonGroup = styled.div({
-	margin: token('space.100', '8px'),
-	textAlign: 'center',
+const styles = cssMap({
+	container: {
+		margin: token('space.100', '8px'),
+		textAlign: 'center',
+	},
 });
 
 const INITIAL_NUMBER_VISIBLE_AVATARS = 8;
@@ -46,7 +47,7 @@ const AvatarGroupOverridesExample = () => {
 						index === data.length - 1 ? (
 							<Fragment key={`${index}-overridden`}>
 								<Component {...props} key={index} ref={lastAvatarItemRef} />
-								<ButtonGroup data-testid="load-more-actions">
+								<Box xcss={styles.container} testId="load-more-actions">
 									<Button
 										testId="load-more"
 										isDisabled={range >= RANDOM_USERS.length}
@@ -56,7 +57,7 @@ const AvatarGroupOverridesExample = () => {
 									>
 										Load more users
 									</Button>
-								</ButtonGroup>
+								</Box>
 							</Fragment>
 						) : (
 							<Component {...props} key={index} />

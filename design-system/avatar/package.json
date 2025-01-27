@@ -71,6 +71,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/button": "^20.3.9",
+		"@atlaskit/code": "^15.6.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/form": "^11.0.1",
 		"@atlaskit/heading": "^4.0.1",

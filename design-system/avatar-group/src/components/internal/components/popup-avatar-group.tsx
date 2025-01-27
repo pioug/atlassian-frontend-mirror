@@ -1,10 +1,4 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { useContext, useEffect } from 'react';
-
-import { jsx } from '@emotion/react';
+import React, { useContext, useEffect } from 'react';
 
 import { MenuGroup } from '@atlaskit/menu';
 

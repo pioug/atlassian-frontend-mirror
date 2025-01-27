@@ -1,10 +1,11 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type ElementType, type MouseEventHandler, useCallback, useEffect, useState } from 'react';
+import React, {
+	type ElementType,
+	type MouseEventHandler,
+	useCallback,
+	useEffect,
+	useState,
+} from 'react';
 
-import { jsx } from '@emotion/react';
 import { bind, type UnbindFn } from 'bind-event-listener';
 
 import Avatar from '@atlaskit/avatar';
@@ -13,7 +14,6 @@ import noop from '@atlaskit/ds-lib/noop';
 import useFocus from '@atlaskit/ds-lib/use-focus-event';
 import { Section } from '@atlaskit/menu';
 import Popup from '@atlaskit/popup';
-import { layers } from '@atlaskit/theme/constants';
 import Tooltip, { type PositionType } from '@atlaskit/tooltip';
 
 import AvatarGroupItem from './avatar-group-item';
@@ -320,7 +320,7 @@ const AvatarGroup = ({
 				boundary={boundary}
 				rootBoundary={rootBoundary}
 				shouldFlip
-				zIndex={layers.modal()}
+				zIndex={510}
 				shouldRenderToParent={shouldPopupRenderToParent}
 				content={({ setInitialFocusRef }) => (
 					<FocusManager>

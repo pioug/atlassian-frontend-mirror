@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.16.0",
+	"version": "3.16.1",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,7 +38,7 @@
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/atlassian-context": "^0.0.2",
 		"@atlaskit/avatar": "^21.17.0",
-		"@atlaskit/avatar-group": "^10.1.0",
+		"@atlaskit/avatar-group": "^11.0.0",
 		"@atlaskit/badge": "^17.0.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/datetime-picker": "^15.11.0",

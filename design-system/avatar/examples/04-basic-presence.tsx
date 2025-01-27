@@ -2,13 +2,13 @@
 import React from 'react';
 
 import Avatar, { Presence } from '@atlaskit/avatar';
+import { Stack } from '@atlaskit/primitives';
 
-import { Block, Gap, ShrinkWrap } from '../examples-util/helpers';
+import { Block, ShrinkWrap } from '../examples-util/helpers';
 
 export default () => (
-	<div>
-		<p>Presence</p>
-		<Block>
+	<Stack space="space.200">
+		<Block heading="Presence">
 			<ShrinkWrap>
 				<Presence presence="online" />
 			</ShrinkWrap>
@@ -22,35 +22,21 @@ export default () => (
 				<Presence presence="offline" />
 			</ShrinkWrap>
 		</Block>
-
-		<p>Circular</p>
-		<Block>
+		<Block heading="Circular">
 			<Avatar name="xxlarge" size="xxlarge" />
-			<Gap />
 			<Avatar name="xlarge" size="xlarge" presence="online" />
-			<Gap />
 			<Avatar name="large" size="large" presence="busy" />
-			<Gap />
 			<Avatar name="medium" size="medium" presence="focus" />
-			<Gap />
 			<Avatar name="small" size="small" presence="offline" />
-			<Gap />
 			<Avatar name="xsmall" size="xsmall" />
 		</Block>
-
-		<p>Square</p>
-		<Block>
+		<Block heading="Square">
 			<Avatar appearance="square" name="xxlarge" size="xxlarge" />
-			<Gap />
 			<Avatar appearance="square" name="xlarge" size="xlarge" presence="online" />
-			<Gap />
 			<Avatar appearance="square" name="large" size="large" presence="busy" />
-			<Gap />
 			<Avatar appearance="square" name="medium" size="medium" presence="focus" />
-			<Gap />
 			<Avatar appearance="square" name="small" size="small" presence="offline" />
-			<Gap />
 			<Avatar appearance="square" name="xsmall" size="xsmall" />
 		</Block>
-	</div>
+	</Stack>
 );

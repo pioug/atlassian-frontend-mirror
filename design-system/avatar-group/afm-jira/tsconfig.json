@@ -21,6 +21,9 @@
 			"path": "../../avatar/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../css/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../ds-lib/afm-jira/tsconfig.json"
 		},
 		{

@@ -13,7 +13,7 @@ import { IconButton } from '@atlaskit/button/new';
 import type { Icon } from '@atlaskit/editor-common/extensions';
 import { configPanelMessages as messages } from '@atlaskit/editor-common/extensions';
 import { relativeFontSizeToBase16 } from '@atlaskit/editor-shared-styles';
-import CrossIcon from '@atlaskit/icon/glyph/cross';
+import CrossIcon from '@atlaskit/icon/core/migration/close--cross';
 import { Box, Text, xcss } from '@atlaskit/primitives';
 import { N200 } from '@atlaskit/theme/colors';
 import { borderRadius } from '@atlaskit/theme/constants';

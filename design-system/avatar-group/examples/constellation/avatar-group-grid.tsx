@@ -1,12 +1,15 @@
 import React from 'react';
 
 import AvatarGroup from '@atlaskit/avatar-group';
-import { Box, xcss } from '@atlaskit/primitives';
+import { cssMap } from '@atlaskit/css';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { getFreeToUseAvatarImage, RANDOM_USERS } from '../../examples-util/data';
 
-const containerStyles = xcss({
-	maxWidth: '200px',
+const styles = cssMap({
+	container: {
+		maxWidth: '200px',
+	},
 });
 
 const AvatarGroupGridExample = () => {
@@ -18,7 +21,7 @@ const AvatarGroupGridExample = () => {
 	}));
 
 	return (
-		<Box xcss={containerStyles}>
+		<Box xcss={styles.container}>
 			<AvatarGroup appearance="grid" data={data} />
 		</Box>
 	);

@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Avatar, { type AppearanceType, type PresenceType, type StatusType } from '@atlaskit/avatar';
+import { Code } from '@atlaskit/code';
 import Heading from '@atlaskit/heading';
-import { Box, Grid, Stack, xcss } from '@atlaskit/primitives';
+import { Grid, Stack, Text, xcss } from '@atlaskit/primitives';
 import { N0, N20 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { avatarUrl } from '../examples-util/data';
-import { Code, Note } from '../examples-util/helpers';
 
 const exampleColors = [
 	token('color.background.neutral', N20),
@@ -64,24 +64,26 @@ const ColorColumn = ({ key, src, borderColor, presence, status, appearance }: Co
 );
 
 export default () => (
-	<Box>
+	<Stack space="space.200">
 		<Heading as="h2" size="large">
 			Coloured Backgrounds
 		</Heading>
-		<Note>
-			<Box as="p">
+
+		<Text size="large" color="color.text.subtlest">
+			<Text as="p">
 				The <Code>borderColor</Code> is consumed by <Code>{'<Avatar/>'}</Code> and passed on to{' '}
 				<Code>{'<Presence/>'}</Code>
 				and <Code>{'<Status/>'}</Code>
-			</Box>
-			<Box as="p">
+			</Text>
+			<Text as="p">
 				Make sure the focus indicator has at least 3:1 color contrast with the background color.
-			</Box>
-			<Box as="p">
+			</Text>
+			<Text as="p">
 				Try clicking/tabbing on the avatars to see how the focus ring interacts with the background
 				color.
-			</Box>
-		</Note>
+			</Text>
+		</Text>
+
 		<Grid gap="space.025" alignItems="center">
 			<Grid templateColumns="1fr 1fr" testId="grid-basic" gap="space.0">
 				{exampleColors.map((color: string, index: number) => (
@@ -106,5 +108,5 @@ export default () => (
 				))}
 			</Grid>
 		</Grid>
-	</Box>
+	</Stack>
 );

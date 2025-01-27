@@ -4,20 +4,25 @@
  */
 import { forwardRef, useCallback } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Avatar, {
-	ACTIVE_SCALE_FACTOR,
 	type AppearanceType,
 	type AvatarClickEventHandler,
 	type AvatarPropTypes,
-	BORDER_WIDTH,
 } from '@atlaskit/avatar';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { B300, B400, B50, N0, N20, N30, N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { type AvatarGroupSize } from './types';
+
+const B300 = '#0065FF';
+const B400 = '#0052CC';
+const B50 = '#DEEBFF';
+const N0 = '#FFFFFF';
+const N20 = '#F4F5F7';
+const N30 = '#EBECF0';
+const N500 = '#42526E';
 
 const buttonSizes: Record<AvatarGroupSize, React.CSSProperties['font']> = {
 	small: token('font.body.small'),
@@ -32,10 +37,10 @@ const buttonActiveStyles = css({
 	'&&': {
 		backgroundColor: token('color.background.selected', B50),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		boxShadow: `0 0 0 ${BORDER_WIDTH}px ${token('color.border.selected', B300)}`,
+		boxShadow: `0 0 0 2px ${token('color.border.selected', B300)}`,
 		color: token('color.text.selected', B400),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		transform: `scale(${ACTIVE_SCALE_FACTOR})`,
+		transform: `scale(0.9)`,
 		'&:hover': {
 			backgroundColor: token('color.background.selected.hovered', N30),
 			color: token('color.text.selected', N500),

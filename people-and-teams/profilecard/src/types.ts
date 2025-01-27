@@ -339,6 +339,10 @@ export interface TeamProfileCardTriggerProps extends TeamProfilecardCoreProps {
 	 * Optional cloudId. Pass this if rendering card within a sited context.
 	 */
 	cloudId?: string;
+	/**
+	 * Whether the popup should have the parent as its root.
+	 */
+	shouldRenderToParent?: boolean;
 }
 
 export interface AgentActionsType {

@@ -38,6 +38,7 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 		trigger: 'hover',
 		position: 'bottom-start',
 		triggerLinkType: 'link',
+		shouldRenderToParent: true,
 	};
 
 	_isMounted: boolean = false;
@@ -416,7 +417,10 @@ export class TeamProfileCardTriggerInternal extends React.PureComponent<
 					zIndex={layers.modal()}
 					shouldFlip
 					autoFocus={this.props.trigger !== 'hover' && !this.openedByHover}
-					shouldRenderToParent={fg('enable_appropriate_reading_order_in_profile_card')}
+					shouldRenderToParent={
+						fg('enable_appropriate_reading_order_in_profile_card') &&
+						this.props.shouldRenderToParent
+					}
 				/>
 			</ErrorBoundary>
 		);

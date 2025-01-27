@@ -14,38 +14,36 @@ const customStyles: CSSProperties = {
 };
 
 export default () => (
-	<div>
-		<Block heading="Circle">
-			<Tooltip content="Mike Cannon-Brookes">
-				<Avatar name="Mike Cannon-Brookes" size="large">
-					{(props) => (
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						<span {...props} style={customStyles}>
-							MCB
-						</span>
-					)}
-				</Avatar>
-			</Tooltip>
-			<Tooltip content="Scott Farquhar">
-				<Avatar name="Scott Farquhar" size="large">
-					{(props) => (
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						<span {...props} style={customStyles}>
-							SF
-						</span>
-					)}
-				</Avatar>
-			</Tooltip>
-			<Tooltip content="Daniel Del Core">
-				<Avatar name="Daniel Del Core" size="large">
-					{({ children, ...props }) => (
-						// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-						<span {...props} style={customStyles}>
-							DDC
-						</span>
-					)}
-				</Avatar>
-			</Tooltip>
-		</Block>
-	</div>
+	<Block heading="Circle">
+		<Tooltip content="Mike Cannon-Brookes">
+			<Avatar name="Mike Cannon-Brookes" size="large">
+				{(props) => (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					<span {...props} style={customStyles}>
+						MCB
+					</span>
+				)}
+			</Avatar>
+		</Tooltip>
+		<Tooltip content="Scott Farquhar">
+			<Avatar name="Scott Farquhar" size="large">
+				{(props) => (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					<span {...props} style={customStyles}>
+						SF
+					</span>
+				)}
+			</Avatar>
+		</Tooltip>
+		<Tooltip content="Daniel Del Core">
+			<Avatar name="Daniel Del Core" size="large">
+				{({ children, ...props }) => (
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+					<span {...props} style={customStyles}>
+						DDC
+					</span>
+				)}
+			</Avatar>
+		</Tooltip>
+	</Block>
 );

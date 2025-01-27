@@ -1,17 +1,17 @@
 import React from 'react';
 
 import Avatar from '@atlaskit/avatar';
+import { Stack } from '@atlaskit/primitives';
 import Tooltip from '@atlaskit/tooltip';
 
-import { Block, Gap } from '../examples-util/helpers';
+import { Block } from '../examples-util/helpers';
 
 export default () => (
-	<div>
+	<Stack space="space.200">
 		<Block heading="Circle">
 			<Tooltip content="xxlarge">
 				<Avatar borderColor="red" onClick={() => {}} name="xxlarge" size="xxlarge" />
 			</Tooltip>
-			<Gap />
 			<Avatar
 				borderColor="red"
 				onClick={() => {}}
@@ -20,13 +20,9 @@ export default () => (
 				presence="online"
 				testId="avatar"
 			/>
-			<Gap />
 			<Avatar borderColor="red" onClick={() => {}} name="large" size="large" presence="offline" />
-			<Gap />
 			<Avatar borderColor="red" onClick={() => {}} name="medium" size="medium" presence="busy" />
-			<Gap />
 			<Avatar borderColor="red" onClick={() => {}} name="small" size="small" presence="focus" />
-			<Gap />
 			<Avatar borderColor="red" onClick={() => {}} name="xsmall" size="xsmall" />
 		</Block>
 		<Block heading="Square">
@@ -37,7 +33,6 @@ export default () => (
 				name="xxlarge"
 				size="xxlarge"
 			/>
-			<Gap />
 			<Avatar
 				borderColor="red"
 				onClick={() => {}}
@@ -46,7 +41,6 @@ export default () => (
 				size="xlarge"
 				status="approved"
 			/>
-			<Gap />
 			<Avatar
 				borderColor="red"
 				onClick={() => {}}
@@ -55,7 +49,6 @@ export default () => (
 				size="large"
 				status="declined"
 			/>
-			<Gap />
 			<Avatar
 				borderColor="red"
 				onClick={() => {}}
@@ -64,9 +57,7 @@ export default () => (
 				size="medium"
 				status="locked"
 			/>
-			<Gap />
 			<Avatar borderColor="red" onClick={() => {}} appearance="square" name="small" size="small" />
-			<Gap />
 			<Avatar
 				borderColor="red"
 				onClick={() => {}}
@@ -79,7 +70,6 @@ export default () => (
 			<Tooltip content="xxlarge">
 				<Avatar borderColor="red" onClick={() => {}} name="xxlarge" size="xxlarge" isDisabled />
 			</Tooltip>
-			<Gap />
 			<Avatar
 				borderColor="red"
 				onClick={() => {}}
@@ -88,7 +78,6 @@ export default () => (
 				presence="online"
 				isDisabled
 			/>
-			<Gap />
 			<Avatar
 				borderColor="red"
 				onClick={() => {}}
@@ -97,7 +86,6 @@ export default () => (
 				presence="offline"
 				isDisabled
 			/>
-			<Gap />
 			<Avatar
 				borderColor="red"
 				onClick={() => {}}
@@ -106,7 +94,6 @@ export default () => (
 				presence="busy"
 				isDisabled
 			/>
-			<Gap />
 			<Avatar
 				borderColor="red"
 				onClick={() => {}}
@@ -115,8 +102,7 @@ export default () => (
 				presence="focus"
 				isDisabled
 			/>
-			<Gap />
 			<Avatar borderColor="red" onClick={() => {}} name="xsmall" size="xsmall" isDisabled />
 		</Block>
-	</div>
+	</Stack>
 );

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AvatarGroup from '@atlaskit/avatar-group';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 import { getFreeToUseAvatarImage, RANDOM_USERS } from '../../examples-util/data';
 

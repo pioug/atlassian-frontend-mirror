@@ -4,7 +4,7 @@
  */
 import { Children, type FC, type ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { token } from '@atlaskit/tokens';
 

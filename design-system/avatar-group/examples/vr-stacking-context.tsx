@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';

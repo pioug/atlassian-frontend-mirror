@@ -1,79 +1,58 @@
 import React from 'react';
 
 import { Skeleton } from '@atlaskit/avatar';
-import * as colors from '@atlaskit/theme/colors';
+import { Inline, Stack, xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
-import { Block, Gap } from '../examples-util/helpers';
+import { Block } from '../examples-util/helpers';
+
+const customTextColorStyle = xcss({
+	color: 'color.text.accent.purple',
+});
 
 export default () => (
-	<div>
+	<Stack space="space.200">
 		<Block heading="Circle" testId="example-block">
 			<Skeleton size="xxlarge" />
-			<Gap />
 			<Skeleton size="xlarge" />
-			<Gap />
 			<Skeleton size="large" />
-			<Gap />
 			<Skeleton size="medium" />
-			<Gap />
 			<Skeleton size="small" />
-			<Gap />
 			<Skeleton size="xsmall" />
 		</Block>
 		<Block heading="Square" testId="example-block">
 			<Skeleton appearance="square" size="xxlarge" />
-			<Gap />
 			<Skeleton appearance="square" size="xlarge" />
-			<Gap />
 			<Skeleton appearance="square" size="large" />
-			<Gap />
 			<Skeleton appearance="square" size="medium" />
-			<Gap />
 			<Skeleton appearance="square" size="small" />
-			<Gap />
 			<Skeleton appearance="square" size="xsmall" />
 		</Block>
 		<Block heading="Coloured via inheritance" testId="example-block">
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
-			<div style={{ color: colors.P500 }}>
+			<Inline space="space.150" xcss={customTextColorStyle} alignBlock="end">
 				<Skeleton size="xxlarge" />
-				<Gap />
 				<Skeleton size="xlarge" />
-				<Gap />
 				<Skeleton size="large" />
-				<Gap />
 				<Skeleton size="medium" />
-				<Gap />
 				<Skeleton size="small" />
-				<Gap />
 				<Skeleton size="xsmall" />
-			</div>
+			</Inline>
 		</Block>
 		<Block heading="Coloured using props" testId="example-block">
-			<Skeleton size="xxlarge" color={colors.Y500} />
-			<Gap />
-			<Skeleton size="xlarge" color={colors.G500} />
-			<Gap />
-			<Skeleton size="large" color={colors.B300} />
-			<Gap />
-			<Skeleton size="medium" color={colors.R500} />
-			<Gap />
-			<Skeleton size="small" color={colors.N200} />
-			<Gap />
-			<Skeleton size="xsmall" color={colors.T500} />
+			<Skeleton size="xxlarge" color={token('color.text.accent.orange')} />
+			<Skeleton size="xlarge" color={token('color.text.accent.green')} />
+			<Skeleton size="large" color={token('color.text.accent.blue')} />
+			<Skeleton size="medium" color={token('color.text.accent.red')} />
+			<Skeleton size="small" color={token('color.text.subtle')} />
+			<Skeleton size="xsmall" color={token('color.text.accent.teal')} />
 		</Block>
 		<Block heading="With a strong weight" testId="example-block">
-			<Skeleton size="xxlarge" color={colors.Y500} weight="strong" />
-			<Gap />
-			<Skeleton size="xlarge" color={colors.G500} weight="strong" />
-			<Gap />
-			<Skeleton size="large" color={colors.B300} weight="strong" />
-			<Gap />
-			<Skeleton size="medium" color={colors.R500} weight="strong" />
-			<Gap />
-			<Skeleton size="small" color={colors.N200} weight="strong" />
-			<Gap />
-			<Skeleton size="xsmall" color={colors.T500} weight="strong" />
+			<Skeleton size="xxlarge" color={token('color.text.accent.orange')} weight="strong" />
+			<Skeleton size="xlarge" color={token('color.text.accent.green')} weight="strong" />
+			<Skeleton size="large" color={token('color.text.accent.blue')} weight="strong" />
+			<Skeleton size="medium" color={token('color.text.accent.red')} weight="strong" />
+			<Skeleton size="small" color={token('color.text.subtle')} weight="strong" />
+			<Skeleton size="xsmall" color={token('color.text.accent.teal')} weight="strong" />
 		</Block>
-	</div>
+	</Stack>
 );

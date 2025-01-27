@@ -2,6 +2,8 @@ import React from 'react';
 
 import styled from '@emotion/styled';
 
+import Heading from '@atlaskit/heading';
+import { Stack, Text } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import tickInlineSvg from '../examples-util/tick.svg';
@@ -34,19 +36,23 @@ const DivPresence = styled.div({
 });
 
 export default () => (
-	<div>
-		<p>
+	<Stack space="space.200">
+		<Text as="p">
 			You are able to provide a react element to the <code>presence</code> property. For best
 			results, it is recommended that whatever you pass in is square and has its height and width
 			set to 100%
-		</p>
-		<h4>SVG</h4>
-		<p>Using a custom svg as the presence</p>
-		<WithAllAvatarSizes presence={<Tick />} />
-		<WithAllAvatarSizes appearance="square" presence={<Tick />} />
-		<h4>Your own component</h4>
-		<p>This example shows using a styled div as a presence.</p>
-		<WithAllAvatarSizes presence={<DivPresence>1</DivPresence>} />
-		<WithAllAvatarSizes appearance="square" presence={<DivPresence>1</DivPresence>} />
-	</div>
+		</Text>
+		<Stack space="space.050">
+			<Heading size="small">SVG</Heading>
+			<Text as="p">Using a custom svg as the presence</Text>
+			<WithAllAvatarSizes presence={<Tick />} />
+			<WithAllAvatarSizes appearance="square" presence={<Tick />} />
+		</Stack>
+		<Stack space="space.050">
+			<Heading size="small">Your own component</Heading>
+			<Text as="p">This example shows using a styled div as a presence.</Text>
+			<WithAllAvatarSizes presence={<DivPresence>1</DivPresence>} />
+			<WithAllAvatarSizes appearance="square" presence={<DivPresence>1</DivPresence>} />
+		</Stack>
+	</Stack>
 );

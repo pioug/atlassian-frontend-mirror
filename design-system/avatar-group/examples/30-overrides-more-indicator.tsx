@@ -2,36 +2,40 @@ import React from 'react';
 
 import { type AppearanceType, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup from '@atlaskit/avatar-group';
-import { Pressable, xcss } from '@atlaskit/primitives';
+import { cssMap, cx } from '@atlaskit/css';
+import { Pressable } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { RANDOM_USERS } from '../examples-util/data';
 import { ExampleGroup } from '../examples-util/helpers';
 
-const indicatorStyles = xcss({
-	minWidth: '24px',
-	height: '24px',
-	margin: 'space.025',
-	padding: 'space.050',
-	backgroundColor: 'color.background.accent.gray.subtler',
-	borderRadius: '24px',
-	color: 'color.text.subtle',
-	font: 'font.heading.xsmall',
-	':hover': {
-		backgroundColor: 'color.background.accent.gray.subtler.hovered',
+const styles = cssMap({
+	indicator: {
+		minWidth: '24px',
+		height: '24px',
+		margin: token('space.025'),
+		padding: token('space.050'),
+		backgroundColor: token('color.background.accent.gray.subtler'),
+		borderRadius: token('border.radius.300', '24px'),
+		color: token('color.text.subtle'),
+		font: token('font.heading.xsmall'),
+		'&:hover': {
+			backgroundColor: token('color.background.accent.gray.subtler.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.accent.gray.subtler.pressed'),
+		},
 	},
-	':active': {
-		backgroundColor: 'color.background.accent.gray.subtler.pressed',
-	},
-});
 
-const indicatorActiveStyles = xcss({
-	backgroundColor: 'color.background.selected',
-	color: 'color.text.selected',
-	':hover': {
-		backgroundColor: 'color.background.selected.hovered',
-	},
-	':active': {
-		backgroundColor: 'color.background.selected.pressed',
+	indicatorActive: {
+		backgroundColor: token('color.background.selected'),
+		color: token('color.text.selected'),
+		'&:hover': {
+			backgroundColor: token('color.background.selected.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.selected.pressed'),
+		},
 	},
 });
 
@@ -62,7 +66,7 @@ export default () => {
 									{...props.buttonProps}
 									{...props}
 									onClick={props.onClick}
-									xcss={[indicatorStyles, props.isActive && indicatorActiveStyles]}
+									xcss={cx(styles.indicator, props.isActive && styles.indicatorActive)}
 									testId={props.testId && `${props.testId}-0`}
 								>
 									{data.length - 4}
@@ -88,7 +92,7 @@ export default () => {
 									{...props.buttonProps}
 									{...props}
 									onClick={props.onClick}
-									xcss={[indicatorStyles, props.isActive && indicatorActiveStyles]}
+									xcss={cx(styles.indicator, props.isActive && styles.indicatorActive)}
 									testId={props.testId && `${props.testId}-1`}
 								>
 									9,999,999

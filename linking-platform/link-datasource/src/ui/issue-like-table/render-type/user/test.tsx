@@ -148,7 +148,7 @@ describe('User Type', () => {
 			act(() => setWidth(availableWidth));
 
 			expect(getByTestId(`${USER_TYPE_TEST_ID}--avatar-group`).children).toHaveLength(
-				expectedAvatarCircles,
+				expectedAvatarCircles + 1,
 			);
 		};
 

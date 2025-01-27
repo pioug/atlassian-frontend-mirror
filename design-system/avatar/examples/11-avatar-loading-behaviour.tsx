@@ -2,11 +2,9 @@ import React, { type ChangeEvent, type FC, type FormEvent, useState } from 'reac
 
 import Avatar from '@atlaskit/avatar';
 import Button from '@atlaskit/button/new';
-import { Box, Inline } from '@atlaskit/primitives';
+import { Box, Inline, Text } from '@atlaskit/primitives';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
-
-import { Note } from '../examples-util/helpers';
 
 type State = {
 	inputValue: string;
@@ -42,7 +40,9 @@ const ExternalSrcAvatar: FC = (props) => {
 
 	return (
 		<form onSubmit={loadImage}>
-			<Note size="large">Try pasting a URL to see the loading behavior:</Note>
+			<Text size="large" color="color.text.subtle">
+				Try pasting a URL to see the loading behavior:
+			</Text>
 			<div
 				style={{
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766

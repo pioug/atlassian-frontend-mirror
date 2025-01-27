@@ -1,6 +1,12 @@
-import React, { type FC, useState } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type FC, type ReactNode, useState } from 'react';
 
-import { AVATAR_SIZES } from '@atlaskit/avatar';
+import { cssMap, jsx } from '@compiled/react';
+
+import { AVATAR_SIZES, type SizeType } from '@atlaskit/avatar';
 import AvatarGroup, { type AvatarGroupProps } from '@atlaskit/avatar-group';
 import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/new';
@@ -8,8 +14,43 @@ import { Label } from '@atlaskit/form';
 import ArrowDown from '@atlaskit/icon/glyph/arrow-down';
 import ArrowUp from '@atlaskit/icon/glyph/arrow-up';
 import Toggle from '@atlaskit/toggle';
+import { token } from '@atlaskit/tokens';
 
-import { Code, Note } from '../examples-util/helpers';
+export const N100 = '#7A869A';
+export const R400 = '#DE350B';
+export const R50 = '#FFEBE6';
+
+const styles = cssMap({
+	base: {
+		color: N100,
+		fontSize: '0.9rem',
+		marginTop: token('space.050', '4px'),
+		marginBottom: token('space.200', '16px'),
+	},
+	large: {
+		fontSize: '1.15em',
+	},
+	code: {
+		backgroundColor: R50,
+		borderRadius: '0.2em',
+		color: R400,
+		fontSize: '0.85em',
+		lineHeight: 1.1,
+		padding: '0.1em 0.4em',
+	},
+});
+
+type NotesProps = {
+	children: ReactNode;
+	size?: SizeType;
+};
+const Note = ({ children, size }: NotesProps) => {
+	return <p css={[styles.base, size === 'large' && styles.large]}>{children}</p>;
+};
+
+const Code = ({ children }: { children: ReactNode }) => {
+	return <code css={styles.code}>{children}</code>;
+};
 
 type State = {
 	avatarCount: number;

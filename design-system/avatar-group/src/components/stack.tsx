@@ -4,14 +4,9 @@
  */
 import { Children, type FC, type ReactNode } from 'react';
 
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
-import { BORDER_WIDTH } from '@atlaskit/avatar';
-// eslint-disable-next-line @atlaskit/design-system/no-deprecated-imports
-import { gridSize } from '@atlaskit/theme/constants';
 import { token } from '@atlaskit/tokens';
-
-const gutter = BORDER_WIDTH * 2 + gridSize() / 2;
 
 const listStyles = css({
 	display: 'flex',
@@ -22,14 +17,12 @@ const listStyles = css({
 	lineHeight: 1,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles -- Ignored via go/DSP-18766
 	listStyleType: 'none !important',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	marginInlineEnd: gutter,
+	marginInlineEnd: token('space.100', '8px'),
 });
 
 const listItemStyles = css({
 	margin: token('space.0', '0px'),
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	marginInlineEnd: -gutter,
+	marginInlineEnd: token('space.negative.100', '-8px'),
 });
 
 const Stack: FC<{

@@ -4,15 +4,24 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { type ElementItem, ElementName, MetadataBlock, SmartLinkSize } from '../../src';
+import { SmartLinkStatus } from '../../src/constants';
 import FlexibleCard from '../../src/view/FlexibleCard';
-import { blockOverrideCss, getCardState } from '../utils/flexible-ui';
+import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
+
+import Old from './vr-flexible-ui-block-metadataOld';
+
+const blockOverrideCss = css({
+	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
+	padding: token('space.200', '1rem'),
+});
 
 const cardState = getCardState({
 	data: {
@@ -58,52 +67,69 @@ const multiLineElements: ElementItem[] = [
 	{ name: ElementName.ModifiedOn },
 ];
 
-export default () => (
-	<VRTestWrapper>
-		<SmartCardProvider>
-			<h5>Primary metadata</h5>
-			<FlexibleCard cardState={cardState} url="link-url">
-				<MetadataBlock primary={elements} />
-			</FlexibleCard>
-			<h5>Secondary metadata</h5>
-			<FlexibleCard cardState={cardState} url="link-url">
-				<MetadataBlock secondary={elements} />
-			</FlexibleCard>
-			<h5>Primary and secondary metadata</h5>
-			<FlexibleCard cardState={cardState} url="link-url">
-				<MetadataBlock primary={elements.slice(0, 1)} secondary={elements.slice(1)} />
-			</FlexibleCard>
-			<h5>Max lines: 1</h5>
-			<FlexibleCard cardState={cardState} url="link-url">
-				<MetadataBlock
-					maxLines={1}
-					primary={multiLineElements}
-					secondary={[...multiLineElements].reverse()}
-				/>
-			</FlexibleCard>
-			<h5>Max lines: 2</h5>
-			<FlexibleCard cardState={cardState} url="link-url">
-				<MetadataBlock
-					maxLines={2}
-					primary={multiLineElements}
-					secondary={[...multiLineElements].reverse()}
-				/>
-			</FlexibleCard>
-			{Object.values(SmartLinkSize).map((size, idx) => (
-				<React.Fragment key={idx}>
-					<h5>Size: {size}</h5>
-					<FlexibleCard cardState={cardState} url="link-url" ui={{ size }}>
-						<MetadataBlock
-							primary={multiLineElements}
-							secondary={[...multiLineElements].reverse()}
-						/>
-					</FlexibleCard>
-				</React.Fragment>
-			))}
-			<h5>Override CSS</h5>
-			<FlexibleCard cardState={cardState} url="link-url">
-				<MetadataBlock overrideCss={blockOverrideCss} primary={elements} />
-			</FlexibleCard>
-		</SmartCardProvider>
-	</VRTestWrapper>
-);
+export default () => {
+	if (!fg('bandicoots-compiled-migration-smartcard')) {
+		return <Old />;
+	}
+	return (
+		<VRTestWrapper>
+			<SmartCardProvider>
+				<h5>Primary metadata</h5>
+				<FlexibleCard cardState={cardState} url="link-url">
+					<MetadataBlock primary={elements} status={cardState.status as SmartLinkStatus} />
+				</FlexibleCard>
+				<h5>Secondary metadata</h5>
+				<FlexibleCard cardState={cardState} url="link-url">
+					<MetadataBlock secondary={elements} status={cardState.status as SmartLinkStatus} />
+				</FlexibleCard>
+				<h5>Primary and secondary metadata</h5>
+				<FlexibleCard cardState={cardState} url="link-url">
+					<MetadataBlock
+						primary={elements.slice(0, 1)}
+						secondary={elements.slice(1)}
+						status={cardState.status as SmartLinkStatus}
+					/>
+				</FlexibleCard>
+				<h5>Max lines: 1</h5>
+				<FlexibleCard cardState={cardState} url="link-url">
+					<MetadataBlock
+						maxLines={1}
+						primary={multiLineElements}
+						secondary={[...multiLineElements].reverse()}
+						status={cardState.status as SmartLinkStatus}
+					/>
+				</FlexibleCard>
+				<h5>Max lines: 2</h5>
+				<FlexibleCard cardState={cardState} url="link-url">
+					<MetadataBlock
+						maxLines={2}
+						primary={multiLineElements}
+						secondary={[...multiLineElements].reverse()}
+						status={cardState.status as SmartLinkStatus}
+					/>
+				</FlexibleCard>
+				{Object.values(SmartLinkSize).map((size, idx) => (
+					<React.Fragment key={idx}>
+						<h5>Size: {size}</h5>
+						<FlexibleCard cardState={cardState} url="link-url" ui={{ size }}>
+							<MetadataBlock
+								primary={multiLineElements}
+								secondary={[...multiLineElements].reverse()}
+								size={size}
+								status={cardState.status as SmartLinkStatus}
+							/>
+						</FlexibleCard>
+					</React.Fragment>
+				))}
+				<h5>Override CSS</h5>
+				<FlexibleCard cardState={cardState} url="link-url">
+					<MetadataBlock
+						css={blockOverrideCss}
+						primary={elements}
+						status={cardState.status as SmartLinkStatus}
+					/>
+				</FlexibleCard>
+			</SmartCardProvider>
+		</VRTestWrapper>
+	);
+};

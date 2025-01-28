@@ -4,12 +4,13 @@
  */
 import { useEffect, useMemo, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx, keyframes } from '@compiled/react';
 
 import { StorageClient } from '@atlaskit/frontend-utilities/storage-client';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
-import { getPulseStyles } from './styled';
+import FeatureDiscoveryOld from './FeatureDiscoveryOld';
 
 const LOCAL_STORAGE_CLIENT_KEY = '@atlaskit/smart-card';
 const LOCAL_STORAGE_DISCOVERY_KEY = 'action-discovery-ai-summarise';
@@ -22,12 +23,25 @@ export type FeatureDiscoveryProps = {
 	testId?: string;
 };
 
+const pulseKeyframes = keyframes({
+	to: {
+		boxShadow: '0 0 0 7px rgba(0, 0, 0, 0)',
+	},
+});
+
+const pulseStyles = css({
+	display: 'inline-flex',
+	borderRadius: '3px',
+	boxShadow: `0 0 0 0 ${token('color.border.discovery', '#8270DB')}`,
+	animation: `${pulseKeyframes} 2s cubic-bezier(0.5, 0, 0, 1) 0.25s both 2`,
+});
+
 /**
  * This is a hacky solution to help with the feature discovery.
  * This implementation must be removed once the experiment is completed.
  * Cleanup on https://product-fabric.atlassian.net/browse/EDM-9649
  */
-const FeatureDiscovery = ({ children, testId }: FeatureDiscoveryProps): JSX.Element => {
+const FeatureDiscoveryNew = ({ children, testId }: FeatureDiscoveryProps): JSX.Element => {
 	const renderedTime = useRef<number>();
 
 	const storageClient = useMemo(() => new StorageClient(LOCAL_STORAGE_CLIENT_KEY), []);
@@ -65,8 +79,7 @@ const FeatureDiscovery = ({ children, testId }: FeatureDiscoveryProps): JSX.Elem
 	const component = useMemo(() => {
 		if (!discovered) {
 			return (
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				<span css={getPulseStyles()} data-testid={`${testId}-discovery`}>
+				<span css={pulseStyles} data-testid={`${testId}-discovery`}>
 					{children}
 				</span>
 			);
@@ -74,6 +87,14 @@ const FeatureDiscovery = ({ children, testId }: FeatureDiscoveryProps): JSX.Elem
 	}, [children, discovered, testId]);
 
 	return component ?? children;
+};
+
+const FeatureDiscovery = (props: FeatureDiscoveryProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <FeatureDiscoveryNew {...props} />;
+	} else {
+		return <FeatureDiscoveryOld {...props} />;
+	}
 };
 
 export default FeatureDiscovery;

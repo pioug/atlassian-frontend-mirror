@@ -1,11 +1,20 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { SnippetBlock } from '../../src';
+import { SmartLinkStatus } from '../../src/constants';
 import FlexibleCard from '../../src/view/FlexibleCard';
-import { blockOverrideCss, getCardState } from '../utils/flexible-ui';
+import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
+
+import Old from './vr-flexible-ui-block-snippetOld';
 
 const cardState = getCardState({
 	data: {
@@ -14,21 +23,32 @@ const cardState = getCardState({
 	},
 });
 
-export default () => (
-	<VRTestWrapper>
-		<SmartCardProvider>
-			<h5>Default</h5>
-			<FlexibleCard cardState={cardState} url="link-url">
-				<SnippetBlock />
-			</FlexibleCard>
-			<h5>Single line</h5>
-			<FlexibleCard cardState={cardState} url="link-url">
-				<SnippetBlock maxLines={1} />
-			</FlexibleCard>
-			<h5>Override CSS</h5>
-			<FlexibleCard cardState={cardState} url="link-url">
-				<SnippetBlock overrideCss={blockOverrideCss} />
-			</FlexibleCard>
-		</SmartCardProvider>
-	</VRTestWrapper>
-);
+const blockOverrideCss = css({
+	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
+	padding: token('space.200', '1rem'),
+});
+
+export default () => {
+	if (!fg('bandicoots-compiled-migration-smartcard')) {
+		return <Old />;
+	}
+
+	return (
+		<VRTestWrapper>
+			<SmartCardProvider>
+				<h5>Default</h5>
+				<FlexibleCard cardState={cardState} url="link-url">
+					<SnippetBlock />
+				</FlexibleCard>
+				<h5>Single line</h5>
+				<FlexibleCard cardState={cardState} url="link-url">
+					<SnippetBlock maxLines={1} />
+				</FlexibleCard>
+				<h5>Override CSS</h5>
+				<FlexibleCard cardState={cardState} url="link-url">
+					<SnippetBlock css={blockOverrideCss} status={cardState.status as SmartLinkStatus} />
+				</FlexibleCard>
+			</SmartCardProvider>
+		</VRTestWrapper>
+	);
+};

@@ -1,5 +1,21 @@
 # @atlaskit/editor-statsig-tmp
 
+## 2.41.0
+
+### Minor Changes
+
+- [#105835](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105835)
+  [`e36d012fbbce1`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e36d012fbbce1) -
+  [ux] EDF-2053 Clean up mentions experiment
+
+## 2.40.1
+
+### Patch Changes
+
+- [#105419](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105419)
+  [`d9cef763b7140`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d9cef763b7140) -
+  EDF-2255 Configure statsig for content read
+
 ## 2.40.0
 
 ### Minor Changes

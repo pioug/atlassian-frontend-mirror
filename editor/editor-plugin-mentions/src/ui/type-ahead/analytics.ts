@@ -193,6 +193,7 @@ export const buildTypeAheadRenderedPayload = (
 	userIds: Array<string> | null,
 	query: string,
 	teams: TeamInfoAttrAnalytics[] | null,
+	xProductMentionsLength: number,
 ): AnalyticsEventPayload => {
 	const { queryLength, spaceInQuery } = extractAttributesFromQuery(query);
 	const actionSubject = userIds
@@ -210,6 +211,7 @@ export const buildTypeAheadRenderedPayload = (
 			teams,
 			queryLength,
 			spaceInQuery,
+			xProductMentionsLength,
 		},
 	};
 };

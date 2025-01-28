@@ -94,9 +94,6 @@
 		}
 	},
 	"platform-feature-flags": {
-		"platform_design_system_dynamic_table_row_role": {
-			"type": "boolean"
-		},
 		"platform-component-visual-refresh": {
 			"type": "boolean"
 		}

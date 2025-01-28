@@ -67,6 +67,7 @@ const FooterBlockResolvedView = (props: FooterBlockProps) => {
 						onDropdownOpenChange={onDropdownOpenChange}
 						items={actions}
 						appearance="default"
+						size={size}
 					/>
 				</ElementGroup>
 			) : null}

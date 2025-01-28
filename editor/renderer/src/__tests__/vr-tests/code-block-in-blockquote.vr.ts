@@ -5,6 +5,7 @@ import {
 	CodeBlockInBlockquoteWrap,
 	CodeBlockInBlockquoteCopyWrap,
 	CodeBlockOverflowInBlockquote,
+	CodeBlockWithReactLooselyLazy,
 } from './code-block-in-blockquote.fixture';
 
 snapshot(CodeBlockInBlockquote, {
@@ -88,4 +89,8 @@ snapshot(CodeBlockInBlockquoteCopyWrap, {
 			},
 		},
 	],
+});
+
+snapshot(CodeBlockWithReactLooselyLazy, {
+	description: 'should render codeblock inside blockquote with react loosely lazy',
 });

@@ -21,7 +21,7 @@ const toDOM = () => {
 
 	const caret = document.createElement('div');
 	caret.setAttribute('style', caretStyle);
-	caret.animate(
+	caret.animate?.(
 		[
 			{
 				opacity: 1,

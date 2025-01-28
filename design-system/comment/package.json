@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/comment",
-	"version": "12.0.5",
+	"version": "12.0.6",
 	"description": "A comment displays discussions and user feedback.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,8 +46,12 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/avatar": "^21.17.0",
 		"@atlaskit/checkbox": "^15.2.0",
+		"@atlaskit/code": "^15.6.9",
+		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/editor-core": "^203.11.9",
 		"@atlaskit/link": "2.0.2",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/jest": "^11.8.0",

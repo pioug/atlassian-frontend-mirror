@@ -17,7 +17,7 @@ snapshot(FlexUiBlockAiSummaryReady, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [false],
+		'bandicoots-compiled-migration-smartcard': [true, false],
 	},
 });
 
@@ -32,7 +32,7 @@ snapshot(FlexUiBlockAiSummaryLoading, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [false],
+		'bandicoots-compiled-migration-smartcard': [true, false],
 	},
 });
 
@@ -47,7 +47,7 @@ snapshot(FlexUiBlockAiSummaryDone, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [false],
+		'bandicoots-compiled-migration-smartcard': [true, false],
 	},
 });
 
@@ -62,7 +62,7 @@ snapshot(FlexUiBlockAiSummaryDoneOnMount, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [false],
+		'bandicoots-compiled-migration-smartcard': [true, false],
 	},
 });
 
@@ -77,6 +77,6 @@ snapshot(FlexUiBlockAiSummaryError, {
 		},
 	],
 	featureFlags: {
-		'bandicoots-compiled-migration-smartcard': [false],
+		'bandicoots-compiled-migration-smartcard': [true, false],
 	},
 });

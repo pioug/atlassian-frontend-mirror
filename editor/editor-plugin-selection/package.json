@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection",
-	"version": "1.6.22",
+	"version": "1.6.24",
 	"description": "Selection plugin for @atlaskit/editor-core",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,7 +25,7 @@
 		"@atlaskit/editor-shared-styles": "^3.2.0",
 		"@atlaskit/editor-tables": "^2.8.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tmp-editor-statsig": "2.40.0",
+		"@atlaskit/tmp-editor-statsig": "2.41.0",
 		"@atlaskit/tokens": "^3.2.0",
 		"@babel/runtime": "^7.0.0"
 	},
@@ -86,9 +86,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-editor-single-player-expand": {
-			"type": "boolean"
-		},
-		"platform_editor_mark_boundary_cursor": {
 			"type": "boolean"
 		},
 		"platform_editor_fix_drag_and_drop_lists": {

@@ -4,16 +4,24 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { MediaPlacement, PreviewBlock, SmartLinkSize, SnippetBlock, TitleBlock } from '../../src';
 import FlexibleCard from '../../src/view/FlexibleCard';
 import preview from '../images/rectangle.svg';
-import { blockOverrideCss, getCardState } from '../utils/flexible-ui';
+import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
+
+import Old from './vr-flexible-ui-block-previewOld';
+
+const blockOverrideCss = css({
+	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
+	padding: token('space.200', '1rem'),
+});
 
 const styles = css({
 	maxWidth: '400px',
@@ -42,52 +50,57 @@ const configurations: () => Array<{
 	return configs;
 };
 
-export default () => (
-	<VRTestWrapper>
-		<SmartCardProvider>
-			{configurations().map(
-				(
-					{
-						size,
-						placement,
-						ignorePadding,
-					}: {
-						size: SmartLinkSize;
-						placement: MediaPlacement | undefined;
-						ignorePadding: boolean;
-					},
-					idx: React.Key | undefined,
-				) => (
-					<React.Fragment key={idx}>
-						<div css={styles}>
-							<h5>
-								Size: {size}, Placement: {placement || 'Default'}, IgnoreContainerPadding:{' '}
-								{ignorePadding ? 'True' : 'False'}
-							</h5>
-							<FlexibleCard cardState={cardState} url="link-url" ui={{ size }}>
-								<TitleBlock />
-								<SnippetBlock />
-								<PreviewBlock placement={placement} ignoreContainerPadding={ignorePadding} />
-							</FlexibleCard>
-						</div>
-					</React.Fragment>
-				),
-			)}
+export default () => {
+	if (!fg('bandicoots-compiled-migration-smartcard')) {
+		return <Old />;
+	}
+	return (
+		<VRTestWrapper>
+			<SmartCardProvider>
+				{configurations().map(
+					(
+						{
+							size,
+							placement,
+							ignorePadding,
+						}: {
+							size: SmartLinkSize;
+							placement: MediaPlacement | undefined;
+							ignorePadding: boolean;
+						},
+						idx: React.Key | undefined,
+					) => (
+						<React.Fragment key={idx}>
+							<div css={styles}>
+								<h5>
+									Size: {size}, Placement: {placement || 'Default'}, IgnoreContainerPadding:{' '}
+									{ignorePadding ? 'True' : 'False'}
+								</h5>
+								<FlexibleCard cardState={cardState} url="link-url" ui={{ size }}>
+									<TitleBlock />
+									<SnippetBlock />
+									<PreviewBlock placement={placement} ignoreContainerPadding={ignorePadding} />
+								</FlexibleCard>
+							</div>
+						</React.Fragment>
+					),
+				)}
 
-			<h5>Multiple Previews with mixed padding</h5>
-			<FlexibleCard cardState={cardState} url="link-url">
-				<PreviewBlock />
-				<TitleBlock />
-				<SnippetBlock />
-				<PreviewBlock placement={MediaPlacement.Left} />
-				<PreviewBlock placement={MediaPlacement.Right} ignoreContainerPadding={true} />
-				<PreviewBlock ignoreContainerPadding={true} />
-			</FlexibleCard>
+				<h5>Multiple Previews with mixed padding</h5>
+				<FlexibleCard cardState={cardState} url="link-url">
+					<PreviewBlock />
+					<TitleBlock />
+					<SnippetBlock />
+					<PreviewBlock placement={MediaPlacement.Left} />
+					<PreviewBlock placement={MediaPlacement.Right} ignoreContainerPadding={true} />
+					<PreviewBlock ignoreContainerPadding={true} />
+				</FlexibleCard>
 
-			<h5>Override CSS</h5>
-			<FlexibleCard cardState={cardState} url="link-url">
-				<PreviewBlock overrideCss={blockOverrideCss} />
-			</FlexibleCard>
-		</SmartCardProvider>
-	</VRTestWrapper>
-);
+				<h5>Override CSS</h5>
+				<FlexibleCard cardState={cardState} url="link-url">
+					<PreviewBlock css={blockOverrideCss} />
+				</FlexibleCard>
+			</SmartCardProvider>
+		</VRTestWrapper>
+	);
+};

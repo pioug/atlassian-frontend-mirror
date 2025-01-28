@@ -267,6 +267,19 @@ export class VCObserver {
 			viewport,
 		});
 
+		try {
+			if (!this.isPostInteraction) {
+				VCObserver.VCParts.forEach((key) => {
+					const duration = vcNext.VC[key];
+					if (duration !== null && duration !== undefined) {
+						performance.measure(`VC_Next${key}`, { start, duration });
+					}
+				});
+			}
+		} catch (e) {
+			/* empty */
+		}
+
 		const outOfBoundary = outOfBoundaryInfo ? { [`${fullPrefix}vc:oob`]: outOfBoundaryInfo } : {};
 		//const oldDomUpdates = oldDomUpdatesEnabled ? { [`${fullPrefix}vc:old:dom`]: vcNext.VCBox } : {};
 

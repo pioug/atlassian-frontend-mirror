@@ -59,6 +59,11 @@ const metadataBlockCss = css({
 			marginRight: token('space.100', '0.5rem'),
 		},
 	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'[data-smart-element-group]': {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		lineHeight: '1rem',
+	},
 });
 
 /**

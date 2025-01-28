@@ -379,6 +379,7 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 			maxHeight,
 			fadeOutHeight,
 			enableSsrInlineScripts,
+			noOpSSRInlineScript,
 			allowHeadingAnchorLinks,
 			allowPlaceholderText,
 			allowColumnSorting,
@@ -504,7 +505,9 @@ export class __RendererClassComponent extends PureComponent<RendererProps & { st
 										isInsideOfInlineExtension={this.props.isInsideOfInlineExtension}
 										isTopLevelRenderer={rendererContext.isTopLevelRenderer}
 									>
-										{enableSsrInlineScripts ? <BreakoutSSRInlineScript /> : null}
+										{enableSsrInlineScripts || noOpSSRInlineScript ? (
+											<BreakoutSSRInlineScript noOpSSRInlineScript={Boolean(noOpSSRInlineScript)} />
+										) : null}
 										<RendererActionsInternalUpdater
 											doc={pmDoc}
 											schema={schema}
@@ -970,7 +973,11 @@ const RendererFunctionalComponent = (props: RendererProps & { startPos?: number 
 											.isTopLevelRenderer
 									}
 								>
-									{props.enableSsrInlineScripts ? <BreakoutSSRInlineScript /> : null}
+									{props.enableSsrInlineScripts || props.noOpSSRInlineScript ? (
+										<BreakoutSSRInlineScript
+											noOpSSRInlineScript={Boolean(props.noOpSSRInlineScript)}
+										/>
+									) : null}
 									<RendererActionsInternalUpdater
 										doc={pmDoc}
 										schema={schema}

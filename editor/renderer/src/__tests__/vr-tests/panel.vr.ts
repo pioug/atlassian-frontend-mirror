@@ -1,4 +1,5 @@
 import { snapshot } from '@af/visual-regression';
-import { PanelRenderer } from './panel.fixture';
+import { PanelRenderer, PanelRendererWithReactLooselyLazy } from './panel.fixture';
 
 snapshot(PanelRenderer);
+snapshot(PanelRendererWithReactLooselyLazy);

@@ -5,7 +5,6 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { axe } from '@af/accessibility-testing';
 import Button from '@atlaskit/button/new';
 import Link from '@atlaskit/link';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import DynamicTable, { DynamicTableStateless as StatelessDynamicTable } from '../../../index';
 import { type StatelessProps } from '../../../types';
@@ -114,7 +113,7 @@ describe('Dynamic Table Accessibility', () => {
 		});
 	});
 
-	ffTest.on('platform_design_system_dynamic_table_row_role', 'Rankable table', () => {
+	describe('Rankable table', () => {
 		it('should pass basic aXe audit', async () => {
 			// This is not realistic content, but interactive children are realistic usage
 			const { container } = render(

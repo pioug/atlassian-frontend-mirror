@@ -7,8 +7,18 @@ import { mediaInlineAdf } from '../visual-regression/media/__fixtures__/media-in
 import { mediaInlineInParagraphAdf } from '../visual-regression/media/__fixtures__/media-inline-in-paragraph.adf';
 import { mediaInlineMultipleInParagraphAdf } from '../visual-regression/media/__fixtures__/media-inline-multiple-in-paragraph.adf';
 import type { DocNode } from '@atlaskit/adf-schema';
+import { RendererProps } from '../../ui/renderer-props';
+import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
 
-const Media = ({ adf, appearance }: { adf: DocNode; appearance: string }) => {
+const Media = ({
+	adf,
+	appearance,
+	nodeComponents,
+}: {
+	adf: DocNode;
+	appearance: string;
+	nodeComponents?: RendererProps['nodeComponents'];
+}) => {
 	return (
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 		<div style={{ padding: '10px' }}>
@@ -19,6 +29,7 @@ const Media = ({ adf, appearance }: { adf: DocNode; appearance: string }) => {
 					appearance={appearance}
 					adfStage={'stage0'}
 					media={{ allowLinking: true, allowCaptions: true }}
+					nodeComponents={nodeComponents}
 				/>
 			</MockMediaClientProvider>
 		</div>
@@ -35,4 +46,8 @@ export const MediaInlineInParagraphADF = () => {
 
 export const MediaInlineMultipleInParagraphADF = () => {
 	return <Media adf={mediaInlineMultipleInParagraphAdf} appearance={'full-page'} />;
+};
+
+export const MediaInlineADFWithReactLooselyLazy = () => {
+	return <Media adf={mediaInlineMultipleInParagraphAdf} appearance={'full-page'} nodeComponents={looselyLazyNodes} />;
 };

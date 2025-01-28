@@ -4,9 +4,9 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../src/constants';
@@ -17,8 +17,10 @@ import {
 	CollaboratorGroup,
 	OwnedByGroup,
 } from '../../src/view/FlexibleCard/components/elements';
-import { exampleTokens, getContext } from '../utils/flexible-ui';
+import { getContext } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
+
+import Old from './vr-flexible-ui-element-avatar-groupOld';
 
 const containerStyles = css({
 	display: 'flex',
@@ -26,13 +28,13 @@ const containerStyles = css({
 	gap: token('space.050', '4px'),
 	padding: token('space.050', '4px'),
 });
+
 const overrideCss = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	li: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'span, svg': {
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-			backgroundColor: exampleTokens.overrideColor,
+			backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
 		},
 	},
 });
@@ -47,24 +49,32 @@ const context = getContext({
 	assignedToGroup,
 });
 
-export default () => (
-	<VRTestWrapper>
-		<FlexibleUiContext.Provider value={context}>
-			{Object.values(SmartLinkSize).map((size, tIdx) => (
-				<React.Fragment key={tIdx}>
-					<h5>{size}</h5>
-					<div css={containerStyles}>
-						<AuthorGroup size={size} testId={`vr-test-author-group-${size}-${tIdx}`} />
-						<CollaboratorGroup size={size} testId={`vr-test-collaborator-group-${size}-${tIdx}`} />
-						<OwnedByGroup size={size} testId={`vr-test-ownedBy-group-${size}-${tIdx}`} />
-						<AssignedToGroup size={size} testId={`vr-test-assignedTo-group-${size}-${tIdx}`} />
-					</div>
-				</React.Fragment>
-			))}
-			<h5>Override CSS</h5>
-			<div css={containerStyles}>
-				<AuthorGroup overrideCss={overrideCss} />
-			</div>
-		</FlexibleUiContext.Provider>
-	</VRTestWrapper>
-);
+export default () => {
+	if (!fg('bandicoots-compiled-migration-smartcard')) {
+		return <Old />;
+	}
+	return (
+		<VRTestWrapper>
+			<FlexibleUiContext.Provider value={context}>
+				{Object.values(SmartLinkSize).map((size, tIdx) => (
+					<React.Fragment key={tIdx}>
+						<h5>{size}</h5>
+						<div css={containerStyles}>
+							<AuthorGroup size={size} testId={`vr-test-author-group-${size}-${tIdx}`} />
+							<CollaboratorGroup
+								size={size}
+								testId={`vr-test-collaborator-group-${size}-${tIdx}`}
+							/>
+							<OwnedByGroup size={size} testId={`vr-test-ownedBy-group-${size}-${tIdx}`} />
+							<AssignedToGroup size={size} testId={`vr-test-assignedTo-group-${size}-${tIdx}`} />
+						</div>
+					</React.Fragment>
+				))}
+				<h5>Override CSS</h5>
+				<div css={containerStyles}>
+					<AuthorGroup css={overrideCss} />
+				</div>
+			</FlexibleUiContext.Provider>
+		</VRTestWrapper>
+	);
+};

@@ -1,5 +1,19 @@
 # @atlaskit/forge-react-types
 
+## 0.34.13
+
+### Patch Changes
+
+- Updated dependencies
+
+## 0.34.12
+
+### Patch Changes
+
+- [#106527](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106527)
+  [`8f869826facf6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8f869826facf6) -
+  Improve prop config in forge uikit component codegen
+
 ## 0.34.11
 
 ### Patch Changes

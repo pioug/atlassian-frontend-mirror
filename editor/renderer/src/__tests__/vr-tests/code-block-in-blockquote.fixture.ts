@@ -2,6 +2,7 @@ import {
 	codeBlockInBlockquoteADF,
 	codeBlockOverflowInBlockquoteADF,
 } from '../__fixtures__/code-block-inside-blockquote.adf';
+import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
 
@@ -32,4 +33,10 @@ export const CodeBlockInBlockquoteCopyWrap = generateRendererComponent({
 	appearance: 'full-width',
 	allowCopyToClipboard: true,
 	allowWrapCodeBlock: true,
+});
+
+export const CodeBlockWithReactLooselyLazy = generateRendererComponent({
+	document: codeBlockInBlockquoteADF(),
+	appearance: 'full-width',
+	nodeComponents: looselyLazyNodes,
 });

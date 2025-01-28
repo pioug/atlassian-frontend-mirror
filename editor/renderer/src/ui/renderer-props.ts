@@ -32,6 +32,8 @@ export interface RendererProps {
 	// Enables inline scripts to add support for breakout nodes,
 	// before main JavaScript bundle is available.
 	enableSsrInlineScripts?: boolean;
+	// Enables inline scripts from above on client for first render for hydration to prevent mismatch.
+	noOpSSRInlineScript?: boolean;
 	onComplete?: (stat: RenderOutputStat) => void;
 	// Ignored via go/ees005
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any

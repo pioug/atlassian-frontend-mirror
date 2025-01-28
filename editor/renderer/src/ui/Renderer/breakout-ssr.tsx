@@ -3,6 +3,11 @@ import { breakoutConsts } from '@atlaskit/editor-common/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { FullPagePadding } from './style';
+declare global {
+	interface Window {
+		__RENDERER_BYPASS_BREAKOUT_SSR__?: boolean;
+	}
+}
 
 /**
  * Inline Script that updates breakout node width on client side,
@@ -10,13 +15,20 @@ import { FullPagePadding } from './style';
  *
  * More info: https://product-fabric.atlassian.net/wiki/spaces/E/pages/1216218119/Renderer+SSR+for+Breakout+Nodes
  */
-export function BreakoutSSRInlineScript() {
+export function BreakoutSSRInlineScript({ noOpSSRInlineScript }: { noOpSSRInlineScript: Boolean }) {
 	/**
 	 * Should only inline this script while SSR,
 	 * not needed on the client side.
 	 */
+	// For hydrateRoot there is a mismatch on client for this script.
+	// So we want to add the script on client side but guard it with check to
+	// not execute logic
 	if (typeof window !== 'undefined' && !window.navigator.userAgent.includes('jsdom')) {
-		return null;
+		if (!noOpSSRInlineScript) {
+			return null;
+		} else {
+			window.__RENDERER_BYPASS_BREAKOUT_SSR__ = true;
+		}
 	}
 
 	const id = Math.floor(Math.random() * (9999999999 - 9999 + 1)) + 9999;
@@ -28,13 +40,17 @@ export function BreakoutSSRInlineScript() {
 			// To investigate if we can replace this.
 			// eslint-disable-next-line react/no-danger
 			dangerouslySetInnerHTML={{ __html: context }}
+			data-testid="breakout-ssr-inline-script"
 		></script>
 	);
 }
 
 export function createBreakoutInlineScript(id: number) {
 	return `
-  (function(window){
+	 (function(window){
+		if(typeof window !== 'undefined' && window.__RENDERER_BYPASS_BREAKOUT_SSR__) {
+			return;
+		}
     ${breakoutInlineScriptContext};
     (${applyBreakoutAfterSSR.toString()})("${id}", breakoutConsts, ${Boolean(fg('platform-fix-table-ssr-resizing'))});
   })(window);

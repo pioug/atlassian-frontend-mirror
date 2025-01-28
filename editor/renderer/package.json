@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/renderer",
-	"version": "112.9.0",
+	"version": "112.9.1",
 	"description": "Renderer component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,7 +50,7 @@
 		"@atlaskit/status": "^1.8.0",
 		"@atlaskit/task-decision": "^17.11.0",
 		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tmp-editor-statsig": "^2.40.0",
+		"@atlaskit/tmp-editor-statsig": "^2.41.0",
 		"@atlaskit/tokens": "^3.2.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/visually-hidden": "^1.5.0",
@@ -60,6 +60,7 @@
 		"memoize-one": "^6.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"react-loadable": "^5.1.0",
+		"react-loosely-lazy": "^1.0.0",
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
@@ -196,7 +197,8 @@
 		"./serializer": "./src/serializer.ts",
 		"./text-serializer": "./src/text-serializer.ts",
 		"./use-feature-flags": "./src/use-feature-flags.ts",
-		"./utils": "./src/utils.ts"
+		"./utils": "./src/utils.ts",
+		"./custom-nodes": "./src/custom-nodes.ts"
 	},
 	"exports": {
 		".": "./src/index.ts",
@@ -210,6 +212,7 @@
 		"./text-serializer": "./src/text-serializer.ts",
 		"./use-feature-flags": "./src/use-feature-flags.ts",
 		"./utils": "./src/utils.ts",
+		"./custom-nodes": "./src/custom-nodes.ts",
 		"./package.json": "./package.json"
 	}
 }

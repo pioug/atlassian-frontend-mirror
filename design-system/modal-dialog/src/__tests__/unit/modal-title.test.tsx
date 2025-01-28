@@ -88,6 +88,32 @@ describe('<ModalTitle />', () => {
 		expect(icon).toHaveAccessibleName('danger');
 	});
 
+	it('icon should be part of the modal title if the appearance prop is provided', () => {
+		/**
+		 * The icon provides visual context to the type of modal that is being presented. If it is removed from the title
+		 * `<h1>` then the context will not be provided to assistive technology users.
+		 *
+		 * Example with icon in title: "danger You're about to delete this page"
+		 * Example without icon in title "You're about to delete this page"
+		 *
+		 * Not including the icon would fail WCAG 1.3.1
+		 *
+		 * DO NOT REMOVE THE ICON FROM THE TITLE
+		 */
+
+		render(
+			<ModalDialog testId="test" onClose={noop}>
+				<ModalHeader>
+					<ModalTitle appearance="danger">Title</ModalTitle>
+				</ModalHeader>
+			</ModalDialog>,
+		);
+
+		const title = screen.getByRole('heading');
+		const icon = screen.getByRole('img', { name: 'danger' });
+		expect(title).toContainElement(icon);
+	});
+
 	it('should throw an error if modal context not available', () => {
 		/* eslint-disable no-console */
 		const err = console.error;

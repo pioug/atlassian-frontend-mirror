@@ -1,8 +1,13 @@
-import React, { useRef } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Fragment, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkDirection } from '../../../../../../constants';
 import useAISummaryAction from '../../../../../../state/hooks/use-ai-summary-action';
@@ -12,6 +17,8 @@ import Block from '../../block';
 import AIEventSummaryViewed from '../ai-event-summary-viewed';
 import type { AISummaryBlockProps } from '../types';
 
+import AISummaryBlockResolvedViewOld from './AISummaryBlockResolvedViewOld';
+
 type AISummaryBlockResolvedViewProps = AISummaryBlockProps & {
 	/**
 	 * URL to be summarised
@@ -19,7 +26,11 @@ type AISummaryBlockResolvedViewProps = AISummaryBlockProps & {
 	url: string;
 };
 
-const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps) => {
+const styles = css({
+	overflow: 'visible',
+});
+
+const AISummaryBlockResolvedViewNew = (props: AISummaryBlockResolvedViewProps) => {
 	di(useAISummaryAction, AISummary);
 
 	const { testId, aiSummaryMinHeight = 0, placeholder, url } = props;
@@ -38,7 +49,7 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps) => {
 	const minHeight = isSummarisedOnMountRef.current ? 0 : aiSummaryMinHeight;
 
 	if (!showAISummary) {
-		return <>{placeholder}</>;
+		return <Fragment>{placeholder}</Fragment>;
 	}
 
 	return (
@@ -50,13 +61,7 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps) => {
 			 * Enabled for feature discovery to allow box shadow to overflow
 			 * Cleanup: https://product-fabric.atlassian.net/browse/EDM-8681
 			 */
-			overrideCss={css(
-				{
-					overflow: 'visible',
-				},
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-				props.overrideCss,
-			)}
+			css={styles}
 		>
 			{status === 'done' && <AIEventSummaryViewed fromCache={isSummarisedOnMountRef.current} />}
 			<MotionWrapper
@@ -68,6 +73,14 @@ const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps) => {
 			</MotionWrapper>
 		</Block>
 	);
+};
+
+const AISummaryBlockResolvedView = (props: AISummaryBlockResolvedViewProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <AISummaryBlockResolvedViewNew {...props} />;
+	} else {
+		return <AISummaryBlockResolvedViewOld {...props} />;
+	}
 };
 
 export default AISummaryBlockResolvedView;

@@ -4,8 +4,7 @@
  */
 import { useCallback, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { FormattedMessage } from 'react-intl-next';
 import { di } from 'react-magnetic-di';
 
@@ -14,6 +13,7 @@ import ButtonGroup from '@atlaskit/button/button-group';
 import Button from '@atlaskit/button/standard-button';
 import DropdownMenu from '@atlaskit/dropdown-menu';
 import MoreIcon from '@atlaskit/icon/core/migration/show-more-horizontal--more';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 import Tooltip from '@atlaskit/tooltip';
 
@@ -28,6 +28,7 @@ import type { ActionItem } from '../types';
 import { filterActionItems } from '../utils';
 
 import ActionGroupItem from './action-group-item';
+import ActionGroupOld from './ActionGroupOld';
 import { type ActionGroupProps } from './types';
 
 const styles = css({
@@ -69,7 +70,7 @@ const renderActionItems = (
  * @param {ActionGroupProps} ActionGroupProps
  * @see Action
  */
-const ActionGroup = ({
+const ActionGroupNew = ({
 	items = [],
 	size = SmartLinkSize.Medium,
 	appearance,
@@ -180,6 +181,14 @@ const ActionGroup = ({
 			</ButtonGroup>
 		</div>
 	) : null;
+};
+
+const ActionGroup = (props: ActionGroupProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <ActionGroupNew {...props} />;
+	} else {
+		return <ActionGroupOld {...props} />;
+	}
 };
 
 export default ActionGroup;

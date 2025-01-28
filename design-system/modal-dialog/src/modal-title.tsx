@@ -9,8 +9,6 @@ import { css, jsx } from '@emotion/react';
 
 import ErrorIcon from '@atlaskit/icon/core/migration/error';
 import WarningIcon from '@atlaskit/icon/core/migration/warning';
-import { fg } from '@atlaskit/platform-feature-flags';
-import { Flex } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { useModal } from './hooks';
@@ -112,23 +110,12 @@ const ModalTitle = (props: ModalTitleProps) => {
 
 	const testId = userDefinedTestId || (modalTestId && `${modalTestId}--title`);
 
-	return fg('platform_modal-dialog-heading-icon-a11y-fix') ? (
-		<Flex gap="space.100">
-			{appearance && <TitleIcon appearance={appearance} />}
-			{/* eslint-disable-next-line @atlaskit/design-system/use-heading */}
-			<h1 css={titleStyles} data-testid={testId}>
-				<span
-					id={titleId}
-					css={[textStyles, !isMultiline && truncatedTextStyles]}
-					data-testid={testId && `${testId}-text`}
-				>
-					{children}
-				</span>
-			</h1>
-		</Flex>
-	) : (
+	return (
 		// eslint-disable-next-line @atlaskit/design-system/use-heading
 		<h1 css={titleStyles} data-testid={testId}>
+			{/* The icon needs to remain part of the <h1> so that it is included as part of the modal dialog announcement.
+				See https://product-fabric.atlassian.net/browse/DSP-21771 for more detailed info.
+			*/}
 			{appearance && <TitleIcon appearance={appearance} />}
 			<span
 				id={titleId}

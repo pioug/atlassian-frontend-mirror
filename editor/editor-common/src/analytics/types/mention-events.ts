@@ -104,6 +104,7 @@ type MentionTypeaheadRenderedPayload = OperationalAEP<
 		}> | null;
 		queryLength?: number;
 		spaceInQuery?: boolean;
+		xProductMentionsLength?: number;
 	}
 >;
 

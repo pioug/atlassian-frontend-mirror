@@ -3,7 +3,7 @@
  *
  * To change the format of this file, modify `createIconDocsNew` in icon-build-process/src/create-icon-docs.tsx.
  *
- * @codegen <<SignedSource::c58d65251363ddc99a001ca55c0335ec>>
+ * @codegen <<SignedSource::b459d54dd14852e34a063abb0db32fee>>
  * @codegenCommand yarn build:icon-glyphs
  */
 interface metadata {
@@ -221,6 +221,26 @@ const metadata: Record<string, metadata> = {
 		categorization: 'single-purpose',
 		usage: 'Reserved for inserting status lozenges in Editor.',
 		team: 'Editor',
+	},
+	'page-live-doc': {
+		keywords: [
+			'page-live-doc',
+			'pagelivedoc',
+			'icon',
+			'icon-lab',
+			'core',
+			'page',
+			'live edit',
+			'lightning bolt',
+			'multiplayer',
+			'document',
+		],
+		componentName: 'PageLiveDocIcon',
+		package: '@atlaskit/icon-lab/core/page-live-doc',
+		type: 'core',
+		categorization: 'single-purpose',
+		usage: 'Reserved for Live docs in Confluence.',
+		team: 'Confluence Page Modes',
 	},
 	'paint-brush': {
 		keywords: [

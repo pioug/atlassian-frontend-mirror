@@ -55,7 +55,7 @@
 		"@atlaskit/mention": "^23.10.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/task-decision": "^17.11.0",
-		"@atlaskit/tmp-editor-statsig": "^2.40.0",
+		"@atlaskit/tmp-editor-statsig": "^2.41.0",
 		"@atlaskit/tokens": "^3.2.0",
 		"@atlaskit/tooltip": "^19.0.0",
 		"@atlaskit/width-detector": "^4.3.0",

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -42,6 +43,7 @@ const baseStyleBySize = cssMap({
 		gap: token('space.250', '1.25rem'),
 		minWidth: 0,
 		overflow: 'hidden',
+		lineHeight: '1rem',
 	},
 	large: {
 		alignItems: 'center',
@@ -49,6 +51,7 @@ const baseStyleBySize = cssMap({
 		gap: token('space.200', '1rem'),
 		minWidth: 0,
 		overflow: 'hidden',
+		lineHeight: '1rem',
 	},
 	medium: {
 		alignItems: 'center',
@@ -56,6 +59,7 @@ const baseStyleBySize = cssMap({
 		gap: token('space.100', '0.5rem'),
 		minWidth: 0,
 		overflow: 'hidden',
+		lineHeight: '1rem',
 	},
 	small: {
 		alignItems: 'center',
@@ -63,6 +67,7 @@ const baseStyleBySize = cssMap({
 		gap: token('space.050', '0.25rem'),
 		minWidth: 0,
 		overflow: 'hidden',
+		lineHeight: '1rem',
 	},
 });
 
@@ -242,6 +247,8 @@ const gapStylesRight = cssMap({
 	},
 });
 
+const minWidthStyle = css({ minWidth: '10%' });
+
 /**
  * Creates a group of Action components. Accepts an array of Actions, in addition to some styling
  * preferences.
@@ -259,27 +266,25 @@ const ElementGroupNew = ({
 	position = SmartLinkPosition.Center,
 	className,
 }: ElementGroupProps) => {
-	const totalCss = [
-		baseStyleBySize[size],
-		baseStyleByDirection[direction],
-		baseStyle,
-		alignmentStyleMap[align],
-		css({ minWidth: '10%' }),
-		widthStyle[width],
-		direction === SmartLinkDirection.Horizontal ? horizontalStyleBase : {},
-		direction === SmartLinkDirection.Horizontal ? horizontalStyleByHeight[size] : {},
-		direction === SmartLinkDirection.Horizontal
-			? SmartLinkAlignment.Left
-				? gapStylesLeft[size]
-				: gapStylesRight[size]
-			: {},
-		positionStyle[position],
-	];
-
 	return (
 		<div
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-			css={totalCss}
+			css={[
+				baseStyleBySize[size],
+				baseStyleByDirection[direction],
+				baseStyle,
+				alignmentStyleMap[align],
+				minWidthStyle,
+				widthStyle[width],
+				direction === SmartLinkDirection.Horizontal && horizontalStyleBase,
+				direction === SmartLinkDirection.Horizontal && horizontalStyleByHeight[size],
+				direction === SmartLinkDirection.Horizontal &&
+					align === SmartLinkAlignment.Left &&
+					gapStylesLeft[size],
+				direction === SmartLinkDirection.Horizontal &&
+					align === SmartLinkAlignment.Right &&
+					gapStylesRight[size],
+				positionStyle[position],
+			]}
 			data-smart-element-group
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop

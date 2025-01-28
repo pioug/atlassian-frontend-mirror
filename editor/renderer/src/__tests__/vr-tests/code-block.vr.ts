@@ -5,6 +5,7 @@ import {
 	CodeBlockRendererTrailingNewline,
 	CodeBlockRendererWrap,
 	CodeBlockRendererOverflow,
+	CodeBlockWithReactLooselyLazy,
 } from './code-block.fixture';
 
 snapshot(CodeBlockRendererCopy, {
@@ -28,4 +29,8 @@ snapshot(CodeBlockRendererWrap, {
 
 snapshot(CodeBlockRendererOverflow, {
 	description: 'should render overflow as expected',
+});
+
+snapshot(CodeBlockWithReactLooselyLazy, {
+	description: 'should render with react loosely lazy',
 });

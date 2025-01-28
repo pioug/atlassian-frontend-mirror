@@ -249,7 +249,7 @@ export const moveNode =
 			if (sourceNode && isDragLayoutColumnToTopLevel($handlePos, $to)) {
 				// need update after we support single column layout.
 				const fragment = Fragment.from(sourceNode.content);
-				removeFromSource(tr, $handlePos);
+				removeFromSource(tr, $handlePos, $handlePos.pos + sourceNode.nodeSize);
 				const mappedTo = tr.mapping.map(to);
 				tr.insert(mappedTo, fragment)
 					.setSelection(Selection.near(tr.doc.resolve(mappedTo)))

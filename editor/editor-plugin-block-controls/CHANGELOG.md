@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.21.6
+
+### Patch Changes
+
+- [#105202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105202)
+  [`652b93ff9cff7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/652b93ff9cff7) -
+  [ux] [ED-26290] Support drag and drop to create or update layout with multi select
+- Updated dependencies
+
 ## 2.21.5
 
 ### Patch Changes

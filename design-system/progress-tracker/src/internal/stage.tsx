@@ -8,7 +8,6 @@ import { css } from '@compiled/react';
 import { CSSTransition } from 'react-transition-group';
 
 import { cssMap, jsx } from '@atlaskit/css';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { Box } from '@atlaskit/primitives/compiled';
 import { B300, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
@@ -73,7 +72,7 @@ const getMarkerColor = ({
 		case 'visited':
 			return token('color.icon.brand', B300);
 		case 'disabled':
-			if (percentageCompleted === 0 && fg('platform_progress_tracker_disabled_marker_color')) {
+			if (percentageCompleted === 0) {
 				return token('color.icon.disabled', N70);
 			}
 			// If the percentage completed is greater than 0, we show the brand colour, so that the marker (circle) blends in with the progress bar.

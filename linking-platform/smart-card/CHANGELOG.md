@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 34.6.3
+
+### Patch Changes
+
+- [#106497](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106497)
+  [`d56401d90b5e5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d56401d90b5e5) -
+  [ux] Migrate flexible card components to compiled and fix blockcard
+
 ## 34.6.2
 
 ### Patch Changes

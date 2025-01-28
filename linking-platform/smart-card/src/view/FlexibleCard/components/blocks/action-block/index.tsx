@@ -4,10 +4,10 @@
  */
 import { useCallback, useMemo, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { xcss } from '@atlaskit/primitives';
 
 import { type FlexibleUiActionName, SmartLinkSize } from '../../../../../constants';
@@ -20,6 +20,7 @@ import type { ActionMessage } from '../../actions/action/types';
 import { getPrimitivesPaddingSpaceBySize } from '../../utils';
 
 import { ActionFooter } from './action-footer';
+import ActionBlockOld from './ActionBlockOld';
 import type { ActionBlockProps } from './types';
 
 const ignoreContainerPaddingStyles = css({
@@ -51,7 +52,7 @@ const sort = (a: FlexibleUiActionName, b: FlexibleUiActionName) => {
 	return idxA - idxB;
 };
 
-const ActionBlock = ({
+const ActionBlockNew = ({
 	blockRef,
 	onClick: onClickCallback,
 	size,
@@ -124,6 +125,14 @@ const ActionBlock = ({
 			<ActionFooter message={message} paddingInline={padding} testId={testId} />
 		</div>
 	) : null;
+};
+
+const ActionBlock = (props: ActionBlockProps): JSX.Element => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <ActionBlockNew {...props} />;
+	} else {
+		return <ActionBlockOld {...props} />;
+	}
 };
 
 export default ActionBlock;

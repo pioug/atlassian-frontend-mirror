@@ -1,5 +1,17 @@
 # @atlaskit/icon-lab
 
+## 2.2.0
+
+### Minor Changes
+
+- [#106661](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106661)
+  [`ae05cafecb0fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ae05cafecb0fa) -
+  [ux] This release adds icons in `@atlaskit/icon-lab`.
+
+  **`@atlaskit/icon-lab/core`**
+
+  - `page-live-doc`
+
 ## 2.1.1
 
 ### Patch Changes

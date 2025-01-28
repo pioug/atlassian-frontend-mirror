@@ -1,5 +1,13 @@
 # @atlaskit/empty-state
 
+## 8.1.3
+
+### Patch Changes
+
+- [#107076](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107076)
+  [`555ac7178db33`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/555ac7178db33) -
+  Update dependencies and remove unused internal files.
+
 ## 8.1.2
 
 ### Patch Changes

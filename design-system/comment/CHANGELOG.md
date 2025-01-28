@@ -1,5 +1,13 @@
 # @atlaskit/comment
 
+## 12.0.6
+
+### Patch Changes
+
+- [#105658](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105658)
+  [`e2fd8e9632544`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e2fd8e9632544) -
+  Updated dependencies.
+
 ## 12.0.5
 
 ### Patch Changes

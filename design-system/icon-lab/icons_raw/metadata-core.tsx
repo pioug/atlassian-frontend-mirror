@@ -53,6 +53,15 @@ const metadata: IconMetadata = {
 		status: 'published',
 		usage: 'Reserved for inserting status lozenges in Editor.',
 	},
+	'page-live-doc': {
+		keywords: ['page', 'live edit', 'lightning bolt', 'multiplayer', 'document'],
+		categorization: 'single-purpose',
+		location: '@atlaskit/icon-lab',
+		team: 'Confluence Page Modes',
+		type: 'core',
+		status: 'ready-to-publish',
+		usage: 'Reserved for Live docs in Confluence.',
+	},
 	'qr-code': {
 		keywords: ['QR code', 'barcode'],
 		categorization: 'single-purpose',

@@ -66,14 +66,10 @@ export const selectionPlugin: SelectionPlugin = ({ config: options }) => ({
 				name: 'gapCursor',
 				plugin: () => gapCursorPlugin,
 			},
-			...(fg('platform_editor_mark_boundary_cursor')
-				? [
-						{
-							name: 'markBoundaryCursor',
-							plugin: () => createMarkBoundaryCursorPlugin(),
-						},
-					]
-				: []),
+			{
+				name: 'markBoundaryCursor',
+				plugin: () => createMarkBoundaryCursorPlugin(),
+			},
 			...(fg('editor_auto_expand_selection_on_inline_node')
 				? [
 						{

@@ -1,3 +1,4 @@
+/* eslint-disable @atlaskit/design-system/use-tokens-typography */
 /**
  * @jsxRuntime classic
  * @jsx jsx
@@ -5,7 +6,6 @@
 import { cssMap, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { token } from '@atlaskit/tokens';
 
 import {
 	SmartLinkAlignment,
@@ -46,25 +46,25 @@ const truncateStyles = cssMap({
 
 const sizeStyles = cssMap({
 	xlarge: {
-		font: token('font.body'),
+		lineHeight: '1.75rem',
 		'@supports not (-webkit-line-clamp: 1)': {
 			maxHeight: `3.5rem`,
 		},
 	},
 	large: {
-		font: token('font.body'),
+		lineHeight: '1.75rem',
 		'@supports not (-webkit-line-clamp: 1)': {
 			maxHeight: `3.5rem`,
 		},
 	},
 	medium: {
-		font: token('font.body'),
+		lineHeight: '1.5rem',
 		'@supports not (-webkit-line-clamp: 1)': {
 			maxHeight: '3rem',
 		},
 	},
 	small: {
-		font: token('font.body'),
+		lineHeight: '1.5rem',
 		'@supports not (-webkit-line-clamp: 1)': {
 			maxHeight: '3rem',
 		},
@@ -115,6 +115,7 @@ const MetadataBlock = ({
 					direction={SmartLinkDirection.Horizontal}
 					width={SmartLinkWidth.Flexible}
 					css={[truncateStyles[maxLinesTotal], sizeStyles[size]]}
+					size={size}
 				>
 					{primaryElements}
 				</ElementGroup>
@@ -125,6 +126,7 @@ const MetadataBlock = ({
 					direction={SmartLinkDirection.Horizontal}
 					width={SmartLinkWidth.Flexible}
 					css={[truncateStyles[maxLinesTotal], sizeStyles[size]]}
+					size={size}
 				>
 					{secondaryElements}
 				</ElementGroup>

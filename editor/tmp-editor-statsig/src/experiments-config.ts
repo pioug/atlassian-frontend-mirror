@@ -211,16 +211,6 @@ export const editorExperimentsConfig = {
 		typeGuard: isBoolean,
 		defaultValue: false as boolean,
 	},
-	// added 2024-11-06
-	// https://console.statsig.com/LqivKg6ADZZaGczRfBKfX/experiments/platform_editor_ai_mentions_support/setup
-	platform_editor_ai_mentions_support: {
-		productKeys: {
-			confluence: 'platform_editor_ai_mentions_support',
-		},
-		param: 'isEnabled',
-		typeGuard: isBoolean,
-		defaultValue: false as boolean,
-	},
 	// Added 2024-11-06
 	platform_editor_ai_change_tone_floating_toolbar: {
 		productKeys: {
@@ -341,6 +331,15 @@ export const editorExperimentsConfig = {
 	platform_editor_ai_edit_response_in_preview: {
 		productKeys: {
 			confluence: 'platform_editor_ai_edit_response_in_preview',
+		},
+		param: 'isEnabled',
+		typeGuard: isBoolean,
+		defaultValue: false as boolean,
+	},
+	// Added 2025-01-22
+	platform_editor_ai_jira_content_read_url: {
+		productKeys: {
+			jira: 'platform_editor_ai_jira_content_read_url',
 		},
 		param: 'isEnabled',
 		typeGuard: isBoolean,

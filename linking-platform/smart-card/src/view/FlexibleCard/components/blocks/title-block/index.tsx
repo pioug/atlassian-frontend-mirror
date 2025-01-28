@@ -127,6 +127,8 @@ const TitleBlockNew = ({
 			metadataPosition={metadataPosition}
 			hideIcon={hideIcon}
 			icon={icon}
+			size={props.size}
+			theme={theme}
 		/>
 	);
 };

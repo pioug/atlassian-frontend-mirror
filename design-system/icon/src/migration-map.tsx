@@ -2028,11 +2028,12 @@ const migrationMap: IconMigrationMap = {
 		},
 	},
 	'issue-raise': {
+		newIcon: { name: 'plus-square', type: 'core', package: '@atlaskit/icon' },
 		sizeGuidance: {
-			small: 'icon-lab',
-			medium: 'icon-lab',
-			large: 'icon-lab',
-			xlarge: 'icon-lab',
+			small: 'swap',
+			medium: 'swap',
+			large: 'swap',
+			xlarge: 'swap',
 		},
 	},
 	issues: {

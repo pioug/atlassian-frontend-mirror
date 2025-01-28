@@ -1,6 +1,7 @@
 import { expandADF } from '../__fixtures__/expand-adf';
 
 import { generateRendererComponent } from '../__helpers/rendererComponents';
+import { nodeToReact as looselyLazyNodes } from '../../react/nodes/loosely-lazy';
 
 export const ExpandRenderer = generateRendererComponent({
 	document: expandADF(),
@@ -33,4 +34,10 @@ export const ExpandWideModeRenderer = generateRendererComponent({
 export const ExpandFullWidthModeRenderer = generateRendererComponent({
 	document: expandADF('full-width'),
 	appearance: 'full-width',
+});
+
+export const ExpandRendererWithReactLooselyLazy = generateRendererComponent({
+	document: expandADF(),
+	appearance: 'full-width',
+	nodeComponents: looselyLazyNodes,
 });

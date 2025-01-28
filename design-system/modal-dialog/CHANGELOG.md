@@ -1,5 +1,13 @@
 # @atlaskit/modal-dialog
 
+## 12.19.3
+
+### Patch Changes
+
+- [#107054](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107054)
+  [`046508790857d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/046508790857d) -
+  Add appearance to modal title for better AT support
+
 ## 12.19.2
 
 ### Patch Changes

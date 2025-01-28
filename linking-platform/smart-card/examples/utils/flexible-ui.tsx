@@ -127,6 +127,9 @@ export const makeCustomActionItem = (
 	...options,
 });
 
+/**
+ * @deprecated clean up on FF bandicoots-compiled-migration-smartcard
+ */
 export const exampleTokens = {
 	backgroundColor: token('color.background.neutral', '#091E420F'),
 	iconBackgroundColor: token('color.icon.brand', '#0C66E4'),
@@ -134,6 +137,9 @@ export const exampleTokens = {
 	overrideColor: token('color.background.accent.blue.subtle', '#579DFF'),
 };
 
+/**
+ * @deprecated clean up on FF bandicoots-compiled-migration-smartcard
+ */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const blockOverrideCss = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766

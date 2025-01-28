@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.12.2
+
+### Patch Changes
+
+- [#106016](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106016)
+  [`67c5f043b34d8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/67c5f043b34d8) -
+  mark VCNext metrics on perf timeline
+
 ## 2.12.1
 
 ### Patch Changes

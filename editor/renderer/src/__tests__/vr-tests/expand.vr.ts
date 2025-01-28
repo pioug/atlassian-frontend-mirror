@@ -6,6 +6,7 @@ import {
 	ExpandDefaultModeRenderer,
 	ExpandFullWidthModeRenderer,
 	ExpandWideModeRenderer,
+	ExpandRendererWithReactLooselyLazy
 } from './expand.fixture';
 
 snapshot(ExpandRenderer);
@@ -35,3 +36,5 @@ snapshot(ExpandWideModeRenderer, {
 snapshot(ExpandFullWidthModeRenderer, {
 	description: 'should render a full width collapsed top level expand',
 });
+
+snapshot(ExpandRendererWithReactLooselyLazy);

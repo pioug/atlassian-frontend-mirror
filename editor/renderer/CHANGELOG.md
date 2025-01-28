@@ -1,5 +1,14 @@
 # @atlaskit/renderer
 
+## 112.9.1
+
+### Patch Changes
+
+- [#98097](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/98097)
+  [`087604ddd0822`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/087604ddd0822) -
+  Update the SSR inline script to be included on client on hydrateRoot for confluence but don't
+  execute the the script on client
+
 ## 112.9.0
 
 ### Minor Changes

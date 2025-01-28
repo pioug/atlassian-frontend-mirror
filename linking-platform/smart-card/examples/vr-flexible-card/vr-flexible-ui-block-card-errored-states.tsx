@@ -1,9 +1,11 @@
-import React from 'react';
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import styled from '@emotion/styled';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { css, jsx } from '@compiled/react';
 
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import FlexibleErroredView from '../../src/view/BlockCard/views/ErroredView';
@@ -11,16 +13,20 @@ import FlexibleUnauthorisedView from '../../src/view/BlockCard/views/Unauthorise
 import { getCardState } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- To migrate as part of go/ui-styling-standard
-const Container = styled.div({
+import Old from './vr-flexible-ui-block-card-errored-statesOld';
+
+const containerStyle = css({
 	width: '80%',
 });
 
 export default () => {
+	if (!fg('bandicoots-compiled-migration-smartcard')) {
+		return <Old />;
+	}
 	return (
 		<VRTestWrapper>
 			<SmartCardProvider>
-				<Container>
+				<div css={containerStyle}>
 					{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
 					<div style={{ padding: token('space.400', '32px') }}>
 						<h5>Errored view</h5>
@@ -42,7 +48,7 @@ export default () => {
 							onAuthorize={() => {}}
 						/>
 					</div>
-				</Container>
+				</div>
 			</SmartCardProvider>
 		</VRTestWrapper>
 	);

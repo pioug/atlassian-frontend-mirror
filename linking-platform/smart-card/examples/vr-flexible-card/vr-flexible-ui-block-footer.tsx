@@ -4,19 +4,18 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import PremiumIcon from '@atlaskit/icon/core/migration/premium';
 import { SmartCardProvider } from '@atlaskit/link-provider';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import { type ActionItem } from '../../src';
-import { SmartLinkSize } from '../../src/constants';
+import { SmartLinkSize, SmartLinkStatus } from '../../src/constants';
 import FlexibleCard from '../../src/view/FlexibleCard';
 import { FooterBlock } from '../../src/view/FlexibleCard/components/blocks';
 import {
-	blockOverrideCss,
 	getCardState,
 	makeCustomActionItem,
 	makeDeleteActionItem,
@@ -24,6 +23,13 @@ import {
 	makeEditActionItem,
 } from '../utils/flexible-ui';
 import VRTestWrapper from '../utils/vr-test-wrapper';
+
+import Old from './vr-flexible-ui-block-footerOld';
+
+const blockOverrideCss = css({
+	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
+	padding: token('space.200', '1rem'),
+});
 
 const renderFooter = (size?: SmartLinkSize, actions?: ActionItem[]) => {
 	const actionData = {
@@ -46,38 +52,43 @@ const renderFooter = (size?: SmartLinkSize, actions?: ActionItem[]) => {
 
 const actions: ActionItem[] = [makeDeleteActionItem()];
 
-export default () => (
-	<VRTestWrapper>
-		<SmartCardProvider>
-			<h5>Default</h5>
-			{renderFooter()}
-			<h5>With two actions</h5>
-			{renderFooter(SmartLinkSize.Medium, [makeDeleteActionItem(), makeEditActionItem()])}
-			<h5>With 3+ Custom actions</h5>
-			{renderFooter(SmartLinkSize.Medium, [
-				makeCustomActionItem(),
-				makeDeleteActionItem(),
-				makeCustomActionItem({
-					icon: <PremiumIcon label="magic" color={token('color.icon', '#44546F')} />,
-					testId: 'third-action-item',
-					content: 'Magic!',
-				}),
-				makeDownloadActionItem(),
-			])}
-			<h5>Hide provider</h5>
-			<FlexibleCard cardState={getCardState()} url="link-url">
-				<FooterBlock hideProvider={true} />
-			</FlexibleCard>
-			{Object.values(SmartLinkSize).map((size) => (
-				<React.Fragment>
-					<h5>Size: {size}</h5>
-					{renderFooter(size, actions)}
-				</React.Fragment>
-			))}
-			<h5>Override CSS</h5>
-			<FlexibleCard cardState={getCardState()} url="link-url">
-				<FooterBlock overrideCss={blockOverrideCss} />
-			</FlexibleCard>
-		</SmartCardProvider>
-	</VRTestWrapper>
-);
+export default () => {
+	if (!fg('bandicoots-compiled-migration-smartcard')) {
+		return <Old />;
+	}
+	return (
+		<VRTestWrapper>
+			<SmartCardProvider>
+				<h5>Default</h5>
+				{renderFooter()}
+				<h5>With two actions</h5>
+				{renderFooter(SmartLinkSize.Medium, [makeDeleteActionItem(), makeEditActionItem()])}
+				<h5>With 3+ Custom actions</h5>
+				{renderFooter(SmartLinkSize.Medium, [
+					makeCustomActionItem(),
+					makeDeleteActionItem(),
+					makeCustomActionItem({
+						icon: <PremiumIcon label="magic" color={token('color.icon', '#44546F')} />,
+						testId: 'third-action-item',
+						content: 'Magic!',
+					}),
+					makeDownloadActionItem(),
+				])}
+				<h5>Hide provider</h5>
+				<FlexibleCard cardState={getCardState()} url="link-url">
+					<FooterBlock hideProvider={true} />
+				</FlexibleCard>
+				{Object.values(SmartLinkSize).map((size) => (
+					<React.Fragment>
+						<h5>Size: {size}</h5>
+						{renderFooter(size, actions)}
+					</React.Fragment>
+				))}
+				<h5>Override CSS</h5>
+				<FlexibleCard cardState={getCardState()} url="link-url">
+					<FooterBlock css={blockOverrideCss} status={getCardState().status as SmartLinkStatus} />
+				</FlexibleCard>
+			</SmartCardProvider>
+		</VRTestWrapper>
+	);
+};

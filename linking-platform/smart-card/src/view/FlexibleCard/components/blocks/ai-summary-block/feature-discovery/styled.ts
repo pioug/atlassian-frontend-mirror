@@ -3,6 +3,9 @@ import { css, keyframes } from '@emotion/react';
 
 import { token } from '@atlaskit/tokens';
 
+/**
+ * @deprecated remove on FF cleanup of bandicoots-compiled-migration-smartcard
+ */
 export const getPulseStyles = () => {
 	const color = token('color.border.discovery', '#8270DB');
 	const pulseKeyframes = keyframes({

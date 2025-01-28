@@ -1,22 +1,30 @@
-import { Fragment, type ResolvedPos } from '@atlaskit/editor-prosemirror/model';
+import { Fragment, type ResolvedPos, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
 import { findParentNodeClosestToPos } from '@atlaskit/editor-prosemirror/utils';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
+import { isFragmentOfType } from './check-fragment';
 import { MIN_LAYOUT_COLUMN } from './consts';
 import { updateColumnWidths } from './update-column-widths';
 
-export const removeFromSource = (tr: Transaction, $from: ResolvedPos) => {
-	const sourceNode = $from.nodeAfter;
-	const sourceParent = $from.parent;
+export const removeFromSource = (tr: Transaction, $from: ResolvedPos, to?: number) => {
+	let sourceContent: PMNode | Fragment | null = $from.nodeAfter;
+	let isLayoutColumn = sourceContent?.type.name === 'layoutColumn';
+	let sourceNodeEndPos = $from.pos + (sourceContent?.nodeSize || 1);
 
-	if (!sourceNode) {
+	if (editorExperiment('platform_editor_element_drag_and_drop_multiselect', true)) {
+		sourceContent = tr.doc.slice($from.pos, to).content;
+		isLayoutColumn = isFragmentOfType(sourceContent, 'layoutColumn');
+		sourceNodeEndPos = to === undefined ? $from.pos + sourceContent.size : to;
+	}
+
+	if (!sourceContent) {
 		return tr;
 	}
 
-	const sourceNodeEndPos = $from.pos + sourceNode.nodeSize;
-
-	if (sourceNode.type.name === 'layoutColumn') {
+	if (isLayoutColumn) {
+		const sourceParent = $from.parent;
 		if (sourceParent.childCount === MIN_LAYOUT_COLUMN) {
 			tr.delete($from.pos + 1, sourceNodeEndPos - 1);
 

@@ -4,8 +4,10 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token } from '@atlaskit/tokens';
 
 import { IconType, SmartLinkSize } from '../../src/constants';
 import { FlexibleUiContext } from '../../src/state/flexible-ui-context';
@@ -21,19 +23,19 @@ import {
 	ViewCount,
 	VoteCount,
 } from '../../src/view/FlexibleCard/components/elements';
-import { exampleTokens, getContext } from '../utils/flexible-ui';
+import { getContext } from '../utils/flexible-ui';
 import { HorizontalWrapper } from '../utils/vr-test';
 import VRTestWrapper from '../utils/vr-test-wrapper';
 
+import Old from './vr-flexible-ui-element-badgeOld';
+
 const overrideCss = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	backgroundColor: exampleTokens.overrideColor,
+	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
 	borderRadius: '1rem',
 	padding: '0.2rem',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'> span': {
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		color: exampleTokens.iconColor,
+		color: token('color.text.inverse', '#FFFFFF'),
 	},
 });
 const context = getContext({
@@ -48,41 +50,46 @@ const context = getContext({
 	latestCommit: '1d2adc2',
 });
 
-export default () => (
-	<VRTestWrapper>
-		<FlexibleUiContext.Provider value={context}>
-			{Object.values(SmartLinkSize).map((size, idx) => (
-				<React.Fragment key={idx}>
-					<h5>Size: {size}</h5>
-					<HorizontalWrapper>
-						<CommentCount size={size} testId="vr-test-badge-comment" />
-						<ViewCount size={size} testId="vr-test-badge-view" />
-						<ReactCount size={size} testId="vr-test-badge-react" />
-						<VoteCount size={size} testId="vr-test-badge-vote" />
-						<SubscriberCount size={size} testId="vr-test-badge-subscriber-count" />
-						<ProgrammingLanguage size={size} testId="vr-test-badge-programming-language" />
-						<Priority icon={IconType.PriorityBlocker} />
-						<Priority icon={IconType.PriorityCritical} />
-						<Priority icon={IconType.PriorityHigh} />
-						<Priority icon={IconType.PriorityHighest} />
-						<Priority icon={IconType.PriorityLow} />
-						<Priority icon={IconType.PriorityLowest} />
-						<Priority icon={IconType.PriorityMajor} />
-						<Priority icon={IconType.PriorityMedium} />
-						<Priority icon={IconType.PriorityMinor} />
-						<Priority icon={IconType.PriorityTrivial} />
-						<Priority icon={IconType.PriorityUndefined} />
-						<Provider />
-						<Provider label="Provider" />
-						<LatestCommit size={size} testId="vr-test-badge-latest-commit" />
-						<SubTasksProgress testId="vr-test-badge-subtasks-progress" />
-					</HorizontalWrapper>
-				</React.Fragment>
-			))}
-			<h5>Override CSS</h5>
-			<HorizontalWrapper>
-				<ProgrammingLanguage overrideCss={overrideCss} />
-			</HorizontalWrapper>
-		</FlexibleUiContext.Provider>
-	</VRTestWrapper>
-);
+export default () => {
+	if (!fg('bandicoots-compiled-migration-smartcard')) {
+		return <Old />;
+	}
+	return (
+		<VRTestWrapper>
+			<FlexibleUiContext.Provider value={context}>
+				{Object.values(SmartLinkSize).map((size, idx) => (
+					<React.Fragment key={idx}>
+						<h5>Size: {size}</h5>
+						<HorizontalWrapper>
+							<CommentCount size={size} testId="vr-test-badge-comment" />
+							<ViewCount size={size} testId="vr-test-badge-view" />
+							<ReactCount size={size} testId="vr-test-badge-react" />
+							<VoteCount size={size} testId="vr-test-badge-vote" />
+							<SubscriberCount size={size} testId="vr-test-badge-subscriber-count" />
+							<ProgrammingLanguage size={size} testId="vr-test-badge-programming-language" />
+							<Priority icon={IconType.PriorityBlocker} />
+							<Priority icon={IconType.PriorityCritical} />
+							<Priority icon={IconType.PriorityHigh} />
+							<Priority icon={IconType.PriorityHighest} />
+							<Priority icon={IconType.PriorityLow} />
+							<Priority icon={IconType.PriorityLowest} />
+							<Priority icon={IconType.PriorityMajor} />
+							<Priority icon={IconType.PriorityMedium} />
+							<Priority icon={IconType.PriorityMinor} />
+							<Priority icon={IconType.PriorityTrivial} />
+							<Priority icon={IconType.PriorityUndefined} />
+							<Provider />
+							<Provider label="Provider" />
+							<LatestCommit size={size} testId="vr-test-badge-latest-commit" />
+							<SubTasksProgress testId="vr-test-badge-subtasks-progress" />
+						</HorizontalWrapper>
+					</React.Fragment>
+				))}
+				<h5>Override CSS</h5>
+				<HorizontalWrapper>
+					<ProgrammingLanguage css={overrideCss} />
+				</HorizontalWrapper>
+			</FlexibleUiContext.Provider>
+		</VRTestWrapper>
+	);
+};

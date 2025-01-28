@@ -141,12 +141,13 @@ const buildAndSendElementsTypeAheadAnalytics =
 		let duration: number = 0;
 		let userOrTeamIds: string[] | null = null;
 		let teams: TeamInfoAttrAnalytics[] | null = null;
-
+		let xProductMentionsLength: number = 0;
 		if (!isTeamStats(stats)) {
 			// is from primary mention endpoint which could be just user mentions or user/team mentions
 			duration = stats && stats.duration;
 			teams = null;
 			userOrTeamIds = mentions.map((mention) => mention.id);
+			xProductMentionsLength = mentions.filter((mention) => mention.isXProductUser).length;
 		} else {
 			// is from dedicated team-only mention endpoint
 			duration = stats && stats.teamMentionDuration;
@@ -168,7 +169,13 @@ const buildAndSendElementsTypeAheadAnalytics =
 				.filter((m) => !!m) as TeamInfoAttrAnalytics[];
 		}
 
-		const payload = buildTypeAheadRenderedPayload(duration, userOrTeamIds, query, teams);
+		const payload = buildTypeAheadRenderedPayload(
+			duration,
+			userOrTeamIds,
+			query,
+			teams,
+			xProductMentionsLength,
+		);
 		fireEvent(payload, 'fabric-elements');
 	};
 

@@ -1,5 +1,14 @@
 # @atlaskit/profilecard
 
+## 21.1.6
+
+### Patch Changes
+
+- [#107710](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107710)
+  [`350f55cb484ec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/350f55cb484ec) -
+  Check if teamId is an ari before prexing
+- Updated dependencies
+
 ## 21.1.5
 
 ### Patch Changes

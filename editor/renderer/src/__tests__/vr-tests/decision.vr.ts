@@ -1,5 +1,9 @@
 import { snapshot } from '@af/visual-regression';
-import { DecisionRenderer, DecisionHoverRenderer, DecisionRendererWithReactLooselyLazy } from './decision.fixture';
+import {
+	DecisionRenderer,
+	DecisionHoverRenderer,
+	DecisionRendererWithReactLooselyLazy,
+} from './decision.fixture';
 
 snapshot(DecisionRenderer);
 

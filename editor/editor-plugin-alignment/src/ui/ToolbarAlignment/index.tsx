@@ -80,7 +80,12 @@ export class AlignmentToolbar extends React.Component<Props & WrappedComponentPr
 
 		const reducedSpacing =
 			editorExperiment('contextual_formatting_toolbar', true) ||
-			editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2')
+			editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant1', {
+				exposure: true,
+			}) ||
+			editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2', {
+				exposure: true,
+			})
 				? 'compact'
 				: 'none';
 

@@ -664,32 +664,28 @@ describe('@atlaskit/editor-core', () => {
 				});
 			});
 
-			ffTest.on('platform_editor_nest_in_quotes_adf_change', '', () => {
-				// Ignored via go/ees005
-				// eslint-disable-next-line jest/no-identical-title
-				it('When setup with the collab plugin -- with string document', () => {
-					const mockDocument =
-						'{"type":"doc","content":[{"type":"blockquote","content":[{"type":"codeBlock","attrs":{"language":null,"uniqueId":null}}]}]}';
-					const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
-					const processRawValueWithoutValidationSpy = jest.spyOn(
-						ProcessRawValueModule,
-						'processRawValueWithoutValidation',
-					);
+			it('When setup with the collab plugin --- with string document', () => {
+				const mockDocument =
+					'{"type":"doc","content":[{"type":"blockquote","content":[{"type":"codeBlock","attrs":{"language":null,"uniqueId":null}}]}]}';
+				const processRawValueSpy = jest.spyOn(ProcessRawValueModule, 'processRawValue');
+				const processRawValueWithoutValidationSpy = jest.spyOn(
+					ProcessRawValueModule,
+					'processRawValueWithoutValidation',
+				);
 
-					const { editorView } = createEditorFactory()({
-						editorProps: {
-							defaultValue: mockDocument,
-							collabEdit: {},
-						},
-					});
-
-					expect(processRawValueSpy).toHaveBeenCalledTimes(1);
-					expect(processRawValueWithoutValidationSpy).not.toHaveBeenCalled();
-
-					expect(editorView.state.doc.toJSON()).toEqual(
-						doc(blockquote(code_block()()))(defaultSchema).toJSON(),
-					);
+				const { editorView } = createEditorFactory()({
+					editorProps: {
+						defaultValue: mockDocument,
+						collabEdit: {},
+					},
 				});
+
+				expect(processRawValueSpy).toHaveBeenCalledTimes(1);
+				expect(processRawValueWithoutValidationSpy).not.toHaveBeenCalled();
+
+				expect(editorView.state.doc.toJSON()).toEqual(
+					doc(blockquote(code_block()()))(defaultSchema).toJSON(),
+				);
 			});
 		},
 	);

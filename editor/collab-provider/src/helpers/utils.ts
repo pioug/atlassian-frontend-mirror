@@ -2,6 +2,8 @@ import { type ADFEntity } from '@atlaskit/adf-utils/types';
 import type { ProductInformation } from '../types';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { scrubAdf } from '@atlaskit/adf-utils/scrub';
+import type { EditorState } from '@atlaskit/editor-prosemirror/state';
+import { sendableSteps } from '@atlaskit/prosemirror-collab';
 import type {
 	BatchAttrsStepPM,
 	InlineCommentAddNodeMarkStepPM,
@@ -15,7 +17,8 @@ import type {
 	StepMetadata,
 } from '@atlaskit/editor-common/collab';
 import { type JSONDocNode } from '@atlaskit/editor-json-transformer';
-import type { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import { Node as ProseMirrorNode } from '@atlaskit/editor-prosemirror/model';
+import { CustomError } from '../errors/custom-errors';
 
 export const createLogger =
 	(prefix: string, color: string = 'blue') =>
@@ -257,3 +260,35 @@ const stepToAdf = (step: StepJson): ADFEntity[] | null => {
 	}
 	return [];
 };
+
+export async function logObfuscatedSteps(oldState: EditorState | null, newState: EditorState) {
+	try {
+		let stepsFromOldState = '',
+			stepsFromNewState = '';
+
+		const states = {
+			old: oldState ? sendableSteps(oldState) : null,
+			new: sendableSteps(newState),
+		};
+
+		if (states.new?.steps) {
+			stepsFromNewState = await toObfuscatedSteps(states.new.steps);
+		}
+
+		if (states.old?.steps) {
+			stepsFromOldState = await toObfuscatedSteps(states.old.steps);
+		}
+
+		return {
+			stepsFromOldState,
+			stepsFromNewState,
+		};
+	} catch (err) {
+		return new CustomError('Failed to obfuscate steps', err);
+	}
+}
+
+export async function toObfuscatedSteps(steps: readonly ProseMirrorStep[]) {
+	const _steps = await Promise.resolve(steps.slice().map<StepJson>((s) => s.toJSON()));
+	return JSON.stringify(getObfuscatedSteps(_steps));
+}

@@ -14,6 +14,7 @@ import {
 	GATEWAY_QUERY_V2,
 	getTeamFromAGG,
 	idToAri,
+	idToAriSafe,
 } from '../getTeamFromAGG';
 import * as gqlUtils from '../graphqlUtils';
 
@@ -83,6 +84,16 @@ describe('getTeamFromAGG', () => {
 	describe('idToAri', () => {
 		it('should add ari prefix', () => {
 			expect(idToAri(teamId)).toEqual(`${ARI_PREFIX}/${teamId}`);
+		});
+	});
+
+	describe('idToAriSafe', () => {
+		it('should return ari if already ari', () => {
+			expect(idToAriSafe(`${ARI_PREFIX}/${teamId}`)).toEqual(`${ARI_PREFIX}/${teamId}`);
+		});
+
+		it('should add ari prefix if not ari', () => {
+			expect(idToAriSafe(teamId)).toEqual(`${ARI_PREFIX}/${teamId}`);
 		});
 	});
 

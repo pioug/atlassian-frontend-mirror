@@ -1,5 +1,13 @@
 # @atlaskit/flag
 
+## 15.8.15
+
+### Patch Changes
+
+- [#107176](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107176)
+  [`124bd21a27dae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/124bd21a27dae) -
+  Update dependencies.
+
 ## 15.8.14
 
 ### Patch Changes

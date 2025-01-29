@@ -1,5 +1,13 @@
 # @atlaskit/collab-provider
 
+## 10.4.1
+
+### Patch Changes
+
+- [#104569](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104569)
+  [`b79a89c03faf9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b79a89c03faf9) -
+  log obfuscated steps for transactions in view only
+
 ## 10.4.0
 
 ### Minor Changes

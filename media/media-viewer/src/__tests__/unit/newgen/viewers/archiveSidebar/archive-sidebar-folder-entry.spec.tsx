@@ -1,53 +1,46 @@
-jest.mock('@atlaskit/media-common');
-
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { render, screen, waitFor } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import {
 	ArchiveSidebarFolderEntry,
 	type ArchiveSidebarFolderProps,
 } from '../../../../../viewers/archiveSidebar/archive-sidebar-folder-entry';
-import { fakeMediaClient, sleep } from '@atlaskit/media-test-helpers';
-import { ButtonItem } from '@atlaskit/side-navigation';
-import {
-	ArchiveSidebarFolderWrapper,
-	ArchiveSidebarFileEntryWrapper,
-	ArchiveDownloadButtonWrapper,
-} from '../../../../../viewers/archiveSidebar/styleWrappers';
+import { fakeMediaClient, getDefaultMediaClientConfig } from '@atlaskit/media-test-helpers';
 import { type ZipEntry } from 'unzipit';
-import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
-import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
+import { IntlProvider } from 'react-intl-next';
 import * as MediaCommon from '@atlaskit/media-common';
+
+jest.spyOn(MediaCommon, 'downloadUrl');
 
 afterEach(() => {
 	jest.resetAllMocks();
 });
 
 describe('ArchiveSidebarFolderEntry', () => {
-	const baseProps = {
+	const baseProps: ArchiveSidebarFolderProps = {
 		root: '',
 		entries: {},
 		mediaClient: fakeMediaClient(),
 		onEntrySelected: () => {},
 		isArchiveEntryLoading: false,
 		onError: () => {},
+		shouldRenderAbuseModal: false,
 	};
 
-	function mountBaseComponent(props: Partial<ArchiveSidebarFolderProps>) {
-		const passedProps = { ...baseProps, ...props };
-		return mount(<ArchiveSidebarFolderEntry {...passedProps} />);
-	}
-	function shallowBaseComponent(props: Partial<ArchiveSidebarFolderProps>) {
-		const passedProps = { ...baseProps, ...props };
-		return shallow(<ArchiveSidebarFolderEntry {...passedProps} />);
-	}
+	const ArchiveSidebarFolderEntryWithIntl = (props: ArchiveSidebarFolderProps) => (
+		<IntlProvider locale="eng">
+			<ArchiveSidebarFolderEntry {...props} />
+		</IntlProvider>
+	);
 
-	it('should render ArchiveSidebarFolderWrapper but not ButtonItem element if no entries', () => {
-		const el = mountBaseComponent({});
-		expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
-		expect(el.find(ButtonItem)).toHaveLength(0);
+	it('should render ArchiveSidebarFolderWrapper but not ButtonItem element if no entries', async () => {
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} />);
+		const folderWrapper = await screen.findByTestId('archive-sidebar-folder-wrapper');
+		expect(folderWrapper).toBeInTheDocument();
+		expect(folderWrapper.children).toHaveLength(0);
 	});
-	it('should render Item and not DownloadIcon element if entry is directory', () => {
+
+	it('should render Item and not DownloadIcon element if entry is directory', async () => {
 		const props = {
 			entries: {
 				folder1: {
@@ -57,11 +50,16 @@ describe('ArchiveSidebarFolderEntry', () => {
 			},
 			root: '',
 		};
-		const el = mountBaseComponent(props);
-		expect(el.find(ButtonItem)).toHaveLength(1);
-		expect(el.find(DownloadIcon)).toHaveLength(0);
+
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+		const folder1 = await screen.findByText('folder1');
+		expect(folder1).toBeInTheDocument();
+
+		const downloadIcon = screen.queryByLabelText('Download');
+		expect(downloadIcon).not.toBeInTheDocument();
 	});
-	it('should render DownloadIcon element if entry is not directory', () => {
+
+	it('should render DownloadIcon element if entry is not directory', async () => {
 		const props = {
 			entries: {
 				folder1: {
@@ -71,9 +69,11 @@ describe('ArchiveSidebarFolderEntry', () => {
 			},
 			root: '',
 		};
-		const el = mountBaseComponent(props);
-		expect(el.find(DownloadIcon)).toHaveLength(1);
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+		const downloadIcon = await screen.findByLabelText('Download');
+		expect(downloadIcon).toBeInTheDocument();
 	});
+
 	it('should render Folder24Icon and not MediaTypeIcon if entry is directory', () => {
 		const props = {
 			entries: {
@@ -84,38 +84,28 @@ describe('ArchiveSidebarFolderEntry', () => {
 			},
 			root: '',
 		};
-		const el = mountBaseComponent(props);
-		expect(el.find(Folder24Icon)).toHaveLength(1);
-		expect(el.find(MediaTypeIcon)).toHaveLength(0);
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+		const folderIcon = document.querySelector('[aria-label=Folder]');
+		expect(folderIcon).toBeInTheDocument();
 	});
-	it('should render MediaTypeIcon and not Folder24Icon if entry is not directory', () => {
+
+	it('should render MediaTypeIcon and not Folder24Icon if entry is not directory', async () => {
 		const props = {
 			entries: {
 				folder1: {
-					name: 'file1',
+					name: 'file1.mp4',
 					isDirectory: false,
 				} as ZipEntry,
 			},
 			root: '',
 		};
-		const el = mountBaseComponent(props);
-		expect(el.find(Folder24Icon)).toHaveLength(0);
-		expect(el.find(MediaTypeIcon)).toHaveLength(1);
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+		const typeIcon = await screen.findByTestId('file-type-icon');
+		expect(typeIcon).toBeInTheDocument();
+		expect(typeIcon.getAttribute('data-type')).toBe('video');
 	});
-	it('should ignore MAC private file', () => {
-		const props = {
-			entries: {
-				__MACOSX: {
-					name: '__MACOSX/abc',
-					isDirectory: false,
-				} as ZipEntry,
-			},
-			root: '',
-		};
-		const el = mountBaseComponent(props);
-		expect(el.find(ButtonItem)).toHaveLength(0);
-	});
-	it('should render Item as many times as entries are given', () => {
+
+	it('should render Item as many times as entries are given', async () => {
 		const props = {
 			entries: {
 				folder1: {
@@ -127,11 +117,11 @@ describe('ArchiveSidebarFolderEntry', () => {
 					isDirectory: true,
 				} as ZipEntry,
 				file1: {
-					name: 'file1',
+					name: 'file1.png',
 					isDirectory: false,
 				} as ZipEntry,
 				file2: {
-					name: 'file2',
+					name: 'file2.mp4',
 					isDirectory: false,
 				} as ZipEntry,
 				file3: {
@@ -141,15 +131,34 @@ describe('ArchiveSidebarFolderEntry', () => {
 			},
 			root: '',
 		};
-		const el = mountBaseComponent(props);
-		expect(el.find(ButtonItem)).toHaveLength(5);
-		expect(el.find(MediaTypeIcon)).toHaveLength(3);
-		expect(el.find(Folder24Icon)).toHaveLength(2);
-		expect(el.find(DownloadIcon)).toHaveLength(3);
-		expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
+
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+
+		const folder1 = await screen.findByText('folder1');
+		expect(folder1).toBeInTheDocument();
+		const folder2 = await screen.findByText('folder2');
+		expect(folder2).toBeInTheDocument();
+
+		const folderIcons = document.querySelectorAll('[aria-label=Folder]');
+		expect(folderIcons).toHaveLength(2);
+
+		const file1 = await screen.findByText('file1.png');
+		expect(file1).toBeInTheDocument();
+
+		const file2 = await screen.findByText('file2.mp4');
+		expect(file2).toBeInTheDocument();
+
+		const typeIcons = await screen.findAllByTestId('file-type-icon');
+		expect(typeIcons).toHaveLength(3);
+
+		const downloadIcons = await screen.findAllByLabelText('Download');
+		expect(downloadIcons).toHaveLength(3);
+
+		const folderWrapper = await screen.findByTestId('archive-sidebar-folder-wrapper');
+		expect(folderWrapper).toBeInTheDocument();
 	});
 
-	it('should render Items when all root directory entry is not available', () => {
+	it('should render Items when all root directory entry is not available', async () => {
 		const props = {
 			entries: {
 				file1: {
@@ -167,15 +176,22 @@ describe('ArchiveSidebarFolderEntry', () => {
 			},
 			root: '',
 		};
-		const el = mountBaseComponent(props);
-		expect(el.find(ButtonItem)).toHaveLength(2);
-		expect(el.find(MediaTypeIcon)).toHaveLength(0);
-		expect(el.find(Folder24Icon)).toHaveLength(2);
-		expect(el.find(DownloadIcon)).toHaveLength(0);
-		expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
+
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+
+		const folder1 = await screen.findByText('folder1/');
+		expect(folder1).toBeInTheDocument();
+		const folder2 = await screen.findByText('folder2/');
+		expect(folder2).toBeInTheDocument();
+
+		const folderIcons = document.querySelectorAll('[aria-label=Folder]');
+		expect(folderIcons).toHaveLength(2);
+
+		const folderWrapper = await screen.findByTestId('archive-sidebar-folder-wrapper');
+		expect(folderWrapper).toBeInTheDocument();
 	});
 
-	it('should render Items when all root directory entry is not available and only one file is under the root', () => {
+	it('should render Items when all root directory entry is not available and only one file is under the root', async () => {
 		const props = {
 			entries: {
 				file1: {
@@ -187,21 +203,32 @@ describe('ArchiveSidebarFolderEntry', () => {
 					isDirectory: false,
 				} as ZipEntry,
 				file3: {
-					name: 'file3',
+					name: 'file3.pdf',
 					isDirectory: false,
 				} as ZipEntry,
 			},
 			root: '',
 		};
-		const el = mountBaseComponent(props);
-		expect(el.find(ButtonItem)).toHaveLength(2);
-		expect(el.find(MediaTypeIcon)).toHaveLength(1);
-		expect(el.find(Folder24Icon)).toHaveLength(1);
-		expect(el.find(DownloadIcon)).toHaveLength(1);
-		expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+
+		const folder1 = await screen.findByText('folder1/');
+		expect(folder1).toBeInTheDocument();
+		const file3 = await screen.findByText('file3.pdf');
+		expect(file3).toBeInTheDocument();
+
+		const typeIcon = await screen.findByTestId('file-type-icon');
+		expect(typeIcon).toBeInTheDocument();
+		expect(typeIcon.getAttribute('data-type')).toBe('doc');
+
+		const downloadIcon = await screen.findByLabelText('Download');
+		expect(downloadIcon).toBeInTheDocument();
+		expect(downloadIcon.getAttribute('role')).toBe('img');
+
+		const folderWrapper = await screen.findByTestId('archive-sidebar-folder-wrapper');
+		expect(folderWrapper).toBeInTheDocument();
 	});
 
-	it('should render Items when some root directory entres are not available', () => {
+	it('should render Items when some root directory entres are not available', async () => {
 		const props = {
 			entries: {
 				folder1: {
@@ -217,21 +244,35 @@ describe('ArchiveSidebarFolderEntry', () => {
 					isDirectory: false,
 				} as ZipEntry,
 				file3: {
-					name: 'file3',
+					name: 'file3.docx',
 					isDirectory: false,
 				} as ZipEntry,
 			},
 			root: '',
 		};
-		const el = mountBaseComponent(props);
-		expect(el.find(ButtonItem)).toHaveLength(3);
-		expect(el.find(MediaTypeIcon)).toHaveLength(1);
-		expect(el.find(Folder24Icon)).toHaveLength(2);
-		expect(el.find(DownloadIcon)).toHaveLength(1);
-		expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
+
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+
+		const folder1 = await screen.findByText('folder1/');
+		expect(folder1).toBeInTheDocument();
+		const folder2 = await screen.findByText('folder2/');
+		expect(folder2).toBeInTheDocument();
+		const file3 = await screen.findByText('file3.docx');
+		expect(file3).toBeInTheDocument();
+
+		const typeIcon = await screen.findByTestId('file-type-icon');
+		expect(typeIcon).toBeInTheDocument();
+		expect(typeIcon.getAttribute('data-type')).toBe('doc');
+
+		const downloadIcon = await screen.findByLabelText('Download');
+		expect(downloadIcon).toBeInTheDocument();
+		expect(downloadIcon.getAttribute('role')).toBe('img');
+
+		const folderWrapper = await screen.findByTestId('archive-sidebar-folder-wrapper');
+		expect(folderWrapper).toBeInTheDocument();
 	});
 
-	it('should render Items when some entries are private files', () => {
+	it('should render Items when some entries are private files', async () => {
 		const props = {
 			entries: {
 				folder1: {
@@ -247,7 +288,7 @@ describe('ArchiveSidebarFolderEntry', () => {
 					isDirectory: false,
 				} as ZipEntry,
 				file3: {
-					name: 'file3',
+					name: 'file3.pdf',
 					isDirectory: false,
 				} as ZipEntry,
 				file4: {
@@ -257,15 +298,24 @@ describe('ArchiveSidebarFolderEntry', () => {
 			},
 			root: '',
 		};
-		const el = mountBaseComponent(props);
-		expect(el.find(ButtonItem)).toHaveLength(2);
-		expect(el.find(MediaTypeIcon)).toHaveLength(1);
-		expect(el.find(Folder24Icon)).toHaveLength(1);
-		expect(el.find(DownloadIcon)).toHaveLength(1);
-		expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+
+		const folder1 = await screen.findByText('folder1/');
+		expect(folder1).toBeInTheDocument();
+		const file3 = await screen.findByText('file3.pdf');
+		expect(file3).toBeInTheDocument();
+
+		const typeIcon = await screen.findByTestId('file-type-icon');
+		expect(typeIcon).toBeInTheDocument();
+		expect(typeIcon.getAttribute('data-type')).toBe('doc');
+		const downloadIcon = await screen.findByLabelText('Download');
+		expect(downloadIcon).toBeInTheDocument();
+		expect(downloadIcon.getAttribute('role')).toBe('img');
+		const folderWrapper = await screen.findByTestId('archive-sidebar-folder-wrapper');
+		expect(folderWrapper).toBeInTheDocument();
 	});
 
-	it('should render Items when root is one level deeper', () => {
+	it('should render Items when root is one level deeper', async () => {
 		const props = {
 			entries: {
 				folder1: {
@@ -273,7 +323,7 @@ describe('ArchiveSidebarFolderEntry', () => {
 					isDirectory: true,
 				} as ZipEntry,
 				file1: {
-					name: 'folder1/file1',
+					name: 'folder1/file1.jpg',
 					isDirectory: false,
 				} as ZipEntry,
 				file2: {
@@ -283,28 +333,18 @@ describe('ArchiveSidebarFolderEntry', () => {
 			},
 			root: 'folder1/',
 		};
-		const el = mountBaseComponent(props);
-		expect(el.find(ButtonItem)).toHaveLength(1);
-		expect(el.find(MediaTypeIcon)).toHaveLength(1);
-		expect(el.find(Folder24Icon)).toHaveLength(0);
-		expect(el.find(DownloadIcon)).toHaveLength(1);
-		expect(el.find(ArchiveSidebarFolderWrapper)).toHaveLength(1);
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+		const file1 = await screen.findByText('file1.jpg');
+		expect(file1).toBeInTheDocument();
+		const typeIcon = await screen.findByTestId('file-type-icon');
+		expect(typeIcon).toBeInTheDocument();
+		expect(typeIcon.getAttribute('data-type')).toBe('image');
+		const downloadIcon = await screen.findByLabelText('Download');
+		expect(downloadIcon).toBeInTheDocument();
+		expect(downloadIcon.getAttribute('role')).toBe('img');
 	});
 
-	it('ArchiveSidebarFileEntryWrapper should have name as entry key', () => {
-		const props = {
-			entries: {
-				folder1: {
-					name: 'folder1',
-					isDirectory: true,
-				} as ZipEntry,
-			},
-			root: '',
-		};
-		const el = mountBaseComponent(props);
-		expect(el.find(ArchiveSidebarFileEntryWrapper).getElement().key).toEqual('folder1');
-	});
-	it('Item should be called with file name as text prop', () => {
+	it('Item should be called with file name as text prop', async () => {
 		const props = {
 			entries: {
 				entry1: {
@@ -314,37 +354,132 @@ describe('ArchiveSidebarFolderEntry', () => {
 			},
 			root: 'root/',
 		};
-		const el = mountBaseComponent(props);
-		expect(el.find(ButtonItem)).toHaveLength(1);
-		expect(el.find(ButtonItem).prop('children')).toEqual('entry1.jpg');
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+		const button = await screen.findByText('entry1.jpg');
+		expect(button).toBeInTheDocument();
 	});
+
 	it('Clicking downloadButtonWrapper should call downloadUrl', async () => {
-		const entry: Partial<ZipEntry> = {
+		const user = userEvent.setup();
+		const entry = {
 			name: 'root/entry1.jpg',
 			isDirectory: false,
 			blob: jest.fn().mockReturnValue(''),
-		};
+		} as unknown as ZipEntry;
+
 		const props: Partial<ArchiveSidebarFolderProps> = {
 			entries: {
 				entry,
 			} as any,
 			root: 'root/',
 		};
-		const el = shallowBaseComponent(props);
-		const downloadButtonWrapper = el.find(ArchiveDownloadButtonWrapper);
-		expect(downloadButtonWrapper).toHaveLength(1);
-		downloadButtonWrapper.simulate('click');
-		await sleep(0);
-		expect(MediaCommon.downloadUrl).toHaveBeenCalled();
+
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+		const downloadButtonWrapper = await screen.findByTestId('media-archiveDownloadButton');
+		expect(downloadButtonWrapper).toBeInTheDocument();
+		await user.click(downloadButtonWrapper);
+		await waitFor(() => expect(MediaCommon.downloadUrl).toHaveBeenCalled());
 	});
+
+	it('Clicking downloadButtonWrapper should open abuse modal if shouldRenderAbuseModal = true', async () => {
+		const user = userEvent.setup();
+		const entry = {
+			name: 'root/entry1.jpg',
+			isDirectory: false,
+			blob: jest.fn().mockReturnValue(''),
+		} as unknown as ZipEntry;
+
+		const props: Partial<ArchiveSidebarFolderProps> = {
+			entries: {
+				entry,
+			} as any,
+			root: 'root/',
+			shouldRenderAbuseModal: true,
+		};
+
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+
+		const downloadButtonWrapper = await screen.findByTestId('media-archiveDownloadButton');
+		expect(downloadButtonWrapper).toBeInTheDocument();
+		await user.click(downloadButtonWrapper);
+
+		const warningMsg = await screen.findByTestId('mediaAbuseModal');
+		expect(warningMsg).toBeInTheDocument();
+
+		const proceed = await screen.findByText('Proceed with download');
+		await user.click(proceed);
+
+		await waitFor(() => expect(MediaCommon.downloadUrl).toHaveBeenCalled());
+	});
+
+	it('should close abuse modal when cancel', async () => {
+		const user = userEvent.setup();
+		const entry = {
+			name: 'root/entry1.jpg',
+			isDirectory: false,
+			blob: jest.fn().mockReturnValue(''),
+		} as unknown as ZipEntry;
+
+		const props: Partial<ArchiveSidebarFolderProps> = {
+			entries: {
+				entry,
+			} as any,
+			root: 'root/',
+			shouldRenderAbuseModal: true,
+		};
+
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+		const downloadButtonWrapper = await screen.findByTestId('media-archiveDownloadButton');
+		expect(downloadButtonWrapper).toBeInTheDocument();
+		await user.click(downloadButtonWrapper);
+
+		const warningMsg = await screen.findByTestId('mediaAbuseModal');
+		expect(warningMsg).toBeInTheDocument();
+
+		const cancel = await screen.findByText('Cancel');
+		await user.click(cancel);
+
+		expect(MediaCommon.downloadUrl).not.toHaveBeenCalled();
+	});
+
+	it('disabledArchiveDownloadButton should be rendered if DSP is enforced', async () => {
+		const user = userEvent.setup();
+		const entry = {
+			name: 'root/entry1.jpg',
+			isDirectory: false,
+			blob: jest.fn().mockReturnValue(''),
+		} as unknown as ZipEntry;
+
+		const props: Partial<ArchiveSidebarFolderProps> = {
+			entries: {
+				entry,
+			} as any,
+			root: 'root/',
+		};
+
+		const mediaClient = fakeMediaClient({
+			...getDefaultMediaClientConfig(),
+			enforceDataSecurityPolicy: true,
+		});
+
+		render(
+			<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} mediaClient={mediaClient} />,
+		);
+		const downloadButtonWrapper = await screen.findByTestId('media-disabledArchiveDownloadButton');
+		expect(downloadButtonWrapper).toBeInTheDocument();
+		await user.click(downloadButtonWrapper);
+		expect(MediaCommon.downloadUrl).not.toHaveBeenCalled();
+	});
+
 	it('should call onError if rejectAfter throws an error', async () => {
-		const entry: Partial<ZipEntry> = {
+		const user = userEvent.setup();
+		const entry = {
 			name: 'root/entry1.jpg',
 			isDirectory: false,
 			blob: jest.fn().mockImplementation(() => {
 				throw new Error();
 			}),
-		};
+		} as unknown as ZipEntry;
 		const onErrorMock = jest.fn();
 		const props: Partial<ArchiveSidebarFolderProps> = {
 			entries: {
@@ -353,9 +488,12 @@ describe('ArchiveSidebarFolderEntry', () => {
 			root: 'root/',
 			onError: onErrorMock,
 		};
-		const el = shallowBaseComponent(props);
-		el.find(ArchiveDownloadButtonWrapper).simulate('click');
-		await sleep(0);
+
+		render(<ArchiveSidebarFolderEntryWithIntl {...baseProps} {...props} />);
+
+		const downloadButtonWrapper = await screen.findByTestId('media-archiveDownloadButton');
+		expect(downloadButtonWrapper).toBeInTheDocument();
+		await user.click(downloadButtonWrapper);
 		expect(onErrorMock).toHaveBeenCalledWith(new Error(), entry);
 		expect(MediaCommon.downloadUrl).toHaveBeenCalledTimes(0);
 	});

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - GridProps
  *
- * @codegen <<SignedSource::8a5601912d185e44dd0117a26cc43247>>
+ * @codegen <<SignedSource::07521208ceecb2f983ac27cfe7466068>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/grid/__generated__/index.partial.tsx <<SignedSource::df3f85f752c7a4be02ee62114c5506b2>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/grid/__generated__/index.partial.tsx <<SignedSource::60c78d870736339df6ff194f55503b37>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type GridProps = Pick<
   PlatformGridProps,
   'children' | 'justifyContent' | 'justifyItems' | 'alignItems' | 'alignContent' | 'columnGap' | 'gap' | 'rowGap' | 'autoFlow' | 'templateRows' | 'templateColumns' | 'id' | 'testId' | 'role'
 >;
+
+/**
+ * Primitives are token-backed low-level building blocks.
+ */
+export type TGrid<T> = (props: GridProps) => T;

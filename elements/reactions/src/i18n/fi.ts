@@ -18,8 +18,9 @@ export default {
   'reaction-picker-trigger.add.reaction.message': 'Lisää reaktio',
   'reactions.dialog.close': 'Sulje',
   'reactions.dialog.left.navigate': 'Navigointi vasemmalle',
+  'reactions.dialog.people-who-reacted.subheader': 'Henkilöt, jotka reagoivat emojilla {emojiShortName}',
   'reactions.dialog.reactions.count': '{count, plural, one {{count,number} reaktio} other {{count,number} reaktiota}}',
   'reactions.dialog.right.navigate': 'Navigointi oikealle',
-  'reactions.dialog.viewall': 'Katso, kuka on reagoinut',
+  'reactions.dialog.viewall': 'Näytä kaikki',
   'reactions.dialog.viewall.tooltip': 'Näytä kaikki käyttäjäreaktiot',
 };

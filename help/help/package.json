@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/help",
-	"version": "7.13.3",
+	"version": "7.13.4",
 	"description": "A cross-product help component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -57,7 +57,7 @@
 		"@atlaskit/radio": "^7.0.0",
 		"@atlaskit/section-message": "^6.8.0",
 		"@atlaskit/select": "^18.9.0",
-		"@atlaskit/spinner": "^16.3.0",
+		"@atlaskit/spinner": "^17.0.0",
 		"@atlaskit/textarea": "^5.7.0",
 		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/theme": "^14.0.0",

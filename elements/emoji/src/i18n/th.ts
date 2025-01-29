@@ -37,6 +37,7 @@ export default {
   'fabric.emoji.error.image.too.big': 'รูปภาพที่เลือกมีขนาดใหญ่กว่า 1 MB',
   'fabric.emoji.error.invalid.image': 'รูปภาพที่เลือกไม่ถูกต้อง',
   'fabric.emoji.error.upload.failed': 'อัปโหลดไม่สำเร็จ',
+  'fabric.emoji.error.upload.timeout': 'หมดเวลาการอัปโหลดแล้ว',
   'fabric.emoji.image.requirements': 'JPG, PNG หรือ GIF ขนาดไฟล์ใหญ่สุด 1 MB',
   'fabric.emoji.name.ariaLabel': 'ป้อนชื่อสำหรับเอโมจิใหม่',
   'fabric.emoji.picker': 'ตัวเลือกเอโมจิ',

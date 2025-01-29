@@ -18,9 +18,10 @@ export default {
   'reaction-picker-trigger.add.reaction.message': 'Eine Reaktion hinzufügen',
   'reactions.dialog.close': 'Schließen',
   'reactions.dialog.left.navigate': 'Nach links navigieren',
+  'reactions.dialog.people-who-reacted.subheader': 'Personen, die mit {emojiShortName} reagiert haben',
   'reactions.dialog.reactions.count':
     '{count, plural, one {{count,number} Reaktion} other {{count,number} Reaktionen}}',
   'reactions.dialog.right.navigate': 'Nach rechts navigieren',
-  'reactions.dialog.viewall': 'Reaktionen ansehen',
+  'reactions.dialog.viewall': 'Alle anzeigen',
   'reactions.dialog.viewall.tooltip': 'Alle Benutzerreaktionen anzeigen',
 };

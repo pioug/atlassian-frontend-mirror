@@ -5,13 +5,13 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
 import { FormattedMessage, useIntl } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { IconButton } from '@atlaskit/button/new';
 import Button from '@atlaskit/button/standard-button';
-import Drawer from '@atlaskit/drawer';
+import { cssMap, jsx } from '@atlaskit/css';
+import { Drawer } from '@atlaskit/drawer/compiled';
 import ArrowLeft from '@atlaskit/icon/core/migration/arrow-left';
 import SuccessIcon from '@atlaskit/icon/core/migration/success--check-circle';
 import { IntlMessagesProvider } from '@atlaskit/intl-messages-provider';
@@ -38,28 +38,15 @@ import {
 	isFlagEventTypeValue,
 } from '../../types';
 
-const iframeStyles = css({
-	border: 0,
-});
-
-const sidebarDivStyles = css({
-	position: 'absolute',
-	margin: `${token('space.200', '16px')} 0 0 ${token('space.200', '16px')}`,
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-});
-
-const sidebarButtonStyles = css({
-	padding: 0,
-	width: '32px',
-	height: '32px',
-	display: 'flex',
-	alignItems: 'center',
-	background: 0,
-	borderRadius: '50%',
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	lineHeight: 1,
+const styles = cssMap({
+	drawerCloseButtonContainer: {
+		position: 'absolute',
+		top: token('space.200'),
+		left: token('space.200'),
+	},
+	iframe: {
+		border: 'none',
+	},
 });
 
 const ANALYTICS_CHANNEL = 'atlas';
@@ -315,38 +302,16 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isDirty]);
 
-	const renderIframe = () => {
-		return (
-			// eslint-disable-next-line jsx-a11y/iframe-has-title
-			<iframe
-				src={giveKudosUrl}
-				ref={iframeEl}
-				width="100%"
-				height="100%"
-				frameBorder="0"
-				allow="camera;microphone"
-				css={iframeStyles}
-			/>
-		);
-	};
-
 	const handleCloseDrawerClicked = () => {
 		handleCloseDrawerClickedFuncRef.current();
 	};
 
-	const renderSidebar = () => {
-		return (
-			<div css={sidebarDivStyles}>
-				<Button onClick={handleCloseDrawerClicked} css={sidebarButtonStyles}>
-					<ArrowLeft
-						color="currentColor"
-						spacing="spacious"
-						label={intl.formatMessage(messages.closeDrawerButtonLabel)}
-					/>
-				</Button>
-			</div>
-		);
-	};
+	const recipientParam = props.recipient
+		? `&type=${props.recipient.type}&recipientId=${props.recipient.recipientId}`
+		: '';
+	const giveKudosUrl = `${props.teamCentralBaseUrl}/give-kudos?cloudId=${
+		props.cloudId
+	}${recipientParam}&unsavedMessage=${intl.formatMessage(messages.unsavedKudosWarning)}`;
 
 	const renderDrawer = useMemo(() => {
 		if (props.isOpen) {
@@ -358,26 +323,30 @@ const GiveKudosLauncher = (props: GiveKudosDrawerProps) => {
 				isOpen={props.isOpen}
 				zIndex={layers.modal()}
 				onClose={handleCloseDrawerClicked}
-				// eslint-disable-next-line @atlaskit/design-system/no-deprecated-apis
-				overrides={{
-					Content: {
-						component: renderIframe,
-					},
-					Sidebar: {
-						component: renderSidebar,
-					},
-				}}
-			/>
+			>
+				<div css={styles.drawerCloseButtonContainer}>
+					<IconButton
+						onClick={handleCloseDrawerClicked}
+						icon={ArrowLeft}
+						label={intl.formatMessage(messages.closeDrawerButtonLabel)}
+						shape="circle"
+						appearance="subtle"
+					/>
+				</div>
+				{/* eslint-disable-next-line jsx-a11y/iframe-has-title */}
+				<iframe
+					src={giveKudosUrl}
+					ref={iframeEl}
+					width="100%"
+					height="100%"
+					frameBorder="0"
+					allow="camera;microphone"
+					css={styles.iframe}
+				/>
+			</Drawer>
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [props.recipient?.recipientId, props.isOpen]);
-
-	const recipientParam = props.recipient
-		? `&type=${props.recipient.type}&recipientId=${props.recipient.recipientId}`
-		: '';
-	const giveKudosUrl = `${props.teamCentralBaseUrl}/give-kudos?cloudId=${
-		props.cloudId
-	}${recipientParam}&unsavedMessage=${intl.formatMessage(messages.unsavedKudosWarning)}`;
 
 	return (
 		<Portal zIndex={layers.modal()}>

@@ -12,6 +12,7 @@ export default {
   'fabric.elements.mentions.team.member.count': '{0, plural, other {Nhóm • {0} thành viên}}',
   'fabric.elements.mentions.team.member.count.including.you':
     '{0, plural, other {Nhóm • {0} thành viên, bao gồm cả bạn}}',
+  'fabric.elements.mentions.xproduct.mention.description': 'Cần quyền truy cập vào Confluence',
   'fabric.mention.error.defaultAction': 'Hãy thử lại trong vài giây',
   'fabric.mention.error.defaultHeadline': 'Đã xảy ra lỗi',
   'fabric.mention.error.differentText': 'Hãy thử nhập văn bản khác',

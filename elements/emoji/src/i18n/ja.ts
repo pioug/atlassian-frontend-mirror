@@ -38,6 +38,7 @@ export default {
   'fabric.emoji.error.image.too.big': '選択した画像は 1 MB を超えています',
   'fabric.emoji.error.invalid.image': '選択した画像は無効です。',
   'fabric.emoji.error.upload.failed': 'アップロードできませんでした',
+  'fabric.emoji.error.upload.timeout': 'アップロードがタイムアウト',
   'fabric.emoji.image.requirements': 'JPG、PNG、GIF。最大サイズ 1 MB。',
   'fabric.emoji.name.ariaLabel': '新しい絵文字の名前を入力する',
   'fabric.emoji.picker': '絵文字ピッカー',

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - InlineProps
  *
- * @codegen <<SignedSource::afc14b5ea11781515fe9062944bdbbbc>>
+ * @codegen <<SignedSource::f154fd7caa18fc53a1369bb9f496909c>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline/__generated__/index.partial.tsx <<SignedSource::0ac949055f76549e70b29c626401570c>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/inline/__generated__/index.partial.tsx <<SignedSource::6f1af1d5438263ed1f6833c78c741ed9>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type InlineProps = Pick<
   PlatformInlineProps,
   'children' | 'alignBlock' | 'alignInline' | 'spread' | 'grow' | 'space' | 'shouldWrap' | 'separator' | 'rowSpace' | 'testId'
 >;
+
+/**
+ * Primitives are token-backed low-level building blocks.
+ */
+export type TInline<T> = (props: InlineProps) => T;

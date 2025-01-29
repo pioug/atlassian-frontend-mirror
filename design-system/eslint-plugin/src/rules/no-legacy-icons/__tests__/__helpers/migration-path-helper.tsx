@@ -78,4 +78,46 @@ export const migrationPathTests = [
 			},
 		],
 	},
+
+	{
+		options: [{ shouldUseMigrationPath: false }],
+		name: 'Icon with spacing props, including in buttons',
+		code: `
+		import ErrorIcon from '@atlaskit/icon/utility/migration/error';
+		import Button from '@atlaskit/button';
+
+		<>
+			<ErrorIcon label="" spacing="spacious" />
+			<Button iconBefore={<ErrorIcon label="" />}>Add</Button>
+			<Button iconBefore={<ErrorIcon label="" spacing="spacious" />}>Add</Button>
+			<Button iconBefore={<ErrorIcon label="" spacing="compact" />}>Add</Button>
+
+			<Button iconAfter={<ErrorIcon label="" spacing="spacious" />}/>
+			<Button iconAfter={<ErrorIcon label="" spacing="compact" />}/>
+
+			<Button><ErrorIcon label="" spacing="spacious" /></Button>
+			<Button><ErrorIcon label="" /></Button>
+		</>
+		`,
+		output: `
+		import ErrorIcon from '@atlaskit/icon/utility/error';
+		import Button from '@atlaskit/button';
+
+		<>
+			<ErrorIcon label="" spacing="spacious" />
+			<Button iconBefore={<ErrorIcon label="" />}>Add</Button>
+			<Button iconBefore={<ErrorIcon label="" spacing="spacious" />}>Add</Button>
+			<Button iconBefore={<ErrorIcon label="" spacing="compact" />}>Add</Button>
+
+			<Button iconAfter={<ErrorIcon label="" spacing="spacious" />}/>
+			<Button iconAfter={<ErrorIcon label="" spacing="compact" />}/>
+
+			<Button><ErrorIcon label="" spacing="spacious" /></Button>
+			<Button><ErrorIcon label="" /></Button>
+		</>
+		`,
+		errors: Array(8).fill({
+			messageId: 'noLegacyIconsAutoMigration',
+		}),
+	},
 ];

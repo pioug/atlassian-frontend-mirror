@@ -12,6 +12,7 @@ export default {
   'fabric.elements.mentions.team.member.count': '{0, plural, one {Team • 1 Mitglied} other {Team • {0} Mitglieder}}',
   'fabric.elements.mentions.team.member.count.including.you':
     '{0, plural, one {Team • 1 Mitglied, einschließlich Ihnen} other {Team • {0} Mitglieder, einschließlich Ihnen}}',
+  'fabric.elements.mentions.xproduct.mention.description': 'Benötigt Zugriff auf Confluence',
   'fabric.mention.error.defaultAction': 'Versuchen Sie es in ein paar Sekunden erneut.',
   'fabric.mention.error.defaultHeadline': 'Irgendetwas ist schiefgelaufen',
   'fabric.mention.error.differentText': 'Versuchen Sie, einen anderen Text einzugeben.',

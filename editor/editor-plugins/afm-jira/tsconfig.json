@@ -90,9 +90,6 @@
 			"path": "../../editor-plugin-context-identifier/afm-jira/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-context-menu/afm-jira/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-context-panel/afm-jira/tsconfig.json"
 		},
 		{

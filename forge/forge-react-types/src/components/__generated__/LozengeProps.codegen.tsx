@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - LozengeProps
  *
- * @codegen <<SignedSource::b3634e72b44625d28b588db7ff045c9d>>
+ * @codegen <<SignedSource::010c29755ec75417d1649af3008801cd>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/lozenge/__generated__/index.partial.tsx <<SignedSource::c83364d769b7168eaaa21f1694e35702>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/lozenge/__generated__/index.partial.tsx <<SignedSource::20810ed29278b94c2bf310c8d80efdf8>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type LozengeProps = Pick<
   PlatformLozengeProps,
   'appearance' | 'children' | 'isBold' | 'maxWidth' | 'testId'
 >;
+
+/**
+ * A lozenge is a visual indicator used to highlight an item's status for quick recognition.
+ */
+export type TLozenge<T> = (props: LozengeProps) => T;

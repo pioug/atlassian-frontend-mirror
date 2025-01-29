@@ -82,9 +82,6 @@
 		"platform-design-system-dsp-20821-color-pickr-focus": {
 			"type": "boolean"
 		},
-		"thor_colourful_single_select_milestone1_gate": {
-			"type": "boolean"
-		},
 		"one_event_rules_them_all_fg": {
 			"type": "boolean"
 		}

@@ -4,8 +4,7 @@
  */
 import React, { useContext, useEffect, useLayoutEffect as useRealLayoutEffect } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, keyframes } from '@emotion/react';
+import { cssMap, jsx, keyframes } from '@compiled/react';
 
 import InteractionContext from '@atlaskit/interaction-context';
 import { N0, N500 } from '@atlaskit/theme/colors';
@@ -27,12 +26,6 @@ const rotate = keyframes({
 	to: { transform: 'rotate(360deg)' },
 });
 
-const rotateStyles = css({
-	animation: `${rotate} 0.86s infinite`,
-	animationTimingFunction: 'cubic-bezier(0.4, 0.15, 0.6, 0.85)',
-	transformOrigin: 'center',
-});
-
 /**
  * There are three parts to the load in animation:
  * 1. Fade in
@@ -52,35 +45,40 @@ const loadIn = keyframes({
 	},
 });
 
-const loadInStyles = css({
-	animation: `${loadIn} 1s ease-in-out`,
-	/**
-	 * When the animation completes, stay at the last frame of the animation.
-	 */
-	animationFillMode: 'forwards',
-	/**
-	 * We are going to animate this in.
-	 */
-	opacity: 0,
-});
-
-const wrapperStyles = css({
-	display: 'inline-flex',
-	/**
-	 * Align better inline with text.
-	 */
-	verticalAlign: 'middle',
-});
-
-const circleStyles = css({
-	fill: 'none',
-	strokeDasharray: 60,
-	strokeDashoffset: 'inherit',
-	strokeLinecap: 'round',
-	strokeWidth: 1.5,
-	'@media screen and (forced-colors: active)': {
-		filter: 'grayscale(100%)',
-		stroke: 'CanvasText',
+const styles = cssMap({
+	rotateStyles: {
+		animation: `${rotate} 0.86s infinite`,
+		animationTimingFunction: 'cubic-bezier(0.4, 0.15, 0.6, 0.85)',
+		transformOrigin: 'center',
+	},
+	loadInStyles: {
+		animation: `${loadIn} 1s ease-in-out`,
+		/**
+		 * When the animation completes, stay at the last frame of the animation.
+		 */
+		animationFillMode: 'forwards',
+		/**
+		 * We are going to animate this in.
+		 */
+		opacity: 0,
+	},
+	wrapperStyles: {
+		display: 'inline-flex',
+		/**
+		 * Align better inline with text.
+		 */
+		verticalAlign: 'middle',
+	},
+	circleStyles: {
+		fill: 'none',
+		strokeDasharray: 60,
+		strokeDashoffset: 'inherit',
+		strokeLinecap: 'round',
+		strokeWidth: 1.5,
+		'@media screen and (forced-colors: active)': {
+			filter: 'grayscale(100%)',
+			stroke: 'CanvasText',
+		},
 	},
 });
 
@@ -142,8 +140,8 @@ const Spinner = React.memo(
 				 * This can be removed and styles placed back on the circle element once
 				 * Safari fixes this bug and off-loads rendering to the GPU from the CPU.
 				 */
-				css={[wrapperStyles, rotateStyles]}
-				data-testid={testId && `${testId}-wrapper`}
+				css={[styles.wrapperStyles, styles.rotateStyles]}
+				data-testid={testId ? `${testId}-wrapper` : 'spinner-wrapper'}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 				style={{ animationDelay, width: size, height: size }}
 			>
@@ -155,12 +153,12 @@ const Spinner = React.memo(
 					data-testid={testId}
 					ref={ref}
 					aria-label={label || undefined}
-					css={loadInStyles}
+					css={styles.loadInStyles}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={{ animationDelay }}
 					role={label ? 'img' : 'none'}
 				>
-					<circle cx="8" cy="8" r="7" css={circleStyles} style={{ stroke }} />
+					<circle cx="8" cy="8" r="7" css={styles.circleStyles} style={{ stroke }} />
 				</svg>
 			</span>
 		);

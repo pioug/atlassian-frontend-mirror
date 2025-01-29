@@ -38,6 +38,7 @@ export default {
   'fabric.emoji.error.image.too.big': 'Den valda bilden är större än 1 MB',
   'fabric.emoji.error.invalid.image': 'Den valda bilden är ogiltig',
   'fabric.emoji.error.upload.failed': 'Uppladdning misslyckades',
+  'fabric.emoji.error.upload.timeout': 'Uppladdning överskred tidsgränsen',
   'fabric.emoji.image.requirements': 'JPG, PNG eller GIF. Max. storlek 1 MB.',
   'fabric.emoji.name.ariaLabel': 'Ange ett namn på den nya emojin',
   'fabric.emoji.picker': 'Emojiväljare',

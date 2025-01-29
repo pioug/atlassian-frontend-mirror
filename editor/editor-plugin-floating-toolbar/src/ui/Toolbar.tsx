@@ -193,6 +193,7 @@ const ToolbarItems = React.memo(
 									)
 								) : undefined
 							}
+							iconAfter={item.iconAfter ? <item.iconAfter label="" /> : undefined}
 							appearance={item.appearance}
 							target={item.target}
 							onClick={onClickHandler}

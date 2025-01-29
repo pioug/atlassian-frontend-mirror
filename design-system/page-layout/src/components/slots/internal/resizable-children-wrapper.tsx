@@ -31,7 +31,7 @@ const prefersReducedMotionStyles = css(prefersReducedMotion());
  */
 const hideLeftSidebarContentsStyles = css({
 	opacity: 0,
-	transition: `opacity 0ms linear, visibility 0ms linear`,
+	transition: 'opacity 0ms linear, visibility 0ms linear',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	transitionDelay: `${TRANSITION_DURATION - 100}ms`,
 	visibility: 'hidden',
@@ -60,7 +60,6 @@ const ResizableChildrenWrapper = ({
 	const isCollapsing = useIsSidebarCollapsing();
 	const isCollapsed = isLeftSidebarCollapsed || hasCollapsedState;
 	const isHidden = isCollapsing || (isCollapsed && !isFlyoutOpen);
-
 	return (
 		<div
 			css={[
@@ -70,6 +69,7 @@ const ResizableChildrenWrapper = ({
 			]}
 			aria-hidden={isHidden}
 			data-testid={testId}
+			tabIndex={isHidden ? -1 : 0}
 		>
 			<div css={fixedChildrenWrapperStyles}>{children}</div>
 		</div>

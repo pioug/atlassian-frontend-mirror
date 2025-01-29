@@ -38,6 +38,7 @@ export default {
   'fabric.emoji.error.image.too.big': 'Det valgte billede er større end 1 MB',
   'fabric.emoji.error.invalid.image': 'Det valgte billede er ugyldigt',
   'fabric.emoji.error.upload.failed': 'Upload mislykkedes',
+  'fabric.emoji.error.upload.timeout': 'Upload fik timeout',
   'fabric.emoji.image.requirements': 'JPG, PNG eller GIF. Maks. størrelse 1 MB.',
   'fabric.emoji.name.ariaLabel': 'Angiv et navn til den nye emoji',
   'fabric.emoji.picker': 'Emojivælger',

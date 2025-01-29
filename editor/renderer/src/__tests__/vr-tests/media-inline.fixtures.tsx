@@ -49,5 +49,11 @@ export const MediaInlineMultipleInParagraphADF = () => {
 };
 
 export const MediaInlineADFWithReactLooselyLazy = () => {
-	return <Media adf={mediaInlineMultipleInParagraphAdf} appearance={'full-page'} nodeComponents={looselyLazyNodes} />;
+	return (
+		<Media
+			adf={mediaInlineMultipleInParagraphAdf}
+			appearance={'full-page'}
+			nodeComponents={looselyLazyNodes}
+		/>
+	);
 };

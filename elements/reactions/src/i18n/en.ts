@@ -19,8 +19,9 @@ export default {
   'reactions.dialog.close': 'Close',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Left Navigate',
+  'reactions.dialog.people-who-reacted.subheader': 'People who reacted with {emojiShortName}',
   'reactions.dialog.reactions.count': '{count, plural, one {# reaction} other {# reactions} }',
   'reactions.dialog.right.navigate': 'Right Navigate',
-  'reactions.dialog.viewall': 'See who reacted',
+  'reactions.dialog.viewall': 'View all',
   'reactions.dialog.viewall.tooltip': 'View all user reactions',
 };

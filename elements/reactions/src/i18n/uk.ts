@@ -20,9 +20,10 @@ export default {
   'reactions.dialog.close': 'Закрити',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Перейти вліво',
+  'reactions.dialog.people-who-reacted.subheader': 'Люди, що додали реакцію {emojiShortName}',
   'reactions.dialog.reactions.count':
     '{count, plural, one {{count,number} реакція} few {{count,number} реакції} many {{count,number} реакцій} other {{count,number} реакції}}',
   'reactions.dialog.right.navigate': 'Перейти вправо',
-  'reactions.dialog.viewall': 'Переглянути, хто відреагував',
+  'reactions.dialog.viewall': 'Переглянути все',
   'reactions.dialog.viewall.tooltip': 'Переглянути всі реакції користувачів',
 };

@@ -33,7 +33,7 @@ export const useLoadAnnotations = ({ adfDocument, isNestedRender, onLoadComplete
 		const annotations = actions.getAnnotationMarks();
 		// we don't want to request integrators for state with an empty list of ids.
 		if (!annotations.length) {
-			if (fg('use_comments_data_annotation_updater')) {
+			if (!isNestedRender && fg('use_comments_data_annotation_updater')) {
 				// inlineCommentGetState handles empty lists gracefully. It has a side-effect of clearing state, which is why this call is needed
 				inlineCommentGetState([], isNestedRender);
 			}

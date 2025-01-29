@@ -13,6 +13,7 @@ export default {
     '{0, plural, one {Tým • 1 člen} few {Tým • {0} členové} many {Tým • {0} člena} other {Tým • {0} členů}}',
   'fabric.elements.mentions.team.member.count.including.you':
     '{0, plural, one {Tým • 1 člen včetně vás} few {Tým • {0} členové včetně vás} many {Tým • {0} člena včetně vás} other {Tým • {0} členů včetně vás}}',
+  'fabric.elements.mentions.xproduct.mention.description': 'Potřebuje přístup ke Confluence.',
   'fabric.mention.error.defaultAction': 'Zkuste to znovu za pár sekund',
   'fabric.mention.error.defaultHeadline': 'Něco se pokazilo',
   'fabric.mention.error.differentText': 'Zkuste zadat jiný text',

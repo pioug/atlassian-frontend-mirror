@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ErrorMessageProps
  *
- * @codegen <<SignedSource::b27ea13693f064f02be77ca22a7b21a7>>
+ * @codegen <<SignedSource::3d3da7aa33a6ac0adb1524f89ee28208>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/error-message.partial.tsx <<SignedSource::94778992a6ed8c3225c72407310f2a82>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/error-message.partial.tsx <<SignedSource::9e1a8d256d8d999a689140fbcda430fa>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type ErrorMessageProps = Pick<
   PlatformErrorMessageProps,
   'children' | 'testId'
 >;
+
+/**
+ * A form allows users to input information.
+ */
+export type TErrorMessage<T> = (props: ErrorMessageProps) => T;

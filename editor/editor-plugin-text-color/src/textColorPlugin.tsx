@@ -87,6 +87,9 @@ export const textColorPlugin: TextColorPlugin = ({ config: textColorConfig, api 
 			selectionToolbar: () => {
 				if (
 					editorExperiment('contextual_formatting_toolbar', true, { exposure: true }) ||
+					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant1', {
+						exposure: true,
+					}) ||
 					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2', {
 						exposure: true,
 					})

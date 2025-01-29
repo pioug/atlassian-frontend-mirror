@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ButtonProps
  *
- * @codegen <<SignedSource::c29e7149d653838ec5536420b8518bf7>>
+ * @codegen <<SignedSource::333890773f42cacce17cee560686b34c>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/index.partial.tsx <<SignedSource::98b5f936725e04433d64b0ae5e85b701>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/index.partial.tsx <<SignedSource::c3a07cf50f9f4f166b94a72b4c2d5784>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -390,3 +390,5 @@ export type ButtonProps = Pick<
 	iconAfter?: IconType;
 	spacing?: PlatformButtonProps['spacing'] | 'none';
 };
+
+export type TButton<T> = (props: ButtonProps) => T;

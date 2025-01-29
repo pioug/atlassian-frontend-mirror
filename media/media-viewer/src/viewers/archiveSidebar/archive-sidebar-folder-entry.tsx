@@ -3,7 +3,6 @@ import { type ZipEntry } from 'unzipit';
 
 import { ButtonItem } from '@atlaskit/side-navigation';
 import Folder24Icon from '@atlaskit/icon-file-type/glyph/folder/24';
-import DownloadIcon from '@atlaskit/icon/core/migration/download';
 import { downloadUrl } from '@atlaskit/media-common';
 import { MediaTypeIcon } from '@atlaskit/media-ui/media-type-icon';
 import { type MediaClient } from '@atlaskit/media-client';
@@ -11,12 +10,14 @@ import { type MediaClient } from '@atlaskit/media-client';
 import {
 	ArchiveSidebarFolderWrapper,
 	ArchiveSidebarFileEntryWrapper,
-	ArchiveDownloadButtonWrapper,
 	SidebarItemWrapper,
 } from './styleWrappers';
 import { getMediaTypeFromFilename, isMacPrivateFile, rejectAfter } from '../../utils';
 import { type ArchiveViewerError } from '../../errors';
 import { itemStyle } from './styles';
+import { messages } from '@atlaskit/media-ui';
+import { ArchiveDownloadButton } from './archive-download-button';
+import { type WrappedComponentProps, injectIntl } from 'react-intl-next';
 
 type Entries = { [key: string]: ZipEntry };
 
@@ -29,11 +30,17 @@ export interface ArchiveSidebarFolderProps {
 	mediaClient: MediaClient;
 	isArchiveEntryLoading: boolean;
 	onError: (error: ArchiveViewerError, entry?: ZipEntry) => void;
+	shouldRenderAbuseModal: boolean;
 }
 
-export class ArchiveSidebarFolderEntry extends React.Component<ArchiveSidebarFolderProps> {
+class ArchiveSidebarFolderEntryBase extends React.Component<
+	ArchiveSidebarFolderProps & WrappedComponentProps,
+	{ isAbuseModalOpen: boolean }
+> {
+	state = { isAbuseModalOpen: false };
+
 	renderEntry = (entry: ZipEntry) => {
-		const { root, onEntrySelected } = this.props;
+		const { root, onEntrySelected, mediaClient } = this.props;
 		const onClick = () => onEntrySelected(entry);
 
 		return (
@@ -48,7 +55,9 @@ export class ArchiveSidebarFolderEntry extends React.Component<ArchiveSidebarFol
 						{this.formatName(root, entry.name)}
 					</ButtonItem>
 				</SidebarItemWrapper>
-				{entry.isDirectory ? null : this.renderDownloadButton(entry, root)}
+				{entry.isDirectory
+					? null
+					: this.renderDownloadButton(entry, root, mediaClient.config.enforceDataSecurityPolicy)}
 			</ArchiveSidebarFileEntryWrapper>
 		);
 	};
@@ -61,11 +70,23 @@ export class ArchiveSidebarFolderEntry extends React.Component<ArchiveSidebarFol
 		return <MediaTypeIcon type={mediaType} />;
 	};
 
-	private renderDownloadButton = (entry: ZipEntry, root: string) => {
+	private renderDownloadButton = (
+		entry: ZipEntry,
+		root: string,
+		enforceDataSecurityPolicy?: boolean,
+	) => {
+		const { shouldRenderAbuseModal, intl } = this.props;
+
+		const tooltip = intl.formatMessage(messages.download_disabled_security_policy);
+		const downloadFn = () => this.downloadZipEntry(entry, root);
+
 		return (
-			<ArchiveDownloadButtonWrapper onClick={() => this.downloadZipEntry(entry, root)}>
-				<DownloadIcon color="currentColor" spacing="spacious" label="Download" />
-			</ArchiveDownloadButtonWrapper>
+			<ArchiveDownloadButton
+				downloadFn={downloadFn}
+				shouldRenderAbuseModal={shouldRenderAbuseModal}
+				isDisabled={enforceDataSecurityPolicy}
+				tooltip={tooltip}
+			/>
 		);
 	};
 
@@ -119,3 +140,5 @@ export class ArchiveSidebarFolderEntry extends React.Component<ArchiveSidebarFol
 		);
 	}
 }
+
+export const ArchiveSidebarFolderEntry = injectIntl(ArchiveSidebarFolderEntryBase);

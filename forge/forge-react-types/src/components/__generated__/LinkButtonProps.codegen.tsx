@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - LinkButtonProps
  *
- * @codegen <<SignedSource::8ceca7ac3238c0f6b6d222d171994cf3>>
+ * @codegen <<SignedSource::ac79b85bde2efadf2186ea5acd6d267e>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/link-button.partial.tsx <<SignedSource::6977fab8ea9a5478c26d6e1e77eab843>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/button/__generated__/link-button.partial.tsx <<SignedSource::4f0e6eb251c01a13ba006b3d7569820d>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -30,3 +30,5 @@ export type LinkButtonProps = Pick<
 	appearance?: PlatformLinkButtonProps['appearance'] | 'link' | 'subtle-link';
 	spacing?: PlatformLinkButtonProps['spacing'] | 'none';
 };
+
+export type TLinkButton<T> = (props: LinkButtonProps) => T;

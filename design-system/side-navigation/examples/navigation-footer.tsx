@@ -1,20 +1,28 @@
-import React, { Fragment, type MouseEvent } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { Fragment, type MouseEvent } from 'react';
+
+import { cssMap, jsx } from '@compiled/react';
 
 import Icon from '@atlaskit/icon';
-import { Anchor, Box, xcss } from '@atlaskit/primitives';
+import { Anchor, Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { Footer, NavigationFooter } from '../src';
 
 import SampleIcon from './common/next-gen-project-icon';
 
-const descriptionLinkStyles = xcss({
-	fontWeight: token('font.weight.medium'),
-	color: 'color.text.subtle',
-	textDecoration: 'none',
+const styles = cssMap({
+	descriptionLink: {
+		fontWeight: token('font.weight.medium'),
+		color: token('color.text.subtle'),
+		textDecoration: 'none',
 
-	':hover': {
-		color: 'color.text.subtle',
+		'&:hover': {
+			color: token('color.text.subtle'),
+		},
 	},
 });
 
@@ -26,11 +34,11 @@ const Example = () => {
 					useDeprecatedApi={false}
 					description={
 						<Fragment>
-							<Anchor href="/feedback" xcss={descriptionLinkStyles}>
+							<Anchor href="/feedback" xcss={styles.descriptionLink}>
 								Give feedback
 							</Anchor>
 							{' ∙ '}
-							<Anchor href="/learn" xcss={descriptionLinkStyles}>
+							<Anchor href="/learn" xcss={styles.descriptionLink}>
 								Learn more
 							</Anchor>
 						</Fragment>
@@ -46,11 +54,11 @@ const Example = () => {
 					iconBefore={<Icon label="" glyph={SampleIcon} />}
 					description={
 						<Fragment>
-							<Anchor href="/feedback" xcss={descriptionLinkStyles}>
+							<Anchor href="/feedback" xcss={styles.descriptionLink}>
 								Give feedback
 							</Anchor>
 							{' ∙ '}
-							<Anchor href="/learn" xcss={descriptionLinkStyles}>
+							<Anchor href="/learn" xcss={styles.descriptionLink}>
 								Learn more
 							</Anchor>
 						</Fragment>

@@ -11,6 +11,7 @@ export default {
   'fabric.elements.mentions.team.member.50plus.including.you': 'ทีม • สมาชิกมากกว่า 50 คน รวมคุณด้วย',
   'fabric.elements.mentions.team.member.count': '{0, plural, other {ทีม • สมาชิก {0} คน}}',
   'fabric.elements.mentions.team.member.count.including.you': '{0, plural, other {ทีม • สมาชิก {0} คน รวมคุณด้วย}}',
+  'fabric.elements.mentions.xproduct.mention.description': 'ต้องการสิทธิ์การเข้าถึง Confluence',
   'fabric.mention.error.defaultAction': 'ลองอีกครั้งในอีกสักครู่',
   'fabric.mention.error.defaultHeadline': 'มีข้อผิดพลาดบางอย่างเกิดขึ้น',
   'fabric.mention.error.differentText': 'ลองป้อนข้อความอื่น',

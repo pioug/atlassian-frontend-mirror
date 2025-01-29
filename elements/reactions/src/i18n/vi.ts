@@ -19,8 +19,9 @@ export default {
   'reactions.dialog.close': 'Đóng',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Sang trái',
+  'reactions.dialog.people-who-reacted.subheader': 'Những người đã tương tác bằng {emojiShortName}',
   'reactions.dialog.reactions.count': '{count, plural, other {{count,number} tương tác}}',
   'reactions.dialog.right.navigate': 'Sang phải',
-  'reactions.dialog.viewall': 'Xem ai đã bày tỏ cảm xúc',
+  'reactions.dialog.viewall': 'Xem tất cả',
   'reactions.dialog.viewall.tooltip': 'Xem tất cả tương tác của người dùng',
 };

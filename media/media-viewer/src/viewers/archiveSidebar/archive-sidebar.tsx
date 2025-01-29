@@ -24,6 +24,7 @@ export interface ArchiveSidebarProps {
 	onHeaderClicked: () => void;
 	isArchiveEntryLoading: boolean;
 	onError: (error: ArchiveViewerError, entry?: ZipEntry) => void;
+	shouldRenderAbuseModal: boolean;
 }
 
 export type ArchiveSidebarState = {
@@ -33,7 +34,7 @@ export type ArchiveSidebarState = {
 export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, ArchiveSidebarState> {
 	constructor(props: ArchiveSidebarProps) {
 		super(props);
-		const { isArchiveEntryLoading, entries, mediaClient, onError } = props;
+		const { isArchiveEntryLoading, entries, mediaClient, onError, shouldRenderAbuseModal } = props;
 		this.state = {
 			currentArchiveSidebarFolder: {
 				isArchiveEntryLoading,
@@ -44,6 +45,7 @@ export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, Archive
 				hideHeader: true,
 				mediaClient,
 				onError,
+				shouldRenderAbuseModal,
 			},
 		};
 	}
@@ -81,7 +83,7 @@ export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, Archive
 			entries = { ...entries, ...archiveEntries };
 			folderName = extractArchiveFolderName(folder.name);
 		}
-		const { isArchiveEntryLoading, onError } = this.props;
+		const { isArchiveEntryLoading, onError, shouldRenderAbuseModal } = this.props;
 		const currentFolderName = folderName || folder.name;
 		this.setState({
 			currentArchiveSidebarFolder: {
@@ -92,12 +94,20 @@ export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, Archive
 				onEntrySelected: this.onEntrySelected,
 				mediaClient,
 				onError,
+				shouldRenderAbuseModal,
 			},
 		});
 	};
 
 	private onHeaderClicked = () => {
-		const { entries, mediaClient, onHeaderClicked, isArchiveEntryLoading, onError } = this.props;
+		const {
+			entries,
+			mediaClient,
+			onHeaderClicked,
+			isArchiveEntryLoading,
+			onError,
+			shouldRenderAbuseModal,
+		} = this.props;
 
 		const folderParent = getFolderParent(this.state.currentArchiveSidebarFolder.root);
 
@@ -110,6 +120,7 @@ export class ArchiveSidebar extends React.Component<ArchiveSidebarProps, Archive
 				onEntrySelected: this.onEntrySelected,
 				mediaClient,
 				onError,
+				shouldRenderAbuseModal,
 			},
 		});
 

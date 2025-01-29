@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - CodeProps
  *
- * @codegen <<SignedSource::5b14dff15ad9bdad8a26fdda0fcb700c>>
+ * @codegen <<SignedSource::1a39727c921b99c3519aa0020e967c21>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/code/__generated__/code.partial.tsx <<SignedSource::7c44fc035da9da9e1dc10ad78f244bed>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/code/__generated__/code.partial.tsx <<SignedSource::370e450903cb8f21b11acac7a9fc720b>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type CodeProps = Pick<
   PlatformCodeProps,
   'children' | 'testId'
 >;
+
+/**
+ * Code highlights short strings of code snippets inline with body text.
+ */
+export type TCode<T> = (props: CodeProps) => T;

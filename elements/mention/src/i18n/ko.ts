@@ -11,6 +11,7 @@ export default {
   'fabric.elements.mentions.team.member.50plus.including.you': '팀 • 자신을 포함하여 구성원 50명 이상',
   'fabric.elements.mentions.team.member.count': '{0, plural, other {팀 • 구성원 {0}명}}',
   'fabric.elements.mentions.team.member.count.including.you': '{0, plural, other {팀 • 자신을 포함하여 구성원 {0}명}}',
+  'fabric.elements.mentions.xproduct.mention.description': 'Confluence에 대한 액세스 권한 필요',
   'fabric.mention.error.defaultAction': '몇 초 후에 다시 시도하십시오',
   'fabric.mention.error.defaultHeadline': '문제가 발생했습니다',
   'fabric.mention.error.differentText': '다른 텍스트를 입력해 보십시오',

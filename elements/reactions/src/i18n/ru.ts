@@ -19,9 +19,10 @@ export default {
   'reaction-picker-trigger.add.reaction.message': 'Добавьте реакцию',
   'reactions.dialog.close': 'Закрыть',
   'reactions.dialog.left.navigate': 'Навигация влево',
+  'reactions.dialog.people-who-reacted.subheader': 'Люди, которые оставили реакцию {emojiShortName}',
   'reactions.dialog.reactions.count':
     '{count, plural, one {{count,number} реакция} few {{count,number} реакции} many {{count,number} реакций} other {{count,number} реакции}}',
   'reactions.dialog.right.navigate': 'Навигация вправо',
-  'reactions.dialog.viewall': 'Посмотреть, кто отреагировал',
+  'reactions.dialog.viewall': 'Просмотреть все',
   'reactions.dialog.viewall.tooltip': 'Посмотреть все реакции пользователей',
 };

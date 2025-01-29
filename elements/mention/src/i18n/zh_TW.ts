@@ -11,6 +11,7 @@ export default {
   'fabric.elements.mentions.team.member.50plus.including.you': '團隊 • 50 名以上的成員，包含您',
   'fabric.elements.mentions.team.member.count': '{0, plural, other {團隊 • {0} 名成員}}',
   'fabric.elements.mentions.team.member.count.including.you': '{0, plural, other {團隊 • {0} 名成員，包含您}}',
+  'fabric.elements.mentions.xproduct.mention.description': '需要 Confluence 的存取權',
   'fabric.mention.error.defaultAction': '幾秒後再試一次',
   'fabric.mention.error.defaultHeadline': '發生問題',
   'fabric.mention.error.differentText': '嘗試輸入不同的文字',

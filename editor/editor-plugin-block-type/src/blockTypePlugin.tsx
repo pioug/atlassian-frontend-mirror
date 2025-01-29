@@ -2,12 +2,7 @@ import React from 'react';
 
 import type { IntlShape } from 'react-intl-next';
 
-import {
-	blockquoteWithList,
-	blockquoteWithNestedCodeblockOrMedia,
-	hardBreak,
-	heading,
-} from '@atlaskit/adf-schema';
+import { blockquoteWithNestedCodeblockOrMedia, hardBreak, heading } from '@atlaskit/adf-schema';
 import {
 	ACTION,
 	ACTION_SUBJECT,
@@ -138,10 +133,6 @@ const blockquotePluginOptions = (
 };
 
 const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
-	const isNestingInQuoteSchemaChanged =
-		fg('platform_editor_nest_in_quotes_adf_change') ||
-		fg('editor_nest_media_and_codeblock_in_quotes_jira');
-
 	const primaryToolbarComponent: ToolbarUIComponentFactory = ({
 		popupsMountPoint,
 		popupsBoundariesElement,
@@ -185,9 +176,7 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 				{ name: 'heading', node: heading },
 				{
 					name: 'blockquote',
-					node: isNestingInQuoteSchemaChanged
-						? blockquoteWithNestedCodeblockOrMedia
-						: blockquoteWithList,
+					node: blockquoteWithNestedCodeblockOrMedia,
 				},
 				{ name: 'hardBreak', node: hardBreak },
 			];
@@ -267,6 +256,9 @@ const blockTypePlugin: BlockTypePlugin = ({ config: options, api }) => {
 			selectionToolbar: () => {
 				if (
 					editorExperiment('contextual_formatting_toolbar', true, { exposure: true }) ||
+					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant1', {
+						exposure: true,
+					}) ||
 					editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2', {
 						exposure: true,
 					})

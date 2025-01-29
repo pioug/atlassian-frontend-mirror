@@ -18,7 +18,7 @@ describe.skip('Modal Spinner', () => {
 			<ModalSpinner blankedColor={token('color.blanket', 'white')} invertSpinnerColor={true} />,
 		);
 
-		expect((await screen.findByTestId('media-modal-spinner')).childNodes[0]).toHaveStyle(
+		expect((await screen.findByTestId('media-modal-spinner')).childNodes[1]).toHaveStyle(
 			'stroke: var(--ds-icon-inverse, #FFFFFF)',
 		);
 	});
@@ -35,7 +35,7 @@ describe.skip('Modal Spinner', () => {
 		expect(await screen.findByTestId('media-modal-spinner-blanket')).toHaveStyle(
 			'background-color: none',
 		);
-		expect((await screen.findByTestId('media-modal-spinner')).childNodes[0]).toHaveStyle(
+		expect((await screen.findByTestId('media-modal-spinner')).childNodes[1]).toHaveStyle(
 			'stroke: var(--ds-icon-subtle, #42526E)',
 		);
 	});

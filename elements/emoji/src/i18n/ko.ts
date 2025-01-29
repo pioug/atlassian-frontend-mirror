@@ -38,6 +38,7 @@ export default {
   'fabric.emoji.error.image.too.big': '선택된 이미지가 1MB보다 큽니다',
   'fabric.emoji.error.invalid.image': '선택된 이미지가 유효하지 않습니다',
   'fabric.emoji.error.upload.failed': '업로드 실패',
+  'fabric.emoji.error.upload.timeout': '업로드 시간 초과됨',
   'fabric.emoji.image.requirements': 'JPG, PNG 또는 GIF. 최대 1 MB 크기.',
   'fabric.emoji.name.ariaLabel': '새 이모지의 이름을 입력하세요.',
   'fabric.emoji.picker': '이모지 선택기',

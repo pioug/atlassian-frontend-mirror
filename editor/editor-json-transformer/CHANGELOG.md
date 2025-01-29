@@ -1,5 +1,13 @@
 # @atlaskit/editor-json-transformer
 
+## 8.21.2
+
+### Patch Changes
+
+- [#107139](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107139)
+  [`3721ee9d53429`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3721ee9d53429) -
+  [ux] ED-26378 Editor Implementation - Clean up previous project FF in blockQuote
+
 ## 8.21.1
 
 ### Patch Changes

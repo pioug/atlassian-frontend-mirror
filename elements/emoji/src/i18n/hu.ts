@@ -39,6 +39,7 @@ export default {
   'fabric.emoji.error.image.too.big': 'A kiválaszott kép nagyobb, mint 1 MB',
   'fabric.emoji.error.invalid.image': 'A kiválasztott kép érvénytelen',
   'fabric.emoji.error.upload.failed': 'Feltöltés sikertelen',
+  'fabric.emoji.error.upload.timeout': 'Időtúllépés történt a feltöltés során',
   'fabric.emoji.image.requirements': 'JPG, PNG vagy GIF. Legfeljebb 1 MB méretben.',
   'fabric.emoji.name.ariaLabel': 'Írd be az új hangulatjel nevét',
   'fabric.emoji.picker': 'Emojiválasztó',

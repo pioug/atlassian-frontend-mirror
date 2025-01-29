@@ -19,8 +19,9 @@ export default {
   'reactions.dialog.close': 'Fermer',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Naviguer vers la gauche',
+  'reactions.dialog.people-who-reacted.subheader': 'Personnes qui ont réagi par {emojiShortName}',
   'reactions.dialog.reactions.count': '{count, plural, one {{count,number} réaction} other {{count,number} réactions}}',
   'reactions.dialog.right.navigate': 'Naviguer vers la droite',
-  'reactions.dialog.viewall': 'Voir qui a réagi',
+  'reactions.dialog.viewall': 'Afficher tout',
   'reactions.dialog.viewall.tooltip': 'Afficher toutes les réactions des utilisateurs',
 };

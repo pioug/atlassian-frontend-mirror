@@ -40,6 +40,7 @@ export default {
   'fabric.emoji.error.image.too.big': "L'image sélectionnée est supérieure à 1 Mo",
   'fabric.emoji.error.invalid.image': "L'image sélectionnée n'est pas valide",
   'fabric.emoji.error.upload.failed': 'Échec du chargement',
+  'fabric.emoji.error.upload.timeout': "L'importation a expiré",
   'fabric.emoji.image.requirements': 'JPG, PNG ou GIF. Taille max. : 1 Mo.',
   'fabric.emoji.name.ariaLabel': 'Saisissez le nom du nouvel emoji',
   'fabric.emoji.picker': "Sélecteur d'émoticône",

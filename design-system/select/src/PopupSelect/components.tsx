@@ -82,7 +82,7 @@ const dropdownStyles = css({
 
 const DropdownIndicator = () => (
 	<div css={dropdownStyles}>
-		<SearchIcon color="currentColor" spacing="spacious" label="open" />
+		<SearchIcon color="currentColor" label="" />
 	</div>
 );
 

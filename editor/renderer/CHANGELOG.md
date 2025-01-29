@@ -1,5 +1,27 @@
 # @atlaskit/renderer
 
+## 112.11.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 112.11.0
+
+### Minor Changes
+
+- [#106689](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106689)
+  [`58f30540d829f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/58f30540d829f) -
+  [ux] Preventing comments data clearing on nested renders to avoid infinite rerendering
+
+## 112.10.0
+
+### Minor Changes
+
+- [#104677](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104677)
+  [`2b37c68e3aa84`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2b37c68e3aa84) -
+  Export additional nodes that uses `react-loosely-lazy`
+
 ## 112.9.1
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-datasource",
-	"version": "3.16.1",
+	"version": "3.16.2",
 	"description": "UI Components to support linking platform dataset feature",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -75,7 +75,7 @@
 		"@atlaskit/select": "^18.9.0",
 		"@atlaskit/smart-card": "^34.6.0",
 		"@atlaskit/smart-user-picker": "6.11.2",
-		"@atlaskit/spinner": "^16.3.0",
+		"@atlaskit/spinner": "^17.0.0",
 		"@atlaskit/tag": "^12.6.0",
 		"@atlaskit/textfield": "6.7.2",
 		"@atlaskit/theme": "^14.0.0",

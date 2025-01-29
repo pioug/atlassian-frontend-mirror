@@ -18,9 +18,10 @@ export default {
   'reaction-picker-trigger.add.reaction.message': 'Legg til en reaksjon',
   'reactions.dialog.close': 'Lukk',
   'reactions.dialog.left.navigate': 'Naviger til venstre',
+  'reactions.dialog.people-who-reacted.subheader': 'Personer som reagerte med {emojiShortName}',
   'reactions.dialog.reactions.count':
     '{count, plural, one {{count,number} reaksjon} other {{count,number} reaksjoner}}',
   'reactions.dialog.right.navigate': 'Naviger til høyre',
-  'reactions.dialog.viewall': 'Se hvem som har reagert',
+  'reactions.dialog.viewall': 'Vis alle',
   'reactions.dialog.viewall.tooltip': 'Se alle brukerreaksjoner',
 };

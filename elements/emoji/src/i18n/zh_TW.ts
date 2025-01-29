@@ -37,6 +37,7 @@ export default {
   'fabric.emoji.error.image.too.big': '所選的影像超過 1 MB',
   'fabric.emoji.error.invalid.image': '所選的影像無效',
   'fabric.emoji.error.upload.failed': '上傳失敗',
+  'fabric.emoji.error.upload.timeout': '上傳逾時',
   'fabric.emoji.image.requirements': 'JPG、PNG 或 GIF。大小上限為 1 MB。',
   'fabric.emoji.name.ariaLabel': '請輸入新表情符號的名稱',
   'fabric.emoji.picker': '表情符號選取器',

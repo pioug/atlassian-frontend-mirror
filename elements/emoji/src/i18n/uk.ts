@@ -38,6 +38,7 @@ export default {
   'fabric.emoji.error.image.too.big': 'Розмір вибраного зображення більше 1 МБ',
   'fabric.emoji.error.invalid.image': 'Вибрано неправильне зображення',
   'fabric.emoji.error.upload.failed': 'Помилка завантаження',
+  'fabric.emoji.error.upload.timeout': 'Час очікування передавання вичерпано',
   'fabric.emoji.image.requirements': 'у форматі JPG, PNG або GIF. Його розмір не може перевищувати 1 МБ.',
   'fabric.emoji.name.ariaLabel': 'Введіть назву нового емодзі',
   'fabric.emoji.picker': 'Засіб вибору емодзі',

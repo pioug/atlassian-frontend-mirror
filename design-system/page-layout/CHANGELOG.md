@@ -1,5 +1,13 @@
 # @atlaskit/page-layout
 
+## 3.11.8
+
+### Patch Changes
+
+- [#107520](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107520)
+  [`537278df4586e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/537278df4586e) -
+  Fixing A11y violation scrollable-region-focusable
+
 ## 3.11.7
 
 ### Patch Changes

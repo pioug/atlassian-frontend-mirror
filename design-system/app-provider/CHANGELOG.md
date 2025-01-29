@@ -1,5 +1,13 @@
 # @atlaskit/app-provider
 
+## 1.7.0
+
+### Minor Changes
+
+- [#105257](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105257)
+  [`16af4057ef04e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/16af4057ef04e) -
+  Fixes a race condition with setting the theme. This change is no longer behind a feature flag.
+
 ## 1.6.1
 
 ### Patch Changes

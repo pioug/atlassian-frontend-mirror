@@ -26,7 +26,7 @@ import { DropTargetLayout, type DropTargetLayoutProps } from '../ui/drop-target-
 import { getNestedDepth, TYPE_DROP_TARGET_DEC, unmountDecorations } from './decorations-common';
 import { type AnchorRectCache } from './utils/anchor-utils';
 import { maxLayoutColumnSupported } from './utils/consts';
-import { canMoveNodeToIndex, isInSameLayout } from './utils/validation';
+import { canMoveNodeToIndex, canMoveSliceToIndex, isInSameLayout } from './utils/validation';
 
 const IGNORE_NODES = [
 	'tableCell',
@@ -225,6 +225,13 @@ export const dropTargetDecorations = (
 	const activeNodePos = activeNode?.pos;
 	const $activeNodePos = typeof activeNodePos === 'number' && newState.doc.resolve(activeNodePos);
 	const activePMNode = $activeNodePos && $activeNodePos.nodeAfter;
+	const isMultiSelect = editorExperiment(
+		'platform_editor_element_drag_and_drop_multiselect',
+		true,
+		{
+			exposure: true,
+		},
+	);
 
 	anchorRectCache?.clear();
 
@@ -290,12 +297,49 @@ export const dropTargetDecorations = (
 				pushNodeStack(node, depth);
 				return shouldDescend(node); //skip over, don't consider it a valid depth
 			}
-			const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node);
 
-			//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
-			if (!canDrop) {
-				pushNodeStack(node, depth);
-				return false; //not valid pos, so nested not valid either
+			// When multi select is on, validate all the nodes in the selection instead of just the handle node
+			if (isMultiSelect) {
+				const selection = newState.selection;
+				const selectionFrom = selection.$from.pos;
+				const selectionTo = selection.$to.pos;
+				const handleInsideSelection =
+					activeNodePos !== undefined &&
+					activeNodePos >= selectionFrom - 1 &&
+					activeNodePos <= selectionTo;
+				const selectionSlice = newState.doc.slice(selectionFrom, selectionTo, false);
+				const selectionSliceChildCount = selectionSlice.content.childCount;
+				let canDropSingleNode: boolean = true;
+				let canDropMultipleNodes: boolean = true;
+
+				// when there is only one node in the slice, use the same logic as when multi select is not on
+				if (selectionSliceChildCount > 1 && handleInsideSelection) {
+					canDropMultipleNodes = canMoveSliceToIndex(
+						selectionSlice,
+						selectionFrom,
+						newState.doc,
+						parent,
+						index,
+						$pos,
+					);
+				} else {
+					canDropSingleNode = !!(
+						activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node)
+					);
+				}
+
+				if (!canDropMultipleNodes || !canDropSingleNode) {
+					pushNodeStack(node, depth);
+					return false; //not valid pos, so nested not valid either
+				}
+			} else {
+				const canDrop = activePMNode && canMoveNodeToIndex(parent, index, activePMNode, $pos, node);
+
+				//NOTE: This will block drop targets showing for nodes that are valid after transformation (i.e. expand -> nestedExpand)
+				if (!canDrop) {
+					pushNodeStack(node, depth);
+					return false; //not valid pos, so nested not valid either
+				}
 			}
 
 			if (

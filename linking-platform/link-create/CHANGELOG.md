@@ -1,5 +1,19 @@
 # @atlaskit/link-create
 
+## 2.13.20
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.13.19
+
+### Patch Changes
+
+- [#105860](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105860)
+  [`7451f31b147b5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7451f31b147b5) -
+  [ux] EDM-11491 Link create icon migration
+
 ## 2.13.18
 
 ### Patch Changes

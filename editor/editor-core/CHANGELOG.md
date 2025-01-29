@@ -1,5 +1,23 @@
 # @atlaskit/editor-core
 
+## 203.11.12
+
+### Patch Changes
+
+- [#107340](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107340)
+  [`d4a5bbf7b730d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4a5bbf7b730d) -
+  [ux] ED-26057 Prevent the `unwrapContentFromTable` method in editor-plugin-table from incorrectly
+  attempting to unwrap nested tables, resulting in duplicate content in some circumstances when
+  copy/pasting nested table content
+
+## 203.11.11
+
+### Patch Changes
+
+- [#107139](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107139)
+  [`3721ee9d53429`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3721ee9d53429) -
+  [ux] ED-26378 Editor Implementation - Clean up previous project FF in blockQuote
+
 ## 203.11.10
 
 ### Patch Changes

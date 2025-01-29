@@ -158,3 +158,47 @@ export function canMoveNodeToIndex(
 	}
 	return destParent.canReplaceWith(indexIntoParent, indexIntoParent, srcNodeType);
 }
+
+export function canMoveSliceToIndex(
+	slice: Slice,
+	sliceFromPos: number,
+	doc: PMNode,
+	destParent: PMNode,
+	indexIntoParent: number,
+	$destNodePos: ResolvedPos,
+	destNode?: PMNode,
+) {
+	let canMoveNodes = true;
+	const nodesPos: number[] = [];
+	for (let i = 0; i < slice.content.childCount; i++) {
+		const node = slice.content.maybeChild(i);
+		if (i === 0) {
+			nodesPos[i] = sliceFromPos;
+		} else {
+			nodesPos[i] = nodesPos[i - 1] + (slice.content.maybeChild(i - 1)?.nodeSize || 0);
+		}
+
+		if (node && node.isInline) {
+			// If the node is an inline node, we need to find the parent node
+			// as passing in them into canMoveNodeToIndex will return false
+			const $nodePos = doc.resolve(nodesPos[i]);
+			const parentNode = $nodePos.parent;
+			if (
+				!parentNode ||
+				(parentNode &&
+					!canMoveNodeToIndex(destParent, indexIntoParent, parentNode, $destNodePos, destNode))
+			) {
+				canMoveNodes = false;
+				break;
+			}
+		} else if (
+			node &&
+			!canMoveNodeToIndex(destParent, indexIntoParent, node, $destNodePos, destNode)
+		) {
+			canMoveNodes = false;
+			break;
+		}
+	}
+
+	return canMoveNodes;
+}

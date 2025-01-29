@@ -49,7 +49,7 @@ const workingPdfWithRemotePreview = {
 const workingPdfWithoutRemotePreview = {
 	pdfAnatomy: createItemWithBinariesGenerator(
 		generateSampleFileItem.workingPdfWithoutRemotePreview,
-		artifactSets.pdfAnatomy,
+		artifactSets.pdfAnatomyNoPreview,
 	),
 };
 
@@ -116,6 +116,10 @@ const abuse = {
 		generateSampleFileItem.abuseSvg,
 		artifactSets.svgAjDigitalCameraCorrupted,
 		{ details: { name: 'corrupted-binary.svg' } },
+	),
+	pdfNoPreview: createItemWithBinariesGenerator(
+		generateSampleFileItem.abusePdfNoPreview,
+		artifactSets.pdfAnatomyNoPreview,
 	),
 };
 

@@ -6,7 +6,7 @@ import {
 	ExpandDefaultModeRenderer,
 	ExpandFullWidthModeRenderer,
 	ExpandWideModeRenderer,
-	ExpandRendererWithReactLooselyLazy
+	ExpandRendererWithReactLooselyLazy,
 } from './expand.fixture';
 
 snapshot(ExpandRenderer);

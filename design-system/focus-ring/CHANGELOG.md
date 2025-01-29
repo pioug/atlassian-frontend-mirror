@@ -1,5 +1,13 @@
 # @atlaskit/focus-ring
 
+## 2.0.3
+
+### Patch Changes
+
+- [#107235](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107235)
+  [`845d6a4956e61`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/845d6a4956e61) -
+  Update dependencies.
+
 ## 2.0.2
 
 ### Patch Changes

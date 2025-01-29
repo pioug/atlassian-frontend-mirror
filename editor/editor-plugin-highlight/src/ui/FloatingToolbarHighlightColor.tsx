@@ -107,6 +107,7 @@ const FloatingToolbarHighlightColor = ({
 
 	const title =
 		editorExperiment('contextual_formatting_toolbar', true) ||
+		editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant1') ||
 		editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2')
 			? tooltip(toggleHighlightPalette, toolbarButtonLabel)
 			: toolbarButtonLabel;

@@ -4,6 +4,7 @@ import type { Schema } from '@atlaskit/editor-prosemirror/model';
 import { Slice, Fragment, Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorState, Selection } from '@atlaskit/editor-prosemirror/state';
 import { flatten, hasParentNodeOfType } from '@atlaskit/editor-prosemirror/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import { getPluginState } from '../plugin-factory';
@@ -17,6 +18,9 @@ export const unwrapContentFromTable = (maybeTable: PMNode): PMNode | PMNode[] =>
 		maybeTable.descendants((maybeCell) => {
 			if (maybeCell.type === tableCell || maybeCell.type === tableHeader) {
 				content.push(...flatten(maybeCell, false).map((child) => child.node));
+				if (fg('platform_editor_nested_tables_paste_dupe_fix')) {
+					return false;
+				}
 			}
 			return true;
 		});

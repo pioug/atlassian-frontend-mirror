@@ -12,6 +12,7 @@ export default {
   'fabric.elements.mentions.team.member.count': '{0, plural, one {Team • 1 medlem} other {Team • {0} medlemmer}}',
   'fabric.elements.mentions.team.member.count.including.you':
     '{0, plural, one {Team • 1 medlem, inklusive dig} other {Team • {0} medlemmer, inklusive dig}}',
+  'fabric.elements.mentions.xproduct.mention.description': 'Har brug for adgang til Confluence',
   'fabric.mention.error.defaultAction': 'Prøv igen om nogle sekunder',
   'fabric.mention.error.defaultHeadline': 'Noget gik galt',
   'fabric.mention.error.differentText': 'Prøv at indtaste en anden tekst',

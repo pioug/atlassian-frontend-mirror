@@ -1,5 +1,23 @@
 # @atlaskit/media-viewer
 
+## 50.0.0
+
+### Major Changes
+
+- [#107675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107675)
+  [`163352dddbeb6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/163352dddbeb6) -
+  Removed unnused export MediaViewerWithPortal
+
+### Minor Changes
+
+- [#107798](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107798)
+  [`8cd532d4f9206`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8cd532d4f9206) -
+  Added support for DSP enforcement in Archive Downloads
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 49.6.3
 
 ### Patch Changes

@@ -18,7 +18,7 @@ export const CardActionButton = forwardRef<HTMLButtonElement, CardActionButtonOw
 				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 				css={cardActionButtonStyles(props)}
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				style={props.style}
+				style={{ ...props.style, cursor: props.disabled ? 'not-allowed' : 'default' }}
 				onClick={props.onClick}
 				onMouseDown={props.onMouseDown}
 				ref={ref}

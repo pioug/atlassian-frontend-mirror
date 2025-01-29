@@ -46,7 +46,7 @@
 	"devDependencies": {
 		"@af/visual-regression": "*",
 		"@atlaskit/analytics-next": "^10.2.0",
-		"@atlaskit/editor-plugin-floating-toolbar": "^1.14.0",
+		"@atlaskit/editor-plugin-floating-toolbar": "^1.15.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^12.1.5",

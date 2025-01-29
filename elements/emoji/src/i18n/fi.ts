@@ -39,6 +39,7 @@ export default {
   'fabric.emoji.error.image.too.big': 'Valittu kuva on suurempi kuin 1 MB',
   'fabric.emoji.error.invalid.image': 'Valittu kuva on virheellinen',
   'fabric.emoji.error.upload.failed': 'Lataus epäonnistui',
+  'fabric.emoji.error.upload.timeout': 'Latauksen aikakatkaisu',
   'fabric.emoji.image.requirements': 'JPG, PNG tai GIF. Maksimikoko 1 MB.',
   'fabric.emoji.name.ariaLabel': 'Anna uudelle emojille nimi',
   'fabric.emoji.picker': 'Emoji-valitsin',

@@ -39,6 +39,7 @@ export default {
   'fabric.emoji.error.image.too.big': '⁣⁢Selected image is more than 1 MB⁠⁬⁬‌⁬⁮‍؜⁡‍⁠⁡⁭⁯‍‌‍⁫⁬⁮⁯‍⁯⁣⁤',
   'fabric.emoji.error.invalid.image': '⁣⁢Selected image is invalid⁬⁠⁫⁪⁫‍‍⁯؜‌‌‌⁪⁮‌⁫⁮⁡⁭‌؜⁪⁪⁠⁭⁯⁣⁤',
   'fabric.emoji.error.upload.failed': '⁣⁢Upload failed⁮⁫؜⁭⁡‍؜⁬⁮⁠⁠⁡⁠⁠؜⁪⁭‌⁯⁣⁤',
+  'fabric.emoji.error.upload.timeout': '⁣⁢Upload timed out⁠⁯⁯⁮⁯‍⁫؜⁫⁫⁮⁯⁫⁭⁪⁮⁡⁡‌⁫⁣⁤',
   'fabric.emoji.image.requirements': '⁣⁢JPG, PNG or GIF. Max size 1 MB.؜⁯⁯؜⁭⁫⁮‌⁯‍⁫⁪⁫⁭⁭‌⁯⁬⁬⁪⁡‍⁡‌⁣⁤',
   'fabric.emoji.name.ariaLabel': '⁣⁢Enter a name for the new emoji‌⁪؜؜‌⁭⁪⁮⁡⁬⁡⁠⁡⁪⁫⁭‍⁮⁡⁯⁣⁤',
   'fabric.emoji.picker': '⁣⁢Emoji picker؜‌⁫⁪‍⁪⁡⁠⁪⁯‍⁬⁬‍⁭⁯‌⁡؜⁪⁠؜⁬⁡⁣⁤',

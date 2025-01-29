@@ -39,6 +39,7 @@ export default {
   'fabric.emoji.error.image.too.big': 'Размер выбранного изображения превышает 1 МБ',
   'fabric.emoji.error.invalid.image': 'Выбрано недопустимое изображение',
   'fabric.emoji.error.upload.failed': 'Не удалось загрузить эмодзи',
+  'fabric.emoji.error.upload.timeout': 'Время ожидания загрузки истекло',
   'fabric.emoji.image.requirements': 'JPG, PNG или GIF. Макс. размер: 1 МБ.',
   'fabric.emoji.name.ariaLabel': 'Введите название для нового эмодзи',
   'fabric.emoji.picker': 'Средство выбора эмодзи',

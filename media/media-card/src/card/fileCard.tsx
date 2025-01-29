@@ -24,11 +24,7 @@ import {
 	type SSR,
 	isVideoMimeTypeSupportedByBrowser,
 } from '@atlaskit/media-common';
-import {
-	MediaViewer,
-	type ViewerOptionsProps,
-	MediaViewerWithPortal,
-} from '@atlaskit/media-viewer';
+import { MediaViewer, type ViewerOptionsProps } from '@atlaskit/media-viewer';
 import React, { Suspense, useEffect, useMemo, useRef, useState, useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import { useMergeRefs } from 'use-callback-ref';
@@ -76,7 +72,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 
 const MediaViewerComponent = (props: React.ComponentProps<typeof MediaViewer>) => {
 	if (fg('media_card_replace_react_portal_for_ds_portal')) {
-		return <MediaViewerWithPortal {...props} />;
+		return <MediaViewer {...props} />;
 	} else {
 		return ReactDOM.createPortal(<MediaViewer {...props} />, document.body);
 	}

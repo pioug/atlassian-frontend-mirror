@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BoxProps
  *
- * @codegen <<SignedSource::5953057bca93305790983ebf1513e471>>
+ * @codegen <<SignedSource::31dc8fb4f36ecf67c99521f59d86c2e1>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::1b547198cbfceadd8838222c33bbda26>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/box/__generated__/index.partial.tsx <<SignedSource::7f0def3e681685c87e720c200f3f4b23>>
  */
 /* eslint-disable @atlaskit/design-system/ensure-design-token-usage/preview */
 
@@ -179,12 +179,7 @@ const xcssValidator = makeXCSSValidator({
 type PlatformBoxProps = React.ComponentProps<typeof PlatformBox>;
 type XCSSProp = ReturnType<typeof xcssValidator>;
 
-export type BoxProps = Pick<
-	PlatformBoxProps,
-	| 'children'
-	| 'ref'
-	| 'testId'
-> & {
+export type BoxProps = Pick<PlatformBoxProps, 'children' | 'ref' | 'testId'> & {
 	/**
 	 * A shorthand for `paddingBlock` and `paddingInline` together.
 	 *
@@ -247,7 +242,7 @@ export type BoxProps = Pick<
 
 	/**
 	 * Apply a subset of permitted styles, powered by Atlassian Design System tokens.
-	 * For a list of supported style properties on this component, see [here](/platform/forge/ui-kit/components/xcss).
+	 * For a list of supported style properties on this component, see [here](https://developer.atlassian.com/platform/forge/ui-kit/components/xcss).
 	 *
 	 * @type XCSSProp
 	 */

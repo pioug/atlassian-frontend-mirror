@@ -289,7 +289,6 @@ export enum ACTION_SUBJECT {
 	DROP_TARGET = 'dropTarget',
 	DRAG = 'drag',
 	ELEMENT = 'element',
-	CONTEXT_MENU = 'contextMenu',
 	INLINE_DIALOG = 'inlineDialog',
 	ENGAGEMENT_PLATFORM = 'engagementPlatform',
 	MEDIA_VIEWER = 'mediaViewer',

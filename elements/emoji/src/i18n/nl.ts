@@ -38,6 +38,7 @@ export default {
   'fabric.emoji.error.image.too.big': 'De geselecteerde afbeelding is groter dan 1 MB',
   'fabric.emoji.error.invalid.image': 'Geselecteerde afbeelding is ongeldig',
   'fabric.emoji.error.upload.failed': 'Uploaden mislukt',
+  'fabric.emoji.error.upload.timeout': 'Upload is verlopen',
   'fabric.emoji.image.requirements': 'JPG, PNG of GIF. Max. grootte 1 MB.',
   'fabric.emoji.name.ariaLabel': 'Voer een naam in voor de nieuwe emoji',
   'fabric.emoji.picker': 'Emoticon-kiezer',

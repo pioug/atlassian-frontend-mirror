@@ -107,9 +107,6 @@
 			"path": "../editor-plugin-context-identifier/tsconfig.app.json"
 		},
 		{
-			"path": "../editor-plugin-context-menu/tsconfig.app.json"
-		},
-		{
 			"path": "../editor-plugin-context-panel/tsconfig.app.json"
 		},
 		{

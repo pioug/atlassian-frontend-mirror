@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - CodeBlockProps
  *
- * @codegen <<SignedSource::098e0843568fab0c7230e24d7d1d8a4f>>
+ * @codegen <<SignedSource::7ac72aa38d908f5ad8be5452cccb84d1>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/code/__generated__/codeblock.partial.tsx <<SignedSource::8d1724c2fcc8fab3764250a4f63f76eb>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/code/__generated__/codeblock.partial.tsx <<SignedSource::88ed38fdfc47db0938e7801195a00403>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type CodeBlockProps = Pick<
   PlatformCodeBlockProps,
   'text' | 'testId' | 'showLineNumbers' | 'language' | 'highlight' | 'highlightedStartText' | 'highlightedEndText' | 'shouldWrapLongLines'
 >;
+
+/**
+ * Code highlights short strings of code snippets inline with body text.
+ */
+export type TCodeBlock<T> = (props: CodeBlockProps) => T;

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - HelperMessageProps
  *
- * @codegen <<SignedSource::cb7b0f9c5f923180d6ab2eb97916ff6c>>
+ * @codegen <<SignedSource::85d8a9188648ed81c09769eedb4935e6>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/helper-message.partial.tsx <<SignedSource::7f2e5d93a731e1fff5075644b7dd2e61>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/helper-message.partial.tsx <<SignedSource::f093808bbd8bf8738059aee750524013>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type HelperMessageProps = Pick<
   PlatformHelperMessageProps,
   'children' | 'testId'
 >;
+
+/**
+ * A form allows users to input information.
+ */
+export type THelperMessage<T> = (props: HelperMessageProps) => T;

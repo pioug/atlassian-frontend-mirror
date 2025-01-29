@@ -17,7 +17,6 @@ import type { AIUnifiedEventPayload } from './ai-unified-events';
 import type { AvatarEventPayload } from './avatar';
 import { type BreakoutEventPayload } from './breakout-events';
 import type { ConfigPanelEventPayload } from './config-panel-events';
-import type { ContextMenuEventPayload } from './context-menu-events';
 import type { CutCopyEventPayload } from './cut-copy-events';
 import type { DatasourceClickedPayload } from './datasource-clicked-events';
 import type { DateEventPayload } from './date-events';
@@ -114,7 +113,6 @@ export type AnalyticsEventPayload<T = void> =
 	| HighlightEventPayload
 	| DatasourceClickedPayload
 	| ElementEventPayload
-	| ContextMenuEventPayload
 	| VisitedLinkAEP
 	| ViewEventPayload
 	| MediaUploadEventPayload

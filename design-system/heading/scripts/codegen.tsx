@@ -24,19 +24,17 @@ export const createTypographyStylesFromTemplate = () => {
 	return (
 		format(
 			`
-const headingSizeStylesMap = {
+const headingSizeStylesMap = cssMap({
   ${headingTokens
 		.map((token) => {
 			return `
-        '${removeVerbosity(
-					token.name,
-				)}': css({ font: ${constructTokenFunctionCall(token.cleanName)} })
+        '${removeVerbosity(token.name)}': { font: ${constructTokenFunctionCall(token.cleanName)} }
       `.trim();
 		})
 		.join(',\n\t')}
-};`,
+	});`,
 			'typescript',
-		) + `\nexport type HeadingSize = keyof typeof headingSizeStylesMap;\n`
+		) + `\ntype HeadingSize = keyof typeof headingSizeStylesMap;\n`
 	);
 };
 

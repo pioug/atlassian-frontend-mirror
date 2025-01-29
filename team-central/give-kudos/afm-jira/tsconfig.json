@@ -24,6 +24,9 @@
 			"path": "../../../design-system/button/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/css/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/drawer/afm-jira/tsconfig.json"
 		},
 		{

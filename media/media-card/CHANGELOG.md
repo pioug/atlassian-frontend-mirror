@@ -1,5 +1,17 @@
 # @atlaskit/media-card
 
+## 78.18.6
+
+### Patch Changes
+
+- [#107675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107675)
+  [`0dcf1e05a2c8d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0dcf1e05a2c8d) -
+  Updated Media Viewer with DS Portal import
+- [#107798](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107798)
+  [`dd36286da62e8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd36286da62e8) -
+  Fixed Card Action Disabled Button Style
+- Updated dependencies
+
 ## 78.18.5
 
 ### Patch Changes

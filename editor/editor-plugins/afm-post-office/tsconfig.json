@@ -90,9 +90,6 @@
 			"path": "../../editor-plugin-context-identifier/afm-post-office/tsconfig.json"
 		},
 		{
-			"path": "../../editor-plugin-context-menu/afm-post-office/tsconfig.json"
-		},
-		{
 			"path": "../../editor-plugin-context-panel/afm-post-office/tsconfig.json"
 		},
 		{

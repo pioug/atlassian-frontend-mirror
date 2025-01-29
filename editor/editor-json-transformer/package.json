@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-json-transformer",
-	"version": "8.21.1",
+	"version": "8.21.2",
 	"description": "JSON transformer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -50,7 +50,7 @@
 		"lodash": "^4.17.21"
 	},
 	"devDependencies": {
-		"@atlaskit/editor-plugin-highlight": "1.19.9",
+		"@atlaskit/editor-plugin-highlight": "1.19.10",
 		"react": "^16.8.0",
 		"typescript": "~5.4.2"
 	},

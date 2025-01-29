@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.11.10",
+	"version": "203.11.12",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -83,8 +83,8 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/adf-utils": "^19.17.0",
 		"@atlaskit/analytics-listeners": "^8.13.0",
-		"@atlaskit/collab-provider": "10.4.0",
-		"@atlaskit/editor-plugin-annotation": "1.26.14",
+		"@atlaskit/collab-provider": "10.4.1",
+		"@atlaskit/editor-plugin-annotation": "1.26.15",
 		"@atlaskit/editor-plugin-card": "^4.5.0",
 		"@atlaskit/editor-plugin-list": "^3.9.0",
 		"@atlaskit/editor-plugin-paste": "^2.0.0",
@@ -95,7 +95,7 @@
 		"@atlaskit/media-test-helpers": "^34.7.0",
 		"@atlaskit/modal-dialog": "^12.19.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/renderer": "^112.9.0",
+		"@atlaskit/renderer": "^112.11.0",
 		"@atlaskit/smart-card": "^34.6.0",
 		"@atlaskit/synchrony-test-helpers": "^3.0.0",
 		"@atlaskit/toggle": "^14.0.0",
@@ -203,9 +203,6 @@
 			"type": "boolean"
 		},
 		"editor_load_conf_collab_docs_without_checks": {
-			"type": "boolean"
-		},
-		"platform_editor_nest_in_quotes_adf_change": {
 			"type": "boolean"
 		},
 		"platform_editor_toolbar_responsive_fixes": {
@@ -404,6 +401,10 @@
 			"referenceOnly": true
 		},
 		"live_pages_content_jump_mitigation": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_nested_tables_paste_dupe_fix": {
 			"type": "boolean",
 			"referenceOnly": true
 		}

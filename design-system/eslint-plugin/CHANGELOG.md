@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.8.4
+
+### Patch Changes
+
+- [#104581](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104581)
+  [`d7e7feee083ad`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d7e7feee083ad) -
+  Updated behavior of no-legacy-icons autofixer to maintain appropriate sizing for legacy icon-only
+  button components
+
 ## 11.8.3
 
 ### Patch Changes

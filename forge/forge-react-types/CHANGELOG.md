@@ -1,5 +1,18 @@
 # @atlaskit/forge-react-types
 
+## 0.34.14
+
+### Patch Changes
+
+- [#107697](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107697)
+  [`e674161f3c419`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e674161f3c419) -
+  Migrate Box, Code, DatePicker, DynamicTable, EmptyState, Flex, and Form to using component props
+  config
+- [#107336](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107336)
+  [`1648368ec825d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1648368ec825d) -
+  Migrate UIKit component codegen prop config setup
+- Updated dependencies
+
 ## 0.34.13
 
 ### Patch Changes

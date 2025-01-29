@@ -125,6 +125,7 @@ export function Popper<CustomModifiers>({
 
 		const maxSizeModifiers = shouldFitViewport ? getMaxSizeModifiers({ viewportPadding }) : [];
 
+		// @ts-ignore Type errors from incompatible @popperjs/core versions between Jira and AFM Platform... we are using ts-ignore here because ts-expect-error will cause an "Unused '@ts-expect-error' directive." error
 		return [...constantModifiers, preventOverflowModifier, offsetModifier, ...maxSizeModifiers];
 	}, [offsetX, offsetY, shouldFitViewport]);
 

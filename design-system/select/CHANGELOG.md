@@ -1,5 +1,19 @@
 # @atlaskit/select
 
+## 18.9.5
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.9.4
+
+### Patch Changes
+
+- [#106683](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106683)
+  [`77ffefbd46831`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/77ffefbd46831) -
+  Remove aria-label from visual-only search indicator
+
 ## 18.9.3
 
 ### Patch Changes

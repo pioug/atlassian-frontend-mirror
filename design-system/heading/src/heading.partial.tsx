@@ -2,12 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { type ReactNode } from 'react';
 
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { cssMap as unboundedCssMap } from '@compiled/react';
 
-import { UNSAFE_inverseColorMap, UNSAFE_useSurface } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { UNSAFE_inverseColorMap } from '@atlaskit/primitives';
+import { UNSAFE_useSurface } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { useHeading } from './heading-context';
@@ -57,12 +58,48 @@ const sizeTagMap = {
 	xxsmall: 'h6',
 } as const;
 
-const headingResetStyles = css({
-	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
-	letterSpacing: 'normal',
-	marginBlock: 0,
-	textTransform: 'none',
+const styles = unboundedCssMap({
+	reset: {
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
+		letterSpacing: 'normal',
+		marginBlock: 0,
+		textTransform: 'none',
+	},
 });
+
+const headingColorStylesMap = cssMap({
+	'color.text': {
+		color: token('color.text'),
+	},
+	'color.text.inverse': {
+		color: token('color.text.inverse'),
+	},
+	'color.text.warning.inverse': {
+		color: token('color.text.warning.inverse'),
+	},
+});
+
+/**
+ * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
+ * @codegen <<SignedSource::c47bed69b7a147a63fdb8c394e98514a>>
+ * @codegenId typography
+ * @codegenCommand yarn workspace @atlaskit/heading codegen
+ */
+const headingSizeStylesMap = cssMap({
+	xxlarge: { font: token('font.heading.xxlarge') },
+	xlarge: { font: token('font.heading.xlarge') },
+	large: { font: token('font.heading.large') },
+	medium: { font: token('font.heading.medium') },
+	small: { font: token('font.heading.small') },
+	xsmall: { font: token('font.heading.xsmall') },
+	xxsmall: { font: token('font.heading.xxsmall') },
+});
+
+type HeadingSize = keyof typeof headingSizeStylesMap;
+
+/**
+ * @codegenEnd
+ */
 
 const useColor = (colorProp?: HeadingColor): HeadingColor => {
 	const surface = UNSAFE_useSurface();
@@ -112,45 +149,11 @@ const Heading = ({ children, size, id, testId, as, color: colorProp }: HeadingPr
 			data-testid={testId}
 			role={needsAriaRole ? 'heading' : undefined}
 			aria-level={needsAriaRole ? hLevel : undefined}
-			css={[headingResetStyles, size && headingSizeStylesMap[size], headingColorStylesMap[color]]}
+			css={[styles.reset, size && headingSizeStylesMap[size], headingColorStylesMap[color]]}
 		>
 			{children}
 		</Component>
 	);
 };
-
-const headingColorStylesMap: Record<HeadingColor, SerializedStyles> = {
-	'color.text': css({
-		color: token('color.text'),
-	}),
-	'color.text.inverse': css({
-		color: token('color.text.inverse'),
-	}),
-	'color.text.warning.inverse': css({
-		color: token('color.text.warning.inverse'),
-	}),
-};
-
-/**
- * THIS SECTION WAS CREATED VIA CODEGEN DO NOT MODIFY {@see http://go/af-codegen}
- * @codegen <<SignedSource::df829c6c0aa19bb57c0c77dc08d12d60>>
- * @codegenId typography
- * @codegenCommand yarn workspace @atlaskit/heading codegen
- */
-const headingSizeStylesMap = {
-	xxlarge: css({ font: token('font.heading.xxlarge') }),
-	xlarge: css({ font: token('font.heading.xlarge') }),
-	large: css({ font: token('font.heading.large') }),
-	medium: css({ font: token('font.heading.medium') }),
-	small: css({ font: token('font.heading.small') }),
-	xsmall: css({ font: token('font.heading.xsmall') }),
-	xxsmall: css({ font: token('font.heading.xxsmall') }),
-};
-
-export type HeadingSize = keyof typeof headingSizeStylesMap;
-
-/**
- * @codegenEnd
- */
 
 export default Heading;

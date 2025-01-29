@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - BadgeProps
  *
- * @codegen <<SignedSource::92388efe5b39418e1cea1294d8ce6855>>
+ * @codegen <<SignedSource::64c7e35a348ef5e063329091a361292f>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/badge/__generated__/index.partial.tsx <<SignedSource::74d81fc03682e51d4ea5e5eea2215574>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/badge/__generated__/index.partial.tsx <<SignedSource::89ad3341c1b8ef4b6fc93df162ac91d3>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 

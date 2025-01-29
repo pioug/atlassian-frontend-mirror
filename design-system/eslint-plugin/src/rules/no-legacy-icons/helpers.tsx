@@ -553,8 +553,7 @@ export const isInsideLegacyButton = (
 	node: Rule.Node,
 	legacyButtonImports: Set<string>,
 ): boolean => {
-	let insideLegacyButton = false;
-	if (
+	return (
 		node.parent &&
 		isNodeOfType(node.parent, 'JSXExpressionContainer') &&
 		node.parent?.parent &&
@@ -564,10 +563,56 @@ export const isInsideLegacyButton = (
 		isNodeOfType(node.parent?.parent?.parent, 'JSXOpeningElement') &&
 		isNodeOfType(node.parent?.parent?.parent.name, 'JSXIdentifier') &&
 		legacyButtonImports.has(node.parent?.parent?.parent.name.name)
-	) {
-		insideLegacyButton = true;
+	);
+};
+
+/**
+ *
+ * @param node Icon JSXelement
+ * @param newButtonImports list of legacy button import specifiers
+ * @returns if Icon is inside a legacy button
+ */
+export const isInsideIconOnlyLegacyButton = (
+	node: Rule.Node,
+	legacyButtonImports: Set<string>,
+): boolean => {
+	let insideIconOnlyLegacyButton = false;
+
+	if (isInsideLegacyButton(node, legacyButtonImports)) {
+		const legacyButtonAttributes =
+			node.parent &&
+			isNodeOfType(node.parent, 'JSXExpressionContainer') &&
+			node.parent?.parent &&
+			isNodeOfType(node.parent.parent, 'JSXAttribute') &&
+			node.parent.parent.parent &&
+			isNodeOfType(node.parent?.parent?.parent, 'JSXOpeningElement')
+				? node.parent?.parent?.parent.attributes
+						.map(
+							(attribute) =>
+								isNodeOfType(attribute, 'JSXAttribute') &&
+								isNodeOfType(attribute.name, 'JSXIdentifier') &&
+								attribute?.name?.name,
+						)
+						.filter(Boolean)
+				: [];
+
+		const hasIconBefore = legacyButtonAttributes.includes('iconBefore');
+		const hasIconAfter = legacyButtonAttributes.includes('iconAfter');
+		const hasChildren =
+			node.parent?.parent?.parent?.parent &&
+			isNodeOfType(node.parent?.parent?.parent?.parent, 'JSXElement') &&
+			node.parent?.parent?.parent?.parent.children.length > 0;
+
+		if (
+			(hasIconBefore && !hasIconAfter && !hasChildren) ||
+			(!hasIconBefore && hasIconAfter && !hasChildren) ||
+			(!hasIconBefore && !hasIconAfter && hasChildren)
+		) {
+			insideIconOnlyLegacyButton = true;
+		}
 	}
-	return insideLegacyButton;
+
+	return insideIconOnlyLegacyButton;
 };
 
 const findProp = (attributes: (JSXAttribute | JSXSpreadAttribute)[], propName: string) =>

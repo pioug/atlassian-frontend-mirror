@@ -38,6 +38,7 @@ export default {
   'fabric.emoji.error.image.too.big': "Seçilen görselin boyutu 1 MB'den büyük",
   'fabric.emoji.error.invalid.image': 'Seçilen görsel geçersiz',
   'fabric.emoji.error.upload.failed': 'Yükleme başarısız oldu',
+  'fabric.emoji.error.upload.timeout': 'Yükleme işlemi zaman aşımına uğradı',
   'fabric.emoji.image.requirements': 'JPG, PNG veya GIF. Maksimum 1 MB boyutunda.',
   'fabric.emoji.name.ariaLabel': 'Yeni emoji için bir ad girin',
   'fabric.emoji.picker': 'Emoji seçici',

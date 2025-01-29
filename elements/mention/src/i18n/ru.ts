@@ -13,6 +13,7 @@ export default {
     '{0, plural, one {Команда • 1 участник} few {Команда • {0} участника} many {Команда • {0} участников} other {Команда • {0} участника}}',
   'fabric.elements.mentions.team.member.count.including.you':
     '{0, plural, one {Команда • 1 участник, включая вас} few {Команда • {0} участника, включая вас} many {Команда • {0} участников, включая вас} other {Команда • {0} участника, включая вас}}',
+  'fabric.elements.mentions.xproduct.mention.description': 'Требуется доступ к Confluence',
   'fabric.mention.error.defaultAction': 'Повторите попытку через несколько секунд.',
   'fabric.mention.error.defaultHeadline': 'Произошла ошибка',
   'fabric.mention.error.differentText': 'Попробуйте ввести другой текст.',

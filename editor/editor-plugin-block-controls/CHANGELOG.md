@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.21.7
+
+### Patch Changes
+
+- [#105486](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105486)
+  [`ed00542ef3156`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ed00542ef3156) -
+  Validate all the nodes in the selection instead of just the handle node
+
 ## 2.21.6
 
 ### Patch Changes

@@ -12,6 +12,7 @@ export default {
   'fabric.elements.mentions.team.member.count': '{0, plural, one {Tiimi • 1 jäsen} other {Tiimi • {0} jäsentä}}',
   'fabric.elements.mentions.team.member.count.including.you':
     '{0, plural, one {Tiimi • 1 jäsen sinä mukaan lukien} other {Tiimi • {0} jäsentä sinä mukaan lukien}}',
+  'fabric.elements.mentions.xproduct.mention.description': 'Tarvitsee Confluence-käyttöoikeuden',
   'fabric.mention.error.defaultAction': 'Yritä uudelleen hetken kuluttua',
   'fabric.mention.error.defaultHeadline': 'Jotain meni pieleen',
   'fabric.mention.error.differentText': 'Kirjoita eri teksti',

@@ -166,6 +166,7 @@ export const selectionToolbarPlugin: SelectionToolbarPlugin = (options) => {
 
 					if (
 						editorExperiment('contextual_formatting_toolbar', true) ||
+						editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant1') ||
 						editorExperiment('platform_editor_contextual_formatting_toolbar_v2', 'variant2')
 					) {
 						let shouldNotAddSeparator = false;

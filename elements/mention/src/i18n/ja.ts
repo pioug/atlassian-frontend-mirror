@@ -12,6 +12,7 @@ export default {
   'fabric.elements.mentions.team.member.count': '{0, plural, other {チーム • {0} 人のメンバー}}',
   'fabric.elements.mentions.team.member.count.including.you':
     '{0, plural, other {チーム • あなたを含む {0} 人のメンバー}}',
+  'fabric.elements.mentions.xproduct.mention.description': 'Confluence へのアクセス権を必要としています',
   'fabric.mention.error.defaultAction': '数秒後にもう一度お試しください',
   'fabric.mention.error.defaultHeadline': '問題が発生しました',
   'fabric.mention.error.differentText': '別のテキストを入力してください',

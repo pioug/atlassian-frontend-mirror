@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - FormHeaderProps
  *
- * @codegen <<SignedSource::d8deb5d9e54d7bbbf5f338de52efe8cd>>
+ * @codegen <<SignedSource::74a8285c7ae5a0c5db7b8cafa4d8226b>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-header.partial.tsx <<SignedSource::a819d70cfd6efa6115889e0353f7ec5f>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-header.partial.tsx <<SignedSource::038ad7a850af23fb1c9b30de39ab0552>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type FormHeaderProps = Pick<
   PlatformFormHeaderProps,
   'title' | 'description' | 'children'
 >;
+
+/**
+ * A form allows users to input information.
+ */
+export type TFormHeader<T> = (props: FormHeaderProps) => T;

@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - FormFooterProps
  *
- * @codegen <<SignedSource::42bff10c7cc9fcff3c906d4b9af8abd7>>
+ * @codegen <<SignedSource::cb77ae443b27f1229afcd556eb365acf>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-footer.partial.tsx <<SignedSource::e1c39bcdc2f7edc7d21cd21e0c4a47ca>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/form/__generated__/form-footer.partial.tsx <<SignedSource::ff2413efe154db0f89a03200caf50ced>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type FormFooterProps = Pick<
   PlatformFormFooterProps,
   'children' | 'align'
 >;
+
+/**
+ * A form allows users to input information.
+ */
+export type TFormFooter<T> = (props: FormFooterProps) => T;

@@ -4,8 +4,7 @@
  */
 import { useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { cssMap, jsx } from '@compiled/react';
 
 import { Label } from '@atlaskit/form';
 import FilterIcon from '@atlaskit/icon/glyph/filter';
@@ -14,7 +13,7 @@ import CustomerIcon from '@atlaskit/icon/glyph/person';
 import QueueIcon from '@atlaskit/icon/glyph/queues';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
 import LanguageIcon from '@atlaskit/icon/glyph/world';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import Select from '@atlaskit/select';
 
 import {
@@ -31,8 +30,10 @@ import {
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
 
-const containerStyles = xcss({
-	flexGrow: 1,
+const styles = cssMap({
+	container: {
+		flexGrow: 1,
+	},
 });
 
 interface Option {
@@ -61,7 +62,7 @@ const ControlledExample = () => {
 	return (
 		<AppFrame
 			content={
-				<Box padding="space.400" xcss={containerStyles}>
+				<Box padding="space.400" xcss={styles.container}>
 					<Label htmlFor="nav-select">Select a navigation item</Label>
 					<Select<Option>
 						inputId="nav-select"

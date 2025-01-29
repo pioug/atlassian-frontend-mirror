@@ -13,7 +13,6 @@ import React, {
 import EditorDoneIcon from '@atlaskit/icon/core/migration/check-mark--editor-done';
 import Tooltip from '@atlaskit/tooltip';
 import { COLOR_PALETTE_MENU, KEY_ENTER, KEY_SPACE, KEY_TAB } from '../constants';
-import { fg } from '@atlaskit/platform-feature-flags';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
@@ -126,8 +125,7 @@ const ColorCard = forwardRef<ColorCardRef, Props>((props, componentRef) => {
 
 	const ariaChecked = isColorPaletteMenu ? selected : undefined;
 	const ariaLabel = isColorPaletteMenu ? label : undefined;
-	const isOutlineVariant =
-		fg('thor_colourful_single_select_milestone1_gate') && variant === 'outline';
+	const isOutlineVariant = variant === 'outline';
 	const newCheckmarkColor = isOutlineVariant ? token('color.icon') : checkMarkColor;
 
 	return (

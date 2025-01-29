@@ -210,7 +210,7 @@ const workingPdfWithRemotePreview = createGenerator({
 	},
 });
 
-const workingPdfWithoutRemotePreview = createGenerator({
+const pdfNoPreviewItem: ResponseFileItem = {
 	type: 'file',
 	id: '5daedbe2-9394-4c13-bcb8-2b041bbdd338',
 	collection: 'MediaServicesSample',
@@ -248,6 +248,16 @@ const workingPdfWithoutRemotePreview = createGenerator({
 		},
 		representations: {},
 		createdAt: 1691113227581, // '04 Aug 2023, 01:40 AM' UTC
+	},
+};
+const workingPdfWithoutRemotePreview = createGenerator(pdfNoPreviewItem);
+
+const abusePdfNoPreview = createGenerator({
+	...pdfNoPreviewItem,
+	details: {
+		...pdfNoPreviewItem.details,
+		name: 'document-without-preview.pdf',
+		abuseClassification: { classification: 'COPYRIGHT', confidence: 'MEDIUM' },
 	},
 });
 
@@ -889,6 +899,7 @@ export const generateSampleFileItem = {
 	abuseImage,
 	abuseSvg,
 	abuseFailedVideo,
+	abusePdfNoPreview,
 	csv,
 	spreadsheet,
 };

@@ -34,7 +34,7 @@ type AIProactiveSuggestionInsertedAEP = TrackAEP<
 	ACTION_SUBJECT_ID.PROACTIVE_SUGGESTION,
 	{
 		aiInteractionID: string | undefined;
-		triggeredFrom: 'contextPanel' | 'preview';
+		triggeredFrom: string;
 		transformAction: string;
 		transformType: 'REPLACE_PARAGRAPH';
 		insertionMethod: 'replace' | 'insertBelow';
@@ -48,7 +48,7 @@ type AIProactiveSuggestionDismissedAEP = TrackAEP<
 	ACTION_SUBJECT_ID.PROACTIVE_SUGGESTION,
 	{
 		aiInteractionID: string | undefined;
-		triggeredFrom: 'contextPanel' | 'preview';
+		triggeredFrom: string;
 		transformAction: string;
 		transformType: 'REPLACE_PARAGRAPH';
 	},

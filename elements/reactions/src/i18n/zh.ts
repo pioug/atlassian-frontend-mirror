@@ -19,8 +19,9 @@ export default {
   'reactions.dialog.close': '关闭',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': '向左导航',
+  'reactions.dialog.people-who-reacted.subheader': '使用 {emojiShortName} 回应的人员',
   'reactions.dialog.reactions.count': '{count, plural, other {{count,number} 条反应}}',
   'reactions.dialog.right.navigate': '向右导航',
-  'reactions.dialog.viewall': '查看哪些人已反应',
+  'reactions.dialog.viewall': '查看全部',
   'reactions.dialog.viewall.tooltip': '查看所有用户反应',
 };

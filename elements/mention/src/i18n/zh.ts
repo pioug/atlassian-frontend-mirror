@@ -11,6 +11,7 @@ export default {
   'fabric.elements.mentions.team.member.50plus.including.you': '团队 • 50 多名成员，包括您',
   'fabric.elements.mentions.team.member.count': '{0, plural, other {团队 • {0} 名成员}}',
   'fabric.elements.mentions.team.member.count.including.you': '{0, plural, other {团队 • {0} 名成员，包括您}}',
+  'fabric.elements.mentions.xproduct.mention.description': '需要访问 Confluence',
   'fabric.mention.error.defaultAction': '几秒钟后再试一次',
   'fabric.mention.error.defaultHeadline': '出错了',
   'fabric.mention.error.differentText': '尝试输入不同的文本',

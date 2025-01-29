@@ -1,5 +1,15 @@
 # @atlaskit/editor-plugin-table
 
+## 9.2.1
+
+### Patch Changes
+
+- [#107340](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107340)
+  [`d4a5bbf7b730d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d4a5bbf7b730d) -
+  [ux] ED-26057 Prevent the `unwrapContentFromTable` method in editor-plugin-table from incorrectly
+  attempting to unwrap nested tables, resulting in duplicate content in some circumstances when
+  copy/pasting nested table content
+
 ## 9.2.0
 
 ### Minor Changes

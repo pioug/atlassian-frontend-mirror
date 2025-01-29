@@ -59,6 +59,15 @@ const archiveDownloadButtonWrapperStyles = css({
 	},
 });
 
+const disabledArchiveDownloadButtonWrapperStyles = css({
+	padding: `${token('space.100', '8px')} 7px 5px ${token('space.100', '8px')}`,
+	border: 'none',
+	borderRadius: '3px',
+	backgroundColor: 'transparent',
+	color: token('color.icon', '#9FADBC'),
+	cursor: 'not-allowed',
+});
+
 const archiveSidebarFolderWrapperStyles = css({
 	transform: 'translateY(-100%)',
 	transition: 'all 1s',
@@ -157,7 +166,23 @@ export const ArchiveSidebarFolderWrapper = ({ children }: Children) => {
 export const ArchiveDownloadButtonWrapper = ({ children, onClick }: Children & OnClick) => {
 	return (
 		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-		<div css={archiveDownloadButtonWrapperStyles} onClick={onClick}>
+		<div
+			css={archiveDownloadButtonWrapperStyles}
+			onClick={onClick}
+			data-testid="media-archiveDownloadButton"
+		>
+			{children}
+		</div>
+	);
+};
+
+export const DisabledArchiveDownloadButtonWrapper = ({ children }: Children) => {
+	return (
+		// eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+		<div
+			css={disabledArchiveDownloadButtonWrapperStyles}
+			data-testid="media-disabledArchiveDownloadButton"
+		>
 			{children}
 		</div>
 	);

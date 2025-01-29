@@ -144,6 +144,7 @@ export type FloatingToolbarButton<T extends Object> = {
 	onUnmount?: () => void;
 	icon?: Icon;
 	iconFallback?: Icon;
+	iconAfter?: Icon;
 	selected?: boolean;
 	disabled?: boolean;
 	hidden?: boolean;

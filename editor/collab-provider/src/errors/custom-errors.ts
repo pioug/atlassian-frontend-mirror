@@ -1,6 +1,6 @@
 import type { CantSyncUpErrorAttributes, DocumentUpdateErrorAttributes } from '../helpers/const';
 
-type ValidEventAttributeType = boolean | string | number;
+type ValidEventAttributeType = boolean | string | number | object;
 // Custom Errors
 export class CustomError extends Error {
 	extraEventAttributes?: { [key: string]: ValidEventAttributeType };

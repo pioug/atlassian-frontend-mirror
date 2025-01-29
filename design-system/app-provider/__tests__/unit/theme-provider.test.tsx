@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import * as tokens from '@atlaskit/tokens';
@@ -73,10 +73,12 @@ describe('ThemeProvider', () => {
 				<ThemedComponent />,
 			</ThemeProvider>,
 		);
-		expect(setGlobalThemeSpy).toHaveBeenCalledWith({
-			colorMode: 'light',
-			...defaultTheme,
-		});
+		await waitFor(() =>
+			expect(setGlobalThemeSpy).toHaveBeenCalledWith({
+				colorMode: 'light',
+				...defaultTheme,
+			}),
+		);
 	});
 
 	describe('useSetTheme', () => {
@@ -120,12 +122,14 @@ describe('ThemeProvider', () => {
 		it('should set default theme state properties when defaultTheme is omitted', async () => {
 			render(<ThemeProvider defaultColorMode="light">null</ThemeProvider>);
 
-			expect(setGlobalThemeSpy).toHaveBeenCalledWith({
-				colorMode: 'light',
-				light: 'light',
-				dark: 'dark',
-				spacing: 'spacing',
-			});
+			await waitFor(() =>
+				expect(setGlobalThemeSpy).toHaveBeenCalledWith({
+					colorMode: 'light',
+					light: 'light',
+					dark: 'dark',
+					spacing: 'spacing',
+				}),
+			);
 		});
 
 		it('should set default theme state properties when defaultTheme is partial', async () => {
@@ -137,12 +141,14 @@ describe('ThemeProvider', () => {
 				</ThemeProvider>,
 			);
 
-			expect(setGlobalThemeSpy).toHaveBeenCalledWith({
-				colorMode: 'light',
-				light: 'light',
-				dark: 'dark',
-				spacing: 'spacing',
-			});
+			await waitFor(() =>
+				expect(setGlobalThemeSpy).toHaveBeenCalledWith({
+					colorMode: 'light',
+					light: 'light',
+					dark: 'dark',
+					spacing: 'spacing',
+				}),
+			);
 		});
 
 		it('should set default theme state properties when defaultTheme is partial and includes non-default sub-themes', async () => {
@@ -159,14 +165,16 @@ describe('ThemeProvider', () => {
 				</ThemeProvider>,
 			);
 
-			expect(setGlobalThemeSpy).toHaveBeenCalledWith({
-				colorMode: 'light',
-				light: 'light',
-				shape: 'shape',
-				dark: 'dark',
-				typography: 'typography-adg3',
-				spacing: 'spacing',
-			});
+			await waitFor(() =>
+				expect(setGlobalThemeSpy).toHaveBeenCalledWith({
+					colorMode: 'light',
+					light: 'light',
+					shape: 'shape',
+					dark: 'dark',
+					typography: 'typography-adg3',
+					spacing: 'spacing',
+				}),
+			);
 		});
 	});
 

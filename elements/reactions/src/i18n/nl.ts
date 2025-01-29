@@ -19,8 +19,9 @@ export default {
   'reactions.dialog.close': 'Sluiten',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigeer naar links',
+  'reactions.dialog.people-who-reacted.subheader': 'Mensen die {emojiShortName} hebben gereageerd',
   'reactions.dialog.reactions.count': '{count, plural, one {{count,number} reactie} other {{count,number} reacties}}',
   'reactions.dialog.right.navigate': 'Navigeer naar rechts',
-  'reactions.dialog.viewall': 'Bekijken wie er heeft gereageerd',
+  'reactions.dialog.viewall': 'Alles bekijken',
   'reactions.dialog.viewall.tooltip': 'Alle reacties van gebruikers bekijken',
 };

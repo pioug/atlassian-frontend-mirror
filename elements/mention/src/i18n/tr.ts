@@ -12,6 +12,7 @@ export default {
   'fabric.elements.mentions.team.member.count': '{0, plural, one {Takım • 1 üye} other {Takım • {0} üye}}',
   'fabric.elements.mentions.team.member.count.including.you':
     '{0, plural, one {Takım • Siz de dahil olmak üzere 1 üye} other {Takım • Siz de dahil olmak üzere {0} üye}}',
+  'fabric.elements.mentions.xproduct.mention.description': "Confluence'a erişim gerekir",
   'fabric.mention.error.defaultAction': 'Birkaç saniye sonra yeniden deneyin',
   'fabric.mention.error.defaultHeadline': 'Bir hata oluştu',
   'fabric.mention.error.differentText': 'Farklı bir metin girmeyi deneyin',

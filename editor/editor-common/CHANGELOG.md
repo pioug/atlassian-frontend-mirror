@@ -1,5 +1,23 @@
 # @atlaskit/editor-common
 
+## 99.5.4
+
+### Patch Changes
+
+- [#107202](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107202)
+  [`0774310c32dec`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0774310c32dec) -
+  Restructured the proactive ai plugin content components to simplify the plugin code and better
+  seperate individual components to their own files.
+
+## 99.5.3
+
+### Patch Changes
+
+- [#107473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107473)
+  [`962b3297548df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/962b3297548df) -
+  [ux] Implement variation 2 for editor contextual toolbar formatting experiment
+- Updated dependencies
+
 ## 99.5.2
 
 ### Patch Changes

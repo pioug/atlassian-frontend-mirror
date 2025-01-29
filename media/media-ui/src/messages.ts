@@ -711,7 +711,7 @@ export const messages: Messages = defineMessages({
 	},
 	download_disabled_security_policy: {
 		id: 'fabric.media.download_disabled_security_policy',
-		defaultMessage: 'Downloads have been disabled due to security policy',
+		defaultMessage: "Download is blocked by your organization's security policy.",
 		description: '',
 	},
 	unknown: {

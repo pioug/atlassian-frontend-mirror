@@ -20,9 +20,10 @@ export default {
   'reactions.dialog.close': 'Zavřít',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigace doleva',
+  'reactions.dialog.people-who-reacted.subheader': 'Lidé, kteří reagovali smajlíkem {emojiShortName}',
   'reactions.dialog.reactions.count':
     '{count, plural, one {{count,number} reakce} few {{count,number} reakce} many {{count,number} reakce} other {{count,number} reakcí}}',
   'reactions.dialog.right.navigate': 'Navigace doprava',
-  'reactions.dialog.viewall': 'Podívejte se, kdo reagoval',
+  'reactions.dialog.viewall': 'Zobrazit vše',
   'reactions.dialog.viewall.tooltip': 'Zobrazit všechny reakce uživatelů',
 };

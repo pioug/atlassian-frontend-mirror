@@ -141,24 +141,9 @@ function ThemeProvider({ children, defaultColorMode, defaultTheme }: ThemeProvid
 		setTheme((theme) => ({ ...theme, ...nextTheme }));
 	}, []);
 
-	useEffect(() => {
-		if (fg('platform_dst_fix_set_theme_race')) {
-			return;
-		}
-
-		setGlobalTheme({
-			...theme,
-			colorMode: reconciledColorMode,
-		});
-	}, [theme, reconciledColorMode]);
-
 	const lastSetGlobalThemePromiseRef = useRef<ReturnType<typeof setGlobalTheme> | null>(null);
 
 	useEffect(() => {
-		if (!fg('platform_dst_fix_set_theme_race')) {
-			return;
-		}
-
 		/**
 		 * We need to wait for any previous `setGlobalTheme` calls to finish before calling it again.
 		 * This is to prevent race conditions as `setGlobalTheme` is async and mutates the DOM (e.g. sets the

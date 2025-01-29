@@ -2,16 +2,14 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { forwardRef, type HTMLAttributes, type Ref } from 'react';
+import React, { forwardRef, type HTMLAttributes, type Ref } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
 import useScrollbarWidth from '@atlaskit/ds-lib/use-scrollbar-width';
+import { token } from '@atlaskit/tokens';
 
 import { useShouldNestedElementRender } from '../NestableNavigationContent/context';
-
-import { containerCSS, innerContainerCSS, outerContainerCSS } from './styles';
 
 export interface NavigationContentProps {
 	children: React.ReactNode;
@@ -29,6 +27,94 @@ export interface NavigationContentProps {
 	 */
 	testId?: string;
 }
+
+const outerContainerCSS = css({
+	display: 'flex',
+	height: '100%',
+	position: 'relative',
+	overflow: 'hidden',
+	'&::before': {
+		display: 'block',
+		height: 2,
+		position: 'absolute',
+		zIndex: 1,
+		backgroundColor: `var(--ds-menu-seperator-color, ${token('color.border')})`,
+		borderRadius: `${token('border.radius.050')}`,
+		content: "''",
+		insetInlineEnd: 8,
+		insetInlineStart: `${token('space.100')}`,
+	},
+	'&::after': {
+		display: 'block',
+		height: 2,
+		position: 'absolute',
+		zIndex: 1,
+		flexShrink: 0,
+		backgroundColor: `var(--ds-menu-seperator-color, ${token('color.border')})`,
+		borderRadius: `${token('border.radius.050')}`,
+		content: "''",
+		insetBlockEnd: 0,
+		insetInlineEnd: 8,
+		insetInlineStart: `${token('space.100')}`,
+	},
+});
+
+const innerContainerCSS = cssMap({
+	basic: {
+		display: 'flex',
+		boxSizing: 'border-box',
+		width: '100%',
+		position: 'relative',
+		flexDirection: 'column',
+		overflow: 'auto',
+		'&::after': {
+			display: 'block',
+			height: 2,
+			position: 'relative',
+			zIndex: 2,
+			flexShrink: 0,
+			backgroundColor: `var(--ds-menu-scroll-indicator-color, ${token('elevation.surface')})`,
+			borderRadius: `${token('border.radius.050')}`,
+			content: "''",
+			marginBlockStart: 'auto',
+		},
+	},
+	topScrollIndicator: {
+		'&::before': {
+			display: 'block',
+			height: 2,
+			position: 'absolute',
+			zIndex: 2,
+			backgroundColor: `var(--ds-menu-scroll-indicator-color, ${token('elevation.surface')})`,
+			borderRadius: `${token('border.radius.050')}`,
+			content: "''",
+			insetInlineEnd: 0,
+			insetInlineStart: 0,
+		},
+	},
+});
+
+const containerCSS = cssMap({
+	basic: {
+		position: 'relative',
+		marginInlineEnd: `${token('space.100')}`,
+		marginInlineStart: `${token('space.100')}`,
+		marginBlockStart: 0,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& [data-ds--menu--heading-item]': {
+			marginBlockEnd: `${token('space.075')}`,
+			marginBlockStart: `${token('space.200')}`,
+		},
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
+		'& [data-ds--menu--skeleton-heading-item]': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginBlockEnd: 9,
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+			marginBlockStart: 25,
+		},
+	},
+	marginBlockStart: { marginBlockStart: `${token('space.025')}` },
+});
 
 /**
  * __Navigation content__
@@ -53,19 +139,17 @@ const NavigationContent = forwardRef<
 
 	const typedRef = ref as Ref<HTMLDivElement>;
 	return (
-		<div
-			ref={typedRef}
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={outerContainerCSS({
-				showTopScrollIndicator,
-				scrollbarWidth: scrollbar.width,
-			})}
-			data-testid={testId}
-		>
-			{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-			<div ref={scrollbar.ref} css={innerContainerCSS({ showTopScrollIndicator })}>
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766 */}
-				<div css={containerCSS({ showTopScrollIndicator })}>{children}</div>
+		<div ref={typedRef} css={outerContainerCSS} data-testid={testId}>
+			<div
+				ref={scrollbar.ref}
+				css={[
+					innerContainerCSS.basic,
+					!showTopScrollIndicator && innerContainerCSS.topScrollIndicator,
+				]}
+			>
+				<div css={[containerCSS.basic, showTopScrollIndicator && containerCSS.marginBlockStart]}>
+					{children}
+				</div>
 			</div>
 		</div>
 	);

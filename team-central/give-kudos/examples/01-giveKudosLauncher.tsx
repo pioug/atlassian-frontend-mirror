@@ -5,17 +5,18 @@
 
 import { useCallback, useState } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import Flag, { FlagGroup, type FlagProps } from '@atlaskit/flag';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { GiveKudosLauncher } from '../src';
 
-const buttonWrapperStyles = xcss({
-	margin: 'space.200',
+const styles = cssMap({
+	buttonWrapper: {
+		margin: token('space.200'),
+	},
 });
 
 export default function Example() {
@@ -43,7 +44,7 @@ export default function Example() {
 
 	return (
 		<div>
-			<Box xcss={buttonWrapperStyles}>
+			<Box xcss={styles.buttonWrapper}>
 				<Button onClick={openGiveKudos}>Give Kudos</Button>
 			</Box>
 			<GiveKudosLauncher

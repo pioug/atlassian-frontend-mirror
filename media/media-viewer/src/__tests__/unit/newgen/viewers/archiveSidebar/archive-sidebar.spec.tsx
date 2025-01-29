@@ -8,6 +8,7 @@ jest.mock('unzipit', () => ({
 	HTTPRangeReader: () => 'reader',
 }));
 jest.unmock('../../../../../utils');
+import { IntlProvider } from 'react-intl-next';
 
 import React from 'react';
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
@@ -29,9 +30,14 @@ describe('ArchiveSidebar', () => {
 			mediaClient: mediaClient,
 			isArchiveEntryLoading: false,
 			onError: () => {},
+			shouldRenderAbuseModal: false,
 		};
 		const passedProps = { ...baseProps, ...props };
-		return render(<ArchiveSidebar {...passedProps} />);
+		return render(
+			<IntlProvider locale="eng">
+				<ArchiveSidebar {...passedProps} />
+			</IntlProvider>,
+		);
 	}
 
 	it('should set root using passed in entry', async () => {

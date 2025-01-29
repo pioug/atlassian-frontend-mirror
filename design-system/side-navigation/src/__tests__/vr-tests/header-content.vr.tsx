@@ -6,7 +6,9 @@ snapshot(Example, {
 	variants: [
 		{
 			name: 'header-content',
-			environment: {},
+			environment: {
+				colorScheme: 'light',
+			},
 		},
 	],
 });

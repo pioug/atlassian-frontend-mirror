@@ -29,6 +29,7 @@ import {
 	getMigrationMapObject,
 	getUpcomingIcons,
 	type GuidanceList,
+	isInsideIconOnlyLegacyButton,
 	isInsideLegacyButton,
 	isInsideNewButton,
 	isSize,
@@ -490,32 +491,13 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 
 		// Flag icons imported from migration path
 		if (!shouldUseMigrationPath && Object.keys(migrationIconImports).includes(name)) {
-			const sizeProp = node.openingElement.attributes.find(
-				(attribute) =>
-					attribute.type === 'JSXAttribute' &&
-					(attribute.name.name === 'size' || attribute.name.name === 'LEGACY_size'),
-			);
-
-			const insideNewButton = isInsideNewButton(node, newButtonImports);
-			// Add spacious spacing if:
-			// 1. size is medium, or not set (default is medium)
-			// 2. not inside a new or legacy button
-			const shouldAddSpaciousSpacing =
-				((sizeProp &&
-					sizeProp.type === 'JSXAttribute' &&
-					sizeProp.value?.type === 'Literal' &&
-					sizeProp.value.value === 'medium') ||
-					!sizeProp) &&
-				!isInsideNewButton(node, newButtonImports) &&
-				!isInsideLegacyButton(node, legacyButtonImports);
-
 			createAutoMigrationError({
 				node,
 				importSource: migrationIconImports[name].packageName,
 				iconName: name,
 				errors: errorsAuto,
-				spacing: shouldAddSpaciousSpacing ? 'spacious' : undefined,
-				insideNewButton,
+				spacing: undefined,
+				insideNewButton: true,
 			});
 		}
 
@@ -528,6 +510,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 			// Determine if inside a legacy default button - if so:
 			// the auto fixer will add spacing prop to the medium size icon
 			const insideLegacyButton = isInsideLegacyButton(node, legacyButtonImports);
+			const insideIconOnlyLegacyButton = isInsideIconOnlyLegacyButton(node, legacyButtonImports);
 
 			// Find size prop on node
 			let size: Size | null = 'medium';
@@ -650,7 +633,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 
 			// Add spacing if:
 			// 1. size is medium for core/utility icons or small for utility icons, or not set (default is medium for core and small for utility icons)
-			// 2. not inside a new or legacy button
+			// 2. not inside a new or legacy button (except for icon-only legacy buttons)
 			const sizeProp = node.openingElement.attributes.find(
 				(attribute) =>
 					attribute.type === 'JSXAttribute' &&
@@ -658,7 +641,7 @@ export const createChecks = (context: Rule.RuleContext): ReturnObject => {
 			);
 
 			let spacing: string | undefined;
-			if (!insideNewButton && !insideLegacyButton) {
+			if (!insideNewButton && !(insideLegacyButton && !insideIconOnlyLegacyButton)) {
 				if (sizeProp && sizeProp.type === 'JSXAttribute' && sizeProp.value?.type === 'Literal') {
 					if (sizeProp.value.value === 'medium') {
 						spacing = 'spacious';

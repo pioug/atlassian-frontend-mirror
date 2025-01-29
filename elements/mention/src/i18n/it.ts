@@ -12,6 +12,7 @@ export default {
   'fabric.elements.mentions.team.member.count': '{0, plural, one {Team • 1 membro} other {Team • {0} membri}}',
   'fabric.elements.mentions.team.member.count.including.you':
     '{0, plural, one {Team • 1 membro, te compreso} other {Team • {0} membri, te compreso}}',
+  'fabric.elements.mentions.xproduct.mention.description': "Necessita dell'accesso a Confluence",
   'fabric.mention.error.defaultAction': 'Riprova tra qualche secondo',
   'fabric.mention.error.defaultHeadline': 'Si è verificato un errore',
   'fabric.mention.error.differentText': 'Prova a inserire un testo diverso',

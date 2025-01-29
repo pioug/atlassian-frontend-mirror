@@ -1,6 +1,7 @@
 import { getCollabState, sendableSteps } from '@atlaskit/prosemirror-collab';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorState } from '@atlaskit/editor-test-helpers/create-editor-state';
+import { defaultSchema } from '@atlaskit/adf-schema/schema-default';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { doc, p } from '@atlaskit/editor-test-helpers/doc-builder';
 
@@ -13,6 +14,7 @@ import type { Provider } from '..';
 import { EVENT_STATUS, CatchupEventReason } from '../../helpers/const';
 import { createSocketIOCollabProvider } from '../../socket-io-provider';
 import { AcknowledgementResponseTypes } from '../../types';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 jest.mock('lodash/throttle', () => jest.fn((fn) => fn));
 jest.mock('@atlaskit/prosemirror-collab', () => {
@@ -574,5 +576,87 @@ describe('#sendData', () => {
 		provider.send(null, null, anyEditorState);
 
 		expect(documentServiceBroadcastSpy).not.toHaveBeenCalled();
+	});
+
+	ffTest.on('log_obfuscated_steps_for_view_only', 'Steps obfuscation', () => {
+		it('logs the obfuscated steps', async () => {
+			// @ts-ignore - mocking protected getter
+			jest.spyOn(provider, 'isViewOnly').mockReturnValue(true);
+
+			const createDoc = doc(p('Hello Old or New World'));
+			const node = createDoc(defaultSchema);
+
+			// Create a mock replace step from the node slice.
+			const mockStep = new ReplaceStep(1, 1, node.slice(0, node.content.size));
+
+			(sendableSteps as jest.Mock)
+				.mockReturnValueOnce({
+					steps: [mockStep],
+				})
+				.mockReturnValueOnce({
+					steps: [mockStep],
+				});
+
+			provider.send(null, createEditorState(createDoc), createEditorState(createDoc));
+
+			await jest.advanceTimersByTimeAsync(1000);
+
+			expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalled();
+
+			const { attributes } = (fakeAnalyticsWebClient.sendTrackEvent as jest.Mock).mock.calls[1][0];
+
+			expect(attributes).toHaveProperty('stepsFromOldState');
+			expect(attributes).toHaveProperty('stepsFromNewState');
+			expect(attributes).toMatchSnapshot();
+		});
+
+		it('logs an empty string when no steps are present', async () => {
+			// @ts-ignore - mocking protected getter
+			jest.spyOn(provider, 'isViewOnly').mockReturnValue(true);
+
+			const createDoc = doc(p('Hello Old or New World'));
+
+			(sendableSteps as jest.Mock)
+				.mockReturnValueOnce({
+					steps: undefined,
+				})
+				.mockReturnValueOnce({
+					steps: undefined,
+				});
+
+			provider.send(null, createEditorState(createDoc), createEditorState(createDoc));
+
+			await jest.advanceTimersToNextTimerAsync(1);
+
+			expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalled();
+
+			const { attributes } = (fakeAnalyticsWebClient.sendTrackEvent as jest.Mock).mock.calls[1][0];
+
+			expect(attributes).toHaveProperty('stepsFromOldState');
+			expect(attributes).toHaveProperty('stepsFromNewState');
+
+			expect(attributes.stepsFromOldState).toEqual('');
+			expect(attributes.stepsFromOldState).toEqual('');
+		});
+	});
+
+	ffTest.off('log_obfuscated_steps_for_view_only', 'Steps obfuscation', async () => {
+		it('Does not log obfuscated steps', () => {
+			// @ts-ignore - mocking protected getter
+			jest.spyOn(provider, 'isViewOnly').mockReturnValue(true);
+
+			(sendableSteps as jest.Mock).mockReturnValue({
+				steps: [fakeStep],
+			});
+
+			provider.send(null, null, anyEditorState);
+
+			expect(fakeAnalyticsWebClient.sendTrackEvent).toHaveBeenCalled();
+
+			const { attributes } = (fakeAnalyticsWebClient.sendTrackEvent as jest.Mock).mock.calls[1][0];
+
+			expect(attributes).not.toHaveProperty('stepsFromOldState');
+			expect(attributes).not.toHaveProperty('stepsFromNewState');
+		});
 	});
 });

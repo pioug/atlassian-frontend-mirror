@@ -47,8 +47,7 @@ const ColorCard = ({
 		},
 		[onClick],
 	);
-	const isOutlineVariant =
-		fg('thor_colourful_single_select_milestone1_gate') && variant === 'outline';
+	const isOutlineVariant = variant === 'outline';
 	const colorCardStyles = isOutlineVariant
 		? { borderColor: value || 'grey' }
 		: { backgroundColor: value || 'transparent' };

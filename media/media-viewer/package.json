@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-viewer",
-	"version": "49.6.3",
+	"version": "50.0.0",
 	"description": "MediaViewer is Atlassian's powerful solution for viewing files on the web. It's both powerful and extendable yet easy-to-integrate",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -52,8 +52,8 @@
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/portal": "^4.10.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/side-navigation": "^3.6.0",
-		"@atlaskit/spinner": "^16.3.0",
+		"@atlaskit/side-navigation": "^4.0.0",
+		"@atlaskit/spinner": "^17.0.0",
 		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^3.2.0",
@@ -84,7 +84,7 @@
 		"@atlaskit/media-core": "^34.4.0",
 		"@atlaskit/media-integration-test-helpers": "^3.1.0",
 		"@atlaskit/media-state": "^1.5.0",
-		"@atlaskit/media-test-data": "^2.9.0",
+		"@atlaskit/media-test-data": "^2.10.0",
 		"@atlaskit/media-test-helpers": "^34.7.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "14.0.3",
@@ -109,6 +109,9 @@
 	},
 	"platform-feature-flags": {
 		"platform_media_disable_video_640p_artifact_usage": {
+			"type": "boolean"
+		},
+		"media_card_replace_react_portal_for_ds_portal": {
 			"type": "boolean"
 		}
 	},

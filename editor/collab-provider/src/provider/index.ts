@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-
+import { fg } from '@atlaskit/platform-feature-flags';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { Step as ProseMirrorStep } from '@atlaskit/editor-prosemirror/transform';
 import { Emitter } from '../emitter';
@@ -20,10 +20,11 @@ import type {
 	PresenceActivity,
 } from '@atlaskit/editor-common/collab';
 
-import { createLogger } from '../helpers/utils';
+import { createLogger, logObfuscatedSteps } from '../helpers/utils';
 import AnalyticsHelper from '../analytics/analytics-helper';
 import { telepointerCallback } from '../participants/telepointers-helper';
 import {
+	CustomError,
 	DestroyError,
 	GetCurrentStateError,
 	GetFinalAcknowledgedStateError,
@@ -433,7 +434,20 @@ export class Provider extends Emitter<CollabEvents> implements BaseEvents {
 						code: INTERNAL_ERROR_CODE.VIEW_ONLY_STEPS_ERROR,
 					},
 				};
-				this.analyticsHelper?.sendErrorEvent(error, error.message);
+
+				if (fg('log_obfuscated_steps_for_view_only')) {
+					logObfuscatedSteps(_oldState, newState)
+						.then((attributes) => {
+							const stepAttributes = attributes instanceof CustomError ? {} : { ...attributes };
+
+							const stepsError = new CustomError(error.message, error, { ...stepAttributes });
+							this.analyticsHelper?.sendErrorEvent(stepsError, stepsError.message);
+						})
+						.catch((err: CustomError) => this.analyticsHelper?.sendErrorEvent(err, err.message));
+				} else {
+					this.analyticsHelper?.sendErrorEvent(error, error.message);
+				}
+
 				return;
 			}
 			// Don't send steps while the document is locked (eg. when restoring the document)

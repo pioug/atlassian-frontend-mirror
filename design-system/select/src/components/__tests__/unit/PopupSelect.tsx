@@ -175,7 +175,9 @@ describe('Popup Select', () => {
 
 		await user.click(selectTrigger);
 
-		const clearIndicator = screen.getAllByRole('presentation')[0];
+		const clearIndicator = screen.getByRole('button', {
+			name: 'clear',
+		});
 
 		expect(clearIndicator).toBeInTheDocument();
 

@@ -39,6 +39,7 @@ export default {
   'fabric.emoji.error.image.too.big': 'Hình ảnh đã chọn có kích thước lớn hơn 1 MB',
   'fabric.emoji.error.invalid.image': 'Hình ảnh đã chọn không hợp lệ',
   'fabric.emoji.error.upload.failed': 'Không thể tải lên',
+  'fabric.emoji.error.upload.timeout': 'Đã hết thời gian chờ tải lên',
   'fabric.emoji.image.requirements': 'JPG, PNG hoặc GIF. Kích thước tối đa 1 MB.',
   'fabric.emoji.name.ariaLabel': 'Nhập tên cho biểu tượng cảm xúc mới này',
   'fabric.emoji.picker': 'Trình chọn biểu tượng cảm xúc',

@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-floating-toolbar
 
+## 1.15.0
+
+### Minor Changes
+
+- [#107473](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107473)
+  [`962b3297548df`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/962b3297548df) -
+  [ux] Implement variation 2 for editor contextual toolbar formatting experiment
+
 ## 1.14.18
 
 ### Patch Changes

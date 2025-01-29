@@ -60,7 +60,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/docs": "^9.1.0",
-		"@atlaskit/media-test-data": "^2.9.0",
+		"@atlaskit/media-test-data": "^2.10.0",
 		"@atlaskit/media-test-helpers": "^34.7.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^3.2.0",

@@ -19,9 +19,10 @@ export default {
   'reactions.dialog.close': 'Luk',
   'reactions.dialog.emoji.name': '{emojiName}',
   'reactions.dialog.left.navigate': 'Navigation til venstre',
+  'reactions.dialog.people-who-reacted.subheader': 'Personer der reagerede med {emojiShortName}',
   'reactions.dialog.reactions.count':
     '{count, plural, one {{count,number} reaktion} other {{count,number} reaktioner}}',
   'reactions.dialog.right.navigate': 'Navigation til højre',
-  'reactions.dialog.viewall': 'Se, hvem der har reageret',
+  'reactions.dialog.viewall': 'Vis alle',
   'reactions.dialog.viewall.tooltip': 'Se alle brugerreaktioner',
 };

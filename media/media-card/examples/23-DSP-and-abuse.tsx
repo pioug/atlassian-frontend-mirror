@@ -14,6 +14,7 @@ const dummyMediaClientConfig = {} as MediaClientConfig;
 const initialItems = [
 	generateItemWithBinaries.abuse.image(),
 	generateItemWithBinaries.abuse.svg(),
+	generateItemWithBinaries.abuse.pdfNoPreview(),
 	generateItemWithBinaries.workingPdfWithRemotePreview.pdfAnatomy(),
 ];
 

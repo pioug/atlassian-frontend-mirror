@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/page-layout",
-	"version": "3.11.7",
+	"version": "3.11.8",
 	"description": "A collection of components which let you compose an application's page layout.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -72,7 +72,7 @@
 		"@atlaskit/notification-indicator": "^9.4.0",
 		"@atlaskit/notification-log-client": "^6.1.0",
 		"@atlaskit/popup": "^1.30.0",
-		"@atlaskit/side-navigation": "^3.6.0",
+		"@atlaskit/side-navigation": "^4.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/tooltip": "^19.0.0",

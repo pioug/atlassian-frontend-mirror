@@ -1,5 +1,14 @@
 # @atlaskit/media-ui
 
+## 27.3.2
+
+### Patch Changes
+
+- [#107798](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107798)
+  [`6f9d0367cb933`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6f9d0367cb933) -
+  Updated DSP Enforcement Message
+- Updated dependencies
+
 ## 27.3.1
 
 ### Patch Changes

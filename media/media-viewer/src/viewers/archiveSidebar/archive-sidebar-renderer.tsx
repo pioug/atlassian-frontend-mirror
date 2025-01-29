@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { type MediaClient, type FileState } from '@atlaskit/media-client';
+import { type MediaClient, type FileState, isErrorFileState } from '@atlaskit/media-client';
 
 import { SpinnerWrapper } from '../../styleWrappers';
 import { ArchiveSidebar } from './archive-sidebar';
@@ -66,6 +66,7 @@ export default class ArchiveSidebarRenderer extends Component<
 			isArchiveEntryLoading,
 			onSelectedArchiveEntryChange,
 			onError,
+			selectedFileState,
 		} = this.props;
 		return (
 			<>
@@ -83,6 +84,9 @@ export default class ArchiveSidebarRenderer extends Component<
 						mediaClient={mediaClient}
 						isArchiveEntryLoading={isArchiveEntryLoading}
 						onError={onError}
+						shouldRenderAbuseModal={
+							!isErrorFileState(selectedFileState) && !!selectedFileState.abuseClassification
+						}
 					/>
 				)}
 			</>

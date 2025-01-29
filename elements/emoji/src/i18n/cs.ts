@@ -38,6 +38,7 @@ export default {
   'fabric.emoji.error.image.too.big': 'Vybraný obrázek je větší než 1 MB.',
   'fabric.emoji.error.invalid.image': 'Vybraný obrázek je neplatný.',
   'fabric.emoji.error.upload.failed': 'Nahrávání se nezdařilo',
+  'fabric.emoji.error.upload.timeout': 'Vypršel časový limit nahrávání',
   'fabric.emoji.image.requirements': 'JPG, PNG nebo GIF. Max. velikost je 1 MB.',
   'fabric.emoji.name.ariaLabel': 'Zadejte název nového emotikonu',
   'fabric.emoji.picker': 'Výběr smajlíků',

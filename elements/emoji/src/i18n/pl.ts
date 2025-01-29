@@ -38,6 +38,7 @@ export default {
   'fabric.emoji.error.image.too.big': 'Wybrany obraz jest większy niż 1 MB',
   'fabric.emoji.error.invalid.image': 'Wybrany obraz jest niepoprawny',
   'fabric.emoji.error.upload.failed': 'Przekazywanie nie powiodło się',
+  'fabric.emoji.error.upload.timeout': 'Przekroczono limit czasu przekazywania',
   'fabric.emoji.image.requirements': 'Plik JPG, PNG lub GIF. Maksymalny rozmiar 1 MB.',
   'fabric.emoji.name.ariaLabel': 'Wpisz nazwę dla nowego emoji',
   'fabric.emoji.picker': 'Selektor emoji',

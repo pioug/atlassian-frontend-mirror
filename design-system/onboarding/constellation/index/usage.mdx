@@ -2,13 +2,12 @@
 order: 2
 ---
 
+import SectionMessage from '@atlaskit/section-message';
+
 ## Usage
 
 An onboarding spotlight focuses attention on a specific part of the UI, like a button or an icon.
-Spotlights can also guide people through tasks that require multiple steps to complete. Only show
-one spotlight at a time.
-
-## Anatomy
+Spotlights can also guide people through tasks that require multiple steps to complete.
 
 ![A dropdown menu is highlighted by a purple spotlight ring. To the right of the menu there is a message with the text "Quickly switch between your most recent projects by selecting the project name and icon. The call to action is "OK".](images/onboarding-spotlight-anatomy.png)
 
@@ -31,6 +30,7 @@ The spotlight target can have a pulse animation to draw attention to the focused
 
 ## Best practices
 
+- Only show one spotlight at a time.
 - For spotlight tours, keep the entire flow in mind. Sequence tasks and messages in a logical way to
   increase success.
 - Offer a dismiss option at every step. Don't force people to participate.
@@ -62,8 +62,8 @@ The spotlight target can have a pulse animation to draw attention to the focused
 
 - Include the benefits of the feature and why it's important to the person seeing it.
 - Keep the text length to two lines at the product's minimum supported size.
-- Be considerate of peoples time and patience. Short bursts of information are better. Don't repeat
-  content from the title, and put the most important keywords at the start of the sentence.
+- Be considerate of people's time and patience. Short amounts of information are better. Don't
+  repeat content from the title, and put the most important keywords at the start of the sentence.
 - If you talk about an element or a location within the body of the spotlight message, that element
   should be visible on the screen at the same time. Don't talk about things that the viewer can't
   see.
@@ -73,13 +73,161 @@ The spotlight target can have a pulse animation to draw attention to the focused
 ### Call to action (CTA)
 
 - For buttons leading people through the steppers of a spotlight, use "Next".
-- An option to dismiss or cancel reassures people that they can opt out.
+- Add an option to dismiss or cancel reassures people that they can opt out.
 - For the last in a series of steps, or for any action which confirms or closes a spotlight message,
   use "OK".
+
+## First impressions
+
+First impressions are the experiences that people using our products encounter when they do or see
+something for the first time.
+
+All teams can use the first impression guidelines to drive people towards their "aha!" moment — when
+they know how something delivers value to them.
+
+### Principles for good first impressions
+
+Great first impressions can influence a person's decision to engage with, keep using, and recommend
+our products. They should make people feel supported, motivated, confident, and empowered.
+
+| **Principle**               | **How to achieve it**                                                                                                                                                                                                                                                                                                                                                                                                 |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Driven by user benefits** | Know your target audience and demonstrate the value proposition to them when they need it. Understand the user's goals, what they want to accomplish, and how the feature or change will benefit them.                                                                                                                                                                                                                |
+| **Thoughtful**              | Think about what people were doing before encountering your first impression pattern and what they'll be doing next. First impression patterns should be dismissible, so we get out of people's way.                                                                                                                                                                                                                  |
+| **Continuously considered** | Onboarding and change management should be built into the design and development cycles. It should not be an afterthought.                                                                                                                                                                                                                                                                                            |
+| **Holistic**                | Consider the whole user journey when creating a first impression. Define the priority and quantity of all push notifications the user will encounter based on their needs. All first impressions should complement rather than compete with each other. Know what other first impressions or notifications your user might encounter, so you can prioritize the right one at the right time and minimize distraction. |
+
+## First impression patterns for existing users
+
+There are two first impression patterns for current users:
+
+- [New experience](#new-experience-pattern) — to introduce existing users to an entire set of
+  feature changes, which can include new functionality, look, or interaction points.
+- [New or updated feature](#new-or-updated-feature-pattern) — to introduce existing users to a new
+  or updated feature.
+
+<SectionMessage
+	title="Don't use these patterns for new users signing up for a product"
+	appearance="warning"
+>
+	<p>
+		We don't want to overwhelm people with content about experiences they haven't seen before, such
+		as change management messaging.
+	</p>
+</SectionMessage>
+
+Choose the pattern based on the size of impact the change may have on the person’s experience or the
+usability of the product.
+
+| **Size of change** | **Description**                                                                                                                                                                                                                                                                                 | **Pattern for change**                       |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------- |
+| **Small**          | A change that impacts a small part of our products or only a subset of users.                                                                                                                                                                                                                   | New or updated feature                       |
+| **Medium**         | A change that significantly impacts how all or a majority of users interact with a part of our products. If the user needs to navigate to other parts of the product, consider the new experience pattern.                                                                                      | New or updated feature **or** new experience |
+| **Large**          | A change that dramatically impacts how all users interact with and use our products. Large changes should be rolled out on a well-planned schedule, ideally with an opt-in and opt-out strategy. Ensure the customer impact is clearly understood and communicated before any change rolls out. | New experience                               |
+
+These patterns should be contextual and focused on the benefit to the person, ideally validated
+through testing with people.
+
+Make sure people are prepared for the change with an opt-in to opt-out strategy before forcing
+everyone into the new experience.
+
+Existing admins, power users, end users, and novice users may have different reasons to be excited
+about your new feature:
+
+- Admins — focus on configuration and control.
+- Power users — focus on shortcuts and improving the way they work.
+- End users and novice users — focus on the benefits for their teams and how it empowers them.
+
+### New experience pattern
+
+This pattern introduces existing users to an entire set of feature changes, for example, new
+functionality, appearance, or interaction points.
+
+Use this pattern to help people understand the value of the new feature set, and how it benefits
+them and their team. Focus on the top two to three benefits for the user and show these in context.
+
+#### Entry points
+
+Choose an appropriate place to notify people of the new experience, but don't take over their work:
+entry points for new experiences should be dismissible.
+
+Only highlight the feature and its top benefit in one place.
+
+If the onboarding (spotlight) component isn’t suitable, you could also use
+[benefits modal](/components/onboarding/benefits-modal/examples).
+
+If you can't decide on the best entry point for your new experience, run an early signal test with
+existing users.
+
+In this example, an admin gets a notification about a new feature set. They can either try out the
+experience or dismiss the notification.
+
+![A modal for a Jira update that includes the key elements of a benefits modal.](images/User-value-modal_trigger.jpg)
+
+#### Educational content
+
+Use the spotlight component to highlight the top two to three benefits of the new experience in
+context.
+
+If your product supports in-app help, point out where people can find more information when they
+dismiss the educational content.
+
+In the example, the admin chooses to try out the new feature set and is shown in context where it
+lives in the product. They are shown two to three dismissible spotlights that showcase the top
+benefits.
+
+![A spotlight component onboarding people to a new feature in Jira.](images/SWIFT_Onboarding-2.jpg)
+
+### New or updated feature pattern
+
+This pattern introduces existing users to a new or updated feature.
+
+Use this pattern to help people understand the value of the feature, preferably in the context of a
+task. Focus on the top benefit and show them how to achieve it.
+
+#### Entry point
+
+Choose an appropriate place to notify people of the new feature, but don't take over their work.
+Entry points for new feature announcements should be passive and temporary (they shouldn't live
+forever).
+
+Allow power users to uncover advanced features progressively rather than announcing changes they may
+not be interested in.
+
+Use the spotlight pulse to subtly highlight where your new feature is accessed.
+
+In the example below, the user navigates to their project and a spotlight highlights where the
+feature lives.
+
+![A Jira agile board showing a spotlight pulse to highlight a new feature.](images/Agility-board_trigger.jpg)
+
+#### Educational content
+
+Use the spotlight component to highlight the top benefit of the new feature in context.
+
+When people click the spotlight pulse, they see a short message summarizing the new feature. They
+are encouraged to try the new feature or learn more about it.
+
+![An example of a spotlight pulse expanded into a spotlight component that encourages people to try the new feature.](images/Agility-board_dialog.jpg)
+
+#### Inflection point example
+
+For features that provide shortcuts for power users or otherwise improve the way they work, consider
+introducing a spotlight after recognizing a pattern of repeated behavior. We call these "inflection
+points".
+
+In this example, an admin moves an issue from **to do** to **in progress**. The admin then opens the
+issue and assigns it to someone else.
+
+![A Jira agile board showing an inflection point example as the admin moves an issue across the board](images/Agility-board_move-issue-1-1.jpg)
+
+The admin repeats this action two more times. At this point, we can recognize that the admin is
+repeating the action multiple times and suggest, using a spotlight, a way to automate this task.
+
+![A Jira agile board showing a spotlight trigged by an admin repeating an action. The spotlight encourages the admin to use a new feature that automates this task.](images/Agility-board_inflection_dialog.jpg)
 
 ## Related
 
 - For a more flexible, standalone spotlight message, see
   [spotlight card](/components/onboarding/spotlight-card/usage).
 - For an onboarding modal, see [benefits modal](/components/onboarding/benefits-modal/usage).
-- See our [onboarding patterns](/patterns/first-impressions) for more ideas.

@@ -12,12 +12,16 @@ import { type EmojiProvider } from '@atlaskit/emoji/resource';
 import Avatar from '@atlaskit/avatar/Avatar';
 import Spinner from '@atlaskit/spinner';
 import { useTabPanel } from '@atlaskit/tabs';
-import { Text } from '@atlaskit/primitives';
+import { Text, Flex, xcss } from '@atlaskit/primitives';
 
 import { messages } from '../../shared/i18n';
-import { type ReactionSummary } from '../../types';
+import { type ReactionSummary, type ProfileCardWrapper } from '../../types';
 
 import { reactionViewStyle, userListStyle, userStyle, centerSpinner } from './styles';
+
+const userDescriptionStyle = xcss({
+	marginLeft: 'space.200',
+});
 
 export interface ReactionViewProps {
 	/**
@@ -32,9 +36,15 @@ export interface ReactionViewProps {
 	 * Provider for loading emojis
 	 */
 	emojiProvider: Promise<EmojiProvider>;
+	ProfileCardWrapper?: ProfileCardWrapper;
 }
 
-export const ReactionView = ({ selectedEmojiId, emojiProvider, reaction }: ReactionViewProps) => {
+export const ReactionView = ({
+	selectedEmojiId,
+	emojiProvider,
+	reaction,
+	ProfileCardWrapper,
+}: ReactionViewProps) => {
 	const [emojiShortName, setEmojiShortName] = useState<string>('');
 
 	useEffect(() => {
@@ -71,7 +81,7 @@ export const ReactionView = ({ selectedEmojiId, emojiProvider, reaction }: React
 				<ResourcedEmoji
 					emojiProvider={emojiProvider}
 					emojiId={{ id: selectedEmojiId, shortName: '' }}
-					fitToHeight={16}
+					fitToHeight={24}
 				/>
 			</Text>
 			{alphabeticalNames.length === 0 ? (
@@ -87,8 +97,21 @@ export const ReactionView = ({ selectedEmojiId, emojiProvider, reaction }: React
 						return (
 							// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 							<li css={userStyle} key={user.id}>
-								<Avatar size="large" src={profile} />
-								<span>{user.displayName}</span>
+								{ProfileCardWrapper && user.accountId ? (
+									<ProfileCardWrapper
+										userId={user.accountId}
+										isAnonymous={false}
+										canViewProfile
+										position="left-start"
+									>
+										<Avatar size="large" src={profile} testId="profile" />
+									</ProfileCardWrapper>
+								) : (
+									<Avatar size="large" src={profile} testId="profile" />
+								)}
+								<Flex xcss={userDescriptionStyle}>
+									<div>{user.displayName}</div>
+								</Flex>
 							</li>
 						);
 					})}

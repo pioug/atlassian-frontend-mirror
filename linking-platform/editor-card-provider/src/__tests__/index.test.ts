@@ -163,7 +163,6 @@ describe('providers > editor', () => {
 		setBooleanFeatureFlagResolver(
 			(flag) =>
 				flag === 'smart_links_for_plans_platform' ||
-				flag === 'smartlink_jira_releases' ||
 				flag === 'rovo_agent_profile_page_default_embed' ||
 				flag === 'smartlink_jira_software_form',
 		);

@@ -25,6 +25,13 @@ export const CloseButtonContainer = styled.div({
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const CloseButtonContainerAi = styled.div({
+	position: 'absolute',
+	right: token('space.100', '8px'),
+	top: token('space.200', '15px'),
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const BackButtonContainer = styled.div({
 	position: 'absolute',
 	top: token('space.150', '12px'),
@@ -46,6 +53,24 @@ export const HeaderTitle = styled.h1({
 	display: 'inline-block',
 	overflow: 'hidden',
 	verticalAlign: 'middle',
+});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
+export const HeaderTitleAi = styled.h1({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+	color: token('color.text.subtle', colors.N500),
+	textAlign: 'left',
+	font: token('font.body.large'),
+	fontWeight: token('font.weight.semibold'),
+	paddingTop: token('space.250', '18px'),
+	paddingBottom: token('space.200', '16px'),
+	width: `calc(100% - ${token('space.200', '16px')})`,
+	whiteSpace: 'nowrap',
+	textOverflow: 'ellipsis',
+	display: 'inline-block',
+	overflow: 'hidden',
+	verticalAlign: 'middle',
+	marginLeft: token('space.200', '16px'),
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

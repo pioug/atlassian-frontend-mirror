@@ -32,6 +32,8 @@ export const overlay = css({
 	opacity: 0,
 	pointerEvents: 'none',
 	transition: 'opacity 0.3s',
+	top: 0,
+	left: 0,
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766

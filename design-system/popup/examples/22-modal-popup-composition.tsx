@@ -12,6 +12,8 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	padding: {
+		// TODO (AFB-874): Disabling due to failing test
+		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 		padding: token('space.100'),
 	},
 	longContent: {

@@ -12,7 +12,10 @@ import { token } from '@atlaskit/tokens';
 const styles = cssMap({
 	base: {
 		display: 'block',
-		padding: token('space.100'),
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
 		border: 'none',
 		borderRadius: token('border.radius.100'),
 		marginBlock: token('space.150'),
@@ -22,12 +25,18 @@ const styles = cssMap({
 	stack: {
 		display: 'flex',
 		maxWidth: '18.75rem',
-		padding: token('space.100'),
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
 		gap: token('space.100'),
 		flexDirection: 'column',
 	},
 	card: {
-		padding: token('space.200'),
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
 		borderRadius: token('border.radius.100'),
 		backgroundColor: token('elevation.surface'),
 		boxShadow: token('elevation.shadow.overlay'),

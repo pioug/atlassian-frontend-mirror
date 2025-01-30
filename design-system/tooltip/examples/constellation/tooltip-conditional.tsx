@@ -15,7 +15,10 @@ import Tooltip from '@atlaskit/tooltip';
 
 const styles = cssMap({
 	root: {
-		padding: token('space.100'),
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
 		borderColor: token('color.border'),
 		borderRadius: token('border.radius'),
 		borderStyle: 'solid',

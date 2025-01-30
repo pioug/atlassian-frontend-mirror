@@ -1,5 +1,13 @@
 # @atlaskit/help-layout
 
+## 4.4.7
+
+### Patch Changes
+
+- [#107045](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107045)
+  [`3c95bcb3b29aa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3c95bcb3b29aa) -
+  [ux] refactoring placement of title and close button in IPH header around the isAIEnabled prop
+
 ## 4.4.6
 
 ### Patch Changes

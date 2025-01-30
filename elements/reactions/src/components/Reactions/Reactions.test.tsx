@@ -1,8 +1,10 @@
 import React from 'react';
 import { act, fireEvent, screen, within } from '@testing-library/react';
+
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import { type EmojiProvider } from '@atlaskit/emoji';
 import { getTestEmojiResource } from '@atlaskit/util-data-test/get-test-emoji-resource';
+
 import { getReactionSummary, ari, containerAri } from '../../MockReactionsClient';
 import {
 	mockReactDomWarningGlobal,
@@ -16,6 +18,12 @@ import { messages } from '../../shared/i18n';
 import { type QuickReactionEmojiSummary, ReactionStatus, type ReactionSummary } from '../../types';
 import { RENDER_REACTIONPICKER_TESTID } from '../ReactionPicker';
 import { RENDER_REACTION_TESTID } from '../Reaction';
+import { RENDER_MODAL_TESTID } from '../ReactionDialog/ReactionsDialog';
+import { RENDER_SELECTOR_TESTID } from '../Selector';
+import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
+import { RENDER_REACTIONPICKERPANEL_TESTID } from '../ReactionPicker/ReactionPicker';
+import { RENDER_SUMMARY_BUTTON_TESTID } from '../ReactionSummary/ReactionSummaryButton';
+
 import {
 	type ReactionsProps,
 	Reactions,
@@ -23,11 +31,6 @@ import {
 	RENDER_VIEWALL_REACTED_USERS_DIALOG,
 	ufoExperiences,
 } from './Reactions';
-import { RENDER_MODAL_TESTID } from '../ReactionDialog/ReactionsDialog';
-import { RENDER_SELECTOR_TESTID } from '../Selector';
-import { RENDER_SHOWMORE_TESTID } from '../ShowMore';
-import { RENDER_REACTIONPICKERPANEL_TESTID } from '../ReactionPicker/ReactionPicker';
-import { RENDER_SUMMARY_BUTTON_TESTID } from '../ReactionSummary/ReactionSummaryButton';
 
 jest.mock('../../shared/constants', () => ({
 	...jest.requireActual('../../shared/constants'),
@@ -86,9 +89,19 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 	 * Pre defined selected emoji ids
 	 */
 	const reactions: ReactionSummary[] = [
-		getReactionSummary(DefaultReactions[0].shortName, 9, false),
+		getReactionSummary(DefaultReactions[0].shortName, 4, false),
 		getReactionSummary(DefaultReactions[2].shortName, 1, true),
 	];
+
+	// Dialog entrypoint shows when one emoji has 5+ reacts
+	const reactionsForDialog: ReactionSummary[] = [
+		getReactionSummary(DefaultReactions[0].shortName, 6, false),
+		getReactionSummary(DefaultReactions[1].shortName, 3, true),
+		getReactionSummary(DefaultReactions[2].shortName, 1, true),
+		getReactionSummary(DefaultReactions[3].shortName, 1, true),
+		getReactionSummary(DefaultReactions[4].shortName, 1, true),
+	];
+
 	/**
 	 * Custom quick Reaction list to pick from
 	 */
@@ -161,39 +174,60 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		expect(reactionButtons.length).toEqual(0);
 	});
 
-	it('should not show see who reacted button if allowUserDialog is disabled', async () => {
+	it('should see "View all" button if there is at least one emoji with 5 reactions', async () => {
 		renderReactions({
-			reactions,
-			allowUserDialog: false,
+			reactions: reactionsForDialog,
+			allowUserDialog: true,
 		});
-		const seeWhoReactedButton = await screen.queryByTestId(RENDER_VIEWALL_REACTED_USERS_DIALOG);
-		expect(seeWhoReactedButton).not.toBeInTheDocument();
+
+		const viewAllButton = screen.getByText('View all');
+		expect(viewAllButton).toBeInTheDocument();
 	});
 
-	it('should open reactions users dialog if allowUserDialog is enabled and see who reacted button is clicked', async () => {
+	it('should not show see "View all" button if allowUserDialog is disabled', async () => {
+		renderReactions({
+			reactions: reactionsForDialog,
+			allowUserDialog: false,
+		});
+
+		const viewAllButton = screen.queryByText('View all');
+		expect(viewAllButton).not.toBeInTheDocument();
+	});
+
+	it('should not show "View all" button if no emoji has 5 or more reactions', async () => {
+		renderReactions({
+			reactions,
+			allowUserDialog: true,
+		});
+
+		const viewAllButton = screen.queryByText('View all');
+		expect(viewAllButton).not.toBeInTheDocument();
+	});
+
+	it('should open reactions users dialog if allowUserDialog is enabled and "View all" button is clicked', async () => {
 		const onDialogOpenCallback = jest.fn();
 		const onDialogCloseCallback = jest.fn();
 		const onDialogSelectReactionCallback = jest.fn();
 		renderReactions({
-			reactions,
+			reactions: reactionsForDialog,
 			allowUserDialog: true,
 			onDialogOpenCallback,
 			onDialogCloseCallback,
 			onDialogSelectReactionCallback,
 		});
 
-		const seeWhoReactedButton = await screen.findByTestId(RENDER_VIEWALL_REACTED_USERS_DIALOG);
+		const viewAllButton = await screen.findByTestId(RENDER_VIEWALL_REACTED_USERS_DIALOG);
 
 		// click see who reacted button
 		act(() => {
-			fireEvent.click(seeWhoReactedButton);
+			fireEvent.click(viewAllButton);
 		});
 
 		const reactionDialog = await screen.getByTestId(RENDER_MODAL_TESTID);
 
 		// get reaction tab from reactions dialog
 		const modalBody = await screen.getByTestId('render-reactions-modal--body');
-		const reactionToClick = within(modalBody).getByTestId(reactions[1].emojiId);
+		const reactionToClick = within(modalBody).getByTestId(reactionsForDialog[1].emojiId);
 		const reactionTabToClick = within(reactionToClick).getByRole('tab');
 		// click a different reaction tab
 		act(() => {
@@ -209,24 +243,23 @@ describe('@atlaskit/reactions/components/Reactions', () => {
 		});
 
 		expect(reactionDialog).not.toBeUndefined();
-		expect(seeWhoReactedButton).toBeDefined();
-		expect(onDialogOpenCallback).toBeCalledWith(reactions[0].emojiId, 'button');
+		expect(onDialogOpenCallback).toBeCalledWith(reactionsForDialog[0].emojiId, 'button');
 		expect(onDialogCloseCallback).toBeCalled();
 		expect(onDialogSelectReactionCallback).toBeCalledWith(
-			reactions[1].emojiId,
+			reactionsForDialog[1].emojiId,
 			expect.any(UIAnalyticsEvent),
 		);
 
 		expect(fakeOpenDialogUFOExperience.success).toBeCalledWith({
 			metadata: {
-				emojiId: reactions[0].emojiId,
+				emojiId: reactionsForDialog[0].emojiId,
 				source: 'Reactions',
 				reason: 'Opening all reactions dialog link successfully',
 			},
 		});
 		expect(fakeSelectedReactionChangeInsideDialogUFOExperience.success).toBeCalledWith({
 			metadata: {
-				emojiId: reactions[1].emojiId,
+				emojiId: reactionsForDialog[1].emojiId,
 				source: 'Reactions',
 				reason: 'Selected Emoji changed',
 			},

@@ -19,6 +19,8 @@ const styles = cssMap({
 
 const panelStyles = css({
 	display: 'flex',
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.400', '32px'),
 	alignItems: 'center',
 	justifyContent: 'center',

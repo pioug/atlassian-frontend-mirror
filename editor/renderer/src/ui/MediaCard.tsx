@@ -27,7 +27,6 @@ import type { MediaFeatureFlags } from '@atlaskit/media-common';
 import type { RendererAppearance } from './Renderer/types';
 import type { RendererContext } from '../react/types';
 import type { MediaSSR } from '../types/mediaOptions';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 export type MediaProvider = {
 	viewMediaClientConfig: MediaClientConfig;
@@ -214,33 +213,10 @@ export class MediaCardView extends Component<
 		// we need this statement for the mandatory mediaClientConfig below
 		const mediaClientConfig = mediaClient?.mediaClientConfig;
 
-		if (fg('platform_editor_external_media_comment_bugfix')) {
-			return (
-				// Ignored via go/ees005
-				// eslint-disable-next-line react/jsx-props-no-spreading
-				<div {...dataAttributes} data-node-type="media">
-					<Card
-						// TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
-						// context is not really used when the type is external and we want to render the component asap
-						// Ignored via go/ees005
-						// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-						mediaClientConfig={mediaClientConfig!}
-						alt={alt}
-						identifier={identifier}
-						dimensions={cardDimensions}
-						appearance={appearance}
-						resizeMode={resizeMode}
-						disableOverlay={disableOverlay}
-						shouldOpenMediaViewer={shouldOpenMediaViewer}
-						mediaViewerItems={Array.from(mediaIdentifierMap.values())}
-						featureFlags={featureFlags}
-						ssr={ssr?.mode}
-						shouldHideTooltip={false}
-					/>
-				</div>
-			);
-		} else {
-			return (
+		return (
+			// Ignored via go/ees005
+			// eslint-disable-next-line react/jsx-props-no-spreading
+			<div {...dataAttributes} data-node-type="media">
 				<Card
 					// TODO MPT-315: clean up after we move mediaClientConfig into FileIdentifier
 					// context is not really used when the type is external and we want to render the component asap
@@ -259,8 +235,8 @@ export class MediaCardView extends Component<
 					ssr={ssr?.mode}
 					shouldHideTooltip={false}
 				/>
-			);
-		}
+			</div>
+		);
 	}
 
 	/**

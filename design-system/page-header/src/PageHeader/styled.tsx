@@ -30,6 +30,8 @@ const truncateStyles = css({
 });
 
 const outerStyles = css({
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	margin: `${token('space.300', '24px')} 0 ${token('space.200', '16px')} 0`,
 });
 

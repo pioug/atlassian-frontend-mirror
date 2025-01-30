@@ -9,7 +9,10 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	customEllipsis: {
-		margin: token('space.0'),
+		marginTop: token('space.0'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
 	},
 });
 

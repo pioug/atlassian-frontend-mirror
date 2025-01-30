@@ -9,10 +9,19 @@ import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
-	container: { display: 'flex', padding: token('space.100') },
+	container: {
+		display: 'flex',
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
+	},
 	surface: {
 		borderRadius: token('border.radius.050'),
-		padding: token('space.200'),
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
 	},
 });
 

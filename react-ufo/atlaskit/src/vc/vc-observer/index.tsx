@@ -333,6 +333,7 @@ export class VCObserver {
 			...outOfBoundary,
 			[`${fullPrefix}vc:next`]: vcNext.VC,
 			[`${fullPrefix}vc:next:updates`]: vcNext.VCEntries.rel.slice(0, 50),
+			[`${fullPrefix}vc:next:dom`]: vcNext.VCBox,
 			//...oldDomUpdates,
 			[`${fullPrefix}vc:ignored`]: this.getIgnoredElements(componentsLog),
 		};

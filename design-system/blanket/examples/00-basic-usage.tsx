@@ -14,7 +14,10 @@ import { token } from '@atlaskit/tokens';
 
 const eventResultStyles = cssMap({
 	root: {
-		padding: token('space.100'),
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
 		borderColor: token('color.border'),
 		borderStyle: 'dashed',
 		borderWidth: token('border.width'),

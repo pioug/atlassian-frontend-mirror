@@ -1,5 +1,13 @@
 # @atlaskit/editor-core
 
+## 203.11.13
+
+### Patch Changes
+
+- [#107618](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107618)
+  [`5b85fa648a36b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b85fa648a36b) -
+  Create VR tests for new bodied macros changes and fix some UX errors with the button/hover overlay
+
 ## 203.11.12
 
 ### Patch Changes

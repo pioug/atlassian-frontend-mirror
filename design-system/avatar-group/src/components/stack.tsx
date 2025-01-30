@@ -10,7 +10,11 @@ import { token } from '@atlaskit/tokens';
 
 const listStyles = css({
 	display: 'flex',
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	margin: token('space.0', '0px'),
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.0', '0px'),
 	isolation: 'isolate',
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
@@ -21,6 +25,8 @@ const listStyles = css({
 });
 
 const listItemStyles = css({
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	margin: token('space.0', '0px'),
 	marginInlineEnd: token('space.negative.100', '-8px'),
 });

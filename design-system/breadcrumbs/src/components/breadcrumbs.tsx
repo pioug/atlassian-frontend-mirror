@@ -36,7 +36,11 @@ const interactiveElementSelector = 'a, button, [tabindex]:not([tabindex="-1"])';
 
 const breadcrumbStyles = css({
 	display: 'flex',
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	margin: token('space.0', '0px'),
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.0', '0px'),
 	flexWrap: 'wrap',
 	color: token('color.text.subtlest', N200),

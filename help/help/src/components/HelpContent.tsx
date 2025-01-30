@@ -71,6 +71,7 @@ export const HelpContent: React.FC<HelpContentInterface> = ({ footer }) => {
 			isBackbuttonVisible={canNavigateBack}
 			footer={!isAiEnabled ? footer : undefined}
 			headerContent={onSearch && <SearchInput />}
+			isAiEnabled={isAiEnabled}
 		>
 			<HelpBodyContainer>
 				<HelpBody>

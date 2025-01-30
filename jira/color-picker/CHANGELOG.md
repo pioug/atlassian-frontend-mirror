@@ -1,5 +1,13 @@
 # @atlaskit/color-picker
 
+## 3.6.6
+
+### Patch Changes
+
+- [#106998](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106998)
+  [`d295c60c127ff`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d295c60c127ff) -
+  Removed FG dependency for variant prop
+
 ## 3.6.5
 
 ### Patch Changes

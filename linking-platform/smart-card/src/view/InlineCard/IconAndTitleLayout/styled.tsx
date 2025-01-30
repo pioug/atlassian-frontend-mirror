@@ -43,8 +43,9 @@ const IconOverrides = `
   }
 `;
 
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const IconWrapper = styled.span(
+export const IconWrapperOldVisualRefresh = styled.span(
 	{
 		userSelect: 'none',
 	},
@@ -55,8 +56,9 @@ export const IconWrapper = styled.span(
 );
 
 // Wraps all emoji in Inline Links similar to icon
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const EmojiWrapper = styled.span(
+export const EmojiWrapperOldVisualRefresh = styled.span(
 	{
 		display: 'inline-block',
 		marginRight: token('space.025', '2px'),
@@ -71,20 +73,21 @@ export const EmojiWrapper = styled.span(
 // The main 'wrapping' element, title of the content.
 // NB: `white-space` adds little whitespace before wrapping.
 // NB: `word-break` line breaks as soon as an overflow takes place.
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const IconTitleWrapper = styled.span({
+export const IconTitleWrapperOldVisualRefresh = styled.span({
 	whiteSpace: 'pre-wrap',
 	wordBreak: 'break-all',
 	boxDecorationBreak: 'clone',
-	paddingTop: token('space.025', '2px'),
-	paddingRight: token('space.050', '4px'),
-	paddingBottom: token('space.025', '2px'),
-	paddingLeft: token('space.050', '4px'),
+	paddingTop: token('space.025'),
+	paddingRight: token('space.050'),
+	paddingBottom: token('space.025'),
+	paddingLeft: token('space.050'),
 });
 
-// TODO: Replace overrides with proper AtlasKit solution.
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const LozengeWrapper = styled.span({
+export const LozengeWrapperOldVisualRefresh = styled.span({
 	display: 'inline-block',
 	verticalAlign: '1px',
 	marginTop: 0,
@@ -103,15 +106,17 @@ export const RightIconPositionWrapper = styled.span({
 // The following components are used to absolutely position icons in the vertical center.
 // - IconPositionWrapper: the `relative` parent which has no height in itself.
 // - IconEmptyWrapper: the child which forces `IconPositionWrapper` to have a height.
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const IconPositionWrapper = styled.span({
+export const IconPositionWrapperOldVisualRefresh = styled.span({
 	marginRight: token('space.050', '4px'),
 	position: 'relative',
 	display: 'inline-block',
 });
 
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const IconEmptyWrapper = styled.span({
+export const IconEmptyWrapperOldVisualRefresh = styled.span({
 	width: '16px',
 	height: '100%',
 	display: 'inline-block',
@@ -119,8 +124,10 @@ export const IconEmptyWrapper = styled.span({
 });
 
 // With emotion it's not possible to use reference to `TitleWrapper` as part of a selector,
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // To achieve same result we use classname instead.
-export const TitleWrapperClassName = 'smart-link-title-wrapper';
+export const TitleWrapperClassNameOldVisualRefresh = 'smart-link-title-wrapper';
 
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-empty-styled-expression -- Ignored via go/DSP-18766
-export const TitleWrapper = styled.span({});
+export const TitleWrapperOldVisualRefresh = styled.span({});

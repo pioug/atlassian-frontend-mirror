@@ -2,24 +2,25 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import Button from '@atlaskit/button';
+import ButtonOld from '@atlaskit/button';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock-filled';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box, Pressable, xcss } from '@atlaskit/primitives';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
 import { type RequestAccessContextProps } from '../../types';
+import { ActionButton } from '../common/action-button';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
 import { AKIconWrapper as AKIconWrapperOld } from '../Icon-emotion';
-import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { LozengeWrapper } from '../IconAndTitleLayout/styled';
-import { IconStyledButton } from '../styled';
+import { IconAndTitleLayout, LozengeWrapper as LozengeWrapperNew } from '../IconAndTitleLayout';
+import { LozengeWrapperOldVisualRefresh } from '../IconAndTitleLayout/styled';
+import { IconStyledButtonOldVisualRefresh } from '../styled';
 import { IconStyledButton as IconStyledButtonOld } from '../styled-emotion';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
 
@@ -138,26 +139,46 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
 
 	renderActionButton = () => {
 		const { onAuthorise } = this.props;
-		const ActionButton = withFrameStyleControl(Button, this.frameRef);
+
+		const LozengeWrapper = fg('platform-linking-visual-refresh-v1')
+			? LozengeWrapperNew
+			: LozengeWrapperOldVisualRefresh;
+
+		const Button = withFrameStyleControl(ButtonOld, this.frameRef);
+
 		const accessType = this.props.requestAccessContext?.accessType;
 
 		if (this.state.hasRequestAccessContextMessage) {
 			if (fg('bandicoots-compiled-migration-smartcard')) {
+				if (fg('platform-linking-visual-refresh-v1')) {
+					const isDisabled = accessType === 'PENDING_REQUEST_EXISTS';
+					return (
+						<Button
+							onClick={this.handleRetry}
+							component={ActionButton}
+							testId="button-connect-other-account"
+							isDisabled={isDisabled}
+						>
+							{this.renderForbiddenAccessMessage()}
+						</Button>
+					);
+				}
+
 				return (
-					<ActionButton
+					<Button
 						spacing="none"
 						onClick={this.handleRetry}
-						component={IconStyledButton}
+						component={IconStyledButtonOldVisualRefresh}
 						testId="button-connect-other-account"
 						role="button"
 						isDisabled={accessType === 'PENDING_REQUEST_EXISTS'}
 					>
 						{this.renderForbiddenAccessMessage()}
-					</ActionButton>
+					</Button>
 				);
 			} else {
 				return (
-					<ActionButton
+					<Button
 						spacing="none"
 						onClick={this.handleRetry}
 						component={IconStyledButtonOld}
@@ -166,12 +187,26 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
 						isDisabled={accessType === 'PENDING_REQUEST_EXISTS'}
 					>
 						{this.renderForbiddenAccessMessage()}
-					</ActionButton>
+					</Button>
 				);
 			}
 		}
 
 		if (onAuthorise) {
+			if (fg('platform-linking-visual-refresh-v1')) {
+				return (
+					<LozengeWrapper>
+						<Pressable
+							xcss={actionButtonLozengeStyle}
+							onClick={this.handleRetry}
+							testId="button-connect-other-account"
+						>
+							<Lozenge appearance={'moved'}>{this.renderForbiddenAccessMessage()}</Lozenge>
+						</Pressable>
+					</LozengeWrapper>
+				);
+			}
+
 			return (
 				<Button
 					spacing="none"
@@ -224,3 +259,8 @@ export class InlineCardForbiddenView extends React.Component<InlineCardForbidden
 		return content;
 	}
 }
+
+const actionButtonLozengeStyle = xcss({
+	backgroundColor: 'color.background.neutral.subtle',
+	padding: 'space.0',
+});

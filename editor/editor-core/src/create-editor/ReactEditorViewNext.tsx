@@ -147,7 +147,7 @@ export function ReactEditorView(props: EditorViewProps) {
 	);
 	const editorRef = useRef<HTMLDivElement | null>(null);
 	const viewRef = useRef<EditorView | undefined>();
-	const focusTimeoutId = useRef<number | undefined>();
+	const focusTimeoutId = useRef<number | undefined | void>();
 	// ProseMirror is instantiated prior to the initial React render cycle,
 	// so we allow transactions by default, to avoid discarding the initial one.
 	const canDispatchTransactions = useRef(true);
@@ -616,13 +616,23 @@ export function ReactEditorView(props: EditorViewProps) {
 		[getDirectEditorProps, dispatchAnalyticsEvent],
 	);
 
-	const [_, setEditorView] = useState<EditorView | undefined>(undefined);
+	const [editorView, setEditorView] = useState<EditorView | undefined>(undefined);
 
 	const {
 		onEditorCreated,
 		onEditorDestroyed,
 		editorProps: { shouldFocus },
 	} = props;
+
+	useLayoutEffect(() => {
+		if (
+			shouldFocus &&
+			editorView?.props.editable?.(editorView.state) &&
+			fg('platform_editor_react_18_autofocus_fix')
+		) {
+			focusTimeoutId.current = handleEditorFocus(editorView);
+		}
+	}, [editorView, shouldFocus]);
 
 	const handleEditorViewRef = useCallback(
 		(node: HTMLDivElement) => {
@@ -636,12 +646,30 @@ export function ReactEditorView(props: EditorViewProps) {
 					transformer: contentTransformer.current,
 				});
 
-				if (shouldFocus && view.props.editable && view.props.editable(view.state)) {
-					focusTimeoutId.current = handleEditorFocus(view);
-				}
+				if (fg('platform_editor_react_18_autofocus_fix')) {
+					/**
+					 * Defer using startTransition when it is available (in React 18) to fix
+					 * autofocus bug where React 18's concurrent rendering mode interferes with
+					 * setTimeout used in handleEditorFocus, causing autofocus to break.
+					 */
+					const react18OnlyStartTransition =
+						(
+							React as unknown as {
+								startTransition?: (fn: () => void) => void;
+							}
+						)?.startTransition ?? ((fn: () => void) => fn());
 
-				// Force React to re-render so consumers get a reference to the editor view
-				setEditorView(view);
+					react18OnlyStartTransition(() => {
+						// Force React to re-render so consumers get a reference to the editor view
+						setEditorView(view);
+					});
+				} else {
+					if (shouldFocus && view.props.editable && view.props.editable(view.state)) {
+						focusTimeoutId.current = handleEditorFocus(view);
+					}
+					// Force React to re-render so consumers get a reference to the editor view
+					setEditorView(view);
+				}
 			} else if (viewRef.current && !node) {
 				// When the appearance is changed, React will call handleEditorViewRef with node === null
 				// to destroy the old EditorView, before calling this method again with node === div to

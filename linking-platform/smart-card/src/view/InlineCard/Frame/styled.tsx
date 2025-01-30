@@ -7,6 +7,7 @@ import React, { forwardRef } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B100, B200, B400, B50, N40 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -29,8 +30,9 @@ export const WrapperSpan = forwardRef<HTMLSpanElement, WrapperProps>(
 		return (
 			<span
 				css={[
-					baseWrapperStyles,
-					truncateInline && truncateStyles,
+					fg('platform-linking-visual-refresh-v1') ? baseWrapperStylesNew : baseWrapperStylesOld,
+					truncateInline && fg('platform-linking-visual-refresh-v1') && truncateStylesNew,
+					truncateInline && !fg('platform-linking-visual-refresh-v1') && truncateStylesOld,
 					withoutBackground ? withoutBackgroundStyles : withBackgroundStyles,
 					isHovered && hoveredStyles,
 					isHovered && !withoutBackground && hoveredWithBackgroundStyles,
@@ -55,8 +57,9 @@ export const WrapperAnchor = forwardRef<HTMLAnchorElement, WrapperProps>(
 			<a
 				href={href}
 				css={[
-					baseWrapperStyles,
-					truncateInline && truncateStyles,
+					fg('platform-linking-visual-refresh-v1') ? baseWrapperStylesNew : baseWrapperStylesOld,
+					truncateInline && fg('platform-linking-visual-refresh-v1') && truncateStylesNew,
+					truncateInline && !fg('platform-linking-visual-refresh-v1') && truncateStylesOld,
 					withoutBackground ? withoutBackgroundStyles : withBackgroundStyles,
 					isHovered && hoveredStyles,
 					isHovered && !withoutBackground && hoveredWithBackgroundStyles,
@@ -72,11 +75,22 @@ export const WrapperAnchor = forwardRef<HTMLAnchorElement, WrapperProps>(
 	},
 );
 
-const baseWrapperStyles = css({
+const baseWrapperStylesNew = css({
+	font: token('font.body.large'),
+	padding: `${token('space.025')} 0px`,
+	display: 'inline',
+	boxDecorationBreak: 'clone',
+	borderRadius: token('border.radius.100', '4px'),
+	color: token('color.link', B400),
+	transition: '0.1s all ease-in-out',
+	MozUserSelect: 'none', // -moz-user-select
+	'&:hover': { borderColor: token('color.border.accent.blue', B200) },
+});
+
+const baseWrapperStylesOld = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: `${lineHeight}px`,
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	padding: `${token('space.025', '2px')} 0px`,
+	padding: `${token('space.025')} 0px`,
 	display: 'inline',
 	boxDecorationBreak: 'clone',
 	borderRadius: token('border.radius.100', '4px'),
@@ -117,7 +131,27 @@ const withBackgroundStyles = css({
 	'&:active': { textDecoration: 'none' },
 });
 
-const truncateStyles = css({
+const truncateStylesNew = css({
+	overflow: 'hidden',
+	textOverflow: 'ellipsis',
+	wordBreak: 'break-all',
+
+	display: '-webkit-inline-box',
+	WebkitLineClamp: 1,
+	WebkitBoxOrient: 'vertical',
+
+	// We need to remove the padding because display: -webkit-inline-box will cause any padding to be
+	// added to the total height, causing truncated cards to have greater height than non-truncated cards which use display: inline.
+	padding: 0,
+
+	'@supports not (-webkit-line-clamp: 1)': {
+		display: 'inline-block',
+		// If the browser does not support webkit, we don't need to remove the padding
+		padding: `${token('space.025')} 0px`,
+	},
+});
+
+const truncateStylesOld = css({
 	overflow: 'hidden',
 	textOverflow: 'ellipsis',
 	wordBreak: 'break-all',

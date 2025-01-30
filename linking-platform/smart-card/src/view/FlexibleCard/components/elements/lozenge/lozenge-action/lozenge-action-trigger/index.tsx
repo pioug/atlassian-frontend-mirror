@@ -42,7 +42,10 @@ const triggerButtonStyles = css({
 	borderStyle: 'solid',
 	borderWidth: '2px',
 	borderColor: 'transparent',
-	margin: token('space.025', '2px'),
+	marginTop: token('space.025', '2px'),
+	marginRight: token('space.025', '2px'),
+	marginBottom: token('space.025', '2px'),
+	marginLeft: token('space.025', '2px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	"&:focus-visible, &:focus-within, &[aria-expanded='true']": {
 		outline: 'none',

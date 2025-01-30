@@ -9,9 +9,9 @@ export const aiProactiveSettingMessages = defineMessages({
 	},
 	toggleAllSuggestionsDescription: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleAllSuggestionsDescription.non-final',
-		defaultMessage: 'Toggle to turn suggested edits on or off',
+		defaultMessage: 'Toggle to turn suggested edits on or off.',
 		description:
-			'This is the description displayed in the modal to allow the user to toggle all suggestions on or off',
+			'This is the description displayed in the modal to allow the user to toggle all suggestions on or off.',
 	},
 	toggleAllPanelSuggestionsTitle: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleAllPanelSuggestionsTitle.non-final',
@@ -21,7 +21,7 @@ export const aiProactiveSettingMessages = defineMessages({
 	},
 	toggleAllPanelSuggestionsDescription: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleAllPanelSuggestionsDescription.non-final',
-		defaultMessage: 'Use panels to make your message stand out',
+		defaultMessage: 'Use panels to make your message stand out.',
 		description:
 			'This is the description displayed in the modal to allow the user to toggle all suggestions on or off',
 	},
@@ -33,7 +33,7 @@ export const aiProactiveSettingMessages = defineMessages({
 	},
 	toggleErrorPanelDescription: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleErrorPanelDescription.non-final',
-		defaultMessage: 'Transform text into a red error panel',
+		defaultMessage: 'Transform text into a red error panel.',
 		description:
 			'This is the description displayed in the modal to allow the user to toggle error panel on or off',
 	},
@@ -45,7 +45,7 @@ export const aiProactiveSettingMessages = defineMessages({
 	},
 	toggleInfoPanelDescription: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleInfoPanelDescription.non-final',
-		defaultMessage: 'Transform text into a blue information panel',
+		defaultMessage: 'Transform text into a blue information panel.',
 		description:
 			'This is the description displayed in the modal to allow the user to toggle info panel on or off',
 	},
@@ -57,7 +57,7 @@ export const aiProactiveSettingMessages = defineMessages({
 	},
 	toggleNotePanelDescription: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleNotePanelDescription.non-final',
-		defaultMessage: 'Transform text into a purple note panel',
+		defaultMessage: 'Transform text into a purple note panel.',
 		description:
 			'This is the description displayed in the modal to allow the user to toggle success panel on or off',
 	},
@@ -69,7 +69,7 @@ export const aiProactiveSettingMessages = defineMessages({
 	},
 	toggleSuccessPanelDescription: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleSuccessPanelDescription.non-final',
-		defaultMessage: 'Transform text into a green success panel',
+		defaultMessage: 'Transform text into a green success panel.',
 		description:
 			'This is the description displayed in the modal to allow the user to toggle success panel on or off',
 	},
@@ -81,7 +81,7 @@ export const aiProactiveSettingMessages = defineMessages({
 	},
 	toggleWarningPanelDescription: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleWarningPanelDescription.non-final',
-		defaultMessage: 'Transform text into a yellow warning panel',
+		defaultMessage: 'Transform text into a yellow warning panel.',
 		description:
 			'This is the description displayed in the modal to allow the user to toggle warning panel on or off',
 	},
@@ -93,7 +93,7 @@ export const aiProactiveSettingMessages = defineMessages({
 	},
 	toggleTableDescription: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleTableDescription.non-final',
-		defaultMessage: 'Format content in a table to improve readability',
+		defaultMessage: 'Format content in a table to improve readability.',
 		description:
 			'This is the description displayed in the modal to allow the user to toggle table on or off',
 	},
@@ -105,19 +105,19 @@ export const aiProactiveSettingMessages = defineMessages({
 	},
 	toggleSplitParagraphDescription: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleSplitParagraphDescription.non-final',
-		defaultMessage: 'Add paragraph breaks to separate key ideas',
+		defaultMessage: 'Add paragraph breaks to separate key ideas.',
 		description:
 			'This is the description displayed in the modal to allow the user to toggle paragraph break on or off',
 	},
 	toggleFormatParagraphTitle: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleFormatParagraphTitle.non-final',
-		defaultMessage: 'Improve paragraph',
+		defaultMessage: 'Enhance content',
 		description:
-			'This is the title displayed in the modal to allow the user to toggle format paragraph on or off',
+			'This is the title displayed in the modal to allow the user to toggle enhance content on or off',
 	},
 	toggleFormatParagraphDescription: {
 		id: 'fabric.editor.ai.proactive.moreMenu.toggleFormatParagraphDescription.non-final',
-		defaultMessage: 'Simplify content and fix spelling and grammar.',
+		defaultMessage: 'Suggestions for writing, lists, content structure, and spelling.',
 		description:
 			'This is the description displayed in the modal to allow the user to toggle format paragraph on or off',
 	},

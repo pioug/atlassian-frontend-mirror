@@ -15,7 +15,10 @@ const InlineDialog = styled<TooltipPrimitiveProps>(TooltipPrimitive)({
 	color: token('color.text'),
 	maxHeight: '300px',
 	maxWidth: '300px',
-	padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,
+	paddingTop: token('space.100', '8px'),
+	paddingRight: token('space.150', '12px'),
+	paddingBottom: token('space.100', '8px'),
+	paddingLeft: token('space.150', '12px'),
 });
 
 export default () => (

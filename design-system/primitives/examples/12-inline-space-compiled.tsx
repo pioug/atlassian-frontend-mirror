@@ -29,8 +29,19 @@ const spaceItems = [
 const styles = cssMap({
 	container: { width: '24px' },
 	spaceValue: { minWidth: '80px' },
-	block: { borderRadius: token('border.radius.050'), padding: token('space.200') },
-	padded: { padding: token('space.100') },
+	block: {
+		borderRadius: token('border.radius.050'),
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
+	},
+	padded: {
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
+	},
 });
 
 export default () => (

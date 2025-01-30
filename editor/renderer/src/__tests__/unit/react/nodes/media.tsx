@@ -23,7 +23,6 @@ import {
 	MediaCardView,
 } from '../../../../ui/MediaCard';
 import type { MediaSSR } from '../../../../types/mediaOptions';
-import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 // Ignored via go/ees005
 // eslint-disable-next-line import/no-commonjs
@@ -1176,34 +1175,18 @@ describe('Media', () => {
 
 	describe('annotation attributes', () => {
 		const dataAttributes = { 'data-node-type': 'media', 'data-renderer-start-pos': 4 };
-		ffTest(
-			'platform_editor_external_media_comment_bugfix',
-			async () => {
-				const externalIdentifier = createExternalIdentifier();
-				const mediaExternalCard = mountExternalCard(externalIdentifier, { dataAttributes });
+		test('adds correct annotation attributes to media node', async () => {
+			const externalIdentifier = createExternalIdentifier();
+			const mediaExternalCard = mountExternalCard(externalIdentifier, { dataAttributes });
 
-				await act(async () => {
-					await sleep(0);
-				});
+			await act(async () => {
+				await sleep(0);
+			});
 
-				mediaExternalCard.update();
+			mediaExternalCard.update();
 
-				expect(mediaExternalCard.childAt(0).html()).toContain('data-node-type="media"');
-				expect(mediaExternalCard.childAt(0).html()).toContain('data-renderer-start-pos="4"');
-			},
-			async () => {
-				const externalIdentifier = createExternalIdentifier();
-				const mediaExternalCard = mountExternalCard(externalIdentifier, { dataAttributes });
-
-				await act(async () => {
-					await sleep(0);
-				});
-
-				mediaExternalCard.update();
-
-				expect(mediaExternalCard.childAt(0).html()).not.toContain('data-node-type="media"');
-				expect(mediaExternalCard.childAt(0).html()).not.toContain('data-renderer-start-pos="4"');
-			},
-		);
+			expect(mediaExternalCard.childAt(0).html()).toContain('data-node-type="media"');
+			expect(mediaExternalCard.childAt(0).html()).toContain('data-renderer-start-pos="4"');
+		});
 	});
 });

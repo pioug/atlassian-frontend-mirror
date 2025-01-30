@@ -16,7 +16,10 @@ import { IntlProvider } from 'react-intl-next';
 const avatars: Array<Avatar> = generateAvatars(5);
 
 const wrapperStyles = css({
-	margin: token('space.100', '8px'),
+	marginTop: token('space.100', '8px'),
+	marginRight: token('space.100', '8px'),
+	marginBottom: token('space.100', '8px'),
+	marginLeft: token('space.100', '8px'),
 });
 
 export default () => (

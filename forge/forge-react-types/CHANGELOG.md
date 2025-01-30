@@ -1,5 +1,14 @@
 # @atlaskit/forge-react-types
 
+## 0.34.15
+
+### Patch Changes
+
+- [#107926](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107926)
+  [`78e2651afa16d`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/78e2651afa16d) -
+  Migrate grid, heading, inline, lozenge, modal, progress bar, and progress tracker to using
+  component props config
+
 ## 0.34.14
 
 ### Patch Changes

@@ -96,6 +96,38 @@ export const bodiedExtensionWithParagraphAboveNodeAdf: DocNode = {
 	],
 };
 
+export const emptyBodiedExtensionWithParagraphAboveNodeAdf: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'paragraph',
+			content: [
+				{
+					type: 'text',
+					text: 'hello!',
+				},
+			],
+		},
+		{
+			type: 'bodiedExtension',
+			attrs: {
+				extensionType: 'com.atlassian.confluence.macro.core',
+				extensionKey: 'bodied-eh',
+				parameters: {},
+				layout: 'default',
+				localId: 'testId',
+			},
+			content: [
+				{
+					type: 'paragraph',
+					content: [],
+				},
+			],
+		},
+	],
+};
+
 export const bodiedExtensionWithSmartLinkAdf: DocNode = {
 	version: 1,
 	type: 'doc',

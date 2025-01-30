@@ -37,7 +37,10 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { MediaState } from '../../types';
-import { copyOptionalAttrsFromMediaState } from '../utils/media-common';
+import {
+	copyOptionalAttrsFromMediaState,
+	isInsidePotentialEmptyParagraph,
+} from '../utils/media-common';
 
 import { findChangeFromLocation, getChangeMediaAnalytics } from './analytics';
 import { isImage } from './is-type';
@@ -95,6 +98,7 @@ function insertNodesWithOptionalParagraph({
 		const { paragraph } = schema.nodes;
 		const { inputMethod, fileExtension, newType, previousType } = analyticsAttributes;
 
+		let updatedTr = tr;
 		let openEnd = 0;
 		if (shouldAddParagraph(state) && !fg('platform_editor_axe_leading_paragraph_from_media')) {
 			nodes.push(paragraph.create());
@@ -107,36 +111,47 @@ function insertNodesWithOptionalParagraph({
 
 		if (grandParentNodeType === 'blockquote' && !isNestingInQuoteSupported) {
 			const grandparentEndPos = state.selection.$from.start(-1) + grandParentNode.nodeSize - 1;
-			pmSafeInsert(nodes[0], grandparentEndPos)(tr).scrollIntoView();
+			pmSafeInsert(nodes[0], grandparentEndPos)(updatedTr).scrollIntoView();
 		} else if (state.selection.empty) {
 			const insertFrom =
 				atTheBeginningOfBlock(state) && fg('platform_editor_axe_leading_paragraph_from_media')
 					? state.selection.$from.before()
 					: state.selection.from;
 
-			tr.insert(insertFrom, nodes);
+			if (fg('platform_editor_axe_leading_paragraph_from_media')) {
+				const shouldInsertFrom = !isInsidePotentialEmptyParagraph(state);
+
+				updatedTr = atTheBeginningOfBlock(state)
+					? pmSafeInsert(nodes[0], shouldInsertFrom ? insertFrom : undefined, false)(updatedTr)
+					: updatedTr.insert(insertFrom, nodes);
+			} else {
+				updatedTr.insert(insertFrom, nodes);
+			}
+
 			const endPos =
 				state.selection.from +
 				nodes.reduce((totalSize, currNode) => totalSize + currNode.nodeSize, 0);
 			if (!fg('platform_editor_axe_leading_paragraph_from_media')) {
-				tr.setSelection(new TextSelection(tr.doc.resolve(endPos), tr.doc.resolve(endPos)));
+				updatedTr.setSelection(
+					new TextSelection(updatedTr.doc.resolve(endPos), updatedTr.doc.resolve(endPos)),
+				);
 			}
 		} else {
-			tr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));
+			updatedTr.replaceSelection(new Slice(Fragment.from(nodes), 0, openEnd));
 		}
 
 		if (inputMethod) {
 			editorAnalyticsAPI?.attachAnalyticsEvent(
 				getInsertMediaAnalytics(inputMethod, fileExtension, insertMediaVia),
-			)(tr);
+			)(updatedTr);
 		}
 		if (newType && previousType) {
 			editorAnalyticsAPI?.attachAnalyticsEvent(
 				getChangeMediaAnalytics(previousType, newType, findChangeFromLocation(state.selection)),
-			)(tr);
+			)(updatedTr);
 		}
 		if (dispatch) {
-			dispatch(tr);
+			dispatch(updatedTr);
 		}
 		return true;
 	};
@@ -272,7 +287,6 @@ export const insertMediaSingleNode = (
 	} else {
 		let tr: Transaction | null = null;
 		tr = safeInsert(node, state.selection.from)(state.tr);
-
 		if (!tr) {
 			const content = shouldAddParagraph(view.state)
 				? Fragment.fromArray([node, state.schema.nodes.paragraph.create()])

@@ -5,16 +5,18 @@ import Spinner from '@atlaskit/spinner';
 
 import { type InlinePreloaderStyle } from '../../types';
 import { Frame } from '../Frame';
-import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { IconTitleWrapper, RightIconPositionWrapper } from '../IconAndTitleLayout/styled';
+import { IconAndTitleLayout, IconTitleWrapper } from '../IconAndTitleLayout';
+import {
+	IconTitleWrapperOldVisualRefresh,
+	RightIconPositionWrapper,
+} from '../IconAndTitleLayout/styled';
 import {
 	IconTitleWrapper as IconTitleWrapperOld,
 	RightIconPositionWrapper as RightIconPositionWrapperOld,
 } from '../IconAndTitleLayout/styled-emotion';
 
-import { SpinnerWrapper } from './styled';
+import { SpinnerWrapperOldVisualRefresh } from './styled';
 import { SpinnerWrapper as SpinnerWrapperOld } from './styled-emotion';
-
 export interface InlineCardResolvingViewProps {
 	/** The url to display */
 	url: string;
@@ -46,8 +48,12 @@ export class InlineCardResolvingView extends React.Component<InlineCardResolving
 		} = this.props;
 
 		const SpinnerWrapperComponent = fg('bandicoots-compiled-migration-smartcard')
-			? SpinnerWrapper
+			? SpinnerWrapperOldVisualRefresh
 			: SpinnerWrapperOld;
+
+		const IconTitleWrapperFFed = fg('platform-linking-visual-refresh-v1')
+			? IconTitleWrapper
+			: IconTitleWrapperOldVisualRefresh;
 
 		if (inlinePreloaderStyle === 'on-right-without-skeleton') {
 			if (fg('bandicoots-compiled-migration-smartcard')) {
@@ -59,15 +65,21 @@ export class InlineCardResolvingView extends React.Component<InlineCardResolving
 						isSelected={isSelected}
 						truncateInline={truncateInline}
 					>
-						<IconTitleWrapper>
+						<IconTitleWrapperFFed>
 							{url}
 							<RightIconPositionWrapper>
-								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766 */}
-								<SpinnerWrapperComponent className="inline-resolving-spinner">
+								{fg('platform-linking-visual-refresh-v1') ? (
 									<Spinner size={14} />
-								</SpinnerWrapperComponent>
+								) : (
+									<>
+										{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
+										<SpinnerWrapperComponent className="inline-resolving-spinner">
+											<Spinner size={14} />
+										</SpinnerWrapperComponent>
+									</>
+								)}
 							</RightIconPositionWrapper>
-						</IconTitleWrapper>
+						</IconTitleWrapperFFed>
 					</Frame>
 				);
 			} else {
@@ -101,10 +113,16 @@ export class InlineCardResolvingView extends React.Component<InlineCardResolving
 					truncateInline={truncateInline}
 				>
 					<IconAndTitleLayout title={resolvingPlaceholder ?? url} titleTextColor={titleTextColor}>
-						{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
-						<SpinnerWrapperComponent className="inline-resolving-spinner">
+						{fg('platform-linking-visual-refresh-v1') ? (
 							<Spinner size={14} />
-						</SpinnerWrapperComponent>
+						) : (
+							<>
+								{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766  */}
+								<SpinnerWrapperComponent className="inline-resolving-spinner">
+									<Spinner size={14} />
+								</SpinnerWrapperComponent>
+							</>
+						)}
 					</IconAndTitleLayout>
 				</Frame>
 			);

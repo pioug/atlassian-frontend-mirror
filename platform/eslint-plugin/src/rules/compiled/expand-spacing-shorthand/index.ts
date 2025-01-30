@@ -50,9 +50,10 @@ const parseTemplateLiteral = (templateLiteral: TemplateLiteral, context: Rule.Ru
 };
 
 /**
- * Checks if the parsed property values are valid (i.e. no rule violation will be thrown). Cases are, the property values:
+ * Checks if the parsed property values are valid; values that we shouldn't handle with the fixer:
  * 1. Do not contain a token
- * 2. Have length that are not in the range [1, 4]
+ * 2. Have length that are not in the range [1, 4] for different spacing directions
+ * 		- No more than 4 to exclude additional values such as `!important`
  * 3. Includes `calc(...)`
  * Then, the rule will return with no error
  * @param propertyValues property values parsed as list of strings

@@ -12,6 +12,8 @@ import { Box } from '../../../index';
 
 const styles = cssMap({
 	root: {
+		// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 		padding: token('space.100'),
 		paddingBlock: token('space.100'),
 		paddingBlockStart: token('space.100'),

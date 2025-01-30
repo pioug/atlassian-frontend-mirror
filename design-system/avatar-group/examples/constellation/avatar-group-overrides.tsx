@@ -11,7 +11,10 @@ import { getFreeToUseAvatarImage, RANDOM_USERS } from '../../examples-util/data'
 
 const styles = cssMap({
 	container: {
-		margin: token('space.100', '8px'),
+		marginTop: token('space.100', '8px'),
+		marginRight: token('space.100', '8px'),
+		marginBottom: token('space.100', '8px'),
+		marginLeft: token('space.100', '8px'),
 		textAlign: 'center',
 	},
 });

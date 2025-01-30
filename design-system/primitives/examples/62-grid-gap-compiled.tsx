@@ -14,7 +14,10 @@ const styles = cssMap({
 		borderStyle: 'dashed',
 		borderWidth: token('border.width.outline'),
 		borderRadius: token('border.radius'),
-		padding: token('space.600'),
+		paddingTop: token('space.600'),
+		paddingRight: token('space.600'),
+		paddingBottom: token('space.600'),
+		paddingLeft: token('space.600'),
 	},
 });
 

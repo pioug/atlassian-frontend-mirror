@@ -13,7 +13,7 @@ import { token } from '@atlaskit/tokens';
 
 import { useHeading } from './heading-context';
 
-export type HeadingColor = 'color.text' | 'color.text.inverse' | 'color.text.warning.inverse';
+type HeadingColor = 'color.text' | 'color.text.inverse' | 'color.text.warning.inverse';
 
 export type HeadingProps = {
 	/**

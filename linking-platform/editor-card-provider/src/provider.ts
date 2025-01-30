@@ -60,9 +60,7 @@ const isConfluenceWhiteboard = (url: string) =>
 	);
 
 const isConfluenceDatabase = (url: string) =>
-	url.match(
-		/\/wiki\/spaces\/~?[\d\w]+\/database\/\d+(\?.*(savedViewId=([0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}|all-entries|default)|entryId=[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}|unsavedView=[0-9a-f]{8}-[0-9a-f]{4}-[0-5][0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}).*)?$/,
-	);
+	url.match(/\/wiki\/spaces\/~?[\d\w]+\/database\/\d+(\?.*)?$/);
 
 const isYoutubeVideo = (url: string) =>
 	url.match(/^https:\/\/(.*?\.)?(youtube\..*?\/(watch\?|v\/|shorts\/)|youtu\.be)/);
@@ -256,11 +254,6 @@ export class EditorCardProvider implements CardProvider {
 			isJiraPlanEvaluated = isJiraPlan(url);
 		}
 
-		let isJiraVersionEvaluated;
-		if (fg('smartlink_jira_releases')) {
-			isJiraVersionEvaluated = isJiraVersion(url);
-		}
-
 		let isJiraFormEvaluated;
 		if (fg('smartlink_jira_software_form')) {
 			isJiraFormEvaluated = isJiraForm(url);
@@ -288,8 +281,8 @@ export class EditorCardProvider implements CardProvider {
 			isJiraBacklog(url) ||
 			isJiraBoard(url) ||
 			isRovoAgentProfilePage(url) ||
+			isJiraVersion(url) ||
 			isJiraPlanEvaluated ||
-			isJiraVersionEvaluated ||
 			isJiraFormEvaluated ||
 			isJiraSummaryEvaluated
 		) {

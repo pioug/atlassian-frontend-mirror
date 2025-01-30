@@ -52,8 +52,8 @@ export const messages = defineMessages({
 	reactionsCount: {
 		id: 'reactions.dialog.reactions.count',
 		defaultMessage: `{count, plural,
-        one {# reaction}
-        other {# reactions}
+        one {# total reaction}
+        other {# total reactions}
       }`,
 		description: 'The count of Reactions displayed in Reactions Dialog',
 	},

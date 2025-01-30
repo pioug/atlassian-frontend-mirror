@@ -1,12 +1,30 @@
+import React from 'react';
+
 import { TextSelection } from '@atlaskit/editor-prosemirror/state';
 import { type EditorView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-export function handleEditorFocus(view: EditorView | null): number | undefined {
+export function handleEditorFocus(view: EditorView | undefined): number | undefined | void {
 	if (view?.hasFocus()) {
 		return;
 	}
 
-	return window.setTimeout(() => {
+	/**
+	 * If startTransition is available (in React 18),
+	 * don't use setTimeout as startTransition will be used in ReactEditorViewNext.
+	 * setTimeout(fn, 0) will not defer the focus reliably in React 18 with
+	 * concurrent rendering.
+	 */
+	const react16OnlySetTimeout =
+		(
+			React as unknown as {
+				startTransition?: (fn: () => void) => void;
+			}
+		)?.startTransition && fg('platform_editor_react_18_autofocus_fix')
+			? (fn: () => void) => fn()
+			: (fn: () => void) => window.setTimeout(fn, 0);
+
+	return react16OnlySetTimeout(() => {
 		if (view?.hasFocus()) {
 			return;
 		}
@@ -39,5 +57,5 @@ export function handleEditorFocus(view: EditorView | null): number | undefined {
 			view.dispatch(tr);
 			view.focus();
 		}
-	}, 0);
+	});
 }

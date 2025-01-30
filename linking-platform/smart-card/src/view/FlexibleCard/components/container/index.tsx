@@ -134,7 +134,10 @@ const backgroundStyle = css({
 const elevationStyles = css({
 	border: `1px solid ${token('color.border', N40)}`,
 	borderRadius: token('border.radius.200', '8px'),
-	margin: token('space.025', '2px'),
+	marginTop: token('space.025', '2px'),
+	marginRight: token('space.025', '2px'),
+	marginBottom: token('space.025', '2px'),
+	marginLeft: token('space.025', '2px'),
 });
 
 const clickableContainerStyles = css({

@@ -12,7 +12,10 @@ const parentBaseStyles = cssMap({
 		borderRadius: token('border.radius.100'),
 		marginBottom: token('space.100', '8px'),
 		height: '80px',
-		padding: token('space.100', '8px'),
+		paddingTop: token('space.100', '8px'),
+		paddingRight: token('space.100', '8px'),
+		paddingBottom: token('space.100', '8px'),
+		paddingLeft: token('space.100', '8px'),
 	},
 });
 

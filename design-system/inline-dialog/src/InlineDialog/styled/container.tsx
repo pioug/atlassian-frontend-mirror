@@ -23,6 +23,8 @@ const containerStyles = css({
 	boxSizing: 'content-box',
 	maxWidth: `${8 * 56}px`,
 	maxHeight: `${8 * 56}px`,
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: `${token('space.200', '16px')} ${token('space.300', '24px')}`,
 	zIndex: 300,
 	background: `var(${CSS_THEME_BACKGROUND})`,

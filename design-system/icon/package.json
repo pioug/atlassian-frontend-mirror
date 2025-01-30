@@ -81,6 +81,7 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/code": "^15.6.0",
+		"@atlaskit/css": "^0.7.0",
 		"@atlaskit/ds-lib": "^3.3.0",
 		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/link": "^2.0.0",

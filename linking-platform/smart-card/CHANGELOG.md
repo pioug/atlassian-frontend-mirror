@@ -1,5 +1,21 @@
 # @atlaskit/smart-card
 
+## 34.6.6
+
+### Patch Changes
+
+- [#107451](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107451)
+  [`2c1db58c1ac05`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2c1db58c1ac05) -
+  [ux] Update tokens for inline cards
+
+## 34.6.5
+
+### Patch Changes
+
+- [#107734](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107734)
+  [`1f864a8b1da52`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/1f864a8b1da52) -
+  [ux] EDM-11508 Migrate badge icons
+
 ## 34.6.4
 
 ### Patch Changes

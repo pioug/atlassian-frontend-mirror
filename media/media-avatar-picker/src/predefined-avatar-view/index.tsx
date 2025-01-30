@@ -50,7 +50,10 @@ const bodyStyles = css({
 	width: '353px',
 	maxHeight: '294px',
 	overflowY: 'auto',
-	padding: `${token('space.100', '8px')} 0 0`,
+	paddingTop: token('space.100', '8px'),
+	paddingRight: 0,
+	paddingBottom: 0,
+	paddingLeft: 0,
 	margin: 0,
 });
 

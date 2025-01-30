@@ -13,10 +13,16 @@ const styles = cssMap({
 		width: '3rem',
 		height: '3rem',
 		transition: 'all 0.3s',
-		padding: token('space.100'),
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
 		'&:hover': {
 			transform: 'scale(2)',
-			padding: token('space.200'),
+			paddingTop: token('space.200'),
+			paddingRight: token('space.200'),
+			paddingBottom: token('space.200'),
+			paddingLeft: token('space.200'),
 		},
 	},
 });

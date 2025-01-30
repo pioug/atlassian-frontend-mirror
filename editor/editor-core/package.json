@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.11.12",
+	"version": "203.11.13",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -103,7 +103,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "3.0.27",
+		"@atlassian/search-provider": "3.0.28",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^6.4.0",
 		"@testing-library/react": "^12.1.5",
@@ -407,6 +407,9 @@
 		"platform_editor_nested_tables_paste_dupe_fix": {
 			"type": "boolean",
 			"referenceOnly": true
+		},
+		"platform_editor_react_18_autofocus_fix": {
+			"type": "boolean"
 		}
 	},
 	"stricter": {

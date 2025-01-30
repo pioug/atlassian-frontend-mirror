@@ -173,7 +173,7 @@ async function generatePluginIndex() {
 			version,
 		};
 
-		const plugin = {
+		export const plugin = {
 			meta,
 			rules,
 			configs: {
@@ -194,7 +194,7 @@ async function generatePluginIndex() {
 		} satisfies ESLint.Plugin;
 		const configs = plugin.configs;
 
-		export { configs, meta, plugin, rules };
+		export { configs, meta, rules };
 		export default plugin;
   `;
 

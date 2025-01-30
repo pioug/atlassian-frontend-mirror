@@ -13,7 +13,10 @@ const styles = cssMap({
 		borderRadius: token('border.radius.100'),
 		color: token('color.text.inverse'),
 		backgroundColor: token('color.background.brand.bold'),
-		padding: token('space.100'),
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
 	},
 });
 

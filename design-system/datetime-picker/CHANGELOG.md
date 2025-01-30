@@ -1,5 +1,13 @@
 # @atlaskit/datetime-picker
 
+## 15.11.2
+
+### Patch Changes
+
+- [#103710](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103710)
+  [`0fc1371775df4`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0fc1371775df4) -
+  Refactor internals and update dev dependencies.
+
 ## 15.11.1
 
 ### Patch Changes

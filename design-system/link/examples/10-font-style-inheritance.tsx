@@ -9,13 +9,19 @@ import { token } from '@atlaskit/tokens';
 const styles = cssMap({
 	fontFamily: {
 		fontFamily: 'var(--ds-font-family-body)',
-		margin: token('space.0'),
+		marginTop: token('space.0'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
 	},
 
 	letterSpacing: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		letterSpacing: 2 as any,
-		margin: token('space.0'),
+		marginTop: token('space.0'),
+		marginRight: token('space.0'),
+		marginBottom: token('space.0'),
+		marginLeft: token('space.0'),
 	},
 });
 

@@ -21,7 +21,10 @@ const readViewContainerStyles = cssMap({
 		font: token('font.body'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		minHeight: '4em' as any,
-		padding: token('space.075'),
+		paddingTop: token('space.075'),
+		paddingRight: token('space.075'),
+		paddingBottom: token('space.075'),
+		paddingLeft: token('space.075'),
 		wordBreak: 'break-word',
 	},
 });

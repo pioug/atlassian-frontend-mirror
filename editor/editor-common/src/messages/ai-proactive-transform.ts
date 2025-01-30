@@ -99,14 +99,62 @@ export const aiProactiveTransformMessages = defineMessages({
 	},
 	recommendationFormatParagraphTitle: {
 		id: 'fabric.editor.ai.proactive.recommendation.formatParagraph.title.non-final',
-		defaultMessage: 'Improve paragraph',
+		defaultMessage: 'Enhance content',
 		description:
 			'The title displayed in the side context panel for AI recommendations which suggest a format paragraph operation',
 	},
 	recommendationFormatParagraphDescription: {
 		id: 'fabric.editor.ai.proactive.recommendation.formatParagraph.description.non-final',
-		defaultMessage: 'Simplify content and fix spelling and grammar.',
+		defaultMessage: 'Clarify content writing and structure.',
 		description:
 			'The description displayed in the side context panel for AI recommendations which suggest a format paragraph operation',
+	},
+	recommendationFormatParagraphClarityTitle: {
+		id: 'fabric.editor.ai.proactive.recommendation.formatParagraphClarity.title.non-final',
+		defaultMessage: 'Clarify writing',
+		description:
+			'The title displayed in the side context panel for AI recommendations which suggest an improve paragraph clarity operation',
+	},
+	recommendationFormatParagraphClarityDescription: {
+		id: 'fabric.editor.ai.proactive.recommendation.formatParagraphClarity.description.non-final',
+		defaultMessage: 'Simplify phrasing and grammar.',
+		description:
+			'The description displayed in the side context panel for AI recommendations which suggest an improve paragraph clarity operation',
+	},
+	recommendationFormatParagraphListTitle: {
+		id: 'fabric.editor.ai.proactive.recommendation.formatParagraphList.title.non-final',
+		defaultMessage: 'Create list',
+		description:
+			'The title displayed in the side context panel for AI recommendations which suggest to create a list',
+	},
+	recommendationFormatParagraphListDescription: {
+		id: 'fabric.editor.ai.proactive.recommendation.formatParagraphList.description.non-final',
+		defaultMessage: 'Turn content into a scannable list.',
+		description:
+			'The description displayed in the side context panel for AI recommendations which suggest to create a list',
+	},
+	recommendationFormatParagraphStructureTitle: {
+		id: 'fabric.editor.ai.proactive.recommendation.formatParagraphStructure.title.non-final',
+		defaultMessage: 'Improve structure',
+		description:
+			'The title displayed in the side context panel for AI recommendations which suggest an improve paragraph structure operation',
+	},
+	recommendationFormatParagraphStructureDescription: {
+		id: 'fabric.editor.ai.proactive.recommendation.formatParagraphStructure.description.non-final',
+		defaultMessage: 'Add paragraph breaks and headings.',
+		description:
+			'The description displayed in the side context panel for AI recommendations which suggest an improve paragraph structure operation',
+	},
+	recommendationFormatParagraphSpellcheckTitle: {
+		id: 'fabric.editor.ai.proactive.recommendation.formatParagraphSpellcheck.title.non-final',
+		defaultMessage: 'Fix spelling',
+		description:
+			'The title displayed in the side context panel for AI recommendations which suggest an improve paragraph spellcheck operation',
+	},
+	recommendationFormatParagraphSpellcheckDescription: {
+		id: 'fabric.editor.ai.proactive.recommendation.formatParagraphSpellcheck.description.non-final',
+		defaultMessage: 'Spot and correct spelling errors.',
+		description:
+			'The description displayed in the side context panel for AI recommendations which suggest an improve paragraph spellcheck operation',
 	},
 });

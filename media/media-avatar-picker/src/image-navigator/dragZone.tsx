@@ -12,6 +12,8 @@ const dragZoneStyles = css({
 	flexDirection: 'column',
 	alignItems: 'center',
 	justifyContent: 'center',
+	// TODO (AFB-874): Disabling due to failing test
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.200', '15px'),
 	position: 'relative',
 	borderRadius: '100%',

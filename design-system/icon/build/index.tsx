@@ -8,6 +8,7 @@ import buildIcons, {
 	createDeprecatedIconDocs,
 	createIconDocs,
 	createIconDocsNew,
+	createVRTest,
 	type IconBuildConfig,
 	type NewIconBuildConfig,
 } from '@af/icon-build-process';
@@ -130,6 +131,37 @@ async function main() {
 		);
 
 		fs.outputFile(path.resolve(root, 'src/deprecated-utility.tsx'), deprecatedDocs);
+
+		// Generate VR tests
+		const [vrExampleCore, vrTestCore] = createVRTest(
+			coreIconMetadata,
+			'../../../../..',
+			20,
+			'core',
+		);
+		fs.outputFile(
+			path.resolve(root, 'src/components/__tests__/vr-tests/examples/all-core-icons.tsx'),
+			vrExampleCore,
+		);
+		fs.outputFile(
+			path.resolve(root, 'src/components/__tests__/vr-tests/all-core-icons.test.vr.tsx'),
+			vrTestCore,
+		);
+
+		const [vrExampleUtility, vrTestUtility] = createVRTest(
+			utilityIconMetadata,
+			'../../../../..',
+			20,
+			'utility',
+		);
+		fs.outputFile(
+			path.resolve(root, 'src/components/__tests__/vr-tests/examples/all-utility-icons.tsx'),
+			vrExampleUtility,
+		);
+		fs.outputFile(
+			path.resolve(root, 'src/components/__tests__/vr-tests/all-utility-icons.test.vr.tsx'),
+			vrTestUtility,
+		);
 	});
 }
 

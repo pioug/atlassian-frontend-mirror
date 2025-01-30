@@ -17,6 +17,8 @@ export interface HelpPanelHeader {
 	): void;
 	// toogle the back button visibility. This prop is optional
 	isBackbuttonVisible?: boolean;
+	// AI implementation flag for new layout
+	isAiEnabled?: boolean;
 }
 
 export interface HelpLayout extends HelpPanelHeader {
@@ -26,4 +28,6 @@ export interface HelpLayout extends HelpPanelHeader {
 	footer?: React.ReactNode;
 	// Wrapped content
 	children?: React.ReactNode;
+	// AI implementation flag for new layout
+	isAiEnabled?: boolean;
 }

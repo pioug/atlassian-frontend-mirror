@@ -12,7 +12,11 @@ const gutter = token('space.negative.050', '-4px');
 
 const listStyles = css({
 	display: 'flex',
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	margin: token('space.0', '0px'),
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.0', '0px'),
 	justifyContent: 'flex-start',
 	flexWrap: 'wrap',
@@ -26,6 +30,8 @@ const listStyles = css({
 });
 
 const listItemStyles = css({
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	margin: token('space.0', '0px'),
 	marginBlockEnd: token('space.100', '8px'),
 	paddingInlineEnd: token('space.050', '4px'),

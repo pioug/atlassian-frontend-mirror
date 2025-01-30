@@ -24,7 +24,10 @@ import { type HoverCardLoadingViewProps } from './types';
 const loadingViewContainer = css({
 	display: 'flex',
 	flexDirection: 'column',
-	padding: token('space.200', '1rem'),
+	paddingTop: token('space.200', '1rem'),
+	paddingRight: token('space.200', '1rem'),
+	paddingBottom: token('space.200', '1rem'),
+	paddingLeft: token('space.200', '1rem'),
 });
 
 const skeletonContainer = css({

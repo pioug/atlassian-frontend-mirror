@@ -13,7 +13,11 @@ import { useThemeObserver } from '@atlaskit/tokens';
 import { type SelectedType } from '@atlaskit/tabs/types';
 import { Box, Flex, xcss } from '@atlaskit/primitives';
 
-import { type onDialogSelectReactionChange, type ReactionSummary } from '../../types';
+import {
+	type onDialogSelectReactionChange,
+	type ReactionSummary,
+	type ProfileCardWrapper,
+} from '../../types';
 import { Counter } from '../Counter';
 
 import { customTabWrapper, customTabListStyles } from './styles';
@@ -40,6 +44,10 @@ export interface ReactionsListProps {
 	 * Function to handle clicking on an emoji from the list
 	 */
 	onReactionChanged: onDialogSelectReactionChange;
+	/**
+	 * A functional component from Confluence to show a profile card on hover
+	 */
+	ProfileCardWrapper?: ProfileCardWrapper;
 }
 
 export const ReactionsList = ({
@@ -47,6 +55,7 @@ export const ReactionsList = ({
 	initialEmojiId,
 	emojiProvider,
 	onReactionChanged,
+	ProfileCardWrapper,
 }: ReactionsListProps) => {
 	const [selectedEmoji, setSelectedEmoji] = useState(() => {
 		// Calculate this only on initialize the List of Tabs and each Reactions View collection
@@ -126,6 +135,7 @@ export const ReactionsList = ({
 					reaction={reaction}
 					selectedEmojiId={selectedEmoji.id}
 					emojiProvider={emojiProvider}
+					ProfileCardWrapper={ProfileCardWrapper}
 				/>
 			))}
 		</Tabs>

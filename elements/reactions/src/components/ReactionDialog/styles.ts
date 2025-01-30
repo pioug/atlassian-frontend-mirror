@@ -114,7 +114,6 @@ export const reactionViewStyle = css({
 	p: {
 		margin: 0,
 		color: `${token('color.text', N800)}`,
-		textTransform: 'capitalize',
 		font: token('font.body.large'),
 		fontWeight: token('font.weight.semibold'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography

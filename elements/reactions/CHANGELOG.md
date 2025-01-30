@@ -1,5 +1,14 @@
 # @atlaskit/reactions
 
+## 24.1.0
+
+### Minor Changes
+
+- [#106745](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106745)
+  [`d3fc0dc988c34`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d3fc0dc988c34) -
+  [ux] UI updates to improve spacing and text appearance. Business logic updates on when to render
+  dialog entrypoint
+
 ## 24.0.1
 
 ### Patch Changes

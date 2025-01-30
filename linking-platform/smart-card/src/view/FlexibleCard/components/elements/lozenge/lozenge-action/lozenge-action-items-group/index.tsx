@@ -18,7 +18,10 @@ const dropdownItemGroupStyles = css({
 	overflowY: 'auto',
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	button: {
-		padding: `${token('space.075', '6px')} ${token('space.150', '12px')}`,
+		paddingTop: token('space.075', '6px'),
+		paddingRight: token('space.150', '12px'),
+		paddingBottom: token('space.075', '6px'),
+		paddingLeft: token('space.150', '12px'),
 		minHeight: '28px',
 		width: '220px',
 		'&:hover': {

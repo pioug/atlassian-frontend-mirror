@@ -15,7 +15,10 @@ const styles = cssMap({
 		display: 'inline-block',
 
 		backgroundColor: token('color.background.brand.bold'),
-		padding: token('space.100'),
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
 
 		'&:hover': {
 			color: token('color.text.inverse'),

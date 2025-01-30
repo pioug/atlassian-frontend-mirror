@@ -10,7 +10,12 @@ import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
-	padded: { padding: token('space.100') },
+	padded: {
+		paddingTop: token('space.100'),
+		paddingRight: token('space.100'),
+		paddingBottom: token('space.100'),
+		paddingLeft: token('space.100'),
+	},
 	inheritContainer: { color: token('color.text.brand') },
 });
 

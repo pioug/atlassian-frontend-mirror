@@ -12,7 +12,10 @@ const InlineDialog = styled<TooltipPrimitiveProps>(TooltipPrimitive)({
 	borderRadius: '3px',
 	boxShadow: '0 1px 2px rgba(0, 0, 0, 0.2)',
 	boxSizing: 'content-box',
-	padding: `${token('space.100', '8px')} ${token('space.150', '12px')}`,
+	paddingTop: token('space.100', '8px'),
+	paddingRight: token('space.150', '12px'),
+	paddingBottom: token('space.100', '8px'),
+	paddingLeft: token('space.150', '12px'),
 });
 
 const TooltipCustomizationExample = () => (

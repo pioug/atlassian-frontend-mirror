@@ -20,7 +20,10 @@ const blanketChildStyles = cssMap({
 		width: '50%' as any,
 		marginBlock: token('space.800'),
 		marginInline: 'auto',
-		padding: token('space.500'),
+		paddingTop: token('space.500'),
+		paddingRight: token('space.500'),
+		paddingBottom: token('space.500'),
+		paddingLeft: token('space.500'),
 		backgroundColor: token('elevation.surface'),
 	},
 });

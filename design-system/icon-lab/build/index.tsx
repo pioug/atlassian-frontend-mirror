@@ -7,6 +7,7 @@ import {
 	buildNew as buildIcons,
 	createDeprecatedIconDocs,
 	createIconDocsNew,
+	createVRTest,
 	type NewIconBuildConfig,
 } from '@af/icon-build-process';
 
@@ -58,4 +59,15 @@ buildIcons(config).then((icons) => {
 	);
 
 	fs.outputFile(path.resolve(root, 'src/deprecated-core.tsx'), deprecatedDocs);
+
+	// Generate VR tests
+	const [vrExampleCore, vrTestCore] = createVRTest(coreIconMetadata, '../../../..', 20, 'core');
+	fs.outputFile(
+		path.resolve(root, 'src/__tests__/vr-tests/examples/all-core-icons.tsx'),
+		vrExampleCore,
+	);
+	fs.outputFile(
+		path.resolve(root, 'src/__tests__/vr-tests/all-core-icons.test.vr.tsx'),
+		vrTestCore,
+	);
 });

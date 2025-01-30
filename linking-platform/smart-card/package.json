@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/smart-card",
-	"version": "34.6.4",
+	"version": "34.6.6",
 	"description": "Smart card component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -102,7 +102,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/analytics-tooling": "*",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
-		"@atlassian/gemini": "1.15.4",
+		"@atlassian/gemini": "1.15.5",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/jest-dom": "^6.4.5",
 		"@testing-library/react": "^12.1.5",
@@ -215,6 +215,9 @@
 		"icon-object-migration": {
 			"type": "boolean",
 			"showOnWebsiteForTransitiveDependencies": true
+		},
+		"platform-linking-visual-refresh-v1": {
+			"type": "boolean"
 		}
 	}
 }

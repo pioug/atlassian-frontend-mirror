@@ -85,7 +85,7 @@ function getInnerCssContent(node: Node): string[] {
  * @param node
  * @returns string
  */
-export function removeCssContent(text: string | number | null | undefined, node: Node): string {
+function removeCssContent(text: string | number | null | undefined, node: Node): string {
 	if (text === 0) {
 		return test.toString();
 	}

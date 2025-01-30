@@ -7,7 +7,7 @@ import { type HelpPanelHeader } from '../../model/HelpLayout';
 
 import CloseButton from './CloseButton';
 import BackButton from './BackButton';
-import { HeaderContainer, HeaderTitle, HeaderContent } from './styled';
+import { HeaderContainer, HeaderTitle, HeaderContent, HeaderTitleAi } from './styled';
 
 export const HelpContent: React.FC<HelpPanelHeader & WrappedComponentProps> = ({
 	headerTitle,
@@ -15,6 +15,7 @@ export const HelpContent: React.FC<HelpPanelHeader & WrappedComponentProps> = ({
 	isBackbuttonVisible = false,
 	onCloseButtonClick,
 	onBackButtonClick,
+	isAiEnabled,
 	intl: { formatMessage },
 }) => {
 	const handleOnBackButtonClick = (
@@ -29,10 +30,16 @@ export const HelpContent: React.FC<HelpPanelHeader & WrappedComponentProps> = ({
 	return (
 		<HeaderContainer>
 			<BackButton onClick={handleOnBackButtonClick} isVisible={isBackbuttonVisible} />
-			<HeaderTitle>
-				{headerTitle ? headerTitle : formatMessage(messages.help_panel_header_title)}
-			</HeaderTitle>
-			{onCloseButtonClick && <CloseButton onClick={onCloseButtonClick} />}
+			{isAiEnabled ? (
+				<HeaderTitleAi>
+					{headerTitle ? headerTitle : formatMessage(messages.help_panel_header_title)}
+				</HeaderTitleAi>
+			) : (
+				<HeaderTitle>
+					{headerTitle ? headerTitle : formatMessage(messages.help_panel_header_title)}
+				</HeaderTitle>
+			)}
+			{onCloseButtonClick && <CloseButton onClick={onCloseButtonClick} isAiEnabled={isAiEnabled} />}
 			{headerContent && <HeaderContent>{headerContent}</HeaderContent>}
 		</HeaderContainer>
 	);

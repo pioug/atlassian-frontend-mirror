@@ -36,7 +36,14 @@ const editViewContainerStyles = cssMap({
 	},
 });
 
-const tagGroupContainerStyles = cssMap({ root: { padding: token('space.050') } });
+const tagGroupContainerStyles = cssMap({
+	root: {
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
+	},
+});
 const selectOptions = [
 	{ label: 'CSS', value: 'CSS' },
 	{ label: 'Design', value: 'Design' },

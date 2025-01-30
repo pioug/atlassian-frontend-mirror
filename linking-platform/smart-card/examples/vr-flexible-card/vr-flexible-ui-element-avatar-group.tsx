@@ -26,7 +26,10 @@ const containerStyles = css({
 	display: 'flex',
 	flexWrap: 'wrap',
 	gap: token('space.050', '4px'),
-	padding: token('space.050', '4px'),
+	paddingTop: token('space.050', '4px'),
+	paddingRight: token('space.050', '4px'),
+	paddingBottom: token('space.050', '4px'),
+	paddingLeft: token('space.050', '4px'),
 });
 
 const overrideCss = css({

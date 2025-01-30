@@ -18,7 +18,13 @@ const styles = cssMap({
 	},
 	truncateContainer: { maxWidth: '200px' },
 	container: { width: '200px' },
-	block: { borderRadius: token('border.radius.050'), padding: token('space.200') },
+	block: {
+		borderRadius: token('border.radius.050'),
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
+	},
 });
 
 export default () => (

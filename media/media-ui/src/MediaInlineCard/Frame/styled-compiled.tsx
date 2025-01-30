@@ -29,10 +29,10 @@ const notSelectedStyles = css({
 const wrapperStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '16px',
-	padding: `${token('space.025', '2px')} ${token('space.050', '4px')} ${token(
-		'space.025',
-		'2px',
-	)} ${token('space.050', '4px')}`,
+	paddingTop: token('space.025', '2px'),
+	paddingRight: token('space.050', '4px'),
+	paddingBottom: token('space.025', '2px'),
+	paddingLeft: token('space.050', '4px'),
 	boxDecorationBreak: 'clone',
 	display: 'inline',
 	borderRadius: token('border.radius', '3px'),

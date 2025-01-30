@@ -38,11 +38,11 @@ const buttonStyles = css({
 	paddingRight: token('space.150'),
 	font: token('font.body'),
 	'&:hover': {
-		backgroundColor: token('color.background.neutral.subtle.hovered'),
+		backgroundColor: token('color.background.input.hovered'),
 	},
 	outlineColor: token('color.border.focused'),
 	border: 'none',
-	backgroundColor: token('color.background.neutral.subtle'),
+	backgroundColor: token('color.background.input'),
 	color: token('color.text.subtle'),
 });
 

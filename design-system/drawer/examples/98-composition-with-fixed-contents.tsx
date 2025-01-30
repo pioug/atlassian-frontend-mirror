@@ -14,7 +14,10 @@ import { token } from '@atlaskit/tokens';
 
 const styles = cssMap({
 	root: {
-		padding: token('space.400'),
+		paddingTop: token('space.400'),
+		paddingRight: token('space.400'),
+		paddingBottom: token('space.400'),
+		paddingLeft: token('space.400'),
 	},
 	menu: {
 		position: 'fixed',

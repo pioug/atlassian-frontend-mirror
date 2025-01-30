@@ -1,5 +1,6 @@
 import { snapshot } from '@af/visual-regression';
 
+import VRInlineCardAllExamplesInText from '../../../examples/vr-inline-card/vr-inline-card-all-examples-in-text';
 import InlineCardDefault from '../../../examples/vr-inline-card/vr-inline-card-default-icon';
 import InlineCardDefaultTruncate from '../../../examples/vr-inline-card/vr-inline-card-default-truncate';
 import InlineCardError from '../../../examples/vr-inline-card/vr-inline-card-error';
@@ -305,5 +306,37 @@ snapshot(InlineCardLazyIcons, {
 	featureFlags: {
 		'platform-visual-refresh-icons': true,
 		'platform-smart-card-icon-migration': true,
+	},
+});
+
+snapshot(VRInlineCardAllExamplesInText, {
+	description: `inline card with all card examples in text`,
+	featureFlags: {
+		'platform-component-visual-refresh': true,
+		'bandicoots-compiled-migration-smartcard': true,
+		'platform-smart-card-icon-migration': true,
+		'platform-linking-visual-refresh-v1': true,
+	},
+});
+
+// TODO: Remove on platform-linking-visual-refresh-v1
+snapshot(VRInlineCardAllExamplesInText, {
+	description: `inline card with all card examples in text OLD`,
+	featureFlags: {
+		'platform-component-visual-refresh': false,
+		'bandicoots-compiled-migration-smartcard': false,
+		'platform-smart-card-icon-migration': false,
+		'platform-linking-visual-refresh-v1': false,
+	},
+});
+
+// TODO: Remove on platform-linking-visual-refresh-v1
+snapshot(VRInlineCardAllExamplesInText, {
+	description: `inline card with all card examples in text COMPILED ONLY`,
+	featureFlags: {
+		'platform-component-visual-refresh': false,
+		'bandicoots-compiled-migration-smartcard': true,
+		'platform-smart-card-icon-migration': false,
+		'platform-linking-visual-refresh-v1': false,
 	},
 });

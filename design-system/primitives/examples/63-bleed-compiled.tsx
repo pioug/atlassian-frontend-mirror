@@ -18,7 +18,12 @@ const styles = cssMap({
 		borderStyle: 'solid',
 		borderColor: token('color.border.discovery'),
 	},
-	padded: { padding: token('space.200') },
+	padded: {
+		paddingTop: token('space.200'),
+		paddingRight: token('space.200'),
+		paddingBottom: token('space.200'),
+		paddingLeft: token('space.200'),
+	},
 });
 
 const Block = () => <Box backgroundColor="color.background.discovery.bold" xcss={styles.block} />;

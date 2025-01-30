@@ -17,7 +17,10 @@ import Old from './vr-flexible-ui-blockOld';
 
 const blockOverrideCss = css({
 	backgroundColor: token('color.background.accent.blue.subtle', '#579DFF'),
-	padding: token('space.200', '1rem'),
+	paddingTop: token('space.200', '1rem'),
+	paddingRight: token('space.200', '1rem'),
+	paddingBottom: token('space.200', '1rem'),
+	paddingLeft: token('space.200', '1rem'),
 });
 
 const cardState = getCardState({

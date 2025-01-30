@@ -137,9 +137,6 @@
 		"platform_editor_allow_annotation_triple_click": {
 			"type": "boolean"
 		},
-		"platform_editor_external_media_comment_bugfix": {
-			"type": "boolean"
-		},
 		"platform_editor_nested_table_in_nested_parent_fix": {
 			"type": "boolean"
 		},

@@ -1,5 +1,22 @@
 # @atlaskit/editor-common
 
+## 99.5.6
+
+### Patch Changes
+
+- [#107729](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107729)
+  [`0097396913c2f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0097396913c2f) -
+  [ux] EDF-2297 Update improve paragraph suggestion handling to show different cards depending on
+  the nature of suggestions; introduce type, score and details fields for recommendation.
+
+## 99.5.5
+
+### Patch Changes
+
+- [#107618](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107618)
+  [`5b85fa648a36b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5b85fa648a36b) -
+  Create VR tests for new bodied macros changes and fix some UX errors with the button/hover overlay
+
 ## 99.5.4
 
 ### Patch Changes

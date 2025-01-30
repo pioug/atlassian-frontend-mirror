@@ -1,5 +1,13 @@
 # @atlaskit/css
 
+## 0.7.5
+
+### Patch Changes
+
+- [#105661](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105661)
+  [`f944cf37082f6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f944cf37082f6) -
+  Update dependencies and remove unused internal export.
+
 ## 0.7.4
 
 ### Patch Changes

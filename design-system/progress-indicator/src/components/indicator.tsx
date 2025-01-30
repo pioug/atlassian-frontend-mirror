@@ -53,7 +53,10 @@ const colorBorderMap = cssMap({
 
 const buttonStyle = cssMap({
 	root: {
-		padding: token('space.0'),
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
 		cursor: 'pointer',
 		outline: 0,
 	},

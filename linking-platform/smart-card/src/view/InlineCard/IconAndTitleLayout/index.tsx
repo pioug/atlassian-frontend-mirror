@@ -1,10 +1,17 @@
-import React from 'react';
+/**
+ * @jsxFrag
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import React, { type ComponentPropsWithoutRef } from 'react';
 
-import { styled } from '@compiled/react';
+import { css, jsx, styled } from '@compiled/react';
+import { di } from 'react-magnetic-di';
 import ImageLoader from 'react-render-image';
 
 import LinkIcon from '@atlaskit/icon/core/migration/link';
 import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, xcss } from '@atlaskit/primitives';
 import { B400, N200 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -15,13 +22,13 @@ import {
 } from '../styled-emotion';
 
 import {
-	EmojiWrapper,
-	IconEmptyWrapper,
-	IconPositionWrapper,
-	IconTitleWrapper,
-	IconWrapper,
-	TitleWrapper,
-	TitleWrapperClassName,
+	EmojiWrapperOldVisualRefresh,
+	IconEmptyWrapperOldVisualRefresh,
+	IconPositionWrapperOldVisualRefresh,
+	IconTitleWrapperOldVisualRefresh,
+	IconWrapperOldVisualRefresh,
+	TitleWrapperClassNameOldVisualRefresh,
+	TitleWrapperOldVisualRefresh,
 } from './styled';
 import {
 	EmojiWrapper as EmojiWrapperOld,
@@ -49,7 +56,7 @@ export interface IconAndTitleLayoutProps {
 }
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled -- Ignored via go/DSP-18766
-const NoLinkAppearance = styled.span({
+const NoLinkAppearanceOldVisualRefresh = styled.span({
 	color: token('color.text.subtlest', N200),
 	marginLeft: token('space.050', '4px'),
 });
@@ -71,8 +78,16 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 		const { icon, emoji } = this.props;
 
 		if (emoji) {
+			if (fg('platform-linking-visual-refresh-v1')) {
+				return (
+					<Box as="span" xcss={iconWrapperStyle} testId="icon-position-emoji-wrapper">
+						{emoji}
+					</Box>
+				);
+			}
+
 			return fg('bandicoots-compiled-migration-smartcard') ? (
-				<EmojiWrapper>{emoji}</EmojiWrapper>
+				<EmojiWrapperOldVisualRefresh>{emoji}</EmojiWrapperOldVisualRefresh>
 			) : (
 				<EmojiWrapperOld>{emoji}</EmojiWrapperOld>
 			);
@@ -82,18 +97,39 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 			return null;
 		}
 
+		if (fg('platform-linking-visual-refresh-v1')) {
+			return (
+				<Box as="span" xcss={iconWrapperStyle} testId="icon-atlaskit-icon-wrapper">
+					{icon}
+				</Box>
+			);
+		}
+
 		return fg('bandicoots-compiled-migration-smartcard') ? (
-			<IconWrapper>{icon}</IconWrapper>
+			<IconWrapperOldVisualRefresh>{icon}</IconWrapperOldVisualRefresh>
 		) : (
 			<IconWrapperOld>{icon}</IconWrapperOld>
 		);
 	}
 
 	private renderImageIcon(errored: React.ReactNode, testId: string) {
+		di(ImageLoader);
+
 		const { icon: url } = this.props;
 
 		if (!url || typeof url !== 'string') {
 			return null;
+		}
+
+		if (fg('platform-linking-visual-refresh-v1')) {
+			return (
+				<ImageLoader
+					src={url}
+					loaded={<img css={iconImageStyle} src={url} data-testid={`${testId}-image`} alt="" />}
+					errored={errored}
+					loading={<Shimmer testId={`${testId}-loading`} />}
+				/>
+			);
 		}
 
 		return (
@@ -116,19 +152,32 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 	private renderIconPlaceholder(testId: string) {
 		const { defaultIcon } = this.props;
 
+		if (fg('platform-linking-visual-refresh-v1')) {
+			return (
+				defaultIcon || (
+					<LinkIcon
+						label="link"
+						LEGACY_size="small"
+						testId={`${testId}-default`}
+						color="currentColor"
+					/>
+				)
+			);
+		}
+
 		if (defaultIcon) {
-			return <IconWrapper>{defaultIcon}</IconWrapper>;
+			return <IconWrapperOldVisualRefresh>{defaultIcon}</IconWrapperOldVisualRefresh>;
 		}
 
 		return (
-			<IconWrapper>
+			<IconWrapperOldVisualRefresh>
 				<LinkIcon
 					label="link"
 					LEGACY_size="small"
 					testId={`${testId}-default`}
 					color="currentColor"
 				/>
-			</IconWrapper>
+			</IconWrapperOldVisualRefresh>
 		);
 	}
 
@@ -144,6 +193,14 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 
 		const placeholder = this.renderIconPlaceholder(testId);
 		const image = this.renderImageIcon(placeholder, testId);
+
+		if (fg('platform-linking-visual-refresh-v1')) {
+			return (
+				<Box as="span" xcss={iconWrapperStyle} testId={`${testId}-image-wrapper`}>
+					{image || placeholder}
+				</Box>
+			);
+		}
 
 		return image || placeholder;
 	}
@@ -182,23 +239,49 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 
 		const titlePart = fg('bandicoots-compiled-migration-smartcard') ? (
 			<>
-				<IconPositionWrapper data-testid="icon-position-wrapper">
-					{children || (
-						<>
-							<IconEmptyWrapper data-testid="icon-empty-wrapper" />
-							{this.renderIcon(testId)}
-						</>
-					)}
-				</IconPositionWrapper>
-
-				<TitleWrapper
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-					style={{ color: titleTextColor }}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={TitleWrapperClassName}
-				>
-					{title}
-				</TitleWrapper>
+				{fg('platform-linking-visual-refresh-v1') ? (
+					<Box as="span" xcss={iconOuterWrapperStyle} testId="icon-position-wrapper">
+						{children || (
+							<>
+								<Box as="span" xcss={iconEmptyStyle} testId="icon-empty-wrapper" />
+								{this.renderIcon(testId)}
+							</>
+						)}
+					</Box>
+				) : (
+					<IconPositionWrapperOldVisualRefresh data-testid="icon-position-wrapper">
+						{children || (
+							<>
+								<IconEmptyWrapperOldVisualRefresh data-testid="icon-empty-wrapper" />
+								{this.renderIcon(testId)}
+							</>
+						)}
+					</IconPositionWrapperOldVisualRefresh>
+				)}
+				{fg('platform-linking-visual-refresh-v1') ? (
+					<Box
+						as="span"
+						style={{ color: this.props.titleTextColor }}
+						{...(!fg('platform-linking-visual-refresh-v1')
+							? {
+									className: TitleWrapperClassNameOldVisualRefresh,
+								}
+							: {})}
+					>
+						{title}
+					</Box>
+				) : (
+					<TitleWrapperOldVisualRefresh
+						style={{ color: this.props.titleTextColor }}
+						{...(!fg('platform-linking-visual-refresh-v1')
+							? {
+									className: TitleWrapperClassNameOldVisualRefresh,
+								}
+							: {})}
+					>
+						{title}
+					</TitleWrapperOldVisualRefresh>
+				)}
 			</>
 		) : (
 			<>
@@ -215,7 +298,7 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
 					style={{ color: titleTextColor }}
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-					className={TitleWrapperClassName}
+					className={TitleWrapperClassNameOldVisualRefresh}
 				>
 					{title}
 				</TitleWrapperOld>
@@ -224,17 +307,48 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 
 		if (fg('bandicoots-compiled-migration-smartcard')) {
 			return (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				<IconTitleWrapper style={{ color: titleColor }} data-testid={testId}>
-					{link ? (
-						<LinkAppearance href={link} onClick={this.handleClick} onKeyPress={this.handleKeyPress}>
-							{titlePart}
-						</LinkAppearance>
+				<>
+					{fg('platform-linking-visual-refresh-v1') ? (
+						<IconTitleWrapper style={{ color: this.props.titleColor }} testId={testId}>
+							{link ? (
+								<LinkAppearance
+									href={link}
+									onClick={this.handleClick}
+									onKeyPress={this.handleKeyPress}
+								>
+									{titlePart}
+								</LinkAppearance>
+							) : (
+								titlePart
+							)}
+							{rightSide ? (
+								<Box as="span" xcss={noLinkAppearanceStyle}>
+									{rightSide}
+								</Box>
+							) : null}
+						</IconTitleWrapper>
 					) : (
-						titlePart
+						<IconTitleWrapperOldVisualRefresh
+							style={{ color: this.props.titleColor }}
+							data-testid={testId}
+						>
+							{link ? (
+								<LinkAppearance
+									href={link}
+									onClick={this.handleClick}
+									onKeyPress={this.handleKeyPress}
+								>
+									{titlePart}
+								</LinkAppearance>
+							) : (
+								titlePart
+							)}
+							{rightSide ? (
+								<NoLinkAppearanceOldVisualRefresh>{rightSide}</NoLinkAppearanceOldVisualRefresh>
+							) : null}
+						</IconTitleWrapperOldVisualRefresh>
 					)}
-					{rightSide ? <NoLinkAppearance>{rightSide}</NoLinkAppearance> : null}
-				</IconTitleWrapper>
+				</>
 			);
 		} else {
 			return (
@@ -257,3 +371,76 @@ export class IconAndTitleLayout extends React.Component<IconAndTitleLayoutProps>
 		}
 	}
 }
+
+export const IconTitleWrapper = (props: ComponentPropsWithoutRef<typeof Box>) => {
+	return <Box as="span" xcss={iconTitleWrapperStyle} {...props} />;
+};
+
+export const LozengeWrapper = (props: ComponentPropsWithoutRef<typeof Box>) => {
+	return (
+		<Box as="span" xcss={lozengeWrapperStyle}>
+			<Box xcss={lozengeInternalWrapperStyle} {...props} />
+		</Box>
+	);
+};
+
+const lozengeInternalWrapperStyle = xcss({
+	paddingBottom: 'space.025',
+});
+
+const lozengeWrapperStyle = xcss({
+	display: 'inline-block',
+	verticalAlign: 'bottom',
+	marginTop: 'space.0',
+	marginRight: 'space.050',
+	marginBottom: 'space.0',
+	marginLeft: 'space.025',
+});
+
+const horizontalPadding = 'space.050';
+const verticalPadding = 'space.025';
+const iconWidth = '16px';
+
+const iconEmptyStyle = xcss({
+	width: iconWidth,
+	display: 'inline-block',
+	opacity: 0,
+});
+
+const iconOuterWrapperStyle = xcss({
+	marginRight: 'space.050',
+	display: 'inline-block',
+	position: 'relative',
+});
+
+const iconTitleWrapperStyle = xcss({
+	whiteSpace: 'pre-wrap',
+	wordBreak: 'break-all',
+	boxDecorationBreak: 'clone',
+	paddingTop: verticalPadding,
+	paddingRight: horizontalPadding,
+	paddingBottom: verticalPadding,
+	paddingLeft: horizontalPadding,
+});
+
+const iconWrapperStyle = xcss({
+	position: 'absolute',
+	display: 'inline-flex',
+	alignItems: 'center',
+	boxSizing: 'border-box',
+	top: 'space.0',
+	left: 'space.0',
+	bottom: 'space.0',
+	width: iconWidth,
+	userSelect: 'none',
+});
+
+const iconImageStyle = css({
+	width: '100%',
+});
+
+const noLinkAppearanceStyle = xcss({
+	color: 'color.text.subtlest',
+	font: 'font.body',
+	marginLeft: 'space.050',
+});

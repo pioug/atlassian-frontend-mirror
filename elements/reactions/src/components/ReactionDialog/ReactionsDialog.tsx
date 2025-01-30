@@ -10,25 +10,32 @@ import { jsx } from '@emotion/react';
 import { Flex, xcss } from '@atlaskit/primitives';
 import Button, { IconButton } from '@atlaskit/button/new';
 import { type EmojiProvider } from '@atlaskit/emoji/resource';
+import Heading from '@atlaskit/heading';
 import Modal, {
 	ModalBody,
 	ModalFooter,
-	ModalHeader,
-	ModalTitle,
+	useModal,
 	type OnCloseHandler,
 } from '@atlaskit/modal-dialog';
+import Tooltip from '@atlaskit/tooltip';
 import ChevronLeftIcon from '@atlaskit/icon/utility/chevron-left';
 import ChevronRightIcon from '@atlaskit/icon/utility/chevron-right';
 
 import { NUMBER_OF_REACTIONS_TO_DISPLAY } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
-import { type onDialogSelectReactionChange, type ReactionSummary } from '../../types';
+import {
+	type onDialogSelectReactionChange,
+	type ReactionSummary,
+	type ProfileCardWrapper,
+} from '../../types';
 
 import { ReactionsList } from './ReactionsList';
 import { containerStyle } from './styles';
 
 const fullWidthStyle = xcss({
 	width: '100%',
+	padding: 'space.300',
+	paddingBlockEnd: 'space.400',
 });
 
 /**
@@ -58,6 +65,7 @@ export interface ReactionsDialogProps {
 	 */
 	handleSelectReaction?: onDialogSelectReactionChange;
 	handlePaginationChange?: (emojiId: string) => void;
+	ProfileCardWrapper?: ProfileCardWrapper;
 }
 
 const getDimensions = (container: HTMLDivElement) => {
@@ -68,6 +76,71 @@ const getDimensions = (container: HTMLDivElement) => {
 	};
 };
 
+interface ReactionsDialogModalHeaderProps {
+	totalReactionsCount: number;
+	handlePreviousPage: () => void;
+	handleNextPage: () => void;
+	currentPage: number;
+	maxPages: number;
+}
+
+const ReactionsDialogModalHeader = ({
+	totalReactionsCount,
+	handlePreviousPage,
+	handleNextPage,
+	currentPage,
+	maxPages,
+}: ReactionsDialogModalHeaderProps) => {
+	const { titleId } = useModal();
+	const intl = useIntl();
+
+	const isSinglePage = maxPages === 1;
+	const isOnFirstPage = currentPage === 1;
+	const isOnLastPage = currentPage === maxPages;
+
+	return (
+		<Flex direction="row" justifyContent="space-between" alignItems="center" xcss={fullWidthStyle}>
+			<Heading size="medium" id={titleId}>
+				{intl.formatMessage(messages.reactionsCount, {
+					count: totalReactionsCount,
+				})}
+			</Heading>
+			{!isSinglePage && (
+				<Flex alignItems="center" gap="space.100">
+					<Tooltip
+						content={intl.formatMessage(messages.leftNavigateLabel)}
+						canAppear={() => !isOnFirstPage}
+					>
+						{(tooltipProps) => (
+							<IconButton
+								{...tooltipProps}
+								isDisabled={isOnFirstPage}
+								onClick={handlePreviousPage}
+								icon={ChevronLeftIcon}
+								label={intl.formatMessage(messages.leftNavigateLabel)}
+							/>
+						)}
+					</Tooltip>
+					<Tooltip
+						content={intl.formatMessage(messages.rightNavigateLabel)}
+						canAppear={() => !isOnLastPage}
+					>
+						{(tooltipProps) => (
+							<IconButton
+								{...tooltipProps}
+								onClick={handleNextPage}
+								isDisabled={isOnLastPage}
+								icon={ChevronRightIcon}
+								label={intl.formatMessage(messages.rightNavigateLabel)}
+							/>
+						)}
+					</Tooltip>
+				</Flex>
+			)}
+		</Flex>
+	);
+};
+
 export const ReactionsDialog = ({
 	reactions = [],
 	handleCloseReactionsDialog = () => {},
@@ -75,6 +148,7 @@ export const ReactionsDialog = ({
 	selectedEmojiId,
 	handleSelectReaction = () => {},
 	handlePaginationChange = () => {},
+	ProfileCardWrapper,
 }: ReactionsDialogProps) => {
 	const [elementToScroll, setElementToScroll] = useState<Element>();
 
@@ -201,37 +275,20 @@ export const ReactionsDialog = ({
 	}, []);
 
 	return (
-		<Modal onClose={handleCloseReactionsDialog} height={600} testId={RENDER_MODAL_TESTID}>
-			<ModalHeader>
-				<Flex
-					direction="row"
-					justifyContent="space-between"
-					alignItems="center"
-					xcss={fullWidthStyle}
-				>
-					<div>
-						<ModalTitle>
-							{intl.formatMessage(messages.reactionsCount, {
-								count: totalReactionsCount,
-							})}
-						</ModalTitle>
-					</div>
-					<Flex alignItems="center" gap="space.100">
-						<IconButton
-							isDisabled={currentPage === 1}
-							onClick={handlePreviousPage}
-							icon={ChevronLeftIcon}
-							label={intl.formatMessage(messages.leftNavigateLabel)}
-						/>
-						<IconButton
-							onClick={handleNextPage}
-							isDisabled={currentPage === maxPages}
-							icon={ChevronRightIcon}
-							label={intl.formatMessage(messages.rightNavigateLabel)}
-						/>
-					</Flex>
-				</Flex>
-			</ModalHeader>
+		<Modal
+			onClose={handleCloseReactionsDialog}
+			height={600}
+			testId={RENDER_MODAL_TESTID}
+			// eslint-disable-next-line jsx-a11y/no-autofocus
+			autoFocus={false}
+		>
+			<ReactionsDialogModalHeader
+				totalReactionsCount={totalReactionsCount}
+				maxPages={maxPages}
+				handlePreviousPage={handlePreviousPage}
+				handleNextPage={handleNextPage}
+				currentPage={currentPage}
+			/>
 			<ModalBody>
 				{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 				<div css={containerStyle(reactionsBorderWidth)} ref={setRef}>
@@ -240,11 +297,12 @@ export const ReactionsDialog = ({
 						reactions={currentReactions}
 						emojiProvider={emojiProvider}
 						onReactionChanged={handleSelectReaction}
+						ProfileCardWrapper={ProfileCardWrapper}
 					/>
 				</div>
 			</ModalBody>
 			<ModalFooter>
-				<Button appearance="primary" onClick={handleCloseReactionsDialog} autoFocus>
+				<Button appearance="subtle" onClick={handleCloseReactionsDialog}>
 					{intl.formatMessage(messages.closeReactionsDialog)}
 				</Button>
 			</ModalFooter>

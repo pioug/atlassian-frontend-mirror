@@ -32,10 +32,60 @@ const reactionsData = emojiIds.map((item, index) => {
 		count: 10,
 		reacted: false,
 		users: [
-			{ id: 'test-0', displayName: 'Bette Davis-test' },
-			{ id: 'test-3', displayName: 'Harper Lee-test' },
-			{ id: 'test-1', displayName: 'Ada Lovelace-test' },
-			{ id: 'test-2', displayName: 'Lucy Liu-test' },
+			{
+				id: 'test-0',
+				displayName: 'Bette Davis-test',
+				accountId: 'test0',
+				profilePicture: { path: 'path0' },
+			},
+			{
+				id: 'test-1',
+				displayName: 'Harper Lee-test',
+				accountId: 'test1',
+				profilePicture: { path: 'path1' },
+			},
+			// out of order to assert alphabetical ordering
+			{
+				id: 'test-4',
+				displayName: 'Zebra Zebra-test',
+				accountId: 'test4',
+				profilePicture: { path: 'path4' },
+			},
+			{
+				id: 'test-2',
+				displayName: 'Ada Lovelace-test',
+				accountId: 'test2',
+				profilePicture: { path: 'path2' },
+			},
+			{
+				id: 'test-3',
+				displayName: 'Lucy Liu-test',
+				accountId: 'test3',
+				profilePicture: { path: 'path3' },
+			},
+		],
+	};
+});
+
+const truncatedReactionsData = emojiIds.slice(0, 8).map((item, index) => {
+	return {
+		ari: `ari:cloud:owner:demo-cloud-id:item/${index + 1}`,
+		containerAri: `ari:cloud:owner:demo-cloud-id:container/${index + 1}`,
+		emojiId: item,
+		count: 10,
+		reacted: false,
+		users: [
+			{
+				id: 'test-0',
+				displayName: 'Bette Davis-test',
+				accountId: 'test0',
+				profilePicture: { path: 'path0' },
+			},
+			{
+				id: 'test-1',
+				displayName: 'Harper Lee-test',
+				profilePicture: { path: 'path1' },
+			},
 		],
 	};
 });
@@ -48,7 +98,7 @@ const { findByText, findByRole, queryAllByText, queryAllByRole } = screen;
 const renderReactionsDialog = async (extraProps: Partial<ReactionsDialogProps> = {}) => {
 	renderWithIntl(
 		<ReactionsDialog
-			reactions={reactionsData.slice(0, 4)}
+			reactions={reactionsData.slice(0, 5)}
 			emojiProvider={getEmojiResource() as Promise<EmojiProvider>}
 			handleCloseReactionsDialog={mockHandleCloseReactionsDialog}
 			handlePaginationChange={mockHandlePaginationChange}
@@ -64,7 +114,7 @@ const renderReactionsDialog = async (extraProps: Partial<ReactionsDialogProps> =
 it('should display reactions count', async () => {
 	await renderReactionsDialog();
 
-	const totalCommentCount = await findByText('40 reactions');
+	const totalCommentCount = await findByText('50 total reactions');
 	expect(totalCommentCount).toBeTruthy();
 });
 
@@ -75,12 +125,13 @@ it('should display a list of reaction tabs', async () => {
 	expect(reactionsList).toBeDefined();
 
 	const elements = queryAllByRole('tab');
-	expect(elements).toHaveLength(4);
+	expect(elements).toHaveLength(5);
 
 	expect(elements[0].id).toBe('reactions-dialog-tabs-0');
 	expect(elements[1].id).toBe('reactions-dialog-tabs-1');
 	expect(elements[2].id).toBe('reactions-dialog-tabs-2');
 	expect(elements[3].id).toBe('reactions-dialog-tabs-3');
+	expect(elements[4].id).toBe('reactions-dialog-tabs-4');
 });
 
 it('should display an emoji and count for each tab in the reaction list', async () => {
@@ -115,11 +166,12 @@ it('should alphabetically sort users for the selected reaction', async () => {
 
 	const names = queryAllByText(/\w*\s\w*-test/);
 
-	expect(names).toHaveLength(4);
+	expect(names).toHaveLength(5);
 	expect(names[0].textContent).toBe('Ada Lovelace-test');
 	expect(names[1].textContent).toBe('Bette Davis-test');
 	expect(names[2].textContent).toBe('Harper Lee-test');
 	expect(names[3].textContent).toBe('Lucy Liu-test');
+	expect(names[4].textContent).toBe('Zebra Zebra-test');
 });
 
 it('should fire handleSelectReaction when a reaction is selected', async () => {
@@ -179,6 +231,16 @@ it('should disable navigation buttons on the first and last page', async () => {
 	expect(rightNavigateButton).toBeDisabled();
 });
 
+it('should not render nagivation buttons if there is only one page', async () => {
+	await renderReactionsDialog({ reactions: truncatedReactionsData });
+
+	const reactionsList = await findByRole('tablist');
+	expect(reactionsList).toBeDefined();
+
+	expect(screen.queryByRole('button', { name: /left navigate/i })).not.toBeInTheDocument();
+	expect(screen.queryByRole('button', { name: /right navigate/i })).not.toBeInTheDocument();
+});
+
 it('should render the first emoji after navigating to a new page', async () => {
 	const spy = jest.fn();
 	await renderReactionsDialog({
@@ -198,4 +260,43 @@ it('should render the first emoji after navigating to a new page', async () => {
 	expect(spy).toHaveBeenCalledWith('1f525');
 
 	expect(screen.getByText(/people who reacted with :fire:/i)).toBeInTheDocument();
+});
+
+it('should render user profile card', async () => {
+	await renderReactionsDialog({
+		reactions: reactionsData,
+		// the actual component handles the over hover interaction
+		ProfileCardWrapper: () => <div>ProfileCard</div>,
+	});
+
+	const reactionsList = await findByRole('tablist');
+	expect(reactionsList).toBeDefined();
+
+	const profileCards = screen.queryAllByText('ProfileCard');
+	expect(profileCards).toHaveLength(5);
+});
+
+it('should not render profile card there is no profile card wrapper', async () => {
+	await renderReactionsDialog({
+		reactions: reactionsData,
+	});
+
+	const reactionsList = await findByRole('tablist');
+	expect(reactionsList).toBeDefined();
+
+	const profileCards = screen.queryByText('ProfileCard');
+	expect(profileCards).not.toBeInTheDocument();
+});
+
+it('should not render profile card for users that are missing an account id', async () => {
+	await renderReactionsDialog({
+		reactions: truncatedReactionsData,
+		ProfileCardWrapper: () => <div>ProfileCard</div>,
+	});
+
+	const reactionsList = await findByRole('tablist');
+	expect(reactionsList).toBeDefined();
+
+	const profileCards = screen.queryAllByText('ProfileCard');
+	expect(profileCards).toHaveLength(1);
 });

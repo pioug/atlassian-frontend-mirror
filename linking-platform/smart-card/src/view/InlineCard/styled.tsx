@@ -4,8 +4,9 @@ import { token } from '@atlaskit/tokens';
 
 // By default buttons will hide overflow and ellipsis content instead of wrapping.
 // This basically turns the button back into inline content
+// TODO Delete when cleaning platform-linking-visual-refresh-v1
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const IconStyledButton = styled.span({
+export const IconStyledButtonOldVisualRefresh = styled.span({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&&': {
 		textAlign: 'initial',

@@ -14,7 +14,10 @@ const blanketChildStyles = cssMap({
 	root: {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values
 		width: '50%' as any,
-		margin: token('space.600'),
+		marginTop: token('space.600'),
+		marginRight: token('space.600'),
+		marginBottom: token('space.600'),
+		marginLeft: token('space.600'),
 		paddingBlock: token('space.300'),
 		backgroundColor: token('elevation.surface'),
 	},

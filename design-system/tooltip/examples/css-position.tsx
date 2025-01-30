@@ -27,6 +27,8 @@ const boxShadow = token('elevation.shadow.overlay');
 const positionStyles = css({
 	width: '280px',
 	height: '60px',
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.100', '8px'),
 	backgroundColor: token('color.background.neutral'),
 	borderRadius: '5px',

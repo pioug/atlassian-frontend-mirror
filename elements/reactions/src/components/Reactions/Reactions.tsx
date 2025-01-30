@@ -34,6 +34,7 @@ import {
 	type ReactionSummary,
 	type ReactionSource,
 	type QuickReactionEmojiSummary,
+	type ProfileCardWrapper,
 } from '../../types';
 import {
 	ReactionDialogClosed,
@@ -173,6 +174,10 @@ export interface ReactionsProps
 	 * Optional prop for hiding default reactions displayed when there are no existing reactions
 	 */
 	hideDefaultReactions?: boolean;
+	/**
+	 * Optional prop for rendering a profile card wrapper in the Reactions Dialog
+	 */
+	ProfileCardWrapper?: ProfileCardWrapper;
 }
 
 /**
@@ -225,6 +230,7 @@ export const Reactions = React.memo(
 		subtleReactionsSummaryAndPicker = false,
 		showAddReactionText = false,
 		hideDefaultReactions = false,
+		ProfileCardWrapper,
 	}: ReactionsProps) => {
 		const [selectedEmojiId, setSelectedEmojiId] = useState<string>();
 		const { createAnalyticsEvent } = useAnalyticsEvents();
@@ -426,6 +432,9 @@ export const Reactions = React.memo(
 			memorizedReactions.length >= summaryViewThreshold &&
 			reactions.length > 0;
 
+		// criteria to show Reactions Dialog
+		const hasEmojiWithFivePlusReactions = reactions.some((reaction) => reaction.count >= 5);
+
 		return (
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			<div css={wrapperStyle} data-testid={RENDER_REACTIONS_TESTID}>
@@ -482,7 +491,7 @@ export const Reactions = React.memo(
 					showAddReactionText={showAddReactionText}
 					subtleReactionsSummaryAndPicker={subtleReactionsSummaryAndPicker}
 				/>
-				{allowUserDialog && reactions.length > 0 && (
+				{allowUserDialog && hasEmojiWithFivePlusReactions && (
 					<Tooltip
 						content={<FormattedMessage {...messages.seeWhoReactedTooltip} />}
 						hideTooltipOnClick
@@ -511,6 +520,7 @@ export const Reactions = React.memo(
 							handleCloseReactionsDialog={handleCloseReactionsDialog}
 							handleSelectReaction={handleSelectReactionInDialog}
 							handlePaginationChange={handlePaginationChange}
+							ProfileCardWrapper={ProfileCardWrapper}
 						/>
 					)}
 				</ModalTransition>

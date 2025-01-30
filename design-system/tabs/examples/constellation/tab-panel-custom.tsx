@@ -11,6 +11,8 @@ import { token } from '@atlaskit/tokens';
 
 const customPanelStyles = css({
 	display: 'flex',
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.400', '32px'),
 	alignItems: 'center',
 	justifyContent: 'center',
@@ -24,6 +26,8 @@ const customPanelStyles = css({
 	marginBlockStart: token('space.200', '16px'),
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
+		// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 		padding: token('space.400', '32px'),
 	},
 });

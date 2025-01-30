@@ -18,6 +18,8 @@ const containerStyles = css({
 	display: 'grid',
 	width: '100%',
 	margin: '0 auto',
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.0', '0px'),
 	gap: `var(--ds--pt--sp)`,
 	listStyleType: 'none',

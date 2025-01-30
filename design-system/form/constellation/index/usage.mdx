@@ -20,6 +20,8 @@ import FormOneColumnDont from '../images/form-one-column-dont.png';
 Use forms when input is required to complete an action. Forms direct people to provide and submit
 relevant information, such as changing personal settings or creating a Jira issue.
 
+Think carefully about structure, sequence, interface elements, field labels, help, and feedback.
+
 Common form components include [text fields](/components/textfield/examples),
 [selects](/components/select/examples), [radio buttons](/components/radio/examples),
 [checkboxes](/components/checkbox/examples),
@@ -30,28 +32,39 @@ Common form components include [text fields](/components/textfield/examples),
 
 ![The example form is "Create a project" and it has four fields: Project name, key, description, and user access.](../images/form-anatomy.png)
 
-1. **Title:** Use a concise form title to explain the form’s context.
+1. **Title:** Use a concise form title to explain the form’s context. Make sure you follow correct
+   [heading hierarchy](/components/heading/usage#hierarchy). If needed, follow the title with a
+   short description.
 2. **Labels:** Labels are required for all form inputs. Standard label alignment is left-aligned
    with the field underneath. Use a combination of a concise label and helper text to explain the
    field input.
 3. **Placeholder text:** Avoid placeholders whenever possible. Never use placeholder text to
    communicate critical information — this is not accessible. Instead, use field labels or helper
    text to describe the purpose of the field and how to use it. Placeholders can, however, be used
-   for search fields or short example entries.
+   for search fields.
 4. **Required field**: Clearly communicate fields that are required. Don’t rely on asterisks alone
    to communicate which fields are required, make sure there is also a legend at the top of the
-   form.
-5. **Form section:** Use sections to group the form fields into smaller parts.
+   form. If all fields in the form are mandatory, add asterisks to every field and write in the
+   legend “All fields are required”.
+5. **Form section:** Use sections to group the form fields into smaller parts. Include a section
+   title to describe the group of controls and fields. Make the title concise and informative. But
+   if you need to, you can add a short description to explain the group.
 6. **Disabled fields:** Show disabled fields if users need to know what controls might not be
    available to them.
 7. **Form footer:** Always use a submit button and distinguish primary and secondary buttons.
+
+**Field length**: The length of the field should reflect the intended length of content. Available
+lengths are 75px, 150px, 250px, 350px, and 500px.
 
 ## Accessibility
 
 - Ensure there is a legend at the top of the form so people know that `*` indicates a required
   field.
+- Autofocus the first field by default. This allows users to tab through elements in the form in a
+  logical way.
 - Never disable a submit button, even if all of the required fields aren't filled in. Instead,
-  describe what needs to be done with clear instructions, validation and error messages.
+  describe what needs to be done with clear instructions, and
+  [validation and error messages](#validation-and-error-messages).
 - Avoid using placeholder text wherever possible. If you do use placeholder text, don't include any
   critical information in the placeholder text.
 - Make sure all fields have an accessible label visible. Search fields are sometimes an exception to
@@ -67,9 +80,82 @@ Common form components include [text fields](/components/textfield/examples),
   the DOM at the time the form is rendered.
 - Match keyboard to input on mobile.
 
-## Best practices
+## Buttons
 
-### Layout
+- State the action that the buttons perform when clicked.
+- Use a primary button for the main action then, as required, any standard buttons followed by a
+  link button.
+- Use a link button for cancel.
+- Avoid multiple action buttons and avoid a reset button. This will reduce confusion about how to
+  submit the form.
+
+<DoDont
+	type="do"
+	image={{
+		url: FormMultipleActionButtonsDo,
+		alt: 'Form with a single "Create" action button.',
+	}}
+>
+	Use clear, binary actions for clean form submission.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: FormMultipleActionButtonsDont,
+		alt: 'Form with a "Create" action button, and a "Manage trials" action button.',
+	}}
+>
+	Use multiple action buttons and a reset button at the bottom of the form.
+</DoDont>
+
+Ensure the primary action button provides feedback that the form is being submitted.
+
+<DoDont
+	type="do"
+	image={{
+		url: FormButtonFeedbackDo,
+		alt: 'Form where the "Create" button is replaced by a spinner.',
+	}}
+>
+	Give feedback to show that form is being submitted.
+</DoDont>
+
+<DoDont
+	type="dont"
+	image={{
+		url: FormButtonFeedbackDont,
+		alt: 'Form where the "Create" button is disabled.',
+	}}
+>
+	Provide no feedback on submit.
+</DoDont>
+
+## Button positioning
+
+In most cases buttons are sorted by importance from right to left, with the most important button
+(primary) on the **right**.
+
+![Button positioned to the right in a modal.](../images/button-positioning-1.png)
+
+![Button positioned to the right in a page.](../images/button-positioning-2.png)
+
+In some cases, **left align buttons** with the **primary button on the left**:
+
+- single-page forms
+- multi-step forms
+- flags
+- section messages
+- [Data Center product forms](https://docs.atlassian.com/aui/latest/docs/forms.html)
+
+![Button positioned to the left in a form.](../images/button-positioning-3.png)
+
+In other cases, use **center-aligned buttons**:
+
+- Benefits modal
+- Login forms
+
+## Layout
 
 Group related sections into logical sets to help people understand the information they need to
 enter.
@@ -120,7 +206,7 @@ Max-width: **624px**, recommended by the [cozy grid](/foundations/grid#gutter-sp
 cases, assume that the width typically follows where the form lives in a modal, focused task, page,
 etc.
 
-### Fields and labels
+## Fields and labels
 
 - Reduce the number of fields in your form to avoid a large cognitive load for people, and help them
   submit the form faster.
@@ -160,7 +246,7 @@ Use input masks to help users understand correct field formats.
 		alt: 'The password field is obscured by an input mask.',
 	}}
 >
-	Use input masks to help users understand fields correctly.
+	Use input masks.
 </DoDont>
 
 <DoDont
@@ -173,72 +259,54 @@ Use input masks to help users understand correct field formats.
 	Use default inputs for particular fields.
 </DoDont>
 
-### Buttons
+## Long forms
 
-- State the action that the buttons perform when clicked.
-- Avoid multiple action buttons and avoid a reset button. This will reduce confusion about how to
-  submit the form.
+When people access a form, it can be daunting to be shown a large number of fields.
 
-<DoDont
-	type="do"
-	image={{
-		url: FormMultipleActionButtonsDo,
-		alt: 'Form with a single "Create" action button.',
-	}}
->
-	Use clear, binary actions for clean form submission.
-</DoDont>
+While too long depends on the audience and context, there are several ways to make long forms easier
+for people:
 
-<DoDont
-	type="dont"
-	image={{
-		url: FormMultipleActionButtonsDont,
-		alt: 'Form with a "Create" action button, and a "Manage trials" action button.',
-	}}
->
-	Use multiple action buttons and a reset button at the bottom of the form.
-</DoDont>
+- break them up into multiple steps
+- use progressive disclosure
 
-Ensure the primary action button provides feedback that the form is being submitted.
+### Multi-step forms
 
-<DoDont
-	type="do"
-	image={{
-		url: FormButtonFeedbackDo,
-		alt: 'Form where the "Create" button is replaced by a spinner.',
-	}}
->
-	Give feedback to show that form is being submitted.
-</DoDont>
+You can spread form fields across more than one screen using a
+[progress tracker](/components/progress-tracker).
 
-<DoDont
-	type="dont"
-	image={{
-		url: FormButtonFeedbackDont,
-		alt: 'Form where the "Create" button is disabled.',
-	}}
->
-	Give no feedback on submit.
-</DoDont>
+In multi-step forms, each screen should show fields that belong together. Make sure people know
+their status at each step of a form, and make sure their progress is saved.
 
-### Button positioning
+### Progressive disclosure
 
-Buttons are sorted by importance from right to left, with the most important button (primary) on the
-right.
+You can configure a form to show more content as users go through the form and use its fields and
+controls.
 
-![Button positioned to the right in a modal.](../images/button-positioning-1.png)
+Use this technique when it isn’t necessary to see all controls unless users have made specific
+decisions, for example, if they ticked a particular checkbox additional information would be
+revealed.
 
-![Button positioned to the right in a page.](../images/button-positioning-2.png)
+## Validation and error messages
 
-Exceptions to this are single-page forms, flags, and section messages where buttons are left aligned
-with the primary button on the left.
+Use validation and error messages to indicate when a form or field submission fails or requires
+additional information to be shown.
 
-![Button positioned to the left in a form.](../images/button-positioning-3.png)
+![Form validation example showing error messaging placement below each field and the use of red to highlight an unfocused text field that needs an entry.](../images/form-validation.png)
+
+1. Unfocused text field
+2. Error message and icon
+3. Focused text field
+
+The focus color changes to blue when a user selects the text field and starts typing or changes
+content.
+
+When validating text fields in real-time, message icons will switch depending on the message type.
+For example, helper text changes into an error message when the content being input doesn't fit the
+criteria. Error and warning messages disappear when the criteria is met.
 
 ## Related
 
 - For more guidance on buttons, see the [button component](/components/button/usage).
-- To understand different form types and when to use them, see the [forms pattern](/patterns/forms).
 - Other fields which can be used in forms include [text field](/components/textfield/examples),
   [text area](/components/textarea/examples), [checkbox](/components/checbox/examples), and
   [range](/components/range/examples).

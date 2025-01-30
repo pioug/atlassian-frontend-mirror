@@ -33,7 +33,12 @@ export interface FileIconProps {
 
 const iconStyleMap = cssMap({
 	small: {},
-	large: { padding: token('space.050', '4px') },
+	large: {
+		paddingTop: token('space.050', '4px'),
+		paddingRight: token('space.050', '4px'),
+		paddingBottom: token('space.050', '4px'),
+		paddingLeft: token('space.050', '4px'),
+	},
 });
 
 const iconStyles = css({

@@ -1,5 +1,13 @@
 # @atlaskit/heading
 
+## 4.0.2
+
+### Patch Changes
+
+- [#108122](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108122)
+  [`cbc1d5f5bf950`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cbc1d5f5bf950) -
+  Update dev depdencies and remove unused internal exports.
+
 ## 4.0.1
 
 ### Patch Changes

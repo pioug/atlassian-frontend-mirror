@@ -2,7 +2,7 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
-import Button from '@atlaskit/button';
+import ButtonOld from '@atlaskit/button';
 import ErrorIcon from '@atlaskit/icon/utility/migration/error';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Box, xcss } from '@atlaskit/primitives';
@@ -11,11 +11,12 @@ import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../messages';
 import { HoverCard } from '../../HoverCard';
+import { ActionButton } from '../common/action-button';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
 import { AKIconWrapper as AKIconWrapperOld } from '../Icon-emotion';
 import { IconAndTitleLayout } from '../IconAndTitleLayout';
-import { IconStyledButton } from '../styled';
+import { IconStyledButtonOldVisualRefresh } from '../styled';
 import { IconStyledButton as IconStyledButtonOld } from '../styled-emotion';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
 
@@ -57,20 +58,32 @@ export class InlineCardErroredView extends React.Component<InlineCardErroredView
 	renderActionButton = () => {
 		const { onRetry } = this.props;
 
-		const ActionButton = withFrameStyleControl(Button, this.frameRef);
+		const Button = withFrameStyleControl(ButtonOld, this.frameRef);
+
+		if (fg('platform-linking-visual-refresh-v1')) {
+			return (
+				onRetry && (
+					<Button component={ActionButton} onClick={this.handleRetry}>
+						<FormattedMessage {...messages.try_again} />
+					</Button>
+				)
+			);
+		}
 
 		return (
 			onRetry && (
-				<ActionButton
+				<Button
 					spacing="none"
 					component={
-						fg('bandicoots-compiled-migration-smartcard') ? IconStyledButton : IconStyledButtonOld
+						fg('bandicoots-compiled-migration-smartcard')
+							? IconStyledButtonOldVisualRefresh
+							: IconStyledButtonOld
 					}
 					onClick={this.handleRetry}
 					role="button"
 				>
 					<FormattedMessage {...messages.try_again} />
-				</ActionButton>
+				</Button>
 			)
 		);
 	};

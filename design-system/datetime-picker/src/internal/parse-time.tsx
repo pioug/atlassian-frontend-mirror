@@ -66,7 +66,7 @@ export function removeSpacer(time: string): string {
 	return time.replace(/[:.]/g, '');
 }
 
-export function formatSemi24(time: string): string {
+function formatSemi24(time: string): string {
 	if (time.length === 1) {
 		return `0${time}00`;
 	}
@@ -79,7 +79,7 @@ export function formatSemi24(time: string): string {
 	return time;
 }
 
-export function checkHour(hour: string, meridiem: string): string | null {
+function checkHour(hour: string, meridiem: string): string | null {
 	if (hour > '24') {
 		return null;
 	}
@@ -92,7 +92,7 @@ export function checkHour(hour: string, meridiem: string): string | null {
 	return hour;
 }
 
-export function checkMinuteSecond(value: string): string | null {
+function checkMinuteSecond(value: string): string | null {
 	if (value > '59') {
 		return null;
 	}
@@ -119,7 +119,7 @@ export function convertTo24hrTime(time: string): TimeObject | null {
 	};
 }
 
-export function assignToDate(time: TimeObject): Date {
+function assignToDate(time: TimeObject): Date {
 	const dateTime = new Date();
 	dateTime.setHours(time.hour);
 	dateTime.setMinutes(time.minute);

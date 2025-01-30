@@ -79,7 +79,7 @@ const labelStyles = css({
 	font: token('font.body'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 	'&.with-bodied-macro-live-page-styles': {
-		backgroundColor: token('color.background.neutral.subtle'),
+		backgroundColor: token('color.background.input'),
 		boxShadow: `0 0 0 1px ${token('color.border')}`,
 	},
 });

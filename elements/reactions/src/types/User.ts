@@ -11,6 +11,7 @@ export interface User {
 	 * optional path to a user profile picture
 	 */
 	profilePicture?: ProfilePicture;
+	accountId?: string;
 }
 
 /**

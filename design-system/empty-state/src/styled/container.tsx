@@ -10,6 +10,8 @@ import { token } from '@atlaskit/tokens';
 
 import type { Width } from '../index';
 const containerStyles = css({
+	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	margin: `${token('space.600', '48px')} auto`,
 	textAlign: 'center',
 });

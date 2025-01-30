@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-media
 
+## 1.44.10
+
+### Patch Changes
+
+- [#107786](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107786)
+  [`cbb228ee58b88`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/cbb228ee58b88) -
+  [ux] ED-26403 remove added paragraphs when adding media to document
+
 ## 1.44.9
 
 ### Patch Changes

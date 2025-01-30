@@ -10,7 +10,7 @@ const HeadingLevelContext = createContext<HeadingLevel>(0);
  * @internal
  * @returns The current heading level context.
  */
-export const useHeadingLevel = (): HeadingLevel => {
+const useHeadingLevel = (): HeadingLevel => {
 	return useContext(HeadingLevelContext);
 };
 
@@ -31,7 +31,7 @@ export const useHeading = (fallback: HeadingElement) => {
 	] as const;
 };
 
-export interface HeadingLevelContextProps {
+interface HeadingLevelContextProps {
 	/**
 	 * Optional - only apply this value if the intent is to reset the heading context outside the normal content flow, for example inside a `section`.
 	 */

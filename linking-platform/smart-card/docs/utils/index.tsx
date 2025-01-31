@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { Prop, Props } from '@atlaskit/docs';
 
@@ -58,23 +57,22 @@ export const openUrl = (url: string) => {
 	window.open(url, '_blank');
 };
 
+const divStyles = css({
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	'> div, > div > div': {
+		marginTop: 0,
+	},
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
+	h3: {
+		display: 'none',
+	},
+});
+
 export const overrideActionsProps = (props: Object) => (
 	<Prop
 		{...props}
 		shapeComponent={() => (
-			<div
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				css={css({
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-					'> div, > div > div': {
-						marginTop: 0,
-					},
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
-					h3: {
-						display: 'none',
-					},
-				})}
-			>
+			<div css={divStyles}>
 				<Props heading="" props={require('!!extract-react-types-loader!../props/props-actions')} />
 			</div>
 		)}

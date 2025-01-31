@@ -1,12 +1,39 @@
-import React, { type Dispatch, type SetStateAction } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type Dispatch, type SetStateAction } from 'react';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
+import { cssMap, jsx } from '@atlaskit/css';
 import { ButtonItem } from '@atlaskit/menu';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
+import { token } from '@atlaskit/tokens';
 
 import type { ManualRule } from '../../../manual-triggers-container/common/types';
 import { useAutomationMenu } from '../../menu-context';
+
+import { AutomationModalRuleOld } from './AutomationModalRuleOld';
+
+const styles = cssMap({
+	ruleButtonStyle: {
+		borderColor: token('color.border'),
+		borderStyle: 'solid',
+		borderWidth: token('border.width'),
+		borderRadius: token('border.radius'),
+	},
+	selectedRuleButtonStyle: {
+		borderColor: token('color.border.accent.blue'),
+		borderStyle: 'solid',
+		borderWidth: token('border.width.outline'),
+		borderRadius: token('border.radius'),
+	},
+	ruleNameStyle: {
+		height: '28px',
+	},
+});
 
 type AutomationModalRuleProps = {
 	rule: ManualRule;
@@ -14,27 +41,7 @@ type AutomationModalRuleProps = {
 	setSelectedRule: Dispatch<SetStateAction<ManualRule | undefined>>;
 };
 
-const ruleButtonStyle = xcss({
-	borderColor: 'color.border',
-	borderStyle: 'solid',
-	borderWidth: 'border.width',
-	borderRadius: 'border.radius',
-});
-
-const selectedRuleButtonStyle = xcss({
-	backgroundColor: 'color.background.accent.blue.subtlest',
-	borderColor: 'color.border.accent.blue',
-	borderStyle: 'solid',
-	borderWidth: 'border.width.outline',
-	borderRadius: 'border.radius',
-});
-
-const ruleNameStyle = xcss({
-	// Using this to increase the height of the button itself.
-	height: '28px',
-});
-
-export const AutomationModalRule = ({
+const AutomationModalRuleNew = ({
 	rule,
 	selectedRule,
 	setSelectedRule,
@@ -63,16 +70,26 @@ export const AutomationModalRule = ({
 	};
 
 	return (
-		<Box xcss={isSelectedRule ? selectedRuleButtonStyle : ruleButtonStyle}>
+		<Box
+			xcss={isSelectedRule ? styles.selectedRuleButtonStyle : styles.ruleButtonStyle}
+			backgroundColor={isSelectedRule ? 'color.background.accent.blue.subtlest' : undefined}
+		>
 			<ButtonItem
 				isDisabled={!!invokingRuleId}
 				iconBefore={isExecuting ? <Spinner size="small" /> : null}
 				onClick={ruleOnClick}
 			>
-				<Stack xcss={ruleNameStyle} alignBlock="center">
+				<Stack xcss={styles.ruleNameStyle} alignBlock="center">
 					{rule.name}
 				</Stack>
 			</ButtonItem>
 		</Box>
 	);
+};
+
+export const AutomationModalRule = (props: AutomationModalRuleProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <AutomationModalRuleNew {...props} />;
+	}
+	return <AutomationModalRuleOld {...props} />;
 };

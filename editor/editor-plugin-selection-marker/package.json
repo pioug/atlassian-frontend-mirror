@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-selection-marker",
-	"version": "1.5.19",
+	"version": "1.6.0",
 	"description": "Selection marker plugin for @atlaskit/editor-core.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -54,7 +54,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

@@ -27,7 +27,13 @@
 			"path": "../../editor-plugin-editor-disabled/afm-jira/tsconfig.json"
 		},
 		{
+			"path": "../../editor-plugin-find-replace/afm-jira/tsconfig.json"
+		},
+		{
 			"path": "../../editor-plugin-selection/afm-jira/tsconfig.json"
+		},
+		{
+			"path": "../../editor-plugin-selection-marker/afm-jira/tsconfig.json"
 		},
 		{
 			"path": "../../../design-system/tokens/afm-jira/tsconfig.json"

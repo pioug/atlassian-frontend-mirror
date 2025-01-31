@@ -54,7 +54,7 @@
 		"@atlaskit/notification-log-client": "^6.1.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/radio": "^7.0.0",
+		"@atlaskit/radio": "^7.1.0",
 		"@atlaskit/section-message": "^6.8.0",
 		"@atlaskit/select": "^18.9.0",
 		"@atlaskit/spinner": "^17.0.0",
@@ -79,11 +79,11 @@
 	},
 	"devDependencies": {
 		"@atlaskit/navigation": "^37.0.0",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@types/react-transition-group": "^2.0.6",
 		"algoliasearch": "^3.35.1",
 		"enzyme": "^3.10.0",
-		"react-test-renderer": "^16.8.0",
+		"react-test-renderer": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

@@ -1,5 +1,13 @@
 # @atlaskit/radio
 
+## 7.1.0
+
+### Minor Changes
+
+- [#100775](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/100775)
+  [`82ed9ca7cc608`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/82ed9ca7cc608) -
+  add aria-describedby for error handling to radio group
+
 ## 7.0.1
 
 ### Patch Changes

@@ -65,8 +65,8 @@
 		"@atlaskit/ssr": "*",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/react": "^12.1.5",
-		"react-dom": "^16.8.0",
+		"@testing-library/react": "^13.4.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

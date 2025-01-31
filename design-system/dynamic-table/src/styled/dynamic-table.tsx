@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 
 import { row, tableBorder } from '../theme';
 
-export type TableProps = HTMLProps<HTMLTableElement> & {
+type TableProps = HTMLProps<HTMLTableElement> & {
 	isFixedSize?: boolean;
 	isLoading?: boolean;
 	hasDataRow: boolean;

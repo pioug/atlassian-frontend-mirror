@@ -11,12 +11,14 @@ import React, {
 	useState,
 } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getIframeSandboxAttribute } from '../../../utils';
 
+import { FrameOld } from './FrameOld';
 import { IFrame } from './IFrame';
 import { IframeDwellTracker } from './IframeDwellTracker';
 
@@ -57,7 +59,7 @@ const iframeStyles = css({
 	borderRadius: '3px',
 });
 
-export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
+const FrameNew = React.forwardRef<HTMLIFrameElement, FrameProps>(
 	({ url, isTrusted = false, testId, onIframeDwell, onIframeFocus, title }, iframeRef) => {
 		di(IFrame);
 		const [isIframeLoaded, setIframeLoaded] = useState(false);
@@ -150,3 +152,11 @@ export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>(
 		);
 	},
 );
+
+export const Frame = React.forwardRef<HTMLIFrameElement, FrameProps>((props, ref) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <FrameNew {...props} ref={ref} />;
+	} else {
+		return <FrameOld {...props} ref={ref} />;
+	}
+});

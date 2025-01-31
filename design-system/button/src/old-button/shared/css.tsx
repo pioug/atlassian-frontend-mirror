@@ -429,6 +429,7 @@ export function getIconStyle({ spacing }: { spacing: Spacing }) {
 		flexGrow: 0,
 		flexShrink: 0,
 		alignSelf: 'center',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: 0,
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: 0,

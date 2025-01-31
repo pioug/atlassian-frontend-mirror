@@ -318,7 +318,7 @@ export const StyleObject = {
 		const fontSizeRaw = getValueForPropertyNode(fontSizeNode, context);
 
 		// Without a valid fontSize value we can't be certain what token should be used; exit
-		if (!fontSizeRaw) {
+		if (fontSizeRaw === undefined || fontSizeRaw === null) {
 			return { success: false };
 		}
 

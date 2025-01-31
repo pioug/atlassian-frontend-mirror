@@ -1,5 +1,13 @@
 # @atlaskit/dynamic-table
 
+## 17.0.5
+
+### Patch Changes
+
+- [#107074](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107074)
+  [`97099e70a5731`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/97099e70a5731) -
+  Update dependencies and remove unused internal exports.
+
 ## 17.0.4
 
 ### Patch Changes

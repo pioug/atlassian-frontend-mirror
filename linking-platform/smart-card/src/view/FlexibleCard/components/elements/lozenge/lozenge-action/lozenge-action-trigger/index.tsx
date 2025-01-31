@@ -7,18 +7,21 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { css, jsx } from '@compiled/react';
 
+import { cssMap } from '@atlaskit/css';
 import ChevronDownIcon from '@atlaskit/icon/utility/migration/chevron-down';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import LozengeActionTriggerOld from './LozengeActionTriggerOld';
 import { type LozengeActionTriggerProps } from './type';
 
-const chevronDownStyles = xcss({
-	marginLeft: 'space.075',
-	display: 'flex',
+const styles = cssMap({
+	chevronDown: {
+		marginLeft: token('space.075'),
+		display: 'flex',
+	},
 });
 
 const triggerLozengeStyles = css({
@@ -71,7 +74,7 @@ const LozengeActionTriggerNew = ({
 			<Lozenge appearance={appearance} isBold={isBold}>
 				<span css={triggerLozengeStyles}>
 					<span>{text}</span>
-					<Box as="span" xcss={chevronDownStyles}>
+					<Box as="span" xcss={styles.chevronDown}>
 						<ChevronDownIcon
 							color="currentColor"
 							label="options"

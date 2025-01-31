@@ -59,11 +59,11 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/editor-plugin-block-type": "^4.1.0",
 		"@atlaskit/editor-plugin-text-formatting": "^1.16.0",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"mockdate": "^3.0.5",
 		"raf-stub": "^2.0.1",
-		"react-dom": "^16.8.0"
+		"react-dom": "^18.2.0"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",

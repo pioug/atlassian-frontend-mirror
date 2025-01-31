@@ -5,7 +5,6 @@ import type { PMPluginFactory } from '@atlaskit/editor-common/types';
 import { baseKeymap } from '@atlaskit/editor-prosemirror/commands';
 import { history } from '@atlaskit/editor-prosemirror/history';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type { BasePlugin, Callback } from './basePluginType';
@@ -17,7 +16,6 @@ import inlineCursorTargetPlugin from './pm-plugins/inline-cursor-target';
 import { createLazyNodeViewDecorationPlugin } from './pm-plugins/lazy-node-view-decoration';
 import newlinePreserveMarksPlugin from './pm-plugins/newline-preserve-marks';
 import scrollGutter from './pm-plugins/scroll-gutter/plugin';
-import scrollGutterNext from './pm-plugins/scroll-gutter/plugin-next';
 import { getKeyboardHeight } from './pm-plugins/scroll-gutter/util/get-keyboard-height';
 import { inputTracking } from './pm-plugins/utils/inputTrackingConfig';
 
@@ -148,17 +146,10 @@ const basePlugin: BasePlugin = ({ config: options, api }) => {
 			);
 
 			if (options && options.allowScrollGutter) {
-				if (fg('platform_editor_improved_scroll_gutter')) {
-					plugins.push({
-						name: 'scrollGutterPlugin',
-						plugin: () => scrollGutterNext(options.allowScrollGutter),
-					});
-				} else {
-					plugins.push({
-						name: 'scrollGutterPlugin',
-						plugin: () => scrollGutter(options.allowScrollGutter),
-					});
-				}
+				plugins.push({
+					name: 'scrollGutterPlugin',
+					plugin: () => scrollGutter(options.allowScrollGutter),
+				});
 			}
 
 			plugins.push({

@@ -1,5 +1,14 @@
 # @atlaskit/forge-react-types
 
+## 0.34.16
+
+### Patch Changes
+
+- [#108316](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108316)
+  [`8e8eed0bdc006`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8e8eed0bdc006) -
+  Migrate radio, range, section message, spinner, stack, tabs, tag, tag group, time picker, toggle,
+  tooltip to using props config
+
 ## 0.34.15
 
 ### Patch Changes

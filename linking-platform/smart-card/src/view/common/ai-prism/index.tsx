@@ -2,14 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, cssMap, jsx } from '@compiled/react';
 
-import { useThemeObserver } from '@atlaskit/tokens';
-
-import { popupContainerStyles } from '../../HoverCard/styled';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { token, useThemeObserver } from '@atlaskit/tokens';
 
 import AIGlowingBorder from './ai-glowing-border';
+import AIPrismOld from './AIPrismOld';
 import { AI_BORDER_PALETTE } from './constants';
 import type { AIPrismProps } from './types';
 
@@ -24,7 +23,27 @@ const contentStylesPrismVisible = css({
 		'0px 8px 12px rgba(9, 30, 66, 0),0px 0px 1px rgba(9, 30, 66, 0)',
 });
 
-const AIPrism = ({
+const animatedSvgContainerStyles = cssMap({
+	true: {
+		transition: 'opacity 0.5s ease',
+		opacity: 1,
+	},
+	false: {
+		transition: 'opacity 0.5s ease',
+		opacity: 0,
+	},
+});
+
+const popupContainerStyles = css({
+	borderRadius: token('border.radius.200', '8px'),
+	backgroundColor: token('elevation.surface.overlay', 'white'),
+	boxShadow: token(
+		'elevation.shadow.overlay',
+		'0px 8px 12px rgba(9, 30, 66, 0.15),0px 0px 1px rgba(9, 30, 66, 0.31)',
+	),
+});
+
+const AIPrismNew = ({
 	children,
 	isGlowing = true,
 	isMoving = true,
@@ -35,13 +54,7 @@ const AIPrism = ({
 
 	return (
 		<AIGlowingBorder
-			additionalCss={{
-				animatedSvgContainer: css({
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-					opacity: isVisible ? 1 : 0,
-					transition: 'opacity 0.5s ease',
-				}),
-			}}
+			css={[animatedSvgContainerStyles[isVisible ? 'true' : 'false']]}
 			palette={AI_BORDER_PALETTE[colorMode] ?? AI_BORDER_PALETTE.light}
 			isGlowing={isGlowing}
 			isMoving={isMoving}
@@ -49,7 +62,6 @@ const AIPrism = ({
 		>
 			<div
 				css={[
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 					popupContainerStyles,
 					contentStyles,
 					isVisible ? contentStylesPrismVisible : undefined,
@@ -59,6 +71,13 @@ const AIPrism = ({
 			</div>
 		</AIGlowingBorder>
 	);
+};
+
+const AIPrism = (props: AIPrismProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <AIPrismNew {...props} />;
+	}
+	return <AIPrismOld {...props} />;
 };
 
 export default AIPrism;

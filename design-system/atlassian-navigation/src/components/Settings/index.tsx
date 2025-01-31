@@ -67,5 +67,3 @@ export const Settings = forwardRef((props: SettingsProps, ref: React.Ref<any>) =
 		</div>
 	);
 });
-
-export default Settings;

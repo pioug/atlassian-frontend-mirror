@@ -42,12 +42,12 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/docs": "*",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/link": "*",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@testing-library/react": "^12.1.5",
-		"react-dom": "^16.8.0",
+		"@testing-library/react": "^13.4.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

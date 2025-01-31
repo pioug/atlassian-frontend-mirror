@@ -1,13 +1,7 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
-
 import LinkGlyph from '@atlaskit/icon/core/migration/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { useThemeObserver } from '@atlaskit/tokens';
 
 import { getPreviewUrlWithTheme } from '../../../utils';
@@ -15,6 +9,8 @@ import { ExpandedFrame } from '../components/ExpandedFrame';
 import { Frame } from '../components/Frame';
 import { ImageIcon } from '../components/ImageIcon';
 import { type ContextViewModel, type FrameStyle } from '../types';
+
+import { EmbedCardResolvedViewOld } from './ResolvedViewOld';
 
 export interface EmbedCardResolvedViewProps {
 	/** The title of the link */
@@ -44,10 +40,7 @@ export interface EmbedCardResolvedViewProps {
 	onIframeFocus?: () => void;
 }
 
-export const EmbedCardResolvedView = React.forwardRef<
-	HTMLIFrameElement,
-	EmbedCardResolvedViewProps
->(
+const EmbedCardResolvedViewNew = React.forwardRef<HTMLIFrameElement, EmbedCardResolvedViewProps>(
 	(
 		{
 			link,
@@ -119,3 +112,14 @@ export const EmbedCardResolvedView = React.forwardRef<
 		);
 	},
 );
+
+export const EmbedCardResolvedView = React.forwardRef<
+	HTMLIFrameElement,
+	EmbedCardResolvedViewProps
+>((props, ref) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <EmbedCardResolvedViewNew {...props} ref={ref} />;
+	} else {
+		return <EmbedCardResolvedViewOld {...props} ref={ref} />;
+	}
+});

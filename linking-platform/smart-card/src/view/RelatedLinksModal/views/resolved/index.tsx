@@ -2,7 +2,7 @@ import React from 'react';
 
 import { AnalyticsContext } from '@atlaskit/analytics-next';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Stack } from '@atlaskit/primitives';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 import { messages } from '../../../../messages';
 import RelatedLinksList from '../../components/related-links-list';

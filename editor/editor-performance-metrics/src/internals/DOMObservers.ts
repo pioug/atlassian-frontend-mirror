@@ -4,7 +4,7 @@ import {
 	createPerformanceObserver,
 	type TaintedIntersectionObserver,
 } from './createBrowserObservers';
-import type { TimelineClock } from './timeline';
+import type { TimelineClock } from './timelineInterfaces';
 import type { HeatmapEntrySource } from './types';
 
 function isElementVisible(element: Element) {

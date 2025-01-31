@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { Example } from '@atlaskit/docs';
 import { token } from '@atlaskit/tokens';
@@ -32,14 +31,6 @@ const toggleStyles = css({
 	},
 });
 
-const getStyles = (sourceVisible: boolean, background: boolean) =>
-	css(
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		background ? backgroundStyles : undefined,
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		sourceVisible === false ? toggleStyles : undefined,
-	);
-
 type FlexibleUiExampleProps = {
 	background?: boolean;
 } & typeof Example;
@@ -49,8 +40,7 @@ const CustomExample = ({ background, sourceVisible, source, ...props }: Flexible
 	const replaceCode = source.replace('../src/hoverCard', '../src/hover-card');
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-		<div css={getStyles(sourceVisible, background)}>
+		<div css={[sourceVisible === false && toggleStyles, background && backgroundStyles]}>
 			<Example
 				packageName="@atlaskit/smart-card"
 				source={replaceCode}

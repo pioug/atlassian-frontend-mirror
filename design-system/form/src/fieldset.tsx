@@ -10,7 +10,7 @@ import { token } from '@atlaskit/tokens';
 
 import { Legend } from './label';
 
-export interface FieldsetProps {
+interface FieldsetProps {
 	/**
 	 * Content to render in the fieldset.
 	 */

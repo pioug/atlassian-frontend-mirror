@@ -48,7 +48,7 @@
 		"react-beautiful-dnd-next": "11.0.5"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"@atlaskit/ssr": "*",
@@ -56,7 +56,7 @@
 		"enzyme": "^3.10.0",
 		"enzyme-adapter-react-16": "^1.15.1",
 		"exenv": "^1.2.2",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"styled-components": "^3.2.6",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

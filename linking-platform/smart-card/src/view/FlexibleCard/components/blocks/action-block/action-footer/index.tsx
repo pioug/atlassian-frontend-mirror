@@ -1,40 +1,48 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+
+import { css, cssMap, jsx } from '@compiled/react';
 
 import ErrorIcon from '@atlaskit/icon/utility/migration/error';
-import { Box, Inline, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Inline } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type ActionMessageAppearance } from '../../../actions/action/types';
 import MotionWrapper from '../../../common/motion-wrapper';
 
+import { ActionFooterOld } from './ActionFooterOld';
 import { type ActionFooterProps } from './types';
 
-const containerStyles = xcss({
+const containerStyles = css({
 	all: 'unset',
-	borderRadius: 'border.radius',
-	margin: 'space.100',
-	marginBottom: 'space.0',
+	borderRadius: token('border.radius'),
+	margin: token('space.100'),
+	marginBottom: token('space.0'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '20px',
-	padding: 'space.075',
-	paddingInline: 'space.100',
+	padding: token('space.075'),
+	paddingInline: token('space.100'),
 	width: '100%',
-	':empty': {
+	'&:empty': {
 		display: 'none',
 	},
 });
 
-const errorStyles = xcss({
-	backgroundColor: 'color.background.danger',
+const errorStyles = css({
+	backgroundColor: token('color.background.danger'),
 });
 
-const errorContentStyles = xcss({
-	paddingInlineStart: 'space.025',
-});
-
-const titleStyles = xcss({
-	color: 'color.text.subtle',
-	font: token('font.body.UNSAFE_small'),
+const styles = cssMap({
+	errorContentStyles: {
+		paddingInlineStart: token('space.025'),
+	},
+	titleStyles: {
+		color: token('color.text.subtle'),
+		font: token('font.body.UNSAFE_small'),
+	},
 });
 
 const getIcon = (appearance?: ActionMessageAppearance) => {
@@ -55,22 +63,30 @@ const getIcon = (appearance?: ActionMessageAppearance) => {
 	}
 };
 
-export const ActionFooter = ({ message, testId }: ActionFooterProps) => {
+const ActionFooterNew = ({ message, testId }: ActionFooterProps) => {
 	if (!message) {
 		return null;
 	}
 
 	return (
-		<Box
-			testId={`${testId}-footer`}
-			xcss={[containerStyles, message.appearance === 'error' && errorStyles]}
+		// Converted from Box to div due to lineHeight css
+		<div
+			data-testId={`${testId}-footer`}
+			css={[containerStyles, message.appearance === 'error' && errorStyles]}
 		>
 			<MotionWrapper isFadeIn={true} show={true} showTransition={true}>
-				<Inline alignBlock="start" grow="fill" space="space.075" xcss={errorContentStyles}>
+				<Inline alignBlock="start" grow="fill" space="space.075" xcss={styles.errorContentStyles}>
 					{message.icon || getIcon(message.appearance)}
-					<Box xcss={titleStyles}>{message.title}</Box>
+					<Box xcss={styles.titleStyles}>{message.title}</Box>
 				</Inline>
 			</MotionWrapper>
-		</Box>
+		</div>
 	);
+};
+
+export const ActionFooter = (props: ActionFooterProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <ActionFooterNew {...props} />;
+	}
+	return <ActionFooterOld {...props} />;
 };

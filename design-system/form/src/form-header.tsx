@@ -9,7 +9,7 @@ import { css, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { token } from '@atlaskit/tokens';
 
-export interface FormHeaderProps {
+interface FormHeaderProps {
 	/**
 	 * Title of the form. This is a header.
 	 */

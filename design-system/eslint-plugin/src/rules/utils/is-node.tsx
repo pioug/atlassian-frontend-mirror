@@ -88,10 +88,13 @@ export const isDecendantOfPrimitive = (node: Rule.Node, context: Rule.RuleContex
 	if (isNodeOfType(node, 'JSXElement')) {
 		// @ts-ignore
 		if (primitivesToCheck.includes(node.openingElement.name.name)) {
-			const importDeclaration = Root.findImportsByModule(
-				getSourceCode(context).ast.body,
+			const importDeclaration = Root.findImportsByModule(getSourceCode(context).ast.body, [
 				'@atlaskit/primitives',
-			);
+				'@atlaskit/primitives/box',
+				'@atlaskit/primitives/text',
+				'@atlaskit/primitives/compiled',
+			]);
+
 			if (importDeclaration.length) {
 				return true;
 			}

@@ -59,6 +59,7 @@ const filmStripListItemStyles = css({
 	},
 	display: 'inline-block',
 	verticalAlign: 'middle',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 0,
 });
 

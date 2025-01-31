@@ -885,11 +885,13 @@ describe('document-service', () => {
 					analyticsHelperMock,
 					onErrorHandledMock,
 					providerEmitCallbackMock,
+					participantsServiceMock,
 				} = createMockService();
 				(sendableSteps as jest.Mock).mockReturnValue({
 					steps: ['step'],
 				});
 				(getCollabState as jest.Mock).mockReturnValue(collabState);
+				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
 				service.send(null, null, 'state' as any);
 				expect(sendableSteps).toBeCalledWith('state');
 				expect(commitStepQueue).toBeCalledWith({
@@ -904,15 +906,16 @@ describe('document-service', () => {
 					analyticsHelper: analyticsHelperMock,
 					__livePage: false,
 					hasRecovered: false,
+					collabMode: participantsServiceMock.getCollabMode(),
 				});
 				if (shouldLogError) {
-					expect(analyticsHelperMock.sendErrorEvent).toBeCalledTimes(1);
-					expect(analyticsHelperMock.sendErrorEvent).toBeCalledWith(
+					expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledTimes(1);
+					expect(analyticsHelperMock.sendErrorEvent).toHaveBeenCalledWith(
 						new Error(errorMessage),
 						errorContext,
 					);
 				} else {
-					expect(analyticsHelperMock.sendErrorEvent).not.toBeCalled();
+					expect(analyticsHelperMock.sendErrorEvent).not.toHaveBeenCalled();
 				}
 			};
 
@@ -958,6 +961,18 @@ describe('document-service', () => {
 					errorMessage: 'Collab state missing version info when calling ProseMirror function',
 					errorContext: 'collab-provider: send called with collab state missing version info',
 				});
+			});
+
+			it('Pass collabMode to commitStepQueue', () => {
+				const { service, participantsServiceMock } = createMockService();
+				(sendableSteps as jest.Mock).mockReturnValue({ steps: ['step'] });
+				(participantsServiceMock.getCollabMode as jest.Mock).mockReturnValue('single');
+				service.send(null, null, 'state' as any);
+				expect(commitStepQueue).toHaveBeenCalledWith(
+					expect.objectContaining({
+						collabMode: 'single',
+					}),
+				);
 			});
 		});
 

@@ -326,10 +326,10 @@
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/codegen": "0.1.4",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"enquirer": "^2.3.4",
 		"fs-extra": "^4.0.2",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"ts-node": "^10.9.1",
 		"typescript": "~5.4.2"
 	},

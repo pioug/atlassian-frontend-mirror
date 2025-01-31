@@ -43,7 +43,7 @@
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"enzyme": "^3.10.0",
 		"exenv": "^1.2.2",
 		"kakapo": "^4.0.6",
@@ -60,7 +60,7 @@
 	"devDependencies": {
 		"@atlaskit/media-core": "^34.4.0",
 		"@types/exenv": "^1.2.0",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"af:exports": {

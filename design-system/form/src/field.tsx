@@ -69,6 +69,12 @@ export interface Meta {
 	validating?: boolean;
 }
 
+// Must be exported to satisfy error TS4023 from Jira builds
+// src/packages/servicedesk/virtual-agent/common/src/ui/base-text-field/index.tsx(10,14):
+// error TS4023: Exported variable `BaseTextField` has or is using name
+// `FieldComponentProps` from external module
+// `/opt/atlassian/pipelines/agent/build/jira/tsDist/@atlaskit__form/app/src/field`
+// but cannot be named.
 export interface FieldComponentProps<FieldValue, Element extends SupportedElements> {
 	/**
 	 * Content to render in the field. This is a function that is called with props for the field component and other information about the field.

@@ -4,21 +4,19 @@
  */
 import { useEffect, useRef } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { OUTER_BORDER_RADIUS } from '../constants';
-
+import AnimatedSvgContainerOld from './animated-svg-containerOld';
 import type { AnimatedSvgContainerProps } from './types';
 
 let namespaceUUID = 0;
 
 const svgStyles = css({
 	position: 'absolute',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: OUTER_BORDER_RADIUS,
+	borderRadius: 10,
 });
 
 const blurredStyles = css({
@@ -45,11 +43,11 @@ const notBlurredStyles = css({
  * https://bitbucket.org/atlassian/barrel/src/master/ui/platform/ui-kit/ai
  * with modifications.
  */
-const AnimatedSvgContainer = ({
+const AnimatedSvgContainerNew = ({
 	palette,
 	isMoving,
 	isGlowing,
-	additionalCss,
+	className,
 }: AnimatedSvgContainerProps) => {
 	const svgRef = useRef<SVGSVGElement>(null);
 	const namespaceId = useRef<number>();
@@ -81,8 +79,9 @@ const AnimatedSvgContainer = ({
 
 	return (
 		<svg
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={[svgStyles, isGlowing ? blurredStyles : notBlurredStyles, additionalCss]}
+			css={[svgStyles, isGlowing ? blurredStyles : notBlurredStyles]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
 			ref={svgRef}
 			viewBox="0 0 24 24"
 			preserveAspectRatio="none"
@@ -239,6 +238,13 @@ const AnimatedSvgContainer = ({
 			</g>
 		</svg>
 	);
+};
+
+const AnimatedSvgContainer = (props: AnimatedSvgContainerProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <AnimatedSvgContainerNew {...props} />;
+	}
+	return <AnimatedSvgContainerOld {...props} />;
 };
 
 export default AnimatedSvgContainer;

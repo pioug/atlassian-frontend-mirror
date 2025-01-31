@@ -27,7 +27,7 @@
 	"dependencies": {
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/layering": "^1.0.0",
 		"@atlaskit/menu": "^2.13.0",
@@ -63,12 +63,12 @@
 		"@atlaskit/textfield": "^6.7.2",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"jest-in-case": "^1.0.2",
 		"jscodeshift": "^0.13.0",
 		"raf-stub": "^2.0.1",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

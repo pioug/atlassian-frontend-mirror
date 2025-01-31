@@ -44,7 +44,7 @@
 		"./package.json": "./package.json"
 	},
 	"dependencies": {
-		"@atlaskit/eslint-plugin-design-system": "^11.8.0",
+		"@atlaskit/eslint-plugin-design-system": "^11.9.0",
 		"@atlaskit/eslint-utils": "^1.8.0",
 		"@babel/runtime": "^7.0.0",
 		"@typescript-eslint/utils": "^7.1.0",
@@ -59,7 +59,7 @@
 	},
 	"devDependencies": {
 		"@af/formatting": "*",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlassian/codegen": "*",
 		"@atlassian/ts-loader": "*",
 		"@eslint/eslintrc": "^3.0.2",

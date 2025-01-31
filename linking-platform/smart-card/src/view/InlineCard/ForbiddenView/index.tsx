@@ -1,13 +1,18 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import React from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
 import ButtonOld from '@atlaskit/button';
+import { cssMap, jsx } from '@atlaskit/css';
 import LockLockedIcon from '@atlaskit/icon/core/lock-locked';
 import LegacyLockIcon from '@atlaskit/icon/glyph/lock-filled';
 import Lozenge from '@atlaskit/lozenge';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Pressable, xcss } from '@atlaskit/primitives';
+import { Box, Pressable } from '@atlaskit/primitives/compiled';
 import { N500, R400 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -17,12 +22,19 @@ import { type RequestAccessContextProps } from '../../types';
 import { ActionButton } from '../common/action-button';
 import { Frame } from '../Frame';
 import { AKIconWrapper } from '../Icon';
-import { AKIconWrapper as AKIconWrapperOld } from '../Icon-emotion';
-import { IconAndTitleLayout, LozengeWrapper as LozengeWrapperNew } from '../IconAndTitleLayout';
-import { LozengeWrapperOldVisualRefresh } from '../IconAndTitleLayout/styled';
+import { IconAndTitleLayout, LozengeWrapper } from '../IconAndTitleLayout';
 import { IconStyledButtonOldVisualRefresh } from '../styled';
-import { IconStyledButton as IconStyledButtonOld } from '../styled-emotion';
 import withFrameStyleControl from '../utils/withFrameStyleControl';
+
+import { InlineCardForbiddenViewOld } from './InlineCardForbiddenViewOld';
+
+const styles = cssMap({
+	iconWrapper: { marginRight: token('space.negative.025') },
+	actionButtonLozengeStyle: {
+		backgroundColor: token('color.background.neutral.subtle'),
+		padding: token('space.0'),
+	},
+});
 
 export interface InlineCardForbiddenViewProps {
 	/** The url to display */
@@ -47,220 +59,164 @@ export interface InlineCardForbiddenViewProps {
 	truncateInline?: boolean;
 }
 
-const iconWrapperStyles = xcss({ marginRight: 'space.negative.025' });
-
 const fallbackForbiddenIcon = () => {
-	if (fg('bandicoots-compiled-migration-smartcard')) {
-		return fg('platform-smart-card-icon-migration') ? (
-			<Box as="span" xcss={iconWrapperStyles}>
-				<LockLockedIcon
-					label="error"
-					color={token('color.icon.danger')}
-					LEGACY_fallbackIcon={LegacyLockIcon}
-					LEGACY_size="small"
-					testId="forbidden-view-fallback-icon"
-				/>
-			</Box>
-		) : (
-			<AKIconWrapper>
-				{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497*/}
-				<LegacyLockIcon
-					label="error"
-					size="small"
-					primaryColor={token('color.icon.danger', R400)}
-					testId="forbidden-view-fallback-icon"
-				/>
-			</AKIconWrapper>
-		);
-	} else {
-		return fg('platform-smart-card-icon-migration') ? (
-			<Box as="span" xcss={iconWrapperStyles}>
-				<LockLockedIcon
-					label="error"
-					color={token('color.icon.danger')}
-					LEGACY_fallbackIcon={LegacyLockIcon}
-					LEGACY_size="small"
-					testId="forbidden-view-fallback-icon"
-				/>
-			</Box>
-		) : (
-			<AKIconWrapperOld>
-				{/*eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497*/}
-				<LegacyLockIcon
-					label="error"
-					size="small"
-					primaryColor={token('color.icon.danger', R400)}
-					testId="forbidden-view-fallback-icon"
-				/>
-			</AKIconWrapperOld>
-		);
-	}
+	return fg('platform-smart-card-icon-migration') ? (
+		<Box as="span" xcss={styles.iconWrapper}>
+			<LockLockedIcon
+				label="error"
+				color={token('color.icon.danger')}
+				LEGACY_fallbackIcon={LegacyLockIcon}
+				LEGACY_size="small"
+				testId="forbidden-view-fallback-icon"
+			/>
+		</Box>
+	) : (
+		<AKIconWrapper>
+			{/* eslint-disable-next-line @atlaskit/design-system/no-legacy-icons -- TODO - https://product-fabric.atlassian.net/browse/DSP-19497*/}
+			<LegacyLockIcon
+				label="error"
+				size="small"
+				primaryColor={token('color.icon.danger', R400)}
+				testId="forbidden-view-fallback-icon"
+			/>
+		</AKIconWrapper>
+	);
 };
 
-export class InlineCardForbiddenView extends React.Component<InlineCardForbiddenViewProps> {
-	private frameRef = React.createRef<HTMLSpanElement & null>();
+const InlineCardForbiddenViewNew = ({
+	url,
+	icon,
+	onClick,
+	isSelected,
+	testId = 'inline-card-forbidden-view',
+	truncateInline,
+	requestAccessContext,
+	onAuthorise,
+	context,
+	showHoverPreview,
+}: InlineCardForbiddenViewProps): JSX.Element => {
+	const frameRef = React.useRef<HTMLSpanElement & null>(null);
+	const [hasRequestAccessContextMessage] = React.useState(
+		!!requestAccessContext?.callToActionMessageKey,
+	);
 
-	state = {
-		hasRequestAccessContextMessage: !!this.props?.requestAccessContext?.callToActionMessageKey,
-	};
+	const handleRetry = React.useCallback(
+		(event: React.MouseEvent<HTMLElement>) => {
+			event.preventDefault();
+			event.stopPropagation();
+			if (onAuthorise) {
+				onAuthorise();
+			} else {
+				requestAccessContext?.action?.promise();
+			}
+		},
+		[onAuthorise, requestAccessContext?.action],
+	);
 
-	handleRetry = (event: React.MouseEvent<HTMLElement>) => {
-		const { onAuthorise } = this.props;
-		event.preventDefault();
-		event.stopPropagation();
-		if (onAuthorise) {
-			onAuthorise();
-		} else {
-			this.props?.requestAccessContext?.action?.promise();
-		}
-	};
-
-	renderForbiddenAccessMessage = () => {
-		if (this.props?.requestAccessContext?.callToActionMessageKey) {
-			const { callToActionMessageKey } = this.props.requestAccessContext;
-
+	const renderForbiddenAccessMessage = React.useCallback(() => {
+		if (requestAccessContext?.callToActionMessageKey) {
+			const { callToActionMessageKey } = requestAccessContext;
 			return (
-				<FormattedMessage
-					{...messages[callToActionMessageKey]}
-					values={{ product: this.props.context }}
-				/>
+				<FormattedMessage {...messages[callToActionMessageKey]} values={{ product: context }} />
 			);
 		}
 		return (
-			<>
-				<FormattedMessage {...messages.invalid_permissions}>
-					{(formattedMessage) => {
-						return <>{formattedMessage}</>;
-					}}
-				</FormattedMessage>
-			</>
+			<FormattedMessage {...messages.invalid_permissions}>
+				{(formattedMessage) => <React.Fragment>{formattedMessage}</React.Fragment>}
+			</FormattedMessage>
 		);
-	};
+	}, [context, requestAccessContext]);
 
-	renderActionButton = () => {
-		const { onAuthorise } = this.props;
-
-		const LozengeWrapper = fg('platform-linking-visual-refresh-v1')
-			? LozengeWrapperNew
-			: LozengeWrapperOldVisualRefresh;
-
-		const Button = withFrameStyleControl(ButtonOld, this.frameRef);
-
-		const accessType = this.props.requestAccessContext?.accessType;
-
-		if (this.state.hasRequestAccessContextMessage) {
-			if (fg('bandicoots-compiled-migration-smartcard')) {
-				if (fg('platform-linking-visual-refresh-v1')) {
-					const isDisabled = accessType === 'PENDING_REQUEST_EXISTS';
-					return (
-						<Button
-							onClick={this.handleRetry}
-							component={ActionButton}
-							testId="button-connect-other-account"
-							isDisabled={isDisabled}
-						>
-							{this.renderForbiddenAccessMessage()}
-						</Button>
-					);
-				}
-
+	const renderActionButton = React.useCallback(() => {
+		const Button = withFrameStyleControl(ButtonOld, frameRef);
+		const accessType = requestAccessContext?.accessType;
+		if (hasRequestAccessContextMessage) {
+			if (fg('platform-linking-visual-refresh-v1')) {
+				const isDisabled = accessType === 'PENDING_REQUEST_EXISTS';
 				return (
 					<Button
-						spacing="none"
-						onClick={this.handleRetry}
-						component={IconStyledButtonOldVisualRefresh}
+						onClick={handleRetry}
+						component={ActionButton}
 						testId="button-connect-other-account"
-						role="button"
-						isDisabled={accessType === 'PENDING_REQUEST_EXISTS'}
+						isDisabled={isDisabled}
 					>
-						{this.renderForbiddenAccessMessage()}
-					</Button>
-				);
-			} else {
-				return (
-					<Button
-						spacing="none"
-						onClick={this.handleRetry}
-						component={IconStyledButtonOld}
-						testId="button-connect-other-account"
-						role="button"
-						isDisabled={accessType === 'PENDING_REQUEST_EXISTS'}
-					>
-						{this.renderForbiddenAccessMessage()}
+						{renderForbiddenAccessMessage()}
 					</Button>
 				);
 			}
+			return (
+				<Button
+					spacing="none"
+					onClick={handleRetry}
+					component={IconStyledButtonOldVisualRefresh}
+					testId="button-connect-other-account"
+					role="button"
+					isDisabled={accessType === 'PENDING_REQUEST_EXISTS'}
+				>
+					{renderForbiddenAccessMessage()}
+				</Button>
+			);
 		}
-
 		if (onAuthorise) {
 			if (fg('platform-linking-visual-refresh-v1')) {
 				return (
 					<LozengeWrapper>
 						<Pressable
-							xcss={actionButtonLozengeStyle}
-							onClick={this.handleRetry}
+							xcss={styles.actionButtonLozengeStyle}
+							onClick={handleRetry}
 							testId="button-connect-other-account"
 						>
-							<Lozenge appearance={'moved'}>{this.renderForbiddenAccessMessage()}</Lozenge>
+							<Lozenge appearance={'moved'}>{renderForbiddenAccessMessage()}</Lozenge>
 						</Pressable>
 					</LozengeWrapper>
 				);
 			}
-
 			return (
 				<Button
 					spacing="none"
-					onClick={this.handleRetry}
+					onClick={handleRetry}
 					appearance="subtle-link"
 					testId="button-connect-other-account"
 					role="button"
 				>
 					<LozengeWrapper>
-						<Lozenge appearance={'moved'}>{this.renderForbiddenAccessMessage()}</Lozenge>
+						<Lozenge appearance={'moved'}>{renderForbiddenAccessMessage()}</Lozenge>
 					</LozengeWrapper>
 				</Button>
 			);
 		}
 		return null;
-	};
+	}, [
+		handleRetry,
+		hasRequestAccessContextMessage,
+		onAuthorise,
+		renderForbiddenAccessMessage,
+		requestAccessContext?.accessType,
+	]);
 
-	render() {
-		const {
-			url,
-			icon,
-			onClick,
-			isSelected,
-			testId = 'inline-card-forbidden-view',
-			truncateInline,
-		} = this.props;
+	const content = (
+		<Frame testId={testId} isSelected={isSelected} ref={frameRef} truncateInline={truncateInline}>
+			<IconAndTitleLayout
+				icon={icon ? icon : fallbackForbiddenIcon()}
+				link={url}
+				title={url}
+				onClick={onClick}
+				titleColor={token('color.text.subtle', N500)}
+			/>
+			{renderActionButton()}
+		</Frame>
+	);
 
-		const content = (
-			<Frame
-				testId={testId}
-				isSelected={isSelected}
-				ref={this.frameRef}
-				truncateInline={truncateInline}
-			>
-				<IconAndTitleLayout
-					icon={icon ? icon : fallbackForbiddenIcon()}
-					link={url}
-					title={url}
-					onClick={onClick}
-					titleColor={token('color.text.subtle', N500)}
-				/>
-				{this.renderActionButton()}
-			</Frame>
-		);
-
-		if (this.props.showHoverPreview) {
-			return <HoverCard url={url}>{content}</HoverCard>;
-		}
-
-		return content;
+	if (showHoverPreview) {
+		return <HoverCard url={url}>{content}</HoverCard>;
 	}
-}
 
-const actionButtonLozengeStyle = xcss({
-	backgroundColor: 'color.background.neutral.subtle',
-	padding: 'space.0',
-});
+	return content;
+};
+
+export const InlineCardForbiddenView = (props: InlineCardForbiddenViewProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <InlineCardForbiddenViewNew {...props} />;
+	}
+	return <InlineCardForbiddenViewOld {...props} />;
+};

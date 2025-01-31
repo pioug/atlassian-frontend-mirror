@@ -59,7 +59,7 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
 		"bind-event-listener": "^3.0.0"
@@ -70,10 +70,10 @@
 	"devDependencies": {
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"raf-stub": "^2.0.1",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

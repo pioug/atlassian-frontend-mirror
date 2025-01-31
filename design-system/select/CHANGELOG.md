@@ -1,5 +1,13 @@
 # @atlaskit/select
 
+## 18.9.6
+
+### Patch Changes
+
+- [#107242](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107242)
+  [`af82a4f946f03`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af82a4f946f03) -
+  Remove fallback color in checkbox/radio select
+
 ## 18.9.5
 
 ### Patch Changes

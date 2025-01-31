@@ -1,5 +1,13 @@
 # @atlaskit/inline-message
 
+## 13.0.3
+
+### Patch Changes
+
+- [#108679](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108679)
+  [`b35940a97f3a8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b35940a97f3a8) -
+  Update dev dependencies.
+
 ## 13.0.2
 
 ### Patch Changes

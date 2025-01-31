@@ -38,13 +38,13 @@
 		"keycode": "^2.1.7"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0",
+		"react": "^18.2.0",
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {
 		"enzyme": "^3.10.0",
 		"prop-types": "^15.5.10",
-		"react": "^16.8.0",
+		"react": "^18.2.0",
 		"sinon": "^2.2.0",
 		"typescript": "~5.4.2",
 		"uuid": "^3.1.0"

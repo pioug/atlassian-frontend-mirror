@@ -80,10 +80,5 @@
 		"no-unused-dependencies": {
 			"checkDevDependencies": true
 		}
-	},
-	"platform-feature-flags": {
-		"platform_editor_improved_scroll_gutter": {
-			"type": "boolean"
-		}
 	}
 }

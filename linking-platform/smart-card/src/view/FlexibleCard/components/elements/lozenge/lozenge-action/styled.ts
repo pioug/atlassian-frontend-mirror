@@ -14,6 +14,7 @@ export const triggerButtonStyles = css({
 	color: 'unset',
 	cursor: 'pointer',
 	fontFamily: 'unset',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 'unset',
 	fontStyle: 'unset',
 	fontWeight: 'unset',

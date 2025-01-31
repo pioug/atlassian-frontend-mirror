@@ -2,6 +2,7 @@ import { defaultKeymap, indentWithTab } from '@codemirror/commands';
 import { Extension } from '@codemirror/state';
 import { KeyBinding, keymap as cmKeymap } from '@codemirror/view';
 
+import { browser } from '@atlaskit/editor-common/browser';
 import { RelativeSelectionPos } from '@atlaskit/editor-common/selection';
 import type { getPosHandlerNode } from '@atlaskit/editor-common/types';
 import { exitCode } from '@atlaskit/editor-prosemirror/commands';
@@ -18,6 +19,7 @@ interface KeymapProps {
 	getPos: getPosHandlerNode;
 	selectCodeBlockNode: (relativeSelectionPos: RelativeSelectionPos | undefined) => void;
 	onMaybeNodeSelection: () => void;
+	customFindReplace: boolean;
 }
 
 export const keymapExtension = ({
@@ -26,9 +28,17 @@ export const keymapExtension = ({
 	getPos,
 	selectCodeBlockNode,
 	onMaybeNodeSelection,
+	customFindReplace,
 }: KeymapProps): Extension => {
 	return cmKeymap.of(
-		codeBlockKeymap({ view, getNode, getPos, selectCodeBlockNode, onMaybeNodeSelection }),
+		codeBlockKeymap({
+			view,
+			getNode,
+			getPos,
+			selectCodeBlockNode,
+			onMaybeNodeSelection,
+			customFindReplace,
+		}),
 	);
 };
 
@@ -38,6 +48,7 @@ const codeBlockKeymap = ({
 	getPos,
 	selectCodeBlockNode,
 	onMaybeNodeSelection,
+	customFindReplace,
 }: KeymapProps): readonly KeyBinding[] => {
 	return [
 		{
@@ -95,6 +106,25 @@ const codeBlockKeymap = ({
 					selectCodeBlockNode,
 					onMaybeNodeSelection,
 				}),
+		},
+		{
+			key: 'Ctrl-f',
+			mac: 'Cmd-f',
+			run: () => {
+				// Pass synthetic event to prosemirror
+				if (customFindReplace) {
+					view.dispatchEvent(
+						new KeyboardEvent('keydown', {
+							key: 'f',
+							code: 'KeyF',
+							metaKey: browser.mac ? true : false,
+							ctrlKey: browser.mac ? false : true,
+						}),
+					);
+					return true;
+				}
+				return false;
+			},
 		},
 		{
 			key: 'Ctrl-Enter',

@@ -5,7 +5,7 @@ import {
 	isLayoutShift,
 	isNodeReplacement,
 } from './heatmap';
-import type { UserEvent } from './timeline';
+import type { UserEvent } from './timelineTypes';
 
 export type VCTargetsTuple = ['25', '50', '75', '80', '85', '90', '95', '98', '99'];
 const VCTargets: VCTargetsTuple = ['25', '50', '75', '80', '85', '90', '95', '98', '99'];

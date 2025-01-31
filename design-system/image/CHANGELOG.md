@@ -1,5 +1,13 @@
 # @atlaskit/image
 
+## 1.3.11
+
+### Patch Changes
+
+- [#108671](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108671)
+  [`6cfd20784a42b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6cfd20784a42b) -
+  Update dev depdencies.
+
 ## 1.3.10
 
 ### Patch Changes

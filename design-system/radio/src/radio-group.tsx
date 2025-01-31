@@ -2,11 +2,13 @@ import React, { type ChangeEvent, type SyntheticEvent, useCallback, useState } f
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import noop from '@atlaskit/ds-lib/noop';
+import { useId } from '@atlaskit/ds-lib/use-id';
 
 import Radio from './radio';
 import { type OptionPropType, type OptionsPropType, type RadioValue } from './types';
 
 export interface RadioGroupProps {
+	id?: string;
 	/**
 	 * Once set, controls the selected value on the `RadioGroup`.
 	 */
@@ -70,6 +72,7 @@ export default function RadioGroup(props: RadioGroupProps) {
 		options = noOptions,
 		value: propValue,
 		defaultValue,
+		id,
 		isDisabled,
 		isRequired,
 		isInvalid,
@@ -80,6 +83,7 @@ export default function RadioGroup(props: RadioGroupProps) {
 		testId,
 	} = props;
 
+	const uid = useId();
 	const [selectedValue, setSelectedValue] = useState<RadioValue | undefined | null>(
 		propValue !== undefined ? propValue : defaultValue,
 	);
@@ -98,7 +102,13 @@ export default function RadioGroup(props: RadioGroupProps) {
 	// If not then act as an uncontrolled component using the value from state
 	const value = typeof propValue !== 'undefined' ? propValue : selectedValue;
 	return (
-		<div role="radiogroup" aria-labelledby={ariaLabelledBy} data-testid={testId}>
+		<div
+			role="radiogroup"
+			aria-labelledby={ariaLabelledBy}
+			data-testid={testId}
+			aria-describedby={isInvalid ? `${id || uid}-error` : undefined}
+			id={id || uid}
+		>
 			{options.map(({ ...optionProps }: OptionPropType, index: number) => {
 				if (typeof isDisabled !== 'undefined') {
 					optionProps.isDisabled = isDisabled;

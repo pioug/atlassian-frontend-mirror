@@ -1,9 +1,12 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { FormattedMessage } from 'react-intl-next';
 
+import { cssMap, jsx } from '@atlaskit/css';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { messages } from '../../../../messages';
@@ -12,14 +15,21 @@ import { type RelatedLinksListProp } from '../types';
 
 import RelatedLinksListOld from './RelatedLinksListOld';
 
-const sectionTitleStyles = xcss({
-	font: token('font.heading.xxsmall'),
+const styles = cssMap({
+	sectionTitle: {
+		font: token('font.heading.xxsmall'),
+		paddingBlockStart: token('space.050'),
+	},
+	boxStyle: {
+		font: token('font.body.small'),
+		paddingBlock: token('space.100'),
+	},
 });
 
 const RelatedLinksList = ({ urls, title, testId }: RelatedLinksListProp) => {
 	return (
 		<Stack testId={testId}>
-			<Box paddingBlockStart="space.050" xcss={sectionTitleStyles}>
+			<Box xcss={styles.sectionTitle}>
 				<FormattedMessage {...title} />
 			</Box>
 			{urls.length > 0 && (
@@ -32,8 +42,7 @@ const RelatedLinksList = ({ urls, title, testId }: RelatedLinksListProp) => {
 				</Box>
 			)}
 			{urls.length === 0 && (
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				<Box paddingBlock="space.100" xcss={xcss({ font: token('font.body.small') })}>
+				<Box xcss={styles.boxStyle}>
 					<FormattedMessage {...messages.related_links_not_found} />
 				</Box>
 			)}

@@ -1,11 +1,5 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type PropsWithChildren } from 'react';
+import React, { type PropsWithChildren } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
 import { DiProvider, injectable } from 'react-magnetic-di';
 
 import DropdownMenu from '@atlaskit/dropdown-menu';

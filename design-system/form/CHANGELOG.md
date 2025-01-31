@@ -1,5 +1,13 @@
 # @atlaskit/form
 
+## 11.0.3
+
+### Patch Changes
+
+- [#107240](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107240)
+  [`5255a1a097bad`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5255a1a097bad) -
+  Update dependencies and remove unused internal exports.
+
 ## 11.0.2
 
 ### Patch Changes

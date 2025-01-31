@@ -268,3 +268,27 @@ describe('onParticipantLeft', () => {
 		});
 	});
 });
+
+describe('getCollabMode', () => {
+	it('should return collab mode for single user correctly', () => {
+		const participantsMap: ParticipantsMap = new Map().set(activeUser.sessionId, activeUser);
+		const participants: ParticipantsState = new ParticipantsState(participantsMap);
+
+		const participantsService = participantsServiceConstructor({ participants });
+
+		const collabMode = participantsService.getCollabMode();
+		expect(collabMode).toBe('single');
+	});
+
+	it('should return collab mode for multiple users correctly', () => {
+		const participantsMap: ParticipantsMap = new Map();
+		participantsMap.set(activeUser.sessionId, activeUser);
+		participantsMap.set(activeAgent.sessionId, activeAgent);
+		const participants: ParticipantsState = new ParticipantsState(participantsMap);
+
+		const participantsService = participantsServiceConstructor({ participants });
+
+		const collabMode = participantsService.getCollabMode();
+		expect(collabMode).toBe('collab');
+	});
+});

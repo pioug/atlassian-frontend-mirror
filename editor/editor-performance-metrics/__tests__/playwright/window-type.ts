@@ -3,7 +3,7 @@ import type {
 	Timeline,
 	TimelineClock,
 	TimelineSerializable,
-} from '@atlaskit/editor-performance-metrics/src/internals/timeline';
+} from '@atlaskit/editor-performance-metrics/src/internals/timelineInterfaces';
 
 export interface WindowWithEditorPerformanceGlobals extends Window {
 	__editor_performance_metrics_observer?: EditorPerformanceObserver;

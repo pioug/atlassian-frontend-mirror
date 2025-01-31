@@ -249,7 +249,7 @@ export type ChannelEvent = {
 	'participant:activity-ack': ActivityPayload;
 	'participant:telepointer': TelepointerPayload;
 	'participant:updated': PresencePayload;
-	'steps:commit': StepsPayload & { userId: string };
+	'steps:commit': StepsPayload & { userId: string; collabMode: string };
 	'steps:added': StepsPayload;
 	'metadata:changed': Metadata;
 	permission: UserPermitType;

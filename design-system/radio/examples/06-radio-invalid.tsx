@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 
 import Button from '@atlaskit/button/new';
-import Form, { ErrorMessage, Field, FormFooter } from '@atlaskit/form';
+import Form, { ErrorMessage, Field, FormFooter, MessageWrapper } from '@atlaskit/form';
 import { RadioGroup } from '@atlaskit/radio';
 import { type OptionsPropType } from '@atlaskit/radio/types';
 
@@ -47,7 +47,7 @@ export default function RadioInvalid() {
 						{({ fieldProps, error }) => (
 							<Fragment>
 								<RadioGroup {...fieldProps} options={options} />
-								{error && <ErrorMessage>{error}</ErrorMessage>}
+								<MessageWrapper>{error && <ErrorMessage>{error}</ErrorMessage>}</MessageWrapper>
 							</Fragment>
 						)}
 					</Field>

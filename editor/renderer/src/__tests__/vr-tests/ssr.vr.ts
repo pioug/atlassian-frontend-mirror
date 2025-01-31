@@ -29,7 +29,7 @@ const ignoredErrors: ErrorFilterOption[] = [
 // It fails with a message: TextEncoder is not a constructor
 // This needs to be fixed when we move to React 18, but for now
 // This test only works on React 16.
-if (process.env.IS_REACT_18 !== 'true') {
+if (process.env.IS_REACT_18 === 'false') {
 	snapshot(RendererSSRTable, {
 		description: 'SSR renderering of table nodes',
 		ignoredErrors,

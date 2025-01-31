@@ -50,6 +50,14 @@ const Component = forwardRef((props, ref) => {
 }
 ```
 
+### `device-check`
+
+```tsx
+import { isAppleDevice, isSafari } from '@atlaskit/ds-lib/device-check';
+isAppleDevice();
+isSafari();
+```
+
 ## React hooks
 
 ### `useLazyRef()`

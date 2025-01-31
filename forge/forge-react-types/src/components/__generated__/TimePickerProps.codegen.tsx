@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TimePickerProps
  *
- * @codegen <<SignedSource::73dc2136b2ba29573144e93edecc7aaf>>
+ * @codegen <<SignedSource::bf9a04576bd1f8b348bd5091c9273208>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/timepicker/__generated__/index.partial.tsx <<SignedSource::5bcabc669a6d294cb820187410a39ec5>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/timepicker/__generated__/index.partial.tsx <<SignedSource::aa8817ad383b8e2bce261c520e227b41>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -48,3 +48,8 @@ export type TimePickerProps = {
 	testId?: string;
 	selectProps?: DateTimePickerSelectProps;
 } & Partial<Omit<FieldProps, 'onChange'>>;
+
+/**
+ * A date time picker allows the user to select an associated date and time.
+ */
+export type TTimePicker<T> = (props: TimePickerProps) => T;

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "24.1.0",
+	"version": "24.3.0",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -70,14 +70,14 @@
 		"@emotion/jest": "^11.8.0",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/jest-dom": "^6.4.5",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
 		"dotenv": "^8.2.0",
 		"es6-promise": "^4.0.5",
 		"fetch-mock": "^8.0.0",
 		"raf-stub": "^2.0.1",
-		"react": "^16.8.0",
+		"react": "^18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0",

@@ -1,7 +1,8 @@
 import { backgroundTask, isTaskAborted } from './backgroundTasks';
 import { type CalculateVCOptions, EditorPerformanceMetrics } from './editorPerformanceMetrics';
 import { getLatencyPercentiles } from './measurements';
-import { TimelineController, type UserEvent } from './timeline';
+import { TimelineController } from './timeline';
+import type { UserEvent } from './timelineTypes';
 import type { ViewportDimension } from './types';
 
 jest.mock('./backgroundTasks', () => ({

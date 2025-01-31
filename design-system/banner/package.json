@@ -54,14 +54,14 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/button": "^20.3.10",
 		"@atlaskit/docs": "*",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/link": "*",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"jscodeshift": "^0.13.0",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.9.0
+
+### Minor Changes
+
+- [#108380](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108380)
+  [`14e491279e7ae`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14e491279e7ae) -
+  Fix `ensure-design-token-usage` to allow tokens for all Primitives, not just the root
+  `@atlaskit/primitives` entrypoint.
+
 ## 11.8.4
 
 ### Patch Changes

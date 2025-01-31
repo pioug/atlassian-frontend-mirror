@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "99.5.6",
+	"version": "99.5.7",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -235,7 +235,7 @@
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/profilecard": "^21.1.0",
 		"@atlaskit/section-message": "^6.8.0",
-		"@atlaskit/smart-card": "^34.6.0",
+		"@atlaskit/smart-card": "^34.7.0",
 		"@atlaskit/smart-user-picker": "^6.11.0",
 		"@atlaskit/spinner": "^17.0.0",
 		"@atlaskit/task-decision": "^17.11.0",
@@ -284,7 +284,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/dom": "^10.1.0",
 		"@testing-library/jest-dom": "^6.4.5",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
 		"@types/linkify-it": "^3.0.2",
@@ -293,8 +293,8 @@
 		"@types/react-virtualized": "^9.18.12",
 		"enzyme": "^3.10.0",
 		"raf-stub": "^2.0.1",
-		"react": "^16.8.0",
-		"react-test-renderer": "^16.8.0",
+		"react": "^18.2.0",
+		"react-test-renderer": "^18.2.0",
 		"sinon": "^2.2.0",
 		"typescript": "~5.4.2"
 	},

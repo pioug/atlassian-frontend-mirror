@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - SpinnerProps
  *
- * @codegen <<SignedSource::108d6188d28cc7b7e79512b33d9b4bb3>>
+ * @codegen <<SignedSource::4e5a68490063fadaa3ca7fb88f04cb94>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/spinner/__generated__/index.partial.tsx <<SignedSource::309b9820ed3451cfdc77160864e3040c>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/spinner/__generated__/index.partial.tsx <<SignedSource::d6138d211e143990a6133754180f565c>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type SpinnerProps = Pick<
   PlatformSpinnerProps,
   'appearance' | 'delay' | 'label' | 'size' | 'testId'
 >;
+
+/**
+ * A spinner is an animated spinning icon that lets users know content is being loaded.
+ */
+export type TSpinner<T> = (props: SpinnerProps) => T;

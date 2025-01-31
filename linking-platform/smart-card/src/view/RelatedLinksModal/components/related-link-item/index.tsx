@@ -5,7 +5,6 @@
 import { css, jsx } from '@compiled/react';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkStatus } from '../../../../constants';
@@ -23,12 +22,12 @@ import { type RelatedLinkItemProp } from '../types';
 
 import RelatedLinkItemOld from './RelatedLinkItemOld';
 
-const hoverStyles = xcss({
-	':hover': {
-		backgroundColor: 'color.background.input.hovered',
-		borderRadius: 'border.radius.100',
-		marginInline: 'space.negative.100',
-		paddingInline: 'space.100',
+const hoverStyle = css({
+	'&:hover': {
+		backgroundColor: token('color.background.input.hovered'),
+		borderRadius: token('border.radius.100'),
+		marginInline: token('space.negative.100'),
+		paddingInline: token('space.100'),
 	},
 });
 
@@ -52,7 +51,7 @@ const RelatedLinkItem = ({ url, testId }: RelatedLinkItemProp) => {
 	};
 
 	return (
-		<Box testId={testId} xcss={hoverStyles}>
+		<div data-testId={testId} css={hoverStyle}>
 			<Card appearance="block" ui={ui} url={url}>
 				<TitleBlock
 					maxLines={1}
@@ -66,7 +65,7 @@ const RelatedLinkItem = ({ url, testId }: RelatedLinkItemProp) => {
 					status={SmartLinkStatus.Resolved}
 				/>
 			</Card>
-		</Box>
+		</div>
 	);
 };
 

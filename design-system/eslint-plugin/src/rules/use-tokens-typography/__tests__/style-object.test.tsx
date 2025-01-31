@@ -46,6 +46,85 @@ export const typographyTests: Tests = {
 	],
 	invalid: [
 		// NO FIXES
+		// fontSize 0
+		{
+			code: `
+				const styles = css({
+					fontSize: 0,
+				})`,
+			errors: [
+				{
+					messageId: 'noRawTypographyValues',
+				},
+			],
+		},
+		// fontSize non pixel values
+		{
+			code: `
+				const styles = css({
+					fontSize: '1.125rem',
+				})`,
+			errors: [
+				{
+					messageId: 'noRawTypographyValues',
+				},
+			],
+		},
+		{
+			code: `
+				const styles = css({
+					fontSize:\`\${ 16 / 14 }em\`
+				})`,
+			errors: [
+				{
+					messageId: 'noRawTypographyValues',
+				},
+			],
+		},
+		{
+			code: `
+				const styles = css({
+					fontSize:\`\${RANDOM_FONT_SIZE_CONSTANT}px\`
+				})`,
+			errors: [
+				{
+					messageId: 'noRawTypographyValues',
+				},
+			],
+		},
+		{
+			code: `
+				const styles = css({
+					fontSize: '120%',
+				})`,
+			errors: [
+				{
+					messageId: 'noRawTypographyValues',
+				},
+			],
+		},
+		{
+			code: `
+				const styles = css({
+					fontSize: '0.5ch',
+				})`,
+			errors: [
+				{
+					messageId: 'noRawTypographyValues',
+				},
+			],
+		},
+		{
+			code: `
+				const styles = css({
+					fontSize: 'smaller',
+				})`,
+			errors: [
+				{
+					messageId: 'noRawTypographyValues',
+				},
+			],
+		},
 		// fontSize used with space token
 		{
 			code: `

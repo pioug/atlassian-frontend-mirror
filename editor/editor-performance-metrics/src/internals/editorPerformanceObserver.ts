@@ -3,8 +3,15 @@ import { getEventCategory, searchAncestors } from './dom';
 import { DOMObservers } from './DOMObservers';
 import { FirstInteractionObserver } from './firstInteractionObserver';
 import { getElementName, type SelectorConfig } from './getElementName';
-import type { OnIdleBufferFlushCallback, TimelineClock, TimelineIdleUnsubcribe } from './timeline';
+import type {
+	OnIdleBufferFlushCallback,
+	TimelineClock,
+	TimelineIdleUnsubcribe,
+	TimelineHoldable,
+} from './timelineInterfaces';
 import { UserEventsObserver } from './userEventsObserver';
+import { wrapperFetch } from './wrapperFetch';
+import { wrapperTimers } from './wrapperTimers';
 
 export type StartProps = {
 	startTime: DOMHighResTimeStamp;
@@ -22,14 +29,16 @@ export type CalculateVCOptions = {
 export class EditorPerformanceObserver implements ObserverInterface {
 	public startTime: DOMHighResTimeStamp | null = null;
 
-	private timeline: TimelineClock;
+	private timeline: TimelineClock & TimelineHoldable;
 	private domObservers: DOMObservers;
 	private firstInteraction: FirstInteractionObserver;
 	private vcSections: WeakSet<Element>;
 	private userEventsObserver: UserEventsObserver;
 	private observedTargetRef: WeakRef<HTMLElement> | null = null;
+	private wrapperApplied: boolean = false;
+	private wrapperCleanupFunctions: (() => void)[] = [];
 
-	constructor(timeline: TimelineClock) {
+	constructor(timeline: TimelineClock & TimelineHoldable) {
 		this.timeline = timeline;
 		this.vcSections = new WeakSet();
 		// TODO: make sure to get it from config
@@ -137,6 +146,10 @@ export class EditorPerformanceObserver implements ObserverInterface {
 				}
 			},
 		});
+
+		this.timeline.onceAllSubscribersCleaned(() => {
+			this.cleanupWrappers();
+		});
 	}
 
 	start({ startTime }: StartProps) {
@@ -148,10 +161,12 @@ export class EditorPerformanceObserver implements ObserverInterface {
 	}
 
 	onIdleBuffer(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe {
+		this.applyWrappersOnce();
 		return this.timeline.onIdleBufferFlush(cb);
 	}
 
 	onceNextIdle(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe {
+		this.applyWrappersOnce();
 		return this.timeline.onNextIdle(cb);
 	}
 
@@ -159,5 +174,30 @@ export class EditorPerformanceObserver implements ObserverInterface {
 		this.domObservers.disconnect();
 		this.firstInteraction.disconnect();
 		this.userEventsObserver.disconnect();
+	}
+
+	private applyWrappersOnce() {
+		if (this.wrapperApplied) {
+			return;
+		}
+
+		const timersCleanup = wrapperTimers({
+			globalContext: globalThis || window,
+			timelineHoldable: this.timeline,
+		});
+
+		const fetchCleanup = wrapperFetch({
+			globalContext: globalThis || window,
+			timelineHoldable: this.timeline,
+		});
+
+		this.wrapperCleanupFunctions.push(timersCleanup, fetchCleanup);
+		this.wrapperApplied = true;
+	}
+
+	private cleanupWrappers() {
+		this.wrapperCleanupFunctions.forEach((cleanup) => cleanup());
+		this.wrapperCleanupFunctions = [];
+		this.wrapperApplied = false;
 	}
 }

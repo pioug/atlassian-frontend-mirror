@@ -1,5 +1,6 @@
 import { taskYield } from './backgroundTasks';
-import type { Timeline, TimelineEvent } from './timeline';
+import type { Timeline } from './timelineInterfaces';
+import type { TimelineEvent } from './timelineTypes';
 import type { HeatmapEntrySource } from './types';
 
 export type HeatmapEntryData = {

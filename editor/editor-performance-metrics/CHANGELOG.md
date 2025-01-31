@@ -1,5 +1,92 @@
 # @atlaskit/editor-performance-metrics
 
+## 1.2.0
+
+### Minor Changes
+
+- [#107955](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107955)
+  [`02bde230bde80`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/02bde230bde80) -
+  [AFO-3352] Multiple improvements to detect TTAI on Editor
+
+  ## Timeline Hold Mechanism
+
+  We've introduced a new hold mechanism to the Timeline system, allowing for better tracking and
+  management of asynchronous operations:
+
+  1. `TimelineHoldable` interface:
+
+     - Defines a `hold` method to initiate a hold operation.
+     - Returns an `UnHoldFunction` to release the hold when the operation is complete.
+
+  2. New event types:
+     - `HoldIdleStartEvent`: Marks the start of a hold operation.
+     - `HoldIdleEndEvent`: Marks the end of a hold operation.
+     - `HoldIdleTimeoutEvent`: Indicates when a hold operation has exceeded the maximum duration.
+
+  These new features provide more precise control over idle time detection during asynchronous
+  operations.
+
+  ## Wrapper Functions for Web APIs
+
+  1. `wrapperFetch`:
+
+     - Integrates fetch calls with the Timeline system.
+     - Automatically applies hold and unhold operations for each fetch call.
+
+  2. `wrapperTimers`:
+     - Integrates setTimeout and clearTimeout with the Timeline system.
+     - Applies hold operations for timeouts between 0 and 2000ms.
+
+  These wrappers enable seamless integration of common web APIs with the Timeline system.
+
+  # Improvements
+
+  ## Timeline Controller Enhancements
+
+  1. Hold Management:
+
+     - Implemented `checkHoldTimeout` to manage hold timeouts.
+     - Modified `scheduleNextIdle` to respect active holds.
+
+  2. Configuration:
+
+     - Added `maxHoldDuration` to `TimelineOptions` to configure the maximum duration for holds.
+
+  3. Subscription Management:
+     - Implemented `onceAllSubscribersCleaned` method to allow cleanup operations when all
+       subscribers are unsubscribed.
+
+  ## Code Organization
+
+  1. Split Timeline-related code into separate files:
+
+     - `timelineTypes.ts`: Contains type definitions for Timeline events and options.
+     - `timelineInterfaces.ts`: Defines interfaces for Timeline functionality.
+
+  2. Improved modularity and maintainability of the codebase.
+
+  ## EditorPerformanceObserver Updates
+
+  - Modified to use both `TimelineClock` and `TimelineHoldable` interfaces.
+  - Implemented wrapper application and cleanup logic.
+
+  # Documentation Updates
+
+  - Added comprehensive JSDoc for new interfaces and methods.
+  - Updated existing documentation to reflect new functionality.
+
+  # Testing
+
+  - Added new test files: `wrapperFetch.test.ts` and `wrapperTimers.test.ts`.
+  - Enhanced existing tests in `timeline.test.ts` to cover new functionality.
+  - Added `editorPerformanceObserver.test.ts` to test wrapper application and cleanup.
+
+  # Important Notes
+
+  - These enhancements maintain backward compatibility with existing implementations.
+  - The core timeline functionality remains unchanged; only new features have been added.
+  - Wrapper functions are applied only when needed and cleaned up when no longer in use.
+
 ## 1.1.0
 
 ### Minor Changes

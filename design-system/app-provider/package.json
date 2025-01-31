@@ -53,13 +53,13 @@
 	"devDependencies": {
 		"@af/visual-regression": "*",
 		"@atlaskit/dropdown-menu": "^12.25.0",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/primitives": "^13.3.7",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"react-resource-router": "^0.20.0",
 		"typescript": "~5.4.2"
 	},

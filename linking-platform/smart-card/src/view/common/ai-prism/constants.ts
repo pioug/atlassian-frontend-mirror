@@ -6,7 +6,13 @@ import { type AIThemeBorderPalette } from './types';
  * with modifications.
  */
 
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 export const INNER_BORDER_RADIUS = 8;
+/**
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
+ */
 export const OUTER_BORDER_RADIUS = 10;
 
 // We don't yet have design system tokens representing the AI prism colour palette. We should replace this with

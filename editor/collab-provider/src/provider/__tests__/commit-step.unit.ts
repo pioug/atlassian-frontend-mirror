@@ -40,9 +40,10 @@ const createTestHelpers = () => {
 		version = 1,
 		userId = 'user1',
 		clientId = 'client1',
-		options: { __livePage: boolean; hasRecovered: boolean } = {
+		options: { __livePage: boolean; hasRecovered: boolean; collabMode?: string } = {
 			__livePage: false,
 			hasRecovered: false,
+			collabMode: 'collab',
 		},
 	) => {
 		commitStepQueue({
@@ -57,6 +58,7 @@ const createTestHelpers = () => {
 			emit: emitMock,
 			__livePage: options.__livePage,
 			hasRecovered: options.hasRecovered,
+			collabMode: options.collabMode ?? 'collab',
 		});
 	};
 
@@ -147,6 +149,7 @@ describe('commitStepQueue', () => {
 				],
 				version: 1,
 				userId: 'user1',
+				collabMode: 'collab',
 			},
 			expect.any(Function),
 		);
@@ -177,6 +180,7 @@ describe('commitStepQueue', () => {
 						],
 						version: 1,
 						userId: 'user1',
+						collabMode: 'collab',
 					},
 					expect.any(Function),
 				);
@@ -201,6 +205,7 @@ describe('commitStepQueue', () => {
 						],
 						version: 1,
 						userId: 'user1',
+						collabMode: 'collab',
 					},
 					expect.any(Function),
 				);
@@ -221,6 +226,19 @@ describe('commitStepQueue', () => {
 		expect(errorEventSpy).toBeCalledWith(
 			new Error('Darn it!'),
 			'Error while adding steps - Broadcast threw exception',
+		);
+	});
+
+	it('Adds collabMode to steps:commit', () => {
+		presetCommitStepQueue([fakeStep], 1, 'user1', 'client1');
+
+		expect(broadcastSpy).toHaveBeenCalledTimes(1);
+		expect(broadcastSpy).toHaveBeenCalledWith(
+			'steps:commit',
+			expect.objectContaining({
+				collabMode: 'collab',
+			}),
+			expect.any(Function),
 		);
 	});
 

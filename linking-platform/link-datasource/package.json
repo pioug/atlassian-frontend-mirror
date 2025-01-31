@@ -28,7 +28,7 @@
 		"website": {
 			"name": "Link Datasource"
 		},
-		"runReact18": true
+		"runReact18": false
 	},
 	"scripts": {
 		"analytics:codegen": "yarn workspace @atlassian/analytics-tooling run analytics:codegen link-datasource --output ./src/analytics/generated"
@@ -73,7 +73,7 @@
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/react-select": "^1.6.0",
 		"@atlaskit/select": "^18.9.0",
-		"@atlaskit/smart-card": "^34.6.0",
+		"@atlaskit/smart-card": "^34.7.0",
 		"@atlaskit/smart-user-picker": "6.11.2",
 		"@atlaskit/spinner": "^17.0.0",
 		"@atlaskit/tag": "^12.6.0",
@@ -108,7 +108,7 @@
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
 		"@faker-js/faker": "^7.5.0",
 		"@testing-library/dom": "^10.1.0",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
 		"@types/debounce-promise": "^3.1.2",

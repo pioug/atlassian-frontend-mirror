@@ -5,13 +5,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React, { useMemo } from 'react';
+import { useMemo } from 'react';
 
 import { cssMap, jsx } from '@compiled/react';
 
 import LinkIcon from '@atlaskit/icon/core/migration/link';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { type IconType, SmartLinkPosition, SmartLinkSize } from '../../../../../constants';
@@ -21,6 +21,14 @@ import { getIconWidth } from '../../utils';
 
 import IconOld from './IconOld';
 import { type IconProps } from './types';
+
+const styles = cssMap({
+	iconWrapperStyle: {
+		display: 'flex',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+});
 
 const positionStyleMap = cssMap({
 	center: {
@@ -198,10 +206,8 @@ const customRenderStyleMapNew = cssMap({
 	xlarge: {
 		display: '-webkit-box',
 		overflow: 'hidden',
-		// textOverflow: 'ellipsis',
 		wordBreak: 'break-word',
 		WebkitLineClamp: 1,
-		// WebkitBoxOrient: 'vertical',
 		'@supports not (-webkit-line-clamp: 1)': {
 			maxHeight: `calc(1 * ${token('space.300')})`,
 		},
@@ -218,10 +224,8 @@ const customRenderStyleMapNew = cssMap({
 	large: {
 		display: '-webkit-box',
 		overflow: 'hidden',
-		// textOverflow: 'ellipsis',
 		wordBreak: 'break-word',
 		WebkitLineClamp: 1,
-		// WebkitBoxOrient: 'vertical',
 		'@supports not (-webkit-line-clamp: 1)': {
 			maxHeight: `calc(1 * ${token('space.300')})`,
 		},
@@ -238,10 +242,8 @@ const customRenderStyleMapNew = cssMap({
 	medium: {
 		display: '-webkit-box',
 		overflow: 'hidden',
-		// textOverflow: 'ellipsis',
 		wordBreak: 'break-word',
 		WebkitLineClamp: 1,
-		// WebkitBoxOrient: 'vertical',
 		'@supports not (-webkit-line-clamp: 1)': {
 			maxHeight: `calc(1 * ${token('space.200')})`,
 		},
@@ -258,10 +260,8 @@ const customRenderStyleMapNew = cssMap({
 	small: {
 		display: '-webkit-box',
 		overflow: 'hidden',
-		// textOverflow: 'ellipsis',
 		wordBreak: 'break-word',
 		WebkitLineClamp: 1,
-		// WebkitBoxOrient: 'vertical',
 		'@supports not (-webkit-line-clamp: 1)': {
 			maxHeight: `calc(1 * ${token('space.200')})`,
 		},
@@ -362,9 +362,6 @@ const IconNew = ({
 
 	const width = getIconWidth(size);
 
-	// const styles = getIconStyles(position, width);
-	// const renderStyles = render ? getCustomRenderStyles(width) : undefined;
-
 	return (
 		<div
 			css={[
@@ -382,7 +379,7 @@ const IconNew = ({
 		>
 			{fg('platform-smart-card-icon-migration') ? (
 				<Box
-					xcss={iconWrapperStyle}
+					xcss={styles.iconWrapperStyle}
 					style={{
 						width,
 						height: width,
@@ -404,11 +401,5 @@ const Icon = (props: IconProps): JSX.Element => {
 		return <IconOld {...props} />;
 	}
 };
-
-const iconWrapperStyle = xcss({
-	display: 'flex',
-	alignItems: 'center',
-	justifyContent: 'center',
-});
 
 export default Icon;

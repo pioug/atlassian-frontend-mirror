@@ -1,113 +1,25 @@
 import { type AbortableTask, backgroundTask } from './backgroundTasks';
-import type { HeatmapEntrySource, UserEventCategory } from './types';
-
-export type BasicEventTimestamp<
-	name extends string,
-	data = Record<string, string | number | undefined | null>,
-> = {
-	type: name;
-	startTime: DOMHighResTimeStamp;
-	data: data;
-};
-
-export type ElementChangedEvent = BasicEventTimestamp<
-	'element:changed',
-	{
-		wrapperSectionName: string;
-		elementName: string;
-		rect: DOMRectReadOnly;
-		previousRect: DOMRectReadOnly | undefined;
-		source: HeatmapEntrySource;
-	}
->;
-export type AbortUserInteractionEvent = BasicEventTimestamp<
-	'abort:user-interaction',
-	{ source: string }
->;
-export type DOMMutationFinishedEvent = BasicEventTimestamp<'DOMMutation:finished'>;
-export type PerformanceLongTaskEvent = BasicEventTimestamp<'performance:long-task'>;
-export type IntersectionObserverVisibleNodesEvent =
-	BasicEventTimestamp<'IntersectionObserver:VisibleNodes'>;
-export type PerformanceFirstPaintEvent = BasicEventTimestamp<'performance:first-paint'>;
-export type PerformanceFirstContentfulPaintEvent =
-	BasicEventTimestamp<'performance:first-contentful-paint'>;
-export type PerformanceLayoutShiftEvent = BasicEventTimestamp<'performance:layout-shift'>;
-export type UserEvent = BasicEventTimestamp<
-	`user-event:${UserEventCategory}`,
-	{
-		category: UserEventCategory;
-		elementName: string;
-		eventName: string;
-		duration: number;
-	}
->;
-export type IdleTimeEvent = BasicEventTimestamp<
-	'idle-time',
-	{
-		duration: number;
-	}
->;
-
-export type TimelineEvent =
-	| ElementChangedEvent
-	| AbortUserInteractionEvent
-	| DOMMutationFinishedEvent
-	| PerformanceLongTaskEvent
-	| IntersectionObserverVisibleNodesEvent
-	| PerformanceFirstPaintEvent
-	| PerformanceFirstContentfulPaintEvent
-	| PerformanceLayoutShiftEvent
-	| IdleTimeEvent
-	| UserEvent;
-
-export type ExtractEventNames<T> = T extends { type: infer U } ? U : never;
-
-export type TimelineEventNames = ExtractEventNames<TimelineEvent>;
-
-export type TimelineEventsGrouped = {
-	[K in TimelineEventNames]: Array<ExtractEventTypes<TimelineEvent, K>>;
-};
-
-export type OnIdleBufferFlushCallback = (props: {
-	idleAt: DOMHighResTimeStamp;
-	timelineBuffer: Readonly<Timeline>;
-}) => void;
-
-/**
- * Cleanable
- *
- * The Cleanable interface defines a method for cleaning up resources or resetting state
- * within the implementing class. This is particularly useful for managing memory and
- * performance in systems that accumulate data over time.
- *
- * Key Method:
- * - `attemptCleanup()`: This method is used to reset the timeline
- *   when certain conditions are met, such as exceeding an event threshold.
- */
-export interface Cleanable {
-	attemptCleanup: (source: 'interval-check' | 'manual') => void;
-}
-
-export type TimelineOptions = {
-	cleanup: {
-		eventsThreshold: 100 | 1000 | 10000;
-	};
-	/*
-	 * Control how often the Idle Buffer is flushed to the subscribers.
-	 *
-	 * When one of the thresholds is hit then the buffer is flushed.
-	 */
-	buffer: {
-		/**
-		 * Based in the amount of events added on Timeline
-		 */
-		eventsThreshold: 1 | 200;
-		/**
-		 * Based in the amount of idle cycles
-		 */
-		cyclesThreshold: 1 | 5 | 10 | 100;
-	} | null;
-};
+import type {
+	Cleanable,
+	Timeline,
+	TimelineClock,
+	TimelineHoldable,
+	TimelineIdleUnsubcribe,
+	TimelineSerializable,
+	UnHoldFunction,
+	OnIdleBufferFlushCallback,
+} from './timelineInterfaces';
+import type {
+	BasicEventTimestamp,
+	EventsGroupedSerialized,
+	ExtractEventTypes,
+	HoldIdleEventSources,
+	IdleTimeEvent,
+	TimelineEvent,
+	TimelineEventNames,
+	TimelineEventsGrouped,
+	TimelineOptions,
+} from './timelineTypes';
 
 const defaultOptions: TimelineOptions = {
 	cleanup: {
@@ -117,69 +29,8 @@ const defaultOptions: TimelineOptions = {
 		eventsThreshold: 200,
 		cyclesThreshold: 5,
 	},
+	maxHoldDuration: 5000, // five seconds
 };
-
-export type ExtractEventTypes<T, N extends string> = T extends { type: N } ? T : never;
-export type TimelineEvents = {
-	[K in TimelineEventNames]: Array<ExtractEventTypes<TimelineEvent, K>>;
-};
-export type EventsGroupedSerialized = Array<
-	[
-		TimelineEventNames,
-		{
-			[K in TimelineEventNames]: Array<ExtractEventTypes<TimelineEvent, K>>;
-		}[TimelineEventNames],
-	]
->;
-
-/**
- * TimelineSerializable
- *
- * The TimelineSerializable interface provides a method for converting the timeline's
- * internal state into a JSON format. This is useful for data persistence, debugging,
- * or transmitting timeline data.
- *
- * Key Method:
- * - `serialise()`: Serializes the timeline events into an array of tuples, each containing
- *   an event type and an array of events of that type.
- */
-
-export interface TimelineSerializable {
-	serialise(): EventsGroupedSerialized;
-}
-
-/**
- * Timeline
- *
- * The Timeline interface defines the basic structure for accessing a collection
- * of timeline events. It allows retrieval of all events or events filtered by their type.
- *
- * Key Methods:
- * - `getEvents()`: Returns a sorted array of all timeline events.
- * - `getEventsPerType(type)`: Retrieves events of a specific type, allowing for type-safe access to events.
- */
-export interface Timeline {
-	getEvents(): ReadonlyArray<TimelineEvent>;
-	getEventsPerType<T extends TimelineEventNames>(type: T): TimelineEventsGrouped[T];
-}
-
-/**
- * TimelineClock
- *
- * The TimelineClock interface extends the Timeline interface, adding methods for
- * marking new events and managing idle-period callbacks.
- *
- * Key Methods:
- * - `markEvent(event)`: Adds a new event to the timeline and manages the idle detection logic.
- * - `onIdleBufferFlush(cb)`: Registers a callback to be triggered when the idle buffer is flushed.
- *   Returns a function to unsubscribe the callback.
- * - `onNextIdle(cb)`: Registers a callback to be triggered when the next idle event happens. The callback will be called only once.
- */
-export interface TimelineClock extends Timeline {
-	markEvent(event: TimelineEvent): void;
-	onIdleBufferFlush(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe;
-	onNextIdle(cb: OnIdleBufferFlushCallback): TimelineIdleUnsubcribe;
-}
 
 export type EventsPerTypeMap = Map<
 	TimelineEventNames,
@@ -195,7 +46,15 @@ export type TimelineIdleBuffer = {
 	eventsPerType: EventsPerTypeMap;
 	unorderedEvents: UnorderedEvents;
 };
-export type TimelineIdleUnsubcribe = () => void;
+
+function getRandomId(): string {
+	if (!globalThis.crypto || typeof globalThis.crypto.randomUUID !== 'function') {
+		// Not the best fallback, but the crypto.randomUUID is widely available
+		return (Math.random() + 1).toString(36).substring(20);
+	}
+
+	return globalThis.crypto.randomUUID();
+}
 
 /**
  * 🧱 Internal Type: Editor FE Platform
@@ -204,7 +63,7 @@ export type TimelineIdleUnsubcribe = () => void;
  *
  * The TimelineController class is a comprehensive system designed to track and
  * manage a series of events over time. It facilitates the recording, retrieval,
- * and attemptCleanup of timeline events, and provides an interface for triggering
+ * and cleanup of timeline events, and provides an interface for triggering
  * callbacks when idle buffer conditions are met.
  *
  * Key Functionalities:
@@ -213,27 +72,14 @@ export type TimelineIdleUnsubcribe = () => void;
  * - Buffer Management: Maintains an internal buffer of events, with configurable thresholds to trigger callbacks
  *   based on buffer size or idle cycles.
  * - Serialization: Provides functionality to serialize the timeline state into a structured JSON format.
+ * - Hold Mechanism: Allows pausing the idle detection for specific operations like setTimeout or fetch.
  *
- * Parameters:
- * - `givenOptions`: An optional configuration object that allows customization of the timeline's behavior.
+ * @param {Partial<TimelineOptions>} [givenOptions] - An optional configuration object that allows customization of the timeline's behavior.
  *
- *   `TimelineOptions` includes:
- *   - `cleanup`: An object specifying cleanup behavior.
- *     - `eventsThreshold`: A number (100, 1000, or 10000) indicating the maximum number of events allowed before
- *       automatic cleanup is triggered. This helps manage memory usage by clearing old events.
- *   - `buffer`: An object specifying when callbacks should be triggered during idle periods.
- *     - `eventsThreshold`: A number (1 or 200) specifying how many events can accumulate in the buffer
- *       before triggering a callback. This threshold ensures the system responds promptly when a certain
- *       volume of activity has occurred.
- *     - `cyclesThreshold`: A number (1, 10, or 100) indicating how many idle cycles can occur before a callback
- *       is triggered. This ensures that callbacks are executed periodically even if the buffer size condition
- *       is not met.
- *
- *
- * Example Usage:
- * ```typescript
+ * @example
  * const timeline = new TimelineController({
  *   buffer: { eventsThreshold: 200, cyclesThreshold: 10 },
+ *   maxHoldDuration: 5000
  * });
  *
  * // Adding an event
@@ -249,14 +95,17 @@ export type TimelineIdleUnsubcribe = () => void;
  *   console.log('Events since last idle:', timelineBuffer.getEvents());
  * });
  *
+ * // Using the hold mechanism
+ * const unhold = timeline.hold({ source: 'setTimeout' });
+ * // ... perform some operation ...
+ * unhold();
+ *
  * // Serializing the timeline
  * const serializedTimeline = timeline.serialise();
  * console.log(serializedTimeline);
- * ```
  */
-
 export class TimelineController
-	implements Timeline, TimelineSerializable, TimelineClock, Cleanable
+	implements Timeline, TimelineSerializable, TimelineClock, Cleanable, TimelineHoldable
 {
 	unorderedEvents: UnorderedEvents;
 	eventsPerType: EventsPerTypeMap;
@@ -267,8 +116,11 @@ export class TimelineController
 	lastIdleTask: AbortableTask<void> | null = null;
 	options: TimelineOptions;
 	idleBuffer: TimelineIdleBuffer;
+	private allSubscribersCleanedCallback: (() => void) | null = null;
+	private holdStartTimes: Map<string, DOMHighResTimeStamp>;
 
 	constructor(givenOptions?: Partial<TimelineOptions>) {
+		this.holdStartTimes = new Map();
 		this.options = Object.assign(defaultOptions, givenOptions || {});
 
 		this.unorderedEvents = [];
@@ -305,6 +157,40 @@ export class TimelineController
 				},
 			},
 		];
+	}
+
+	hold({ source }: { source: HoldIdleEventSources }): UnHoldFunction {
+		const startTime = performance.now();
+		const holdId = getRandomId();
+		this.holdStartTimes.set(holdId, startTime);
+
+		this.markEvent({
+			startTime,
+			type: 'hold-idle:start',
+			data: {
+				source,
+				uuid: holdId,
+			},
+		});
+
+		return () => {
+			this.holdStartTimes.delete(holdId);
+			const holdEndTime = performance.now();
+
+			this.markEvent({
+				startTime: holdEndTime,
+				type: 'hold-idle:end',
+				data: {
+					source,
+					duration: holdEndTime - startTime,
+					uuid: holdId,
+				},
+			});
+
+			if (this.holdStartTimes.size === 0) {
+				this.scheduleNextIdle();
+			}
+		};
 	}
 
 	private addEventInternal(event: TimelineEvent) {
@@ -363,6 +249,7 @@ export class TimelineController
 
 		return () => {
 			this.onIdleBufferFlushCallbacks.delete(cb);
+			this.checkAllSubscribersCleared();
 		};
 	}
 
@@ -371,10 +258,61 @@ export class TimelineController
 
 		return () => {
 			this.onNextIdleCallbacks.delete(cb);
+			this.checkAllSubscribersCleared();
 		};
 	}
 
+	public onceAllSubscribersCleaned(callback: () => void): void {
+		this.allSubscribersCleanedCallback = callback;
+	}
+
+	private checkAllSubscribersCleared(): void {
+		if (
+			this.onIdleBufferFlushCallbacks.size === 0 &&
+			this.onNextIdleCallbacks.size === 0 &&
+			this.allSubscribersCleanedCallback
+		) {
+			this.allSubscribersCleanedCallback();
+		}
+	}
+
+	private checkHoldTimeout() {
+		if (this.holdStartTimes.size === 0) {
+			return;
+		}
+
+		const currentTime = performance.now();
+		const iterator = this.holdStartTimes.entries();
+
+		let [holdId, holdStartTime] = iterator.next().value;
+		while (typeof holdStartTime === 'number') {
+			const lastHoldDelta = currentTime - holdStartTime;
+
+			if (lastHoldDelta < this.options.maxHoldDuration) {
+				return;
+			}
+
+			this.addEventInternal({
+				type: 'hold-idle:timeout',
+				startTime: currentTime,
+				data: {
+					holdedAt: holdStartTime,
+					uuid: holdId,
+				},
+			});
+
+			this.holdStartTimes.delete(holdId);
+			[holdId, holdStartTime] = iterator.next().value || [];
+		}
+	}
+
 	private scheduleNextIdle() {
+		this.checkHoldTimeout();
+
+		if (this.holdStartTimes.size > 0) {
+			return;
+		}
+
 		if (this.lastIdleTask) {
 			this.lastIdleTask.abort();
 		}
@@ -393,6 +331,9 @@ export class TimelineController
 	}
 
 	private handleIdle(startAt: DOMHighResTimeStamp) {
+		if (this.holdStartTimes.size > 0) {
+			return;
+		}
 		const idleTimeEvent: IdleTimeEvent = {
 			type: 'idle-time',
 			startTime: performance.now(),

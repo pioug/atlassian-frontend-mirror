@@ -20,7 +20,7 @@ import {
 
 import TableRow from './table-row';
 
-export interface RankableBodyProps extends WithSortedPageRowsProps {
+interface RankableBodyProps extends WithSortedPageRowsProps {
 	highlightedRowIndex?: number | number[];
 	onRankStart: (rankStart: RankStart) => void;
 	onRankEnd: (rankEnd: RankEnd) => void;

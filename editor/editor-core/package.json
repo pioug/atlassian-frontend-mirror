@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.11.13",
+	"version": "203.11.14",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -96,17 +96,17 @@
 		"@atlaskit/modal-dialog": "^12.19.0",
 		"@atlaskit/primitives": "^13.3.0",
 		"@atlaskit/renderer": "^112.11.0",
-		"@atlaskit/smart-card": "^34.6.0",
+		"@atlaskit/smart-card": "^34.7.0",
 		"@atlaskit/synchrony-test-helpers": "^3.0.0",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/util-data-test": "^17.13.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/adf-schema-json": "^1.22.0",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@atlassian/search-provider": "3.0.28",
+		"@atlassian/search-provider": "3.0.30",
 		"@emotion/jest": "^11.8.0",
 		"@storybook/addon-knobs": "^6.4.0",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@types/diff": "^5.0.2",
 		"@types/is-number": "^7.0.0",
@@ -115,7 +115,7 @@
 		"jscodeshift": "^0.13.0",
 		"mockdate": "^3.0.5",
 		"raf-stub": "^2.0.1",
-		"react": "^16.8.0",
+		"react": "^18.2.0",
 		"react-intl-next": "npm:react-intl@^5.18.1",
 		"typescript": "~5.4.2",
 		"url-search-params": "^0.10.0"

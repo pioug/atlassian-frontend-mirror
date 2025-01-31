@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TagProps
  *
- * @codegen <<SignedSource::659578117ad1c84acac9b908776763c7>>
+ * @codegen <<SignedSource::1d48163194ea309ddc6f7353e5123202>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tag/__generated__/index.partial.tsx <<SignedSource::5eafca6673842204effb416681fb9ff4>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tag/__generated__/index.partial.tsx <<SignedSource::1f9f7073797cd01947c622c0400785ae>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type SimpleTagProps = Pick<
   PlatformSimpleTagProps,
   'text' | 'appearance' | 'color' | 'elemBefore' | 'href' | 'testId'
 >;
+
+/**
+ * A tag labels UI objects for quick recognition and navigation.
+ */
+export type TSimpleTag<T> = (props: SimpleTagProps) => T;

@@ -1,5 +1,13 @@
 # @atlaskit/focused-task-close-account
 
+## 2.3.11
+
+### Patch Changes
+
+- [#108809](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108809)
+  [`da15902f655e2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/da15902f655e2) -
+  React18 compat
+
 ## 2.3.10
 
 ### Patch Changes

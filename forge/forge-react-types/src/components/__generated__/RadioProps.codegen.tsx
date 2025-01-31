@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - RadioProps
  *
- * @codegen <<SignedSource::326831c949bb5cbb99e073727ad8d55e>>
+ * @codegen <<SignedSource::15501f4da2db03fc496259f6cf9db704>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/radio/__generated__/index.partial.tsx <<SignedSource::f8ac68c1f51a8a6ea746a657fc9ee4da>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/radio/__generated__/index.partial.tsx <<SignedSource::24d94151d76a83de0609bd9b427e4f3a>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,3 +20,8 @@ export type RadioProps = Pick<
   'label' | 'testId' | 'isChecked' | 'ariaLabel' | 'onInvalid'
  | 'id' | 'isRequired' | 'isDisabled' | 'isInvalid' | 'value' | 'aria-invalid' | 'aria-labelledby' | 'name'
 > & Pick<EventHandlerProps, 'onChange' | 'onBlur' | 'onFocus'>;
+
+/**
+ * A radio input allows users to select only one option from a number of choices. Radio is generally displayed in a radio group.
+ */
+export type TRadio<T> = (props: RadioProps) => T;

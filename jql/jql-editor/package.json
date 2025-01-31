@@ -86,7 +86,7 @@
 		"@storybook/addon-actions": "^6.4.0",
 		"@storybook/addon-knobs": "^6.4.0",
 		"@testing-library/jest-dom": "^6.4.5",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"

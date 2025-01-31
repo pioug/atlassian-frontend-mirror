@@ -8,7 +8,7 @@ import { css, jsx } from '@atlaskit/css';
 import { token } from '@atlaskit/tokens';
 
 import { type Align } from './types';
-export interface FormFooterProps {
+interface FormFooterProps {
 	/**
 	 * Content to render in the footer of the form.
 	 */

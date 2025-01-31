@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - RangeProps
  *
- * @codegen <<SignedSource::56deb7fafdabfdd7bc9040bf16ef23a8>>
+ * @codegen <<SignedSource::90b0ddabf2167e8a5baee6fb2a2c151d>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/range/__generated__/index.partial.tsx <<SignedSource::47b47ae1505ae1df985d952d77e858e8>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/range/__generated__/index.partial.tsx <<SignedSource::66f3c55587192848bc42f9fc146e6c7e>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,3 +20,8 @@ export type RangeProps = Pick<
   'defaultValue' | 'max' | 'min' | 'step' | 'testId' | 'onChange'
  | 'id' | 'isDisabled' | 'value' | 'aria-invalid' | 'aria-labelledby' | 'name'
 > & Pick<EventHandlerProps, 'onBlur' | 'onFocus'>;
+
+/**
+ * A range lets users choose an approximate value on a slider.
+ */
+export type TRange<T> = (props: RangeProps) => T;

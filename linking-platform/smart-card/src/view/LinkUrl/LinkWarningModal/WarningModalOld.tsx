@@ -1,0 +1,76 @@
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
+import { FormattedMessage, IntlProvider, type WrappedComponentProps } from 'react-intl-next';
+
+import Button from '@atlaskit/button/standard-button';
+import Modal, {
+	ModalBody,
+	ModalFooter,
+	ModalHeader,
+	ModalTitle,
+	ModalTransition,
+} from '@atlaskit/modal-dialog';
+
+import { messages } from '../../../messages';
+
+import { breakWordsCss } from './styled';
+
+export interface LinkWarningModalProps {
+	isOpen: boolean;
+	onClose: () => void;
+	onContinue: () => void;
+	unsafeLinkText: string | null;
+	url: string | null;
+}
+
+const WarningModalOld = (props: LinkWarningModalProps & WrappedComponentProps) => {
+	const { isOpen, unsafeLinkText, url, onClose, onContinue, intl } = props;
+
+	const content = (
+		<ModalTransition>
+			{isOpen && (
+				<Modal onClose={onClose} testId="link-with-safety-warning">
+					<ModalHeader>
+						<ModalTitle appearance="warning">
+							<FormattedMessage {...messages.check_this_link} />
+						</ModalTitle>
+					</ModalHeader>
+					<ModalBody>
+						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
+						<div css={breakWordsCss}>
+							{url && unsafeLinkText && (
+								<FormattedMessage
+									{...messages.link_safety_warning_message}
+									values={{
+										unsafeLinkText: unsafeLinkText,
+										a: () => (
+											<a href={url} target="_blank" rel="noopener noreferrer">
+												{url}
+											</a>
+										),
+									}}
+								/>
+							)}
+						</div>
+					</ModalBody>
+					<ModalFooter>
+						<Button appearance="subtle" onClick={onClose}>
+							<FormattedMessage {...messages.go_back} />
+						</Button>
+						<Button appearance="warning" onClick={onContinue} autoFocus>
+							<FormattedMessage {...messages.continue} />
+						</Button>
+					</ModalFooter>
+				</Modal>
+			)}
+		</ModalTransition>
+	);
+
+	return intl ? content : <IntlProvider locale="en">{content}</IntlProvider>;
+};
+
+export default WarningModalOld;

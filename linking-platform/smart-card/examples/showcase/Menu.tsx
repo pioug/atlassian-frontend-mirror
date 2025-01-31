@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import { type CardAuthFlowOpts, type EnvironmentsKeys } from '@atlaskit/link-provider';
 import Select, { type OptionsType } from '@atlaskit/select';
@@ -61,6 +60,18 @@ interface ShowcaseMenuProps {
 	config: ExampleUIConfig;
 }
 
+const outerDivStyles = css({
+	position: 'fixed',
+	bottom: 0,
+	left: 0,
+	width: '100%',
+	padding: `${token('space.300', '24px')} 60px`,
+	backgroundColor: token('elevation.surface', 'white'),
+	boxShadow: token('elevation.shadow.overflow', `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`),
+	display: 'flex',
+	zIndex: 500,
+});
+
 export const ShowcaseMenu = ({
 	onViewTypeChange,
 	onAuthFlowChange,
@@ -70,27 +81,7 @@ export const ShowcaseMenu = ({
 	config,
 }: ShowcaseMenuProps) => {
 	return (
-		<div
-			style={{
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				position: 'fixed',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				bottom: 0,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				left: 0,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				width: '100%',
-				padding: `${token('space.300', '24px')} 60px`,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				backgroundColor: token('elevation.surface', 'white'),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				boxShadow: token('elevation.shadow.overflow', `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`),
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				display: 'flex',
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
-				zIndex: 500,
-			}}
-		>
+		<div css={outerDivStyles}>
 			<div css={menuWrapperStyles}>
 				<h6 css={menuTitleStyles}>View Type</h6>
 				<Select

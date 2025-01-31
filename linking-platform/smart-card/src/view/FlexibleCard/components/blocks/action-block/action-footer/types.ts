@@ -1,4 +1,4 @@
-import type { Space } from '@atlaskit/primitives';
+import type { Space } from '@atlaskit/primitives/compiled';
 
 import type { ActionMessage } from '../../../actions/action/types';
 

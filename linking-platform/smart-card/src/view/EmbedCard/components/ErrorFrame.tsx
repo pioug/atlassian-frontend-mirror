@@ -4,13 +4,13 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { B200, N20A, N30A, N40A, N50A } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
-import { br, gs, mq } from '../../common/utils';
+import { CompactFrameOld, ExpandedFrameOld, FrameOld } from './ErrorFrameOld';
 
 export interface FrameProps {
 	children?: React.ReactNode;
@@ -27,7 +27,7 @@ export interface FrameProps {
 	inheritDimensions?: boolean;
 }
 
-export const Frame = (
+const FrameNew = (
 	props: FrameProps = {
 		isSelected: false,
 		isHoverable: false,
@@ -40,13 +40,48 @@ const sharedBaseFrameStyles = css({
 	display: 'flex',
 });
 
-// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-const sharedFrameStyles = {
-	maxWidth: gs(95),
+const sharedFrameStyles = css({
+	maxWidth: '760px',
 	backgroundColor: token('elevation.surface.raised', 'white'),
-};
+});
 
-export const ExpandedFrame = ({
+const expandedFrameHoverStyles = css({
+	'&:hover': {
+		// TODO: https://product-fabric.atlassian.net/browse/DSP-4064
+		backgroundColor: token('color.background.neutral.subtle.hovered', N20A),
+		cursor: 'pointer',
+	},
+});
+
+const expandedFrameFluidHeightTrueStyles = css({
+	minHeight: 0,
+});
+
+const expandedFrameFluidHeightFalseStyles = css({
+	minHeight: '120px',
+});
+
+const expandedFrameSelectedStyles = css({
+	borderRadius: '3px',
+	borderColor: token('color.border.selected', B200),
+	borderStyle: 'solid',
+	borderWidth: '2px',
+});
+
+const expandedFrameNotSelectedStyles = css({
+	borderRadius: '1.5px',
+	borderColor: 'transparent',
+	borderStyle: 'solid',
+	borderWidth: '2px',
+});
+
+const expandedFrameStyles = css({
+	justifyContent: 'space-between',
+	overflow: 'hidden',
+	boxShadow: token('elevation.shadow.raised', `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`),
+});
+
+const ExpandedFrameNew = ({
 	children,
 	isSelected,
 	isHoverable,
@@ -59,24 +94,10 @@ export const ExpandedFrame = ({
 			css={[
 				sharedBaseFrameStyles,
 				sharedFrameStyles,
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				mq({
-					'&:hover': isHoverable
-						? {
-								// TODO: https://product-fabric.atlassian.net/browse/DSP-4064
-								backgroundColor: token('color.background.neutral.subtle.hovered', N20A),
-								cursor: 'pointer',
-							}
-						: undefined,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					minHeight: isFluidHeight ? 0 : [gs(21), gs(15)],
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					borderRadius: isSelected ? br() : br(0.5),
-					border: `2px solid ${isSelected ? token('color.border.selected', B200) : 'transparent'}`,
-					justifyContent: 'space-between',
-					overflow: 'hidden',
-					boxShadow: token('elevation.shadow.raised', `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`),
-				}),
+				isHoverable && expandedFrameHoverStyles,
+				isFluidHeight ? expandedFrameFluidHeightTrueStyles : expandedFrameFluidHeightFalseStyles,
+				isSelected ? expandedFrameSelectedStyles : expandedFrameNotSelectedStyles,
+				expandedFrameStyles,
 			]}
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -88,7 +109,36 @@ export const ExpandedFrame = ({
 	);
 };
 
-export const CompactFrame = ({
+const compactFrameHoverStyles = css({
+	'&:hover': {
+		backgroundColor: token('color.background.neutral.hovered', N30A),
+	},
+});
+
+const compactFrameInheritDimensionsTrueStyles = css({
+	height: '100%',
+});
+
+const compactFrameInheritDimensionsFalseStyles = css({
+	height: '40px',
+});
+
+const compactFrameAlignStyles = css({
+	justifyContent: 'center',
+	alignItems: 'center',
+	backgroundColor: token('color.background.neutral', N20A),
+});
+
+const compactFrameStyles = css({
+	width: '100%',
+	padding: '0',
+});
+
+const compactFrameNotSelectedStyles = css({
+	borderRadius: '1.5px',
+});
+
+const CompactFrameNew = ({
 	children,
 	isHoverable,
 	isSelected,
@@ -101,25 +151,14 @@ export const CompactFrame = ({
 			css={[
 				sharedBaseFrameStyles,
 				sharedFrameStyles,
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-				mq({
-					'&:hover': isHoverable
-						? {
-								backgroundColor: token('color.background.neutral.hovered', N30A),
-							}
-						: undefined,
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					borderRadius: isSelected ? br() : br(0.5),
-					border: isSelected ? `2px solid ${token('color.border.selected', B200)}` : '',
-					justifyContent: 'center',
-					alignItems: 'center',
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					height: inheritDimensions ? '100%' : gs(5),
-					backgroundColor: token('color.background.neutral', N20A),
-					width: ['calc(100% - 16px)', '100%'],
-					// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-					padding: [`0px ${gs(1)}`, '0'],
-				}),
+				isHoverable && compactFrameHoverStyles,
+				isSelected && expandedFrameSelectedStyles,
+				!isSelected && compactFrameNotSelectedStyles,
+				compactFrameAlignStyles,
+				inheritDimensions
+					? compactFrameInheritDimensionsTrueStyles
+					: compactFrameInheritDimensionsFalseStyles,
+				compactFrameStyles,
 			]}
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -128,4 +167,28 @@ export const CompactFrame = ({
 			{children}
 		</div>
 	);
+};
+
+export const ExpandedFrame = (props: FrameProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <ExpandedFrameNew {...props} />;
+	} else {
+		return <ExpandedFrameOld {...props} />;
+	}
+};
+
+export const CompactFrame = (props: FrameProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <CompactFrameNew {...props} />;
+	} else {
+		return <CompactFrameOld {...props} />;
+	}
+};
+
+export const Frame = (props: FrameProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <FrameNew {...props} />;
+	} else {
+		return <FrameOld {...props} />;
+	}
 };

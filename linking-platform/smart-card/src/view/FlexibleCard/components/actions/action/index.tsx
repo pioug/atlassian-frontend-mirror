@@ -31,7 +31,7 @@ const ActionNew = ({
 	tooltipOnHide,
 	hideTooltip,
 	hideTooltipOnMouseDown,
-	xcss,
+	style,
 	asDropDownItem,
 	className,
 	isDisabled,
@@ -70,8 +70,8 @@ const ActionNew = ({
 				size={size}
 				testId={testId}
 				tooltipMessage={tooltipMessage || content}
-				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-				xcss={xcss}
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+				style={style}
 				tooltipOnHide={tooltipOnHide}
 				hideTooltipOnMouseDown={hideTooltipOnMouseDown}
 				hideTooltip={hideTooltip}

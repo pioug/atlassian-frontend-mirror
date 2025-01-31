@@ -1,14 +1,38 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl-next';
 
 import { useAnalyticsEvents } from '@atlaskit/analytics-next';
 import Button from '@atlaskit/button';
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
 import { useAutomationMenu } from '../../menu-context';
 
+import { AutomationModalEmptyStateOld } from './AutomationModalEmptyStateOld';
 import EmptyIcon from './empty-icon';
+
+const styles = cssMap({
+	emptyState: {
+		paddingLeft: token('space.300'),
+		paddingRight: token('space.300'),
+		marginTop: token('space.500'),
+	},
+	image: {
+		marginTop: token('space.050'),
+		marginBottom: token('space.300'),
+		width: '160px',
+		height: '156px',
+	},
+	description: {
+		width: '360px',
+		textAlign: 'center',
+	},
+});
 
 const i18n = defineMessages({
 	defaultEmptyStateAdminDesc: {
@@ -37,25 +61,7 @@ const i18n = defineMessages({
 	},
 });
 
-const emptyStateStyles = xcss({
-	paddingLeft: 'space.300',
-	paddingRight: 'space.300',
-	marginTop: 'space.500',
-});
-
-const imageStyles = xcss({
-	marginTop: 'space.050',
-	marginBottom: 'space.300',
-	width: '160px',
-	height: '156px',
-});
-
-const descriptionStyles = xcss({
-	width: '360px',
-	textAlign: 'center',
-});
-
-export const AutomationModalEmptyState = () => {
+const AutomationModalEmptyStateNew = () => {
 	const { formatMessage } = useIntl();
 	const { createAnalyticsEvent } = useAnalyticsEvents();
 	const {
@@ -74,11 +80,11 @@ export const AutomationModalEmptyState = () => {
 	const displayedEmptyStateDesc = canManageAutomation ? adminEmptyStateDesc : emptyStateDesc;
 
 	return (
-		<Stack xcss={emptyStateStyles} alignInline="center" alignBlock="center" grow="fill">
-			<Box xcss={imageStyles}>
+		<Stack xcss={styles.emptyState} alignInline="center" alignBlock="center" grow="fill">
+			<Box xcss={styles.image}>
 				<EmptyIcon alt={formatMessage(i18n.emptyAutomationListImageAlt)} />
 			</Box>
-			<Box xcss={descriptionStyles}>
+			<Box xcss={styles.description}>
 				{displayedEmptyStateDesc}
 				{canManageAutomation && (
 					<div>
@@ -106,4 +112,11 @@ export const AutomationModalEmptyState = () => {
 			</Box>
 		</Stack>
 	);
+};
+
+export const AutomationModalEmptyState = () => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <AutomationModalEmptyStateNew />;
+	}
+	return <AutomationModalEmptyStateOld />;
 };

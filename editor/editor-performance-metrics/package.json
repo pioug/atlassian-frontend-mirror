@@ -46,8 +46,8 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
-		"@testing-library/react": "^12.1.5",
-		"react-dom": "^16.8.0",
+		"@testing-library/react": "^13.4.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},
@@ -93,7 +93,7 @@
 		]
 	},
 	"name": "@atlaskit/editor-performance-metrics",
-	"version": "1.1.0",
+	"version": "1.2.0",
 	"description": "Experimental code to track Editor Full Page performance on some particular scenarios",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

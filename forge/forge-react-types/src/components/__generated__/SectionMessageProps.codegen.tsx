@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - SectionMessageProps
  *
- * @codegen <<SignedSource::1803a5975db438b2c4cd2852cd1a228d>>
+ * @codegen <<SignedSource::a8d8f62dc2c73c2c021e658bd7efbcd7>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/sectionmessage/__generated__/index.partial.tsx <<SignedSource::dd1458a5551bb547bccc3ed9b20a0775>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/sectionmessage/__generated__/index.partial.tsx <<SignedSource::164319f578b12a9ab6d85a5bd3e4cc8a>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type SectionMessageProps = Pick<
   PlatformSectionMessageProps,
   'children' | 'appearance' | 'title' | 'actions' | 'testId'
 >;
+
+/**
+ * A section message is used to alert users to a particular section of the screen.
+ */
+export type TSectionMessage<T> = (props: SectionMessageProps) => T;

@@ -65,6 +65,12 @@ export interface BaseProps {
 	overrides?: OverridesType;
 }
 
+// Adding export to satisfy TS error in Jira build
+// src/packages/navigation-apps/atlassian-switcher-common-integration-view/src/ui/integration-popup/index.tsx(162,14):
+// error TS4023: Exported variable `IntegrationPopup` has or is using
+// name `DrawerLabel` from external module
+// `/opt/atlassian/pipelines/agent/build/jira/tsDist/@atlaskit__drawer/app/src/components/types`
+// but cannot be named.
 export interface DrawerLabel {
 	/**
 	 * This is an `aria-label` attribute. It sets an accessible name for the drawer wrapper, for people who use assistive technology.

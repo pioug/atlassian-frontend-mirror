@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import { type JsonLd } from 'json-ld-types';
 import { IntlProvider } from 'react-intl-next';
 
@@ -24,13 +23,15 @@ const subHeaderCSS = css({
 	marginBottom: token('space.100', '8px'),
 });
 
+const divPadding = css({
+	padding: '30px',
+});
+
 export const VRTestCase = ({ title, children }: VRTestCaseOpts) => {
 	return (
 		<IntlProvider locale={'en'}>
 			<Page>
-				{/* eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview*/}
-				{/* eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766 */}
-				<div style={{ padding: '30px' }}>
+				<div css={divPadding}>
 					<h6 css={subHeaderCSS}>{title}</h6>
 					{children()}
 				</div>

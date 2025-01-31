@@ -5,7 +5,7 @@ import Field, { type FieldProps, type Meta } from './field';
 export interface CheckboxFieldProps extends FieldProps<string | undefined> {
 	isChecked: boolean;
 }
-export interface CheckboxProps {
+interface CheckboxProps {
 	/**
 	 * Content to render in the checkbox field. This is a function that is called with information about the field.
 	 */

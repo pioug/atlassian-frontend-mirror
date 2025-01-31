@@ -360,7 +360,31 @@ const colorTests: Tests = {
 		},
 		{
 			code: `
+          import Box from '@atlaskit/primitives/box';
+          <Box backgroundColor="color.background.accent.yellow.subtle"></Box>
+        `,
+		},
+		{
+			code: `
+          import { Box } from '@atlaskit/primitives/compiled';
+          <Box backgroundColor="color.background.accent.yellow.subtle"></Box>
+        `,
+		},
+		{
+			code: `
           import { Text } from '@atlaskit/primitives';
+          <Text color="color.text.accent.yellow"></Text>
+        `,
+		},
+		{
+			code: `
+          import Text from '@atlaskit/primitives/text';
+          <Text color="color.text.accent.yellow"></Text>
+        `,
+		},
+		{
+			code: `
+          import { Text } from '@atlaskit/primitives/compiled';
           <Text color="color.text.accent.yellow"></Text>
         `,
 		},
@@ -595,6 +619,21 @@ const colorTests: Tests = {
       })
       `,
 			errors: [{ messageId: 'hardCodedColor' }, { messageId: 'hardCodedColor' }],
+		},
+		{
+			code: `
+          import Component, { Box, Text } from '@atlassian/jira-primitives';
+					<div>
+						<Component overrideBg="color.background.accent.yellow.subtle"></Component>
+						<Box backgroundColor="color.background.accent.yellow.subtle"></Box>
+						<Text color="color.text.accent.yellow"></Text>
+					</div>
+        `,
+			errors: [
+				{ messageId: 'hardCodedColor' },
+				{ messageId: 'hardCodedColor' },
+				{ messageId: 'hardCodedColor' },
+			],
 		},
 	],
 };

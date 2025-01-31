@@ -8,7 +8,7 @@ import { LARGE, LOADING_CONTENTS_OPACITY } from '../internal/constants';
 import { Container, SpinnerBackdrop, SpinnerContainer } from '../styled/loading-container-advanced';
 import type { SpinnerSizeType } from '../types';
 
-export interface LoadingContainerAdvancedProps {
+interface LoadingContainerAdvancedProps {
 	children?: React.ReactNode;
 	isLoading?: boolean;
 	spinnerSize?: SpinnerSizeType;

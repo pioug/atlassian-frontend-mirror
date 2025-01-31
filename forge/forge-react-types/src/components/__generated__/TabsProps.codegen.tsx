@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TabsProps
  *
- * @codegen <<SignedSource::6cb500bd3d514e486ff5f0d4159adeba>>
+ * @codegen <<SignedSource::218a06565465557c9f3831d190600268>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tabs/__generated__/tabs.partial.tsx <<SignedSource::15b1190f9455e6573f225c044c8e9ab1>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tabs/__generated__/tabs.partial.tsx <<SignedSource::f5d8442dd79c61463d58ed2e436af3f4>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type TabsProps = Pick<
   PlatformTabsProps,
   'id' | 'children' | 'defaultSelected' | 'onChange' | 'selected' | 'shouldUnmountTabPanelOnChange' | 'testId'
 >;
+
+/**
+ * Tabs are used to organize content by grouping similar information on the same page.
+ */
+export type TTabs<T> = (props: TabsProps) => T;

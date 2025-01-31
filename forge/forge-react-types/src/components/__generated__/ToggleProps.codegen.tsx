@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - ToggleProps
  *
- * @codegen <<SignedSource::0d1faa253d2e70362ed0dc93dc62262b>>
+ * @codegen <<SignedSource::388ba32ab2e4bdf3dbe9d05944eb41f0>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/toggle/__generated__/index.partial.tsx <<SignedSource::c3ddcdd89af4be8543231a1ab89d8f45>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/toggle/__generated__/index.partial.tsx <<SignedSource::b7d6483e971110f0134e350247bb54af>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -20,3 +20,8 @@ export type ToggleProps = Pick<
   'size' | 'testId' | 'defaultChecked' | 'isChecked' | 'label'
  | 'id' | 'isDisabled' | 'value' | 'name'
 > & Pick<EventHandlerProps, 'onChange' | 'onBlur' | 'onFocus'>;
+
+/**
+ * A toggle is used to view or switch between enabled or disabled states.
+ */
+export type TToggle<T> = (props: ToggleProps) => T;

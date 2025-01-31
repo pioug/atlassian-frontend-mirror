@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/ds-lib",
-	"version": "3.3.0",
+	"version": "3.4.0",
 	"description": "Reusable utilities and hooks specific to design system.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -37,6 +37,7 @@
 		"./keycodes": "./src/utils/keycodes.tsx",
 		"./noop": "./src/utils/noop.tsx",
 		"./deprecation-warning": "./src/utils/deprecation-warning.tsx",
+		"./device-check": "./src/utils/device-check.tsx",
 		"./warn-once": "./src/utils/warn-once.tsx",
 		"./merge-refs": "./src/utils/merge-refs.tsx",
 		"./use-id": "./src/utils/use-id.tsx",
@@ -56,6 +57,7 @@
 		"./keycodes": "./src/utils/keycodes.tsx",
 		"./noop": "./src/utils/noop.tsx",
 		"./deprecation-warning": "./src/utils/deprecation-warning.tsx",
+		"./device-check": "./src/utils/device-check.tsx",
 		"./use-id": "./src/utils/use-id.tsx",
 		"./warn-once": "./src/utils/warn-once.tsx",
 		"./merge-refs": "./src/utils/merge-refs.tsx",
@@ -82,7 +84,7 @@
 	},
 	"devDependencies": {
 		"@testing-library/dom": "^10.1.0",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"jest-in-case": "^1.0.2",
 		"typescript": "~5.4.2"

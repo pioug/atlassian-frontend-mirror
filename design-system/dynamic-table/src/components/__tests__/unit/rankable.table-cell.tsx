@@ -2,7 +2,7 @@ import React from 'react';
 
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { RankableTableCell, type RankableTableCellProps } from '../../rankable/table-cell';
+import { RankableTableCell } from '../../rankable/table-cell';
 
 import { cellWithKey as cell, head } from './_data';
 
@@ -19,7 +19,7 @@ const createProps = () => ({
 });
 
 test('onKeyDown events are not propagated for RankableTableCell', () => {
-	const props: RankableTableCellProps = createProps();
+	const props = createProps();
 	const trKeyDownPropagation = jest.fn();
 	render(
 		<table>

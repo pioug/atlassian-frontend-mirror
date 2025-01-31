@@ -1,5 +1,13 @@
 # @atlaskit/smart-card
 
+## 34.7.0
+
+### Minor Changes
+
+- [#108285](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108285)
+  [`21ff6a33673d2`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/21ff6a33673d2) -
+  [ux] Migrating smart-card/EmbedCard view to use compiled instead of emotion
+
 ## 34.6.6
 
 ### Patch Changes

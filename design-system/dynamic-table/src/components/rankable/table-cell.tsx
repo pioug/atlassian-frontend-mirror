@@ -1,11 +1,15 @@
 import React from 'react';
 
-import withDimensions, { type WithDimensionsProps } from '../../hoc/with-dimensions';
+import withDimensions, {
+	// @ts-ignore -- This import is required for default export
+	type State,
+	type WithDimensionsProps,
+} from '../../hoc/with-dimensions';
 import { inlineStylesIfRanking } from '../../internal/helpers';
 import { RankableTableBodyCell } from '../../styled/rankable/table-cell';
 import { type HeadCellType, type RowCellType } from '../../types';
 
-export interface RankableTableCellProps extends WithDimensionsProps {
+interface RankableTableCellProps extends WithDimensionsProps {
 	head?: HeadCellType;
 	cell: RowCellType;
 	isFixedSize: boolean;

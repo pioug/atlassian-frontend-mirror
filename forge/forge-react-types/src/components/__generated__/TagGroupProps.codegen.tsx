@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TagGroupProps
  *
- * @codegen <<SignedSource::62c8142dd4e6c4f797c463e56c1db939>>
+ * @codegen <<SignedSource::45fcdf87d3eec9b19786d1085f656356>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/taggroup/__generated__/index.partial.tsx <<SignedSource::3fbcfe988f4bfc964c9581a446d396c1>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/taggroup/__generated__/index.partial.tsx <<SignedSource::5ecfc76aae3b3e7f55b076d81f20c782>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type TagGroupProps = Pick<
   PlatformTagGroupProps,
   'children' | 'alignment'
 >;
+
+/**
+ * A tag group controls the layout and alignment for a collection of tags.
+ */
+export type TTagGroup<T> = (props: TagGroupProps) => T;

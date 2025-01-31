@@ -17,15 +17,32 @@ export type AIGlowingBorderProps = {
 	isMoving?: boolean;
 	isGlowing?: boolean;
 	testId?: string;
+	/**
+	 * @deprecated remove on FF clean up of bandicoots-compiled-migration-smartcard
+	 * use css instead for compiledcss
+	 */
 	additionalCss?: {
+		// Note, container is never used
 		container?: SerializedStyles;
 		animatedSvgContainer?: SerializedStyles;
 	};
+	/**
+	 * For compiled css
+	 */
+	className?: string;
 };
 
 export type AnimatedSvgContainerProps = {
 	palette: AIBorderPalette;
 	isMoving?: boolean;
 	isGlowing?: boolean;
+	/**
+	 * @deprecated remove on FF clean up of bandicoots-compiled-migration-smartcard
+	 * use css instead for compiledcss
+	 */
 	additionalCss?: SerializedStyles;
+	/**
+	 * For compiled css
+	 */
+	className?: string;
 };

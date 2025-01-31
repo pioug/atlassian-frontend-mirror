@@ -12,7 +12,8 @@ import {
 	getVCPercentileTargets,
 	type VCTargetsTuple,
 } from './measurements';
-import type { Timeline, TimelineEventNames, UserEvent } from './timeline';
+import type { Timeline } from './timelineInterfaces';
+import type { TimelineEventNames, UserEvent } from './timelineTypes';
 import type { UserEventCategory, ViewportDimension } from './types';
 
 export type CalculateVCOptions = {

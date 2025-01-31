@@ -7,9 +7,10 @@ import type { Config } from '../../types';
 jest.mock('../../analytics/analytics-helper');
 
 export const createMockService = (config: Partial<Config> = {}) => {
-	let participantsServiceMock = {
+	const participantsServiceMock = {
 		updateLastActive: jest.fn(),
 		emitTelepointersFromSteps: jest.fn(),
+		getCollabMode: jest.fn(),
 	} as unknown as ParticipantsService;
 
 	const fetchCatchupv2Mock = jest.fn();

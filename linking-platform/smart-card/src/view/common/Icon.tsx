@@ -4,13 +4,13 @@
  */
 import React from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import ImageLoader from 'react-render-image';
 
 import LinkIcon from '@atlaskit/icon/core/migration/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 
-import { gs } from './utils';
+import { IconOld } from './IconOld';
 
 export interface IconProps {
 	/* Url of the icon to be displayed. Note that this is only used if a JSX element is not provided */
@@ -33,34 +33,20 @@ export interface IconProps {
  */
 export const blockCardIconImageClassName = 'block-card-icon-image';
 
-const getImageStyles = (isFlexibleUi: boolean) => {
-	if (isFlexibleUi) {
-		return;
-	}
-	return css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: gs(2),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		width: gs(2),
-	});
-};
+const imageStyles = css({
+	height: '16px',
+	width: '16px',
+});
 
-const getSpanStyles = (isFlexibleUi: boolean) => {
-	if (isFlexibleUi) {
-		return;
-	}
-	return css({
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		height: gs(2.5),
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		width: gs(2),
-		display: 'flex',
-		alignItems: 'center',
-		justifyContent: 'center',
-	});
-};
+const spanStyles = css({
+	height: '20px',
+	width: '16px',
+	display: 'flex',
+	alignItems: 'center',
+	justifyContent: 'center',
+});
 
-export const Icon = ({
+export const IconNew = ({
 	url,
 	icon,
 	defaultIcon,
@@ -75,13 +61,7 @@ export const Icon = ({
 		<ImageLoader
 			src={url}
 			loaded={
-				<img
-					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					css={getImageStyles(isFlexibleUi)}
-					src={url}
-					alt=""
-					data-testid={`${testId}-image`}
-				/>
+				<img css={isFlexibleUi && imageStyles} src={url} alt="" data-testid={`${testId}-image`} />
 			}
 			errored={placeholder}
 		/>
@@ -89,8 +69,7 @@ export const Icon = ({
 
 	return (
 		<span
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-			css={getSpanStyles(isFlexibleUi)}
+			css={isFlexibleUi && spanStyles}
 			data-testid={testId}
 			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
 			className={blockCardIconImageClassName}
@@ -98,4 +77,11 @@ export const Icon = ({
 			{icon || image || placeholder}
 		</span>
 	);
+};
+
+export const Icon = (props: IconProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <IconNew {...props} />;
+	}
+	return <IconOld {...props} />;
 };

@@ -1,5 +1,13 @@
 # @atlaskit/ds-lib
 
+## 3.4.0
+
+### Minor Changes
+
+- [#108333](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108333)
+  [`7d910859d8b6f`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7d910859d8b6f) -
+  Introduce new util for apple device and safari browser check
+
 ## 3.3.0
 
 ### Minor Changes

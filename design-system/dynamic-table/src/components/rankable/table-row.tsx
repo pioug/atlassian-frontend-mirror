@@ -4,14 +4,18 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/design-system/no-unsupported-drag-and-drop-libraries
 import { Draggable } from '@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration';
 
-import withDimensions, { type WithDimensionsProps } from '../../hoc/with-dimensions';
+import withDimensions, {
+	// @ts-ignore -- This import is required for default export
+	type State,
+	type WithDimensionsProps,
+} from '../../hoc/with-dimensions';
 import { inlineStylesIfRanking } from '../../internal/helpers';
 import { RankableTableBodyRow } from '../../styled/rankable/table-row';
 import { type HeadType, type RowType } from '../../types';
 
 import TableCell from './table-cell';
 
-export interface RankableTableRowProps extends WithDimensionsProps {
+interface RankableTableRowProps extends WithDimensionsProps {
 	head?: HeadType;
 	isFixedSize: boolean;
 	row: RowType;
@@ -21,7 +25,7 @@ export interface RankableTableRowProps extends WithDimensionsProps {
 	testId?: string;
 }
 
-export class RankableTableRow extends React.Component<RankableTableRowProps> {
+class RankableTableRow extends React.Component<RankableTableRowProps> {
 	innerRef = (innerRefFn: Function) => (ref: HTMLTableRowElement) => {
 		innerRefFn(ref);
 		if (typeof this.props.innerRef === 'function') {

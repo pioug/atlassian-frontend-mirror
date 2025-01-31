@@ -8,6 +8,7 @@ export const cmTheme = CodeMirror.theme({
 		padding: '0',
 		marginTop: token('space.100'),
 		marginBottom: token('space.100'),
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: '0.875rem',
 		// Custom syntax styling to match existing styling
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography

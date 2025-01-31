@@ -57,7 +57,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/motion": "^1.9.0",
@@ -79,14 +79,14 @@
 		"@atlaskit/docs": "*",
 		"@atlaskit/drawer": "^9.3.4",
 		"@atlaskit/link": "^2.0.2",
-		"@atlaskit/radio": "^7.0.0",
+		"@atlaskit/radio": "^7.1.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/spinner": "^17.0.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@emotion/jest": "^11.8.0",
-		"@testing-library/react": "^12.1.5",
-		"react-dom": "^16.8.0",
+		"@testing-library/react": "^13.4.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

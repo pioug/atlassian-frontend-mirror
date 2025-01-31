@@ -51,7 +51,7 @@
 		"@atlaskit/link-picker": "^1.47.0",
 		"@atlaskit/link-test-helpers": "^7.5.0",
 		"@testing-library/dom": "^10.1.0",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
 		"fetch-mock": "^8.0.0",

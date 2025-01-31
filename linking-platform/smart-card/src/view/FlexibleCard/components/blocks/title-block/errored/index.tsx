@@ -3,7 +3,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl-next';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { SmartLinkAlignment, SmartLinkDirection } from '../../../../../../constants';
 import { LinkIcon } from '../../../elements';

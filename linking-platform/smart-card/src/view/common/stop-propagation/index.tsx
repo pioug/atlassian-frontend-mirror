@@ -4,8 +4,11 @@
  */
 import React, { type ReactNode, useCallback } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
+
+import { StopPropagationOld } from './StopPropagationOld';
 
 const styles = css({
 	maxHeight: 0,
@@ -15,7 +18,7 @@ const styles = css({
 
 type StopPropagationProps = { children: ReactNode };
 
-export const StopPropagation = ({ children }: StopPropagationProps) => {
+const StopPropagationNew = ({ children }: StopPropagationProps) => {
 	const onClick = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
 		// Prevent click event inside modal from bubble up
 		e.stopPropagation();
@@ -27,4 +30,11 @@ export const StopPropagation = ({ children }: StopPropagationProps) => {
 			{children}
 		</span>
 	);
+};
+
+export const StopPropagation = (props: StopPropagationProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <StopPropagationNew {...props} />;
+	}
+	return <StopPropagationOld {...props} />;
 };

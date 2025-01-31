@@ -25,7 +25,6 @@ describe('ReactionSummaryView', () => {
 				<ReactionSummaryView
 					emojiProvider={getTestEmojiResource() as Promise<EmojiProvider>}
 					reactions={reactions}
-					handleOpenReactionsDialog={jest.fn()}
 					onReactionClick={jest.fn()}
 					{...extraProps}
 				/>

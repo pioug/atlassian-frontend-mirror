@@ -46,7 +46,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/editor-test-helpers": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"typescript": "~5.4.2"
 	},

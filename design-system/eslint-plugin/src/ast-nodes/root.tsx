@@ -26,14 +26,15 @@ export const Root = {
 	 */
 	findImportsByModule(
 		root: (Directive | Statement | ModuleDeclaration)[],
-		name: string,
+		name: string | string[],
 	): ImportDeclaration[] {
 		return root.filter((node): node is ImportDeclaration => {
 			if (!isNodeOfType(node, 'ImportDeclaration')) {
 				return false;
 			}
 
-			if (!hasImportDeclaration(node, name)) {
+			let names = typeof name === 'string' ? [name] : name;
+			if (!names.some((name) => hasImportDeclaration(node, name))) {
 				return false;
 			}
 

@@ -1,5 +1,14 @@
 # @atlaskit/editor-core
 
+## 203.11.14
+
+### Patch Changes
+
+- [#107453](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107453)
+  [`2cdb4872aa8e0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/2cdb4872aa8e0) -
+  EDF-2233: Fix autofocus in React 18 Concurrent Rendering mode - fix is behind
+  platform_editor_react_18_autofocus_fix.
+
 ## 203.11.13
 
 ### Patch Changes

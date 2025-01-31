@@ -9,7 +9,7 @@ import Loadable from 'react-loadable';
 
 import { type Spacing } from '@atlaskit/button';
 import { fg } from '@atlaskit/platform-feature-flags';
-import type { Space } from '@atlaskit/primitives';
+import type { Space } from '@atlaskit/primitives/compiled';
 import { token } from '@atlaskit/tokens';
 
 import { SmartLinkSize } from '../../../constants';
@@ -208,6 +208,7 @@ export const getPrimitivesInlineSpaceBySize = (size: SmartLinkSize): Space => {
 /**
  * Get container padding based on smart link size
  * To replace container/index.tsx getPadding() with space token for primitives
+ * @deprecated remove on FF clean up bandicoots-compiled-migration-smartcard
  */
 export const getPrimitivesPaddingSpaceBySize = (size: SmartLinkSize): Space => {
 	switch (size) {

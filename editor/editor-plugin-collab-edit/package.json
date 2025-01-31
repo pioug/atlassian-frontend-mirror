@@ -65,7 +65,7 @@
 		"@atlaskit/synchrony-test-helpers": "^3.0.0",
 		"@atlaskit/util-data-test": "^17.13.0",
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

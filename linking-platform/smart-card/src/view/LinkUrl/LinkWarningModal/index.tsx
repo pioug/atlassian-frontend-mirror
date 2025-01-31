@@ -2,8 +2,7 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import {
 	FormattedMessage,
 	injectIntl,
@@ -19,20 +18,26 @@ import Modal, {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { messages } from '../../../messages';
 
-import { breakWordsCss } from './styled';
+import WarningModalOld from './WarningModalOld';
 
-interface LinkWarningModalProps {
+const breakWordsCss = css({
+	whiteSpace: 'pre-line',
+	wordBreak: 'break-all',
+});
+
+export type LinkWarningModalProps = {
 	isOpen: boolean;
 	onClose: () => void;
 	onContinue: () => void;
 	unsafeLinkText: string | null;
 	url: string | null;
-}
+};
 
-const WarningModal = (props: LinkWarningModalProps & WrappedComponentProps) => {
+const WarningModalNew = (props: LinkWarningModalProps & WrappedComponentProps) => {
 	const { isOpen, unsafeLinkText, url, onClose, onContinue, intl } = props;
 
 	const content = (
@@ -45,7 +50,6 @@ const WarningModal = (props: LinkWarningModalProps & WrappedComponentProps) => {
 						</ModalTitle>
 					</ModalHeader>
 					<ModalBody>
-						{/* eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766 */}
 						<div css={breakWordsCss}>
 							{url && unsafeLinkText && (
 								<FormattedMessage
@@ -78,6 +82,13 @@ const WarningModal = (props: LinkWarningModalProps & WrappedComponentProps) => {
 	return intl ? content : <IntlProvider locale="en">{content}</IntlProvider>;
 };
 
-export default injectIntl(WarningModal, {
+const Component = (props: LinkWarningModalProps & WrappedComponentProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <WarningModalNew {...props} />;
+	}
+	return <WarningModalOld {...props} />;
+};
+
+export default injectIntl(Component, {
 	enforceContext: false,
 });

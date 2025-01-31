@@ -51,7 +51,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/editor-plugin-highlight": "1.19.10",
-		"react": "^16.8.0",
+		"react": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

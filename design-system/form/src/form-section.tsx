@@ -8,7 +8,7 @@ import { css, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import { token } from '@atlaskit/tokens';
 
-export interface FormSectionProps {
+interface FormSectionProps {
 	/**
 	 * Title of the form section.
 	 */

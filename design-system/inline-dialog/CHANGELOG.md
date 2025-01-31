@@ -1,5 +1,13 @@
 # @atlaskit/inline-dialog
 
+## 16.0.3
+
+### Patch Changes
+
+- [#108675](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108675)
+  [`98426d09239b8`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/98426d09239b8) -
+  Update dev depedencies.
+
 ## 16.0.2
 
 ### Patch Changes

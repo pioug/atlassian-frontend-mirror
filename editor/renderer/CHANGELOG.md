@@ -1,5 +1,13 @@
 # @atlaskit/renderer
 
+## 112.11.2
+
+### Patch Changes
+
+- [#108013](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108013)
+  [`7b0f37c8dfc41`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7b0f37c8dfc41) -
+  [ux] ED-26409 remove platform_editor_external_media_comment_bugfix fg
+
 ## 112.11.1
 
 ### Patch Changes

@@ -44,7 +44,13 @@
 			"path": "../editor-plugin-editor-disabled/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-find-replace/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-selection/tsconfig.app.json"
+		},
+		{
+			"path": "../editor-plugin-selection-marker/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/tokens/tsconfig.app.json"

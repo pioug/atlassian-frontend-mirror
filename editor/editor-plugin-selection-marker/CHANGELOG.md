@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-selection-marker
 
+## 1.6.0
+
+### Minor Changes
+
+- [#107185](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107185)
+  [`ba993865b0f02`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ba993865b0f02) -
+  Add queueHideDecoration action to hide decoration when the lock becomes available.
+
 ## 1.5.19
 
 ### Patch Changes

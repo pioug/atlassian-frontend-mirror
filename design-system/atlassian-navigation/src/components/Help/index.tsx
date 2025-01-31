@@ -84,5 +84,3 @@ export const Help = forwardRef((props: HelpProps, ref: Ref<any>) => {
 		<div role="listitem">{button}</div>
 	);
 });
-
-export default Help;

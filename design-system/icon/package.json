@@ -82,7 +82,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/code": "^15.6.0",
 		"@atlaskit/css": "^0.7.0",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/link": "^2.0.0",
 		"@atlaskit/logo": "^15.1.0",
@@ -96,7 +96,7 @@
 		"@atlaskit/visual-regression": "*",
 		"@babel/core": "7.24.9",
 		"@emotion/babel-preset-css-prop": "^11.11.0",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"classnames": "^2.2.5",
 		"fs-extra": "^4.0.2",
 		"jest-emotion": "^10.0.32",
@@ -104,7 +104,7 @@
 		"lodash": "^4.17.21",
 		"nullthrows": "^1.1.1",
 		"pkg-dir": "^4.2.0",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"ts-node": "^10.9.1"
 	},
 	"keywords": [

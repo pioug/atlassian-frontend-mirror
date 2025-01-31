@@ -26,7 +26,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/codemod-utils": "^4.2.0",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/tokens": "^3.2.0",
 		"@babel/runtime": "^7.0.0"
 	},
@@ -38,13 +38,13 @@
 		"@atlaskit/visual-regression": "*",
 		"@emotion/react": "^11.7.1",
 		"@emotion/styled": "^11.0.0",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@types/color": "^3.0.0",
 		"color": "^3.0.0",
 		"emotion-theming": "^10.0.7",
 		"jest-in-case": "^1.0.2",
 		"jscodeshift": "^0.13.0",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"styled-components": "^3.2.6",
 		"typescript": "~5.4.2"
 	},

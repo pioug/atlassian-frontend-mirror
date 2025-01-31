@@ -140,5 +140,3 @@ export const AtlassianNavigation = (props: AtlassianNavigationProps) => {
 		</ThemeProvider>
 	);
 };
-
-export default AtlassianNavigation;

@@ -6,6 +6,7 @@ import { Box, xcss } from '@atlaskit/primitives';
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 
 const jsmTextStyles = xcss({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 'small',
 	color: 'color.text.subtle',
 	marginLeft: 'space.075',

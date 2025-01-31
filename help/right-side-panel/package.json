@@ -51,11 +51,11 @@
 	"devDependencies": {
 		"@atlaskit/navigation": "^37.0.0",
 		"@atlaskit/page": "^12.6.0",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@types/exenv": "^1.2.0",
 		"@types/react-transition-group": "^2.0.6",
 		"enzyme": "^3.10.0",
-		"react-test-renderer": "^16.8.0",
+		"react-test-renderer": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

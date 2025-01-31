@@ -75,5 +75,3 @@ export const Notifications = forwardRef((props: NotificationsProps, ref: Ref<any
 		</BadgeContainer>
 	);
 });
-
-export default Notifications;

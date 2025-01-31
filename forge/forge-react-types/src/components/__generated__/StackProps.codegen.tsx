@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - StackProps
  *
- * @codegen <<SignedSource::7e222b1de945d3a469766af8080b1bfa>>
+ * @codegen <<SignedSource::0e61f7285631ab35f3a77bb1d42d43aa>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/stack/__generated__/index.partial.tsx <<SignedSource::c2360fd1ad9e2cd87d47c640ad0158d2>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/stack/__generated__/index.partial.tsx <<SignedSource::63880622ee058ba54ea3754cbc1910f4>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type StackProps = Pick<
   PlatformStackProps,
   'children' | 'alignBlock' | 'alignInline' | 'grow' | 'space' | 'spread' | 'testId'
 >;
+
+/**
+ * Primitives are token-backed low-level building blocks.
+ */
+export type TStack<T> = (props: StackProps) => T;

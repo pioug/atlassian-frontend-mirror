@@ -1,5 +1,13 @@
 # @atlaskit/inline-edit
 
+## 14.1.2
+
+### Patch Changes
+
+- [#108678](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108678)
+  [`b4def55c00546`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/b4def55c00546) -
+  Update dev depedencies.
+
 ## 14.1.1
 
 ### Patch Changes

@@ -96,13 +96,13 @@
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
-		"react-dom": "^16.8.0"
+		"react-dom": "^18.2.0"
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
 		"@atlassian/ptc-test-utils": "^0.8.0",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
 		"@types/react-router-dom": "^4.3.1",

@@ -1,15 +1,33 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { defineMessages, useIntl } from 'react-intl-next';
 
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
 import LegacyManualTriggerIcon from '@atlaskit/legacy-custom-icons/manual-trigger-icon';
 import { ModalHeader, useModal } from '@atlaskit/modal-dialog';
-import { Box, Inline, Stack, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Inline, Stack } from '@atlaskit/primitives/compiled';
 import { G50 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
 import { useAutomationMenu } from '../../menu-context';
+
+import { AutomationModalHeaderOld } from './AutomationModalHeaderOld';
+
+const styles = cssMap({
+	iconStyle: {
+		marginRight: token('space.150'),
+		borderRadius: token('border.radius'),
+		paddingInline: token('space.050'),
+		paddingBlock: token('space.025'),
+	},
+	modalDescriptionStyle: {
+		marginTop: token('space.150'),
+	},
+});
 
 const i18n = defineMessages({
 	modalHeaderIconLabel: {
@@ -19,25 +37,12 @@ const i18n = defineMessages({
 	},
 });
 
-const iconStyle = xcss({
-	marginRight: 'space.150',
-	backgroundColor: 'color.background.accent.green.subtlest',
-	borderRadius: 'border.radius',
-});
-
-const modalDescriptionStyle = xcss({
-	marginTop: 'space.150',
-});
-
 type AutomationModalHeaderProps = {
 	modalTitle?: React.ReactNode;
 	modalDescription?: React.ReactNode;
 };
 
-export const AutomationModalHeader = ({
-	modalTitle,
-	modalDescription,
-}: AutomationModalHeaderProps) => {
+const AutomationModalHeaderNew = ({ modalTitle, modalDescription }: AutomationModalHeaderProps) => {
 	const { formatMessage } = useIntl();
 
 	const { initialised, rules } = useAutomationMenu();
@@ -49,7 +54,11 @@ export const AutomationModalHeader = ({
 		<ModalHeader>
 			<Stack>
 				<Inline alignBlock="center">
-					<Box xcss={iconStyle} paddingInline="space.050" paddingBlock="space.025">
+					<Box
+						xcss={styles.iconStyle}
+						// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage
+						backgroundColor="color.background.accent.green.subtlest"
+					>
 						{/* TODO: no-custom-icons- https://product-fabric.atlassian.net/browse/DSP-21444 */}
 						<LegacyManualTriggerIcon
 							size="small"
@@ -61,8 +70,15 @@ export const AutomationModalHeader = ({
 						{modalTitle}
 					</Heading>
 				</Inline>
-				{showDescription && <Box xcss={modalDescriptionStyle}>{modalDescription}</Box>}
+				{showDescription && <Box xcss={styles.modalDescriptionStyle}>{modalDescription}</Box>}
 			</Stack>
 		</ModalHeader>
 	);
+};
+
+export const AutomationModalHeader = (props: AutomationModalHeaderProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <AutomationModalHeaderNew {...props} />;
+	}
+	return <AutomationModalHeaderOld {...props} />;
 };

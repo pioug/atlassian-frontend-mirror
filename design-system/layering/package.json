@@ -29,7 +29,7 @@
 		"./experimental/open-layer-observer": "./src/entry-points/experimental/open-layer-observer.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0",
@@ -44,7 +44,7 @@
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
 		"prettier": "^3.2.5",

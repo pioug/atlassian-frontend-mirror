@@ -1,6 +1,12 @@
-import React, { useCallback } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useCallback } from 'react';
 
-import { Box, Inline, Pressable, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Inline, Pressable } from '@atlaskit/primitives/compiled';
 import Spinner from '@atlaskit/spinner';
 import { token } from '@atlaskit/tokens';
 import type { TriggerProps } from '@atlaskit/tooltip';
@@ -8,27 +14,28 @@ import type { TriggerProps } from '@atlaskit/tooltip';
 import { getPrimitivesInlineSpaceBySize } from '../../../utils';
 import ActionIcon from '../action-icon';
 
+import ActionButtonOld from './action-buttonOld';
 import type { ActionStackItemProps } from './types';
 
-const buttonStyles = xcss({
-	all: 'unset',
-	padding: 'space.050',
-	width: '100%',
-
-	':hover': {
-		backgroundColor: 'color.background.neutral.subtle.hovered',
+const styles = cssMap({
+	button: {
+		all: 'unset',
+		padding: token('space.050'),
+		width: '100%',
+		'&:hover': {
+			backgroundColor: token('color.background.neutral.subtle.hovered'),
+		},
+		'&:active': {
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
+		},
 	},
-	':active': {
-		backgroundColor: 'color.background.neutral.subtle.pressed',
+	content: {
+		color: token('color.text'),
+		font: token('font.body.UNSAFE_small'),
 	},
 });
 
-const contentStyles = xcss({
-	color: 'color.text',
-	font: token('font.body.UNSAFE_small'),
-});
-
-const ActionButton = ({
+const ActionButtonNew = ({
 	content,
 	icon: iconOption,
 	isDisabled,
@@ -38,7 +45,7 @@ const ActionButton = ({
 	space: spaceOption,
 	testId,
 	tooltipProps,
-	xcss,
+	style,
 }: ActionStackItemProps & { tooltipProps?: TriggerProps }) => {
 	const space = spaceOption ?? getPrimitivesInlineSpaceBySize(size);
 
@@ -60,14 +67,27 @@ const ActionButton = ({
 		);
 
 	return (
-		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-		<Pressable xcss={[buttonStyles, xcss]} {...tooltipProps} onClick={onClick} testId={testId}>
+		<Pressable
+			xcss={styles.button}
+			{...tooltipProps}
+			onClick={onClick}
+			testId={testId}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
+			style={style}
+		>
 			<Inline alignBlock="center" grow="fill" space={space}>
 				{icon}
-				<Box xcss={contentStyles}>{content}</Box>
+				<Box xcss={styles.content}>{content}</Box>
 			</Inline>
 		</Pressable>
 	);
+};
+
+const ActionButton = (props: ActionStackItemProps & { tooltipProps?: TriggerProps }) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <ActionButtonNew {...props} />;
+	}
+	return <ActionButtonOld {...props} />;
 };
 
 export default ActionButton;

@@ -1,5 +1,15 @@
 # @atlaskit/editor-common
 
+## 99.5.7
+
+### Patch Changes
+
+- [#108805](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108805)
+  [`93a6bc7588dfc`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/93a6bc7588dfc) -
+  [ux] EDF-2326 - Use onLivePageModeChange and useEffect to respond to page mode change instead of
+  reading state, under FG platform_editor_ai_definitions_use_isconsumption and add error boundary
+- Updated dependencies
+
 ## 99.5.6
 
 ### Patch Changes

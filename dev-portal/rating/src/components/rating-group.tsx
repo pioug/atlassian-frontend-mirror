@@ -98,6 +98,7 @@ Use "defaultValue" or "value" happy days :-).
 			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 			css={css({
 				display: 'inline-flex',
+				// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 				fontSize: 0,
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 				'[data-rating-icon-checked]': {

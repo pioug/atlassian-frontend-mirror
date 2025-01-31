@@ -4,7 +4,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 
 import { AnalyticsListener, UIAnalyticsEvent } from '@atlaskit/analytics-next';
 
-import { Drawer } from '../../index';
+import Drawer from '../../index';
 
 describe('Drawer', () => {
 	it('should fire an analytics event', () => {

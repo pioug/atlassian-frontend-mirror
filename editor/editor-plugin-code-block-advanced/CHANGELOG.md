@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-code-block-advanced
 
+## 1.0.3
+
+### Patch Changes
+
+- [#107185](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107185)
+  [`f0dd5f5bd4d4e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/f0dd5f5bd4d4e) -
+  [ux] Sync all prosemirror decorations with codemirror decorations.
+- Updated dependencies
+
 ## 1.0.2
 
 ### Patch Changes

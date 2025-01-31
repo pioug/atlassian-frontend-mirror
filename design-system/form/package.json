@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/form",
-	"version": "11.0.2",
+	"version": "11.0.3",
 	"description": "A form allows users to input information.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -27,7 +27,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/css": "^0.7.0",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/heading": "^4.0.0",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/primitives": "^13.3.0",
@@ -50,23 +50,27 @@
 		"@atlaskit/banner": "^12.6.0",
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/checkbox": "^15.2.0",
+		"@atlaskit/datetime-picker": "^15.11.1",
+		"@atlaskit/docs": "*",
+		"@atlaskit/link": "^2.0.2",
+		"@atlaskit/lozenge": "^11.12.7",
 		"@atlaskit/modal-dialog": "^12.19.0",
-		"@atlaskit/radio": "^7.0.0",
+		"@atlaskit/radio": "^7.1.0",
 		"@atlaskit/range": "^8.0.0",
+		"@atlaskit/section-message": "*",
 		"@atlaskit/select": "^18.9.0",
 		"@atlaskit/ssr": "*",
+		"@atlaskit/textarea": "^5.7.3",
 		"@atlaskit/textfield": "^6.7.0",
 		"@atlaskit/toggle": "^14.0.0",
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@testing-library/user-event": "^14.4.3",
 		"@types/final-form-focus": "^1.1.1",
 		"jest-in-case": "^1.0.2",
-		"react-dom": "^16.8.0",
-		"react-router-dom": "^6.28.0",
-		"typescript": "~5.4.2",
-		"validator": "^9.4.1"
+		"react-dom": "^18.2.0",
+		"typescript": "~5.4.2"
 	},
 	"keywords": [
 		"atlaskit",

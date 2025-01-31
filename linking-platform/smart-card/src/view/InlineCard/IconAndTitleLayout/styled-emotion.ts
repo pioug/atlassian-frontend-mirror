@@ -119,3 +119,13 @@ export const TitleWrapperClassName = 'smart-link-title-wrapper';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/design-system/no-empty-styled-expression -- Ignored via go/DSP-18766
 export const TitleWrapper = styled.span({});
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles, @atlaskit/ui-styling-standard/no-styled
+export const LozengeWrapperOldVisualRefreshNotCompiled = styled.span({
+	display: 'inline-block',
+	verticalAlign: '1px',
+	marginTop: 0,
+	marginRight: token('space.050', '4px'),
+	marginBottom: 0,
+	marginLeft: token('space.025', '2px'),
+});

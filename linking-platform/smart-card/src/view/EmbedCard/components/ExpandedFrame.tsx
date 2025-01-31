@@ -1,11 +1,19 @@
-import React, { type MouseEvent } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { type MouseEvent } from 'react';
 
+import { jsx } from '@compiled/react';
+
+import { fg } from '@atlaskit/platform-feature-flags';
 import Tooltip from '@atlaskit/tooltip';
 
 import { useMouseDownEvent } from '../../../state/analytics/useLinkClicked';
 import { handleClickCommon } from '../../common/utils';
 import { type FrameStyle } from '../types';
 
+import { ExpandedFrameOld } from './ExpandedFrameOld';
 import {
 	className,
 	Content,
@@ -55,7 +63,7 @@ export interface ExpandedFrameProps {
 	setOverflow?: boolean;
 }
 
-export const ExpandedFrame = ({
+const ExpandedFrameNew = ({
 	isPlaceholder = false,
 	children,
 	onClick,
@@ -75,39 +83,43 @@ export const ExpandedFrame = ({
 	const handleClick = (event: MouseEvent) => handleClickCommon(event, onClick);
 	const handleMouseDown = useMouseDownEvent();
 
-	const renderHeader = () => (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-		<Header className="embed-header" frameStyle={frameStyle}>
-			<IconWrapper isPlaceholder={isPlaceholder}>{!isPlaceholder && icon}</IconWrapper>
-			<TooltipWrapper>
-				<Tooltip content={text} hideTooltipOnMouseDown>
-					<TextWrapper isPlaceholder={isPlaceholder}>
-						{!isPlaceholder && (
-							<a href={href} onClick={handleClick} onMouseDown={handleMouseDown}>
-								{text}
-							</a>
-						)}
-					</TextWrapper>
-				</Tooltip>
-			</TooltipWrapper>
-		</Header>
-	);
+	const renderHeader = () => {
+		return (
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+			<Header className="embed-header" frameStyle={frameStyle}>
+				<IconWrapper isPlaceholder={isPlaceholder}>{!isPlaceholder && icon}</IconWrapper>
+				<TooltipWrapper>
+					<Tooltip content={text} hideTooltipOnMouseDown>
+						<TextWrapper isPlaceholder={isPlaceholder}>
+							{!isPlaceholder && (
+								<a href={href} onClick={handleClick} onMouseDown={handleMouseDown}>
+									{text}
+								</a>
+							)}
+						</TextWrapper>
+					</Tooltip>
+				</TooltipWrapper>
+			</Header>
+		);
+	};
 
-	const renderContent = () => (
-		<Content
-			data-testid="embed-content-wrapper"
-			allowScrollBar={allowScrollBar}
-			removeOverflow={!setOverflow}
-			isInteractive={isInteractive()}
-			frameStyle={frameStyle}
-			// This fixes an issue with input fields in cross domain iframes (ie. databases and jira fields from different domains)
-			// See: HOT-107830
-			contentEditable={'false'}
-			suppressContentEditableWarning={true}
-		>
-			{children}
-		</Content>
-	);
+	const renderContent = () => {
+		return (
+			<Content
+				data-testid="embed-content-wrapper"
+				allowScrollBar={allowScrollBar}
+				removeOverflow={!setOverflow}
+				isInteractive={isInteractive()}
+				frameStyle={frameStyle}
+				// This fixes an issue with input fields in cross domain iframes (ie. databases and jira fields from different domains)
+				// See: HOT-107830
+				contentEditable={'false'}
+				suppressContentEditableWarning={true}
+			>
+				{children}
+			</Content>
+		);
+	};
 	if (!isPlaceholder && href) {
 		return (
 			<LinkWrapper
@@ -148,5 +160,13 @@ export const ExpandedFrame = ({
 				{renderContent()}
 			</Wrapper>
 		);
+	}
+};
+
+export const ExpandedFrame = (props: ExpandedFrameProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <ExpandedFrameNew {...props} />;
+	} else {
+		return <ExpandedFrameOld {...props} />;
 	}
 };

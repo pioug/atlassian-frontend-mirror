@@ -15,7 +15,7 @@ import { NdpEmoji } from '../ui/NdpEmoji';
 const EmojiAssistiveTextComponent = React.memo(({ emojiShortName }: { emojiShortName: string }) => {
 	const intl = useIntl();
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/use-tokens-typography -- Ignored via go/DSP-18766
 		<span style={{ fontSize: 0 }}>
 			{`${intl.formatMessage(messages.emojiNodeLabel)} ${emojiShortName}`}
 		</span>

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-code-block-advanced",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "CodeBlockAdvanced plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,7 +39,9 @@
 		"@atlaskit/editor-common": "^99.5.0",
 		"@atlaskit/editor-plugin-code-block": "^3.6.0",
 		"@atlaskit/editor-plugin-editor-disabled": "^1.3.0",
+		"@atlaskit/editor-plugin-find-replace": "^1.7.0",
 		"@atlaskit/editor-plugin-selection": "^1.6.0",
+		"@atlaskit/editor-plugin-selection-marker": "^1.6.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/tokens": "^3.2.0",
 		"@babel/runtime": "^7.0.0",

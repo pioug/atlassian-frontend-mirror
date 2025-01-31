@@ -29,7 +29,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/ssr": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@types/react-redux": "^5.0.0",
 		"enzyme": "^3.10.0",
 		"react-dom": "^18.2.0",

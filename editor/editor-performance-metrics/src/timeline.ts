@@ -1,13 +1,9 @@
 /* eslint-disable @atlaskit/editor/no-re-export */
 // Entry file in package.json
 
-import {
-	createTimelineFromEvents,
-	type ElementChangedEvent,
-	type Timeline,
-	type TimelineEvent,
-	type TimelineSerializable,
-} from './internals/timeline';
+import { createTimelineFromEvents } from './internals/timeline';
+import type { Timeline, TimelineSerializable } from './internals/timelineInterfaces';
+import type { ElementChangedEvent, TimelineEvent } from './internals/timelineTypes';
 
 export { createTimelineFromEvents };
 

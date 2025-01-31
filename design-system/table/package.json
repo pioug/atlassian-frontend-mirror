@@ -47,7 +47,7 @@
 	"dependencies": {
 		"@atlaskit/button": "^20.3.0",
 		"@atlaskit/checkbox": "^15.2.0",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/focus-ring": "^2.0.0",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/primitives": "^13.3.0",
@@ -66,9 +66,9 @@
 		"@af/integration-testing": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"storybook-addon-designs": "^6.3.1",
 		"typescript": "~5.4.2"
 	},

@@ -12,7 +12,6 @@ import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
 import RadioIcon from '@atlaskit/icon/glyph/radio';
 import PrimitiveSVGIcon from '@atlaskit/icon/svg';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { B300, B400, B75, N0, N100, N20, N20A, N30, N70 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 import VisuallyHidden from '@atlaskit/visually-hidden';
 
@@ -25,9 +24,7 @@ const getPrimitiveStyles = (
 
 	const baseStyles = {
 		alignItems: 'center',
-		backgroundColor: isFocused
-			? token('color.background.neutral.subtle.hovered', N20)
-			: 'transparent',
+		backgroundColor: isFocused ? token('color.background.neutral.subtle.hovered') : 'transparent',
 		color: isDisabled ? token('color.text.disabled', 'inherit') : 'inherit',
 		display: 'flex ',
 		paddingBottom: token('space.050', '4px'),
@@ -35,10 +32,10 @@ const getPrimitiveStyles = (
 		paddingTop: token('space.050', '4px'),
 		// This 'none' needs to be present to ensure that style is not applied when
 		// the option is selected but not focused.
-		boxShadow: isFocused ? `inset 2px 0px 0px ${token('color.border.focused', B400)}` : 'none',
+		boxShadow: isFocused ? `inset 2px 0px 0px ${token('color.border.focused')}` : 'none',
 
 		':active': {
-			backgroundColor: token('color.background.neutral.subtle.pressed', N30),
+			backgroundColor: token('color.background.neutral.subtle.pressed'),
 		},
 
 		'@media screen and (-ms-high-contrast: active)': {
@@ -74,57 +71,43 @@ interface ControlProps {
 
 // the primary color represents the outer or background element
 const getPrimaryColor = ({ isActive, isDisabled, isFocused, isSelected }: ControlProps): string => {
-	if (isDisabled && isSelected) {
-		return token('color.background.disabled', B75);
-	} else if (isDisabled) {
-		return token('color.background.disabled', N20A);
+	if (isDisabled) {
+		return token('color.background.disabled');
 	} else if (isSelected && isActive) {
-		return token('color.background.selected.bold.pressed', B75);
+		return token('color.background.selected.bold.pressed');
 	} else if (isActive) {
-		return token('color.background.selected.pressed', B75);
+		return token('color.background.selected.pressed');
 	} else if (isFocused && isSelected) {
-		return token('color.background.selected.bold.hovered', B300);
+		return token('color.background.selected.bold.hovered');
 	} else if (isFocused) {
-		return token('elevation.surface', N0);
+		return token('elevation.surface');
 	} else if (isSelected) {
-		return token('color.background.selected.bold', B400);
+		return token('color.background.selected.bold');
 	}
 
-	return token('color.background.neutral', N0);
+	return token('color.background.neutral');
 };
 
 // the secondary color represents the radio dot or checkmark
 const getSecondaryColor = ({ isActive, isDisabled, isSelected }: ControlProps): string => {
 	if (isDisabled && isSelected) {
-		return token('color.text.disabled', N70);
+		return token('color.text.disabled');
 	} else if (isActive && isSelected && !isDisabled) {
-		return token('elevation.surface', B400);
+		return token('elevation.surface');
 	} else if (!isSelected) {
 		return 'transparent';
 	}
 
-	return token('elevation.surface', N0);
+	return token('elevation.surface');
 };
 
 // the border color surrounds the checkbox/radio
-const getBorderColor = ({ isActive, isDisabled, isFocused, isSelected }: ControlProps): string => {
-	if (isDisabled && isSelected) {
-		return token('color.background.disabled', B400);
-	} else if (isDisabled) {
-		return token('color.background.disabled', N100);
-	} else if (isSelected && isActive) {
-		return token('color.background.selected.bold.pressed', B400);
-	} else if (isActive) {
-		return token('color.background.selected.bold', B400);
-	} else if (isFocused && isSelected) {
-		return token('color.background.selected.bold.hovered', B400);
-	} else if (isFocused) {
-		return token('color.border.input', N100);
-	} else if (isSelected) {
-		return token('color.background.selected.bold', B400);
+const getBorderColor = ({ isActive, isDisabled, isSelected }: ControlProps): string => {
+	if (isSelected || isActive || isDisabled) {
+		return 'currentColor';
 	}
 
-	return token('color.border.input', N100);
+	return token('color.border.input');
 };
 
 const baseIconStyles = css({

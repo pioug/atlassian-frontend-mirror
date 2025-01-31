@@ -64,10 +64,10 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@types/eslint": "^8.56.6",
 		"@types/eslint-scope": "^3.7.3",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

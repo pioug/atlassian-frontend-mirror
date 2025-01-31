@@ -5,7 +5,8 @@ import type { SerializedStyles } from '@emotion/react';
 
 import { type UIAnalyticsEvent } from '@atlaskit/analytics-next';
 import type { Appearance } from '@atlaskit/button/types';
-import type { Space, XCSS } from '@atlaskit/primitives';
+import type { XCSS } from '@atlaskit/primitives';
+import type { Space } from '@atlaskit/primitives/compiled';
 
 import type { SmartLinkSize } from '../../../../../constants';
 
@@ -122,9 +123,14 @@ export type ActionProps = {
 	isDisabled?: boolean;
 
 	/**
+	 * @deprecated {@link https://hello.atlassian.net/browse/ENGHEALTH-24430 Internal documentation for deprecation (no external access)}
 	 * Additional styling properties for Primitives based component
+	 *
+	 * Use style instead
 	 */
 	xcss?: XCSS;
+
+	style?: React.CSSProperties;
 
 	/**
 	 * Allows the use of hyperlinks as buttons via the atlaskit component

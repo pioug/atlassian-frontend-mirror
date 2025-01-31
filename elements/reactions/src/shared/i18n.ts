@@ -17,12 +17,6 @@ export const messages = defineMessages({
 		description:
 			'Tooltip of the "show more" button in the quick reaction selector. The full emoji selector is displayed when the user clicks on it.',
 	},
-	moreInfo: {
-		id: 'fabric.reactions.more.info',
-		defaultMessage: 'More info',
-		description:
-			'Clickable text in a tooltip that will display more information about the users who reacted',
-	},
 	reactWithEmoji: {
 		id: 'fabric.reactions.reactwithemoji',
 		defaultMessage: 'React with {emoji} emoji',

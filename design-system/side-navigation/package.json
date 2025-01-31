@@ -36,7 +36,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/css": "^0.7.0",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/icon": "^23.4.0",
 		"@atlaskit/menu": "^2.13.0",
 		"@atlaskit/motion": "^1.9.0",
@@ -56,7 +56,7 @@
 		"@af/visual-regression": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@types/jest-axe": "^3.5.5",
 		"ast-types": "^0.13.3",
 		"jest-axe": "^8.0.0",

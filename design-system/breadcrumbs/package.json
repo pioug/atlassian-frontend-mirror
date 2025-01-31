@@ -47,7 +47,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/theme": "^14.0.0",
 		"@atlaskit/tokens": "^3.2.0",
 		"@atlaskit/tooltip": "^19.0.0",
@@ -69,10 +69,10 @@
 		"@atlaskit/select": "^18.9.3",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"jscodeshift": "^0.13.0",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

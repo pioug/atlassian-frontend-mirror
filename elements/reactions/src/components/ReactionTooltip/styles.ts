@@ -5,7 +5,7 @@
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css } from '@emotion/react';
 import { token } from '@atlaskit/tokens';
-import { N90, N800, N0 } from '@atlaskit/theme/colors';
+import { N90 } from '@atlaskit/theme/colors';
 
 export const verticalMargin = 5;
 
@@ -42,15 +42,4 @@ export const emojiNameStyle = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const footerStyle = css({
 	color: token('color.text.inverse', N90),
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const underlineStyle = css({
-	cursor: 'pointer',
-	textDecoration: 'underline',
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
-	':hover': {
-		backgroundColor: token('color.background.neutral.bold', N800),
-		color: token('color.text.inverse', N0),
-	},
 });

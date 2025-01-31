@@ -42,7 +42,7 @@ const CATCHUP_THROTTLE = 1 * 1000; // 1 second
 
 const noop = () => {};
 
-const logger = createLogger('documentService', 'black');
+const logger = createLogger('documentService', 'red');
 
 export class DocumentService implements DocumentServiceInterface {
 	private getState: (() => EditorState) | undefined;
@@ -906,6 +906,7 @@ export class DocumentService implements DocumentServiceInterface {
 			emit: this.providerEmitCallback,
 			__livePage: this.options.__livePage,
 			hasRecovered: this.hasRecovered,
+			collabMode: this.participantsService.getCollabMode(),
 		});
 	}
 }

@@ -23,6 +23,7 @@ export const buttonStyle = css({
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const buttonWrapperStyle = css({
 	border: '1px solid transparent',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 0,
 	display: 'flex',
 	alignItems: 'center',

@@ -2,12 +2,17 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 import Markdown from 'markdown-to-jsx';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
+/**
+ * Move this import into this file when cleaning up FF bandicoots-compiled-migration-smartcard
+ * Remove the export as well
+ */
+import AISummaryOld, { type AISummaryProps } from './AISummaryOld';
 import UList from './ulist';
 
 const AISummaryCSSStyles = css({
@@ -21,31 +26,14 @@ const AISummaryCSSStyles = css({
 	userSelect: 'text',
 });
 
-type AISummaryProps = {
-	/* Raw markdawn format text to display.*/
-	content?: string;
-	/* Additional CSS properties */
-	overrideCss?: SerializedStyles;
-	/**
-	 * appears as a data attribute `data-testid` in the rendered code,
-	 * serving as a hook for automated tests
-	 */
-	testId?: string;
-	/**
-	 * Minimum height requirement for the AISummary component to prevent fluctuations in a card size on the summary action.
-	 */
-	minHeight?: number;
-};
-
 /**
  * A component to render a response from AI in markdown text.
  * @internal
  * @param {AISummaryProps} AISummaryProps
  */
-
-const AISummary = ({
+const AISummaryNew = ({
 	content = '',
-	overrideCss,
+	className,
 	testId = 'ai-summary',
 	minHeight = 0,
 }: AISummaryProps) => {
@@ -56,7 +44,9 @@ const AISummary = ({
 	return (
 		<Markdown
 			data-testid={testId}
-			css={[AISummaryCSSStyles, overrideCss]}
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			className={className}
+			css={[AISummaryCSSStyles]}
 			children={content}
 			options={{
 				forceWrapper: true,
@@ -67,6 +57,13 @@ const AISummary = ({
 			style={{ minHeight: minHeight }}
 		/>
 	);
+};
+
+const AISummary = (props: AISummaryProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <AISummaryNew {...props} />;
+	}
+	return <AISummaryOld {...props} />;
 };
 
 export default AISummary;

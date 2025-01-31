@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl-next';
 import { TOOLTIP_USERS_LIMIT } from '../../shared/constants';
 import { messages } from '../../shared/i18n';
 import { type ReactionSummary } from '../../types';
-import { emojiNameStyle, footerStyle, tooltipStyle, underlineStyle } from './styles';
+import { emojiNameStyle, footerStyle, tooltipStyle } from './styles';
 
 /**
  * Test id for wrapper ReactionTooltip div
@@ -31,14 +31,6 @@ export type ReactionTooltipProps = PropsWithChildren<{
 	 */
 	maxReactions?: number;
 	/**
-	 * Optional function when the user wants to see more users in a modal
-	 */
-	handleUserListClick?: (emojiId: string) => void;
-	/**
-	 * Optional flag to show reactions dialog (defaults to false)
-	 */
-	allowUserDialog?: boolean;
-	/**
 	 * Optional flag for enabling tooltip (defaults to true)
 	 */
 	isEnabled?: boolean;
@@ -47,10 +39,8 @@ export type ReactionTooltipProps = PropsWithChildren<{
 export const ReactionTooltip = ({
 	children,
 	emojiName,
-	reaction: { users = [], emojiId = '' },
+	reaction: { users = [] },
 	maxReactions = TOOLTIP_USERS_LIMIT,
-	handleUserListClick,
-	allowUserDialog = false,
 	isEnabled = true,
 }: ReactionTooltipProps) => {
 	/**
@@ -71,22 +61,15 @@ export const ReactionTooltip = ({
 					{/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions */}
 					<li
 						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
-						css={allowUserDialog ? [footerStyle, underlineStyle] : footerStyle}
-						onClick={() => {
-							if (allowUserDialog && handleUserListClick) {
-								handleUserListClick(emojiId);
-							}
-						}}
+						css={footerStyle}
 					>
-						{users.length > maxReactions ? (
+						{users.length > maxReactions && (
 							<FormattedMessage
 								{...messages.otherUsers}
 								values={{
 									count: users.length - maxReactions,
 								}}
 							/>
-						) : (
-							allowUserDialog && <FormattedMessage {...messages.moreInfo} />
 						)}
 					</li>
 				</ul>

@@ -2,10 +2,10 @@ import type { ReactNode } from 'react';
 
 import type { ResponsiveObject } from '@atlaskit/primitives/responsive';
 
-export type SpanOptions = 'none' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+type SpanOptions = 'none' | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type SpanObject = ResponsiveObject<SpanOptions>;
 
-export type StartOptions = 'auto' | SpanOptions;
+type StartOptions = 'auto' | SpanOptions;
 export type StartObject = ResponsiveObject<StartOptions>;
 
 export type GridItemProps = {

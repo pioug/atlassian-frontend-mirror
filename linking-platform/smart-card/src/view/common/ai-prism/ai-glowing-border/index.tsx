@@ -2,13 +2,12 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { INNER_BORDER_RADIUS } from '../constants';
-
+import AIGlowingBorderOld from './AIGlowingBorderOld';
 import AnimatedSvgContainer from './animated-svg-container';
 import type { AIGlowingBorderProps } from './types';
 
@@ -19,10 +18,8 @@ const borderContainerStyles = css({
 	width: 'fit-content',
 });
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
-export const borderContentStyles = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	borderRadius: INNER_BORDER_RADIUS,
+const borderContentStyles = css({
+	borderRadius: 8,
 	flexGrow: 1,
 	zIndex: 1, // needs to be more than the svg container at least
 });
@@ -32,30 +29,30 @@ export const borderContentStyles = css({
  * https://bitbucket.org/atlassian/barrel/src/master/ui/platform/ui-kit/ai
  * with modifications.
  */
-const AIGlowingBorder = ({
+const AIGlowingBorderNew = ({
 	children,
 	palette,
 	isMoving = true,
 	isGlowing,
 	testId,
-	additionalCss,
+	className,
 }: AIGlowingBorderProps) => (
-	<div css={[borderContainerStyles, additionalCss?.container]} data-testid={testId}>
-		<AnimatedSvgContainer
-			palette={palette}
-			isMoving={isMoving}
-			additionalCss={additionalCss?.animatedSvgContainer}
-		/>
+	<div css={[borderContainerStyles]} data-testid={testId}>
+		{/* eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop */}
+		<AnimatedSvgContainer palette={palette} isMoving={isMoving} className={className} />
 		{isGlowing && (
-			<AnimatedSvgContainer
-				palette={palette}
-				isMoving={isMoving}
-				isGlowing
-				additionalCss={additionalCss?.animatedSvgContainer}
-			/>
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop
+			<AnimatedSvgContainer palette={palette} isMoving={isMoving} isGlowing className={className} />
 		)}
 		<div css={borderContentStyles}>{children} </div>
 	</div>
 );
+
+const AIGlowingBorder = (props: AIGlowingBorderProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <AIGlowingBorderNew {...props} />;
+	}
+	return <AIGlowingBorderOld {...props} />;
+};
 
 export default AIGlowingBorder;

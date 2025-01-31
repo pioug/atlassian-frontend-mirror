@@ -7,10 +7,14 @@ import React from 'react';
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { css, jsx } from '@emotion/react';
+import { IntlProvider } from 'react-intl-next';
 
 import type { InviteToEditComponentProps } from '@atlaskit/editor-common/collab';
 import type { MediaProvider } from '@atlaskit/editor-common/provider-factory';
 import type { OptionalPlugin, PublicPluginAPI } from '@atlaskit/editor-common/types';
+import { ComposableEditor } from '@atlaskit/editor-core/composable-editor';
+import { useUniversalPreset } from '@atlaskit/editor-core/preset-universal';
+import { codeBlockAdvancedPlugin } from '@atlaskit/editor-plugin-code-block-advanced';
 import type { ExtensionPlugin } from '@atlaskit/editor-plugins/extension';
 import { akEditorCodeBackground, akEditorCodeFontFamily } from '@atlaskit/editor-shared-styles';
 import { cardProviderStaging } from '@atlaskit/editor-test-helpers/card-provider';
@@ -38,7 +42,6 @@ import { userPickerData } from '@atlaskit/util-data-test/user-picker-data';
 
 import quickInsertProviderFactory from '../example-helpers/quick-insert-provider';
 import type { EditorProps } from '../src';
-import { Editor } from '../src';
 import { usePresetContext } from '../src/presets/context';
 import EditorContext from '../src/ui/EditorContext';
 
@@ -77,6 +80,11 @@ export const column = css({
 });
 
 const quickInsertProvider = quickInsertProviderFactory();
+
+const Editor = ({ ...props }: EditorProps) => {
+	const universalPreset = useUniversalPreset({ props }).add(codeBlockAdvancedPlugin);
+	return <ComposableEditor preset={universalPreset} {...props} />;
+};
 
 const shareClient = {
 	share: () =>
@@ -304,28 +312,30 @@ const Comp2 = ({ parentContainer }: { parentContainer: HTMLElement }) => {
 class Example extends React.Component<Props> {
 	render() {
 		return (
-			<div>
-				<div css={columns} id="left">
-					<div css={column}>
-						<DropzoneEditorWrapper>
-							{(parentContainer) => (
-								<EditorContext>
-									<Comp2 parentContainer={parentContainer} />
-								</EditorContext>
-							)}
-						</DropzoneEditorWrapper>
-					</div>
-					<div css={column} id="right">
-						<DropzoneEditorWrapper>
-							{(parentContainer) => (
-								<EditorContext>
-									<Comp parentContainer={parentContainer} />
-								</EditorContext>
-							)}
-						</DropzoneEditorWrapper>
+			<IntlProvider locale="en">
+				<div>
+					<div css={columns} id="left">
+						<div css={column}>
+							<DropzoneEditorWrapper>
+								{(parentContainer) => (
+									<EditorContext>
+										<Comp2 parentContainer={parentContainer} />
+									</EditorContext>
+								)}
+							</DropzoneEditorWrapper>
+						</div>
+						<div css={column} id="right">
+							<DropzoneEditorWrapper>
+								{(parentContainer) => (
+									<EditorContext>
+										<Comp parentContainer={parentContainer} />
+									</EditorContext>
+								)}
+							</DropzoneEditorWrapper>
+						</div>
 					</div>
 				</div>
-			</div>
+			</IntlProvider>
 		);
 	}
 }

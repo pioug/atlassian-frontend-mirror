@@ -35,7 +35,7 @@ const EscapeCloseManager = ({ onClose }: { onClose?: (event: SyntheticEvent<any>
  * - [Code](https://atlassian.design/components/drawer/code)
  * - [Usage](https://atlassian.design/components/drawer/usage)
  */
-export const Drawer = ({
+const Drawer = ({
 	width = 'narrow',
 	isOpen,
 	isFocusLockEnabled = true,

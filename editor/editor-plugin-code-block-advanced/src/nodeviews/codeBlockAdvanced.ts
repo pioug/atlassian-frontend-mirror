@@ -1,6 +1,6 @@
 import { closeBrackets } from '@codemirror/autocomplete';
 import { syntaxHighlighting, bracketMatching } from '@codemirror/language';
-import { Compartment, Extension, EditorSelection } from '@codemirror/state';
+import { Compartment, Extension, EditorSelection, Facet } from '@codemirror/state';
 import { EditorView as CodeMirror, lineNumbers, ViewUpdate, gutters } from '@codemirror/view';
 
 import { isCodeBlockWordWrapEnabled } from '@atlaskit/editor-common/code-block';
@@ -13,7 +13,12 @@ import type {
 import { EditorSelectionAPI } from '@atlaskit/editor-plugin-selection';
 import { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import { NodeSelection } from '@atlaskit/editor-prosemirror/state';
-import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import type {
+	Decoration,
+	DecorationSource,
+	EditorView,
+	NodeView,
+} from '@atlaskit/editor-prosemirror/view';
 
 import type { CodeBlockAdvancedPlugin } from '../codeBlockAdvancedPluginType';
 import { highlightStyle } from '../ui/syntaxHighlightingTheme';
@@ -21,9 +26,9 @@ import { cmTheme } from '../ui/theme';
 
 import { syncCMWithPM } from './codemirrorSync/syncCMWithPM';
 import { updateCMSelection } from './codemirrorSync/updateCMSelection';
-import { bidiCharWarningExtension } from './extensions/bidiCharWarning';
-import { copyButtonDecorations } from './extensions/copyButtonDecorations';
 import { keymapExtension } from './extensions/keymap';
+import { manageSelectionMarker } from './extensions/manageSelectionMarker';
+import { prosemirrorDecorationPlugin } from './extensions/prosemirrorDecorations';
 import { LanguageLoader } from './languages/loader';
 
 interface ConfigProps {
@@ -39,15 +44,15 @@ class CodeBlockAdvancedNodeView implements NodeView {
 	private lineWrappingCompartment = new Compartment();
 	private languageCompartment = new Compartment();
 	private readOnlyCompartment = new Compartment();
-	private copyDecoCompartment = new Compartment();
+	private pmDecorationsCompartment = new Compartment();
 	private node: PMNode;
 	private getPos: getPosHandlerNode;
 	private cm: CodeMirror;
 	private selectionAPI: EditorSelectionAPI | undefined;
 	private maybeTryingToReachNodeSelection = false;
 	private cleanupDisabledState: (() => void) | undefined;
-	private cleanupCopyButtonDecoration: (() => void) | undefined;
 	private languageLoader: LanguageLoader;
+	private pmFacet = Facet.define<DecorationSource>();
 
 	constructor(node: PMNode, view: EditorView, getPos: getPosHandlerNode, config: ConfigProps) {
 		this.node = node;
@@ -59,13 +64,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		this.cleanupDisabledState = config.api?.editorDisabled?.sharedState.onChange(() => {
 			this.updateReadonlyState();
 		});
-		this.cleanupCopyButtonDecoration = config.api?.codeBlock?.sharedState.onChange(
-			({ nextSharedState, prevSharedState }) => {
-				if (nextSharedState?.copyButtonHoverNode !== prevSharedState?.copyButtonHoverNode) {
-					this.addCopyButtonDecoration(nextSharedState?.copyButtonHoverNode);
-				}
-			},
-		);
 		this.languageLoader = new LanguageLoader((lang) => {
 			this.updating = true;
 			this.cm.dispatch({
@@ -80,13 +78,14 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				...config.extensions,
 				this.lineWrappingCompartment.of([]),
 				this.languageCompartment.of([]),
-				this.copyDecoCompartment.of([]),
+				this.pmDecorationsCompartment.of([]),
 				keymapExtension({
 					view,
 					getPos,
 					getNode,
 					selectCodeBlockNode: this.selectCodeBlockNode.bind(this),
 					onMaybeNodeSelection,
+					customFindReplace: Boolean(config.api?.findReplace),
 				}),
 				cmTheme,
 				syntaxHighlighting(highlightStyle),
@@ -99,7 +98,8 @@ class CodeBlockAdvancedNodeView implements NodeView {
 				this.readOnlyCompartment.of(CodeMirror.editable.of(this.view.editable)),
 				closeBrackets(),
 				CodeMirror.editorAttributes.of({ class: 'code-block' }),
-				bidiCharWarningExtension,
+				manageSelectionMarker(config.api),
+				prosemirrorDecorationPlugin(this.pmFacet, view, getPos),
 			],
 		});
 
@@ -114,7 +114,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 
 	destroy() {
 		this.cleanupDisabledState?.();
-		this.cleanupCopyButtonDecoration?.();
 	}
 
 	forwardUpdate(update: ViewUpdate) {
@@ -161,18 +160,6 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		}
 	}
 
-	private addCopyButtonDecoration(node: PMNode | undefined) {
-		this.updating = true;
-		this.cm.dispatch({
-			effects: [
-				this.copyDecoCompartment.reconfigure(
-					node && node === this.node ? copyButtonDecorations : [],
-				),
-			],
-		});
-		this.updating = false;
-	}
-
 	private wordWrappingEnabled = false;
 
 	private updateWordWrap(node: PMNode) {
@@ -190,7 +177,7 @@ class CodeBlockAdvancedNodeView implements NodeView {
 		}
 	}
 
-	update(node: PMNode) {
+	update(node: PMNode, _: readonly Decoration[], innerDecorations: DecorationSource) {
 		this.maybeTryingToReachNodeSelection = false;
 
 		if (node.type !== this.node.type) {
@@ -209,7 +196,22 @@ class CodeBlockAdvancedNodeView implements NodeView {
 			this.cm.dispatch(tr);
 			this.updating = false;
 		});
+		this.updateProseMirrorDecorations(innerDecorations);
 		return true;
+	}
+
+	/**
+	 * Updates a facet which stores information on the prosemirror decorations
+	 *
+	 * This then gets translated to codemirror decorations in `prosemirrorDecorationPlugin`
+	 */
+	private updateProseMirrorDecorations(decorationSource: DecorationSource) {
+		this.updating = true;
+		const computedFacet = this.pmFacet.compute([], () => decorationSource);
+		this.cm.dispatch({
+			effects: this.pmDecorationsCompartment.reconfigure(computedFacet),
+		});
+		this.updating = false;
 	}
 
 	stopEvent(e: Event) {

@@ -12,7 +12,7 @@ import { token } from '@atlaskit/tokens';
 
 import { type ITableRowProps, TableBodyRow } from '../table-row';
 
-export type RankableTableBodyRowProps = HTMLAttributes<HTMLTableRowElement> &
+type RankableTableBodyRowProps = HTMLAttributes<HTMLTableRowElement> &
 	ITableRowProps & {
 		isRanking?: boolean;
 		isRankingItem?: boolean;

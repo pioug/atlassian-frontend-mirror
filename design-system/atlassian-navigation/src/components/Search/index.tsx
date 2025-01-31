@@ -203,5 +203,3 @@ export const Search = (props: SearchProps) => {
 		</Fragment>
 	);
 };
-
-export default Search;

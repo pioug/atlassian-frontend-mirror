@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 import { FormattedMessage } from 'react-intl-next';
+
 import { type UIAnalyticsEvent, useAnalyticsEvents } from '@atlaskit/analytics-next';
 import {
 	type KeyboardOrMouseEvent,
@@ -41,7 +42,7 @@ import {
 	ReactionDialogOpened,
 	ReactionDialogSelectedReactionChanged,
 } from '../../ufo';
-import { Reaction, type ReactionProps } from '../Reaction';
+import { Reaction } from '../Reaction';
 import { ReactionsDialog } from '../ReactionDialog';
 import { ReactionPicker, type ReactionPickerProps } from '../ReactionPicker';
 import { type SelectorProps } from '../Selector';
@@ -86,8 +87,7 @@ export interface ReactionsProps
 			ReactionPickerProps,
 			'allowAllEmojis' | 'emojiProvider' | 'emojiPickerSize' | 'miniMode'
 		>,
-		Pick<SelectorProps, 'pickerQuickReactionEmojiIds'>,
-		Pick<ReactionProps, 'allowUserDialog'> {
+		Pick<SelectorProps, 'pickerQuickReactionEmojiIds'> {
 	/**
 	 * event handler to fetching the reactions
 	 */
@@ -174,6 +174,10 @@ export interface ReactionsProps
 	 * Optional prop for hiding default reactions displayed when there are no existing reactions
 	 */
 	hideDefaultReactions?: boolean;
+	/**
+	 * Optional prop from checking a feature gate for rendering Reactions Dialog
+	 */
+	allowUserDialog?: boolean;
 	/**
 	 * Optional prop for rendering a profile card wrapper in the Reactions Dialog
 	 */
@@ -305,27 +309,6 @@ export const Reactions = React.memo(
 		);
 
 		/**
-		 * event handler to open selected reaction from tooltip
-		 * @param emojiId selected emoji id
-		 */
-		const handleOpenReactionsDialog = (emojiId: string) => {
-			// ufo start opening reaction dialog
-			ufoExperiences.openDialog.start();
-
-			setSelectedEmojiId(emojiId);
-			onDialogOpenCallback(emojiId, 'tooltip');
-
-			// ufo opening reaction dialog success
-			ufoExperiences.openDialog.success({
-				metadata: {
-					emojiId,
-					source: 'Reactions',
-					reason: 'Opening dialog from emoji tooltip link successfully',
-				},
-			});
-		};
-
-		/**
 		 * Event handler to oepn all reactions link button
 		 */
 		const handleOpenAllReactionsDialog = () => {
@@ -445,8 +428,6 @@ export const Reactions = React.memo(
 							emojiProvider={emojiProvider}
 							flash={flash}
 							particleEffectByEmoji={particleEffectByEmoji}
-							handleOpenReactionsDialog={handleOpenReactionsDialog}
-							allowUserDialog={allowUserDialog}
 							onReactionClick={onReactionClick}
 							onReactionFocused={handleReactionFocused}
 							onReactionMouseEnter={handleReactionMouseEnter}
@@ -465,8 +446,6 @@ export const Reactions = React.memo(
 							onMouseEnter={handleReactionMouseEnter}
 							onFocused={handleReactionFocused}
 							flash={flash[reaction.emojiId]}
-							handleUserListClick={handleOpenReactionsDialog}
-							allowUserDialog={allowUserDialog}
 							showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
 							showOpaqueBackground={showOpaqueBackground}
 						/>

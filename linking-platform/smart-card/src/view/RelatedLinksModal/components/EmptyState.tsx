@@ -1,7 +1,33 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { cssMap, jsx } from '@atlaskit/css';
 import Heading from '@atlaskit/heading';
-import { Box, xcss } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
+
+import { EmptyStateOld } from './EmptyStateOld';
+
+const styles = cssMap({
+	emptyState: {
+		alignItems: 'center',
+		display: 'flex',
+		flexDirection: 'column',
+		gap: token('space.100'),
+		height: '100%',
+		justifyContent: 'center',
+		marginLeft: token('space.300'),
+		marginRight: token('space.300'),
+		textAlign: 'center',
+	},
+	description: {
+		marginTop: token('space.0'),
+		marginBottom: token('space.300'),
+		color: token('color.text'),
+	},
+});
 
 type EmptyStateProps = {
 	header: string;
@@ -10,33 +36,23 @@ type EmptyStateProps = {
 	renderImage?: () => React.ReactNode;
 };
 
-const emptyStateStyles = xcss({
-	alignItems: 'center',
-	display: 'flex',
-	flexDirection: 'column',
-	gap: 'space.100',
-	height: '100%',
-	justifyContent: 'center',
-	marginLeft: 'space.300',
-	marginRight: 'space.300',
-	textAlign: 'center',
-});
-const descriptionStyles = xcss({
-	marginTop: 'space.0',
-	marginBottom: 'space.300',
-	color: 'color.text',
-});
-
-export const EmptyState = ({ testId, header, description, renderImage }: EmptyStateProps) => {
+export const EmptyStateNew = ({ testId, header, description, renderImage }: EmptyStateProps) => {
 	return (
-		<Box xcss={emptyStateStyles} testId={testId}>
+		<Box xcss={styles.emptyState} testId={testId}>
 			{renderImage?.()}
 			<Heading size="small">{header}</Heading>
 			{description && (
-				<Box as="p" xcss={descriptionStyles}>
+				<Box as="p" xcss={styles.description}>
 					{description}
 				</Box>
 			)}
 		</Box>
 	);
+};
+
+export const EmptyState = (props: EmptyStateProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <EmptyStateNew {...props} />;
+	}
+	return <EmptyStateOld {...props} />;
 };

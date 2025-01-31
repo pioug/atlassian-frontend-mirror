@@ -8,7 +8,7 @@ import { css, jsx } from '@compiled/react';
 import { di } from 'react-magnetic-di';
 
 import { fg } from '@atlaskit/platform-feature-flags';
-import { xcss } from '@atlaskit/primitives';
+import { token } from '@atlaskit/tokens';
 
 import { type FlexibleUiActionName, SmartLinkSize } from '../../../../../constants';
 import {
@@ -17,7 +17,6 @@ import {
 } from '../../../../../state/flexible-ui-context';
 import * as Actions from '../../actions';
 import type { ActionMessage } from '../../actions/action/types';
-import { getPrimitivesPaddingSpaceBySize } from '../../utils';
 
 import { ActionFooter } from './action-footer';
 import ActionBlockOld from './ActionBlockOld';
@@ -50,6 +49,24 @@ const sort = (a: FlexibleUiActionName, b: FlexibleUiActionName) => {
 	}
 
 	return idxA - idxB;
+};
+
+/**
+ * Get container padding based on smart link size
+ * To replace container/index.tsx getPadding() with space token for primitives
+ */
+export const getPrimitivesPaddingSpaceBySize = (size: SmartLinkSize) => {
+	switch (size) {
+		case SmartLinkSize.XLarge:
+			return token('space.300');
+		case SmartLinkSize.Large:
+			return token('space.250');
+		case SmartLinkSize.Medium:
+			return token('space.200');
+		case SmartLinkSize.Small:
+		default:
+			return token('space.100');
+	}
 };
 
 const ActionBlockNew = ({
@@ -111,8 +128,8 @@ const ActionBlockNew = ({
 					onError={onError}
 					onLoadingChange={onLoadingChange}
 					size={size}
-					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-					xcss={xcss({ paddingInline: padding })}
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop, @atlaskit/design-system/no-unsafe-design-token-usage
+					style={padding && { paddingInline: padding }}
 					hideTooltip={isLoading}
 				/>
 			) : null;
@@ -122,7 +139,7 @@ const ActionBlockNew = ({
 	return actions ? (
 		<div css={ignoreContainerPaddingStyles} ref={blockRef} data-testid={testId}>
 			{actions}
-			<ActionFooter message={message} paddingInline={padding} testId={testId} />
+			<ActionFooter message={message} testId={testId} />
 		</div>
 	) : null;
 };

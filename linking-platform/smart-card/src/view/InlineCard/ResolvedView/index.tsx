@@ -1,15 +1,14 @@
 import React from 'react';
 
 import Lozenge from '@atlaskit/lozenge';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type LozengeProps } from '../../../types';
 import type { CardActionOptions } from '../../Card/types';
 import { HoverCard } from '../../HoverCard';
 import { type HoverPreviewOptions } from '../../HoverCard/types';
 import { Frame } from '../Frame';
-import { IconAndTitleLayout, LozengeWrapper as LozengeWrapperNew } from '../IconAndTitleLayout';
-import { LozengeWrapperOldVisualRefresh } from '../IconAndTitleLayout/styled';
+import { IconAndTitleLayout, LozengeWrapper } from '../IconAndTitleLayout';
+
 export interface InlineCardResolvedViewProps {
 	/** A unique ID for a Smart Link. */
 	id?: string;
@@ -49,10 +48,6 @@ export class InlineCardResolvedView extends React.Component<InlineCardResolvedVi
 			return null;
 		}
 		const appearance = lozenge.appearance || 'default';
-
-		const LozengeWrapper = fg('platform-linking-visual-refresh-v1')
-			? LozengeWrapperNew
-			: LozengeWrapperOldVisualRefresh;
 
 		return (
 			<LozengeWrapper>

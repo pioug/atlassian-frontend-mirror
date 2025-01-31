@@ -1,11 +1,13 @@
+import React, { useCallback, useState } from 'react';
+
 import { type Placement } from '@atlaskit/popper';
 import Popup from '@atlaskit/popup';
 import { Inline, xcss } from '@atlaskit/primitives';
-import React, { useCallback, useState } from 'react';
 
 import { type ReactionClick, type ReactionFocused, type ReactionMouseEnter } from '../../types';
-import { Reaction, type ReactionProps } from '../Reaction';
+import { Reaction } from '../Reaction';
 import { type ReactionsProps } from '../Reactions';
+
 import { ReactionSummaryButton } from './ReactionSummaryButton';
 
 const summaryPopupStyles = xcss({
@@ -20,13 +22,7 @@ const summaryPopupStyles = xcss({
 export const RENDER_SUMMARY_VIEW_POPUP_TESTID = 'render-summary-view-popup';
 
 interface ReactionSummaryViewProps
-	extends Pick<ReactionsProps, 'emojiProvider' | 'reactions' | 'flash' | 'particleEffectByEmoji'>,
-		Pick<ReactionProps, 'allowUserDialog'> {
-	/**
-	 * Optional function when the user wants to see more users in a modal
-	 */
-	handleOpenReactionsDialog: (emojiId: string) => void;
-
+	extends Pick<ReactionsProps, 'emojiProvider' | 'reactions' | 'flash' | 'particleEffectByEmoji'> {
 	/**
 	 * Optional prop to change the placement of the summary popup reaction list
 	 */
@@ -58,8 +54,6 @@ export const ReactionSummaryView = ({
 	reactions = [],
 	flash = {},
 	particleEffectByEmoji = {},
-	handleOpenReactionsDialog,
-	allowUserDialog,
 	placement = 'auto-start',
 	onReactionClick,
 	onReactionFocused,
@@ -94,8 +88,6 @@ export const ReactionSummaryView = ({
 							onFocused={onReactionFocused}
 							onMouseEnter={onReactionMouseEnter}
 							flash={flash[reaction.emojiId]}
-							handleUserListClick={handleOpenReactionsDialog}
-							allowUserDialog={allowUserDialog}
 							showParticleEffect={particleEffectByEmoji[reaction.emojiId]}
 						/>
 					))}

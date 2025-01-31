@@ -187,7 +187,7 @@ export const ValidMessage = ({ children, testId }: MessageProps) => (
  * A message wrapper context allows the children to check
  * if it is contained within the MessageWrapper.
  */
-export const MessageWrapperContext = createContext<{ isWrapper: boolean }>({
+const MessageWrapperContext = createContext<{ isWrapper: boolean }>({
 	isWrapper: false,
 });
 

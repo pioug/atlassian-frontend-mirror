@@ -42,7 +42,7 @@
 		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"react-markdown": "^8.0.0",
 		"remark-gfm": "^3.0.0",

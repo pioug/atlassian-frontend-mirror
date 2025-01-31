@@ -65,11 +65,11 @@
 		"@atlaskit/editor-plugin-guideline": "^1.2.0",
 		"@atlaskit/editor-plugin-quick-insert": "^1.8.0",
 		"@atlaskit/editor-plugin-selection": "^1.6.0",
-		"@atlaskit/editor-plugin-table": "^9.2.0",
+		"@atlaskit/editor-plugin-table": "^9.3.0",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "^2.12.0",
 		"@atlaskit/editor-plugin-type-ahead": "^1.11.0",
 		"@atlaskit/editor-plugin-width": "^2.0.0",
-		"@testing-library/react": "^12.1.5"
+		"@testing-library/react": "^13.4.0"
 	},
 	"peerDependencies": {
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0",

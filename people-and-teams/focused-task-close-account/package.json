@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/focused-task-close-account",
-	"version": "2.3.10",
+	"version": "2.3.11",
 	"description": "This package contains all of the UI components needed to assemble the focused tasks for deactivating and deleting users' accounts in accordance with the GDPR \"Right to be forgotten\".",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,7 +32,8 @@
 		"team": "People and Teams Collective",
 		"website": {
 			"name": "Focused Task Close Account"
-		}
+		},
+		"runReact18": true
 	},
 	"dependencies": {
 		"@atlaskit/avatar": "^21.17.0",
@@ -50,12 +51,12 @@
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},
 	"peerDependencies": {
-		"react": "^16.8.0",
-		"react-dom": "^16.8.0",
+		"react": "^16.8.0 || ^17.0.0 || ^18.2.0",
+		"react-dom": "^16.8.0 || ^17.0.0 || ^18.2.0",
 		"react-transition-group": "^4.4.1"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"enzyme": "^3.10.0",
 		"typescript": "~5.4.2"
 	},

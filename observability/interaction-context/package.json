@@ -42,7 +42,7 @@
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
-		"@testing-library/react": "^12.1.5"
+		"@testing-library/react": "^13.4.0"
 	},
 	"techstack": {
 		"@atlassian/frontend": {

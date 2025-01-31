@@ -65,8 +65,8 @@
 	"devDependencies": {
 		"@af/integration-testing": "*",
 		"@atlaskit/ssr": "*",
-		"@testing-library/react": "^12.1.5",
-		"react-dom": "^16.8.0",
+		"@testing-library/react": "^13.4.0",
+		"react-dom": "^18.2.0",
 		"wait-for-expect": "^1.2.0"
 	},
 	"techstack": {

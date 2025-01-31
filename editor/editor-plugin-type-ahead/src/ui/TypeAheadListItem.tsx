@@ -85,7 +85,7 @@ const itemTitleOverride = css({
 });
 
 const itemDescription = css({
-	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values
+	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values, @atlaskit/design-system/use-tokens-typography
 	fontSize: `${relativeFontSizeToBase16(12)};`,
 	color: `${token('color.text.subtlest', N200)};`,
 	marginTop: `${token('space.050', '4px')};`,

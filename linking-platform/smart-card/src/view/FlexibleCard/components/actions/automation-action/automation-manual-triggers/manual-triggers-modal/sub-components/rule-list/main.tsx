@@ -1,19 +1,22 @@
 import React, { type Dispatch, type SetStateAction } from 'react';
 
 import { MenuGroup } from '@atlaskit/menu';
-import { Stack } from '@atlaskit/primitives';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Stack } from '@atlaskit/primitives/compiled';
 
 import type { ManualRule } from '../../../manual-triggers-container/common/types';
 import { useAutomationMenu } from '../../menu-context';
 import { AutomationModalEmptyState } from '../empty-state';
 import { AutomationModalRule } from '../rule';
 
+import { AutomationModalRuleListOld } from './AutomationModalRuleListOld';
+
 type AutomationModalRuleListProps = {
 	selectedRule: ManualRule | undefined;
 	setSelectedRule: Dispatch<SetStateAction<ManualRule | undefined>>;
 };
 
-export const AutomationModalRuleList = ({
+const AutomationModalRuleListNew = ({
 	selectedRule,
 	setSelectedRule,
 }: AutomationModalRuleListProps) => {
@@ -37,4 +40,11 @@ export const AutomationModalRuleList = ({
 			</Stack>
 		</MenuGroup>
 	);
+};
+
+export const AutomationModalRuleList = (props: AutomationModalRuleListProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <AutomationModalRuleListNew {...props} />;
+	}
+	return <AutomationModalRuleListOld {...props} />;
 };

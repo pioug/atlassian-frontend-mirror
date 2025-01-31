@@ -37,66 +37,203 @@ import EmbedCardUnauthorisedViewWithProviderImage from '../../../examples/vr-emb
 const EmbedCardForbiddenDefault = EmbedCardForbiddenView;
 const EmbedCardNotFoundDefault = EmbedCardNotFoundView;
 
-snapshot(EmbedCardErrorView);
-snapshot(EmbedCardForbiddenView);
-snapshot(EmbedCardForbiddenFixBlurring);
-snapshot(EmbedCardForbiddenDefault);
-snapshot(EmbedCardForbiddenObjectRequestAccess);
-snapshot(EmbedCardForbiddenSiteDeniedAccess);
-snapshot(EmbedCardForbiddenSiteDirectAccess);
-snapshot(EmbedCardForbiddenSiteForbiddenAccess);
-snapshot(EmbedCardForbiddenSitePendingAccess);
-snapshot(EmbedCardForbiddenSiteRequestAccess);
-snapshot(EmbedCardNotFoundView);
-snapshot(EmbedCardNotFoundDefault);
-snapshot(EmbedCardNotFoundSiteAccessExists);
-snapshot(EmbedCardResolvedView);
-snapshot(EmbedCardResolvedViewNoPreview);
-snapshot(EmbedCardResolvingView);
-snapshot(EmbedCardSelected);
-snapshot(EmbedCardUnauthorisedView);
-snapshot(EmbedCardUnauthorisedViewWithProviderImage);
-snapshot(EmbedCardUnauthorisedViewWithNoAuth);
+snapshot(EmbedCardErrorView, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenView, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenFixBlurring, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenDefault, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenObjectRequestAccess, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenSiteDeniedAccess, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenSiteDirectAccess, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenSiteForbiddenAccess, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenSitePendingAccess, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenSiteRequestAccess, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardNotFoundView, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardNotFoundDefault, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardNotFoundSiteAccessExists, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardResolvedView, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardResolvedViewNoPreview, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardResolvingView, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardSelected, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardUnauthorisedView, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardUnauthorisedViewWithProviderImage, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardUnauthorisedViewWithNoAuth, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
 
 snapshot(EmbedCardFrameWithHref, {
 	description: 'embed card frame should render as a link when there is an href',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(EmbedCardFrameWithNoHref, {
 	description: 'embed card frame should not render as a link when there is no href',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(EmbedCardFrameWithPlaceholderAndHref, {
 	description:
 		'embed card frame should not be interactive when isPlaceholder=true and href is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(EmbedCardFrameWithPlaceholderAndOnClick, {
 	description:
 		'embed card frame should not be interactive when isPlaceholder=true and onClick is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(EmbedCardFrameWithNoPlaceholderWithHref, {
 	description:
 		'embed card frame should be interactive when isPlaceholder=false and href is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 snapshot(EmbedCardFrameWithNoPlaceholderWithOnClick, {
 	description:
 		'embed card frame should be interactive when isPlaceholder=false and onClick is defined',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
 
-snapshot(EmbedCardFrameStyleHide);
-snapshot(EmbedCardFrameStyleHideAndSelected);
-snapshot(EmbedCardFrameStyleShow);
-snapshot(EmbedCardFrameStyleShowAndSelected);
-snapshot(EmbedCardFrameStyleShowOnHover);
+snapshot(EmbedCardFrameStyleHide, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardFrameStyleHideAndSelected, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardFrameStyleShow, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardFrameStyleShowAndSelected, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardFrameStyleShowOnHover, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
 snapshot(EmbedCardFrameStyleShowOnHover, {
 	description: 'embed card frame style show on hover when hover',
 	states: [{ selector: { byTestId: 'vr-embed-card-frame' }, state: 'hovered' }],
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
 });
-snapshot(EmbedCardFrameStyleShowOnHoverAndSelected);
-snapshot(EmbedCardForbiddenViewFrameHide);
-snapshot(EmbedCardNotFoundViewFrameHide);
-snapshot(EmbedCardUnauthorisedViewFrameHide);
+snapshot(EmbedCardFrameStyleShowOnHoverAndSelected, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardForbiddenViewFrameHide, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardNotFoundViewFrameHide, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});
+snapshot(EmbedCardUnauthorisedViewFrameHide, {
+	featureFlags: {
+		'bandicoots-compiled-migration-smartcard': [true, false],
+	},
+});

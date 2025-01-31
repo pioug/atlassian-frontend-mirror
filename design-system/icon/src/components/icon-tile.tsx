@@ -134,6 +134,7 @@ const iconTileStyles = css({
 	boxSizing: 'border-box',
 	alignItems: 'center',
 	justifyContent: 'center',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 0 /* Prevents parent font-size from affecting the container */,
 });
 

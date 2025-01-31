@@ -39,6 +39,7 @@ const footerBlockCss = css({
 	'.actions-button-group': {
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors -- Ignored via go/DSP-18766
 		'button, button:hover, button:focus, button:active': {
+			// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 			fontSize: '0.875rem',
 		},
 	},

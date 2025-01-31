@@ -1,11 +1,11 @@
 /* eslint-disable compat/compat */
-import {
-	type ElementChangedEvent,
-	type PerformanceFirstPaintEvent,
-	TimelineController,
-	type TimelineEvent,
-	OnIdleBufferFlushCallback,
-} from './timeline';
+import { TimelineController } from './timeline';
+import type { OnIdleBufferFlushCallback } from './timelineInterfaces';
+import type {
+	ElementChangedEvent,
+	PerformanceFirstPaintEvent,
+	TimelineEvent,
+} from './timelineTypes';
 
 const addFakeEvents = (timeline: TimelineController, amount: number) => {
 	new Array(amount).fill(null).forEach((_, index) => {
@@ -801,5 +801,463 @@ describe('TimelineController - onNextIdle', () => {
 		jest.runAllTimers();
 
 		expect(mockCallback).not.toHaveBeenCalled();
+	});
+});
+
+describe('TimelineController - hold', () => {
+	let timeline: TimelineController;
+
+	beforeEach(() => {
+		timeline = new TimelineController({ maxHoldDuration: 5000 });
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.runAllTimers();
+		jest.useRealTimers();
+	});
+
+	describe('when there are multiple holds', () => {
+		it('should create hold-idle:start events', () => {
+			jest.advanceTimersByTime(1);
+			timeline.hold({ source: 'setTimeout' });
+
+			jest.advanceTimersByTime(2);
+			timeline.hold({ source: 'setTimeout' });
+
+			expect(timeline.getEvents()).toEqual(
+				expect.arrayContaining([
+					expect.objectContaining({
+						type: 'hold-idle:start',
+						startTime: 1,
+						data: {
+							source: 'setTimeout',
+							uuid: expect.any(String),
+						},
+					}),
+					expect.objectContaining({
+						type: 'hold-idle:start',
+						startTime: 3,
+						data: {
+							source: 'setTimeout',
+							uuid: expect.any(String),
+						},
+					}),
+				]),
+			);
+		});
+
+		it('should create hold-idle:end when unhold is called', () => {
+			jest.advanceTimersByTime(1);
+			const unhold1 = timeline.hold({ source: 'setTimeout' });
+
+			jest.advanceTimersByTime(2);
+			const unhold2 = timeline.hold({ source: 'setTimeout' });
+
+			jest.advanceTimersByTime(10);
+			unhold1();
+
+			jest.advanceTimersByTime(10);
+			unhold2();
+
+			expect(timeline.getEvents()).toEqual(
+				expect.arrayContaining([
+					expect.objectContaining({
+						type: 'hold-idle:end',
+						startTime: 13,
+						data: {
+							source: 'setTimeout',
+							duration: 12,
+							uuid: expect.any(String),
+						},
+					}),
+					expect.objectContaining({
+						type: 'hold-idle:end',
+						startTime: 23,
+						data: {
+							source: 'setTimeout',
+							duration: 20,
+							uuid: expect.any(String),
+						},
+					}),
+				]),
+			);
+		});
+	});
+
+	describe('when there are multiple timeouts', () => {
+		it('should remove all timed out hold', () => {
+			jest.advanceTimersByTime(1);
+			timeline.hold({ source: 'setTimeout' });
+
+			jest.advanceTimersByTime(2);
+			timeline.hold({ source: 'setTimeout' });
+
+			jest.advanceTimersByTime(6000);
+
+			timeline.markEvent({
+				type: 'element:changed',
+				startTime: performance.now(),
+				data: {
+					wrapperSectionName: 'section',
+					elementName: 'element',
+					rect: new DOMRect(0, 0, 100, 100),
+					previousRect: undefined,
+					source: 'mutation',
+				},
+			});
+
+			jest.runAllTimers();
+
+			expect(timeline.getEvents()).toEqual(
+				expect.arrayContaining([
+					expect.objectContaining({
+						type: 'hold-idle:start',
+						startTime: expect.any(Number),
+						data: {
+							source: 'setTimeout',
+							uuid: expect.any(String),
+						},
+					}),
+				]),
+			);
+		});
+	});
+
+	describe('when multiple unholds are called before the timeout', () => {
+		it('should not create timeout events', () => {
+			jest.advanceTimersByTime(1);
+			const unhold = timeline.hold({ source: 'setTimeout' });
+
+			jest.advanceTimersByTime(4000);
+			timeline.hold({ source: 'setTimeout' });
+
+			unhold();
+
+			jest.advanceTimersByTime(2000);
+			timeline.hold({ source: 'setTimeout' });
+
+			timeline.markEvent({
+				type: 'element:changed',
+				startTime: performance.now(),
+				data: {
+					wrapperSectionName: 'section',
+					elementName: 'element',
+					rect: new DOMRect(0, 0, 100, 100),
+					previousRect: undefined,
+					source: 'mutation',
+				},
+			});
+
+			jest.runAllTimers();
+
+			expect(timeline.getEvents()).not.toEqual(
+				expect.arrayContaining([
+					expect.objectContaining({
+						type: 'hold-idle:timeout',
+					}),
+				]),
+			);
+		});
+	});
+
+	it('should force idle scheduling after maximum hold duration', () => {
+		timeline.hold({ source: 'setTimeout' });
+
+		jest.advanceTimersByTime(6000);
+
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'section',
+				elementName: 'element',
+				rect: new DOMRect(0, 0, 100, 100),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		jest.runAllTimers();
+
+		expect(timeline.getEvents()).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					type: 'hold-idle:timeout',
+				}),
+			]),
+		);
+	});
+
+	it('should prevent idle scheduling when held', () => {
+		timeline.hold({ source: 'setTimeout' });
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'section',
+				elementName: 'element',
+				rect: new DOMRect(0, 0, 100, 100),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		jest.runAllTimers();
+
+		expect(timeline.getEvents()).not.toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					type: 'idle-time',
+				}),
+			]),
+		);
+	});
+
+	it('should resume idle scheduling when unheld', () => {
+		const unhold = timeline.hold({ source: 'setTimeout' });
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'section',
+				elementName: 'element',
+				rect: new DOMRect(0, 0, 100, 100),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		unhold();
+		jest.runAllTimers();
+
+		expect(timeline.getEvents()).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					type: 'idle-time',
+				}),
+			]),
+		);
+	});
+
+	it('should support multiple holds', () => {
+		jest.advanceTimersByTime(100);
+
+		const unhold1 = timeline.hold({ source: 'setTimeout' });
+
+		jest.advanceTimersByTime(100);
+		const unhold2 = timeline.hold({ source: 'setTimeout' });
+
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'section',
+				elementName: 'element',
+				rect: new DOMRect(0, 0, 100, 100),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		unhold1();
+		jest.advanceTimersByTime(100);
+
+		expect(timeline.getEvents()).not.toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					type: 'idle-time',
+				}),
+			]),
+		);
+
+		unhold2();
+		jest.runAllTimers();
+
+		expect(timeline.getEvents()).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					type: 'idle-time',
+				}),
+			]),
+		);
+	});
+
+	it('should include uuid in hold-idle:timeout events', () => {
+		jest.advanceTimersByTime(1);
+		timeline.hold({ source: 'setTimeout' });
+
+		jest.advanceTimersByTime(6000); // Exceed the maxHoldDuration
+
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'section',
+				elementName: 'element',
+				rect: new DOMRect(0, 0, 100, 100),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		jest.runAllTimers();
+
+		const events = timeline.getEvents();
+		const holdEvent = events.find((event) => event.type === 'hold-idle:start');
+		const timeoutEvent = events.find((event) => event.type === 'hold-idle:timeout');
+		expect(timeoutEvent).toBeDefined();
+		expect(timeoutEvent?.data).toHaveProperty('uuid');
+
+		expect(
+			// @ts-expect-error
+			timeoutEvent?.data.uuid,
+		).toEqual(
+			// @ts-expect-error
+			holdEvent?.data.uuid,
+		);
+	});
+});
+
+describe('TimelineController - Subscription Management', () => {
+	let timeline: TimelineController;
+
+	beforeEach(() => {
+		timeline = new TimelineController();
+	});
+
+	it('should call onceAllSubscribersCleaned callback when all subscribers are unsubscribed', () => {
+		const mockCallback = jest.fn();
+		timeline.onceAllSubscribersCleaned(mockCallback);
+
+		const unsubscribe1 = timeline.onIdleBufferFlush(() => {});
+		const unsubscribe2 = timeline.onNextIdle(() => {});
+
+		unsubscribe1();
+		expect(mockCallback).not.toHaveBeenCalled();
+
+		unsubscribe2();
+		expect(mockCallback).toHaveBeenCalledTimes(1);
+	});
+
+	it('should not call onceAllSubscribersCleaned callback if there are still active subscribers', () => {
+		const mockCallback = jest.fn();
+		timeline.onceAllSubscribersCleaned(mockCallback);
+
+		const unsubscribe1 = timeline.onIdleBufferFlush(() => {});
+		timeline.onNextIdle(() => {});
+
+		unsubscribe1();
+		expect(mockCallback).not.toHaveBeenCalled();
+	});
+
+	it('should call onceAllSubscribersCleaned callback every time all subscribers are cleaned', () => {
+		const mockCallback = jest.fn();
+		timeline.onceAllSubscribersCleaned(mockCallback);
+
+		const unsubscribe1 = timeline.onIdleBufferFlush(() => {});
+		const unsubscribe2 = timeline.onNextIdle(() => {});
+
+		unsubscribe1();
+		unsubscribe2();
+		expect(mockCallback).toHaveBeenCalledTimes(1);
+
+		const unsubscribe3 = timeline.onIdleBufferFlush(() => {});
+		unsubscribe3();
+		expect(mockCallback).toHaveBeenCalledTimes(2);
+	});
+});
+
+describe('TimelineController - Hold Race Condition', () => {
+	let timeline: TimelineController;
+
+	beforeEach(() => {
+		timeline = new TimelineController({ maxHoldDuration: 5000 });
+		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.useRealTimers();
+	});
+
+	it('should not create idle event if hold is active when handleIdle is called', () => {
+		const holdUnsubscribe = timeline.hold({ source: 'setTimeout' });
+
+		// Simulate the scenario where handleIdle is called before the hold is released
+		(timeline as any).handleIdle(performance.now() - 1000);
+
+		jest.runAllTimers();
+
+		const events = timeline.getEvents();
+		const idleEvents = events.filter((event) => event.type === 'idle-time');
+
+		expect(idleEvents).toHaveLength(0);
+
+		holdUnsubscribe();
+	});
+
+	it('should create idle event after hold is released', () => {
+		const holdUnsubscribe = timeline.hold({ source: 'setTimeout' });
+
+		// Simulate the scenario where handleIdle is called before the hold is released
+		(timeline as any).handleIdle(performance.now() - 1000);
+
+		jest.runAllTimers();
+
+		holdUnsubscribe();
+
+		// Trigger a new idle check
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'test',
+				elementName: 'test',
+				rect: new DOMRect(),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		jest.runAllTimers();
+
+		const events = timeline.getEvents();
+		const idleEvents = events.filter((event) => event.type === 'idle-time');
+
+		expect(idleEvents).toHaveLength(1);
+	});
+
+	it('should handle multiple holds correctly', () => {
+		const hold1 = timeline.hold({ source: 'setTimeout' });
+		const hold2 = timeline.hold({ source: 'fetch' });
+
+		(timeline as any).handleIdle(performance.now() - 1000);
+		jest.runAllTimers();
+
+		hold1();
+
+		(timeline as any).handleIdle(performance.now() - 1000);
+		jest.runAllTimers();
+
+		hold2();
+
+		timeline.markEvent({
+			type: 'element:changed',
+			startTime: performance.now(),
+			data: {
+				wrapperSectionName: 'test',
+				elementName: 'test',
+				rect: new DOMRect(),
+				previousRect: undefined,
+				source: 'mutation',
+			},
+		});
+
+		jest.runAllTimers();
+
+		const events = timeline.getEvents();
+		const idleEvents = events.filter((event) => event.type === 'idle-time');
+
+		expect(idleEvents).toHaveLength(1);
 	});
 });

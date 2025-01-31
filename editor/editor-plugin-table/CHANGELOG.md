@@ -1,5 +1,13 @@
 # @atlaskit/editor-plugin-table
 
+## 9.3.0
+
+### Minor Changes
+
+- [#101327](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/101327)
+  [`0e185d4a53811`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0e185d4a53811) -
+  [ED-25901] Added prop to tables plugin to control use of nested tables
+
 ## 9.2.1
 
 ### Patch Changes

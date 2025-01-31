@@ -51,7 +51,7 @@
 	},
 	"devDependencies": {
 		"@atlassian/adf-schema-json": "^1.22.0",
-		"react": "^16.8.0",
+		"react": "^18.2.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	},

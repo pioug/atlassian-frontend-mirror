@@ -117,5 +117,3 @@ export const PrimaryButton = forwardRef<HTMLElement, PrimaryButtonProps>(
 		return button;
 	},
 );
-
-export default PrimaryButton;

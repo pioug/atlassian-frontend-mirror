@@ -51,5 +51,3 @@ export const Label: FC<LabelProps> = ({ children, htmlFor, id, testId }) => (
 export const Legend: FC<LegendProps> = ({ children }) => {
 	return <legend css={fieldsetLabelStyles}>{children}</legend>;
 };
-
-export default Label;

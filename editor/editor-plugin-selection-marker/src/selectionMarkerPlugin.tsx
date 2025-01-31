@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import type { ExtractInjectionAPI } from '@atlaskit/editor-common/types';
+import { useSharedPluginStateSelector } from '@atlaskit/editor-common/use-shared-plugin-state-selector';
 
 import { createPlugin, dispatchShouldHideDecorations, key } from './pm-plugins/main';
-import type { SelectionMarkerPlugin } from './selectionMarkerPluginType';
+import type { ReleaseHiddenDecoration, SelectionMarkerPlugin } from './selectionMarkerPluginType';
 import { GlobalStylesWrapper } from './ui/global-styles';
 
 export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ api }) => {
@@ -26,6 +27,7 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ api }) => {
 			}
 			return {
 				isForcedHidden: key.getState(editorState)?.forceHide ?? false,
+				isMarkerActive: !key.getState(editorState)?.shouldHideDecorations,
 			};
 		},
 
@@ -45,11 +47,35 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ api }) => {
 
 				return cleanupHiddenDecoration(api);
 			},
+
+			queueHideDecoration: (setCleanup: (cb: ReleaseHiddenDecoration | undefined) => void) => {
+				const result = api?.selectionMarker.actions.hideDecoration();
+				if (result === undefined) {
+					const cleanup = api?.selectionMarker?.sharedState.onChange(({ nextSharedState }) => {
+						if (
+							nextSharedState?.isForcedHidden === false &&
+							nextSharedState?.isMarkerActive === false
+						) {
+							const result = api?.selectionMarker.actions.hideDecoration();
+							setCleanup(result);
+							cleanup?.();
+						}
+					});
+					return cleanup;
+				}
+				setCleanup(result);
+				return () => {};
+			},
 		},
 
 		usePluginHook({ editorView }) {
-			const { focusState, typeAheadState, selectionMarkerState, editorDisabledState } =
-				useSharedPluginState(api, ['focus', 'typeAhead', 'editorDisabled', 'selectionMarker']);
+			const { focusState, typeAheadState, editorDisabledState } = useSharedPluginState(api, [
+				'focus',
+				'typeAhead',
+				'editorDisabled',
+				'selectionMarker',
+			]);
+			const isForcedHidden = useSharedPluginStateSelector(api, 'selectionMarker.isForcedHidden');
 			useEffect(() => {
 				/**
 				 * There are a number of conditions we should not show the marker,
@@ -61,11 +87,11 @@ export const selectionMarkerPlugin: SelectionMarkerPlugin = ({ api }) => {
 				const shouldHide =
 					(focusState?.hasFocus ||
 						(typeAheadState?.isOpen ?? false) ||
-						selectionMarkerState?.isForcedHidden ||
+						isForcedHidden ||
 						(editorDisabledState?.editorDisabled ?? false)) ??
 					true;
 				requestAnimationFrame(() => dispatchShouldHideDecorations(editorView, shouldHide));
-			}, [editorView, focusState, typeAheadState, selectionMarkerState, editorDisabledState]);
+			}, [editorView, focusState, typeAheadState, isForcedHidden, editorDisabledState]);
 		},
 
 		contentComponent() {

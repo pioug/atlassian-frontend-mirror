@@ -110,5 +110,3 @@ export const Create = ({
 		</div>
 	);
 };
-
-export default Create;

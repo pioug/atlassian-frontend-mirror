@@ -75,11 +75,11 @@
 		"@atlaskit/editor-test-helpers": "^21.1.0",
 		"@atlaskit/flag": "^15.8.0",
 		"@atlassian/feature-flags-test-utils": "^0.2.0",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",
 		"enzyme": "^3.10.0",
 		"enzyme-adapter-react-16": "^1.15.1",
-		"react": "^16.8.0",
+		"react": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"keywords": [

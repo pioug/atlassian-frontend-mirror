@@ -45,12 +45,12 @@
 	},
 	"peerDependencies": {
 		"@emotion/react": "^11.0.0",
-		"react": "^16.8.0"
+		"react": "^18.2.0"
 	},
 	"devDependencies": {
 		"enzyme": "^3.10.0",
-		"react-dom": "^16.8.0",
-		"react-test-renderer": "^16.8.0",
+		"react-dom": "^18.2.0",
+		"react-test-renderer": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

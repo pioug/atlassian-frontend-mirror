@@ -1,5 +1,13 @@
 # @atlaskit/atlassian-navigation
 
+## 4.10.4
+
+### Patch Changes
+
+- [#104068](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/104068)
+  [`624d374b427b7`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/624d374b427b7) -
+  Cleans up and updates dependencies. Removes unused internal exports and deletes unused files.
+
 ## 4.10.3
 
 ### Patch Changes

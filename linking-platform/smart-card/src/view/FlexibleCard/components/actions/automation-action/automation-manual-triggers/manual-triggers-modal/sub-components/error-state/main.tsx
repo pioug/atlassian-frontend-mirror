@@ -1,10 +1,33 @@
-import React from 'react';
-
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
 import { defineMessages, useIntl } from 'react-intl-next';
 
-import { Box, Stack, xcss } from '@atlaskit/primitives';
+import { cssMap, jsx } from '@atlaskit/css';
+import { fg } from '@atlaskit/platform-feature-flags';
+import { Box, Stack } from '@atlaskit/primitives/compiled';
+import { token } from '@atlaskit/tokens';
 
+import { AutomationModalErrorStateOld } from './AutomationModalErrorStateOld';
 import ErrorIcon from './error-icon';
+
+const styles = cssMap({
+	errorState: {
+		textAlign: 'center',
+		marginTop: token('space.500'),
+	},
+	imageContainer: {
+		display: 'block',
+		maxWidth: '116px',
+		maxHeight: '156px',
+		marginBottom: token('space.300'),
+		marginTop: token('space.050'),
+	},
+	description: {
+		maxWidth: '360px',
+	},
+});
 
 const i18n = defineMessages({
 	errorDescription: {
@@ -19,32 +42,22 @@ const i18n = defineMessages({
 	},
 });
 
-const errorStateStyles = xcss({
-	textAlign: 'center',
-	marginTop: 'space.500',
-});
-
-const imageContainerStyles = xcss({
-	display: 'block',
-	maxWidth: '116px',
-	maxHeight: '156px',
-	marginBottom: 'space.300',
-	marginTop: 'space.050',
-});
-
-const descriptionStyles = xcss({
-	maxWidth: '360px',
-});
-
-export const AutomationModalErrorState = () => {
+const AutomationModalErrorStateNew = () => {
 	const { formatMessage } = useIntl();
 
 	return (
-		<Stack xcss={errorStateStyles} alignInline="center" alignBlock="center">
-			<Box xcss={imageContainerStyles}>
+		<Stack xcss={styles.errorState} alignInline="center" alignBlock="center">
+			<Box xcss={styles.imageContainer}>
 				<ErrorIcon />
 			</Box>
-			<Box xcss={descriptionStyles}>{formatMessage(i18n.errorDescription)}</Box>
+			<Box xcss={styles.description}>{formatMessage(i18n.errorDescription)}</Box>
 		</Stack>
 	);
+};
+
+export const AutomationModalErrorState = () => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <AutomationModalErrorStateNew />;
+	}
+	return <AutomationModalErrorStateOld />;
 };

@@ -1,8 +1,13 @@
-import React, { useCallback, useRef } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { useCallback, useRef } from 'react';
 
 import { FormattedMessage } from 'react-intl-next';
 
 import Button from '@atlaskit/button/new';
+import { cssMap, jsx } from '@atlaskit/css';
 import Modal, {
 	ModalBody,
 	ModalFooter,
@@ -11,7 +16,7 @@ import Modal, {
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
 import { fg } from '@atlaskit/platform-feature-flags';
-import { Box, xcss } from '@atlaskit/primitives';
+import { Box } from '@atlaskit/primitives/compiled';
 
 import { useAnalyticsEvents } from '../../../common/analytics/generated/use-analytics-events';
 import { messages } from '../../../messages';
@@ -19,11 +24,13 @@ import { messages } from '../../../messages';
 import RelatedLinksBaseModalOld from './RelatedLinksBaseModalOld';
 import { type RelatedLinksBaseModalProps } from './types';
 
-const fixedWidth = 'small'; // pre-defined 400px by Atlaskit
-
-const boxStyles = xcss({
-	height: '396px', // Specified by the designer as this will display 5 incoming links and 2 outgoing links
+const styles = cssMap({
+	box: {
+		height: '396px',
+	},
 });
+
+const fixedWidth = 'small'; // pre-defined 400px by Atlaskit
 
 const RelatedLinksBaseModal = ({ onClose, showModal, children }: RelatedLinksBaseModalProps) => {
 	const { fireEvent } = useAnalyticsEvents();
@@ -60,7 +67,7 @@ const RelatedLinksBaseModal = ({ onClose, showModal, children }: RelatedLinksBas
 						</ModalTitle>
 					</ModalHeader>
 					<ModalBody>
-						<Box xcss={boxStyles}>{children}</Box>
+						<Box xcss={styles.box}>{children}</Box>
 					</ModalBody>
 					<ModalFooter>
 						<Button appearance="primary" onClick={closeHandler}>

@@ -31,6 +31,7 @@ export const commitStepQueue = ({
 	emit,
 	__livePage,
 	hasRecovered,
+	collabMode,
 }: {
 	broadcast: <K extends keyof ChannelEvent>(
 		type: K,
@@ -47,6 +48,7 @@ export const commitStepQueue = ({
 	emit: (evt: keyof CollabEvents, data: CollabCommitStatusEventPayload) => void;
 	__livePage: boolean;
 	hasRecovered: boolean;
+	collabMode: string;
 }) => {
 	if (!readyToCommit) {
 		logger('Not ready to commit, skip');
@@ -101,6 +103,7 @@ export const commitStepQueue = ({
 		broadcast(
 			'steps:commit',
 			{
+				collabMode,
 				steps: stepsWithClientAndUserId,
 				version,
 				userId,

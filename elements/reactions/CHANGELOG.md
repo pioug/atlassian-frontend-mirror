@@ -1,5 +1,23 @@
 # @atlaskit/reactions
 
+## 24.3.0
+
+### Minor Changes
+
+- [#108357](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108357)
+  [`dd0053af6d370`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/dd0053af6d370) -
+  [ux] "And X others" entrypoint into Reactions Dialog removed. "More info" entrypoint removed and
+  completely deleted from ReactionTooltip
+
+## 24.2.0
+
+### Minor Changes
+
+- [#108078](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108078)
+  [`d7e3f8c56ff08`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/d7e3f8c56ff08) -
+  [ux] Adds the profileCardWrapper prop which adds an on-hover interaction to the Avatar picture and
+  shows the user's profile card
+
 ## 24.1.0
 
 ### Minor Changes

@@ -5,7 +5,7 @@ import {
 	getVCPercentFromHeatmap,
 	getVCPercentileTargets,
 } from './measurements';
-import type { UserEvent } from './timeline';
+import type { UserEvent } from './timelineTypes';
 
 const createEntry = (entry: Partial<Partial<HeatmapEntry['head']>>): HeatmapEntry['head'] => {
 	return {

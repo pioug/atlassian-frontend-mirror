@@ -1,5 +1,13 @@
 # @atlaskit/ufo-interaction-ignore
 
+## 2.13.0
+
+### Minor Changes
+
+- [#106329](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106329)
+  [`251d8f2b8d4a9`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/251d8f2b8d4a9) -
+  Added ufo:vc:next:dom field to payload
+
 ## 2.12.2
 
 ### Patch Changes

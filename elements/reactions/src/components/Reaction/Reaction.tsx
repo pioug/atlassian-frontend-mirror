@@ -19,7 +19,7 @@ import {
 import { type ReactionSummary, type ReactionClick, type ReactionMouseEnter } from '../../types';
 import { Counter } from '../Counter';
 import { ReactionParticleEffect } from '../ReactionParticleEffect';
-import { ReactionTooltip, type ReactionTooltipProps } from '../ReactionTooltip';
+import { ReactionTooltip } from '../ReactionTooltip';
 import { messages } from '../../shared/i18n';
 import { isLeftClick } from '../../shared/utils';
 import { emojiStyle, emojiNoReactionStyle } from './styles';
@@ -31,7 +31,7 @@ import { ReactionButton } from './ReactionButton';
  */
 export const RENDER_REACTION_TESTID = 'render_reaction_wrapper';
 
-export interface ReactionProps extends Pick<ReactionTooltipProps, 'allowUserDialog'> {
+export interface ReactionProps {
 	/**
 	 * Data for the reaction
 	 */
@@ -60,10 +60,6 @@ export interface ReactionProps extends Pick<ReactionTooltipProps, 'allowUserDial
 	 * Show a floating emoji particle effect (usually in response to a new reaction) (defaults to false)
 	 */
 	showParticleEffect?: boolean;
-	/**
-	 * Optional function when the user wants to see more users in a modal
-	 */
-	handleUserListClick?: (emojiId: string) => void;
 	/**
 	 * Optional prop for using an opaque button background instead of a transparent background
 	 */
@@ -105,8 +101,6 @@ export const Reaction = ({
 	onFocused = () => {},
 	flash = false,
 	showParticleEffect = false,
-	handleUserListClick = () => {},
-	allowUserDialog,
 	showOpaqueBackground = false,
 }: ReactionProps) => {
 	const intl = useIntl();
@@ -169,11 +163,6 @@ export const Reaction = ({
 		[createAnalyticsEvent, reaction, onFocused],
 	);
 
-	const handleOpenReactionsDialog = (emojiId: string) => {
-		handleUserListClick(emojiId);
-		setIsTooltipEnabled(false);
-	};
-
 	const buttonStyles = showOpaqueBackground ? [opaqueBackgroundStyles] : [];
 
 	return (
@@ -181,13 +170,7 @@ export const Reaction = ({
 			{showParticleEffect && (
 				<ReactionParticleEffect emojiId={emojiId} emojiProvider={emojiProvider} />
 			)}
-			<ReactionTooltip
-				emojiName={emojiName}
-				reaction={reaction}
-				handleUserListClick={handleOpenReactionsDialog}
-				allowUserDialog={allowUserDialog}
-				isEnabled={isTooltipEnabled}
-			>
+			<ReactionTooltip emojiName={emojiName} reaction={reaction} isEnabled={isTooltipEnabled}>
 				<ReactionButton
 					onClick={handleClick}
 					flash={flash}

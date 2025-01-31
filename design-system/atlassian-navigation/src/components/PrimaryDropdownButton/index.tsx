@@ -58,5 +58,3 @@ export const PrimaryDropdownButton = forwardRef<HTMLElement, PrimaryDropdownButt
 		);
 	},
 );
-
-export default PrimaryDropdownButton;

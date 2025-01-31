@@ -1,5 +1,6 @@
 import { EditorPerformanceObserver } from './editorPerformanceObserver';
-import { type Timeline, TimelineController } from './timeline';
+import { TimelineController } from './timeline';
+import type { Timeline } from './timelineInterfaces';
 
 interface WindowWithEditorPerformance extends Window {
 	__editor_performance_metrics_observer?: EditorPerformanceObserver;

@@ -45,7 +45,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/visual-regression": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

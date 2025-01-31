@@ -46,6 +46,10 @@ const mockHoverCardComponent = injectable(HoverCardComponent, (props) => (
 const dependencies = [MockIFrame, mockHoverCardControl, mockHoverCardComponent];
 
 export type VRTestWrapperProps = PropsWithChildren<{
+	/**
+	 * @deprecated, remove on FF clean up bandicoots-compiled-migration-smartcard
+	 * use css instead
+	 */
 	overrideCss?: SerializedStyles;
 }>;
 const VRTestWrapper = ({ children, overrideCss }: VRTestWrapperProps) => {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/inline-dialog",
-	"version": "16.0.2",
+	"version": "16.0.3",
 	"description": "An inline dialog is a pop-up container for small amounts of information. It can also contain controls.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,7 +45,7 @@
 	"dependencies": {
 		"@atlaskit/analytics-next": "^10.2.0",
 		"@atlaskit/css": "^0.7.0",
-		"@atlaskit/ds-lib": "^3.3.0",
+		"@atlaskit/ds-lib": "^3.4.0",
 		"@atlaskit/layering": "^1.0.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/popper": "^6.3.0",
@@ -67,14 +67,15 @@
 		"@atlaskit/datetime-picker": "^15.11.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/dropdown-menu": "^12.25.0",
+		"@atlaskit/link": "*",
 		"@atlaskit/modal-dialog": "^12.19.0",
+		"@atlaskit/primitives": "^13.3.8",
 		"@atlaskit/section-message": "^6.8.0",
 		"@atlaskit/select": "^18.9.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/visual-regression": "*",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@types/react-node-resolver": "^2.0.0",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"react-lorem-component": "^0.13.0",
 		"typescript": "~5.4.2"
 	},

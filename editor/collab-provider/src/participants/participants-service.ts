@@ -436,4 +436,8 @@ export class ParticipantsService {
 	getAIProviderParticipants = () => {
 		return this.participantsState.getAIProviderParticipants();
 	};
+
+	getCollabMode = () => {
+		return this.participantsState.size() > 1 ? 'collab' : 'single';
+	};
 }

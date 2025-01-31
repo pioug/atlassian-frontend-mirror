@@ -1,5 +1,13 @@
 # @atlaskit/grid
 
+## 0.15.3
+
+### Patch Changes
+
+- [#108119](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108119)
+  [`a1b3eebdf2de0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a1b3eebdf2de0) -
+  Update dev depdencies and remove unused internal exports.
+
 ## 0.15.2
 
 ### Patch Changes

@@ -67,6 +67,7 @@ export const test = base.extend<{
 		| 'vc-observer-placeholder'
 		| 'vc-observer-attribute-mutation'
 		| 'latency-mouse-events'
+		| 'editor-full-page'
 		| 'latency-keyboard-events';
 }>({
 	viewport: {

@@ -110,5 +110,3 @@ export const generateTheme = (themeColors: GenerateThemeArgs): NavigationTheme =
 		},
 	};
 };
-
-export default generateTheme;

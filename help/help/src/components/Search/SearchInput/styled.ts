@@ -32,6 +32,7 @@ export const SearchIconContainer = styled.div({
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-styled, @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
 export const CloseButtonAndSpinnerContainer = styled.div({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: 0,
 	paddingRight: token('space.100', '8px'),
 	position: 'relative',

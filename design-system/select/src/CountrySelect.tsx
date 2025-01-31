@@ -29,6 +29,7 @@ const labelStyles = css({
 });
 
 const flagStyles = css({
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	fontSize: '1.125rem', // emoji size
 	marginInlineEnd: token('space.100', '8px'),
 });

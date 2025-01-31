@@ -3,9 +3,9 @@
  *
  * Extract component prop types from UIKit 2 components - TabProps
  *
- * @codegen <<SignedSource::b524262570052be714e6f79ea8498129>>
+ * @codegen <<SignedSource::6b0d6b725c7692c9bfcddf45f3ca4f1f>>
  * @codegenCommand yarn workspace @atlaskit/forge-react-types codegen
- * @codegenDependency ../../../../forge-ui/src/components/UIKit/tabs/__generated__/tab.partial.tsx <<SignedSource::2ead4cab9a2f95ec27b0dee4d57ed3bc>>
+ * @codegenDependency ../../../../forge-ui/src/components/UIKit/tabs/__generated__/tab.partial.tsx <<SignedSource::f5363c279366b51358d257738457c7d5>>
  */
 /* eslint @repo/internal/codegen/signed-source-integrity: "warn" */
 
@@ -18,3 +18,8 @@ export type TabProps = Pick<
   PlatformTabProps,
   'children' | 'testId'
 >;
+
+/**
+ * Tabs are used to organize content by grouping similar information on the same page.
+ */
+export type TTab<T> = (props: TabProps) => T;

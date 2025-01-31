@@ -148,7 +148,10 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 			insertTable:
 				(analyticsPayload): Command =>
 				(state, dispatch) => {
-					if (fg('platform_editor_use_nested_table_pm_nodes')) {
+					if (
+						options?.tableOptions?.allowNestedTables &&
+						fg('platform_editor_use_nested_table_pm_nodes')
+					) {
 						return editorCommandToPMCommand(
 							insertTableWithNestingSupport(
 								{
@@ -235,7 +238,8 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 		nodes() {
 			const { allowColumnResizing } = pluginConfig(options?.tableOptions);
 			// TODO: ED-25901 - We need to move this into a plugin config option so we don't accidentally enable nested nodes in Jira
-			const isNestingSupported = fg('platform_editor_use_nested_table_pm_nodes');
+			const isNestingSupported =
+				options?.tableOptions?.allowNestedTables && fg('platform_editor_use_nested_table_pm_nodes');
 
 			return isNestingSupported
 				? [
@@ -716,6 +720,7 @@ const tablesPlugin: TablePlugin = ({ config: options, api }) => {
 						// If the cursor is inside a table
 						if (
 							hasParentNodeOfType(state.schema.nodes.table)(state.selection) &&
+							options?.tableOptions?.allowNestedTables &&
 							fg('platform_editor_use_nested_table_pm_nodes')
 						) {
 							// If the experiment is disabled, or we're trying to nest deeper than one level, we insert the table after the top table

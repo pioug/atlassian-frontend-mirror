@@ -47,7 +47,7 @@
 		"@atlaskit/linking-types": "^9.5.0",
 		"@babel/runtime": "^7.0.0",
 		"@jest/globals": "^26.4.2",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"fetch-mock": "^8.0.0",
 		"jest-diff": "^29.7.0",
 		"json-ld-types": "^4.1.0",
@@ -58,7 +58,7 @@
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2"
 	},
 	"techstack": {

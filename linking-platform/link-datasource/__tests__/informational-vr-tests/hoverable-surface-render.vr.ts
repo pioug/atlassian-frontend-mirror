@@ -21,32 +21,35 @@ const options: OptionsType = {
 
 const hoverableContainerSelector = '[data-testid="examples-hoverable-container"]';
 
-snapshotInformational(JiraIssuesTable, {
-	...options,
-	prepare: async (page: Page) => {
-		await page.hover(hoverableContainerSelector);
-	},
-	description: 'jira issues table on a hoverable surface',
-	ignoredErrors: [
-		{
-			pattern: /(received unsupported error)|(The above error occurred in the)/,
-			ignoredBecause: 'Intentionally triggering an error to capture error boundary fallback',
-			jiraIssueId: 'NONE-123',
+// This test only works on React 16.
+if (process.env.IS_REACT_18 === 'false') {
+	snapshotInformational(JiraIssuesTable, {
+		...options,
+		prepare: async (page: Page) => {
+			await page.hover(hoverableContainerSelector);
 		},
-	],
-});
+		description: 'jira issues table on a hoverable surface',
+		ignoredErrors: [
+			{
+				pattern: /(received unsupported error)|(The above error occurred in the)/,
+				ignoredBecause: 'Intentionally triggering an error to capture error boundary fallback',
+				jiraIssueId: 'NONE-123',
+			},
+		],
+	});
 
-snapshotInformational(EmptyState, {
-	...options,
-	prepare: async (page: Page) => {
-		await page.hover(hoverableContainerSelector);
-	},
-	description: 'empty state table on a hoverable surface',
-	ignoredErrors: [
-		{
-			pattern: /(received unsupported error)|(The above error occurred in the)/,
-			ignoredBecause: 'Intentionally triggering an error to capture error boundary fallback',
-			jiraIssueId: 'NONE-123',
+	snapshotInformational(EmptyState, {
+		...options,
+		prepare: async (page: Page) => {
+			await page.hover(hoverableContainerSelector);
 		},
-	],
-});
+		description: 'empty state table on a hoverable surface',
+		ignoredErrors: [
+			{
+				pattern: /(received unsupported error)|(The above error occurred in the)/,
+				ignoredBecause: 'Intentionally triggering an error to capture error boundary fallback',
+				jiraIssueId: 'NONE-123',
+			},
+		],
+	});
+}

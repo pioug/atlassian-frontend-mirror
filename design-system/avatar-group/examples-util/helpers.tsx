@@ -15,6 +15,7 @@ const styles = cssMap({
 	heading: {
 		color: token('color.text.subtlest'),
 		display: 'flex',
+		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		fontSize: '0.8rem',
 		fontWeight: token('font.weight.medium'),
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-space -- needs manual remediation

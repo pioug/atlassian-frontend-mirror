@@ -11,8 +11,6 @@ import { token } from '@atlaskit/tokens';
 
 import type { BaseGridProps } from './types';
 
-export type GridContainerProps = BaseGridProps;
-
 const containerBaseStyles = css({
 	display: 'grid',
 	boxSizing: 'border-box',
@@ -105,7 +103,7 @@ export const GridContainerContext = createContext(false);
  * );
  * ```
  */
-export const GridContainer: FC<GridContainerProps> = ({
+export const GridContainer: FC<BaseGridProps> = ({
 	testId,
 	children,
 	maxWidth,

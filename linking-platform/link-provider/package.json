@@ -54,11 +54,11 @@
 	"devDependencies": {
 		"@atlaskit/media-test-helpers": "^34.7.0",
 		"@atlassian/feature-flags-test-utils": "0.2.3",
-		"@testing-library/react": "^12.1.5",
+		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"@types/async-retry": "^1.4.1",
 		"@types/redux": "^3.6.0",
-		"react-dom": "^16.8.0",
+		"react-dom": "^18.2.0",
 		"typescript": "~5.4.2",
 		"wait-for-expect": "^1.2.0"
 	}

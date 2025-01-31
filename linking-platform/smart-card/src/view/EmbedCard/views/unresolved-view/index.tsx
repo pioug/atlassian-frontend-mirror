@@ -4,18 +4,18 @@
  */
 import React, { useMemo } from 'react';
 
-// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { css, jsx } from '@emotion/react';
+import { css, jsx } from '@compiled/react';
 
 import Heading from '@atlaskit/heading';
 import LinkGlyph from '@atlaskit/icon/core/migration/link';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { gs } from '../../../common/utils';
 import { ExpandedFrame } from '../../components/ExpandedFrame';
 import { ImageIcon } from '../../components/ImageIcon';
 
 import type { UnresolvedViewProps } from './types';
+import UnresolvedViewOld from './UnresolvedViewOld';
 
 const containerStyles = css({
 	display: 'grid',
@@ -32,7 +32,7 @@ const contentStyles = css({
 	padding: token('space.200', '16px'),
 	gap: token('space.250', '20px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-	maxWidth: gs(50),
+	maxWidth: '400px',
 });
 
 const descriptionStyles = css({
@@ -134,4 +134,12 @@ const UnresolvedView = ({
 	);
 };
 
-export default UnresolvedView;
+export const UnresolvedViewExported = (props: UnresolvedViewProps) => {
+	if (fg('bandicoots-compiled-migration-smartcard')) {
+		return <UnresolvedView {...props} />;
+	} else {
+		return <UnresolvedViewOld {...props} />;
+	}
+};
+
+export default UnresolvedViewExported;

@@ -2,7 +2,7 @@ type OverridesFunc<X extends Record<string, any>, Y extends Record<string, any>>
 	key: string,
 ) => Record<string, any>;
 // eslint-disable-next-line @repo/internal/react/consistent-types-definitions
-export type ExtenderType = <D extends Record<string, any>, O extends Record<string, any>>(
+type ExtenderType = <D extends Record<string, any>, O extends Record<string, any>>(
 	d: D,
 	o?: O,
 ) => OverridesFunc<D, O>;

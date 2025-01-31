@@ -67,5 +67,3 @@ export const SignIn = (props: SignInProps) => {
 		</div>
 	);
 };
-
-export default SignIn;

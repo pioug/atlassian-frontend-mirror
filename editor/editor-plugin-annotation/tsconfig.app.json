@@ -47,6 +47,9 @@
 			"path": "../editor-plugin-editor-viewmode-effects/tsconfig.app.json"
 		},
 		{
+			"path": "../editor-plugin-engagement-platform/tsconfig.app.json"
+		},
+		{
 			"path": "../editor-plugin-feature-flags/tsconfig.app.json"
 		},
 		{

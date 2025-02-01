@@ -3,7 +3,6 @@ import { expect, test } from '@af/integration-testing';
 
 const selectDefault = '.react-select__value-container';
 const selectMenu = '.react-select__menu';
-const selectMenuItem1 = '.react-select__option:nth-child(1)';
 
 const selectMultiAdelaide = '[role="option"]:nth-child(1)';
 const selectMultiBrisbane = '[role="option"]:nth-child(2)';
@@ -22,8 +21,8 @@ test(`Single-select should display a menu once clicked and select a menu item`, 
 	await page.visitExample('design-system', 'select', 'single-select');
 	await page.locator(selectDefault).first().click();
 	await expect(page.locator(selectMenu)).toBeVisible();
-	await page.locator(selectMenuItem1).first().click();
-	await expect(page.locator(selectedValue)).not.toHaveText('Choose a City');
+	await page.getByRole('option', { name: 'Darwin' }).click();
+	await expect(page.locator(selectedValue)).toHaveText('Darwin');
 });
 
 test(`Multi-select should display a menu once clicked and not throwing errors`, async ({
@@ -66,8 +65,8 @@ test(`Checkbox-select should display a menu once clicked and not throwing errors
 }) => {
 	await page.visitExample('design-system', 'select', 'checkbox-select');
 	await page.locator(selectCheckbox).first().click();
-	await expect(page.locator(selectCheckboxMenu)).toBeVisible();
+	await expect(page.locator(selectCheckboxMenu).first()).toBeVisible();
 	await page.locator(selectRadioAdelaide).first().click();
 	await page.locator(selectedValueContainer).first().click();
-	await expect(page.locator(selectedValueContainer)).not.toHaveText('Choose a City');
+	await expect(page.locator(selectedValueContainer).first()).not.toHaveText('Choose a City');
 });

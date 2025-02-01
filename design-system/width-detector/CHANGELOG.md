@@ -1,5 +1,13 @@
 # @atlaskit/width-detector
 
+## 4.4.0
+
+### Minor Changes
+
+- [#109060](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109060)
+  [`4660ec858a305`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4660ec858a305) -
+  Update `React` from v16 to v18
+
 ## 4.3.2
 
 ### Patch Changes

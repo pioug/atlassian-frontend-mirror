@@ -45,6 +45,12 @@ const ValidationExample = () => (
 						<Select {...props} options={cities} placeholder="Choose a City" isInvalid={isInvalid} />
 					)}
 				</Field>
+
+				<Field label="City Invalid" id="invalid" name="invalid-city">
+					{({ fieldProps: { isInvalid, ...props } }: any) => (
+						<Select {...props} options={cities} placeholder="Choose a City" isInvalid={true} />
+					)}
+				</Field>
 			</form>
 		)}
 	</Form>

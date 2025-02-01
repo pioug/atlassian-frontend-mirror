@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-image",
-	"version": "19.2.3",
+	"version": "19.3.0",
 	"description": "Media image element - provides single display of image",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -46,10 +46,10 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/media-client": "^31.0.0",
-		"@atlaskit/media-client-react": "^2.6.0",
-		"@atlaskit/media-common": "^11.7.0",
-		"@atlaskit/media-file-preview": "^0.9.0",
+		"@atlaskit/media-client": "^31.1.0",
+		"@atlaskit/media-client-react": "^2.7.0",
+		"@atlaskit/media-common": "^11.8.0",
+		"@atlaskit/media-file-preview": "^0.10.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1",
@@ -59,12 +59,12 @@
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/docs": "^9.1.0",
-		"@atlaskit/media-test-data": "^2.10.0",
-		"@atlaskit/media-test-helpers": "^34.7.0",
-		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.2.0",
-		"@atlassian/feature-flags-test-utils": "^0.2.0",
+		"@atlaskit/docs": "^10.0.0",
+		"@atlaskit/media-test-data": "^2.11.0",
+		"@atlaskit/media-test-helpers": "^34.8.0",
+		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/tokens": "^3.3.0",
+		"@atlassian/feature-flags-test-utils": "^0.3.0",
 		"@emotion/react": "^11.7.1",
 		"@testing-library/react": "^13.4.0",
 		"enzyme": "^3.10.0",

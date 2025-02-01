@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/quick-search",
-	"version": "9.0.1",
+	"version": "10.0.0",
 	"description": "A quick-search component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,12 +28,12 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/analytics": "^8.2.0",
-		"@atlaskit/avatar": "^21.17.0",
-		"@atlaskit/menu": "^2.13.8",
-		"@atlaskit/spinner": "^17.0.0",
-		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/analytics": "^8.3.0",
+		"@atlaskit/avatar": "^21.18.0",
+		"@atlaskit/menu": "^2.14.0",
+		"@atlaskit/spinner": "^17.1.0",
+		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"keycode": "^2.1.7"
 	},

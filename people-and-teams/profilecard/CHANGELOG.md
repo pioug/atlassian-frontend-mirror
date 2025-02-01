@@ -1,5 +1,17 @@
 # @atlaskit/profilecard
 
+## 22.0.0
+
+### Major Changes
+
+- [#109060](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109060)
+  [`4660ec858a305`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4660ec858a305) -
+  Update `React` from v16 to v18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 21.1.6
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/breadcrumbs",
-	"version": "14.0.5",
+	"version": "14.1.0",
 	"description": "Breadcrumbs are a navigation system used to show a user's location in a site or app.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,12 +45,12 @@
 		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.2.0",
-		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/ds-lib": "^3.4.0",
-		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.2.0",
-		"@atlaskit/tooltip": "^19.0.0",
+		"@atlaskit/analytics-next": "^10.3.0",
+		"@atlaskit/button": "^20.4.0",
+		"@atlaskit/ds-lib": "^3.5.0",
+		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/tooltip": "^19.1.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1"
 	},
@@ -63,10 +63,10 @@
 		"@af/integration-testing": "*",
 		"@atlaskit/docs": "*",
 		"@atlaskit/link": "*",
-		"@atlaskit/logo": "^15.1.0",
-		"@atlaskit/primitives": "^13.3.8",
+		"@atlaskit/logo": "^15.2.0",
+		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/section-message": "*",
-		"@atlaskit/select": "^18.9.3",
+		"@atlaskit/select": "^18.10.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",

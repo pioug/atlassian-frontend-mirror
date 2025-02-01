@@ -84,6 +84,20 @@ const DisabledSelects = () => (
 			isSearchable={false}
 			placeholder="Choose a City"
 		/>
+		<Label htmlFor="disabled-options-single-displayed">
+			Single Select with disabled options displayed
+		</Label>
+		<Select
+			inputId="disabled-options-single-displayed"
+			menuIsOpen
+			options={[
+				{ label: 'Brisbane', value: 'brisbane', isDisabled: true },
+				{ label: 'Canberra', value: 'canberra' },
+				{ label: 'Melbourne', value: 'melbourne' },
+				{ label: 'Sydney', value: 'sydney' },
+			]}
+			placeholder="Choose a City"
+		/>
 	</>
 );
 

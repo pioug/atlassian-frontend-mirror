@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/collab-provider",
-	"version": "10.4.1",
+	"version": "10.5.0",
 	"description": "A provider for collaborative editing.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -38,16 +38,16 @@
 		"./version-wrapper": "./src/version-wrapper.ts"
 	},
 	"dependencies": {
-		"@atlaskit/adf-utils": "^19.17.0",
+		"@atlaskit/adf-utils": "^19.18.0",
 		"@atlaskit/analytics-gas-types": "^5.1.0",
-		"@atlaskit/analytics-listeners": "^8.13.0",
-		"@atlaskit/editor-common": "^99.5.0",
-		"@atlaskit/editor-json-transformer": "^8.21.0",
+		"@atlaskit/analytics-listeners": "^8.14.0",
+		"@atlaskit/editor-common": "^99.6.0",
+		"@atlaskit/editor-json-transformer": "^8.22.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@atlaskit/feature-gate-js-client": "^4.22.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/prosemirror-collab": "^0.11.0",
-		"@atlaskit/react-ufo": "^2.13.0",
+		"@atlaskit/react-ufo": "^2.14.0",
 		"@atlaskit/ufo": "^0.3.0",
 		"@atlaskit/util-service-support": "^6.2.0",
 		"@babel/runtime": "^7.0.0",
@@ -72,7 +72,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlassian/feature-flags-test-utils": "^0.2.0",
+		"@atlassian/feature-flags-test-utils": "^0.3.0",
 		"typescript": "~5.4.2"
 	},
 	"platform-feature-flags": {

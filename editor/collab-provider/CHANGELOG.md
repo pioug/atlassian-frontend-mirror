@@ -1,5 +1,17 @@
 # @atlaskit/collab-provider
 
+## 10.5.0
+
+### Minor Changes
+
+- [#107250](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107250)
+  [`9a71e848fdc06`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a71e848fdc06) -
+  Send collabMode flag to NCS via step commits
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 10.4.1
 
 ### Patch Changes

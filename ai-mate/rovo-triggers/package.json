@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/rovo-triggers",
-	"version": "1.4.1",
+	"version": "1.5.0",
 	"description": "Provides various trigger events to drive Rovo Chat functionality, such as a publish-subscribe and URL parameter hooks",
 	"author": "Atlassian Pty Ltd",
 	"publishConfig": {
@@ -47,7 +47,7 @@
 		"@atlaskit/primitives": "*",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
-		"@atlassian/feature-flags-test-utils": "0.2.3",
+		"@atlassian/feature-flags-test-utils": "0.3.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"react-dom": "^18.2.0",

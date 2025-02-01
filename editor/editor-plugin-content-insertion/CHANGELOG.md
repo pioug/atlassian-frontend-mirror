@@ -1,5 +1,17 @@
 # @atlaskit/editor-plugin-content-insertion
 
+## 1.12.0
+
+### Minor Changes
+
+- [#109060](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109060)
+  [`4660ec858a305`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4660ec858a305) -
+  Update `React` from v16 to v18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 1.11.4
 
 ### Patch Changes

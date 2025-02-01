@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-wikimarkup-transformer",
-	"version": "11.12.6",
+	"version": "11.13.0",
 	"description": "Wiki markup transformer for JIRA and Confluence",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -31,18 +31,18 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/editor-json-transformer": "^8.21.0",
+		"@atlaskit/editor-json-transformer": "^8.22.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
-		"@atlaskit/theme": "^14.0.0",
+		"@atlaskit/theme": "^14.1.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {
 		"@atlaskit/activity": "^1.0.1",
-		"@atlaskit/editor-core": "^203.11.0",
-		"@atlaskit/editor-test-helpers": "^21.1.0",
-		"@atlaskit/mention": "^23.10.0",
-		"@atlaskit/tokens": "^3.2.0",
-		"@atlaskit/util-data-test": "^17.13.0",
+		"@atlaskit/editor-core": "^203.12.0",
+		"@atlaskit/editor-test-helpers": "^21.2.0",
+		"@atlaskit/mention": "^23.11.0",
+		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/util-data-test": "^18.0.0",
 		"@emotion/react": "^11.7.1",
 		"@types/debug": "^4.1.10",
 		"cookie": "^0.3.1",

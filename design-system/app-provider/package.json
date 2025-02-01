@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/app-provider",
-	"version": "1.7.0",
+	"version": "1.8.0",
 	"description": "A top level provider for the Design System.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -43,7 +43,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0"
 	},
@@ -52,9 +52,9 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/dropdown-menu": "^12.25.0",
-		"@atlaskit/ds-lib": "^3.4.0",
-		"@atlaskit/primitives": "^13.3.7",
+		"@atlaskit/dropdown-menu": "^12.26.0",
+		"@atlaskit/ds-lib": "^3.5.0",
+		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",

@@ -244,6 +244,12 @@ export default class EditorActions<T = any> implements EditorActionsOptions<T> {
 	/**
 	 * @deprecated - please use `replaceDocument` found in the core plugin actions instead
 	 * using this will reset your Editor State which could cause some things to break (like emojis)
+	 * @example - use the `replaceDocument` from the core plugin actions instead
+	 * ```ts
+	 * const { editorApi, preset } = usePreset(...);
+		// where you need it
+		editorApi?.core.actions.replaceDocument(value);
+		return <ComposableEditor preset={preset} ... />
 	 */
 	replaceDocument(
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any

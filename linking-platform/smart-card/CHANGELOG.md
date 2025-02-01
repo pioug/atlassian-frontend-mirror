@@ -1,5 +1,20 @@
 # @atlaskit/smart-card
 
+## 34.8.0
+
+### Minor Changes
+
+- [#107356](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107356)
+  [`af53ea9193631`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/af53ea9193631) -
+  Convert the rest of exported smart card to use compiledcss
+- [#109060](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109060)
+  [`4660ec858a305`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4660ec858a305) -
+  Update `React` from v16 to v18
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.7.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/email-renderer",
-	"version": "9.0.0",
+	"version": "9.1.0",
 	"description": "Email renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -64,7 +64,7 @@
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
-		"@atlaskit/theme": "^14.0.0",
+		"@atlaskit/theme": "^14.1.0",
 		"@babel/runtime": "^7.0.0",
 		"date-fns": "^2.17.0",
 		"juice": "^7.0.0",

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/tooltip",
-	"version": "19.0.3",
+	"version": "19.1.0",
 	"description": "A tooltip is a floating, non-actionable label used to explain a user interface element or feature.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -49,14 +49,14 @@
 		"./utilities": "./src/utilities.ts"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.2.0",
-		"@atlaskit/ds-lib": "^3.4.0",
-		"@atlaskit/layering": "^1.0.0",
-		"@atlaskit/motion": "^1.9.0",
-		"@atlaskit/popper": "^6.3.0",
-		"@atlaskit/portal": "^4.10.0",
-		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/analytics-next": "^10.3.0",
+		"@atlaskit/ds-lib": "^3.5.0",
+		"@atlaskit/layering": "^1.1.0",
+		"@atlaskit/motion": "^1.10.0",
+		"@atlaskit/popper": "^6.4.0",
+		"@atlaskit/portal": "^4.11.0",
+		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1",
 		"@emotion/react": "^11.7.1",
@@ -69,8 +69,8 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
-		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/css": "^0.7.0",
+		"@atlaskit/button": "^20.4.0",
+		"@atlaskit/css": "^0.8.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/dom": "^10.1.0",

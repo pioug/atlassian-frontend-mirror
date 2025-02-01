@@ -26,8 +26,8 @@
 		"build-css": "run-ts build/js-to-css.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"peerDependencies": {

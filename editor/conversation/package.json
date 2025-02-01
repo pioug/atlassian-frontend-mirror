@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/conversation",
-	"version": "16.4.10",
+	"version": "16.5.0",
 	"description": "DEPRECATED Render conversation threads",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -33,15 +33,15 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.2.0",
-		"@atlaskit/avatar": "^21.17.0",
-		"@atlaskit/comment": "^12.0.0",
-		"@atlaskit/editor-common": "^99.5.0",
-		"@atlaskit/editor-core": "^203.11.0",
-		"@atlaskit/editor-plugins": "^7.0.0",
+		"@atlaskit/analytics-next": "^10.3.0",
+		"@atlaskit/avatar": "^21.18.0",
+		"@atlaskit/comment": "^12.1.0",
+		"@atlaskit/editor-common": "^99.6.0",
+		"@atlaskit/editor-core": "^203.12.0",
+		"@atlaskit/editor-plugins": "^7.1.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/reactions": "^24.3.0",
-		"@atlaskit/renderer": "^112.11.0",
+		"@atlaskit/reactions": "^24.4.0",
+		"@atlaskit/renderer": "^112.12.0",
 		"@babel/runtime": "^7.0.0",
 		"date-fns": "^2.17.0",
 		"lodash": "^4.17.21",
@@ -55,7 +55,7 @@
 		"styled-components": "^3.2.6"
 	},
 	"devDependencies": {
-		"@atlaskit/util-data-test": "^17.13.0",
+		"@atlaskit/util-data-test": "^18.0.0",
 		"@testing-library/react": "^13.4.0",
 		"@types/react-redux": "^5.0.0",
 		"enzyme": "^3.10.0",

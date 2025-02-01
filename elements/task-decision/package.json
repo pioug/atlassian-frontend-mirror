@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/task-decision",
-	"version": "17.11.6",
+	"version": "17.12.0",
 	"description": "Tasks and decisions react components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -45,11 +45,11 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-namespaced-context": "^6.12.0",
-		"@atlaskit/analytics-next": "^10.2.0",
-		"@atlaskit/icon": "^23.4.0",
-		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/analytics-namespaced-context": "^6.13.0",
+		"@atlaskit/analytics-next": "^10.3.0",
+		"@atlaskit/icon": "^23.5.0",
+		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@atlaskit/util-service-support": "^6.2.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1",
@@ -62,10 +62,10 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/analytics-listeners": "^8.13.0",
-		"@atlaskit/elements-test-helpers": "^0.7.0",
+		"@atlaskit/analytics-listeners": "^8.14.0",
+		"@atlaskit/elements-test-helpers": "^0.8.0",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/util-data-test": "^17.13.0",
+		"@atlaskit/util-data-test": "^18.0.0",
 		"@emotion/jest": "^11.8.0",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/user-event": "^14.4.3",

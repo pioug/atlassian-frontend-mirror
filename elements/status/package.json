@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/status",
-	"version": "1.8.2",
+	"version": "1.9.0",
 	"description": "Fabric Status React Components",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -24,14 +24,14 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.2.0",
-		"@atlaskit/icon": "^23.4.0",
-		"@atlaskit/lozenge": "^11.12.0",
+		"@atlaskit/analytics-next": "^10.3.0",
+		"@atlaskit/icon": "^23.5.0",
+		"@atlaskit/lozenge": "^11.13.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/textfield": "^6.7.0",
-		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/primitives": "^13.4.0",
+		"@atlaskit/textfield": "^6.8.0",
+		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -41,7 +41,7 @@
 	},
 	"devDependencies": {
 		"@af/visual-regression": "*",
-		"@atlaskit/elements-test-helpers": "^0.7.0",
+		"@atlaskit/elements-test-helpers": "^0.8.0",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/jest-dom": "^6.4.5",
 		"@testing-library/react": "^13.4.0",

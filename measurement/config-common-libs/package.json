@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/config-common-libs",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Common library code that's shared between the Frontend Web Client and the Backend NodeJS client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",

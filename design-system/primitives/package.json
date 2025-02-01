@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/primitives",
-	"version": "13.3.8",
+	"version": "13.4.0",
 	"description": "Primitives are token-backed low-level building blocks.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -124,14 +124,14 @@
 		"codegen-styles": "ts-node -r tsconfig-paths/register ./scripts/codegen-styles.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.2.0",
-		"@atlaskit/app-provider": "^1.7.0",
-		"@atlaskit/css": "^0.7.0",
-		"@atlaskit/ds-lib": "^3.4.0",
-		"@atlaskit/interaction-context": "^2.5.0",
+		"@atlaskit/analytics-next": "^10.3.0",
+		"@atlaskit/app-provider": "^1.8.0",
+		"@atlaskit/css": "^0.8.0",
+		"@atlaskit/ds-lib": "^3.5.0",
+		"@atlaskit/interaction-context": "^2.6.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/tokens": "^3.2.0",
-		"@atlaskit/visually-hidden": "^1.5.0",
+		"@atlaskit/tokens": "^3.3.0",
+		"@atlaskit/visually-hidden": "^1.6.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1",
 		"@emotion/react": "^11.7.1",
@@ -148,8 +148,8 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/ssr": "*",
-		"@atlaskit/toggle": "^14.0.0",
-		"@atlaskit/tooltip": "^19.0.0",
+		"@atlaskit/toggle": "^14.1.0",
+		"@atlaskit/tooltip": "^19.1.0",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/codegen": "^0.1.0",
 		"@testing-library/react": "^13.4.0",

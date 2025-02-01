@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/image",
-	"version": "1.3.11",
+	"version": "1.4.0",
 	"description": "An image that changes in light or dark themes.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -28,8 +28,8 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/app-provider": "1.7.0",
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/app-provider": "1.8.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -41,9 +41,9 @@
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
 		"@atlaskit/docs": "*",
-		"@atlaskit/ds-lib": "^3.4.0",
+		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/link": "*",
-		"@atlaskit/primitives": "^13.3.8",
+		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^13.4.0",

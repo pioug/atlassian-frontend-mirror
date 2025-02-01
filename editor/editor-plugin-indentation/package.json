@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-indentation",
-	"version": "1.8.12",
+	"version": "1.9.0",
 	"description": "Indentation plugin for @atlaskit/editor-core",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -35,7 +35,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/adf-schema": "^46.1.0",
-		"@atlaskit/editor-common": "^99.5.0",
+		"@atlaskit/editor-common": "^99.6.0",
 		"@atlaskit/editor-plugin-analytics": "^1.11.0",
 		"@atlaskit/editor-prosemirror": "6.2.1",
 		"@babel/runtime": "^7.0.0"

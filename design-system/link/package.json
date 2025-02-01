@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link",
-	"version": "2.0.2",
+	"version": "2.1.0",
 	"description": "A link takes people to a new location in the product or another website.",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -39,10 +39,10 @@
 		".": "./src/index.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/css": "^0.7.0",
+		"@atlaskit/css": "^0.8.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/primitives": "^13.4.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1"
 	},
@@ -53,8 +53,8 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/analytics-next": "^10.2.0",
-		"@atlaskit/app-provider": "^1.7.0",
+		"@atlaskit/analytics-next": "^10.3.0",
+		"@atlaskit/app-provider": "^1.8.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",

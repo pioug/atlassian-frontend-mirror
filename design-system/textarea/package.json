@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/textarea",
-	"version": "5.7.3",
+	"version": "5.8.0",
 	"description": "A text area lets users enter long form text which spans over multiple lines.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -48,11 +48,11 @@
 		"./types": "./src/types.tsx"
 	},
 	"dependencies": {
-		"@atlaskit/analytics-next": "^10.2.0",
+		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/primitives": "^13.3.0",
-		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/primitives": "^13.4.0",
+		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@emotion/react": "^11.7.1"
 	},
@@ -63,7 +63,7 @@
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
 		"@af/visual-regression": "*",
-		"@atlaskit/ds-lib": "^3.4.0",
+		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@atlassian/feature-flags-test-utils": "*",

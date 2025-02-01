@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/spinner",
-	"version": "17.0.0",
+	"version": "17.1.0",
 	"description": "A spinner is an animated spinning icon that lets users know content is being loaded.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -25,9 +25,9 @@
 		}
 	},
 	"dependencies": {
-		"@atlaskit/interaction-context": "^2.5.0",
-		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/interaction-context": "^2.6.0",
+		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1"
 	},
@@ -37,7 +37,7 @@
 	"devDependencies": {
 		"@af/accessibility-testing": "*",
 		"@af/integration-testing": "*",
-		"@atlaskit/ds-lib": "^3.4.0",
+		"@atlaskit/ds-lib": "^3.5.0",
 		"@atlaskit/ssr": "*",
 		"@atlaskit/visual-regression": "*",
 		"@testing-library/react": "^13.4.0",

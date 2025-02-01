@@ -38,16 +38,16 @@
 	"dependencies": {
 		"@atlaskit/eslint-plugin-platform": "2.2.1",
 		"@atlaskit/feature-gate-js-client": "^4.17.1",
-		"@atlaskit/link-client-extension": "^3.0.0",
+		"@atlaskit/link-client-extension": "^3.1.0",
 		"@atlaskit/link-extractors": "^1.9.0",
-		"@atlaskit/linking-common": "^6.1.0",
+		"@atlaskit/linking-common": "^6.2.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@babel/runtime": "^7.0.0",
 		"dataloader": "^2.1.0",
 		"json-ld-types": "^4.1.0"
 	},
 	"peerDependencies": {
-		"@atlaskit/link-provider": "^1.18.0",
+		"@atlaskit/link-provider": "^1.19.0",
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/chunkinator",
-	"version": "6.1.0",
+	"version": "6.2.0",
 	"description": "Upload large files from the browser with ease",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,8 +43,8 @@
 		"react": "^16.8.0 || ^17.0.0 || ~18.2.0"
 	},
 	"devDependencies": {
-		"@atlaskit/media-common": "^11.7.0",
-		"@atlaskit/media-test-helpers": "^34.7.3",
+		"@atlaskit/media-common": "^11.8.0",
+		"@atlaskit/media-test-helpers": "^34.8.0",
 		"mockdate": "^3.0.5",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",

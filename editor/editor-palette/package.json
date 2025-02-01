@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-palette",
-	"version": "1.6.4",
+	"version": "1.7.0",
 	"description": "The editor palette",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -36,7 +36,7 @@
 		".": "./src/index.ts"
 	},
 	"dependencies": {
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0"
 	},
 	"devDependencies": {

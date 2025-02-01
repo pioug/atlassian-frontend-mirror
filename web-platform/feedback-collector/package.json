@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/feedback-collector",
-	"version": "13.14.5",
+	"version": "13.15.0",
 	"description": "A component that collects feedback across Atlassian products.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -44,19 +44,19 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/button": "^20.3.0",
-		"@atlaskit/checkbox": "^15.2.0",
-		"@atlaskit/flag": "^15.8.0",
-		"@atlaskit/form": "^11.0.0",
-		"@atlaskit/icon": "^23.4.0",
-		"@atlaskit/link": "^2.0.0",
-		"@atlaskit/modal-dialog": "^12.19.0",
+		"@atlaskit/button": "^20.4.0",
+		"@atlaskit/checkbox": "^15.3.0",
+		"@atlaskit/flag": "^15.9.0",
+		"@atlaskit/form": "^11.1.0",
+		"@atlaskit/icon": "^23.5.0",
+		"@atlaskit/link": "^2.1.0",
+		"@atlaskit/modal-dialog": "^12.20.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/section-message": "^6.8.0",
-		"@atlaskit/select": "^18.9.0",
-		"@atlaskit/textarea": "^5.7.0",
-		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/section-message": "^6.9.0",
+		"@atlaskit/select": "^18.10.0",
+		"@atlaskit/textarea": "^5.8.0",
+		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"react-intl-next": "npm:react-intl@^5.18.1"
 	},

@@ -1,5 +1,20 @@
 # @atlaskit/eslint-plugin-design-system
 
+## 11.10.0
+
+### Minor Changes
+
+- [#109060](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109060)
+  [`4660ec858a305`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4660ec858a305) -
+  Update `React` from v16 to v18
+
+### Patch Changes
+
+- [#105414](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105414)
+  [`6fe5695da9ee6`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6fe5695da9ee6) -
+  `use-tokens-typography` bug fix for font size 0 and non-pixel values.
+- Updated dependencies
+
 ## 11.9.0
 
 ### Minor Changes

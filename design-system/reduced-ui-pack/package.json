@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reduced-ui-pack",
-	"version": "18.4.3",
+	"version": "18.5.0",
 	"description": "CSS classes which provide styling for a reduced number of Atlaskit components.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -32,7 +32,7 @@
 		"dist/icons-sprite.svg"
 	],
 	"dependencies": {
-		"@atlaskit/theme": "^14.0.0"
+		"@atlaskit/theme": "^14.1.0"
 	},
 	"peerDependencies": {
 		"@atlaskit/css-reset": "^6.11.0",
@@ -40,7 +40,7 @@
 	},
 	"devDependencies": {
 		"@af/yarn-utils": "*",
-		"@atlaskit/icon": "^23.4.0",
+		"@atlaskit/icon": "^23.5.0",
 		"glob": "9.0.0",
 		"jsdom": "^22.0.0",
 		"mkdirp": "^0.5.1",

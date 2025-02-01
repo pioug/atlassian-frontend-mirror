@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-filmstrip",
-	"version": "48.1.8",
+	"version": "48.2.0",
 	"description": "Includes components that show media cards as a filmstrip",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,15 +40,15 @@
 		"runReact18": true
 	},
 	"dependencies": {
-		"@atlaskit/icon": "^23.4.0",
-		"@atlaskit/media-card": "^78.18.0",
-		"@atlaskit/media-client": "^31.0.0",
-		"@atlaskit/media-client-react": "^2.6.0",
-		"@atlaskit/media-common": "^11.7.0",
-		"@atlaskit/media-viewer": "^50.0.0",
+		"@atlaskit/icon": "^23.5.0",
+		"@atlaskit/media-card": "^78.19.0",
+		"@atlaskit/media-client": "^31.1.0",
+		"@atlaskit/media-client-react": "^2.7.0",
+		"@atlaskit/media-common": "^11.8.0",
+		"@atlaskit/media-viewer": "^50.1.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
-		"@atlaskit/theme": "^14.0.0",
-		"@atlaskit/tokens": "^3.2.0",
+		"@atlaskit/theme": "^14.1.0",
+		"@atlaskit/tokens": "^3.3.0",
 		"@babel/runtime": "^7.0.0",
 		"@compiled/react": "^0.18.1",
 		"debounce": "^1.0.0"
@@ -59,9 +59,9 @@
 		"react": "^16.8.0 || ^17.0.0 || ^18.0.0"
 	},
 	"devDependencies": {
-		"@atlaskit/media-core": "^34.4.0",
-		"@atlaskit/media-test-data": "^2.10.0",
-		"@atlaskit/media-test-helpers": "^34.7.0",
+		"@atlaskit/media-core": "^34.5.0",
+		"@atlaskit/media-test-data": "^2.11.0",
+		"@atlaskit/media-test-helpers": "^34.8.0",
 		"@atlaskit/ssr": "*",
 		"@testing-library/react": "^13.4.0",
 		"@types/debounce": "^1.2.0",

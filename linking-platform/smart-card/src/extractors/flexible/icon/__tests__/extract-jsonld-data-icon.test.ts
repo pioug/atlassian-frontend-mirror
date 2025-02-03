@@ -148,7 +148,8 @@ describe('extractJsonldDataIcon', () => {
 						'schema:fileFormat': undefined,
 					} as JsonLd.Data.BaseData;
 					const { icon: iconType } = extractJsonldDataIcon(data) || {};
-					const { icon: documentIconType } = extractDocumentTypeIcon(type) || {};
+					const { icon: documentIconType } =
+						extractDocumentTypeIcon(type, undefined, provider) || {};
 
 					expect(iconType).toBe(documentIconType);
 				});
@@ -366,6 +367,32 @@ describe('extractJsonldDataIcon', () => {
 			});
 		},
 	);
+
+	describe('provider-specific JSON-LD icons', () => {
+		it('returns live document icon for Confluence provider', () => {
+			const data = {
+				...baseData,
+				'@type': ['Document', 'schema:DigitalDocument'],
+				generator: { '@type': 'Object', '@id': CONFLUENCE_GENERATOR_ID },
+				'schema:fileFormat': undefined,
+			} as JsonLd.Data.BaseData;
+			const { icon } = extractJsonldDataIcon(data) || {};
+
+			expect(icon).toBe(IconType.LiveDocument);
+		});
+
+		it('falls back to default icon when no provider match', () => {
+			const data = {
+				...baseData,
+				'@type': ['Document', 'schema:DigitalDocument'],
+				generator: { '@type': 'Object', '@id': 'jims-gym' },
+				'schema:fileFormat': undefined,
+			} as JsonLd.Data.BaseData;
+			const { icon } = extractJsonldDataIcon(data) || {};
+
+			expect(icon).toBe(IconType.File);
+		});
+	});
 
 	describe('when type is atlassian:Task and provider is Jira', () => {
 		describe('returns type icon for Task (using default) as no url is supplied', () => {

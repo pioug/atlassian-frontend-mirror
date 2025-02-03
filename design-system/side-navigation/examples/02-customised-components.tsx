@@ -2,9 +2,10 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { forwardRef } from 'react';
 
-import { css, jsx } from '@compiled/react';
+import { jsx } from '@emotion/react';
 
 import NestIcon from '@atlaskit/icon/glyph/editor/number-list';
 import { type CustomItemComponentProps } from '@atlaskit/menu';
@@ -23,43 +24,33 @@ import {
 import AppFrame from './common/app-frame';
 import SampleHeader from './common/sample-header';
 
-const btnStyles = css({
-	position: 'relative',
-	overflow: 'hidden',
-	userSelect: 'none',
-	'&::before': {
-		width: 3,
-		position: 'absolute',
-		backgroundColor: G400,
-		content: '""',
-		insetBlockEnd: 0,
-		insetBlockStart: 0,
-		insetInlineStart: 0,
-		transform: 'translateX(-1px)',
-		transition: 'transform 70ms ease-in-out',
-	},
-
-	'&:hover::before': {
-		transform: 'translateX(0)',
-	},
-});
-
-const containerStyles = css({
-	width: '100%',
-	color: G400,
-	fontWeight: token('font.weight.bold'),
-	overflow: 'hidden',
-	textOverflow: 'ellipsis',
-	whiteSpace: 'nowrap',
-});
-
 const CustomComponent = forwardRef((props: CustomItemComponentProps, ref) => {
 	const { children, ...rest } = props;
 	return (
 		<button
 			type="button"
 			ref={ref}
-			css={btnStyles}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+			css={{
+				position: 'relative',
+				overflow: 'hidden',
+				userSelect: 'none',
+				':before': {
+					content: '""',
+					position: 'absolute',
+					left: 0,
+					top: 0,
+					bottom: 0,
+					width: 3,
+					transform: 'translateX(-1px)',
+					transition: 'transform 70ms ease-in-out',
+					backgroundColor: G400,
+				},
+
+				':hover:before': {
+					transform: 'translateX(0)',
+				},
+			}}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props
 			{...rest}
 		>
@@ -72,7 +63,21 @@ const CustomisedExample = () => {
 	const innerLayer = (
 		<NestingItem
 			id="1-1"
-			title={<div css={containerStyles}>Custom Title Component</div>}
+			title={
+				<div
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					css={{
+						width: '100%',
+						whiteSpace: 'nowrap',
+						color: G400,
+						fontWeight: token('font.weight.bold'),
+						textOverflow: 'ellipsis',
+						overflow: 'hidden',
+					}}
+				>
+					Custom Title Component
+				</div>
+			}
 			// eslint-disable-next-line @repo/internal/react/no-unsafe-overrides
 			cssFn={() => ({
 				color: G400,

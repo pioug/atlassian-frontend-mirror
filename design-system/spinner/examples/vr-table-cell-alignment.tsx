@@ -23,7 +23,10 @@ const animationStyles = css({
 
 const tableStyles = css({
 	width: 100,
-	margin: token('space.100', '8px'),
+	marginBlockEnd: token('space.100', '8px'),
+	marginBlockStart: token('space.100', '8px'),
+	marginInlineEnd: token('space.100', '8px'),
+	marginInlineStart: token('space.100', '8px'),
 });
 
 const tableCellStyles = css({

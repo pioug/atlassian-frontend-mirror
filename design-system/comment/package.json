@@ -49,7 +49,7 @@
 		"@atlaskit/code": "^15.7.0",
 		"@atlaskit/docs": "*",
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/editor-core": "^203.12.0",
+		"@atlaskit/editor-core": "^203.13.0",
 		"@atlaskit/link": "2.1.0",
 		"@atlaskit/section-message": "*",
 		"@atlaskit/ssr": "*",

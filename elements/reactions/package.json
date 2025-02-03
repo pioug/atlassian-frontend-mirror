@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/reactions",
-	"version": "24.4.0",
+	"version": "24.4.1",
 	"description": "Reactions component",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -118,9 +118,6 @@
 	},
 	"platform-feature-flags": {
 		"platform-component-visual-refresh": {
-			"type": "boolean"
-		},
-		"platform_editor_breakout_use_css": {
 			"type": "boolean"
 		}
 	}

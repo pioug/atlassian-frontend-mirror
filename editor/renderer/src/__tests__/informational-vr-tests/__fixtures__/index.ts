@@ -1162,3 +1162,136 @@ export const adfTableWithUnequalTableRows: DocNode = {
 		},
 	],
 };
+
+export const adfTableWithParagraph: DocNode = {
+	version: 1,
+	type: 'doc',
+	content: [
+		{
+			type: 'table',
+			attrs: {
+				isNumberColumnEnabled: false,
+				layout: 'default',
+				localId: '86790142-edad-4385-9ba2-1d2fa84e5f0a',
+				width: 760,
+			},
+			content: [
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: 'Testing',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [
+										{
+											type: 'text',
+											text: '123',
+										},
+									],
+								},
+							],
+						},
+						{
+							type: 'tableHeader',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+				{
+					type: 'tableRow',
+					content: [
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+						{
+							type: 'tableCell',
+							attrs: {},
+							content: [
+								{
+									type: 'paragraph',
+									content: [],
+								},
+							],
+						},
+					],
+				},
+			],
+		},
+	],
+};

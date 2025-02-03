@@ -37,7 +37,7 @@ var isColorMode = function isColorMode(modeId) {
  */
 var themeStringToObject = exports.themeStringToObject = function themeStringToObject(themeState) {
   return themeState.split(' ').map(function (theme) {
-    return theme.split(/:([\s\S]*)/);
+    return theme.split(/:([^]*)/);
   }).reduce(function (themeObject, _ref) {
     var _ref2 = (0, _slicedToArray2.default)(_ref, 2),
       kind = _ref2[0],

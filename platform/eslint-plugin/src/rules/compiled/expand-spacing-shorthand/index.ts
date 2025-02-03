@@ -51,15 +51,20 @@ const parseTemplateLiteral = (templateLiteral: TemplateLiteral, context: Rule.Ru
 
 /**
  * Checks if the parsed property values are valid; values that we shouldn't handle with the fixer:
- * 1. Do not contain a token
- * 2. Have length that are not in the range [1, 4] for different spacing directions
+ * 1. At least one expression in TemplateLiteral is not a token expression
+ * 2. Do not contain a token
+ * 3. Have length that are not in the range [1, 4] for different spacing directions
  * 		- No more than 4 to exclude additional values such as `!important`
- * 3. Includes `calc(...)`
+ * 4. Includes `calc(...)`
  * Then, the rule will return with no error
  * @param propertyValues property values parsed as list of strings
  * @returns boolean
  */
-const isPropertyValueExempted = (propertyValues: string[]) => {
+const isPropertyValueExempted = (templateLiteral: TemplateLiteral, propertyValues: string[]) => {
+	const expressions = templateLiteral.expressions;
+	if (!expressions.every((expr) => expr.type === 'CallExpression' && isTokenCallExpression(expr))) {
+		return true;
+	}
 	if (!propertyValues.some((str) => str.includes('token('))) {
 		return true;
 	}
@@ -73,20 +78,14 @@ const isPropertyValueExempted = (propertyValues: string[]) => {
 };
 
 /**
- * Checks if the parsed property values are invalid (i.e. rule violation thrown) and autofix required. Cases are when:
- *  1. All expressions in TemplateLiteral are token expressions
- *  2. Property values must have a format which includes -> e.g. 2, '2(rem|em|px)', auto, initial, inherit, token(...)
+ *  Checks if the parsed property values are invalid (i.e. rule violation thrown) and autofix required. Cases are when
+ *  property values must have a format which includes -> e.g. 2, '2(rem|em|px)', auto, initial, inherit, token(...)
  *  The rule will return with error and provide a fix
  * @param templateLiteral TemplateLiteral AST Node
  * @param propertyValues property values parsed as list of strings
  * @returns boolean
  */
-const isPropertyValuesInvalidFix = (templateLiteral: TemplateLiteral, propertyValues: string[]) => {
-	const expressions = templateLiteral.expressions;
-	if (!expressions.every((expr) => expr.type === 'CallExpression' && isTokenCallExpression(expr))) {
-		return false;
-	}
-
+const isPropertyValuesInvalidFix = (propertyValues: string[]) => {
 	for (const propValue of propertyValues) {
 		if (propValue === '0') {
 			continue;
@@ -166,11 +165,11 @@ const executeExpandSpacingRule = (
 	}
 	if (node.value.type === 'TemplateLiteral') {
 		const propertyValues = parseTemplateLiteral(node.value, context);
-		if (isPropertyValueExempted(propertyValues)) {
+		if (isPropertyValueExempted(node.value, propertyValues)) {
 			// Valid, so no error should be thrown
 			return;
 		}
-		if (isPropertyValuesInvalidFix(node.value, propertyValues)) {
+		if (isPropertyValuesInvalidFix(propertyValues)) {
 			// Invalid, so error should be thrown and fix provided
 			context.report({
 				node,

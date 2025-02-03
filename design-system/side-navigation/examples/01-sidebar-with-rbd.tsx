@@ -1,10 +1,12 @@
 /**
  * @jsxRuntime classic
- * @jsxFrag React.Fragment
  * @jsx jsx
  */
+/**
+ * @jsxFrag React.Fragment
+ */
 
-import {
+import React, {
 	createContext,
 	Fragment,
 	memo,
@@ -17,13 +19,15 @@ import {
 	useState,
 } from 'react';
 
+import { css, jsx } from '@emotion/react';
 import invariant from 'tiny-invariant';
 
-import { cssMap, jsx } from '@atlaskit/css';
 import DropdownMenu, { DropdownItem, DropdownItemGroup } from '@atlaskit/dropdown-menu';
 import mergeRefs from '@atlaskit/ds-lib/merge-refs';
 import ItemIcon from '@atlaskit/icon/glyph/editor/bullet-list';
 import RBDIcon from '@atlaskit/icon/glyph/editor/media-wide';
+import { easeInOut } from '@atlaskit/motion/curves';
+import { smallDurationMs } from '@atlaskit/motion/durations';
 import * as liveRegion from '@atlaskit/pragmatic-drag-and-drop-live-region';
 import { DragHandleButton } from '@atlaskit/pragmatic-drag-and-drop-react-accessibility/drag-handle-button';
 import { DropIndicator } from '@atlaskit/pragmatic-drag-and-drop-react-drop-indicator/box';
@@ -82,34 +86,39 @@ interface DraggableItemProps {
 	onDrop: (sourceIndex: number, destinationIndex: number) => void;
 }
 
-const styles = cssMap({
-	root: {
-		boxSizing: 'border-box',
-		width: '100%',
-		padding: token('space.050'),
-		backgroundColor: token('elevation.surface.raised'),
-		borderRadius: token('border.radius.100'),
-		boxShadow: token('elevation.shadow.raised'),
-		objectFit: 'cover',
-		transition: 'all 100ms cubic-bezier(0.15,1,0.3,1)',
-	},
-	idle: {
-		'&:hover': {
-			backgroundColor: token('elevation.surface.overlay.hovered'),
-			boxShadow: token('elevation.shadow.overlay'),
-		},
-	},
-	dragging: {
-		filter: 'grayscale(0.8)',
-	},
-	over: {
-		boxShadow: token('elevation.shadow.overlay', 'none'),
-		filter: 'brightness(1.15)',
-		transform: 'scale(1.1) rotate(8deg)',
-	},
+const itemStyles = css({
+	boxSizing: 'border-box',
+	width: '100%',
+	paddingTop: 'space.050',
+	paddingRight: 'space.050',
+	paddingBottom: 'space.050',
+	paddingLeft: 'space.050',
+	backgroundColor: 'elevation.surface.raised',
+	borderRadius: 'border.radius.100',
+	boxShadow: 'elevation.shadow.raised',
+	objectFit: 'cover',
+	transition: `all ${smallDurationMs}ms ${easeInOut}`,
+	WebkitTouchCallout: 'none',
 });
 
 type ItemState = 'idle' | 'dragging' | 'over';
+
+const itemStateStyles: Record<ItemState, any> = {
+	idle: css({
+		'&:hover': {
+			background: token('elevation.surface.overlay', '#FFF'),
+			boxShadow: token('elevation.shadow.overlay', 'none'),
+		},
+	}),
+	dragging: css({
+		filter: 'grayscale(0.8)',
+	}),
+	over: css({
+		boxShadow: token('elevation.shadow.overlay', 'none'),
+		filter: 'brightness(1.15)',
+		transform: 'scale(1.1) rotate(8deg)',
+	}),
+};
 
 function DraggableItem({
 	item,
@@ -163,8 +172,8 @@ function DraggableItem({
 
 	return (
 		<Fragment>
-			<Box ref={ref} xcss={styles[state]}>
-				<Box xcss={styles.root}>
+			<Box ref={ref} xcss={itemStateStyles[state]}>
+				<Box xcss={itemStyles}>
 					<Grid alignItems="center" columnGap="space.050" templateColumns="auto 1fr auto">
 						<DropdownMenu
 							shouldRenderToParent
@@ -194,7 +203,6 @@ function DraggableItem({
 						{item.renderItem({ ref: null, onDrop, ...restProps })}
 					</Grid>
 				</Box>
-
 				{closestEdge && <DropIndicator edge={closestEdge} gap="1px" />}
 			</Box>
 		</Fragment>
@@ -219,7 +227,7 @@ const DraggableList = ({
 	itemCount: number;
 }) => {
 	return (
-		<Fragment>
+		<React.Fragment>
 			{items.map((item: CustomDraggable, index: number) => (
 				<DraggableItem
 					key={item.key}
@@ -233,7 +241,7 @@ const DraggableList = ({
 					itemCount={itemCount}
 				/>
 			))}
-		</Fragment>
+		</React.Fragment>
 	);
 };
 
@@ -461,7 +469,7 @@ const generateDraggableCats = (): CustomDraggable[] => {
 
 		const altText = `Draggable cat image ${index + 1}`;
 
-		return <img css={[styles.root, styles[state]]} ref={ref} src={src} alt={altText} />;
+		return <img css={[itemStyles, itemStateStyles[state]]} ref={ref} src={src} alt={altText} />;
 	});
 
 	return urls.map((url, index) => ({

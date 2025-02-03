@@ -1,5 +1,17 @@
 # @atlaskit/smart-card
 
+## 34.9.0
+
+### Minor Changes
+
+- [#109430](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109430)
+  [`c6429aa44850a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6429aa44850a) -
+  [ux] Adds support for Confluence Live Doc icons to @atlaskit/smart-card
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 34.8.0
 
 ### Minor Changes

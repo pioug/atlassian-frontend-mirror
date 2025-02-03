@@ -29,6 +29,7 @@ export type DatasourceNode = Omit<Node, 'attrs'> & {
 export type CardInfo = {
 	title?: string;
 	url?: string;
+	id?: string;
 	pos: number;
 };
 
@@ -143,6 +144,11 @@ export type Register = {
 	info: CardInfo;
 };
 
+export type RemoveCard = {
+	type: 'REMOVE_CARD';
+	info: Partial<CardInfo>;
+};
+
 export type ShowLinkToolbar = {
 	type: 'SHOW_LINK_TOOLBAR';
 };
@@ -188,6 +194,7 @@ type ClearOverlayCandidate = {
 type RegisterRemoveOverlayOnInsertedLink = {
 	type: 'REGISTER_REMOVE_OVERLAY_ON_INSERTED_LINK';
 	callback: () => void;
+	info?: Register['info'];
 };
 
 export type SetDatasourceStash = {
@@ -205,6 +212,7 @@ export type CardPluginAction =
 	| Queue
 	| Resolve
 	| Register
+	| RemoveCard
 	| ShowLinkToolbar
 	| HideLinkToolbar
 	| ShowDatasourceModal

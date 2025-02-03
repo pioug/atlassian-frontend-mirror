@@ -43,9 +43,6 @@
 			"path": "../../analytics/analytics-next/tsconfig.app.json"
 		},
 		{
-			"path": "../../design-system/avatar/tsconfig.app.json"
-		},
-		{
 			"path": "../../design-system/avatar-group/tsconfig.app.json"
 		},
 		{
@@ -77,6 +74,9 @@
 		},
 		{
 			"path": "../../media/icon-file-type/tsconfig.app.json"
+		},
+		{
+			"path": "../../design-system/icon-lab/tsconfig.app.json"
 		},
 		{
 			"path": "../../design-system/icon-object/tsconfig.app.json"

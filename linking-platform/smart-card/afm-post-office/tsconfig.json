@@ -60,6 +60,9 @@
 			"path": "../../../media/icon-file-type/afm-post-office/tsconfig.json"
 		},
 		{
+			"path": "../../../design-system/icon-lab/afm-post-office/tsconfig.json"
+		},
+		{
 			"path": "../../../design-system/icon-object/afm-post-office/tsconfig.json"
 		},
 		{

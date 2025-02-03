@@ -1,11 +1,8 @@
 /* eslint-disable @repo/internal/react/consistent-props-definitions */
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { cssMap, jsx } from '@atlaskit/css';
+import React from 'react';
+
 import warnOnce from '@atlaskit/ds-lib/warn-once';
-import { Box, Stack, Text } from '@atlaskit/primitives/compiled';
+import { Box, Stack, Text, xcss } from '@atlaskit/primitives';
 import { N500 } from '@atlaskit/theme/colors';
 import { token } from '@atlaskit/tokens';
 
@@ -13,12 +10,10 @@ import { overrideStyleFunction } from '../../common/styles';
 import { Container, type HeaderProps } from '../Header';
 import { CustomItem } from '../Item';
 
-const styles = cssMap({
-	iconContainer: {
-		display: 'inline-block',
-		width: '1.5rem',
-		height: '1.5rem',
-	},
+const iconContainerStyles = xcss({
+	display: 'inline-block',
+	width: '1.5rem',
+	height: '1.5rem',
 });
 
 type NewFooterProps = Omit<HeaderProps, 'cssFn' | 'component' | 'onClick'>;
@@ -114,7 +109,7 @@ const Footer = ({ description, children, iconBefore, testId }: NewFooterProps) =
 	return (
 		<Box padding="space.100" testId={testId}>
 			<Stack space="space.100" alignInline="center">
-				<Box xcss={styles.iconContainer}>{iconBefore}</Box>
+				<Box xcss={iconContainerStyles}>{iconBefore}</Box>
 				<Stack space="space.075">
 					<Text size="UNSAFE_small" align="center" color="inherit">
 						{children}

@@ -19,10 +19,14 @@ import { type ActionFooterProps } from './types';
 const containerStyles = css({
 	all: 'unset',
 	borderRadius: token('border.radius'),
-	margin: token('space.100'),
+	marginTop: token('space.100'),
+	marginRight: token('space.100'),
 	marginBottom: token('space.0'),
+	marginLeft: token('space.100'),
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: '20px',
+	// TODO (AFB-874): Disable due to causing property-shorthand-sorting ESLint error
+	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: token('space.075'),
 	paddingInline: token('space.100'),
 	width: '100%',

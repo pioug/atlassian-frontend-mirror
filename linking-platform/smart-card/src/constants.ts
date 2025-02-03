@@ -213,6 +213,9 @@ export enum IconType {
 	SubTask = 'Jira:SubTask',
 	Task = 'Jira:Task',
 
+	// Confluence
+	LiveDocument = 'Confluence:LiveDocument',
+
 	// Provider
 	Confluence = 'Provider:Confluence',
 	Jira = 'Provider:Jira',

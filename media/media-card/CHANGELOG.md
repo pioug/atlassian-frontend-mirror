@@ -1,5 +1,13 @@
 # @atlaskit/media-card
 
+## 78.19.1
+
+### Patch Changes
+
+- [#108375](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108375)
+  [`e8c31d714c7f5`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e8c31d714c7f5) -
+  Replaced internal Feature Gate
+
 ## 78.19.0
 
 ### Minor Changes

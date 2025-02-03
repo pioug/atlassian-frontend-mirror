@@ -6,9 +6,7 @@ snapshot(Example, {
 	variants: [
 		{
 			name: 'nesting-item',
-			environment: {
-				colorScheme: 'light',
-			},
+			environment: {},
 		},
 	],
 	states: [

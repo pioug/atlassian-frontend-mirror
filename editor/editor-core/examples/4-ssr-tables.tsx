@@ -417,9 +417,6 @@ export default function SSRTableBasic() {
 				allowLayouts: true,
 				allowBreakout: true,
 			}}
-			featureFlags={{
-				platform_editor_breakout_use_css: true,
-			}}
 			experiments={{
 				platform_editor_exp_lazy_node_views: true,
 			}}

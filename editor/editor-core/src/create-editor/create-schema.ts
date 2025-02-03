@@ -10,7 +10,6 @@ import type {
 	Node as PMNode,
 } from '@atlaskit/editor-prosemirror/model';
 import { Schema } from '@atlaskit/editor-prosemirror/model';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { fixExcludes } from './create-editor';
 
@@ -110,11 +109,7 @@ export function createSchema(editorConfig: { marks: MarkConfig[]; nodes: NodeCon
 	const marks = fixExcludes(
 		editorConfig.marks.sort(sortByOrder('marks')).reduce(
 			(acc, mark) => {
-				if (fg('platform_editor_breakout_use_css')) {
-					acc[mark.name] = wrapNodeSpecProxy(mark.mark);
-				} else {
-					acc[mark.name] = mark.mark;
-				}
+				acc[mark.name] = wrapNodeSpecProxy(mark.mark);
 				return acc;
 			},
 			{} as { [nodeName: string]: MarkSpec },
@@ -123,11 +118,7 @@ export function createSchema(editorConfig: { marks: MarkConfig[]; nodes: NodeCon
 	const nodes = sanitizeNodes(
 		editorConfig.nodes.sort(sortByOrder('nodes')).reduce(
 			(acc, node) => {
-				if (fg('platform_editor_breakout_use_css')) {
-					acc[node.name] = wrapNodeSpecProxy(node.node);
-				} else {
-					acc[node.name] = node.node;
-				}
+				acc[node.name] = wrapNodeSpecProxy(node.node);
 				return acc;
 			},
 			{} as { [nodeName: string]: NodeSpec },

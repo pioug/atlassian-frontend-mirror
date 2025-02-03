@@ -29,7 +29,10 @@ const contentStyles = css({
 	textAlign: 'center',
 	alignItems: 'center',
 	margin: 'auto',
-	padding: token('space.200', '16px'),
+	paddingTop: token('space.200', '16px'),
+	paddingRight: token('space.200', '16px'),
+	paddingBottom: token('space.200', '16px'),
+	paddingLeft: token('space.200', '16px'),
 	gap: token('space.250', '20px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 	maxWidth: '400px',

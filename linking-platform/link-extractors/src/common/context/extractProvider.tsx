@@ -6,7 +6,6 @@ import { ConfluenceIcon } from '@atlaskit/logo/confluence-icon';
 import { JiraIcon } from '@atlaskit/logo/jira-icon';
 
 import { CONFLUENCE_GENERATOR_ID, JIRA_GENERATOR_ID } from '../constants';
-import { extractType } from '../primitives';
 import { extractUrlFromIconJsonLd, extractUrlFromLinkJsonLd } from '../url';
 
 export interface LinkProvider {
@@ -28,11 +27,10 @@ export const extractProvider = (jsonLd: JsonLd.Data.BaseData): LinkProvider | un
 		} else {
 			if (generator.name) {
 				const id = generator['@id'];
-				const type = extractType(jsonLd);
 
 				return {
 					text: generator.name,
-					icon: extractProviderIcon(generator.icon, id, type),
+					icon: extractProviderIcon(generator.icon, id),
 					id,
 					image: extractProviderImage(generator.image),
 				};
@@ -44,16 +42,10 @@ export const extractProvider = (jsonLd: JsonLd.Data.BaseData): LinkProvider | un
 export const extractProviderIcon = (
 	icon?: JsonLd.Primitives.Image | JsonLd.Primitives.Link,
 	id?: string,
-	type?: JsonLd.Primitives.ObjectType[],
 ): React.ReactNode | undefined => {
 	if (id) {
 		if (id === CONFLUENCE_GENERATOR_ID) {
-			if (type?.includes('schema:DigitalDocument')) {
-				// TODO - make this the live docs icon
-				return <ConfluenceIcon appearance="brand" size="xsmall" />;
-			} else {
-				return <ConfluenceIcon appearance="brand" size="xsmall" />;
-			}
+			return <ConfluenceIcon appearance="brand" size="xsmall" />;
 		} else if (id === JIRA_GENERATOR_ID) {
 			return <JiraIcon appearance="brand" size="xsmall" />;
 		}
@@ -77,4 +69,8 @@ const extractProviderImage = (
 			}
 		}
 	}
+};
+
+export const isConfluenceGenerator = (id: string) => {
+	return id === CONFLUENCE_GENERATOR_ID;
 };

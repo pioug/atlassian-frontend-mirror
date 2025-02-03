@@ -32,9 +32,6 @@
 	},
 	"references": [
 		{
-			"path": "../css/tsconfig.app.json"
-		},
-		{
 			"path": "../ds-lib/tsconfig.app.json"
 		},
 		{

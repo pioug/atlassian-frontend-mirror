@@ -1,5 +1,32 @@
 # @atlaskit/editor-core
 
+## 203.13.0
+
+### Minor Changes
+
+- [#106964](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106964)
+  [`996f72bae4986`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/996f72bae4986) -
+  [No Issue] Introducing virtualization for inline nodes
+
+### Patch Changes
+
+- [#108797](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108797)
+  [`9a3f165bc940b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a3f165bc940b) -
+  tidy up feature flag confluence_frontend_editor_custom_presets
+- Updated dependencies
+
+## 203.12.1
+
+### Patch Changes
+
+- [#106923](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106923)
+  [`5f44122535833`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f44122535833) -
+  ED-26253 Update table css selectors so they don't get applied to table elements not owned by the
+  editor and nested inside an editor table
+- [#107631](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107631)
+  [`4dd152f2bd7cb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/4dd152f2bd7cb) -
+  updated jsdoc to include example for new replaceDocument core action
+
 ## 203.12.0
 
 ### Minor Changes

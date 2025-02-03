@@ -36,6 +36,10 @@ export const cmTheme = CodeMirror.theme({
 		lineHeight: 'unset',
 		fontFamily: token('font.family.code'),
 		borderRadius: token('border.radius'),
+		backgroundImage: overflowShadow({
+			leftCoverWidth: token('space.300'),
+		}),
+		backgroundAttachment: 'local, local, local, local, scroll, scroll, scroll, scroll',
 	},
 	'&.cm-focused .cm-cursor': {
 		borderLeftColor: token('color.text'),
@@ -52,3 +56,62 @@ export const cmTheme = CodeMirror.theme({
 		minWidth: 'unset',
 	},
 });
+
+/**
+ * Copied directly from `packages/editor/editor-shared-styles/src/overflow-shadow/overflow-shadow.ts`
+ * `CodeMirror` does not support emotion styling so this has been re-created.
+ */
+function overflowShadow({
+	leftCoverWidth,
+	rightCoverWidth,
+}: {
+	leftCoverWidth?: string;
+	rightCoverWidth?: string;
+}) {
+	const width = token('space.100');
+	const leftCoverWidthResolved = leftCoverWidth || width;
+	const rightCoverWidthResolved = rightCoverWidth || width;
+
+	return `
+  linear-gradient(
+    to right,
+    ${token('color.background.neutral')} ${leftCoverWidthResolved},
+    transparent ${leftCoverWidthResolved}
+  ),
+  linear-gradient(
+    to right,
+    ${token('elevation.surface.raised')} ${leftCoverWidthResolved},
+    transparent ${leftCoverWidthResolved}
+  ),
+  linear-gradient(
+    to left,
+    ${token('color.background.neutral')} ${rightCoverWidthResolved},
+    transparent ${rightCoverWidthResolved}
+  ),
+  linear-gradient(
+    to left,
+    ${token('elevation.surface.raised')} ${rightCoverWidthResolved},
+    transparent ${rightCoverWidthResolved}
+  ),
+  linear-gradient(
+    to left,
+    ${token('elevation.shadow.overflow.spread')} 0,
+    ${token('utility.UNSAFE.transparent')}  ${width}
+  ),
+  linear-gradient(
+    to left,
+    ${token('elevation.shadow.overflow.perimeter')} 0,
+    ${token('utility.UNSAFE.transparent')}  ${width}
+  ),
+  linear-gradient(
+    to right,
+    ${token('elevation.shadow.overflow.spread')} 0,
+    ${token('utility.UNSAFE.transparent')}  ${width}
+  ),
+  linear-gradient(
+    to right,
+    ${token('elevation.shadow.overflow.perimeter')} 0,
+    ${token('utility.UNSAFE.transparent')}  ${width}
+  )
+`;
+}

@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-block-controls
 
+## 2.21.8
+
+### Patch Changes
+
+- [#107795](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107795)
+  [`ccf90a27dfe6b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ccf90a27dfe6b) -
+  ED-26407 Cleaned-up FG platform_editor_element_drag_and_drop_ed_24321
+- Updated dependencies
+
 ## 2.21.7
 
 ### Patch Changes

@@ -23,7 +23,6 @@ import {
 	type PopperChildrenProps,
 } from '@atlaskit/popper';
 import { layers } from '@atlaskit/theme/constants';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useCloseManager } from '../../hooks/useCloseManager';
 import { useFocusTrap } from '../../hooks/useFocusTrap';
@@ -362,11 +361,7 @@ const PopperWrapper = (props: PropsWithChildren<PopperWrapperProps>) => {
 	 */
 	useFocusTrap({ initialFocusRef: null, targetRef: popupRef });
 	return (
-		<Popper
-			placement="bottom-start"
-			modifiers={popperModifiers}
-			strategy={fg('platform_editor_breakout_use_css') ? 'absolute' : 'fixed'}
-		>
+		<Popper placement="bottom-start" modifiers={popperModifiers} strategy={'absolute'}>
 			{({ ref, style, update }) => {
 				return (
 					<div

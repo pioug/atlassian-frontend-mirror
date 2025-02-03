@@ -7,8 +7,10 @@ import React from 'react';
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
 import { jsx } from '@emotion/react';
 
+import { DOMSerializer } from '@atlaskit/editor-prosemirror/model';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Decoration, EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { AnalyticsEventPayload } from '../analytics';
 import { ACTION_SUBJECT, ACTION_SUBJECT_ID } from '../analytics';
@@ -24,6 +26,7 @@ import {
 import { ZERO_WIDTH_SPACE } from '../whitespace';
 
 import { generateUniqueNodeKey } from './generateUniqueNodeKey';
+import { getOrCreateOnVisibleObserver } from './onVisibleObserverFactory';
 
 export type InlineNodeViewComponentProps = {
 	view: EditorView;
@@ -44,6 +47,10 @@ type CreateNodeViewOptions<ExtraComponentProps> = {
 
 export const inlineNodeViewClassname = 'inlineNodeView';
 
+const canRenderFallback = (node: PMNode): boolean => {
+	return node.type.isInline && node.type.isAtom && node.type.isLeaf;
+};
+
 function createNodeView<ExtraComponentProps>({
 	nodeViewParams,
 	pmPluginFactoryParams,
@@ -51,6 +58,7 @@ function createNodeView<ExtraComponentProps>({
 	extraComponentProps,
 	extraNodeViewProps,
 }: CreateNodeViewOptions<ExtraComponentProps>) {
+	const shouldVirtualize = fg('platform_editor_lego__inline_node_virtualization');
 	// We set a variable for the current node which is
 	// used for comparisions when doing updates, before being
 	// overwritten to the updated node.
@@ -102,22 +110,66 @@ function createNodeView<ExtraComponentProps>({
 		);
 	}
 
-	const { samplingRate, slowThreshold, trackingEnabled } = getPerformanceOptions(
-		nodeViewParams.view,
-	);
+	let didRenderComponentWithIntersectionObserver = false;
+	let destroyed = false;
+	let removeIntersectionObserver = () => {};
 
-	trackingEnabled && startMeasureReactNodeViewRendered({ nodeTypeName: currentNode.type.name });
+	function renderFallback() {
+		if (canRenderFallback(currentNode) && typeof currentNode.type?.spec?.toDOM === 'function') {
+			const fallback = DOMSerializer.renderSpec(document, currentNode.type.spec.toDOM(currentNode));
+			domRef.replaceChildren(fallback.dom);
+		}
+	}
 
-	// We render the component while creating the node view
-	renderComponent();
-
-	trackingEnabled &&
-		stopMeasureReactNodeViewRendered({
-			nodeTypeName: currentNode.type.name,
-			dispatchAnalyticsEvent,
-			samplingRate,
-			slowThreshold,
+	function attachNodeViewObserver() {
+		const observer = getOrCreateOnVisibleObserver(nodeViewParams.view);
+		removeIntersectionObserver = observer.observe(domRef, () => {
+			if (!didRenderComponentWithIntersectionObserver && !destroyed) {
+				domRef.replaceChildren();
+				renderComponent();
+				didRenderComponentWithIntersectionObserver = true;
+			}
 		});
+	}
+
+	if (shouldVirtualize) {
+		renderFallback();
+		attachNodeViewObserver();
+	} else {
+		const { samplingRate, slowThreshold, trackingEnabled } = getPerformanceOptions(
+			nodeViewParams.view,
+		);
+
+		trackingEnabled && startMeasureReactNodeViewRendered({ nodeTypeName: currentNode.type.name });
+
+		// We render the component while creating the node view
+		renderComponent();
+
+		trackingEnabled &&
+			stopMeasureReactNodeViewRendered({
+				nodeTypeName: currentNode.type.name,
+				dispatchAnalyticsEvent,
+				samplingRate,
+				slowThreshold,
+			});
+	}
+
+	const extraNodeViewPropsWithStopEvent = {
+		...extraNodeViewProps,
+		...(fg('platform_editor_lego__inline_node_virtualization')
+			? {
+					// This is not related to virtualization, but it's something we should fix/handle
+					// Remove this comment when `platform_editor_lego__inline_node_virtualization` FF is cleaned up
+					stopEvent(event: Event) {
+						const maybeStopEvent = extraNodeViewProps?.stopEvent;
+						if (typeof maybeStopEvent === 'function') {
+							return maybeStopEvent(event);
+						}
+						return false;
+					},
+				}
+			: {}),
+	};
 
 	// https://prosemirror.net/docs/ref/#view.NodeView
 	const nodeView: NodeView = {
@@ -151,11 +203,21 @@ function createNodeView<ExtraComponentProps>({
 
 			currentNode = nextNode;
 
-			renderComponent();
+			if (shouldVirtualize) {
+				if (didRenderComponentWithIntersectionObserver) {
+					renderComponent();
+				}
+			} else {
+				renderComponent();
+			}
 
 			return true;
 		},
 		destroy() {
+			if (shouldVirtualize) {
+				removeIntersectionObserver();
+			}
+
 			// When prosemirror destroys the node view, we need to clean up
 			// what we have previously rendered using the editor portal
 			// provider api.
@@ -164,10 +226,13 @@ function createNodeView<ExtraComponentProps>({
 			// of HTMLSpanElement type however once the node view has
 			// been destroyed no other consumers should still be using it.
 			domRef = undefined;
-		},
-		...extraNodeViewProps,
-	};
 
+			if (shouldVirtualize) {
+				destroyed = true;
+			}
+		},
+		...extraNodeViewPropsWithStopEvent,
+	};
 	return nodeView;
 }
 

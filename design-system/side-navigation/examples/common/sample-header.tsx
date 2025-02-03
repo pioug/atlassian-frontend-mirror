@@ -1,4 +1,9 @@
-import React from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
 
 import Icon from '@atlaskit/icon';
 import { type CustomItemComponentProps } from '@atlaskit/menu';

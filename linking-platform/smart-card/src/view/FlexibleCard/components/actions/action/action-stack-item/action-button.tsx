@@ -20,7 +20,10 @@ import type { ActionStackItemProps } from './types';
 const styles = cssMap({
 	button: {
 		all: 'unset',
-		padding: token('space.050'),
+		paddingTop: token('space.050'),
+		paddingRight: token('space.050'),
+		paddingBottom: token('space.050'),
+		paddingLeft: token('space.050'),
 		width: '100%',
 		'&:hover': {
 			backgroundColor: token('color.background.neutral.subtle.hovered'),

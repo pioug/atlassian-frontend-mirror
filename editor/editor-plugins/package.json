@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugins",
-	"version": "7.1.0",
+	"version": "7.1.2",
 	"description": "A convenience facade package that exposes all @atlaskit/editor-plugin-* plugins so that users can add this package without having to manually add all their plugins",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -236,10 +236,10 @@
 		"@atlaskit/editor-plugin-batch-attribute-updates": "1.2.0",
 		"@atlaskit/editor-plugin-before-primary-toolbar": "1.4.0",
 		"@atlaskit/editor-plugin-better-type-history": "1.10.0",
-		"@atlaskit/editor-plugin-block-controls": "2.21.7",
+		"@atlaskit/editor-plugin-block-controls": "2.21.8",
 		"@atlaskit/editor-plugin-block-type": "4.2.0",
 		"@atlaskit/editor-plugin-border": "1.8.0",
-		"@atlaskit/editor-plugin-breakout": "1.10.0",
+		"@atlaskit/editor-plugin-breakout": "1.10.1",
 		"@atlaskit/editor-plugin-caption": "1.11.10",
 		"@atlaskit/editor-plugin-card": "4.5.17",
 		"@atlaskit/editor-plugin-clear-marks-on-empty-doc": "1.4.0",
@@ -288,7 +288,7 @@
 		"@atlaskit/editor-plugin-mentions": "2.14.0",
 		"@atlaskit/editor-plugin-metrics": "3.0.0",
 		"@atlaskit/editor-plugin-panel": "3.2.4",
-		"@atlaskit/editor-plugin-paste": "2.1.0",
+		"@atlaskit/editor-plugin-paste": "2.1.1",
 		"@atlaskit/editor-plugin-paste-options-toolbar": "1.5.0",
 		"@atlaskit/editor-plugin-placeholder": "1.4.0",
 		"@atlaskit/editor-plugin-placeholder-text": "1.10.0",
@@ -302,7 +302,7 @@
 		"@atlaskit/editor-plugin-selection-toolbar": "1.6.0",
 		"@atlaskit/editor-plugin-status": "2.7.0",
 		"@atlaskit/editor-plugin-submit-editor": "1.4.0",
-		"@atlaskit/editor-plugin-table": "9.3.1",
+		"@atlaskit/editor-plugin-table": "9.3.2",
 		"@atlaskit/editor-plugin-tasks-and-decisions": "2.13.0",
 		"@atlaskit/editor-plugin-text-color": "1.17.0",
 		"@atlaskit/editor-plugin-text-formatting": "1.17.0",
@@ -389,7 +389,7 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_breakout_use_css": {
+		"platform_editor_nest_in_quotes_adf_change": {
 			"type": "boolean",
 			"referenceOnly": true
 		},

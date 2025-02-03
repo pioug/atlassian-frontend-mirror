@@ -14,7 +14,10 @@ import type { AIGlowingBorderProps } from './types';
 const borderContainerStyles = css({
 	display: 'flex',
 	position: 'relative',
-	padding: token('space.025', '2px'),
+	paddingTop: token('space.025', '2px'),
+	paddingRight: token('space.025', '2px'),
+	paddingBottom: token('space.025', '2px'),
+	paddingLeft: token('space.025', '2px'),
 	width: 'fit-content',
 });
 

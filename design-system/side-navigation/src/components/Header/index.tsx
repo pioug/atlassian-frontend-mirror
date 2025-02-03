@@ -1,4 +1,11 @@
-import React, { forwardRef } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { forwardRef } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { css, jsx } from '@emotion/react';
 
 import { type CSSFn, type CustomItemComponentProps } from '@atlaskit/menu';
 import { N500 } from '@atlaskit/theme/colors';
@@ -6,6 +13,8 @@ import { token } from '@atlaskit/tokens';
 
 import { overrideStyleFunction } from '../../common/styles';
 import { CustomItem } from '../Item';
+
+const containerStyles = css({ display: 'block', position: 'relative' });
 
 /**
  * __Container__
@@ -38,8 +47,7 @@ export const Container = ({
 		disabled,
 	}))(props);
 	return (
-		// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop
-		<div data-testid={testId} style={{ position: 'relative' }} {...safeProps}>
+		<div data-testid={testId} css={containerStyles} {...safeProps}>
 			{children}
 		</div>
 	);

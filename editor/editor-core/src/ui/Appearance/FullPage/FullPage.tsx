@@ -207,6 +207,7 @@ const hiddenStyle = css({
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&[data-hidden="true"]': {
+		height: 0,
 		visibility: 'hidden',
 		opacity: 0,
 		// transition: '0ms opacity, 0ms visibility, 0ms transform',

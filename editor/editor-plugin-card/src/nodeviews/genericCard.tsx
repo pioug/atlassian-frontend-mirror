@@ -125,7 +125,9 @@ const WithClickHandler = ({
 };
 
 export function Card(
-	SmartCardComponent: React.ComponentType<React.PropsWithChildren<SmartCardProps>>,
+	SmartCardComponent: React.ComponentType<
+		React.PropsWithChildren<SmartCardProps & { id?: string }>
+	>,
 	UnsupportedComponent: React.ComponentType<React.PropsWithChildren<unknown>>,
 ): React.ComponentType<React.PropsWithChildren<CardProps>> {
 	return class extends React.Component<CardProps> {

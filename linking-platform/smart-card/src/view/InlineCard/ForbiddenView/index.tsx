@@ -32,7 +32,10 @@ const styles = cssMap({
 	iconWrapper: { marginRight: token('space.negative.025') },
 	actionButtonLozengeStyle: {
 		backgroundColor: token('color.background.neutral.subtle'),
-		padding: token('space.0'),
+		paddingTop: token('space.0'),
+		paddingRight: token('space.0'),
+		paddingBottom: token('space.0'),
+		paddingLeft: token('space.0'),
 	},
 });
 

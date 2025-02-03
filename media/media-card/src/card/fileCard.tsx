@@ -71,7 +71,7 @@ import { AbuseModal } from '@atlaskit/media-ui/abuseModal';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 const MediaViewerComponent = (props: React.ComponentProps<typeof MediaViewer>) => {
-	if (fg('media_card_replace_react_portal_for_ds_portal')) {
+	if (fg('media_viewer_integrates_ds_portal')) {
 		return <MediaViewer {...props} />;
 	} else {
 		return ReactDOM.createPortal(<MediaViewer {...props} />, document.body);

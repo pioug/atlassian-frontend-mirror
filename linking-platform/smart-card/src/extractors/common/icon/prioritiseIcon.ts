@@ -8,6 +8,11 @@ export type IconPriorityOpts<T> = {
 	fileFormatIcon: T | undefined;
 	/**
 	 * Icon choice corresponding to the document type for the object.
+	 * @remark Document type icons can be provider-specific. This covers use cases
+	 * where a document type + provider combo is necessary to offer a unique icon
+	 * for a type. Example: Live document icons for Confluence (`schema:digitalDocument`).
+	 * This mechanism will be superseded by backend-driven icon URLs as part of
+	 * go/j/MODES-5864. Do not add more!
 	 */
 	documentTypeIcon: T | undefined;
 	/**

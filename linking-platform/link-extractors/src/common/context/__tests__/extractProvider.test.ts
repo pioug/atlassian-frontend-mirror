@@ -76,17 +76,6 @@ describe('extractors.context.provider', () => {
 		expect(getByLabelText('Confluence')).toBeDefined();
 	});
 
-	it('returns generator icon for Confluence (live docs)', () => {
-		const provider = extractProvider({
-			...TEST_BASE_DATA,
-			generator: { ...TEST_OBJECT, '@id': CONFLUENCE_GENERATOR_ID },
-			'@type': ['Document', 'schema:DigitalDocument'],
-		});
-		expect(provider).toBeDefined();
-		const { getByLabelText } = render(provider!.icon);
-		expect(getByLabelText('Confluence')).toBeDefined();
-	});
-
 	it('returns generator icon for Jira', () => {
 		const provider = extractProvider({
 			...TEST_BASE_DATA,

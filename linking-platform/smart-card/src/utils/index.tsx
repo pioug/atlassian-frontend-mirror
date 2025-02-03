@@ -355,6 +355,11 @@ export const getLazyIcons = (): Partial<
 			large: () => import(/* webpackChunkName: "@atlaskit-internal_glyphTask" */ '@atlaskit/icon-object/glyph/task/24'),
 		},
 
+		// Confluence icons
+		[IconType.LiveDocument]: {
+			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphConfluenceLiveDocument" */ '@atlaskit/icon-lab/core/page-live-doc').then(({ default: LiveDocumentIcon }) => ({default: LiveDocumentIcon})),
+		},
+
 		// Provider icons
 		[IconType.Confluence]: {
 			default: () => import(/* webpackChunkName: "@atlaskit-internal_glyphConfluence" */ '@atlaskit/logo/confluence-icon').then(({ ConfluenceIcon }) => ({default: ConfluenceIcon})),

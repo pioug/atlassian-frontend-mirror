@@ -1,22 +1,14 @@
-/**
- * @jsxRuntime classic
- * @jsx jsx
- */
-import { type ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 
-import { cssMap, jsx } from '@compiled/react';
-
-import { Box } from '@atlaskit/primitives/compiled';
-
-const styles = cssMap({
-	navigationFooter: {
-		position: 'relative',
-	},
-});
+import { Box, xcss } from '@atlaskit/primitives';
 
 export interface NavigationFooterProps {
 	children: ReactNode;
 }
+
+const navigationFooterStyles = xcss({
+	position: 'relative',
+});
 
 /**
  * __Navigation footer__
@@ -28,7 +20,7 @@ export interface NavigationFooterProps {
  */
 const NavigationFooter = ({ children }: NavigationFooterProps) => {
 	return (
-		<Box padding="space.100" paddingBlockEnd="space.200" xcss={styles.navigationFooter}>
+		<Box padding="space.100" paddingBlockEnd="space.200" xcss={navigationFooterStyles}>
 			{children}
 		</Box>
 	);

@@ -1,5 +1,18 @@
 # @atlaskit/renderer
 
+## 112.12.1
+
+### Patch Changes
+
+- [#106923](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106923)
+  [`5f44122535833`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f44122535833) -
+  ED-26253 Update renderer table headers selector to fix calendar macro style issues when nested in
+  tables
+- [#106923](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106923)
+  [`5f44122535833`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/5f44122535833) -
+  ED-26253 Update table css selectors so they don't get applied to table elements not owned by the
+  editor and nested inside an editor table
+
 ## 112.12.0
 
 ### Minor Changes

@@ -56,6 +56,12 @@ export const contentArea = () => {
 		flexDirection: 'row',
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		height: `calc(100% - ${editorToolbarHeight})`,
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-values
+		'&.ak-editor-content-area-no-toolbar': {
+			// The editor toolbar height is 1px off (from the border) -- so we need to add 1px to the height
+			// to match the toolbar height
+			height: `calc(100% + 1px)`,
+		},
 		boxSizing: 'border-box',
 		margin: 0,
 		padding: 0,
@@ -75,11 +81,6 @@ export const contentAreaWrapper = css({
 	// However, for reasons that goes beyond my knowledge.
 	// Chrome 129 broke that behavior, and now we need to make it explicity.
 	contain: 'layout style inline-size',
-});
-
-// eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles
-export const contentAreaWrapperNoStyles = css({
-	display: 'contents',
 });
 
 // eslint-disable-next-line @atlaskit/ui-styling-standard/no-exported-styles -- Ignored via go/DSP-18766
@@ -161,6 +162,13 @@ const editorContentArea = css(
 		// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 		lineHeight: '24px',
 		paddingTop: token('space.600', '48px'),
+		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
+		'.ak-editor-content-area-no-toolbar &': {
+			// When the toolbar is hidden, we don't want content to jump up
+			// the extra 1px is to account for the border on the toolbar
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values,  @atlaskit/ui-styling-standard/no-unsafe-values
+			paddingTop: `calc(${token('space.600', '48px')} + ${FULL_PAGE_EDITOR_TOOLBAR_HEIGHT()} + 1px)`,
+		},
 		paddingBottom: token('space.600', '48px'),
 		height: 'calc( 100% - 105px )',
 		width: '100%',

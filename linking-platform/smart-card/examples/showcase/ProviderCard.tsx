@@ -20,7 +20,10 @@ import { ProviderCardExampleList } from './ProviderCardExampleList';
 import { type ExampleRolloutStatus, type ExampleUIConfig, type ExampleUrl } from './types';
 
 const base = css({
-	padding: token('space.300', '24px'),
+	paddingTop: token('space.300', '24px'),
+	paddingRight: token('space.300', '24px'),
+	paddingBottom: token('space.300', '24px'),
+	paddingLeft: token('space.300', '24px'),
 	marginBottom: token('space.300', '24px'),
 	boxShadow: token('elevation.shadow.raised', `0 1px 1px ${N50A}, 0 0 1px 1px ${N40A}`),
 	width: 'calc(85% - 48px)',

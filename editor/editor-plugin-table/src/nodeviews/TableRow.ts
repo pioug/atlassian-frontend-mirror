@@ -5,7 +5,6 @@ import type { EventDispatcher } from '@atlaskit/editor-common/event-dispatcher';
 import { findOverflowScrollParent } from '@atlaskit/editor-common/ui';
 import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { EditorView, NodeView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getPluginState } from '../pm-plugins/plugin-factory';
 import { pluginKey as tablePluginKey } from '../pm-plugins/plugin-key';
@@ -611,12 +610,7 @@ export default class TableRow extends TableNodeView<HTMLTableRowElement> impleme
 				this.refireIntersectionObservers();
 			}, fastScrollThresholdMs);
 		}
-
-		if (fg('platform_editor_breakout_use_css')) {
-			this.dom.style.top = `0px`;
-		} else {
-			this.dom.style.top = `${domTop}px`;
-		}
+		this.dom.style.top = `0px`;
 		updateTableMargin(table);
 		this.dom.scrollLeft = wrapper.scrollLeft;
 

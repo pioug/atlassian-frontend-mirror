@@ -1,8 +1,18 @@
 import { render, screen } from '@testing-library/react';
 
+import { isConfluenceGenerator } from '@atlaskit/link-extractors';
+
 import { TEST_URL } from '../../__mocks__/jsonld';
 import { withIntl } from '../../__mocks__/withIntl';
 import { extractIconFromDocument } from '../extractIconFromDocument';
+
+jest.mock('@atlaskit/link-extractors');
+
+beforeEach(() => {
+	jest.mocked(isConfluenceGenerator).mockReturnValue(false);
+});
+
+afterEach(jest.clearAllMocks);
 
 describe('extractors.icon.document', () => {
 	it('returns blog icon for BlogPosting', async () => {
@@ -72,5 +82,25 @@ describe('extractors.icon.document', () => {
 		});
 		render(withIntl(icon));
 		expect(await screen.findByTestId('document-file-format-icon')).toBeVisible();
+	});
+});
+
+describe('provider-specific document icons', () => {
+	it('returns live doc icon for Confluence digital document', async () => {
+		jest.mocked(isConfluenceGenerator).mockReturnValue(true);
+
+		const icon = extractIconFromDocument('schema:DigitalDocument', {
+			provider: { id: 'confluence', text: 'Confluence' },
+		});
+		render(withIntl(icon));
+		expect(await screen.findByTestId('live-doc-icon')).toBeVisible();
+	});
+
+	it('returns document icon as default (no provider match)', async () => {
+		const icon = extractIconFromDocument('schema:DigitalDocument', {
+			provider: { id: 'jims-gym', text: 'Jims Gym' },
+		});
+		render(withIntl(icon));
+		expect(await screen.findByTestId('file-icon')).toBeVisible();
 	});
 });

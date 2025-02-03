@@ -31,10 +31,17 @@ export const registerCard = (info: CardInfo) => (tr: Transaction) =>
 		info,
 	});
 
-export const registerRemoveOverlay = (callback: () => void) => (tr: Transaction) =>
+export const removeCard = (info: Partial<CardInfo>) => (tr: Transaction) =>
+	cardAction(tr, {
+		type: 'REMOVE_CARD',
+		info,
+	});
+
+export const registerRemoveOverlay = (callback: () => void, info?: CardInfo) => (tr: Transaction) =>
 	cardAction(tr, {
 		type: 'REGISTER_REMOVE_OVERLAY_ON_INSERTED_LINK',
 		callback,
+		info,
 	});
 
 export const registerSmartCardEvents = (smartLinkEvents: SmartLinkEvents) => (tr: Transaction) =>

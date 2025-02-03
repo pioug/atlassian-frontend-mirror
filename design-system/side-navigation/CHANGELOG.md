@@ -1,5 +1,15 @@
 # @atlaskit/side-navigation
 
+## 4.2.0
+
+### Minor Changes
+
+- [#95255](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/95255)
+  [`55f6cfd027e9e`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/55f6cfd027e9e) -
+  Revert the Compiled migration introduced in `v4.0.0`, as it caused laggy animations in nested
+  navigation. The migration will be reintroduced once `@atlaskit/motion` has been updated to use
+  Compiled.
+
 ## 4.1.0
 
 ### Minor Changes

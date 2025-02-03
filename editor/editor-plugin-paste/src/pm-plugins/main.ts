@@ -79,6 +79,7 @@ import {
 	removeDuplicateInvalidLinks,
 	transformUnsupportedBlockCardToInline,
 } from './util';
+import { handleVSCodeBlock } from './util/edge-cases/handleVSCodeBlock';
 import {
 	handleMacroAutoConvert,
 	handleMention,
@@ -351,6 +352,8 @@ export function createPlugin(
 				};
 
 				slice = handleParagraphBlockMarks(state, slice);
+
+				slice = handleVSCodeBlock({ state, slice, event, text });
 
 				const plainTextPasteSlice = linkifyContent(state.schema)(slice);
 

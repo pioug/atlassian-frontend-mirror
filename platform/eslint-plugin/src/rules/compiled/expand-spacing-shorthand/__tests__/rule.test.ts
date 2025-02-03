@@ -79,6 +79,28 @@ const validTestCases = (property: string) => {
 			});
 			`,
 		},
+		// Template literal containing expressions that is not token should only throw error with no autofix
+		{
+			name: `${property}: property value template string where it contains an expression that is not a token`,
+			code: outdent`
+			import {css} from '@compiled/react';
+			const styles = css({
+				${property}: \`\${token('space.100', '8px')} \${gridSize * 2}px\`,
+			});
+			const styles2 = css({
+				padding: \`\${DROPDOWN_HEADER_VERTICAL_PADDING} \${token('space.075','6px')} 
+					\${DROPDOWN_HEADER_VERTICAL_PADDING} \${token('space.200', '16px')}\`,
+			});
+			const styles3 = css({
+				${property}: \`\${token('space.050', '4px')} \${token('space.150', '12px')} \${token('space.150', '12px')} 
+					\${({ isSummaryView }: EditFormContentWrapperProps) =>
+					isSummaryView ? token('space.0', '0') : token('space.150', '12px')}\`,
+			});
+			const styles4 = css({
+				${property}: \`\${token('space.100', '8px')} -\${gridSize}px 0\`,
+			});
+			`,
+		},
 	];
 };
 
@@ -251,26 +273,6 @@ const invalidTestCases = (property: string) => {
 			});
 			`,
 			errors: [{ messageId: 'expandSpacingShorthand' }],
-		},
-		// Template literal containing expressions that is not token should only throw error with no autofix
-		{
-			name: `${property}: property value template string where it contains an expression that is not a token`,
-			code: outdent`
-			import {css} from '@compiled/react';
-			const styles = css({
-				${property}: \`\${token('space.100', '8px')} \${gridSize * 2}px\`,
-			});
-			const styles2 = css({
-				padding: \`\${DROPDOWN_HEADER_VERTICAL_PADDING} \${token('space.075','6px')} 
-					\${DROPDOWN_HEADER_VERTICAL_PADDING} \${token('space.200', '16px')}\`,
-			});
-			const styles3 = css({
-				${property}: \`\${token('space.050', '4px')} \${token('space.150', '12px')} \${token('space.150', '12px')} 
-					\${({ isSummaryView }: EditFormContentWrapperProps) =>
-					isSummaryView ? token('space.0', '0') : token('space.150', '12px')}\`,
-			});
-			`,
-			errors: Array.from(Array(3), () => ({ messageId: 'expandSpacingShorthand' })),
 		},
 		// Strings that are not valid property values should not be autofixed (e.g. !important)
 		{

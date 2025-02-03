@@ -37,7 +37,7 @@
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/custom-steps": "^0.9.0",
-		"@atlaskit/editor-common": "^99.6.0",
+		"@atlaskit/editor-common": "^99.7.0",
 		"@atlaskit/editor-plugin-analytics": "^1.11.0",
 		"@atlaskit/editor-plugin-base": "^2.1.0",
 		"@atlaskit/editor-plugin-connectivity": "^1.1.0",
@@ -60,7 +60,7 @@
 		"@atlaskit/menu": "2.14.0",
 		"@atlaskit/platform-feature-flags": "^0.3.0",
 		"@atlaskit/primitives": "^13.4.0",
-		"@atlaskit/smart-card": "^34.8.0",
+		"@atlaskit/smart-card": "^34.9.0",
 		"@atlaskit/theme": "^14.1.0",
 		"@atlaskit/tmp-editor-statsig": "^2.41.0",
 		"@atlaskit/tokens": "^3.3.0",
@@ -68,7 +68,8 @@
 		"@emotion/react": "^11.7.1",
 		"lodash": "^4.17.21",
 		"prop-types": "^15.5.10",
-		"raf-schd": "^4.0.3"
+		"raf-schd": "^4.0.3",
+		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
 		"@atlaskit/link-provider": "^1.17.0",
@@ -134,6 +135,9 @@
 			"type": "boolean"
 		},
 		"platform_inline_node_as_valid_annotation_selection": {
+			"type": "boolean"
+		},
+		"platform_editor_fix_card_plugin_state": {
 			"type": "boolean"
 		},
 		"platform_fix_embedded_card_re-rendering": {

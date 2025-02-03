@@ -101,15 +101,7 @@ const TableFloatingColumnControls = ({
 
 	if (stickyTop) {
 		const columnControlTopOffsetFromParent = '-12px';
-		const headerRowHeight = hasHeaderRow && stickyTop !== undefined ? rowHeights?.[0] ?? 0 : 0;
-		containerRef?.current?.style.setProperty(
-			'top',
-			fg('platform_editor_breakout_use_css')
-				? columnControlTopOffsetFromParent
-				: // Ignored via go/ees005
-					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					`${stickyTop! - headerRowHeight + 33}px`, // 33px is padding and margin applied on tr.sticky
-		);
+		containerRef?.current?.style.setProperty('top', columnControlTopOffsetFromParent);
 	} else {
 		containerRef?.current?.style.removeProperty('top');
 	}

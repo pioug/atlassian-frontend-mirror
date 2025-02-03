@@ -6,6 +6,7 @@ import type {
 	Queue,
 	Register,
 	RegisterSmartCardEvents,
+	RemoveCard,
 	RemoveDatasourceStash,
 	Request,
 	Resolve,
@@ -44,6 +45,13 @@ const register = (state: CardPluginState, action: Register) => {
 	return {
 		...state,
 		cards: state.cards.filter((card) => card.pos !== action.info.pos).concat(action.info),
+	};
+};
+
+const removeCard = (state: CardPluginState, action: RemoveCard) => {
+	return {
+		...state,
+		cards: state.cards.filter((card) => card.id !== action.info.id),
 	};
 };
 
@@ -109,10 +117,13 @@ const clearOverlayCandidate = (state: CardPluginState) => {
 
 const registerRemoveOverlayOnInsertedLink = (
 	state: CardPluginState,
-	action: { callback: () => void },
+	action: { callback: () => void; info?: Register['info'] },
 ) => {
 	return {
 		...state,
+		cards: action.info
+			? state.cards.filter((card) => card.pos !== action.info?.pos).concat(action.info)
+			: state.cards,
 		removeOverlay: action.callback,
 	};
 };
@@ -151,6 +162,8 @@ export default (state: CardPluginState, action: CardPluginAction): CardPluginSta
 			return resolve(state, action);
 		case 'REGISTER':
 			return register(state, action);
+		case 'REMOVE_CARD':
+			return removeCard(state, action);
 		case 'REGISTER_EVENTS':
 			return registerEvents(state, action);
 		case 'SET_DATASOURCE_TABLE_REF':

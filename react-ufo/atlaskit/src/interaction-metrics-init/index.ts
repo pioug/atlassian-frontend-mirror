@@ -33,6 +33,12 @@ export interface GenericAnalyticWebClientPromise {
 
 let initialized = false;
 
+type UFOPayload = any;
+
+interface WindowWithUfoDevToolExtension extends Window {
+	__ufo_devtool_onUfoPayload?: (payload: UFOPayload) => void;
+}
+
 function sinkInteraction(
 	instance: GenericAnalyticWebClientInstance,
 	payloadPackage: {
@@ -42,7 +48,13 @@ function sinkInteraction(
 	sinkInteractionHandler((interactionId: string, interaction: InteractionMetrics) => {
 		scheduleCallback(idlePriority, () => {
 			const payloads = payloadPackage.createPayloads(interactionId, interaction);
-			payloads?.forEach((payload: any) => {
+			const devToolObserver = (globalThis as unknown as WindowWithUfoDevToolExtension)
+				.__ufo_devtool_onUfoPayload;
+			payloads?.forEach((payload: UFOPayload) => {
+				if (typeof devToolObserver === 'function') {
+					devToolObserver?.(payload);
+				}
+
 				instance.sendOperationalEvent(payload);
 			});
 		});

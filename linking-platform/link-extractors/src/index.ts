@@ -59,6 +59,7 @@ export {
 	extractUrlFromIconJsonLd,
 	extractUrlFromLinkJsonLd,
 	extractAri,
+	isConfluenceGenerator,
 } from './common';
 
 export type {

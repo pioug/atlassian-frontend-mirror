@@ -1,6 +1,7 @@
 import React from 'react';
 
 import rafSchedule from 'raf-schd';
+import uuid from 'uuid/v4';
 
 import ReactNodeView, {
 	type getInlineNodeViewProducer,
@@ -15,17 +16,17 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
 import { Datasource } from '../nodeviews/datasource';
-import { registerCard } from '../pm-plugins/actions';
+import { registerCard, removeCard } from '../pm-plugins/actions';
 import { isDatasourceNode } from '../pm-plugins/utils';
 
 import type { SmartCardProps } from './genericCard';
 import { Card } from './genericCard';
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
+export class BlockCardComponent extends React.PureComponent<SmartCardProps & { id?: string }> {
 	private scrollContainer?: HTMLElement;
 
-	constructor(props: SmartCardProps) {
+	constructor(props: SmartCardProps & { id?: string }) {
 		super(props);
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -54,6 +55,7 @@ export class BlockCardComponent extends React.PureComponent<SmartCardProps> {
 					title,
 					url,
 					pos,
+					id: this.props.id,
 				})(view.state.tr),
 			);
 		})();
@@ -119,6 +121,8 @@ export type BlockCardNodeViewProps = Pick<
 >;
 
 export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
+	private id = uuid();
+
 	unsubscribe: (() => void) | undefined;
 
 	createDomRef(): HTMLElement {
@@ -174,12 +178,22 @@ export class BlockCard extends ReactNodeView<BlockCardNodeViewProps> {
 				actionOptions={actionOptions}
 				pluginInjectionApi={pluginInjectionApi}
 				onClickCallback={onClickCallback}
+				id={this.id}
 			/>
 		);
 	}
 
 	destroy() {
 		this.unsubscribe?.();
+		if (fg('platform_editor_fix_card_plugin_state')) {
+			this.removeCard();
+		}
+	}
+
+	private removeCard() {
+		const { tr } = this.view.state;
+		removeCard({ id: this.id })(tr);
+		this.view.dispatch(tr);
 	}
 }
 

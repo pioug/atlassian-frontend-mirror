@@ -1,5 +1,13 @@
 # @atlaskit/media-viewer
 
+## 50.1.1
+
+### Patch Changes
+
+- [#108375](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108375)
+  [`e05498302a578`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e05498302a578) -
+  Fixed endless loop caused by wrong DS portal Integration - HOT-114650
+
 ## 50.1.0
 
 ### Minor Changes

@@ -4,11 +4,12 @@
  */
 import { forwardRef, Fragment, type MouseEvent } from 'react';
 
-import { cssMap, jsx } from '@compiled/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
 
 import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
 import SettingsIcon from '@atlaskit/icon/glyph/settings';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box, xcss } from '@atlaskit/primitives';
 
 import {
 	type CustomItemComponentProps,
@@ -18,13 +19,10 @@ import {
 	Section,
 } from '../src';
 
-const styles = cssMap({
-	container: {
-		overflow: 'hidden',
-		height: '340px',
-	},
+const containerStyles = xcss({
+	overflow: 'hidden',
+	height: '340px',
 });
-
 const CustomNestingItem = forwardRef(
 	(
 		{ children, href, ...props }: CustomItemComponentProps & { href: string },
@@ -41,7 +39,7 @@ const CustomNestingItem = forwardRef(
 
 const BasicExample = () => {
 	return (
-		<Box xcss={styles.container} onClick={(e: MouseEvent) => e.preventDefault()}>
+		<Box xcss={containerStyles} onClick={(e: MouseEvent) => e.preventDefault()}>
 			<NestableNavigationContent>
 				<Section title="Nesting items">
 					<NestingItem id="0" title="Settings">

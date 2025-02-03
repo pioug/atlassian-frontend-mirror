@@ -8,7 +8,6 @@ import type {
 	EditorView,
 	NodeView,
 } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { createProseMirrorMetadata } from '../prosemirror-dom-metadata';
 
@@ -73,7 +72,7 @@ const wrapGetPosExceptions = <T extends SafePluginSpec>(spec: T): T => {
 
 					const result = Reflect.apply(target, thisArg, [node, view, safeGetPos, ...more]);
 
-					if (result?.dom instanceof HTMLElement && fg('platform_editor_breakout_use_css')) {
+					if (result?.dom instanceof HTMLElement) {
 						attachGenericProseMirrorMetadata({
 							nodeOrMark: node,
 							dom: result.dom,

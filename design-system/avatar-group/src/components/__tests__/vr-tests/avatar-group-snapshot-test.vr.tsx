@@ -13,6 +13,14 @@ snapshot(BasicAvatarGroup, {
 			selector: { byTestId: 'stack--avatar-2--inner' },
 		},
 	],
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 
 snapshot(AvatarGroupPlayground, {
@@ -26,12 +34,6 @@ snapshot(AvatarGroupPlayground, {
 				colorScheme: 'light',
 			},
 		},
-		{
-			name: 'none',
-			environment: {
-				colorScheme: 'no-preference',
-			},
-		},
 	],
 });
 snapshot(AvatarGroupPlayground, {
@@ -40,6 +42,14 @@ snapshot(AvatarGroupPlayground, {
 		{
 			state: 'focused',
 			selector: { byTestId: 'grid--overflow-menu--trigger' },
+		},
+	],
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
 		},
 	],
 });
@@ -51,17 +61,49 @@ snapshot(AvatarGroupPlayground, {
 			selector: { byTestId: 'grid--overflow-menu--trigger' },
 		},
 	],
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 
 snapshot(BorderColorExample, {
 	description: 'Border colors should be visible for avatars in avatar group',
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 
 snapshot(VRStackingContextExample, {
 	description:
 		'Avatar group should create a new stacking context so that avatars do not pop in front of floating items',
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });
 
 snapshot(OverridesMoreIndicatorExample, {
 	description: 'More indicator should display override',
+	variants: [
+		{
+			name: 'light mode',
+			environment: {
+				colorScheme: 'light',
+			},
+		},
+	],
 });

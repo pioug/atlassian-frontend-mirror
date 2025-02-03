@@ -1,8 +1,10 @@
 import React, { memo, useCallback, useMemo, useState } from 'react';
 
 import { type Transaction } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { registerRemoveOverlay } from '../pm-plugins/actions';
+import { pluginKey } from '../pm-plugins/plugin-key';
 import { AwarenessWrapper } from '../ui/AwarenessWrapper';
 
 import type { SmartCardProps } from './genericCard';
@@ -33,7 +35,17 @@ export const InlineCardWithAwareness = memo(
 		const [isResolvedViewRendered, setIsResolvedViewRendered] = useState(false);
 
 		const onResolve = useCallback((tr: Transaction, title?: string): void => {
-			registerRemoveOverlay(() => setIsInserted(false))(tr);
+			if (fg('platform_editor_fix_card_plugin_state')) {
+				const metadata = tr.getMeta(pluginKey);
+				if (metadata && metadata.type === 'REGISTER') {
+					registerRemoveOverlay(() => setIsInserted(false), metadata.info)(tr);
+				} else {
+					registerRemoveOverlay(() => setIsInserted(false))(tr);
+				}
+			} else {
+				registerRemoveOverlay(() => setIsInserted(false))(tr);
+			}
+
 			if (title) {
 				setIsResolvedViewRendered(true);
 			}

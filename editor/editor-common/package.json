@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-common",
-	"version": "99.6.0",
+	"version": "99.7.0",
 	"description": "A package that contains common classes and components for editor and renderer",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -226,7 +226,7 @@
 		"@atlaskit/media-file-preview": "^0.10.0",
 		"@atlaskit/media-picker": "^67.1.0",
 		"@atlaskit/media-ui": "^27.4.0",
-		"@atlaskit/media-viewer": "50.1.0",
+		"@atlaskit/media-viewer": "50.1.1",
 		"@atlaskit/mention": "^23.11.0",
 		"@atlaskit/menu": "^2.14.0",
 		"@atlaskit/onboarding": "^12.3.0",
@@ -235,7 +235,7 @@
 		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/profilecard": "^22.0.0",
 		"@atlaskit/section-message": "^6.9.0",
-		"@atlaskit/smart-card": "^34.8.0",
+		"@atlaskit/smart-card": "^34.9.0",
 		"@atlaskit/smart-user-picker": "^7.0.0",
 		"@atlaskit/spinner": "^17.1.0",
 		"@atlaskit/task-decision": "^17.12.0",
@@ -319,9 +319,6 @@
 		"platform_editor_media_extended_resize_experience": {
 			"type": "boolean"
 		},
-		"platform_editor_breakout_use_css": {
-			"type": "boolean"
-		},
 		"linking_platform_datasource_assets_objects": {
 			"type": "boolean"
 		},
@@ -350,6 +347,9 @@
 			"type": "boolean"
 		},
 		"platform_editor_typography_ugc": {
+			"type": "boolean"
+		},
+		"platform_editor_lego__inline_node_virtualization": {
 			"type": "boolean"
 		},
 		"platform_editor_heading_margin_fix": {
@@ -398,6 +398,9 @@
 			"type": "boolean"
 		},
 		"platform_renderer_table_sort_btn_aria_hidden": {
+			"type": "boolean"
+		},
+		"platform_editor_renderer_table_header_styles": {
 			"type": "boolean"
 		}
 	}

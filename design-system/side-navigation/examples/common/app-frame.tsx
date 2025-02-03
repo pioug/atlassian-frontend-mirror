@@ -2,31 +2,13 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import React from 'react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
 
-import { css, cssMap, jsx } from '@compiled/react';
-
+import { HORIZONTAL_GLOBAL_NAV_HEIGHT } from '@atlaskit/atlassian-navigation';
 import { token } from '@atlaskit/tokens';
 
 import GlobalNav from './global-nav';
-
-const styles = cssMap({
-	container: {
-		height: '100%',
-		minHeight: 600,
-	},
-	positionRelative: { zIndex: 10, position: 'relative' },
-	boxHeight: { height: 'calc(100% - 56px)', minHeight: 600, display: 'flex' },
-	minHeight: { minHeight: 600 },
-});
-
-const baseHeight = css({
-	height: '100%',
-});
-
-const baseBorder = css({
-	borderInlineEnd: `1px solid ${token('color.border')}`,
-});
 
 interface AppFrameProps {
 	children: React.ReactNode;
@@ -38,14 +20,39 @@ interface AppFrameProps {
 const AppFrame = ({ children, shouldHideAppBar, shouldHideBorder, content }: AppFrameProps) => {
 	return (
 		// eslint-disable-next-line
-		<div onClick={(e) => e.preventDefault()} css={styles.container}>
+		<div
+			onClick={(e) => e.preventDefault()}
+			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+			css={{
+				height: '100%',
+				minHeight: 600,
+			}}
+		>
 			{shouldHideAppBar || (
-				<div css={styles.positionRelative}>
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+				<div css={{ zIndex: 10, position: 'relative' }}>
 					<GlobalNav />
 				</div>
 			)}
-			<div css={[styles.boxHeight, shouldHideAppBar && baseHeight]}>
-				<div css={[styles.minHeight, !shouldHideBorder && baseBorder]}>{children}</div>
+			<div
+				// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+				css={{
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
+					height: shouldHideAppBar ? '100%' : `calc(100% - ${HORIZONTAL_GLOBAL_NAV_HEIGHT}px)`,
+					minHeight: 600,
+					display: 'flex',
+				}}
+			>
+				<div
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					css={{
+						minHeight: 600,
+						borderRight: shouldHideBorder ? undefined : `1px solid ${token('color.border')}`,
+					}}
+				>
+					{children}
+				</div>
+
 				{content}
 			</div>
 		</div>

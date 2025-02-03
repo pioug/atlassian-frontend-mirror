@@ -15,7 +15,10 @@ import { GiveKudosLauncher } from '../src';
 
 const styles = cssMap({
 	buttonWrapper: {
-		margin: token('space.200'),
+		marginTop: token('space.200'),
+		marginRight: token('space.200'),
+		marginBottom: token('space.200'),
+		marginLeft: token('space.200'),
 	},
 });
 

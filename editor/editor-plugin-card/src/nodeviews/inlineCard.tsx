@@ -1,6 +1,7 @@
-import React, { memo, useCallback, useMemo, useState } from 'react';
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import rafSchedule from 'raf-schd';
+import uuid from 'uuid/v4';
 
 import { useSharedPluginState } from '@atlaskit/editor-common/hooks';
 import { handleNavigation } from '@atlaskit/editor-common/link';
@@ -15,7 +16,7 @@ import type { Decoration, EditorView } from '@atlaskit/editor-prosemirror/view';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { Card as SmartCard } from '@atlaskit/smart-card';
 
-import { registerCard } from '../pm-plugins/actions';
+import { registerCard, removeCard } from '../pm-plugins/actions';
 import { getAwarenessProps } from '../pm-plugins/utils';
 import OverlayWrapper from '../ui/ConfigureOverlay';
 
@@ -41,6 +42,18 @@ export const InlineCard = memo(
 		hoverPreviewOptions,
 	}: SmartCardProps) => {
 		const { url, data } = node.attrs;
+		const refId = useRef(uuid());
+
+		useEffect(() => {
+			const id = refId.current;
+			return () => {
+				if (fg('platform_editor_fix_card_plugin_state')) {
+					const { tr } = view.state;
+					removeCard({ id })(tr);
+					view.dispatch(tr);
+				}
+			};
+		}, [getPos, view]);
 
 		const scrollContainer: HTMLElement | undefined = useMemo(
 			// Ignored via go/ees005
@@ -72,6 +85,7 @@ export const InlineCard = memo(
 						title,
 						url,
 						pos,
+						id: refId.current,
 					})(tr);
 
 					onRes?.(tr, title);

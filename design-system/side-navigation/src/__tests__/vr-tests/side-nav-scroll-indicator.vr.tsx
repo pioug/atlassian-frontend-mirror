@@ -5,10 +5,8 @@ import Example from '../../../examples/12-nested-side-navigation-scroll-indicato
 snapshot(Example, {
 	variants: [
 		{
-			name: 'Light',
-			environment: {
-				colorScheme: 'light',
-			},
+			name: 'default',
+			environment: {},
 		},
 	],
 });

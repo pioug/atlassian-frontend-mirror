@@ -16,14 +16,6 @@ import { token } from '@atlaskit/tokens';
 
 import { type AvatarGroupSize } from './types';
 
-const B300 = '#0065FF';
-const B400 = '#0052CC';
-const B50 = '#DEEBFF';
-const N0 = '#FFFFFF';
-const N20 = '#F4F5F7';
-const N30 = '#EBECF0';
-const N500 = '#42526E';
-
 const buttonSizes: Record<AvatarGroupSize, React.CSSProperties['font']> = {
 	small: token('font.body.small'),
 	medium: token('font.body.small'),
@@ -35,19 +27,19 @@ const buttonSizes: Record<AvatarGroupSize, React.CSSProperties['font']> = {
 const buttonActiveStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
-		backgroundColor: token('color.background.selected', B50),
+		backgroundColor: token('color.background.selected'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
-		boxShadow: `0 0 0 2px ${token('color.border.selected', B300)}`,
-		color: token('color.text.selected', B400),
+		boxShadow: `0 0 0 ${token('border.width.outline')} ${token('color.border.selected')}`,
+		color: token('color.text.selected'),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		transform: `scale(0.9)`,
 		'&:hover': {
-			backgroundColor: token('color.background.selected.hovered', N30),
-			color: token('color.text.selected', N500),
+			backgroundColor: token('color.background.selected.hovered'),
+			color: token('color.text.selected'),
 		},
 		'&:active': {
-			backgroundColor: token('color.background.selected.pressed', B50),
-			color: token('color.text.selected', B400),
+			backgroundColor: token('color.background.selected.pressed'),
+			color: token('color.text.selected'),
 		},
 	},
 });
@@ -55,16 +47,16 @@ const buttonActiveStyles = css({
 const buttonStyles = css({
 	// eslint-disable-next-line @atlaskit/design-system/no-nested-styles, @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 	'&&': {
-		backgroundColor: token('color.background.neutral', N20),
-		color: token('color.text', N500),
+		backgroundColor: token('color.background.neutral'),
+		color: token('color.text'),
 
 		'&:hover': {
-			backgroundColor: token('color.background.neutral.hovered', N30),
-			color: token('color.text', N500),
+			backgroundColor: token('color.background.neutral.hovered'),
+			color: token('color.text'),
 		},
 		'&:active': {
-			backgroundColor: token('color.background.neutral.pressed', B50),
-			color: token('color.text', B400),
+			backgroundColor: token('color.background.neutral.pressed'),
+			color: token('color.text'),
 		},
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-selectors -- Ignored via go/DSP-18766
 		'&::after': {
@@ -93,7 +85,7 @@ const MoreIndicator = forwardRef<HTMLButtonElement, MoreIndicatorProps>(
 			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 			borderColor = fg('platform-component-visual-refresh')
 				? token('elevation.surface')
-				: token('color.border.inverse', N0),
+				: token('color.border.inverse'),
 			size = 'medium' as AvatarGroupSize,
 			count = 0,
 			testId,

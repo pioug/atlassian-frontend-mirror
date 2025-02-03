@@ -96,7 +96,7 @@ export const ColumnControls = ({
 	const firstRow = tableRef.querySelector('tr');
 	const hasHeaderRow = firstRow ? firstRow.getAttribute('data-header-row') : false;
 
-	const rowControlStickyTop = fg('platform_editor_breakout_use_css') ? 45 : rowHeights?.[0];
+	const rowControlStickyTop = 45;
 	const marginTop = hasHeaderRow && stickyTop !== undefined ? rowControlStickyTop ?? 0 : 0;
 
 	const handleClick = useCallback(

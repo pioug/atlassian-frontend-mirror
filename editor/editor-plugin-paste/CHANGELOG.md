@@ -1,5 +1,14 @@
 # @atlaskit/editor-plugin-paste
 
+## 2.1.1
+
+### Patch Changes
+
+- [#103729](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/103729)
+  [`3188f307d178a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3188f307d178a) -
+  ED-25321: fixes issue where pasting action/task item into the middle of a list item will paste in
+  the wrong location and create an extra empty task item
+
 ## 2.1.0
 
 ### Minor Changes

@@ -61,6 +61,12 @@ const importIconMapperOld: {
   [IconType.SubTask]: () => import(/* webpackChunkName: "glyphSubTask" */ '@atlaskit/icon-object/glyph/subtask/16'),
   [IconType.Task]: () => import(/* webpackChunkName: "glyphTask" */ '@atlaskit/icon-object/glyph/task/16'),
 
+  // Confluence icons
+  [IconType.LiveDocument]: () =>
+    import(/* webpackChunkName: "glyphConfluenceLiveDocument" */ '@atlaskit/icon-lab/core/page-live-doc').then(({ default: LiveDocumentIcon }) => ({
+      default: LiveDocumentIcon,
+    })),
+
   // Provider icons
   [IconType.Confluence]: () =>
     import(/* webpackChunkName: "glyphConfluence" */ '@atlaskit/logo/confluence-icon').then(({ ConfluenceIcon }) => ({

@@ -13,9 +13,9 @@ const MediaViewer = lazy(() =>
 export default function AsyncMediaViewer(props: MediaViewerWithMediaClientConfigProps) {
 	return (
 		<Suspense fallback={<ModalSpinner />}>
-			{fg('media_card_replace_react_portal_for_ds_portal') ? (
+			{fg('media_viewer_integrates_ds_portal') ? (
 				<MediaViewerPortal>
-					<AsyncMediaViewer {...props} />
+					<MediaViewer {...props} />
 				</MediaViewerPortal>
 			) : (
 				<MediaViewer {...props} />

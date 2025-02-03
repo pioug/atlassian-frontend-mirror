@@ -772,14 +772,18 @@ export const rendererStyles = (wrapperProps: RendererWrapperProps) => (theme: an
      *
      * This is done to make sort buttons fill entire <th />.
      */
-			table {
+			${fg('platform_editor_renderer_table_header_styles')
+				? `.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table`
+				: 'table'} {
 				height: 1px; /* will be ignored */
 				${tableSortableColumnStyle(wrapperProps)};
 				margin-left: 0;
 				margin-right: 0;
 			}
 
-			table tr:first-of-type {
+			${fg('platform_editor_renderer_table_header_styles')
+				? `.${TableSharedCssClassName.TABLE_NODE_WRAPPER} > table > tbody > tr:first-of-type `
+				: 'table tr:first-of-type'} {
 				height: 100%;
 
 				td,

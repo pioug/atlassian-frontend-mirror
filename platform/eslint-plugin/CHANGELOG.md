@@ -1,5 +1,14 @@
 # @atlaskit/eslint-plugin-platform
 
+## 2.3.0
+
+### Minor Changes
+
+- [#108485](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108485)
+  [`0c642edaebbbb`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/0c642edaebbbb) -
+  AFB-822 Modifying expand-spacing-shorthand ESLint rule to not throw error for non-token
+  expressions in template strings
+
 ## 2.2.1
 
 ### Patch Changes

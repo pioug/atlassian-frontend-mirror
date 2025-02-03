@@ -1,5 +1,10 @@
 export { extractPlatformIsSupported } from './platform/extractPlatformIsSupported';
-export { extractContext, extractProvider, extractProviderIcon } from './context';
+export {
+	extractContext,
+	extractProvider,
+	extractProviderIcon,
+	isConfluenceGenerator,
+} from './context';
 
 export { extractDateCreated, extractDateUpdated, extractDateViewed } from './date';
 

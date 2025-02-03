@@ -29,7 +29,7 @@
 		"@atlaskit/adf-utils": "^19.18.0",
 		"@atlaskit/button": "^20.4.0",
 		"@atlaskit/checkbox": "^15.3.0",
-		"@atlaskit/editor-common": "^99.6.0",
+		"@atlaskit/editor-common": "^99.7.0",
 		"@atlaskit/editor-palette": "1.7.0",
 		"@atlaskit/editor-plugin-block-controls": "^2.21.0",
 		"@atlaskit/editor-plugin-context-panel": "^1.5.0",

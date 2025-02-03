@@ -4,8 +4,10 @@ import DocumentIcon from '@atlaskit/icon-file-type/glyph/document/16';
 import FileIcon from '@atlaskit/icon-file-type/glyph/generic/16';
 import PresentationIcon from '@atlaskit/icon-file-type/glyph/presentation/16';
 import SpreadsheetIcon from '@atlaskit/icon-file-type/glyph/spreadsheet/16';
+import LiveDocumentIcon from '@atlaskit/icon-lab/core/page-live-doc';
 import BlogIcon from '@atlaskit/icon-object/glyph/blog/16';
 import DocumentFilledIcon from '@atlaskit/icon/core/migration/page--document-filled';
+import { isConfluenceGenerator } from '@atlaskit/link-extractors';
 
 import { getIconForFileType } from '../../../utils';
 
@@ -54,7 +56,7 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
 		case 'schema:BlogPosting':
 			return <BlogIcon label={opts.title || 'blog'} testId="blog-icon" />;
 		case 'schema:DigitalDocument':
-			return <FileIcon label={opts.title || 'file'} testId="file-icon" />;
+			return digitalDocumentToIcon(opts);
 		case 'schema:TextDigitalDocument':
 			return <DocumentIcon label={opts.title || 'document'} testId="document-icon" />;
 		case 'schema:PresentationDigitalDocument':
@@ -71,5 +73,21 @@ const documentTypeToIcon = (type: DocumentType, opts: IconOpts): React.ReactNode
 			);
 		case 'atlassian:UndefinedLink':
 			return <DocumentIcon label={opts.title || 'undefinedLink'} testId="document-icon" />;
+	}
+};
+
+/**
+ * Enables providers to represent `schema:DigitalDocument` in a manner which
+ * aligns with their customers when representing provider-specific types, which
+ * do not apply across multiple providers.
+ * @example Confluence digital documents represent 'live documents', specific to Confluence.
+ * @remark This mechanism will be superseded by backend-driven icon URLs as part
+ * of go/j/MODES-5864. Do not add more!
+ */
+const digitalDocumentToIcon = (opts: IconOpts): React.ReactNode => {
+	if (opts.provider?.id && isConfluenceGenerator(opts.provider.id)) {
+		return <LiveDocumentIcon label="live-doc" testId="live-doc-icon" />;
+	} else {
+		return <FileIcon label={opts.title || 'file'} testId="file-icon" />;
 	}
 };

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/media-card",
-	"version": "78.19.0",
+	"version": "78.19.1",
 	"description": "Includes all media card related components, CardView, CardViewSmall, Card...",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -119,7 +119,7 @@
 		"platform_media_cdn_single_host": {
 			"type": "boolean"
 		},
-		"media_card_replace_react_portal_for_ds_portal": {
+		"media_viewer_integrates_ds_portal": {
 			"type": "boolean"
 		}
 	},

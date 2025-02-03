@@ -99,6 +99,7 @@ type ContentStylesProps = {
 		| 'typography-adg3'
 		| 'typography-modernized'
 		| 'typography-refreshed';
+	isScrollable?: boolean;
 };
 
 const ruleStyles = () => css`
@@ -499,9 +500,27 @@ export const createEditorContentStyle = (styles?: SerializedStyles) => {
 			[theme, colorMode, featureFlags, props.viewMode, typography],
 		);
 
+		if (props.isScrollable) {
+			return (
+				<div
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+					className={className}
+					ref={ref}
+					css={[memoizedStyle, styles]}
+					data-editor-scroll-container="true"
+				>
+					{children}
+				</div>
+			);
+		}
+
 		return (
-			// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			<div className={className} ref={ref} css={[memoizedStyle, styles]}>
+			<div
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+				className={className}
+				ref={ref}
+				css={[memoizedStyle, styles]}
+			>
 				{children}
 			</div>
 		);

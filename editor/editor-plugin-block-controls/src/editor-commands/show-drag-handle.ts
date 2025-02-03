@@ -67,9 +67,7 @@ export const showDragHandleAtSelection =
 		const nodeElement = dom?.node.childNodes[dom?.offset] as HTMLElement | undefined;
 
 		const rootNode =
-			nodeElement &&
-			!nodeElement.hasAttribute('data-drag-handler-anchor-name') &&
-			fg('platform_editor_element_drag_and_drop_ed_24321')
+			nodeElement && !nodeElement.hasAttribute('data-drag-handler-anchor-name')
 				? nodeElement.querySelector('[data-drag-handler-anchor-name]')
 				: nodeElement;
 

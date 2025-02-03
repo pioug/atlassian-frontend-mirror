@@ -1,5 +1,20 @@
 # @atlaskit/editor-plugins
 
+## 7.1.2
+
+### Patch Changes
+
+- [#108797](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108797)
+  [`9a3f165bc940b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/9a3f165bc940b) -
+  tidy up feature flag confluence_frontend_editor_custom_presets
+- Updated dependencies
+
+## 7.1.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 7.1.0
 
 ### Minor Changes

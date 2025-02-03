@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-core",
-	"version": "203.12.0",
+	"version": "203.13.0",
 	"description": "A package contains Atlassian editor core functionality",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -43,7 +43,7 @@
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/analytics-next-stable-react-context": "1.0.1",
 		"@atlaskit/button": "^20.4.0",
-		"@atlaskit/editor-common": "^99.6.0",
+		"@atlaskit/editor-common": "^99.7.0",
 		"@atlaskit/editor-json-transformer": "^8.22.0",
 		"@atlaskit/editor-plugin-quick-insert": "1.9.0",
 		"@atlaskit/editor-plugins": "^7.1.0",
@@ -96,7 +96,7 @@
 		"@atlaskit/modal-dialog": "^12.20.0",
 		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/renderer": "^112.12.0",
-		"@atlaskit/smart-card": "^34.8.0",
+		"@atlaskit/smart-card": "^34.9.0",
 		"@atlaskit/synchrony-test-helpers": "^3.0.0",
 		"@atlaskit/toggle": "^14.1.0",
 		"@atlaskit/util-data-test": "^18.0.0",
@@ -196,9 +196,6 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
-		"platform_editor_breakout_use_css": {
-			"type": "boolean"
-		},
 		"editor_request_to_edit_task": {
 			"type": "boolean"
 		},
@@ -227,6 +224,10 @@
 			"referenceOnly": true
 		},
 		"platform_editor_react18_phase2_v2": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
+		"platform_editor_vs_code_block_paste": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
@@ -404,12 +405,20 @@
 			"type": "boolean",
 			"referenceOnly": true
 		},
+		"platform_editor_lego__inline_node_virtualization": {
+			"type": "boolean",
+			"referenceOnly": true
+		},
 		"platform_editor_nested_tables_paste_dupe_fix": {
 			"type": "boolean",
 			"referenceOnly": true
 		},
 		"platform_editor_react_18_autofocus_fix": {
 			"type": "boolean"
+		},
+		"platform_editor_renderer_table_header_styles": {
+			"type": "boolean",
+			"referenceOnly": true
 		}
 	},
 	"stricter": {

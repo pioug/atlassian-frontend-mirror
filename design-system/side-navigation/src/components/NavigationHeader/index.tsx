@@ -2,17 +2,18 @@
  * @jsxRuntime classic
  * @jsx jsx
  */
-import { cssMap, jsx } from '@compiled/react';
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
 
-import { Box } from '@atlaskit/primitives/compiled';
-import { token } from '@atlaskit/tokens';
+import { Box, xcss } from '@atlaskit/primitives';
 
-const styles = cssMap({
-	navigationFooter: {
-		display: 'block',
-		padding: token('space.100'),
-		paddingBlockStart: token('space.300'),
-	},
+const navigationFooterStyles = xcss({
+	display: 'block',
+	paddingTop: 'space.100',
+	paddingRight: 'space.100',
+	paddingBottom: 'space.100',
+	paddingLeft: 'space.100',
+	paddingBlockStart: 'space.300',
 });
 
 export interface NavigationHeaderProps {
@@ -30,7 +31,7 @@ export interface NavigationHeaderProps {
 const NavigationHeader = (props: NavigationHeaderProps) => {
 	const { children } = props;
 	return (
-		<Box xcss={styles.navigationFooter} data-navheader>
+		<Box xcss={navigationFooterStyles} data-navheader>
 			{children}
 		</Box>
 	);

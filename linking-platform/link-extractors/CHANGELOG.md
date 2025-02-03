@@ -1,5 +1,13 @@
 # @atlaskit/link-extractors
 
+## 1.10.0
+
+### Minor Changes
+
+- [#109430](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109430)
+  [`c6429aa44850a`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/c6429aa44850a) -
+  [ux] Adds support for Confluence Live Doc icons to @atlaskit/smart-card
+
 ## 1.9.2
 
 ### Patch Changes

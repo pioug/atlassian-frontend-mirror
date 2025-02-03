@@ -1,6 +1,7 @@
 import React from 'react';
 
 import rafSchedule from 'raf-schd';
+import uuid from 'uuid/v4';
 
 import type { RichMediaLayout } from '@atlaskit/adf-schema';
 import { SetAttrsStep } from '@atlaskit/adf-schema/steps';
@@ -34,7 +35,7 @@ import { fg } from '@atlaskit/platform-feature-flags';
 import { EmbedResizeMessageListener, Card as SmartCard } from '@atlaskit/smart-card';
 
 import type { cardPlugin } from '../index';
-import { registerCard } from '../pm-plugins/actions';
+import { registerCard, removeCard } from '../pm-plugins/actions';
 import ResizableEmbedCard from '../ui/ResizableEmbedCard';
 
 import type { SmartCardProps } from './genericCard';
@@ -170,11 +171,14 @@ export type EmbedCardState = {
 };
 
 // eslint-disable-next-line @repo/internal/react/no-class-components
-export class EmbedCardComponent extends React.PureComponent<SmartCardProps, EmbedCardState> {
+export class EmbedCardComponent extends React.PureComponent<
+	SmartCardProps & { id?: string },
+	EmbedCardState
+> {
 	private scrollContainer?: HTMLElement;
 	private embedIframeRef = React.createRef<HTMLIFrameElement>();
 
-	constructor(props: SmartCardProps) {
+	constructor(props: SmartCardProps & { id?: string }) {
 		super(props);
 		// Ignored via go/ees005
 		// eslint-disable-next-line @atlaskit/editor/no-as-casting
@@ -228,6 +232,7 @@ export class EmbedCardComponent extends React.PureComponent<SmartCardProps, Embe
 					title,
 					url,
 					pos,
+					id: this.props.id,
 				})(view.state.tr),
 			);
 		})();
@@ -439,6 +444,8 @@ export type EmbedCardNodeViewProps = Pick<
 >;
 
 export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
+	private id = uuid();
+
 	unsubscribe: (() => void) | undefined;
 
 	viewShouldUpdate(nextNode: PMNode) {
@@ -502,6 +509,15 @@ export class EmbedCard extends ReactNodeView<EmbedCardNodeViewProps> {
 
 	destroy() {
 		this.unsubscribe?.();
+		if (fg('platform_editor_fix_card_plugin_state')) {
+			this.removeCard();
+		}
+	}
+
+	private removeCard() {
+		const { tr } = this.view.state;
+		removeCard({ id: this.id })(tr);
+		this.view.dispatch(tr);
 	}
 }
 

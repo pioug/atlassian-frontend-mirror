@@ -73,7 +73,7 @@
 		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/react-select": "^1.7.0",
 		"@atlaskit/select": "^18.10.0",
-		"@atlaskit/smart-card": "^34.8.0",
+		"@atlaskit/smart-card": "^34.9.0",
 		"@atlaskit/smart-user-picker": "7.0.0",
 		"@atlaskit/spinner": "^17.1.0",
 		"@atlaskit/tag": "^12.7.0",

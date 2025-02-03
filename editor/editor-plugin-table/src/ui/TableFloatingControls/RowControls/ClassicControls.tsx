@@ -6,7 +6,6 @@ import { injectIntl } from 'react-intl-next';
 import { tableMessages as messages } from '@atlaskit/editor-common/messages';
 import type { Selection } from '@atlaskit/editor-prosemirror/state';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
 
 import { clearHoverSelection } from '../../../pm-plugins/commands';
 import type { RowParams } from '../../../pm-plugins/utils/row-controls';
@@ -85,15 +84,7 @@ class RowControlsComponent extends Component<Props & WrappedComponentProps> {
 									// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
 									marginTop: `${marginTop}px`,
 									// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview
-									top: fg('platform_editor_breakout_use_css')
-										? thisRowSticky
-											? `3px`
-											: undefined
-										: thisRowSticky
-											? // Ignored via go/ees005
-												// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-												`${this.props.stickyTop! + 3}px`
-											: undefined,
+									top: thisRowSticky ? `3px` : undefined,
 									// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage/preview, @atlaskit/ui-styling-standard/no-imported-style-values -- Ignored via go/DSP-18766
 									paddingTop: thisRowSticky ? `${tableControlsSpacing}px` : undefined,
 								}}

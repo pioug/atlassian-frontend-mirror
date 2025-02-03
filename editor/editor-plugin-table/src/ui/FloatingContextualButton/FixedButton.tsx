@@ -4,7 +4,6 @@ import rafSchedule from 'raf-schd';
 import { createPortal } from 'react-dom';
 
 import { akEditorTableCellOnStickyHeaderZIndex } from '@atlaskit/editor-shared-styles';
-import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
 import type { RowStickyState } from '../../pm-plugins/sticky-headers/types';
@@ -134,13 +133,9 @@ export const FixedButton = ({
 		isContextualMenuOpen,
 	]);
 
-	const fixedButtonTop = fg('platform_editor_breakout_use_css') ? 0 : stickyHeader.top;
+	const fixedButtonTop = 0;
 
 	const containerLeft = useMemo(() => {
-		if (!fg('platform_editor_breakout_use_css')) {
-			return 0;
-		}
-
 		const container = targetCellRef.closest('[data-editor-container="true"]');
 		return container?.getBoundingClientRect().left || 0;
 	}, [targetCellRef]);

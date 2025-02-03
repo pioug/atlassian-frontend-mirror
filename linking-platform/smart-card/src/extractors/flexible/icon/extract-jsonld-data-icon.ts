@@ -46,7 +46,8 @@ function chooseIcon({
 	const fileFormat = (data as JsonLd.Data.Document)?.['schema:fileFormat'];
 	const fileFormatIcon = extractFileFormatIcon(fileFormat);
 	const documentTypeIcon =
-		typeToIconDescriptor({ type, label, providerId, data }) || extractDocumentTypeIcon(type, label);
+		typeToIconDescriptor({ type, label, providerId, data }) ||
+		extractDocumentTypeIcon(type, label, providerId);
 
 	return prioritiseIcon<IconDescriptor>({
 		fileFormatIcon,

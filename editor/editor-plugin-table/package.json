@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/editor-plugin-table",
-	"version": "9.3.1",
+	"version": "9.3.2",
 	"description": "Table plugin for the @atlaskit/editor",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -30,7 +30,7 @@
 		"@atlaskit/adf-schema": "^46.1.0",
 		"@atlaskit/button": "^20.4.0",
 		"@atlaskit/custom-steps": "^0.9.0",
-		"@atlaskit/editor-common": "^99.6.0",
+		"@atlaskit/editor-common": "^99.7.0",
 		"@atlaskit/editor-palette": "1.7.0",
 		"@atlaskit/editor-plugin-accessibility-utils": "^1.3.0",
 		"@atlaskit/editor-plugin-analytics": "^1.11.0",
@@ -116,9 +116,6 @@
 	},
 	"platform-feature-flags": {
 		"platform_editor_batch_steps_table": {
-			"type": "boolean"
-		},
-		"platform_editor_breakout_use_css": {
 			"type": "boolean"
 		},
 		"platform_editor_nested_table_in_nested_parent_fix": {

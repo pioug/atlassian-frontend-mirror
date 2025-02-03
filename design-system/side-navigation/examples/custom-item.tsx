@@ -1,8 +1,15 @@
-import React, { forwardRef, type MouseEvent } from 'react';
+/**
+ * @jsxRuntime classic
+ * @jsx jsx
+ */
+import { forwardRef, type MouseEvent } from 'react';
+
+// eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
+import { jsx } from '@emotion/react';
 
 import AddItemIcon from '@atlaskit/icon/glyph/add-item';
 import EmojiAtlassianIcon from '@atlaskit/icon/glyph/emoji/atlassian';
-import { Box } from '@atlaskit/primitives/compiled';
+import { Box } from '@atlaskit/primitives';
 
 import { CustomItem, type CustomItemComponentProps } from '../src';
 

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "2.14.0",
+	"version": "2.14.1",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -126,7 +126,7 @@
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0",
 		"bowser-ultralight": "^1.0.6",
-		"scheduler": "0.19.1",
+		"scheduler": "0.23.2",
 		"uuid": "^3.1.0"
 	},
 	"peerDependencies": {
@@ -172,6 +172,9 @@
 		}
 	},
 	"platform-feature-flags": {
+		"platform_ufo_AFO-3379_fix_default_interaction": {
+			"type": "boolean"
+		},
 		"platform_editor_ed-25937_ignore_mutations_for_ttvc": {
 			"type": "boolean"
 		},

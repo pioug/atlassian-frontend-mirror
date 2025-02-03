@@ -25,7 +25,7 @@ import type {
 import { type ContextPanelPlugin } from '@atlaskit/editor-plugins/context-panel';
 import { type ViewMode } from '@atlaskit/editor-plugins/editor-viewmode';
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
-import { fg } from '@atlaskit/platform-feature-flags';
+import { editorExperiment } from '@atlaskit/tmp-editor-statsig/experiments';
 
 import type EditorActions from '../../../actions';
 import type { ContentComponents, ReactComponents } from '../../../types';
@@ -39,7 +39,6 @@ import {
 	contentArea,
 	contentAreaHeightNoToolbar,
 	contentAreaWrapper,
-	contentAreaWrapperNoStyles,
 	editorContentAreaStyle,
 	editorContentGutterStyle,
 	ScrollContainer,
@@ -104,19 +103,28 @@ const Content = React.forwardRef<
 			css={[
 				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
 				contentArea,
-				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
-				props.isEditorToolbarHidden && contentAreaHeightNoToolbar,
+				// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values
+				editorExperiment('live_pages_graceful_edit', 'control') &&
+					props.isEditorToolbarHidden &&
+					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-imported-style-values, @atlaskit/design-system/consistent-css-prop-usage -- Ignored via go/DSP-18766
+					contentAreaHeightNoToolbar,
 			]}
 			data-testid={CONTENT_AREA_TEST_ID}
 			ref={containerRef}
+			// eslint-disable-next-line  @atlaskit/ui-styling-standard/no-classname-prop
+			className={
+				!editorExperiment('live_pages_graceful_edit', 'control') && props.isEditorToolbarHidden
+					? 'ak-editor-content-area-no-toolbar'
+					: undefined
+			}
 		>
 			<div
 				css={
 					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-imported-style-values
-					fg('platform_editor_breakout_use_css') ? contentAreaWrapper : contentAreaWrapperNoStyles
+					contentAreaWrapper
 				}
 				data-testid={EDITOR_CONTAINER}
-				data-editor-container={fg('platform_editor_breakout_use_css') ? 'true' : 'false'}
+				data-editor-container={'true'}
 			>
 				<ScrollContainer
 					// eslint-disable-next-line @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
@@ -124,6 +132,7 @@ const Content = React.forwardRef<
 					featureFlags={props.featureFlags}
 					ref={scrollContainerRef}
 					viewMode={props?.viewMode}
+					isScrollable
 				>
 					<ClickAreaBlock editorView={props.editorView} editorDisabled={props.disabled}>
 						<div

@@ -87,6 +87,8 @@ export default {
   'fabric.editor.columnMovedRight': 'Kolonne flyttet til højre til {index} af {total}',
   'fabric.editor.columnSelected': 'Kolonne {index} af {total} er valgt',
   'fabric.editor.columns': 'Layout',
+  'fabric.editor.columns.advanced.layout.description':
+    '{numberOfColumns, plural, one {Indsæt {numberOfColumns} lige kolonne} other {Indsæt {numberOfColumns} lige kolonner}}',
   'fabric.editor.columns.description': 'Opdel din side i afsnit',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {En kolonne er blevet indsat} other {{count} kolonner er blevet indsat}}',
@@ -314,6 +316,7 @@ export default {
   'fabric.editor.keyboardShortcuts': 'Tastaturgenveje',
   'fabric.editor.layout.columnOption': '{count, plural, one {Kolonne} other {{count} kolonner}}',
   'fabric.editor.layout.placeholder': 'Tilføj indhold',
+  'fabric.editor.layout.resizeLayout': 'Ændr størrelse på layout',
   'fabric.editor.layoutFixedWidth': 'Tilbage til centrering',
   'fabric.editor.layoutFullWidth': 'Vis i fuld bredde',
   'fabric.editor.layoutWide': 'Vis bred',
@@ -386,6 +389,8 @@ export default {
   'fabric.editor.notePanel.description': 'Tilføj en note i et farvet panel',
   'fabric.editor.numberedColumn': 'Kolonne med nummerering',
   'fabric.editor.off': '{formattingType} fra',
+  'fabric.editor.offlineErrorFallbackDescription': 'Prøv at genindlæse siden.',
+  'fabric.editor.offlineErrorFallbackHeading': 'Noget gik galt!',
   'fabric.editor.on': '{formattingType} til',
   'fabric.editor.openCellOptions': 'Åbn celleegenskaber',
   'fabric.editor.openLink': 'Åbn link i en nye fane',
@@ -535,6 +540,7 @@ export default {
   'fabric.editor.unableToOpenLink': 'Kan ikke åbne dette link',
   'fabric.editor.underline': 'Understreget',
   'fabric.editor.undo': 'Fortryd',
+  'fabric.editor.unknown.label': 'Ukendt',
   'fabric.editor.unlink': 'Fjern link',
   'fabric.editor.unorderedList': 'Punktopstilling',
   'fabric.editor.unorderedList.description': 'Opret en ikke-sorteret liste',

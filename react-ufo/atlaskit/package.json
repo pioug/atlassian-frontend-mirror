@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/react-ufo",
-	"version": "2.14.1",
+	"version": "2.14.2",
 	"description": "Parts of React UFO that are publicly available",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -122,7 +122,7 @@
 	},
 	"dependencies": {
 		"@atlaskit/interaction-context": "^2.6.0",
-		"@atlaskit/platform-feature-flags": "^0.3.0",
+		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@babel/runtime": "^7.0.0",
 		"bind-event-listener": "^3.0.0",
 		"bowser-ultralight": "^1.0.6",

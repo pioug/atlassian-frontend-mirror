@@ -33,6 +33,9 @@ export const LozengeActionErrorMessages = {
 	noData: {
 		descriptor: messages['status_change_permission_error'],
 	},
+	noDataIssueTermRefresh: {
+		descriptor: messages['status_change_permission_errorIssueTermRefresh'],
+	},
 	unknown: {
 		descriptor: messages['status_change_load_error'],
 	},

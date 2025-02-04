@@ -38,4 +38,16 @@ export const initialStateViewMessages = defineMessages({
 			'The link that displays under the search description to help people know more about JQL',
 		defaultMessage: 'Learn how to search with JQL',
 	},
+	searchDescriptionForJQLSearchIssueTermRefresh: {
+		id: 'linkDataSource.modal-initial-state.searchDescription-jql-issue-term-refresh',
+		description:
+			'The initial modal search state helper message displayed under the search title when JQL search mode is selected',
+		defaultMessage: 'Use JQL (Jira Query Language) to search for work items.',
+	},
+	searchDescriptionForBasicSearchIssueTermRefresh: {
+		id: 'linkDataSource.modal-initial-state.searchDescription-basic-issue-term-refresh',
+		description:
+			'The initial modal search state helper message displayed under the search title when basic search mode is selected',
+		defaultMessage: 'Search by keyword for work items to insert.',
+	},
 });

@@ -23,9 +23,10 @@ const imageStyles = css({
 	display: 'block',
 	maxWidth: `var(${CSS_VAR_MAX_WIDTH})`,
 	maxHeight: `var(${CSS_VAR_MAX_HEIGHT})`,
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/design-system/ensure-design-token-usage, @atlaskit/platform/expand-spacing-shorthand
-	margin: `0 auto ${token('space.300', '24px')}`,
+	marginBlockEnd: token('space.300', '24px'),
+	marginBlockStart: 0,
+	marginInlineEnd: 'auto',
+	marginInlineStart: 'auto',
 });
 
 /**

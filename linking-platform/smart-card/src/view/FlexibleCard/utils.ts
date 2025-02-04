@@ -1,6 +1,7 @@
 import { type JsonLd } from 'json-ld-types';
 
 import { extractProvider } from '@atlaskit/link-extractors';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { SmartLinkStatus } from '../../constants';
 import { extractRequestAccessContextImproved } from '../../extractors/common/context';
@@ -42,9 +43,13 @@ const getForbiddenMessageKey = (meta: JsonLd.Meta.BaseMeta): MessageKey => {
 	const accessType = meta?.requestAccess?.accessType;
 	switch (accessType) {
 		case 'DIRECT_ACCESS':
-			return 'join_to_view';
+			return fg('confluence-issue-terminology-refresh')
+				? 'join_to_viewIssueTermRefresh'
+				: 'join_to_view';
 		case 'REQUEST_ACCESS':
-			return 'request_access_to_view';
+			return fg('confluence-issue-terminology-refresh')
+				? 'request_access_to_viewIssueTermRefresh'
+				: 'request_access_to_view';
 		case 'PENDING_REQUEST_EXISTS':
 			return 'pending_request';
 		case 'FORBIDDEN':

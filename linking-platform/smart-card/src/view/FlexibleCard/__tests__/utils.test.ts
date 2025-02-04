@@ -1,5 +1,7 @@
 import { type JsonLd } from 'json-ld-types';
 
+import { fg } from '@atlaskit/platform-feature-flags';
+
 import { IconType, SmartLinkStatus } from '../../../constants';
 import { messages } from '../../../messages';
 import { getContextByStatus, getRetryOptions } from '../utils';
@@ -180,7 +182,9 @@ describe('getRetryOptions', () => {
 			const retry = getRetryOptions(url, SmartLinkStatus.Forbidden, response('DIRECT_ACCESS'));
 
 			expect(retry).toEqual({
-				descriptor: messages.join_to_view,
+				descriptor: fg('confluence-issue-terminology-refresh')
+					? messages.join_to_viewIssueTermRefresh
+					: messages.join_to_view,
 				onClick: expect.any(Function),
 			});
 		});
@@ -189,7 +193,9 @@ describe('getRetryOptions', () => {
 			const retry = getRetryOptions(url, SmartLinkStatus.Forbidden, response('REQUEST_ACCESS'));
 
 			expect(retry).toEqual({
-				descriptor: messages.request_access_to_view,
+				descriptor: fg('confluence-issue-terminology-refresh')
+					? messages.request_access_to_viewIssueTermRefresh
+					: messages.request_access_to_view,
 				onClick: expect.any(Function),
 			});
 		});

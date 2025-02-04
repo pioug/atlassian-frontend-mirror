@@ -27,11 +27,12 @@ const boxShadow = token('elevation.shadow.overlay');
 const positionStyles = css({
 	width: '280px',
 	height: '60px',
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	padding: token('space.100', '8px'),
 	backgroundColor: token('color.background.neutral'),
 	borderRadius: '5px',
+	paddingBlockEnd: token('space.100', '8px'),
+	paddingBlockStart: token('space.100', '8px'),
+	paddingInlineEnd: token('space.100', '8px'),
+	paddingInlineStart: token('space.100', '8px'),
 });
 
 interface Pos {
@@ -99,7 +100,7 @@ const PositionExample: FC = () => {
 				pinned={pinned}
 				pos={pinned ? 'fixed' : 'relative'}
 			>
-				<button onClick={pinned ? unpin : pin} css={positionExampleStyles}>
+				<button type="button" onClick={pinned ? unpin : pin} css={positionExampleStyles}>
 					{pinned ? 'Unpin' : 'Pin'}
 				</button>
 			</Position>

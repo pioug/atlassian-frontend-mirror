@@ -53,7 +53,7 @@ function keymapList(
 			keymapList,
 		);
 
-		if (editorExperiment('nested-dnd', true) && fg('platform_editor_element_dnd_nested_a11y')) {
+		if (editorExperiment('nested-dnd', true)) {
 			bindKeymapWithCommand(
 				// Ignored via go/ees005
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion

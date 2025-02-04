@@ -128,7 +128,13 @@ export function createPMPlugins(config: PMPluginCreateConfig): SafePlugin[] {
 		)
 		.filter((plugin): plugin is SafePlugin => typeof plugin !== 'undefined');
 	if (config.onEditorStateUpdated !== undefined) {
-		return [createEditorStateNotificationPlugin(config.onEditorStateUpdated), ...pmPlugins];
+		return [
+			createEditorStateNotificationPlugin(
+				config.onEditorStateUpdated,
+				config.editorConfig.onEditorViewStateUpdatedCallbacks,
+			),
+			...pmPlugins,
+		];
 	}
 	return pmPlugins;
 }

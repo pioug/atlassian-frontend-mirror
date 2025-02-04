@@ -88,6 +88,8 @@ export default {
   'fabric.editor.columnMovedRight': 'Kolom naar rechts verplaatst naar {index} van {total}',
   'fabric.editor.columnSelected': 'Kolom {index} van {total} geselecteerd',
   'fabric.editor.columns': 'Lay-outs',
+  'fabric.editor.columns.advanced.layout.description':
+    '{numberOfColumns, plural, one {{numberOfColumns} gelijke kolom toevoegen} other {{numberOfColumns} gelijke kolommen toevoegen}}',
   'fabric.editor.columns.description': 'Je pagina structureren met secties',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {Er is een kolom ingevoegd} other {Er zijn {count} kolommen ingevoegd}}',
@@ -314,6 +316,7 @@ export default {
   'fabric.editor.keyboardShortcuts': 'Sneltoetsen',
   'fabric.editor.layout.columnOption': '{count, plural, one {Kolom} other {{count} kolommen}}',
   'fabric.editor.layout.placeholder': 'Inhoud toevoegen',
+  'fabric.editor.layout.resizeLayout': 'Formaat van de lay-out wijzigen',
   'fabric.editor.layoutFixedWidth': 'Terug naar midden',
   'fabric.editor.layoutFullWidth': 'Op volledige breedte weergeven',
   'fabric.editor.layoutWide': 'Brede weergave',
@@ -389,6 +392,8 @@ export default {
   'fabric.editor.notePanel.description': 'Een opmerking toevoegen in een gekleurd paneel',
   'fabric.editor.numberedColumn': 'Genummerde kolom',
   'fabric.editor.off': '{formattingType} uit',
+  'fabric.editor.offlineErrorFallbackDescription': 'Probeer de pagina opnieuw te laden.',
+  'fabric.editor.offlineErrorFallbackHeading': 'Er is iets misgegaan.',
   'fabric.editor.on': '{formattingType} aan',
   'fabric.editor.openCellOptions': 'Celopties openen',
   'fabric.editor.openLink': 'Link openen in een nieuw tabblad',
@@ -538,6 +543,7 @@ export default {
   'fabric.editor.unableToOpenLink': 'Kan deze link niet openen',
   'fabric.editor.underline': 'Onderstreept',
   'fabric.editor.undo': 'Maak ongedaan',
+  'fabric.editor.unknown.label': 'Onbekend',
   'fabric.editor.unlink': 'Verwijder link',
   'fabric.editor.unorderedList': 'Opsommingslijst',
   'fabric.editor.unorderedList.description': 'Een niet-gesorteerde lijst maken',

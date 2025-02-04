@@ -23,12 +23,15 @@ export const metricsPlugin: MetricsPlugin = ({ api }) => ({
 				const pluginState = api?.metrics.sharedState.currentState();
 				if (pluginState && pluginState.totalActionCount > 0 && pluginState.activeSessionTime > 0) {
 					const payloadToSend = getAnalyticsPayload({
+						currentContent: tr.doc.content,
 						pluginState,
 					});
 					api?.analytics.actions.attachAnalyticsEvent(payloadToSend)(newTr);
 				}
 
-				newTr.setMeta(metricsKey, { stopActiveSession: true });
+				newTr.setMeta(metricsKey, {
+					stopActiveSession: true,
+				});
 
 				return newTr;
 			},

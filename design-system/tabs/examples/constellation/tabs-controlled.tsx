@@ -14,9 +14,6 @@ import { token } from '@atlaskit/tokens';
 
 const panelStyles = css({
 	display: 'flex',
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	padding: token('space.400', '32px'),
 	alignItems: 'center',
 	justifyContent: 'center',
 	flexDirection: 'column',
@@ -27,6 +24,10 @@ const panelStyles = css({
 	font: token('font.heading.xxlarge'),
 	marginBlockEnd: token('space.100', '8px'),
 	marginBlockStart: token('space.200', '16px'),
+	paddingBlockEnd: token('space.400', '32px'),
+	paddingBlockStart: token('space.400', '32px'),
+	paddingInlineEnd: token('space.400', '32px'),
+	paddingInlineStart: token('space.400', '32px'),
 });
 
 export const Panel = ({ children, testId }: { children: ReactNode; testId?: string }) => (

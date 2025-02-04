@@ -88,6 +88,8 @@ export default {
   'fabric.editor.columnMovedRight': 'Kolumnen flyttades åt höger till {index} av {total}',
   'fabric.editor.columnSelected': 'Kolumn {index} av {total} markerad',
   'fabric.editor.columns': 'Layouter',
+  'fabric.editor.columns.advanced.layout.description':
+    '{numberOfColumns, plural, one {Infoga {numberOfColumns} likadan kolumn} other {Infoga {numberOfColumns} likadana kolumner}}',
   'fabric.editor.columns.description': 'Ge din sida struktur med sektioner',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {En kolumn har infogats} other {{count} kolumner har infogats}}',
@@ -315,6 +317,7 @@ export default {
   'fabric.editor.keyboardShortcuts': 'Kortkommandon',
   'fabric.editor.layout.columnOption': '{count, plural, one {Kolumn} other {{count} kolumner}}',
   'fabric.editor.layout.placeholder': 'Lägg till innehåll',
+  'fabric.editor.layout.resizeLayout': 'Ändra storlek på layout',
   'fabric.editor.layoutFixedWidth': 'Tillbaka till centrera',
   'fabric.editor.layoutFullWidth': 'Använd full bredd',
   'fabric.editor.layoutWide': 'Använd bred',
@@ -387,6 +390,8 @@ export default {
   'fabric.editor.notePanel.description': 'Lägg till en anteckning i en färgad panel',
   'fabric.editor.numberedColumn': 'Numrerad kolumn',
   'fabric.editor.off': '{formattingType} av',
+  'fabric.editor.offlineErrorFallbackDescription': 'Försök uppdatera sidan.',
+  'fabric.editor.offlineErrorFallbackHeading': 'Något gick fel!',
   'fabric.editor.on': '{formattingType} på',
   'fabric.editor.openCellOptions': 'Öppna cellalternativ',
   'fabric.editor.openLink': 'Öppna länk i en ny flik',
@@ -534,6 +539,7 @@ export default {
   'fabric.editor.unableToOpenLink': 'Det gick inte att öppna länken',
   'fabric.editor.underline': 'Understruken',
   'fabric.editor.undo': 'Ångra',
+  'fabric.editor.unknown.label': 'Okänd',
   'fabric.editor.unlink': 'Ta bort länk',
   'fabric.editor.unorderedList': 'Punktlista',
   'fabric.editor.unorderedList.description': 'Skapa en osorterad lista',

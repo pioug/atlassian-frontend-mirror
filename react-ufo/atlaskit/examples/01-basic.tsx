@@ -87,8 +87,6 @@ const useCounterToVisible = (base: number) => {
 	useEffect(() => {
 		const timer = setTimeout(() => {
 			setVisible(performance.now());
-
-			// (window as any).__react_ufo_tests_mark_next_frame({ elementId: base });
 		}, base * 250);
 		return () => clearTimeout(timer);
 	}, [base]);
@@ -104,7 +102,7 @@ const SectionOne = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 	}
 
 	return (
-		<div data-lol="sectionOne" css={sectionOneStyle}>
+		<div data-testid="sectionOne" css={sectionOneStyle}>
 			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
 			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
 		</div>
@@ -119,7 +117,7 @@ const SectionTwo = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 	}
 
 	return (
-		<div css={sectionTwoStyle}>
+		<div data-testid="sectionTwo" css={sectionTwoStyle}>
 			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
 			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
 		</div>
@@ -134,7 +132,7 @@ const SectionThree = ({ base, appCreatedAt }: { base: number; appCreatedAt: numb
 	}
 
 	return (
-		<div css={sectionThreeStyle}>
+		<div data-testid="sectionThree" css={sectionThreeStyle}>
 			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
 			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
 		</div>
@@ -149,7 +147,7 @@ const SectionFour = ({ base, appCreatedAt }: { base: number; appCreatedAt: numbe
 	}
 
 	return (
-		<div css={sectionFourStyle}>
+		<div data-testid="sectionFour" css={sectionFourStyle}>
 			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
 			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
 		</div>
@@ -164,7 +162,7 @@ const SectionFive = ({ base, appCreatedAt }: { base: number; appCreatedAt: numbe
 	}
 
 	return (
-		<div css={sectionFiveStyle}>
+		<div data-testid="sectionFive" css={sectionFiveStyle}>
 			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
 			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
 		</div>
@@ -179,7 +177,7 @@ const SectionSix = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 	}
 
 	return (
-		<div css={sectionSixStyle}>
+		<div data-testid="sectionSix" css={sectionSixStyle}>
 			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
 			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
 		</div>
@@ -194,7 +192,7 @@ const SectionSeven = ({ base, appCreatedAt }: { base: number; appCreatedAt: numb
 	}
 
 	return (
-		<div css={sectionSevenStyle}>
+		<div data-testid="sectionSeven" css={sectionSevenStyle}>
 			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
 			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
 		</div>
@@ -209,7 +207,7 @@ const SectionEight = ({ base, appCreatedAt }: { base: number; appCreatedAt: numb
 	}
 
 	return (
-		<div css={sectionEightStyle}>
+		<div data-testid="sectionEight" css={sectionEightStyle}>
 			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
 			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
 		</div>
@@ -224,7 +222,7 @@ const SectionNine = ({ base, appCreatedAt }: { base: number; appCreatedAt: numbe
 	}
 
 	return (
-		<div css={sectionNineStyle}>
+		<div data-testid="sectionNine" css={sectionNineStyle}>
 			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
 			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
 		</div>
@@ -239,7 +237,7 @@ const SectionTen = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 	}
 
 	return (
-		<div css={sectionTenStyle}>
+		<div data-testid="sectionTen" css={sectionTenStyle}>
 			<h2> Rendered at: {visibleAt.toFixed(2)} ms</h2>
 			<h3> App created at: {appCreatedAt.toFixed(2)} ms</h3>
 		</div>
@@ -249,6 +247,7 @@ const SectionTen = ({ base, appCreatedAt }: { base: number; appCreatedAt: number
 // Main App component
 export default function Example() {
 	const appCreatedAt = useMemo(() => performance.now(), []);
+
 	return (
 		<UFOSegment name="app-root">
 			<div data-testid="main" css={appStyle}>

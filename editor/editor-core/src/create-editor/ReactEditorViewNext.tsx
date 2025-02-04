@@ -508,15 +508,16 @@ export function ReactEditorView(props: EditorViewProps) {
 				});
 			}
 
-			// ED-25839: Investigate if we also want to migrate this API to use `onEditorStateUpdated` in `createPMPlugins`
-			config.current?.onEditorViewStateUpdatedCallbacks.forEach((entry) => {
-				entry.callback({
-					originalTransaction,
-					transactions,
-					oldEditorState,
-					newEditorState,
+			if (!fg('platform_editor_migrate_state_updates')) {
+				config.current?.onEditorViewStateUpdatedCallbacks.forEach((entry) => {
+					entry.callback({
+						originalTransaction,
+						transactions,
+						oldEditorState,
+						newEditorState,
+					});
 				});
-			});
+			}
 		},
 		[],
 	);

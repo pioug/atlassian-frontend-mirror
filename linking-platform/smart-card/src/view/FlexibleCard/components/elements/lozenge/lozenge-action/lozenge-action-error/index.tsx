@@ -127,7 +127,11 @@ const LozengeActionErrorNew = ({
 					<div css={linkStyles}>
 						{/* eslint-disable-next-line jsx-a11y/anchor-is-valid, jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
 						<a target="_blank" data-testid={`${testId}-open-embed`} onClick={handlePreviewOpen}>
-							<FormattedMessage {...messages.open_issue_in_jira} />
+							{fg('confluence-issue-terminology-refresh') ? (
+								<FormattedMessage {...messages.open_issue_in_jiraIssueTermRefresh} />
+							) : (
+								<FormattedMessage {...messages.open_issue_in_jira} />
+							)}
 						</a>
 					</div>
 				) : null}

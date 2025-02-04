@@ -103,4 +103,31 @@ export const modalMessages = defineMessages({
 		defaultMessage:
 			'Check your connection and refresh, or <a>open this query in Jira</a> to review.',
 	},
+	insertIssuesButtonTextIssueTermRefresh: {
+		id: 'linkDataSource.jira-issues.configmodal.insertIssuesButtonText-issue-term-refresh',
+		description: 'Button text to insert the displayed content',
+		defaultMessage: 'Insert work items',
+	},
+	insertIssuesTitleIssueTermRefresh: {
+		id: 'linkDataSource.jira-issues.configmodal.insertIssuesTitle-issue-term-refresh',
+		description: 'Title for the Jira Issues Datasource config modal',
+		defaultMessage: 'Insert Jira work items',
+	},
+	insertIssuesTitleManySitesIssueTermRefresh: {
+		id: 'linkDataSource.jira-issues.configmodal.insertIssuesTitleManySites-issue-term-refresh',
+		description:
+			'Title for the Jira Issues modal when a user has to select a site to inserting issues from',
+		defaultMessage: 'Insert Jira work items from',
+	},
+	issuesCountSmartCardPlaceholderTextIssueTermRefresh: {
+		id: 'linkDataSource.jira-issues.configmodal.placeholder.issues-issue-term-refresh',
+		description: 'Placeholder text that will be placed next to a count of jira issues',
+		defaultMessage: '### work items',
+	},
+	searchJiraTitleIssueTermRefresh: {
+		id: 'linkDataSource.modal-initial-state.searchTitle-issue-term-refresh',
+		description:
+			'The initial modal search state title that gives the user some idea about how to get information',
+		defaultMessage: 'Search for Jira work items',
+	},
 });

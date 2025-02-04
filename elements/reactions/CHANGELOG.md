@@ -1,5 +1,20 @@
 # @atlaskit/reactions
 
+## 24.5.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 24.5.0
+
+### Minor Changes
+
+- [#109300](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109300)
+  [`e78402bbbad97`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/e78402bbbad97) -
+  [ux] Fixes a minor bug where Reactions Dialog was causing reactions to be sorted in place
+  affecting the Reactions parent component. Dialog feature gate also has been updated
+
 ## 24.4.1
 
 ### Patch Changes

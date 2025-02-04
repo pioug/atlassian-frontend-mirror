@@ -13,5 +13,9 @@
 		"rootDir": "../",
 		"composite": true
 	},
-	"references": []
+	"references": [
+		{
+			"path": "../../../measurement/feature-gate-js-client/afm-jira/tsconfig.json"
+		}
+	]
 }

@@ -1,5 +1,6 @@
 import type { CollabEditProvider, CollabTelepointerPayload } from '@atlaskit/editor-common/collab';
 import type { EditorState, Transaction } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { getSendableSelection } from '../actions';
 import { pluginKey } from '../main/plugin-key';
@@ -23,7 +24,9 @@ export const sendTransaction =
 		viewMode,
 	}: Props) =>
 	(provider: CollabEditProvider) => {
-		const docChangedTransaction = transactions.find((tr) => tr.docChanged);
+		const docChangedTransaction = fg('platform_editor_migrate_state_updates')
+			? originalTransaction.docChanged
+			: transactions.find((tr) => tr.docChanged);
 		const currentPluginState = pluginKey.getState(newEditorState);
 
 		if (!currentPluginState?.isReady) {
@@ -39,7 +42,11 @@ export const sendTransaction =
 			docChangedTransaction;
 
 		if (useNativePlugin || shouldSendStepForSynchronyCollabProvider) {
-			provider.send(docChangedTransaction as Transaction, oldEditorState, newEditorState);
+			if (fg('platform_editor_migrate_state_updates')) {
+				provider.send(originalTransaction as Transaction, oldEditorState, newEditorState);
+			} else {
+				provider.send(docChangedTransaction as Transaction, oldEditorState, newEditorState);
+			}
 		}
 
 		const prevPluginState = pluginKey.getState(oldEditorState);

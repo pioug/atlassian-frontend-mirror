@@ -1,3 +1,5 @@
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+
 import { debug } from './debug';
 
 const pkgName = '@atlaskit/platform-feature-flags';
@@ -81,6 +83,15 @@ export function resolveBooleanFlag(flagKey: string): boolean {
 	}
 
 	try {
+		// booleanResolver will be empty for products like Trello, Elevate, Recruit etc.
+		// Currently only Confluence, Jira and Bitbucket has set it.
+		if (
+			globalVar[PFF_GLOBAL_KEY]?.booleanResolver === undefined ||
+			globalVar[PFF_GLOBAL_KEY]?.booleanResolver === null
+		) {
+			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+			return FeatureGates.checkGate(flagKey);
+		}
 		const result = globalVar[PFF_GLOBAL_KEY]?.booleanResolver(flagKey);
 
 		if (typeof result !== 'boolean') {

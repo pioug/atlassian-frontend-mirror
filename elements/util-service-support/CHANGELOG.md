@@ -1,106 +1,146 @@
 # @atlaskit/util-service-support
 
+## 6.2.6
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.2.5
 
 ### Patch Changes
 
-- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116) [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) - Upgrade Typescript from `4.9.5` to `5.4.2`
+- [#83116](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/83116)
+  [`8d4e99057fe0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/8d4e99057fe0) -
+  Upgrade Typescript from `4.9.5` to `5.4.2`
 
 ## 6.2.4
 
 ### Patch Changes
 
-- [#68561](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68561) [`6a1919bf8400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a1919bf8400) - Migrate packages to use declarative entry points
+- [#68561](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/68561)
+  [`6a1919bf8400`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6a1919bf8400) -
+  Migrate packages to use declarative entry points
 
 ## 6.2.3
 
 ### Patch Changes
 
-- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162) [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete version.json
+- [#38162](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/38162)
+  [`fd6bb9c9184`](https://bitbucket.org/atlassian/atlassian-frontend/commits/fd6bb9c9184) - Delete
+  version.json
 
 ## 6.2.2
 
 ### Patch Changes
 
-- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793) [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure legacy types are published for TS 4.5-4.8
+- [#33793](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33793)
+  [`9d00501a414`](https://bitbucket.org/atlassian/atlassian-frontend/commits/9d00501a414) - Ensure
+  legacy types are published for TS 4.5-4.8
 
 ## 6.2.1
 
 ### Patch Changes
 
-- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649) [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade Typescript from `4.5.5` to `4.9.5`
+- [#33649](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33649)
+  [`41fae2c6f68`](https://bitbucket.org/atlassian/atlassian-frontend/commits/41fae2c6f68) - Upgrade
+  Typescript from `4.5.5` to `4.9.5`
 
 ## 6.2.0
 
 ### Minor Changes
 
-- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258) [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip minor dependency bump
+- [#33258](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/33258)
+  [`56507598609`](https://bitbucket.org/atlassian/atlassian-frontend/commits/56507598609) - Skip
+  minor dependency bump
 
 ## 6.1.3
 
 ### Patch Changes
 
-- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874) [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade Typescript from `4.3.5` to `4.5.5`
+- [#24874](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24874)
+  [`8cc2f888c83`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8cc2f888c83) - Upgrade
+  Typescript from `4.3.5` to `4.5.5`
 
 ## 6.1.2
 
 ### Patch Changes
 
-- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492) [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade Typescript from `4.2.4` to `4.3.5`.
+- [#24492](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/24492)
+  [`8d4228767b0`](https://bitbucket.org/atlassian/atlassian-frontend/commits/8d4228767b0) - Upgrade
+  Typescript from `4.2.4` to `4.3.5`.
 
 ## 6.1.1
 
 ### Patch Changes
 
-- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650) [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade to TypeScript 4.2.4
+- [#20650](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/20650)
+  [`cb2392f6d33`](https://bitbucket.org/atlassian/atlassian-frontend/commits/cb2392f6d33) - Upgrade
+  to TypeScript 4.2.4
 
 ## 6.1.0
 
 ### Minor Changes
 
-- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752) [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Remove unused polyfills
+- [#16752](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/16752)
+  [`19d72473dfb`](https://bitbucket.org/atlassian/atlassian-frontend/commits/19d72473dfb) - Remove
+  unused polyfills
 
 ## 6.0.5
 
 ### Patch Changes
 
-- [#8625](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8625) [`dfe01a5dad7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfe01a5dad7) - Added ability to ignore JSON payload on status.ok responses
+- [#8625](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/8625)
+  [`dfe01a5dad7`](https://bitbucket.org/atlassian/atlassian-frontend/commits/dfe01a5dad7) - Added
+  ability to ignore JSON payload on status.ok responses
 
 ## 6.0.4
 
 ### Patch Changes
 
-- [#9338](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9338) [`0241ccdf088`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0241ccdf088) - Accept paths which already have a leading slash.
+- [#9338](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/9338)
+  [`0241ccdf088`](https://bitbucket.org/atlassian/atlassian-frontend/commits/0241ccdf088) - Accept
+  paths which already have a leading slash.
 
 ## 6.0.3
 
 ### Patch Changes
 
-- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857) [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile packages using babel rather than tsc
+- [#5857](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5857)
+  [`d3265f19be`](https://bitbucket.org/atlassian/atlassian-frontend/commits/d3265f19be) - Transpile
+  packages using babel rather than tsc
 
 ## 6.0.2
 
 ### Patch Changes
 
-- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497) [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules compiler option.
-  This requires version 3.8 of Typescript, read more about how we handle Typescript versions here: https://atlaskit.atlassian.com/get-started
-  Also add `typescript` to `devDependencies` to denote version that the package was built with.
+- [#5497](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/5497)
+  [`5f58283e1f`](https://bitbucket.org/atlassian/atlassian-frontend/commits/5f58283e1f) - Export
+  types using Typescript's new "export type" syntax to satisfy Typescript's --isolatedModules
+  compiler option. This requires version 3.8 of Typescript, read more about how we handle Typescript
+  versions here: https://atlaskit.atlassian.com/get-started Also add `typescript` to
+  `devDependencies` to denote version that the package was built with.
 
 ## 6.0.1
 
 ### Patch Changes
 
-- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885) [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded to TypeScript 3.9.6 and tslib to 2.0.0
+- [#3885](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3885)
+  [`6c525a8229`](https://bitbucket.org/atlassian/atlassian-frontend/commits/6c525a8229) - Upgraded
+  to TypeScript 3.9.6 and tslib to 2.0.0
 
-  Since tslib is a dependency for all our packages we recommend that products also follow this tslib upgrade
-  to prevent duplicates of tslib being bundled.
+  Since tslib is a dependency for all our packages we recommend that products also follow this tslib
+  upgrade to prevent duplicates of tslib being bundled.
 
 ## 6.0.0
 
 ### Major Changes
 
-- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335) [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially dropping IE11 support, from this version onwards there are no warranties of the package working in IE11.
-  For more information see: https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
+- [#3335](https://bitbucket.org/atlassian/atlassian-frontend/pull-requests/3335)
+  [`87f4720f27`](https://bitbucket.org/atlassian/atlassian-frontend/commits/87f4720f27) - Officially
+  dropping IE11 support, from this version onwards there are no warranties of the package working in
+  IE11. For more information see:
+  https://community.developer.atlassian.com/t/atlaskit-to-drop-support-for-internet-explorer-11-from-1st-july-2020/39534
 
 ## 5.0.1
 
@@ -108,7 +148,8 @@
 
 - [patch][6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
 
-  Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
+  Remove namespace imports from React, ReactDom, and PropTypes- Updated dependencies
+  [6548261c9a](https://bitbucket.org/atlassian/atlassian-frontend/commits/6548261c9a):
 
   - @atlaskit/docs@8.3.2
 
@@ -160,7 +201,8 @@
 
 - [patch][36f5a93068](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/36f5a93068):
 
-  Revert API breaking change `headers[key]` => `headers.get(key)`. This change will be reintroduced as a major in a subsequent release.
+  Revert API breaking change `headers[key]` => `headers.get(key)`. This change will be reintroduced
+  as a major in a subsequent release.
 
 ## 4.1.0
 
@@ -172,13 +214,15 @@ _Contains an API breaking change:`headers.map(key)` => `headers[key]`._
 
 - [minor][c38928b077](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c38928b077):
 
-  ED-7631: fixed code to build headers to run in Chrome in serviceUtils.requestService- [minor][ae4f336a3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ae4f336a3a):
+  ED-7631: fixed code to build headers to run in Chrome in serviceUtils.requestService-
+  [minor][ae4f336a3a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/ae4f336a3a):
 
 **FABDODGEM-13 Editor Damask Release** - [Internal post](http://go.atlassian.com/damask-release)
 
 **BREAKING CHANGES**
 
-- **Media:** Removed deprecated "context" property from media components in favor of "mediaClientConfig". This affects all public media UI components.
+- **Media:** Removed deprecated "context" property from media components in favor of
+  "mediaClientConfig". This affects all public media UI components.
   - https://product-fabric.atlassian.net/browse/MS-2038
 - **Tasks & Decisions:** Removed containerAri for task-decisions components.
   - https://product-fabric.atlassian.net/browse/ED-7631
@@ -263,7 +307,8 @@ Bumped dependencies.
 
 - [patch][097b696613](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/097b696613):
 
-  Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving non-relative imports as relative imports
+  Components now depend on TS 3.6 internally, in order to fix an issue with TS resolving
+  non-relative imports as relative imports
 
 ## 4.0.6
 
@@ -293,12 +338,15 @@ Bumped dependencies.
   - Adding back cjs
   - Replacing es5 by cjs and es2015 by esm
   - Creating folders at the root for entry-points
-  - Removing the generation of the entry-points at the root
-    Please see this [ticket](https://product-fabric.atlassian.net/browse/BUILDTOOLS-118) or this [page](https://hello.atlassian.net/wiki/spaces/FED/pages/452325500/Finishing+Atlaskit+multiple+entry+points) for further details
+  - Removing the generation of the entry-points at the root Please see this
+    [ticket](https://product-fabric.atlassian.net/browse/BUILDTOOLS-118) or this
+    [page](https://hello.atlassian.net/wiki/spaces/FED/pages/452325500/Finishing+Atlaskit+multiple+entry+points)
+    for further details
 
 ## 4.0.3
 
-- Updated dependencies [7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
+- Updated dependencies
+  [7c17b35107](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7c17b35107):
   - @atlaskit/docs@8.0.0
 
 ## 4.0.2
@@ -321,7 +369,8 @@ Bumped dependencies.
 
 ## 3.1.1
 
-- Updated dependencies [76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
+- Updated dependencies
+  [76299208e6](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/76299208e6):
   - @atlaskit/docs@7.0.0
 
 ## 3.1.0
@@ -343,78 +392,98 @@ Bumped dependencies.
 
 ## 3.0.3
 
-- [patch] FS-2941 Stop using Request object and upgrade fetch-mock [dff332a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dff332a)
+- [patch] FS-2941 Stop using Request object and upgrade fetch-mock
+  [dff332a](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/dff332a)
 
 ## 3.0.2
 
-- [patch] Fix es5 exports of some of the newer modules [3f0cd7d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f0cd7d)
+- [patch] Fix es5 exports of some of the newer modules
+  [3f0cd7d](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/3f0cd7d)
 
 ## 3.0.1
 
-- [patch] Updated dependencies [acd86a1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/acd86a1)
+- [patch] Updated dependencies
+  [acd86a1](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/acd86a1)
   - @atlaskit/docs@5.0.2
 
 ## 3.0.0
 
-- [major] Updated dependencies [563a7eb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/563a7eb)
+- [major] Updated dependencies
+  [563a7eb](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/563a7eb)
   - @atlaskit/docs@5.0.0
-- [major] Updated dependencies [7edb866](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7edb866)
+- [major] Updated dependencies
+  [7edb866](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/7edb866)
   - @atlaskit/docs@5.0.0
 
 ## 2.0.12
 
-- [patch] Move the tests under src and club the tests under unit, integration and visual regression [f1a9069](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f1a9069)
+- [patch] Move the tests under src and club the tests under unit, integration and visual regression
+  [f1a9069](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/f1a9069)
 
 ## 2.0.11
 
-- [patch] Update changelogs to remove duplicate [cc58e17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc58e17)
-- [none] Updated dependencies [cc58e17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc58e17)
+- [patch] Update changelogs to remove duplicate
+  [cc58e17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc58e17)
+- [none] Updated dependencies
+  [cc58e17](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/cc58e17)
   - @atlaskit/docs@4.1.1
 
 ## 2.0.10
 
-- [none] Updated dependencies [9d20f54](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d20f54)
+- [none] Updated dependencies
+  [9d20f54](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/9d20f54)
   - @atlaskit/docs@4.1.0
 
 ## 2.0.9
 
-- [patch] FS-797 Allow setting url for pubsub example and fix url-search-params import style [1c85e67](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c85e67)
+- [patch] FS-797 Allow setting url for pubsub example and fix url-search-params import style
+  [1c85e67](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1c85e67)
 
 ## 2.0.8
 
-- [patch] Updated dependencies [1e80619](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e80619)
+- [patch] Updated dependencies
+  [1e80619](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/1e80619)
   - @atlaskit/docs@4.0.0
 
 ## 2.0.7
 
-- [patch] Updated dependencies [d662caa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d662caa)
+- [patch] Updated dependencies
+  [d662caa](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/d662caa)
   - @atlaskit/docs@3.0.4
 
 ## 2.0.6
 
-- [patch] Fixed tsconfig in build/es5 [c8e55d0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c8e55d0)
+- [patch] Fixed tsconfig in build/es5
+  [c8e55d0](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/c8e55d0)
 
 ## 2.0.5
 
-- [patch] FS-1698 migrated util-service-support to mk-2 [e0bcb61](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e0bcb61)
+- [patch] FS-1698 migrated util-service-support to mk-2
+  [e0bcb61](https://bitbucket.org/atlassian/atlaskit-mk-2/commits/e0bcb61)
 
 ## 2.0.4 (2018-02-06)
 
-- bug fix; added omitCredentials to SecurityOptions ([88cb203](https://bitbucket.org/atlassian/atlaskit/commits/88cb203))
+- bug fix; added omitCredentials to SecurityOptions
+  ([88cb203](https://bitbucket.org/atlassian/atlaskit/commits/88cb203))
 
 ## 2.0.3 (2017-12-26)
 
-- bug fix; remove @atlaskit/util-common-test from devDependencies ([e9faeab](https://bitbucket.org/atlassian/atlaskit/commits/e9faeab))
-- bug fix; add url-search-params as a dependency (issues closed: fs-1091) ([b33cdcf](https://bitbucket.org/atlassian/atlaskit/commits/b33cdcf))
+- bug fix; remove @atlaskit/util-common-test from devDependencies
+  ([e9faeab](https://bitbucket.org/atlassian/atlaskit/commits/e9faeab))
+- bug fix; add url-search-params as a dependency (issues closed: fs-1091)
+  ([b33cdcf](https://bitbucket.org/atlassian/atlaskit/commits/b33cdcf))
 
 ## 2.0.2 (2017-09-12)
 
-- bug fix; requestService can handle 204 responses with no content ([edf13d5](https://bitbucket.org/atlassian/atlaskit/commits/edf13d5))
+- bug fix; requestService can handle 204 responses with no content
+  ([edf13d5](https://bitbucket.org/atlassian/atlaskit/commits/edf13d5))
 
 ## 2.0.1 (2017-07-24)
 
-- fix; make sure types from utils are exports (extracted types to separate file) ([ebde291](https://bitbucket.org/atlassian/atlaskit/commits/ebde291))
+- fix; make sure types from utils are exports (extracted types to separate file)
+  ([ebde291](https://bitbucket.org/atlassian/atlaskit/commits/ebde291))
 
 ## 1.0.0 (2017-07-24)
 
-- feature; extract common service integration code into a shared library ([5714832](https://bitbucket.org/atlassian/atlaskit/commits/5714832))
+- feature; extract common service integration code into a shared library
+  ([5714832](https://bitbucket.org/atlassian/atlaskit/commits/5714832))

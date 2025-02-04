@@ -88,6 +88,8 @@ export default {
   'fabric.editor.columnMovedRight': 'Sloupec byl přesunut doprava na pozici {index} z {total}',
   'fabric.editor.columnSelected': 'Je vybrán sloupec {index} z {total}',
   'fabric.editor.columns': 'Rozvržení',
+  'fabric.editor.columns.advanced.layout.description':
+    '{numberOfColumns, plural, one {Vložit {numberOfColumns} stejný sloupec} few {Vložit {numberOfColumns} stejné sloupce} many {Vložit {numberOfColumns} stejného sloupce} other {Vložit {numberOfColumns} stejných sloupců}}',
   'fabric.editor.columns.description': 'Uspořádejte svou stránku pomocí oddílů',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {Byl vložen sloupec.} few {Byly vloženy {count} sloupce.} many {Bylo vloženo {count} sloupce.} other {Bylo vloženo {count} sloupců.}}',
@@ -315,6 +317,7 @@ export default {
   'fabric.editor.layout.columnOption':
     '{count, plural, one {Sloupec} few {{count} sloupce} many {{count} sloupce} other {{count} sloupců}}',
   'fabric.editor.layout.placeholder': 'Přidat obsah',
+  'fabric.editor.layout.resizeLayout': 'Změnit velikost rozvržení',
   'fabric.editor.layoutFixedWidth': 'Zpět na zobrazení standardní šířky',
   'fabric.editor.layoutFullWidth': 'Přepnout do zobrazení na celou šířku',
   'fabric.editor.layoutWide': 'Přepnout do zobrazení na šířku',
@@ -391,6 +394,8 @@ export default {
   'fabric.editor.notePanel.description': 'Přidat poznámku do barevného panelu',
   'fabric.editor.numberedColumn': 'Číslovaný sloupec',
   'fabric.editor.off': 'Formátování {formattingType} vypnuto',
+  'fabric.editor.offlineErrorFallbackDescription': 'Zkuste stránku načíst znovu.',
+  'fabric.editor.offlineErrorFallbackHeading': 'Něco se pokazilo',
   'fabric.editor.on': '{formattingType} zapnuto',
   'fabric.editor.openCellOptions': 'Otevřít možnosti buňky',
   'fabric.editor.openLink': 'Otevřít odkaz na nové kartě',
@@ -541,6 +546,7 @@ export default {
   'fabric.editor.unableToOpenLink': 'Tento odkaz nelze otevřít',
   'fabric.editor.underline': 'Podtržení',
   'fabric.editor.undo': 'Vrátit',
+  'fabric.editor.unknown.label': 'Neznámý',
   'fabric.editor.unlink': 'Zrušit propojení',
   'fabric.editor.unorderedList': 'Seznam s odrážkami',
   'fabric.editor.unorderedList.description': 'Vytvořit neseřazený seznam',

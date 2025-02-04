@@ -3,9 +3,9 @@
  * @jsx jsx
  */
 // eslint-disable-next-line @atlaskit/ui-styling-standard/use-compiled -- Ignored via go/DSP-18766
-import { Component } from 'react';
+import { useCallback, useState } from 'react';
 
-import { css, jsx, type SerializedStyles } from '@emotion/react';
+import { css, jsx } from '@emotion/react';
 
 import { type IconProps } from '@atlaskit/icon';
 import CheckboxIcon from '@atlaskit/icon/glyph/checkbox';
@@ -17,9 +17,7 @@ import VisuallyHidden from '@atlaskit/visually-hidden';
 
 import { type OptionProps, type OptionType } from '../types';
 
-const getPrimitiveStyles = (
-	props: Omit<OptionProps, 'children' | 'innerProps' | 'innerRef'>,
-): [SerializedStyles, string] => {
+const getPrimitiveStyles = (props: Omit<OptionProps, 'children' | 'innerProps' | 'innerRef'>) => {
 	const { cx, className, getStyles, isDisabled, isFocused, isSelected } = props;
 
 	const baseStyles = {
@@ -43,7 +41,7 @@ const getPrimitiveStyles = (
 		},
 	};
 
-	const augmentedStyles: SerializedStyles = css({
+	const augmentedStyles = css({
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
 		...getStyles('option', props),
 		// eslint-disable-next-line @atlaskit/ui-styling-standard/no-unsafe-values -- Ignored via go/DSP-18766
@@ -58,7 +56,10 @@ const getPrimitiveStyles = (
 	};
 
 	// maintain react-select API
-	return [augmentedStyles, cx(bemClasses, className) as string];
+	return {
+		styles: augmentedStyles,
+		classes: cx(bemClasses, className) as string,
+	};
 };
 
 // state of the parent option
@@ -129,93 +130,80 @@ const baseOptionStyles = css({
 	whiteSpace: 'nowrap',
 });
 
-interface OptionState {
-	isActive?: boolean;
-}
-
 // eslint-disable-next-line @repo/internal/react/no-class-components
-class ControlOption<Option = OptionType, IsMulti extends boolean = false> extends Component<
-	OptionProps<Option, IsMulti>,
-	OptionState
-> {
-	state: OptionState = { isActive: false };
+const ControlOption = <Option, IsMulti extends boolean = false>(
+	props: OptionProps<Option, IsMulti>,
+) => {
+	const [isActive, setIsActive] = useState(false);
 
-	onMouseDown = () => this.setState({ isActive: true });
+	const onMouseDown = useCallback(() => setIsActive(true), []);
+	const onMouseUp = useCallback(() => setIsActive(false), []);
 
-	onMouseUp = () => this.setState({ isActive: false });
+	const { getStyles, Icon, children, innerProps, innerRef, ...rest } = props;
+	const { isDisabled, isSelected, isFocused } = props;
 
-	onMouseLeave = () => this.setState({ isActive: false });
+	// prop assignment
+	const newProps = {
+		...innerProps,
+		onMouseDown: onMouseDown,
+		onMouseUp: onMouseUp,
+		onMouseLeave: onMouseUp,
+	};
 
-	render() {
-		const { getStyles, Icon, children, innerProps, innerRef, ...rest } = this.props;
-		const { isDisabled, isSelected } = this.props;
+	const { styles, classes } = getPrimitiveStyles({ getStyles, ...rest });
 
-		// prop assignment
-		const props = {
-			...innerProps,
-			onMouseDown: this.onMouseDown,
-			onMouseUp: this.onMouseUp,
-			onMouseLeave: this.onMouseLeave,
-		};
+	const isVoiceOver =
+		(/iPad|iPhone|iPod/.test(navigator.userAgent) || navigator.platform === 'MacIntel') && // temporary check for now
+		// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
+		fg('design_system_select-a11y-improvement');
 
-		const [styles, classes] = getPrimitiveStyles({ getStyles, ...rest });
-
-		const isVoiceOver =
-			(/iPad|iPhone|iPod/.test(navigator.userAgent) || navigator.platform === 'MacIntel') && // temporary check for now
-			// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
-			fg('design_system_select-a11y-improvement');
-
-		return (
-			// These need to remain this way because `react-select` passes props with
-			// styles inside, and that must be done dynamically.
-			// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
-			<div css={styles} className={classes} ref={innerRef} {...props}>
-				<div
-					css={[
-						baseIconStyles,
-						// Here we are adding a border to the Checkbox and Radio SVG icons
-						// This is an a11y fix for Select only for now but it may be rolled
-						// into the `@atlaskit/icon` package's Checkbox and Radio SVGs later
-						// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
-						{
-							// This can eventually be changed to static styles that are
-							// applied conditionally (e.g. `isActive && activeBorderStyles`),
-							// but considering there are multiple instances of `react-select`
-							// requiring styles to be generated dynamically, it seemed like a
-							// low priority.
-							// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
-							'& svg rect, & svg circle:first-of-type': {
-								stroke: getBorderColor({ ...this.props, ...this.state }),
-							},
+	return (
+		// These need to remain this way because `react-select` passes props with
+		// styles inside, and that must be done dynamically.
+		// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage, @atlaskit/ui-styling-standard/no-classname-prop -- Ignored via go/DSP-18766
+		<div css={styles} className={classes} ref={innerRef} {...newProps}>
+			<div
+				css={[
+					baseIconStyles,
+					// Here we are adding a border to the Checkbox and Radio SVG icons
+					// This is an a11y fix for Select only for now but it may be rolled
+					// into the `@atlaskit/icon` package's Checkbox and Radio SVGs later
+					// eslint-disable-next-line @atlaskit/design-system/consistent-css-prop-usage
+					{
+						// This can eventually be changed to static styles that are
+						// applied conditionally (e.g. `isActive && activeBorderStyles`),
+						// but considering there are multiple instances of `react-select`
+						// requiring styles to be generated dynamically, it seemed like a
+						// low priority.
+						// eslint-disable-next-line @atlaskit/design-system/no-nested-styles
+						'& svg rect, & svg circle:first-of-type': {
+							stroke: getBorderColor({ isActive, isDisabled, isSelected }),
 						},
-					]}
-				>
-					{!!Icon ? (
-						<Icon
-							label=""
-							primaryColor={getPrimaryColor({ ...this.props, ...this.state })}
-							secondaryColor={getSecondaryColor({
-								...this.props,
-								...this.state,
-							})}
-							isFacadeDisabled={true}
-						/>
-					) : null}
-				</div>
-				<div css={baseOptionStyles}>
-					{children}
-					{/* Funny story, aria-selected does not work very well with VoiceOver, so it needs to be removed but we still need to express selected state
+					},
+				]}
+			>
+				{!!Icon ? (
+					<Icon
+						label=""
+						primaryColor={getPrimaryColor({ isDisabled, isSelected, isFocused, isActive })}
+						secondaryColor={getSecondaryColor({ isDisabled, isSelected, isActive })}
+						isFacadeDisabled={true}
+					/>
+				) : null}
+			</div>
+			<div css={baseOptionStyles}>
+				{children}
+				{/* Funny story, aria-selected does not work very well with VoiceOver, so it needs to be removed but we still need to express selected state
 					https://bugs.webkit.org/show_bug.cgi?id=209076
 					VoiceOver does not announce aria-disabled the first time, so going this route
 					*/}
-					{isVoiceOver && (isSelected || isDisabled) && (
-						<VisuallyHidden>{`${isSelected ? ',selected' : ''}${isDisabled ? ',dimmed' : ''}`}</VisuallyHidden>
-					)}
-				</div>
+				{isVoiceOver && (isSelected || isDisabled) && (
+					<VisuallyHidden>{`${isSelected ? ',selected' : ''}${isDisabled ? ',dimmed' : ''}`}</VisuallyHidden>
+				)}
 			</div>
-		);
-	}
-}
+		</div>
+	);
+};
 
 const NewCheckboxIcon = (props: IconProps) => (
 	// eslint-disable-next-line @repo/internal/react/no-unsafe-spread-props

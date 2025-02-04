@@ -1,5 +1,14 @@
 # @atlaskit/editor-common
 
+## 99.7.1
+
+### Patch Changes
+
+- [#108902](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108902)
+  [`a48e832f0aab0`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/a48e832f0aab0) -
+  [ED-26399] Add table cells and headers as valid parents for the max width calculation of tables
+- Updated dependencies
+
 ## 99.7.0
 
 ### Minor Changes

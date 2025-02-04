@@ -1,5 +1,19 @@
 # @atlaskit/select
 
+## 18.10.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 18.10.1
+
+### Patch Changes
+
+- [#108810](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108810)
+  [`213d393f5b7da`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/213d393f5b7da) -
+  Convert input-option from class component to functional component
+
 ## 18.10.0
 
 ### Minor Changes

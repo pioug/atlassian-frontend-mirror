@@ -6,6 +6,8 @@
 
 import { type FeatureFlagResolverBoolean, PFF_GLOBAL_KEY } from '../resolvers';
 
+import FeatureGates from '@atlaskit/feature-gate-js-client';
+
 beforeEach(() => {
 	jest.resetModules();
 });
@@ -147,6 +149,28 @@ describe('platform feature flags', () => {
 
 			// then
 			expect(getBooleanFFNew('my-feature-flag')).toBeTruthy();
+		});
+
+		it('should fallback on FeatureGates.checkGate when booleanResovler is undefined or null', () => {
+			const mockedCheckGate = jest
+				.spyOn(FeatureGates, 'checkGate')
+				.mockImplementation((flagKey: string) => {
+					console.log('mock flagKey 2', flagKey);
+					return flagKey === 'gate-is-valid';
+				});
+			const { fg, setBooleanFeatureFlagResolver } = loadApi();
+
+			setBooleanFeatureFlagResolver(undefined as any);
+			// Falls back to FeatureGates.checkGate
+			expect(fg('gate-is-valid')).toBeTruthy();
+
+			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+			expect(mockedCheckGate).toHaveBeenCalledWith('gate-is-valid');
+
+			setBooleanFeatureFlagResolver(null as any);
+			expect(fg('gate-is-invalid')).toBeFalsy();
+			// eslint-disable-next-line @atlaskit/platform/use-recommended-utils
+			expect(mockedCheckGate).toHaveBeenCalledWith('gate-is-invalid');
 		});
 	});
 

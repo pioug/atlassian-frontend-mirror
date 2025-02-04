@@ -4,6 +4,7 @@ import { AnalyticsStep } from '@atlaskit/adf-schema/steps';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import { type ExtractInjectionAPI } from '@atlaskit/editor-common/types';
 import { isTextInput } from '@atlaskit/editor-common/utils';
+import { Fragment } from '@atlaskit/editor-prosemirror/model';
 import {
 	PluginKey,
 	type ReadonlyTransaction,
@@ -17,9 +18,10 @@ import { type MetricsPlugin } from '../metricsPluginType';
 
 import { ActiveSessionTimer } from './utils/active-session-timer';
 import { getAnalyticsPayload } from './utils/analytics';
-import { isNonTextUndo } from './utils/isNonTextUndo';
+import { isNonTextUndo } from './utils/is-non-text-undo';
 
 export const metricsKey = new PluginKey('metricsPlugin');
+type EditorStateConfig = Parameters<typeof EditorState.create>[0];
 
 export type MetricsState = {
 	intentToStartEditTime?: number;
@@ -29,6 +31,7 @@ export type MetricsState = {
 	lastSelection?: Selection;
 	actionTypeCount: ActionByType;
 	timeOfLastTextInput?: number;
+	initialContent?: Fragment;
 };
 
 export type ActionByType = {
@@ -47,6 +50,7 @@ export const initialPluginState: MetricsState = {
 	totalActionCount: 0,
 	contentSizeChanged: 0,
 	timeOfLastTextInput: undefined,
+	initialContent: undefined,
 	actionTypeCount: {
 		textInputCount: 0,
 		nodeInsertionCount: 0,
@@ -63,8 +67,11 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 	return new SafePlugin({
 		key: metricsKey,
 		state: {
-			init: (): MetricsState => {
-				return initialPluginState;
+			init: (_: EditorStateConfig, state: EditorState): MetricsState => {
+				return {
+					...initialPluginState,
+					initialContent: state.doc.content,
+				};
 			},
 			// eslint-disable-next-line @typescript-eslint/max-params
 			apply(
@@ -79,7 +86,7 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 					meta?.intentToStartEditTime || pluginState.intentToStartEditTime;
 
 				if (meta && meta.stopActiveSession) {
-					return initialPluginState;
+					return { ...initialPluginState, initialContent: newState.doc.content };
 				}
 
 				if (!intentToStartEditTime) {
@@ -154,6 +161,7 @@ export const createPlugin = (api: ExtractInjectionAPI<MetricsPlugin> | undefined
 					return;
 				}
 				const payloadToSend = getAnalyticsPayload({
+					currentContent: view.state.doc.content,
 					pluginState,
 				});
 

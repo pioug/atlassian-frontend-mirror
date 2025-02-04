@@ -7,6 +7,7 @@ import * as bundleEvalTiming from '../bundle-eval-timing';
 import coinflip from '../coinflip';
 import type { ApdexType, BM3Event, InteractionMetrics, InteractionType } from '../common';
 import { REACT_UFO_VERSION } from '../common/constants';
+import type { VCResult } from '../common/vc/types';
 import {
 	type Config,
 	getConfig,
@@ -192,7 +193,9 @@ const getTTAI = (interaction: InteractionMetrics) => {
 		: undefined;
 };
 
-const getVCMetrics = (interaction: InteractionMetrics) => {
+const getVCMetrics = (
+	interaction: InteractionMetrics,
+): VCResult & { 'metric:vc90'?: number | null } => {
 	const config = getConfig();
 	if (!config?.vc?.enabled) {
 		return {};
@@ -713,6 +716,7 @@ function getPayloadSize(payload: object): number {
 }
 
 function getStylesheetMetrics() {
+	// eslint-disable-next-line @atlaskit/platform/ensure-feature-flag-prefix
 	if (!fg('ufo_capture_stylesheet_metrics')) {
 		return {};
 	}

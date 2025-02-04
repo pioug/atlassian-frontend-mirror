@@ -1,5 +1,19 @@
 # @atlaskit/smart-card
 
+## 34.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 34.10.0
+
+### Minor Changes
+
+- [#105866](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/105866)
+  [`14e4e9c1a2ae3`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/14e4e9c1a2ae3) -
+  [ux] Rebranded the term Issue to Work item as part of issue terminology refresh
+
 ## 34.9.0
 
 ### Minor Changes

@@ -1,5 +1,27 @@
 # @atlaskit/editor-core
 
+## 203.14.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 203.14.0
+
+### Minor Changes
+
+- [#106350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106350)
+  [`ab9819f908779`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab9819f908779) -
+  Migrated onEditorViewStateUpdatedCallbacks calls to createEditorStateNotificationPlugin
+
+## 203.13.1
+
+### Patch Changes
+
+- [#107812](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/107812)
+  [`ddd7c48c0b504`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ddd7c48c0b504) -
+  ED-26408 Cleaned-up FG platform_editor_element_dnd_nested_a11y
+
 ## 203.13.0
 
 ### Minor Changes

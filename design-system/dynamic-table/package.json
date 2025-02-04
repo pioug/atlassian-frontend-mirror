@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/dynamic-table",
-	"version": "17.1.0",
+	"version": "17.1.1",
 	"description": "A dynamic table displays rows of data with built-in pagination, sorting, and re-ordering functionality.",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -47,9 +47,9 @@
 		"@atlaskit/analytics-next": "^10.3.0",
 		"@atlaskit/css": "^0.8.0",
 		"@atlaskit/ds-lib": "^3.5.0",
-		"@atlaskit/icon": "^23.5.0",
+		"@atlaskit/icon": "^23.6.0",
 		"@atlaskit/pagination": "^15.1.0",
-		"@atlaskit/platform-feature-flags": "^0.3.0",
+		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@atlaskit/pragmatic-drag-and-drop-react-beautiful-dnd-migration": "^1.4.0",
 		"@atlaskit/primitives": "^13.4.0",
 		"@atlaskit/spinner": "^17.1.0",

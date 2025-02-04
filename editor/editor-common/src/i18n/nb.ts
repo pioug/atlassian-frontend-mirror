@@ -87,6 +87,8 @@ export default {
   'fabric.editor.columnMovedRight': 'Kolonnen ble flyttet til høyre til {index} av {total}',
   'fabric.editor.columnSelected': 'Kolonne {index} av {total} er valgt',
   'fabric.editor.columns': 'Oppsett',
+  'fabric.editor.columns.advanced.layout.description':
+    '{numberOfColumns, plural, one {Sett inn {numberOfColumns} lik kolonne} other {Sett inn {numberOfColumns} like kolonner}}',
   'fabric.editor.columns.description': 'Konstruer siden med seksjoner',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {En kolonne er satt inn} other {{count} kolonner er satt inn}}',
@@ -313,6 +315,7 @@ export default {
   'fabric.editor.keyboardShortcuts': 'Tastatursnarveier',
   'fabric.editor.layout.columnOption': '{count, plural, one {Kolonne} other {{count} kolonner}}',
   'fabric.editor.layout.placeholder': 'Legg til innhold',
+  'fabric.editor.layout.resizeLayout': 'Endre størrelse på oppsett',
   'fabric.editor.layoutFixedWidth': 'Tilbake til midten',
   'fabric.editor.layoutFullWidth': 'Gå for full bredde',
   'fabric.editor.layoutWide': 'Gå for bredere',
@@ -385,6 +388,8 @@ export default {
   'fabric.editor.notePanel.description': 'Legg til en merknad i et farget panel',
   'fabric.editor.numberedColumn': 'Nummert kolonne',
   'fabric.editor.off': '{formattingType} av',
+  'fabric.editor.offlineErrorFallbackDescription': 'Prøv å laste inn siden på nytt.',
+  'fabric.editor.offlineErrorFallbackHeading': 'Noe gikk galt!',
   'fabric.editor.on': '{formattingType} på',
   'fabric.editor.openCellOptions': 'Åpne cellealternativer',
   'fabric.editor.openLink': 'Åpne kobling i en ny fane',
@@ -531,6 +536,7 @@ export default {
   'fabric.editor.unableToOpenLink': 'Kan ikke åpne denne koblingen',
   'fabric.editor.underline': 'Understreking',
   'fabric.editor.undo': 'Angre',
+  'fabric.editor.unknown.label': 'Ukjent',
   'fabric.editor.unlink': 'Fjern kobling',
   'fabric.editor.unorderedList': 'Punktliste',
   'fabric.editor.unorderedList.description': 'Opprett en uordnet liste',

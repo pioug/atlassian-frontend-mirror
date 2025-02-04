@@ -87,6 +87,8 @@ export default {
   'fabric.editor.columnMovedRight': 'Sarake siirretty oikealle kohtaan {index}/{total}',
   'fabric.editor.columnSelected': 'Sarake {index}/{total} valittu',
   'fabric.editor.columns': 'Asettelut',
+  'fabric.editor.columns.advanced.layout.description':
+    '{numberOfColumns, plural, one {Lisää {numberOfColumns} yhtä suuri sarake} other {Lisää {numberOfColumns} yhtä suurta saraketta}}',
   'fabric.editor.columns.description': 'Jäsennä sivusi osioiden avulla',
   'fabric.editor.columnsAreInserted': '{count, plural, one {Sarake on lisätty} other {{count} saraketta on lisätty}}',
   'fabric.editor.columnsAreRemoved':
@@ -312,6 +314,7 @@ export default {
   'fabric.editor.keyboardShortcuts': 'Pikanäppäimet',
   'fabric.editor.layout.columnOption': '{count, plural, one {Sarake} other {{count} saraketta}}',
   'fabric.editor.layout.placeholder': 'Lisää sisältöä',
+  'fabric.editor.layout.resizeLayout': 'Muuta asettelun kokoa',
   'fabric.editor.layoutFixedWidth': 'Takaisin keskelle',
   'fabric.editor.layoutFullWidth': 'Näytä koko leveydellä',
   'fabric.editor.layoutWide': 'Levennä',
@@ -384,6 +387,8 @@ export default {
   'fabric.editor.notePanel.description': 'Lisää huomautus värillisessä paneelissa',
   'fabric.editor.numberedColumn': 'Numeroitu sarake',
   'fabric.editor.off': '{formattingType} ei käytössä',
+  'fabric.editor.offlineErrorFallbackDescription': 'Yritä ladata sivu uudelleen.',
+  'fabric.editor.offlineErrorFallbackHeading': 'Jotain meni vikaan!',
   'fabric.editor.on': '{formattingType} käytössä',
   'fabric.editor.openCellOptions': 'Avaa soluvalinnat',
   'fabric.editor.openLink': 'Avaa linkki uudessa välilehdessä',
@@ -531,6 +536,7 @@ export default {
   'fabric.editor.unableToOpenLink': 'Tätä linkkiä ei voi avata',
   'fabric.editor.underline': 'Alleviivaus',
   'fabric.editor.undo': 'Kumoa',
+  'fabric.editor.unknown.label': 'Tuntematon',
   'fabric.editor.unlink': 'Poista linkitys',
   'fabric.editor.unorderedList': 'Pisteluettelo',
   'fabric.editor.unorderedList.description': 'Luo järjestämätön luettelo',

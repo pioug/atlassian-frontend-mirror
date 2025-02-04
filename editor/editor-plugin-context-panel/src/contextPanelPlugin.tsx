@@ -4,9 +4,11 @@ import type { Dispatch } from '@atlaskit/editor-common/event-dispatcher';
 import { SafePlugin } from '@atlaskit/editor-common/safe-plugin';
 import type { ContextPanelHandler } from '@atlaskit/editor-common/types';
 import { PluginKey } from '@atlaskit/editor-prosemirror/state';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { ContextPanelPlugin } from './contextPanelPluginType';
 import { applyChange } from './pm-plugins/transforms';
+import type { ObjectSidebarBehavior, ObjectSidebarPanel } from './types/object-siderbar-types';
 
 export const pluginKey = new PluginKey<ContextPanelPluginState>('contextPanelPluginKey');
 
@@ -62,11 +64,16 @@ function contextPanelPluginFactory(
  * Context panel plugin to be added to an `EditorPresetBuilder` and used with `ComposableEditor`
  * from `@atlaskit/editor-core`.
  */
-export const contextPanelPlugin: ContextPanelPlugin = () => ({
+export const contextPanelPlugin: ContextPanelPlugin = ({ config }) => ({
 	name: 'contextPanel',
 
 	actions: {
 		applyChange: applyChange,
+		showPanel: (panel: ObjectSidebarPanel, behavior?: ObjectSidebarBehavior, panelWidth?: number) =>
+			fg('platform_editor_ai_object_sidebar_injection') &&
+			config?.objectSideBar.showPanel(panel, behavior, panelWidth),
+		closePanel: () =>
+			fg('platform_editor_ai_object_sidebar_injection') && config?.objectSideBar.closePanel(),
 	},
 
 	getSharedState(state) {

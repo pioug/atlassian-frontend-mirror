@@ -1,5 +1,19 @@
 # @atlaskit/editor-plugin-collab-edit
 
+## 2.4.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 2.4.0
+
+### Minor Changes
+
+- [#106350](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/106350)
+  [`ab9819f908779`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/ab9819f908779) -
+  Migrated onEditorViewStateUpdatedCallbacks calls to createEditorStateNotificationPlugin
+
 ## 2.3.0
 
 ### Minor Changes

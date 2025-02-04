@@ -3,6 +3,7 @@ import React from 'react';
 import { FormattedMessage, FormattedNumber } from 'react-intl-next';
 
 import Heading from '@atlaskit/heading';
+import { fg } from '@atlaskit/platform-feature-flags';
 import { Flex, xcss } from '@atlaskit/primitives';
 import LinkUrl from '@atlaskit/smart-card/link-url';
 import { N800 } from '@atlaskit/theme/colors';
@@ -64,12 +65,14 @@ const TableSearchCount = ({
 	testId = 'datasource-table-total-results-count',
 	prefixTextType = 'issue',
 }: TableSearchCountProps) => {
+	const isIssue = prefixTextType === 'issue';
+	const messageKey: keyof typeof searchCountMessages =
+		isIssue && fg('confluence-issue-terminology-refresh')
+			? 'issueCountTextIssueTermRefresh'
+			: (`${prefixTextType}CountText` as keyof typeof searchCountMessages);
 	return (
 		<ItemCountWrapper testId={testId} url={url}>
-			<FormattedMessage
-				{...searchCountMessages[`${prefixTextType}CountText`]}
-				values={{ searchCount }}
-			/>
+			<FormattedMessage {...searchCountMessages[messageKey]} values={{ searchCount }} />
 		</ItemCountWrapper>
 	);
 };

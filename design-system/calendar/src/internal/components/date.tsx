@@ -65,9 +65,6 @@ const dateCellDisabledStyle = css({
 const dateCellStyles = css({
 	all: 'unset',
 	display: 'block',
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	padding: `${token('space.050', '4px')} 9px`,
 	position: 'relative',
 	flexGrow: 1,
 	backgroundColor: 'transparent',
@@ -78,6 +75,12 @@ const dateCellStyles = css({
 	color: token('color.text', N900),
 	cursor: 'pointer',
 	font: token('font.body'),
+	paddingBlockEnd: token('space.050', '4px'),
+	paddingBlockStart: token('space.050', '4px'),
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingInlineEnd: '9px',
+	// eslint-disable-next-line @atlaskit/design-system/use-tokens-space
+	paddingInlineStart: '9px',
 	textAlign: 'center',
 	'&:focus-visible': {
 		borderColor: token('color.border.focused', B200),

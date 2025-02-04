@@ -4,6 +4,7 @@ import { EditorState, PluginKey, Selection } from '@atlaskit/editor-prosemirror/
 import { EditorView } from '@atlaskit/editor-prosemirror/view';
 // eslint-disable-next-line import/no-extraneous-dependencies -- Removed import for fixing circular dependencies
 import { createEditorFactory } from '@atlaskit/editor-test-helpers/create-editor';
+import { ffTest } from '@atlassian/feature-flags-test-utils';
 
 import {
 	createPMPlugins,
@@ -209,166 +210,331 @@ describe(name, () => {
 						}),
 				},
 			],
+			onEditorViewStateUpdatedCallbacks: [],
 		};
 
-		it('should update state in order', () => {
-			const onEditorStateUpdated = jest.fn();
-			const plugins = createPMPlugins({
-				editorConfig: editorConfig as EditorConfig,
-				schema: {} as any,
-				dispatch: () => {},
-				eventDispatcher: {} as any,
-				providerFactory: {} as any,
-				errorReporter: {} as any,
-				portalProviderAPI: { render() {}, remove() {} } as any,
-				nodeViewPortalProviderAPI: { render() {}, remove() {} } as any,
-				dispatchAnalyticsEvent: () => {},
-				featureFlags: {},
-				getIntl: () => ({}) as any,
-				onEditorStateUpdated: ({ newEditorState, oldEditorState }) =>
-					onEditorStateUpdated({
+		describe('should update state in order', () => {
+			ffTest(
+				'platform_editor_migrate_state_updates',
+				() => {
+					const onEditorStateUpdated = jest.fn();
+					const plugins = createPMPlugins({
+						editorConfig: editorConfig as EditorConfig,
+						schema: {} as any,
+						dispatch: () => {},
+						eventDispatcher: {} as any,
+						providerFactory: {} as any,
+						errorReporter: {} as any,
+						portalProviderAPI: { render() {}, remove() {} } as any,
+						nodeViewPortalProviderAPI: { render() {}, remove() {} } as any,
+						dispatchAnalyticsEvent: () => {},
+						featureFlags: {},
+						getIntl: () => ({}) as any,
+						onEditorStateUpdated: ({ newEditorState, oldEditorState }) =>
+							onEditorStateUpdated({
+								pluginAState: {
+									new: pluginAKey.getState(newEditorState),
+									old: pluginAKey.getState(oldEditorState),
+								},
+								pluginBState: {
+									new: pluginBKey.getState(newEditorState),
+									old: pluginBKey.getState(oldEditorState),
+								},
+							}),
+					});
+
+					const state = EditorState.create({
+						doc: defaultSchema.nodes.doc.create(defaultSchema.nodes.paragraph.create()),
+						plugins,
+					});
+
+					const editorView = new EditorView(null, {
+						state,
+					});
+
+					expect(onEditorStateUpdated).toHaveBeenCalledTimes(0);
+
+					editorView.dispatch(editorView.state.tr.insertText('hello'));
+
+					expect(onEditorStateUpdated).toHaveBeenCalledTimes(1);
+					editorView.dispatch(editorView.state.tr.insertText('world'));
+					expect(onEditorStateUpdated).toHaveBeenCalledTimes(3);
+
+					editorView.dispatch(editorView.state.tr.insertText('!'));
+					expect(onEditorStateUpdated).toHaveBeenCalledTimes(5);
+					expect(onEditorStateUpdated).toHaveBeenNthCalledWith(1, {
 						pluginAState: {
-							new: pluginAKey.getState(newEditorState),
-							old: pluginAKey.getState(oldEditorState),
+							new: {
+								count: 1,
+								updating: 0,
+							},
+							old: {
+								count: 0,
+								updating: 0,
+							},
 						},
 						pluginBState: {
-							new: pluginBKey.getState(newEditorState),
-							old: pluginBKey.getState(oldEditorState),
+							new: {
+								count: 1,
+								updating: 0,
+							},
+							old: {
+								count: 0,
+								updating: 0,
+							},
 						},
-					}),
-			});
+					});
+					expect(onEditorStateUpdated).toHaveBeenNthCalledWith(2, {
+						pluginAState: {
+							new: {
+								count: 2,
+								updating: 0,
+							},
+							old: {
+								count: 1,
+								updating: 0,
+							},
+						},
+						pluginBState: {
+							new: {
+								count: 2,
+								updating: 0,
+							},
+							old: {
+								count: 1,
+								updating: 0,
+							},
+						},
+					});
+					expect(onEditorStateUpdated).toHaveBeenNthCalledWith(3, {
+						pluginAState: {
+							new: {
+								count: 3,
+								updating: 1,
+							},
+							old: {
+								count: 2,
+								updating: 0,
+							},
+						},
+						pluginBState: {
+							new: {
+								count: 3,
+								updating: 0,
+							},
+							old: {
+								count: 2,
+								updating: 0,
+							},
+						},
+					});
 
-			const state = EditorState.create({
-				doc: defaultSchema.nodes.doc.create(defaultSchema.nodes.paragraph.create()),
-				plugins,
-			});
+					expect(onEditorStateUpdated).toHaveBeenNthCalledWith(4, {
+						pluginAState: {
+							new: {
+								count: 4,
+								updating: 1,
+							},
+							old: {
+								count: 3,
+								updating: 1,
+							},
+						},
+						pluginBState: {
+							new: {
+								count: 4,
+								updating: 0,
+							},
+							old: {
+								count: 3,
+								updating: 0,
+							},
+						},
+					});
 
-			const editorView = new EditorView(null, {
-				state,
-			});
+					expect(onEditorStateUpdated).toHaveBeenNthCalledWith(5, {
+						pluginAState: {
+							new: {
+								count: 5,
+								updating: 1,
+							},
+							old: {
+								count: 4,
+								updating: 1,
+							},
+						},
+						pluginBState: {
+							new: {
+								count: 5,
+								updating: 1,
+							},
+							old: {
+								count: 4,
+								updating: 0,
+							},
+						},
+					});
+				},
+				() => {
+					const onEditorStateUpdated = jest.fn();
+					const plugins = createPMPlugins({
+						editorConfig: editorConfig as EditorConfig,
+						schema: {} as any,
+						dispatch: () => {},
+						eventDispatcher: {} as any,
+						providerFactory: {} as any,
+						errorReporter: {} as any,
+						portalProviderAPI: { render() {}, remove() {} } as any,
+						nodeViewPortalProviderAPI: { render() {}, remove() {} } as any,
+						dispatchAnalyticsEvent: () => {},
+						featureFlags: {},
+						getIntl: () => ({}) as any,
+						onEditorStateUpdated: ({ newEditorState, oldEditorState }) =>
+							onEditorStateUpdated({
+								pluginAState: {
+									new: pluginAKey.getState(newEditorState),
+									old: pluginAKey.getState(oldEditorState),
+								},
+								pluginBState: {
+									new: pluginBKey.getState(newEditorState),
+									old: pluginBKey.getState(oldEditorState),
+								},
+							}),
+					});
 
-			expect(onEditorStateUpdated).toHaveBeenCalledTimes(0);
+					const state = EditorState.create({
+						doc: defaultSchema.nodes.doc.create(defaultSchema.nodes.paragraph.create()),
+						plugins,
+					});
 
-			editorView.dispatch(editorView.state.tr.insertText('hello'));
+					const editorView = new EditorView(null, {
+						state,
+					});
 
-			expect(onEditorStateUpdated).toHaveBeenCalledTimes(1);
-			editorView.dispatch(editorView.state.tr.insertText('world'));
-			expect(onEditorStateUpdated).toHaveBeenCalledTimes(3);
+					expect(onEditorStateUpdated).toHaveBeenCalledTimes(0);
 
-			editorView.dispatch(editorView.state.tr.insertText('!'));
-			expect(onEditorStateUpdated).toHaveBeenCalledTimes(5);
-			expect(onEditorStateUpdated).toHaveBeenNthCalledWith(1, {
-				pluginAState: {
-					new: {
-						count: 1,
-						updating: 0,
-					},
-					old: {
-						count: 0,
-						updating: 0,
-					},
-				},
-				pluginBState: {
-					new: {
-						count: 1,
-						updating: 0,
-					},
-					old: {
-						count: 0,
-						updating: 0,
-					},
-				},
-			});
-			expect(onEditorStateUpdated).toHaveBeenNthCalledWith(2, {
-				pluginAState: {
-					new: {
-						count: 2,
-						updating: 0,
-					},
-					old: {
-						count: 1,
-						updating: 0,
-					},
-				},
-				pluginBState: {
-					new: {
-						count: 2,
-						updating: 0,
-					},
-					old: {
-						count: 1,
-						updating: 0,
-					},
-				},
-			});
-			expect(onEditorStateUpdated).toHaveBeenNthCalledWith(3, {
-				pluginAState: {
-					new: {
-						count: 3,
-						updating: 1,
-					},
-					old: {
-						count: 2,
-						updating: 0,
-					},
-				},
-				pluginBState: {
-					new: {
-						count: 3,
-						updating: 0,
-					},
-					old: {
-						count: 2,
-						updating: 0,
-					},
-				},
-			});
+					editorView.dispatch(editorView.state.tr.insertText('hello'));
 
-			expect(onEditorStateUpdated).toHaveBeenNthCalledWith(4, {
-				pluginAState: {
-					new: {
-						count: 4,
-						updating: 1,
-					},
-					old: {
-						count: 3,
-						updating: 1,
-					},
-				},
-				pluginBState: {
-					new: {
-						count: 4,
-						updating: 0,
-					},
-					old: {
-						count: 3,
-						updating: 0,
-					},
-				},
-			});
+					expect(onEditorStateUpdated).toHaveBeenCalledTimes(1);
+					editorView.dispatch(editorView.state.tr.insertText('world'));
+					expect(onEditorStateUpdated).toHaveBeenCalledTimes(3);
 
-			expect(onEditorStateUpdated).toHaveBeenNthCalledWith(5, {
-				pluginAState: {
-					new: {
-						count: 5,
-						updating: 1,
-					},
-					old: {
-						count: 4,
-						updating: 1,
-					},
+					editorView.dispatch(editorView.state.tr.insertText('!'));
+					expect(onEditorStateUpdated).toHaveBeenCalledTimes(5);
+					expect(onEditorStateUpdated).toHaveBeenNthCalledWith(1, {
+						pluginAState: {
+							new: {
+								count: 1,
+								updating: 0,
+							},
+							old: {
+								count: 0,
+								updating: 0,
+							},
+						},
+						pluginBState: {
+							new: {
+								count: 1,
+								updating: 0,
+							},
+							old: {
+								count: 0,
+								updating: 0,
+							},
+						},
+					});
+					expect(onEditorStateUpdated).toHaveBeenNthCalledWith(2, {
+						pluginAState: {
+							new: {
+								count: 2,
+								updating: 0,
+							},
+							old: {
+								count: 1,
+								updating: 0,
+							},
+						},
+						pluginBState: {
+							new: {
+								count: 2,
+								updating: 0,
+							},
+							old: {
+								count: 1,
+								updating: 0,
+							},
+						},
+					});
+					expect(onEditorStateUpdated).toHaveBeenNthCalledWith(3, {
+						pluginAState: {
+							new: {
+								count: 3,
+								updating: 1,
+							},
+							old: {
+								count: 2,
+								updating: 0,
+							},
+						},
+						pluginBState: {
+							new: {
+								count: 3,
+								updating: 0,
+							},
+							old: {
+								count: 2,
+								updating: 0,
+							},
+						},
+					});
+
+					expect(onEditorStateUpdated).toHaveBeenNthCalledWith(4, {
+						pluginAState: {
+							new: {
+								count: 4,
+								updating: 1,
+							},
+							old: {
+								count: 3,
+								updating: 1,
+							},
+						},
+						pluginBState: {
+							new: {
+								count: 4,
+								updating: 0,
+							},
+							old: {
+								count: 3,
+								updating: 0,
+							},
+						},
+					});
+
+					expect(onEditorStateUpdated).toHaveBeenNthCalledWith(5, {
+						pluginAState: {
+							new: {
+								count: 5,
+								updating: 1,
+							},
+							old: {
+								count: 4,
+								updating: 1,
+							},
+						},
+						pluginBState: {
+							new: {
+								count: 5,
+								updating: 1,
+							},
+							old: {
+								count: 4,
+								updating: 0,
+							},
+						},
+					});
 				},
-				pluginBState: {
-					new: {
-						count: 5,
-						updating: 1,
-					},
-					old: {
-						count: 4,
-						updating: 0,
-					},
-				},
-			});
+			);
 		});
 	});
 });

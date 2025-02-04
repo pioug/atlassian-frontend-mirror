@@ -19,6 +19,7 @@ import {
 	ModalTitle,
 	ModalTransition,
 } from '@atlaskit/modal-dialog';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useDatasourceAnalyticsEvents } from '../../../analytics';
 import { EVENT_CHANNEL } from '../../../analytics/constants';
@@ -287,7 +288,13 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 			return <AccessRequired url={selectedJiraSiteUrl || urlBeingEdited} />;
 		} else if (status === 'empty' || !jql || !selectedJiraSiteUrl) {
 			return (
-				<SmartCardPlaceholder placeholderText={modalMessages.issuesCountSmartCardPlaceholderText} />
+				<SmartCardPlaceholder
+					placeholderText={
+						fg('confluence-issue-terminology-refresh')
+							? modalMessages.issuesCountSmartCardPlaceholderTextIssueTermRefresh
+							: modalMessages.issuesCountSmartCardPlaceholderText
+					}
+				/>
 			);
 		} else {
 			let url;
@@ -309,6 +316,18 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 
 	const renderIssuesModeContent = useCallback(() => {
 		const selectedJiraSiteUrl = selectedJiraSite?.url;
+		const getDescriptionMessage = () => {
+			if (fg('confluence-issue-terminology-refresh')) {
+				return currentSearchMethod === 'jql'
+					? initialStateViewMessages.searchDescriptionForJQLSearchIssueTermRefresh
+					: initialStateViewMessages.searchDescriptionForBasicSearchIssueTermRefresh;
+			}
+
+			return currentSearchMethod === 'jql'
+				? initialStateViewMessages.searchDescriptionForJQLSearch
+				: initialStateViewMessages.searchDescriptionForBasicSearch;
+		};
+
 		if (status === 'rejected' && jqlUrl) {
 			return (
 				<ModalLoadingError
@@ -337,12 +356,12 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 					) : (
 						<InitialStateView
 							icon={<JiraInitialStateSVG />}
-							title={modalMessages.searchJiraTitle}
-							description={
-								currentSearchMethod === 'jql'
-									? initialStateViewMessages.searchDescriptionForJQLSearch
-									: initialStateViewMessages.searchDescriptionForBasicSearch
+							title={
+								fg('confluence-issue-terminology-refresh')
+									? modalMessages.searchJiraTitleIssueTermRefresh
+									: modalMessages.searchJiraTitle
 							}
+							description={getDescriptionMessage()}
 							learnMoreLink={
 								currentSearchMethod === 'jql'
 									? {
@@ -373,10 +392,16 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 		urlBeingEdited,
 	]);
 
-	const siteSelectorLabel =
-		availableSites && availableSites.length > 1
+	const siteSelectorLabel = useMemo(() => {
+		if (fg('confluence-issue-terminology-refresh')) {
+			return availableSites && availableSites.length > 1
+				? modalMessages.insertIssuesTitleManySitesIssueTermRefresh
+				: modalMessages.insertIssuesTitleIssueTermRefresh;
+		}
+		return availableSites && availableSites.length > 1
 			? modalMessages.insertIssuesTitleManySites
 			: modalMessages.insertIssuesTitle;
+	}, [availableSites]);
 
 	const getCancelButtonAnalyticsPayload = useCallback(() => {
 		return {
@@ -488,7 +513,11 @@ const PlainJiraIssuesConfigModal = (props: ConnectedJiraConfigModalProps) => {
 								url={urlToInsert}
 								getAnalyticsPayload={getInsertButtonAnalyticsPayload}
 							>
-								<FormattedMessage {...modalMessages.insertIssuesButtonText} />
+								{fg('confluence-issue-terminology-refresh') ? (
+									<FormattedMessage {...modalMessages.insertIssuesButtonTextIssueTermRefresh} />
+								) : (
+									<FormattedMessage {...modalMessages.insertIssuesButtonText} />
+								)}
 							</InsertButton>
 						)}
 					</ModalFooter>

@@ -67,6 +67,7 @@ describe('EditorPerformanceObserver', () => {
 			expect(wrapperTimers).toHaveBeenCalledWith({
 				globalContext: expect.any(Object),
 				timelineHoldable: mockTimeline,
+				maxTimeoutAllowed: 2000,
 			});
 
 			expect(wrapperFetch).toHaveBeenCalledWith({

@@ -77,7 +77,7 @@ export const WrapperAnchor = forwardRef<HTMLAnchorElement, WrapperProps>(
 
 const baseWrapperStylesNew = css({
 	font: token('font.body.large'),
-	// TODO (AFB-874): Disable due to fixing for expand-spacing-shorthand producing shorthand-property-sorting ESLint errors
+	// TODO (AFB-874): Disabling due to overriding of @compiled/property-shorthand-sorting
 	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: `${token('space.025')} 0px`,
 	display: 'inline',
@@ -92,7 +92,7 @@ const baseWrapperStylesNew = css({
 const baseWrapperStylesOld = css({
 	// eslint-disable-next-line @atlaskit/design-system/use-tokens-typography
 	lineHeight: `${lineHeight}px`,
-	// TODO (AFB-874): Disable due to fixing for expand-spacing-shorthand producing shorthand-property-sorting ESLint errors
+	// TODO (AFB-874): Disabling due to overriding of @compiled/property-shorthand-sorting
 	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
 	padding: `${token('space.025')} 0px`,
 	display: 'inline',
@@ -151,9 +151,10 @@ const truncateStylesNew = css({
 	'@supports not (-webkit-line-clamp: 1)': {
 		display: 'inline-block',
 		// If the browser does not support webkit, we don't need to remove the padding
-		// TODO (AFB-874): Disable due to fixing for expand-spacing-shorthand producing shorthand-property-sorting ESLint errors
-		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-		padding: `${token('space.025')} 0px`,
+		paddingTop: token('space.025'),
+		paddingRight: '0px',
+		paddingBottom: token('space.025'),
+		paddingLeft: '0px',
 	},
 });
 

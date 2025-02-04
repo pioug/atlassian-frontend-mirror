@@ -186,7 +186,23 @@ const runTransform = async (
 	const jscodeshiftContentNew = fixLineEnding(jscodeshiftContent, 'LF');
 	fs.writeFileSync(jscodeshift, jscodeshiftContentNew);
 
+	let transformModule: any;
+	try {
+		transformModule = require(transformPath);
+	} catch (error) {
+		// eslint-disable-next-line no-console
+		console.warn(`Error loading transform module: ${transformPath}. Skipping lifecycle hooks.`);
+	}
+
+	if (transformModule) {
+		await processLifecycleHook('beforeAll', transformModule, logger, transform, flags);
+	}
+
 	await spawn(jscodeshift, args, { stdio: 'inherit' });
+
+	if (transformModule) {
+		await processLifecycleHook('afterAll', transformModule, logger, transform, flags);
+	}
 };
 
 const parsePkg = (pkg: string) => {
@@ -268,6 +284,24 @@ const defaultFlags = {
 	logger: console,
 };
 export type UserFlags = Default<Flags, keyof typeof defaultFlags>;
+
+async function processLifecycleHook(
+	hookName: string,
+	transformModule: any,
+	logger: { log: (...args: any) => void; warn: (...args: any) => void },
+	transform: ParsedPath & { module: string },
+	flags: Flags,
+) {
+	if (typeof transformModule[hookName] === 'function') {
+		try {
+			logger.log(chalk.green(`Executing ${hookName} for transform '${transform.name}'...`));
+			await transformModule[hookName](flags);
+		} catch (error) {
+			logger.log(chalk.red(`Error in ${hookName} for transform '${transform.name}': ${error}`));
+			throw error; // Re-throw error for beforeAll to halt execution
+		}
+	}
+}
 
 export default async function main(input: string[], userFlags: UserFlags) {
 	const flags: Flags = { ...defaultFlags, ...userFlags };

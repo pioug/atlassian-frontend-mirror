@@ -1,5 +1,11 @@
 # @atlaskit/textfield
 
+## 6.8.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.8.0
 
 ### Minor Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/link-client-extension",
-	"version": "3.1.0",
+	"version": "3.1.1",
 	"description": "Extension methods for linking platform client",
 	"author": "Atlassian Pty Ltd",
 	"license": "Apache-2.0",
@@ -38,7 +38,7 @@
 	"dependencies": {
 		"@atlaskit/linking-common": "^6.2.0",
 		"@atlaskit/linking-types": "^9.6.0",
-		"@atlaskit/platform-feature-flags": "0.3.0",
+		"@atlaskit/platform-feature-flags": "1.0.0",
 		"@babel/runtime": "^7.0.0",
 		"json-ld-types": "^4.1.0",
 		"lru_map": "^0.4.1"
@@ -49,7 +49,7 @@
 	},
 	"devDependencies": {
 		"@atlaskit/link-test-helpers": "^7.6.0",
-		"@atlassian/feature-flags-test-utils": "0.3.0",
+		"@atlassian/feature-flags-test-utils": "0.3.1",
 		"@testing-library/react": "^13.4.0",
 		"@testing-library/react-hooks": "^8.0.1",
 		"react-dom": "^18.2.0",

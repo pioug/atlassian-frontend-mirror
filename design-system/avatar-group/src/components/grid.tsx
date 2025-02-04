@@ -12,12 +12,6 @@ const gutter = token('space.negative.050', '-4px');
 
 const listStyles = css({
 	display: 'flex',
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	margin: token('space.0', '0px'),
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	padding: token('space.0', '0px'),
 	justifyContent: 'flex-start',
 	flexWrap: 'wrap',
 	isolation: 'isolate',
@@ -25,15 +19,21 @@ const listStyles = css({
 	lineHeight: 1,
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-important-styles
 	listStyleType: 'none !important',
+	marginBlockEnd: token('space.0', '0px'),
+	marginBlockStart: token('space.0', '0px'),
 	marginInlineEnd: gutter,
 	marginInlineStart: gutter,
+	paddingBlockEnd: token('space.0', '0px'),
+	paddingBlockStart: token('space.0', '0px'),
+	paddingInlineEnd: token('space.0', '0px'),
+	paddingInlineStart: token('space.0', '0px'),
 });
 
 const listItemStyles = css({
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	margin: token('space.0', '0px'),
 	marginBlockEnd: token('space.100', '8px'),
+	marginBlockStart: token('space.0', '0px'),
+	marginInlineEnd: token('space.0', '0px'),
+	marginInlineStart: token('space.0', '0px'),
 	paddingInlineEnd: token('space.050', '4px'),
 	paddingInlineStart: token('space.050', '4px'),
 });

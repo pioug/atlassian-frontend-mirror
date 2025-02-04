@@ -1,5 +1,15 @@
 # @atlaskit/platform-feature-flags
 
+## 1.0.0
+
+### Major Changes
+
+- [#109595](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109595)
+  [`eb593520aff62`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/eb593520aff62) -
+  EDF-2229 fg util will not fallback to FeatureGate.checkGate when booleanResolver does not exist.
+  Major release as @atlaskit/feature-gate-js-client package added as dependency having major
+  releases.
+
 ## 0.3.0
 
 ### Minor Changes

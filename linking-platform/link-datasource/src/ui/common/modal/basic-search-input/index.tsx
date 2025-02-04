@@ -9,6 +9,7 @@ import { type MessageDescriptor, useIntl } from 'react-intl-next';
 
 import { LoadingButton } from '@atlaskit/button';
 import SearchIcon from '@atlaskit/icon/core/migration/search--editor-search';
+import { fg } from '@atlaskit/platform-feature-flags';
 import Textfield from '@atlaskit/textfield';
 import { token } from '@atlaskit/tokens';
 
@@ -72,7 +73,11 @@ export const BasicSearchInput = ({
 						css={searchButtonStyles}
 						iconBefore={
 							<SearchIcon
-								label={formatMessage(basicSearchInputMessages.basicTextSearchLabel)}
+								label={formatMessage(
+									fg('confluence-issue-terminology-refresh')
+										? basicSearchInputMessages.basicTextSearchLabelIssueTermRefresh
+										: basicSearchInputMessages.basicTextSearchLabel,
+								)}
 								LEGACY_size="medium"
 								color="currentColor"
 								spacing="spacious"

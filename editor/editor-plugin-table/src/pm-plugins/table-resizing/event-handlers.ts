@@ -13,6 +13,7 @@ import type { GetEditorContainerWidth, GetEditorFeatureFlags } from '@atlaskit/e
 import type { EditorView } from '@atlaskit/editor-prosemirror/view';
 import { TableMap } from '@atlaskit/editor-tables/table-map';
 import { getSelectionRect } from '@atlaskit/editor-tables/utils';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PluginInjectionAPI } from '../../types';
 import { stopKeyboardColumnResizing } from '../commands/column-resize';
@@ -20,6 +21,7 @@ import { updateResizeHandleDecorations } from '../commands/misc';
 import { getPluginState as getTablePluginState } from '../plugin-factory';
 import { META_KEYS } from '../table-analytics';
 import { updateColumnWidths } from '../transforms/column-width';
+import { tablesHaveDifferentNoOfColumns } from '../utils/nodes';
 import { getSelectedColumnIndexes } from '../utils/selection';
 
 import { evenColumns, setDragging, stopResizing } from './commands';
@@ -195,10 +197,17 @@ export const handleMouseDown = (
 		if (dragging) {
 			const { startX } = dragging;
 
-			// If the table has changed (via collab for example) don't apply column widths
-			// For example, if a table col is deleted we won't be able to reliably remap the new widths
-			// There may be a more elegant solution to this, to avoid a jarring experience.
-			if (table.eq(originalTable)) {
+			// If the dimensions of the table have changed through a remote modification by another
+			// person for example don't persist the new column widths as we couldn't reliably remap them
+			// For example, if a table col is deleted
+			// There may be a more elegant solution to this, to avoid a jarring experience. This used to
+			// be an equality check but that caused issues when a nested table would change (eg. when it
+			// dynamically updates its width on resize)
+			if (
+				fg('platform_editor_nested_tables_resizing')
+					? !tablesHaveDifferentNoOfColumns(originalTable, table)
+					: table.eq(originalTable)
+			) {
 				const map = TableMap.get(table);
 				const colIndex =
 					map.colCount($cell.pos - start) +

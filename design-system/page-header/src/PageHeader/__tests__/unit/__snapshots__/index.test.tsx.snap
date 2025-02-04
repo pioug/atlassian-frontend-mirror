@@ -5,10 +5,10 @@ exports[`@atlaskit/page-header should render correctly 1`] = `
   <style
     data-cmpld="true"
   >
-    ._18s81d9c{margin:var(--ds-space-300,24px) 0 var(--ds-space-200,1pc) 0}
+    ._6rthpxbi{margin-block-end:var(--ds-space-200,1pc)}._1pfh1ejb{margin-block-start:var(--ds-space-300,24px)}._12l2idpf{margin-inline-end:0}._ahbqidpf{margin-inline-start:0}
   </style>
   <div
-    class="_18s81d9c"
+    class="_6rthpxbi _1pfh1ejb _12l2idpf _ahbqidpf"
   >
     <div>
       Breadcrumb
@@ -82,10 +82,10 @@ exports[`@atlaskit/page-header should render correctly with disableTitleStyles p
   <style
     data-cmpld="true"
   >
-    ._18s81d9c{margin:var(--ds-space-300,24px) 0 var(--ds-space-200,1pc) 0}
+    ._6rthpxbi{margin-block-end:var(--ds-space-200,1pc)}._1pfh1ejb{margin-block-start:var(--ds-space-300,24px)}._12l2idpf{margin-inline-end:0}._ahbqidpf{margin-inline-start:0}
   </style>
   <div
-    class="_18s81d9c"
+    class="_6rthpxbi _1pfh1ejb _12l2idpf _ahbqidpf"
   >
     <div>
       Breadcrumb

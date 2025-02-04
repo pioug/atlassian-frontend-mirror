@@ -18,11 +18,12 @@ const containerStyles = css({
 	display: 'grid',
 	width: '100%',
 	margin: '0 auto',
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	padding: token('space.0', '0px'),
 	gap: `var(--ds--pt--sp)`,
 	listStyleType: 'none',
+	paddingBlockEnd: token('space.0', '0px'),
+	paddingBlockStart: token('space.0', '0px'),
+	paddingInlineEnd: token('space.0', '0px'),
+	paddingInlineStart: token('space.0', '0px'),
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors, @atlaskit/design-system/no-nested-styles -- Ignored via go/DSP-18766
 	'&&': {
 		marginBlockStart: token('space.500', '40px'),

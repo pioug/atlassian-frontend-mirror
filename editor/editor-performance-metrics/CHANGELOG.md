@@ -1,5 +1,13 @@
 # @atlaskit/editor-performance-metrics
 
+## 1.3.1
+
+### Patch Changes
+
+- [#109717](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109717)
+  [`3f2415568258b`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/3f2415568258b) -
+  [ED-26435] Add option to override the timeout allowed to be tracked on EditorPerformanceObserver
+
 ## 1.3.0
 
 ### Minor Changes

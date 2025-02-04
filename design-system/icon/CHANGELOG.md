@@ -1,5 +1,19 @@
 # @atlaskit/icon
 
+## 23.6.1
+
+### Patch Changes
+
+- Updated dependencies
+
+## 23.6.0
+
+### Minor Changes
+
+- [#109954](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/109954)
+  [`898a668695f25`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/898a668695f25) -
+  Exposes IconTileProps type to consumers
+
 ## 23.5.0
 
 ### Minor Changes

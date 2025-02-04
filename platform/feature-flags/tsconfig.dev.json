@@ -27,13 +27,15 @@
 	],
 	"exclude": ["./dist/**/*", "./build/**/*", "./node_modules/**/*"],
 	"compilerOptions": {
-		"paths": {},
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__platform-feature-flags/dev"
 	},
 	"references": [
 		{
 			"path": "./tsconfig.app.json"
+		},
+		{
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
 		}
 	],
 	"files": []

@@ -22,6 +22,12 @@ export default {
   'fabric.editor.addMediaFiles': 'Добавить изображение, видео или файл',
   'fabric.editor.addRowAbove': 'Добавить строку выше',
   'fabric.editor.addRowBelow': 'Добавить строку ниже',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    'Не удается создать изображение для предварительного просмотра. Закройте диалоговое окно и повторите попытку.',
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage':
+    'Произошла ошибка. Закройте диалоговое окно и повторите попытку.',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Вставить ниже',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Заменить',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Выделите термин, аббревиатуру или сокращение',
   'fabric.editor.ai.selectionToolbar.define.title': 'Определить',
   'fabric.editor.alignCenter': 'Выровнять по центру',
@@ -91,6 +97,8 @@ export default {
   'fabric.editor.columnMovedRight': 'Столбец перемещен вправо на позицию {index} из {total}',
   'fabric.editor.columnSelected': 'Выбран столбец {index} из {total}',
   'fabric.editor.columns': 'Макеты',
+  'fabric.editor.columns.advanced.layout.description':
+    '{numberOfColumns, plural, one {Вставить {numberOfColumns} равный столбец} few {Вставить {numberOfColumns} равных столбца} many {Вставить {numberOfColumns} равных столбцов} other {Вставить {numberOfColumns} равного столбца}}',
   'fabric.editor.columns.description': 'Расположение информации на странице с помощью разделов',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {Вставлен {count} столбец} few {Вставлено {count} столбца} many {Вставлено {count} столбцов} other {Вставлено {count} столбца}}',
@@ -320,6 +328,7 @@ export default {
   'fabric.editor.layout.columnOption':
     '{count, plural, one {Колонка} few {{count} колонки} many {{count} колонок} other {{count} колонки}}',
   'fabric.editor.layout.placeholder': 'Добавить контент',
+  'fabric.editor.layout.resizeLayout': 'Изменить размер макета',
   'fabric.editor.layoutFixedWidth': 'По центру',
   'fabric.editor.layoutFullWidth': 'В полную ширину',
   'fabric.editor.layoutWide': 'Шире обычного',
@@ -397,6 +406,8 @@ export default {
   'fabric.editor.notePanel.description': 'Добавить цветную заметку',
   'fabric.editor.numberedColumn': 'Столбец с нумерацией',
   'fabric.editor.off': '{formattingType} выкл.',
+  'fabric.editor.offlineErrorFallbackDescription': 'Попробуйте перезагрузить страницу.',
+  'fabric.editor.offlineErrorFallbackHeading': 'Произошла ошибка.',
   'fabric.editor.on': '{formattingType} вкл.',
   'fabric.editor.openCellOptions': 'Открыть параметры ячейки',
   'fabric.editor.openLink': 'Открыть ссылку на новой вкладке',
@@ -549,6 +560,7 @@ export default {
   'fabric.editor.unableToOpenLink': 'Не удалось открыть ссылку',
   'fabric.editor.underline': 'Подчеркнутый',
   'fabric.editor.undo': 'Отменить',
+  'fabric.editor.unknown.label': 'Неизвестно',
   'fabric.editor.unlink': 'Удалить ссылку',
   'fabric.editor.unorderedList': 'Маркированный список',
   'fabric.editor.unorderedList.description': 'Создание неупорядоченного списка',

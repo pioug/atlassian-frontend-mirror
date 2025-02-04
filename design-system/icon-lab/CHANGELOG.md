@@ -1,5 +1,13 @@
 # @atlaskit/icon-lab
 
+## 2.3.1
+
+### Patch Changes
+
+- [#108665](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108665)
+  [`7fd6c6ed799fa`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/7fd6c6ed799fa) -
+  Update dev dependencies.
+
 ## 2.3.0
 
 ### Minor Changes

@@ -8,9 +8,11 @@ import {
 	akLayoutGutterOffset,
 	gridMediumMaxWidth,
 } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { BODIED_EXT_PADDING } from '../styles/shared/extension';
 import { LAYOUT_COLUMN_PADDING, LAYOUT_SECTION_MARGIN } from '../styles/shared/layout';
+import { tableCellPadding } from '../styles/shared/table';
 import type { EditorContainerWidth } from '../types/editor-container-width';
 import { absoluteBreakoutWidth } from '../utils/breakout';
 
@@ -64,7 +66,7 @@ export const getParentNodeWidth = (
 		},
 	} as PluginKey;
 
-	if (node.type === schema.nodes.layoutSection) {
+	if (node.type === schema.nodes.layoutSection && !fg('platform_editor_nested_tables_resizing')) {
 		parentWidth += akLayoutGutterOffset * 2; // extra width that gets added to layout
 
 		// Calculate width of parent layout column when
@@ -85,9 +87,30 @@ export const getParentNodeWidth = (
 		}
 	}
 
-	// account for the padding of the parent node
 	switch (node.type) {
 		case schema.nodes.layoutSection:
+			if (fg('platform_editor_nested_tables_resizing')) {
+				parentWidth += akLayoutGutterOffset * 2; // extra width that gets added to layout
+
+				// Calculate width of parent layout column when
+				// Parallel layout with viewport greater than 1024px
+				// OR side panel of an extension is open and change the node width to smaller than containerWidth
+				if (
+					containerWidth.width > gridMediumMaxWidth ||
+					(contextPanelPluginKey.getState(state)?.contents.length > 0 &&
+						contextPanelPluginKey.getState(state)?.contents[0] !== undefined)
+				) {
+					parentWidth -= (LAYOUT_SECTION_MARGIN + 2) * (node.childCount - 1); // margin between sections
+					const $pos = state.doc.resolve(pos);
+					const column = findParentNodeOfTypeClosestToPos($pos, [state.schema.nodes.layoutColumn]);
+					if (column && column.node && !isNaN(column.node.attrs.width)) {
+						// get exact width of parent layout column using node attrs
+						parentWidth = Math.round(parentWidth * column.node.attrs.width * 0.01);
+					}
+				}
+			}
+
+			// account for the padding of the parent node
 			parentWidth -= LAYOUT_COLUMN_PADDING * 2;
 			break;
 
@@ -108,6 +131,20 @@ export const getParentNodeWidth = (
 			// padding left
 			parentWidth -= GRID_SIZE * 4 - GRID_SIZE / 2;
 			break;
+
+		case schema.nodes.tableCell:
+		case schema.nodes.tableHeader:
+			if (fg('platform_editor_nested_tables_resizing')) {
+				// Calculate the available column width
+				if (Array.isArray(node.attrs.colwidth)) {
+					parentWidth = node.attrs.colwidth
+						.slice(0, node.attrs.colspan)
+						.reduce((sum: number, width: number) => sum + width, 0);
+				}
+				// Compensate for padding
+				parentWidth -= tableCellPadding * 2;
+			}
+			break;
 	}
 
 	parentWidth -= 2; // border
@@ -121,12 +158,24 @@ const getNestedParentNode = (tablePos: number, state: EditorState): PMNode | nul
 	}
 
 	const $pos = state.doc.resolve(tablePos);
-	const parent = findParentNodeOfTypeClosestToPos($pos, [
-		state.schema.nodes.bodiedExtension,
-		state.schema.nodes.extensionFrame,
-		state.schema.nodes.layoutSection,
-		state.schema.nodes.expand,
-	]);
+	let parent;
+	if (fg('platform_editor_nested_tables_resizing')) {
+		parent = findParentNodeOfTypeClosestToPos($pos, [
+			state.schema.nodes.bodiedExtension,
+			state.schema.nodes.extensionFrame,
+			state.schema.nodes.layoutSection,
+			state.schema.nodes.expand,
+			state.schema.nodes.tableCell,
+			state.schema.nodes.tableHeader,
+		]);
+	} else {
+		parent = findParentNodeOfTypeClosestToPos($pos, [
+			state.schema.nodes.bodiedExtension,
+			state.schema.nodes.extensionFrame,
+			state.schema.nodes.layoutSection,
+			state.schema.nodes.expand,
+		]);
+	}
 
 	return parent ? parent.node : null;
 };

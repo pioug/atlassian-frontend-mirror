@@ -1,6 +1,6 @@
 {
 	"name": "@atlaskit/util-service-support",
-	"version": "6.2.5",
+	"version": "6.2.6",
 	"description": "A library of support classes for integrating React components with REST HTTP services",
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/"
@@ -40,7 +40,7 @@
 		"access": "public"
 	},
 	"dependencies": {
-		"@atlaskit/platform-feature-flags": "^0.3.0",
+		"@atlaskit/platform-feature-flags": "^1.0.0",
 		"@atlaskit/react-ufo": "^2.14.0",
 		"@babel/runtime": "^7.0.0"
 	},

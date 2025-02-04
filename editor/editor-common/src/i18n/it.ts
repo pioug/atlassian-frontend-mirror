@@ -89,6 +89,8 @@ export default {
   'fabric.editor.columnMovedRight': 'Colonna spostata a destra della colonna {index} di {total}',
   'fabric.editor.columnSelected': 'Colonna {index} di {total} selezionata',
   'fabric.editor.columns': 'Layout',
+  'fabric.editor.columns.advanced.layout.description':
+    '{numberOfColumns, plural, one {Inserisci {numberOfColumns} colonna uguale} other {Inserisci {numberOfColumns} colonne uguali}}',
   'fabric.editor.columns.description': 'Organizza la tua pagina in sezioni',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {È stata inserita una colonna} other {Sono state inserite {count} colonne}}',
@@ -318,6 +320,7 @@ export default {
   'fabric.editor.keyboardShortcuts': 'Scelte rapide da tastiera',
   'fabric.editor.layout.columnOption': '{count, plural, one {Colonna} other {{count} colonne}}',
   'fabric.editor.layout.placeholder': 'Aggiungi contenuti',
+  'fabric.editor.layout.resizeLayout': 'Ridimensiona layout',
   'fabric.editor.layoutFixedWidth': 'Torna alla visualizzazione centrata',
   'fabric.editor.layoutFullWidth': 'Vai alla vista a schermo intero',
   'fabric.editor.layoutWide': 'Allarga',
@@ -391,6 +394,8 @@ export default {
   'fabric.editor.notePanel.description': 'Aggiungi una nota in un pannello colorato',
   'fabric.editor.numberedColumn': 'Colonna numerata',
   'fabric.editor.off': '{formattingType} disattiva',
+  'fabric.editor.offlineErrorFallbackDescription': 'Prova a ricaricare la pagina.',
+  'fabric.editor.offlineErrorFallbackHeading': 'Si è verificato un problema.',
   'fabric.editor.on': '{formattingType} attiva',
   'fabric.editor.openCellOptions': 'Apri opzioni cella',
   'fabric.editor.openLink': 'Apri link in una nuova scheda',
@@ -542,6 +547,7 @@ export default {
   'fabric.editor.unableToOpenLink': 'Impossibile aprire questo link',
   'fabric.editor.underline': 'Sottolineato',
   'fabric.editor.undo': 'Annulla',
+  'fabric.editor.unknown.label': 'Sconosciuto',
   'fabric.editor.unlink': 'Rimuovi link',
   'fabric.editor.unorderedList': 'Elenco puntato',
   'fabric.editor.unorderedList.description': 'Crea un elenco non ordinato',

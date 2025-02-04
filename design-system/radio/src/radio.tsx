@@ -32,9 +32,10 @@ const packageVersion = process.env._PACKAGE_VERSION_ as string;
 const noop = __noop;
 
 const labelPaddingStyles = css({
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	padding: `${token('space.025', '2px')} ${token('space.050', '4px')}`,
+	paddingBlockEnd: token('space.025', '2px'),
+	paddingBlockStart: token('space.025', '2px'),
+	paddingInlineEnd: token('space.050', '4px'),
+	paddingInlineStart: token('space.050', '4px'),
 });
 
 const labelStyles = css({

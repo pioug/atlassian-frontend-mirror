@@ -6,10 +6,10 @@ import { type ReactNode, type RefCallback } from 'react';
 
 import { jsx } from '@emotion/react';
 
+import { isAppleDevice } from '@atlaskit/ds-lib/device-check';
 import { fg } from '@atlaskit/platform-feature-flags';
 import { token } from '@atlaskit/tokens';
 
-import { isAppleDevice } from '../accessibility/helpers';
 import { type CommonPropsAndClassName, type CSSObjectWithLabel, type GroupBase } from '../types';
 import { getStyleProps } from '../utils';
 

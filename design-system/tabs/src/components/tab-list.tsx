@@ -16,10 +16,11 @@ import { type TabListProps } from '../types';
 
 const baseStyles = css({
 	display: 'flex',
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	padding: token('space.0', '0px'),
 	position: 'relative',
+	paddingBlockEnd: token('space.0', '0px'),
+	paddingBlockStart: token('space.0', '0px'),
+	paddingInlineEnd: token('space.0', '0px'),
+	paddingInlineStart: token('space.0', '0px'),
 });
 
 const tabListStyles = css({
@@ -28,13 +29,14 @@ const tabListStyles = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 	'& [role="tab"]': {
 		margin: 0,
-		// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-		padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
 		position: 'relative',
 		color: token('color.text.subtle', N500),
 		cursor: 'pointer',
 		overflow: 'hidden',
+		paddingBlockEnd: token('space.075', '6px'),
+		paddingBlockStart: token('space.075', '6px'),
+		paddingInlineEnd: token('space.100', '8px'),
+		paddingInlineStart: token('space.100', '8px'),
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
 		'&:hover': {
@@ -104,13 +106,14 @@ const tabListStylesOld = css({
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/design-system/no-nested-styles
 	'& [role="tab"]': {
 		margin: 0,
-		// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-		// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-		padding: `${token('space.075', '6px')} ${token('space.100', '8px')}`,
 		position: 'relative',
 		color: token('color.text.subtle', N500),
 		cursor: 'pointer',
 		overflow: 'hidden',
+		paddingBlockEnd: token('space.075', '6px'),
+		paddingBlockStart: token('space.075', '6px'),
+		paddingInlineEnd: token('space.100', '8px'),
+		paddingInlineStart: token('space.100', '8px'),
 		textOverflow: 'ellipsis',
 		whiteSpace: 'nowrap',
 		'&:hover': {

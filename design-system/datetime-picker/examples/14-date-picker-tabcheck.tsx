@@ -4,13 +4,7 @@ import Button from '@atlaskit/button/new';
 import { DatePicker } from '@atlaskit/datetime-picker';
 import { Label } from '@atlaskit/form';
 import Popup from '@atlaskit/popup';
-import { Box, xcss } from '@atlaskit/primitives';
-import Textfield from '@atlaskit/textfield';
-
-const boxContainerStyle = xcss({
-	height: '500px',
-	width: '500px',
-});
+import { Box } from '@atlaskit/primitives';
 
 export default () => {
 	const [isOpen, setIsOpen] = useState(false);
@@ -18,11 +12,14 @@ export default () => {
 	const PopupContent = () => {
 		const [date, setDate] = useState('');
 		return (
-			<Box id="popup-content" xcss={boxContainerStyle}>
+			// eslint-disable-next-line @atlaskit/ui-styling-standard/enforce-style-prop -- Ignored via go/DSP-18766
+			<div id="popup-content" style={{ width: '500px', height: '500px' }}>
 				<Label htmlFor="text3">First popup field</Label>
-				<Textfield id="text3" />
+				<input id="text3" type="text" />
 				<Box>
-					<Label htmlFor="react-select-value1-input">Picker popup field</Label>
+					<Label id="popup" htmlFor="react-select-value1-input">
+						Picker popup field
+					</Label>
 					<DatePicker
 						autoFocus={false}
 						id="react-select-value1-input"
@@ -33,20 +30,25 @@ export default () => {
 						value={date}
 						spacing="compact"
 						testId="jql-builder-basic-datetime.ui.between-dates.value-1"
+						shouldShowCalendarButton
+						inputLabelId="popup"
+						openCalendarLabel="open calendar"
 					/>
 				</Box>
 				<Label htmlFor="text4">Last popup field</Label>
-				<Textfield id="text4" />
-			</Box>
+				<input id="text4" type="text" />
+			</div>
 		);
 	};
 
 	return (
-		<Box>
+		<div>
 			<Label htmlFor="text1">First field</Label>
-			<Textfield id="text1" />
-
-			<Label htmlFor="react-select-custom-input">Custom date format</Label>
+			<input id="text1" type="text" />
+			<br />
+			<Label id="custom" htmlFor="react-select-custom-input">
+				Custom date format
+			</Label>
 			<DatePicker
 				id="react-select-custom-input"
 				clearControlLabel="Clear custom date format"
@@ -54,9 +56,13 @@ export default () => {
 				placeholder="e.g. 31/Dec/18"
 				onChange={console.log}
 				testId="datepicker-1"
+				shouldShowCalendarButton
+				inputLabelId="custom"
+				openCalendarLabel="open calendar"
 			/>
 			<Label htmlFor="text2">Third field</Label>
-			<Textfield id="text2" />
+			<input id="text2" type="text" />
+
 			<Popup
 				isOpen={isOpen}
 				onClose={() => setIsOpen(false)}
@@ -68,6 +74,6 @@ export default () => {
 				)}
 				placement="bottom-start"
 			/>
-		</Box>
+		</div>
 	);
 };

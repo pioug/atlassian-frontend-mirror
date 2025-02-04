@@ -16,9 +16,6 @@ export interface TooltipContainerProps extends TooltipPrimitiveProps {}
 const baseStyles = css({
 	boxSizing: 'border-box',
 	maxWidth: '240px',
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	padding: `${token('space.025', '2px')} ${token('space.075', '6px')}`,
 	backgroundColor: token('color.background.neutral.bold', N800),
 	borderRadius: token('border.radius', '3px'),
 	color: token('color.text.inverse', N0),
@@ -26,6 +23,10 @@ const baseStyles = css({
 	insetBlockStart: token('space.0', '0px'),
 	insetInlineStart: token('space.0', '0px'),
 	overflowWrap: 'break-word',
+	paddingBlockEnd: token('space.025', '2px'),
+	paddingBlockStart: token('space.025', '2px'),
+	paddingInlineEnd: token('space.075', '6px'),
+	paddingInlineStart: token('space.075', '6px'),
 	wordWrap: 'break-word',
 });
 

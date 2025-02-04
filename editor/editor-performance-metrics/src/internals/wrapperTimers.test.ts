@@ -85,6 +85,22 @@ describe('wrapperTimers', () => {
 		expect(originalSetTimeoutSpy).toHaveBeenCalledWith(callback, 3000);
 	});
 
+	describe('when changing the maxTimeoutAllowed', () => {
+		it('should call the original setTimeout for timeouts over the maxTimeoutAllowed value', () => {
+			const originalSetTimeoutSpy = jest.spyOn(mockGlobalContext, 'setTimeout');
+			wrapperTimers({
+				globalContext: mockGlobalContext,
+				timelineHoldable: mockTimelineHoldable,
+				maxTimeoutAllowed: 1000,
+			});
+
+			const callback = jest.fn();
+			mockGlobalContext.setTimeout(callback, 1500);
+
+			expect(originalSetTimeoutSpy).toHaveBeenCalledWith(callback, 1500);
+		});
+	});
+
 	it('should call unhold when clearTimeout is called', () => {
 		wrapperTimers({
 			globalContext: mockGlobalContext,

@@ -10,6 +10,7 @@ import './migrate-to-link/migrate-to-link';
 import './migrate-to-new-buttons/migrate-to-new-buttons';
 import './upgrade-pragmatic-drag-and-drop-to-stable/upgrade-pragmatic-drag-and-drop-to-stable';
 import './remove-dark-theme-vr-options/remove-dark-theme-vr-options';
+import './remove-token-fallbacks/remove-token-fallbacks';
 
 const presets = [
 	'styled-to-emotion',
@@ -18,6 +19,7 @@ const presets = [
 	'migrate-to-new-buttons',
 	'upgrade-pragmatic-drag-and-drop-to-stable',
 	'remove-dark-theme-vr-options',
+	'remove-token-fallbacks',
 ].map((preset) => path.join(__dirname, preset, `${preset}.@(ts|js|tsx)`));
 
 export default presets;

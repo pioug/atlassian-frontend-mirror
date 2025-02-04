@@ -31,12 +31,6 @@ import { type Size, type ToggleProps } from './types';
 const basicStyles = css({
 	display: 'inline-block',
 	boxSizing: 'content-box',
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	margin: token('space.025'),
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	padding: token('space.025'),
 	position: 'relative',
 	backgroundClip: 'content-box',
 	backgroundColor: token('color.background.neutral.bold', N200),
@@ -44,6 +38,14 @@ const basicStyles = css({
 	borderStyle: 'solid',
 	borderWidth: '2px',
 	color: token('color.icon.inverse', N0),
+	marginBlockEnd: token('space.025'),
+	marginBlockStart: token('space.025'),
+	marginInlineEnd: token('space.025'),
+	marginInlineStart: token('space.025'),
+	paddingBlockEnd: token('space.025'),
+	paddingBlockStart: token('space.025'),
+	paddingInlineEnd: token('space.025'),
+	paddingInlineStart: token('space.025'),
 	transition: 'transform 0.2s ease',
 
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
@@ -72,27 +74,22 @@ const basicStyles = css({
 		backgroundColor: token('color.background.success.bold', G400),
 		color: token('color.icon.inverse', N0),
 	},
-
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&[data-checked]:hover': {
 		backgroundColor: token('color.background.success.bold.hovered', G500),
 	},
-
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&:not([data-checked]):hover': {
 		backgroundColor: token('color.background.neutral.bold.hovered', N400),
 	},
-
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors, @atlaskit/ui-styling-standard/no-unsafe-selectors
 	'&[data-disabled]:not([data-checked]):hover': {
 		backgroundColor: token('color.background.disabled', N20),
 	},
-
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&[data-disabled], &[data-disabled][data-checked], &[data-disabled][data-checked]:hover': {
 		color: token('color.icon.disabled', N70),
 	},
-
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'input[type="checkbox"]': {
 		margin: 0,
@@ -116,18 +113,15 @@ const basicStyles = css({
 		transform: 'initial',
 		transition: 'transform 0.2s ease',
 	},
-
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&[data-checked]::before': {
 		backgroundColor: token('color.icon.inverse', N0),
 	},
-
 	// eslint-disable-next-line @atlaskit/ui-styling-standard/no-nested-selectors
 	'&[data-disabled]::before': {
 		zIndex: 1,
 		backgroundColor: token('color.icon.inverse', N0),
 	},
-
 	'@media screen and (forced-colors: active)': {
 		'&::before': {
 			filter: 'grayscale(100%) invert(1)',

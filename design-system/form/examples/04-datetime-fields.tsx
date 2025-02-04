@@ -85,6 +85,7 @@ export default () => {
 											}}
 											{...rest}
 											id={id}
+											shouldShowCalendarButton
 										/>
 										{error && <ErrorMessage>{error}</ErrorMessage>}
 									</Fragment>

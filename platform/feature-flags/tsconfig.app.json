@@ -27,10 +27,13 @@
 		"**/codemods/**/*.tsx"
 	],
 	"compilerOptions": {
-		"paths": {},
 		"composite": true,
 		"outDir": "../../../tsDist/@atlaskit__platform-feature-flags/app"
 	},
-	"references": [],
+	"references": [
+		{
+			"path": "../../measurement/feature-gate-js-client/tsconfig.app.json"
+		}
+	],
 	"files": []
 }

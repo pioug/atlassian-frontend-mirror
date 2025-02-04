@@ -10,9 +10,10 @@ import { token } from '@atlaskit/tokens';
 
 import type { Width } from '../index';
 const containerStyles = css({
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	margin: `${token('space.600', '48px')} auto`,
+	marginBlockEnd: token('space.600', '48px'),
+	marginBlockStart: token('space.600', '48px'),
+	marginInlineEnd: 'auto',
+	marginInlineStart: 'auto',
 	textAlign: 'center',
 });
 /* Use max-width so the component can shrink on smaller viewports. */

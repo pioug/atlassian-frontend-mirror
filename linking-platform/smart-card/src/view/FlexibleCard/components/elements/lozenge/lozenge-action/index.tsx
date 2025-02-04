@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 import DropdownMenu, { type CustomTriggerProps } from '@atlaskit/dropdown-menu';
 import type { ThemeAppearance } from '@atlaskit/lozenge';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import { useAnalyticsEvents } from '../../../../../../common/analytics/generated/use-analytics-events';
 import extractLozengeActionItems from '../../../../../../extractors/action/extract-lozenge-action-items';
@@ -78,7 +79,11 @@ const LozengeAction = ({
 
 						if (validItems?.length === 0) {
 							fireEvent('track.smartLinkQuickAction.failed', permissionLoadErrorAnalyticsPayload);
-							setErrorMessage(LozengeActionErrorMessages.noData);
+							setErrorMessage(
+								fg('confluence-issue-terminology-refresh')
+									? LozengeActionErrorMessages.noDataIssueTermRefresh
+									: LozengeActionErrorMessages.noData,
+							);
 							setIsLoaded(false);
 						}
 					} catch (err) {

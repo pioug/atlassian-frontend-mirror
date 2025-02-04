@@ -26,6 +26,33 @@ export type CalculateVCOptions = {
 	heatmapSize: number;
 };
 
+export type EditorPerformanceObserverOptions = {
+	/*
+	 * Control how the timers are being wrapped
+	 *
+	 */
+	timers: {
+		/**
+		 * Special options for wrapper around the setTimeout
+		 */
+		setTimeout: {
+			/*
+			 * Control what kind of timeouts should trigger `Timeline.holds`
+			 * based on the delay parameter (default: two seconds);
+			 */
+			maxTimeoutAllowedToTrack: number;
+		};
+	};
+};
+
+const defaultOptions: EditorPerformanceObserverOptions = {
+	timers: {
+		setTimeout: {
+			maxTimeoutAllowedToTrack: 2000, // two seconds
+		},
+	},
+};
+
 export class EditorPerformanceObserver implements ObserverInterface {
 	public startTime: DOMHighResTimeStamp | null = null;
 
@@ -37,8 +64,13 @@ export class EditorPerformanceObserver implements ObserverInterface {
 	private observedTargetRef: WeakRef<HTMLElement> | null = null;
 	private wrapperApplied: boolean = false;
 	private wrapperCleanupFunctions: (() => void)[] = [];
+	private options: EditorPerformanceObserverOptions;
 
-	constructor(timeline: TimelineClock & TimelineHoldable) {
+	constructor(
+		timeline: TimelineClock & TimelineHoldable,
+		givenOptions?: Partial<EditorPerformanceObserverOptions>,
+	) {
+		this.options = Object.assign(defaultOptions, givenOptions || {});
 		this.timeline = timeline;
 		this.vcSections = new WeakSet();
 		// TODO: make sure to get it from config
@@ -184,6 +216,7 @@ export class EditorPerformanceObserver implements ObserverInterface {
 		const timersCleanup = wrapperTimers({
 			globalContext: globalThis || window,
 			timelineHoldable: this.timeline,
+			maxTimeoutAllowed: this.options.timers.setTimeout.maxTimeoutAllowedToTrack,
 		});
 
 		const fetchCleanup = wrapperFetch({

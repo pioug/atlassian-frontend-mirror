@@ -154,7 +154,11 @@ export type MessageKey =
 	| 'related_links_view_related_urls'
 	| 'related_links_found_in'
 	| 'related_links_includes_links_to'
-	| 'related_links_not_found';
+	| 'related_links_not_found'
+	| 'join_to_viewIssueTermRefresh'
+	| 'open_issue_in_jiraIssueTermRefresh'
+	| 'request_access_to_viewIssueTermRefresh'
+	| 'status_change_permission_errorIssueTermRefresh';
 
 type Messages = {
 	[K in MessageKey]: MessageDescriptor;
@@ -947,5 +951,25 @@ export const messages: Messages = defineMessages({
 			"We didn't find any links to show here. We continuously review and add recent links for updated pages or other content types.",
 		description:
 			'Informs the user that related links were not found but may be available in the future',
+	},
+	join_to_viewIssueTermRefresh: {
+		id: 'fabric.linking.join_to_view-issue-term-refresh',
+		defaultMessage: 'Join {context} to view this work item',
+		description: 'Allows the user join the product or service immediately',
+	},
+	open_issue_in_jiraIssueTermRefresh: {
+		id: 'fabric.linking.open_issue_in_jira-issue-term-refresh',
+		defaultMessage: 'Open work item in Jira',
+		description: 'Click to open link in Jira',
+	},
+	request_access_to_viewIssueTermRefresh: {
+		id: 'fabric.linking.request_access_to_view-issue-term-refresh',
+		defaultMessage: 'Request access to {context} to view this work item',
+		description: 'Allows the user to request access to a product or service',
+	},
+	status_change_permission_errorIssueTermRefresh: {
+		id: 'fabric.linking.status_change_permission_error-issue-term-refresh',
+		defaultMessage: 'You don’t have permission to transition this work item. ',
+		description: 'Informs the user that they do not have enough permissions to update a status',
 	},
 });

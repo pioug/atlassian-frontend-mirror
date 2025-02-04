@@ -13,5 +13,9 @@
         "outDir": "../dist",
         "rootDir": "../"
     },
-    "references": []
+    "references": [
+        {
+            "path": "../../../measurement/feature-gate-js-client/afm-cc/tsconfig.json"
+        }
+    ]
 }

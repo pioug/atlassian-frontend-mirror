@@ -1,5 +1,19 @@
 # @atlaskit/react-select
 
+## 1.7.2
+
+### Patch Changes
+
+- Updated dependencies
+
+## 1.7.1
+
+### Patch Changes
+
+- [#108838](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/pull-requests/108838)
+  [`6afd2ca314368`](https://stash.atlassian.com/projects/CONFCLOUD/repos/confluence-frontend/commits/6afd2ca314368) -
+  Replace the helper to verify devices with ds-lib util
+
 ## 1.7.0
 
 ### Minor Changes

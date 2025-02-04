@@ -16,4 +16,5 @@ export type {
 	NewUtilityIconProps,
 	NewCoreIconProps,
 	IconMigrationMap,
+	IconTileProps,
 } from './types';

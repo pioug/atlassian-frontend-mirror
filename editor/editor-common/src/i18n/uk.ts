@@ -22,6 +22,12 @@ export default {
   'fabric.editor.addMediaFiles': 'Додати зображення, відео або файл',
   'fabric.editor.addRowAbove': 'Додати рядок угорі',
   'fabric.editor.addRowBelow': 'Додати рядок знизу',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    'Не вдалося створити попередню версію. Закрийте діалогове вікно й повторіть спробу.',
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage':
+    'Сталася помилка. Закрийте діалогове вікно й повторіть спробу.',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Вставити знизу',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Замінити',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Позначте термін, акронім або абревіатуру',
   'fabric.editor.ai.selectionToolbar.define.title': 'Визначити',
   'fabric.editor.alignCenter': 'Вирівнювання по центру',
@@ -89,6 +95,8 @@ export default {
   'fabric.editor.columnMovedRight': 'Стовпець переміщено праворуч на позицію {index} з {total}',
   'fabric.editor.columnSelected': 'Вибрано стовпець {index} з {total}',
   'fabric.editor.columns': 'Макет',
+  'fabric.editor.columns.advanced.layout.description':
+    '{numberOfColumns, plural, one {Вставити {numberOfColumns} однаковий стовпець} few {Вставити {numberOfColumns} однакові стовпці} many {Вставити {numberOfColumns} однакових стовпців} other {Вставити {numberOfColumns} однакових стовпців}}',
   'fabric.editor.columns.description': 'Впорядкувати сторінку за допомогою розділів',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {Додано {count} стовпець} few {Додано {count} стовпці} many {Додано {count} стовпців} other {Додано {count} стовпців}}',
@@ -318,6 +326,7 @@ export default {
   'fabric.editor.layout.columnOption':
     '{count, plural, one {{count} стовпець} few {{count} стовпці} many {{count} стовпців} other {{count} стовпців}}',
   'fabric.editor.layout.placeholder': 'Додайте вміст',
+  'fabric.editor.layout.resizeLayout': 'Зміна розміру макета',
   'fabric.editor.layoutFixedWidth': 'Стандартне відображення',
   'fabric.editor.layoutFullWidth': 'Відобразити повну ширину',
   'fabric.editor.layoutWide': 'Розширити',
@@ -394,6 +403,8 @@ export default {
   'fabric.editor.notePanel.description': 'Додати примітку на панель із кольорами',
   'fabric.editor.numberedColumn': 'Нумерований стовпець',
   'fabric.editor.off': '{formattingType} вимкнуто',
+  'fabric.editor.offlineErrorFallbackDescription': 'Спробуйте перезавантажити сторінку.',
+  'fabric.editor.offlineErrorFallbackHeading': 'Сталася помилка',
   'fabric.editor.on': '{formattingType} увімкнуто',
   'fabric.editor.openCellOptions': 'Відкрити параметри клітинки',
   'fabric.editor.openLink': 'Відкрити посилання в новій вкладці',
@@ -547,6 +558,7 @@ export default {
   'fabric.editor.unableToOpenLink': 'Не вдалося відкрити посилання',
   'fabric.editor.underline': 'Підкреслювання',
   'fabric.editor.undo': 'Скасувати',
+  'fabric.editor.unknown.label': 'Невідомо',
   'fabric.editor.unlink': 'Відв’язати',
   'fabric.editor.unorderedList': 'Маркований список',
   'fabric.editor.unorderedList.description': 'Створити невпорядкований список',

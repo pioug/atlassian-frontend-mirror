@@ -4,6 +4,7 @@ import type { Node as PMNode } from '@atlaskit/editor-prosemirror/model';
 import type { Transaction } from '@atlaskit/editor-prosemirror/state';
 import type { DomAtPos } from '@atlaskit/editor-prosemirror/utils';
 import { akEditorTableNumberColumnWidth } from '@atlaskit/editor-shared-styles';
+import { fg } from '@atlaskit/platform-feature-flags';
 
 import type { PluginInjectionAPI } from '../../../types';
 import { updateColumnWidths } from '../../transforms/column-width';
@@ -267,6 +268,11 @@ export const scaleTable =
 
 		if (resizeState) {
 			tr = updateColumnWidths(resizeState, node, start, api)(tr);
+			if (fg('platform_editor_nested_tables_resizing')) {
+				// Avoid adding this transaction separately to the history as these are automatic updates
+				// as a consequence of another action
+				tr.setMeta('addToHistory', false);
+			}
 
 			if (tr.docChanged) {
 				tr.setMeta('scrollIntoView', false);

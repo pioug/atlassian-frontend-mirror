@@ -16,4 +16,9 @@ export const searchCountMessages = defineMessages({
 		description: 'Text that indicates the number of items in the search result.',
 		defaultMessage: '{searchCount, plural, one {# item} other {# items}}',
 	},
+	issueCountTextIssueTermRefresh: {
+		id: 'linkDataSource.search.configmodal.issueCountText-issue-term-refresh',
+		description: 'Text that indicates the number of jira issues in the search result.',
+		defaultMessage: '{searchCount, plural, one {# work item} other {# work items}}',
+	},
 });

@@ -1,5 +1,11 @@
 # @atlaskit/icon-object
 
+## 6.10.1
+
+### Patch Changes
+
+- Updated dependencies
+
 ## 6.10.0
 
 ### Minor Changes

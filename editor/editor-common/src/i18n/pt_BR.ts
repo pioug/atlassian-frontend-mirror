@@ -88,6 +88,8 @@ export default {
   'fabric.editor.columnMovedRight': 'Coluna movida para a direita para {index} de {total}',
   'fabric.editor.columnSelected': 'Coluna {index} de {total} selecionada',
   'fabric.editor.columns': 'Layouts',
+  'fabric.editor.columns.advanced.layout.description':
+    '{numberOfColumns, plural, one {Insira {numberOfColumns} coluna igual} other {Insira {numberOfColumns} colunas iguais}}',
   'fabric.editor.columns.description': 'Estruturar sua página usando seções',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {Uma coluna foi inserida} other {{count} colunas foram inseridas}}',
@@ -316,6 +318,7 @@ export default {
   'fabric.editor.keyboardShortcuts': 'Atalhos de teclado',
   'fabric.editor.layout.columnOption': '{count, plural, one {Coluna} other {{count} colunas}}',
   'fabric.editor.layout.placeholder': 'Adicionar conteúdo',
+  'fabric.editor.layout.resizeLayout': 'Redimensionar layout',
   'fabric.editor.layoutFixedWidth': 'Voltar ao centro',
   'fabric.editor.layoutFullWidth': 'Usar largura inteira',
   'fabric.editor.layoutWide': 'Ampliar',
@@ -390,6 +393,8 @@ export default {
   'fabric.editor.notePanel.description': 'Adicionar uma nota em um painel colorido',
   'fabric.editor.numberedColumn': 'Coluna numerada',
   'fabric.editor.off': '{formattingType} Desativado',
+  'fabric.editor.offlineErrorFallbackDescription': 'Recarregue a página.',
+  'fabric.editor.offlineErrorFallbackHeading': 'Algo deu errado!',
   'fabric.editor.on': '{formattingType} Ativado',
   'fabric.editor.openCellOptions': 'Abrir opções de célula',
   'fabric.editor.openLink': 'Abrir link em uma nova guia',
@@ -538,6 +543,7 @@ export default {
   'fabric.editor.unableToOpenLink': 'Não é possível abrir este link',
   'fabric.editor.underline': 'Sublinhado',
   'fabric.editor.undo': 'Desfazer',
+  'fabric.editor.unknown.label': 'Desconhecido',
   'fabric.editor.unlink': 'Remover link',
   'fabric.editor.unorderedList': 'Lista de marcadores',
   'fabric.editor.unorderedList.description': 'Criar uma lista sem ordenação',

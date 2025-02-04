@@ -89,6 +89,8 @@ export default {
   'fabric.editor.columnMovedRight': 'Przesunięto kolumnę w prawo do {index} z {total}',
   'fabric.editor.columnSelected': 'Wybrano kolumnę {index} z {total}',
   'fabric.editor.columns': 'Układy',
+  'fabric.editor.columns.advanced.layout.description':
+    '{numberOfColumns, plural, one {Wstaw {numberOfColumns} kolumnę o jednakowej szerokości} few {Wstaw {numberOfColumns} kolumny o jednakowej szerokości} many {Wstaw {numberOfColumns} kolumn o jednakowej szerokości} other {Wstaw {numberOfColumns} kolumny o jednakowej szerokości}}',
   'fabric.editor.columns.description': 'Uporządkuj swoją stronę, korzystając z sekcji',
   'fabric.editor.columnsAreInserted':
     '{count, plural, one {Wstawiono kolumnę} few {Wstawiono {count} kolumny} many {Wstawiono {count} kolumn} other {Wstawiono {count} kolumny}}',
@@ -318,6 +320,7 @@ export default {
   'fabric.editor.layout.columnOption':
     '{count, plural, one {Kolumna} few {{count} kolumny} many {{count} kolumn} other {{count} kolumny}}',
   'fabric.editor.layout.placeholder': 'Dodaj treści',
+  'fabric.editor.layout.resizeLayout': 'Zmień rozmiar układu',
   'fabric.editor.layoutFixedWidth': 'Powrót do centrum',
   'fabric.editor.layoutFullWidth': 'Pełna szerokość',
   'fabric.editor.layoutWide': 'Szeroki widok',
@@ -394,6 +397,8 @@ export default {
   'fabric.editor.notePanel.description': 'Dodaj uwagę w kolorze',
   'fabric.editor.numberedColumn': 'Kolumna numerowana',
   'fabric.editor.off': '{formattingType} wył.',
+  'fabric.editor.offlineErrorFallbackDescription': 'Spróbuj załadować stronę ponownie.',
+  'fabric.editor.offlineErrorFallbackHeading': 'Coś poszło nie tak',
   'fabric.editor.on': '{formattingType} wł.',
   'fabric.editor.openCellOptions': 'Otwórz opcje komórki',
   'fabric.editor.openLink': 'Otwórz łącze na nowej karcie',
@@ -511,6 +516,7 @@ export default {
   'fabric.editor.text.formatting.off': 'Formatowanie tekstu wył.',
   'fabric.editor.textColor': 'Kolor tekstu: {selectedColorName}',
   'fabric.editor.textColorTooltip': 'Kolor tekstu',
+  'fabric.editor.textFormat': 'Formatuj tekst',
   'fabric.editor.textFormatting': 'Formatowanie tekstu',
   'fabric.editor.textStyles': 'Style tekstu: {blockTypeName}',
   'fabric.editor.textStylesTooltip': 'Style tekstu',
@@ -544,6 +550,7 @@ export default {
   'fabric.editor.unableToOpenLink': 'Nie można otworzyć tego łącza',
   'fabric.editor.underline': 'Podkreślenie',
   'fabric.editor.undo': 'Cofnij',
+  'fabric.editor.unknown.label': 'Nieznany',
   'fabric.editor.unlink': 'Usuń łącze',
   'fabric.editor.unorderedList': 'Lista wypunktowana',
   'fabric.editor.unorderedList.description': 'Utwórz nieuporządkowaną listę',

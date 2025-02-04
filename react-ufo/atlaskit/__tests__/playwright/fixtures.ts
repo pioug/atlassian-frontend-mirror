@@ -1,5 +1,13 @@
+/* eslint-disable @repo/internal/dom-events/no-unsafe-event-listeners */
 /* eslint-disable compat/compat */
-import { test as base, type Page } from '@af/integration-testing';
+import {
+	test as base,
+	expect as baseExpect,
+	type Expect,
+	type Page,
+} from '@af/integration-testing';
+
+import { ReactUFOPayload, WindowWithReactUFOTestGlobals } from './window-type';
 
 const prepareParams = (params?: { [key: string]: string | boolean }) => {
 	if (!params) {
@@ -47,37 +55,54 @@ export const test = base.extend<{
 		height: number;
 	};
 	examplePage: string;
-	ufoVC90: () => Promise<number>;
+	waitForReactUFOPayload: () => Promise<ReactUFOPayload | null>;
+	getSectionVisibleAt: (sectionTestId: string) => Promise<DOMHighResTimeStamp | null>;
 }>({
 	viewport: {
 		width: 900,
 		height: 600,
 	},
 	examplePage: 'basic',
-	ufoVC90: async ({ page }, use) => {
-		const result = () => {
-			return page.evaluate(() => {
-				// TODO: update to use actual VC90 value
-				return Promise.resolve(9000);
-			});
-		};
-
-		await use(result);
-	},
-
 	page: async ({ browser, baseURL, viewport, examplePage }, use, testInfo) => {
-		// For those tests work properly, it is really important the page isn't cached
+		// For the tests work properly, it is really important the page isn't cached
 		const context = await browser.newContext();
 		const page = await context.newPage();
 
-		page.on('console', async (msg) => {
-			const t = msg.text();
+		await page.addInitScript(() => {
+			(window as WindowWithReactUFOTestGlobals).__sectionAddedAt = new Map();
+			// setup integration testing globals
+			const observer = new MutationObserver((records) => {
+				for (const record of records) {
+					for (const addedNode of record.addedNodes) {
+						if (addedNode instanceof HTMLElement) {
+							const testId = addedNode.getAttribute('data-testid');
+							if (testId) {
+								(window as WindowWithReactUFOTestGlobals).__sectionAddedAt.set(
+									testId,
+									performance.now(),
+								);
+							}
+						}
+					}
+				}
+			});
 
-			if (t.startsWith('REACT-UFO')) {
-				// eslint-disable-next-line no-console
-				console.log(t);
-			}
+			window.addEventListener('load', () => {
+				const divExamples = document.querySelector('#examples');
+				if (divExamples) {
+					observer.observe(divExamples, {
+						childList: true,
+						subtree: true,
+					});
+				}
+			});
 		});
+
+		// page.on('console', async (msg) => {
+		// 	const t = msg.text();
+
+		// 	console.log(t);
+		// });
 
 		// @ts-ignore
 		(page as unknown as Page).visitExample = (
@@ -109,4 +134,108 @@ export const test = base.extend<{
 
 		await use(page);
 	},
+	waitForReactUFOPayload: async ({ page }, use) => {
+		const reset = async () => {
+			// THis is hardcoded applied when the `sendOperationalEvent` is called
+			// See: website/src/metrics.ts
+			const mainDivAfterTTVCFinished = page.locator('[data-is-ttvc-ready="true"]');
+
+			await expect(mainDivAfterTTVCFinished).toBeVisible();
+
+			let reactUFOPayload: ReactUFOPayload | null = null;
+			await expect
+				.poll(
+					async () => {
+						const value = await page.evaluate(() => {
+							const payloads = (window as WindowWithReactUFOTestGlobals).__websiteReactUfo || [];
+							if (payloads.length < 1) {
+								return Promise.resolve(null);
+							}
+
+							return Promise.resolve(payloads[0]);
+						});
+
+						reactUFOPayload = value;
+
+						return reactUFOPayload;
+					},
+					{
+						message: `React UFO payload never received.`,
+						intervals: [500],
+						timeout: 10000,
+					},
+				)
+				.not.toBeNull();
+
+			return reactUFOPayload;
+		};
+
+		await use(reset);
+	},
+	getSectionVisibleAt: async ({ page }, use) => {
+		const getValue = async (sectionTestId: string) => {
+			let result: number | null = null;
+			await expect
+				.poll(
+					async () => {
+						const value = await page.evaluate((_sectionTestId) => {
+							const myMap = (window as WindowWithReactUFOTestGlobals).__sectionAddedAt;
+							return myMap.get(_sectionTestId) || null;
+						}, sectionTestId);
+
+						result = value;
+						return value;
+					},
+					{
+						message: `React UFO payload never received.`,
+						intervals: [500],
+						timeout: 10000,
+					},
+				)
+				.not.toBeNull();
+
+			return result;
+		};
+
+		await use(getValue);
+	},
 });
+
+const customMatchers = {
+	/**
+	 * Matches timestamps converted to seconds.
+	 *
+	 * It checks only the first two decimal values.
+	 *
+	 *
+	 * @param selection
+	 */
+	toMatchTimeInSeconds(
+		this: ReturnType<Expect['getState']>,
+		timestampReceived: DOMHighResTimeStamp | undefined | null,
+		timestampExpected: DOMHighResTimeStamp | null,
+	) {
+
+		const receivedInSeconds = Math.round(timestampReceived!) / 1000;
+		const expectedInSeconds = Math.round(timestampExpected!) / 1000;
+
+		let pass: boolean;
+		let matcherResult: any;
+    try {
+			baseExpect(receivedInSeconds).toBeCloseTo(expectedInSeconds, 2);
+      pass = true;
+    } catch (e: any) {
+      matcherResult = e.matcherResult;
+      pass = false;
+    }
+
+		return {
+			pass,
+			message: () => {
+				return !pass ? matcherResult.message : '';
+			},
+		};
+	},
+};
+
+export const expect = baseExpect.extend(customMatchers);

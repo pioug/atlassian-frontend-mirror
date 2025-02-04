@@ -488,12 +488,7 @@ export const DragHandle = ({
 			];
 
 	let isParentNodeOfTypeLayout;
-	if (
-		!isTopLevelNode &&
-		handleOptions?.isFocused &&
-		editorExperiment('nested-dnd', true) &&
-		fg('platform_editor_element_dnd_nested_a11y')
-	) {
+	if (!isTopLevelNode && handleOptions?.isFocused && editorExperiment('nested-dnd', true)) {
 		isParentNodeOfTypeLayout =
 			nodeType === 'layoutSection' ||
 			view.state.doc.resolve(getNestedNodePosition(view.state)).node().type.name === 'layoutColumn';

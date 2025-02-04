@@ -10,11 +10,12 @@ import { token } from '@atlaskit/tokens';
 
 const layoutStyles = css({
 	display: 'flex',
-	// TODO (AFB-874): Disabling due to fixing for expand-spacing-property produces further ESLint errors
-	// eslint-disable-next-line @atlaskit/platform/expand-spacing-shorthand
-	padding: `${token('space.300', '24px')} 0`,
 	gap: token('space.300', '24px'),
 	flexDirection: 'column',
+	paddingBlockEnd: token('space.300', '24px'),
+	paddingBlockStart: token('space.300', '24px'),
+	paddingInlineEnd: 0,
+	paddingInlineStart: 0,
 });
 
 export default () => (

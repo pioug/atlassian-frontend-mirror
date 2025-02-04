@@ -2,4 +2,8 @@
 // Disable no-re-export rule for entry point files
 /* eslint-disable @atlaskit/editor/no-re-export */
 export { contextPanelPlugin } from '@atlaskit/editor-plugin-context-panel';
-export type { ContextPanelPlugin, ApplyChangeHandler } from '@atlaskit/editor-plugin-context-panel';
+export type {
+	ContextPanelPlugin,
+	ContextPanelPluginOptions,
+	ApplyChangeHandler,
+} from '@atlaskit/editor-plugin-context-panel';

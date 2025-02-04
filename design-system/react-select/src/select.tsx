@@ -11,10 +11,10 @@ import React, {
 	type TouchEventHandler,
 } from 'react';
 
+import { isAppleDevice, isSafari } from '@atlaskit/ds-lib/device-check';
 import { fg } from '@atlaskit/platform-feature-flags';
 
 import { type AriaLiveMessages, type AriaSelection } from './accessibility';
-import { isAppleDevice, isSafari } from './accessibility/helpers';
 import {
 	formatGroupLabel as formatGroupLabelBuiltin,
 	getOptionLabel as getOptionLabelBuiltin,

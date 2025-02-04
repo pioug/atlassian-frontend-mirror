@@ -93,11 +93,7 @@ const getCurrentNodePos = (state: EditorState, isParentNodeOfTypeLayout?: boolea
 		// 2. caret cursor is inside the node
 		// 3. the start of the selection is inside the node
 		currentNodePos = selection.$from.before(1);
-		if (
-			selection.$from.depth > 0 &&
-			editorExperiment('nested-dnd', true) &&
-			fg('platform_editor_element_dnd_nested_a11y')
-		) {
+		if (selection.$from.depth > 0 && editorExperiment('nested-dnd', true)) {
 			currentNodePos = getNestedNodePosition(state);
 		}
 	}
@@ -111,8 +107,7 @@ export const moveNodeViaShortcut = (
 ): Command => {
 	return (state) => {
 		let isParentNodeOfTypeLayout;
-		const shouldEnableNestedDndA11y =
-			editorExperiment('nested-dnd', true) && fg('platform_editor_element_dnd_nested_a11y');
+		const shouldEnableNestedDndA11y = editorExperiment('nested-dnd', true);
 
 		if (shouldEnableNestedDndA11y) {
 			isParentNodeOfTypeLayout = !!findParentNodeOfType([state.schema.nodes.layoutSection])(

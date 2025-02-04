@@ -22,6 +22,106 @@ export default {
   'fabric.editor.addMediaFiles': 'Add image, video, or file',
   'fabric.editor.addRowAbove': 'Add row above',
   'fabric.editor.addRowBelow': 'Add row below',
+  'fabric.editor.ai.proactive.askAIButtonLabel.non-final': 'Ask AI',
+  'fabric.editor.ai.proactive.beta.label.non-final': 'BETA',
+  'fabric.editor.ai.proactive.close.label.non-final': 'Close',
+  'fabric.editor.ai.proactive.enableSuggestionsButtonLabel.non-final': 'Turn on',
+  'fabric.editor.ai.proactive.enableSuggestionsState.description.non-final':
+    'Turn on suggested edits to quickly preview content improvements.',
+  'fabric.editor.ai.proactive.enableSuggestionsState.title.non-final': 'You create. We polish.',
+  'fabric.editor.ai.proactive.error.markdownErrorMessage':
+    "We're having trouble generating the preview. Close the dialog and try again.",
+  'fabric.editor.ai.proactive.error.unhandledErrorMessage': "We're having trouble. Close the dialog and try again.",
+  'fabric.editor.ai.proactive.findingMoreSuggestionsLoadingLabel.non-final': 'Finding more suggestions',
+  'fabric.editor.ai.proactive.findingSuggestionsLabel.non-final': 'Finding suggestions',
+  'fabric.editor.ai.proactive.findingSuggestionsLoadingLabel.non-final': 'Finding suggestions',
+  'fabric.editor.ai.proactive.loading.iconAltText.non-final': 'Loading icon',
+  'fabric.editor.ai.proactive.moreActions.label.non-final': 'More actions',
+  'fabric.editor.ai.proactive.moreMenu.giveFeedback.non-final': 'Give feedback',
+  'fabric.editor.ai.proactive.moreMenu.label.non-final': 'more',
+  'fabric.editor.ai.proactive.moreMenu.manageSuggestions.non-final': 'Manage Suggestions',
+  'fabric.editor.ai.proactive.moreMenu.manageSuggestionsTitle.non-final': 'Manage suggestions',
+  'fabric.editor.ai.proactive.moreMenu.toggleAllPanelSuggestionsDescription.non-final':
+    'Use panels to make your message stand out.',
+  'fabric.editor.ai.proactive.moreMenu.toggleAllPanelSuggestionsTitle.non-final': 'Panels',
+  'fabric.editor.ai.proactive.moreMenu.toggleAllSuggestionsDescription.non-final':
+    'Toggle to turn suggested edits on or off.',
+  'fabric.editor.ai.proactive.moreMenu.toggleAllSuggestionsTitle.non-final': 'All suggestions',
+  'fabric.editor.ai.proactive.moreMenu.toggleErrorPanelDescription.non-final': 'Transform text into a red error panel.',
+  'fabric.editor.ai.proactive.moreMenu.toggleErrorPanelTitle.non-final': 'Error panel',
+  'fabric.editor.ai.proactive.moreMenu.toggleFormatParagraphDescription.non-final':
+    'Suggestions for writing, lists, content structure, and spelling.',
+  'fabric.editor.ai.proactive.moreMenu.toggleFormatParagraphTitle.non-final': 'Enhance content',
+  'fabric.editor.ai.proactive.moreMenu.toggleInfoPanelDescription.non-final':
+    'Transform text into a blue information panel.',
+  'fabric.editor.ai.proactive.moreMenu.toggleInfoPanelTitle.non-final': 'Info panel',
+  'fabric.editor.ai.proactive.moreMenu.toggleNotePanelDescription.non-final':
+    'Transform text into a purple note panel.',
+  'fabric.editor.ai.proactive.moreMenu.toggleNotePanelTitle.non-final': 'Note panel',
+  'fabric.editor.ai.proactive.moreMenu.toggleSplitParagraphDescription.non-final':
+    'Add paragraph breaks to separate key ideas.',
+  'fabric.editor.ai.proactive.moreMenu.toggleSplitParagraphTitle.non-final': 'Paragraph break',
+  'fabric.editor.ai.proactive.moreMenu.toggleSuccessPanelDescription.non-final':
+    'Transform text into a green success panel.',
+  'fabric.editor.ai.proactive.moreMenu.toggleSuccessPanelTitle.non-final': 'Success panel',
+  'fabric.editor.ai.proactive.moreMenu.toggleTableDescription.non-final':
+    'Format content in a table to improve readability.',
+  'fabric.editor.ai.proactive.moreMenu.toggleTableTitle.non-final': 'Table',
+  'fabric.editor.ai.proactive.moreMenu.toggleWarningPanelDescription.non-final':
+    'Transform text into a yellow warning panel.',
+  'fabric.editor.ai.proactive.moreMenu.toggleWarningPanelTitle.non-final': 'Warning panel',
+  'fabric.editor.ai.proactive.noSuggestionsState.description.non-final':
+    'You can also ask AI to improve your page with requests such as <i>Add a table of contents</i> or <i>Create headings</i>.',
+  'fabric.editor.ai.proactive.noSuggestionsState.title.non-final': 'Suggestions will appear here',
+  'fabric.editor.ai.proactive.preview.dismissProactiveRecommendation.non-final': 'Dismiss',
+  'fabric.editor.ai.proactive.preview.insertBelowProactiveRecommendation': 'Insert below',
+  'fabric.editor.ai.proactive.preview.replaceProactiveRecommendation': 'Replace',
+  'fabric.editor.ai.proactive.recommendation.convertToErrorPanel.description.non-final':
+    'Use a red error panel to make your message stand out.',
+  'fabric.editor.ai.proactive.recommendation.convertToErrorPanel.title.non-final': 'Frame with error panel',
+  'fabric.editor.ai.proactive.recommendation.convertToInfoPanel.description.non-final':
+    'Use a blue info panel to make your message stand out.',
+  'fabric.editor.ai.proactive.recommendation.convertToInfoPanel.title.non-final': 'Frame with info panel',
+  'fabric.editor.ai.proactive.recommendation.convertToNotePanel.description.non-final':
+    'Use a purple note panel to make your message stand out.',
+  'fabric.editor.ai.proactive.recommendation.convertToNotePanel.title.non-final': 'Frame with note panel',
+  'fabric.editor.ai.proactive.recommendation.convertToSuccessPanel.description.non-final':
+    'Use a green success panel to make your message stand out.',
+  'fabric.editor.ai.proactive.recommendation.convertToSuccessPanel.title.non-final': 'Frame with success panel',
+  'fabric.editor.ai.proactive.recommendation.convertToTable.description.non-final':
+    'Format content in a table to improve readability.',
+  'fabric.editor.ai.proactive.recommendation.convertToTable.title.non-final': 'Format in table',
+  'fabric.editor.ai.proactive.recommendation.convertToWarnPanel.description.non-final':
+    'Use a yellow warning panel to make your message stand out.',
+  'fabric.editor.ai.proactive.recommendation.convertToWarnPanel.title.non-final': 'Frame with warning panel',
+  'fabric.editor.ai.proactive.recommendation.default.description.non-final': 'A suggestion to improve the content.',
+  'fabric.editor.ai.proactive.recommendation.default.title.non-final': 'Suggestion',
+  'fabric.editor.ai.proactive.recommendation.dismiss.button.non-final': 'Dismiss',
+  'fabric.editor.ai.proactive.recommendation.formatParagraph.description.non-final':
+    'Clarify content writing and structure.',
+  'fabric.editor.ai.proactive.recommendation.formatParagraph.title.non-final': 'Enhance content',
+  'fabric.editor.ai.proactive.recommendation.formatParagraphClarity.description.non-final':
+    'Simplify phrasing and grammar.',
+  'fabric.editor.ai.proactive.recommendation.formatParagraphClarity.title.non-final': 'Clarify writing',
+  'fabric.editor.ai.proactive.recommendation.formatParagraphList.description.non-final':
+    'Turn content into a scannable list.',
+  'fabric.editor.ai.proactive.recommendation.formatParagraphList.title.non-final': 'Create list',
+  'fabric.editor.ai.proactive.recommendation.formatParagraphSpellcheck.description.non-final':
+    'Spot and correct spelling errors.',
+  'fabric.editor.ai.proactive.recommendation.formatParagraphSpellcheck.title.non-final': 'Fix spelling',
+  'fabric.editor.ai.proactive.recommendation.formatParagraphStructure.description.non-final':
+    'Add paragraph breaks and headings.',
+  'fabric.editor.ai.proactive.recommendation.formatParagraphStructure.title.non-final': 'Improve structure',
+  'fabric.editor.ai.proactive.recommendation.preview.button.non-final': 'Preview',
+  'fabric.editor.ai.proactive.recommendation.replace.button.non-final': 'Replace',
+  'fabric.editor.ai.proactive.recommendation.splitParagraph.description.non-final':
+    'Add paragraph breaks to separate key ideas.',
+  'fabric.editor.ai.proactive.recommendation.splitParagraph.title.non-final': 'Divide paragraph',
+  'fabric.editor.ai.proactive.reloadSuggestionsButtonLabel.non-final': 'View past suggestions',
+  'fabric.editor.ai.proactive.reloadSuggestionsState.description.non-final': 'Any new suggestions will appear here.',
+  'fabric.editor.ai.proactive.reloadSuggestionsState.title.non-final': 'Your content’s looking good',
+  'fabric.editor.ai.proactive.spellingAndGrammar.label.non-final': 'Spelling and grammar',
+  'fabric.editor.ai.proactive.suggestions.title.non-final': 'Suggestions',
   'fabric.editor.ai.selectionToolbar.define.disabled.tooltip': 'Highlight a term, acronym, or abbreviation',
   'fabric.editor.ai.selectionToolbar.define.title': 'Define',
   'fabric.editor.alignCenter': 'Align center',
@@ -314,6 +414,7 @@ export default {
   'fabric.editor.keyboardShortcuts': 'Keyboard shortcuts',
   'fabric.editor.layout.columnOption': '{count, plural, one { Column} other {{count} Columns}}',
   'fabric.editor.layout.placeholder': 'Add content',
+  'fabric.editor.layout.resizeLayout': 'Resize layout',
   'fabric.editor.layoutFixedWidth': 'Back to center',
   'fabric.editor.layoutFullWidth': 'Go full width',
   'fabric.editor.layoutWide': 'Go wide',
@@ -385,6 +486,8 @@ export default {
   'fabric.editor.notePanel.description': 'Add a note in a colored panel',
   'fabric.editor.numberedColumn': 'Numbered column',
   'fabric.editor.off': '{formattingType} Off',
+  'fabric.editor.offlineErrorFallbackDescription': 'Try reloading the page.',
+  'fabric.editor.offlineErrorFallbackHeading': 'Something went wrong!',
   'fabric.editor.on': '{formattingType} On',
   'fabric.editor.openCellOptions': 'Open cell options',
   'fabric.editor.openLink': 'Open link in a new tab',
@@ -529,6 +632,7 @@ export default {
   'fabric.editor.unableToOpenLink': 'Unable to open this link',
   'fabric.editor.underline': 'Underline',
   'fabric.editor.undo': 'Undo',
+  'fabric.editor.unknown.label': 'Unknown',
   'fabric.editor.unlink': 'Unlink',
   'fabric.editor.unorderedList': 'Bullet list',
   'fabric.editor.unorderedList.description': 'Create an unordered list',

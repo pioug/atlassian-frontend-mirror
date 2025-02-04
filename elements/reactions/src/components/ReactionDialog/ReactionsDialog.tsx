@@ -166,7 +166,7 @@ export const ReactionsDialog = ({
 	}, [reactions]);
 
 	const sortedReactions = useMemo(() => {
-		return reactions.sort((a, b) => b?.count - a?.count);
+		return [...reactions].sort((a, b) => b?.count - a?.count);
 	}, [reactions]);
 
 	const maxPages = Math.max(1, Math.ceil(reactions.length / NUMBER_OF_REACTIONS_TO_DISPLAY));

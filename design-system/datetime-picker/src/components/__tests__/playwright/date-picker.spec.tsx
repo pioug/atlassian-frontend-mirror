@@ -115,39 +115,6 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.keyboard.press('Tab');
 		await expect(page.locator(tabcheckDatePickerInputOutsidePopup)).toBeVisible();
 		await expect(page.locator(tabcheckDatePickerInputOutsidePopup).first()).toBeFocused();
-		// Uncomment when FF 'dst-a11y-add-year-buttons-to-calendar' is rolled out
-		// await page.keyboard.press('Tab');
-		// await expect(page.locator(previousYearButton).first()).toBeFocused();
-		await page.keyboard.press('Tab');
-		await expect(page.locator(previousMonthButton).first()).toBeFocused();
-		await page.keyboard.press('Tab');
-		await expect(page.locator(nextMonthButton).first()).toBeFocused();
-		// Uncomment when FF 'dst-a11y-add-year-buttons-to-calendar' is rolled out
-		// await page.keyboard.press('Tab');
-		// await expect(page.locator(nextYearButton).first()).toBeFocused();
-		await page.keyboard.press('Tab');
-		await expect(page.locator(focusedDate).first()).toBeFocused();
-		await page.keyboard.press('Tab');
-		await expect(page.locator('input#text2').first()).toBeFocused();
-	});
-
-	test(`(ff ${ffValue}) Should tab through all interactive elements inside datepicker when calendar button is present`, async ({
-		page,
-	}) => {
-		await page.visitExample(
-			'design-system',
-			'datetime-picker',
-			'date-picker-tabcheck-with-calendar-button',
-			ffValue
-				? {
-						featureFlag: 'platform_dst_popup-disable-focuslock',
-					}
-				: {},
-		);
-		await page.locator('input#text1').first().click();
-		await page.keyboard.press('Tab');
-		await expect(page.locator(tabcheckDatePickerInputOutsidePopup)).toBeVisible();
-		await expect(page.locator(tabcheckDatePickerInputOutsidePopup).first()).toBeFocused();
 		await page.keyboard.press('Tab');
 		await expect(page.locator(tabcheckOuterCalendarButton).first()).toBeFocused();
 		await page.keyboard.press('Tab');
@@ -172,10 +139,12 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.keyboard.press('Tab');
 		await expect(page.locator(tabcheckDatePickerInputInsidePopup)).toBeVisible();
 		await expect(page.locator(tabcheckDatePickerInputInsidePopup).first()).toBeFocused();
-		// Uncomment when FF 'dst-a11y-add-year-buttons-to-calendar' is rolled out
-		// await page.keyboard.press('Tab');
-		// await expect(page.locator(previousYearButton).first()).toBeFocused();
 		await page.keyboard.press('Tab');
+		await expect(page.locator(tabcheckInnerCalendarButton).first()).toBeFocused();
+		await page.keyboard.press('Enter');
+		// Uncomment when FF 'dst-a11y-add-year-buttons-to-calendar' is rolled out
+		// await expect(page.locator(previousYearButton).first()).toBeFocused();
+		// await page.keyboard.press('Tab');
 		await expect(page.locator(previousMonthButton).first()).toBeFocused();
 		await page.keyboard.press('Tab');
 		await expect(page.locator(nextMonthButton).first()).toBeFocused();
@@ -183,28 +152,6 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		// await expect(page.locator(nextYearButton).first()).toBeFocused();
 		await page.keyboard.press('Tab');
 		await expect(page.locator(focusedDate).first()).toBeFocused();
-		await page.keyboard.press('Tab');
-		await expect(page.locator('input#text4').first()).toBeFocused();
-	});
-
-	test(`(ff ${ffValue}) Should tab from input component to datepicker to next input in popup with calendar button present`, async ({
-		page,
-	}) => {
-		await page.visitExample(
-			'design-system',
-			'datetime-picker',
-			'date-picker-tabcheck-with-calendar-button',
-			ffValue
-				? {
-						featureFlag: 'platform_dst_popup-disable-focuslock',
-					}
-				: {},
-		);
-		await page.locator('button#popup-trigger').first().click();
-		await page.locator('input#text3').first().click();
-		await page.keyboard.press('Tab');
-		await expect(page.locator(tabcheckDatePickerInputInsidePopup)).toBeVisible();
-		await expect(page.locator(tabcheckDatePickerInputInsidePopup).first()).toBeFocused();
 		await page.keyboard.press('Tab');
 		await expect(page.locator(tabcheckInnerCalendarButton).first()).toBeFocused();
 		await page.keyboard.press('Tab');
@@ -228,28 +175,6 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.keyboard.press('Tab');
 		await expect(page.locator(tabcheckDatePickerInputOutsidePopup)).toBeVisible();
 		await expect(page.locator(tabcheckDatePickerInputOutsidePopup).first()).toBeFocused();
-		await expect(page.locator(calendar)).toBeVisible();
-		await page.evaluate("document.querySelector('input#text1').focus()");
-		await expect(page.locator(calendar)).toBeHidden();
-	});
-
-	test(`(ff ${ffValue}) When DatePicker is focused & another element is focused outside of DatePicker, the calendar should close when calendar button is present`, async ({
-		page,
-	}) => {
-		await page.visitExample(
-			'design-system',
-			'datetime-picker',
-			'date-picker-tabcheck-with-calendar-button',
-			ffValue
-				? {
-						featureFlag: 'platform_dst_popup-disable-focuslock',
-					}
-				: {},
-		);
-		await page.locator('input#text1').first().click();
-		await page.keyboard.press('Tab');
-		await expect(page.locator(tabcheckDatePickerInputOutsidePopup)).toBeVisible();
-		await expect(page.locator(tabcheckDatePickerInputOutsidePopup).first()).toBeFocused();
 		await page.keyboard.press('Tab');
 		await expect(page.locator(tabcheckOuterCalendarButton).first()).toBeFocused();
 		await page.keyboard.press('Enter');
@@ -258,35 +183,13 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await expect(page.locator(calendar)).toBeHidden();
 	});
 
-	test(`(ff ${ffValue}) When DatePicker is focused & another element is focused inside of DatePicker, the calendar should not close`, async ({
-		page,
-	}) => {
-		await page.visitExample(
-			'design-system',
-			'datetime-picker',
-			'date-picker-tabcheck',
-			ffValue
-				? {
-						featureFlag: 'platform_dst_popup-disable-focuslock',
-					}
-				: {},
-		);
-		await page.locator('input#text1').first().click();
-		await page.keyboard.press('Tab');
-		await expect(page.locator(tabcheckDatePickerInputOutsidePopup)).toBeVisible();
-		await expect(page.locator(tabcheckDatePickerInputOutsidePopup).first()).toBeFocused();
-		await expect(page.locator(calendar)).toBeVisible();
-		await page.evaluate(`document.querySelector('${previousMonthButton}').focus()`);
-		await expect(page.locator(calendar)).toBeVisible();
-	});
-
 	test(`(ff ${ffValue}) When DatePicker is focused & another element is focused inside of DatePicker, the calendar should not close when calendar button is present`, async ({
 		page,
 	}) => {
 		await page.visitExample(
 			'design-system',
 			'datetime-picker',
-			'date-picker-tabcheck-with-calendar-button',
+			'date-picker-tabcheck',
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
@@ -365,7 +268,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.visitExample(
 			'design-system',
 			'datetime-picker',
-			'date-picker-tabcheck-with-calendar-button',
+			'date-picker-tabcheck',
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
@@ -392,25 +295,6 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.keyboard.press('Tab');
 		await page.keyboard.press('Tab');
 		await expect(page.locator(tabcheckDatePickerInputOutsidePopup).first()).toBeFocused();
-		await expect(page.locator(calendar)).toBeVisible();
-	});
-
-	test(`(ff ${ffValue}) When focusing on input via keyboard, calendar picker should open when calendar button present`, async ({
-		page,
-	}) => {
-		await page.visitExample(
-			'design-system',
-			'datetime-picker',
-			'date-picker-tabcheck-with-calendar-button',
-			ffValue
-				? {
-						featureFlag: 'platform_dst_popup-disable-focuslock',
-					}
-				: {},
-		);
-		await page.keyboard.press('Tab');
-		await page.keyboard.press('Tab');
-		await expect(page.locator(tabcheckDatePickerInputOutsidePopup).first()).toBeFocused();
 		await expect(page.locator(calendar)).toBeHidden();
 	});
 
@@ -420,7 +304,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.visitExample(
 			'design-system',
 			'datetime-picker',
-			'date-picker-tabcheck-with-calendar-button',
+			'date-picker-tabcheck',
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
@@ -438,7 +322,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.visitExample(
 			'design-system',
 			'datetime-picker',
-			'date-picker-tabcheck-with-calendar-button',
+			'date-picker-tabcheck',
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',
@@ -466,7 +350,7 @@ const tabcheckInnerCalendarButton = `${tabcheckInnerDatePicker} [data-testid$="o
 		await page.visitExample(
 			'design-system',
 			'datetime-picker',
-			'date-picker-tabcheck-with-calendar-button',
+			'date-picker-tabcheck',
 			ffValue
 				? {
 						featureFlag: 'platform_dst_popup-disable-focuslock',

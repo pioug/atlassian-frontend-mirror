@@ -109,7 +109,7 @@ describe('Popup Select', () => {
 					testId={'PopupSelect'}
 					onChange={(value) => onChangeMock(value)}
 					target={({ ref }) => (
-						<button ref={ref} data-testid="select-trigger">
+						<button type="button" ref={ref} data-testid="select-trigger">
 							Target
 						</button>
 					)}
@@ -137,7 +137,7 @@ describe('Popup Select', () => {
 					testId={'PopupSelect'}
 					onChange={(value) => onChangeMock(value)}
 					target={({ ref }) => (
-						<button ref={ref} data-testid="select-trigger">
+						<button type="button" ref={ref} data-testid="select-trigger">
 							Target
 						</button>
 					)}
@@ -166,7 +166,11 @@ describe('Popup Select', () => {
 				options={OPTIONS}
 				value={OPTIONS[0]}
 				isClearable
-				target={({ ref }) => <button ref={ref}>Target</button>}
+				target={({ ref }) => (
+					<button type="button" ref={ref}>
+						Target
+					</button>
+				)}
 				label="Options"
 			/>,
 		);
@@ -198,7 +202,11 @@ describe('Popup Select', () => {
 				options={OPTIONS}
 				value={OPTIONS[0]}
 				isClearable
-				target={({ ref }) => <button ref={ref}>Target</button>}
+				target={({ ref }) => (
+					<button type="button" ref={ref}>
+						Target
+					</button>
+				)}
 				label="Options"
 			/>,
 		);
@@ -220,13 +228,15 @@ describe('Popup Select', () => {
 					testId={'PopupSelect'}
 					onMenuClose={onMenuCloseMock}
 					target={({ ref }) => (
-						<button ref={ref} data-testid="select-trigger">
+						<button type="button" ref={ref} data-testid="select-trigger">
 							Target
 						</button>
 					)}
 					label="Options"
 				/>
-				<button data-testid="focus-decoy">Focus decoy</button>
+				<button type="button" data-testid="focus-decoy">
+					Focus decoy
+				</button>
 			</React.Fragment>,
 		);
 
@@ -247,7 +257,11 @@ describe('Popup Select', () => {
 				<PopupSelect
 					options={OPTIONS}
 					value={OPTIONS[0]}
-					target={({ ref }) => <button ref={ref}>Target</button>}
+					target={({ ref }) => (
+						<button type="button" ref={ref}>
+							Target
+						</button>
+					)}
 					label="Options"
 				/>
 			</div>,
@@ -272,7 +286,7 @@ describe('Popup Select', () => {
 			defaultIsOpen={defaultIsOpen}
 			classNamePrefix="popup-select"
 			target={({ ref }) => (
-				<button ref={ref} data-testid="target">
+				<button type="button" ref={ref} data-testid="target">
 					Target
 				</button>
 			)}
@@ -291,7 +305,7 @@ describe('Popup Select', () => {
 					label={label}
 					testId={'PopupSelect'}
 					target={({ ref }) => (
-						<button ref={ref} data-testid="select-trigger">
+						<button type="button" ref={ref} data-testid="select-trigger">
 							Target
 						</button>
 					)}
@@ -317,7 +331,7 @@ describe('Popup Select', () => {
 					placeholder={placeholder}
 					testId={'PopupSelect'}
 					target={({ ref }) => (
-						<button ref={ref} data-testid="select-trigger">
+						<button type="button" ref={ref} data-testid="select-trigger">
 							Target
 						</button>
 					)}
@@ -339,7 +353,7 @@ describe('Popup Select', () => {
 					isSearchable={false}
 					searchThreshold={-1}
 					target={({ ref }) => (
-						<button ref={ref} data-testid="select-trigger">
+						<button type="button" ref={ref} data-testid="select-trigger">
 							Target
 						</button>
 					)}
@@ -364,7 +378,7 @@ describe('Popup Select', () => {
 					searchThreshold={-1}
 					label={'Test Label'}
 					target={({ ref }) => (
-						<button ref={ref} data-testid="select-trigger">
+						<button type="button" ref={ref} data-testid="select-trigger">
 							Target
 						</button>
 					)}
@@ -410,7 +424,9 @@ describe('Popup Select', () => {
 			render(
 				<>
 					<PopupSelectOpenTest isOpen />
-					<button data-testid="close-decoy">Close decoy</button>
+					<button type="button" data-testid="close-decoy">
+						Close decoy
+					</button>
 				</>,
 			);
 
@@ -487,7 +503,11 @@ describe('Popup Select', () => {
 			const view = render(
 				<PopupSelect
 					options={OPTIONS}
-					target={({ isOpen, ...triggerProps }) => <button {...triggerProps}>Target</button>}
+					target={({ isOpen, ...triggerProps }) => (
+						<button type="button" {...triggerProps}>
+							Target
+						</button>
+					)}
 					label="Options"
 				/>,
 			);
@@ -540,13 +560,15 @@ describe('Popup Select', () => {
 						onMenuOpen={onMenuOpenMock}
 						onMenuClose={onMenuCloseMock}
 						target={({ ref }) => (
-							<button ref={ref} data-testid="select-trigger">
+							<button type="button" ref={ref} data-testid="select-trigger">
 								Target
 							</button>
 						)}
 						label="Options"
 					/>
-					<button data-testid="focus-decoy">Focus decoy</button>
+					<button type="button" data-testid="focus-decoy">
+						Focus decoy
+					</button>
 				</React.Fragment>,
 			);
 
@@ -569,7 +591,11 @@ describe('Popup Select', () => {
 				const view = render(
 					<PopupSelect
 						options={OPTIONS}
-						target={({ isOpen, ...triggerProps }) => <button {...triggerProps}>Target</button>}
+						target={({ isOpen, ...triggerProps }) => (
+							<button type="button" {...triggerProps}>
+								Target
+							</button>
+						)}
 						label="Options"
 					/>,
 				);
@@ -601,7 +627,11 @@ describe('Popup Select', () => {
 				const view = render(
 					<PopupSelect
 						options={groupOptions}
-						target={({ isOpen, ...triggerProps }) => <button {...triggerProps}>Target</button>}
+						target={({ isOpen, ...triggerProps }) => (
+							<button type="button" {...triggerProps}>
+								Target
+							</button>
+						)}
 						label="Options"
 					/>,
 				);
@@ -643,7 +673,11 @@ describe('Popup Select', () => {
 				const view = render(
 					<PopupSelect
 						options={customOptions}
-						target={({ isOpen, ...triggerProps }) => <button {...triggerProps}>Target</button>}
+						target={({ isOpen, ...triggerProps }) => (
+							<button type="button" {...triggerProps}>
+								Target
+							</button>
+						)}
 						label="Options"
 						ariaLiveMessages={{
 							onFocus: () =>
